@@ -38,14 +38,12 @@ spread_ <- function(data, key_col, value_col, fill = NA, convert = FALSE) {
   stopifnot(is.data.frame(data))
 
   col <- data[key_col]
-  col_id <- dplyr::id(col)
-  col_n <- attr(col_id, "n")
-  col_labels <- col[match(seq_len(col_n), col_id), , drop = FALSE]
+  col_id <- dplyr::id(col, drop = TRUE)
+  col_labels <- col[match(unique(col_id), col_id), , drop = FALSE]
 
   rows <- data[setdiff(names(data), c(key_col, value_col))]
-  row_id <- dplyr::id(rows)
-  row_n <- attr(row_id, "n")
-  row_labels <- rows[match(seq_len(row_n), row_id), , drop = FALSE]
+  row_id <- dplyr::id(rows, drop = TRUE)
+  row_labels <- rows[match(unique(row_id), row_id), , drop = FALSE]
 
   overall <- dplyr::id(list(col_id, row_id), drop = FALSE)
   n <- attr(overall, "n")
