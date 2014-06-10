@@ -69,10 +69,10 @@ spread_ <- function(data, key_col, value_col, fill = NA, convert = FALSE) {
 
   dim(ordered) <- c(attr(row_id, "n"), attr(col_id, "n"))
   colnames(ordered) <- as.character(col_labels[[1]])
-  ordered <- as.data.frame(ordered)
+  ordered <- as.data.frame(ordered, stringsAsFactors = FALSE)
 
   if (convert) {
-    ordered[] <- lapply(ordered, type.convert, asis = TRUE)
+    ordered[] <- lapply(ordered, type.convert, as.is = TRUE)
   }
 
   out <- c(row_labels, ordered)
