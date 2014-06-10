@@ -2,12 +2,13 @@ Package: tidyr
 Title: Easily tidy data with spread and gather functions.
 Version: 0.1
 Authors@R: 'Hadley Wickham <h.wickham@gmail.com> [aut,cre]'
-Description: What the package does (paragraph)
+Description: tidyr is an evolution of reshape2. It's design specifically for
+    data tidying (not general reshaping or aggegrating) and works well with
+    dplyr data pipelines.
 Depends:
     R (>= 3.1.0)
 License: GPL-3
 LazyData: true
 Import: reshape2,
-    dplyr,
-    magrittr
+    dplyr
 Url: https://github.com/hadley/tidyr
