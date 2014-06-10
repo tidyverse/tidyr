@@ -2,7 +2,7 @@
 #'
 #' @param col Bare column name.
 #' @export
-#' @inheritParams separate
+#' @inheritParams separate_
 #' @examples
 #' df <- data.frame(x = c("a.b", "a.d", "b.c"))
 #' separate(df, x, c("A", "B"))
@@ -16,8 +16,18 @@ separate <- function(data, col, into, sep = "[^[:alnum:]]+", remove = TRUE,
 #'
 #' @param data A data frame.
 #' @param col Name of column to split, as string.
-#' @param sep Separator between columns. Defaults to any sequence
-#'   of non-alphanumeric values.
+#' @param into Names of new variables to create.
+#' @param sep Separator between columns.
+#'
+#'   If character, is interpreted as a regular expression. The default
+#'   value is a regular expression that matches any sequence of
+#'   non-alphanumeric values.
+#'
+#'   If numeric, interpreted as positions to split at. Positive values start
+#'   at 1 at the far-left of the string; negative value start at -1 at the
+#'   far-right of the string. The length of \code{sep} should be one less than
+#'   \code{into}.
+#'
 #' @param remove If \code{TRUE}, remove input column from data frame.
 #' @param convert If \code{TRUE}, will run \code{\link{type.convert}} with
 #'   \code{as.is = TRUE} on new columns. This is useful if the component
@@ -33,18 +43,27 @@ separate_ <- function(data, col, into, sep = "[^[:alnum:]]+", remove = TRUE,
   stopifnot(is.character(col), length(col) == 1)
 
   value <- as.character(data[[col]])
-  pieces <- strsplit(value, sep, ...)
 
-  ns <- vapply(pieces, length, integer(1))
-  n <- length(into)
-  if (any(ns != n)) {
-    stop("Values not split into ", n, " pieces at ", which(ns != n),
-      call. = FALSE)
+  if (is.character(sep)) {
+    pieces <- strsplit(value, sep, ...)
+
+    ns <- vapply(pieces, length, integer(1))
+    n <- length(into)
+    if (any(ns != n)) {
+      stop("Values not split into ", n, " pieces at ", which(ns != n),
+        call. = FALSE)
+    }
+
+    # Convert into a data frame
+    mat <- matrix(unlist(pieces), ncol = n, byrow = TRUE)
+    l <- lapply(1:ncol(mat), function(i) mat[, i])
+
+  } else if (is.numeric(sep)) {
+    l <- strsep(value, sep)
+  } else {
+    stop("'sep' must be either numeric or character", .call = FALSE)
   }
 
-  # Convert into a data frame
-  mat <- matrix(unlist(pieces), ncol = n, byrow = TRUE)
-  l <- lapply(1:ncol(mat), function(i) mat[, i])
   names(l) <- into
   if (convert) {
     l[] <- lapply(l, type.convert, as.is = FALSE)
@@ -59,4 +78,18 @@ separate_ <- function(data, col, into, sep = "[^[:alnum:]]+", remove = TRUE,
   class(data) <- "data.frame"
   attr(data, "row.names") <- .set_row_names(length(data[[1]]))
   data
+}
+
+strsep <- function(x, sep) {
+  sep <- c(0, sep, -1)
+
+  nchar <- nchar(x)
+  pos <- lapply(sep, function(i) {
+    if (i >= 0) return(i)
+    nchar + i + 1
+  })
+
+  lapply(1:(length(pos) - 1), function(i) {
+    substr(x, pos[[i]] + 1, pos[[i + 1]])
+  })
 }

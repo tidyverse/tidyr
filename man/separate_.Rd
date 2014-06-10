@@ -11,8 +11,18 @@ separate_(data, col, into, sep = "[^[:alnum:]]+", remove = TRUE,
 
 \item{col}{Name of column to split, as string.}
 
-\item{sep}{Separator between columns. Defaults to any sequence
-of non-alphanumeric values.}
+\item{into}{Names of new variables to create.}
+
+\item{sep}{Separator between columns.
+
+  If character, is interpreted as a regular expression. The default
+  value is a regular expression that matches any sequence of
+  non-alphanumeric values.
+
+  If numeric, interpreted as positions to split at. Positive values start
+  at 1 at the far-left of the string; negative value start at -1 at the
+  far-right of the string. The length of \code{sep} should be one less than
+  \code{into}.}
 
 \item{remove}{If \code{TRUE}, remove input column from data frame.}
 

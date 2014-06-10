@@ -8,6 +8,30 @@ separate(data, col, into, sep = "[^[:alnum:]]+", remove = TRUE,
 }
 \arguments{
 \item{col}{Bare column name.}
+
+\item{data}{A data frame.}
+
+\item{into}{Names of new variables to create.}
+
+\item{sep}{Separator between columns.
+
+  If character, is interpreted as a regular expression. The default
+  value is a regular expression that matches any sequence of
+  non-alphanumeric values.
+
+  If numeric, interpreted as positions to split at. Positive values start
+  at 1 at the far-left of the string; negative value start at -1 at the
+  far-right of the string. The length of \code{sep} should be one less than
+  \code{into}.}
+
+\item{remove}{If \code{TRUE}, remove input column from data frame.}
+
+\item{convert}{If \code{TRUE}, will run \code{\link{type.convert}} with
+\code{as.is = TRUE} on new columns. This is useful if the component
+columns are integer, numeric or logical.}
+
+\item{...}{Other arguments passed on to \code{\link{strsplit}} to control
+how the regular expression is processed.}
 }
 \description{
 Separate one column into multiple columns.
