@@ -3,7 +3,9 @@ Title: Easily tidy data with spread and gather functions.
 Version: 0.1
 Authors@R: 'Hadley Wickham <h.wickham@gmail.com> [aut,cre]'
 Description: What the package does (paragraph)
-Depends: R (>= 3.1.0)
+Depends:
+    R (>= 3.1.0)
 License: GPL-3
 LazyData: true
+Import: reshape2
 Url: https://github.com/hadley/tidyr
