@@ -14,7 +14,7 @@ unite_(data, col, from, sep = "_", remove = TRUE)
 
 \item{sep}{Separator to use between values.}
 
-\item{remove}{If \code{TRUE}, remove \code{col} from the data.}
+\item{remove}{If \code{TRUE}, remove input columns from output data frame.}
 }
 \description{
 Standard-evaluation version of \code{unite}

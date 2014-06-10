@@ -25,10 +25,6 @@
 #'
 #' gather(stocks, stock, price, -time)
 #' stocks %>% gather(stock, price, -time)
-#'
-#' # _q, short for quoted, does standard evaluation. This is useful for
-#' # programming with, or when you already have the variable names as strings.
-#' gather_(stocks, "stock", "price", c("X", "Y", "Z"))
 gather <- function(data, key, value, ..., na.rm = FALSE, convert = FALSE) {
   key_col <- col_name(substitute(key))
   value_col <- col_name(substitute(value))

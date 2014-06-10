@@ -31,10 +31,9 @@ unite <- function(data, col, ..., sep = "_", remove = TRUE) {
 #' @param col Name of new column as string.
 #' @param from Names of existing columns as character vector
 #' @param sep Separator to use between values.
-#' @param remove If \code{TRUE}, remove \code{col} from the data.
+#' @param remove If \code{TRUE}, remove input columns from output data frame.
 #' @export
 unite_ <- function(data, col, from, sep = "_", remove = TRUE) {
-
   united <- do.call("paste", c(data[from], list(sep = sep)))
 
   first_col <- sort(which(names(data) %in% from))[1]

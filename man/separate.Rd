@@ -24,7 +24,7 @@ separate(data, col, into, sep = "[^[:alnum:]]+", remove = TRUE,
   far-right of the string. The length of \code{sep} should be one less than
   \code{into}.}
 
-\item{remove}{If \code{TRUE}, remove input column from data frame.}
+\item{remove}{If \code{TRUE}, remove input column from output data frame.}
 
 \item{convert}{If \code{TRUE}, will run \code{\link{type.convert}} with
 \code{as.is = TRUE} on new columns. This is useful if the component
