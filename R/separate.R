@@ -16,7 +16,7 @@ separate <- function(data, col, into, sep = "[^[:alnum:]]+", remove = TRUE,
 #'
 #' @param data A data frame.
 #' @param col Name of column to split, as string.
-#' @param into Names of new variables to create.
+#' @param into Names of new variables to create as character vector.
 #' @param sep Separator between columns.
 #'
 #'   If character, is interpreted as a regular expression. The default

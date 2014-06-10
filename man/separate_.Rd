@@ -11,7 +11,7 @@ separate_(data, col, into, sep = "[^[:alnum:]]+", remove = TRUE,
 
 \item{col}{Name of column to split, as string.}
 
-\item{into}{Names of new variables to create.}
+\item{into}{Names of new variables to create as character vector.}
 
 \item{sep}{Separator between columns.
 

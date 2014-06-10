@@ -11,7 +11,7 @@ separate(data, col, into, sep = "[^[:alnum:]]+", remove = TRUE,
 
 \item{data}{A data frame.}
 
-\item{into}{Names of new variables to create.}
+\item{into}{Names of new variables to create as character vector.}
 
 \item{sep}{Separator between columns.
 

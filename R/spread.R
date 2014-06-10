@@ -14,6 +14,7 @@
 #' stocksm %>% spread(stock, price)
 #' stocksm %>% spread(time, price)
 #'
+#' # Spread and gather are complements
 #' df <- data.frame(x = c("a", "b"), y = c(3, 4), z = c(5, 6))
 #' df %>% spread(x, y) %>% gather(x, y, a:b, na.rm = TRUE)
 spread <- function(data, key, value, fill = NA, convert = FALSE) {
