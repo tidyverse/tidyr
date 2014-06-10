@@ -41,10 +41,10 @@ stocks \%>\% gather(stock, price, -time)
 
 # _q, short for quoted, does standard evaluation. This is useful for
 # programming with, or when you already have the variable names as strings.
-gather_q(stocks, "stock", "price", c("X", "Y", "Z"))
+gather_(stocks, "stock", "price", c("X", "Y", "Z"))
 }
 \seealso{
-\code{\link{gather_q}} for a version that uses regular evaluation
+\code{\link{gather_}} for a version that uses regular evaluation
   and is suitable for programming with.
 }
 

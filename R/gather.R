@@ -9,8 +9,8 @@
 #' @param ... Specification of columns to gather. Use bare variable names.
 #'   Select all variables between x and z with \code{x:z}, exclude y with
 #'   \code{-y}. For more options, see the \link[dplyr]{select} documentation.
-#' @inheritParams gather_q
-#' @seealso \code{\link{gather_q}} for a version that uses regular evaluation
+#' @inheritParams gather_
+#' @seealso \code{\link{gather_}} for a version that uses regular evaluation
 #'   and is suitable for programming with.
 #' @export
 #' @examples
@@ -28,13 +28,13 @@
 #'
 #' # _q, short for quoted, does standard evaluation. This is useful for
 #' # programming with, or when you already have the variable names as strings.
-#' gather_q(stocks, "stock", "price", c("X", "Y", "Z"))
+#' gather_(stocks, "stock", "price", c("X", "Y", "Z"))
 gather <- function(data, key, value, ..., na.rm = FALSE, convert = FALSE) {
 
   key_col <- col_name(substitute(key))
   value_col <- col_name(substitute(value))
   gather_cols <- dplyr::select_vars(names(data), ...)
-  gather_q(data, key_col, value_col, gather_cols, na.rm = na.rm, convert = convert)
+  gather_(data, key_col, value_col, gather_cols, na.rm = na.rm, convert = convert)
 }
 
 
@@ -52,7 +52,7 @@ gather <- function(data, key, value, ..., na.rm = FALSE, convert = FALSE) {
 #'   names are actually numeric, integer, or logical.
 #' @keywords internal
 #' @export
-gather_q <- function(data, key_col, value_col, gather_cols, na.rm = FALSE,
+gather_ <- function(data, key_col, value_col, gather_cols, na.rm = FALSE,
                      convert = FALSE) {
   stopifnot(is.data.frame(data))
 

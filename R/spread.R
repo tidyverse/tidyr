@@ -1,7 +1,7 @@
 #' Spread a key-value pair across multiple columns.
 #'
 #' @param key,value Bare (unquoted) names of key and value columns.
-#' @inheritParams spread_q
+#' @inheritParams spread_
 #' @export
 #' @examples
 #' stocks <- data.frame(
@@ -20,7 +20,7 @@ spread <- function(data, key, value, fill = NA, convert = FALSE) {
   key_col <- col_name(substitute(key))
   value_col <- col_name(substitute(value))
 
-  spread_q(data, key_col, value_col, fill = fill, convert = convert)
+  spread_(data, key_col, value_col, fill = fill, convert = convert)
 }
 
 #' Standard-evaluation version of \code{spread}.
@@ -34,7 +34,7 @@ spread <- function(data, key, value, fill = NA, convert = FALSE) {
 #'   useful if the value column was a mix of variables that was coerced to
 #'   a string.
 #' @export
-spread_q <- function(data, key_col, value_col, fill = NA, convert = FALSE) {
+spread_ <- function(data, key_col, value_col, fill = NA, convert = FALSE) {
   stopifnot(is.data.frame(data))
 
   col <- data[key_col]
