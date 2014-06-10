@@ -73,8 +73,5 @@ spread_ <- function(data, key_col, value_col, fill = NA, convert = FALSE) {
     ordered[] <- lapply(ordered, type.convert, as.is = TRUE)
   }
 
-  out <- c(row_labels, ordered)
-  class(out) <- "data.frame"
-  attr(out, "row.names") <- .set_row_names(nrow(row_labels))
-  out
+  append_df(row_labels, ordered)
 }

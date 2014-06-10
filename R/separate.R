@@ -70,13 +70,10 @@ separate_ <- function(data, col, into, sep = "[^[:alnum:]]+", remove = TRUE,
   }
 
   # Insert into existing data frame
-  data <- append(data, l, which(names(data) == col))
-
+  data <- append_df(data, l, which(names(data) == col))
   if (remove) {
     data[[col]] <- NULL
   }
-  class(data) <- "data.frame"
-  attr(data, "row.names") <- .set_row_names(length(data[[1]]))
   data
 }
 

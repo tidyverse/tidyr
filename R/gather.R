@@ -30,13 +30,13 @@
 #' # programming with, or when you already have the variable names as strings.
 #' gather_(stocks, "stock", "price", c("X", "Y", "Z"))
 gather <- function(data, key, value, ..., na.rm = FALSE, convert = FALSE) {
-
   key_col <- col_name(substitute(key))
   value_col <- col_name(substitute(value))
   gather_cols <- dplyr::select_vars(names(data), ...)
-  gather_(data, key_col, value_col, gather_cols, na.rm = na.rm, convert = convert)
-}
 
+  gather_(data, key_col, value_col, gather_cols, na.rm = na.rm,
+    convert = convert)
+}
 
 #' Gather (standard-evaluation).
 #'
