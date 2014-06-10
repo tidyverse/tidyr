@@ -14,6 +14,7 @@
 #'   and is suitable for programming with.
 #' @export
 #' @examples
+#' library(dplyr)
 #' # From http://stackoverflow.com/questions/1181060
 #' stocks <- data.frame(
 #'   time = as.Date('2009-01-01') + 0:9,
@@ -23,7 +24,6 @@
 #' )
 #'
 #' gather(stocks, stock, price, -time)
-#' library(magrittr)
 #' stocks %>% gather(stock, price, -time)
 #'
 #' # _q, short for quoted, does standard evaluation. This is useful for

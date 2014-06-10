@@ -9,6 +9,7 @@ Depends:
     R (>= 3.1.0)
 License: GPL-3
 LazyData: true
-Import: reshape2,
+Imports:
+    reshape2,
     dplyr
 Url: https://github.com/hadley/tidyr

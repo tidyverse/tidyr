@@ -8,7 +8,7 @@ spread_(data, key_col, value_col, fill = NA, convert = FALSE)
 \arguments{
 \item{data}{A data frame.}
 
-\item{key_col,value}{Strings giving names of key and value cols.}
+\item{key_col,value_col}{Strings giving names of key and value cols.}
 
 \item{fill}{If there isn't a value for every combination of the other
 variables and the key column, this value will be substituted.}

@@ -27,6 +27,7 @@ duplicating all other columns as needed. You use \code{gather()} when
 you notice that you have columns that are not variables.
 }
 \examples{
+library(dplyr)
 # From http://stackoverflow.com/questions/1181060
 stocks <- data.frame(
   time = as.Date('2009-01-01') + 0:9,
@@ -36,7 +37,6 @@ stocks <- data.frame(
 )
 
 gather(stocks, stock, price, -time)
-library(magrittr)
 stocks \%>\% gather(stock, price, -time)
 
 # _q, short for quoted, does standard evaluation. This is useful for

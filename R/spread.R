@@ -4,6 +4,7 @@
 #' @inheritParams spread_
 #' @export
 #' @examples
+#' library(dplyr)
 #' stocks <- data.frame(
 #'   time = as.Date('2009-01-01') + 0:9,
 #'   X = rnorm(10, 0, 1),
@@ -27,7 +28,7 @@ spread <- function(data, key, value, fill = NA, convert = FALSE) {
 #' Standard-evaluation version of \code{spread}.
 #'
 #' @param data A data frame.
-#' @param key_col,value Strings giving names of key and value cols.
+#' @param key_col,value_col Strings giving names of key and value cols.
 #' @param fill If there isn't a value for every combination of the other
 #'   variables and the key column, this value will be substituted.
 #' @param convert If \code{TRUE}, \code{\link{type.convert}} with

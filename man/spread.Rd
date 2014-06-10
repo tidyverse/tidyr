@@ -22,6 +22,7 @@ a string.}
 Spread a key-value pair across multiple columns.
 }
 \examples{
+library(dplyr)
 stocks <- data.frame(
   time = as.Date('2009-01-01') + 0:9,
   X = rnorm(10, 0, 1),

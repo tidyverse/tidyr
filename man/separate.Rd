@@ -37,7 +37,8 @@ how the regular expression is processed.}
 Separate one column into multiple columns.
 }
 \examples{
+library(dplyr)
 df <- data.frame(x = c("a.b", "a.d", "b.c"))
-separate(df, x, c("A", "B"))
+df \%>\% separate(x, c("A", "B"))
 }
 
