@@ -1,5 +1,7 @@
 # tidyr
 
+[![Build Status](https://travis-ci.org/hadley/tidyr.png?branch=master)](https://travis-ci.org/hadley/tidyr)
+
 tidyr is a reframing of reshape2 designed to accompany the [tidy data framework](http://vita.had.co.nz/papers/tidy-data.html), and to work hand-in-hand with magrittr and dplyr to build a solid pipeline for data analysis. 
 
 Just as reshape2 did less than reshape, tidy2 does less than reshape2. It's designed specifically for tidying data, not the general reshaping that reshape2 does, or the general aggregation that reshape did. In particular, built-in methods only work for data frames, and tidyr provides no margins or aggregation. 
