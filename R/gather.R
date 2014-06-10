@@ -16,10 +16,10 @@
 #' @examples
 #' # From http://stackoverflow.com/questions/1181060
 #' stocks <- data.frame(
-#'  time = as.Date('2009-01-01') + 0:9,
-#'  X = rnorm(10, 0, 1),
-#'  Y = rnorm(10, 0, 2),
-#'  Z = rnorm(10, 0, 4)
+#'   time = as.Date('2009-01-01') + 0:9,
+#'   X = rnorm(10, 0, 1),
+#'   Y = rnorm(10, 0, 2),
+#'   Z = rnorm(10, 0, 4)
 #' )
 #'
 #' gather(stocks, stock, price, -time)
