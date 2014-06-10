@@ -28,3 +28,12 @@ tidyr is not available from CRAN (yet!) but you can get it with:
 # install.packages("devtools")
 devtools::install_github("hadley/tidyr")
 ```
+
+## References
+
+If you'd like to learn more about these data reshaping operators, I'd recommend the following papers:
+
+* [Wrangler: Interactive visual specification of data transformation scripts](http://vis.stanford.edu/papers/wrangler)
+* [An interactive framework for data cleaning](http://www.eecs.berkeley.edu/Pubs/TechRpts/2000/CSD-00-1110.pdf) (Potter's wheel)
+* [On efficiently implementing SchemaSQL on a SQL database system](http://www.vldb.org/conf/1999/P45.pdf)
+
