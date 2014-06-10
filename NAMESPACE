@@ -2,3 +2,5 @@
 
 export(gather)
 export(gather_q)
+export(spread)
+export(spread_q)
