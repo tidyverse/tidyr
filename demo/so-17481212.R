@@ -1,4 +1,8 @@
 # http://stackoverflow.com/questions/17481212
+library(tidy)
+library(magrittr)
+library(dplyr)
+
 race <- read.table(header = TRUE, check.names = FALSE, text = "
   Name    50  100  150  200  250  300  350
   Carla  1.2  1.8  2.2  2.3  3.0  2.5  1.8

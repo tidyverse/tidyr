@@ -1,4 +1,8 @@
 # http://stackoverflow.com/questions/9684671
+library(tidy)
+library(magrittr)
+library(dplyr)
+
 set.seed(10)
 activities <- data.frame(
   id = sprintf("x1.%02d", 1:10),
