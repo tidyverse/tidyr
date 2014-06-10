@@ -19,7 +19,7 @@ grades <- tbl_df(read.table(header = TRUE, text = "
 "))
 
 grades %>%
-  gather(Time, Score, Fall:Winter) %>%
+  gather(Semester, Score, Fall:Winter) %>%
   mutate(Test = paste0("Test", Test)) %>%
   spread(Test, Score) %>%
-  arrange(ID, Year, Time)
+  arrange(ID, Year, Semester)
