@@ -19,3 +19,12 @@ These verbs have a number of synonyms:
 | databases    | fold   | unfold  |
 
 tidyr also provides `separate()` function which makes it easier to turn a single character column into multiple columns breaking up either a regular expression, or by character positions.
+
+## Installation
+
+tidyr is not available from CRAN (yet!) but you can get it with:
+
+```s
+# install.packages("devtools")
+devtools::install_github("hadley/tidyr")
+```
