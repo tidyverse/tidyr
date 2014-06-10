@@ -39,13 +39,15 @@ spread_ <- function(data, key_col, value_col, fill = NA, convert = FALSE) {
 
   col <- data[key_col]
   col_id <- dplyr::id(col)
-  col_labels <- ulevels(col[[1]])
+  col_n <- attr(col_id, "n")
+  col_labels <- col[match(seq_len(col_n), col_id), , drop = FALSE]
 
   rows <- data[setdiff(names(data), c(key_col, value_col))]
   row_id <- dplyr::id(rows)
-  row_labels <- rows[match(seq_len(attr(row_id, "n")), row_id), , drop = FALSE]
+  row_n <- attr(row_id, "n")
+  row_labels <- rows[match(seq_len(row_n), row_id), , drop = FALSE]
 
-  overall <- dplyr::id(list(row_id, col_id), drop = FALSE)
+  overall <- dplyr::id(list(col_id, row_id), drop = FALSE)
   n <- attr(overall, "n")
 
   if (any(duplicated(overall))) {
@@ -66,7 +68,7 @@ spread_ <- function(data, key_col, value_col, fill = NA, convert = FALSE) {
   }
 
   dim(ordered) <- c(attr(row_id, "n"), attr(col_id, "n"))
-  colnames(ordered) <- col_labels
+  colnames(ordered) <- as.character(col_labels[[1]])
   ordered <- as.data.frame(ordered)
 
   if (convert) {
@@ -77,13 +79,4 @@ spread_ <- function(data, key_col, value_col, fill = NA, convert = FALSE) {
   class(out) <- "data.frame"
   attr(out, "row.names") <- .set_row_names(nrow(row_labels))
   out
-}
-
-ulevels <- function(x) {
-  if (is.factor(x)) {
-    x <- addNA(x, ifany = TRUE)
-    levels(x)
-  } else {
-    as.character(sort(unique(x)))
-  }
 }
