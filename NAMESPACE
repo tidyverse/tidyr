@@ -2,5 +2,7 @@
 
 export(gather)
 export(gather_)
+export(separate)
+export(separate_)
 export(spread)
 export(spread_)
