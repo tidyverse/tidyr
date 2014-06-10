@@ -12,4 +12,5 @@ race <- read.table(header = TRUE, check.names = FALSE, text = "
 ")
 
 race %>%
-  gather(Time, Score, -Name, convert = TRUE)
+  gather(Time, Score, -Name, convert = TRUE) %>%
+  arrange(Name, Time)
