@@ -29,6 +29,14 @@ tidyr is not available from CRAN (yet!) but you can get it with:
 devtools::install_github("hadley/tidyr")
 ```
 
+## Getting started
+
+To get started, check out the `demos/`.  Note that tidyr is designed for use in conjunction with dplyr, so you should always load both:
+
+```s
+library(tidyr)
+library(dplyr)
+```
 ## References
 
 If you'd like to learn more about these data reshaping operators, I'd recommend the following papers:
