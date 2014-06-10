@@ -60,7 +60,8 @@ gather_ <- function(data, key_col, value_col, gather_cols, na.rm = FALSE,
     variable.name = key_col, value.name = value_col, na.rm = na.rm)
 
   if (convert) {
-    data2[[key_col]] <- type.convert(data2[[key_col]], asis = TRUE)
+    data2[[key_col]] <- type.convert(as.character(data2[[key_col]]),
+      as.is = TRUE)
   }
 
   data2
