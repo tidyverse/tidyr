@@ -36,7 +36,7 @@ unite <- function(data, col, ..., sep = "_", remove = TRUE) {
 unite_ <- function(data, col, from, sep = "_", remove = TRUE) {
   united <- do.call("paste", c(data[from], list(sep = sep)))
 
-  first_col <- sort(which(names(data) %in% from))[1]
+  first_col <- which(names(data) %in% from)[1]
   data2 <- append_col(data, united, col, after = first_col - 1)
 
   if (remove) {
