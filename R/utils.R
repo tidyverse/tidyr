@@ -16,3 +16,13 @@ append_df <- function(x, values, after = length(x)) {
 append_col <- function(x, col, name, after = length(x)) {
   append_df(x, setNames(list(col), name), after = after)
 }
+
+#' Extract numeric component of variable.
+#'
+#' @param x A character vector (or a factor).
+#' @export
+#' @examples
+#' extract_numeric("$1,200.34")
+extract_numeric <- function(x) {
+  as.numeric(gsub("[^0-9.]+", "", as.character(x)))
+}
