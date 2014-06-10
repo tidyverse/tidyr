@@ -67,13 +67,16 @@ spread_ <- function(data, key_col, value_col, fill = NA, convert = FALSE) {
 
   dim(ordered) <- c(attr(row_id, "n"), attr(col_id, "n"))
   colnames(ordered) <- col_labels
+  ordered <- as.data.frame(ordered)
 
   if (convert) {
-    ordered <- as.data.frame(ordered)
     ordered[] <- lapply(ordered, type.convert, asis = TRUE)
   }
 
-  cbind(row_labels, ordered)
+  out <- c(row_labels, ordered)
+  class(out) <- "data.frame"
+  attr(out, "row.names") <- .set_row_names(nrow(row_labels))
+  out
 }
 
 ulevels <- function(x) {
