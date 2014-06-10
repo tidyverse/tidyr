@@ -1,6 +1,5 @@
 # http://stackoverflow.com/questions/17481212
-library(tidy)
-library(magrittr)
+library(tidyr)
 library(dplyr)
 
 race <- read.table(header = TRUE, check.names = FALSE, text = "

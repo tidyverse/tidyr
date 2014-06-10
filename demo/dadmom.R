@@ -1,7 +1,5 @@
 library(tidyr)
-library(magrittr)
 library(dplyr)
-library(stringr)
 
 dadmom <- foreign::read.dta("http://www.ats.ucla.edu/stat/stata/modules/dadmomw.dta")
 dadmom %>%

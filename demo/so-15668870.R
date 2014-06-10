@@ -1,6 +1,5 @@
 # http://stackoverflow.com/questions/15668870/
 library(tidyr)
-library(magrittr)
 library(dplyr)
 
 grades <- tbl_df(read.table(header = TRUE, text = "

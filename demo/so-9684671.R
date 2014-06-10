@@ -1,6 +1,5 @@
 # http://stackoverflow.com/questions/9684671
-library(tidy)
-library(magrittr)
+library(tidyr)
 library(dplyr)
 
 set.seed(10)

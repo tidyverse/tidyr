@@ -1,6 +1,6 @@
 # http://stackoverflow.com/questions/16032858
-library(tidy)
-library(magrittr)
+library(tidyr)
+library(dplyr)
 
 results <- data.frame(
   Ind = paste0("Ind", 1:10),
