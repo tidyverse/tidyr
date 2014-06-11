@@ -58,8 +58,8 @@ separate_.data.frame <- function(data, col, into, sep = "[^[:alnum:]]+",
     ns <- vapply(pieces, length, integer(1))
     n <- length(into)
     if (any(ns != n)) {
-      stop("Values not split into ", n, " pieces at ", which(ns != n),
-        call. = FALSE)
+      stop("Values not split into ", n, " pieces at ",
+           paste0(which(ns != n), collapse = ', ')), call. = FALSE)
     }
 
     # Convert into a data frame
