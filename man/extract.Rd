@@ -32,6 +32,6 @@ Extract one column into multiple columns.
 library(dplyr)
 df <- data.frame(x = c("a.b", "a.d", "b.c"))
 df \%>\% extract(x, "A")
-df \%>\% extract(x, c("A", "B"), "([[:alum:]]+)\\\\.([[:alnum:]]+)")
+df \%>\% extract(x, c("A", "B"), "([[:alnum:]]+)\\\\.([[:alnum:]]+)")
 }
 
