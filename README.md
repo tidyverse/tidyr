@@ -22,7 +22,7 @@ These verbs have a number of synonyms:
 | spreadsheets | pivot  | unpivot | 
 | databases    | fold   | unfold  |
 
-tidyr also provides `separate()` function which makes it easier to turn a single character column into multiple columns either according to regular expression, or by fixed positions. The component to `separate()` is `unite()`.
+tidyr also provides `separate()` function which makes it easier to turn a single character column into multiple columns either according to regular expression, or by fixed positions. The complement to `separate()` is `unite()`.
 
 ## Installation
 
