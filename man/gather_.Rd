@@ -23,7 +23,7 @@ value column in \code{NA}.}
 names are actually numeric, integer, or logical.}
 }
 \description{
-Gather (standard-evaluation).
+This is a S3 generic.
 }
 \keyword{internal}
 

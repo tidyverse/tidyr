@@ -17,7 +17,7 @@ unite_(data, col, from, sep = "_", remove = TRUE)
 \item{remove}{If \code{TRUE}, remove input columns from output data frame.}
 }
 \description{
-Standard-evaluation version of \code{unite}
+This is a S3 generic.
 }
 \keyword{internal}
 

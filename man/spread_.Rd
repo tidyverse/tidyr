@@ -19,6 +19,6 @@ useful if the value column was a mix of variables that was coerced to
 a string.}
 }
 \description{
-Standard-evaluation version of \code{spread}.
+This is a S3 generic.
 }
 

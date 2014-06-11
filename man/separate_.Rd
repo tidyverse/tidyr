@@ -34,7 +34,7 @@ columns are integer, numeric or logical.}
 how the regular expression is processed.}
 }
 \description{
-Standard-evaluation version of \code{separate}.
+This is a S3 generic.
 }
 \keyword{internal}
 

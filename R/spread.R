@@ -27,6 +27,8 @@ spread <- function(data, key, value, fill = NA, convert = FALSE) {
 
 #' Standard-evaluation version of \code{spread}.
 #'
+#' This is a S3 generic.
+#'
 #' @param data A data frame.
 #' @param key_col,value_col Strings giving names of key and value cols.
 #' @param fill If there isn't a value for every combination of the other
@@ -37,7 +39,12 @@ spread <- function(data, key, value, fill = NA, convert = FALSE) {
 #'   a string.
 #' @export
 spread_ <- function(data, key_col, value_col, fill = NA, convert = FALSE) {
-  stopifnot(is.data.frame(data))
+  UseMethod("spread_")
+}
+
+#' @export
+spread_.data.frame <- function(data, key_col, value_col, fill = NA,
+                               convert = FALSE) {
 
   col <- data[key_col]
   col_id <- dplyr::id(col, drop = TRUE)

@@ -26,6 +26,8 @@ unite <- function(data, col, ..., sep = "_", remove = TRUE) {
 
 #' Standard-evaluation version of \code{unite}
 #'
+#' This is a S3 generic.
+#'
 #' @keywords internal
 #' @param data A data frame.
 #' @param col Name of new column as string.
@@ -34,6 +36,11 @@ unite <- function(data, col, ..., sep = "_", remove = TRUE) {
 #' @param remove If \code{TRUE}, remove input columns from output data frame.
 #' @export
 unite_ <- function(data, col, from, sep = "_", remove = TRUE) {
+  UseMethod("unite_")
+}
+
+#' @export
+unite_.data.frame <- function(data, col, from, sep = "_", remove = TRUE) {
   united <- do.call("paste", c(data[from], list(sep = sep)))
 
   first_col <- which(names(data) %in% from)[1]

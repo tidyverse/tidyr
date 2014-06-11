@@ -36,6 +36,8 @@ gather <- function(data, key, value, ..., na.rm = FALSE, convert = FALSE) {
 
 #' Gather (standard-evaluation).
 #'
+#' This is a S3 generic.
+#'
 #' @param data A data frame
 #' @param key_var,value_var Strings giving names of key and value columns to
 #'   create.
@@ -50,7 +52,12 @@ gather <- function(data, key, value, ..., na.rm = FALSE, convert = FALSE) {
 #' @export
 gather_ <- function(data, key_col, value_col, gather_cols, na.rm = FALSE,
                      convert = FALSE) {
-  stopifnot(is.data.frame(data))
+  UseMethod("gather_")
+}
+
+#' @export
+gather_.data.frame <- function(data, key_col, value_col, gather_cols,
+                               na.rm = FALSE, convert = FALSE) {
 
   data2 <- reshape2::melt(data, measure.vars = gather_cols,
     variable.name = key_col, value.name = value_col, na.rm = na.rm)

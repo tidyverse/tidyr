@@ -15,6 +15,8 @@ separate <- function(data, col, into, sep = "[^[:alnum:]]+", remove = TRUE,
 
 #' Standard-evaluation version of \code{separate}.
 #'
+#' This is a S3 generic.
+#'
 #' @param data A data frame.
 #' @param col Name of column to split, as string.
 #' @param into Names of new variables to create as character vector.
@@ -39,8 +41,13 @@ separate <- function(data, col, into, sep = "[^[:alnum:]]+", remove = TRUE,
 #' @export
 separate_ <- function(data, col, into, sep = "[^[:alnum:]]+", remove = TRUE,
                       convert = FALSE, ...) {
+  UseMethod("separate_")
+}
 
-  stopifnot(is.data.frame(data))
+#' @export
+separate_.data.frame <- function(data, col, into, sep = "[^[:alnum:]]+",
+                                 remove = TRUE, convert = FALSE, ...) {
+
   stopifnot(is.character(col), length(col) == 1)
 
   value <- as.character(data[[col]])
