@@ -52,3 +52,8 @@ unite_.data.frame <- function(data, col, from, sep = "_", remove = TRUE) {
 
   data2
 }
+
+#' @export
+unite_.tbl_df <- function(data, col, from, sep = "_", remove = TRUE) {
+  dplyr::tbl_df(NextMethod())
+}

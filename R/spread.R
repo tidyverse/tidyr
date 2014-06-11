@@ -85,3 +85,9 @@ spread_.data.frame <- function(data, key_col, value_col, fill = NA,
 
   append_df(row_labels, ordered)
 }
+
+#' @export
+spread_.tbl_df <- function(data, key_col, value_col, fill = NA,
+                           convert = FALSE) {
+  dplyr::tbl_df(NextMethod())
+}

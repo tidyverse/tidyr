@@ -70,3 +70,9 @@ gather_.data.frame <- function(data, key_col, value_col, gather_cols,
 
   data2
 }
+
+#' @export
+gather_.tbl_df <- function(data, key_col, value_col, gather_cols,
+                           na.rm = FALSE, convert = FALSE) {
+  dplyr::tbl_df(NextMethod())
+}

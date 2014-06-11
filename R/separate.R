@@ -85,6 +85,13 @@ separate_.data.frame <- function(data, col, into, sep = "[^[:alnum:]]+",
   data
 }
 
+#' @export
+separate_.tbl_df <- function(data, col, into, sep = "[^[:alnum:]]+",
+                             remove = TRUE, convert = FALSE, ...) {
+  dplyr::tbl_df(NextMethod())
+}
+
+
 strsep <- function(x, sep) {
   sep <- c(0, sep, -1)
 
