@@ -48,7 +48,7 @@ spread_.data.frame <- function(data, key_col, value_col, fill = NA,
 
   col <- data[key_col]
   col_id <- dplyr::id(col, drop = TRUE)
-  col_labels <- col[match(unique(col_id), col_id), , drop = FALSE]
+  col_labels <- col[match(sort(unique(col_id)), col_id), , drop = FALSE]
 
   rows <- data[setdiff(names(data), c(key_col, value_col))]
   row_id <- dplyr::id(rows, drop = TRUE)
