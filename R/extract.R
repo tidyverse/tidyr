@@ -7,7 +7,7 @@
 #' library(dplyr)
 #' df <- data.frame(x = c("a.b", "a.d", "b.c"))
 #' df %>% extract(x, "A")
-#' df %>% extract(x, c("A", "B"), "([[:alum:]]+)\\.([[:alnum:]]+)")
+#' df %>% extract(x, c("A", "B"), "([[:alnum:]]+)\\.([[:alnum:]]+)")
 extract <- function(data, col, into, regex = "([[:alnum:]]+)", remove = TRUE,
                      convert = FALSE, ...) {
   col <- col_name(substitute(col))
