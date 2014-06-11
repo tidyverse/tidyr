@@ -44,32 +44,32 @@ extract_.data.frame <- function(data, col, into, regex = "([[:alnum:]]+)",
 
   value <- as.character(data[[col]])
 
-  if (is.character(regex)) {
-    matches <- regexpr(regex, value, perl = TRUE, ...)
-
-    starts <- attr(matches, "capture.start")
-    lengths <- attr(matches, "capture.length")
-
-    n <- length(into)
-
-    if (length(starts) / n != length(value)) {
-      stop("'into' must be the same length as the regex capture groups",
-           call. = FALSE)
-    }
-
-    if (any(starts == -1)) {
-      stop("Values not extracted at ",
-           paste0(which(starts == -1), collapse = ", "),
-        call. = FALSE)
-    }
-
-    pieces <- substring(value, starts, starts + lengths - 1)
-    # Convert into a data frame
-    mat <- matrix(pieces, ncol = n, byrow = TRUE)
-    str(mat)
-    l <- lapply(1:ncol(mat), function(i) mat[, i])
-
+  if (!is.character(regex)) {
+    stop("'regexp' must be a string", call. = FALSE)
   }
+  matches <- regexpr(regex, value, perl = TRUE, ...)
+
+  starts <- attr(matches, "capture.start")
+  lengths <- attr(matches, "capture.length")
+
+  n <- length(into)
+
+  if (length(starts) / n != length(value)) {
+    stop("'into' must be the same length as the regex capture groups",
+         call. = FALSE)
+  }
+
+  if (any(starts == -1)) {
+    stop("Regex didn't match at ",
+         paste0(which(starts == -1), collapse = ", "),
+         call. = FALSE)
+  }
+
+  pieces <- substring(value, starts, starts + lengths - 1)
+  # Convert into a data frame
+  mat <- matrix(pieces, ncol = n, byrow = TRUE)
+  str(mat)
+  l <- lapply(1:ncol(mat), function(i) mat[, i])
 
   names(l) <- into
   if (convert) {
