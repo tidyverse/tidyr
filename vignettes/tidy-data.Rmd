@@ -29,16 +29,14 @@ Like families, tidy datasets are all alike but every messy dataset is messy in i
 Most statistical datasets are data frames made up of **rows** and **columns**. The columns are almost always labelled and the rows are sometimes labelled. The following code provides some data about an imaginary experiment in a format commonly seen in the wild. The table has two columns and three rows, and both rows and columns are labelled.
 
 ```{r}
-preg <- matrix(c(NA, sample(20, 5)), ncol = 2, byrow = T)
-colnames(preg) <- paste0("treatment", c("a", "b"))
-rownames(preg) <- c("John Smith", "Jane Doe", "Mary Johnson")
+preg <- read.csv("preg.csv", stringsAsFactors = FALSE)
 preg
 ```
 
-There are many ways to structure the same underlying data. The following table  shows the same data as above, but the rows and columns have been transposed.
+There are many ways to structure the same underlying data. The following table shows the same data as above, but the rows and columns have been transposed.
 
 ```{r}
-t(preg)
+read.csv("preg2.csv", stringsAsFactors = FALSE)
 ```
 
 The data is the same, but the layout is different. Our vocabulary of rows and columns is simply not rich enough to describe why the two tables represent the same data. In addition to appearance, we need a way to describe the underlying semantics, or meaning, of the values displayed in table.
@@ -53,8 +51,6 @@ A tidy version of the pregnancy data looks like this: (you'll learn how the funt
 library(tidyr)
 library(dplyr)
 preg %>% 
-  as.data.frame(preg) %>%
-  mutate(name = rownames(preg)) %>%
   gather(treatment, n, treatmenta:treatmentb) %>%
   mutate(treatment = gsub("treatment", "", treatment)) %>%
   arrange(name, treatment)
@@ -105,7 +101,7 @@ Real datasets can, and often do, violate the three precepts of tidy data in almo
 
 -   A single observational unit is stored in multiple tables.
 
-Surprisingly, most messy datasets, including types of messiness not explicitly described above, can be tidied with a small set of tools: melting, string splitting, and casting. The following sections illustrate each problem with a real dataset that I have encountered, and show how to tidy them.
+Surprisingly, most messy datasets, including types of messiness not explicitly described above, can be tidied with a small set of tools: gathering, separating and spreading. The following sections illustrate each problem with a real dataset that I have encountered, and show how to tidy them.
 
 ## Column headers are values, not variable names
 
@@ -118,26 +114,26 @@ pew <- read.csv("pew.csv", stringsAsFactors = FALSE, check.names = FALSE) %>% tb
 pew
 ```
 
-This dataset has three variables, `religion`, `income` and `frequency`. To tidy it, we need to **gather**  the non-variable columns into a key-value pair. We need to turn columns into rows. While this is often described as making wide datasets long or tall, I will avoid those terms because they are imprecise. 
+This dataset has three variables, `religion`, `income` and `frequency`. To tidy it, we need to **gather** the non-variable columns into a two-column key-value pair. This action is often described as making a wide dataset long (or tall), but I'll avoid those terms because they're imprecise. 
+
+When gathering variables, we need to provide the name of the new key-value columns to create. The first argument, is the name of the key column, which is the name of the variable defined by the values of the column headings. In this case, it's `income`. The second argument is the name of the value column, `frequency`. The third argument defines the columns to gather, here, every column except religion.
 
 ```{r}
 pew %>%
-  gather(income, n, -religion) %>%
+  gather(income, frequency, -religion) %>%
   tbl_df()
 ```
 
-Gathering is parameterised the name of the new key-value variables, and the variables to gather. 
-
 This form is tidy because each column represents a variable and each row represents an observation, in this case a demographic unit corresponding to a combination of `religion` and `income`.
 
-Another common use of this data format is to record regularly spaced observations over time. For example, the Billboard dataset shown below records the date a song first entered the Billboard Top 100. It has variables for `artist`, `track`, `date.entered`, `rank` and `week`. The rank in each week after it enters the top 100 is recorded in 75 columns, `wk1` to `wk75`. If a song is in the Top 100 for less than 75 weeks the remaining columns are filled with missing values. This form of storage is not tidy, but it is useful for data entry. It reduces duplication since otherwise each song in each week would need its own row, and song metadata like title and artist would need to be repeated. This will be discussed in more depth in (multiple types)[#multiple-types].
+This format is also used to record regularly spaced observations over time. For example, the Billboard dataset shown below records the date a song first entered the billboard top 100. It has variables for `artist`, `track`, `date.entered`, `rank` and `week`. The rank in each week after it enters the top 100 is recorded in 75 columns, `wk1` to `wk75`. This form of storage is not tidy, but it is useful for data entry. It reduces duplication since otherwise each song in each week would need its own row, and song metadata like title and artist would need to be repeated. This will be discussed in more depth in (multiple types)[#multiple-types].
 
 ```{r}
 billboard <- read.csv("billboard.csv", stringsAsFactors = FALSE) %>% tbl_df()
 billboard
 ```
 
-To tidy this dataset, we need to gather together all the `wk` variables:
+To tidy this dataset, we first gather together all the `wk` columns. The column names give the `week` and the values are the `rank`s:
 
 ```{r}
 billboard2 <- billboard %>% 
@@ -146,7 +142,7 @@ billboard2 <- billboard %>%
 billboard2
 ```
 
-(In this data, missing values represent weeks that the song wasn't in the charts, so can be safely dropped.)
+Here we use `na.rm` to drop any missing values from the gather columns. In this data, missing values represent weeks that the song wasn't in the charts, so can be safely dropped.
 
 In this case it's also nice to do a little cleaning, converting the week variable to a number, and figuring out the date corresponding to each week on the charts:
 
@@ -173,7 +169,7 @@ billboard3 %>% arrange(date, rank)
 
 ## Multiple variables stored in one column
 
-After gathering column, the key column is often a combination of multiple underlying variable names. This happens in the `tb` (tuberculosis) dataset, shown below. This dataset comes from the World Health Organisation, and records the counts of confirmed tuberculosis cases by `country`, `year`, and demographic group. The demographic groups are broken down by `sex` (m, f) and `age` (0-14, 15-25, 25-34, 35-44, 45-54, 55-64, unknown).
+After gathering columns, the key column is sometimes a combination of multiple underlying variable names. This happens in the `tb` (tuberculosis) dataset, shown below. This dataset comes from the World Health Organisation, and records the counts of confirmed tuberculosis cases by `country`, `year`, and demographic group. The demographic groups are broken down by `sex` (m, f) and `age` (0-14, 15-25, 25-34, 35-44, 45-54, 55-64, unknown).
 
 ```{r}
 tb <- read.csv("tb.csv", stringsAsFactors = FALSE) %>% tbl_df()
@@ -197,7 +193,7 @@ tb3 <- tb2 %>%
 tb3
 ```
 
-Storing the values in this form resolves another problem in the original data. We want to compare rates, not counts. But to compute rates, we need to know the population. In the original format, there is no easy way to add a population variable. It has to be stored in a separate table, which makes it hard to correctly match populations to counts. In tidy form, adding variables for population and rate is easy. They are just additional columns.
+Storing the values in this form resolves a problem in the original data. We want to compare rates, not counts, which means we need to know the population. In the original format, there is no easy way to add a population variable. It has to be stored in a separate table, which makes it hard to correctly match populations to counts. In tidy form, adding variables for population and rate is easy because they're just additional columns.
 
 ## Variables are stored in both rows and columns
 
@@ -208,7 +204,7 @@ weather <- read.csv("weather.csv", stringsAsFactors = FALSE) %>% tbl_df()
 weather
 ```
 
-It has variables in individual columns (`id`, `year`, `month`), spread across columns (`day`, d1-d31) and across rows (`tmin`, `tmax`) (minimum and maximum temperature). Months with less than 31 days have structural missing values for the last day(s) of the month. The `element` column is not a variable; it stores the names of variables.
+It has variables in individual columns (`id`, `year`, `month`), spread across columns (`day`, d1-d31) and across rows (`tmin`, `tmax`) (minimum and maximum temperature). Months with less than 31 days have structural missing values for the last day(s) of the month.
 
 To tidy this dataset we first gather the day columns:
 
@@ -231,21 +227,21 @@ weather3 <- weather2 %>%
 weather3
 ```
 
-This dataset is mostly tidy, but we have two variables stored in rows: `tmin` and `tmax`, the type of observation. Not shown in this example are the other meteorological variables `prcp` (precipitation) and `snow` (snowfall). Fixing this requires the spread operation. This performs the inverse of gathering by spreading the `element` column back out into the columns:
+This dataset is mostly tidy, but the `element` column is not a variable; it stores the names of variables. (Not shown in this example are the other meteorological variables `prcp` (precipitation) and `snow` (snowfall)). Fixing this requires the spread operation. This performs the inverse of gathering by spreading the `element` and `value` columns back out into the columns:
 
 ```{r}
 weather3 %>% spread(element, value)
 ```
 
-This form is tidy. There is one variable in each column, and each row represents a day's observations.
+This form is tidy: there's one variable in each column, and each row represents one day.
 
 ## Multiple types in one table {#multiple-types}
 
-Datasets often involve values collected at multiple levels, on different types of observational units. During tidying, each type of observational unit should be stored in its own table. This is closely related to the idea of database normalisation, where each fact is expressed in only one place. If this is not done, it's possible for inconsistencies to occur.
+Datasets often involve values collected at multiple levels, on different types of observational units. During tidying, each type of observational unit should be stored in its own table. This is closely related to the idea of database normalisation, where each fact is expressed in only one place. It's important because otherwise inconsistencies can arise.
 
-The Billboard dataset described above actually contains observations on two types of observational units: the song and its rank in each week. This manifests itself through the duplication of facts about the song: `artist` and `time` are repeated for every song in each week. The billboard dataset needs to be broken down into two datasets: a song dataset which stores `artist`, `song name` and `time`, and a ranking dataset which gives the `rank` of the `song` in each `week`. 
+The billboard dataset actually contains observations on two types of observational units: the song and its rank in each week. This manifests itself through the duplication of facts about the song: `artist`, `year` and `time` are repeated many times. 
 
-We tease these apart by first extract a song dataset:
+This dataset needs to be broken down into two pieces: a song dataset which stores `artist`, `song name` and `time`, and a ranking dataset which gives the `rank` of the `song` in each `week`.  We first extract a `song` dataset:
 
 ```{r}
 song <- billboard3 %>% 
@@ -255,7 +251,7 @@ song <- billboard3 %>%
 song
 ```  
 
-Then using that to replace the song data with a unique identifer:
+Then use that to make a `rank` dataset by replacing repeated song facts with a pointer to song details (a unique song id):
 
 ```{r}
 rank <- billboard3 %>%
@@ -265,7 +261,7 @@ rank <- billboard3 %>%
 rank
 ```
 
-You could also imagine a week dataset which would record background information about the week, maybe the total number of songs sold or similar "demographic" information.
+You could also imagine a `week` dataset which would record background information about the week, maybe the total number of songs sold or similar "demographic" information.
 
 Normalisation is useful for tidying and eliminating inconsistencies. However, there are few data analysis tools that work directly with relational data, so analysis usually also requires denormalisation or the merging the datasets back into one table.
 
@@ -276,13 +272,14 @@ It's also common to find data values about a single type of observational unit s
 1.  Read the files into a list of tables.
 
 2.  For each table, add a new column that records the original file name 
-    (because the file name is often the value of an important variable).
+    (the file name is often the value of an important variable).
 
 3.  Combine all tables into a single table.
 
-The package makes this a straightforward task in R. The following code generates a vector of file names in a directory (`data/`) which match a regular expression (ends in `.csv`). Next we name each element of the vector with the name of the file. We do this because will preserve the names in the following step, ensuring that each row in the final data frame is labelled with its source. Finally, `ldply()` loops over each path, reading in the csv file and combining the results into a single data frame.
+Plyr makes this straightforward in R. The following code generates a vector of file names in a directory (`data/`) which match a regular expression (ends in `.csv`). Next we name each element of the vector with the name of the file. We do this because will preserve the names in the following step, ensuring that each row in the final data frame is labelled with its source. Finally, `ldply()` loops over each path, reading in the csv file and combining the results into a single data frame.
 
 ```{r, eval = FALSE}
+library(plyr)
 paths <- dir("data", pattern = "\\.csv$", full.names = TRUE)
 names(paths) <- basename(paths)
 ldply(paths, read.csv, stringsAsFactors = FALSE)
