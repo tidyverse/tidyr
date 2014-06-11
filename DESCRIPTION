@@ -13,3 +13,6 @@ Imports:
     reshape2,
     dplyr
 Url: https://github.com/hadley/tidyr
+Suggests:
+    knitr
+VignetteBuilder: knitr

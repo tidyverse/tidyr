@@ -35,7 +35,9 @@ devtools::install_github("hadley/tidyr")
 
 ## Getting started
 
-To get started, check out the `demos/`.  Note that tidyr is designed for use in conjunction with dplyr, so you should always load both:
+To get started, read the tidy data vignette (`vignette("tidy-data")`) and check out the `demos/`. 
+
+Note that tidyr is designed for use in conjunction with dplyr, so you should always load both:
 
 ```s
 library(tidyr)
