@@ -9,6 +9,8 @@ set.seed(1014)
 options(dplyr.print_max = 10)
 ```
 
+(This is an informal and code heavy version of the full [tidy data paper](http://vita.had.co.nz/papers/tidy-data.html). Please refer to that for more dettails.)
+
 # Data tidying
 
 It is often said that 80% of data analysis is spent on the cleaning and preparing data. And it's not just a first step, but it must be repeated many over the course of analysis as new problems come to light or new data is collected. To get a handle on the problem, this paper focusses on a small, but important, aspect of data cleaning that I call data **tidying**: structuring datasets to facilitate analysis.
