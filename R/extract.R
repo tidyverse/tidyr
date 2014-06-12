@@ -26,9 +26,8 @@ extract <- function(data, col, into, regex = "([[:alnum:]]+)", remove = TRUE,
 #' @param convert If \code{TRUE}, will run \code{\link{type.convert}} with
 #'   \code{as.is = TRUE} on new columns. This is useful if the component
 #'   columns are integer, numeric or logical.
-#' @param ... Other arguments passed on to \code{\link{regexpr}} to control
-#'   how the regular expression is processed.  The perl option is always set to
-#'   TRUE
+#' @param ... Other arguments passed on to \code{\link{regexec}} to control
+#'   how the regular expression is processed.
 #' @keywords internal
 #' @export
 extract_ <- function(data, col, into, regex = "([[:alnum:]]+)", remove = TRUE,
@@ -41,36 +40,31 @@ extract_.data.frame <- function(data, col, into, regex = "([[:alnum:]]+)",
                                  remove = TRUE, convert = FALSE, ...) {
 
   stopifnot(is.character(col), length(col) == 1)
+  stopifnot(is.character(regex))
 
+  # Extract matching groups
   value <- as.character(data[[col]])
+  matches <- regexec(regex, value, ...)
+  pieces <- regmatches(value, matches)
 
-  if (!is.character(regex)) {
-    stop("'regexp' must be a string", call. = FALSE)
+  ns <- vapply(pieces, length, integer(1))
+  if (any(ns == 0)) {
+    stop("Regex didn't match at ",
+      paste0(which(ns == 0), collapse = ", "),
+      call. = FALSE)
   }
-  matches <- regexpr(regex, value, perl = TRUE, ...)
+  n <- unique(ns) - 1
+  stopifnot(length(n) == 1)
 
-  starts <- attr(matches, "capture.start")
-  lengths <- attr(matches, "capture.length")
-
-  n <- length(into)
-
-  if (length(starts) / n != length(value)) {
+  if (length(into) != n) {
     stop("'into' must be the same length as the regex capture groups",
          call. = FALSE)
   }
 
-  if (any(starts == -1)) {
-    stop("Regex didn't match at ",
-         paste0(which(starts == -1), collapse = ", "),
-         call. = FALSE)
-  }
-
-  pieces <- substring(value, starts, starts + lengths - 1)
-  # Convert into a data frame
-  mat <- matrix(pieces, ncol = n, byrow = TRUE)
-  str(mat)
+  # Convert into data frame
+  mat <- matrix(unlist(pieces), ncol = n + 1, byrow = TRUE)
+  mat <- mat[, -1, drop = FALSE] # remove complete match
   l <- lapply(1:ncol(mat), function(i) mat[, i])
-
   names(l) <- into
   if (convert) {
     l[] <- lapply(l, type.convert, as.is = FALSE)
