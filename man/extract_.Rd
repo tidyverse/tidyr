@@ -21,9 +21,8 @@ extract_(data, col, into, regex = "([[:alnum:]]+)", remove = TRUE,
 \code{as.is = TRUE} on new columns. This is useful if the component
 columns are integer, numeric or logical.}
 
-\item{...}{Other arguments passed on to \code{\link{regexpr}} to control
-how the regular expression is processed.  The perl option is always set to
-TRUE}
+\item{...}{Other arguments passed on to \code{\link{regexec}} to control
+how the regular expression is processed.}
 }
 \description{
 This is a S3 generic.
