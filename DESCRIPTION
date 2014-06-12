@@ -14,5 +14,7 @@ Imports:
     dplyr (>= 0.2)
 Url: https://github.com/hadley/tidyr
 Suggests:
-    knitr
+    knitr,
+    testthat
 VignetteBuilder: knitr
+
