@@ -57,9 +57,16 @@ spread_.data.frame <- function(data, key_col, value_col, fill = NA,
 
   overall <- dplyr::id(list(col_id, row_id), drop = FALSE)
   n <- attr(overall, "n")
+  # Check that each output value occurs in unique location
+  if (anyDuplicated(overall)) {
+    groups <- split(seq_along(overall), overall)
+    groups <- groups[vapply(groups, length, integer(1)) > 1]
 
-  if (any(duplicated(overall))) {
-    stop("Duplicates!")
+    str <- vapply(groups, function(x) paste0("(", paste0(x, collapse = ", "), ")"),
+      character(1))
+
+    stop("Duplicate identifiers for rows ", paste(str, collapse = ", "),
+      call. = FALSE)
   }
 
   # Add in missing values, if necessary

@@ -9,3 +9,11 @@ test_that("order doesn't matter", {
 
   expect_identical(one, two)
 })
+
+
+test_that("duplicate values for one key is an error", {
+  df <- data.frame(x = c("a", "b", "b"), y = c(1, 2, 2), z = c(1, 2, 2))
+
+  expect_error(df %>% spread(x, y), "Duplicate identifiers for rows (2, 3)",
+    fixed = TRUE)
+})
