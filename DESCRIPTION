@@ -17,4 +17,3 @@ Suggests:
     knitr,
     testthat
 VignetteBuilder: knitr
-
