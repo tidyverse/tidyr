@@ -34,7 +34,8 @@ columns are integer, numeric or logical.}
 how the regular expression is processed.}
 }
 \description{
-Separate one column into multiple columns.
+Given either regular expression or a vector of character positions,
+\code{separate()} turns a single character column into multiple columns.
 }
 \examples{
 library(dplyr)

@@ -25,7 +25,8 @@ columns are integer, numeric or logical.}
 how the regular expression is processed.}
 }
 \description{
-Extract one column into multiple columns.
+Given a regular expression with capturing groups, \code{extract()} turns
+each group into a new column.
 }
 \examples{
 library(dplyr)

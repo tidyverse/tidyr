@@ -1,5 +1,8 @@
 #' Separate one column into multiple columns.
 #'
+#' Given either regular expression or a vector of character positions,
+#' \code{separate()} turns a single character column into multiple columns.
+#'
 #' @param col Bare column name.
 #' @export
 #' @inheritParams separate_

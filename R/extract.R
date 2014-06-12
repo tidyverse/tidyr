@@ -1,5 +1,8 @@
 #' Extract one column into multiple columns.
 #'
+#' Given a regular expression with capturing groups, \code{extract()} turns
+#' each group into a new column.
+#'
 #' @param col Bare column name.
 #' @export
 #' @inheritParams extract_
