@@ -50,10 +50,11 @@ A tidy version of the pregnancy data looks like this: (you'll learn how the funt
 ```{r, message = FALSE}
 library(tidyr)
 library(dplyr)
-preg %>% 
+preg2 <- preg %>% 
   gather(treatment, n, treatmenta:treatmentb) %>%
   mutate(treatment = gsub("treatment", "", treatment)) %>%
   arrange(name, treatment)
+preg2
 ```
 
 This makes the values, variables and obserations more clear. The dataset contains 18 values representing three variables and six observations. The variables are:
@@ -63,7 +64,7 @@ This makes the values, variables and obserations more clear. The dataset contain
 2. `treatment`, with two possible values (a and b).
 
 3. `n`, with five or six values depending on how you think of the missing 
-   value (NA, 16, 3, 2, 11, 1).
+   value (`r sort(preg2$n, na.last = TRUE)`)
 
 The experimental design tells us more about the structure of the observations. In this experiment, every combination of of `person` and `treatment` was measured, a completely crossed design. The experimental design also determines whether or not missing values can be safely dropped. In this experiment, the missing value represents an observation that should have been made, but wasn't, so it's important to keep it. Structural missing values, which represent measurements that can't be made (e.g., the count of pregnant males) can be safely removed.
 
