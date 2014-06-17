@@ -7,7 +7,7 @@ Description: tidyr is an evolution of reshape2. It's design specifically for
     dplyr data pipelines.
 Depends:
     R (>= 3.1.0)
-License: GPL-3
+License: MIT + file LICENSE
 LazyData: true
 Imports:
     reshape2,
