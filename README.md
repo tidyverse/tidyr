@@ -22,27 +22,28 @@ These verbs have a number of synonyms:
 | spreadsheets | pivot  | unpivot | 
 | databases    | fold   | unfold  |
 
-tidyr also provides `separate()` function which makes it easier to turn a single character column into multiple columns either according to regular expression, or by fixed positions. The complement to `separate()` is `unite()`.
+tidyr also provides `separate()` and `extract()` functions which makes it easier to pull apart a column that represents multiple variables. The complement to `separate()` is `unite()`.
 
 ## Installation
 
 tidyr is not available from CRAN (yet!) but you can get it with:
 
-```s
+```R
 # install.packages("devtools")
 devtools::install_github("hadley/tidyr")
 ```
 
 ## Getting started
 
-To get started, read the tidy data vignette (`vignette("tidy-data")`) and check out the `demos/`. 
+To get started, read the tidy data vignette (`vignette("tidy-data")`) and check out the demos, `demo(package = "tidyr")`). 
 
 Note that tidyr is designed for use in conjunction with dplyr, so you should always load both:
 
-```s
+```R
 library(tidyr)
 library(dplyr)
 ```
+
 ## References
 
 If you'd like to learn more about these data reshaping operators, I'd recommend the following papers:
