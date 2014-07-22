@@ -26,7 +26,11 @@ tidyr also provides `separate()` and `extract()` functions which makes it easier
 
 ## Installation
 
-tidyr is available from [CRAN](http://cran.r-project.org/package=tidyr). 
+tidyr is available from [CRAN](http://cran.r-project.org/package=tidyr). Install it with:
+
+```R
+install.packages("tidyr")
+```
 
 The development version can be installed using:
 
