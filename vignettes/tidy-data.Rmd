@@ -9,11 +9,11 @@ set.seed(1014)
 options(dplyr.print_max = 10)
 ```
 
-(This is an informal and code heavy version of the full [tidy data paper](http://vita.had.co.nz/papers/tidy-data.html). Please refer to that for more dettails.)
+(This is an informal and code heavy version of the full [tidy data paper](http://vita.had.co.nz/papers/tidy-data.html). Please refer to that for more details.)
 
 # Data tidying
 
-It is often said that 80% of data analysis is spent on the cleaning and preparing data. And it's not just a first step, but it must be repeated many over the course of analysis as new problems come to light or new data is collected. To get a handle on the problem, this paper focusses on a small, but important, aspect of data cleaning that I call data **tidying**: structuring datasets to facilitate analysis.
+It is often said that 80% of data analysis is spent on the cleaning and preparing data. And it's not just a first step, but it must be repeated many over the course of analysis as new problems come to light or new data is collected. To get a handle on the problem, this paper focuses on a small, but important, aspect of data cleaning that I call data **tidying**: structuring datasets to facilitate analysis.
 
 The principles of tidy data provide a standard way to organise data values within a dataset. A standard makes initial data cleaning easier because you don't need to start from scratch and reinvent the wheel every time. The tidy data standard has been designed to facilitate initial exploration and analysis of the data, and to simplify the development of data analysis tools that work well together. Current tools often require translation. You have to spend time munging the output from one tool so you can input it into another. Tidy datasets and tidy tools work hand in hand to make data analysis easier, allowing you to focus on the interesting domain problem, not on the uninteresting logistics of data.
 
@@ -26,7 +26,7 @@ Like families, tidy datasets are all alike but every messy dataset is messy in i
 
 ## Data structure
 
-Most statistical datasets are data frames made up of **rows** and **columns**. The columns are almost always labelled and the rows are sometimes labelled. The following code provides some data about an imaginary experiment in a format commonly seen in the wild. The table has two columns and three rows, and both rows and columns are labelled.
+Most statistical datasets are data frames made up of **rows** and **columns**. The columns are almost always labeled and the rows are sometimes labeled. The following code provides some data about an imaginary experiment in a format commonly seen in the wild. The table has two columns and three rows, and both rows and columns are labeled.
 
 ```{r}
 preg <- read.csv("preg.csv", stringsAsFactors = FALSE)
@@ -45,7 +45,7 @@ The data is the same, but the layout is different. Our vocabulary of rows and co
 
 A dataset is a collection of **values**, usually either numbers (if quantitative) or strings (if qualitative). Values are organised in two ways. Every value belongs to a **variable** and an **observation**. A variable contains all values that measure the same underlying attribute (like height, temperature, duration) across units. An observation contains all values measured on the same unit (like a person, or a day, or a race) across attributes.
 
-A tidy version of the pregnancy data looks like this: (you'll learn how the funtions work a little later)
+A tidy version of the pregnancy data looks like this: (you'll learn how the functions work a little later)
 
 ```{r, message = FALSE}
 library(tidyr)
@@ -57,7 +57,7 @@ preg2 <- preg %>%
 preg2
 ```
 
-This makes the values, variables and obserations more clear. The dataset contains 18 values representing three variables and six observations. The variables are:
+This makes the values, variables and observations more clear. The dataset contains 18 values representing three variables and six observations. The variables are:
 
 1. `name`, with three possible values (John, Mary, and Jane).
 
@@ -70,7 +70,7 @@ The experimental design tells us more about the structure of the observations. I
 
 For a given dataset, it's usually easy to figure out what are observations and what are variables, but it is surprisingly difficult to precisely define variables and observations in general. For example, if the columns in the pregnancy data were `height` and `weight` we would have been happy to call them variables. If the columns were `height` and `width`, it would be less clear cut, as we might think of height and width as values of a `dimension` variable. If the columns were `home phone` and `work phone`, we could treat these as two variables, but in a fraud detection environment we might want variables `phone number` and `number type` because the use of one phone number for multiple people might suggest fraud. A general rule of thumb is that it is easier to describe functional relationships between variables (e.g., `z` is a linear combination of `x` and `y`, `density` is the ratio of `weight` to `volume`) than between rows, and it is easier to make comparisons between groups of observations (e.g., average of group a vs. average of group b) than between groups of columns.
 
-In a given analysis, there may be multiple levels of observation. For example, in a trial of new allergy medication we might have three observational types: demographic data collected from each person (`age`, `sex`, `race`), medical data collected from each person on each day (`number of sneezes`, `redness of eyes`), and meterological data collected on each day (`temperature`, `pollen count`).
+In a given analysis, there may be multiple levels of observation. For example, in a trial of new allergy medication we might have three observational types: demographic data collected from each person (`age`, `sex`, `race`), medical data collected from each person on each day (`number of sneezes`, `redness of eyes`), and meteorological data collected on each day (`temperature`, `pollen count`).
 
 ## Tidy data
 
@@ -273,7 +273,7 @@ It's also common to find data values about a single type of observational unit s
 
 3.  Combine all tables into a single table.
 
-Plyr makes this straightforward in R. The following code generates a vector of file names in a directory (`data/`) which match a regular expression (ends in `.csv`). Next we name each element of the vector with the name of the file. We do this because will preserve the names in the following step, ensuring that each row in the final data frame is labelled with its source. Finally, `ldply()` loops over each path, reading in the csv file and combining the results into a single data frame.
+Plyr makes this straightforward in R. The following code generates a vector of file names in a directory (`data/`) which match a regular expression (ends in `.csv`). Next we name each element of the vector with the name of the file. We do this because will preserve the names in the following step, ensuring that each row in the final data frame is labeled with its source. Finally, `ldply()` loops over each path, reading in the csv file and combining the results into a single data frame.
 
 ```{r, eval = FALSE}
 library(plyr)
