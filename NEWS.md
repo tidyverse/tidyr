@@ -7,3 +7,6 @@
   "merge" or "drop".
 
 * `gather()` performance is now comparable to `reshape2::melt()` (#18).
+
+* Added experiment unnest function for converting named lists into
+  data frames. (#3, #22)

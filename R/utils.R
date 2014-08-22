@@ -1,6 +1,7 @@
 col_name <- function(x) {
   if (is.character(x)) return(x)
   if (is.name(x)) return(as.character(x))
+  if (is.null(x)) return(x)
 
   stop("Invalid column specification", call. = FALSE)
 }
@@ -36,3 +37,5 @@ append_col <- function(x, col, name, after = length(x)) {
 extract_numeric <- function(x) {
   as.numeric(gsub("[^0-9.-]+", "", as.character(x)))
 }
+
+"%||%" <- function(a, b) if (is.null(a)) b else a

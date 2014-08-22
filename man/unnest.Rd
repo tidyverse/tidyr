@@ -3,7 +3,7 @@
 \alias{unnest}
 \title{Unnest a list column.}
 \usage{
-unnest(data, col)
+unnest(data, col = NULL)
 }
 \arguments{
 \item{data}{A data frame.}
@@ -24,5 +24,10 @@ df <- data.frame(
 df \%>\%
   transform(y = strsplit(y, ",")) \%>\%
   unnest(y)
+
+# You can also unnest lists
+my_list <- lapply(split(subset(iris, select = -Species), iris$Species), "[", 1:2, )
+unnest(my_list)
+unnest(my_list, Species)
 }
 
