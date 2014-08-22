@@ -41,5 +41,15 @@ Given either regular expression or a vector of character positions,
 library(dplyr)
 df <- data.frame(x = c("a.b", "a.d", "b.c"))
 df \%>\% separate(x, c("A", "B"))
+
+# If every row doesn't split into the same number of pieces, use
+# the extra argument to control what happens
+df <- data.frame(x = c("a", "a b"))
+df \%>\% separate(x, c("a", "b"), extra = "merge")
+df \%>\% separate(x, c("a", "b"), extra = "drop")
+
+# If only want to split specified number of times use extra = "merge"
+df <- data.frame(x = c("x: 123", "y: error: 7"))
+df \%>\% separate(x, c("key", "value"), ": ", extra = "merge")
 }
 

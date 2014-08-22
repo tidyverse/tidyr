@@ -4,7 +4,7 @@
 \title{Standard-evaluation version of \code{separate}.}
 \usage{
 separate_(data, col, into, sep = "[^[:alnum:]]+", remove = TRUE,
-  convert = FALSE, ...)
+  convert = FALSE, extra = "error", ...)
 }
 \arguments{
 \item{data}{A data frame.}
@@ -23,6 +23,17 @@ separate_(data, col, into, sep = "[^[:alnum:]]+", remove = TRUE,
   at 1 at the far-left of the string; negative value start at -1 at the
   far-right of the string. The length of \code{sep} should be one less than
   \code{into}.}
+
+\item{extra}{If \code{sep} is a character vector, this controls what
+  happens when the number of pieces doesn't match \code{into}. There are
+  three valid options:
+
+  \itemize{
+   \item "error" (the default): throws error if pieces aren't right length
+   \item "drop": always returns \code{length(into)} pieces by dropping or
+     expanding as necessary
+   \item "merge": only splits at most \code{length(into)} times
+  }}
 
 \item{remove}{If \code{TRUE}, remove input column from output data frame.}
 
