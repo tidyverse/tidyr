@@ -19,10 +19,20 @@ append_col <- function(x, col, name, after = length(x)) {
 
 #' Extract numeric component of variable.
 #'
+#' This uses a regular expression to strip all non-numeric character from
+#' a string and then coerces the result to a number. This is useful for
+#' strings that are numbers with extra formatting (e.g. $1,200.34).
+#'
 #' @param x A character vector (or a factor).
 #' @export
 #' @examples
 #' extract_numeric("$1,200.34")
+#' extract_numeric("-2%")
+#'
+#' # The heuristic is not perfect - it won't fail for things that
+#' # clearly aren't numbers
+#' extract_numeric("-2-2")
+#' extract_numeric("12abc34")
 extract_numeric <- function(x) {
-  as.numeric(gsub("[^0-9.]+", "", as.character(x)))
+  as.numeric(gsub("[^0-9.-]+", "", as.character(x)))
 }
