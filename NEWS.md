@@ -5,3 +5,5 @@
 * `separate()` gains `extra` argument which lets you control what happens
   to extra pieces. The default is to throw an "error", but you can also
   "merge" or "drop".
+
+* `gather()` performance is now comparable to `reshape2::melt()` (#18).

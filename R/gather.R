@@ -28,7 +28,7 @@
 gather <- function(data, key, value, ..., na.rm = FALSE, convert = FALSE) {
   key_col <- col_name(substitute(key))
   value_col <- col_name(substitute(value))
-  gather_cols <- dplyr::select_vars(names(data), ...)
+  gather_cols <- unname(dplyr::select_vars(names(data), ...))
 
   gather_(data, key_col, value_col, gather_cols, na.rm = na.rm,
     convert = convert)
