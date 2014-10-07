@@ -22,3 +22,13 @@ test_that("duplicate values for one key is an error", {
   expect_error(df %>% spread(x, y), "Duplicate identifiers for rows (2, 3)",
     fixed = TRUE)
 })
+
+test_that("factors are spread into columns (#35)", {
+  data <- data.frame(
+    x = c("a", "a", "b", "b"),
+    y = c("c", "d", "c", "d"),
+    z = c("w", "x", "y", "z")
+  )
+  out <- data %>% spread(x, z)
+  expect_equal(names(out), c("y", "a", "b"))
+})
