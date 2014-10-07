@@ -1,5 +1,7 @@
 # tidyr 0.1.0.9000
 
+* If `...` is ommitted, `gather()` selects all columns (#28)
+
 * Spread gains `drop` argument, which allows you to preserve missing
   factor levels (#25).
 

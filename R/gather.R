@@ -28,11 +28,19 @@
 gather <- function(data, key, value, ..., na.rm = FALSE, convert = FALSE) {
   key_col <- col_name(substitute(key))
   value_col <- col_name(substitute(value))
-  gather_cols <- unname(dplyr::select_vars(names(data), ...))
+
+  if (n_dots(...) == 0) {
+    gather_cols <- setdiff(names(data), c(key_col, value_col))
+  } else {
+    gather_cols <- unname(dplyr::select_vars(names(data), ...))
+  }
+
 
   gather_(data, key_col, value_col, gather_cols, na.rm = na.rm,
     convert = convert)
 }
+
+n_dots <- function(...) nargs()
 
 #' Gather (standard-evaluation).
 #'
