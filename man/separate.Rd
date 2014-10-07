@@ -44,7 +44,7 @@ df \%>\% separate(x, c("A", "B"))
 
 # If every row doesn't split into the same number of pieces, use
 # the extra argument to control what happens
-df <- data.frame(x = c("a", "a b"))
+df <- data.frame(x = c("a", "a b", "a b c", NA))
 df \%>\% separate(x, c("a", "b"), extra = "merge")
 df \%>\% separate(x, c("a", "b"), extra = "drop")
 
