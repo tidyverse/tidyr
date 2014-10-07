@@ -26,8 +26,8 @@
 #' gather(stocks, stock, price, -time)
 #' stocks %>% gather(stock, price, -time)
 gather <- function(data, key, value, ..., na.rm = FALSE, convert = FALSE) {
-  key_col <- col_name(substitute(key))
-  value_col <- col_name(substitute(value))
+  key_col <- col_name(substitute(key), "key")
+  value_col <- col_name(substitute(value), "value")
 
   if (n_dots(...) == 0) {
     gather_cols <- setdiff(names(data), c(key_col, value_col))
