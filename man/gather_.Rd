@@ -9,6 +9,9 @@ gather_(data, key_col, value_col, gather_cols, na.rm = FALSE,
 \arguments{
 \item{data}{A data frame}
 
+\item{key_col,value_col}{Strings giving names of key and value columns to
+create.}
+
 \item{gather_cols}{Character vector giving column names to be gathered into
 pair of key-value columns.}
 
@@ -18,9 +21,6 @@ value column in \code{NA}.}
 \item{convert}{If \code{TRUE} will automatically run
 \code{\link{type.convert}} on the key column. This is useful if the column
 names are actually numeric, integer, or logical.}
-
-\item{key_var,value_var}{Strings giving names of key and value columns to
-create.}
 }
 \description{
 This is a S3 generic.

@@ -39,7 +39,7 @@ gather <- function(data, key, value, ..., na.rm = FALSE, convert = FALSE) {
 #' This is a S3 generic.
 #'
 #' @param data A data frame
-#' @param key_var,value_var Strings giving names of key and value columns to
+#' @param key_col,value_col Strings giving names of key and value columns to
 #'   create.
 #' @param gather_cols Character vector giving column names to be gathered into
 #'   pair of key-value columns.
