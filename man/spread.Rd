@@ -3,7 +3,7 @@
 \alias{spread}
 \title{Spread a key-value pair across multiple columns.}
 \usage{
-spread(data, key, value, fill = NA, convert = FALSE)
+spread(data, key, value, fill = NA, convert = FALSE, drop = TRUE)
 }
 \arguments{
 \item{data}{A data frame.}
@@ -17,6 +17,9 @@ variables and the key column, this value will be substituted.}
 \code{asis = TRUE} will be run on each of the new columns. This is
 useful if the value column was a mix of variables that was coerced to
 a string.}
+
+\item{drop}{If \code{FALSE}, will keep factor levels that don't appear
+in the data, filling in missing combinations with \code{fill}.}
 }
 \description{
 Spread a key-value pair across multiple columns.

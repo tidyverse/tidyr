@@ -3,7 +3,7 @@
 \alias{spread_}
 \title{Standard-evaluation version of \code{spread}.}
 \usage{
-spread_(data, key_col, value_col, fill = NA, convert = FALSE)
+spread_(data, key_col, value_col, fill = NA, convert = FALSE, drop = TRUE)
 }
 \arguments{
 \item{data}{A data frame.}
@@ -17,6 +17,9 @@ variables and the key column, this value will be substituted.}
 \code{asis = TRUE} will be run on each of the new columns. This is
 useful if the value column was a mix of variables that was coerced to
 a string.}
+
+\item{drop}{If \code{FALSE}, will keep factor levels that don't appear
+in the data, filling in missing combinations with \code{fill}.}
 }
 \description{
 This is a S3 generic.

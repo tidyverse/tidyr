@@ -37,6 +37,8 @@ spread <- function(data, key, value, fill = NA, convert = FALSE, drop = TRUE) {
 #'   \code{asis = TRUE} will be run on each of the new columns. This is
 #'   useful if the value column was a mix of variables that was coerced to
 #'   a string.
+#' @param drop If \code{FALSE}, will keep factor levels that don't appear
+#'   in the data, filling in missing combinations with \code{fill}.
 #' @export
 spread_ <- function(data, key_col, value_col, fill = NA, convert = FALSE,
                     drop = TRUE) {
@@ -95,7 +97,7 @@ spread_.data.frame <- function(data, key_col, value_col, fill = NA,
 
 #' @export
 spread_.tbl_df <- function(data, key_col, value_col, fill = NA,
-                           convert = FALSE) {
+                           convert = FALSE, drop = TRUE) {
   dplyr::tbl_df(NextMethod())
 }
 
