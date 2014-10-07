@@ -1,5 +1,7 @@
 # tidyr 0.1.0.9000
 
+* Experimental new `expand()` function (#21).
+
 * `gather()` has better defaults is `key` and `value` are not supplied.
 
 * If `...` is ommitted, `gather()` selects all columns (#28)

@@ -12,7 +12,8 @@ LazyData: true
 Imports:
     reshape2,
     dplyr (>= 0.2),
-    stringi
+    stringi,
+    lazyeval
 URL: https://github.com/hadley/tidyr
 Suggests:
     knitr,
