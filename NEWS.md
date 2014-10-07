@@ -1,5 +1,8 @@
 # tidyr 0.1.0.9000
 
+* Spread gains `drop` argument, which allows you to preserve missing
+  factor levels (#25).
+
 * Spread converts factor value variable to character, instead of embedding
   matrix inside data frame (#35).
 

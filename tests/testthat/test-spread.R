@@ -32,3 +32,16 @@ test_that("factors are spread into columns (#35)", {
   out <- data %>% spread(x, z)
   expect_equal(names(out), c("y", "a", "b"))
 })
+
+test_that("drop = FALSE keeps missing combinations (#25)", {
+  df <- data.frame(
+    x = factor("a", levels = c("a", "b")),
+    y = factor("b", levels = c("a", "b")),
+    z = 1
+  )
+  out <- df %>% spread(x, z, drop = FALSE)
+  expect_equal(nrow(out), 2)
+  expect_equal(ncol(out), 3)
+  expect_equal(out$a[2], 1)
+
+})
