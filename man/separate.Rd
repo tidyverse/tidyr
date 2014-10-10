@@ -4,7 +4,7 @@
 \title{Separate one column into multiple columns.}
 \usage{
 separate(data, col, into, sep = "[^[:alnum:]]+", remove = TRUE,
-  convert = FALSE, ...)
+  convert = FALSE, extra = "error", ...)
 }
 \arguments{
 \item{data}{A data frame.}
@@ -29,6 +29,17 @@ separate(data, col, into, sep = "[^[:alnum:]]+", remove = TRUE,
 \item{convert}{If \code{TRUE}, will run \code{\link{type.convert}} with
 \code{as.is = TRUE} on new columns. This is useful if the component
 columns are integer, numeric or logical.}
+
+\item{extra}{If \code{sep} is a character vector, this controls what
+  happens when the number of pieces doesn't match \code{into}. There are
+  three valid options:
+
+  \itemize{
+   \item "error" (the default): throws error if pieces aren't right length
+   \item "drop": always returns \code{length(into)} pieces by dropping or
+     expanding as necessary
+   \item "merge": only splits at most \code{length(into)} times
+  }}
 
 \item{...}{Other arguments passed on to \code{\link{strsplit}} to control
 how the regular expression is processed.}

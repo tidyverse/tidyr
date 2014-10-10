@@ -21,9 +21,10 @@
 #' df <- data.frame(x = c("x: 123", "y: error: 7"))
 #' df %>% separate(x, c("key", "value"), ": ", extra = "merge")
 separate <- function(data, col, into, sep = "[^[:alnum:]]+", remove = TRUE,
-                     convert = FALSE, ...) {
+                     convert = FALSE, extra = "error", ...) {
   col <- col_name(substitute(col))
-  separate_(data, col, into, sep = sep, remove = remove, convert = convert, ...)
+  separate_(data, col, into, sep = sep, remove = remove, convert = convert,
+    extra = extra, ...)
 }
 
 #' Standard-evaluation version of \code{separate}.
