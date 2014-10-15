@@ -1,3 +1,4 @@
+
 #' Spread a key-value pair across multiple columns.
 #'
 #' @param key,value Bare (unquoted) names of key and value columns.
@@ -18,11 +19,11 @@
 #' # Spread and gather are complements
 #' df <- data.frame(x = c("a", "b"), y = c(3, 4), z = c(5, 6))
 #' df %>% spread(x, y) %>% gather(x, y, a:b, na.rm = TRUE)
-spread <- function(data, key, value, fill = NA, convert = FALSE) {
+spread <- function(data, key, value, fill = NA, convert = FALSE, drop = TRUE) {
   key_col <- col_name(substitute(key))
   value_col <- col_name(substitute(value))
 
-  spread_(data, key_col, value_col, fill = fill, convert = convert)
+  spread_(data, key_col, value_col, fill = fill, convert = convert, drop = drop)
 }
 
 #' Standard-evaluation version of \code{spread}.
@@ -37,22 +38,25 @@ spread <- function(data, key, value, fill = NA, convert = FALSE) {
 #'   \code{asis = TRUE} will be run on each of the new columns. This is
 #'   useful if the value column was a mix of variables that was coerced to
 #'   a string.
+#' @param drop If \code{FALSE}, will keep factor levels that don't appear
+#'   in the data, filling in missing combinations with \code{fill}.
 #' @export
-spread_ <- function(data, key_col, value_col, fill = NA, convert = FALSE) {
+spread_ <- function(data, key_col, value_col, fill = NA, convert = FALSE,
+                    drop = TRUE) {
   UseMethod("spread_")
 }
 
 #' @export
 spread_.data.frame <- function(data, key_col, value_col, fill = NA,
-                               convert = FALSE) {
+                               convert = FALSE, drop = TRUE) {
 
   col <- data[key_col]
-  col_id <- dplyr::id(col, drop = TRUE)
-  col_labels <- col[match(sort(unique(col_id)), col_id), , drop = FALSE]
+  col_id <- dplyr::id(col, drop = drop)
+  col_labels <- split_labels(col, col_id, drop = drop)
 
   rows <- data[setdiff(names(data), c(key_col, value_col))]
-  row_id <- dplyr::id(rows, drop = TRUE)
-  row_labels <- rows[match(sort(unique(row_id)), row_id), , drop = FALSE]
+  row_id <- dplyr::id(rows, drop = drop)
+  row_labels <- split_labels(rows, row_id, drop = drop)
   rownames(row_labels) <- NULL
 
   overall <- dplyr::id(list(col_id, row_id), drop = FALSE)
@@ -83,25 +87,23 @@ spread_.data.frame <- function(data, key_col, value_col, fill = NA,
   }
 
   dim(ordered) <- c(attr(row_id, "n"), attr(col_id, "n"))
+  ordered <- as.data.frame.matrix(ordered, stringsAsFactors = FALSE)
   colnames(ordered) <- as.character(col_labels[[1]])
-  ordered <- as.data.frame(ordered, stringsAsFactors = FALSE)
 
   if (convert) {
     ordered[] <- lapply(ordered, type.convert, as.is = TRUE)
   }
-
   append_df(row_labels, ordered)
 }
 
 #' @export
 spread_.tbl_df <- function(data, key_col, value_col, fill = NA,
-                           convert = FALSE) {
+                           convert = FALSE, drop = TRUE) {
   dplyr::tbl_df(NextMethod())
 }
 
-
 #' @export
-spread_.data.table <- function(data, key_col, value_col, fill = NA, convert = FALSE) {
+spread_.data.table <- function(data, key_col, value_col, fill = NA, convert = FALSE, drop = TRUE) {
   id <- setdiff(names(data), c(key_col, value_col))
   length_lhs <- length(id)
   if (!length_lhs) {
@@ -119,7 +121,7 @@ spread_.data.table <- function(data, key_col, value_col, fill = NA, convert = FA
              call. = FALSE)
   }
   formula <- reformulate(termlabels = key_col , response = id)
-  data2 <- dcast.data.table(data, formula, value.var = value_col, fill = fill)
+  data2 <- dcast.data.table(data, formula, value.var = value_col, fill = fill, drop = drop)
   if (!length_lhs) {
     data2[, (id) := NULL]
   }
@@ -131,11 +133,31 @@ spread_.data.table <- function(data, key_col, value_col, fill = NA, convert = FA
 
 #' @export
 spread_.tbl_dt <- function(data, key_col, value_col, fill = NA,
-                           convert = FALSE) {
+                           convert = FALSE, drop = TRUE) {
   dplyr::tbl_dt(NextMethod())
 }
 
 
+split_labels <- function(df, id, drop = TRUE) {
+  if (length(df) == 0) {
+    return(df)
+  }
 
+  if (drop) {
+    representative <- match(sort(unique(id)), id)
+    df[representative, , drop = FALSE]
+  } else {
+    unique_values <- lapply(df, ulevels)
+    rev(expand.grid(rev(unique_values), stringsAsFactors = FALSE))
+  }
+}
 
-
+ulevels <- function(x) {
+  if (is.factor(x)) {
+    x <- addNA(x, ifany = TRUE)
+    levs <- levels(x)
+    factor(levs, levels = levs)
+  } else {
+    sort(unique(x))
+  }
+}
