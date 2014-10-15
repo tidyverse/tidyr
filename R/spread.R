@@ -111,7 +111,7 @@ spread_.data.table <- function(data, key_col, value_col, fill = NA, convert = FA
     data[, (id) := 1] 
     on.exit(data[, (id) := NULL])
   }
-  else if (anyDuplicated(data, by = c(id, key_col))){
+  if (anyDuplicated(data, by = c(id, key_col))){
         overall <- dplyr::id(data[,c(id, key_col), with = FALSE])
         groups <- split(seq_along(overall), overall)
         groups <- groups[vapply(groups, length, integer(1)) > 1]
