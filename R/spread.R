@@ -108,7 +108,7 @@ spread_.data.table <- function(data, key_col, value_col, fill = NA, convert = FA
   length_lhs <- length(id)
   if (!length_lhs) {
     id <- tempname("temp", data)
-    data[, (id) := 1:.N] 
+    data[, (id) := 1] 
     on.exit(data[, (id) := NULL])
   }
   else if (anyDuplicated(data, by = c(id, key_col))){
