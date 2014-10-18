@@ -25,6 +25,22 @@
 #'
 #' gather(stocks, stock, price, -time)
 #' stocks %>% gather(stock, price, -time)
+#'
+#' # get first observation for each Species in iris data -- base R
+#' mini_iris <-
+#'   do.call("rbind", lapply(split(iris, iris$Species), "[", 1, ))
+#' # gather Sepal.Length, Sepal.Width, Petal.Length, Petal.Width
+#' gather(mini_iris, key = flower_att, value = measurement,
+#'        Sepal.Length, Sepal.Width, Petal.Length, Petal.Width)
+#' # same result but less verbose
+#' gather(mini_iris, key = flower_att, value = measurement, -Species)
+#' 
+#' # repeat iris example using dplyr and the pipe operator
+#' mini_iris <- 
+#'   iris %>%
+#'   group_by(Species) %>%
+#'   slice(1)
+#' mini_iris %>% gather(key = flower_att, value = measurement, -Species)
 gather <- function(data, key, value, ..., na.rm = FALSE, convert = FALSE) {
   key_col <- col_name(substitute(key), "key")
   value_col <- col_name(substitute(value), "value")
