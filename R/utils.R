@@ -40,7 +40,6 @@ extract_numeric <- function(x) {
 
 "%||%" <- function(a, b) if (is.null(a)) b else a
 
-
 tempname=function(prefix, where, inherits=TRUE) {
     i <- 0L
     name <- prefix
@@ -49,4 +48,10 @@ tempname=function(prefix, where, inherits=TRUE) {
         name <- paste0(prefix, as.character(i))
     }
     name
+}
+
+shallow_ <- function(x) {
+    out = as.list(x)
+    setDT(out)
+    out
 }
