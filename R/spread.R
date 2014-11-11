@@ -120,7 +120,7 @@ spread_.data.table <- function(data, key_col, value_col, fill = NA, convert = FA
         stop("Duplicate identifiers for rows ", paste(str, collapse = ", "),
              call. = FALSE)
   }
-  formula <- reformulate(termlabels = key_col , response = id)
+  formula <- as.formula(paste(paste(id, collapse = "+"), paste(key_col, collapse = "+"), sep = "~"))
   data2 <- dcast.data.table(data, formula, value.var = value_col, fill = fill, drop = drop)
   if (!length_lhs) {
     data2[, (id) := NULL]
