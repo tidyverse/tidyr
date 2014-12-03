@@ -2,7 +2,7 @@
 
 * Experimental new `expand()` function (#21).
 
-* `gather()` has better defaults is `key` and `value` are not supplied.
+* `gather()` has better defaults if `key` and `value` are not supplied.
 
 * If `...` is ommitted, `gather()` selects all columns (#28)
 
