@@ -2,8 +2,8 @@ Package: tidyr
 Title: Easily Tidy Data with spread() and gather() Functions.
 Version: 0.2.0
 Authors@R: 'Hadley Wickham <h.wickham@gmail.com> [aut,cre]'
-Description: tidyr is an evolution of reshape2. It's designed specifically for
-    data tidying (not general reshaping or aggregating) and works well with
+Description: An evolution of reshape2. It's designed specifically for data
+    tidying (not general reshaping or aggregating) and works well with
     dplyr data pipelines.
 Depends:
     R (>= 3.1.0)

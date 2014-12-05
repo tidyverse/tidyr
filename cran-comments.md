@@ -4,7 +4,14 @@
 * win-builder (devel and release)
 
 ## R CMD check results
-There were no ERRORs, WARNINGs or NOTEs. 
+There were no ERRORs, WARNINGs.
+
+There was one NOTE:
+
+  * Possibly mis-spelled words in DESCRIPTION:  dplyr (7:5)
+
+    dplyr is the name of another package.  (Is there a reason that package
+    names aren't automatically added to the list of valid words?)
 
 ## Downstream dependencies
 I have also run R CMD check on the two downstream dependencies of tidyr 
