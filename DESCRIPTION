@@ -1,6 +1,6 @@
 Package: tidyr
 Title: Easily tidy data with spread and gather functions.
-Version: 0.1.0.9000
+Version: 0.2.0
 Authors@R: 'Hadley Wickham <h.wickham@gmail.com> [aut,cre]'
 Description: tidyr is an evolution of reshape2. It's design specifically for
     data tidying (not general reshaping or aggregating) and works well with
