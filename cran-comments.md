@@ -6,7 +6,9 @@
 ## R CMD check results
 There were no ERRORs, WARNINGs.
 
-There was one NOTE:
+There were two NOTEs:
+
+  * Maintainer address has changed to <hadley@rstudio.com>
 
   * Possibly mis-spelled words in DESCRIPTION:  dplyr (7:5)
 
