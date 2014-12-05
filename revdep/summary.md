@@ -26,13 +26,13 @@
 2 checked out of 2 dependencies 
 
 ## broom (0.3.4)
-Maintainer: David Robinson <admiral.david@gmail.com>
+Maintainer: David Robinson <admiral.david@gmail.com>  
 Bug reports: http://github.com/dgrtwo/broom/issues
 
 __OK__
 
 ## statar (0.1.2)
-Maintainer: Matthieu Gomez <mattg@princeton.edu>
+Maintainer: Matthieu Gomez <mattg@princeton.edu>  
 Bug reports: https://github.com/matthieugomez/statar/issues
 
 __OK__
