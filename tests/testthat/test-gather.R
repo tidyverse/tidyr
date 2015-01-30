@@ -16,3 +16,9 @@ test_that("if not supply, key and value default to key and value", {
   expect_equal(nrow(out), 2)
   expect_equal(names(out), c("key", "value"))
 })
+
+test_that("preserve class of input", {
+  dat <- data.frame(x = 1:2)
+  dat %>% tbl_df %>% gather %>% expect_is("tbl_df")
+  dat %>% tbl_df %>% gather %>% expect_is("tbl_df")
+})

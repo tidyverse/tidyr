@@ -45,3 +45,15 @@ test_that("drop = FALSE keeps missing combinations (#25)", {
   expect_equal(out$a[2], 1)
 
 })
+
+test_that("preserve class of input", {
+  dat <- data.frame(
+    x = c("a", "a", "b", "b"),
+    y = c("c", "d", "c", "d"),
+    z = c("w", "x", "y", "z")
+  )
+  dat %>% tbl_df %>% spread(x, z) %>% expect_is("tbl_df")
+  dat %>% tbl_dt %>% spread(x, z) %>% expect_is("tbl_dt")
+})
+
+

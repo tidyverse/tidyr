@@ -84,3 +84,9 @@ gather_.tbl_df <- function(data, key_col, value_col, gather_cols,
                            na.rm = FALSE, convert = FALSE) {
   dplyr::tbl_df(NextMethod())
 }
+
+#' @export
+gather_.tbl_dt <- function(data, key_col, value_col, gather_cols,
+                           na.rm = FALSE, convert = FALSE) {
+  dplyr::tbl_dt(NextMethod())
+}
