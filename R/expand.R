@@ -35,10 +35,12 @@ expand_ <- function(data, dots, ...) {
 
 #' @export
 expand_.data.frame <- function(data, dots, ...) {
+  dots <- lazyeval::as.lazy_dots(dots)
+  if (length(dots) == 0)
+    return(data.frame())
+
   dots <- lazyeval::auto_name(dots)
-  if (length(dots) > 0) {
-    data <- lazyeval::lazy_eval(dots, data)
-  }
+  data <- lazyeval::lazy_eval(dots, data)
 
   grid <- lapply(data, ulevels)
   rev(expand.grid(rev(grid), stringsAsFactors = FALSE))

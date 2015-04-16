@@ -1,5 +1,8 @@
 # tidyr 0.2.0.9000
 
+* `expand_` does SE evaluation correctly so you can pass it a character vector
+  of columns names (or list of formulas etc) (#70).
+
 # tidyr 0.2.0
 
 ## New functions
