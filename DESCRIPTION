@@ -5,9 +5,9 @@ Authors@R: as.person(c(
     "Hadley Wickham <hadley@rstudio.com> [aut, cre]",
     "RStudio [cph]"
     ))
-Description: An evolution of reshape2. It's designed specifically for data
+Description: An evolution of 'reshape2'. It's designed specifically for data
     tidying (not general reshaping or aggregating) and works well with
-    dplyr data pipelines.
+    'dplyr' data pipelines.
 Depends:
     R (>= 3.1.0)
 License: MIT + file LICENSE

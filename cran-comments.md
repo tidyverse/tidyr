@@ -6,15 +6,6 @@
 ## R CMD check results
 There were no ERRORs, WARNINGs.
 
-There were two NOTEs:
-
-  * Maintainer address has changed to <hadley@rstudio.com>
-
-  * Possibly mis-spelled words in DESCRIPTION:  dplyr (7:5)
-
-    dplyr is the name of another package.  (Is there a reason that package
-    names aren't automatically added to the list of valid words?)
-
 ## Downstream dependencies
 I have also run R CMD check on the two downstream dependencies of tidyr 
 (https://github.com/hadley/tidyr/blob/master/revdep/summary.md). Both packages passed without ERRORs, WARNINGs or NOTEs.
