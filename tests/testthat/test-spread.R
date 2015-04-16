@@ -53,6 +53,8 @@ test_that("preserve class of input", {
     z = c("w", "x", "y", "z")
   )
   dat %>% tbl_df %>% spread(x, z) %>% expect_is("tbl_df")
+
+  skip_if_not_installed("data.table")
   dat %>% tbl_dt %>% spread(x, z) %>% expect_is("tbl_dt")
 })
 

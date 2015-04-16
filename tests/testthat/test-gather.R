@@ -20,5 +20,7 @@ test_that("if not supply, key and value default to key and value", {
 test_that("preserve class of input", {
   dat <- data.frame(x = 1:2)
   dat %>% tbl_df %>% gather %>% expect_is("tbl_df")
+
+  skip_if_not_installed("data.table")
   dat %>% tbl_df %>% gather %>% expect_is("tbl_df")
 })

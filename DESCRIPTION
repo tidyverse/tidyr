@@ -17,6 +17,8 @@ Imports:
     dplyr (>= 0.2),
     stringi,
     lazyeval
+Suggests:
+    data.table
 URL: https://github.com/hadley/tidyr
 BugReports: https://github.com/hadley/tidyr/issues
 Suggests:
