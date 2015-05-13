@@ -1,7 +1,13 @@
-<!-- 
-%\VignetteEngine{knitr::knitr}
-%\VignetteIndexEntry{Tidy data}
--->
+---
+title: "Tidy data"
+author: "Hadley Wickham"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Tidy data}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
 
 ```{r, echo = FALSE}
 knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
