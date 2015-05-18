@@ -1,6 +1,6 @@
 #' Unite multiple columns into one.
 #'
-#' Convenience function to paste together multiple functions into one.
+#' Convenience function to paste together multiple columns into one.
 #'
 #' @inheritParams unite_
 #' @param col (Bare) name of column to add

@@ -20,7 +20,7 @@ Select all variables between x and z with \code{x:z}, exclude y with
 \item{remove}{If \code{TRUE}, remove input columns from output data frame.}
 }
 \description{
-Convenience function to paste together multiple functions into one.
+Convenience function to paste together multiple columns into one.
 }
 \examples{
 library(dplyr)
