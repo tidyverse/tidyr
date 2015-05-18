@@ -4,12 +4,12 @@
 \alias{unnest_}
 \title{Standard-evaluation version of \code{unnest}.}
 \usage{
-unnest_(data, col)
+unnest_(data, unnest_cols)
 }
 \arguments{
 \item{data}{A data frame.}
 
-\item{col}{Name of column that needs to be unnested.}
+\item{unnest_cols}{Name of columns that needs to be unnested.}
 }
 \description{
 This is a S3 generic.

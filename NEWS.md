@@ -1,5 +1,9 @@
 # tidyr 0.2.0.9000
 
+* `unnest()` can now work with multiple list-columns at the same time. 
+  If you don't supply any columns names, it will unlist all 
+  list-columns (#44)
+
 * Experimental `unnest()` method for lists has been removed.
 
 * `nest()` is the complement of `unnest()` (#3).

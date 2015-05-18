@@ -4,12 +4,16 @@
 \alias{unnest}
 \title{Unnest a list column.}
 \usage{
-unnest(data, col)
+unnest(data, ...)
 }
 \arguments{
 \item{data}{A data frame.}
 
-\item{col}{Name of column that needs to be unnested.}
+\item{...}{Specification of columns to nest. Use bare variable names.
+  Select all variables between x and z with \code{x:z}, exclude y with
+  \code{-y}. For more options, see the \link[dplyr]{select} documentation.
+
+  If ommitted, defaults to all list-cols.}
 }
 \description{
 If you have a list-column, this makes each element of the list it's own
@@ -25,6 +29,16 @@ df <- data.frame(
 df \%>\%
   transform(y = strsplit(y, ",")) \%>\%
   unnest(y)
+
+# You can also unnest multiple columns simultaneously
+df <- data_frame(
+ a = list(c("a", "b"), "c"),
+ b = list(1:2, 3),
+ c = c(11, 22)
+)
+df \%>\% unnest(a, b)
+# If you omit the column names, it'll unnest all list-cols
+df \%>\% unnest()
 
 # Nest and unnest are inverses
 df <- data.frame(x = c(1, 1, 2), y = 3:1)
