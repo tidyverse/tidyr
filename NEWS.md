@@ -1,5 +1,8 @@
 # tidyr 0.2.0.9000
 
+* `fill()` fills in missing values in a column with the last non-missing 
+  value (#4).
+
 * `%>%` is exported from magrittr.
 
 * `expand_` does SE evaluation correctly so you can pass it a character vector
