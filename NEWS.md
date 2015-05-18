@@ -1,5 +1,7 @@
 # tidyr 0.2.0.9000
 
+* Experimental `unnest()` method for lists has been removed.
+
 * `nest()` is the complement of `unnest()` (#3).
 
 * `fill()` fills in missing values in a column with the last non-missing 

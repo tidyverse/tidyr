@@ -17,16 +17,11 @@
 #'   transform(y = strsplit(y, ",")) %>%
 #'   unnest(y)
 #'
-#' # You can also unnest lists
-#' my_list <- lapply(split(subset(iris, select = -Species), iris$Species), "[", 1:2, )
-#' unnest(my_list)
-#' unnest(my_list, Species)
-#'
 #' # Nest and unnest are inverses
 #' df <- data.frame(x = c(1, 1, 2), y = 3:1)
 #' df %>% nest(y)
 #' df %>% nest(y) %>% unnest(y)
-unnest <- function(data, col = NULL) {
+unnest <- function(data, col) {
   col <- col_name(substitute(col))
   unnest_(data, col)
 }
@@ -56,37 +51,4 @@ unnest_.data.frame <- function(data, col) {
 #' @export
 unnest_.tbl_df <- function(data, col) {
   dplyr::tbl_df(NextMethod())
-}
-
-#' @export
-unnest_.list <- function(data, col = NULL, ...) {
-
-  is_data_frame <- unique(vapply(data, is.data.frame, logical(1)))
-  if (length(is_data_frame) != 1) {
-    stop("Either all inputs should be data frames or none should be",
-      call. = FALSE)
-  }
-  if (!is_data_frame) {
-    data <- lapply(data, function(x) {
-      df <- list(x)
-      attr(df, "row.names") <- .set_row_names(length(x))
-      names(df) <- "x"
-      class(df) <- "data.frame"
-      df
-    })
-  }
-
-  all <- dplyr::rbind_all(data)
-  if (is.null(col)) return(all)
-
-  rows <- vapply(data, .row_names_info, type = 2L, FUN.VALUE = numeric(1))
-
-  labels <- names(data) %||% paste0("X", seq_along(data))
-
-  labels_df <- list(rep(labels, rows))
-  attr(labels_df, "row.names") <- .set_row_names(sum(rows))
-  names(labels_df) <- col
-  class(labels_df) <- "data.frame"
-
-  cbind(labels_df, all)
 }
