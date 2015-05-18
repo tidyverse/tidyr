@@ -1,5 +1,5 @@
 Package: tidyr
-Title: Easily Tidy Data with spread() and gather() Functions.
+Title: Easily Tidy Data with `spread()` and `gather()` Functions
 Version: 0.2.0.9000
 Authors@R: as.person(c(
     "Hadley Wickham <hadley@rstudio.com> [aut, cre]",
@@ -8,11 +8,11 @@ Authors@R: as.person(c(
 Description: An evolution of 'reshape2'. It's designed specifically for data
     tidying (not general reshaping or aggregating) and works well with
     'dplyr' data pipelines.
-Depends: 
+Depends:
     R (>= 3.1.0)
 License: MIT + file LICENSE
 LazyData: true
-Imports: 
+Imports:
     reshape2,
     dplyr (>= 0.2),
     stringi,
@@ -21,7 +21,7 @@ Imports:
     Rcpp
 URL: https://github.com/hadley/tidyr
 BugReports: https://github.com/hadley/tidyr/issues
-Suggests: 
+Suggests:
     knitr,
     testthat,
     data.table
