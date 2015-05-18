@@ -30,5 +30,13 @@ df \%>\%
 my_list <- lapply(split(subset(iris, select = -Species), iris$Species), "[", 1:2, )
 unnest(my_list)
 unnest(my_list, Species)
+
+# Nest and unnest are inverses
+df <- data.frame(x = c(1, 1, 2), y = 3:1)
+df \%>\% nest(y)
+df \%>\% nest(y) \%>\% unnest(y)
+}
+\seealso{
+\code{\link{nest}} for the inverse operation.
 }
 
