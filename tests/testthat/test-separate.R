@@ -1,5 +1,11 @@
 context("Separate")
 
+test_that("missing values in input are missing in output", {
+  out <- str_split_fixed(c(NA, "a b"), " ", 2)
+  expect_equal(out[[1]], c(NA, "a"))
+  expect_equal(out[[2]], c(NA, "b"))
+})
+
 test_that("too many pieces dealt with as requested", {
   x <- c("a b", "a b c")
 

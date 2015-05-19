@@ -51,7 +51,7 @@ Given either regular expression or a vector of character positions,
 }
 \examples{
 library(dplyr)
-df <- data.frame(x = c("a.b", "a.d", "b.c"))
+df <- data.frame(x = c(NA, "a.b", "a.d", "b.c"))
 df \%>\% separate(x, c("A", "B"))
 
 # If every row doesn't split into the same number of pieces, use

@@ -8,7 +8,7 @@
 #' @inheritParams separate_
 #' @examples
 #' library(dplyr)
-#' df <- data.frame(x = c("a.b", "a.d", "b.c"))
+#' df <- data.frame(x = c(NA, "a.b", "a.d", "b.c"))
 #' df %>% separate(x, c("A", "B"))
 #'
 #' # If every row doesn't split into the same number of pieces, use
@@ -125,7 +125,7 @@ str_split_fixed <- function(value, sep, n, extra = "error") {
 
   ns <- vapply(pieces, length, integer(1))
 
-  if (any(ns != n)) {
+  if (any(ns != n & !is.na(value))) {
     if (extra == "error") {
       stop("Values not split into ", n, " pieces at ",
         paste0(which(ns != n), collapse = ', '), call. = FALSE)
@@ -135,6 +135,8 @@ str_split_fixed <- function(value, sep, n, extra = "error") {
   }
 
   # Convert into a list of columns
-  mat <- matrix(unlist(pieces), ncol = n, byrow = TRUE)
+  mat <- stringi::stri_list2matrix(pieces, n_min = n, byrow = TRUE)
+
+  # Use as_data_frame post https://github.com/hadley/dplyr/issues/876
   lapply(1:ncol(mat), function(i) mat[, i])
 }

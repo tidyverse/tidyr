@@ -3,6 +3,9 @@
 * `extract()` is 10x faster because it now uses stringi instead of 
   base R regular expressions. It also returns NA instead of throwing
   an error if the regular expression doesn't match (#72).
+  
+* If the input is NA `separate()` and `extract()` both return silently
+  return NA outputs, rather than throwing an error. (#77)
 
 * `unnest()` can now work with multiple list-columns at the same time. 
   If you don't supply any columns names, it will unlist all 
