@@ -17,18 +17,28 @@ unnest(data, ...)
 }
 \description{
 If you have a list-column, this makes each element of the list it's own
-row.
+row. List-columns can either be atomic vectors or data frames. Each
+row must have the same number of entries.
 }
 \examples{
 library(dplyr)
-df <- data.frame(
+df <- data_frame(
   x = 1:3,
-  y = c("a", "d,e,f", "g,h"),
-  stringsAsFactors = FALSE
+  y = c("a", "d,e,f", "g,h")
 )
 df \%>\%
   transform(y = strsplit(y, ",")) \%>\%
   unnest(y)
+
+# It also works if you have a column that contains other data frames!
+df <- data_frame(
+  x = 1:2,
+  y = list(
+   data_frame(z = 1),
+   data_frame(z = 3:4)
+ )
+)
+df \%>\% unnest(y)
 
 # You can also unnest multiple columns simultaneously
 df <- data_frame(

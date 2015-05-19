@@ -19,6 +19,8 @@ append_col <- function(x, col, name, after = length(x)) {
   append_df(x, setNames(list(col), name), after = after)
 }
 
+compact <- function(x) x[vapply(x, length, integer(1)) > 0]
+
 #' Extract numeric component of variable.
 #'
 #' This uses a regular expression to strip all non-numeric character from

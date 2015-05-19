@@ -14,7 +14,7 @@ License: MIT + file LICENSE
 LazyData: true
 Imports:
     reshape2,
-    dplyr (>= 0.2),
+    dplyr (>= 0.4),
     stringi,
     lazyeval,
     magrittr,

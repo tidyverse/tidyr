@@ -2,7 +2,8 @@
 
 * `unnest()` can now work with multiple list-columns at the same time. 
   If you don't supply any columns names, it will unlist all 
-  list-columns (#44)
+  list-columns (#44). `unnest()` can also handle columns that are
+  lists of data frames (#58).
 
 * Experimental `unnest()` method for lists has been removed.
 

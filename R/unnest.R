@@ -1,7 +1,8 @@
 #' Unnest a list column.
 #'
 #' If you have a list-column, this makes each element of the list it's own
-#' row.
+#' row. List-columns can either be atomic vectors or data frames. Each
+#' row must have the same number of entries.
 #'
 #' @inheritParams unnest_
 #' @param ... Specification of columns to nest. Use bare variable names.
@@ -13,14 +14,23 @@
 #' @export
 #' @examples
 #' library(dplyr)
-#' df <- data.frame(
+#' df <- data_frame(
 #'   x = 1:3,
-#'   y = c("a", "d,e,f", "g,h"),
-#'   stringsAsFactors = FALSE
+#'   y = c("a", "d,e,f", "g,h")
 #' )
 #' df %>%
 #'   transform(y = strsplit(y, ",")) %>%
 #'   unnest(y)
+#'
+#' # It also works if you have a column that contains other data frames!
+#' df <- data_frame(
+#'   x = 1:2,
+#'   y = list(
+#'    data_frame(z = 1),
+#'    data_frame(z = 3:4)
+#'  )
+#' )
+#' df %>% unnest(y)
 #'
 #' # You can also unnest multiple columns simultaneously
 #' df <- data_frame(
@@ -57,21 +67,46 @@ unnest_ <- function(data, unnest_cols) UseMethod("unnest_")
 #' @export
 unnest_.data.frame <- function(data, unnest_cols) {
   nested <- data[unnest_cols]
-  n <- lapply(nested, function(x) vapply(x, length, numeric(1)))
+  n <- lapply(nested, function(x) vapply(x, NROW, numeric(1)))
   if (length(unique(n)) != 1) {
     stop("All nested columns must have the same number of elements.",
       call. = FALSE)
   }
 
-  unnested <- lapply(nested, unlist, use.names = FALSE, recursive = FALSE)
-  names(unnested) <- unnest_cols
+  types <- vapply(nested, list_col_type, character(1))
+  nested <- split(nested, types)
+  if (length(nested$mixed) > 0) {
+    probs <- paste(names(nested$mixed), collapse = ",")
+    stop("Each column must either be a list of vectors or a list of ",
+      "data frames [", probs , "]", call. = FALSE)
+  }
+
+  unnested_atomic <- lapply(nested$atomic, dplyr::combine)
+  if (length(unnested_atomic) > 0)
+    unnested_atomic <- dplyr::as_data_frame(unnested_atomic)
+
+  unnested_dataframe <- lapply(nested$dataframe, dplyr::bind_rows)
+  if (length(unnested_dataframe) > 0)
+    unnested_dataframe <- dplyr::bind_cols(unnested_dataframe)
 
   group_cols <- setdiff(names(data), unnest_cols)
   rest <- data[rep(1:nrow(data), n[[1]]), group_cols, drop = FALSE]
-  rownames(rest) <- NULL
 
-  idx <- match(names(data), c(group_cols, unnest_cols))
-  append_df(rest, unnested)[idx]
+  # Simplify after https://github.com/hadley/dplyr/issues/1148
+  dplyr::bind_cols(compact(list(rest, unnested_atomic, unnested_dataframe)))
+}
+
+list_col_type <- function(x) {
+  is_data_frame <- vapply(x, is.data.frame, logical(1))
+  is_atomic <- vapply(x, is.atomic, logical(1))
+
+  if (all(is_data_frame)) {
+    "dataframe"
+  } else if (all(is_atomic)) {
+    "atomic"
+  } else {
+    "mixed"
+  }
 }
 
 #' @export
