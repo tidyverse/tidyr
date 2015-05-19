@@ -1,16 +1,20 @@
 #' Extract one column into multiple columns.
 #'
 #' Given a regular expression with capturing groups, \code{extract()} turns
-#' each group into a new column.
+#' each group into a new column. If the groups don't match, or the input
+#' is NA, the output will be NA.
 #'
 #' @param col Bare column name.
 #' @export
 #' @inheritParams extract_
 #' @examples
 #' library(dplyr)
-#' df <- data.frame(x = c("a.b", "a.d", "b.c"))
+#' df <- data.frame(x = c(NA, "a-b", "a-d", "b-c", "d-e"))
 #' df %>% extract(x, "A")
-#' df %>% extract(x, c("A", "B"), "([[:alnum:]]+)\\.([[:alnum:]]+)")
+#' df %>% extract(x, c("A", "B"), "([[:alnum:]]+)-([[:alnum:]]+)")
+#'
+#' # If no match, NA:
+#' df %>% extract(x, c("A", "B"), "([a-d]+)-([a-d]+)")
 extract <- function(data, col, into, regex = "([[:alnum:]]+)", remove = TRUE,
                      convert = FALSE, ...) {
   col <- col_name(substitute(col))
@@ -47,28 +51,12 @@ extract_.data.frame <- function(data, col, into, regex = "([[:alnum:]]+)",
 
   # Extract matching groups
   value <- as.character(data[[col]])
-  matches <- regexec(regex, value, ...)
-  pieces <- regmatches(value, matches)
 
-  ns <- vapply(pieces, length, integer(1))
-  if (any(ns == 0)) {
-    stop("Regex didn't match at ",
-      paste0(which(ns == 0), collapse = ", "),
-      call. = FALSE)
-  }
-  n <- unique(ns) - 1
-  stopifnot(length(n) == 1)
-
-  if (length(into) != n) {
-    stop("'into' must be the same length as the regex capture groups",
-         call. = FALSE)
-  }
-
-  # Convert into data frame
-  mat <- matrix(unlist(pieces), ncol = n + 1, byrow = TRUE)
-  mat <- mat[, -1, drop = FALSE] # remove complete match
-  l <- lapply(1:ncol(mat), function(i) mat[, i])
+  matches <- stringi::stri_match_first_regex(value, regex)[, -1, drop = FALSE]
+  # Use as_data_frame post https://github.com/hadley/dplyr/issues/876
+  l <- lapply(seq_len(ncol(matches)), function(i) matches[, i])
   names(l) <- into
+
   if (convert) {
     l[] <- lapply(l, type.convert, as.is = FALSE)
   }

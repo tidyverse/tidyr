@@ -1,5 +1,9 @@
 # tidyr 0.2.0.9000
 
+* `extract()` is 10x faster because it now uses stringi instead of 
+  base R regular expressions. It also returns NA instead of throwing
+  an error if the regular expression doesn't match (#72).
+
 * `unnest()` can now work with multiple list-columns at the same time. 
   If you don't supply any columns names, it will unlist all 
   list-columns (#44). `unnest()` can also handle columns that are

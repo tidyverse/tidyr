@@ -27,12 +27,16 @@ how the regular expression is processed.}
 }
 \description{
 Given a regular expression with capturing groups, \code{extract()} turns
-each group into a new column.
+each group into a new column. If the groups don't match, or the input
+is NA, the output will be NA.
 }
 \examples{
 library(dplyr)
-df <- data.frame(x = c("a.b", "a.d", "b.c"))
+df <- data.frame(x = c(NA, "a-b", "a-d", "b-c", "d-e"))
 df \%>\% extract(x, "A")
-df \%>\% extract(x, c("A", "B"), "([[:alnum:]]+)\\\\.([[:alnum:]]+)")
+df \%>\% extract(x, c("A", "B"), "([[:alnum:]]+)-([[:alnum:]]+)")
+
+# If no match, NA:
+df \%>\% extract(x, c("A", "B"), "([a-d]+)-([a-d]+)")
 }
 

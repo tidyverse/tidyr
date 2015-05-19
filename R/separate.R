@@ -72,9 +72,7 @@ separate_ <- function(data, col, into, sep = "[^[:alnum:]]+", remove = TRUE,
 separate_.data.frame <- function(data, col, into, sep = "[^[:alnum:]]+",
                                  remove = TRUE, convert = FALSE, extra = "error",
                                  ...) {
-
   stopifnot(is.character(col), length(col) == 1)
-
   value <- as.character(data[[col]])
 
   if (is.numeric(sep)) {
@@ -92,9 +90,9 @@ separate_.data.frame <- function(data, col, into, sep = "[^[:alnum:]]+",
 
   # Insert into existing data frame
   data <- append_df(data, l, which(names(data) == col))
-  if (remove) {
+  if (remove)
     data[[col]] <- NULL
-  }
+
   data
 }
 
@@ -108,14 +106,14 @@ separate_.tbl_df <- function(data, col, into, sep = "[^[:alnum:]]+",
 strsep <- function(x, sep) {
   sep <- c(0, sep, -1)
 
-  nchar <- nchar(x)
+  nchar <- stringi::stri_length(x)
   pos <- lapply(sep, function(i) {
     if (i >= 0) return(i)
     nchar + i + 1
   })
 
   lapply(1:(length(pos) - 1), function(i) {
-    substr(x, pos[[i]] + 1, pos[[i + 1]])
+    stringi::stri_sub(x, pos[[i]] + 1, pos[[i + 1]])
   })
 }
 

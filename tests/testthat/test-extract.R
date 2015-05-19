@@ -14,8 +14,8 @@ test_that("can match multiple groups", {
   expect_equal(out$B, c("b", "d", "c"))
 })
 
-test_that("informative error if match fails", {
+test_that("match failures give NAs", {
   df <- data.frame(x = c("a.b", "a"))
-
-  expect_error(df %>% extract(x, "a", "(b)"), "didn't match at 2")
+  out <- df %>% extract(x, "a", "(b)")
+  expect_equal(out$a, c("b", NA))
 })
