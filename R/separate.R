@@ -121,6 +121,7 @@ str_split_fixed <- function(value, sep, n, extra = "error") {
   extra <- match.arg(extra, c("error", "merge", "drop"))
 
   n_max <- if (extra == "merge") n else -1L
+
   pieces <- stringi::stri_split_regex(value, sep, n_max)
 
   ns <- vapply(pieces, length, integer(1))
@@ -128,7 +129,7 @@ str_split_fixed <- function(value, sep, n, extra = "error") {
   if (any(ns != n & !is.na(value))) {
     if (extra == "error") {
       stop("Values not split into ", n, " pieces at ",
-        paste0(which(ns != n), collapse = ', '), call. = FALSE)
+        list_indices(which(ns != n)), call. = FALSE)
     } else {
       pieces <- lapply(pieces, function(x) x[seq_len(n)])
     }

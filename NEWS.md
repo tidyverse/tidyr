@@ -1,5 +1,7 @@
 # tidyr 0.2.0.9000
 
+* `separate()` only displays the first 20 failures (#50).
+
 * `extract()` is 10x faster because it now uses stringi instead of 
   base R regular expressions. It also returns NA instead of throwing
   an error if the regular expression doesn't match (#72).
