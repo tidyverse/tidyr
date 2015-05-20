@@ -1,5 +1,8 @@
 # tidyr 0.2.0.9000
 
+* `expand()` now supports nesting and crossing (see examples for details).
+  This comes at the expense of creating new variables inline (#46).
+
 * `separate()` only displays the first 20 failures (#50).
 
 * `extract()` is 10x faster because it now uses stringi instead of 

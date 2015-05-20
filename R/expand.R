@@ -1,21 +1,55 @@
-#' Expand data frame to include all combinations of levels.
+#' Expand data frame to include all combinations of values
+#'
+#' \code{expand()} is often useful in conjunction with \code{left_join} if
+#' you want to convert implicit missing values to explicit missing values.
+#' Or you can use it in conjunction with \code{anti_join()} to figure
+#' out which combinations are missing.
 #'
 #' @inheritParams expand_
-#' @param ... Specification of columns to expand. These can either
-#'   be bare column names, or transformations of a column.
+#' @param ... Specification of columns to expand.
+#'
+#'   To find all unique combinations of x, y and z, including those not
+#'   found in the data, supply each variable as a separate argument.
+#'   To find only the combinations that occur in the data, supply them
+#'   as a single argument with \code{c()}: \code{expand(df, c(x, y, z))}.
+#'
+#'   You can combine the two forms. For example,
+#'   \code{expand(df, c(school_id, student_id), date)} would produce
+#'   a row for every student for each date.
 #' @seealso \code{\link{expand_}} for a version that uses regular evaluation
 #'   and is suitable for programming with.
 #' @export
 #' @examples
+#' # All possible combinations of vs & cyl, even those that aren't
+#' # present in the data
 #' expand(mtcars, vs, cyl)
-#' expand(mtcars, cyl, mpg = seq_range(mpg, 2))
-#' expand(mtcars, cyl, mpg = seq_range(mpg, 5))
 #'
-#' df <- data.frame(a = c(1, 2, 5), b = c(3, 5, 3), c = c(1, 2, 3))
-#' expand(df)
-#' expand(df, a, b)
-#' expand(df, a, c)
-#' expand(df, b, c)
+#' # Only combinations of vs and cyl that appear in the data
+#' expand(mtcars, c(vs, cyl))
+#'
+#' library(dplyr)
+#' # Each person was given one of two treatments, repeated three times
+#' # But some of the replications haven't happened yet, so we have
+#' # incomplete data:
+#' experiment <- data_frame(
+#'   name = rep(c("Alex", "Robert", "Sam"), c(3, 2, 1)),
+#'   trt  = rep(c("a", "b", "a"), c(3, 2, 1)),
+#'   rep = c(1, 2, 3, 1, 2, 1),
+#'   measurment_1 = runif(6),
+#'   measurment_2 = runif(6)
+#' )
+#'
+#' # We can figure out the complete set of data with expand()
+#' # Each person only gets one treatment, so we nest name and trt together:
+#' complete <- expand(experiment, c(name, trt), rep)
+#' complete
+#'
+#' # We can use anti_join to figure out which observations are missing
+#' complete %>% anti_join(experiment)
+#'
+#' # And use right_join to add in the appropriate missing values to the
+#' # original data
+#' experiment %>% right_join(complete)
 expand <- function(data, ...) {
   dots <- lazyeval::lazy_dots(...)
   expand_(data, dots)
@@ -39,11 +73,19 @@ expand_.data.frame <- function(data, dots, ...) {
   if (length(dots) == 0)
     return(data.frame())
 
-  dots <- lazyeval::auto_name(dots)
-  data <- lazyeval::lazy_eval(dots, data)
+  pieces <- lapply(dots, unique_vals, data = data)
+  Reduce(cross_df, pieces)
+}
 
-  grid <- lapply(data, ulevels)
-  rev(expand.grid(rev(grid), stringsAsFactors = FALSE))
+unique_vals <- function(data, dots) {
+  df <- dplyr::distinct(dplyr::select_(data, .dots = dots))
+  dplyr::arrange_(df, .dots = names(df))
+}
+
+cross_df <- function(x, y) {
+  x_idx <- rep(seq_len(nrow(x)), each = nrow(y))
+  y_idx <- rep(seq_len(nrow(y)), nrow(x))
+  dplyr::bind_cols(x[x_idx, , drop = FALSE], y[y_idx, , drop = FALSE])
 }
 
 #' @export
