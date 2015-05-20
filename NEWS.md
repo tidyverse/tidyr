@@ -3,7 +3,12 @@
 * `expand()` now supports nesting and crossing (see examples for details).
   This comes at the expense of creating new variables inline (#46).
 
-* `separate()` only displays the first 20 failures (#50).
+* `separate()` only displays the first 20 failures (#50). It has 
+  finer control over what happens if there are two few matches:
+  you can fill with missing values on either the "left" or the "right" (#49).
+  `separate()` no longer throws an error if the number of pieces aren't
+  as expected - instead it uses drops extra values and fills on the right
+  and gives a warning.
 
 * `extract()` is 10x faster because it now uses stringi instead of 
   base R regular expressions. It also returns NA instead of throwing

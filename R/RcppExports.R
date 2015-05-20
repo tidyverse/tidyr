@@ -5,3 +5,7 @@ fillVector <- function(x, rev = FALSE) {
     .Call('tidyr_fillVector', PACKAGE = 'tidyr', x, rev)
 }
 
+simplifyPieces <- function(pieces, p, fillLeft = TRUE) {
+    .Call('tidyr_simplifyPieces', PACKAGE = 'tidyr', pieces, p, fillLeft)
+}
+

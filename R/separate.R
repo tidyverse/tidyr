@@ -12,16 +12,19 @@
 #' df %>% separate(x, c("A", "B"))
 #'
 #' # If every row doesn't split into the same number of pieces, use
-#' # the extra argument to control what happens
+#' # the extra and file arguments to control what happens
 #' df <- data.frame(x = c("a", "a b", "a b c", NA))
-#' df %>% separate(x, c("a", "b"), extra = "merge")
-#' df %>% separate(x, c("a", "b"), extra = "drop")
+#' df %>% separate(x, c("a", "b"))
+#' # The same behaviour but no warnings
+#' df %>% separate(x, c("a", "b"), extra = "drop", fill = "right")
+#' # Another option:
+#' df %>% separate(x, c("a", "b"), extra = "merge", fill = "left")
 #'
 #' # If only want to split specified number of times use extra = "merge"
 #' df <- data.frame(x = c("x: 123", "y: error: 7"))
 #' df %>% separate(x, c("key", "value"), ": ", extra = "merge")
 separate <- function(data, col, into, sep = "[^[:alnum:]]+", remove = TRUE,
-                     convert = FALSE, extra = "error", ...) {
+                     convert = FALSE, extra = "warn", ...) {
   col <- col_name(substitute(col))
   separate_(data, col, into, sep = sep, remove = remove, convert = convert,
     extra = extra, ...)
@@ -46,14 +49,20 @@ separate <- function(data, col, into, sep = "[^[:alnum:]]+", remove = TRUE,
 #'   \code{into}.
 #'
 #' @param extra If \code{sep} is a character vector, this controls what
-#'   happens when the number of pieces doesn't match \code{into}. There are
-#'   three valid options:
+#'   happens when there are too many pieces. There are three valid options:
 #'
 #'   \itemize{
-#'    \item "error" (the default): throws error if pieces aren't right length
-#'    \item "drop": always returns \code{length(into)} pieces by dropping or
-#'      expanding as necessary
+#'    \item "warn" (the default): emit a waring and drop extra values.
+#'    \item "drop": drop any extra values without a warning.
 #'    \item "merge": only splits at most \code{length(into)} times
+#'   }
+#' @param fill If \code{sep} is a character vector, this controls what
+#'   happens when there are not enough pieces. There are three valid options:
+#'
+#'   \itemize{
+#'    \item "warn" (the default): emit a waring and fill from the right
+#'    \item "right": fill with missing values on the right
+#'    \item "left": fill with missing values on the left
 #'   }
 #' @param remove If \code{TRUE}, remove input column from output data frame.
 #' @param convert If \code{TRUE}, will run \code{\link{type.convert}} with
@@ -64,21 +73,21 @@ separate <- function(data, col, into, sep = "[^[:alnum:]]+", remove = TRUE,
 #' @keywords internal
 #' @export
 separate_ <- function(data, col, into, sep = "[^[:alnum:]]+", remove = TRUE,
-                      convert = FALSE, extra = "error", ...) {
+                      convert = FALSE, extra = "warn", fill = "warn", ...) {
   UseMethod("separate_")
 }
 
 #' @export
 separate_.data.frame <- function(data, col, into, sep = "[^[:alnum:]]+",
-                                 remove = TRUE, convert = FALSE, extra = "error",
-                                 ...) {
+                                 remove = TRUE, convert = FALSE,
+                                 extra = "warn", fill = "warn", ...) {
   stopifnot(is.character(col), length(col) == 1)
   value <- as.character(data[[col]])
 
   if (is.numeric(sep)) {
     l <- strsep(value, sep)
   } else if (is.character(sep)) {
-    l <- str_split_fixed(value, sep, length(into), extra = extra)
+    l <- str_split_fixed(value, sep, length(into), extra = extra, fill = fill)
   } else {
     stop("'sep' must be either numeric or character", .call = FALSE)
   }
@@ -98,7 +107,8 @@ separate_.data.frame <- function(data, col, into, sep = "[^[:alnum:]]+",
 
 #' @export
 separate_.tbl_df <- function(data, col, into, sep = "[^[:alnum:]]+",
-                             remove = TRUE, convert = FALSE, ...) {
+                             remove = TRUE, convert = FALSE,
+                             extra = "warn", fill = "warn", ...) {
   dplyr::tbl_df(NextMethod())
 }
 
@@ -117,27 +127,31 @@ strsep <- function(x, sep) {
   })
 }
 
-str_split_fixed <- function(value, sep, n, extra = "error") {
-  extra <- match.arg(extra, c("error", "merge", "drop"))
-
-  n_max <- if (extra == "merge") n else -1L
-
-  pieces <- stringi::stri_split_regex(value, sep, n_max)
-
-  ns <- vapply(pieces, length, integer(1))
-
-  if (any(ns != n & !is.na(value))) {
-    if (extra == "error") {
-      stop("Values not split into ", n, " pieces at ",
-        list_indices(which(ns != n)), call. = FALSE)
-    } else {
-      pieces <- lapply(pieces, function(x) x[seq_len(n)])
-    }
+str_split_fixed <- function(value, sep, n, extra = "warn", fill = "warn") {
+  if (extra == "error") {
+    warning("extra = 'error' is deprecated. Please use extra = 'warn'",
+      " instead", call. = FALSE)
+    extra <- "warn"
   }
 
-  # Convert into a list of columns
-  mat <- stringi::stri_list2matrix(pieces, n_min = n, byrow = TRUE)
+  extra <- match.arg(extra, c("warn", "merge", "drop"))
+  fill <- match.arg(fill, c("warn", "left", "right"))
 
-  # Use as_data_frame post https://github.com/hadley/dplyr/issues/876
-  lapply(1:ncol(mat), function(i) mat[, i])
+  n_max <- if (extra == "merge") n else -1L
+  pieces <- stringi::stri_split_regex(value, sep, n_max)
+
+  simp <- simplifyPieces(pieces, n, fill == "left")
+
+  n_big <- length(simp$too_big)
+  if (extra == "warn" && n_big > 0) {
+    warning("Too many values at ", n_big, " locations: ",
+      list_indices(simp$too_big), call. = FALSE)
+  }
+  n_sml <- length(simp$too_small)
+  if (fill == "warn" && n_sml > 0) {
+    warning("Too few values at ", n_sml, " locations: ",
+      list_indices(simp$too_sml), call. = FALSE)
+  }
+
+  simp$strings
 }

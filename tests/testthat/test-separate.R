@@ -9,7 +9,7 @@ test_that("missing values in input are missing in output", {
 test_that("too many pieces dealt with as requested", {
   x <- c("a b", "a b c")
 
-  expect_error(str_split_fixed(x, " ", 2, "error"), "not split into")
+  expect_warning(str_split_fixed(x, " ", 2, "warn"), "Too many")
 
   merge <- str_split_fixed(x, " ", 2, "merge")
   expect_equal(merge[[1]], c("a", "a"))
@@ -20,17 +20,12 @@ test_that("too many pieces dealt with as requested", {
   expect_equal(drop[[2]], c("b", "b"))
 })
 
-
 test_that("too few pieces dealt with as requested", {
   x <- c("a b", "a b c")
 
-  expect_error(str_split_fixed(x, " ", 3, "error"), "not split into")
+  left <- str_split_fixed(x, " ", 3, fill = "left")
+  expect_equal(left[[1]], c(NA, "a"))
 
-  merge <- str_split_fixed(x, " ", 3, "merge")
-  expect_equal(merge[[3]], c(NA, "c"))
-
-  drop <- str_split_fixed(x, " ", 3, "drop")
-  expect_equal(drop[[3]], c(NA, "c"))
+  right <- str_split_fixed(x, " ", 3, fill = "right")
+  expect_equal(right[[3]], c(NA, "c"))
 })
-
-

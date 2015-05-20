@@ -5,7 +5,7 @@
 \title{Standard-evaluation version of \code{separate}.}
 \usage{
 separate_(data, col, into, sep = "[^[:alnum:]]+", remove = TRUE,
-  convert = FALSE, extra = "error", ...)
+  convert = FALSE, extra = "warn", fill = "warn", ...)
 }
 \arguments{
 \item{data}{A data frame.}
@@ -32,14 +32,21 @@ separate_(data, col, into, sep = "[^[:alnum:]]+", remove = TRUE,
 columns are integer, numeric or logical.}
 
 \item{extra}{If \code{sep} is a character vector, this controls what
-  happens when the number of pieces doesn't match \code{into}. There are
-  three valid options:
+  happens when there are too many pieces. There are three valid options:
 
   \itemize{
-   \item "error" (the default): throws error if pieces aren't right length
-   \item "drop": always returns \code{length(into)} pieces by dropping or
-     expanding as necessary
+   \item "warn" (the default): emit a waring and drop extra values.
+   \item "drop": drop any extra values without a warning.
    \item "merge": only splits at most \code{length(into)} times
+  }}
+
+\item{fill}{If \code{sep} is a character vector, this controls what
+  happens when there are not enough pieces. There are three valid options:
+
+  \itemize{
+   \item "warn" (the default): emit a waring and fill from the right
+   \item "right": fill with missing values on the right
+   \item "left": fill with missing values on the left
   }}
 
 \item{...}{Other arguments passed on to \code{\link{strsplit}} to control

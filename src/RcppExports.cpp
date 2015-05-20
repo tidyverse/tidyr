@@ -17,3 +17,16 @@ BEGIN_RCPP
     return __result;
 END_RCPP
 }
+// simplifyPieces
+List simplifyPieces(ListOf<CharacterVector> pieces, int p, bool fillLeft);
+RcppExport SEXP tidyr_simplifyPieces(SEXP piecesSEXP, SEXP pSEXP, SEXP fillLeftSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject __result;
+    Rcpp::RNGScope __rngScope;
+    Rcpp::traits::input_parameter< ListOf<CharacterVector> >::type pieces(piecesSEXP);
+    Rcpp::traits::input_parameter< int >::type p(pSEXP);
+    Rcpp::traits::input_parameter< bool >::type fillLeft(fillLeftSEXP);
+    __result = Rcpp::wrap(simplifyPieces(pieces, p, fillLeft));
+    return __result;
+END_RCPP
+}
