@@ -41,8 +41,6 @@ extract_numeric <- function(x) {
   as.numeric(gsub("[^0-9.-]+", "", as.character(x)))
 }
 
-"%||%" <- function(a, b) if (is.null(a)) b else a
-
 #' Pipe operator
 #'
 #' See \code{\link[magrittr]{\%>\%}} for more details.
