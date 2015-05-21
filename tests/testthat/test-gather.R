@@ -24,3 +24,12 @@ test_that("preserve class of input", {
   skip_if_not_installed("data.table")
   dat %>% tbl_df %>% gather %>% expect_is("tbl_df")
 })
+
+test_that("additional controls which columns to gather", {
+  data <- data_frame(a = 1, b1 = 1, b2 = 2, b3 = 3)
+  out <- gather(data, key, val, b1:b3)
+
+  expect_equal(names(out), c("a", "key", "val"))
+  expect_equal(out$val, 1:3)
+})
+
