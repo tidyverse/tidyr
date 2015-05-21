@@ -32,6 +32,7 @@ fill_ <- function(data, col) {
   UseMethod("fill_")
 }
 
+#' @export
 fill_.data.frame <- function(data, col) {
   old_attr <- attributes(data[[col]])
   data[[col]] <- fillVector(data[[col]])
