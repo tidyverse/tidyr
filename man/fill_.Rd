@@ -4,12 +4,12 @@
 \alias{fill_}
 \title{Standard-evaluation version of \code{fill}.}
 \usage{
-fill_(data, col)
+fill_(data, fill_cols)
 }
 \arguments{
 \item{data}{A data frame.}
 
-\item{col}{Name of column to split, as string.}
+\item{fill_cols}{Character vector of column names.}
 }
 \description{
 This is a S3 generic.

@@ -4,12 +4,14 @@
 \alias{fill}
 \title{Fill in missing values.}
 \usage{
-fill(data, col)
+fill(data, ...)
 }
 \arguments{
 \item{data}{A data frame.}
 
-\item{col}{Bare column name.}
+\item{...}{Specification of columns to fill. Use bare variable names.
+Select all variables between x and z with \code{x:z}, exclude y with
+\code{-y}. For more options, see the \link[dplyr]{select} documentation.}
 }
 \description{
 Fills missing values in using the previous entry. This is useful in the
