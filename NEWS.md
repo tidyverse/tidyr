@@ -1,5 +1,8 @@
 # tidyr 0.2.0.9000
 
+* New `replace_na()` makes it easy to replace missing values with something
+  meaningful for your data.
+
 * `expand()` now supports nesting and crossing (see examples for details).
   This comes at the expense of creating new variables inline (#46).
 
