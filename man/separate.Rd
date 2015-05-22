@@ -5,7 +5,7 @@
 \title{Separate one column into multiple columns.}
 \usage{
 separate(data, col, into, sep = "[^[:alnum:]]+", remove = TRUE,
-  convert = FALSE, extra = "warn", ...)
+  convert = FALSE, extra = "warn", fill = "warn", ...)
 }
 \arguments{
 \item{data}{A data frame.}
@@ -38,6 +38,15 @@ columns are integer, numeric or logical.}
    \item "warn" (the default): emit a waring and drop extra values.
    \item "drop": drop any extra values without a warning.
    \item "merge": only splits at most \code{length(into)} times
+  }}
+
+\item{fill}{If \code{sep} is a character vector, this controls what
+  happens when there are not enough pieces. There are three valid options:
+
+  \itemize{
+   \item "warn" (the default): emit a waring and fill from the right
+   \item "right": fill with missing values on the right
+   \item "left": fill with missing values on the left
   }}
 
 \item{...}{Other arguments passed on to \code{\link{strsplit}} to control
