@@ -24,6 +24,7 @@ BugReports: https://github.com/hadley/tidyr/issues
 Suggests:
     knitr,
     testthat,
-    data.table
+    data.table,
+    covr
 VignetteBuilder: knitr
 LinkingTo: Rcpp
