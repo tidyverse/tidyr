@@ -40,6 +40,8 @@ test_that("too many pieces dealt with as requested", {
 test_that("too few pieces dealt with as requested", {
   df <- data_frame(x = c("a b", "a b c"))
 
+  expect_warning(separate(df, x, c("x", "y", "z")), "Too few")
+
   left <- separate(df, x, c("x", "y", "z"), fill = "left")
   expect_equal(left$x, c(NA, "a"))
 

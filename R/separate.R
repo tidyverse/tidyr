@@ -24,10 +24,10 @@
 #' df <- data.frame(x = c("x: 123", "y: error: 7"))
 #' df %>% separate(x, c("key", "value"), ": ", extra = "merge")
 separate <- function(data, col, into, sep = "[^[:alnum:]]+", remove = TRUE,
-                     convert = FALSE, extra = "warn", ...) {
+                     convert = FALSE, extra = "warn", fill = "warn", ...) {
   col <- col_name(substitute(col))
   separate_(data, col, into, sep = sep, remove = remove, convert = convert,
-    extra = extra, ...)
+    extra = extra, fill = fill, ...)
 }
 
 #' Standard-evaluation version of \code{separate}.
@@ -147,7 +147,7 @@ str_split_fixed <- function(value, sep, n, extra = "warn", fill = "warn") {
     warning("Too many values at ", n_big, " locations: ",
       list_indices(simp$too_big), call. = FALSE)
   }
-  n_sml <- length(simp$too_small)
+  n_sml <- length(simp$too_sml)
   if (fill == "warn" && n_sml > 0) {
     warning("Too few values at ", n_sml, " locations: ",
       list_indices(simp$too_sml), call. = FALSE)
