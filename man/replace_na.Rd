@@ -4,7 +4,7 @@
 \alias{replace_na}
 \title{Replace missing values}
 \usage{
-replace_na(data, replace, ...)
+replace_na(data, replace = list(), ...)
 }
 \arguments{
 \item{data}{A data frame.}

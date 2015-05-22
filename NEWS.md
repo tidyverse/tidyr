@@ -1,5 +1,9 @@
 # tidyr 0.2.0.9000
 
+* New `complete()` provides a wrapper around `expand()`, `left_join()` and 
+  `replace_na()` for a common task: completing a data frame with missing
+  combinations of variables.
+
 * New `replace_na()` makes it easy to replace missing values with something
   meaningful for your data.
 

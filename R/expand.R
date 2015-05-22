@@ -16,6 +16,8 @@
 #'   You can combine the two forms. For example,
 #'   \code{expand(df, c(school_id, student_id), date)} would produce
 #'   a row for every student for each date.
+#' @seealso \code{\link{complete}} for a common application of \code{expand}:
+#'   completing a data frame with missing combinations.
 #' @seealso \code{\link{expand_}} for a version that uses regular evaluation
 #'   and is suitable for programming with.
 #' @export
@@ -50,6 +52,8 @@
 #' # And use right_join to add in the appropriate missing values to the
 #' # original data
 #' experiment %>% right_join(complete)
+#' # Or use complete() which wraps up this common pattern
+#' complete(experiment, c(name, trt), rep)
 expand <- function(data, ...) {
   dots <- lazyeval::lazy_dots(...)
   expand_(data, dots)

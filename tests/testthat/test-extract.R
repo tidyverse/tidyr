@@ -1,5 +1,4 @@
 context("Extract")
-library(dplyr, warn.conflicts = FALSE)
 
 test_that("default returns first alpha group", {
   df <- data.frame(x = c("a.b", "a.d", "b.c"))
