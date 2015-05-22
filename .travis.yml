@@ -4,3 +4,6 @@ warnings_are_errors: true
 
 after_success:
   - Rscript -e 'library(covr);codecov()'
+
+r_github_packages:
+  - hadley/testthat # for skip_if_not_installed

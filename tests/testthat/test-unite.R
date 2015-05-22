@@ -1,7 +1,7 @@
 context("unite")
 
 test_that("unite pastes columns together & removes old col", {
-  df <- data_frame(x = "a", y = "b")
+  df <- dplyr::data_frame(x = "a", y = "b")
   out <- unite(df, z, x:y)
 
   expect_equal(names(out), "z")

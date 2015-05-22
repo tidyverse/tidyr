@@ -7,8 +7,8 @@ test_that("unnesting combines atomic vectors", {
 
 test_that("unnesting row binds data frames", {
   df <- dplyr::data_frame(x = list(
-    data_frame(x = 1:5),
-    data_frame(x = 6:10)
+    dplyr::data_frame(x = 1:5),
+    dplyr::data_frame(x = 6:10)
   ))
   expect_equal(unnest(df)$x, 1:10)
 })
@@ -19,7 +19,7 @@ test_that("elements must all be of same type", {
 })
 
 test_that("can't combine vectors and data frames", {
-  df <- dplyr::data_frame(x = list(1, data_frame(1)))
+  df <- dplyr::data_frame(x = list(1, dplyr::data_frame(1)))
   expect_error(unnest(df), "a list of vectors or a list of data frames")
 })
 
@@ -27,6 +27,6 @@ test_that("multiple columns must be same length", {
   df <- dplyr::data_frame(x = list(1), y = list(1:2))
   expect_error(unnest(df), "same number of elements")
 
-  df <- dplyr::data_frame(x = list(1), y = list(data_frame(x = 1:2)))
+  df <- dplyr::data_frame(x = list(1), y = list(dplyr::data_frame(x = 1:2)))
   expect_error(unnest(df), "same number of elements")
 })

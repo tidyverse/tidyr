@@ -1,21 +1,21 @@
 context("Separate")
 
 test_that("missing values in input are missing in output", {
-  df <- data_frame(x = c(NA, "a b"))
+  df <- dplyr::data_frame(x = c(NA, "a b"))
   out <- separate(df, x, c("x", "y"))
   expect_equal(out$x, c(NA, "a"))
   expect_equal(out$y, c(NA, "b"))
 })
 
 test_that("integer values specific position between characters", {
-  df <- data_frame(x = c(NA, "ab", "cd"))
+  df <- dplyr::data_frame(x = c(NA, "ab", "cd"))
 
   out <- separate(df, x, c("x", "y"), 1)
   expect_equal(out$x, c(NA, "a", "c"))
 })
 
 test_that("convert produces integers etc", {
-  df <- data_frame(x = "1-1.5-FALSE")
+  df <- dplyr::data_frame(x = "1-1.5-FALSE")
 
   out <- separate(df, x, c("x", "y", "z"), "-", convert = TRUE)
   expect_equal(out$x, 1L)
@@ -24,7 +24,7 @@ test_that("convert produces integers etc", {
 })
 
 test_that("too many pieces dealt with as requested", {
-  df <- data_frame(x = c("a b", "a b c"))
+  df <- dplyr::data_frame(x = c("a b", "a b c"))
 
   expect_warning(separate(df, x, c("x", "y")), "Too many")
 
@@ -38,7 +38,7 @@ test_that("too many pieces dealt with as requested", {
 })
 
 test_that("too few pieces dealt with as requested", {
-  df <- data_frame(x = c("a b", "a b c"))
+  df <- dplyr::data_frame(x = c("a b", "a b c"))
 
   expect_warning(separate(df, x, c("x", "y", "z")), "Too few")
 

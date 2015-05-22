@@ -1,7 +1,7 @@
 context("complete")
 
 test_that("basic invocation works", {
-  df <- data_frame(x = 1:2, y = 1:2, z = 3:4)
+  df <- dplyr::data_frame(x = 1:2, y = 1:2, z = 3:4)
   out <- complete(df, x, y)
 
   expect_equal(nrow(out), 4)

@@ -1,7 +1,7 @@
 context("fill")
 
 test_that("all missings left unchanged", {
-  df <- data_frame(
+  df <- dplyr::data_frame(
     lgl = c(NA, NA),
     int = c(NA_integer_, NA),
     dbl = c(NA_real_, NA),
@@ -13,14 +13,14 @@ test_that("all missings left unchanged", {
 })
 
 test_that("missings filled from last non-missing", {
-  df <- data_frame(x = c(1, NA, NA))
+  df <- dplyr::data_frame(x = c(1, NA, NA))
 
   out <- fill(df, x)
   expect_equal(out$x, c(1, 1, 1))
 })
 
 test_that("missings filled for each atomic vector", {
-  df <- data_frame(
+  df <- dplyr::data_frame(
     lgl = c(T, NA),
     int = c(1L, NA),
     dbl = c(1, NA),

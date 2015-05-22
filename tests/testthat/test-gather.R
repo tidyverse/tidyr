@@ -19,14 +19,14 @@ test_that("if not supply, key and value default to key and value", {
 
 test_that("preserve class of input", {
   dat <- data.frame(x = 1:2)
-  dat %>% tbl_df %>% gather %>% expect_is("tbl_df")
+  dat %>% (dplyr::tbl_df) %>% gather %>% expect_is("tbl_df")
 
   skip_if_not_installed("data.table")
-  dat %>% tbl_df %>% gather %>% expect_is("tbl_df")
+  dat %>% (dplyr::tbl_df) %>% gather %>% expect_is("tbl_df")
 })
 
 test_that("additional controls which columns to gather", {
-  data <- data_frame(a = 1, b1 = 1, b2 = 2, b3 = 3)
+  data <- dplyr::data_frame(a = 1, b1 = 1, b2 = 2, b3 = 3)
   out <- gather(data, key, val, b1:b3)
 
   expect_equal(names(out), c("a", "key", "val"))
