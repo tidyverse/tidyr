@@ -30,3 +30,10 @@ test_that("multiple columns must be same length", {
   df <- dplyr::data_frame(x = list(1), y = list(dplyr::data_frame(x = 1:2)))
   expect_error(unnest(df), "same number of elements")
 })
+
+test_that("nested is split as a list (#84)", {
+  df <- dplyr::data_frame(x = 1:3, y = list(1,2:3,4), z = list(5,6:7,8))
+  expect_that(unnest(df), not(gives_warning("data length is not a multiple")))
+})
+
+
