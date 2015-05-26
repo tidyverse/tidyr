@@ -4,12 +4,12 @@
 \alias{unnest_string_}
 \title{Standard-evaluation version of \code{unnest_string}.}
 \usage{
-unnest_string_(data, col, sep = "[^[:alnum:]]+")
+unnest_string_(data, unnest_cols, sep = "[^[:alnum:]]+")
 }
 \arguments{
 \item{data}{A data frame.}
 
-\item{col}{Name of column that needs to be unnested.}
+\item{unnest_cols}{Name of columns that need to be unnested.}
 
 \item{sep}{Separator delimiting collapsed values.}
 }

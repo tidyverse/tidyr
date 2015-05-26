@@ -4,12 +4,14 @@
 \alias{unnest_string}
 \title{Unnest a collapsed column.}
 \usage{
-unnest_string(data, col, sep = "[^[:alnum:]]+")
+unnest_string(data, ..., sep = "[^[:alnum:]]+")
 }
 \arguments{
 \item{data}{A data frame.}
 
-\item{col}{Name of column that needs to be unnested.}
+\item{...}{Specification of columns to unnest. Use bare variable names.
+Select all variables between x and z with \code{x:z}, exclude y with
+\code{-y}. For more options, see the \link[dplyr]{select} documentation.}
 
 \item{sep}{Separator delimiting collapsed values.}
 }
