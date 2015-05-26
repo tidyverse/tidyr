@@ -13,9 +13,9 @@
 #'   stringsAsFactors = FALSE
 #' )
 #' unnest_string(df, y)
-unnest_string <- function(data, col, sep = "[^[:alnum:]]+", ...) {
+unnest_string <- function(data, col, sep = "[^[:alnum:]]+") {
   col <- col_name(substitute(col))
-  unnest_string_(data, col, sep, ...)
+  unnest_string_(data, col, sep)
 }
 
 #' Standard-evaluation version of \code{unnest_string}.
@@ -25,17 +25,16 @@ unnest_string <- function(data, col, sep = "[^[:alnum:]]+", ...) {
 #' @param data A data frame.
 #' @param col Name of column that needs to be unnested.
 #' @param sep Separator delimiting collapsed values.
-#' @param ... Additional arguments passed to \code{\link{strsplit}}
 #' @export
-unnest_string_ <- function(data, col, sep = "[^[:alnum:]]+", ...) UseMethod("unnest_string_")
+unnest_string_ <- function(data, col, sep = "[^[:alnum:]]+") UseMethod("unnest_string_")
 
 #' @export
-unnest_string_.data.frame <- function(data, col, sep = "[^[:alnum:]]+", ...) {
-  data[[col]] <- strsplit(data[[col]], sep, ...)
+unnest_string_.data.frame <- function(data, col, sep = "[^[:alnum:]]+") {
+  data[[col]] <- stringi::stri_split_regex(data[[col]], sep)
   unnest_(data, col)
 }
 
 #' @export
-unnest_string_.tbl_df <- function(data, col, sep = "[^[:alnum:]]+", ...) {
+unnest_string_.tbl_df <- function(data, col, sep = "[^[:alnum:]]+") {
   dplyr::tbl_df(NextMethod())
 }
