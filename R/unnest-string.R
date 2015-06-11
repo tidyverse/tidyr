@@ -16,7 +16,7 @@
 #'   stringsAsFactors = FALSE
 #' )
 #' unnest_string(df, y)
-unnest_string <- function(data, ..., sep = "[^[:alnum:]]+") {
+unnest_string <- function(data, ..., sep = "[^[:alnum:].]+") {
   unnest_cols <- unname(dplyr::select_vars(names(data), ...))
   unnest_string_(data, unnest_cols, sep)
 }
@@ -29,15 +29,15 @@ unnest_string <- function(data, ..., sep = "[^[:alnum:]]+") {
 #' @param unnest_cols Name of columns that need to be unnested.
 #' @param sep Separator delimiting collapsed values.
 #' @export
-unnest_string_ <- function(data, unnest_cols, sep = "[^[:alnum:]]+") UseMethod("unnest_string_")
+unnest_string_ <- function(data, unnest_cols, sep = "[^[:alnum:].]+") UseMethod("unnest_string_")
 
 #' @export
-unnest_string_.data.frame <- function(data, unnest_cols, sep = "[^[:alnum:]]+") {
+unnest_string_.data.frame <- function(data, unnest_cols, sep = "[^[:alnum:].]+") {
   data[unnest_cols] <- lapply(data[unnest_cols], stringi::stri_split_regex, sep)
   unnest_(data, unnest_cols)
 }
 
 #' @export
-unnest_string_.tbl_df <- function(data, unnest_cols, sep = "[^[:alnum:]]+") {
+unnest_string_.tbl_df <- function(data, unnest_cols, sep = "[^[:alnum:].]+") {
   dplyr::tbl_df(NextMethod())
 }

@@ -4,7 +4,7 @@
 \alias{unnest_string}
 \title{Unnest a collapsed column.}
 \usage{
-unnest_string(data, ..., sep = "[^[:alnum:]]+")
+unnest_string(data, ..., sep = "[^[:alnum:].]+")
 }
 \arguments{
 \item{data}{A data frame.}

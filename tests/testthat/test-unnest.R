@@ -42,6 +42,11 @@ test_that("can handle strings", {
 expect_equal(unnest_string(df, y)$y, unlist(strsplit(df$y, "\\,")))
 })
 
+test_that("default pattern does not split decimals in nested strings", {
+  df <- dplyr::data_frame(x = 1:3, y = c("1", "1.0,1.1", "2.1"))
+  expect_equal(unnest_string(df, y)$y, unlist(strsplit(df$y, ",")))
+})
+
 test_that("nested is split as a list (#84)", {
   df <- data_frame(x = 1:3, y = list(1,2:3,4), z = list(5,6:7,8))
   expect_warning(out <- unnest(df, y, z), NA)

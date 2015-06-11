@@ -4,7 +4,7 @@
 \alias{unnest_string_}
 \title{Standard-evaluation version of \code{unnest_string}.}
 \usage{
-unnest_string_(data, unnest_cols, sep = "[^[:alnum:]]+")
+unnest_string_(data, unnest_cols, sep = "[^[:alnum:].]+")
 }
 \arguments{
 \item{data}{A data frame.}
