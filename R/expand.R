@@ -83,7 +83,7 @@ expand_.data.frame <- function(data, dots, ...) {
 
 unique_vals <- function(data, dots) {
   df <- dplyr::distinct(dplyr::select_(data, .dots = dots))
-  dplyr::arrange_(df, .dots = names(df))
+  dplyr::arrange_(df, .dots = lapply(names(df), as.name))
 }
 
 cross_df <- function(x, y) {

@@ -1,5 +1,7 @@
 # tidyr 0.2.0.9000
 
+* `expand()` now works with non-standard column names (#87).
+
 * `spread()` gives a more informative error message if `key` or `value` don't
   exist in the input data (#36).
 
