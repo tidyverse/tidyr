@@ -9,7 +9,7 @@ test_that("all missings left unchanged", {
   )
 
   out <- fill(df, lgl, int, dbl, chr)
-  expect_equal(out, df)
+  expect_identical(out, df)
 })
 
 test_that("missings filled from last non-missing", {
