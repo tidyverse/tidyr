@@ -51,7 +51,6 @@ gather <- function(data, key, value, ..., na.rm = FALSE, convert = FALSE) {
     gather_cols <- unname(dplyr::select_vars(names(data), ...))
   }
 
-
   gather_(data, key_col, value_col, gather_cols, na.rm = na.rm,
     convert = convert)
 }
@@ -85,12 +84,6 @@ gather_.data.frame <- function(data, key_col, value_col, gather_cols,
   ## Return if we're not doing any gathering
   if (length(gather_cols) == 0) {
     return(data)
-  }
-
-  unknown_cols <- setdiff(gather_cols, names(data))
-  if (length(unknown_cols) > 0) {
-    stop("Unknown `gather_cols`: ", paste(unknown_cols, collapse = ", "),
-      call. = FALSE)
   }
 
   gather_idx <- match(gather_cols, names(data))

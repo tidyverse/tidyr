@@ -10,6 +10,12 @@ test_that("gather all columns when ... is empty", {
   expect_equal(names(out), c("key", "val"))
 })
 
+test_that("gather returns input if no columns gathered", {
+  df <- data.frame(x = 1:2, y = 1:2)
+  out <- gather(df, a, b, -x, -y)
+  expect_equal(df, out)
+})
+
 test_that("if not supply, key and value default to key and value", {
   df <- data.frame(x = 1:2)
   out <- gather(df)
