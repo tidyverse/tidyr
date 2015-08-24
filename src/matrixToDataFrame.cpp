@@ -1,6 +1,8 @@
 #include <Rcpp.h>
 using namespace Rcpp;
 
+void copyMostAttributes(SEXP from, SEXP to);
+
 // [[Rcpp::export]]
 List matrixToDataFrame(RObject x) {
   SEXPTYPE type = TYPEOF(x);
@@ -18,6 +20,7 @@ List matrixToDataFrame(RObject x) {
   for (int j = 0; j < ncol; ++j) {
     out[j] = Rf_allocVector(type, nrow);
     SEXP col = out[j];
+    copyMostAttributes(x, col);
     int offset = j * nrow;
     for (int i = 0; i < nrow; ++i) {
       switch(type) {
@@ -47,4 +50,17 @@ List matrixToDataFrame(RObject x) {
   out.attr("row.names") = IntegerVector::create(NA_INTEGER, -nrow);
 
   return out;
+}
+
+void copyMostAttributes(SEXP from, SEXP to) {
+  for(SEXP attr = ATTRIB(from); attr != R_NilValue; attr = CDR(attr)) {
+    if (TAG(attr) == R_NamesSymbol ||
+        TAG(attr) == R_DimSymbol ||
+        TAG(attr) == R_DimNamesSymbol) {
+      continue;
+    }
+    Rf_setAttrib(to, TAG(attr), CAR(attr));
+  }
+
+  IS_S4_OBJECT(from) ?  SET_S4_OBJECT(to) : UNSET_S4_OBJECT(to);
 }

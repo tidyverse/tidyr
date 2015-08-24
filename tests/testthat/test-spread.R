@@ -15,6 +15,12 @@ test_that("order doesn't matter", {
   expect_equal(one, two)
 })
 
+test_that("convert turns strings into integers", {
+  df <- dplyr::data_frame(key = "a", value = "1")
+  out <- spread(df, key, value, convert = TRUE)
+
+  expect_is(out$a, "integer")
+})
 
 test_that("duplicate values for one key is an error", {
   df <- data.frame(x = c("a", "b", "b"), y = c(1, 2, 2), z = c(1, 2, 2))

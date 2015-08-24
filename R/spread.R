@@ -94,15 +94,14 @@ spread_.data.frame <- function(data, key_col, value_col, fill = NA,
   if (!is.na(fill)) {
     ordered[is.na(ordered)] <- fill
   }
+  if (convert) {
+    ordered <- type.convert(ordered, as.is = TRUE)
+  }
 
   dim(ordered) <- c(attr(row_id, "n"), attr(col_id, "n"))
-  ordered <- as.data.frame.matrix(ordered, stringsAsFactors = FALSE)
   colnames(ordered) <- as.character(col_labels[[1]])
 
-  if (convert) {
-    ordered[] <- lapply(ordered, type.convert, as.is = TRUE)
-  }
-  append_df(row_labels, ordered)
+  append_df(row_labels, matrixToDataFrame(ordered))
 }
 
 #' @export

@@ -15,6 +15,16 @@ test_that("preserves col names", {
   expect_equal(names(out), c("a", "b"))
 })
 
+test_that("preserves attributes except dim and names", {
+  date <- Sys.Date() + 0:1
+  dim(date) <- c(2, 1)
+  colnames(date) <- "a"
+
+  out <- matrixToDataFrame(date)
+  expect_equal(attributes(out[[1]])$name, NULL)
+  expect_equal(attributes(out[[1]])$class, "Date")
+})
+
 test_that("handles atomic vectors", {
   x <- matrix(TRUE, nrow = 2)
   out <- matrixToDataFrame(x)
