@@ -1,5 +1,8 @@
 # tidyr 0.2.0.9000
 
+* `spread()` gives a more informative error message if `key` or `value` don't
+  exist in the input data (#36).
+
 * New `complete()` provides a wrapper around `expand()`, `left_join()` and 
   `replace_na()` for a common task: completing a data frame with missing
   combinations of variables.
