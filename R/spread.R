@@ -31,8 +31,11 @@ spread <- function(data, key, value, fill = NA, convert = FALSE, drop = TRUE) {
 #'
 #' @param data A data frame.
 #' @param key_col,value_col Strings giving names of key and value cols.
-#' @param fill If there isn't a value for every combination of the other
-#'   variables and the key column, this value will be substituted.
+#' @param fill If set, missing values will be replaced with this value.
+#'   Note that there are two types of missingness in the input: explicit
+#'   missing values (i.e. \code{NA}), and implicit missings, rows that
+#'   simply aren't present. Both types of missing value will be replaced by
+#'   \code{fill}.
 #' @param convert If \code{TRUE}, \code{\link{type.convert}} with
 #'   \code{asis = TRUE} will be run on each of the new columns. This is
 #'   useful if the value column was a mix of variables that was coerced to

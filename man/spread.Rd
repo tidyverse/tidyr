@@ -11,8 +11,11 @@ spread(data, key, value, fill = NA, convert = FALSE, drop = TRUE)
 
 \item{key,value}{Bare (unquoted) names of key and value columns.}
 
-\item{fill}{If there isn't a value for every combination of the other
-variables and the key column, this value will be substituted.}
+\item{fill}{If set, missing values will be replaced with this value.
+Note that there are two types of missingness in the input: explicit
+missing values (i.e. \code{NA}), and implicit missings, rows that
+simply aren't present. Both types of missing value will be replaced by
+\code{fill}.}
 
 \item{convert}{If \code{TRUE}, \code{\link{type.convert}} with
 \code{asis = TRUE} will be run on each of the new columns. This is
