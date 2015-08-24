@@ -252,7 +252,6 @@ List melt_dataframe(const DataFrame& data,
       REP(STRSXP);
       REP(CPLXSXP);
       REP(RAWSXP);
-      REP(VECSXP);
       default: { stop("internal error: unnhandled vector type in REP"); }
     }
   }
