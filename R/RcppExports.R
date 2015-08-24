@@ -5,6 +5,10 @@ fillVector <- function(x, rev = FALSE) {
     .Call('tidyr_fillVector', PACKAGE = 'tidyr', x, rev)
 }
 
+matrixToDataFrame <- function(x) {
+    .Call('tidyr_matrixToDataFrame', PACKAGE = 'tidyr', x)
+}
+
 melt_dataframe <- function(data, id_ind, measure_ind, variable_name, value_name, measure_attributes, factorsAsStrings, valueAsFactor) {
     .Call('tidyr_melt_dataframe', PACKAGE = 'tidyr', data, id_ind, measure_ind, variable_name, value_name, measure_attributes, factorsAsStrings, valueAsFactor)
 }
