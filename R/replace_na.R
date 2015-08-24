@@ -3,7 +3,7 @@
 #' @param data A data frame.
 #' @param replace A named list given the value to replace \code{NA} with
 #'   for each column.
-#' @param ... Additional arguments for methods. Currently a unnused.
+#' @param ... Additional arguments for methods. Currently a unused.
 #' @examples
 #' library(dplyr)
 #' df <- data_frame(x = c(1, 2, NA), y = c("a", NA, "b"))
