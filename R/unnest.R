@@ -74,7 +74,7 @@ unnest_.data.frame <- function(data, unnest_cols) {
   }
 
   types <- vapply(nested, list_col_type, character(1))
-  nested <- split(nested, types)
+  nested <- split.default(nested, types)
   if (length(nested$mixed) > 0) {
     probs <- paste(names(nested$mixed), collapse = ",")
     stop("Each column must either be a list of vectors or a list of ",
