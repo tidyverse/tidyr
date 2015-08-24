@@ -1,26 +1,49 @@
 # tidyr 0.2.0.9000
 
-* The internals of `spread()` have been rewritten, and now preserve all 
-  attributes of the input `value` column. This means that you can now 
-  spread date (#62) and factor (#35) inputs.
-
-* tidyr no longer depends on reshape2. This should fix issues if you also
-  try to load reshape (#88).
-
-* `expand()` now works with non-standard column names (#87).
-
-* `spread()` gives a more informative error message if `key` or `value` don't
-  exist in the input data (#36).
+## New features
 
 * New `complete()` provides a wrapper around `expand()`, `left_join()` and 
   `replace_na()` for a common task: completing a data frame with missing
   combinations of variables.
 
+* `fill()` fills in missing values in a column with the last non-missing 
+  value (#4).
+
 * New `replace_na()` makes it easy to replace missing values with something
   meaningful for your data.
 
+* `nest()` is the complement of `unnest()` (#3).
+
+* `unnest()` can now work with multiple list-columns at the same time. 
+  If you don't supply any columns names, it will unlist all 
+  list-columns (#44). `unnest()` can also handle columns that are
+  lists of data frames (#58).
+
+## Bug fixes and minor improvements
+
+* tidyr no longer depends on reshape2. This should fix issues if you also
+  try to load reshape (#88).
+
+* `%>%` is re-exported from magrittr.
+
+* `expand()` now works with non-standard column names (#87).
+
 * `expand()` now supports nesting and crossing (see examples for details).
   This comes at the expense of creating new variables inline (#46).
+
+* `expand_` does SE evaluation correctly so you can pass it a character vector
+  of columns names (or list of formulas etc) (#70).
+
+* `extract()` is 10x faster because it now uses stringi instead of 
+  base R regular expressions. It also returns NA instead of throwing
+  an error if the regular expression doesn't match (#72).
+  
+* The internals of `spread()` have been rewritten, and now preserve all 
+  attributes of the input `value` column. This means that you can now 
+  spread date (#62) and factor (#35) inputs.
+
+* `spread()` gives a more informative error message if `key` or `value` don't
+  exist in the input data (#36).
 
 * `separate()` only displays the first 20 failures (#50). It has 
   finer control over what happens if there are two few matches:
@@ -29,29 +52,10 @@
   as expected - instead it uses drops extra values and fills on the right
   and gives a warning.
 
-* `extract()` is 10x faster because it now uses stringi instead of 
-  base R regular expressions. It also returns NA instead of throwing
-  an error if the regular expression doesn't match (#72).
-  
 * If the input is NA `separate()` and `extract()` both return silently
   return NA outputs, rather than throwing an error. (#77)
 
-* `unnest()` can now work with multiple list-columns at the same time. 
-  If you don't supply any columns names, it will unlist all 
-  list-columns (#44). `unnest()` can also handle columns that are
-  lists of data frames (#58).
-
 * Experimental `unnest()` method for lists has been removed.
-
-* `nest()` is the complement of `unnest()` (#3).
-
-* `fill()` fills in missing values in a column with the last non-missing 
-  value (#4).
-
-* `%>%` is exported from magrittr.
-
-* `expand_` does SE evaluation correctly so you can pass it a character vector
-  of columns names (or list of formulas etc) (#70).
 
 # tidyr 0.2.0
 
