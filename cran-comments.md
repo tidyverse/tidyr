@@ -7,5 +7,7 @@
 There were no ERRORs, WARNINGs.
 
 ## Downstream dependencies
-I have also run R CMD check on the two downstream dependencies of tidyr 
-(https://github.com/hadley/tidyr/blob/master/revdep/summary.md). Both packages passed without ERRORs, WARNINGs or NOTEs.
+I have also run R CMD check on the 27 downstream dependencies of tidyr 
+(https://github.com/hadley/tidyr/blob/master/revdep/summary.md). 
+
+I notified all authors on Aug 24.
