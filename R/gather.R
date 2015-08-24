@@ -82,17 +82,46 @@ gather_ <- function(data, key_col, value_col, gather_cols, na.rm = FALSE,
 #' @export
 gather_.data.frame <- function(data, key_col, value_col, gather_cols,
                                na.rm = FALSE, convert = FALSE) {
-
-  data2 <- reshape2::melt(data, measure.vars = gather_cols,
-    variable.name = key_col, value.name = value_col, na.rm = na.rm)
-  rownames(data2) <- NULL
-
-  if (convert) {
-    data2[[key_col]] <- type.convert(as.character(data2[[key_col]]),
-      as.is = TRUE)
+  ## Return if we're not doing any gathering
+  if (length(gather_cols) == 0) {
+    return(data)
   }
 
-  data2
+  unknown_cols <- setdiff(gather_cols, names(data))
+  if (length(unknown_cols) > 0) {
+    stop("Unknown `gather_cols`: ", paste(unknown_cols, collapse = ", "),
+      call. = FALSE)
+  }
+
+  gather_idx <- match(gather_cols, names(data))
+  id_idx <- setdiff(seq_along(data), gather_idx)
+
+  ## Get the attributes if common, NULL if not.
+  args <- normalize_melt_arguments(data, gather_idx, factorsAsStrings = TRUE)
+  measure.attributes <- args$measure.attributes
+  factorsAsStrings <- args$factorsAsStrings
+  valueAsFactor <- "factor" %in% measure.attributes$class
+
+  df <- melt_dataframe(data,
+    id_idx - 1L,
+    gather_idx - 1L,
+    as.character(key_col),
+    as.character(value_col),
+    as.pairlist(measure.attributes),
+    as.logical(factorsAsStrings),
+    as.logical(valueAsFactor)
+  )
+
+  if (na.rm) {
+    missing <- is.na(df[[value_col]])
+    df <- df[!missing, ]
+  }
+
+  if (convert) {
+    df[[key_col]] <- type.convert(as.character(df[[key_col]]), as.is = TRUE)
+  }
+
+  df
 }
 
 #' @export
@@ -105,4 +134,55 @@ gather_.tbl_df <- function(data, key_col, value_col, gather_cols,
 gather_.tbl_dt <- function(data, key_col, value_col, gather_cols,
                            na.rm = FALSE, convert = FALSE) {
   dplyr::tbl_dt(NextMethod())
+}
+
+
+# Functions from reshape2 -------------------------------------------------
+
+## Get the attributes if common, NULL if not.
+normalize_melt_arguments <- function(data, measure.ind, factorsAsStrings) {
+
+  measure.attributes <- lapply(measure.ind, function(i) {
+    attributes(data[[i]])
+  })
+
+  ## Determine if all measure.attributes are equal
+  measure.attrs.equal <- all_identical(measure.attributes)
+
+  if (measure.attrs.equal) {
+    measure.attributes <- measure.attributes[[1]]
+  } else {
+    warning("attributes are not identical across measure variables; ",
+      "they will be dropped", call. = FALSE)
+    measure.attributes <- NULL
+  }
+
+  if (!factorsAsStrings && !measure.attrs.equal) {
+    warning("cannot avoid coercion of factors when measure attributes not identical",
+      call. = FALSE)
+    factorsAsStrings <- TRUE
+  }
+
+  ## If we are going to be coercing any factors to strings, we don't want to
+  ## copy the attributes
+  any.factors <- any( sapply( measure.ind, function(i) {
+    is.factor(data[[i]])
+  }))
+
+  if (factorsAsStrings && any.factors) {
+    measure.attributes <- NULL
+  }
+
+  list(
+    measure.attributes = measure.attributes,
+    factorsAsStrings = factorsAsStrings
+  )
+}
+
+all_identical <- function(xs) {
+  if (length(xs) <= 1) return(TRUE)
+  for (i in seq(2, length(xs))) {
+    if (!identical(xs[[1]], xs[[i]])) return(FALSE)
+  }
+  TRUE
 }

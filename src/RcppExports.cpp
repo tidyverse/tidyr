@@ -17,6 +17,24 @@ BEGIN_RCPP
     return __result;
 END_RCPP
 }
+// melt_dataframe
+List melt_dataframe(const DataFrame& data, const IntegerVector& id_ind, const IntegerVector& measure_ind, String variable_name, String value_name, SEXP measure_attributes, bool factorsAsStrings, bool valueAsFactor);
+RcppExport SEXP tidyr_melt_dataframe(SEXP dataSEXP, SEXP id_indSEXP, SEXP measure_indSEXP, SEXP variable_nameSEXP, SEXP value_nameSEXP, SEXP measure_attributesSEXP, SEXP factorsAsStringsSEXP, SEXP valueAsFactorSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject __result;
+    Rcpp::RNGScope __rngScope;
+    Rcpp::traits::input_parameter< const DataFrame& >::type data(dataSEXP);
+    Rcpp::traits::input_parameter< const IntegerVector& >::type id_ind(id_indSEXP);
+    Rcpp::traits::input_parameter< const IntegerVector& >::type measure_ind(measure_indSEXP);
+    Rcpp::traits::input_parameter< String >::type variable_name(variable_nameSEXP);
+    Rcpp::traits::input_parameter< String >::type value_name(value_nameSEXP);
+    Rcpp::traits::input_parameter< SEXP >::type measure_attributes(measure_attributesSEXP);
+    Rcpp::traits::input_parameter< bool >::type factorsAsStrings(factorsAsStringsSEXP);
+    Rcpp::traits::input_parameter< bool >::type valueAsFactor(valueAsFactorSEXP);
+    __result = Rcpp::wrap(melt_dataframe(data, id_ind, measure_ind, variable_name, value_name, measure_attributes, factorsAsStrings, valueAsFactor));
+    return __result;
+END_RCPP
+}
 // simplifyPieces
 List simplifyPieces(ListOf<CharacterVector> pieces, int p, bool fillLeft);
 RcppExport SEXP tidyr_simplifyPieces(SEXP piecesSEXP, SEXP pSEXP, SEXP fillLeftSEXP) {

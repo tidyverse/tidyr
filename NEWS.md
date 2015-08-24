@@ -1,5 +1,8 @@
 # tidyr 0.2.0.9000
 
+* tidyr no longer depends on reshape2. This should fix issues if you also
+  try to load reshape (#88).
+
 * `expand()` now works with non-standard column names (#87).
 
 * `spread()` gives a more informative error message if `key` or `value` don't
