@@ -1,4 +1,4 @@
-# tidyr 0.2.0.9000
+# tidyr 0.3.0
 
 ## New features
 
