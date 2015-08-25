@@ -81,23 +81,6 @@ IntegerVector make_variable_column(CharacterVector x, int nrow) {
   return output;
 }
 
-// Ensure that we index in the column range of the data --
-// just to double-check everything went okay upstream
-void check_indices(IntegerVector ind, int ncol, std::string msg) {
-  int n = ind.size();
-  for (int i = 0; i < n; ++i) {
-    if (ind[i] < 0) {
-      stop(msg + "index less than zero");
-    }
-    if (ind[i] >= ncol) {
-      stop(msg + "index > number of columns");
-    }
-    if (ind[i] == NA_INTEGER) {
-      stop(msg + "no match found");
-    }
-  }
-}
-
 // Concatenate vectors for the 'value' column
 #define DO_CONCATENATE(CTYPE)                                \
   {                                                          \
