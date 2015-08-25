@@ -22,7 +22,7 @@ test_that("match failures give NAs", {
 test_that("extract keeps characters as character", {
   df <- dplyr::data_frame(x = "X-1")
 
-  out <- separate(df, x, c("x", "y"), "-", convert = TRUE)
+  out <- extract(df, x, c("x", "y"), "(.)-(.)", convert = TRUE)
   expect_equal(out$x, "X")
   expect_equal(out$y, 1L)
 })

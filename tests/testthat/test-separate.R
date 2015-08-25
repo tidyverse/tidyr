@@ -29,7 +29,6 @@ test_that("convert keeps characters as character", {
   out <- separate(df, x, c("x", "y"), "-", convert = TRUE)
   expect_equal(out$x, "X")
   expect_equal(out$y, 1L)
-
 })
 
 test_that("too many pieces dealt with as requested", {
