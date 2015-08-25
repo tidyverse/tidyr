@@ -12,7 +12,7 @@ replace_na(data, replace = list(), ...)
 \item{replace}{A named list given the value to replace \code{NA} with
 for each column.}
 
-\item{...}{Additional arguments for methods. Currently a unnused.}
+\item{...}{Additional arguments for methods. Currently unused.}
 }
 \description{
 Replace missing values
