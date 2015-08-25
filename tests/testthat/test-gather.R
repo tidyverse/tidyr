@@ -39,3 +39,9 @@ test_that("additional controls which columns to gather", {
   expect_equal(out$val, 1:3)
 })
 
+test_that("gather throws error for POSIXlt", {
+  df <- data.frame(y = 1)
+  df$x <- as.POSIXlt(Sys.time())
+
+  expect_error(gather(df, key, val, -x), "a POSIXlt")
+})
