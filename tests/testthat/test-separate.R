@@ -23,6 +23,15 @@ test_that("convert produces integers etc", {
   expect_equal(out$z, FALSE)
 })
 
+test_that("convert keeps characters as character", {
+  df <- dplyr::data_frame(x = "X-1")
+
+  out <- separate(df, x, c("x", "y"), "-", convert = TRUE)
+  expect_equal(out$x, "X")
+  expect_equal(out$y, 1L)
+
+})
+
 test_that("too many pieces dealt with as requested", {
   df <- dplyr::data_frame(x = c("a b", "a b c"))
 

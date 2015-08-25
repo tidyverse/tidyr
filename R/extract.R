@@ -58,7 +58,7 @@ extract_.data.frame <- function(data, col, into, regex = "([[:alnum:]]+)",
   names(l) <- into
 
   if (convert) {
-    l[] <- lapply(l, type.convert, as.is = FALSE)
+    l[] <- lapply(l, type.convert, as.is = TRUE)
   }
 
   # Insert into existing data frame
