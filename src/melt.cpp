@@ -7,49 +7,62 @@ using namespace Rcpp;
 // An optimized rep
 #define DO_REP(RTYPE, CTYPE, ACCESSOR)                         \
   {                                                            \
-    Shield<SEXP> output(Rf_allocVector(RTYPE, nout));          \
     for (int i = 0; i < n; ++i) {                              \
       memcpy((char*)ACCESSOR(output) + i * xn * sizeof(CTYPE), \
              (char*)ACCESSOR(x),                               \
              sizeof(CTYPE) * xn);                              \
     }                                                          \
-    return output;                                             \
-    break;                                                     \
   }
 
-SEXP rep_(SEXP x, int n) {
+SEXP rep_(SEXP x, int n, std::string var_name) {
+  if (!Rf_isVectorAtomic(x) && TYPEOF(x) != VECSXP)
+    stop("'%s' must be an atomic vector or list", var_name);
+
+  if (Rf_inherits(x, "POSIXlt")) {
+    stop("'%s' is a POSIXlt. Please convert to POSIXct.", var_name);
+  }
+
   int xn = Rf_length(x);
   int nout = xn * n;
+
+  Shield<SEXP> output(Rf_allocVector(TYPEOF(x), nout));
   switch (TYPEOF(x)) {
     case INTSXP:
       DO_REP(INTSXP, int, INTEGER);
+      break;
     case REALSXP:
       DO_REP(REALSXP, double, REAL);
+      break;
     case STRSXP: {
       int counter = 0;
-      Shield<SEXP> output(Rf_allocVector(STRSXP, nout));
       for (int i = 0; i < n; ++i) {
         for (int j = 0; j < xn; ++j) {
           SET_STRING_ELT(output, counter, STRING_ELT(x, j));
           ++counter;
         }
       }
-      return output;
       break;
     }
     case LGLSXP:
       DO_REP(LGLSXP, int, LOGICAL);
+      break;
     case CPLXSXP:
       DO_REP(CPLXSXP, Rcomplex, COMPLEX);
+      break;
     case RAWSXP:
       DO_REP(RAWSXP, Rbyte, RAW);
+      break;
     case VECSXP:
       DO_REP(VECSXP, SEXP, STRING_PTR);
+      break;
     default: {
-      stop("Unhandled RTYPE");
+      stop("Unhandled RTYPE in '%s'", var_name);
       return R_NilValue;
     }
   }
+
+  Rf_copyMostAttrib(output, x);
+  return output;
 }
 
 // An optimized rep_each
@@ -235,32 +248,10 @@ List melt_dataframe(const DataFrame& data,
 
   // First, allocate the ID variables
   // we repeat each ID vector n_measure times
-
-  // A define to handle the different possible types
-  #define REP(RTYPE)                                 \
-    case RTYPE: {                                    \
-      output[i] = rep_(object, n_measure);  \
-      Rf_copyMostAttrib(object, output[i]); \
-      break;                                         \
-    }
-
   for (int i = 0; i < n_id; ++i) {
     SEXP object = data[id_ind[i]];
-    if (Rf_inherits(object, "POSIXlt")) {
-      std::string var = std::string(data_names[id_ind[i]]);
-      stop("'%s' is a POSIXlt. Please convert to POSIXct.", var);
-    }
-
-    switch (TYPEOF(object)) {
-      REP(LGLSXP);
-      REP(INTSXP);
-      REP(REALSXP);
-      REP(STRSXP);
-      REP(CPLXSXP);
-      REP(RAWSXP);
-      REP(VECSXP);
-    default: { stop("internal error: unnhandled vector type in REP"); }
-    }
+    std::string var_name = std::string(data_names[id_ind[i]]);
+    output[i] = rep_(object, n_measure, var_name);
   }
 
   // Now, we assign the 'variable' and 'value' columns
