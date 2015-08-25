@@ -87,6 +87,10 @@ gather_.data.frame <- function(data, key_col, value_col, gather_cols,
   }
 
   gather_idx <- match(gather_cols, names(data))
+  if (anyNA(gather_idx)) {
+    missing_cols <- paste(gather_cols[is.na(gather_idx)], collapse = ", ")
+    stop("Unknown column names: ", missing_cols, call. = FALSE)
+  }
   id_idx <- setdiff(seq_along(data), gather_idx)
 
   ## Get the attributes if common, NULL if not.
