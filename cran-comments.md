@@ -1,3 +1,11 @@
+This is a resubmission. Compared to the previous submission:
+
+* I've added the missing importFrom directives.  (Sorry I missed this - I
+  thought I was looking at R CMD check results from R-dev, but I was actually
+  looking at R-release.)
+
+---
+
 ## Test environments
 * local OS X install, R 3.1.2
 * ubuntu 12.04 (on travis-ci), R 3.1.2

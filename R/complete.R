@@ -1,3 +1,7 @@
+#' @importFrom stats setNames
+#' @importFrom utils type.convert
+NULL
+
 #' Complete a data frame with missing combinations of data.
 #'
 #' This is a wrapper around \code{\link{expand}()},
