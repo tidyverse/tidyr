@@ -4,7 +4,10 @@
 * win-builder (devel and release)
 
 ## R CMD check results
-There were no ERRORs, WARNINGs.
+There were no ERRORs, WARNINGs. There is one NOTE:
+
+* License components with restrictions and base license permitting such:
+  MIT + file LICENSE
 
 ## Downstream dependencies
 
