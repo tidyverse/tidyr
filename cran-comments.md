@@ -7,7 +7,15 @@
 There were no ERRORs, WARNINGs.
 
 ## Downstream dependencies
-I have also run R CMD check on the 27 downstream dependencies of tidyr 
-(https://github.com/hadley/tidyr/blob/master/revdep/summary.md). 
 
-I notified all authors on Aug 24.
+* I have also run R CMD check on the 27 downstream dependencies of tidyr
+  (Summary at https://github.com/hadley/tidyr/blob/master/revdep/summary.md). 
+  
+* There are three new failures:
+
+  * emil, quickpsy: imports too many packages completely so now has warning
+  * radiant: an example fails
+
+* I notified all authors on Aug 24, giving them two weeks to make changes.
+
+* I re-notified the 3 authors today.
