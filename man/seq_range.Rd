@@ -2,7 +2,7 @@
 % Please edit documentation in R/expand.R
 \name{seq_range}
 \alias{seq_range}
-\title{Create an evenly spaced sequence of values from highest to lowest.}
+\title{Create an evenly spaced sequence of values from lowest to highest.}
 \usage{
 seq_range(x, n)
 }
@@ -12,7 +12,7 @@ seq_range(x, n)
 \item{n}{Number of values}
 }
 \description{
-Create an evenly spaced sequence of values from highest to lowest.
+Create an evenly spaced sequence of values from lowest to highest.
 }
 \examples{
 seq_range(1:100, 5)
