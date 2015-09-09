@@ -61,7 +61,7 @@ SEXP rep_(SEXP x, int n, std::string var_name) {
     }
   }
 
-  Rf_copyMostAttrib(output, x);
+  Rf_copyMostAttrib(x, output);
   return output;
 }
 
