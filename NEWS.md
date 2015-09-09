@@ -1,5 +1,9 @@
 # tidyr 0.3.0.9000
 
+* Fixed bug where attributes of non-gather columns were lost (#104)
+
+# tidyr 0.3.0
+
 ## New features
 
 * New `complete()` provides a wrapper around `expand()`, `left_join()` and 

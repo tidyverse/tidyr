@@ -80,7 +80,7 @@ test_that("attributes of id variables are preserved", {
   df <- data.frame(x = factor(1:3), y = 1:3, z = 3:1)
   out <- gather(df, key, val, -x)
 
-  expect_equal(attributes(df$x), attributes(df$x))
+  expect_equal(attributes(df$x), attributes(out$x))
 })
 
 
