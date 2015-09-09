@@ -97,7 +97,7 @@ expand_.tbl_df <- function(data, dots, ...) {
   dplyr::tbl_df(NextMethod())
 }
 
-#' Create an evenly spaced sequence of values from highest to lowest.
+#' Create an evenly spaced sequence of values from lowest to highest.
 #'
 #' @param x A numeric vector
 #' @param n Number of values
