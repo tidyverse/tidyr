@@ -10,7 +10,7 @@
 |language |(EN)                         |
 |collate  |en_US.UTF-8                  |
 |tz       |America/Chicago              |
-|date     |2015-09-07                   |
+|date     |2015-09-09                   |
 
 ## Packages
 
@@ -40,20 +40,11 @@ Maintainer: Andrew Zammit-Mangion <andrewzm@gmail.com>
 
 __OK__
 
-## emil (2.1.1)
+## emil (2.2.2)
 Maintainer: Christofer Backlin <emil@christofer.backlin.se>  
 Bug reports: https://github.com/Molmed/emil/issues
 
-```
-checking whether package ‘emil’ can be installed ... WARNING
-Found the following significant warnings:
-  Warning: replacing previous import by ‘tidyr::%>%’ when loading ‘emil’
-See ‘/private/tmp/Rtmp7oYrs8/check_cran1221e3932f5d5/emil.Rcheck/00install.out’ for details.
-```
-```
-DONE
-Status: 1 WARNING
-```
+__OK__
 
 ## eurostat (1.0.16)
 Maintainer: Lahti Leo <louhos@googlegroups.com>  
@@ -108,7 +99,15 @@ __OK__
 ## mosaic (0.10.0)
 Maintainer: Randall Pruim <rpruim@calvin.edu>
 
-__OK__
+```
+checking whether package ‘mosaic’ can be installed ... ERROR
+Installation failed.
+See ‘/private/tmp/RtmpB1jPY8/check_cranb237964ccc9/mosaic.Rcheck/00install.out’ for details.
+```
+```
+DONE
+Status: 1 ERROR
+```
 
 ## pixiedust (0.1.1)
 Maintainer: Benjamin Nutter <nutter@battelle.org>  
@@ -160,7 +159,7 @@ Maintainer: Linares Daniel <danilinares@gmail.com>
 checking whether package ‘quickpsy’ can be installed ... WARNING
 Found the following significant warnings:
   Warning: replacing previous import by ‘tidyr::%>%’ when loading ‘quickpsy’
-See ‘/private/tmp/Rtmp7oYrs8/check_cran1221e3932f5d5/quickpsy.Rcheck/00install.out’ for details.
+See ‘/private/tmp/RtmpB1jPY8/check_cranb237964ccc9/quickpsy.Rcheck/00install.out’ for details.
 ```
 ```
 DONE
@@ -200,7 +199,7 @@ Maintainer: Konstantin A. Blagodatskikh <k.blag@yandex.ru>
 
 __OK__
 
-## rfishbase (2.0.2)
+## rfishbase (2.0.3)
 Maintainer: Carl Boettiger <cboettig@ropensci.org>  
 Bug reports: https://github.com/ropensci/rfishbase/issues
 

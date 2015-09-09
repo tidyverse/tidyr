@@ -1,10 +1,6 @@
-This is a resubmission. Compared to the previous submission:
+## Release summary
 
-* I've added the missing importFrom directives.  (Sorry I missed this - I
-  thought I was looking at R CMD check results from R-dev, but I was actually
-  looking at R-release.)
-
----
+Apologies for the resubmission - I just discovered a major bug that none of my previous testing uncovered. This release fixes the problem and adds a test so it won't happen again.
 
 ## Test environments
 * local OS X install, R 3.1.2
@@ -22,11 +18,10 @@ There were no ERRORs, WARNINGs. There is one NOTE:
 * I have also run R CMD check on the 27 downstream dependencies of tidyr
   (Summary at https://github.com/hadley/tidyr/blob/master/revdep/summary.md). 
   
-* There are three new failures:
+* There are three failures:
 
-  * emil, quickpsy: imports too many packages completely so now has warning
+  * mosaic: fails for other reasons
+  * quickpsy: imports too many packages completely so now has warning
   * radiant: an example fails
 
-* I notified all authors on Aug 24, giving them two weeks to make changes.
-
-* I re-notified the 3 authors today.
+* All authors are aware of the problems.

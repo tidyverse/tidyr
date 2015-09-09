@@ -1,4 +1,4 @@
-# tidyr 0.3.0.9000
+# tidyr 0.3.1
 
 * Fixed bug where attributes of non-gather columns were lost (#104)
 
