@@ -1,6 +1,6 @@
 Package: tidyr
 Title: Easily Tidy Data with `spread()` and `gather()` Functions
-Version: 0.3.1
+Version: 0.3.1.9000
 Authors@R: c(
     person("Hadley", "Wickham", , "hadley@rstudio.com", c("aut", "cre")),
     person("RStudio", role = "cph")
