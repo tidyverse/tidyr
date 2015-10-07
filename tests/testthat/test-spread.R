@@ -37,6 +37,9 @@ test_that("factors are spread into columns (#35)", {
   )
   out <- data %>% spread(x, z)
   expect_equal(names(out), c("y", "a", "b"))
+  expect_true(all(vapply(out, is.factor, logical(1))))
+  expect_identical(levels(out$a), c("w", "x"))
+  expect_identical(levels(out$b), c("y", "z"))
 })
 
 test_that("drop = FALSE keeps missing combinations (#25)", {
@@ -64,4 +67,34 @@ test_that("preserve class of input", {
   dat %>% (dplyr::tbl_dt) %>% spread(x, z) %>% expect_is("tbl_dt")
 })
 
+test_that("dates are spread into columns (#62)", {
+  df <- data.frame(id = c("a", "a", "b", "b"),
+                   key = c("begin", "end", "begin", "end"),
+                   date = Sys.Date() + 0:3,
+                   stringsAsFactors=FALSE)
+  out <- spread(df, key, date)
+  expect_identical(names(out), c("id", "begin", "end"))
+  expect_is(out$begin, "Date")
+  expect_is(out$end, "Date")
+})
 
+test_that("spread can produce mixed variable types (#118)", {
+  df <- data.frame(
+    row = rep(1:2, 3),
+    column = rep(1:3, each = 2),
+    cell_contents = as.character(c(rep("Argentina", 2),
+                                   62.485, 64.399,
+                                   1952, 1957)),
+    stringsAsFactors = FALSE
+  )
+  out <- spread(df, column, cell_contents, convert = TRUE)
+  expect_equivalent(vapply(out, class, ""),
+                    c("integer", "character", "numeric", "integer"))
+})
+
+test_that("vars that are all NA are logical if convert = TRUE (#118)", {
+  df <- data.frame(row = c(1, 2, 1, 2), column = c("f", "f", "g", "g"),
+                   contents = c("aa", "bb", NA, NA), stringsAsFactors = FALSE)
+  out <- df %>% spread(column, contents, convert = TRUE)
+  expect_is(out$g, "logical")
+})

@@ -94,14 +94,21 @@ spread_.data.frame <- function(data, key_col, value_col, fill = NA,
   if (!is.na(fill)) {
     ordered[is.na(ordered)] <- fill
   }
-  if (convert) {
-    ordered <- type.convert(ordered, as.is = TRUE)
-  }
 
   dim(ordered) <- c(attr(row_id, "n"), attr(col_id, "n"))
   colnames(ordered) <- as.character(col_labels[[1]])
+  ordered <- as.data.frame.matrix(ordered, stringsAsFactors = FALSE)
 
-  append_df(row_labels, matrixToDataFrame(ordered))
+  if (convert) {
+    ordered[] <- lapply(ordered, type.convert, as.is = TRUE)
+  }
+
+  ordered[] <- lapply(ordered, inherit_attributes, value)
+  if (is.factor(value) && drop) {
+    ordered[] <- lapply(ordered, factor)
+  }
+
+  append_df(row_labels, ordered)
 }
 
 #' @export
@@ -132,4 +139,11 @@ ulevels <- function(x) {
   } else {
     sort(unique(x))
   }
+}
+
+inherit_attributes <- function(target, source) {
+  if (is.factor(source))
+    target <- factor(target, levels = levels(source))
+  attributes(target) <- attributes(source)
+  target
 }
