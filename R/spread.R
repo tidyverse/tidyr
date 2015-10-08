@@ -97,7 +97,7 @@ spread_.data.frame <- function(data, key_col, value_col, fill = NA,
 
   dim(ordered) <- c(attr(row_id, "n"), attr(col_id, "n"))
   colnames(ordered) <- as.character(col_labels[[1]])
-  ordered <- as.data.frame.matrix(ordered, stringsAsFactors = FALSE)
+  ordered <- matrixToDataFrame(ordered)
 
   if (convert) {
     ordered[] <- lapply(ordered, type.convert, as.is = TRUE)
