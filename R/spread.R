@@ -103,7 +103,6 @@ spread_.data.frame <- function(data, key_col, value_col, fill = NA,
     ordered[] <- lapply(ordered, type.convert, as.is = TRUE)
   }
 
-  ordered[] <- lapply(ordered, inherit_attributes, value)
   if (is.factor(value) && drop) {
     ordered[] <- lapply(ordered, factor)
   }
@@ -139,11 +138,4 @@ ulevels <- function(x) {
   } else {
     sort(unique(x))
   }
-}
-
-inherit_attributes <- function(target, source) {
-  if (is.factor(source))
-    target <- factor(target, levels = levels(source))
-  attributes(target) <- attributes(source)
-  target
 }
