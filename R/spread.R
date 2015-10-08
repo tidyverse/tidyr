@@ -114,7 +114,7 @@ spread_.data.frame <- function(data, key_col, value_col, fill = NA,
     ordered[] <- lapply(ordered, type.convert, as.is = TRUE)
   }
 
-  if (is.factor(value) && is.factor(ordered[[1]]) && drop) {
+  if (is.factor(ordered[[1]]) && drop) {
     ordered[] <- lapply(ordered, factor)
   }
 
