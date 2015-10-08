@@ -1,6 +1,6 @@
 # tidyr
 
-[![Build Status](https://travis-ci.org/hadley/tidyr.png?branch=master)](https://travis-ci.org/hadley/tidyr) 
+[![Build Status](https://travis-ci.org/hadley/tidyr.svg?branch=master)](https://travis-ci.org/hadley/tidyr) 
 [![codecov.io](http://codecov.io/github/hadley/tidyr/coverage.svg?branch=master)](http://codecov.io/github/hadley/tidyr?branch=master)
 [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/tidyr)](http://cran.r-project.org/package=tidyr)
 
