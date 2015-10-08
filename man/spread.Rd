@@ -11,19 +11,20 @@ spread(data, key, value, fill = NA, convert = FALSE, drop = TRUE)
 
 \item{key,value}{Bare (unquoted) names of key and value columns.}
 
-\item{fill}{If set, missing values will be replaced with this value.
-Note that there are two types of missingness in the input: explicit
-missing values (i.e. \code{NA}), and implicit missings, rows that
-simply aren't present. Both types of missing value will be replaced by
-\code{fill}.}
+\item{fill}{If set, missing values will be replaced with this value. Note
+that there are two types of missingness in the input: explicit missing
+values (i.e. \code{NA}), and implicit missings, rows that simply aren't
+present. Both types of missing value will be replaced by \code{fill}.}
 
-\item{convert}{If \code{TRUE}, \code{\link{type.convert}} with
-\code{asis = TRUE} will be run on each of the new columns. This is
-useful if the value column was a mix of variables that was coerced to
-a string.}
+\item{convert}{If \code{TRUE}, \code{\link{type.convert}} with \code{asis =
+TRUE} will be run on each of the new columns. This is useful if the value
+column was a mix of variables that was coerced to a string. If the class of
+the value column was factor or date, note that will not be true of the new
+columns that are produced, which are coerced to character before type
+conversion.}
 
-\item{drop}{If \code{FALSE}, will keep factor levels that don't appear
-in the data, filling in missing combinations with \code{fill}.}
+\item{drop}{If \code{FALSE}, will keep factor levels that don't appear in the
+data, filling in missing combinations with \code{fill}.}
 }
 \description{
 Spread a key-value pair across multiple columns.
@@ -43,5 +44,12 @@ stocksm \%>\% spread(time, price)
 # Spread and gather are complements
 df <- data.frame(x = c("a", "b"), y = c(3, 4), z = c(5, 6))
 df \%>\% spread(x, y) \%>\% gather(x, y, a:b, na.rm = TRUE)
+
+# Use 'convert = TRUE' to produce variables of mixed type
+df <- data.frame(row = rep(c(1, 51), each = 3),
+                 var = c("Sepal.Length", "Species", "Species_num"),
+                 value = c(5.1, "setosa", 1, 7.0, "versicolor", 2))
+df \%>\% spread(var, value) \%>\% str
+df \%>\% spread(var, value, convert = TRUE) \%>\% str
 }
 
