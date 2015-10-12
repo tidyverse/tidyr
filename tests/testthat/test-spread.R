@@ -39,12 +39,9 @@ test_that("factors are spread into columns (#35)", {
   out <- data %>% spread(x, z)
   expect_equal(names(out), c("y", "a", "b"))
   expect_true(all(vapply(out, is.factor, logical(1))))
-  expect_identical(levels(out$a), c("w", "x"))
-  expect_identical(levels(out$b), c("y", "z"))
-
-  out <- data %>% spread(x, z, drop = FALSE)
   expect_identical(levels(out$a), levels(data$z))
   expect_identical(levels(out$b), levels(data$z))
+
 })
 
 test_that("drop = FALSE keeps missing combinations (#25)", {
