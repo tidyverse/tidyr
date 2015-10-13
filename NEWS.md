@@ -1,5 +1,7 @@
 # tidyr 0.3.1.9000
 
+* `spread()` once again creates columns of mixed type when `convert = TRUE` (#118, @jennybc)
+
 # tidyr 0.3.1
 
 * Fixed bug where attributes of non-gather columns were lost (#104)
