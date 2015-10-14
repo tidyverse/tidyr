@@ -185,6 +185,74 @@ spread_.data.table <- function(data, key_col, value_col,
   Output
 }
 
+#' @import data.table
+#' @export
+spread_.data.table <- function(data, key_col, value_col,
+                               fill = NA, convert = FALSE, drop = TRUE)
+{
+  if( !requireNamespace("data.table") )
+    NextMethod()
+
+  # everything that is not key_col or value_col identifies the output row
+  id.cols <- setdiff(names(data),
+                       c(key_col, value_col))
+
+  # Check that each output value occurs in unique location
+  dup <- data[,list("frequency" = .N), by = c(key_col, id.cols)][frequency>1]
+  if(NROW(dup) > 0)
+  {
+    stop("Duplicate identifiers for the printed row identifiers\n",
+         paste(capture.output(dup), collapse="\n"),
+         call. = FALSE)
+  }
+
+  # if there are just key and value cols, then spread_.data.frame uses
+  # the key column as lhs implicitly:
+  # > data.frame(x = c("a", "b"), y = 1:2) %>% spread(x, y)
+  #   a  b
+  #   1  1 NA
+  #   2 NA  2
+  if(length(id.cols) == 0)
+  {
+    lhs <- paste0("`", key_col, "`")
+    drop.key.col <- TRUE
+  } else {
+    lhs <- paste0("`", id.cols, "`",
+                collapse = "+")
+    drop.key.col <- FALSE
+  }
+
+  Output <- data.table::dcast.data.table(
+    data = data,
+    formula = paste0(lhs, "~ `", key_col, "`"),
+    value.var = value_col,
+    fill = fill,
+    drop = drop
+  )
+
+  if(isTRUE(drop.key.col))
+    data.table::set(Output, j = key_col, value = NULL)
+
+
+  if( convert==TRUE )
+  {
+    # There is the possibility for duplicated colnames
+    # We err on the side of caution and just replace unambiguously new columns.
+    new.cols <- setdiff(names(Output), id.cols)
+
+    lapply(
+      new.cols,
+      function(col)
+        data.table::set(Output,
+                        j=col,
+                        value = type.convert(Output[[col]],
+                                             as.is = TRUE))
+    )
+  }
+
+  Output
+}
+
 #' @export
 spread_.tbl_df <- function(data, key_col, value_col, fill = NA,
                            convert = FALSE, drop = TRUE) {
