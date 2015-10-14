@@ -121,6 +121,38 @@ gather_.data.frame <- function(data, key_col, value_col, gather_cols,
   df
 }
 
+# .datatable.aware = TRUE exported in spread.R
+
+#' @export
+gather_.data.table <- function(data, key_col, value_col, gather_cols,
+                               na.rm = FALSE, convert = FALSE) {
+  if( !requireNamespace("data.table") )
+    NextMethod()
+
+  Output <- data.table::melt.data.table(
+    data,
+    id.vars = setdiff(names(data), gather_cols),
+    measure.vars = gather_cols,
+    variable.name = key_col,
+    value.name = value_col
+  )
+
+  if (na.rm) {
+    Output <- na.omit(Output, cols = value_col)
+  }
+
+  if (convert) {
+    data.table::set(
+      Output,
+      j = key_col,
+      value = type.convert(as.character(Output[[key_col]]),
+                           as.is = TRUE)
+    )
+  }
+
+  Output
+}
+
 #' @export
 gather_.tbl_df <- function(data, key_col, value_col, gather_cols,
                            na.rm = FALSE, convert = FALSE) {
