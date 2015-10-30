@@ -52,4 +52,8 @@ df <- data.frame(row = rep(c(1, 51), each = 3),
 df \%>\% spread(var, value) \%>\% str
 df \%>\% spread(var, value, convert = TRUE) \%>\% str
 }
+\seealso{
+\code{\link{spread_}} for a version that uses regular evaluation
+  and is suitable for programming with.
+}
 

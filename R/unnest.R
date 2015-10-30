@@ -11,6 +11,8 @@
 #'
 #'   If ommitted, defaults to all list-cols.
 #' @seealso \code{\link{nest}} for the inverse operation.
+#' @seealso \code{\link{unnest_}} for a version that uses regular evaluation
+#'   and is suitable for programming with.
 #' @export
 #' @examples
 #' library(dplyr)

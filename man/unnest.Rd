@@ -57,5 +57,8 @@ df \%>\% nest(y) \%>\% unnest(y)
 }
 \seealso{
 \code{\link{nest}} for the inverse operation.
+
+\code{\link{unnest_}} for a version that uses regular evaluation
+  and is suitable for programming with.
 }
 

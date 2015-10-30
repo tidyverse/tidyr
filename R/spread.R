@@ -2,6 +2,8 @@
 #'
 #' @param key,value Bare (unquoted) names of key and value columns.
 #' @inheritParams spread_
+#' @seealso \code{\link{spread_}} for a version that uses regular evaluation
+#'   and is suitable for programming with.
 #' @export
 #' @examples
 #' library(dplyr)

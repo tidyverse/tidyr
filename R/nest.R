@@ -1,6 +1,8 @@
 #' Nest repeated values in a list-varible.
 #'
 #' @seealso \code{\link{unnest}} for the inverse operation.
+#' @seealso \code{\link{nest_}} for a version that uses regular evaluation
+#'   and is suitable for programming with.
 #' @inheritParams nest_
 #' @param ... Specification of columns to nest. Use bare variable names.
 #'   Select all variables between x and z with \code{x:z}, exclude y with
