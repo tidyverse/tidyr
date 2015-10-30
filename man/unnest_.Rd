@@ -14,4 +14,5 @@ unnest_(data, unnest_cols)
 \description{
 This is a S3 generic.
 }
+\keyword{internal}
 

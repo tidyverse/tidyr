@@ -50,6 +50,7 @@ spread <- function(data, key, value, fill = NA, convert = FALSE, drop = TRUE) {
 #'   conversion.
 #' @param drop If \code{FALSE}, will keep factor levels that don't appear in the
 #'   data, filling in missing combinations with \code{fill}.
+#' @keywords internal
 #' @export
 spread_ <- function(data, key_col, value_col, fill = NA, convert = FALSE,
                     drop = TRUE) {

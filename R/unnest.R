@@ -61,6 +61,7 @@ unnest <- function(data, ...) {
 #'
 #' @param data A data frame.
 #' @param unnest_cols Name of columns that needs to be unnested.
+#' @keywords internal
 #' @export
 unnest_ <- function(data, unnest_cols) UseMethod("unnest_")
 

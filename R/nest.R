@@ -21,6 +21,7 @@ nest <- function(data, ...) {
 #'
 #' @param data A data frame.
 #' @param nest_cols Character vector of columns to nest.
+#' @keywords internal
 #' @export
 nest_ <- function(data, nest_cols) {
   UseMethod("nest_")
