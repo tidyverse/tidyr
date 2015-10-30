@@ -11,8 +11,9 @@ NULL
 #' @param ... Specification of columns to fill. Use bare variable names.
 #'   Select all variables between x and z with \code{x:z}, exclude y with
 #'   \code{-y}. For more options, see the \link[dplyr]{select} documentation.
-#' @export
-#' @inheritParams extract_
+#' @inheritParams fill_
+#' @seealso \code{\link{fill_}} for a version that uses regular evaluation
+#'   and is suitable for programming with.
 #' @export
 #' @examples
 #' df <- data.frame(Month = 1:12, Year = c(2000, rep(NA, 11)))
