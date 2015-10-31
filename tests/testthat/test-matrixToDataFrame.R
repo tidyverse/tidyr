@@ -41,6 +41,10 @@ test_that("handles atomic vectors", {
   x <- matrix("a", nrow = 2)
   out <- matrixToDataFrame(x)
   expect_equal(out[[1]], c("a", "a"))
+
+  x <- matrix(complex(real = 1, imag = 2), nrow = 2)
+  out <- matrixToDataFrame(x)
+  expect_equal(out[[1]], as.vector(x))
 })
 
 x <- matrix(list("a"), nrow = 2)
