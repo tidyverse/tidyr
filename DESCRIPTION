@@ -27,3 +27,4 @@ Suggests:
     covr
 VignetteBuilder: knitr
 LinkingTo: Rcpp
+RoxygenNote: 5.0.0
