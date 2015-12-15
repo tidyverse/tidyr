@@ -1,5 +1,8 @@
 # tidyr 0.3.1.9000
 
+* `nest()` now produces a single list of data frames called "data" rather
+  than a list column for each variable.
+
 # tidyr 0.3.1
 
 * Fixed bug where attributes of non-gather columns were lost (#104)

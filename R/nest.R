@@ -1,5 +1,9 @@
 #' Nest repeated values in a list-varible.
 #'
+#' There are many possible ways one could choose to nest columns inside a
+#' data frame. \code{nest()} creates a list of data frames containing all
+#' the nested variables: this seems to be the most useful for in practice.
+#'
 #' @seealso \code{\link{unnest}} for the inverse operation.
 #' @inheritParams nest_
 #' @param ... Specification of columns to nest. Use bare variable names.
@@ -10,6 +14,15 @@
 #' library(dplyr)
 #' iris %>% nest(-Species)
 #' chickwts %>% nest(weight)
+#'
+#' if (require("gapminder")) {
+#'   gapminder %>%
+#'     group_by(country, continent) %>%
+#'     nest()
+#'
+#'   gapminder %>%
+#'     nest(-country, -continent)
+#' }
 nest <- function(data, ...) {
   nest_cols <- unname(dplyr::select_vars(names(data), ...))
   nest_(data, nest_cols)
@@ -30,18 +43,22 @@ nest_ <- function(data, nest_cols) {
 nest_.data.frame <- function(data, nest_cols) {
   group_cols <- setdiff(names(data), nest_cols)
 
-  nested_cols <- lapply(nest_cols, function(var) {
-    lazyeval::interp(quote(list(x)), x = as.name(var))
-  })
-  names(nested_cols) <- nest_cols
-
   data %>%
     dplyr::group_by_(.dots = group_cols) %>%
-    dplyr::summarise_(.dots = nested_cols) %>%
-    dplyr::rowwise()
+    dplyr::do(data = as.data.frame(.[nest_cols])) %>%
+    dplyr::ungroup()
 }
 
 #' @export
 nest_.tbl_df <- function(data, nest_cols) {
   dplyr::tbl_df(NextMethod())
 }
+
+#' @export
+nest_.grouped_df <- function(data, nest_cols) {
+  data %>%
+    dplyr::do(data = as.data.frame(.)) %>%
+    dplyr::ungroup()
+}
+
+globalVariables(".")

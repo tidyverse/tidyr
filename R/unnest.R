@@ -45,7 +45,7 @@
 #' # Nest and unnest are inverses
 #' df <- data.frame(x = c(1, 1, 2), y = 3:1)
 #' df %>% nest(y)
-#' df %>% nest(y) %>% unnest(y)
+#' df %>% nest(y) %>% unnest()
 unnest <- function(data, ...) {
   unnest_cols <- unname(dplyr::select_vars(names(data), ...))
   if (length(unnest_cols) == 0) {
