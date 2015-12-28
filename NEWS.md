@@ -3,6 +3,8 @@
 * `nest()` now produces a single list of data frames called "data" rather
   than a list column for each variable.
 
+* `spread()` once again creates columns of mixed type when `convert = TRUE` (#118, @jennybc)
+
 # tidyr 0.3.1
 
 * Fixed bug where attributes of non-gather columns were lost (#104)

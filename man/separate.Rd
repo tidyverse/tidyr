@@ -35,7 +35,7 @@ columns are integer, numeric or logical.}
   happens when there are too many pieces. There are three valid options:
 
   \itemize{
-   \item "warn" (the default): emit a waring and drop extra values.
+   \item "warn" (the default): emit a warning and drop extra values.
    \item "drop": drop any extra values without a warning.
    \item "merge": only splits at most \code{length(into)} times
   }}
@@ -44,7 +44,7 @@ columns are integer, numeric or logical.}
   happens when there are not enough pieces. There are three valid options:
 
   \itemize{
-   \item "warn" (the default): emit a waring and fill from the right
+   \item "warn" (the default): emit a warning and fill from the right
    \item "right": fill with missing values on the right
    \item "left": fill with missing values on the left
   }}
