@@ -56,8 +56,16 @@ nest_.tbl_df <- function(data, nest_cols) {
 
 #' @export
 nest_.grouped_df <- function(data, nest_cols) {
+  if (length(nest_cols) > 0) {
+    warning("`nest_cols` ignored when nesting grouped data", call. = FALSE)
+  }
+
+  groups <- dplyr::groups(data)
+  group_vars <- vapply(groups, as.character, character(1))
+  nest_vars <- setdiff(names(data), group_vars)
+
   data %>%
-    dplyr::do(data = as.data.frame(.)) %>%
+    dplyr::do(data = as.data.frame(.[nest_vars])) %>%
     dplyr::ungroup()
 }
 
