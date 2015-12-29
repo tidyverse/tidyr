@@ -9,11 +9,8 @@ unnest(data, ..., .drop = NA)
 \arguments{
 \item{data}{A data frame.}
 
-\item{...}{Specification of columns to nest. Use bare variable names.
-  Select all variables between x and z with \code{x:z}, exclude y with
-  \code{-y}. For more options, see the \link[dplyr]{select} documentation.
-
-  If ommitted, defaults to all list-cols.}
+\item{...}{Specification of columns to nest. Use bare variable names or
+functions of variables. If omitted, defaults to all list-cols.}
 
 \item{.drop}{Should additional list columns be dropped? By default,
 \code{unnest} will drop them if unnesting the specified columns requires
@@ -33,6 +30,10 @@ df <- data_frame(
 df \%>\%
   transform(y = strsplit(y, ",")) \%>\%
   unnest(y)
+
+# Or just
+df \%>\%
+  unnest(y = strsplit(y, ","))
 
 # It also works if you have a column that contains other data frames!
 df <- data_frame(

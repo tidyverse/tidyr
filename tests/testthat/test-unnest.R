@@ -36,6 +36,12 @@ test_that("nested is split as a list (#84)", {
   expect_that(unnest(df), not(gives_warning("data length is not a multiple")))
 })
 
+test_that("unnest has mutate semantics", {
+  df <- dplyr::data_frame(x = 1:3, y = list(1,2:3,4))
+  out <- df %>% unnest(z = lapply(y, `+`, 1))
+
+  expect_equal(out$z, 2:5)
+})
 
 # Drop --------------------------------------------------------------------
 
