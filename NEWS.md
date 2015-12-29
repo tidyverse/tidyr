@@ -3,6 +3,10 @@
 * `nest()` now produces a single list of data frames called "data" rather
   than a list column for each variable.
 
+* `unnest()` gains a `.drop` argument which controls what happens to
+  other list columns. By default, they're kept if the output doesn't require
+  row duplication; otherwise they're dropped.
+
 * `spread()` once again creates columns of mixed type when `convert = TRUE` (#118, @jennybc)
 
 # tidyr 0.3.1

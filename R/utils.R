@@ -59,3 +59,5 @@ list_indices <- function(x, max = 20) {
 
   paste(x, collapse = ", ")
 }
+
+`%||%` <- function(x, y) if (length(x) == 0) y else x

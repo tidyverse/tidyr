@@ -37,3 +37,26 @@ test_that("nested is split as a list (#84)", {
 })
 
 
+# Drop --------------------------------------------------------------------
+
+test_that("unnest drops list cols if expanding", {
+  df <- dplyr::data_frame(x = 1:2, y = list(3, 4), z = list(5, 6:7))
+  out <- df %>% unnest(z)
+
+  expect_equal(names(out), c("x", "z"))
+})
+
+test_that("unnest keeps list cols if not expanding", {
+  df <- dplyr::data_frame(x = 1:2, y = list(3, 4), z = list(5, 6:7))
+  out <- df %>% unnest(y)
+
+  expect_equal(names(out), c("x", "z", "y"))
+})
+
+test_that("unnest respects .drop_lists", {
+  df <- dplyr::data_frame(x = 1:2, y = list(3, 4), z = list(5, 6:7))
+
+  expect_equal(df %>% unnest(y, .drop = TRUE) %>% names(), c("x", "y"))
+  expect_equal(df %>% unnest(z, .drop = FALSE) %>% names(), c("x", "y", "z"))
+
+})

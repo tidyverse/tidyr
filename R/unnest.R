@@ -46,13 +46,13 @@
 #' df <- data.frame(x = c(1, 1, 2), y = 3:1)
 #' df %>% nest(y)
 #' df %>% nest(y) %>% unnest()
-unnest <- function(data, ...) {
+unnest <- function(data, ..., .drop = NA) {
   unnest_cols <- unname(dplyr::select_vars(names(data), ...))
   if (length(unnest_cols) == 0) {
     unnest_cols <- names(data)[vapply(data, is.list, logical(1))]
   }
 
-  unnest_(data, unnest_cols)
+  unnest_(data, unnest_cols, .drop = .drop)
 }
 
 #' Standard-evaluation version of \code{unnest}.
@@ -61,11 +61,16 @@ unnest <- function(data, ...) {
 #'
 #' @param data A data frame.
 #' @param unnest_cols Name of columns that needs to be unnested.
+#' @param .drop Should additional list columns be dropped? By default,
+#'   \code{unnest} will drop them if unnesting the specified columns requires
+#'   the rows to be duplicated.
 #' @export
-unnest_ <- function(data, unnest_cols) UseMethod("unnest_")
+unnest_ <- function(data, unnest_cols, .drop = NA) {
+  UseMethod("unnest_")
+}
 
 #' @export
-unnest_.data.frame <- function(data, unnest_cols) {
+unnest_.data.frame <- function(data, unnest_cols, .drop = NA) {
   nested <- data[unnest_cols]
   n <- lapply(nested, function(x) vapply(x, NROW, numeric(1)))
   if (length(unique(n)) != 1) {
@@ -89,10 +94,20 @@ unnest_.data.frame <- function(data, unnest_cols) {
   if (length(unnested_dataframe) > 0)
     unnested_dataframe <- dplyr::bind_cols(unnested_dataframe)
 
-  group_cols <- setdiff(names(data), unnest_cols)
+  # Keep list columns by default, only if the rows aren't expanded
+  if (identical(.drop, NA)) {
+    n_in <- nrow(data)
+    n_out <- nrow(unnested_atomic %||% unnested_dataframe)
+    .drop <- n_out != n_in
+  }
+  if (.drop) {
+    is_atomic <- vapply(data, is.atomic, logical(1))
+    group_cols <- names(data)[is_atomic]
+  } else {
+    group_cols <- setdiff(names(data), unnest_cols)
+  }
   rest <- data[rep(1:nrow(data), n[[1]]), group_cols, drop = FALSE]
 
-  # Simplify after https://github.com/hadley/dplyr/issues/1148
   dplyr::bind_cols(compact(list(rest, unnested_atomic, unnested_dataframe)))
 }
 
@@ -110,6 +125,6 @@ list_col_type <- function(x) {
 }
 
 #' @export
-unnest_.tbl_df <- function(data, unnest_cols) {
+unnest_.tbl_df <- function(data, unnest_cols, .drop = NA) {
   dplyr::tbl_df(NextMethod())
 }

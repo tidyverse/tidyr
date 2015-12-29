@@ -4,7 +4,7 @@
 \alias{unnest}
 \title{Unnest a list column.}
 \usage{
-unnest(data, ...)
+unnest(data, ..., .drop = NA)
 }
 \arguments{
 \item{data}{A data frame.}
@@ -14,6 +14,10 @@ unnest(data, ...)
   \code{-y}. For more options, see the \link[dplyr]{select} documentation.
 
   If ommitted, defaults to all list-cols.}
+
+\item{.drop}{Should additional list columns be dropped? By default,
+\code{unnest} will drop them if unnesting the specified columns requires
+the rows to be duplicated.}
 }
 \description{
 If you have a list-column, this makes each element of the list it's own

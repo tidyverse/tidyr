@@ -4,12 +4,16 @@
 \alias{unnest_}
 \title{Standard-evaluation version of \code{unnest}.}
 \usage{
-unnest_(data, unnest_cols)
+unnest_(data, unnest_cols, .drop = NA)
 }
 \arguments{
 \item{data}{A data frame.}
 
 \item{unnest_cols}{Name of columns that needs to be unnested.}
+
+\item{.drop}{Should additional list columns be dropped? By default,
+\code{unnest} will drop them if unnesting the specified columns requires
+the rows to be duplicated.}
 }
 \description{
 This is a S3 generic.
