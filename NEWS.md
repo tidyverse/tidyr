@@ -1,5 +1,7 @@
 # tidyr 0.3.1.9000
 
+* `spread(drop = FALSE)` now handles zero-length factors (#56).
+
 * `unite()` now removes old columns before adding new (#89, @krlmlr).
 
 * `gather()` now stores the key column as character, by default. To revert to

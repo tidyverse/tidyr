@@ -54,7 +54,20 @@ test_that("drop = FALSE keeps missing combinations (#25)", {
   expect_equal(nrow(out), 2)
   expect_equal(ncol(out), 3)
   expect_equal(out$a[2], 1)
+})
 
+test_that("drop = FALSE keeps missing combinations of 0-length factors (#56)", {
+  df <- data.frame(
+    x = factor(, levels = c("a", "b")),
+    y = factor(, levels = c("a", "b")),
+    z = logical()
+  )
+  out <- df %>% spread(x, z, drop = FALSE)
+
+  expect_equal(nrow(out), 2)
+  expect_equal(ncol(out), 3)
+  expect_equal(out$a, c(NA, NA))
+  expect_equal(out$b, c(NA, NA))
 })
 
 test_that("preserve class of input", {
