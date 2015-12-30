@@ -21,7 +21,7 @@
 #'   separate(vs_am, c("vs", "am"))
 unite <- function(data, col, ..., sep = "_", remove = TRUE) {
   col <- col_name(substitute(col))
-  from <- dplyr::select_vars(names(data), ...)
+  from <- dplyr::select_vars(colnames(data), ...)
 
   unite_(data, col, from, sep = sep, remove = remove)
 }

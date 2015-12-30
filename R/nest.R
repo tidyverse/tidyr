@@ -26,7 +26,7 @@
 #'     nest(-country, -continent)
 #' }
 nest <- function(data, ...) {
-  nest_cols <- unname(dplyr::select_vars(names(data), ...))
+  nest_cols <- unname(dplyr::select_vars(colnames(data), ...))
   nest_(data, nest_cols)
 }
 

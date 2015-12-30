@@ -24,7 +24,7 @@ NULL
 #' df <- data.frame(Month = 1:12, Year = c(2000, rep(NA, 11)))
 #' df %>% fill(Year)
 fill <- function(data, ..., .direction = c("down", "up")) {
-  fill_cols <- unname(dplyr::select_vars(names(data), ...))
+  fill_cols <- unname(dplyr::select_vars(colnames(data), ...))
   fill_(data, fill_cols, .direction = .direction)
 }
 

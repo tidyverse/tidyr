@@ -47,9 +47,9 @@ gather <- function(data, key, value, ..., na.rm = FALSE, convert = FALSE,
   value_col <- col_name(substitute(value), "value")
 
   if (n_dots(...) == 0) {
-    gather_cols <- setdiff(names(data), c(key_col, value_col))
+    gather_cols <- setdiff(colnames(data), c(key_col, value_col))
   } else {
-    gather_cols <- unname(dplyr::select_vars(names(data), ...))
+    gather_cols <- unname(dplyr::select_vars(colnames(data), ...))
   }
 
   gather_(data, key_col, value_col, gather_cols, na.rm = na.rm,
