@@ -13,6 +13,10 @@ melt_dataframe <- function(data, id_ind, measure_ind, variable_name, value_name,
     .Call('tidyr_melt_dataframe', PACKAGE = 'tidyr', data, id_ind, measure_ind, variable_name, value_name, attrTemplate, factorsAsStrings, valueAsFactor, variableAsFactor)
 }
 
+extract_groups <- function(data, nested_cols) {
+    .Call('tidyr_extract_groups', PACKAGE = 'tidyr', data, nested_cols)
+}
+
 simplifyPieces <- function(pieces, p, fillLeft = TRUE) {
     .Call('tidyr_simplifyPieces', PACKAGE = 'tidyr', pieces, p, fillLeft)
 }
