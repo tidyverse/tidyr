@@ -21,6 +21,10 @@ Fills missing values in using the previous entry. This is useful in the
 common output format where values are not repeated, they're recorded
 each time they change.
 }
+\details{
+Missing values are replaced in atomic vectors; \code{NULL}s are replaced
+in list.
+}
 \examples{
 df <- data.frame(Month = 1:12, Year = c(2000, rep(NA, 11)))
 df \%>\% fill(Year)

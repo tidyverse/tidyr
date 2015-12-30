@@ -1,5 +1,7 @@
 # tidyr 0.3.1.9000
 
+* `fill()` fills in `NULL`s in list-columns.
+
 * `fill()` gains a direction argument so that it can fill either upwards or 
   downwards (#114).
 

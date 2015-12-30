@@ -8,6 +8,9 @@ NULL
 #' common output format where values are not repeated, they're recorded
 #' each time they change.
 #'
+#' Missing values are replaced in atomic vectors; \code{NULL}s are replaced
+#' in list.
+#'
 #' @param ... Specification of columns to fill. Use bare variable names.
 #'   Select all variables between x and z with \code{x:z}, exclude y with
 #'   \code{-y}. For more options, see the \link[dplyr]{select} documentation.

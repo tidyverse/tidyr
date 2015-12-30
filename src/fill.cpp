@@ -59,6 +59,17 @@ SEXP fillDown(SEXP x) {
     break;
 
   }
+  case VECSXP: {
+    SEXP lastVal = R_NilValue;
+
+    for (int i = 0; i < n; ++i) {
+      if (!Rf_isNull(VECTOR_ELT(x, i)))
+        lastVal = VECTOR_ELT(x, i);
+      SET_VECTOR_ELT(out, i, lastVal);
+    }
+    break;
+
+  }
   default:
     stop("Don't know how to handle column of type", Rf_type2char(TYPEOF(x)));
   }
@@ -122,6 +133,17 @@ SEXP fillUp(SEXP x) {
       if (STRING_ELT(x, i) != NA_STRING)
         lastVal = STRING_ELT(x, i);
       SET_STRING_ELT(out, i, lastVal);
+    }
+    break;
+
+  }
+  case VECSXP: {
+    SEXP lastVal = R_NilValue;
+
+    for (int i = n - 1; i >= 0; --i) {
+      if (!Rf_isNull(VECTOR_ELT(x, i)))
+        lastVal = VECTOR_ELT(x, i);
+      SET_VECTOR_ELT(out, i, lastVal);
     }
     break;
 

@@ -34,29 +34,34 @@ test_that("missings filled down for each atomic vector", {
     lgl = c(T, NA),
     int = c(1L, NA),
     dbl = c(1, NA),
-    chr = c("a", NA)
+    chr = c("a", NA),
+    lst = list(1:5, NULL)
+
   )
 
-  out <- fill(df, lgl, int, dbl, chr)
+  out <- fill(df, everything())
   expect_equal(out$lgl, c(TRUE, TRUE))
   expect_equal(out$int, c(1L, 1L))
   expect_equal(out$dbl, c(1, 1))
   expect_equal(out$chr, c("a", "a"))
+  expect_equal(out$lst, list(1:5, 1:5))
 })
 
-test_that("missings filled up for each atomic vector", {
+test_that("missings filled up for each vector", {
   df <- dplyr::data_frame(
     lgl = c(NA, T),
     int = c(NA, 1L),
     dbl = c(NA, 1),
-    chr = c(NA, "a")
+    chr = c(NA, "a"),
+    lst = list(NULL, 1:5)
   )
 
-  out <- fill(df, lgl, int, dbl, chr, .direction = "up")
+  out <- fill(df, everything(), .direction = "up")
   expect_equal(out$lgl, c(TRUE, TRUE))
   expect_equal(out$int, c(1L, 1L))
   expect_equal(out$dbl, c(1, 1))
   expect_equal(out$chr, c("a", "a"))
+  expect_equal(out$lst, list(1:5, 1:5))
 })
 
 test_that("fill preserves attributes", {
