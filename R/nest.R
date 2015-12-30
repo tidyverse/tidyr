@@ -45,7 +45,7 @@ nest_.data.frame <- function(data, nest_cols) {
 
   data %>%
     dplyr::group_by_(.dots = group_cols) %>%
-    dplyr::do(data = as.data.frame(.[nest_cols])) %>%
+    dplyr::do(data = dplyr::as_data_frame(.[nest_cols])) %>%
     dplyr::ungroup()
 }
 
@@ -65,7 +65,7 @@ nest_.grouped_df <- function(data, nest_cols) {
   nest_vars <- setdiff(names(data), group_vars)
 
   data %>%
-    dplyr::do(data = as.data.frame(.[nest_vars])) %>%
+    dplyr::do(data = dplyr::as_data_frame(.[nest_vars])) %>%
     dplyr::ungroup()
 }
 

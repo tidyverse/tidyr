@@ -2,10 +2,12 @@
 
 S3method(complete_,data.frame)
 S3method(expand_,data.frame)
+S3method(expand_,grouped_df)
 S3method(expand_,tbl_df)
 S3method(extract_,data.frame)
 S3method(extract_,tbl_df)
 S3method(fill_,data.frame)
+S3method(fill_,grouped_df)
 S3method(gather_,data.frame)
 S3method(gather_,tbl_df)
 S3method(gather_,tbl_dt)

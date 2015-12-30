@@ -30,3 +30,15 @@ test_that("expand works with non-standard col names", {
 
   expect_equal(nrow(out), 4)
 })
+
+test_that("expand respects groups", {
+  df <- dplyr::data_frame(
+    a = c(1L, 1L, 2L),
+    b = c(1L, 2L, 1L),
+    c = c(2L, 1L, 1L)
+  )
+  out <- df %>% dplyr::group_by(a) %>% expand(b, c) %>% nest()
+
+  expect_equal(out$data[[1]], expand_grid(b = 1:2, c = 1:2))
+  expect_equal(out$data[[2]], dplyr::data_frame(b = 1L, c = 1L))
+})

@@ -97,6 +97,11 @@ expand_.tbl_df <- function(data, dots, ...) {
   dplyr::tbl_df(NextMethod())
 }
 
+#' @export
+expand_.grouped_df <- function(data, dots, ...) {
+  dplyr::do(data, expand_(., dots, ...))
+}
+
 #' Create an evenly spaced sequence of values from lowest to highest.
 #'
 #' @param x A numeric vector
@@ -107,4 +112,9 @@ expand_.tbl_df <- function(data, dots, ...) {
 seq_range <- function(x, n) {
   rng <- range(x, na.rm = TRUE)
   seq(rng[1], rng[2], length = n)
+}
+
+
+expand_grid <- function(...) {
+  dplyr::as_data_frame(expand.grid(..., KEEP.OUT.ATTRS = FALSE, stringsAsFactors = FALSE))
 }

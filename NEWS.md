@@ -1,5 +1,7 @@
 # tidyr 0.3.1.9000
 
+* `expand()` respects grouping from `group_by()` (#122).
+
 * `fill()` respects grouping from `group_by()` (#129).
 
 * `fill()` fills in `NULL`s in list-columns.
