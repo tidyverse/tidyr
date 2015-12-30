@@ -5,15 +5,25 @@
 
 using namespace Rcpp;
 
-// fillVector
-SEXP fillVector(SEXP x, bool rev);
-RcppExport SEXP tidyr_fillVector(SEXP xSEXP, SEXP revSEXP) {
+// fillDown
+SEXP fillDown(SEXP x);
+RcppExport SEXP tidyr_fillDown(SEXP xSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
     Rcpp::RNGScope __rngScope;
     Rcpp::traits::input_parameter< SEXP >::type x(xSEXP);
-    Rcpp::traits::input_parameter< bool >::type rev(revSEXP);
-    __result = Rcpp::wrap(fillVector(x, rev));
+    __result = Rcpp::wrap(fillDown(x));
+    return __result;
+END_RCPP
+}
+// fillUp
+SEXP fillUp(SEXP x);
+RcppExport SEXP tidyr_fillUp(SEXP xSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject __result;
+    Rcpp::RNGScope __rngScope;
+    Rcpp::traits::input_parameter< SEXP >::type x(xSEXP);
+    __result = Rcpp::wrap(fillUp(x));
     return __result;
 END_RCPP
 }

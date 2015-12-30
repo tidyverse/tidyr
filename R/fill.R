@@ -13,13 +13,14 @@ NULL
 #'   \code{-y}. For more options, see the \link[dplyr]{select} documentation.
 #' @export
 #' @inheritParams extract_
+#' @inheritParams fill_
 #' @export
 #' @examples
 #' df <- data.frame(Month = 1:12, Year = c(2000, rep(NA, 11)))
 #' df %>% fill(Year)
-fill <- function(data, ...) {
+fill <- function(data, ..., .direction = c("down", "up")) {
   fill_cols <- unname(dplyr::select_vars(names(data), ...))
-  fill_(data, fill_cols)
+  fill_(data, fill_cols, .direction = .direction)
 }
 
 #' Standard-evaluation version of \code{fill}.
@@ -28,18 +29,21 @@ fill <- function(data, ...) {
 #'
 #' @param data A data frame.
 #' @param fill_cols Character vector of column names.
+#' @param .direction Direction in which to fill missing values. Currently
+#'   either "down" (the default) or "up".
 #' @keywords internal
 #' @export
-fill_ <- function(data, fill_cols) {
+fill_ <- function(data, fill_cols, .direction = c("down", "up")) {
   UseMethod("fill_")
 }
 
 #' @export
-fill_.data.frame <- function(data, fill_cols) {
+fill_.data.frame <- function(data, fill_cols, .direction = c("down", "up")) {
+  .direction <- match.arg(.direction)
+  fillVector <- switch(.direction, down = fillDown, up = fillUp)
+
   for (col in fill_cols) {
-    old_attr <- attributes(data[[col]])
     data[[col]] <- fillVector(data[[col]])
-    attributes(data[[col]]) <- old_attr
   }
 
   data

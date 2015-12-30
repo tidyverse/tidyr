@@ -8,18 +8,28 @@ test_that("all missings left unchanged", {
     chr = c(NA_character_, NA)
   )
 
-  out <- fill(df, lgl, int, dbl, chr)
-  expect_identical(out, df)
+  down <- fill(df, lgl, int, dbl, chr)
+  up <- fill(df, lgl, int, dbl, chr, .direction = "up")
+
+  expect_identical(down, df)
+  expect_identical(up, df)
 })
 
-test_that("missings filled from last non-missing", {
+test_that("missings filled down from last non-missing", {
   df <- dplyr::data_frame(x = c(1, NA, NA))
 
   out <- fill(df, x)
   expect_equal(out$x, c(1, 1, 1))
 })
 
-test_that("missings filled for each atomic vector", {
+test_that("missings filled up from last non-missing", {
+  df <- dplyr::data_frame(x = c(NA, NA, 1))
+
+  out <- fill(df, x, .direction = "up")
+  expect_equal(out$x, c(1, 1, 1))
+})
+
+test_that("missings filled down for each atomic vector", {
   df <- dplyr::data_frame(
     lgl = c(T, NA),
     int = c(1L, NA),
@@ -32,4 +42,29 @@ test_that("missings filled for each atomic vector", {
   expect_equal(out$int, c(1L, 1L))
   expect_equal(out$dbl, c(1, 1))
   expect_equal(out$chr, c("a", "a"))
+})
+
+test_that("missings filled up for each atomic vector", {
+  df <- dplyr::data_frame(
+    lgl = c(NA, T),
+    int = c(NA, 1L),
+    dbl = c(NA, 1),
+    chr = c(NA, "a")
+  )
+
+  out <- fill(df, lgl, int, dbl, chr, .direction = "up")
+  expect_equal(out$lgl, c(TRUE, TRUE))
+  expect_equal(out$int, c(1L, 1L))
+  expect_equal(out$dbl, c(1, 1))
+  expect_equal(out$chr, c("a", "a"))
+})
+
+test_that("fill preserves attributes", {
+  df <- dplyr::data_frame(x = factor(c(NA, "a", NA)))
+
+  out_d <- fill(df, x)
+  out_u <- fill(df, x, .direction = "up")
+
+  expect_equal(attributes(out_d$x), attributes(df$x))
+  expect_equal(attributes(out_u$x), attributes(df$x))
 })

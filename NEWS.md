@@ -1,5 +1,8 @@
 # tidyr 0.3.1.9000
 
+* `fill()` gains a direction argument so that it can fill either upwards or 
+  downwards (#114).
+
 * `nest()` now produces a single list of data frames called "data" rather
   than a list column for each variable. Nesting variables are not included
   in nested data frames. It also works with grouped data frames made

@@ -4,12 +4,15 @@
 \alias{fill_}
 \title{Standard-evaluation version of \code{fill}.}
 \usage{
-fill_(data, fill_cols)
+fill_(data, fill_cols, .direction = c("down", "up"))
 }
 \arguments{
 \item{data}{A data frame.}
 
 \item{fill_cols}{Character vector of column names.}
+
+\item{.direction}{Direction in which to fill missing values. Currently
+either "down" (the default) or "up".}
 }
 \description{
 This is a S3 generic.
