@@ -66,7 +66,7 @@
   an error if the regular expression doesn't match (#72).
   
 * `extract()` and `separate()` preserve character vectors when
-  `covert` is TRUE (#99).
+  `convert` is TRUE (#99).
   
 * The internals of `spread()` have been rewritten, and now preserve all 
   attributes of the input `value` column. This means that you can now 
