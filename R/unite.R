@@ -46,13 +46,14 @@ unite_.data.frame <- function(data, col, from, sep = "_", remove = TRUE) {
   united <- do.call("paste", c(data[from], list(sep = sep)))
 
   first_col <- which(names(data) %in% from)[1]
-  data2 <- append_col(data, united, col, after = first_col - 1)
 
+  data2 <- data
   if (remove) {
     data2 <- data2[setdiff(names(data2), from)]
   }
 
-  data2
+
+  append_col(data2, united, col, after = first_col - 1)
 }
 
 #' @export
