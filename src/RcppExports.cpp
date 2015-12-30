@@ -28,8 +28,8 @@ BEGIN_RCPP
 END_RCPP
 }
 // melt_dataframe
-List melt_dataframe(const DataFrame& data, const IntegerVector& id_ind, const IntegerVector& measure_ind, String variable_name, String value_name, SEXP measure_attributes, bool factorsAsStrings, bool valueAsFactor, bool variableAsFactor);
-RcppExport SEXP tidyr_melt_dataframe(SEXP dataSEXP, SEXP id_indSEXP, SEXP measure_indSEXP, SEXP variable_nameSEXP, SEXP value_nameSEXP, SEXP measure_attributesSEXP, SEXP factorsAsStringsSEXP, SEXP valueAsFactorSEXP, SEXP variableAsFactorSEXP) {
+List melt_dataframe(const DataFrame& data, const IntegerVector& id_ind, const IntegerVector& measure_ind, String variable_name, String value_name, SEXP attrTemplate, bool factorsAsStrings, bool valueAsFactor, bool variableAsFactor);
+RcppExport SEXP tidyr_melt_dataframe(SEXP dataSEXP, SEXP id_indSEXP, SEXP measure_indSEXP, SEXP variable_nameSEXP, SEXP value_nameSEXP, SEXP attrTemplateSEXP, SEXP factorsAsStringsSEXP, SEXP valueAsFactorSEXP, SEXP variableAsFactorSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
     Rcpp::RNGScope __rngScope;
@@ -38,11 +38,11 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< const IntegerVector& >::type measure_ind(measure_indSEXP);
     Rcpp::traits::input_parameter< String >::type variable_name(variable_nameSEXP);
     Rcpp::traits::input_parameter< String >::type value_name(value_nameSEXP);
-    Rcpp::traits::input_parameter< SEXP >::type measure_attributes(measure_attributesSEXP);
+    Rcpp::traits::input_parameter< SEXP >::type attrTemplate(attrTemplateSEXP);
     Rcpp::traits::input_parameter< bool >::type factorsAsStrings(factorsAsStringsSEXP);
     Rcpp::traits::input_parameter< bool >::type valueAsFactor(valueAsFactorSEXP);
     Rcpp::traits::input_parameter< bool >::type variableAsFactor(variableAsFactorSEXP);
-    __result = Rcpp::wrap(melt_dataframe(data, id_ind, measure_ind, variable_name, value_name, measure_attributes, factorsAsStrings, valueAsFactor, variableAsFactor));
+    __result = Rcpp::wrap(melt_dataframe(data, id_ind, measure_ind, variable_name, value_name, attrTemplate, factorsAsStrings, valueAsFactor, variableAsFactor));
     return __result;
 END_RCPP
 }

@@ -100,17 +100,15 @@ gather_.data.frame <- function(data, key_col, value_col, gather_cols,
 
   ## Get the attributes if common, NULL if not.
   args <- normalize_melt_arguments(data, gather_idx, factorsAsStrings = TRUE)
-  measure.attributes <- args$measure.attributes
-  factorsAsStrings <- args$factorsAsStrings
-  valueAsFactor <- "factor" %in% measure.attributes$class
+  valueAsFactor <- "factor" %in% class(args$attr_template)
 
   df <- melt_dataframe(data,
     id_idx - 1L,
     gather_idx - 1L,
     as.character(key_col),
     as.character(value_col),
-    as.pairlist(measure.attributes),
-    as.logical(factorsAsStrings),
+    args$attr_template,
+    args$factorsAsStrings,
     as.logical(valueAsFactor),
     as.logical(factor_key)
   )
@@ -153,11 +151,11 @@ normalize_melt_arguments <- function(data, measure.ind, factorsAsStrings) {
   measure.attrs.equal <- all_identical(measure.attributes)
 
   if (measure.attrs.equal) {
-    measure.attributes <- measure.attributes[[1]]
+    attr_template <- data[[measure.ind[1]]]
   } else {
     warning("attributes are not identical across measure variables; ",
       "they will be dropped", call. = FALSE)
-    measure.attributes <- NULL
+    attr_template <- NULL
   }
 
   if (!factorsAsStrings && !measure.attrs.equal) {
@@ -173,11 +171,11 @@ normalize_melt_arguments <- function(data, measure.ind, factorsAsStrings) {
   }))
 
   if (factorsAsStrings && any.factors) {
-    measure.attributes <- NULL
+    attr_template <- NULL
   }
 
   list(
-    measure.attributes = measure.attributes,
+    attr_template = attr_template,
     factorsAsStrings = factorsAsStrings
   )
 }
