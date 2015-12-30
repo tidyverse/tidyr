@@ -45,8 +45,8 @@
 #'
 #' # Nest and unnest are inverses
 #' df <- data.frame(x = c(1, 1, 2), y = 3:1)
-#' df %>% nest(y)
-#' df %>% nest(y) %>% unnest()
+#' df %>% nest(data, y)
+#' df %>% nest(data, y) %>% unnest()
 unnest <- function(data, ..., .drop = NA) {
   dots <- lazyeval::lazy_dots(...)
   if (length(dots) == 0) {

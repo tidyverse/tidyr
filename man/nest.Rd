@@ -4,7 +4,7 @@
 \alias{nest}
 \title{Nest repeated values in a list-varible.}
 \usage{
-nest(data, ...)
+nest(data, key, ...)
 }
 \arguments{
 \item{data}{A data frame.}
@@ -29,7 +29,7 @@ if (require("gapminder")) {
     nest()
 
   gapminder \%>\%
-    nest(-country, -continent)
+    nest(data, -country, -continent)
 }
 }
 \seealso{

@@ -13,7 +13,7 @@ Depends:
 License: MIT + file LICENSE
 LazyData: true
 Imports:
-    dplyr (>= 0.4),
+    dplyr (>= 0.4.3),
     stringi,
     lazyeval,
     magrittr,
@@ -27,5 +27,8 @@ Suggests:
     covr,
     gapminder
 VignetteBuilder: knitr
-LinkingTo: Rcpp
+LinkingTo:
+    Rcpp,
+    BH,
+    dplyr
 RoxygenNote: 5.0.0
