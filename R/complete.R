@@ -27,6 +27,10 @@ NULL
 #' df %>% complete(group, c(item_id, item_name), fill = list(value1 = 0))
 complete <- function(data, ..., fill = list()) {
   dots <- lazyeval::lazy_dots(...)
+  if (length(dots) == 0) {
+    stop("Please supply variables to complete.", call. = FALSE)
+  }
+
   complete_(data, dots, fill = fill)
 }
 
