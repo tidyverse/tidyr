@@ -4,7 +4,8 @@
 \alias{gather}
 \title{Gather columns into key-value pairs.}
 \usage{
-gather(data, key, value, ..., na.rm = FALSE, convert = FALSE)
+gather(data, key, value, ..., na.rm = FALSE, convert = FALSE,
+  factor_key = FALSE)
 }
 \arguments{
 \item{data}{A data frame.}
@@ -30,7 +31,7 @@ you notice that you have columns that are not variables.
 \examples{
 library(dplyr)
 # From http://stackoverflow.com/questions/1181060
-stocks <- data.frame(
+stocks <- data_frame(
   time = as.Date('2009-01-01') + 0:9,
   X = rnorm(10, 0, 1),
   Y = rnorm(10, 0, 2),

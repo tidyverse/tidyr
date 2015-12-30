@@ -5,7 +5,7 @@
 \title{Gather (standard-evaluation).}
 \usage{
 gather_(data, key_col, value_col, gather_cols, na.rm = FALSE,
-  convert = FALSE)
+  convert = FALSE, factor_key = FALSE)
 }
 \arguments{
 \item{data}{A data frame}

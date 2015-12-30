@@ -32,9 +32,15 @@ test_that("Missing values removed when na.rm = TRUE", {
   expect_equal(out$v, 1)
 })
 
-test_that("key preserves column ordering", {
+test_that("key converted to character by default", {
   df <- data.frame(y = 1, x = 2)
   out <- gather(df, k, v)
+  expect_equal(out$k, c("y", "x"))
+})
+
+test_that("key preserves column ordering when factor_key = TRUE", {
+  df <- data.frame(y = 1, x = 2)
+  out <- gather(df, k, v, factor_key = TRUE)
   expect_equal(out$k, factor(c("y", "x"), levels = c("y", "x")))
 })
 

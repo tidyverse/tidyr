@@ -1,5 +1,9 @@
 # tidyr 0.3.1.9000
 
+* `gather()` now stores the key column as character, by default. To revert to
+  the previous behaviour of using a factor (which allows you to preserve the
+  ordering of the columns), use `key_factor = TRUE` (#96).
+
 * `expand()` respects grouping from `group_by()` (#122).
 
 * `fill()` respects grouping from `group_by()` (#129).

@@ -16,7 +16,7 @@
 #' @examples
 #' library(dplyr)
 #' # From http://stackoverflow.com/questions/1181060
-#' stocks <- data.frame(
+#' stocks <- data_frame(
 #'   time = as.Date('2009-01-01') + 0:9,
 #'   X = rnorm(10, 0, 1),
 #'   Y = rnorm(10, 0, 2),
@@ -41,7 +41,8 @@
 #'   group_by(Species) %>%
 #'   slice(1)
 #' mini_iris %>% gather(key = flower_att, value = measurement, -Species)
-gather <- function(data, key, value, ..., na.rm = FALSE, convert = FALSE) {
+gather <- function(data, key, value, ..., na.rm = FALSE, convert = FALSE,
+                   factor_key = FALSE) {
   key_col <- col_name(substitute(key), "key")
   value_col <- col_name(substitute(value), "value")
 
@@ -52,7 +53,7 @@ gather <- function(data, key, value, ..., na.rm = FALSE, convert = FALSE) {
   }
 
   gather_(data, key_col, value_col, gather_cols, na.rm = na.rm,
-    convert = convert)
+    convert = convert, factor_key = factor_key)
 }
 
 n_dots <- function(...) nargs()
@@ -74,13 +75,14 @@ n_dots <- function(...) nargs()
 #' @keywords internal
 #' @export
 gather_ <- function(data, key_col, value_col, gather_cols, na.rm = FALSE,
-                     convert = FALSE) {
+                     convert = FALSE, factor_key = FALSE) {
   UseMethod("gather_")
 }
 
 #' @export
 gather_.data.frame <- function(data, key_col, value_col, gather_cols,
-                               na.rm = FALSE, convert = FALSE) {
+                               na.rm = FALSE, convert = FALSE,
+                               factor_key = FALSE) {
   ## Return if we're not doing any gathering
   if (length(gather_cols) == 0) {
     return(data)
@@ -106,7 +108,8 @@ gather_.data.frame <- function(data, key_col, value_col, gather_cols,
     as.character(value_col),
     as.pairlist(measure.attributes),
     as.logical(factorsAsStrings),
-    as.logical(valueAsFactor)
+    as.logical(valueAsFactor),
+    as.logical(factor_key)
   )
 
   if (na.rm) {
@@ -123,13 +126,13 @@ gather_.data.frame <- function(data, key_col, value_col, gather_cols,
 
 #' @export
 gather_.tbl_df <- function(data, key_col, value_col, gather_cols,
-                           na.rm = FALSE, convert = FALSE) {
+                           na.rm = FALSE, convert = FALSE, factor_key = FALSE) {
   dplyr::tbl_df(NextMethod())
 }
 
 #' @export
 gather_.tbl_dt <- function(data, key_col, value_col, gather_cols,
-                           na.rm = FALSE, convert = FALSE) {
+                           na.rm = FALSE, convert = FALSE, factor_key = FALSE) {
   dplyr::tbl_dt(NextMethod())
 }
 

@@ -9,8 +9,8 @@ fillUp <- function(x) {
     .Call('tidyr_fillUp', PACKAGE = 'tidyr', x)
 }
 
-melt_dataframe <- function(data, id_ind, measure_ind, variable_name, value_name, measure_attributes, factorsAsStrings, valueAsFactor) {
-    .Call('tidyr_melt_dataframe', PACKAGE = 'tidyr', data, id_ind, measure_ind, variable_name, value_name, measure_attributes, factorsAsStrings, valueAsFactor)
+melt_dataframe <- function(data, id_ind, measure_ind, variable_name, value_name, measure_attributes, factorsAsStrings, valueAsFactor, variableAsFactor) {
+    .Call('tidyr_melt_dataframe', PACKAGE = 'tidyr', data, id_ind, measure_ind, variable_name, value_name, measure_attributes, factorsAsStrings, valueAsFactor, variableAsFactor)
 }
 
 simplifyPieces <- function(pieces, p, fillLeft = TRUE) {

@@ -68,7 +68,7 @@ SEXP rep_(SEXP x, int n, std::string var_name) {
 // Optimized factor routine for the case where we want to make
 // a factor from a vector of names -- used for generating the
 // 'variable' column in the melted data.frame
-IntegerVector make_variable_column(CharacterVector x, int nrow) {
+IntegerVector make_variable_column_factor(CharacterVector x, int nrow) {
   IntegerVector output = no_init(x.size() * nrow);
 
   int idx = 0;
@@ -78,6 +78,17 @@ IntegerVector make_variable_column(CharacterVector x, int nrow) {
 
   output.attr("levels") = x;
   output.attr("class") = "factor";
+  return output;
+}
+
+CharacterVector make_variable_column_character(CharacterVector x, int nrow) {
+  CharacterVector output = no_init(x.size() * nrow);
+
+  int idx = 0;
+  for (int i = 0; i < x.size(); ++i)
+    for (int j = 0; j < nrow; ++j)
+      output[idx++] = x[i];
+
   return output;
 }
 
@@ -157,7 +168,8 @@ List melt_dataframe(const DataFrame& data,
                     String value_name,
                     SEXP measure_attributes,
                     bool factorsAsStrings,
-                    bool valueAsFactor) {
+                    bool valueAsFactor,
+                    bool variableAsFactor) {
 
   int nrow = data.nrows();
 
@@ -197,7 +209,11 @@ List melt_dataframe(const DataFrame& data,
   for (int i = 0; i < n_measure; ++i) {
     id_names[i] = data_names[measure_ind[i]];
   }
-  output[n_id] = make_variable_column(id_names, nrow);
+  if (variableAsFactor) {
+    output[n_id] = make_variable_column_factor(id_names, nrow);
+  } else {
+    output[n_id] = make_variable_column_character(id_names, nrow);
+  }
 
   // 'value' is made by concatenating each of the 'value' variables
   output[n_id + 1] = concatenate(data, measure_ind, factorsAsStrings);
