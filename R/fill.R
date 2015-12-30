@@ -17,6 +17,8 @@ NULL
 #' @export
 #' @inheritParams extract_
 #' @inheritParams fill_
+#' @seealso \code{\link{fill_}} for a version that uses regular evaluation
+#'   and is suitable for programming with.
 #' @export
 #' @examples
 #' df <- data.frame(Month = 1:12, Year = c(2000, rep(NA, 11)))

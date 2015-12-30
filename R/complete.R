@@ -11,6 +11,8 @@ NULL
 #'
 #' @inheritParams complete_
 #' @inheritParams expand
+#' @seealso \code{\link{complete_}} for a version that uses regular evaluation
+#'   and is suitable for programming with.
 #' @export
 #' @examples
 #' library(dplyr)

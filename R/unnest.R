@@ -8,6 +8,8 @@
 #' @param ... Specification of columns to nest. Use bare variable names or
 #'   functions of variables. If omitted, defaults to all list-cols.
 #' @seealso \code{\link{nest}} for the inverse operation.
+#' @seealso \code{\link{unnest_}} for a version that uses regular evaluation
+#'   and is suitable for programming with.
 #' @export
 #' @examples
 #' library(dplyr)
@@ -66,6 +68,7 @@ unnest <- function(data, ..., .drop = NA) {
 #' @param .drop Should additional list columns be dropped? By default,
 #'   \code{unnest} will drop them if unnesting the specified columns requires
 #'   the rows to be duplicated.
+#' @keywords internal
 #' @export
 unnest_ <- function(data, unnest_cols, .drop = NA) {
   UseMethod("unnest_")

@@ -39,4 +39,8 @@ df \%>\% extract(x, c("A", "B"), "([[:alnum:]]+)-([[:alnum:]]+)")
 # If no match, NA:
 df \%>\% extract(x, c("A", "B"), "([a-d]+)-([a-d]+)")
 }
+\seealso{
+\code{\link{extract_}} for a version that uses regular evaluation
+  and is suitable for programming with.
+}
 

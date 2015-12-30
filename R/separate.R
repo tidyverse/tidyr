@@ -4,8 +4,11 @@
 #' \code{separate()} turns a single character column into multiple columns.
 #'
 #' @param col Bare column name.
-#' @export
 #' @inheritParams separate_
+#' @seealso \code{\link{unite}()}, the complement.
+#' @seealso \code{\link{separate_}} for a version that uses regular evaluation
+#'   and is suitable for programming with.
+#' @export
 #' @examples
 #' library(dplyr)
 #' df <- data.frame(x = c(NA, "a.b", "a.d", "b.c"))

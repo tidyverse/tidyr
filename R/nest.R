@@ -5,6 +5,8 @@
 #' the nested variables: this seems to be the most useful for in practice.
 #'
 #' @seealso \code{\link{unnest}} for the inverse operation.
+#' @seealso \code{\link{nest_}} for a version that uses regular evaluation
+#'   and is suitable for programming with.
 #' @inheritParams nest_
 #' @param ... Specification of columns to nest. Use bare variable names.
 #'   Select all variables between x and z with \code{x:z}, exclude y with
@@ -34,6 +36,7 @@ nest <- function(data, ...) {
 #'
 #' @param data A data frame.
 #' @param nest_cols Character vector of columns to nest.
+#' @keywords internal
 #' @export
 nest_ <- function(data, nest_cols) {
   UseMethod("nest_")
