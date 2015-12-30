@@ -18,4 +18,5 @@ the rows to be duplicated.}
 \description{
 This is a S3 generic.
 }
+\keyword{internal}
 

@@ -33,5 +33,8 @@ mtcars \%>\%
 }
 \seealso{
 \code{\link{separate}()}, the complement.
+
+\code{\link{unite_}} for a version that uses regular evaluation
+  and is suitable for programming with.
 }
 

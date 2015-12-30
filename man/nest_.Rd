@@ -14,4 +14,5 @@ nest_(data, nest_cols)
 \description{
 This is a S3 generic.
 }
+\keyword{internal}
 

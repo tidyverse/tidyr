@@ -74,4 +74,10 @@ df \%>\% separate(x, c("a", "b"), extra = "merge", fill = "left")
 df <- data.frame(x = c("x: 123", "y: error: 7"))
 df \%>\% separate(x, c("key", "value"), ": ", extra = "merge")
 }
+\seealso{
+\code{\link{unite}()}, the complement.
+
+\code{\link{separate_}} for a version that uses regular evaluation
+  and is suitable for programming with.
+}
 

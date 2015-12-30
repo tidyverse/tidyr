@@ -7,6 +7,8 @@
 #' @param col Bare column name.
 #' @export
 #' @inheritParams extract_
+#' @seealso \code{\link{extract_}} for a version that uses regular evaluation
+#'   and is suitable for programming with.
 #' @examples
 #' library(dplyr)
 #' df <- data.frame(x = c(NA, "a-b", "a-d", "b-c", "d-e"))

@@ -8,6 +8,8 @@
 #'   Select all variables between x and z with \code{x:z}, exclude y with
 #'   \code{-y}. For more options, see the \link[dplyr]{select} documentation.
 #' @seealso \code{\link{separate}()}, the complement.
+#' @seealso \code{\link{unite_}} for a version that uses regular evaluation
+#'   and is suitable for programming with.
 #' @export
 #' @examples
 #' library(dplyr)
