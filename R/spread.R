@@ -71,15 +71,15 @@ spread_.data.frame <- function(data, key_col, value_col, fill = NA,
                                convert = FALSE, drop = TRUE) {
 
   col <- data[key_col]
-  col_id <- dplyr::id(col, drop = drop)
+  col_id <- id(col, drop = drop)
   col_labels <- split_labels(col, col_id, drop = drop)
 
   rows <- data[setdiff(names(data), c(key_col, value_col))]
-  row_id <- dplyr::id(rows, drop = drop)
+  row_id <- id(rows, drop = drop)
   row_labels <- split_labels(rows, row_id, drop = drop)
   rownames(row_labels) <- NULL
 
-  overall <- dplyr::id(list(col_id, row_id), drop = FALSE)
+  overall <- id(list(col_id, row_id), drop = FALSE)
   n <- attr(overall, "n")
   # Check that each output value occurs in unique location
   if (anyDuplicated(overall)) {
