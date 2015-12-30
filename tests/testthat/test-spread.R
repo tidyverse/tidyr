@@ -135,22 +135,17 @@ test_that("vars that are all NA are logical if convert = TRUE (#118)", {
   expect_is(out$g, "logical")
 })
 
-test_that("complex values", {
+test_that("complex values are preserved  (#134)", {
   df <- expand.grid(id = 1:2, key = letters[1:2], stringsAsFactors = TRUE) %>%
-    mutate(value = complex(real = 1:4, imag = 5:8))
-  out <- spread(df, key, value, convert = TRUE)
-  expect_is(out$a, "complex")
-  expect_equal(out$a, complex(real = 1:2, imag = 5:6))
-  expect_equal(out$b, complex(real = 3:4, imag = 7:8))
-})
+    mutate(value = 1:4 + 1i)
 
-test_that("complex values with convert = FALSE (#134)", {
-  df <- expand.grid(id = 1:2, key = letters[1:2], stringsAsFactors = TRUE) %>%
-    mutate(value = complex(real = 1:4, imag = 5:8))
-  out <- spread(df, key, value, convert = FALSE)
-  expect_is(out$a, "complex")
-  expect_equal(out$a, complex(real = 1:2, imag = 5:6))
-  expect_equal(out$b, complex(real = 3:4, imag = 7:8))
+  out1 <- spread(df, key, value, convert = FALSE)
+  out2 <- spread(df, key, value, convert = TRUE)
+
+  expect_equal(out1$a, 1:2 + 1i)
+  expect_equal(out2$a, 1:2 + 1i)
+  expect_equal(out1$b, 3:4 + 1i)
+  expect_equal(out2$b, 3:4 + 1i)
 })
 
 test_that("spread gives one column when no existing non-spread vars", {
