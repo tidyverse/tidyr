@@ -1,5 +1,7 @@
 # tidyr 0.3.1.9000
 
+* `unite()` now removes old columns before adding new (#89, @krlmlr).
+
 * `gather()` now stores the key column as character, by default. To revert to
   the previous behaviour of using a factor (which allows you to preserve the
   ordering of the columns), use `key_factor = TRUE` (#96).
