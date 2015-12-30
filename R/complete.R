@@ -39,12 +39,12 @@ complete <- function(data, ..., fill = list()) {
 #'   use instead of \code{NA} for missing combinations.
 #' @export
 #' @keywords internal
-complete_ <- function(data, cols, fill, ...) {
+complete_ <- function(data, cols, fill = list(), ...) {
   UseMethod("complete_")
 }
 
 #' @export
-complete_.data.frame <- function(data, cols, fill, ...) {
+complete_.data.frame <- function(data, cols, fill = list(), ...) {
   full <- expand_(data, cols)
   full <- dplyr::left_join(full, data, by = names(full))
   full <- replace_na(full, replace = fill)

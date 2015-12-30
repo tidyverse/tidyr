@@ -4,7 +4,7 @@
 \alias{complete_}
 \title{Standard-evaluation version of \code{complete}.}
 \usage{
-complete_(data, cols, fill, ...)
+complete_(data, cols, fill = list(), ...)
 }
 \arguments{
 \item{data}{A data frame}
