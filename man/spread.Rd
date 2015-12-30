@@ -9,7 +9,11 @@ spread(data, key, value, fill = NA, convert = FALSE, drop = TRUE)
 \arguments{
 \item{data}{A data frame.}
 
-\item{key, value}{Bare (unquoted) names of key and value columns.}
+\item{key}{The bare (unquoted) name of the column whose values will be used
+as column headings.}
+
+\item{value}{The bare (unquoted) name of the column whose values will
+populate the cells.}
 
 \item{fill}{If set, missing values will be replaced with this value. Note
 that there are two types of missingness in the input: explicit missing

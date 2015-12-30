@@ -1,6 +1,9 @@
 #' Spread a key-value pair across multiple columns.
 #'
-#' @param key,value Bare (unquoted) names of key and value columns.
+#' @param key The bare (unquoted) name of the column whose values will be used
+#'   as column headings.
+#' @param value The bare (unquoted) name of the column whose values will
+#'  populate the cells.
 #' @inheritParams spread_
 #' @export
 #' @examples
