@@ -51,3 +51,8 @@ fill_.data.frame <- function(data, fill_cols, .direction = c("down", "up")) {
 
   data
 }
+
+#' @export
+fill_.grouped_df <- function(data, fill_cols, .direction = c("down", "up")) {
+  do(data, fill_(., fill_cols = fill_cols, .direction = .direction))
+}
