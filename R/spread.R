@@ -108,7 +108,7 @@ spread_.data.frame <- function(data, key_col, value_col, fill = NA,
   }
   dim(ordered) <- c(attr(row_id, "n"), attr(col_id, "n"))
   colnames(ordered) <- as.character(col_labels[[1]])
-  ordered <- matrixToDataFrame(ordered)
+  ordered <- utils::getS3method("as_data_frame", "matrix")(ordered)
 
   if (convert) {
     ordered[] <- lapply(ordered, type.convert, as.is = TRUE)
