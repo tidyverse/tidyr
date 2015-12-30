@@ -152,3 +152,11 @@ test_that("complex values with convert = FALSE (#134)", {
   expect_equal(out$a, complex(real = 1:2, imag = 5:6))
   expect_equal(out$b, complex(real = 3:4, imag = 7:8))
 })
+
+test_that("spread gives one column when no existing non-spread vars", {
+  df <- data_frame(
+    key = c("a", "b", "c"),
+    value = c(1, 2, 3)
+  )
+  expect_equal(df %>% spread(key, value), data.frame(a = 1, b = 2, c = 3))
+})

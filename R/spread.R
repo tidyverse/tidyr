@@ -79,9 +79,15 @@ spread_.data.frame <- function(data, key_col, value_col, fill = NA,
   col_labels <- split_labels(col, col_id, drop = drop)
 
   rows <- data[setdiff(names(data), c(key_col, value_col))]
-  row_id <- id(rows, drop = drop)
-  row_labels <- split_labels(rows, row_id, drop = drop)
-  rownames(row_labels) <- NULL
+  if (length(rows) == 0) {
+    # Special case when there's only one row
+    row_id <- structure(1L, n = 1L)
+    row_labels <- as.data.frame(matrix(nrow = 1, ncol = 0))
+  } else {
+    row_id <- id(rows, drop = drop)
+    row_labels <- split_labels(rows, row_id, drop = drop)
+    rownames(row_labels) <- NULL
+  }
 
   overall <- id(list(col_id, row_id), drop = FALSE)
   n <- attr(overall, "n")

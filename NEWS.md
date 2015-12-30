@@ -1,5 +1,8 @@
 # tidyr 0.3.1.9000
 
+* `spread()`ing a data frame with only key and value columns creates a one
+  row output (#41).
+
 * `spread(drop = FALSE)` now handles zero-length factors (#56).
 
 * `unite()` now removes old columns before adding new (#89, @krlmlr).
