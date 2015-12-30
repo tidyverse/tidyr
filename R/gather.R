@@ -72,6 +72,9 @@ n_dots <- function(...) nargs()
 #' @param convert If \code{TRUE} will automatically run
 #'   \code{\link{type.convert}} on the key column. This is useful if the column
 #'   names are actually numeric, integer, or logical.
+#' @param factor_key If \code{FALSE}, the default, the key values will be
+#'   stored as a character vector. If \code{TRUE}, will be stored as a factor,
+#'   which preserves the original ordering of the columns.
 #' @keywords internal
 #' @export
 gather_ <- function(data, key_col, value_col, gather_cols, na.rm = FALSE,
