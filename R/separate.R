@@ -115,6 +115,14 @@ separate_.tbl_df <- function(data, col, into, sep = "[^[:alnum:]]+",
   dplyr::tbl_df(NextMethod())
 }
 
+#' @export
+separate_.tbl_df <- function(data, col, into, sep = "[^[:alnum:]]+",
+                             remove = TRUE, convert = FALSE,
+                             extra = "warn", fill = "warn", ...) {
+  dplyr::grouped_df(NextMethod(), dplyr::groups(data))
+}
+
+
 
 strsep <- function(x, sep) {
   sep <- c(0, sep, -1)

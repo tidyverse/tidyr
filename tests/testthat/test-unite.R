@@ -15,3 +15,13 @@ test_that("unite does not remove new col in case of name clash", {
   expect_equal(names(out), "x")
   expect_equal(out$x, "a_b")
 })
+
+test_that("unite preserves grouping", {
+  df <- dplyr::data_frame(g = 1, x = "a") %>% dplyr::group_by(g)
+  rs <- df %>% unite(x, x)
+
+
+  expect_equal(df, rs)
+  expect_equal(class(df), class(rs))
+  expect_equal(dplyr::groups(df), dplyr::groups(rs))
+})

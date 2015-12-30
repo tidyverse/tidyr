@@ -56,3 +56,11 @@ test_that("too few pieces dealt with as requested", {
   right <- separate(df, x, c("x", "y", "z"), fill = "right")
   expect_equal(right$z, c(NA, "c"))
 })
+
+test_that("preserves grouping", {
+  df <- dplyr::data_frame(g = 1, x = "a:b") %>% dplyr::group_by(g)
+  rs <- df %>% separate(x, c("a", "b"))
+
+  expect_equal(class(df), class(rs))
+  expect_equal(dplyr::groups(df), dplyr::groups(rs))
+})

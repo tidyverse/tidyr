@@ -137,6 +137,11 @@ gather_.tbl_dt <- function(data, key_col, value_col, gather_cols,
   dplyr::tbl_dt(NextMethod())
 }
 
+#' @export
+gather_.grouped_df <- function(data, key_col, value_col, gather_cols,
+                               na.rm = FALSE, convert = FALSE, factor_key = FALSE) {
+  dplyr::grouped_df(NextMethod(), dplyr::groups(data))
+}
 
 # Functions from reshape2 -------------------------------------------------
 

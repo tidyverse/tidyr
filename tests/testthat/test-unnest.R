@@ -66,3 +66,11 @@ test_that("unnest respects .drop_lists", {
   expect_equal(df %>% unnest(z, .drop = FALSE) %>% names(), c("x", "y", "z"))
 
 })
+
+test_that("grouping is preserved", {
+  df <- dplyr::data_frame(g = 1, x = list(1:3)) %>% dplyr::group_by(g)
+  rs <- df %>% unnest(x)
+
+  expect_equal(class(df), class(rs))
+  expect_equal(dplyr::groups(df), dplyr::groups(rs))
+})

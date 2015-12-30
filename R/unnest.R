@@ -135,3 +135,8 @@ list_col_type <- function(x) {
 unnest_.tbl_df <- function(data, unnest_cols, .drop = NA) {
   dplyr::tbl_df(NextMethod())
 }
+
+#' @export
+unnest_.grouped_df <- function(data, unnest_cols, .drop = NA) {
+  dplyr::grouped_df(dplyr::ungroup(data), dplyr::groups(data))
+}

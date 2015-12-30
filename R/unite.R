@@ -60,3 +60,8 @@ unite_.data.frame <- function(data, col, from, sep = "_", remove = TRUE) {
 unite_.tbl_df <- function(data, col, from, sep = "_", remove = TRUE) {
   dplyr::tbl_df(NextMethod())
 }
+
+#' @export
+unite_.grouped_df <- function(data, col, from, sep = "_", remove = TRUE) {
+  dplyr::grouped_df(NextMethod(), dplyr::groups(data))
+}
