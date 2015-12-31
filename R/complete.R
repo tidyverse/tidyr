@@ -4,10 +4,10 @@ NULL
 
 #' Complete a data frame with missing combinations of data.
 #'
+#' Turns implicit missing values into explicit missing values.
 #' This is a wrapper around \code{\link{expand}()},
 #' \code{\link[dplyr]{left_join}()} and \code{\link{replace_na}} that's
-#' useful for completing missing combinations of data. It turns implicitly
-#' missing values into explicitly missing values.
+#' useful for completing missing combinations of data.
 #'
 #' @inheritParams complete_
 #' @inheritParams expand
@@ -23,10 +23,10 @@ NULL
 #'   value1 = 1:3,
 #'   value2 = 4:6
 #' )
-#' df %>% complete(group, c(item_id, item_name))
+#' df %>% complete(group, nesting(item_id, item_name))
 #'
 #' # You can also choose to fill in missing values
-#' df %>% complete(group, c(item_id, item_name), fill = list(value1 = 0))
+#' df %>% complete(group, nesting(item_id, item_name), fill = list(value1 = 0))
 complete <- function(data, ..., fill = list()) {
   dots <- lazyeval::lazy_dots(...)
   if (length(dots) == 0) {

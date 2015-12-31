@@ -1,5 +1,17 @@
 # tidyr 0.3.1.9000
 
+* `expand()` once again allows you to evaluate arbitrary expressions like
+  `full_range(year)`. If you were previously using `c()` to created nested 
+  combinations, you'll now need to use `nesting()` (#85, #121).
+
+* `nesting()` and `crossing()` allow you to create nested and crossed data
+  frames from individual vectors.
+
+* `full_seq(x, period)` creates the full sequence of values from `min(x)` to
+  `max(x)` every `period` values.
+
+* `seq_range()` has been removed. It was never used or announced.
+
 * `spread()`ing a data frame with only key and value columns creates a one
   row output (#41).
 
@@ -64,8 +76,6 @@
   try to load reshape (#88).
 
 * `%>%` is re-exported from magrittr.
-
-* `expand()` now works with non-standard column names (#87).
 
 * `expand()` now supports nesting and crossing (see examples for details).
   This comes at the expense of creating new variables inline (#46).

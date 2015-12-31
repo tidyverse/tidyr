@@ -5,31 +5,52 @@
 #' Or you can use it in conjunction with \code{anti_join()} to figure
 #' out which combinations are missing.
 #'
+#' \code{crossing()} is similar to \code{\link{expand.grid}()}, this never
+#' converts strings to factors, returns a \code{tbl_df} without additional
+#' attributes, and first factors vary slowest. \code{nesting()} is the
+#' complement to \code{crossing()}: it only keeps combinations of all variables
+#' that appear in the data.
+#'
 #' @inheritParams expand_
 #' @param ... Specification of columns to expand.
 #'
 #'   To find all unique combinations of x, y and z, including those not
 #'   found in the data, supply each variable as a separate argument.
-#'   To find only the combinations that occur in the data, supply them
-#'   as a single argument with \code{c()}: \code{expand(df, c(x, y, z))}.
+#'   To find only the combinations that occur in the data, use nest:
+#'   \code{expand(df, nesting(x, y, z))}.
 #'
 #'   You can combine the two forms. For example,
-#'   \code{expand(df, c(school_id, student_id), date)} would produce
+#'   \code{expand(df, nesting(school_id, student_id), date)} would produce
 #'   a row for every student for each date.
+#'
+#'   To fill in values that are missing altogether, use expressions like
+#'   \code{year = 2010:2020} or \code{year = \link{full_seq}(year)}.
 #' @seealso \code{\link{complete}} for a common application of \code{expand}:
 #'   completing a data frame with missing combinations.
 #' @seealso \code{\link{expand_}} for a version that uses regular evaluation
 #'   and is suitable for programming with.
 #' @export
 #' @examples
+#' library(dplyr)
 #' # All possible combinations of vs & cyl, even those that aren't
 #' # present in the data
 #' expand(mtcars, vs, cyl)
 #'
 #' # Only combinations of vs and cyl that appear in the data
-#' expand(mtcars, c(vs, cyl))
+#' expand(mtcars, nesting(vs, cyl))
 #'
-#' library(dplyr)
+#' # Implicit missings ---------------------------------------------------------
+#' df <- data_frame(
+#'   year   = c(2010, 2010, 2010, 2010, 2012, 2012, 2012),
+#'   qtr    = c(   1,    2,    3,    4,    1,    2,    3),
+#'   return = rnorm(7)
+#' )
+#' df %>% expand(year, qtr)
+#' df %>% expand(year = 2010:2012, qtr)
+#' df %>% expand(year = full_seq(year, 1), qtr)
+#' df %>% complete(year = full_seq(year, 1), qtr)
+#'
+#' # Nesting -------------------------------------------------------------------
 #' # Each person was given one of two treatments, repeated three times
 #' # But some of the replications haven't happened yet, so we have
 #' # incomplete data:
@@ -43,17 +64,17 @@
 #'
 #' # We can figure out the complete set of data with expand()
 #' # Each person only gets one treatment, so we nest name and trt together:
-#' complete <- expand(experiment, c(name, trt), rep)
-#' complete
+#' all <- experiment %>% expand(nesting(name, trt), rep)
+#' all
 #'
 #' # We can use anti_join to figure out which observations are missing
-#' complete %>% anti_join(experiment)
+#' all %>% anti_join(experiment)
 #'
 #' # And use right_join to add in the appropriate missing values to the
 #' # original data
-#' experiment %>% right_join(complete)
-#' # Or use complete() which wraps up this common pattern
-#' complete(experiment, c(name, trt), rep)
+#' all %>% right_join(experiment)
+#' # Or use the complete() short-hand
+#' experiment %>% complete(nesting(name, trt), rep)
 expand <- function(data, ...) {
   dots <- lazyeval::lazy_dots(...)
   expand_(data, dots)
@@ -77,19 +98,10 @@ expand_.data.frame <- function(data, dots, ...) {
   if (length(dots) == 0)
     return(data.frame())
 
-  pieces <- lapply(dots, unique_vals, data = data)
-  Reduce(cross_df, pieces)
-}
+  dots <- lazyeval::auto_name(dots)
+  pieces <- lazyeval::lazy_eval(dots, data)
 
-unique_vals <- function(data, dots) {
-  df <- dplyr::distinct(dplyr::select_(data, .dots = dots))
-  dplyr::arrange_(df, .dots = lapply(names(df), as.name))
-}
-
-cross_df <- function(x, y) {
-  x_idx <- rep(seq_len(nrow(x)), each = nrow(y))
-  y_idx <- rep(seq_len(nrow(y)), nrow(x))
-  dplyr::bind_cols(x[x_idx, , drop = FALSE], y[y_idx, , drop = FALSE])
+  crossing_(pieces)
 }
 
 #' @export
@@ -102,6 +114,48 @@ expand_.grouped_df <- function(data, dots, ...) {
   dplyr::do(data, expand_(., dots, ...))
 }
 
-expand_grid <- function(...) {
-  dplyr::as_data_frame(expand.grid(..., KEEP.OUT.ATTRS = FALSE, stringsAsFactors = FALSE))
+
+# Nesting & crossing ------------------------------------------------------
+
+#' @export
+#' @rdname expand
+crossing <- function(...) {
+  crossing_(list(...))
 }
+
+#' @export
+#' @rdname expand
+nesting <- function(...) {
+  df <- dplyr::data_frame(...)
+  df <- dplyr::distinct(df)
+  df[do.call(order, df), , drop = FALSE]
+}
+
+crossing_ <- function(x) {
+  stopifnot(is.list(x))
+
+  is_atomic <- vapply(x, is.atomic, logical(1))
+  is_df <- vapply(x, is.data.frame, logical(1))
+  if (any(!is_df & !is_atomic)) {
+    bad <- names(x)[!is_df & !is_atomic]
+    stop(
+      "Each element must be either an atomic vector or a data frame\n.",
+      "Problems: ", paste(bad, collapse = ", "), ".\n",
+      call. = FALSE
+    )
+  }
+
+  # turn each data frame into single column data frame
+  col_df <- lapply(x[is_atomic], function(x) dplyr::data_frame(x = ulevels(x)))
+  col_df <- Map(setNames, col_df, names(x)[is_atomic])
+  x[is_atomic] <- col_df
+
+  Reduce(cross_df, x)
+}
+
+cross_df <- function(x, y) {
+  x_idx <- rep(seq_len(nrow(x)), each = nrow(y))
+  y_idx <- rep(seq_len(nrow(y)), nrow(x))
+  dplyr::bind_cols(x[x_idx, , drop = FALSE], y[y_idx, , drop = FALSE])
+}
+

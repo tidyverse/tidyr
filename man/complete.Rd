@@ -13,21 +13,24 @@ complete(data, ..., fill = list())
 
   To find all unique combinations of x, y and z, including those not
   found in the data, supply each variable as a separate argument.
-  To find only the combinations that occur in the data, supply them
-  as a single argument with \code{c()}: \code{expand(df, c(x, y, z))}.
+  To find only the combinations that occur in the data, use nest:
+  \code{expand(df, nesting(x, y, z))}.
 
   You can combine the two forms. For example,
-  \code{expand(df, c(school_id, student_id), date)} would produce
-  a row for every student for each date.}
+  \code{expand(df, nesting(school_id, student_id), date)} would produce
+  a row for every student for each date.
+
+  To fill in values that are missing altogether, use expressions like
+  \code{year = 2010:2020} or \code{year = \link{full_seq}(year)}.}
 
 \item{fill}{A named list that for each variable supplies a single value to
 use instead of \code{NA} for missing combinations.}
 }
 \description{
+Turns implicit missing values into explicit missing values.
 This is a wrapper around \code{\link{expand}()},
 \code{\link[dplyr]{left_join}()} and \code{\link{replace_na}} that's
-useful for completing missing combinations of data. It turns implicitly
-missing values into explicitly missing values.
+useful for completing missing combinations of data.
 }
 \examples{
 library(dplyr)
@@ -38,10 +41,10 @@ df <- data_frame(
   value1 = 1:3,
   value2 = 4:6
 )
-df \%>\% complete(group, c(item_id, item_name))
+df \%>\% complete(group, nesting(item_id, item_name))
 
 # You can also choose to fill in missing values
-df \%>\% complete(group, c(item_id, item_name), fill = list(value1 = 0))
+df \%>\% complete(group, nesting(item_id, item_name), fill = list(value1 = 0))
 }
 \seealso{
 \code{\link{complete_}} for a version that uses regular evaluation
