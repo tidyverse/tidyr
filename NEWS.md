@@ -23,8 +23,9 @@
   the previous behaviour of using a factor (which allows you to preserve the
   ordering of the columns), use `key_factor = TRUE` (#96).
 
-* `expand()`, `fill()`, `unnest()`, `nest()`, `separate()`, `extract()`, 
-  `unite()`, and `expand()` respects grouping from `group_by()` (#122, #129, #81).
+* `gather()`, `spread()`, `expand()`, `fill()`, `unnest()`, `nest()`, 
+  `separate()`, `extract()`,  `unite()`, and `expand()` respects grouping 
+  from `group_by()` (#122, #129, #81).
 
 * `fill()` fills in `NULL`s in list-columns.
 

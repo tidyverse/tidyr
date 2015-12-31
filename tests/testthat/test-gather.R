@@ -60,6 +60,17 @@ test_that("additional controls which columns to gather", {
   expect_equal(out$val, 1:3)
 })
 
+test_that("group_vars are kept where possible", {
+  df <- dplyr::data_frame(x = 1, y = 1, z = 1)
+
+  # Can't keep
+  out <- df %>% dplyr::group_by(x) %>% gather(key, val, x:z)
+  expect_equal(out, dplyr::data_frame(key = c("x", "y", "z"), val = 1))
+
+  # Can keep
+  out <- df %>% dplyr::group_by(x) %>% gather(key, val, y:z)
+  expect_equal(dplyr::groups(out), list(quote(x)))
+})
 
 # Column types ------------------------------------------------------------
 

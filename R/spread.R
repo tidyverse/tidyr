@@ -136,6 +136,12 @@ spread_.tbl_df <- function(data, key_col, value_col, fill = NA,
   dplyr::tbl_df(NextMethod())
 }
 
+#' @export
+spread_.tbl_df <- function(data, key_col, value_col, fill = NA,
+                           convert = FALSE, drop = TRUE) {
+  regroup(data, NextMethod(), except = c(key_col, value_col))
+}
+
 split_labels <- function(df, id, drop = TRUE) {
   if (length(df) == 0) {
     return(df)

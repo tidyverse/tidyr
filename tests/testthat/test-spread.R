@@ -155,3 +155,15 @@ test_that("spread gives one column when no existing non-spread vars", {
   )
   expect_equal(df %>% spread(key, value), data.frame(a = 1, b = 2, c = 3))
 })
+
+test_that("grouping vars are kept where possible", {
+  # Can keep
+  df <- data.frame(x = 1:2, key = c("a", "b"), value = 1:2)
+  out <- df %>% group_by(x) %>% spread(key, value)
+  expect_equal(groups(out), list(quote(x)))
+
+  # Can't keep
+  df <- data.frame(key = c("a", "b"), value = 1:2)
+  out <- df %>% group_by(key) %>% spread(key, value)
+  expect_equal(out, data_frame(a = 1L, b = 2L))
+})
