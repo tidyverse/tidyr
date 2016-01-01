@@ -4,10 +4,12 @@
 \alias{nest_}
 \title{Standard-evaluation version of \code{nest}.}
 \usage{
-nest_(data, nest_cols = character())
+nest_(data, key_col, nest_cols = character())
 }
 \arguments{
 \item{data}{A data frame.}
+
+\item{key_col}{Name of the column that will contain the nested data frames.}
 
 \item{nest_cols}{Character vector of columns to nest.}
 }

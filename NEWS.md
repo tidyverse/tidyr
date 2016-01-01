@@ -35,7 +35,7 @@
 * `nest()` now produces a single list of data frames called "data" rather
   than a list column for each variable. Nesting variables are not included
   in nested data frames. It also works with grouped data frames made
-  by `dplyr::group_by()`.
+  by `dplyr::group_by()`. You can override the default column name with `.key`.
 
 * `unnest()` gains a `.drop` argument which controls what happens to
   other list columns. By default, they're kept if the output doesn't require
