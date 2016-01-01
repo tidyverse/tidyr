@@ -2,7 +2,7 @@
 #'
 #' There are many possible ways one could choose to nest columns inside a
 #' data frame. \code{nest()} creates a list of data frames containing all
-#' the nested variables: this seems to be the most useful for in practice.
+#' the nested variables: this seems to be the most useful form in practice.
 #'
 #' @seealso \code{\link{unnest}} for the inverse operation.
 #' @seealso \code{\link{nest_}} for a version that uses regular evaluation
@@ -38,12 +38,12 @@ nest <- function(data, ...) {
 #' @param nest_cols Character vector of columns to nest.
 #' @keywords internal
 #' @export
-nest_ <- function(data, nest_cols) {
+nest_ <- function(data, nest_cols = character()) {
   UseMethod("nest_")
 }
 
 #' @export
-nest_.data.frame <- function(data, nest_cols) {
+nest_.data.frame <- function(data, nest_cols = character()) {
   group_cols <- setdiff(names(data), nest_cols)
 
   data %>%
@@ -53,19 +53,19 @@ nest_.data.frame <- function(data, nest_cols) {
 }
 
 #' @export
-nest_.tbl_df <- function(data, nest_cols) {
+nest_.tbl_df <- function(data, nest_cols = character()) {
   dplyr::tbl_df(NextMethod())
 }
 
 #' @export
-nest_.grouped_df <- function(data, nest_cols) {
-  if (length(nest_cols) > 0) {
-    warning("`nest_cols` ignored when nesting grouped data", call. = FALSE)
-  }
-
+nest_.grouped_df <- function(data, nest_cols = character()) {
   groups <- dplyr::groups(data)
   group_vars <- vapply(groups, as.character, character(1))
-  nest_vars <- setdiff(names(data), group_vars)
+
+  if (length(nest_cols) == 0) {
+    nest_cols <- names(data)
+  }
+  nest_vars <- setdiff(nest_cols, group_vars)
 
   data %>%
     dplyr::do(data = dplyr::as_data_frame(.[nest_vars])) %>%

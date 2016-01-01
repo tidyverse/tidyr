@@ -4,7 +4,7 @@
 \alias{nest_}
 \title{Standard-evaluation version of \code{nest}.}
 \usage{
-nest_(data, nest_cols)
+nest_(data, nest_cols = character())
 }
 \arguments{
 \item{data}{A data frame.}

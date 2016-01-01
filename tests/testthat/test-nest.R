@@ -15,8 +15,10 @@ test_that("nest doesn't include grouping vars in nested data", {
   expect_equal(out$data[[1]], data.frame(y = 1:3))
 })
 
-test_that("nest warns if you give nest cols for grouped_df", {
-  df <- dplyr::data_frame(x = 1) %>% dplyr::group_by(x)
-  expect_warning(df %>% nest(x), "`nest_cols` ignored")
+test_that("can restrict variables in grouped nest", {
+  df <- dplyr::data_frame(x = 1, y = 2, z = 3) %>% dplyr::group_by(x)
+
+  out <- df %>% nest(y)
+  expect_equal(names(out$data[[1]]), "y")
 })
 

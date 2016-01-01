@@ -16,7 +16,7 @@ Select all variables between x and z with \code{x:z}, exclude y with
 \description{
 There are many possible ways one could choose to nest columns inside a
 data frame. \code{nest()} creates a list of data frames containing all
-the nested variables: this seems to be the most useful for in practice.
+the nested variables: this seems to be the most useful form in practice.
 }
 \examples{
 library(dplyr)
