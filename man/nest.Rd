@@ -4,7 +4,7 @@
 \alias{nest}
 \title{Nest repeated values in a list-varible.}
 \usage{
-nest(data, ..., .key)
+nest(data, ..., .key = data)
 }
 \arguments{
 \item{data}{A data frame.}
@@ -12,6 +12,8 @@ nest(data, ..., .key)
 \item{...}{Specification of columns to nest. Use bare variable names.
 Select all variables between x and z with \code{x:z}, exclude y with
 \code{-y}. For more options, see the \link[dplyr]{select} documentation.}
+
+\item{.key}{The name of the new column.}
 }
 \description{
 There are many possible ways one could choose to nest columns inside a
