@@ -1,36 +1,8 @@
 # tidyr 0.3.1.9000
 
-* `expand()` once again allows you to evaluate arbitrary expressions like
-  `full_range(year)`. If you were previously using `c()` to created nested 
-  combinations, you'll now need to use `nesting()` (#85, #121).
+## Nested data frames
 
-* `nesting()` and `crossing()` allow you to create nested and crossed data
-  frames from individual vectors.
-
-* `full_seq(x, period)` creates the full sequence of values from `min(x)` to
-  `max(x)` every `period` values.
-
-* `seq_range()` has been removed. It was never used or announced.
-
-* `spread()`ing a data frame with only key and value columns creates a one
-  row output (#41).
-
-* `spread(drop = FALSE)` now handles zero-length factors (#56).
-
-* `unite()` now removes old columns before adding new (#89, @krlmlr).
-
-* `gather()` now stores the key column as character, by default. To revert to
-  the previous behaviour of using a factor (which allows you to preserve the
-  ordering of the columns), use `key_factor = TRUE` (#96).
-
-* `gather()`, `spread()`, `expand()`, `fill()`, `unnest()`, `nest()`, 
-  `separate()`, `extract()`,  `unite()`, and `expand()` respects grouping 
-  from `group_by()` (#122, #129, #81).
-
-* `fill()` fills in `NULL`s in list-columns.
-
-* `fill()` gains a direction argument so that it can fill either upwards or 
-  downwards (#114).
+`nest()` and `unnest()` have been overhauled to support a useful way of structuring data frames: the __nested__ data frame. In a grouped data frame, you have one row per observation, and additional metadata define the groups. In a nested data frame, you have one __row__ per group, and the individual observations are stored in a column that is a list of data frames. This is a useful structure when you have lists of other objects (like models) with one element per group.
 
 * `nest()` now produces a single list of data frames called "data" rather
   than a list column for each variable. Nesting variables are not included
@@ -44,7 +16,41 @@
 * `unnest()` now has `mutate()` semantics for `...` - this allows you to
   unnest transformed columns more easily. (Previously it used select semantics).
 
-* `spread()` once again creates columns of mixed type when `convert = TRUE` (#118, @jennybc)
+## Expanding
+
+* `expand()` once again allows you to evaluate arbitrary expressions like
+  `full_seq(year)`. If you were previously using `c()` to created nested 
+  combinations, you'll now need to use `nesting()` (#85, #121).
+
+* `nesting()` and `crossing()` allow you to create nested and crossed data
+  frames from individual vectors. `crossing()` is similar to 
+  `base::expand.grid()`
+
+* `full_seq(x, period)` creates the full sequence of values from `min(x)` to
+  `max(x)` every `period` values.
+
+## Minor bug fixes and improvements
+
+* `fill()` fills in `NULL`s in list-columns.
+
+* `fill()` gains a direction argument so that it can fill either upwards or 
+  downwards (#114).
+
+* `gather()` now stores the key column as character, by default. To revert to
+  the previous behaviour of using a factor (which allows you to preserve the
+  ordering of the columns), use `key_factor = TRUE` (#96).
+
+* All tidyr verbs do the right thing for grouped data frames created by 
+  `group_by()` (#122, #129, #81).
+
+* `seq_range()` has been removed. It was never used or announced.
+
+* `spread()` once again creates columns of mixed type when `convert = TRUE` 
+  (#118, @jennybc). `spread()` with `drop = FALSE`  handles zero-length 
+  factors (#56). `spread()`ing a data frame with only key and value columns 
+  creates a one row output (#41).
+
+* `unite()` now removes old columns before adding new (#89, @krlmlr).
 
 # tidyr 0.3.1
 
