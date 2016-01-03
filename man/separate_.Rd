@@ -49,8 +49,7 @@ columns are integer, numeric or logical.}
    \item "left": fill with missing values on the left
   }}
 
-\item{...}{Other arguments passed on to \code{\link{strsplit}} to control
-how the regular expression is processed.}
+\item{...}{Defunct, will be removed in the next version of the package.}
 }
 \description{
 This is a S3 generic.
