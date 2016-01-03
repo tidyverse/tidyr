@@ -119,9 +119,9 @@ separate_.tbl_df <- function(data, col, into, sep = "[^[:alnum:]]+",
 }
 
 #' @export
-separate_.tbl_df <- function(data, col, into, sep = "[^[:alnum:]]+",
-                             remove = TRUE, convert = FALSE,
-                             extra = "warn", fill = "warn", ...) {
+separate_.grouped_df <- function(data, col, into, sep = "[^[:alnum:]]+",
+                                 remove = TRUE, convert = FALSE,
+                                 extra = "warn", fill = "warn", ...) {
   dplyr::grouped_df(NextMethod(), dplyr::groups(data))
 }
 
