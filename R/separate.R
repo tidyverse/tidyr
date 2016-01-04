@@ -71,8 +71,7 @@ separate <- function(data, col, into, sep = "[^[:alnum:]]+", remove = TRUE,
 #' @param convert If \code{TRUE}, will run \code{\link{type.convert}} with
 #'   \code{as.is = TRUE} on new columns. This is useful if the component
 #'   columns are integer, numeric or logical.
-#' @param ... Other arguments passed on to \code{\link{strsplit}} to control
-#'   how the regular expression is processed.
+#' @param ... Defunct, will be removed in the next version of the package.
 #' @keywords internal
 #' @export
 separate_ <- function(data, col, into, sep = "[^[:alnum:]]+", remove = TRUE,
@@ -86,6 +85,10 @@ separate_.data.frame <- function(data, col, into, sep = "[^[:alnum:]]+",
                                  extra = "warn", fill = "warn", ...) {
   stopifnot(is.character(col), length(col) == 1)
   value <- as.character(data[[col]])
+
+  if (length(list(...)) != 0) {
+    warning("Using ... for passing arguments to strsplit is defunct.")
+  }
 
   if (is.numeric(sep)) {
     l <- strsep(value, sep)
@@ -116,9 +119,9 @@ separate_.tbl_df <- function(data, col, into, sep = "[^[:alnum:]]+",
 }
 
 #' @export
-separate_.tbl_df <- function(data, col, into, sep = "[^[:alnum:]]+",
-                             remove = TRUE, convert = FALSE,
-                             extra = "warn", fill = "warn", ...) {
+separate_.grouped_df <- function(data, col, into, sep = "[^[:alnum:]]+",
+                                 remove = TRUE, convert = FALSE,
+                                 extra = "warn", fill = "warn", ...) {
   dplyr::grouped_df(NextMethod(), dplyr::groups(data))
 }
 

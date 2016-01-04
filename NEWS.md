@@ -52,6 +52,8 @@
 
 * `unite()` now removes old columns before adding new (#89, @krlmlr).
 
+* `separate()` now warns if defunct ... argument is used (#151, @krlmlr).
+
 # tidyr 0.3.1
 
 * Fixed bug where attributes of non-gather columns were lost (#104)
