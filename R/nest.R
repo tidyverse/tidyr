@@ -1,4 +1,4 @@
-#' Nest repeated values in a list-varible.
+#' Nest repeated values in a list-variable.
 #'
 #' There are many possible ways one could choose to nest columns inside a
 #' data frame. \code{nest()} creates a list of data frames containing all
