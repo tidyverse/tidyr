@@ -10,7 +10,7 @@
 |language |(EN)                         |
 |collate  |en_US.UTF-8                  |
 |tz       |America/Chicago              |
-|date     |2016-01-01                   |
+|date     |2016-01-18                   |
 
 ## Packages
 
@@ -18,9 +18,9 @@
 |:----------|:--|:-------|:----------|:--------------|
 |covr       |   |1.2.0   |2015-06-25 |CRAN (R 3.2.0) |
 |data.table |   |1.9.6   |2015-09-19 |CRAN (R 3.2.0) |
-|dplyr      |*  |0.4.3   |2015-09-01 |CRAN (R 3.2.0) |
+|dplyr      |   |0.4.3   |2015-09-01 |CRAN (R 3.2.0) |
 |gapminder  |   |0.1.0   |2015-03-17 |CRAN (R 3.2.0) |
-|knitr      |   |1.10.5  |2015-05-06 |CRAN (R 3.2.0) |
+|knitr      |   |1.11    |2015-08-14 |CRAN (R 3.2.3) |
 |lazyeval   |   |0.1.10  |2015-01-02 |CRAN (R 3.2.0) |
 |magrittr   |   |1.5     |2014-11-22 |CRAN (R 3.2.0) |
 |Rcpp       |   |0.12.2  |2015-11-15 |CRAN (R 3.2.2) |
@@ -28,7 +28,43 @@
 |testthat   |*  |0.11.0  |2015-10-14 |CRAN (R 3.2.0) |
 
 # Check results
-40 checked out of 41 dependencies 
+43 checked out of 45 dependencies 
+
+## ARTool (0.10.0)
+Maintainer: Matthew Kay <mjskay@uw.edu>  
+Bug reports: https://github.com/mjskay/ARTool/issues/new
+
+```
+checking package dependencies ... NOTE
+Package suggested but not available for checking: ‘phia’
+```
+```
+checking re-building of vignette outputs ... NOTE
+Error in re-building vignettes:
+  ...
+Note: the specification for S3 class "family" in package 'MatrixModels' seems equivalent to one from package 'lme4': not turning on duplicate class definitions for this class.
+
+Attaching package: 'dplyr'
+
+The following objects are masked from 'package:stats':
+
+    filter, lag
+
+The following objects are masked from 'package:base':
+
+    intersect, setdiff, setequal, union
+
+Loading required package: estimability
+Quitting from lines 44-50 (art-contrasts.Rmd) 
+Error: processing vignette 'art-contrasts.Rmd' failed with diagnostics:
+there is no package called 'phia'
+Execution halted
+
+```
+```
+DONE
+Status: 2 NOTEs
+```
 
 ## broom (0.4.0)
 Maintainer: David Robinson <admiral.david@gmail.com>  
@@ -38,6 +74,11 @@ __OK__
 
 ## causaldrf (0.3)
 Maintainer: Douglas Galagate <galagated@gmail.com>
+
+__OK__
+
+## edeaR (0.3.2)
+Maintainer: Gert Janssenswillen <gert.janssenswillen@uhasselt.be>
 
 __OK__
 
@@ -72,6 +113,7 @@ Please remove from your package.
 checking re-building of vignette outputs ... NOTE
 Error in re-building vignettes:
   ...
+Warning: package 'knitr' was built under R version 3.2.3
 trying URL 'http://ec.europa.eu/eurostat/estat-navtree-portlet-prod/BulkDownloadListing?sort=1&file=data%2Ftsdtr210.tsv.gz'
 Content type 'application/octet-stream;charset=UTF-8' length 4001 bytes
 ==================================================
@@ -95,7 +137,7 @@ Bug reports: https://github.com/lem-usp/evolqg/issues
 ```
 checking whether package ‘evolqg’ can be installed ... ERROR
 Installation failed.
-See ‘/private/tmp/Rtmp3Xn9Gj/check_cranb0a8822a434/evolqg.Rcheck/00install.out’ for details.
+See ‘/private/tmp/RtmpkbNe2h/check_cran5277652de79/evolqg.Rcheck/00install.out’ for details.
 ```
 ```
 DONE
@@ -119,14 +161,14 @@ Maintainer: Masaaki Horikoshi <sinhrks@gmail.com>
 checking whether package ‘ggfortify’ can be installed ... WARNING
 Found the following significant warnings:
   Warning: package ‘ggplot2’ was built under R version 3.2.3
-See ‘/private/tmp/Rtmp3Xn9Gj/check_cranb0a8822a434/ggfortify.Rcheck/00install.out’ for details.
+See ‘/private/tmp/RtmpkbNe2h/check_cran5277652de79/ggfortify.Rcheck/00install.out’ for details.
 ```
 ```
 DONE
 Status: 1 WARNING
 ```
 
-## ggmcmc (0.7.2)
+## ggmcmc (0.7.3)
 Maintainer: Xavier Fernández i Marín <xavier.fim@gmail.com>  
 Bug reports: https://github.com/xfim/ggmcmc/issues
 
@@ -134,33 +176,11 @@ Bug reports: https://github.com/xfim/ggmcmc/issues
 checking whether package ‘ggmcmc’ can be installed ... WARNING
 Found the following significant warnings:
   Warning: package ‘ggplot2’ was built under R version 3.2.3
-  Warning: package ‘GGally’ was built under R version 3.2.3
-See ‘/private/tmp/Rtmp3Xn9Gj/check_cranb0a8822a434/ggmcmc.Rcheck/00install.out’ for details.
-```
-```
-checking examples ... ERROR
-Running examples in ‘ggmcmc-Ex.R’ failed
-The error most likely occurred in:
-
-> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
-> ### Name: ggmcmc
-> ### Title: Wrapper function that creates a single pdf file with all plots
-> ###   that ggmcmc can produce.
-> ### Aliases: ggmcmc ggmcmc-package
-> 
-> ### ** Examples
-> 
-> data(linear)
-> ggmcmc(ggs(s))  # Directly from a coda object
-Plotting histograms
-Error in factor(x, levels = 1:n, labels = labels) : 
-  invalid 'labels'; length 0 should be 1 or 3
-Calls: ggmcmc ... print -> ggs_histogram -> cbind -> gl_unq -> factor
-Execution halted
+See ‘/private/tmp/RtmpkbNe2h/check_cran5277652de79/ggmcmc.Rcheck/00install.out’ for details.
 ```
 ```
 DONE
-Status: 1 ERROR, 1 WARNING
+Status: 1 WARNING
 ```
 
 ## ggRandomForests (1.2.1)
@@ -217,7 +237,7 @@ Found the following significant warnings:
   Warning: package ‘ggplot2’ was built under R version 3.2.3
   Warning: package ‘car’ was built under R version 3.2.3
   Warning: package ‘mosaicData’ was built under R version 3.2.3
-See ‘/private/tmp/Rtmp3Xn9Gj/check_cranb0a8822a434/mosaic.Rcheck/00install.out’ for details.
+See ‘/private/tmp/RtmpkbNe2h/check_cran5277652de79/mosaic.Rcheck/00install.out’ for details.
 ```
 ```
 DONE
@@ -232,7 +252,7 @@ Bug reports: https://github.com/fawda123/NeuralNetTools/issues
 checking whether package ‘NeuralNetTools’ can be installed ... WARNING
 Found the following significant warnings:
   Warning: replacing previous import by ‘scales::alpha’ when loading ‘NeuralNetTools’
-See ‘/private/tmp/Rtmp3Xn9Gj/check_cranb0a8822a434/NeuralNetTools.Rcheck/00install.out’ for details.
+See ‘/private/tmp/RtmpkbNe2h/check_cran5277652de79/NeuralNetTools.Rcheck/00install.out’ for details.
 ```
 ```
 DONE
@@ -269,7 +289,7 @@ Bug reports: http://github.com/trinker/qdap/issues
 checking whether package ‘qdap’ can be installed ... WARNING
 Found the following significant warnings:
   Warning: package ‘qdapRegex’ was built under R version 3.2.3
-See ‘/private/tmp/Rtmp3Xn9Gj/check_cranb0a8822a434/qdap.Rcheck/00install.out’ for details.
+See ‘/private/tmp/RtmpkbNe2h/check_cran5277652de79/qdap.Rcheck/00install.out’ for details.
 ```
 ```
 DONE
@@ -288,7 +308,7 @@ Maintainer: Linares Daniel <danilinares@gmail.com>
 checking whether package ‘quickpsy’ can be installed ... WARNING
 Found the following significant warnings:
   Warning: package ‘ggplot2’ was built under R version 3.2.3
-See ‘/private/tmp/Rtmp3Xn9Gj/check_cranb0a8822a434/quickpsy.Rcheck/00install.out’ for details.
+See ‘/private/tmp/RtmpkbNe2h/check_cran5277652de79/quickpsy.Rcheck/00install.out’ for details.
 ```
 ```
 DONE
@@ -325,7 +345,7 @@ Packages suggested but not available for checking: ‘rrdf’ ‘Sxslt’
 checking whether package ‘RNeXML’ can be installed ... WARNING
 Found the following significant warnings:
   Warning: package ‘ape’ was built under R version 3.2.3
-See ‘/private/tmp/Rtmp3Xn9Gj/check_cranb0a8822a434/RNeXML.Rcheck/00install.out’ for details.
+See ‘/private/tmp/RtmpkbNe2h/check_cran5277652de79/RNeXML.Rcheck/00install.out’ for details.
 ```
 ```
 checking re-building of vignette outputs ... NOTE
@@ -375,10 +395,35 @@ Bug reports: https://github.com/alexgenin/rollply
 
 __OK__
 
-## rpdo (0.1.0)
+## rpdo (0.1.1)
 Maintainer: Joe Thorley <joe@poissonconsulting.ca>
 
-__OK__
+```
+checking package dependencies ... NOTE
+Package suggested but not available for checking: ‘datacheckr’
+```
+```
+checking tests ... ERROR
+Running the tests in ‘tests/testthat.R’ failed.
+Last 13 lines of output:
+  
+  R is a collaborative project with many contributors.
+  Type 'contributors()' for more information and
+  'citation()' on how to cite R or R packages in publications.
+  
+  Type 'demo()' for some demos, 'help()' for on-line help, or
+  'help.start()' for an HTML browser interface to help.
+  Type 'q()' to quit R.
+  
+  > library(testthat)
+  > library(datacheckr)
+  Error in library(datacheckr) : there is no package called 'datacheckr'
+  Execution halted
+```
+```
+DONE
+Status: 1 ERROR, 1 NOTE
+```
 
 ## rplexos (1.1.4)
 Maintainer: Eduardo Ibanez <edu.ibanez@gmail.com>  
@@ -392,32 +437,11 @@ Bug reports: https://github.com/davidgohel/rtable/issues
 
 __OK__
 
-## simmer (3.1.1)
+## simmer (3.1.2)
 Maintainer: Iñaki Ucar <i.ucar86@gmail.com>  
 Bug reports: https://github.com/Bart6114/simmer/issues
 
-```
-checking tests ... ERROR
-Running the tests in ‘tests/testthat.R’ failed.
-Last 13 lines of output:
-  
-  2. Failure (at test-simulation-1.R#37): a simple deterministic simulation with rejections behaves as expected 
-  mean(resources$server) not equal to 2/3
-  0.662 - 0.667 == -0.00442
-  
-  Trajectory: anonymous, 1 activities
-  testthat results ================================================================
-  OK: 178 SKIPPED: 0 FAILED: 2
-  1. Failure (at test-simulation-1.R#35): a simple deterministic simulation with rejections behaves as expected 
-  2. Failure (at test-simulation-1.R#37): a simple deterministic simulation with rejections behaves as expected 
-  
-  Error: testthat unit tests failed
-  Execution halted
-```
-```
-DONE
-Status: 1 ERROR
-```
+__OK__
 
 ## sjPlot (1.8.4)
 Maintainer: Daniel Lüdecke <d.luedecke@uke.de>  
@@ -427,7 +451,7 @@ Bug reports: https://github.com/sjPlot/devel/issues
 checking whether package ‘sjPlot’ can be installed ... WARNING
 Found the following significant warnings:
   Warning: replacing previous import by ‘grid::unit’ when loading ‘sjPlot’
-See ‘/private/tmp/Rtmp3Xn9Gj/check_cranb0a8822a434/sjPlot.Rcheck/00install.out’ for details.
+See ‘/private/tmp/RtmpkbNe2h/check_cran5277652de79/sjPlot.Rcheck/00install.out’ for details.
 ```
 ```
 checking examples ... ERROR
@@ -457,7 +481,13 @@ DONE
 Status: 1 ERROR, 1 WARNING
 ```
 
-## statar (0.4.0)
+## sprintfr (0.1.0)
+Maintainer: Brandon Taylor <brandon.taylor221@gmail.com>  
+Bug reports: https://github.com/bramtayl/sprintfr/issues
+
+__OK__
+
+## statar (0.5.0)
 Maintainer: Matthieu Gomez <mattg@princeton.edu>  
 Bug reports: https://github.com/matthieugomez/statar/issues
 
@@ -476,7 +506,7 @@ Bug reports: https://github.com/fawda123/SWMPr/issues
 checking whether package ‘SWMPr’ can be installed ... WARNING
 Found the following significant warnings:
   Warning: package ‘ggplot2’ was built under R version 3.2.3
-See ‘/private/tmp/Rtmp3Xn9Gj/check_cranb0a8822a434/SWMPr.Rcheck/00install.out’ for details.
+See ‘/private/tmp/RtmpkbNe2h/check_cran5277652de79/SWMPr.Rcheck/00install.out’ for details.
 ```
 ```
 DONE

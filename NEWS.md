@@ -1,4 +1,4 @@
-# tidyr 0.3.1.9000
+# tidyr 0.4.0
 
 ## Nested data frames
 
