@@ -2,7 +2,7 @@
 % Please edit documentation in R/nest.R
 \name{nest}
 \alias{nest}
-\title{Nest repeated values in a list-varible.}
+\title{Nest repeated values in a list-variable.}
 \usage{
 nest(data, ..., .key = data)
 }

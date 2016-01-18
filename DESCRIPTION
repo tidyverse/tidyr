@@ -28,4 +28,4 @@ Suggests:
     gapminder
 VignetteBuilder: knitr
 LinkingTo: Rcpp
-RoxygenNote: 5.0.0
+RoxygenNote: 5.0.1
