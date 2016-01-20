@@ -31,6 +31,8 @@ before_script:
   - Rscript -e 'if (length(find.package("devtools", quiet = TRUE)) == 0L) { install.packages("devtools", repos = "http://cran.rstudio.com") }'
   - Rscript -e 'if (length(find.package("covr", quiet = TRUE)) == 0L) { install.packages("covr", repos = "http://cran.rstudio.com") }'
   - Rscript -e 'library(devtools);update_packages("devtools", repos = "http://cran.rstudio.com")'
+
+  - Rscript -e 'devtools::session_info("tidyr")'
   - Rscript -e 'library(devtools);install_deps(repos = "http://cran.rstudio.com", dependencies = TRUE)'
 
 script:
