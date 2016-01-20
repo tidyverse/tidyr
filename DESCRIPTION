@@ -25,7 +25,8 @@ Suggests:
     testthat,
     data.table,
     covr,
-    gapminder
+    gapminder,
+    rmarkdown
 VignetteBuilder: knitr
 LinkingTo: Rcpp
 RoxygenNote: 5.0.1
