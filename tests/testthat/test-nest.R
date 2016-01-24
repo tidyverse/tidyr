@@ -29,3 +29,10 @@ test_that("can restrict variables in grouped nest", {
   expect_equal(names(out$data[[1]]), "y")
 })
 
+test_that("puts data into the correct row", {
+  df <- dplyr::data_frame(x = 1:3, y = c("B", "A", "A"))
+  out <- nest(df, x) %>%
+    dplyr::filter(y == "B")
+
+  expect_equal(out$data[[1]]$x, 1)
+})
