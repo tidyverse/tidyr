@@ -72,7 +72,7 @@ nest_impl <- function(data, key_col, group_cols, nest_cols) {
   out <- dplyr::distinct_(dplyr::select_(data, .dots = group_cols))
 
   idx <- dplyr::group_indices_(data, .dots = group_cols)
-  out[[key_col]] <- unname(split(data[nest_cols], idx))
+  out[[key_col]] <- unname(split(data[nest_cols], idx))[unique(idx)]
 
   out
 }

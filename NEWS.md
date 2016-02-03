@@ -1,5 +1,7 @@
 # tidyr 0.4.0.9000
 
+* Fixed bug in `nest()` where nested data was ending up in the wrong row (#158).
+
 # tidyr 0.4.0
 
 ## Nested data frames
