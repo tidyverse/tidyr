@@ -1,40 +1,5 @@
-language: c
-sudo: false
-
-addons:
-  apt:
-    sources:
-      - r-packages-precise
-    packages:
-      - r-base-dev
-      - r-recommended
-
-env:
-  - R_LIBS_USER=~/R/library
-
-cache:
-  directories:
-    $R_LIBS_USER
-
-before_script:
-  # Install binary pandoc from Rstudio
-  - mkdir $HOME/pandoc
-  - curl -O https://s3.amazonaws.com/rstudio-buildtools/pandoc-1.12.3.zip
-  - unzip -j pandoc-1.12.3.zip pandoc-1.12.3/linux/debian/x86_64/pandoc
-      -d $HOME/pandoc
-  - chmod +x $HOME/pandoc/pandoc
-  - rm pandoc-1.12.3.zip
-  - export PATH="$HOME/pandoc:$PATH"
-  - pandoc --version
-
-  - mkdir -p "$R_LIBS_USER"
-  - Rscript -e 'if (length(find.package("devtools", quiet = TRUE)) == 0L) { install.packages("devtools", repos = "http://cran.rstudio.com") }'
-  - Rscript -e 'if (length(find.package("covr", quiet = TRUE)) == 0L) { install.packages("covr", repos = "http://cran.rstudio.com") }'
-  - Rscript -e 'library(devtools);update_packages("devtools", repos = "http://cran.rstudio.com")'
-  - Rscript -e 'library(devtools);install_deps(repos = "http://cran.rstudio.com", dependencies = TRUE)'
-
-script:
-  - Rscript -e 'devtools::check()'
+language: R
+cache: packages
 
 after_success:
   - Rscript -e 'covr::codecov()'
