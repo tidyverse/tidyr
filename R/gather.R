@@ -113,7 +113,7 @@ gather_.data.frame <- function(data, key_col, value_col, gather_cols,
     as.logical(factor_key)
   )
 
-  if (na.rm) {
+  if (na.rm && anyNA(df)) {
     missing <- is.na(df[[value_col]])
     df <- df[!missing, ]
   }
