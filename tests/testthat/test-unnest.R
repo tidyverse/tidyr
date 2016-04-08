@@ -33,7 +33,10 @@ test_that("multiple columns must be same length", {
 
 test_that("nested is split as a list (#84)", {
   df <- dplyr::data_frame(x = 1:3, y = list(1,2:3,4), z = list(5,6:7,8))
-  expect_that(unnest(df), not(gives_warning("data length is not a multiple")))
+  expect_warning(out <- unnest(df, y, z), NA)
+  expect_equal(out$x, c(1, 2, 2, 3))
+  expect_equal(out$y, unlist(df$y))
+  expect_equal(out$z, unlist(df$z))
 })
 
 test_that("unnest has mutate semantics", {
