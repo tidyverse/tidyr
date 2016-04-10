@@ -87,6 +87,15 @@ all \%>\% anti_join(experiment)
 all \%>\% right_join(experiment)
 # Or use the complete() short-hand
 experiment \%>\% complete(nesting(name, trt), rep)
+
+resources <- frame_data(
+~year, ~metric, ~value,
+1999, "coal", 100,
+2001, "coal", 50,
+2001, "steel", 200
+)
+all_metrics <- c("aluminium", "coal", "steel")
+resources \%>\% expand(metric = full_set(metric, all_metrics), year, value)
 }
 \seealso{
 \code{\link{complete}} for a common application of \code{expand}:
