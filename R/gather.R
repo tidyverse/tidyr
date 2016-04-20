@@ -137,13 +137,6 @@ gather_.grouped_df <- function(data, key_col, value_col, gather_cols,
   regroup(data, NextMethod(), gather_cols)
 }
 
-#' @export
-gather_.tbl_dt <- function(data, key_col, value_col, gather_cols,
-                           na.rm = FALSE, convert = FALSE, factor_key = FALSE) {
-  dplyr::tbl_dt(NextMethod())
-}
-
-
 # Functions from reshape2 -------------------------------------------------
 
 ## Get the attributes if common, NULL if not.

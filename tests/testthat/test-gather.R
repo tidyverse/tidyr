@@ -47,9 +47,6 @@ test_that("key preserves column ordering when factor_key = TRUE", {
 test_that("preserve class of input", {
   dat <- data.frame(x = 1:2)
   dat %>% (dplyr::tbl_df) %>% gather %>% expect_is("tbl_df")
-
-  skip_if_not_installed("data.table")
-  dat %>% (dplyr::tbl_df) %>% gather %>% expect_is("tbl_df")
 })
 
 test_that("additional controls which columns to gather", {

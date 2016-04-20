@@ -77,9 +77,6 @@ test_that("preserve class of input", {
     z = c("w", "x", "y", "z")
   )
   dat %>% (dplyr::tbl_df) %>% spread(x, z) %>% expect_is("tbl_df")
-
-  skip_if_not_installed("data.table")
-  dat %>% (dplyr::tbl_dt) %>% spread(x, z) %>% expect_is("tbl_dt")
 })
 
 test_that("dates are spread into columns (#62)", {
