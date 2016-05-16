@@ -67,6 +67,14 @@ nest_.grouped_df <- function(data, key_col, nest_cols = character()) {
 
 nest_impl <- function(data, key_col, group_cols, nest_cols) {
   data <- dplyr::ungroup(data)
+
+  if (length(group_cols) == 0) {
+    df <- dplyr::data_frame(list(data))
+    names(df) <- key_col
+
+    return(df)
+  }
+
   nest_cols <- setdiff(nest_cols, group_cols)
 
   out <- dplyr::distinct_(dplyr::select_(data, .dots = group_cols))

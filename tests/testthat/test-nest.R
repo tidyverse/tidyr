@@ -36,3 +36,9 @@ test_that("puts data into the correct row", {
 
   expect_equal(out$data[[1]]$x, 1)
 })
+
+test_that("nesting everything yields a simple data frame", {
+  df <- dplyr::data_frame(x = 1:3, y = c("B", "A", "A"))
+  out <- nest(df, x, y)
+  expect_equal(out, dplyr::data_frame(data = list(df)))
+})
