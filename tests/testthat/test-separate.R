@@ -64,3 +64,11 @@ test_that("preserves grouping", {
   expect_equal(class(df), class(rs))
   expect_equal(dplyr::groups(df), dplyr::groups(rs))
 })
+
+test_that("drops grouping when needed", {
+  df <- dplyr::data_frame(x = "a:b") %>% dplyr::group_by(x)
+  rs <- df %>% separate(x, c("a", "b"))
+
+  expect_equal(rs$a, "a")
+  expect_equal(dplyr::groups(rs), NULL)
+})

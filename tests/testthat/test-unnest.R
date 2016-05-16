@@ -74,6 +74,7 @@ test_that("grouping is preserved", {
   df <- dplyr::data_frame(g = 1, x = list(1:3)) %>% dplyr::group_by(g)
   rs <- df %>% unnest(x)
 
+  expect_equal(rs$x, 1:3)
   expect_equal(class(df), class(rs))
   expect_equal(dplyr::groups(df), dplyr::groups(rs))
 })

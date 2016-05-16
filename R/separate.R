@@ -122,7 +122,7 @@ separate_.tbl_df <- function(data, col, into, sep = "[^[:alnum:]]+",
 separate_.grouped_df <- function(data, col, into, sep = "[^[:alnum:]]+",
                                  remove = TRUE, convert = FALSE,
                                  extra = "warn", fill = "warn", ...) {
-  dplyr::grouped_df(NextMethod(), dplyr::groups(data))
+  regroup(NextMethod(), data, if (remove) col)
 }
 
 

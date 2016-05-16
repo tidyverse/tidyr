@@ -134,7 +134,7 @@ gather_.tbl_df <- function(data, key_col, value_col, gather_cols,
 #' @export
 gather_.grouped_df <- function(data, key_col, value_col, gather_cols,
                                na.rm = FALSE, convert = FALSE, factor_key = FALSE) {
-  regroup(data, NextMethod(), gather_cols)
+  regroup(NextMethod(), data, gather_cols)
 }
 
 # Functions from reshape2 -------------------------------------------------

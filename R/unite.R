@@ -63,5 +63,6 @@ unite_.tbl_df <- function(data, col, from, sep = "_", remove = TRUE) {
 
 #' @export
 unite_.grouped_df <- function(data, col, from, sep = "_", remove = TRUE) {
-  dplyr::grouped_df(NextMethod(), dplyr::groups(data))
+  regroup(NextMethod(), data, if (remove) from)
 }
+

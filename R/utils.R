@@ -62,12 +62,13 @@ list_indices <- function(x, max = 20) {
 
 `%||%` <- function(x, y) if (length(x) == 0) y else x
 
-regroup <- function(x, y, except) {
-  group_vars <- vapply(dplyr::groups(x), as.character, character(1))
-  group_vars <- setdiff(group_vars, except)
-  group_vars <- lapply(group_vars, as.name)
+regroup <- function(x, y, except = NULL) {
+  groups <- dplyr::groups(y)
+  if (!is.null(except)) {
+    groups <- setdiff(groups, lapply(except, as.name))
+  }
 
-  dplyr::grouped_df(y, group_vars)
+  dplyr::grouped_df(x, groups)
 }
 
 # Allows tests to work with either dplyr 0.4 (which ignores value of

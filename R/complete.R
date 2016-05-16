@@ -60,5 +60,5 @@ complete_.data.frame <- function(data, cols, fill = list(), ...) {
 
 #' @export
 complete_.grouped_df <- function(data, cols, fill = list(), ...) {
-  dplyr::grouped_df(NextMethod(), dplyr::groups(data))
+  regroup(NextMethod(), data)
 }

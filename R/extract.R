@@ -79,6 +79,6 @@ extract_.tbl_df <- function(data, col, into, regex = "([[:alnum:]]+)",
 
 #' @export
 extract_.grouped_df <- function(data, col, into, regex = "([[:alnum:]]+)",
-                            remove = TRUE, convert = FALSE, ...) {
-  dplyr::grouped_df(NextMethod(), dplyr::groups(data))
+                                remove = TRUE, convert = FALSE, ...) {
+  regroup(NextMethod(), data, if (remove) col)
 }

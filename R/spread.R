@@ -139,7 +139,7 @@ spread_.tbl_df <- function(data, key_col, value_col, fill = NA,
 #' @export
 spread_.grouped_df <- function(data, key_col, value_col, fill = NA,
                                convert = FALSE, drop = TRUE) {
-  regroup(data, NextMethod(), except = c(key_col, value_col))
+  regroup(NextMethod(), data, c(key_col, value_col))
 }
 
 split_labels <- function(df, id, drop = TRUE) {

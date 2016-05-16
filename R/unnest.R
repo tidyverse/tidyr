@@ -138,5 +138,5 @@ unnest_.tbl_df <- function(data, unnest_cols, .drop = NA) {
 
 #' @export
 unnest_.grouped_df <- function(data, unnest_cols, .drop = NA) {
-  dplyr::grouped_df(dplyr::ungroup(data), dplyr::groups(data))
+  regroup(unnest_(dplyr::ungroup(data), unnest_cols, .drop = .drop), data)
 }

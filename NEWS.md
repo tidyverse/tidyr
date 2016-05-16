@@ -1,5 +1,8 @@
 # tidyr 0.4.1.9000
 
+* `unite()` and `separate()` now automatically drop removed variables from
+  grouping (#159, #177).
+
 * `expand()` (and hence `complete()`) preserves the ordered attribute of 
   factors (#165).
 

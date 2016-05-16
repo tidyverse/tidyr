@@ -25,3 +25,12 @@ test_that("unite preserves grouping", {
   expect_equal(class(df), class(rs))
   expect_equal(dplyr::groups(df), dplyr::groups(rs))
 })
+
+
+test_that("drops grouping when needed", {
+  df <- dplyr::data_frame(g = 1, x = "a") %>% dplyr::group_by(g)
+  rs <- df %>% unite(gx, g, x)
+
+  expect_equal(rs$gx, "1_a")
+  expect_equal(dplyr::groups(rs), NULL)
+})
