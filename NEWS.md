@@ -2,6 +2,8 @@
 
 * Moved in useful sample datasets from the DSR package.
 
+* Made compatibile with both dplyr 0.4 and 0.5.
+
 # tidyr 0.4.1
 
 * Fixed bug in `nest()` where nested data was ending up in the wrong row (#158).
