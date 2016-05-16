@@ -8,3 +8,12 @@ test_that("basic invocation works", {
   expect_equal(out$z, c(3, NA, NA, 4))
 
 })
+
+test_that("preserves grouping", {
+  df <- dplyr::data_frame(x = 1:2, y = 1:2, z = 3:4) %>%
+    dplyr::group_by(x)
+  out <- complete(df, x, y)
+
+  expect_s3_class(out, "grouped_df")
+  expect_equal(dplyr::groups(out), dplyr::groups(df))
+})

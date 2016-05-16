@@ -1,5 +1,7 @@
 # tidyr 0.4.1.9000
 
+* `complete()` preserves grouping created by dplyr (#168).
+
 * `nest()` now returns correct output if every variable is nested (#186).
 
 * `full_seq()` now preserve attributes for dates and date/times (#156).
