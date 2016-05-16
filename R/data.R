@@ -42,3 +42,11 @@
 #' @source \url{http://www.who.int/tb/country/data/download/en/}
 #'
 "population"
+
+
+#' Some data about the Smith family.
+#'
+#' A small demo dataset describing John and Mary Smith.
+#'
+#' @format A data frame with 2 rows and 5 columns.
+"smiths"
