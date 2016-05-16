@@ -1,13 +1,16 @@
-# making population data set
 library(dplyr)
 library(tidyr)
+library(readr)
 
-pop <- read.csv("data-raw/TB_burden_countries_2014-11-07.csv", stringsAsFactors = FALSE)
+pop <- read_csv("data-raw/TB_burden_countries_2014-11-07.csv",
+  col_types = list(
+    e_mort_tbhiv_num = col_double()
+  )
+)
 
 population <- pop %>%
-  tbl_df() %>%
-  select(country, year, e_pop_num) %>%
+  select(country, year, population = e_pop_num) %>%
   filter(year >= 1995)
-names(population)[3] <- "population"
-write.csv(population, file = "data-raw/population.csv", row.names = FALSE)
+
+write_csv(population, "data-raw/population.csv")
 save(population, file = "data/population.rdata")
