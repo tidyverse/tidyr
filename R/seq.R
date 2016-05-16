@@ -12,10 +12,10 @@
 #' @examples
 #' full_seq(c(1, 2, 4, 5, 10), 1)
 full_seq <- function(x, period, tol = 1e-6) {
-  if (any(x %% period > tol)) {
+  rng <- range(x, na.rm = TRUE)
+  if (any((x - rng[1]) %% period > tol)) {
     stop("`x` is not a regular sequence.", call. = FALSE)
   }
 
-  rng <- range(x, na.rm = TRUE)
   seq(rng[1], rng[2], by = period)
 }
