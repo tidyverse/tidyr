@@ -19,3 +19,23 @@ full_seq <- function(x, period, tol = 1e-6) {
   rng <- range(x, na.rm = TRUE)
   seq(rng[1], rng[2], by = period)
 }
+
+#' Create the full set of values in a character vector.
+#'
+#' @param x A character vector, has to be a subset of \code{vec}
+#' @param vec A character vector of which \code{x} is a subset
+#'
+#' @return \code{vec} the full set
+#' @export
+#'
+#' @examples
+#' full_set(c("Jan", "Mar", "Jun"), month.abb)
+#' full_set(c("a", "g", "b"), letters[1:15])
+full_set <- function(x, vec) {
+  if (any(!x %in% vec)) {
+    stop("x has to be a subset of vec")
+  }
+  return(vec)
+}
+
+

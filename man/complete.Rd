@@ -45,6 +45,14 @@ df \%>\% complete(group, nesting(item_id, item_name))
 
 # You can also choose to fill in missing values
 df \%>\% complete(group, nesting(item_id, item_name), fill = list(value1 = 0))
+resources <- frame_data(
+  ~year, ~metric, ~value,
+  1999, "coal", 100,
+  2001, "coal", 50,
+  2001, "steel", 200
+)
+all_metrics <- c("aluminium", "coal", "steel")
+resources \%>\% complete(metric = full_set(metric, all_metrics), year)
 }
 \seealso{
 \code{\link{complete_}} for a version that uses regular evaluation
