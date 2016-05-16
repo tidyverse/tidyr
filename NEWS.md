@@ -1,5 +1,7 @@
 # tidyr 0.4.1.9000
 
+* Moved in useful sample datasets from the DSR package.
+
 # tidyr 0.4.1
 
 * Fixed bug in `nest()` where nested data was ending up in the wrong row (#158).
