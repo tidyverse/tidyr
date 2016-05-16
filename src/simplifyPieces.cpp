@@ -27,9 +27,13 @@ List simplifyPieces(ListOf<CharacterVector> pieces, int p,
     } else if (x.size() < p) { // too small
       tooSml.push_back(i + 1);
 
+      int gap = p - x.size();
       for (int j = 0; j < p; ++j) {
-        int idx = fillLeft ? p - j - 1 : j;
-        out[idx][i] = (j < x.size()) ? x[j] : NA_STRING;
+        if (fillLeft) {
+          out[j][i] = (j >= gap) ? x[j - gap] : NA_STRING;
+        } else {
+          out[j][i] = (j < x.size()) ? x[j] : NA_STRING;
+        }
       }
 
     } else {
