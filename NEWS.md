@@ -1,5 +1,8 @@
 # tidyr 0.4.1.9000
 
+* `expand()` (and hence `complete()`) preserves the ordered attribute of 
+  factors (#165).
+
 * `complete()` preserves grouping created by dplyr (#168).
 
 * `nest()` now returns correct output if every variable is nested (#186).

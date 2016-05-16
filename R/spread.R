@@ -160,7 +160,7 @@ ulevels <- function(x) {
   if (is.factor(x)) {
     x <- addNA(x, ifany = TRUE)
     levs <- levels(x)
-    factor(levs, levels = levs)
+    factor(levs, levels = levs, ordered = is.ordered(x))
   } else {
     sort(unique(x))
   }

@@ -53,3 +53,9 @@ test_that("expand respects groups", {
   expect_equal(out$data[[2]], dplyr::data_frame(b = 1L, c = 1L))
 })
 
+test_that("preserves ordered factors", {
+  df <- dplyr::data_frame(a = ordered("a"))
+  out <- expand(df, a)
+
+  expect_equal(df$a, ordered("a"))
+})
