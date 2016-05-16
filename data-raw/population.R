@@ -10,7 +10,8 @@ pop <- read_csv("data-raw/TB_burden_countries_2014-11-07.csv",
 
 population <- pop %>%
   select(country, year, population = e_pop_num) %>%
-  filter(year >= 1995)
+  filter(year >= 1995) %>%
+  mutate(country = stringi::stri_trans_general(country, "latin-ascii"))
 
 write_csv(population, "data-raw/population.csv")
 save(population, file = "data/population.rdata")
