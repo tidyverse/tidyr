@@ -22,7 +22,7 @@ Data sets that demonstrate multiple ways to layout the same tabular data.
 \details{
 \code{table1}, \code{table2}, \code{table3}, \code{table4}, \code{table5}, and \code{table6} all display the number of TB cases documented by the World Health Organization in Afghanistan, Brazil, and China between 1999 and 2000. The data contains values associated with four variables (country, year, cases, and population), but each table organizes the values in a different layout.
 
-The data is a subset of the data contained in the World Health 
+The data is a subset of the data contained in the World Health
 Organization Global Tuberculosis Report
 }
 \keyword{datasets}

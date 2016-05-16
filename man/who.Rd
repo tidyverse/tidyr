@@ -18,7 +18,7 @@
 who
 }
 \description{
-A subset of data from the World Health Organization Global 
+A subset of data from the World Health Organization Global
 Tuberculosis Report.
 }
 \details{
