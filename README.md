@@ -18,11 +18,11 @@ There are two fundamental verbs of data tidying:
 
 These verbs have a number of synonyms:
 
-| tidyr        | gather | spread  |
-|--------------|--------|---------|
-| reshape(2)   | melt   | cast    |
-| spreadsheets | pivot  | unpivot | 
-| databases    | fold   | unfold  |
+| tidyr        | gather  | spread |
+|--------------|---------|--------|
+| reshape(2)   | melt    | cast   |
+| spreadsheets | unpivot | pivot  | 
+| databases    | fold    | unfold |
 
 tidyr also provides `separate()` and `extract()` functions which makes it easier to pull apart a column that represents multiple variables. The complement to `separate()` is `unite()`.
 
