@@ -152,8 +152,14 @@ SEXP concatenate(const DataFrame& x, IntegerVector ind, bool factorsAsStrings) {
         }
         break;
       }
-      case RAWSXP:
-        DO_CONCATENATE(Rbyte);
+      case VECSXP: {
+        for (int j = 0; j < nrow; ++j) {
+          SET_VECTOR_ELT(output, i * nrow + j, VECTOR_ELT(tmp, j));
+        }
+        break;
+      }
+    default:
+      stop("Unsupported type (%s)", Rf_type2char(max_type));
     }
   }
 
@@ -183,8 +189,8 @@ List melt_dataframe(const DataFrame& data,
 
   // Don't melt if the value variables are non-atomic
   for (int i = 0; i < n_measure; ++i) {
-    if (!Rf_isVectorAtomic(data[measure_ind[i]])) {
-      stop("Can't melt data.frames with non-atomic 'measure' columns");
+    if (!Rf_isVector(data[measure_ind[i]])) {
+      stop("Can't gather non-vector column %i", measure_ind[i] + 1);
     }
   }
 

@@ -130,3 +130,9 @@ test_that("can handle list-columns", {
 
   expect_identical(out$y, df$y)
 })
+
+test_that("can gather list-columns", {
+  df <- dplyr::data_frame(x = 1:2, y = list(1, 2), z = list(3, 4))
+  out <- gather(df, k, v, y:z)
+  expect_equal(out$v, list(1, 2, 3, 4))
+})

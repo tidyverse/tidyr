@@ -1,5 +1,7 @@
 # tidyr 0.4.1.9000
 
+* `gather()` can now gather together list columns (#175).
+
 * `unite()` and `separate()` now automatically drop removed variables from
   grouping (#159, #177).
 
