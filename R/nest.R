@@ -48,7 +48,7 @@ nest_ <- function(data, key_col, nest_cols = character()) {
 #' @export
 nest_.data.frame <- function(data, key_col, nest_cols = character()) {
   group_cols <- setdiff(names(data), nest_cols)
-  nest_impl(dplyr::as_data_frame(data), key_col, group_cols, nest_cols)
+  nest_impl(as_data_frame(data), key_col, group_cols, nest_cols)
 }
 
 #' @export

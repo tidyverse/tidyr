@@ -93,7 +93,7 @@ unnest_.data.frame <- function(data, unnest_cols, .drop = NA) {
 
   unnested_atomic <- lapply(nest_types$atomic, dplyr::combine)
   if (length(unnested_atomic) > 0)
-    unnested_atomic <- dplyr::as_data_frame(unnested_atomic)
+    unnested_atomic <- as_data_frame(unnested_atomic)
 
   unnested_dataframe <- lapply(nest_types$dataframe, dplyr::bind_rows)
   if (length(unnested_dataframe) > 0)
