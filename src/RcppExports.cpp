@@ -27,17 +27,6 @@ BEGIN_RCPP
     return __result;
 END_RCPP
 }
-// matrixToDataFrame
-List matrixToDataFrame(RObject x);
-RcppExport SEXP tidyr_matrixToDataFrame(SEXP xSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject __result;
-    Rcpp::RNGScope __rngScope;
-    Rcpp::traits::input_parameter< RObject >::type x(xSEXP);
-    __result = Rcpp::wrap(matrixToDataFrame(x));
-    return __result;
-END_RCPP
-}
 // melt_dataframe
 List melt_dataframe(const DataFrame& data, const IntegerVector& id_ind, const IntegerVector& measure_ind, String variable_name, String value_name, SEXP attrTemplate, bool factorsAsStrings, bool valueAsFactor, bool variableAsFactor);
 RcppExport SEXP tidyr_melt_dataframe(SEXP dataSEXP, SEXP id_indSEXP, SEXP measure_indSEXP, SEXP variable_nameSEXP, SEXP value_nameSEXP, SEXP attrTemplateSEXP, SEXP factorsAsStringsSEXP, SEXP valueAsFactorSEXP, SEXP variableAsFactorSEXP) {
