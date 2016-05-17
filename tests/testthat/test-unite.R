@@ -1,7 +1,7 @@
 context("unite")
 
 test_that("unite pastes columns together & removes old col", {
-  df <- dplyr::data_frame(x = "a", y = "b")
+  df <- data_frame(x = "a", y = "b")
   out <- unite(df, z, x:y)
 
   expect_equal(names(out), "z")
@@ -9,7 +9,7 @@ test_that("unite pastes columns together & removes old col", {
 })
 
 test_that("unite does not remove new col in case of name clash", {
-  df <- dplyr::data_frame(x = "a", y = "b")
+  df <- data_frame(x = "a", y = "b")
   out <- unite(df, x, x:y)
 
   expect_equal(names(out), "x")
@@ -17,7 +17,7 @@ test_that("unite does not remove new col in case of name clash", {
 })
 
 test_that("unite preserves grouping", {
-  df <- dplyr::data_frame(g = 1, x = "a") %>% dplyr::group_by(g)
+  df <- data_frame(g = 1, x = "a") %>% dplyr::group_by(g)
   rs <- df %>% unite(x, x)
 
 
@@ -28,7 +28,7 @@ test_that("unite preserves grouping", {
 
 
 test_that("drops grouping when needed", {
-  df <- dplyr::data_frame(g = 1, x = "a") %>% dplyr::group_by(g)
+  df <- data_frame(g = 1, x = "a") %>% dplyr::group_by(g)
   rs <- df %>% unite(gx, g, x)
 
   expect_equal(rs$gx, "1_a")

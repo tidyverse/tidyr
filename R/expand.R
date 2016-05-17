@@ -125,8 +125,9 @@ crossing <- function(...) {
 
 #' @export
 #' @rdname expand
+#' @importFrom tibble data_frame
 nesting <- function(...) {
-  df <- dplyr::data_frame(...)
+  df <- data_frame(...)
   df <- dplyr::distinct(df)
   df[do.call(order, df), , drop = FALSE]
 }
@@ -146,7 +147,7 @@ crossing_ <- function(x) {
   }
 
   # turn each data frame into single column data frame
-  col_df <- lapply(x[is_atomic], function(x) dplyr::data_frame(x = ulevels(x)))
+  col_df <- lapply(x[is_atomic], function(x) data_frame(x = ulevels(x)))
   col_df <- Map(setNames, col_df, names(x)[is_atomic])
   x[is_atomic] <- col_df
 

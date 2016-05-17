@@ -16,7 +16,7 @@ test_that("order doesn't matter", {
 })
 
 test_that("convert turns strings into integers", {
-  df <- dplyr::data_frame(key = "a", value = "1")
+  df <- data_frame(key = "a", value = "1")
   out <- spread(df, key, value, convert = TRUE)
 
   expect_is(out$a, "integer")
