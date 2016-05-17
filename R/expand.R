@@ -106,7 +106,7 @@ expand_.data.frame <- function(data, dots, ...) {
 
 #' @export
 expand_.tbl_df <- function(data, dots, ...) {
-  dplyr::tbl_df(NextMethod())
+  as_data_frame(NextMethod())
 }
 
 #' @export

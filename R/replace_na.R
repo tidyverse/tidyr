@@ -26,5 +26,5 @@ replace_na.data.frame <- function(data, replace = list(), ...) {
 
 #' @export
 replace_na.tbl_df <- function(data, replace = list(), ...) {
-  dplyr::tbl_df(NextMethod())
+  as_data_frame(NextMethod())
 }

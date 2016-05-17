@@ -133,7 +133,7 @@ list_col_type <- function(x) {
 
 #' @export
 unnest_.tbl_df <- function(data, unnest_cols, .drop = NA) {
-  dplyr::tbl_df(NextMethod())
+  as_data_frame(NextMethod())
 }
 
 #' @export

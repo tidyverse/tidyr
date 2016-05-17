@@ -53,7 +53,7 @@ nest_.data.frame <- function(data, key_col, nest_cols = character()) {
 
 #' @export
 nest_.tbl_df <- function(data, key_col, nest_cols = character()) {
-  dplyr::tbl_df(NextMethod())
+  as_data_frame(NextMethod())
 }
 
 #' @export

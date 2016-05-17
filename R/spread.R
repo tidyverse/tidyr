@@ -136,7 +136,7 @@ spread_.data.frame <- function(data, key_col, value_col, fill = NA,
 #' @export
 spread_.tbl_df <- function(data, key_col, value_col, fill = NA,
                            convert = FALSE, drop = TRUE) {
-  dplyr::tbl_df(NextMethod())
+  as_data_frame(NextMethod())
 }
 
 #' @export
