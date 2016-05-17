@@ -17,6 +17,7 @@ Imports:
     stringi,
     lazyeval,
     magrittr,
+    tibble,
     Rcpp
 URL: https://github.com/hadley/tidyr
 BugReports: https://github.com/hadley/tidyr/issues

@@ -70,7 +70,7 @@ spread_ <- function(data, key_col, value_col, fill = NA, convert = FALSE,
 }
 
 #' @export
-#' @importFrom dplyr as_data_frame
+#' @importFrom tibble as_data_frame
 spread_.data.frame <- function(data, key_col, value_col, fill = NA,
                                convert = FALSE, drop = TRUE) {
 
