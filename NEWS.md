@@ -1,5 +1,8 @@
 # tidyr 0.4.1.9000
 
+* `separate()` fills from right-to-left (not left-to-right!) when fill = "left"
+  (#170, @dgrtwo).
+
 * `gather()` can now gather together list columns (#175).
 
 * `unite()` and `separate()` now automatically drop removed variables from
