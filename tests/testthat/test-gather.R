@@ -46,11 +46,11 @@ test_that("key preserves column ordering when factor_key = TRUE", {
 
 test_that("preserve class of input", {
   dat <- data.frame(x = 1:2)
-  dat %>% (dplyr::tbl_df) %>% gather %>% expect_is("tbl_df")
+  dat %>% as_data_frame %>% gather %>% expect_is("tbl_df")
 })
 
 test_that("additional controls which columns to gather", {
-  data <- dplyr::data_frame(a = 1, b1 = 1, b2 = 2, b3 = 3)
+  data <- data_frame(a = 1, b1 = 1, b2 = 2, b3 = 3)
   out <- gather(data, key, val, b1:b3)
 
   expect_equal(names(out), c("a", "key", "val"))
@@ -58,11 +58,11 @@ test_that("additional controls which columns to gather", {
 })
 
 test_that("group_vars are kept where possible", {
-  df <- dplyr::data_frame(x = 1, y = 1, z = 1)
+  df <- data_frame(x = 1, y = 1, z = 1)
 
   # Can't keep
   out <- df %>% dplyr::group_by(x) %>% gather(key, val, x:z)
-  expect_equal(out, dplyr::data_frame(key = c("x", "y", "z"), val = 1))
+  expect_equal(out, data_frame(key = c("x", "y", "z"), val = 1))
 
   # Can keep
   out <- df %>% dplyr::group_by(x) %>% gather(key, val, y:z)
@@ -125,14 +125,14 @@ test_that("gather preserves OBJECT bit on e.g. POSIXct", {
 })
 
 test_that("can handle list-columns", {
-  df <- dplyr::data_frame(x = 1:2, y = list("a", TRUE))
+  df <- data_frame(x = 1:2, y = list("a", TRUE))
   out <- gather(df, k, v, -y)
 
   expect_identical(out$y, df$y)
 })
 
 test_that("can gather list-columns", {
-  df <- dplyr::data_frame(x = 1:2, y = list(1, 2), z = list(3, 4))
+  df <- data_frame(x = 1:2, y = list(1, 2), z = list(3, 4))
   out <- gather(df, k, v, y:z)
   expect_equal(out$v, list(1, 2, 3, 4))
 })

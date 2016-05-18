@@ -1,7 +1,7 @@
 context("fill")
 
 test_that("all missings left unchanged", {
-  df <- dplyr::data_frame(
+  df <- data_frame(
     lgl = c(NA, NA),
     int = c(NA_integer_, NA),
     dbl = c(NA_real_, NA),
@@ -16,21 +16,21 @@ test_that("all missings left unchanged", {
 })
 
 test_that("missings filled down from last non-missing", {
-  df <- dplyr::data_frame(x = c(1, NA, NA))
+  df <- data_frame(x = c(1, NA, NA))
 
   out <- fill(df, x)
   expect_equal(out$x, c(1, 1, 1))
 })
 
 test_that("missings filled up from last non-missing", {
-  df <- dplyr::data_frame(x = c(NA, NA, 1))
+  df <- data_frame(x = c(NA, NA, 1))
 
   out <- fill(df, x, .direction = "up")
   expect_equal(out$x, c(1, 1, 1))
 })
 
 test_that("missings filled down for each atomic vector", {
-  df <- dplyr::data_frame(
+  df <- data_frame(
     lgl = c(T, NA),
     int = c(1L, NA),
     dbl = c(1, NA),
@@ -48,7 +48,7 @@ test_that("missings filled down for each atomic vector", {
 })
 
 test_that("missings filled up for each vector", {
-  df <- dplyr::data_frame(
+  df <- data_frame(
     lgl = c(NA, T),
     int = c(NA, 1L),
     dbl = c(NA, 1),
@@ -65,7 +65,7 @@ test_that("missings filled up for each vector", {
 })
 
 test_that("fill preserves attributes", {
-  df <- dplyr::data_frame(x = factor(c(NA, "a", NA)))
+  df <- data_frame(x = factor(c(NA, "a", NA)))
 
   out_d <- fill(df, x)
   out_u <- fill(df, x, .direction = "up")
@@ -75,7 +75,7 @@ test_that("fill preserves attributes", {
 })
 
 test_that("fill respects grouping", {
-  df <- dplyr::data_frame(x = c(1, 1, 2), y = c(1, NA, NA))
+  df <- data_frame(x = c(1, 1, 2), y = c(1, NA, NA))
   out <- df %>% dplyr::group_by(x) %>% fill(y)
   expect_equal(out$y, c(1, 1, NA))
 })

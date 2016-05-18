@@ -48,12 +48,12 @@ nest_ <- function(data, key_col, nest_cols = character()) {
 #' @export
 nest_.data.frame <- function(data, key_col, nest_cols = character()) {
   group_cols <- setdiff(names(data), nest_cols)
-  nest_impl(dplyr::as_data_frame(data), key_col, group_cols, nest_cols)
+  nest_impl(as_data_frame(data), key_col, group_cols, nest_cols)
 }
 
 #' @export
 nest_.tbl_df <- function(data, key_col, nest_cols = character()) {
-  dplyr::tbl_df(NextMethod())
+  as_data_frame(NextMethod())
 }
 
 #' @export
@@ -65,11 +65,12 @@ nest_.grouped_df <- function(data, key_col, nest_cols = character()) {
   nest_impl(data, key_col, group_cols, nest_cols)
 }
 
+#' @importFrom tibble data_frame
 nest_impl <- function(data, key_col, group_cols, nest_cols) {
   data <- dplyr::ungroup(data)
 
   if (length(group_cols) == 0) {
-    df <- dplyr::data_frame(list(data))
+    df <- data_frame(list(data))
     names(df) <- key_col
 
     return(df)

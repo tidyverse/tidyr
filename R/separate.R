@@ -115,7 +115,7 @@ separate_.data.frame <- function(data, col, into, sep = "[^[:alnum:]]+",
 separate_.tbl_df <- function(data, col, into, sep = "[^[:alnum:]]+",
                              remove = TRUE, convert = FALSE,
                              extra = "warn", fill = "warn", ...) {
-  dplyr::tbl_df(NextMethod())
+  as_data_frame(NextMethod())
 }
 
 #' @export

@@ -16,7 +16,7 @@ test_that("order doesn't matter", {
 })
 
 test_that("convert turns strings into integers", {
-  df <- dplyr::data_frame(key = "a", value = "1")
+  df <- data_frame(key = "a", value = "1")
   out <- spread(df, key, value, convert = TRUE)
 
   expect_is(out$a, "integer")
@@ -76,7 +76,7 @@ test_that("preserve class of input", {
     y = c("c", "d", "c", "d"),
     z = c("w", "x", "y", "z")
   )
-  dat %>% (dplyr::tbl_df) %>% spread(x, z) %>% expect_is("tbl_df")
+  dat %>% as_data_frame %>% spread(x, z) %>% expect_is("tbl_df")
 })
 
 test_that("dates are spread into columns (#62)", {

@@ -20,7 +20,7 @@ test_that("match failures give NAs", {
 })
 
 test_that("extract keeps characters as character", {
-  df <- dplyr::data_frame(x = "X-1")
+  df <- data_frame(x = "X-1")
 
   out <- extract(df, x, c("x", "y"), "(.)-(.)", convert = TRUE)
   expect_equal(out$x, "X")
@@ -28,7 +28,7 @@ test_that("extract keeps characters as character", {
 })
 
 test_that("groups are preserved", {
-  df <- dplyr::data_frame(g = 1, x = "X1") %>% dplyr::group_by(g)
+  df <- data_frame(g = 1, x = "X1") %>% dplyr::group_by(g)
   rs <- df %>% extract(x, c("x", "y"), "(.)(.)")
 
   expect_equal(class(df), class(rs))
