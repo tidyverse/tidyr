@@ -9,10 +9,6 @@ fillUp <- function(x) {
     .Call('tidyr_fillUp', PACKAGE = 'tidyr', x)
 }
 
-matrixToDataFrame <- function(x) {
-    .Call('tidyr_matrixToDataFrame', PACKAGE = 'tidyr', x)
-}
-
 melt_dataframe <- function(data, id_ind, measure_ind, variable_name, value_name, attrTemplate, factorsAsStrings, valueAsFactor, variableAsFactor) {
     .Call('tidyr_melt_dataframe', PACKAGE = 'tidyr', data, id_ind, measure_ind, variable_name, value_name, attrTemplate, factorsAsStrings, valueAsFactor, variableAsFactor)
 }

@@ -30,7 +30,7 @@ test_that("expand_ accepts list of formulas", {
 })
 
 test_that("expand works with non-standard col names", {
-  df <- dplyr::data_frame(` x ` = 1:2, `/y` = 1:2)
+  df <- data_frame(` x ` = 1:2, `/y` = 1:2)
   out <- expand(df, ` x `, `/y`)
 
   expect_equal(nrow(out), 4)
@@ -42,7 +42,7 @@ test_that("expand excepts expressions", {
 })
 
 test_that("expand respects groups", {
-  df <- dplyr::data_frame(
+  df <- data_frame(
     a = c(1L, 1L, 2L),
     b = c(1L, 2L, 1L),
     c = c(2L, 1L, 1L)
@@ -50,11 +50,11 @@ test_that("expand respects groups", {
   out <- df %>% dplyr::group_by(a) %>% expand(b, c) %>% nest()
 
   expect_equal(out$data[[1]], crossing(b = 1:2, c = 1:2))
-  expect_equal(out$data[[2]], dplyr::data_frame(b = 1L, c = 1L))
+  expect_equal(out$data[[2]], data_frame(b = 1L, c = 1L))
 })
 
 test_that("preserves ordered factors", {
-  df <- dplyr::data_frame(a = ordered("a"))
+  df <- data_frame(a = ordered("a"))
   out <- expand(df, a)
 
   expect_equal(df$a, ordered("a"))

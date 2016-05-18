@@ -74,7 +74,7 @@ extract_.data.frame <- function(data, col, into, regex = "([[:alnum:]]+)",
 #' @export
 extract_.tbl_df <- function(data, col, into, regex = "([[:alnum:]]+)",
                              remove = TRUE, convert = FALSE, ...) {
-  dplyr::tbl_df(NextMethod())
+  as_data_frame(NextMethod())
 }
 
 #' @export

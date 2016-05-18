@@ -70,7 +70,7 @@ spread_ <- function(data, key_col, value_col, fill = NA, convert = FALSE,
 }
 
 #' @export
-#' @importFrom dplyr as_data_frame
+#' @importFrom tibble as_data_frame
 spread_.data.frame <- function(data, key_col, value_col, fill = NA,
                                convert = FALSE, drop = TRUE) {
 
@@ -121,7 +121,10 @@ spread_.data.frame <- function(data, key_col, value_col, fill = NA,
   }
   dim(ordered) <- c(attr(row_id, "n"), attr(col_id, "n"))
   colnames(ordered) <- as.character(col_labels[[1]])
-  ordered <- matrixToDataFrame(ordered)
+
+  as_data_frame.matrix <- utils::getS3method("as_data_frame", "matrix",
+                                             envir = asNamespace("tibble"))
+  ordered <- as_data_frame.matrix(ordered)
 
   if (convert) {
     ordered[] <- lapply(ordered, type.convert, as.is = TRUE)
@@ -133,7 +136,7 @@ spread_.data.frame <- function(data, key_col, value_col, fill = NA,
 #' @export
 spread_.tbl_df <- function(data, key_col, value_col, fill = NA,
                            convert = FALSE, drop = TRUE) {
-  dplyr::tbl_df(NextMethod())
+  as_data_frame(NextMethod())
 }
 
 #' @export
