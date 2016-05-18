@@ -49,14 +49,21 @@
 #' df <- data.frame(x = c(1, 1, 2), y = 3:1)
 #' df %>% nest(y)
 #' df %>% nest(y) %>% unnest()
-unnest <- function(data, ..., .drop = NA) {
+#'
+#' # If you have a named list-column, you may want to supply .id
+#' df <- data_frame(
+#'   x = 1:2,
+#'   y = list(a = 1, b = 3:4)
+#' )
+#' unnest(df, .id = "name")
+unnest <- function(data, ..., .drop = NA, .id = NULL) {
   dots <- lazyeval::lazy_dots(...)
   if (length(dots) == 0) {
     list_cols <- names(data)[vapply(data, is.list, logical(1))]
     dots <- lazyeval::as.lazy_dots(list_cols, env = parent.frame())
   }
 
-  unnest_(data, dots, .drop = .drop)
+  unnest_(data, dots, .drop = .drop, .id = .id)
 }
 
 #' Standard-evaluation version of \code{unnest}.
@@ -68,14 +75,17 @@ unnest <- function(data, ..., .drop = NA) {
 #' @param .drop Should additional list columns be dropped? By default,
 #'   \code{unnest} will drop them if unnesting the specified columns requires
 #'   the rows to be duplicated.
+#' @param .id Data frame idenfier - if supplied, will create a new column
+#'   with name \code{.id}, giving a unique identifer. This is most useful if
+#'   the list column is named.
 #' @keywords internal
 #' @export
-unnest_ <- function(data, unnest_cols, .drop = NA) {
+unnest_ <- function(data, unnest_cols, .drop = NA, .id = NULL) {
   UseMethod("unnest_")
 }
 
 #' @export
-unnest_.data.frame <- function(data, unnest_cols, .drop = NA) {
+unnest_.data.frame <- function(data, unnest_cols, .drop = NA, .id = NULL) {
   nested <- dplyr::transmute_(data, .dots = unnest_cols)
   n <- lapply(nested, function(x) vapply(x, NROW, numeric(1)))
   if (length(unique(n)) != 1) {
@@ -91,11 +101,12 @@ unnest_.data.frame <- function(data, unnest_cols, .drop = NA) {
       "data frames [", probs , "]", call. = FALSE)
   }
 
-  unnested_atomic <- lapply(nest_types$atomic, dplyr::combine)
+  unnested_atomic <- mapply(enframe, nest_types$atomic, names(nest_types$atomic),
+    MoreArgs = list(.id = .id), SIMPLIFY = FALSE)
   if (length(unnested_atomic) > 0)
-    unnested_atomic <- as_data_frame(unnested_atomic)
+    unnested_atomic <- dplyr::bind_cols(unnested_atomic)
 
-  unnested_dataframe <- lapply(nest_types$dataframe, dplyr::bind_rows)
+  unnested_dataframe <- lapply(nest_types$dataframe, dplyr::bind_rows, .id = .id)
   if (length(unnested_dataframe) > 0)
     unnested_dataframe <- dplyr::bind_cols(unnested_dataframe)
 
@@ -131,12 +142,32 @@ list_col_type <- function(x) {
   }
 }
 
+enframe <- function(x, col_name, .id = NULL) {
+  out <- data_frame(dplyr::combine(x))
+  names(out) <- col_name
+
+  if (!is.null(.id)) {
+    out[[.id]] <- id_col(x)
+  }
+  out
+}
+
+id_col <- function(x) {
+  stopifnot(is.list(x))
+
+  ids <- if (is.null(names(x))) seq_along(x) else names(x)
+  lengths <- vapply(x, length, integer(1))
+
+  ids[rep(seq_along(ids), lengths)]
+}
+
 #' @export
-unnest_.tbl_df <- function(data, unnest_cols, .drop = NA) {
+unnest_.tbl_df <- function(data, unnest_cols, .drop = NA, .id = NULL) {
   as_data_frame(NextMethod())
 }
 
 #' @export
-unnest_.grouped_df <- function(data, unnest_cols, .drop = NA) {
-  regroup(unnest_(dplyr::ungroup(data), unnest_cols, .drop = .drop), data)
+unnest_.grouped_df <- function(data, unnest_cols, .drop = NA, .id = NULL) {
+  out <- unnest_(dplyr::ungroup(data), unnest_cols, .drop = .drop, .id = .id)
+  regroup(out, data)
 }

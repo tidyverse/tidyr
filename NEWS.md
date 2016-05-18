@@ -1,5 +1,8 @@
 # tidyr 0.4.1.9000
 
+* `unnest()` gains `.id` argument that works the same way as `bind_rows()`.
+  This is useful if you have a named list of data frames or vectors (#125).
+
 * `separate()` fills from right-to-left (not left-to-right!) when fill = "left"
   (#170, @dgrtwo).
 

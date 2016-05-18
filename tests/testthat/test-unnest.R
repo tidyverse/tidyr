@@ -5,6 +5,12 @@ test_that("unnesting combines atomic vectors", {
   expect_equal(unnest(df)$x, 1:10)
 })
 
+test_that("vector unnest preseves names", {
+  df <- data_frame(x = list(1, 2:3), y = list("a", c("b", "c")))
+  out <- unnest(df)
+  expect_named(out, c("x", "y"))
+})
+
 test_that("unnesting row binds data frames", {
   df <- data_frame(x = list(
     data_frame(x = 1:5),
@@ -44,6 +50,23 @@ test_that("unnest has mutate semantics", {
   out <- df %>% unnest(z = lapply(y, `+`, 1))
 
   expect_equal(out$z, 2:5)
+})
+
+test_that(".id creates vector of names for vector unnest", {
+  df <- data_frame(x = 1:2, y = list(a = 1, b = 1:2))
+  out <- unnest(df, .id = "name")
+
+  expect_equal(out$name, c("a", "b", "b"))
+})
+
+test_that(".id creates vector of names for data frame unnest", {
+  df <- data_frame(x = 1:2, y = list(
+    a = data_frame(y = 1),
+    b = data_frame(y = 1:2)
+  ))
+  out <- unnest(df, .id = "name")
+
+  expect_equal(out$name, c("a", "b", "b"))
 })
 
 # Drop --------------------------------------------------------------------

@@ -4,7 +4,7 @@
 \alias{unnest_}
 \title{Standard-evaluation version of \code{unnest}.}
 \usage{
-unnest_(data, unnest_cols, .drop = NA)
+unnest_(data, unnest_cols, .drop = NA, .id = NULL)
 }
 \arguments{
 \item{data}{A data frame.}
@@ -14,6 +14,10 @@ unnest_(data, unnest_cols, .drop = NA)
 \item{.drop}{Should additional list columns be dropped? By default,
 \code{unnest} will drop them if unnesting the specified columns requires
 the rows to be duplicated.}
+
+\item{.id}{Data frame idenfier - if supplied, will create a new column
+with name \code{.id}, giving a unique identifer. This is most useful if
+the list column is named.}
 }
 \description{
 This is a S3 generic.

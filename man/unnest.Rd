@@ -4,7 +4,7 @@
 \alias{unnest}
 \title{Unnest a list column.}
 \usage{
-unnest(data, ..., .drop = NA)
+unnest(data, ..., .drop = NA, .id = NULL)
 }
 \arguments{
 \item{data}{A data frame.}
@@ -15,6 +15,10 @@ functions of variables. If omitted, defaults to all list-cols.}
 \item{.drop}{Should additional list columns be dropped? By default,
 \code{unnest} will drop them if unnesting the specified columns requires
 the rows to be duplicated.}
+
+\item{.id}{Data frame idenfier - if supplied, will create a new column
+with name \code{.id}, giving a unique identifer. This is most useful if
+the list column is named.}
 }
 \description{
 If you have a list-column, this makes each element of the list it's own
@@ -59,6 +63,13 @@ df \%>\% unnest()
 df <- data.frame(x = c(1, 1, 2), y = 3:1)
 df \%>\% nest(y)
 df \%>\% nest(y) \%>\% unnest()
+
+# If you have a named list-column, you may want to supply .id
+df <- data_frame(
+  x = 1:2,
+  y = list(a = 1, b = 3:4)
+)
+unnest(df, .id = "name")
 }
 \seealso{
 \code{\link{nest}} for the inverse operation.
