@@ -4,7 +4,8 @@
 \alias{spread}
 \title{Spread a key-value pair across multiple columns.}
 \usage{
-spread(data, key, value, fill = NA, convert = FALSE, drop = TRUE)
+spread(data, key, value, fill = NA, convert = FALSE, drop = TRUE,
+  sep = NULL)
 }
 \arguments{
 \item{data}{A data frame.}
@@ -29,6 +30,10 @@ conversion.}
 
 \item{drop}{If \code{FALSE}, will keep factor levels that don't appear in the
 data, filling in missing combinations with \code{fill}.}
+
+\item{sep}{If \code{NULL}, the column names will be taken from the values of
+\code{key} variable. If non-\code{NULL}, the column names will be given
+by "<key_name><sep><key_value>".}
 }
 \description{
 Spread a key-value pair across multiple columns.

@@ -164,3 +164,14 @@ test_that("grouping vars are kept where possible", {
   out <- df %>% group_by(key) %>% spread(key, value)
   expect_equal(out, data_frame(a = 1L, b = 2L))
 })
+
+
+test_that("col names never contains NA", {
+  df <- data_frame(x = c(1, NA), y = 1:2)
+  df %>%
+    spread(x, y) %>%
+    expect_named(c("1", "<NA>"))
+  df %>%
+    spread(x, y, sep = "_") %>%
+    expect_named(c("x_1", "x_NA"))
+})

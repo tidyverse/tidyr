@@ -1,5 +1,9 @@
 # tidyr 0.4.1.9000
 
+* `spread()` gains a `sep` argument. If not-null, this will name columns
+  as "key<sep>value". Additionally, if sep is `NULL` missing values will be
+  converted to `<NA>` (#68).
+
 * `unnest()` now works with non-syntactic names (#190).
 
 * `unnest()` gains `.id` argument that works the same way as `bind_rows()`.

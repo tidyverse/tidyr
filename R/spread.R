@@ -30,11 +30,13 @@
 #'                  value = c(5.1, "setosa", 1, 7.0, "versicolor", 2))
 #' df %>% spread(var, value) %>% str
 #' df %>% spread(var, value, convert = TRUE) %>% str
-spread <- function(data, key, value, fill = NA, convert = FALSE, drop = TRUE) {
+spread <- function(data, key, value, fill = NA, convert = FALSE, drop = TRUE,
+                   sep = NULL) {
   key_col <- col_name(substitute(key))
   value_col <- col_name(substitute(value))
 
-  spread_(data, key_col, value_col, fill = fill, convert = convert, drop = drop)
+  spread_(data, key_col, value_col, fill = fill, convert = convert, drop = drop,
+    sep = sep)
 }
 
 #' Standard-evaluation version of \code{spread}.
@@ -55,10 +57,13 @@ spread <- function(data, key, value, fill = NA, convert = FALSE, drop = TRUE) {
 #'   conversion.
 #' @param drop If \code{FALSE}, will keep factor levels that don't appear in the
 #'   data, filling in missing combinations with \code{fill}.
+#' @param sep If \code{NULL}, the column names will be taken from the values of
+#'   \code{key} variable. If non-\code{NULL}, the column names will be given
+#'   by "<key_name><sep><key_value>".
 #' @keywords internal
 #' @export
 spread_ <- function(data, key_col, value_col, fill = NA, convert = FALSE,
-                    drop = TRUE) {
+                    drop = TRUE, sep = NULL) {
   if (!(key_col %in% names(data))) {
     stop("Key column '", key_col, "' does not exist in input.", call. = FALSE)
   }
@@ -72,7 +77,7 @@ spread_ <- function(data, key_col, value_col, fill = NA, convert = FALSE,
 #' @export
 #' @importFrom tibble as_data_frame
 spread_.data.frame <- function(data, key_col, value_col, fill = NA,
-                               convert = FALSE, drop = TRUE) {
+                               convert = FALSE, drop = TRUE, sep = NULL) {
 
   col <- data[key_col]
   col_id <- id(col, drop = drop)
@@ -120,7 +125,7 @@ spread_.data.frame <- function(data, key_col, value_col, fill = NA,
     ordered <- as.character(ordered)
   }
   dim(ordered) <- c(attr(row_id, "n"), attr(col_id, "n"))
-  colnames(ordered) <- as.character(col_labels[[1]])
+  colnames(ordered) <- col_names(col_labels, sep = sep)
 
   ordered <- as_data_frame_matrix(ordered)
 
@@ -131,19 +136,29 @@ spread_.data.frame <- function(data, key_col, value_col, fill = NA,
   append_df(row_labels, ordered)
 }
 
+col_names <- function(x, sep = NULL) {
+  names <- as.character(x[[1]])
+
+  if (is.null(sep)) {
+    ifelse(is.na(names), "<NA>", names)
+  } else {
+    paste(names(x)[[1]], names, sep = sep)
+  }
+}
+
 as_data_frame_matrix <- function(x) {
  utils::getS3method("as_data_frame", "matrix", envir = asNamespace("tibble"))(x)
 }
 
 #' @export
 spread_.tbl_df <- function(data, key_col, value_col, fill = NA,
-                           convert = FALSE, drop = TRUE) {
+                           convert = FALSE, drop = TRUE, sep = NULL) {
   as_data_frame(NextMethod())
 }
 
 #' @export
 spread_.grouped_df <- function(data, key_col, value_col, fill = NA,
-                               convert = FALSE, drop = TRUE) {
+                               convert = FALSE, drop = TRUE, sep = NULL) {
   regroup(NextMethod(), data, c(key_col, value_col))
 }
 
