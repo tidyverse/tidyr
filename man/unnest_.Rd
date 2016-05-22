@@ -4,7 +4,7 @@
 \alias{unnest_}
 \title{Standard-evaluation version of \code{unnest}.}
 \usage{
-unnest_(data, unnest_cols, .drop = NA, .id = NULL)
+unnest_(data, unnest_cols, .drop = NA, .id = NULL, .sep = NULL)
 }
 \arguments{
 \item{data}{A data frame.}
@@ -18,6 +18,10 @@ the rows to be duplicated.}
 \item{.id}{Data frame idenfier - if supplied, will create a new column
 with name \code{.id}, giving a unique identifer. This is most useful if
 the list column is named.}
+
+\item{.sep}{If non-\code{NULL}, the names of unnested data frame columns
+will combine the name of the original list-col with the names from
+nested data frame, separated by \code{.sep}.}
 }
 \description{
 This is a S3 generic.

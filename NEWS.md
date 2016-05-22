@@ -1,5 +1,9 @@
 # tidyr 0.4.1.9000
 
+* `unnest()` gains a `sep` argument. If non-null, this will rename the 
+  columns of nested data frames to include both the original column name,
+  and the nested column name, separated by `.sep` (#184).
+
 * `spread()` gains a `sep` argument. If not-null, this will name columns
   as "key<sep>value". Additionally, if sep is `NULL` missing values will be
   converted to `<NA>` (#68).

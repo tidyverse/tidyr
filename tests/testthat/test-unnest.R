@@ -75,6 +75,13 @@ test_that("can use non-syntactic names", {
   expect_named(out, "foo bar")
 })
 
+test_that("sep combines column names", {
+  ldf <- list(data_frame(x = 1))
+  data_frame(x = ldf, y = ldf) %>%
+    unnest(.sep = "_") %>%
+    expect_named(c("x_x", "y_x"))
+})
+
 # Drop --------------------------------------------------------------------
 
 test_that("unnest drops list cols if expanding", {

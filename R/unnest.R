@@ -56,7 +56,7 @@
 #'   y = list(a = 1, b = 3:4)
 #' )
 #' unnest(df, .id = "name")
-unnest <- function(data, ..., .drop = NA, .id = NULL) {
+unnest <- function(data, ..., .drop = NA, .id = NULL, .sep = NULL) {
   dots <- lazyeval::lazy_dots(...)
   if (length(dots) == 0) {
     list_cols <- names(data)[vapply(data, is.list, logical(1))]
@@ -64,7 +64,7 @@ unnest <- function(data, ..., .drop = NA, .id = NULL) {
     dots <- lazyeval::as.lazy_dots(list_col_names, env = parent.frame())
   }
 
-  unnest_(data, dots, .drop = .drop, .id = .id)
+  unnest_(data, dots, .drop = .drop, .id = .id, .sep = .sep)
 }
 
 #' Standard-evaluation version of \code{unnest}.
@@ -79,14 +79,18 @@ unnest <- function(data, ..., .drop = NA, .id = NULL) {
 #' @param .id Data frame idenfier - if supplied, will create a new column
 #'   with name \code{.id}, giving a unique identifer. This is most useful if
 #'   the list column is named.
+#' @param .sep If non-\code{NULL}, the names of unnested data frame columns
+#'   will combine the name of the original list-col with the names from
+#'   nested data frame, separated by \code{.sep}.
 #' @keywords internal
 #' @export
-unnest_ <- function(data, unnest_cols, .drop = NA, .id = NULL) {
+unnest_ <- function(data, unnest_cols, .drop = NA, .id = NULL, .sep = NULL) {
   UseMethod("unnest_")
 }
 
 #' @export
-unnest_.data.frame <- function(data, unnest_cols, .drop = NA, .id = NULL) {
+unnest_.data.frame <- function(data, unnest_cols, .drop = NA, .id = NULL,
+                               .sep = NULL) {
   nested <- dplyr::transmute_(data, .dots = unnest_cols)
   n <- lapply(nested, function(x) vapply(x, NROW, numeric(1)))
   if (length(unique(n)) != 1) {
@@ -108,6 +112,11 @@ unnest_.data.frame <- function(data, unnest_cols, .drop = NA, .id = NULL) {
     unnested_atomic <- dplyr::bind_cols(unnested_atomic)
 
   unnested_dataframe <- lapply(nest_types$dataframe, dplyr::bind_rows, .id = .id)
+  if (!is.null(.sep)) {
+    unnested_dataframe <- Map(function(name, df) {
+      setNames(df, paste(name, names(df), sep = .sep))
+    }, names(unnested_dataframe), unnested_dataframe)
+  }
   if (length(unnested_dataframe) > 0)
     unnested_dataframe <- dplyr::bind_cols(unnested_dataframe)
 
@@ -163,12 +172,17 @@ id_col <- function(x) {
 }
 
 #' @export
-unnest_.tbl_df <- function(data, unnest_cols, .drop = NA, .id = NULL) {
+unnest_.tbl_df <- function(data, unnest_cols, .drop = NA, .id = NULL,
+                           .sep = NULL) {
   as_data_frame(NextMethod())
 }
 
 #' @export
-unnest_.grouped_df <- function(data, unnest_cols, .drop = NA, .id = NULL) {
-  out <- unnest_(dplyr::ungroup(data), unnest_cols, .drop = .drop, .id = .id)
+unnest_.grouped_df <- function(data, unnest_cols, .drop = NA, .id = NULL,
+                               .sep = NULL) {
+  out <- unnest_(
+    dplyr::ungroup(data), unnest_cols,
+    .drop = .drop, .id = .id, .sep = .sep
+  )
   regroup(out, data)
 }

@@ -4,7 +4,7 @@
 \alias{unnest}
 \title{Unnest a list column.}
 \usage{
-unnest(data, ..., .drop = NA, .id = NULL)
+unnest(data, ..., .drop = NA, .id = NULL, .sep = NULL)
 }
 \arguments{
 \item{data}{A data frame.}
@@ -19,6 +19,10 @@ the rows to be duplicated.}
 \item{.id}{Data frame idenfier - if supplied, will create a new column
 with name \code{.id}, giving a unique identifer. This is most useful if
 the list column is named.}
+
+\item{.sep}{If non-\code{NULL}, the names of unnested data frame columns
+will combine the name of the original list-col with the names from
+nested data frame, separated by \code{.sep}.}
 }
 \description{
 If you have a list-column, this makes each element of the list it's own
