@@ -32,6 +32,10 @@ This is a wrapper around \code{\link{expand}()},
 \code{\link[dplyr]{left_join}()} and \code{\link{replace_na}} that's
 useful for completing missing combinations of data.
 }
+\details{
+If you supply \code{fill}, these values will also replace existing
+explicit missing values in the data set.
+}
 \examples{
 library(dplyr)
 df <- data_frame(

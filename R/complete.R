@@ -9,6 +9,9 @@ NULL
 #' \code{\link[dplyr]{left_join}()} and \code{\link{replace_na}} that's
 #' useful for completing missing combinations of data.
 #'
+#' If you supply \code{fill}, these values will also replace existing
+#' explicit missing values in the data set.
+#'
 #' @inheritParams complete_
 #' @inheritParams expand
 #' @seealso \code{\link{complete_}} for a version that uses regular evaluation
