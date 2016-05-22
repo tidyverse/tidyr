@@ -60,7 +60,8 @@ unnest <- function(data, ..., .drop = NA, .id = NULL) {
   dots <- lazyeval::lazy_dots(...)
   if (length(dots) == 0) {
     list_cols <- names(data)[vapply(data, is.list, logical(1))]
-    dots <- lazyeval::as.lazy_dots(list_cols, env = parent.frame())
+    list_col_names <- lapply(list_cols, as.name)
+    dots <- lazyeval::as.lazy_dots(list_col_names, env = parent.frame())
   }
 
   unnest_(data, dots, .drop = .drop, .id = .id)

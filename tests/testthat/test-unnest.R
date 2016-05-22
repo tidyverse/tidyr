@@ -69,6 +69,12 @@ test_that(".id creates vector of names for data frame unnest", {
   expect_equal(out$name, c("a", "b", "b"))
 })
 
+test_that("can use non-syntactic names", {
+  out <- data_frame("foo bar" = list(1:2, 3)) %>% unnest()
+
+  expect_named(out, "foo bar")
+})
+
 # Drop --------------------------------------------------------------------
 
 test_that("unnest drops list cols if expanding", {

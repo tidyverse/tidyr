@@ -1,5 +1,7 @@
 # tidyr 0.4.1.9000
 
+* `unnest()` now works with non-syntactic names (#190).
+
 * `unnest()` gains `.id` argument that works the same way as `bind_rows()`.
   This is useful if you have a named list of data frames or vectors (#125).
 
