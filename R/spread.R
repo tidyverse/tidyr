@@ -122,15 +122,17 @@ spread_.data.frame <- function(data, key_col, value_col, fill = NA,
   dim(ordered) <- c(attr(row_id, "n"), attr(col_id, "n"))
   colnames(ordered) <- as.character(col_labels[[1]])
 
-  as_data_frame.matrix <- utils::getS3method("as_data_frame", "matrix",
-                                             envir = asNamespace("tibble"))
-  ordered <- as_data_frame.matrix(ordered)
+  ordered <- as_data_frame_matrix(ordered)
 
   if (convert) {
     ordered[] <- lapply(ordered, type.convert, as.is = TRUE)
   }
 
   append_df(row_labels, ordered)
+}
+
+as_data_frame_matrix <- function(x) {
+ utils::getS3method("as_data_frame", "matrix", envir = asNamespace("tibble"))(x)
 }
 
 #' @export
