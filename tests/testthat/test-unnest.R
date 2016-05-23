@@ -38,13 +38,13 @@ test_that("multiple columns must be same length", {
 })
 
 test_that("can handle strings", {
- df <- dplyr::data_frame(x = 1:3, y = c("a", "d,e,f", "g,h"))
-expect_equal(unnest_string(df, y)$y, unlist(strsplit(df$y, "\\,")))
+  df <- data_frame(x = 1:3, y = c("a", "d,e,f", "g,h"))
+  expect_equal(separate_rows(df, y)$y, unlist(strsplit(df$y, "\\,")))
 })
 
 test_that("default pattern does not split decimals in nested strings", {
   df <- dplyr::data_frame(x = 1:3, y = c("1", "1.0,1.1", "2.1"))
-  expect_equal(unnest_string(df, y)$y, unlist(strsplit(df$y, ",")))
+  expect_equal(separate_rows(df, y)$y, unlist(strsplit(df$y, ",")))
 })
 
 test_that("nested is split as a list (#84)", {
