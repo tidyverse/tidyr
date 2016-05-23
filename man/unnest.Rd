@@ -33,9 +33,11 @@ row must have the same number of entries.
 library(dplyr)
 df <- data_frame(
   x = 1:3,
-  y = list(1, 2:4, 8:10)
+  y = c("a", "d,e,f", "g,h")
 )
-unnest(df, y)
+df \%>\%
+  transform(y = strsplit(y, ",")) \%>\%
+  unnest(y)
 
 # Or just
 df \%>\%
