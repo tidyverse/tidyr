@@ -4,16 +4,20 @@
 \alias{separate_rows}
 \title{Separate a collapsed column into multiple rows.}
 \usage{
-separate_rows(data, ..., sep = "[^[:alnum:].]+")
+separate_rows(data, ..., sep = "[^[:alnum:].]+", convert = FALSE)
 }
 \arguments{
 \item{data}{A data frame.}
 
-\item{...}{Specification of columns to unnest. Use bare variable names.
+\item{...}{Specification of columns to separate. Use bare variable names.
 Select all variables between x and z with \code{x:z}, exclude y with
 \code{-y}. For more options, see the \link[dplyr]{select} documentation.}
 
 \item{sep}{Separator delimiting collapsed values.}
+
+\item{convert}{If \code{TRUE}, will run \code{\link{type.convert}} with
+\code{as.is = TRUE} on new columns. This is useful if the component
+columns are integer, numeric or logical.}
 }
 \description{
 If a variable contains observations with multiple delimited values, this
@@ -24,8 +28,9 @@ separates the values and places each one in its own row.
 df <- data.frame(
   x = 1:3,
   y = c("a", "d,e,f", "g,h"),
+  z = c("1", "2,3,4", "5,6"),
   stringsAsFactors = FALSE
 )
-separate_rows(df, y)
+separate_rows(df, y, z, convert = TRUE)
 }
 
