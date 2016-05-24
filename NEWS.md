@@ -16,7 +16,7 @@
 * `separate()` fills from right-to-left (not left-to-right!) when fill = "left"
   (#170, @dgrtwo).
   
-* `unnest_string()` separates observations with multiple delimited values into
+* `separate_rows()` separates observations with multiple delimited values into
   separate rows (#69, @aaronwolen).
 
 * `gather()` can now gather together list columns (#175).
