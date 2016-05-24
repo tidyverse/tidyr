@@ -96,12 +96,15 @@ test_that("preserves grouping", {
   expect_equal(dplyr::groups(df), dplyr::groups(rs))
 })
 
-test_that("cannot separate grouping variable", {
-  df <- data_frame(x = "a:b") %>% dplyr::group_by(x)
-  expect_error(
-    separate_rows(df, x),
-    "Cannot modify grouping variable"
-  )
+test_that("drops grouping when needed", {
+  df <- data_frame(x = 1, y = "a:b") %>% dplyr::group_by(x, y)
+
+  out <- df %>% separate_rows(y)
+  expect_equal(out$y, c("a", "b"))
+  expect_equal(dplyr::groups(out), list(as.name('x')))
+
+  out <- df %>% dplyr::group_by(y) %>% separate_rows(y)
+  expect_equal(dplyr::groups(out), NULL)
 })
 
 test_that("convert produces integers etc", {

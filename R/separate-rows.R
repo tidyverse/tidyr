@@ -62,9 +62,5 @@ separate_rows_.tbl_df <- function(data, cols, sep = "[^[:alnum:].]+",
 separate_rows_.grouped_df <- function(data, cols, sep = "[^[:alnum:].]+",
                                   convert = FALSE) {
 
-  if (any(cols %in% dplyr::groups(data))) {
-    stop("Cannot modify grouping variable", call. = FALSE)
-  }
-
-  NextMethod()
+  regroup(NextMethod(), data, cols)
 }
