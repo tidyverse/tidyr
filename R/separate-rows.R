@@ -21,7 +21,7 @@
 separate_rows <- function(data, ..., sep = "[^[:alnum:].]+",
                           convert = FALSE) {
   cols <- unname(dplyr::select_vars(names(data), ...))
-  separate_rows_(data, cols, sep)
+  separate_rows_(data, cols, sep, convert)
 }
 
 #' Standard-evaluation version of \code{separate_rows}.
@@ -56,4 +56,15 @@ separate_rows_.data.frame <- function(data, cols, sep = "[^[:alnum:].]+",
 separate_rows_.tbl_df <- function(data, cols, sep = "[^[:alnum:].]+",
                                   convert = FALSE) {
   as_data_frame(NextMethod())
+}
+
+#' @export
+separate_rows_.grouped_df <- function(data, cols, sep = "[^[:alnum:].]+",
+                                  convert = FALSE) {
+
+  if (any(cols %in% dplyr::groups(data))) {
+    stop("Cannot modify grouping variable", call. = FALSE)
+  }
+
+  NextMethod()
 }
