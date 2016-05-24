@@ -74,3 +74,44 @@ test_that("drops grouping when needed", {
   expect_equal(rs$a, "a")
   expect_equal(dplyr::groups(rs), NULL)
 })
+
+# Separate rows -----------------------------------------------------------
+context("Separate rows")
+
+test_that("can handle collapsed rows", {
+  df <- data_frame(x = 1:3, y = c("a", "d,e,f", "g,h"))
+  expect_equal(separate_rows(df, y)$y, unlist(strsplit(df$y, "\\,")))
+})
+
+test_that("default pattern does not split decimals in nested strings", {
+  df <- dplyr::data_frame(x = 1:3, y = c("1", "1.0,1.1", "2.1"))
+  expect_equal(separate_rows(df, y)$y, unlist(strsplit(df$y, ",")))
+})
+
+test_that("preserves grouping", {
+  df <- data_frame(g = 1, x = "a:b") %>% dplyr::group_by(g)
+  rs <- df %>% separate_rows(x)
+
+  expect_equal(class(df), class(rs))
+  expect_equal(dplyr::groups(df), dplyr::groups(rs))
+})
+
+test_that("drops grouping when needed", {
+  df <- data_frame(x = 1, y = "a:b") %>% dplyr::group_by(x, y)
+
+  out <- df %>% separate_rows(y)
+  expect_equal(out$y, c("a", "b"))
+  expect_equal(dplyr::groups(out), list(as.name('x')))
+
+  out <- df %>% dplyr::group_by(y) %>% separate_rows(y)
+  expect_equal(dplyr::groups(out), NULL)
+})
+
+test_that("convert produces integers etc", {
+  df <- data_frame(x = "1,2,3", y = "T,F,T", z = "a,b,c")
+
+  out <- separate_rows(df, x, y, z, convert = TRUE)
+  expect_equal(class(out$x), "integer")
+  expect_equal(class(out$y), "logical")
+  expect_equal(class(out$z), "character")
+})
