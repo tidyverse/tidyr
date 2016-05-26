@@ -5,10 +5,15 @@
 
 ## R CMD check results
 
-0 errors | 0 warnings | 1 note
+0 errors | 0 warnings | 2 note
 
 * License components with restrictions and base license permitting such:
   MIT + file LICENSE
+  
+* Missing or unexported object: 'dplyr::everything'
+
+  This is a bit of a hack to get tidyr working with both dplyr 0.4 and 
+  dplyr 0.5.  It'll disappear once dplyr 0.5 is out.
 
 ## Downstream dependencies
 
