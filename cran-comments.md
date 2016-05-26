@@ -17,5 +17,7 @@
 
 ## Downstream dependencies
 
-* This release only includes a bug fix to a function introduced in 
-  0.4.0 so I have not run the reverse dependency checks.
+* I ran `R CMD check` on all 70 reverse dependencies.
+  Results at https://github.com/hadley/tidyr/tree/master/revdep/.
+
+* Authors were notified May 26.

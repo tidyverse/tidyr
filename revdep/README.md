@@ -10,26 +10,27 @@
 |language |(EN)                         |
 |collate  |en_US.UTF-8                  |
 |tz       |America/Chicago              |
-|date     |2016-05-24                   |
+|date     |2016-05-26                   |
 
 ## Packages
 
-|package   |*  |version    |date       |source               |
-|:---------|:--|:----------|:----------|:--------------------|
-|covr      |   |2.0.1      |2016-04-06 |CRAN (R 3.3.0)       |
-|dplyr     |   |0.4.3      |2015-09-01 |CRAN (R 3.3.0)       |
-|knitr     |   |1.13       |2016-05-09 |CRAN (R 3.3.0)       |
-|lazyeval  |   |0.1.10     |2015-01-02 |CRAN (R 3.3.0)       |
-|magrittr  |   |1.5        |2014-11-22 |CRAN (R 3.3.0)       |
-|Rcpp      |   |0.12.5     |2016-05-14 |CRAN (R 3.3.0)       |
-|rmarkdown |   |0.9.6      |2016-05-01 |CRAN (R 3.3.0)       |
-|stringi   |   |1.0-1      |2015-10-22 |CRAN (R 3.3.0)       |
-|testthat  |*  |1.0.2      |2016-04-23 |CRAN (R 3.3.0)       |
-|tibble    |   |1.0        |2016-03-23 |CRAN (R 3.3.0)       |
-|tidyr     |   |0.4.1.9000 |2016-05-24 |local (hadley/tidyr) |
+|package   |*  |version    |date       |source                       |
+|:---------|:--|:----------|:----------|:----------------------------|
+|covr      |   |2.0.1      |2016-04-06 |CRAN (R 3.3.0)               |
+|dplyr     |   |0.4.3      |2015-09-01 |CRAN (R 3.3.0)               |
+|gapminder |   |0.2.0      |2015-12-31 |CRAN (R 3.3.0)               |
+|knitr     |   |1.13       |2016-05-09 |CRAN (R 3.3.0)               |
+|lazyeval  |   |0.1.10     |2015-01-02 |CRAN (R 3.3.0)               |
+|magrittr  |   |1.5        |2014-11-22 |CRAN (R 3.3.0)               |
+|Rcpp      |   |0.12.5     |2016-05-14 |CRAN (R 3.3.0)               |
+|rmarkdown |   |0.9.6      |2016-05-01 |CRAN (R 3.3.0)               |
+|stringi   |   |1.0-1      |2015-10-22 |CRAN (R 3.3.0)               |
+|testthat  |*  |1.0.2      |2016-04-23 |CRAN (R 3.3.0)               |
+|tibble    |   |1.0        |2016-03-23 |CRAN (R 3.3.0)               |
+|tidyr     |   |0.4.1.9000 |2016-05-26 |local (hadley/tidyr@f709699) |
 
 # Check results
-69 packages
+70 packages
 
 ## ARTool (0.10.2)
 Maintainer: Matthew Kay <mjskay@uw.edu>  
@@ -41,7 +42,7 @@ Bug reports: https://github.com/mjskay/ARTool/issues/new
 Maintainer: David Robinson <admiral.david@gmail.com>  
 Bug reports: http://github.com/dgrtwo/broom/issues
 
-2 errors | 0 warnings | 1 note 
+2 errors | 0 warnings | 0 notes
 
 ```
 checking examples ... ERROR
@@ -83,9 +84,6 @@ Last 13 lines of output:
   
   Error: testthat unit tests failed
   Execution halted
-
-checking Rd cross-references ... NOTE
-Package unavailable to check Rd xrefs: ‘akima’
 ```
 
 ## causaldrf (0.3)
@@ -387,8 +385,9 @@ Bug reports: https://github.com/jennybc/googlesheets/issues
 
 0 errors | 0 warnings | 0 notes
 
-## GSODR (0.1.5)
-Maintainer: Adam Sparks <adamhsparks@gmail.com>
+## GSODR (0.1.6)
+Maintainer: Adam Sparks <adamhsparks@gmail.com>  
+Bug reports: https://github.com/adamhsparks/GSODR/issues
 
 0 errors | 0 warnings | 0 notes
 
@@ -825,6 +824,11 @@ Consider adding
   importFrom("utils", "globalVariables", "head", "tail")
 to your NAMESPACE file.
 ```
+
+## vcfR (1.1.0)
+Maintainer: Brian J. Knaus <briank.lists@gmail.com>
+
+0 errors | 0 warnings | 0 notes
 
 ## VWPre (0.5.0)
 Maintainer: Vincent Porretta <vincentporretta@gmail.com>
