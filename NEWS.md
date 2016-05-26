@@ -1,5 +1,8 @@
 # tidyr 0.4.1.9000
 
+* `gather_.data.frame(na.rm = TRUE)` now only removes missing values
+  if they're actually present (#173).
+
 * `unnest()` gains a `sep` argument. If non-null, this will rename the 
   columns of nested data frames to include both the original column name,
   and the nested column name, separated by `.sep` (#184).
