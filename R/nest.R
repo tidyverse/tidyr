@@ -71,7 +71,7 @@ nest_impl <- function(data, key_col, group_cols, nest_cols) {
 
   if (length(group_cols) == 0) {
     df <- data_frame(list(data))
-    names(df) <- key_col
+    names(df) <- enc2utf8(key_col)
 
     return(df)
   }

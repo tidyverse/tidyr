@@ -57,7 +57,7 @@ extract_.data.frame <- function(data, col, into, regex = "([[:alnum:]]+)",
   matches <- stringi::stri_match_first_regex(value, regex)[, -1, drop = FALSE]
   # Use as_data_frame post https://github.com/hadley/dplyr/issues/876
   l <- lapply(seq_len(ncol(matches)), function(i) matches[, i])
-  names(l) <- into
+  names(l) <- enc2utf8(into)
 
   if (convert) {
     l[] <- lapply(l, type.convert, as.is = TRUE)

@@ -98,7 +98,7 @@ separate_.data.frame <- function(data, col, into, sep = "[^[:alnum:]]+",
     stop("'sep' must be either numeric or character", .call = FALSE)
   }
 
-  names(l) <- into
+  names(l) <- enc2utf8(into)
   if (convert) {
     l[] <- lapply(l, type.convert, as.is = TRUE)
   }

@@ -125,7 +125,7 @@ spread_.data.frame <- function(data, key_col, value_col, fill = NA,
     ordered <- as.character(ordered)
   }
   dim(ordered) <- c(attr(row_id, "n"), attr(col_id, "n"))
-  colnames(ordered) <- col_names(col_labels, sep = sep)
+  colnames(ordered) <- enc2utf8(col_names(col_labels, sep = sep))
 
   ordered <- as_data_frame_matrix(ordered)
 

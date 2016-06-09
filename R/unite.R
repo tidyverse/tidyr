@@ -52,7 +52,6 @@ unite_.data.frame <- function(data, col, from, sep = "_", remove = TRUE) {
     data2 <- data2[setdiff(names(data2), from)]
   }
 
-
   append_col(data2, united, col, after = first_col - 1)
 }
 

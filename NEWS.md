@@ -46,6 +46,9 @@
 
 * Made compatible with both dplyr 0.4 and 0.5.
 
+* tidyr functions that create new columns are more aggresive about re-encoding
+  the column names as UTF-8. 
+
 # tidyr 0.4.1
 
 * Fixed bug in `nest()` where nested data was ending up in the wrong row (#158).

@@ -16,6 +16,7 @@ append_df <- function(x, values, after = length(x)) {
 }
 
 append_col <- function(x, col, name, after = length(x)) {
+  name <- enc2utf8(name)
   append_df(x, setNames(list(col), name), after = after)
 }
 
