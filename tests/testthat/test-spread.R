@@ -145,6 +145,14 @@ test_that("complex values are preserved  (#134)", {
   expect_equal(out2$b, 3:4 + 1i)
 })
 
+test_that("can spread with nested columns", {
+  df <- tibble::data_frame(x = c("a", "a"), y = 1:2, z = list(1:2, 3:5))
+  out <- spread(df, x, y)
+
+  expect_equal(out$a, 1:2)
+  expect_equal(out$z, df$z)
+})
+
 test_that("spread gives one column when no existing non-spread vars", {
   df <- data_frame(
     key = c("a", "b", "c"),

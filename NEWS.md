@@ -31,6 +31,8 @@
   as "key<sep>value". Additionally, if sep is `NULL` missing values will be
   converted to `<NA>` (#68).
 
+* `spread()` works in the presence of list-columns (#199)
+
 * `unnest()` works with non-syntactic names (#190).
 
 * `unnest()` gains a `sep` argument. If non-null, this will rename the 

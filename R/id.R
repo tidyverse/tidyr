@@ -47,6 +47,11 @@ id_var <- function(x, drop = FALSE) {
   } else if (length(x) == 0) {
     id <- integer()
     n <- 0L
+  } else if (is.list(x)) {
+    # Sorting lists isn't supported
+    levels <- unique(x)
+    id <- match(x, levels)
+    n <- max(id)
   } else {
     levels <- sort(unique(x), na.last = TRUE)
     id <- match(x, levels)
