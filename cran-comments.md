@@ -17,7 +17,39 @@
 
 ## Downstream dependencies
 
-* I ran `R CMD check` on all 70 reverse dependencies.
-  Results at https://github.com/hadley/tidyr/tree/master/revdep/.
+I ran `R CMD check` on all 73 reverse dependencies.
+Results at https://github.com/hadley/tidyr/tree/master/revdep/.
 
-* Authors were notified May 26.
+Problems are summarised below. The are 8 problems caused by a deliberate change to tidyr. I notified authors on May 26 and again today.
+
+### Caused by tidyr update
+
+A number of packages fail because tidyr now returns objects of class c("tbl_df", "tbl", "data.frame"), and the $.tbl_df method throws error instead of returning NULL for non-existant variables:
+
+* broom: checking examples ... ERROR
+* ezsummary: checking tests ... ERROR
+* ggmcmc: checking examples ... ERROR
+* heemod: checking tests ... ERROR
+* pixiedust: checking re-building of vignette outputs ... WARNING
+* quickpsy: checking examples ... ERROR
+* R6Frame: checking tests ... ERROR
+* RNeXML: checking examples ... ERROR
+
+Other problems:
+
+* pmc: checking tests ... ERROR
+  I'm not sure what the cause of this one is
+
+* rgho: checking examples ... ERROR
+  Caused by assuming that column names are characters (which they should be!)
+
+### Unrelated to tidyr
+
+* ggRandomForests: checking examples ... ERROR
+  This same error is present on CRAN
+
+* glycanr: checking examples ... ERROR
+  Examples is missing check for installation of suggested package
+
+* tigger: checking re-building of vignette outputs ... WARNING
+  Vigentte is missing check missing check for installation of suggested package

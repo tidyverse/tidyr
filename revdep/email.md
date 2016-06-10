@@ -1,6 +1,8 @@
 Hi,
 
-This is an automated email to let you know about the upcoming release of {{{ my_package }}}, which will be submitted to CRAN on {{{ date }}} (in two weeks). To check for potential problems, I ran `R CMD check` on your package {{{your_package}}} ({{{your_version}}}). 
+This is an automated email to let you know that {{{ my_package }}} has been submitted to CRAN today ({{{ date }}}). There appear to be problems with your package and {{{ my_package }}} - you need to look into these ASAP. 
+
+To check for potential problems, I ran `R CMD check` on your package {{{your_package}}} ({{{your_version}}}). 
 
 I found: {{{your_summary}}}.
 
