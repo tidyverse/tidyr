@@ -4,16 +4,16 @@
 \alias{drop_na_}
 \title{Standard-evaluation version of \code{drop_na}.}
 \usage{
-drop_na_(data, relevant_cols)
+drop_na_(data, vars)
 }
 \arguments{
 \item{data}{A data frame.}
 
-\item{relevant_cols}{Character vector of column names. If empty or \code{NULL}, all
-variables are considered while dropping rows}
+\item{vars}{Character vector of column names. If empty, all
+variables are considered while dropping rows.}
 }
 \description{
-Standard-evaluation version of \code{drop_na}.
+This is a S3 generic.
 }
 \keyword{internal}
 

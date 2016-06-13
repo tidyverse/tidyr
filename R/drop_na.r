@@ -20,17 +20,34 @@ drop_na <- function(data, ...) {
 
 #' Standard-evaluation version of \code{drop_na}.
 #'
+#' This is a S3 generic.
 #'
 #' @param data A data frame.
-#' @param relevant_cols Character vector of column names. If empty or \code{NULL}, all
-#'    variables are considered while dropping rows
+#' @param vars Character vector of variable names. If empty, all
+#'    variables are considered while dropping rows.
 #' @keywords internal
 #' @export
-drop_na_ <- function(data, relevant_cols){
-  if (is.null(relevant_cols) || length(relevant_cols) == 0) {
+drop_na_ <- function(data, vars) {
+  UseMethod("drop_na_")
+}
+
+#' @export
+drop_na_.data.frame <- function(data, vars) {
+  if (!is.character(vars)) stop("`vars` is not a character vector.", call. = FALSE)
+  if (length(vars) == 0) {
     f = stats::complete.cases(data)
   } else {
-    f <- stats::complete.cases(data[relevant_cols])
+    f <- stats::complete.cases(data[vars])
   }
-  dplyr::filter(data, f)
+  data[f, ]
+}
+
+#' @export
+drop_na_.tbl_df <- function(data, vars) {
+  as_data_frame(NextMethod())
+}
+
+#' @export
+drop_na_.grouped_df <- function(data, vars) {
+  regroup(NextMethod(), data)
 }
