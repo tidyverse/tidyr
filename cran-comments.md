@@ -1,3 +1,7 @@
+This is basically a resubmission of tidyr 0.5.0 - I've fixed a small buglet that caused a failure on R-oldrel.  Sorry for only noticing it after the release! (I've started routinely testing on oldrel so hopefully this will be less of a problem in the future)
+
+---
+
 ## Test environments
 * local OS X install, R 3.2.3
 * ubuntu 12.04 (on travis-ci), R 3.2.3
