@@ -147,7 +147,8 @@ col_names <- function(x, sep = NULL) {
 }
 
 as_data_frame_matrix <- function(x) {
- utils::getS3method("as_data_frame", "matrix", envir = asNamespace("tibble"))(x)
+  # getS3method() only available in R >= 3.3
+  get("as_data_frame.matrix", asNamespace("tibble"), mode = "function")(x)
 }
 
 #' @export
