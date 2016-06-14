@@ -6,31 +6,31 @@
 |:--------|:----------------------------|
 |version  |R version 3.3.0 (2016-05-03) |
 |system   |x86_64, darwin13.4.0         |
-|ui       |RStudio (0.99.1186)          |
+|ui       |X11                          |
 |language |(EN)                         |
 |collate  |en_US.UTF-8                  |
 |tz       |America/Chicago              |
-|date     |2016-05-26                   |
+|date     |2016-06-10                   |
 
 ## Packages
 
 |package   |*  |version    |date       |source                       |
 |:---------|:--|:----------|:----------|:----------------------------|
 |covr      |   |2.0.1      |2016-04-06 |CRAN (R 3.3.0)               |
-|dplyr     |   |0.4.3      |2015-09-01 |CRAN (R 3.3.0)               |
+|dplyr     |   |0.4.3      |2015-09-01 |cran (@0.4.3)                |
 |gapminder |   |0.2.0      |2015-12-31 |CRAN (R 3.3.0)               |
 |knitr     |   |1.13       |2016-05-09 |CRAN (R 3.3.0)               |
-|lazyeval  |   |0.1.10     |2015-01-02 |CRAN (R 3.3.0)               |
+|lazyeval  |   |0.1.10     |2015-01-02 |cran (@0.1.10)               |
 |magrittr  |   |1.5        |2014-11-22 |CRAN (R 3.3.0)               |
 |Rcpp      |   |0.12.5     |2016-05-14 |CRAN (R 3.3.0)               |
 |rmarkdown |   |0.9.6      |2016-05-01 |CRAN (R 3.3.0)               |
-|stringi   |   |1.0-1      |2015-10-22 |CRAN (R 3.3.0)               |
-|testthat  |*  |1.0.2      |2016-04-23 |CRAN (R 3.3.0)               |
-|tibble    |   |1.0        |2016-03-23 |CRAN (R 3.3.0)               |
-|tidyr     |   |0.4.1.9000 |2016-05-26 |local (hadley/tidyr@f709699) |
+|stringi   |   |1.1.1      |2016-05-27 |cran (@1.1.1)                |
+|testthat  |*  |1.0.2.9000 |2016-06-10 |github (hadley/testthat)     |
+|tibble    |   |1.0-5      |2016-06-10 |github (hadley/tibble)       |
+|tidyr     |   |0.4.1.9000 |2016-06-10 |local (hadley/tidyr@925b0bf) |
 
 # Check results
-15 packages with problems
+13 packages with problems
 
 ## broom (0.4.0)
 Maintainer: David Robinson <admiral.david@gmail.com>  
@@ -65,12 +65,12 @@ Execution halted
 checking tests ... ERROR
 Running the tests in ‘tests/test-all.R’ failed.
 Last 13 lines of output:
-  3: as.expectation(exp, ..., srcref = srcref)
-  4: identical(as.vector(object), TRUE)
+  3: as.expectation(exp, ..., srcref = srcref) at /private/tmp/RtmpLh7b3s/devtools7fec710673af/hadley-testthat-d3e20b9/R/expectation.R:33
+  4: identical(as.vector(object), TRUE) at /private/tmp/RtmpLh7b3s/devtools7fec710673af/hadley-testthat-d3e20b9/R/expectation.R:112
   5: as.vector(object)
   6: augmented$disp
   7: `$.tbl_df`(augmented, disp)
-  8: stop("Unknown column '", i, "'", call. = FALSE)
+  8: stop("Unknown column '", i, "'", call. = FALSE) at /private/tmp/RtmpLh7b3s/devtools7fec5d3614e4/hadley-tibble-64175a8/R/tbl-df.r:47
   
   testthat results ================================================================
   OK: 490 SKIPPED: 0 FAILED: 1
@@ -78,42 +78,6 @@ Last 13 lines of output:
   
   Error: testthat unit tests failed
   Execution halted
-```
-
-## crawl (2.0)
-Maintainer: Devin S. Johnson <devin.johnson@noaa.gov>
-
-1 error  | 0 warnings | 0 notes
-
-```
-checking package dependencies ... ERROR
-Package required but not available: ‘RcppArmadillo’
-
-See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-manual.
-```
-
-## edeaR (0.3.2)
-Maintainer: Gert Janssenswillen <gert.janssenswillen@uhasselt.be>
-
-0 errors | 1 warning  | 0 notes
-
-```
-checking re-building of vignette outputs ... WARNING
-Error in re-building vignettes:
-  ...
-
-Attaching package: 'edeaR'
-
-The following object is masked from 'package:utils':
-
-    timestamp
-
-Quitting from lines 96-108 (selection.Rmd) 
-Error: processing vignette 'selection.Rmd' failed with diagnostics:
-Start_point should be a date object.
-Execution halted
-
 ```
 
 ## ezsummary (0.1.9)
@@ -279,7 +243,7 @@ Last 13 lines of output:
   12: compute_icer(normalize_ce(object))
   13: `*tmp*`$.icer
   14: `$.tbl_df`(`*tmp*`, .icer)
-  15: stop("Unknown column '", i, "'", call. = FALSE)
+  15: stop("Unknown column '", i, "'", call. = FALSE) at /private/tmp/RtmpLh7b3s/devtools7fec5d3614e4/hadley-tibble-64175a8/R/tbl-df.r:47
   
   testthat results ================================================================
   OK: 101 SKIPPED: 0 FAILED: 3
@@ -300,31 +264,6 @@ Execution halted
 
 ```
 
-## htmltab (0.6.0)
-Maintainer: Christian Rubba <christian.rubba@gmail.com>  
-Bug reports: https://github.com/crubba/htmltab/issues
-
-1 error  | 0 warnings | 0 notes
-
-```
-checking tests ... ERROR
-Running the tests in ‘tests/testthat.R’ failed.
-Last 13 lines of output:
-         which = "//table[5]")
-  3: select_tab(which = which, Node = Node)
-  4: select_tab.character(which = which, Node = Node)
-  5: ifstop(cond = is.null(Node[[1]]), mess = "Couldn't find the table. Try passing (a different) information to the which argument.")
-  6: eval(quote(cond))
-  7: eval(expr, envir, enclos)
-  
-  testthat results ================================================================
-  OK: 118 SKIPPED: 0 FAILED: 1
-  1. Error: check_type produces class output (@test_inputs.R#9) 
-  
-  Error: testthat unit tests failed
-  Execution halted
-```
-
 ## pixiedust (0.7.0)
 Maintainer: Benjamin Nutter <nutter@battelle.org>  
 Bug reports: https://github.com/nutterb/pixiedust/issues
@@ -340,6 +279,31 @@ Error: processing vignette 'advancedMagic.Rmd' failed with diagnostics:
 Unknown column 'html_row_pos'
 Execution halted
 
+```
+
+## pmc (1.0.1)
+Maintainer: Carl Boettiger <cboettig@gmail.com>  
+Bug reports: https://github.com/cboettig/pmc/issues
+
+1 error  | 0 warnings | 0 notes
+
+```
+checking tests ... ERROR
+Running the tests in ‘tests/testthat.R’ failed.
+Last 13 lines of output:
+  > library("testthat")
+  > library("pmc")
+  > 
+  > test_check("pmc")
+  Loading required package: ape
+  
+  Warning message:
+  In treedata(geo$phy, geo$dat) :
+    The following tips were not found in 'data' and were dropped from 'phy':
+  	olivacea
+  testthat results ================================================================
+  OK: 6 SKIPPED: 0 FAILED: 0
+  Execution halted
 ```
 
 ## quickpsy (0.1.2)
@@ -367,6 +331,30 @@ Error: Unknown column 'y'
 Execution halted
 ```
 
+## R6Frame (0.1.0)
+Maintainer: Kristian D. Olsen <kristian@doingit.no>
+
+1 error  | 0 warnings | 0 notes
+
+```
+checking tests ... ERROR
+Running the tests in ‘tests/testthat.R’ failed.
+Last 13 lines of output:
+  > 
+  > test_check("R6Frame")
+  1. Failure: spread works with R6 tbl_df (@test-tidyr_reshape.R#86) -------------
+  tbl$data not equal to `org`.
+  Different types: x tbl_df, tbl, data.frame, y data.frame
+  
+  
+  testthat results ================================================================
+  OK: 163 SKIPPED: 0 FAILED: 1
+  1. Failure: spread works with R6 tbl_df (@test-tidyr_reshape.R#86) 
+  
+  Error: testthat unit tests failed
+  Execution halted
+```
+
 ## rgho (0.0.1)
 Maintainer: Antoine Filipovic-Pierucci <pierucci@gmail.com>  
 Bug reports: https://github.com/pierucci/rgho/issues
@@ -392,9 +380,9 @@ IMR_ID
 RENDERER_ID
 > 
 > result <- get_gho_codes(dimension = "REGION")
-Error in `colnames<-`(`*tmp*`, value = "V") : 
-  'names' attribute [1] must be the same length as the vector [0]
-Calls: get_gho_codes ... spread_.data.frame -> as_data_frame_matrix -> <Anonymous> -> colnames<-
+Error in enc2utf8(col_names(col_labels, sep = sep)) : 
+  argumemt is not a character vector
+Calls: get_gho_codes ... spread_.tbl_df -> as_data_frame -> NextMethod -> spread_.data.frame
 Execution halted
 
 checking re-building of vignette outputs ... WARNING
@@ -402,7 +390,7 @@ Error in re-building vignettes:
   ...
 Quitting from lines 52-54 (intro.Rmd) 
 Error: processing vignette 'intro.Rmd' failed with diagnostics:
-'names' attribute [1] must be the same length as the vector [0]
+argumemt is not a character vector
 Execution halted
 
 ```
@@ -464,31 +452,34 @@ checking package dependencies ... NOTE
 Packages suggested but not available for checking: ‘rrdf’ ‘Sxslt’
 ```
 
-## simmer (3.2.1)
-Maintainer: Iñaki Ucar <i.ucar86@gmail.com>  
-Bug reports: https://github.com/Enchufa2/simmer/issues
+## tigger (0.2.5)
+Maintainer: Daniel Gadala-Maria <daniel.gadala-maria@yale.edu>  
+Bug reports: https://bitbucket.org/kleinstein/tigger/issues
 
-1 error  | 0 warnings | 0 notes
-
-```
-checking package dependencies ... ERROR
-Package required but not available: ‘BH’
-
-See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-manual.
-```
-
-## textreuse (0.1.3)
-Maintainer: Lincoln Mullen <lincoln@lincolnmullen.com>  
-Bug reports: https://github.com/ropensci/textreuse/issues
-
-1 error  | 0 warnings | 0 notes
+0 errors | 1 warning  | 0 notes
 
 ```
-checking package dependencies ... ERROR
-Package required but not available: ‘BH’
+checking re-building of vignette outputs ... WARNING
+Error in re-building vignettes:
+  ...
+Loading required package: alakazam
+Loading required package: ggplot2
+Loading required package: shazam
 
-See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-manual.
+Attaching package: 'dplyr'
+
+The following objects are masked from 'package:stats':
+
+    filter, lag
+
+The following objects are masked from 'package:base':
+
+    intersect, setdiff, setequal, union
+
+Quitting from lines 110-115 (Tigger-Vignette.Rmd) 
+Error: processing vignette 'Tigger-Vignette.Rmd' failed with diagnostics:
+there is no package called 'snow'
+Execution halted
+
 ```
 
