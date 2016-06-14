@@ -1,3 +1,5 @@
+# tidyr 0.5.1.9000
+
 # tidyr 0.5.1
 
 * Restored compatibility with R < 3.3.0 by avoiding `getS3method(envir = )` (#205, @krlmlr).
