@@ -27,12 +27,12 @@ full_seq.numeric <- function(x, period, tol = 1e-6) {
 
 #' @export
 full_seq.Date <- function(x, period, tol = 1e-6) {
-  restore(full_seq(as.numeric(x), period, tol), x)
+  restore(x, full_seq(as.numeric(x), period, tol))
 }
 
 #' @export
 full_seq.POSIXct <- function(x, period, tol = 1e-6) {
-  restore(full_seq(as.numeric(x), period, tol), x)
+  restore(x, full_seq(as.numeric(x), period, tol))
 }
 
 
