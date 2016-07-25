@@ -1,5 +1,11 @@
 # tidyr 0.5.1.9000
 
+* `expand()`, `crossing()`, and `nesting()` now silently drop zero-length
+  inputs.
+  
+* `crossing_()` and `nesting_()` are versions of `crossing()` and `nesting()`
+  that take a list as input.
+
 * Renamed `table4` and `table5` to `table4a` and `table4b` to make their
   connection more clear.
 

@@ -2,15 +2,21 @@
 % Please edit documentation in R/expand.R
 \name{expand}
 \alias{crossing}
+\alias{crossing_}
 \alias{expand}
 \alias{nesting}
+\alias{nesting_}
 \title{Expand data frame to include all combinations of values}
 \usage{
 expand(data, ...)
 
 crossing(...)
 
+crossing_(x)
+
 nesting(...)
+
+nesting_(x)
 }
 \arguments{
 \item{data}{A data frame}
@@ -27,7 +33,11 @@ nesting(...)
   a row for every student for each date.
 
   To fill in values that are missing altogether, use expressions like
-  \code{year = 2010:2020} or \code{year = \link{full_seq}(year)}.}
+  \code{year = 2010:2020} or \code{year = \link{full_seq}(year)}.
+
+  Length-zero (empty) elements are automatically dropped.}
+
+\item{x}{For \code{nesting_} and \code{crossing_} a list of variables.}
 }
 \description{
 \code{expand()} is often useful in conjunction with \code{left_join} if

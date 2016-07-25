@@ -21,7 +21,9 @@ complete(data, ..., fill = list())
   a row for every student for each date.
 
   To fill in values that are missing altogether, use expressions like
-  \code{year = 2010:2020} or \code{year = \link{full_seq}(year)}.}
+  \code{year = 2010:2020} or \code{year = \link{full_seq}(year)}.
+
+  Length-zero (empty) elements are automatically dropped.}
 
 \item{fill}{A named list that for each variable supplies a single value to
 use instead of \code{NA} for missing combinations.}
