@@ -1,5 +1,8 @@
 # tidyr 0.5.1.9000
 
+* Renamed `table4` and `table5` to `table4a` and `table4b` to make their
+  connection more clear.
+
 * `full_seq()` works correctly for dates and date/times.
 
 # tidyr 0.5.1

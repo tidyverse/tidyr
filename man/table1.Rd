@@ -5,22 +5,32 @@
 \alias{table1}
 \alias{table2}
 \alias{table3}
-\alias{table4}
+\alias{table4a}
+\alias{table4b}
 \alias{table5}
-\alias{table6}
-\title{tabular layouts}
+\title{Example tabular representations}
 \format{An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 6 rows and 4 columns.}
 \source{
 \url{http://www.who.int/tb/country/data/download/en/}
 }
 \usage{
 table1
+
+table2
+
+table3
+
+table4a
+
+table4b
+
+table5
 }
 \description{
 Data sets that demonstrate multiple ways to layout the same tabular data.
 }
 \details{
-\code{table1}, \code{table2}, \code{table3}, \code{table4}, \code{table5}, and \code{table6} all display the number of TB cases documented by the World Health Organization in Afghanistan, Brazil, and China between 1999 and 2000. The data contains values associated with four variables (country, year, cases, and population), but each table organizes the values in a different layout.
+\code{table1}, \code{table2}, \code{table3}, \code{table4a}, \code{table4b}, and \code{table5} all display the number of TB cases documented by the World Health Organization in Afghanistan, Brazil, and China between 1999 and 2000. The data contains values associated with four variables (country, year, cases, and population), but each table organizes the values in a different layout.
 
 The data is a subset of the data contained in the World Health
 Organization Global Tuberculosis Report

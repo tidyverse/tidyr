@@ -26,30 +26,30 @@ table3 <-
   table1 %>%
   unite("rate", cases, population, sep = "/")
 
-table4 <-
+table4a <-
   table1 %>%
   select(country, year, cases) %>%
   spread(year, cases)
 
-table5 <-
+table4b <-
   table1 %>%
   select(country, year, population) %>%
   spread(year, population)
 
-table6 <-
+table5 <-
   table3 %>%
   separate(year, into = c("century", "year"), sep = 2)
 
 write_csv(table1, "data-raw/table1.csv")
 write_csv(table2, "data-raw/table2.csv")
 write_csv(table3, "data-raw/table3.csv")
-write_csv(table4, "data-raw/table4.csv")
-write_csv(table5, "data-raw/table5.csv")
-write_csv(table6, "data-raw/table6.csv")
+write_csv(table4a, "data-raw/table4a.csv")
+write_csv(table4b, "data-raw/table4b.csv")
+write_csv(table5, "data-raw/table6.csv")
 
 save(table1, file = "data/table1.rdata")
 save(table2, file = "data/table2.rdata")
 save(table3, file = "data/table3.rdata")
-save(table4, file = "data/table4.rdata")
+save(table4a, file = "data/table4a.rdata")
+save(table4b, file = "data/table4b.rdata")
 save(table5, file = "data/table5.rdata")
-save(table6, file = "data/table6.rdata")

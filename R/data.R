@@ -18,21 +18,34 @@
 "who"
 
 
-#' tabular layouts
+#' Example tabular representations
 #'
 #' Data sets that demonstrate multiple ways to layout the same tabular data.
 #'
-#' \code{table1}, \code{table2}, \code{table3}, \code{table4}, \code{table5}, and \code{table6} all display the number of TB cases documented by the World Health Organization in Afghanistan, Brazil, and China between 1999 and 2000. The data contains values associated with four variables (country, year, cases, and population), but each table organizes the values in a different layout.
+#' \code{table1}, \code{table2}, \code{table3}, \code{table4a}, \code{table4b}, and \code{table5} all display the number of TB cases documented by the World Health Organization in Afghanistan, Brazil, and China between 1999 and 2000. The data contains values associated with four variables (country, year, cases, and population), but each table organizes the values in a different layout.
 #'
 #' The data is a subset of the data contained in the World Health
 #' Organization Global Tuberculosis Report
 #'
-#'
 #' @source \url{http://www.who.int/tb/country/data/download/en/}
-#'
-#' @aliases table2 table3 table4 table5 table6
-#'
 "table1"
+
+#' @rdname table1
+"table2"
+
+#' @rdname table1
+"table3"
+
+#' @rdname table1
+"table4a"
+
+#' @rdname table1
+"table4b"
+
+#' @rdname table1
+"table5"
+
+
 
 #' Population data
 #'
