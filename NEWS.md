@@ -8,7 +8,7 @@
 
 * Renamed `table4` and `table5` to `table4a` and `table4b` to make their
   connection more clear. The `key` and `value` variables in `table2` have 
-  been renamed to `type` and `cases`.
+  been renamed to `type` and `count`.
 
 * `full_seq()` works correctly for dates and date/times.
 
