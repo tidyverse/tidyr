@@ -19,7 +19,7 @@ table1 <-
 
 table2 <-
   table1 %>%
-  gather("key", "value", 3:4) %>%
+  gather("type", "cases", 3:4) %>%
   arrange(country, year)
 
 table3 <-

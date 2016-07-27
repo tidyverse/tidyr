@@ -1,4 +1,4 @@
-country,year,key,value
+country,year,type,cases
 Afghanistan,1999,cases,745
 Afghanistan,1999,population,19987071
 Afghanistan,2000,cases,2666
