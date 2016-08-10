@@ -12,6 +12,9 @@
 
 * `full_seq()` works correctly for dates and date/times.
 
+* `drop_na()` removes observations which have `NA` in the given variables. If no
+  variables are given, all variables are considered (#194, @janschulz).
+
 # tidyr 0.5.1
 
 * Restored compatibility with R < 3.3.0 by avoiding `getS3method(envir = )` (#205, @krlmlr).
