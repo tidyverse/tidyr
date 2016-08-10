@@ -1,6 +1,6 @@
 #' Unnest a list column.
 #'
-#' If you have a list-column, this makes each element of the list it's own
+#' If you have a list-column, this makes each element of the list its own
 #' row. List-columns can either be atomic vectors or data frames. Each
 #' row must have the same number of entries.
 #'
