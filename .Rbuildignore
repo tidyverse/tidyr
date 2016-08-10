@@ -5,3 +5,4 @@
 ^revdep$
 ^data-raw$
 ^\.httr-oauth$
+^codecov\.yml$
