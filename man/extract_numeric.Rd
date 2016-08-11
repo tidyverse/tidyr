@@ -10,17 +10,6 @@ extract_numeric(x)
 \item{x}{A character vector (or a factor).}
 }
 \description{
-This uses a regular expression to strip all non-numeric character from
-a string and then coerces the result to a number. This is useful for
-strings that are numbers with extra formatting (e.g. $1,200.34).
-}
-\examples{
-extract_numeric("$1,200.34")
-extract_numeric("-2\%")
-
-# The heuristic is not perfect - it won't fail for things that
-# clearly aren't numbers
-extract_numeric("-2-2")
-extract_numeric("12abc34")
+DEPRECATED: please use \code{readr::parse_numeric()} instead.
 }
 

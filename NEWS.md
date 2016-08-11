@@ -1,5 +1,7 @@
 # tidyr 0.5.1.9000
 
+* `extract_numeric()` has been deprecated (#213).
+
 * `expand()`, `crossing()`, and `nesting()` now silently drop zero-length
   inputs.
   
