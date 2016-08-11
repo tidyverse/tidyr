@@ -94,7 +94,7 @@ all \%>\% anti_join(experiment)
 
 # And use right_join to add in the appropriate missing values to the
 # original data
-all \%>\% right_join(experiment)
+experiment \%>\% right_join(all)
 # Or use the complete() short-hand
 experiment \%>\% complete(nesting(name, trt), rep)
 }
