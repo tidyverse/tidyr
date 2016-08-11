@@ -73,9 +73,9 @@
 #' # We can use anti_join to figure out which observations are missing
 #' all %>% anti_join(experiment)
 #'
-#' # And use right_join to add in the appropriate missing values to the
+#' # And use full_join to add in the appropriate missing values to the
 #' # original data
-#' all %>% right_join(experiment)
+#' all %>% full_join(experiment)
 #' # Or use the complete() short-hand
 #' experiment %>% complete(nesting(name, trt), rep)
 expand <- function(data, ...) {
