@@ -1,5 +1,7 @@
 # tidyr 0.6.0.9000
 
+* Changed deprecation message of `extract_numeric()` to point to `readr::parse_number()` rather than `readr::parse_numeric()`
+
 # tidyr 0.6.0
 
 ## API changes

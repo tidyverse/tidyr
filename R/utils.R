@@ -24,12 +24,12 @@ compact <- function(x) x[vapply(x, length, integer(1)) > 0]
 
 #' Extract numeric component of variable.
 #'
-#' DEPRECATED: please use \code{readr::parse_numeric()} instead.
+#' DEPRECATED: please use \code{readr::parse_number()} instead.
 #'
 #' @param x A character vector (or a factor).
 #' @export
 extract_numeric <- function(x) {
-  message("extract_numeric() is deprecated: please use readr::parse_numeric() instead")
+  message("extract_numeric() is deprecated: please use readr::parse_number() instead")
   as.numeric(gsub("[^0-9.-]+", "", as.character(x)))
 }
 
