@@ -3,6 +3,7 @@ Title: Easily Tidy Data with `spread()` and `gather()` Functions
 Version: 0.6.0.9000
 Authors@R: c(
     person("Hadley", "Wickham", , "hadley@rstudio.com", c("aut", "cre")),
+    person("Andrew", "Redd", , "andrew.redd@hsc.utah.edu", c("ctb")),
     person("RStudio", role = "cph")
     )
 Description: An evolution of 'reshape2'. It's designed specifically for data
