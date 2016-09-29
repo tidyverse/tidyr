@@ -39,7 +39,7 @@ drop_na_.data.frame <- function(data, vars) {
   } else {
     f <- stats::complete.cases(data[vars])
   }
-  data[f, ]
+  data[f, , drop = FALSE]
 }
 
 #' @export
