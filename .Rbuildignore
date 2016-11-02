@@ -7,3 +7,4 @@
 ^\.httr-oauth$
 ^codecov\.yml$
 ^_pkgdown\.yml$
+^logo\.png$
