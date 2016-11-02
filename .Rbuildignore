@@ -6,3 +6,4 @@
 ^data-raw$
 ^\.httr-oauth$
 ^codecov\.yml$
+^_pkgdown\.yml$
