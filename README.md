@@ -1,7 +1,7 @@
 # tidyr
 
-[![Build Status](https://travis-ci.org/hadley/tidyr.svg?branch=master)](https://travis-ci.org/hadley/tidyr) 
-[![codecov.io](http://codecov.io/github/hadley/tidyr/coverage.svg?branch=master)](http://codecov.io/github/hadley/tidyr?branch=master)
+[![Build Status](https://travis-ci.org/tidyverse/tidyr.svg?branch=master)](https://travis-ci.org/tidyverse/tidyr) 
+[![codecov.io](http://codecov.io/github/tidyverse/tidyr/coverage.svg?branch=master)](http://codecov.io/github/tidyverse/tidyr?branch=master)
 [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/tidyr)](http://cran.r-project.org/package=tidyr)
 
 tidyr is a reframing of reshape2 designed to accompany the [tidy data framework](http://vita.had.co.nz/papers/tidy-data.html), and to work hand-in-hand with magrittr and dplyr to build a solid pipeline for data analysis. 
@@ -38,7 +38,7 @@ The development version can be installed using:
 
 ```R
 # install.packages("devtools")
-devtools::install_github("hadley/tidyr")
+devtools::install_github("tidyverse/tidyr")
 ```
 
 ## Getting started

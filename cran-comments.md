@@ -20,6 +20,6 @@
 ## Downstream dependencies
 
 I ran `R CMD check` on all 90 reverse dependencies.
-Results at https://github.com/hadley/tidyr/tree/master/revdep/.
+Results at https://github.com/tidyverse/tidyr/tree/master/revdep/.
 
 As far as I can tell, there were no problems related to this tidyr release.

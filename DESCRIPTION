@@ -19,8 +19,8 @@ Imports:
     lazyeval,
     magrittr,
     Rcpp
-URL: https://github.com/hadley/tidyr
-BugReports: https://github.com/hadley/tidyr/issues
+URL: https://github.com/tidyverse/tidyr
+BugReports: https://github.com/tidyverse/tidyr/issues
 Suggests:
     knitr,
     testthat,
