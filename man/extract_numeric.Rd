@@ -10,6 +10,6 @@ extract_numeric(x)
 \item{x}{A character vector (or a factor).}
 }
 \description{
-DEPRECATED: please use \code{readr::parse_numeric()} instead.
+DEPRECATED: please use \code{readr::parse_number()} instead.
 }
 
