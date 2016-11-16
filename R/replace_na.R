@@ -1,6 +1,6 @@
 #' Replace missing values
 #'
-#' @param data A data frame.
+#' @param data A data frame or a vector.
 #' @param replace A named list given the value to replace \code{NA} with
 #'   for each column.
 #' @param ... Additional arguments for methods. Currently unused.
@@ -14,6 +14,7 @@ replace_na <- function(data, replace = list(), ...) {
 }
 
 #' @export
+#' @rdname replace_na
 replace_na.data.frame <- function(data, replace = list(), ...) {
   stopifnot(is.list(replace))
 
@@ -25,6 +26,14 @@ replace_na.data.frame <- function(data, replace = list(), ...) {
 }
 
 #' @export
+#' @rdname replace_na
 replace_na.tbl_df <- function(data, replace = list(), ...) {
   as_data_frame(NextMethod())
+}
+
+#' @export
+#' @rdname replace_na
+replace_na.default <- function(data, replace = list(), ...) {
+  data[which(is.na(data))] <- replace[[1]]
+  data
 }
