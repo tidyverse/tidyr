@@ -11,4 +11,4 @@
 ^README\.Rmd$
 ^README-.*\.png$
 ^docs$
-^LICENSE\.txt$
+^LICENSE\.md$
