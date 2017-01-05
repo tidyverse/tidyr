@@ -1,5 +1,8 @@
 img.icon {
-  float: right;
+  float: left;
+  margin-left: -35px;
+  width: 30px;
+  height: 30px;
 }
 
 /* Fixes for fixed navbar --------------------------*/

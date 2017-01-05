@@ -3,7 +3,7 @@
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]--></head><body>
-    <div class="container template-home">
+    <div class="container template-vignette">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
@@ -40,20 +40,54 @@
 
       
       </header><div class="row">
-  <div class="contents col-md-9">
-    <div id="tidyr" class="section level1">
+  <div class="col-md-9">
+    
+
+    
+    
+<div class="contents">
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+<div id="tidyr" class="section level1">
 
 
 <div id="overview" class="section level2">
-<h2 class="hasAnchor">
-<a href="#overview" class="anchor"> </a>Overview</h2>
-<p>tidyr is a reframing of reshape2 designed to accompany the <a href="http://vita.had.co.nz/papers/tidy-data.html">tidy data framework</a>, and to work hand-in-hand with magrittr and dplyr to build a solid pipeline for data analysis.</p>
-<p>Just as reshape2 did less than reshape, tidyr does less than reshape2. It&rsquo;s designed specifically for tidying data, not the general reshaping that reshape2 does, or the general aggregation that reshape did. In particular, built-in methods only work for data frames, and tidyr provides no margins or aggregation.</p>
+<h2 class="hasAnchor"><a href="#overview" class="anchor"> </a>Overview</h2>
+<p>The goal of tidyr is to help you create <strong>tidy data</strong>. Tidy data is data where:</p>
+<ol style="list-style-type: decimal"><li>Each variable is in a column.</li>
+<li>Each observation is a row.</li>
+<li>Each value is a cell.</li>
+</ol><p>Tidy data describes a standard way of storing data that is used wherever possible throughout the <a href="http://tidyverse.org">tidyverse</a>. If you ensure that your data is tidy, you&rsquo;ll spend less timing fighting with the tools and more time working on your analysis.</p>
+</div>
+<div id="installation" class="section level2">
+<h2 class="hasAnchor"><a href="#installation" class="anchor"> </a>Installation</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># The easiest way to get tidyr is to install the whole tidyverse:</span>
+<span class="kw">install.packages</span>(<span class="st">"tidyverse"</span>)
+
+<span class="co"># Alternatively, install just tidyr:</span>
+<span class="kw">install.packages</span>(<span class="st">"tidyr"</span>)
+
+<span class="co"># Or the the development version from GitHub:</span>
+<span class="co"># install.packages("devtools")</span>
+devtools::<span class="kw">install_github</span>(<span class="st">"tidyverse/tidyr"</span>)</code></pre></div>
+</div>
+<div id="getting-started" class="section level2">
+<h2 class="hasAnchor"><a href="#getting-started" class="anchor"> </a>Getting started</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyr)</code></pre></div>
 <p>There are two fundamental verbs of data tidying:</p>
 <ul><li><p><code><a href="reference/gather.html">gather()</a></code> takes multiple columns, and gathers them into key-value pairs: it makes &ldquo;wide&rdquo; data longer.</p></li>
 <li><p><code><a href="reference/spread.html">spread()</a></code>. takes two columns (key &amp; value) and spreads in to multiple columns, it makes &ldquo;long&rdquo; data wider.</p></li>
-</ul><p>These verbs have a number of synonyms:</p>
-<table><thead><tr class="header"><th>tidyr</th>
+</ul><p>tidyr also provides <code><a href="reference/separate.html">separate()</a></code> and <code><a href="reference/extract.html">extract()</a></code> functions which makes it easier to pull apart a column that represents multiple variables. The complement to <code><a href="reference/separate.html">separate()</a></code> is <code><a href="reference/unite.html">unite()</a></code>.</p>
+<p>To get started, read the tidy data vignette (<code><a href="articles/tidy-data.html">vignette("tidy-data")</a></code>) and check out the demos, <code>demo(package = "tidyr")</code>).</p>
+</div>
+<div id="related-work" class="section level2">
+<h2 class="hasAnchor"><a href="#related-work" class="anchor"> </a>Related work</h2>
+<p>tidyr replaces reshape2 (2010-2014) and reshape (2005-2010). Somewhat counterintuitively each iteration of the the package has done less. tidyr is designed specifically for tidying data, not general reshaping (reshape2), or the general aggregation (reshape).</p>
+<p>If you&rsquo;d like to read more about data reshaping from a CS perspective, I&rsquo;d recommend the following three papers:</p>
+<ul><li><p><a href="http://vis.stanford.edu/papers/wrangler">Wrangler: Interactive visual specification of data transformation scripts</a></p></li>
+<li><p><a href="https://www.eecs.berkeley.edu/Pubs/TechRpts/2000/CSD-00-1110.pdf">An interactive framework for data cleaning</a> (Potter&rsquo;s wheel)</p></li>
+<li><p><a href="http://www.vldb.org/conf/1999/P45.pdf">On efficiently implementing SchemaSQL on a SQL database system</a></p></li>
+</ul><p>To guide your reading, here&rsquo;s translation between the terminology used in different places:</p>
+<table class="table"><thead><tr class="header"><th>tidyr</th>
 <th>gather</th>
 <th>spread</th>
 </tr></thead><tbody><tr class="odd"><td>reshape(2)</td>
@@ -65,41 +99,16 @@
 </tr><tr class="odd"><td>databases</td>
 <td>fold</td>
 <td>unfold</td>
-</tr></tbody></table><p>tidyr also provides <code><a href="reference/separate.html">separate()</a></code> and <code><a href="reference/extract.html">extract()</a></code> functions which makes it easier to pull apart a column that represents multiple variables. The complement to <code><a href="reference/separate.html">separate()</a></code> is <code><a href="reference/unite.html">unite()</a></code>.</p>
+</tr></tbody></table></div>
 </div>
-<div id="installation" class="section level2">
-<h2 class="hasAnchor">
-<a href="#installation" class="anchor"> </a>Installation</h2>
-<p>tidyr is available from <a href="http://cran.r-project.org/package=tidyr">CRAN</a>. Install it with:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">"tidyr"</span>)</code></pre></div>
-<p>The development version can be installed using:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># install.packages("devtools")</span>
-devtools::<span class="kw">install_github</span>(<span class="st">"tidyverse/tidyr"</span>)</code></pre></div>
-</div>
-<div id="getting-started" class="section level2">
-<h2 class="hasAnchor">
-<a href="#getting-started" class="anchor"> </a>Getting started</h2>
-<p>To get started, read the tidy data vignette (<code><a href="articles/tidy-data.html">vignette("tidy-data")</a></code>) and check out the demos, <code>demo(package = "tidyr")</code>).</p>
-<p>Note that tidyr is designed for use in conjunction with dplyr, so you should always load both:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyr)
-<span class="kw">library</span>(dplyr)</code></pre></div>
-</div>
-<div id="references" class="section level2">
-<h2 class="hasAnchor">
-<a href="#references" class="anchor"> </a>References</h2>
-<p>If you&rsquo;d like to learn more about these data reshaping operators, I&rsquo;d recommend the following papers:</p>
-<ul><li><a href="http://vis.stanford.edu/papers/wrangler">Wrangler: Interactive visual specification of data transformation scripts</a></li>
-<li>
-<a href="https://www.eecs.berkeley.edu/Pubs/TechRpts/2000/CSD-00-1110.pdf">An interactive framework for data cleaning</a> (Potter&rsquo;s wheel)</li>
-<li><a href="http://www.vldb.org/conf/1999/P45.pdf">On efficiently implementing SchemaSQL on a SQL database system</a></li>
-</ul></div>
 </div>
   </div>
 
-  <div class="col-md-3" id="sidebar">
+  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Links</h2><ul class="list-unstyled"><li>Download from CRAN at <br><a href="https://cran.r-project.org/package=tidyr">https://&#8203;cran.r-project.org/&#8203;package=tidyr</a></li>
 <li>Browse source code at <br><a href="https://github.com/tidyverse/tidyr">https://&#8203;github.com/&#8203;tidyverse/&#8203;tidyr</a></li>
 <li>Report a bug at <br><a href="https://github.com/tidyverse/tidyr/issues">https://&#8203;github.com/&#8203;tidyverse/&#8203;tidyr/&#8203;issues</a></li>
+<li>Learn more at <br><a href="http://r4ds.had.co.nz/tidy-data.html">http://&#8203;r4ds.had.co.nz/&#8203;tidy-data.html</a></li>
 </ul><h2>License</h2>
 <p><a href="https://opensource.org/licenses/mit-license.php">MIT</a> + file <a href="LICENSE">LICENSE</a></p>
 <h2>Developers</h2><ul class="list-unstyled"><li><a href="http://hadley.nz">Hadley Wickham</a> <br><small class="roles"> Author, maintainer </small> </li>
@@ -111,6 +120,7 @@ devtools::<span class="kw">install_github</span>(<span class="st">"tidyverse/tid
 <li><a href="http://cran.r-project.org/package=tidyr">
   <img src="http://www.r-pkg.org/badges/version/tidyr" alt="CRAN_Status_Badge"></a></li>
 </ul></body></html></div>
+
 </div>
 
 
