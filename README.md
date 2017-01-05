@@ -1,64 +1,70 @@
-# tidyr <img src="logo.png" align="right" />
 
-[![Build Status](https://travis-ci.org/tidyverse/tidyr.svg?branch=master)](https://travis-ci.org/tidyverse/tidyr) 
-[![codecov.io](http://codecov.io/github/tidyverse/tidyr/coverage.svg?branch=master)](http://codecov.io/github/tidyverse/tidyr?branch=master)
-[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/tidyr)](http://cran.r-project.org/package=tidyr)
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+tidyr <img src="logo.png" align="right" />
+==========================================
 
-## Overview
+[![Build Status](https://travis-ci.org/tidyverse/tidyr.svg?branch=master)](https://travis-ci.org/tidyverse/tidyr) [![codecov.io](http://codecov.io/github/tidyverse/tidyr/coverage.svg?branch=master)](http://codecov.io/github/tidyverse/tidyr?branch=master) [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/tidyr)](http://cran.r-project.org/package=tidyr)
 
-tidyr is a reframing of reshape2 designed to accompany the [tidy data framework](http://vita.had.co.nz/papers/tidy-data.html), and to work hand-in-hand with magrittr and dplyr to build a solid pipeline for data analysis. 
+Overview
+--------
 
-Just as reshape2 did less than reshape, tidyr does less than reshape2. It's designed specifically for tidying data, not the general reshaping that reshape2 does, or the general aggregation that reshape did. In particular, built-in methods only work for data frames, and tidyr provides no margins or aggregation. 
+The goal of tidyr is to help you create **tidy data**. Tidy data is data where:
 
-There are two fundamental verbs of data tidying: 
+1.  Each variable is in a column.
+2.  Each observation is a row.
+3.  Each value is a cell.
 
-* `gather()` takes multiple columns, and gathers them into key-value pairs: it 
-  makes "wide" data longer.
+Tidy data describes a standard way of storing data that is used wherever possible throughout the [tidyverse](http://tidyverse.org). If you ensure that your data is tidy, you'll spend less timing fighting with the tools and more time working on your analysis.
 
-* `spread()`. takes two columns (key & value) and spreads in to multiple 
-  columns, it makes "long" data wider. 
+Installation
+------------
 
-These verbs have a number of synonyms:
+``` r
+# The easiest way to get tidyr is to install the whole tidyverse:
+install.packages("tidyverse")
 
-| tidyr        | gather  | spread |
-|--------------|---------|--------|
-| reshape(2)   | melt    | cast   |
-| spreadsheets | unpivot | pivot  | 
-| databases    | fold    | unfold |
-
-tidyr also provides `separate()` and `extract()` functions which makes it easier to pull apart a column that represents multiple variables. The complement to `separate()` is `unite()`.
-
-## Installation
-
-tidyr is available from [CRAN](http://cran.r-project.org/package=tidyr). Install it with:
-
-```R
+# Alternatively, install just tidyr:
 install.packages("tidyr")
-```
 
-The development version can be installed using:
-
-```R
+# Or the the development version from GitHub:
 # install.packages("devtools")
 devtools::install_github("tidyverse/tidyr")
 ```
 
-## Getting started
+Getting started
+---------------
 
-To get started, read the tidy data vignette (`vignette("tidy-data")`) and check out the demos, `demo(package = "tidyr")`). 
-
-Note that tidyr is designed for use in conjunction with dplyr, so you should always load both:
-
-```R
+``` r
 library(tidyr)
-library(dplyr)
 ```
 
-## References
+There are two fundamental verbs of data tidying:
 
-If you'd like to learn more about these data reshaping operators, I'd recommend the following papers:
+-   `gather()` takes multiple columns, and gathers them into key-value pairs: it makes "wide" data longer.
 
-* [Wrangler: Interactive visual specification of data transformation scripts](http://vis.stanford.edu/papers/wrangler)
-* [An interactive framework for data cleaning](https://www.eecs.berkeley.edu/Pubs/TechRpts/2000/CSD-00-1110.pdf) (Potter's wheel)
-* [On efficiently implementing SchemaSQL on a SQL database system](http://www.vldb.org/conf/1999/P45.pdf)
+-   `spread()`. takes two columns (key & value) and spreads in to multiple columns, it makes "long" data wider.
 
+tidyr also provides `separate()` and `extract()` functions which makes it easier to pull apart a column that represents multiple variables. The complement to `separate()` is `unite()`.
+
+To get started, read the tidy data vignette (`vignette("tidy-data")`) and check out the demos, `demo(package = "tidyr")`).
+
+Related work
+------------
+
+tidyr replaces reshape2 (2010-2014) and reshape (2005-2010). Somewhat counterintuitively each iteration of the the package has done less. tidyr is designed specifically for tidying data, not general reshaping (reshape2), or the general aggregation (reshape).
+
+If you'd like to read more about data reshaping from a CS perspective, I'd recommend the following three papers:
+
+-   [Wrangler: Interactive visual specification of data transformation scripts](http://vis.stanford.edu/papers/wrangler)
+
+-   [An interactive framework for data cleaning](https://www.eecs.berkeley.edu/Pubs/TechRpts/2000/CSD-00-1110.pdf) (Potter's wheel)
+
+-   [On efficiently implementing SchemaSQL on a SQL database system](http://www.vldb.org/conf/1999/P45.pdf)
+
+To guide your reading, here's translation between the terminology used in different places:
+
+| tidyr        | gather  | spread |
+|--------------|---------|--------|
+| reshape(2)   | melt    | cast   |
+| spreadsheets | unpivot | pivot  |
+| databases    | fold    | unfold |
