@@ -19,8 +19,7 @@ Imports:
     lazyeval,
     magrittr,
     Rcpp
-URL: 
-    http://tidyr.tidyverse.org,
+URL: http://tidyr.tidyverse.org,
     https://github.com/tidyverse/tidyr
 BugReports: https://github.com/tidyverse/tidyr/issues
 Suggests:
@@ -31,4 +30,4 @@ Suggests:
     rmarkdown
 VignetteBuilder: knitr
 LinkingTo: Rcpp
-RoxygenNote: 5.0.1.9000
+RoxygenNote: 5.0.1

@@ -2,8 +2,8 @@
 % Please edit documentation in R/data.R
 \docType{data}
 \name{who}
-\alias{who}
 \alias{population}
+\alias{who}
 \title{World Health Organization TB data}
 \format{A dataset with the variables
 \describe{
