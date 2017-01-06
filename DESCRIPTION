@@ -28,6 +28,7 @@ Suggests:
     covr,
     gapminder,
     rmarkdown
+Remotes: RcppCore/Rcpp
 VignetteBuilder: knitr
 LinkingTo: Rcpp
 RoxygenNote: 5.0.1
