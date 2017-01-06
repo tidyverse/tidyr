@@ -1,6 +1,9 @@
-# tidyr 0.6.0.9000
+# tidyr 0.6.1
 
-* Changed deprecation message of `extract_numeric()` to point to `readr::parse_number()` rather than `readr::parse_numeric()`
+* Patch test to be compatible with dev tibble
+
+* Changed deprecation message of `extract_numeric()` to point to 
+  `readr::parse_number()` rather than `readr::parse_numeric()`
 
 # tidyr 0.6.0
 
