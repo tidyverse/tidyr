@@ -1,3 +1,10 @@
+This is a resubmission that fixes:
+
+1. Non-canonical CRAN url in README.md
+2. Use of ` instead of ' in package title
+
+---
+
 ## Test environments
 * local OS X install, R 3.3.2
 * ubuntu 12.04 (on travis-ci), R 3.3.2
