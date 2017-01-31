@@ -136,7 +136,18 @@ unnest_.data.frame <- function(data, unnest_cols, .drop = NA, .id = NULL,
 
   rest <- data[rep(1:nrow(data), n[[1]]), group_cols, drop = FALSE]
 
-  dplyr::bind_cols(compact(list(rest, unnested_atomic, unnested_dataframe)))
+  df <- dplyr::bind_cols(compact(list(rest, unnested_atomic, unnested_dataframe)))
+
+  allattrs <- attributes(data)
+  customattr <- allattrs[!(names(allattrs) %in% c("class",
+                                                  "dim", "dimnames",
+                                                  "names", "row.names"))]
+  mapply(function(x, y) { attr(df, x) <<- y }, names(customattr), customattr)
+
+  #class handled separately, assign the superset
+  class(df) <- unique(c(class(df), class(data)))
+
+  df
 }
 
 list_col_type <- function(x) {
