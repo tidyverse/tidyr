@@ -130,7 +130,7 @@ spread_.data.frame <- function(data, key_col, value_col, fill = NA,
   ordered <- as_data_frame_matrix(ordered)
 
   if (convert) {
-    ordered[] <- lapply(ordered, type.convert, as.is = TRUE)
+    ordered[] <- map(ordered, type.convert, as.is = TRUE)
   }
 
   append_df(row_labels, ordered)
@@ -172,7 +172,7 @@ split_labels <- function(df, id, drop = TRUE) {
     representative <- match(sort(unique(id)), id)
     df[representative, , drop = FALSE]
   } else {
-    unique_values <- lapply(df, ulevels)
+    unique_values <- map(df, ulevels)
     rev(expand.grid(rev(unique_values), stringsAsFactors = FALSE))
   }
 }

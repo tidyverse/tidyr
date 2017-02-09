@@ -94,7 +94,7 @@ gather_.data.frame <- function(data, key_col, value_col, gather_cols,
   gather_idx <- match(gather_cols, names(data))
   if (anyNA(gather_idx)) {
     missing_cols <- paste(gather_cols[is.na(gather_idx)], collapse = ", ")
-    stop("Unknown column names: ", missing_cols, call. = FALSE)
+    abort(glue("Unknown column names: ", missing_cols))
   }
   id_idx <- setdiff(seq_along(data), gather_idx)
 
@@ -142,7 +142,7 @@ gather_.grouped_df <- function(data, key_col, value_col, gather_cols,
 ## Get the attributes if common, NULL if not.
 normalize_melt_arguments <- function(data, measure.ind, factorsAsStrings) {
 
-  measure.attributes <- lapply(measure.ind, function(i) {
+  measure.attributes <- map(measure.ind, function(i) {
     attributes(data[[i]])
   })
 
@@ -152,22 +152,20 @@ normalize_melt_arguments <- function(data, measure.ind, factorsAsStrings) {
   if (measure.attrs.equal) {
     attr_template <- data[[measure.ind[1]]]
   } else {
-    warning("attributes are not identical across measure variables; ",
-      "they will be dropped", call. = FALSE)
+    warn(glue(
+      "attributes are not identical across measure variables;
+       they will be dropped"))
     attr_template <- NULL
   }
 
   if (!factorsAsStrings && !measure.attrs.equal) {
-    warning("cannot avoid coercion of factors when measure attributes not identical",
-      call. = FALSE)
+    warn("cannot avoid coercion of factors when measure attributes not identical")
     factorsAsStrings <- TRUE
   }
 
   ## If we are going to be coercing any factors to strings, we don't want to
   ## copy the attributes
-  any.factors <- any( sapply( measure.ind, function(i) {
-    is.factor(data[[i]])
-  }))
+  any.factors <- any(map_lgl(measure.ind, function(i) is.factor(data[[i]])))
 
   if (factorsAsStrings && any.factors) {
     attr_template <- NULL

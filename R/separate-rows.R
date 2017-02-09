@@ -43,11 +43,11 @@ separate_rows_ <- function(data, cols, sep = "[^[:alnum:].]+",
 separate_rows_.data.frame <- function(data, cols, sep = "[^[:alnum:].]+",
                                       convert = FALSE) {
 
-  data[cols] <- lapply(data[cols], stringi::stri_split_regex, sep)
+  data[cols] <- map(data[cols], stringi::stri_split_regex, sep)
   data <- unnest_(data, cols)
 
   if (convert) {
-    data[cols] <- lapply(data[cols], type.convert, as.is = TRUE)
+    data[cols] <- map(data[cols], type.convert, as.is = TRUE)
   }
 
   data

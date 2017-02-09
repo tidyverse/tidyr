@@ -100,8 +100,9 @@ expand_ <- function(data, dots, ...) {
 #' @export
 expand_.data.frame <- function(data, dots, ...) {
   dots <- lazyeval::as.lazy_dots(dots)
-  if (length(dots) == 0)
+  if (length(dots) == 0) {
     return(data.frame())
+  }
 
   dots <- lazyeval::auto_name(dots)
   pieces <- lazyeval::lazy_eval(dots, data)
@@ -131,23 +132,25 @@ crossing <- function(...) {
 #' @export
 #' @rdname expand
 crossing_ <- function(x) {
-  stopifnot(is.list(x))
+  stopifnot(is_list(x))
   x <- drop_empty(x)
 
-  is_atomic <- vapply(x, is.atomic, logical(1))
-  is_df <- vapply(x, is.data.frame, logical(1))
+  is_atomic <- map_lgl(x, is_atomic)
+  is_df <- map_lgl(x, is.data.frame)
   if (any(!is_df & !is_atomic)) {
     bad <- names(x)[!is_df & !is_atomic]
-    stop(
-      "Each element must be either an atomic vector or a data frame\n.",
-      "Problems: ", paste(bad, collapse = ", "), ".\n",
-      call. = FALSE
-    )
+
+    abort(glue(
+      "Each element must be either an atomic vector or a data frame.
+       Problems: {problems}.",
+      problems = paste(bad, collapse = ", ")
+    ))
+
   }
 
   # turn each atomic vector into single column data frame
-  col_df <- lapply(x[is_atomic], function(x) data_frame(x = ulevels(x)))
-  col_df <- Map(setNames, col_df, names(x)[is_atomic])
+  col_df <- map(x[is_atomic], function(x) data_frame(x = ulevels(x)))
+  col_df <- map2(col_df, names(x)[is_atomic], set_names)
   x[is_atomic] <- col_df
 
   Reduce(cross_df, x)
@@ -170,7 +173,7 @@ nesting <- function(...) {
 #' @export
 #' @rdname expand
 nesting_ <- function(x) {
-  stopifnot(is.list(x))
+  stopifnot(is_list(x))
   x <- drop_empty(x)
 
   df <- as_data_frame(x)
@@ -179,6 +182,6 @@ nesting_ <- function(x) {
 }
 
 drop_empty <- function(x) {
-  empty <- vapply(x, function(x) length(x) == 0, logical(1))
+  empty <- map_lgl(x, function(x) length(x) == 0)
   x[!empty]
 }

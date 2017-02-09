@@ -13,12 +13,15 @@ Depends:
 License: MIT + file LICENSE
 LazyData: true
 Imports:
-    tibble,
     dplyr (>= 0.4),
-    stringi,
+    glue,
     lazyeval,
     magrittr,
-    Rcpp
+    purrr,
+    rlang,
+    Rcpp,
+    stringi,
+    tibble
 URL: http://tidyr.tidyverse.org,
     https://github.com/tidyverse/tidyr
 BugReports: https://github.com/tidyverse/tidyr/issues

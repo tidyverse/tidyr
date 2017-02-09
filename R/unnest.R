@@ -59,8 +59,8 @@
 unnest <- function(data, ..., .drop = NA, .id = NULL, .sep = NULL) {
   dots <- lazyeval::lazy_dots(...)
   if (length(dots) == 0) {
-    list_cols <- names(data)[vapply(data, is.list, logical(1))]
-    list_col_names <- lapply(list_cols, as.name)
+    list_cols <- names(data)[map_lgl(data, is_list)]
+    list_col_names <- map(list_cols, as.name)
     dots <- lazyeval::as.lazy_dots(list_col_names, env = parent.frame())
   }
 
@@ -92,30 +92,32 @@ unnest_ <- function(data, unnest_cols, .drop = NA, .id = NULL, .sep = NULL) {
 unnest_.data.frame <- function(data, unnest_cols, .drop = NA, .id = NULL,
                                .sep = NULL) {
   nested <- dplyr::transmute_(data, .dots = unnest_cols)
-  n <- lapply(nested, function(x) vapply(x, NROW, numeric(1)))
+  n <- map(nested, function(x) map_int(x, NROW))
   if (length(unique(n)) != 1) {
-    stop("All nested columns must have the same number of elements.",
-      call. = FALSE)
+    abort("All nested columns must have the same number of elements.")
   }
 
-  types <- vapply(nested, list_col_type, character(1))
+  types <- map_chr(nested, list_col_type)
   nest_types <- split.default(nested, types)
   if (length(nest_types$mixed) > 0) {
     probs <- paste(names(nest_types$mixed), collapse = ",")
-    stop("Each column must either be a list of vectors or a list of ",
-      "data frames [", probs , "]", call. = FALSE)
+    abort(glue(
+      "Each column must either be a list of vectors or a list of ",
+      "data frames [{probs}]", probs = probs
+    ))
   }
 
-  unnested_atomic <- mapply(enframe, nest_types$atomic, names(nest_types$atomic),
-    MoreArgs = list(.id = .id), SIMPLIFY = FALSE)
-  if (length(unnested_atomic) > 0)
+  unnested_atomic <- imap(nest_types$atomic %||% list(), enframe, .id = .id)
+  if (length(unnested_atomic) > 0) {
     unnested_atomic <- dplyr::bind_cols(unnested_atomic)
+  }
 
-  unnested_dataframe <- lapply(nest_types$dataframe, dplyr::bind_rows, .id = .id)
-  if (!is.null(.sep)) {
-    unnested_dataframe <- Map(function(name, df) {
-      setNames(df, paste(name, names(df), sep = .sep))
-    }, names(unnested_dataframe), unnested_dataframe)
+  unnested_dataframe <- map(nest_types$dataframe %||% list(), dplyr::bind_rows, .id = .id)
+  if (!is_null(.sep)) {
+    unnested_dataframe <- imap(unnested_dataframe,
+      function(df, name) {
+        set_names(df, paste(name, names(df), sep = .sep))
+      })
   }
   if (length(unnested_dataframe) > 0)
     unnested_dataframe <- dplyr::bind_cols(unnested_dataframe)
@@ -127,7 +129,7 @@ unnest_.data.frame <- function(data, unnest_cols, .drop = NA, .id = NULL,
     .drop <- n_out != n_in
   }
   if (.drop) {
-    is_atomic <- vapply(data, is.atomic, logical(1))
+    is_atomic <- map_lgl(data, is_atomic)
     group_cols <- names(data)[is_atomic]
   } else {
     group_cols <- names(data)
@@ -140,8 +142,8 @@ unnest_.data.frame <- function(data, unnest_cols, .drop = NA, .id = NULL,
 }
 
 list_col_type <- function(x) {
-  is_data_frame <- vapply(x, is.data.frame, logical(1))
-  is_atomic <- vapply(x, is.atomic, logical(1))
+  is_data_frame <- map_lgl(x, is.data.frame)
+  is_atomic <- map_lgl(x, is_atomic)
 
   if (all(is_data_frame)) {
     "dataframe"
@@ -156,17 +158,17 @@ enframe <- function(x, col_name, .id = NULL) {
   out <- data_frame(dplyr::combine(x))
   names(out) <- col_name
 
-  if (!is.null(.id)) {
+  if (!is_null(.id)) {
     out[[.id]] <- id_col(x)
   }
   out
 }
 
 id_col <- function(x) {
-  stopifnot(is.list(x))
+  stopifnot(is_list(x))
 
-  ids <- if (is.null(names(x))) seq_along(x) else names(x)
-  lengths <- vapply(x, length, integer(1))
+  ids <- if (is_null(names(x))) seq_along(x) else names(x)
+  lengths <- map_int(x, length)
 
   ids[rep(seq_along(ids), lengths)]
 }

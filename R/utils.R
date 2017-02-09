@@ -1,10 +1,11 @@
-col_name <- function(x, default = stop("Please supply column name", call. = FALSE)) {
-  if (is.character(x)) return(x)
-  if (identical(x, quote(expr = ))) return(default)
-  if (is.name(x)) return(as.character(x))
-  if (is.null(x)) return(x)
 
-  stop("Invalid column specification", call. = FALSE)
+col_name <- function(x, default = abort("Please supply column name")) {
+  if (is_character(x)) return(x)
+  if (identical(x, quote(expr = ))) return(default)
+  if (is_name(x)) return(as.character(x))
+  if (is_null(x)) return(x)
+
+  abort("Invalid column specification")
 }
 
 append_df <- function(x, values, after = length(x)) {
@@ -17,10 +18,10 @@ append_df <- function(x, values, after = length(x)) {
 
 append_col <- function(x, col, name, after = length(x)) {
   name <- enc2utf8(name)
-  append_df(x, setNames(list(col), name), after = after)
+  append_df(x, set_names(list(col), name), after = after)
 }
 
-compact <- function(x) x[vapply(x, length, integer(1)) > 0]
+compact <- function(x) x[map_int(x, length) > 0]
 
 #' Extract numeric component of variable.
 #'
@@ -58,7 +59,7 @@ list_indices <- function(x, max = 20) {
 regroup <- function(x, y, except = NULL) {
   groups <- dplyr::groups(y)
   if (!is.null(except)) {
-    groups <- setdiff(groups, lapply(except, as.name))
+    groups <- setdiff(groups, map(except, as.name))
   }
 
   dplyr::grouped_df(x, groups)
@@ -70,4 +71,8 @@ everything <- function(...) dplyr::everything(...)
 
 is_numeric <- function(x) {
   typeof(x) %in% c("integer", "double")
+}
+
+imap <- function(.x, .f, ...) {
+  map2(.x, names(.x) %||% character(0), .f, ...)
 }

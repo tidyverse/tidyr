@@ -33,7 +33,9 @@ drop_na_ <- function(data, vars) {
 
 #' @export
 drop_na_.data.frame <- function(data, vars) {
-  if (!is.character(vars)) stop("`vars` is not a character vector.", call. = FALSE)
+  if (!is_character(vars)) {
+    abort("`vars` is not a character vector.")
+  }
   if (length(vars) == 0) {
     f = stats::complete.cases(data)
   } else {

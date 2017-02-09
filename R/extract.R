@@ -48,19 +48,19 @@ extract_ <- function(data, col, into, regex = "([[:alnum:]]+)", remove = TRUE,
 extract_.data.frame <- function(data, col, into, regex = "([[:alnum:]]+)",
                                  remove = TRUE, convert = FALSE, ...) {
 
-  stopifnot(is.character(col), length(col) == 1)
-  stopifnot(is.character(regex))
+  stopifnot(is_scalar_character(col))
+  stopifnot(is_character(regex))
 
   # Extract matching groups
   value <- as.character(data[[col]])
 
   matches <- stringi::stri_match_first_regex(value, regex)[, -1, drop = FALSE]
   # Use as_data_frame post https://github.com/hadley/dplyr/issues/876
-  l <- lapply(seq_len(ncol(matches)), function(i) matches[, i])
+  l <- map(seq_len(ncol(matches)), function(i) matches[, i])
   names(l) <- enc2utf8(into)
 
   if (convert) {
-    l[] <- lapply(l, type.convert, as.is = TRUE)
+    l[] <- map(l, type.convert, as.is = TRUE)
   }
 
   # Insert into existing data frame

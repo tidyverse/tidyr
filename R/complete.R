@@ -33,7 +33,7 @@ NULL
 complete <- function(data, ..., fill = list()) {
   dots <- lazyeval::lazy_dots(...)
   if (length(dots) == 0) {
-    stop("Please supply variables to complete.", call. = FALSE)
+    abort("Please supply variables to complete.")
   }
 
   complete_(data, dots, fill = fill)
