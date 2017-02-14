@@ -81,8 +81,28 @@
 #' # Or use the complete() short-hand
 #' experiment %>% complete(nesting(name, trt), rep)
 expand <- function(data, ...) {
-  dots <- lazyeval::lazy_dots(...)
-  expand_(data, dots)
+  UseMethod("expand")
+}
+
+#' @export
+expand.data.frame <- function(data, ...) {
+  dots <- tidy_dots(..., .named = TRUE)
+  if (length(dots) == 0) {
+    return(data.frame())
+  }
+
+  pieces <- map(dots, tidy_eval, data)
+  crossing(!!! pieces)
+}
+
+#' @export
+expand.tbl_df <- function(data, ...) {
+  as_data_frame(NextMethod())
+}
+
+#' @export
+expand.grouped_df <- function(data, ...) {
+  dplyr::do(data, expand(., ...))
 }
 
 #' Expand (standard evaluation).
@@ -96,28 +116,10 @@ expand <- function(data, ...) {
 expand_ <- function(data, dots, ...) {
   UseMethod("expand_")
 }
-
 #' @export
 expand_.data.frame <- function(data, dots, ...) {
-  dots <- lazyeval::as.lazy_dots(dots)
-  if (length(dots) == 0) {
-    return(data.frame())
-  }
-
-  dots <- lazyeval::auto_name(dots)
-  pieces <- lazyeval::lazy_eval(dots, data)
-
-  crossing_(pieces)
-}
-
-#' @export
-expand_.tbl_df <- function(data, dots, ...) {
-  as_data_frame(NextMethod())
-}
-
-#' @export
-expand_.grouped_df <- function(data, dots, ...) {
-  dplyr::do(data, expand_(., dots, ...))
+  dots <- compat_lazy_dots(dots, caller_env())
+  expand(data, !!! dots)
 }
 
 
@@ -126,13 +128,9 @@ expand_.grouped_df <- function(data, dots, ...) {
 #' @export
 #' @rdname expand
 crossing <- function(...) {
-  crossing_(tibble::lst(...))
-}
-
-#' @export
-#' @rdname expand
-crossing_ <- function(x) {
+  x <- tibble::lst(...)
   stopifnot(is_list(x))
+
   x <- drop_empty(x)
 
   is_atomic <- map_lgl(x, is_atomic)
@@ -156,6 +154,13 @@ crossing_ <- function(x) {
   Reduce(cross_df, x)
 }
 
+#' @export
+#' @rdname expand
+crossing_ <- function(x) {
+  warn_underscored()
+  crossing(!!! x)
+}
+
 cross_df <- function(x, y) {
   x_idx <- rep(seq_len(nrow(x)), each = nrow(y))
   y_idx <- rep(seq_len(nrow(y)), nrow(x))
@@ -167,18 +172,21 @@ cross_df <- function(x, y) {
 #' @rdname expand
 #' @importFrom tibble data_frame
 nesting <- function(...) {
-  nesting_(tibble::lst(...))
-}
+  x <- tibble::lst(...)
 
-#' @export
-#' @rdname expand
-nesting_ <- function(x) {
   stopifnot(is_list(x))
   x <- drop_empty(x)
 
   df <- as_data_frame(x)
   df <- dplyr::distinct(df)
   df[do.call(order, df), , drop = FALSE]
+}
+
+#' @export
+#' @rdname expand
+nesting_ <- function(x) {
+  warn_underscored()
+  nesting(!!! x)
 }
 
 drop_empty <- function(x) {

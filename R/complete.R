@@ -31,12 +31,25 @@ NULL
 #' # You can also choose to fill in missing values
 #' df %>% complete(group, nesting(item_id, item_name), fill = list(value1 = 0))
 complete <- function(data, ..., fill = list()) {
-  dots <- lazyeval::lazy_dots(...)
-  if (length(dots) == 0) {
+  if (length(dots(...)) == 0) {
     abort("Please supply variables to complete.")
   }
 
-  complete_(data, dots, fill = fill)
+  UseMethod("complete")
+}
+
+#' @export
+complete.data.frame <- function(data, ..., fill = list()) {
+  full <- expand(data, ...)
+  full <- dplyr::left_join(full, data, by = names(full))
+  full <- replace_na(full, replace = fill)
+
+  full
+}
+
+#' @export
+complete.grouped_df <- function(data, ..., fill = list()) {
+  regroup(NextMethod(), data)
 }
 
 #' Standard-evaluation version of \code{complete}.
@@ -49,19 +62,6 @@ complete <- function(data, ..., fill = list()) {
 #' @export
 #' @keywords internal
 complete_ <- function(data, cols, fill = list(), ...) {
-  UseMethod("complete_")
-}
-
-#' @export
-complete_.data.frame <- function(data, cols, fill = list(), ...) {
-  full <- expand_(data, cols)
-  full <- dplyr::left_join(full, data, by = names(full))
-  full <- replace_na(full, replace = fill)
-
-  full
-}
-
-#' @export
-complete_.grouped_df <- function(data, cols, fill = list(), ...) {
-  regroup(NextMethod(), data)
+  warn_underscored()
+  complete(data, !!!cols, fill = fill)
 }

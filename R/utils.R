@@ -76,3 +76,19 @@ is_numeric <- function(x) {
 imap <- function(.x, .f, ...) {
   map2(.x, names(.x) %||% character(0), .f, ...)
 }
+
+warn_underscored <- function() {
+  warn(glue(
+    "The underscored versions are deprecated in favour of \\
+     tidy evaluation idioms. Please see unquoting documentation \\
+     in rlang."
+  ))
+}
+dots_compat <- function(dots, env) {
+  if (some(dots, is_scalar_character)) {
+    warn("Text parsing is deprecated, please supply an expression or formula")
+    dots <- map_if(dots, is_scalar_character, parse_f, env = env)
+  }
+
+  dots
+}
