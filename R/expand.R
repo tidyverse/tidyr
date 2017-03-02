@@ -157,7 +157,7 @@ crossing <- function(...) {
 #' @export
 #' @rdname expand
 crossing_ <- function(x) {
-  warn_underscored()
+  x <- compat_lazy_dots(x, caller_env())
   crossing(!!! x)
 }
 
@@ -185,7 +185,7 @@ nesting <- function(...) {
 #' @export
 #' @rdname expand
 nesting_ <- function(x) {
-  warn_underscored()
+  x <- compat_lazy_dots(x, caller_env())
   nesting(!!! x)
 }
 
