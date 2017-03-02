@@ -13,10 +13,9 @@ test_that("multiple variables in one arg doesn't expand", {
   expect_equal(nrow(out), 2)
 })
 
-test_that("expand_ accepts character vectors (with deprecation warning)", {
+test_that("expand_ accepts character vectors", {
   df <- data.frame(x = 1:2, y = 1:2)
-
-  expect_warning(expect_equal(names(expand_(df, c("x", "y"))), c("x", "y")), "Text parsing is deprecated")
+  expect_equal(names(expand_(df, c("x", "y"))), c("x", "y"))
 })
 
 test_that("nesting doesn't expand values" ,{
@@ -24,9 +23,9 @@ test_that("nesting doesn't expand values" ,{
   expect_equal(expand(df, nesting(x, y)), df)
 })
 
-test_that("expand_ accepts list of formulas (with deprecation warning)", {
+test_that("expand_ accepts list of formulas", {
   df <- data.frame(x = 1:2, y = 1:2)
-  expect_warning(expect_equal(names(expand_(df, c(~ x, ~y))), c("x", "y")), "underscored versions are deprecated")
+  expect_equal(names(expand_(df, c(~ x, ~y))), c("x", "y"))
 })
 
 test_that("expand works with non-standard col names", {

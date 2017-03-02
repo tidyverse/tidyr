@@ -1,11 +1,12 @@
 
 col_name <- function(x, default = abort("Please supply column name")) {
-  if (is_character(x)) return(x)
   if (identical(x, quote(expr = ))) return(default)
-  if (is_name(x)) return(as.character(x))
-  if (is_null(x)) return(x)
-
-  abort("Invalid column specification")
+  switch_type(x,
+    NULL = NULL,
+    string = x,
+    symbol = as_string(x),
+    abort("Invalid column specification")
+  )
 }
 
 append_df <- function(x, values, after = length(x)) {
@@ -77,4 +78,6 @@ imap <- function(.x, .f, ...) {
   map2(.x, names(.x) %||% character(0), .f, ...)
 }
 
+is_empty_character <- function(x) {
+  is_character(x, 0)
 }

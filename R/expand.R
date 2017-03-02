@@ -86,23 +86,22 @@ expand <- function(data, ...) {
 
 #' @export
 expand.data.frame <- function(data, ...) {
-  dots <- tidy_dots(..., .named = TRUE)
+  dots <- quos(..., .named = TRUE)
   if (length(dots) == 0) {
     return(data.frame())
   }
 
-  pieces <- map(dots, tidy_eval, data)
+  pieces <- map(dots, eval_tidy, data)
   crossing(!!! pieces)
 }
-
 #' @export
 expand.tbl_df <- function(data, ...) {
   as_data_frame(NextMethod())
 }
-
 #' @export
 expand.grouped_df <- function(data, ...) {
-  dplyr::do(data, expand(., ...))
+  dots <- quos(...)
+  dplyr::do(data, expand(., !!! dots))
 }
 
 #' Expand (standard evaluation).
@@ -138,10 +137,10 @@ crossing <- function(...) {
   if (any(!is_df & !is_atomic)) {
     bad <- names(x)[!is_df & !is_atomic]
 
+    problems <- paste(bad, collapse = ", ")
     abort(glue(
       "Each element must be either an atomic vector or a data frame.
-       Problems: {problems}.",
-      problems = paste(bad, collapse = ", ")
+       Problems: {problems}."
     ))
 
   }

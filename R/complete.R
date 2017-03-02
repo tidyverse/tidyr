@@ -31,7 +31,7 @@ NULL
 #' # You can also choose to fill in missing values
 #' df %>% complete(group, nesting(item_id, item_name), fill = list(value1 = 0))
 complete <- function(data, ..., fill = list()) {
-  if (length(dots(...)) == 0) {
+  if (dots_n(...) == 0) {
     abort("Please supply variables to complete.")
   }
 

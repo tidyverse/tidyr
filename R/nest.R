@@ -61,7 +61,7 @@ nest_.grouped_df <- function(data, key_col, nest_cols = character()) {
   if (length(nest_cols) == 0) {
     nest_cols <- names(data)
   }
-  group_cols <- vapply(dplyr::groups(data), as.character, character(1))
+  group_cols <- map_chr(dplyr::groups(data), as.character)
   nest_impl(data, key_col, group_cols, nest_cols)
 }
 
@@ -78,9 +78,9 @@ nest_impl <- function(data, key_col, group_cols, nest_cols) {
 
   nest_cols <- setdiff(nest_cols, group_cols)
 
-  out <- dplyr::distinct_(dplyr::select_(data, .dots = group_cols))
+  out <- dplyr::distinct(dplyr::select(data, !!! syms(group_cols)))
 
-  idx <- dplyr::group_indices_(data, .dots = group_cols)
+  idx <- dplyr::group_indices(data, !!! syms(group_cols))
   out[[key_col]] <- unname(split(data[nest_cols], idx))[unique(idx)]
 
   out
