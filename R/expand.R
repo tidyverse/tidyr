@@ -26,7 +26,7 @@
 #'   For factors, the full set of levels (not just those that appear in the
 #'   data) are used. For continuous variables, you may need to fill in values
 #'   that don't appear in the data: to do so use expressions like
-#'   \code{year = 2010:2020} or \code{year = \link{full_seq}(year)}.
+#'   \code{year = 2010:2020} or \code{year = \link{full_seq}(year,1)}.
 #'
 #'   Length-zero (empty) elements are automatically dropped.
 #' @param x For \code{nesting_} and \code{crossing_} a list of variables.
@@ -171,14 +171,14 @@ nesting <- function(...) {
 #' @rdname expand
 nesting_ <- function(x) {
   stopifnot(is.list(x))
-  x <- drop_empty(x)
+  x <- drop_empty(x, factor=FALSE)
 
   df <- as_data_frame(x)
   df <- dplyr::distinct(df)
   df[do.call(order, df), , drop = FALSE]
 }
 
-drop_empty <- function(x) {
-  empty <- vapply(x, function(x) length(x) == 0, logical(1))
+drop_empty <- function(x, factor=TRUE) {
+  empty <- vapply(x, function(x) length(x) == 0 & (!factor | !is.factor(x)), logical(1))
   x[!empty]
 }
