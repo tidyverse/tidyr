@@ -131,16 +131,8 @@ explicit missing values in the data set.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>library</span>(<span class='no'>dplyr</span>)</div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Attaching package: ‘dplyr’</span></div><div class='output co'>#&gt; <span class='message'>The following objects are masked from ‘package:tidyr’:</span>
-#&gt; <span class='message'></span>
-#&gt; <span class='message'>    everything, id, regroup</span></div><div class='output co'>#&gt; <span class='message'>The following objects are masked from ‘package:stats’:</span>
-#&gt; <span class='message'></span>
-#&gt; <span class='message'>    filter, lag</span></div><div class='output co'>#&gt; <span class='message'>The following object is masked from ‘package:testthat’:</span>
-#&gt; <span class='message'></span>
-#&gt; <span class='message'>    matches</span></div><div class='output co'>#&gt; <span class='message'>The following objects are masked from ‘package:base’:</span>
-#&gt; <span class='message'></span>
-#&gt; <span class='message'>    intersect, setdiff, setequal, union</span></div><div class='input'><span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'>data_frame</span>(
+    <pre class="examples"><div class='input'><span class='fu'>library</span>(<span class='no'>dplyr</span>, <span class='kw'>warn.conflicts</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+<span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'>data_frame</span>(
   <span class='kw'>group</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>1</span>:<span class='fl'>2</span>, <span class='fl'>1</span>),
   <span class='kw'>item_id</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>1</span>:<span class='fl'>2</span>, <span class='fl'>2</span>),
   <span class='kw'>item_name</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"a"</span>, <span class='st'>"b"</span>, <span class='st'>"b"</span>),
