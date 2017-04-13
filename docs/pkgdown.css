@@ -5,6 +5,10 @@ img.icon {
   height: 30px;
 }
 
+body {font-size: 16px;}
+h1 {font-size: 40px;}
+h2 {font-size: 30px;}
+
 /* Fixes for fixed navbar --------------------------*/
 
 body {
@@ -19,6 +23,8 @@ body {
 
 .page-header {
   margin-top: 0;
+  margin-bottom: 10px;
+  padding-bottom: 0px;
 }
 
 /* Static header placement on mobile devices */
@@ -63,17 +69,13 @@ body {
 pre {
   word-wrap: normal;
   word-break: normal;
+  border: none;
 }
 
 pre, code {
-  background-color: #f8f8f8;
-  color: #333;
-}
-
-pre.examples {
-  border: none;
-  background: none;
-  padding: 0;
+  background-color: #fafafa;
+  color: #000000;
+  -webkit-font-smoothing: subpixel-antialiased;
 }
 
 pre img {
@@ -89,11 +91,11 @@ code a, pre a {
 .fu      {color: #000000;} /* function */
 .ch,.st  {color: #036a07;} /* string */
 .kw      {color: #264D66;} /* keyword */
-.co      {color: #666666;} /* comment */
+.co      {color: #777777;} /* comment */
 
 .message { color: black;   font-weight: bolder;}
 .error   { color: orange;  font-weight: bolder;}
-.warning { color: #6A0366; font-weight: bolder;}
+.warning { color: orange; font-weight: normal;}
 
 
 /* Status --------------------------- */
@@ -140,8 +142,8 @@ code a, pre a {
 
 .ref-arguments th {text-align: right; padding-right: 10px;}
 .ref-arguments th, .ref-arguments td {vertical-align: top;}
-.ref-arguments .name {width: 20%;}
-.ref-arguments .desc {width: 80%;}
+.ref-arguments .name {width: 10%;}
+.ref-arguments .desc {width: 90%;}
 
 /* For the rstudio footer ------- */
 
