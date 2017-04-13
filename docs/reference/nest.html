@@ -86,19 +86,26 @@ data frame. <code>nest()</code> creates a list of data frames containing all
 the nested variables: this seems to be the most useful form in practice.</p>
     
 
-    <pre><span class='fu'>nest</span>(<span class='no'>data</span>, <span class='no'>...</span>, <span class='kw'>.key</span> <span class='kw'>=</span> <span class='no'>data</span>)</pre>
+    <pre class="usage"><span class='fu'>nest</span>(<span class='no'>data</span>, <span class='no'>...</span>, <span class='kw'>.key</span> <span class='kw'>=</span> <span class='no'>data</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
-    <dl class="dl-horizontal">
-      <dt>data</dt>
-      <dd><p>A data frame.</p></dd>
-      <dt>...</dt>
-      <dd><p>Specification of columns to nest. Use bare variable names.
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>data</th>
+      <td><p>A data frame.</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>Specification of columns to nest. Use bare variable names.
 Select all variables between x and z with <code>x:z</code>, exclude y with
-<code>-y</code>. For more options, see the <a href='http://www.rdocumentation.org/packages/dplyr/topics/select'>select</a> documentation.</p></dd>
-      <dt>.key</dt>
-      <dd><p>The name of the new column.</p></dd>
-    </dl>
+<code>-y</code>. For more options, see the <a href='http://www.rdocumentation.org/packages/dplyr/topics/select'>select</a> documentation.</p></td>
+    </tr>
+    <tr>
+      <th>.key</th>
+      <td><p>The name of the new column.</p></td>
+    </tr>
+    </table>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 

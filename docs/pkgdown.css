@@ -21,6 +21,18 @@ body {
   margin-top: 0;
 }
 
+/* Static header placement on mobile devices */
+@media (max-width: 767px) {
+  .navbar-fixed-top {
+    position: absolute;
+  }
+}
+
+.navbar-toggle {
+  margin-top: 8px;
+  margin-bottom: 5px;
+}
+
 /* Table of contents --------------------------*/
 
 #sidebar {
@@ -46,29 +58,43 @@ body {
   color: #777;
 }
 
-
 /* Syntax highlighting ---------------------------------------------------- */
 
-.fl,.number {color:rgb(21,20,181);}
-.fu,.functioncall {color:#264D66 ;}
-.ch,.st,.string {color:#375D81 ;}
-.kw,.keyword {font-weight:600;}
-.argument {color:#264D66 ;}
-.co,.comment {color: #333;}
-.formalargs {color: #264D66;}
-.eqformalargs {color:#264D66;}
-.slot {font-style:italic;}
-.symbol {color:black ;}
-.prompt {color:black ;}
+pre {
+  word-wrap: normal;
+  word-break: normal;
+}
 
-pre a {
-  font-weight: bolder;
+pre, code {
+  background-color: #f8f8f8;
+  color: #333;
+}
+
+pre.examples {
+  border: none;
+  background: none;
+  padding: 0;
 }
 
 pre img {
   background-color: #fff;
   display: block;
 }
+
+code a, pre a {
+  color: #375f84;
+}
+
+.fl      {color: #1514b5;}
+.fu      {color: #000000;} /* function */
+.ch,.st  {color: #036a07;} /* string */
+.kw      {color: #264D66;} /* keyword */
+.co      {color: #666666;} /* comment */
+
+.message { color: black;   font-weight: bolder;}
+.error   { color: orange;  font-weight: bolder;}
+.warning { color: #6A0366; font-weight: bolder;}
+
 
 /* Status --------------------------- */
 
@@ -100,26 +126,22 @@ pre img {
   }
 */
 
+/* Reference index & topics ----------------------------------------------- */
 
-/* For reference topics listing ------- */
+.ref-index th {font-weight: normal;}
+.ref-index h2 {font-size: 20px;}
 
-.section {
-  margin-bottom: 24px;
-}
+.ref-index td {vertical-align: top;}
+.ref-index .alias {width: 40%;}
+.ref-index .title {width: 60%;}
 
-.topic p {
-  font-size: 16px;
-  margin-bottom: 0;
-}
+.ref-index .alias {width: 40%;}
+.ref-index .title {width: 60%;}
 
-.topic ul {
-  padding-top: 0;
-  list-style-type: square;
-}
-
-.topic li a {
-  color: inherit;
-}
+.ref-arguments th {text-align: right; padding-right: 10px;}
+.ref-arguments th, .ref-arguments td {vertical-align: top;}
+.ref-arguments .name {width: 20%;}
+.ref-arguments .desc {width: 80%;}
 
 /* For the rstudio footer ------- */
 
@@ -140,13 +162,6 @@ footer .tidyverse {
 footer .author {
   flex: 1;
   text-align: right;
-}
-
-/* --------------------- darken code link color */
-
-code a {
-  color: #375f84;
-  font-weight: 600;
 }
 
 /* ---------------------- hover anchor tags */

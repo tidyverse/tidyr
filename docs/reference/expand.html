@@ -87,7 +87,7 @@ Or you can use it in conjunction with <code>anti_join()</code> to figure
 out which combinations are missing.</p>
     
 
-    <pre><span class='fu'>expand</span>(<span class='no'>data</span>, <span class='no'>...</span>)
+    <pre class="usage"><span class='fu'>expand</span>(<span class='no'>data</span>, <span class='no'>...</span>)
 
 <span class='fu'>crossing</span>(<span class='no'>...</span>)
 
@@ -98,11 +98,15 @@ out which combinations are missing.</p>
 <span class='fu'>nesting_</span>(<span class='no'>x</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
-    <dl class="dl-horizontal">
-      <dt>data</dt>
-      <dd><p>A data frame</p></dd>
-      <dt>...</dt>
-      <dd><p>Specification of columns to expand.</p>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>data</th>
+      <td><p>A data frame</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>Specification of columns to expand.</p>
 <p>To find all unique combinations of x, y and z, including those not
   found in the data, supply each variable as a separate argument.
   To find only the combinations that occur in the data, use nest:
@@ -114,10 +118,13 @@ out which combinations are missing.</p>
   data) are used. For continuous variables, you may need to fill in values
   that don't appear in the data: to do so use expressions like
   <code>year = 2010:2020</code> or <code>year = <a href='full_seq.html'>full_seq</a>(year)</code>.</p>
-<p>Length-zero (empty) elements are automatically dropped.</p></dd>
-      <dt>x</dt>
-      <dd><p>For <code>nesting_</code> and <code>crossing_</code> a list of variables.</p></dd>
-    </dl>
+<p>Length-zero (empty) elements are automatically dropped.</p></td>
+    </tr>
+    <tr>
+      <th>x</th>
+      <td><p>For <code>nesting_</code> and <code>crossing_</code> a list of variables.</p></td>
+    </tr>
+    </table>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 

@@ -86,31 +86,44 @@ duplicating all other columns as needed. You use <code>gather()</code> when
 you notice that you have columns that are not variables.</p>
     
 
-    <pre><span class='fu'>gather</span>(<span class='no'>data</span>, <span class='no'>key</span>, <span class='no'>value</span>, <span class='no'>...</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>convert</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+    <pre class="usage"><span class='fu'>gather</span>(<span class='no'>data</span>, <span class='no'>key</span>, <span class='no'>value</span>, <span class='no'>...</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>convert</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>factor_key</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
-    <dl class="dl-horizontal">
-      <dt>data</dt>
-      <dd><p>A data frame.</p></dd>
-      <dt>key, value</dt>
-      <dd><p>Names of key and value columns to create in output.</p></dd>
-      <dt>...</dt>
-      <dd><p>Specification of columns to gather. Use bare variable names.
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>data</th>
+      <td><p>A data frame.</p></td>
+    </tr>
+    <tr>
+      <th>key, value</th>
+      <td><p>Names of key and value columns to create in output.</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>Specification of columns to gather. Use bare variable names.
 Select all variables between x and z with <code>x:z</code>, exclude y with
-<code>-y</code>. For more options, see the <a href='http://www.rdocumentation.org/packages/dplyr/topics/select'>select</a> documentation.</p></dd>
-      <dt>na.rm</dt>
-      <dd><p>If <code>TRUE</code>, will remove rows from output where the
-value column in <code>NA</code>.</p></dd>
-      <dt>convert</dt>
-      <dd><p>If <code>TRUE</code> will automatically run
+<code>-y</code>. For more options, see the <a href='http://www.rdocumentation.org/packages/dplyr/topics/select'>select</a> documentation.</p></td>
+    </tr>
+    <tr>
+      <th>na.rm</th>
+      <td><p>If <code>TRUE</code>, will remove rows from output where the
+value column in <code>NA</code>.</p></td>
+    </tr>
+    <tr>
+      <th>convert</th>
+      <td><p>If <code>TRUE</code> will automatically run
 <code>type.convert</code> on the key column. This is useful if the column
-names are actually numeric, integer, or logical.</p></dd>
-      <dt>factor_key</dt>
-      <dd><p>If <code>FALSE</code>, the default, the key values will be
+names are actually numeric, integer, or logical.</p></td>
+    </tr>
+    <tr>
+      <th>factor_key</th>
+      <td><p>If <code>FALSE</code>, the default, the key values will be
 stored as a character vector. If <code>TRUE</code>, will be stored as a factor,
-which preserves the original ordering of the columns.</p></dd>
-    </dl>
+which preserves the original ordering of the columns.</p></td>
+    </tr>
+    </table>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
