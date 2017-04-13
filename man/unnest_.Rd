@@ -27,4 +27,3 @@ nested data frame, separated by \code{.sep}.}
 This is a S3 generic.
 }
 \keyword{internal}
-

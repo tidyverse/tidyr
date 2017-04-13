@@ -31,4 +31,4 @@ Suggests:
 Remotes: RcppCore/Rcpp
 VignetteBuilder: knitr
 LinkingTo: Rcpp
-RoxygenNote: 5.0.1
+RoxygenNote: 6.0.1

@@ -40,4 +40,3 @@ if (require("gapminder")) {
 \code{\link{nest_}} for a version that uses regular evaluation
   and is suitable for programming with.
 }
-

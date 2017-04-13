@@ -21,4 +21,3 @@ unite_(data, col, from, sep = "_", remove = TRUE)
 This is a S3 generic.
 }
 \keyword{internal}
-

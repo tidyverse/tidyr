@@ -41,7 +41,7 @@ If you supply \code{fill}, these values will also replace existing
 explicit missing values in the data set.
 }
 \examples{
-library(dplyr)
+library(dplyr, warn.conflicts = FALSE)
 df <- data_frame(
   group = c(1:2, 1),
   item_id = c(1:2, 2),
@@ -58,4 +58,3 @@ df \%>\% complete(group, nesting(item_id, item_name), fill = list(value1 = 0))
 \code{\link{complete_}} for a version that uses regular evaluation
   and is suitable for programming with.
 }
-

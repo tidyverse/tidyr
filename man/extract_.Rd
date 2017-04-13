@@ -29,4 +29,3 @@ how the regular expression is processed.}
 This is a S3 generic.
 }
 \keyword{internal}
-

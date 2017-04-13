@@ -17,4 +17,3 @@ nest_(data, key_col, nest_cols = character())
 This is a S3 generic.
 }
 \keyword{internal}
-

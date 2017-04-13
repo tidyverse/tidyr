@@ -16,4 +16,3 @@ variables are considered while dropping rows.}
 This is a S3 generic.
 }
 \keyword{internal}
-

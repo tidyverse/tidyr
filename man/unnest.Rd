@@ -81,4 +81,3 @@ unnest(df, .id = "name")
 \code{\link{unnest_}} for a version that uses regular evaluation
   and is suitable for programming with.
 }
-

@@ -43,4 +43,3 @@ df \%>\% extract(x, c("A", "B"), "([a-d]+)-([a-d]+)")
 \code{\link{extract_}} for a version that uses regular evaluation
   and is suitable for programming with.
 }
-

@@ -2,8 +2,8 @@
 % Please edit documentation in R/data.R
 \docType{data}
 \name{who}
-\alias{population}
 \alias{who}
+\alias{population}
 \title{World Health Organization TB data}
 \format{A dataset with the variables
 \describe{
@@ -37,4 +37,3 @@ The data uses the original codes given by the World Health
   of age or older).
 }
 \keyword{datasets}
-

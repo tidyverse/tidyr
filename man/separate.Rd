@@ -79,4 +79,3 @@ df \%>\% separate(x, c("key", "value"), ": ", extra = "merge")
 \code{\link{separate_}} for a version that uses regular evaluation
   and is suitable for programming with.
 }
-

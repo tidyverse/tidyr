@@ -33,4 +33,3 @@ df \%>\% fill(Year)
 \code{\link{fill_}} for a version that uses regular evaluation
   and is suitable for programming with.
 }
-

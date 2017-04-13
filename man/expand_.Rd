@@ -15,4 +15,3 @@ expand_(data, dots, ...)
 This is a S3 generic.
 }
 \keyword{internal}
-

@@ -37,4 +37,3 @@ mtcars \%>\%
 \code{\link{unite_}} for a version that uses regular evaluation
   and is suitable for programming with.
 }
-

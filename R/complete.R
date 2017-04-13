@@ -18,7 +18,7 @@ NULL
 #'   and is suitable for programming with.
 #' @export
 #' @examples
-#' library(dplyr)
+#' library(dplyr, warn.conflicts = FALSE)
 #' df <- data_frame(
 #'   group = c(1:2, 1),
 #'   item_id = c(1:2, 2),

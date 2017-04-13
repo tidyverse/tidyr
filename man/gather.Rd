@@ -65,4 +65,3 @@ mini_iris \%>\% gather(key = flower_att, value = measurement, -Species)
 \code{\link{gather_}} for a version that uses regular evaluation
   and is suitable for programming with.
 }
-

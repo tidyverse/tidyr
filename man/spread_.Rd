@@ -35,4 +35,3 @@ by "<key_name><sep><key_value>".}
 This is a S3 generic.
 }
 \keyword{internal}
-

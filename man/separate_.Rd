@@ -55,4 +55,3 @@ columns are integer, numeric or logical.}
 This is a S3 generic.
 }
 \keyword{internal}
-

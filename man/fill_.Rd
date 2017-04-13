@@ -18,4 +18,3 @@ either "down" (the default) or "up".}
 This is a S3 generic.
 }
 \keyword{internal}
-

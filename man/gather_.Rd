@@ -31,4 +31,3 @@ which preserves the original ordering of the columns.}
 This is a S3 generic.
 }
 \keyword{internal}
-

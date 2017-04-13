@@ -27,4 +27,3 @@ df \%>\% drop_na(x)
 \code{\link{drop_na_}} for a version that uses regular evaluation
   and is suitable for programming with.
 }
-

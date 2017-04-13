@@ -18,4 +18,3 @@ use instead of \code{NA} for missing combinations.}
 This is a S3 generic.
 }
 \keyword{internal}
-
