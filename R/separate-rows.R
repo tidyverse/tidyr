@@ -32,6 +32,7 @@ separate_rows <- function(data, ..., sep = "[^[:alnum:].]+",
 #' @param cols Name of columns that need to be separated.
 #' @param sep Separator delimiting collapsed values.
 #' @inheritParams separate_
+#' @keywords internal
 #' @export
 separate_rows_ <- function(data, cols, sep = "[^[:alnum:].]+",
                            convert = FALSE) {

@@ -27,6 +27,7 @@ compact <- function(x) x[vapply(x, length, integer(1)) > 0]
 #' DEPRECATED: please use \code{readr::parse_number()} instead.
 #'
 #' @param x A character vector (or a factor).
+#' @keywords internal
 #' @export
 extract_numeric <- function(x) {
   message("extract_numeric() is deprecated: please use readr::parse_number() instead")

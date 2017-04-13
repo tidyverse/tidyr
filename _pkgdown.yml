@@ -7,3 +7,30 @@ home:
 template:
   package: tidytemplate
   default_assets: false
+
+reference:
+- title: Tidying
+  contents:
+  - extract
+  - gather
+  - nest
+  - separate
+  - separate_rows
+  - spread
+  - unite
+  - unnest
+
+- title: Implicit and explicit missing values
+  contents:
+  - complete
+  - drop_na
+  - expand
+  - fill
+  - full_seq
+  - replace_na
+
+- title: Data
+  contents:
+  - smiths
+  - table1
+  - who

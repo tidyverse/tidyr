@@ -20,3 +20,4 @@ columns are integer, numeric or logical.}
 \description{
 This is a S3 generic.
 }
+\keyword{internal}
