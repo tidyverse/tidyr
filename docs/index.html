@@ -81,7 +81,7 @@
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># The easiest way to get tidyr is to install the whole tidyverse:</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># The easiest way to get tidyr is to install the whole tidyverse:</span>
 <span class="kw">install.packages</span>(<span class="st">"tidyverse"</span>)
 
 <span class="co"># Alternatively, install just tidyr:</span>
@@ -89,12 +89,12 @@
 
 <span class="co"># Or the the development version from GitHub:</span>
 <span class="co"># install.packages("devtools")</span>
-devtools::<span class="kw">install_github</span>(<span class="st">"tidyverse/tidyr"</span>)</code></pre>
+devtools::<span class="kw">install_github</span>(<span class="st">"tidyverse/tidyr"</span>)</code></pre></div>
 </div>
 <div id="getting-started" class="section level2">
 <h2 class="hasAnchor">
 <a href="#getting-started" class="anchor"></a>Getting started</h2>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyr)</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyr)</code></pre></div>
 <p>There are two fundamental verbs of data tidying:</p>
 <ul>
 <li><p><code><a href="reference/gather.html">gather()</a></code> takes multiple columns, and gathers them into key-value pairs: it makes “wide” data longer.</p></li>
@@ -116,25 +116,25 @@ devtools::<span class="kw">install_github</span>(<span class="st">"tidyverse/tid
 <p>To guide your reading, here’s translation between the terminology used in different places:</p>
 <table class="table">
 <thead><tr class="header">
-<th align="left">tidyr</th>
-<th align="left">gather</th>
-<th align="left">spread</th>
+<th>tidyr</th>
+<th>gather</th>
+<th>spread</th>
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td align="left">reshape(2)</td>
-<td align="left">melt</td>
-<td align="left">cast</td>
+<td>reshape(2)</td>
+<td>melt</td>
+<td>cast</td>
 </tr>
 <tr class="even">
-<td align="left">spreadsheets</td>
-<td align="left">unpivot</td>
-<td align="left">pivot</td>
+<td>spreadsheets</td>
+<td>unpivot</td>
+<td>pivot</td>
 </tr>
 <tr class="odd">
-<td align="left">databases</td>
-<td align="left">fold</td>
-<td align="left">unfold</td>
+<td>databases</td>
+<td>fold</td>
+<td>unfold</td>
 </tr>
 </tbody>
 </table>
