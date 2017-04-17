@@ -21,7 +21,7 @@ test_that("unnesting row binds data frames", {
 
 test_that("elements must all be of same type", {
   df <- data_frame(x = list(1, "a"))
-  expect_error(unnest(df), "(incompatible type)|(numeric to character)")
+  expect_error(unnest(df), "(incompatible type)|(numeric to character)|(character to numeric)")
 })
 
 test_that("can't combine vectors and data frames", {
