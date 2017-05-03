@@ -1,26 +1,13 @@
-This is a resubmission that fixes:
-
-1. Non-canonical CRAN url in README.md
-2. Use of ` instead of ' in package title
-
----
-
 ## Test environments
-* local OS X install, R 3.3.2
-* ubuntu 12.04 (on travis-ci), R 3.3.2
-* win-builder (devel and release)
+* x86_64-w64-mingw32 + R-devel
+* x86_64-pc-linux-gnu + R 3.3.3
+* x86_64-pc-linux-gnu + R-devel
 
 ## R CMD check results
 
-0 errors | 0 warnings | 2 notes
-
-* License components with restrictions and base license permitting such:
-  MIT + file LICENSE
-  
-* checking data for non-ASCII characters ... NOTE
-  Note: found 23 marked UTF-8 strings
+0 errors | 0 warnings | 0 notes
 
 ## Downstream dependencies
 
-I did not run R CMD check as this is a patch release to fix a test failure 
-with the dev version of tibble.
+I did not run R CMD check as this is a patch release to register C functions and fix a test failure 
+with the soon-to-be-released version of dplyr.
