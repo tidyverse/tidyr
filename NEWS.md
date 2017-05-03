@@ -1,5 +1,7 @@
 # tidyr 0.6.1.9000
 
+* Register C functions
+
 * Added package docs
 
 * Patch tests to be compatible with dev dplyr.

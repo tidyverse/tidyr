@@ -1,4 +1,3 @@
-#' @useDynLib tidyr
 #' @importFrom Rcpp sourceCpp
 NULL
 
