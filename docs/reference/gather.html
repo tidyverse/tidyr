@@ -144,28 +144,28 @@ which preserves the original ordering of the columns.</p></td>
 <span class='fu'>gather</span>(<span class='no'>stocks</span>, <span class='no'>stock</span>, <span class='no'>price</span>, -<span class='no'>time</span>)</div><div class='output co'>#&gt; # A tibble: 30 × 3
 #&gt;          time stock       price
 #&gt;        &lt;date&gt; &lt;chr&gt;       &lt;dbl&gt;
-#&gt; 1  2009-01-01     X -1.63098940
-#&gt; 2  2009-01-02     X  0.51242695
-#&gt; 3  2009-01-03     X -1.86301149
-#&gt; 4  2009-01-04     X -0.52201251
-#&gt; 5  2009-01-05     X -0.05260191
-#&gt; 6  2009-01-06     X  0.54299634
-#&gt; 7  2009-01-07     X -0.91407483
-#&gt; 8  2009-01-08     X  0.46815442
-#&gt; 9  2009-01-09     X  0.36295126
+#&gt;  1 2009-01-01     X -1.63098940
+#&gt;  2 2009-01-02     X  0.51242695
+#&gt;  3 2009-01-03     X -1.86301149
+#&gt;  4 2009-01-04     X -0.52201251
+#&gt;  5 2009-01-05     X -0.05260191
+#&gt;  6 2009-01-06     X  0.54299634
+#&gt;  7 2009-01-07     X -0.91407483
+#&gt;  8 2009-01-08     X  0.46815442
+#&gt;  9 2009-01-09     X  0.36295126
 #&gt; 10 2009-01-10     X -1.30454355
 #&gt; # ... with 20 more rows</div><div class='input'><span class='no'>stocks</span> <span class='kw'>%&gt;%</span> <span class='fu'>gather</span>(<span class='no'>stock</span>, <span class='no'>price</span>, -<span class='no'>time</span>)</div><div class='output co'>#&gt; # A tibble: 30 × 3
 #&gt;          time stock       price
 #&gt;        &lt;date&gt; &lt;chr&gt;       &lt;dbl&gt;
-#&gt; 1  2009-01-01     X -1.63098940
-#&gt; 2  2009-01-02     X  0.51242695
-#&gt; 3  2009-01-03     X -1.86301149
-#&gt; 4  2009-01-04     X -0.52201251
-#&gt; 5  2009-01-05     X -0.05260191
-#&gt; 6  2009-01-06     X  0.54299634
-#&gt; 7  2009-01-07     X -0.91407483
-#&gt; 8  2009-01-08     X  0.46815442
-#&gt; 9  2009-01-09     X  0.36295126
+#&gt;  1 2009-01-01     X -1.63098940
+#&gt;  2 2009-01-02     X  0.51242695
+#&gt;  3 2009-01-03     X -1.86301149
+#&gt;  4 2009-01-04     X -0.52201251
+#&gt;  5 2009-01-05     X -0.05260191
+#&gt;  6 2009-01-06     X  0.54299634
+#&gt;  7 2009-01-07     X -0.91407483
+#&gt;  8 2009-01-08     X  0.46815442
+#&gt;  9 2009-01-09     X  0.36295126
 #&gt; 10 2009-01-10     X -1.30454355
 #&gt; # ... with 20 more rows</div><div class='input'>
 <span class='co'># get first observation for each Species in iris data -- base R</span>
@@ -204,20 +204,19 @@ which preserves the original ordering of the columns.</p></td>
   <span class='no'>iris</span> <span class='kw'>%&gt;%</span>
   <span class='fu'>group_by</span>(<span class='no'>Species</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'>slice</span>(<span class='fl'>1</span>)
-<span class='no'>mini_iris</span> <span class='kw'>%&gt;%</span> <span class='fu'>gather</span>(<span class='kw'>key</span> <span class='kw'>=</span> <span class='no'>flower_att</span>, <span class='kw'>value</span> <span class='kw'>=</span> <span class='no'>measurement</span>, -<span class='no'>Species</span>)</div><div class='output co'>#&gt; Source: local data frame [12 x 3]
-#&gt; Groups: Species [3]
-#&gt; 
+<span class='no'>mini_iris</span> <span class='kw'>%&gt;%</span> <span class='fu'>gather</span>(<span class='kw'>key</span> <span class='kw'>=</span> <span class='no'>flower_att</span>, <span class='kw'>value</span> <span class='kw'>=</span> <span class='no'>measurement</span>, -<span class='no'>Species</span>)</div><div class='output co'>#&gt; # A tibble: 12 × 3
+#&gt; # Groups: Species [3]
 #&gt;       Species   flower_att measurement
 #&gt;        &lt;fctr&gt;        &lt;chr&gt;       &lt;dbl&gt;
-#&gt; 1      setosa Sepal.Length         5.1
-#&gt; 2  versicolor Sepal.Length         7.0
-#&gt; 3   virginica Sepal.Length         6.3
-#&gt; 4      setosa  Sepal.Width         3.5
-#&gt; 5  versicolor  Sepal.Width         3.2
-#&gt; 6   virginica  Sepal.Width         3.3
-#&gt; 7      setosa Petal.Length         1.4
-#&gt; 8  versicolor Petal.Length         4.7
-#&gt; 9   virginica Petal.Length         6.0
+#&gt;  1     setosa Sepal.Length         5.1
+#&gt;  2 versicolor Sepal.Length         7.0
+#&gt;  3  virginica Sepal.Length         6.3
+#&gt;  4     setosa  Sepal.Width         3.5
+#&gt;  5 versicolor  Sepal.Width         3.2
+#&gt;  6  virginica  Sepal.Width         3.3
+#&gt;  7     setosa Petal.Length         1.4
+#&gt;  8 versicolor Petal.Length         4.7
+#&gt;  9  virginica Petal.Length         6.0
 #&gt; 10     setosa  Petal.Width         0.2
 #&gt; 11 versicolor  Petal.Width         1.4
 #&gt; 12  virginica  Petal.Width         2.5</div></pre>
