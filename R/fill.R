@@ -23,8 +23,28 @@ NULL
 #' df <- data.frame(Month = 1:12, Year = c(2000, rep(NA, 11)))
 #' df %>% fill(Year)
 fill <- function(data, ..., .direction = c("down", "up")) {
-  fill_cols <- unname(dplyr::select_vars(colnames(data), ...))
-  fill_(data, fill_cols, .direction = .direction)
+  UseMethod("fill")
+}
+#' @export
+fill.default <- function(data, ..., .direction = c("down", "up")) {
+  fill_(data, fill_cols = compat_as_lazy_dots(...), .direction = .direction)
+}
+#' @export
+fill.data.frame <- function(data, ..., .direction = c("down", "up")) {
+  fill_cols <- unname(dplyr::select_vars(names(data), ...))
+
+  .direction <- match.arg(.direction)
+  fillVector <- switch(.direction, down = fillDown, up = fillUp)
+
+  for (col in fill_cols) {
+    data[[col]] <- fillVector(data[[col]])
+  }
+
+  data
+}
+#' @export
+fill.grouped_df <- function(data, ..., .direction = c("down", "up")) {
+  dplyr::do(data, fill(., ..., .direction = .direction))
 }
 
 #' Standard-evaluation version of \code{fill}.
@@ -40,20 +60,8 @@ fill <- function(data, ..., .direction = c("down", "up")) {
 fill_ <- function(data, fill_cols, .direction = c("down", "up")) {
   UseMethod("fill_")
 }
-
 #' @export
 fill_.data.frame <- function(data, fill_cols, .direction = c("down", "up")) {
-  .direction <- match.arg(.direction)
-  fillVector <- switch(.direction, down = fillDown, up = fillUp)
-
-  for (col in fill_cols) {
-    data[[col]] <- fillVector(data[[col]])
-  }
-
-  data
-}
-
-#' @export
-fill_.grouped_df <- function(data, fill_cols, .direction = c("down", "up")) {
-  dplyr::do(data, fill_(., fill_cols = fill_cols, .direction = .direction))
+  vars <- compat_lazy_dots(fill_cols, caller_env())
+  fill(data, !!! vars, .direction = .direction)
 }
