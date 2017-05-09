@@ -21,10 +21,10 @@ test_that("groups are preserved", {
   df <- data_frame(g = c("A", "A", "B"), x = c(1, 2, NA), y = c("a", NA, "b"))
   exp <- data_frame(g = c("A", "B"), x = c(1, NA), y = c("a", "b"))
 
-  gdf <- dplyr::group_by_(df, "g")
-  gexp <- dplyr::group_by_(exp, "g")
+  gdf <- dplyr::group_by(df, "g")
+  gexp <- dplyr::group_by(exp, "g")
 
-  res <- tidyr::drop_na_(gdf, "y")
+  res <- tidyr::drop_na(gdf, y)
   expect_equal(res, gexp)
   expect_equal(dplyr::groups(res), dplyr::groups(gexp))
 })
@@ -48,7 +48,7 @@ test_that("specifying (a) variable(s) considers only that variable(s) (NSE versi
 
 test_that("errors are raised", {
   df <- data_frame(x = c(1, 2, NA), y = c("a", NA, "b"))
-  expect_error(tidyr::drop_na_(df, NULL), "not a character vector")
-  expect_error(tidyr::drop_na_(df, 1), "not a character vector")
-  expect_error(tidyr::drop_na_(df, "z"))
+  expect_error(tidyr::drop_na_(df, NULL), "must be a character vector")
+  expect_error(tidyr::drop_na_(df, 1), "must be a character vector")
+  expect_error(tidyr::drop_na_(df, "z"), "'z' not found")
 })

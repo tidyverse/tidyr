@@ -14,8 +14,34 @@
 #' df %>% drop_na(x)
 #' @export
 drop_na <- function(data, ...) {
-  relevant_cols <- unname(dplyr::select_vars(colnames(data), ...))
-  drop_na_(data, relevant_cols)
+  UseMethod("drop_na")
+}
+#' @export
+drop_na.default <- function(data, ...) {
+  drop_na_(data, vars = compat_as_lazy_dots(...))
+}
+#' @export
+drop_na.tbl_df <- function(data, ...) {
+  as_data_frame(NextMethod())
+}
+#' @export
+drop_na.grouped_df <- function(data, ...) {
+  out <- drop_na.data.frame(data, ...)
+  regroup(out, data)
+}
+#' @export
+drop_na.data.frame <- function(data, ...) {
+  vars <- unname(dplyr::select_vars(colnames(data), ...))
+
+  if (!is_character(vars)) {
+    abort("`vars` is not a character vector.")
+  }
+  if (is_empty(vars)) {
+    f <- stats::complete.cases(data)
+  } else {
+    f <- stats::complete.cases(data[vars])
+  }
+  data[f, ]
 }
 
 #' Standard-evaluation version of \code{drop_na}.
@@ -30,26 +56,16 @@ drop_na <- function(data, ...) {
 drop_na_ <- function(data, vars) {
   UseMethod("drop_na_")
 }
-
 #' @export
 drop_na_.data.frame <- function(data, vars) {
   if (!is_character(vars)) {
-    abort("`vars` is not a character vector.")
+    abort("`vars` must be a character vector")
   }
-  if (length(vars) == 0) {
-    f = stats::complete.cases(data)
+
+  if (is_empty_character(vars)) {
+    drop_na(data)
   } else {
-    f <- stats::complete.cases(data[vars])
+    vars <- compat_lazy_dots(vars, caller_env())
+    drop_na(data, !!! vars)
   }
-  data[f, ]
-}
-
-#' @export
-drop_na_.tbl_df <- function(data, vars) {
-  as_data_frame(NextMethod())
-}
-
-#' @export
-drop_na_.grouped_df <- function(data, vars) {
-  regroup(NextMethod(), data)
 }
