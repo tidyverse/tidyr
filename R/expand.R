@@ -83,7 +83,10 @@
 expand <- function(data, ...) {
   UseMethod("expand")
 }
-
+#' @export
+expand.default <- function(data, ...) {
+  expand_(data, .dots = compat_as_lazy_dots(...))
+}
 #' @export
 expand.data.frame <- function(data, ...) {
   dots <- quos(..., .named = TRUE)

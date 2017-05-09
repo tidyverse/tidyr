@@ -32,12 +32,14 @@ NULL
 #' df %>% complete(group, nesting(item_id, item_name), fill = list(value1 = 0))
 complete <- function(data, ..., fill = list()) {
   if (dots_n(...) == 0) {
-    abort("Please supply variables to complete.")
+    abort("Please supply variables to complete")
   }
 
   UseMethod("complete")
 }
-
+complete.default <- function(data, ..., fill = list()) {
+  complete_(data, .dots = compat_as_lazy_dots(...), fill = fill)
+}
 #' @export
 complete.data.frame <- function(data, ..., fill = list()) {
   full <- expand(data, ...)
@@ -46,7 +48,6 @@ complete.data.frame <- function(data, ..., fill = list()) {
 
   full
 }
-
 #' @export
 complete.grouped_df <- function(data, ..., fill = list()) {
   regroup(NextMethod(), data)
@@ -62,6 +63,10 @@ complete.grouped_df <- function(data, ..., fill = list()) {
 #' @export
 #' @keywords internal
 complete_ <- function(data, cols, fill = list(), ...) {
-  warn_underscored()
-  complete(data, !!!cols, fill = fill)
+  UseMethod("complete_")
+}
+#' @export
+complete_.data.frame <- function(data, cols, fill = list(), ...) {
+  cols <- compat_lazy_dots(cols, caller_env())
+  complete(data, !!! cols, fill = fill)
 }
