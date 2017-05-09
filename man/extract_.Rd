@@ -10,7 +10,7 @@ extract_(data, col, into, regex = "([[:alnum:]]+)", remove = TRUE,
 \arguments{
 \item{data}{A data frame.}
 
-\item{col}{Name of column to split, as string.}
+\item{col}{Bare column name.}
 
 \item{into}{Names of new variables to create as character vector.}
 

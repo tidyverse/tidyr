@@ -81,3 +81,26 @@ imap <- function(.x, .f, ...) {
 is_empty_character <- function(x) {
   is_character(x, 0)
 }
+
+
+select_var <- function(vars, var) {
+  var_env <- set_names(as_list(seq_along(vars)), vars)
+  var <- eval_tidy(enquo(var), var_env)
+
+  if (!is_integerish(var, 1)) {
+    abort(glue("`var` must evaluate to a single number"))
+  }
+
+  var <- as_integer(var)
+  n <- length(vars)
+
+  if (is_na(var) || abs(var) > n || var == 0L) {
+    abort(glue("`var` must be a value between {-n} and {n} (excluding zero), not {var}"))
+  }
+
+  if (var < 0) {
+    var <- var + n + 1
+  }
+
+  var
+}
