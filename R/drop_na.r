@@ -22,7 +22,8 @@ drop_na.default <- function(data, ...) {
 }
 #' @export
 drop_na.tbl_df <- function(data, ...) {
-  as_data_frame(NextMethod())
+  out <- drop_na.data.frame(data, ...)
+  as_data_frame(out)
 }
 #' @export
 drop_na.grouped_df <- function(data, ...) {

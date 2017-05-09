@@ -50,7 +50,8 @@ complete.data.frame <- function(data, ..., fill = list()) {
 }
 #' @export
 complete.grouped_df <- function(data, ..., fill = list()) {
-  regroup(NextMethod(), data)
+  out <- complete.data.frame(data, ..., fill = fill)
+  regroup(out, data)
 }
 
 #' Standard-evaluation version of \code{complete}.

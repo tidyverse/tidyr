@@ -99,7 +99,8 @@ expand.data.frame <- function(data, ...) {
 }
 #' @export
 expand.tbl_df <- function(data, ...) {
-  as_data_frame(NextMethod())
+  out <- expand.data.frame(data, ...)
+  as_data_frame(out)
 }
 #' @export
 expand.grouped_df <- function(data, ...) {
