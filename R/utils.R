@@ -57,13 +57,13 @@ list_indices <- function(x, max = 20) {
 
 `%||%` <- function(x, y) if (length(x) == 0) y else x
 
-regroup <- function(x, y, except = NULL) {
-  groups <- dplyr::groups(y)
+regroup <- function(output, input, except = NULL) {
+  groups <- dplyr::group_vars(input)
   if (!is.null(except)) {
-    groups <- setdiff(groups, map(except, as.name))
+    groups <- setdiff(groups, except)
   }
 
-  dplyr::grouped_df(x, groups)
+  dplyr::grouped_df(output, groups)
 }
 
 # Allows tests to work with either dplyr 0.4 (which ignores value of
@@ -87,8 +87,15 @@ select_var <- function(vars, var) {
   var_env <- set_names(as_list(seq_along(vars)), vars)
   var <- eval_tidy(enquo(var), var_env)
 
-  if (!is_integerish(var, 1)) {
-    abort(glue("`var` must evaluate to a single number"))
+  if (is_string(var)) {
+    pos <- match(var, vars)
+    if (is_na(pos)) {
+      abort(glue("`var` can't be found among `vars`"))
+    }
+  } else if (is_integerish(var, 1)) {
+    pos <- var
+  } else {
+    abort(glue("`var` must evaluate to a single number or a column name"))
   }
 
   var <- as_integer(var)

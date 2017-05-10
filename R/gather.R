@@ -5,7 +5,14 @@
 #' you notice that you have columns that are not variables.
 #'
 #' @param data A data frame.
-#' @param key,value Names of key and value columns to create in output.
+#' @param key,value Names of key and value columns to create in
+#'   output.
+#'
+#'   These variables are passed by expression, support quasiquotation
+#'   (you can unquote strings and symbols), and the names are captured
+#'   with [rlang::quo_name()] (note that this kind of interface where
+#'   symbols do not represent real objects is now discouraged in the
+#'   tidyverse).
 #' @param ... Specification of columns to gather. Use bare variable names.
 #'   Select all variables between x and z with \code{x:z}, exclude y with
 #'   \code{-y}. For more options, see the \link[dplyr]{select} documentation.
@@ -41,22 +48,86 @@
 #'   group_by(Species) %>%
 #'   slice(1)
 #' mini_iris %>% gather(key = flower_att, value = measurement, -Species)
-gather <- function(data, key, value, ..., na.rm = FALSE, convert = FALSE,
-                   factor_key = FALSE) {
-  key_col <- col_name(substitute(key), "key")
-  value_col <- col_name(substitute(value), "value")
+gather <- function(data, key = "key", value = "value", ...,
+                   na.rm = FALSE, convert = FALSE, factor_key = FALSE) {
+  UseMethod("gather")
+}
+#' @export
+gather.default <- function(data, key = "key", value = "value", ...,
+                           na.rm = FALSE, convert = FALSE,
+                           factor_key = FALSE) {
+  gather_(data,
+    key_col = compat_as_lazy(enquo(key)),
+    value_col = compat_as_lazy(enquo(value)),
+    ...,
+    na.rm = na.rm,
+    convert = convert,
+    factor_key = factor_key
+  )
+}
+#' @export
+gather.data.frame <- function(data, key = "key", value = "value", ...,
+                              na.rm = FALSE, convert = FALSE,
+                              factor_key = FALSE) {
+  key_var <- quo_name(enexpr(key))
+  value_var <- quo_name(enexpr(value))
 
-  if (n_dots(...) == 0) {
-    gather_cols <- setdiff(colnames(data), c(key_col, value_col))
+  if (dots_n(...) == 0) {
+    gather_vars <- setdiff(names(data), c(key_var, value_var))
   } else {
-    gather_cols <- unname(dplyr::select_vars(colnames(data), ...))
+    gather_vars <- unname(dplyr::select_vars(names(data), ...))
+  }
+  if (is_empty(gather_vars)) {
+    return(data)
   }
 
-  gather_(data, key_col, value_col, gather_cols, na.rm = na.rm,
-    convert = convert, factor_key = factor_key)
+  gather_idx <- match(gather_vars, names(data))
+  if (anyNA(gather_idx)) {
+    missing_cols <- paste(gather_vars[is.na(gather_idx)], collapse = ", ")
+    abort(glue("Unknown column names: ", missing_cols))
+  }
+  id_idx <- setdiff(seq_along(data), gather_idx)
+
+  ## Get the attributes if common, NULL if not.
+  args <- normalize_melt_arguments(data, gather_idx, factorsAsStrings = TRUE)
+  valueAsFactor <- "factor" %in% class(args$attr_template)
+
+  df <- melt_dataframe(data,
+    id_idx - 1L,
+    gather_idx - 1L,
+    as.character(key_var),
+    as.character(value_var),
+    args$attr_template,
+    args$factorsAsStrings,
+    as.logical(valueAsFactor),
+    as.logical(factor_key)
+  )
+
+  if (na.rm && anyNA(df)) {
+    missing <- is.na(df[[value_var]])
+    df <- df[!missing, ]
+  }
+
+  if (convert) {
+    df[[key_var]] <- type.convert(as.character(df[[key_var]]), as.is = TRUE)
+  }
+
+  metadata <- list(key_var = key_var, value_var = value_var, gather_vars = gather_vars)
+  reconstruct_gather(data, df, metadata)
 }
 
-n_dots <- function(...) nargs()
+reconstruct_gather <- function(input, output, data) {
+  UseMethod("reconstruct_gather")
+}
+reconstruct_gather.default <- function(input, output, data) {
+  output
+}
+reconstruct_gather.tbl_df <- function(input, output, data) {
+  tibble::as_tibble(output)
+}
+reconstruct_gather.grouped_df <- function(input, output, data) {
+  regroup(output, input, data$gather_vars)
+}
 
 #' Gather (standard-evaluation).
 #'
@@ -78,63 +149,25 @@ n_dots <- function(...) nargs()
 #' @keywords internal
 #' @export
 gather_ <- function(data, key_col, value_col, gather_cols, na.rm = FALSE,
-                     convert = FALSE, factor_key = FALSE) {
+                    convert = FALSE, factor_key = FALSE) {
   UseMethod("gather_")
 }
-
 #' @export
 gather_.data.frame <- function(data, key_col, value_col, gather_cols,
                                na.rm = FALSE, convert = FALSE,
                                factor_key = FALSE) {
-  ## Return if we're not doing any gathering
-  if (length(gather_cols) == 0) {
-    return(data)
-  }
+  key_col <- compat_lazy(key_col)
+  value_col <- compat_lazy(value_col)
+  gather_cols <- compat_lazy_dots(gather_cols)
 
-  gather_idx <- match(gather_cols, names(data))
-  if (anyNA(gather_idx)) {
-    missing_cols <- paste(gather_cols[is.na(gather_idx)], collapse = ", ")
-    abort(glue("Unknown column names: ", missing_cols))
-  }
-  id_idx <- setdiff(seq_along(data), gather_idx)
-
-  ## Get the attributes if common, NULL if not.
-  args <- normalize_melt_arguments(data, gather_idx, factorsAsStrings = TRUE)
-  valueAsFactor <- "factor" %in% class(args$attr_template)
-
-  df <- melt_dataframe(data,
-    id_idx - 1L,
-    gather_idx - 1L,
-    as.character(key_col),
-    as.character(value_col),
-    args$attr_template,
-    args$factorsAsStrings,
-    as.logical(valueAsFactor),
-    as.logical(factor_key)
+  gather(data,
+    key = !! key_col,
+    value = !! value_col,
+    !!! gather_cols,
+    na.rm = na.rm,
+    convert = convert,
+    factor_key = factor_key
   )
-
-  if (na.rm && anyNA(df)) {
-    missing <- is.na(df[[value_col]])
-    df <- df[!missing, ]
-  }
-
-  if (convert) {
-    df[[key_col]] <- type.convert(as.character(df[[key_col]]), as.is = TRUE)
-  }
-
-  df
-}
-
-#' @export
-gather_.tbl_df <- function(data, key_col, value_col, gather_cols,
-                           na.rm = FALSE, convert = FALSE, factor_key = FALSE) {
-  as_data_frame(NextMethod())
-}
-
-#' @export
-gather_.grouped_df <- function(data, key_col, value_col, gather_cols,
-                               na.rm = FALSE, convert = FALSE, factor_key = FALSE) {
-  regroup(NextMethod(), data, gather_cols)
 }
 
 # Functions from reshape2 -------------------------------------------------

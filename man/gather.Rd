@@ -4,13 +4,20 @@
 \alias{gather}
 \title{Gather columns into key-value pairs.}
 \usage{
-gather(data, key, value, ..., na.rm = FALSE, convert = FALSE,
-  factor_key = FALSE)
+gather(data, key = "key", value = "value", ..., na.rm = FALSE,
+  convert = FALSE, factor_key = FALSE)
 }
 \arguments{
 \item{data}{A data frame.}
 
-\item{key, value}{Names of key and value columns to create in output.}
+\item{key, value}{Names of key and value columns to create in
+  output.
+
+  These variables are passed by expression, support quasiquotation
+  (you can unquote strings and symbols), and the names are captured
+  with [rlang::quo_name()] (note that this kind of interface where
+  symbols do not represent real objects is now discouraged in the
+  tidyverse).}
 
 \item{...}{Specification of columns to gather. Use bare variable names.
 Select all variables between x and z with \code{x:z}, exclude y with
