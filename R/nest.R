@@ -8,6 +8,12 @@
 #' @seealso \code{\link{nest_}} for a version that uses regular evaluation
 #'   and is suitable for programming with.
 #' @param .key The name of the new column.
+#'
+#'   This variable is passed by expression, supports quasiquotation
+#'   (you can unquote strings and symbols), and the name is captured
+#'   with [rlang::quo_name()] (note that this kind of interface where
+#'   symbols do not represent real objects is now discouraged in the
+#'   tidyverse).
 #' @inheritParams nest_
 #' @param ... Specification of columns to nest. Use bare variable names.
 #'   Select all variables between x and z with \code{x:z}, exclude y with
@@ -15,8 +21,8 @@
 #' @export
 #' @examples
 #' library(dplyr)
-#' iris %>% nest(-Species)
-#' chickwts %>% nest(weight)
+#' as_tibble(iris) %>% nest(-Species)
+#' as_tibble(chickwts) %>% nest(weight)
 #'
 #' if (require("gapminder")) {
 #'   gapminder %>%
@@ -26,10 +32,43 @@
 #'   gapminder %>%
 #'     nest(-country, -continent)
 #' }
-nest <- function(data, ..., .key = data) {
-  key_col <- col_name(substitute(.key))
-  nest_cols <- unname(dplyr::select_vars(colnames(data), ...))
-  nest_(data, key_col, nest_cols)
+nest <- function(data, ..., .key = "data") {
+  UseMethod("nest")
+}
+#' @export
+nest.default <- function(data, ..., .key = "data") {
+  key_col <- compat_as_lazy(enquo(.key))
+  nest_cols <- compat_as_lazy_dots(...)
+  nest_(data, key_col = key_col, nest_cols = nest_cols)
+}
+#' @export
+nest.data.frame <- function(data, ..., .key = "data") {
+  key_var <- quo_name(enexpr(.key))
+
+  nest_vars <- unname(dplyr::select_vars(names(data), ...))
+  if (is_empty(nest_vars)) {
+    nest_vars <- names(data)
+  }
+
+  if (dplyr::is_grouped_df(data)) {
+    group_vars <- dplyr::group_vars(data)
+  } else {
+    group_vars <- setdiff(names(data), nest_vars)
+  }
+  nest_vars <- setdiff(nest_vars, group_vars)
+
+  data <- dplyr::ungroup(data)
+  if (is_empty(group_vars)) {
+    return(tibble(!! key_var := list(data)))
+  }
+
+  out <- dplyr::select(data, !!! syms(group_vars))
+  out <- dplyr::distinct(out)
+
+  idx <- dplyr::group_indices(data, !!! syms(group_vars))
+  out[[key_var]] <- unname(split(data[nest_vars], idx))[unique(idx)]
+
+  out
 }
 
 #' Standard-evaluation version of \code{nest}.
@@ -44,46 +83,9 @@ nest <- function(data, ..., .key = data) {
 nest_ <- function(data, key_col, nest_cols = character()) {
   UseMethod("nest_")
 }
-
 #' @export
 nest_.data.frame <- function(data, key_col, nest_cols = character()) {
-  group_cols <- setdiff(names(data), nest_cols)
-  nest_impl(as_data_frame(data), key_col, group_cols, nest_cols)
+  key_col <- compat_lazy(key_col, caller_env())
+  nest_cols <- compat_lazy_dots(nest_cols, caller_env())
+  nest(data, key = !! key_col, !!! nest_cols)
 }
-
-#' @export
-nest_.tbl_df <- function(data, key_col, nest_cols = character()) {
-  as_data_frame(NextMethod())
-}
-
-#' @export
-nest_.grouped_df <- function(data, key_col, nest_cols = character()) {
-  if (length(nest_cols) == 0) {
-    nest_cols <- names(data)
-  }
-  group_cols <- map_chr(dplyr::groups(data), as.character)
-  nest_impl(data, key_col, group_cols, nest_cols)
-}
-
-#' @importFrom tibble data_frame
-nest_impl <- function(data, key_col, group_cols, nest_cols) {
-  data <- dplyr::ungroup(data)
-
-  if (length(group_cols) == 0) {
-    df <- data_frame(list(data))
-    names(df) <- enc2utf8(key_col)
-
-    return(df)
-  }
-
-  nest_cols <- setdiff(nest_cols, group_cols)
-
-  out <- dplyr::distinct(dplyr::select(data, !!! syms(group_cols)))
-
-  idx <- dplyr::group_indices(data, !!! syms(group_cols))
-  out[[key_col]] <- unname(split(data[nest_cols], idx))[unique(idx)]
-
-  out
-}
-
-globalVariables(".")
