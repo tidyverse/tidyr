@@ -6,7 +6,7 @@
 #'   map_call map_chr map_dbl map_df map_if map_int map_lgl pmap
 #'   pmap_chr pmap_dbl pmap_df pmap_int pmap_lgl reduce reduce_right
 #'   some transpose
-#' @importFrom tibble tibble
+#' @importFrom tibble tibble as_tibble
 #' @useDynLib tidyr, .registration = TRUE
 "_PACKAGE"
 

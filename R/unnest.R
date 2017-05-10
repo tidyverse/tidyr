@@ -57,41 +57,23 @@
 #' )
 #' unnest(df, .id = "name")
 unnest <- function(data, ..., .drop = NA, .id = NULL, .sep = NULL) {
-  dots <- lazyeval::lazy_dots(...)
-  if (length(dots) == 0) {
+  UseMethod("unnest")
+}
+#' @export
+unnest.default <- function(data, ..., .drop = NA, .id = NULL, .sep = NULL) {
+  unnest_cols <- compat_as_lazy_dots(...)
+  unnest_(data, unnest_cols = unnest_cols, .drop = .drop, .id = .id, .sep = .sep)
+}
+#' @export
+unnest.data.frame <- function(data, ..., .drop = NA, .id = NULL,
+                              .sep = NULL) {
+  quos <- quos(...)
+  if (is_empty(quos)) {
     list_cols <- names(data)[map_lgl(data, is_list)]
-    list_col_names <- map(list_cols, as.name)
-    dots <- lazyeval::as.lazy_dots(list_col_names, env = parent.frame())
+    quos <- syms(list_cols)
   }
 
-  unnest_(data, dots, .drop = .drop, .id = .id, .sep = .sep)
-}
-
-#' Standard-evaluation version of \code{unnest}.
-#'
-#' This is a S3 generic.
-#'
-#' @param data A data frame.
-#' @param unnest_cols Name of columns that needs to be unnested.
-#' @param .drop Should additional list columns be dropped? By default,
-#'   \code{unnest} will drop them if unnesting the specified columns requires
-#'   the rows to be duplicated.
-#' @param .id Data frame idenfier - if supplied, will create a new column
-#'   with name \code{.id}, giving a unique identifer. This is most useful if
-#'   the list column is named.
-#' @param .sep If non-\code{NULL}, the names of unnested data frame columns
-#'   will combine the name of the original list-col with the names from
-#'   nested data frame, separated by \code{.sep}.
-#' @keywords internal
-#' @export
-unnest_ <- function(data, unnest_cols, .drop = NA, .id = NULL, .sep = NULL) {
-  UseMethod("unnest_")
-}
-
-#' @export
-unnest_.data.frame <- function(data, unnest_cols, .drop = NA, .id = NULL,
-                               .sep = NULL) {
-  nested <- dplyr::transmute_(data, .dots = unnest_cols)
+  nested <- dplyr::transmute(dplyr::ungroup(data), !!! quos)
   n <- map(nested, function(x) map_int(x, NROW))
   if (length(unique(n)) != 1) {
     abort("All nested columns must have the same number of elements.")
@@ -103,7 +85,7 @@ unnest_.data.frame <- function(data, unnest_cols, .drop = NA, .id = NULL,
     probs <- paste(names(nest_types$mixed), collapse = ",")
     abort(glue(
       "Each column must either be a list of vectors or a list of ",
-      "data frames [{probs}]", probs = probs
+      "data frames [{probs}]"
     ))
   }
 
@@ -130,15 +112,22 @@ unnest_.data.frame <- function(data, unnest_cols, .drop = NA, .id = NULL,
   }
   if (.drop) {
     is_atomic <- map_lgl(data, is_atomic)
-    group_cols <- names(data)[is_atomic]
+    group_vars <- names(data)[is_atomic]
   } else {
-    group_cols <- names(data)
+    group_vars <- names(data)
   }
-  group_cols <- setdiff(group_cols, names(nested))
+  group_vars <- setdiff(group_vars, names(nested))
 
-  rest <- data[rep(1:nrow(data), n[[1]]), group_cols, drop = FALSE]
+  rest <- data[rep(1:nrow(data), n[[1]]), group_vars, drop = FALSE]
+  df <- dplyr::bind_cols(rest, unnested_atomic, unnested_dataframe)
 
-  dplyr::bind_cols(compact(list(rest, unnested_atomic, unnested_dataframe)))
+  if (inherits(data, "grouped_df")) {
+    regroup(df, data)
+  } else if (inherits(data, "tbl_df")) {
+    as_tibble(df)
+  } else {
+    df
+  }
 }
 
 list_col_type <- function(x) {
@@ -153,7 +142,6 @@ list_col_type <- function(x) {
     "mixed"
   }
 }
-
 enframe <- function(x, col_name, .id = NULL) {
   out <- data_frame(dplyr::combine(x))
   names(out) <- col_name
@@ -163,7 +151,6 @@ enframe <- function(x, col_name, .id = NULL) {
   }
   out
 }
-
 id_col <- function(x) {
   stopifnot(is_list(x))
 
@@ -173,18 +160,29 @@ id_col <- function(x) {
   ids[rep(seq_along(ids), lengths)]
 }
 
+#' Standard-evaluation version of \code{unnest}.
+#'
+#' This is a S3 generic.
+#'
+#' @param data A data frame.
+#' @param unnest_cols Name of columns that needs to be unnested.
+#' @param .drop Should additional list columns be dropped? By default,
+#'   \code{unnest} will drop them if unnesting the specified columns requires
+#'   the rows to be duplicated.
+#' @param .id Data frame idenfier - if supplied, will create a new column
+#'   with name \code{.id}, giving a unique identifer. This is most useful if
+#'   the list column is named.
+#' @param .sep If non-\code{NULL}, the names of unnested data frame columns
+#'   will combine the name of the original list-col with the names from
+#'   nested data frame, separated by \code{.sep}.
+#' @keywords internal
 #' @export
-unnest_.tbl_df <- function(data, unnest_cols, .drop = NA, .id = NULL,
-                           .sep = NULL) {
-  as_data_frame(NextMethod())
+unnest_ <- function(data, unnest_cols, .drop = NA, .id = NULL, .sep = NULL) {
+  UseMethod("unnest_")
 }
-
 #' @export
-unnest_.grouped_df <- function(data, unnest_cols, .drop = NA, .id = NULL,
+unnest_.data.frame <- function(data, unnest_cols, .drop = NA, .id = NULL,
                                .sep = NULL) {
-  out <- unnest_(
-    dplyr::ungroup(data), unnest_cols,
-    .drop = .drop, .id = .id, .sep = .sep
-  )
-  regroup(out, data)
+  unnest_cols <- compat_lazy_dots(unnest_cols, caller_env())
+  unnest(data, !!! unnest_cols, .drop = .drop, .id = .id, .sep = .sep)
 }
