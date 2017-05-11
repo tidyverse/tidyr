@@ -7,17 +7,18 @@
 #' @seealso \code{\link{unnest}} for the inverse operation.
 #' @seealso \code{\link{nest_}} for a version that uses regular evaluation
 #'   and is suitable for programming with.
-#' @param .key The name of the new column.
-#'
-#'   This variable is passed by expression, supports quasiquotation
-#'   (you can unquote strings and symbols), and the name is captured
-#'   with [rlang::quo_name()] (note that this kind of interface where
-#'   symbols do not represent real objects is now discouraged in the
-#'   tidyverse).
-#' @inheritParams nest_
+#' @param data A data frame.
 #' @param ... Specification of columns to nest. Use bare variable names.
 #'   Select all variables between x and z with \code{x:z}, exclude y with
 #'   \code{-y}. For more options, see the \link[dplyr]{select} documentation.
+#' @param .key The name of the new column, as a string or symbol.
+#'
+#'   This argument is passed by expression and supports
+#'   [quasiquotation][rlang::quasiquotation] (you can unquote strings
+#'   and symbols). The name is captured from the expression with
+#'   [rlang::quo_name()] (note that this kind of interface where
+#'   symbols do not represent actual objects is now discouraged in the
+#'   tidyverse; we support it here for backward compatibility).
 #' @export
 #' @examples
 #' library(dplyr)
@@ -75,7 +76,7 @@ nest.data.frame <- function(data, ..., .key = "data") {
 #'
 #' This is a S3 generic.
 #'
-#' @param data A data frame.
+#' @inheritParams nest
 #' @param key_col Name of the column that will contain the nested data frames.
 #' @param nest_cols Character vector of columns to nest.
 #' @keywords internal

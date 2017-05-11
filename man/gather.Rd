@@ -10,14 +10,15 @@ gather(data, key = "key", value = "value", ..., na.rm = FALSE,
 \arguments{
 \item{data}{A data frame.}
 
-\item{key, value}{Names of key and value columns to create in
-  output.
+\item{key, value}{Names of new key and value columns, as strings or
+  symbols.
 
-  These variables are passed by expression, support quasiquotation
-  (you can unquote strings and symbols), and the names are captured
-  with [rlang::quo_name()] (note that this kind of interface where
-  symbols do not represent real objects is now discouraged in the
-  tidyverse).}
+  This argument is passed by expression and supports
+  [quasiquotation][rlang::quasiquotation] (you can unquote strings
+  and symbols). The name is captured from the expression with
+  [rlang::quo_name()] (note that this kind of interface where
+  symbols do not represent actual objects is now discouraged in the
+  tidyverse; we support it here for backward compatibility).}
 
 \item{...}{Specification of columns to gather. Use bare variable names.
 Select all variables between x and z with \code{x:z}, exclude y with
