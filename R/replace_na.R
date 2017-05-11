@@ -6,7 +6,7 @@
 #' @param ... Additional arguments for methods. Currently unused.
 #' @examples
 #' library(dplyr)
-#' df <- data_frame(x = c(1, 2, NA), y = c("a", NA, "b"))
+#' df <- tibble(x = c(1, 2, NA), y = c("a", NA, "b"))
 #' df %>% replace_na(list(x = 0, y = "unknown"))
 #' @export
 replace_na <- function(data, replace = list(), ...) {

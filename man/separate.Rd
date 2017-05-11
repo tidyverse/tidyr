@@ -80,7 +80,4 @@ df \%>\% separate(x, c("key", "value"), ": ", extra = "merge")
 }
 \seealso{
 \code{\link{unite}()}, the complement.
-
-\code{\link{separate_}} for a version that uses regular evaluation
-  and is suitable for programming with.
 }

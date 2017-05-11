@@ -42,7 +42,7 @@
 #' expand(mtcars, nesting(vs, cyl))
 #'
 #' # Implicit missings ---------------------------------------------------------
-#' df <- data_frame(
+#' df <- tibble(
 #'   year   = c(2010, 2010, 2010, 2010, 2012, 2012, 2012),
 #'   qtr    = c(   1,    2,    3,    4,    1,    2,    3),
 #'   return = rnorm(7)
@@ -56,7 +56,7 @@
 #' # Each person was given one of two treatments, repeated three times
 #' # But some of the replications haven't happened yet, so we have
 #' # incomplete data:
-#' experiment <- data_frame(
+#' experiment <- tibble(
 #'   name = rep(c("Alex", "Robert", "Sam"), c(3, 2, 1)),
 #'   trt  = rep(c("a", "b", "a"), c(3, 2, 1)),
 #'   rep = c(1, 2, 3, 1, 2, 1),
@@ -139,7 +139,7 @@ crossing <- function(...) {
   }
 
   # turn each atomic vector into single column data frame
-  col_df <- map(x[is_atomic], function(x) data_frame(x = ulevels(x)))
+  col_df <- map(x[is_atomic], function(x) tibble(x = ulevels(x)))
   col_df <- map2(col_df, names(x)[is_atomic], set_names)
   x[is_atomic] <- col_df
 

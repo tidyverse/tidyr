@@ -4,7 +4,7 @@
 #' each group into a new column. If the groups don't match, or the input
 #' is NA, the output will be NA.
 #'
-#' @param data A data frame.
+#' @inheritParams expand
 #' @param col Column name or position. This is passed to
 #'   [dplyr::select_var()].
 #'

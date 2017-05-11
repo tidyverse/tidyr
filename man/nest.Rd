@@ -43,7 +43,4 @@ if (require("gapminder")) {
 }
 \seealso{
 \code{\link{unnest}} for the inverse operation.
-
-\code{\link{nest_}} for a version that uses regular evaluation
-  and is suitable for programming with.
 }

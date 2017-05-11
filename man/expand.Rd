@@ -56,7 +56,7 @@ expand(mtcars, vs, cyl)
 expand(mtcars, nesting(vs, cyl))
 
 # Implicit missings ---------------------------------------------------------
-df <- data_frame(
+df <- tibble(
   year   = c(2010, 2010, 2010, 2010, 2012, 2012, 2012),
   qtr    = c(   1,    2,    3,    4,    1,    2,    3),
   return = rnorm(7)
@@ -70,7 +70,7 @@ df \%>\% complete(year = full_seq(year, 1), qtr)
 # Each person was given one of two treatments, repeated three times
 # But some of the replications haven't happened yet, so we have
 # incomplete data:
-experiment <- data_frame(
+experiment <- tibble(
   name = rep(c("Alex", "Robert", "Sam"), c(3, 2, 1)),
   trt  = rep(c("a", "b", "a"), c(3, 2, 1)),
   rep = c(1, 2, 3, 1, 2, 1),

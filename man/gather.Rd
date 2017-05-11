@@ -43,7 +43,7 @@ you notice that you have columns that are not variables.
 \examples{
 library(dplyr)
 # From http://stackoverflow.com/questions/1181060
-stocks <- data_frame(
+stocks <- tibble(
   time = as.Date('2009-01-01') + 0:9,
   X = rnorm(10, 0, 1),
   Y = rnorm(10, 0, 2),

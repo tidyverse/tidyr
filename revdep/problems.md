@@ -89,10 +89,10 @@ Bug reports: http://github.com/ropenscilabs/ropenaq/issues
 checking tests ... ERROR
 Running the tests in ‘tests/testthat.R’ failed.
 Last 13 lines of output:
-    df <- data_frame(x = 1:3, y = list(1,2:3,4))
+    df <- tibble(x = 1:3, y = list(1,2:3,4))
                                          ^
   tests/testthat/test-unnest.R:49:44: style: Commas should always have a space after.
-    df <- data_frame(x = 1:3, y = list(1,2:3,4))
+    df <- tibble(x = 1:3, y = list(1,2:3,4))
                                              ^
   
   

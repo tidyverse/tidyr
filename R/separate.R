@@ -4,7 +4,6 @@
 #' \code{separate()} turns a single character column into multiple columns.
 #'
 #' @inheritParams extract
-#' @param data A data frame.
 #' @param into Names of new variables to create as character vector.
 #' @param sep Separator between columns.
 #'

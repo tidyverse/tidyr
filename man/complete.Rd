@@ -42,7 +42,7 @@ explicit missing values in the data set.
 }
 \examples{
 library(dplyr, warn.conflicts = FALSE)
-df <- data_frame(
+df <- tibble(
   group = c(1:2, 1),
   item_id = c(1:2, 2),
   item_name = c("a", "b", "b"),

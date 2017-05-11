@@ -16,7 +16,7 @@ test_that("order doesn't matter", {
 })
 
 test_that("convert turns strings into integers", {
-  df <- data_frame(key = "a", value = "1")
+  df <- tibble(key = "a", value = "1")
   out <- spread(df, key, value, convert = TRUE)
 
   expect_is(out$a, "integer")
@@ -146,7 +146,7 @@ test_that("complex values are preserved  (#134)", {
 })
 
 test_that("can spread with nested columns", {
-  df <- tibble::data_frame(x = c("a", "a"), y = 1:2, z = list(1:2, 3:5))
+  df <- tibble::tibble(x = c("a", "a"), y = 1:2, z = list(1:2, 3:5))
   out <- spread(df, x, y)
 
   expect_equal(out$a, 1:2)
@@ -154,7 +154,7 @@ test_that("can spread with nested columns", {
 })
 
 test_that("spread gives one column when no existing non-spread vars", {
-  df <- data_frame(
+  df <- tibble(
     key = c("a", "b", "c"),
     value = c(1, 2, 3)
   )
@@ -170,12 +170,12 @@ test_that("grouping vars are kept where possible", {
   # Can't keep
   df <- data.frame(key = c("a", "b"), value = 1:2)
   out <- df %>% group_by(key) %>% spread(key, value)
-  expect_equal(out, data_frame(a = 1L, b = 2L))
+  expect_equal(out, tibble(a = 1L, b = 2L))
 })
 
 
 test_that("col names never contains NA", {
-  df <- data_frame(x = c(1, NA), y = 1:2)
+  df <- tibble(x = c(1, NA), y = 1:2)
   df %>%
     spread(x, y) %>%
     expect_named(c("1", "<NA>"))
