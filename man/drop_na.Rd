@@ -23,7 +23,3 @@ df <- data_frame(x = c(1, 2, NA), y = c("a", NA, "b"))
 df \%>\% drop_na()
 df \%>\% drop_na(x)
 }
-\seealso{
-\code{\link{drop_na_}} for a version that uses regular evaluation
-  and is suitable for programming with.
-}

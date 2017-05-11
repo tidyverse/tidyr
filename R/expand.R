@@ -11,7 +11,7 @@
 #' complement to \code{crossing()}: it only keeps combinations of all variables
 #' that appear in the data.
 #'
-#' @inheritParams expand_
+#' @param data A data frame.
 #' @param ... Specification of columns to expand.
 #'
 #'   To find all unique combinations of x, y and z, including those not
@@ -29,11 +29,8 @@
 #'   \code{year = 2010:2020} or \code{year = \link{full_seq}(year)}.
 #'
 #'   Length-zero (empty) elements are automatically dropped.
-#' @param x For \code{nesting_} and \code{crossing_} a list of variables.
 #' @seealso \code{\link{complete}} for a common application of \code{expand}:
 #'   completing a data frame with missing combinations.
-#' @seealso \code{\link{expand_}} for a version that uses regular evaluation
-#'   and is suitable for programming with.
 #' @export
 #' @examples
 #' library(dplyr)
@@ -105,13 +102,8 @@ expand.grouped_df <- function(data, ...) {
   dplyr::do(data, expand(., !!! dots))
 }
 
-#' Expand (standard evaluation).
-#'
-#' This is a S3 generic.
-#'
-#' @param data A data frame
+#' @rdname deprecated-se
 #' @param expand_cols Character vector of column names to be expanded.
-#' @keywords internal
 #' @export
 expand_ <- function(data, dots, ...) {
   UseMethod("expand_")
@@ -125,8 +117,8 @@ expand_.data.frame <- function(data, dots, ...) {
 
 # Nesting & crossing ------------------------------------------------------
 
-#' @export
 #' @rdname expand
+#' @export
 crossing <- function(...) {
   x <- tibble::lst(...)
   stopifnot(is_list(x))
@@ -153,21 +145,18 @@ crossing <- function(...) {
 
   Reduce(cross_df, x)
 }
-#' @export
-#' @rdname expand
-crossing_ <- function(x) {
-  x <- compat_lazy_dots(x, caller_env())
-  crossing(!!! x)
-}
 cross_df <- function(x, y) {
   x_idx <- rep(seq_len(nrow(x)), each = nrow(y))
   y_idx <- rep(seq_len(nrow(y)), nrow(x))
   dplyr::bind_cols(x[x_idx, , drop = FALSE], y[y_idx, , drop = FALSE])
 }
+drop_empty <- function(x) {
+  empty <- map_lgl(x, function(x) length(x) == 0)
+  x[!empty]
+}
 
-#' @export
 #' @rdname expand
-#' @importFrom tibble data_frame
+#' @export
 nesting <- function(...) {
   x <- tibble::lst(...)
 
@@ -178,14 +167,18 @@ nesting <- function(...) {
   df <- dplyr::distinct(df)
   df[do.call(order, df), , drop = FALSE]
 }
+
+
+#' @rdname deprecated-se
+#' @param x For \code{nesting_} and \code{crossing_} a list of variables.
 #' @export
-#' @rdname expand
+crossing_ <- function(x) {
+  x <- compat_lazy_dots(x, caller_env())
+  crossing(!!! x)
+}
+#' @rdname deprecated-se
+#' @export
 nesting_ <- function(x) {
   x <- compat_lazy_dots(x, caller_env())
   nesting(!!! x)
-}
-
-drop_empty <- function(x) {
-  empty <- map_lgl(x, function(x) length(x) == 0)
-  x[!empty]
 }

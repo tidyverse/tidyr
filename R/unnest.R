@@ -4,12 +4,19 @@
 #' row. List-columns can either be atomic vectors or data frames. Each
 #' row must have the same number of entries.
 #'
-#' @inheritParams unnest_
+#' @inheritParams expand
 #' @param ... Specification of columns to nest. Use bare variable names or
 #'   functions of variables. If omitted, defaults to all list-cols.
+#' @param .drop Should additional list columns be dropped? By default,
+#'   \code{unnest} will drop them if unnesting the specified columns requires
+#'   the rows to be duplicated.
+#' @param .id Data frame idenfier - if supplied, will create a new column
+#'   with name \code{.id}, giving a unique identifer. This is most useful if
+#'   the list column is named.
+#' @param .sep If non-\code{NULL}, the names of unnested data frame columns
+#'   will combine the name of the original list-col with the names from
+#'   nested data frame, separated by \code{.sep}.
 #' @seealso \code{\link{nest}} for the inverse operation.
-#' @seealso \code{\link{unnest_}} for a version that uses regular evaluation
-#'   and is suitable for programming with.
 #' @export
 #' @examples
 #' library(dplyr)
@@ -153,22 +160,10 @@ id_col <- function(x) {
   ids[rep(seq_along(ids), lengths)]
 }
 
-#' Standard-evaluation version of \code{unnest}.
-#'
-#' This is a S3 generic.
-#'
-#' @param data A data frame.
+
+#' @rdname deprecated-se
+#' @inheritParams unnest
 #' @param unnest_cols Name of columns that needs to be unnested.
-#' @param .drop Should additional list columns be dropped? By default,
-#'   \code{unnest} will drop them if unnesting the specified columns requires
-#'   the rows to be duplicated.
-#' @param .id Data frame idenfier - if supplied, will create a new column
-#'   with name \code{.id}, giving a unique identifer. This is most useful if
-#'   the list column is named.
-#' @param .sep If non-\code{NULL}, the names of unnested data frame columns
-#'   will combine the name of the original list-col with the names from
-#'   nested data frame, separated by \code{.sep}.
-#' @keywords internal
 #' @export
 unnest_ <- function(data, unnest_cols, .drop = NA, .id = NULL, .sep = NULL) {
   UseMethod("unnest_")

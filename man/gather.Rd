@@ -69,7 +69,3 @@ mini_iris <-
   slice(1)
 mini_iris \%>\% gather(key = flower_att, value = measurement, -Species)
 }
-\seealso{
-\code{\link{gather_}} for a version that uses regular evaluation
-  and is suitable for programming with.
-}

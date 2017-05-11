@@ -16,7 +16,6 @@
 #'   at 1 at the far-left of the string; negative value start at -1 at the
 #'   far-right of the string. The length of \code{sep} should be one less than
 #'   \code{into}.
-#'
 #' @param extra If \code{sep} is a character vector, this controls what
 #'   happens when there are too many pieces. There are three valid options:
 #'
@@ -39,8 +38,6 @@
 #'   columns are integer, numeric or logical.
 #' @param ... Defunct, will be removed in the next version of the package.
 #' @seealso \code{\link{unite}()}, the complement.
-#' @seealso \code{\link{separate_}} for a version that uses regular evaluation
-#'   and is suitable for programming with.
 #' @export
 #' @examples
 #' library(dplyr)
@@ -160,12 +157,8 @@ str_split_fixed <- function(value, sep, n, extra = "warn", fill = "warn") {
 }
 
 
-#' Standard-evaluation version of \code{separate}.
-#'
-#' This is a S3 generic.
-#'
+#' @rdname deprecated-se
 #' @inheritParams separate
-#' @keywords internal
 #' @export
 separate_ <- function(data, col, into, sep = "[^[:alnum:]]+", remove = TRUE,
                       convert = FALSE, extra = "warn", fill = "warn", ...) {

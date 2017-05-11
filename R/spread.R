@@ -22,9 +22,6 @@
 #' @param sep If \code{NULL}, the column names will be taken from the values of
 #'   \code{key} variable. If non-\code{NULL}, the column names will be given
 #'   by "<key_name><sep><key_value>".
-#' @inheritParams spread_
-#' @seealso \code{\link{spread_}} for a version that uses regular evaluation
-#'   and is suitable for programming with.
 #' @export
 #' @examples
 #' library(dplyr)
@@ -165,13 +162,9 @@ ulevels <- function(x) {
 }
 
 
-#' Standard-evaluation version of \code{spread}.
-#'
-#' This is a S3 generic.
-#'
+#' @rdname deprecated-se
 #' @inheritParams spread
 #' @param key_col,value_col Strings giving names of key and value cols.
-#' @keywords internal
 #' @export
 spread_ <- function(data, key_col, value_col, fill = NA, convert = FALSE,
                     drop = TRUE, sep = NULL) {

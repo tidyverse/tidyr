@@ -8,10 +8,9 @@
 #' If you supply \code{fill}, these values will also replace existing
 #' explicit missing values in the data set.
 #'
-#' @inheritParams complete_
 #' @inheritParams expand
-#' @seealso \code{\link{complete_}} for a version that uses regular evaluation
-#'   and is suitable for programming with.
+#' @param fill A named list that for each variable supplies a single value to
+#'   use instead of \code{NA} for missing combinations.
 #' @export
 #' @examples
 #' library(dplyr, warn.conflicts = FALSE)
@@ -45,15 +44,9 @@ complete.data.frame <- function(data, ..., fill = list()) {
   reconstruct_tibble(data, full)
 }
 
-#' Standard-evaluation version of \code{complete}.
-#'
-#' This is a S3 generic.
-#' @param data A data frame
-#' @param cols Columns to expand
-#' @param fill A named list that for each variable supplies a single value to
-#'   use instead of \code{NA} for missing combinations.
+#' @rdname deprecated-se
+#' @inheritParams complete
 #' @export
-#' @keywords internal
 complete_ <- function(data, cols, fill = list(), ...) {
   UseMethod("complete_")
 }

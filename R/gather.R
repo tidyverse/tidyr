@@ -4,7 +4,7 @@
 #' duplicating all other columns as needed. You use \code{gather()} when
 #' you notice that you have columns that are not variables.
 #'
-#' @param data A data frame.
+#' @inheritParams expand
 #' @param key,value Names of new key and value columns, as strings or
 #'   symbols.
 #'
@@ -17,9 +17,15 @@
 #' @param ... Specification of columns to gather. Use bare variable names.
 #'   Select all variables between x and z with \code{x:z}, exclude y with
 #'   \code{-y}. For more options, see the \link[dplyr]{select} documentation.
+#' @param na.rm If \code{TRUE}, will remove rows from output where the
+#'   value column in \code{NA}.
+#' @param convert If \code{TRUE} will automatically run
+#'   \code{\link{type.convert}} on the key column. This is useful if the column
+#'   names are actually numeric, integer, or logical.
+#' @param factor_key If \code{FALSE}, the default, the key values will be
+#'   stored as a character vector. If \code{TRUE}, will be stored as a factor,
+#'   which preserves the original ordering of the columns.
 #' @inheritParams gather_
-#' @seealso \code{\link{gather_}} for a version that uses regular evaluation
-#'   and is suitable for programming with.
 #' @export
 #' @examples
 #' library(dplyr)
@@ -116,47 +122,6 @@ gather.data.frame <- function(data, key = "key", value = "value", ...,
   reconstruct_tibble(data, out, gather_vars)
 }
 
-#' Gather (standard-evaluation).
-#'
-#' This is a S3 generic.
-#'
-#' @param data A data frame
-#' @param key_col,value_col Strings giving names of key and value columns to
-#'   create.
-#' @param gather_cols Character vector giving column names to be gathered into
-#'   pair of key-value columns.
-#' @param na.rm If \code{TRUE}, will remove rows from output where the
-#'   value column in \code{NA}.
-#' @param convert If \code{TRUE} will automatically run
-#'   \code{\link{type.convert}} on the key column. This is useful if the column
-#'   names are actually numeric, integer, or logical.
-#' @param factor_key If \code{FALSE}, the default, the key values will be
-#'   stored as a character vector. If \code{TRUE}, will be stored as a factor,
-#'   which preserves the original ordering of the columns.
-#' @keywords internal
-#' @export
-gather_ <- function(data, key_col, value_col, gather_cols, na.rm = FALSE,
-                    convert = FALSE, factor_key = FALSE) {
-  UseMethod("gather_")
-}
-#' @export
-gather_.data.frame <- function(data, key_col, value_col, gather_cols,
-                               na.rm = FALSE, convert = FALSE,
-                               factor_key = FALSE) {
-  key_col <- compat_lazy(key_col)
-  value_col <- compat_lazy(value_col)
-  gather_cols <- compat_lazy_dots(gather_cols)
-
-  gather(data,
-    key = !! key_col,
-    value = !! value_col,
-    !!! gather_cols,
-    na.rm = na.rm,
-    convert = convert,
-    factor_key = factor_key
-  )
-}
-
 # Functions from reshape2 -------------------------------------------------
 
 ## Get the attributes if common, NULL if not.
@@ -203,4 +168,35 @@ all_identical <- function(xs) {
     if (!identical(xs[[1]], xs[[i]])) return(FALSE)
   }
   TRUE
+}
+
+
+#' @rdname deprecated-se
+#' @inheritParams gather
+#' @param key_col,value_col Strings giving names of key and value columns to
+#'   create.
+#' @param gather_cols Character vector giving column names to be gathered into
+#'   pair of key-value columns.
+#' @keywords internal
+#' @export
+gather_ <- function(data, key_col, value_col, gather_cols, na.rm = FALSE,
+                    convert = FALSE, factor_key = FALSE) {
+  UseMethod("gather_")
+}
+#' @export
+gather_.data.frame <- function(data, key_col, value_col, gather_cols,
+                               na.rm = FALSE, convert = FALSE,
+                               factor_key = FALSE) {
+  key_col <- compat_lazy(key_col)
+  value_col <- compat_lazy(value_col)
+  gather_cols <- compat_lazy_dots(gather_cols)
+
+  gather(data,
+    key = !! key_col,
+    value = !! value_col,
+    !!! gather_cols,
+    na.rm = na.rm,
+    convert = convert,
+    factor_key = factor_key
+  )
 }

@@ -14,12 +14,9 @@
 #' @param ... Specification of columns to unite. Use bare variable names.
 #'   Select all variables between x and z with \code{x:z}, exclude y with
 #'   \code{-y}. For more options, see the \link[dplyr]{select} documentation.
-#' @param from Names of existing columns as character vector
 #' @param sep Separator to use between values.
 #' @param remove If \code{TRUE}, remove input columns from output data frame.
 #' @seealso \code{\link{separate}()}, the complement.
-#' @seealso \code{\link{unite_}} for a version that uses regular evaluation
-#'   and is suitable for programming with.
 #' @export
 #' @examples
 #' library(dplyr)
@@ -56,12 +53,9 @@ unite.data.frame <- function(data, col, ..., sep = "_", remove = TRUE) {
 }
 
 
-#' Standard-evaluation version of \code{unite}
-#'
-#' This is a S3 generic.
-#'
+#' @rdname deprecated-se
 #' @inheritParams unite
-#' @keywords internal
+#' @param from Names of existing columns as character vector
 #' @export
 unite_ <- function(data, col, from, sep = "_", remove = TRUE) {
   UseMethod("unite_")

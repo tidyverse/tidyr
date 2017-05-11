@@ -3,11 +3,11 @@
 #' If a variable contains observations with multiple delimited values, this
 #' separates the values and places each one in its own row.
 #'
-#' @inheritParams separate_rows_
-#' @inheritParams separate_
+#' @inheritParams separate
 #' @param ... Specification of columns to separate. Use bare variable names.
 #'   Select all variables between x and z with \code{x:z}, exclude y with
 #'   \code{-y}. For more options, see the \link[dplyr]{select} documentation.
+#' @param sep Separator delimiting collapsed values.
 #' @export
 #' @examples
 #'
@@ -44,15 +44,8 @@ separate_rows.data.frame <- function(data, ..., sep = "[^[:alnum:].]+",
   reconstruct_tibble(orig, data, vars)
 }
 
-#' Standard-evaluation version of \code{separate_rows}.
-#'
-#' This is a S3 generic.
-#'
-#' @param data A data frame.
-#' @param cols Name of columns that need to be separated.
-#' @param sep Separator delimiting collapsed values.
-#' @inheritParams separate_
-#' @keywords internal
+#' @rdname deprecated-se
+#' @inheritParams separate_rows
 #' @export
 separate_rows_ <- function(data, cols, sep = "[^[:alnum:].]+",
                            convert = FALSE) {

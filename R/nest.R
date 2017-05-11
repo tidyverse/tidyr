@@ -4,9 +4,6 @@
 #' data frame. \code{nest()} creates a list of data frames containing all
 #' the nested variables: this seems to be the most useful form in practice.
 #'
-#' @seealso \code{\link{unnest}} for the inverse operation.
-#' @seealso \code{\link{nest_}} for a version that uses regular evaluation
-#'   and is suitable for programming with.
 #' @param data A data frame.
 #' @param ... Specification of columns to nest. Use bare variable names.
 #'   Select all variables between x and z with \code{x:z}, exclude y with
@@ -19,6 +16,7 @@
 #'   [rlang::quo_name()] (note that this kind of interface where
 #'   symbols do not represent actual objects is now discouraged in the
 #'   tidyverse; we support it here for backward compatibility).
+#' @seealso \code{\link{unnest}} for the inverse operation.
 #' @export
 #' @examples
 #' library(dplyr)
@@ -72,10 +70,8 @@ nest.data.frame <- function(data, ..., .key = "data") {
   out
 }
 
-#' Standard-evaluation version of \code{nest}.
-#'
-#' This is a S3 generic.
-#'
+
+#' @rdname deprecated-se
 #' @inheritParams nest
 #' @param key_col Name of the column that will contain the nested data frames.
 #' @param nest_cols Character vector of columns to nest.

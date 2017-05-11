@@ -25,8 +25,6 @@ Select all variables between x and z with \code{x:z}, exclude y with
 \item{sep}{Separator to use between values.}
 
 \item{remove}{If \code{TRUE}, remove input columns from output data frame.}
-
-\item{from}{Names of existing columns as character vector}
 }
 \description{
 Convenience function to paste together multiple columns into one.
@@ -42,7 +40,4 @@ mtcars \%>\%
 }
 \seealso{
 \code{\link{separate}()}, the complement.
-
-\code{\link{unite_}} for a version that uses regular evaluation
-  and is suitable for programming with.
 }

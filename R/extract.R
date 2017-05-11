@@ -74,12 +74,9 @@ extract.data.frame <- function(data, col, into, regex = "([[:alnum:]]+)",
   reconstruct_tibble(data, out, if (remove) var else chr())
 }
 
-#' Standard-evaluation version of \code{extract}.
-#'
-#' This is a S3 generic.
-#'
+
+#' @rdname deprecated-se
 #' @inheritParams extract
-#' @keywords internal
 #' @export
 extract_ <- function(data, col, into, regex = "([[:alnum:]]+)", remove = TRUE,
                       convert = FALSE, ...) {

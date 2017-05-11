@@ -5,8 +5,6 @@
 #'   If empty, consider all variables. Use bare variable names. Select all
 #'    variables between x and z with \code{x:z}, exclude y with \code{-y}.
 #'    For more options, see the \link[dplyr]{select} documentation.
-#' @seealso \code{\link{drop_na_}} for a version that uses regular evaluation
-#'   and is suitable for programming with.
 #' @examples
 #' library(dplyr)
 #' df <- data_frame(x = c(1, 2, NA), y = c("a", NA, "b"))
@@ -37,14 +35,8 @@ drop_na.data.frame <- function(data, ...) {
   reconstruct_tibble(data, out)
 }
 
-#' Standard-evaluation version of \code{drop_na}.
-#'
-#' This is a S3 generic.
-#'
-#' @param data A data frame.
-#' @param vars Character vector of variable names. If empty, all
-#'    variables are considered while dropping rows.
-#' @keywords internal
+
+#' @rdname deprecated-se
 #' @export
 drop_na_ <- function(data, vars) {
   UseMethod("drop_na_")

@@ -3,23 +3,17 @@
 \name{expand}
 \alias{expand}
 \alias{crossing}
-\alias{crossing_}
 \alias{nesting}
-\alias{nesting_}
 \title{Expand data frame to include all combinations of values}
 \usage{
 expand(data, ...)
 
 crossing(...)
 
-crossing_(x)
-
 nesting(...)
-
-nesting_(x)
 }
 \arguments{
-\item{data}{A data frame}
+\item{data}{A data frame.}
 
 \item{...}{Specification of columns to expand.
 
@@ -38,8 +32,6 @@ nesting_(x)
   \code{year = 2010:2020} or \code{year = \link{full_seq}(year)}.
 
   Length-zero (empty) elements are automatically dropped.}
-
-\item{x}{For \code{nesting_} and \code{crossing_} a list of variables.}
 }
 \description{
 \code{expand()} is often useful in conjunction with \code{left_join} if
@@ -103,7 +95,4 @@ experiment \%>\% complete(nesting(name, trt), rep)
 \seealso{
 \code{\link{complete}} for a common application of \code{expand}:
   completing a data frame with missing combinations.
-
-\code{\link{expand_}} for a version that uses regular evaluation
-  and is suitable for programming with.
 }
