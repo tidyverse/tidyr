@@ -7,6 +7,7 @@
 #'   pmap_chr pmap_dbl pmap_df pmap_int pmap_lgl reduce reduce_right
 #'   some transpose
 #' @importFrom tibble tibble as_tibble
+#' @importFrom utils type.convert
 #' @useDynLib tidyr, .registration = TRUE
 "_PACKAGE"
 
