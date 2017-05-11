@@ -9,7 +9,13 @@ unite_(data, col, from, sep = "_", remove = TRUE)
 \arguments{
 \item{data}{A data frame.}
 
-\item{col}{Name of new column as string.}
+\item{col}{Bare name of column to add.
+
+  This variable is passed by expression, supports quasiquotation
+  (you can unquote strings and symbols), and the name is captured
+  with [rlang::quo_name()] (note that this kind of interface where
+  symbols do not represent real objects is now discouraged in the
+  tidyverse).}
 
 \item{from}{Names of existing columns as character vector}
 

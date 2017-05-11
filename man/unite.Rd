@@ -9,7 +9,13 @@ unite(data, col, ..., sep = "_", remove = TRUE)
 \arguments{
 \item{data}{A data frame.}
 
-\item{col}{(Bare) name of column to add}
+\item{col}{Bare name of column to add.
+
+  This variable is passed by expression, supports quasiquotation
+  (you can unquote strings and symbols), and the name is captured
+  with [rlang::quo_name()] (note that this kind of interface where
+  symbols do not represent real objects is now discouraged in the
+  tidyverse).}
 
 \item{...}{Specification of columns to unite. Use bare variable names.
 Select all variables between x and z with \code{x:z}, exclude y with
@@ -18,6 +24,8 @@ Select all variables between x and z with \code{x:z}, exclude y with
 \item{sep}{Separator to use between values.}
 
 \item{remove}{If \code{TRUE}, remove input columns from output data frame.}
+
+\item{from}{Names of existing columns as character vector}
 }
 \description{
 Convenience function to paste together multiple columns into one.
