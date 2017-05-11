@@ -21,28 +21,20 @@ drop_na.default <- function(data, ...) {
   drop_na_(data, vars = compat_as_lazy_dots(...))
 }
 #' @export
-drop_na.tbl_df <- function(data, ...) {
-  out <- drop_na.data.frame(data, ...)
-  as_tibble(out)
-}
-#' @export
-drop_na.grouped_df <- function(data, ...) {
-  out <- drop_na.data.frame(data, ...)
-  regroup(out, data)
-}
-#' @export
 drop_na.data.frame <- function(data, ...) {
   vars <- unname(dplyr::select_vars(colnames(data), ...))
-
   if (!is_character(vars)) {
     abort("`vars` is not a character vector.")
   }
+
   if (is_empty(vars)) {
     f <- stats::complete.cases(data)
   } else {
     f <- stats::complete.cases(data[vars])
   }
-  data[f, ]
+  out <- data[f, ]
+
+  reconstruct_tibble(data, out)
 }
 
 #' Standard-evaluation version of \code{drop_na}.

@@ -12,19 +12,13 @@
 replace_na <- function(data, replace = list(), ...) {
   UseMethod("replace_na")
 }
-
 #' @export
 replace_na.data.frame <- function(data, replace = list(), ...) {
-  stopifnot(is.list(replace))
+  stopifnot(is_list(replace))
 
   for (var in names(replace)) {
-    data[[var]][is.na(data[[var]])] <- replace[[var]]
+    data[[var]][are_na(data[[var]])] <- replace[[var]]
   }
 
   data
-}
-
-#' @export
-replace_na.tbl_df <- function(data, replace = list(), ...) {
-  as_tibble(NextMethod())
 }

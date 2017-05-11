@@ -119,15 +119,8 @@ unnest.data.frame <- function(data, ..., .drop = NA, .id = NULL,
   group_vars <- setdiff(group_vars, names(nested))
 
   rest <- data[rep(1:nrow(data), n[[1]]), group_vars, drop = FALSE]
-  df <- dplyr::bind_cols(rest, unnested_atomic, unnested_dataframe)
-
-  if (inherits(data, "grouped_df")) {
-    regroup(df, data)
-  } else if (inherits(data, "tbl_df")) {
-    as_tibble(df)
-  } else {
-    df
-  }
+  out <- dplyr::bind_cols(rest, unnested_atomic, unnested_dataframe)
+  reconstruct_tibble(data, out)
 }
 
 list_col_type <- function(x) {

@@ -41,13 +41,7 @@ separate_rows.data.frame <- function(data, ..., sep = "[^[:alnum:].]+",
     data[vars] <- map(data[vars], type.convert, as.is = TRUE)
   }
 
-  if (inherits(data, "grouped_df")) {
-    regroup(data, orig, vars)
-  } else if (inherits(data, "tbl_df")) {
-    as_tibble(data)
-  } else {
-    data
-  }
+  reconstruct_tibble(orig, data, vars)
 }
 
 #' Standard-evaluation version of \code{separate_rows}.

@@ -111,11 +111,7 @@ separate.data.frame <- function(data, col, into, sep = "[^[:alnum:]]+",
     data[[var]] <- NULL
   }
 
-  if (inherits(data, "grouped_df")) {
-    regroup(data, orig, if (remove) var else NULL)
-  } else {
-    data
-  }
+  reconstruct_tibble(orig, data, if (remove) var else NULL)
 }
 
 strsep <- function(x, sep) {

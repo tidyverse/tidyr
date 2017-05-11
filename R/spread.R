@@ -120,15 +120,8 @@ spread.data.frame <- function(data, key, value, fill = NA, convert = FALSE,
     ordered[] <- map(ordered, type.convert, as.is = TRUE)
   }
 
-  df <- append_df(row_labels, ordered)
-
-  if (inherits(data, "grouped_df")) {
-    regroup(df, data, c(key_var, value_var))
-  } else if (inherits(data, "tbl_df")) {
-    as_tibble(df)
-  } else {
-    df
-  }
+  out <- append_df(row_labels, ordered)
+  reconstruct_tibble(data, out, c(key_var, value_var))
 }
 
 col_names <- function(x, sep = NULL) {

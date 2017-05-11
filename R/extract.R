@@ -61,27 +61,12 @@ extract.data.frame <- function(data, col, into, regex = "([[:alnum:]]+)",
   }
 
   # Insert into existing data frame
-  data <- append_df(data, l, match(var, dplyr::tbl_vars(data)))
+  out <- append_df(data, l, match(var, dplyr::tbl_vars(data)))
   if (remove) {
-    data[[var]] <- NULL
+    out[[var]] <- NULL
   }
 
-  data
-}
-#' @export
-extract.tbl_df <- function(data, col, into, regex = "([[:alnum:]]+)",
-                           remove = TRUE, convert = FALSE, ...) {
-  out <- extract(data, col = !! enquo(col), into = into,
-    regex = regex, remove = remove, convert = convert, ...)
-  as_tibble(out)
-}
-#' @export
-extract.grouped_df <- function(data, col, into, regex = "([[:alnum:]]+)",
-                               remove = TRUE, convert = FALSE, ...) {
-  var <- select_var(names(data), !! enquo(col))
-  out <- extract.data.frame(data, col = !! var, into = into,
-    regex = regex, remove = remove, convert = convert, ...)
-  regroup(out, data, if (remove) var else NULL)
+  reconstruct_tibble(data, out, if (remove) var else chr())
 }
 
 #' Standard-evaluation version of \code{extract}.

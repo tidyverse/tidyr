@@ -42,12 +42,7 @@ complete.data.frame <- function(data, ..., fill = list()) {
   full <- dplyr::left_join(full, data, by = names(full))
   full <- replace_na(full, replace = fill)
 
-  full
-}
-#' @export
-complete.grouped_df <- function(data, ..., fill = list()) {
-  out <- complete.data.frame(data, ..., fill = fill)
-  regroup(out, data)
+  reconstruct_tibble(data, full)
 }
 
 #' Standard-evaluation version of \code{complete}.

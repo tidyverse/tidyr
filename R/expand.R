@@ -95,12 +95,9 @@ expand.data.frame <- function(data, ...) {
   }
 
   pieces <- map(dots, eval_tidy, data)
-  crossing(!!! pieces)
-}
-#' @export
-expand.tbl_df <- function(data, ...) {
-  out <- expand.data.frame(data, ...)
-  as_tibble(out)
+  df <- crossing(!!! pieces)
+
+  reconstruct_tibble(data, df)
 }
 #' @export
 expand.grouped_df <- function(data, ...) {
@@ -156,20 +153,17 @@ crossing <- function(...) {
 
   Reduce(cross_df, x)
 }
-
 #' @export
 #' @rdname expand
 crossing_ <- function(x) {
   x <- compat_lazy_dots(x, caller_env())
   crossing(!!! x)
 }
-
 cross_df <- function(x, y) {
   x_idx <- rep(seq_len(nrow(x)), each = nrow(y))
   y_idx <- rep(seq_len(nrow(y)), nrow(x))
   dplyr::bind_cols(x[x_idx, , drop = FALSE], y[y_idx, , drop = FALSE])
 }
-
 
 #' @export
 #' @rdname expand
@@ -184,7 +178,6 @@ nesting <- function(...) {
   df <- dplyr::distinct(df)
   df[do.call(order, df), , drop = FALSE]
 }
-
 #' @export
 #' @rdname expand
 nesting_ <- function(x) {

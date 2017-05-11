@@ -65,6 +65,16 @@ regroup <- function(output, input, except = NULL) {
 
   dplyr::grouped_df(output, groups)
 }
+reconstruct_tibble <- function(input, output, ungrouped_vars = chr()) {
+  if (inherits(input, "grouped_df")) {
+    regroup(output, input, ungrouped_vars)
+  } else if (inherits(input, "tbl_df")) {
+    as_tibble(output)
+  } else {
+    output
+  }
+}
+
 
 # Allows tests to work with either dplyr 0.4 (which ignores value of
 # everything), and 0.5 which exports it as a proper function

@@ -92,7 +92,7 @@ gather.data.frame <- function(data, key = "key", value = "value", ...,
   args <- normalize_melt_arguments(data, gather_idx, factorsAsStrings = TRUE)
   valueAsFactor <- "factor" %in% class(args$attr_template)
 
-  df <- melt_dataframe(data,
+  out <- melt_dataframe(data,
     id_idx - 1L,
     gather_idx - 1L,
     as.character(key_var),
@@ -103,30 +103,16 @@ gather.data.frame <- function(data, key = "key", value = "value", ...,
     as.logical(factor_key)
   )
 
-  if (na.rm && anyNA(df)) {
-    missing <- is.na(df[[value_var]])
-    df <- df[!missing, ]
+  if (na.rm && anyNA(out)) {
+    missing <- is.na(out[[value_var]])
+    out <- out[!missing, ]
   }
 
   if (convert) {
-    df[[key_var]] <- type.convert(as.character(df[[key_var]]), as.is = TRUE)
+    out[[key_var]] <- type.convert(as.character(out[[key_var]]), as.is = TRUE)
   }
 
-  metadata <- list(key_var = key_var, value_var = value_var, gather_vars = gather_vars)
-  reconstruct_gather(data, df, metadata)
-}
-
-reconstruct_gather <- function(input, output, data) {
-  UseMethod("reconstruct_gather")
-}
-reconstruct_gather.default <- function(input, output, data) {
-  output
-}
-reconstruct_gather.tbl_df <- function(input, output, data) {
-  tibble::as_tibble(output)
-}
-reconstruct_gather.grouped_df <- function(input, output, data) {
-  regroup(output, input, data$gather_vars)
+  reconstruct_tibble(data, out, gather_vars)
 }
 
 #' Gather (standard-evaluation).
