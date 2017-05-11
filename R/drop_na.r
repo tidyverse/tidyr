@@ -23,7 +23,7 @@ drop_na.default <- function(data, ...) {
 #' @export
 drop_na.tbl_df <- function(data, ...) {
   out <- drop_na.data.frame(data, ...)
-  as_data_frame(out)
+  as_tibble(out)
 }
 #' @export
 drop_na.grouped_df <- function(data, ...) {

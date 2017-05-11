@@ -100,7 +100,7 @@ expand.data.frame <- function(data, ...) {
 #' @export
 expand.tbl_df <- function(data, ...) {
   out <- expand.data.frame(data, ...)
-  as_data_frame(out)
+  as_tibble(out)
 }
 #' @export
 expand.grouped_df <- function(data, ...) {
@@ -180,7 +180,7 @@ nesting <- function(...) {
   stopifnot(is_list(x))
   x <- drop_empty(x)
 
-  df <- as_data_frame(x)
+  df <- as_tibble(x)
   df <- dplyr::distinct(df)
   df[do.call(order, df), , drop = FALSE]
 }

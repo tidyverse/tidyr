@@ -52,7 +52,7 @@ extract.data.frame <- function(data, col, into, regex = "([[:alnum:]]+)",
   value <- as.character(data[[var]])
   matches <- stringi::stri_match_first_regex(value, regex)[, -1, drop = FALSE]
 
-  # Use as_data_frame post https://github.com/hadley/dplyr/issues/876
+  # Use as_tibble post https://github.com/hadley/dplyr/issues/876
   l <- map(seq_len(ncol(matches)), function(i) matches[, i])
   names(l) <- enc2utf8(into)
 

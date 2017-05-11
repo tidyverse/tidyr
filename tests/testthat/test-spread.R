@@ -76,7 +76,7 @@ test_that("preserve class of input", {
     y = c("c", "d", "c", "d"),
     z = c("w", "x", "y", "z")
   )
-  dat %>% as_data_frame %>% spread(x, z) %>% expect_is("tbl_df")
+  dat %>% as_tibble %>% spread(x, z) %>% expect_is("tbl_df")
 })
 
 test_that("dates are spread into columns (#62)", {
