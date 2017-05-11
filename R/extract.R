@@ -42,14 +42,14 @@ extract.default <- function(data, col, into, regex = "([[:alnum:]]+)",
 #' @export
 extract.data.frame <- function(data, col, into, regex = "([[:alnum:]]+)",
                                remove = TRUE, convert = FALSE, ...) {
-  col <- select_var(names(data), !! enquo(col))
+  var <- select_var(names(data), !! enquo(col))
   stopifnot(
     is_string(regex),
     is_character(into)
   )
 
   # Extract matching groups
-  value <- as.character(data[[col]])
+  value <- as.character(data[[var]])
   matches <- stringi::stri_match_first_regex(value, regex)[, -1, drop = FALSE]
 
   # Use as_data_frame post https://github.com/hadley/dplyr/issues/876
@@ -61,9 +61,9 @@ extract.data.frame <- function(data, col, into, regex = "([[:alnum:]]+)",
   }
 
   # Insert into existing data frame
-  data <- append_df(data, l, col)
+  data <- append_df(data, l, match(var, dplyr::tbl_vars(data)))
   if (remove) {
-    data[[col]] <- NULL
+    data[[var]] <- NULL
   }
 
   data
@@ -73,7 +73,7 @@ extract.tbl_df <- function(data, col, into, regex = "([[:alnum:]]+)",
                            remove = TRUE, convert = FALSE, ...) {
   out <- extract(data, col = !! enquo(col), into = into,
     regex = regex, remove = remove, convert = convert, ...)
-  as_data_frame(out)
+  as_tibble(out)
 }
 #' @export
 extract.grouped_df <- function(data, col, into, regex = "([[:alnum:]]+)",

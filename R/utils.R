@@ -86,6 +86,7 @@ is_empty_character <- function(x) {
 select_var <- function(vars, var) {
   var_env <- set_names(as_list(seq_along(vars)), vars)
   var <- eval_tidy(enquo(var), var_env)
+  n <- length(vars)
 
   if (is_string(var)) {
     pos <- match(var, vars)
@@ -94,20 +95,15 @@ select_var <- function(vars, var) {
     }
   } else if (is_integerish(var, 1)) {
     pos <- var
+    if (pos < 0) {
+      pos <- pos + n + 1
+    }
+    if (is_na(pos) || abs(pos) > n || pos == 0L) {
+      abort(glue("`var` must be a value between {-n} and {n} (excluding zero), not {var}"))
+    }
   } else {
     abort(glue("`var` must evaluate to a single number or a column name"))
   }
 
-  var <- as_integer(var)
-  n <- length(vars)
-
-  if (is_na(var) || abs(var) > n || var == 0L) {
-    abort(glue("`var` must be a value between {-n} and {n} (excluding zero), not {var}"))
-  }
-
-  if (var < 0) {
-    var <- var + n + 1
-  }
-
-  var
+  vars[[pos]]
 }

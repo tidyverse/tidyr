@@ -85,8 +85,8 @@ separate.data.frame <- function(data, col, into, sep = "[^[:alnum:]]+",
                                 extra = "warn", fill = "warn", ...) {
   orig <- data
 
-  pos <- select_var(names(data), !! enquo(col))
-  value <- as.character(data[[pos]])
+  var <- select_var(names(data), !! enquo(col))
+  value <- as.character(data[[var]])
 
   if (length(list(...)) != 0) {
     warn("Using ... for passing arguments to `strsplit()` is defunct")
@@ -106,14 +106,13 @@ separate.data.frame <- function(data, col, into, sep = "[^[:alnum:]]+",
   }
 
   # Insert into existing data frame
-  data <- append_df(data, l, pos)
+  data <- append_df(data, l, match(var, dplyr::tbl_vars(data)))
   if (remove) {
-    data[[pos]] <- NULL
+    data[[var]] <- NULL
   }
 
   if (inherits(data, "grouped_df")) {
-    var_name <- dplyr::tbl_vars(orig)[[pos]]
-    regroup(data, orig, if (remove) var_name else NULL)
+    regroup(data, orig, if (remove) var else NULL)
   } else {
     data
   }
