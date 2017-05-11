@@ -1,8 +1,12 @@
 #' Spread a key-value pair across multiple columns.
 #'
 #' @param data A data frame.
-#' @param key,value Bare column names. The `key` column will be used
-#'   as column headings and the `value` column populates the cells.
+#' @param key,value Column names or positions. This is passed to
+#'   [dplyr::select_var()].
+#'
+#'   These arguments are passed by expression and support
+#'   [quasiquotation][rlang::quasiquotation] (you can unquote column
+#'   names or column positions).
 #' @param fill If set, missing values will be replaced with this value. Note
 #'   that there are two types of missingness in the input: explicit missing
 #'   values (i.e. \code{NA}), and implicit missings, rows that simply aren't

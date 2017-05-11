@@ -10,7 +10,12 @@ extract(data, col, into, regex = "([[:alnum:]]+)", remove = TRUE,
 \arguments{
 \item{data}{A data frame.}
 
-\item{col}{Bare column name.}
+\item{col}{Column name or position. This is passed to
+  [dplyr::select_var()].
+
+  This argument is passed by expression and supports
+  [quasiquotation][rlang::quasiquotation] (you can unquote column
+  names or column positions).}
 
 \item{into}{Names of new variables to create as character vector.}
 

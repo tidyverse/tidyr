@@ -10,8 +10,12 @@ spread(data, key, value, fill = NA, convert = FALSE, drop = TRUE,
 \arguments{
 \item{data}{A data frame.}
 
-\item{key, value}{Bare column names. The `key` column will be used
-as column headings and the `value` column populates the cells.}
+\item{key, value}{Column names or positions. This is passed to
+  [dplyr::select_var()].
+
+  These arguments are passed by expression and support
+  [quasiquotation][rlang::quasiquotation] (you can unquote column
+  names or column positions).}
 
 \item{fill}{If set, missing values will be replaced with this value. Note
 that there are two types of missingness in the input: explicit missing

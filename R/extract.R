@@ -5,7 +5,12 @@
 #' is NA, the output will be NA.
 #'
 #' @param data A data frame.
-#' @param col Bare column name.
+#' @param col Column name or position. This is passed to
+#'   [dplyr::select_var()].
+#'
+#'   This argument is passed by expression and supports
+#'   [quasiquotation][rlang::quasiquotation] (you can unquote column
+#'   names or column positions).
 #' @param into Names of new variables to create as character vector.
 #' @param regex a regular expression used to extract the desired values.
 #' @param remove If \code{TRUE}, remove input column from output data frame.

@@ -3,8 +3,8 @@
 #' Given either regular expression or a vector of character positions,
 #' \code{separate()} turns a single character column into multiple columns.
 #'
+#' @inheritParams extract
 #' @param data A data frame.
-#' @param col Bare column name.
 #' @param into Names of new variables to create as character vector.
 #' @param sep Separator between columns.
 #'
