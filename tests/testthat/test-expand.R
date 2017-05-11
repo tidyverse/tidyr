@@ -59,11 +59,15 @@ test_that("preserves ordered factors", {
   expect_equal(df$a, ordered("a"))
 })
 
-
 test_that("zero length inputs are automatically dropped", {
   tb <- tibble::tibble(x = 1:5)
 
   expect_equal(expand(tb, x, y = numeric()), tb)
   expect_equal(nesting(x = tb$x, y = numeric()), tb)
   expect_equal(crossing(x = tb$x, y = numeric()), tb)
+})
+
+test_that("expand() reconstructs input dots is empty", {
+  expect_is(expand(mtcars), "data.frame")
+  expect_is(expand(as_tibble(mtcars)), "tbl_df")
 })

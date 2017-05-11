@@ -90,8 +90,8 @@ expand.default <- function(data, ...) {
 #' @export
 expand.data.frame <- function(data, ...) {
   dots <- quos(..., .named = TRUE)
-  if (length(dots) == 0) {
-    return(data.frame())
+  if (is_empty(dots)) {
+    return(reconstruct_tibble(data, data.frame()))
   }
 
   pieces <- map(dots, eval_tidy, data)
