@@ -47,7 +47,7 @@ extract.default <- function(data, col, into, regex = "([[:alnum:]]+)",
 #' @export
 extract.data.frame <- function(data, col, into, regex = "([[:alnum:]]+)",
                                remove = TRUE, convert = FALSE, ...) {
-  var <- select_var(names(data), !! enquo(col))
+  var <- dplyr::select_var(names(data), !! enquo(col))
   stopifnot(
     is_string(regex),
     is_character(into)

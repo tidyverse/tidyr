@@ -66,8 +66,8 @@ spread.default <- function(data, key, value, fill = NA, convert = FALSE,
 #' @export
 spread.data.frame <- function(data, key, value, fill = NA, convert = FALSE,
                               drop = TRUE, sep = NULL) {
-  key_var <- select_var(names(data), !! enquo(key))
-  value_var <- select_var(names(data), !! enquo(value))
+  key_var <- dplyr::select_var(names(data), !! enquo(key))
+  value_var <- dplyr::select_var(names(data), !! enquo(value))
 
   col <- data[key_var]
   col_id <- id(col, drop = drop)

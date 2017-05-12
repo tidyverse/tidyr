@@ -13,7 +13,7 @@ Depends:
 License: MIT + file LICENSE
 LazyData: true
 Imports:
-    dplyr (>= 0.4),
+    dplyr (>= 0.5.0.9005),
     glue,
     lazyeval,
     magrittr,
@@ -34,3 +34,4 @@ Suggests:
 VignetteBuilder: knitr
 LinkingTo: Rcpp
 RoxygenNote: 6.0.1
+Remotes: lionel-/dplyr@eabb47d,
