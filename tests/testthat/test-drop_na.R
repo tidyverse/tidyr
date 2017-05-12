@@ -36,19 +36,8 @@ test_that("empty call drops every row (NSE version)", {
   expect_equal(res, exp)
 })
 
-test_that("specifying (a) variable(s) considers only that variable(s) (NSE version)", {
-  df <- tibble(x = c(1, 2, NA), y = c("a", NA, "b"))
-  exp <- tibble(x = c(1, 2), y = c("a", NA))
-  res <- tidyr::drop_na_(df, "x")
-  expect_equal(res, exp)
-  exp <- tibble(x = c(1), y = c("a"))
-  res <- tidyr::drop_na_(df, c("x", "y"))
-  expect_equal(res, exp)
-})
-
 test_that("errors are raised", {
   df <- tibble(x = c(1, 2, NA), y = c("a", NA, "b"))
-  expect_error(tidyr::drop_na_(df, NULL), "must be a character vector")
-  expect_error(tidyr::drop_na_(df, 1), "must be a character vector")
-  expect_error(tidyr::drop_na_(df, "z"), "'z' not found")
+  expect_error(tidyr::drop_na(df, NULL), "must resolve to integer column positions")
+  expect_error(tidyr::drop_na(df, "z"), "must match column names")
 })

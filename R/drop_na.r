@@ -43,14 +43,6 @@ drop_na_ <- function(data, vars) {
 }
 #' @export
 drop_na_.data.frame <- function(data, vars) {
-  if (!is_character(vars)) {
-    abort("`vars` must be a character vector")
-  }
-
-  if (is_empty_character(vars)) {
-    drop_na(data)
-  } else {
-    vars <- compat_lazy_dots(vars, caller_env())
-    drop_na(data, !!! vars)
-  }
+  vars <- compat_lazy_dots(vars, caller_env())
+  drop_na(data, !!! vars)
 }
