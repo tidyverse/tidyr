@@ -168,13 +168,6 @@ ulevels <- function(x) {
 #' @export
 spread_ <- function(data, key_col, value_col, fill = NA, convert = FALSE,
                     drop = TRUE, sep = NULL) {
-  if (!(key_col %in% names(data))) {
-    abort(glue("Key column `{key_col}` does not exist in input"))
-  }
-  if (!(value_col %in% names(data))) {
-    abort(glue("Value column `{value_col}` does not exist in input"))
-  }
-
   UseMethod("spread_")
 }
 #' @export
