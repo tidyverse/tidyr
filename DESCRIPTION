@@ -15,7 +15,6 @@ LazyData: true
 Imports:
     dplyr (>= 0.5.0.9005),
     glue,
-    lazyeval,
     magrittr,
     purrr,
     rlang,
