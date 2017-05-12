@@ -188,9 +188,9 @@ gather_ <- function(data, key_col, value_col, gather_cols, na.rm = FALSE,
 gather_.data.frame <- function(data, key_col, value_col, gather_cols,
                                na.rm = FALSE, convert = FALSE,
                                factor_key = FALSE) {
-  key_col <- compat_lazy(key_col)
-  value_col <- compat_lazy(value_col)
-  gather_cols <- compat_lazy_dots(gather_cols)
+  key_col <- compat_lazy(key_col, caller_env())
+  value_col <- compat_lazy(value_col, caller_env())
+  gather_cols <- compat_lazy_dots(gather_cols, caller_env())
 
   gather(data,
     key = !! key_col,
