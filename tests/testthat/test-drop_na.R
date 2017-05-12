@@ -29,11 +29,10 @@ test_that("groups are preserved", {
   expect_equal(dplyr::groups(res), dplyr::groups(gexp))
 })
 
-test_that("empty call drops every row (NSE version)", {
+test_that("empty call drops every row", {
   df <- tibble(x = c(1, 2, NA), y = c("a", NA, "b"))
-  exp <- tibble(x = c(1), y = c("a"))
-  res <- tidyr::drop_na_(df, character())
-  expect_equal(res, exp)
+  res <- tidyr::drop_na(df)
+  expect_identical(res, tibble(x = 1, y = "a"))
 })
 
 test_that("errors are raised", {

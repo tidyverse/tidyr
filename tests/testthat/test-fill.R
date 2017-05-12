@@ -17,14 +17,12 @@ test_that("all missings left unchanged", {
 
 test_that("missings filled down from last non-missing", {
   df <- tibble(x = c(1, NA, NA))
-
   out <- fill(df, x)
   expect_equal(out$x, c(1, 1, 1))
 })
 
 test_that("missings filled up from last non-missing", {
   df <- tibble(x = c(NA, NA, 1))
-
   out <- fill(df, x, .direction = "up")
   expect_equal(out$x, c(1, 1, 1))
 })

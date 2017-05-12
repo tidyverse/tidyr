@@ -5,7 +5,7 @@ test_that("unnesting combines atomic vectors", {
   expect_equal(unnest(df)$x, 1:10)
 })
 
-test_that("vector unnest preseves names", {
+test_that("vector unnest preserves names", {
   df <- tibble(x = list(1, 2:3), y = list("a", c("b", "c")))
   out <- unnest(df)
   expect_named(out, c("x", "y"))

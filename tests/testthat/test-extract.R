@@ -29,7 +29,6 @@ test_that("extract keeps characters as character", {
 test_that("groups are preserved", {
   df <- tibble(g = 1, x = "X1") %>% dplyr::group_by(g)
   rs <- df %>% extract(x, c("x", "y"), "(.)(.)")
-
   expect_equal(class(df), class(rs))
   expect_equal(dplyr::groups(df), dplyr::groups(rs))
 })

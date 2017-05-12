@@ -9,14 +9,12 @@ test_that("missing values in input are missing in output", {
 
 test_that("integer values specific position between characters", {
   df <- tibble(x = c(NA, "ab", "cd"))
-
   out <- separate(df, x, c("x", "y"), 1)
   expect_equal(out$x, c(NA, "a", "c"))
 })
 
 test_that("convert produces integers etc", {
   df <- tibble(x = "1-1.5-FALSE")
-
   out <- separate(df, x, c("x", "y", "z"), "-", convert = TRUE)
   expect_equal(out$x, 1L)
   expect_equal(out$y, 1.5)
@@ -25,7 +23,6 @@ test_that("convert produces integers etc", {
 
 test_that("convert keeps characters as character", {
   df <- tibble(x = "X-1")
-
   out <- separate(df, x, c("x", "y"), "-", convert = TRUE)
   expect_equal(out$x, "X")
   expect_equal(out$y, 1L)
@@ -62,7 +59,6 @@ test_that("too few pieces dealt with as requested", {
 test_that("preserves grouping", {
   df <- tibble(g = 1, x = "a:b") %>% dplyr::group_by(g)
   rs <- df %>% separate(x, c("a", "b"))
-
   expect_equal(class(df), class(rs))
   expect_equal(dplyr::groups(df), dplyr::groups(rs))
 })
@@ -70,7 +66,6 @@ test_that("preserves grouping", {
 test_that("drops grouping when needed", {
   df <- tibble(x = "a:b") %>% dplyr::group_by(x)
   rs <- df %>% separate(x, c("a", "b"))
-
   expect_equal(rs$a, "a")
   expect_equal(dplyr::groups(rs), NULL)
 })

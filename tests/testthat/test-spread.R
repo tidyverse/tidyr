@@ -2,31 +2,31 @@ context("Spread")
 library(dplyr, warn.conflicts = FALSE)
 
 test_that("order doesn't matter", {
+  df1 <- data.frame(x = c("a", "b"), y = 1:2)
+  df2 <- data.frame(x = c("b", "a"), y = 2:1)
+  one <- spread(df1, x, y)
+  two <- spread(df2, x, y) %>% select(a, b) %>% arrange(a, b)
+  expect_identical(one, two)
 
-  one <- data.frame(x = c("a", "b"), y = 1:2) %>% spread(x, y)
-  two <- data.frame(x = c("b", "a"), y = 2:1) %>% spread(x, y) %>%
-    select(a, b) %>% arrange(a, b)
-  expect_equal(one, two)
-
-  one <- data.frame(z = c("b", "a"), x = c("a", "b"), y = 1:2) %>%
-    spread(x, y) %>% arrange(z)
-  two <- data.frame(z = c("a", "b"), x = c("b", "a"), y = 2:1) %>%
-    spread(x, y)
-  expect_equal(one, two)
+  df1 <- data.frame(z = c("b", "a"), x = c("a", "b"), y = 1:2)
+  df2 <- data.frame(z = c("a", "b"), x = c("b", "a"), y = 2:1)
+  one <- spread(df1, x, y) %>% arrange(z)
+  two <- spread(df2, x, y)
+  expect_identical(one, two)
 })
 
 test_that("convert turns strings into integers", {
   df <- tibble(key = "a", value = "1")
   out <- spread(df, key, value, convert = TRUE)
-
   expect_is(out$a, "integer")
 })
 
 test_that("duplicate values for one key is an error", {
   df <- data.frame(x = c("a", "b", "b"), y = c(1, 2, 2), z = c(1, 2, 2))
-
-  expect_error(df %>% spread(x, y), "Duplicate identifiers for rows (2, 3)",
-    fixed = TRUE)
+  expect_error(spread(df, x, y),
+    "Duplicate identifiers for rows (2, 3)",
+    fixed = TRUE
+  )
 })
 
 test_that("factors are spread into columns (#35)", {
@@ -41,7 +41,6 @@ test_that("factors are spread into columns (#35)", {
   expect_true(all(vapply(out, is.factor, logical(1))))
   expect_identical(levels(out$a), levels(data$z))
   expect_identical(levels(out$b), levels(data$z))
-
 })
 
 test_that("drop = FALSE keeps missing combinations (#25)", {
@@ -76,7 +75,7 @@ test_that("preserve class of input", {
     y = c("c", "d", "c", "d"),
     z = c("w", "x", "y", "z")
   )
-  dat %>% as_tibble %>% spread(x, z) %>% expect_is("tbl_df")
+  dat %>% as_tibble() %>% spread(x, z) %>% expect_is("tbl_df")
 })
 
 test_that("dates are spread into columns (#62)", {
