@@ -79,10 +79,11 @@ gather.data.frame <- function(data, key = "key", value = "value", ...,
   key_var <- quo_name(enexpr(key))
   value_var <- quo_name(enexpr(value))
 
-  if (dots_n(...) == 0) {
+  quos <- quos(...)
+  if (is_empty(quos)) {
     gather_vars <- setdiff(names(data), c(key_var, value_var))
   } else {
-    gather_vars <- unname(dplyr::select_vars(names(data), ...))
+    gather_vars <- unname(dplyr::select_vars(names(data), !!! quos))
   }
   if (is_empty(gather_vars)) {
     return(data)
