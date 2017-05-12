@@ -114,7 +114,11 @@ unnest.data.frame <- function(data, ..., .drop = NA, .id = NULL,
   # Keep list columns by default, only if the rows aren't expanded
   if (identical(.drop, NA)) {
     n_in <- nrow(data)
-    n_out <- nrow(unnested_atomic %||% unnested_dataframe)
+    if (length(unnested_atomic)) {
+      n_out <- nrow(unnested_atomic)
+    } else {
+      n_out <- nrow(unnested_dataframe)
+    }
     .drop <- n_out != n_in
   }
   if (.drop) {

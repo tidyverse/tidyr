@@ -55,8 +55,6 @@ list_indices <- function(x, max = 20) {
   paste(x, collapse = ", ")
 }
 
-`%||%` <- function(x, y) if (length(x) == 0) y else x
-
 regroup <- function(output, input, except = NULL) {
   groups <- dplyr::group_vars(input)
   if (!is.null(except)) {
@@ -80,40 +78,6 @@ reconstruct_tibble <- function(input, output, ungrouped_vars = chr()) {
 # everything), and 0.5 which exports it as a proper function
 everything <- function(...) dplyr::everything(...)
 
-is_numeric <- function(x) {
-  typeof(x) %in% c("integer", "double")
-}
-
 imap <- function(.x, .f, ...) {
   map2(.x, names(.x) %||% character(0), .f, ...)
-}
-
-is_empty_character <- function(x) {
-  is_character(x, 0)
-}
-
-
-select_var <- function(vars, var) {
-  var_env <- set_names(as_list(seq_along(vars)), vars)
-  var <- eval_tidy(enquo(var), var_env)
-  n <- length(vars)
-
-  if (is_string(var)) {
-    pos <- match(var, vars)
-    if (is_na(pos)) {
-      abort(glue("`var` can't be found among `vars`"))
-    }
-  } else if (is_integerish(var, 1)) {
-    pos <- var
-    if (pos < 0) {
-      pos <- pos + n + 1
-    }
-    if (is_na(pos) || abs(pos) > n || pos == 0L) {
-      abort(glue("`var` must be a value between {-n} and {n} (excluding zero), not {var}"))
-    }
-  } else {
-    abort(glue("`var` must evaluate to a single number or a column name"))
-  }
-
-  vars[[pos]]
 }
