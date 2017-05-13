@@ -50,5 +50,5 @@ test_that("errors are raised", {
   df <- data_frame(x = c(1, 2, NA), y = c("a", NA, "b"))
   expect_error(tidyr::drop_na_(df, NULL), "not a character vector")
   expect_error(tidyr::drop_na_(df, 1), "not a character vector")
-  expect_error(tidyr::drop_na_(df, "z"), "Unknown column")
+  expect_error(tidyr::drop_na_(df, "z"))
 })
