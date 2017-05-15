@@ -9,5 +9,5 @@
 
 ## Downstream dependencies
 
-I did not run R CMD check as this is a patch release to register C functions and fix a test failure 
-with the soon-to-be-released version of dplyr.
+I did not run R CMD check as this is a patch release to fix a test failure 
+with the soon-to-be-released version of tibble.

@@ -1,4 +1,6 @@
-# tidyr 0.6.2.9000
+# tidyr 0.6.3
+
+* Patch tests to be compatible with dev tibble
 
 # tidyr 0.6.2
 
