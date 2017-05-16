@@ -19,9 +19,9 @@
 #' )
 #' separate_rows(df, y, z, convert = TRUE)
 separate_rows <- function(data, ..., sep = "[^[:alnum:].]+",
-                          convert = FALSE) {
+                          convert = FALSE, drop = NA) {
   cols <- unname(dplyr::select_vars(names(data), ...))
-  separate_rows_(data, cols, sep, convert)
+  separate_rows_(data, cols, sep, convert, drop)
 }
 
 #' Standard-evaluation version of \code{separate_rows}.
@@ -30,20 +30,22 @@ separate_rows <- function(data, ..., sep = "[^[:alnum:].]+",
 #'
 #' @param cols Name of columns that need to be separated.
 #' @param sep Separator delimiting collapsed values.
+#' @param drop Should list columns be dropped? By default, \code{separate_rows}
+#'   will drop them if specified columns requires the rows to be duplicated.
 #' @inheritParams separate_
 #' @keywords internal
 #' @export
 separate_rows_ <- function(data, cols, sep = "[^[:alnum:].]+",
-                           convert = FALSE) {
+                           convert = FALSE, drop = FALSE) {
   UseMethod("separate_rows_")
 }
 
 #' @export
 separate_rows_.data.frame <- function(data, cols, sep = "[^[:alnum:].]+",
-                                      convert = FALSE) {
+                                      convert = FALSE, drop = FALSE) {
 
   data[cols] <- lapply(data[cols], stringi::stri_split_regex, sep)
-  data <- unnest_(data, cols)
+  data <- unnest_(data, cols, .drop = drop)
 
   if (convert) {
     data[cols] <- lapply(data[cols], type.convert, as.is = TRUE)
@@ -54,13 +56,13 @@ separate_rows_.data.frame <- function(data, cols, sep = "[^[:alnum:].]+",
 
 #' @export
 separate_rows_.tbl_df <- function(data, cols, sep = "[^[:alnum:].]+",
-                                  convert = FALSE) {
+                                  convert = FALSE, drop = FALSE) {
   as_data_frame(NextMethod())
 }
 
 #' @export
 separate_rows_.grouped_df <- function(data, cols, sep = "[^[:alnum:].]+",
-                                  convert = FALSE) {
+                                  convert = FALSE, drop = FALSE) {
 
   regroup(NextMethod(), data, cols)
 }
