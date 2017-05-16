@@ -28,7 +28,6 @@ separate_rows <- function(data, ..., sep = "[^[:alnum:].]+",
 #'
 #' This is a S3 generic.
 #'
-#' @param data A data frame.
 #' @param cols Name of columns that need to be separated.
 #' @param sep Separator delimiting collapsed values.
 #' @inheritParams separate_
