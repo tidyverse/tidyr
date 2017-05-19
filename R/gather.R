@@ -77,6 +77,18 @@ n_dots <- function(...) nargs()
 #'   which preserves the original ordering of the columns.
 #' @keywords internal
 #' @export
+#' @examples
+#' library(dplyr)
+#' # Similar to 'gather' example
+#' stocks <- data_frame(
+#'   time = as.Date('2009-01-01') + 0:9,
+#'   X = rnorm(10, 0, 1),
+#'   Y = rnorm(10, 0, 2),
+#'   Z = rnorm(10, 0, 4)
+#' )
+#'
+#' gather_(stocks, "stock", "price", c("X", "Y", "Z"))
+#' stocks %>% gather_("stock", "price", select_vars_(names(.), "-time" ))
 gather_ <- function(data, key_col, value_col, gather_cols, na.rm = FALSE,
                      convert = FALSE, factor_key = FALSE) {
   UseMethod("gather_")
