@@ -4,7 +4,8 @@
 \alias{separate_rows}
 \title{Separate a collapsed column into multiple rows.}
 \usage{
-separate_rows(data, ..., sep = "[^[:alnum:].]+", convert = FALSE)
+separate_rows(data, ..., sep = "[^[:alnum:].]+", convert = FALSE,
+  drop = NA)
 }
 \arguments{
 \item{data}{A data frame.}
@@ -18,6 +19,9 @@ Select all variables between x and z with \code{x:z}, exclude y with
 \item{convert}{If \code{TRUE}, will run \code{\link{type.convert}} with
 \code{as.is = TRUE} on new columns. This is useful if the component
 columns are integer, numeric or logical.}
+
+\item{drop}{Should list columns be dropped? By default, \code{separate_rows}
+will drop them if specified columns requires the rows to be duplicated.}
 }
 \description{
 If a variable contains observations with multiple delimited values, this

@@ -4,7 +4,8 @@
 \alias{separate_rows_}
 \title{Standard-evaluation version of \code{separate_rows}.}
 \usage{
-separate_rows_(data, cols, sep = "[^[:alnum:].]+", convert = FALSE)
+separate_rows_(data, cols, sep = "[^[:alnum:].]+", convert = FALSE,
+  drop = FALSE)
 }
 \arguments{
 \item{data}{A data frame.}
@@ -16,6 +17,9 @@ separate_rows_(data, cols, sep = "[^[:alnum:].]+", convert = FALSE)
 \item{convert}{If \code{TRUE}, will run \code{\link{type.convert}} with
 \code{as.is = TRUE} on new columns. This is useful if the component
 columns are integer, numeric or logical.}
+
+\item{drop}{Should list columns be dropped? By default, \code{separate_rows}
+will drop them if specified columns requires the rows to be duplicated.}
 }
 \description{
 This is a S3 generic.

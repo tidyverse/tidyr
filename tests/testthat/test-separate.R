@@ -115,3 +115,13 @@ test_that("convert produces integers etc", {
   expect_equal(class(out$y), "logical")
   expect_equal(class(out$z), "character")
 })
+
+test_that("extra list cols can be maintained", {
+  df <- data_frame(x = c("a,b", "c"), y = list(list("a", "b"), "c"))
+
+  out <- separate_rows(df, x)
+  expect_equal(out, data_frame(x = letters[1:3]))
+
+  out <- separate_rows(df, x, drop = FALSE)
+  expect_equal(out$y, c(df$y[1], df$y))
+})
