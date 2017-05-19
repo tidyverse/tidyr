@@ -114,3 +114,20 @@ test_that("grouping is preserved", {
   expect_equal(class(df), class(rs))
   expect_equal(dplyr::groups(df), dplyr::groups(rs))
 })
+
+test_that("unnest preserves top-level attributes(#272)", {
+  test.nest <- tibble::tibble(x = c(1, 2),
+                              y = list(data.frame(z = 2), data.frame(z = 4)))
+  classlist <- sort(c("testclass", class(test.nest)))
+  class(test.nest) <- classlist
+  comment(test.nest) <- "test comment"
+  attr(test.nest, "single") <- 456
+  attr(test.nest, "multi")  <- c("ABC", "xyz", "123")
+
+  test.unnest <- unnest(test.nest, y)
+
+  expect_equal(attr(test.unnest, "single"),  456)
+  expect_equal(attr(test.unnest, "multi"),   c("ABC", "xyz", "123"))
+  expect_equal(sort(class(test.unnest)), classlist)
+  expect_equal(comment(test.unnest), "test comment")
+})
