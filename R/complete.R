@@ -43,7 +43,7 @@ complete <- function(data, ..., fill = list()) {
 #'
 #' This is a S3 generic.
 #' @param data A data frame
-#' @param cols Columns to expand
+#' @param cols Character vector of column names to be expanded
 #' @param fill A named list that for each variable supplies a single value to
 #'   use instead of \code{NA} for missing combinations.
 #' @export
