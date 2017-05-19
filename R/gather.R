@@ -46,14 +46,33 @@ gather <- function(data, key, value, ..., na.rm = FALSE, convert = FALSE,
   key_col <- col_name(substitute(key), "key")
   value_col <- col_name(substitute(value), "value")
 
-  if (n_dots(...) == 0) {
-    gather_cols <- setdiff(colnames(data), c(key_col, value_col))
-  } else {
-    gather_cols <- unname(dplyr::select_vars(colnames(data), ...))
-  }
+  gather_cols <- gather_vars(data, key_col, value_col, ...)
 
   gather_(data, key_col, value_col, gather_cols, na.rm = na.rm,
     convert = convert, factor_key = factor_key)
+}
+
+#' Gather variables
+#'
+#' This function powers \code{\link{gather}()}. It is a generic function which
+#' allows other packages to author custom methods for \code{\link{gather}()}.
+#'
+#' @keywords internal
+#' @export
+#' @examples
+#'
+#' gather_vars(mtcars, key, value, -vs)
+gather_vars <- function(data, key_col, value_col, ...) {
+  UseMethod("gather_vars")
+}
+
+#' @export
+gather_vars.data.frame <- function(data, key_col, value_col, ...) {
+  if (n_dots(...) == 0) {
+    setdiff(colnames(data), c(key_col, value_col))
+  } else {
+    unname(dplyr::select_vars(colnames(data), ...))
+  }
 }
 
 n_dots <- function(...) nargs()
