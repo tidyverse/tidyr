@@ -18,6 +18,8 @@ replace_na.data.frame <- function(data, replace = list(), ...) {
   stopifnot(is.list(replace))
 
   for (var in names(replace)) {
+    if (is.factor(data[[var]]))
+      levels(data[[var]]) <- c(levels(data[[var]]), replace[[var]])
     data[[var]][is.na(data[[var]])] <- replace[[var]]
   }
 
