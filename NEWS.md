@@ -1,9 +1,5 @@
 # tidyr 0.6.3.9000
 
-# tidyr 0.6.3
-
-* Patch tests to be compatible with dev tibble
-
 * tidyr is now a tidyeval grammar. The underscored variants are softly
   deprecated: they will remain around without warning for some time
   for backward compatibility. See
@@ -19,6 +15,12 @@
   unquote symbols or strings). This type of NSE is now strongly
   discouraged in the tidyverse; symbols should represent real objects.
 
+
+# tidyr 0.6.3
+
+* Patch tests to be compatible with dev tibble
+
+
 # tidyr 0.6.2
 
 * Register C functions
@@ -27,12 +29,14 @@
 
 * Patch tests to be compatible with dev dplyr.
 
+
 # tidyr 0.6.1
 
 * Patch test to be compatible with dev tibble
 
 * Changed deprecation message of `extract_numeric()` to point to 
   `readr::parse_number()` rather than `readr::parse_numeric()`
+
 
 # tidyr 0.6.0
 
