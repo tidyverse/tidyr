@@ -11,7 +11,7 @@ spread(data, key, value, fill = NA, convert = FALSE, drop = TRUE,
 \item{data}{A data frame.}
 
 \item{key, value}{Column names or positions. This is passed to
-  [dplyr::select_var()].
+  [tidyselect::vars_pull()].
 
   These arguments are passed by expression and support
   [quasiquotation][rlang::quasiquotation] (you can unquote column

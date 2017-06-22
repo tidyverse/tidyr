@@ -29,7 +29,7 @@ fill.default <- function(data, ..., .direction = c("down", "up")) {
 }
 #' @export
 fill.data.frame <- function(data, ..., .direction = c("down", "up")) {
-  fill_cols <- unname(dplyr::select_vars(names(data), ...))
+  fill_cols <- unname(tidyselect::vars_select(names(data), ...))
 
   .direction <- match.arg(.direction)
   fillVector <- switch(.direction, down = fillDown, up = fillUp)

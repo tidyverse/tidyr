@@ -44,7 +44,7 @@ nest.default <- function(data, ..., .key = "data") {
 nest.data.frame <- function(data, ..., .key = "data") {
   key_var <- quo_name(enexpr(.key))
 
-  nest_vars <- unname(dplyr::select_vars(names(data), ...))
+  nest_vars <- unname(tidyselect::vars_select(names(data), ...))
   if (is_empty(nest_vars)) {
     nest_vars <- names(data)
   }

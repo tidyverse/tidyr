@@ -2,7 +2,7 @@
 #'
 #' @param data A data frame.
 #' @param key,value Column names or positions. This is passed to
-#'   [dplyr::select_var()].
+#'   [tidyselect::vars_pull()].
 #'
 #'   These arguments are passed by expression and support
 #'   [quasiquotation][rlang::quasiquotation] (you can unquote column
@@ -66,8 +66,8 @@ spread.default <- function(data, key, value, fill = NA, convert = FALSE,
 #' @export
 spread.data.frame <- function(data, key, value, fill = NA, convert = FALSE,
                               drop = TRUE, sep = NULL) {
-  key_var <- dplyr::select_var(names(data), !! enquo(key))
-  value_var <- dplyr::select_var(names(data), !! enquo(value))
+  key_var <- tidyselect::vars_pull(names(data), !! enquo(key))
+  value_var <- tidyselect::vars_pull(names(data), !! enquo(value))
 
   col <- data[key_var]
   col_id <- id(col, drop = drop)
