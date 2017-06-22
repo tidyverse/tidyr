@@ -1,8 +1,25 @@
 # tidyr 0.6.3.9000
 
+* tidyr is now a tidyeval grammar. The underscored variants are softly
+  deprecated: they will remain around without warning for some time
+  for backward compatibility. See
+  [dplyr's programming vignette](http://dplyr.tidyverse.org/articles/programming.html) for
+  practical information about tidy evaluation.
+
+  Some arguments could not be completely ported to tidyeval for
+  backward compatibility. These arguments accept a bare symbol to
+  specify the names of _new_ columns to create. This is not tidy
+  because the symbol do not represent any actual object. As a
+  consequence, these arguments are not evaluated but labelled using
+  `rlang::quo_name()` (they still support quasiquotation and you can
+  unquote symbols or strings). This type of NSE is now strongly
+  discouraged in the tidyverse; symbols should represent real objects.
+
+
 # tidyr 0.6.3
 
 * Patch tests to be compatible with dev tibble
+
 
 # tidyr 0.6.2
 
@@ -12,12 +29,14 @@
 
 * Patch tests to be compatible with dev dplyr.
 
+
 # tidyr 0.6.1
 
 * Patch test to be compatible with dev tibble
 
 * Changed deprecation message of `extract_numeric()` to point to 
   `readr::parse_number()` rather than `readr::parse_numeric()`
+
 
 # tidyr 0.6.0
 

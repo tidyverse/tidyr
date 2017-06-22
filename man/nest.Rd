@@ -4,7 +4,7 @@
 \alias{nest}
 \title{Nest repeated values in a list-variable.}
 \usage{
-nest(data, ..., .key = data)
+nest(data, ..., .key = "data")
 }
 \arguments{
 \item{data}{A data frame.}
@@ -13,7 +13,14 @@ nest(data, ..., .key = data)
 Select all variables between x and z with \code{x:z}, exclude y with
 \code{-y}. For more options, see the \link[dplyr]{select} documentation.}
 
-\item{.key}{The name of the new column.}
+\item{.key}{The name of the new column, as a string or symbol.
+
+  This argument is passed by expression and supports
+  [quasiquotation][rlang::quasiquotation] (you can unquote strings
+  and symbols). The name is captured from the expression with
+  [rlang::quo_name()] (note that this kind of interface where
+  symbols do not represent actual objects is now discouraged in the
+  tidyverse; we support it here for backward compatibility).}
 }
 \description{
 There are many possible ways one could choose to nest columns inside a
@@ -22,8 +29,8 @@ the nested variables: this seems to be the most useful form in practice.
 }
 \examples{
 library(dplyr)
-iris \%>\% nest(-Species)
-chickwts \%>\% nest(weight)
+as_tibble(iris) \%>\% nest(-Species)
+as_tibble(chickwts) \%>\% nest(weight)
 
 if (require("gapminder")) {
   gapminder \%>\%
@@ -36,7 +43,4 @@ if (require("gapminder")) {
 }
 \seealso{
 \code{\link{unnest}} for the inverse operation.
-
-\code{\link{nest_}} for a version that uses regular evaluation
-  and is suitable for programming with.
 }

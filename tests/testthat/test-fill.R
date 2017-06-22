@@ -1,7 +1,7 @@
 context("fill")
 
 test_that("all missings left unchanged", {
-  df <- data_frame(
+  df <- tibble(
     lgl = c(NA, NA),
     int = c(NA_integer_, NA),
     dbl = c(NA_real_, NA),
@@ -16,21 +16,19 @@ test_that("all missings left unchanged", {
 })
 
 test_that("missings filled down from last non-missing", {
-  df <- data_frame(x = c(1, NA, NA))
-
+  df <- tibble(x = c(1, NA, NA))
   out <- fill(df, x)
   expect_equal(out$x, c(1, 1, 1))
 })
 
 test_that("missings filled up from last non-missing", {
-  df <- data_frame(x = c(NA, NA, 1))
-
+  df <- tibble(x = c(NA, NA, 1))
   out <- fill(df, x, .direction = "up")
   expect_equal(out$x, c(1, 1, 1))
 })
 
 test_that("missings filled down for each atomic vector", {
-  df <- data_frame(
+  df <- tibble(
     lgl = c(T, NA),
     int = c(1L, NA),
     dbl = c(1, NA),
@@ -39,7 +37,7 @@ test_that("missings filled down for each atomic vector", {
 
   )
 
-  out <- fill(df, everything())
+  out <- fill(df, tidyselect::everything())
   expect_equal(out$lgl, c(TRUE, TRUE))
   expect_equal(out$int, c(1L, 1L))
   expect_equal(out$dbl, c(1, 1))
@@ -48,7 +46,7 @@ test_that("missings filled down for each atomic vector", {
 })
 
 test_that("missings filled up for each vector", {
-  df <- data_frame(
+  df <- tibble(
     lgl = c(NA, T),
     int = c(NA, 1L),
     dbl = c(NA, 1),
@@ -56,7 +54,7 @@ test_that("missings filled up for each vector", {
     lst = list(NULL, 1:5)
   )
 
-  out <- fill(df, everything(), .direction = "up")
+  out <- fill(df, tidyselect::everything(), .direction = "up")
   expect_equal(out$lgl, c(TRUE, TRUE))
   expect_equal(out$int, c(1L, 1L))
   expect_equal(out$dbl, c(1, 1))
@@ -65,7 +63,7 @@ test_that("missings filled up for each vector", {
 })
 
 test_that("fill preserves attributes", {
-  df <- data_frame(x = factor(c(NA, "a", NA)))
+  df <- tibble(x = factor(c(NA, "a", NA)))
 
   out_d <- fill(df, x)
   out_u <- fill(df, x, .direction = "up")
@@ -75,7 +73,7 @@ test_that("fill preserves attributes", {
 })
 
 test_that("fill respects grouping", {
-  df <- data_frame(x = c(1, 1, 2), y = c(1, NA, NA))
+  df <- tibble(x = c(1, 1, 2), y = c(1, NA, NA))
   out <- df %>% dplyr::group_by(x) %>% fill(y)
   expect_equal(out$y, c(1, 1, NA))
 })

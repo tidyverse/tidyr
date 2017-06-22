@@ -3,23 +3,17 @@
 \name{expand}
 \alias{expand}
 \alias{crossing}
-\alias{crossing_}
 \alias{nesting}
-\alias{nesting_}
 \title{Expand data frame to include all combinations of values}
 \usage{
 expand(data, ...)
 
 crossing(...)
 
-crossing_(x)
-
 nesting(...)
-
-nesting_(x)
 }
 \arguments{
-\item{data}{A data frame}
+\item{data}{A data frame.}
 
 \item{...}{Specification of columns to expand.
 
@@ -38,8 +32,6 @@ nesting_(x)
   \code{year = 2010:2020} or \code{year = \link{full_seq}(year)}.
 
   Length-zero (empty) elements are automatically dropped.}
-
-\item{x}{For \code{nesting_} and \code{crossing_} a list of variables.}
 }
 \description{
 \code{expand()} is often useful in conjunction with \code{left_join} if
@@ -64,7 +56,7 @@ expand(mtcars, vs, cyl)
 expand(mtcars, nesting(vs, cyl))
 
 # Implicit missings ---------------------------------------------------------
-df <- data_frame(
+df <- tibble(
   year   = c(2010, 2010, 2010, 2010, 2012, 2012, 2012),
   qtr    = c(   1,    2,    3,    4,    1,    2,    3),
   return = rnorm(7)
@@ -78,7 +70,7 @@ df \%>\% complete(year = full_seq(year, 1), qtr)
 # Each person was given one of two treatments, repeated three times
 # But some of the replications haven't happened yet, so we have
 # incomplete data:
-experiment <- data_frame(
+experiment <- tibble(
   name = rep(c("Alex", "Robert", "Sam"), c(3, 2, 1)),
   trt  = rep(c("a", "b", "a"), c(3, 2, 1)),
   rep = c(1, 2, 3, 1, 2, 1),
@@ -103,7 +95,4 @@ experiment \%>\% complete(nesting(name, trt), rep)
 \seealso{
 \code{\link{complete}} for a common application of \code{expand}:
   completing a data frame with missing combinations.
-
-\code{\link{expand_}} for a version that uses regular evaluation
-  and is suitable for programming with.
 }

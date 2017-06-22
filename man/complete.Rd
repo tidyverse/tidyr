@@ -7,7 +7,7 @@
 complete(data, ..., fill = list())
 }
 \arguments{
-\item{data}{A data frame}
+\item{data}{A data frame.}
 
 \item{...}{Specification of columns to expand.
 
@@ -42,7 +42,7 @@ explicit missing values in the data set.
 }
 \examples{
 library(dplyr, warn.conflicts = FALSE)
-df <- data_frame(
+df <- tibble(
   group = c(1:2, 1),
   item_id = c(1:2, 2),
   item_name = c("a", "b", "b"),
@@ -53,8 +53,4 @@ df \%>\% complete(group, nesting(item_id, item_name))
 
 # You can also choose to fill in missing values
 df \%>\% complete(group, nesting(item_id, item_name), fill = list(value1 = 0))
-}
-\seealso{
-\code{\link{complete_}} for a version that uses regular evaluation
-  and is suitable for programming with.
 }

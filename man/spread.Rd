@@ -10,11 +10,12 @@ spread(data, key, value, fill = NA, convert = FALSE, drop = TRUE,
 \arguments{
 \item{data}{A data frame.}
 
-\item{key}{The bare (unquoted) name of the column whose values will be used
-as column headings.}
+\item{key, value}{Column names or positions. This is passed to
+  [tidyselect::vars_pull()].
 
-\item{value}{The bare (unquoted) name of the column whose values will
-populate the cells.}
+  These arguments are passed by expression and support
+  [quasiquotation][rlang::quasiquotation] (you can unquote column
+  names or column positions).}
 
 \item{fill}{If set, missing values will be replaced with this value. Note
 that there are two types of missingness in the input: explicit missing
@@ -60,8 +61,4 @@ df <- data.frame(row = rep(c(1, 51), each = 3),
                  value = c(5.1, "setosa", 1, 7.0, "versicolor", 2))
 df \%>\% spread(var, value) \%>\% str
 df \%>\% spread(var, value, convert = TRUE) \%>\% str
-}
-\seealso{
-\code{\link{spread_}} for a version that uses regular evaluation
-  and is suitable for programming with.
 }

@@ -13,12 +13,15 @@ Depends:
 License: MIT + file LICENSE
 LazyData: true
 Imports:
-    tibble,
-    dplyr (>= 0.4),
-    stringi,
-    lazyeval,
+    dplyr (>= 0.7.0),
+    glue,
     magrittr,
-    Rcpp
+    purrr,
+    rlang,
+    Rcpp,
+    stringi,
+    tibble,
+    tidyselect
 URL: http://tidyr.tidyverse.org,
     https://github.com/tidyverse/tidyr
 BugReports: https://github.com/tidyverse/tidyr/issues
@@ -31,3 +34,4 @@ Suggests:
 VignetteBuilder: knitr
 LinkingTo: Rcpp
 RoxygenNote: 6.0.1
+Remotes: tidyverse/tidyselect

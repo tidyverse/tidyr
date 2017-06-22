@@ -11,3 +11,4 @@
 ^README-.*\.png$
 ^docs$
 ^LICENSE\.md$
+^appveyor\.yml$

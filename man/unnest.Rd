@@ -31,7 +31,7 @@ row must have the same number of entries.
 }
 \examples{
 library(dplyr)
-df <- data_frame(
+df <- tibble(
   x = 1:3,
   y = c("a", "d,e,f", "g,h")
 )
@@ -44,17 +44,17 @@ df \%>\%
   unnest(y = strsplit(y, ","))
 
 # It also works if you have a column that contains other data frames!
-df <- data_frame(
+df <- tibble(
   x = 1:2,
   y = list(
-   data_frame(z = 1),
-   data_frame(z = 3:4)
+   tibble(z = 1),
+   tibble(z = 3:4)
  )
 )
 df \%>\% unnest(y)
 
 # You can also unnest multiple columns simultaneously
-df <- data_frame(
+df <- tibble(
  a = list(c("a", "b"), "c"),
  b = list(1:2, 3),
  c = c(11, 22)
@@ -69,7 +69,7 @@ df \%>\% nest(y)
 df \%>\% nest(y) \%>\% unnest()
 
 # If you have a named list-column, you may want to supply .id
-df <- data_frame(
+df <- tibble(
   x = 1:2,
   y = list(a = 1, b = 3:4)
 )
@@ -77,7 +77,4 @@ unnest(df, .id = "name")
 }
 \seealso{
 \code{\link{nest}} for the inverse operation.
-
-\code{\link{unnest_}} for a version that uses regular evaluation
-  and is suitable for programming with.
 }

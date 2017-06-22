@@ -10,12 +10,11 @@ id <- function(.variables, drop = FALSE) {
   }
 
   # Calculate individual ids
-  ids <- rev(lapply(.variables, id_var, drop = drop))
+  ids <- rev(map(.variables, id_var, drop = drop))
   p <- length(ids)
 
   # Calculate dimensions
-  ndistinct <- vapply(ids, attr, "n", FUN.VALUE = numeric(1),
-    USE.NAMES = FALSE)
+  ndistinct <- map_dbl(ids, attr, "n")
   n <- prod(ndistinct)
   if (n > 2 ^ 31) {
     # Too big for integers, have to use strings, which will be much slower :(
@@ -39,7 +38,7 @@ id <- function(.variables, drop = FALSE) {
 }
 
 id_var <- function(x, drop = FALSE) {
-  if (!is.null(attr(x, "n")) && !drop) return(x)
+  if (!is_null(attr(x, "n")) && !drop) return(x)
 
   if (is.factor(x) && !drop) {
     id <- as.integer(addNA(x, ifany = TRUE))
@@ -47,7 +46,7 @@ id_var <- function(x, drop = FALSE) {
   } else if (length(x) == 0) {
     id <- integer()
     n <- 0L
-  } else if (is.list(x)) {
+  } else if (is_list(x)) {
     # Sorting lists isn't supported
     levels <- unique(x)
     id <- match(x, levels)

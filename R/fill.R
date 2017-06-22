@@ -10,39 +10,27 @@ NULL
 #' Missing values are replaced in atomic vectors; \code{NULL}s are replaced
 #' in list.
 #'
+#' @inheritParams expand
 #' @param ... Specification of columns to fill. Use bare variable names.
 #'   Select all variables between x and z with \code{x:z}, exclude y with
 #'   \code{-y}. For more options, see the \link[dplyr]{select} documentation.
-#' @export
-#' @inheritParams extract_
-#' @inheritParams fill_
-#' @seealso \code{\link{fill_}} for a version that uses regular evaluation
-#'   and is suitable for programming with.
+#' @param .direction Direction in which to fill missing values. Currently
+#'   either "down" (the default) or "up".
 #' @export
 #' @examples
 #' df <- data.frame(Month = 1:12, Year = c(2000, rep(NA, 11)))
 #' df %>% fill(Year)
 fill <- function(data, ..., .direction = c("down", "up")) {
-  fill_cols <- unname(dplyr::select_vars(colnames(data), ...))
-  fill_(data, fill_cols, .direction = .direction)
+  UseMethod("fill")
 }
-
-#' Standard-evaluation version of \code{fill}.
-#'
-#' This is a S3 generic.
-#'
-#' @param data A data frame.
-#' @param fill_cols Character vector of column names.
-#' @param .direction Direction in which to fill missing values. Currently
-#'   either "down" (the default) or "up".
-#' @keywords internal
 #' @export
-fill_ <- function(data, fill_cols, .direction = c("down", "up")) {
-  UseMethod("fill_")
+fill.default <- function(data, ..., .direction = c("down", "up")) {
+  fill_(data, fill_cols = compat_as_lazy_dots(...), .direction = .direction)
 }
-
 #' @export
-fill_.data.frame <- function(data, fill_cols, .direction = c("down", "up")) {
+fill.data.frame <- function(data, ..., .direction = c("down", "up")) {
+  fill_cols <- unname(tidyselect::vars_select(names(data), ...))
+
   .direction <- match.arg(.direction)
   fillVector <- switch(.direction, down = fillDown, up = fillUp)
 
@@ -52,8 +40,21 @@ fill_.data.frame <- function(data, fill_cols, .direction = c("down", "up")) {
 
   data
 }
-
 #' @export
-fill_.grouped_df <- function(data, fill_cols, .direction = c("down", "up")) {
-  dplyr::do(data, fill_(., fill_cols = fill_cols, .direction = .direction))
+fill.grouped_df <- function(data, ..., .direction = c("down", "up")) {
+  dplyr::do(data, fill(., ..., .direction = .direction))
+}
+
+
+#' @rdname deprecated-se
+#' @inheritParams fill
+#' @param fill_cols Character vector of column names.
+#' @export
+fill_ <- function(data, fill_cols, .direction = c("down", "up")) {
+  UseMethod("fill_")
+}
+#' @export
+fill_.data.frame <- function(data, fill_cols, .direction = c("down", "up")) {
+  vars <- compat_lazy_dots(fill_cols, caller_env())
+  fill(data, !!! vars, .direction = .direction)
 }

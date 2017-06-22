@@ -1,22 +1,20 @@
 context("Separate")
 
 test_that("missing values in input are missing in output", {
-  df <- data_frame(x = c(NA, "a b"))
+  df <- tibble(x = c(NA, "a b"))
   out <- separate(df, x, c("x", "y"))
   expect_equal(out$x, c(NA, "a"))
   expect_equal(out$y, c(NA, "b"))
 })
 
 test_that("integer values specific position between characters", {
-  df <- data_frame(x = c(NA, "ab", "cd"))
-
+  df <- tibble(x = c(NA, "ab", "cd"))
   out <- separate(df, x, c("x", "y"), 1)
   expect_equal(out$x, c(NA, "a", "c"))
 })
 
 test_that("convert produces integers etc", {
-  df <- data_frame(x = "1-1.5-FALSE")
-
+  df <- tibble(x = "1-1.5-FALSE")
   out <- separate(df, x, c("x", "y", "z"), "-", convert = TRUE)
   expect_equal(out$x, 1L)
   expect_equal(out$y, 1.5)
@@ -24,15 +22,14 @@ test_that("convert produces integers etc", {
 })
 
 test_that("convert keeps characters as character", {
-  df <- data_frame(x = "X-1")
-
+  df <- tibble(x = "X-1")
   out <- separate(df, x, c("x", "y"), "-", convert = TRUE)
   expect_equal(out$x, "X")
   expect_equal(out$y, 1L)
 })
 
 test_that("too many pieces dealt with as requested", {
-  df <- data_frame(x = c("a b", "a b c"))
+  df <- tibble(x = c("a b", "a b c"))
 
   expect_warning(separate(df, x, c("x", "y")), "Too many")
 
@@ -46,7 +43,7 @@ test_that("too many pieces dealt with as requested", {
 })
 
 test_that("too few pieces dealt with as requested", {
-  df <- data_frame(x = c("a b", "a b c"))
+  df <- tibble(x = c("a b", "a b c"))
 
   expect_warning(separate(df, x, c("x", "y", "z")), "Too few")
 
@@ -60,17 +57,15 @@ test_that("too few pieces dealt with as requested", {
 })
 
 test_that("preserves grouping", {
-  df <- data_frame(g = 1, x = "a:b") %>% dplyr::group_by(g)
+  df <- tibble(g = 1, x = "a:b") %>% dplyr::group_by(g)
   rs <- df %>% separate(x, c("a", "b"))
-
   expect_equal(class(df), class(rs))
   expect_equal(dplyr::groups(df), dplyr::groups(rs))
 })
 
 test_that("drops grouping when needed", {
-  df <- data_frame(x = "a:b") %>% dplyr::group_by(x)
+  df <- tibble(x = "a:b") %>% dplyr::group_by(x)
   rs <- df %>% separate(x, c("a", "b"))
-
   expect_equal(rs$a, "a")
   expect_equal(dplyr::groups(rs), NULL)
 })
@@ -79,17 +74,17 @@ test_that("drops grouping when needed", {
 context("Separate rows")
 
 test_that("can handle collapsed rows", {
-  df <- data_frame(x = 1:3, y = c("a", "d,e,f", "g,h"))
+  df <- tibble(x = 1:3, y = c("a", "d,e,f", "g,h"))
   expect_equal(separate_rows(df, y)$y, unlist(strsplit(df$y, "\\,")))
 })
 
 test_that("default pattern does not split decimals in nested strings", {
-  df <- dplyr::data_frame(x = 1:3, y = c("1", "1.0,1.1", "2.1"))
+  df <- dplyr::tibble(x = 1:3, y = c("1", "1.0,1.1", "2.1"))
   expect_equal(separate_rows(df, y)$y, unlist(strsplit(df$y, ",")))
 })
 
 test_that("preserves grouping", {
-  df <- data_frame(g = 1, x = "a:b") %>% dplyr::group_by(g)
+  df <- tibble(g = 1, x = "a:b") %>% dplyr::group_by(g)
   rs <- df %>% separate_rows(x)
 
   expect_equal(class(df), class(rs))
@@ -97,7 +92,7 @@ test_that("preserves grouping", {
 })
 
 test_that("drops grouping when needed", {
-  df <- data_frame(x = 1, y = "a:b") %>% dplyr::group_by(x, y)
+  df <- tibble(x = 1, y = "a:b") %>% dplyr::group_by(x, y)
 
   out <- df %>% separate_rows(y)
   expect_equal(out$y, c("a", "b"))
@@ -108,7 +103,7 @@ test_that("drops grouping when needed", {
 })
 
 test_that("convert produces integers etc", {
-  df <- data_frame(x = "1,2,3", y = "T,F,T", z = "a,b,c")
+  df <- tibble(x = "1,2,3", y = "T,F,T", z = "a,b,c")
 
   out <- separate_rows(df, x, y, z, convert = TRUE)
   expect_equal(class(out$x), "integer")
