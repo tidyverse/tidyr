@@ -8,7 +8,8 @@
 \format{A dataset with the variables
 \describe{
   \item{country}{Country name}
-  \item{iso2,iso2}{2 & 3 letter ISO country codes}
+  \item{iso2, iso3}{2 & 3 letter ISO country codes}
+  \item{year}{Year}
   \item{new_sp_m014 - new_rel_f65}{Counts of new TB cases recorded by group.
    Column names encode three variables that describe the group (see details).}
 }}
