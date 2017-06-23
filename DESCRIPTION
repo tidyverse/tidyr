@@ -35,3 +35,4 @@ VignetteBuilder: knitr
 LinkingTo: Rcpp
 RoxygenNote: 6.0.1
 Remotes: tidyverse/tidyselect
+Roxygen: list(markdown = TRUE)

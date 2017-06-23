@@ -1,7 +1,7 @@
 #' Replace missing values
 #'
 #' @param data A data frame.
-#' @param replace A named list given the value to replace \code{NA} with
+#' @param replace A named list given the value to replace `NA` with
 #'   for each column.
 #' @param ... Additional arguments for methods. Currently unused.
 #' @examples

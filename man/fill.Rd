@@ -11,7 +11,7 @@ fill(data, ..., .direction = c("down", "up"))
 
 \item{...}{Specification of columns to fill. Use bare variable names.
 Select all variables between x and z with \code{x:z}, exclude y with
-\code{-y}. For more options, see the \link[dplyr]{select} documentation.}
+\code{-y}. For more options, see the \code{\link[dplyr:select]{dplyr::select()}} documentation.}
 
 \item{.direction}{Direction in which to fill missing values. Currently
 either "down" (the default) or "up".}

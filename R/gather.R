@@ -1,7 +1,7 @@
 #' Gather columns into key-value pairs.
 #'
 #' Gather takes multiple columns and collapses into key-value pairs,
-#' duplicating all other columns as needed. You use \code{gather()} when
+#' duplicating all other columns as needed. You use `gather()` when
 #' you notice that you have columns that are not variables.
 #'
 #' @inheritParams expand
@@ -15,15 +15,15 @@
 #'   symbols do not represent actual objects is now discouraged in the
 #'   tidyverse; we support it here for backward compatibility).
 #' @param ... Specification of columns to gather. Use bare variable names.
-#'   Select all variables between x and z with \code{x:z}, exclude y with
-#'   \code{-y}. For more options, see the \link[dplyr]{select} documentation.
-#' @param na.rm If \code{TRUE}, will remove rows from output where the
-#'   value column in \code{NA}.
-#' @param convert If \code{TRUE} will automatically run
-#'   \code{\link{type.convert}} on the key column. This is useful if the column
+#'   Select all variables between x and z with `x:z`, exclude y with
+#'   `-y`. For more options, see the \link[dplyr]{select} documentation.
+#' @param na.rm If `TRUE`, will remove rows from output where the
+#'   value column in `NA`.
+#' @param convert If `TRUE` will automatically run
+#'   [type.convert()] on the key column. This is useful if the column
 #'   names are actually numeric, integer, or logical.
-#' @param factor_key If \code{FALSE}, the default, the key values will be
-#'   stored as a character vector. If \code{TRUE}, will be stored as a factor,
+#' @param factor_key If `FALSE`, the default, the key values will be
+#'   stored as a character vector. If `TRUE`, will be stored as a factor,
 #'   which preserves the original ordering of the columns.
 #' @inheritParams gather_
 #' @export

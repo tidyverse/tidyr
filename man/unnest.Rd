@@ -76,5 +76,5 @@ df <- tibble(
 unnest(df, .id = "name")
 }
 \seealso{
-\code{\link{nest}} for the inverse operation.
+\code{\link[=nest]{nest()}} for the inverse operation.
 }

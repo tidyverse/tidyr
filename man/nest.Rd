@@ -11,16 +11,16 @@ nest(data, ..., .key = "data")
 
 \item{...}{Specification of columns to nest. Use bare variable names.
 Select all variables between x and z with \code{x:z}, exclude y with
-\code{-y}. For more options, see the \link[dplyr]{select} documentation.}
+\code{-y}. For more options, see the \link\link{dplyr}{select} documentation.}
 
 \item{.key}{The name of the new column, as a string or symbol.
 
-  This argument is passed by expression and supports
-  [quasiquotation][rlang::quasiquotation] (you can unquote strings
-  and symbols). The name is captured from the expression with
-  [rlang::quo_name()] (note that this kind of interface where
-  symbols do not represent actual objects is now discouraged in the
-  tidyverse; we support it here for backward compatibility).}
+This argument is passed by expression and supports
+\link[rlang:quasiquotation]{quasiquotation} (you can unquote strings
+and symbols). The name is captured from the expression with
+\code{\link[rlang:quo_name]{rlang::quo_name()}} (note that this kind of interface where
+symbols do not represent actual objects is now discouraged in the
+tidyverse; we support it here for backward compatibility).}
 }
 \description{
 There are many possible ways one could choose to nest columns inside a
@@ -42,5 +42,5 @@ if (require("gapminder")) {
 }
 }
 \seealso{
-\code{\link{unnest}} for the inverse operation.
+\code{\link[=unnest]{unnest()}} for the inverse operation.
 }

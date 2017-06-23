@@ -1,16 +1,16 @@
 #' Complete a data frame with missing combinations of data.
 #'
 #' Turns implicit missing values into explicit missing values.
-#' This is a wrapper around \code{\link{expand}()},
-#' \code{\link[dplyr]{left_join}()} and \code{\link{replace_na}} that's
+#' This is a wrapper around [expand()],
+#' [dplyr::left_join()] and [replace_na()] that's
 #' useful for completing missing combinations of data.
 #'
-#' If you supply \code{fill}, these values will also replace existing
+#' If you supply `fill`, these values will also replace existing
 #' explicit missing values in the data set.
 #'
 #' @inheritParams expand
 #' @param fill A named list that for each variable supplies a single value to
-#'   use instead of \code{NA} for missing combinations.
+#'   use instead of `NA` for missing combinations.
 #' @export
 #' @examples
 #' library(dplyr, warn.conflicts = FALSE)

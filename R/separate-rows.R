@@ -5,8 +5,8 @@
 #'
 #' @inheritParams separate
 #' @param ... Specification of columns to separate. Use bare variable names.
-#'   Select all variables between x and z with \code{x:z}, exclude y with
-#'   \code{-y}. For more options, see the \link[dplyr]{select} documentation.
+#'   Select all variables between x and z with `x:z`, exclude y with
+#'   `-y`. For more options, see the [dplyr::select()] documentation.
 #' @param sep Separator delimiting collapsed values.
 #' @export
 #' @examples

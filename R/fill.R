@@ -7,13 +7,13 @@ NULL
 #' common output format where values are not repeated, they're recorded
 #' each time they change.
 #'
-#' Missing values are replaced in atomic vectors; \code{NULL}s are replaced
+#' Missing values are replaced in atomic vectors; `NULL`s are replaced
 #' in list.
 #'
 #' @inheritParams expand
 #' @param ... Specification of columns to fill. Use bare variable names.
-#'   Select all variables between x and z with \code{x:z}, exclude y with
-#'   \code{-y}. For more options, see the \link[dplyr]{select} documentation.
+#'   Select all variables between x and z with `x:z`, exclude y with
+#'   `-y`. For more options, see the [dplyr::select()] documentation.
 #' @param .direction Direction in which to fill missing values. Currently
 #'   either "down" (the default) or "up".
 #' @export

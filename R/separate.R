@@ -1,7 +1,7 @@
 #' Separate one column into multiple columns.
 #'
 #' Given either regular expression or a vector of character positions,
-#' \code{separate()} turns a single character column into multiple columns.
+#' `separate()` turns a single character column into multiple columns.
 #'
 #' @inheritParams extract
 #' @param into Names of new variables to create as character vector.
@@ -13,17 +13,17 @@
 #'
 #'   If numeric, interpreted as positions to split at. Positive values start
 #'   at 1 at the far-left of the string; negative value start at -1 at the
-#'   far-right of the string. The length of \code{sep} should be one less than
-#'   \code{into}.
-#' @param extra If \code{sep} is a character vector, this controls what
+#'   far-right of the string. The length of `sep` should be one less than
+#'   `into`.
+#' @param extra If `sep` is a character vector, this controls what
 #'   happens when there are too many pieces. There are three valid options:
 #'
 #'   \itemize{
 #'    \item "warn" (the default): emit a warning and drop extra values.
 #'    \item "drop": drop any extra values without a warning.
-#'    \item "merge": only splits at most \code{length(into)} times
+#'    \item "merge": only splits at most `length(into)` times
 #'   }
-#' @param fill If \code{sep} is a character vector, this controls what
+#' @param fill If `sep` is a character vector, this controls what
 #'   happens when there are not enough pieces. There are three valid options:
 #'
 #'   \itemize{
@@ -31,12 +31,12 @@
 #'    \item "right": fill with missing values on the right
 #'    \item "left": fill with missing values on the left
 #'   }
-#' @param remove If \code{TRUE}, remove input column from output data frame.
-#' @param convert If \code{TRUE}, will run \code{\link{type.convert}} with
-#'   \code{as.is = TRUE} on new columns. This is useful if the component
+#' @param remove If `TRUE`, remove input column from output data frame.
+#' @param convert If `TRUE`, will run [type.convert()] with
+#'   `as.is = TRUE` on new columns. This is useful if the component
 #'   columns are integer, numeric or logical.
 #' @param ... Defunct, will be removed in the next version of the package.
-#' @seealso \code{\link{unite}()}, the complement.
+#' @seealso [unite()], the complement.
 #' @export
 #' @examples
 #' library(dplyr)

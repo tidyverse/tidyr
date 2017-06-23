@@ -12,11 +12,11 @@
 #'   symbols do not represent actual objects is now discouraged in the
 #'   tidyverse; we support it here for backward compatibility).
 #' @param ... Specification of columns to unite. Use bare variable names.
-#'   Select all variables between x and z with \code{x:z}, exclude y with
-#'   \code{-y}. For more options, see the \link[dplyr]{select} documentation.
+#'   Select all variables between x and z with `x:z`, exclude y with
+#'   `-y`. For more options, see the \link[dplyr]{select} documentation.
 #' @param sep Separator to use between values.
-#' @param remove If \code{TRUE}, remove input columns from output data frame.
-#' @seealso \code{\link{separate}()}, the complement.
+#' @param remove If `TRUE`, remove input columns from output data frame.
+#' @seealso [separate()], the complement.
 #' @export
 #' @examples
 #' library(dplyr)

@@ -1,14 +1,14 @@
 #' Expand data frame to include all combinations of values
 #'
-#' \code{expand()} is often useful in conjunction with \code{left_join} if
+#' `expand()` is often useful in conjunction with `left_join` if
 #' you want to convert implicit missing values to explicit missing values.
-#' Or you can use it in conjunction with \code{anti_join()} to figure
+#' Or you can use it in conjunction with `anti_join()` to figure
 #' out which combinations are missing.
 #'
-#' \code{crossing()} is similar to \code{\link{expand.grid}()}, this never
-#' converts strings to factors, returns a \code{tbl_df} without additional
-#' attributes, and first factors vary slowest. \code{nesting()} is the
-#' complement to \code{crossing()}: it only keeps combinations of all variables
+#' `crossing()` is similar to [expand.grid()], this never
+#' converts strings to factors, returns a `tbl_df` without additional
+#' attributes, and first factors vary slowest. `nesting()` is the
+#' complement to `crossing()`: it only keeps combinations of all variables
 #' that appear in the data.
 #'
 #' @param data A data frame.
@@ -17,19 +17,19 @@
 #'   To find all unique combinations of x, y and z, including those not
 #'   found in the data, supply each variable as a separate argument.
 #'   To find only the combinations that occur in the data, use nest:
-#'   \code{expand(df, nesting(x, y, z))}.
+#'   `expand(df, nesting(x, y, z))`.
 #'
 #'   You can combine the two forms. For example,
-#'   \code{expand(df, nesting(school_id, student_id), date)} would produce
+#'   `expand(df, nesting(school_id, student_id), date)` would produce
 #'   a row for every student for each date.
 #'
 #'   For factors, the full set of levels (not just those that appear in the
 #'   data) are used. For continuous variables, you may need to fill in values
 #'   that don't appear in the data: to do so use expressions like
-#'   \code{year = 2010:2020} or \code{year = \link{full_seq}(year)}.
+#'   `year = 2010:2020` or `year = \link{full_seq}(year)`.
 #'
 #'   Length-zero (empty) elements are automatically dropped.
-#' @seealso \code{\link{complete}} for a common application of \code{expand}:
+#' @seealso [complete()] for a common application of `expand`:
 #'   completing a data frame with missing combinations.
 #' @export
 #' @examples
@@ -170,7 +170,7 @@ nesting <- function(...) {
 
 
 #' @rdname deprecated-se
-#' @param x For \code{nesting_} and \code{crossing_} a list of variables.
+#' @param x For `nesting_` and `crossing_` a list of variables.
 #' @export
 crossing_ <- function(x) {
   x <- compat_lazy_dots(x, caller_env())

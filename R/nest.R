@@ -1,13 +1,13 @@
 #' Nest repeated values in a list-variable.
 #'
 #' There are many possible ways one could choose to nest columns inside a
-#' data frame. \code{nest()} creates a list of data frames containing all
+#' data frame. `nest()` creates a list of data frames containing all
 #' the nested variables: this seems to be the most useful form in practice.
 #'
 #' @param data A data frame.
 #' @param ... Specification of columns to nest. Use bare variable names.
-#'   Select all variables between x and z with \code{x:z}, exclude y with
-#'   \code{-y}. For more options, see the \link[dplyr]{select} documentation.
+#'   Select all variables between x and z with `x:z`, exclude y with
+#'   `-y`. For more options, see the \link[dplyr]{select} documentation.
 #' @param .key The name of the new column, as a string or symbol.
 #'
 #'   This argument is passed by expression and supports
@@ -16,7 +16,7 @@
 #'   [rlang::quo_name()] (note that this kind of interface where
 #'   symbols do not represent actual objects is now discouraged in the
 #'   tidyverse; we support it here for backward compatibility).
-#' @seealso \code{\link{unnest}} for the inverse operation.
+#' @seealso [unnest()] for the inverse operation.
 #' @export
 #' @examples
 #' library(dplyr)

@@ -11,19 +11,19 @@ spread(data, key, value, fill = NA, convert = FALSE, drop = TRUE,
 \item{data}{A data frame.}
 
 \item{key, value}{Column names or positions. This is passed to
-  [tidyselect::vars_pull()].
+\code{\link[tidyselect:vars_pull]{tidyselect::vars_pull()}}.
 
-  These arguments are passed by expression and support
-  [quasiquotation][rlang::quasiquotation] (you can unquote column
-  names or column positions).}
+These arguments are passed by expression and support
+\link[rlang:quasiquotation]{quasiquotation} (you can unquote column
+names or column positions).}
 
 \item{fill}{If set, missing values will be replaced with this value. Note
 that there are two types of missingness in the input: explicit missing
 values (i.e. \code{NA}), and implicit missings, rows that simply aren't
 present. Both types of missing value will be replaced by \code{fill}.}
 
-\item{convert}{If \code{TRUE}, \code{\link{type.convert}} with \code{asis =
-TRUE} will be run on each of the new columns. This is useful if the value
+\item{convert}{If \code{TRUE}, \code{\link[=type.convert]{type.convert()}} with \code{asis =
+  TRUE} will be run on each of the new columns. This is useful if the value
 column was a mix of variables that was coerced to a string. If the class of
 the value column was factor or date, note that will not be true of the new
 columns that are produced, which are coerced to character before type

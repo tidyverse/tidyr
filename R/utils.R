@@ -26,7 +26,7 @@ compact <- function(x) x[map_int(x, length) > 0]
 
 #' Extract numeric component of variable.
 #'
-#' DEPRECATED: please use \code{readr::parse_number()} instead.
+#' DEPRECATED: please use `readr::parse_number()` instead.
 #'
 #' @param x A character vector (or a factor).
 #' @keywords internal

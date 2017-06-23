@@ -17,21 +17,21 @@ nesting(...)
 
 \item{...}{Specification of columns to expand.
 
-  To find all unique combinations of x, y and z, including those not
-  found in the data, supply each variable as a separate argument.
-  To find only the combinations that occur in the data, use nest:
-  \code{expand(df, nesting(x, y, z))}.
+To find all unique combinations of x, y and z, including those not
+found in the data, supply each variable as a separate argument.
+To find only the combinations that occur in the data, use nest:
+\code{expand(df, nesting(x, y, z))}.
 
-  You can combine the two forms. For example,
-  \code{expand(df, nesting(school_id, student_id), date)} would produce
-  a row for every student for each date.
+You can combine the two forms. For example,
+\code{expand(df, nesting(school_id, student_id), date)} would produce
+a row for every student for each date.
 
-  For factors, the full set of levels (not just those that appear in the
-  data) are used. For continuous variables, you may need to fill in values
-  that don't appear in the data: to do so use expressions like
-  \code{year = 2010:2020} or \code{year = \link{full_seq}(year)}.
+For factors, the full set of levels (not just those that appear in the
+data) are used. For continuous variables, you may need to fill in values
+that don't appear in the data: to do so use expressions like
+\code{year = 2010:2020} or \code{year = \link{full_seq}(year)}.
 
-  Length-zero (empty) elements are automatically dropped.}
+Length-zero (empty) elements are automatically dropped.}
 }
 \description{
 \code{expand()} is often useful in conjunction with \code{left_join} if
@@ -40,7 +40,7 @@ Or you can use it in conjunction with \code{anti_join()} to figure
 out which combinations are missing.
 }
 \details{
-\code{crossing()} is similar to \code{\link{expand.grid}()}, this never
+\code{crossing()} is similar to \code{\link[=expand.grid]{expand.grid()}}, this never
 converts strings to factors, returns a \code{tbl_df} without additional
 attributes, and first factors vary slowest. \code{nesting()} is the
 complement to \code{crossing()}: it only keeps combinations of all variables
@@ -93,6 +93,6 @@ experiment \%>\% right_join(all)
 experiment \%>\% complete(nesting(name, trt), rep)
 }
 \seealso{
-\code{\link{complete}} for a common application of \code{expand}:
-  completing a data frame with missing combinations.
+\code{\link[=complete]{complete()}} for a common application of \code{expand}:
+completing a data frame with missing combinations.
 }

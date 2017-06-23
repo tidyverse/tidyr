@@ -8,15 +8,15 @@
 #' @param ... Specification of columns to nest. Use bare variable names or
 #'   functions of variables. If omitted, defaults to all list-cols.
 #' @param .drop Should additional list columns be dropped? By default,
-#'   \code{unnest} will drop them if unnesting the specified columns requires
+#'   `unnest` will drop them if unnesting the specified columns requires
 #'   the rows to be duplicated.
 #' @param .id Data frame idenfier - if supplied, will create a new column
-#'   with name \code{.id}, giving a unique identifer. This is most useful if
+#'   with name `.id`, giving a unique identifer. This is most useful if
 #'   the list column is named.
-#' @param .sep If non-\code{NULL}, the names of unnested data frame columns
+#' @param .sep If non-`NULL`, the names of unnested data frame columns
 #'   will combine the name of the original list-col with the names from
-#'   nested data frame, separated by \code{.sep}.
-#' @seealso \code{\link{nest}} for the inverse operation.
+#'   nested data frame, separated by `.sep`.
+#' @seealso [nest()] for the inverse operation.
 #' @export
 #' @examples
 #' library(dplyr)

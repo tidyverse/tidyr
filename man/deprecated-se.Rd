@@ -60,21 +60,21 @@ use instead of \code{NA} for missing combinations.}
 
 \item{...}{Specification of columns to expand.
 
-  To find all unique combinations of x, y and z, including those not
-  found in the data, supply each variable as a separate argument.
-  To find only the combinations that occur in the data, use nest:
-  \code{expand(df, nesting(x, y, z))}.
+To find all unique combinations of x, y and z, including those not
+found in the data, supply each variable as a separate argument.
+To find only the combinations that occur in the data, use nest:
+\code{expand(df, nesting(x, y, z))}.
 
-  You can combine the two forms. For example,
-  \code{expand(df, nesting(school_id, student_id), date)} would produce
-  a row for every student for each date.
+You can combine the two forms. For example,
+\code{expand(df, nesting(school_id, student_id), date)} would produce
+a row for every student for each date.
 
-  For factors, the full set of levels (not just those that appear in the
-  data) are used. For continuous variables, you may need to fill in values
-  that don't appear in the data: to do so use expressions like
-  \code{year = 2010:2020} or \code{year = \link{full_seq}(year)}.
+For factors, the full set of levels (not just those that appear in the
+data) are used. For continuous variables, you may need to fill in values
+that don't appear in the data: to do so use expressions like
+\code{year = 2010:2020} or \code{year = \link{full_seq}(year)}.
 
-  Length-zero (empty) elements are automatically dropped.}
+Length-zero (empty) elements are automatically dropped.}
 
 \item{vars, cols, col}{Name of columns.}
 
@@ -86,7 +86,7 @@ use instead of \code{NA} for missing combinations.}
 
 \item{remove}{If \code{TRUE}, remove input column from output data frame.}
 
-\item{convert}{If \code{TRUE}, will run \code{\link{type.convert}} with
+\item{convert}{If \code{TRUE}, will run \code{\link[=type.convert]{type.convert()}} with
 \code{as.is = TRUE} on new columns. This is useful if the component
 columns are integer, numeric or logical.}
 
@@ -113,13 +113,13 @@ which preserves the original ordering of the columns.}
 \item{sep}{Separator delimiting collapsed values.}
 
 \item{extra}{If \code{sep} is a character vector, this controls what
-  happens when there are too many pieces. There are three valid options:
+happens when there are too many pieces. There are three valid options:
 
-  \itemize{
-   \item "warn" (the default): emit a warning and drop extra values.
-   \item "drop": drop any extra values without a warning.
-   \item "merge": only splits at most \code{length(into)} times
-  }}
+\itemize{
+\item "warn" (the default): emit a warning and drop extra values.
+\item "drop": drop any extra values without a warning.
+\item "merge": only splits at most \code{length(into)} times
+}}
 
 \item{drop}{If \code{FALSE}, will keep factor levels that don't appear in the
 data, filling in missing combinations with \code{fill}.}
@@ -160,6 +160,6 @@ with NSE verbs. Thus, the underscored versions are now superfluous.
 Unquoting triggers immediate evaluation of its operand and inlines
 the result within the captured expression. This result can be a
 value or an expression to be evaluated later with the rest of the
-argument. See `vignette("programming", "dplyr")` for more information.
+argument. See \code{vignette("programming", "dplyr")} for more information.
 }
 \keyword{internal}

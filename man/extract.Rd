@@ -11,11 +11,11 @@ extract(data, col, into, regex = "([[:alnum:]]+)", remove = TRUE,
 \item{data}{A data frame.}
 
 \item{col}{Column name or position. This is passed to
-  [tidyselect::vars_pull()].
+\code{\link[tidyselect:vars_pull]{tidyselect::vars_pull()}}.
 
-  This argument is passed by expression and supports
-  [quasiquotation][rlang::quasiquotation] (you can unquote column
-  names or column positions).}
+This argument is passed by expression and supports
+\link[rlang:quasiquotation]{quasiquotation} (you can unquote column
+names or column positions).}
 
 \item{into}{Names of new variables to create as character vector.}
 
@@ -23,11 +23,11 @@ extract(data, col, into, regex = "([[:alnum:]]+)", remove = TRUE,
 
 \item{remove}{If \code{TRUE}, remove input column from output data frame.}
 
-\item{convert}{If \code{TRUE}, will run \code{\link{type.convert}} with
+\item{convert}{If \code{TRUE}, will run \code{\link[=type.convert]{type.convert()}} with
 \code{as.is = TRUE} on new columns. This is useful if the component
 columns are integer, numeric or logical.}
 
-\item{...}{Other arguments passed on to \code{\link{regexec}} to control
+\item{...}{Other arguments passed on to \code{\link[=regexec]{regexec()}} to control
 how the regular expression is processed.}
 }
 \description{

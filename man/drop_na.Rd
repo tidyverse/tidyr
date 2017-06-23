@@ -11,8 +11,8 @@ drop_na(data, ...)
 
 \item{...}{Specification of variables to consider while dropping rows.
 If empty, consider all variables. Use bare variable names. Select all
- variables between x and z with \code{x:z}, exclude y with \code{-y}.
- For more options, see the \link[dplyr]{select} documentation.}
+variables between x and z with \code{x:z}, exclude y with \code{-y}.
+For more options, see the \code{\link[dplyr:select]{dplyr::select()}} documentation.}
 }
 \description{
 Drop rows containing missing values

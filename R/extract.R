@@ -1,6 +1,6 @@
 #' Extract one column into multiple columns.
 #'
-#' Given a regular expression with capturing groups, \code{extract()} turns
+#' Given a regular expression with capturing groups, `extract()` turns
 #' each group into a new column. If the groups don't match, or the input
 #' is NA, the output will be NA.
 #'
@@ -13,11 +13,11 @@
 #'   names or column positions).
 #' @param into Names of new variables to create as character vector.
 #' @param regex a regular expression used to extract the desired values.
-#' @param remove If \code{TRUE}, remove input column from output data frame.
-#' @param convert If \code{TRUE}, will run \code{\link{type.convert}} with
-#'   \code{as.is = TRUE} on new columns. This is useful if the component
+#' @param remove If `TRUE`, remove input column from output data frame.
+#' @param convert If `TRUE`, will run [type.convert()] with
+#'   `as.is = TRUE` on new columns. This is useful if the component
 #'   columns are integer, numeric or logical.
-#' @param ... Other arguments passed on to \code{\link{regexec}} to control
+#' @param ... Other arguments passed on to [regexec()] to control
 #'   how the regular expression is processed.
 #' @export
 #' @examples
