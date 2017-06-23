@@ -59,11 +59,30 @@ test_that(".id creates vector of names for vector unnest", {
   expect_equal(out$name, c("a", "b", "b"))
 })
 
+test_that(".id creates vector of names for grouped vector unnest", {
+  df <- data_frame(x = 1:2, y = list(a = 1, b = 1:2)) %>%
+    dplyr::group_by(x)
+  out <- unnest(df, .id = "name")
+
+  expect_equal(out$name, c("a", "b", "b"))
+})
+
 test_that(".id creates vector of names for data frame unnest", {
   df <- tibble(x = 1:2, y = list(
     a = tibble(y = 1),
     b = tibble(y = 1:2)
   ))
+  out <- unnest(df, .id = "name")
+
+  expect_equal(out$name, c("a", "b", "b"))
+})
+
+test_that(".id creates vector of names for grouped data frame unnest", {
+  df <- data_frame(x = 1:2, y = list(
+    a = data_frame(y = 1),
+    b = data_frame(y = 1:2)
+  )) %>%
+    dplyr::group_by(x)
   out <- unnest(df, .id = "name")
 
   expect_equal(out$name, c("a", "b", "b"))
