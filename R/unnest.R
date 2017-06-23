@@ -1,8 +1,10 @@
 #' Unnest a list column.
 #'
 #' If you have a list-column, this makes each element of the list its own
-#' row. List-columns can either be atomic vectors or data frames. Each
-#' row must have the same number of entries.
+#' row. List-columns can either be atomic vectors or data frames.
+#'
+#' If you unnest multiple columns, parallel entries must have the same length
+#' or number of rows (if a data frame).
 #'
 #' @inheritParams expand
 #' @param ... Specification of columns to nest. Use bare variable names or

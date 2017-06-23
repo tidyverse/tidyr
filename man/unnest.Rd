@@ -26,8 +26,11 @@ nested data frame, separated by \code{.sep}.}
 }
 \description{
 If you have a list-column, this makes each element of the list its own
-row. List-columns can either be atomic vectors or data frames. Each
-row must have the same number of entries.
+row. List-columns can either be atomic vectors or data frames.
+}
+\details{
+If you unnest multiple columns, parallel entries must have the same length
+or number of rows (if a data frame).
 }
 \examples{
 library(dplyr)
