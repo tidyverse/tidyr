@@ -16,7 +16,7 @@
 #'   tidyverse; we support it here for backward compatibility).
 #' @param ... Specification of columns to gather. Use bare variable names.
 #'   Select all variables between x and z with `x:z`, exclude y with
-#'   `-y`. For more options, see the \link[dplyr]{select} documentation.
+#'   `-y`. For more options, see the [dplyr::select()] documentation.
 #' @param na.rm If `TRUE`, will remove rows from output where the
 #'   value column in `NA`.
 #' @param convert If `TRUE` will automatically run

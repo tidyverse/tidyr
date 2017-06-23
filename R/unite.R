@@ -13,7 +13,7 @@
 #'   tidyverse; we support it here for backward compatibility).
 #' @param ... Specification of columns to unite. Use bare variable names.
 #'   Select all variables between x and z with `x:z`, exclude y with
-#'   `-y`. For more options, see the \link[dplyr]{select} documentation.
+#'   `-y`. For more options, see the [dplyr::select()] documentation.
 #' @param sep Separator to use between values.
 #' @param remove If `TRUE`, remove input columns from output data frame.
 #' @seealso [separate()], the complement.

@@ -20,7 +20,7 @@ tidyverse; we support it here for backward compatibility).}
 
 \item{...}{Specification of columns to unite. Use bare variable names.
 Select all variables between x and z with \code{x:z}, exclude y with
-\code{-y}. For more options, see the \link\link{dplyr}{select} documentation.}
+\code{-y}. For more options, see the \code{\link[dplyr:select]{dplyr::select()}} documentation.}
 
 \item{sep}{Separator to use between values.}
 
