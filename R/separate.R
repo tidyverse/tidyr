@@ -18,19 +18,15 @@
 #' @param extra If `sep` is a character vector, this controls what
 #'   happens when there are too many pieces. There are three valid options:
 #'
-#'   \itemize{
-#'    \item "warn" (the default): emit a warning and drop extra values.
-#'    \item "drop": drop any extra values without a warning.
-#'    \item "merge": only splits at most `length(into)` times
-#'   }
+#'   * "warn" (the default): emit a warning and drop extra values.
+#'   * "drop": drop any extra values without a warning.
+#'   * "merge": only splits at most `length(into)` times
 #' @param fill If `sep` is a character vector, this controls what
 #'   happens when there are not enough pieces. There are three valid options:
 #'
-#'   \itemize{
-#'    \item "warn" (the default): emit a warning and fill from the right
-#'    \item "right": fill with missing values on the right
-#'    \item "left": fill with missing values on the left
-#'   }
+#'   * "warn" (the default): emit a warning and fill from the right
+#'   * "right": fill with missing values on the right
+#'   * "left": fill with missing values on the left
 #' @param remove If `TRUE`, remove input column from output data frame.
 #' @param convert If `TRUE`, will run [type.convert()] with
 #'   `as.is = TRUE` on new columns. This is useful if the component
