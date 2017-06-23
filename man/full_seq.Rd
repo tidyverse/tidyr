@@ -22,4 +22,3 @@ will return \code{1:6}.
 \examples{
 full_seq(c(1, 2, 4, 5, 10), 1)
 }
-

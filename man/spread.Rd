@@ -10,19 +10,20 @@ spread(data, key, value, fill = NA, convert = FALSE, drop = TRUE,
 \arguments{
 \item{data}{A data frame.}
 
-\item{key}{The bare (unquoted) name of the column whose values will be used
-as column headings.}
+\item{key, value}{Column names or positions. This is passed to
+\code{\link[tidyselect:vars_pull]{tidyselect::vars_pull()}}.
 
-\item{value}{The bare (unquoted) name of the column whose values will
-populate the cells.}
+These arguments are passed by expression and support
+\link[rlang:quasiquotation]{quasiquotation} (you can unquote column
+names or column positions).}
 
 \item{fill}{If set, missing values will be replaced with this value. Note
 that there are two types of missingness in the input: explicit missing
 values (i.e. \code{NA}), and implicit missings, rows that simply aren't
 present. Both types of missing value will be replaced by \code{fill}.}
 
-\item{convert}{If \code{TRUE}, \code{\link{type.convert}} with \code{asis =
-TRUE} will be run on each of the new columns. This is useful if the value
+\item{convert}{If \code{TRUE}, \code{\link[=type.convert]{type.convert()}} with \code{asis =
+  TRUE} will be run on each of the new columns. This is useful if the value
 column was a mix of variables that was coerced to a string. If the class of
 the value column was factor or date, note that will not be true of the new
 columns that are produced, which are coerced to character before type
@@ -61,8 +62,3 @@ df <- data.frame(row = rep(c(1, 51), each = 3),
 df \%>\% spread(var, value) \%>\% str
 df \%>\% spread(var, value, convert = TRUE) \%>\% str
 }
-\seealso{
-\code{\link{spread_}} for a version that uses regular evaluation
-  and is suitable for programming with.
-}
-

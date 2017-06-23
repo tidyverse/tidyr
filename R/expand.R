@@ -1,39 +1,36 @@
 #' Expand data frame to include all combinations of values
 #'
-#' \code{expand()} is often useful in conjunction with \code{left_join} if
+#' `expand()` is often useful in conjunction with `left_join` if
 #' you want to convert implicit missing values to explicit missing values.
-#' Or you can use it in conjunction with \code{anti_join()} to figure
+#' Or you can use it in conjunction with `anti_join()` to figure
 #' out which combinations are missing.
 #'
-#' \code{crossing()} is similar to \code{\link{expand.grid}()}, this never
-#' converts strings to factors, returns a \code{tbl_df} without additional
-#' attributes, and first factors vary slowest. \code{nesting()} is the
-#' complement to \code{crossing()}: it only keeps combinations of all variables
+#' `crossing()` is similar to [expand.grid()], this never
+#' converts strings to factors, returns a `tbl_df` without additional
+#' attributes, and first factors vary slowest. `nesting()` is the
+#' complement to `crossing()`: it only keeps combinations of all variables
 #' that appear in the data.
 #'
-#' @inheritParams expand_
+#' @param data A data frame.
 #' @param ... Specification of columns to expand.
 #'
 #'   To find all unique combinations of x, y and z, including those not
 #'   found in the data, supply each variable as a separate argument.
 #'   To find only the combinations that occur in the data, use nest:
-#'   \code{expand(df, nesting(x, y, z))}.
+#'   `expand(df, nesting(x, y, z))`.
 #'
 #'   You can combine the two forms. For example,
-#'   \code{expand(df, nesting(school_id, student_id), date)} would produce
+#'   `expand(df, nesting(school_id, student_id), date)` would produce
 #'   a row for every student for each date.
 #'
 #'   For factors, the full set of levels (not just those that appear in the
 #'   data) are used. For continuous variables, you may need to fill in values
 #'   that don't appear in the data: to do so use expressions like
-#'   \code{year = 2010:2020} or \code{year = \link{full_seq}(year)}.
+#'   `year = 2010:2020` or `year = \link{full_seq}(year)`.
 #'
 #'   Length-zero (empty) elements are automatically dropped.
-#' @param x For \code{nesting_} and \code{crossing_} a list of variables.
-#' @seealso \code{\link{complete}} for a common application of \code{expand}:
+#' @seealso [complete()] for a common application of `expand`:
 #'   completing a data frame with missing combinations.
-#' @seealso \code{\link{expand_}} for a version that uses regular evaluation
-#'   and is suitable for programming with.
 #' @export
 #' @examples
 #' library(dplyr)
@@ -45,7 +42,7 @@
 #' expand(mtcars, nesting(vs, cyl))
 #'
 #' # Implicit missings ---------------------------------------------------------
-#' df <- data_frame(
+#' df <- tibble(
 #'   year   = c(2010, 2010, 2010, 2010, 2012, 2012, 2012),
 #'   qtr    = c(   1,    2,    3,    4,    1,    2,    3),
 #'   return = rnorm(7)
@@ -59,7 +56,7 @@
 #' # Each person was given one of two treatments, repeated three times
 #' # But some of the replications haven't happened yet, so we have
 #' # incomplete data:
-#' experiment <- data_frame(
+#' experiment <- tibble(
 #'   name = rep(c("Alex", "Robert", "Sam"), c(3, 2, 1)),
 #'   trt  = rep(c("a", "b", "a"), c(3, 2, 1)),
 #'   rep = c(1, 2, 3, 1, 2, 1),
@@ -81,104 +78,107 @@
 #' # Or use the complete() short-hand
 #' experiment %>% complete(nesting(name, trt), rep)
 expand <- function(data, ...) {
-  dots <- lazyeval::lazy_dots(...)
-  expand_(data, dots)
+  UseMethod("expand")
+}
+#' @export
+expand.default <- function(data, ...) {
+  expand_(data, .dots = compat_as_lazy_dots(...))
+}
+#' @export
+expand.data.frame <- function(data, ...) {
+  dots <- quos(..., .named = TRUE)
+  if (is_empty(dots)) {
+    return(reconstruct_tibble(data, data.frame()))
+  }
+
+  pieces <- map(dots, eval_tidy, data)
+  df <- crossing(!!! pieces)
+
+  reconstruct_tibble(data, df)
+}
+#' @export
+expand.grouped_df <- function(data, ...) {
+  dots <- quos(...)
+  dplyr::do(data, expand(., !!! dots))
 }
 
-#' Expand (standard evaluation).
-#'
-#' This is a S3 generic.
-#'
-#' @param data A data frame
+#' @rdname deprecated-se
 #' @param expand_cols Character vector of column names to be expanded.
-#' @keywords internal
 #' @export
 expand_ <- function(data, dots, ...) {
   UseMethod("expand_")
 }
-
 #' @export
 expand_.data.frame <- function(data, dots, ...) {
-  dots <- lazyeval::as.lazy_dots(dots)
-  if (length(dots) == 0)
-    return(data.frame())
-
-  dots <- lazyeval::auto_name(dots)
-  pieces <- lazyeval::lazy_eval(dots, data)
-
-  crossing_(pieces)
-}
-
-#' @export
-expand_.tbl_df <- function(data, dots, ...) {
-  as_data_frame(NextMethod())
-}
-
-#' @export
-expand_.grouped_df <- function(data, dots, ...) {
-  dplyr::do(data, expand_(., dots, ...))
+  dots <- compat_lazy_dots(dots, caller_env())
+  expand(data, !!! dots)
 }
 
 
 # Nesting & crossing ------------------------------------------------------
 
-#' @export
 #' @rdname expand
+#' @export
 crossing <- function(...) {
-  crossing_(tibble::lst(...))
-}
+  x <- tibble::lst(...)
+  stopifnot(is_list(x))
 
-#' @export
-#' @rdname expand
-crossing_ <- function(x) {
-  stopifnot(is.list(x))
   x <- drop_empty(x)
 
-  is_atomic <- vapply(x, is.atomic, logical(1))
-  is_df <- vapply(x, is.data.frame, logical(1))
+  is_atomic <- map_lgl(x, is_atomic)
+  is_df <- map_lgl(x, is.data.frame)
   if (any(!is_df & !is_atomic)) {
     bad <- names(x)[!is_df & !is_atomic]
-    stop(
-      "Each element must be either an atomic vector or a data frame\n.",
-      "Problems: ", paste(bad, collapse = ", "), ".\n",
-      call. = FALSE
-    )
+
+    problems <- paste(bad, collapse = ", ")
+    abort(glue(
+      "Each element must be either an atomic vector or a data frame.
+       Problems: {problems}."
+    ))
+
   }
 
   # turn each atomic vector into single column data frame
-  col_df <- lapply(x[is_atomic], function(x) data_frame(x = ulevels(x)))
-  col_df <- Map(setNames, col_df, names(x)[is_atomic])
+  col_df <- map(x[is_atomic], function(x) tibble(x = ulevels(x)))
+  col_df <- map2(col_df, names(x)[is_atomic], set_names)
   x[is_atomic] <- col_df
 
   Reduce(cross_df, x)
 }
-
 cross_df <- function(x, y) {
   x_idx <- rep(seq_len(nrow(x)), each = nrow(y))
   y_idx <- rep(seq_len(nrow(y)), nrow(x))
   dplyr::bind_cols(x[x_idx, , drop = FALSE], y[y_idx, , drop = FALSE])
 }
-
-
-#' @export
-#' @rdname expand
-#' @importFrom tibble data_frame
-nesting <- function(...) {
-  nesting_(tibble::lst(...))
+drop_empty <- function(x) {
+  empty <- map_lgl(x, function(x) length(x) == 0)
+  x[!empty]
 }
 
-#' @export
 #' @rdname expand
-nesting_ <- function(x) {
-  stopifnot(is.list(x))
+#' @export
+nesting <- function(...) {
+  x <- tibble::lst(...)
+
+  stopifnot(is_list(x))
   x <- drop_empty(x)
 
-  df <- as_data_frame(x)
+  df <- as_tibble(x)
   df <- dplyr::distinct(df)
   df[do.call(order, df), , drop = FALSE]
 }
 
-drop_empty <- function(x) {
-  empty <- vapply(x, function(x) length(x) == 0, logical(1))
-  x[!empty]
+
+#' @rdname deprecated-se
+#' @param x For `nesting_` and `crossing_` a list of variables.
+#' @export
+crossing_ <- function(x) {
+  x <- compat_lazy_dots(x, caller_env())
+  crossing(!!! x)
+}
+#' @rdname deprecated-se
+#' @export
+nesting_ <- function(x) {
+  x <- compat_lazy_dots(x, caller_env())
+  nesting(!!! x)
 }

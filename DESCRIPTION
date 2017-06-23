@@ -1,6 +1,6 @@
 Package: tidyr
-Title: Easily Tidy Data with `spread()` and `gather()` Functions
-Version: 0.6.0.9000
+Title: Easily Tidy Data with 'spread()' and 'gather()' Functions
+Version: 0.6.3.9000
 Authors@R: c(
     person("Hadley", "Wickham", , "hadley@rstudio.com", c("aut", "cre")),
     person("RStudio", role = "cph")
@@ -13,14 +13,18 @@ Depends:
 License: MIT + file LICENSE
 LazyData: true
 Imports:
-    tibble,
-    dplyr (>= 0.4),
-    stringi,
-    lazyeval,
+    dplyr (>= 0.7.0),
+    glue,
     magrittr,
-    Rcpp
-URL: https://github.com/hadley/tidyr
-BugReports: https://github.com/hadley/tidyr/issues
+    purrr,
+    rlang,
+    Rcpp,
+    stringi,
+    tibble,
+    tidyselect
+URL: http://tidyr.tidyverse.org,
+    https://github.com/tidyverse/tidyr
+BugReports: https://github.com/tidyverse/tidyr/issues
 Suggests:
     knitr,
     testthat,
@@ -29,4 +33,6 @@ Suggests:
     rmarkdown
 VignetteBuilder: knitr
 LinkingTo: Rcpp
-RoxygenNote: 5.0.1
+RoxygenNote: 6.0.1
+Remotes: tidyverse/tidyselect
+Roxygen: list(markdown = TRUE)

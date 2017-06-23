@@ -6,3 +6,9 @@
 ^data-raw$
 ^\.httr-oauth$
 ^codecov\.yml$
+^_pkgdown\.yml$
+^README\.Rmd$
+^README-.*\.png$
+^docs$
+^LICENSE\.md$
+^appveyor\.yml$

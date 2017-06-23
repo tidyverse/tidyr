@@ -11,20 +11,15 @@ drop_na(data, ...)
 
 \item{...}{Specification of variables to consider while dropping rows.
 If empty, consider all variables. Use bare variable names. Select all
- variables between x and z with \code{x:z}, exclude y with \code{-y}.
- For more options, see the \link[dplyr]{select} documentation.}
+variables between x and z with \code{x:z}, exclude y with \code{-y}.
+For more options, see the \code{\link[dplyr:select]{dplyr::select()}} documentation.}
 }
 \description{
 Drop rows containing missing values
 }
 \examples{
 library(dplyr)
-df <- data_frame(x = c(1, 2, NA), y = c("a", NA, "b"))
+df <- tibble(x = c(1, 2, NA), y = c("a", NA, "b"))
 df \%>\% drop_na()
 df \%>\% drop_na(x)
 }
-\seealso{
-\code{\link{drop_na_}} for a version that uses regular evaluation
-  and is suitable for programming with.
-}
-

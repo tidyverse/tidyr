@@ -4,23 +4,31 @@
 \alias{gather}
 \title{Gather columns into key-value pairs.}
 \usage{
-gather(data, key, value, ..., na.rm = FALSE, convert = FALSE,
-  factor_key = FALSE)
+gather(data, key = "key", value = "value", ..., na.rm = FALSE,
+  convert = FALSE, factor_key = FALSE)
 }
 \arguments{
 \item{data}{A data frame.}
 
-\item{key, value}{Names of key and value columns to create in output.}
+\item{key, value}{Names of new key and value columns, as strings or
+symbols.
+
+This argument is passed by expression and supports
+\link[rlang:quasiquotation]{quasiquotation} (you can unquote strings
+and symbols). The name is captured from the expression with
+\code{\link[rlang:quo_name]{rlang::quo_name()}} (note that this kind of interface where
+symbols do not represent actual objects is now discouraged in the
+tidyverse; we support it here for backward compatibility).}
 
 \item{...}{Specification of columns to gather. Use bare variable names.
 Select all variables between x and z with \code{x:z}, exclude y with
-\code{-y}. For more options, see the \link[dplyr]{select} documentation.}
+\code{-y}. For more options, see the \link\link{dplyr}{select} documentation.}
 
 \item{na.rm}{If \code{TRUE}, will remove rows from output where the
 value column in \code{NA}.}
 
 \item{convert}{If \code{TRUE} will automatically run
-\code{\link{type.convert}} on the key column. This is useful if the column
+\code{\link[=type.convert]{type.convert()}} on the key column. This is useful if the column
 names are actually numeric, integer, or logical.}
 
 \item{factor_key}{If \code{FALSE}, the default, the key values will be
@@ -35,7 +43,7 @@ you notice that you have columns that are not variables.
 \examples{
 library(dplyr)
 # From http://stackoverflow.com/questions/1181060
-stocks <- data_frame(
+stocks <- tibble(
   time = as.Date('2009-01-01') + 0:9,
   X = rnorm(10, 0, 1),
   Y = rnorm(10, 0, 2),
@@ -61,8 +69,3 @@ mini_iris <-
   slice(1)
 mini_iris \%>\% gather(key = flower_att, value = measurement, -Species)
 }
-\seealso{
-\code{\link{gather_}} for a version that uses regular evaluation
-  and is suitable for programming with.
-}
-

@@ -1,10 +1,12 @@
-col_name <- function(x, default = stop("Please supply column name", call. = FALSE)) {
-  if (is.character(x)) return(x)
-  if (identical(x, quote(expr = ))) return(default)
-  if (is.name(x)) return(as.character(x))
-  if (is.null(x)) return(x)
 
-  stop("Invalid column specification", call. = FALSE)
+col_name <- function(x, default = abort("Please supply column name")) {
+  if (identical(x, quote(expr = ))) return(default)
+  switch_type(x,
+    NULL = NULL,
+    string = x,
+    symbol = as_string(x),
+    abort("Invalid column specification")
+  )
 }
 
 append_df <- function(x, values, after = length(x)) {
@@ -17,16 +19,17 @@ append_df <- function(x, values, after = length(x)) {
 
 append_col <- function(x, col, name, after = length(x)) {
   name <- enc2utf8(name)
-  append_df(x, setNames(list(col), name), after = after)
+  append_df(x, set_names(list(col), name), after = after)
 }
 
-compact <- function(x) x[vapply(x, length, integer(1)) > 0]
+compact <- function(x) x[map_int(x, length) > 0]
 
 #' Extract numeric component of variable.
 #'
-#' DEPRECATED: please use \code{readr::parse_number()} instead.
+#' DEPRECATED: please use `readr::parse_number()` instead.
 #'
 #' @param x A character vector (or a factor).
+#' @keywords internal
 #' @export
 extract_numeric <- function(x) {
   message("extract_numeric() is deprecated: please use readr::parse_number() instead")
@@ -52,21 +55,25 @@ list_indices <- function(x, max = 20) {
   paste(x, collapse = ", ")
 }
 
-`%||%` <- function(x, y) if (length(x) == 0) y else x
-
-regroup <- function(x, y, except = NULL) {
-  groups <- dplyr::groups(y)
+regroup <- function(output, input, except = NULL) {
+  groups <- dplyr::group_vars(input)
   if (!is.null(except)) {
-    groups <- setdiff(groups, lapply(except, as.name))
+    groups <- setdiff(groups, except)
   }
 
-  dplyr::grouped_df(x, groups)
+  dplyr::grouped_df(output, groups)
+}
+reconstruct_tibble <- function(input, output, ungrouped_vars = chr()) {
+  if (inherits(input, "grouped_df")) {
+    regroup(output, input, ungrouped_vars)
+  } else if (inherits(input, "tbl_df")) {
+    as_tibble(output)
+  } else {
+    output
+  }
 }
 
-# Allows tests to work with either dplyr 0.4 (which ignores value of
-# everything), and 0.5 which exports it as a proper function
-everything <- function(...) dplyr::everything(...)
 
-is_numeric <- function(x) {
-  typeof(x) %in% c("integer", "double")
+imap <- function(.x, .f, ...) {
+  map2(.x, names(.x) %||% character(0), .f, ...)
 }

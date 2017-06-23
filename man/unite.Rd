@@ -9,11 +9,18 @@ unite(data, col, ..., sep = "_", remove = TRUE)
 \arguments{
 \item{data}{A data frame.}
 
-\item{col}{(Bare) name of column to add}
+\item{col}{The name of the new column, as a string or symbol.
+
+This argument is passed by expression and supports
+\link[rlang:quasiquotation]{quasiquotation} (you can unquote strings
+and symbols). The name is captured from the expression with
+\code{\link[rlang:quo_name]{rlang::quo_name()}} (note that this kind of interface where
+symbols do not represent actual objects is now discouraged in the
+tidyverse; we support it here for backward compatibility).}
 
 \item{...}{Specification of columns to unite. Use bare variable names.
 Select all variables between x and z with \code{x:z}, exclude y with
-\code{-y}. For more options, see the \link[dplyr]{select} documentation.}
+\code{-y}. For more options, see the \link\link{dplyr}{select} documentation.}
 
 \item{sep}{Separator to use between values.}
 
@@ -32,9 +39,5 @@ mtcars \%>\%
   separate(vs_am, c("vs", "am"))
 }
 \seealso{
-\code{\link{separate}()}, the complement.
-
-\code{\link{unite_}} for a version that uses regular evaluation
-  and is suitable for programming with.
+\code{\link[=separate]{separate()}}, the complement.
 }
-

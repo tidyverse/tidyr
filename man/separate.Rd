@@ -10,44 +10,47 @@ separate(data, col, into, sep = "[^[:alnum:]]+", remove = TRUE,
 \arguments{
 \item{data}{A data frame.}
 
-\item{col}{Bare column name.}
+\item{col}{Column name or position. This is passed to
+\code{\link[tidyselect:vars_pull]{tidyselect::vars_pull()}}.
+
+This argument is passed by expression and supports
+\link[rlang:quasiquotation]{quasiquotation} (you can unquote column
+names or column positions).}
 
 \item{into}{Names of new variables to create as character vector.}
 
 \item{sep}{Separator between columns.
 
-  If character, is interpreted as a regular expression. The default
-  value is a regular expression that matches any sequence of
-  non-alphanumeric values.
+If character, is interpreted as a regular expression. The default
+value is a regular expression that matches any sequence of
+non-alphanumeric values.
 
-  If numeric, interpreted as positions to split at. Positive values start
-  at 1 at the far-left of the string; negative value start at -1 at the
-  far-right of the string. The length of \code{sep} should be one less than
-  \code{into}.}
+If numeric, interpreted as positions to split at. Positive values start
+at 1 at the far-left of the string; negative value start at -1 at the
+far-right of the string. The length of \code{sep} should be one less than
+\code{into}.}
 
 \item{remove}{If \code{TRUE}, remove input column from output data frame.}
 
-\item{convert}{If \code{TRUE}, will run \code{\link{type.convert}} with
+\item{convert}{If \code{TRUE}, will run \code{\link[=type.convert]{type.convert()}} with
 \code{as.is = TRUE} on new columns. This is useful if the component
 columns are integer, numeric or logical.}
 
 \item{extra}{If \code{sep} is a character vector, this controls what
-  happens when there are too many pieces. There are three valid options:
-
-  \itemize{
-   \item "warn" (the default): emit a warning and drop extra values.
-   \item "drop": drop any extra values without a warning.
-   \item "merge": only splits at most \code{length(into)} times
-  }}
+happens when there are too many pieces. There are three valid options:
+\itemize{
+\item "warn" (the default): emit a warning and drop extra values.
+\item "drop": drop any extra values without a warning.
+\item "merge": only splits at most \code{length(into)} times
+}}
 
 \item{fill}{If \code{sep} is a character vector, this controls what
-  happens when there are not enough pieces. There are three valid options:
-
-  \itemize{
-   \item "warn" (the default): emit a warning and fill from the right
-   \item "right": fill with missing values on the right
-   \item "left": fill with missing values on the left
-  }}
+happens when there are not enough pieces. There are three valid options:
+\itemize{
+\item "warn" (the default): emit a warning and fill from the right
+\item "right": fill with missing values on the right
+\item "left": fill with missing values on the left
+}}
 
 \item{...}{Defunct, will be removed in the next version of the package.}
 }
@@ -74,9 +77,5 @@ df <- data.frame(x = c("x: 123", "y: error: 7"))
 df \%>\% separate(x, c("key", "value"), ": ", extra = "merge")
 }
 \seealso{
-\code{\link{unite}()}, the complement.
-
-\code{\link{separate_}} for a version that uses regular evaluation
-  and is suitable for programming with.
+\code{\link[=unite]{unite()}}, the complement.
 }
-
