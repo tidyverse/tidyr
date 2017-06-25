@@ -15,6 +15,7 @@
   unquote symbols or strings). This type of NSE is now strongly
   discouraged in the tidyverse; symbols should represent real objects.
 
+* Fixed that `spread()` fails when the `key` column includes `NA` and `drop` is `FALSE` (#254).
 
 # tidyr 0.6.3
 
