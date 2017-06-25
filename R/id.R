@@ -41,8 +41,9 @@ id_var <- function(x, drop = FALSE) {
   if (!is_null(attr(x, "n")) && !drop) return(x)
 
   if (is.factor(x) && !drop) {
-    id <- as.integer(addNA(x, ifany = TRUE))
-    n <- length(levels(x))
+    x_na <- addNA(x, ifany = TRUE)
+    id <- as.integer(x_na)
+    n <- length(levels(x_na))
   } else if (length(x) == 0) {
     id <- integer()
     n <- 0L
