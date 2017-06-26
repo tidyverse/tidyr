@@ -35,7 +35,7 @@ separate_rows.data.frame <- function(data, ..., sep = "[^[:alnum:].]+",
   vars <- unname(tidyselect::vars_select(names(data), ...))
 
   data[vars] <- map(data[vars], stringi::stri_split_regex, sep)
-  data <- unnest(data, !!! syms(vars))
+  data <- unnest(data, !!! syms(vars), .drop = FALSE)
 
   if (convert) {
     data[vars] <- map(data[vars], type.convert, as.is = TRUE)
