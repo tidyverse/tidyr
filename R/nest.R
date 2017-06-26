@@ -64,7 +64,7 @@ nest.data.frame <- function(data, ..., .key = "data") {
   out <- dplyr::select(data, !!! syms(group_vars))
 
   idx <- dplyr::group_indices(data, !!! syms(group_vars))
-  representatives <- !duplicated(idx)
+  representatives <- which(!duplicated(idx))
 
   out <- dplyr::slice(out, representatives)
 
