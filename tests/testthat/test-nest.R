@@ -38,7 +38,7 @@ test_that("nesting everything yields a simple data frame", {
 })
 
 test_that("nesting works for empty data frames", {
-  df <- data_frame(x = 1:3, y = c("B", "A", "A"))[0, ]
+  df <- tibble(x = 1:3, y = c("B", "A", "A"))[0, ]
 
   out <- nest(df, x)
   expect_equal(names(out), c("y", "data"))
