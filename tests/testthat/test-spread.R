@@ -182,3 +182,12 @@ test_that("col names never contains NA", {
     spread(x, y, sep = "_") %>%
     expect_named(c("x_1", "x_NA"))
 })
+
+test_that("never has row names (#305)", {
+  df <- tibble(id = 1:2, x = letters[1:2], y = 1:2)
+  expect_false(
+    df %>%
+      spread(x, y) %>%
+      tibble::has_rownames()
+  )
+})

@@ -11,10 +11,7 @@ col_name <- function(x, default = abort("Please supply column name")) {
 
 append_df <- function(x, values, after = length(x)) {
   y <- append(x, values, after = after)
-  class(y) <- class(x)
-  attr(y, "row.names") <- attr(x, "row.names")
-
-  y
+  structure(y, class = class(x), row.names = .row_names_info(x, 0L))
 }
 
 append_col <- function(x, col, name, after = length(x)) {
