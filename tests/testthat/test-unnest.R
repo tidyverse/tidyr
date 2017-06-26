@@ -101,6 +101,13 @@ test_that("sep combines column names", {
     expect_named(c("x_x", "y_x"))
 })
 
+test_that("can unnest empty data frame", {
+  df <- data_frame(x = integer(), y = list())
+  out <- unnest(df, y)
+  expect_equal(out, data_frame(x = integer()))
+})
+
+
 # Drop --------------------------------------------------------------------
 
 test_that("unnest drops list cols if expanding", {
