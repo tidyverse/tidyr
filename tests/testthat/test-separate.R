@@ -116,7 +116,7 @@ test_that("leaves list columns intact (#300)", {
 
   out <- separate_rows(df, x)
   # Can't compare tibbles with list columns directly
-  expect_equal(names(out), c("x", "y"))
+  expect_equal(names(out), c("y", "x"))
   expect_equal(out$x, as.character(1:3))
   expect_equal(out$y, rep(list(1), 3))
 })
