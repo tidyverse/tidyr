@@ -51,7 +51,7 @@ To get started, read the tidy data vignette (`vignette("tidy-data")`) and check 
 Related work
 ------------
 
-tidyr replaces reshape2 (2010-2014) and reshape (2005-2010). Somewhat counterintuitively each iteration of the the package has done less. tidyr is designed specifically for tidying data, not general reshaping (reshape2), or the general aggregation (reshape).
+tidyr replaces reshape2 (2010-2014) and reshape (2005-2010). Somewhat counterintuitively each iteration of the package has done less. tidyr is designed specifically for tidying data, not general reshaping (reshape2), or the general aggregation (reshape).
 
 If you'd like to read more about data reshaping from a CS perspective, I'd recommend the following three papers:
 
