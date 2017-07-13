@@ -37,7 +37,7 @@ test_that("missings filled down for each atomic vector", {
 
   )
 
-  out <- fill(df, tidyselect::everything())
+  out <- fill(df, everything())
   expect_equal(out$lgl, c(TRUE, TRUE))
   expect_equal(out$int, c(1L, 1L))
   expect_equal(out$dbl, c(1, 1))
@@ -54,7 +54,7 @@ test_that("missings filled up for each vector", {
     lst = list(NULL, 1:5)
   )
 
-  out <- fill(df, tidyselect::everything(), .direction = "up")
+  out <- fill(df, everything(), .direction = "up")
   expect_equal(out$lgl, c(TRUE, TRUE))
   expect_equal(out$int, c(1L, 1L))
   expect_equal(out$dbl, c(1, 1))

@@ -32,7 +32,7 @@ separate_rows.default <- function(data, ..., sep = "[^[:alnum:].]+",
 separate_rows.data.frame <- function(data, ..., sep = "[^[:alnum:].]+",
                                      convert = FALSE) {
   orig <- data
-  vars <- unname(tidyselect::vars_select(names(data), ...))
+  vars <- unname(dplyr::select_vars(names(data), ...))
 
   data[vars] <- map(data[vars], stringi::stri_split_regex, sep)
   data <- unnest(data, !!! syms(vars))

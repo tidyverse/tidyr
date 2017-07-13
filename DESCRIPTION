@@ -20,8 +20,7 @@ Imports:
     rlang,
     Rcpp,
     stringi,
-    tibble,
-    tidyselect
+    tibble
 URL: http://tidyr.tidyverse.org,
     https://github.com/tidyverse/tidyr
 BugReports: https://github.com/tidyverse/tidyr/issues
@@ -34,5 +33,4 @@ Suggests:
 VignetteBuilder: knitr
 LinkingTo: Rcpp
 RoxygenNote: 6.0.1
-Remotes: tidyverse/tidyselect
 Roxygen: list(markdown = TRUE)

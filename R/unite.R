@@ -38,7 +38,7 @@ unite.default <- function(data, col, ..., sep = "_", remove = TRUE) {
 #' @export
 unite.data.frame <- function(data, col, ..., sep = "_", remove = TRUE) {
   var <- quo_name(enquo(col))
-  from_vars <- tidyselect::vars_select(colnames(data), ...)
+  from_vars <- dplyr::select_vars(colnames(data), ...)
 
   out <- data
   if (remove) {

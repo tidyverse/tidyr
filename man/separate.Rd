@@ -11,7 +11,7 @@ separate(data, col, into, sep = "[^[:alnum:]]+", remove = TRUE,
 \item{data}{A data frame.}
 
 \item{col}{Column name or position. This is passed to
-\code{\link[tidyselect:vars_pull]{tidyselect::vars_pull()}}.
+\code{\link[dplyr:select_var]{dplyr::select_var()}}.
 
 This argument is passed by expression and supports
 \link[rlang:quasiquotation]{quasiquotation} (you can unquote column

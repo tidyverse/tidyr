@@ -20,7 +20,7 @@ drop_na.default <- function(data, ...) {
 }
 #' @export
 drop_na.data.frame <- function(data, ...) {
-  vars <- unname(tidyselect::vars_select(colnames(data), ...))
+  vars <- unname(dplyr::select_vars(colnames(data), ...))
   if (!is_character(vars)) {
     abort("`vars` is not a character vector.")
   }

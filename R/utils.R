@@ -74,6 +74,10 @@ reconstruct_tibble <- function(input, output, ungrouped_vars = chr()) {
 }
 
 
+# Allows tests to work with either dplyr 0.4 (which ignores value of
+# everything), and 0.5 which exports it as a proper function
+everything <- function(...) dplyr::everything(...)
+
 imap <- function(.x, .f, ...) {
   map2(.x, names(.x) %||% character(0), .f, ...)
 }

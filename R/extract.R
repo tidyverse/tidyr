@@ -6,7 +6,7 @@
 #'
 #' @inheritParams expand
 #' @param col Column name or position. This is passed to
-#'   [tidyselect::vars_pull()].
+#'   [dplyr::select_var()].
 #'
 #'   This argument is passed by expression and supports
 #'   [quasiquotation][rlang::quasiquotation] (you can unquote column
@@ -47,7 +47,7 @@ extract.default <- function(data, col, into, regex = "([[:alnum:]]+)",
 #' @export
 extract.data.frame <- function(data, col, into, regex = "([[:alnum:]]+)",
                                remove = TRUE, convert = FALSE, ...) {
-  var <- tidyselect::vars_pull(names(data), !! enquo(col))
+  var <- dplyr::select_var(names(data), !! enquo(col))
   stopifnot(
     is_string(regex),
     is_character(into)
