@@ -77,7 +77,7 @@ separate.data.frame <- function(data, col, into, sep = "[^[:alnum:]]+",
                                 extra = "warn", fill = "warn", ...) {
   orig <- data
 
-  var <- tidyselect::vars_pull(names(data), !! enquo(col))
+  var <- dplyr::select_var(names(data), !! enquo(col))
   value <- as.character(data[[var]])
 
   if (length(list(...)) != 0) {

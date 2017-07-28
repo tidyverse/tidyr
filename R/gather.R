@@ -83,7 +83,7 @@ gather.data.frame <- function(data, key = "key", value = "value", ...,
   if (is_empty(quos)) {
     gather_vars <- setdiff(names(data), c(key_var, value_var))
   } else {
-    gather_vars <- unname(tidyselect::vars_select(names(data), !!! quos))
+    gather_vars <- unname(dplyr::select_vars(names(data), !!! quos))
   }
   if (is_empty(gather_vars)) {
     return(data)
