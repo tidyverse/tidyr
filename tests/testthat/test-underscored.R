@@ -24,6 +24,11 @@ test_that("drop_na_() ", {
   expect_identical(res, tibble(x = 1, y = "a"))
 })
 
+test_that("drop_na_() works with non-syntactic names", {
+  df <- tibble(`non-syntactic` = 1)
+  expect_identical(drop_na_(df, "non-syntactic"), drop_na(df, `non-syntactic`))
+})
+
 test_that("expand_()", {
   df <- data.frame(x = 1:2, y = 1:2)
   out <- expand_(df, list("x", ~y))
@@ -43,17 +48,24 @@ test_that("fill_()", {
   expect_identical(out$x, c(1, 1, 1))
 })
 
+test_that("fill_() works with non-syntactic names", {
+  df <- tibble(`non-syntactic` = 1)
+  expect_identical(fill_(df, "non-syntactic"), fill(df, `non-syntactic`))
+})
+
 test_that("gather_()", {
   df <- data.frame(x = 1:5, y = 6:10)
-  out <- gather_(df, "key", "val")
+  out <- gather_(df, "key", "val", c("x", "y"))
   expect_identical(nrow(out), 10L)
   expect_identical(names(out), c("key", "val"))
+})
 
-  # Additional inputs control which columns to gather
-  data <- tibble(a = 1, b1 = 1, b2 = 2, b3 = 3)
-  out <- gather_(data, "key", "val", ~b1:b3)
-  expect_identical(names(out), c("a", "key", "val"))
-  expect_identical(out$val, dbl(1:3))
+test_that("gather_() works with non-syntactic names", {
+  df <- tibble(`non-syntactic` = 1)
+  expect_identical(
+    gather(df, key, val, `non-syntactic`),
+    gather_(df, "key", "val", "non-syntactic")
+  )
 })
 
 test_that("nest_()", {
@@ -68,6 +80,11 @@ test_that("separate_()", {
   expect_identical(out$y, c(NA, "b"))
 })
 
+test_that("separate_rows() works with non-syntactic names", {
+  df <- tibble(`non-syntactic` = 1)
+  expect_identical(separate_rows_(df, "non-syntactic"), separate_rows(df, `non-syntactic`))
+})
+
 test_that("spread_()", {
   df1 <- data.frame(x = c("a", "b"), y = 1:2)
   df2 <- data.frame(x = c("b", "a"), y = 2:1)
@@ -78,9 +95,14 @@ test_that("spread_()", {
 
 test_that("unite_()", {
   df <- tibble(x = "a", y = "b")
-  out <- unite_(df, "z", ~x:y)
+  out <- unite_(df, "z", c("x", "y"))
   expect_named(out, "z")
   expect_identical(out$z, "a_b")
+})
+
+test_that("unite_() works with non-syntactic names", {
+  df <- tibble(x = 1, `non-syntactic` = 1)
+  expect_identical(unite_(df, "x", "non-syntactic"), unite(df, x, `non-syntactic`))
 })
 
 test_that("unnest_()", {

@@ -54,6 +54,6 @@ separate_rows_ <- function(data, cols, sep = "[^[:alnum:].]+",
 #' @export
 separate_rows_.data.frame <- function(data, cols, sep = "[^[:alnum:].]+",
                                       convert = FALSE) {
-  cols <- compat_lazy_dots(cols, caller_env())
+  cols <- syms(cols)
   separate_rows(data, !!! cols, sep = sep, convert = convert)
 }

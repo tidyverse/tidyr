@@ -190,7 +190,7 @@ gather_.data.frame <- function(data, key_col, value_col, gather_cols,
                                factor_key = FALSE) {
   key_col <- compat_lazy(key_col, caller_env())
   value_col <- compat_lazy(value_col, caller_env())
-  gather_cols <- compat_lazy_dots(gather_cols, caller_env())
+  gather_cols <- syms(gather_cols)
 
   gather(data,
     key = !! key_col,
