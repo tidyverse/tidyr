@@ -7,6 +7,27 @@ functions. It also uses the new tidyselect package as selecting
 backend.
 
 
+## Breaking changes
+
+- Following the switch to tidy evaluation, you might see warnings
+  about the "variable context not set". This is most likely caused by
+  supplyng helpers like `everything()` to underscored versions of
+  tidyr verbs. Helpers should be always be evaluated lazily. To fix
+  this, just quote the helper with a formula: `drop_na(df,
+  ~everything())`.
+
+- The selecting functions are now stricter when you supply integer
+  positions. If you see an error along the lines of
+
+  ```
+  `-0.949999999999999`, `-0.940000000000001`, ... must resolve to
+  integer column positions, not a double vector
+  ```
+
+  please round the positions before supplying them to tidyr. Double
+  vectors are fine as long as they are rounded.
+
+
 ## Switch to tidy evaluation
 
 tidyr is now a tidy evaluation grammar. See the
