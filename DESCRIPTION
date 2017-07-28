@@ -2,7 +2,8 @@ Package: tidyr
 Title: Easily Tidy Data with 'spread()' and 'gather()' Functions
 Version: 0.6.4
 Authors@R: c(
-    person("Hadley", "Wickham", , "hadley@rstudio.com", c("aut", "cre")),
+    person("Lionel", "Henry", , "lionel@rstudio.com", c("aut", "cre")),
+    person("Hadley", "Wickham", , "hadley@rstudio.com", "aut"),
     person("RStudio", role = "cph")
     )
 Description: An evolution of 'reshape2'. It's designed specifically for data

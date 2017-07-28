@@ -20,7 +20,12 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Hadley Wickham \email{hadley@rstudio.com}
+\strong{Maintainer}: Lionel Henry \email{lionel@rstudio.com}
+
+Authors:
+\itemize{
+  \item Hadley Wickham \email{hadley@rstudio.com}
+}
 
 Other contributors:
 \itemize{
