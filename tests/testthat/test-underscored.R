@@ -58,9 +58,7 @@ test_that("gather_()", {
 
 test_that("nest_()", {
   df <- tibble(x = c(1, 1, 1), y = 1:3)
-  out <- nest_(df, "y")
-  expect_identical(out$x, 1)
-  expect_identical(out$data, list(tibble(y = 1:3)))
+  expect_identical(nest_(df, "y", "y"), nest(df, y, .key = y))
 })
 
 test_that("separate_()", {
