@@ -1,19 +1,73 @@
+
 # tidyr 0.6.3.9000
 
-* tidyr is now a tidyeval grammar. The underscored variants are softly
-  deprecated: they will remain around without warning for some time
-  for backward compatibility. See
-  [dplyr's programming vignette](http://dplyr.tidyverse.org/articles/programming.html) for
-  practical information about tidy evaluation.
+This release includes important changes to tidyr internals. Tidyr now
+supports the new tidy evaluation framework for quoting (NSE)
+functions. It also uses the new tidyselect package as selecting
+backend.
 
-  Some arguments could not be completely ported to tidyeval for
-  backward compatibility. These arguments accept a bare symbol to
-  specify the names of _new_ columns to create. This is not tidy
-  because the symbol do not represent any actual object. As a
-  consequence, these arguments are not evaluated but labelled using
-  `rlang::quo_name()` (they still support quasiquotation and you can
-  unquote symbols or strings). This type of NSE is now strongly
-  discouraged in the tidyverse; symbols should represent real objects.
+
+## Switch to tidy evaluation
+
+tidyr is now a tidy evaluation grammar. See the
+[programming vignette](http://dplyr.tidyverse.org/articles/programming.html)
+in dplyr for practical information about tidy evaluation.
+
+The tidyr port is a bit special. While the philosophy of tidy
+evaluation is that R code should refer to real objects (from the data
+frame or from the context), we had to make some exceptions to this
+rule for tidyr. The reason is that several functions accept bare
+symbols to specify the names of _new_ columns to create (`gather()`
+being a prime example). This is not tidy because the symbol do not
+represent any actual object. Our workaround is to capture these
+arguments using `rlang::quo_name()` (so they still support
+quasiquotation and you can unquote symbols or strings). This type of
+NSE is now discouraged in the tidyverse: symbols in R code should
+represent real objects.
+
+Following the switch to tidy eval the underscored variants are softly
+deprecated. However they will remain around for some time and without
+warning for backward compatibility.
+
+
+## Switch to the tidyselect backend
+
+The selecting backend of dplyr has been extracted in a standalone
+package tidyselect which tidyr now uses for selecting variables. It is
+used for selecting multiple variables (in `drop_na()`) as well as
+single variables (the `col` argument of `extract()` and `separate()`,
+and the `key` and `value` arguments of `spread()`). This implies the
+following changes:
+
+* The arguments for selecting a single variable now support all
+  features from `dplyr::pull()`. You can supply a name or a position,
+  including negative positions.
+
+* Multiple variables are now selected a bit differently. Bare symbols
+  (and a small set of functions like `c()` and `:`) are now evaluated
+  in the data frame only. You can work around this limitation by
+  unquoting a variable from the environment with `!!`:
+
+  ```r
+  x <- 2
+  drop_na(df, 2)     # Works fine
+  drop_na(df, x)     # Object 'x' not found
+  drop_na(df, !! x)  # Works as if you had supplied 2
+  ```
+
+  On the other hand, select helpers like `start_with()` are evaluated in
+  the context only. It is therefore easy to refer to objects and they
+  will never clash with data columns:
+
+  ```{r}
+  x <- "d"
+  drop_na(df, starts_with(x))
+  ```
+
+  While these special rules is in contrast to most dplyr and tidyr
+  verbs (where both the data and the context are in scope) they make
+  sense for selecting functions and should provide more robust and
+  helpful semantics.
 
 
 # tidyr 0.6.3
