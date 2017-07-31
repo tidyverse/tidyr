@@ -1,41 +1,32 @@
-# bootnet
+# docxtools
 
-Version: 1.0.0
-
-## Newly broken
-
-*   checking whether package ‘bootnet’ can be installed ... WARNING
-    ```
-    Found the following significant warnings:
-      Warning: package ‘dplyr’ was built under R version 3.4.1
-    See ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks/bootnet/new/bootnet.Rcheck/00install.out’ for details.
-    ```
-
-# cdata
-
-Version: 0.1.5
+Version: 0.1.1
 
 ## Newly broken
 
 *   checking examples ... ERROR
     ```
-    Running examples in ‘cdata-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: moveValuesToRows
-    > ### Title: Move values from columns to rows (wrapper for 'tidyr::gather',
-    > ###   or anti-pivot).
-    > ### Aliases: moveValuesToRows
+    ...
+    > set.seed(20161221)
+    > n <- 5
+    > a <- sample(letters, n)
+    > b <- sample(letters, n)
+    > w <- runif(n, min =  -5, max =  50) * 1e+5
+    > y <- runif(n, min = -25, max =  40) / 1e+3
+    > z <- runif(n, min =  -5, max = 100)
+    > x <- data.frame(z, b, y, a, w, stringsAsFactors = FALSE)
     > 
-    > ### ** Examples
-    > 
-    > 
-    > d <- data.frame(AUC= 0.6, R2= 0.2)
-    > moveValuesToRows(d,
-    +                  nameForNewKeyColumn= 'meas',
-    +                  nameForNewValueColumn= 'val',
-    +                  columnsToTakeFrom= c('AUC', 'R2'))
-    Error: Variable context not set
+    > # format different objects
+    > print(x)
+              z b            y a         w
+    1  6.501440 c  0.001051893 q 2846529.3
+    2 28.374092 o  0.000347614 y 4874357.1
+    3 -3.849624 i  0.004599897 g -111651.4
+    4 44.500979 a -0.003045062 a 1314715.7
+    5 92.411835 x -0.001069473 i  417385.0
+    > format_engr(x)
+    Error in FUN(X[[i]], ...) : object 'm_numeric_cols' not found
+    Calls: format_engr ... <Anonymous> -> map_if -> map -> lapply -> FUN -> .Call
     Execution halted
     ```
 
@@ -43,231 +34,105 @@ Version: 0.1.5
     ```
     Error in re-building vignettes:
       ...
-    Quitting from lines 284-292 (RowsAndColumns.Rmd) 
-    Error: processing vignette 'RowsAndColumns.Rmd' failed with diagnostics:
-    Variable context not set
+    Quitting from lines 63-64 (numbers-in-engineering-format.Rmd) 
+    Error: processing vignette 'numbers-in-engineering-format.Rmd' failed with diagnostics:
+    object 'm_numeric_cols' not found
     Execution halted
     ```
 
-# corrr
+# eurostat
 
-Version: 0.2.1
-
-## Newly broken
-
-*   checking whether package ‘corrr’ can be installed ... WARNING
-    ```
-    Found the following significant warnings:
-      Warning: package ‘dplyr’ was built under R version 3.4.1
-    See ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks/corrr/new/corrr.Rcheck/00install.out’ for details.
-    ```
-
-# d3r
-
-Version: 0.6.6
+Version: 3.1.1
 
 ## Newly broken
 
-*   checking examples ... ERROR
+*   checking tests ...
     ```
-    ...
-    Warning: package ‘dplyr’ was built under R version 3.4.1
-    
-    Attaching package: ‘dplyr’
-    
-    The following objects are masked from ‘package:stats’:
-    
-        filter, lag
-    
-    The following objects are masked from ‘package:base’:
-    
-        intersect, setdiff, setequal, union
-    
-    > 
-    > titanic_df <- data.frame(Titanic)
-    > tit_tb <- titanic_df %>%
-    +   select(Class,Age,Survived,Sex,Freq) %>%
-    +   d3_nest(value_cols="Freq", root="titanic")
-    Error in overscope_eval_next(overscope, expr) : 
-      object 'children' not found
-    Calls: %>% ... map -> lapply -> FUN -> overscope_eval_next -> .Call
-    Execution halted
+     ERROR
+    Running the tests in ‘tests/testthat.R’ failed.
+    Last 13 lines of output:
+      31: parse(text = x)
+      
+      testthat results ================================================================
+      OK: 10 SKIPPED: 0 FAILED: 8
+      1. Error: get_eurostat includes time and value (@test-all.R#5) 
+      2. Error: get_eurostat return right classes (@test-all.R#17) 
+      3. Error: get_eurostat get non-normal variable order (@test-all.R#36) 
+      4. Error: Cache works (@test-all.R#49) 
+      5. Error: Variable names are labeled (@test-all.R#75) 
+      6. Error: get_eurostat includes flags (@test-all.R#97) 
+      7. Error: keepFlags + label as in #61 (@test-all.R#103) 
+      8. Error: flags contain some confidential flagged fields (@test-all.R#109) 
+      
+      Error: testthat unit tests failed
+      Execution halted
     ```
 
 ## In both
 
-*   checking package dependencies ... NOTE
+*   checking re-building of vignette outputs ... WARNING
     ```
-    Packages which this enhances but not available for checking:
-      ‘igraph’ ‘partykit’ ‘treemap’ ‘V8’
-    ```
-
-# fuzzyjoin
-
-Version: 0.1.3
-
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    ...
-    The following objects are masked from ‘package:base’:
+    Error in re-building vignettes:
+      ...
+    Loading required package: xml2
+    trying URL 'http://ec.europa.eu/eurostat/estat-navtree-portlet-prod/BulkDownloadListing?sort=1&file=data%2Ftsdtr210.tsv.gz'
+    Content type 'application/octet-stream;charset=UTF-8' length 4136 bytes
+    ==================================================
+    downloaded 4136 bytes
     
-        intersect, setdiff, setequal, union
-    
-    > 
-    > x1 <- data_frame(id1 = 1:4,
-    +                  chromosome = c("chr1", "chr1", "chr2", "chr2"),
-    +                  start = c(100, 200, 300, 400),
-    +                  end = c(150, 250, 350, 450))
-    > 
-    > x2 <- data_frame(id2 = 1:4,
-    +                  chromosome = c("chr1", "chr2", "chr2", "chr1"),
-    +                  start = c(140, 210, 400, 300),
-    +                  end = c(160, 240, 415, 320))
-    > 
-    > # note that the the third and fourth items don't join (even though
-    > # 300-350 and 300-320 overlap) since the chromosomes are different:
-    > genome_inner_join(x1, x2, by = c("chromosome", "start", "end"))
-    Error in overscope_eval_next(overscope, expr) : object 'x_data' not found
-    Calls: genome_inner_join ... map -> lapply -> FUN -> overscope_eval_next -> .Call
+    Quitting from lines 112-113 (eurostat_tutorial.Rmd) 
+    Error: processing vignette 'eurostat_tutorial.Rmd' failed with diagnostics:
+    <text>:1:5: unexpected ','
+    1: unit,
+            ^
     Execution halted
     ```
 
-# ggfortify
+# ggtree
 
-Version: 0.4.1
+Version: 1.8.1
 
 ## Newly broken
 
 *   checking re-building of vignette outputs ... WARNING
     ```
     ...
-    The following object is masked from 'package:dlm':
+    The following object is masked from 'package:IRanges':
     
-        bdiag
+        collapse
     
-    Loading required package: foreach
-    Loaded glmnet 2.0-10
+    The following object is masked from 'package:S4Vectors':
     
-    Loading required package: maps
+        expand
     
-    Attaching package: 'maps'
+    The following object is masked from 'package:ape':
     
-    The following object is masked from 'package:cluster':
+        rotate
     
-        votes.repub
-    
-    Quitting from lines 138-139 (plot_pca.Rmd) 
-    Error: processing vignette 'plot_pca.Rmd' failed with diagnostics:
-    <text>:1:6: unexpected symbol
-    1: Hook of
-             ^
+    Scale for 'fill' is already present. Adding another scale for 'fill',
+    which will replace the existing scale.
+    Warning: The plyr::rename operation has created duplicates for the following name(s): (`size`)
+    Warning: Ignoring unknown aesthetics: x, y
+    Warning: Ignoring unknown aesthetics: x, y
+    Quitting from lines 99-115 (advanceTreeAnnotation.Rmd) 
+    Error: processing vignette 'advanceTreeAnnotation.Rmd' failed with diagnostics:
+    object 'cols' not found
     Execution halted
     ```
 
 ## In both
-
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘ggfortify-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: gglagplot
-    > ### Title: Plot time series against lagged versions of themselves
-    > ### Aliases: gglagplot
-    > 
-    > ### ** Examples
-    > 
-    > gglagplot(AirPassengers)
-    Error: `x` must be a vector, not a ts object, do you want `stats::lag()`?
-    Execution halted
-    ```
 
 *   checking installed package size ... NOTE
     ```
-      installed size is  5.4Mb
+      installed size is 11.1Mb
       sub-directories of 1Mb or more:
-        doc   5.0Mb
+        doc        6.8Mb
+        examples   3.7Mb
     ```
 
-# ggmcmc
+# LBSPR
 
-Version: 1.1
-
-## Newly broken
-
-*   checking whether package ‘ggmcmc’ can be installed ... WARNING
-    ```
-    Found the following significant warnings:
-      Warning: package ‘dplyr’ was built under R version 3.4.1
-    See ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks/ggmcmc/new/ggmcmc.Rcheck/00install.out’ for details.
-    ```
-
-# HTSSIP
-
-Version: 1.1.1
-
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘HTSSIP-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: phyloseq2table
-    > ### Title: Phyloseq conversion to a ggplot-formatted table
-    > ### Aliases: phyloseq2table
-    > 
-    > ### ** Examples
-    > 
-    > data(physeq_S2D1)
-    > # Including some columns from sample metadata
-    > df_OTU = phyloseq2table(physeq_S2D1,
-    +                         include_sample_data=TRUE,
-    +                         sample_col_keep=c('Buoyant_density', 'Substrate', 'Day'))
-    Error in parse(text = x) : <text>:1:3: unexpected symbol
-    1: 12C
-          ^
-    Calls: phyloseq2table ... eval_bare -> .Call -> parse_expr -> parse_exprs -> parse
-    Execution halted
-    ```
-
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    ...
-    converting counts to integer mode
-    converting counts to integer mode
-    converting counts to integer mode
-    converting counts to integer mode
-    converting counts to integer mode
-    converting counts to integer mode
-    converting counts to integer mode
-    converting counts to integer mode
-    converting counts to integer mode
-    converting counts to integer mode
-    converting counts to integer mode
-    converting counts to integer mode
-    converting counts to integer mode
-    converting counts to integer mode
-    converting counts to integer mode
-    Quitting from lines 102-106 (qSIP.Rmd) 
-    Error: processing vignette 'qSIP.Rmd' failed with diagnostics:
-    <text>:1:3: unexpected symbol
-    1: 12C
-          ^
-    Execution halted
-    ```
-
-## Newly fixed
-
-*   R CMD check timed out
-    ```
-    ```
-
-# lans2r
-
-Version: 1.0.5
+Version: 0.1.1
 
 ## Newly broken
 
@@ -275,196 +140,70 @@ Version: 1.0.5
     ```
     Error in re-building vignettes:
       ...
-    Warning: package 'dplyr' was built under R version 3.4.1
-    
-    Attaching package: 'dplyr'
-    
-    The following objects are masked from 'package:stats':
-    
-        filter, lag
-    
-    The following objects are masked from 'package:base':
-    
-        intersect, setdiff, setequal, union
-    
-    Quitting from lines 40-56 (lans2r-calculate.Rmd) 
-    Error: processing vignette 'lans2r-calculate.Rmd' failed with diagnostics:
-    non-numeric argument to binary operator
+    Quitting from lines 233-234 (LBSPR.Rmd) 
+    Error: processing vignette 'LBSPR.Rmd' failed with diagnostics:
+    could not find function "ncol"
     Execution halted
     ```
 
-# mafs
+# mosaicCore
 
-Version: 0.0.2
-
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘mafs-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: gg_fit
-    > ### Title: Graphical results of forecast models
-    > ### Aliases: gg_fit
-    > 
-    > ### ** Examples
-    > 
-    > gg_fit(AirPassengers, 12, "snaive")
-    Error in parse(text = x) : <text>:1:10: unexpected symbol
-    1: Original Series
-                 ^
-    Calls: gg_fit ... eval_bare -> .Call -> parse_expr -> parse_exprs -> parse
-    Execution halted
-    ```
-
-## In both
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespaces in Imports field not imported from:
-      ‘Rcpp’ ‘cmprsk’ ‘colorspace’ ‘etm’ ‘fracdiff’ ‘gtable’ ‘munsell’
-      ‘numDeriv’ ‘plyr’ ‘quadprog’ ‘scales’ ‘timeDate’ ‘tseries’ ‘zoo’
-      All declared Imports should be used.
-    ```
-
-# mosaic
-
-Version: 0.14.4
-
-## Newly broken
-
-*   checking whether package ‘mosaic’ can be installed ... WARNING
-    ```
-    Found the following significant warnings:
-      Warning: package ‘dplyr’ was built under R version 3.4.1
-    See ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks/mosaic/new/mosaic.Rcheck/00install.out’ for details.
-    ```
-
-## In both
-
-*   checking package dependencies ... NOTE
-    ```
-    Package which this enhances but not available for checking: ‘manipulate’
-    ```
-
-*   checking installed package size ... NOTE
-    ```
-      installed size is  9.2Mb
-      sub-directories of 1Mb or more:
-        R     1.8Mb
-        doc   6.8Mb
-    ```
-
-*   checking R code for possible problems ... NOTE
-    ```
-    mMap: no visible binding for global variable ‘facet’
-    mScatter: no visible binding for global variable ‘facet’
-    mUniplot: no visible binding for global variable ‘facet’
-    Undefined global functions or variables:
-      facet
-    ```
-
-*   checking Rd cross-references ... NOTE
-    ```
-    Package unavailable to check Rd xrefs: ‘cubature’
-    ```
-
-# mtconnectR
-
-Version: 1.1.0
+Version: 0.2.0
 
 ## Newly broken
 
 *   checking examples ... ERROR
     ```
     ...
-    The error most likely occurred in:
-    
-    > ### Name: map_gcode_mtc
-    > ### Title: Create a mapping between simulated and actual data
-    > ### Aliases: map_gcode_mtc
-    > 
-    > ### ** Examples
-    > 
-    > data("example_gcode_parsed") # Parsed gcode
-    > data("example_mtc_device_3") # MTCDevice object of actual log data
-    > simulated_gcode_data = na.omit(simulate_data_from_gcode(example_gcode_parsed, 
-    + start_time = 0, data_res = 0.1, data_type = "HH"))
-    > mtc_device_sim = create_mtc_device_from_ts(simulated_gcode_data)
-    > mtc_sim_mapped = map_gcode_mtc(mtc_device_sim, example_mtc_device_3, elasticity = 200)
-    Using the following mapping: 
-      sim_name                                                 mtc_name
-    1    x_pos nist_testbed_GF_Agie_1<Device>:path_pos_x<PATH_POSITION>
-    2    y_pos nist_testbed_GF_Agie_1<Device>:path_pos_y<PATH_POSITION>
-    3    z_pos nist_testbed_GF_Agie_1<Device>:path_pos_z<PATH_POSITION>
-    Error: Variable context not set
+       mean_hp trimmed_mean median_hp range_hp_1 range_hp_2 Q_25% Q_75%
+    1 146.6875     141.1923       123         52        335  96.5   180
+    > # force names to by syntactically valid
+    > df_stats( ~ hp, data = mtcars, Q = quantile(c(0.25, 0.75)), nice_names = TRUE)
+      Q_25. Q_75.
+    1  96.5   180
+    > # shorter names
+    > df_stats( ~ hp, data = mtcars, mean, trimmed_mean = mean(trim = 0.1), "median", range,
+    +   long_names = FALSE)
+          mean trimmed_mean median range_1 range_2
+    1 146.6875     141.1923    123      52     335
+    > # wide vs long format
+    > df_stats( hp ~ cyl, data = mtcars, mean, median, range)
+      cyl   mean_hp median_hp range_hp_1 range_hp_2
+    1   4  82.63636      91.0         52        113
+    2   6 122.28571     110.0        105        175
+    3   8 209.21429     192.5        150        335
+    > df_stats( hp ~ cyl, data = mtcars, mean, median, range, format = "long")
+    Error in FUN(X[[i]], ...) : object 'd' not found
+    Calls: df_stats ... <Anonymous> -> map_if -> map -> lapply -> FUN -> .Call
     Execution halted
     ```
 
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    Error in re-building vignettes:
-      ...
-    Quitting from lines 102-107 (simulate_map_gcode.Rmd) 
-    Error: processing vignette 'simulate_map_gcode.Rmd' failed with diagnostics:
-    Variable context not set
-    Execution halted
-    ```
+# R6Frame
 
-# neuropsychology
-
-Version: 0.5.0
+Version: 0.1.0
 
 ## Newly broken
 
-*   checking whether package ‘neuropsychology’ can be installed ... WARNING
+*   checking tests ...
     ```
-    Found the following significant warnings:
-      Warning: package ‘dplyr’ was built under R version 3.4.1
-    See ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks/neuropsychology/new/neuropsychology.Rcheck/00install.out’ for details.
-    ```
-
-## In both
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespaces in Imports field not imported from:
-      ‘htmlTable’ ‘lme4’ ‘stringi’
-      All declared Imports should be used.
-    ```
-
-# radiant.basics
-
-Version: 0.8.0
-
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘radiant.basics-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: plot.cross_tabs
-    > ### Title: Plot method for the cross_tabs function
-    > ### Aliases: plot.cross_tabs
-    > 
-    > ### ** Examples
-    > 
-    > result <- cross_tabs("newspaper", "Income", "Newspaper")
-    > plot(result, check = c("observed","expected","chi_sq"))
-    Error in parse(text = x) : <text>:1:4: unexpected symbol
-    1: WS Journal
-           ^
-    Calls: plot ... _fseq -> freduce -> withVisible -> <Anonymous> -> sshhr
-    Execution halted
-    ```
-
-*   checking whether package ‘radiant.basics’ can be installed ... WARNING
-    ```
-    Found the following significant warnings:
-      Warning: package ‘dplyr’ was built under R version 3.4.1
-    See ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks/radiant.basics/new/radiant.basics.Rcheck/00install.out’ for details.
+     ERROR
+    Running the tests in ‘tests/testthat.R’ failed.
+    Last 13 lines of output:
+      testthat results ================================================================
+      OK: 139 SKIPPED: 0 FAILED: 10
+      1.  Error: gather works with R6 data.frame (@test-tidyr_reshape.R#11) 
+      2.  Error: gather works with R6 data.table (@test-tidyr_reshape.R#25) 
+      3.  Error: gather works with R6 tbl_df (@test-tidyr_reshape.R#38) 
+      4.  Error: spread works with R6 data.frame (@test-tidyr_reshape.R#52) 
+      5.  Error: spread works with R6 data.table (@test-tidyr_reshape.R#67) 
+      6.  Error: spread works with R6 tbl_df (@test-tidyr_reshape.R#81) 
+      7.  Error: complete works with R6 data.frame (@test-tidyr_verbs.R#13) 
+      8.  Error: complete works with R6 data.table (@test-tidyr_verbs.R#27) 
+      9.  Error: complete works with R6 tbl_df (@test-tidyr_verbs.R#41) 
+      10. Error: fill works with R6 tbl_df (@test-tidyr_verbs.R#72) 
+      
+      Error: testthat unit tests failed
+      Execution halted
     ```
 
 # radiant.data
@@ -473,41 +212,59 @@ Version: 0.8.1
 
 ## Newly broken
 
-*   checking whether package ‘radiant.data’ can be installed ... WARNING
+*   checking examples ... ERROR
     ```
-    Found the following significant warnings:
-      Warning: package ‘dplyr’ was built under R version 3.4.1
-    See ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks/radiant.data/new/radiant.data.Rcheck/00install.out’ for details.
+    Running examples in ‘radiant.data-Ex.R’ failed
+    The error most likely occurred in:
+    
+    > ### Name: dtab.explore
+    > ### Title: Make a tabel of summary statistics in DT
+    > ### Aliases: dtab.explore
+    > 
+    > ### ** Examples
+    > 
+    > tab <- explore("diamonds", "price:x") %>% dtab
+    > tab <- explore("diamonds", "price", byvar = "cut", fun = c("length", "skew"), top = "byvar") %>%
+    +   dtab
+    Error in length(byvar) : could not find function "length"
+    Calls: %>% ... <Anonymous> -> map_if -> map -> lapply -> FUN -> .Call
+    Execution halted
     ```
 
-# radiant.model
+# rcv
 
-Version: 0.8.0
+Version: 0.2.0
 
 ## Newly broken
 
-*   checking whether package ‘radiant.model’ can be installed ... WARNING
+*   checking examples ... ERROR
     ```
-    Found the following significant warnings:
-      Warning: package ‘dplyr’ was built under R version 3.4.1
-    See ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks/radiant.model/new/radiant.model.Rcheck/00install.out’ for details.
+    Running examples in ‘rcv-Ex.R’ failed
+    The error most likely occurred in:
+    
+    > ### Name: make_d3list
+    > ### Title: Creates a data frame for use with the networkD3 package
+    > ### Aliases: make_d3list
+    > 
+    > ### ** Examples
+    > 
+    > make_d3list(results = sf_7_results)
+    Error in ncol(results) : could not find function "ncol"
+    Calls: make_d3list ... <Anonymous> -> map_if -> map -> lapply -> FUN -> .Call
+    Execution halted
     ```
 
 ## In both
 
+*   checking dependencies in R code ... NOTE
+    ```
+    Namespace in Imports field not imported from: ‘forcats’
+      All declared Imports should be used.
+    ```
+
 *   checking data for non-ASCII characters ... NOTE
     ```
-      Note: found 2 marked UTF-8 strings
-    ```
-
-# rprev
-
-Version: 0.2.3
-
-## Newly broken
-
-*   R CMD check timed out
-    ```
+      Note: found 6543 marked UTF-8 strings
     ```
 
 # rtdists
@@ -516,242 +273,82 @@ Version: 0.7-3
 
 ## Newly broken
 
-*   checking re-building of vignette outputs ... WARNING
+*   checking tests ...
     ```
-    ...
-    The following objects are masked from 'package:base':
-    
-        intersect, setdiff, setequal, union
-    
-    Loading required package: tidyr
-    Loading required package: purrr
-    
-    Attaching package: 'purrr'
-    
-    The following objects are masked from 'package:dplyr':
-    
-        contains, order_by
-    
-    Loading required package: lattice
-    Loading required package: latticeExtra
-    Loading required package: RColorBrewer
-    Loading required package: binom
-    Quitting from lines 374-396 (reanalysis_rr98.Rmd) 
-    Error: processing vignette 'reanalysis_rr98.Rmd' failed with diagnostics:
-    Variable context not set
-    Execution halted
+     ERROR
+    Running the tests in ‘tests/testthat.R’ failed.
+    Last 13 lines of output:
+      > library(testthat)
+      > 
+      > test_check("rtdists")
+      Loading required package: rtdists
+      1. Failure: Norm: pdiffusion corresponds to random derivates (@test-diffusion-math.R#77) 
+      t3$value$p.value is not strictly more than `p_max`. Difference: -0.00986
+      
+      
+      testthat results ================================================================
+      OK: 64279 SKIPPED: 0 FAILED: 1
+      1. Failure: Norm: pdiffusion corresponds to random derivates (@test-diffusion-math.R#77) 
+      
+      Error: testthat unit tests failed
+      Execution halted
     ```
 
-# sfc
+# sjPlot
 
-Version: 0.1.0
-
-## Newly broken
-
-*   checking whether package ‘sfc’ can be installed ... WARNING
-    ```
-    Found the following significant warnings:
-      Warning: package ‘dplyr’ was built under R version 3.4.1
-    See ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks/sfc/new/sfc.Rcheck/00install.out’ for details.
-    ```
-
-# shazam
-
-Version: 0.1.8
-
-## Newly broken
-
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    Error in re-building vignettes:
-      ...
-    Loading required package: ggplot2
-    Quitting from lines 282-285 (Baseline-Vignette.Rmd) 
-    Error: processing vignette 'Baseline-Vignette.Rmd' failed with diagnostics:
-    `-0.98`, `-0.969999999999999`, `-0.960000000000001`, `-0.949999999999999`, `-0.940000000000001`, ... must resolve to integer column positions, not a double vector
-    Execution halted
-    ```
-
-## In both
-
-*   checking data for non-ASCII characters ... NOTE
-    ```
-      Note: found 2 marked UTF-8 strings
-    ```
-
-# simglm
-
-Version: 0.5.0
-
-## Newly broken
-
-*   checking whether package ‘simglm’ can be installed ... WARNING
-    ```
-    Found the following significant warnings:
-      Warning: package ‘dplyr’ was built under R version 3.4.1
-    See ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks/simglm/new/simglm.Rcheck/00install.out’ for details.
-    ```
-
-# textreuse
-
-Version: 0.1.4
+Version: 2.3.1
 
 ## Newly broken
 
 *   checking examples ... ERROR
     ```
-    Running examples in ‘textreuse-Ex.R’ failed
+    Running examples in ‘sjPlot-Ex.R’ failed
     The error most likely occurred in:
     
-    > ### Name: lsh
-    > ### Title: Locality sensitive hashing for minhash
-    > ### Aliases: lsh
+    > ### Name: set_theme
+    > ### Title: Set default theme for sjp-functions
+    > ### Aliases: set_theme
     > 
     > ### ** Examples
     > 
-    > dir <- system.file("extdata/legal", package = "textreuse")
-    > minhash <- minhash_generator(200, seed = 235)
-    > corpus <- TextReuseCorpus(dir = dir,
-    +                           tokenizer = tokenize_ngrams, n = 5,
-    +                           minhash_func = minhash)
-    > buckets <- lsh(corpus, bands = 50)
-    Error in overscope_eval_next(overscope, expr) : object 'ca1851' not found
-    Calls: lsh ... map -> lapply -> FUN -> overscope_eval_next -> .Call
+    > library(sjmisc)
+    > data(efc)
+    > 
+    > # of the ggplot base theme
+    > set_theme("539")
+    > sjp.xtab(efc$e42dep, efc$e16sex)
+    Warning: This function will be removed in future versions of sjmisc and has been moved to package 'sjlabelled'. Please use sjlabelled::get_label() instead.
+    Warning: This function will be removed in future versions of sjmisc and has been moved to package 'sjlabelled'. Please use sjlabelled::get_label() instead.
+    Error in grpcount + 1 : could not find function "+"
+    Calls: sjp.xtab ... <Anonymous> -> map_if -> map -> lapply -> FUN -> .Call
+    Execution halted
+    ```
+
+*   checking re-building of vignette outputs ... WARNING
+    ```
+    Error in re-building vignettes:
+      ...
+    Warning in engine$weave(file, quiet = quiet, encoding = enc) :
+      The vignette engine knitr::rmarkdown is not available, because the rmarkdown package is not installed. Please install it.
+    Visit http://strengejacke.de/sjPlot for package-vignettes.
+    Warning: This function will be removed in future versions of sjmisc and has been moved to package 'sjlabelled'. Please use sjlabelled::get_label() instead.
+    Warning: This function will be removed in future versions of sjmisc and has been moved to package 'sjlabelled'. Please use sjlabelled::get_label() instead.
+    Quitting from lines 22-28 (blackwhitefigures.Rmd) 
+    Error: processing vignette 'blackwhitefigures.Rmd' failed with diagnostics:
+    could not find function "+"
     Execution halted
     ```
 
 ## In both
+
+*   checking dependencies in R code ... NOTE
+    ```
+    Missing object imported by a ':::' call: ‘sjstats:::lm_pval_fstat’
+    ```
 
 *   checking Rd cross-references ... NOTE
     ```
-    Package unavailable to check Rd xrefs: ‘tm’
-    ```
-
-# tidygenomics
-
-Version: 0.1.0
-
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    ...
-    
-    Attaching package: ‘dplyr’
-    
-    The following objects are masked from ‘package:stats’:
-    
-        filter, lag
-    
-    The following objects are masked from ‘package:base’:
-    
-        intersect, setdiff, setequal, union
-    
-    > 
-    > x1 <- data.frame(id = 1:4, bla=letters[1:4],
-    +                  chromosome = c("chr1", "chr1", "chr2", "chr1"),
-    +                  start = c(100, 200, 300, 400),
-    +                  end = c(150, 250, 350, 450))
-    > 
-    > genome_complement(x1, by=c("chromosome", "start", "end"))
-    Error in overscope_eval_next(overscope, expr) : object 'x_data' not found
-    Calls: genome_complement ... map -> lapply -> FUN -> overscope_eval_next -> .Call
-    Execution halted
-    ```
-
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    Error in re-building vignettes:
-      ...
-    Warning: package 'dplyr' was built under R version 3.4.1
-    
-    Attaching package: 'dplyr'
-    
-    The following objects are masked from 'package:stats':
-    
-        filter, lag
-    
-    The following objects are masked from 'package:base':
-    
-        intersect, setdiff, setequal, union
-    
-    Quitting from lines 55-66 (intro.Rmd) 
-    Error: processing vignette 'intro.Rmd' failed with diagnostics:
-    object 'x_data' not found
-    Execution halted
-    ```
-
-# tidyverse
-
-Version: 1.1.1
-
-## Newly broken
-
-*   checking whether package ‘tidyverse’ can be installed ... WARNING
-    ```
-    Found the following significant warnings:
-      Warning: package ‘dplyr’ was built under R version 3.4.1
-    See ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks/tidyverse/new/tidyverse.Rcheck/00install.out’ for details.
-    ```
-
-# tigger
-
-Version: 0.2.10
-
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘tigger-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: getPopularMutationCount
-    > ### Title: Find Frequent Sequences' Mutation Counts
-    > ### Aliases: getPopularMutationCount
-    > 
-    > ### ** Examples
-    > 
-    > data(sample_db, germline_ighv)
-    > getPopularMutationCount(sample_db, germline_ighv)
-    Error in grouped_df_impl(data, unname(vars), drop) : 
-      Value of SET_STRING_ELT() must be a 'CHARSXP' not a 'NULL'
-    Calls: getPopularMutationCount ... group_by.data.frame -> grouped_df -> grouped_df_impl -> .Call
-    Execution halted
-    ```
-
-## Newly fixed
-
-*   R CMD check timed out
-    ```
-    ```
-
-# visdat
-
-Version: 0.1.0
-
-## Newly broken
-
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    Error in re-building vignettes:
-      ...
-    Quitting from lines 58-61 (using_visdat.Rmd) 
-    Error: processing vignette 'using_visdat.Rmd' failed with diagnostics:
-    could not find function "Height"
-    Execution halted
-    ```
-
-# VWPre
-
-Version: 0.9.6
-
-## Newly broken
-
-*   checking whether package ‘VWPre’ can be installed ... WARNING
-    ```
-    Found the following significant warnings:
-      Warning: package ‘dplyr’ was built under R version 3.4.1
-    See ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks/VWPre/new/VWPre.Rcheck/00install.out’ for details.
+    Package unavailable to check Rd xrefs: ‘plm’
     ```
 
 # WRTDStidal
@@ -765,19 +362,63 @@ Version: 1.1.0
     Running examples in ‘WRTDStidal-Ex.R’ failed
     The error most likely occurred in:
     
-    > ### Name: fitplot
-    > ### Title: Plot the fitted results for a tidal object
-    > ### Aliases: fitplot fitplot.tidal fitplot.tidalmean
+    > ### Name: dynaplot
+    > ### Title: Plot model response to salinity or flow as a lineplot for all
+    > ###   months
+    > ### Aliases: dynaplot dynaplot.tidal dynaplot.tidalmean
     > 
     > ### ** Examples
     > 
     > 
-    > ## load a fitted tidal object
+    > # load a fitted tidal object
     > data(tidfit)
     > 
-    > # plot using defaults
-    > fitplot(tidfit)
-    Error: Variable context not set
+    > # plot using defaults, 
+    > # defaults to the fiftieth quantile for all years
+    > dynaplot(tidfit)
+    Error in ncol(to_plo) : could not find function "ncol"
+    Calls: dynaplot ... <Anonymous> -> map_if -> map -> lapply -> FUN -> .Call
     Execution halted
+    ```
+
+# zFactor
+
+Version: 0.1.6
+
+## Newly broken
+
+*   checking examples ... ERROR
+    ```
+    ...
+    > ## calculate for one Tpr curve at a Ppr
+    > z.DranchukPurvisRobinson(pres.pr = 1.5, temp.pr = 2.0)
+    [1] 0.9546382
+    > 
+    > ## For vectors of Ppr and Tpr:
+    > ppr <- c(0.5, 1.5, 2.5, 3.5, 4.5, 5.5, 6.5)
+    > tpr <- c(1.3, 1.5, 1.7, 2)
+    > z.DranchukPurvisRobinson(pres.pr = ppr, temp.pr = tpr)
+              0.5       1.5       2.5       3.5       4.5       5.5       6.5
+    1.3 0.9197157 0.7525940 0.6366665 0.6337883 0.6891997 0.7650171 0.8480804
+    1.5 0.9504834 0.8583491 0.7926325 0.7720713 0.7914322 0.8348883 0.8915239
+    1.7 0.9677844 0.9121791 0.8752677 0.8630002 0.8743271 0.9033216 0.9440582
+    2   0.9822021 0.9546382 0.9399310 0.9391490 0.9512966 0.9740256 1.0047347
+    > 
+    > ## create a matrix of z values
+    > tpr2 <- c(1.05, 1.1, 1.2, 1.3)
+    > ppr2 <- c(0.5, 1.0, 1.5, 2, 2.5, 3.0, 3.5, 4.0, 4.5, 5.0, 5.5, 6.0, 6.5)
+    > sk_corr_2 <- createTidyFromMatrix(ppr2, tpr2, correlation = "DPR")
+    Error in ncol(sk_df) : could not find function "ncol"
+    Calls: createTidyFromMatrix ... <Anonymous> -> map_if -> map -> lapply -> FUN -> .Call
+    Execution halted
+    ```
+
+## In both
+
+*   checking dependencies in R code ... NOTE
+    ```
+    Namespaces in Imports field not imported from:
+      ‘rootSolve’ ‘tibble’
+      All declared Imports should be used.
     ```
 
