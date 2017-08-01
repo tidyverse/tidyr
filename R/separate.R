@@ -163,7 +163,7 @@ separate_ <- function(data, col, into, sep = "[^[:alnum:]]+", remove = TRUE,
 separate_.data.frame <- function(data, col, into, sep = "[^[:alnum:]]+",
                                  remove = TRUE, convert = FALSE,
                                  extra = "warn", fill = "warn", ...) {
-  col <- compat_lazy(col, caller_env())
+  col <- sym(col)
   separate(data,
     col = !! col,
     into = into,
