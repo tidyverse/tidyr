@@ -3,10 +3,8 @@
 #' If a variable contains observations with multiple delimited values, this
 #' separates the values and places each one in its own row.
 #'
+#' @inheritParams gather
 #' @inheritParams separate
-#' @param ... Specification of columns to separate. Use bare variable names.
-#'   Select all variables between x and z with `x:z`, exclude y with
-#'   `-y`. For more options, see the [dplyr::select()] documentation.
 #' @param sep Separator delimiting collapsed values.
 #' @export
 #' @examples

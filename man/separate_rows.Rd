@@ -9,15 +9,31 @@ separate_rows(data, ..., sep = "[^[:alnum:].]+", convert = FALSE)
 \arguments{
 \item{data}{A data frame.}
 
-\item{...}{Specification of columns to separate. Use bare variable names.
-Select all variables between x and z with \code{x:z}, exclude y with
-\code{-y}. For more options, see the \code{\link[dplyr:select]{dplyr::select()}} documentation.}
+\item{...}{A selection of columns. These arguments are passed to
+\code{\link[tidyselect:vars_select]{tidyselect::vars_select()}} and are treated specially for
+selection:\preformatted{* Calls and complex expressions are evaluated in the context.
+  You cannot refer to data columns in these expressions.
+
+* Bare symbols are evaluated in the data but not the context.
+  You can only refer to data columns with bare symbols.
+
+* In addition, `c()` and the `:` operators are also evaluated
+  in the data (this is an exception to the rule above). Select
+  all variables between x and z with `x:z`, exclude y with
+  `-y`. You can refer to columns but not to objects from the
+  context. If you need to refer to contextual objects, you can
+  unquote them with the tidy eval operator `!!`.
+}
+
+For instance, \code{col1:col3} creates a selection that refers to data
+objects, while \code{seq(start, end)} creates a selection that refers
+to contextual objects.}
 
 \item{sep}{Separator delimiting collapsed values.}
 
-\item{convert}{If \code{TRUE}, will run \code{\link[=type.convert]{type.convert()}} with
-\code{as.is = TRUE} on new columns. This is useful if the component
-columns are integer, numeric or logical.}
+\item{convert}{If \code{TRUE} will automatically run
+\code{\link[=type.convert]{type.convert()}} on the key column. This is useful if the column
+names are actually numeric, integer, or logical.}
 }
 \description{
 If a variable contains observations with multiple delimited values, this

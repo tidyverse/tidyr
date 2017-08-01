@@ -4,10 +4,8 @@
 #' data frame. `nest()` creates a list of data frames containing all
 #' the nested variables: this seems to be the most useful form in practice.
 #'
+#' @inheritParams gather
 #' @param data A data frame.
-#' @param ... Specification of columns to nest. Use bare variable names.
-#'   Select all variables between x and z with `x:z`, exclude y with
-#'   `-y`. For more options, see the [dplyr::select()] documentation.
 #' @param .key The name of the new column, as a string or symbol.
 #'
 #'   This argument is passed by expression and supports

@@ -14,9 +14,26 @@
 #'   [rlang::quo_name()] (note that this kind of interface where
 #'   symbols do not represent actual objects is now discouraged in the
 #'   tidyverse; we support it here for backward compatibility).
-#' @param ... Specification of columns to gather. Use bare variable names.
-#'   Select all variables between x and z with `x:z`, exclude y with
-#'   `-y`. For more options, see the [dplyr::select()] documentation.
+#' @param ... A selection of columns. These arguments are passed to
+#'   [tidyselect::vars_select()] and are treated specially for
+#'   selection:
+#'
+#'     * Calls and complex expressions are evaluated in the context.
+#'       You cannot refer to data columns in these expressions.
+#'
+#'     * Bare symbols are evaluated in the data but not the context.
+#'       You can only refer to data columns with bare symbols.
+#'
+#'     * In addition, `c()` and the `:` operators are also evaluated
+#'       in the data (this is an exception to the rule above). Select
+#'       all variables between x and z with `x:z`, exclude y with
+#'       `-y`. You can refer to columns but not to objects from the
+#'       context. If you need to refer to contextual objects, you can
+#'       unquote them with the tidy eval operator `!!`.
+#'
+#'   For instance, `col1:col3` creates a selection that refers to data
+#'   objects, while `seq(start, end)` creates a selection that refers
+#'   to contextual objects.
 #' @param na.rm If `TRUE`, will remove rows from output where the
 #'   value column in `NA`.
 #' @param convert If `TRUE` will automatically run

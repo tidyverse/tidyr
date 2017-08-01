@@ -9,10 +9,25 @@ drop_na(data, ...)
 \arguments{
 \item{data}{A data frame.}
 
-\item{...}{Specification of variables to consider while dropping rows.
-If empty, consider all variables. Use bare variable names. Select all
-variables between x and z with \code{x:z}, exclude y with \code{-y}.
-For more options, see the \code{\link[dplyr:select]{dplyr::select()}} documentation.}
+\item{...}{A selection of columns. These arguments are passed to
+\code{\link[tidyselect:vars_select]{tidyselect::vars_select()}} and are treated specially for
+selection:\preformatted{* Calls and complex expressions are evaluated in the context.
+  You cannot refer to data columns in these expressions.
+
+* Bare symbols are evaluated in the data but not the context.
+  You can only refer to data columns with bare symbols.
+
+* In addition, `c()` and the `:` operators are also evaluated
+  in the data (this is an exception to the rule above). Select
+  all variables between x and z with `x:z`, exclude y with
+  `-y`. You can refer to columns but not to objects from the
+  context. If you need to refer to contextual objects, you can
+  unquote them with the tidy eval operator `!!`.
+}
+
+For instance, \code{col1:col3} creates a selection that refers to data
+objects, while \code{seq(start, end)} creates a selection that refers
+to contextual objects.}
 }
 \description{
 Drop rows containing missing values
