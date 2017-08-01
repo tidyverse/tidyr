@@ -9,6 +9,35 @@ backend.
 
 ## Breaking changes
 
+- The selecting functions (e.g. `gather()` and its `...` argument)
+  are now stricter in their arguments. Bare symbols and colwise
+  function calls like `c()` and `:` are evaluated in the data
+  only. You can no longer refer to contextual objects like this:
+
+  ```
+  mtcars %>% gather(var, value, 1:ncol(mtcars))
+
+  x <- 3
+  mtcars %>% gather(var, value, 1:x)
+  mtcars %>% gather(var, value, -(1:x))
+  ```
+
+  If you see error messages about objects or functions not found, this
+  is likely because of this. You need to be explicit about where to
+  find objects. To do so, you can use the quasiquotation operator `!!`
+  which will evaluate its argument early and inline the result:
+
+  ```{r}
+  mtcars %>% gather(var, value, !! 1:ncol(mtcars))
+  mtcars %>% gather(var, value, !! 1:x)
+  mtcars %>% gather(var, value, !! -(1:x))
+  ```
+
+  An alternative is to use `seq()` or `seq_len()` instead of `:`. This
+  works fine because function calls are now evaluated in the context
+  without the data columns in scope. See the section on tidyselect for
+  more information about these semantics.
+
 - Following the switch to tidy evaluation, you might see warnings
   about the "variable context not set". This is most likely caused by
   supplyng helpers like `everything()` to underscored versions of
