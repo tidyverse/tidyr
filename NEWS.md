@@ -9,10 +9,31 @@ backend.
 
 ## Breaking changes
 
-- The selecting functions (e.g. `gather()` and its `...` argument)
-  are now stricter in their arguments. Bare symbols and colwise
-  function calls like `c()` and `:` are evaluated in the data
-  only. You can no longer refer to contextual objects like this:
+- If you see error messages about objects or functions not found, it
+  is likely because the selecting functions are now stricter in their
+  arguments An example of selecting function is `gather()` and its
+  `...` argument. This change makes the code more robust by
+  disallowing ambiguous scoping. Consider the following code:
+
+  ```
+  x <- 3
+  df <- tibble(w = 1, x = 2, y = 3)
+  gather(df, "variable", "value", 1:x)
+  ```
+
+  Does it select the first three columns (using the `x` defined in the
+  global environment), or does it select the first two columns (using
+  the column named `x`)?
+
+  To solve this ambiguity, we now make a strict distinction between
+  data and context expressions. A data expression is either a bare
+  name or an expression like `x:y` or `c(x, y)`. In a data expression,
+  you can only refer to columns from the data frame. Everything else
+  is a context expression in which you can only refer to objects that
+  you have defined with `<-`.
+
+  In practice this means that you can no longer refer to contextual
+  objects like this:
 
   ```
   mtcars %>% gather(var, value, 1:ncol(mtcars))
@@ -22,10 +43,9 @@ backend.
   mtcars %>% gather(var, value, -(1:x))
   ```
 
-  If you see error messages about objects or functions not found, this
-  is likely because of this. You need to be explicit about where to
-  find objects. To do so, you can use the quasiquotation operator `!!`
-  which will evaluate its argument early and inline the result:
+  You now have to be explicit about where to find objects. To do so,
+  you can use the quasiquotation operator `!!` which will evaluate its
+  argument early and inline the result:
 
   ```{r}
   mtcars %>% gather(var, value, !! 1:ncol(mtcars))
@@ -33,10 +53,9 @@ backend.
   mtcars %>% gather(var, value, !! -(1:x))
   ```
 
-  An alternative is to use `seq()` or `seq_len()` instead of `:`. This
-  works fine because function calls are now evaluated in the context
-  without the data columns in scope. See the section on tidyselect for
-  more information about these semantics.
+  An alternative is to turn your data expression into a context
+  expression by using `seq()` or `seq_len()` instead of `:`. See the
+  section on tidyselect for more information about these semantics.
 
 - Following the switch to tidy evaluation, you might see warnings
   about the "variable context not set". This is most likely caused by
@@ -93,10 +112,16 @@ following changes:
   features from `dplyr::pull()`. You can supply a name or a position,
   including negative positions.
 
-* Multiple variables are now selected a bit differently. Bare symbols
-  (and a small set of functions like `c()` and `:`) are now evaluated
-  in the data frame only. You can work around this limitation by
-  unquoting a variable from the environment with `!!`:
+* Multiple variables are now selected a bit differently. We now make a
+  strict distinction between data and context expressions. A data
+  expression is either a bare name of an expression like `x:y` or
+  `c(x, y)`. In a data expression, you can only refer to columns from
+  the data frame. Everything else is a context expression in which you
+  can only refer to objects that you have defined with `<-`.
+
+  You can still refer to contextual objects in a data expression by
+  being explicit. One way of being explicit is to unquote a variable
+  from the environment with the tidy eval operator `!!`:
 
   ```r
   x <- 2
@@ -105,9 +130,9 @@ following changes:
   drop_na(df, !! x)  # Works as if you had supplied 2
   ```
 
-  On the other hand, select helpers like `start_with()` are evaluated in
-  the context only. It is therefore easy to refer to objects and they
-  will never clash with data columns:
+  On the other hand, select helpers like `start_with()` are context
+  expressions. It is therefore easy to refer to objects and they will
+  never be ambiguous with data columns:
 
   ```{r}
   x <- "d"
