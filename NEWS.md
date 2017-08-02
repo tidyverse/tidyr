@@ -1,5 +1,5 @@
 
-# tidyr 0.6.4
+# tidyr 0.7.0
 
 This release includes important changes to tidyr internals. Tidyr now
 supports the new tidy evaluation framework for quoting (NSE)
