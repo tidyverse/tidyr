@@ -1,3 +1,95 @@
+# curatedMetagenomicData
+
+Version: 1.2.0
+
+## Newly broken
+
+*   R CMD check timed out
+    ```
+    ```
+
+## Newly fixed
+
+*   checking examples ... ERROR
+    ```
+    Running examples in ‘curatedMetagenomicData-Ex.R’ failed
+    The error most likely occurred in:
+    
+    > ### Name: ExpressionSet2MRexperiment
+    > ### Title: Convert an ExpressionSet object to a
+    > ###   metagenomeSeq::MRexperiment-class object
+    > ### Aliases: ExpressionSet2MRexperiment
+    > 
+    > ### ** Examples
+    > 
+    > eset <- LomanNJ_2013_Mi.metaphlan_bugs_list.stool()
+    updating metadata: retrieving 1 resource
+    snapshotDate(): 2016-10-01
+    Error in readRDS(.db_index_file(x)) : error reading from connection
+    Calls: LomanNJ_2013_Mi.metaphlan_bugs_list.stool ... query -> query -> .local -> .db_index_load -> readRDS
+    Execution halted
+    ```
+
+## In both
+
+*   checking package dependencies ... NOTE
+    ```
+    Depends: includes the non-default packages:
+      ‘dplyr’ ‘phyloseq’ ‘Biobase’ ‘ExperimentHub’ ‘AnnotationHub’
+      ‘magrittr’
+    Adding so many packages to the search path is excessive and importing
+    selectively is preferable.
+    ```
+
+*   checking installed package size ... NOTE
+    ```
+      installed size is  8.5Mb
+      sub-directories of 1Mb or more:
+        help   7.9Mb
+    ```
+
+*   checking DESCRIPTION meta-information ... NOTE
+    ```
+    Package listed in more than one of Depends, Imports, Suggests, Enhances:
+      ‘BiocInstaller’
+    A package should be listed in only one of these fields.
+    ```
+
+*   checking dependencies in R code ... NOTE
+    ```
+    Namespace in Imports field not imported from: ‘BiocInstaller’
+      All declared Imports should be used.
+    ```
+
+*   checking R code for possible problems ... NOTE
+    ```
+    ExpressionSet2MRexperiment: no visible global function definition for
+      ‘AnnotatedDataFrame’
+    ExpressionSet2MRexperiment: no visible global function definition for
+      ‘phenoData’
+    curatedMetagenomicData : <anonymous>: no visible global function
+      definition for ‘exprs<-’
+    Undefined global functions or variables:
+      AnnotatedDataFrame exprs<- phenoData
+    ```
+
+*   checking Rd files ... NOTE
+    ```
+    prepare_Rd: HMP_2012.Rd:540-542: Dropping empty section \seealso
+    prepare_Rd: KarlssonFH_2013.Rd:90-92: Dropping empty section \seealso
+    prepare_Rd: LeChatelierE_2013.Rd:86-88: Dropping empty section \seealso
+    prepare_Rd: LomanNJ_2013_Hi.Rd:82-84: Dropping empty section \seealso
+    prepare_Rd: LomanNJ_2013_Mi.Rd:82-84: Dropping empty section \seealso
+    prepare_Rd: NielsenHB_2014.Rd:94-96: Dropping empty section \seealso
+    prepare_Rd: Obregon_TitoAJ_2015.Rd:94-96: Dropping empty section \seealso
+    prepare_Rd: OhJ_2014.Rd:86-88: Dropping empty section \seealso
+    prepare_Rd: QinJ_2012.Rd:106-108: Dropping empty section \seealso
+    prepare_Rd: QinN_2014.Rd:94-96: Dropping empty section \seealso
+    prepare_Rd: RampelliS_2015.Rd:90-92: Dropping empty section \seealso
+    prepare_Rd: TettAJ_2016.Rd:184-186: Dropping empty section \seealso
+    prepare_Rd: ZellerG_2014.Rd:94-96: Dropping empty section \seealso
+    ```
+
 # docxtools
 
 Version: 0.1.1
@@ -37,54 +129,6 @@ Version: 0.1.1
     Quitting from lines 63-64 (numbers-in-engineering-format.Rmd) 
     Error: processing vignette 'numbers-in-engineering-format.Rmd' failed with diagnostics:
     object 'm_numeric_cols' not found
-    Execution halted
-    ```
-
-# eurostat
-
-Version: 3.1.1
-
-## Newly broken
-
-*   checking tests ...
-    ```
-     ERROR
-    Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-      31: parse(text = x)
-      
-      testthat results ================================================================
-      OK: 10 SKIPPED: 0 FAILED: 8
-      1. Error: get_eurostat includes time and value (@test-all.R#5) 
-      2. Error: get_eurostat return right classes (@test-all.R#17) 
-      3. Error: get_eurostat get non-normal variable order (@test-all.R#36) 
-      4. Error: Cache works (@test-all.R#49) 
-      5. Error: Variable names are labeled (@test-all.R#75) 
-      6. Error: get_eurostat includes flags (@test-all.R#97) 
-      7. Error: keepFlags + label as in #61 (@test-all.R#103) 
-      8. Error: flags contain some confidential flagged fields (@test-all.R#109) 
-      
-      Error: testthat unit tests failed
-      Execution halted
-    ```
-
-## In both
-
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    Error in re-building vignettes:
-      ...
-    Loading required package: xml2
-    trying URL 'http://ec.europa.eu/eurostat/estat-navtree-portlet-prod/BulkDownloadListing?sort=1&file=data%2Ftsdtr210.tsv.gz'
-    Content type 'application/octet-stream;charset=UTF-8' length 4136 bytes
-    ==================================================
-    downloaded 4136 bytes
-    
-    Quitting from lines 112-113 (eurostat_tutorial.Rmd) 
-    Error: processing vignette 'eurostat_tutorial.Rmd' failed with diagnostics:
-    <text>:1:5: unexpected ','
-    1: unit,
-            ^
     Execution halted
     ```
 
@@ -267,33 +311,6 @@ Version: 0.2.0
       Note: found 6543 marked UTF-8 strings
     ```
 
-# rtdists
-
-Version: 0.7-3
-
-## Newly broken
-
-*   checking tests ...
-    ```
-     ERROR
-    Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-      > library(testthat)
-      > 
-      > test_check("rtdists")
-      Loading required package: rtdists
-      1. Failure: Norm: pdiffusion corresponds to random derivates (@test-diffusion-math.R#77) 
-      t3$value$p.value is not strictly more than `p_max`. Difference: -0.00986
-      
-      
-      testthat results ================================================================
-      OK: 64279 SKIPPED: 0 FAILED: 1
-      1. Failure: Norm: pdiffusion corresponds to random derivates (@test-diffusion-math.R#77) 
-      
-      Error: testthat unit tests failed
-      Execution halted
-    ```
-
 # sjPlot
 
 Version: 2.3.1
@@ -330,7 +347,6 @@ Version: 2.3.1
       ...
     Warning in engine$weave(file, quiet = quiet, encoding = enc) :
       The vignette engine knitr::rmarkdown is not available, because the rmarkdown package is not installed. Please install it.
-    Visit http://strengejacke.de/sjPlot for package-vignettes.
     Warning: This function will be removed in future versions of sjmisc and has been moved to package 'sjlabelled'. Please use sjlabelled::get_label() instead.
     Warning: This function will be removed in future versions of sjmisc and has been moved to package 'sjlabelled'. Please use sjlabelled::get_label() instead.
     Quitting from lines 22-28 (blackwhitefigures.Rmd) 

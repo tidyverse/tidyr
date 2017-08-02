@@ -80,6 +80,12 @@ test_that("separate_()", {
   expect_identical(out$y, c(NA, "b"))
 })
 
+test_that("separate() works with non-syntactic names", {
+  df <- tibble(`non-syntactic` = "1,2")
+  into <- c("non", "syntactic")
+  expect_identical(separate_(df, "non-syntactic", into), separate(df, `non-syntactic`, into))
+})
+
 test_that("separate_rows() works with non-syntactic names", {
   df <- tibble(`non-syntactic` = 1)
   expect_identical(separate_rows_(df, "non-syntactic"), separate_rows(df, `non-syntactic`))

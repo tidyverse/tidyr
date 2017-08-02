@@ -1,10 +1,8 @@
 #' Drop rows containing missing values
 #'
 #' @param data A data frame.
-#' @param ... Specification of variables to consider while dropping rows.
-#'   If empty, consider all variables. Use bare variable names. Select all
-#'    variables between x and z with `x:z`, exclude y with `-y`.
-#'    For more options, see the [dplyr::select()] documentation.
+#' @inheritSection gather Rules for selection
+#' @inheritParams gather
 #' @examples
 #' library(dplyr)
 #' df <- tibble(x = c(1, 2, NA), y = c("a", NA, "b"))

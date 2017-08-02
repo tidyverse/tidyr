@@ -11,9 +11,7 @@ NULL
 #' in list.
 #'
 #' @inheritParams expand
-#' @param ... Specification of columns to fill. Use bare variable names.
-#'   Select all variables between x and z with `x:z`, exclude y with
-#'   `-y`. For more options, see the [dplyr::select()] documentation.
+#' @inheritParams gather
 #' @param .direction Direction in which to fill missing values. Currently
 #'   either "down" (the default) or "up".
 #' @export

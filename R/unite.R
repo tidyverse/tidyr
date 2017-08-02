@@ -2,6 +2,8 @@
 #'
 #' Convenience function to paste together multiple columns into one.
 #'
+#' @inheritSection gather Rules for selection
+#' @inheritParams gather
 #' @param data A data frame.
 #' @param col The name of the new column, as a string or symbol.
 #'
@@ -11,9 +13,6 @@
 #'   [rlang::quo_name()] (note that this kind of interface where
 #'   symbols do not represent actual objects is now discouraged in the
 #'   tidyverse; we support it here for backward compatibility).
-#' @param ... Specification of columns to unite. Use bare variable names.
-#'   Select all variables between x and z with `x:z`, exclude y with
-#'   `-y`. For more options, see the [dplyr::select()] documentation.
 #' @param sep Separator to use between values.
 #' @param remove If `TRUE`, remove input columns from output data frame.
 #' @seealso [separate()], the complement.
