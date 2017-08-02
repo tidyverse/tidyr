@@ -9,25 +9,11 @@ separate_rows(data, ..., sep = "[^[:alnum:].]+", convert = FALSE)
 \arguments{
 \item{data}{A data frame.}
 
-\item{...}{A selection of columns. These arguments are passed to
-\code{\link[tidyselect:vars_select]{tidyselect::vars_select()}} and are treated specially for
-selection:\preformatted{* Calls and complex expressions are evaluated in the context.
-  You cannot refer to data columns in these expressions.
-
-* Bare symbols are evaluated in the data but not the context.
-  You can only refer to data columns with bare symbols.
-
-* In addition, `c()` and the `:` operators are also evaluated
-  in the data (this is an exception to the rule above). Select
-  all variables between x and z with `x:z`, exclude y with
-  `-y`. You can refer to columns but not to objects from the
-  context. If you need to refer to contextual objects, you can
-  unquote them with the tidy eval operator `!!`.
-}
-
-For instance, \code{col1:col3} creates a selection that refers to data
-objects, while \code{seq(start, end)} creates a selection that refers
-to contextual objects.}
+\item{...}{A selection of columns. If empty, all variables are
+selected. You can supply bare variable names, select all
+variables between x and z with \code{x:z}, exclude y with \code{-y}. For
+more options, see the \code{\link[dplyr:select]{dplyr::select()}} documentation. See also
+the section on selection rules below.}
 
 \item{sep}{Separator delimiting collapsed values.}
 
@@ -39,6 +25,34 @@ names are actually numeric, integer, or logical.}
 If a variable contains observations with multiple delimited values, this
 separates the values and places each one in its own row.
 }
+\section{Rules for selection}{
+
+
+Arguments for selecting columns are passed to
+\code{\link[tidyselect:vars_select]{tidyselect::vars_select()}} and are treated specially. Unlike other
+verbs, selecting functions make a strict distinction between data
+expressions and context expressions.
+\itemize{
+\item A data expression is either a bare name like \code{x} or an expression
+like \code{x:y} or \code{c(x, y)}. In a data expression, you can only refer
+to columns from the data frame.
+\item Everything else is a context expression in which you can only
+refer to objects that you have defined with \code{<-}.
+}
+
+For instance, \code{col1:col3} is a data expression that refers to data
+columns, while \code{seq(start, end)} is a context expression that
+refers to objects from the contexts.
+
+If you really need to refer to contextual objects from a data
+expression, you can unquote them with the tidy eval operator
+\code{!!}. This operator evaluates its argument in the context and
+inlines the result in the surrounding function call. For instance,
+\code{c(x, !! x)} selects the \code{x} column within the data frame and the
+column referred to by the object \code{x} defined in the context (which
+can contain either a column name as string or a column position).
+}
+
 \examples{
 
 df <- data.frame(

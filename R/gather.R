@@ -4,6 +4,32 @@
 #' duplicating all other columns as needed. You use `gather()` when
 #' you notice that you have columns that are not variables.
 #'
+#' @section Rules for selection:
+#'
+#' Arguments for selecting columns are passed to
+#' [tidyselect::vars_select()] and are treated specially. Unlike other
+#' verbs, selecting functions make a strict distinction between data
+#' expressions and context expressions.
+#'
+#' * A data expression is either a bare name like `x` or an expression
+#'   like `x:y` or `c(x, y)`. In a data expression, you can only refer
+#'   to columns from the data frame.
+#'
+#' * Everything else is a context expression in which you can only
+#'   refer to objects that you have defined with `<-`.
+#'
+#' For instance, `col1:col3` is a data expression that refers to data
+#' columns, while `seq(start, end)` is a context expression that
+#' refers to objects from the contexts.
+#'
+#' If you really need to refer to contextual objects from a data
+#' expression, you can unquote them with the tidy eval operator
+#' `!!`. This operator evaluates its argument in the context and
+#' inlines the result in the surrounding function call. For instance,
+#' `c(x, !! x)` selects the `x` column within the data frame and the
+#' column referred to by the object `x` defined in the context (which
+#' can contain either a column name as string or a column position).
+#'
 #' @inheritParams expand
 #' @param key,value Names of new key and value columns, as strings or
 #'   symbols.
@@ -14,26 +40,11 @@
 #'   [rlang::quo_name()] (note that this kind of interface where
 #'   symbols do not represent actual objects is now discouraged in the
 #'   tidyverse; we support it here for backward compatibility).
-#' @param ... A selection of columns. These arguments are passed to
-#'   [tidyselect::vars_select()] and are treated specially for
-#'   selection:
-#'
-#'     * Calls and complex expressions are evaluated in the context.
-#'       You cannot refer to data columns in these expressions.
-#'
-#'     * Bare symbols are evaluated in the data but not the context.
-#'       You can only refer to data columns with bare symbols.
-#'
-#'     * In addition, `c()` and the `:` operators are also evaluated
-#'       in the data (this is an exception to the rule above). Select
-#'       all variables between x and z with `x:z`, exclude y with
-#'       `-y`. You can refer to columns but not to objects from the
-#'       context. If you need to refer to contextual objects, you can
-#'       unquote them with the tidy eval operator `!!`.
-#'
-#'   For instance, `col1:col3` creates a selection that refers to data
-#'   objects, while `seq(start, end)` creates a selection that refers
-#'   to contextual objects.
+#' @param ... A selection of columns. If empty, all variables are
+#'   selected. You can supply bare variable names, select all
+#'   variables between x and z with `x:z`, exclude y with `-y`. For
+#'   more options, see the [dplyr::select()] documentation. See also
+#'   the section on selection rules below.
 #' @param na.rm If `TRUE`, will remove rows from output where the
 #'   value column in `NA`.
 #' @param convert If `TRUE` will automatically run

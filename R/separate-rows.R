@@ -3,6 +3,7 @@
 #' If a variable contains observations with multiple delimited values, this
 #' separates the values and places each one in its own row.
 #'
+#' @inheritSection gather Rules for selection
 #' @inheritParams gather
 #' @inheritParams separate
 #' @param sep Separator delimiting collapsed values.

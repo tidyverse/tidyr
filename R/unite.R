@@ -2,6 +2,7 @@
 #'
 #' Convenience function to paste together multiple columns into one.
 #'
+#' @inheritSection gather Rules for selection
 #' @inheritParams gather
 #' @param data A data frame.
 #' @param col The name of the new column, as a string or symbol.

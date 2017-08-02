@@ -1,6 +1,7 @@
 #' Drop rows containing missing values
 #'
 #' @param data A data frame.
+#' @inheritSection gather Rules for selection
 #' @inheritParams gather
 #' @examples
 #' library(dplyr)

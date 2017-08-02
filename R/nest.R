@@ -4,6 +4,7 @@
 #' data frame. `nest()` creates a list of data frames containing all
 #' the nested variables: this seems to be the most useful form in practice.
 #'
+#' @inheritSection gather Rules for selection
 #' @inheritParams gather
 #' @param data A data frame.
 #' @param .key The name of the new column, as a string or symbol.
