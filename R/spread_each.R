@@ -3,16 +3,16 @@
 #' This works the same as \code{\link{spread}} but with multiple 
 #' columns simultaneously.
 #' 
-#' @param ... the bare (unquoted) names of columns that will populate 
-#'            the cells and act as sub-columns of the values of 
-#'            \code{key}.
-#' @param sep Separator that goes between the key value and "..." 
-#'            column names.
+#' @param ...  the bare (unquoted) names of columns that will populate 
+#'             the cells and act as sub-columns of the values of 
+#'             \code{key}.
+#' @param sep  Separator that goes between the key value and "..." 
+#'             column names.
+#' @param key.first Should the generated new name be "{key}{sep}{col}"(TRUE) or 
+#'                  "{col}{sep}{key}"(FALSE)
 #' @inheritParams spread
 #'
-#' @seealso \code{\link{spread_each_}} for a version that uses regular evaluation
-#'   and is suitable for programming with.
-#'          \code{\link{spread}} for the the single variable version.
+#' @seealso \code{\link{spread}} for the the single variable version.
 #' @author Andrew Redd \email{andrew.redd@hsc.utah.edu}
 #' @export
 #' @examples
@@ -72,19 +72,22 @@ function( data             #< A <data.frame> or <tbl>
             , "Fill should be a single value for all replacements "
             , "or a named list of values for each spread value variable."
             )
-
+            
     spread1 <- function(col){
+        if (key.first) 
+            rename <- dplyr::funs(paste( . , col, sep=sep))
+        else      
+            rename <- dplyr::funs(paste(col,  . , sep=sep))
+        
         data  %>% 
-        select(other_vars, key_var, col) %>%
+        dplyr::select(other_vars, key_var, col) %>%
         spread( key_var, col, fill=fill[[col]]
               , convert=convert
               ) %>%
-        ungroup() %>%
-        rename_at(key.ids, if (key.first) funs(paste( . , col, sep=sep))
-                                else      funs(paste(col,  . , sep=sep))
-                 )
+        dplyr::ungroup() %>%
+        dplyr::rename_at(key.ids, rename)
     }
     map(val_vars, spread1) %>% 
-        Reduce(f = purrr:::partial(full_join, by=other_vars)) %>%
-        grouped_df(old_groups)
+        Reduce(f = purrr::partial(dplyr::full_join, by=other_vars)) %>%
+        dplyr::grouped_df(old_groups)
 }

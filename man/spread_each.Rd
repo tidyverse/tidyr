@@ -5,16 +5,20 @@
 \title{Spread a key column accross multiple sub-columns.}
 \usage{
 spread_each(data, key, ..., fill = NA, convert = FALSE, drop = FALSE,
-  sep = ".")
+  sep = ".", key.first = TRUE)
 }
 \arguments{
 \item{data}{A data frame.}
 
-\item{key}{The bare (unquoted) name of the column whose values will be used
-as column headings.}
+\item{key}{Column names or positions. This is passed to
+\code{\link[tidyselect:vars_pull]{tidyselect::vars_pull()}}.
 
-\item{...}{the bare (unquoted) names of columns that will populate 
-the cells and act as sub-columns of the values of 
+These arguments are passed by expression and support
+\link[rlang:quasiquotation]{quasiquotation} (you can unquote column
+names or column positions).}
+
+\item{...}{the bare (unquoted) names of columns that will populate
+the cells and act as sub-columns of the values of
 \code{key}.}
 
 \item{fill}{If set, missing values will be replaced with this value. Note
@@ -22,8 +26,8 @@ that there are two types of missingness in the input: explicit missing
 values (i.e. \code{NA}), and implicit missings, rows that simply aren't
 present. Both types of missing value will be replaced by \code{fill}.}
 
-\item{convert}{If \code{TRUE}, \code{\link{type.convert}} with \code{asis =
-TRUE} will be run on each of the new columns. This is useful if the value
+\item{convert}{If \code{TRUE}, \code{\link[=type.convert]{type.convert()}} with \code{asis =
+  TRUE} will be run on each of the new columns. This is useful if the value
 column was a mix of variables that was coerced to a string. If the class of
 the value column was factor or date, note that will not be true of the new
 columns that are produced, which are coerced to character before type
@@ -32,11 +36,14 @@ conversion.}
 \item{drop}{If \code{FALSE}, will keep factor levels that don't appear in the
 data, filling in missing combinations with \code{fill}.}
 
-\item{sep}{Separator that goes between the key value and "..." 
+\item{sep}{Separator that goes between the key value and "..."
 column names.}
+
+\item{key.first}{Should the generated new name be "{key}{sep}{col}"(TRUE) or
+"{col}{sep}{key}"(FALSE)}
 }
 \description{
-This works the same as \code{\link{spread}} but with multiple 
+This works the same as \code{\link{spread}} but with multiple
 columns simultaneously.
 }
 \examples{
@@ -57,12 +64,9 @@ columns simultaneously.
    # creates a tbl_df dataset with columns:
    #   x, d.N, d.sum, e.N, e.sum, f.N, f.sum
 }
+\seealso{
+\code{\link{spread}} for the the single variable version.
+}
 \author{
 Andrew Redd \email{andrew.redd@hsc.utah.edu}
 }
-\seealso{
-\code{\link{spread_each_}} for a version that uses regular evaluation
-  and is suitable for programming with.
-         \code{\link{spread}} for the the single variable version.
-}
-
