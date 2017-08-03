@@ -12,7 +12,7 @@ test_that("columns are named correctly", {
             summarise(N=n(), sum=sum(v))
     out <- spread_each(data, y, N, sum)
     expect_equal(dim(out), c(3, 7))
-    expect_equal(names(out), c('x', 'd.N', 'd.sum', 'e.N', 'e.sum', 'f.N', 'f.sum'))
+    expect_equal(names(out), c('x', 'd.N', 'e.N', 'f.N', 'd.sum', 'e.sum', 'f.sum'))
 })
 test_that("spread_each is silent", {
     data <- expand.grid( x = c( 'a', 'b', 'c')
@@ -38,10 +38,12 @@ test_that("non-standard names are handled", {
                      ) %>% 
             ungroup
     out1 <- spread_each(data, y, `N with`, `%`)
-    expect_equal(names(out1), c("x", "d.N with", "d.%", "e.N with", "e.%", "f.N with", "f.%"))
+    expect_equal(names(out1), c("x", "d.N with", "e.N with", "f.N with", "d.%", "e.%", "f.%"))
 
-    out2 <- spread_each_(data, 'y', 'N with', '%')
-    expect_equal(names(out2), c("x", "d.N with", "d.%", "e.N with", "e.%", "f.N with", "f.%"))
+    out2 <- spread_each(data, 'y', 'N with', '%')
+    expect_equal(names(out2), c("x", "d.N with", "e.N with", "f.N with", "d.%", "e.%", "f.%"))
+    
+    expect_identical(out1, out2)
 })
 test_that("Preserves grouping colums", {
     data <- expand.grid( x = c( 'a', 'b', 'c')
@@ -56,6 +58,6 @@ test_that("Preserves grouping colums", {
     
     # grouping column is the key column
     data2 <- group_by(data, x, y)
-    out2 <- spread_each(data2, y, N)
+    expect_warning(out2 <- spread_each(data2, y, N))
     expect_identical(groups(out2), groups(data))
 })

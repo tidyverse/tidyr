@@ -33,80 +33,58 @@
 #'    # creates a tbl_df dataset with columns:
 #'    #   x, d.N, d.sum, e.N, e.sum, f.N, f.sum
 spread_each <- 
-function( data          
-        , key           
-        , ...           
-        , fill=NA       
-        , convert=FALSE 
-        , drop=FALSE    
-        , sep='.'       
+function( data             #< A <data.frame> or <tbl>
+        , key              #< unquoted variable name to make into columns
+        , ...              #< (sub-)columns of values 
+        , fill   =NA       #< passed to <spread>.
+        , convert=FALSE    #< passed to <spread>.
+        , drop   =FALSE    #< passed to <spread>.
+        , sep    ='.'      #< Separator that goes between the key value and "..." column names.
+        , key.first = TRUE #< Should the generated new name be 
+                           #< <key><sep><col>(TRUE) or 
+                           #< <col><sep><key>(FALSE).
         ){
-    spread_each_( data
-                , key_col   = col_name(substitute(key))
-                , .dots     = lazyeval::lazy_dots(...)
-                , fill=fill, convert=convert, drop=drop, sep=sep
-                )
-}
-    
-#' Standard evaluation version of \code{spread_each}
-#' 
-#' @param ...       strings giving names of columns that will populate
-#'                  the cells and act as sub-columns of the values of 
-#'                  \code{key}.
-#' @param .dots     a character vector 
-#' @inheritParams   spread_each
-#' @seealso \code{\link{spread_each}} for the lazy evaluation version.
-#'          \code{\link{spread_}} for the single variable version.
-#' @author Andrew Redd \email{andrew.redd@hsc.utah.edu}
-#' @keywords internal
-#' @export
-spread_each_ <- 
-function( data          
-        , key_col       
-        , ...           
-        , .dots        = list()      
-        , fill=NA       
-        , convert=FALSE 
-        , drop=FALSE    
-        , sep='.'       
-        ){
-    new.dots        <- c(...)
-    value.cols      <- dplyr::select_vars_(names(data), .dots, include=new.dots)
-    grouping.cols   <- names(data) %>% setdiff(key_col) %>% setdiff(value.cols)
-    old.groups      <- dplyr::groups(data)
-        
-    grouping.dots <- grouping.cols %>% 
-        (lazyeval::as.lazy_dots)(.) %>%
-        dplyr:::resolve_vars(dplyr::tbl_vars(data))
-    
-    data <- dplyr::group_by_(data, .dots=grouping.dots)
-        
-    col.order <- 
-        unique(getElement(data, key_col)) %>% as.character() %>%
-        lapply(., function(x, env){
-            lazyeval::as.lazy(call('starts_with', x), env=env)
-        }, env=environment()) %>%
-        c(lapply(grouping.cols, lazyeval::as.lazy, env=environment()), .)
-    lapply(value.cols, function(col){
-            select.vars <- c(key_col, col, grouping.cols) %>%
-                            lapply(as.name) %>%
-                            (lazyeval::as.lazy_dots)(.) %>%
-                            dplyr:::resolve_vars(dplyr::tbl_vars(data))
-            x <- 
-            spread_( data       = dplyr::select_(data, .dots=select.vars), 
-                   , key_col    = key_col
-                   , value_col  = col
-                   , fill       = fill
-                   , sep        = NULL
-                   )
-            newcols <- setdiff(names(x), grouping.cols)
-            new.names <-  
-                structure( newcols %>% lapply(as.name)  %>% lapply(lazyeval::as.lazy)
-                         , names=paste(newcols, col, sep=sep)
-                         )
-            dplyr::rename_(.data=x, .dots=new.names)
-        }) %>% 
-        Reduce(f=function(x, y){dplyr::full_join(x,y,by=grouping.cols)}, x=.) %>%
-        dplyr::select_(., .dots=col.order) %>%
-        dplyr::group_by_(.dots=setdiff(old.groups, list(as.name(key_col))))
+    #! Spread a key column with multiple sub columns
+    #! 
+    #! Creates a <tbl> with a  the values of key as columns with 
+    #! the variables listed in ... as sub columns.
+    old_groups <- as.character(dplyr::groups(data))
+    key_var    <- tidyselect::vars_pull(names(data), !! enquo(key))
+    val_vars   <- tidyselect::vars_select(names(data), !!!quos(...))
+    other_vars <- names(data) %>% 
+                  setdiff(key_var) %>% 
+                  setdiff(val_vars)
+    key.ids <- paste(unique(data[[key_var]]))
+
+    if (any(. <- old_groups %in% c(key_var, val_vars))) {
+        dropped <- old_groups[.]
+        old_groups <- old_groups[!.]
+        warning(glue( "Grouping column{if(length(dropped)) 's'} "
+                    , "`{paste(dropped, collapse=', ')}` "
+                    , "will be spread out."
+                    ))
+    }
+
+    if (length(fill) == 1 )
+        fill <- rep_along(val_vars, fill) %>% set_names(val_vars)
+    if (!is_named(fill) && all(val_vars %in% names(fill)) )
+        stop( "Bad fill list! "
+            , "Fill should be a single value for all replacements "
+            , "or a named list of values for each spread value variable."
+            )
+
+    spread1 <- function(col){
+        data  %>% 
+        select(other_vars, key_var, col) %>%
+        spread( key_var, col, fill=fill[[col]]
+              , convert=convert
+              ) %>%
+        ungroup() %>%
+        rename_at(key.ids, if (key.first) funs(paste( . , col, sep=sep))
+                                else      funs(paste(col,  . , sep=sep))
+                 )
+    }
+    map(val_vars, spread1) %>% 
+        Reduce(f = purrr:::partial(full_join, by=other_vars)) %>%
+        grouped_df(old_groups)
 }
