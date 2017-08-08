@@ -116,11 +116,7 @@ test_that("varying attributes are dropped with a warning", {
 test_that("gather preserves OBJECT bit on e.g. POSIXct", {
   df <- data.frame(now = Sys.time())
   out <- gather(df, k, v)
-
-  object_bit_set <- function(x) {
-    grepl("\\[OBJ", capture.output(.Internal(inspect(x)))[1])
-  }
-  expect_true(object_bit_set(out$v))
+  expect_true(is.object(out$v))
 })
 
 test_that("can handle list-columns", {
