@@ -16,8 +16,8 @@ functions of variables. If omitted, defaults to all list-cols.}
 \code{unnest} will drop them if unnesting the specified columns requires
 the rows to be duplicated.}
 
-\item{.id}{Data frame idenfier - if supplied, will create a new column
-with name \code{.id}, giving a unique identifer. This is most useful if
+\item{.id}{Data frame identifier - if supplied, will create a new column
+with name \code{.id}, giving a unique identifier. This is most useful if
 the list column is named.}
 
 \item{.sep}{If non-\code{NULL}, the names of unnested data frame columns

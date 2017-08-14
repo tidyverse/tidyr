@@ -12,8 +12,8 @@
 #' @param .drop Should additional list columns be dropped? By default,
 #'   `unnest` will drop them if unnesting the specified columns requires
 #'   the rows to be duplicated.
-#' @param .id Data frame idenfier - if supplied, will create a new column
-#'   with name `.id`, giving a unique identifer. This is most useful if
+#' @param .id Data frame identifier - if supplied, will create a new column
+#'   with name `.id`, giving a unique identifier. This is most useful if
 #'   the list column is named.
 #' @param .sep If non-`NULL`, the names of unnested data frame columns
 #'   will combine the name of the original list-col with the names from
