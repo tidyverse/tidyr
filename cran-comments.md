@@ -1,13 +1,21 @@
 ## Test environments
-* x86_64-w64-mingw32 + R-devel
-* x86_64-pc-linux-gnu + R 3.3.3
-* x86_64-pc-linux-gnu + R-devel
+
+* local OS X install, R 3.4.1
+* ubuntu 12.04 (on travis-ci), R 3.4.1
+* win-builder (devel and release)
+
 
 ## R CMD check results
 
-0 errors | 0 warnings | 0 notes
+0 errors | 0 warnings | 1 note
 
-## Downstream dependencies
+Change of maintainer
 
-I did not run R CMD check as this is a patch release to fix a test failure 
-with the soon-to-be-released version of tibble.
+
+## Reverse dependencies
+
+I have run R CMD check on the 268 downstream dependencies. (Summary at
+https://github.com/tidyverse/tidyr/tree/master/revdep).
+
+There were 9 problematic packages. All maintainers were emailed on
+August 1st with suggested fixes.
