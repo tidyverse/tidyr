@@ -1,95 +1,3 @@
-# curatedMetagenomicData
-
-Version: 1.2.0
-
-## Newly broken
-
-*   R CMD check timed out
-    ```
-    ```
-
-## Newly fixed
-
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘curatedMetagenomicData-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: ExpressionSet2MRexperiment
-    > ### Title: Convert an ExpressionSet object to a
-    > ###   metagenomeSeq::MRexperiment-class object
-    > ### Aliases: ExpressionSet2MRexperiment
-    > 
-    > ### ** Examples
-    > 
-    > eset <- LomanNJ_2013_Mi.metaphlan_bugs_list.stool()
-    updating metadata: retrieving 1 resource
-    snapshotDate(): 2016-10-01
-    Error in readRDS(.db_index_file(x)) : error reading from connection
-    Calls: LomanNJ_2013_Mi.metaphlan_bugs_list.stool ... query -> query -> .local -> .db_index_load -> readRDS
-    Execution halted
-    ```
-
-## In both
-
-*   checking package dependencies ... NOTE
-    ```
-    Depends: includes the non-default packages:
-      ‘dplyr’ ‘phyloseq’ ‘Biobase’ ‘ExperimentHub’ ‘AnnotationHub’
-      ‘magrittr’
-    Adding so many packages to the search path is excessive and importing
-    selectively is preferable.
-    ```
-
-*   checking installed package size ... NOTE
-    ```
-      installed size is  8.5Mb
-      sub-directories of 1Mb or more:
-        help   7.9Mb
-    ```
-
-*   checking DESCRIPTION meta-information ... NOTE
-    ```
-    Package listed in more than one of Depends, Imports, Suggests, Enhances:
-      ‘BiocInstaller’
-    A package should be listed in only one of these fields.
-    ```
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespace in Imports field not imported from: ‘BiocInstaller’
-      All declared Imports should be used.
-    ```
-
-*   checking R code for possible problems ... NOTE
-    ```
-    ExpressionSet2MRexperiment: no visible global function definition for
-      ‘AnnotatedDataFrame’
-    ExpressionSet2MRexperiment: no visible global function definition for
-      ‘phenoData’
-    curatedMetagenomicData : <anonymous>: no visible global function
-      definition for ‘exprs<-’
-    Undefined global functions or variables:
-      AnnotatedDataFrame exprs<- phenoData
-    ```
-
-*   checking Rd files ... NOTE
-    ```
-    prepare_Rd: HMP_2012.Rd:540-542: Dropping empty section \seealso
-    prepare_Rd: KarlssonFH_2013.Rd:90-92: Dropping empty section \seealso
-    prepare_Rd: LeChatelierE_2013.Rd:86-88: Dropping empty section \seealso
-    prepare_Rd: LomanNJ_2013_Hi.Rd:82-84: Dropping empty section \seealso
-    prepare_Rd: LomanNJ_2013_Mi.Rd:82-84: Dropping empty section \seealso
-    prepare_Rd: NielsenHB_2014.Rd:94-96: Dropping empty section \seealso
-    prepare_Rd: Obregon_TitoAJ_2015.Rd:94-96: Dropping empty section \seealso
-    prepare_Rd: OhJ_2014.Rd:86-88: Dropping empty section \seealso
-    prepare_Rd: QinJ_2012.Rd:106-108: Dropping empty section \seealso
-    prepare_Rd: QinN_2014.Rd:94-96: Dropping empty section \seealso
-    prepare_Rd: RampelliS_2015.Rd:90-92: Dropping empty section \seealso
-    prepare_Rd: TettAJ_2016.Rd:184-186: Dropping empty section \seealso
-    prepare_Rd: ZellerG_2014.Rd:94-96: Dropping empty section \seealso
-    ```
-
 # docxtools
 
 Version: 0.1.1
@@ -275,45 +183,9 @@ Version: 0.8.1
     Execution halted
     ```
 
-# rcv
-
-Version: 0.2.0
-
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘rcv-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: make_d3list
-    > ### Title: Creates a data frame for use with the networkD3 package
-    > ### Aliases: make_d3list
-    > 
-    > ### ** Examples
-    > 
-    > make_d3list(results = sf_7_results)
-    Error in ncol(results) : could not find function "ncol"
-    Calls: make_d3list ... <Anonymous> -> map_if -> map -> lapply -> FUN -> .Call
-    Execution halted
-    ```
-
-## In both
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespace in Imports field not imported from: ‘forcats’
-      All declared Imports should be used.
-    ```
-
-*   checking data for non-ASCII characters ... NOTE
-    ```
-      Note: found 6543 marked UTF-8 strings
-    ```
-
 # sjPlot
 
-Version: 2.3.1
+Version: 2.3.2
 
 ## Newly broken
 
@@ -334,8 +206,6 @@ Version: 2.3.1
     > # of the ggplot base theme
     > set_theme("539")
     > sjp.xtab(efc$e42dep, efc$e16sex)
-    Warning: This function will be removed in future versions of sjmisc and has been moved to package 'sjlabelled'. Please use sjlabelled::get_label() instead.
-    Warning: This function will be removed in future versions of sjmisc and has been moved to package 'sjlabelled'. Please use sjlabelled::get_label() instead.
     Error in grpcount + 1 : could not find function "+"
     Calls: sjp.xtab ... <Anonymous> -> map_if -> map -> lapply -> FUN -> .Call
     Execution halted
@@ -347,9 +217,7 @@ Version: 2.3.1
       ...
     Warning in engine$weave(file, quiet = quiet, encoding = enc) :
       The vignette engine knitr::rmarkdown is not available, because the rmarkdown package is not installed. Please install it.
-    Warning: This function will be removed in future versions of sjmisc and has been moved to package 'sjlabelled'. Please use sjlabelled::get_label() instead.
-    Warning: This function will be removed in future versions of sjmisc and has been moved to package 'sjlabelled'. Please use sjlabelled::get_label() instead.
-    Quitting from lines 22-28 (blackwhitefigures.Rmd) 
+    Quitting from lines 22-29 (blackwhitefigures.Rmd) 
     Error: processing vignette 'blackwhitefigures.Rmd' failed with diagnostics:
     could not find function "+"
     Execution halted
@@ -359,7 +227,8 @@ Version: 2.3.1
 
 *   checking dependencies in R code ... NOTE
     ```
-    Missing object imported by a ':::' call: ‘sjstats:::lm_pval_fstat’
+    Namespace in Imports field not imported from: ‘ggeffects’
+      All declared Imports should be used.
     ```
 
 *   checking Rd cross-references ... NOTE
