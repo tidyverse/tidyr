@@ -15,5 +15,7 @@
 I have run R CMD check on the 268 downstream dependencies. (Summary at
 https://github.com/tidyverse/tidyr/tree/master/revdep).
 
-There were 9 problematic packages. All maintainers were emailed on
-August 1st with suggested fixes.
+There were 9 problematic packages. We carefully reviewed each failure
+and determined that they were due to a deliberate backward
+incompatible change to the tidyr API. Authors were notified on August
+1 (two weeks ago) with a suggested fix for the problem.
