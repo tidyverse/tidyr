@@ -1,5 +1,22 @@
 
-# tidyr 0.7.0.9000
+# tidyr 0.7.1
+
+This is a hotfix release to account for some tidyselect changes in the
+unit tests.
+
+Note that the upcoming version of tidyselect backtracks on some of the
+changes announced for 0.7.0. The special evaluation semantics for
+selection have been changed back to the old behaviour because the new
+rules were causing too much trouble and confusion. From now on data
+expressions (symbols and calls to `:` and `c()`) can refer to both
+registered variables and to objects from the context.
+
+However the semantics for context expressions (any calls other than to
+`:` and `c()`) remain the same. Those expressions are evaluated in the
+context only and cannot refer to registered variables. If you're
+writing functions and refer to contextual objects, it is still a good
+idea to avoid data expressions by following the advice of the 0.7.0
+release notes.
 
 
 # tidyr 0.7.0
