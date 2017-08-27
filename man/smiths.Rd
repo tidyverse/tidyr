@@ -12,4 +12,3 @@ smiths
 A small demo dataset describing John and Mary Smith.
 }
 \keyword{datasets}
-

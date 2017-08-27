@@ -1,8 +1,9 @@
 Package: tidyr
 Title: Easily Tidy Data with 'spread()' and 'gather()' Functions
-Version: 0.6.1.9000
+Version: 0.7.1
 Authors@R: c(
     person("Hadley", "Wickham", , "hadley@rstudio.com", c("aut", "cre")),
+    person("Lionel", "Henry", , "lionel@rstudio.com", "aut"),
     person("RStudio", role = "cph")
     )
 Description: An evolution of 'reshape2'. It's designed specifically for data
@@ -13,12 +14,15 @@ Depends:
 License: MIT + file LICENSE
 LazyData: true
 Imports:
-    tibble,
-    dplyr (>= 0.4),
-    stringi,
-    lazyeval,
+    dplyr (>= 0.7.0),
+    glue,
     magrittr,
-    Rcpp
+    purrr,
+    rlang,
+    Rcpp,
+    stringi,
+    tibble,
+    tidyselect
 URL: http://tidyr.tidyverse.org,
     https://github.com/tidyverse/tidyr
 BugReports: https://github.com/tidyverse/tidyr/issues
@@ -28,7 +32,7 @@ Suggests:
     covr,
     gapminder,
     rmarkdown
-Remotes: RcppCore/Rcpp
 VignetteBuilder: knitr
 LinkingTo: Rcpp
-RoxygenNote: 5.0.1
+RoxygenNote: 6.0.1
+Roxygen: list(markdown = TRUE)

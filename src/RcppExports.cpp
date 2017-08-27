@@ -7,7 +7,7 @@ using namespace Rcpp;
 
 // fillDown
 SEXP fillDown(SEXP x);
-RcppExport SEXP tidyr_fillDown(SEXP xSEXP) {
+RcppExport SEXP _tidyr_fillDown(SEXP xSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -18,7 +18,7 @@ END_RCPP
 }
 // fillUp
 SEXP fillUp(SEXP x);
-RcppExport SEXP tidyr_fillUp(SEXP xSEXP) {
+RcppExport SEXP _tidyr_fillUp(SEXP xSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -29,7 +29,7 @@ END_RCPP
 }
 // melt_dataframe
 List melt_dataframe(const DataFrame& data, const IntegerVector& id_ind, const IntegerVector& measure_ind, String variable_name, String value_name, SEXP attrTemplate, bool factorsAsStrings, bool valueAsFactor, bool variableAsFactor);
-RcppExport SEXP tidyr_melt_dataframe(SEXP dataSEXP, SEXP id_indSEXP, SEXP measure_indSEXP, SEXP variable_nameSEXP, SEXP value_nameSEXP, SEXP attrTemplateSEXP, SEXP factorsAsStringsSEXP, SEXP valueAsFactorSEXP, SEXP variableAsFactorSEXP) {
+RcppExport SEXP _tidyr_melt_dataframe(SEXP dataSEXP, SEXP id_indSEXP, SEXP measure_indSEXP, SEXP variable_nameSEXP, SEXP value_nameSEXP, SEXP attrTemplateSEXP, SEXP factorsAsStringsSEXP, SEXP valueAsFactorSEXP, SEXP variableAsFactorSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -48,7 +48,7 @@ END_RCPP
 }
 // simplifyPieces
 List simplifyPieces(ListOf<CharacterVector> pieces, int p, bool fillLeft);
-RcppExport SEXP tidyr_simplifyPieces(SEXP piecesSEXP, SEXP pSEXP, SEXP fillLeftSEXP) {
+RcppExport SEXP _tidyr_simplifyPieces(SEXP piecesSEXP, SEXP pSEXP, SEXP fillLeftSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -58,4 +58,17 @@ BEGIN_RCPP
     rcpp_result_gen = Rcpp::wrap(simplifyPieces(pieces, p, fillLeft));
     return rcpp_result_gen;
 END_RCPP
+}
+
+static const R_CallMethodDef CallEntries[] = {
+    {"_tidyr_fillDown", (DL_FUNC) &_tidyr_fillDown, 1},
+    {"_tidyr_fillUp", (DL_FUNC) &_tidyr_fillUp, 1},
+    {"_tidyr_melt_dataframe", (DL_FUNC) &_tidyr_melt_dataframe, 9},
+    {"_tidyr_simplifyPieces", (DL_FUNC) &_tidyr_simplifyPieces, 3},
+    {NULL, NULL, 0}
+};
+
+RcppExport void R_init_tidyr(DllInfo *dll) {
+    R_registerRoutines(dll, NULL, CallEntries, NULL, NULL);
+    R_useDynamicSymbols(dll, FALSE);
 }

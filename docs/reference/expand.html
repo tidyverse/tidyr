@@ -52,10 +52,10 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="../reference/index.html">Reference</a>
+  <a href="../articles/tidy-data.html">Tidy data</a>
 </li>
 <li>
-  <a href="../articles/index.html">Articles</a>
+  <a href="../reference/index.html">Reference</a>
 </li>
 <li>
   <a href="../news/index.html">News</a>
@@ -87,7 +87,7 @@ Or you can use it in conjunction with <code>anti_join()</code> to figure
 out which combinations are missing.</p>
     
 
-    <pre><span class='fu'>expand</span>(<span class='no'>data</span>, <span class='no'>...</span>)
+    <pre class="usage"><span class='fu'>expand</span>(<span class='no'>data</span>, <span class='no'>...</span>)
 
 <span class='fu'>crossing</span>(<span class='no'>...</span>)
 
@@ -98,11 +98,15 @@ out which combinations are missing.</p>
 <span class='fu'>nesting_</span>(<span class='no'>x</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
-    <dl class="dl-horizontal">
-      <dt>data</dt>
-      <dd><p>A data frame</p></dd>
-      <dt>...</dt>
-      <dd><p>Specification of columns to expand.</p>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>data</th>
+      <td><p>A data frame</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>Specification of columns to expand.</p>
 <p>To find all unique combinations of x, y and z, including those not
   found in the data, supply each variable as a separate argument.
   To find only the combinations that occur in the data, use nest:
@@ -114,10 +118,13 @@ out which combinations are missing.</p>
   data) are used. For continuous variables, you may need to fill in values
   that don't appear in the data: to do so use expressions like
   <code>year = 2010:2020</code> or <code>year = <a href='full_seq.html'>full_seq</a>(year)</code>.</p>
-<p>Length-zero (empty) elements are automatically dropped.</p></dd>
-      <dt>x</dt>
-      <dd><p>For <code>nesting_</code> and <code>crossing_</code> a list of variables.</p></dd>
-    </dl>
+<p>Length-zero (empty) elements are automatically dropped.</p></td>
+    </tr>
+    <tr>
+      <th>x</th>
+      <td><p>For <code>nesting_</code> and <code>crossing_</code> a list of variables.</p></td>
+    </tr>
+    </table>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
@@ -176,43 +183,43 @@ that appear in the data.</p>
 #&gt; 8  2012     4</div><div class='input'><span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>expand</span>(<span class='kw'>year</span> <span class='kw'>=</span> <span class='fl'>2010</span>:<span class='fl'>2012</span>, <span class='no'>qtr</span>)</div><div class='output co'>#&gt; # A tibble: 12 × 2
 #&gt;     year   qtr
 #&gt;    &lt;int&gt; &lt;dbl&gt;
-#&gt; 1   2010     1
-#&gt; 2   2010     2
-#&gt; 3   2010     3
-#&gt; 4   2010     4
-#&gt; 5   2011     1
-#&gt; 6   2011     2
-#&gt; 7   2011     3
-#&gt; 8   2011     4
-#&gt; 9   2012     1
+#&gt;  1  2010     1
+#&gt;  2  2010     2
+#&gt;  3  2010     3
+#&gt;  4  2010     4
+#&gt;  5  2011     1
+#&gt;  6  2011     2
+#&gt;  7  2011     3
+#&gt;  8  2011     4
+#&gt;  9  2012     1
 #&gt; 10  2012     2
 #&gt; 11  2012     3
 #&gt; 12  2012     4</div><div class='input'><span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>expand</span>(<span class='kw'>year</span> <span class='kw'>=</span> <span class='fu'><a href='full_seq.html'>full_seq</a></span>(<span class='no'>year</span>, <span class='fl'>1</span>), <span class='no'>qtr</span>)</div><div class='output co'>#&gt; # A tibble: 12 × 2
 #&gt;     year   qtr
 #&gt;    &lt;dbl&gt; &lt;dbl&gt;
-#&gt; 1   2010     1
-#&gt; 2   2010     2
-#&gt; 3   2010     3
-#&gt; 4   2010     4
-#&gt; 5   2011     1
-#&gt; 6   2011     2
-#&gt; 7   2011     3
-#&gt; 8   2011     4
-#&gt; 9   2012     1
+#&gt;  1  2010     1
+#&gt;  2  2010     2
+#&gt;  3  2010     3
+#&gt;  4  2010     4
+#&gt;  5  2011     1
+#&gt;  6  2011     2
+#&gt;  7  2011     3
+#&gt;  8  2011     4
+#&gt;  9  2012     1
 #&gt; 10  2012     2
 #&gt; 11  2012     3
 #&gt; 12  2012     4</div><div class='input'><span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='complete.html'>complete</a></span>(<span class='kw'>year</span> <span class='kw'>=</span> <span class='fu'><a href='full_seq.html'>full_seq</a></span>(<span class='no'>year</span>, <span class='fl'>1</span>), <span class='no'>qtr</span>)</div><div class='output co'>#&gt; # A tibble: 12 × 3
 #&gt;     year   qtr       return
 #&gt;    &lt;dbl&gt; &lt;dbl&gt;        &lt;dbl&gt;
-#&gt; 1   2010     1 -1.400043517
-#&gt; 2   2010     2  0.255317055
-#&gt; 3   2010     3 -2.437263611
-#&gt; 4   2010     4 -0.005571287
-#&gt; 5   2011     1           NA
-#&gt; 6   2011     2           NA
-#&gt; 7   2011     3           NA
-#&gt; 8   2011     4           NA
-#&gt; 9   2012     1  0.621552721
+#&gt;  1  2010     1 -1.400043517
+#&gt;  2  2010     2  0.255317055
+#&gt;  3  2010     3 -2.437263611
+#&gt;  4  2010     4 -0.005571287
+#&gt;  5  2011     1           NA
+#&gt;  6  2011     2           NA
+#&gt;  7  2011     3           NA
+#&gt;  8  2011     4           NA
+#&gt;  9  2012     1  0.621552721
 #&gt; 10  2012     2  1.148411606
 #&gt; 11  2012     3 -1.821817661
 #&gt; 12  2012     4           NA</div><div class='input'>

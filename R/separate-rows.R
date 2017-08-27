@@ -3,11 +3,10 @@
 #' If a variable contains observations with multiple delimited values, this
 #' separates the values and places each one in its own row.
 #'
-#' @inheritParams separate_rows_
-#' @inheritParams separate_
-#' @param ... Specification of columns to separate. Use bare variable names.
-#'   Select all variables between x and z with \code{x:z}, exclude y with
-#'   \code{-y}. For more options, see the \link[dplyr]{select} documentation.
+#' @inheritSection gather Rules for selection
+#' @inheritParams gather
+#' @inheritParams separate
+#' @param sep Separator delimiting collapsed values.
 #' @export
 #' @examples
 #'
@@ -20,47 +19,40 @@
 #' separate_rows(df, y, z, convert = TRUE)
 separate_rows <- function(data, ..., sep = "[^[:alnum:].]+",
                           convert = FALSE) {
-  cols <- unname(dplyr::select_vars(names(data), ...))
-  separate_rows_(data, cols, sep, convert)
+  UseMethod("separate_rows")
+}
+#' @export
+separate_rows.default <- function(data, ..., sep = "[^[:alnum:].]+",
+                                  convert = FALSE) {
+  cols <- compat_as_lazy_dots(...)
+  separate_rows_(data, cols = cols, sep = sep)
+}
+#' @export
+separate_rows.data.frame <- function(data, ..., sep = "[^[:alnum:].]+",
+                                     convert = FALSE) {
+  orig <- data
+  vars <- unname(tidyselect::vars_select(names(data), ...))
+
+  data[vars] <- map(data[vars], stringi::stri_split_regex, sep)
+  data <- unnest(data, !!! syms(vars))
+
+  if (convert) {
+    data[vars] <- map(data[vars], type.convert, as.is = TRUE)
+  }
+
+  reconstruct_tibble(orig, data, vars)
 }
 
-#' Standard-evaluation version of \code{separate_rows}.
-#'
-#' This is a S3 generic.
-#'
-#' @param data A data frame.
-#' @param cols Name of columns that need to be separated.
-#' @param sep Separator delimiting collapsed values.
-#' @inheritParams separate_
+#' @rdname deprecated-se
+#' @inheritParams separate_rows
 #' @export
 separate_rows_ <- function(data, cols, sep = "[^[:alnum:].]+",
                            convert = FALSE) {
   UseMethod("separate_rows_")
 }
-
 #' @export
 separate_rows_.data.frame <- function(data, cols, sep = "[^[:alnum:].]+",
                                       convert = FALSE) {
-
-  data[cols] <- lapply(data[cols], stringi::stri_split_regex, sep)
-  data <- unnest_(data, cols)
-
-  if (convert) {
-    data[cols] <- lapply(data[cols], type.convert, as.is = TRUE)
-  }
-
-  data
-}
-
-#' @export
-separate_rows_.tbl_df <- function(data, cols, sep = "[^[:alnum:].]+",
-                                  convert = FALSE) {
-  as_data_frame(NextMethod())
-}
-
-#' @export
-separate_rows_.grouped_df <- function(data, cols, sep = "[^[:alnum:].]+",
-                                  convert = FALSE) {
-
-  regroup(NextMethod(), data, cols)
+  cols <- syms(cols)
+  separate_rows(data, !!! cols, sep = sep, convert = convert)
 }

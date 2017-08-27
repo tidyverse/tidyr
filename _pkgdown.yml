@@ -7,3 +7,44 @@ home:
 template:
   package: tidytemplate
   default_assets: false
+
+navbar:
+  title: ~
+  type: default
+  left:
+  - text: Tidy data
+    href: articles/tidy-data.html
+  - text: Reference
+    href: reference/index.html
+  - text: News
+    href: news/index.html
+  right:
+  - icon: fa-github fa-lg
+    href: https://github.com/tidyverse/tidyr
+
+reference:
+- title: Tidying
+  contents:
+  - extract
+  - gather
+  - nest
+  - separate
+  - separate_rows
+  - spread
+  - unite
+  - unnest
+
+- title: Implicit and explicit missing values
+  contents:
+  - complete
+  - drop_na
+  - expand
+  - fill
+  - full_seq
+  - replace_na
+
+- title: Data
+  contents:
+  - smiths
+  - table1
+  - who

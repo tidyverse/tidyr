@@ -46,23 +46,22 @@ test_that("key preserves column ordering when factor_key = TRUE", {
 
 test_that("preserve class of input", {
   dat <- data.frame(x = 1:2)
-  dat %>% as_data_frame %>% gather %>% expect_is("tbl_df")
+  dat %>% as_tibble %>% gather %>% expect_is("tbl_df")
 })
 
-test_that("additional controls which columns to gather", {
-  data <- data_frame(a = 1, b1 = 1, b2 = 2, b3 = 3)
+test_that("additional inputs control which columns to gather", {
+  data <- tibble(a = 1, b1 = 1, b2 = 2, b3 = 3)
   out <- gather(data, key, val, b1:b3)
-
   expect_equal(names(out), c("a", "key", "val"))
   expect_equal(out$val, 1:3)
 })
 
 test_that("group_vars are kept where possible", {
-  df <- data_frame(x = 1, y = 1, z = 1)
+  df <- tibble(x = 1, y = 1, z = 1)
 
   # Can't keep
   out <- df %>% dplyr::group_by(x) %>% gather(key, val, x:z)
-  expect_equal(out, data_frame(key = c("x", "y", "z"), val = 1))
+  expect_equal(out, tibble(key = c("x", "y", "z"), val = 1))
 
   # Can keep
   out <- df %>% dplyr::group_by(x) %>% gather(key, val, y:z)
@@ -117,22 +116,18 @@ test_that("varying attributes are dropped with a warning", {
 test_that("gather preserves OBJECT bit on e.g. POSIXct", {
   df <- data.frame(now = Sys.time())
   out <- gather(df, k, v)
-
-  object_bit_set <- function(x) {
-    grepl("\\[OBJ", capture.output(.Internal(inspect(x)))[1])
-  }
-  expect_true(object_bit_set(out$v))
+  expect_true(is.object(out$v))
 })
 
 test_that("can handle list-columns", {
-  df <- data_frame(x = 1:2, y = list("a", TRUE))
+  df <- tibble(x = 1:2, y = list("a", TRUE))
   out <- gather(df, k, v, -y)
 
   expect_identical(out$y, df$y)
 })
 
 test_that("can gather list-columns", {
-  df <- data_frame(x = 1:2, y = list(1, 2), z = list(3, 4))
+  df <- tibble(x = 1:2, y = list(1, 2), z = list(3, 4))
   out <- gather(df, k, v, y:z)
   expect_equal(out$v, list(1, 2, 3, 4))
 })

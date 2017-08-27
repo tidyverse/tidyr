@@ -2,18 +2,18 @@
 # Generator token: 10BE3573-1514-4C36-9D1C-5A225CD40393
 
 fillDown <- function(x) {
-    .Call('tidyr_fillDown', PACKAGE = 'tidyr', x)
+    .Call(`_tidyr_fillDown`, x)
 }
 
 fillUp <- function(x) {
-    .Call('tidyr_fillUp', PACKAGE = 'tidyr', x)
+    .Call(`_tidyr_fillUp`, x)
 }
 
 melt_dataframe <- function(data, id_ind, measure_ind, variable_name, value_name, attrTemplate, factorsAsStrings, valueAsFactor, variableAsFactor) {
-    .Call('tidyr_melt_dataframe', PACKAGE = 'tidyr', data, id_ind, measure_ind, variable_name, value_name, attrTemplate, factorsAsStrings, valueAsFactor, variableAsFactor)
+    .Call(`_tidyr_melt_dataframe`, data, id_ind, measure_ind, variable_name, value_name, attrTemplate, factorsAsStrings, valueAsFactor, variableAsFactor)
 }
 
 simplifyPieces <- function(pieces, p, fillLeft = TRUE) {
-    .Call('tidyr_simplifyPieces', PACKAGE = 'tidyr', pieces, p, fillLeft)
+    .Call(`_tidyr_simplifyPieces`, pieces, p, fillLeft)
 }
 

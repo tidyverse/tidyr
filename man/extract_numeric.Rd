@@ -12,4 +12,4 @@ extract_numeric(x)
 \description{
 DEPRECATED: please use \code{readr::parse_number()} instead.
 }
-
+\keyword{internal}

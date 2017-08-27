@@ -52,10 +52,10 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="../reference/index.html">Reference</a>
+  <a href="../articles/tidy-data.html">Tidy data</a>
 </li>
 <li>
-  <a href="../articles/index.html">Articles</a>
+  <a href="../reference/index.html">Reference</a>
 </li>
 <li>
   <a href="../news/index.html">News</a>
@@ -86,19 +86,26 @@ data frame. <code>nest()</code> creates a list of data frames containing all
 the nested variables: this seems to be the most useful form in practice.</p>
     
 
-    <pre><span class='fu'>nest</span>(<span class='no'>data</span>, <span class='no'>...</span>, <span class='kw'>.key</span> <span class='kw'>=</span> <span class='no'>data</span>)</pre>
+    <pre class="usage"><span class='fu'>nest</span>(<span class='no'>data</span>, <span class='no'>...</span>, <span class='kw'>.key</span> <span class='kw'>=</span> <span class='no'>data</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
-    <dl class="dl-horizontal">
-      <dt>data</dt>
-      <dd><p>A data frame.</p></dd>
-      <dt>...</dt>
-      <dd><p>Specification of columns to nest. Use bare variable names.
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>data</th>
+      <td><p>A data frame.</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>Specification of columns to nest. Use bare variable names.
 Select all variables between x and z with <code>x:z</code>, exclude y with
-<code>-y</code>. For more options, see the <a href='http://www.rdocumentation.org/packages/dplyr/topics/select'>select</a> documentation.</p></dd>
-      <dt>.key</dt>
-      <dd><p>The name of the new column.</p></dd>
-    </dl>
+<code>-y</code>. For more options, see the <a href='http://www.rdocumentation.org/packages/dplyr/topics/select'>select</a> documentation.</p></td>
+    </tr>
+    <tr>
+      <th>.key</th>
+      <td><p>The name of the new column.</p></td>
+    </tr>
+    </table>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
@@ -130,20 +137,7 @@ Select all variables between x and z with <code>x:z</code>, exclude y with
 
   <span class='no'>gapminder</span> <span class='kw'>%&gt;%</span>
     <span class='fu'>nest</span>(-<span class='no'>country</span>, -<span class='no'>continent</span>)
-}</div><div class='output co'>#&gt; <span class='message'>Loading required package: gapminder</span></div><div class='output co'>#&gt; # A tibble: 142 × 3
-#&gt;        country continent              data
-#&gt;         &lt;fctr&gt;    &lt;fctr&gt;            &lt;list&gt;
-#&gt; 1  Afghanistan      Asia &lt;tibble [12 × 4]&gt;
-#&gt; 2      Albania    Europe &lt;tibble [12 × 4]&gt;
-#&gt; 3      Algeria    Africa &lt;tibble [12 × 4]&gt;
-#&gt; 4       Angola    Africa &lt;tibble [12 × 4]&gt;
-#&gt; 5    Argentina  Americas &lt;tibble [12 × 4]&gt;
-#&gt; 6    Australia   Oceania &lt;tibble [12 × 4]&gt;
-#&gt; 7      Austria    Europe &lt;tibble [12 × 4]&gt;
-#&gt; 8      Bahrain      Asia &lt;tibble [12 × 4]&gt;
-#&gt; 9   Bangladesh      Asia &lt;tibble [12 × 4]&gt;
-#&gt; 10     Belgium    Europe &lt;tibble [12 × 4]&gt;
-#&gt; # ... with 132 more rows</div></pre>
+}</div><div class='output co'>#&gt; <span class='message'>Loading required package: gapminder</span></div><div class='output co'>#&gt; <span class='warning'>Warning: there is no package called ‘gapminder’</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

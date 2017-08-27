@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Standard-evaluation version of  — unnest_ • tidyr</title>
+<title>Standard-evaluation version of <code>unnest</code>. — unnest_ • tidyr</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -52,10 +52,10 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="../reference/index.html">Reference</a>
+  <a href="../articles/tidy-data.html">Tidy data</a>
 </li>
 <li>
-  <a href="../articles/index.html">Articles</a>
+  <a href="../reference/index.html">Reference</a>
 </li>
 <li>
   <a href="../news/index.html">News</a>
@@ -77,34 +77,45 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Standard-evaluation version of </h1>
+    <h1>Standard-evaluation version of <code>unnest</code>.</h1>
     </div>
 
     
     <p>This is a S3 generic.</p>
     
 
-    <pre><span class='fu'>unnest_</span>(<span class='no'>data</span>, <span class='no'>unnest_cols</span>, <span class='kw'>.drop</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>.id</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>.sep</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>unnest_</span>(<span class='no'>data</span>, <span class='no'>unnest_cols</span>, <span class='kw'>.drop</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>.id</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>.sep</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
-    <dl class="dl-horizontal">
-      <dt>data</dt>
-      <dd><p>A data frame.</p></dd>
-      <dt>unnest_cols</dt>
-      <dd><p>Name of columns that needs to be unnested.</p></dd>
-      <dt>.drop</dt>
-      <dd><p>Should additional list columns be dropped? By default,
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>data</th>
+      <td><p>A data frame.</p></td>
+    </tr>
+    <tr>
+      <th>unnest_cols</th>
+      <td><p>Name of columns that needs to be unnested.</p></td>
+    </tr>
+    <tr>
+      <th>.drop</th>
+      <td><p>Should additional list columns be dropped? By default,
 <code>unnest</code> will drop them if unnesting the specified columns requires
-the rows to be duplicated.</p></dd>
-      <dt>.id</dt>
-      <dd><p>Data frame idenfier - if supplied, will create a new column
+the rows to be duplicated.</p></td>
+    </tr>
+    <tr>
+      <th>.id</th>
+      <td><p>Data frame idenfier - if supplied, will create a new column
 with name <code>.id</code>, giving a unique identifer. This is most useful if
-the list column is named.</p></dd>
-      <dt>.sep</dt>
-      <dd><p>If non-<code>NULL</code>, the names of unnested data frame columns
+the list column is named.</p></td>
+    </tr>
+    <tr>
+      <th>.sep</th>
+      <td><p>If non-<code>NULL</code>, the names of unnested data frame columns
 will combine the name of the original list-col with the names from
-nested data frame, separated by <code>.sep</code>.</p></dd>
-    </dl>
+nested data frame, separated by <code>.sep</code>.</p></td>
+    </tr>
+    </table>
     
 
   </div>

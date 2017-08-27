@@ -52,10 +52,10 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="../reference/index.html">Reference</a>
+  <a href="../articles/tidy-data.html">Tidy data</a>
 </li>
 <li>
-  <a href="../articles/index.html">Articles</a>
+  <a href="../reference/index.html">Reference</a>
 </li>
 <li>
   <a href="../news/index.html">News</a>
@@ -86,31 +86,44 @@ duplicating all other columns as needed. You use <code>gather()</code> when
 you notice that you have columns that are not variables.</p>
     
 
-    <pre><span class='fu'>gather</span>(<span class='no'>data</span>, <span class='no'>key</span>, <span class='no'>value</span>, <span class='no'>...</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>convert</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+    <pre class="usage"><span class='fu'>gather</span>(<span class='no'>data</span>, <span class='no'>key</span>, <span class='no'>value</span>, <span class='no'>...</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>convert</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>factor_key</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
-    <dl class="dl-horizontal">
-      <dt>data</dt>
-      <dd><p>A data frame.</p></dd>
-      <dt>key, value</dt>
-      <dd><p>Names of key and value columns to create in output.</p></dd>
-      <dt>...</dt>
-      <dd><p>Specification of columns to gather. Use bare variable names.
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>data</th>
+      <td><p>A data frame.</p></td>
+    </tr>
+    <tr>
+      <th>key, value</th>
+      <td><p>Names of key and value columns to create in output.</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>Specification of columns to gather. Use bare variable names.
 Select all variables between x and z with <code>x:z</code>, exclude y with
-<code>-y</code>. For more options, see the <a href='http://www.rdocumentation.org/packages/dplyr/topics/select'>select</a> documentation.</p></dd>
-      <dt>na.rm</dt>
-      <dd><p>If <code>TRUE</code>, will remove rows from output where the
-value column in <code>NA</code>.</p></dd>
-      <dt>convert</dt>
-      <dd><p>If <code>TRUE</code> will automatically run
+<code>-y</code>. For more options, see the <a href='http://www.rdocumentation.org/packages/dplyr/topics/select'>select</a> documentation.</p></td>
+    </tr>
+    <tr>
+      <th>na.rm</th>
+      <td><p>If <code>TRUE</code>, will remove rows from output where the
+value column in <code>NA</code>.</p></td>
+    </tr>
+    <tr>
+      <th>convert</th>
+      <td><p>If <code>TRUE</code> will automatically run
 <code>type.convert</code> on the key column. This is useful if the column
-names are actually numeric, integer, or logical.</p></dd>
-      <dt>factor_key</dt>
-      <dd><p>If <code>FALSE</code>, the default, the key values will be
+names are actually numeric, integer, or logical.</p></td>
+    </tr>
+    <tr>
+      <th>factor_key</th>
+      <td><p>If <code>FALSE</code>, the default, the key values will be
 stored as a character vector. If <code>TRUE</code>, will be stored as a factor,
-which preserves the original ordering of the columns.</p></dd>
-    </dl>
+which preserves the original ordering of the columns.</p></td>
+    </tr>
+    </table>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
@@ -131,28 +144,28 @@ which preserves the original ordering of the columns.</p></dd>
 <span class='fu'>gather</span>(<span class='no'>stocks</span>, <span class='no'>stock</span>, <span class='no'>price</span>, -<span class='no'>time</span>)</div><div class='output co'>#&gt; # A tibble: 30 × 3
 #&gt;          time stock       price
 #&gt;        &lt;date&gt; &lt;chr&gt;       &lt;dbl&gt;
-#&gt; 1  2009-01-01     X -1.63098940
-#&gt; 2  2009-01-02     X  0.51242695
-#&gt; 3  2009-01-03     X -1.86301149
-#&gt; 4  2009-01-04     X -0.52201251
-#&gt; 5  2009-01-05     X -0.05260191
-#&gt; 6  2009-01-06     X  0.54299634
-#&gt; 7  2009-01-07     X -0.91407483
-#&gt; 8  2009-01-08     X  0.46815442
-#&gt; 9  2009-01-09     X  0.36295126
+#&gt;  1 2009-01-01     X -1.63098940
+#&gt;  2 2009-01-02     X  0.51242695
+#&gt;  3 2009-01-03     X -1.86301149
+#&gt;  4 2009-01-04     X -0.52201251
+#&gt;  5 2009-01-05     X -0.05260191
+#&gt;  6 2009-01-06     X  0.54299634
+#&gt;  7 2009-01-07     X -0.91407483
+#&gt;  8 2009-01-08     X  0.46815442
+#&gt;  9 2009-01-09     X  0.36295126
 #&gt; 10 2009-01-10     X -1.30454355
 #&gt; # ... with 20 more rows</div><div class='input'><span class='no'>stocks</span> <span class='kw'>%&gt;%</span> <span class='fu'>gather</span>(<span class='no'>stock</span>, <span class='no'>price</span>, -<span class='no'>time</span>)</div><div class='output co'>#&gt; # A tibble: 30 × 3
 #&gt;          time stock       price
 #&gt;        &lt;date&gt; &lt;chr&gt;       &lt;dbl&gt;
-#&gt; 1  2009-01-01     X -1.63098940
-#&gt; 2  2009-01-02     X  0.51242695
-#&gt; 3  2009-01-03     X -1.86301149
-#&gt; 4  2009-01-04     X -0.52201251
-#&gt; 5  2009-01-05     X -0.05260191
-#&gt; 6  2009-01-06     X  0.54299634
-#&gt; 7  2009-01-07     X -0.91407483
-#&gt; 8  2009-01-08     X  0.46815442
-#&gt; 9  2009-01-09     X  0.36295126
+#&gt;  1 2009-01-01     X -1.63098940
+#&gt;  2 2009-01-02     X  0.51242695
+#&gt;  3 2009-01-03     X -1.86301149
+#&gt;  4 2009-01-04     X -0.52201251
+#&gt;  5 2009-01-05     X -0.05260191
+#&gt;  6 2009-01-06     X  0.54299634
+#&gt;  7 2009-01-07     X -0.91407483
+#&gt;  8 2009-01-08     X  0.46815442
+#&gt;  9 2009-01-09     X  0.36295126
 #&gt; 10 2009-01-10     X -1.30454355
 #&gt; # ... with 20 more rows</div><div class='input'>
 <span class='co'># get first observation for each Species in iris data -- base R</span>
@@ -191,20 +204,19 @@ which preserves the original ordering of the columns.</p></dd>
   <span class='no'>iris</span> <span class='kw'>%&gt;%</span>
   <span class='fu'>group_by</span>(<span class='no'>Species</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'>slice</span>(<span class='fl'>1</span>)
-<span class='no'>mini_iris</span> <span class='kw'>%&gt;%</span> <span class='fu'>gather</span>(<span class='kw'>key</span> <span class='kw'>=</span> <span class='no'>flower_att</span>, <span class='kw'>value</span> <span class='kw'>=</span> <span class='no'>measurement</span>, -<span class='no'>Species</span>)</div><div class='output co'>#&gt; Source: local data frame [12 x 3]
-#&gt; Groups: Species [3]
-#&gt; 
+<span class='no'>mini_iris</span> <span class='kw'>%&gt;%</span> <span class='fu'>gather</span>(<span class='kw'>key</span> <span class='kw'>=</span> <span class='no'>flower_att</span>, <span class='kw'>value</span> <span class='kw'>=</span> <span class='no'>measurement</span>, -<span class='no'>Species</span>)</div><div class='output co'>#&gt; # A tibble: 12 × 3
+#&gt; # Groups: Species [3]
 #&gt;       Species   flower_att measurement
 #&gt;        &lt;fctr&gt;        &lt;chr&gt;       &lt;dbl&gt;
-#&gt; 1      setosa Sepal.Length         5.1
-#&gt; 2  versicolor Sepal.Length         7.0
-#&gt; 3   virginica Sepal.Length         6.3
-#&gt; 4      setosa  Sepal.Width         3.5
-#&gt; 5  versicolor  Sepal.Width         3.2
-#&gt; 6   virginica  Sepal.Width         3.3
-#&gt; 7      setosa Petal.Length         1.4
-#&gt; 8  versicolor Petal.Length         4.7
-#&gt; 9   virginica Petal.Length         6.0
+#&gt;  1     setosa Sepal.Length         5.1
+#&gt;  2 versicolor Sepal.Length         7.0
+#&gt;  3  virginica Sepal.Length         6.3
+#&gt;  4     setosa  Sepal.Width         3.5
+#&gt;  5 versicolor  Sepal.Width         3.2
+#&gt;  6  virginica  Sepal.Width         3.3
+#&gt;  7     setosa Petal.Length         1.4
+#&gt;  8 versicolor Petal.Length         4.7
+#&gt;  9  virginica Petal.Length         6.0
 #&gt; 10     setosa  Petal.Width         0.2
 #&gt; 11 versicolor  Petal.Width         1.4
 #&gt; 12  virginica  Petal.Width         2.5</div></pre>

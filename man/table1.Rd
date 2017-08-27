@@ -41,4 +41,3 @@ The data is a subset of the data contained in the World Health
 Organization Global Tuberculosis Report
 }
 \keyword{datasets}
-

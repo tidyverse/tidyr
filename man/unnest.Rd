@@ -16,8 +16,8 @@ functions of variables. If omitted, defaults to all list-cols.}
 \code{unnest} will drop them if unnesting the specified columns requires
 the rows to be duplicated.}
 
-\item{.id}{Data frame idenfier - if supplied, will create a new column
-with name \code{.id}, giving a unique identifer. This is most useful if
+\item{.id}{Data frame identifier - if supplied, will create a new column
+with name \code{.id}, giving a unique identifier. This is most useful if
 the list column is named.}
 
 \item{.sep}{If non-\code{NULL}, the names of unnested data frame columns
@@ -26,12 +26,15 @@ nested data frame, separated by \code{.sep}.}
 }
 \description{
 If you have a list-column, this makes each element of the list its own
-row. List-columns can either be atomic vectors or data frames. Each
-row must have the same number of entries.
+row. List-columns can either be atomic vectors or data frames.
+}
+\details{
+If you unnest multiple columns, parallel entries must have the same length
+or number of rows (if a data frame).
 }
 \examples{
 library(dplyr)
-df <- data_frame(
+df <- tibble(
   x = 1:3,
   y = c("a", "d,e,f", "g,h")
 )
@@ -44,17 +47,17 @@ df \%>\%
   unnest(y = strsplit(y, ","))
 
 # It also works if you have a column that contains other data frames!
-df <- data_frame(
+df <- tibble(
   x = 1:2,
   y = list(
-   data_frame(z = 1),
-   data_frame(z = 3:4)
+   tibble(z = 1),
+   tibble(z = 3:4)
  )
 )
 df \%>\% unnest(y)
 
 # You can also unnest multiple columns simultaneously
-df <- data_frame(
+df <- tibble(
  a = list(c("a", "b"), "c"),
  b = list(1:2, 3),
  c = c(11, 22)
@@ -69,16 +72,12 @@ df \%>\% nest(y)
 df \%>\% nest(y) \%>\% unnest()
 
 # If you have a named list-column, you may want to supply .id
-df <- data_frame(
+df <- tibble(
   x = 1:2,
   y = list(a = 1, b = 3:4)
 )
 unnest(df, .id = "name")
 }
 \seealso{
-\code{\link{nest}} for the inverse operation.
-
-\code{\link{unnest_}} for a version that uses regular evaluation
-  and is suitable for programming with.
+\code{\link[=nest]{nest()}} for the inverse operation.
 }
-

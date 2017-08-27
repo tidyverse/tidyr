@@ -1,4 +1,183 @@
-# tidyr 0.6.1.9000
+
+# tidyr 0.7.1
+
+This is a hotfix release to account for some tidyselect changes in the
+unit tests.
+
+Note that the upcoming version of tidyselect backtracks on some of the
+changes announced for 0.7.0. The special evaluation semantics for
+selection have been changed back to the old behaviour because the new
+rules were causing too much trouble and confusion. From now on data
+expressions (symbols and calls to `:` and `c()`) can refer to both
+registered variables and to objects from the context.
+
+However the semantics for context expressions (any calls other than to
+`:` and `c()`) remain the same. Those expressions are evaluated in the
+context only and cannot refer to registered variables. If you're
+writing functions and refer to contextual objects, it is still a good
+idea to avoid data expressions by following the advice of the 0.7.0
+release notes.
+
+
+# tidyr 0.7.0
+
+This release includes important changes to tidyr internals. Tidyr now
+supports the new tidy evaluation framework for quoting (NSE)
+functions. It also uses the new tidyselect package as selecting
+backend.
+
+
+## Breaking changes
+
+- If you see error messages about objects or functions not found, it
+  is likely because the selecting functions are now stricter in their
+  arguments An example of selecting function is `gather()` and its
+  `...` argument. This change makes the code more robust by
+  disallowing ambiguous scoping. Consider the following code:
+
+  ```
+  x <- 3
+  df <- tibble(w = 1, x = 2, y = 3)
+  gather(df, "variable", "value", 1:x)
+  ```
+
+  Does it select the first three columns (using the `x` defined in the
+  global environment), or does it select the first two columns (using
+  the column named `x`)?
+
+  To solve this ambiguity, we now make a strict distinction between
+  data and context expressions. A data expression is either a bare
+  name or an expression like `x:y` or `c(x, y)`. In a data expression,
+  you can only refer to columns from the data frame. Everything else
+  is a context expression in which you can only refer to objects that
+  you have defined with `<-`.
+
+  In practice this means that you can no longer refer to contextual
+  objects like this:
+
+  ```
+  mtcars %>% gather(var, value, 1:ncol(mtcars))
+
+  x <- 3
+  mtcars %>% gather(var, value, 1:x)
+  mtcars %>% gather(var, value, -(1:x))
+  ```
+
+  You now have to be explicit about where to find objects. To do so,
+  you can use the quasiquotation operator `!!` which will evaluate its
+  argument early and inline the result:
+
+  ```{r}
+  mtcars %>% gather(var, value, !! 1:ncol(mtcars))
+  mtcars %>% gather(var, value, !! 1:x)
+  mtcars %>% gather(var, value, !! -(1:x))
+  ```
+
+  An alternative is to turn your data expression into a context
+  expression by using `seq()` or `seq_len()` instead of `:`. See the
+  section on tidyselect for more information about these semantics.
+
+- Following the switch to tidy evaluation, you might see warnings
+  about the "variable context not set". This is most likely caused by
+  supplyng helpers like `everything()` to underscored versions of
+  tidyr verbs. Helpers should be always be evaluated lazily. To fix
+  this, just quote the helper with a formula: `drop_na(df,
+  ~everything())`.
+
+- The selecting functions are now stricter when you supply integer
+  positions. If you see an error along the lines of
+
+  ```
+  `-0.949999999999999`, `-0.940000000000001`, ... must resolve to
+  integer column positions, not a double vector
+  ```
+
+  please round the positions before supplying them to tidyr. Double
+  vectors are fine as long as they are rounded.
+
+
+## Switch to tidy evaluation
+
+tidyr is now a tidy evaluation grammar. See the
+[programming vignette](http://dplyr.tidyverse.org/articles/programming.html)
+in dplyr for practical information about tidy evaluation.
+
+The tidyr port is a bit special. While the philosophy of tidy
+evaluation is that R code should refer to real objects (from the data
+frame or from the context), we had to make some exceptions to this
+rule for tidyr. The reason is that several functions accept bare
+symbols to specify the names of _new_ columns to create (`gather()`
+being a prime example). This is not tidy because the symbol do not
+represent any actual object. Our workaround is to capture these
+arguments using `rlang::quo_name()` (so they still support
+quasiquotation and you can unquote symbols or strings). This type of
+NSE is now discouraged in the tidyverse: symbols in R code should
+represent real objects.
+
+Following the switch to tidy eval the underscored variants are softly
+deprecated. However they will remain around for some time and without
+warning for backward compatibility.
+
+
+## Switch to the tidyselect backend
+
+The selecting backend of dplyr has been extracted in a standalone
+package tidyselect which tidyr now uses for selecting variables. It is
+used for selecting multiple variables (in `drop_na()`) as well as
+single variables (the `col` argument of `extract()` and `separate()`,
+and the `key` and `value` arguments of `spread()`). This implies the
+following changes:
+
+* The arguments for selecting a single variable now support all
+  features from `dplyr::pull()`. You can supply a name or a position,
+  including negative positions.
+
+* Multiple variables are now selected a bit differently. We now make a
+  strict distinction between data and context expressions. A data
+  expression is either a bare name of an expression like `x:y` or
+  `c(x, y)`. In a data expression, you can only refer to columns from
+  the data frame. Everything else is a context expression in which you
+  can only refer to objects that you have defined with `<-`.
+
+  You can still refer to contextual objects in a data expression by
+  being explicit. One way of being explicit is to unquote a variable
+  from the environment with the tidy eval operator `!!`:
+
+  ```r
+  x <- 2
+  drop_na(df, 2)     # Works fine
+  drop_na(df, x)     # Object 'x' not found
+  drop_na(df, !! x)  # Works as if you had supplied 2
+  ```
+
+  On the other hand, select helpers like `start_with()` are context
+  expressions. It is therefore easy to refer to objects and they will
+  never be ambiguous with data columns:
+
+  ```{r}
+  x <- "d"
+  drop_na(df, starts_with(x))
+  ```
+
+  While these special rules is in contrast to most dplyr and tidyr
+  verbs (where both the data and the context are in scope) they make
+  sense for selecting functions and should provide more robust and
+  helpful semantics.
+
+
+# tidyr 0.6.3
+
+* Patch tests to be compatible with dev tibble
+
+
+# tidyr 0.6.2
+
+* Register C functions
+
+* Added package docs
+
+* Patch tests to be compatible with dev dplyr.
+
 
 # tidyr 0.6.1
 
@@ -6,6 +185,7 @@
 
 * Changed deprecation message of `extract_numeric()` to point to 
   `readr::parse_number()` rather than `readr::parse_numeric()`
+
 
 # tidyr 0.6.0
 

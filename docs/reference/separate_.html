@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Standard-evaluation version of  — separate_ • tidyr</title>
+<title>Standard-evaluation version of <code>separate</code>. — separate_ • tidyr</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -52,10 +52,10 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="../reference/index.html">Reference</a>
+  <a href="../articles/tidy-data.html">Tidy data</a>
 </li>
 <li>
-  <a href="../articles/index.html">Articles</a>
+  <a href="../reference/index.html">Reference</a>
 </li>
 <li>
   <a href="../news/index.html">News</a>
@@ -77,58 +77,77 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Standard-evaluation version of </h1>
+    <h1>Standard-evaluation version of <code>separate</code>.</h1>
     </div>
 
     
     <p>This is a S3 generic.</p>
     
 
-    <pre><span class='fu'>separate_</span>(<span class='no'>data</span>, <span class='no'>col</span>, <span class='no'>into</span>, <span class='kw'>sep</span> <span class='kw'>=</span> <span class='st'>"[^[:alnum:]]+"</span>, <span class='kw'>remove</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+    <pre class="usage"><span class='fu'>separate_</span>(<span class='no'>data</span>, <span class='no'>col</span>, <span class='no'>into</span>, <span class='kw'>sep</span> <span class='kw'>=</span> <span class='st'>"[^[:alnum:]]+"</span>, <span class='kw'>remove</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>convert</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>extra</span> <span class='kw'>=</span> <span class='st'>"warn"</span>, <span class='kw'>fill</span> <span class='kw'>=</span> <span class='st'>"warn"</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
-    <dl class="dl-horizontal">
-      <dt>data</dt>
-      <dd><p>A data frame.</p></dd>
-      <dt>col</dt>
-      <dd><p>Name of column to split, as string.</p></dd>
-      <dt>into</dt>
-      <dd><p>Names of new variables to create as character vector.</p></dd>
-      <dt>sep</dt>
-      <dd><p>Separator between columns.</p>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>data</th>
+      <td><p>A data frame.</p></td>
+    </tr>
+    <tr>
+      <th>col</th>
+      <td><p>Name of column to split, as string.</p></td>
+    </tr>
+    <tr>
+      <th>into</th>
+      <td><p>Names of new variables to create as character vector.</p></td>
+    </tr>
+    <tr>
+      <th>sep</th>
+      <td><p>Separator between columns.</p>
 <p>If character, is interpreted as a regular expression. The default
   value is a regular expression that matches any sequence of
   non-alphanumeric values.</p>
 <p>If numeric, interpreted as positions to split at. Positive values start
   at 1 at the far-left of the string; negative value start at -1 at the
   far-right of the string. The length of <code>sep</code> should be one less than
-  <code>into</code>.</p></dd>
-      <dt>remove</dt>
-      <dd><p>If <code>TRUE</code>, remove input column from output data frame.</p></dd>
-      <dt>convert</dt>
-      <dd><p>If <code>TRUE</code>, will run <code>type.convert</code> with
+  <code>into</code>.</p></td>
+    </tr>
+    <tr>
+      <th>remove</th>
+      <td><p>If <code>TRUE</code>, remove input column from output data frame.</p></td>
+    </tr>
+    <tr>
+      <th>convert</th>
+      <td><p>If <code>TRUE</code>, will run <code>type.convert</code> with
 <code>as.is = TRUE</code> on new columns. This is useful if the component
-columns are integer, numeric or logical.</p></dd>
-      <dt>extra</dt>
-      <dd><p>If <code>sep</code> is a character vector, this controls what
+columns are integer, numeric or logical.</p></td>
+    </tr>
+    <tr>
+      <th>extra</th>
+      <td><p>If <code>sep</code> is a character vector, this controls what
   happens when there are too many pieces. There are three valid options:</p>
 <p></p><ul>
 <li><p>"warn" (the default): emit a warning and drop extra values.</p></li>
 <li><p>"drop": drop any extra values without a warning.</p></li>
 <li><p>"merge": only splits at most <code>length(into)</code> times</p></li>
-</ul></dd>
-      <dt>fill</dt>
-      <dd><p>If <code>sep</code> is a character vector, this controls what
+</ul></td>
+    </tr>
+    <tr>
+      <th>fill</th>
+      <td><p>If <code>sep</code> is a character vector, this controls what
   happens when there are not enough pieces. There are three valid options:</p>
 <p></p><ul>
 <li><p>"warn" (the default): emit a warning and fill from the right</p></li>
 <li><p>"right": fill with missing values on the right</p></li>
 <li><p>"left": fill with missing values on the left</p></li>
-</ul></dd>
-      <dt>...</dt>
-      <dd><p>Defunct, will be removed in the next version of the package.</p></dd>
-    </dl>
+</ul></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>Defunct, will be removed in the next version of the package.</p></td>
+    </tr>
+    </table>
     
 
   </div>

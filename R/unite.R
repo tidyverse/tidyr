@@ -2,14 +2,20 @@
 #'
 #' Convenience function to paste together multiple columns into one.
 #'
-#' @inheritParams unite_
-#' @param col (Bare) name of column to add
-#' @param ... Specification of columns to unite. Use bare variable names.
-#'   Select all variables between x and z with \code{x:z}, exclude y with
-#'   \code{-y}. For more options, see the \link[dplyr]{select} documentation.
-#' @seealso \code{\link{separate}()}, the complement.
-#' @seealso \code{\link{unite_}} for a version that uses regular evaluation
-#'   and is suitable for programming with.
+#' @inheritSection gather Rules for selection
+#' @inheritParams gather
+#' @param data A data frame.
+#' @param col The name of the new column, as a string or symbol.
+#'
+#'   This argument is passed by expression and supports
+#'   [quasiquotation][rlang::quasiquotation] (you can unquote strings
+#'   and symbols). The name is captured from the expression with
+#'   [rlang::quo_name()] (note that this kind of interface where
+#'   symbols do not represent actual objects is now discouraged in the
+#'   tidyverse; we support it here for backward compatibility).
+#' @param sep Separator to use between values.
+#' @param remove If `TRUE`, remove input columns from output data frame.
+#' @seealso [separate()], the complement.
 #' @export
 #' @examples
 #' library(dplyr)
@@ -20,48 +26,42 @@
 #'   unite(vs_am, vs, am) %>%
 #'   separate(vs_am, c("vs", "am"))
 unite <- function(data, col, ..., sep = "_", remove = TRUE) {
-  col <- col_name(substitute(col))
-  from <- dplyr::select_vars(colnames(data), ...)
-
+  UseMethod("unite")
+}
+#' @export
+unite.default <- function(data, col, ..., sep = "_", remove = TRUE) {
+  col <- compat_as_lazy(enquo(col))
+  from <- compat_as_lazy_dots(...)
   unite_(data, col, from, sep = sep, remove = remove)
 }
+#' @export
+unite.data.frame <- function(data, col, ..., sep = "_", remove = TRUE) {
+  var <- quo_name(enquo(col))
+  from_vars <- tidyselect::vars_select(colnames(data), ...)
 
-#' Standard-evaluation version of \code{unite}
-#'
-#' This is a S3 generic.
-#'
-#' @keywords internal
-#' @param data A data frame.
-#' @param col Name of new column as string.
+  out <- data
+  if (remove) {
+    out <- out[setdiff(names(out), from_vars)]
+  }
+
+  first_pos <- which(names(data) %in% from_vars)[1]
+  united <- invoke(paste, c(data[from_vars], list(sep = sep)))
+
+  out <- append_col(out, united, var, after = first_pos - 1)
+  reconstruct_tibble(data, out, if (remove) from_vars)
+}
+
+
+#' @rdname deprecated-se
+#' @inheritParams unite
 #' @param from Names of existing columns as character vector
-#' @param sep Separator to use between values.
-#' @param remove If \code{TRUE}, remove input columns from output data frame.
 #' @export
 unite_ <- function(data, col, from, sep = "_", remove = TRUE) {
   UseMethod("unite_")
 }
-
 #' @export
 unite_.data.frame <- function(data, col, from, sep = "_", remove = TRUE) {
-  united <- do.call("paste", c(data[from], list(sep = sep)))
-
-  first_col <- which(names(data) %in% from)[1]
-
-  data2 <- data
-  if (remove) {
-    data2 <- data2[setdiff(names(data2), from)]
-  }
-
-  append_col(data2, united, col, after = first_col - 1)
+  col <- compat_lazy(col, caller_env())
+  from <- syms(from)
+  unite(data, !! col, !!! from, sep = sep, remove = remove)
 }
-
-#' @export
-unite_.tbl_df <- function(data, col, from, sep = "_", remove = TRUE) {
-  as_data_frame(NextMethod())
-}
-
-#' @export
-unite_.grouped_df <- function(data, col, from, sep = "_", remove = TRUE) {
-  regroup(NextMethod(), data, if (remove) from)
-}
-

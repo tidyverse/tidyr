@@ -9,11 +9,20 @@ unite(data, col, ..., sep = "_", remove = TRUE)
 \arguments{
 \item{data}{A data frame.}
 
-\item{col}{(Bare) name of column to add}
+\item{col}{The name of the new column, as a string or symbol.
 
-\item{...}{Specification of columns to unite. Use bare variable names.
-Select all variables between x and z with \code{x:z}, exclude y with
-\code{-y}. For more options, see the \link[dplyr]{select} documentation.}
+This argument is passed by expression and supports
+\link[rlang:quasiquotation]{quasiquotation} (you can unquote strings
+and symbols). The name is captured from the expression with
+\code{\link[rlang:quo_name]{rlang::quo_name()}} (note that this kind of interface where
+symbols do not represent actual objects is now discouraged in the
+tidyverse; we support it here for backward compatibility).}
+
+\item{...}{A selection of columns. If empty, all variables are
+selected. You can supply bare variable names, select all
+variables between x and z with \code{x:z}, exclude y with \code{-y}. For
+more options, see the \code{\link[dplyr:select]{dplyr::select()}} documentation. See also
+the section on selection rules below.}
 
 \item{sep}{Separator to use between values.}
 
@@ -22,6 +31,34 @@ Select all variables between x and z with \code{x:z}, exclude y with
 \description{
 Convenience function to paste together multiple columns into one.
 }
+\section{Rules for selection}{
+
+
+Arguments for selecting columns are passed to
+\code{\link[tidyselect:vars_select]{tidyselect::vars_select()}} and are treated specially. Unlike other
+verbs, selecting functions make a strict distinction between data
+expressions and context expressions.
+\itemize{
+\item A data expression is either a bare name like \code{x} or an expression
+like \code{x:y} or \code{c(x, y)}. In a data expression, you can only refer
+to columns from the data frame.
+\item Everything else is a context expression in which you can only
+refer to objects that you have defined with \code{<-}.
+}
+
+For instance, \code{col1:col3} is a data expression that refers to data
+columns, while \code{seq(start, end)} is a context expression that
+refers to objects from the contexts.
+
+If you really need to refer to contextual objects from a data
+expression, you can unquote them with the tidy eval operator
+\code{!!}. This operator evaluates its argument in the context and
+inlines the result in the surrounding function call. For instance,
+\code{c(x, !! x)} selects the \code{x} column within the data frame and the
+column referred to by the object \code{x} defined in the context (which
+can contain either a column name as string or a column position).
+}
+
 \examples{
 library(dplyr)
 unite_(mtcars, "vs_am", c("vs","am"))
@@ -32,9 +69,5 @@ mtcars \%>\%
   separate(vs_am, c("vs", "am"))
 }
 \seealso{
-\code{\link{separate}()}, the complement.
-
-\code{\link{unite_}} for a version that uses regular evaluation
-  and is suitable for programming with.
+\code{\link[=separate]{separate()}}, the complement.
 }
-

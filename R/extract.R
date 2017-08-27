@@ -1,14 +1,25 @@
 #' Extract one column into multiple columns.
 #'
-#' Given a regular expression with capturing groups, \code{extract()} turns
+#' Given a regular expression with capturing groups, `extract()` turns
 #' each group into a new column. If the groups don't match, or the input
 #' is NA, the output will be NA.
 #'
-#' @param col Bare column name.
+#' @inheritParams expand
+#' @param col Column name or position. This is passed to
+#'   [tidyselect::vars_pull()].
+#'
+#'   This argument is passed by expression and supports
+#'   [quasiquotation][rlang::quasiquotation] (you can unquote column
+#'   names or column positions).
+#' @param into Names of new variables to create as character vector.
+#' @param regex a regular expression used to extract the desired values.
+#' @param remove If `TRUE`, remove input column from output data frame.
+#' @param convert If `TRUE`, will run [type.convert()] with
+#'   `as.is = TRUE` on new columns. This is useful if the component
+#'   columns are integer, numeric or logical.
+#' @param ... Other arguments passed on to [regexec()] to control
+#'   how the regular expression is processed.
 #' @export
-#' @inheritParams extract_
-#' @seealso \code{\link{extract_}} for a version that uses regular evaluation
-#'   and is suitable for programming with.
 #' @examples
 #' library(dplyr)
 #' df <- data.frame(x = c(NA, "a-b", "a-d", "b-c", "d-e"))
@@ -17,68 +28,70 @@
 #'
 #' # If no match, NA:
 #' df %>% extract(x, c("A", "B"), "([a-d]+)-([a-d]+)")
-extract <- function(data, col, into, regex = "([[:alnum:]]+)", remove = TRUE,
-                     convert = FALSE, ...) {
-  col <- col_name(substitute(col))
-  extract_(data, col, into, regex = regex, remove = remove, convert = convert, ...)
+extract <- function(data, col, into, regex = "([[:alnum:]]+)",
+                    remove = TRUE, convert = FALSE, ...) {
+  UseMethod("extract")
+}
+#' @export
+extract.default <- function(data, col, into, regex = "([[:alnum:]]+)",
+                            remove = TRUE, convert = FALSE, ...) {
+  extract_(data,
+    col = compat_as_lazy(enquo(col)),
+    into = into,
+    regex = regex,
+    remove = remove,
+    convert = convert,
+    ...
+  )
+}
+#' @export
+extract.data.frame <- function(data, col, into, regex = "([[:alnum:]]+)",
+                               remove = TRUE, convert = FALSE, ...) {
+  var <- tidyselect::vars_pull(names(data), !! enquo(col))
+  stopifnot(
+    is_string(regex),
+    is_character(into)
+  )
+
+  # Extract matching groups
+  value <- as.character(data[[var]])
+  matches <- stringi::stri_match_first_regex(value, regex)[, -1, drop = FALSE]
+
+  # Use as_tibble post https://github.com/hadley/dplyr/issues/876
+  l <- map(seq_len(ncol(matches)), function(i) matches[, i])
+  names(l) <- enc2utf8(into)
+
+  if (convert) {
+    l[] <- map(l, type.convert, as.is = TRUE)
+  }
+
+  # Insert into existing data frame
+  out <- append_df(data, l, match(var, dplyr::tbl_vars(data)))
+  if (remove) {
+    out[[var]] <- NULL
+  }
+
+  reconstruct_tibble(data, out, if (remove) var else chr())
 }
 
-#' Standard-evaluation version of \code{extract}.
-#'
-#' This is a S3 generic.
-#'
-#' @param data A data frame.
-#' @param col Name of column to split, as string.
-#' @param into Names of new variables to create as character vector.
-#' @param regex a regular expression used to extract the desired values.
-#' @param remove If \code{TRUE}, remove input column from output data frame.
-#' @param convert If \code{TRUE}, will run \code{\link{type.convert}} with
-#'   \code{as.is = TRUE} on new columns. This is useful if the component
-#'   columns are integer, numeric or logical.
-#' @param ... Other arguments passed on to \code{\link{regexec}} to control
-#'   how the regular expression is processed.
-#' @keywords internal
+
+#' @rdname deprecated-se
+#' @inheritParams extract
 #' @export
 extract_ <- function(data, col, into, regex = "([[:alnum:]]+)", remove = TRUE,
                       convert = FALSE, ...) {
   UseMethod("extract_")
 }
-
 #' @export
 extract_.data.frame <- function(data, col, into, regex = "([[:alnum:]]+)",
-                                 remove = TRUE, convert = FALSE, ...) {
-
-  stopifnot(is.character(col), length(col) == 1)
-  stopifnot(is.character(regex))
-
-  # Extract matching groups
-  value <- as.character(data[[col]])
-
-  matches <- stringi::stri_match_first_regex(value, regex)[, -1, drop = FALSE]
-  # Use as_data_frame post https://github.com/hadley/dplyr/issues/876
-  l <- lapply(seq_len(ncol(matches)), function(i) matches[, i])
-  names(l) <- enc2utf8(into)
-
-  if (convert) {
-    l[] <- lapply(l, type.convert, as.is = TRUE)
-  }
-
-  # Insert into existing data frame
-  data <- append_df(data, l, which(names(data) == col))
-  if (remove) {
-    data[[col]] <- NULL
-  }
-  data
-}
-
-#' @export
-extract_.tbl_df <- function(data, col, into, regex = "([[:alnum:]]+)",
-                             remove = TRUE, convert = FALSE, ...) {
-  as_data_frame(NextMethod())
-}
-
-#' @export
-extract_.grouped_df <- function(data, col, into, regex = "([[:alnum:]]+)",
                                 remove = TRUE, convert = FALSE, ...) {
-  regroup(NextMethod(), data, if (remove) col)
+  col <- compat_lazy(col, caller_env())
+  extract(data,
+    col = !! col,
+    into = into,
+    regex = regex,
+    remove = remove,
+    convert = convert,
+    ...
+  )
 }

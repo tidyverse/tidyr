@@ -52,10 +52,10 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="../reference/index.html">Reference</a>
+  <a href="../articles/tidy-data.html">Tidy data</a>
 </li>
 <li>
-  <a href="../articles/index.html">Articles</a>
+  <a href="../reference/index.html">Reference</a>
 </li>
 <li>
   <a href="../news/index.html">News</a>
@@ -85,23 +85,32 @@
 separates the values and places each one in its own row.</p>
     
 
-    <pre><span class='fu'>separate_rows</span>(<span class='no'>data</span>, <span class='no'>...</span>, <span class='kw'>sep</span> <span class='kw'>=</span> <span class='st'>"[^[:alnum:].]+"</span>, <span class='kw'>convert</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>separate_rows</span>(<span class='no'>data</span>, <span class='no'>...</span>, <span class='kw'>sep</span> <span class='kw'>=</span> <span class='st'>"[^[:alnum:].]+"</span>, <span class='kw'>convert</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
-    <dl class="dl-horizontal">
-      <dt>data</dt>
-      <dd><p>A data frame.</p></dd>
-      <dt>...</dt>
-      <dd><p>Specification of columns to separate. Use bare variable names.
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>data</th>
+      <td><p>A data frame.</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>Specification of columns to separate. Use bare variable names.
 Select all variables between x and z with <code>x:z</code>, exclude y with
-<code>-y</code>. For more options, see the <a href='http://www.rdocumentation.org/packages/dplyr/topics/select'>select</a> documentation.</p></dd>
-      <dt>sep</dt>
-      <dd><p>Separator delimiting collapsed values.</p></dd>
-      <dt>convert</dt>
-      <dd><p>If <code>TRUE</code>, will run <code>type.convert</code> with
+<code>-y</code>. For more options, see the <a href='http://www.rdocumentation.org/packages/dplyr/topics/select'>select</a> documentation.</p></td>
+    </tr>
+    <tr>
+      <th>sep</th>
+      <td><p>Separator delimiting collapsed values.</p></td>
+    </tr>
+    <tr>
+      <th>convert</th>
+      <td><p>If <code>TRUE</code>, will run <code>type.convert</code> with
 <code>as.is = TRUE</code> on new columns. This is useful if the component
-columns are integer, numeric or logical.</p></dd>
-    </dl>
+columns are integer, numeric or logical.</p></td>
+    </tr>
+    </table>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>

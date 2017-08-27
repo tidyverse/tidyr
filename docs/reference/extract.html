@@ -52,10 +52,10 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="../reference/index.html">Reference</a>
+  <a href="../articles/tidy-data.html">Tidy data</a>
 </li>
 <li>
-  <a href="../articles/index.html">Articles</a>
+  <a href="../reference/index.html">Reference</a>
 </li>
 <li>
   <a href="../news/index.html">News</a>
@@ -86,29 +86,44 @@ each group into a new column. If the groups don't match, or the input
 is NA, the output will be NA.</p>
     
 
-    <pre><span class='fu'>extract</span>(<span class='no'>data</span>, <span class='no'>col</span>, <span class='no'>into</span>, <span class='kw'>regex</span> <span class='kw'>=</span> <span class='st'>"([[:alnum:]]+)"</span>, <span class='kw'>remove</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+    <pre class="usage"><span class='fu'>extract</span>(<span class='no'>data</span>, <span class='no'>col</span>, <span class='no'>into</span>, <span class='kw'>regex</span> <span class='kw'>=</span> <span class='st'>"([[:alnum:]]+)"</span>, <span class='kw'>remove</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>convert</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
-    <dl class="dl-horizontal">
-      <dt>data</dt>
-      <dd><p>A data frame.</p></dd>
-      <dt>col</dt>
-      <dd><p>Bare column name.</p></dd>
-      <dt>into</dt>
-      <dd><p>Names of new variables to create as character vector.</p></dd>
-      <dt>regex</dt>
-      <dd><p>a regular expression used to extract the desired values.</p></dd>
-      <dt>remove</dt>
-      <dd><p>If <code>TRUE</code>, remove input column from output data frame.</p></dd>
-      <dt>convert</dt>
-      <dd><p>If <code>TRUE</code>, will run <code>type.convert</code> with
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>data</th>
+      <td><p>A data frame.</p></td>
+    </tr>
+    <tr>
+      <th>col</th>
+      <td><p>Bare column name.</p></td>
+    </tr>
+    <tr>
+      <th>into</th>
+      <td><p>Names of new variables to create as character vector.</p></td>
+    </tr>
+    <tr>
+      <th>regex</th>
+      <td><p>a regular expression used to extract the desired values.</p></td>
+    </tr>
+    <tr>
+      <th>remove</th>
+      <td><p>If <code>TRUE</code>, remove input column from output data frame.</p></td>
+    </tr>
+    <tr>
+      <th>convert</th>
+      <td><p>If <code>TRUE</code>, will run <code>type.convert</code> with
 <code>as.is = TRUE</code> on new columns. This is useful if the component
-columns are integer, numeric or logical.</p></dd>
-      <dt>...</dt>
-      <dd><p>Other arguments passed on to <code>regexec</code> to control
-how the regular expression is processed.</p></dd>
-    </dl>
+columns are integer, numeric or logical.</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>Other arguments passed on to <code>regexec</code> to control
+how the regular expression is processed.</p></td>
+    </tr>
+    </table>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 

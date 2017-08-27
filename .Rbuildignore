@@ -7,7 +7,8 @@
 ^\.httr-oauth$
 ^codecov\.yml$
 ^_pkgdown\.yml$
-^logo\.png$
 ^README\.Rmd$
 ^README-.*\.png$
 ^docs$
+^LICENSE\.md$
+^appveyor\.yml$

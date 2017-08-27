@@ -4,23 +4,33 @@
 \alias{gather}
 \title{Gather columns into key-value pairs.}
 \usage{
-gather(data, key, value, ..., na.rm = FALSE, convert = FALSE,
-  factor_key = FALSE)
+gather(data, key = "key", value = "value", ..., na.rm = FALSE,
+  convert = FALSE, factor_key = FALSE)
 }
 \arguments{
 \item{data}{A data frame.}
 
-\item{key, value}{Names of key and value columns to create in output.}
+\item{key, value}{Names of new key and value columns, as strings or
+symbols.
 
-\item{...}{Specification of columns to gather. Use bare variable names.
-Select all variables between x and z with \code{x:z}, exclude y with
-\code{-y}. For more options, see the \link[dplyr]{select} documentation.}
+This argument is passed by expression and supports
+\link[rlang:quasiquotation]{quasiquotation} (you can unquote strings
+and symbols). The name is captured from the expression with
+\code{\link[rlang:quo_name]{rlang::quo_name()}} (note that this kind of interface where
+symbols do not represent actual objects is now discouraged in the
+tidyverse; we support it here for backward compatibility).}
+
+\item{...}{A selection of columns. If empty, all variables are
+selected. You can supply bare variable names, select all
+variables between x and z with \code{x:z}, exclude y with \code{-y}. For
+more options, see the \code{\link[dplyr:select]{dplyr::select()}} documentation. See also
+the section on selection rules below.}
 
 \item{na.rm}{If \code{TRUE}, will remove rows from output where the
 value column in \code{NA}.}
 
 \item{convert}{If \code{TRUE} will automatically run
-\code{\link{type.convert}} on the key column. This is useful if the column
+\code{\link[=type.convert]{type.convert()}} on the key column. This is useful if the column
 names are actually numeric, integer, or logical.}
 
 \item{factor_key}{If \code{FALSE}, the default, the key values will be
@@ -32,10 +42,38 @@ Gather takes multiple columns and collapses into key-value pairs,
 duplicating all other columns as needed. You use \code{gather()} when
 you notice that you have columns that are not variables.
 }
+\section{Rules for selection}{
+
+
+Arguments for selecting columns are passed to
+\code{\link[tidyselect:vars_select]{tidyselect::vars_select()}} and are treated specially. Unlike other
+verbs, selecting functions make a strict distinction between data
+expressions and context expressions.
+\itemize{
+\item A data expression is either a bare name like \code{x} or an expression
+like \code{x:y} or \code{c(x, y)}. In a data expression, you can only refer
+to columns from the data frame.
+\item Everything else is a context expression in which you can only
+refer to objects that you have defined with \code{<-}.
+}
+
+For instance, \code{col1:col3} is a data expression that refers to data
+columns, while \code{seq(start, end)} is a context expression that
+refers to objects from the contexts.
+
+If you really need to refer to contextual objects from a data
+expression, you can unquote them with the tidy eval operator
+\code{!!}. This operator evaluates its argument in the context and
+inlines the result in the surrounding function call. For instance,
+\code{c(x, !! x)} selects the \code{x} column within the data frame and the
+column referred to by the object \code{x} defined in the context (which
+can contain either a column name as string or a column position).
+}
+
 \examples{
 library(dplyr)
 # From http://stackoverflow.com/questions/1181060
-stocks <- data_frame(
+stocks <- tibble(
   time = as.Date('2009-01-01') + 0:9,
   X = rnorm(10, 0, 1),
   Y = rnorm(10, 0, 2),
@@ -61,8 +99,3 @@ mini_iris <-
   slice(1)
 mini_iris \%>\% gather(key = flower_att, value = measurement, -Species)
 }
-\seealso{
-\code{\link{gather_}} for a version that uses regular evaluation
-  and is suitable for programming with.
-}
-

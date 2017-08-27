@@ -52,10 +52,10 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="../reference/index.html">Reference</a>
+  <a href="../articles/tidy-data.html">Tidy data</a>
 </li>
 <li>
-  <a href="../articles/index.html">Articles</a>
+  <a href="../reference/index.html">Reference</a>
 </li>
 <li>
   <a href="../news/index.html">News</a>
@@ -84,31 +84,44 @@
     <p>This is a S3 generic.</p>
     
 
-    <pre><span class='fu'>gather_</span>(<span class='no'>data</span>, <span class='no'>key_col</span>, <span class='no'>value_col</span>, <span class='no'>gather_cols</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+    <pre class="usage"><span class='fu'>gather_</span>(<span class='no'>data</span>, <span class='no'>key_col</span>, <span class='no'>value_col</span>, <span class='no'>gather_cols</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>convert</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>factor_key</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
-    <dl class="dl-horizontal">
-      <dt>data</dt>
-      <dd><p>A data frame</p></dd>
-      <dt>key_col, value_col</dt>
-      <dd><p>Strings giving names of key and value columns to
-create.</p></dd>
-      <dt>gather_cols</dt>
-      <dd><p>Character vector giving column names to be gathered into
-pair of key-value columns.</p></dd>
-      <dt>na.rm</dt>
-      <dd><p>If <code>TRUE</code>, will remove rows from output where the
-value column in <code>NA</code>.</p></dd>
-      <dt>convert</dt>
-      <dd><p>If <code>TRUE</code> will automatically run
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>data</th>
+      <td><p>A data frame</p></td>
+    </tr>
+    <tr>
+      <th>key_col, value_col</th>
+      <td><p>Strings giving names of key and value columns to
+create.</p></td>
+    </tr>
+    <tr>
+      <th>gather_cols</th>
+      <td><p>Character vector giving column names to be gathered into
+pair of key-value columns.</p></td>
+    </tr>
+    <tr>
+      <th>na.rm</th>
+      <td><p>If <code>TRUE</code>, will remove rows from output where the
+value column in <code>NA</code>.</p></td>
+    </tr>
+    <tr>
+      <th>convert</th>
+      <td><p>If <code>TRUE</code> will automatically run
 <code>type.convert</code> on the key column. This is useful if the column
-names are actually numeric, integer, or logical.</p></dd>
-      <dt>factor_key</dt>
-      <dd><p>If <code>FALSE</code>, the default, the key values will be
+names are actually numeric, integer, or logical.</p></td>
+    </tr>
+    <tr>
+      <th>factor_key</th>
+      <td><p>If <code>FALSE</code>, the default, the key values will be
 stored as a character vector. If <code>TRUE</code>, will be stored as a factor,
-which preserves the original ordering of the columns.</p></dd>
-    </dl>
+which preserves the original ordering of the columns.</p></td>
+    </tr>
+    </table>
     
 
   </div>

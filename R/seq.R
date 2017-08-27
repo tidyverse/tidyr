@@ -1,8 +1,8 @@
 #' Create the full sequence of values in a vector.
 #'
 #' This is useful if you want to fill in missing values that should have
-#' been observed but weren't. For example, \code{full_seq(c(1, 2, 4, 6), 1)}
-#' will return \code{1:6}.
+#' been observed but weren't. For example, `full_seq(c(1, 2, 4, 6), 1)`
+#' will return `1:6`.
 #'
 #' @param x A numeric vector.
 #' @param period Gap between each observation. The existing data will be

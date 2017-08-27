@@ -52,10 +52,10 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="../reference/index.html">Reference</a>
+  <a href="../articles/tidy-data.html">Tidy data</a>
 </li>
 <li>
-  <a href="../articles/index.html">Articles</a>
+  <a href="../reference/index.html">Reference</a>
 </li>
 <li>
   <a href="../news/index.html">News</a>
@@ -82,48 +82,68 @@
     </div>
 
     <div class="contents">
-    <div id="tidyr-0-6-0-9000" class="section level1">
+    <div id="tidyr-0-6-2" class="section level1">
 <h1 class="hasAnchor">
-<a href="#tidyr-0-6-0-9000" class="anchor"> </a>tidyr 0.6.0.9000</h1>
-<ul><li>Changed deprecation message of <code><a href="../reference/extract_numeric.html">extract_numeric()</a></code> to point to <code>readr::parse_number()</code> rather than <code>readr::parse_numeric()</code>
-</li>
-</ul></div>
+<a href="#tidyr-0-6-2" class="anchor"></a>tidyr 0.6.2</h1>
+<ul>
+<li><p>Register C functions</p></li>
+<li><p>Added package docs</p></li>
+<li><p>Patch tests to be compatible with dev dplyr.</p></li>
+</ul>
+</div>
+    <div id="tidyr-0-6-1" class="section level1">
+<h1 class="hasAnchor">
+<a href="#tidyr-0-6-1" class="anchor"></a>tidyr 0.6.1</h1>
+<ul>
+<li><p>Patch test to be compatible with dev tibble</p></li>
+<li><p>Changed deprecation message of <code><a href="../reference/extract_numeric.html">extract_numeric()</a></code> to point to <code>readr::parse_number()</code> rather than <code>readr::parse_numeric()</code></p></li>
+</ul>
+</div>
     <div id="tidyr-0-6-0" class="section level1">
 <h1 class="hasAnchor">
-<a href="#tidyr-0-6-0" class="anchor"> </a>tidyr 0.6.0</h1>
+<a href="#tidyr-0-6-0" class="anchor"></a>tidyr 0.6.0</h1>
 <div id="api-changes" class="section level2">
 <h2 class="hasAnchor">
-<a href="#api-changes" class="anchor"> </a>API changes</h2>
-<ul><li><p><code><a href="../reference/drop_na.html">drop_na()</a></code> removes observations which have <code>NA</code> in the given variables. If no variables are given, all variables are considered (#194, @janschulz).</p></li>
+<a href="#api-changes" class="anchor"></a>API changes</h2>
+<ul>
+<li><p><code><a href="../reference/drop_na.html">drop_na()</a></code> removes observations which have <code>NA</code> in the given variables. If no variables are given, all variables are considered (#194, @janschulz).</p></li>
 <li><p><code><a href="../reference/extract_numeric.html">extract_numeric()</a></code> has been deprecated (#213).</p></li>
 <li><p>Renamed <code>table4</code> and <code>table5</code> to <code>table4a</code> and <code>table4b</code> to make their connection more clear. The <code>key</code> and <code>value</code> variables in <code>table2</code> have been renamed to <code>type</code> and <code>count</code>.</p></li>
-</ul></div>
+</ul>
+</div>
 <div id="bug-fixes-and-minor-improvements" class="section level2">
 <h2 class="hasAnchor">
-<a href="#bug-fixes-and-minor-improvements" class="anchor"> </a>Bug fixes and minor improvements</h2>
-<ul><li><p><code><a href="../reference/expand.html">expand()</a></code>, <code><a href="../reference/expand.html">crossing()</a></code>, and <code><a href="../reference/expand.html">nesting()</a></code> now silently drop zero-length inputs.</p></li>
+<a href="#bug-fixes-and-minor-improvements" class="anchor"></a>Bug fixes and minor improvements</h2>
+<ul>
+<li><p><code><a href="../reference/expand.html">expand()</a></code>, <code><a href="../reference/expand.html">crossing()</a></code>, and <code><a href="../reference/expand.html">nesting()</a></code> now silently drop zero-length inputs.</p></li>
 <li><p><code><a href="../reference/expand.html">crossing_()</a></code> and <code><a href="../reference/expand.html">nesting_()</a></code> are versions of <code><a href="../reference/expand.html">crossing()</a></code> and <code><a href="../reference/expand.html">nesting()</a></code> that take a list as input.</p></li>
 <li><p><code><a href="../reference/full_seq.html">full_seq()</a></code> works correctly for dates and date/times.</p></li>
-</ul></div>
+</ul>
+</div>
 </div>
     <div id="tidyr-0-5-1" class="section level1">
 <h1 class="hasAnchor">
-<a href="#tidyr-0-5-1" class="anchor"> </a>tidyr 0.5.1</h1>
-<ul><li>Restored compatibility with R &lt; 3.3.0 by avoiding <code>getS3method(envir = )</code> (#205, @krlmlr).</li>
-</ul></div>
+<a href="#tidyr-0-5-1" class="anchor"></a>tidyr 0.5.1</h1>
+<ul>
+<li>Restored compatibility with R &lt; 3.3.0 by avoiding <code>getS3method(envir = )</code> (#205, @krlmlr).</li>
+</ul>
+</div>
     <div id="tidyr-0-5-0" class="section level1">
 <h1 class="hasAnchor">
-<a href="#tidyr-0-5-0" class="anchor"> </a>tidyr 0.5.0</h1>
+<a href="#tidyr-0-5-0" class="anchor"></a>tidyr 0.5.0</h1>
 <div id="new-functions" class="section level2">
 <h2 class="hasAnchor">
-<a href="#new-functions" class="anchor"> </a>New functions</h2>
-<ul><li>
+<a href="#new-functions" class="anchor"></a>New functions</h2>
+<ul>
+<li>
 <code><a href="../reference/separate_rows.html">separate_rows()</a></code> separates observations with multiple delimited values into separate rows (#69, @aaronwolen).</li>
-</ul></div>
+</ul>
+</div>
 <div id="bug-fixes-and-minor-improvements-1" class="section level2">
 <h2 class="hasAnchor">
-<a href="#bug-fixes-and-minor-improvements-1" class="anchor"> </a>Bug fixes and minor improvements</h2>
-<ul><li><p><code><a href="../reference/complete.html">complete()</a></code> preserves grouping created by dplyr (#168).</p></li>
+<a href="#bug-fixes-and-minor-improvements-1" class="anchor"></a>Bug fixes and minor improvements</h2>
+<ul>
+<li><p><code><a href="../reference/complete.html">complete()</a></code> preserves grouping created by dplyr (#168).</p></li>
 <li><p><code><a href="../reference/expand.html">expand()</a></code> (and hence <code><a href="../reference/complete.html">complete()</a></code>) preserves the ordered attribute of factors (#165).</p></li>
 <li><p><code><a href="../reference/full_seq.html">full_seq()</a></code> preserve attributes for dates and date/times (#156), and sequences no longer need to start at 0.</p></li>
 <li><p><code><a href="../reference/gather.html">gather()</a></code> can now gather together list columns (#175), and <code>gather_.data.frame(na.rm = TRUE)</code> now only removes missing values if they’re actually present (#173).</p></li>
@@ -138,35 +158,43 @@
 <li><p>Moved in useful sample datasets from the DSR package.</p></li>
 <li><p>Made compatible with both dplyr 0.4 and 0.5.</p></li>
 <li><p>tidyr functions that create new columns are more aggresive about re-encoding the column names as UTF-8.</p></li>
-</ul></div>
+</ul>
+</div>
 </div>
     <div id="tidyr-0-4-1" class="section level1">
 <h1 class="hasAnchor">
-<a href="#tidyr-0-4-1" class="anchor"> </a>tidyr 0.4.1</h1>
-<ul><li>Fixed bug in <code><a href="../reference/nest.html">nest()</a></code> where nested data was ending up in the wrong row (#158).</li>
-</ul></div>
+<a href="#tidyr-0-4-1" class="anchor"></a>tidyr 0.4.1</h1>
+<ul>
+<li>Fixed bug in <code><a href="../reference/nest.html">nest()</a></code> where nested data was ending up in the wrong row (#158).</li>
+</ul>
+</div>
     <div id="tidyr-0-4-0" class="section level1">
 <h1 class="hasAnchor">
-<a href="#tidyr-0-4-0" class="anchor"> </a>tidyr 0.4.0</h1>
+<a href="#tidyr-0-4-0" class="anchor"></a>tidyr 0.4.0</h1>
 <div id="nested-data-frames" class="section level2">
 <h2 class="hasAnchor">
-<a href="#nested-data-frames" class="anchor"> </a>Nested data frames</h2>
+<a href="#nested-data-frames" class="anchor"></a>Nested data frames</h2>
 <p><code><a href="../reference/nest.html">nest()</a></code> and <code><a href="../reference/unnest.html">unnest()</a></code> have been overhauled to support a useful way of structuring data frames: the <strong>nested</strong> data frame. In a grouped data frame, you have one row per observation, and additional metadata define the groups. In a nested data frame, you have one <strong>row</strong> per group, and the individual observations are stored in a column that is a list of data frames. This is a useful structure when you have lists of other objects (like models) with one element per group.</p>
-<ul><li><p><code><a href="../reference/nest.html">nest()</a></code> now produces a single list of data frames called “data” rather than a list column for each variable. Nesting variables are not included in nested data frames. It also works with grouped data frames made by <code>dplyr::group_by()</code>. You can override the default column name with <code>.key</code>.</p></li>
+<ul>
+<li><p><code><a href="../reference/nest.html">nest()</a></code> now produces a single list of data frames called “data” rather than a list column for each variable. Nesting variables are not included in nested data frames. It also works with grouped data frames made by <code>dplyr::group_by()</code>. You can override the default column name with <code>.key</code>.</p></li>
 <li><p><code><a href="../reference/unnest.html">unnest()</a></code> gains a <code>.drop</code> argument which controls what happens to other list columns. By default, they’re kept if the output doesn’t require row duplication; otherwise they’re dropped.</p></li>
 <li><p><code><a href="../reference/unnest.html">unnest()</a></code> now has <code>mutate()</code> semantics for <code>...</code> - this allows you to unnest transformed columns more easily. (Previously it used select semantics).</p></li>
-</ul></div>
+</ul>
+</div>
 <div id="expanding" class="section level2">
 <h2 class="hasAnchor">
-<a href="#expanding" class="anchor"> </a>Expanding</h2>
-<ul><li><p><code><a href="../reference/expand.html">expand()</a></code> once again allows you to evaluate arbitrary expressions like <code><a href="../reference/full_seq.html">full_seq(year)</a></code>. If you were previously using <code>c()</code> to created nested combinations, you’ll now need to use <code><a href="../reference/expand.html">nesting()</a></code> (#85, #121).</p></li>
+<a href="#expanding" class="anchor"></a>Expanding</h2>
+<ul>
+<li><p><code><a href="../reference/expand.html">expand()</a></code> once again allows you to evaluate arbitrary expressions like <code><a href="../reference/full_seq.html">full_seq(year)</a></code>. If you were previously using <code>c()</code> to created nested combinations, you’ll now need to use <code><a href="../reference/expand.html">nesting()</a></code> (#85, #121).</p></li>
 <li><p><code><a href="../reference/expand.html">nesting()</a></code> and <code><a href="../reference/expand.html">crossing()</a></code> allow you to create nested and crossed data frames from individual vectors. <code><a href="../reference/expand.html">crossing()</a></code> is similar to <code>base::expand.grid()</code></p></li>
 <li><p><code><a href="../reference/full_seq.html">full_seq(x, period)</a></code> creates the full sequence of values from <code>min(x)</code> to <code>max(x)</code> every <code>period</code> values.</p></li>
-</ul></div>
+</ul>
+</div>
 <div id="minor-bug-fixes-and-improvements" class="section level2">
 <h2 class="hasAnchor">
-<a href="#minor-bug-fixes-and-improvements" class="anchor"> </a>Minor bug fixes and improvements</h2>
-<ul><li><p><code><a href="../reference/fill.html">fill()</a></code> fills in <code>NULL</code>s in list-columns.</p></li>
+<a href="#minor-bug-fixes-and-improvements" class="anchor"></a>Minor bug fixes and improvements</h2>
+<ul>
+<li><p><code><a href="../reference/fill.html">fill()</a></code> fills in <code>NULL</code>s in list-columns.</p></li>
 <li><p><code><a href="../reference/fill.html">fill()</a></code> gains a direction argument so that it can fill either upwards or downwards (#114).</p></li>
 <li><p><code><a href="../reference/gather.html">gather()</a></code> now stores the key column as character, by default. To revert to the previous behaviour of using a factor (which allows you to preserve the ordering of the columns), use <code>key_factor = TRUE</code> (#96).</p></li>
 <li><p>All tidyr verbs do the right thing for grouped data frames created by <code>group_by()</code> (#122, #129, #81).</p></li>
@@ -174,29 +202,35 @@
 <li><p><code><a href="../reference/spread.html">spread()</a></code> once again creates columns of mixed type when <code>convert = TRUE</code> (#118, @jennybc). <code><a href="../reference/spread.html">spread()</a></code> with <code>drop = FALSE</code> handles zero-length factors (#56). <code><a href="../reference/spread.html">spread()</a></code>ing a data frame with only key and value columns creates a one row output (#41).</p></li>
 <li><p><code><a href="../reference/unite.html">unite()</a></code> now removes old columns before adding new (#89, @krlmlr).</p></li>
 <li><p><code><a href="../reference/separate.html">separate()</a></code> now warns if defunct … argument is used (#151, @krlmlr).</p></li>
-</ul></div>
+</ul>
+</div>
 </div>
     <div id="tidyr-0-3-1" class="section level1">
 <h1 class="hasAnchor">
-<a href="#tidyr-0-3-1" class="anchor"> </a>tidyr 0.3.1</h1>
-<ul><li>Fixed bug where attributes of non-gather columns were lost (#104)</li>
-</ul></div>
+<a href="#tidyr-0-3-1" class="anchor"></a>tidyr 0.3.1</h1>
+<ul>
+<li>Fixed bug where attributes of non-gather columns were lost (#104)</li>
+</ul>
+</div>
     <div id="tidyr-0-3-0" class="section level1">
 <h1 class="hasAnchor">
-<a href="#tidyr-0-3-0" class="anchor"> </a>tidyr 0.3.0</h1>
+<a href="#tidyr-0-3-0" class="anchor"></a>tidyr 0.3.0</h1>
 <div id="new-features" class="section level2">
 <h2 class="hasAnchor">
-<a href="#new-features" class="anchor"> </a>New features</h2>
-<ul><li><p>New <code><a href="../reference/complete.html">complete()</a></code> provides a wrapper around <code><a href="../reference/expand.html">expand()</a></code>, <code>left_join()</code> and <code><a href="../reference/replace_na.html">replace_na()</a></code> for a common task: completing a data frame with missing combinations of variables.</p></li>
+<a href="#new-features" class="anchor"></a>New features</h2>
+<ul>
+<li><p>New <code><a href="../reference/complete.html">complete()</a></code> provides a wrapper around <code><a href="../reference/expand.html">expand()</a></code>, <code>left_join()</code> and <code><a href="../reference/replace_na.html">replace_na()</a></code> for a common task: completing a data frame with missing combinations of variables.</p></li>
 <li><p><code><a href="../reference/fill.html">fill()</a></code> fills in missing values in a column with the last non-missing value (#4).</p></li>
 <li><p>New <code><a href="../reference/replace_na.html">replace_na()</a></code> makes it easy to replace missing values with something meaningful for your data.</p></li>
 <li><p><code><a href="../reference/nest.html">nest()</a></code> is the complement of <code><a href="../reference/unnest.html">unnest()</a></code> (#3).</p></li>
 <li><p><code><a href="../reference/unnest.html">unnest()</a></code> can now work with multiple list-columns at the same time. If you don’t supply any columns names, it will unlist all list-columns (#44). <code><a href="../reference/unnest.html">unnest()</a></code> can also handle columns that are lists of data frames (#58).</p></li>
-</ul></div>
+</ul>
+</div>
 <div id="bug-fixes-and-minor-improvements-2" class="section level2">
 <h2 class="hasAnchor">
-<a href="#bug-fixes-and-minor-improvements-2" class="anchor"> </a>Bug fixes and minor improvements</h2>
-<ul><li><p>tidyr no longer depends on reshape2. This should fix issues if you also try to load reshape (#88).</p></li>
+<a href="#bug-fixes-and-minor-improvements-2" class="anchor"></a>Bug fixes and minor improvements</h2>
+<ul>
+<li><p>tidyr no longer depends on reshape2. This should fix issues if you also try to load reshape (#88).</p></li>
 <li><p><code>%&gt;%</code> is re-exported from magrittr.</p></li>
 <li><p><code><a href="../reference/expand.html">expand()</a></code> now supports nesting and crossing (see examples for details). This comes at the expense of creating new variables inline (#46).</p></li>
 <li><p><code>expand_</code> does SE evaluation correctly so you can pass it a character vector of columns names (or list of formulas etc) (#70).</p></li>
@@ -207,25 +241,30 @@
 <li><p><code><a href="../reference/separate.html">separate()</a></code> only displays the first 20 failures (#50). It has finer control over what happens if there are two few matches: you can fill with missing values on either the “left” or the “right” (#49). <code><a href="../reference/separate.html">separate()</a></code> no longer throws an error if the number of pieces aren’t as expected - instead it uses drops extra values and fills on the right and gives a warning.</p></li>
 <li><p>If the input is NA <code><a href="../reference/separate.html">separate()</a></code> and <code><a href="../reference/extract.html">extract()</a></code> both return silently return NA outputs, rather than throwing an error. (#77)</p></li>
 <li><p>Experimental <code><a href="../reference/unnest.html">unnest()</a></code> method for lists has been removed.</p></li>
-</ul></div>
+</ul>
+</div>
 </div>
     <div id="tidyr-0-2-0" class="section level1">
 <h1 class="hasAnchor">
-<a href="#tidyr-0-2-0" class="anchor"> </a>tidyr 0.2.0</h1>
+<a href="#tidyr-0-2-0" class="anchor"></a>tidyr 0.2.0</h1>
 <div id="new-functions-1" class="section level2">
 <h2 class="hasAnchor">
-<a href="#new-functions-1" class="anchor"> </a>New functions</h2>
-<ul><li><p>Experimental <code><a href="../reference/expand.html">expand()</a></code> function (#21).</p></li>
+<a href="#new-functions-1" class="anchor"></a>New functions</h2>
+<ul>
+<li><p>Experimental <code><a href="../reference/expand.html">expand()</a></code> function (#21).</p></li>
 <li><p>Experiment <code><a href="../reference/unnest.html">unnest()</a></code> function for converting named lists into data frames. (#3, #22)</p></li>
-</ul></div>
+</ul>
+</div>
 <div id="bug-fixes-and-minor-improvements-3" class="section level2">
 <h2 class="hasAnchor">
-<a href="#bug-fixes-and-minor-improvements-3" class="anchor"> </a>Bug fixes and minor improvements</h2>
-<ul><li><p><code><a href="../reference/extract_numeric.html">extract_numeric()</a></code> preserves negative signs (#20).</p></li>
+<a href="#bug-fixes-and-minor-improvements-3" class="anchor"></a>Bug fixes and minor improvements</h2>
+<ul>
+<li><p><code><a href="../reference/extract_numeric.html">extract_numeric()</a></code> preserves negative signs (#20).</p></li>
 <li><p><code><a href="../reference/gather.html">gather()</a></code> has better defaults if <code>key</code> and <code>value</code> are not supplied. If <code>...</code> is ommitted, <code><a href="../reference/gather.html">gather()</a></code> selects all columns (#28). Performance is now comparable to <code>reshape2::melt()</code> (#18).</p></li>
 <li><p><code><a href="../reference/separate.html">separate()</a></code> gains <code>extra</code> argument which lets you control what happens to extra pieces. The default is to throw an “error”, but you can also “merge” or “drop”.</p></li>
 <li><p><code><a href="../reference/spread.html">spread()</a></code> gains <code>drop</code> argument, which allows you to preserve missing factor levels (#25). It converts factor value variables to character vectors, instead of embedding a matrix inside the data frame (#35).</p></li>
-</ul></div>
+</ul>
+</div>
 </div>
     </div>
   </div>
@@ -234,7 +273,8 @@
     <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
-        <li><a href="#tidyr-0-6-0-9000">0.6.0.9000</a></li>
+        <li><a href="#tidyr-0-6-2">0.6.2</a></li>
+        <li><a href="#tidyr-0-6-1">0.6.1</a></li>
         <li><a href="#tidyr-0-6-0">0.6.0</a></li>
         <li><a href="#tidyr-0-5-1">0.5.1</a></li>
         <li><a href="#tidyr-0-5-0">0.5.0</a></li>

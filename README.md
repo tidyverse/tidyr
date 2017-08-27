@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-tidyr <img src="logo.png" align="right" />
-==========================================
+tidyr <img src="man/figures/logo.png" align="right" />
+======================================================
 
 [![Build Status](https://travis-ci.org/tidyverse/tidyr.svg?branch=master)](https://travis-ci.org/tidyverse/tidyr) [![codecov.io](http://codecov.io/github/tidyverse/tidyr/coverage.svg?branch=master)](http://codecov.io/github/tidyverse/tidyr?branch=master) [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/tidyr)](https://cran.r-project.org/package=tidyr)
 

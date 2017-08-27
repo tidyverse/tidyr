@@ -52,10 +52,10 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="../reference/index.html">Reference</a>
+  <a href="../articles/tidy-data.html">Tidy data</a>
 </li>
 <li>
-  <a href="../articles/index.html">Articles</a>
+  <a href="../reference/index.html">Reference</a>
 </li>
 <li>
   <a href="../news/index.html">News</a>
@@ -77,117 +77,157 @@
       <div class="row">
   <div class="col-md-9">
     <div class="page-header">
-      <h1>Function reference</h1>
-      <h4>version&nbsp;0.6.0.9000</h4>
+      <h1>
+        Reference
+        <small>version&nbsp;0.6.2</small>
+      </h1>
     </div>
 
     <div class="contents">
-      <h2 id="section-all-functions" class="hasAnchor"><a href="#section-all-functions" class="anchor"></a>All functions</h2>
-      <p class="section-desc"></p>
+      <table class="ref-index">
 
-      
-      <p><a href="complete.html">Complete a data frame with missing combinations of data.</a></p>
-      <ul>
-        <li><code><a href="complete.html">complete</a></code></li>
-      </ul>
-      
-      <p><a href="drop_na.html">Drop rows containing missing values</a></p>
-      <ul>
-        <li><code><a href="drop_na.html">drop_na</a></code></li>
-      </ul>
-      
-      <p><a href="expand.html">Expand data frame to include all combinations of values</a></p>
-      <ul>
-        <li><code><a href="expand.html">crossing</a></code></li><li><code><a href="expand.html">crossing_</a></code></li><li><code><a href="expand.html">expand</a></code></li><li><code><a href="expand.html">nesting</a></code></li><li><code><a href="expand.html">nesting_</a></code></li>
-      </ul>
-      
-      <p><a href="extract_numeric.html">Extract numeric component of variable.</a></p>
-      <ul>
-        <li><code><a href="extract_numeric.html">extract_numeric</a></code></li>
-      </ul>
-      
-      <p><a href="extract.html">Extract one column into multiple columns.</a></p>
-      <ul>
-        <li><code><a href="extract.html">extract</a></code></li>
-      </ul>
-      
-      <p><a href="fill.html">Fill in missing values.</a></p>
-      <ul>
-        <li><code><a href="fill.html">fill</a></code></li>
-      </ul>
-      
-      <p><a href="full_seq.html">Create the full sequence of values in a vector.</a></p>
-      <ul>
-        <li><code><a href="full_seq.html">full_seq</a></code></li>
-      </ul>
-      
-      <p><a href="gather.html">Gather columns into key-value pairs.</a></p>
-      <ul>
-        <li><code><a href="gather.html">gather</a></code></li>
-      </ul>
-      
-      <p><a href="nest.html">Nest repeated values in a list-variable.</a></p>
-      <ul>
-        <li><code><a href="nest.html">nest</a></code></li>
-      </ul>
-      
-      <p><a href="replace_na.html">Replace missing values</a></p>
-      <ul>
-        <li><code><a href="replace_na.html">replace_na</a></code></li>
-      </ul>
-      
-      <p><a href="separate_rows_.html">Standard-evaluation version of </a></p>
-      <ul>
-        <li><code><a href="separate_rows_.html">separate_rows_</a></code></li>
-      </ul>
-      
-      <p><a href="separate_rows.html">Separate a collapsed column into multiple rows.</a></p>
-      <ul>
-        <li><code><a href="separate_rows.html">separate_rows</a></code></li>
-      </ul>
-      
-      <p><a href="separate.html">Separate one column into multiple columns.</a></p>
-      <ul>
-        <li><code><a href="separate.html">separate</a></code></li>
-      </ul>
-      
-      <p><a href="smiths.html">Some data about the Smith family.</a></p>
-      <ul>
-        <li><code><a href="smiths.html">smiths</a></code></li>
-      </ul>
-      
-      <p><a href="spread.html">Spread a key-value pair across multiple columns.</a></p>
-      <ul>
-        <li><code><a href="spread.html">spread</a></code></li>
-      </ul>
-      
-      <p><a href="table1.html">Example tabular representations</a></p>
-      <ul>
-        <li><code><a href="table1.html">table1</a></code></li><li><code><a href="table1.html">table2</a></code></li><li><code><a href="table1.html">table3</a></code></li><li><code><a href="table1.html">table4a</a></code></li><li><code><a href="table1.html">table4b</a></code></li><li><code><a href="table1.html">table5</a></code></li>
-      </ul>
-      
-      <p><a href="unite.html">Unite multiple columns into one.</a></p>
-      <ul>
-        <li><code><a href="unite.html">unite</a></code></li>
-      </ul>
-      
-      <p><a href="unnest.html">Unnest a list column.</a></p>
-      <ul>
-        <li><code><a href="unnest.html">unnest</a></code></li>
-      </ul>
-      
-      <p><a href="who.html">World Health Organization TB data</a></p>
-      <ul>
-        <li><code><a href="who.html">population</a></code></li><li><code><a href="who.html">who</a></code></li>
-      </ul>
-    
+      <colgroup>
+        <col class="alias" />
+        <col class="title" />
+      </colgroup>
+
+      <tbody>
+        <tr>
+          <th colspan="2">
+            <h2 id="section-tidying" class="hasAnchor"><a href="#section-tidying" class="anchor"></a>Tidying</h2>
+            <p class="section-desc"></p>
+          </th>
+        </tr>
+        <tr>
+          <!--  -->
+          <td>
+            <p><code><a href="extract.html">extract</a></code> </p>
+          </td>
+          <td><p>Extract one column into multiple columns.</p></td>
+        </tr><tr>
+          <!--  -->
+          <td>
+            <p><code><a href="gather.html">gather</a></code> </p>
+          </td>
+          <td><p>Gather columns into key-value pairs.</p></td>
+        </tr><tr>
+          <!--  -->
+          <td>
+            <p><code><a href="nest.html">nest</a></code> </p>
+          </td>
+          <td><p>Nest repeated values in a list-variable.</p></td>
+        </tr><tr>
+          <!--  -->
+          <td>
+            <p><code><a href="separate.html">separate</a></code> </p>
+          </td>
+          <td><p>Separate one column into multiple columns.</p></td>
+        </tr><tr>
+          <!--  -->
+          <td>
+            <p><code><a href="separate_rows.html">separate_rows</a></code> </p>
+          </td>
+          <td><p>Separate a collapsed column into multiple rows.</p></td>
+        </tr><tr>
+          <!--  -->
+          <td>
+            <p><code><a href="spread.html">spread</a></code> </p>
+          </td>
+          <td><p>Spread a key-value pair across multiple columns.</p></td>
+        </tr><tr>
+          <!--  -->
+          <td>
+            <p><code><a href="unite.html">unite</a></code> </p>
+          </td>
+          <td><p>Unite multiple columns into one.</p></td>
+        </tr><tr>
+          <!--  -->
+          <td>
+            <p><code><a href="unnest.html">unnest</a></code> </p>
+          </td>
+          <td><p>Unnest a list column.</p></td>
+        </tr>
+      </tbody><tbody>
+        <tr>
+          <th colspan="2">
+            <h2 id="section-implicit-and-explicit-missing-values" class="hasAnchor"><a href="#section-implicit-and-explicit-missing-values" class="anchor"></a>Implicit and explicit missing values</h2>
+            <p class="section-desc"></p>
+          </th>
+        </tr>
+        <tr>
+          <!--  -->
+          <td>
+            <p><code><a href="complete.html">complete</a></code> </p>
+          </td>
+          <td><p>Complete a data frame with missing combinations of data.</p></td>
+        </tr><tr>
+          <!--  -->
+          <td>
+            <p><code><a href="drop_na.html">drop_na</a></code> </p>
+          </td>
+          <td><p>Drop rows containing missing values</p></td>
+        </tr><tr>
+          <!--  -->
+          <td>
+            <p><code><a href="expand.html">expand</a></code> <code><a href="expand.html">crossing</a></code> <code><a href="expand.html">crossing_</a></code> <code><a href="expand.html">nesting</a></code> <code><a href="expand.html">nesting_</a></code> </p>
+          </td>
+          <td><p>Expand data frame to include all combinations of values</p></td>
+        </tr><tr>
+          <!--  -->
+          <td>
+            <p><code><a href="fill.html">fill</a></code> </p>
+          </td>
+          <td><p>Fill in missing values.</p></td>
+        </tr><tr>
+          <!--  -->
+          <td>
+            <p><code><a href="full_seq.html">full_seq</a></code> </p>
+          </td>
+          <td><p>Create the full sequence of values in a vector.</p></td>
+        </tr><tr>
+          <!--  -->
+          <td>
+            <p><code><a href="replace_na.html">replace_na</a></code> </p>
+          </td>
+          <td><p>Replace missing values</p></td>
+        </tr>
+      </tbody><tbody>
+        <tr>
+          <th colspan="2">
+            <h2 id="section-data" class="hasAnchor"><a href="#section-data" class="anchor"></a>Data</h2>
+            <p class="section-desc"></p>
+          </th>
+        </tr>
+        <tr>
+          <!--  -->
+          <td>
+            <p><code><a href="smiths.html">smiths</a></code> </p>
+          </td>
+          <td><p>Some data about the Smith family.</p></td>
+        </tr><tr>
+          <!--  -->
+          <td>
+            <p><code><a href="table1.html">table1</a></code> </p>
+          </td>
+          <td><p>Example tabular representations</p></td>
+        </tr><tr>
+          <!--  -->
+          <td>
+            <p><code><a href="who.html">who</a></code> </p>
+          </td>
+          <td><p>World Health Organization TB data</p></td>
+        </tr>
+      </tbody>
+      </table>
     </div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#section-all-functions">All functions</a></li>
+      <li><a href="#section-tidying">Tidying</a></li>
+      <li><a href="#section-implicit-and-explicit-missing-values">Implicit and explicit missing values</a></li>
+      <li><a href="#section-data">Data</a></li>
     </ul>
   </div>
 </div>

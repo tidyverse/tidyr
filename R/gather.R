@@ -1,22 +1,64 @@
 #' Gather columns into key-value pairs.
 #'
 #' Gather takes multiple columns and collapses into key-value pairs,
-#' duplicating all other columns as needed. You use \code{gather()} when
+#' duplicating all other columns as needed. You use `gather()` when
 #' you notice that you have columns that are not variables.
 #'
-#' @param data A data frame.
-#' @param key,value Names of key and value columns to create in output.
-#' @param ... Specification of columns to gather. Use bare variable names.
-#'   Select all variables between x and z with \code{x:z}, exclude y with
-#'   \code{-y}. For more options, see the \link[dplyr]{select} documentation.
+#' @section Rules for selection:
+#'
+#' Arguments for selecting columns are passed to
+#' [tidyselect::vars_select()] and are treated specially. Unlike other
+#' verbs, selecting functions make a strict distinction between data
+#' expressions and context expressions.
+#'
+#' * A data expression is either a bare name like `x` or an expression
+#'   like `x:y` or `c(x, y)`. In a data expression, you can only refer
+#'   to columns from the data frame.
+#'
+#' * Everything else is a context expression in which you can only
+#'   refer to objects that you have defined with `<-`.
+#'
+#' For instance, `col1:col3` is a data expression that refers to data
+#' columns, while `seq(start, end)` is a context expression that
+#' refers to objects from the contexts.
+#'
+#' If you really need to refer to contextual objects from a data
+#' expression, you can unquote them with the tidy eval operator
+#' `!!`. This operator evaluates its argument in the context and
+#' inlines the result in the surrounding function call. For instance,
+#' `c(x, !! x)` selects the `x` column within the data frame and the
+#' column referred to by the object `x` defined in the context (which
+#' can contain either a column name as string or a column position).
+#'
+#' @inheritParams expand
+#' @param key,value Names of new key and value columns, as strings or
+#'   symbols.
+#'
+#'   This argument is passed by expression and supports
+#'   [quasiquotation][rlang::quasiquotation] (you can unquote strings
+#'   and symbols). The name is captured from the expression with
+#'   [rlang::quo_name()] (note that this kind of interface where
+#'   symbols do not represent actual objects is now discouraged in the
+#'   tidyverse; we support it here for backward compatibility).
+#' @param ... A selection of columns. If empty, all variables are
+#'   selected. You can supply bare variable names, select all
+#'   variables between x and z with `x:z`, exclude y with `-y`. For
+#'   more options, see the [dplyr::select()] documentation. See also
+#'   the section on selection rules below.
+#' @param na.rm If `TRUE`, will remove rows from output where the
+#'   value column in `NA`.
+#' @param convert If `TRUE` will automatically run
+#'   [type.convert()] on the key column. This is useful if the column
+#'   names are actually numeric, integer, or logical.
+#' @param factor_key If `FALSE`, the default, the key values will be
+#'   stored as a character vector. If `TRUE`, will be stored as a factor,
+#'   which preserves the original ordering of the columns.
 #' @inheritParams gather_
-#' @seealso \code{\link{gather_}} for a version that uses regular evaluation
-#'   and is suitable for programming with.
 #' @export
 #' @examples
 #' library(dplyr)
 #' # From http://stackoverflow.com/questions/1181060
-#' stocks <- data_frame(
+#' stocks <- tibble(
 #'   time = as.Date('2009-01-01') + 0:9,
 #'   X = rnorm(10, 0, 1),
 #'   Y = rnorm(10, 0, 2),
@@ -41,60 +83,44 @@
 #'   group_by(Species) %>%
 #'   slice(1)
 #' mini_iris %>% gather(key = flower_att, value = measurement, -Species)
-gather <- function(data, key, value, ..., na.rm = FALSE, convert = FALSE,
-                   factor_key = FALSE) {
-  key_col <- col_name(substitute(key), "key")
-  value_col <- col_name(substitute(value), "value")
+gather <- function(data, key = "key", value = "value", ...,
+                   na.rm = FALSE, convert = FALSE, factor_key = FALSE) {
+  UseMethod("gather")
+}
+#' @export
+gather.default <- function(data, key = "key", value = "value", ...,
+                           na.rm = FALSE, convert = FALSE,
+                           factor_key = FALSE) {
+  gather_(data,
+    key_col = compat_as_lazy(enquo(key)),
+    value_col = compat_as_lazy(enquo(value)),
+    ...,
+    na.rm = na.rm,
+    convert = convert,
+    factor_key = factor_key
+  )
+}
+#' @export
+gather.data.frame <- function(data, key = "key", value = "value", ...,
+                              na.rm = FALSE, convert = FALSE,
+                              factor_key = FALSE) {
+  key_var <- quo_name(enexpr(key))
+  value_var <- quo_name(enexpr(value))
 
-  if (n_dots(...) == 0) {
-    gather_cols <- setdiff(colnames(data), c(key_col, value_col))
+  quos <- quos(...)
+  if (is_empty(quos)) {
+    gather_vars <- setdiff(names(data), c(key_var, value_var))
   } else {
-    gather_cols <- unname(dplyr::select_vars(colnames(data), ...))
+    gather_vars <- unname(tidyselect::vars_select(names(data), !!! quos))
   }
-
-  gather_(data, key_col, value_col, gather_cols, na.rm = na.rm,
-    convert = convert, factor_key = factor_key)
-}
-
-n_dots <- function(...) nargs()
-
-#' Gather (standard-evaluation).
-#'
-#' This is a S3 generic.
-#'
-#' @param data A data frame
-#' @param key_col,value_col Strings giving names of key and value columns to
-#'   create.
-#' @param gather_cols Character vector giving column names to be gathered into
-#'   pair of key-value columns.
-#' @param na.rm If \code{TRUE}, will remove rows from output where the
-#'   value column in \code{NA}.
-#' @param convert If \code{TRUE} will automatically run
-#'   \code{\link{type.convert}} on the key column. This is useful if the column
-#'   names are actually numeric, integer, or logical.
-#' @param factor_key If \code{FALSE}, the default, the key values will be
-#'   stored as a character vector. If \code{TRUE}, will be stored as a factor,
-#'   which preserves the original ordering of the columns.
-#' @keywords internal
-#' @export
-gather_ <- function(data, key_col, value_col, gather_cols, na.rm = FALSE,
-                     convert = FALSE, factor_key = FALSE) {
-  UseMethod("gather_")
-}
-
-#' @export
-gather_.data.frame <- function(data, key_col, value_col, gather_cols,
-                               na.rm = FALSE, convert = FALSE,
-                               factor_key = FALSE) {
-  ## Return if we're not doing any gathering
-  if (length(gather_cols) == 0) {
+  if (is_empty(gather_vars)) {
     return(data)
   }
 
-  gather_idx <- match(gather_cols, names(data))
+  gather_idx <- match(gather_vars, names(data))
   if (anyNA(gather_idx)) {
-    missing_cols <- paste(gather_cols[is.na(gather_idx)], collapse = ", ")
-    stop("Unknown column names: ", missing_cols, call. = FALSE)
+    missing_cols <- paste(gather_vars[is.na(gather_idx)], collapse = ", ")
+    abort(glue("Unknown column names: ", missing_cols))
   }
   id_idx <- setdiff(seq_along(data), gather_idx)
 
@@ -102,39 +128,27 @@ gather_.data.frame <- function(data, key_col, value_col, gather_cols,
   args <- normalize_melt_arguments(data, gather_idx, factorsAsStrings = TRUE)
   valueAsFactor <- "factor" %in% class(args$attr_template)
 
-  df <- melt_dataframe(data,
+  out <- melt_dataframe(data,
     id_idx - 1L,
     gather_idx - 1L,
-    as.character(key_col),
-    as.character(value_col),
+    as.character(key_var),
+    as.character(value_var),
     args$attr_template,
     args$factorsAsStrings,
     as.logical(valueAsFactor),
     as.logical(factor_key)
   )
 
-  if (na.rm && anyNA(df)) {
-    missing <- is.na(df[[value_col]])
-    df <- df[!missing, ]
+  if (na.rm && anyNA(out)) {
+    missing <- is.na(out[[value_var]])
+    out <- out[!missing, ]
   }
 
   if (convert) {
-    df[[key_col]] <- type.convert(as.character(df[[key_col]]), as.is = TRUE)
+    out[[key_var]] <- type.convert(as.character(out[[key_var]]), as.is = TRUE)
   }
 
-  df
-}
-
-#' @export
-gather_.tbl_df <- function(data, key_col, value_col, gather_cols,
-                           na.rm = FALSE, convert = FALSE, factor_key = FALSE) {
-  as_data_frame(NextMethod())
-}
-
-#' @export
-gather_.grouped_df <- function(data, key_col, value_col, gather_cols,
-                               na.rm = FALSE, convert = FALSE, factor_key = FALSE) {
-  regroup(NextMethod(), data, gather_cols)
+  reconstruct_tibble(data, out, gather_vars)
 }
 
 # Functions from reshape2 -------------------------------------------------
@@ -142,7 +156,7 @@ gather_.grouped_df <- function(data, key_col, value_col, gather_cols,
 ## Get the attributes if common, NULL if not.
 normalize_melt_arguments <- function(data, measure.ind, factorsAsStrings) {
 
-  measure.attributes <- lapply(measure.ind, function(i) {
+  measure.attributes <- map(measure.ind, function(i) {
     attributes(data[[i]])
   })
 
@@ -152,22 +166,20 @@ normalize_melt_arguments <- function(data, measure.ind, factorsAsStrings) {
   if (measure.attrs.equal) {
     attr_template <- data[[measure.ind[1]]]
   } else {
-    warning("attributes are not identical across measure variables; ",
-      "they will be dropped", call. = FALSE)
+    warn(glue(
+      "attributes are not identical across measure variables;
+       they will be dropped"))
     attr_template <- NULL
   }
 
   if (!factorsAsStrings && !measure.attrs.equal) {
-    warning("cannot avoid coercion of factors when measure attributes not identical",
-      call. = FALSE)
+    warn("cannot avoid coercion of factors when measure attributes not identical")
     factorsAsStrings <- TRUE
   }
 
   ## If we are going to be coercing any factors to strings, we don't want to
   ## copy the attributes
-  any.factors <- any( sapply( measure.ind, function(i) {
-    is.factor(data[[i]])
-  }))
+  any.factors <- any(map_lgl(measure.ind, function(i) is.factor(data[[i]])))
 
   if (factorsAsStrings && any.factors) {
     attr_template <- NULL
@@ -185,4 +197,35 @@ all_identical <- function(xs) {
     if (!identical(xs[[1]], xs[[i]])) return(FALSE)
   }
   TRUE
+}
+
+
+#' @rdname deprecated-se
+#' @inheritParams gather
+#' @param key_col,value_col Strings giving names of key and value columns to
+#'   create.
+#' @param gather_cols Character vector giving column names to be gathered into
+#'   pair of key-value columns.
+#' @keywords internal
+#' @export
+gather_ <- function(data, key_col, value_col, gather_cols, na.rm = FALSE,
+                    convert = FALSE, factor_key = FALSE) {
+  UseMethod("gather_")
+}
+#' @export
+gather_.data.frame <- function(data, key_col, value_col, gather_cols,
+                               na.rm = FALSE, convert = FALSE,
+                               factor_key = FALSE) {
+  key_col <- compat_lazy(key_col, caller_env())
+  value_col <- compat_lazy(value_col, caller_env())
+  gather_cols <- syms(gather_cols)
+
+  gather(data,
+    key = !! key_col,
+    value = !! value_col,
+    !!! gather_cols,
+    na.rm = na.rm,
+    convert = convert,
+    factor_key = factor_key
+  )
 }
