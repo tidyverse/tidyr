@@ -1,3 +1,4 @@
+- expand, crossing, and complete now complete empty factors instead of dropping them (#270, #285)
 
 # tidyr 0.7.1
 
