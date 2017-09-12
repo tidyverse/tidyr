@@ -1,6 +1,10 @@
 
 # tidyr 0.7.1.9000
 
+* The SE variants `gather_()`, `spread_()` and `nest_()` now
+  treat non-syntactic names in the same way as pre tidy eval versions
+  of tidyr (#361).
+
 
 # tidyr 0.7.1
 

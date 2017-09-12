@@ -216,8 +216,8 @@ gather_ <- function(data, key_col, value_col, gather_cols, na.rm = FALSE,
 gather_.data.frame <- function(data, key_col, value_col, gather_cols,
                                na.rm = FALSE, convert = FALSE,
                                factor_key = FALSE) {
-  key_col <- compat_lazy(key_col, caller_env())
-  value_col <- compat_lazy(value_col, caller_env())
+  key_col <- sym(key_col)
+  value_col <- sym(value_col)
   gather_cols <- syms(gather_cols)
 
   gather(data,

@@ -81,7 +81,7 @@ nest_ <- function(data, key_col, nest_cols = character()) {
 }
 #' @export
 nest_.data.frame <- function(data, key_col, nest_cols = character()) {
-  key_col <- compat_lazy(key_col, caller_env())
-  nest_cols <- compat_lazy_dots(nest_cols, caller_env())
+  key_col <- sym(key_col)
+  nest_cols <- syms(nest_cols)
   nest(data, .key = !! key_col, !!! nest_cols)
 }
