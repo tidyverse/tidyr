@@ -122,7 +122,6 @@ test_that("gather preserves OBJECT bit on e.g. POSIXct", {
 test_that("can handle list-columns", {
   df <- tibble(x = 1:2, y = list("a", TRUE))
   out <- gather(df, k, v, -y)
-
   expect_identical(out$y, df$y)
 })
 

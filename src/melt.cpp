@@ -33,6 +33,15 @@ SEXP rep_(SEXP x, int n, std::string var_name) {
     case REALSXP:
       DO_REP(REALSXP, double, REAL);
       break;
+    case LGLSXP:
+      DO_REP(LGLSXP, int, LOGICAL);
+      break;
+    case CPLXSXP:
+      DO_REP(CPLXSXP, Rcomplex, COMPLEX);
+      break;
+    case RAWSXP:
+      DO_REP(RAWSXP, Rbyte, RAW);
+      break;
     case STRSXP: {
       int counter = 0;
       for (int i = 0; i < n; ++i) {
@@ -43,18 +52,16 @@ SEXP rep_(SEXP x, int n, std::string var_name) {
       }
       break;
     }
-    case LGLSXP:
-      DO_REP(LGLSXP, int, LOGICAL);
+    case VECSXP: {
+      int counter = 0;
+      for (int i = 0; i < n; ++i) {
+        for (int j = 0; j < xn; ++j) {
+          SET_VECTOR_ELT(output, counter, VECTOR_ELT(x, j));
+          ++counter;
+        }
+      }
       break;
-    case CPLXSXP:
-      DO_REP(CPLXSXP, Rcomplex, COMPLEX);
-      break;
-    case RAWSXP:
-      DO_REP(RAWSXP, Rbyte, RAW);
-      break;
-    case VECSXP:
-      DO_REP(VECSXP, SEXP, STRING_PTR);
-      break;
+    }
     default: {
       stop("Unhandled RTYPE in '%s'", var_name);
       return R_NilValue;
