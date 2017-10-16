@@ -1,5 +1,6 @@
-This is a hotfix release to fix tests in prevision of an upcoming
-tidyselect update.
+## Release summary
+
+This includes two small bug fixes; one which resolves the failures on R-devel.
 
 ## Test environments
 
@@ -7,13 +8,35 @@ tidyselect update.
 * ubuntu 12.04 (on travis-ci), R 3.4.1
 * win-builder (devel and release)
 
-
 ## R CMD check results
 
 0 errors | 0 warnings | 0 notes
 
+## revdepcheck results
 
-## Reverse dependencies
+We checked 311 reverse dependencies (285 from CRAN + 26 from BioConductor), comparing R CMD check results across CRAN and dev versions of this package.
 
-I have not run the reverse dependencies since this release is
-identical to the previous one except for a couple of unit tests.
+ * We saw 1 new problems
+ * We failed to check 9 packages
+
+Issues with CRAN packages are summarised below.
+
+### New problems
+(This reports the first line of each new failure)
+
+* REDCapR
+  checking tests ...
+  
+  This doesn't appear to be related to tidyr changes
+
+### Failed to check
+
+* anomalyDetection (failed to install)
+* diceR            (failed to install)
+* hansard          (check timed out)
+* HTSSIP           (check timed out)
+* pmc              (check timed out)
+* pointblank       (failed to install)
+* qdap             (failed to install)
+* rtable           (failed to install)
+* wand             (failed to install)

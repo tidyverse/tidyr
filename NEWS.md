@@ -1,10 +1,10 @@
-
-# tidyr 0.7.1.9000
+# tidyr 0.7.2
 
 * The SE variants `gather_()`, `spread_()` and `nest_()` now
   treat non-syntactic names in the same way as pre tidy eval versions
   of tidyr (#361).
-
+  
+* Fix tidyr bug revealed by R-devel.
 
 # tidyr 0.7.1
 
@@ -24,7 +24,6 @@ context only and cannot refer to registered variables. If you're
 writing functions and refer to contextual objects, it is still a good
 idea to avoid data expressions by following the advice of the 0.7.0
 release notes.
-
 
 # tidyr 0.7.0
 
