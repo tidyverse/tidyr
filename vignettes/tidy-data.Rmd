@@ -279,13 +279,13 @@ It's also common to find data values about a single type of observational unit s
 
 3.  Combine all tables into a single table.
 
-Plyr makes this straightforward in R. The following code generates a vector of file names in a directory (`data/`) which match a regular expression (ends in `.csv`). Next we name each element of the vector with the name of the file. We do this because will preserve the names in the following step, ensuring that each row in the final data frame is labeled with its source. Finally, `ldply()` loops over each path, reading in the csv file and combining the results into a single data frame.
+Purrr makes this straightforward in R. The following code generates a vector of file names in a directory (`data/`) which match a regular expression (ends in `.csv`). Next we name each element of the vector with the name of the file. We do this because will preserve the names in the following step, ensuring that each row in the final data frame is labeled with its source. Finally, `map_dfr()` loops over each path, reading in the csv file and combining the results into a single data frame.
 
 ```{r, eval = FALSE}
-library(plyr)
+library(purrr)
 paths <- dir("data", pattern = "\\.csv$", full.names = TRUE)
 names(paths) <- basename(paths)
-ldply(paths, read.csv, stringsAsFactors = FALSE)
+map_dfr(paths, read.csv, stringsAsFactors = FALSE, .id = "filename")
 ```
 
 Once you have a single table, you can perform additional tidying as needed. An example of this type of cleaning can be found at <https://github.com/hadley/data-baby-names> which takes 129 yearly baby name tables provided by the US Social Security Administration and combines them into a single file.
