@@ -28,7 +28,7 @@ drop_na.data.frame <- function(data, ...) {
   } else {
     f <- stats::complete.cases(data[vars])
   }
-  out <- data[f, ]
+  out <- data[f, , drop = FALSE]
 
   reconstruct_tibble(data, out)
 }
