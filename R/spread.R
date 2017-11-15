@@ -145,7 +145,7 @@ split_labels <- function(df, id, drop = TRUE) {
 
   if (drop) {
     representative <- match(sort(unique(id)), id)
-    df[representative, , drop = FALSE]
+    dplyr::slice(df, representative)
   } else {
     unique_values <- map(df, ulevels)
     rev(expand.grid(rev(unique_values), stringsAsFactors = FALSE))
