@@ -1,5 +1,7 @@
 # tidyr 0.7.2.9000
 
+* `drop_na()` no longer drops columns (@jennybryan, #245)
+
 # tidyr 0.7.2
 
 * The SE variants `gather_()`, `spread_()` and `nest_()` now
