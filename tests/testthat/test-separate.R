@@ -116,3 +116,13 @@ test_that("convert produces integers etc", {
   expect_equal(class(out$y), "logical")
   expect_equal(class(out$z), "character")
 })
+
+test_that("leaves list columns intact (#300)", {
+  df <- tibble(x = "1,2,3", y = list(1))
+
+  out <- separate_rows(df, x)
+  # Can't compare tibbles with list columns directly
+  expect_equal(names(out), c("x", "y"))
+  expect_equal(out$x, as.character(1:3))
+  expect_equal(out$y, rep(list(1), 3))
+})
