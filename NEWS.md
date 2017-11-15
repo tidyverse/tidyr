@@ -2,6 +2,8 @@
 
 * `drop_na()` no longer drops columns (@jennybryan, #245)
 
+* Fixed that `spread()` fails when the `key` column includes `NA` and `drop` is `FALSE` (#254).
+
 # tidyr 0.7.2
 
 * The SE variants `gather_()`, `spread_()` and `nest_()` now
@@ -173,8 +175,6 @@ following changes:
   verbs (where both the data and the context are in scope) they make
   sense for selecting functions and should provide more robust and
   helpful semantics.
-
-* Fixed that `spread()` fails when the `key` column includes `NA` and `drop` is `FALSE` (#254).
 
 # tidyr 0.6.3
 
