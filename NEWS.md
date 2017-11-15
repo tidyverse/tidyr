@@ -1,5 +1,13 @@
 # tidyr 0.7.2.9000
 
+* `nest()` is now faster, especially when a long data frame is collapsed into a nested data frame with few rows.
+
+* `nest()` on a zero-row data frame works as expected (#320).
+
+* `separate_rows()` supports list columns (#321).
+
+* Tibbles returned by `spread()` no longer have row names (#322).
+
 * `drop_na()` no longer drops columns (@jennybryan, #245)
 
 * Fixed that `spread()` fails when the `key` column includes `NA` and `drop` is `FALSE` (#254).
