@@ -31,7 +31,7 @@ writing functions and refer to contextual objects, it is still a good
 idea to avoid data expressions by following the advice of the 0.7.0
 release notes.
 
-# tidyr 0.7.0
+# tidyr 0.7.0 
 
 This release includes important changes to tidyr internals. Tidyr now
 supports the new tidy evaluation framework for quoting (NSE)
