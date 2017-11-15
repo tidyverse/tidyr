@@ -9,8 +9,8 @@ Authors@R: c(
 Description: An evolution of 'reshape2'. It's designed specifically for data
     tidying (not general reshaping or aggregating) and works well with
     'dplyr' data pipelines.
-Depends:
-    R (>= 3.1.0)
+Depends: 
+    R (>= 3.1)
 License: MIT + file LICENSE
 LazyData: true
 Imports:
