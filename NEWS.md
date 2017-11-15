@@ -174,6 +174,7 @@ following changes:
   sense for selecting functions and should provide more robust and
   helpful semantics.
 
+* Fixed that `spread()` fails when the `key` column includes `NA` and `drop` is `FALSE` (#254).
 
 # tidyr 0.6.3
 

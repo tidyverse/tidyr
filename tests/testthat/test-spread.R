@@ -69,6 +69,19 @@ test_that("drop = FALSE keeps missing combinations of 0-length factors (#56)", {
   expect_equal(out$b, c(NA, NA))
 })
 
+test_that("drop = FALSE spread all levels including NA (#254)", {
+  l <- c("a", "b", "c", "d")
+  df <- data.frame(
+    x = factor(c("a", "b", "c", NA), levels = l),
+    y = c("a", "b", "c", "d"),
+    z = c("a", "b", "a", "b"))
+  out <- df %>% spread(x, y, drop = FALSE)
+  expect_equal(nrow(out), 2)
+  expect_equal(ncol(out), 6)
+  expect_equal(out$d, factor(c(NA, NA), levels = l))
+  expect_equal(out[["<NA>"]], factor(c(NA, "d"), levels = l))
+})
+
 test_that("preserve class of input", {
   dat <- data.frame(
     x = c("a", "a", "b", "b"),
