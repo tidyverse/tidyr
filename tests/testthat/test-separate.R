@@ -78,6 +78,12 @@ test_that("can handle collapsed rows", {
   expect_equal(separate_rows(df, y)$y, unlist(strsplit(df$y, "\\,")))
 })
 
+test_that("can handle empty data frames (#308)", {
+  df <- tibble(a = character(), b = character())
+  skip("Currently failing")
+  expect_equal(separate_rows(df, b), df)
+})
+
 test_that("default pattern does not split decimals in nested strings", {
   df <- dplyr::tibble(x = 1:3, y = c("1", "1.0,1.1", "2.1"))
   expect_equal(separate_rows(df, y)$y, unlist(strsplit(df$y, ",")))
