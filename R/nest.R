@@ -61,9 +61,12 @@ nest.data.frame <- function(data, ..., .key = "data") {
   }
 
   out <- dplyr::select(data, !!! syms(group_vars))
-  out <- dplyr::distinct(out)
 
   idx <- dplyr::group_indices(data, !!! syms(group_vars))
+  representatives <- which(!duplicated(idx))
+
+  out <- dplyr::slice(out, representatives)
+
   out[[key_var]] <- unname(split(data[nest_vars], idx))[unique(idx)]
 
   out
