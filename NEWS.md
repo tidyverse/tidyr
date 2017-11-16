@@ -1,5 +1,7 @@
 # tidyr 0.7.2.9000
 
+* `unite()` now works (as documented) if you don't supply any variables (#355).
+
 * `unnest(df)` now works if `df` contains no list-cols (#344)
 
 * `extract()` has a better error message if `regex` does not contain the
