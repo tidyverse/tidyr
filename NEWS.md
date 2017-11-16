@@ -1,5 +1,8 @@
 # tidyr 0.7.2.9000
 
+* `replace_na()` no longer complains if you try and replace missing values in
+  variables not present in the data (#356).
+
 * `crossing()` preserves `NA`s (#364).
 
 * `unite()` now works (as documented) if you don't supply any variables (#355).
