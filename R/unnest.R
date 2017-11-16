@@ -82,6 +82,10 @@ unnest.data.frame <- function(data, ..., .drop = NA, .id = NULL,
     quos <- syms(list_cols)
   }
 
+  if (length(quos) == 0) {
+    return(data)
+  }
+
   nested <- dplyr::transmute(dplyr::ungroup(data), !!! quos)
   n <- map(nested, function(x) map_int(x, NROW))
   if (length(unique(n)) != 1) {

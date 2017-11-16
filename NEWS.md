@@ -1,5 +1,7 @@
 # tidyr 0.7.2.9000
 
+* `unnest(df)` now works if `df` contains no list-cols (#344)
+
 * `extract()` has a better error message if `regex` does not contain the
   expected number of groups (#313.
 

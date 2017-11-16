@@ -107,6 +107,10 @@ test_that("can unnest empty data frame", {
   expect_equal(out, data_frame(x = integer()))
 })
 
+test_that("empty ... returns df if no list-cols", {
+  df <- data_frame(x = integer(), y = integer())
+  expect_equal(unnest(df), df)
+})
 
 # Drop --------------------------------------------------------------------
 
