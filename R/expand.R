@@ -150,7 +150,7 @@ cross_df <- function(x, y) {
   y_idx <- rep(seq_len(nrow(y)), nrow(x))
   dplyr::bind_cols(x[x_idx, , drop = FALSE], y[y_idx, , drop = FALSE])
 }
-drop_empty <- function(x, factor=TRUE) {
+drop_empty <- function(x, factor = TRUE) {
   empty <- map_lgl(x, function(x) length(x) == 0 & (!factor | !is.factor(x)))
   x[!empty]
 }
@@ -161,7 +161,7 @@ nesting <- function(...) {
   x <- tibble::lst(...)
 
   stopifnot(is_list(x))
-  x <- drop_empty(x, factor=FALSE)
+  x <- drop_empty(x, factor = FALSE)
 
   df <- as_tibble(x)
   df <- dplyr::distinct(df)
