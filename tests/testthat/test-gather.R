@@ -68,6 +68,18 @@ test_that("group_vars are kept where possible", {
   expect_equal(dplyr::groups(out), list(quote(x)))
 })
 
+test_that("overwrites existing vars", {
+  df <- data.frame(
+    X = 1,
+    Y = 1,
+    Z = 2
+  )
+
+  rs <- gather(df, key = "name", value = "Y")
+  expect_named(rs, c("name", "Y"))
+  expect_equal(rs$Y, c(1, 2))
+})
+
 # Column types ------------------------------------------------------------
 
 test_that("gather throws error for POSIXlt", {
