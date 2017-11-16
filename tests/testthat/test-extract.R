@@ -32,3 +32,9 @@ test_that("groups are preserved", {
   expect_equal(class(df), class(rs))
   expect_equal(dplyr::groups(df), dplyr::groups(rs))
 })
+
+test_that("informative error message if wrong number of groups", {
+  df <- tibble(x = "a")
+  expect_error(extract(df, x, "y", "."), "should define 1 groups")
+  expect_error(extract(df, x, c("y", "z"), "."), "should define 2 groups")
+})

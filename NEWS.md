@@ -1,5 +1,8 @@
 # tidyr 0.7.2.9000
 
+* `extract()` has a better error message if `regex` does not contain the
+  expected number of groups (#313.
+
 * `nest()` is now faster, especially when a long data frame is collapsed into a nested data frame with few rows.
 
 * `nest()` on a zero-row data frame works as expected (#320).
