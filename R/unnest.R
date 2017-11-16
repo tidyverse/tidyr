@@ -82,6 +82,10 @@ unnest.data.frame <- function(data, ..., .drop = NA, .id = NULL,
     quos <- syms(list_cols)
   }
 
+  if (length(quos) == 0) {
+    return(data)
+  }
+
   nested <- dplyr::transmute(dplyr::ungroup(data), !!! quos)
   n <- map(nested, function(x) map_int(x, NROW))
   if (length(unique(n)) != 1) {
@@ -131,7 +135,7 @@ unnest.data.frame <- function(data, ..., .drop = NA, .id = NULL,
   }
   group_vars <- setdiff(group_vars, names(nested))
 
-  rest <- data[rep(1:nrow(data), n[[1]]), group_vars, drop = FALSE]
+  rest <- data[rep(seq_len(nrow(data)), n[[1]]), group_vars, drop = FALSE]
   out <- dplyr::bind_cols(rest, unnested_atomic, unnested_dataframe)
   reconstruct_tibble(data, out)
 }

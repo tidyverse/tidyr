@@ -28,3 +28,8 @@ test_that("drops grouping when needed", {
   expect_equal(rs$gx, "1_a")
   expect_equal(dplyr::groups(rs), NULL)
 })
+
+test_that("empty var spec uses all vars", {
+  df <- tibble(x = "a", y = "b")
+  expect_equal(unite(df, "z"), tibble(z = "a_b"))
+})

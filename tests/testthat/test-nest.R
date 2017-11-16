@@ -36,3 +36,16 @@ test_that("nesting everything yields a simple data frame", {
   out <- nest(df, x, y)
   expect_equal(out$data, list(df))
 })
+
+test_that("nesting works for empty data frames", {
+  df <- tibble(x = 1:3, y = c("B", "A", "A"))[0, ]
+
+  out <- nest(df, x)
+  expect_equal(names(out), c("y", "data"))
+  expect_equal(nrow(out), 0)
+  expect_equal(out$data, list())
+  # unnest(out) is missing the x column
+
+  out <- nest(df, x, y)
+  expect_equal(out$data, list(df))
+})

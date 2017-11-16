@@ -16,7 +16,9 @@ replace_na <- function(data, replace = list(), ...) {
 replace_na.data.frame <- function(data, replace = list(), ...) {
   stopifnot(is_list(replace))
 
-  for (var in names(replace)) {
+  replace_vars <- intersect(names(replace), names(data))
+
+  for (var in replace_vars) {
     data[[var]][are_na(data[[var]])] <- replace[[var]]
   }
 

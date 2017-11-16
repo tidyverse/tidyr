@@ -1,4 +1,38 @@
-- expand, crossing, and complete now complete empty factors instead of dropping them (#270, #285)
+# tidyr 0.7.2.9000
+
+* `replace_na()` no longer complains if you try and replace missing values in
+  variables not present in the data (#356).
+
+* `crossing()` preserves `NA`s (#364).
+
+* `unite()` now works (as documented) if you don't supply any variables (#355).
+
+* `unnest(df)` now works if `df` contains no list-cols (#344)
+
+* `extract()` has a better error message if `regex` does not contain the
+  expected number of groups (#313.
+
+* `nest()` is now faster, especially when a long data frame is collapsed into a nested data frame with few rows.
+
+* `nest()` on a zero-row data frame works as expected (#320).
+
+* `separate_rows()` supports list columns (#321).
+
+* Tibbles returned by `spread()` no longer have row names (#322).
+
+* `drop_na()` no longer drops columns (@jennybryan, #245)
+
+* Fixed that `spread()` fails when the `key` column includes `NA` and `drop` is `FALSE` (#254).
+
+* expand, crossing, and complete now complete empty factors instead of dropping them (#270, #285)
+
+# tidyr 0.7.2
+
+* The SE variants `gather_()`, `spread_()` and `nest_()` now
+  treat non-syntactic names in the same way as pre tidy eval versions
+  of tidyr (#361).
+  
+* Fix tidyr bug revealed by R-devel.
 
 # tidyr 0.7.1
 
@@ -18,7 +52,6 @@ context only and cannot refer to registered variables. If you're
 writing functions and refer to contextual objects, it is still a good
 idea to avoid data expressions by following the advice of the 0.7.0
 release notes.
-
 
 # tidyr 0.7.0
 
@@ -164,7 +197,6 @@ following changes:
   verbs (where both the data and the context are in scope) they make
   sense for selecting functions and should provide more robust and
   helpful semantics.
-
 
 # tidyr 0.6.3
 

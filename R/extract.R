@@ -13,6 +13,7 @@
 #'   names or column positions).
 #' @param into Names of new variables to create as character vector.
 #' @param regex a regular expression used to extract the desired values.
+#'   The should be one group (defined by `()`) for each element of `into`.
 #' @param remove If `TRUE`, remove input column from output data frame.
 #' @param convert If `TRUE`, will run [type.convert()] with
 #'   `as.is = TRUE` on new columns. This is useful if the component
@@ -56,6 +57,13 @@ extract.data.frame <- function(data, col, into, regex = "([[:alnum:]]+)",
   # Extract matching groups
   value <- as.character(data[[var]])
   matches <- stringi::stri_match_first_regex(value, regex)[, -1, drop = FALSE]
+
+  if (ncol(matches) != length(into)) {
+    stop(
+      "`regex` should define ", length(into), " groups; ", ncol(matches), " found.",
+      call. = FALSE
+    )
+  }
 
   # Use as_tibble post https://github.com/hadley/dplyr/issues/876
   l <- map(seq_len(ncol(matches)), function(i) matches[, i])

@@ -66,11 +66,23 @@ test_that("gather_() works with non-syntactic names", {
     gather(df, key, val, `non-syntactic`),
     gather_(df, "key", "val", "non-syntactic")
   )
+  expect_identical(
+    gather(df, `key space`, `val space`, `non-syntactic`),
+    gather_(df, "key space", "val space", "non-syntactic")
+  )
 })
 
 test_that("nest_()", {
   df <- tibble(x = c(1, 1, 1), y = 1:3)
   expect_identical(nest_(df, "y", "y"), nest(df, y, .key = y))
+})
+
+test_that("nest_() works with non-syntactic names", {
+  df <- tibble(`x` = c(1, 1, 1), `non-syntactic` = 1:3)
+  expect_identical(
+    nest_(df, "non-syntactic", "non-syntactic"),
+    nest(df, `non-syntactic`, .key = `non-syntactic`)
+  )
 })
 
 test_that("separate_()", {
@@ -94,9 +106,17 @@ test_that("separate_rows() works with non-syntactic names", {
 test_that("spread_()", {
   df1 <- data.frame(x = c("a", "b"), y = 1:2)
   df2 <- data.frame(x = c("b", "a"), y = 2:1)
-  one <- spread_(df1, "x", ~y)
-  two <- spread_(df2, "x", ~y) %>% select(a, b) %>% arrange(a, b)
+  one <- spread_(df1, "x", "y")
+  two <- spread_(df2, "x", "y") %>% select(a, b) %>% arrange(a, b)
   expect_identical(one, two)
+})
+
+test_that("spread_() works with non-syntactic names", {
+  df <- tibble(`non-syntactic` = c("a", "b"), `non syntactic` = 1:2)
+  expect_identical(
+    spread(df, `non-syntactic`, `non syntactic`),
+    spread_(df, "non-syntactic", "non syntactic")
+  )
 })
 
 test_that("unite_()", {

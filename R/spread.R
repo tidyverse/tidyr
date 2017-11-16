@@ -145,7 +145,7 @@ split_labels <- function(df, id, drop = TRUE) {
 
   if (drop) {
     representative <- match(sort(unique(id)), id)
-    df[representative, , drop = FALSE]
+    dplyr::slice(df, representative)
   } else {
     unique_values <- map(df, ulevels)
     rev(expand.grid(rev(unique_values), stringsAsFactors = FALSE))
@@ -157,7 +157,7 @@ ulevels <- function(x) {
     levs <- levels(x)
     factor(levs, levels = levs, ordered = is.ordered(x))
   } else {
-    sort(unique(x))
+    sort(unique(x), na.last = TRUE)
   }
 }
 
@@ -173,8 +173,8 @@ spread_ <- function(data, key_col, value_col, fill = NA, convert = FALSE,
 #' @export
 spread_.data.frame <- function(data, key_col, value_col, fill = NA,
                                convert = FALSE, drop = TRUE, sep = NULL) {
-  key_col <- compat_lazy(key_col, caller_env())
-  value_col <- compat_lazy(value_col, caller_env())
+  key_col <- sym(key_col)
+  value_col <- sym(value_col)
 
   spread(data,
     key = !! key_col,

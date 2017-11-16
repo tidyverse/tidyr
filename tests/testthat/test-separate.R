@@ -78,6 +78,12 @@ test_that("can handle collapsed rows", {
   expect_equal(separate_rows(df, y)$y, unlist(strsplit(df$y, "\\,")))
 })
 
+test_that("can handle empty data frames (#308)", {
+  df <- tibble(a = character(), b = character())
+  skip("Currently failing")
+  expect_equal(separate_rows(df, b), df)
+})
+
 test_that("default pattern does not split decimals in nested strings", {
   df <- dplyr::tibble(x = 1:3, y = c("1", "1.0,1.1", "2.1"))
   expect_equal(separate_rows(df, y)$y, unlist(strsplit(df$y, ",")))
@@ -109,4 +115,14 @@ test_that("convert produces integers etc", {
   expect_equal(class(out$x), "integer")
   expect_equal(class(out$y), "logical")
   expect_equal(class(out$z), "character")
+})
+
+test_that("leaves list columns intact (#300)", {
+  df <- tibble(x = "1,2,3", y = list(1))
+
+  out <- separate_rows(df, x)
+  # Can't compare tibbles with list columns directly
+  expect_equal(names(out), c("x", "y"))
+  expect_equal(out$x, as.character(1:3))
+  expect_equal(out$y, rep(list(1), 3))
 })

@@ -1,6 +1,6 @@
 Package: tidyr
 Title: Easily Tidy Data with 'spread()' and 'gather()' Functions
-Version: 0.7.1
+Version: 0.7.2
 Authors@R: c(
     person("Hadley", "Wickham", , "hadley@rstudio.com", c("aut", "cre")),
     person("Lionel", "Henry", , "lionel@rstudio.com", "aut"),
@@ -9,30 +9,32 @@ Authors@R: c(
 Description: An evolution of 'reshape2'. It's designed specifically for data
     tidying (not general reshaping or aggregating) and works well with
     'dplyr' data pipelines.
-Depends:
-    R (>= 3.1.0)
 License: MIT + file LICENSE
-LazyData: true
-Imports:
+URL: http://tidyr.tidyverse.org,
+    https://github.com/tidyverse/tidyr
+BugReports: https://github.com/tidyverse/tidyr/issues
+Depends: 
+    R (>= 3.1)
+Imports: 
     dplyr (>= 0.7.0),
     glue,
     magrittr,
     purrr,
-    rlang,
     Rcpp,
+    rlang,
     stringi,
     tibble,
     tidyselect
-URL: http://tidyr.tidyverse.org,
-    https://github.com/tidyverse/tidyr
-BugReports: https://github.com/tidyverse/tidyr/issues
-Suggests:
-    knitr,
-    testthat,
+Suggests: 
     covr,
     gapminder,
-    rmarkdown
+    knitr,
+    rmarkdown,
+    testthat
+LinkingTo: 
+    Rcpp
 VignetteBuilder: knitr
-LinkingTo: Rcpp
-RoxygenNote: 6.0.1
+LazyData: true
 Roxygen: list(markdown = TRUE)
+RoxygenNote: 6.0.1
+Verison: 0.7.2.9000

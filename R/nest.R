@@ -61,9 +61,12 @@ nest.data.frame <- function(data, ..., .key = "data") {
   }
 
   out <- dplyr::select(data, !!! syms(group_vars))
-  out <- dplyr::distinct(out)
 
   idx <- dplyr::group_indices(data, !!! syms(group_vars))
+  representatives <- which(!duplicated(idx))
+
+  out <- dplyr::slice(out, representatives)
+
   out[[key_var]] <- unname(split(data[nest_vars], idx))[unique(idx)]
 
   out
@@ -81,7 +84,7 @@ nest_ <- function(data, key_col, nest_cols = character()) {
 }
 #' @export
 nest_.data.frame <- function(data, key_col, nest_cols = character()) {
-  key_col <- compat_lazy(key_col, caller_env())
-  nest_cols <- compat_lazy_dots(nest_cols, caller_env())
+  key_col <- sym(key_col)
+  nest_cols <- syms(nest_cols)
   nest(data, .key = !! key_col, !!! nest_cols)
 }
