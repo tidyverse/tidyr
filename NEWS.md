@@ -1,5 +1,8 @@
 # tidyr 0.7.2.9000
 
+* `separate()` gets improved warning message when pieces aren't as expected
+  (#375).
+
 * `replace_na()` no longer complains if you try and replace missing values in
   variables not present in the data (#356).
 
@@ -10,7 +13,7 @@
 * `unnest(df)` now works if `df` contains no list-cols (#344)
 
 * `extract()` has a better error message if `regex` does not contain the
-  expected number of groups (#313.
+  expected number of groups (#313).
 
 * `nest()` is now faster, especially when a long data frame is collapsed into a nested data frame with few rows.
 

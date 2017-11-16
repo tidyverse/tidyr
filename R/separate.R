@@ -139,13 +139,13 @@ str_split_fixed <- function(value, sep, n, extra = "warn", fill = "warn") {
   n_big <- length(simp$too_big)
   if (extra == "warn" && n_big > 0) {
     idx <- list_indices(simp$too_big)
-    warn(glue("Too many values at {n_big} locations: {idx}"))
+    warn(glue("Expected {n} pieces. Additional pieces discarded in {n_big} rows [{idx}]."))
   }
 
   n_sml <- length(simp$too_sml)
   if (fill == "warn" && n_sml > 0) {
     idx <- list_indices(simp$too_sml)
-    warn(glue("Too few values at {n_sml} locations: {idx}"))
+    warn(glue("Expected {n} pieces. Missing pieces filled with `NA` in {n_sml} rows [{idx}]."))
   }
 
   simp$strings

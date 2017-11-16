@@ -31,7 +31,7 @@ test_that("convert keeps characters as character", {
 test_that("too many pieces dealt with as requested", {
   df <- tibble(x = c("a b", "a b c"))
 
-  expect_warning(separate(df, x, c("x", "y")), "Too many")
+  expect_warning(separate(df, x, c("x", "y")), "Additional pieces discarded")
 
   merge <- separate(df, x, c("x", "y"), extra = "merge")
   expect_equal(merge[[1]], c("a", "a"))
@@ -45,7 +45,7 @@ test_that("too many pieces dealt with as requested", {
 test_that("too few pieces dealt with as requested", {
   df <- tibble(x = c("a b", "a b c"))
 
-  expect_warning(separate(df, x, c("x", "y", "z")), "Too few")
+  expect_warning(separate(df, x, c("x", "y", "z")), "Missing pieces filled")
 
   left <- separate(df, x, c("x", "y", "z"), fill = "left")
   expect_equal(left$x, c(NA, "a"))
