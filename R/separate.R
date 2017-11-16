@@ -98,7 +98,7 @@ separate.data.frame <- function(data, col, into, sep = "[^[:alnum:]]+",
   }
 
   # Insert into existing data frame
-  data <- append_df(data, l, match(var, dplyr::tbl_vars(data)))
+  data <- append_df(data, l, var)
   if (remove) {
     data[[var]] <- NULL
   }

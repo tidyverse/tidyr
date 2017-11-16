@@ -74,7 +74,7 @@ extract.data.frame <- function(data, col, into, regex = "([[:alnum:]]+)",
   }
 
   # Insert into existing data frame
-  out <- append_df(data, l, match(var, dplyr::tbl_vars(data)))
+  out <- append_df(data, l, var)
   if (remove) {
     out[[var]] <- NULL
   }
