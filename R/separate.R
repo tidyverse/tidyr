@@ -98,10 +98,7 @@ separate.data.frame <- function(data, col, into, sep = "[^[:alnum:]]+",
   }
 
   # Insert into existing data frame
-  data <- append_df(data, l, var)
-  if (remove) {
-    data[[var]] <- NULL
-  }
+  data <- append_df(data, l, var, remove = remove)
 
   reconstruct_tibble(orig, data, if (remove) var else NULL)
 }

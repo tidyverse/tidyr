@@ -204,3 +204,11 @@ test_that("never has row names (#305)", {
       tibble::has_rownames()
   )
 })
+
+test_that("overwrites existing columns", {
+  df <- tibble(x = 1:2, y = 2:1, key = c("x", "x"), value = 3:4)
+  rs <- df %>% spread(key, value)
+
+  expect_named(rs, c("y", "x"))
+  expect_equal(rs$x, 3:4)
+})

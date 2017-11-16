@@ -70,6 +70,14 @@ test_that("drops grouping when needed", {
   expect_equal(dplyr::groups(rs), NULL)
 })
 
+test_that("overwrites existing columns", {
+  df <- tibble(x = "a:b")
+  rs <- df %>% separate(x, c("x", "y"))
+
+  expect_named(rs, c("x", "y"))
+  expect_equal(rs$x, "a")
+})
+
 # Separate rows -----------------------------------------------------------
 context("Separate rows")
 

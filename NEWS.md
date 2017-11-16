@@ -1,5 +1,9 @@
 # tidyr 0.7.2.9000
 
+* `spread()`, `separate()`, and `extract()` now replace existing variables 
+  rather than creating an invalid data frame with duplicated variable names
+  (matching the semantics of mutate) (#255).
+
 * `separate()` gets improved warning message when pieces aren't as expected
   (#375).
 
