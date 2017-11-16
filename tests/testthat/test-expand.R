@@ -46,6 +46,12 @@ test_that("preserves ordered factors", {
   expect_equal(df$a, ordered("a"))
 })
 
+test_that("preserves NAs", {
+  x <- c("A", "B", NA)
+  expect_equal(crossing(x)$x, x)
+  expect_equal(nesting(x)$x, x)
+})
+
 test_that("zero length inputs are automatically dropped", {
   tb <- tibble::tibble(x = 1:5)
   expect_equal(expand(tb, x, y = numeric()), tb)

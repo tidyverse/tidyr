@@ -157,7 +157,7 @@ ulevels <- function(x) {
     levs <- levels(x)
     factor(levs, levels = levs, ordered = is.ordered(x))
   } else {
-    sort(unique(x))
+    sort(unique(x), na.last = TRUE)
   }
 }
 
