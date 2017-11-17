@@ -104,13 +104,12 @@ separate.data.frame <- function(data, col, into, sep = "[^[:alnum:]]+",
 }
 
 strsep <- function(x, sep) {
-  sep <- c(0, sep, -1)
-
   nchar <- stringi::stri_length(x)
   pos <- map(sep, function(i) {
     if (i >= 0) return(i)
-    nchar + i + 1
+    pmax(0, nchar + i)
   })
+  pos <- c(list(0), pos, list(nchar))
 
   map(1:(length(pos) - 1), function(i) {
     stringi::stri_sub(x, pos[[i]] + 1, pos[[i + 1]])

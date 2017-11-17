@@ -7,10 +7,30 @@ test_that("missing values in input are missing in output", {
   expect_equal(out$y, c(NA, "b"))
 })
 
-test_that("integer values specific position between characters", {
+test_that("positive integer values specific position between characters", {
   df <- tibble(x = c(NA, "ab", "cd"))
   out <- separate(df, x, c("x", "y"), 1)
   expect_equal(out$x, c(NA, "a", "c"))
+  expect_equal(out$y, c(NA, "b", "d"))
+})
+
+test_that("negative integer values specific position between characters", {
+  df <- tibble(x = c(NA, "ab", "cd"))
+  out <- separate(df, x, c("x", "y"), -1)
+  expect_equal(out$x, c(NA, "a", "c"))
+  expect_equal(out$y, c(NA, "b", "d"))
+})
+
+test_that("extreme integer values handled sensibly", {
+  df <- tibble(x = c(NA, "a", "bc", "def"))
+
+  out <- separate(df, x, c("x", "y"), 3)
+  expect_equal(out$x, c(NA, "a", "bc", "def"))
+  expect_equal(out$y, c(NA, "", "", ""))
+
+  out <- separate(df, x, c("x", "y"), -3)
+  expect_equal(out$x, c(NA, "", "", ""))
+  expect_equal(out$y, c(NA, "a", "bc", "def"))
 })
 
 test_that("convert produces integers etc", {
