@@ -31,7 +31,8 @@
 
 * Fixed that `spread()` fails when the `key` column includes `NA` and `drop` is `FALSE` (#254).
 
-* `separate()` now works as described in documentation when using negative integer values with `sep` argument (#315).
+* `separate()` now works as described in documentation when using negative
+  integer values with `sep` argument (@markdly, #315).
 
 # tidyr 0.7.2
 
