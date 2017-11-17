@@ -50,7 +50,7 @@ test_that("preserves NAs", {
   x <- c("A", "B", NA)
   expect_equal(crossing(x)$x, x)
   expect_equal(nesting(x)$x, x)
-)
+})
 
 test_that("zero length numeric & character inputs are automatically dropped", {
   tb <- tibble::tibble(x = 1:5)
