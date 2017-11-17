@@ -1,5 +1,7 @@
 # tidyr 0.7.2.9000
 
+* `spread()` now consistently returns 0 row outputs for 0 row inputs (#269).
+
 * `spread()`, `separate()`, `extract()` (#255), and `gather()` (#347) now 
   replace existing variables rather than creating an invalid data frame with 
   duplicated variable names (matching the semantics of mutate).

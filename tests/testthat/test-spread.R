@@ -165,6 +165,18 @@ test_that("can spread with nested columns", {
   expect_equal(out$z, df$z)
 })
 
+test_that("spreading empty data frame gives empty data frame", {
+  df <- tibble(x = character(), y = numeric(), z = character())
+  rs <- spread(df, x, y)
+  expect_equal(nrow(rs), 0)
+  expect_named(rs, "z")
+
+  df <- tibble(x = character(), y = numeric())
+  rs <- spread(df, x, y)
+  expect_equal(nrow(rs), 0)
+  expect_equal(ncol(rs), 0)
+})
+
 test_that("spread gives one column when no existing non-spread vars", {
   df <- tibble(
     key = c("a", "b", "c"),
@@ -172,6 +184,7 @@ test_that("spread gives one column when no existing non-spread vars", {
   )
   expect_equal(df %>% spread(key, value), data.frame(a = 1, b = 2, c = 3))
 })
+
 
 test_that("grouping vars are kept where possible", {
   # Can keep
