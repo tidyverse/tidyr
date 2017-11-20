@@ -98,22 +98,18 @@ separate.data.frame <- function(data, col, into, sep = "[^[:alnum:]]+",
   }
 
   # Insert into existing data frame
-  data <- append_df(data, l, match(var, dplyr::tbl_vars(data)))
-  if (remove) {
-    data[[var]] <- NULL
-  }
+  data <- append_df(data, l, var, remove = remove)
 
   reconstruct_tibble(orig, data, if (remove) var else NULL)
 }
 
 strsep <- function(x, sep) {
-  sep <- c(0, sep, -1)
-
   nchar <- stringi::stri_length(x)
   pos <- map(sep, function(i) {
     if (i >= 0) return(i)
-    nchar + i + 1
+    pmax(0, nchar + i)
   })
+  pos <- c(list(0), pos, list(nchar))
 
   map(1:(length(pos) - 1), function(i) {
     stringi::stri_sub(x, pos[[i]] + 1, pos[[i + 1]])
@@ -139,13 +135,13 @@ str_split_fixed <- function(value, sep, n, extra = "warn", fill = "warn") {
   n_big <- length(simp$too_big)
   if (extra == "warn" && n_big > 0) {
     idx <- list_indices(simp$too_big)
-    warn(glue("Too many values at {n_big} locations: {idx}"))
+    warn(glue("Expected {n} pieces. Additional pieces discarded in {n_big} rows [{idx}]."))
   }
 
   n_sml <- length(simp$too_sml)
   if (fill == "warn" && n_sml > 0) {
     idx <- list_indices(simp$too_sml)
-    warn(glue("Too few values at {n_sml} locations: {idx}"))
+    warn(glue("Expected {n} pieces. Missing pieces filled with `NA` in {n_sml} rows [{idx}]."))
   }
 
   simp$strings

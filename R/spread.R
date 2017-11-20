@@ -74,7 +74,7 @@ spread.data.frame <- function(data, key, value, fill = NA, convert = FALSE,
   col_labels <- split_labels(col, col_id, drop = drop)
 
   rows <- data[setdiff(names(data), c(key_var, value_var))]
-  if (length(rows) == 0) {
+  if (ncol(rows) == 0 && nrow(rows) > 0) {
     # Special case when there's only one row
     row_id <- structure(1L, n = 1L)
     row_labels <- as.data.frame(matrix(nrow = 1, ncol = 0))
@@ -129,7 +129,12 @@ col_names <- function(x, sep = NULL) {
   names <- as.character(x[[1]])
 
   if (is_null(sep)) {
-    ifelse(are_na(names), "<NA>", names)
+    if (length(names) == 0) {
+      # ifelse will return logical()
+      character()
+    } else {
+      ifelse(are_na(names), "<NA>", names)
+    }
   } else {
     paste(names(x)[[1]], names, sep = sep)
   }

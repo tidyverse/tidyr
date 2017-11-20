@@ -113,6 +113,7 @@ gather.data.frame <- function(data, key = "key", value = "value", ...,
   } else {
     gather_vars <- unname(tidyselect::vars_select(names(data), !!! quos))
   }
+
   if (is_empty(gather_vars)) {
     return(data)
   }
@@ -123,6 +124,9 @@ gather.data.frame <- function(data, key = "key", value = "value", ...,
     abort(glue("Unknown column names: ", missing_cols))
   }
   id_idx <- setdiff(seq_along(data), gather_idx)
+
+  dup_indx <- match(c(key_var, value_var), names(data))
+  id_idx <- setdiff(id_idx, dup_indx)
 
   ## Get the attributes if common, NULL if not.
   args <- normalize_melt_arguments(data, gather_idx, factorsAsStrings = TRUE)

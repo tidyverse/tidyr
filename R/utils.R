@@ -9,8 +9,20 @@ col_name <- function(x, default = abort("Please supply column name")) {
   )
 }
 
-append_df <- function(x, values, after = length(x)) {
-  y <- append(x, values, after = after)
+append_df <- function(x, y, after = length(x), remove = FALSE) {
+  if (is.character(after)) {
+    after <- match(after, dplyr::tbl_vars(x))
+  } else if (!is.integer(after)) {
+    stop("`after` must be character or integer", call. = FALSE)
+  }
+
+  # Replace duplicated variables
+  x_vars <- setdiff(names(x), names(y))
+  if (remove) {
+    x_vars <- setdiff(x_vars, names(x)[[after]])
+  }
+
+  y <- append(x[x_vars], y, after = after)
   structure(y, class = class(x), row.names = .row_names_info(x, 0L))
 }
 

@@ -1,5 +1,14 @@
 # tidyr 0.7.2.9000
 
+* `spread()` now consistently returns 0 row outputs for 0 row inputs (#269).
+
+* `spread()`, `separate()`, `extract()` (#255), and `gather()` (#347) now 
+  replace existing variables rather than creating an invalid data frame with 
+  duplicated variable names (matching the semantics of mutate).
+
+* `separate()` gets improved warning message when pieces aren't as expected
+  (#375).
+
 * `replace_na()` no longer complains if you try and replace missing values in
   variables not present in the data (#356).
 
@@ -10,7 +19,7 @@
 * `unnest(df)` now works if `df` contains no list-cols (#344)
 
 * `extract()` has a better error message if `regex` does not contain the
-  expected number of groups (#313.
+  expected number of groups (#313).
 
 * `nest()` is now faster, especially when a long data frame is collapsed into a nested data frame with few rows.
 
@@ -24,7 +33,11 @@
 
 * Fixed that `spread()` fails when the `key` column includes `NA` and `drop` is `FALSE` (#254).
 
-* expand, crossing, and complete now complete empty factors instead of dropping them (#270, #285)
+* `expand()`, `crossing()`, and `complete()` now complete empty factors instead of dropping 
+   them (#270, #285)
+
+* `separate()` now works as described in documentation when using negative
+  integer values with `sep` argument (@markdly, #315).
 
 # tidyr 0.7.2
 

@@ -52,7 +52,7 @@ unite.data.frame <- function(data, col, ..., sep = "_", remove = TRUE) {
   first_pos <- which(names(data) %in% from_vars)[1]
   united <- invoke(paste, c(data[from_vars], list(sep = sep)))
 
-  out <- append_col(out, united, var, after = first_pos - 1)
+  out <- append_col(out, united, var, after = first_pos - 1L)
   reconstruct_tibble(data, out, if (remove) from_vars)
 }
 

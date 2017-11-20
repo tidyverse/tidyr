@@ -7,10 +7,30 @@ test_that("missing values in input are missing in output", {
   expect_equal(out$y, c(NA, "b"))
 })
 
-test_that("integer values specific position between characters", {
+test_that("positive integer values specific position between characters", {
   df <- tibble(x = c(NA, "ab", "cd"))
   out <- separate(df, x, c("x", "y"), 1)
   expect_equal(out$x, c(NA, "a", "c"))
+  expect_equal(out$y, c(NA, "b", "d"))
+})
+
+test_that("negative integer values specific position between characters", {
+  df <- tibble(x = c(NA, "ab", "cd"))
+  out <- separate(df, x, c("x", "y"), -1)
+  expect_equal(out$x, c(NA, "a", "c"))
+  expect_equal(out$y, c(NA, "b", "d"))
+})
+
+test_that("extreme integer values handled sensibly", {
+  df <- tibble(x = c(NA, "a", "bc", "def"))
+
+  out <- separate(df, x, c("x", "y"), 3)
+  expect_equal(out$x, c(NA, "a", "bc", "def"))
+  expect_equal(out$y, c(NA, "", "", ""))
+
+  out <- separate(df, x, c("x", "y"), -3)
+  expect_equal(out$x, c(NA, "", "", ""))
+  expect_equal(out$y, c(NA, "a", "bc", "def"))
 })
 
 test_that("convert produces integers etc", {
@@ -31,7 +51,7 @@ test_that("convert keeps characters as character", {
 test_that("too many pieces dealt with as requested", {
   df <- tibble(x = c("a b", "a b c"))
 
-  expect_warning(separate(df, x, c("x", "y")), "Too many")
+  expect_warning(separate(df, x, c("x", "y")), "Additional pieces discarded")
 
   merge <- separate(df, x, c("x", "y"), extra = "merge")
   expect_equal(merge[[1]], c("a", "a"))
@@ -45,7 +65,7 @@ test_that("too many pieces dealt with as requested", {
 test_that("too few pieces dealt with as requested", {
   df <- tibble(x = c("a b", "a b c"))
 
-  expect_warning(separate(df, x, c("x", "y", "z")), "Too few")
+  expect_warning(separate(df, x, c("x", "y", "z")), "Missing pieces filled")
 
   left <- separate(df, x, c("x", "y", "z"), fill = "left")
   expect_equal(left$x, c(NA, "a"))
@@ -68,6 +88,14 @@ test_that("drops grouping when needed", {
   rs <- df %>% separate(x, c("a", "b"))
   expect_equal(rs$a, "a")
   expect_equal(dplyr::groups(rs), NULL)
+})
+
+test_that("overwrites existing columns", {
+  df <- tibble(x = "a:b")
+  rs <- df %>% separate(x, c("x", "y"))
+
+  expect_named(rs, c("x", "y"))
+  expect_equal(rs$x, "a")
 })
 
 # Separate rows -----------------------------------------------------------
