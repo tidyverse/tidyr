@@ -1,5 +1,7 @@
 # tidyr 0.7.2.9000
 
+* `uncount()` performs the inverse operation of `dplyr::count()` (#279)
+
 * `spread()` now consistently returns 0 row outputs for 0 row inputs (#269).
 
 * `spread()`, `separate()`, `extract()` (#255), and `gather()` (#347) now 
