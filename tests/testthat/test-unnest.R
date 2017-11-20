@@ -69,7 +69,7 @@ test_that(".id creates vector of names for vector unnest", {
 })
 
 test_that(".id creates vector of names for grouped vector unnest", {
-  df <- data_frame(x = 1:2, y = list(a = 1, b = 1:2)) %>%
+  df <- tibble(x = 1:2, y = list(a = 1, b = 1:2)) %>%
     dplyr::group_by(x)
   out <- unnest(df, .id = "name")
 
@@ -87,9 +87,9 @@ test_that(".id creates vector of names for data frame unnest", {
 })
 
 test_that(".id creates vector of names for grouped data frame unnest", {
-  df <- data_frame(x = 1:2, y = list(
-    a = data_frame(y = 1),
-    b = data_frame(y = 1:2)
+  df <- tibble(x = 1:2, y = list(
+    a = tibble(y = 1),
+    b = tibble(y = 1:2)
   )) %>%
     dplyr::group_by(x)
   out <- unnest(df, .id = "name")
@@ -111,13 +111,13 @@ test_that("sep combines column names", {
 })
 
 test_that("can unnest empty data frame", {
-  df <- data_frame(x = integer(), y = list())
+  df <- tibble(x = integer(), y = list())
   out <- unnest(df, y)
-  expect_equal(out, data_frame(x = integer()))
+  expect_equal(out, tibble(x = integer()))
 })
 
 test_that("empty ... returns df if no list-cols", {
-  df <- data_frame(x = integer(), y = integer())
+  df <- tibble(x = integer(), y = integer())
   expect_equal(unnest(df), df)
 })
 

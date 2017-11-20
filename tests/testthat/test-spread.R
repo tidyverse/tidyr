@@ -158,7 +158,7 @@ test_that("complex values are preserved  (#134)", {
 })
 
 test_that("can spread with nested columns", {
-  df <- tibble::tibble(x = c("a", "a"), y = 1:2, z = list(1:2, 3:5))
+  df <- tibble(x = c("a", "a"), y = 1:2, z = list(1:2, 3:5))
   out <- spread(df, x, y)
 
   expect_equal(out$a, 1:2)
