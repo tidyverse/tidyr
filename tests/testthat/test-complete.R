@@ -14,10 +14,10 @@ test_that("preserves grouping", {
   expect_equal(dplyr::groups(out), dplyr::groups(df))
 })
 
-test_that('expands empty factors', {
-  emptyfactor <- factor(character(),levels=c('a','b','c'))
-  df <- dplyr::data_frame(one=emptyfactor, two=emptyfactor)
+test_that("expands empty factors", {
+  f <- factor(levels = c("a", "b", "c"))
+  df <- dplyr::data_frame(one = f, two = f)
 
-  expect_equal(nrow(complete(df,one,two)),9)
-  expect_equal(ncol(complete(df,one,two)),2)
+  expect_equal(nrow(complete(df, one, two)), 9)
+  expect_equal(ncol(complete(df, one, two)), 2)
 })
