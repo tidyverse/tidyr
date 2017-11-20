@@ -63,6 +63,12 @@ test_that("zero length numeric & character inputs are automatically dropped", {
   expect_equal(crossing(x = tb$x, y = character()), tb)
 })
 
+test_that("zero length input gives zero length output", {
+  tb <- tibble(x = character())
+  expect_equal(expand(tb, x), tibble())
+  expect_equal(expand(tb, y = NULL), tibble())
+})
+
 test_that("zero length factor inputs are completed by expand & crossing, dropped by nesting", {
   tb <- tibble::tibble(x = 1:2)
   emptyfactor <- factor(levels = c("a","b"))

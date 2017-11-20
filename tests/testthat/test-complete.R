@@ -16,8 +16,18 @@ test_that("preserves grouping", {
 
 test_that("expands empty factors", {
   f <- factor(levels = c("a", "b", "c"))
-  df <- dplyr::data_frame(one = f, two = f)
+  df <- tibble(one = f, two = f)
 
   expect_equal(nrow(complete(df, one, two)), 9)
   expect_equal(ncol(complete(df, one, two)), 2)
+})
+
+test_that("empty expansion returns original", {
+  df <- tibble(x = character())
+  rs <- complete(df, y = integer())
+  expect_equal(rs, df)
+
+  df <- tibble(x = 1:4)
+  rs <- complete(df, y = integer())
+  expect_equal(rs, df)
 })

@@ -124,6 +124,9 @@ crossing <- function(...) {
   stopifnot(is_list(x))
 
   x <- drop_empty(x)
+  if (length(x) == 0) {
+    return(data.frame())
+  }
 
   is_atomic <- map_lgl(x, is_atomic)
   is_df <- map_lgl(x, is.data.frame)

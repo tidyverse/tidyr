@@ -38,6 +38,9 @@ complete.default <- function(data, ..., fill = list()) {
 #' @export
 complete.data.frame <- function(data, ..., fill = list()) {
   full <- expand(data, ...)
+  if (is_empty(full)) {
+    return(data)
+  }
   full <- dplyr::left_join(full, data, by = names(full))
   full <- replace_na(full, replace = fill)
 
