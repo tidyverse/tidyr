@@ -13,6 +13,10 @@
 #' @param .drop Should additional list columns be dropped? By default,
 #'   `unnest` will drop them if unnesting the specified columns requires
 #'   the rows to be duplicated.
+#' @param .preserve Optionally, list-columns to preserve in the output. These
+#'   will be duplicated in the same way as atomic vectors. This has
+#'   [dplyr::select] semantics so you can preserve multiple variables with
+#'   `.preserve = c(x, y)` or `.preserve = starts_with("list")`.
 #' @param .id Data frame identifier - if supplied, will create a new column
 #'   with name `.id`, giving a unique identifier. This is most useful if
 #'   the list column is named.
@@ -55,6 +59,9 @@
 #' # If you omit the column names, it'll unnest all list-cols
 #' df %>% unnest()
 #'
+#' # You can also choose to preserve one or more list-cols
+#' df %>% unnest(a, .preserve = b)
+#'
 #' # Nest and unnest are inverses
 #' df <- data.frame(x = c(1, 1, 2), y = 3:1)
 #' df %>% nest(y)
@@ -66,17 +73,17 @@
 #'   y = list(a = 1, b = 3:4)
 #' )
 #' unnest(df, .id = "name")
-unnest <- function(data, ..., .drop = NA, .id = NULL, .sep = NULL) {
+unnest <- function(data, ..., .drop = NA, .id = NULL, .sep = NULL, .preserve = NULL) {
   UseMethod("unnest")
 }
 #' @export
-unnest.default <- function(data, ..., .drop = NA, .id = NULL, .sep = NULL) {
+unnest.default <- function(data, ..., .drop = NA, .id = NULL, .sep = NULL, .preserve = NULL) {
   unnest_cols <- compat_as_lazy_dots(...)
-  unnest_(data, unnest_cols = unnest_cols, .drop = .drop, .id = .id, .sep = .sep)
+  unnest_(data, unnest_cols = unnest_cols, .drop = .drop, .id = .id, .sep = .sep, .preserve = .preserve)
 }
 #' @export
 unnest.data.frame <- function(data, ..., .drop = NA, .id = NULL,
-                              .sep = NULL) {
+                              .sep = NULL, .preserve = NULL) {
   quos <- quos(...)
   if (is_empty(quos)) {
     list_cols <- names(data)[map_lgl(data, is_list)]
@@ -136,8 +143,13 @@ unnest.data.frame <- function(data, ..., .drop = NA, .id = NULL,
   }
   group_vars <- setdiff(group_vars, names(nested))
 
-  rest <- data[rep(seq_len(nrow(data)), n[[1]]), group_vars, drop = FALSE]
+  # Add list columns to be preserved
+  preserve <- tidyselect::vars_select(names(data), !!!enquo(.preserve))
+  group_vars <- union(group_vars, preserve)
+
+  rest <- data[rep(seq_nrow(data), n[[1]]), group_vars, drop = FALSE]
   out <- dplyr::bind_cols(rest, unnested_atomic, unnested_dataframe)
+
   reconstruct_tibble(data, out)
 }
 
@@ -176,12 +188,12 @@ id_col <- function(x) {
 #' @inheritParams unnest
 #' @param unnest_cols Name of columns that needs to be unnested.
 #' @export
-unnest_ <- function(data, unnest_cols, .drop = NA, .id = NULL, .sep = NULL) {
+unnest_ <- function(data, unnest_cols, .drop = NA, .id = NULL, .sep = NULL, .preserve = NULL) {
   UseMethod("unnest_")
 }
 #' @export
 unnest_.data.frame <- function(data, unnest_cols, .drop = NA, .id = NULL,
-                               .sep = NULL) {
+                               .sep = NULL, .preserve = NULL) {
   unnest_cols <- compat_lazy_dots(unnest_cols, caller_env())
-  unnest(data, !!! unnest_cols, .drop = .drop, .id = .id, .sep = .sep)
+  unnest(data, !!! unnest_cols, .drop = .drop, .id = .id, .sep = .sep, .preserve = .preserve)
 }

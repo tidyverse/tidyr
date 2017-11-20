@@ -50,7 +50,8 @@ spread_(data, key_col, value_col, fill = NA, convert = FALSE, drop = TRUE,
 
 unite_(data, col, from, sep = "_", remove = TRUE)
 
-unnest_(data, unnest_cols, .drop = NA, .id = NULL, .sep = NULL)
+unnest_(data, unnest_cols, .drop = NA, .id = NULL, .sep = NULL,
+  .preserve = NULL)
 }
 \arguments{
 \item{data}{A data frame}
@@ -139,6 +140,11 @@ the list column is named.}
 \item{.sep}{If non-\code{NULL}, the names of unnested data frame columns
 will combine the name of the original list-col with the names from
 nested data frame, separated by \code{.sep}.}
+
+\item{.preserve}{Optionally, list-columns to preserve in the output. These
+will be duplicated in the same way as atomic vectors. This has
+\link[dplyr:select]{dplyr::select} semantics so you can preserve multiple variables with
+\code{.preserve = c(x, y)} or \code{.preserve = starts_with("list")}.}
 
 \item{expand_cols}{Character vector of column names to be expanded.}
 

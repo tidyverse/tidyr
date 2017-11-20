@@ -4,7 +4,7 @@
 \alias{unnest}
 \title{Unnest a list column.}
 \usage{
-unnest(data, ..., .drop = NA, .id = NULL, .sep = NULL)
+unnest(data, ..., .drop = NA, .id = NULL, .sep = NULL, .preserve = NULL)
 }
 \arguments{
 \item{data}{A data frame.}
@@ -23,6 +23,11 @@ the list column is named.}
 \item{.sep}{If non-\code{NULL}, the names of unnested data frame columns
 will combine the name of the original list-col with the names from
 nested data frame, separated by \code{.sep}.}
+
+\item{.preserve}{Optionally, list-columns to preserve in the output. These
+will be duplicated in the same way as atomic vectors. This has
+\link[dplyr:select]{dplyr::select} semantics so you can preserve multiple variables with
+\code{.preserve = c(x, y)} or \code{.preserve = starts_with("list")}.}
 }
 \description{
 If you have a list-column, this makes each element of the list its own
@@ -66,6 +71,9 @@ df <- tibble(
 df \%>\% unnest(a, b)
 # If you omit the column names, it'll unnest all list-cols
 df \%>\% unnest()
+
+# You can also choose to preserve one or more list-cols
+df \%>\% unnest(a, .preserve = b)
 
 # Nest and unnest are inverses
 df <- data.frame(x = c(1, 1, 2), y = 3:1)

@@ -1,5 +1,8 @@
 # tidyr 0.7.2.9000
 
+* `unnest()` gains `preserve` argument which allows you to preserve list
+  columns without unnesting them (#328).
+
 * `unnest()` can unnested list-columns contains lists of lists (#278).
 
 * `drop_na()` works with list-cols (#280)
