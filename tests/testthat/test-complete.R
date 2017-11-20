@@ -13,3 +13,11 @@ test_that("preserves grouping", {
   expect_s3_class(out, "grouped_df")
   expect_equal(dplyr::groups(out), dplyr::groups(df))
 })
+
+test_that('expands empty factors', {
+  emptyfactor <- factor(character(),levels=c('a','b','c'))
+  df <- dplyr::data_frame(one=emptyfactor, two=emptyfactor)
+
+  expect_equal(nrow(complete(df,one,two)),9)
+  expect_equal(ncol(complete(df,one,two)),2)
+})

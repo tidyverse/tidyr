@@ -52,11 +52,25 @@ test_that("preserves NAs", {
   expect_equal(nesting(x)$x, x)
 })
 
-test_that("zero length inputs are automatically dropped", {
+test_that("zero length numeric & character inputs are automatically dropped", {
   tb <- tibble::tibble(x = 1:5)
   expect_equal(expand(tb, x, y = numeric()), tb)
   expect_equal(nesting(x = tb$x, y = numeric()), tb)
   expect_equal(crossing(x = tb$x, y = numeric()), tb)
+
+  expect_equal(expand(tb, x, y = character()), tb)
+  expect_equal(nesting(x = tb$x, y = character()), tb)
+  expect_equal(crossing(x = tb$x, y = character()), tb)
+})
+
+test_that("zero length factor inputs are completed by expand & crossing, dropped by nesting", {
+  tb <- tibble::tibble(x = 1:2)
+  emptyfactor <- factor(levels = c("a","b"))
+  targettb <- tibble::tibble(x = as.integer(c(1,1,2,2)), y = factor(c("a","b","a","b"), levels = c("a","b")))
+
+  expect_equal(expand(tb, x, y = emptyfactor), targettb)
+  expect_equal(nesting(x = tb$x, y = emptyfactor), tb)
+  expect_equal(crossing(x = tb$x, y = emptyfactor), targettb)
 })
 
 test_that("expand() reconstructs input dots is empty", {

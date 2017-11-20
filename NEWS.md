@@ -33,6 +33,9 @@
 
 * Fixed that `spread()` fails when the `key` column includes `NA` and `drop` is `FALSE` (#254).
 
+* `expand()`, `crossing()`, and `complete()` now complete empty factors instead of dropping 
+   them (#270, #285)
+
 * `separate()` now works as described in documentation when using negative
   integer values with `sep` argument (@markdly, #315).
 
