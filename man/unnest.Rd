@@ -26,7 +26,8 @@ nested data frame, separated by \code{.sep}.}
 }
 \description{
 If you have a list-column, this makes each element of the list its own
-row. List-columns can either be atomic vectors or data frames.
+row. \code{unnest()} can handle list-columns that can atomic vectors, lists, or
+data frames (but not a mixture of the different types).
 }
 \details{
 If you unnest multiple columns, parallel entries must have the same length

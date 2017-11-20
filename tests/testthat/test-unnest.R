@@ -19,6 +19,15 @@ test_that("unnesting row binds data frames", {
   expect_equal(unnest(df)$x, 1:10)
 })
 
+test_that("can unnested lists", {
+  df <- tibble(
+    x = 1:2,
+    y = list(list("a"), list("b"))
+  )
+  rs <- unnest(df, y)
+  expect_identical(rs, tibble(x = 1:2, y = list("a", "b")))
+})
+
 test_that("elements must all be of same type", {
   df <- tibble(x = list(1, "a"))
   expect_error(unnest(df), "(incompatible type)|(numeric to character)|(character to numeric)")
