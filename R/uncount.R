@@ -28,7 +28,7 @@ uncount <- function(data, weights, .remove = TRUE, .id = NULL) {
     stop("`weights` must evaluate to a numeric vector", call. = FALSE)
   }
 
-  out <- data[rep(seq_len(nrow(data)), w), , drop = FALSE]
+  out <- data[rep(seq_nrow(data), w), , drop = FALSE]
 
   if (.remove && quo_is_symbol(weights_quo)) {
     out[[as_string(get_expr(weights_quo))]] <- NULL

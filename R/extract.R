@@ -66,7 +66,7 @@ extract.data.frame <- function(data, col, into, regex = "([[:alnum:]]+)",
   }
 
   # Use as_tibble post https://github.com/hadley/dplyr/issues/876
-  l <- map(seq_len(ncol(matches)), function(i) matches[, i])
+  l <- map(seq_ncol(matches), function(i) matches[, i])
   names(l) <- enc2utf8(into)
 
   if (convert) {

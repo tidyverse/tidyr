@@ -149,8 +149,8 @@ crossing <- function(...) {
   Reduce(cross_df, x)
 }
 cross_df <- function(x, y) {
-  x_idx <- rep(seq_len(nrow(x)), each = nrow(y))
-  y_idx <- rep(seq_len(nrow(y)), nrow(x))
+  x_idx <- rep(seq_nrow(x), each = nrow(y))
+  y_idx <- rep(seq_nrow(y), nrow(x))
   dplyr::bind_cols(x[x_idx, , drop = FALSE], y[y_idx, , drop = FALSE])
 }
 drop_empty <- function(x, factor = TRUE) {

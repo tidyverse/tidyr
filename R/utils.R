@@ -86,3 +86,6 @@ reconstruct_tibble <- function(input, output, ungrouped_vars = chr()) {
 imap <- function(.x, .f, ...) {
   map2(.x, names(.x) %||% character(0), .f, ...)
 }
+
+seq_nrow <- function(x) seq_len(nrow(x))
+seq_ncol <- function(x) seq_len(ncol(x))
