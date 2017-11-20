@@ -1,5 +1,7 @@
 # tidyr 0.7.2.9000
 
+* `drop_na()` works with list-cols (#280)
+
 * `complete()` with zero-length completions returns original input (#331).
 
 * `expand()` with empty input gives empty data frame instead of `NULL` (#331).

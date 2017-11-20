@@ -47,3 +47,10 @@ test_that("single variable data.frame doesn't lose dimension", {
   exp <- data.frame(x = c(1, 2))
   expect_equal(res, exp)
 })
+
+test_that("works with list-cols", {
+  df <- tibble(x = list(1L, NULL, 3L), y = c(1L, 2L, NA))
+  rs <- drop_na(df)
+
+  expect_identical(rs, tibble(x = list(1L), y = 1L))
+})
