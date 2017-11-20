@@ -126,6 +126,12 @@ test_that("can optional preserve list cols", {
   rs <- df %>% unnest(x, .preserve = y)
 
   expect_identical(rs, tibble(y = df$y, x = c(3, 4)))
+
+  # A more complicated version, with lists of lists and implicit unnesting
+  df <- tibble(x = list(c("d", "e", "f")), y = list(list(1:2)))
+  rs <- df %>% unnest(.preserve = y)
+
+  expect_identical(rs, tibble(y = rep(list(1:2), 3), x = c("d", "e", "f")))
 })
 
 # Drop --------------------------------------------------------------------
