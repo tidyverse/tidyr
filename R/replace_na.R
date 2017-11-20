@@ -1,8 +1,8 @@
 #' Replace missing values
 #'
 #' @param data A data frame or vector.
-#' @param replace The value(s) to replace `NA` with. If `data`
-#'   is a vector, a vector with one or more replacement values.
+#' @param replace The value(s) to replace `NA` with. If `data` is
+#'   a vector, a vector or list with a single replacement value.
 #'   If `data` is a data.frame, a named list providing such
 #'   replacement vectors for each of the named columns.
 #' @param ... Additional arguments for methods. Currently unused.
@@ -19,6 +19,7 @@ replace_na <- function(data, replace = NULL, ...) {
 replace_na.default <- function(data, replace = NULL, ...) {
   if (length(replace) != 1L)
     stop("If 'data' is a vector, 'replace' has to be of length 1, not ", length(replace))
+  if (is_list(replace)) replace <- replace[[1L]]
 
   data[are_na(data)] <- replace
   data

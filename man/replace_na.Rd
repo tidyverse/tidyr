@@ -9,8 +9,8 @@ replace_na(data, replace = NULL, ...)
 \arguments{
 \item{data}{A data frame or vector.}
 
-\item{replace}{The value(s) to replace \code{NA} with. If \code{data}
-is a vector, a vector with one or more replacement values.
+\item{replace}{The value(s) to replace \code{NA} with. If \code{data} is
+a vector, a vector or list with a single replacement value.
 If \code{data} is a data.frame, a named list providing such
 replacement vectors for each of the named columns.}
 
