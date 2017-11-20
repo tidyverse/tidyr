@@ -108,8 +108,8 @@ test_that("can handle collapsed rows", {
 
 test_that("can handle empty data frames (#308)", {
   df <- tibble(a = character(), b = character())
-  skip("Currently failing")
-  expect_equal(separate_rows(df, b), df)
+  rs <- separate_rows(df, b)
+  expect_equal(rs, tibble(a = character()))
 })
 
 test_that("default pattern does not split decimals in nested strings", {

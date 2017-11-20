@@ -25,7 +25,7 @@
 
 * `nest()` on a zero-row data frame works as expected (#320).
 
-* `separate_rows()` supports list columns (#321).
+* `separate_rows()` supports list columns (#321), and works with empty tibbles.
 
 * Tibbles returned by `spread()` no longer have row names (#322).
 
