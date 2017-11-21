@@ -124,8 +124,11 @@ test_that("empty ... returns df if no list-cols", {
 test_that("can optional preserve list cols", {
   df <- tibble(x = list(3, 4), y = list("a", "b"))
   rs <- df %>% unnest(x, .preserve = y)
-
   expect_identical(rs, tibble(y = df$y, x = c(3, 4)))
+
+  df <- tibble(x = list(c("d", "e")), y = list(1:2))
+  rs <- df %>% unnest(.preserve = y)
+  expect_identical(rs, tibble(y = rep(list(1:2), 2), x = c("d", "e")))
 })
 
 # Drop --------------------------------------------------------------------

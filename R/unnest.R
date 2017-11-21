@@ -84,11 +84,16 @@ unnest.default <- function(data, ..., .drop = NA, .id = NULL, .sep = NULL, .pres
 #' @export
 unnest.data.frame <- function(data, ..., .drop = NA, .id = NULL,
                               .sep = NULL, .preserve = NULL) {
+
+  preserve <- tidyselect::vars_select(names(data), !!!enquo(.preserve))
   quos <- quos(...)
   if (is_empty(quos)) {
     list_cols <- names(data)[map_lgl(data, is_list)]
+    list_cols <- setdiff(list_cols, preserve)
+
     quos <- syms(list_cols)
   }
+
 
   if (length(quos) == 0) {
     return(data)
@@ -144,7 +149,6 @@ unnest.data.frame <- function(data, ..., .drop = NA, .id = NULL,
   group_vars <- setdiff(group_vars, names(nested))
 
   # Add list columns to be preserved
-  preserve <- tidyselect::vars_select(names(data), !!!enquo(.preserve))
   group_vars <- union(group_vars, preserve)
 
   rest <- data[rep(seq_nrow(data), n[[1]]), group_vars, drop = FALSE]
