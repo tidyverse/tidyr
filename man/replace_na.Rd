@@ -20,8 +20,11 @@ Replace missing values
 }
 \examples{
 library(dplyr)
-df <- tibble(x = c(1, 2, NA), y = c("a", NA, "b"))
+df <- tibble(x = c(1, 2, NA), y = c("a", NA, "b"), z = list(1:5, NULL, 10:20))
 df \%>\% replace_na(list(x = 0, y = "unknown"))
+
+# NULL are the list-col equivalent of NAs
+df \%>\% replace_na(list(z = list(5)))
 
 df$x \%>\% replace_na(0)
 df$y \%>\% replace_na("unknown")

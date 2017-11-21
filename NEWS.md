@@ -1,6 +1,8 @@
 # tidyr 0.7.2.9000
 
-* `replace_na()` now also works with vectors (#342, @flying-sheep).
+* `replace_na()` now also works with vectors (#342, @flying-sheep), and
+  can replace `NULL` in list-columns. It throws a better error message if
+  you attempt to replace with something other than length 1.
 
 * `unnest()` gains `preserve` argument which allows you to preserve list
   columns without unnesting them (#328).
