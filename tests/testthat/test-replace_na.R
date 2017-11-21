@@ -1,5 +1,20 @@
 context("replace_na")
 
+
+# vector ------------------------------------------------------------------
+
+test_that("empty call does nothing", {
+  x <- c(1, NA)
+  expect_equal(replace_na(x), x)
+})
+
+test_that("missing values are replaced", {
+  x <- c(1, NA)
+  expect_equal(replace_na(x, 0), c(1, 0))
+})
+
+# data frame -------------------------------------------------------------
+
 test_that("empty call does nothing", {
   df <- tibble(x = c(1, NA))
   out <- replace_na(df)

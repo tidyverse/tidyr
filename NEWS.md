@@ -1,5 +1,7 @@
 # tidyr 0.7.2.9000
 
+* `replace_na()` now also works with vectors (#342, @flying-sheep).
+
 * `unnest()` gains `preserve` argument which allows you to preserve list
   columns without unnesting them (#328).
 
