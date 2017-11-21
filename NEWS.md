@@ -1,5 +1,8 @@
 # tidyr 0.7.2.9000
 
+* Equivalent of `NA` in a list column is now an an empty (length 0)
+  data structure.
+
 * `replace_na()` now also works with vectors (#342, @flying-sheep), and
   can replace `NULL` in list-columns. It throws a better error message if
   you attempt to replace with something other than length 1.
