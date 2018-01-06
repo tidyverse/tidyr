@@ -85,7 +85,7 @@ unnest.default <- function(data, ..., .drop = NA, .id = NULL, .sep = NULL, .pres
 unnest.data.frame <- function(data, ..., .drop = NA, .id = NULL,
                               .sep = NULL, .preserve = NULL) {
 
-  preserve <- tidyselect::vars_select(names(data), !!!enquo(.preserve))
+  preserve <- tidyselect::vars_select(names(data), !!! enquo(.preserve))
   quos <- quos(...)
   if (is_empty(quos)) {
     list_cols <- names(data)[map_lgl(data, is_list)]
