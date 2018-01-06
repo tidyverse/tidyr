@@ -12,7 +12,7 @@ test_that("multiple variables in one arg doesn't expand", {
   expect_equal(nrow(out), 2)
 })
 
-test_that("nesting doesn't expand values" ,{
+test_that("nesting doesn't expand values", {
   df <- data.frame(x = 1:2, y = 1:2)
   expect_equal(expand(df, nesting(x, y)), df)
 })
@@ -71,8 +71,8 @@ test_that("zero length input gives zero length output", {
 
 test_that("zero length factor inputs are completed by expand & crossing, dropped by nesting", {
   tb <- tibble(x = 1:2)
-  emptyfactor <- factor(levels = c("a","b"))
-  targettb <- tibble(x = as.integer(c(1,1,2,2)), y = factor(c("a","b","a","b"), levels = c("a","b")))
+  emptyfactor <- factor(levels = c("a", "b"))
+  targettb <- tibble(x = as.integer(c(1, 1, 2, 2)), y = factor(c("a", "b", "a", "b"), levels = c("a", "b")))
 
   expect_equal(expand(tb, x, y = emptyfactor), targettb)
   expect_equal(nesting(x = tb$x, y = emptyfactor), tb)

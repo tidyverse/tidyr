@@ -47,7 +47,7 @@ test_that("multiple columns must be same length", {
 })
 
 test_that("nested is split as a list (#84)", {
-  df <- tibble(x = 1:3, y = list(1,2:3,4), z = list(5,6:7,8))
+  df <- tibble(x = 1:3, y = list(1, 2:3, 4), z = list(5, 6:7, 8))
   expect_warning(out <- unnest(df, y, z), NA)
   expect_equal(out$x, c(1, 2, 2, 3))
   expect_equal(out$y, unlist(df$y))
@@ -55,7 +55,7 @@ test_that("nested is split as a list (#84)", {
 })
 
 test_that("unnest has mutate semantics", {
-  df <- tibble(x = 1:3, y = list(1,2:3,4))
+  df <- tibble(x = 1:3, y = list(1, 2:3, 4))
   out <- df %>% unnest(z = map(y, `+`, 1))
 
   expect_equal(out$z, 2:5)

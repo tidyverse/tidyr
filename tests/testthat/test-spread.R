@@ -95,7 +95,7 @@ test_that("dates are spread into columns (#62)", {
   df <- data.frame(id = c("a", "a", "b", "b"),
                    key = c("begin", "end", "begin", "end"),
                    date = Sys.Date() + 0:3,
-                   stringsAsFactors=FALSE)
+                   stringsAsFactors = FALSE)
   out <- spread(df, key, date)
   expect_identical(names(out), c("id", "begin", "end"))
   expect_is(out$begin, "Date")
@@ -131,7 +131,7 @@ test_that("dates can be used with convert = TRUE", {
   df <- data.frame(id = c("a", "a", "b", "b"),
                    key = c("begin", "end", "begin", "end"),
                    date = Sys.Date() + 0:3,
-                   stringsAsFactors=FALSE)
+                   stringsAsFactors = FALSE)
   out <- spread(df, key, date, convert = TRUE)
   expect_is(out$begin, "character")
   expect_is(out$end, "character")

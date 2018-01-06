@@ -22,7 +22,7 @@
 #' uncount(df, 2 / n)
 uncount <- function(data, weights, .remove = TRUE, .id = NULL) {
   weights_quo <- enquo(weights)
-  w <- dplyr::pull(dplyr::mutate(data, `_weight` = !!weights_quo))
+  w <- dplyr::pull(dplyr::mutate(data, `_weight` = !! weights_quo))
 
   if (!is.numeric(w)) {
     stop("`weights` must evaluate to a numeric vector", call. = FALSE)

@@ -35,7 +35,7 @@ separate_rows.data.frame <- function(data, ..., sep = "[^[:alnum:].]+",
 
   data[vars] <- map(data[vars], stringi::stri_split_regex, sep)
   data <- unnest(data, !!! syms(vars), .drop = FALSE)
-  data <- dplyr::select(data, !!!intersect(names(orig), names(data)))
+  data <- dplyr::select(data, !!! intersect(names(orig), names(data)))
 
   if (convert) {
     data[vars] <- map(data[vars], type.convert, as.is = TRUE)
