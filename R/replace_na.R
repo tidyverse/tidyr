@@ -43,8 +43,9 @@ replace_na.data.frame <- function(data, replace = list(), ...) {
 
 check_replacement <- function(x, var) {
   n <- length(x)
-  if (n == 1)
+  if (n == 1) {
     return()
+  }
 
   abort(glue("Replacement for `{var}` is length {n}, not length 1"))
 }

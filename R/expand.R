@@ -138,7 +138,6 @@ crossing <- function(...) {
       "Each element must be either an atomic vector or a data frame.
        Problems: {problems}."
     ))
-
   }
 
   # turn each atomic vector into single column data frame

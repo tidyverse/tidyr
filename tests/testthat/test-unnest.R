@@ -152,7 +152,6 @@ test_that("unnest respects .drop_lists", {
 
   expect_equal(df %>% unnest(y, .drop = TRUE) %>% names(), c("x", "y"))
   expect_equal(df %>% unnest(z, .drop = FALSE) %>% names(), c("x", "y", "z"))
-
 })
 
 test_that("grouping is preserved", {
