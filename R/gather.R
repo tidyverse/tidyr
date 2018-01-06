@@ -132,7 +132,8 @@ gather.data.frame <- function(data, key = "key", value = "value", ...,
   args <- normalize_melt_arguments(data, gather_idx, factorsAsStrings = TRUE)
   valueAsFactor <- "factor" %in% class(args$attr_template)
 
-  out <- melt_dataframe(data,
+  out <- melt_dataframe(
+    data,
     id_idx - 1L,
     gather_idx - 1L,
     as.character(key_var),
@@ -159,7 +160,6 @@ gather.data.frame <- function(data, key = "key", value = "value", ...,
 
 ## Get the attributes if common, NULL if not.
 normalize_melt_arguments <- function(data, measure.ind, factorsAsStrings) {
-
   measure.attributes <- map(measure.ind, function(i) {
     attributes(data[[i]])
   })
@@ -172,7 +172,8 @@ normalize_melt_arguments <- function(data, measure.ind, factorsAsStrings) {
   } else {
     warn(glue(
       "attributes are not identical across measure variables;
-       they will be dropped"))
+       they will be dropped"
+    ))
     attr_template <- NULL
   }
 

@@ -34,7 +34,6 @@ test_that("missings filled down for each atomic vector", {
     dbl = c(1, NA),
     chr = c("a", NA),
     lst = list(1:5, NULL)
-
   )
 
   out <- fill(df, tidyselect::everything())

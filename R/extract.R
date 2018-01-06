@@ -84,7 +84,7 @@ extract.data.frame <- function(data, col, into, regex = "([[:alnum:]]+)",
 #' @inheritParams extract
 #' @export
 extract_ <- function(data, col, into, regex = "([[:alnum:]]+)", remove = TRUE,
-                      convert = FALSE, ...) {
+                     convert = FALSE, ...) {
   UseMethod("extract_")
 }
 #' @export

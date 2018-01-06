@@ -84,7 +84,6 @@ unnest.default <- function(data, ..., .drop = NA, .id = NULL, .sep = NULL, .pres
 #' @export
 unnest.data.frame <- function(data, ..., .drop = NA, .id = NULL,
                               .sep = NULL, .preserve = NULL) {
-
   preserve <- tidyselect::vars_select(names(data), !!! enquo(.preserve))
   quos <- quos(...)
   if (is_empty(quos)) {
@@ -122,13 +121,16 @@ unnest.data.frame <- function(data, ..., .drop = NA, .id = NULL,
 
   unnested_dataframe <- map(nest_types$dataframe %||% list(), dplyr::bind_rows, .id = .id)
   if (!is_null(.sep)) {
-    unnested_dataframe <- imap(unnested_dataframe,
+    unnested_dataframe <- imap(
+      unnested_dataframe,
       function(df, name) {
         set_names(df, paste(name, names(df), sep = .sep))
-      })
+      }
+    )
   }
-  if (length(unnested_dataframe) > 0)
+  if (length(unnested_dataframe) > 0) {
     unnested_dataframe <- dplyr::bind_cols(unnested_dataframe)
+  }
 
   # Keep list columns by default, only if the rows aren't expanded
   if (identical(.drop, NA)) {
