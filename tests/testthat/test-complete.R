@@ -1,5 +1,9 @@
 context("complete")
 
+test_that("complete with no variables returns data as is", {
+  expect_equal(complete(mtcars), mtcars)
+})
+
 test_that("basic invocation works", {
   df <- tibble(x = 1:2, y = 1:2, z = 3:4)
   out <- complete(df, x, y)

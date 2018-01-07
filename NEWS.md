@@ -1,5 +1,7 @@
 # tidyr 0.7.2.9000
 
+* `complete(data)` now returns `data` rather than throwing an error (#390).
+
 * `separate()` now longer checks that `...` is empty, allowing methods to make
   use of it. This check was added in tidyr 0.4.0 (2016-02-02) to deprecate
   previous behaviour where `...` was passed to `strsplit()`.

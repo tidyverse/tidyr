@@ -26,10 +26,6 @@
 #' # You can also choose to fill in missing values
 #' df %>% complete(group, nesting(item_id, item_name), fill = list(value1 = 0))
 complete <- function(data, ..., fill = list()) {
-  if (is_empty(exprs(...))) {
-    abort("Please supply variables to complete")
-  }
-
   UseMethod("complete")
 }
 #' @export
