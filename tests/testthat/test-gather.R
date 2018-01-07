@@ -82,12 +82,74 @@ test_that("overwrites existing vars", {
 
 # Column types ------------------------------------------------------------
 
+test_that("can gather all atomic vectors", {
+  df1 <- data.frame(x = 1, y = FALSE)
+  df2 <- data.frame(x = 1, y = 1L)
+  df3 <- data.frame(x = 1, y = 1)
+  df4 <- data.frame(x = 1, y = "a", stringsAsFactors = FALSE)
+  df5 <- data.frame(x = 1, y = 1 + 1i, stringsAsFactors = FALSE)
+
+  gathered <- function(val) {
+    data.frame(x = 1, key = "y", val = val, stringsAsFactors = FALSE)
+  }
+
+  expect_equal(gather(df1, key, val, -x), gathered(FALSE))
+  expect_equal(gather(df2, key, val, -x), gathered(1L))
+  expect_equal(gather(df3, key, val, -x), gathered(1))
+  expect_equal(gather(df4, key, val, -x), gathered("a"))
+  expect_equal(gather(df5, key, val, -x), gathered(1 + 1i))
+})
+
+test_that("can gather all atomic vectors", {
+  df1 <- data.frame(x = 1, y = FALSE)
+  df2 <- data.frame(x = 1, y = 1L)
+  df3 <- data.frame(x = 1, y = 1)
+  df4 <- data.frame(x = 1, y = "a", stringsAsFactors = FALSE)
+  df5 <- data.frame(x = 1, y = 1 + 1i, stringsAsFactors = FALSE)
+
+  gathered_val <- function(val) {
+    data.frame(x = 1, key = "y", val = val, stringsAsFactors = FALSE)
+  }
+  gathered_key <- function(key) {
+    data.frame(y = key, key = "x", val = 1, stringsAsFactors = FALSE)
+  }
+
+  expect_equal(gather(df1, key, val, -x), gathered_val(FALSE))
+  expect_equal(gather(df2, key, val, -x), gathered_val(1L))
+  expect_equal(gather(df3, key, val, -x), gathered_val(1))
+  expect_equal(gather(df4, key, val, -x), gathered_val("a"))
+  expect_equal(gather(df5, key, val, -x), gathered_val(1 + 1i))
+
+  expect_equal(gather(df1, key, val, -y), gathered_key(FALSE))
+  expect_equal(gather(df2, key, val, -y), gathered_key(1L))
+  expect_equal(gather(df3, key, val, -y), gathered_key(1))
+  expect_equal(gather(df4, key, val, -y), gathered_key("a"))
+  expect_equal(gather(df5, key, val, -y), gathered_key(1 + 1i))
+
+})
+
 test_that("gather throws error for POSIXlt", {
   df <- data.frame(y = 1)
   df$x <- as.POSIXlt(Sys.time())
 
   expect_error(gather(df, key, val, -x), "a POSIXlt")
+  expect_error(gather(df, key, val, -y), "a POSIXlt")
 })
+
+test_that("gather throws error for weird objects", {
+  df <- data.frame(y = 1)
+  df$x <- expression(x)
+  expect_error(gather(df, key, val, -x), "atomic vector or list")
+  expect_error(gather(df, key, val, -y), "atomic vector or list")
+
+  e <- new.env(parent = emptyenv())
+  e$x <- 1
+  df <- data.frame(y = 1)
+  df$x <- e
+  expect_error(gather(df, key, val, -x), "atomic vector or list")
+  expect_error(gather(df, key, val, -y), "atomic vector or list")
+})
+
 
 test_that("factors coerced to characters, not integers", {
   df <- data.frame(

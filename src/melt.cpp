@@ -133,15 +133,20 @@ SEXP concatenate(const DataFrame& x, IntegerVector ind, bool factorsAsStrings) {
   Armor<SEXP> tmp;
   Shield<SEXP> output(Rf_allocVector(max_type, nrow * n_ind));
   for (int i = 0; i < n_ind; ++i) {
+    SEXP col = x[ind[i]];
+
+    if (Rf_inherits(col, "POSIXlt")) {
+      stop("Column %i is a POSIXlt. Please convert to POSIXct.", i + 1);
+    }
 
     // a 'tmp' pointer to the current column being iterated over, or
     // a coerced version if necessary
-    if (TYPEOF(x[ind[i]]) == max_type) {
-      tmp = x[ind[i]];
-    } else if (Rf_isFactor(x[ind[i]]) and factorsAsStrings) {
-      tmp = Rf_asCharacterFactor(x[ind[i]]);
+    if (TYPEOF(col) == max_type) {
+      tmp = col;
+    } else if (Rf_isFactor(col) and factorsAsStrings) {
+      tmp = Rf_asCharacterFactor(col);
     } else {
-      tmp = Rf_coerceVector(x[ind[i]], max_type);
+      tmp = Rf_coerceVector(col, max_type);
     }
 
     switch (max_type) {
@@ -166,7 +171,7 @@ SEXP concatenate(const DataFrame& x, IntegerVector ind, bool factorsAsStrings) {
         break;
       }
     default:
-      stop("Unsupported type (%s)", Rf_type2char(max_type));
+      stop("Must be atomic vector or list (not %s)", Rf_type2char(max_type));
     }
   }
 
@@ -197,7 +202,7 @@ List melt_dataframe(const DataFrame& data,
   // Don't melt if the value variables are non-atomic
   for (int i = 0; i < n_measure; ++i) {
     if (!Rf_isVector(data[measure_ind[i]])) {
-      stop("Can't gather non-vector column %i", measure_ind[i] + 1);
+      stop("Must be atomic vector or list (column %i)", measure_ind[i] + 1);
     }
   }
 
