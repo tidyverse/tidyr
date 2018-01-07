@@ -1,5 +1,13 @@
 # tidyr 0.7.2.9000
 
+## Breaking changes
+
+* There are no deliberate breaking changes in this release. However, a number 
+  of packages are failing with errors related to numbers of elements in columns, 
+  and row names. It is possible that these are accidental API changes or new 
+  bugs. If you see such an error in your package, I would sincerely appreciate
+  a minimal reprex.
+
 ## New features
 
 * Increased test coverage from 84% to 99%.
