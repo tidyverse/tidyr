@@ -83,3 +83,10 @@ test_that("expand() reconstructs input dots is empty", {
   expect_is(expand(mtcars), "data.frame")
   expect_is(expand(as_tibble(mtcars)), "tbl_df")
 })
+
+test_that("crossing checks for bad inputs", {
+  expect_error(
+    crossing(x = 1:10, y = quote(a)),
+    "Problems: y"
+  )
+})
