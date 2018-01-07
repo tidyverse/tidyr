@@ -106,10 +106,6 @@ gather.data.frame <- function(data, key = "key", value = "value", ...,
   }
 
   gather_idx <- match(gather_vars, names(data))
-  if (anyNA(gather_idx)) {
-    missing_cols <- paste(gather_vars[is.na(gather_idx)], collapse = ", ")
-    abort(glue("Unknown column names: ", missing_cols))
-  }
   id_idx <- setdiff(seq_along(data), gather_idx)
 
   dup_indx <- match(c(key_var, value_var), names(data))
