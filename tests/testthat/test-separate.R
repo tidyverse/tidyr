@@ -106,3 +106,8 @@ test_that("checks type of `into` and `sep`", {
   expect_error(separate(df, x, "x", FALSE), "must be either numeric or character")
   expect_error(separate(df, x, FALSE), "must be a character vector")
 })
+
+
+test_that("list_indices truncates long warnings", {
+  expect_equal(list_indices(letters, max = 3), "a, b, c, ...")
+})

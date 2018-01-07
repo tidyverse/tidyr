@@ -1,17 +1,3 @@
-compact <- function(x) x[map_int(x, length) > 0]
-
-#' Extract numeric component of variable.
-#'
-#' DEPRECATED: please use `readr::parse_number()` instead.
-#'
-#' @param x A character vector (or a factor).
-#' @keywords internal
-#' @export
-extract_numeric <- function(x) {
-  message("extract_numeric() is deprecated: please use readr::parse_number() instead")
-  as.numeric(gsub("[^0-9.-]+", "", as.character(x)))
-}
-
 #' Pipe operator
 #'
 #' See \code{\link[magrittr]{\%>\%}} for more details.
@@ -23,14 +9,6 @@ extract_numeric <- function(x) {
 #' @importFrom magrittr %>%
 #' @usage lhs \%>\% rhs
 NULL
-
-list_indices <- function(x, max = 20) {
-  if (length(x) > max) {
-    x <- c(x[seq_len(max)], "...")
-  }
-
-  paste(x, collapse = ", ")
-}
 
 regroup <- function(output, input, except = NULL) {
   groups <- dplyr::group_vars(input)

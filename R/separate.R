@@ -131,4 +131,10 @@ str_split_fixed <- function(value, sep, n, extra = "warn", fill = "warn") {
   simp$strings
 }
 
+list_indices <- function(x, max = 20) {
+  if (length(x) > max) {
+    x <- c(x[seq_len(max)], "...")
+  }
 
+  paste(x, collapse = ", ")
+}
