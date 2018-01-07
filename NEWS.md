@@ -1,8 +1,41 @@
 # tidyr 0.7.2.9000
 
+## New features
+
 * Increased test coverage from 84% to 99%.
 
+* `uncount()` performs the inverse operation of `dplyr::count()` (#279)
+
+## Bug fixes and minor improvements
+
 * `complete(data)` now returns `data` rather than throwing an error (#390).
+  `complete()` with zero-length completions returns original input (#331).
+
+* `crossing()` preserves `NA`s (#364).
+
+* `expand()` with empty input gives empty data frame instead of `NULL` (#331).
+
+* `expand()`, `crossing()`, and `complete()` now complete empty factors instead 
+  of dropping them (#270, #285)
+
+* `extract()` has a better error message if `regex` does not contain the
+  expected number of groups (#313).
+
+* `drop_na()` no longer drops columns (@jennybryan, #245), and works with 
+  list-cols (#280). Equivalent of `NA` in a list column is any empty 
+  (length 0) data structure.
+
+* `nest()` is now faster, especially when a long data frame is collapsed into 
+  a nested data frame with few rows.
+
+* `nest()` on a zero-row data frame works as expected (#320).
+
+* `replace_na()` no longer complains if you try and replace missing values in
+  variables not present in the data (#356).
+
+* `replace_na()` now also works with vectors (#342, @flying-sheep), and
+  can replace `NULL` in list-columns. It throws a better error message if
+  you attempt to replace with something other than length 1.
 
 * `separate()` now longer checks that `...` is empty, allowing methods to make
   use of it. This check was added in tidyr 0.4.0 (2016-02-02) to deprecate
@@ -11,64 +44,33 @@
 * `separate()` and `extract()` now insert columns in correct position when
   `drop = TRUE` (#394).
 
-* Equivalent of `NA` in a list column is now an an empty (length 0)
-  data structure.
+* `separate()` now works correctly counts from RHS when using negative
+  integer `sep` values (@markdly, #315).
 
-* `replace_na()` now also works with vectors (#342, @flying-sheep), and
-  can replace `NULL` in list-columns. It throws a better error message if
-  you attempt to replace with something other than length 1.
+* `separate()` gets improved warning message when pieces aren't as expected
+  (#375).
+
+* `separate_rows()` supports list columns (#321), and works with empty tibbles.
+
+* `spread()` now consistently returns 0 row outputs for 0 row inputs (#269).
+
+* `spread()` now works when `key` column includes `NA` and `drop` is `FALSE` 
+  (#254).
+
+* `spread()` no longer returns tibbles with row names (#322).
+
+* `spread()`, `separate()`, `extract()` (#255), and `gather()` (#347) now 
+  replace existing variables rather than creating an invalid data frame with 
+  duplicated variable names (matching the semantics of mutate).
+
+* `unite()` now works (as documented) if you don't supply any variables (#355).
 
 * `unnest()` gains `preserve` argument which allows you to preserve list
   columns without unnesting them (#328).
 
 * `unnest()` can unnested list-columns contains lists of lists (#278).
 
-* `drop_na()` works with list-cols (#280)
-
-* `complete()` with zero-length completions returns original input (#331).
-
-* `expand()` with empty input gives empty data frame instead of `NULL` (#331).
-
-* `uncount()` performs the inverse operation of `dplyr::count()` (#279)
-
-* `spread()` now consistently returns 0 row outputs for 0 row inputs (#269).
-
-* `spread()`, `separate()`, `extract()` (#255), and `gather()` (#347) now 
-  replace existing variables rather than creating an invalid data frame with 
-  duplicated variable names (matching the semantics of mutate).
-
-* `separate()` gets improved warning message when pieces aren't as expected
-  (#375).
-
-* `replace_na()` no longer complains if you try and replace missing values in
-  variables not present in the data (#356).
-
-* `crossing()` preserves `NA`s (#364).
-
-* `unite()` now works (as documented) if you don't supply any variables (#355).
-
 * `unnest(df)` now works if `df` contains no list-cols (#344)
-
-* `extract()` has a better error message if `regex` does not contain the
-  expected number of groups (#313).
-
-* `nest()` is now faster, especially when a long data frame is collapsed into a nested data frame with few rows.
-
-* `nest()` on a zero-row data frame works as expected (#320).
-
-* `separate_rows()` supports list columns (#321), and works with empty tibbles.
-
-* Tibbles returned by `spread()` no longer have row names (#322).
-
-* `drop_na()` no longer drops columns (@jennybryan, #245)
-
-* Fixed that `spread()` fails when the `key` column includes `NA` and `drop` is `FALSE` (#254).
-
-* `expand()`, `crossing()`, and `complete()` now complete empty factors instead of dropping 
-   them (#270, #285)
-
-* `separate()` now works as described in documentation when using negative
-  integer values with `sep` argument (@markdly, #315).
 
 # tidyr 0.7.2
 
