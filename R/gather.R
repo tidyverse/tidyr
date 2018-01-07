@@ -112,7 +112,7 @@ gather.data.frame <- function(data, key = "key", value = "value", ...,
   id_idx <- setdiff(id_idx, dup_indx)
 
   ## Get the attributes if common, NULL if not.
-  args <- normalize_melt_arguments(data, gather_idx, factorsAsStrings = TRUE)
+  args <- normalize_melt_arguments(data, gather_idx)
   valueAsFactor <- "factor" %in% class(args$attr_template)
 
   out <- melt_dataframe(
@@ -142,7 +142,7 @@ gather.data.frame <- function(data, key = "key", value = "value", ...,
 # Functions from reshape2 -------------------------------------------------
 
 ## Get the attributes if common, NULL if not.
-normalize_melt_arguments <- function(data, measure.ind, factorsAsStrings) {
+normalize_melt_arguments <- function(data, measure.ind) {
   measure.attributes <- map(measure.ind, function(i) {
     attributes(data[[i]])
   })
@@ -160,22 +160,17 @@ normalize_melt_arguments <- function(data, measure.ind, factorsAsStrings) {
     attr_template <- NULL
   }
 
-  if (!factorsAsStrings && !measure.attrs.equal) {
-    warn("cannot avoid coercion of factors when measure attributes not identical")
-    factorsAsStrings <- TRUE
-  }
-
   ## If we are going to be coercing any factors to strings, we don't want to
   ## copy the attributes
   any.factors <- any(map_lgl(measure.ind, function(i) is.factor(data[[i]])))
 
-  if (factorsAsStrings && any.factors) {
+  if (any.factors) {
     attr_template <- NULL
   }
 
   list(
     attr_template = attr_template,
-    factorsAsStrings = factorsAsStrings
+    factorsAsStrings = TRUE
   )
 }
 
