@@ -15,9 +15,6 @@ drop_na <- function(data, ...) {
 #' @export
 drop_na.data.frame <- function(data, ...) {
   vars <- unname(tidyselect::vars_select(colnames(data), ...))
-  if (!is_character(vars)) {
-    abort("`vars` is not a character vector.")
-  }
 
   if (is_empty(vars)) {
     f <- complete_cases(data)
