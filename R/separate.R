@@ -31,7 +31,7 @@
 #' @param convert If `TRUE`, will run [type.convert()] with
 #'   `as.is = TRUE` on new columns. This is useful if the component
 #'   columns are integer, numeric or logical.
-#' @param ... Defunct, will be removed in the next version of the package.
+#' @param ... Additional arguments passed on to methods.
 #' @seealso [unite()], the complement.
 #' @export
 #' @examples
@@ -63,10 +63,6 @@ separate.data.frame <- function(data, col, into, sep = "[^[:alnum:]]+",
 
   var <- tidyselect::vars_pull(names(data), !! enquo(col))
   value <- as.character(data[[var]])
-
-  if (length(list(...)) != 0) {
-    warn("Using ... for passing arguments to `strsplit()` is defunct")
-  }
 
   if (is.numeric(sep)) {
     l <- strsep(value, sep)

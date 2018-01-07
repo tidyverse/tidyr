@@ -52,7 +52,7 @@ happens when there are not enough pieces. There are three valid options:
 \item "left": fill with missing values on the left
 }}
 
-\item{...}{Defunct, will be removed in the next version of the package.}
+\item{...}{Additional arguments passed on to methods.}
 }
 \description{
 Given either regular expression or a vector of character positions,
