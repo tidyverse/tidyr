@@ -38,6 +38,12 @@ test_that("key converted to character by default", {
   expect_equal(out$k, c("y", "x"))
 })
 
+test_that("covert will generate integers if needed", {
+  df <- tibble(`1` = 1, `2` = 2)
+  out <- gather(df, convert = TRUE)
+  expect_identical(out$key, c(1L, 2L))
+})
+
 test_that("key preserves column ordering when factor_key = TRUE", {
   df <- data.frame(y = 1, x = 2)
   out <- gather(df, k, v, factor_key = TRUE)
