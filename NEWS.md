@@ -1,5 +1,8 @@
 # tidyr 0.7.2.9000
 
+* `separate()` and `extract()` now insert columns in correct position when
+  `drop = TRUE` (#394).
+
 * Equivalent of `NA` in a list column is now an an empty (length 0)
   data structure.
 
