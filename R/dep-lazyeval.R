@@ -1,3 +1,5 @@
+# nocov start
+
 #' Deprecated SE versions of main verbs
 #'
 #' tidyr used to offer twin versions of each verb suffixed with an
@@ -331,3 +333,5 @@ unnest_.data.frame <- function(data, unnest_cols, .drop = NA, .id = NULL,
   unnest_cols <- compat_lazy_dots(unnest_cols, caller_env())
   unnest(data, !!! unnest_cols, .drop = .drop, .id = .id, .sep = .sep, .preserve = .preserve)
 }
+
+# nocov end
