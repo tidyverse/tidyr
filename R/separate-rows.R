@@ -22,12 +22,6 @@ separate_rows <- function(data, ..., sep = "[^[:alnum:].]+",
   UseMethod("separate_rows")
 }
 #' @export
-separate_rows.default <- function(data, ..., sep = "[^[:alnum:].]+",
-                                  convert = FALSE) {
-  cols <- compat_as_lazy_dots(...)
-  separate_rows_(data, cols = cols, sep = sep)
-}
-#' @export
 separate_rows.data.frame <- function(data, ..., sep = "[^[:alnum:].]+",
                                      convert = FALSE) {
   orig <- data
@@ -44,16 +38,3 @@ separate_rows.data.frame <- function(data, ..., sep = "[^[:alnum:].]+",
   reconstruct_tibble(orig, data, vars)
 }
 
-#' @rdname deprecated-se
-#' @inheritParams separate_rows
-#' @export
-separate_rows_ <- function(data, cols, sep = "[^[:alnum:].]+",
-                           convert = FALSE) {
-  UseMethod("separate_rows_")
-}
-#' @export
-separate_rows_.data.frame <- function(data, cols, sep = "[^[:alnum:].]+",
-                                      convert = FALSE) {
-  cols <- syms(cols)
-  separate_rows(data, !!! cols, sep = sep, convert = convert)
-}

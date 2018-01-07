@@ -56,22 +56,6 @@ separate <- function(data, col, into, sep = "[^[:alnum:]]+", remove = TRUE,
   UseMethod("separate")
 }
 #' @export
-separate.default <- function(data, col, into, sep = "[^[:alnum:]]+",
-                             remove = TRUE, convert = FALSE,
-                             extra = "warn", fill = "warn", ...) {
-  col <- compat_as_lazy(enquo(col))
-  separate_(data,
-    col = col,
-    into = into,
-    sep = sep,
-    remove = remove,
-    convert = convert,
-    extra = extra,
-    fill = fill,
-    ...
-  )
-}
-#' @export
 separate.data.frame <- function(data, col, into, sep = "[^[:alnum:]]+",
                                 remove = TRUE, convert = FALSE,
                                 extra = "warn", fill = "warn", ...) {
@@ -148,26 +132,3 @@ str_split_fixed <- function(value, sep, n, extra = "warn", fill = "warn") {
 }
 
 
-#' @rdname deprecated-se
-#' @inheritParams separate
-#' @export
-separate_ <- function(data, col, into, sep = "[^[:alnum:]]+", remove = TRUE,
-                      convert = FALSE, extra = "warn", fill = "warn", ...) {
-  UseMethod("separate_")
-}
-#' @export
-separate_.data.frame <- function(data, col, into, sep = "[^[:alnum:]]+",
-                                 remove = TRUE, convert = FALSE,
-                                 extra = "warn", fill = "warn", ...) {
-  col <- sym(col)
-  separate(data,
-    col = !! col,
-    into = into,
-    sep = sep,
-    remove = remove,
-    convert = convert,
-    extra = extra,
-    fill = fill,
-    ...
-  )
-}

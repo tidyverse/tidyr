@@ -77,11 +77,6 @@ unnest <- function(data, ..., .drop = NA, .id = NULL, .sep = NULL, .preserve = N
   UseMethod("unnest")
 }
 #' @export
-unnest.default <- function(data, ..., .drop = NA, .id = NULL, .sep = NULL, .preserve = NULL) {
-  unnest_cols <- compat_as_lazy_dots(...)
-  unnest_(data, unnest_cols = unnest_cols, .drop = .drop, .id = .id, .sep = .sep, .preserve = .preserve)
-}
-#' @export
 unnest.data.frame <- function(data, ..., .drop = NA, .id = NULL,
                               .sep = NULL, .preserve = NULL) {
   preserve <- tidyselect::vars_select(names(data), !!! enquo(.preserve))
@@ -187,19 +182,4 @@ id_col <- function(x) {
   lengths <- map_int(x, length)
 
   ids[rep(seq_along(ids), lengths)]
-}
-
-
-#' @rdname deprecated-se
-#' @inheritParams unnest
-#' @param unnest_cols Name of columns that needs to be unnested.
-#' @export
-unnest_ <- function(data, unnest_cols, .drop = NA, .id = NULL, .sep = NULL, .preserve = NULL) {
-  UseMethod("unnest_")
-}
-#' @export
-unnest_.data.frame <- function(data, unnest_cols, .drop = NA, .id = NULL,
-                               .sep = NULL, .preserve = NULL) {
-  unnest_cols <- compat_lazy_dots(unnest_cols, caller_env())
-  unnest(data, !!! unnest_cols, .drop = .drop, .id = .id, .sep = .sep, .preserve = .preserve)
 }

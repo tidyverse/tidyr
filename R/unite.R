@@ -29,12 +29,6 @@ unite <- function(data, col, ..., sep = "_", remove = TRUE) {
   UseMethod("unite")
 }
 #' @export
-unite.default <- function(data, col, ..., sep = "_", remove = TRUE) {
-  col <- compat_as_lazy(enquo(col))
-  from <- compat_as_lazy_dots(...)
-  unite_(data, col, from, sep = sep, remove = remove)
-}
-#' @export
 unite.data.frame <- function(data, col, ..., sep = "_", remove = TRUE) {
   var <- quo_name(enquo(col))
 
@@ -54,19 +48,4 @@ unite.data.frame <- function(data, col, ..., sep = "_", remove = TRUE) {
 
   out <- append_col(out, united, var, after = first_pos - 1L)
   reconstruct_tibble(data, out, if (remove) from_vars)
-}
-
-
-#' @rdname deprecated-se
-#' @inheritParams unite
-#' @param from Names of existing columns as character vector
-#' @export
-unite_ <- function(data, col, from, sep = "_", remove = TRUE) {
-  UseMethod("unite_")
-}
-#' @export
-unite_.data.frame <- function(data, col, from, sep = "_", remove = TRUE) {
-  col <- compat_lazy(col, caller_env())
-  from <- syms(from)
-  unite(data, !! col, !!! from, sep = sep, remove = remove)
 }

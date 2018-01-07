@@ -34,18 +34,6 @@ extract <- function(data, col, into, regex = "([[:alnum:]]+)",
   UseMethod("extract")
 }
 #' @export
-extract.default <- function(data, col, into, regex = "([[:alnum:]]+)",
-                            remove = TRUE, convert = FALSE, ...) {
-  extract_(data,
-    col = compat_as_lazy(enquo(col)),
-    into = into,
-    regex = regex,
-    remove = remove,
-    convert = convert,
-    ...
-  )
-}
-#' @export
 extract.data.frame <- function(data, col, into, regex = "([[:alnum:]]+)",
                                remove = TRUE, convert = FALSE, ...) {
   var <- tidyselect::vars_pull(names(data), !! enquo(col))
@@ -77,26 +65,4 @@ extract.data.frame <- function(data, col, into, regex = "([[:alnum:]]+)",
   out <- append_df(data, l, var, remove = remove)
 
   reconstruct_tibble(data, out, if (remove) var else chr())
-}
-
-
-#' @rdname deprecated-se
-#' @inheritParams extract
-#' @export
-extract_ <- function(data, col, into, regex = "([[:alnum:]]+)", remove = TRUE,
-                     convert = FALSE, ...) {
-  UseMethod("extract_")
-}
-#' @export
-extract_.data.frame <- function(data, col, into, regex = "([[:alnum:]]+)",
-                                remove = TRUE, convert = FALSE, ...) {
-  col <- compat_lazy(col, caller_env())
-  extract(data,
-    col = !! col,
-    into = into,
-    regex = regex,
-    remove = remove,
-    convert = convert,
-    ...
-  )
 }

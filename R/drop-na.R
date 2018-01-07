@@ -13,10 +13,6 @@ drop_na <- function(data, ...) {
   UseMethod("drop_na")
 }
 #' @export
-drop_na.default <- function(data, ...) {
-  drop_na_(data, vars = compat_as_lazy_dots(...))
-}
-#' @export
 drop_na.data.frame <- function(data, ...) {
   vars <- unname(tidyselect::vars_select(colnames(data), ...))
   if (!is_character(vars)) {
@@ -56,15 +52,4 @@ is_complete <- function(x) {
   } else {
     !is.na(x)
   }
-}
-
-
-#' @rdname deprecated-se
-#' @export
-drop_na_ <- function(data, vars) {
-  UseMethod("drop_na_")
-}
-#' @export
-drop_na_.data.frame <- function(data, vars) {
-  drop_na(data, !!! vars)
 }

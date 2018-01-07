@@ -88,19 +88,6 @@ gather <- function(data, key = "key", value = "value", ...,
   UseMethod("gather")
 }
 #' @export
-gather.default <- function(data, key = "key", value = "value", ...,
-                           na.rm = FALSE, convert = FALSE,
-                           factor_key = FALSE) {
-  gather_(data,
-    key_col = compat_as_lazy(enquo(key)),
-    value_col = compat_as_lazy(enquo(value)),
-    ...,
-    na.rm = na.rm,
-    convert = convert,
-    factor_key = factor_key
-  )
-}
-#' @export
 gather.data.frame <- function(data, key = "key", value = "value", ...,
                               na.rm = FALSE, convert = FALSE,
                               factor_key = FALSE) {
@@ -202,35 +189,4 @@ all_identical <- function(xs) {
     if (!identical(xs[[1]], xs[[i]])) return(FALSE)
   }
   TRUE
-}
-
-
-#' @rdname deprecated-se
-#' @inheritParams gather
-#' @param key_col,value_col Strings giving names of key and value columns to
-#'   create.
-#' @param gather_cols Character vector giving column names to be gathered into
-#'   pair of key-value columns.
-#' @keywords internal
-#' @export
-gather_ <- function(data, key_col, value_col, gather_cols, na.rm = FALSE,
-                    convert = FALSE, factor_key = FALSE) {
-  UseMethod("gather_")
-}
-#' @export
-gather_.data.frame <- function(data, key_col, value_col, gather_cols,
-                               na.rm = FALSE, convert = FALSE,
-                               factor_key = FALSE) {
-  key_col <- sym(key_col)
-  value_col <- sym(value_col)
-  gather_cols <- syms(gather_cols)
-
-  gather(data,
-    key = !! key_col,
-    value = !! value_col,
-    !!! gather_cols,
-    na.rm = na.rm,
-    convert = convert,
-    factor_key = factor_key
-  )
 }

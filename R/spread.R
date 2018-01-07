@@ -50,20 +50,6 @@ spread <- function(data, key, value, fill = NA, convert = FALSE,
   UseMethod("spread")
 }
 #' @export
-spread.default <- function(data, key, value, fill = NA, convert = FALSE,
-                           drop = TRUE, sep = NULL) {
-  key <- compat_as_lazy(enquo(key))
-  value <- compat_as_lazy(enquo(value))
-  spread_(data,
-    key_col = key,
-    value_col = value,
-    fill = fill,
-    convert = convert,
-    drop = drop,
-    sep = sep
-  )
-}
-#' @export
 spread.data.frame <- function(data, key, value, fill = NA, convert = FALSE,
                               drop = TRUE, sep = NULL) {
   key_var <- tidyselect::vars_pull(names(data), !! enquo(key))
@@ -164,29 +150,4 @@ ulevels <- function(x) {
   } else {
     sort(unique(x), na.last = TRUE)
   }
-}
-
-
-#' @rdname deprecated-se
-#' @inheritParams spread
-#' @param key_col,value_col Strings giving names of key and value cols.
-#' @export
-spread_ <- function(data, key_col, value_col, fill = NA, convert = FALSE,
-                    drop = TRUE, sep = NULL) {
-  UseMethod("spread_")
-}
-#' @export
-spread_.data.frame <- function(data, key_col, value_col, fill = NA,
-                               convert = FALSE, drop = TRUE, sep = NULL) {
-  key_col <- sym(key_col)
-  value_col <- sym(value_col)
-
-  spread(data,
-    key = !! key_col,
-    value = !! value_col,
-    fill = fill,
-    convert = convert,
-    drop = drop,
-    sep = sep
-  )
 }

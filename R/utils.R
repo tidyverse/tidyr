@@ -1,14 +1,3 @@
-
-col_name <- function(x, default = abort("Please supply column name")) {
-  if (identical(x, quote(expr = ))) return(default)
-  switch_type(x,
-    NULL = NULL,
-    string = x,
-    symbol = as_string(x),
-    abort("Invalid column specification")
-  )
-}
-
 compact <- function(x) x[map_int(x, length) > 0]
 
 #' Extract numeric component of variable.

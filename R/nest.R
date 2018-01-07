@@ -34,12 +34,6 @@ nest <- function(data, ..., .key = "data") {
   UseMethod("nest")
 }
 #' @export
-nest.default <- function(data, ..., .key = "data") {
-  key_col <- compat_as_lazy(enquo(.key))
-  nest_cols <- compat_as_lazy_dots(...)
-  nest_(data, key_col = key_col, nest_cols = nest_cols)
-}
-#' @export
 nest.data.frame <- function(data, ..., .key = "data") {
   key_var <- quo_name(enexpr(.key))
 
@@ -73,18 +67,3 @@ nest.data.frame <- function(data, ..., .key = "data") {
 }
 
 
-#' @rdname deprecated-se
-#' @inheritParams nest
-#' @param key_col Name of the column that will contain the nested data frames.
-#' @param nest_cols Character vector of columns to nest.
-#' @keywords internal
-#' @export
-nest_ <- function(data, key_col, nest_cols = character()) {
-  UseMethod("nest_")
-}
-#' @export
-nest_.data.frame <- function(data, key_col, nest_cols = character()) {
-  key_col <- sym(key_col)
-  nest_cols <- syms(nest_cols)
-  nest(data, .key = !! key_col, !!! nest_cols)
-}

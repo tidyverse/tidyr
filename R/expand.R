@@ -80,10 +80,7 @@
 expand <- function(data, ...) {
   UseMethod("expand")
 }
-#' @export
-expand.default <- function(data, ...) {
-  expand_(data, .dots = compat_as_lazy_dots(...))
-}
+
 #' @export
 expand.data.frame <- function(data, ...) {
   dots <- quos(..., .named = TRUE)
@@ -101,19 +98,6 @@ expand.grouped_df <- function(data, ...) {
   dots <- quos(...)
   dplyr::do(data, expand(., !!! dots))
 }
-
-#' @rdname deprecated-se
-#' @param expand_cols Character vector of column names to be expanded.
-#' @export
-expand_ <- function(data, dots, ...) {
-  UseMethod("expand_")
-}
-#' @export
-expand_.data.frame <- function(data, dots, ...) {
-  dots <- compat_lazy_dots(dots, caller_env())
-  expand(data, !!! dots)
-}
-
 
 # Nesting & crossing ------------------------------------------------------
 
@@ -168,19 +152,4 @@ nesting <- function(...) {
   df <- as_tibble(x)
   df <- dplyr::distinct(df)
   df[do.call(order, df), , drop = FALSE]
-}
-
-
-#' @rdname deprecated-se
-#' @param x For `nesting_` and `crossing_` a list of variables.
-#' @export
-crossing_ <- function(x) {
-  x <- compat_lazy_dots(x, caller_env())
-  crossing(!!! x)
-}
-#' @rdname deprecated-se
-#' @export
-nesting_ <- function(x) {
-  x <- compat_lazy_dots(x, caller_env())
-  nesting(!!! x)
 }

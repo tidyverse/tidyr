@@ -22,10 +22,6 @@ fill <- function(data, ..., .direction = c("down", "up")) {
   UseMethod("fill")
 }
 #' @export
-fill.default <- function(data, ..., .direction = c("down", "up")) {
-  fill_(data, fill_cols = compat_as_lazy_dots(...), .direction = .direction)
-}
-#' @export
 fill.data.frame <- function(data, ..., .direction = c("down", "up")) {
   fill_cols <- unname(tidyselect::vars_select(names(data), ...))
 
@@ -41,18 +37,4 @@ fill.data.frame <- function(data, ..., .direction = c("down", "up")) {
 #' @export
 fill.grouped_df <- function(data, ..., .direction = c("down", "up")) {
   dplyr::do(data, fill(., ..., .direction = .direction))
-}
-
-
-#' @rdname deprecated-se
-#' @inheritParams fill
-#' @param fill_cols Character vector of column names.
-#' @export
-fill_ <- function(data, fill_cols, .direction = c("down", "up")) {
-  UseMethod("fill_")
-}
-#' @export
-fill_.data.frame <- function(data, fill_cols, .direction = c("down", "up")) {
-  vars <- syms(fill_cols)
-  fill(data, !!! vars, .direction = .direction)
 }
