@@ -64,6 +64,10 @@ separate.data.frame <- function(data, col, into, sep = "[^[:alnum:]]+",
   var <- tidyselect::vars_pull(names(data), !! enquo(col))
   value <- as.character(data[[var]])
 
+  if (!is.character(into)) {
+    abort("`into` must be a character vector")
+  }
+
   if (is.numeric(sep)) {
     l <- strsep(value, sep)
   } else if (is_character(sep)) {

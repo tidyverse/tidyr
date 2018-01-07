@@ -60,6 +60,8 @@ test_that("too many pieces dealt with as requested", {
   drop <- separate(df, x, c("x", "y"), extra = "drop")
   expect_equal(drop[[1]], c("a", "a"))
   expect_equal(drop[[2]], c("b", "b"))
+
+  expect_warning(separate(df, x, c("x", "y"), extra = "error"), "deprecated")
 })
 
 test_that("too few pieces dealt with as requested", {
@@ -96,4 +98,11 @@ test_that("overwrites existing columns", {
 
   expect_named(rs, c("x", "y"))
   expect_equal(rs$x, "a")
+})
+
+
+test_that("checks type of `into` and `sep`", {
+  df <- tibble(x = "a:b")
+  expect_error(separate(df, x, "x", FALSE), "must be either numeric or character")
+  expect_error(separate(df, x, FALSE), "must be a character vector")
 })
