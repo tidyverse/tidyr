@@ -238,3 +238,8 @@ test_that("overwrites existing columns", {
   expect_named(rs, c("y", "x"))
   expect_equal(rs$x, 3:4)
 })
+
+test_that("spread doesn't convert data frames into tibbles", {
+  df <- data.frame(x = c("a", "b"), y = 1:2)
+  expect_equal(class(spread(df, x, y)), "data.frame")
+})
