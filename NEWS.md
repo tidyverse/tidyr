@@ -8,6 +8,10 @@
   bugs. If you see such an error in your package, I would sincerely appreciate
   a minimal reprex.
 
+* `separate()` now correctly uses -1 to refer to the far right position, 
+  instead of -2. If you depended on this behaviour, you'll need to switch
+  on `packageVersion("tidyr") > "0.7.2"`
+
 ## New features
 
 * Increased test coverage from 84% to 99%.
