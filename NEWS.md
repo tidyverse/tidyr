@@ -49,7 +49,7 @@
   can replace `NULL` in list-columns. It throws a better error message if
   you attempt to replace with something other than length 1.
 
-* `separate()` now longer checks that `...` is empty, allowing methods to make
+* `separate()` no longer checks that `...` is empty, allowing methods to make
   use of it. This check was added in tidyr 0.4.0 (2016-02-02) to deprecate
   previous behaviour where `...` was passed to `strsplit()`.
 
