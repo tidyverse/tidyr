@@ -1,4 +1,4 @@
-# tidyr 0.7.2.9000
+# tidyr 0.8.0
 
 ## Breaking changes
 
