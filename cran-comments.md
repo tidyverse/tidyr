@@ -1,12 +1,8 @@
-## Release summary
-
-This includes two small bug fixes; one which resolves the failures on R-devel.
-
 ## Test environments
 
-* local OS X install, R 3.4.1
-* ubuntu 12.04 (on travis-ci), R 3.4.1
-* win-builder (devel and release)
+* OS X install: R 3.4
+* win-builder: R-devel
+* travis-ci: R 3.2, R 3.3, R 3.4, R-devel
 
 ## R CMD check results
 
@@ -14,29 +10,46 @@ This includes two small bug fixes; one which resolves the failures on R-devel.
 
 ## revdepcheck results
 
-We checked 311 reverse dependencies (285 from CRAN + 26 from BioConductor), comparing R CMD check results across CRAN and dev versions of this package.
+We checked 364 reverse dependencies (338 from CRAN + 26 from BioConductor), comparing R CMD check results across CRAN and dev versions of this package.
 
- * We saw 1 new problems
- * We failed to check 9 packages
+ * We saw 4 new problems
+ * We failed to check 5 packages
 
 Issues with CRAN packages are summarised below.
+
+All maintainers were notified on Jan 7, and again today.
 
 ### New problems
 (This reports the first line of each new failure)
 
-* REDCapR
-  checking tests ...
+* GetTDData
+  checking examples ... ERROR
+  checking re-building of vignette outputs ... WARNING
   
-  This doesn't appear to be related to tidyr changes
+  This is due to a tidyr API change: author was notified 3 weeks ago.
+
+* jpmesh
+  checking installed package size ... NOTE
+  
+  It seems unlikely that this is related to tidyr, but I'm not sure why
+  the installed size of the R directory would (a) be so large or (b)
+  change.
+
+* survtmle
+  checking examples ... ERROR
+  checking re-building of vignette outputs ... WARNING
+  
+  Same problem as GetTDData
+
+* syuzhet
+  checking installed package size ... NOTE
+  
+  Same problem as jpmesh
 
 ### Failed to check
 
 * anomalyDetection (failed to install)
-* diceR            (failed to install)
-* hansard          (check timed out)
-* HTSSIP           (check timed out)
+* dynfrail         (failed to install)
 * pmc              (check timed out)
-* pointblank       (failed to install)
-* qdap             (failed to install)
-* rtable           (failed to install)
+* visdat           (NA)
 * wand             (failed to install)
