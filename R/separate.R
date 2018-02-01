@@ -32,7 +32,8 @@
 #'   `as.is = TRUE` on new columns. This is useful if the component
 #'   columns are integer, numeric or logical.
 #' @param ... Additional arguments passed on to methods.
-#' @seealso [unite()], the complement.
+#' @seealso [unite()], the complement, [extract()] which uses regular
+#'   expression capturing groups.
 #' @export
 #' @examples
 #' library(dplyr)

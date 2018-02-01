@@ -77,5 +77,6 @@ df <- data.frame(x = c("x: 123", "y: error: 7"))
 df \%>\% separate(x, c("key", "value"), ": ", extra = "merge")
 }
 \seealso{
-\code{\link[=unite]{unite()}}, the complement.
+\code{\link[=unite]{unite()}}, the complement, \code{\link[=extract]{extract()}} which uses regular
+expression capturing groups.
 }
