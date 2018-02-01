@@ -8,7 +8,7 @@
 #' or number of rows (if a data frame).
 #'
 #' @inheritParams expand
-#' @param ... Specification of columns to nest. Use bare variable names or
+#' @param ... Specification of columns to unnest. Use bare variable names or
 #'   functions of variables. If omitted, defaults to all list-cols.
 #' @param .drop Should additional list columns be dropped? By default,
 #'   `unnest` will drop them if unnesting the specified columns requires
