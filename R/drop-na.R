@@ -44,9 +44,13 @@ complete_cases <- function(x, fun) {
 }
 
 is_complete <- function(x) {
-  if (typeof(x) == "list") {
+  x_type <- typeof(x)
+  if (x_type == "list") {
     !vapply(x, is_empty, logical(1))
+  } else if (x_type == "NULL") {
+    FALSE
   } else {
     !is.na(x)
   }
 }
+
