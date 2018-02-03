@@ -48,7 +48,7 @@ is_complete <- function(x) {
   if (x_type == "list") {
     !vapply(x, is_empty, logical(1))
   } else if (x_type == "NULL") {
-    FALSE
+    !is_empty(x)
   } else {
     !is.na(x)
   }
