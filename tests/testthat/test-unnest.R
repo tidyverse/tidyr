@@ -141,11 +141,11 @@ test_that("empty ... returns df if no list-cols", {
 test_that("can optional preserve list cols", {
   df <- tibble(x = list(3, 4), y = list("a", "b"))
   rs <- df %>% unnest(x, .preserve = y)
-  expect_identical(rs, tibble(y = df$y, x = c(3, 4)))
+  expect_identical(rs$y, df$y)
 
   df <- tibble(x = list(c("d", "e")), y = list(1:2))
   rs <- df %>% unnest(.preserve = y)
-  expect_identical(rs, tibble(y = rep(list(1:2), 2), x = c("d", "e")))
+  expect_identical(rs$y, rep(df$y, 2))
 })
 
 # Drop --------------------------------------------------------------------
@@ -161,7 +161,7 @@ test_that("unnest keeps list cols if not expanding", {
   df <- tibble(x = 1:2, y = list(3, 4), z = list(5, 6:7))
   out <- df %>% unnest(y)
 
-  expect_equal(names(out), c("x", "z", "y"))
+  expect_equal(class(out$z), "list")
 })
 
 test_that("unnest respects .drop_lists", {

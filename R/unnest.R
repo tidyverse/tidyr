@@ -157,7 +157,11 @@ unnest.data.frame <- function(data, ..., .drop = NA, .id = NULL,
   rest <- data[rep(seq_nrow(data), n[[1]]), group_vars, drop = FALSE]
   out <- dplyr::bind_cols(rest, unnested_atomic, unnested_dataframe)
 
-  reconstruct_tibble(data, out)
+  # Preserve column order
+  all_vars <- intersect(names(data), names(out))
+  all_vars <- c(all_vars, setdiff(names(out), all_vars))
+
+  reconstruct_tibble(data, out[all_vars])
 }
 
 list_col_type <- function(x) {
