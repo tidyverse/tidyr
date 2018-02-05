@@ -190,3 +190,12 @@ test_that("unnest() recognize ptype", {
   res <- unnest(tbl)
   expect_equal(res, tibble(x = integer(), y = double()))
 })
+
+test_that("column order is preserved", {
+  df <- tibble(x = "a", y = list("b", "c"), z = "d")
+  expect_named(unnest(df), c("x", "y", "z"))
+
+  df$y <- list(tibble(y = "b"), tibble(y = "c"))
+  expect_named(unnest(df), c("x", "y", "z"))
+})
+
