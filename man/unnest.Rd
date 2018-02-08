@@ -9,7 +9,7 @@ unnest(data, ..., .drop = NA, .id = NULL, .sep = NULL, .preserve = NULL)
 \arguments{
 \item{data}{A data frame.}
 
-\item{...}{Specification of columns to nest. Use bare variable names or
+\item{...}{Specification of columns to unnest. Use bare variable names or
 functions of variables. If omitted, defaults to all list-cols.}
 
 \item{.drop}{Should additional list columns be dropped? By default,
