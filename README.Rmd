@@ -53,7 +53,7 @@ There are two fundamental verbs of data tidying:
 * `gather()` takes multiple columns, and gathers them into key-value pairs: it 
   makes "wide" data longer.
 
-* `spread()` takes two columns (key & value), and spreads across multiple 
+* `spread()` takes two columns (key & value), and spreads into multiple 
   columns: it makes "long" data wider. 
 
 tidyr also provides `separate()` and `extract()` functions which makes it easier to pull apart a column that represents multiple variables. The complement to `separate()` is `unite()`.
@@ -72,7 +72,7 @@ If you'd like to read more about data reshaping from a CS perspective, I'd recom
 
 * [On efficiently implementing SchemaSQL on a SQL database system](http://www.vldb.org/conf/1999/P45.pdf)
 
-To guide your reading, here's translation between the terminology used in different places:
+To guide your reading, here's a translation between the terminology used in different places:
 
 | tidyr        | gather  | spread |
 |--------------|---------|--------|
