@@ -26,7 +26,7 @@ The goal of tidyr is to help you create __tidy data__. Tidy data is data where:
 1. Each observation is a row.
 1. Each value is a cell.
 
-Tidy data describes a standard way of storing data that is used wherever possible throughout the [tidyverse](http://tidyverse.org). If you ensure that your data is tidy, you'll spend less timing fighting with the tools and more time working on your analysis.
+Tidy data describes a standard way of storing data that is used wherever possible throughout the [tidyverse](http://tidyverse.org). If you ensure that your data is tidy, you'll spend less time fighting with the tools and more time working on your analysis.
 
 ## Installation
 
@@ -37,7 +37,7 @@ install.packages("tidyverse")
 # Alternatively, install just tidyr:
 install.packages("tidyr")
 
-# Or the the development version from GitHub:
+# Or the development version from GitHub:
 # install.packages("devtools")
 devtools::install_github("tidyverse/tidyr")
 ```
@@ -53,12 +53,12 @@ There are two fundamental verbs of data tidying:
 * `gather()` takes multiple columns, and gathers them into key-value pairs: it 
   makes "wide" data longer.
 
-* `spread()`. takes two columns (key & value) and spreads in to multiple 
-  columns, it makes "long" data wider. 
+* `spread()` takes two columns (key & value), and spreads across multiple 
+  columns: it makes "long" data wider. 
 
 tidyr also provides `separate()` and `extract()` functions which makes it easier to pull apart a column that represents multiple variables. The complement to `separate()` is `unite()`.
 
-To get started, read the tidy data vignette (`vignette("tidy-data")`) and check out the demos, `demo(package = "tidyr")`). 
+To get started, read the tidy data vignette (`vignette("tidy-data")`) and check out the demos (`demo(package = "tidyr")`). 
 
 ## Related work
 
