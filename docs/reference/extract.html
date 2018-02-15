@@ -98,7 +98,11 @@ is NA, the output will be NA.</p>
     </tr>
     <tr>
       <th>col</th>
-      <td><p>Bare column name.</p></td>
+      <td><p>Column name or position. This is passed to
+<code><a href='http://www.rdocumentation.org/packages/tidyselect/topics/vars_pull'>tidyselect::vars_pull()</a></code>.</p>
+<p>This argument is passed by expression and supports
+<a href='http://www.rdocumentation.org/packages/rlang/topics/quasiquotation'>quasiquotation</a> (you can unquote column
+names or column positions).</p></td>
     </tr>
     <tr>
       <th>into</th>
@@ -106,7 +110,8 @@ is NA, the output will be NA.</p>
     </tr>
     <tr>
       <th>regex</th>
-      <td><p>a regular expression used to extract the desired values.</p></td>
+      <td><p>a regular expression used to extract the desired values.
+The should be one group (defined by <code>()</code>) for each element of <code>into</code>.</p></td>
     </tr>
     <tr>
       <th>remove</th>
@@ -114,21 +119,16 @@ is NA, the output will be NA.</p>
     </tr>
     <tr>
       <th>convert</th>
-      <td><p>If <code>TRUE</code>, will run <code>type.convert</code> with
+      <td><p>If <code>TRUE</code>, will run <code>type.convert()</code> with
 <code>as.is = TRUE</code> on new columns. This is useful if the component
 columns are integer, numeric or logical.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Other arguments passed on to <code>regexec</code> to control
+      <td><p>Other arguments passed on to <code>regexec()</code> to control
 how the regular expression is processed.</p></td>
     </tr>
     </table>
-    
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
-
-    <p><code><a href='extract_.html'>extract_</a></code> for a version that uses regular evaluation
-  and is suitable for programming with.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -157,9 +157,7 @@ how the regular expression is processed.</p></td>
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#see-also">See also</a></li>
-      
+            
       <li><a href="#examples">Examples</a></li>
     </ul>
 
@@ -172,8 +170,8 @@ how the regular expression is processed.</p></td>
 </div>
 
 <div class="author">
-  <p>Developed by <a href='http://hadley.nz'>Hadley Wickham</a>.</p>
-  <p>Site built by <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, Lionel Henry.</p>
+  <p>Site built by <a href="http://pkgdown.r-lib.org">pkgdown</a>.</p>
 </div>
 
 <script>

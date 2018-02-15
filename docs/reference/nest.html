@@ -86,7 +86,7 @@ data frame. <code>nest()</code> creates a list of data frames containing all
 the nested variables: this seems to be the most useful form in practice.</p>
     
 
-    <pre class="usage"><span class='fu'>nest</span>(<span class='no'>data</span>, <span class='no'>...</span>, <span class='kw'>.key</span> <span class='kw'>=</span> <span class='no'>data</span>)</pre>
+    <pre class="usage"><span class='fu'>nest</span>(<span class='no'>data</span>, <span class='no'>...</span>, <span class='kw'>.key</span> <span class='kw'>=</span> <span class='st'>"data"</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -97,53 +97,98 @@ the nested variables: this seems to be the most useful form in practice.</p>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Specification of columns to nest. Use bare variable names.
-Select all variables between x and z with <code>x:z</code>, exclude y with
-<code>-y</code>. For more options, see the <a href='http://www.rdocumentation.org/packages/dplyr/topics/select'>select</a> documentation.</p></td>
+      <td><p>A selection of columns. If empty, all variables are
+selected. You can supply bare variable names, select all
+variables between x and z with <code>x:z</code>, exclude y with <code>-y</code>. For
+more options, see the <code><a href='http://dplyr.tidyverse.org/reference/select.html'>dplyr::select()</a></code> documentation. See also
+the section on selection rules below.</p></td>
     </tr>
     <tr>
       <th>.key</th>
-      <td><p>The name of the new column.</p></td>
+      <td><p>The name of the new column, as a string or symbol.</p>
+<p>This argument is passed by expression and supports
+<a href='http://www.rdocumentation.org/packages/rlang/topics/quasiquotation'>quasiquotation</a> (you can unquote strings
+and symbols). The name is captured from the expression with
+<code><a href='http://www.rdocumentation.org/packages/rlang/topics/quo_label'>rlang::quo_name()</a></code> (note that this kind of interface where
+symbols do not represent actual objects is now discouraged in the
+tidyverse; we support it here for backward compatibility).</p></td>
     </tr>
     </table>
     
+    <h2 class="hasAnchor" id="rules-for-selection"><a class="anchor" href="#rules-for-selection"></a>Rules for selection</h2>
+
+    
+    <p>Arguments for selecting columns are passed to
+<code><a href='http://www.rdocumentation.org/packages/tidyselect/topics/vars_select'>tidyselect::vars_select()</a></code> and are treated specially. Unlike other
+verbs, selecting functions make a strict distinction between data
+expressions and context expressions.</p><ul>
+<li><p>A data expression is either a bare name like <code>x</code> or an expression
+like <code>x:y</code> or <code>c(x, y)</code>. In a data expression, you can only refer
+to columns from the data frame.</p></li>
+<li><p>Everything else is a context expression in which you can only
+refer to objects that you have defined with <code>&lt;-</code>.</p></li>
+</ul>
+    <p>For instance, <code>col1:col3</code> is a data expression that refers to data
+columns, while <code>seq(start, end)</code> is a context expression that
+refers to objects from the contexts.</p>
+<p>If you really need to refer to contextual objects from a data
+expression, you can unquote them with the tidy eval operator
+<code>!!</code>. This operator evaluates its argument in the context and
+inlines the result in the surrounding function call. For instance,
+<code>c(x, !! x)</code> selects the <code>x</code> column within the data frame and the
+column referred to by the object <code>x</code> defined in the context (which
+can contain either a column name as string or a column position).</p>
+    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p><code><a href='unnest.html'>unnest</a></code> for the inverse operation.
-    <code><a href='nest_.html'>nest_</a></code> for a version that uses regular evaluation
-  and is suitable for programming with.</p>
+    <p><code><a href='unnest.html'>unnest()</a></code> for the inverse operation.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>library</span>(<span class='no'>dplyr</span>)
-<span class='no'>iris</span> <span class='kw'>%&gt;%</span> <span class='fu'>nest</span>(-<span class='no'>Species</span>)</div><div class='output co'>#&gt; # A tibble: 3 × 2
-#&gt;      Species              data
-#&gt;       &lt;fctr&gt;            &lt;list&gt;
-#&gt; 1     setosa &lt;tibble [50 × 4]&gt;
+<span class='fu'><a href='http://dplyr.tidyverse.org/reference/reexports.html'>as_tibble</a></span>(<span class='no'>iris</span>) <span class='kw'>%&gt;%</span> <span class='fu'>nest</span>(-<span class='no'>Species</span>)</div><div class='output co'>#&gt; # A tibble: 3 x 2
+#&gt;   Species    data             
+#&gt;   &lt;fct&gt;      &lt;list&gt;           
+#&gt; 1 setosa     &lt;tibble [50 × 4]&gt;
 #&gt; 2 versicolor &lt;tibble [50 × 4]&gt;
-#&gt; 3  virginica &lt;tibble [50 × 4]&gt;</div><div class='input'><span class='no'>chickwts</span> <span class='kw'>%&gt;%</span> <span class='fu'>nest</span>(<span class='no'>weight</span>)</div><div class='output co'>#&gt; # A tibble: 6 × 2
-#&gt;        feed              data
-#&gt;      &lt;fctr&gt;            &lt;list&gt;
+#&gt; 3 virginica  &lt;tibble [50 × 4]&gt;</div><div class='input'><span class='fu'><a href='http://dplyr.tidyverse.org/reference/reexports.html'>as_tibble</a></span>(<span class='no'>chickwts</span>) <span class='kw'>%&gt;%</span> <span class='fu'>nest</span>(<span class='no'>weight</span>)</div><div class='output co'>#&gt; # A tibble: 6 x 2
+#&gt;   feed      data             
+#&gt;   &lt;fct&gt;     &lt;list&gt;           
 #&gt; 1 horsebean &lt;tibble [10 × 1]&gt;
-#&gt; 2   linseed &lt;tibble [12 × 1]&gt;
-#&gt; 3   soybean &lt;tibble [14 × 1]&gt;
+#&gt; 2 linseed   &lt;tibble [12 × 1]&gt;
+#&gt; 3 soybean   &lt;tibble [14 × 1]&gt;
 #&gt; 4 sunflower &lt;tibble [12 × 1]&gt;
-#&gt; 5  meatmeal &lt;tibble [11 × 1]&gt;
-#&gt; 6    casein &lt;tibble [12 × 1]&gt;</div><div class='input'>
+#&gt; 5 meatmeal  &lt;tibble [11 × 1]&gt;
+#&gt; 6 casein    &lt;tibble [12 × 1]&gt;</div><div class='input'>
 <span class='kw'>if</span> (<span class='fu'>require</span>(<span class='st'>"gapminder"</span>)) {
   <span class='no'>gapminder</span> <span class='kw'>%&gt;%</span>
-    <span class='fu'>group_by</span>(<span class='no'>country</span>, <span class='no'>continent</span>) <span class='kw'>%&gt;%</span>
+    <span class='fu'><a href='http://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span>(<span class='no'>country</span>, <span class='no'>continent</span>) <span class='kw'>%&gt;%</span>
     <span class='fu'>nest</span>()
 
   <span class='no'>gapminder</span> <span class='kw'>%&gt;%</span>
     <span class='fu'>nest</span>(-<span class='no'>country</span>, -<span class='no'>continent</span>)
-}</div><div class='output co'>#&gt; <span class='message'>Loading required package: gapminder</span></div><div class='output co'>#&gt; <span class='warning'>Warning: there is no package called ‘gapminder’</span></div></pre>
+}</div><div class='output co'>#&gt; # A tibble: 142 x 3
+#&gt;    country     continent data             
+#&gt;    &lt;fct&gt;       &lt;fct&gt;     &lt;list&gt;           
+#&gt;  1 Afghanistan Asia      &lt;tibble [12 × 4]&gt;
+#&gt;  2 Albania     Europe    &lt;tibble [12 × 4]&gt;
+#&gt;  3 Algeria     Africa    &lt;tibble [12 × 4]&gt;
+#&gt;  4 Angola      Africa    &lt;tibble [12 × 4]&gt;
+#&gt;  5 Argentina   Americas  &lt;tibble [12 × 4]&gt;
+#&gt;  6 Australia   Oceania   &lt;tibble [12 × 4]&gt;
+#&gt;  7 Austria     Europe    &lt;tibble [12 × 4]&gt;
+#&gt;  8 Bahrain     Asia      &lt;tibble [12 × 4]&gt;
+#&gt;  9 Bangladesh  Asia      &lt;tibble [12 × 4]&gt;
+#&gt; 10 Belgium     Europe    &lt;tibble [12 × 4]&gt;
+#&gt; # ... with 132 more rows</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
       
+      <li><a href="#rules-for-selection">Rules for selection</a></li>
+
       <li><a href="#see-also">See also</a></li>
       
       <li><a href="#examples">Examples</a></li>
@@ -158,8 +203,8 @@ Select all variables between x and z with <code>x:z</code>, exclude y with
 </div>
 
 <div class="author">
-  <p>Developed by <a href='http://hadley.nz'>Hadley Wickham</a>.</p>
-  <p>Site built by <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, Lionel Henry.</p>
+  <p>Site built by <a href="http://pkgdown.r-lib.org">pkgdown</a>.</p>
 </div>
 
 <script>

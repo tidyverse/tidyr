@@ -95,37 +95,57 @@
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Specification of variables to consider while dropping rows.
-If empty, consider all variables. Use bare variable names. Select all
- variables between x and z with <code>x:z</code>, exclude y with <code>-y</code>.
- For more options, see the <a href='http://www.rdocumentation.org/packages/dplyr/topics/select'>select</a> documentation.</p></td>
+      <td><p>A selection of columns. If empty, all variables are
+selected. You can supply bare variable names, select all
+variables between x and z with <code>x:z</code>, exclude y with <code>-y</code>. For
+more options, see the <code><a href='http://dplyr.tidyverse.org/reference/select.html'>dplyr::select()</a></code> documentation. See also
+the section on selection rules below.</p></td>
     </tr>
     </table>
     
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+    <h2 class="hasAnchor" id="rules-for-selection"><a class="anchor" href="#rules-for-selection"></a>Rules for selection</h2>
 
-    <p><code><a href='drop_na_.html'>drop_na_</a></code> for a version that uses regular evaluation
-  and is suitable for programming with.</p>
+    
+    <p>Arguments for selecting columns are passed to
+<code><a href='http://www.rdocumentation.org/packages/tidyselect/topics/vars_select'>tidyselect::vars_select()</a></code> and are treated specially. Unlike other
+verbs, selecting functions make a strict distinction between data
+expressions and context expressions.</p><ul>
+<li><p>A data expression is either a bare name like <code>x</code> or an expression
+like <code>x:y</code> or <code>c(x, y)</code>. In a data expression, you can only refer
+to columns from the data frame.</p></li>
+<li><p>Everything else is a context expression in which you can only
+refer to objects that you have defined with <code>&lt;-</code>.</p></li>
+</ul>
+    <p>For instance, <code>col1:col3</code> is a data expression that refers to data
+columns, while <code>seq(start, end)</code> is a context expression that
+refers to objects from the contexts.</p>
+<p>If you really need to refer to contextual objects from a data
+expression, you can unquote them with the tidy eval operator
+<code>!!</code>. This operator evaluates its argument in the context and
+inlines the result in the surrounding function call. For instance,
+<code>c(x, !! x)</code> selects the <code>x</code> column within the data frame and the
+column referred to by the object <code>x</code> defined in the context (which
+can contain either a column name as string or a column position).</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>library</span>(<span class='no'>dplyr</span>)
-<span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'>data_frame</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>NA</span>), <span class='kw'>y</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"a"</span>, <span class='fl'>NA</span>, <span class='st'>"b"</span>))
-<span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>drop_na</span>()</div><div class='output co'>#&gt; # A tibble: 1 × 2
-#&gt;       x     y
+<span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='http://dplyr.tidyverse.org/reference/reexports.html'>tibble</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>NA</span>), <span class='kw'>y</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"a"</span>, <span class='fl'>NA</span>, <span class='st'>"b"</span>))
+<span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>drop_na</span>()</div><div class='output co'>#&gt; # A tibble: 1 x 2
+#&gt;       x y    
 #&gt;   &lt;dbl&gt; &lt;chr&gt;
-#&gt; 1     1     a</div><div class='input'><span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>drop_na</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; # A tibble: 2 × 2
-#&gt;       x     y
+#&gt; 1    1. a    </div><div class='input'><span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>drop_na</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; # A tibble: 2 x 2
+#&gt;       x y    
 #&gt;   &lt;dbl&gt; &lt;chr&gt;
-#&gt; 1     1     a
-#&gt; 2     2  &lt;NA&gt;</div></pre>
+#&gt; 1    1. a    
+#&gt; 2    2. &lt;NA&gt; </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
       
-      <li><a href="#see-also">See also</a></li>
+      <li><a href="#rules-for-selection">Rules for selection</a></li>
       
       <li><a href="#examples">Examples</a></li>
     </ul>
@@ -139,8 +159,8 @@ If empty, consider all variables. Use bare variable names. Select all
 </div>
 
 <div class="author">
-  <p>Developed by <a href='http://hadley.nz'>Hadley Wickham</a>.</p>
-  <p>Site built by <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, Lionel Henry.</p>
+  <p>Site built by <a href="http://pkgdown.r-lib.org">pkgdown</a>.</p>
 </div>
 
 <script>
