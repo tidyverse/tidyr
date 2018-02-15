@@ -82,8 +82,8 @@
 
     
     <p>Turns implicit missing values into explicit missing values.
-This is a wrapper around <code><a href='expand.html'>expand</a>()</code>,
-<code><a href='http://www.rdocumentation.org/packages/dplyr/topics/join'>left_join</a>()</code> and <code><a href='replace_na.html'>replace_na</a></code> that's
+This is a wrapper around <code><a href='expand.html'>expand()</a></code>,
+<code><a href='http://dplyr.tidyverse.org/reference/join.html'>dplyr::left_join()</a></code> and <code><a href='replace_na.html'>replace_na()</a></code> that's
 useful for completing missing combinations of data.</p>
     
 
@@ -94,22 +94,22 @@ useful for completing missing combinations of data.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>data</th>
-      <td><p>A data frame</p></td>
+      <td><p>A data frame.</p></td>
     </tr>
     <tr>
       <th>...</th>
       <td><p>Specification of columns to expand.</p>
 <p>To find all unique combinations of x, y and z, including those not
-  found in the data, supply each variable as a separate argument.
-  To find only the combinations that occur in the data, use nest:
-  <code>expand(df, nesting(x, y, z))</code>.</p>
+found in the data, supply each variable as a separate argument.
+To find only the combinations that occur in the data, use nest:
+<code><a href='expand.html'>expand(df, nesting(x, y, z))</a></code>.</p>
 <p>You can combine the two forms. For example,
-  <code>expand(df, nesting(school_id, student_id), date)</code> would produce
-  a row for every student for each date.</p>
+<code><a href='expand.html'>expand(df, nesting(school_id, student_id), date)</a></code> would produce
+a row for every student for each date.</p>
 <p>For factors, the full set of levels (not just those that appear in the
-  data) are used. For continuous variables, you may need to fill in values
-  that don't appear in the data: to do so use expressions like
-  <code>year = 2010:2020</code> or <code>year = <a href='full_seq.html'>full_seq</a>(year)</code>.</p>
+data) are used. For continuous variables, you may need to fill in values
+that don't appear in the data: to do so use expressions like
+<code>year = 2010:2020</code> or <code>year = <a href='full_seq.html'>full_seq</a>(year,1)</code>.</p>
 <p>Length-zero (empty) elements are automatically dropped.</p></td>
     </tr>
     <tr>
@@ -124,36 +124,31 @@ use instead of <code>NA</code> for missing combinations.</p></td>
     <p>If you supply <code>fill</code>, these values will also replace existing
 explicit missing values in the data set.</p>
     
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
-
-    <p><code><a href='complete_.html'>complete_</a></code> for a version that uses regular evaluation
-  and is suitable for programming with.</p>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>library</span>(<span class='no'>dplyr</span>, <span class='kw'>warn.conflicts</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
-<span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'>data_frame</span>(
+<span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='http://dplyr.tidyverse.org/reference/reexports.html'>tibble</a></span>(
   <span class='kw'>group</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>1</span>:<span class='fl'>2</span>, <span class='fl'>1</span>),
   <span class='kw'>item_id</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>1</span>:<span class='fl'>2</span>, <span class='fl'>2</span>),
   <span class='kw'>item_name</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"a"</span>, <span class='st'>"b"</span>, <span class='st'>"b"</span>),
   <span class='kw'>value1</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>3</span>,
   <span class='kw'>value2</span> <span class='kw'>=</span> <span class='fl'>4</span>:<span class='fl'>6</span>
 )
-<span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>complete</span>(<span class='no'>group</span>, <span class='fu'><a href='expand.html'>nesting</a></span>(<span class='no'>item_id</span>, <span class='no'>item_name</span>))</div><div class='output co'>#&gt; # A tibble: 4 × 5
+<span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>complete</span>(<span class='no'>group</span>, <span class='fu'><a href='expand.html'>nesting</a></span>(<span class='no'>item_id</span>, <span class='no'>item_name</span>))</div><div class='output co'>#&gt; # A tibble: 4 x 5
 #&gt;   group item_id item_name value1 value2
-#&gt;   &lt;dbl&gt;   &lt;dbl&gt;     &lt;chr&gt;  &lt;int&gt;  &lt;int&gt;
-#&gt; 1     1       1         a      1      4
-#&gt; 2     1       2         b      3      6
-#&gt; 3     2       1         a     NA     NA
-#&gt; 4     2       2         b      2      5</div><div class='input'>
+#&gt;   &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;      &lt;int&gt;  &lt;int&gt;
+#&gt; 1    1.      1. a              1      4
+#&gt; 2    1.      2. b              3      6
+#&gt; 3    2.      1. a             NA     NA
+#&gt; 4    2.      2. b              2      5</div><div class='input'>
 <span class='co'># You can also choose to fill in missing values</span>
-<span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>complete</span>(<span class='no'>group</span>, <span class='fu'><a href='expand.html'>nesting</a></span>(<span class='no'>item_id</span>, <span class='no'>item_name</span>), <span class='kw'>fill</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='kw'>value1</span> <span class='kw'>=</span> <span class='fl'>0</span>))</div><div class='output co'>#&gt; # A tibble: 4 × 5
+<span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>complete</span>(<span class='no'>group</span>, <span class='fu'><a href='expand.html'>nesting</a></span>(<span class='no'>item_id</span>, <span class='no'>item_name</span>), <span class='kw'>fill</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='kw'>value1</span> <span class='kw'>=</span> <span class='fl'>0</span>))</div><div class='output co'>#&gt; # A tibble: 4 x 5
 #&gt;   group item_id item_name value1 value2
-#&gt;   &lt;dbl&gt;   &lt;dbl&gt;     &lt;chr&gt;  &lt;dbl&gt;  &lt;int&gt;
-#&gt; 1     1       1         a      1      4
-#&gt; 2     1       2         b      3      6
-#&gt; 3     2       1         a      0     NA
-#&gt; 4     2       2         b      2      5</div></pre>
+#&gt;   &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt;  &lt;int&gt;
+#&gt; 1    1.      1. a             1.      4
+#&gt; 2    1.      2. b             3.      6
+#&gt; 3    2.      1. a             0.     NA
+#&gt; 4    2.      2. b             2.      5</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -161,8 +156,6 @@ explicit missing values in the data set.</p>
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#details">Details</a></li>
-
-      <li><a href="#see-also">See also</a></li>
       
       <li><a href="#examples">Examples</a></li>
     </ul>
@@ -176,8 +169,8 @@ explicit missing values in the data set.</p>
 </div>
 
 <div class="author">
-  <p>Developed by <a href='http://hadley.nz'>Hadley Wickham</a>.</p>
-  <p>Site built by <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, Lionel Henry.</p>
+  <p>Site built by <a href="http://pkgdown.r-lib.org">pkgdown</a>.</p>
 </div>
 
 <script>

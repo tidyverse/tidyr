@@ -64,37 +64,28 @@
     
 <div class="contents">
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-<div id="tidyr" class="section level1">
+<section id="tidyr" class="level1">
 
-
-<div id="overview" class="section level2">
-<h2 class="hasAnchor">
-<a href="#overview" class="anchor"></a>Overview</h2>
+<section id="overview" class="level2"><h2>Overview</h2>
 <p>The goal of tidyr is to help you create <strong>tidy data</strong>. Tidy data is data where:</p>
-<ol style="list-style-type: decimal">
+<ol type="1">
 <li>Each variable is in a column.</li>
 <li>Each observation is a row.</li>
 <li>Each value is a cell.</li>
 </ol>
 <p>Tidy data describes a standard way of storing data that is used wherever possible throughout the <a href="http://tidyverse.org">tidyverse</a>. If you ensure that your data is tidy, you’ll spend less timing fighting with the tools and more time working on your analysis.</p>
-</div>
-<div id="installation" class="section level2">
-<h2 class="hasAnchor">
-<a href="#installation" class="anchor"></a>Installation</h2>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># The easiest way to get tidyr is to install the whole tidyverse:</span>
-<span class="kw">install.packages</span>(<span class="st">"tidyverse"</span>)
-
-<span class="co"># Alternatively, install just tidyr:</span>
-<span class="kw">install.packages</span>(<span class="st">"tidyr"</span>)
-
-<span class="co"># Or the the development version from GitHub:</span>
-<span class="co"># install.packages("devtools")</span>
-devtools::<span class="kw">install_github</span>(<span class="st">"tidyverse/tidyr"</span>)</code></pre>
-</div>
-<div id="getting-started" class="section level2">
-<h2 class="hasAnchor">
-<a href="#getting-started" class="anchor"></a>Getting started</h2>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyr)</code></pre>
+</section><section id="installation" class="level2"><h2>Installation</h2>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="co"># The easiest way to get tidyr is to install the whole tidyverse:</span></a>
+<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw">install.packages</span>(<span class="st">"tidyverse"</span>)</a>
+<a class="sourceLine" id="cb1-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb1-4" data-line-number="4"><span class="co"># Alternatively, install just tidyr:</span></a>
+<a class="sourceLine" id="cb1-5" data-line-number="5"><span class="kw">install.packages</span>(<span class="st">"tidyr"</span>)</a>
+<a class="sourceLine" id="cb1-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb1-7" data-line-number="7"><span class="co"># Or the the development version from GitHub:</span></a>
+<a class="sourceLine" id="cb1-8" data-line-number="8"><span class="co"># install.packages("devtools")</span></a>
+<a class="sourceLine" id="cb1-9" data-line-number="9">devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/install_github">install_github</a></span>(<span class="st">"tidyverse/tidyr"</span>)</a></code></pre></div>
+</section><section id="getting-started" class="level2"><h2>Getting started</h2>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">library</span>(tidyr)</a></code></pre></div>
 <p>There are two fundamental verbs of data tidying:</p>
 <ul>
 <li><p><code><a href="reference/gather.html">gather()</a></code> takes multiple columns, and gathers them into key-value pairs: it makes “wide” data longer.</p></li>
@@ -102,11 +93,8 @@ devtools::<span class="kw">install_github</span>(<span class="st">"tidyverse/tid
 </ul>
 <p>tidyr also provides <code><a href="reference/separate.html">separate()</a></code> and <code><a href="reference/extract.html">extract()</a></code> functions which makes it easier to pull apart a column that represents multiple variables. The complement to <code><a href="reference/separate.html">separate()</a></code> is <code><a href="reference/unite.html">unite()</a></code>.</p>
 <p>To get started, read the tidy data vignette (<code><a href="articles/tidy-data.html">vignette("tidy-data")</a></code>) and check out the demos, <code>demo(package = "tidyr")</code>).</p>
-</div>
-<div id="related-work" class="section level2">
-<h2 class="hasAnchor">
-<a href="#related-work" class="anchor"></a>Related work</h2>
-<p>tidyr replaces reshape2 (2010-2014) and reshape (2005-2010). Somewhat counterintuitively each iteration of the the package has done less. tidyr is designed specifically for tidying data, not general reshaping (reshape2), or the general aggregation (reshape).</p>
+</section><section id="related-work" class="level2"><h2>Related work</h2>
+<p>tidyr replaces reshape2 (2010-2014) and reshape (2005-2010). Somewhat counterintuitively each iteration of the package has done less. tidyr is designed specifically for tidying data, not general reshaping (reshape2), or the general aggregation (reshape).</p>
 <p>If you’d like to read more about data reshaping from a CS perspective, I’d recommend the following three papers:</p>
 <ul>
 <li><p><a href="http://vis.stanford.edu/papers/wrangler">Wrangler: Interactive visual specification of data transformation scripts</a></p></li>
@@ -116,35 +104,34 @@ devtools::<span class="kw">install_github</span>(<span class="st">"tidyverse/tid
 <p>To guide your reading, here’s translation between the terminology used in different places:</p>
 <table class="table">
 <thead><tr class="header">
-<th align="left">tidyr</th>
-<th align="left">gather</th>
-<th align="left">spread</th>
+<th>tidyr</th>
+<th>gather</th>
+<th>spread</th>
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td align="left">reshape(2)</td>
-<td align="left">melt</td>
-<td align="left">cast</td>
+<td>reshape(2)</td>
+<td>melt</td>
+<td>cast</td>
 </tr>
 <tr class="even">
-<td align="left">spreadsheets</td>
-<td align="left">unpivot</td>
-<td align="left">pivot</td>
+<td>spreadsheets</td>
+<td>unpivot</td>
+<td>pivot</td>
 </tr>
 <tr class="odd">
-<td align="left">databases</td>
-<td align="left">fold</td>
-<td align="left">unfold</td>
+<td>databases</td>
+<td>fold</td>
+<td>unfold</td>
 </tr>
 </tbody>
-</table>
-</div>
-</div>
+</table></section></section>
 </div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Links</h2>
+    <h2 class="hasAnchor">
+<a href="#sidebar" class="anchor"></a>Links</h2>
 <ul class="list-unstyled">
 <li>Download from CRAN at <br><a href="https://cran.r-project.org/package=tidyr">https://​cran.r-project.org/​package=tidyr</a>
 </li>
@@ -156,11 +143,12 @@ devtools::<span class="kw">install_github</span>(<span class="st">"tidyverse/tid
 </li>
 </ul>
 <h2>License</h2>
-<p><a href="https://opensource.org/licenses/mit-license.php">MIT</a> + file <a href="LICENSE">LICENSE</a></p>
+<p><a href="https://opensource.org/licenses/mit-license.php">MIT</a> + file <a href="LICENSE.html">LICENSE</a></p>
 <h2>Developers</h2>
 <ul class="list-unstyled">
 <li>
 <a href="http://hadley.nz">Hadley Wickham</a> <br><small class="roles"> Author, maintainer </small> </li>
+<li>Lionel Henry <br><small class="roles"> Author </small> </li>
 <li><a href="authors.html">All authors...</a></li>
 </ul>
 <h2>Dev status</h2>
@@ -179,8 +167,8 @@ devtools::<span class="kw">install_github</span>(<span class="st">"tidyverse/tid
 </div>
 
 <div class="author">
-  <p>Developed by <a href="http://hadley.nz">Hadley Wickham</a>.</p>
-  <p>Site built by <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Developed by <a href="http://hadley.nz">Hadley Wickham</a>, Lionel Henry.</p>
+  <p>Site built by <a href="http://pkgdown.r-lib.org">pkgdown</a>.</p>
 </div>
 
 <script>

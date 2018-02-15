@@ -95,14 +95,12 @@
       <td><p>A data frame.</p></td>
     </tr>
     <tr>
-      <th>key</th>
-      <td><p>The bare (unquoted) name of the column whose values will be used
-as column headings.</p></td>
-    </tr>
-    <tr>
-      <th>value</th>
-      <td><p>The bare (unquoted) name of the column whose values will
-populate the cells.</p></td>
+      <th>key, value</th>
+      <td><p>Column names or positions. This is passed to
+<code><a href='http://www.rdocumentation.org/packages/tidyselect/topics/vars_pull'>tidyselect::vars_pull()</a></code>.</p>
+<p>These arguments are passed by expression and support
+<a href='http://www.rdocumentation.org/packages/rlang/topics/quasiquotation'>quasiquotation</a> (you can unquote column
+names or column positions).</p></td>
     </tr>
     <tr>
       <th>fill</th>
@@ -113,8 +111,8 @@ present. Both types of missing value will be replaced by <code>fill</code>.</p><
     </tr>
     <tr>
       <th>convert</th>
-      <td><p>If <code>TRUE</code>, <code>type.convert</code> with <code>asis =
-TRUE</code> will be run on each of the new columns. This is useful if the value
+      <td><p>If <code>TRUE</code>, <code>type.convert()</code> with <code>asis =
+  TRUE</code> will be run on each of the new columns. This is useful if the value
 column was a mix of variables that was coerced to a string. If the class of
 the value column was factor or date, note that will not be true of the new
 columns that are produced, which are coerced to character before type
@@ -132,11 +130,6 @@ data, filling in missing combinations with <code>fill</code>.</p></td>
 by "&lt;key_name&gt;&lt;sep&gt;&lt;key_value&gt;".</p></td>
     </tr>
     </table>
-    
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
-
-    <p><code><a href='spread_.html'>spread_</a></code> for a version that uses regular evaluation
-  and is suitable for programming with.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -189,9 +182,7 @@ by "&lt;key_name&gt;&lt;sep&gt;&lt;key_value&gt;".</p></td>
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#see-also">See also</a></li>
-      
+            
       <li><a href="#examples">Examples</a></li>
     </ul>
 
@@ -204,8 +195,8 @@ by "&lt;key_name&gt;&lt;sep&gt;&lt;key_value&gt;".</p></td>
 </div>
 
 <div class="author">
-  <p>Developed by <a href='http://hadley.nz'>Hadley Wickham</a>.</p>
-  <p>Site built by <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, Lionel Henry.</p>
+  <p>Site built by <a href="http://pkgdown.r-lib.org">pkgdown</a>.</p>
 </div>
 
 <script>

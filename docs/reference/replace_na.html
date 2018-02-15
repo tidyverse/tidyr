@@ -84,19 +84,20 @@
     <p>Replace missing values</p>
     
 
-    <pre class="usage"><span class='fu'>replace_na</span>(<span class='no'>data</span>, <span class='kw'>replace</span> <span class='kw'>=</span> <span class='fu'>list</span>(), <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>replace_na</span>(<span class='no'>data</span>, <span class='no'>replace</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>data</th>
-      <td><p>A data frame.</p></td>
+      <td><p>A data frame or vector.</p></td>
     </tr>
     <tr>
       <th>replace</th>
-      <td><p>A named list given the value to replace <code>NA</code> with
-for each column.</p></td>
+      <td><p>If <code>data</code> is a data frame, a named list giving the value to
+replace <code>NA</code> with for each column. If <code>data</code> is a vector, a single value
+used for replacement.</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -107,13 +108,21 @@ for each column.</p></td>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>library</span>(<span class='no'>dplyr</span>)
-<span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'>data_frame</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>NA</span>), <span class='kw'>y</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"a"</span>, <span class='fl'>NA</span>, <span class='st'>"b"</span>))
-<span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>replace_na</span>(<span class='fu'>list</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='st'>"unknown"</span>))</div><div class='output co'>#&gt; # A tibble: 3 × 2
-#&gt;       x       y
-#&gt;   &lt;dbl&gt;   &lt;chr&gt;
-#&gt; 1     1       a
-#&gt; 2     2 unknown
-#&gt; 3     0       b</div></pre>
+<span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='http://dplyr.tidyverse.org/reference/reexports.html'>tibble</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>NA</span>), <span class='kw'>y</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"a"</span>, <span class='fl'>NA</span>, <span class='st'>"b"</span>), <span class='kw'>z</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='fl'>1</span>:<span class='fl'>5</span>, <span class='kw'>NULL</span>, <span class='fl'>10</span>:<span class='fl'>20</span>))
+<span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>replace_na</span>(<span class='fu'>list</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='st'>"unknown"</span>))</div><div class='output co'>#&gt; # A tibble: 3 x 3
+#&gt;       x y       z         
+#&gt;   &lt;dbl&gt; &lt;chr&gt;   &lt;list&gt;    
+#&gt; 1    1. a       &lt;int [5]&gt; 
+#&gt; 2    2. unknown &lt;NULL&gt;    
+#&gt; 3    0. b       &lt;int [11]&gt;</div><div class='input'>
+<span class='co'># NULL are the list-col equivalent of NAs</span>
+<span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>replace_na</span>(<span class='fu'>list</span>(<span class='kw'>z</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='fl'>5</span>)))</div><div class='output co'>#&gt; # A tibble: 3 x 3
+#&gt;       x y     z         
+#&gt;   &lt;dbl&gt; &lt;chr&gt; &lt;list&gt;    
+#&gt; 1    1. a     &lt;int [5]&gt; 
+#&gt; 2    2. &lt;NA&gt;  &lt;dbl [1]&gt; 
+#&gt; 3   NA  b     &lt;int [11]&gt;</div><div class='input'>
+<span class='no'>df</span>$<span class='no'>x</span> <span class='kw'>%&gt;%</span> <span class='fu'>replace_na</span>(<span class='fl'>0</span>)</div><div class='output co'>#&gt; [1] 1 2 0</div><div class='input'><span class='no'>df</span>$<span class='no'>y</span> <span class='kw'>%&gt;%</span> <span class='fu'>replace_na</span>(<span class='st'>"unknown"</span>)</div><div class='output co'>#&gt; [1] "a"       "unknown" "b"      </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -132,8 +141,8 @@ for each column.</p></td>
 </div>
 
 <div class="author">
-  <p>Developed by <a href='http://hadley.nz'>Hadley Wickham</a>.</p>
-  <p>Site built by <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, Lionel Henry.</p>
+  <p>Site built by <a href="http://pkgdown.r-lib.org">pkgdown</a>.</p>
 </div>
 
 <script>

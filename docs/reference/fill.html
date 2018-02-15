@@ -97,9 +97,19 @@ each time they change.</p>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Specification of columns to fill. Use bare variable names.
-Select all variables between x and z with <code>x:z</code>, exclude y with
-<code>-y</code>. For more options, see the <a href='http://www.rdocumentation.org/packages/dplyr/topics/select'>select</a> documentation.</p></td>
+      <td><p>Specification of columns to expand.</p>
+<p>To find all unique combinations of x, y and z, including those not
+found in the data, supply each variable as a separate argument.
+To find only the combinations that occur in the data, use nest:
+<code><a href='expand.html'>expand(df, nesting(x, y, z))</a></code>.</p>
+<p>You can combine the two forms. For example,
+<code><a href='expand.html'>expand(df, nesting(school_id, student_id), date)</a></code> would produce
+a row for every student for each date.</p>
+<p>For factors, the full set of levels (not just those that appear in the
+data) are used. For continuous variables, you may need to fill in values
+that don't appear in the data: to do so use expressions like
+<code>year = 2010:2020</code> or <code>year = <a href='full_seq.html'>full_seq</a>(year,1)</code>.</p>
+<p>Length-zero (empty) elements are automatically dropped.</p></td>
     </tr>
     <tr>
       <th>.direction</th>
@@ -112,11 +122,6 @@ either "down" (the default) or "up".</p></td>
 
     <p>Missing values are replaced in atomic vectors; <code>NULL</code>s are replaced
 in list.</p>
-    
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
-
-    <p><code><a href='fill_.html'>fill_</a></code> for a version that uses regular evaluation
-  and is suitable for programming with.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -141,8 +146,6 @@ in list.</p>
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#details">Details</a></li>
-
-      <li><a href="#see-also">See also</a></li>
       
       <li><a href="#examples">Examples</a></li>
     </ul>
@@ -156,8 +159,8 @@ in list.</p>
 </div>
 
 <div class="author">
-  <p>Developed by <a href='http://hadley.nz'>Hadley Wickham</a>.</p>
-  <p>Site built by <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, Lionel Henry.</p>
+  <p>Site built by <a href="http://pkgdown.r-lib.org">pkgdown</a>.</p>
 </div>
 
 <script>
