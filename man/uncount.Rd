@@ -12,13 +12,13 @@ uncount(data, weights, .remove = TRUE, .id = NULL)
 \item{weights}{A vector of weights. Evaluated in the context of \code{data};
 supports quasiquotation.}
 
-\item{.remove}{If \code{TRUE}, and \code{weights} is a signle `}
+\item{.remove}{If \code{TRUE}, and \code{weights} is a \code{single}}
 
 \item{.id}{Supply a string to create a new variable which gives a unique
 identifier for each created row.}
 }
 \description{
-Performs the opposite opperation to \code{\link[dplyr:count]{dplyr::count()}}, duplicating rows
+Performs the opposite operation to \code{\link[dplyr:count]{dplyr::count()}}, duplicating rows
 acoording to a weighting variable (or expression).
 }
 \examples{
