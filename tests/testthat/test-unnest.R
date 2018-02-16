@@ -35,7 +35,7 @@ test_that("elements must all be of same type", {
 
 test_that("can't combine vectors and data frames", {
   df <- tibble(x = list(1, tibble(1)))
-  expect_error(unnest(df), "a list of vectors or a list of data frames")
+  expect_error(unnest(df), "must have compatible types")
 })
 
 test_that("multiple columns must be same length", {
@@ -161,4 +161,14 @@ test_that("grouping is preserved", {
   expect_equal(rs$x, 1:3)
   expect_equal(class(df), class(rs))
   expect_equal(dplyr::groups(df), dplyr::groups(rs))
+})
+
+test_that("unnest works with factors (#407)", {
+  df <- tibble(x = as.list(as.factor(letters[1:3])))
+  expect_equal(unnest(df), tibble(x = as.factor(letters[1:3])))
+})
+
+test_that("unnest works with dates (#407)", {
+  df <- tibble(x = as.list(as.Date(c("2018-01-01", "2018-02-01"))))
+  expect_equal(unnest(df), tibble(x = as.Date(c("2018-01-01", "2018-02-01"))))
 })

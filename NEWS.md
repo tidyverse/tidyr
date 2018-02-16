@@ -1,5 +1,9 @@
 # tidyr 0.8.0.9000
 
+## Bug fixes and minor improvements
+
+* `unnest()` works again with factors and Dates (#407, @zeehio).
+
 # tidyr 0.8.0
 
 ## Breaking changes

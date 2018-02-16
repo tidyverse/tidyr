@@ -19,6 +19,7 @@ Imports:
     dplyr (>= 0.7.0),
     glue,
     magrittr,
+    pillar,
     purrr,
     Rcpp,
     rlang,
