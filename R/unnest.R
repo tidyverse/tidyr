@@ -122,7 +122,10 @@ unnest.data.frame <- function(data, ..., .drop = NA, .id = NULL,
         tryCatch({
           invoke(dplyr::combine, x)
         }, error = function(err) {
-          abort(glue("Elements of column [{col_name}] must have compatible types to unnest them"))
+          classes_found <- unique(map_chr(x, function(y) class(y)[1]))
+          classes_found <- paste(classes_found, collapse = ", ")
+          abort(glue("Can't unnest column [{col_name}] because its ",
+                     "elements are not compatible [{classes_found}]"))
         })
       })
   } else {
@@ -132,6 +135,8 @@ unnest.data.frame <- function(data, ..., .drop = NA, .id = NULL,
     unnested_maybe_combinable <- dplyr::bind_cols(unnested_maybe_combinable)
     if (length(unnested_atomic) > 0) {
       unnested_atomic <- dplyr::bind_cols(unnested_atomic, unnested_maybe_combinable)
+      order <- names(nested)[types == "atomic" || types == "maybe_combinable"]
+      unnested_atomic <- unnested_atomic[order]
     } else {
       unnested_atomic <- unnested_maybe_combinable
     }
@@ -180,7 +185,7 @@ unnest.data.frame <- function(data, ..., .drop = NA, .id = NULL,
 list_col_type <- function(x) {
   is_data_frame <- map_lgl(x, is.data.frame)
   is_atomic <- map_lgl(x, function(x) !is.object(x) && is_vector(x))
-  maybe_combinable <- map_lgl(x, function(x) pillar::is_vector_s3(x))
+  maybe_combinable <- map_lgl(x, function(x) pillar::is_vector_s3(x)) & !is_data_frame
 
   if (all(is_data_frame)) {
     "dataframe"

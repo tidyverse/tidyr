@@ -35,7 +35,7 @@ test_that("elements must all be of same type", {
 
 test_that("can't combine vectors and data frames", {
   df <- tibble(x = list(1, tibble(1)))
-  expect_error(unnest(df), "must have compatible types")
+  expect_error(unnest(df), "a list of vectors or a list of data frames")
 })
 
 test_that("multiple columns must be same length", {
@@ -171,4 +171,18 @@ test_that("unnest works with factors (#407)", {
 test_that("unnest works with dates (#407)", {
   df <- tibble(x = as.list(as.Date(c("2018-01-01", "2018-02-01"))))
   expect_equal(unnest(df), tibble(x = as.Date(c("2018-01-01", "2018-02-01"))))
+})
+
+test_that("unnest preserves column order with atomic and S3 vectors", {
+  df <- tibble(z = letters[1:2],
+               x = as.list(as.Date(c("2018-01-01", "2018-02-01"))),
+               y = as.list(1:2))
+  expect_equal(unnest(df), tibble(z = letters[1:2],
+                                  x = as.Date(c("2018-01-01", "2018-02-01")),
+                                  y = 1:2))
+})
+
+test_that("unnest fails with incompatible S3 vector types (#407)", {
+  df <- tibble(x = list(as.Date("2018-01-01"), factor("a")))
+  expect_error(unnest(df), "elements are not compatible")
 })
