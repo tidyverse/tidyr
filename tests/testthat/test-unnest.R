@@ -162,3 +162,27 @@ test_that("grouping is preserved", {
   expect_equal(class(df), class(rs))
   expect_equal(dplyr::groups(df), dplyr::groups(rs))
 })
+
+test_that("unnest works with factors (#407)", {
+  df <- tibble(x = as.list(as.factor(letters[1:3])))
+  expect_equal(unnest(df), tibble(x = as.factor(letters[1:3])))
+})
+
+test_that("unnest works with dates (#407)", {
+  df <- tibble(x = as.list(as.Date(c("2018-01-01", "2018-02-01"))))
+  expect_equal(unnest(df), tibble(x = as.Date(c("2018-01-01", "2018-02-01"))))
+})
+
+test_that("unnest preserves column order with atomic and S3 vectors", {
+  df <- tibble(z = letters[1:2],
+               x = as.list(as.Date(c("2018-01-01", "2018-02-01"))),
+               y = as.list(1:2))
+  expect_equal(unnest(df), tibble(z = letters[1:2],
+                                  x = as.Date(c("2018-01-01", "2018-02-01")),
+                                  y = 1:2))
+})
+
+test_that("unnest fails with incompatible S3 vector types (#407)", {
+  df <- tibble(x = list(as.Date("2018-01-01"), factor("a")))
+  expect_error(unnest(df), "elements are not compatible")
+})
