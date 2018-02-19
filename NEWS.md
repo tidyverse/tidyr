@@ -1,5 +1,8 @@
 # tidyr 0.8.0.9000
 
+* `unnest()` weakens test of "atomicity" to restore previous behaviour when
+  unnesting factors and dates (#407).
+
 # tidyr 0.8.0
 
 ## Breaking changes

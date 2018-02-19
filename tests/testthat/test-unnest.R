@@ -5,6 +5,11 @@ test_that("unnesting combines atomic vectors", {
   expect_equal(unnest(df)$x, 1:10)
 })
 
+test_that("unesting combines augmented vectors", {
+  df <- tibble::tibble(x = as.list(as.factor(letters[1:3])))
+  expect_equal(unnest(df)$x, factor(letters[1:3]))
+})
+
 test_that("vector unnest preserves names", {
   df <- tibble(x = list(1, 2:3), y = list("a", c("b", "c")))
   out <- unnest(df)

@@ -156,7 +156,7 @@ unnest.data.frame <- function(data, ..., .drop = NA, .id = NULL,
 
 list_col_type <- function(x) {
   is_data_frame <- map_lgl(x, is.data.frame)
-  is_atomic <- map_lgl(x, function(x) !is.object(x) && is_vector(x))
+  is_atomic <- map_lgl(x, function(x) is_atomic(x) || (is_list(x) && !is.object(x)))
 
   if (all(is_data_frame)) {
     "dataframe"
