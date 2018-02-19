@@ -10,7 +10,6 @@ NULL
 #' Missing values are replaced in atomic vectors; `NULL`s are replaced
 #' in list.
 #'
-#' @inheritParams expand
 #' @inheritParams gather
 #' @param .direction Direction in which to fill missing values. Currently
 #'   either "down" (the default) or "up".
