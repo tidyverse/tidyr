@@ -1,5 +1,7 @@
 # tidyr 0.8.0.9000
 
+* `crossing()` preserves factor levels (#410).
+
 * `unnest()` weakens test of "atomicity" to restore previous behaviour when
   unnesting factors and dates (#407).
 
