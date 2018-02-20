@@ -35,7 +35,7 @@ test_that("factors are spread into columns (#35)", {
   )
 
   out <- data %>% spread(x, z)
-  expect_equal(names(out), c("y", "a", "b"))
+  expect_named(out, c("y", "a", "b"))
   expect_true(all(vapply(out, is.factor, logical(1))))
   expect_identical(levels(out$a), levels(data$z))
   expect_identical(levels(out$b), levels(data$z))
@@ -97,7 +97,7 @@ test_that("dates are spread into columns (#62)", {
     date = Sys.Date() + 0:3
   )
   out <- spread(df, key, date)
-  expect_identical(names(out), c("id", "begin", "end"))
+  expect_named(out, c("id", "begin", "end"))
   expect_is(out$begin, "Date")
   expect_is(out$end, "Date")
 })

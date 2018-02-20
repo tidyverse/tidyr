@@ -7,7 +7,7 @@ test_that("gather all columns when ... is empty", {
   )
   out <- gather(df, key, val)
   expect_equal(nrow(out), 10)
-  expect_equal(names(out), c("key", "val"))
+  expect_named(out, c("key", "val"))
 })
 
 test_that("gather returns input if no columns gathered", {
@@ -20,7 +20,7 @@ test_that("if not supply, key and value default to key and value", {
   df <- data.frame(x = 1:2)
   out <- gather(df)
   expect_equal(nrow(out), 2)
-  expect_equal(names(out), c("key", "value"))
+  expect_named(out, c("key", "value"))
 })
 
 test_that("Missing values removed when na.rm = TRUE", {
@@ -58,7 +58,7 @@ test_that("preserve class of input", {
 test_that("additional inputs control which columns to gather", {
   data <- tibble(a = 1, b1 = 1, b2 = 2, b3 = 3)
   out <- gather(data, key, val, b1:b3)
-  expect_equal(names(out), c("a", "key", "val"))
+  expect_named(out, c("a", "key", "val"))
   expect_equal(out$val, 1:3)
 })
 

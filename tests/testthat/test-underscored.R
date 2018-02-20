@@ -32,7 +32,7 @@ test_that("drop_na_() works with non-syntactic names", {
 test_that("expand_()", {
   df <- data.frame(x = 1:2, y = 1:2)
   out <- expand_(df, list("x", ~y))
-  expect_identical(names(out), c("x", "y"))
+  expect_named(out, c("x", "y"))
   expect_identical(nrow(out), 4L)
 })
 
@@ -57,7 +57,7 @@ test_that("gather_()", {
   df <- data.frame(x = 1:5, y = 6:10)
   out <- gather_(df, "key", "val", c("x", "y"))
   expect_identical(nrow(out), 10L)
-  expect_identical(names(out), c("key", "val"))
+  expect_named(out, c("key", "val"))
 })
 
 test_that("gather_() works with non-syntactic names", {

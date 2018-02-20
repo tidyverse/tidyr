@@ -154,7 +154,7 @@ test_that("unnest drops list cols if expanding", {
   df <- tibble(x = 1:2, y = list(3, 4), z = list(5, 6:7))
   out <- df %>% unnest(z)
 
-  expect_equal(names(out), c("x", "z"))
+  expect_named(out, c("x", "z"))
 })
 
 test_that("unnest keeps list cols if not expanding", {
@@ -167,8 +167,8 @@ test_that("unnest keeps list cols if not expanding", {
 test_that("unnest respects .drop_lists", {
   df <- tibble(x = 1:2, y = list(3, 4), z = list(5, 6:7))
 
-  expect_equal(df %>% unnest(y, .drop = TRUE) %>% names(), c("x", "y"))
-  expect_equal(df %>% unnest(z, .drop = FALSE) %>% names(), c("x", "y", "z"))
+  expect_named(df %>% unnest(y, .drop = TRUE), c("x", "y"))
+  expect_named(df %>% unnest(z, .drop = FALSE), c("x", "y", "z"))
 })
 
 test_that("grouping is preserved", {
