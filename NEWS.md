@@ -62,6 +62,7 @@
 
 * `unnest()` weakens test of "atomicity" to restore previous behaviour when
   unnesting factors and dates (#407).
+* `unnest()` now preserves column order (#406, @aaronwolen)
 
 # tidyr 0.8.0
 
