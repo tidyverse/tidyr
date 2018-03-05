@@ -13,7 +13,6 @@
 #' the child data frames contain all variables from the parent data frame.
 #'
 #' @inheritSection gather Rules for selection
-#' @inheritParams gather
 #' @param data A data frame.
 #' @param ... A selection of columns. If empty, then grouping variables are used.
 #'   If there are no grouping variables either, then a list is returned with its

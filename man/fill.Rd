@@ -7,6 +7,8 @@
 fill(data, ..., .direction = c("down", "up"))
 }
 \arguments{
+\item{data}{A data frame.}
+
 \item{...}{A selection of columns. If empty, all variables are
 selected. You can supply bare variable names, select all
 variables between x and z with \code{x:z}, exclude y with \code{-y}. For
