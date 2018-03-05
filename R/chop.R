@@ -50,32 +50,3 @@ chop.data.frame <- function(data, ...) {
   unname(split(data, idx))
 }
 
-
-#-----------------------------------------------------------------------------
-# Test zone
-#-----------------------------------------------------------------------------
-if (FALSE) {
-  library(rlang)
-  # list of length 3
-  mtcars %>%
-    group_by(cyl) %>%
-    chop()
-
-  # list of length 1 with entire data.frame as first list item
-  mtcars %>%
-    chop()
-
-  # list of length 3
-  mtcars %>%
-    chop(cyl)
-
-  test_df <- mtcars
-  test_df$cyl[8] <- NA
-  test_df %>%
-    chop(cyl, am)
-
-
-  df <- tibble(x = 1:3, y = c("B", "A", "A"))[0, ]
-  chop(df, x)
-
-}
