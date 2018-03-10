@@ -1,7 +1,7 @@
 #' "Uncount" a data frame
 #'
 #' Performs the opposite operation to [dplyr::count()], duplicating rows
-#' acoording to a weighting variable (or expression).
+#' according to a weighting variable (or expression).
 #'
 #' @param data A data frame, tibble, or grouped tibble.
 #' @param weights A vector of weights. Evaluated in the context of `data`;
