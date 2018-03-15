@@ -19,7 +19,7 @@ where:
 
 Tidy data describes a standard way of storing data that is used wherever
 possible throughout the [tidyverse](http://tidyverse.org). If you ensure
-that your data is tidy, you’ll spend less timing fighting with the tools
+that your data is tidy, you’ll spend less time fighting with the tools
 and more time working on your analysis.
 
 ## Installation
@@ -31,7 +31,7 @@ install.packages("tidyverse")
 # Alternatively, install just tidyr:
 install.packages("tidyr")
 
-# Or the the development version from GitHub:
+# Or the development version from GitHub:
 # install.packages("devtools")
 devtools::install_github("tidyverse/tidyr")
 ```
@@ -47,15 +47,15 @@ There are two fundamental verbs of data tidying:
   - `gather()` takes multiple columns, and gathers them into key-value
     pairs: it makes “wide” data longer.
 
-  - `spread()`. takes two columns (key & value) and spreads in to
-    multiple columns, it makes “long” data wider.
+  - `spread()` takes two columns (key & value), and spreads into
+    multiple columns: it makes “long” data wider.
 
 tidyr also provides `separate()` and `extract()` functions which makes
 it easier to pull apart a column that represents multiple variables. The
 complement to `separate()` is `unite()`.
 
 To get started, read the tidy data vignette (`vignette("tidy-data")`)
-and check out the demos, `demo(package = "tidyr")`).
+and check out the demos (`demo(package = "tidyr")`).
 
 ## Related work
 
@@ -77,7 +77,7 @@ I’d recommend the following three papers:
   - [On efficiently implementing SchemaSQL on a SQL database
     system](http://www.vldb.org/conf/1999/P45.pdf)
 
-To guide your reading, here’s translation between the terminology used
+To guide your reading, here’s a translation between the terminology used
 in different places:
 
 | tidyr        | gather  | spread |
