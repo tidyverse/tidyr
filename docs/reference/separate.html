@@ -154,7 +154,8 @@ happens when there are not enough pieces. There are three valid options:</p><ul>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p><code><a href='unite.html'>unite()</a></code>, the complement.</p>
+    <p><code><a href='unite.html'>unite()</a></code>, the complement, <code><a href='extract.html'>extract()</a></code> which uses regular
+expression capturing groups.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -166,7 +167,7 @@ happens when there are not enough pieces. There are three valid options:</p><ul>
 #&gt; 3    a    d
 #&gt; 4    b    c</div><div class='input'>
 <span class='co'># If every row doesn't split into the same number of pieces, use</span>
-<span class='co'># the extra and file arguments to control what happens</span>
+<span class='co'># the extra and fill arguments to control what happens</span>
 <span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'>data.frame</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"a"</span>, <span class='st'>"a b"</span>, <span class='st'>"a b c"</span>, <span class='fl'>NA</span>))
 <span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>separate</span>(<span class='no'>x</span>, <span class='fu'>c</span>(<span class='st'>"a"</span>, <span class='st'>"b"</span>))</div><div class='output co'>#&gt; <span class='warning'>Warning: Expected 2 pieces. Additional pieces discarded in 1 rows [3].</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Expected 2 pieces. Missing pieces filled with `NA` in 1 rows [1].</span></div><div class='output co'>#&gt;      a    b
 #&gt; 1    a &lt;NA&gt;
@@ -226,3 +227,4 @@ happens when there are not enough pieces. There are three valid options:</p><ul>
 
   </body>
 </html>
+

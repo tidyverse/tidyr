@@ -83,6 +83,13 @@
 
     <div class="contents">
     <div class="section level1">
+<h1>tidyr 0.8.0.9000</h1>
+<ul>
+<li>
+<code><a href="../reference/unnest.html">unnest()</a></code> weakens test of “atomicity” to restore previous behaviour when unnesting factors and dates (<a href='https://github.com/tidyverse/tidyr/issues/407'>#407</a>).</li>
+</ul>
+</div>
+    <div class="section level1">
 <h1>tidyr 0.8.0</h1>
 <div class="section level2">
 <h2>Breaking changes</h2>
@@ -95,42 +102,42 @@
 <h2>New features</h2>
 <ul>
 <li><p>Increased test coverage from 84% to 99%.</p></li>
-<li><p><code><a href="../reference/uncount.html">uncount()</a></code> performs the inverse operation of <code><a href="http://dplyr.tidyverse.org/reference/tally.html">dplyr::count()</a></code> (#279)</p></li>
+<li><p><code><a href="../reference/uncount.html">uncount()</a></code> performs the inverse operation of <code><a href="http://dplyr.tidyverse.org/reference/tally.html">dplyr::count()</a></code> (<a href='https://github.com/tidyverse/tidyr/issues/279'>#279</a>)</p></li>
 </ul>
 </div>
 <div class="section level2">
 <h2>Bug fixes and minor improvements</h2>
 <ul>
-<li><p><code><a href="../reference/complete.html">complete(data)</a></code> now returns <code>data</code> rather than throwing an error (#390). <code><a href="../reference/complete.html">complete()</a></code> with zero-length completions returns original input (#331).</p></li>
-<li><p><code><a href="../reference/expand.html">crossing()</a></code> preserves <code>NA</code>s (#364).</p></li>
-<li><p><code><a href="../reference/expand.html">expand()</a></code> with empty input gives empty data frame instead of <code>NULL</code> (#331).</p></li>
-<li><p><code><a href="../reference/expand.html">expand()</a></code>, <code><a href="../reference/expand.html">crossing()</a></code>, and <code><a href="../reference/complete.html">complete()</a></code> now complete empty factors instead of dropping them (#270, #285)</p></li>
-<li><p><code><a href="../reference/extract.html">extract()</a></code> has a better error message if <code>regex</code> does not contain the expected number of groups (#313).</p></li>
-<li><p><code><a href="../reference/drop_na.html">drop_na()</a></code> no longer drops columns (@jennybryan, #245), and works with list-cols (#280). Equivalent of <code>NA</code> in a list column is any empty (length 0) data structure.</p></li>
+<li><p><code><a href="../reference/complete.html">complete(data)</a></code> now returns <code>data</code> rather than throwing an error (<a href='https://github.com/tidyverse/tidyr/issues/390'>#390</a>). <code><a href="../reference/complete.html">complete()</a></code> with zero-length completions returns original input (<a href='https://github.com/tidyverse/tidyr/issues/331'>#331</a>).</p></li>
+<li><p><code><a href="../reference/expand.html">crossing()</a></code> preserves <code>NA</code>s (<a href='https://github.com/tidyverse/tidyr/issues/364'>#364</a>).</p></li>
+<li><p><code><a href="../reference/expand.html">expand()</a></code> with empty input gives empty data frame instead of <code>NULL</code> (<a href='https://github.com/tidyverse/tidyr/issues/331'>#331</a>).</p></li>
+<li><p><code><a href="../reference/expand.html">expand()</a></code>, <code><a href="../reference/expand.html">crossing()</a></code>, and <code><a href="../reference/complete.html">complete()</a></code> now complete empty factors instead of dropping them (<a href='https://github.com/tidyverse/tidyr/issues/270'>#270</a>, <a href='https://github.com/tidyverse/tidyr/issues/285'>#285</a>)</p></li>
+<li><p><code><a href="../reference/extract.html">extract()</a></code> has a better error message if <code>regex</code> does not contain the expected number of groups (<a href='https://github.com/tidyverse/tidyr/issues/313'>#313</a>).</p></li>
+<li><p><code><a href="../reference/drop_na.html">drop_na()</a></code> no longer drops columns (<a href='http://github.com/jennybryan'>@jennybryan</a>, <a href='https://github.com/tidyverse/tidyr/issues/245'>#245</a>), and works with list-cols (<a href='https://github.com/tidyverse/tidyr/issues/280'>#280</a>). Equivalent of <code>NA</code> in a list column is any empty (length 0) data structure.</p></li>
 <li><p><code><a href="../reference/nest.html">nest()</a></code> is now faster, especially when a long data frame is collapsed into a nested data frame with few rows.</p></li>
-<li><p><code><a href="../reference/nest.html">nest()</a></code> on a zero-row data frame works as expected (#320).</p></li>
-<li><p><code><a href="../reference/replace_na.html">replace_na()</a></code> no longer complains if you try and replace missing values in variables not present in the data (#356).</p></li>
-<li><p><code><a href="../reference/replace_na.html">replace_na()</a></code> now also works with vectors (#342, @flying-sheep), and can replace <code>NULL</code> in list-columns. It throws a better error message if you attempt to replace with something other than length 1.</p></li>
-<li><p><code><a href="../reference/separate.html">separate()</a></code> now longer checks that <code>...</code> is empty, allowing methods to make use of it. This check was added in tidyr 0.4.0 (2016-02-02) to deprecate previous behaviour where <code>...</code> was passed to <code>strsplit()</code>.</p></li>
-<li><p><code><a href="../reference/separate.html">separate()</a></code> and <code><a href="../reference/extract.html">extract()</a></code> now insert columns in correct position when <code>drop = TRUE</code> (#394).</p></li>
-<li><p><code><a href="../reference/separate.html">separate()</a></code> now works correctly counts from RHS when using negative integer <code>sep</code> values (@markdly, #315).</p></li>
-<li><p><code><a href="../reference/separate.html">separate()</a></code> gets improved warning message when pieces aren’t as expected (#375).</p></li>
-<li><p><code><a href="../reference/separate_rows.html">separate_rows()</a></code> supports list columns (#321), and works with empty tibbles.</p></li>
-<li><p><code><a href="../reference/spread.html">spread()</a></code> now consistently returns 0 row outputs for 0 row inputs (#269).</p></li>
-<li><p><code><a href="../reference/spread.html">spread()</a></code> now works when <code>key</code> column includes <code>NA</code> and <code>drop</code> is <code>FALSE</code> (#254).</p></li>
-<li><p><code><a href="../reference/spread.html">spread()</a></code> no longer returns tibbles with row names (#322).</p></li>
-<li><p><code><a href="../reference/spread.html">spread()</a></code>, <code><a href="../reference/separate.html">separate()</a></code>, <code><a href="../reference/extract.html">extract()</a></code> (#255), and <code><a href="../reference/gather.html">gather()</a></code> (#347) now replace existing variables rather than creating an invalid data frame with duplicated variable names (matching the semantics of mutate).</p></li>
-<li><p><code><a href="../reference/unite.html">unite()</a></code> now works (as documented) if you don’t supply any variables (#355).</p></li>
-<li><p><code><a href="../reference/unnest.html">unnest()</a></code> gains <code>preserve</code> argument which allows you to preserve list columns without unnesting them (#328).</p></li>
-<li><p><code><a href="../reference/unnest.html">unnest()</a></code> can unnested list-columns contains lists of lists (#278).</p></li>
-<li><p><code><a href="../reference/unnest.html">unnest(df)</a></code> now works if <code>df</code> contains no list-cols (#344)</p></li>
+<li><p><code><a href="../reference/nest.html">nest()</a></code> on a zero-row data frame works as expected (<a href='https://github.com/tidyverse/tidyr/issues/320'>#320</a>).</p></li>
+<li><p><code><a href="../reference/replace_na.html">replace_na()</a></code> no longer complains if you try and replace missing values in variables not present in the data (<a href='https://github.com/tidyverse/tidyr/issues/356'>#356</a>).</p></li>
+<li><p><code><a href="../reference/replace_na.html">replace_na()</a></code> now also works with vectors (<a href='https://github.com/tidyverse/tidyr/issues/342'>#342</a>, <a href='http://github.com/flying'>@flying</a>-sheep), and can replace <code>NULL</code> in list-columns. It throws a better error message if you attempt to replace with something other than length 1.</p></li>
+<li><p><code><a href="../reference/separate.html">separate()</a></code> no longer checks that <code>...</code> is empty, allowing methods to make use of it. This check was added in tidyr 0.4.0 (2016-02-02) to deprecate previous behaviour where <code>...</code> was passed to <code>strsplit()</code>.</p></li>
+<li><p><code><a href="../reference/separate.html">separate()</a></code> and <code><a href="../reference/extract.html">extract()</a></code> now insert columns in correct position when <code>drop = TRUE</code> (<a href='https://github.com/tidyverse/tidyr/issues/394'>#394</a>).</p></li>
+<li><p><code><a href="../reference/separate.html">separate()</a></code> now works correctly counts from RHS when using negative integer <code>sep</code> values (<a href='http://github.com/markdly'>@markdly</a>, <a href='https://github.com/tidyverse/tidyr/issues/315'>#315</a>).</p></li>
+<li><p><code><a href="../reference/separate.html">separate()</a></code> gets improved warning message when pieces aren’t as expected (<a href='https://github.com/tidyverse/tidyr/issues/375'>#375</a>).</p></li>
+<li><p><code><a href="../reference/separate_rows.html">separate_rows()</a></code> supports list columns (<a href='https://github.com/tidyverse/tidyr/issues/321'>#321</a>), and works with empty tibbles.</p></li>
+<li><p><code><a href="../reference/spread.html">spread()</a></code> now consistently returns 0 row outputs for 0 row inputs (<a href='https://github.com/tidyverse/tidyr/issues/269'>#269</a>).</p></li>
+<li><p><code><a href="../reference/spread.html">spread()</a></code> now works when <code>key</code> column includes <code>NA</code> and <code>drop</code> is <code>FALSE</code> (<a href='https://github.com/tidyverse/tidyr/issues/254'>#254</a>).</p></li>
+<li><p><code><a href="../reference/spread.html">spread()</a></code> no longer returns tibbles with row names (<a href='https://github.com/tidyverse/tidyr/issues/322'>#322</a>).</p></li>
+<li><p><code><a href="../reference/spread.html">spread()</a></code>, <code><a href="../reference/separate.html">separate()</a></code>, <code><a href="../reference/extract.html">extract()</a></code> (<a href='https://github.com/tidyverse/tidyr/issues/255'>#255</a>), and <code><a href="../reference/gather.html">gather()</a></code> (<a href='https://github.com/tidyverse/tidyr/issues/347'>#347</a>) now replace existing variables rather than creating an invalid data frame with duplicated variable names (matching the semantics of mutate).</p></li>
+<li><p><code><a href="../reference/unite.html">unite()</a></code> now works (as documented) if you don’t supply any variables (<a href='https://github.com/tidyverse/tidyr/issues/355'>#355</a>).</p></li>
+<li><p><code><a href="../reference/unnest.html">unnest()</a></code> gains <code>preserve</code> argument which allows you to preserve list columns without unnesting them (<a href='https://github.com/tidyverse/tidyr/issues/328'>#328</a>).</p></li>
+<li><p><code><a href="../reference/unnest.html">unnest()</a></code> can unnested list-columns contains lists of lists (<a href='https://github.com/tidyverse/tidyr/issues/278'>#278</a>).</p></li>
+<li><p><code><a href="../reference/unnest.html">unnest(df)</a></code> now works if <code>df</code> contains no list-cols (<a href='https://github.com/tidyverse/tidyr/issues/344'>#344</a>)</p></li>
 </ul>
 </div>
 </div>
     <div class="section level1">
 <h1>tidyr 0.7.2</h1>
 <ul>
-<li><p>The SE variants <code><a href="../reference/deprecated-se.html">gather_()</a></code>, <code><a href="../reference/deprecated-se.html">spread_()</a></code> and <code><a href="../reference/deprecated-se.html">nest_()</a></code> now treat non-syntactic names in the same way as pre tidy eval versions of tidyr (#361).</p></li>
+<li><p>The SE variants <code><a href="../reference/deprecated-se.html">gather_()</a></code>, <code><a href="../reference/deprecated-se.html">spread_()</a></code> and <code><a href="../reference/deprecated-se.html">nest_()</a></code> now treat non-syntactic names in the same way as pre tidy eval versions of tidyr (<a href='https://github.com/tidyverse/tidyr/issues/361'>#361</a>).</p></li>
 <li><p>Fix tidyr bug revealed by R-devel.</p></li>
 </ul>
 </div>
@@ -226,8 +233,8 @@ drop_na(df, starts_with(x))</code></pre>
 <div class="section level2">
 <h2>API changes</h2>
 <ul>
-<li><p><code><a href="../reference/drop_na.html">drop_na()</a></code> removes observations which have <code>NA</code> in the given variables. If no variables are given, all variables are considered (#194, @janschulz).</p></li>
-<li><p><code><a href="../reference/extract_numeric.html">extract_numeric()</a></code> has been deprecated (#213).</p></li>
+<li><p><code><a href="../reference/drop_na.html">drop_na()</a></code> removes observations which have <code>NA</code> in the given variables. If no variables are given, all variables are considered (<a href='https://github.com/tidyverse/tidyr/issues/194'>#194</a>, <a href='http://github.com/janschulz'>@janschulz</a>).</p></li>
+<li><p><code><a href="../reference/extract_numeric.html">extract_numeric()</a></code> has been deprecated (<a href='https://github.com/tidyverse/tidyr/issues/213'>#213</a>).</p></li>
 <li><p>Renamed <code>table4</code> and <code>table5</code> to <code>table4a</code> and <code>table4b</code> to make their connection more clear. The <code>key</code> and <code>value</code> variables in <code>table2</code> have been renamed to <code>type</code> and <code>count</code>.</p></li>
 </ul>
 </div>
@@ -243,7 +250,7 @@ drop_na(df, starts_with(x))</code></pre>
     <div class="section level1">
 <h1>tidyr 0.5.1</h1>
 <ul>
-<li>Restored compatibility with R &lt; 3.3.0 by avoiding <code>getS3method(envir = )</code> (#205, @krlmlr).</li>
+<li>Restored compatibility with R &lt; 3.3.0 by avoiding <code>getS3method(envir = )</code> (<a href='https://github.com/tidyverse/tidyr/issues/205'>#205</a>, <a href='http://github.com/krlmlr'>@krlmlr</a>).</li>
 </ul>
 </div>
     <div class="section level1">
@@ -252,24 +259,24 @@ drop_na(df, starts_with(x))</code></pre>
 <h2>New functions</h2>
 <ul>
 <li>
-<code><a href="../reference/separate_rows.html">separate_rows()</a></code> separates observations with multiple delimited values into separate rows (#69, @aaronwolen).</li>
+<code><a href="../reference/separate_rows.html">separate_rows()</a></code> separates observations with multiple delimited values into separate rows (<a href='https://github.com/tidyverse/tidyr/issues/69'>#69</a>, <a href='http://github.com/aaronwolen'>@aaronwolen</a>).</li>
 </ul>
 </div>
 <div class="section level2">
 <h2>Bug fixes and minor improvements</h2>
 <ul>
-<li><p><code><a href="../reference/complete.html">complete()</a></code> preserves grouping created by dplyr (#168).</p></li>
-<li><p><code><a href="../reference/expand.html">expand()</a></code> (and hence <code><a href="../reference/complete.html">complete()</a></code>) preserves the ordered attribute of factors (#165).</p></li>
-<li><p><code><a href="../reference/full_seq.html">full_seq()</a></code> preserve attributes for dates and date/times (#156), and sequences no longer need to start at 0.</p></li>
-<li><p><code><a href="../reference/gather.html">gather()</a></code> can now gather together list columns (#175), and <code>gather_.data.frame(na.rm = TRUE)</code> now only removes missing values if they’re actually present (#173).</p></li>
-<li><p><code><a href="../reference/nest.html">nest()</a></code> returns correct output if every variable is nested (#186).</p></li>
-<li><p><code><a href="../reference/separate.html">separate()</a></code> fills from right-to-left (not left-to-right!) when fill = “left” (#170, @dgrtwo).</p></li>
-<li><p><code><a href="../reference/separate.html">separate()</a></code> and <code><a href="../reference/unite.html">unite()</a></code> now automatically drop removed variables from grouping (#159, #177).</p></li>
-<li><p><code><a href="../reference/spread.html">spread()</a></code> gains a <code>sep</code> argument. If not-null, this will name columns as “key<sep>value”. Additionally, if sep is <code>NULL</code> missing values will be converted to <code>&lt;NA&gt;</code> (#68).</sep></p></li>
-<li><p><code><a href="../reference/spread.html">spread()</a></code> works in the presence of list-columns (#199)</p></li>
-<li><p><code><a href="../reference/unnest.html">unnest()</a></code> works with non-syntactic names (#190).</p></li>
-<li><p><code><a href="../reference/unnest.html">unnest()</a></code> gains a <code>sep</code> argument. If non-null, this will rename the columns of nested data frames to include both the original column name, and the nested column name, separated by <code>.sep</code> (#184).</p></li>
-<li><p><code><a href="../reference/unnest.html">unnest()</a></code> gains <code>.id</code> argument that works the same way as <code>bind_rows()</code>. This is useful if you have a named list of data frames or vectors (#125).</p></li>
+<li><p><code><a href="../reference/complete.html">complete()</a></code> preserves grouping created by dplyr (<a href='https://github.com/tidyverse/tidyr/issues/168'>#168</a>).</p></li>
+<li><p><code><a href="../reference/expand.html">expand()</a></code> (and hence <code><a href="../reference/complete.html">complete()</a></code>) preserves the ordered attribute of factors (<a href='https://github.com/tidyverse/tidyr/issues/165'>#165</a>).</p></li>
+<li><p><code><a href="../reference/full_seq.html">full_seq()</a></code> preserve attributes for dates and date/times (<a href='https://github.com/tidyverse/tidyr/issues/156'>#156</a>), and sequences no longer need to start at 0.</p></li>
+<li><p><code><a href="../reference/gather.html">gather()</a></code> can now gather together list columns (<a href='https://github.com/tidyverse/tidyr/issues/175'>#175</a>), and <code>gather_.data.frame(na.rm = TRUE)</code> now only removes missing values if they’re actually present (<a href='https://github.com/tidyverse/tidyr/issues/173'>#173</a>).</p></li>
+<li><p><code><a href="../reference/nest.html">nest()</a></code> returns correct output if every variable is nested (<a href='https://github.com/tidyverse/tidyr/issues/186'>#186</a>).</p></li>
+<li><p><code><a href="../reference/separate.html">separate()</a></code> fills from right-to-left (not left-to-right!) when fill = “left” (<a href='https://github.com/tidyverse/tidyr/issues/170'>#170</a>, <a href='http://github.com/dgrtwo'>@dgrtwo</a>).</p></li>
+<li><p><code><a href="../reference/separate.html">separate()</a></code> and <code><a href="../reference/unite.html">unite()</a></code> now automatically drop removed variables from grouping (<a href='https://github.com/tidyverse/tidyr/issues/159'>#159</a>, <a href='https://github.com/tidyverse/tidyr/issues/177'>#177</a>).</p></li>
+<li><p><code><a href="../reference/spread.html">spread()</a></code> gains a <code>sep</code> argument. If not-null, this will name columns as “key<sep>value”. Additionally, if sep is <code>NULL</code> missing values will be converted to <code>&lt;NA&gt;</code> (<a href='https://github.com/tidyverse/tidyr/issues/68'>#68</a>).</sep></p></li>
+<li><p><code><a href="../reference/spread.html">spread()</a></code> works in the presence of list-columns (<a href='https://github.com/tidyverse/tidyr/issues/199'>#199</a>)</p></li>
+<li><p><code><a href="../reference/unnest.html">unnest()</a></code> works with non-syntactic names (<a href='https://github.com/tidyverse/tidyr/issues/190'>#190</a>).</p></li>
+<li><p><code><a href="../reference/unnest.html">unnest()</a></code> gains a <code>sep</code> argument. If non-null, this will rename the columns of nested data frames to include both the original column name, and the nested column name, separated by <code>.sep</code> (<a href='https://github.com/tidyverse/tidyr/issues/184'>#184</a>).</p></li>
+<li><p><code><a href="../reference/unnest.html">unnest()</a></code> gains <code>.id</code> argument that works the same way as <code>bind_rows()</code>. This is useful if you have a named list of data frames or vectors (<a href='https://github.com/tidyverse/tidyr/issues/125'>#125</a>).</p></li>
 <li><p>Moved in useful sample datasets from the DSR package.</p></li>
 <li><p>Made compatible with both dplyr 0.4 and 0.5.</p></li>
 <li><p>tidyr functions that create new columns are more aggresive about re-encoding the column names as UTF-8.</p></li>
@@ -279,7 +286,7 @@ drop_na(df, starts_with(x))</code></pre>
     <div class="section level1">
 <h1>tidyr 0.4.1</h1>
 <ul>
-<li>Fixed bug in <code><a href="../reference/nest.html">nest()</a></code> where nested data was ending up in the wrong row (#158).</li>
+<li>Fixed bug in <code><a href="../reference/nest.html">nest()</a></code> where nested data was ending up in the wrong row (<a href='https://github.com/tidyverse/tidyr/issues/158'>#158</a>).</li>
 </ul>
 </div>
     <div class="section level1">
@@ -296,7 +303,7 @@ drop_na(df, starts_with(x))</code></pre>
 <div class="section level2">
 <h2>Expanding</h2>
 <ul>
-<li><p><code><a href="../reference/expand.html">expand()</a></code> once again allows you to evaluate arbitrary expressions like <code><a href="../reference/full_seq.html">full_seq(year)</a></code>. If you were previously using <code>c()</code> to created nested combinations, you’ll now need to use <code><a href="../reference/expand.html">nesting()</a></code> (#85, #121).</p></li>
+<li><p><code><a href="../reference/expand.html">expand()</a></code> once again allows you to evaluate arbitrary expressions like <code><a href="../reference/full_seq.html">full_seq(year)</a></code>. If you were previously using <code>c()</code> to created nested combinations, you’ll now need to use <code><a href="../reference/expand.html">nesting()</a></code> (<a href='https://github.com/tidyverse/tidyr/issues/85'>#85</a>, <a href='https://github.com/tidyverse/tidyr/issues/121'>#121</a>).</p></li>
 <li><p><code><a href="../reference/expand.html">nesting()</a></code> and <code><a href="../reference/expand.html">crossing()</a></code> allow you to create nested and crossed data frames from individual vectors. <code><a href="../reference/expand.html">crossing()</a></code> is similar to <code><a href="http://www.rdocumentation.org/packages/base/topics/expand.grid">base::expand.grid()</a></code></p></li>
 <li><p><code><a href="../reference/full_seq.html">full_seq(x, period)</a></code> creates the full sequence of values from <code>min(x)</code> to <code>max(x)</code> every <code>period</code> values.</p></li>
 </ul>
@@ -305,20 +312,20 @@ drop_na(df, starts_with(x))</code></pre>
 <h2>Minor bug fixes and improvements</h2>
 <ul>
 <li><p><code><a href="../reference/fill.html">fill()</a></code> fills in <code>NULL</code>s in list-columns.</p></li>
-<li><p><code><a href="../reference/fill.html">fill()</a></code> gains a direction argument so that it can fill either upwards or downwards (#114).</p></li>
-<li><p><code><a href="../reference/gather.html">gather()</a></code> now stores the key column as character, by default. To revert to the previous behaviour of using a factor (which allows you to preserve the ordering of the columns), use <code>key_factor = TRUE</code> (#96).</p></li>
-<li><p>All tidyr verbs do the right thing for grouped data frames created by <code>group_by()</code> (#122, #129, #81).</p></li>
+<li><p><code><a href="../reference/fill.html">fill()</a></code> gains a direction argument so that it can fill either upwards or downwards (<a href='https://github.com/tidyverse/tidyr/issues/114'>#114</a>).</p></li>
+<li><p><code><a href="../reference/gather.html">gather()</a></code> now stores the key column as character, by default. To revert to the previous behaviour of using a factor (which allows you to preserve the ordering of the columns), use <code>key_factor = TRUE</code> (<a href='https://github.com/tidyverse/tidyr/issues/96'>#96</a>).</p></li>
+<li><p>All tidyr verbs do the right thing for grouped data frames created by <code>group_by()</code> (<a href='https://github.com/tidyverse/tidyr/issues/122'>#122</a>, <a href='https://github.com/tidyverse/tidyr/issues/129'>#129</a>, <a href='https://github.com/tidyverse/tidyr/issues/81'>#81</a>).</p></li>
 <li><p><code>seq_range()</code> has been removed. It was never used or announced.</p></li>
-<li><p><code><a href="../reference/spread.html">spread()</a></code> once again creates columns of mixed type when <code>convert = TRUE</code> (#118, @jennybc). <code><a href="../reference/spread.html">spread()</a></code> with <code>drop = FALSE</code> handles zero-length factors (#56). <code><a href="../reference/spread.html">spread()</a></code>ing a data frame with only key and value columns creates a one row output (#41).</p></li>
-<li><p><code><a href="../reference/unite.html">unite()</a></code> now removes old columns before adding new (#89, @krlmlr).</p></li>
-<li><p><code><a href="../reference/separate.html">separate()</a></code> now warns if defunct … argument is used (#151, @krlmlr).</p></li>
+<li><p><code><a href="../reference/spread.html">spread()</a></code> once again creates columns of mixed type when <code>convert = TRUE</code> (<a href='https://github.com/tidyverse/tidyr/issues/118'>#118</a>, <a href='http://github.com/jennybc'>@jennybc</a>). <code><a href="../reference/spread.html">spread()</a></code> with <code>drop = FALSE</code> handles zero-length factors (<a href='https://github.com/tidyverse/tidyr/issues/56'>#56</a>). <code><a href="../reference/spread.html">spread()</a></code>ing a data frame with only key and value columns creates a one row output (<a href='https://github.com/tidyverse/tidyr/issues/41'>#41</a>).</p></li>
+<li><p><code><a href="../reference/unite.html">unite()</a></code> now removes old columns before adding new (<a href='https://github.com/tidyverse/tidyr/issues/89'>#89</a>, <a href='http://github.com/krlmlr'>@krlmlr</a>).</p></li>
+<li><p><code><a href="../reference/separate.html">separate()</a></code> now warns if defunct … argument is used (<a href='https://github.com/tidyverse/tidyr/issues/151'>#151</a>, <a href='http://github.com/krlmlr'>@krlmlr</a>).</p></li>
 </ul>
 </div>
 </div>
     <div class="section level1">
 <h1>tidyr 0.3.1</h1>
 <ul>
-<li>Fixed bug where attributes of non-gather columns were lost (#104)</li>
+<li>Fixed bug where attributes of non-gather columns were lost (<a href='https://github.com/tidyverse/tidyr/issues/104'>#104</a>)</li>
 </ul>
 </div>
     <div class="section level1">
@@ -327,25 +334,25 @@ drop_na(df, starts_with(x))</code></pre>
 <h2>New features</h2>
 <ul>
 <li><p>New <code><a href="../reference/complete.html">complete()</a></code> provides a wrapper around <code><a href="../reference/expand.html">expand()</a></code>, <code>left_join()</code> and <code><a href="../reference/replace_na.html">replace_na()</a></code> for a common task: completing a data frame with missing combinations of variables.</p></li>
-<li><p><code><a href="../reference/fill.html">fill()</a></code> fills in missing values in a column with the last non-missing value (#4).</p></li>
+<li><p><code><a href="../reference/fill.html">fill()</a></code> fills in missing values in a column with the last non-missing value (<a href='https://github.com/tidyverse/tidyr/issues/4'>#4</a>).</p></li>
 <li><p>New <code><a href="../reference/replace_na.html">replace_na()</a></code> makes it easy to replace missing values with something meaningful for your data.</p></li>
-<li><p><code><a href="../reference/nest.html">nest()</a></code> is the complement of <code><a href="../reference/unnest.html">unnest()</a></code> (#3).</p></li>
-<li><p><code><a href="../reference/unnest.html">unnest()</a></code> can now work with multiple list-columns at the same time. If you don’t supply any columns names, it will unlist all list-columns (#44). <code><a href="../reference/unnest.html">unnest()</a></code> can also handle columns that are lists of data frames (#58).</p></li>
+<li><p><code><a href="../reference/nest.html">nest()</a></code> is the complement of <code><a href="../reference/unnest.html">unnest()</a></code> (<a href='https://github.com/tidyverse/tidyr/issues/3'>#3</a>).</p></li>
+<li><p><code><a href="../reference/unnest.html">unnest()</a></code> can now work with multiple list-columns at the same time. If you don’t supply any columns names, it will unlist all list-columns (<a href='https://github.com/tidyverse/tidyr/issues/44'>#44</a>). <code><a href="../reference/unnest.html">unnest()</a></code> can also handle columns that are lists of data frames (<a href='https://github.com/tidyverse/tidyr/issues/58'>#58</a>).</p></li>
 </ul>
 </div>
 <div class="section level2">
 <h2>Bug fixes and minor improvements</h2>
 <ul>
-<li><p>tidyr no longer depends on reshape2. This should fix issues if you also try to load reshape (#88).</p></li>
+<li><p>tidyr no longer depends on reshape2. This should fix issues if you also try to load reshape (<a href='https://github.com/tidyverse/tidyr/issues/88'>#88</a>).</p></li>
 <li><p><code>%&gt;%</code> is re-exported from magrittr.</p></li>
-<li><p><code><a href="../reference/expand.html">expand()</a></code> now supports nesting and crossing (see examples for details). This comes at the expense of creating new variables inline (#46).</p></li>
-<li><p><code>expand_</code> does SE evaluation correctly so you can pass it a character vector of columns names (or list of formulas etc) (#70).</p></li>
-<li><p><code><a href="../reference/extract.html">extract()</a></code> is 10x faster because it now uses stringi instead of base R regular expressions. It also returns NA instead of throwing an error if the regular expression doesn’t match (#72).</p></li>
-<li><p><code><a href="../reference/extract.html">extract()</a></code> and <code><a href="../reference/separate.html">separate()</a></code> preserve character vectors when <code>convert</code> is TRUE (#99).</p></li>
-<li><p>The internals of <code><a href="../reference/spread.html">spread()</a></code> have been rewritten, and now preserve all attributes of the input <code>value</code> column. This means that you can now spread date (#62) and factor (#35) inputs.</p></li>
-<li><p><code><a href="../reference/spread.html">spread()</a></code> gives a more informative error message if <code>key</code> or <code>value</code> don’t exist in the input data (#36).</p></li>
-<li><p><code><a href="../reference/separate.html">separate()</a></code> only displays the first 20 failures (#50). It has finer control over what happens if there are two few matches: you can fill with missing values on either the “left” or the “right” (#49). <code><a href="../reference/separate.html">separate()</a></code> no longer throws an error if the number of pieces aren’t as expected - instead it uses drops extra values and fills on the right and gives a warning.</p></li>
-<li><p>If the input is NA <code><a href="../reference/separate.html">separate()</a></code> and <code><a href="../reference/extract.html">extract()</a></code> both return silently return NA outputs, rather than throwing an error. (#77)</p></li>
+<li><p><code><a href="../reference/expand.html">expand()</a></code> now supports nesting and crossing (see examples for details). This comes at the expense of creating new variables inline (<a href='https://github.com/tidyverse/tidyr/issues/46'>#46</a>).</p></li>
+<li><p><code>expand_</code> does SE evaluation correctly so you can pass it a character vector of columns names (or list of formulas etc) (<a href='https://github.com/tidyverse/tidyr/issues/70'>#70</a>).</p></li>
+<li><p><code><a href="../reference/extract.html">extract()</a></code> is 10x faster because it now uses stringi instead of base R regular expressions. It also returns NA instead of throwing an error if the regular expression doesn’t match (<a href='https://github.com/tidyverse/tidyr/issues/72'>#72</a>).</p></li>
+<li><p><code><a href="../reference/extract.html">extract()</a></code> and <code><a href="../reference/separate.html">separate()</a></code> preserve character vectors when <code>convert</code> is TRUE (<a href='https://github.com/tidyverse/tidyr/issues/99'>#99</a>).</p></li>
+<li><p>The internals of <code><a href="../reference/spread.html">spread()</a></code> have been rewritten, and now preserve all attributes of the input <code>value</code> column. This means that you can now spread date (<a href='https://github.com/tidyverse/tidyr/issues/62'>#62</a>) and factor (<a href='https://github.com/tidyverse/tidyr/issues/35'>#35</a>) inputs.</p></li>
+<li><p><code><a href="../reference/spread.html">spread()</a></code> gives a more informative error message if <code>key</code> or <code>value</code> don’t exist in the input data (<a href='https://github.com/tidyverse/tidyr/issues/36'>#36</a>).</p></li>
+<li><p><code><a href="../reference/separate.html">separate()</a></code> only displays the first 20 failures (<a href='https://github.com/tidyverse/tidyr/issues/50'>#50</a>). It has finer control over what happens if there are two few matches: you can fill with missing values on either the “left” or the “right” (<a href='https://github.com/tidyverse/tidyr/issues/49'>#49</a>). <code><a href="../reference/separate.html">separate()</a></code> no longer throws an error if the number of pieces aren’t as expected - instead it uses drops extra values and fills on the right and gives a warning.</p></li>
+<li><p>If the input is NA <code><a href="../reference/separate.html">separate()</a></code> and <code><a href="../reference/extract.html">extract()</a></code> both return silently return NA outputs, rather than throwing an error. (<a href='https://github.com/tidyverse/tidyr/issues/77'>#77</a>)</p></li>
 <li><p>Experimental <code><a href="../reference/unnest.html">unnest()</a></code> method for lists has been removed.</p></li>
 </ul>
 </div>
@@ -355,17 +362,17 @@ drop_na(df, starts_with(x))</code></pre>
 <div class="section level2">
 <h2>New functions</h2>
 <ul>
-<li><p>Experimental <code><a href="../reference/expand.html">expand()</a></code> function (#21).</p></li>
-<li><p>Experiment <code><a href="../reference/unnest.html">unnest()</a></code> function for converting named lists into data frames. (#3, #22)</p></li>
+<li><p>Experimental <code><a href="../reference/expand.html">expand()</a></code> function (<a href='https://github.com/tidyverse/tidyr/issues/21'>#21</a>).</p></li>
+<li><p>Experiment <code><a href="../reference/unnest.html">unnest()</a></code> function for converting named lists into data frames. (<a href='https://github.com/tidyverse/tidyr/issues/3'>#3</a>, <a href='https://github.com/tidyverse/tidyr/issues/22'>#22</a>)</p></li>
 </ul>
 </div>
 <div class="section level2">
 <h2>Bug fixes and minor improvements</h2>
 <ul>
-<li><p><code><a href="../reference/extract_numeric.html">extract_numeric()</a></code> preserves negative signs (#20).</p></li>
-<li><p><code><a href="../reference/gather.html">gather()</a></code> has better defaults if <code>key</code> and <code>value</code> are not supplied. If <code>...</code> is ommitted, <code><a href="../reference/gather.html">gather()</a></code> selects all columns (#28). Performance is now comparable to <code><a href="http://www.rdocumentation.org/packages/reshape2/topics/melt">reshape2::melt()</a></code> (#18).</p></li>
+<li><p><code><a href="../reference/extract_numeric.html">extract_numeric()</a></code> preserves negative signs (<a href='https://github.com/tidyverse/tidyr/issues/20'>#20</a>).</p></li>
+<li><p><code><a href="../reference/gather.html">gather()</a></code> has better defaults if <code>key</code> and <code>value</code> are not supplied. If <code>...</code> is ommitted, <code><a href="../reference/gather.html">gather()</a></code> selects all columns (<a href='https://github.com/tidyverse/tidyr/issues/28'>#28</a>). Performance is now comparable to <code><a href="http://www.rdocumentation.org/packages/reshape2/topics/melt">reshape2::melt()</a></code> (<a href='https://github.com/tidyverse/tidyr/issues/18'>#18</a>).</p></li>
 <li><p><code><a href="../reference/separate.html">separate()</a></code> gains <code>extra</code> argument which lets you control what happens to extra pieces. The default is to throw an “error”, but you can also “merge” or “drop”.</p></li>
-<li><p><code><a href="../reference/spread.html">spread()</a></code> gains <code>drop</code> argument, which allows you to preserve missing factor levels (#25). It converts factor value variables to character vectors, instead of embedding a matrix inside the data frame (#35).</p></li>
+<li><p><code><a href="../reference/spread.html">spread()</a></code> gains <code>drop</code> argument, which allows you to preserve missing factor levels (<a href='https://github.com/tidyverse/tidyr/issues/25'>#25</a>). It converts factor value variables to character vectors, instead of embedding a matrix inside the data frame (<a href='https://github.com/tidyverse/tidyr/issues/35'>#35</a>).</p></li>
 </ul>
 </div>
 </div>
@@ -376,6 +383,7 @@ drop_na(df, starts_with(x))</code></pre>
     <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
+        <li><a href="#NA">0.8.0.9000</a></li>
         <li><a href="#NA">0.8.0</a></li>
         <li><a href="#NA">0.7.2</a></li>
         <li><a href="#NA">0.7.1</a></li>
@@ -421,3 +429,4 @@ drop_na(df, starts_with(x))</code></pre>
 
   </body>
 </html>
+
