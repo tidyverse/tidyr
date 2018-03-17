@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>All news • tidyr</title>
+<title>Changelog • tidyr</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -78,12 +78,13 @@
 
   <div class="col-md-9">
     <div class="page-header">
-      <h1>Change log <small>All releases</small></h1>
+      <h1>Change log <small></small></h1>
+      <small>Source: <a href='https:/github.com/tidyverse/tidyr/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
     <div class="contents">
     <div id="tidyr-0-8-0-9000" class="section level1">
-<h1 class="hasAnchor">
+<h1 class="page-header">
 <a href="#tidyr-0-8-0-9000" class="anchor"></a>tidyr 0.8.0.9000<small> Unreleased </small>
 </h1>
 <ul>
@@ -92,7 +93,7 @@
 </ul>
 </div>
     <div id="tidyr-0-8-0" class="section level1">
-<h1 class="hasAnchor">
+<h1 class="page-header">
 <a href="#tidyr-0-8-0" class="anchor"></a>tidyr 0.8.0<small> 2018-01-29 </small>
 </h1>
 <div id="breaking-changes" class="section level2">
@@ -142,7 +143,7 @@
 </div>
 </div>
     <div id="tidyr-0-7-2" class="section level1">
-<h1 class="hasAnchor">
+<h1 class="page-header">
 <a href="#tidyr-0-7-2" class="anchor"></a>tidyr 0.7.2<small> 2017-10-16 </small>
 </h1>
 <ul>
@@ -151,7 +152,7 @@
 </ul>
 </div>
     <div id="tidyr-0-7-1" class="section level1">
-<h1 class="hasAnchor">
+<h1 class="page-header">
 <a href="#tidyr-0-7-1" class="anchor"></a>tidyr 0.7.1<small> 2017-09-01 </small>
 </h1>
 <p>This is a hotfix release to account for some tidyselect changes in the unit tests.</p>
@@ -159,7 +160,7 @@
 <p>However the semantics for context expressions (any calls other than to <code>:</code> and <code>c()</code>) remain the same. Those expressions are evaluated in the context only and cannot refer to registered variables. If you’re writing functions and refer to contextual objects, it is still a good idea to avoid data expressions by following the advice of the 0.7.0 release notes.</p>
 </div>
     <div id="tidyr-0-7-0" class="section level1">
-<h1 class="hasAnchor">
+<h1 class="page-header">
 <a href="#tidyr-0-7-0" class="anchor"></a>tidyr 0.7.0<small> 2017-08-16 </small>
 </h1>
 <p>This release includes important changes to tidyr internals. Tidyr now supports the new tidy evaluation framework for quoting (NSE) functions. It also uses the new tidyselect package as selecting backend.</p>
@@ -224,7 +225,7 @@ drop_na(df, starts_with(x))</code></pre>
 </div>
 </div>
     <div id="tidyr-0-6-3" class="section level1">
-<h1 class="hasAnchor">
+<h1 class="page-header">
 <a href="#tidyr-0-6-3" class="anchor"></a>tidyr 0.6.3<small> 2017-05-15 </small>
 </h1>
 <ul>
@@ -232,7 +233,7 @@ drop_na(df, starts_with(x))</code></pre>
 </ul>
 </div>
     <div id="tidyr-0-6-2" class="section level1">
-<h1 class="hasAnchor">
+<h1 class="page-header">
 <a href="#tidyr-0-6-2" class="anchor"></a>tidyr 0.6.2<small> 2017-05-04 </small>
 </h1>
 <ul>
@@ -242,7 +243,7 @@ drop_na(df, starts_with(x))</code></pre>
 </ul>
 </div>
     <div id="tidyr-0-6-1" class="section level1">
-<h1 class="hasAnchor">
+<h1 class="page-header">
 <a href="#tidyr-0-6-1" class="anchor"></a>tidyr 0.6.1<small> 2017-01-10 </small>
 </h1>
 <ul>
@@ -251,7 +252,7 @@ drop_na(df, starts_with(x))</code></pre>
 </ul>
 </div>
     <div id="tidyr-0-6-0" class="section level1">
-<h1 class="hasAnchor">
+<h1 class="page-header">
 <a href="#tidyr-0-6-0" class="anchor"></a>tidyr 0.6.0<small> 2016-08-12 </small>
 </h1>
 <div id="api-changes" class="section level2">
@@ -274,7 +275,7 @@ drop_na(df, starts_with(x))</code></pre>
 </div>
 </div>
     <div id="tidyr-0-5-1" class="section level1">
-<h1 class="hasAnchor">
+<h1 class="page-header">
 <a href="#tidyr-0-5-1" class="anchor"></a>tidyr 0.5.1<small> 2016-06-14 </small>
 </h1>
 <ul>
@@ -282,7 +283,7 @@ drop_na(df, starts_with(x))</code></pre>
 </ul>
 </div>
     <div id="tidyr-0-5-0" class="section level1">
-<h1 class="hasAnchor">
+<h1 class="page-header">
 <a href="#tidyr-0-5-0" class="anchor"></a>tidyr 0.5.0<small> 2016-06-12 </small>
 </h1>
 <div id="new-functions" class="section level2">
@@ -316,7 +317,7 @@ drop_na(df, starts_with(x))</code></pre>
 </div>
 </div>
     <div id="tidyr-0-4-1" class="section level1">
-<h1 class="hasAnchor">
+<h1 class="page-header">
 <a href="#tidyr-0-4-1" class="anchor"></a>tidyr 0.4.1<small> 2016-02-05 </small>
 </h1>
 <ul>
@@ -324,7 +325,7 @@ drop_na(df, starts_with(x))</code></pre>
 </ul>
 </div>
     <div id="tidyr-0-4-0" class="section level1">
-<h1 class="hasAnchor">
+<h1 class="page-header">
 <a href="#tidyr-0-4-0" class="anchor"></a>tidyr 0.4.0<small> 2016-01-18 </small>
 </h1>
 <div id="nested-data-frames" class="section level2">
@@ -362,7 +363,7 @@ drop_na(df, starts_with(x))</code></pre>
 </div>
 </div>
     <div id="tidyr-0-3-1" class="section level1">
-<h1 class="hasAnchor">
+<h1 class="page-header">
 <a href="#tidyr-0-3-1" class="anchor"></a>tidyr 0.3.1<small> 2015-09-10 </small>
 </h1>
 <ul>
@@ -370,7 +371,7 @@ drop_na(df, starts_with(x))</code></pre>
 </ul>
 </div>
     <div id="tidyr-0-3-0" class="section level1">
-<h1 class="hasAnchor">
+<h1 class="page-header">
 <a href="#tidyr-0-3-0" class="anchor"></a>tidyr 0.3.0<small> 2015-09-08 </small>
 </h1>
 <div id="new-features-1" class="section level2">
@@ -403,7 +404,7 @@ drop_na(df, starts_with(x))</code></pre>
 </div>
 </div>
     <div id="tidyr-0-2-0" class="section level1">
-<h1 class="hasAnchor">
+<h1 class="page-header">
 <a href="#tidyr-0-2-0" class="anchor"></a>tidyr 0.2.0<small> 2014-12-05 </small>
 </h1>
 <div id="new-functions-1" class="section level2">
