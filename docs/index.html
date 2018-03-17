@@ -64,36 +64,48 @@
     
 <div class="contents">
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-<section id="tidyr" class="level1">
+<div id="tidyr" class="section level1">
 
-<section id="overview" class="level2"><h2>Overview</h2>
+
+<div id="overview" class="section level2">
+<h2 class="hasAnchor">
+<a href="#overview" class="anchor"></a>Overview</h2>
 <p>The goal of tidyr is to help you create <strong>tidy data</strong>. Tidy data is data where:</p>
-<ol type="1">
+<ol style="list-style-type: decimal">
 <li>Each variable is in a column.</li>
 <li>Each observation is a row.</li>
 <li>Each value is a cell.</li>
 </ol>
-<p>Tidy data describes a standard way of storing data that is used wherever possible throughout the <a href="http://tidyverse.org">tidyverse</a>. If you ensure that your data is tidy, you’ll spend less timing fighting with the tools and more time working on your analysis.</p>
-</section><section id="installation" class="level2"><h2>Installation</h2>
+<p>Tidy data describes a standard way of storing data that is used wherever possible throughout the <a href="http://tidyverse.org">tidyverse</a>. If you ensure that your data is tidy, you’ll spend less time fighting with the tools and more time working on your analysis.</p>
+</div>
+<div id="installation" class="section level2">
+<h2 class="hasAnchor">
+<a href="#installation" class="anchor"></a>Installation</h2>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="co"># The easiest way to get tidyr is to install the whole tidyverse:</span></a>
 <a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw">install.packages</span>(<span class="st">"tidyverse"</span>)</a>
 <a class="sourceLine" id="cb1-3" data-line-number="3"></a>
 <a class="sourceLine" id="cb1-4" data-line-number="4"><span class="co"># Alternatively, install just tidyr:</span></a>
 <a class="sourceLine" id="cb1-5" data-line-number="5"><span class="kw">install.packages</span>(<span class="st">"tidyr"</span>)</a>
 <a class="sourceLine" id="cb1-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb1-7" data-line-number="7"><span class="co"># Or the the development version from GitHub:</span></a>
+<a class="sourceLine" id="cb1-7" data-line-number="7"><span class="co"># Or the development version from GitHub:</span></a>
 <a class="sourceLine" id="cb1-8" data-line-number="8"><span class="co"># install.packages("devtools")</span></a>
 <a class="sourceLine" id="cb1-9" data-line-number="9">devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/install_github">install_github</a></span>(<span class="st">"tidyverse/tidyr"</span>)</a></code></pre></div>
-</section><section id="getting-started" class="level2"><h2>Getting started</h2>
+</div>
+<div id="getting-started" class="section level2">
+<h2 class="hasAnchor">
+<a href="#getting-started" class="anchor"></a>Getting started</h2>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">library</span>(tidyr)</a></code></pre></div>
 <p>There are two fundamental verbs of data tidying:</p>
 <ul>
 <li><p><code><a href="reference/gather.html">gather()</a></code> takes multiple columns, and gathers them into key-value pairs: it makes “wide” data longer.</p></li>
-<li><p><code><a href="reference/spread.html">spread()</a></code>. takes two columns (key &amp; value) and spreads in to multiple columns, it makes “long” data wider.</p></li>
+<li><p><code><a href="reference/spread.html">spread()</a></code> takes two columns (key &amp; value), and spreads into multiple columns: it makes “long” data wider.</p></li>
 </ul>
 <p>tidyr also provides <code><a href="reference/separate.html">separate()</a></code> and <code><a href="reference/extract.html">extract()</a></code> functions which makes it easier to pull apart a column that represents multiple variables. The complement to <code><a href="reference/separate.html">separate()</a></code> is <code><a href="reference/unite.html">unite()</a></code>.</p>
-<p>To get started, read the tidy data vignette (<code><a href="articles/tidy-data.html">vignette("tidy-data")</a></code>) and check out the demos, <code>demo(package = "tidyr")</code>).</p>
-</section><section id="related-work" class="level2"><h2>Related work</h2>
+<p>To get started, read the tidy data vignette (<code><a href="articles/tidy-data.html">vignette("tidy-data")</a></code>) and check out the demos (<code>demo(package = "tidyr")</code>).</p>
+</div>
+<div id="related-work" class="section level2">
+<h2 class="hasAnchor">
+<a href="#related-work" class="anchor"></a>Related work</h2>
 <p>tidyr replaces reshape2 (2010-2014) and reshape (2005-2010). Somewhat counterintuitively each iteration of the package has done less. tidyr is designed specifically for tidying data, not general reshaping (reshape2), or the general aggregation (reshape).</p>
 <p>If you’d like to read more about data reshaping from a CS perspective, I’d recommend the following three papers:</p>
 <ul>
@@ -101,7 +113,7 @@
 <li><p><a href="https://www.eecs.berkeley.edu/Pubs/TechRpts/2000/CSD-00-1110.pdf">An interactive framework for data cleaning</a> (Potter’s wheel)</p></li>
 <li><p><a href="http://www.vldb.org/conf/1999/P45.pdf">On efficiently implementing SchemaSQL on a SQL database system</a></p></li>
 </ul>
-<p>To guide your reading, here’s translation between the terminology used in different places:</p>
+<p>To guide your reading, here’s a translation between the terminology used in different places:</p>
 <table class="table">
 <thead><tr class="header">
 <th>tidyr</th>
@@ -125,7 +137,9 @@
 <td>unfold</td>
 </tr>
 </tbody>
-</table></section></section>
+</table>
+</div>
+</div>
 </div>
   </div>
 
@@ -143,12 +157,12 @@
 </li>
 </ul>
 <h2>License</h2>
-<p><a href="https://opensource.org/licenses/mit-license.php">MIT</a> + file <a href="LICENSE.html">LICENSE</a></p>
+<p><a href="license.html">Full license</a><br><small><a href="https://opensource.org/licenses/mit-license.php">MIT</a> + file <a href="LICENSE-text.html">LICENSE</a><small></small></small></p>
 <h2>Developers</h2>
 <ul class="list-unstyled">
 <li>
-<a href="http://hadley.nz">Hadley Wickham</a> <br><small class="roles"> Author, maintainer </small> </li>
-<li>Lionel Henry <br><small class="roles"> Author </small> </li>
+<a href="http://hadley.nz">Hadley Wickham</a> <br><small class="roles"> Author, maintainer </small>  </li>
+<li>Lionel Henry <br><small class="roles"> Author </small>  </li>
 <li><a href="authors.html">All authors...</a></li>
 </ul>
 <h2>Dev status</h2>

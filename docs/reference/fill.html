@@ -78,6 +78,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Fill in missing values.</h1>
+    <small>Source: <a href='https:/github.com/tidyverse/tidyr/blob/master/R/fill.R'><code>R/fill.R</code></a></small>
     </div>
 
     
@@ -97,19 +98,11 @@ each time they change.</p>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Specification of columns to expand.</p>
-<p>To find all unique combinations of x, y and z, including those not
-found in the data, supply each variable as a separate argument.
-To find only the combinations that occur in the data, use nest:
-<code><a href='expand.html'>expand(df, nesting(x, y, z))</a></code>.</p>
-<p>You can combine the two forms. For example,
-<code><a href='expand.html'>expand(df, nesting(school_id, student_id), date)</a></code> would produce
-a row for every student for each date.</p>
-<p>For factors, the full set of levels (not just those that appear in the
-data) are used. For continuous variables, you may need to fill in values
-that don't appear in the data: to do so use expressions like
-<code>year = 2010:2020</code> or <code>year = <a href='full_seq.html'>full_seq</a>(year,1)</code>.</p>
-<p>Length-zero (empty) elements are automatically dropped.</p></td>
+      <td><p>A selection of columns. If empty, all variables are
+selected. You can supply bare variable names, select all
+variables between x and z with <code>x:z</code>, exclude y with <code>-y</code>. For
+more options, see the <code><a href='http://dplyr.tidyverse.org/reference/select.html'>dplyr::select()</a></code> documentation. See also
+the section on selection rules below.</p></td>
     </tr>
     <tr>
       <th>.direction</th>
@@ -177,3 +170,4 @@ in list.</p>
 
   </body>
 </html>
+

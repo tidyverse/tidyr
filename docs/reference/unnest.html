@@ -78,6 +78,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Unnest a list column.</h1>
+    <small>Source: <a href='https:/github.com/tidyverse/tidyr/blob/master/R/unnest.R'><code>R/unnest.R</code></a></small>
     </div>
 
     
@@ -97,7 +98,7 @@ data frames (but not a mixture of the different types).</p>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Specification of columns to nest. Use bare variable names or
+      <td><p>Specification of columns to unnest. Use bare variable names or
 functions of variables. If omitted, defaults to all list-cols.</p></td>
     </tr>
     <tr>
@@ -204,16 +205,12 @@ or number of rows (if a data frame).</p>
 #&gt; 3   22. &lt;dbl [1]&gt; c    </div><div class='input'>
 <span class='co'># Nest and unnest are inverses</span>
 <span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'>data.frame</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>2</span>), <span class='kw'>y</span> <span class='kw'>=</span> <span class='fl'>3</span>:<span class='fl'>1</span>)
-<span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='nest.html'>nest</a></span>(<span class='no'>y</span>)</div><div class='output co'>#&gt; # A tibble: 2 x 2
-#&gt;       x data                
-#&gt;   &lt;dbl&gt; &lt;list&gt;              
-#&gt; 1    1. &lt;data.frame [2 × 1]&gt;
-#&gt; 2    2. &lt;data.frame [1 × 1]&gt;</div><div class='input'><span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='nest.html'>nest</a></span>(<span class='no'>y</span>) <span class='kw'>%&gt;%</span> <span class='fu'>unnest</span>()</div><div class='output co'>#&gt; # A tibble: 3 x 2
-#&gt;       x     y
-#&gt;   &lt;dbl&gt; &lt;int&gt;
-#&gt; 1    1.     3
-#&gt; 2    1.     2
-#&gt; 3    2.     1</div><div class='input'>
+<span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='nest.html'>nest</a></span>(<span class='no'>y</span>)</div><div class='output co'>#&gt;   x data
+#&gt; 1 1 3, 2
+#&gt; 2 2    1</div><div class='input'><span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='nest.html'>nest</a></span>(<span class='no'>y</span>) <span class='kw'>%&gt;%</span> <span class='fu'>unnest</span>()</div><div class='output co'>#&gt;   x y
+#&gt; 1 1 3
+#&gt; 2 1 2
+#&gt; 3 2 1</div><div class='input'>
 <span class='co'># If you have a named list-column, you may want to supply .id</span>
 <span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='http://dplyr.tidyverse.org/reference/reexports.html'>tibble</a></span>(
   <span class='kw'>x</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>2</span>,
@@ -265,3 +262,4 @@ or number of rows (if a data frame).</p>
 
   </body>
 </html>
+

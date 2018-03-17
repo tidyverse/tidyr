@@ -5,6 +5,7 @@ home:
       href: http://r4ds.had.co.nz/tidy-data.html
 
 template:
+  ganalytics: "UA-115082821"
   package: tidytemplate
   default_assets: false
 
@@ -31,6 +32,7 @@ reference:
   - separate
   - separate_rows
   - spread
+  - uncount
   - unite
   - unnest
 

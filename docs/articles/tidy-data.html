@@ -61,21 +61,31 @@
     <div class="page-header toc-ignore">
       <h1>Tidy data</h1>
             
-          </div>
+      
+      <small>Source: <a href="https:/github.com/tidyverse/tidyr/blob/master/vignettes/tidy-data.Rmd"><code>vignettes/tidy-data.Rmd</code></a></small>
+
+    </div>
 
     
     
 <div class="contents">
 <p>(This is an informal and code heavy version of the full <a href="http://vita.had.co.nz/papers/tidy-data.html">tidy data paper</a>. Please refer to that for more details.)</p>
-<section id="data-tidying" class="level1"><h1>Data tidying</h1>
+<div id="data-tidying" class="section level1">
+<h1 class="hasAnchor">
+<a href="#data-tidying" class="anchor"></a>Data tidying</h1>
 <p>It is often said that 80% of data analysis is spent on the cleaning and preparing data. And it’s not just a first step, but it must be repeated many times over the course of analysis as new problems come to light or new data is collected. To get a handle on the problem, this paper focuses on a small, but important, aspect of data cleaning that I call data <strong>tidying</strong>: structuring datasets to facilitate analysis.</p>
 <p>The principles of tidy data provide a standard way to organise data values within a dataset. A standard makes initial data cleaning easier because you don’t need to start from scratch and reinvent the wheel every time. The tidy data standard has been designed to facilitate initial exploration and analysis of the data, and to simplify the development of data analysis tools that work well together. Current tools often require translation. You have to spend time munging the output from one tool so you can input it into another. Tidy datasets and tidy tools work hand in hand to make data analysis easier, allowing you to focus on the interesting domain problem, not on the uninteresting logistics of data.</p>
-</section><section id="sec:defining" class="level1"><h1>Defining tidy data</h1>
+</div>
+<div id="sec:defining" class="section level1">
+<h1 class="hasAnchor">
+<a href="#sec:defining" class="anchor"></a>Defining tidy data</h1>
 <blockquote>
 <p>Happy families are all alike; every unhappy family is unhappy in its own way — Leo Tolstoy</p>
 </blockquote>
 <p>Like families, tidy datasets are all alike but every messy dataset is messy in its own way. Tidy datasets provide a standardized way to link the structure of a dataset (its physical layout) with its semantics (its meaning). In this section, I’ll provide some standard vocabulary for describing the structure and semantics of a dataset, and then use those definitions to define tidy data.</p>
-<section id="data-structure" class="level2"><h2>Data structure</h2>
+<div id="data-structure" class="section level2">
+<h2 class="hasAnchor">
+<a href="#data-structure" class="anchor"></a>Data structure</h2>
 <p>Most statistical datasets are data frames made up of <strong>rows</strong> and <strong>columns</strong>. The columns are almost always labeled and the rows are sometimes labeled. The following code provides some data about an imaginary experiment in a format commonly seen in the wild. The table has two columns and three rows, and both rows and columns are labeled.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1">preg &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">"preg.csv"</span>, <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>)</a>
 <a class="sourceLine" id="cb1-2" data-line-number="2">preg</a>
@@ -89,7 +99,10 @@
 <a class="sourceLine" id="cb2-3" data-line-number="3"><span class="co">#&gt; 1         a         NA        4            6</span></a>
 <a class="sourceLine" id="cb2-4" data-line-number="4"><span class="co">#&gt; 2         b         18        1            7</span></a></code></pre></div>
 <p>The data is the same, but the layout is different. Our vocabulary of rows and columns is simply not rich enough to describe why the two tables represent the same data. In addition to appearance, we need a way to describe the underlying semantics, or meaning, of the values displayed in the table.</p>
-</section><section id="data-semantics" class="level2"><h2>Data semantics</h2>
+</div>
+<div id="data-semantics" class="section level2">
+<h2 class="hasAnchor">
+<a href="#data-semantics" class="anchor"></a>Data semantics</h2>
 <p>A dataset is a collection of <strong>values</strong>, usually either numbers (if quantitative) or strings (if qualitative). Values are organised in two ways. Every value belongs to a <strong>variable</strong> and an <strong>observation</strong>. A variable contains all values that measure the same underlying attribute (like height, temperature, duration) across units. An observation contains all values measured on the same unit (like a person, or a day, or a race) across attributes.</p>
 <p>A tidy version of the pregnancy data looks like this: (you’ll learn how the functions work a little later)</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw">library</span>(tidyr)</a>
@@ -107,7 +120,7 @@
 <a class="sourceLine" id="cb3-13" data-line-number="13"><span class="co">#&gt; 5 Mary Johnson         a  6</span></a>
 <a class="sourceLine" id="cb3-14" data-line-number="14"><span class="co">#&gt; 6 Mary Johnson         b  7</span></a></code></pre></div>
 <p>This makes the values, variables and observations more clear. The dataset contains 18 values representing three variables and six observations. The variables are:</p>
-<ol type="1">
+<ol style="list-style-type: decimal">
 <li><p><code>name</code>, with three possible values (John, Mary, and Jane).</p></li>
 <li><p><code>treatment</code>, with two possible values (a and b).</p></li>
 <li><p><code>n</code>, with five or six values depending on how you think of the missing value (1, 4, 6, 7, 18, NA)</p></li>
@@ -116,9 +129,12 @@
 <p>For a given dataset, it’s usually easy to figure out what are observations and what are variables, but it is surprisingly difficult to precisely define variables and observations in general. For example, if the columns in the pregnancy data were <code>height</code> and <code>weight</code> we would have been happy to call them variables. If the columns were <code>height</code> and <code>width</code>, it would be less clear cut, as we might think of height and width as values of a <code>dimension</code> variable. If the columns were <code>home phone</code> and <code>work phone</code>, we could treat these as two variables, but in a fraud detection environment we might want variables <code>phone number</code> and <code>number type</code> because the use of one phone number for multiple people might suggest fraud. A general rule of thumb is that it is easier to describe functional relationships between variables (e.g., <code>z</code> is a linear combination of <code>x</code> and <code>y</code>, <code>density</code> is the ratio of <code>weight</code> to <code>volume</code>) than between rows, and it is easier to make comparisons between groups of observations (e.g., average of group a vs. average of group b) than between groups of columns.</p>
 <p>In a given analysis, there may be multiple levels of observation. For example, in a trial of new allergy medication we might have three observational types: demographic data collected from each person (<code>age</code>, <code>sex</code>, <code>race</code>), medical data collected from each person on each day (<code>number of sneezes</code>, <code>redness of eyes</code>), and meteorological data collected on each day (<code>temperature</code>, <code>pollen count</code>).</p>
 <p>Variables may change over the course of analysis. Often the variables in the raw data are very fine grained, and may add extra modelling complexity for little explanatory gain. For example, many surveys ask variations on the same question to better get at an underlying trait. In early stages of analysis, variables correspond to questions. In later stages, you change focus to traits, computed by averaging together multiple questions. This considerably simplifies analysis because you don’t need a hierarchical model, and you can often pretend that the data is continuous, not discrete.</p>
-</section><section id="tidy-data" class="level2"><h2>Tidy data</h2>
+</div>
+<div id="tidy-data" class="section level2">
+<h2 class="hasAnchor">
+<a href="#tidy-data" class="anchor"></a>Tidy data</h2>
 <p>Tidy data is a standard way of mapping the meaning of a dataset to its structure. A dataset is messy or tidy depending on how rows, columns and tables are matched up with observations, variables and types. In <strong>tidy data</strong>:</p>
-<ol type="1">
+<ol style="list-style-type: decimal">
 <li><p>Each variable forms a column.</p></li>
 <li><p>Each observation forms a row.</p></li>
 <li><p>Each type of observational unit forms a table.</p></li>
@@ -126,7 +142,11 @@
 <p>This is Codd’s 3rd normal form, but with the constraints framed in statistical language, and the focus put on a single dataset rather than the many connected datasets common in relational databases. <strong>Messy data</strong> is any other arrangement of the data.</p>
 <p>Tidy data makes it easy for an analyst or a computer to extract needed variables because it provides a standard way of structuring a dataset. Compare the different versions of the pregnancy data: in the messy version you need to use different strategies to extract different variables. This slows analysis and invites errors. If you consider how many data analysis operations involve all of the values in a variable (every aggregation function), you can see how important it is to extract these values in a simple, standard way. Tidy data is particularly well suited for vectorised programming languages like R, because the layout ensures that values of different variables from the same observation are always paired.</p>
 <p>While the order of variables and observations does not affect analysis, a good ordering makes it easier to scan the raw values. One way of organising variables is by their role in the analysis: are values fixed by the design of the data collection, or are they measured during the course of the experiment? Fixed variables describe the experimental design and are known in advance. Computer scientists often call fixed variables dimensions, and statisticians usually denote them with subscripts on random variables. Measured variables are what we actually measure in the study. Fixed variables should come first, followed by measured variables, each ordered so that related variables are contiguous. Rows can then be ordered by the first variable, breaking ties with the second and subsequent (fixed) variables. This is the convention adopted by all tabular displays in this paper.</p>
-</section></section><section id="sec:tidying" class="level1"><h1>Tidying messy datasets</h1>
+</div>
+</div>
+<div id="sec:tidying" class="section level1">
+<h1 class="hasAnchor">
+<a href="#sec:tidying" class="anchor"></a>Tidying messy datasets</h1>
 <p>Real datasets can, and often do, violate the three precepts of tidy data in almost every way imaginable. While occasionally you do get a dataset that you can start analysing immediately, this is the exception, not the rule. This section describes the five most common problems with messy datasets, along with their remedies:</p>
 <ul>
 <li><p>Column headers are values, not variable names.</p></li>
@@ -136,7 +156,9 @@
 <li><p>A single observational unit is stored in multiple tables.</p></li>
 </ul>
 <p>Surprisingly, most messy datasets, including types of messiness not explicitly described above, can be tidied with a small set of tools: gathering, separating and spreading. The following sections illustrate each problem with a real dataset that I have encountered, and show how to tidy them.</p>
-<section id="column-headers-are-values-not-variable-names" class="level2"><h2>Column headers are values, not variable names</h2>
+<div id="column-headers-are-values-not-variable-names" class="section level2">
+<h2 class="hasAnchor">
+<a href="#column-headers-are-values-not-variable-names" class="anchor"></a>Column headers are values, not variable names</h2>
 <p>A common type of messy dataset is tabular data designed for presentation, where variables form both the rows and columns, and column headers are values, not variable names. While I would call this arrangement messy, in some cases it can be extremely useful. It provides efficient storage for completely crossed designs, and it can lead to extremely efficient computation if desired operations can be expressed as matrix operations.</p>
 <p>The following code shows a subset of a typical dataset of this form. This dataset explores the relationship between income and religion in the US. It comes from a report<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> produced by the Pew Research Center, an American think-tank that collects data on attitudes to topics ranging from religion to the internet, and produces many reports that contain datasets in this format.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">pew &lt;-<span class="st"> </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/tbl_df.html">tbl_df</a></span>(<span class="kw">read.csv</span>(<span class="st">"pew.csv"</span>, <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>, <span class="dt">check.names =</span> <span class="ot">FALSE</span>))</a>
@@ -279,7 +301,10 @@
 <a class="sourceLine" id="cb10-13" data-line-number="13"><span class="co">#&gt;  9  2000 Lonestar Amazed 4:25     8.    29 1999-07-24</span></a>
 <a class="sourceLine" id="cb10-14" data-line-number="14"><span class="co">#&gt; 10  2000 Amber    Sexual 4:38     2.    99 1999-07-24</span></a>
 <a class="sourceLine" id="cb10-15" data-line-number="15"><span class="co">#&gt; # ... with 5,297 more rows</span></a></code></pre></div>
-</section><section id="multiple-variables-stored-in-one-column" class="level2"><h2>Multiple variables stored in one column</h2>
+</div>
+<div id="multiple-variables-stored-in-one-column" class="section level2">
+<h2 class="hasAnchor">
+<a href="#multiple-variables-stored-in-one-column" class="anchor"></a>Multiple variables stored in one column</h2>
 <p>After gathering columns, the key column is sometimes a combination of multiple underlying variable names. This happens in the <code>tb</code> (tuberculosis) dataset, shown below. This dataset comes from the World Health Organisation, and records the counts of confirmed tuberculosis cases by <code>country</code>, <code>year</code>, and demographic group. The demographic groups are broken down by <code>sex</code> (m, f) and <code>age</code> (0-14, 15-25, 25-34, 35-44, 45-54, 55-64, unknown).</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1">tb &lt;-<span class="st"> </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/tbl_df.html">tbl_df</a></span>(<span class="kw">read.csv</span>(<span class="st">"tb.csv"</span>, <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>))</a>
 <a class="sourceLine" id="cb11-2" data-line-number="2">tb</a>
@@ -336,7 +361,10 @@
 <a class="sourceLine" id="cb13-16" data-line-number="16"><span class="co">#&gt; 10 AL     2007 m     04        0</span></a>
 <a class="sourceLine" id="cb13-17" data-line-number="17"><span class="co">#&gt; # ... with 35,740 more rows</span></a></code></pre></div>
 <p>Storing the values in this form resolves a problem in the original data. We want to compare rates, not counts, which means we need to know the population. In the original format, there is no easy way to add a population variable. It has to be stored in a separate table, which makes it hard to correctly match populations to counts. In tidy form, adding variables for population and rate is easy because they’re just additional columns.</p>
-</section><section id="variables-are-stored-in-both-rows-and-columns" class="level2"><h2>Variables are stored in both rows and columns</h2>
+</div>
+<div id="variables-are-stored-in-both-rows-and-columns" class="section level2">
+<h2 class="hasAnchor">
+<a href="#variables-are-stored-in-both-rows-and-columns" class="anchor"></a>Variables are stored in both rows and columns</h2>
 <p>The most complicated form of messy data occurs when variables are stored in both rows and columns. The code below loads daily weather data from the Global Historical Climatology Network for one weather station (MX17004) in Mexico for five months in 2010.</p>
 <div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1">weather &lt;-<span class="st"> </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/tbl_df.html">tbl_df</a></span>(<span class="kw">read.csv</span>(<span class="st">"weather.csv"</span>, <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>))</a>
 <a class="sourceLine" id="cb14-2" data-line-number="2">weather</a>
@@ -416,7 +444,10 @@
 <a class="sourceLine" id="cb17-14" data-line-number="14"><span class="co">#&gt; 10 MX17004  2010     5   27.  33.2  18.2</span></a>
 <a class="sourceLine" id="cb17-15" data-line-number="15"><span class="co">#&gt; # ... with 23 more rows</span></a></code></pre></div>
 <p>This form is tidy: there’s one variable in each column, and each row represents one day.</p>
-</section><section id="multiple-types" class="level2"><h2>Multiple types in one table</h2>
+</div>
+<div id="multiple-types" class="section level2">
+<h2 class="hasAnchor">
+<a href="#multiple-types" class="anchor"></a>Multiple types in one table</h2>
 <p>Datasets often involve values collected at multiple levels, on different types of observational units. During tidying, each type of observational unit should be stored in its own table. This is closely related to the idea of database normalisation, where each fact is expressed in only one place. It’s important because otherwise inconsistencies can arise.</p>
 <p>The billboard dataset actually contains observations on two types of observational units: the song and its rank in each week. This manifests itself through the duplication of facts about the song: <code>artist</code>, <code>year</code> and <code>time</code> are repeated many times.</p>
 <p>This dataset needs to be broken down into two pieces: a song dataset which stores <code>artist</code>, <code>song name</code> and <code>time</code>, and a ranking dataset which gives the <code>rank</code> of the <code>song</code> in each <code>week</code>. We first extract a <code>song</code> dataset:</p>
@@ -461,9 +492,12 @@
 <a class="sourceLine" id="cb19-19" data-line-number="19"><span class="co">#&gt; # ... with 5,297 more rows</span></a></code></pre></div>
 <p>You could also imagine a <code>week</code> dataset which would record background information about the week, maybe the total number of songs sold or similar “demographic” information.</p>
 <p>Normalisation is useful for tidying and eliminating inconsistencies. However, there are few data analysis tools that work directly with relational data, so analysis usually also requires denormalisation or the merging the datasets back into one table.</p>
-</section><section id="one-type-in-multiple-tables" class="level2"><h2>One type in multiple tables</h2>
+</div>
+<div id="one-type-in-multiple-tables" class="section level2">
+<h2 class="hasAnchor">
+<a href="#one-type-in-multiple-tables" class="anchor"></a>One type in multiple tables</h2>
 <p>It’s also common to find data values about a single type of observational unit spread out over multiple tables or files. These tables and files are often split up by another variable, so that each represents a single year, person, or location. As long as the format for individual records is consistent, this is an easy problem to fix:</p>
-<ol type="1">
+<ol style="list-style-type: decimal">
 <li><p>Read the files into a list of tables.</p></li>
 <li><p>For each table, add a new column that records the original file name (the file name is often the value of an important variable).</p></li>
 <li><p>Combine all tables into a single table.</p></li>
@@ -475,10 +509,14 @@
 <a class="sourceLine" id="cb20-4" data-line-number="4"><span class="kw"><a href="http://www.rdocumentation.org/packages/purrr/topics/map">map_dfr</a></span>(paths, read.csv, <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>, <span class="dt">.id =</span> <span class="st">"filename"</span>)</a></code></pre></div>
 <p>Once you have a single table, you can perform additional tidying as needed. An example of this type of cleaning can be found at <a href="https://github.com/hadley/data-baby-names" class="uri">https://github.com/hadley/data-baby-names</a> which takes 129 yearly baby name tables provided by the US Social Security Administration and combines them into a single file.</p>
 <p>A more complicated situation occurs when the dataset structure changes over time. For example, the datasets may contain different variables, the same variables with different names, different file formats, or different conventions for missing values. This may require you to tidy each file to individually (or, if you’re lucky, in small groups) and then combine them once tidied. An example of this type of tidying is illustrated in <a href="https://github.com/hadley/data-fuel-economy" class="uri">https://github.com/hadley/data-fuel-economy</a>, which shows the tidying of <span>epa</span> fuel economy data for over 50,000 cars from 1978 to 2008. The raw data is available online, but each year is stored in a separate file and there are four major formats with many minor variations, making tidying this dataset a considerable challenge.</p>
-</section></section><section class="footnotes"><hr>
+</div>
+</div>
+<div class="footnotes">
+<hr>
 <ol>
 <li id="fn1"><p><a href="http://religions.pewforum.org/pdf/comparison-Income%20Distribution%20of%20Religious%20Traditions.pdf">http://religions.pewforum.org/pdf/comparison-Income%20Distribution%20of%20Religious%20Traditions.pdf</a><a href="#fnref1" class="footnote-back">↩</a></p></li>
-</ol></section>
+</ol>
+</div>
 </div>
   </div>
 
