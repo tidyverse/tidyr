@@ -78,6 +78,7 @@ separate.data.frame <- function(data, col, into, sep = "[^[:alnum:]]+",
   }
 
   names(l) <- as_utf8_character(into)
+  l <- l[!is.na(names(l))]
   if (convert) {
     l[] <- map(l, type.convert, as.is = TRUE)
   }
