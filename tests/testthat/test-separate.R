@@ -100,6 +100,12 @@ test_that("overwrites existing columns", {
   expect_equal(rs$x, "a")
 })
 
+test_that("drops NA columns", {
+  df <- tibble(x = c(NA, "ab", "cd"))
+  out <- separate(df, x, c(NA, "y"), 1)
+  expect_equal(names(out), "y")
+  expect_equal(out$y, c(NA, "b", "d"))
+})
 
 test_that("checks type of `into` and `sep`", {
   df <- tibble(x = "a:b")
