@@ -7,6 +7,7 @@
 Status](https://travis-ci.org/tidyverse/tidyr.svg?branch=master)](https://travis-ci.org/tidyverse/tidyr)
 [![codecov.io](http://codecov.io/github/tidyverse/tidyr/coverage.svg?branch=master)](http://codecov.io/github/tidyverse/tidyr?branch=master)
 [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/tidyr)](https://cran.r-project.org/package=tidyr)
+[![Open Source Helpers](https://www.codetriage.com/tidyverse/tidyr/badges/users.svg)](https://www.codetriage.com/tidyverse/tidyr)
 
 ## Overview
 
