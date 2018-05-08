@@ -19,7 +19,7 @@ identifier for each created row.}
 }
 \description{
 Performs the opposite operation to \code{\link[dplyr:count]{dplyr::count()}}, duplicating rows
-acoording to a weighting variable (or expression).
+according to a weighting variable (or expression).
 }
 \examples{
 df <- tibble::tibble(x = c("a", "b"), n = c(1, 2))
