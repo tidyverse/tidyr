@@ -42,6 +42,10 @@ install.packages("tidyr")
 devtools::install_github("tidyverse/tidyr")
 ```
 
+## Cheatsheet
+
+<a href="https://github.com/rstudio/cheatsheets/blob/master/data-import.pdf"><img src="https://raw.githubusercontent.com/rstudio/cheatsheets/master/pngs/thumbnails/data-import-cheatsheet-thumbs.png" width="630" height="252"/></a>  
+
 ## Getting started
 
 ```{r}
