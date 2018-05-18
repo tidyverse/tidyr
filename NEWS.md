@@ -1,4 +1,4 @@
-# tidyr 0.8.0.9000
+# tidyr 0.8.1
 
 * `unnest()` weakens test of "atomicity" to restore previous behaviour when
   unnesting factors and dates (#407).
