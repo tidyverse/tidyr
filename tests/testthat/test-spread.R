@@ -243,3 +243,21 @@ test_that("spread doesn't convert data frames into tibbles", {
   df <- data.frame(x = c("a", "b"), y = 1:2)
   expect_equal(class(spread(df, x, y)), "data.frame")
 })
+
+test_that("spread with fill replaces explicit missing values", {
+  df <- data.frame(key = c("a"), value = c(NA))
+  out <- spread(df, key, value, fill = 1)
+  expect_equal(out, data.frame(a = c(1)))
+})
+
+test_that("spread with fill replaces implicit missing values", {
+  # Missing keys in some groups
+  df <- data.frame(x = c("G1", "G2"), key = c("a", "b"), value = c(1, 1))
+  out <- spread(df, key, value, fill = 2)
+  expect_equal(out, data.frame(x = c("G1", "G2"), a = c(1, 2), b = c(2, 1)))
+
+  # Missing factor levels in key with drop = FALSE
+  df <- data.frame(key = factor(c("a"), levels = c("a", "b")), value = c(1))
+  out <- spread(df, key, value, fill = 2, drop = FALSE)
+  expect_equal(out, data.frame(a = c(1), b = c(2)))
+})
