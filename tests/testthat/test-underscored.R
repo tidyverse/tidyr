@@ -2,7 +2,7 @@ context("Deprecated SE variants")
 
 test_that("complete_()", {
   df <- tibble(x = 1:2, y = 1:2, z = 3:4)
-  out <- complete_(df, list("x", ~y))
+  out <- complete_(df, list("x", ~ y))
   expect_identical(nrow(out), 4L)
   expect_identical(out$z, c(3L, NA, NA, 4L))
 })
@@ -31,7 +31,7 @@ test_that("drop_na_() works with non-syntactic names", {
 
 test_that("expand_()", {
   df <- data.frame(x = 1:2, y = 1:2)
-  out <- expand_(df, list("x", ~y))
+  out <- expand_(df, list("x", ~ y))
   expect_identical(names(out), c("x", "y"))
   expect_identical(nrow(out), 4L)
 })
@@ -95,14 +95,18 @@ test_that("separate_()", {
 test_that("separate() works with non-syntactic names", {
   df <- tibble(`non-syntactic` = "1,2")
   into <- c("non", "syntactic")
-  expect_identical(separate_(df, "non-syntactic", into), separate(df, `non-syntactic`, into))
+  expect_identical(
+    separate_(df, "non-syntactic", into),
+    separate(df, `non-syntactic`, into)
+  )
 })
-
 test_that("separate_rows() works with non-syntactic names", {
   df <- tibble(`non-syntactic` = 1)
-  expect_identical(separate_rows_(df, "non-syntactic"), separate_rows(df, `non-syntactic`))
+  expect_identical(
+    separate_rows_(df, "non-syntactic"),
+    separate_rows(df, `non-syntactic`)
+  )
 })
-
 test_that("spread_()", {
   df1 <- data.frame(x = c("a", "b"), y = 1:2)
   df2 <- data.frame(x = c("b", "a"), y = 2:1)
@@ -128,9 +132,11 @@ test_that("unite_()", {
 
 test_that("unite_() works with non-syntactic names", {
   df <- tibble(x = 1, `non-syntactic` = 1)
-  expect_identical(unite_(df, "x", "non-syntactic"), unite(df, x, `non-syntactic`))
+  expect_identical(
+    unite_(df, "x", "non-syntactic"),
+    unite(df, x, `non-syntactic`)
+  )
 })
-
 test_that("unnest_()", {
   df <- tibble(x = list(1, 2:3, 4:10))
   expect_identical(unnest_(df)$x, dbl(1:10))
