@@ -117,7 +117,8 @@ A common type of messy dataset is tabular data designed for presentation, where 
 The following code shows a subset of a typical dataset of this form. This dataset explores the relationship between income and religion in the US. It comes from a report[^1] produced by the Pew Research Center, an American think-tank that collects data on attitudes to topics ranging from religion to the internet, and produces many reports that contain datasets in this format.
 
 ```{r}
-pew <- tbl_df(read.csv("pew.csv", stringsAsFactors = FALSE, check.names = FALSE))
+library(tibble)
+pew <- as_tibble(read.csv("pew.csv", stringsAsFactors = FALSE, check.names = FALSE))
 pew
 ```
 
@@ -135,7 +136,7 @@ This form is tidy because each column represents a variable and each row represe
 This format is also used to record regularly spaced observations over time. For example, the Billboard dataset shown below records the date a song first entered the billboard top 100. It has variables for `artist`, `track`, `date.entered`, `rank` and `week`. The rank in each week after it enters the top 100 is recorded in 75 columns, `wk1` to `wk75`. This form of storage is not tidy, but it is useful for data entry. It reduces duplication since otherwise each song in each week would need its own row, and song metadata like title and artist would need to be repeated. This will be discussed in more depth in [multiple types](#multiple-types).
 
 ```{r}
-billboard <- tbl_df(read.csv("billboard.csv", stringsAsFactors = FALSE))
+billboard <- as_tibble(read.csv("billboard.csv", stringsAsFactors = FALSE))
 billboard
 ```
 
@@ -177,7 +178,7 @@ billboard3 %>% arrange(date, rank)
 After gathering columns, the key column is sometimes a combination of multiple underlying variable names. This happens in the `tb` (tuberculosis) dataset, shown below. This dataset comes from the World Health Organisation, and records the counts of confirmed tuberculosis cases by `country`, `year`, and demographic group. The demographic groups are broken down by `sex` (m, f) and `age` (0-14, 15-25, 25-34, 35-44, 45-54, 55-64, unknown).
 
 ```{r}
-tb <- tbl_df(read.csv("tb.csv", stringsAsFactors = FALSE))
+tb <- as_tibble(read.csv("tb.csv", stringsAsFactors = FALSE))
 tb
 ```
 
@@ -204,7 +205,7 @@ Storing the values in this form resolves a problem in the original data. We want
 The most complicated form of messy data occurs when variables are stored in both rows and columns. The code below loads daily weather data from the Global Historical Climatology Network for one weather station (MX17004) in Mexico for five months in 2010. 
 
 ```{r}
-weather <- tbl_df(read.csv("weather.csv", stringsAsFactors = FALSE))
+weather <- as_tibble(read.csv("weather.csv", stringsAsFactors = FALSE))
 weather
 ```
 
