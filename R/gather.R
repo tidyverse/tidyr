@@ -49,7 +49,7 @@
 #'   value column in `NA`.
 #' @param convert If `TRUE` will automatically run
 #'   [type.convert()] on the key column. This is useful if the column
-#'   names are actually numeric, integer, or logical.
+#'   types are actually numeric, integer, or logical.
 #' @param factor_key If `FALSE`, the default, the key values will be
 #'   stored as a character vector. If `TRUE`, will be stored as a factor,
 #'   which preserves the original ordering of the columns.
