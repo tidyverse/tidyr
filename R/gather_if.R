@@ -52,101 +52,17 @@
 #'   group_by(Species) %>%
 #'   slice(1)
 #' mini_iris %>% gather(key = flower_att, value = measurement, -Species)
-gather_if <- function(data, .predicate, key = "key", value = "value", ...,
-                   na.rm = FALSE, convert = FALSE, factor_key = FALSE) {
-  UseMethod("gather")
-}
-#' @export
-gather.data.frame <- function(data, key = "key", value = "value", ...,
-                              na.rm = FALSE, convert = FALSE,
-                              factor_key = FALSE) {
-  key_var <- quo_name(enexpr(key))
-  value_var <- quo_name(enexpr(value))
-
-  quos <- quos(...)
-  if (is_empty(quos)) {
-    gather_vars <- setdiff(names(data), c(key_var, value_var))
-  } else {
-    gather_vars <- unname(tidyselect::vars_select(names(data), !!! quos))
-  }
-
-  if (is_empty(gather_vars)) {
-    return(data)
-  }
-
-  gather_idx <- match(gather_vars, names(data))
-  id_idx <- setdiff(seq_along(data), gather_idx)
-
-  dup_indx <- match(c(key_var, value_var), names(data))
-  id_idx <- setdiff(id_idx, dup_indx)
-
-  ## Get the attributes if common, NULL if not.
-  args <- normalize_melt_arguments(data, gather_idx)
-  valueAsFactor <- "factor" %in% class(args$attr_template)
-
-  out <- melt_dataframe(
-    data,
-    id_idx - 1L,
-    gather_idx - 1L,
-    as.character(key_var),
-    as.character(value_var),
-    args$attr_template,
-    args$factorsAsStrings,
-    as.logical(valueAsFactor),
-    as.logical(factor_key)
+gather_if <- function(
+  data, .predicate, key = "key", value = "value", ...,
+  na.rm = FALSE, convert = FALSE, factor_key = FALSE
+) {
+  vars <- dplyr:::tbl_if_vars(
+    data, .predicate, rlang:::caller_env(), .include_group_vars = TRUE
   )
 
-  if (na.rm && anyNA(out)) {
-    missing <- is.na(out[[value_var]])
-    out <- out[!missing, ]
-  }
-
-  if (convert) {
-    out[[key_var]] <- type.convert(as.character(out[[key_var]]), as.is = TRUE)
-  }
-
-  reconstruct_tibble(data, out, gather_vars)
-}
-
-# Functions from reshape2 -------------------------------------------------
-
-## Get the attributes if common, NULL if not.
-normalize_melt_arguments <- function(data, measure.ind) {
-  measure.attributes <- map(measure.ind, function(i) {
-    attributes(data[[i]])
-  })
-
-  ## Determine if all measure.attributes are equal
-  measure.attrs.equal <- all_identical(measure.attributes)
-
-  if (measure.attrs.equal) {
-    attr_template <- data[[measure.ind[1]]]
-  } else {
-    warn(glue(
-      "attributes are not identical across measure variables;
-       they will be dropped"
-    ))
-    attr_template <- NULL
-  }
-
-  ## If we are going to be coercing any factors to strings, we don't want to
-  ## copy the attributes
-  any.factors <- any(map_lgl(measure.ind, function(i) is.factor(data[[i]])))
-
-  if (any.factors) {
-    attr_template <- NULL
-  }
-
-  list(
-    attr_template = attr_template,
-    factorsAsStrings = TRUE
+  gather(
+    data = data, key = key, value = value,
+    one_of(vars), # !!vars also works. Which is better?
+    ..., na.rm = na.rm, convert = convert, factor_key = factor_key
   )
-}
-
-all_identical <- function(xs) {
-  if (length(xs) <= 1) return(TRUE)
-  for (i in seq(2, length(xs))) {
-    if (!identical(xs[[1]], xs[[i]])) return(FALSE)
-  }
-  TRUE
 }
