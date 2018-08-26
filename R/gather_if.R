@@ -61,8 +61,10 @@ gather_if <- function(
     data, .predicate, rlang:::caller_env(), .include_group_vars = TRUE
   )
 
+  key_var <- quo_name(enexpr(key))
+  value_var <- quo_name(enexpr(value))
   gather(
-    data = data, key = key, value = value,
+    data = data, key = !!key_var, value = !!value_var,
     one_of(vars), # !!vars also works. Which is better?
     ..., na.rm = na.rm, convert = convert, factor_key = factor_key
   )
