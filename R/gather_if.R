@@ -8,13 +8,6 @@
 #'   returns TRUE are gathered. This argument is passed to
 #'   `rlang::as_function()``and thus supports quosure-style lambda
 #'   functions and strings representing function names.
-#'
-#'   This argument is passed by expression and supports
-#'   [quasiquotation][rlang::quasiquotation] (you can unquote strings
-#'   and symbols). The name is captured from the expression with
-#'   [rlang::quo_name()] (note that this kind of interface where
-#'   symbols do not represent actual objects is now discouraged in the
-#'   tidyverse; we support it here for backward compatibility).
 #' @param ... An additional selection of columns after `.predicate`.
 #'   If empty, all variables selected by `.predicate` are selected.
 #'   You can supply bare variable names, select all variables between
