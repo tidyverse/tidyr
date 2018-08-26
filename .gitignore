@@ -1,6 +1,7 @@
 .Rproj.user
 .Rhistory
 .RData
+.Rprofile
 inst/doc
 .httr-oauth
 revdep/checks
