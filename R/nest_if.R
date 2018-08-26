@@ -1,12 +1,14 @@
-#' Nest repeated values in a list-variable.
+#' Nest repeated values from selected variables in a list-variable.
 #'
-#' There are many possible ways one could choose to nest columns inside a
-#' data frame. `nest()` creates a list of data frames containing all
-#' the nested variables: this seems to be the most useful form in practice.
+#' A scoped variant of `nest()`` operate on a selection of variables.
 #'
-#' @inheritSection gather Rules for selection
-#' @inheritParams gather
-#' @param data A data frame.
+#' @inheritParams gather_if
+#' @inheritParams nest
+#' @param .predicate A predicate function to be applied to the columns or a
+#'   logical vector. The variables for which .predicate is or returns TRUE
+#'   are nested. This argument is passed to `rlang::as_function()` and thus
+#'   supports quosure-style lambda functions and strings representing
+#'   function names.
 #' @param .key The name of the new column, as a string or symbol.
 #'
 #'   This argument is passed by expression and supports
@@ -19,17 +21,9 @@
 #' @export
 #' @examples
 #' library(dplyr)
+#' as_tibble(iris) %>% nest_if(is.numeric)
+#' # same result by nest
 #' as_tibble(iris) %>% nest(-Species)
-#' as_tibble(chickwts) %>% nest(weight)
-#'
-#' if (require("gapminder")) {
-#'   gapminder %>%
-#'     group_by(country, continent) %>%
-#'     nest()
-#'
-#'   gapminder %>%
-#'     nest(-country, -continent)
-#' }
 nest <- function(data, ..., .key = "data") {
   UseMethod("nest")
 }
