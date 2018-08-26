@@ -40,18 +40,6 @@
 #' gather(mini_iris, key = flower_att, value = measurement, -Species)
 #' # in case Sepal.Length should be kept as a column,
 #' gather_if(mini_iris, is.numeric, key = flower_att, value = measurement, -Sepal.Length)
-#' # this is helpful especially when comparing a certain variable with others.
-#' library(ggplot2)
-#' iris %>%
-#'   gather_if(is.numeric, key = flower_ott, value = measurement, -Sepal.Length) %>%
-#'   ggplot(aes(x = Sepal.Length, y = measurement, colour = Species)) +
-#'   geom_point() +
-#'   facet_grid(flower_ott ~ ., switch = 'y') +
-#'   ylab(NULL) +
-#'   theme(
-#'     strip.background = element_blank(),
-#'     strip.placement = 'outside'
-#'   )
 #'
 gather_if <- function(
   data, .predicate, key = "key", value = "value", ...,
@@ -65,7 +53,7 @@ gather_if <- function(
   value_var <- quo_name(enexpr(value))
   gather(
     data = data, key = !!key_var, value = !!value_var,
-    one_of(vars), # !!vars also works. Which is better?
+    !!(vars), # dplyr::one_of(vars) also works. Which is better?
     ..., na.rm = na.rm, convert = convert, factor_key = factor_key
   )
 }
