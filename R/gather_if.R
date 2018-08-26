@@ -34,16 +34,31 @@
 #'   Z = rnorm(10, 0, 4)
 #' )
 #'
+#' gather_if(stocks, is.numeric, stock, price)
+#' stocks %>% gather_if(is.numeric, stock, price)
+#' # same result by gather
 #' gather(stocks, stock, price, -time)
-#' stocks %>% gather(stock, price, -time)
 #'
 #' # get first observation for each Species in iris data -- base R
-#' mini_iris <- iris[c(1, 51, 101), ]
+#' mini_iris <- iris[c(1:3, 51:53, 101:103), ]
 #' # gather Sepal.Length, Sepal.Width, Petal.Length, Petal.Width
-#' gather(mini_iris, key = flower_att, value = measurement,
-#'        Sepal.Length, Sepal.Width, Petal.Length, Petal.Width)
-#' # same result but less verbose
+#' gather_if(mini_iris, is.numeric, key = flower_att, value = measurement)
+#' # same result by gather
 #' gather(mini_iris, key = flower_att, value = measurement, -Species)
+#' # in case Sepal.Length should be kept as a column,
+#' gather_if(mini_iris, is.numeric, key = flower_att, value = measurement, -Sepal.Length)
+#' # this is helpful especially when comparing a certain variable with others.
+#' library(ggplot2)
+#' iris %>%
+#'   gather_if(is.numeric, key = flower_ott, value = measurement, -Sepal.Length) %>%
+#'   ggplot(aes(x = Sepal.Length, y = measurement, colour = Species)) +
+#'   geom_point() +
+#'   facet_grid(flower_ott ~ ., switch = 'y') +
+#'   ylab(NULL) +
+#'   theme(
+#'     strip.background = element_blank(),
+#'     strip.placement = 'outside'
+#'   )
 #'
 #' # repeat iris example using dplyr and the pipe operator
 #' library(dplyr)
