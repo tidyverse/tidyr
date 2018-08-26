@@ -1,8 +1,6 @@
-#' Gather columns into key-value pairs.
+#' Gather selected variables into key-value pairs.
 #'
-#' Gather takes multiple columns and collapses into key-value pairs,
-#' duplicating all other columns as needed. You use `gather()` when
-#' you notice that you have columns that are not variables.
+#' A scoped variant of `gather()` operate on a selection of variables.
 #'
 #' @section Rules for selection:
 #'
