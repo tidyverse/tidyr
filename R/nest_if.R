@@ -24,40 +24,14 @@
 #' as_tibble(iris) %>% nest_if(is.numeric)
 #' # same result by nest
 #' as_tibble(iris) %>% nest(-Species)
-nest <- function(data, ..., .key = "data") {
-  UseMethod("nest")
+nest_if <- function(data, .predicate, ..., .key = "data") {
+  UseMethod("nest_if")
 }
 #' @export
-nest.data.frame <- function(data, ..., .key = "data") {
+nest_if.data.frame <- function(data, .predicate, ..., .key = "data") {
   key_var <- quo_name(enexpr(.key))
-
-  nest_vars <- unname(tidyselect::vars_select(names(data), ...))
-  if (is_empty(nest_vars)) {
-    nest_vars <- names(data)
-  }
-
-  if (dplyr::is_grouped_df(data)) {
-    group_vars <- dplyr::group_vars(data)
-  } else {
-    group_vars <- setdiff(names(data), nest_vars)
-  }
-  nest_vars <- setdiff(nest_vars, group_vars)
-
-  data <- dplyr::ungroup(data)
-  if (is_empty(group_vars)) {
-    return(tibble(!! key_var := list(data)))
-  }
-
-  out <- dplyr::select(data, !!! syms(group_vars))
-
-  idx <- dplyr::group_indices(data, !!! syms(group_vars))
-  representatives <- which(!duplicated(idx))
-
-  out <- dplyr::slice(out, representatives)
-
-  out[[key_var]] <- unname(split(data[nest_vars], idx))[unique(idx)]
-
-  out
+  vars <- dplyr:::tbl_if_vars(
+    data, .predicate, rlang:::caller_env(), .include_group_vars = TRUE
+  )
+  nest(data, vars, ..., .key = key_var)
 }
-
-
