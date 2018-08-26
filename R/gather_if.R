@@ -8,8 +8,6 @@
 #'   returns TRUE are gathered. This argument is passed to
 #'   `rlang::as_function()``and thus supports quosure-style lambda
 #'   functions and strings representing function names.
-#' @param key,value Names of new key and value columns, as strings or
-#'   symbols.
 #'
 #'   This argument is passed by expression and supports
 #'   [quasiquotation][rlang::quasiquotation] (you can unquote strings
@@ -23,14 +21,7 @@
 #'   x and z with `x:z`, exclude y with `-y`. For more options, see
 #'   the [dplyr::select()] documentation. See also the section on
 #'   selection rules in `gather`.
-#' @param na.rm If `TRUE`, will remove rows from output where the
-#'   value column in `NA`.
-#' @param convert If `TRUE` will automatically run
-#'   [type.convert()] on the key column. This is useful if the column
-#'   names are actually numeric, integer, or logical.
-#' @param factor_key If `FALSE`, the default, the key values will be
-#'   stored as a character vector. If `TRUE`, will be stored as a factor,
-#'   which preserves the original ordering of the columns.
+#' @inheritParams gather
 #' @inheritParams gather_
 #' @export
 #' @examples
