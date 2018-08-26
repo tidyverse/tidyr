@@ -52,7 +52,7 @@
 #'   group_by(Species) %>%
 #'   slice(1)
 #' mini_iris %>% gather(key = flower_att, value = measurement, -Species)
-gather <- function(data, key = "key", value = "value", ...,
+gather_if <- function(data, .predicate, key = "key", value = "value", ...,
                    na.rm = FALSE, convert = FALSE, factor_key = FALSE) {
   UseMethod("gather")
 }
