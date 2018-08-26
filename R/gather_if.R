@@ -17,11 +17,12 @@
 #'   [rlang::quo_name()] (note that this kind of interface where
 #'   symbols do not represent actual objects is now discouraged in the
 #'   tidyverse; we support it here for backward compatibility).
-#' @param ... A selection of columns. If empty, all variables are
-#'   selected. You can supply bare variable names, select all
-#'   variables between x and z with `x:z`, exclude y with `-y`. For
-#'   more options, see the [dplyr::select()] documentation. See also
-#'   the section on selection rules below.
+#' @param ... An additional selection of columns after `.predicate`.
+#'   If empty, all variables selected by `.predicate` are selected.
+#'   You can supply bare variable names, select all variables between
+#'   x and z with `x:z`, exclude y with `-y`. For more options, see
+#'   the [dplyr::select()] documentation. See also the section on
+#'   selection rules in `gather`.
 #' @param na.rm If `TRUE`, will remove rows from output where the
 #'   value column in `NA`.
 #' @param convert If `TRUE` will automatically run
