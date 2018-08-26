@@ -33,5 +33,5 @@ nest_if.data.frame <- function(data, .predicate, ..., .key = "data") {
   vars <- dplyr:::tbl_if_vars(
     data, .predicate, rlang:::caller_env(), .include_group_vars = TRUE
   )
-  nest(data, vars, ..., .key = key_var)
+  nest(data, !!vars, ..., .key = !!key_var)
 }
