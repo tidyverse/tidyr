@@ -1,6 +1,7 @@
 #' Nest repeated values from selected variables in a list-variable.
 #'
 #' A scoped variant of `nest()`` operate on a selection of variables.
+#' Unlike `nest()`, `nest_if` coerce input data to be ungrouped data frame.
 #'
 #' @inheritParams gather_if
 #' @inheritParams nest
@@ -30,8 +31,10 @@ nest_if <- function(data, .predicate, ..., .key = "data") {
 #' @export
 nest_if.data.frame <- function(data, .predicate, ..., .key = "data") {
   key_var <- quo_name(enexpr(.key))
-  vars <- dplyr:::tbl_if_vars(
-    data, .predicate, rlang:::caller_env(), .include_group_vars = TRUE
+  predicate_vars <- dplyr:::tbl_if_vars(
+    dplyr::ungroup(data), .predicate, rlang:::caller_env(), .include_group_vars = TRUE
   )
-  nest(data, !!vars, ..., .key = !!key_var)
+  nest_vars <- unname(tidyselect::vars_select(names(data), !!predicate_vars, ...))
+  if(length(nest_vars) == 0) return(data)
+  nest(dplyr::ungroup(data), !!nest_vars, .key = !!key_var)
 }

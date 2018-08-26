@@ -46,7 +46,7 @@ gather_if <- function(
   na.rm = FALSE, convert = FALSE, factor_key = FALSE
 ) {
   vars <- dplyr:::tbl_if_vars(
-    data, .predicate, rlang:::caller_env(), .include_group_vars = TRUE
+    dplyr::ungroup(data), .predicate, rlang:::caller_env(), .include_group_vars = TRUE
   )
 
   key_var <- quo_name(enexpr(key))
