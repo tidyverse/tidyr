@@ -3,6 +3,11 @@
 #' A scoped variant of `gather()` operate on a selection of variables.
 #'
 #' @inheritParams expand
+#' @param .predicate A predicate function to be applied to the columns
+#'   or a logical vector. The variables for which `.predicate` is or
+#'   returns TRUE are gathered. This argument is passed to
+#'   `rlang::as_function()``and thus supports quosure-style lambda
+#'   functions and strings representing function names.
 #' @param key,value Names of new key and value columns, as strings or
 #'   symbols.
 #'
