@@ -60,13 +60,6 @@
 #'     strip.placement = 'outside'
 #'   )
 #'
-#' # repeat iris example using dplyr and the pipe operator
-#' library(dplyr)
-#' mini_iris <-
-#'   iris %>%
-#'   group_by(Species) %>%
-#'   slice(1)
-#' mini_iris %>% gather(key = flower_att, value = measurement, -Species)
 gather_if <- function(
   data, .predicate, key = "key", value = "value", ...,
   na.rm = FALSE, convert = FALSE, factor_key = FALSE
