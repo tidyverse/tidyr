@@ -65,7 +65,7 @@ spread.data.frame <- function(data, key, value, fill = NA, convert = FALSE,
     row_id <- structure(1L, n = 1L)
     row_labels <- as.data.frame(matrix(nrow = 1, ncol = 0))
   } else {
-    row_id <- id(rows, drop = drop)
+    row_id <- id(rows, drop = drop, match_order = FALSE)
     row_labels <- split_labels(rows, row_id, drop = drop)
     rownames(row_labels) <- NULL
   }
