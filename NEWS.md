@@ -1,5 +1,7 @@
 # tidyr 0.8.1.9000
 
+* `spread()` now always preserves row order (@mikmart, #453).
+
 # tidyr 0.8.1
 
 * `unnest()` weakens test of "atomicity" to restore previous behaviour when
