@@ -1,4 +1,4 @@
-id <- function(.variables, drop = FALSE) {
+id <- function(.variables, drop = FALSE, match_order = TRUE) {
   if (length(.variables) == 0) {
     n <- nrow(.variables) %||% 0L
     return(structure(seq_len(n), n = n))
@@ -6,11 +6,11 @@ id <- function(.variables, drop = FALSE) {
 
   # Special case for single variable
   if (length(.variables) == 1) {
-    return(id_var(.variables[[1]], drop = drop))
+    return(id_var(.variables[[1]], drop = drop, match_order = match_order))
   }
 
   # Calculate individual ids
-  ids <- rev(map(.variables, id_var, drop = drop))
+  ids <- rev(map(.variables, id_var, drop = drop, match_order = match_order))
   p <- length(ids)
 
   # Calculate dimensions
@@ -31,13 +31,13 @@ id <- function(.variables, drop = FALSE) {
 
 
   if (drop) {
-    id_var(res, drop = TRUE)
+    id_var(res, drop = TRUE, match_order = match_order)
   } else {
     structure(as.integer(res), n = attr(res, "n"))
   }
 }
 
-id_var <- function(x, drop = FALSE) {
+id_var <- function(x, drop = FALSE, match_order = TRUE) {
   if (!is_null(attr(x, "n")) && !drop) return(x)
 
   if (is.factor(x) && !drop) {
@@ -53,7 +53,9 @@ id_var <- function(x, drop = FALSE) {
     id <- match(x, levels)
     n <- max(id)
   } else {
-    levels <- sort(unique(x), na.last = TRUE)
+    levels <- unique(x)
+    if (match_order)
+      levels <- sort(levels, na.last = TRUE)
     id <- match(x, levels)
     n <- max(id)
   }
