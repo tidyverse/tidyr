@@ -15,6 +15,28 @@ test_that("order doesn't matter", {
   expect_identical(one, two)
 })
 
+test_that("preserves row order (#453)", {
+  df <- data.frame(z = c("b", "a"), x = c("a", "b"), y = 1:2)
+  out <- spread(df, x, y)
+  expect_identical(out$z, df$z)
+
+  n <- 1200 # 1200^3 < 2^31 so this tests integer ids
+  i <- n:1
+
+  df <- data.frame(i = i, j = i, k = i, x = c("a", "b"), y = 1:n)
+  out <- spread(df, x, y)
+
+  expect_identical(order(df$i), order(out$i))
+
+  n <- 1300 # 1300^3 > 2^31 so this tests character ids
+  i <- n:1
+
+  df <- data.frame(i = i, j = i, k = i, x = c("a", "b"), y = 1:n)
+  out <- spread(df, x, y)
+
+  expect_identical(order(df$i), order(out$i))
+})
+
 test_that("convert turns strings into integers", {
   df <- tibble(key = "a", value = "1")
   out <- spread(df, key, value, convert = TRUE)
