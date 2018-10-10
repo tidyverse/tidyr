@@ -37,7 +37,7 @@
 #'   This argument is passed by expression and supports
 #'   [quasiquotation][rlang::quasiquotation] (you can unquote strings
 #'   and symbols). The name is captured from the expression with
-#'   [rlang::quo_name()] (note that this kind of interface where
+#'   [rlang::ensym()] (note that this kind of interface where
 #'   symbols do not represent actual objects is now discouraged in the
 #'   tidyverse; we support it here for backward compatibility).
 #' @param ... A selection of columns. If empty, all variables are
@@ -91,8 +91,8 @@ gather <- function(data, key = "key", value = "value", ...,
 gather.data.frame <- function(data, key = "key", value = "value", ...,
                               na.rm = FALSE, convert = FALSE,
                               factor_key = FALSE) {
-  key_var <- quo_name(enexpr(key))
-  value_var <- quo_name(enexpr(value))
+  key_var <- as_string(ensym(key))
+  value_var <- as_string(ensym(value))
 
   quos <- quos(...)
   if (is_empty(quos)) {

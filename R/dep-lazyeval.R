@@ -310,7 +310,7 @@ unite_ <- function(data, col, from, sep = "_", remove = TRUE) {
 }
 #' @export
 unite_.data.frame <- function(data, col, from, sep = "_", remove = TRUE) {
-  col <- compat_lazy(col, caller_env())
+  col <- quo_get_expr(compat_lazy(col, caller_env()))
   from <- syms(from)
   unite(data, !! col, !!! from, sep = sep, remove = remove)
 }

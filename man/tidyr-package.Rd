@@ -6,9 +6,11 @@
 \alias{tidyr-package}
 \title{tidyr: Easily Tidy Data with 'spread()' and 'gather()' Functions}
 \description{
+\if{html}{\figure{logo.png}{options: align='right'}}
+
 An evolution of 'reshape2'. It's designed specifically for data
-tidying (not general reshaping or aggregating) and works well with
-'dplyr' data pipelines.
+    tidying (not general reshaping or aggregating) and works well with
+    'dplyr' data pipelines.
 }
 \seealso{
 Useful links:
