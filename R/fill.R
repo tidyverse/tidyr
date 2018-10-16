@@ -31,7 +31,7 @@ fill.data.frame <- function(data, ..., .direction = c("down", "up", "downup", "u
 
   .direction <- match.arg(.direction)
   fillVector <- switch(.direction, down = fillDown, up = fillUp,
-                       downup = compose(fillDown, fillUp), updown = compose(fillUp, fillDown))
+                       downup = compose(fillUp, fillDown), updown = compose(fillDown, fillUp))
 
   for (col in fill_cols) {
     data[[col]] <- fillVector(data[[col]])
