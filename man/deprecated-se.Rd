@@ -31,7 +31,7 @@ nesting_(x)
 extract_(data, col, into, regex = "([[:alnum:]]+)", remove = TRUE,
   convert = FALSE, ...)
 
-fill_(data, fill_cols, .direction = c("down", "up"))
+fill_(data, fill_cols, .direction = c("down", "up", "downup", "updown"))
 
 gather_(data, key_col, value_col, gather_cols, na.rm = FALSE,
   convert = FALSE, factor_key = FALSE)
@@ -94,7 +94,7 @@ columns are integer, numeric or logical.}
 \item{fill_cols}{Character vector of column names.}
 
 \item{.direction}{Direction in which to fill missing values. Currently
-either "down" (the default) or "up".}
+either "down" (the default), "up", "downup" or "updown".}
 
 \item{key_col, value_col}{Strings giving names of key and value columns to
 create.}
