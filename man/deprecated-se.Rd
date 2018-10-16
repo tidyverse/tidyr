@@ -31,7 +31,7 @@ nesting_(x)
 extract_(data, col, into, regex = "([[:alnum:]]+)", remove = TRUE,
   convert = FALSE, ...)
 
-fill_(data, fill_cols, .direction = c("down", "up"))
+fill_(data, fill_cols, .direction = c("down", "up", "downup", "updown"))
 
 gather_(data, key_col, value_col, gather_cols, na.rm = FALSE,
   convert = FALSE, factor_key = FALSE)
@@ -43,8 +43,8 @@ separate_rows_(data, cols, sep = "[^[:alnum:].]+", convert = FALSE)
 separate_(data, col, into, sep = "[^[:alnum:]]+", remove = TRUE,
   convert = FALSE, extra = "warn", fill = "warn", ...)
 
-spread_(data, key_col, value_col, fill = NA, convert = FALSE, drop = TRUE,
-  sep = NULL)
+spread_(data, key_col, value_col, fill = NA, convert = FALSE,
+  drop = TRUE, sep = NULL)
 
 unite_(data, col, from, sep = "_", remove = TRUE)
 
@@ -93,7 +93,7 @@ columns are integer, numeric or logical.}
 \item{fill_cols}{Character vector of column names.}
 
 \item{.direction}{Direction in which to fill missing values. Currently
-either "down" (the default) or "up".}
+either "down" (the default), "up", "downup" or "updown".}
 
 \item{key_col, value_col}{Strings giving names of key and value columns to
 create.}

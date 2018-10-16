@@ -116,18 +116,18 @@ extract_.data.frame <- function(data, col, into, regex = "([[:alnum:]]+)",
 }
 
 #' @export
-fill.default <- function(data, ..., .direction = c("down", "up")) {
+fill.default <- function(data, ..., .direction = c("down", "up", "downup", "updown")) {
   fill_(data, fill_cols = compat_as_lazy_dots(...), .direction = .direction)
 }
 #' @rdname deprecated-se
 #' @inheritParams fill
 #' @param fill_cols Character vector of column names.
 #' @export
-fill_ <- function(data, fill_cols, .direction = c("down", "up")) {
+fill_ <- function(data, fill_cols, .direction = c("down", "up", "downup", "updown")) {
   UseMethod("fill_")
 }
 #' @export
-fill_.data.frame <- function(data, fill_cols, .direction = c("down", "up")) {
+fill_.data.frame <- function(data, fill_cols, .direction = c("down", "up", "downup", "updown")) {
   vars <- syms(fill_cols)
   fill(data, !!! vars, .direction = .direction)
 }
