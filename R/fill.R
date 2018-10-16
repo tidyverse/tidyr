@@ -12,20 +12,22 @@ NULL
 #'
 #' @inheritParams gather
 #' @param .direction Direction in which to fill missing values. Currently
-#'   either "down" (the default) or "up".
+#'   either "down" (the default), "up", "downup" or "updown".
+#' @importFrom purrr compose
 #' @export
 #' @examples
 #' df <- data.frame(Month = 1:12, Year = c(2000, rep(NA, 11)))
 #' df %>% fill(Year)
-fill <- function(data, ..., .direction = c("down", "up")) {
+fill <- function(data, ..., .direction = c("down", "up", "downup", "updown")) {
   UseMethod("fill")
 }
 #' @export
-fill.data.frame <- function(data, ..., .direction = c("down", "up")) {
+fill.data.frame <- function(data, ..., .direction = c("down", "up", "downup", "updown")) {
   fill_cols <- unname(tidyselect::vars_select(names(data), ...))
 
   .direction <- match.arg(.direction)
-  fillVector <- switch(.direction, down = fillDown, up = fillUp)
+  fillVector <- switch(.direction, down = fillDown, up = fillUp,
+                       downup = compose(fillDown, fillUp), updown = compose(fillUp, fillDown))
 
   for (col in fill_cols) {
     data[[col]] <- fillVector(data[[col]])
@@ -34,6 +36,6 @@ fill.data.frame <- function(data, ..., .direction = c("down", "up")) {
   data
 }
 #' @export
-fill.grouped_df <- function(data, ..., .direction = c("down", "up")) {
+fill.grouped_df <- function(data, ..., .direction = c("down", "up", "downup", "updown")) {
   dplyr::do(data, fill(., ..., .direction = .direction))
 }

@@ -4,7 +4,7 @@
 \alias{fill}
 \title{Fill in missing values.}
 \usage{
-fill(data, ..., .direction = c("down", "up"))
+fill(data, ..., .direction = c("down", "up", "downup", "updown"))
 }
 \arguments{
 \item{data}{A data frame.}
@@ -16,7 +16,7 @@ more options, see the \code{\link[dplyr:select]{dplyr::select()}} documentation.
 the section on selection rules below.}
 
 \item{.direction}{Direction in which to fill missing values. Currently
-either "down" (the default) or "up".}
+either "down" (the default), "up", "downup" or "updown".}
 }
 \description{
 Fills missing values in using the previous entry. This is useful in the
