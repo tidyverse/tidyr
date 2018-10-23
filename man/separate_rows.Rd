@@ -19,7 +19,7 @@ the section on selection rules below.}
 
 \item{convert}{If \code{TRUE} will automatically run
 \code{\link[=type.convert]{type.convert()}} on the key column. This is useful if the column
-names are actually numeric, integer, or logical.}
+types are actually numeric, integer, or logical.}
 }
 \description{
 If a variable contains observations with multiple delimited values, this

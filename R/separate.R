@@ -5,6 +5,7 @@
 #'
 #' @inheritParams extract
 #' @param into Names of new variables to create as character vector.
+#'    Use `NA` to omit the variable in the output.
 #' @param sep Separator between columns.
 #'
 #'   If character, is interpreted as a regular expression. The default
@@ -39,6 +40,9 @@
 #' library(dplyr)
 #' df <- data.frame(x = c(NA, "a.b", "a.d", "b.c"))
 #' df %>% separate(x, c("A", "B"))
+#'
+#' # If you just want the second variable:
+#' df %>% separate(x, c(NA, "B"))
 #'
 #' # If every row doesn't split into the same number of pieces, use
 #' # the extra and fill arguments to control what happens

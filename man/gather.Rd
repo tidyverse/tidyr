@@ -31,7 +31,7 @@ value column in \code{NA}.}
 
 \item{convert}{If \code{TRUE} will automatically run
 \code{\link[=type.convert]{type.convert()}} on the key column. This is useful if the column
-names are actually numeric, integer, or logical.}
+types are actually numeric, integer, or logical.}
 
 \item{factor_key}{If \code{FALSE}, the default, the key values will be
 stored as a character vector. If \code{TRUE}, will be stored as a factor,

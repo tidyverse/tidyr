@@ -17,7 +17,8 @@ This argument is passed by expression and supports
 \link[rlang:quasiquotation]{quasiquotation} (you can unquote column
 names or column positions).}
 
-\item{into}{Names of new variables to create as character vector.}
+\item{into}{Names of new variables to create as character vector.
+Use \code{NA} to omit the variable in the output.}
 
 \item{sep}{Separator between columns.
 
@@ -62,6 +63,9 @@ Given either regular expression or a vector of character positions,
 library(dplyr)
 df <- data.frame(x = c(NA, "a.b", "a.d", "b.c"))
 df \%>\% separate(x, c("A", "B"))
+
+# If you just want the second variable:
+df \%>\% separate(x, c(NA, "B"))
 
 # If every row doesn't split into the same number of pieces, use
 # the extra and fill arguments to control what happens

@@ -13,6 +13,7 @@ License: MIT + file LICENSE
 URL: http://tidyr.tidyverse.org,
     https://github.com/tidyverse/tidyr
 BugReports: https://github.com/tidyverse/tidyr/issues
+Encoding: UTF-8
 Depends: 
     R (>= 3.1)
 Imports: 
