@@ -30,3 +30,9 @@ df \%>\% replace_na(list(z = list(5)))
 df$x \%>\% replace_na(0)
 df$y \%>\% replace_na("unknown")
 }
+\seealso{
+\code{\link[dplyr]{na_if}} to replace specified values with a \code{NA}.
+\code{\link[dplyr]{coalesce}} to replace missing values with a specified
+value.
+\code{\link[dplyr]{recode}} to more generally replace values.
+}

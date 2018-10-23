@@ -5,6 +5,10 @@
 #'   replace `NA` with for each column. If `data` is a vector, a single value
 #'   used for replacement.
 #' @param ... Additional arguments for methods. Currently unused.
+#' @seealso \code{\link[dplyr]{na_if}} to replace specified values with a `NA`.
+#'  \code{\link[dplyr]{coalesce}} to replace missing values with a specified
+#'   value.
+#' \code{\link[dplyr]{recode}} to more generally replace values.
 #' @export
 #' @examples
 #' library(dplyr)
