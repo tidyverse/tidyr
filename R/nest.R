@@ -51,22 +51,4 @@ nest.data.frame <- function(data, ..., .key = "data") {
 
   data <- dplyr::select(data, !!!group_vars, !!!nest_vars)
   dplyr::nest_by(data, !!!syms(group_vars), .key = !!key_var)
-
-  # data <- dplyr::ungroup(data)
-  # if (is_empty(group_vars)) {
-  #   return(tibble(!! key_var := list(data)))
-  # }
-  #
-  # out <- dplyr::select(data, !!! syms(group_vars))
-  #
-  # idx <- dplyr::group_indices(data, !!! syms(group_vars))
-  # representatives <- which(!duplicated(idx))
-  #
-  # out <- dplyr::slice(out, representatives)
-  #
-  # out[[key_var]] <- unname(split(data[nest_vars], idx))[unique(idx)]
-  #
-  # out
 }
-
-

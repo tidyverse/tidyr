@@ -114,7 +114,13 @@ unnest.data.frame <- function(data, ..., .drop = NA, .id = NULL,
     unnested_atomic <- dplyr::bind_cols(unnested_atomic)
   }
 
-  unnested_dataframe <- map(nest_types$dataframe %||% list(), dplyr::bind_rows, .id = .id)
+  unnested_dataframe <- map(nest_types$dataframe %||% list(), ~ {
+    if (length(.) == 0L && !is.null(attr(., "model"))){
+      attr(., "model")
+    } else {
+      dplyr::bind_rows(., .id = .id)
+    }
+  })
   if (!is_null(.sep)) {
     unnested_dataframe <- imap(
       unnested_dataframe,
