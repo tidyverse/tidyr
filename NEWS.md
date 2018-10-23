@@ -1,5 +1,8 @@
 # tidyr 0.8.1.9000
 
+* `separate()` now accepts `NA` as a column name in the `into` argument to
+  denote columns which are omitted from the result. (@markdly, #397).
+
 # tidyr 0.8.1
 
 * `unnest()` weakens test of "atomicity" to restore previous behaviour when
