@@ -1,0 +1,3 @@
+# CODEOWNERS for tidyr
+# https://www.tidyverse.org/development/understudies
+.github/CODEOWNERS @hadley @lionel- @jennybc

@@ -1,6 +1,6 @@
 Package: tidyr
 Title: Easily Tidy Data with 'spread()' and 'gather()' Functions
-Version: 0.8.0.9000
+Version: 0.8.1.9000
 Authors@R: c(
     person("Hadley", "Wickham", , "hadley@rstudio.com", c("aut", "cre")),
     person("Lionel", "Henry", , "lionel@rstudio.com", "aut"),
@@ -14,7 +14,7 @@ URL: http://tidyr.tidyverse.org,
     https://github.com/tidyverse/tidyr
 BugReports: https://github.com/tidyverse/tidyr/issues
 Depends: 
-    R (>= 3.2)
+    R (>= 3.1)
 Imports: 
     dplyr (>= 0.7.0),
     glue,
@@ -36,4 +36,4 @@ LinkingTo:
 VignetteBuilder: knitr
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 6.0.1
+RoxygenNote: 6.1.0
