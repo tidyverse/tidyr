@@ -114,9 +114,9 @@ unnest.data.frame <- function(data, ..., .drop = NA, .id = NULL,
     unnested_atomic <- dplyr::bind_cols(unnested_atomic)
   }
 
-  unnested_dataframe <- map(nest_types$dataframe %||% list(), ~ {
-    if (length(.) == 0L && !is.null(attr(., "model"))){
-      attr(., "model")
+  unnested_dataframe <- map(nest_types$dataframe %||% list(), function(.){
+    if (length(.) == 0L){
+      attr(., "ptype") %||%  data.frame()
     } else {
       dplyr::bind_rows(., .id = .id)
     }
