@@ -42,6 +42,7 @@ reference:
   - fill
   - full_seq
   - replace_na
+  - uncount
 
 - title: Data
   contents:
