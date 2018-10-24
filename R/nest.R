@@ -35,7 +35,7 @@ nest <- function(data, ..., .key = "data") {
 }
 #' @export
 nest.data.frame <- function(data, ..., .key = "data") {
-  key_var <- as_string(ensym(.key))
+  key_var <- as_string(ensym2(.key))
 
   nest_vars <- unname(tidyselect::vars_select(names(data), ...))
   if (is_empty(nest_vars)) {

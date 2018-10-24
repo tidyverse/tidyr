@@ -91,8 +91,8 @@ gather <- function(data, key = "key", value = "value", ...,
 gather.data.frame <- function(data, key = "key", value = "value", ...,
                               na.rm = FALSE, convert = FALSE,
                               factor_key = FALSE) {
-  key_var <- as_string(ensym(key))
-  value_var <- as_string(ensym(value))
+  key_var <- as_string(ensym2(key))
+  value_var <- as_string(ensym2(value))
 
   quos <- quos(...)
   if (is_empty(quos)) {

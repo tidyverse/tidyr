@@ -30,7 +30,7 @@ unite <- function(data, col, ..., sep = "_", remove = TRUE) {
 }
 #' @export
 unite.data.frame <- function(data, col, ..., sep = "_", remove = TRUE) {
-  var <- as_string(ensym(col))
+  var <- as_string(ensym2(col))
 
   if (dots_n(...) == 0) {
     from_vars <- colnames(data)
