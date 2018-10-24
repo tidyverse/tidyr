@@ -2,14 +2,14 @@ context("Spread")
 library(dplyr, warn.conflicts = FALSE)
 
 test_that("order doesn't matter", {
-  df1 <- tibble(x = c("a", "b"), y = 1:2)
-  df2 <- tibble(x = c("b", "a"), y = 2:1)
+  df1 <- tibble(x = factor(c("a", "b")), y = 1:2)
+  df2 <- tibble(x = factor(c("b", "a")), y = 2:1)
   one <- spread(df1, x, y)
   two <- spread(df2, x, y) %>% select(a, b) %>% arrange(a, b)
   expect_identical(one, two)
 
-  df1 <- tibble(z = c("b", "a"), x = c("a", "b"), y = 1:2)
-  df2 <- tibble(z = c("a", "b"), x = c("b", "a"), y = 2:1)
+  df1 <- tibble(z = factor(c("b", "a")), x = factor(c("a", "b")), y = 1:2)
+  df2 <- tibble(z = factor(c("a", "b")), x = factor(c("b", "a")), y = 2:1)
   one <- spread(df1, x, y) %>% arrange(z)
   two <- spread(df2, x, y)
   expect_identical(one, two)
@@ -22,7 +22,7 @@ test_that("convert turns strings into integers", {
 })
 
 test_that("duplicate values for one key is an error", {
-  df <- tibble(x = c("a", "b", "b"), y = c(1, 2, 2), z = c(1, 2, 2))
+  df <- tibble(x = factor(c("a", "b", "b")), y = c(1, 2, 2), z = c(1, 2, 2))
   expect_error(spread(df, x, y),
     "Duplicate identifiers for rows (2, 3)",
     fixed = TRUE
@@ -85,9 +85,9 @@ test_that("drop = FALSE spread all levels including NA (#254)", {
 
 test_that("spread preserves class of tibbles", {
   dat <- tibble(
-    x = c("a", "a", "b", "b"),
-    y = c("c", "d", "c", "d"),
-    z = c("w", "x", "y", "z")
+    x = factor(c("a", "a", "b", "b")),
+    y = factor(c("c", "d", "c", "d")),
+    z = factor(c("w", "x", "y", "z"))
   )
   dat %>% spread(x, z) %>% expect_is("tbl_df")
 })
@@ -197,12 +197,12 @@ test_that("spread gives one column when no existing non-spread vars", {
 
 test_that("grouping vars are kept where possible", {
   # Can keep
-  df <- tibble(x = 1:2, key = c("a", "b"), value = 1:2)
+  df <- tibble(x = 1:2, key = factor(c("a", "b")), value = 1:2)
   out <- df %>% group_by(x) %>% spread(key, value)
   expect_equal(groups(out), list(quote(x)))
 
   # Can't keep
-  df <- tibble(key = c("a", "b"), value = 1:2)
+  df <- tibble(key = factor(c("a", "b")), value = 1:2)
   out <- df %>% group_by(key) %>% spread(key, value)
   expect_equal(out, tibble(a = 1L, b = 2L))
 })
@@ -241,19 +241,23 @@ test_that("spread doesn't convert data frames into tibbles", {
 })
 
 test_that("spread with fill replaces explicit missing values", {
-  df <- tibble(key = c("a"), value = c(NA))
+  df <- tibble(key = factor("a"), value = NA)
   out <- spread(df, key, value, fill = 1)
-  expect_equal(out, tibble(a = c(1)))
+  expect_equal(out, tibble(a = 1))
 })
 
 test_that("spread with fill replaces implicit missing values", {
   # Missing keys in some groups
-  df <- tibble(x = c("G1", "G2"), key = c("a", "b"), value = c(1, 1))
+  df <- tibble(
+    x = factor(c("G1", "G2")),
+    key = factor(c("a", "b")),
+    value = c(1, 1)
+  )
   out <- spread(df, key, value, fill = 2)
-  expect_equal(out, tibble(x = c("G1", "G2"), a = c(1, 2), b = c(2, 1)))
+  expect_equal(out, tibble(x = factor(c("G1", "G2")), a = c(1, 2), b = c(2, 1)))
 
   # Missing factor levels in key with drop = FALSE
-  df <- tibble(key = factor(c("a"), levels = c("a", "b")), value = c(1))
+  df <- tibble(key = factor("a", levels = c("a", "b")), value = 1)
   out <- spread(df, key, value, fill = 2, drop = FALSE)
-  expect_equal(out, tibble(a = c(1), b = c(2)))
+  expect_equal(out, tibble(a = 1, b = 2))
 })

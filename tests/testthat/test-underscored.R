@@ -2,7 +2,7 @@ context("Deprecated SE variants")
 
 test_that("complete_()", {
   df <- tibble(x = 1:2, y = 1:2, z = 3:4)
-  out <- complete_(df, list("x", ~ y))
+  out <- complete_(df, list("x", ~y))
   expect_identical(nrow(out), 4L)
   expect_identical(out$z, c(3L, NA, NA, 4L))
 })
@@ -31,7 +31,7 @@ test_that("drop_na_() works with non-syntactic names", {
 
 test_that("expand_()", {
   df <- data.frame(x = 1:2, y = 1:2)
-  out <- expand_(df, list("x", ~ y))
+  out <- expand_(df, list("x", ~y))
   expect_identical(names(out), c("x", "y"))
   expect_identical(nrow(out), 4L)
 })
