@@ -2,14 +2,14 @@ context("Spread")
 library(dplyr, warn.conflicts = FALSE)
 
 test_that("order doesn't matter", {
-  df1 <- data.frame(x = c("a", "b"), y = 1:2)
-  df2 <- data.frame(x = c("b", "a"), y = 2:1)
+  df1 <- tibble(x = factor(c("a", "b")), y = 1:2)
+  df2 <- tibble(x = factor(c("b", "a")), y = 2:1)
   one <- spread(df1, x, y)
   two <- spread(df2, x, y) %>% select(a, b) %>% arrange(a, b)
   expect_identical(one, two)
 
-  df1 <- data.frame(z = c("b", "a"), x = c("a", "b"), y = 1:2)
-  df2 <- data.frame(z = c("a", "b"), x = c("b", "a"), y = 2:1)
+  df1 <- tibble(z = factor(c("b", "a")), x = factor(c("a", "b")), y = 1:2)
+  df2 <- tibble(z = factor(c("a", "b")), x = factor(c("b", "a")), y = 2:1)
   one <- spread(df1, x, y) %>% arrange(z)
   two <- spread(df2, x, y)
   expect_identical(one, two)
@@ -22,7 +22,7 @@ test_that("convert turns strings into integers", {
 })
 
 test_that("duplicate values for one key is an error", {
-  df <- data.frame(x = c("a", "b", "b"), y = c(1, 2, 2), z = c(1, 2, 2))
+  df <- tibble(x = factor(c("a", "b", "b")), y = c(1, 2, 2), z = c(1, 2, 2))
   expect_error(spread(df, x, y),
     "Duplicate identifiers for rows (2, 3)",
     fixed = TRUE
@@ -30,10 +30,10 @@ test_that("duplicate values for one key is an error", {
 })
 
 test_that("factors are spread into columns (#35)", {
-  data <- data.frame(
-    x = c("a", "a", "b", "b"),
-    y = c("c", "d", "c", "d"),
-    z = c("w", "x", "y", "z")
+  data <- tibble(
+    x = factor(c("a", "a", "b", "b")),
+    y = factor(c("c", "d", "c", "d")),
+    z = factor(c("w", "x", "y", "z"))
   )
 
   out <- data %>% spread(x, z)
@@ -44,7 +44,7 @@ test_that("factors are spread into columns (#35)", {
 })
 
 test_that("drop = FALSE keeps missing combinations (#25)", {
-  df <- data.frame(
+  df <- tibble(
     x = factor("a", levels = c("a", "b")),
     y = factor("b", levels = c("a", "b")),
     z = 1
@@ -56,7 +56,7 @@ test_that("drop = FALSE keeps missing combinations (#25)", {
 })
 
 test_that("drop = FALSE keeps missing combinations of 0-length factors (#56)", {
-  df <- data.frame(
+  df <- tibble(
     x = factor(, levels = c("a", "b")),
     y = factor(, levels = c("a", "b")),
     z = logical()
@@ -71,10 +71,10 @@ test_that("drop = FALSE keeps missing combinations of 0-length factors (#56)", {
 
 test_that("drop = FALSE spread all levels including NA (#254)", {
   l <- c("a", "b", "c", "d")
-  df <- data.frame(
+  df <- tibble(
     x = factor(c("a", "b", "c", NA), levels = l),
-    y = c("a", "b", "c", "d"),
-    z = c("a", "b", "a", "b")
+    y = factor(c("a", "b", "c", "d")),
+    z = factor(c("a", "b", "a", "b"))
   )
   out <- df %>% spread(x, y, drop = FALSE)
   expect_equal(nrow(out), 2)
@@ -83,21 +83,20 @@ test_that("drop = FALSE spread all levels including NA (#254)", {
   expect_equal(out[["<NA>"]], factor(c(NA, "d"), levels = l))
 })
 
-test_that("preserve class of input", {
-  dat <- data.frame(
-    x = c("a", "a", "b", "b"),
-    y = c("c", "d", "c", "d"),
-    z = c("w", "x", "y", "z")
+test_that("spread preserves class of tibbles", {
+  dat <- tibble(
+    x = factor(c("a", "a", "b", "b")),
+    y = factor(c("c", "d", "c", "d")),
+    z = factor(c("w", "x", "y", "z"))
   )
-  dat %>% as_tibble() %>% spread(x, z) %>% expect_is("tbl_df")
+  dat %>% spread(x, z) %>% expect_is("tbl_df")
 })
 
 test_that("dates are spread into columns (#62)", {
-  df <- data.frame(
+  df <- tibble(
     id = c("a", "a", "b", "b"),
     key = c("begin", "end", "begin", "end"),
-    date = Sys.Date() + 0:3,
-    stringsAsFactors = FALSE
+    date = Sys.Date() + 0:3
   )
   out <- spread(df, key, date)
   expect_identical(names(out), c("id", "begin", "end"))
@@ -106,15 +105,14 @@ test_that("dates are spread into columns (#62)", {
 })
 
 test_that("spread can produce mixed variable types (#118)", {
-  df <- data.frame(
+  df <- tibble(
     row = rep(1:2, 3),
     column = rep(1:3, each = 2),
     cell_contents = as.character(c(
       rep("Argentina", 2),
       62.485, 64.399,
       1952, 1957
-    )),
-    stringsAsFactors = FALSE
+    ))
   )
   out <- spread(df, column, cell_contents, convert = TRUE)
   expect_equivalent(
@@ -124,11 +122,10 @@ test_that("spread can produce mixed variable types (#118)", {
 })
 
 test_that("factors can be used with convert = TRUE to produce mixed types", {
-  df <- data.frame(
+  df <- tibble(
     row = c(1, 2, 1, 2, 1, 2),
     column = c("f", "f", "g", "g", "h", "h"),
-    contents = c("aa", "bb", "1", "2", "TRUE", "FALSE"),
-    stringsAsFactors = FALSE
+    contents = c("aa", "bb", "1", "2", "TRUE", "FALSE")
   )
   out <- df %>% spread(column, contents, convert = TRUE)
   expect_is(out$f, "character")
@@ -137,11 +134,10 @@ test_that("factors can be used with convert = TRUE to produce mixed types", {
 })
 
 test_that("dates can be used with convert = TRUE", {
-  df <- data.frame(
+  df <- tibble(
     id = c("a", "a", "b", "b"),
     key = c("begin", "end", "begin", "end"),
-    date = Sys.Date() + 0:3,
-    stringsAsFactors = FALSE
+    date = Sys.Date() + 0:3
   )
   out <- spread(df, key, date, convert = TRUE)
   expect_is(out$begin, "character")
@@ -149,9 +145,9 @@ test_that("dates can be used with convert = TRUE", {
 })
 
 test_that("vars that are all NA are logical if convert = TRUE (#118)", {
-  df <- data.frame(
+  df <- tibble(
     row = c(1, 2, 1, 2), column = c("f", "f", "g", "g"),
-    contents = c("aa", "bb", NA, NA), stringsAsFactors = FALSE
+    contents = c("aa", "bb", NA, NA)
   )
   out <- df %>% spread(column, contents, convert = TRUE)
   expect_is(out$g, "logical")
@@ -195,18 +191,18 @@ test_that("spread gives one column when no existing non-spread vars", {
     key = c("a", "b", "c"),
     value = c(1, 2, 3)
   )
-  expect_equal(df %>% spread(key, value), data.frame(a = 1, b = 2, c = 3))
+  expect_equal(df %>% spread(key, value), tibble(a = 1, b = 2, c = 3))
 })
 
 
 test_that("grouping vars are kept where possible", {
   # Can keep
-  df <- data.frame(x = 1:2, key = c("a", "b"), value = 1:2)
+  df <- tibble(x = 1:2, key = factor(c("a", "b")), value = 1:2)
   out <- df %>% group_by(x) %>% spread(key, value)
   expect_equal(groups(out), list(quote(x)))
 
   # Can't keep
-  df <- data.frame(key = c("a", "b"), value = 1:2)
+  df <- tibble(key = factor(c("a", "b")), value = 1:2)
   out <- df %>% group_by(key) %>% spread(key, value)
   expect_equal(out, tibble(a = 1L, b = 2L))
 })
@@ -242,4 +238,26 @@ test_that("overwrites existing columns", {
 test_that("spread doesn't convert data frames into tibbles", {
   df <- data.frame(x = c("a", "b"), y = 1:2)
   expect_equal(class(spread(df, x, y)), "data.frame")
+})
+
+test_that("spread with fill replaces explicit missing values", {
+  df <- tibble(key = factor("a"), value = NA)
+  out <- spread(df, key, value, fill = 1)
+  expect_equal(out, tibble(a = 1))
+})
+
+test_that("spread with fill replaces implicit missing values", {
+  # Missing keys in some groups
+  df <- tibble(
+    x = factor(c("G1", "G2")),
+    key = factor(c("a", "b")),
+    value = c(1, 1)
+  )
+  out <- spread(df, key, value, fill = 2)
+  expect_equal(out, tibble(x = factor(c("G1", "G2")), a = c(1, 2), b = c(2, 1)))
+
+  # Missing factor levels in key with drop = FALSE
+  df <- tibble(key = factor("a", levels = c("a", "b")), value = 1)
+  out <- spread(df, key, value, fill = 2, drop = FALSE)
+  expect_equal(out, tibble(a = 1, b = 2))
 })
