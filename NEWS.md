@@ -3,6 +3,8 @@
 * `separate()` now accepts `NA` as a column name in the `into` argument to
   denote columns which are omitted from the result. (@markdly, #397).
 
+* Minor updates to ensure compatibility with dependencies.
+
 # tidyr 0.8.1
 
 * `unnest()` weakens test of "atomicity" to restore previous behaviour when
