@@ -50,7 +50,10 @@ nest.data.frame <- function(data, ..., .key = "data") {
   }
   nest_vars <- setdiff(nest_vars, group_vars)
 
-  data <- dplyr::select(data, !!!group_vars, !!!nest_vars)
+  data <- dplyr::ungroup(data)
+  if (is_empty(group_vars)) {
+    return(tibble(!! key_var := list(data)))
+  }
 
   if (packageVersion("dplyr") < "0.7.99") {
     out <- dplyr::select(data, !!! syms(group_vars))
@@ -66,5 +69,4 @@ nest.data.frame <- function(data, ..., .key = "data") {
   } else {
     dplyr::nest_by(data, !!!syms(group_vars), .key = !!key_var)
   }
-
 }
