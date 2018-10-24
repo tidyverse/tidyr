@@ -17,7 +17,7 @@ Encoding: UTF-8
 Depends: 
     R (>= 3.1)
 Imports: 
-    dplyr (>= 0.7.7),
+    dplyr (>= 0.7.0),
     glue,
     magrittr,
     purrr,

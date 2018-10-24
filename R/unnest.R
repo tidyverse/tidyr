@@ -88,7 +88,6 @@ unnest.data.frame <- function(data, ..., .drop = NA, .id = NULL,
     quos <- syms(list_cols)
   }
 
-
   if (length(quos) == 0) {
     return(data)
   }
@@ -115,7 +114,7 @@ unnest.data.frame <- function(data, ..., .drop = NA, .id = NULL,
   }
 
   unnested_dataframe <- map(nest_types$dataframe %||% list(), function(.){
-    if (length(.) == 0L){
+    if (length(.) == 0L) {
       attr(., "ptype") %||%  data.frame()
     } else {
       dplyr::bind_rows(., .id = .id)

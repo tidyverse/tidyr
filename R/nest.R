@@ -50,5 +50,20 @@ nest.data.frame <- function(data, ..., .key = "data") {
   nest_vars <- setdiff(nest_vars, group_vars)
 
   data <- dplyr::select(data, !!!group_vars, !!!nest_vars)
-  dplyr::nest_by(data, !!!syms(group_vars), .key = !!key_var)
+
+  if (packageVersion("dplyr") < "0.7.99") {
+    out <- dplyr::select(data, !!! syms(group_vars))
+
+    idx <- dplyr::group_indices(data, !!! syms(group_vars))
+    representatives <- which(!duplicated(idx))
+
+    out <- dplyr::slice(out, representatives)
+
+    out[[key_var]] <- unname(split(data[nest_vars], idx))[unique(idx)]
+
+    out
+  } else {
+    dplyr::nest_by(data, !!!syms(group_vars), .key = !!key_var)
+  }
+
 }

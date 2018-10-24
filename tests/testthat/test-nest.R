@@ -47,8 +47,9 @@ test_that("nesting works for empty data frames", {
 
   expect_equal(nrow(out), 0L)
   expect_equal(length(out$data), 0L)
-  expect_equal(unnest(out), df)
-
+  if (packageVersion("dplyr") > "0.7.99") {
+    expect_equal(unnest(out), df)
+  }
   out <- nest(df, x, y)
   expect_equal(length(out$data), 1L)
   expect_equal(out$data[[1L]], df)
