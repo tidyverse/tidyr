@@ -26,6 +26,8 @@ Imports:
     stringi,
     tibble,
     tidyselect (>= 0.2.5)
+    utils
+>>>>>>> importing utils::packageVersion
 Suggests: 
     covr,
     gapminder,

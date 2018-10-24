@@ -33,6 +33,7 @@
 nest <- function(data, ..., .key = "data") {
   UseMethod("nest")
 }
+#' @importFrom utils packageVersion
 #' @export
 nest.data.frame <- function(data, ..., .key = "data") {
   key_var <- as_string(ensym2(.key))
