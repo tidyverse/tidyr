@@ -4,25 +4,47 @@ Version: 0.2.1
 
 ## In both
 
-*   checking dependencies in R code ... NOTE
+*   checking package dependencies ... ERROR
     ```
-    Namespaces in Imports field not imported from:
-      ‘httr’ ‘progress’
-      All declared Imports should be used.
+    Package required but not available: ‘devtools’
+    
+    See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
+    manual.
+    ```
+
+# ActisoftR
+
+Version: 0.0.2
+
+## In both
+
+*   checking package dependencies ... NOTE
+    ```
+    Package suggested but not available for checking: ‘devtools’
     ```
 
 # afex
 
-Version: 0.20-2
+Version: 0.22-1
 
 ## In both
 
-*   checking package dependencies ... ERROR
+*   checking Rd cross-references ... NOTE
     ```
-    Package required but not available: ‘emmeans’
-    
-    See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-    manual.
+    Packages unavailable to check Rd xrefs: ‘ez’, ‘ascii’
+    ```
+
+# ahpsurvey
+
+Version: 0.2.2
+
+## In both
+
+*   checking dependencies in R code ... NOTE
+    ```
+    Namespaces in Imports field not imported from:
+      ‘knitr’ ‘tidyr’
+      All declared Imports should be used.
     ```
 
 # aire.zmvm
@@ -36,103 +58,136 @@ Version: 0.6.1
       Note: found 52 marked UTF-8 strings
     ```
 
+# ALA4R
+
+Version: 1.6.0
+
+## In both
+
+*   R CMD check timed out
+    
+
 # alphavantager
 
 Version: 0.1.0
 
-## Newly broken
+## In both
 
-*   checking tests ...
+*   checking package dependencies ... ERROR
     ```
-     ERROR
-    Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-      		</style>
-      	  </head>
-      	  <body>
-      		<iframe src="//www.herokucdn.com/error-pages/application-error.html"></iframe>
-      	  </body>
-      	</html>
-      1: av_get(symbol, av_fun, interval = interval) at testthat/test_av_get.R:13
-      2: stop(httr::content(response, as = "text"), call. = FALSE)
-      
-      ══ testthat results  ═══════════════════════════════════════════════════════════════════════════════════════════
-      OK: 11 SKIPPED: 0 FAILED: 1
-      1. Error: call TIMES_SERIES_INTRADAY (@test_av_get.R#13) 
-      
-      Error: testthat unit tests failed
-      Execution halted
+    Package required but not available: ‘devtools’
+    
+    See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
+    manual.
     ```
+
+# AMR
+
+Version: 0.4.0
 
 ## In both
 
 *   checking dependencies in R code ... NOTE
     ```
-    Namespace in Imports field not imported from: ‘devtools’
+    Namespace in Imports field not imported from: ‘hms’
       All declared Imports should be used.
+    ```
+
+*   checking data for non-ASCII characters ... NOTE
+    ```
+      Note: found 67 marked UTF-8 strings
     ```
 
 # amt
 
-Version: 0.0.4.0
+Version: 0.0.5.0
 
 ## In both
 
-*   checking examples ... ERROR
+*   checking package dependencies ... ERROR
     ```
-    Running examples in ‘amt-Ex.R’ failed
-    The error most likely occurred in:
+    Package required but not available: ‘sf’
     
-    > ### Name: coercion
-    > ### Title: Coerce a track to other formats.
-    > ### Aliases: coercion as_sp as_sp.steps as_move as_move.track_xy
-    > ###   as_move.track_xyt as_ltraj as_ltraj.track_xy as_ltraj.track_xyt
-    > ###   as_bcpa as_bcpa.track_xyt as_moveHMM as_moveHMM.track_xy
-    > 
-    > ### ** Examples
-    > 
-    > data(deer)
-    > as_move(deer)
-    Error in loadNamespace(i, c(lib.loc, .libPaths()), versionCheck = vI[[i]]) : 
-      there is no package called ‘rgdal’
-    Calls: as_move ... tryCatch -> tryCatchList -> tryCatchOne -> <Anonymous>
-    Execution halted
-    ```
-
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    Error in re-building vignettes:
-      ...
+    Package suggested but not available for checking: ‘devtools’
     
-    Attaching package: 'amt'
-    
-    The following object is masked from 'package:stats':
-    
-        filter
-    
-    .t missing, creating `track_xy`.
-    Quitting from lines 164-165 (p1_getting_started.Rmd) 
-    Error: processing vignette 'p1_getting_started.Rmd' failed with diagnostics:
-    package rgdal is required for spTransform methods
-    Execution halted
-    ```
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespaces in Imports field not imported from:
-      ‘Rcpp’ ‘magrittr’
-      All declared Imports should be used.
+    See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
+    manual.
     ```
 
 # anomalize
 
 Version: 0.1.1
 
+## Newly broken
+
+*   checking examples ... ERROR
+    ```
+    ...
+    
+        filter, lag
+    
+    The following objects are masked from ‘package:base’:
+    
+        intersect, setdiff, setequal, union
+    
+    > library(ggplot2)
+    > 
+    > data(tidyverse_cran_downloads)
+    > 
+    > tidyverse_cran_downloads %>%
+    +     filter(package == "tidyquant") %>%
+    +     ungroup() %>%
+    +     time_decompose(count, method = "stl") %>%
+    +     anomalize(remainder, method = "iqr") %>%
+    +     plot_anomaly_decomposition()
+    frequency = 7 days
+    trend = 91 days
+    Error: Must supply a symbol or a string as argument
+    Execution halted
+    ```
+
+*   checking tests ...
+    ```
+     ERROR
+    Running the tests in ‘tests/testthat.R’ failed.
+    Last 13 lines of output:
+             .Call(rlang_symbol_to_character, x)
+         }, string = {
+             attributes(x) <- NULL
+             x
+         }) at /private/tmp/RtmpZRLWD8/R.INSTALL6ec2159f9257/rlang/R/vec-coerce.R:161
+      25: type_of(.x) at /private/tmp/RtmpZRLWD8/R.INSTALL6ec2159f9257/rlang/R/types.R:487
+      26: ensym(key) at /private/tmp/RtmpozckMT/R.INSTALL8ca679350911/tidyr/R/gather.R:94
+      27: rlang::abort(x) at /private/tmp/RtmpZRLWD8/R.INSTALL6ec2159f9257/rlang/R/quotation.R:255
+      
+      ══ testthat results  ═════════════════════════════════════════════════════════════════════════════════
+      OK: 63 SKIPPED: 0 FAILED: 1
+      1. Error: returns a ggplot (@test-plot_anomaly_decomposition.R#10) 
+      
+      Error: testthat unit tests failed
+      Execution halted
+    ```
+
+*   checking re-building of vignette outputs ... WARNING
+    ```
+    Error in re-building vignettes:
+      ...
+    Quitting from lines 87-110 (anomalize_methods.Rmd) 
+    Error: processing vignette 'anomalize_methods.Rmd' failed with diagnostics:
+    Must supply a symbol or a string as argument
+    Execution halted
+    ```
+
 ## In both
+
+*   checking package dependencies ... NOTE
+    ```
+    Package suggested but not available for checking: ‘devtools’
+    ```
 
 *   checking installed package size ... NOTE
     ```
-      installed size is  5.3Mb
+      installed size is  5.5Mb
       sub-directories of 1Mb or more:
         help   4.7Mb
     ```
@@ -143,24 +198,10 @@ Version: 0.2.5
 
 ## In both
 
-*   checking package dependencies ... ERROR
-    ```
-    Package required but not available: ‘RcppArmadillo’
-    
-    See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-    manual.
-    ```
-
-# ARTool
-
-Version: 0.10.4
-
-## In both
-
-*   checking whether package ‘ARTool’ can be installed ... ERROR
+*   checking whether package ‘anomalyDetection’ can be installed ... ERROR
     ```
     Installation failed.
-    See ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/ARTool/new/ARTool.Rcheck/00install.out’ for details.
+    See ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/anomalyDetection/new/anomalyDetection.Rcheck/00install.out’ for details.
     ```
 
 ## Installation
@@ -168,33 +209,42 @@ Version: 0.10.4
 ### Devel
 
 ```
-* installing *source* package ‘ARTool’ ...
-** package ‘ARTool’ successfully unpacked and MD5 sums checked
-** R
-** data
-** inst
-** preparing package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
-  there is no package called ‘data.table’
-ERROR: lazy loading failed for package ‘ARTool’
-* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/ARTool/new/ARTool.Rcheck/ARTool’
+* installing *source* package ‘anomalyDetection’ ...
+** package ‘anomalyDetection’ successfully unpacked and MD5 sums checked
+** libs
+ccache clang++ -Qunused-arguments  -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/new/Rcpp/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/anomalyDetection/RcppArmadillo/include" -I/usr/local/include  -fopenmp  -fPIC  -Wall -g -O2  -c RcppExports.cpp -o RcppExports.o
+clang: error: unsupported option '-fopenmp'
+make: *** [RcppExports.o] Error 1
+ERROR: compilation failed for package ‘anomalyDetection’
+* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/anomalyDetection/new/anomalyDetection.Rcheck/anomalyDetection’
 
 ```
 ### CRAN
 
 ```
-* installing *source* package ‘ARTool’ ...
-** package ‘ARTool’ successfully unpacked and MD5 sums checked
-** R
-** data
-** inst
-** preparing package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
-  there is no package called ‘data.table’
-ERROR: lazy loading failed for package ‘ARTool’
-* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/ARTool/old/ARTool.Rcheck/ARTool’
+* installing *source* package ‘anomalyDetection’ ...
+** package ‘anomalyDetection’ successfully unpacked and MD5 sums checked
+** libs
+ccache clang++ -Qunused-arguments  -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/old/Rcpp/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/anomalyDetection/RcppArmadillo/include" -I/usr/local/include  -fopenmp  -fPIC  -Wall -g -O2  -c RcppExports.cpp -o RcppExports.o
+clang: error: unsupported option '-fopenmp'
+make: *** [RcppExports.o] Error 1
+ERROR: compilation failed for package ‘anomalyDetection’
+* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/anomalyDetection/old/anomalyDetection.Rcheck/anomalyDetection’
 
 ```
+# arena2r
+
+Version: 1.0.0
+
+## In both
+
+*   checking dependencies in R code ... NOTE
+    ```
+    Namespaces in Imports field not imported from:
+      ‘purrr’ ‘shinyBS’ ‘shinydashboard’ ‘shinyjs’
+      All declared Imports should be used.
+    ```
+
 # auctestr
 
 Version: 1.0.0
@@ -209,118 +259,41 @@ Version: 1.0.0
 
 # auk
 
-Version: 0.2.1
+Version: 0.3.0
 
 ## In both
-
-*   checking tests ...
-    ```
-     ERROR
-    Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-      
-      [31m──[39m [31m2. Error: read_ebd data frames identical for different read functions (@test_read.r#62) [39m [31m────────────────────[39m
-      Install the data.table package to use reader = fread.
-      1: read_ebd(f, reader = "fread") at testthat/test_read.r:62
-      2: read_ebd.character(f, reader = "fread")
-      3: choose_reader(reader)
-      4: stop("Install the data.table package to use reader = fread.")
-      
-      ══ testthat results  ═══════════════════════════════════════════════════════════════════════════════════════════
-      OK: 323 SKIPPED: 19 FAILED: 2
-      1. Error: read_ebd using different reader functions (@test_read.r#39) 
-      2. Error: read_ebd data frames identical for different read functions (@test_read.r#62) 
-      
-      Error: testthat unit tests failed
-      Execution halted
-    ```
-
-*   checking package dependencies ... NOTE
-    ```
-    Package suggested but not available for checking: ‘data.table’
-    ```
-
-*   checking Rd cross-references ... NOTE
-    ```
-    Package unavailable to check Rd xrefs: ‘data.table’
-    ```
 
 *   checking data for non-ASCII characters ... NOTE
     ```
       Note: found 552 marked UTF-8 strings
     ```
 
+# banter
+
+Version: 0.9.3
+
+## In both
+
+*   checking dependencies in R code ... NOTE
+    ```
+    Namespace in Imports field not imported from: ‘ranger’
+      All declared Imports should be used.
+    ```
+
 # basecallQC
 
-Version: 1.0.1
+Version: 1.4.0
 
 ## In both
 
-*   checking package dependencies ... ERROR
+*   checking installed package size ... NOTE
     ```
-    Package required but not available: ‘data.table’
-    
-    See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-    manual.
-    ```
-
-# BatchGetSymbols
-
-Version: 2.0
-
-## In both
-
-*   checking whether package ‘BatchGetSymbols’ can be installed ... WARNING
-    ```
-    Found the following significant warnings:
-      Warning: package ‘xml2’ was built under R version 3.4.3
-    See ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/BatchGetSymbols/new/BatchGetSymbols.Rcheck/00install.out’ for details.
+      installed size is  5.1Mb
+      sub-directories of 1Mb or more:
+        doc       1.8Mb
+        extdata   2.8Mb
     ```
 
-# BAwiR
-
-Version: 1.0
-
-## In both
-
-*   checking whether package ‘BAwiR’ can be installed ... ERROR
-    ```
-    Installation failed.
-    See ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/BAwiR/new/BAwiR.Rcheck/00install.out’ for details.
-    ```
-
-## Installation
-
-### Devel
-
-```
-* installing *source* package ‘BAwiR’ ...
-** package ‘BAwiR’ successfully unpacked and MD5 sums checked
-** R
-** data
-*** moving datasets to lazyload DB
-** preparing package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
-  there is no package called ‘data.table’
-ERROR: lazy loading failed for package ‘BAwiR’
-* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/BAwiR/new/BAwiR.Rcheck/BAwiR’
-
-```
-### CRAN
-
-```
-* installing *source* package ‘BAwiR’ ...
-** package ‘BAwiR’ successfully unpacked and MD5 sums checked
-** R
-** data
-*** moving datasets to lazyload DB
-** preparing package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
-  there is no package called ‘data.table’
-ERROR: lazy loading failed for package ‘BAwiR’
-* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/BAwiR/old/BAwiR.Rcheck/BAwiR’
-
-```
 # baystability
 
 Version: 0.1.0
@@ -334,66 +307,25 @@ Version: 0.1.0
       All declared Imports should be used.
     ```
 
-# beadplexr
-
-Version: 0.1.0
-
-## In both
-
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘beadplexr-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: calculate_concentration
-    > ### Title: Calculate concentration.
-    > ### Aliases: calculate_concentration
-    > 
-    > ### ** Examples
-    > 
-    > 
-    > library(beadplexr)
-    > library(drc)
-    Loading required package: MASS
-    Error: package or namespace load failed for ‘drc’ in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]):
-     there is no package called ‘data.table’
-    Execution halted
-    ```
-
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    Error in re-building vignettes:
-      ...
-    
-    Attaching package: 'gridExtra'
-    
-    The following object is masked from 'package:dplyr':
-    
-        combine
-    
-    Quitting from lines 459-468 (legendplex-analysis.Rmd) 
-    Error: processing vignette 'legendplex-analysis.Rmd' failed with diagnostics:
-    Evaluation error: there is no package called 'data.table'.
-    Execution halted
-    ```
-
 # BgeeDB
 
-Version: 2.2.0
+Version: 2.6.2
 
 ## In both
 
-*   checking package dependencies ... ERROR
-    ```
-    Package required but not available: ‘data.table’
+*   R CMD check timed out
     
-    See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-    manual.
+
+*   checking top-level files ... NOTE
+    ```
+    File
+      LICENSE
+    is not mentioned in the DESCRIPTION file.
     ```
 
 # bib2df
 
-Version: 1.0.0
+Version: 1.0.1
 
 ## In both
 
@@ -403,16 +335,16 @@ Version: 1.0.0
     Running the tests in ‘tests/testthat.R’ failed.
     Last 13 lines of output:
       > library("testthat")
-      Warning message:
-      package 'testthat' was built under R version 3.4.3 
       > library("bib2df")
       > test_check("bib2df")
-      [31m──[39m [31m1. Failure: bib2df() throws error messages (@tests.R#53) [39m [31m───────────────────────────────────────────────────[39m
-      `bib2df("https://www.ottlngr.de/data/x.bib")` did not throw an error.
+      [31m──[39m [31m1. Failure: bib2df() throws error messages (@tests.R#70) [39m [31m─────────────────────────────────────────[39m
+      `bib2df("https://www.example.com/data/x.bib")` threw an error with unexpected message.
+      Expected match: "Invalid URL: File is not readable."
+      Actual message: "Could not resolve host: www.example.com"
       
-      ══ testthat results  ═══════════════════════════════════════════════════════════════════════════════════════════
-      OK: 16 SKIPPED: 0 FAILED: 1
-      1. Failure: bib2df() throws error messages (@tests.R#53) 
+      ══ testthat results  ═════════════════════════════════════════════════════════════════════════════════
+      OK: 19 SKIPPED: 0 FAILED: 1
+      1. Failure: bib2df() throws error messages (@tests.R#70) 
       
       Error: testthat unit tests failed
       Execution halted
@@ -420,38 +352,9 @@ Version: 1.0.0
 
 # biobroom
 
-Version: 1.8.0
+Version: 1.12.1
 
 ## In both
-
-*   checking tests ...
-    ```
-     ERROR
-    Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-      
-      
-      Attaching package: 'DelayedArray'
-      
-      The following objects are masked from 'package:matrixStats':
-      
-          colMaxs, colMins, colRanges, rowMaxs, rowMins, rowRanges
-      
-      The following object is masked from 'package:base':
-      
-          apply
-      
-      Error: package or namespace load failed for 'DESeq2' in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]):
-       there is no package called 'data.table'
-      Execution halted
-    ```
-
-*   checking whether package ‘biobroom’ can be installed ... WARNING
-    ```
-    Found the following significant warnings:
-      Warning: package ‘broom’ was built under R version 3.4.4
-    See ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/biobroom/new/biobroom.Rcheck/00install.out’ for details.
-    ```
 
 *   checking re-building of vignette outputs ... WARNING
     ```
@@ -461,6 +364,7 @@ Version: 1.8.0
     
         count
     
+    Loading required package: BiocParallel
     
     Attaching package: 'DelayedArray'
     
@@ -468,20 +372,19 @@ Version: 1.8.0
     
         colMaxs, colMins, colRanges, rowMaxs, rowMins, rowRanges
     
-    The following object is masked from 'package:base':
+    The following objects are masked from 'package:base':
     
-        apply
+        aperm, apply
     
     Quitting from lines 134-139 (biobroom_vignette.Rmd) 
     Error: processing vignette 'biobroom_vignette.Rmd' failed with diagnostics:
-    package or namespace load failed for 'DESeq2' in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]):
-     there is no package called 'data.table'
+    there is no package called 'airway'
     Execution halted
     ```
 
 *   checking package dependencies ... NOTE
     ```
-    Package suggested but not available for checking: ‘data.table’
+    Package suggested but not available for checking: ‘airway’
     ```
 
 *   checking dependencies in R code ... NOTE
@@ -495,16 +398,16 @@ Version: 1.8.0
 *   checking R code for possible problems ... NOTE
     ```
     ...
-      for ‘colData’
-    tidy.deSet: no visible global function definition for ‘exprs<-’
-    tidy.deSet: no visible binding for global variable ‘value’
-    tidy.deSet: no visible binding for global variable ‘gene’
-    tidy.deSet: no visible global function definition for ‘pData’
     tidy.qvalue: no visible binding for global variable ‘smoothed’
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/biobroom/new/biobroom.Rcheck/00_pkg_src/biobroom/R/qvalue_tidiers.R:65-66)
     tidy.qvalue: no visible binding for global variable ‘pi0’
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/biobroom/new/biobroom.Rcheck/00_pkg_src/biobroom/R/qvalue_tidiers.R:65-66)
     tidy.qvalue: no visible binding for global variable ‘lambda’
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/biobroom/new/biobroom.Rcheck/00_pkg_src/biobroom/R/qvalue_tidiers.R:65-66)
     tidy_matrix: no visible binding for global variable ‘value’
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/biobroom/new/biobroom.Rcheck/00_pkg_src/biobroom/R/limma_tidiers.R:197-199)
     tidy_matrix: no visible binding for global variable ‘gene’
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/biobroom/new/biobroom.Rcheck/00_pkg_src/biobroom/R/limma_tidiers.R:197-199)
     Undefined global functions or variables:
       . DGEList calcNormFactors colData counts design end estimate
       estimateSizeFactors exprs<- fData<- gene gr is lambda model.matrix
@@ -516,105 +419,6 @@ Version: 1.8.0
                  "start")
     to your NAMESPACE file (and ensure that your DESCRIPTION Imports field
     contains 'methods').
-    ```
-
-# bioCancer
-
-Version: 1.4.0
-
-## In both
-
-*   checking whether package ‘bioCancer’ can be installed ... ERROR
-    ```
-    Installation failed.
-    See ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/bioCancer/new/bioCancer.Rcheck/00install.out’ for details.
-    ```
-
-*   checking package dependencies ... NOTE
-    ```
-    Depends: includes the non-default packages:
-      ‘magrittr’ ‘ggplot2’ ‘lubridate’ ‘tidyr’ ‘cgdsr’ ‘RCurl’ ‘XML’
-    Adding so many packages to the search path is excessive and importing
-    selectively is preferable.
-    ```
-
-## Installation
-
-### Devel
-
-```
-* installing *source* package ‘bioCancer’ ...
-** R
-** inst
-** preparing package for lazy loading
-Warning: package ‘lubridate’ was built under R version 3.4.4
-Warning: package ‘cgdsr’ was built under R version 3.4.3
-Warning: package ‘XML’ was built under R version 3.4.4
-Error in loadNamespace(i, c(lib.loc, .libPaths()), versionCheck = vI[[i]]) : 
-  there is no package called ‘data.table’
-ERROR: lazy loading failed for package ‘bioCancer’
-* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/bioCancer/new/bioCancer.Rcheck/bioCancer’
-
-```
-### CRAN
-
-```
-* installing *source* package ‘bioCancer’ ...
-** R
-** inst
-** preparing package for lazy loading
-Warning: package ‘lubridate’ was built under R version 3.4.4
-Warning: package ‘cgdsr’ was built under R version 3.4.3
-Warning: package ‘XML’ was built under R version 3.4.4
-Error in loadNamespace(i, c(lib.loc, .libPaths()), versionCheck = vI[[i]]) : 
-  there is no package called ‘data.table’
-ERROR: lazy loading failed for package ‘bioCancer’
-* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/bioCancer/old/bioCancer.Rcheck/bioCancer’
-
-```
-# BIS
-
-Version: 0.2.0
-
-## In both
-
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    ...
-    
-    The following objects are masked from 'package:stats':
-    
-        filter, lag
-    
-    The following objects are masked from 'package:base':
-    
-        intersect, setdiff, setequal, union
-    
-    Warning: package 'zoo' was built under R version 3.4.3
-    
-    Attaching package: 'zoo'
-    
-    The following objects are masked from 'package:base':
-    
-        as.Date, as.Date.numeric
-    
-    Quitting from lines 61-79 (BIS.Rmd) 
-    Error: processing vignette 'BIS.Rmd' failed with diagnostics:
-    Evaluation error: yearmon variable can only have one format.
-    Execution halted
-    ```
-
-# blastula
-
-Version: 0.2.0
-
-## In both
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespaces in Imports field not imported from:
-      ‘purrr’ ‘rlang’ ‘tibble’
-      All declared Imports should be used.
     ```
 
 # blkbox
@@ -634,81 +438,68 @@ Version: 1.0
       ‘glmnet’ ‘gtools’ ‘knitr’ ‘nnet’ ‘parallel’ ‘rJava’ ‘reshape’
       ‘rmarkdown’ ‘shinyjs’
       All declared Imports should be used.
+    Missing or unexported object: ‘xgboost::predict’
     ```
 
-# bomrang
+# BloodCancerMultiOmics2017
 
-Version: 0.1.4
+Version: 1.0.2
 
 ## In both
 
 *   checking package dependencies ... ERROR
     ```
-    Packages required but not available: ‘data.table’ ‘rgdal’
+    Package required but not available: ‘devtools’
     
     See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
     manual.
     ```
 
-# bootnet
+# blorr
 
-Version: 1.0.1
+Version: 0.1.0
 
 ## In both
 
-*   checking whether package ‘bootnet’ can be installed ... ERROR
+*   checking dependencies in R code ... NOTE
     ```
-    Installation failed.
-    See ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/bootnet/new/bootnet.Rcheck/00install.out’ for details.
+    Namespace in Imports field not imported from: ‘descriptr’
+      All declared Imports should be used.
     ```
 
-## Installation
+*   checking Rd cross-references ... NOTE
+    ```
+    Package unavailable to check Rd xrefs: ‘lmtest’
+    ```
 
-### Devel
+# bootnet
 
-```
-* installing *source* package ‘bootnet’ ...
-** package ‘bootnet’ successfully unpacked and MD5 sums checked
-** R
-** inst
-** preparing package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
-  there is no package called ‘data.table’
-ERROR: lazy loading failed for package ‘bootnet’
-* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/bootnet/new/bootnet.Rcheck/bootnet’
+Version: 1.1.0
 
-```
-### CRAN
+## In both
 
-```
-* installing *source* package ‘bootnet’ ...
-** package ‘bootnet’ successfully unpacked and MD5 sums checked
-** R
-** inst
-** preparing package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
-  there is no package called ‘data.table’
-ERROR: lazy loading failed for package ‘bootnet’
-* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/bootnet/old/bootnet.Rcheck/bootnet’
+*   checking dependencies in R code ... NOTE
+    ```
+    Namespace in Imports field not imported from: ‘psych’
+      All declared Imports should be used.
+    ```
 
-```
 # bossMaps
 
 Version: 0.1.0
 
 ## In both
 
-*   checking package dependencies ... ERROR
+*   checking dependencies in R code ... NOTE
     ```
-    Package required but not available: ‘rgdal’
-    
-    See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-    manual.
+    Namespaces in Imports field not imported from:
+      ‘rgdal’ ‘tidyr’
+      All declared Imports should be used.
     ```
 
 # breathtestcore
 
-Version: 0.4.1
+Version: 0.4.5
 
 ## In both
 
@@ -717,74 +508,15 @@ Version: 0.4.1
     Package unavailable to check Rd xrefs: ‘breathteststan’
     ```
 
-# breathteststan
+# broom.mixed
 
-Version: 0.4.1
-
-## In both
-
-*   checking tests ...
-    ```
-     ERROR
-    Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-      > # Only one test per file to avoid hanging 32-bit compile
-      > #test_check("breathteststan", filter = "stan_fit")
-      > Sys.unsetenv("R_TESTS") # https://github.com/r-lib/testthat/issues/603
-      > test_check("breathteststan")
-      [1] "liquid_normal" "solid_normal"  "solid_patient"
-      [1] "liquid_normal" "solid_normal"  "solid_patient"
-      [31m──[39m [31m1. Failure: Data that cannot be fitted with nls_list/nlme work with stan_fit (@test_stan_fit_2.R#28) [39m [31m───────[39m
-      sigma(fit) is not strictly more than 0.9. Difference: -0.00781
-      
-      ══ testthat results  ═══════════════════════════════════════════════════════════════════════════════════════════
-      OK: 28 SKIPPED: 7 FAILED: 1
-      1. Failure: Data that cannot be fitted with nls_list/nlme work with stan_fit (@test_stan_fit_2.R#28) 
-      
-      Error: testthat unit tests failed
-      Execution halted
-    ```
-
-# broom
-
-Version: 0.4.4
+Version: 0.2.3
 
 ## In both
 
-*   checking tests ...
+*   checking package dependencies ... NOTE
     ```
-     ERROR
-    Running the tests in ‘tests/test-all.R’ failed.
-    Last 13 lines of output:
-      [31m──[39m [31m1. Error: tidy.coeftest works (@test-lmtest.R#7) [39m [31m───────────────────────────────────────────────────────────[39m
-      object 'Mandible' not found
-      1: lm(length ~ age, data = Mandible, subset = (age <= 28)) at testthat/test-lmtest.R:7
-      2: eval(mf, parent.frame())
-      3: eval(mf, parent.frame())
-      4: stats::model.frame(formula = length ~ age, data = Mandible, subset = (age <= 28), drop.unused.levels = TRUE)
-      5: model.frame.default(formula = length ~ age, data = Mandible, subset = (age <= 28), drop.unused.levels = TRUE)
-      6: is.data.frame(data)
-      
-      ══ testthat results  ═══════════════════════════════════════════════════════════════════════════════════════════
-      OK: 1438 SKIPPED: 0 FAILED: 1
-      1. Error: tidy.coeftest works (@test-lmtest.R#7) 
-      
-      Error: testthat unit tests failed
-      Execution halted
-    ```
-
-# bupaR
-
-Version: 0.4.0
-
-## In both
-
-*   checking package dependencies ... ERROR
-    ```
-    Package required but not available: ‘data.table’
-    
-    See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-    manual.
+    Package suggested but not available for checking: ‘glmmADMB’
     ```
 
 # caffsim
@@ -807,17 +539,74 @@ Version: 0.1.7
 
 *   checking package dependencies ... NOTE
     ```
-    Packages suggested but not available for checking: ‘rgdal’ ‘sf’
+    Package suggested but not available for checking: ‘sf’
     ```
 
-*   checking Rd cross-references ... NOTE
+# capm
+
+Version: 0.13.5
+
+## In both
+
+*   checking package dependencies ... ERROR
     ```
-    Package unavailable to check Rd xrefs: ‘sf’
+    Package required but not available: ‘sf’
+    
+    See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
+    manual.
+    ```
+
+# CATALYST
+
+Version: 1.4.2
+
+## In both
+
+*   checking for hidden files and directories ... NOTE
+    ```
+    Found the following hidden files and directories:
+      .travis.yml
+    These were most likely included in error. See section ‘Package
+    structure’ in the ‘Writing R Extensions’ manual.
+    ```
+
+*   checking installed package size ... NOTE
+    ```
+      installed size is 10.5Mb
+      sub-directories of 1Mb or more:
+        R      2.0Mb
+        data   3.1Mb
+        doc    5.1Mb
+    ```
+
+*   checking R code for possible problems ... NOTE
+    ```
+    plotDiffHeatmap,matrix-SummarizedExperiment: no visible binding for
+      global variable ‘cluster_id’
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/CATALYST/new/CATALYST.Rcheck/00_pkg_src/CATALYST/R/plotDiffHeatmap.R:136)
+    plotDiffHeatmap,matrix-SummarizedExperiment: no visible binding for
+      global variable ‘sample_id’
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/CATALYST/new/CATALYST.Rcheck/00_pkg_src/CATALYST/R/plotDiffHeatmap.R:136)
+    Undefined global functions or variables:
+      cluster_id sample_id
+    ```
+
+# ccfa
+
+Version: 1.1.0
+
+## In both
+
+*   checking dependencies in R code ... NOTE
+    ```
+    Namespaces in Imports field not imported from:
+      ‘doParallel’ ‘foreach’
+      All declared Imports should be used.
     ```
 
 # CDECRetrieve
 
-Version: 0.1.0
+Version: 0.1.2
 
 ## In both
 
@@ -826,20 +615,6 @@ Version: 0.1.0
     Namespaces in Imports field not imported from:
       ‘lazyeval’ ‘purrr’ ‘roxygen2’
       All declared Imports should be used.
-    ```
-
-# cellbaseR
-
-Version: 1.0.0
-
-## In both
-
-*   checking package dependencies ... ERROR
-    ```
-    Package required but not available: ‘data.table’
-    
-    See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-    manual.
     ```
 
 # childsds
@@ -859,16 +634,27 @@ Version: 0.6.7
       Note: found 20 marked UTF-8 strings
     ```
 
-# clusterProfiler
+# chromswitch
 
-Version: 3.4.4
+Version: 1.2.1
 
 ## In both
 
-*   checking whether package ‘clusterProfiler’ can be installed ... ERROR
+*   checking package dependencies ... NOTE
+    ```
+    Package suggested but not available for checking: ‘devtools’
+    ```
+
+# circumplex
+
+Version: 0.1.2
+
+## In both
+
+*   checking whether package ‘circumplex’ can be installed ... ERROR
     ```
     Installation failed.
-    See ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/clusterProfiler/new/clusterProfiler.Rcheck/00install.out’ for details.
+    See ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/circumplex/new/circumplex.Rcheck/00install.out’ for details.
     ```
 
 ## Installation
@@ -876,51 +662,56 @@ Version: 3.4.4
 ### Devel
 
 ```
-* installing *source* package ‘clusterProfiler’ ...
-** R
-** data
-** inst
-** byte-compile and prepare package for lazy loading
-Error: package or namespace load failed for ‘DOSE’ in loadNamespace(i, c(lib.loc, .libPaths()), versionCheck = vI[[i]]):
- there is no package called ‘data.table’
-Error : package ‘DOSE’ could not be loaded
-ERROR: lazy loading failed for package ‘clusterProfiler’
-* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/clusterProfiler/new/clusterProfiler.Rcheck/clusterProfiler’
+* installing *source* package ‘circumplex’ ...
+** package ‘circumplex’ successfully unpacked and MD5 sums checked
+** libs
+clang++ -std=gnu++11 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/new/Rcpp/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/circumplex/RcppArmadillo/include" -I/usr/local/include  -fopenmp  -fPIC  -Wall -g -O2 -c RcppExports.cpp -o RcppExports.o
+clang: error: unsupported option '-fopenmp'
+make: *** [RcppExports.o] Error 1
+ERROR: compilation failed for package ‘circumplex’
+* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/circumplex/new/circumplex.Rcheck/circumplex’
 
 ```
 ### CRAN
 
 ```
-* installing *source* package ‘clusterProfiler’ ...
-** R
-** data
-** inst
-** byte-compile and prepare package for lazy loading
-Error: package or namespace load failed for ‘DOSE’ in loadNamespace(i, c(lib.loc, .libPaths()), versionCheck = vI[[i]]):
- there is no package called ‘data.table’
-Error : package ‘DOSE’ could not be loaded
-ERROR: lazy loading failed for package ‘clusterProfiler’
-* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/clusterProfiler/old/clusterProfiler.Rcheck/clusterProfiler’
+* installing *source* package ‘circumplex’ ...
+** package ‘circumplex’ successfully unpacked and MD5 sums checked
+** libs
+clang++ -std=gnu++11 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/old/Rcpp/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/circumplex/RcppArmadillo/include" -I/usr/local/include  -fopenmp  -fPIC  -Wall -g -O2 -c RcppExports.cpp -o RcppExports.o
+clang: error: unsupported option '-fopenmp'
+make: *** [RcppExports.o] Error 1
+ERROR: compilation failed for package ‘circumplex’
+* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/circumplex/old/circumplex.Rcheck/circumplex’
 
 ```
-# CNPBayes
+# clusterProfiler
 
-Version: 1.6.1
+Version: 3.8.1
 
 ## In both
 
-*   checking for code/documentation mismatches ... WARNING
+*   checking Rd cross-references ... NOTE
     ```
-    Codoc mismatches from documentation object 'labelSwitching':
-    labelSwitching
-      Code: function(object, ...)
-      Docs: function(object, merge = TRUE)
-      Argument names in code not in docs:
-        ...
-      Argument names in docs not in code:
-        merge
-      Mismatches in argument names:
-        Position: 2 Code: ... Docs: merge
+    Package unavailable to check Rd xrefs: ‘topGO’
+    ```
+
+# CNPBayes
+
+Version: 1.10.0
+
+## In both
+
+*   checking Rd \usage sections ... WARNING
+    ```
+    Undocumented arguments in documentation object 'marginal_lik'
+      ‘value’
+    
+    Functions with \usage entries need to have the appropriate \alias
+    entries, and all their arguments documented.
+    The \usage entries must correspond to syntactically valid R code.
+    See chapter ‘Writing R documentation files’ in the ‘Writing R
+    Extensions’ manual.
     ```
 
 *   checking re-building of vignette outputs ... WARNING
@@ -933,24 +724,55 @@ Version: 1.6.1
     Execution halted
     ```
 
-*   checking DESCRIPTION meta-information ... NOTE
+*   checking installed package size ... NOTE
     ```
-    Package listed in more than one of Depends, Imports, Suggests, Enhances:
-      ‘GenomicRanges’
-    A package should be listed in only one of these fields.
+      installed size is  8.3Mb
+      sub-directories of 1Mb or more:
+        R      2.5Mb
+        doc    3.4Mb
+        libs   1.4Mb
     ```
 
 *   checking R code for possible problems ... NOTE
     ```
-    consensusRegion: no visible global function definition for
-      ‘elementLengths’
+    copyNumber,SingleBatchCopyNumber: no visible binding for global
+      variable ‘theta.star’
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/CNPBayes/new/CNPBayes.Rcheck/00_pkg_src/CNPBayes/R/copynumber-models.R:148-149)
+    copyNumber,SingleBatchCopyNumber: no visible binding for global
+      variable ‘theta.star’
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/CNPBayes/new/CNPBayes.Rcheck/00_pkg_src/CNPBayes/R/copynumber-models.R:150-151)
     Undefined global functions or variables:
-      elementLengths
+      theta.star
+    ```
+
+# CNVScope
+
+Version: 1.9.7
+
+## In both
+
+*   checking package dependencies ... ERROR
+    ```
+    Package required but not available: ‘BSgenome.Hsapiens.UCSC.hg19’
+    
+    See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
+    manual.
+    ```
+
+# cocktailApp
+
+Version: 0.2.0
+
+## In both
+
+*   checking data for non-ASCII characters ... NOTE
+    ```
+      Note: found 14661 marked UTF-8 strings
     ```
 
 # codebook
 
-Version: 0.5.8
+Version: 0.6.3
 
 ## In both
 
@@ -961,25 +783,158 @@ Version: 0.5.8
       All declared Imports should be used.
     ```
 
-*   checking Rd cross-references ... NOTE
-    ```
-    Package unavailable to check Rd xrefs: ‘labelled’
-    ```
-
 *   checking data for non-ASCII characters ... NOTE
     ```
       Note: found 65 marked UTF-8 strings
     ```
 
-# congressbr
+# codified
 
-Version: 0.1.1
+Version: 0.2.0
 
 ## In both
 
+*   checking package dependencies ... NOTE
+    ```
+    Package suggested but not available for checking: ‘devtools’
+    ```
+
+*   checking dependencies in R code ... NOTE
+    ```
+    Namespaces in Imports field not imported from:
+      ‘methods’ ‘readr’
+      All declared Imports should be used.
+    ```
+
+# colorednoise
+
+Version: 1.0.3
+
+## In both
+
+*   checking whether package ‘colorednoise’ can be installed ... ERROR
+    ```
+    Installation failed.
+    See ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/colorednoise/new/colorednoise.Rcheck/00install.out’ for details.
+    ```
+
+## Installation
+
+### Devel
+
+```
+* installing *source* package ‘colorednoise’ ...
+** package ‘colorednoise’ successfully unpacked and MD5 sums checked
+** libs
+ccache clang++ -Qunused-arguments  -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/new/Rcpp/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/colorednoise/RcppArmadillo/include" -I/usr/local/include  -fopenmp -fPIC  -Wall -g -O2  -c RcppExports.cpp -o RcppExports.o
+clang: error: unsupported option '-fopenmp'
+make: *** [RcppExports.o] Error 1
+ERROR: compilation failed for package ‘colorednoise’
+* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/colorednoise/new/colorednoise.Rcheck/colorednoise’
+
+```
+### CRAN
+
+```
+* installing *source* package ‘colorednoise’ ...
+** package ‘colorednoise’ successfully unpacked and MD5 sums checked
+** libs
+ccache clang++ -Qunused-arguments  -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/old/Rcpp/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/colorednoise/RcppArmadillo/include" -I/usr/local/include  -fopenmp -fPIC  -Wall -g -O2  -c RcppExports.cpp -o RcppExports.o
+clang: error: unsupported option '-fopenmp'
+make: *** [RcppExports.o] Error 1
+ERROR: compilation failed for package ‘colorednoise’
+* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/colorednoise/old/colorednoise.Rcheck/colorednoise’
+
+```
+# compareDF
+
+Version: 1.5.0
+
+## In both
+
+*   checking dependencies in R code ... NOTE
+    ```
+    Namespace in Imports field not imported from: ‘stringr’
+      All declared Imports should be used.
+    ```
+
+# COMPASS
+
+Version: 1.18.1
+
+## In both
+
+*   checking package dependencies ... NOTE
+    ```
+    Package suggested but not available for checking: ‘devtools’
+    ```
+
+*   checking dependencies in R code ... NOTE
+    ```
+    Namespaces in Imports field not imported from:
+      ‘BiocStyle’ ‘rmarkdown’
+      All declared Imports should be used.
+    ':::' call which should be '::': ‘flowWorkspace:::.getNodeInd’
+      See the note in ?`:::` about the use of this operator.
+    ```
+
+*   checking R code for possible problems ... NOTE
+    ```
+    COMPASSfitToCountsTable: no visible binding for global variable
+      ‘population’
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/COMPASS/new/COMPASS.Rcheck/00_pkg_src/COMPASS/R/utils.R:193)
+    COMPASSfitToCountsTable: no visible binding for global variable ‘Count’
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/COMPASS/new/COMPASS.Rcheck/00_pkg_src/COMPASS/R/utils.R:193)
+    COMPASSfitToCountsTable: no visible binding for global variable
+      ‘population’
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/COMPASS/new/COMPASS.Rcheck/00_pkg_src/COMPASS/R/utils.R:194)
+    COMPASSfitToCountsTable: no visible binding for global variable ‘Count’
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/COMPASS/new/COMPASS.Rcheck/00_pkg_src/COMPASS/R/utils.R:194)
+    COMPASSfitToCountsTable: no visible binding for global variable ‘id’
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/COMPASS/new/COMPASS.Rcheck/00_pkg_src/COMPASS/R/utils.R:200)
+    COMPASSfitToCountsTable: no visible binding for global variable ‘id’
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/COMPASS/new/COMPASS.Rcheck/00_pkg_src/COMPASS/R/utils.R:206)
+    Undefined global functions or variables:
+      Count id population
+    ```
+
+*   checking for unstated dependencies in vignettes ... NOTE
+    ```
+    'library' or 'require' calls not declared from:
+      ‘ggplot2’ ‘readxl’
+    ```
+
+# congressbr
+
+Version: 0.1.3
+
+## In both
+
+*   checking examples ... ERROR
+    ```
+    Running examples in ‘congressbr-Ex.R’ failed
+    The error most likely occurred in:
+    
+    > ### Name: sen_bills
+    > ### Title: Downloads and tidies information on the legislation in the
+    > ###   Federal Senate
+    > ### Aliases: sen_bills
+    > 
+    > ### ** Examples
+    > 
+    > pls_5_2010 <- sen_bills(type = "PLS", number = 5, year = 2010)
+    Error: Column `bill_indexing` must be a 1d atomic vector or a list
+    Execution halted
+    ```
+
+*   checking package dependencies ... NOTE
+    ```
+    Package suggested but not available for checking: ‘devtools’
+    ```
+
 *   checking data for non-ASCII characters ... NOTE
     ```
-      Note: found 1 marked UTF-8 string
+      Note: found 187 marked UTF-8 strings
     ```
 
 # countyfloods
@@ -1005,161 +960,91 @@ Version: 0.1.0
       Note: found 1 marked UTF-8 string
     ```
 
-# cpr
+# coxed
 
-Version: 0.2.3
+Version: 0.2.0
 
 ## In both
 
-*   checking package dependencies ... ERROR
+*   checking Rd cross-references ... NOTE
     ```
-    Package required but not available: ‘RcppArmadillo’
-    
-    See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-    manual.
+    Package unavailable to check Rd xrefs: ‘mediation’
     ```
 
 # crawl
 
-Version: 2.1.1
+Version: 2.2.1
 
 ## In both
 
 *   checking package dependencies ... ERROR
     ```
-    Package required but not available: ‘RcppArmadillo’
-    
-    Packages suggested but not available for checking: ‘rgdal’ ‘sf’
+    Package required but not available: ‘sf’
     
     See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
     manual.
     ```
 
-# cRegulome
+# crypto
 
-Version: 0.1.1
+Version: 1.0.3
 
 ## In both
 
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    ...
-    
-    The following object is masked from 'package:base':
-    
-        expand.grid
-    
-    
-    Attaching package: 'IRanges'
-    
-    The following object is masked from 'package:R.oo':
-    
-        trim
-    
-    
-    Loading required package: DOSE
-    
-    Error: package or namespace load failed for 'DOSE' in loadNamespace(i, c(lib.loc, .libPaths()), versionCheck = vI[[i]]):
-     there is no package called 'data.table'
-    Quitting from lines 32-41 (case_study.Rmd) 
-    Error: processing vignette 'case_study.Rmd' failed with diagnostics:
-    package 'DOSE' could not be loaded
-    Execution halted
-    ```
-
 *   checking dependencies in R code ... NOTE
     ```
-    Namespaces in Imports field not imported from:
-      ‘AnnotationDbi’ ‘clusterProfiler’ ‘org.Hs.eg.db’
+    Namespace in Imports field not imported from: ‘yaml’
       All declared Imports should be used.
     ```
 
 # curatedMetagenomicData
 
-Version: 1.2.2
+Version: 1.10.2
 
 ## In both
 
-*   checking whether package ‘curatedMetagenomicData’ can be installed ... ERROR
+*   checking examples ... ERROR
     ```
-    Installation failed.
-    See ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/curatedMetagenomicData/new/curatedMetagenomicData.Rcheck/00install.out’ for details.
+    ...
+    > ###   HMP_2012.pathabundance_relab.nasalcavity
+    > ###   HMP_2012.pathabundance_relab.oralcavity
+    > ###   HMP_2012.pathabundance_relab.skin HMP_2012.pathabundance_relab.stool
+    > ###   HMP_2012.pathabundance_relab.vagina HMP_2012.pathcoverage.nasalcavity
+    > ###   HMP_2012.pathcoverage.oralcavity HMP_2012.pathcoverage.skin
+    > ###   HMP_2012.pathcoverage.stool HMP_2012.pathcoverage.vagina
+    > 
+    > ### ** Examples
+    > 
+    > HMP_2012.metaphlan_bugs_list.nasalcavity()
+    snapshotDate(): 2018-04-27
+    see ?curatedMetagenomicData and browseVignettes('curatedMetagenomicData') for documentation
+    downloading 1 resources
+    retrieving 1 resource
+    loading from cache 
+        ‘/Users/hadley//.ExperimentHub/1230’
+    Error: failed to load resource
+      name: EH1230
+      title: 20180425.HMP_2012.metaphlan_bugs_list.nasalcavity
+      reason: ReadItem: unknown type 108, perhaps written by later version of R
+    Execution halted
     ```
 
 *   checking package dependencies ... NOTE
     ```
-    Depends: includes the non-default packages:
-      ‘dplyr’ ‘phyloseq’ ‘Biobase’ ‘ExperimentHub’ ‘AnnotationHub’
-      ‘magrittr’
-    Adding so many packages to the search path is excessive and importing
-    selectively is preferable.
+    Package suggested but not available for checking: ‘devtools’
     ```
 
-## Installation
-
-### Devel
-
-```
-* installing *source* package ‘curatedMetagenomicData’ ...
-** R
-** data
-*** moving datasets to lazyload DB
-** inst
-** preparing package for lazy loading
-Error: package or namespace load failed for ‘phyloseq’ in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]):
- there is no package called ‘data.table’
-Error : package ‘phyloseq’ could not be loaded
-ERROR: lazy loading failed for package ‘curatedMetagenomicData’
-* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/curatedMetagenomicData/new/curatedMetagenomicData.Rcheck/curatedMetagenomicData’
-
-```
-### CRAN
-
-```
-* installing *source* package ‘curatedMetagenomicData’ ...
-** R
-** data
-*** moving datasets to lazyload DB
-** inst
-** preparing package for lazy loading
-Error: package or namespace load failed for ‘phyloseq’ in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]):
- there is no package called ‘data.table’
-Error : package ‘phyloseq’ could not be loaded
-ERROR: lazy loading failed for package ‘curatedMetagenomicData’
-* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/curatedMetagenomicData/old/curatedMetagenomicData.Rcheck/curatedMetagenomicData’
-
-```
-# cutpointr
-
-Version: 0.7.3
-
-## In both
-
-*   checking tests ...
+*   checking installed package size ... NOTE
     ```
-     ERROR
-    Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-      > library(testthat)
-      Warning message:
-      package 'testthat' was built under R version 3.4.3 
-      > library(cutpointr)
-      > 
-      > test_check("cutpointr")
-      [31m──[39m [31m1. Failure: Cutpointr returns a cutpointr without NAs and a certain Nr of rows (@test-cutpointr.R#11) [39m [31m──────[39m
-      `plot_precision_recall(opt_cut)` produced warnings.
-      
-      ══ testthat results  ═══════════════════════════════════════════════════════════════════════════════════════════
-      OK: 358 SKIPPED: 0 FAILED: 1
-      1. Failure: Cutpointr returns a cutpointr without NAs and a certain Nr of rows (@test-cutpointr.R#11) 
-      
-      Error: testthat unit tests failed
-      Execution halted
+      installed size is  5.7Mb
+      sub-directories of 1Mb or more:
+        doc    1.4Mb
+        help   2.7Mb
     ```
 
 # d3r
 
-Version: 0.8.1
+Version: 0.8.3
 
 ## In both
 
@@ -1169,156 +1054,111 @@ Version: 0.8.1
       ‘igraph’ ‘partykit’ ‘treemap’ ‘V8’
     ```
 
-# dartR
+# DAPAR
 
-Version: 1.0
-
-## In both
-
-*   checking package dependencies ... ERROR
-    ```
-    Packages required but not available: ‘data.table’ ‘rgdal’
-    
-    See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-    manual.
-    ```
-
-# DChIPRep
-
-Version: 1.6.2
-
-## In both
-
-*   checking whether package ‘DChIPRep’ can be installed ... ERROR
-    ```
-    Installation failed.
-    See ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/DChIPRep/new/DChIPRep.Rcheck/00install.out’ for details.
-    ```
-
-## Installation
-
-### Devel
-
-```
-* installing *source* package ‘DChIPRep’ ...
-** R
-** data
-*** moving datasets to lazyload DB
-
-Warning: namespace 'DChIPRep' is not available and has been replaced
-by .GlobalEnv when processing object 'testData'
-Warning: namespace 'DChIPRep' is not available and has been replaced
-by .GlobalEnv when processing object 'testData'
-** exec
-** inst
-** preparing package for lazy loading
-Error: package or namespace load failed for 'DESeq2' in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]):
- there is no package called 'data.table'
-Error : package 'DESeq2' could not be loaded
-ERROR: lazy loading failed for package 'DChIPRep'
-* removing '/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/DChIPRep/new/DChIPRep.Rcheck/DChIPRep'
-
-```
-### CRAN
-
-```
-* installing *source* package ‘DChIPRep’ ...
-** R
-** data
-*** moving datasets to lazyload DB
-
-Warning: namespace 'DChIPRep' is not available and has been replaced
-by .GlobalEnv when processing object 'testData'
-Warning: namespace 'DChIPRep' is not available and has been replaced
-by .GlobalEnv when processing object 'testData'
-** exec
-** inst
-** preparing package for lazy loading
-Error: package or namespace load failed for 'DESeq2' in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]):
- there is no package called 'data.table'
-Error : package 'DESeq2' could not be loaded
-ERROR: lazy loading failed for package 'DChIPRep'
-* removing '/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/DChIPRep/old/DChIPRep.Rcheck/DChIPRep'
-
-```
-# DeepBlueR
-
-Version: 1.2.10
-
-## In both
-
-*   checking package dependencies ... ERROR
-    ```
-    Package required but not available: ‘data.table’
-    
-    See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-    manual.
-    ```
-
-# DEGreport
-
-Version: 1.12.0
+Version: 1.12.11
 
 ## In both
 
 *   checking examples ... ERROR
     ```
-    ...
+    Running examples in ‘DAPAR-Ex.R’ failed
+    The error most likely occurred in:
     
-    Attaching package: ‘matrixStats’
+    > ### Name: violinPlotD
+    > ### Title: Builds a violinplot from a dataframe
+    > ### Aliases: violinPlotD
+    > 
+    > ### ** Examples
+    > 
+    > require(DAPARdata)
+    Loading required package: DAPARdata
     
-    The following objects are masked from ‘package:Biobase’:
-    
-        anyMissing, rowMedians
-    
-    
-    Attaching package: ‘DelayedArray’
-    
-    The following objects are masked from ‘package:matrixStats’:
-    
-        colMaxs, colMins, colRanges, rowMaxs, rowMins, rowRanges
-    
-    The following object is masked from ‘package:base’:
-    
-        apply
-    
-    Error: package or namespace load failed for ‘DESeq2’ in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]):
-     there is no package called ‘data.table’
+    This is DAPARdata version 1.10.2.
+    Use 'DAPARdata()' to list available data sets.
+    > data(Exp1_R25_pept)
+    > library(vioplot)
+    Error: package ‘sm’ required by ‘vioplot’ could not be found
     Execution halted
     ```
 
-*   checking whether package ‘DEGreport’ can be installed ... WARNING
-    ```
-    Found the following significant warnings:
-      Warning: package ‘quantreg’ was built under R version 3.4.3
-    See ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/DEGreport/new/DEGreport.Rcheck/00install.out’ for details.
-    ```
-
-*   checking re-building of vignette outputs ... WARNING
+*   checking R code for possible problems ... NOTE
     ```
     ...
-    
-    The following objects are masked from 'package:Biobase':
-    
-        anyMissing, rowMedians
-    
-    
-    Attaching package: 'DelayedArray'
-    
-    The following objects are masked from 'package:matrixStats':
-    
-        colMaxs, colMins, colRanges, rowMaxs, rowMins, rowRanges
-    
-    The following object is masked from 'package:base':
-    
-        apply
-    
-    Quitting from lines 133-143 (DEGreport.Rnw) 
-    Error: processing vignette 'DEGreport.Rnw' failed with diagnostics:
-    package or namespace load failed for 'DESeq2' in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]):
-     there is no package called 'data.table'
-    Execution halted
+    diffAnaVolcanoplot_rCharts: no visible binding for global variable ‘g’
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/DAPAR/new/DAPAR.Rcheck/00_pkg_src/DAPAR/R/volcanoPlot.R:177-192)
+    getTextForGOAnalysis: no visible binding for global variable
+      ‘textGOParams’
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/DAPAR/new/DAPAR.Rcheck/00_pkg_src/DAPAR/R/logText.R:348-349)
+    getTextForGOAnalysis: no visible binding for global variable ‘input’
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/DAPAR/new/DAPAR.Rcheck/00_pkg_src/DAPAR/R/logText.R:348-349)
+    getTextForGOAnalysis: no visible binding for global variable ‘input’
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/DAPAR/new/DAPAR.Rcheck/00_pkg_src/DAPAR/R/logText.R:350-352)
+    getTextForGOAnalysis: no visible binding for global variable
+      ‘textGOParams’
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/DAPAR/new/DAPAR.Rcheck/00_pkg_src/DAPAR/R/logText.R:355-357)
+    getTextForGOAnalysis: no visible binding for global variable ‘input’
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/DAPAR/new/DAPAR.Rcheck/00_pkg_src/DAPAR/R/logText.R:355-357)
+    getTextForGOAnalysis: no visible binding for global variable
+      ‘textGOParams’
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/DAPAR/new/DAPAR.Rcheck/00_pkg_src/DAPAR/R/logText.R:360-361)
+    getTextForGOAnalysis: no visible binding for global variable ‘input’
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/DAPAR/new/DAPAR.Rcheck/00_pkg_src/DAPAR/R/logText.R:360-361)
+    Undefined global functions or variables:
+      g input textGOParams x y
     ```
+
+# dartR
+
+Version: 1.0.5
+
+## In both
+
+*   checking dependencies in R code ... NOTE
+    ```
+    Namespaces in Imports field not imported from:
+      ‘DBI’ ‘Demerelate’ ‘misc3d’ ‘plotly’ ‘quadprog’ ‘rgl’
+      All declared Imports should be used.
+    ```
+
+# DChIPRep
+
+Version: 1.10.0
+
+## In both
+
+*   checking installed package size ... NOTE
+    ```
+      installed size is  5.2Mb
+      sub-directories of 1Mb or more:
+        doc       1.7Mb
+        extdata   2.2Mb
+    ```
+
+*   checking DESCRIPTION meta-information ... NOTE
+    ```
+    Malformed Description field: should contain one or more complete sentences.
+    ```
+
+# DeepBlueR
+
+Version: 1.6.0
+
+## In both
+
+*   R CMD check timed out
+    
+
+*   checking Rd files ... NOTE
+    ```
+    prepare_Rd: deepblue_enrich_regions_fast.Rd:35-38: Dropping empty section \examples
+    ```
+
+# DEGreport
+
+Version: 1.16.0
+
+## In both
 
 *   checking for hidden files and directories ... NOTE
     ```
@@ -1328,91 +1168,149 @@ Version: 1.12.0
     structure’ in the ‘Writing R Extensions’ manual.
     ```
 
+*   checking DESCRIPTION meta-information ... NOTE
+    ```
+    Package listed in more than one of Depends, Imports, Suggests, Enhances:
+      ‘knitr’
+    A package should be listed in only one of these fields.
+    ```
+
 *   checking R code for possible problems ... NOTE
     ```
     ...
-      ‘plotCounts’
-    degPlotWide: no visible binding for global variable ‘gene’
-    degPlotWide: no visible binding for global variable ‘count’
-    degPlotWide: no visible binding for global variable ‘treatment’
-    degResults: no visible global function definition for ‘assay’
-    degResults: no visible global function definition for ‘rlog’
-    degResults: no visible global function definition for ‘results’
-    degResults: no visible global function definition for ‘colData’
-    degResults: no visible global function definition for ‘rowMax’
-    degVolcano: no visible binding for global variable ‘logFC’
-    degVolcano: no visible binding for global variable ‘V1’
-    degVolcano: no visible binding for global variable ‘V2’
-    degVolcano: no visible binding for global variable ‘adj.P.Val’
-    degVolcano: no visible binding for global variable ‘x’
-    degVolcano: no visible binding for global variable ‘y’
-    degVolcano: no visible binding for global variable ‘name’
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/DEGreport/new/DEGreport.Rcheck/00_pkg_src/DEGreport/R/methods.R:274-282)
+    degMV: no visible binding for global variable ‘max_sd’
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/DEGreport/new/DEGreport.Rcheck/00_pkg_src/DEGreport/R/methods.R:274-282)
+    degPatterns: no visible global function definition for ‘rowMedians’
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/DEGreport/new/DEGreport.Rcheck/00_pkg_src/DEGreport/R/clustering.R:785-787)
+    degPatterns: no visible binding for global variable ‘genes’
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/DEGreport/new/DEGreport.Rcheck/00_pkg_src/DEGreport/R/clustering.R:816-821)
+    degPlotWide : <anonymous>: no visible binding for global variable
+      ‘count’
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/DEGreport/new/DEGreport.Rcheck/00_pkg_src/DEGreport/R/genePlots.R:155-158)
+    significants,TopTags: no visible binding for global variable ‘FDR’
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/DEGreport/new/DEGreport.Rcheck/00_pkg_src/DEGreport/R/AllMethods.R:147-151)
+    significants,TopTags: no visible binding for global variable ‘logFC’
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/DEGreport/new/DEGreport.Rcheck/00_pkg_src/DEGreport/R/AllMethods.R:147-151)
+    significants,list : <anonymous>: no visible binding for global variable
+      ‘gene’
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/DEGreport/new/DEGreport.Rcheck/00_pkg_src/DEGreport/R/AllMethods.R:225)
     Undefined global functions or variables:
-      MulticoreParam V1 V2 adj.P.Val assay bplapply coda.samples colData
-      comp count enrichGO gene group jags.model keys label log2FoldChange
-      logFC name one plotCounts results rlog rowMax simplify treatment two
-      value variable x y
+      .x FDR base_mean comp compare count counts covar enrichGO gene genes
+      keys log2FoldChange log2fc logFC max_sd min_median ratios rowMedians
+      simplify
     ```
 
-# dexter
+# DEP
 
-Version: 0.6.0
+Version: 1.2.0
 
 ## In both
 
-*   checking data for non-ASCII characters ... NOTE
+*   checking installed package size ... NOTE
     ```
-      Note: found 109 marked UTF-8 strings
+      installed size is  6.0Mb
+      sub-directories of 1Mb or more:
+        R      1.2Mb
+        data   1.4Mb
+        doc    3.1Mb
     ```
 
-# diceR
+# destiny
 
-Version: 0.5.0
+Version: 2.10.2
 
 ## In both
 
-*   checking examples ... ERROR
+*   checking running R code from vignettes ...
     ```
-    Running examples in ‘diceR-Ex.R’ failed
-    The error most likely occurred in:
+    ...
+      When tangling ‘Diffusion-Map-recap.ipynbmeta’:
+    Error: Either IPython 3+ or Jupyter has to be installed, but neither could be called.
+    Execution halted
+    when running code in ‘Diffusion-Maps.ipynbmeta’
+      ...
     
-    > ### Name: CSPA
-    > ### Title: Cluster-based Similarity Partitioning Algorithm (CSPA)
-    > ### Aliases: CSPA
-    > 
-    > ### ** Examples
-    > 
-    > data(hgsc)
-    > dat <- hgsc[1:100, 1:50]
-    > x <- consensus_cluster(dat, nk = 4, reps = 4, algorithms = c("hc", "diana"),
-    + progress = FALSE)
-    Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
-      there is no package called ‘data.table’
-    Calls: consensus_cluster ... tryCatch -> tryCatchList -> tryCatchOne -> <Anonymous>
+      When tangling ‘Diffusion-Maps.ipynbmeta’:
+    Error: Either IPython 3+ or Jupyter has to be installed, but neither could be called.
+    Execution halted
+    when running code in ‘Global-Sigma.ipynbmeta’
+      ...
+    
+      When tangling ‘Global-Sigma.ipynbmeta’:
+    Error: Either IPython 3+ or Jupyter has to be installed, but neither could be called.
+    Execution halted
+    when running code in ‘tidyverse.ipynbmeta’
+      ...
+    
+      When tangling ‘tidyverse.ipynbmeta’:
+    Error: Either IPython 3+ or Jupyter has to be installed, but neither could be called.
     Execution halted
     ```
 
-*   checking tests ...
+*   checking package dependencies ... NOTE
     ```
-     ERROR
-    Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-      ══ testthat results  ═══════════════════════════════════════════════════════════════════════════════════════════
-      OK: 53 SKIPPED: 0 FAILED: 19
-      1. Error: No algorithms means all algorithms, output is an array (@test-consensus_cluster.R#7) 
-      2. Error: Output can be saved with or without time in file name (@test-consensus_cluster.R#13) 
-      3. Error: Progress bar increments across entire function call (@test-consensus_cluster.R#24) 
-      4. Error: Able to call only spearman distance (@test-consensus_cluster.R#32) 
-      5. Error: Data preparation on bootstrap samples works (@test-consensus_cluster.R#38) 
-      6. Error: no scaling means only choose complete cases and high signal vars (@test-consensus_cluster.R#45) 
-      7. Error: t-SNE dimension reduction works (@test-consensus_cluster.R#51) 
-      8. Error: (unknown) (@test-consensus_combine.R#9) 
-      9. Error: (unknown) (@test-consensus_funs.R#6) 
-      1. ...
-      
-      Error: testthat unit tests failed
-      Execution halted
+    Package which this enhances but not available for checking: ‘rgl’
     ```
+
+*   checking installed package size ... NOTE
+    ```
+      installed size is  6.9Mb
+      sub-directories of 1Mb or more:
+        R     2.0Mb
+        doc   4.3Mb
+    ```
+
+*   checking DESCRIPTION meta-information ... NOTE
+    ```
+    Package listed in more than one of Depends, Imports, Suggests, Enhances:
+      ‘SingleCellExperiment’
+    A package should be listed in only one of these fields.
+    'LinkingTo' for ‘grDevices’ is unused as it has no 'include' directory
+    ```
+
+*   checking Rd cross-references ... NOTE
+    ```
+    Package unavailable to check Rd xrefs: ‘rgl’
+    ```
+
+*   checking Rd \usage sections ... NOTE
+    ```
+    S3 methods shown with full name in documentation object 'plot.DPT':
+      ‘plot.DPT’
+    
+    S3 methods shown with full name in documentation object 'plot.DiffusionMap':
+      ‘plot.DiffusionMap’
+    
+    The \usage entries for S3 methods should use the \method markup and not
+    their full name.
+    See chapter ‘Writing R documentation files’ in the ‘Writing R
+    Extensions’ manual.
+    ```
+
+*   checking for unstated dependencies in vignettes ... NOTE
+    ```
+    '::' or ':::' imports not declared from:
+      ‘gridExtra’ ‘viridis’
+    'library' or 'require' calls not declared from:
+      ‘IRdisplay’ ‘IRkernel’ ‘base64enc’ ‘forcats’ ‘readxl’ ‘repr’
+      ‘tidyverse’
+    ```
+
+*   checking re-building of vignette outputs ... NOTE
+    ```
+    Error in re-building vignettes:
+      ...
+    Error: processing vignette 'DPT.ipynbmeta' failed with diagnostics:
+    Either IPython 3+ or Jupyter has to be installed, but neither could be called.
+    Execution halted
+    ```
+
+# dextergui
+
+Version: 0.1.4
+
+## In both
 
 *   checking re-building of vignette outputs ... WARNING
     ```
@@ -1429,67 +1327,134 @@ Version: 0.5.0
     
         intersect, setdiff, setequal, union
     
-    Quitting from lines 122-124 (overview.Rmd) 
-    Error: processing vignette 'overview.Rmd' failed with diagnostics:
-    there is no package called 'data.table'
+    Loading required package: RSQLite
+    no column `person_id` provided, automatically generating unique person id's
+    File img/main_bar.PNG not found in resource path
+    Error: processing vignette 'dextergui.Rmd' failed with diagnostics:
+    pandoc document conversion failed with error 99
     Execution halted
     ```
 
-# dimRed
+*   checking dependencies in R code ... NOTE
+    ```
+    Unexported objects imported by ':::' calls:
+      ‘dexter:::get_resp_data’ ‘dexter:::qcolors’
+      See the note in ?`:::` about the use of this operator.
+    ```
 
-Version: 0.1.0
+# DiagrammeR
+
+Version: 1.0.0
 
 ## In both
 
-*   checking whether package ‘dimRed’ can be installed ... WARNING
+*   checking installed package size ... NOTE
     ```
-    Found the following significant warnings:
-      Warning: package ‘Matrix’ was built under R version 3.4.4
-    See ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/dimRed/new/dimRed.Rcheck/00install.out’ for details.
+      installed size is  6.8Mb
+      sub-directories of 1Mb or more:
+        R             3.0Mb
+        htmlwidgets   3.0Mb
+    ```
+
+*   checking data for non-ASCII characters ... NOTE
+    ```
+      Note: found 1 marked UTF-8 string
+    ```
+
+# diffcyt
+
+Version: 1.0.10
+
+## In both
+
+*   checking re-building of vignette outputs ... WARNING
+    ```
+    Error in re-building vignettes:
+      ...
+    Quitting from lines 127-144 (diffcyt_workflow.Rmd) 
+    Error: processing vignette 'diffcyt_workflow.Rmd' failed with diagnostics:
+    there is no package called 'HDCytoData'
+    Execution halted
+    ```
+
+*   checking package dependencies ... NOTE
+    ```
+    Package suggested but not available for checking: ‘HDCytoData’
+    ```
+
+*   checking R code for possible problems ... NOTE
+    ```
+    ...
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/diffcyt/new/diffcyt.Rcheck/00_pkg_src/diffcyt/R/calcMedians.R:133-136)
+    calcMediansByClusterMarker: no visible binding for global variable
+      ‘cluster_id’
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/diffcyt/new/diffcyt.Rcheck/00_pkg_src/diffcyt/R/calcMediansByClusterMarker.R:123-126)
+    calcMediansByClusterMarker: no visible binding for global variable
+      ‘marker’
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/diffcyt/new/diffcyt.Rcheck/00_pkg_src/diffcyt/R/calcMediansByClusterMarker.R:123-126)
+    calcMediansByClusterMarker: no visible binding for global variable
+      ‘value’
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/diffcyt/new/diffcyt.Rcheck/00_pkg_src/diffcyt/R/calcMediansByClusterMarker.R:123-126)
+    calcMediansBySampleMarker: no visible binding for global variable
+      ‘sample_id’
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/diffcyt/new/diffcyt.Rcheck/00_pkg_src/diffcyt/R/calcMediansBySampleMarker.R:119-122)
+    calcMediansBySampleMarker: no visible binding for global variable
+      ‘marker’
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/diffcyt/new/diffcyt.Rcheck/00_pkg_src/diffcyt/R/calcMediansBySampleMarker.R:119-122)
+    calcMediansBySampleMarker: no visible binding for global variable
+      ‘value’
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/diffcyt/new/diffcyt.Rcheck/00_pkg_src/diffcyt/R/calcMediansBySampleMarker.R:119-122)
+    Undefined global functions or variables:
+      cluster_id marker sample_id value
+    ```
+
+# disto
+
+Version: 0.2.0
+
+## In both
+
+*   checking dependencies in R code ... NOTE
+    ```
+    Namespaces in Imports field not imported from:
+      ‘dplyr’ ‘proxy’
+      All declared Imports should be used.
+    ```
+
+# DLMtool
+
+Version: 5.2.3
+
+## In both
+
+*   checking package dependencies ... ERROR
+    ```
+    Package required but not available: ‘devtools’
+    
+    See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
+    manual.
     ```
 
 # dlookr
 
-Version: 0.3.0
+Version: 0.3.2
 
 ## In both
 
-*   checking whether package ‘dlookr’ can be installed ... ERROR
+*   checking installed package size ... NOTE
     ```
-    Installation failed.
-    See ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/dlookr/new/dlookr.Rcheck/00install.out’ for details.
+      installed size is  5.1Mb
+      sub-directories of 1Mb or more:
+        doc   4.2Mb
     ```
 
-## Installation
+*   checking dependencies in R code ... NOTE
+    ```
+    Namespaces in Imports field not imported from:
+      ‘dbplyr’ ‘randomForest’
+      All declared Imports should be used.
+    ```
 
-### Devel
-
-```
-* installing *source* package ‘dlookr’ ...
-** package ‘dlookr’ successfully unpacked and MD5 sums checked
-** R
-** inst
-** preparing package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
-  there is no package called ‘data.table’
-ERROR: lazy loading failed for package ‘dlookr’
-* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/dlookr/new/dlookr.Rcheck/dlookr’
-
-```
-### CRAN
-
-```
-* installing *source* package ‘dlookr’ ...
-** package ‘dlookr’ successfully unpacked and MD5 sums checked
-** R
-** inst
-** preparing package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
-  there is no package called ‘data.table’
-ERROR: lazy loading failed for package ‘dlookr’
-* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/dlookr/old/dlookr.Rcheck/dlookr’
-
-```
 # dplyrAssist
 
 Version: 0.1.0
@@ -1503,59 +1468,114 @@ Version: 0.1.0
       All declared Imports should be used.
     ```
 
+# DSAIDE
+
+Version: 0.7.0
+
+## In both
+
+*   checking installed package size ... NOTE
+    ```
+      installed size is  5.4Mb
+      sub-directories of 1Mb or more:
+        media       2.2Mb
+        shinyapps   2.6Mb
+    ```
+
+*   checking dependencies in R code ... NOTE
+    ```
+    Namespaces in Imports field not imported from:
+      ‘knitr’ ‘rmarkdown’ ‘utils’
+      All declared Imports should be used.
+    ```
+
+# DSAIRM
+
+Version: 0.4.0
+
+## In both
+
+*   checking dependencies in R code ... NOTE
+    ```
+    Namespaces in Imports field not imported from:
+      ‘knitr’ ‘rmarkdown’
+      All declared Imports should be used.
+    ```
+
 # dynfrail
 
 Version: 0.5.2
 
 ## In both
 
-*   checking package dependencies ... ERROR
+*   checking whether package ‘dynfrail’ can be installed ... ERROR
     ```
-    Package required but not available: ‘RcppArmadillo’
-    
-    See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-    manual.
+    Installation failed.
+    See ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/dynfrail/new/dynfrail.Rcheck/00install.out’ for details.
     ```
 
-# easyformatr
+## Installation
 
-Version: 0.1.2
+### Devel
+
+```
+* installing *source* package ‘dynfrail’ ...
+** package ‘dynfrail’ successfully unpacked and MD5 sums checked
+** libs
+ccache clang++ -Qunused-arguments  -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/new/Rcpp/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/dynfrail/RcppArmadillo/include" -I/usr/local/include  -fopenmp  -fPIC  -Wall -g -O2  -c RcppExports.cpp -o RcppExports.o
+clang: error: unsupported option '-fopenmp'
+make: *** [RcppExports.o] Error 1
+ERROR: compilation failed for package ‘dynfrail’
+* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/dynfrail/new/dynfrail.Rcheck/dynfrail’
+
+```
+### CRAN
+
+```
+* installing *source* package ‘dynfrail’ ...
+** package ‘dynfrail’ successfully unpacked and MD5 sums checked
+** libs
+ccache clang++ -Qunused-arguments  -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/old/Rcpp/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/dynfrail/RcppArmadillo/include" -I/usr/local/include  -fopenmp  -fPIC  -Wall -g -O2  -c RcppExports.cpp -o RcppExports.o
+clang: error: unsupported option '-fopenmp'
+make: *** [RcppExports.o] Error 1
+ERROR: compilation failed for package ‘dynfrail’
+* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/dynfrail/old/dynfrail.Rcheck/dynfrail’
+
+```
+# dynutils
+
+Version: 1.0.0
 
 ## In both
 
-*   checking whether package ‘easyformatr’ can be installed ... WARNING
+*   checking package dependencies ... ERROR
     ```
-    Found the following significant warnings:
-      Warning: package ‘bindrcpp’ was built under R version 3.4.4
-    See ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/easyformatr/new/easyformatr.Rcheck/00install.out’ for details.
+    Package required but not available: ‘devtools’
+    
+    See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
+    manual.
     ```
 
 # echor
 
-Version: 0.1.0
+Version: 0.1.1
 
 ## In both
 
-*   checking package dependencies ... ERROR
+*   checking package dependencies ... NOTE
     ```
-    Package required but not available: ‘sf’
-    
-    See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-    manual.
+    Package suggested but not available for checking: ‘sf’
     ```
 
-# edeaR
+# edgarWebR
 
-Version: 0.8.0
+Version: 1.0.0
 
 ## In both
 
-*   checking package dependencies ... ERROR
+*   checking package dependencies ... NOTE
     ```
-    Package required but not available: ‘data.table’
-    
-    See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-    manual.
+    Package suggested but not available for checking: ‘devtools’
     ```
 
 # eechidna
@@ -1564,60 +1584,14 @@ Version: 1.1
 
 ## In both
 
-*   checking package dependencies ... ERROR
+*   checking installed package size ... NOTE
     ```
-    Package required but not available: ‘rgdal’
-    
-    See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-    manual.
-    ```
-
-# eemR
-
-Version: 0.1.5
-
-## In both
-
-*   checking whether package ‘eemR’ can be installed ... ERROR
-    ```
-    Installation failed.
-    See ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/eemR/new/eemR.Rcheck/00install.out’ for details.
+      installed size is  7.1Mb
+      sub-directories of 1Mb or more:
+        data   5.6Mb
+        doc    1.2Mb
     ```
 
-## Installation
-
-### Devel
-
-```
-* installing *source* package ‘eemR’ ...
-** package ‘eemR’ successfully unpacked and MD5 sums checked
-** R
-** data
-*** moving datasets to lazyload DB
-** inst
-** preparing package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
-  there is no package called ‘data.table’
-ERROR: lazy loading failed for package ‘eemR’
-* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/eemR/new/eemR.Rcheck/eemR’
-
-```
-### CRAN
-
-```
-* installing *source* package ‘eemR’ ...
-** package ‘eemR’ successfully unpacked and MD5 sums checked
-** R
-** data
-*** moving datasets to lazyload DB
-** inst
-** preparing package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
-  there is no package called ‘data.table’
-ERROR: lazy loading failed for package ‘eemR’
-* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/eemR/old/eemR.Rcheck/eemR’
-
-```
 # EFDR
 
 Version: 0.1.1
@@ -1626,16 +1600,19 @@ Version: 0.1.1
 
 *   checking R code for possible problems ... NOTE
     ```
-    .gdf : find_loss: no visible global function definition for ‘rnorm’
-    .p.values : <anonymous>: no visible global function definition for
-      ‘pnorm’
-    .relist.dwt: no visible global function definition for ‘relist’
+    ...
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/EFDR/new/EFDR.Rcheck/00_pkg_src/EFDR/R/EFDR_functions.R:686)
     .relist.dwt: no visible global function definition for ‘as’
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/EFDR/new/EFDR.Rcheck/00_pkg_src/EFDR/R/EFDR_functions.R:686)
     .std.wav.coeff : <anonymous>: no visible global function definition for
       ‘mad’
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/EFDR/new/EFDR.Rcheck/00_pkg_src/EFDR/R/EFDR_functions.R:698)
     regrid: no visible global function definition for ‘predict’
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/EFDR/new/EFDR.Rcheck/00_pkg_src/EFDR/R/EFDR_functions.R:391-396)
     regrid: no visible global function definition for ‘var’
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/EFDR/new/EFDR.Rcheck/00_pkg_src/EFDR/R/EFDR_functions.R:406)
     regrid: no visible global function definition for ‘medpolish’
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/EFDR/new/EFDR.Rcheck/00_pkg_src/EFDR/R/EFDR_functions.R:427)
     Undefined global functions or variables:
       as mad medpolish pnorm predict relist rnorm var
     Consider adding
@@ -1647,46 +1624,50 @@ Version: 0.1.1
     contains 'methods').
     ```
 
-# eiCompare
-
-Version: 2.1
-
-## In both
-
-*   checking package dependencies ... ERROR
-    ```
-    Package required but not available: ‘data.table’
-    
-    See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-    manual.
-    ```
-
-# emil
-
-Version: 2.2.8
-
-## In both
-
-*   checking package dependencies ... ERROR
-    ```
-    Package required but not available: ‘data.table’
-    
-    See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-    manual.
-    ```
-
 # ENCODExplorer
 
-Version: 2.2.1
+Version: 2.6.0
 
 ## In both
 
-*   checking package dependencies ... ERROR
+*   checking installed package size ... NOTE
     ```
-    Package required but not available: ‘data.table’
-    
-    See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-    manual.
+      installed size is 74.0Mb
+      sub-directories of 1Mb or more:
+        data     24.1Mb
+        doc       1.5Mb
+        extdata  48.0Mb
+    ```
+
+*   checking R code for possible problems ... NOTE
+    ```
+    ...
+    step6_target: no visible binding for global variable ‘target’
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/ENCODExplorer/new/ENCODExplorer.Rcheck/00_pkg_src/ENCODExplorer/R/prepare_data.R:354-355)
+    step7: no visible binding for global variable ‘organism’
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/ENCODExplorer/new/ENCODExplorer.Rcheck/00_pkg_src/ENCODExplorer/R/prepare_data.R:424-425)
+    step8: no visible binding for global variable ‘investigated_as’
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/ENCODExplorer/new/ENCODExplorer.Rcheck/00_pkg_src/ENCODExplorer/R/prepare_data.R:436-437)
+    step8: no visible binding for global variable ‘target’
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/ENCODExplorer/new/ENCODExplorer.Rcheck/00_pkg_src/ENCODExplorer/R/prepare_data.R:439-440)
+    step9: no visible binding for global variable ‘organism’
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/ENCODExplorer/new/ENCODExplorer.Rcheck/00_pkg_src/ENCODExplorer/R/prepare_data.R:449-450)
+    Undefined global functions or variables:
+      . Experiment Value accession antibody_caption
+      antibody_characterization antibody_target assay
+      biological_replicate_number biosample_name biosample_type col_name
+      controls data date_released download.file encode_df file_accession
+      file_format href investigated_as lab nucleic_acid_term organism
+      platform project replicate_antibody replicate_library server status
+      submitted_by target technical_replicate_number treatment ui value
+    Consider adding
+      importFrom("utils", "data", "download.file")
+    to your NAMESPACE file.
+    ```
+
+*   checking data for non-ASCII characters ... NOTE
+    ```
+      Note: found 771 marked UTF-8 strings
     ```
 
 # epitable
@@ -1702,100 +1683,74 @@ Version: 0.1.2
       All declared Imports should be used.
     ```
 
-# ERSA
+# epos
 
 Version: 0.1.0
 
 ## In both
 
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘ERSA-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: plotSum
-    > ### Title: Plots of model summaries
-    > ### Aliases: plotSum plotAnovaStats plottStats plotCIStats
-    > 
-    > ### ** Examples
-    > 
-    > plotAnovaStats(lm(mpg ~ wt+hp+disp, data=mtcars))
-    Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
-      there is no package called ‘data.table’
-    Calls: plotAnovaStats ... tryCatch -> tryCatchList -> tryCatchOne -> <Anonymous>
-    Execution halted
-    ```
-
 *   checking dependencies in R code ... NOTE
     ```
     Namespaces in Imports field not imported from:
-      ‘RColorBrewer’ ‘modelr’
+      ‘dplyr’ ‘testthat’ ‘tidyr’
       All declared Imports should be used.
     ```
 
 # eurostat
 
-Version: 3.1.5
+Version: 3.2.9
 
 ## In both
 
-*   checking tests ...
+*   checking package dependencies ... ERROR
     ```
-     ERROR
-    Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-      trying URL 'http://ec.europa.eu/eurostat/estat-navtree-portlet-prod/BulkDownloadListing?sort=1&file=data%2Ftsdtr210.tsv.gz'
-      downloaded 17 KB
-      
-      [31m──[39m [31m1. Error: (unknown) (@test-all.R#112) [39m [31m──────────────────────────────────────────────────────────────────────[39m
-      tsdtr210 does not exist or is not readable
-      1: get_eurostat("tsdtr210", type = "label", keepFlags = T, cache = FALSE) at testthat/test-all.R:112
-      2: get_eurostat_raw(id)
-      3: stop(id, " does not exist or is not readable")
-      
-      ══ testthat results  ═══════════════════════════════════════════════════════════════════════════════════════════
-      OK: 0 SKIPPED: 14 FAILED: 1
-      1. Error: (unknown) (@test-all.R#112) 
-      
-      Error: testthat unit tests failed
-      Execution halted
+    Package required but not available: ‘sf’
+    
+    See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
+    manual.
     ```
 
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    ...
-    Attaching package: 'dplyr'
-    
-    The following objects are masked from 'package:stats':
-    
-        filter, lag
-    
-    The following objects are masked from 'package:base':
-    
-        intersect, setdiff, setequal, union
-    
-    trying URL 'http://ec.europa.eu/eurostat/estat-navtree-portlet-prod/BulkDownloadListing?sort=1&file=data%2Ften00081.tsv.gz'
-    Content type 'application/octet-stream;charset=UTF-8' length 13491 bytes (13 KB)
-    ==================================================
-    downloaded 13 KB
-    
-    Table ten00081 cached at /tmp/Rtmplr6xCo/eurostat/ten00081_date_code_TF.rds
-    Quitting from lines 291-309 (eurostat_tutorial.Rmd) 
-    Error: processing vignette 'eurostat_tutorial.Rmd' failed with diagnostics:
-    package or namespace load failed for 'tmap' in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]):
-     there is no package called 'rgdal'
-    Execution halted
-    ```
+# ExPanDaR
 
-# extdplyr
-
-Version: 0.1.4
+Version: 0.3.0
 
 ## In both
 
 *   checking package dependencies ... NOTE
     ```
-    Package suggested but not available for checking: ‘data.table’
+    Package suggested but not available for checking: ‘devtools’
+    ```
+
+# eyetrackingR
+
+Version: 0.1.7
+
+## In both
+
+*   checking re-building of vignette outputs ... WARNING
+    ```
+    ...
+      ...
+    Warning: Removed 37 rows containing non-finite values (stat_summary).
+    Warning: Removed 37 rows containing non-finite values (stat_summary).
+    Warning: Removed 37 rows containing non-finite values (stat_summary).
+    Warning: Removed 37 rows containing non-finite values (stat_summary).
+    Warning: Removed 37 rows containing non-finite values (stat_summary).
+    Warning: Removed 37 rows containing non-finite values (stat_summary).
+    Warning: Removed 37 rows containing non-finite values (stat_summary).
+    Warning: Removed 37 rows containing non-finite values (stat_summary).
+    Warning in make_onset_data(response_window_clean, onset_time = 15500, fixation_window_length = 1,  :
+      Very few trials have a legitimate first AOI! Possible incorrect onset time?
+    Warning in max(SwitchAOI) :
+      no non-missing arguments to max; returning -Inf
+    Warning in min(SwitchAOI) :
+      no non-missing arguments to min; returning Inf
+    Warning in max(df_plot$.Time) :
+      no non-missing arguments to max; returning -Inf
+    Quitting from lines 91-93 (onset_contingent_analysis_vignette.Rmd) 
+    Error: processing vignette 'onset_contingent_analysis_vignette.Rmd' failed with diagnostics:
+    replacement has 1 row, data has 0
+    Execution halted
     ```
 
 # factoextra
@@ -1811,56 +1766,59 @@ Version: 1.0.5
 
 # fastR2
 
-Version: 0.2.0
+Version: 1.2.1
 
 ## In both
 
-*   checking whether package ‘fastR2’ can be installed ... WARNING
+*   checking installed package size ... NOTE
     ```
-    Found the following significant warnings:
-      Warning: package ‘ggformula’ was built under R version 3.4.3
-      Warning: package ‘mosaic’ was built under R version 3.4.3
-      Warning: package ‘Matrix’ was built under R version 3.4.4
-    See ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/fastR2/new/fastR2.Rcheck/00install.out’ for details.
+      installed size is  5.0Mb
+      sub-directories of 1Mb or more:
+        snippet   3.7Mb
     ```
 
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespace in Imports field not imported from: ‘magrittr’
-      All declared Imports should be used.
-    ```
+# fingertipscharts
 
-# fourierin
-
-Version: 0.2.2
+Version: 0.0.2
 
 ## In both
 
 *   checking package dependencies ... ERROR
     ```
-    Package required but not available: ‘RcppArmadillo’
+    Package required but not available: ‘sf’
     
     See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
     manual.
     ```
 
-# futureheatwaves
+# fold
 
-Version: 1.0.3
+Version: 0.2.6
 
 ## In both
 
-*   checking package dependencies ... ERROR
+*   checking examples ... ERROR
     ```
-    Package required but not available: ‘data.table’
+    Running examples in ‘fold-Ex.R’ failed
+    The error most likely occurred in:
     
-    See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-    manual.
+    > ### Name: boxplot.folded
+    > ### Title: Boxplot Method for Folded
+    > ### Aliases: boxplot.folded
+    > 
+    > ### ** Examples
+    > 
+    > data(eventsf)
+    > boxplot(eventsf, SEX, WT, ref = 68)
+    Error in get(fun, mode = "function", envir = parent.frame()) : 
+      object 'boxplot_panel' of mode 'function' was not found
+    Calls: boxplot ... <Anonymous> -> bwplot.formula -> %in% -> formals -> get
+    Execution halted
     ```
 
-# fuzzyjoin
+# GA4GHshiny
 
-Version: 0.1.4
+Version: 1.2.0
 
 ## In both
 
@@ -1869,21 +1827,34 @@ Version: 0.1.4
      ERROR
     Running the tests in ‘tests/testthat.R’ failed.
     Last 13 lines of output:
-      [31m──[39m [31m1. Failure: Can do inner joins on intervals with findOverlaps arguments (@test_interval_join.R#56) [39m [31m─────────[39m
-      j_maxgap$id1 not equal to c(1, 1, 2, 2, 3, 3).
-      Lengths differ: 5 is not 6
+      1: library(TxDb.Hsapiens.UCSC.hg19.knownGene) at testthat/test-tidyVariants.R:17
+      2: stop(txt, domain = NA)
       
-      [31m──[39m [31m2. Failure: Can do inner joins on intervals with findOverlaps arguments (@test_interval_join.R#57) [39m [31m─────────[39m
-      j_maxgap$id2 not equal to c(1, 2, 1, 2, 2, 3).
-      Lengths differ: 5 is not 6
-      
-      ══ testthat results  ═══════════════════════════════════════════════════════════════════════════════════════════
-      OK: 225 SKIPPED: 0 FAILED: 2
-      1. Failure: Can do inner joins on intervals with findOverlaps arguments (@test_interval_join.R#56) 
-      2. Failure: Can do inner joins on intervals with findOverlaps arguments (@test_interval_join.R#57) 
+      ══ testthat results  ═════════════════════════════════════════════════════════════════════════════════
+      OK: 4 SKIPPED: 0 FAILED: 7
+      1. Error: app works (@test-app.R#5) 
+      2. Error: getGene works (@test-getGene.R#5) 
+      3. Error: initializeReferences works (@test-initializeReferences.R#6) 
+      4. Error: initializeVariantSet works (@test-initializeVariantSet.R#6) 
+      5. Error: (unknown) (@test-searchVariantsByGeneSymbol.R#4) 
+      6. Error: tidyVariants works with searchVariants output (@test-tidyVariants.R#6) 
+      7. Error: tidyVariants works with searchVariantsByGeneSymbol output (@test-tidyVariants.R#17) 
       
       Error: testthat unit tests failed
       Execution halted
+    ```
+
+*   checking package dependencies ... NOTE
+    ```
+    Package suggested but not available for checking: ‘TxDb.Hsapiens.UCSC.hg19.knownGene’
+    ```
+
+*   checking for hidden files and directories ... NOTE
+    ```
+    Found the following hidden files and directories:
+      .travis.yml
+    These were most likely included in error. See section ‘Package
+    structure’ in the ‘Writing R Extensions’ manual.
     ```
 
 # gaiah
@@ -1899,110 +1870,109 @@ Version: 0.0.2
       All declared Imports should be used.
     ```
 
-# genogeographer
+# GEOquery
 
-Version: 0.1.8
-
-## In both
-
-*   checking whether package ‘genogeographer’ can be installed ... ERROR
-    ```
-    Installation failed.
-    See ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/genogeographer/new/genogeographer.Rcheck/00install.out’ for details.
-    ```
-
-## Installation
-
-### Devel
-
-```
-* installing *source* package ‘genogeographer’ ...
-** package ‘genogeographer’ successfully unpacked and MD5 sums checked
-** R
-** data
-*** moving datasets to lazyload DB
-** inst
-** preparing package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
-  there is no package called ‘data.table’
-ERROR: lazy loading failed for package ‘genogeographer’
-* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/genogeographer/new/genogeographer.Rcheck/genogeographer’
-
-```
-### CRAN
-
-```
-* installing *source* package ‘genogeographer’ ...
-** package ‘genogeographer’ successfully unpacked and MD5 sums checked
-** R
-** data
-*** moving datasets to lazyload DB
-** inst
-** preparing package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
-  there is no package called ‘data.table’
-ERROR: lazy loading failed for package ‘genogeographer’
-* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/genogeographer/old/genogeographer.Rcheck/genogeographer’
-
-```
-# geomnet
-
-Version: 0.2.0
+Version: 2.48.0
 
 ## In both
 
-*   checking whether package ‘geomnet’ can be installed ... ERROR
+*   checking installed package size ... NOTE
     ```
-    Installation failed.
-    See ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/geomnet/new/geomnet.Rcheck/00install.out’ for details.
+      installed size is 13.9Mb
+      sub-directories of 1Mb or more:
+        extdata  12.8Mb
     ```
 
-## Installation
-
-### Devel
-
-```
-* installing *source* package ‘geomnet’ ...
-** package ‘geomnet’ successfully unpacked and MD5 sums checked
-** R
-** data
-*** moving datasets to lazyload DB
-** inst
-** preparing package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
-  there is no package called ‘data.table’
-ERROR: lazy loading failed for package ‘geomnet’
-* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/geomnet/new/geomnet.Rcheck/geomnet’
-
-```
-### CRAN
-
-```
-* installing *source* package ‘geomnet’ ...
-** package ‘geomnet’ successfully unpacked and MD5 sums checked
-** R
-** data
-*** moving datasets to lazyload DB
-** inst
-** preparing package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
-  there is no package called ‘data.table’
-ERROR: lazy loading failed for package ‘geomnet’
-* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/geomnet/old/geomnet.Rcheck/geomnet’
-
-```
-# getCRUCLdata
-
-Version: 0.2.2
-
-## In both
-
-*   checking package dependencies ... ERROR
+*   checking whether the namespace can be loaded with stated dependencies ... NOTE
     ```
-    Package required but not available: ‘data.table’
+    Warning: no function found corresponding to methods exports from ‘GEOquery’ for: ‘show’
     
-    See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-    manual.
+    A namespace must be able to be loaded with just the base namespace
+    loaded: otherwise if the namespace gets loaded by a saved object, the
+    session will be unable to start.
+    
+    Probably some imports need to be declared in the NAMESPACE file.
+    ```
+
+*   checking dependencies in R code ... NOTE
+    ```
+    Namespace in Imports field not imported from: ‘httr’
+      All declared Imports should be used.
+    Package in Depends field not imported from: ‘methods’
+      These packages need to be imported from (in the NAMESPACE file)
+      for when this namespace is loaded but not attached.
+    ```
+
+*   checking R code for possible problems ... NOTE
+    ```
+    ...
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/GEOquery/new/GEOquery.Rcheck/00_pkg_src/GEOquery/R/parseGEO.R:531-539)
+    parseGSEMatrix: no visible binding for global variable ‘accession’
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/GEOquery/new/GEOquery.Rcheck/00_pkg_src/GEOquery/R/parseGEO.R:531-539)
+    parseGSEMatrix: no visible binding for global variable ‘accession’
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/GEOquery/new/GEOquery.Rcheck/00_pkg_src/GEOquery/R/parseGEO.R:541-542)
+    parseGSEMatrix: no visible global function definition for ‘new’
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/GEOquery/new/GEOquery.Rcheck/00_pkg_src/GEOquery/R/parseGEO.R:568)
+    parseGSEMatrix: no visible global function definition for ‘new’
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/GEOquery/new/GEOquery.Rcheck/00_pkg_src/GEOquery/R/parseGEO.R:590)
+    parseGSEMatrix: no visible global function definition for ‘new’
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/GEOquery/new/GEOquery.Rcheck/00_pkg_src/GEOquery/R/parseGEO.R:606-610)
+    parseGSEMatrix: no visible global function definition for ‘as’
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/GEOquery/new/GEOquery.Rcheck/00_pkg_src/GEOquery/R/parseGEO.R:606-610)
+    Undefined global functions or variables:
+      . MA accession as characteristics k kvpair new read.delim read.table
+      v
+    Consider adding
+      importFrom("methods", "as", "new")
+      importFrom("utils", "read.delim", "read.table")
+    to your NAMESPACE file (and ensure that your DESCRIPTION Imports field
+    contains 'methods').
+    ```
+
+# GerminaR
+
+Version: 1.2
+
+## In both
+
+*   checking dependencies in R code ... NOTE
+    ```
+    Namespaces in Imports field not imported from:
+      ‘DT’ ‘shinydashboard’
+      All declared Imports should be used.
+    ```
+
+# getTBinR
+
+Version: 0.5.5
+
+## In both
+
+*   checking tests ...
+    ```
+     ERROR
+    Running the tests in ‘tests/testthat.R’ failed.
+    Last 13 lines of output:
+      > library(getTBinR)
+      > 
+      > test_check("getTBinR")
+      [31m──[39m [31m1. Failure: map_tb_burden can have a custom legend specified. (@test-map_tb_burden.R#62) [39m [31m─────────[39m
+      plot$labels$fill not equal to `test_label`.
+      1/1 mismatches
+      x[1]: "`test (test - test)`"
+      y[1]: "test (test - test)"
+      
+      ══ testthat results  ═════════════════════════════════════════════════════════════════════════════════
+      OK: 75 SKIPPED: 29 FAILED: 1
+      1. Failure: map_tb_burden can have a custom legend specified. (@test-map_tb_burden.R#62) 
+      
+      Error: testthat unit tests failed
+      Execution halted
+    ```
+
+*   checking package dependencies ... NOTE
+    ```
+    Package suggested but not available for checking: ‘devtools’
     ```
 
 # gfer
@@ -2011,12 +1981,10 @@ Version: 0.1.10
 
 ## In both
 
-*   checking package dependencies ... ERROR
+*   checking dependencies in R code ... NOTE
     ```
-    Package required but not available: ‘data.table’
-    
-    See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-    manual.
+    Namespace in Imports field not imported from: ‘tidyr’
+      All declared Imports should be used.
     ```
 
 # ggCompNet
@@ -2024,465 +1992,6 @@ Version: 0.1.10
 Version: 0.1.0
 
 ## In both
-
-*   checking whether package ‘ggCompNet’ can be installed ... ERROR
-    ```
-    Installation failed.
-    See ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/ggCompNet/new/ggCompNet.Rcheck/00install.out’ for details.
-    ```
-
-## Installation
-
-### Devel
-
-```
-* installing *source* package ‘ggCompNet’ ...
-** package ‘ggCompNet’ successfully unpacked and MD5 sums checked
-** R
-** data
-*** moving datasets to lazyload DB
-** inst
-** preparing package for lazy loading
-Error: package or namespace load failed for ‘geomnet’ in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]):
- there is no package called ‘data.table’
-Error : package ‘geomnet’ could not be loaded
-ERROR: lazy loading failed for package ‘ggCompNet’
-* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/ggCompNet/new/ggCompNet.Rcheck/ggCompNet’
-
-```
-### CRAN
-
-```
-* installing *source* package ‘ggCompNet’ ...
-** package ‘ggCompNet’ successfully unpacked and MD5 sums checked
-** R
-** data
-*** moving datasets to lazyload DB
-** inst
-** preparing package for lazy loading
-Error: package or namespace load failed for ‘geomnet’ in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]):
- there is no package called ‘data.table’
-Error : package ‘geomnet’ could not be loaded
-ERROR: lazy loading failed for package ‘ggCompNet’
-* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/ggCompNet/old/ggCompNet.Rcheck/ggCompNet’
-
-```
-# ggeffects
-
-Version: 0.3.3
-
-## In both
-
-*   checking whether package ‘ggeffects’ can be installed ... ERROR
-    ```
-    Installation failed.
-    See ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/ggeffects/new/ggeffects.Rcheck/00install.out’ for details.
-    ```
-
-## Installation
-
-### Devel
-
-```
-* installing *source* package ‘ggeffects’ ...
-** package ‘ggeffects’ successfully unpacked and MD5 sums checked
-** R
-** data
-** inst
-** preparing package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
-  there is no package called ‘data.table’
-ERROR: lazy loading failed for package ‘ggeffects’
-* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/ggeffects/new/ggeffects.Rcheck/ggeffects’
-
-```
-### CRAN
-
-```
-* installing *source* package ‘ggeffects’ ...
-** package ‘ggeffects’ successfully unpacked and MD5 sums checked
-** R
-** data
-** inst
-** preparing package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
-  there is no package called ‘data.table’
-ERROR: lazy loading failed for package ‘ggeffects’
-* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/ggeffects/old/ggeffects.Rcheck/ggeffects’
-
-```
-# ggfan
-
-Version: 0.1.1
-
-## In both
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespaces in Imports field not imported from:
-      ‘colorspace’ ‘grid’ ‘rstan’
-      All declared Imports should be used.
-    ```
-
-# ggmosaic
-
-Version: 0.1.2
-
-## In both
-
-*   checking whether package ‘ggmosaic’ can be installed ... ERROR
-    ```
-    Installation failed.
-    See ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/ggmosaic/new/ggmosaic.Rcheck/00install.out’ for details.
-    ```
-
-## Installation
-
-### Devel
-
-```
-* installing *source* package ‘ggmosaic’ ...
-** package ‘ggmosaic’ successfully unpacked and MD5 sums checked
-** R
-** inst
-** preparing package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
-  there is no package called ‘data.table’
-ERROR: lazy loading failed for package ‘ggmosaic’
-* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/ggmosaic/new/ggmosaic.Rcheck/ggmosaic’
-
-```
-### CRAN
-
-```
-* installing *source* package ‘ggmosaic’ ...
-** package ‘ggmosaic’ successfully unpacked and MD5 sums checked
-** R
-** inst
-** preparing package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
-  there is no package called ‘data.table’
-ERROR: lazy loading failed for package ‘ggmosaic’
-* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/ggmosaic/old/ggmosaic.Rcheck/ggmosaic’
-
-```
-# ggpubr
-
-Version: 0.1.6
-
-## In both
-
-*   checking Rd cross-references ... NOTE
-    ```
-    Package unavailable to check Rd xrefs: ‘FactoMineR’
-    ```
-
-# ggquickeda
-
-Version: 0.1.0
-
-## In both
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespaces in Imports field not imported from:
-      ‘DT’ ‘Hmisc’ ‘colourpicker’ ‘dplyr’ ‘ggrepel’ ‘grDevices’ ‘gridExtra’
-      ‘lazyeval’ ‘markdown’ ‘plotly’ ‘quantreg’ ‘rlang’ ‘shinyjs’ ‘tidyr’
-      All declared Imports should be used.
-    ```
-
-# ggRandomForests
-
-Version: 2.0.1
-
-## In both
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespace in Imports field not imported from: ‘randomForest’
-      All declared Imports should be used.
-    ```
-
-# ggstatsplot
-
-Version: 0.0.2
-
-## In both
-
-*   checking whether package ‘ggstatsplot’ can be installed ... ERROR
-    ```
-    Installation failed.
-    See ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/ggstatsplot/new/ggstatsplot.Rcheck/00install.out’ for details.
-    ```
-
-## Installation
-
-### Devel
-
-```
-* installing *source* package ‘ggstatsplot’ ...
-** package ‘ggstatsplot’ successfully unpacked and MD5 sums checked
-** R
-** inst
-** preparing package for lazy loading
-Warning in checkMatrixPackageVersion() :
-  Package version inconsistency detected.
-TMB was built with Matrix version 1.2.12
-Current Matrix version is 1.2.14
-Please re-install 'TMB' from source using install.packages('TMB', type = 'source') or ask CRAN for a binary version of 'TMB' matching CRAN's 'Matrix' package
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
-  there is no package called ‘data.table’
-ERROR: lazy loading failed for package ‘ggstatsplot’
-* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/ggstatsplot/new/ggstatsplot.Rcheck/ggstatsplot’
-
-```
-### CRAN
-
-```
-* installing *source* package ‘ggstatsplot’ ...
-** package ‘ggstatsplot’ successfully unpacked and MD5 sums checked
-** R
-** inst
-** preparing package for lazy loading
-Warning in checkMatrixPackageVersion() :
-  Package version inconsistency detected.
-TMB was built with Matrix version 1.2.12
-Current Matrix version is 1.2.14
-Please re-install 'TMB' from source using install.packages('TMB', type = 'source') or ask CRAN for a binary version of 'TMB' matching CRAN's 'Matrix' package
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
-  there is no package called ‘data.table’
-ERROR: lazy loading failed for package ‘ggstatsplot’
-* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/ggstatsplot/old/ggstatsplot.Rcheck/ggstatsplot’
-
-```
-# ggthemes
-
-Version: 3.5.0
-
-## In both
-
-*   checking Rd cross-references ... NOTE
-    ```
-    Package unavailable to check Rd xrefs: ‘latticeExtra’
-    ```
-
-# ggtree
-
-Version: 1.8.2
-
-## In both
-
-*   checking installed package size ... NOTE
-    ```
-      installed size is 11.1Mb
-      sub-directories of 1Mb or more:
-        doc        6.8Mb
-        examples   3.7Mb
-    ```
-
-# GSODR
-
-Version: 1.2.0
-
-## In both
-
-*   checking package dependencies ... NOTE
-    ```
-    Packages suggested but not available for checking: ‘rgdal’ ‘sf’
-    ```
-
-# gutenbergr
-
-Version: 0.1.4
-
-## In both
-
-*   checking data for non-ASCII characters ... NOTE
-    ```
-      Note: found 13617 marked UTF-8 strings
-    ```
-
-# gwdegree
-
-Version: 0.1.1
-
-## In both
-
-*   checking whether package ‘gwdegree’ can be installed ... WARNING
-    ```
-    Found the following significant warnings:
-      Warning: package ‘network’ was built under R version 3.4.4
-      Warning: package ‘shinydashboard’ was built under R version 3.4.4
-    See ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/gwdegree/new/gwdegree.Rcheck/00install.out’ for details.
-    ```
-
-# happybiRthday
-
-Version: 0.0.1
-
-## In both
-
-*   checking package dependencies ... ERROR
-    ```
-    Package required but not available: ‘data.table’
-    
-    See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-    manual.
-    ```
-
-# hdme
-
-Version: 0.1.1
-
-## In both
-
-*   checking package dependencies ... ERROR
-    ```
-    Packages required but not available: ‘Rglpk’ ‘RcppArmadillo’
-    
-    See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-    manual.
-    ```
-
-# healthcareai
-
-Version: 2.0.0
-
-## In both
-
-*   checking package dependencies ... ERROR
-    ```
-    Package required but not available: ‘data.table’
-    
-    See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-    manual.
-    ```
-
-# highcharter
-
-Version: 0.5.0
-
-## In both
-
-*   checking whether package ‘highcharter’ can be installed ... ERROR
-    ```
-    Installation failed.
-    See ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/highcharter/new/highcharter.Rcheck/00install.out’ for details.
-    ```
-
-## Installation
-
-### Devel
-
-```
-* installing *source* package ‘highcharter’ ...
-** package ‘highcharter’ successfully unpacked and MD5 sums checked
-** R
-** data
-*** moving datasets to lazyload DB
-** demo
-** inst
-** preparing package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
-  there is no package called ‘data.table’
-ERROR: lazy loading failed for package ‘highcharter’
-* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/highcharter/new/highcharter.Rcheck/highcharter’
-
-```
-### CRAN
-
-```
-* installing *source* package ‘highcharter’ ...
-** package ‘highcharter’ successfully unpacked and MD5 sums checked
-** R
-** data
-*** moving datasets to lazyload DB
-** demo
-** inst
-** preparing package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
-  there is no package called ‘data.table’
-ERROR: lazy loading failed for package ‘highcharter’
-* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/highcharter/old/highcharter.Rcheck/highcharter’
-
-```
-# htmlTable
-
-Version: 1.11.2
-
-## In both
-
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    Error in re-building vignettes:
-      ...
-    Quitting from lines 101-141 (tables.Rmd) 
-    Error: processing vignette 'tables.Rmd' failed with diagnostics:
-    there is no package called 'data.table'
-    Execution halted
-    ```
-
-*   checking Rd cross-references ... NOTE
-    ```
-    Package unavailable to check Rd xrefs: ‘pxweb’
-    ```
-
-# HTSSIP
-
-Version: 1.3.2
-
-## In both
-
-*   checking for missing documentation entries ... ERROR
-    ```
-    Error in .requirePackage(package) : 
-      unable to find required package ‘phyloseq’
-    Calls: <Anonymous> ... withCallingHandlers -> is -> getClassDef -> .requirePackage
-    Execution halted
-    ```
-
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘HTSSIP-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: OTU_qPCR_trans
-    > ### Title: Transform OTU counts based on qPCR data
-    > ### Aliases: OTU_qPCR_trans
-    > 
-    > ### ** Examples
-    > 
-    > # qPCR data simulation
-    > data(physeq_rep3)
-    > data(physeq_rep3_qPCR)
-    > physeq_rep3_t = OTU_qPCR_trans(physeq_rep3, physeq_rep3_qPCR)
-    Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
-      there is no package called ‘data.table’
-    Calls: OTU_qPCR_trans ... tryCatch -> tryCatchList -> tryCatchOne -> <Anonymous>
-    Execution halted
-    ```
-
-*   checking tests ...
-    ```
-     ERROR
-    Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-      ══ testthat results  ═══════════════════════════════════════════════════════════════════════════════════════════
-      OK: 28 SKIPPED: 16 FAILED: 25
-      1. Error: Beta diversity from a list of phyloseq objects (@test-BD_ordinations.R#2) 
-      2. Error: Beta diversity from a list of phyloseq objects (parallel) (@test-BD_ordinations.R#9) 
-      3. Error: DESeq2_l2fc runs with default params (@test-DESeq2_l2fc.R#2) 
-      4. Error: DESeq2_l2fc runs with sparsity_apply=heavy (@test-DESeq2_l2fc.R#15) 
-      5. Error: HRSIP runs with default (@test-HRSIP.R#3) 
-      6. Error: phyloseq sim (@test-HTSSIP_sim.R#57) 
-      7. Error: phyloseq sim w/ metadata (@test-HTSSIP_sim.R#73) 
-      8. Error: phyloseq sample_data can be converted to dataframe (@test-Util.R#9) 
-      9. Error: phyloseq tax_table can be converted to dataframe (@test-Util.R#17) 
-      1. ...
-      
-      Error: testthat unit tests failed
-      Execution halted
-    ```
 
 *   checking re-building of vignette outputs ... WARNING
     ```
@@ -2499,342 +2008,30 @@ Version: 1.3.2
     
         intersect, setdiff, setequal, union
     
-    Loading required package: phyloseq
-    Error: package or namespace load failed for 'phyloseq' in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]):
-     there is no package called 'data.table'
-    Quitting from lines 85-86 (BD_shifts.Rmd) 
-    Error: processing vignette 'BD_shifts.Rmd' failed with diagnostics:
-    unable to find required package 'phyloseq'
+    Warning: Removed 8 rows containing missing values (geom_segment).
+    Quitting from lines 610-612 (examples-from-paper.Rmd) 
+    Error: processing vignette 'examples-from-paper.Rmd' failed with diagnostics:
+    cannot open URL 'http://maps.googleapis.com/maps/api/staticmap?center=39.09984,-77.16764&zoom=13&size=640x640&scale=2&maptype=terrain&language=en-EN&sensor=false'
     Execution halted
     ```
 
 *   checking installed package size ... NOTE
     ```
-      installed size is  5.3Mb
+      installed size is  6.4Mb
       sub-directories of 1Mb or more:
-        data   4.2Mb
+        doc   6.1Mb
     ```
 
 *   checking dependencies in R code ... NOTE
     ```
-    Namespace in Imports field not imported from: ‘igraph’
+    Namespaces in Imports field not imported from:
+      ‘dplyr’ ‘ggmap’ ‘gridExtra’ ‘scales’ ‘tnet’
       All declared Imports should be used.
     ```
 
-*   checking data for non-ASCII characters ... NOTE
-    ```
-      Error in .requirePackage(package) : 
-        unable to find required package 'phyloseq'
-      Calls: <Anonymous> ... .extendsForS3 -> extends -> getClassDef -> .requirePackage
-      Execution halted
-    ```
+# ggedit
 
-# HURDAT
-
-Version: 0.1.0
-
-## In both
-
-*   checking tests ...
-    ```
-     ERROR
-    Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-      6: datasource(file, skip = skip)
-      7: datasource_connection(file, skip, comment)
-      8: datasource_raw(read_connection(path), skip, comment = comment)
-      9: new_datasource("raw", text, skip = skip, comment = comment)
-      10: structure(list(x, skip = skip, comment = comment, ...), class = c(paste0("source_", type), "source"))
-      11: read_connection(path)
-      12: open(con, "rb")
-      13: open.connection(con, "rb")
-      
-      ══ testthat results  ═══════════════════════════════════════════════════════════════════════════════════════════
-      OK: 0 SKIPPED: 0 FAILED: 1
-      1. Error: (unknown) (@test-hurdat.R#4) 
-      
-      Error: testthat unit tests failed
-      Execution halted
-    ```
-
-# hurricaneexposure
-
-Version: 0.0.1
-
-## In both
-
-*   checking package dependencies ... ERROR
-    ```
-    Package required but not available: ‘data.table’
-    
-    Package suggested but not available for checking: ‘hurricaneexposuredata’
-    
-    See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-    manual.
-    ```
-
-# IDE
-
-Version: 0.1.0
-
-## In both
-
-*   checking whether package ‘IDE’ can be installed ... ERROR
-    ```
-    Installation failed.
-    See ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/IDE/new/IDE.Rcheck/00install.out’ for details.
-    ```
-
-## Installation
-
-### Devel
-
-```
-* installing *source* package ‘IDE’ ...
-** package ‘IDE’ successfully unpacked and MD5 sums checked
-** R
-** inst
-** preparing package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
-  there is no package called ‘data.table’
-ERROR: lazy loading failed for package ‘IDE’
-* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/IDE/new/IDE.Rcheck/IDE’
-
-```
-### CRAN
-
-```
-* installing *source* package ‘IDE’ ...
-** package ‘IDE’ successfully unpacked and MD5 sums checked
-** R
-** inst
-** preparing package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
-  there is no package called ‘data.table’
-ERROR: lazy loading failed for package ‘IDE’
-* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/IDE/old/IDE.Rcheck/IDE’
-
-```
-# idealstan
-
-Version: 0.2.7
-
-## In both
-
-*   checking whether package ‘idealstan’ can be installed ... WARNING
-    ```
-    Found the following significant warnings:
-      Warning: package ‘Rcpp’ was built under R version 3.4.4
-    See ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/idealstan/new/idealstan.Rcheck/00install.out’ for details.
-    ```
-
-*   checking installed package size ... NOTE
-    ```
-      installed size is  7.9Mb
-      sub-directories of 1Mb or more:
-        data   3.5Mb
-        libs   3.6Mb
-    ```
-
-# IHWpaper
-
-Version: 1.4.0
-
-## In both
-
-*   checking whether package ‘IHWpaper’ can be installed ... ERROR
-    ```
-    Installation failed.
-    See ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/IHWpaper/new/IHWpaper.Rcheck/00install.out’ for details.
-    ```
-
-## Installation
-
-### Devel
-
-```
-* installing *source* package ‘IHWpaper’ ...
-** libs
-ccache clang++ -Qunused-arguments  -I/Library/Frameworks/R.framework/Resources/include -DNDEBUG  -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/new/Rcpp/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c RcppExports.cpp -o RcppExports.o
-ccache clang++ -Qunused-arguments  -I/Library/Frameworks/R.framework/Resources/include -DNDEBUG  -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/new/Rcpp/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c ddhf.cpp -o ddhf.o
-ccache clang++ -Qunused-arguments -dynamiclib -Wl,-headerpad_max_install_names -undefined dynamic_lookup -single_module -multiply_defined suppress -L/Library/Frameworks/R.framework/Resources/lib -L/usr/local/lib -o IHWpaper.so RcppExports.o ddhf.o -F/Library/Frameworks/R.framework/.. -framework R -Wl,-framework -Wl,CoreFoundation
-installing to /Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/IHWpaper/new/IHWpaper.Rcheck/IHWpaper/libs
-** R
-** inst
-** preparing package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
-  there is no package called ‘data.table’
-ERROR: lazy loading failed for package ‘IHWpaper’
-* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/IHWpaper/new/IHWpaper.Rcheck/IHWpaper’
-
-```
-### CRAN
-
-```
-* installing *source* package ‘IHWpaper’ ...
-** libs
-ccache clang++ -Qunused-arguments  -I/Library/Frameworks/R.framework/Resources/include -DNDEBUG  -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/old/Rcpp/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c RcppExports.cpp -o RcppExports.o
-ccache clang++ -Qunused-arguments  -I/Library/Frameworks/R.framework/Resources/include -DNDEBUG  -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/old/Rcpp/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c ddhf.cpp -o ddhf.o
-ccache clang++ -Qunused-arguments -dynamiclib -Wl,-headerpad_max_install_names -undefined dynamic_lookup -single_module -multiply_defined suppress -L/Library/Frameworks/R.framework/Resources/lib -L/usr/local/lib -o IHWpaper.so RcppExports.o ddhf.o -F/Library/Frameworks/R.framework/.. -framework R -Wl,-framework -Wl,CoreFoundation
-installing to /Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/IHWpaper/old/IHWpaper.Rcheck/IHWpaper/libs
-** R
-** inst
-** preparing package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
-  there is no package called ‘data.table’
-ERROR: lazy loading failed for package ‘IHWpaper’
-* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/IHWpaper/old/IHWpaper.Rcheck/IHWpaper’
-
-```
-# IncucyteDRC
-
-Version: 0.5.4
-
-## In both
-
-*   checking examples ... ERROR
-    ```
-    ...
-    Getting pc data for plate example_data.txt from:
-    /Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/IncucyteDRC/new/IncucyteDRC.Rcheck/IncucyteDRC/extdata/example_data.txt
-    > 
-    > test_list <- splitIncucyteDRCPlateData(test_pm, test_data, group_columns='growthcondition')
-    > 
-    > print(test_list)
-    ## This is an IncucyteDRCSetList S3 object containing 4 IncucyteDRCSet objects
-    ## Access using standard list notation ie my_list[[1]]
-    ## Try lapply(my_list, print) to see more information on each object> 
-    > test_idrc_set <- fitGrowthCurvesGrouped(test_list[[2]])
-    > test_idrc_set <- fitGrowthCurvesIndividual(test_idrc_set)
-    > test_idrc_set <- calculateDRCData(test_idrc_set, cut_time=100)
-    Using cut time provided to function
-    > test_idrc_set <- fitDoseResponseCurve(test_idrc_set)
-    Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
-      there is no package called ‘data.table’
-    > test_idrc_set <- calculateEC50(test_idrc_set)
-    Error in mutate_impl(.data, dots) : 
-      Evaluation error: there is no package called ‘data.table’.
-    Calls: calculateEC50 ... <Anonymous> -> mutate.tbl_df -> mutate_impl -> .Call
-    Execution halted
-    ```
-
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    Error in re-building vignettes:
-      ...
-    Importing platemap xml from /Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/IncucyteDRC/new/IncucyteDRC.Rcheck/IncucyteDRC/extdata/example2.PlateMap
-    Plate map import successful!
-    Getting pc data for plate example_data2.txt from:
-    /Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/IncucyteDRC/new/IncucyteDRC.Rcheck/IncucyteDRC/extdata/example_data2.txt
-    Using cut time provided to function
-    Warning in bind_rows_(x, .id) :
-      binding character and factor vector, coercing into character vector
-    Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
-      there is no package called 'data.table'
-    Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
-      there is no package called 'data.table'
-    Quitting from lines 119-126 (Overview.Rmd) 
-    Error: processing vignette 'Overview.Rmd' failed with diagnostics:
-    Evaluation error: there is no package called 'data.table'.
-    Execution halted
-    ```
-
-# IONiseR
-
-Version: 2.0.0
-
-## In both
-
-*   checking installed package size ... NOTE
-    ```
-      installed size is  5.4Mb
-      sub-directories of 1Mb or more:
-        doc       3.6Mb
-        extdata   1.5Mb
-    ```
-
-*   checking R code for possible problems ... NOTE
-    ```
-    ...
-      ‘start_time’
-    readFast5Summary.mc: no visible binding for global variable ‘duration’
-    readFast5Summary.mc: no visible binding for global variable
-      ‘num_events’
-    [,Fast5Summary-ANY-ANY-ANY: no visible binding for global variable
-      ‘baseCalledTemplate’
-    [,Fast5Summary-ANY-ANY-ANY: no visible binding for global variable
-      ‘baseCalledComplement’
-    [,Fast5Summary-ANY-ANY-ANY: no visible binding for global variable
-      ‘component’
-    [,Fast5Summary-ANY-ANY-ANY: no visible binding for global variable
-      ‘idx’
-    show,Fast5Summary: no visible binding for global variable ‘full_2D’
-    show,Fast5Summary: no visible binding for global variable ‘pass’
-    Undefined global functions or variables:
-      := AAAAA TTTTT accumulation baseCalledComplement baseCalledTemplate
-      bases_called category channel circleFun component duration error freq
-      full_2D group hour idx matrixCol matrixRow meanZValue mean_value
-      median_signal minute mux name nbases new_reads num_events oddEven
-      pass pentamer rbindlist readIDs seq_length start_time time_bin
-      time_group x y zvalue
-    ```
-
-# ipumsr
-
-Version: 0.2.0
-
-## In both
-
-*   checking package dependencies ... NOTE
-    ```
-    Packages suggested but not available for checking: ‘rgdal’ ‘sf’
-    ```
-
-# isomiRs
-
-Version: 1.4.0
-
-## In both
-
-*   checking whether package ‘isomiRs’ can be installed ... ERROR
-    ```
-    Installation failed.
-    See ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/isomiRs/new/isomiRs.Rcheck/00install.out’ for details.
-    ```
-
-## Installation
-
-### Devel
-
-```
-* installing *source* package ‘isomiRs’ ...
-** R
-** data
-** inst
-** preparing package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
-  there is no package called ‘data.table’
-ERROR: lazy loading failed for package ‘isomiRs’
-* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/isomiRs/new/isomiRs.Rcheck/isomiRs’
-
-```
-### CRAN
-
-```
-* installing *source* package ‘isomiRs’ ...
-** R
-** data
-** inst
-** preparing package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
-  there is no package called ‘data.table’
-ERROR: lazy loading failed for package ‘isomiRs’
-* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/isomiRs/old/isomiRs.Rcheck/isomiRs’
-
-```
-# janitor
-
-Version: 1.0.0
+Version: 0.3.0
 
 ## In both
 
@@ -2844,9 +2041,131 @@ Version: 1.0.0
       All declared Imports should be used.
     ```
 
-# jpmesh
+# ggfan
 
-Version: 1.1.0
+Version: 0.1.2
+
+## In both
+
+*   checking dependencies in R code ... NOTE
+    ```
+    Namespaces in Imports field not imported from:
+      ‘colorspace’ ‘grid’ ‘rstan’
+      All declared Imports should be used.
+    ```
+
+# ggformula
+
+Version: 0.9.0
+
+## In both
+
+*   checking package dependencies ... NOTE
+    ```
+    Package suggested but not available for checking: ‘sf’
+    ```
+
+*   checking installed package size ... NOTE
+    ```
+      installed size is  6.0Mb
+      sub-directories of 1Mb or more:
+        R     2.1Mb
+        doc   2.7Mb
+    ```
+
+*   checking dependencies in R code ... NOTE
+    ```
+    Namespace in Imports field not imported from: ‘tidyr’
+      All declared Imports should be used.
+    ```
+
+*   checking Rd cross-references ... NOTE
+    ```
+    Package unavailable to check Rd xrefs: ‘quantreg’
+    ```
+
+# ggfortify
+
+Version: 0.4.5
+
+## Newly broken
+
+*   checking tests ...
+    ```
+     ERROR
+    Running the tests in ‘tests/test-all.R’ failed.
+    Last 13 lines of output:
+      Initial stress        : 0.01705
+      stress after  10 iters: 0.00951, magic = 0.500
+      stress after  20 iters: 0.00941, magic = 0.500
+      initial  value 7.505733 
+      final  value 7.505688 
+      converged
+      Initial stress        : 0.01705
+      stress after  10 iters: 0.00951, magic = 0.500
+      stress after  20 iters: 0.00941, magic = 0.500
+      ══ testthat results  ═════════════════════════════════════════════════════════════════════════════════
+      OK: 1448 SKIPPED: 9 FAILED: 1
+      1. Error: fortify.MSwM works for sample data (@test-MSwM.R#8) 
+      
+      Error: testthat unit tests failed
+      Execution halted
+    ```
+
+# ggiraphExtra
+
+Version: 0.2.9
+
+## In both
+
+*   checking dependencies in R code ... NOTE
+    ```
+    Namespaces in Imports field not imported from:
+      ‘ggforce’ ‘webshot’ ‘ztable’
+      All declared Imports should be used.
+    ```
+
+# ggpubr
+
+Version: 0.1.8
+
+## In both
+
+*   checking Rd cross-references ... NOTE
+    ```
+    Package unavailable to check Rd xrefs: ‘FactoMineR’
+    ```
+
+# ggquickeda
+
+Version: 0.1.1
+
+## In both
+
+*   checking dependencies in R code ... NOTE
+    ```
+    Namespaces in Imports field not imported from:
+      ‘DT’ ‘Formula’ ‘Hmisc’ ‘colourpicker’ ‘dplyr’ ‘ggpmisc’ ‘ggrepel’
+      ‘grDevices’ ‘gridExtra’ ‘lazyeval’ ‘markdown’ ‘plotly’ ‘quantreg’
+      ‘rlang’ ‘shinyjs’ ‘table1’ ‘tidyr’
+      All declared Imports should be used.
+    ```
+
+# ggRandomForests
+
+Version: 2.0.1
+
+## In both
+
+*   checking dependencies in R code ... NOTE
+    ```
+    Namespace in Imports field not imported from: ‘randomForest’
+      All declared Imports should be used.
+    ```
+
+# ggspatial
+
+Version: 1.0.1
 
 ## In both
 
@@ -2858,9 +2177,512 @@ Version: 1.1.0
     manual.
     ```
 
+# ggstatsplot
+
+Version: 0.0.6
+
+## In both
+
+*   R CMD check timed out
+    
+
+*   checking package dependencies ... NOTE
+    ```
+    Package suggested but not available for checking: ‘devtools’
+    ```
+
+*   checking installed package size ... NOTE
+    ```
+      installed size is  5.4Mb
+      sub-directories of 1Mb or more:
+        doc    2.6Mb
+        help   2.3Mb
+    ```
+
+# ggthemes
+
+Version: 4.0.1
+
+## In both
+
+*   checking data for non-ASCII characters ... NOTE
+    ```
+      Note: found 138 marked UTF-8 strings
+    ```
+
+# ggtree
+
+Version: 1.12.7
+
+## In both
+
+*   checking re-building of vignette outputs ... WARNING
+    ```
+    ...
+        rotate
+    
+    Average angle change [1] 0.205749672759501
+    Average angle change [2] 0.0594793517814446
+    Average angle change [3] 0.0265103772447353
+    Warning in min(y) : no non-missing arguments to min; returning Inf
+    Warning in max(y) : no non-missing arguments to max; returning -Inf
+    Warning: Removed 1 rows containing missing values (geom_point_g_gtree).
+    Warning: Removed 1 rows containing missing values (geom_point_g_gtree).
+    Warning: Removed 13 rows containing missing values (geom_text).
+    Warning: Removed 12 rows containing missing values (geom_text).
+    Scale for 'fill' is already present. Adding another scale for 'fill',
+    which will replace the existing scale.
+    Warning: The plyr::rename operation has created duplicates for the following name(s): (`size`)
+    Loading required package: Biostrings
+    Warning in library(package, lib.loc = lib.loc, character.only = TRUE, logical.return = TRUE,  :
+      there is no package called 'Biostrings'
+    Quitting from lines 301-303 (treeAnnotation.Rmd) 
+    Error: processing vignette 'treeAnnotation.Rmd' failed with diagnostics:
+    object 'readBStringSet' not found
+    Execution halted
+    ```
+
+*   checking installed package size ... NOTE
+    ```
+      installed size is  9.8Mb
+      sub-directories of 1Mb or more:
+        doc        4.9Mb
+        examples   3.7Mb
+    ```
+
+# googlesheets
+
+Version: 0.3.0
+
+## In both
+
+*   checking dependencies in R code ... NOTE
+    ```
+    Namespace in Imports field not imported from: ‘tibble’
+      All declared Imports should be used.
+    ```
+
+# graphTweets
+
+Version: 0.5.0
+
+## In both
+
+*   checking dependencies in R code ... NOTE
+    ```
+    Namespace in Imports field not imported from: ‘utils’
+      All declared Imports should be used.
+    ```
+
+# GSODR
+
+Version: 1.2.3
+
+## In both
+
+*   checking package dependencies ... NOTE
+    ```
+    Package suggested but not available for checking: ‘sf’
+    ```
+
+# gutenbergr
+
+Version: 0.1.4
+
+## In both
+
+*   checking data for non-ASCII characters ... NOTE
+    ```
+      Note: found 13617 marked UTF-8 strings
+    ```
+
+# highcharter
+
+Version: 0.5.0
+
+## In both
+
+*   checking installed package size ... NOTE
+    ```
+      installed size is 16.9Mb
+      sub-directories of 1Mb or more:
+        doc          13.7Mb
+        htmlwidgets   1.8Mb
+    ```
+
+# HTSSIP
+
+Version: 1.4.0
+
+## In both
+
+*   R CMD check timed out
+    
+
+*   checking dependencies in R code ... NOTE
+    ```
+    Namespace in Imports field not imported from: ‘igraph’
+      All declared Imports should be used.
+    ```
+
+# HURDAT
+
+Version: 0.2.0
+
+## In both
+
+*   checking package dependencies ... NOTE
+    ```
+    Package suggested but not available for checking: ‘devtools’
+    ```
+
+# hurricaneexposure
+
+Version: 0.0.1
+
+## In both
+
+*   checking package dependencies ... NOTE
+    ```
+    Package suggested but not available for checking: ‘hurricaneexposuredata’
+    ```
+
+# iCNV
+
+Version: 1.0.0
+
+## In both
+
+*   checking whether package ‘iCNV’ can be installed ... ERROR
+    ```
+    Installation failed.
+    See ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/iCNV/new/iCNV.Rcheck/00install.out’ for details.
+    ```
+
+## Installation
+
+### Devel
+
+```
+* installing *source* package ‘iCNV’ ...
+** R
+** data
+*** moving datasets to lazyload DB
+** inst
+** byte-compile and prepare package for lazy loading
+Error : package ‘BSgenome.Hsapiens.UCSC.hg19’ required by ‘CODEX’ could not be found
+ERROR: lazy loading failed for package ‘iCNV’
+* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/iCNV/new/iCNV.Rcheck/iCNV’
+
+```
+### CRAN
+
+```
+* installing *source* package ‘iCNV’ ...
+** R
+** data
+*** moving datasets to lazyload DB
+** inst
+** byte-compile and prepare package for lazy loading
+Error : package ‘BSgenome.Hsapiens.UCSC.hg19’ required by ‘CODEX’ could not be found
+ERROR: lazy loading failed for package ‘iCNV’
+* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/iCNV/old/iCNV.Rcheck/iCNV’
+
+```
+# idealstan
+
+Version: 0.2.7
+
+## In both
+
+*   checking installed package size ... NOTE
+    ```
+      installed size is  8.4Mb
+      sub-directories of 1Mb or more:
+        data   3.5Mb
+        libs   3.6Mb
+    ```
+
+# IHWpaper
+
+Version: 1.7.0
+
+## In both
+
+*   checking tests ...
+    ```
+     ERROR
+    Running the tests in ‘tests/testthat.R’ failed.
+    Last 13 lines of output:
+      [1] "LSL GBH"
+      [1] "TST GBH"
+      [1] "SBH"
+      [1] "Clfdr"
+      [1] "Greedy Indep. Filt."
+      [1] "IHW"
+      [1] "IHW-Bonferroni E3"
+      [1] "Bonferroni"
+      [1] "qvalue"
+      ══ testthat results  ═════════════════════════════════════════════════════════════════════════════════
+      OK: 1 SKIPPED: 0 FAILED: 1
+      1. Error: (unknown) (@test_analyze_datasets.R#4) 
+      
+      Error: testthat unit tests failed
+      Execution halted
+    ```
+
+*   checking re-building of vignette outputs ... WARNING
+    ```
+    Error in re-building vignettes:
+      ...
+    Quitting from lines 29-65 (BH-explanation.Rmd) 
+    Error: processing vignette 'BH-explanation.Rmd' failed with diagnostics:
+    Palette not found.
+    Execution halted
+    ```
+
+*   checking package dependencies ... NOTE
+    ```
+    Package suggested but not available for checking: ‘airway’
+    ```
+
+*   checking installed package size ... NOTE
+    ```
+      installed size is 24.0Mb
+      sub-directories of 1Mb or more:
+        doc      13.1Mb
+        extdata   9.8Mb
+    ```
+
+*   checking R code for possible problems ... NOTE
+    ```
+    scott_fdrreg: no visible global function definition for ‘FDRreg’
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/IHWpaper/new/IHWpaper.Rcheck/00_pkg_src/IHWpaper/R/covariate_methods.R:88)
+    scott_fdrreg: no visible global function definition for ‘getFDR’
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/IHWpaper/new/IHWpaper.Rcheck/00_pkg_src/IHWpaper/R/covariate_methods.R:97)
+    sim_fun_eval: no visible binding for global variable ‘fdr_method’
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/IHWpaper/new/IHWpaper.Rcheck/00_pkg_src/IHWpaper/R/benchmarking.R:61-63)
+    sim_fun_eval: no visible binding for global variable ‘fdr_pars’
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/IHWpaper/new/IHWpaper.Rcheck/00_pkg_src/IHWpaper/R/benchmarking.R:61-63)
+    sim_fun_eval: no visible binding for global variable ‘FDP’
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/IHWpaper/new/IHWpaper.Rcheck/00_pkg_src/IHWpaper/R/benchmarking.R:61-63)
+    sim_fun_eval: no visible binding for global variable ‘rj_ratio’
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/IHWpaper/new/IHWpaper.Rcheck/00_pkg_src/IHWpaper/R/benchmarking.R:61-63)
+    sim_fun_eval: no visible binding for global variable ‘FPR’
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/IHWpaper/new/IHWpaper.Rcheck/00_pkg_src/IHWpaper/R/benchmarking.R:61-63)
+    sim_fun_eval: no visible binding for global variable ‘FWER’
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/IHWpaper/new/IHWpaper.Rcheck/00_pkg_src/IHWpaper/R/benchmarking.R:61-63)
+    Undefined global functions or variables:
+      FDP FDRreg FPR FWER fdr_method fdr_pars getFDR rj_ratio
+    ```
+
+# INDperform
+
+Version: 0.1.1
+
+## In both
+
+*   checking installed package size ... NOTE
+    ```
+      installed size is  5.2Mb
+      sub-directories of 1Mb or more:
+        data   3.0Mb
+        help   1.1Mb
+    ```
+
+# InjurySeverityScore
+
+Version: 0.0.0.1
+
+## Newly broken
+
+*   checking examples ... ERROR
+    ```
+    ...
+    > ### Title: Calculate injury severity score from ICD-9
+    > ### Aliases: injury_score
+    > 
+    > ### ** Examples
+    > 
+    > pat_id <- c(2,2,2,2,2,1,2,1,2,1,2,1,1,1,1,1,1,1,1,1,1,1,1,1)
+    > icd9 <- c('874.2', '874.8', '900.81', '900.82', '900.89', '805.06', 
+    +           'E966', '805.07', 'V14.0', '807.02', 'V70.4', '821.01', '823.20', 
+    +           '860.0', '861.01', '861.21', '861.22', '863.84', '864.04', '865.04', 
+    +           '865.09', '866.02', '868.04', '958.4')
+    > sample_data <- data.frame(subj = pat_id, code = icd9, stringsAsFactors = FALSE)
+    > injury_score(sample_data, subj, code)
+      subj br_1 br_2 br_3 br_4 br_5 br_6 max_1 max_2 max_3 iss
+    1    2    3    0    0    0    0    1     3     1     0  10
+    2    1    2    0    3    5    3    0     5     3     3  43
+    > 
+    > data2 <- data.frame(pid = c(1,2), diag1 = c('900.89', '805.06'),
+    +                     diag2 = c('863.84', '865.04'))
+    > injury_score(data2, pid, diag, tall = FALSE)
+    Error: Must supply a symbol or a string as argument
+    Execution halted
+    ```
+
+# IONiseR
+
+Version: 2.4.0
+
+## In both
+
+*   checking installed package size ... NOTE
+    ```
+      installed size is  5.8Mb
+      sub-directories of 1Mb or more:
+        doc       3.7Mb
+        extdata   1.5Mb
+    ```
+
+*   checking R code for possible problems ... NOTE
+    ```
+    ...
+      ‘idx’
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/IONiseR/new/IONiseR.Rcheck/00_pkg_src/IONiseR/R/Methods-subsetting.R:19-21)
+    [,Fast5Summary-ANY-ANY-ANY: no visible binding for global variable
+      ‘component’
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/IONiseR/new/IONiseR.Rcheck/00_pkg_src/IONiseR/R/Methods-subsetting.R:24-26)
+    [,Fast5Summary-ANY-ANY-ANY: no visible binding for global variable
+      ‘idx’
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/IONiseR/new/IONiseR.Rcheck/00_pkg_src/IONiseR/R/Methods-subsetting.R:24-26)
+    show,Fast5Summary: no visible binding for global variable ‘full_2D’
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/IONiseR/new/IONiseR.Rcheck/00_pkg_src/IONiseR/R/classes.R:70-71)
+    show,Fast5Summary: no visible binding for global variable ‘pass’
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/IONiseR/new/IONiseR.Rcheck/00_pkg_src/IONiseR/R/classes.R:75)
+    show,Fast5Summary: no visible binding for global variable ‘pass’
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/IONiseR/new/IONiseR.Rcheck/00_pkg_src/IONiseR/R/classes.R:77)
+    Undefined global functions or variables:
+      := AAAAA TTTTT accumulation baseCalledComplement baseCalledTemplate
+      bases_called category channel circleFun component duration error freq
+      full_2D group hour idx matrixCol matrixRow meanZValue mean_value
+      median_signal minute mux name nbases new_reads num_events oddEven
+      pass pentamer rbindlist readIDs seq_length start_time time_bin
+      time_group x y zvalue
+    ```
+
+# iotables
+
+Version: 0.3.4
+
+## In both
+
+*   checking whether package ‘iotables’ can be installed ... ERROR
+    ```
+    Installation failed.
+    See ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/iotables/new/iotables.Rcheck/00install.out’ for details.
+    ```
+
+## Installation
+
+### Devel
+
+```
+* installing *source* package ‘iotables’ ...
+** package ‘iotables’ successfully unpacked and MD5 sums checked
+** R
+** data
+*** moving datasets to lazyload DB
+** inst
+** byte-compile and prepare package for lazy loading
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+  there is no package called ‘sf’
+ERROR: lazy loading failed for package ‘iotables’
+* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/iotables/new/iotables.Rcheck/iotables’
+
+```
+### CRAN
+
+```
+* installing *source* package ‘iotables’ ...
+** package ‘iotables’ successfully unpacked and MD5 sums checked
+** R
+** data
+*** moving datasets to lazyload DB
+** inst
+** byte-compile and prepare package for lazy loading
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+  there is no package called ‘sf’
+ERROR: lazy loading failed for package ‘iotables’
+* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/iotables/old/iotables.Rcheck/iotables’
+
+```
+# ipumsr
+
+Version: 0.3.0
+
+## In both
+
+*   checking package dependencies ... NOTE
+    ```
+    Package suggested but not available for checking: ‘sf’
+    ```
+
+*   checking dependencies in R code ... NOTE
+    ```
+    Namespace in Imports field not imported from: ‘R6’
+      All declared Imports should be used.
+    ```
+
+# isomiRs
+
+Version: 1.8.0
+
+## In both
+
+*   checking for hidden files and directories ... NOTE
+    ```
+    Found the following hidden files and directories:
+      .travis.yml
+    These were most likely included in error. See section ‘Package
+    structure’ in the ‘Writing R Extensions’ manual.
+    ```
+
+*   checking installed package size ... NOTE
+    ```
+      installed size is  8.7Mb
+      sub-directories of 1Mb or more:
+        data   7.1Mb
+        doc    1.2Mb
+    ```
+
+*   checking DESCRIPTION meta-information ... NOTE
+    ```
+    Package listed in more than one of Depends, Imports, Suggests, Enhances:
+      ‘tidyr’
+    A package should be listed in only one of these fields.
+    ```
+
+*   checking R code for possible problems ... NOTE
+    ```
+    ...
+    .run_enricher: no visible global function definition for ‘enrichGO’
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/isomiRs/new/isomiRs.Rcheck/00_pkg_src/isomiRs/R/targets.R:57)
+    .run_enricher: no visible binding for global variable ‘sel_genes’
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/isomiRs/new/isomiRs.Rcheck/00_pkg_src/isomiRs/R/targets.R:57)
+    .run_enricher: no visible global function definition for ‘enrichGO’
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/isomiRs/new/isomiRs.Rcheck/00_pkg_src/isomiRs/R/targets.R:59)
+    .run_enricher: no visible binding for global variable ‘sel_genes’
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/isomiRs/new/isomiRs.Rcheck/00_pkg_src/isomiRs/R/targets.R:59)
+    .run_enricher: no visible binding for global variable ‘Count’
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/isomiRs/new/isomiRs.Rcheck/00_pkg_src/isomiRs/R/targets.R:65)
+    .viz_mirna_gene_enrichment: no visible binding for global variable ‘X1’
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/isomiRs/new/isomiRs.Rcheck/00_pkg_src/isomiRs/R/targets.R:350-351)
+    isoNetwork: no visible binding for global variable ‘Description’
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/isomiRs/new/isomiRs.Rcheck/00_pkg_src/isomiRs/R/targets.R:289-291)
+    isoNetwork: no visible binding for global variable ‘geneID’
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/isomiRs/new/isomiRs.Rcheck/00_pkg_src/isomiRs/R/targets.R:289-291)
+    isoPlotNet: no visible binding for global variable ‘ngene’
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/isomiRs/new/isomiRs.Rcheck/00_pkg_src/isomiRs/R/targets.R:426-427)
+    Undefined global functions or variables:
+      Count Description X1 enrichGO geneID mirna_se mrna_de mrna_se ngene
+      sel_genes
+    ```
+
 # jpndistrict
 
-Version: 0.3.1
+Version: 0.3.2
 
 ## In both
 
@@ -2878,40 +2700,9 @@ Version: 0.1.0
 
 ## In both
 
-*   checking examples ... ERROR
+*   checking package dependencies ... NOTE
     ```
-    ...
-    Dependent variable is mpg 
-             term estimate std.error statistic p.value  itcv impact
-    1 (Intercept)   37.227     1.599    23.285   0.000    NA     NA
-    2          wt   -3.878     0.633    -6.129   0.000 0.243     NA
-    3          hp   -0.032     0.009    -3.519   0.001    NA  0.511
-    > 
-    > # using glm() for non-linear models
-    > if (requireNamespace("forcats")) {
-    + d <- forcats::gss_cat
-    + 
-    + d$married <- ifelse(d$marital == "Married", 1, 0)
-    + 
-    + m2 <- glm(married ~ age, data = d, family = binomial(link = "logit"))
-    + konfound(m2, age)
-    + }
-    Loading required namespace: forcats
-    Note that for a non-linear model, impact threshold should not be interpreted.
-    Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
-      there is no package called ‘data.table’
-    Calls: konfound -> konfound_glm
-    Execution halted
-    ```
-
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    Error in re-building vignettes:
-      ...
-    Quitting from lines 42-43 (Introduction_to_konfound.Rmd) 
-    Error: processing vignette 'Introduction_to_konfound.Rmd' failed with diagnostics:
-    Dependency package margins not available.
-    Execution halted
+    Package suggested but not available for checking: ‘devtools’
     ```
 
 # Lahman
@@ -2920,16 +2711,24 @@ Version: 6.0-0
 
 ## In both
 
-*   checking package dependencies ... NOTE
-    ```
-    Package suggested but not available for checking: ‘data.table’
-    ```
-
 *   checking installed package size ... NOTE
     ```
       installed size is  7.6Mb
       sub-directories of 1Mb or more:
         data   7.4Mb
+    ```
+
+# linguisticsdown
+
+Version: 1.0.1
+
+## In both
+
+*   checking dependencies in R code ... NOTE
+    ```
+    Namespaces in Imports field not imported from:
+      ‘dplyr’ ‘tidyr’
+      All declared Imports should be used.
     ```
 
 # mafs
@@ -2948,27 +2747,25 @@ Version: 0.0.3
 
 # malariaAtlas
 
-Version: 0.0.1
+Version: 0.0.2
 
 ## In both
 
-*   checking package dependencies ... ERROR
+*   checking dependencies in R code ... NOTE
     ```
-    Package required but not available: ‘rgdal’
-    
-    See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-    manual.
+    Namespace in Imports field not imported from: ‘grid’
+      All declared Imports should be used.
     ```
 
 # MANOVA.RM
 
-Version: 0.2.1
+Version: 0.3.1
 
 ## In both
 
-*   checking package dependencies ... NOTE
+*   checking dependencies in R code ... NOTE
     ```
-    Package suggested but not available for checking: ‘RGtk2’
+    2018-10-23 21:41:10.229 R[34747:24275457] *** WARNING: Method userSpaceScaleFactor in class NSView is deprecated on 10.7 and later. It should not be used in new applications. Use convertRectToBacking: instead. 
     ```
 
 *   checking Rd cross-references ... NOTE
@@ -2976,40 +2773,26 @@ Version: 0.2.1
     Package unavailable to check Rd xrefs: ‘nparLD’
     ```
 
-# mapfuser
-
-Version: 0.1.2
-
-## In both
-
-*   checking package dependencies ... ERROR
-    ```
-    Package required but not available: ‘LPmerge’
-    
-    See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-    manual.
-    ```
-
 # mason
 
-Version: 0.2.5
+Version: 0.2.6
 
 ## In both
 
 *   checking Rd cross-references ... NOTE
     ```
-    Packages unavailable to check Rd xrefs: ‘ggplot2’, ‘pander’, ‘pixiedust’
+    Package unavailable to check Rd xrefs: ‘pixiedust’
     ```
 
-# meltt
+# mem
 
-Version: 0.4.0
+Version: 2.13
 
 ## In both
 
 *   checking package dependencies ... ERROR
     ```
-    Package required but not available: ‘RcppArmadillo’
+    Package required but not available: ‘sm’
     
     See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
     manual.
@@ -3017,17 +2800,49 @@ Version: 0.4.0
 
 # memapp
 
-Version: 2.9
+Version: 2.10
 
 ## In both
 
 *   checking dependencies in R code ... NOTE
     ```
     Namespaces in Imports field not imported from:
-      ‘DT’ ‘RColorBrewer’ ‘RODBC’ ‘dplyr’ ‘formattable’ ‘ggplot2’
-      ‘ggthemes’ ‘magrittr’ ‘mem’ ‘openxlsx’ ‘plotly’ ‘readxl’ ‘shinyBS’
+      ‘DT’ ‘RColorBrewer’ ‘RODBC’ ‘dplyr’ ‘foreign’ ‘formattable’ ‘ggplot2’
+      ‘haven’ ‘magrittr’ ‘mem’ ‘openxlsx’ ‘plotly’ ‘readxl’ ‘shinyBS’
       ‘shinydashboard’ ‘shinyjs’ ‘shinythemes’ ‘stringi’ ‘stringr’ ‘tidyr’
       All declared Imports should be used.
+    ```
+
+# MetaCyto
+
+Version: 1.2.1
+
+## In both
+
+*   checking R code for possible problems ... NOTE
+    ```
+    ...
+    collectData: no visible binding for global variable ‘value’
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/MetaCyto/new/MetaCyto.Rcheck/00_pkg_src/MetaCyto/R/collectData.R:27)
+    panelSummary: no visible binding for global variable ‘antibodies’
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/MetaCyto/new/MetaCyto.Rcheck/00_pkg_src/MetaCyto/R/panelSummary.R:34)
+    panelSummary: no visible binding for global variable ‘value’
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/MetaCyto/new/MetaCyto.Rcheck/00_pkg_src/MetaCyto/R/panelSummary.R:34)
+    plotGA: no visible binding for global variable ‘lower’
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/MetaCyto/new/MetaCyto.Rcheck/00_pkg_src/MetaCyto/R/plotGA.R:33-39)
+    plotGA: no visible binding for global variable ‘upper’
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/MetaCyto/new/MetaCyto.Rcheck/00_pkg_src/MetaCyto/R/plotGA.R:33-39)
+    searchCluster : <anonymous>: no visible binding for global variable
+      ‘triS’
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/MetaCyto/new/MetaCyto.Rcheck/00_pkg_src/MetaCyto/R/searchCluster.R:102)
+    searchCluster : <anonymous>: no visible binding for global variable
+      ‘triS’
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/MetaCyto/new/MetaCyto.Rcheck/00_pkg_src/MetaCyto/R/searchCluster.R:103)
+    searchCluster : <anonymous>: no visible binding for global variable
+      ‘triS’
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/MetaCyto/new/MetaCyto.Rcheck/00_pkg_src/MetaCyto/R/searchCluster.R:104)
+    Undefined global functions or variables:
+      antibodies lower parameter_name triS upper value
     ```
 
 # MetamapsDB
@@ -3036,12 +2851,25 @@ Version: 0.0.2
 
 ## In both
 
-*   checking package dependencies ... ERROR
+*   checking dependencies in R code ... NOTE
     ```
-    Package required but not available: ‘data.table’
-    
-    See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-    manual.
+    Namespaces in Imports field not imported from:
+      ‘Matrix’ ‘shiny’
+      All declared Imports should be used.
+    ```
+
+# mixOmics
+
+Version: 6.3.2
+
+## In both
+
+*   checking installed package size ... NOTE
+    ```
+      installed size is  9.7Mb
+      sub-directories of 1Mb or more:
+        R      5.1Mb
+        data   4.0Mb
     ```
 
 # mlbgameday
@@ -3049,29 +2877,6 @@ Version: 0.0.2
 Version: 0.1.2
 
 ## In both
-
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    Error in re-building vignettes:
-      ...
-    Warning: call dbDisconnect() when finished working with a connection
-    Warning in .Internal(vector("character", length)) :
-      closing unused connection 5 (http://gd2.mlb.com/components/game/mlb/year_2018/month_03/day_20/gid_2018_03_20_tbamlb_balmlb_1/inning/inning_all.xml)
-    Warning: closing unused connection 5 (http://gd2.mlb.com/components/game/mlb/year_2018/month_03/day_24/gid_2018_03_24_sfnmlb_srcaaa_1/inning/inning_all.xml)
-    Warning in .Internal(inherits(x, what, which)) :
-      closing unused connection 6 (http://gd2.mlb.com/components/game/mlb/year_2018/month_03/day_26/gid_2018_03_26_chamlb_chraaa_1/inning/inning_all.xml)
-    Warning in .Internal(inherits(x, what, which)) :
-      closing unused connection 5 (http://gd2.mlb.com/components/game/mlb/year_2018/month_03/day_26/gid_2018_03_26_balmlb_noraaa_1/inning/inning_all.xml)
-    Warning: closing unused connection 5 (http://gd2.mlb.com/components/game/mlb/year_2018/month_03/day_26/gid_2018_03_26_kcamlb_omaaaa_1/inning/inning_all.xml)
-    Warning in doTryCatch(return(expr), name, parentenv, handler) :
-      closing unused connection 5 (http://gd2.mlb.com/components/game/mlb/year_2018/month_03/day_26/gid_2018_03_26_sdnmlb_elpaaa_1/inning/inning_all.xml)
-    Warning: closing unused connection 5 (http://gd2.mlb.com/components/game/mlb/year_2018/month_03/day_27/gid_2018_03_27_cinmlb_texmlb_1/inning/inning_all.xml)
-    Quitting from lines 87-98 (pitch_plotting.Rmd) 
-    Error: processing vignette 'pitch_plotting.Rmd' failed with diagnostics:
-    package or namespace load failed for 'plotly' in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]):
-     there is no package called 'data.table'
-    Execution halted
-    ```
 
 *   checking dependencies in R code ... NOTE
     ```
@@ -3082,13 +2887,13 @@ Version: 0.1.2
 
 # modelr
 
-Version: 0.1.1
+Version: 0.1.2
 
 ## In both
 
 *   checking Rd cross-references ... NOTE
     ```
-    Packages unavailable to check Rd xrefs: ‘lme4’, ‘rstanarm’
+    Package unavailable to check Rd xrefs: ‘rstanarm’
     ```
 
 # monkeylearn
@@ -3105,7 +2910,7 @@ Version: 0.2.0
 
 # morse
 
-Version: 3.0.0
+Version: 3.1.1
 
 ## In both
 
@@ -3126,7 +2931,7 @@ Version: 3.0.0
 ** data
 *** moving datasets to lazyload DB
 ** inst
-** preparing package for lazy loading
+** byte-compile and prepare package for lazy loading
 Error : .onLoad failed in loadNamespace() for 'rjags', details:
   call: dyn.load(file, DLLpath = DLLpath, ...)
   error: unable to load shared object '/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/morse/rjags/libs/rjags.so':
@@ -3146,7 +2951,7 @@ ERROR: lazy loading failed for package ‘morse’
 ** data
 *** moving datasets to lazyload DB
 ** inst
-** preparing package for lazy loading
+** byte-compile and prepare package for lazy loading
 Error : .onLoad failed in loadNamespace() for 'rjags', details:
   call: dyn.load(file, DLLpath = DLLpath, ...)
   error: unable to load shared object '/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/morse/rjags/libs/rjags.so':
@@ -3157,18 +2962,46 @@ ERROR: lazy loading failed for package ‘morse’
 * removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/morse/old/morse.Rcheck/morse’
 
 ```
+# mosaic
+
+Version: 1.4.0
+
+## In both
+
+*   checking package dependencies ... NOTE
+    ```
+    Package which this enhances but not available for checking: ‘manipulate’
+    ```
+
+*   checking installed package size ... NOTE
+    ```
+      installed size is  6.5Mb
+      sub-directories of 1Mb or more:
+        R     4.1Mb
+        doc   1.9Mb
+    ```
+
+*   checking Rd cross-references ... NOTE
+    ```
+    Package unavailable to check Rd xrefs: ‘cubature’
+    ```
+
+# mosaicData
+
+Version: 0.17.0
+
+## In both
+
+*   checking data for non-ASCII characters ... NOTE
+    ```
+      Note: found 7 marked UTF-8 strings
+    ```
+
 # mosaicModel
 
 Version: 0.3.0
 
 ## In both
-
-*   checking whether package ‘mosaicModel’ can be installed ... WARNING
-    ```
-    Found the following significant warnings:
-      Warning: package ‘mosaicCore’ was built under R version 3.4.3
-    See ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/mosaicModel/new/mosaicModel.Rcheck/00install.out’ for details.
-    ```
 
 *   checking dependencies in R code ... NOTE
     ```
@@ -3177,60 +3010,43 @@ Version: 0.3.0
       All declared Imports should be used.
     ```
 
-# mpoly
+# MSstats
 
-Version: 1.0.5
-
-## In both
-
-*   checking whether package ‘mpoly’ can be installed ... WARNING
-    ```
-    Found the following significant warnings:
-      Warning: package ‘stringr’ was built under R version 3.4.3
-    See ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/mpoly/new/mpoly.Rcheck/00install.out’ for details.
-    ```
-
-# mtconnectR
-
-Version: 1.1.0
+Version: 3.12.3
 
 ## In both
 
-*   checking package dependencies ... ERROR
+*   checking R code for possible problems ... NOTE
     ```
-    Package required but not available: ‘data.table’
-    
-    See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-    manual.
+    ...
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/MSstats/new/MSstats.Rcheck/00_pkg_src/MSstats/R/plot_quantlim.R:194-197)
+    plot_quantlim: no visible binding for global variable ‘ymax’
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/MSstats/new/MSstats.Rcheck/00_pkg_src/MSstats/R/plot_quantlim.R:194-197)
+    plot_quantlim: no visible binding for global variable ‘x’
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/MSstats/new/MSstats.Rcheck/00_pkg_src/MSstats/R/plot_quantlim.R:218-221)
+    plot_quantlim: no visible binding for global variable ‘y’
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/MSstats/new/MSstats.Rcheck/00_pkg_src/MSstats/R/plot_quantlim.R:218-221)
+    plot_quantlim: no visible binding for global variable ‘shape’
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/MSstats/new/MSstats.Rcheck/00_pkg_src/MSstats/R/plot_quantlim.R:218-221)
+    plot_quantlim: no visible binding for global variable ‘x’
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/MSstats/new/MSstats.Rcheck/00_pkg_src/MSstats/R/plot_quantlim.R:223-226)
+    plot_quantlim: no visible binding for global variable ‘y’
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/MSstats/new/MSstats.Rcheck/00_pkg_src/MSstats/R/plot_quantlim.R:223-226)
+    plot_quantlim: no visible binding for global variable ‘shape’
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/MSstats/new/MSstats.Rcheck/00_pkg_src/MSstats/R/plot_quantlim.R:223-226)
+    Undefined global functions or variables:
+      ABUNDANCE FEATURE FRACTION Intensity LABEL Mean Name PeptideSequence
+      Protein ProteinName Protein_number RUN Selected_fragments
+      Selected_peptides Train_size aggr_Fragment_Annotation aggr_Peak_Area
+      analysis ciw datafeature fea label logFC missing.col ncount ount
+      residual shape weight x y ymax ymin
     ```
 
 # mudata2
 
-Version: 1.0.2
+Version: 1.0.3
 
 ## In both
-
-*   checking tests ...
-    ```
-     ERROR
-    Running the tests in ‘tests/test-all.R’ failed.
-    Last 13 lines of output:
-      ══ testthat results  ═══════════════════════════════════════════════════════════════════════════════════════════
-      OK: 931 SKIPPED: 0 FAILED: 12
-      1. Error: mudata_prepare_column and mudata_parse_column are opposites (@test_mudata.io.R#244) 
-      2. Error: mudata_prepare_tbl works as intended (@test_mudata.io.R#288) 
-      3. Error: mudata_prepare_tbl and mudata_parse_tbl are opposites (@test_mudata.io.R#322) 
-      4. Failure: as_* functions produce the expected output type (@test_types.R#210) 
-      5. Failure: wkt parsing returns an sf::sfc (@test_types.R#252) 
-      6. Failure: wkt parsing works when there are parsing errors/NA values (@test_types.R#259) 
-      7. Error: wkt parsing works when there are parsing errors/NA values (@test_types.R#261) 
-      8. Failure: wkt parsing works with zero-length input (@test_types.R#285) 
-      9. Failure: objects generate the correct type strings (@test_types.R#306) 
-      1. ...
-      
-      Error: testthat unit tests failed
-      Execution halted
-    ```
 
 *   checking package dependencies ... NOTE
     ```
@@ -3239,51 +3055,211 @@ Version: 1.0.2
 
 # MultiAssayExperiment
 
-Version: 1.2.1
+Version: 1.6.0
 
 ## In both
 
-*   checking examples ... WARNING
+*   checking dependencies in R code ... NOTE
+    ```
+    Unexported objects imported by ':::' calls:
+      ‘BiocGenerics:::replaceSlots’ ‘S4Vectors:::selectSome’
+      See the note in ?`:::` about the use of this operator.
+    ```
+
+# multicolor
+
+Version: 0.1.1
+
+## In both
+
+*   checking dependencies in R code ... NOTE
+    ```
+    Namespace in Imports field not imported from: ‘cowsay’
+      All declared Imports should be used.
+    ```
+
+# multistateutils
+
+Version: 1.2.0
+
+## In both
+
+*   checking examples ... ERROR
     ```
     ...
-      Warning: 'RangedRaggedAssay' is deprecated.
-      Warning: 'RangedRaggedAssay' is deprecated.
-      Warning: 'RangedRaggedAssay' is deprecated.
-      Warning: 'RangedRaggedAssay' is deprecated.
-      Warning: 'RangedRaggedAssay' is deprecated.
-      Warning: 'RangedRaggedAssay' is deprecated.
-      Warning: 'RangedRaggedAssay' is deprecated.
-      Warning: 'RangedRaggedAssay' is deprecated.
-      Warning: 'RangedRaggedAssay' is deprecated.
-      Warning: 'RangedRaggedAssay' is deprecated.
-      Warning: 'RangedRaggedAssay' is deprecated.
-      Warning: 'RangedRaggedAssay' is deprecated.
-      Warning: 'RangedRaggedAssay' is deprecated.
-      Warning: 'RangedRaggedAssay' is deprecated.
-      Warning: 'RangedRaggedAssay' is deprecated.
-      Warning: 'RangedRaggedAssay' is deprecated.
-      Warning: 'RangedRaggedAssay' is deprecated.
-      Warning: 'RangedRaggedAssay' is deprecated.
-    Deprecated functions may be defunct as soon as of the next release of
-    R.
-    See ?Deprecated.
+    + })
+    > 
+    > # New individual to estimate transition probabilities for
+    > newdata <- data.frame(age="20-40", dissub="AML")
+    > 
+    > # Estimate length of stay in each state after a year, given starting in state 1
+    > length_of_stay(models, 
+    +                newdata=newdata,
+    +                tmat, times=365.25,
+    +                start=1)
+    
+     *** caught illegal operation ***
+    address 0x10dfafb00, cause 'illegal opcode'
+    
+    Traceback:
+     1: desCpp(transitions, trans_mat, newdata_mat, start_times, start_states -     1, tcovs)
+     2: data.table::as.data.table(desCpp(transitions, trans_mat, newdata_mat,     start_times, start_states - 1, tcovs))
+     3: run_sim(transition_list, attr_mat, trans_mat, tcovs, start_times,     start_states)
+     4: state_occupancy(models, trans_mat, newdata_ext, tcovs, initial_times,     start_states, ci, M, agelimit, agecol, agescale)
+     5: length_of_stay(models, newdata = newdata, tmat, times = 365.25,     start = 1)
+    An irrecoverable exception occurred. R is aborting now ...
+    ```
+
+*   checking tests ...
+    ```
+     ERROR
+    Running the tests in ‘tests/testthat.R’ failed.
+    Last 13 lines of output:
+      26: tryCatchList(expr, classes, parentenv, handlers)
+      27: tryCatch(withCallingHandlers({    eval(code, test_env)    if (!handled && !is.null(test)) {        skip_empty()    }}, expectation = handle_expectation, skip = handle_skip, warning = handle_warning,     message = handle_message, error = handle_error), error = handle_fatal,     skip = function(e) {    })
+      28: test_code(NULL, exprs, env)
+      29: source_file(path, new.env(parent = env), chdir = TRUE, wrap = wrap)
+      30: force(code)
+      31: with_reporter(reporter = reporter, start_end_reporter = start_end_reporter,     {        lister$start_file(basename(path))        source_file(path, new.env(parent = env), chdir = TRUE,             wrap = wrap)        end_context()    })
+      32: FUN(X[[i]], ...)
+      33: lapply(paths, test_file, env = env, reporter = current_reporter,     start_end_reporter = FALSE, load_helpers = FALSE, wrap = wrap)
+      34: force(code)
+      35: with_reporter(reporter = current_reporter, results <- lapply(paths,     test_file, env = env, reporter = current_reporter, start_end_reporter = FALSE,     load_helpers = FALSE, wrap = wrap))
+      36: test_files(paths, reporter = reporter, env = env, stop_on_failure = stop_on_failure,     stop_on_warning = stop_on_warning, wrap = wrap)
+      37: test_dir(path = test_path, reporter = reporter, env = env, filter = filter,     ..., stop_on_failure = stop_on_failure, stop_on_warning = stop_on_warning,     wrap = wrap)
+      38: test_package_dir(package = package, test_path = test_path, filter = filter,     reporter = reporter, ..., stop_on_failure = stop_on_failure,     stop_on_warning = stop_on_warning, wrap = wrap)
+      39: test_check("multistateutils")
+      An irrecoverable exception occurred. R is aborting now ...
+    ```
+
+*   checking re-building of vignette outputs ... WARNING
+    ```
+    ...
+    11: timing_fn(handle(ev <- withCallingHandlers(withVisible(eval(expr,     envir, enclos)), warning = wHandler, error = eHandler, message = mHandler)))
+    12: evaluate_call(expr, parsed$src[[i]], envir = envir, enclos = enclos,     debug = debug, last = i == length(out), use_try = stop_on_error !=         2L, keep_warning = keep_warning, keep_message = keep_message,     output_handler = output_handler, include_timing = include_timing)
+    13: evaluate::evaluate(...)
+    14: evaluate(code, envir = env, new_device = FALSE, keep_warning = !isFALSE(options$warning),     keep_message = !isFALSE(options$message), stop_on_error = if (options$error &&         options$include) 0L else 2L, output_handler = knit_handlers(options$render,         options))
+    15: in_dir(input_dir(), evaluate(code, envir = env, new_device = FALSE,     keep_warning = !isFALSE(options$warning), keep_message = !isFALSE(options$message),     stop_on_error = if (options$error && options$include) 0L else 2L,     output_handler = knit_handlers(options$render, options)))
+    16: block_exec(params)
+    17: call_block(x)
+    18: process_group.block(group)
+    19: process_group(group)
+    20: withCallingHandlers(if (tangle) process_tangle(group) else process_group(group),     error = function(e) {        setwd(wd)        cat(res, sep = "\n", file = output %n% "")        message("Quitting from lines ", paste(current_lines(i),             collapse = "-"), " (", knit_concord$get("infile"),             ") ")    })
+    21: process_file(text, output)
+    22: knitr::knit(knit_input, knit_output, envir = envir, quiet = quiet,     encoding = encoding)
+    23: rmarkdown::render(file, encoding = encoding, quiet = quiet, envir = globalenv())
+    24: vweave_rmarkdown(...)
+    25: engine$weave(file, quiet = quiet, encoding = enc)
+    26: doTryCatch(return(expr), name, parentenv, handler)
+    27: tryCatchOne(expr, names, parentenv, handlers[[1L]])
+    28: tryCatchList(expr, classes, parentenv, handlers)
+    29: tryCatch({    engine$weave(file, quiet = quiet, encoding = enc)    setwd(startdir)    find_vignette_product(name, by = "weave", engine = engine)}, error = function(e) {    stop(gettextf("processing vignette '%s' failed with diagnostics:\n%s",         file, conditionMessage(e)), domain = NA, call. = FALSE)})
+    30: buildVignettes(dir = "/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/multistateutils/new/multistateutils.Rcheck/vign_test/multistateutils")
+    An irrecoverable exception occurred. R is aborting now ...
     ```
 
 *   checking dependencies in R code ... NOTE
     ```
-    Unexported object imported by a ':::' call: ‘BiocGenerics:::replaceSlots’
-      See the note in ?`:::` about the use of this operator.
+    Namespaces in Imports field not imported from:
+      ‘Rcpp’ ‘survival’
+      All declared Imports should be used.
     ```
 
 # naniar
 
-Version: 0.2.0
+Version: 0.4.0.0
+
+## In both
+
+*   checking tests ...
+    ```
+     ERROR
+    Running the tests in ‘tests/testthat.R’ failed.
+    Last 13 lines of output:
+      8: withVisible(function_list[[k]](value))
+      9: function_list[[k]](value)
+      10: dplyr::mutate(., any_missing = label_shadow(., !!!quo_vars, missing = missing, complete = complete))
+      11: mutate.tbl_df(., any_missing = label_shadow(., !!!quo_vars, missing = missing, complete = complete))
+      12: mutate_impl(.data, dots)
+      
+      ══ testthat results  ═════════════════════════════════════════════════════════════════════════════════
+      OK: 456 SKIPPED: 23 FAILED: 4
+      1. Error: add_label_shadow returns a tibble (@test-add-label-shadow.R#7) 
+      2. Error: add_label_shadow adds the right number of columns (@test-add-label-shadow.R#13) 
+      3. Error: add_label_shadow adds a column with suffix 'any_missing' (@test-add-label-shadow.R#20) 
+      4. Error: (unknown) (@test-add-label-shadow.R#45) 
+      
+      Error: testthat unit tests failed
+      Execution halted
+    ```
+
+# ncappc
+
+Version: 0.3.0
 
 ## In both
 
 *   checking dependencies in R code ... NOTE
     ```
-    Namespace in Imports field not imported from: ‘purrrlyr’
+    Namespace in Imports field not imported from: ‘bookdown’
+      All declared Imports should be used.
+    ```
+
+# ndexr
+
+Version: 1.2.0
+
+## In both
+
+*   checking DESCRIPTION meta-information ... NOTE
+    ```
+    Deprecated license: BSD
+    ```
+
+*   checking dependencies in R code ... NOTE
+    ```
+    Package in Depends field not imported from: ‘igraph’
+      These packages need to be imported from (in the NAMESPACE file)
+      for when this namespace is loaded but not attached.
+    Unexported object imported by a ':::' call: ‘httr:::default_ua’
+      See the note in ?`:::` about the use of this operator.
+    ```
+
+*   checking R code for possible problems ... NOTE
+    ```
+    ...
+    rcx_toRCXgraph: no visible global function definition for ‘E’
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/ndexr/new/ndexr.Rcheck/00_pkg_src/ndexr/R/ndex_RCXgraph.r:117)
+    rcx_toRCXgraph: no visible global function definition for ‘E<-’
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/ndexr/new/ndexr.Rcheck/00_pkg_src/ndexr/R/ndex_RCXgraph.r:117)
+    rcxgraph_fromRCX: no visible global function definition for ‘V’
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/ndexr/new/ndexr.Rcheck/00_pkg_src/ndexr/R/ndex_RCXgraph.r:116)
+    rcxgraph_fromRCX: no visible global function definition for ‘V<-’
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/ndexr/new/ndexr.Rcheck/00_pkg_src/ndexr/R/ndex_RCXgraph.r:116)
+    rcxgraph_fromRCX: no visible global function definition for ‘E’
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/ndexr/new/ndexr.Rcheck/00_pkg_src/ndexr/R/ndex_RCXgraph.r:117)
+    rcxgraph_fromRCX: no visible global function definition for ‘E<-’
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/ndexr/new/ndexr.Rcheck/00_pkg_src/ndexr/R/ndex_RCXgraph.r:117)
+    rcxgraph_toRCX: no visible binding for global variable ‘po’
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/ndexr/new/ndexr.Rcheck/00_pkg_src/ndexr/R/ndex_RCXgraph.r:268)
+    rcxgraph_toRCX: no visible binding for global variable ‘po’
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/ndexr/new/ndexr.Rcheck/00_pkg_src/ndexr/R/ndex_RCXgraph.r:294)
+    Undefined global functions or variables:
+      E E<- V V<- packageVersion po tail
+    Consider adding
+      importFrom("utils", "packageVersion", "tail")
+    to your NAMESPACE file.
+    ```
+
+# NetworkChange
+
+Version: 0.4
+
+## In both
+
+*   checking dependencies in R code ... NOTE
+    ```
+    Namespace in Imports field not imported from: ‘plyr’
       All declared Imports should be used.
     ```
 
@@ -3293,52 +3269,13 @@ Version: 0.5.0
 
 ## In both
 
-*   checking whether package ‘neuropsychology’ can be installed ... ERROR
+*   checking dependencies in R code ... NOTE
     ```
-    Installation failed.
-    See ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/neuropsychology/new/neuropsychology.Rcheck/00install.out’ for details.
+    Namespaces in Imports field not imported from:
+      ‘htmlTable’ ‘lme4’ ‘stringi’
+      All declared Imports should be used.
     ```
 
-## Installation
-
-### Devel
-
-```
-* installing *source* package ‘neuropsychology’ ...
-** package ‘neuropsychology’ successfully unpacked and MD5 sums checked
-** R
-** data
-*** moving datasets to lazyload DB
-** inst
-** preparing package for lazy loading
-Warning: package ‘tibble’ was built under R version 3.4.3
-Warning: package ‘stringr’ was built under R version 3.4.3
-Warning: package ‘forcats’ was built under R version 3.4.3
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
-  there is no package called ‘data.table’
-ERROR: lazy loading failed for package ‘neuropsychology’
-* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/neuropsychology/new/neuropsychology.Rcheck/neuropsychology’
-
-```
-### CRAN
-
-```
-* installing *source* package ‘neuropsychology’ ...
-** package ‘neuropsychology’ successfully unpacked and MD5 sums checked
-** R
-** data
-*** moving datasets to lazyload DB
-** inst
-** preparing package for lazy loading
-Warning: package ‘tibble’ was built under R version 3.4.3
-Warning: package ‘stringr’ was built under R version 3.4.3
-Warning: package ‘forcats’ was built under R version 3.4.3
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
-  there is no package called ‘data.table’
-ERROR: lazy loading failed for package ‘neuropsychology’
-* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/neuropsychology/old/neuropsychology.Rcheck/neuropsychology’
-
-```
 # NFP
 
 Version: 0.99.2
@@ -3352,25 +3289,1379 @@ Version: 0.99.2
 
 *   checking installed package size ... NOTE
     ```
-      installed size is  8.5Mb
+      installed size is  8.6Mb
       sub-directories of 1Mb or more:
-        data   8.1Mb
+        data   8.0Mb
     ```
 
+# nlmixr
+
+Version: 1.0.0-7
+
+## In both
+
+*   checking whether package ‘nlmixr’ can be installed ... ERROR
+    ```
+    Installation failed.
+    See ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/nlmixr/new/nlmixr.Rcheck/00install.out’ for details.
+    ```
+
+*   checking package dependencies ... NOTE
+    ```
+    Package suggested but not available for checking: ‘devtools’
+    ```
+
+## Installation
+
+### Devel
+
+```
+* installing *source* package ‘nlmixr’ ...
+** package ‘nlmixr’ successfully unpacked and MD5 sums checked
+** libs
+ccache clang -Qunused-arguments  -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/dparser/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/new/Rcpp/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/new/BH/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c jj.c -o jj.o
+ccache clang -Qunused-arguments  -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/dparser/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/new/Rcpp/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/new/BH/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c jj.g.d_parser.c -o jj.g.d_parser.o
+ccache clang -Qunused-arguments  -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/dparser/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/new/Rcpp/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/new/BH/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c init.c -o init.o
+ccache clang -Qunused-arguments  -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/dparser/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/new/Rcpp/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/new/BH/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c rprintf.c -o rprintf.o
+ccache clang -Qunused-arguments  -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/dparser/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/new/Rcpp/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/new/BH/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c chkSolved.c -o chkSolved.o
+ccache clang -Qunused-arguments  -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/dparser/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/new/Rcpp/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/new/BH/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c merge3.c -o merge3.o
+clang++ -std=gnu++11 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/dparser/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/new/Rcpp/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/new/BH/include" -I/usr/local/include  -Id -I../inst/include -DBOOST_DISABLE_ASSERTS -I"`"/Library/Frameworks/R.framework/Resources/bin/Rscript" -e 'cat(file.path(find.package("RcppArmadillo"),"include"))'`" -fPIC  -Wall -g -O2 -c neldermead.cpp -o neldermead.o
+clang++ -std=gnu++11 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/dparser/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/new/Rcpp/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/new/BH/include" -I/usr/local/include  -Id -I../inst/include -DBOOST_DISABLE_ASSERTS -I"`"/Library/Frameworks/R.framework/Resources/bin/Rscript" -e 'cat(file.path(find.package("RcppArmadillo"),"include"))'`" -fPIC  -Wall -g -O2 -c slice.cpp -o slice.o
+clang++ -std=gnu++11 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/dparser/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/new/Rcpp/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/new/BH/include" -I/usr/local/include  -Id -I../inst/include -DBOOST_DISABLE_ASSERTS -I"`"/Library/Frameworks/R.framework/Resources/bin/Rscript" -e 'cat(file.path(find.package("RcppArmadillo"),"include"))'`" -fPIC  -Wall -g -O2 -c RcppExportMod.cpp -o RcppExportMod.o
+In file included from RcppExportMod.cpp:1:
+In file included from ./../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:30:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Dense:1:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Core:531:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from RcppExportMod.cpp:1:
+In file included from ./../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:30:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Dense:2:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/LU:47:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from RcppExportMod.cpp:1:
+In file included from ./../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:30:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Dense:3:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Cholesky:12:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Jacobi:29:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from RcppExportMod.cpp:1:
+In file included from ./../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:30:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Dense:3:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Cholesky:43:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from RcppExportMod.cpp:1:
+In file included from ./../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:30:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Dense:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/QR:17:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Householder:27:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from RcppExportMod.cpp:1:
+In file included from ./../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:30:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Dense:5:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/SVD:48:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from RcppExportMod.cpp:1:
+In file included from ./../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:30:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Dense:6:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Geometry:58:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from RcppExportMod.cpp:1:
+In file included from ./../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:30:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Dense:7:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Eigenvalues:58:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from RcppExportMod.cpp:1:
+In file included from ./../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:31:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Sparse:26:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/SparseCore:66:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from RcppExportMod.cpp:1:
+In file included from ./../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:31:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Sparse:27:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/OrderingMethods:71:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from RcppExportMod.cpp:1:
+In file included from ./../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:31:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Sparse:29:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/SparseCholesky:43:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from RcppExportMod.cpp:1:
+In file included from ./../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:31:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Sparse:32:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/SparseQR:35:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from RcppExportMod.cpp:1:
+In file included from ./../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:31:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Sparse:33:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/IterativeLinearSolvers:46:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from RcppExportMod.cpp:1:
+In file included from ./../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:32:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/CholmodSupport:45:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from RcppExportMod.cpp:1:
+In file included from ./../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:35:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/unsupported/Eigen/KroneckerProduct:34:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/unsupported/Eigen/../../Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from RcppExportMod.cpp:1:
+In file included from ./../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:39:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/unsupported/Eigen/Polynomials:135:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/unsupported/Eigen/../../Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from RcppExportMod.cpp:1:
+In file included from ./../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:40:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/unsupported/Eigen/SparseExtra:51:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/unsupported/Eigen/../../Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+17 warnings generated.
+clang++ -std=gnu++11 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/dparser/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/new/Rcpp/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/new/BH/include" -I/usr/local/include  -Id -I../inst/include -DBOOST_DISABLE_ASSERTS -I"`"/Library/Frameworks/R.framework/Resources/bin/Rscript" -e 'cat(file.path(find.package("RcppArmadillo"),"include"))'`" -fPIC  -Wall -g -O2 -c ode_cmt1.cpp -o ode_cmt1.o
+In file included from ode_cmt1.cpp:1:
+In file included from ./../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:30:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Dense:1:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Core:531:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from ode_cmt1.cpp:1:
+In file included from ./../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:30:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Dense:2:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/LU:47:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from ode_cmt1.cpp:1:
+In file included from ./../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:30:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Dense:3:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Cholesky:12:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Jacobi:29:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from ode_cmt1.cpp:1:
+In file included from ./../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:30:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Dense:3:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Cholesky:43:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from ode_cmt1.cpp:1:
+In file included from ./../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:30:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Dense:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/QR:17:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Householder:27:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from ode_cmt1.cpp:1:
+In file included from ./../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:30:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Dense:5:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/SVD:48:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from ode_cmt1.cpp:1:
+In file included from ./../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:30:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Dense:6:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Geometry:58:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from ode_cmt1.cpp:1:
+In file included from ./../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:30:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Dense:7:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Eigenvalues:58:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from ode_cmt1.cpp:1:
+In file included from ./../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:31:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Sparse:26:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/SparseCore:66:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from ode_cmt1.cpp:1:
+In file included from ./../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:31:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Sparse:27:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/OrderingMethods:71:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from ode_cmt1.cpp:1:
+In file included from ./../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:31:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Sparse:29:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/SparseCholesky:43:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from ode_cmt1.cpp:1:
+In file included from ./../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:31:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Sparse:32:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/SparseQR:35:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from ode_cmt1.cpp:1:
+In file included from ./../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:31:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Sparse:33:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/IterativeLinearSolvers:46:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from ode_cmt1.cpp:1:
+In file included from ./../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:32:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/CholmodSupport:45:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from ode_cmt1.cpp:1:
+In file included from ./../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:35:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/unsupported/Eigen/KroneckerProduct:34:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/unsupported/Eigen/../../Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from ode_cmt1.cpp:1:
+In file included from ./../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:39:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/unsupported/Eigen/Polynomials:135:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/unsupported/Eigen/../../Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from ode_cmt1.cpp:1:
+In file included from ./../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:40:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/unsupported/Eigen/SparseExtra:51:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/unsupported/Eigen/../../Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from ode_cmt1.cpp:6:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include/stan/math.hpp:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include/stan/math/rev/mat.hpp:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include/stan/math/rev/core.hpp:44:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include/stan/math/rev/core/set_zero_all_adjoints.hpp:14:13: warning: unused function 'set_zero_all_adjoints' [-Wunused-function]
+static void set_zero_all_adjoints() {
+            ^
+In file included from ode_cmt1.cpp:6:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include/stan/math.hpp:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include/stan/math/rev/mat.hpp:12:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include/stan/math/prim/mat.hpp:70:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include/stan/math/prim/mat/fun/autocorrelation.hpp:18:8: warning: function 'fft_next_good_size' is not needed and will not be emitted [-Wunneeded-internal-declaration]
+size_t fft_next_good_size(size_t N) {
+       ^
+19 warnings generated.
+clang++ -std=gnu++11 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/dparser/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/new/Rcpp/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/new/BH/include" -I/usr/local/include  -Id -I../inst/include -DBOOST_DISABLE_ASSERTS -I"`"/Library/Frameworks/R.framework/Resources/bin/Rscript" -e 'cat(file.path(find.package("RcppArmadillo"),"include"))'`" -fPIC  -Wall -g -O2 -c RcppExports.cpp -o RcppExports.o
+In file included from RcppExports.cpp:4:
+In file included from ./../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:30:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Dense:1:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Core:531:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from RcppExports.cpp:4:
+In file included from ./../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:30:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Dense:2:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/LU:47:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from RcppExports.cpp:4:
+In file included from ./../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:30:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Dense:3:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Cholesky:12:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Jacobi:29:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from RcppExports.cpp:4:
+In file included from ./../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:30:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Dense:3:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Cholesky:43:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from RcppExports.cpp:4:
+In file included from ./../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:30:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Dense:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/QR:17:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Householder:27:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from RcppExports.cpp:4:
+In file included from ./../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:30:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Dense:5:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/SVD:48:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from RcppExports.cpp:4:
+In file included from ./../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:30:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Dense:6:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Geometry:58:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from RcppExports.cpp:4:
+In file included from ./../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:30:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Dense:7:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Eigenvalues:58:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from RcppExports.cpp:4:
+In file included from ./../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:31:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Sparse:26:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/SparseCore:66:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from RcppExports.cpp:4:
+In file included from ./../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:31:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Sparse:27:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/OrderingMethods:71:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from RcppExports.cpp:4:
+In file included from ./../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:31:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Sparse:29:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/SparseCholesky:43:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from RcppExports.cpp:4:
+In file included from ./../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:31:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Sparse:32:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/SparseQR:35:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from RcppExports.cpp:4:
+In file included from ./../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:31:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Sparse:33:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/IterativeLinearSolvers:46:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from RcppExports.cpp:4:
+In file included from ./../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:32:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/CholmodSupport:45:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from RcppExports.cpp:4:
+In file included from ./../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:35:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/unsupported/Eigen/KroneckerProduct:34:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/unsupported/Eigen/../../Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from RcppExports.cpp:4:
+In file included from ./../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:39:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/unsupported/Eigen/Polynomials:135:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/unsupported/Eigen/../../Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from RcppExports.cpp:4:
+In file included from ./../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:40:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/unsupported/Eigen/SparseExtra:51:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/unsupported/Eigen/../../Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+17 warnings generated.
+clang++ -std=gnu++11 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/dparser/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/new/Rcpp/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/new/BH/include" -I/usr/local/include  -Id -I../inst/include -DBOOST_DISABLE_ASSERTS -I"`"/Library/Frameworks/R.framework/Resources/bin/Rscript" -e 'cat(file.path(find.package("RcppArmadillo"),"include"))'`" -fPIC  -Wall -g -O2 -c resid.cpp -o resid.o
+In file included from resid.cpp:5:
+In file included from ../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:30:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Dense:1:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Core:531:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from resid.cpp:5:
+In file included from ../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:30:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Dense:2:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/LU:47:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from resid.cpp:5:
+In file included from ../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:30:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Dense:3:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Cholesky:12:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Jacobi:29:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from resid.cpp:5:
+In file included from ../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:30:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Dense:3:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Cholesky:43:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from resid.cpp:5:
+In file included from ../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:30:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Dense:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/QR:17:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Householder:27:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from resid.cpp:5:
+In file included from ../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:30:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Dense:5:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/SVD:48:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from resid.cpp:5:
+In file included from ../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:30:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Dense:6:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Geometry:58:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from resid.cpp:5:
+In file included from ../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:30:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Dense:7:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Eigenvalues:58:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from resid.cpp:5:
+In file included from ../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:31:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Sparse:26:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/SparseCore:66:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from resid.cpp:5:
+In file included from ../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:31:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Sparse:27:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/OrderingMethods:71:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from resid.cpp:5:
+In file included from ../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:31:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Sparse:29:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/SparseCholesky:43:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from resid.cpp:5:
+In file included from ../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:31:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Sparse:32:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/SparseQR:35:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from resid.cpp:5:
+In file included from ../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:31:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Sparse:33:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/IterativeLinearSolvers:46:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from resid.cpp:5:
+In file included from ../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:32:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/CholmodSupport:45:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from resid.cpp:5:
+In file included from ../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:35:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/unsupported/Eigen/KroneckerProduct:34:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/unsupported/Eigen/../../Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from resid.cpp:5:
+In file included from ../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:39:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/unsupported/Eigen/Polynomials:135:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/unsupported/Eigen/../../Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from resid.cpp:5:
+In file included from ../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:40:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/unsupported/Eigen/SparseExtra:51:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/unsupported/Eigen/../../Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+17 warnings generated.
+clang++ -std=gnu++11 -dynamiclib -Wl,-headerpad_max_install_names -undefined dynamic_lookup -single_module -multiply_defined suppress -L/Library/Frameworks/R.framework/Resources/lib -L/usr/local/lib -o nlmixr.so jj.o jj.g.d_parser.o init.o rprintf.o chkSolved.o merge3.o neldermead.o slice.o RcppExportMod.o ode_cmt1.o RcppExports.o resid.o -L/Library/Frameworks/R.framework/Resources/lib -lRlapack -L/Library/Frameworks/R.framework/Resources/lib -lRblas -L/usr/local/gfortran/lib/gcc/x86_64-apple-darwin15/6.1.0 -L/usr/local/gfortran/lib -lgfortran -lquadmath -lm -F/Library/Frameworks/R.framework/.. -framework R -Wl,-framework -Wl,CoreFoundation
+ld: warning: directory not found for option '-L/usr/local/gfortran/lib/gcc/x86_64-apple-darwin15/6.1.0'
+ld: warning: directory not found for option '-L/usr/local/gfortran/lib'
+installing to /Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/nlmixr/new/nlmixr.Rcheck/nlmixr/libs
+** R
+** data
+*** moving datasets to lazyload DB
+** inst
+** byte-compile and prepare package for lazy loading
+** help
+*** installing help indices
+** building package indices
+** installing vignettes
+** testing if installed package can be loaded
+Error: package or namespace load failed for ‘nlmixr’ in dyn.load(file, DLLpath = DLLpath, ...):
+ unable to load shared object '/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/nlmixr/new/nlmixr.Rcheck/nlmixr/libs/nlmixr.so':
+  dlopen(/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/nlmixr/new/nlmixr.Rcheck/nlmixr/libs/nlmixr.so, 6): Symbol not found: _wrapper_ddot_
+  Referenced from: /Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/nlmixr/new/nlmixr.Rcheck/nlmixr/libs/nlmixr.so
+  Expected in: flat namespace
+ in /Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/nlmixr/new/nlmixr.Rcheck/nlmixr/libs/nlmixr.so
+Error: loading failed
+Execution halted
+ERROR: loading failed
+* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/nlmixr/new/nlmixr.Rcheck/nlmixr’
+
+```
+### CRAN
+
+```
+* installing *source* package ‘nlmixr’ ...
+** package ‘nlmixr’ successfully unpacked and MD5 sums checked
+** libs
+ccache clang -Qunused-arguments  -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/dparser/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/old/Rcpp/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/old/BH/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c jj.c -o jj.o
+ccache clang -Qunused-arguments  -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/dparser/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/old/Rcpp/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/old/BH/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c jj.g.d_parser.c -o jj.g.d_parser.o
+ccache clang -Qunused-arguments  -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/dparser/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/old/Rcpp/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/old/BH/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c init.c -o init.o
+ccache clang -Qunused-arguments  -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/dparser/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/old/Rcpp/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/old/BH/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c rprintf.c -o rprintf.o
+ccache clang -Qunused-arguments  -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/dparser/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/old/Rcpp/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/old/BH/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c chkSolved.c -o chkSolved.o
+ccache clang -Qunused-arguments  -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/dparser/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/old/Rcpp/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/old/BH/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c merge3.c -o merge3.o
+clang++ -std=gnu++11 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/dparser/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/old/Rcpp/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/old/BH/include" -I/usr/local/include  -Id -I../inst/include -DBOOST_DISABLE_ASSERTS -I"`"/Library/Frameworks/R.framework/Resources/bin/Rscript" -e 'cat(file.path(find.package("RcppArmadillo"),"include"))'`" -fPIC  -Wall -g -O2 -c neldermead.cpp -o neldermead.o
+clang++ -std=gnu++11 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/dparser/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/old/Rcpp/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/old/BH/include" -I/usr/local/include  -Id -I../inst/include -DBOOST_DISABLE_ASSERTS -I"`"/Library/Frameworks/R.framework/Resources/bin/Rscript" -e 'cat(file.path(find.package("RcppArmadillo"),"include"))'`" -fPIC  -Wall -g -O2 -c slice.cpp -o slice.o
+clang++ -std=gnu++11 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/dparser/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/old/Rcpp/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/old/BH/include" -I/usr/local/include  -Id -I../inst/include -DBOOST_DISABLE_ASSERTS -I"`"/Library/Frameworks/R.framework/Resources/bin/Rscript" -e 'cat(file.path(find.package("RcppArmadillo"),"include"))'`" -fPIC  -Wall -g -O2 -c RcppExportMod.cpp -o RcppExportMod.o
+In file included from RcppExportMod.cpp:1:
+In file included from ./../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:30:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Dense:1:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Core:531:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from RcppExportMod.cpp:1:
+In file included from ./../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:30:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Dense:2:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/LU:47:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from RcppExportMod.cpp:1:
+In file included from ./../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:30:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Dense:3:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Cholesky:12:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Jacobi:29:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from RcppExportMod.cpp:1:
+In file included from ./../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:30:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Dense:3:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Cholesky:43:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from RcppExportMod.cpp:1:
+In file included from ./../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:30:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Dense:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/QR:17:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Householder:27:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from RcppExportMod.cpp:1:
+In file included from ./../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:30:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Dense:5:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/SVD:48:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from RcppExportMod.cpp:1:
+In file included from ./../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:30:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Dense:6:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Geometry:58:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from RcppExportMod.cpp:1:
+In file included from ./../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:30:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Dense:7:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Eigenvalues:58:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from RcppExportMod.cpp:1:
+In file included from ./../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:31:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Sparse:26:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/SparseCore:66:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from RcppExportMod.cpp:1:
+In file included from ./../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:31:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Sparse:27:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/OrderingMethods:71:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from RcppExportMod.cpp:1:
+In file included from ./../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:31:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Sparse:29:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/SparseCholesky:43:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from RcppExportMod.cpp:1:
+In file included from ./../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:31:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Sparse:32:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/SparseQR:35:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from RcppExportMod.cpp:1:
+In file included from ./../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:31:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Sparse:33:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/IterativeLinearSolvers:46:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from RcppExportMod.cpp:1:
+In file included from ./../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:32:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/CholmodSupport:45:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from RcppExportMod.cpp:1:
+In file included from ./../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:35:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/unsupported/Eigen/KroneckerProduct:34:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/unsupported/Eigen/../../Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from RcppExportMod.cpp:1:
+In file included from ./../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:39:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/unsupported/Eigen/Polynomials:135:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/unsupported/Eigen/../../Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from RcppExportMod.cpp:1:
+In file included from ./../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:40:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/unsupported/Eigen/SparseExtra:51:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/unsupported/Eigen/../../Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+17 warnings generated.
+clang++ -std=gnu++11 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/dparser/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/old/Rcpp/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/old/BH/include" -I/usr/local/include  -Id -I../inst/include -DBOOST_DISABLE_ASSERTS -I"`"/Library/Frameworks/R.framework/Resources/bin/Rscript" -e 'cat(file.path(find.package("RcppArmadillo"),"include"))'`" -fPIC  -Wall -g -O2 -c ode_cmt1.cpp -o ode_cmt1.o
+In file included from ode_cmt1.cpp:1:
+In file included from ./../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:30:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Dense:1:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Core:531:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from ode_cmt1.cpp:1:
+In file included from ./../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:30:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Dense:2:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/LU:47:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from ode_cmt1.cpp:1:
+In file included from ./../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:30:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Dense:3:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Cholesky:12:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Jacobi:29:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from ode_cmt1.cpp:1:
+In file included from ./../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:30:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Dense:3:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Cholesky:43:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from ode_cmt1.cpp:1:
+In file included from ./../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:30:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Dense:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/QR:17:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Householder:27:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from ode_cmt1.cpp:1:
+In file included from ./../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:30:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Dense:5:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/SVD:48:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from ode_cmt1.cpp:1:
+In file included from ./../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:30:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Dense:6:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Geometry:58:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from ode_cmt1.cpp:1:
+In file included from ./../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:30:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Dense:7:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Eigenvalues:58:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from ode_cmt1.cpp:1:
+In file included from ./../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:31:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Sparse:26:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/SparseCore:66:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from ode_cmt1.cpp:1:
+In file included from ./../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:31:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Sparse:27:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/OrderingMethods:71:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from ode_cmt1.cpp:1:
+In file included from ./../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:31:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Sparse:29:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/SparseCholesky:43:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from ode_cmt1.cpp:1:
+In file included from ./../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:31:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Sparse:32:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/SparseQR:35:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from ode_cmt1.cpp:1:
+In file included from ./../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:31:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Sparse:33:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/IterativeLinearSolvers:46:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from ode_cmt1.cpp:1:
+In file included from ./../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:32:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/CholmodSupport:45:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from ode_cmt1.cpp:1:
+In file included from ./../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:35:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/unsupported/Eigen/KroneckerProduct:34:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/unsupported/Eigen/../../Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from ode_cmt1.cpp:1:
+In file included from ./../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:39:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/unsupported/Eigen/Polynomials:135:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/unsupported/Eigen/../../Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from ode_cmt1.cpp:1:
+In file included from ./../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:40:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/unsupported/Eigen/SparseExtra:51:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/unsupported/Eigen/../../Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from ode_cmt1.cpp:6:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include/stan/math.hpp:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include/stan/math/rev/mat.hpp:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include/stan/math/rev/core.hpp:44:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include/stan/math/rev/core/set_zero_all_adjoints.hpp:14:13: warning: unused function 'set_zero_all_adjoints' [-Wunused-function]
+static void set_zero_all_adjoints() {
+            ^
+In file included from ode_cmt1.cpp:6:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include/stan/math.hpp:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include/stan/math/rev/mat.hpp:12:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include/stan/math/prim/mat.hpp:70:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include/stan/math/prim/mat/fun/autocorrelation.hpp:18:8: warning: function 'fft_next_good_size' is not needed and will not be emitted [-Wunneeded-internal-declaration]
+size_t fft_next_good_size(size_t N) {
+       ^
+19 warnings generated.
+clang++ -std=gnu++11 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/dparser/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/old/Rcpp/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/old/BH/include" -I/usr/local/include  -Id -I../inst/include -DBOOST_DISABLE_ASSERTS -I"`"/Library/Frameworks/R.framework/Resources/bin/Rscript" -e 'cat(file.path(find.package("RcppArmadillo"),"include"))'`" -fPIC  -Wall -g -O2 -c RcppExports.cpp -o RcppExports.o
+In file included from RcppExports.cpp:4:
+In file included from ./../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:30:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Dense:1:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Core:531:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from RcppExports.cpp:4:
+In file included from ./../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:30:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Dense:2:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/LU:47:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from RcppExports.cpp:4:
+In file included from ./../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:30:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Dense:3:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Cholesky:12:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Jacobi:29:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from RcppExports.cpp:4:
+In file included from ./../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:30:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Dense:3:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Cholesky:43:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from RcppExports.cpp:4:
+In file included from ./../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:30:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Dense:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/QR:17:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Householder:27:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from RcppExports.cpp:4:
+In file included from ./../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:30:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Dense:5:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/SVD:48:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from RcppExports.cpp:4:
+In file included from ./../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:30:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Dense:6:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Geometry:58:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from RcppExports.cpp:4:
+In file included from ./../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:30:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Dense:7:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Eigenvalues:58:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from RcppExports.cpp:4:
+In file included from ./../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:31:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Sparse:26:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/SparseCore:66:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from RcppExports.cpp:4:
+In file included from ./../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:31:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Sparse:27:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/OrderingMethods:71:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from RcppExports.cpp:4:
+In file included from ./../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:31:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Sparse:29:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/SparseCholesky:43:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from RcppExports.cpp:4:
+In file included from ./../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:31:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Sparse:32:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/SparseQR:35:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from RcppExports.cpp:4:
+In file included from ./../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:31:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Sparse:33:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/IterativeLinearSolvers:46:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from RcppExports.cpp:4:
+In file included from ./../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:32:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/CholmodSupport:45:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from RcppExports.cpp:4:
+In file included from ./../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:35:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/unsupported/Eigen/KroneckerProduct:34:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/unsupported/Eigen/../../Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from RcppExports.cpp:4:
+In file included from ./../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:39:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/unsupported/Eigen/Polynomials:135:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/unsupported/Eigen/../../Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from RcppExports.cpp:4:
+In file included from ./../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:40:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/unsupported/Eigen/SparseExtra:51:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/unsupported/Eigen/../../Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+17 warnings generated.
+clang++ -std=gnu++11 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/dparser/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/old/Rcpp/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/old/BH/include" -I/usr/local/include  -Id -I../inst/include -DBOOST_DISABLE_ASSERTS -I"`"/Library/Frameworks/R.framework/Resources/bin/Rscript" -e 'cat(file.path(find.package("RcppArmadillo"),"include"))'`" -fPIC  -Wall -g -O2 -c resid.cpp -o resid.o
+In file included from resid.cpp:5:
+In file included from ../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:30:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Dense:1:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Core:531:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from resid.cpp:5:
+In file included from ../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:30:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Dense:2:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/LU:47:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from resid.cpp:5:
+In file included from ../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:30:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Dense:3:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Cholesky:12:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Jacobi:29:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from resid.cpp:5:
+In file included from ../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:30:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Dense:3:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Cholesky:43:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from resid.cpp:5:
+In file included from ../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:30:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Dense:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/QR:17:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Householder:27:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from resid.cpp:5:
+In file included from ../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:30:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Dense:5:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/SVD:48:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from resid.cpp:5:
+In file included from ../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:30:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Dense:6:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Geometry:58:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from resid.cpp:5:
+In file included from ../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:30:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Dense:7:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Eigenvalues:58:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from resid.cpp:5:
+In file included from ../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:31:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Sparse:26:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/SparseCore:66:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from resid.cpp:5:
+In file included from ../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:31:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Sparse:27:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/OrderingMethods:71:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from resid.cpp:5:
+In file included from ../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:31:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Sparse:29:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/SparseCholesky:43:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from resid.cpp:5:
+In file included from ../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:31:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Sparse:32:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/SparseQR:35:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from resid.cpp:5:
+In file included from ../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:31:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Sparse:33:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/IterativeLinearSolvers:46:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from resid.cpp:5:
+In file included from ../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:32:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/CholmodSupport:45:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from resid.cpp:5:
+In file included from ../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:35:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/unsupported/Eigen/KroneckerProduct:34:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/unsupported/Eigen/../../Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from resid.cpp:5:
+In file included from ../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:39:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/unsupported/Eigen/Polynomials:135:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/unsupported/Eigen/../../Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from resid.cpp:5:
+In file included from ../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:40:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/unsupported/Eigen/SparseExtra:51:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/unsupported/Eigen/../../Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+17 warnings generated.
+clang++ -std=gnu++11 -dynamiclib -Wl,-headerpad_max_install_names -undefined dynamic_lookup -single_module -multiply_defined suppress -L/Library/Frameworks/R.framework/Resources/lib -L/usr/local/lib -o nlmixr.so jj.o jj.g.d_parser.o init.o rprintf.o chkSolved.o merge3.o neldermead.o slice.o RcppExportMod.o ode_cmt1.o RcppExports.o resid.o -L/Library/Frameworks/R.framework/Resources/lib -lRlapack -L/Library/Frameworks/R.framework/Resources/lib -lRblas -L/usr/local/gfortran/lib/gcc/x86_64-apple-darwin15/6.1.0 -L/usr/local/gfortran/lib -lgfortran -lquadmath -lm -F/Library/Frameworks/R.framework/.. -framework R -Wl,-framework -Wl,CoreFoundation
+ld: warning: directory not found for option '-L/usr/local/gfortran/lib/gcc/x86_64-apple-darwin15/6.1.0'
+ld: warning: directory not found for option '-L/usr/local/gfortran/lib'
+installing to /Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/nlmixr/old/nlmixr.Rcheck/nlmixr/libs
+** R
+** data
+*** moving datasets to lazyload DB
+** inst
+** byte-compile and prepare package for lazy loading
+** help
+*** installing help indices
+** building package indices
+** installing vignettes
+** testing if installed package can be loaded
+Error: package or namespace load failed for ‘nlmixr’ in dyn.load(file, DLLpath = DLLpath, ...):
+ unable to load shared object '/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/nlmixr/old/nlmixr.Rcheck/nlmixr/libs/nlmixr.so':
+  dlopen(/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/nlmixr/old/nlmixr.Rcheck/nlmixr/libs/nlmixr.so, 6): Symbol not found: _wrapper_ddot_
+  Referenced from: /Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/nlmixr/old/nlmixr.Rcheck/nlmixr/libs/nlmixr.so
+  Expected in: flat namespace
+ in /Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/nlmixr/old/nlmixr.Rcheck/nlmixr/libs/nlmixr.so
+Error: loading failed
+Execution halted
+ERROR: loading failed
+* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/nlmixr/old/nlmixr.Rcheck/nlmixr’
+
+```
 # noaastormevents
 
 Version: 0.1.0
 
 ## In both
 
-*   checking package dependencies ... ERROR
+*   checking package dependencies ... NOTE
     ```
-    Package required but not available: ‘data.table’
-    
     Package suggested but not available for checking: ‘hurricaneexposuredata’
-    
-    See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-    manual.
+    ```
+
+*   checking dependencies in R code ... NOTE
+    ```
+    Namespaces in Imports field not imported from:
+      ‘RColorBrewer’ ‘XML’ ‘choroplethr’ ‘choroplethrMaps’ ‘data.table’
+      ‘forcats’ ‘hurricaneexposure’ ‘plyr’
+      All declared Imports should be used.
     ```
 
 # NOAAWeather
@@ -3379,46 +4670,26 @@ Version: 0.1.0
 
 ## In both
 
-*   checking whether package ‘NOAAWeather’ can be installed ... ERROR
+*   checking installed package size ... NOTE
     ```
-    Installation failed.
-    See ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/NOAAWeather/new/NOAAWeather.Rcheck/00install.out’ for details.
+      installed size is  5.6Mb
+      sub-directories of 1Mb or more:
+        data   5.1Mb
     ```
 
-## Installation
+# nullabor
 
-### Devel
+Version: 0.3.5
 
-```
-* installing *source* package ‘NOAAWeather’ ...
-** package ‘NOAAWeather’ successfully unpacked and MD5 sums checked
-** R
-** data
-*** moving datasets to lazyload DB
-** inst
-** preparing package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
-  there is no package called ‘data.table’
-ERROR: lazy loading failed for package ‘NOAAWeather’
-* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/NOAAWeather/new/NOAAWeather.Rcheck/NOAAWeather’
+## In both
 
-```
-### CRAN
+*   checking dependencies in R code ... NOTE
+    ```
+    Namespaces in Imports field not imported from:
+      ‘forecast’ ‘rlang’ ‘tidyverse’ ‘tsibble’
+      All declared Imports should be used.
+    ```
 
-```
-* installing *source* package ‘NOAAWeather’ ...
-** package ‘NOAAWeather’ successfully unpacked and MD5 sums checked
-** R
-** data
-*** moving datasets to lazyload DB
-** inst
-** preparing package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
-  there is no package called ‘data.table’
-ERROR: lazy loading failed for package ‘NOAAWeather’
-* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/NOAAWeather/old/NOAAWeather.Rcheck/NOAAWeather’
-
-```
 # nzelect
 
 Version: 0.4.0
@@ -3427,7 +4698,7 @@ Version: 0.4.0
 
 *   checking installed package size ... NOTE
     ```
-      installed size is  5.3Mb
+      installed size is  5.4Mb
       sub-directories of 1Mb or more:
         data   5.0Mb
     ```
@@ -3437,205 +4708,17 @@ Version: 0.4.0
       Note: found 6409 marked UTF-8 strings
     ```
 
-# olsrr
+# openair
 
-Version: 0.5.1
-
-## In both
-
-*   checking whether package ‘olsrr’ can be installed ... ERROR
-    ```
-    Installation failed.
-    See ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/olsrr/new/olsrr.Rcheck/00install.out’ for details.
-    ```
-
-## Installation
-
-### Devel
-
-```
-* installing *source* package ‘olsrr’ ...
-** package ‘olsrr’ successfully unpacked and MD5 sums checked
-** libs
-ccache clang++ -Qunused-arguments  -I/Library/Frameworks/R.framework/Resources/include -DNDEBUG  -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/new/Rcpp/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c RcppExports.cpp -o RcppExports.o
-ccache clang -Qunused-arguments  -I/Library/Frameworks/R.framework/Resources/include -DNDEBUG  -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/new/Rcpp/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c init.c -o init.o
-ccache clang++ -Qunused-arguments  -I/Library/Frameworks/R.framework/Resources/include -DNDEBUG  -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/new/Rcpp/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c tvar.cpp -o tvar.o
-ccache clang++ -Qunused-arguments -dynamiclib -Wl,-headerpad_max_install_names -undefined dynamic_lookup -single_module -multiply_defined suppress -L/Library/Frameworks/R.framework/Resources/lib -L/usr/local/lib -o olsrr.so RcppExports.o init.o tvar.o -F/Library/Frameworks/R.framework/.. -framework R -Wl,-framework -Wl,CoreFoundation
-installing to /Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/olsrr/new/olsrr.Rcheck/olsrr/libs
-** R
-** data
-*** moving datasets to lazyload DB
-** inst
-** preparing package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
-  there is no package called ‘data.table’
-ERROR: lazy loading failed for package ‘olsrr’
-* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/olsrr/new/olsrr.Rcheck/olsrr’
-
-```
-### CRAN
-
-```
-* installing *source* package ‘olsrr’ ...
-** package ‘olsrr’ successfully unpacked and MD5 sums checked
-** libs
-ccache clang++ -Qunused-arguments  -I/Library/Frameworks/R.framework/Resources/include -DNDEBUG  -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/old/Rcpp/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c RcppExports.cpp -o RcppExports.o
-ccache clang -Qunused-arguments  -I/Library/Frameworks/R.framework/Resources/include -DNDEBUG  -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/old/Rcpp/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c init.c -o init.o
-ccache clang++ -Qunused-arguments  -I/Library/Frameworks/R.framework/Resources/include -DNDEBUG  -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/old/Rcpp/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c tvar.cpp -o tvar.o
-ccache clang++ -Qunused-arguments -dynamiclib -Wl,-headerpad_max_install_names -undefined dynamic_lookup -single_module -multiply_defined suppress -L/Library/Frameworks/R.framework/Resources/lib -L/usr/local/lib -o olsrr.so RcppExports.o init.o tvar.o -F/Library/Frameworks/R.framework/.. -framework R -Wl,-framework -Wl,CoreFoundation
-installing to /Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/olsrr/old/olsrr.Rcheck/olsrr/libs
-** R
-** data
-*** moving datasets to lazyload DB
-** inst
-** preparing package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
-  there is no package called ‘data.table’
-ERROR: lazy loading failed for package ‘olsrr’
-* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/olsrr/old/olsrr.Rcheck/olsrr’
-
-```
-# openEBGM
-
-Version: 0.5.0
+Version: 2.5-0
 
 ## In both
 
-*   checking package dependencies ... ERROR
+*   checking installed package size ... NOTE
     ```
-    Package required but not available: ‘data.table’
-    
-    See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-    manual.
-    ```
-
-# OutliersO3
-
-Version: 0.5.4
-
-## In both
-
-*   checking whether package ‘OutliersO3’ can be installed ... ERROR
-    ```
-    Installation failed.
-    See ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/OutliersO3/new/OutliersO3.Rcheck/00install.out’ for details.
-    ```
-
-## Installation
-
-### Devel
-
-```
-* installing *source* package ‘OutliersO3’ ...
-** package ‘OutliersO3’ successfully unpacked and MD5 sums checked
-** R
-** inst
-** preparing package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
-  there is no package called ‘data.table’
-ERROR: lazy loading failed for package ‘OutliersO3’
-* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/OutliersO3/new/OutliersO3.Rcheck/OutliersO3’
-
-```
-### CRAN
-
-```
-* installing *source* package ‘OutliersO3’ ...
-** package ‘OutliersO3’ successfully unpacked and MD5 sums checked
-** R
-** inst
-** preparing package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
-  there is no package called ‘data.table’
-ERROR: lazy loading failed for package ‘OutliersO3’
-* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/OutliersO3/old/OutliersO3.Rcheck/OutliersO3’
-
-```
-# outreg
-
-Version: 0.2.2
-
-## In both
-
-*   checking examples ... ERROR
-    ```
-    ...
-    2               Std Err  [2.060] [16.079]
-    6          age Estimate            -0.129
-    7               Std Err           [0.219]
-    11       quant Estimate            -0.046
-    12              Std Err           [0.058]
-    16  Log(scale) Estimate 1.783*** 1.718***
-    17              Std Err  [0.309]  [0.310]
-    21                    N       20       20
-    22                  AIC   62.984   65.880
-    > 
-    > 
-    > # instrumental variable regression
-    > library(AER)
-    Loading required package: car
-    Warning: package ‘car’ was built under R version 3.4.4
-    Loading required package: carData
-    Warning: package ‘carData’ was built under R version 3.4.4
-    Error: package or namespace load failed for ‘car’ in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]):
-     there is no package called ‘data.table’
-    Error: package ‘car’ could not be loaded
-    Execution halted
-    ```
-
-*   checking tests ...
-    ```
-     ERROR
-    Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-      > library(outreg)
-      > 
-      > test_check("outreg")
-      [31m──[39m [31m1. Error: supported objects (@test_validfits.R#48) [39m [31m─────────────────────────────────────────────────────────[39m
-      package 'car' could not be loaded
-      1: library(AER) at testthat/test_validfits.R:48
-      2: .getRequiredPackages2(pkgInfo, quietly = quietly)
-      3: stop(gettextf("package %s could not be loaded", sQuote(pkg)), call. = FALSE, domain = NA)
-      
-      ══ testthat results  ═══════════════════════════════════════════════════════════════════════════════════════════
-      OK: 30 SKIPPED: 0 FAILED: 1
-      1. Error: supported objects (@test_validfits.R#48) 
-      
-      Error: testthat unit tests failed
-      Execution halted
-    ```
-
-# padr
-
-Version: 0.4.0
-
-## In both
-
-*   checking tests ...
-    ```
-     ERROR
-    Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-      12: getNamespace(ns)
-      13: tryCatch(loadNamespace(name), error = function(e) stop(e))
-      14: tryCatchList(expr, classes, parentenv, handlers)
-      15: tryCatchOne(expr, names, parentenv, handlers[[1L]])
-      16: value[[3L]](cond)
-      
-      ══ testthat results  ═══════════════════════════════════════════════════════════════════════════════════════════
-      OK: 582 SKIPPED: 0 FAILED: 4
-      1. Error: Pad works properly on data.table and tbl (@test_pad.R#37) 
-      2. Error: pad_int works on both tbl and data.table (@test_pad_int.R#43) 
-      3. Failure: thicken gives correct ouput when x is a df (@test_thicken.R#110) 
-      4. Error: set_to_original_type returns tbl or data.table (@test_thicken.R#126) 
-      
-      Error: testthat unit tests failed
-      Execution halted
-    ```
-
-*   checking package dependencies ... NOTE
-    ```
-    Package suggested but not available for checking: ‘data.table’
+      installed size is  5.0Mb
+      sub-directories of 1Mb or more:
+        R   3.0Mb
     ```
 
 # parsemsf
@@ -3650,118 +4733,166 @@ Version: 0.1.1
       All declared Imports should be used.
     ```
 
-# patentsview
-
-Version: 0.2.1
-
-## In both
-
-*   R CMD check timed out
-    
-
 # PathoStat
 
-Version: 1.2.1
+Version: 1.6.1
 
 ## In both
 
-*   checking whether package ‘PathoStat’ can be installed ... ERROR
+*   checking package dependencies ... ERROR
     ```
-    Installation failed.
-    See ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/PathoStat/new/PathoStat.Rcheck/00install.out’ for details.
+    Package required but not available: ‘devtools’
+    
+    See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
+    manual.
     ```
 
-## Installation
-
-### Devel
-
-```
-* installing *source* package ‘PathoStat’ ...
-** R
-** data
-** inst
-** preparing package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
-  there is no package called ‘data.table’
-ERROR: lazy loading failed for package ‘PathoStat’
-* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/PathoStat/new/PathoStat.Rcheck/PathoStat’
-
-```
-### CRAN
-
-```
-* installing *source* package ‘PathoStat’ ...
-** R
-** data
-** inst
-** preparing package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
-  there is no package called ‘data.table’
-ERROR: lazy loading failed for package ‘PathoStat’
-* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/PathoStat/old/PathoStat.Rcheck/PathoStat’
-
-```
 # pcaExplorer
 
-Version: 2.2.1
+Version: 2.6.0
 
 ## In both
 
-*   checking whether package ‘pcaExplorer’ can be installed ... ERROR
+*   checking examples ... ERROR
     ```
-    Installation failed.
-    See ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/pcaExplorer/new/pcaExplorer.Rcheck/00install.out’ for details.
+    Running examples in ‘pcaExplorer-Ex.R’ failed
+    The error most likely occurred in:
+    
+    > ### Name: get_annotation
+    > ### Title: Get an annotation data frame from biomaRt
+    > ### Aliases: get_annotation
+    > 
+    > ### ** Examples
+    > 
+    > library(airway)
+    Error in library(airway) : there is no package called ‘airway’
+    Execution halted
     ```
 
-## Installation
-
-### Devel
-
-```
-* installing *source* package ‘pcaExplorer’ ...
-** R
-** inst
-** preparing package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
-  there is no package called ‘data.table’
-ERROR: lazy loading failed for package ‘pcaExplorer’
-* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/pcaExplorer/new/pcaExplorer.Rcheck/pcaExplorer’
-
-```
-### CRAN
-
-```
-* installing *source* package ‘pcaExplorer’ ...
-** R
-** inst
-** preparing package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
-  there is no package called ‘data.table’
-ERROR: lazy loading failed for package ‘pcaExplorer’
-* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/pcaExplorer/old/pcaExplorer.Rcheck/pcaExplorer’
-
-```
-# philr
-
-Version: 1.2.0
-
-## In both
+*   checking tests ...
+    ```
+     ERROR
+    Running the tests in ‘tests/testthat.R’ failed.
+    Last 13 lines of output:
+      > library(pcaExplorer)
+      
+      > 
+      > test_check("pcaExplorer")
+      [31m──[39m [31m1. Error: (unknown) (@test_pca2go.R#6) [39m [31m───────────────────────────────────────────────────────────[39m
+      there is no package called 'airway'
+      1: library(airway) at testthat/test_pca2go.R:6
+      2: stop(txt, domain = NA)
+      
+      ══ testthat results  ═════════════════════════════════════════════════════════════════════════════════
+      OK: 13 SKIPPED: 0 FAILED: 1
+      1. Error: (unknown) (@test_pca2go.R#6) 
+      
+      Error: testthat unit tests failed
+      Execution halted
+    ```
 
 *   checking re-building of vignette outputs ... WARNING
     ```
     Error in re-building vignettes:
       ...
-    Quitting from lines 27-33 (philr-intro.Rmd) 
-    Error: processing vignette 'philr-intro.Rmd' failed with diagnostics:
-    package or namespace load failed for 'phyloseq' in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]):
-     there is no package called 'data.table'
+    
+    Quitting from lines 375-384 (pcaExplorer.Rmd) 
+    Error: processing vignette 'pcaExplorer.Rmd' failed with diagnostics:
+    there is no package called 'airway'
     Execution halted
+    ```
+
+*   checking package dependencies ... NOTE
+    ```
+    Package suggested but not available for checking: ‘airway’
+    ```
+
+*   checking for hidden files and directories ... NOTE
+    ```
+    Found the following hidden files and directories:
+      .travis.yml
+    These were most likely included in error. See section ‘Package
+    structure’ in the ‘Writing R Extensions’ manual.
+    ```
+
+*   checking installed package size ... NOTE
+    ```
+      installed size is  7.4Mb
+      sub-directories of 1Mb or more:
+        doc   6.6Mb
     ```
 
 *   checking R code for possible problems ... NOTE
     ```
+    pcaExplorer: no visible binding for '<<-' assignment to
+      ‘pcaexplorer_env’
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/pcaExplorer/new/pcaExplorer.Rcheck/00_pkg_src/pcaExplorer/R/pcaExplorer.R:67)
+    pcaExplorer : <anonymous>: no visible binding for global variable
+      ‘airway’
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/pcaExplorer/new/pcaExplorer.Rcheck/00_pkg_src/pcaExplorer/R/pcaExplorer.R:1034)
+    pcaExplorer : <anonymous>: no visible binding for global variable
+      ‘airway’
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/pcaExplorer/new/pcaExplorer.Rcheck/00_pkg_src/pcaExplorer/R/pcaExplorer.R:1035)
+    pcaExplorer : <anonymous>: no visible binding for global variable
+      ‘pcaexplorer_env’
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/pcaExplorer/new/pcaExplorer.Rcheck/00_pkg_src/pcaExplorer/R/pcaExplorer.R:2423)
+    pcaExplorer : <anonymous>: no visible binding for global variable
+      ‘pcaexplorer_env’
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/pcaExplorer/new/pcaExplorer.Rcheck/00_pkg_src/pcaExplorer/R/pcaExplorer.R:2424)
+    Undefined global functions or variables:
+      airway pcaexplorer_env
+    ```
+
+# pcr
+
+Version: 1.1.2
+
+## In both
+
+*   checking package dependencies ... ERROR
+    ```
+    Package required but not available: ‘devtools’
+    
+    See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
+    manual.
+    ```
+
+# performanceEstimation
+
+Version: 1.1.0
+
+## In both
+
+*   checking package dependencies ... NOTE
+    ```
+    Package suggested but not available for checking: ‘devtools’
+    ```
+
+# perturbatr
+
+Version: 1.0.0
+
+## In both
+
+*   checking installed package size ... NOTE
+    ```
+      installed size is  5.2Mb
+      sub-directories of 1Mb or more:
+        data   3.1Mb
+    ```
+
+# philr
+
+Version: 1.6.0
+
+## In both
+
+*   checking R code for possible problems ... NOTE
+    ```
     name.balance: no visible global function definition for ‘as’
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/philr/new/philr.Rcheck/00_pkg_src/philr/R/name_balances.R:57)
     vote.annotation: no visible global function definition for ‘is’
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/philr/new/philr.Rcheck/00_pkg_src/philr/R/name_balances.R:127-131)
     Undefined global functions or variables:
       as is
     Consider adding
@@ -3775,9 +4906,47 @@ Version: 1.2.0
     Package unavailable to check Rd xrefs: ‘compositions’
     ```
 
+# Pi
+
+Version: 1.8.0
+
+## In both
+
+*   checking package dependencies ... ERROR
+    ```
+    Package required but not available: ‘XGR’
+    
+    See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
+    manual.
+    ```
+
 # pivot
 
 Version: 18.4.17
+
+## Newly broken
+
+*   checking tests ...
+    ```
+     ERROR
+    Running the tests in ‘tests/testthat.R’ failed.
+    Last 13 lines of output:
+             .Call(rlang_symbol_to_character, x)
+         }, string = {
+             attributes(x) <- NULL
+             x
+         }) at /private/tmp/RtmpZRLWD8/R.INSTALL6ec2159f9257/rlang/R/vec-coerce.R:161
+      7: type_of(.x) at /private/tmp/RtmpZRLWD8/R.INSTALL6ec2159f9257/rlang/R/types.R:487
+      8: ensym(key) at /private/tmp/RtmpozckMT/R.INSTALL8ca679350911/tidyr/R/gather.R:94
+      9: rlang::abort(x) at /private/tmp/RtmpZRLWD8/R.INSTALL6ec2159f9257/rlang/R/quotation.R:255
+      
+      ══ testthat results  ═════════════════════════════════════════════════════════════════════════════════
+      OK: 86 SKIPPED: 1 FAILED: 1
+      1. Error: unpivot.data.frame (@test-unpivot.R#57) 
+      
+      Error: testthat unit tests failed
+      Execution halted
+    ```
 
 ## In both
 
@@ -3795,7 +4964,7 @@ Version: 18.4.17
 
 # pixiedust
 
-Version: 0.8.2
+Version: 0.8.5
 
 ## In both
 
@@ -3806,28 +4975,114 @@ Version: 0.8.2
 
 # plotly
 
-Version: 4.7.1
+Version: 4.8.0
 
 ## In both
 
-*   checking package dependencies ... ERROR
+*   checking package dependencies ... NOTE
     ```
-    Package required but not available: ‘data.table’
-    
-    Packages suggested but not available for checking: ‘sf’ ‘RSelenium’
-    
-    See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-    manual.
+    Packages suggested but not available for checking: ‘devtools’ ‘sf’
+    ```
+
+*   checking installed package size ... NOTE
+    ```
+      installed size is  7.0Mb
+      sub-directories of 1Mb or more:
+        R             2.3Mb
+        htmlwidgets   3.1Mb
+    ```
+
+# plyranges
+
+Version: 1.0.3
+
+## In both
+
+*   checking tests ...
+    ```
+     ERROR
+    Running the tests in ‘tests/testthat.R’ failed.
+    Last 13 lines of output:
+             e$handled <- TRUE
+             test_error <<- e
+         }, "could not find function \"WIGFile\"", quote(WIGFile(test_wig))) at testthat/test-io-wig.R:24
+      2: eval(code, test_env)
+      
+      ══ testthat results  ═════════════════════════════════════════════════════════════════════════════════
+      OK: 271 SKIPPED: 0 FAILED: 5
+      1. Error: read_bed returns correct GRanges (@test-io-bed.R#67) 
+      2. Error: read_bed_graph returns correct GRanges (@test-io-bedGraph.R#39) 
+      3. Error: reading/ writing bigwig files returns correct GRanges (@test-io-bw.R#19) 
+      4. Error: reading GFF files returns correct GRanges (@test-io-gff.R#87) 
+      5. Error: reading WIG files (@test-io-wig.R#24) 
+      
+      Error: testthat unit tests failed
+      Execution halted
+    ```
+
+*   checking package dependencies ... NOTE
+    ```
+    Package suggested but not available for checking: ‘BSgenome.Hsapiens.UCSC.hg19’
     ```
 
 # pmc
 
-Version: 1.0.2
+Version: 1.0.3
 
 ## In both
 
 *   R CMD check timed out
     
+
+# PopED
+
+Version: 0.4.0
+
+## Newly fixed
+
+*   checking installed package size ... NOTE
+    ```
+      installed size is  5.3Mb
+      sub-directories of 1Mb or more:
+        R     3.0Mb
+        doc   1.2Mb
+    ```
+
+## In both
+
+*   checking dependencies in R code ... NOTE
+    ```
+    Namespace in Imports field not imported from: ‘tidyr’
+      All declared Imports should be used.
+    ```
+
+# postal
+
+Version: 0.1.0
+
+## Newly broken
+
+*   checking tests ...
+    ```
+     ERROR
+    Running the tests in ‘tests/testthat.R’ failed.
+    Last 13 lines of output:
+      10: purrr::map_dfr(., fetch_and_sleep)
+      11: map(.x, .f, ...)
+      12: .f(.x[[i]], ...)
+      13: readr::write_csv(this, write_to, append = TRUE, col_names = FALSE) at /Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/postal/new/postal.Rcheck/00_pkg_src/postal/R/fetch_zones_all.R:57
+      14: write_delim(x, path, delim = ",", na = na, append = append, col_names = col_names)
+      15: stream_delim(x_out, path, delim, col_names = col_names, append = append, na = na)
+      16: open(path, "ab")
+      17: open.connection(path, "ab")
+      
+      ══ testthat results  ═════════════════════════════════════════════════════════════════════════════════
+      OK: 108 SKIPPED: 0 FAILED: 1
+      1. Error: (unknown) (@test_fetch_zones.R#120) 
+      
+      Error: testthat unit tests failed
+      Execution halted
+    ```
 
 # ppcSpatial
 
@@ -3835,52 +5090,52 @@ Version: 0.2.0
 
 ## In both
 
-*   checking package dependencies ... ERROR
+*   checking whether package ‘ppcSpatial’ can be installed ... ERROR
     ```
-    Package required but not available: ‘rgdal’
-    
-    See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-    manual.
+    Installation failed.
+    See ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/ppcSpatial/new/ppcSpatial.Rcheck/00install.out’ for details.
     ```
 
-# PPforest
+## Installation
 
-Version: 0.1.0
+### Devel
 
-## In both
+```
+* installing *source* package ‘ppcSpatial’ ...
+** package ‘ppcSpatial’ successfully unpacked and MD5 sums checked
+** R
+** inst
+** byte-compile and prepare package for lazy loading
+Error in loadNamespace(i, c(lib.loc, .libPaths()), versionCheck = vI[[i]]) : 
+  there is no package called ‘sf’
+ERROR: lazy loading failed for package ‘ppcSpatial’
+* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/ppcSpatial/new/ppcSpatial.Rcheck/ppcSpatial’
 
-*   checking package dependencies ... ERROR
-    ```
-    Package required but not available: ‘RcppArmadillo’
-    
-    See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-    manual.
-    ```
+```
+### CRAN
 
+```
+* installing *source* package ‘ppcSpatial’ ...
+** package ‘ppcSpatial’ successfully unpacked and MD5 sums checked
+** R
+** inst
+** byte-compile and prepare package for lazy loading
+Error in loadNamespace(i, c(lib.loc, .libPaths()), versionCheck = vI[[i]]) : 
+  there is no package called ‘sf’
+ERROR: lazy loading failed for package ‘ppcSpatial’
+* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/ppcSpatial/old/ppcSpatial.Rcheck/ppcSpatial’
+
+```
 # prisonbrief
 
 Version: 0.1.0
 
 ## In both
 
-*   checking package dependencies ... ERROR
-    ```
-    Package required but not available: ‘data.table’
-    
-    See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-    manual.
-    ```
-
-# processanimateR
-
-Version: 0.1.1
-
-## In both
-
-*   checking whether package ‘processanimateR’ can be installed ... ERROR
+*   checking whether package ‘prisonbrief’ can be installed ... ERROR
     ```
     Installation failed.
-    See ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/processanimateR/new/processanimateR.Rcheck/00install.out’ for details.
+    See ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/prisonbrief/new/prisonbrief.Rcheck/00install.out’ for details.
     ```
 
 ## Installation
@@ -3888,104 +5143,89 @@ Version: 0.1.1
 ### Devel
 
 ```
-* installing *source* package ‘processanimateR’ ...
-** package ‘processanimateR’ successfully unpacked and MD5 sums checked
+* installing *source* package ‘prisonbrief’ ...
+** package ‘prisonbrief’ successfully unpacked and MD5 sums checked
 ** R
+** data
+*** moving datasets to lazyload DB
 ** inst
-** preparing package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
-  there is no package called ‘data.table’
-ERROR: lazy loading failed for package ‘processanimateR’
-* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/processanimateR/new/processanimateR.Rcheck/processanimateR’
+** byte-compile and prepare package for lazy loading
+Error in loadNamespace(i, c(lib.loc, .libPaths()), versionCheck = vI[[i]]) : 
+  there is no package called ‘sf’
+ERROR: lazy loading failed for package ‘prisonbrief’
+* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/prisonbrief/new/prisonbrief.Rcheck/prisonbrief’
 
 ```
 ### CRAN
 
 ```
-* installing *source* package ‘processanimateR’ ...
-** package ‘processanimateR’ successfully unpacked and MD5 sums checked
+* installing *source* package ‘prisonbrief’ ...
+** package ‘prisonbrief’ successfully unpacked and MD5 sums checked
 ** R
+** data
+*** moving datasets to lazyload DB
 ** inst
-** preparing package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
-  there is no package called ‘data.table’
-ERROR: lazy loading failed for package ‘processanimateR’
-* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/processanimateR/old/processanimateR.Rcheck/processanimateR’
+** byte-compile and prepare package for lazy loading
+Error in loadNamespace(i, c(lib.loc, .libPaths()), versionCheck = vI[[i]]) : 
+  there is no package called ‘sf’
+ERROR: lazy loading failed for package ‘prisonbrief’
+* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/prisonbrief/old/prisonbrief.Rcheck/prisonbrief’
 
 ```
-# prophet
-
-Version: 0.2.1
-
-## In both
-
-*   checking whether package ‘prophet’ can be installed ... WARNING
-    ```
-    Found the following significant warnings:
-      Warning: package ‘Rcpp’ was built under R version 3.4.4
-    See ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/prophet/new/prophet.Rcheck/00install.out’ for details.
-    ```
-
 # proteoQC
 
-Version: 1.12.3
+Version: 1.16.0
 
 ## In both
 
-*   checking whether package ‘proteoQC’ can be installed ... ERROR
+*   checking re-building of vignette outputs ... WARNING
     ```
-    Installation failed.
-    See ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/proteoQC/new/proteoQC.Rcheck/00install.out’ for details.
+    Error in re-building vignettes:
+      ...
+    Error: processing vignette 'proteoQC.Rmd' failed with diagnostics:
+    there is no package called ‘prettydoc’
+    Execution halted
     ```
 
-## Installation
+*   checking package dependencies ... NOTE
+    ```
+    Package suggested but not available for checking: ‘RforProteomics’
+    ```
 
-### Devel
+*   checking installed package size ... NOTE
+    ```
+      installed size is  7.7Mb
+      sub-directories of 1Mb or more:
+        doc       2.5Mb
+        extdata   3.9Mb
+    ```
 
-```
-* installing *source* package ‘proteoQC’ ...
-** R
-** inst
-** preparing package for lazy loading
-Warning: package ‘XML’ was built under R version 3.4.4
-Warning: package ‘VennDiagram’ was built under R version 3.4.4
-Warning: package ‘Rcpp’ was built under R version 3.4.4
-Warning in fun(libname, pkgname) :
-  mzR has been built against a different Rcpp version (0.12.10)
-than is installed on your system (0.12.16). This might lead to errors
-when loading mzR. If you encounter such issues, please send a report,
-including the output of sessionInfo() to the Bioc support forum at 
-https://support.bioconductor.org/. For details see also
-https://github.com/sneumann/mzR/wiki/mzR-Rcpp-compiler-linker-issue.
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
-  there is no package called ‘data.table’
-ERROR: lazy loading failed for package ‘proteoQC’
-* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/proteoQC/new/proteoQC.Rcheck/proteoQC’
+*   checking R code for possible problems ... NOTE
+    ```
+    ...
+    qcHist: no visible binding for global variable ‘techRep’
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/proteoQC/new/proteoQC.Rcheck/00_pkg_src/proteoQC/R/visualization.R:406-416)
+    qcHist: no visible binding for global variable ‘bioRep’
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/proteoQC/new/proteoQC.Rcheck/00_pkg_src/proteoQC/R/visualization.R:406-416)
+    qcHist2: no visible binding for global variable ‘error’
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/proteoQC/new/proteoQC.Rcheck/00_pkg_src/proteoQC/R/visualization.R:357-365)
+    qcHist2: no visible binding for global variable ‘fractile’
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/proteoQC/new/proteoQC.Rcheck/00_pkg_src/proteoQC/R/visualization.R:357-365)
+    qcHist2: no visible binding for global variable ‘fractile’
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/proteoQC/new/proteoQC.Rcheck/00_pkg_src/proteoQC/R/visualization.R:367-369)
+    qcHist2: no visible binding for global variable ‘error’
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/proteoQC/new/proteoQC.Rcheck/00_pkg_src/proteoQC/R/visualization.R:377-385)
+    qcHist2: no visible binding for global variable ‘fractile’
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/proteoQC/new/proteoQC.Rcheck/00_pkg_src/proteoQC/R/visualization.R:377-385)
+    qcHist2: no visible binding for global variable ‘fractile’
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/proteoQC/new/proteoQC.Rcheck/00_pkg_src/proteoQC/R/visualization.R:389-391)
+    Undefined global functions or variables:
+      ..count.. Intensity MS1QC MS2QC TMT10 TMT6 Tag V1 V2 V3 V4 V5 bioRep
+      curenv delta error exprs fractile fraction grid.draw iTRAQ4 iTRAQ8
+      label peplength peptide_summary precursorCharge quantify ratio
+      readMgfData se techRep val x y
+    ```
 
-```
-### CRAN
-
-```
-* installing *source* package ‘proteoQC’ ...
-** R
-** inst
-** preparing package for lazy loading
-Warning: package ‘XML’ was built under R version 3.4.4
-Warning: package ‘VennDiagram’ was built under R version 3.4.4
-Warning: package ‘Rcpp’ was built under R version 3.4.4
-Warning in fun(libname, pkgname) :
-  mzR has been built against a different Rcpp version (0.12.10)
-than is installed on your system (0.12.16). This might lead to errors
-when loading mzR. If you encounter such issues, please send a report,
-including the output of sessionInfo() to the Bioc support forum at 
-https://support.bioconductor.org/. For details see also
-https://github.com/sneumann/mzR/wiki/mzR-Rcpp-compiler-linker-issue.
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
-  there is no package called ‘data.table’
-ERROR: lazy loading failed for package ‘proteoQC’
-* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/proteoQC/old/proteoQC.Rcheck/proteoQC’
-
-```
 # proustr
 
 Version: 0.2.1
@@ -3997,52 +5237,38 @@ Version: 0.2.1
       Note: found 20105 marked UTF-8 strings
     ```
 
-# psycho
+# psychmeta
 
-Version: 0.2.0
+Version: 2.2.1
 
 ## In both
 
-*   checking whether package ‘psycho’ can be installed ... ERROR
+*   checking installed package size ... NOTE
     ```
-    Installation failed.
-    See ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/psycho/new/psycho.Rcheck/00install.out’ for details.
+      installed size is  8.8Mb
+      sub-directories of 1Mb or more:
+        R   7.1Mb
     ```
 
-## Installation
+# psycho
 
-### Devel
+Version: 0.3.7
 
-```
-* installing *source* package ‘psycho’ ...
-** package ‘psycho’ successfully unpacked and MD5 sums checked
-** R
-** data
-*** moving datasets to lazyload DB
-** inst
-** preparing package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
-  there is no package called ‘data.table’
-ERROR: lazy loading failed for package ‘psycho’
-* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/psycho/new/psycho.Rcheck/psycho’
+## In both
 
-```
-### CRAN
+*   checking installed package size ... NOTE
+    ```
+      installed size is  5.5Mb
+      sub-directories of 1Mb or more:
+        doc   4.3Mb
+    ```
 
-```
-* installing *source* package ‘psycho’ ...
-** package ‘psycho’ successfully unpacked and MD5 sums checked
-** R
-** data
-*** moving datasets to lazyload DB
-** inst
-** preparing package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
-  there is no package called ‘data.table’
-ERROR: lazy loading failed for package ‘psycho’
-* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/psycho/old/psycho.Rcheck/psycho’
+*   checking dependencies in R code ... NOTE
+    ```
+    Namespace in Imports field not imported from: ‘methods’
+      All declared Imports should be used.
+    ```
 
-```
 # ptstem
 
 Version: 0.0.3
@@ -4058,7 +5284,7 @@ Version: 0.0.3
 
 # qdap
 
-Version: 2.2.9
+Version: 2.3.0
 
 ## In both
 
@@ -4079,11 +5305,13 @@ Version: 2.2.9
 ** data
 *** moving datasets to lazyload DB
 ** inst
-** preparing package for lazy loading
-Warning: package ‘qdapDictionaries’ was built under R version 3.4.4
-Error: package or namespace load failed for ‘qdapTools’ in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]):
- there is no package called ‘data.table’
-Error : package ‘qdapTools’ could not be loaded
+** byte-compile and prepare package for lazy loading
+Error : .onLoad failed in loadNamespace() for 'rJava', details:
+  call: dyn.load(file, DLLpath = DLLpath, ...)
+  error: unable to load shared object '/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/qdap/rJava/libs/rJava.so':
+  dlopen(/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/qdap/rJava/libs/rJava.so, 6): Library not loaded: /Library/Java/JavaVirtualMachines/jdk-9.jdk/Contents/Home/lib/server/libjvm.dylib
+  Referenced from: /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/qdap/rJava/libs/rJava.so
+  Reason: image not found
 ERROR: lazy loading failed for package ‘qdap’
 * removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/qdap/new/qdap.Rcheck/qdap’
 
@@ -4097,27 +5325,47 @@ ERROR: lazy loading failed for package ‘qdap’
 ** data
 *** moving datasets to lazyload DB
 ** inst
-** preparing package for lazy loading
-Warning: package ‘qdapDictionaries’ was built under R version 3.4.4
-Error: package or namespace load failed for ‘qdapTools’ in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]):
- there is no package called ‘data.table’
-Error : package ‘qdapTools’ could not be loaded
+** byte-compile and prepare package for lazy loading
+Error : .onLoad failed in loadNamespace() for 'rJava', details:
+  call: dyn.load(file, DLLpath = DLLpath, ...)
+  error: unable to load shared object '/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/qdap/rJava/libs/rJava.so':
+  dlopen(/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/qdap/rJava/libs/rJava.so, 6): Library not loaded: /Library/Java/JavaVirtualMachines/jdk-9.jdk/Contents/Home/lib/server/libjvm.dylib
+  Referenced from: /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/qdap/rJava/libs/rJava.so
+  Reason: image not found
 ERROR: lazy loading failed for package ‘qdap’
 * removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/qdap/old/qdap.Rcheck/qdap’
 
 ```
-# queuecomputer
+# quantities
 
-Version: 0.8.2
+Version: 0.1.1
 
 ## In both
 
-*   checking package dependencies ... ERROR
+*   checking whether the package can be loaded ... ERROR
     ```
-    Package required but not available: ‘RcppArmadillo’
-    
-    See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-    manual.
+    Loading this package had a fatal error status code 1
+    Loading log:
+    Error: package ‘units’ 0.6.0 was found, but >= 0.6.1 is required by ‘quantities’
+    In addition: Warning message:
+    version 0.6.1 of ‘units’ masked by 0.6.0 in /Users/hadley/R 
+    Execution halted
+    ```
+
+# questionr
+
+Version: 0.6.3
+
+## In both
+
+*   checking Rd cross-references ... NOTE
+    ```
+    Package unavailable to check Rd xrefs: ‘Hmisc’
+    ```
+
+*   checking data for non-ASCII characters ... NOTE
+    ```
+      Note: found 4145 marked UTF-8 strings
     ```
 
 # quokar
@@ -4141,215 +5389,67 @@ Version: 0.3.0
 
 *   checking package dependencies ... ERROR
     ```
-    Package required but not available: ‘RcppArmadillo’
+    Package required but not available: ‘devtools’
     
     See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
     manual.
     ```
 
-# radiant.basics
-
-Version: 0.8.0
-
-## In both
-
-*   checking whether package ‘radiant.basics’ can be installed ... ERROR
-    ```
-    Installation failed.
-    See ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/radiant.basics/new/radiant.basics.Rcheck/00install.out’ for details.
-    ```
-
-## Installation
-
-### Devel
-
-```
-* installing *source* package ‘radiant.basics’ ...
-** package ‘radiant.basics’ successfully unpacked and MD5 sums checked
-** R
-** data
-*** moving datasets to lazyload DB
-** inst
-** preparing package for lazy loading
-Warning: package ‘lubridate’ was built under R version 3.4.4
-Error: package or namespace load failed for ‘radiant.data’ in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]):
- there is no package called ‘data.table’
-Error : package ‘radiant.data’ could not be loaded
-ERROR: lazy loading failed for package ‘radiant.basics’
-* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/radiant.basics/new/radiant.basics.Rcheck/radiant.basics’
-
-```
-### CRAN
-
-```
-* installing *source* package ‘radiant.basics’ ...
-** package ‘radiant.basics’ successfully unpacked and MD5 sums checked
-** R
-** data
-*** moving datasets to lazyload DB
-** inst
-** preparing package for lazy loading
-Warning: package ‘lubridate’ was built under R version 3.4.4
-Error: package or namespace load failed for ‘radiant.data’ in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]):
- there is no package called ‘data.table’
-Error : package ‘radiant.data’ could not be loaded
-ERROR: lazy loading failed for package ‘radiant.basics’
-* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/radiant.basics/old/radiant.basics.Rcheck/radiant.basics’
-
-```
 # radiant.data
 
-Version: 0.8.1
+Version: 0.9.7
 
 ## In both
 
-*   checking whether package ‘radiant.data’ can be installed ... ERROR
+*   checking dependencies in R code ... NOTE
     ```
-    Installation failed.
-    See ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/radiant.data/new/radiant.data.Rcheck/00install.out’ for details.
-    ```
-
-## Installation
-
-### Devel
-
-```
-* installing *source* package ‘radiant.data’ ...
-** package ‘radiant.data’ successfully unpacked and MD5 sums checked
-** R
-** data
-*** moving datasets to lazyload DB
-** inst
-** preparing package for lazy loading
-Warning: package ‘lubridate’ was built under R version 3.4.4
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
-  there is no package called ‘data.table’
-ERROR: lazy loading failed for package ‘radiant.data’
-* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/radiant.data/new/radiant.data.Rcheck/radiant.data’
-
-```
-### CRAN
-
-```
-* installing *source* package ‘radiant.data’ ...
-** package ‘radiant.data’ successfully unpacked and MD5 sums checked
-** R
-** data
-*** moving datasets to lazyload DB
-** inst
-** preparing package for lazy loading
-Warning: package ‘lubridate’ was built under R version 3.4.4
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
-  there is no package called ‘data.table’
-ERROR: lazy loading failed for package ‘radiant.data’
-* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/radiant.data/old/radiant.data.Rcheck/radiant.data’
-
-```
-# radiant.model
-
-Version: 0.8.0
-
-## In both
-
-*   checking whether package ‘radiant.model’ can be installed ... ERROR
-    ```
-    Installation failed.
-    See ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/radiant.model/new/radiant.model.Rcheck/00install.out’ for details.
+    Namespace in Imports field not imported from: ‘shinyFiles’
+      All declared Imports should be used.
     ```
 
-## Installation
-
-### Devel
-
-```
-* installing *source* package ‘radiant.model’ ...
-** package ‘radiant.model’ successfully unpacked and MD5 sums checked
-** R
-** data
-*** moving datasets to lazyload DB
-** inst
-** preparing package for lazy loading
-Warning: package ‘lubridate’ was built under R version 3.4.4
-Error: package or namespace load failed for ‘radiant.data’ in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]):
- there is no package called ‘data.table’
-Error : package ‘radiant.data’ could not be loaded
-ERROR: lazy loading failed for package ‘radiant.model’
-* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/radiant.model/new/radiant.model.Rcheck/radiant.model’
-
-```
-### CRAN
-
-```
-* installing *source* package ‘radiant.model’ ...
-** package ‘radiant.model’ successfully unpacked and MD5 sums checked
-** R
-** data
-*** moving datasets to lazyload DB
-** inst
-** preparing package for lazy loading
-Warning: package ‘lubridate’ was built under R version 3.4.4
-Error: package or namespace load failed for ‘radiant.data’ in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]):
- there is no package called ‘data.table’
-Error : package ‘radiant.data’ could not be loaded
-ERROR: lazy loading failed for package ‘radiant.model’
-* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/radiant.model/old/radiant.model.Rcheck/radiant.model’
-
-```
 # railtrails
 
-Version: 0.0.3
+Version: 0.1.1
 
 ## In both
 
 *   checking data for non-ASCII characters ... NOTE
     ```
-      Note: found 1583 marked UTF-8 strings
+      Note: found 1557 marked UTF-8 strings
     ```
 
 # rattle
 
-Version: 5.1.0
+Version: 5.2.0
 
 ## In both
 
-*   checking package dependencies ... ERROR
+*   checking package dependencies ... NOTE
     ```
-    Packages required but not available: ‘RGtk2’ ‘cairoDevice’
-    
     Packages suggested but not available for checking:
-      ‘gWidgetsRGtk2’ ‘odfWeave’ ‘playwith’ ‘rggobi’ ‘RGtk2Extras’
-    
-    See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-    manual.
+      ‘gWidgetsRGtk2’ ‘playwith’ ‘RGtk2Extras’
+    ```
+
+*   checking installed package size ... NOTE
+    ```
+      installed size is 11.1Mb
+      sub-directories of 1Mb or more:
+        R      4.2Mb
+        data   3.1Mb
+        etc    1.9Mb
+        po     1.2Mb
+    ```
+
+*   checking dependencies in R code ... NOTE
+    ```
+    2018-10-23 23:41:58.434 R[37335:24746490] *** WARNING: Method userSpaceScaleFactor in class NSView is deprecated on 10.7 and later. It should not be used in new applications. Use convertRectToBacking: instead. 
     ```
 
 # rclimateca
 
-Version: 1.0.1
+Version: 1.0.2
 
 ## In both
-
-*   checking tests ...
-    ```
-     ERROR
-    Running the tests in ‘tests/test-all.R’ failed.
-    Last 13 lines of output:
-      4: restquery(.endpoint = "https://httpbin.org/get", arg1 = "value1", arg2 = "value2", .encoding = "UTF-8", .parser = jsonlite::fromJSON)
-      5: .parser(lines)
-      6: fromJSON_string(txt = txt, simplifyVector = simplifyVector, simplifyDataFrame = simplifyDataFrame, simplifyMatrix = simplifyMatrix, 
-             flatten = flatten, ...)
-      7: parseJSON(txt, bigint_as_char)
-      8: parse_string(txt, bigint_as_char)
-      
-      ══ testthat results  ═══════════════════════════════════════════════════════════════════════════════════════════
-      OK: 191 SKIPPED: 0 FAILED: 3
-      1. Failure: column types for ec_climate_data() are correct (@test-climate_data.R#123) 
-      2. Failure: get mudata function for climate data works (@test-climate_data.R#463) 
-      3. Error: the parser is used when present (@test-restquery.R#35) 
-      
-      Error: testthat unit tests failed
-      Execution halted
-    ```
 
 *   checking data for non-ASCII characters ... NOTE
     ```
@@ -4358,54 +5458,14 @@ Version: 1.0.1
 
 # rcongresso
 
-Version: 0.3.2
+Version: 0.4.6
 
-## In both
-
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘rcongresso-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: fetch_votacoes
-    > ### Title: Fetches all the votings which a proposition went through
-    > ### Aliases: fetch_votacoes
-    > 
-    > ### ** Examples
-    > 
-    > votacoes_pec241 <- fetch_votacoes(2088351)
-    Error in .congresso_api(.$path) : Not Found (HTTP 404).
-    Calls: fetch_votacoes ... overscope_eval_next -> .congresso_api -> <Anonymous>
-    Execution halted
-    ```
-
-*   checking tests ...
-    ```
-     ERROR
-    Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-      11: function_list[[i]](value)
-      12: dplyr::do(., .congresso_api(.$path)[[1]])
-      13: do.rowwise_df(., .congresso_api(.$path)[[1]])
-      14: overscope_eval_next(overscope, args[[j]])
-      15: .congresso_api(.$path)
-      16: httr::stop_for_status(resp)
-      
-      ══ testthat results  ═══════════════════════════════════════════════════════════════════════════════════════════
-      OK: 20 SKIPPED: 0 FAILED: 3
-      1. Failure: GET deputado inexistente (@test_deputados.R#3) 
-      2. Error: (unknown) (@test_proposicoes.R#10) 
-      3. Error: (unknown) (@test_votacoes.R#9) 
-      
-      Error: testthat unit tests failed
-      Execution halted
-    ```
+## Newly fixed
 
 *   checking re-building of vignette outputs ... WARNING
     ```
     Error in re-building vignettes:
       ...
-    Warning: package 'DT' was built under R version 3.4.3
     
     Attaching package: 'dplyr'
     
@@ -4417,11 +5477,34 @@ Version: 0.3.2
     
         intersect, setdiff, setequal, union
     
-    Warning: package 'knitr' was built under R version 3.4.3
-    Quitting from lines 45-50 (introducao-rcongresso.Rmd) 
-    Error: processing vignette 'introducao-rcongresso.Rmd' failed with diagnostics:
-    Column `id` must be a 1d atomic vector or a list
+    Quitting from lines 150-156 (utilizando-fetch-proposicao.Rmd) 
+    Error: processing vignette 'utilizando-fetch-proposicao.Rmd' failed with diagnostics:
+    API did not return json
     Execution halted
+    ```
+
+## In both
+
+*   checking tests ...
+    ```
+     ERROR
+    Running the tests in ‘tests/testthat.R’ failed.
+    Last 13 lines of output:
+      18: dplyr::do(., .congresso_api(API_path, .))
+      19: do.rowwise_df(., .congresso_api(API_path, .))
+      20: overscope_eval_next(overscope, args[[j]])
+      21: .congresso_api(API_path, .) at /private/tmp/RtmpZRLWD8/R.INSTALL6ec2159f9257/rlang/R/lifecycle-retired.R:794
+      22: .get_from_api(path, query) at /Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/rcongresso/new/rcongresso.Rcheck/00_pkg_src/rcongresso/R/utils.R:55
+      23: .use_backoff_exponencial(path, query, timeout, tentativa + 1) at /Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/rcongresso/new/rcongresso.Rcheck/00_pkg_src/rcongresso/R/utils.R:33
+      24: .get_from_api(path, query, final_timeout, tentativa) at /Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/rcongresso/new/rcongresso.Rcheck/00_pkg_src/rcongresso/R/utils.R:17
+      25: stop(.ERRO_RETORNO_JSON, call. = FALSE) at /Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/rcongresso/new/rcongresso.Rcheck/00_pkg_src/rcongresso/R/utils.R:38
+      
+      ══ testthat results  ═════════════════════════════════════════════════════════════════════════════════
+      OK: 72 SKIPPED: 0 FAILED: 1
+      1. Error: Quantidade de itens por requisição (@test_proposicoes.R#82) 
+      
+      Error: testthat unit tests failed
+      Execution halted
     ```
 
 # rcv
@@ -4450,35 +5533,51 @@ Version: 0.1.1
 
 *   checking package dependencies ... ERROR
     ```
-    Packages required but not available: ‘data.table’ ‘syllable’
+    Package required but not available: ‘syllable’
     
     See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
     manual.
     ```
 
-# readat
+# readabs
 
-Version: 1.2.1
-
-## In both
-
-*   checking package dependencies ... ERROR
-    ```
-    Package required but not available: ‘data.table’
-    
-    See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-    manual.
-    ```
-
-# redcapAPI
-
-Version: 2.0
+Version: 0.2.1
 
 ## In both
 
 *   checking dependencies in R code ... NOTE
     ```
-    Namespace in Imports field not imported from: ‘DBI’
+    Namespaces in Imports field not imported from:
+      ‘sjmisc’ ‘stringr’
+      All declared Imports should be used.
+    ```
+
+# readat
+
+Version: 1.6.0
+
+## In both
+
+*   checking R code for possible problems ... NOTE
+    ```
+    sfread: no visible binding for global variable ‘header’
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/readat/new/readat.Rcheck/00_pkg_src/readat/R/sfread.R:54)
+    sfread: no visible binding for global variable ‘nrows’
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/readat/new/readat.Rcheck/00_pkg_src/readat/R/sfread.R:54)
+    Undefined global functions or variables:
+      header nrows
+    ```
+
+# redcapAPI
+
+Version: 2.2
+
+## In both
+
+*   checking dependencies in R code ... NOTE
+    ```
+    Namespaces in Imports field not imported from:
+      ‘DBI’ ‘readr’
       All declared Imports should be used.
     ```
 
@@ -4488,59 +5587,32 @@ Version: 0.9.8
 
 ## In both
 
-*   checking package dependencies ... ERROR
+*   checking package dependencies ... NOTE
     ```
-    Package required but not available: ‘data.table’
-    
-    See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-    manual.
+    Package suggested but not available for checking: ‘devtools’
     ```
 
-# refund.shiny
+# rfbCNPJ
 
-Version: 0.3.0
+Version: 0.1.1
 
 ## In both
 
-*   checking whether package ‘refund.shiny’ can be installed ... ERROR
+*   checking data for non-ASCII characters ... NOTE
     ```
-    Installation failed.
-    See ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/refund.shiny/new/refund.shiny.Rcheck/00install.out’ for details.
+      Note: found 27 marked UTF-8 strings
     ```
 
-## Installation
-
-### Devel
-
-```
-* installing *source* package ‘refund.shiny’ ...
-** package ‘refund.shiny’ successfully unpacked and MD5 sums checked
-** R
-** preparing package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
-  there is no package called ‘data.table’
-ERROR: lazy loading failed for package ‘refund.shiny’
-* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/refund.shiny/new/refund.shiny.Rcheck/refund.shiny’
-
-```
-### CRAN
-
-```
-* installing *source* package ‘refund.shiny’ ...
-** package ‘refund.shiny’ successfully unpacked and MD5 sums checked
-** R
-** preparing package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
-  there is no package called ‘data.table’
-ERROR: lazy loading failed for package ‘refund.shiny’
-* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/refund.shiny/old/refund.shiny.Rcheck/refund.shiny’
-
-```
 # rfishbase
 
 Version: 2.1.2
 
 ## In both
+
+*   checking package dependencies ... NOTE
+    ```
+    Package suggested but not available for checking: ‘devtools’
+    ```
 
 *   checking data for non-ASCII characters ... NOTE
     ```
@@ -4565,73 +5637,23 @@ Version: 0.2.1
 
 ## In both
 
-*   checking package dependencies ... ERROR
+*   checking package dependencies ... NOTE
     ```
-    Package required but not available: ‘data.table’
-    
-    See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-    manual.
+    Package suggested but not available for checking: ‘devtools’
     ```
 
 # rmapzen
 
-Version: 0.3.5
+Version: 0.4.1
 
 ## In both
 
 *   checking package dependencies ... ERROR
     ```
-    Packages required but not available: ‘rgdal’ ‘sf’
+    Package required but not available: ‘sf’
     
     See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
     manual.
-    ```
-
-# RNeXML
-
-Version: 2.1.1
-
-## In both
-
-*   checking tests ...
-    ```
-     ERROR
-    Running the tests in ‘tests/test-all.R’ failed.
-    Last 13 lines of output:
-      Done simulation(s).
-      [31m──[39m [31m1. Error: (unknown) (@test_taxonomy.R#7) [39m [31m───────────────────────────────────────────────────────────────────[39m
-      taxize package required to convert look up taxonomic ids
-      1: taxize_nexml(birds, "NCBI") at testthat/test_taxonomy.R:7
-      2: stop("taxize package required to convert look up taxonomic ids", call. = FALSE)
-      
-      ══ testthat results  ═══════════════════════════════════════════════════════════════════════════════════════════
-      OK: 166 SKIPPED: 3 FAILED: 1
-      1. Error: (unknown) (@test_taxonomy.R#7) 
-      
-      Error: testthat unit tests failed
-      In addition: Warning messages:
-      1: package 'ape' was built under R version 3.4.4 
-      2: package 'XML' was built under R version 3.4.4 
-      Execution halted
-    ```
-
-*   checking whether package ‘RNeXML’ can be installed ... WARNING
-    ```
-    Found the following significant warnings:
-      Warning: package ‘ape’ was built under R version 3.4.4
-    See ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/RNeXML/new/RNeXML.Rcheck/00install.out’ for details.
-    ```
-
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    Error in re-building vignettes:
-      ...
-    Loading required package: ape
-    Warning: package 'ape' was built under R version 3.4.4
-    Quitting from lines 85-86 (metadata.Rmd) 
-    Error: processing vignette 'metadata.Rmd' failed with diagnostics:
-    taxize package required to convert look up taxonomic ids
-    Execution halted
     ```
 
 # rnoaa
@@ -4640,9 +5662,20 @@ Version: 0.7.0
 
 ## In both
 
-*   checking package dependencies ... NOTE
+*   checking package dependencies ... ERROR
     ```
-    Package suggested but not available for checking: ‘rgdal’
+    Packages required but not available:
+      ‘httr’ ‘crul’ ‘lubridate’ ‘ggplot2’ ‘scales’ ‘XML’ ‘xml2’ ‘jsonlite’
+      ‘rappdirs’ ‘gridExtra’ ‘isdparser’ ‘geonames’ ‘hoardr’
+    
+    Packages suggested but not available for checking:
+      ‘roxygen2’ ‘testthat’ ‘knitr’ ‘taxize’ ‘ncdf4’ ‘leaflet’ ‘rgdal’
+      ‘rmarkdown’ ‘ggmap’ ‘ropenaq’
+    
+    VignetteBuilder package required for checking but not installed: ‘knitr’
+    
+    See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
+    manual.
     ```
 
 # rODE
@@ -4651,118 +5684,76 @@ Version: 0.99.6
 
 ## In both
 
-*   checking package dependencies ... ERROR
+*   checking dependencies in R code ... NOTE
     ```
-    Package required but not available: ‘data.table’
-    
-    See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-    manual.
+    Namespace in Imports field not imported from: ‘data.table’
+      All declared Imports should be used.
     ```
 
-# rollply
+# ropenaq
 
-Version: 0.5.0
+Version: 0.2.6
 
 ## In both
 
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    Error in re-building vignettes:
-      ...
-    Quitting from lines 21-27 (rollply.Rmd) 
-    Error: processing vignette 'rollply.Rmd' failed with diagnostics:
-    there is no package called 'rgdal'
-    Execution halted
-    ```
-
 *   checking package dependencies ... NOTE
     ```
-    Package suggested but not available for checking: ‘rgdal’
+    Package suggested but not available for checking: ‘devtools’
     ```
 
 # rprev
 
-Version: 0.2.4
-
-## In both
-
-*   checking whether package ‘rprev’ can be installed ... ERROR
-    ```
-    Installation failed.
-    See ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/rprev/new/rprev.Rcheck/00install.out’ for details.
-    ```
-
-## Installation
-
-### Devel
-
-```
-* installing *source* package ‘rprev’ ...
-** package ‘rprev’ successfully unpacked and MD5 sums checked
-** R
-** data
-** inst
-** preparing package for lazy loading
-Warning: package ‘survival’ was built under R version 3.4.4
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
-  there is no package called ‘data.table’
-ERROR: lazy loading failed for package ‘rprev’
-* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/rprev/new/rprev.Rcheck/rprev’
-
-```
-### CRAN
-
-```
-* installing *source* package ‘rprev’ ...
-** package ‘rprev’ successfully unpacked and MD5 sums checked
-** R
-** data
-** inst
-** preparing package for lazy loading
-Warning: package ‘survival’ was built under R version 3.4.4
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
-  there is no package called ‘data.table’
-ERROR: lazy loading failed for package ‘rprev’
-* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/rprev/old/rprev.Rcheck/rprev’
-
-```
-# rsample
-
-Version: 0.0.2
-
-## In both
-
-*   checking whether package ‘rsample’ can be installed ... WARNING
-    ```
-    Found the following significant warnings:
-      Warning: package ‘broom’ was built under R version 3.4.4
-    See ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/rsample/new/rsample.Rcheck/00install.out’ for details.
-    ```
-
-# rscopus
-
-Version: 0.5.3
+Version: 1.0.0
 
 ## In both
 
 *   checking dependencies in R code ... NOTE
     ```
-    Namespace in Imports field not imported from: ‘tidyr’
+    Namespaces in Imports field not imported from:
+      ‘doParallel’ ‘foreach’
       All declared Imports should be used.
     ```
 
-# RSSL
+# RSDA
 
-Version: 0.6.1
+Version: 2.0.8
 
 ## In both
 
-*   checking package dependencies ... ERROR
+*   checking dependencies in R code ... NOTE
     ```
-    Package required but not available: ‘RcppArmadillo’
+    Namespace in Imports field not imported from: ‘randomcoloR’
+      All declared Imports should be used.
+    ```
+
+# rsinaica
+
+Version: 0.5.0
+
+## In both
+
+*   checking examples ... ERROR
+    ```
+    Running examples in ‘rsinaica-Ex.R’ failed
+    The error most likely occurred in:
     
-    See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-    manual.
+    > ### Name: sinaica_station_dates
+    > ### Title: Dates supported by a station
+    > ### Aliases: sinaica_station_dates
+    > 
+    > ### ** Examples
+    > 
+    > ## id 271 is Xalostoc. See `stations_sinaica`
+    > df <- sinaica_station_dates(271, "Manual")
+    Error: parse error: premature EOF
+                                           
+                         (right here) ------^
+    Execution halted
+    ```
+
+*   checking data for non-ASCII characters ... NOTE
+    ```
+      Note: found 467 marked UTF-8 strings
     ```
 
 # rtable
@@ -4771,30 +5762,88 @@ Version: 0.1.5
 
 ## In both
 
-*   checking whether package ‘rtable’ can be installed ... WARNING
+*   checking package dependencies ... ERROR
     ```
-    Found the following significant warnings:
-      Warning: package ‘ReporteRsjars’ was built under R version 3.4.4
-    See ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/rtable/new/rtable.Rcheck/00install.out’ for details.
+    Package required but not available: ‘ReporteRs’
+    
+    See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
+    manual.
     ```
 
 # RTCGA
 
-Version: 1.6.0
+Version: 1.10.0
 
 ## In both
 
-*   checking package dependencies ... ERROR
+*   checking examples ... ERROR
     ```
-    Package required but not available: ‘data.table’
+    Running examples in ‘RTCGA-Ex.R’ failed
+    The error most likely occurred in:
     
+    > ### Name: boxplotTCGA
+    > ### Title: Create Boxplots for TCGA Datasets
+    > ### Aliases: boxplotTCGA
+    > 
+    > ### ** Examples
+    > 
+    > library(RTCGA.rnaseq)
+    Error in library(RTCGA.rnaseq) : 
+      there is no package called ‘RTCGA.rnaseq’
+    Execution halted
+    ```
+
+*   checking tests ...
+    ```
+     ERROR
+    Running the tests in ‘tests/testthat.R’ failed.
+    Complete output:
+      > library(testthat)
+      > library(RTCGA)
+      Welcome to the RTCGA (version: 1.10.0).
+      > library(RTCGA.rnaseq)
+      Error in library(RTCGA.rnaseq) : 
+        there is no package called 'RTCGA.rnaseq'
+      Execution halted
+    ```
+
+*   checking package dependencies ... NOTE
+    ```
     Packages suggested but not available for checking:
-      ‘RTCGA.rnaseq’ ‘RTCGA.clinical’ ‘RTCGA.mutations’ ‘RTCGA.RPPA’
-      ‘RTCGA.mRNA’ ‘RTCGA.miRNASeq’ ‘RTCGA.methylation’ ‘RTCGA.CNV’
-      ‘RTCGA.PANCAN12’
-    
-    See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-    manual.
+      ‘devtools’ ‘RTCGA.rnaseq’ ‘RTCGA.clinical’ ‘RTCGA.mutations’
+      ‘RTCGA.RPPA’ ‘RTCGA.mRNA’ ‘RTCGA.miRNASeq’ ‘RTCGA.methylation’
+      ‘RTCGA.CNV’ ‘RTCGA.PANCAN12’
+    ```
+
+*   checking R code for possible problems ... NOTE
+    ```
+    ...
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/RTCGA/new/RTCGA.Rcheck/00_pkg_src/RTCGA/R/ggbiplot.R:157-161)
+    ggbiplot: no visible binding for global variable ‘xvar’
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/RTCGA/new/RTCGA.Rcheck/00_pkg_src/RTCGA/R/ggbiplot.R:157-161)
+    ggbiplot: no visible binding for global variable ‘yvar’
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/RTCGA/new/RTCGA.Rcheck/00_pkg_src/RTCGA/R/ggbiplot.R:157-161)
+    ggbiplot: no visible binding for global variable ‘angle’
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/RTCGA/new/RTCGA.Rcheck/00_pkg_src/RTCGA/R/ggbiplot.R:157-161)
+    ggbiplot: no visible binding for global variable ‘hjust’
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/RTCGA/new/RTCGA.Rcheck/00_pkg_src/RTCGA/R/ggbiplot.R:157-161)
+    read.mutations: no visible binding for global variable ‘.’
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/RTCGA/new/RTCGA.Rcheck/00_pkg_src/RTCGA/R/readTCGA.R:383)
+    read.mutations: no visible binding for global variable ‘.’
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/RTCGA/new/RTCGA.Rcheck/00_pkg_src/RTCGA/R/readTCGA.R:386)
+    read.rnaseq: no visible binding for global variable ‘.’
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/RTCGA/new/RTCGA.Rcheck/00_pkg_src/RTCGA/R/readTCGA.R:372-375)
+    survivalTCGA: no visible binding for global variable ‘times’
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/RTCGA/new/RTCGA.Rcheck/00_pkg_src/RTCGA/R/survivalTCGA.R:101-137)
+    whichDateToUse: no visible binding for global variable ‘.’
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/RTCGA/new/RTCGA.Rcheck/00_pkg_src/RTCGA/R/downloadTCGA.R:167-168)
+    Undefined global functions or variables:
+      . angle hjust muted times varname xvar yvar
+    ```
+
+*   checking Rd cross-references ... NOTE
+    ```
+    Packages unavailable to check Rd xrefs: ‘RTCGA.rnaseq’, ‘RTCGA.clinical’, ‘RTCGA.mutations’, ‘RTCGA.CNV’, ‘RTCGA.RPPA’, ‘RTCGA.mRNA’, ‘RTCGA.miRNASeq’, ‘RTCGA.methylation’
     ```
 
 # rtimicropem
@@ -4823,48 +5872,18 @@ Version: 0.1.0
 
 # RtutoR
 
-Version: 1.1
+Version: 1.2
 
 ## In both
 
-*   checking whether package ‘RtutoR’ can be installed ... ERROR
+*   checking package dependencies ... ERROR
     ```
-    Installation failed.
-    See ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/RtutoR/new/RtutoR.Rcheck/00install.out’ for details.
+    Package required but not available: ‘devtools’
+    
+    See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
+    manual.
     ```
 
-## Installation
-
-### Devel
-
-```
-* installing *source* package ‘RtutoR’ ...
-** package ‘RtutoR’ successfully unpacked and MD5 sums checked
-** R
-** inst
-** preparing package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
-  there is no package called ‘data.table’
-Error : unable to load R code in package ‘RtutoR’
-ERROR: lazy loading failed for package ‘RtutoR’
-* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/RtutoR/new/RtutoR.Rcheck/RtutoR’
-
-```
-### CRAN
-
-```
-* installing *source* package ‘RtutoR’ ...
-** package ‘RtutoR’ successfully unpacked and MD5 sums checked
-** R
-** inst
-** preparing package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
-  there is no package called ‘data.table’
-Error : unable to load R code in package ‘RtutoR’
-ERROR: lazy loading failed for package ‘RtutoR’
-* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/RtutoR/old/RtutoR.Rcheck/RtutoR’
-
-```
 # rubias
 
 Version: 0.1.0
@@ -4879,21 +5898,33 @@ Version: 0.1.0
 
 # RxODE
 
-Version: 0.6-1
+Version: 0.8.0-8
 
 ## In both
 
-*   checking package dependencies ... ERROR
+*   checking package dependencies ... NOTE
     ```
-    Package required but not available: ‘RcppArmadillo’
-    
-    See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-    manual.
+    Package suggested but not available for checking: ‘devtools’
+    ```
+
+*   checking installed package size ... NOTE
+    ```
+      installed size is  5.7Mb
+      sub-directories of 1Mb or more:
+        R      1.6Mb
+        doc    1.6Mb
+        libs   2.1Mb
+    ```
+
+*   checking dependencies in R code ... NOTE
+    ```
+    Namespace in Imports field not imported from: ‘n1qn1’
+      All declared Imports should be used.
     ```
 
 # sabre
 
-Version: 0.2.0
+Version: 0.2.1
 
 ## In both
 
@@ -4918,30 +5949,62 @@ Version: 0.1.0
       All declared Imports should be used.
     ```
 
-# scanstatistics
+# SCORPIUS
 
-Version: 1.0.1
+Version: 1.0.2
 
 ## In both
 
-*   checking package dependencies ... ERROR
+*   checking whether package ‘SCORPIUS’ can be installed ... ERROR
     ```
-    Package required but not available: ‘RcppArmadillo’
-    
-    See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-    manual.
+    Installation failed.
+    See ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/SCORPIUS/new/SCORPIUS.Rcheck/00install.out’ for details.
     ```
 
-# SCORPIUS
+## Installation
 
-Version: 1.0
+### Devel
+
+```
+* installing *source* package ‘SCORPIUS’ ...
+** package ‘SCORPIUS’ successfully unpacked and MD5 sums checked
+** R
+** data
+*** moving datasets to lazyload DB
+** inst
+** byte-compile and prepare package for lazy loading
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+  there is no package called ‘devtools’
+ERROR: lazy loading failed for package ‘SCORPIUS’
+* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/SCORPIUS/new/SCORPIUS.Rcheck/SCORPIUS’
+
+```
+### CRAN
+
+```
+* installing *source* package ‘SCORPIUS’ ...
+** package ‘SCORPIUS’ successfully unpacked and MD5 sums checked
+** R
+** data
+*** moving datasets to lazyload DB
+** inst
+** byte-compile and prepare package for lazy loading
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+  there is no package called ‘devtools’
+ERROR: lazy loading failed for package ‘SCORPIUS’
+* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/SCORPIUS/old/SCORPIUS.Rcheck/SCORPIUS’
+
+```
+# sdStaf
+
+Version: 1.0.0
 
 ## In both
 
 *   checking dependencies in R code ... NOTE
     ```
     Namespaces in Imports field not imported from:
-      ‘Rcpp’ ‘testthat’
+      ‘rgdal’ ‘rgeos’ ‘tidyr’
       All declared Imports should be used.
     ```
 
@@ -4960,889 +6023,18 @@ Version: 1.3.4
 
 # Seurat
 
-Version: 2.3.1
+Version: 2.3.4
 
 ## In both
 
-*   checking whether package ‘Seurat’ can be installed ... ERROR
-    ```
-    Installation failed.
-    See ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/Seurat/new/Seurat.Rcheck/00install.out’ for details.
-    ```
-
 *   checking package dependencies ... NOTE
     ```
-    Packages suggested but not available for checking:
-      ‘loomR’ ‘SingleCellExperiment’
+    Package suggested but not available for checking: ‘loomR’
     ```
 
-## Installation
-
-### Devel
-
-```
-* installing *source* package ‘Seurat’ ...
-** package ‘Seurat’ successfully unpacked and MD5 sums checked
-** libs
-clang++ -std=gnu++11 -I/Library/Frameworks/R.framework/Resources/include -DNDEBUG  -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/new/Rcpp/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppProgress/include" -I/usr/local/include  -I../inst/include -fPIC  -Wall -g -O2 -c RcppExports.cpp -o RcppExports.o
-In file included from RcppExports.cpp:4:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigenForward.h:30:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/Dense:1:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/Core:531:
-/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
-    #pragma clang diagnostic pop
-                             ^
-In file included from RcppExports.cpp:4:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigenForward.h:30:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/Dense:2:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/LU:47:
-/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
-    #pragma clang diagnostic pop
-                             ^
-In file included from RcppExports.cpp:4:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigenForward.h:30:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/Dense:3:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/Cholesky:12:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/Jacobi:29:
-/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
-    #pragma clang diagnostic pop
-                             ^
-In file included from RcppExports.cpp:4:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigenForward.h:30:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/Dense:3:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/Cholesky:43:
-/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
-    #pragma clang diagnostic pop
-                             ^
-In file included from RcppExports.cpp:4:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigenForward.h:30:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/Dense:4:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/QR:17:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/Householder:27:
-/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
-    #pragma clang diagnostic pop
-                             ^
-In file included from RcppExports.cpp:4:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigenForward.h:30:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/Dense:5:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/SVD:48:
-/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
-    #pragma clang diagnostic pop
-                             ^
-In file included from RcppExports.cpp:4:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigenForward.h:30:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/Dense:6:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/Geometry:58:
-/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
-    #pragma clang diagnostic pop
-                             ^
-In file included from RcppExports.cpp:4:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigenForward.h:30:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/Dense:7:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/Eigenvalues:58:
-/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
-    #pragma clang diagnostic pop
-                             ^
-In file included from RcppExports.cpp:4:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigenForward.h:31:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/Sparse:26:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/SparseCore:66:
-/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
-    #pragma clang diagnostic pop
-                             ^
-In file included from RcppExports.cpp:4:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigenForward.h:31:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/Sparse:27:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/OrderingMethods:71:
-/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
-    #pragma clang diagnostic pop
-                             ^
-In file included from RcppExports.cpp:4:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigenForward.h:31:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/Sparse:29:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/SparseCholesky:43:
-/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
-    #pragma clang diagnostic pop
-                             ^
-In file included from RcppExports.cpp:4:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigenForward.h:31:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/Sparse:32:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/SparseQR:35:
-/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
-    #pragma clang diagnostic pop
-                             ^
-In file included from RcppExports.cpp:4:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigenForward.h:31:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/Sparse:33:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/IterativeLinearSolvers:46:
-/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
-    #pragma clang diagnostic pop
-                             ^
-In file included from RcppExports.cpp:4:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigenForward.h:32:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/CholmodSupport:45:
-/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
-    #pragma clang diagnostic pop
-                             ^
-In file included from RcppExports.cpp:4:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigenForward.h:35:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/unsupported/Eigen/KroneckerProduct:34:
-/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/unsupported/Eigen/../../Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
-    #pragma clang diagnostic pop
-                             ^
-In file included from RcppExports.cpp:4:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigenForward.h:39:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/unsupported/Eigen/Polynomials:135:
-/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/unsupported/Eigen/../../Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
-    #pragma clang diagnostic pop
-                             ^
-In file included from RcppExports.cpp:4:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigenForward.h:40:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/unsupported/Eigen/SparseExtra:51:
-/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/unsupported/Eigen/../../Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
-    #pragma clang diagnostic pop
-                             ^
-17 warnings generated.
-clang++ -std=gnu++11 -I/Library/Frameworks/R.framework/Resources/include -DNDEBUG  -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/new/Rcpp/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppProgress/include" -I/usr/local/include  -I../inst/include -fPIC  -Wall -g -O2 -c data_manipulation.cpp -o data_manipulation.o
-In file included from data_manipulation.cpp:1:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigenForward.h:30:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/Dense:1:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/Core:531:
-/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
-    #pragma clang diagnostic pop
-                             ^
-In file included from data_manipulation.cpp:1:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigenForward.h:30:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/Dense:2:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/LU:47:
-/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
-    #pragma clang diagnostic pop
-                             ^
-In file included from data_manipulation.cpp:1:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigenForward.h:30:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/Dense:3:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/Cholesky:12:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/Jacobi:29:
-/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
-    #pragma clang diagnostic pop
-                             ^
-In file included from data_manipulation.cpp:1:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigenForward.h:30:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/Dense:3:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/Cholesky:43:
-/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
-    #pragma clang diagnostic pop
-                             ^
-In file included from data_manipulation.cpp:1:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigenForward.h:30:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/Dense:4:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/QR:17:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/Householder:27:
-/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
-    #pragma clang diagnostic pop
-                             ^
-In file included from data_manipulation.cpp:1:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigenForward.h:30:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/Dense:5:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/SVD:48:
-/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
-    #pragma clang diagnostic pop
-                             ^
-In file included from data_manipulation.cpp:1:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigenForward.h:30:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/Dense:6:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/Geometry:58:
-/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
-    #pragma clang diagnostic pop
-                             ^
-In file included from data_manipulation.cpp:1:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigenForward.h:30:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/Dense:7:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/Eigenvalues:58:
-/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
-    #pragma clang diagnostic pop
-                             ^
-In file included from data_manipulation.cpp:1:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigenForward.h:31:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/Sparse:26:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/SparseCore:66:
-/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
-    #pragma clang diagnostic pop
-                             ^
-In file included from data_manipulation.cpp:1:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigenForward.h:31:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/Sparse:27:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/OrderingMethods:71:
-/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
-    #pragma clang diagnostic pop
-                             ^
-In file included from data_manipulation.cpp:1:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigenForward.h:31:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/Sparse:29:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/SparseCholesky:43:
-/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
-    #pragma clang diagnostic pop
-                             ^
-In file included from data_manipulation.cpp:1:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigenForward.h:31:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/Sparse:32:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/SparseQR:35:
-/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
-    #pragma clang diagnostic pop
-                             ^
-In file included from data_manipulation.cpp:1:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigenForward.h:31:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/Sparse:33:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/IterativeLinearSolvers:46:
-/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
-    #pragma clang diagnostic pop
-                             ^
-In file included from data_manipulation.cpp:1:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigenForward.h:32:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/CholmodSupport:45:
-/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
-    #pragma clang diagnostic pop
-                             ^
-In file included from data_manipulation.cpp:1:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigenForward.h:35:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/unsupported/Eigen/KroneckerProduct:34:
-/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/unsupported/Eigen/../../Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
-    #pragma clang diagnostic pop
-                             ^
-In file included from data_manipulation.cpp:1:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigenForward.h:39:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/unsupported/Eigen/Polynomials:135:
-/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/unsupported/Eigen/../../Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
-    #pragma clang diagnostic pop
-                             ^
-In file included from data_manipulation.cpp:1:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigenForward.h:40:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/unsupported/Eigen/SparseExtra:51:
-/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/unsupported/Eigen/../../Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
-    #pragma clang diagnostic pop
-                             ^
-17 warnings generated.
-clang++ -std=gnu++11 -I/Library/Frameworks/R.framework/Resources/include -DNDEBUG  -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/new/Rcpp/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppProgress/include" -I/usr/local/include  -I../inst/include -fPIC  -Wall -g -O2 -c snn.cpp -o snn.o
-In file included from snn.cpp:1:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigenForward.h:30:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/Dense:1:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/Core:531:
-/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
-    #pragma clang diagnostic pop
-                             ^
-In file included from snn.cpp:1:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigenForward.h:30:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/Dense:2:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/LU:47:
-/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
-    #pragma clang diagnostic pop
-                             ^
-In file included from snn.cpp:1:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigenForward.h:30:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/Dense:3:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/Cholesky:12:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/Jacobi:29:
-/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
-    #pragma clang diagnostic pop
-                             ^
-In file included from snn.cpp:1:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigenForward.h:30:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/Dense:3:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/Cholesky:43:
-/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
-    #pragma clang diagnostic pop
-                             ^
-In file included from snn.cpp:1:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigenForward.h:30:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/Dense:4:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/QR:17:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/Householder:27:
-/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
-    #pragma clang diagnostic pop
-                             ^
-In file included from snn.cpp:1:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigenForward.h:30:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/Dense:5:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/SVD:48:
-/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
-    #pragma clang diagnostic pop
-                             ^
-In file included from snn.cpp:1:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigenForward.h:30:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/Dense:6:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/Geometry:58:
-/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
-    #pragma clang diagnostic pop
-                             ^
-In file included from snn.cpp:1:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigenForward.h:30:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/Dense:7:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/Eigenvalues:58:
-/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
-    #pragma clang diagnostic pop
-                             ^
-In file included from snn.cpp:1:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigenForward.h:31:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/Sparse:26:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/SparseCore:66:
-/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
-    #pragma clang diagnostic pop
-                             ^
-In file included from snn.cpp:1:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigenForward.h:31:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/Sparse:27:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/OrderingMethods:71:
-/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
-    #pragma clang diagnostic pop
-                             ^
-In file included from snn.cpp:1:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigenForward.h:31:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/Sparse:29:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/SparseCholesky:43:
-/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
-    #pragma clang diagnostic pop
-                             ^
-In file included from snn.cpp:1:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigenForward.h:31:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/Sparse:32:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/SparseQR:35:
-/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
-    #pragma clang diagnostic pop
-                             ^
-In file included from snn.cpp:1:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigenForward.h:31:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/Sparse:33:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/IterativeLinearSolvers:46:
-/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
-    #pragma clang diagnostic pop
-                             ^
-In file included from snn.cpp:1:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigenForward.h:32:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/CholmodSupport:45:
-/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
-    #pragma clang diagnostic pop
-                             ^
-In file included from snn.cpp:1:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigenForward.h:35:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/unsupported/Eigen/KroneckerProduct:34:
-/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/unsupported/Eigen/../../Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
-    #pragma clang diagnostic pop
-                             ^
-In file included from snn.cpp:1:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigenForward.h:39:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/unsupported/Eigen/Polynomials:135:
-/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/unsupported/Eigen/../../Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
-    #pragma clang diagnostic pop
-                             ^
-In file included from snn.cpp:1:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigenForward.h:40:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/unsupported/Eigen/SparseExtra:51:
-/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/unsupported/Eigen/../../Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
-    #pragma clang diagnostic pop
-                             ^
-17 warnings generated.
-clang++ -std=gnu++11 -dynamiclib -Wl,-headerpad_max_install_names -undefined dynamic_lookup -single_module -multiply_defined suppress -L/Library/Frameworks/R.framework/Resources/lib -L/usr/local/lib -o Seurat.so RcppExports.o data_manipulation.o snn.o -L/Library/Frameworks/R.framework/Resources/lib -lRlapack -L/Library/Frameworks/R.framework/Resources/lib -lRblas -L/usr/local/gfortran/lib/gcc/x86_64-apple-darwin15/6.1.0 -L/usr/local/gfortran/lib -lgfortran -lquadmath -lm -F/Library/Frameworks/R.framework/.. -framework R -Wl,-framework -Wl,CoreFoundation
-ld: warning: directory not found for option '-L/usr/local/gfortran/lib/gcc/x86_64-apple-darwin15/6.1.0'
-ld: warning: directory not found for option '-L/usr/local/gfortran/lib'
-installing to /Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/Seurat/new/Seurat.Rcheck/Seurat/libs
-** R
-** data
-*** moving datasets to lazyload DB
-** inst
-** preparing package for lazy loading
-Warning: package ‘cowplot’ was built under R version 3.4.3
-Warning: package ‘Matrix’ was built under R version 3.4.4
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
-  there is no package called ‘data.table’
-ERROR: lazy loading failed for package ‘Seurat’
-* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/Seurat/new/Seurat.Rcheck/Seurat’
-
-```
-### CRAN
-
-```
-* installing *source* package ‘Seurat’ ...
-** package ‘Seurat’ successfully unpacked and MD5 sums checked
-** libs
-clang++ -std=gnu++11 -I/Library/Frameworks/R.framework/Resources/include -DNDEBUG  -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/old/Rcpp/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppProgress/include" -I/usr/local/include  -I../inst/include -fPIC  -Wall -g -O2 -c RcppExports.cpp -o RcppExports.o
-In file included from RcppExports.cpp:4:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigenForward.h:30:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/Dense:1:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/Core:531:
-/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
-    #pragma clang diagnostic pop
-                             ^
-In file included from RcppExports.cpp:4:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigenForward.h:30:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/Dense:2:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/LU:47:
-/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
-    #pragma clang diagnostic pop
-                             ^
-In file included from RcppExports.cpp:4:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigenForward.h:30:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/Dense:3:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/Cholesky:12:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/Jacobi:29:
-/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
-    #pragma clang diagnostic pop
-                             ^
-In file included from RcppExports.cpp:4:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigenForward.h:30:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/Dense:3:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/Cholesky:43:
-/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
-    #pragma clang diagnostic pop
-                             ^
-In file included from RcppExports.cpp:4:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigenForward.h:30:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/Dense:4:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/QR:17:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/Householder:27:
-/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
-    #pragma clang diagnostic pop
-                             ^
-In file included from RcppExports.cpp:4:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigenForward.h:30:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/Dense:5:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/SVD:48:
-/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
-    #pragma clang diagnostic pop
-                             ^
-In file included from RcppExports.cpp:4:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigenForward.h:30:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/Dense:6:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/Geometry:58:
-/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
-    #pragma clang diagnostic pop
-                             ^
-In file included from RcppExports.cpp:4:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigenForward.h:30:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/Dense:7:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/Eigenvalues:58:
-/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
-    #pragma clang diagnostic pop
-                             ^
-In file included from RcppExports.cpp:4:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigenForward.h:31:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/Sparse:26:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/SparseCore:66:
-/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
-    #pragma clang diagnostic pop
-                             ^
-In file included from RcppExports.cpp:4:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigenForward.h:31:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/Sparse:27:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/OrderingMethods:71:
-/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
-    #pragma clang diagnostic pop
-                             ^
-In file included from RcppExports.cpp:4:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigenForward.h:31:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/Sparse:29:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/SparseCholesky:43:
-/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
-    #pragma clang diagnostic pop
-                             ^
-In file included from RcppExports.cpp:4:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigenForward.h:31:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/Sparse:32:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/SparseQR:35:
-/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
-    #pragma clang diagnostic pop
-                             ^
-In file included from RcppExports.cpp:4:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigenForward.h:31:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/Sparse:33:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/IterativeLinearSolvers:46:
-/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
-    #pragma clang diagnostic pop
-                             ^
-In file included from RcppExports.cpp:4:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigenForward.h:32:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/CholmodSupport:45:
-/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
-    #pragma clang diagnostic pop
-                             ^
-In file included from RcppExports.cpp:4:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigenForward.h:35:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/unsupported/Eigen/KroneckerProduct:34:
-/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/unsupported/Eigen/../../Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
-    #pragma clang diagnostic pop
-                             ^
-In file included from RcppExports.cpp:4:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigenForward.h:39:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/unsupported/Eigen/Polynomials:135:
-/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/unsupported/Eigen/../../Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
-    #pragma clang diagnostic pop
-                             ^
-In file included from RcppExports.cpp:4:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigenForward.h:40:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/unsupported/Eigen/SparseExtra:51:
-/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/unsupported/Eigen/../../Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
-    #pragma clang diagnostic pop
-                             ^
-17 warnings generated.
-clang++ -std=gnu++11 -I/Library/Frameworks/R.framework/Resources/include -DNDEBUG  -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/old/Rcpp/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppProgress/include" -I/usr/local/include  -I../inst/include -fPIC  -Wall -g -O2 -c data_manipulation.cpp -o data_manipulation.o
-In file included from data_manipulation.cpp:1:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigenForward.h:30:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/Dense:1:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/Core:531:
-/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
-    #pragma clang diagnostic pop
-                             ^
-In file included from data_manipulation.cpp:1:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigenForward.h:30:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/Dense:2:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/LU:47:
-/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
-    #pragma clang diagnostic pop
-                             ^
-In file included from data_manipulation.cpp:1:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigenForward.h:30:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/Dense:3:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/Cholesky:12:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/Jacobi:29:
-/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
-    #pragma clang diagnostic pop
-                             ^
-In file included from data_manipulation.cpp:1:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigenForward.h:30:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/Dense:3:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/Cholesky:43:
-/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
-    #pragma clang diagnostic pop
-                             ^
-In file included from data_manipulation.cpp:1:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigenForward.h:30:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/Dense:4:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/QR:17:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/Householder:27:
-/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
-    #pragma clang diagnostic pop
-                             ^
-In file included from data_manipulation.cpp:1:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigenForward.h:30:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/Dense:5:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/SVD:48:
-/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
-    #pragma clang diagnostic pop
-                             ^
-In file included from data_manipulation.cpp:1:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigenForward.h:30:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/Dense:6:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/Geometry:58:
-/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
-    #pragma clang diagnostic pop
-                             ^
-In file included from data_manipulation.cpp:1:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigenForward.h:30:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/Dense:7:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/Eigenvalues:58:
-/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
-    #pragma clang diagnostic pop
-                             ^
-In file included from data_manipulation.cpp:1:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigenForward.h:31:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/Sparse:26:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/SparseCore:66:
-/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
-    #pragma clang diagnostic pop
-                             ^
-In file included from data_manipulation.cpp:1:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigenForward.h:31:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/Sparse:27:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/OrderingMethods:71:
-/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
-    #pragma clang diagnostic pop
-                             ^
-In file included from data_manipulation.cpp:1:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigenForward.h:31:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/Sparse:29:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/SparseCholesky:43:
-/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
-    #pragma clang diagnostic pop
-                             ^
-In file included from data_manipulation.cpp:1:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigenForward.h:31:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/Sparse:32:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/SparseQR:35:
-/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
-    #pragma clang diagnostic pop
-                             ^
-In file included from data_manipulation.cpp:1:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigenForward.h:31:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/Sparse:33:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/IterativeLinearSolvers:46:
-/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
-    #pragma clang diagnostic pop
-                             ^
-In file included from data_manipulation.cpp:1:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigenForward.h:32:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/CholmodSupport:45:
-/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
-    #pragma clang diagnostic pop
-                             ^
-In file included from data_manipulation.cpp:1:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigenForward.h:35:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/unsupported/Eigen/KroneckerProduct:34:
-/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/unsupported/Eigen/../../Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
-    #pragma clang diagnostic pop
-                             ^
-In file included from data_manipulation.cpp:1:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigenForward.h:39:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/unsupported/Eigen/Polynomials:135:
-/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/unsupported/Eigen/../../Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
-    #pragma clang diagnostic pop
-                             ^
-In file included from data_manipulation.cpp:1:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigenForward.h:40:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/unsupported/Eigen/SparseExtra:51:
-/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/unsupported/Eigen/../../Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
-    #pragma clang diagnostic pop
-                             ^
-17 warnings generated.
-clang++ -std=gnu++11 -I/Library/Frameworks/R.framework/Resources/include -DNDEBUG  -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/old/Rcpp/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppProgress/include" -I/usr/local/include  -I../inst/include -fPIC  -Wall -g -O2 -c snn.cpp -o snn.o
-In file included from snn.cpp:1:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigenForward.h:30:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/Dense:1:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/Core:531:
-/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
-    #pragma clang diagnostic pop
-                             ^
-In file included from snn.cpp:1:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigenForward.h:30:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/Dense:2:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/LU:47:
-/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
-    #pragma clang diagnostic pop
-                             ^
-In file included from snn.cpp:1:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigenForward.h:30:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/Dense:3:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/Cholesky:12:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/Jacobi:29:
-/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
-    #pragma clang diagnostic pop
-                             ^
-In file included from snn.cpp:1:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigenForward.h:30:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/Dense:3:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/Cholesky:43:
-/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
-    #pragma clang diagnostic pop
-                             ^
-In file included from snn.cpp:1:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigenForward.h:30:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/Dense:4:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/QR:17:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/Householder:27:
-/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
-    #pragma clang diagnostic pop
-                             ^
-In file included from snn.cpp:1:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigenForward.h:30:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/Dense:5:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/SVD:48:
-/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
-    #pragma clang diagnostic pop
-                             ^
-In file included from snn.cpp:1:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigenForward.h:30:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/Dense:6:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/Geometry:58:
-/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
-    #pragma clang diagnostic pop
-                             ^
-In file included from snn.cpp:1:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigenForward.h:30:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/Dense:7:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/Eigenvalues:58:
-/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
-    #pragma clang diagnostic pop
-                             ^
-In file included from snn.cpp:1:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigenForward.h:31:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/Sparse:26:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/SparseCore:66:
-/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
-    #pragma clang diagnostic pop
-                             ^
-In file included from snn.cpp:1:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigenForward.h:31:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/Sparse:27:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/OrderingMethods:71:
-/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
-    #pragma clang diagnostic pop
-                             ^
-In file included from snn.cpp:1:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigenForward.h:31:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/Sparse:29:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/SparseCholesky:43:
-/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
-    #pragma clang diagnostic pop
-                             ^
-In file included from snn.cpp:1:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigenForward.h:31:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/Sparse:32:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/SparseQR:35:
-/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
-    #pragma clang diagnostic pop
-                             ^
-In file included from snn.cpp:1:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigenForward.h:31:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/Sparse:33:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/IterativeLinearSolvers:46:
-/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
-    #pragma clang diagnostic pop
-                             ^
-In file included from snn.cpp:1:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigenForward.h:32:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/CholmodSupport:45:
-/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
-    #pragma clang diagnostic pop
-                             ^
-In file included from snn.cpp:1:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigenForward.h:35:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/unsupported/Eigen/KroneckerProduct:34:
-/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/unsupported/Eigen/../../Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
-    #pragma clang diagnostic pop
-                             ^
-In file included from snn.cpp:1:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigenForward.h:39:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/unsupported/Eigen/Polynomials:135:
-/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/unsupported/Eigen/../../Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
-    #pragma clang diagnostic pop
-                             ^
-In file included from snn.cpp:1:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigen.h:25:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/RcppEigenForward.h:40:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/unsupported/Eigen/SparseExtra:51:
-/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/Seurat/RcppEigen/include/unsupported/Eigen/../../Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
-    #pragma clang diagnostic pop
-                             ^
-17 warnings generated.
-clang++ -std=gnu++11 -dynamiclib -Wl,-headerpad_max_install_names -undefined dynamic_lookup -single_module -multiply_defined suppress -L/Library/Frameworks/R.framework/Resources/lib -L/usr/local/lib -o Seurat.so RcppExports.o data_manipulation.o snn.o -L/Library/Frameworks/R.framework/Resources/lib -lRlapack -L/Library/Frameworks/R.framework/Resources/lib -lRblas -L/usr/local/gfortran/lib/gcc/x86_64-apple-darwin15/6.1.0 -L/usr/local/gfortran/lib -lgfortran -lquadmath -lm -F/Library/Frameworks/R.framework/.. -framework R -Wl,-framework -Wl,CoreFoundation
-ld: warning: directory not found for option '-L/usr/local/gfortran/lib/gcc/x86_64-apple-darwin15/6.1.0'
-ld: warning: directory not found for option '-L/usr/local/gfortran/lib'
-installing to /Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/Seurat/old/Seurat.Rcheck/Seurat/libs
-** R
-** data
-*** moving datasets to lazyload DB
-** inst
-** preparing package for lazy loading
-Warning: package ‘cowplot’ was built under R version 3.4.3
-Warning: package ‘Matrix’ was built under R version 3.4.4
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
-  there is no package called ‘data.table’
-ERROR: lazy loading failed for package ‘Seurat’
-* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/Seurat/old/Seurat.Rcheck/Seurat’
-
-```
 # sf
 
-Version: 0.6-2
+Version: 0.7-0
 
 ## In both
 
@@ -5850,11 +6042,6 @@ Version: 0.6-2
     ```
     Installation failed.
     See ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/sf/new/sf.Rcheck/00install.out’ for details.
-    ```
-
-*   checking package dependencies ... NOTE
-    ```
-    Packages suggested but not available for checking: ‘rgdal’ ‘mapview’
     ```
 
 ## Installation
@@ -5865,7 +6052,7 @@ Version: 0.6-2
 * installing *source* package ‘sf’ ...
 ** package ‘sf’ successfully unpacked and MD5 sums checked
 configure: CC: ccache clang -Qunused-arguments
-configure: CXX: ccache clang++ -Qunused-arguments
+configure: CXX: clang++ -std=gnu++11
 checking for gdal-config... /usr/local/bin/gdal-config
 checking gdal-config usability... yes
 configure: GDAL: 2.1.2
@@ -5899,13 +6086,13 @@ checking gdal.h presence... yes
 checking for gdal.h... yes
 checking GDAL: linking with --libs only... yes
 checking GDAL: /usr/local/Cellar/gdal2/2.1.2/share/gdal/pcs.csv readable... yes
-checking GDAL: checking whether PROJ.4 is available for linking:... yes
-checking GDAL: checking whether PROJ.4 is available fur running:... dyld: Library not loaded: /usr/local/opt/webp/lib/libwebp.6.dylib
+checking GDAL: checking whether PROJ is available for linking:... yes
+checking GDAL: checking whether PROJ is available fur running:... dyld: Library not loaded: /usr/local/opt/webp/lib/libwebp.6.dylib
   Referenced from: /usr/local/opt/gdal2/lib/libgdal.20.dylib
   Reason: image not found
-./configure: line 3584: 33279 Abort trap: 6           ./gdal_proj
+./configure: line 3601: 49203 Abort trap: 6           ./gdal_proj
 no
-configure: error: OGRCoordinateTransformation() does not return a coord.trans: PROJ.4 not available?
+configure: error: OGRCoordinateTransformation() does not return a coord.trans: PROJ not available?
 ERROR: configuration failed for package ‘sf’
 * removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/sf/new/sf.Rcheck/sf’
 
@@ -5916,7 +6103,7 @@ ERROR: configuration failed for package ‘sf’
 * installing *source* package ‘sf’ ...
 ** package ‘sf’ successfully unpacked and MD5 sums checked
 configure: CC: ccache clang -Qunused-arguments
-configure: CXX: ccache clang++ -Qunused-arguments
+configure: CXX: clang++ -std=gnu++11
 checking for gdal-config... /usr/local/bin/gdal-config
 checking gdal-config usability... yes
 configure: GDAL: 2.1.2
@@ -5950,28 +6137,17 @@ checking gdal.h presence... yes
 checking for gdal.h... yes
 checking GDAL: linking with --libs only... yes
 checking GDAL: /usr/local/Cellar/gdal2/2.1.2/share/gdal/pcs.csv readable... yes
-checking GDAL: checking whether PROJ.4 is available for linking:... yes
-checking GDAL: checking whether PROJ.4 is available fur running:... dyld: Library not loaded: /usr/local/opt/webp/lib/libwebp.6.dylib
+checking GDAL: checking whether PROJ is available for linking:... yes
+checking GDAL: checking whether PROJ is available fur running:... dyld: Library not loaded: /usr/local/opt/webp/lib/libwebp.6.dylib
   Referenced from: /usr/local/opt/gdal2/lib/libgdal.20.dylib
   Reason: image not found
-./configure: line 3584: 33205 Abort trap: 6           ./gdal_proj
+./configure: line 3601: 48180 Abort trap: 6           ./gdal_proj
 no
-configure: error: OGRCoordinateTransformation() does not return a coord.trans: PROJ.4 not available?
+configure: error: OGRCoordinateTransformation() does not return a coord.trans: PROJ not available?
 ERROR: configuration failed for package ‘sf’
 * removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/sf/old/sf.Rcheck/sf’
 
 ```
-# shazam
-
-Version: 0.1.9
-
-## In both
-
-*   checking data for non-ASCII characters ... NOTE
-    ```
-      Note: found 2 marked UTF-8 strings
-    ```
-
 # SIBER
 
 Version: 2.1.3
@@ -6008,8 +6184,6 @@ Version: 2.1.3
     ```
     Error in re-building vignettes:
       ...
-    Warning in engine$weave(file, quiet = quiet, encoding = enc) :
-      The vignette engine knitr::rmarkdown is not available, because the rmarkdown package is not installed. Please install it.
     Quitting from lines 74-93 (Centroid-Vectors.Rmd) 
     Error: processing vignette 'Centroid-Vectors.Rmd' failed with diagnostics:
     .onLoad failed in loadNamespace() for 'rjags', details:
@@ -6040,325 +6214,117 @@ Version: 0.2.4
       All declared Imports should be used.
     ```
 
-# simglm
+# singscore
 
-Version: 0.6.0
-
-## In both
-
-*   checking whether package ‘simglm’ can be installed ... WARNING
-    ```
-    Found the following significant warnings:
-      Warning: package ‘Matrix’ was built under R version 3.4.4
-      Warning: package ‘tibble’ was built under R version 3.4.3
-    See ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/simglm/new/simglm.Rcheck/00install.out’ for details.
-    ```
-
-# simmer.plot
-
-Version: 0.1.13
+Version: 1.0.0
 
 ## In both
 
-*   checking whether package ‘simmer.plot’ can be installed ... ERROR
+*   checking examples ... ERROR
     ```
-    Installation failed.
-    See ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/simmer.plot/new/simmer.plot.Rcheck/00install.out’ for details.
-    ```
-
-## Installation
-
-### Devel
-
-```
-* installing *source* package ‘simmer.plot’ ...
-** package ‘simmer.plot’ successfully unpacked and MD5 sums checked
-** R
-** inst
-** byte-compile and prepare package for lazy loading
-Warning: S3 methods ‘[.trajectory’, ‘[<-.trajectory’, ‘[[.trajectory’, ‘[[<-.trajectory’, ‘activate.trajectory’, ‘add_dataframe.simmer’, ‘add_generator.simmer’, ‘add_resource.simmer’, ‘batch.trajectory’, ‘branch.trajectory’, ‘clone.trajectory’, ‘deactivate.trajectory’, ‘get_attribute.simmer’, ‘get_capacity.simmer’, ‘get_capacity.wrap’, ‘get_capacity_selected.simmer’, ‘get_mon_arrivals.simmer’, ‘get_mon_arrivals.wrap’, ‘get_mon_attributes.simmer’, ‘get_mon_attributes.wrap’, ‘get_mon_resources.simmer’, ‘get_mon_resources.wrap’, ‘get_n_activities.trajectory’, ‘get_n_generated.simmer’, ‘get_n_generated.wrap’, ‘get_name.simmer’, ‘get_prioritization.simmer’, ‘get_queue_count.simmer’, ‘get_queue_count.wrap’, ‘get_queue_count_selected.simmer’, ‘get_queue_size.simmer’, ‘get_queue_size.wrap’, ‘get_queue_size_selected.simmer’, ‘get_server_count.simmer’, ‘get_server_coun [... truncated]
-Error: package or namespace load failed for ‘simmer’ in library.dynam(lib, package, package.lib):
- shared object ‘simmer.so’ not found
-Error : package ‘simmer’ could not be loaded
-ERROR: lazy loading failed for package ‘simmer.plot’
-* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/simmer.plot/new/simmer.plot.Rcheck/simmer.plot’
-
-```
-### CRAN
-
-```
-* installing *source* package ‘simmer.plot’ ...
-** package ‘simmer.plot’ successfully unpacked and MD5 sums checked
-** R
-** inst
-** byte-compile and prepare package for lazy loading
-Warning: S3 methods ‘[.trajectory’, ‘[<-.trajectory’, ‘[[.trajectory’, ‘[[<-.trajectory’, ‘activate.trajectory’, ‘add_dataframe.simmer’, ‘add_generator.simmer’, ‘add_resource.simmer’, ‘batch.trajectory’, ‘branch.trajectory’, ‘clone.trajectory’, ‘deactivate.trajectory’, ‘get_attribute.simmer’, ‘get_capacity.simmer’, ‘get_capacity.wrap’, ‘get_capacity_selected.simmer’, ‘get_mon_arrivals.simmer’, ‘get_mon_arrivals.wrap’, ‘get_mon_attributes.simmer’, ‘get_mon_attributes.wrap’, ‘get_mon_resources.simmer’, ‘get_mon_resources.wrap’, ‘get_n_activities.trajectory’, ‘get_n_generated.simmer’, ‘get_n_generated.wrap’, ‘get_name.simmer’, ‘get_prioritization.simmer’, ‘get_queue_count.simmer’, ‘get_queue_count.wrap’, ‘get_queue_count_selected.simmer’, ‘get_queue_size.simmer’, ‘get_queue_size.wrap’, ‘get_queue_size_selected.simmer’, ‘get_server_count.simmer’, ‘get_server_coun [... truncated]
-Error: package or namespace load failed for ‘simmer’ in library.dynam(lib, package, package.lib):
- shared object ‘simmer.so’ not found
-Error : package ‘simmer’ could not be loaded
-ERROR: lazy loading failed for package ‘simmer.plot’
-* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/simmer.plot/old/simmer.plot.Rcheck/simmer.plot’
-
-```
-# sjmisc
-
-Version: 2.7.2
-
-## In both
-
-*   checking whether package ‘sjmisc’ can be installed ... ERROR
-    ```
-    Installation failed.
-    See ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/sjmisc/new/sjmisc.Rcheck/00install.out’ for details.
+    Running examples in ‘singscore-Ex.R’ failed
+    The error most likely occurred in:
+    
+    > ### Name: projectScoreLandscape
+    > ### Title: Project data on the landscape plot obtained from
+    > ###   'plotScoreLandscape()'
+    > ### Aliases: projectScoreLandscape
+    > 
+    > ### ** Examples
+    > 
+    > ranked <- rankGenes(toy_expr_se)
+    > scoredf1 <- simpleScore(ranked, upSet = toy_gs_up, downSet = toy_gs_dn)
+    > scoredf2 <- simpleScore(ranked, upSet = toy_gs_up)
+    > psl <- plotScoreLandscape(scoredf1, scoredf2)
+    > projectScoreLandscape(psl,scoredf1, scoredf2)
+    Warning: Ignoring unknown aesthetics: text
+    Error in FUN(X[[i]], ...) : object 'Signature 1' not found
+    Calls: <Anonymous> ... ggplot_build.ggplot -> by_layer -> f -> <Anonymous> -> f -> lapply -> FUN
+    Execution halted
     ```
 
-## Installation
-
-### Devel
-
-```
-* installing *source* package ‘sjmisc’ ...
-** package ‘sjmisc’ successfully unpacked and MD5 sums checked
-** R
-** data
-** inst
-** preparing package for lazy loading
-Warning: S3 methods ‘all.equal.data.table’, ‘groupingsets.data.table’, ‘cube.data.table’, ‘rollup.data.table’, ‘[.data.table’, ‘[<-.data.table’, ‘$<-.data.table’, ‘print.data.table’, ‘as.data.table.data.table’, ‘as.data.table.data.frame’, ‘as.data.table.array’, ‘as.data.table.matrix’, ‘as.data.table.list’, ‘as.data.table.integer’, ‘as.data.table.numeric’, ‘as.data.table.character’, ‘as.data.table.logical’, ‘as.data.table.factor’, ‘as.data.table.ordered’, ‘as.data.table.Date’, ‘as.data.table.ITime’, ‘as.data.table.table’, ‘as.data.table.xts’, ‘as.data.table.default’, ‘as.data.frame.data.table’, ‘as.list.data.table’, ‘as.matrix.data.table’, ‘split.data.table’, ‘dim.data.table’, ‘dimnames.data.table’, ‘dimnames<-.data.table’, ‘names<-.data.table’, ‘duplicated.data.table’, ‘unique.data.table’, ‘merge.data.table’, ‘subset.data.table’, ‘transform.data.table [... truncated]
-Error in library.dynam(lib, package, package.lib) : 
-  shared object ‘datatable.so’ not found
-ERROR: lazy loading failed for package ‘sjmisc’
-* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/sjmisc/new/sjmisc.Rcheck/sjmisc’
-
-```
-### CRAN
-
-```
-* installing *source* package ‘sjmisc’ ...
-** package ‘sjmisc’ successfully unpacked and MD5 sums checked
-** R
-** data
-** inst
-** preparing package for lazy loading
-Warning: S3 methods ‘all.equal.data.table’, ‘groupingsets.data.table’, ‘cube.data.table’, ‘rollup.data.table’, ‘[.data.table’, ‘[<-.data.table’, ‘$<-.data.table’, ‘print.data.table’, ‘as.data.table.data.table’, ‘as.data.table.data.frame’, ‘as.data.table.array’, ‘as.data.table.matrix’, ‘as.data.table.list’, ‘as.data.table.integer’, ‘as.data.table.numeric’, ‘as.data.table.character’, ‘as.data.table.logical’, ‘as.data.table.factor’, ‘as.data.table.ordered’, ‘as.data.table.Date’, ‘as.data.table.ITime’, ‘as.data.table.table’, ‘as.data.table.xts’, ‘as.data.table.default’, ‘as.data.frame.data.table’, ‘as.list.data.table’, ‘as.matrix.data.table’, ‘split.data.table’, ‘dim.data.table’, ‘dimnames.data.table’, ‘dimnames<-.data.table’, ‘names<-.data.table’, ‘duplicated.data.table’, ‘unique.data.table’, ‘merge.data.table’, ‘subset.data.table’, ‘transform.data.table [... truncated]
-Error in library.dynam(lib, package, package.lib) : 
-  shared object ‘datatable.so’ not found
-ERROR: lazy loading failed for package ‘sjmisc’
-* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/sjmisc/old/sjmisc.Rcheck/sjmisc’
-
-```
-# sjPlot
-
-Version: 2.4.1
-
-## In both
-
-*   checking whether package ‘sjPlot’ can be installed ... ERROR
+*   checking re-building of vignette outputs ... WARNING
     ```
-    Installation failed.
-    See ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/sjPlot/new/sjPlot.Rcheck/00install.out’ for details.
+    ...
+    
+    Loading required package: XML
+    
+    Attaching package: 'XML'
+    
+    The following object is masked from 'package:tools':
+    
+        toHTML
+    
+    Loading required package: graph
+    
+    Attaching package: 'graph'
+    
+    The following object is masked from 'package:XML':
+    
+        addNode
+    
+    Quitting from lines 174-182 (singscore.Rmd) 
+    Error: processing vignette 'singscore.Rmd' failed with diagnostics:
+    object 'tcga-EPI' not found
+    Execution halted
     ```
 
-## Installation
-
-### Devel
-
-```
-* installing *source* package ‘sjPlot’ ...
-** package ‘sjPlot’ successfully unpacked and MD5 sums checked
-** R
-** data
-** inst
-** preparing package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
-  there is no package called ‘data.table’
-ERROR: lazy loading failed for package ‘sjPlot’
-* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/sjPlot/new/sjPlot.Rcheck/sjPlot’
-
-```
-### CRAN
-
-```
-* installing *source* package ‘sjPlot’ ...
-** package ‘sjPlot’ successfully unpacked and MD5 sums checked
-** R
-** data
-** inst
-** preparing package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
-  there is no package called ‘data.table’
-ERROR: lazy loading failed for package ‘sjPlot’
-* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/sjPlot/old/sjPlot.Rcheck/sjPlot’
-
-```
 # sjstats
 
-Version: 0.14.3
+Version: 0.17.1
 
 ## In both
 
-*   checking whether package ‘sjstats’ can be installed ... ERROR
+*   checking Rd cross-references ... NOTE
     ```
-    Installation failed.
-    See ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/sjstats/new/sjstats.Rcheck/00install.out’ for details.
+    Package unavailable to check Rd xrefs: ‘arm’
     ```
 
-## Installation
+# sparklyr
 
-### Devel
-
-```
-* installing *source* package ‘sjstats’ ...
-** package ‘sjstats’ successfully unpacked and MD5 sums checked
-** R
-** data
-** inst
-** preparing package for lazy loading
-Warning in checkMatrixPackageVersion() :
-  Package version inconsistency detected.
-TMB was built with Matrix version 1.2.12
-Current Matrix version is 1.2.14
-Please re-install 'TMB' from source using install.packages('TMB', type = 'source') or ask CRAN for a binary version of 'TMB' matching CRAN's 'Matrix' package
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
-  there is no package called ‘data.table’
-ERROR: lazy loading failed for package ‘sjstats’
-* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/sjstats/new/sjstats.Rcheck/sjstats’
-
-```
-### CRAN
-
-```
-* installing *source* package ‘sjstats’ ...
-** package ‘sjstats’ successfully unpacked and MD5 sums checked
-** R
-** data
-** inst
-** preparing package for lazy loading
-Warning in checkMatrixPackageVersion() :
-  Package version inconsistency detected.
-TMB was built with Matrix version 1.2.12
-Current Matrix version is 1.2.14
-Please re-install 'TMB' from source using install.packages('TMB', type = 'source') or ask CRAN for a binary version of 'TMB' matching CRAN's 'Matrix' package
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
-  there is no package called ‘data.table’
-ERROR: lazy loading failed for package ‘sjstats’
-* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/sjstats/old/sjstats.Rcheck/sjstats’
-
-```
-# SpaCCr
-
-Version: 0.1.0
+Version: 0.9.2
 
 ## In both
 
-*   checking package dependencies ... ERROR
+*   checking installed package size ... NOTE
     ```
-    Package required but not available: ‘RcppArmadillo’
-    
-    See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-    manual.
-    ```
-
-# spanish
-
-Version: 0.3.2
-
-## In both
-
-*   checking whether package ‘spanish’ can be installed ... WARNING
-    ```
-    Found the following significant warnings:
-      Warning: package ‘xml2’ was built under R version 3.4.3
-    See ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/spanish/new/spanish.Rcheck/00install.out’ for details.
-    ```
-
-# spatialwarnings
-
-Version: 1.0
-
-## In both
-
-*   checking package dependencies ... ERROR
-    ```
-    Package required but not available: ‘RcppArmadillo’
-    
-    See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-    manual.
+      installed size is  7.1Mb
+      sub-directories of 1Mb or more:
+        R      4.1Mb
+        java   1.9Mb
     ```
 
 # staRdom
 
-Version: 1.0.5
+Version: 1.0.8
 
 ## In both
 
-*   checking whether package ‘staRdom’ can be installed ... ERROR
+*   checking dependencies in R code ... NOTE
     ```
-    Installation failed.
-    See ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/staRdom/new/staRdom.Rcheck/00install.out’ for details.
+    Namespaces in Imports field not imported from:
+      ‘readr’ ‘tools’
+      All declared Imports should be used.
     ```
 
-## Installation
-
-### Devel
-
-```
-* installing *source* package ‘staRdom’ ...
-** package ‘staRdom’ successfully unpacked and MD5 sums checked
-** R
-** data
-*** moving datasets to lazyload DB
-** inst
-** preparing package for lazy loading
-Error: package or namespace load failed for ‘eemR’ in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]):
- there is no package called ‘data.table’
-Error : package ‘eemR’ could not be loaded
-ERROR: lazy loading failed for package ‘staRdom’
-* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/staRdom/new/staRdom.Rcheck/staRdom’
-
-```
-### CRAN
-
-```
-* installing *source* package ‘staRdom’ ...
-** package ‘staRdom’ successfully unpacked and MD5 sums checked
-** R
-** data
-*** moving datasets to lazyload DB
-** inst
-** preparing package for lazy loading
-Error: package or namespace load failed for ‘eemR’ in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]):
- there is no package called ‘data.table’
-Error : package ‘eemR’ could not be loaded
-ERROR: lazy loading failed for package ‘staRdom’
-* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/staRdom/old/staRdom.Rcheck/staRdom’
-
-```
 # starmie
 
 Version: 0.1.2
 
 ## In both
 
-*   checking package dependencies ... ERROR
+*   checking installed package size ... NOTE
     ```
-    Package required but not available: ‘data.table’
-    
-    See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-    manual.
+      installed size is  7.2Mb
+      sub-directories of 1Mb or more:
+        doc       1.1Mb
+        extdata   4.9Mb
     ```
 
-# statar
-
-Version: 0.6.5
-
-## In both
-
-*   checking package dependencies ... ERROR
+*   checking dependencies in R code ... NOTE
     ```
-    Package required but not available: ‘data.table’
-    
-    See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-    manual.
+    Namespace in Imports field not imported from: ‘MCMCpack’
+      All declared Imports should be used.
     ```
 
 # statsDK
@@ -6374,22 +6340,63 @@ Version: 0.1.1
       All declared Imports should be used.
     ```
 
-# statsr
+# stormwindmodel
 
-Version: 0.1-0
+Version: 0.1.1
 
 ## In both
 
-*   checking whether package ‘statsr’ can be installed ... WARNING
+*   checking package dependencies ... NOTE
     ```
-    Found the following significant warnings:
-      Warning: package ‘Matrix’ was built under R version 3.4.4
-    See ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/statsr/new/statsr.Rcheck/00install.out’ for details.
+    Package suggested but not available for checking: ‘sf’
     ```
 
-# stormwindmodel
+# STRMPS
 
-Version: 0.1.0
+Version: 0.5.8
+
+## In both
+
+*   checking package dependencies ... NOTE
+    ```
+    Package suggested but not available for checking: ‘STRaitRazoR’
+    ```
+
+# subSeq
+
+Version: 1.10.0
+
+## In both
+
+*   checking R code for possible problems ... NOTE
+    ```
+    ...
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/subSeq/new/subSeq.Rcheck/00_pkg_src/subSeq/R/summary.subsamples.R:127-129)
+    summary.subsamples: no visible binding for global variable ‘percent’
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/subSeq/new/subSeq.Rcheck/00_pkg_src/subSeq/R/summary.subsamples.R:127-129)
+    summary.subsamples: no visible binding for global variable ‘proportion’
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/subSeq/new/subSeq.Rcheck/00_pkg_src/subSeq/R/summary.subsamples.R:127-129)
+    summary.subsamples: no visible binding for global variable ‘method’
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/subSeq/new/subSeq.Rcheck/00_pkg_src/subSeq/R/summary.subsamples.R:127-129)
+    voomLimma: no visible global function definition for ‘model.matrix’
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/subSeq/new/subSeq.Rcheck/00_pkg_src/subSeq/R/handlers.R:41)
+    Undefined global functions or variables:
+      . ID average.depth average.value coefficient cor count cov depth
+      estFDP method metric model.matrix o.coefficient o.lfdr o.padj
+      p.adjust padj percent plot proportion pvalue rFDP rbinom replication
+      selectMethod significant valid value var
+    Consider adding
+      importFrom("graphics", "plot")
+      importFrom("methods", "selectMethod")
+      importFrom("stats", "cor", "cov", "model.matrix", "p.adjust", "rbinom",
+                 "var")
+    to your NAMESPACE file (and ensure that your DESCRIPTION Imports field
+    contains 'methods').
+    ```
+
+# SummarizedBenchmark
+
+Version: 1.0.4
 
 ## In both
 
@@ -6397,83 +6404,77 @@ Version: 0.1.0
     ```
     ...
     
-        filter, lag
+    The following object is masked from 'package:SummarizedBenchmark':
     
-    The following objects are masked from 'package:base':
-    
-        intersect, setdiff, setequal, union
+        plotROC
     
     
-    Attaching package: 'gridExtra'
+    Attaching package: 'magrittr'
     
-    The following object is masked from 'package:dplyr':
+    The following object is masked from 'package:rlang':
     
-        combine
+        set_names
     
-    Map from URL : http://maps.googleapis.com/maps/api/staticmap?center=georgia&zoom=5&size=640x640&scale=2&maptype=terrain&language=en-EN&sensor=false
-    Information from URL : http://maps.googleapis.com/maps/api/geocode/json?address=georgia&sensor=false
-    Warning: geocode failed with status OVER_QUERY_LIMIT, location = "georgia"
-    Quitting from lines 220-233 (Details.Rmd) 
-    Error: processing vignette 'Details.Rmd' failed with diagnostics:
-    arguments imply differing number of rows: 0, 1
+    The following object is masked from 'package:tidyr':
+    
+        extract
+    
+    Loading required package: SingleCellExperiment
+    Quitting from lines 47-54 (SingleCellBenchmark.Rmd) 
+    Error: processing vignette 'SingleCellBenchmark.Rmd' failed with diagnostics:
+    there is no package called 'scRNAseq'
     Execution halted
     ```
 
-# stranger
-
-Version: 0.3.3
-
-## In both
-
-*   checking package dependencies ... ERROR
+*   checking package dependencies ... NOTE
     ```
-    Package required but not available: ‘data.table’
+    Package suggested but not available for checking: ‘scRNAseq’
     
-    See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-    manual.
+    Depends: includes the non-default packages:
+      ‘tidyr’ ‘SummarizedExperiment’ ‘S4Vectors’ ‘BiocGenerics’ ‘UpSetR’
+      ‘rlang’ ‘stringr’ ‘BiocParallel’ ‘ggplot2’ ‘mclust’ ‘dplyr’
+    Adding so many packages to the search path is excessive and importing
+    selectively is preferable.
     ```
 
-# subSeq
-
-Version: 1.6.0
-
-## In both
-
-*   checking package dependencies ... ERROR
+*   checking installed package size ... NOTE
     ```
-    Package required but not available: ‘data.table’
-    
-    See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-    manual.
+      installed size is 12.8Mb
+      sub-directories of 1Mb or more:
+        data   9.0Mb
+        doc    3.3Mb
+    ```
+
+*   checking dependencies in R code ... NOTE
+    ```
+    Unexported object imported by a ':::' call: ‘BiocGenerics:::replaceSlots’
+      See the note in ?`:::` about the use of this operator.
+    ```
+
+*   checking R code for possible problems ... NOTE
+    ```
+    .list2mat : <anonymous>: no visible binding for global variable
+      ‘.method’
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/SummarizedBenchmark/new/SummarizedBenchmark.Rcheck/00_pkg_src/SummarizedBenchmark/R/buildBench.R:275)
+    .list2mat : <anonymous>: no visible binding for global variable ‘.val’
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/SummarizedBenchmark/new/SummarizedBenchmark.Rcheck/00_pkg_src/SummarizedBenchmark/R/buildBench.R:275)
+    .list2mat : <anonymous>: no visible binding for global variable ‘.id’
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/SummarizedBenchmark/new/SummarizedBenchmark.Rcheck/00_pkg_src/SummarizedBenchmark/R/buildBench.R:276-277)
+    plotROC: no visible binding for global variable ‘FDR’
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/SummarizedBenchmark/new/SummarizedBenchmark.Rcheck/00_pkg_src/SummarizedBenchmark/R/PlottingFunctions.R:81-82)
+    plotROC: no visible binding for global variable ‘TPR’
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/SummarizedBenchmark/new/SummarizedBenchmark.Rcheck/00_pkg_src/SummarizedBenchmark/R/PlottingFunctions.R:81-82)
+    plotROC: no visible binding for global variable ‘method’
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/SummarizedBenchmark/new/SummarizedBenchmark.Rcheck/00_pkg_src/SummarizedBenchmark/R/PlottingFunctions.R:81-82)
+    Undefined global functions or variables:
+      .id .method .val FDR TPR method
     ```
 
 # sunburstR
 
-Version: 2.0.0
+Version: 2.1.0
 
 ## In both
-
-*   checking tests ...
-    ```
-     ERROR
-    Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-      > library(testthat)
-      Warning message:
-      package 'testthat' was built under R version 3.4.3 
-      > library(sunburstR)
-      > 
-      > test_check("sunburstR")
-      [31m──[39m [31m1. Failure: sunburstR works with both csv and json data (@test-basic.R#32) [39m [31m─────────────────────────────────[39m
-      `sunburst(sequences_csv)` produced warnings.
-      
-      ══ testthat results  ═══════════════════════════════════════════════════════════════════════════════════════════
-      OK: 12 SKIPPED: 0 FAILED: 1
-      1. Failure: sunburstR works with both csv and json data (@test-basic.R#32) 
-      
-      Error: testthat unit tests failed
-      Execution halted
-    ```
 
 *   checking package dependencies ... NOTE
     ```
@@ -6482,93 +6483,43 @@ Version: 2.0.0
 
 # survminer
 
-Version: 0.4.2
+Version: 0.4.3
 
 ## In both
 
-*   checking whether package ‘survminer’ can be installed ... ERROR
+*   checking installed package size ... NOTE
     ```
-    Installation failed.
-    See ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/survminer/new/survminer.Rcheck/00install.out’ for details.
+      installed size is  6.1Mb
+      sub-directories of 1Mb or more:
+        doc   5.1Mb
     ```
 
-## Installation
-
-### Devel
-
-```
-* installing *source* package ‘survminer’ ...
-** package ‘survminer’ successfully unpacked and MD5 sums checked
-** R
-** data
-*** moving datasets to lazyload DB
-** inst
-** preparing package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
-  there is no package called ‘data.table’
-ERROR: lazy loading failed for package ‘survminer’
-* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/survminer/new/survminer.Rcheck/survminer’
-
-```
-### CRAN
-
-```
-* installing *source* package ‘survminer’ ...
-** package ‘survminer’ successfully unpacked and MD5 sums checked
-** R
-** data
-*** moving datasets to lazyload DB
-** inst
-** preparing package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
-  there is no package called ‘data.table’
-ERROR: lazy loading failed for package ‘survminer’
-* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/survminer/old/survminer.Rcheck/survminer’
-
-```
 # sweep
 
-Version: 0.2.1
+Version: 0.2.1.1
 
 ## In both
 
-*   checking dependencies in R code ... NOTE
+*   checking package dependencies ... ERROR
     ```
-    Namespaces in Imports field not imported from:
-      ‘devtools’ ‘lazyeval’ ‘lubridate’ ‘tidyr’
-      All declared Imports should be used.
+    Package required but not available: ‘devtools’
+    
+    See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
+    manual.
     ```
 
 # switchde
 
-Version: 1.2.0
+Version: 1.6.0
 
 ## In both
 
-*   checking re-building of vignette outputs ... WARNING
+*   checking for hidden files and directories ... NOTE
     ```
-    ...
-    
-        Filter, Find, Map, Position, Reduce, anyDuplicated, append,
-        as.data.frame, cbind, colMeans, colSums, colnames, do.call,
-        duplicated, eval, evalq, get, grep, grepl, intersect,
-        is.unsorted, lapply, lengths, mapply, match, mget, order,
-        paste, pmax, pmax.int, pmin, pmin.int, rank, rbind, rowMeans,
-        rowSums, rownames, sapply, setdiff, sort, table, tapply,
-        union, unique, unsplit, which, which.max, which.min
-    
-    Welcome to Bioconductor
-    
-        Vignettes contain introductory material; view with
-        'browseVignettes()'. To cite Bioconductor, see
-        'citation("Biobase")', and for packages 'citation("pkgname")'.
-    
-    Loading required package: ggplot2
-    Quitting from lines 15-21 (switchde_vignette.Rmd) 
-    Error: processing vignette 'switchde_vignette.Rmd' failed with diagnostics:
-    package or namespace load failed for 'scater' in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]):
-     there is no package called 'data.table'
-    Execution halted
+    Found the following hidden files and directories:
+      .travis.yml
+    These were most likely included in error. See section ‘Package
+    structure’ in the ‘Writing R Extensions’ manual.
     ```
 
 # swmmr
@@ -6577,63 +6528,30 @@ Version: 0.8.1
 
 ## In both
 
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    Error in re-building vignettes:
-      ...
-    
-    Attaching package: 'dplyr'
-    
-    The following objects are masked from 'package:stats':
-    
-        filter, lag
-    
-    The following objects are masked from 'package:base':
-    
-        intersect, setdiff, setequal, union
-    
-    Quitting from lines 26-31 (How_to_convert_between_GIS_data_and_SWMM_with_swmmr.Rmd) 
-    Error: processing vignette 'How_to_convert_between_GIS_data_and_SWMM_with_swmmr.Rmd' failed with diagnostics:
-    there is no package called 'sf'
-    Execution halted
-    ```
-
 *   checking package dependencies ... NOTE
     ```
     Package suggested but not available for checking: ‘sf’
     ```
 
-*   checking Rd cross-references ... NOTE
-    ```
-    Package unavailable to check Rd xrefs: ‘sf’
-    ```
-
-# SWMPr
-
-Version: 2.3.0
-
-## In both
-
-*   checking package dependencies ... ERROR
-    ```
-    Package required but not available: ‘data.table’
-    
-    See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-    manual.
-    ```
-
 # SWMPrExtension
 
-Version: 0.3.12
+Version: 0.3.16
+
+## Newly fixed
+
+*   checking installed package size ... NOTE
+    ```
+      installed size is  5.2Mb
+      sub-directories of 1Mb or more:
+        data   4.0Mb
+    ```
 
 ## In both
 
-*   checking package dependencies ... ERROR
+*   checking dependencies in R code ... NOTE
     ```
-    Package required but not available: ‘rgdal’
-    
-    See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-    manual.
+    Namespace in Imports field not imported from: ‘rgeos’
+      All declared Imports should be used.
     ```
 
 # syuzhet
@@ -6642,105 +6560,32 @@ Version: 1.0.4
 
 ## In both
 
-*   checking examples ... ERROR
+*   checking package dependencies ... NOTE
     ```
-    Running examples in ‘syuzhet-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: get_dct_transform
-    > ### Title: Discrete Cosine Transformation with Reverse Transform.
-    > ### Aliases: get_dct_transform
-    > 
-    > ### ** Examples
-    > 
-    > s_v <- get_sentences("I begin this story with a neutral statement.
-    + Now I add a statement about how much I despise cats.  
-    + I am allergic to them. I hate them. Basically this is a very silly test. But I do love dogs!")
-    Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
-      there is no package called ‘data.table’
-    Calls: get_sentences ... tryCatch -> tryCatchList -> tryCatchOne -> <Anonymous>
-    Execution halted
-    ```
-
-*   checking tests ...
-    ```
-     ERROR
-    Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-      2: textshape::split_sentence
-      3: getExportedValue(pkg, name)
-      4: asNamespace(ns)
-      5: getNamespace(ns)
-      6: tryCatch(loadNamespace(name), error = function(e) stop(e))
-      7: tryCatchList(expr, classes, parentenv, handlers)
-      8: tryCatchOne(expr, names, parentenv, handlers[[1L]])
-      9: value[[3L]](cond)
-      
-      ══ testthat results  ═══════════════════════════════════════════════════════════════════════════════════════════
-      OK: 2 SKIPPED: 0 FAILED: 1
-      1. Error: (unknown) (@test-syuzhet.R#13) 
-      
-      Error: testthat unit tests failed
-      Execution halted
-    ```
-
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    Error in re-building vignettes:
-      ...
-    Warning in engine$weave(file, quiet = quiet, encoding = enc) :
-      The vignette engine knitr::rmarkdown is not available, because the rmarkdown package is not installed. Please install it.
-    Quitting from lines 22-36 (syuzhet-vignette.Rmd) 
-    Error: processing vignette 'syuzhet-vignette.Rmd' failed with diagnostics:
-    there is no package called 'data.table'
-    Execution halted
+    Package suggested but not available for checking: ‘devtools’
     ```
 
 *   checking installed package size ... NOTE
     ```
-      installed size is  5.8Mb
+      installed size is  5.9Mb
       sub-directories of 1Mb or more:
         R         2.1Mb
         extdata   3.1Mb
     ```
 
-# tauturri
-
-Version: 0.1.1
-
-## In both
-
-*   checking Rd cross-references ... NOTE
-    ```
-    Package unavailable to check Rd xrefs: ‘stringr’
-    ```
-
 # taxa
 
-Version: 0.2.1
+Version: 0.3.1
 
 ## In both
 
-*   checking tests ...
+*   checking installed package size ... NOTE
     ```
-     ERROR
-    Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-      
-      [31m──[39m [31m2. Error: Taxmap can be intialized from raw strings (@test--taxmap_parsers.R#246) [39m [31m──────────────────────────[39m
-      Please install taxize
-      1: extract_tax_data(raw_data, key = c(var_1 = "info", var_2 = "taxon_id", tax = "info"), regex = "^>var_1:(.+)--var_2:(.+)--non_target--tax:(.+)$") at testthat/test--taxmap_parsers.R:246
-      2: lookup_tax_data(tax_data = parsed_input, type = my_type, column = names(my_type), database = database, include_tax_data = include_tax_data)
-      3: check_for_pkg("taxize")
-      4: stop("Please install ", package, call. = FALSE)
-      
-      ══ testthat results  ═══════════════════════════════════════════════════════════════════════════════════════════
-      OK: 573 SKIPPED: 0 FAILED: 2
-      1. Error: Taxmap can be intialized from queried data (@test--taxmap_parsers.R#154) 
-      2. Error: Taxmap can be intialized from raw strings (@test--taxmap_parsers.R#246) 
-      
-      Error: testthat unit tests failed
-      Execution halted
+      installed size is  5.2Mb
+      sub-directories of 1Mb or more:
+        R      2.0Mb
+        data   1.1Mb
+        doc    1.7Mb
     ```
 
 *   checking dependencies in R code ... NOTE
@@ -6752,13 +6597,13 @@ Version: 0.2.1
 
 # teachingApps
 
-Version: 1.0.2
+Version: 1.0.4
 
 ## In both
 
 *   checking package dependencies ... ERROR
     ```
-    Package required but not available: ‘data.table’
+    Package required but not available: ‘devtools’
     
     See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
     manual.
@@ -6788,55 +6633,111 @@ Version: 0.1.4
     Package unavailable to check Rd xrefs: ‘tm’
     ```
 
+# TFEA.ChIP
+
+Version: 1.0.0
+
+## In both
+
+*   checking package dependencies ... ERROR
+    ```
+    Package required but not available: ‘TxDb.Hsapiens.UCSC.hg19.knownGene’
+    
+    See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
+    manual.
+    ```
+
+# tfestimators
+
+Version: 1.9.0
+
+## In both
+
+*   checking tests ...
+    ```
+     ERROR
+    Running the tests in ‘tests/testthat.R’ failed.
+    Last 13 lines of output:
+      Instructions for updating:
+      Please switch to tf.train.get_global_step
+      WARNING:tensorflow:Casting <dtype: 'float32'> labels to bool.
+      WARNING:tensorflow:Casting <dtype: 'float32'> labels to bool.
+      WARNING:tensorflow:Casting <dtype: 'float32'> labels to bool.
+      WARNING:tensorflow:Casting <dtype: 'float32'> labels to bool.
+      ══ testthat results  ═════════════════════════════════════════════════════════════════════════════════
+      OK: 102 SKIPPED: 3 FAILED: 4
+      1. Failure: input_fn can be constructed through formula interface (@helper-utils.R#21) 
+      2. Failure: input_fn can be constructed correctly from data.frame objects (@helper-utils.R#21) 
+      3. Failure: input_fn can be constructed correctly from matrix objects (@helper-utils.R#21) 
+      4. Failure: R factors are coerced appropriately (@helper-utils.R#21) 
+      
+      Error: testthat unit tests failed
+      Execution halted
+    ```
+
 # theseus
 
 Version: 0.1.0
 
 ## In both
 
-*   checking whether package ‘theseus’ can be installed ... ERROR
+*   checking dependencies in R code ... NOTE
     ```
-    Installation failed.
-    See ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/theseus/new/theseus.Rcheck/00install.out’ for details.
+    Namespaces in Imports field not imported from:
+      ‘gridExtra’ ‘splancs’ ‘tidyverse’
+      All declared Imports should be used.
     ```
 
-## Installation
+*   checking Rd cross-references ... NOTE
+    ```
+    Packages unavailable to check Rd xrefs: ‘DESeq2’, ‘dada2’
+    ```
 
-### Devel
+# thinkr
 
-```
-* installing *source* package ‘theseus’ ...
-** package ‘theseus’ successfully unpacked and MD5 sums checked
-** R
-** data
-*** moving datasets to lazyload DB
-** inst
-** preparing package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
-  there is no package called ‘data.table’
-ERROR: lazy loading failed for package ‘theseus’
-* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/theseus/new/theseus.Rcheck/theseus’
+Version: 0.13
 
-```
-### CRAN
+## In both
 
-```
-* installing *source* package ‘theseus’ ...
-** package ‘theseus’ successfully unpacked and MD5 sums checked
-** R
-** data
-*** moving datasets to lazyload DB
-** inst
-** preparing package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
-  there is no package called ‘data.table’
-ERROR: lazy loading failed for package ‘theseus’
-* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/theseus/old/theseus.Rcheck/theseus’
+*   checking package dependencies ... ERROR
+    ```
+    Package required but not available: ‘devtools’
+    
+    See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
+    manual.
+    ```
 
-```
+# tidybayes
+
+Version: 1.0.3
+
+## In both
+
+*   checking tests ...
+    ```
+     ERROR
+    Running the tests in ‘tests/testthat.R’ failed.
+    Last 13 lines of output:
+             monitor = c("a", "b"), adapt = 100, sample = 100, silent.jags = TRUE, summarise = FALSE)
+      9: setup.jagsfile(model = model, n.chains = n.chains, data = data, inits = inits, monitor = monitor, modules = modules, 
+             factories = factories, jags = jags, call.setup = TRUE, method = method, mutate = mutate)
+      10: setup.jags(model = outmodel, monitor = outmonitor, data = outdata, n.chains = n.chains, inits = outinits, 
+             modules = modules, factories = factories, response = response, fitted = fitted, residual = residual, 
+             jags = jags, method = method, mutate = mutate)
+      11: loadandcheckrjags()
+      12: stop("Loading the rjags package failed (diagnostics are given above this error message)", call. = FALSE)
+      
+      ══ testthat results  ═════════════════════════════════════════════════════════════════════════════════
+      OK: 268 SKIPPED: 2 FAILED: 1
+      1. Error: tidy_draws works with runjags (@test.tidy_draws.R#87) 
+      
+      Error: testthat unit tests failed
+      Execution halted
+    ```
+
 # tidycensus
 
-Version: 0.4.6
+Version: 0.8.1
 
 ## In both
 
@@ -6859,16 +6760,16 @@ Version: 1.1.0
      ERROR
     Running the tests in ‘tests/testthat.R’ failed.
     Last 13 lines of output:
-      14: mutate_as_tbl(.data, !(!(!dot)))
-      15: mutate(d_tmp, ...)
+      14: mutate_as_tbl(.data, !!!dot) at /Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/tidygraph/new/tidygraph.Rcheck/00_pkg_src/tidygraph/R/mutate.R:7
+      15: mutate(d_tmp, ...) at /Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/tidygraph/new/tidygraph.Rcheck/00_pkg_src/tidygraph/R/mutate.R:43
       16: mutate.tbl_df(d_tmp, ...)
       17: mutate_impl(.data, dots)
       18: group_optimal()
-      19: membership(cluster_optimal(graph = .G(), weights = weights))
-      20: cluster_optimal(graph = .G(), weights = weights)
+      19: membership(cluster_optimal(graph = .G(), weights = weights)) at /Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/tidygraph/new/tidygraph.Rcheck/00_pkg_src/tidygraph/R/group.R:124
+      20: cluster_optimal(graph = .G(), weights = weights) at /Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/tidygraph/new/tidygraph.Rcheck/00_pkg_src/tidygraph/R/group.R:124
       
-      ══ testthat results  ═══════════════════════════════════════════════════════════════════════════════════════════
-      OK: 269 SKIPPED: 0 FAILED: 2
+      ══ testthat results  ═════════════════════════════════════════════════════════════════════════════════
+      OK: 268 SKIPPED: 0 FAILED: 2
       1. Error: grouping returns integer vector (@test-group.R#14) 
       2. Error: grouping returns integer of correct length (@test-group.R#31) 
       
@@ -6876,17 +6777,15 @@ Version: 1.1.0
       Execution halted
     ```
 
-# tidyposterior
+# tidyLPA
 
-Version: 0.0.1
+Version: 0.2.2
 
 ## In both
 
-*   checking whether package ‘tidyposterior’ can be installed ... WARNING
+*   checking package dependencies ... NOTE
     ```
-    Found the following significant warnings:
-      Warning: package ‘broom’ was built under R version 3.4.4
-    See ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/tidyposterior/new/tidyposterior.Rcheck/00install.out’ for details.
+    Package suggested but not available for checking: ‘devtools’
     ```
 
 # tidyquant
@@ -6895,19 +6794,25 @@ Version: 0.5.5
 
 ## In both
 
-*   checking whether package ‘tidyquant’ can be installed ... WARNING
+*   checking installed package size ... NOTE
     ```
-    Found the following significant warnings:
-      Warning: package ‘lubridate’ was built under R version 3.4.4
-      Warning: package ‘PerformanceAnalytics’ was built under R version 3.4.3
-      Warning: package ‘xts’ was built under R version 3.4.4
-      Warning: package ‘zoo’ was built under R version 3.4.3
-      Warning: package ‘quantmod’ was built under R version 3.4.4
-      Warning: package ‘TTR’ was built under R version 3.4.3
-      Warning: package ‘tibble’ was built under R version 3.4.3
-      Warning: package ‘stringr’ was built under R version 3.4.3
-      Warning: package ‘forcats’ was built under R version 3.4.3
-    See ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/tidyquant/new/tidyquant.Rcheck/00install.out’ for details.
+      installed size is  5.2Mb
+      sub-directories of 1Mb or more:
+        doc   4.1Mb
+    ```
+
+# tidytransit
+
+Version: 0.3.4
+
+## In both
+
+*   checking package dependencies ... ERROR
+    ```
+    Package required but not available: ‘sf’
+    
+    See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
+    manual.
     ```
 
 # tidyverse
@@ -6915,15 +6820,6 @@ Version: 0.5.5
 Version: 1.2.1
 
 ## In both
-
-*   checking whether package ‘tidyverse’ can be installed ... WARNING
-    ```
-    Found the following significant warnings:
-      Warning: package ‘tibble’ was built under R version 3.4.3
-      Warning: package ‘stringr’ was built under R version 3.4.3
-      Warning: package ‘forcats’ was built under R version 3.4.3
-    See ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/tidyverse/new/tidyverse.Rcheck/00install.out’ for details.
-    ```
 
 *   checking dependencies in R code ... NOTE
     ```
@@ -6934,7 +6830,7 @@ Version: 1.2.1
 
 # tidyxl
 
-Version: 1.0.1
+Version: 1.0.3
 
 ## In both
 
@@ -6945,7 +6841,8 @@ Version: 1.0.1
         Object: ‘xlex.o’
     
     Compiled code should not call entry points which might terminate R nor
-    write to stdout/stderr instead of to the console, nor the system RNG.
+    write to stdout/stderr instead of to the console, nor use Fortran I/O
+    nor system RNGs.
     
     See ‘Writing portable packages’ in the ‘Writing R Extensions’ manual.
     ```
@@ -6966,79 +6863,27 @@ Version: 0.2.0
 
 # timetk
 
-Version: 0.1.0
-
-## In both
-
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘timetk-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: tk_augment_timeseries
-    > ### Title: Augment the time series signature to the data
-    > ### Aliases: tk_augment_timeseries tk_augment_timeseries_signature
-    > 
-    > ### ** Examples
-    > 
-    > library(tidyquant)
-    Error in library(tidyquant) : there is no package called ‘tidyquant’
-    Execution halted
-    ```
-
-*   checking tests ...
-    ```
-     ERROR
-    Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-      
-      ══ testthat results  ═══════════════════════════════════════════════════════════════════════════════════════════
-      OK: 1 SKIPPED: 0 FAILED: 9
-      1. Error: (unknown) (@test_tk_augment_timeseries.R#2) 
-      2. Error: (unknown) (@test_tk_get_timeseries.R#2) 
-      3. Error: (unknown) (@test_tk_index.R#3) 
-      4. Error: (unknown) (@test_tk_make_future_timeseries.R#2) 
-      5. Error: (unknown) (@test_tk_tbl.R#6) 
-      6. Error: (unknown) (@test_tk_ts.R#4) 
-      7. Error: (unknown) (@test_tk_xts.R#4) 
-      8. Error: (unknown) (@test_tk_zoo.R#4) 
-      9. Error: (unknown) (@test_tk_zooreg.R#4) 
-      
-      Error: testthat unit tests failed
-      Execution halted
-    ```
-
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    Error in re-building vignettes:
-      ...
-    Quitting from lines 16-29 (TK00_Time_Series_Coercion.Rmd) 
-    Error: processing vignette 'TK00_Time_Series_Coercion.Rmd' failed with diagnostics:
-    there is no package called 'tidyquant'
-    Execution halted
-    ```
-
-*   checking package dependencies ... NOTE
-    ```
-    Package suggested but not available for checking: ‘tidyquant’
-    ```
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespaces in Imports field not imported from:
-      ‘devtools’ ‘forecast’
-      All declared Imports should be used.
-    ```
-
-# tmap
-
-Version: 1.11-2
+Version: 0.1.1.1
 
 ## In both
 
 *   checking package dependencies ... ERROR
     ```
-    Packages required but not available: ‘rgdal’ ‘mapview’
+    Package required but not available: ‘devtools’
+    
+    See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
+    manual.
+    ```
+
+# tmap
+
+Version: 2.1-1
+
+## In both
+
+*   checking package dependencies ... ERROR
+    ```
+    Package required but not available: ‘sf’
     
     See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
     manual.
@@ -7050,27 +6895,9 @@ Version: 0.1.1
 
 ## In both
 
-*   checking examples ... ERROR
+*   checking package dependencies ... NOTE
     ```
-    Running examples in ‘toxplot-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: fit_curve_tcpl
-    > ### Title: fit dose-resopnse curve using tcpl hill model
-    > ### Aliases: fit_curve_tcpl
-    > 
-    > ### ** Examples
-    > 
-    > ## fit curve with default significant threshold 20
-    > 
-    > demo_md <- fit_curve_tcpl(demo_mc_norm, assay_info =
-    + list(prim_assay = "Primary", toxi_assay = "Cytotox"))
-    Warning: package ‘bindrcpp’ was built under R version 3.4.4
-    Processing 9 samples(spid)....
-    TP0001501G09 ||Error in loadNamespace(i, c(lib.loc, .libPaths()), versionCheck = vI[[i]]) : 
-      there is no package called ‘data.table’
-    Calls: fit_curve_tcpl ... tryCatch -> tryCatchList -> tryCatchOne -> <Anonymous>
-    Execution halted
+    Package suggested but not available for checking: ‘devtools’
     ```
 
 *   checking dependencies in R code ... NOTE
@@ -7081,16 +6908,48 @@ Version: 0.1.1
 
 # TPP
 
-Version: 3.4.3
+Version: 3.8.5
 
 ## In both
 
-*   checking package dependencies ... ERROR
-    ```
-    Package required but not available: ‘data.table’
+*   R CMD check timed out
     
-    See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-    manual.
+
+*   checking installed package size ... NOTE
+    ```
+      installed size is 15.1Mb
+      sub-directories of 1Mb or more:
+        R              2.0Mb
+        data           1.9Mb
+        example_data   8.0Mb
+        test_data      1.9Mb
+    ```
+
+*   checking dependencies in R code ... NOTE
+    ```
+    Namespace in Imports field not imported from: ‘broom’
+      All declared Imports should be used.
+    Unexported objects imported by ':::' calls:
+      ‘doParallel:::.options’ ‘mefa:::rep.data.frame’
+      See the note in ?`:::` about the use of this operator.
+    ```
+
+*   checking R code for possible problems ... NOTE
+    ```
+    File ‘TPP/R/TPP.R’:
+      .onLoad calls:
+        packageStartupMessage(msgText, "\n")
+    
+    See section ‘Good practice’ in '?.onAttach'.
+    
+    plot_fSta_distribution: no visible binding for global variable
+      ‘..density..’
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/TPP/new/TPP.Rcheck/00_pkg_src/TPP/R/plot_fSta_distribution.R:19-28)
+    plot_pVal_distribution: no visible binding for global variable
+      ‘..density..’
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/TPP/new/TPP.Rcheck/00_pkg_src/TPP/R/plot_pVal_distribution.R:22-31)
+    Undefined global functions or variables:
+      ..density..
     ```
 
 # translateSPSS2R
@@ -7099,17 +6958,937 @@ Version: 1.0.0
 
 ## In both
 
-*   checking package dependencies ... ERROR
+*   checking R code for possible problems ... NOTE
     ```
-    Package required but not available: ‘data.table’
-    
-    See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-    manual.
+    ...
+    xpssTtest: no visible global function definition for ‘t.test’
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/translateSPSS2R/new/translateSPSS2R.Rcheck/00_pkg_src/translateSPSS2R/R/xpssTtest.R:617)
+    xpssTtest: no visible global function definition for ‘na.omit’
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/translateSPSS2R/new/translateSPSS2R.Rcheck/00_pkg_src/translateSPSS2R/R/xpssTtest.R:627)
+    xpssTtest: no visible global function definition for ‘sd’
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/translateSPSS2R/new/translateSPSS2R.Rcheck/00_pkg_src/translateSPSS2R/R/xpssTtest.R:628)
+    xpssTtest: no visible global function definition for ‘na.omit’
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/translateSPSS2R/new/translateSPSS2R.Rcheck/00_pkg_src/translateSPSS2R/R/xpssTtest.R:628)
+    xpssTtest: no visible global function definition for ‘cor.test’
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/translateSPSS2R/new/translateSPSS2R.Rcheck/00_pkg_src/translateSPSS2R/R/xpssTtest.R:631)
+    Undefined global functions or variables:
+      anova as.formula complete.cases cor.test density frequency
+      globalVariables head lines lm median na.omit quantile sd summary.lm
+      t.test tail title var
+    Consider adding
+      importFrom("graphics", "lines", "title")
+      importFrom("stats", "anova", "as.formula", "complete.cases",
+                 "cor.test", "density", "frequency", "lm", "median",
+                 "na.omit", "quantile", "sd", "summary.lm", "t.test", "var")
+      importFrom("utils", "globalVariables", "head", "tail")
+    to your NAMESPACE file.
     ```
 
+# trialr
+
+Version: 0.0.3
+
+## In both
+
+*   checking whether package ‘trialr’ can be installed ... ERROR
+    ```
+    Installation failed.
+    See ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/trialr/new/trialr.Rcheck/00install.out’ for details.
+    ```
+
+## Installation
+
+### Devel
+
+```
+* installing *source* package ‘trialr’ ...
+** package ‘trialr’ successfully unpacked and MD5 sums checked
+** libs
+ccache clang++ -Qunused-arguments  -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG -I"`"/Library/Frameworks/R.framework/Resources/bin/Rscript" --vanilla -e "cat(system.file('include', 'src', package = 'StanHeaders'))"`" -DBOOST_RESULT_OF_USE_TR1 -DBOOST_NO_DECLTYPE -DBOOST_DISABLE_ASSERTS -DEIGEN_NO_DEBUG -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/rstan/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/new/BH/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/new/Rcpp/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/RcppEigen/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c Modules.cpp -o Modules.o
+In file included from Modules.cpp:3:
+In file included from ./include/models.hpp:5:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/rstan/include/rstan/rstaninc.hpp:3:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/rstan/include/rstan/stan_fit.hpp:20:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/rstan/include/rstan/stan_args.hpp:12:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/new/BH/include/boost/lexical_cast.hpp:32:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/new/BH/include/boost/lexical_cast/try_lexical_convert.hpp:42:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/new/BH/include/boost/lexical_cast/detail/converter_lexical.hpp:52:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/new/BH/include/boost/container/container_fwd.hpp:61:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/new/BH/include/boost/container/detail/std_fwd.hpp:27:1: warning: inline namespaces are a C++11 feature [-Wc++11-inline-namespace]
+BOOST_MOVE_STD_NS_BEG
+^
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/new/BH/include/boost/move/detail/std_ns_begin.hpp:18:34: note: expanded from macro 'BOOST_MOVE_STD_NS_BEG'
+   #define BOOST_MOVE_STD_NS_BEG _LIBCPP_BEGIN_NAMESPACE_STD
+                                 ^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1/__config:445:52: note: expanded from macro '_LIBCPP_BEGIN_NAMESPACE_STD'
+#define _LIBCPP_BEGIN_NAMESPACE_STD namespace std {inline namespace _LIBCPP_NAMESPACE {
+                                                   ^
+In file included from Modules.cpp:3:
+In file included from ./include/models.hpp:5:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/rstan/include/rstan/rstaninc.hpp:3:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/rstan/include/rstan/stan_fit.hpp:34:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/src/stan/services/diagnose/diagnose.hpp:10:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/src/stan/model/test_gradients.hpp:7:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/src/stan/model/log_prob_grad.hpp:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/rev/mat.hpp:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/rev/core.hpp:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/rev/core/autodiffstackstorage.hpp:4:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/memory/stack_alloc.hpp:145:10: warning: 'auto' type specifier is a C++11 extension [-Wc++11-extensions]
+    for (auto& block : blocks_)
+         ^
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/memory/stack_alloc.hpp:145:22: warning: range-based for loop is a C++11 extension [-Wc++11-extensions]
+    for (auto& block : blocks_)
+                     ^
+In file included from Modules.cpp:3:
+In file included from ./include/models.hpp:5:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/rstan/include/rstan/rstaninc.hpp:3:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/rstan/include/rstan/stan_fit.hpp:34:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/src/stan/services/diagnose/diagnose.hpp:10:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/src/stan/model/test_gradients.hpp:7:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/src/stan/model/log_prob_grad.hpp:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/rev/mat.hpp:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/rev/core.hpp:4:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/rev/core/autodiffstackstorage.hpp:47:69: warning: deleted function definitions are a C++11 extension [-Wc++11-extensions]
+    AutodiffStackStorage &operator=(const AutodiffStackStorage &) = delete;
+                                                                    ^
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/rev/core/autodiffstackstorage.hpp:60:30: warning: deleted function definitions are a C++11 extension [-Wc++11-extensions]
+  AutodiffStackSingleton() = delete;
+                             ^
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/rev/core/autodiffstackstorage.hpp:61:71: warning: deleted function definitions are a C++11 extension [-Wc++11-extensions]
+  explicit AutodiffStackSingleton(AutodiffStackSingleton_t const &) = delete;
+                                                                      ^
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/rev/core/autodiffstackstorage.hpp:62:73: warning: deleted function definitions are a C++11 extension [-Wc++11-extensions]
+  AutodiffStackSingleton &operator=(const AutodiffStackSingleton_t &) = delete;
+                                                                        ^
+In file included from Modules.cpp:3:
+In file included from ./include/models.hpp:5:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/rstan/include/rstan/rstaninc.hpp:3:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/rstan/include/rstan/stan_fit.hpp:34:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/src/stan/services/diagnose/diagnose.hpp:10:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/src/stan/model/test_gradients.hpp:7:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/src/stan/model/log_prob_grad.hpp:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/rev/mat.hpp:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/rev/core.hpp:14:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/rev/core/matrix_vari.hpp:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/rev/mat/fun/Eigen_NumTraits.hpp:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/RcppEigen/include/Eigen/Dense:1:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/RcppEigen/include/Eigen/Core:531:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from Modules.cpp:3:
+In file included from ./include/models.hpp:5:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/rstan/include/rstan/rstaninc.hpp:3:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/rstan/include/rstan/stan_fit.hpp:34:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/src/stan/services/diagnose/diagnose.hpp:10:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/src/stan/model/test_gradients.hpp:7:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/src/stan/model/log_prob_grad.hpp:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/rev/mat.hpp:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/rev/core.hpp:14:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/rev/core/matrix_vari.hpp:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/rev/mat/fun/Eigen_NumTraits.hpp:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/RcppEigen/include/Eigen/Dense:2:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/RcppEigen/include/Eigen/LU:47:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from Modules.cpp:3:
+In file included from ./include/models.hpp:5:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/rstan/include/rstan/rstaninc.hpp:3:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/rstan/include/rstan/stan_fit.hpp:34:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/src/stan/services/diagnose/diagnose.hpp:10:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/src/stan/model/test_gradients.hpp:7:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/src/stan/model/log_prob_grad.hpp:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/rev/mat.hpp:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/rev/core.hpp:14:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/rev/core/matrix_vari.hpp:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/rev/mat/fun/Eigen_NumTraits.hpp:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/RcppEigen/include/Eigen/Dense:3:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/RcppEigen/include/Eigen/Cholesky:12:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/RcppEigen/include/Eigen/Jacobi:29:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from Modules.cpp:3:
+In file included from ./include/models.hpp:5:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/rstan/include/rstan/rstaninc.hpp:3:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/rstan/include/rstan/stan_fit.hpp:34:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/src/stan/services/diagnose/diagnose.hpp:10:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/src/stan/model/test_gradients.hpp:7:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/src/stan/model/log_prob_grad.hpp:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/rev/mat.hpp:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/rev/core.hpp:14:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/rev/core/matrix_vari.hpp:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/rev/mat/fun/Eigen_NumTraits.hpp:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/RcppEigen/include/Eigen/Dense:3:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/RcppEigen/include/Eigen/Cholesky:43:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from Modules.cpp:3:
+In file included from ./include/models.hpp:5:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/rstan/include/rstan/rstaninc.hpp:3:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/rstan/include/rstan/stan_fit.hpp:34:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/src/stan/services/diagnose/diagnose.hpp:10:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/src/stan/model/test_gradients.hpp:7:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/src/stan/model/log_prob_grad.hpp:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/rev/mat.hpp:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/rev/core.hpp:14:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/rev/core/matrix_vari.hpp:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/rev/mat/fun/Eigen_NumTraits.hpp:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/RcppEigen/include/Eigen/Dense:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/RcppEigen/include/Eigen/QR:17:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/RcppEigen/include/Eigen/Householder:27:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from Modules.cpp:3:
+In file included from ./include/models.hpp:5:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/rstan/include/rstan/rstaninc.hpp:3:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/rstan/include/rstan/stan_fit.hpp:34:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/src/stan/services/diagnose/diagnose.hpp:10:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/src/stan/model/test_gradients.hpp:7:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/src/stan/model/log_prob_grad.hpp:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/rev/mat.hpp:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/rev/core.hpp:14:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/rev/core/matrix_vari.hpp:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/rev/mat/fun/Eigen_NumTraits.hpp:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/RcppEigen/include/Eigen/Dense:5:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/RcppEigen/include/Eigen/SVD:48:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from Modules.cpp:3:
+In file included from ./include/models.hpp:5:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/rstan/include/rstan/rstaninc.hpp:3:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/rstan/include/rstan/stan_fit.hpp:34:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/src/stan/services/diagnose/diagnose.hpp:10:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/src/stan/model/test_gradients.hpp:7:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/src/stan/model/log_prob_grad.hpp:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/rev/mat.hpp:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/rev/core.hpp:14:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/rev/core/matrix_vari.hpp:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/rev/mat/fun/Eigen_NumTraits.hpp:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/RcppEigen/include/Eigen/Dense:6:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/RcppEigen/include/Eigen/Geometry:58:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from Modules.cpp:3:
+In file included from ./include/models.hpp:5:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/rstan/include/rstan/rstaninc.hpp:3:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/rstan/include/rstan/stan_fit.hpp:34:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/src/stan/services/diagnose/diagnose.hpp:10:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/src/stan/model/test_gradients.hpp:7:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/src/stan/model/log_prob_grad.hpp:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/rev/mat.hpp:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/rev/core.hpp:14:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/rev/core/matrix_vari.hpp:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/rev/mat/fun/Eigen_NumTraits.hpp:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/RcppEigen/include/Eigen/Dense:7:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/RcppEigen/include/Eigen/Eigenvalues:58:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from Modules.cpp:3:
+In file included from ./include/models.hpp:5:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/rstan/include/rstan/rstaninc.hpp:3:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/rstan/include/rstan/stan_fit.hpp:34:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/src/stan/services/diagnose/diagnose.hpp:10:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/src/stan/model/test_gradients.hpp:7:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/src/stan/model/log_prob_grad.hpp:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/rev/mat.hpp:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/rev/core.hpp:42:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/rev/core/recover_memory.hpp:25:8: warning: 'auto' type specifier is a C++11 extension [-Wc++11-extensions]
+  for (auto &x : ChainableStack::instance().var_alloc_stack_) {
+       ^
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/rev/core/recover_memory.hpp:25:16: warning: range-based for loop is a C++11 extension [-Wc++11-extensions]
+  for (auto &x : ChainableStack::instance().var_alloc_stack_) {
+               ^
+In file included from Modules.cpp:3:
+In file included from ./include/models.hpp:5:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/rstan/include/rstan/rstaninc.hpp:3:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/rstan/include/rstan/stan_fit.hpp:34:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/src/stan/services/diagnose/diagnose.hpp:10:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/src/stan/model/test_gradients.hpp:7:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/src/stan/model/log_prob_grad.hpp:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/rev/mat.hpp:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/rev/core.hpp:44:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/rev/core/set_zero_all_adjoints.hpp:15:8: warning: 'auto' type specifier is a C++11 extension [-Wc++11-extensions]
+  for (auto &x : ChainableStack::instance().var_stack_)
+       ^
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/rev/core/set_zero_all_adjoints.hpp:15:16: warning: range-based for loop is a C++11 extension [-Wc++11-extensions]
+  for (auto &x : ChainableStack::instance().var_stack_)
+               ^
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/rev/core/set_zero_all_adjoints.hpp:17:8: warning: 'auto' type specifier is a C++11 extension [-Wc++11-extensions]
+  for (auto &x : ChainableStack::instance().var_nochain_stack_)
+       ^
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/rev/core/set_zero_all_adjoints.hpp:17:16: warning: range-based for loop is a C++11 extension [-Wc++11-extensions]
+  for (auto &x : ChainableStack::instance().var_nochain_stack_)
+               ^
+In file included from Modules.cpp:3:
+In file included from ./include/models.hpp:5:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/rstan/include/rstan/rstaninc.hpp:3:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/rstan/include/rstan/stan_fit.hpp:34:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/src/stan/services/diagnose/diagnose.hpp:10:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/src/stan/model/test_gradients.hpp:7:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/src/stan/model/log_prob_grad.hpp:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/rev/mat.hpp:12:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/prim/mat.hpp:22:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/prim/mat/meta/operands_and_partials.hpp:19:59: error: expected expression
+class ops_partials_edge<ViewElt, Eigen::Matrix<Op, R, C>> {
+                                                          ^
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/prim/mat/meta/operands_and_partials.hpp:35:2: error: expected a type
+};
+ ^
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/prim/mat/meta/operands_and_partials.hpp:38:70: error: expected expression
+class ops_partials_edge<ViewElt, std::vector<Eigen::Matrix<Op, R, C>>> {
+                                                                     ^
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/prim/mat/meta/operands_and_partials.hpp:38:72: error: expected a type
+class ops_partials_edge<ViewElt, std::vector<Eigen::Matrix<Op, R, C>>> {
+                                                                       ^
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/prim/mat/meta/operands_and_partials.hpp:53:2: error: expected a type
+};
+ ^
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/prim/mat/meta/operands_and_partials.hpp:56:60: error: a space is required between consecutive right angle brackets (use '> >')
+class ops_partials_edge<ViewElt, std::vector<std::vector<Op>>> {
+                                                           ^~
+                                                           > > 
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/prim/mat/meta/operands_and_partials.hpp:58:68: error: a space is required between consecutive right angle brackets (use '> >')
+  typedef empty_broadcast_array<ViewElt, std::vector<std::vector<Op>>>
+                                                                   ^~
+                                                                   > > 
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/prim/mat/meta/operands_and_partials.hpp:61:63: error: a space is required between consecutive right angle brackets (use '> >')
+  empty_broadcast_array<partials_t, std::vector<std::vector<Op>>> partials_vec_;
+                                                              ^~
+                                                              > > 
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/prim/mat/meta/operands_and_partials.hpp:63:62: error: a space is required between consecutive right angle brackets (use '> >')
+  explicit ops_partials_edge(const std::vector<std::vector<Op>> ops) {}
+                                                             ^~
+                                                             > >
+In file included from Modules.cpp:3:
+In file included from ./include/models.hpp:5:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/rstan/include/rstan/rstaninc.hpp:3:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/rstan/include/rstan/stan_fit.hpp:34:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/src/stan/services/diagnose/diagnose.hpp:10:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/src/stan/model/test_gradients.hpp:7:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/src/stan/model/log_prob_grad.hpp:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/rev/mat.hpp:12:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/prim/mat.hpp:96:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/prim/mat/fun/csr_extract_u.hpp:6:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/RcppEigen/include/Eigen/Sparse:26:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/RcppEigen/include/Eigen/SparseCore:66:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from Modules.cpp:3:
+In file included from ./include/models.hpp:5:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/rstan/include/rstan/rstaninc.hpp:3:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/rstan/include/rstan/stan_fit.hpp:34:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/src/stan/services/diagnose/diagnose.hpp:10:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/src/stan/model/test_gradients.hpp:7:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/src/stan/model/log_prob_grad.hpp:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/rev/mat.hpp:12:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/prim/mat.hpp:96:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/prim/mat/fun/csr_extract_u.hpp:6:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/RcppEigen/include/Eigen/Sparse:27:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/RcppEigen/include/Eigen/OrderingMethods:71:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from Modules.cpp:3:
+In file included from ./include/models.hpp:5:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/rstan/include/rstan/rstaninc.hpp:3:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/rstan/include/rstan/stan_fit.hpp:34:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/src/stan/services/diagnose/diagnose.hpp:10:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/src/stan/model/test_gradients.hpp:7:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/src/stan/model/log_prob_grad.hpp:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/rev/mat.hpp:12:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/prim/mat.hpp:96:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/prim/mat/fun/csr_extract_u.hpp:6:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/RcppEigen/include/Eigen/Sparse:29:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/RcppEigen/include/Eigen/SparseCholesky:43:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from Modules.cpp:3:
+In file included from ./include/models.hpp:5:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/rstan/include/rstan/rstaninc.hpp:3:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/rstan/include/rstan/stan_fit.hpp:34:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/src/stan/services/diagnose/diagnose.hpp:10:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/src/stan/model/test_gradients.hpp:7:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/src/stan/model/log_prob_grad.hpp:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/rev/mat.hpp:12:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/prim/mat.hpp:96:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/prim/mat/fun/csr_extract_u.hpp:6:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/RcppEigen/include/Eigen/Sparse:32:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/RcppEigen/include/Eigen/SparseQR:35:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from Modules.cpp:3:
+In file included from ./include/models.hpp:5:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/rstan/include/rstan/rstaninc.hpp:3:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/rstan/include/rstan/stan_fit.hpp:34:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/src/stan/services/diagnose/diagnose.hpp:10:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/src/stan/model/test_gradients.hpp:7:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/src/stan/model/log_prob_grad.hpp:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/rev/mat.hpp:12:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/prim/mat.hpp:96:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/prim/mat/fun/csr_extract_u.hpp:6:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/RcppEigen/include/Eigen/Sparse:33:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/RcppEigen/include/Eigen/IterativeLinearSolvers:46:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from Modules.cpp:3:
+In file included from ./include/models.hpp:5:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/rstan/include/rstan/rstaninc.hpp:3:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/rstan/include/rstan/stan_fit.hpp:34:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/src/stan/services/diagnose/diagnose.hpp:10:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/src/stan/model/test_gradients.hpp:7:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/src/stan/model/log_prob_grad.hpp:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/rev/mat.hpp:12:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/prim/mat.hpp:99:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/prim/mat/fun/csr_matrix_times_vector.hpp:91:14: warning: range-based for loop is a C++11 extension [-Wc++11-extensions]
+  for (int i : v)
+             ^
+In file included from Modules.cpp:3:
+In file included from ./include/models.hpp:5:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/rstan/include/rstan/rstaninc.hpp:3:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/rstan/include/rstan/stan_fit.hpp:34:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/src/stan/services/diagnose/diagnose.hpp:10:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/src/stan/model/test_gradients.hpp:7:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/src/stan/model/log_prob_grad.hpp:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/rev/mat.hpp:12:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/prim/mat.hpp:100:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/prim/mat/fun/csr_to_dense_matrix.hpp:48:14: warning: range-based for loop is a C++11 extension [-Wc++11-extensions]
+  for (int i : v)
+             ^
+In file included from Modules.cpp:3:
+In file included from ./include/models.hpp:5:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/rstan/include/rstan/rstaninc.hpp:3:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/rstan/include/rstan/stan_fit.hpp:34:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/src/stan/services/diagnose/diagnose.hpp:10:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/src/stan/model/test_gradients.hpp:7:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/src/stan/model/log_prob_grad.hpp:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/rev/mat.hpp:12:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/prim/mat.hpp:156:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/prim/mat/fun/log_mix.hpp:178:26: error: expected expression
+              .unaryExpr([](T_partials_return x) { return exp(x); });
+                         ^
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/prim/mat/fun/log_mix.hpp:262:24: error: expected expression
+            .unaryExpr([](T_partials_return x) { return exp(x); });
+                       ^
+In file included from Modules.cpp:3:
+In file included from ./include/models.hpp:5:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/rstan/include/rstan/rstaninc.hpp:3:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/rstan/include/rstan/stan_fit.hpp:34:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/src/stan/services/diagnose/diagnose.hpp:10:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/src/stan/model/test_gradients.hpp:7:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/src/stan/model/log_prob_grad.hpp:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/rev/mat.hpp:12:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/prim/mat.hpp:161:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/prim/mat/fun/matrix_exp.hpp:5:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/prim/mat/fun/matrix_exp_2x2.hpp:21:13: warning: alias declarations are a C++11 extension [-Wc++11-extensions]
+  using T = typename Mtype::Scalar;
+            ^
+In file included from Modules.cpp:3:
+In file included from ./include/models.hpp:5:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/rstan/include/rstan/rstaninc.hpp:3:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/rstan/include/rstan/stan_fit.hpp:34:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/src/stan/services/diagnose/diagnose.hpp:10:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/src/stan/model/test_gradients.hpp:7:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/src/stan/model/log_prob_grad.hpp:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/rev/mat.hpp:12:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/prim/mat.hpp:162:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/prim/mat/fun/matrix_exp_multiply.hpp:5:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/prim/mat/fun/matrix_exp_action_handler.hpp:20:10: error: unknown type name 'constexpr'
+  static constexpr int p_max = 8;
+         ^
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/prim/mat/fun/matrix_exp_action_handler.hpp:20:20: error: expected member name or ';' after declaration specifiers
+  static constexpr int p_max = 8;
+  ~~~~~~~~~~~~~~~~ ^
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/prim/mat/fun/matrix_exp_action_handler.hpp:21:10: error: unknown type name 'constexpr'
+  static constexpr int m_max = 55;
+         ^
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/prim/mat/fun/matrix_exp_action_handler.hpp:21:20: error: expected member name or ';' after declaration specifiers
+  static constexpr int m_max = 55;
+  ~~~~~~~~~~~~~~~~ ^
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/prim/mat/fun/matrix_exp_action_handler.hpp:22:10: error: unknown type name 'constexpr'
+  static constexpr double tol = 1.1e-16;
+         ^
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/prim/mat/fun/matrix_exp_action_handler.hpp:22:20: error: expected member name or ';' after declaration specifiers
+  static constexpr double tol = 1.1e-16;
+  ~~~~~~~~~~~~~~~~ ^
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/prim/mat/fun/matrix_exp_action_handler.hpp:25:29: error: function definition does not declare parameters
+  const std::vector<double> theta_m_single_precision{
+                            ^
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/prim/mat/fun/matrix_exp_action_handler.hpp:28:29: error: function definition does not declare parameters
+  const std::vector<double> theta_m_double_precision{
+                            ^
+fatal error: too many errors emitted, stopping now [-ferror-limit=]
+29 warnings and 20 errors generated.
+make: *** [Modules.o] Error 1
+ERROR: compilation failed for package ‘trialr’
+* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/trialr/new/trialr.Rcheck/trialr’
+
+```
+### CRAN
+
+```
+* installing *source* package ‘trialr’ ...
+** package ‘trialr’ successfully unpacked and MD5 sums checked
+** libs
+ccache clang++ -Qunused-arguments  -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG -I"`"/Library/Frameworks/R.framework/Resources/bin/Rscript" --vanilla -e "cat(system.file('include', 'src', package = 'StanHeaders'))"`" -DBOOST_RESULT_OF_USE_TR1 -DBOOST_NO_DECLTYPE -DBOOST_DISABLE_ASSERTS -DEIGEN_NO_DEBUG -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/rstan/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/old/BH/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/old/Rcpp/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/RcppEigen/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c Modules.cpp -o Modules.o
+In file included from Modules.cpp:3:
+In file included from ./include/models.hpp:5:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/rstan/include/rstan/rstaninc.hpp:3:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/rstan/include/rstan/stan_fit.hpp:20:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/rstan/include/rstan/stan_args.hpp:12:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/old/BH/include/boost/lexical_cast.hpp:32:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/old/BH/include/boost/lexical_cast/try_lexical_convert.hpp:42:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/old/BH/include/boost/lexical_cast/detail/converter_lexical.hpp:52:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/old/BH/include/boost/container/container_fwd.hpp:61:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/old/BH/include/boost/container/detail/std_fwd.hpp:27:1: warning: inline namespaces are a C++11 feature [-Wc++11-inline-namespace]
+BOOST_MOVE_STD_NS_BEG
+^
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/old/BH/include/boost/move/detail/std_ns_begin.hpp:18:34: note: expanded from macro 'BOOST_MOVE_STD_NS_BEG'
+   #define BOOST_MOVE_STD_NS_BEG _LIBCPP_BEGIN_NAMESPACE_STD
+                                 ^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1/__config:445:52: note: expanded from macro '_LIBCPP_BEGIN_NAMESPACE_STD'
+#define _LIBCPP_BEGIN_NAMESPACE_STD namespace std {inline namespace _LIBCPP_NAMESPACE {
+                                                   ^
+In file included from Modules.cpp:3:
+In file included from ./include/models.hpp:5:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/rstan/include/rstan/rstaninc.hpp:3:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/rstan/include/rstan/stan_fit.hpp:34:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/src/stan/services/diagnose/diagnose.hpp:10:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/src/stan/model/test_gradients.hpp:7:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/src/stan/model/log_prob_grad.hpp:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/rev/mat.hpp:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/rev/core.hpp:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/rev/core/autodiffstackstorage.hpp:4:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/memory/stack_alloc.hpp:145:10: warning: 'auto' type specifier is a C++11 extension [-Wc++11-extensions]
+    for (auto& block : blocks_)
+         ^
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/memory/stack_alloc.hpp:145:22: warning: range-based for loop is a C++11 extension [-Wc++11-extensions]
+    for (auto& block : blocks_)
+                     ^
+In file included from Modules.cpp:3:
+In file included from ./include/models.hpp:5:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/rstan/include/rstan/rstaninc.hpp:3:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/rstan/include/rstan/stan_fit.hpp:34:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/src/stan/services/diagnose/diagnose.hpp:10:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/src/stan/model/test_gradients.hpp:7:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/src/stan/model/log_prob_grad.hpp:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/rev/mat.hpp:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/rev/core.hpp:4:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/rev/core/autodiffstackstorage.hpp:47:69: warning: deleted function definitions are a C++11 extension [-Wc++11-extensions]
+    AutodiffStackStorage &operator=(const AutodiffStackStorage &) = delete;
+                                                                    ^
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/rev/core/autodiffstackstorage.hpp:60:30: warning: deleted function definitions are a C++11 extension [-Wc++11-extensions]
+  AutodiffStackSingleton() = delete;
+                             ^
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/rev/core/autodiffstackstorage.hpp:61:71: warning: deleted function definitions are a C++11 extension [-Wc++11-extensions]
+  explicit AutodiffStackSingleton(AutodiffStackSingleton_t const &) = delete;
+                                                                      ^
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/rev/core/autodiffstackstorage.hpp:62:73: warning: deleted function definitions are a C++11 extension [-Wc++11-extensions]
+  AutodiffStackSingleton &operator=(const AutodiffStackSingleton_t &) = delete;
+                                                                        ^
+In file included from Modules.cpp:3:
+In file included from ./include/models.hpp:5:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/rstan/include/rstan/rstaninc.hpp:3:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/rstan/include/rstan/stan_fit.hpp:34:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/src/stan/services/diagnose/diagnose.hpp:10:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/src/stan/model/test_gradients.hpp:7:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/src/stan/model/log_prob_grad.hpp:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/rev/mat.hpp:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/rev/core.hpp:14:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/rev/core/matrix_vari.hpp:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/rev/mat/fun/Eigen_NumTraits.hpp:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/RcppEigen/include/Eigen/Dense:1:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/RcppEigen/include/Eigen/Core:531:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from Modules.cpp:3:
+In file included from ./include/models.hpp:5:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/rstan/include/rstan/rstaninc.hpp:3:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/rstan/include/rstan/stan_fit.hpp:34:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/src/stan/services/diagnose/diagnose.hpp:10:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/src/stan/model/test_gradients.hpp:7:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/src/stan/model/log_prob_grad.hpp:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/rev/mat.hpp:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/rev/core.hpp:14:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/rev/core/matrix_vari.hpp:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/rev/mat/fun/Eigen_NumTraits.hpp:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/RcppEigen/include/Eigen/Dense:2:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/RcppEigen/include/Eigen/LU:47:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from Modules.cpp:3:
+In file included from ./include/models.hpp:5:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/rstan/include/rstan/rstaninc.hpp:3:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/rstan/include/rstan/stan_fit.hpp:34:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/src/stan/services/diagnose/diagnose.hpp:10:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/src/stan/model/test_gradients.hpp:7:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/src/stan/model/log_prob_grad.hpp:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/rev/mat.hpp:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/rev/core.hpp:14:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/rev/core/matrix_vari.hpp:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/rev/mat/fun/Eigen_NumTraits.hpp:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/RcppEigen/include/Eigen/Dense:3:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/RcppEigen/include/Eigen/Cholesky:12:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/RcppEigen/include/Eigen/Jacobi:29:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from Modules.cpp:3:
+In file included from ./include/models.hpp:5:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/rstan/include/rstan/rstaninc.hpp:3:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/rstan/include/rstan/stan_fit.hpp:34:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/src/stan/services/diagnose/diagnose.hpp:10:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/src/stan/model/test_gradients.hpp:7:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/src/stan/model/log_prob_grad.hpp:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/rev/mat.hpp:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/rev/core.hpp:14:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/rev/core/matrix_vari.hpp:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/rev/mat/fun/Eigen_NumTraits.hpp:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/RcppEigen/include/Eigen/Dense:3:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/RcppEigen/include/Eigen/Cholesky:43:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from Modules.cpp:3:
+In file included from ./include/models.hpp:5:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/rstan/include/rstan/rstaninc.hpp:3:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/rstan/include/rstan/stan_fit.hpp:34:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/src/stan/services/diagnose/diagnose.hpp:10:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/src/stan/model/test_gradients.hpp:7:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/src/stan/model/log_prob_grad.hpp:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/rev/mat.hpp:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/rev/core.hpp:14:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/rev/core/matrix_vari.hpp:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/rev/mat/fun/Eigen_NumTraits.hpp:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/RcppEigen/include/Eigen/Dense:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/RcppEigen/include/Eigen/QR:17:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/RcppEigen/include/Eigen/Householder:27:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from Modules.cpp:3:
+In file included from ./include/models.hpp:5:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/rstan/include/rstan/rstaninc.hpp:3:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/rstan/include/rstan/stan_fit.hpp:34:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/src/stan/services/diagnose/diagnose.hpp:10:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/src/stan/model/test_gradients.hpp:7:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/src/stan/model/log_prob_grad.hpp:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/rev/mat.hpp:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/rev/core.hpp:14:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/rev/core/matrix_vari.hpp:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/rev/mat/fun/Eigen_NumTraits.hpp:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/RcppEigen/include/Eigen/Dense:5:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/RcppEigen/include/Eigen/SVD:48:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from Modules.cpp:3:
+In file included from ./include/models.hpp:5:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/rstan/include/rstan/rstaninc.hpp:3:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/rstan/include/rstan/stan_fit.hpp:34:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/src/stan/services/diagnose/diagnose.hpp:10:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/src/stan/model/test_gradients.hpp:7:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/src/stan/model/log_prob_grad.hpp:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/rev/mat.hpp:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/rev/core.hpp:14:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/rev/core/matrix_vari.hpp:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/rev/mat/fun/Eigen_NumTraits.hpp:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/RcppEigen/include/Eigen/Dense:6:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/RcppEigen/include/Eigen/Geometry:58:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from Modules.cpp:3:
+In file included from ./include/models.hpp:5:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/rstan/include/rstan/rstaninc.hpp:3:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/rstan/include/rstan/stan_fit.hpp:34:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/src/stan/services/diagnose/diagnose.hpp:10:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/src/stan/model/test_gradients.hpp:7:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/src/stan/model/log_prob_grad.hpp:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/rev/mat.hpp:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/rev/core.hpp:14:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/rev/core/matrix_vari.hpp:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/rev/mat/fun/Eigen_NumTraits.hpp:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/RcppEigen/include/Eigen/Dense:7:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/RcppEigen/include/Eigen/Eigenvalues:58:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from Modules.cpp:3:
+In file included from ./include/models.hpp:5:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/rstan/include/rstan/rstaninc.hpp:3:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/rstan/include/rstan/stan_fit.hpp:34:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/src/stan/services/diagnose/diagnose.hpp:10:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/src/stan/model/test_gradients.hpp:7:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/src/stan/model/log_prob_grad.hpp:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/rev/mat.hpp:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/rev/core.hpp:42:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/rev/core/recover_memory.hpp:25:8: warning: 'auto' type specifier is a C++11 extension [-Wc++11-extensions]
+  for (auto &x : ChainableStack::instance().var_alloc_stack_) {
+       ^
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/rev/core/recover_memory.hpp:25:16: warning: range-based for loop is a C++11 extension [-Wc++11-extensions]
+  for (auto &x : ChainableStack::instance().var_alloc_stack_) {
+               ^
+In file included from Modules.cpp:3:
+In file included from ./include/models.hpp:5:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/rstan/include/rstan/rstaninc.hpp:3:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/rstan/include/rstan/stan_fit.hpp:34:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/src/stan/services/diagnose/diagnose.hpp:10:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/src/stan/model/test_gradients.hpp:7:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/src/stan/model/log_prob_grad.hpp:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/rev/mat.hpp:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/rev/core.hpp:44:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/rev/core/set_zero_all_adjoints.hpp:15:8: warning: 'auto' type specifier is a C++11 extension [-Wc++11-extensions]
+  for (auto &x : ChainableStack::instance().var_stack_)
+       ^
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/rev/core/set_zero_all_adjoints.hpp:15:16: warning: range-based for loop is a C++11 extension [-Wc++11-extensions]
+  for (auto &x : ChainableStack::instance().var_stack_)
+               ^
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/rev/core/set_zero_all_adjoints.hpp:17:8: warning: 'auto' type specifier is a C++11 extension [-Wc++11-extensions]
+  for (auto &x : ChainableStack::instance().var_nochain_stack_)
+       ^
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/rev/core/set_zero_all_adjoints.hpp:17:16: warning: range-based for loop is a C++11 extension [-Wc++11-extensions]
+  for (auto &x : ChainableStack::instance().var_nochain_stack_)
+               ^
+In file included from Modules.cpp:3:
+In file included from ./include/models.hpp:5:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/rstan/include/rstan/rstaninc.hpp:3:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/rstan/include/rstan/stan_fit.hpp:34:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/src/stan/services/diagnose/diagnose.hpp:10:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/src/stan/model/test_gradients.hpp:7:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/src/stan/model/log_prob_grad.hpp:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/rev/mat.hpp:12:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/prim/mat.hpp:22:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/prim/mat/meta/operands_and_partials.hpp:19:59: error: expected expression
+class ops_partials_edge<ViewElt, Eigen::Matrix<Op, R, C>> {
+                                                          ^
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/prim/mat/meta/operands_and_partials.hpp:35:2: error: expected a type
+};
+ ^
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/prim/mat/meta/operands_and_partials.hpp:38:70: error: expected expression
+class ops_partials_edge<ViewElt, std::vector<Eigen::Matrix<Op, R, C>>> {
+                                                                     ^
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/prim/mat/meta/operands_and_partials.hpp:38:72: error: expected a type
+class ops_partials_edge<ViewElt, std::vector<Eigen::Matrix<Op, R, C>>> {
+                                                                       ^
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/prim/mat/meta/operands_and_partials.hpp:53:2: error: expected a type
+};
+ ^
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/prim/mat/meta/operands_and_partials.hpp:56:60: error: a space is required between consecutive right angle brackets (use '> >')
+class ops_partials_edge<ViewElt, std::vector<std::vector<Op>>> {
+                                                           ^~
+                                                           > > 
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/prim/mat/meta/operands_and_partials.hpp:58:68: error: a space is required between consecutive right angle brackets (use '> >')
+  typedef empty_broadcast_array<ViewElt, std::vector<std::vector<Op>>>
+                                                                   ^~
+                                                                   > > 
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/prim/mat/meta/operands_and_partials.hpp:61:63: error: a space is required between consecutive right angle brackets (use '> >')
+  empty_broadcast_array<partials_t, std::vector<std::vector<Op>>> partials_vec_;
+                                                              ^~
+                                                              > > 
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/prim/mat/meta/operands_and_partials.hpp:63:62: error: a space is required between consecutive right angle brackets (use '> >')
+  explicit ops_partials_edge(const std::vector<std::vector<Op>> ops) {}
+                                                             ^~
+                                                             > >
+In file included from Modules.cpp:3:
+In file included from ./include/models.hpp:5:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/rstan/include/rstan/rstaninc.hpp:3:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/rstan/include/rstan/stan_fit.hpp:34:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/src/stan/services/diagnose/diagnose.hpp:10:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/src/stan/model/test_gradients.hpp:7:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/src/stan/model/log_prob_grad.hpp:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/rev/mat.hpp:12:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/prim/mat.hpp:96:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/prim/mat/fun/csr_extract_u.hpp:6:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/RcppEigen/include/Eigen/Sparse:26:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/RcppEigen/include/Eigen/SparseCore:66:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from Modules.cpp:3:
+In file included from ./include/models.hpp:5:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/rstan/include/rstan/rstaninc.hpp:3:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/rstan/include/rstan/stan_fit.hpp:34:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/src/stan/services/diagnose/diagnose.hpp:10:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/src/stan/model/test_gradients.hpp:7:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/src/stan/model/log_prob_grad.hpp:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/rev/mat.hpp:12:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/prim/mat.hpp:96:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/prim/mat/fun/csr_extract_u.hpp:6:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/RcppEigen/include/Eigen/Sparse:27:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/RcppEigen/include/Eigen/OrderingMethods:71:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from Modules.cpp:3:
+In file included from ./include/models.hpp:5:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/rstan/include/rstan/rstaninc.hpp:3:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/rstan/include/rstan/stan_fit.hpp:34:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/src/stan/services/diagnose/diagnose.hpp:10:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/src/stan/model/test_gradients.hpp:7:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/src/stan/model/log_prob_grad.hpp:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/rev/mat.hpp:12:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/prim/mat.hpp:96:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/prim/mat/fun/csr_extract_u.hpp:6:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/RcppEigen/include/Eigen/Sparse:29:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/RcppEigen/include/Eigen/SparseCholesky:43:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from Modules.cpp:3:
+In file included from ./include/models.hpp:5:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/rstan/include/rstan/rstaninc.hpp:3:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/rstan/include/rstan/stan_fit.hpp:34:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/src/stan/services/diagnose/diagnose.hpp:10:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/src/stan/model/test_gradients.hpp:7:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/src/stan/model/log_prob_grad.hpp:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/rev/mat.hpp:12:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/prim/mat.hpp:96:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/prim/mat/fun/csr_extract_u.hpp:6:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/RcppEigen/include/Eigen/Sparse:32:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/RcppEigen/include/Eigen/SparseQR:35:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from Modules.cpp:3:
+In file included from ./include/models.hpp:5:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/rstan/include/rstan/rstaninc.hpp:3:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/rstan/include/rstan/stan_fit.hpp:34:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/src/stan/services/diagnose/diagnose.hpp:10:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/src/stan/model/test_gradients.hpp:7:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/src/stan/model/log_prob_grad.hpp:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/rev/mat.hpp:12:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/prim/mat.hpp:96:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/prim/mat/fun/csr_extract_u.hpp:6:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/RcppEigen/include/Eigen/Sparse:33:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/RcppEigen/include/Eigen/IterativeLinearSolvers:46:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from Modules.cpp:3:
+In file included from ./include/models.hpp:5:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/rstan/include/rstan/rstaninc.hpp:3:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/rstan/include/rstan/stan_fit.hpp:34:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/src/stan/services/diagnose/diagnose.hpp:10:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/src/stan/model/test_gradients.hpp:7:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/src/stan/model/log_prob_grad.hpp:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/rev/mat.hpp:12:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/prim/mat.hpp:99:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/prim/mat/fun/csr_matrix_times_vector.hpp:91:14: warning: range-based for loop is a C++11 extension [-Wc++11-extensions]
+  for (int i : v)
+             ^
+In file included from Modules.cpp:3:
+In file included from ./include/models.hpp:5:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/rstan/include/rstan/rstaninc.hpp:3:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/rstan/include/rstan/stan_fit.hpp:34:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/src/stan/services/diagnose/diagnose.hpp:10:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/src/stan/model/test_gradients.hpp:7:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/src/stan/model/log_prob_grad.hpp:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/rev/mat.hpp:12:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/prim/mat.hpp:100:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/prim/mat/fun/csr_to_dense_matrix.hpp:48:14: warning: range-based for loop is a C++11 extension [-Wc++11-extensions]
+  for (int i : v)
+             ^
+In file included from Modules.cpp:3:
+In file included from ./include/models.hpp:5:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/rstan/include/rstan/rstaninc.hpp:3:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/rstan/include/rstan/stan_fit.hpp:34:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/src/stan/services/diagnose/diagnose.hpp:10:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/src/stan/model/test_gradients.hpp:7:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/src/stan/model/log_prob_grad.hpp:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/rev/mat.hpp:12:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/prim/mat.hpp:156:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/prim/mat/fun/log_mix.hpp:178:26: error: expected expression
+              .unaryExpr([](T_partials_return x) { return exp(x); });
+                         ^
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/prim/mat/fun/log_mix.hpp:262:24: error: expected expression
+            .unaryExpr([](T_partials_return x) { return exp(x); });
+                       ^
+In file included from Modules.cpp:3:
+In file included from ./include/models.hpp:5:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/rstan/include/rstan/rstaninc.hpp:3:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/rstan/include/rstan/stan_fit.hpp:34:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/src/stan/services/diagnose/diagnose.hpp:10:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/src/stan/model/test_gradients.hpp:7:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/src/stan/model/log_prob_grad.hpp:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/rev/mat.hpp:12:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/prim/mat.hpp:161:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/prim/mat/fun/matrix_exp.hpp:5:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/prim/mat/fun/matrix_exp_2x2.hpp:21:13: warning: alias declarations are a C++11 extension [-Wc++11-extensions]
+  using T = typename Mtype::Scalar;
+            ^
+In file included from Modules.cpp:3:
+In file included from ./include/models.hpp:5:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/rstan/include/rstan/rstaninc.hpp:3:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/rstan/include/rstan/stan_fit.hpp:34:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/src/stan/services/diagnose/diagnose.hpp:10:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/src/stan/model/test_gradients.hpp:7:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/src/stan/model/log_prob_grad.hpp:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/rev/mat.hpp:12:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/prim/mat.hpp:162:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/prim/mat/fun/matrix_exp_multiply.hpp:5:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/prim/mat/fun/matrix_exp_action_handler.hpp:20:10: error: unknown type name 'constexpr'
+  static constexpr int p_max = 8;
+         ^
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/prim/mat/fun/matrix_exp_action_handler.hpp:20:20: error: expected member name or ';' after declaration specifiers
+  static constexpr int p_max = 8;
+  ~~~~~~~~~~~~~~~~ ^
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/prim/mat/fun/matrix_exp_action_handler.hpp:21:10: error: unknown type name 'constexpr'
+  static constexpr int m_max = 55;
+         ^
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/prim/mat/fun/matrix_exp_action_handler.hpp:21:20: error: expected member name or ';' after declaration specifiers
+  static constexpr int m_max = 55;
+  ~~~~~~~~~~~~~~~~ ^
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/prim/mat/fun/matrix_exp_action_handler.hpp:22:10: error: unknown type name 'constexpr'
+  static constexpr double tol = 1.1e-16;
+         ^
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/prim/mat/fun/matrix_exp_action_handler.hpp:22:20: error: expected member name or ';' after declaration specifiers
+  static constexpr double tol = 1.1e-16;
+  ~~~~~~~~~~~~~~~~ ^
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/prim/mat/fun/matrix_exp_action_handler.hpp:25:29: error: function definition does not declare parameters
+  const std::vector<double> theta_m_single_precision{
+                            ^
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/trialr/StanHeaders/include/stan/math/prim/mat/fun/matrix_exp_action_handler.hpp:28:29: error: function definition does not declare parameters
+  const std::vector<double> theta_m_double_precision{
+                            ^
+fatal error: too many errors emitted, stopping now [-ferror-limit=]
+29 warnings and 20 errors generated.
+make: *** [Modules.o] Error 1
+ERROR: compilation failed for package ‘trialr’
+* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/trialr/old/trialr.Rcheck/trialr’
+
+```
 # ukbtools
 
-Version: 0.10.1
+Version: 0.11.0
 
 ## In both
 
@@ -7124,15 +7903,15 @@ Version: 0.10.1
       Note: found 5 marked UTF-8 strings
     ```
 
-# unpivotr
+# understandBPMN
 
-Version: 0.3.1
+Version: 1.1.0
 
 ## In both
 
 *   checking package dependencies ... ERROR
     ```
-    Package required but not available: ‘data.table’
+    Package required but not available: ‘devtools’
     
     See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
     manual.
@@ -7144,26 +7923,52 @@ Version: 0.2.0
 
 ## In both
 
+*   checking package dependencies ... NOTE
+    ```
+    Package suggested but not available for checking: ‘devtools’
+    ```
+
 *   checking data for non-ASCII characters ... NOTE
     ```
       Note: found 4494 marked UTF-8 strings
     ```
 
-# visdat
+# valr
 
-Version: 0.1.0
+Version: 0.4.1
 
 ## In both
 
-*   checking re-building of vignette outputs ... WARNING
+*   checking package dependencies ... NOTE
     ```
-    Error in re-building vignettes:
-      ...
-    Quitting from lines 157-163 (using_visdat.Rmd) 
-    Error: processing vignette 'using_visdat.Rmd' failed with diagnostics:
-    package or namespace load failed for 'plotly' in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]):
-     there is no package called 'data.table'
-    Execution halted
+    Package suggested but not available for checking: ‘devtools’
+    ```
+
+# vidger
+
+Version: 1.0.0
+
+## In both
+
+*   checking installed package size ... NOTE
+    ```
+      installed size is  6.2Mb
+      sub-directories of 1Mb or more:
+        data   4.0Mb
+        doc    1.7Mb
+    ```
+
+# visdat
+
+Version: 0.5.1
+
+## In both
+
+*   checking dependencies in R code ... NOTE
+    ```
+    Namespaces in Imports field not imported from:
+      ‘plotly’ ‘rlang’
+      All declared Imports should be used.
     ```
 
 # vlad
@@ -7172,17 +7977,43 @@ Version: 0.1.0
 
 ## In both
 
-*   checking package dependencies ... ERROR
+*   checking whether package ‘vlad’ can be installed ... ERROR
     ```
-    Package required but not available: ‘RcppArmadillo’
-    
-    See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-    manual.
+    Installation failed.
+    See ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/vlad/new/vlad.Rcheck/00install.out’ for details.
     ```
 
+## Installation
+
+### Devel
+
+```
+* installing *source* package ‘vlad’ ...
+** package ‘vlad’ successfully unpacked and MD5 sums checked
+** libs
+ccache clang++ -Qunused-arguments  -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/new/Rcpp/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/vlad/RcppArmadillo/include" -I/usr/local/include  -fopenmp -fPIC  -Wall -g -O2  -c RcppExports.cpp -o RcppExports.o
+clang: error: unsupported option '-fopenmp'
+make: *** [RcppExports.o] Error 1
+ERROR: compilation failed for package ‘vlad’
+* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/vlad/new/vlad.Rcheck/vlad’
+
+```
+### CRAN
+
+```
+* installing *source* package ‘vlad’ ...
+** package ‘vlad’ successfully unpacked and MD5 sums checked
+** libs
+ccache clang++ -Qunused-arguments  -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/old/Rcpp/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/vlad/RcppArmadillo/include" -I/usr/local/include  -fopenmp -fPIC  -Wall -g -O2  -c RcppExports.cpp -o RcppExports.o
+clang: error: unsupported option '-fopenmp'
+make: *** [RcppExports.o] Error 1
+ERROR: compilation failed for package ‘vlad’
+* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/vlad/old/vlad.Rcheck/vlad’
+
+```
 # vqtl
 
-Version: 2.0.3
+Version: 2.0.4
 
 ## In both
 
@@ -7191,6 +8022,20 @@ Version: 2.0.3
     Namespaces in Imports field not imported from:
       ‘iterators’ ‘knitr’ ‘purrr’ ‘testthat’
       All declared Imports should be used.
+    ```
+
+# VWPre
+
+Version: 1.1.0
+
+## In both
+
+*   checking installed package size ... NOTE
+    ```
+      installed size is  5.0Mb
+      sub-directories of 1Mb or more:
+        data   3.1Mb
+        doc    1.3Mb
     ```
 
 # wand
@@ -7214,8 +8059,8 @@ Version: 0.2.0
 ** package ‘wand’ successfully unpacked and MD5 sums checked
 Checking to see if libmagic is available...
 ** libs
-ccache clang++ -Qunused-arguments  -I/Library/Frameworks/R.framework/Resources/include -DNDEBUG -L/usr/local/include -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/new/Rcpp/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c RcppExports.cpp -o RcppExports.o
-ccache clang++ -Qunused-arguments  -I/Library/Frameworks/R.framework/Resources/include -DNDEBUG -L/usr/local/include -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/new/Rcpp/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c wand.cpp -o wand.o
+ccache clang++ -Qunused-arguments  -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG -L/usr/local/include -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/new/Rcpp/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c RcppExports.cpp -o RcppExports.o
+ccache clang++ -Qunused-arguments  -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG -L/usr/local/include -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/new/Rcpp/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c wand.cpp -o wand.o
 ccache clang++ -Qunused-arguments -dynamiclib -Wl,-headerpad_max_install_names -undefined dynamic_lookup -single_module -multiply_defined suppress -L/Library/Frameworks/R.framework/Resources/lib -L/usr/local/lib -o wand.so RcppExports.o wand.o -L/usr/local/lib -L/usr/lib -lmagic -F/Library/Frameworks/R.framework/.. -framework R -Wl,-framework -Wl,CoreFoundation
 ld: library not found for -lmagic
 clang: error: linker command failed with exit code 1 (use -v to see invocation)
@@ -7231,8 +8076,8 @@ ERROR: compilation failed for package ‘wand’
 ** package ‘wand’ successfully unpacked and MD5 sums checked
 Checking to see if libmagic is available...
 ** libs
-ccache clang++ -Qunused-arguments  -I/Library/Frameworks/R.framework/Resources/include -DNDEBUG -L/usr/local/include -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/old/Rcpp/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c RcppExports.cpp -o RcppExports.o
-ccache clang++ -Qunused-arguments  -I/Library/Frameworks/R.framework/Resources/include -DNDEBUG -L/usr/local/include -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/old/Rcpp/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c wand.cpp -o wand.o
+ccache clang++ -Qunused-arguments  -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG -L/usr/local/include -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/old/Rcpp/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c RcppExports.cpp -o RcppExports.o
+ccache clang++ -Qunused-arguments  -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG -L/usr/local/include -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/old/Rcpp/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c wand.cpp -o wand.o
 ccache clang++ -Qunused-arguments -dynamiclib -Wl,-headerpad_max_install_names -undefined dynamic_lookup -single_module -multiply_defined suppress -L/Library/Frameworks/R.framework/Resources/lib -L/usr/local/lib -o wand.so RcppExports.o wand.o -L/usr/local/lib -L/usr/lib -lmagic -F/Library/Frameworks/R.framework/.. -framework R -Wl,-framework -Wl,CoreFoundation
 ld: library not found for -lmagic
 clang: error: linker command failed with exit code 1 (use -v to see invocation)
@@ -7252,6 +8097,28 @@ Version: 0.2
       Note: found 1528 marked UTF-8 strings
     ```
 
+# weathercan
+
+Version: 0.2.8
+
+## In both
+
+*   checking package dependencies ... NOTE
+    ```
+    Packages suggested but not available for checking: ‘devtools’ ‘sf’
+    ```
+
+*   checking dependencies in R code ... NOTE
+    ```
+    Namespace in Imports field not imported from: ‘xml2’
+      All declared Imports should be used.
+    ```
+
+*   checking data for non-ASCII characters ... NOTE
+    ```
+      Note: found 25 marked UTF-8 strings
+    ```
+
 # wordbankr
 
 Version: 0.3.0
@@ -7264,46 +8131,18 @@ Version: 0.3.0
       All declared Imports should be used.
     ```
 
-# xesreadR
-
-Version: 0.2.2
-
-## In both
-
-*   checking package dependencies ... ERROR
-    ```
-    Package required but not available: ‘data.table’
-    
-    See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-    manual.
-    ```
-
 # XGR
 
-Version: 1.1.3
+Version: 1.1.4
 
 ## In both
 
-*   checking whether package ‘XGR’ can be installed ... WARNING
+*   checking installed package size ... NOTE
     ```
-    Found the following significant warnings:
-      Warning: package ‘igraph’ was built under R version 3.4.4
-      Warning: package ‘dnet’ was built under R version 3.4.4
-      Warning: package ‘hexbin’ was built under R version 3.4.3
-    See ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/XGR/new/XGR.Rcheck/00install.out’ for details.
-    ```
-
-# yardstick
-
-Version: 0.0.1
-
-## In both
-
-*   checking whether package ‘yardstick’ can be installed ... WARNING
-    ```
-    Found the following significant warnings:
-      Warning: package ‘broom’ was built under R version 3.4.4
-    See ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/yardstick/new/yardstick.Rcheck/00install.out’ for details.
+      installed size is  6.9Mb
+      sub-directories of 1Mb or more:
+        R      4.1Mb
+        data   1.1Mb
     ```
 
 # zFactor
@@ -7312,11 +8151,67 @@ Version: 0.1.7
 
 ## In both
 
-*   checking package dependencies ... ERROR
+*   checking dependencies in R code ... NOTE
     ```
-    Package required but not available: ‘data.table’
+    Namespace in Imports field not imported from: ‘rootSolve’
+      All declared Imports should be used.
+    ```
+
+# zFPKM
+
+Version: 1.2.0
+
+## In both
+
+*   checking re-building of vignette outputs ... WARNING
+    ```
+    ...
+    The following object is masked from 'package:S4Vectors':
     
-    See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-    manual.
+        expand
+    
+    trying URL 'ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE94nnn/GSE94802/suppl/GSE94802_Minkina_etal_normalized_FPKM.csv.gz'
+    Content type 'unknown' length 800733 bytes (781 KB)
+    ==================================================
+    trying URL 'ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE94nnn/GSE94802/suppl/GSE94802_Minkina_etal_raw_counts.csv.gz'
+    Content type 'unknown' length 574041 bytes (560 KB)
+    ==================================================
+    
+    Attaching package: 'limma'
+    
+    The following object is masked from 'package:BiocGenerics':
+    
+        plotMA
+    
+    Quitting from lines 108-122 (zFPKM.Rmd) 
+    Error: processing vignette 'zFPKM.Rmd' failed with diagnostics:
+    statmod package required but is not installed
+    Execution halted
+    ```
+
+*   checking R code for possible problems ... NOTE
+    ```
+    ...
+    PlotGaussianFitDF: no visible binding for global variable ‘density’
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/zFPKM/new/zFPKM.Rcheck/00_pkg_src/zFPKM/R/zfpkm.R:223)
+    PlotGaussianFitDF: no visible binding for global variable ‘log2fpkm’
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/zFPKM/new/zFPKM.Rcheck/00_pkg_src/zFPKM/R/zfpkm.R:223)
+    PlotGaussianFitDF: no visible binding for global variable ‘sample_name’
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/zFPKM/new/zFPKM.Rcheck/00_pkg_src/zFPKM/R/zfpkm.R:223)
+    PlotGaussianFitDF: no visible binding for global variable ‘log2fpkm’
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/zFPKM/new/zFPKM.Rcheck/00_pkg_src/zFPKM/R/zfpkm.R:227-233)
+    PlotGaussianFitDF: no visible binding for global variable ‘density’
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/zFPKM/new/zFPKM.Rcheck/00_pkg_src/zFPKM/R/zfpkm.R:227-233)
+    zFPKMCalc: no visible global function definition for ‘density’
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/zFPKM/new/zFPKM.Rcheck/00_pkg_src/zFPKM/R/zfpkm.R:162)
+    zFPKMTransform: no visible global function definition for ‘is’
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/zFPKM/new/zFPKM.Rcheck/00_pkg_src/zFPKM/R/zfpkm.R:125-127)
+    Undefined global functions or variables:
+      density dnorm is log2fpkm sample_name
+    Consider adding
+      importFrom("methods", "is")
+      importFrom("stats", "density", "dnorm")
+    to your NAMESPACE file (and ensure that your DESCRIPTION Imports field
+    contains 'methods').
     ```
 
