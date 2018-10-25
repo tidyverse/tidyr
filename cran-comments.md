@@ -1,6 +1,6 @@
 ## Test environments
 
-* OS X install: R 3.4
+* OS X install: R 3.5
 * win-builder: R-devel
 * travis-ci: R 3.1, R 3.2, R 3.3, R 3.4, R-devel
 
@@ -13,7 +13,7 @@
 
 We checked 571 reverse dependencies (518 from CRAN + 53 from BioConductor), comparing R CMD check results across CRAN and dev versions of this package.
 
- * We saw 5 new problems
+ * We saw 2 new problems
  * We failed to check 19 packages
 
 Issues with CRAN packages are summarised below.
@@ -21,24 +21,10 @@ Issues with CRAN packages are summarised below.
 ### New problems
 (This reports the first line of each new failure)
 
-* anomalize
-  checking examples ... ERROR
-  checking tests ...
-  checking re-building of vignette outputs ... WARNING
-  # Error: Must supply a symbol or a string as argument
-
 * ggfortify
   checking tests ...
   
   Appears to be unlreated: Lapack routine dgesv: system is exactly singular: U[4,4] = 0
-
-* InjurySeverityScore
-  checking examples ... ERROR
-  # Error: Must supply a symbol or a string as argument
-
-* pivot
-  checking tests ...
-  # Error: Must supply a symbol or a string as argument
 
 * postal
   checking tests ...
