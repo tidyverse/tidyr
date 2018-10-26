@@ -1,4 +1,4 @@
-# tidyr 0.8.1.9000
+# tidyr 0.8.2
 
 * `separate()` now accepts `NA` as a column name in the `into` argument to
   denote columns which are omitted from the result. (@markdly, #397).
