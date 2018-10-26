@@ -20,7 +20,6 @@ matrix:
       script: Rscript -e 'pkgdown::deploy_site_github(verbose = TRUE)'
       skip_cleanup: true
 
-  - r: release
   - r: oldrel
   - r: 3.3
   - r: 3.2
