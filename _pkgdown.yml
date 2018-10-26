@@ -6,7 +6,9 @@ home:
 
 template:
   package: tidytemplate
-  default_assets: false
+
+development:
+  mode: auto
 
 navbar:
   title: ~
