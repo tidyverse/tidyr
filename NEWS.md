@@ -1,3 +1,5 @@
+# tidyr 0.8.2.9000
+
 # tidyr 0.8.2
 
 * `separate()` now accepts `NA` as a column name in the `into` argument to
