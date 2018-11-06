@@ -89,3 +89,16 @@ in different places:
 | reshape(2)   | melt    | cast   |
 | spreadsheets | unpivot | pivot  |
 | databases    | fold    | unfold |
+
+## Getting help
+
+If you encounter a clear bug, please file a minimal reproducible example
+on [github](https://github.com/tidyverse/tidyr/issues). For questions
+and other discussion, please use
+[community.rstudio.com](https://community.rstudio.com/).
+
+-----
+
+Please note that the tidyr project is released with a [Contributor Code
+of Conduct](.github/CODE_OF_CONDUCT.md). By contributing to this
+project, you agree to abide by its terms.
