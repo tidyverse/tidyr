@@ -157,7 +157,7 @@ that don't appear in the data: to do so use expressions like
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p><code>crossing()</code> is similar to <code>expand.grid()</code>, this never
+    <p><code>crossing()</code> is similar to <code><a href='https://www.rdocumentation.org/packages/base/topics/expand.grid'>expand.grid()</a></code>, this never
 converts strings to factors, returns a <code>tbl_df</code> without additional
 attributes, and first factors vary slowest. <code>nesting()</code> is the
 complement to <code>crossing()</code>: it only keeps combinations of all variables
@@ -170,7 +170,7 @@ completing a data frame with missing combinations.</p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>library</span>(<span class='no'>dplyr</span>)
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>dplyr</span>)
 <span class='co'># All possible combinations of vs &amp; cyl, even those that aren't</span>
 <span class='co'># present in the data</span>
 <span class='fu'>expand</span>(<span class='no'>mtcars</span>, <span class='no'>vs</span>, <span class='no'>cyl</span>)</div><div class='output co'>#&gt; # A tibble: 6 x 2
@@ -193,9 +193,9 @@ completing a data frame with missing combinations.</p></div>
 #&gt; 5     1     6</div><div class='input'>
 <span class='co'># Implicit missings ---------------------------------------------------------</span>
 <span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='http://dplyr.tidyverse.org/reference/reexports.html'>tibble</a></span>(
-  <span class='kw'>year</span>   <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>2010</span>, <span class='fl'>2010</span>, <span class='fl'>2010</span>, <span class='fl'>2010</span>, <span class='fl'>2012</span>, <span class='fl'>2012</span>, <span class='fl'>2012</span>),
-  <span class='kw'>qtr</span>    <span class='kw'>=</span> <span class='fu'>c</span>(   <span class='fl'>1</span>,    <span class='fl'>2</span>,    <span class='fl'>3</span>,    <span class='fl'>4</span>,    <span class='fl'>1</span>,    <span class='fl'>2</span>,    <span class='fl'>3</span>),
-  <span class='kw'>return</span> <span class='kw'>=</span> <span class='fu'>rnorm</span>(<span class='fl'>7</span>)
+  <span class='kw'>year</span>   <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>2010</span>, <span class='fl'>2010</span>, <span class='fl'>2010</span>, <span class='fl'>2010</span>, <span class='fl'>2012</span>, <span class='fl'>2012</span>, <span class='fl'>2012</span>),
+  <span class='kw'>qtr</span>    <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(   <span class='fl'>1</span>,    <span class='fl'>2</span>,    <span class='fl'>3</span>,    <span class='fl'>4</span>,    <span class='fl'>1</span>,    <span class='fl'>2</span>,    <span class='fl'>3</span>),
+  <span class='kw'>return</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/Normal'>rnorm</a></span>(<span class='fl'>7</span>)
 )
 <span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>expand</span>(<span class='no'>year</span>, <span class='no'>qtr</span>)</div><div class='output co'>#&gt; # A tibble: 8 x 2
 #&gt;    year   qtr
@@ -255,11 +255,11 @@ completing a data frame with missing combinations.</p></div>
 <span class='co'># But some of the replications haven't happened yet, so we have</span>
 <span class='co'># incomplete data:</span>
 <span class='no'>experiment</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='http://dplyr.tidyverse.org/reference/reexports.html'>tibble</a></span>(
-  <span class='kw'>name</span> <span class='kw'>=</span> <span class='fu'>rep</span>(<span class='fu'>c</span>(<span class='st'>"Alex"</span>, <span class='st'>"Robert"</span>, <span class='st'>"Sam"</span>), <span class='fu'>c</span>(<span class='fl'>3</span>, <span class='fl'>2</span>, <span class='fl'>1</span>)),
-  <span class='kw'>trt</span>  <span class='kw'>=</span> <span class='fu'>rep</span>(<span class='fu'>c</span>(<span class='st'>"a"</span>, <span class='st'>"b"</span>, <span class='st'>"a"</span>), <span class='fu'>c</span>(<span class='fl'>3</span>, <span class='fl'>2</span>, <span class='fl'>1</span>)),
-  <span class='kw'>rep</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>3</span>, <span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>1</span>),
-  <span class='kw'>measurment_1</span> <span class='kw'>=</span> <span class='fu'>runif</span>(<span class='fl'>6</span>),
-  <span class='kw'>measurment_2</span> <span class='kw'>=</span> <span class='fu'>runif</span>(<span class='fl'>6</span>)
+  <span class='kw'>name</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/rep'>rep</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"Alex"</span>, <span class='st'>"Robert"</span>, <span class='st'>"Sam"</span>), <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>3</span>, <span class='fl'>2</span>, <span class='fl'>1</span>)),
+  <span class='kw'>trt</span>  <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/rep'>rep</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"a"</span>, <span class='st'>"b"</span>, <span class='st'>"a"</span>), <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>3</span>, <span class='fl'>2</span>, <span class='fl'>1</span>)),
+  <span class='kw'>rep</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>3</span>, <span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>1</span>),
+  <span class='kw'>measurment_1</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/Uniform'>runif</a></span>(<span class='fl'>6</span>),
+  <span class='kw'>measurment_2</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/Uniform'>runif</a></span>(<span class='fl'>6</span>)
 )
 
 <span class='co'># We can figure out the complete set of data with expand()</span>

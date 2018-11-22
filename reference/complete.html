@@ -124,7 +124,7 @@ useful for completing missing combinations of data.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>complete</span>(<span class='no'>data</span>, <span class='no'>...</span>, <span class='kw'>fill</span> <span class='kw'>=</span> <span class='fu'>list</span>())</pre>
+    <pre class="usage"><span class='fu'>complete</span>(<span class='no'>data</span>, <span class='no'>...</span>, <span class='kw'>fill</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>())</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -163,11 +163,11 @@ explicit missing values in the data set.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>library</span>(<span class='no'>dplyr</span>, <span class='kw'>warn.conflicts</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>dplyr</span>, <span class='kw'>warn.conflicts</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 <span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='http://dplyr.tidyverse.org/reference/reexports.html'>tibble</a></span>(
-  <span class='kw'>group</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>1</span>:<span class='fl'>2</span>, <span class='fl'>1</span>),
-  <span class='kw'>item_id</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>1</span>:<span class='fl'>2</span>, <span class='fl'>2</span>),
-  <span class='kw'>item_name</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"a"</span>, <span class='st'>"b"</span>, <span class='st'>"b"</span>),
+  <span class='kw'>group</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1</span>:<span class='fl'>2</span>, <span class='fl'>1</span>),
+  <span class='kw'>item_id</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1</span>:<span class='fl'>2</span>, <span class='fl'>2</span>),
+  <span class='kw'>item_name</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"a"</span>, <span class='st'>"b"</span>, <span class='st'>"b"</span>),
   <span class='kw'>value1</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>3</span>,
   <span class='kw'>value2</span> <span class='kw'>=</span> <span class='fl'>4</span>:<span class='fl'>6</span>
 )
@@ -179,7 +179,7 @@ explicit missing values in the data set.</p>
 #&gt; 3     2       1 a             NA     NA
 #&gt; 4     2       2 b              2      5</div><div class='input'>
 <span class='co'># You can also choose to fill in missing values</span>
-<span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>complete</span>(<span class='no'>group</span>, <span class='fu'><a href='expand.html'>nesting</a></span>(<span class='no'>item_id</span>, <span class='no'>item_name</span>), <span class='kw'>fill</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='kw'>value1</span> <span class='kw'>=</span> <span class='fl'>0</span>))</div><div class='output co'>#&gt; # A tibble: 4 x 5
+<span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>complete</span>(<span class='no'>group</span>, <span class='fu'><a href='expand.html'>nesting</a></span>(<span class='no'>item_id</span>, <span class='no'>item_name</span>), <span class='kw'>fill</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(<span class='kw'>value1</span> <span class='kw'>=</span> <span class='fl'>0</span>))</div><div class='output co'>#&gt; # A tibble: 4 x 5
 #&gt;   group item_id item_name value1 value2
 #&gt;   &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt;  &lt;int&gt;
 #&gt; 1     1       1 a              1      4

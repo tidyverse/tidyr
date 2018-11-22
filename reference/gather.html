@@ -159,7 +159,7 @@ value column in <code>NA</code>.</p></td>
     <tr>
       <th>convert</th>
       <td><p>If <code>TRUE</code> will automatically run
-<code>type.convert()</code> on the key column. This is useful if the column
+<code><a href='https://www.rdocumentation.org/packages/utils/topics/type.convert'>type.convert()</a></code> on the key column. This is useful if the column
 types are actually numeric, integer, or logical.</p></td>
     </tr>
     <tr>
@@ -174,35 +174,35 @@ which preserves the original ordering of the columns.</p></td>
 
     
     <p>Arguments for selecting columns are passed to
-<code><a href='http://www.rdocumentation.org/packages/tidyselect/topics/vars_select'>tidyselect::vars_select()</a></code> and are treated specially. Unlike other
+<code><a href='https://www.rdocumentation.org/packages/tidyselect/topics/vars_select'>tidyselect::vars_select()</a></code> and are treated specially. Unlike other
 verbs, selecting functions make a strict distinction between data
 expressions and context expressions.</p><ul>
 <li><p>A data expression is either a bare name like <code>x</code> or an expression
-like <code>x:y</code> or <code>c(x, y)</code>. In a data expression, you can only refer
+like <code>x:y</code> or <code><a href='https://www.rdocumentation.org/packages/base/topics/c'>c(x, y)</a></code>. In a data expression, you can only refer
 to columns from the data frame.</p></li>
 <li><p>Everything else is a context expression in which you can only
 refer to objects that you have defined with <code>&lt;-</code>.</p></li>
 </ul>
     <p>For instance, <code>col1:col3</code> is a data expression that refers to data
-columns, while <code>seq(start, end)</code> is a context expression that
+columns, while <code><a href='https://www.rdocumentation.org/packages/base/topics/seq'>seq(start, end)</a></code> is a context expression that
 refers to objects from the contexts.</p>
 <p>If you really need to refer to contextual objects from a data
 expression, you can unquote them with the tidy eval operator
 <code>!!</code>. This operator evaluates its argument in the context and
 inlines the result in the surrounding function call. For instance,
-<code>c(x, !! x)</code> selects the <code>x</code> column within the data frame and the
+<code><a href='https://www.rdocumentation.org/packages/base/topics/c'>c(x, !! x)</a></code> selects the <code>x</code> column within the data frame and the
 column referred to by the object <code>x</code> defined in the context (which
 can contain either a column name as string or a column position).</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>library</span>(<span class='no'>dplyr</span>)
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>dplyr</span>)
 <span class='co'># From http://stackoverflow.com/questions/1181060</span>
 <span class='no'>stocks</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='http://dplyr.tidyverse.org/reference/reexports.html'>tibble</a></span>(
-  <span class='kw'>time</span> <span class='kw'>=</span> <span class='fu'>as.Date</span>(<span class='st'>'2009-01-01'</span>) + <span class='fl'>0</span>:<span class='fl'>9</span>,
-  <span class='kw'>X</span> <span class='kw'>=</span> <span class='fu'>rnorm</span>(<span class='fl'>10</span>, <span class='fl'>0</span>, <span class='fl'>1</span>),
-  <span class='kw'>Y</span> <span class='kw'>=</span> <span class='fu'>rnorm</span>(<span class='fl'>10</span>, <span class='fl'>0</span>, <span class='fl'>2</span>),
-  <span class='kw'>Z</span> <span class='kw'>=</span> <span class='fu'>rnorm</span>(<span class='fl'>10</span>, <span class='fl'>0</span>, <span class='fl'>4</span>)
+  <span class='kw'>time</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/as.Date'>as.Date</a></span>(<span class='st'>'2009-01-01'</span>) + <span class='fl'>0</span>:<span class='fl'>9</span>,
+  <span class='kw'>X</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/Normal'>rnorm</a></span>(<span class='fl'>10</span>, <span class='fl'>0</span>, <span class='fl'>1</span>),
+  <span class='kw'>Y</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/Normal'>rnorm</a></span>(<span class='fl'>10</span>, <span class='fl'>0</span>, <span class='fl'>2</span>),
+  <span class='kw'>Z</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/Normal'>rnorm</a></span>(<span class='fl'>10</span>, <span class='fl'>0</span>, <span class='fl'>4</span>)
 )
 
 <span class='fu'>gather</span>(<span class='no'>stocks</span>, <span class='no'>stock</span>, <span class='no'>price</span>, -<span class='no'>time</span>)</div><div class='output co'>#&gt; # A tibble: 30 x 3
@@ -233,7 +233,7 @@ can contain either a column name as string or a column position).</p>
 #&gt; 10 2009-01-10 X     -1.30  
 #&gt; # ... with 20 more rows</div><div class='input'>
 <span class='co'># get first observation for each Species in iris data -- base R</span>
-<span class='no'>mini_iris</span> <span class='kw'>&lt;-</span> <span class='no'>iris</span>[<span class='fu'>c</span>(<span class='fl'>1</span>, <span class='fl'>51</span>, <span class='fl'>101</span>), ]
+<span class='no'>mini_iris</span> <span class='kw'>&lt;-</span> <span class='no'>iris</span>[<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>51</span>, <span class='fl'>101</span>), ]
 <span class='co'># gather Sepal.Length, Sepal.Width, Petal.Length, Petal.Width</span>
 <span class='fu'>gather</span>(<span class='no'>mini_iris</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='no'>flower_att</span>, <span class='kw'>value</span> <span class='kw'>=</span> <span class='no'>measurement</span>,
        <span class='no'>Sepal.Length</span>, <span class='no'>Sepal.Width</span>, <span class='no'>Petal.Length</span>, <span class='no'>Petal.Width</span>)</div><div class='output co'>#&gt;       Species   flower_att measurement
@@ -263,7 +263,7 @@ can contain either a column name as string or a column position).</p>
 #&gt; 11 versicolor  Petal.Width         1.4
 #&gt; 12  virginica  Petal.Width         2.5</div><div class='input'>
 <span class='co'># repeat iris example using dplyr and the pipe operator</span>
-<span class='fu'>library</span>(<span class='no'>dplyr</span>)
+<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>dplyr</span>)
 <span class='no'>mini_iris</span> <span class='kw'>&lt;-</span>
   <span class='no'>iris</span> <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='http://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span>(<span class='no'>Species</span>) <span class='kw'>%&gt;%</span>

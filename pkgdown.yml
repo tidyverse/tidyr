@@ -1,6 +1,6 @@
 pandoc: '2.2'
-pkgdown: 1.1.0.9000
-pkgdown_sha: 36bedb20e8d68ee91d33834c76f0e3dd03d5086a
+pkgdown: 1.2.0.9000
+pkgdown_sha: 44460e6d6aae008684f68bf48a8a51e18c38a08a
 articles:
   tidy-data: tidy-data.html
 urls:

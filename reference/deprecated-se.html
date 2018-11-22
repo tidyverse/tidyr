@@ -132,7 +132,7 @@ with NSE verbs. Thus, the underscored versions are now superfluous.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>complete_</span>(<span class='no'>data</span>, <span class='no'>cols</span>, <span class='kw'>fill</span> <span class='kw'>=</span> <span class='fu'>list</span>(), <span class='no'>...</span>)
+    <pre class="usage"><span class='fu'>complete_</span>(<span class='no'>data</span>, <span class='no'>cols</span>, <span class='kw'>fill</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(), <span class='no'>...</span>)
 
 <span class='fu'>drop_na_</span>(<span class='no'>data</span>, <span class='no'>vars</span>)
 
@@ -145,12 +145,12 @@ with NSE verbs. Thus, the underscored versions are now superfluous.</p>
 <span class='fu'>extract_</span>(<span class='no'>data</span>, <span class='no'>col</span>, <span class='no'>into</span>, <span class='kw'>regex</span> <span class='kw'>=</span> <span class='st'>"([[:alnum:]]+)"</span>, <span class='kw'>remove</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>convert</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)
 
-<span class='fu'>fill_</span>(<span class='no'>data</span>, <span class='no'>fill_cols</span>, <span class='kw'>.direction</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"down"</span>, <span class='st'>"up"</span>))
+<span class='fu'>fill_</span>(<span class='no'>data</span>, <span class='no'>fill_cols</span>, <span class='kw'>.direction</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"down"</span>, <span class='st'>"up"</span>))
 
 <span class='fu'>gather_</span>(<span class='no'>data</span>, <span class='no'>key_col</span>, <span class='no'>value_col</span>, <span class='no'>gather_cols</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>convert</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>factor_key</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
-<span class='fu'>nest_</span>(<span class='no'>data</span>, <span class='no'>key_col</span>, <span class='kw'>nest_cols</span> <span class='kw'>=</span> <span class='fu'>character</span>())
+<span class='fu'>nest_</span>(<span class='no'>data</span>, <span class='no'>key_col</span>, <span class='kw'>nest_cols</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/character'>character</a></span>())
 
 <span class='fu'>separate_rows_</span>(<span class='no'>data</span>, <span class='no'>cols</span>, <span class='kw'>sep</span> <span class='kw'>=</span> <span class='st'>"[^[:alnum:].]+"</span>, <span class='kw'>convert</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
@@ -216,7 +216,7 @@ The should be one group (defined by <code>()</code>) for each element of <code>i
     </tr>
     <tr>
       <th>convert</th>
-      <td><p>If <code>TRUE</code>, will run <code>type.convert()</code> with
+      <td><p>If <code>TRUE</code>, will run <code><a href='https://www.rdocumentation.org/packages/utils/topics/type.convert'>type.convert()</a></code> with
 <code>as.is = TRUE</code> on new columns. This is useful if the component
 columns are integer, numeric or logical.</p></td>
     </tr>
@@ -264,7 +264,7 @@ which preserves the original ordering of the columns.</p></td>
 happens when there are too many pieces. There are three valid options:</p><ul>
 <li><p>"warn" (the default): emit a warning and drop extra values.</p></li>
 <li><p>"drop": drop any extra values without a warning.</p></li>
-<li><p>"merge": only splits at most <code>length(into)</code> times</p></li>
+<li><p>"merge": only splits at most <code><a href='https://www.rdocumentation.org/packages/base/topics/length'>length(into)</a></code> times</p></li>
 </ul></td>
     </tr>
     <tr>

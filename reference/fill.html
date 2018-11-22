@@ -122,7 +122,7 @@ each time they change.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>fill</span>(<span class='no'>data</span>, <span class='no'>...</span>, <span class='kw'>.direction</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"down"</span>, <span class='st'>"up"</span>))</pre>
+    <pre class="usage"><span class='fu'>fill</span>(<span class='no'>data</span>, <span class='no'>...</span>, <span class='kw'>.direction</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"down"</span>, <span class='st'>"up"</span>))</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -153,7 +153,7 @@ in list.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'>data.frame</span>(<span class='kw'>Month</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>12</span>, <span class='kw'>Year</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>2000</span>, <span class='fu'>rep</span>(<span class='fl'>NA</span>, <span class='fl'>11</span>)))
+    <pre class="examples"><div class='input'><span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/data.frame'>data.frame</a></span>(<span class='kw'>Month</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>12</span>, <span class='kw'>Year</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>2000</span>, <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/rep'>rep</a></span>(<span class='fl'>NA</span>, <span class='fl'>11</span>)))
 <span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>fill</span>(<span class='no'>Year</span>)</div><div class='output co'>#&gt;    Month Year
 #&gt; 1      1 2000
 #&gt; 2      2 2000

@@ -148,9 +148,9 @@ value.
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>library</span>(<span class='no'>dplyr</span>)
-<span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='http://dplyr.tidyverse.org/reference/reexports.html'>tibble</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>NA</span>), <span class='kw'>y</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"a"</span>, <span class='fl'>NA</span>, <span class='st'>"b"</span>), <span class='kw'>z</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='fl'>1</span>:<span class='fl'>5</span>, <span class='kw'>NULL</span>, <span class='fl'>10</span>:<span class='fl'>20</span>))
-<span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>replace_na</span>(<span class='fu'>list</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='st'>"unknown"</span>))</div><div class='output co'>#&gt; # A tibble: 3 x 3
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>dplyr</span>)
+<span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='http://dplyr.tidyverse.org/reference/reexports.html'>tibble</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>NA</span>), <span class='kw'>y</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"a"</span>, <span class='fl'>NA</span>, <span class='st'>"b"</span>), <span class='kw'>z</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(<span class='fl'>1</span>:<span class='fl'>5</span>, <span class='kw'>NULL</span>, <span class='fl'>10</span>:<span class='fl'>20</span>))
+<span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>replace_na</span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='st'>"unknown"</span>))</div><div class='output co'>#&gt; # A tibble: 3 x 3
 #&gt;       x y       z         
 #&gt;   &lt;dbl&gt; &lt;chr&gt;   &lt;list&gt;    
 #&gt; 1     1 a       &lt;int [5]&gt; 
@@ -162,7 +162,7 @@ value.
 #&gt; 2     2 &lt;NA&gt;  &lt;NULL&gt;    
 #&gt; 3     0 b     &lt;int [11]&gt;</div><div class='input'>
 <span class='co'># NULL are the list-col equivalent of NAs</span>
-<span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>replace_na</span>(<span class='fu'>list</span>(<span class='kw'>z</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='fl'>5</span>)))</div><div class='output co'>#&gt; # A tibble: 3 x 3
+<span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>replace_na</span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(<span class='kw'>z</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(<span class='fl'>5</span>)))</div><div class='output co'>#&gt; # A tibble: 3 x 3
 #&gt;       x y     z         
 #&gt;   &lt;dbl&gt; &lt;chr&gt; &lt;list&gt;    
 #&gt; 1     1 a     &lt;int [5]&gt; 
