@@ -4,6 +4,10 @@ test_that("full_seq errors if sequence isn't regular", {
   expect_error(full_seq(c(1, 3, 4), 2), "not a regular sequence")
 })
 
+test_that("full_seq doesn't error if sequence isn't regular and tol is set to Inf", {
+  expect_output(str(full_seq(c(1, 3, 4), 2, tol = Inf)), "num")
+})
+
 test_that("sequences don't have to start at zero", {
   expect_equal(full_seq(c(1, 5), 2), c(1, 3, 5))
 })
