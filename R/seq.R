@@ -19,7 +19,7 @@ full_seq <- function(x, period, tol = 1e-6) {
 full_seq.numeric <- function(x, period, tol = 1e-6) {
   rng <- range(x, na.rm = TRUE)
   if (any((x - rng[1]) %% period > tol)) {
-    stop("`x` is not a regular sequence.", call. = FALSE)
+    stop("`x` is not a regular sequence. Change `tol` to `Inf` if this is expected.", call. = FALSE)
   }
 
   seq(rng[1], rng[2], by = period)
