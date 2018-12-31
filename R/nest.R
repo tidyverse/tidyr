@@ -67,6 +67,7 @@ nest.data.frame <- function(data, ..., .key = "data") {
 
     out
   } else {
-    dplyr::nest_by(data, !!!syms(group_vars), .key = !!key_var)
+    out <- dplyr::select(data, !!!syms(group_vars), !!!syms(nest_vars))
+    dplyr::group_nest(out, !!!syms(group_vars), .key = key_var)
   }
 }

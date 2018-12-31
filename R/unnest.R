@@ -115,7 +115,7 @@ unnest.data.frame <- function(data, ..., .drop = NA, .id = NULL,
 
   unnested_dataframe <- map(nest_types$dataframe %||% list(), function(.){
     if (length(.) == 0L) {
-      attr(., "ptype") %||%  data.frame()
+      attr(., "ptype") %||% data.frame()
     } else {
       dplyr::bind_rows(., .id = .id)
     }
