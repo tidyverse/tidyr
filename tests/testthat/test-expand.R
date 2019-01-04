@@ -53,17 +53,8 @@ test_that("preserves NAs", {
 })
 
 test_that("crossing preserves factor levels", {
-  x_na_lev <- factor(c(1, NA), exclude = NULL)
-  expect_equal(levels(crossing(x = x_na_lev)$x), c("1", NA))
-
-  x_na_lev_extra <- factor(c(1, NA), levels = c(1, 2, NA), exclude = NULL)
-  expect_equal(levels(crossing(x = x_na_lev_extra)$x), c("1", "2", NA))
-
-  x_no_na_lev <- factor(c(1, NA))
-  expect_equal(levels(crossing(x = x_no_na_lev)$x), "1")
-
-  x_no_na_lev_extra <- factor(c(1, NA), levels = c(1, 2))
-  expect_equal(levels(crossing(x = x_no_na_lev_extra)$x), c("1", "2"))
+  x_na_lev_extra <- factor(c("a", NA), levels = c("a", "b", NA), exclude = NULL)
+  expect_equal(levels(crossing(x = x_na_lev_extra)$x), c("a", "b", NA))
 })
 
 test_that("zero length numeric & character inputs are automatically dropped", {

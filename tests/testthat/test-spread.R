@@ -261,3 +261,17 @@ test_that("spread with fill replaces implicit missing values", {
   out <- spread(df, key, value, fill = 2, drop = FALSE)
   expect_equal(out, tibble(a = 1, b = 2))
 })
+
+test_that("ulevels preserves original factor levels", {
+  x_na_lev <- factor(c("a", NA), exclude = NULL)
+  expect_equal(levels(ulevels(x_na_lev)), c("a", NA))
+
+  x_na_lev_extra <- factor(c("a", NA), levels = c("a", "b", NA), exclude = NULL)
+  expect_equal(levels(ulevels(x_na_lev_extra)), c("a", "b", NA))
+
+  x_no_na_lev <- factor(c("a", NA))
+  expect_equal(levels(ulevels(x_no_na_lev)), "a")
+
+  x_no_na_lev_extra <- factor(c("a", NA), levels = c("a", "b"))
+  expect_equal(levels(ulevels(x_no_na_lev_extra)), c("a", "b"))
+})
