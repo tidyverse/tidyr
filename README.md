@@ -3,10 +3,15 @@
 
 # tidyr <a href='https:/tidyr.tidyverse.org'><img src='man/figures/logo.png' align="right" height="139" /></a>
 
-[![Build
-Status](https://travis-ci.org/tidyverse/tidyr.svg?branch=master)](https://travis-ci.org/tidyverse/tidyr)
-[![codecov.io](http://codecov.io/github/tidyverse/tidyr/coverage.svg?branch=master)](http://codecov.io/github/tidyverse/tidyr?branch=master)
-[![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/tidyr)](https://cran.r-project.org/package=tidyr)
+<!-- badges: start -->
+
+[![CRAN
+status](https://www.r-pkg.org/badges/version/tidyr)](https://cran.r-project.org/package=tidyr)
+[![Travis build
+status](https://travis-ci.org/tidyverse/tidyr.svg?branch=master)](https://travis-ci.org/tidyverse/tidyr)
+[![Codecov test
+coverage](https://codecov.io/gh/tidyverse/tidyr/branch/master/graph/badge.svg)](https://codecov.io/gh/tidyverse/tidyr?branch=master)
+<!-- badges: end -->
 
 ## Overview
 
