@@ -146,9 +146,10 @@ split_labels <- function(df, id, drop = TRUE) {
 }
 ulevels <- function(x) {
   if (is.factor(x)) {
+    orig_levs <- levels(x)
     x <- addNA(x, ifany = TRUE)
     levs <- levels(x)
-    factor(levs, levels = levs, ordered = is.ordered(x))
+    factor(levs, levels = orig_levs, ordered = is.ordered(x), exclude = NULL)
   } else {
     sort(unique(x), na.last = TRUE)
   }

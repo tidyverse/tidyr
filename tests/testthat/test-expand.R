@@ -52,6 +52,11 @@ test_that("preserves NAs", {
   expect_equal(nesting(x)$x, x)
 })
 
+test_that("crossing preserves factor levels", {
+  x_na_lev_extra <- factor(c("a", NA), levels = c("a", "b", NA), exclude = NULL)
+  expect_equal(levels(crossing(x = x_na_lev_extra)$x), c("a", "b", NA))
+})
+
 test_that("zero length numeric & character inputs are automatically dropped", {
   tb <- tibble(x = 1:5)
   expect_equal(expand(tb, x, y = numeric()), tb)
