@@ -137,9 +137,9 @@ you notice that you have columns that are not variables.</p>
       <td><p>Names of new key and value columns, as strings or
 symbols.</p>
 <p>This argument is passed by expression and supports
-<a href='https://rlang.r-lib.org/reference/quasiquotation.html'>quasiquotation</a> (you can unquote strings
+<a href='https://www.rdocumentation.org/packages/rlang/topics/quasiquotation'>quasiquotation</a> (you can unquote strings
 and symbols). The name is captured from the expression with
-<code><a href='https://rlang.r-lib.org/reference/quotation.html'>rlang::ensym()</a></code> (note that this kind of interface where
+<code><a href='https://www.rdocumentation.org/packages/rlang/topics/quotation'>rlang::ensym()</a></code> (note that this kind of interface where
 symbols do not represent actual objects is now discouraged in the
 tidyverse; we support it here for backward compatibility).</p></td>
     </tr>
@@ -218,7 +218,7 @@ can contain either a column name as string or a column position).</p>
 #&gt;  8 2009-01-08 X      0.468 
 #&gt;  9 2009-01-09 X      0.363 
 #&gt; 10 2009-01-10 X     -1.30  
-#&gt; # ... with 20 more rows</div><div class='input'><span class='no'>stocks</span> <span class='kw'>%&gt;%</span> <span class='fu'>gather</span>(<span class='no'>stock</span>, <span class='no'>price</span>, -<span class='no'>time</span>)</div><div class='output co'>#&gt; # A tibble: 30 x 3
+#&gt; # … with 20 more rows</div><div class='input'><span class='no'>stocks</span> <span class='kw'>%&gt;%</span> <span class='fu'>gather</span>(<span class='no'>stock</span>, <span class='no'>price</span>, -<span class='no'>time</span>)</div><div class='output co'>#&gt; # A tibble: 30 x 3
 #&gt;    time       stock   price
 #&gt;    &lt;date&gt;     &lt;chr&gt;   &lt;dbl&gt;
 #&gt;  1 2009-01-01 X     -1.63  
@@ -231,7 +231,7 @@ can contain either a column name as string or a column position).</p>
 #&gt;  8 2009-01-08 X      0.468 
 #&gt;  9 2009-01-09 X      0.363 
 #&gt; 10 2009-01-10 X     -1.30  
-#&gt; # ... with 20 more rows</div><div class='input'>
+#&gt; # … with 20 more rows</div><div class='input'>
 <span class='co'># get first observation for each Species in iris data -- base R</span>
 <span class='no'>mini_iris</span> <span class='kw'>&lt;-</span> <span class='no'>iris</span>[<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>51</span>, <span class='fl'>101</span>), ]
 <span class='co'># gather Sepal.Length, Sepal.Width, Petal.Length, Petal.Width</span>
