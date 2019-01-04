@@ -1,5 +1,7 @@
 # tidyr 0.8.2.9000
 
+* `crossing()` preserves factor levels (#410).
+
 # tidyr 0.8.2
 
 * `separate()` now accepts `NA` as a column name in the `into` argument to
@@ -8,8 +10,6 @@
 * Minor updates to ensure compatibility with dependencies.
 
 # tidyr 0.8.1
-
-* `crossing()` preserves factor levels (#410).
 
 * `unnest()` weakens test of "atomicity" to restore previous behaviour when
   unnesting factors and dates (#407).
