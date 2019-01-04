@@ -4,12 +4,23 @@ language: R
 sudo: false
 cache: packages
 
-r:
-# - 3.1 # tidyselect requires 3.2
-- 3.2
-- oldrel
-- release
-- devel
+matrix:
+  include:
+  - r: devel
+  - r: release
+    after_success:
+    - Rscript -e 'covr::codecov()'
 
-after_success:
-  - Rscript -e 'covr::codecov()'
+    r_github_packages:
+    - tidyverse/tidytemplate
+    - r-lib/pkgdown
+
+    deploy:
+      provider: script
+      script: Rscript -e 'pkgdown::deploy_site_github(verbose = TRUE)'
+      skip_cleanup: true
+
+  - r: oldrel
+  - r: 3.3
+  - r: 3.2
+  - r: 3.1

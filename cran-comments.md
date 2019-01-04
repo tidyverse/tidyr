@@ -1,8 +1,8 @@
 ## Test environments
 
-* OS X install: R 3.4
+* OS X install: R 3.5
 * win-builder: R-devel
-* travis-ci: R 3.2, R 3.3, R 3.4, R-devel
+* travis-ci: R 3.1, R 3.2, R 3.3, R 3.4, R-devel
 
 ## R CMD check results
 
@@ -10,46 +10,44 @@
 
 ## revdepcheck results
 
-We checked 364 reverse dependencies (338 from CRAN + 26 from BioConductor), comparing R CMD check results across CRAN and dev versions of this package.
+We checked 571 reverse dependencies (518 from CRAN + 53 from BioConductor), comparing R CMD check results across CRAN and dev versions of this package.
 
- * We saw 4 new problems
- * We failed to check 5 packages
+ * We saw 2 new problems
+ * We failed to check 19 packages
 
 Issues with CRAN packages are summarised below.
-
-All maintainers were notified on Jan 7, and again today.
 
 ### New problems
 (This reports the first line of each new failure)
 
-* GetTDData
-  checking examples ... ERROR
-  checking re-building of vignette outputs ... WARNING
+* ggfortify
+  checking tests ...
   
-  This is due to a tidyr API change: author was notified 3 weeks ago.
+  Appears to be unlreated: Lapack routine dgesv: system is exactly singular: U[4,4] = 0
 
-* jpmesh
-  checking installed package size ... NOTE
+* postal
+  checking tests ...
   
-  It seems unlikely that this is related to tidyr, but I'm not sure why
-  the installed size of the R directory would (a) be so large or (b)
-  change.
-
-* survtmle
-  checking examples ... ERROR
-  checking re-building of vignette outputs ... WARNING
-  
-  Same problem as GetTDData
-
-* syuzhet
-  checking installed package size ... NOTE
-  
-  Same problem as jpmesh
+  Appears to be unrelated: "cannot open the connection"
 
 ### Failed to check
 
+* ALA4R            (check timed out)
 * anomalyDetection (failed to install)
+* circumplex       (failed to install)
+* colorednoise     (failed to install)
 * dynfrail         (failed to install)
+* ggstatsplot      (check timed out)
+* HTSSIP           (check timed out)
+* iotables         (failed to install)
+* morse            (failed to install)
+* nlmixr           (failed to install)
 * pmc              (check timed out)
-* visdat           (NA)
+* ppcSpatial       (failed to install)
+* prisonbrief      (failed to install)
+* qdap             (failed to install)
+* SCORPIUS         (failed to install)
+* sf               (failed to install)
+* trialr           (failed to install)
+* vlad             (failed to install)
 * wand             (failed to install)

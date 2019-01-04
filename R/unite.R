@@ -10,7 +10,7 @@
 #'   This argument is passed by expression and supports
 #'   [quasiquotation][rlang::quasiquotation] (you can unquote strings
 #'   and symbols). The name is captured from the expression with
-#'   [rlang::quo_name()] (note that this kind of interface where
+#'   [rlang::ensym()] (note that this kind of interface where
 #'   symbols do not represent actual objects is now discouraged in the
 #'   tidyverse; we support it here for backward compatibility).
 #' @param sep Separator to use between values.
@@ -30,7 +30,7 @@ unite <- function(data, col, ..., sep = "_", remove = TRUE) {
 }
 #' @export
 unite.data.frame <- function(data, col, ..., sep = "_", remove = TRUE) {
-  var <- quo_name(enquo(col))
+  var <- as_string(ensym2(col))
 
   if (dots_n(...) == 0) {
     from_vars <- colnames(data)

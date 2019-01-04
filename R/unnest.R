@@ -1,7 +1,7 @@
 #' Unnest a list column.
 #'
 #' If you have a list-column, this makes each element of the list its own
-#' row. `unnest()` can handle list-columns that can atomic vectors, lists, or
+#' row. `unnest()` can handle list-columns that contain atomic vectors, lists, or
 #' data frames (but not a mixture of the different types).
 #'
 #' If you unnest multiple columns, parallel entries must have the same length
@@ -79,7 +79,7 @@ unnest <- function(data, ..., .drop = NA, .id = NULL, .sep = NULL, .preserve = N
 #' @export
 unnest.data.frame <- function(data, ..., .drop = NA, .id = NULL,
                               .sep = NULL, .preserve = NULL) {
-  preserve <- tidyselect::vars_select(names(data), !!! enquo(.preserve))
+  preserve <- tidyselect::vars_select(names(data), !!enquo(.preserve))
   quos <- quos(...)
   if (is_empty(quos)) {
     list_cols <- names(data)[map_lgl(data, is_list)]

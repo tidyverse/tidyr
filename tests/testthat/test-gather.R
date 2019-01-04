@@ -95,24 +95,6 @@ test_that("can gather all atomic vectors", {
   df4 <- data.frame(x = 1, y = "a", stringsAsFactors = FALSE)
   df5 <- data.frame(x = 1, y = 1 + 1i, stringsAsFactors = FALSE)
 
-  gathered <- function(val) {
-    data.frame(x = 1, key = "y", val = val, stringsAsFactors = FALSE)
-  }
-
-  expect_equal(gather(df1, key, val, -x), gathered(FALSE))
-  expect_equal(gather(df2, key, val, -x), gathered(1L))
-  expect_equal(gather(df3, key, val, -x), gathered(1))
-  expect_equal(gather(df4, key, val, -x), gathered("a"))
-  expect_equal(gather(df5, key, val, -x), gathered(1 + 1i))
-})
-
-test_that("can gather all atomic vectors", {
-  df1 <- data.frame(x = 1, y = FALSE)
-  df2 <- data.frame(x = 1, y = 1L)
-  df3 <- data.frame(x = 1, y = 1)
-  df4 <- data.frame(x = 1, y = "a", stringsAsFactors = FALSE)
-  df5 <- data.frame(x = 1, y = 1 + 1i, stringsAsFactors = FALSE)
-
   gathered_val <- function(val) {
     data.frame(x = 1, key = "y", val = val, stringsAsFactors = FALSE)
   }

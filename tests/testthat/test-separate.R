@@ -100,13 +100,24 @@ test_that("overwrites existing columns", {
   expect_equal(rs$x, "a")
 })
 
+test_that("drops NA columns", {
+  df <- tibble(x = c(NA, "ab", "cd"))
+  out <- separate(df, x, c(NA, "y"), 1)
+  expect_equal(names(out), "y")
+  expect_equal(out$y, c(NA, "b", "d"))
+})
 
 test_that("checks type of `into` and `sep`", {
   df <- tibble(x = "a:b")
-  expect_error(separate(df, x, "x", FALSE), "must be either numeric or character")
-  expect_error(separate(df, x, FALSE), "must be a character vector")
+  expect_error(
+    separate(df, x, "x", FALSE),
+    "must be either numeric or character"
+  )
+  expect_error(
+    separate(df, x, FALSE),
+    "must be a character vector"
+  )
 })
-
 
 test_that("list_indices truncates long warnings", {
   expect_equal(list_indices(letters, max = 3), "a, b, c, ...")

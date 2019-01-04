@@ -12,7 +12,7 @@
 #'   This argument is passed by expression and supports
 #'   [quasiquotation][rlang::quasiquotation] (you can unquote strings
 #'   and symbols). The name is captured from the expression with
-#'   [rlang::quo_name()] (note that this kind of interface where
+#'   [rlang::ensym()] (note that this kind of interface where
 #'   symbols do not represent actual objects is now discouraged in the
 #'   tidyverse; we support it here for backward compatibility).
 #' @seealso [unnest()] for the inverse operation.
@@ -35,7 +35,7 @@ nest <- function(data, ..., .key = "data") {
 }
 #' @export
 nest.data.frame <- function(data, ..., .key = "data") {
-  key_var <- quo_name(enexpr(.key))
+  key_var <- as_string(ensym2(.key))
 
   nest_vars <- unname(tidyselect::vars_select(names(data), ...))
   if (is_empty(nest_vars)) {

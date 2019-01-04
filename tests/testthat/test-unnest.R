@@ -35,7 +35,10 @@ test_that("can unnested lists", {
 
 test_that("elements must all be of same type", {
   df <- tibble(x = list(1, "a"))
-  expect_error(unnest(df), "(incompatible type)|(numeric to character)|(character to numeric)")
+  expect_error(
+    unnest(df),
+    "(incompatible type)|(numeric to character)|(character to numeric)"
+  )
 })
 
 test_that("can't combine vectors and data frames", {

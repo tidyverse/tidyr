@@ -37,7 +37,7 @@
 #'   This argument is passed by expression and supports
 #'   [quasiquotation][rlang::quasiquotation] (you can unquote strings
 #'   and symbols). The name is captured from the expression with
-#'   [rlang::quo_name()] (note that this kind of interface where
+#'   [rlang::ensym()] (note that this kind of interface where
 #'   symbols do not represent actual objects is now discouraged in the
 #'   tidyverse; we support it here for backward compatibility).
 #' @param ... A selection of columns. If empty, all variables are
@@ -49,7 +49,7 @@
 #'   value column in `NA`.
 #' @param convert If `TRUE` will automatically run
 #'   [type.convert()] on the key column. This is useful if the column
-#'   names are actually numeric, integer, or logical.
+#'   types are actually numeric, integer, or logical.
 #' @param factor_key If `FALSE`, the default, the key values will be
 #'   stored as a character vector. If `TRUE`, will be stored as a factor,
 #'   which preserves the original ordering of the columns.
@@ -91,8 +91,8 @@ gather <- function(data, key = "key", value = "value", ...,
 gather.data.frame <- function(data, key = "key", value = "value", ...,
                               na.rm = FALSE, convert = FALSE,
                               factor_key = FALSE) {
-  key_var <- quo_name(enexpr(key))
-  value_var <- quo_name(enexpr(value))
+  key_var <- as_string(ensym2(key))
+  value_var <- as_string(ensym2(value))
 
   quos <- quos(...)
   if (is_empty(quos)) {

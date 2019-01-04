@@ -4,7 +4,8 @@
 \alias{unnest}
 \title{Unnest a list column.}
 \usage{
-unnest(data, ..., .drop = NA, .id = NULL, .sep = NULL, .preserve = NULL)
+unnest(data, ..., .drop = NA, .id = NULL, .sep = NULL,
+  .preserve = NULL)
 }
 \arguments{
 \item{data}{A data frame.}
@@ -31,7 +32,7 @@ will be duplicated in the same way as atomic vectors. This has
 }
 \description{
 If you have a list-column, this makes each element of the list its own
-row. \code{unnest()} can handle list-columns that can atomic vectors, lists, or
+row. \code{unnest()} can handle list-columns that contain atomic vectors, lists, or
 data frames (but not a mixture of the different types).
 }
 \details{

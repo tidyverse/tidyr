@@ -1,3 +1,5 @@
+url: https://tidyr.tidyverse.org
+
 home:
   strip_header: true
   links:
@@ -6,7 +8,9 @@ home:
 
 template:
   package: tidytemplate
-  default_assets: false
+
+# development:
+#   mode: auto
 
 navbar:
   title: ~
@@ -42,6 +46,7 @@ reference:
   - fill
   - full_seq
   - replace_na
+  - uncount
 
 - title: Data
   contents:
