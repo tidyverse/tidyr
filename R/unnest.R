@@ -82,7 +82,6 @@ unnest.data.frame <- function(data, ..., .drop = NA, .id = NULL,
 
   # to address issue #483 (unnesting 0 row tibble drops unnested columns)
   if (nrow(data) == 0){
-    warn("Attempting to unnest a zero row data frame.")
     return(data)
   }
 

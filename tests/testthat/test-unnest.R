@@ -170,3 +170,9 @@ test_that("grouping is preserved", {
   expect_equal(class(df), class(rs))
   expect_equal(dplyr::groups(df), dplyr::groups(rs))
 })
+
+test_that("unnesting zero row column preserves names", {
+  # example from https://github.com/tidyverse/tidyr/issues/483#issuecomment-451482975
+  df <- data.frame(a = character(), b = character())
+  expect_equal(df %>% unnest(a) %>% names, c("a","b"))
+})
