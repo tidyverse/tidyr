@@ -11,6 +11,7 @@ NULL
 #' in list.
 #'
 #' @inheritParams gather
+#' @param ... A selection of columns. If empty, nothing happens. You can supply bare variable names, select all variables between x and z with x:z, exclude y with -y. For more selection options, see the [dplyr::select()] documentation.
 #' @param .direction Direction in which to fill missing values. Currently
 #'   either "down" (the default) or "up".
 #' @export
