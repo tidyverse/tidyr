@@ -70,7 +70,7 @@
 #'
 #' # Argument col can take quasiquotation to work with strings
 #' var <- "x"
-#' df %>% separate(!!var, c("key","value"),":")
+#' df %>% separate(!!var, c("key","value"), ":")
 separate <- function(data, col, into, sep = "[^[:alnum:]]+", remove = TRUE,
                      convert = FALSE, extra = "warn", fill = "warn", ...) {
   UseMethod("separate")
