@@ -8,9 +8,9 @@
 \description{
 \if{html}{\figure{logo.png}{options: align='right'}}
 
-An evolution of 'reshape2'. It's designed specifically for data
-    tidying (not general reshaping or aggregating) and works well with
-    'dplyr' data pipelines.
+An evolution of 'reshape2'. It's designed
+    specifically for data tidying (not general reshaping or aggregating)
+    and works well with 'dplyr' data pipelines.
 }
 \seealso{
 Useful links:

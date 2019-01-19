@@ -3,7 +3,7 @@ NULL
 
 #' Fill in missing values.
 #'
-#' Fills missing values in using the previous entry. This is useful in the
+#' Fills missing values in selected columns using the previous entry. This is useful in the
 #' common output format where values are not repeated, they're recorded
 #' each time they change.
 #'
