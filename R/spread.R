@@ -81,10 +81,12 @@ spread.data.frame <- function(data, key, value, fill = NA, convert = FALSE,
 
     str <- map_chr(groups, function(x) paste0(x, collapse = ", "))
     rows <- paste0(paste0("* ", str, "\n"), collapse = "")
-    abort(glue("Each row of output must be identified by a unique combination of keys.\n",
-               "Keys are shared for {shared} rows:\n",
-               "{rows}",
-               "Do you need to create unique ID with tibble::rowid_to_column()?"))
+    abort(glue(
+      "Each row of output must be identified by a unique combination of keys.",
+      "\nKeys are shared for {shared} rows:",
+      "\n{rows}",
+      "Do you need to create unique ID with tibble::rowid_to_column()?"
+    ))
   }
 
   # Add in missing values, if necessary
