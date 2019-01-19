@@ -63,6 +63,11 @@
 #' df <- data.frame(x = c(NA, "a?b", "a.d", "b:c"))
 #' df %>% separate(x, c("A","B"), sep = "([\\.\\?\\:])")
 #'
+#' # convert = TRUE detects column classes
+#' df <- data.frame(x = c("a:1", "a:2", "c:4", "d", NA))
+#' df %>% separate(x, c("key","value"), ":") %>% str
+#' df %>% separate(x, c("key","value"), ":", convert = TRUE) %>% str
+#'
 #' # Argument col can take quasiquotation
 #' quasi_commasep <- function(data, col_name) {
 #'    # quote the column input variable
