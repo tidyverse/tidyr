@@ -24,7 +24,7 @@ test_that("convert turns strings into integers", {
 test_that("duplicate values for one key is an error", {
   df <- tibble(x = factor(c("a", "b", "b")), y = c(1, 2, 2), z = c(1, 2, 2))
   expect_error(spread(df, x, y),
-               "Each row of output must be identified by a unique combination of keys.")
+               "Keys are shared for 2 rows:")
 })
 
 test_that("factors are spread into columns (#35)", {
