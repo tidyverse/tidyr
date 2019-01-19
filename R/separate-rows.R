@@ -6,6 +6,10 @@
 #' @inheritSection gather Rules for selection
 #' @inheritParams gather
 #' @inheritParams separate
+#' @param ...  If empty, nothing happens. You can supply bare variable names,
+#' select all variables between x and z with x:z if arguments are of equal
+#' length. Exclude y with -y. For more options, see the [dplyr::select()]
+#' documentation.
 #' @param sep Separator delimiting collapsed values.
 #' @export
 #' @examples
