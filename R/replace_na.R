@@ -5,6 +5,9 @@
 #'   replace `NA` with for each column. If `data` is a vector, a single value
 #'   used for replacement.
 #' @param ... Additional arguments for methods. Currently unused.
+#' @return If `data` is a data frame, returns a data frame. If `data` is a
+#'   vector, returns a vector of class determined by the union of `data` and
+#'   `replace`.
 #' @seealso \code{\link[dplyr]{na_if}} to replace specified values with a `NA`.
 #'  \code{\link[dplyr]{coalesce}} to replace missing values with a specified
 #'   value.
