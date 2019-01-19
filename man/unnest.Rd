@@ -4,8 +4,7 @@
 \alias{unnest}
 \title{Unnest a list column.}
 \usage{
-unnest(data, ..., .drop = NA, .id = NULL, .sep = NULL,
-  .preserve = NULL)
+unnest(data, ..., .drop = NA, .id = NULL, .sep = NULL, .preserve = NULL)
 }
 \arguments{
 \item{data}{A data frame.}

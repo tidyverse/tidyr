@@ -79,6 +79,13 @@ df \%>\% separate(x, c("a", "b"), extra = "merge", fill = "left")
 # If only want to split specified number of times use extra = "merge"
 df <- data.frame(x = c("x: 123", "y: error: 7"))
 df \%>\% separate(x, c("key", "value"), ": ", extra = "merge")
+
+# Use regular expressions to separate on multiple characters:
+df <- data.frame(x = c(NA, "a?b", "a.d", "b:c"))
+df \%>\% separate(x, c("A","B"), sep = "([\\\\.\\\\?\\\\:])")
+
+
+
 }
 \seealso{
 \code{\link[=unite]{unite()}}, the complement, \code{\link[=extract]{extract()}} which uses regular
