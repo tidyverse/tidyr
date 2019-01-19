@@ -48,10 +48,12 @@
 #' # the extra and fill arguments to control what happens
 #' df <- data.frame(x = c("a", "a b", "a b c", NA))
 #' df %>% separate(x, c("a", "b"))
-#' # The same behaviour but no warnings
+#' # The same behaviour drops the c but no warnings
 #' df %>% separate(x, c("a", "b"), extra = "drop", fill = "right")
 #' # Another option:
 #' df %>% separate(x, c("a", "b"), extra = "merge", fill = "left")
+#' # Or you can keep all three
+#' df %>% separate(x, c("a", "b", "c"))
 #'
 #' # If only want to split specified number of times use extra = "merge"
 #' df <- data.frame(x = c("x: 123", "y: error: 7"))
@@ -61,7 +63,21 @@
 #' df <- data.frame(x = c(NA, "a?b", "a.d", "b:c"))
 #' df %>% separate(x, c("A","B"), sep = "([\\.\\?\\:])")
 #'
+#' # Argument col can take quasiquotation
+#' quasi_commasep <- function(data, col_name) {
+#'    # quote the column input variable
+#'    col_var <- rlang::enquo(col_name)
+#'    print(col_var)
 #'
+#'    #  make a string version for column naming
+#'    col_string <- rlang::quo_name(col_var)
+#'    print(col_string)
+#'
+#'    data %>%
+#'        separate(col = !!col_var, into = paste0("fav",col_string, 1:3), sep = ",")
+#' }
+#' df <- data.frame(pets = c("dog, cat, bunny","rock, cat, ferret","chinchilla, cat, pig"))
+#' df %>% quasi_commasep(pets)
 #'
 separate <- function(data, col, into, sep = "[^[:alnum:]]+", remove = TRUE,
                      convert = FALSE, extra = "warn", fill = "warn", ...) {
