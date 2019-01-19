@@ -5,7 +5,7 @@
 #'
 #' @inheritSection gather Rules for selection
 #' @inheritParams gather
-#' @inheritParams separate
+#' @inheritParams fill
 #' @param sep Separator delimiting collapsed values.
 #' @export
 #' @examples
