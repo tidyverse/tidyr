@@ -15,6 +15,7 @@ test_that("can control output column name", {
 
 test_that("nest doesn't include grouping vars in nested data", {
   df <- tibble(x = c(1, 1, 1), y = 1:3)
+  new <- df %>% dplyr::group_by(x) %>% nest()
   out <- df %>% dplyr::group_by(x) %>% nest()
   expect_equal(out$data[[1]], data.frame(y = 1:3))
 })
@@ -53,9 +54,5 @@ test_that("nesting works for empty data frames", {
 test_that("tibble conversion occurs in the `nest.data.frame()` method", {
   tbl <- mtcars %>% nest(-am, -cyl)
   expect_s3_class(tbl, "tbl_df")
-  expect_true(
-    all(
-      purrr::map_lgl(tbl$data, inherits, "tbl_df")
-    )
-  )
+  expect_is(tbl$data[[1L]], "tbl_df")
 })

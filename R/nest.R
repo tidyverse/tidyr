@@ -35,12 +35,45 @@ nest <- function(data, ..., .key = "data") {
 }
 
 #' @export
-nest.data.frame <- function(data, ..., .key = "data") {
-  key_var <- as_string(ensym2(.key))
+nest.tbl_df <- function(data, ..., .key = "data") {
 
-  data <- tibble::as_tibble(data)
-
+  key_var   <- as_string(ensym2(.key))
   nest_vars <- unname(tidyselect::vars_select(names(data), ...))
+
+  if (is_empty(nest_vars)) {
+    nest_vars <- names(data)
+  }
+
+  if (dplyr::is_grouped_df(data)) {
+    group_vars <- dplyr::group_vars(data)
+  } else {
+    group_vars <- setdiff(names(data), nest_vars)
+  }
+  nest_vars <- setdiff(nest_vars, group_vars)
+
+  data <- dplyr::ungroup(data)
+  if (is_empty(group_vars)) {
+    return(tibble(!! key_var := list(data)))
+  }
+
+  out <- dplyr::select(data, !!! syms(group_vars))
+
+  idx <- dplyr::group_indices(data, !!! syms(group_vars))
+  representatives <- which(!duplicated(idx))
+
+  out <- dplyr::slice(out, representatives)
+  out[[key_var]] <- unname(split(data[nest_vars], idx))[unique(idx)]
+
+  out
+}
+
+#' @export
+nest.data.frame <- function(data, ..., .key = "data") {
+
+  key_var   <- as_string(ensym2(.key))
+  data      <- tibble::as_tibble(data)
+  nest_vars <- unname(tidyselect::vars_select(names(data), ...))
+
   if (is_empty(nest_vars)) {
     nest_vars <- names(data)
   }
