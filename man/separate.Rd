@@ -92,9 +92,8 @@ df \%>\% separate(x, c("key","value"), ":") \%>\% str
 df \%>\% separate(x, c("key","value"), ":", convert = TRUE) \%>\% str
 
 # Argument col can take quasiquotation to work with strings
-df <- data.frame(pets = c("dog, cat, bunny","rock, cat, ferret","chinchilla, cat, pig"))
-df \%>\% separate(!!"pets", into = c("friend","best","other"), sep = ",")
-df \%>\% separate(!!colnames(df)[1], into = c("friend","best","other"), sep = ",")
+var <- "x"
+df \%>\% separate(!!var, c("key","value"),":")
 }
 \seealso{
 \code{\link[=unite]{unite()}}, the complement, \code{\link[=extract]{extract()}} which uses regular
