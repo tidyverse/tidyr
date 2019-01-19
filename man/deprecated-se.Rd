@@ -57,7 +57,8 @@ unnest_(data, unnest_cols, .drop = NA, .id = NULL, .sep = NULL,
 \item{fill}{A named list that for each variable supplies a single value to
 use instead of \code{NA} for missing combinations.}
 
-\item{...}{Specification of columns to expand.
+\item{...}{Specification of columns to expand. Columns can be atomic vectors
+or lists.
 
 To find all unique combinations of x, y and z, including those not
 found in the data, supply each variable as a separate argument.

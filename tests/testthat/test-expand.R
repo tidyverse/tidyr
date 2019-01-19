@@ -103,9 +103,8 @@ test_that("expand handles list columns", {
   formulas <- list(formula1 = Sepal.Length ~ Sepal.Width,
                    formula2 = Sepal.Length ~ Sepal.Width + Petal.Width,
                    formula3 = Sepal.Length ~ Sepal.Width + Petal.Width + Petal.Length)
-  (demo <- tibble::tibble(formulas = formulas, data_sets = data_sets))
-
-  demo <- expand(demo, formulas, data_sets)
+  demo <- tibble(formulas = formulas, data_sets = data_sets) %>%
+    expand(formulas, data_sets)
 
   expect_is(demo, "data.frame")
   expect_equal(nrow(demo), 9)
