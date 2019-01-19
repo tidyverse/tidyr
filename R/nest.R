@@ -38,9 +38,7 @@ nest <- function(data, ..., .key = "data") {
 nest.data.frame <- function(data, ..., .key = "data") {
   key_var <- as_string(ensym2(.key))
 
-  if (!inherits(data, "tbl_df")) {
-    data <- tibble::as_tibble(data)
-  }
+  data <- tibble::as_tibble(data)
 
   nest_vars <- unname(tidyselect::vars_select(names(data), ...))
   if (is_empty(nest_vars)) {
