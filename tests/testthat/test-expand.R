@@ -97,3 +97,17 @@ test_that("crossing checks for bad inputs", {
     "Problems: y"
   )
 })
+
+test_that("expand handles list columns", {
+  data_sets <- iris %>% split(iris$Species)
+  formulas <- list(formula1 = Sepal.Length ~ Sepal.Width,
+                   formula2 = Sepal.Length ~ Sepal.Width + Petal.Width,
+                   formula3 = Sepal.Length ~ Sepal.Width + Petal.Width + Petal.Length)
+  (demo <- tibble::tibble(formulas = formulas, data_sets = data_sets))
+
+  demo <- expand(demo, formulas, data_sets)
+
+  expect_is(demo, "data.frame")
+  expect_equal(nrow(demo), 9)
+
+})
