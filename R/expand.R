@@ -122,11 +122,10 @@ crossing <- function(...) {
     return(data.frame())
   }
 
-  is_atomic <- map_lgl(x, is_atomic)
-  is_list <- map_lgl(x, is_bare_list)
+  is_vector <- map_lgl(x, is_atomic) | map_lgl(x, is_bare_list)
   is_df <- map_lgl(x, is.data.frame)
-  if (any(!is_df & !is_atomic & !is_list)) {
-    bad <- names(x)[!is_df & !is_atomic & !is_list]
+  if (any(!is_df & !is_vector)) {
+    bad <- names(x)[!is_df & !is_vector]
 
     problems <- paste(bad, collapse = ", ")
     abort(glue(
@@ -136,14 +135,9 @@ crossing <- function(...) {
   }
 
   # turn each atomic vector into single column data frame
-  col_df <- map(x[is_atomic], function(x) tibble(x = ulevels(x)))
-  col_df <- map2(col_df, names(x)[is_atomic], set_names)
-  x[is_atomic] <- col_df
-
-  # repeat logic for lists
-  col_ls <- map(x[is_list], function(x) tibble(x = x))
-  col_ls <- map2(col_ls, names(x)[is_list], set_names)
-  x[is_list] <- col_ls
+  col_df <- map(x[is_vector], function(x) tibble(x = ulevels(x)))
+  col_df <- map2(col_df, names(x)[is_vector], set_names)
+  x[is_vector] <- col_df
 
   Reduce(cross_df, x)
 }

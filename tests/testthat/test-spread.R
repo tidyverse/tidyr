@@ -275,3 +275,8 @@ test_that("ulevels preserves original factor levels", {
   x_no_na_lev_extra <- factor(c("a", NA), levels = c("a", "b"))
   expect_equal(levels(ulevels(x_no_na_lev_extra)), c("a", "b"))
 })
+
+test_that("ulevels returns unique elements of a list for a list input", {
+  test_list <- list(a = 1:6, b = 1:6)
+  expect_equal(ulevels(test_list), unique(test_list))
+})
