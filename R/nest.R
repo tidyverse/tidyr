@@ -33,9 +33,14 @@
 nest <- function(data, ..., .key = "data") {
   UseMethod("nest")
 }
+
 #' @export
 nest.data.frame <- function(data, ..., .key = "data") {
   key_var <- as_string(ensym2(.key))
+
+  if (!inherits(data, "tbl_df")) {
+    data <- tibble::as_tibble(data)
+  }
 
   nest_vars <- unname(tidyselect::vars_select(names(data), ...))
   if (is_empty(nest_vars)) {
@@ -60,10 +65,7 @@ nest.data.frame <- function(data, ..., .key = "data") {
   representatives <- which(!duplicated(idx))
 
   out <- dplyr::slice(out, representatives)
-
   out[[key_var]] <- unname(split(data[nest_vars], idx))[unique(idx)]
 
   out
 }
-
-
