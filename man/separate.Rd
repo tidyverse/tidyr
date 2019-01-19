@@ -91,22 +91,10 @@ df <- data.frame(x = c("a:1", "a:2", "c:4", "d", NA))
 df \%>\% separate(x, c("key","value"), ":") \%>\% str
 df \%>\% separate(x, c("key","value"), ":", convert = TRUE) \%>\% str
 
-# Argument col can take quasiquotation
-quasi_commasep <- function(data, col_name) {
-   # quote the column input variable
-   col_var <- rlang::enquo(col_name)
-   print(col_var)
-
-   #  make a string version for column naming
-   col_string <- rlang::quo_name(col_var)
-   print(col_string)
-
-   data \%>\%
-       separate(col = !!col_var, into = paste0("fav",col_string, 1:3), sep = ",")
-}
+# Argument col can take quasiquotation to work with strings
 df <- data.frame(pets = c("dog, cat, bunny","rock, cat, ferret","chinchilla, cat, pig"))
-df \%>\% quasi_commasep(pets)
-
+df \%>\% separate(!!"pets", into = c("friend","best","other"), sep = ",")
+df \%>\% separate(!!colnames(df)[1], into = c("friend","best","other"), sep = ",")
 }
 \seealso{
 \code{\link[=unite]{unite()}}, the complement, \code{\link[=extract]{extract()}} which uses regular
