@@ -43,8 +43,8 @@ separate_rows_(data, cols, sep = "[^[:alnum:].]+", convert = FALSE)
 separate_(data, col, into, sep = "[^[:alnum:]]+", remove = TRUE,
   convert = FALSE, extra = "warn", fill = "warn", ...)
 
-spread_(data, key_col, value_col, fill = NA, convert = FALSE, drop = TRUE,
-  sep = NULL)
+spread_(data, key_col, value_col, fill = NA, convert = FALSE,
+  drop = TRUE, sep = NULL)
 
 unite_(data, col, from, sep = "_", remove = TRUE)
 
