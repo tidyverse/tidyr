@@ -1,5 +1,8 @@
 # tidyr 0.8.2.9000
 
+* `unnest()` will run with named and unnamed list-columns of same length
+  (@hlendway, #460).
+
 * `crossing()` preserves factor levels (#410).
 
 # tidyr 0.8.2
