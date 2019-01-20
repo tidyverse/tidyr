@@ -24,13 +24,22 @@ test_that("unnesting row binds data frames", {
   expect_equal(unnest(df)$x, 1:10)
 })
 
-test_that("can unnested lists", {
+test_that("can unnest nested lists", {
   df <- tibble(
     x = 1:2,
     y = list(list("a"), list("b"))
   )
   rs <- unnest(df, y)
   expect_identical(rs, tibble(x = 1:2, y = list("a", "b")))
+})
+
+test_that("can unnest mixture of name and unnamed lists of same length", {
+  df <- tibble(
+    x = c("a"),
+    y = list(y = 1:2),
+    z = list(1:2)
+  )
+  expect_identical(unnest(df), tibble(x = c("a","a"), y = c(1:2), z = c(1:2)))
 })
 
 test_that("elements must all be of same type", {

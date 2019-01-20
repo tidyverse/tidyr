@@ -94,7 +94,9 @@ unnest.data.frame <- function(data, ..., .drop = NA, .id = NULL,
   }
 
   nested <- dplyr::transmute(dplyr::ungroup(data), !!! quos)
-  n <- map(nested, function(x) map_int(x, NROW))
+  nested_unnamed <- nested %>%
+    dplyr::mutate_if(is.list, unname)
+  n <- map(nested_unnamed, function(x) map_int(x, NROW))
   if (length(unique(n)) != 1) {
     abort("All nested columns must have the same number of elements.")
   }
