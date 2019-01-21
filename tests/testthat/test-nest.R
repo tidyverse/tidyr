@@ -49,3 +49,9 @@ test_that("nesting works for empty data frames", {
   out <- nest(df, x, y)
   expect_equal(out$data, list(df))
 })
+
+test_that("tibble conversion occurs in the `nest.data.frame()` method", {
+  tbl <- mtcars %>% nest(-am, -cyl)
+  expect_s3_class(tbl, "tbl_df")
+  expect_is(tbl$data[[1L]], "tbl_df")
+})
