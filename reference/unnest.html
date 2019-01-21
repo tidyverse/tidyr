@@ -159,7 +159,7 @@ nested data frame, separated by <code>.sep</code>.</p></td>
       <th>.preserve</th>
       <td><p>Optionally, list-columns to preserve in the output. These
 will be duplicated in the same way as atomic vectors. This has
-<a href='http://dplyr.tidyverse.org/reference/select.html'>dplyr::select</a> semantics so you can preserve multiple variables with
+<a href='https://dplyr.tidyverse.org/reference/select.html'>dplyr::select</a> semantics so you can preserve multiple variables with
 <code>.preserve = c(x, y)</code> or <code>.preserve = starts_with("list")</code>.</p></td>
     </tr>
     </table>
@@ -176,7 +176,7 @@ or number of rows (if a data frame).</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>dplyr</span>)
-<span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='http://dplyr.tidyverse.org/reference/reexports.html'>tibble</a></span>(
+<span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/reexports.html'>tibble</a></span>(
   <span class='kw'>x</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>3</span>,
   <span class='kw'>y</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"a"</span>, <span class='st'>"d,e,f"</span>, <span class='st'>"g,h"</span>)
 )
@@ -201,11 +201,11 @@ or number of rows (if a data frame).</p>
 #&gt; 5     3 g    
 #&gt; 6     3 h    </div><div class='input'>
 <span class='co'># It also works if you have a column that contains other data frames!</span>
-<span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='http://dplyr.tidyverse.org/reference/reexports.html'>tibble</a></span>(
+<span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/reexports.html'>tibble</a></span>(
   <span class='kw'>x</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>2</span>,
   <span class='kw'>y</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(
-   <span class='fu'><a href='http://dplyr.tidyverse.org/reference/reexports.html'>tibble</a></span>(<span class='kw'>z</span> <span class='kw'>=</span> <span class='fl'>1</span>),
-   <span class='fu'><a href='http://dplyr.tidyverse.org/reference/reexports.html'>tibble</a></span>(<span class='kw'>z</span> <span class='kw'>=</span> <span class='fl'>3</span>:<span class='fl'>4</span>)
+   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/reexports.html'>tibble</a></span>(<span class='kw'>z</span> <span class='kw'>=</span> <span class='fl'>1</span>),
+   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/reexports.html'>tibble</a></span>(<span class='kw'>z</span> <span class='kw'>=</span> <span class='fl'>3</span>:<span class='fl'>4</span>)
  )
 )
 <span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>unnest</span>(<span class='no'>y</span>)</div><div class='output co'>#&gt; # A tibble: 3 x 2
@@ -215,7 +215,7 @@ or number of rows (if a data frame).</p>
 #&gt; 2     2     3
 #&gt; 3     2     4</div><div class='input'>
 <span class='co'># You can also unnest multiple columns simultaneously</span>
-<span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='http://dplyr.tidyverse.org/reference/reexports.html'>tibble</a></span>(
+<span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/reexports.html'>tibble</a></span>(
  <span class='kw'>a</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"a"</span>, <span class='st'>"b"</span>), <span class='st'>"c"</span>),
  <span class='kw'>b</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(<span class='fl'>1</span>:<span class='fl'>2</span>, <span class='fl'>3</span>),
  <span class='kw'>c</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>11</span>, <span class='fl'>22</span>)
@@ -248,7 +248,7 @@ or number of rows (if a data frame).</p>
 #&gt; 2 1 2
 #&gt; 3 2 1</div><div class='input'>
 <span class='co'># If you have a named list-column, you may want to supply .id</span>
-<span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='http://dplyr.tidyverse.org/reference/reexports.html'>tibble</a></span>(
+<span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/reexports.html'>tibble</a></span>(
   <span class='kw'>x</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>2</span>,
   <span class='kw'>y</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(<span class='kw'>a</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>b</span> <span class='kw'>=</span> <span class='fl'>3</span>:<span class='fl'>4</span>)
 )

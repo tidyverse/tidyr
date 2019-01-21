@@ -131,9 +131,9 @@
       <th>col</th>
       <td><p>The name of the new column, as a string or symbol.</p>
 <p>This argument is passed by expression and supports
-<a href='https://www.rdocumentation.org/packages/rlang/topics/quasiquotation'>quasiquotation</a> (you can unquote strings
+<a href='https://rlang.r-lib.org/reference/quasiquotation.html'>quasiquotation</a> (you can unquote strings
 and symbols). The name is captured from the expression with
-<code><a href='https://www.rdocumentation.org/packages/rlang/topics/quotation'>rlang::ensym()</a></code> (note that this kind of interface where
+<code><a href='https://rlang.r-lib.org/reference/quotation.html'>rlang::ensym()</a></code> (note that this kind of interface where
 symbols do not represent actual objects is now discouraged in the
 tidyverse; we support it here for backward compatibility).</p></td>
     </tr>
@@ -142,7 +142,7 @@ tidyverse; we support it here for backward compatibility).</p></td>
       <td><p>A selection of columns. If empty, all variables are
 selected. You can supply bare variable names, select all
 variables between x and z with <code>x:z</code>, exclude y with <code>-y</code>. For
-more options, see the <code><a href='http://dplyr.tidyverse.org/reference/select.html'>dplyr::select()</a></code> documentation. See also
+more options, see the <code><a href='https://dplyr.tidyverse.org/reference/select.html'>dplyr::select()</a></code> documentation. See also
 the section on selection rules below.</p></td>
     </tr>
     <tr>
@@ -221,7 +221,7 @@ can contain either a column name as string or a column position).</p>
 #&gt; Volvo 142E          21.4   4 121.0 109 4.11 2.780 18.60   1_1    4    2</div><div class='input'>
 <span class='co'># Separate is the complement of unite</span>
 <span class='no'>mtcars</span> <span class='kw'>%&gt;%</span>
-  <span class='fu'>unite</span>(<span class='no'>vs_am</span>, <span class='no'>vs</span>, <span class='no'>am</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'>unite</span>(<span class='st'>"vs_am"</span>, <span class='no'>vs</span>, <span class='no'>am</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='separate.html'>separate</a></span>(<span class='no'>vs_am</span>, <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"vs"</span>, <span class='st'>"am"</span>))</div><div class='output co'>#&gt;                      mpg cyl  disp  hp drat    wt  qsec vs am gear carb
 #&gt; Mazda RX4           21.0   6 160.0 110 3.90 2.620 16.46  0  1    4    4
 #&gt; Mazda RX4 Wag       21.0   6 160.0 110 3.90 2.875 17.02  0  1    4    4

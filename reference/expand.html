@@ -192,7 +192,7 @@ completing a data frame with missing combinations.</p></div>
 #&gt; 4     1     4
 #&gt; 5     1     6</div><div class='input'>
 <span class='co'># Implicit missings ---------------------------------------------------------</span>
-<span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='http://dplyr.tidyverse.org/reference/reexports.html'>tibble</a></span>(
+<span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/reexports.html'>tibble</a></span>(
   <span class='kw'>year</span>   <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>2010</span>, <span class='fl'>2010</span>, <span class='fl'>2010</span>, <span class='fl'>2010</span>, <span class='fl'>2012</span>, <span class='fl'>2012</span>, <span class='fl'>2012</span>),
   <span class='kw'>qtr</span>    <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(   <span class='fl'>1</span>,    <span class='fl'>2</span>,    <span class='fl'>3</span>,    <span class='fl'>4</span>,    <span class='fl'>1</span>,    <span class='fl'>2</span>,    <span class='fl'>3</span>),
   <span class='kw'>return</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/Normal'>rnorm</a></span>(<span class='fl'>7</span>)
@@ -254,7 +254,7 @@ completing a data frame with missing combinations.</p></div>
 <span class='co'># Each person was given one of two treatments, repeated three times</span>
 <span class='co'># But some of the replications haven't happened yet, so we have</span>
 <span class='co'># incomplete data:</span>
-<span class='no'>experiment</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='http://dplyr.tidyverse.org/reference/reexports.html'>tibble</a></span>(
+<span class='no'>experiment</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/reexports.html'>tibble</a></span>(
   <span class='kw'>name</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/rep'>rep</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"Alex"</span>, <span class='st'>"Robert"</span>, <span class='st'>"Sam"</span>), <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>3</span>, <span class='fl'>2</span>, <span class='fl'>1</span>)),
   <span class='kw'>trt</span>  <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/rep'>rep</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"a"</span>, <span class='st'>"b"</span>, <span class='st'>"a"</span>), <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>3</span>, <span class='fl'>2</span>, <span class='fl'>1</span>)),
   <span class='kw'>rep</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>3</span>, <span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>1</span>),
@@ -278,7 +278,7 @@ completing a data frame with missing combinations.</p></div>
 #&gt; 8 Sam    a         2
 #&gt; 9 Sam    a         3</div><div class='input'>
 <span class='co'># We can use anti_join to figure out which observations are missing</span>
-<span class='no'>all</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='http://dplyr.tidyverse.org/reference/join.html'>anti_join</a></span>(<span class='no'>experiment</span>)</div><div class='output co'>#&gt; <span class='message'>Joining, by = c("name", "trt", "rep")</span></div><div class='output co'>#&gt; # A tibble: 3 x 3
+<span class='no'>all</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/join.html'>anti_join</a></span>(<span class='no'>experiment</span>)</div><div class='output co'>#&gt; <span class='message'>Joining, by = c("name", "trt", "rep")</span></div><div class='output co'>#&gt; # A tibble: 3 x 3
 #&gt;   name   trt     rep
 #&gt;   &lt;chr&gt;  &lt;chr&gt; &lt;dbl&gt;
 #&gt; 1 Robert b         3
@@ -286,7 +286,7 @@ completing a data frame with missing combinations.</p></div>
 #&gt; 3 Sam    a         3</div><div class='input'>
 <span class='co'># And use right_join to add in the appropriate missing values to the</span>
 <span class='co'># original data</span>
-<span class='no'>experiment</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='http://dplyr.tidyverse.org/reference/join.html'>right_join</a></span>(<span class='no'>all</span>)</div><div class='output co'>#&gt; <span class='message'>Joining, by = c("name", "trt", "rep")</span></div><div class='output co'>#&gt; # A tibble: 9 x 5
+<span class='no'>experiment</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/join.html'>right_join</a></span>(<span class='no'>all</span>)</div><div class='output co'>#&gt; <span class='message'>Joining, by = c("name", "trt", "rep")</span></div><div class='output co'>#&gt; # A tibble: 9 x 5
 #&gt;   name   trt     rep measurment_1 measurment_2
 #&gt;   &lt;chr&gt;  &lt;chr&gt; &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt;
 #&gt; 1 Alex   a         1       0.402         0.290

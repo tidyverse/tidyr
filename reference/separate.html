@@ -135,7 +135,7 @@ separate() turns a single character column into multiple columns." />
       <td><p>Column name or position. This is passed to
 <code><a href='https://www.rdocumentation.org/packages/tidyselect/topics/vars_pull'>tidyselect::vars_pull()</a></code>.</p>
 <p>This argument is passed by expression and supports
-<a href='https://www.rdocumentation.org/packages/rlang/topics/quasiquotation'>quasiquotation</a> (you can unquote column
+<a href='https://rlang.r-lib.org/reference/quasiquotation.html'>quasiquotation</a> (you can unquote column
 names or column positions).</p></td>
     </tr>
     <tr>
@@ -215,7 +215,7 @@ expression capturing groups.</p></div>
 #&gt; 1    a &lt;NA&gt;
 #&gt; 2    a    b
 #&gt; 3    a    b
-#&gt; 4 &lt;NA&gt; &lt;NA&gt;</div><div class='input'><span class='co'># The same behaviour but no warnings</span>
+#&gt; 4 &lt;NA&gt; &lt;NA&gt;</div><div class='input'><span class='co'># The same behaviour drops the c but no warnings</span>
 <span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>separate</span>(<span class='no'>x</span>, <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"a"</span>, <span class='st'>"b"</span>), <span class='kw'>extra</span> <span class='kw'>=</span> <span class='st'>"drop"</span>, <span class='kw'>fill</span> <span class='kw'>=</span> <span class='st'>"right"</span>)</div><div class='output co'>#&gt;      a    b
 #&gt; 1    a &lt;NA&gt;
 #&gt; 2    a    b
@@ -225,12 +225,39 @@ expression capturing groups.</p></div>
 #&gt; 1 &lt;NA&gt;    a
 #&gt; 2    a    b
 #&gt; 3    a  b c
-#&gt; 4 &lt;NA&gt; &lt;NA&gt;</div><div class='input'>
+#&gt; 4 &lt;NA&gt; &lt;NA&gt;</div><div class='input'><span class='co'># Or you can keep all three</span>
+<span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>separate</span>(<span class='no'>x</span>, <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"a"</span>, <span class='st'>"b"</span>, <span class='st'>"c"</span>))</div><div class='output co'>#&gt; <span class='warning'>Warning: Expected 3 pieces. Missing pieces filled with `NA` in 2 rows [1, 2].</span></div><div class='output co'>#&gt;      a    b    c
+#&gt; 1    a &lt;NA&gt; &lt;NA&gt;
+#&gt; 2    a    b &lt;NA&gt;
+#&gt; 3    a    b    c
+#&gt; 4 &lt;NA&gt; &lt;NA&gt; &lt;NA&gt;</div><div class='input'>
 <span class='co'># If only want to split specified number of times use extra = "merge"</span>
 <span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/data.frame'>data.frame</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"x: 123"</span>, <span class='st'>"y: error: 7"</span>))
 <span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>separate</span>(<span class='no'>x</span>, <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"key"</span>, <span class='st'>"value"</span>), <span class='st'>": "</span>, <span class='kw'>extra</span> <span class='kw'>=</span> <span class='st'>"merge"</span>)</div><div class='output co'>#&gt;   key    value
 #&gt; 1   x      123
-#&gt; 2   y error: 7</div></pre>
+#&gt; 2   y error: 7</div><div class='input'>
+<span class='co'># Use regular expressions to separate on multiple characters:</span>
+<span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/data.frame'>data.frame</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>NA</span>, <span class='st'>"a?b"</span>, <span class='st'>"a.d"</span>, <span class='st'>"b:c"</span>))
+<span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>separate</span>(<span class='no'>x</span>, <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"A"</span>,<span class='st'>"B"</span>), <span class='kw'>sep</span> <span class='kw'>=</span> <span class='st'>"([\\.\\?\\:])"</span>)</div><div class='output co'>#&gt;      A    B
+#&gt; 1 &lt;NA&gt; &lt;NA&gt;
+#&gt; 2    a    b
+#&gt; 3    a    d
+#&gt; 4    b    c</div><div class='input'>
+<span class='co'># convert = TRUE detects column classes</span>
+<span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/data.frame'>data.frame</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"a:1"</span>, <span class='st'>"a:2"</span>, <span class='st'>"c:4"</span>, <span class='st'>"d"</span>, <span class='fl'>NA</span>))
+<span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>separate</span>(<span class='no'>x</span>, <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"key"</span>,<span class='st'>"value"</span>), <span class='st'>":"</span>) <span class='kw'>%&gt;%</span> <span class='no'>str</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Expected 2 pieces. Missing pieces filled with `NA` in 1 rows [4].</span></div><div class='output co'>#&gt; 'data.frame':	5 obs. of  2 variables:
+#&gt;  $ key  : chr  "a" "a" "c" "d" ...
+#&gt;  $ value: chr  "1" "2" "4" NA ...</div><div class='input'><span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>separate</span>(<span class='no'>x</span>, <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"key"</span>,<span class='st'>"value"</span>), <span class='st'>":"</span>, <span class='kw'>convert</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>) <span class='kw'>%&gt;%</span> <span class='no'>str</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Expected 2 pieces. Missing pieces filled with `NA` in 1 rows [4].</span></div><div class='output co'>#&gt; 'data.frame':	5 obs. of  2 variables:
+#&gt;  $ key  : chr  "a" "a" "c" "d" ...
+#&gt;  $ value: int  1 2 4 NA NA</div><div class='input'>
+<span class='co'># Argument col can take quasiquotation to work with strings</span>
+<span class='no'>var</span> <span class='kw'>&lt;-</span> <span class='st'>"x"</span>
+<span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>separate</span>(!!<span class='no'>var</span>, <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"key"</span>,<span class='st'>"value"</span>), <span class='st'>":"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Expected 2 pieces. Missing pieces filled with `NA` in 1 rows [4].</span></div><div class='output co'>#&gt;    key value
+#&gt; 1    a     1
+#&gt; 2    a     2
+#&gt; 3    c     4
+#&gt; 4    d  &lt;NA&gt;
+#&gt; 5 &lt;NA&gt;  &lt;NA&gt;</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

@@ -137,9 +137,9 @@ you notice that you have columns that are not variables.</p>
       <td><p>Names of new key and value columns, as strings or
 symbols.</p>
 <p>This argument is passed by expression and supports
-<a href='https://www.rdocumentation.org/packages/rlang/topics/quasiquotation'>quasiquotation</a> (you can unquote strings
+<a href='https://rlang.r-lib.org/reference/quasiquotation.html'>quasiquotation</a> (you can unquote strings
 and symbols). The name is captured from the expression with
-<code><a href='https://www.rdocumentation.org/packages/rlang/topics/quotation'>rlang::ensym()</a></code> (note that this kind of interface where
+<code><a href='https://rlang.r-lib.org/reference/quotation.html'>rlang::ensym()</a></code> (note that this kind of interface where
 symbols do not represent actual objects is now discouraged in the
 tidyverse; we support it here for backward compatibility).</p></td>
     </tr>
@@ -148,7 +148,7 @@ tidyverse; we support it here for backward compatibility).</p></td>
       <td><p>A selection of columns. If empty, all variables are
 selected. You can supply bare variable names, select all
 variables between x and z with <code>x:z</code>, exclude y with <code>-y</code>. For
-more options, see the <code><a href='http://dplyr.tidyverse.org/reference/select.html'>dplyr::select()</a></code> documentation. See also
+more options, see the <code><a href='https://dplyr.tidyverse.org/reference/select.html'>dplyr::select()</a></code> documentation. See also
 the section on selection rules below.</p></td>
     </tr>
     <tr>
@@ -198,14 +198,14 @@ can contain either a column name as string or a column position).</p>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>dplyr</span>)
 <span class='co'># From http://stackoverflow.com/questions/1181060</span>
-<span class='no'>stocks</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='http://dplyr.tidyverse.org/reference/reexports.html'>tibble</a></span>(
+<span class='no'>stocks</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/reexports.html'>tibble</a></span>(
   <span class='kw'>time</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/as.Date'>as.Date</a></span>(<span class='st'>'2009-01-01'</span>) + <span class='fl'>0</span>:<span class='fl'>9</span>,
   <span class='kw'>X</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/Normal'>rnorm</a></span>(<span class='fl'>10</span>, <span class='fl'>0</span>, <span class='fl'>1</span>),
   <span class='kw'>Y</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/Normal'>rnorm</a></span>(<span class='fl'>10</span>, <span class='fl'>0</span>, <span class='fl'>2</span>),
   <span class='kw'>Z</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/Normal'>rnorm</a></span>(<span class='fl'>10</span>, <span class='fl'>0</span>, <span class='fl'>4</span>)
 )
 
-<span class='fu'>gather</span>(<span class='no'>stocks</span>, <span class='no'>stock</span>, <span class='no'>price</span>, -<span class='no'>time</span>)</div><div class='output co'>#&gt; # A tibble: 30 x 3
+<span class='fu'>gather</span>(<span class='no'>stocks</span>, <span class='st'>"stock"</span>, <span class='st'>"price"</span>, -<span class='no'>time</span>)</div><div class='output co'>#&gt; # A tibble: 30 x 3
 #&gt;    time       stock   price
 #&gt;    &lt;date&gt;     &lt;chr&gt;   &lt;dbl&gt;
 #&gt;  1 2009-01-01 X     -1.63  
@@ -218,7 +218,7 @@ can contain either a column name as string or a column position).</p>
 #&gt;  8 2009-01-08 X      0.468 
 #&gt;  9 2009-01-09 X      0.363 
 #&gt; 10 2009-01-10 X     -1.30  
-#&gt; # … with 20 more rows</div><div class='input'><span class='no'>stocks</span> <span class='kw'>%&gt;%</span> <span class='fu'>gather</span>(<span class='no'>stock</span>, <span class='no'>price</span>, -<span class='no'>time</span>)</div><div class='output co'>#&gt; # A tibble: 30 x 3
+#&gt; # … with 20 more rows</div><div class='input'><span class='no'>stocks</span> <span class='kw'>%&gt;%</span> <span class='fu'>gather</span>(<span class='st'>"stock"</span>, <span class='st'>"price"</span>, -<span class='no'>time</span>)</div><div class='output co'>#&gt; # A tibble: 30 x 3
 #&gt;    time       stock   price
 #&gt;    &lt;date&gt;     &lt;chr&gt;   &lt;dbl&gt;
 #&gt;  1 2009-01-01 X     -1.63  
@@ -235,7 +235,7 @@ can contain either a column name as string or a column position).</p>
 <span class='co'># get first observation for each Species in iris data -- base R</span>
 <span class='no'>mini_iris</span> <span class='kw'>&lt;-</span> <span class='no'>iris</span>[<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>51</span>, <span class='fl'>101</span>), ]
 <span class='co'># gather Sepal.Length, Sepal.Width, Petal.Length, Petal.Width</span>
-<span class='fu'>gather</span>(<span class='no'>mini_iris</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='no'>flower_att</span>, <span class='kw'>value</span> <span class='kw'>=</span> <span class='no'>measurement</span>,
+<span class='fu'>gather</span>(<span class='no'>mini_iris</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"flower_att"</span>, <span class='kw'>value</span> <span class='kw'>=</span> <span class='st'>"measurement"</span>,
        <span class='no'>Sepal.Length</span>, <span class='no'>Sepal.Width</span>, <span class='no'>Petal.Length</span>, <span class='no'>Petal.Width</span>)</div><div class='output co'>#&gt;       Species   flower_att measurement
 #&gt; 1      setosa Sepal.Length         5.1
 #&gt; 2  versicolor Sepal.Length         7.0
@@ -249,7 +249,7 @@ can contain either a column name as string or a column position).</p>
 #&gt; 10     setosa  Petal.Width         0.2
 #&gt; 11 versicolor  Petal.Width         1.4
 #&gt; 12  virginica  Petal.Width         2.5</div><div class='input'><span class='co'># same result but less verbose</span>
-<span class='fu'>gather</span>(<span class='no'>mini_iris</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='no'>flower_att</span>, <span class='kw'>value</span> <span class='kw'>=</span> <span class='no'>measurement</span>, -<span class='no'>Species</span>)</div><div class='output co'>#&gt;       Species   flower_att measurement
+<span class='fu'>gather</span>(<span class='no'>mini_iris</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"flower_att"</span>, <span class='kw'>value</span> <span class='kw'>=</span> <span class='st'>"measurement"</span>, -<span class='no'>Species</span>)</div><div class='output co'>#&gt;       Species   flower_att measurement
 #&gt; 1      setosa Sepal.Length         5.1
 #&gt; 2  versicolor Sepal.Length         7.0
 #&gt; 3   virginica Sepal.Length         6.3
@@ -266,9 +266,9 @@ can contain either a column name as string or a column position).</p>
 <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>dplyr</span>)
 <span class='no'>mini_iris</span> <span class='kw'>&lt;-</span>
   <span class='no'>iris</span> <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='http://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span>(<span class='no'>Species</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='http://dplyr.tidyverse.org/reference/slice.html'>slice</a></span>(<span class='fl'>1</span>)
-<span class='no'>mini_iris</span> <span class='kw'>%&gt;%</span> <span class='fu'>gather</span>(<span class='kw'>key</span> <span class='kw'>=</span> <span class='no'>flower_att</span>, <span class='kw'>value</span> <span class='kw'>=</span> <span class='no'>measurement</span>, -<span class='no'>Species</span>)</div><div class='output co'>#&gt; # A tibble: 12 x 3
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span>(<span class='no'>Species</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/slice.html'>slice</a></span>(<span class='fl'>1</span>)
+<span class='no'>mini_iris</span> <span class='kw'>%&gt;%</span> <span class='fu'>gather</span>(<span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"flower_att"</span>, <span class='kw'>value</span> <span class='kw'>=</span> <span class='st'>"measurement"</span>, -<span class='no'>Species</span>)</div><div class='output co'>#&gt; # A tibble: 12 x 3
 #&gt; # Groups:   Species [3]
 #&gt;    Species    flower_att   measurement
 #&gt;    &lt;fct&gt;      &lt;chr&gt;              &lt;dbl&gt;

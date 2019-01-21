@@ -133,7 +133,7 @@
       <td><p>Column names or positions. This is passed to
 <code><a href='https://www.rdocumentation.org/packages/tidyselect/topics/vars_pull'>tidyselect::vars_pull()</a></code>.</p>
 <p>These arguments are passed by expression and support
-<a href='https://www.rdocumentation.org/packages/rlang/topics/quasiquotation'>quasiquotation</a> (you can unquote column
+<a href='https://rlang.r-lib.org/reference/quasiquotation.html'>quasiquotation</a> (you can unquote column
 names or column positions).</p></td>
     </tr>
     <tr>
@@ -195,7 +195,7 @@ by "&lt;key_name&gt;&lt;sep&gt;&lt;key_value&gt;".</p></td>
 #&gt; 3 -6.7978023 -5.8829452  1.1366014  5.3492817</div><div class='input'>
 <span class='co'># Spread and gather are complements</span>
 <span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/data.frame'>data.frame</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"a"</span>, <span class='st'>"b"</span>), <span class='kw'>y</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>3</span>, <span class='fl'>4</span>), <span class='kw'>z</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>5</span>, <span class='fl'>6</span>))
-<span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>spread</span>(<span class='no'>x</span>, <span class='no'>y</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='gather.html'>gather</a></span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='no'>a</span>:<span class='no'>b</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt;   z x y
+<span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>spread</span>(<span class='no'>x</span>, <span class='no'>y</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='gather.html'>gather</a></span>(<span class='st'>"x"</span>, <span class='st'>"y"</span>, <span class='no'>a</span>:<span class='no'>b</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt;   z x y
 #&gt; 1 5 a 3
 #&gt; 4 6 b 4</div><div class='input'>
 <span class='co'># Use 'convert = TRUE' to produce variables of mixed type</span>
