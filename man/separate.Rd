@@ -93,7 +93,7 @@ df \%>\% separate(x, c("key","value"), ":", convert = TRUE) \%>\% str
 
 # Argument col can take quasiquotation to work with strings
 var <- "x"
-df \%>\% separate(!!var, c("key","value"),":")
+df \%>\% separate(!!var, c("key","value"), ":")
 }
 \seealso{
 \code{\link[=unite]{unite()}}, the complement, \code{\link[=extract]{extract()}} which uses regular
