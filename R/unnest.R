@@ -94,8 +94,7 @@ unnest.data.frame <- function(data, ..., .drop = NA, .id = NULL,
   }
 
   nested <- dplyr::transmute(dplyr::ungroup(data), !!! quos)
-  nested_unnamed <- nested %>%
-    dplyr::mutate_if(is.list, unname)
+  nested_unnamed <- map(nested, unname_list)
   n <- map(nested_unnamed, function(x) map_int(x, NROW))
   if (length(unique(n)) != 1) {
     abort("All nested columns must have the same number of elements.")
@@ -156,6 +155,13 @@ unnest.data.frame <- function(data, ..., .drop = NA, .id = NULL,
   reconstruct_tibble(data, out)
 }
 
+
+unname_list <- function(x) {
+  if(is.list(x)) {
+    x <- unname(x)
+  }
+  x
+}
 list_col_type <- function(x) {
   is_data_frame <- map_lgl(x, is.data.frame)
   is_atomic <- map_lgl(x, function(x) is_atomic(x) || (is_list(x) && !is.object(x)))
