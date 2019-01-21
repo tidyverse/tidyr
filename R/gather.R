@@ -65,16 +65,16 @@
 #'   Z = rnorm(10, 0, 4)
 #' )
 #'
-#' gather(stocks, stock, price, -time)
-#' stocks %>% gather(stock, price, -time)
+#' gather(stocks, "stock", "price", -time)
+#' stocks %>% gather("stock", "price", -time)
 #'
 #' # get first observation for each Species in iris data -- base R
 #' mini_iris <- iris[c(1, 51, 101), ]
 #' # gather Sepal.Length, Sepal.Width, Petal.Length, Petal.Width
-#' gather(mini_iris, key = flower_att, value = measurement,
+#' gather(mini_iris, key = "flower_att", value = "measurement",
 #'        Sepal.Length, Sepal.Width, Petal.Length, Petal.Width)
 #' # same result but less verbose
-#' gather(mini_iris, key = flower_att, value = measurement, -Species)
+#' gather(mini_iris, key = "flower_att", value = "measurement", -Species)
 #'
 #' # repeat iris example using dplyr and the pipe operator
 #' library(dplyr)
@@ -82,7 +82,7 @@
 #'   iris %>%
 #'   group_by(Species) %>%
 #'   slice(1)
-#' mini_iris %>% gather(key = flower_att, value = measurement, -Species)
+#' mini_iris %>% gather(key = "flower_att", value = "measurement", -Species)
 gather <- function(data, key = "key", value = "value", ...,
                    na.rm = FALSE, convert = FALSE, factor_key = FALSE) {
   UseMethod("gather")
