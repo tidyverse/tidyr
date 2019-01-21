@@ -15,7 +15,6 @@ test_that("can control output column name", {
 
 test_that("nest doesn't include grouping vars in nested data", {
   df <- tibble(x = c(1, 1, 1), y = 1:3)
-  new <- df %>% dplyr::group_by(x) %>% nest()
   out <- df %>% dplyr::group_by(x) %>% nest()
   expect_equal(out$data[[1]], data.frame(y = 1:3))
 })
