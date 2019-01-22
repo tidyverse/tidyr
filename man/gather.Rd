@@ -71,24 +71,6 @@ can contain either a column name as string or a column position).
 }
 
 \examples{
-# code and image from https://github.com/apreshill/teachthat
-# used with permission
-library(tidyverse)
-
-juniors_untidy <- tribble(
-  ~ "baker", ~"cinnamon_1", ~"cardamom_2", ~"nutmeg_3",
-  "Emma", 1L,   0L, 1L,
-  "Harry", 1L,   1L, 1L,
-  "Ruby", 1L,   0L, 1L,
-  "Zainab", 0L, NA, 0L
-)
-juniors_untidy
-
-# way one: select three columns
-juniors_untidy \%>\%
-  gather(key = "spice", value = "correct", cinnamon_1:nutmeg_3)
-
-![](gather.gif "sample title")
 library(dplyr)
 # From http://stackoverflow.com/questions/1181060
 stocks <- tibble(
