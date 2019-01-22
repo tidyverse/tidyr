@@ -97,3 +97,14 @@ test_that("crossing checks for bad inputs", {
     "Problems: y"
   )
 })
+
+test_that("crossing handles list columns", {
+  x <- 1:2
+  y <- list(1, 1:2)
+  out <- crossing(x, y)
+
+  expect_equal(nrow(out), 4)
+  expect_s3_class(out, "tbl_df")
+  expect_equal(out$x, rep(x, each = 2))
+  expect_equal(out$y, rep(y, 2))
+})

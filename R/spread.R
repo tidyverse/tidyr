@@ -157,6 +157,8 @@ ulevels <- function(x) {
     x <- addNA(x, ifany = TRUE)
     levs <- levels(x)
     factor(levs, levels = orig_levs, ordered = is.ordered(x), exclude = NULL)
+  } else if (is.list(x)) {
+    unique(x)
   } else {
     sort(unique(x), na.last = TRUE)
   }
