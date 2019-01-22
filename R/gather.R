@@ -5,7 +5,7 @@
 #' you notice that you have columns that are not variables.
 #'
 #' @section example gif:
-#' \figure{logo.png}
+#' \figure{gather.gif}
 #'
 #'
 #' @section Rules for selection:
