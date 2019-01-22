@@ -12,7 +12,8 @@
 #' that appear in the data.
 #'
 #' @param data A data frame.
-#' @param ... Specification of columns to expand.
+#' @param ... Specification of columns to expand. Columns can be atomic vectors
+#'   or lists.
 #'
 #'   To find all unique combinations of x, y and z, including those not
 #'   found in the data, supply each variable as a separate argument.
@@ -77,6 +78,15 @@
 #' experiment %>% right_join(all)
 #' # Or use the complete() short-hand
 #' experiment %>% complete(nesting(name, trt), rep)
+#'
+#' # Generate all combinations with expand():
+#' formulas <- list(
+#'   formula1 = Sepal.Length ~ Sepal.Width,
+#'   formula2 = Sepal.Length ~ Sepal.Width + Petal.Width,
+#'   formula3 = Sepal.Length ~ Sepal.Width + Petal.Width + Petal.Length
+#' )
+#' data <- split(iris, iris$Species)
+#' crossing(formula = formulas, data)
 expand <- function(data, ...) {
   UseMethod("expand")
 }
@@ -112,22 +122,22 @@ crossing <- function(...) {
     return(data.frame())
   }
 
-  is_atomic <- map_lgl(x, is_atomic)
+  is_vector <- map_lgl(x, is_atomic) | map_lgl(x, is_bare_list)
   is_df <- map_lgl(x, is.data.frame)
-  if (any(!is_df & !is_atomic)) {
-    bad <- names(x)[!is_df & !is_atomic]
+  if (any(!is_df & !is_vector)) {
+    bad <- names(x)[!is_df & !is_vector]
 
     problems <- paste(bad, collapse = ", ")
     abort(glue(
-      "Each element must be either an atomic vector or a data frame.
+      "Each element must be either an atomic vector, a data frame, or a list.
        Problems: {problems}."
     ))
   }
 
   # turn each atomic vector into single column data frame
-  col_df <- map(x[is_atomic], function(x) tibble(x = ulevels(x)))
-  col_df <- map2(col_df, names(x)[is_atomic], set_names)
-  x[is_atomic] <- col_df
+  col_df <- map(x[is_vector], function(x) tibble(x = ulevels(x)))
+  col_df <- map2(col_df, names(x)[is_vector], set_names)
+  x[is_vector] <- col_df
 
   Reduce(cross_df, x)
 }

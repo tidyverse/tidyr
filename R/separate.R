@@ -48,14 +48,29 @@
 #' # the extra and fill arguments to control what happens
 #' df <- data.frame(x = c("a", "a b", "a b c", NA))
 #' df %>% separate(x, c("a", "b"))
-#' # The same behaviour but no warnings
+#' # The same behaviour drops the c but no warnings
 #' df %>% separate(x, c("a", "b"), extra = "drop", fill = "right")
 #' # Another option:
 #' df %>% separate(x, c("a", "b"), extra = "merge", fill = "left")
+#' # Or you can keep all three
+#' df %>% separate(x, c("a", "b", "c"))
 #'
 #' # If only want to split specified number of times use extra = "merge"
 #' df <- data.frame(x = c("x: 123", "y: error: 7"))
 #' df %>% separate(x, c("key", "value"), ": ", extra = "merge")
+#'
+#' # Use regular expressions to separate on multiple characters:
+#' df <- data.frame(x = c(NA, "a?b", "a.d", "b:c"))
+#' df %>% separate(x, c("A","B"), sep = "([\\.\\?\\:])")
+#'
+#' # convert = TRUE detects column classes
+#' df <- data.frame(x = c("a:1", "a:2", "c:4", "d", NA))
+#' df %>% separate(x, c("key","value"), ":") %>% str
+#' df %>% separate(x, c("key","value"), ":", convert = TRUE) %>% str
+#'
+#' # Argument col can take quasiquotation to work with strings
+#' var <- "x"
+#' df %>% separate(!!var, c("key","value"), ":")
 separate <- function(data, col, into, sep = "[^[:alnum:]]+", remove = TRUE,
                      convert = FALSE, extra = "warn", fill = "warn", ...) {
   UseMethod("separate")

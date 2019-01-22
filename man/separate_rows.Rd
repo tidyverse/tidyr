@@ -9,11 +9,10 @@ separate_rows(data, ..., sep = "[^[:alnum:].]+", convert = FALSE)
 \arguments{
 \item{data}{A data frame.}
 
-\item{...}{A selection of columns. If empty, all variables are
-selected. You can supply bare variable names, select all
-variables between x and z with \code{x:z}, exclude y with \code{-y}. For
-more options, see the \code{\link[dplyr:select]{dplyr::select()}} documentation. See also
-the section on selection rules below.}
+\item{...}{A selection of columns. If empty, nothing happens. You can
+supply bare variable names, select all variables between \code{x} and \code{z}
+with \code{x:z}, exclude \code{y} with \code{-y}. For more selection options, see the
+\code{\link[dplyr:select]{dplyr::select()}} documentation.}
 
 \item{sep}{Separator delimiting collapsed values.}
 

@@ -24,9 +24,7 @@ test_that("convert turns strings into integers", {
 test_that("duplicate values for one key is an error", {
   df <- tibble(x = factor(c("a", "b", "b")), y = c(1, 2, 2), z = c(1, 2, 2))
   expect_error(spread(df, x, y),
-    "Duplicate identifiers for rows (2, 3)",
-    fixed = TRUE
-  )
+               "Keys are shared for 2 rows:")
 })
 
 test_that("factors are spread into columns (#35)", {
@@ -274,4 +272,9 @@ test_that("ulevels preserves original factor levels", {
 
   x_no_na_lev_extra <- factor(c("a", NA), levels = c("a", "b"))
   expect_equal(levels(ulevels(x_no_na_lev_extra)), c("a", "b"))
+})
+
+test_that("ulevels returns unique elements of a list for a list input", {
+  test_list <- list(a = 1:6, b = 1:6)
+  expect_equal(ulevels(test_list), unique(test_list))
 })

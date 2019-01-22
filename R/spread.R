@@ -77,9 +77,16 @@ spread.data.frame <- function(data, key, value, fill = NA, convert = FALSE,
     groups <- split(seq_along(overall), overall)
     groups <- groups[map_int(groups, length) > 1]
 
-    str <- map_chr(groups, function(x) paste0("(", paste0(x, collapse = ", "), ")"))
-    rows <- paste(str, collapse = ", ")
-    abort(glue("Duplicate identifiers for rows {rows}"))
+    shared <- sum(map_int(groups, length))
+
+    str <- map_chr(groups, function(x) paste0(x, collapse = ", "))
+    rows <- paste0(paste0("* ", str, "\n"), collapse = "")
+    abort(glue(
+      "Each row of output must be identified by a unique combination of keys.",
+      "\nKeys are shared for {shared} rows:",
+      "\n{rows}",
+      "Do you need to create unique ID with tibble::rowid_to_column()?"
+    ))
   }
 
   # Add in missing values, if necessary
@@ -150,6 +157,8 @@ ulevels <- function(x) {
     x <- addNA(x, ifany = TRUE)
     levs <- levels(x)
     factor(levs, levels = orig_levs, ordered = is.ordered(x), exclude = NULL)
+  } else if (is.list(x)) {
+    unique(x)
   } else {
     sort(unique(x), na.last = TRUE)
   }
