@@ -98,17 +98,13 @@ test_that("crossing checks for bad inputs", {
   )
 })
 
-test_that("expand handles list columns", {
-  list_of_dataframes <- iris %>% split(iris$Species) %>% unname()
-  list_of_vectors <- list(1:3, 2:4, 3:5)
-  demo <- tibble(
-    list_of_dataframes = list_of_dataframes,
-    list_of_vectors = list_of_vectors
-  ) %>%
-    expand(list_of_dataframes, list_of_vectors)
+test_that("crossing handles list columns", {
+  x <- 1:2
+  y <- list(1, 1:2)
+  out <- crossing(x, y)
 
-  expect_is(demo, "data.frame")
-  expect_equal(nrow(demo), 9)
-  expect_equal(demo$list_of_dataframes, rep(list_of_dataframes, each = 3))
-  expect_equal(demo$list_of_vectors, rep(list_of_vectors, 3))
+  expect_equal(nrow(out), 4)
+  expect_s3_class(out, "tbl_df")
+  expect_equal(out$x, rep(x, each = 2))
+  expect_equal(out$y, rep(y, 2))
 })
