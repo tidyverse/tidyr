@@ -93,14 +93,14 @@ experiment \%>\% right_join(all)
 # Or use the complete() short-hand
 experiment \%>\% complete(nesting(name, trt), rep)
 
-# Expand also works with list columns
-data_sets <- iris \%>\% split(iris$Species)
-formulas <- list(formula1 = Sepal.Length ~ Sepal.Width,
-                 formula2 = Sepal.Length ~ Sepal.Width + Petal.Width,
-                 formula3 = Sepal.Length ~ Sepal.Width + Petal.Width + Petal.Length)
-tibble(formulas = formulas, data_sets = data_sets) \%>\%
-  expand(formulas, data_sets)
-
+# Generate all combinations with expand():
+formulas <- list(
+  formula1 = Sepal.Length ~ Sepal.Width,
+  formula2 = Sepal.Length ~ Sepal.Width + Petal.Width,
+  formula3 = Sepal.Length ~ Sepal.Width + Petal.Width + Petal.Length
+)
+data <- split(iris, iris$Species)
+crossing(formula = formulas, data)
 }
 \seealso{
 \code{\link[=complete]{complete()}} for a common application of \code{expand}:

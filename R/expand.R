@@ -13,7 +13,7 @@
 #'
 #' @param data A data frame.
 #' @param ... Specification of columns to expand. Columns can be atomic vectors
-#' or lists.
+#'   or lists.
 #'
 #'   To find all unique combinations of x, y and z, including those not
 #'   found in the data, supply each variable as a separate argument.
@@ -79,14 +79,14 @@
 #' # Or use the complete() short-hand
 #' experiment %>% complete(nesting(name, trt), rep)
 #'
-#' # Expand also works with list columns
-#' data_sets <- iris %>% split(iris$Species)
-#' formulas <- list(formula1 = Sepal.Length ~ Sepal.Width,
-#'                  formula2 = Sepal.Length ~ Sepal.Width + Petal.Width,
-#'                  formula3 = Sepal.Length ~ Sepal.Width + Petal.Width + Petal.Length)
-#' tibble(formulas = formulas, data_sets = data_sets) %>%
-#'   expand(formulas, data_sets)
-#'
+#' # Generate all combinations with expand():
+#' formulas <- list(
+#'   formula1 = Sepal.Length ~ Sepal.Width,
+#'   formula2 = Sepal.Length ~ Sepal.Width + Petal.Width,
+#'   formula3 = Sepal.Length ~ Sepal.Width + Petal.Width + Petal.Length
+#' )
+#' data <- split(iris, iris$Species)
+#' crossing(formula = formulas, data)
 expand <- function(data, ...) {
   UseMethod("expand")
 }
