@@ -139,7 +139,8 @@ out which combinations are missing.</p>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Specification of columns to expand.</p>
+      <td><p>Specification of columns to expand. Columns can be atomic vectors
+or lists.</p>
 <p>To find all unique combinations of x, y and z, including those not
 found in the data, supply each variable as a separate argument.
 To find only the combinations that occur in the data, use nest:
@@ -309,7 +310,26 @@ completing a data frame with missing combinations.</p></div>
 #&gt; 6 Robert b         3      NA            NA    
 #&gt; 7 Sam    a         1       0.976         0.742
 #&gt; 8 Sam    a         2      NA            NA    
-#&gt; 9 Sam    a         3      NA            NA    </div></pre>
+#&gt; 9 Sam    a         3      NA            NA    </div><div class='input'>
+<span class='co'># Generate all combinations with expand():</span>
+<span class='no'>formulas</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(
+  <span class='kw'>formula1</span> <span class='kw'>=</span> <span class='no'>Sepal.Length</span> ~ <span class='no'>Sepal.Width</span>,
+  <span class='kw'>formula2</span> <span class='kw'>=</span> <span class='no'>Sepal.Length</span> ~ <span class='no'>Sepal.Width</span> + <span class='no'>Petal.Width</span>,
+  <span class='kw'>formula3</span> <span class='kw'>=</span> <span class='no'>Sepal.Length</span> ~ <span class='no'>Sepal.Width</span> + <span class='no'>Petal.Width</span> + <span class='no'>Petal.Length</span>
+)
+<span class='no'>data</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/split'>split</a></span>(<span class='no'>iris</span>, <span class='no'>iris</span>$<span class='no'>Species</span>)
+<span class='fu'>crossing</span>(<span class='kw'>formula</span> <span class='kw'>=</span> <span class='no'>formulas</span>, <span class='no'>data</span>)</div><div class='output co'>#&gt; # A tibble: 9 x 2
+#&gt;   formula       data                 
+#&gt;   &lt;list&gt;        &lt;list&gt;               
+#&gt; 1 &lt;S3: formula&gt; &lt;data.frame [50 × 5]&gt;
+#&gt; 2 &lt;S3: formula&gt; &lt;data.frame [50 × 5]&gt;
+#&gt; 3 &lt;S3: formula&gt; &lt;data.frame [50 × 5]&gt;
+#&gt; 4 &lt;S3: formula&gt; &lt;data.frame [50 × 5]&gt;
+#&gt; 5 &lt;S3: formula&gt; &lt;data.frame [50 × 5]&gt;
+#&gt; 6 &lt;S3: formula&gt; &lt;data.frame [50 × 5]&gt;
+#&gt; 7 &lt;S3: formula&gt; &lt;data.frame [50 × 5]&gt;
+#&gt; 8 &lt;S3: formula&gt; &lt;data.frame [50 × 5]&gt;
+#&gt; 9 &lt;S3: formula&gt; &lt;data.frame [50 × 5]&gt;</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
