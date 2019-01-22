@@ -42,6 +42,11 @@ Gather takes multiple columns and collapses into key-value pairs,
 duplicating all other columns as needed. You use \code{gather()} when
 you notice that you have columns that are not variables.
 }
+\section{example gif}{
+
+\figure{gather.gif}
+}
+
 \section{Rules for selection}{
 
 
@@ -71,6 +76,25 @@ can contain either a column name as string or a column position).
 }
 
 \examples{
+# code and image from https://github.com/apreshill/teachthat
+# used with permission
+library(tibble)
+
+juniors_untidy <- tribble(
+  ~ "baker", ~"cinnamon_1", ~"cardamom_2", ~"nutmeg_3",
+  "Emma", 1L,   0L, 1L,
+  "Harry", 1L,   1L, 1L,
+  "Ruby", 1L,   0L, 1L,
+  "Zainab", 0L, NA, 0L
+)
+juniors_untidy
+
+# way one: select three columns
+juniors_untidy \%>\%
+  gather(key = "spice", value = "correct", cinnamon_1:nutmeg_3)
+
+
+
 library(dplyr)
 # From http://stackoverflow.com/questions/1181060
 stocks <- tibble(
