@@ -99,14 +99,16 @@ test_that("crossing checks for bad inputs", {
 })
 
 test_that("expand handles list columns", {
-  data_sets <- iris %>% split(iris$Species)
-  formulas <- list(formula1 = Sepal.Length ~ Sepal.Width,
-                   formula2 = Sepal.Length ~ Sepal.Width + Petal.Width,
-                   formula3 = Sepal.Length ~ Sepal.Width + Petal.Width + Petal.Length)
-  demo <- tibble(formulas = formulas, data_sets = data_sets) %>%
-    expand(formulas, data_sets)
+  list_of_dataframes <- iris %>% split(iris$Species) %>% unname()
+  list_of_vectors <- list(1:3, 2:4, 3:5)
+  demo <- tibble(
+    list_of_dataframes = list_of_dataframes,
+    list_of_vectors = list_of_vectors
+  ) %>%
+    expand(list_of_dataframes, list_of_vectors)
 
   expect_is(demo, "data.frame")
   expect_equal(nrow(demo), 9)
-
+  expect_equal(demo$list_of_dataframes, rep(list_of_dataframes, each = 3))
+  expect_equal(demo$list_of_vectors, rep(list_of_vectors, 3))
 })
