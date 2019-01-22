@@ -121,7 +121,7 @@ test_that("sep combines column names", {
 test_that("can unnest empty data frame", {
   df <- tibble(x = integer(), y = list())
   out <- unnest(df, y)
-  expect_equal(out, tibble(x = integer()))
+  expect_equal(out, tibble(x = integer(), y = logical()))
 })
 
 test_that("empty ... returns df if no list-cols", {
@@ -172,7 +172,6 @@ test_that("grouping is preserved", {
 })
 
 test_that("unnesting zero row column preserves names", {
-  # example from https://github.com/tidyverse/tidyr/issues/483#issuecomment-451482975
-  df <- data.frame(a = character(), b = character())
-  expect_equal(df %>% unnest(a) %>% names, c("a","b"))
+  df <- tibble(a = character(), b = character())
+  expect_equal(df %>% unnest(b), tibble(b = character(), a = character()))
 })

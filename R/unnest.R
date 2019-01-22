@@ -80,11 +80,6 @@ unnest <- function(data, ..., .drop = NA, .id = NULL, .sep = NULL, .preserve = N
 unnest.data.frame <- function(data, ..., .drop = NA, .id = NULL,
                               .sep = NULL, .preserve = NULL) {
 
-  # to address issue #483 (unnesting 0 row tibble drops unnested columns)
-  if (nrow(data) == 0){
-    return(data)
-  }
-
   preserve <- tidyselect::vars_select(names(data), !!enquo(.preserve))
   quos <- quos(...)
   if (is_empty(quos)) {
@@ -164,10 +159,10 @@ list_col_type <- function(x) {
   is_data_frame <- map_lgl(x, is.data.frame)
   is_atomic <- map_lgl(x, function(x) is_atomic(x) || (is_list(x) && !is.object(x)))
 
-  if (all(is_data_frame)) {
-    "dataframe"
-  } else if (all(is_atomic)) {
+  if (all(is_atomic)) {
     "atomic"
+  } else if (all(is_data_frame)) {
+    "dataframe"
   } else {
     "mixed"
   }
