@@ -44,7 +44,7 @@ you notice that you have columns that are not variables.
 }
 \section{example gif}{
 
-\figure{gather.gif}
+\figure{logo.png}
 }
 
 \section{Rules for selection}{
