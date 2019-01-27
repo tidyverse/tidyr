@@ -98,7 +98,10 @@ spread.data.frame <- function(data, key, value, fill = NA, convert = FALSE,
 
   value <- data[[value_var]]
   ordered <- value[overall]
-  if (!is.na(fill)) {
+  if (all(!is.na(fill))) {
+    if (class(ordered) == "list") {
+      ordered[ordered == "NULL"] <- list(fill)
+    }
     ordered[is.na(ordered)] <- fill
   }
 
