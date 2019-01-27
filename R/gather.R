@@ -4,9 +4,6 @@
 #' duplicating all other columns as needed. You use `gather()` when
 #' you notice that you have columns that are not variables.
 #'
-#' @section example gif:
-#' \figure{gather.gif}
-#'
 #'
 #' @section Rules for selection:
 #'
@@ -34,6 +31,8 @@
 #' column referred to by the object `x` defined in the context (which
 #' can contain either a column name as string or a column position).
 #'
+#' @section Example gif:
+#' \figure{gather.gif}
 #'
 #' @inheritParams expand
 #' @param key,value Names of new key and value columns, as strings or
