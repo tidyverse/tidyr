@@ -1,5 +1,8 @@
 # tidyr 0.8.2.9000
 
+* `complete()` now uses `full_join()` so that all levels are preserved even
+  when not all levels are specified (@Ryo-N7, #493).
+
 * `crossing()` preserves factor levels (#410).
 
 # tidyr 0.8.2
