@@ -23,7 +23,7 @@
 #'
 #' # Separate is the complement of unite
 #' mtcars %>%
-#'   unite(vs_am, vs, am) %>%
+#'   unite("vs_am", vs, am) %>%
 #'   separate(vs_am, c("vs", "am"))
 unite <- function(data, col, ..., sep = "_", remove = TRUE) {
   UseMethod("unite")

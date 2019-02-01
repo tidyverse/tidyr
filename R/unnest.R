@@ -79,6 +79,7 @@ unnest <- function(data, ..., .drop = NA, .id = NULL, .sep = NULL, .preserve = N
 #' @export
 unnest.data.frame <- function(data, ..., .drop = NA, .id = NULL,
                               .sep = NULL, .preserve = NULL) {
+
   preserve <- tidyselect::vars_select(names(data), !!enquo(.preserve))
   quos <- quos(...)
   if (is_empty(quos)) {
@@ -93,7 +94,7 @@ unnest.data.frame <- function(data, ..., .drop = NA, .id = NULL,
   }
 
   nested <- dplyr::transmute(dplyr::ungroup(data), !!! quos)
-  n <- map(nested, function(x) map_int(x, NROW))
+  n <- map(nested, function(x) unname(map_int(x, NROW)))
   if (length(unique(n)) != 1) {
     abort("All nested columns must have the same number of elements.")
   }
@@ -163,10 +164,10 @@ list_col_type <- function(x) {
   is_data_frame <- map_lgl(x, is.data.frame)
   is_atomic <- map_lgl(x, function(x) is_atomic(x) || (is_list(x) && !is.object(x)))
 
-  if (all(is_data_frame)) {
-    "dataframe"
-  } else if (all(is_atomic)) {
+  if (all(is_atomic)) {
     "atomic"
+  } else if (all(is_data_frame)) {
+    "dataframe"
   } else {
     "mixed"
   }

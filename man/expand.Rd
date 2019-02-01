@@ -15,7 +15,8 @@ nesting(...)
 \arguments{
 \item{data}{A data frame.}
 
-\item{...}{Specification of columns to expand.
+\item{...}{Specification of columns to expand. Columns can be atomic vectors
+or lists.
 
 To find all unique combinations of x, y and z, including those not
 found in the data, supply each variable as a separate argument.
@@ -91,6 +92,15 @@ all \%>\% anti_join(experiment)
 experiment \%>\% right_join(all)
 # Or use the complete() short-hand
 experiment \%>\% complete(nesting(name, trt), rep)
+
+# Generate all combinations with expand():
+formulas <- list(
+  formula1 = Sepal.Length ~ Sepal.Width,
+  formula2 = Sepal.Length ~ Sepal.Width + Petal.Width,
+  formula3 = Sepal.Length ~ Sepal.Width + Petal.Width + Petal.Length
+)
+data <- split(iris, iris$Species)
+crossing(formula = formulas, data)
 }
 \seealso{
 \code{\link[=complete]{complete()}} for a common application of \code{expand}:

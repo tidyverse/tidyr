@@ -52,6 +52,11 @@ test_that("preserves NAs", {
   expect_equal(nesting(x)$x, x)
 })
 
+test_that("crossing preserves factor levels", {
+  x_na_lev_extra <- factor(c("a", NA), levels = c("a", "b", NA), exclude = NULL)
+  expect_equal(levels(crossing(x = x_na_lev_extra)$x), c("a", "b", NA))
+})
+
 test_that("zero length numeric & character inputs are automatically dropped", {
   tb <- tibble(x = 1:5)
   expect_equal(expand(tb, x, y = numeric()), tb)
@@ -91,4 +96,15 @@ test_that("crossing checks for bad inputs", {
     crossing(x = 1:10, y = quote(a)),
     "Problems: y"
   )
+})
+
+test_that("crossing handles list columns", {
+  x <- 1:2
+  y <- list(1, 1:2)
+  out <- crossing(x, y)
+
+  expect_equal(nrow(out), 4)
+  expect_s3_class(out, "tbl_df")
+  expect_equal(out$x, rep(x, each = 2))
+  expect_equal(out$y, rep(y, 2))
 })

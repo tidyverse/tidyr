@@ -37,7 +37,7 @@
 #'
 #' # Spread and gather are complements
 #' df <- data.frame(x = c("a", "b"), y = c(3, 4), z = c(5, 6))
-#' df %>% spread(x, y) %>% gather(x, y, a:b, na.rm = TRUE)
+#' df %>% spread(x, y) %>% gather("x", "y", a:b, na.rm = TRUE)
 #'
 #' # Use 'convert = TRUE' to produce variables of mixed type
 #' df <- data.frame(row = rep(c(1, 51), each = 3),
@@ -77,9 +77,16 @@ spread.data.frame <- function(data, key, value, fill = NA, convert = FALSE,
     groups <- split(seq_along(overall), overall)
     groups <- groups[map_int(groups, length) > 1]
 
-    str <- map_chr(groups, function(x) paste0("(", paste0(x, collapse = ", "), ")"))
-    rows <- paste(str, collapse = ", ")
-    abort(glue("Duplicate identifiers for rows {rows}"))
+    shared <- sum(map_int(groups, length))
+
+    str <- map_chr(groups, function(x) paste0(x, collapse = ", "))
+    rows <- paste0(paste0("* ", str, "\n"), collapse = "")
+    abort(glue(
+      "Each row of output must be identified by a unique combination of keys.",
+      "\nKeys are shared for {shared} rows:",
+      "\n{rows}",
+      "Do you need to create unique ID with tibble::rowid_to_column()?"
+    ))
   }
 
   # Add in missing values, if necessary
@@ -146,9 +153,12 @@ split_labels <- function(df, id, drop = TRUE) {
 }
 ulevels <- function(x) {
   if (is.factor(x)) {
+    orig_levs <- levels(x)
     x <- addNA(x, ifany = TRUE)
     levs <- levels(x)
-    factor(levs, levels = levs, ordered = is.ordered(x))
+    factor(levs, levels = orig_levs, ordered = is.ordered(x), exclude = NULL)
+  } else if (is.list(x)) {
+    unique(x)
   } else {
     sort(unique(x), na.last = TRUE)
   }
