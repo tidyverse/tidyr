@@ -9,6 +9,10 @@ fillUp <- function(x) {
     .Call(`_tidyr_fillUp`, x)
 }
 
+rep_ <- function(x, n, var_name) {
+    .Call(`_tidyr_rep_`, x, n, var_name)
+}
+
 melt_dataframe <- function(data, id_ind, measure_ind, variable_name, value_name, attrTemplate, factorsAsStrings, valueAsFactor, variableAsFactor) {
     .Call(`_tidyr_melt_dataframe`, data, id_ind, measure_ind, variable_name, value_name, attrTemplate, factorsAsStrings, valueAsFactor, variableAsFactor)
 }

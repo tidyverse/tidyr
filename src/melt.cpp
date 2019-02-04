@@ -14,6 +14,7 @@ using namespace Rcpp;
     }                                                          \
   }
 
+// [[Rcpp::export]]
 SEXP rep_(SEXP x, int n, std::string var_name) {
   if (!Rf_isVectorAtomic(x) && TYPEOF(x) != VECSXP)
     stop("'%s' must be an atomic vector or list", var_name);
@@ -25,17 +26,18 @@ SEXP rep_(SEXP x, int n, std::string var_name) {
   int xn = Rf_length(x);
 
   if (Rf_inherits(x, "data.frame")) {
-    List output_ = no_init(xn);
-    DataFrame output = DataFrame(output_);
+    List output = no_init(xn);
     DataFrame data = DataFrame(x);
 
     CharacterVector data_names = as<CharacterVector>(data.attr("names"));
+    output.attr("names") = data_names;
+
     for (int i = 0; i < xn; ++i) {
       SEXP object = data[i];
-      std::string var_name = std::string(data_names[i]);
-      output[i] = rep_(object, n, var_name);
+      output[i] = rep_(object, n, std::string(data_names[i]));
     }
 
+    Rf_copyMostAttrib(x, output);
     return output;
   }
 

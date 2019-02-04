@@ -27,6 +27,19 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// rep_
+SEXP rep_(SEXP x, int n, std::string var_name);
+RcppExport SEXP _tidyr_rep_(SEXP xSEXP, SEXP nSEXP, SEXP var_nameSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< SEXP >::type x(xSEXP);
+    Rcpp::traits::input_parameter< int >::type n(nSEXP);
+    Rcpp::traits::input_parameter< std::string >::type var_name(var_nameSEXP);
+    rcpp_result_gen = Rcpp::wrap(rep_(x, n, var_name));
+    return rcpp_result_gen;
+END_RCPP
+}
 // melt_dataframe
 List melt_dataframe(const DataFrame& data, const IntegerVector& id_ind, const IntegerVector& measure_ind, String variable_name, String value_name, SEXP attrTemplate, bool factorsAsStrings, bool valueAsFactor, bool variableAsFactor);
 RcppExport SEXP _tidyr_melt_dataframe(SEXP dataSEXP, SEXP id_indSEXP, SEXP measure_indSEXP, SEXP variable_nameSEXP, SEXP value_nameSEXP, SEXP attrTemplateSEXP, SEXP factorsAsStringsSEXP, SEXP valueAsFactorSEXP, SEXP variableAsFactorSEXP) {
@@ -63,6 +76,7 @@ END_RCPP
 static const R_CallMethodDef CallEntries[] = {
     {"_tidyr_fillDown", (DL_FUNC) &_tidyr_fillDown, 1},
     {"_tidyr_fillUp", (DL_FUNC) &_tidyr_fillUp, 1},
+    {"_tidyr_rep_", (DL_FUNC) &_tidyr_rep_, 3},
     {"_tidyr_melt_dataframe", (DL_FUNC) &_tidyr_melt_dataframe, 9},
     {"_tidyr_simplifyPieces", (DL_FUNC) &_tidyr_simplifyPieces, 3},
     {NULL, NULL, 0}
