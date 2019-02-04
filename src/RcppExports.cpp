@@ -40,6 +40,19 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// concatenate
+SEXP concatenate(const DataFrame& x, IntegerVector ind, bool factorsAsStrings);
+RcppExport SEXP _tidyr_concatenate(SEXP xSEXP, SEXP indSEXP, SEXP factorsAsStringsSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const DataFrame& >::type x(xSEXP);
+    Rcpp::traits::input_parameter< IntegerVector >::type ind(indSEXP);
+    Rcpp::traits::input_parameter< bool >::type factorsAsStrings(factorsAsStringsSEXP);
+    rcpp_result_gen = Rcpp::wrap(concatenate(x, ind, factorsAsStrings));
+    return rcpp_result_gen;
+END_RCPP
+}
 // melt_dataframe
 List melt_dataframe(const DataFrame& data, const IntegerVector& id_ind, const IntegerVector& measure_ind, String variable_name, String value_name, SEXP attrTemplate, bool factorsAsStrings, bool valueAsFactor, bool variableAsFactor);
 RcppExport SEXP _tidyr_melt_dataframe(SEXP dataSEXP, SEXP id_indSEXP, SEXP measure_indSEXP, SEXP variable_nameSEXP, SEXP value_nameSEXP, SEXP attrTemplateSEXP, SEXP factorsAsStringsSEXP, SEXP valueAsFactorSEXP, SEXP variableAsFactorSEXP) {
@@ -77,6 +90,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_tidyr_fillDown", (DL_FUNC) &_tidyr_fillDown, 1},
     {"_tidyr_fillUp", (DL_FUNC) &_tidyr_fillUp, 1},
     {"_tidyr_rep_", (DL_FUNC) &_tidyr_rep_, 3},
+    {"_tidyr_concatenate", (DL_FUNC) &_tidyr_concatenate, 3},
     {"_tidyr_melt_dataframe", (DL_FUNC) &_tidyr_melt_dataframe, 9},
     {"_tidyr_simplifyPieces", (DL_FUNC) &_tidyr_simplifyPieces, 3},
     {NULL, NULL, 0}

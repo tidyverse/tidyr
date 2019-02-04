@@ -13,6 +13,10 @@ rep_ <- function(x, n, var_name) {
     .Call(`_tidyr_rep_`, x, n, var_name)
 }
 
+concatenate <- function(x, ind, factorsAsStrings) {
+    .Call(`_tidyr_concatenate`, x, ind, factorsAsStrings)
+}
+
 melt_dataframe <- function(data, id_ind, measure_ind, variable_name, value_name, attrTemplate, factorsAsStrings, valueAsFactor, variableAsFactor) {
     .Call(`_tidyr_melt_dataframe`, data, id_ind, measure_ind, variable_name, value_name, attrTemplate, factorsAsStrings, valueAsFactor, variableAsFactor)
 }

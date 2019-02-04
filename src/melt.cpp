@@ -34,7 +34,7 @@ SEXP rep_(SEXP x, int n, std::string var_name) {
 
     for (int i = 0; i < xn; ++i) {
       SEXP object = data[i];
-      output[i] = rep_(object, n, std::string(data_names[i]));
+      SET_VECTOR_ELT(output, i, rep_(object, n, std::string(data_names[i])));
     }
 
     Rf_copyMostAttrib(x, output);
@@ -125,6 +125,7 @@ CharacterVector make_variable_column_character(CharacterVector x, int nrow) {
     break;                                                   \
   }
 
+// [[Rcpp::export]]
 SEXP concatenate(const DataFrame& x, IntegerVector ind, bool factorsAsStrings) {
 
   int nrow = x.nrows();
@@ -135,6 +136,8 @@ SEXP concatenate(const DataFrame& x, IntegerVector ind, bool factorsAsStrings) {
   // Note: we convert factors to characters if necessary
   int max_type = 0;
   int ctype = 0;
+  bool all_data_frame = true;
+  bool any_data_frame = false;
   for (int i = 0; i < n_ind; ++i) {
 
     if (Rf_isFactor(x[ind[i]]) and factorsAsStrings) {
@@ -143,9 +146,56 @@ SEXP concatenate(const DataFrame& x, IntegerVector ind, bool factorsAsStrings) {
       ctype = TYPEOF(x[ind[i]]);
     }
     max_type = ctype > max_type ? ctype : max_type;
+
+    bool is_data_frame = Rf_inherits(x[ind[i]], "data.frame");
+    all_data_frame &= is_data_frame;
+    any_data_frame |= is_data_frame;
   }
 
   debug(printf("Max type of value variables is %s\n", Rf_type2char(max_type)));
+
+  if (any_data_frame) {
+    if (!all_data_frame)
+      stop("You cannot mix data.frame columns and non-data.frame columns.");
+
+    CharacterVector data_names = as<CharacterVector>(x.attr("names"));
+    int ncol = x.size();
+
+    CharacterVector sub_data_names_all;
+    for (int i = 0; i < ncol; ++i) {
+      List col = List(x[i]);
+      CharacterVector sub_data_names = as<CharacterVector>(col.attr("names"));
+      for (int j = 0; j < sub_data_names.size(); j++) {
+        sub_data_names_all.push_back(sub_data_names[j]);
+      }
+    }
+
+    CharacterVector sub_data_names_unique = unique(sub_data_names_all);
+
+    List output = no_init(sub_data_names_unique.size());
+    output.attr("names") = sub_data_names_unique;
+    for (int j = 0; j < sub_data_names_unique.size(); j++) {
+      List tmp = no_init(ncol);
+      tmp.attr("names") = data_names;
+      String sub_col= sub_data_names_unique[j];
+      for (int i = 0; i < ncol; ++i) {
+        List col = List(x[i]);
+        CharacterVector sub_data_names = as<CharacterVector>(col.attr("names"));
+        //LogicalVector idx = in(sub_col, sub_data_names);
+        SET_VECTOR_ELT(tmp, i, col[sub_col]);
+      }
+      SEXP out = concatenate(tmp, ind, factorsAsStrings);
+      SET_VECTOR_ELT(output, j, out);
+    }
+
+    Rf_copyMostAttrib(x, output);
+
+    // Set the row names
+    output.attr("row.names") =
+      IntegerVector::create(IntegerVector::get_na(), -(nrow * ncol));
+
+    return output;
+  }
 
   Armor<SEXP> tmp;
   Shield<SEXP> output(Rf_allocVector(max_type, nrow * n_ind));
