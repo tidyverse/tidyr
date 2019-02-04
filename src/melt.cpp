@@ -23,8 +23,23 @@ SEXP rep_(SEXP x, int n, std::string var_name) {
   }
 
   int xn = Rf_length(x);
-  int nout = xn * n;
 
+  if (Rf_inherits(x, "data.frame")) {
+    List output_ = no_init(xn);
+    DataFrame output = DataFrame(output_);
+    DataFrame data = DataFrame(x);
+
+    CharacterVector data_names = as<CharacterVector>(data.attr("names"));
+    for (int i = 0; i < xn; ++i) {
+      SEXP object = data[i];
+      std::string var_name = std::string(data_names[i]);
+      output[i] = rep_(object, n, var_name);
+    }
+
+    return output;
+  }
+
+  int nout = xn * n;
   Shield<SEXP> output(Rf_allocVector(TYPEOF(x), nout));
   switch (TYPEOF(x)) {
     case INTSXP:
