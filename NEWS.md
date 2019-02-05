@@ -10,6 +10,8 @@
 
 * `crossing()` preserves factor levels (#410).
 
+* `spread()` works when the id variable has names (#525).
+
 # tidyr 0.8.2
 
 * `separate()` now accepts `NA` as a column name in the `into` argument to
