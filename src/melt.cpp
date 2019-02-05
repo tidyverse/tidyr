@@ -183,7 +183,10 @@ SEXP concatenate(const DataFrame& x, IntegerVector ind, bool factorsAsStrings) {
       for (int i = 0; i < n_ind; ++i) {
         List col = List(x[ind[i]]);
         CharacterVector sub_data_names = as<CharacterVector>(col.attr("names"));
-        //LogicalVector idx = in(sub_col, sub_data_names);
+
+        // TODO: fill non-existent columns.
+        // LogicalVector idx = in(sub_col, sub_data_names);
+
         SET_VECTOR_ELT(tmp, i, col[sub_col]);
       }
       SEXP out = concatenate(tmp, seq(0, ind.size() - 1), factorsAsStrings);
@@ -192,7 +195,8 @@ SEXP concatenate(const DataFrame& x, IntegerVector ind, bool factorsAsStrings) {
 
     Rf_copyMostAttrib(x, output);
 
-    // Set the row names
+    // TODO: as long as used in melt_dataframes(), concatinate() doesn't need to
+    //       set row.names here since this will be overwritten by Rf_copyMostAttrib().
     output.attr("row.names") =
       IntegerVector::create(IntegerVector::get_na(), -(nrow * n_ind));
 
@@ -323,7 +327,7 @@ List melt_dataframe(const DataFrame& data,
 
   // Make the List more data.frame like
 
-  // Set the row names
+  // Set the row names recursively, as Rf_copyMostAttrib does that recursively.
   set_rownames(output, nrow * n_measure);
 
   // Set the names
