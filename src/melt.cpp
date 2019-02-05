@@ -185,8 +185,8 @@ SEXP concatenate(const DataFrame& x, IntegerVector ind, bool factorsAsStrings) {
     List output = no_init(sub_data_names_unique.size());
     output.attr("names") = sub_data_names_unique;
     for (int j = 0; j < sub_data_names_unique.size(); j++) {
-      List tmp = no_init(n_ind);
-      tmp.attr("names") = data_names;
+      List tmp_df = no_init(n_ind);
+      tmp_df.attr("names") = data_names;
       for (int i = 0; i < n_ind; ++i) {
         List col = List(x[ind[i]]);
         CharacterVector sub_data_names = as<CharacterVector>(col.attr("names"));
@@ -194,15 +194,16 @@ SEXP concatenate(const DataFrame& x, IntegerVector ind, bool factorsAsStrings) {
         // TODO: fill non-existent columns.
         // LogicalVector idx = in(sub_col, sub_data_names);
 
-        SET_VECTOR_ELT(tmp, i, VECTOR_ELT(col, j));
+        SET_VECTOR_ELT(tmp_df, i, VECTOR_ELT(col, j));
+        Rf_copyMostAttrib(col, tmp_df);
       }
-      SEXP out = concatenate(tmp, seq(0, n_ind - 1), factorsAsStrings);
+      SEXP out = concatenate(tmp_df, seq(0, n_ind - 1), factorsAsStrings);
       SET_VECTOR_ELT(output, j, out);
     }
 
     Rf_copyMostAttrib(x, output);
 
-    // TODO: as long as used in melt_dataframes(), concatinate() doesn't need to
+    // TODO: as long as used in melt_dataframes(), concatenate() doesn't need to
     //       set row.names here since this will be overwritten by Rf_copyMostAttrib().
     output.attr("row.names") =
       IntegerVector::create(IntegerVector::get_na(), -(nrow * n_ind));
@@ -270,6 +271,22 @@ void set_rownames(List x, int n) {
   }
 }
 
+void copy_most_attrib(SEXP tmpl, SEXP x) {
+  if (!Rf_isNull(tmpl)) {
+    Rf_copyMostAttrib(tmpl, x);
+  }
+
+  if (Rf_inherits(x, "data.frame")) {
+    List data(x);
+    List data_tmpl(tmpl);
+    for (int i = 0; i < data.size(); i++) {
+      SEXP tmpl_col = data_tmpl[i];
+      SEXP col = data[i];
+      copy_most_attrib(tmpl_col, col);
+    }
+  }
+}
+
 
 // [[Rcpp::export]]
 List melt_dataframe(const DataFrame& data,
@@ -329,9 +346,7 @@ List melt_dataframe(const DataFrame& data,
   // TODO: do not add a value column when we gather data.frame columns?
   // 'value' is made by concatenating each of the 'value' variables
   output[n_id + 1] = concatenate(data, measure_ind, factorsAsStrings);
-  if (!Rf_isNull(attrTemplate)) {
-    Rf_copyMostAttrib(attrTemplate, output[n_id + 1]);
-  }
+  copy_most_attrib(attrTemplate, output[n_id + 1]);
 
   // Make the List more data.frame like
 
