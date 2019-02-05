@@ -278,3 +278,14 @@ test_that("ulevels returns unique elements of a list for a list input", {
   test_list <- list(a = 1:6, b = 1:6)
   expect_equal(ulevels(test_list), unique(test_list))
 })
+
+test_that("spread works when id column has names (#525)", {
+  df <- tibble(
+    key = factor(c("a", "b", "c"), levels = letters[1:5]),
+    out = 1:3,
+    id  = c(a = 1, b = 2, c = 3)
+  )
+  res <- spread(df, key, out, drop = FALSE)
+  expect_equal(names(res), c("id", letters[1:5]))
+})
+
