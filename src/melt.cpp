@@ -297,13 +297,14 @@ void copy_most_attrib(SEXP tmpl, SEXP x) {
     List data(x);
     List data_tmpl(tmpl);
 
-    CharacterVector data_names_tmpl = as<CharacterVector>(data_tmpl.attr("names"));
     CharacterVector data_names = as<CharacterVector>(data.attr("names"));
+    CharacterVector data_names_tmpl = as<CharacterVector>(data_tmpl.attr("names"));
     IntegerVector indices = match(data_names_tmpl, data_names);
 
     for (int i = 0; i < data.size(); i++) {
       SEXP col = data[i];
-      int idx = indices[i];
+      // match() returns 1-origin indices
+      int idx = indices[i] - 1;
 
       // TODO: handle missing columns
       if (idx < 0) continue;

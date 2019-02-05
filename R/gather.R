@@ -141,10 +141,18 @@ gather.data.frame <- function(data, key = "key", value = "value", ...,
 
 # Functions from reshape2 -------------------------------------------------
 
+attributes_rec <- function(x) {
+  if (is.list(x)) {
+    map(sort(names(x)), ~ attributes_rec(x[[.]]))
+  } else {
+    attributes(x)
+  }
+}
+
 ## Get the attributes if common, NULL if not.
 normalize_melt_arguments <- function(data, measure.ind) {
   measure.attributes <- map(measure.ind, function(i) {
-    attributes(data[[i]])
+    attributes_rec(data[[i]])
   })
 
   ## Determine if all measure.attributes are equal
