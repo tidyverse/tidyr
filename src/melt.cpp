@@ -180,7 +180,9 @@ SEXP concatenate(const DataFrame& x, IntegerVector ind, bool factorsAsStrings) {
       }
     }
 
+    // TODO: sort in the original order
     CharacterVector sub_data_names_unique = unique(sub_data_names_all);
+    sub_data_names_unique.sort();
 
     List output = no_init(sub_data_names_unique.size());
     output.attr("names") = sub_data_names_unique;
