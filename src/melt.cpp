@@ -14,6 +14,7 @@ using namespace Rcpp;
     }                                                          \
   }
 
+// FIXME: this export is just for debugging purposes
 // [[Rcpp::export]]
 SEXP rep_(SEXP x, int n, std::string var_name) {
   if (!Rf_isVectorAtomic(x) && TYPEOF(x) != VECSXP)
@@ -125,6 +126,7 @@ CharacterVector make_variable_column_character(CharacterVector x, int nrow) {
     break;                                                   \
   }
 
+// FIXME: this export is just for debugging purposes
 // [[Rcpp::export]]
 SEXP concatenate(const DataFrame& x, IntegerVector ind, bool factorsAsStrings) {
 
