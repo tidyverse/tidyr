@@ -158,12 +158,14 @@ SEXP concatenate(const DataFrame& x, IntegerVector ind, bool factorsAsStrings) {
     if (!all_data_frame)
       stop("You cannot mix data.frame columns and non-data.frame columns.");
 
-    CharacterVector data_names = as<CharacterVector>(x.attr("names"));
-    int ncol = x.size();
+    CharacterVector data_names_ = as<CharacterVector>(x.attr("names"));
 
+    CharacterVector data_names(n_ind);
     CharacterVector sub_data_names_all;
-    for (int i = 0; i < ncol; ++i) {
-      List col = List(x[i]);
+    for (int i = 0; i < n_ind; ++i) {
+      SET_STRING_ELT(data_names, i, STRING_ELT(data_names_, ind[i]));
+
+      List col = List(x[ind[i]]);
       CharacterVector sub_data_names = as<CharacterVector>(col.attr("names"));
       for (int j = 0; j < sub_data_names.size(); j++) {
         sub_data_names_all.push_back(sub_data_names[j]);
@@ -175,16 +177,16 @@ SEXP concatenate(const DataFrame& x, IntegerVector ind, bool factorsAsStrings) {
     List output = no_init(sub_data_names_unique.size());
     output.attr("names") = sub_data_names_unique;
     for (int j = 0; j < sub_data_names_unique.size(); j++) {
-      List tmp = no_init(ncol);
+      List tmp = no_init(n_ind);
       tmp.attr("names") = data_names;
       String sub_col= sub_data_names_unique[j];
-      for (int i = 0; i < ncol; ++i) {
-        List col = List(x[i]);
+      for (int i = 0; i < n_ind; ++i) {
+        List col = List(x[ind[i]]);
         CharacterVector sub_data_names = as<CharacterVector>(col.attr("names"));
         //LogicalVector idx = in(sub_col, sub_data_names);
         SET_VECTOR_ELT(tmp, i, col[sub_col]);
       }
-      SEXP out = concatenate(tmp, ind, factorsAsStrings);
+      SEXP out = concatenate(tmp, seq(0, ind.size() - 1), factorsAsStrings);
       SET_VECTOR_ELT(output, j, out);
     }
 
@@ -192,7 +194,7 @@ SEXP concatenate(const DataFrame& x, IntegerVector ind, bool factorsAsStrings) {
 
     // Set the row names
     output.attr("row.names") =
-      IntegerVector::create(IntegerVector::get_na(), -(nrow * ncol));
+      IntegerVector::create(IntegerVector::get_na(), -(nrow * n_ind));
 
     return output;
   }
@@ -244,6 +246,19 @@ SEXP concatenate(const DataFrame& x, IntegerVector ind, bool factorsAsStrings) {
 
   return output;
 }
+
+void set_rownames(List x, int n) {
+  x.attr("row.names") =
+    IntegerVector::create(IntegerVector::get_na(), -n);
+
+  for (int i = 0; i < x.size(); i++) {
+    SEXP col = x[i];
+    if (Rf_inherits(col, "data.frame")) {
+      set_rownames(col, n);
+    }
+  }
+}
+
 
 // [[Rcpp::export]]
 List melt_dataframe(const DataFrame& data,
@@ -309,8 +324,7 @@ List melt_dataframe(const DataFrame& data,
   // Make the List more data.frame like
 
   // Set the row names
-  output.attr("row.names") =
-      IntegerVector::create(IntegerVector::get_na(), -(nrow * n_measure));
+  set_rownames(output, nrow * n_measure);
 
   // Set the names
   CharacterVector out_names = no_init(n_id + 2);
