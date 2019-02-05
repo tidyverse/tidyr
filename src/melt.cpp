@@ -321,6 +321,7 @@ List melt_dataframe(const DataFrame& data,
     output[n_id] = make_variable_column_character(id_names, nrow);
   }
 
+  // TODO: do not add a value column when we gather data.frame columns?
   // 'value' is made by concatenating each of the 'value' variables
   output[n_id + 1] = concatenate(data, measure_ind, factorsAsStrings);
   if (!Rf_isNull(attrTemplate)) {
