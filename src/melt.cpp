@@ -26,6 +26,7 @@ SEXP rep_(SEXP x, int n, std::string var_name) {
 
   int xn = Rf_length(x);
 
+  // if x is a data.frame, do replicate it recursively.
   if (Rf_inherits(x, "data.frame")) {
     List output = no_init(xn);
     DataFrame data = DataFrame(x);
@@ -138,6 +139,9 @@ SEXP concatenate(const DataFrame& x, IntegerVector ind, bool factorsAsStrings) {
   // Note: we convert factors to characters if necessary
   int max_type = 0;
   int ctype = 0;
+  // Check if there's any data.frame column. We also need to check
+  // if all columns are data.frame because we don't know how to join
+  // an atomic vector and data.frame.
   bool all_data_frame = true;
   bool any_data_frame = false;
   for (int i = 0; i < n_ind; ++i) {
@@ -156,12 +160,14 @@ SEXP concatenate(const DataFrame& x, IntegerVector ind, bool factorsAsStrings) {
 
   debug(printf("Max type of value variables is %s\n", Rf_type2char(max_type)));
 
+  // if targets are data.frame column, do concatenate them recursively.
   if (any_data_frame) {
     if (!all_data_frame)
       stop("You cannot mix data.frame columns and non-data.frame columns.");
 
     CharacterVector data_names_ = as<CharacterVector>(x.attr("names"));
 
+    // Pick all column names in data.frame columns
     CharacterVector data_names(n_ind);
     CharacterVector sub_data_names_all;
     for (int i = 0; i < n_ind; ++i) {
@@ -181,7 +187,6 @@ SEXP concatenate(const DataFrame& x, IntegerVector ind, bool factorsAsStrings) {
     for (int j = 0; j < sub_data_names_unique.size(); j++) {
       List tmp = no_init(n_ind);
       tmp.attr("names") = data_names;
-      String sub_col= sub_data_names_unique[j];
       for (int i = 0; i < n_ind; ++i) {
         List col = List(x[ind[i]]);
         CharacterVector sub_data_names = as<CharacterVector>(col.attr("names"));
@@ -189,9 +194,9 @@ SEXP concatenate(const DataFrame& x, IntegerVector ind, bool factorsAsStrings) {
         // TODO: fill non-existent columns.
         // LogicalVector idx = in(sub_col, sub_data_names);
 
-        SET_VECTOR_ELT(tmp, i, col[sub_col]);
+        SET_VECTOR_ELT(tmp, i, VECTOR_ELT(col, j));
       }
-      SEXP out = concatenate(tmp, seq(0, ind.size() - 1), factorsAsStrings);
+      SEXP out = concatenate(tmp, seq(0, n_ind - 1), factorsAsStrings);
       SET_VECTOR_ELT(output, j, out);
     }
 
