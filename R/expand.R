@@ -34,7 +34,7 @@
 #'   completing a data frame with missing combinations.
 #' @export
 #' @examples
-#' library(dplyr)
+#' library(tidyr)
 #' # All possible combinations of vs & cyl, even those that aren't
 #' # present in the data
 #' expand(mtcars, vs, cyl)
