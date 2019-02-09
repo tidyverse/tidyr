@@ -42,6 +42,16 @@ Gather takes multiple columns and collapses into key-value pairs,
 duplicating all other columns as needed. You use \code{gather()} when
 you notice that you have columns that are not variables.
 }
+\details{
+\if{html}{
+\out{
+ <img src="https://user-images.githubusercontent.com/209714/48026738-e9a06a80-e114-11e8-9a24-ecc8b37b8a53.gif" width="80%"/>
+}
+}
+
+If the above gif is giving you grief, it's also available at:
+\url{https://user-images.githubusercontent.com/209714/48026738-e9a06a80-e114-11e8-9a24-ecc8b37b8a53.gif}
+}
 \section{Rules for selection}{
 
 
@@ -68,16 +78,6 @@ inlines the result in the surrounding function call. For instance,
 \code{c(x, !! x)} selects the \code{x} column within the data frame and the
 column referred to by the object \code{x} defined in the context (which
 can contain either a column name as string or a column position).
-}
-
-\section{Example gif}{
-
-\if{html}{
-\out{
- <img src = "https://user-images.githubusercontent.com/209714/48026738-e9a06a80-e114-11e8-9a24-ecc8b37b8a53.gif">
-}}
-If the above gif is giving you grief, it's also available at:
-\url{https://user-images.githubusercontent.com/209714/48026738-e9a06a80-e114-11e8-9a24-ecc8b37b8a53.gif}
 }
 
 \examples{
