@@ -11,7 +11,7 @@ gather(data, key = "key", value = "value", ..., na.rm = FALSE,
 \item{data}{A data frame.}
 
 \item{key, value}{Names of new key and value columns, as strings or
-symbols.
+symbols.de
 
 This argument is passed by expression and supports
 \link[rlang:quasiquotation]{quasiquotation} (you can unquote strings
@@ -72,7 +72,12 @@ can contain either a column name as string or a column position).
 
 \section{Example gif}{
 
-\figure{gather.gif}
+\if{html}{
+\out{
+ <img src = "https://user-images.githubusercontent.com/209714/48026738-e9a06a80-e114-11e8-9a24-ecc8b37b8a53.gif">
+}}
+If the above gif is giving you grief, it's also available at:
+\url{https://user-images.githubusercontent.com/209714/48026738-e9a06a80-e114-11e8-9a24-ecc8b37b8a53.gif}
 }
 
 \examples{
