@@ -49,8 +49,8 @@ you notice that you have columns that are not variables.
 }
 }
 
-If the above gif is giving you grief, it's also available at:
-\url{https://user-images.githubusercontent.com/209714/48026738-e9a06a80-e114-11e8-9a24-ecc8b37b8a53.gif}
+If the above gif is giving you grief, it's also available
+\href{https://user-images.githubusercontent.com/209714/48026738-e9a06a80-e114-11e8-9a24-ecc8b37b8a53.gif}{here}.
 }
 \section{Rules for selection}{
 
