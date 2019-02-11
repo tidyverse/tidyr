@@ -2,6 +2,8 @@
 
 * `crossing()` preserves factor levels (#410).
 
+* `gather` help page includes @apreshill's GIF. (@khailper #515)
+
 # tidyr 0.8.2
 
 * `separate()` now accepts `NA` as a column name in the `into` argument to
