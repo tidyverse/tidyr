@@ -9,7 +9,8 @@ complete(data, ..., fill = list())
 \arguments{
 \item{data}{A data frame.}
 
-\item{...}{Specification of columns to expand.
+\item{...}{Specification of columns to expand. Columns can be atomic vectors
+or lists.
 
 To find all unique combinations of x, y and z, including those not
 found in the data, supply each variable as a separate argument.

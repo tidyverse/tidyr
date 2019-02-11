@@ -24,13 +24,22 @@ test_that("unnesting row binds data frames", {
   expect_equal(unnest(df)$x, 1:10)
 })
 
-test_that("can unnested lists", {
+test_that("can unnest nested lists", {
   df <- tibble(
     x = 1:2,
     y = list(list("a"), list("b"))
   )
   rs <- unnest(df, y)
   expect_identical(rs, tibble(x = 1:2, y = list("a", "b")))
+})
+
+test_that("can unnest mixture of name and unnamed lists of same length", {
+  df <- tibble(
+    x = c("a"),
+    y = list(y = 1:2),
+    z = list(1:2)
+  )
+  expect_identical(unnest(df), tibble(x = c("a","a"), y = c(1:2), z = c(1:2)))
 })
 
 test_that("elements must all be of same type", {
@@ -121,7 +130,7 @@ test_that("sep combines column names", {
 test_that("can unnest empty data frame", {
   df <- tibble(x = integer(), y = list())
   out <- unnest(df, y)
-  expect_equal(out, tibble(x = integer()))
+  expect_equal(out, tibble(x = integer(), y = logical()))
 })
 
 test_that("empty ... returns df if no list-cols", {
@@ -169,4 +178,9 @@ test_that("grouping is preserved", {
   expect_equal(rs$x, 1:3)
   expect_equal(class(df), class(rs))
   expect_equal(dplyr::groups(df), dplyr::groups(rs))
+})
+
+test_that("unnesting zero row column preserves names", {
+  df <- tibble(a = character(), b = character())
+  expect_equal(df %>% unnest(b), tibble(b = character(), a = character()))
 })
