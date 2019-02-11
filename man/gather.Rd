@@ -11,7 +11,7 @@ gather(data, key = "key", value = "value", ..., na.rm = FALSE,
 \item{data}{A data frame.}
 
 \item{key, value}{Names of new key and value columns, as strings or
-symbols.de
+symbols.
 
 This argument is passed by expression and supports
 \link[rlang:quasiquotation]{quasiquotation} (you can unquote strings

@@ -4,7 +4,6 @@
 #' duplicating all other columns as needed. You use `gather()` when
 #' you notice that you have columns that are not variables.
 #'
-#'
 #' @section Rules for selection:
 #'
 #' Arguments for selecting columns are passed to
@@ -43,7 +42,7 @@
 #'
 #' @inheritParams expand
 #' @param key,value Names of new key and value columns, as strings or
-#'   symbols.de
+#'   symbols.
 #'
 #'   This argument is passed by expression and supports
 #'   [quasiquotation][rlang::quasiquotation] (you can unquote strings
