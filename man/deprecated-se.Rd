@@ -103,7 +103,7 @@ create.}
 pair of key-value columns.}
 
 \item{na.rm}{If \code{TRUE}, will remove rows from output where the
-value column in \code{NA}.}
+value column is \code{NA}.}
 
 \item{factor_key}{If \code{FALSE}, the default, the key values will be
 stored as a character vector. If \code{TRUE}, will be stored as a factor,
