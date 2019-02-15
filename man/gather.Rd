@@ -27,7 +27,7 @@ more options, see the \code{\link[dplyr:select]{dplyr::select()}} documentation.
 the section on selection rules below.}
 
 \item{na.rm}{If \code{TRUE}, will remove rows from output where the
-value column in \code{NA}.}
+value column is \code{NA}.}
 
 \item{convert}{If \code{TRUE} will automatically run
 \code{\link[=type.convert]{type.convert()}} on the key column. This is useful if the column
