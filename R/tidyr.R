@@ -1,5 +1,6 @@
 #' @keywords internal
 #' @import rlang
+#' @import vctrs
 #' @importFrom glue glue
 #' @importFrom purrr accumulate discard every keep map map2 map2_chr
 #'   map2_dbl map2_df map2_int map2_lgl map_at map_chr map_dbl map_df

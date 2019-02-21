@@ -38,8 +38,8 @@ pivot_to_long <- function(df, spec, na.rm = FALSE, .ptype = .ptype) {
 
   # Coerce multiple value columns to single type
   val_cols <- unname(as.list(df[spec$col_name]))
-  val_type <- vctrs::vec_type_common(!!!val_cols, .ptype = .ptype)
-  val <- vctrs::vec_c(!!!val_cols, .ptype = val_type)
+  val_type <- vec_type_common(!!!val_cols, .ptype = .ptype)
+  val <- vec_c(!!!val_cols, .ptype = val_type)
 
   # Line up output rows by combining spec and existing data frame
   # https://github.com/tidyverse/tidyr/issues/557
@@ -51,28 +51,28 @@ pivot_to_long <- function(df, spec, na.rm = FALSE, .ptype = .ptype) {
   rows$val <- val
 
   if (na.rm) {
-    rows <- vctrs::vec_slice(rows, !vctrs::vec_equal_na(val))
+    rows <- vec_slice(rows, !vec_equal_na(val))
   }
 
   # Join together df, spec, and val to produce final tibble
   df_out <- df[setdiff(names(df), spec$col_name)]
   spec_out <- spec[-(1:2)]
 
-  out <- vctrs::vec_cbind(
-    vctrs::vec_slice(spec_out, rows$spec_id),
+  out <- vec_cbind(
+    vec_slice(spec_out, rows$spec_id),
     tibble(!!measure_var := rows$val),
   )
   # Bind original keys back on if there are any
   # Because of https://github.com/r-lib/vctrs/issues/199
   if (ncol(df_out) > 0) {
-    out <- vctrs::vec_cbind(vctrs::vec_slice(df_out, rows$df_id), out)
+    out <- vec_cbind(vec_slice(df_out, rows$df_id), out)
   }
   out
 }
 
 # https://github.com/r-lib/vctrs/issues/189
 vec_along <- function(x) {
-  seq_len(vctrs::vec_size(x))
+  seq_len(vec_size(x))
 }
 
 pivot_to_wide <- function(df, spec) {
@@ -85,35 +85,35 @@ pivot_to_wide <- function(df, spec) {
     rows <- tibble(.rows = 1)
     row_id <- rep(1L, nrow(spec))
   } else {
-    rows <- vctrs::vec_unique(df_rows)
+    rows <- vec_unique(df_rows)
     # https://github.com/r-lib/vctrs/issues/199
-    row_id <- vctrs::vec_match(df_rows, rows)
+    row_id <- vec_match(df_rows, rows)
   }
 
   cols <- df[names(spec)[-(1:2)]]
-  col_id <- vctrs::vec_match(cols, spec[-(1:2)])
+  col_id <- vec_match(cols, spec[-(1:2)])
   val_id <- data.frame(row = row_id, col = col_id)
-  if (vctrs::vec_duplicate_any(val_id)) {
+  if (vec_duplicate_any(val_id)) {
     warn("Values are not uniquely identified; output will contain list-columns")
 
     # https://github.com/r-lib/vctrs/issues/196
-    val <- unname(split(val, vctrs::vec_duplicate_id(val_id)))
-    val_id <- vctrs::vec_unique(val_id)
+    val <- unname(split(val, vec_duplicate_id(val_id)))
+    val_id <- vec_unique(val_id)
   }
 
   nrow <- nrow(rows)
   ncol <- nrow(spec)
-  out <- vctrs::vec_na(val, nrow * ncol)
+  out <- vec_na(val, nrow * ncol)
   out[val_id$row + nrow * (val_id$col - 1L)] <- val
 
-  vctrs::vec_cbind(rows, wrap_vec(out, spec$col_name))
+  vec_cbind(rows, wrap_vec(out, spec$col_name))
 }
 
 # Wrap a "rectangular" vector into a data frame
 wrap_vec <- function(vec, names) {
   ncol <- length(names)
   nrow <- length(vec) / ncol
-  out <- set_names(vctrs::vec_na(list(), ncol), names)
+  out <- set_names(vec_na(list(), ncol), names)
   for (i in 1:ncol) {
     out[[i]] <- vec[((i - 1) * nrow + 1):(i * nrow)]
   }
