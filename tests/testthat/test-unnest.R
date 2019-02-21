@@ -185,3 +185,8 @@ test_that("unnesting zero row column preserves names", {
   df <- tibble(a = character(), b = character())
   expect_equal(df %>% unnest(b), tibble(b = character(), a = character()))
 })
+
+test_that("unnest() recognize ptype", {
+  res <- unnest(tibble(x = integer(), y = structure(list(), ptype = double())))
+  expect_equal(res, tibble(x = integer(), y = double()))
+})

@@ -28,13 +28,9 @@ separate_rows.data.frame <- function(data, ..., sep = "[^[:alnum:].]+",
   vars <- unname(tidyselect::vars_select(names(data), ...))
 
   data[vars] <- map(data[vars], function(x) {
-    if (length(x)) {
-      stringi::stri_split_regex(x, sep)
-    } else {
-      # if x is empty we return an empty character vector rather
-      # than a empty list, because that unnest()s better
-      character()
-    }
+    out <- stringi::stri_split_regex(x, sep)
+    attr(out, "ptype") <- character()
+    out
   })
   data <- unnest(data, !!! syms(vars), .drop = FALSE)
   data <- dplyr::select(data, !!! intersect(names(orig), names(data)))
