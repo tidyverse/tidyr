@@ -1,5 +1,5 @@
 pivot <- function(df, spec, na.rm = FALSE, .ptype = NULL) {
-  check_spec(spec)
+  spec <- check_spec(spec)
 
   # Check colnames match up and error otherwise
   df_in_spec <- all(spec$col_name %in% names(df))
@@ -25,6 +25,10 @@ check_spec <- function(spec) {
   if (!has_name(spec, "col_name") || !has_name(spec, "measure")) {
     stop("`spec` must have `col_name` and `measure` columns", call. = FALSE)
   }
+
+  # Ensure col_name and measure come first
+  vars <- union(c("col_name", "measure"), names(spec))
+  spec[vars]
 }
 
 pivot_to_long <- function(df, spec, na.rm = FALSE, .ptype = .ptype) {
@@ -32,77 +36,87 @@ pivot_to_long <- function(df, spec, na.rm = FALSE, .ptype = .ptype) {
   # and specify their ptypes
   measure_var <- spec$measure[[1]]
 
-  # Find common type
-  vals <- unname(as.list(df[spec$col_name]))
-  val_type <- vctrs::vec_type_common(!!!vals, .ptype = .ptype)
-  val <- vctrs::vec_c(!!!vals, .ptype = val_type)
+  # Coerce multiple value columns to single type
+  val_cols <- unname(as.list(df[spec$col_name]))
+  val_type <- vctrs::vec_type_common(!!!val_cols, .ptype = .ptype)
+  val <- vctrs::vec_c(!!!val_cols, .ptype = val_type)
 
-  # Duplicate rows in keys and spec approriately
-  keys <- df[setdiff(names(df), spec$col_name)]
-  key_ids <- rep(seq_len(vctrs::vec_size(df)), each = vctrs::vec_size(spec))
-
-  spec <- spec[setdiff(names(spec), c("col_name", "measure"))]
-  spec_ids <- rep(seq_len(vctrs::vec_size(spec)), vctrs::vec_size(df))
+  # Line up output rows by combining spec and existing data frame
+  # https://github.com/tidyverse/tidyr/issues/557
+  rows <- expand.grid(
+    spec_id = vec_along(spec),
+    df_id = vec_along(df),
+    KEEP.OUT.ATTRS = FALSE
+  )
+  rows$val <- val
 
   if (na.rm) {
-    miss <- is.na(val)
-    val <- val[!miss]
-    key_ids <- key_ids[!miss]
-    spec_ids <- spec_ids[!miss]
+    rows <- vctrs::vec_slice(rows, !vctrs::vec_equal_na(val))
   }
 
+  # Join together df, spec, and val to produce final tibble
+  df_out <- df[setdiff(names(df), spec$col_name)]
+  spec_out <- spec[-(1:2)]
+
   out <- vctrs::vec_cbind(
-    vctrs::vec_slice(spec, spec_ids),
-    tibble(!!measure_var := val),
+    vctrs::vec_slice(spec_out, rows$spec_id),
+    tibble(!!measure_var := rows$val),
   )
   # Bind original keys back on if there are any
   # Because of https://github.com/r-lib/vctrs/issues/199
-  if (ncol(keys) > 0) {
-    out <- vctrs::vec_cbind(vctrs::vec_slice(keys, key_ids), out)
+  if (ncol(df_out) > 0) {
+    out <- vctrs::vec_cbind(vctrs::vec_slice(df_out, rows$df_id), out)
   }
   out
 }
 
-pivot_to_wide <- function(df, spec) {
-  measure <- df[[spec$measure[[1]]]]
-  spec_cols <- c(setdiff(names(spec), c("col_name", "measure")), spec$measure[[1]])
+# https://github.com/r-lib/vctrs/issues/189
+vec_along <- function(x) {
+  seq_len(vctrs::vec_size(x))
+}
 
-  rows <- vctrs::vec_unique(df[setdiff(names(df), spec_cols)])
-  if (ncol(rows) == 0) {
+pivot_to_wide <- function(df, spec) {
+  val <- df[[spec$measure[[1]]]]
+  spec_cols <- c(names(spec)[-(1:2)], spec$measure[[1]])
+
+  # Figure out rows in output
+  df_rows <- df[setdiff(names(df), spec_cols)]
+  if (ncol(df_rows) == 0) {
     rows <- tibble(.rows = 1)
     row_id <- rep(1L, nrow(spec))
   } else {
+    rows <- vctrs::vec_unique(df_rows)
     # https://github.com/r-lib/vctrs/issues/199
-    row_id <- vctrs::vec_match(df[setdiff(names(df), spec_cols)], rows)
+    row_id <- vctrs::vec_match(df_rows, rows)
   }
 
-  cols <- df[spec_cols[-length(spec_cols)]]
-  col_id <- vctrs::vec_match(cols, spec[spec_cols[-length(spec_cols)]])
-
-  nrow <- nrow(rows)
-  ncol <- nrow(spec)
-
-  idx <- data.frame(row = row_id, col = col_id)
-  if (vctrs::vec_duplicate_any(idx)) {
+  cols <- df[names(spec)[-(1:2)]]
+  col_id <- vctrs::vec_match(cols, spec[-(1:2)])
+  val_id <- data.frame(row = row_id, col = col_id)
+  if (vctrs::vec_duplicate_any(val_id)) {
     warn("Values are not uniquely identified; output will contain list-columns")
 
     # https://github.com/r-lib/vctrs/issues/196
-    measure <- unname(split(measure, vctrs::vec_duplicate_id(idx)))
-    idx <- vctrs::vec_unique(idx)
-    row_id <- idx$row
-    col_id <- idx$col
+    val <- unname(split(val, vctrs::vec_duplicate_id(val_id)))
+    val_id <- vctrs::vec_unique(val_id)
   }
 
-  # use col-major vector
-  # then converting to data frame with subsetting
+  nrow <- nrow(rows)
+  ncol <- nrow(spec)
+  out <- vctrs::vec_na(val, nrow * ncol)
+  out[val_id$row + nrow * (val_id$col - 1L)] <- val
 
-  type <- vctrs::vec_type(measure)
-  out <- matrix(vctrs::vec_na(type, nrow * ncol), ncol = ncol)
-
-  out[cbind(row_id, col_id)] <- measure
-  out <- tibble:::matrixToDataFrame(out)
-  names(out) <- spec$col_name
-
-  vctrs::vec_cbind(rows, out)
+  vctrs::vec_cbind(rows, wrap_vec(out, spec$col_name))
 }
 
+# Wrap a "rectangular" vector into a data frame
+wrap_vec <- function(vec, names) {
+  ncol <- length(names)
+  nrow <- length(vec) / ncol
+  out <- set_names(vctrs::vec_na(list(), ncol), names)
+  for (i in 1:ncol) {
+    out[[i]] <- vec[((i - 1) * nrow + 1):(i * nrow)]
+  }
+
+  as_tibble(out)
+}
