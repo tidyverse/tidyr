@@ -128,10 +128,9 @@ test_that("sep combines column names", {
 })
 
 test_that("can unnest empty data frame", {
-  skip("no longer sure this is the right result. with dplyr 0.8.0 I get tibble(x = integer()) which sounds reasonnable")
   df <- tibble(x = integer(), y = list())
   out <- unnest(df, y)
-  expect_equal(out, tibble(x = integer(), y = logical()))
+  expect_equal(out, tibble(x = integer()))
 })
 
 test_that("empty ... returns df if no list-cols", {
@@ -187,6 +186,7 @@ test_that("unnesting zero row column preserves names", {
 })
 
 test_that("unnest() recognize ptype", {
-  res <- unnest(tibble(x = integer(), y = structure(list(), ptype = double())))
+  tbl <- tibble(x = integer(), y = structure(list(), ptype = double()))
+  res <- unnest(tbl)
   expect_equal(res, tibble(x = integer(), y = double()))
 })
