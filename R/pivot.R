@@ -1,4 +1,4 @@
-pivot <- function(df, spec, na.rm = FALSE) {
+pivot <- function(df, spec, na.rm = FALSE, .ptype = NULL) {
   check_spec(spec)
 
   # Check colnames match up and error otherwise
@@ -6,7 +6,7 @@ pivot <- function(df, spec, na.rm = FALSE) {
   spec_in_df <- all(setdiff(names(spec), c("col_name", "measure")) %in% names(df))
 
   if (df_in_spec) {
-    pivot_to_long(df, spec, na.rm = na.rm)
+    pivot_to_long(df, spec, na.rm = na.rm, .ptype = .ptype)
   } else if (spec_in_df) {
     pivot_to_wide(df, spec)
   } else {
@@ -27,14 +27,14 @@ check_spec <- function(spec) {
   }
 }
 
-pivot_to_long <- function(df, spec, na.rm = FALSE) {
+pivot_to_long <- function(df, spec, na.rm = FALSE, .ptype = .ptype) {
   # need to handle multiple measure vars
   # and specify their ptypes
   measure_var <- spec$measure[[1]]
 
   # Find common type
   vals <- unname(as.list(df[spec$col_name]))
-  val_type <- vctrs::vec_type_common(!!!vctrs::vec_type(vals))
+  val_type <- vctrs::vec_type_common(!!!vals, .ptype = .ptype)
   val <- vctrs::vec_c(!!!vals, .ptype = val_type)
 
   # Duplicate rows in keys and spec approriately

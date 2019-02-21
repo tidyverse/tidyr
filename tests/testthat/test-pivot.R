@@ -53,6 +53,14 @@ test_that("mixed columns are automatically coerced", {
   expect_equal(pv$value, factor(c("a", "b")))
 })
 
+test_that("can override default output column type", {
+  df <- tibble(x = "x", y = 1)
+  sp <- pivot_spec_long(df, x:y)
+  pv <- pivot(df, sp, .ptype = list())
+
+  expect_equal(pv$value, list("x", 1))
+})
+
 # pivot_wide --------------------------------------------------------------
 
 test_that("can pivot all cols to wide", {
