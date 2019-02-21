@@ -6,9 +6,9 @@ pivot <- function(df, spec, na.rm = FALSE) {
   spec_in_df <- all(setdiff(names(spec), c("col_name", "measure")) %in% names(df))
 
   if (df_in_spec) {
-    pivot_long(df, spec, na.rm = na.rm)
+    pivot_to_long(df, spec, na.rm = na.rm)
   } else if (spec_in_df) {
-    pivot_wide(df, spec)
+    pivot_to_wide(df, spec)
   } else {
     stop("Mismatch between spec and df. Need better message")
   }
@@ -27,7 +27,7 @@ check_spec <- function(spec) {
   }
 }
 
-pivot_long <- function(df, spec, na.rm = FALSE) {
+pivot_to_long <- function(df, spec, na.rm = FALSE) {
   # need to handle multiple measure vars
   # and specify their ptypes
   measure_var <- spec$measure[[1]]
@@ -63,7 +63,7 @@ pivot_long <- function(df, spec, na.rm = FALSE) {
   out
 }
 
-pivot_wide <- function(df, spec) {
+pivot_to_wide <- function(df, spec) {
   measure <- df[[spec$measure[[1]]]]
   spec_cols <- c(setdiff(names(spec), c("col_name", "measure")), spec$measure[[1]])
 

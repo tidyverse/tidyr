@@ -20,3 +20,35 @@ pivot_spec_wide <- function(df, cols, measure = value, sep = "_") {
   )
   vctrs::vec_cbind(out, row_ids)
 }
+
+
+# wrappers ----------------------------------------------------------------
+
+pivot_long <- function(df,
+                       cols,
+                       measure = "value",
+                       variable = "variable",
+                       na.rm = TRUE
+                       ) {
+
+  spec <- pivot_spec_long(
+    df, !!enquo(cols),
+    measure = measure,
+    variable = variable
+  )
+  pivot(df, spec, na.rm = na.rm)
+}
+
+pivot_wide <- function(df,
+                       cols,
+                       measure = value,
+                       sep = "_"
+                       ) {
+
+  spec <- pivot_spec_wide(
+    df, !!enquo(cols),
+    measure = !!enquo(measure),
+    sep  = sep
+  )
+  pivot(df, spec)
+}
