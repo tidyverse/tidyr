@@ -6,10 +6,9 @@ test_that("can handle collapsed rows", {
 })
 
 test_that("can handle empty data frames (#308)", {
-  skip("not sure what this should be, but with dplyr 0.8.0 I get tibble(a = character())")
   df <- tibble(a = character(), b = character())
   rs <- separate_rows(df, b)
-  expect_equal(rs, tibble(a = character(), b = logical()))
+  expect_equal(rs, tibble(a = character(), b = character()))
 })
 
 test_that("default pattern does not split decimals in nested strings", {

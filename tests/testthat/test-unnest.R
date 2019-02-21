@@ -182,7 +182,6 @@ test_that("grouping is preserved", {
 })
 
 test_that("unnesting zero row column preserves names", {
-  skip("no longer sure that this is the right result, with dplyr 0.8.0 on, I get tibble(a = character())")
   df <- tibble(a = character(), b = character())
   expect_equal(df %>% unnest(b), tibble(b = character(), a = character()))
 })
