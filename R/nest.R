@@ -33,7 +33,7 @@
 nest <- function(data, ..., .key = "data") {
   UseMethod("nest")
 }
-
+#' @importFrom utils packageVersion
 #' @export
 nest.tbl_df <- function(data, ..., .key = "data") {
 
@@ -56,15 +56,19 @@ nest.tbl_df <- function(data, ..., .key = "data") {
     return(tibble(!! key_var := list(data)))
   }
 
-  out <- dplyr::select(data, !!! syms(group_vars))
+  if (packageVersion("dplyr") < "0.8.0") {
+    out <- dplyr::select(data, !!! syms(group_vars))
 
-  idx <- dplyr::group_indices(data, !!! syms(group_vars))
-  representatives <- which(!duplicated(idx))
+    idx <- dplyr::group_indices(data, !!! syms(group_vars))
+    representatives <- which(!duplicated(idx))
 
-  out <- dplyr::slice(out, representatives)
-  out[[key_var]] <- unname(split(data[nest_vars], idx))[unique(idx)]
-
-  out
+    out <- dplyr::slice(out, representatives)
+    out[[key_var]] <- unname(split(data[nest_vars], idx))[unique(idx)]
+    out
+  } else {
+    out <- dplyr::select(data, !!!syms(group_vars), !!!syms(nest_vars))
+    dplyr::group_nest(out, !!!syms(group_vars), .key = key_var)
+  }
 }
 
 #' @export

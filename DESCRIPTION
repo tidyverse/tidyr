@@ -30,7 +30,8 @@ Imports:
     rlang,
     stringi,
     tibble,
-    tidyselect (>= 0.2.5)
+    tidyselect (>= 0.2.5),
+    utils
 Suggests: 
     covr,
     gapminder,

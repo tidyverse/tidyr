@@ -1,5 +1,10 @@
 # tidyr 0.8.2.9000
 
+* `nest()` uses `dplyr::group_nest()` when available. 
+
+* `unnest()` handles lists with a "ptype" attribute to indicate type, mostly useful
+  for unnesting data frames with 0 rows. 
+
 * `unnest()` preserves column being unnested when input is zero-length (#483).
 
 * `unnest()` will run with named and unnamed list-columns of same length

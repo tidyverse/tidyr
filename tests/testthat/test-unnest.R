@@ -130,7 +130,7 @@ test_that("sep combines column names", {
 test_that("can unnest empty data frame", {
   df <- tibble(x = integer(), y = list())
   out <- unnest(df, y)
-  expect_equal(out, tibble(x = integer(), y = logical()))
+  expect_equal(out, tibble(x = integer()))
 })
 
 test_that("empty ... returns df if no list-cols", {
@@ -183,4 +183,10 @@ test_that("grouping is preserved", {
 test_that("unnesting zero row column preserves names", {
   df <- tibble(a = character(), b = character())
   expect_equal(df %>% unnest(b), tibble(b = character(), a = character()))
+})
+
+test_that("unnest() recognize ptype", {
+  tbl <- tibble(x = integer(), y = structure(list(), ptype = double()))
+  res <- unnest(tbl)
+  expect_equal(res, tibble(x = integer(), y = double()))
 })

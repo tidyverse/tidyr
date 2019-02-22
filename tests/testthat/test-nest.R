@@ -4,7 +4,8 @@ test_that("nest turns grouped values into one list-df", {
   df <- tibble(x = c(1, 1, 1), y = 1:3)
   out <- nest(df, y)
   expect_equal(out$x, 1)
-  expect_equal(out$data, list(data.frame(y = 1:3)))
+  expect_equal(length(out$data), 1L)
+  expect_equal(out$data[[1L]], data.frame(y = 1:3))
 })
 
 test_that("can control output column name", {
@@ -34,7 +35,8 @@ test_that("puts data into the correct row", {
 test_that("nesting everything yields a simple data frame", {
   df <- tibble(x = 1:3, y = c("B", "A", "A"))
   out <- nest(df, x, y)
-  expect_equal(out$data, list(df))
+  expect_equal(length(out$data), 1L)
+  expect_equal(out$data[[1L]], df)
 })
 
 test_that("nesting works for empty data frames", {
@@ -42,12 +44,16 @@ test_that("nesting works for empty data frames", {
 
   out <- nest(df, x)
   expect_equal(names(out), c("y", "data"))
-  expect_equal(nrow(out), 0)
-  expect_equal(out$data, list())
-  # unnest(out) is missing the x column
+
+  if (utils::packageVersion("dplyr") > "0.7.99") {
+    expect_equal(unnest(out), df)
+  }
+  expect_equal(nrow(out), 0L)
+  expect_equal(length(out$data), 0L)
 
   out <- nest(df, x, y)
-  expect_equal(out$data, list(df))
+  expect_equal(length(out$data), 1L)
+  expect_equal(out$data[[1L]], df)
 })
 
 test_that("tibble conversion occurs in the `nest.data.frame()` method", {

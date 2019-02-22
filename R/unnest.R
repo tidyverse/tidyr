@@ -89,7 +89,6 @@ unnest.data.frame <- function(data, ..., .drop = NA, .id = NULL,
     quos <- syms(list_cols)
   }
 
-
   if (length(quos) == 0) {
     return(data)
   }
@@ -115,7 +114,13 @@ unnest.data.frame <- function(data, ..., .drop = NA, .id = NULL,
     unnested_atomic <- dplyr::bind_cols(unnested_atomic)
   }
 
-  unnested_dataframe <- map(nest_types$dataframe %||% list(), dplyr::bind_rows, .id = .id)
+  unnested_dataframe <- map(nest_types$dataframe %||% list(), function(.){
+    if (length(.) == 0L) {
+      attr(., "ptype") %||% data.frame()
+    } else {
+      dplyr::bind_rows(., .id = .id)
+    }
+  })
   if (!is_null(.sep)) {
     unnested_dataframe <- imap(
       unnested_dataframe,
@@ -156,13 +161,13 @@ unnest.data.frame <- function(data, ..., .drop = NA, .id = NULL,
 }
 
 list_col_type <- function(x) {
-  is_data_frame <- map_lgl(x, is.data.frame)
-  is_atomic <- map_lgl(x, function(x) is_atomic(x) || (is_list(x) && !is.object(x)))
+  is_data_frame <- is.data.frame(attr(x, "ptype", exact = TRUE)) || (is.list(x) && all(map_lgl(x, is.data.frame)))
+  is_atomic <- all(map_lgl(x, function(x) is_atomic(x) || (is_list(x) && !is.object(x))))
 
-  if (all(is_atomic)) {
-    "atomic"
-  } else if (all(is_data_frame)) {
+  if (is_data_frame) {
     "dataframe"
+  } else if (is_atomic) {
+    "atomic"
   } else {
     "mixed"
   }
