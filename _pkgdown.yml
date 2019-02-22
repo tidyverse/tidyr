@@ -9,8 +9,8 @@ home:
 template:
   package: tidytemplate
 
-# development:
-#   mode: auto
+development:
+  mode: auto
 
 navbar:
   title: ~
