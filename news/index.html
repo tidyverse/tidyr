@@ -116,6 +116,8 @@
 <a href="#tidyr-0-8-2-9000" class="anchor"></a>tidyr 0.8.2.9000<small> Unreleased </small>
 </h1>
 <ul>
+<li><p><code><a href="../reference/nest.html">nest()</a></code> uses <code><a href="https://dplyr.tidyverse.org/reference/group_nest.html">dplyr::group_nest()</a></code> when available.</p></li>
+<li><p><code><a href="../reference/unnest.html">unnest()</a></code> handles lists with a “ptype” attribute to indicate type, mostly useful for unnesting data frames with 0 rows.</p></li>
 <li><p><code><a href="../reference/unnest.html">unnest()</a></code> preserves column being unnested when input is zero-length (<a href='https://github.com/tidyverse/tidyr/issues/483'>#483</a>).</p></li>
 <li><p><code><a href="../reference/unnest.html">unnest()</a></code> will run with named and unnamed list-columns of same length (<a href='https://github.com/hlendway'>@hlendway</a>, <a href='https://github.com/tidyverse/tidyr/issues/460'>#460</a>).</p></li>
 <li><p><code><a href="../reference/expand.html">crossing()</a></code> (and hence <code><a href="../reference/expand.html">expand()</a></code>) now works with list-columns (<a href='https://github.com/tidyverse/tidyr/issues/446'>#446</a>, <a href='https://github.com/SamanthaToet'>@SamanthaToet</a>).</p></li>
