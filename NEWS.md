@@ -1,21 +1,18 @@
 # tidyr 0.8.2.9000
 
+* `crossing()` preserves factor levels (#410), now works with list-columns 
+  (#446, @SamanthaToet). (These also help `expand()` which is built on top
+  of `crossing()`)
+
 * `nest()` uses `dplyr::group_nest()` when available. 
 
-* `unnest()` handles lists with a "ptype" attribute to indicate type, mostly useful
-  for unnesting data frames with 0 rows. 
+* `spread()` works when the id variable has names (#525).
 
-* `unnest()` preserves column being unnested when input is zero-length (#483).
+* `unnest()` preserves column being unnested when input is zero-length (#483),
+  using `list_of()` attribute to correctly restore columns, where possible.
 
 * `unnest()` will run with named and unnamed list-columns of same length
   (@hlendway, #460).
-
-* `crossing()` (and hence `expand()`) now works with list-columns 
-  (#446, @SamanthaToet).
-
-* `crossing()` preserves factor levels (#410).
-
-* `spread()` works when the id variable has names (#525).
 
 # tidyr 0.8.2
 
