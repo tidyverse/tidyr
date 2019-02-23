@@ -56,9 +56,23 @@ test_that("mixed columns are automatically coerced", {
 test_that("can override default output column type", {
   df <- tibble(x = "x", y = 1)
   sp <- pivot_spec_long(df, x:y)
-  pv <- pivot(df, sp, .ptype = list())
+  pv <- pivot(df, sp, .ptype = list(value = list()))
 
   expect_equal(pv$value, list("x", 1))
+})
+
+test_that("can pivot to multiple measure cols", {
+  df <- tibble(x = "x", y = 1)
+  sp <- tibble::tribble(
+    ~ col_name, ~measure, ~row,
+    "x", "X", 1,
+    "y", "Y", 1,
+  )
+  pv <- pivot(df, sp)
+
+  expect_named(pv, c("row", "X", "Y"))
+  expect_equal(pv$X, "x")
+  expect_equal(pv$Y, 1)
 })
 
 # pivot_wide --------------------------------------------------------------

@@ -31,39 +31,48 @@ check_spec <- function(spec) {
   spec[vars]
 }
 
-pivot_to_long <- function(df, spec, na.rm = FALSE, .ptype = .ptype) {
-  # need to handle multiple measure vars
-  # and specify their ptypes
-  measure_var <- spec$measure[[1]]
+pivot_to_long <- function(df, spec, na.rm = FALSE, .ptype = list()) {
+  measures <- split(spec$col_name, spec$measure)
+  measure_keys <- split(spec[-(1:2)], spec$measure)
+  keys <- vec_unique(spec[-(1:2)])
 
-  # Coerce multiple value columns to single type
-  val_cols <- unname(as.list(df[spec$col_name]))
-  val_type <- vec_type_common(!!!val_cols, .ptype = .ptype)
-  val <- vec_c(!!!val_cols, .ptype = val_type)
+  vals <- set_names(vec_na(list(), length(measures)), names(measures))
+  for (measure in names(measures)) {
+    cols <- measures[[measure]]
+    col_id <- vec_match(measure_keys[[measure]], keys)
+
+    val_cols <- vec_na(list(), nrow(keys))
+    val_cols[col_id] <- unname(as.list(df[cols]))
+    val_cols[-col_id] <- list(rep(NA, nrow(df)))
+
+    val_type <- vec_type_common(!!!val_cols, .ptype = .ptype[[measure]])
+    vals[[measure]] <- vec_c(!!!val_cols, .ptype = val_type)
+  }
+  vals <- as_tibble(vals)
 
   # Line up output rows by combining spec and existing data frame
   # https://github.com/tidyverse/tidyr/issues/557
   rows <- expand.grid(
-    spec_id = vec_along(spec),
+    key_id = vec_along(keys),
     df_id = vec_along(df),
     KEEP.OUT.ATTRS = FALSE
   )
-  rows$val <- val
+  rows$val_id <- vec_along(rows)
 
   if (na.rm) {
-    rows <- vec_slice(rows, !vec_equal_na(val))
+    # https://github.com/r-lib/vctrs/issues/201
+    rows <- vec_slice(rows, !vec_equal_na(vals))
   }
 
   # Join together df, spec, and val to produce final tibble
-  df_out <- df[setdiff(names(df), spec$col_name)]
-  spec_out <- spec[-(1:2)]
-
   out <- vec_cbind(
-    vec_slice(spec_out, rows$spec_id),
-    tibble(!!measure_var := rows$val),
+    vec_slice(keys, rows$key_id),
+    vec_slice(vals, rows$val_id),
   )
+
   # Bind original keys back on if there are any
   # Because of https://github.com/r-lib/vctrs/issues/199
+  df_out <- df[setdiff(names(df), spec$col_name)]
   if (ncol(df_out) > 0) {
     out <- vec_cbind(vec_slice(df_out, rows$df_id), out)
   }
