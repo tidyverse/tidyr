@@ -46,7 +46,7 @@
 #'   more options, see the [dplyr::select()] documentation. See also
 #'   the section on selection rules below.
 #' @param na.rm If `TRUE`, will remove rows from output where the
-#'   value column in `NA`.
+#'   value column is `NA`.
 #' @param convert If `TRUE` will automatically run
 #'   [type.convert()] on the key column. This is useful if the column
 #'   types are actually numeric, integer, or logical.
