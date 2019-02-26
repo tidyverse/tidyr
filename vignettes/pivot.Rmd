@@ -1,0 +1,223 @@
+---
+title: "Pivotting"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Pivotting}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+# Introduction
+
+This vignette describes the use of the new `pivot()` function. 
+
+There are two primary ways that `pivot()` differs from previous functions in tidyr, reshape2, and reshape:
+
+* The reshaping operation is specified with a data frame that describes 
+  precisely how metadata stored in column names becomes real data variables. 
+  This is inspired by the [cdata](https://winvector.github.io/cdata/) package 
+  by John Mount and Nina Zumel.
+  
+* Reshaping works with multiple measure variables that may have different types. 
+  This is inspired by the enhanced `melt()` and `dcast()` functions provided 
+  by the [data.table](https://github.com/Rdatatable/data.table/wiki) package
+  by Matt Dowle and Arun Srinivasan.
+
+```{r setup}
+library(tidyr)
+library(dplyr)
+library(readr)
+```
+
+# Wide to long
+
+## Pew data
+
+```{r}
+pew <- read_csv("pew.csv", col_types = list())
+pew
+```
+
+To tidy this data we first create a spec. We are tidying from wide to long so we use `pivot_spec_long()`:
+
+```{r}
+spec <- pew %>% pivot_spec_long(-1, "count", "income")
+spec
+```
+
+* The first argument describes which columns this transformation applies to.
+  In this case, it's every column apart from the first.
+
+* The `cell_val` gives the name of the variable stored in the cells. 
+  In this the case the values are measurements of counts.
+  
+* The `col_name` gives the name of the variable stored in the column names.
+  In this case, it's an `income` range.
+
+We can now achieve the desired reshaping by pivot `pew` with this `spec`:
+
+```{r}
+pew %>% pivot(spec)
+```
+
+## Billboard
+
+Similar to `pew`, but the variable encoded in the columns is not a string, and requires some additional manipulation to extract:
+
+```{r}
+billboard <- read_csv("billboard.csv", col_types = list()) %>%
+  mutate_at(vars(starts_with("wk")), as.numeric)
+billboard
+```
+
+```{r}
+billboard %>% pivot_spec_long(starts_with("wk"), "rank", "week")
+```
+
+```{r}
+spec <- billboard %>%
+  pivot_spec_long(starts_with("wk"), "rank", "week") %>%
+  mutate(week = parse_number(week))
+spec
+```
+
+```{r}
+billboard %>% pivot(spec)
+```
+
+## WHO tuberculosis data
+
+In more complex cases, the column name might encode multiple variables, and require significant parsing to extract.
+
+```{r}
+who
+```
+
+```{r}
+who %>% pivot_spec_long(new_sp_m014:newrel_f65)
+
+spec <- who %>%
+  pivot_spec_long(new_sp_m014:newrel_f65, "count") %>%
+  extract(variable, c("diagnosis", "gender", "age"), "new_?(.*)_(.)(.*)") %>%
+  mutate(age = factor(age, levels = unique(age), ordered = TRUE))
+spec
+```
+
+```{r}
+who %>% pivot(spec, na.rm = TRUE)
+```
+
+## Multiple value columns 
+
+From <https://cran.r-project.org/web/packages/data.table/vignettes/datatable-reshape.html>
+
+```{r}
+family <- tibble::tribble(
+  ~family_id, ~age_mother,  ~dob_child1,  ~dob_child2, ~gender_child1, ~gender_child2,
+          1L,         30L, "1998-11-26", "2000-01-29",             1L,             2L,
+          2L,         27L, "1996-06-22",           NA,             2L,             NA,
+          3L,         26L, "2002-07-11", "2004-04-05",             2L,             2L,
+          4L,         32L, "2004-10-10", "2009-08-27",             1L,             1L,
+          5L,         29L, "2000-12-05", "2005-02-28",             2L,             1L,
+) %>%
+  mutate_at(vars(starts_with("dob")), parse_date)
+
+spec <- family %>%
+  pivot_spec_long(-(1:2)) %>%
+  separate(variable, c("measure", "child")) %>%
+  mutate(child = parse_number(child))
+
+family %>%
+  select(-age_mother) %>%
+  pivot(spec, na.rm = TRUE)
+```
+
+## Census data
+
+Lightly modified from Table 5 "completions" found at 
+<https://www.census.gov/construction/nrc/index.html>.
+
+```{r}
+construction <- read_csv("construction.csv", col_types = list("2 to 4 units" = col_integer()))
+construction
+# multiple variables encoded, but no way to parse; must manually specify
+
+spec <- tribble(
+  ~col_name,         ~units,  ~region,      ~measure,
+  "Total",            "total", NA,          "n",
+  "1 unit",           "1",     NA,          "n",
+  "2 to 4 units",     "2-4",   NA,          "n",
+  "5 units or more",  "5+",    NA,          "n",
+  "Northeast",        NA,      "Northeast", "n",
+  "Midwest",          NA,      "Midwest",   "n",
+  "South",            NA,      "South",     "n",
+  "West",             NA,      "West",      "n",
+)
+spec
+
+construction %>% pivot(spec)
+```
+
+# Long to wide
+
+# Multiple transformations
+
+## Weather data
+
+```{r}
+# need to pivot in both directions
+
+weather <- read_csv("weather.csv", col_types = list()) %>%
+  mutate_at(vars(starts_with("d")), parse_number)
+
+weather %>% pivot_spec_long(d1:d31)
+weather %>% pivot_spec_long(d1:d31, "temp", "day")
+
+weather_spec <- weather %>%
+  pivot_spec_long(d1:d31, "temp", "day") %>%
+  mutate(day = parse_number(day))
+weather_spec
+weather2 <- pivot(weather, weather_spec, na.rm = TRUE)
+weather2
+
+spec2 <- weather2 %>% pivot_spec_wide(element, temp)
+spec2
+weather2 %>% pivot(spec2)
+```
+
+## Contact list
+
+Requires to widening twice.
+
+Inspired by <https://github.com/jienagu/tidyverse_examples/blob/master/example_long_wide.R>
+
+```{r}
+contacts <- 
+  c(
+    "company", "Toyota", "name", "Jiena McLellan",
+    "company", "McDonalds", "name", "John Smith"
+  )
+
+df <- tibble(meta = contacts)
+df <- df %>% 
+  mutate(
+    id = cumsum(meta == "company"),
+    row = rep(seq_len(nrow(df) / 2), each = 2),
+    type = rep(c("var", "value"), length = nrow(df))
+  ) 
+
+spec <- pivot_spec_wide(df, type, meta)
+df2 <- df %>% pivot(spec)
+
+spec2 <- pivot_spec_wide(df2, var, value)
+df2 %>% select(-row) %>% pivot(spec2)
+
+```
+

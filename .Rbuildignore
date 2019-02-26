@@ -1,3 +1,5 @@
+^vignettes/pivot-wide\.key$
+^vignettes/pivot-long\.key$
 ^\.travis\.yml$
 ^.*\.Rproj$
 ^\.Rproj\.user$

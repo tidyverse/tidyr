@@ -38,6 +38,7 @@ Suggests:
     gapminder,
     knitr,
     rmarkdown,
+    readr,
     testthat
 LinkingTo: 
     Rcpp

@@ -1,4 +1,22 @@
-pivot <- function(df, spec, na.rm = FALSE, .ptype = NULL) {
+#' Pivot a data frame from wide to long or long to wide
+#'
+#' `pivot()` is provides rectangular reshaping like `gather()` and `spread()`.
+#' It differs primarily from existing approaches in tidyr because the details
+#' of the reshaping a described by a data frame, `spec`. For simple cases, you
+#' can construct the spec with `pivot_spec_long()` and `pivot_spec_wide()`.
+#' See details in `vignette("pivot")`
+#'
+#' @param df A data frame to reshape.
+#' @param spec A data frame defining the reshaping specification.
+#'   Must contain `col_name` and `measure` columns that are character
+#'   vectors.
+#' @param na.rm If `TRUE`, will convert explicit missing values to implicit
+#'   missing values. Used only when pivotting to long.
+#' @param .ptype A named list that optionally override the types of
+#'   measured columns. Used only when pivotting to long.
+#' @keywords internal
+#' @export
+pivot <- function(df, spec, na.rm = FALSE, ptypes = NULL) {
   spec <- check_spec(spec)
 
   # Check colnames match up and error otherwise
@@ -6,7 +24,7 @@ pivot <- function(df, spec, na.rm = FALSE, .ptype = NULL) {
   spec_in_df <- all(setdiff(names(spec), c("col_name", "measure")) %in% names(df))
 
   if (df_in_spec) {
-    pivot_to_long(df, spec, na.rm = na.rm, .ptype = .ptype)
+    pivot_to_long(df, spec, na.rm = na.rm, .ptype = ptypes)
   } else if (spec_in_df) {
     pivot_to_wide(df, spec)
   } else {
