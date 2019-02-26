@@ -85,8 +85,8 @@ vec_along <- function(x) {
 }
 
 pivot_to_wide <- function(df, spec) {
-  val <- df[[spec$measure[[1]]]]
-  spec_cols <- c(names(spec)[-(1:2)], spec$measure[[1]])
+  measures <- vec_unique(spec$measure)
+  spec_cols <- c(names(spec)[-(1:2)], measures)
 
   # Figure out rows in output
   df_rows <- df[setdiff(names(df), spec_cols)]
@@ -95,27 +95,36 @@ pivot_to_wide <- function(df, spec) {
     row_id <- rep(1L, nrow(spec))
   } else {
     rows <- vec_unique(df_rows)
-    # https://github.com/r-lib/vctrs/issues/199
     row_id <- vec_match(df_rows, rows)
   }
 
-  cols <- df[names(spec)[-(1:2)]]
-  col_id <- vec_match(cols, spec[-(1:2)])
-  val_id <- data.frame(row = row_id, col = col_id)
-  if (vec_duplicate_any(val_id)) {
-    warn("Values are not uniquely identified; output will contain list-columns")
+  measure_specs <- unname(split(spec, spec$measure))
+  measure_out <- vec_na(list(), length(measure_specs))
 
-    # https://github.com/r-lib/vctrs/issues/196
-    val <- unname(split(val, vec_duplicate_id(val_id)))
-    val_id <- vec_unique(val_id)
+  for (i in seq_along(measure_out)) {
+    spec <- measure_specs[[i]]
+    measure <- spec$measure[[1]]
+    val <- df[[measure]]
+
+    cols <- df[names(spec)[-(1:2)]]
+    col_id <- vec_match(cols, spec[-(1:2)])
+    val_id <- data.frame(row = row_id, col = col_id)
+    if (vec_duplicate_any(val_id)) {
+      warn("Values are not uniquely identified; output will contain list-columns")
+
+      # https://github.com/r-lib/vctrs/issues/196
+      val <- unname(split(val, vec_duplicate_id(val_id)))
+      val_id <- vec_unique(val_id)
+    }
+
+    nrow <- nrow(rows)
+    ncol <- nrow(spec)
+    out <- vec_na(val, nrow * ncol)
+    vec_slice(out, val_id$row + nrow * (val_id$col - 1L)) <- val
+
+    measure_out[[i]] <- wrap_vec(out, spec$col_name)
   }
-
-  nrow <- nrow(rows)
-  ncol <- nrow(spec)
-  out <- vec_na(val, nrow * ncol)
-  out[val_id$row + nrow * (val_id$col - 1L)] <- val
-
-  vec_cbind(rows, wrap_vec(out, spec$col_name))
+  vec_cbind(rows, !!!measure_out)
 }
 
 # Wrap a "rectangular" vector into a data frame
@@ -124,7 +133,7 @@ wrap_vec <- function(vec, names) {
   nrow <- length(vec) / ncol
   out <- set_names(vec_na(list(), ncol), names)
   for (i in 1:ncol) {
-    out[[i]] <- vec[((i - 1) * nrow + 1):(i * nrow)]
+    out[[i]] <- vec_slice(vec, ((i - 1) * nrow + 1):(i * nrow))
   }
 
   as_tibble(out)

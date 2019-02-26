@@ -113,3 +113,19 @@ test_that("duplicated keys produce list column", {
   expect_equal(pv$a, c(1, 2))
   expect_equal(pv$x, list(c(1, 2), 3))
 })
+
+test_that("can pivot from multiple measure cols", {
+  df <- tibble(row = 1, var = c("x", "y"), a = 1:2, b = 3:4)
+  sp <- tibble::tribble(
+    ~ col_name, ~measure, ~var,
+    "x_a", "a", "x",
+    "y_a", "a", "y",
+    "x_b", "b", "x",
+    "y_b", "b", "y",
+  )
+  pv <- pivot(df, sp)
+
+  expect_named(pv, c("row", "x_a", "y_a", "x_b", "y_b"))
+  expect_equal(pv$x_a, 1)
+  expect_equal(pv$y_b, 4)
+})
