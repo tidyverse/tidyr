@@ -192,12 +192,12 @@ can contain either a column name as string or a column position).</p>
 #&gt; 3 virginica  &lt;tibble [50 × 4]&gt;</div><div class='input'><span class='fu'><a href='https://dplyr.tidyverse.org/reference/reexports.html'>as_tibble</a></span>(<span class='no'>chickwts</span>) <span class='kw'>%&gt;%</span> <span class='fu'>nest</span>(<span class='no'>weight</span>)</div><div class='output co'>#&gt; # A tibble: 6 x 2
 #&gt;   feed      data             
 #&gt;   &lt;fct&gt;     &lt;list&gt;           
-#&gt; 1 casein    &lt;tibble [12 × 1]&gt;
-#&gt; 2 horsebean &lt;tibble [10 × 1]&gt;
-#&gt; 3 linseed   &lt;tibble [12 × 1]&gt;
-#&gt; 4 meatmeal  &lt;tibble [11 × 1]&gt;
-#&gt; 5 soybean   &lt;tibble [14 × 1]&gt;
-#&gt; 6 sunflower &lt;tibble [12 × 1]&gt;</div><div class='input'>
+#&gt; 1 horsebean &lt;tibble [10 × 1]&gt;
+#&gt; 2 linseed   &lt;tibble [12 × 1]&gt;
+#&gt; 3 soybean   &lt;tibble [14 × 1]&gt;
+#&gt; 4 sunflower &lt;tibble [12 × 1]&gt;
+#&gt; 5 meatmeal  &lt;tibble [11 × 1]&gt;
+#&gt; 6 casein    &lt;tibble [12 × 1]&gt;</div><div class='input'>
 <span class='kw'>if</span> (<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>require</a></span>(<span class='st'>"gapminder"</span>)) {
   <span class='no'>gapminder</span> <span class='kw'>%&gt;%</span>
     <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span>(<span class='no'>country</span>, <span class='no'>continent</span>) <span class='kw'>%&gt;%</span>

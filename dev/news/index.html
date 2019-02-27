@@ -117,7 +117,7 @@
 </h1>
 <ul>
 <li><p><code><a href="../reference/expand.html">crossing()</a></code> preserves factor levels (<a href='https://github.com/tidyverse/tidyr/issues/410'>#410</a>), now works with list-columns (<a href='https://github.com/tidyverse/tidyr/issues/446'>#446</a>, <a href='https://github.com/SamanthaToet'>@SamanthaToet</a>). (These also help <code><a href="../reference/expand.html">expand()</a></code> which is built on top of <code><a href="../reference/expand.html">crossing()</a></code>)</p></li>
-<li><p><code><a href="../reference/nest.html">nest()</a></code> uses <code><a href="https://dplyr.tidyverse.org/reference/group_nest.html">dplyr::group_nest()</a></code> when available.</p></li>
+<li><p><code><a href="../reference/nest.html">nest()</a></code> is compatible with dplyr 0.8.0.</p></li>
 <li><p><code><a href="../reference/spread.html">spread()</a></code> works when the id variable has names (<a href='https://github.com/tidyverse/tidyr/issues/525'>#525</a>).</p></li>
 <li><p><code><a href="../reference/unnest.html">unnest()</a></code> preserves column being unnested when input is zero-length (<a href='https://github.com/tidyverse/tidyr/issues/483'>#483</a>), using <code>list_of()</code> attribute to correctly restore columns, where possible.</p></li>
 <li><p><code><a href="../reference/unnest.html">unnest()</a></code> will run with named and unnamed list-columns of same length (<a href='https://github.com/hlendway'>@hlendway</a>, <a href='https://github.com/tidyverse/tidyr/issues/460'>#460</a>).</p></li>
