@@ -10,13 +10,14 @@
 |collate  |en_US.UTF-8                  |
 |ctype    |en_US.UTF-8                  |
 |tz       |America/Chicago              |
-|date     |2019-02-26                   |
+|date     |2019-02-27                   |
 
 # Dependencies
 
 |package    |old      |new        |Δ  |
 |:----------|:--------|:----------|:--|
 |tidyr      |0.8.2    |0.8.2.9000 |*  |
+|backports  |NA       |1.1.3      |*  |
 |BH         |1.69.0-1 |1.69.0-1   |   |
 |dplyr      |0.8.0.1  |0.8.0.1    |   |
 |fansi      |0.4.0    |0.4.0      |   |
@@ -30,6 +31,8 @@
 |tibble     |2.0.1    |2.0.1      |   |
 |tidyselect |0.2.5    |0.2.5      |   |
 |utf8       |1.1.4    |1.1.4      |   |
+|vctrs      |NA       |0.1.0      |*  |
+|zeallot    |NA       |0.1.0      |*  |
 
 # Revdeps
 
@@ -71,7 +74,7 @@
 
 |package                            |version |error  |warning |note |
 |:----------------------------------|:-------|:------|:-------|:----|
-|[cutpointr](problems.md#cutpointr) |0.7.4   |__+2__ |__+1__  |     |
+|[cutpointr](problems.md#cutpointr) |0.7.4   |__+1__ |        |     |
 
 ## All (653)
 
@@ -185,7 +188,7 @@
 |[crawl](problems.md#crawl)                                         |2.2.1   |       |        |1    |
 |crypto                                                             |1.1.1   |       |        |     |
 |[curatedMetagenomicData](problems.md#curatedmetagenomicdata)       |1.12.3  |       |        |2    |
-|[cutpointr](problems.md#cutpointr)                                 |0.7.4   |__+2__ |__+1__  |     |
+|[cutpointr](problems.md#cutpointr)                                 |0.7.4   |__+1__ |        |     |
 |cvequality                                                         |0.2.0   |       |        |     |
 |cytominer                                                          |0.1.0   |       |        |     |
 |[d3r](problems.md#d3r)                                             |0.8.5   |       |        |1    |

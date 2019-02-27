@@ -74,6 +74,11 @@ nest.tbl_df <- function(data, ..., .key = "data") {
 #' @export
 nest.data.frame <- function(data, ..., .key = "data") {
   .key <- enquo(.key)
-  data <- tibble::as_tibble(data)
+
+  # Don't transform subclasses
+  if (identical(class(data), "data.frame")) {
+    data <- tibble::as_tibble(data)
+  }
+
   nest.tbl_df(data, ..., .key = !! .key)
 }
