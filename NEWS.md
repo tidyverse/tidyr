@@ -4,7 +4,7 @@
   (#446, @SamanthaToet). (These also help `expand()` which is built on top
   of `crossing()`)
 
-* `nest()` uses `dplyr::group_nest()` when available. 
+* `nest()` is compatible with dplyr 0.8.0.
 
 * `spread()` works when the id variable has names (#525).
 

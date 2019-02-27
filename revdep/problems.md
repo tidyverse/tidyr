@@ -387,7 +387,7 @@ Version: 1.0.1
       > library("testthat")
       > library("bib2df")
       > test_check("bib2df")
-      [31m──[39m [31m1. Failure: bib2df() throws error messages (@tests.R#70) [39m [31m────────────────────────────[39m
+      [31m──[39m [31m1. Failure: bib2df() throws error messages (@tests.R#70) [39m [31m────────────────────────────[39m
       `bib2df("https://www.example.com/data/x.bib")` threw an error with unexpected message.
       Expected match: "Invalid URL: File is not readable."
       Actual message: "Could not resolve host: www.example.com"
@@ -766,15 +766,34 @@ Version: 0.1.2
 
 Version: 1.6.0
 
-## Newly broken
+## In both
+
+*   checking examples ... ERROR
+    ```
+    Running examples in ‘cellbaseR-Ex.R’ failed
+    The error most likely occurred in:
+    
+    > ### Name: AnnotateVcf,CellBaseR-method
+    > ### Title: AnnotateVcf
+    > ### Aliases: AnnotateVcf,CellBaseR-method AnnotateVcf
+    > 
+    > ### ** Examples
+    > 
+    > cb <- CellBaseR()
+    > fl <- system.file("extdata", "hapmap_exome_chr22_500.vcf.gz",
+    +                   package = "cellbaseR" )
+    > res <- AnnotateVcf(object=cb, file=fl, BPPARAM = bpparam(workers=2))
+    Error: BiocParallel errors
+      element index: 1, 2
+      first error: lexical error: invalid char in json text.
+                                           <!DOCTYPE html><html><head><tit
+                         (right here) ------^
+    Execution halted
+    ```
 
 *   checking re-building of vignette outputs ... WARNING
     ```
     ...
-    Attaching package: 'Biostrings'
-    
-    The following object is masked from 'package:DelayedArray':
-    
         type
     
     The following object is masked from 'package:base':
@@ -790,7 +809,11 @@ Version: 1.6.0
     
     Quitting from lines 153-163 (cellbaseR.Rmd) 
     Error: processing vignette 'cellbaseR.Rmd' failed with diagnostics:
-    error writing to connection
+    BiocParallel errors
+      element index: 1, 2
+      first error: lexical error: invalid char in json text.
+                                           <!DOCTYPE html><html><head><tit
+                         (right here) ------^
     Execution halted
     ```
 
@@ -1340,7 +1363,7 @@ Version: 0.7.4
      ERROR
     Running the tests in ‘tests/testthat.R’ failed.
     Last 13 lines of output:
-      ══ testthat results  ════════════════════════════════════════════════════════════════════
+      ══ testthat results  ═════════════════════════════════════════════════════════════════
       OK: 87 SKIPPED: 0 FAILED: 40
       1. Error: Cutpointr returns a cutpointr without NAs and a certain Nr of rows (@test-cutpointr.R#3) 
       2. Error: Cutpointr works with different data types (@test-cutpointr.R#19) 
@@ -1517,32 +1540,6 @@ ERROR: lazy loading failed for package ‘DChIPRep’
 Version: 1.8.0
 
 ## In both
-
-*   checking examples ... ERROR
-    ```
-    ...
-    > data_id = deepblue_select_experiments(
-    + experiment_name="E002-H3K9ac.narrowPeak.bed", chromosome="chr1")
-    Called method: deepblue_select_experiments
-    Reported status was: okay
-    > request_id = deepblue_get_regions(query_id =data_id,
-    +   output_format = "CHROMOSOME,START,END")
-    Called method: deepblue_get_regions
-    Reported status was: okay
-    > request_data = deepblue_batch_export_results(list(request_id))
-    Called method: deepblue_info
-    Reported status was: okay
-    Downloading meta data for id r821952
-    Called method: deepblue_get_experiments_by_query
-    Reported status was: okay
-    Called method: deepblue_info
-    Reported status was: okay
-    fetching data
-    Error in function (type, msg, asError = TRUE)  : 
-      Recv failure: Connection reset by peer
-    Calls: deepblue_batch_export_results ... xml.rpc -> postForm -> .postForm -> <Anonymous> -> fun
-    Execution halted
-    ```
 
 *   R CMD check timed out
     
@@ -2081,20 +2078,6 @@ ERROR: lazy loading failed for package ‘easyformatr’
 * removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/easyformatr/old/easyformatr.Rcheck/easyformatr’
 
 ```
-# echarts4r
-
-Version: 0.2.1
-
-## Newly broken
-
-*   checking installed package size ... NOTE
-    ```
-      installed size is  5.9Mb
-      sub-directories of 1Mb or more:
-        R             2.0Mb
-        htmlwidgets   3.6Mb
-    ```
-
 # echor
 
 Version: 0.1.2
@@ -2722,7 +2705,7 @@ Version: 0.2.5
       1/1 mismatches
       [1] 12.9 - 12.9 == 5.72e-07
       
-      [31m──[39m [31m2. Failure: Test that create_stack creates tmn if requested (@test-create_CRU_stack.R#[39m
+      [31m──[39m [31m2. Failure: Test that create_stack creates tmn if requested (@test-create_CRU_stack.R#[39m
       raster::maxValue(CRU_stack_list[[1]][[1]]) not equal to 4.3.
       1/1 mismatches
       [1] 4.3 - 4.3 == -1.91e-07
@@ -2839,7 +2822,7 @@ Version: 0.1.2
       1/1 mismatches
       [1] 0 - 1 == -1
       
-      [31m──[39m [31m2. Failure: stat_interval filters precomputed quantiles to match interval args (@test_[39m
+      [31m──[39m [31m2. Failure: stat_interval filters precomputed quantiles to match interval args (@test_[39m
       unique(p_b$data[[1]]$interval) not equal to as.factor(0.2).
       target is NULL, current is factor
       
@@ -3100,57 +3083,6 @@ Version: 0.6.3
 *   checking Rd cross-references ... NOTE
     ```
     Package unavailable to check Rd xrefs: ‘mnis’
-    ```
-
-# healthcareai
-
-Version: 2.3.0
-
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘healthcareai-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: evaluate
-    > ### Title: Get model performance metrics
-    > ### Aliases: evaluate evaluate.predicted_df evaluate.model_list
-    > 
-    > ### ** Examples
-    > 
-    > models <- machine_learn(pima_diabetes[1:40, ],
-    +                        patient_id,
-    +                        outcome = diabetes,
-    +                        models = c("XGB", "RF"),
-    +                        tune = FALSE,
-    +                        n_folds = 3)
-    Training new data prep recipe...
-    
-    Error: All columns selected for the step should be numeric
-    Execution halted
-    ```
-
-*   checking tests ...
-    ```
-     ERROR
-    Running the tests in ‘tests/testthat-5.R’ failed.
-    Last 13 lines of output:
-      1: machine_learn(pima_diabetes[1:100, ], patient_id, outcome = diabetes, tune = FALSE) at testthat/test-cran_only.R:4
-      2: prep_data(d, !!!dots, outcome = !!outcome, impute = impute) at /Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/healthcareai/new/healthcareai.Rcheck/00_pkg_src/healthcareai/R/machine_learn.R:136
-      3: recipes::prep(recipe, training = d) at /Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/healthcareai/new/healthcareai.Rcheck/00_pkg_src/healthcareai/R/prep_data.R:512
-      4: prep.recipe(recipe, training = d)
-      5: prep(x$steps[[i]], training = training, info = x$term_info)
-      6: prep.step_meanimpute(x$steps[[i]], training = training, info = x$term_info)
-      7: check_type(training[, col_names])
-      8: stop("All columns selected for the step", " should be ", label, call. = FALSE)
-      
-      ══ testthat results  ════════════════════════════════════════════════════════════════════
-      OK: 0 SKIPPED: 0 FAILED: 1
-      1. Error: the fundamentals work (@test-cran_only.R#4) 
-      
-      Error: testthat unit tests failed
-      Execution halted
     ```
 
 # highcharter
@@ -4810,34 +4742,6 @@ Version: 0.4.0
       All declared Imports should be used.
     ```
 
-# postal
-
-Version: 0.1.1
-
-## Newly broken
-
-*   checking tests ...
-    ```
-     ERROR
-    Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-      15: purrr::map_dfr(., fetch_and_sleep)
-      16: map(.x, .f, ...)
-      17: .f(.x[[i]], ...)
-      18: readr::write_csv(this, write_to, append = TRUE, col_names = FALSE) at /Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/postal/new/postal.Rcheck/00_pkg_src/postal/R/fetch_zones_all.R:57
-      19: write_delim(x, path, delim = ",", na = na, append = append, col_names = col_names, quote_escape = quote_escape)
-      20: stream_delim(x, path, delim = delim, col_names = col_names, append = append, na = na, quote_escape = quote_escape)
-      21: open(path, "ab")
-      22: open.connection(path, "ab")
-      
-      ══ testthat results  ════════════════════════════════════════════════════════════════════
-      OK: 109 SKIPPED: 0 FAILED: 1
-      1. Error: (unknown) (@test_fetch_zones.R#144) 
-      
-      Error: testthat unit tests failed
-      Execution halted
-    ```
-
 # primirTSS
 
 Version: 1.0.1
@@ -5237,7 +5141,7 @@ Version: 0.4.6
     Last 13 lines of output:
       9: doWithOneRestart(return(expr), restart)
       
-      [31m──[39m [31m3. Error: (unknown) (@test_votacoes.R#70) [39m [31m───────────────────────────────────────────[39m
+      [31m──[39m [31m3. Error: (unknown) (@test_votacoes.R#70) [39m [31m───────────────────────────────────────────[39m
       argument "message" is missing, with no default
       1: skip() at testthat/test_votacoes.R:70
       2: structure(list(message = message), class = c("skip", "condition"))
@@ -5324,82 +5228,6 @@ Version: 1.8.0
 # recipes
 
 Version: 0.1.4
-
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    ...
-    > recipe_info <- summary(rec)
-    > recipe_info
-    [90m# A tibble: 8 x 4[39m
-      variable type    role                source  
-      [3m[90m<chr>[39m[23m    [3m[90m<chr>[39m[23m   [3m[90m<chr>[39m[23m               [3m[90m<chr>[39m[23m   
-    [90m1[39m sample   nominal id variable         original
-    [90m2[39m dataset  nominal splitting indicator original
-    [90m3[39m carbon   numeric predictor           original
-    [90m4[39m hydrogen numeric predictor           original
-    [90m5[39m oxygen   numeric predictor           original
-    [90m6[39m nitrogen numeric predictor           original
-    [90m7[39m sulfur   numeric predictor           original
-    [90m8[39m HHV      numeric outcome             original
-    > 
-    > # Centering on all predictors except carbon
-    > rec %>%
-    +   step_center(all_predictors(), -carbon) %>%
-    +   prep(training = biomass, retain = TRUE) %>%
-    +   juice()
-    Error: All columns selected for the step should be numeric
-    Execution halted
-    ```
-
-*   checking tests ...
-    ```
-     ERROR
-    Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-      ══ testthat results  ════════════════════════════════════════════════════════════════════
-      OK: 1057 SKIPPED: 4 FAILED: 31
-      1. Error: bake without newdata (@test-basics.R#123) 
-      2. Error: (unknown) (@test_data.frame.R#20) 
-      3. Failure: create all dummy variables (@test_dummies.R#84) 
-      4. Error: non-factor variables with dot (@test_interact.R#45) 
-      5. Error: non-factor variables with specific variables (@test_interact.R#67) 
-      6. Failure: example 2 (@test_lincomb.R#49) 
-      7. Failure: no exclusions (@test_lincomb.R#61) 
-      8. Error: (unknown) (@test_matrix.R#20) 
-      9. Failure: multivariate outcome (@test_multivariate.R#30) 
-      1. ...
-      
-      Error: testthat unit tests failed
-      Execution halted
-    ```
-
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    ...
-    
-    The following objects are masked from 'package:stats':
-    
-        filter, lag
-    
-    The following objects are masked from 'package:base':
-    
-        intersect, setdiff, setequal, union
-    
-    
-    Attaching package: 'recipes'
-    
-    The following object is masked from 'package:stats':
-    
-        step
-    
-    Loading required package: tibble
-    Quitting from lines 65-68 (Selecting_Variables.Rmd) 
-    Error: processing vignette 'Selecting_Variables.Rmd' failed with diagnostics:
-    The `terms` argument in `step_dummy` did not select any factor columns.
-    Execution halted
-    ```
 
 ## In both
 
@@ -5933,7 +5761,7 @@ checking GDAL: checking whether PROJ is available for linking:... yes
 checking GDAL: checking whether PROJ is available fur running:... dyld: Library not loaded: /usr/local/opt/webp/lib/libwebp.6.dylib
   Referenced from: /usr/local/opt/gdal2/lib/libgdal.20.dylib
   Reason: image not found
-./configure: line 3606: 52759 Abort trap: 6           ./gdal_proj
+./configure: line 3606: 84990 Abort trap: 6           ./gdal_proj
 no
 configure: error: OGRCoordinateTransformation() does not return a coord.trans: PROJ not available?
 ERROR: configuration failed for package ‘sf’
@@ -5984,7 +5812,7 @@ checking GDAL: checking whether PROJ is available for linking:... yes
 checking GDAL: checking whether PROJ is available fur running:... dyld: Library not loaded: /usr/local/opt/webp/lib/libwebp.6.dylib
   Referenced from: /usr/local/opt/gdal2/lib/libgdal.20.dylib
   Reason: image not found
-./configure: line 3606: 51802 Abort trap: 6           ./gdal_proj
+./configure: line 3606: 84310 Abort trap: 6           ./gdal_proj
 no
 configure: error: OGRCoordinateTransformation() does not return a coord.trans: PROJ not available?
 ERROR: configuration failed for package ‘sf’
@@ -6075,7 +5903,7 @@ Version: 1.1.2
       [1] "Estimated replications per hour:  595079"
       [1] "Estimated replications per hour:  5222750"
       [1] "Estimated replications per hour:  524300"
-      [31m──[39m [31m1. Failure: Two groups for summary_fun. Results were created and stored in simulation [39m
+      [31m──[39m [31m1. Failure: Two groups for summary_fun. Results were created and stored in simulation [39m
       eg$simulation[[col]] not identical to expected_df[[col]].
       Objects equal but not identical
       
@@ -6124,7 +5952,7 @@ Version: 1.0.0
       > library(slinky)
       > 
       > test_check("slinky")
-      [31m──[39m [31m1. Failure: Cell lines can be retrieved by iname (@test_clue.R#33) [39m [31m──────────────────[39m
+      [31m──[39m [31m1. Failure: Cell lines can be retrieved by iname (@test_clue.R#33) [39m [31m──────────────────[39m
       nrow(tt) not equal to 3.
       target is NULL, current is numeric
       
@@ -6645,35 +6473,11 @@ Version: 0.2.4
 
 Version: 0.5.5
 
-## Newly broken
-
-*   checking tests ...
-    ```
-     ERROR
-    Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-      [13] 1.17 - 4.34 == -3.17
-      [14] 1.23 - 6.69 == -5.46
-      [15] 1.18 - 8.55 == -7.37
-      [16] 1.16 - 9.54 == -8.38
-      [17] 1.17 - 9.66 == -8.49
-      [18] 1.17 - 9.63 == -8.46
-      ...
-      
-      ══ testthat results  ════════════════════════════════════════════════════════════════════
-      OK: 131 SKIPPED: 1 FAILED: 2
-      1. Failure: Test 1.2 grouped data frames are same with mutate and tq_mutate (@test_tq_mutate.R#93) 
-      2. Failure: Test 1.2 grouped data frames are same with mutate and tq_transmute (@test_tq_transmute.R#79) 
-      
-      Error: testthat unit tests failed
-      Execution halted
-    ```
-
 ## In both
 
 *   checking installed package size ... NOTE
     ```
-      installed size is  5.1Mb
+      installed size is  5.2Mb
       sub-directories of 1Mb or more:
         doc   4.1Mb
     ```
@@ -7139,34 +6943,6 @@ Version: 1.1.0
     manual.
     ```
 
-# unpivotr
-
-Version: 0.5.0
-
-## Newly broken
-
-*   checking tests ...
-    ```
-     ERROR
-    Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-      [14] 4 -  9 == -5
-      [15] 4 -  9 == -5
-      [16] 4 -  9 == -5
-      [17] 9 - 14 == -5
-      ...
-      
-      ══ testthat results  ════════════════════════════════════════════════════════════════════
-      OK: 250 SKIPPED: 0 FAILED: 4
-      1. Failure: partition() works (@test-partition.R#38) 
-      2. Failure: partition() works (@test-partition.R#41) 
-      3. Failure: partition() works (@test-partition.R#50) 
-      4. Failure: partition() works (@test-partition.R#59) 
-      
-      Error: testthat unit tests failed
-      Execution halted
-    ```
-
 # unvotes
 
 Version: 0.2.0
@@ -7381,33 +7157,6 @@ Version: 0.2.8
 *   checking data for non-ASCII characters ... NOTE
     ```
       Note: found 25 marked UTF-8 strings
-    ```
-
-# widyr
-
-Version: 0.1.1
-
-## Newly broken
-
-*   checking tests ...
-    ```
-     ERROR
-    Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-      > library(testthat)
-      > library(widyr)
-      > 
-      > test_check("widyr")
-      [31m──[39m [31m1. Failure: Can perform 'squarely' within groups (@test-squarely.R#26) [39m [31m──────────────[39m
-      unique(closest_continent$continent) not equal to unique(gapminder$continent).
-      4 string mismatches
-      
-      ══ testthat results  ════════════════════════════════════════════════════════════════════
-      OK: 68 SKIPPED: 0 FAILED: 1
-      1. Failure: Can perform 'squarely' within groups (@test-squarely.R#26) 
-      
-      Error: testthat unit tests failed
-      Execution halted
     ```
 
 # wordbankr
