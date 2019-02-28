@@ -31,7 +31,8 @@ Imports:
     stringi,
     tibble,
     tidyselect (>= 0.2.5),
-    utils
+    utils,
+    vctrs
 Suggests: 
     covr,
     gapminder,

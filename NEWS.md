@@ -1,3 +1,18 @@
+
+* New `expand_grid()` function which is a tidy version of `expand.grid()`.
+  It is lower-level than the existin `expand()` and `crossing()` functions as
+  it takes individual vectors, and does not sort or uniquify them.
+
+* `crossing()`, `nesting()`, and `expand()` have been rewritten to use 
+  the vctrs package. This should not affect much existing code, but
+  considerably simplies the implementation and ensures that these functions 
+  work consistently across all generalised vectors (#557). As part of this
+  alignment, these functions now only drop `NULL` inputs, not any 0-length
+  vector.
+
+* `crossing()` now takes the unique values of data frame inputs, not just
+  vector inputs (#490).
+  
 # tidyr 0.8.3
 
 * `crossing()` preserves factor levels (#410), now works with list-columns 
