@@ -21,9 +21,11 @@ Issues with CRAN packages are summarised below.
 (This reports the first line of each new failure)
 
 * cutpointr
-  checking examples ... ERROR
   checking tests ...
-  checking re-building of vignette outputs ... WARNING
+  
+  I have corresponded with the author to determine that this is a fragile
+  test; i.e. the package is still functional. The author is preparing an
+  update for submission in the near future.
 
 ### Failed to check
 
