@@ -33,7 +33,7 @@
 
 <meta property="og:title" content="Expand data frame to include all combinations of values — expand" />
 
-<meta property="og:description" content="expand() is often useful in conjunction with left_join if
+<meta property="og:description" content="expand() is often useful in conjunction with left_join() if
 you want to convert implicit missing values to explicit missing values.
 Or you can use it in conjunction with anti_join() to figure
 out which combinations are missing." />
@@ -119,7 +119,7 @@ out which combinations are missing." />
 
     <div class="ref-description">
     
-    <p><code>expand()</code> is often useful in conjunction with <code>left_join</code> if
+    <p><code>expand()</code> is often useful in conjunction with <code>left_join()</code> if
 you want to convert implicit missing values to explicit missing values.
 Or you can use it in conjunction with <code>anti_join()</code> to figure
 out which combinations are missing.</p>
@@ -160,16 +160,15 @@ that don't appear in the data: to do so use expressions like
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p><code>crossing()</code> is similar to <code><a href='https://www.rdocumentation.org/packages/base/topics/expand.grid'>expand.grid()</a></code>, this never
-converts strings to factors, returns a <code>tbl_df</code> without additional
-attributes, and first factors vary slowest. <code>nesting()</code> is the
-complement to <code>crossing()</code>: it only keeps combinations of all variables
-that appear in the data.</p>
+    <p><code>crossing()</code> is a wrapper around <code><a href='expand_grid.html'>expand_grid()</a></code> that deduplicates and sorts
+each input. <code>nesting()</code> is the complement to <code>crossing()</code>: it only keeps
+combinations of values that appear in the data.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='complete.html'>complete()</a></code> for a common application of <code>expand</code>:
-completing a data frame with missing combinations.</p></div>
+completing a data frame with missing combinations. <code><a href='expand_grid.html'>expand_grid()</a></code>
+is low-level that doesn't deduplicate or sort values.</p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
