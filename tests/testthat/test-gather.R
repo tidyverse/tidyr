@@ -127,15 +127,18 @@ test_that("gather throws error for POSIXlt", {
 test_that("gather throws error for weird objects", {
   df <- data.frame(y = 1)
   df$x <- expression(x)
-  expect_error(gather(df, key, val, -x), "atomic vector or list")
-  expect_error(gather(df, key, val, -y), "atomic vector or list")
+  expect_error(gather(df, key, val, -x), "atomic vectors or lists")
+  expect_error(gather(df, key, val, -y), "atomic vectors or lists")
 
   e <- new.env(parent = emptyenv())
   e$x <- 1
   df <- data.frame(y = 1)
   df$x <- e
-  expect_error(gather(df, key, val, -x), "atomic vector or list")
-  expect_error(gather(df, key, val, -y), "atomic vector or list")
+  expect_error(gather(df, key, val, -x), "atomic vectors or list")
+  expect_error(gather(df, key, val, -y), "atomic vectors or list")
+
+  df <- tibble(tibble(x = 1))
+  expect_error(gather(df), "atomic vectors or lists")
 })
 
 
