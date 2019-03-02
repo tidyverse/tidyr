@@ -1,3 +1,5 @@
+# tidyr (development version)
+
 # tidyr 0.8.3
 
 * `crossing()` preserves factor levels (#410), now works with list-columns 
