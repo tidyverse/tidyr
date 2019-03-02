@@ -1,3 +1,6 @@
+# tidyr (development version)
+
+* `gather()` throws an error if a column is a data frame (#553)
 
 * New `expand_grid()` function which is a tidy version of `expand.grid()`.
   It is lower-level than the existin `expand()` and `crossing()` functions as
@@ -12,7 +15,7 @@
 
 * `crossing()` now takes the unique values of data frame inputs, not just
   vector inputs (#490).
-  
+
 # tidyr 0.8.3
 
 * `crossing()` preserves factor levels (#410), now works with list-columns 

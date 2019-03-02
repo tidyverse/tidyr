@@ -15,8 +15,13 @@ using namespace Rcpp;
   }
 
 SEXP rep_(SEXP x, int n, std::string var_name) {
-  if (!Rf_isVectorAtomic(x) && TYPEOF(x) != VECSXP)
-    stop("'%s' must be an atomic vector or list", var_name);
+  if (!Rf_isVectorAtomic(x) && TYPEOF(x) != VECSXP) {
+    Rf_errorcall(
+      R_NilValue,
+      "All columns must be atomic vectors or lists. Problem with '%s'",
+      var_name.c_str()
+    );
+  }
 
   if (Rf_inherits(x, "POSIXlt")) {
     stop("'%s' is a POSIXlt. Please convert to POSIXct.", var_name);
@@ -171,7 +176,10 @@ SEXP concatenate(const DataFrame& x, IntegerVector ind, bool factorsAsStrings) {
         break;
       }
     default:
-      stop("Must be atomic vector or list (not %s)", Rf_type2char(max_type));
+      Rf_errorcall(
+        R_NilValue,
+        "All columns be atomic vectors or lists (not %s)", Rf_type2char(max_type)
+      );
     }
   }
 
@@ -201,8 +209,12 @@ List melt_dataframe(const DataFrame& data,
 
   // Don't melt if the value variables are non-atomic
   for (int i = 0; i < n_measure; ++i) {
-    if (!Rf_isVector(data[measure_ind[i]])) {
-      stop("Must be atomic vector or list (column %i)", measure_ind[i] + 1);
+    if (!Rf_isVector(data[measure_ind[i]]) || Rf_inherits(data[measure_ind[i]], "data.frame")) {
+      Rf_errorcall(
+        R_NilValue,
+        "All columns must be atomic vectors or lists. Problem with column %i.",
+        measure_ind[i] + 1
+      );
     }
   }
 
