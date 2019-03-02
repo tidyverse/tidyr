@@ -32,13 +32,15 @@ Imports:
     tibble,
     tidyselect (>= 0.2.5),
     utils,
-    vctrs
+    vctrs (>= 0.1.0.9002)
 Suggests: 
     covr,
     gapminder,
     knitr,
     rmarkdown,
     testthat
+Remotes:
+    r-lib/vctrs
 LinkingTo: 
     Rcpp
 VignetteBuilder: 
