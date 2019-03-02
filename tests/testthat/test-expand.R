@@ -17,6 +17,12 @@ test_that("nesting doesn't expand values", {
   expect_equal(expand(df, nesting(x, y)), df)
 })
 
+test_that("named data frames are not flattened", {
+  df <- data.frame(x = 1:2, y = 1:2)
+  out <- expand(df, x = nesting(x, y))
+  expect_equal(out$x, df)
+})
+
 test_that("expand works with non-standard col names", {
   df <- tibble(` x ` = 1:2, `/y` = 1:2)
   out <- expand(df, ` x `, `/y`)
@@ -57,33 +63,28 @@ test_that("crossing preserves factor levels", {
   expect_equal(levels(crossing(x = x_na_lev_extra)$x), c("a", "b", NA))
 })
 
-test_that("zero length numeric & character inputs are automatically dropped", {
+test_that("NULL inputs", {
   tb <- tibble(x = 1:5)
-  expect_equal(expand(tb, x, y = numeric()), tb)
-  expect_equal(nesting(x = tb$x, y = numeric()), tb)
-  expect_equal(crossing(x = tb$x, y = numeric()), tb)
-
-  expect_equal(expand(tb, x, y = character()), tb)
-  expect_equal(nesting(x = tb$x, y = character()), tb)
-  expect_equal(crossing(x = tb$x, y = character()), tb)
+  expect_equal(expand(tb, x, y = NULL), tb)
+  expect_equal(nesting(x = tb$x, y = NULL), tb)
+  expect_equal(crossing(x = tb$x, y = NULL), tb)
 })
 
 test_that("zero length input gives zero length output", {
   tb <- tibble(x = character())
-  expect_equal(expand(tb, x), tibble())
+  expect_equal(expand(tb, x), tb)
   expect_equal(expand(tb, y = NULL), tibble())
 })
 
-test_that("expand & crossing complete zero length factors, nesting doesn't", {
-  tb <- tibble(x = 1:2)
-  emptyfactor <- factor(levels = c("a", "b"))
-  targettb <- tibble(
-    x = as.integer(c(1, 1, 2, 2)),
-    y = factor(c("a", "b", "a", "b"), levels = c("a", "b"))
+test_that("expand & crossing expand missing factor leves; nesting does not", {
+  tb <- tibble(
+    x = 1:3,
+    f = factor("a", levels = c("a", "b"))
   )
-  expect_equal(expand(tb, x, y = emptyfactor), targettb)
-  expect_equal(nesting(x = tb$x, y = emptyfactor), tb)
-  expect_equal(crossing(x = tb$x, y = emptyfactor), targettb)
+
+  expect_equal(nrow(expand(tb, x, f)), 6)
+  expect_equal(nrow(crossing(!!!tb)), 6)
+  expect_equal(nrow(nesting(!!!tb)), nrow(tb))
 })
 
 test_that("expand() reconstructs input dots is empty", {
@@ -94,7 +95,7 @@ test_that("expand() reconstructs input dots is empty", {
 test_that("crossing checks for bad inputs", {
   expect_error(
     crossing(x = 1:10, y = quote(a)),
-    "Problems: y"
+    "not a vector"
   )
 })
 

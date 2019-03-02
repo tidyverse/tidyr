@@ -28,10 +28,16 @@ test_that("expands empty factors", {
 
 test_that("empty expansion returns original", {
   df <- tibble(x = character())
-  rs <- complete(df, y = integer())
+  rs <- complete(df, y = NULL)
   expect_equal(rs, df)
 
   df <- tibble(x = 1:4)
-  rs <- complete(df, y = integer())
+  rs <- complete(df, y = NULL)
   expect_equal(rs, df)
+})
+
+test_that("not drop unspecified levels in complete", {
+  df <- tibble(x = 1:3, y = 1:3, z = c("a", "b", "c"))
+  df2 <- df %>% complete(z = c("a", "b"))
+  expect_equal(df, df2)
 })

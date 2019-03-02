@@ -34,7 +34,7 @@ complete.data.frame <- function(data, ..., fill = list()) {
   if (is_empty(full)) {
     return(data)
   }
-  full <- dplyr::left_join(full, data, by = names(full))
+  full <- dplyr::full_join(full, data, by = names(full))
   full <- replace_na(full, replace = fill)
 
   reconstruct_tibble(data, full)

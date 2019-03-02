@@ -1,15 +1,13 @@
 #' Expand data frame to include all combinations of values
 #'
-#' `expand()` is often useful in conjunction with `left_join` if
+#' `expand()` is often useful in conjunction with `left_join()` if
 #' you want to convert implicit missing values to explicit missing values.
 #' Or you can use it in conjunction with `anti_join()` to figure
 #' out which combinations are missing.
 #'
-#' `crossing()` is similar to [expand.grid()], this never
-#' converts strings to factors, returns a `tbl_df` without additional
-#' attributes, and first factors vary slowest. `nesting()` is the
-#' complement to `crossing()`: it only keeps combinations of all variables
-#' that appear in the data.
+#' `crossing()` is a wrapper around [expand_grid()] that deduplicates and sorts
+#' each input. `nesting()` is the complement to `crossing()`: it only keeps
+#' combinations of values that appear in the data.
 #'
 #' @param data A data frame.
 #' @param ... Specification of columns to expand. Columns can be atomic vectors
@@ -31,7 +29,8 @@
 #'
 #'   Length-zero (empty) elements are automatically dropped.
 #' @seealso [complete()] for a common application of `expand`:
-#'   completing a data frame with missing combinations.
+#'   completing a data frame with missing combinations. [expand_grid()]
+#'   is low-level that doesn't deduplicate or sort values.
 #' @export
 #' @examples
 #' library(dplyr)
@@ -93,20 +92,25 @@ expand <- function(data, ...) {
 
 #' @export
 expand.data.frame <- function(data, ...) {
-  dots <- quos(..., .named = TRUE)
-  if (is_empty(dots)) {
-    return(reconstruct_tibble(data, data.frame()))
-  }
+  cols <- enquos(...)
+  has_name <- names(cols) != ""
+  cols <- quos_auto_name(cols)
+  cols <- map(cols, eval_tidy, data)
 
-  pieces <- map(dots, eval_tidy, data)
-  df <- crossing(!!! pieces)
+  out <- crossing(!!!cols)
 
-  reconstruct_tibble(data, df)
+  # flatten unnamed nested data frames to preserve existing behaviour
+  to_flatten <- !has_name & unname(map_lgl(out, is.data.frame))
+  out <- flatten_at(out, to_flatten)
+  out <- as_tibble(out)
+
+  # https://github.com/r-lib/vctrs/issues/211
+  reconstruct_tibble(data, out)
 }
+
 #' @export
 expand.grouped_df <- function(data, ...) {
-  dots <- quos(...)
-  dplyr::do(data, expand(., !!! dots))
+  dplyr::do(data, expand(., ...))
 }
 
 # Nesting & crossing ------------------------------------------------------
@@ -114,52 +118,98 @@ expand.grouped_df <- function(data, ...) {
 #' @rdname expand
 #' @export
 crossing <- function(...) {
-  x <- tibble::lst(...)
-  stopifnot(is_list(x))
+  dots <- enquos(..., .named = TRUE)
+  dots <- map(dots, eval_tidy)
+  dots <- discard(dots, is.null)
 
-  x <- drop_empty(x)
-  if (length(x) == 0) {
-    return(data.frame())
-  }
-
-  is_vector <- map_lgl(x, is_atomic) | map_lgl(x, is_bare_list)
-  is_df <- map_lgl(x, is.data.frame)
-  if (any(!is_df & !is_vector)) {
-    bad <- names(x)[!is_df & !is_vector]
-
-    problems <- paste(bad, collapse = ", ")
-    abort(glue(
-      "Each element must be either an atomic vector, a data frame, or a list.
-       Problems: {problems}."
-    ))
-  }
-
-  # turn each atomic vector into single column data frame
-  col_df <- map(x[is_vector], function(x) tibble(x = ulevels(x)))
-  col_df <- map2(col_df, names(x)[is_vector], set_names)
-  x[is_vector] <- col_df
-
-  Reduce(cross_df, x)
-}
-cross_df <- function(x, y) {
-  x_idx <- rep(seq_nrow(x), each = nrow(y))
-  y_idx <- rep(seq_nrow(y), nrow(x))
-  dplyr::bind_cols(x[x_idx, , drop = FALSE], y[y_idx, , drop = FALSE])
-}
-drop_empty <- function(x, factor = TRUE) {
-  empty <- map_lgl(x, function(x) length(x) == 0 & (!factor | !is.factor(x)))
-  x[!empty]
+  cols <- map(dots, sorted_unique)
+  expand_grid(!!!cols)
 }
 
 #' @rdname expand
 #' @export
 nesting <- function(...) {
-  x <- tibble::lst(...)
+  # https://github.com/tidyverse/tibble/issues/580
+  dots <- enquos(..., .named = TRUE)
+  dots <- map(dots, eval_tidy)
+  dots <- discard(dots, is.null)
 
-  stopifnot(is_list(x))
-  x <- drop_empty(x, factor = FALSE)
+  sorted_unique(tibble::tibble(!!!dots))
+}
 
-  df <- as_tibble(x)
-  df <- dplyr::distinct(df)
-  df[do.call(order, df), , drop = FALSE]
+
+# expand_grid -------------------------------------------------------------
+
+#' Create a tibble from all combinations of inputs
+#'
+#' @section Compared to [expand.grid]:
+#' * Varies the first element fastest.
+#' * Never converts strings to factors.
+#' * Does not add any additional attributes.
+#' * Returns a tibble, not a data frame.
+#' * Can expand any generalised vector, including data frames.
+#' @param ... Name-value pairs. The name will become the column name in the
+#'   output.
+#' @return A tibble with one column for each input in `...`. The output
+#'   will have one row for each combination of the inputs (i.e. the size
+#'   be equal to the product of the sizes of the inputs).
+#' @export
+#' @examples
+#' expand_grid(x = 1:3, y = 1:2)
+#' expand_grid(l1 = letters, l2 = LETTERS)
+#'
+#' # Can also expand data frames
+#' expand_grid(df = data.frame(x = 1:2, y = c(2, 1)), z = 1:3)
+#' # And matrices
+#' expand_grid(x1 = matrix(1:4, nrow = 2), x2 = matrix(5:8, nrow = 2))
+expand_grid <- function(...) {
+  dots <- enquos(..., .named = TRUE)
+  dots <- map(dots, eval_tidy)
+  dots <- discard(dots, is.null)
+
+  # Generate sequence of indices
+  ns <- map_int(dots, vec_size)
+  n <- prod(ns)
+  each <- n / cumprod(ns)
+  times <- n / each / ns
+
+  out <- pmap(list(x = dots, each = each, times = times), vec_repeat)
+  as_tibble(out)
+}
+
+sorted_unique <- function(x) {
+  if (is.factor(x)) {
+    # forcats::fct_unique
+    factor(levels(x), levels(x), exclude = NULL, ordered = is.ordered(x))
+  } else if (is_bare_list(x)) {
+    vec_unique(x)
+  } else {
+    vec_sort(vec_unique(x))
+  }
+}
+
+
+flatten_at <- function(x, to_flatten) {
+  if (!any(to_flatten)) {
+    return(x)
+  }
+
+  cols <- rep(1L, length(x))
+  cols[to_flatten] <- map_int(x[to_flatten], length)
+
+  out <- vector("list", sum(cols))
+  names <- vector("character", sum(cols))
+  j <- 1
+  for (i in seq_along(x)) {
+    if (to_flatten[[i]]) {
+      out[j:(j + cols[[i]] - 1)] <- x[[i]]
+      names[j:(j + cols[[i]] - 1)] <- names(x[[i]])
+    } else {
+      out[[j]] <- x[[i]]
+      names[[j]] <- names(x)[[i]]
+    }
+    j <- j + cols[[i]]
+  }
+  names(out) <- names
+  out
 }

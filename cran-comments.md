@@ -12,7 +12,7 @@
 
 We checked 653 reverse dependencies (581 from CRAN + 72 from BioConductor), comparing R CMD check results across CRAN and dev versions of this package.
 
- * We saw 8 new problems
+ * We saw 1 new problems
  * We failed to check 14 packages
 
 Issues with CRAN packages are summarised below.
@@ -21,34 +21,11 @@ Issues with CRAN packages are summarised below.
 (This reports the first line of each new failure)
 
 * cutpointr
-  checking examples ... ERROR
   checking tests ...
-  checking re-building of vignette outputs ... WARNING
-
-* echarts4r
-  checking installed package size ... NOTE
-  Seems unrelated to tidyr.
-
-* healthcareai
-  checking examples ... ERROR
-  checking tests ...
-
-* postal
-  checking tests ...
-
-* recipes
-  checking examples ... ERROR
-  checking tests ...
-  checking re-building of vignette outputs ... WARNING
-
-* tidyquant
-  checking tests ...
-
-* unpivotr
-  checking tests ...
-
-* widyr
-  checking tests ...
+  
+  I have corresponded with the author to determine that this is a fragile
+  test; i.e. the package is still functional. The author is preparing an
+  update for submission in the near future.
 
 ### Failed to check
 
