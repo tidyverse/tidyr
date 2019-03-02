@@ -174,10 +174,8 @@ construction %>% pivot(spec)
 ```{r}
 # need to pivot in both directions
 
-weather <- read_csv("weather.csv", col_types = list()) %>%
-  mutate_at(vars(starts_with("d")), parse_number)
+weather <- read_csv("weather.csv", col_types = list()) 
 
-weather %>% pivot_spec_long(d1:d31)
 weather %>% pivot_spec_long(d1:d31, "temp", "day")
 
 weather_spec <- weather %>%
