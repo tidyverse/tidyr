@@ -33,11 +33,13 @@
 nest <- function(data, ..., .key = "data") {
   UseMethod("nest")
 }
+#' @importFrom utils packageVersion
 #' @export
-nest.data.frame <- function(data, ..., .key = "data") {
-  key_var <- as_string(ensym2(.key))
+nest.tbl_df <- function(data, ..., .key = "data") {
 
+  key_var   <- as_string(ensym2(.key))
   nest_vars <- unname(tidyselect::vars_select(names(data), ...))
+
   if (is_empty(nest_vars)) {
     nest_vars <- names(data)
   }
@@ -56,14 +58,27 @@ nest.data.frame <- function(data, ..., .key = "data") {
 
   out <- dplyr::select(data, !!! syms(group_vars))
 
-  idx <- dplyr::group_indices(data, !!! syms(group_vars))
+  if (packageVersion("dplyr") < "0.8.0") {
+    idx <- dplyr::group_indices(data, !!! syms(group_vars))
+  } else {
+    idx <- dplyr::group_indices(data, !!! syms(group_vars), .drop = TRUE)
+  }
+
   representatives <- which(!duplicated(idx))
 
   out <- dplyr::slice(out, representatives)
-
   out[[key_var]] <- unname(split(data[nest_vars], idx))[unique(idx)]
-
   out
 }
 
+#' @export
+nest.data.frame <- function(data, ..., .key = "data") {
+  .key <- enquo(.key)
 
+  # Don't transform subclasses
+  if (identical(class(data), "data.frame")) {
+    data <- tibble::as_tibble(data)
+  }
+
+  nest.tbl_df(data, ..., .key = !! .key)
+}

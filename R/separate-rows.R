@@ -4,8 +4,8 @@
 #' separates the values and places each one in its own row.
 #'
 #' @inheritSection gather Rules for selection
+#' @inheritParams fill
 #' @inheritParams gather
-#' @inheritParams separate
 #' @param sep Separator delimiting collapsed values.
 #' @export
 #' @examples
@@ -27,7 +27,11 @@ separate_rows.data.frame <- function(data, ..., sep = "[^[:alnum:].]+",
   orig <- data
   vars <- unname(tidyselect::vars_select(names(data), ...))
 
-  data[vars] <- map(data[vars], stringi::stri_split_regex, sep)
+  data[vars] <- map(data[vars], function(x) {
+    out <- stringi::stri_split_regex(x, sep)
+    attr(out, "ptype") <- character()
+    out
+  })
   data <- unnest(data, !!! syms(vars), .drop = FALSE)
   data <- dplyr::select(data, !!! intersect(names(orig), names(data)))
 

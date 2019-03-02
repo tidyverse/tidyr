@@ -1,6 +1,6 @@
 Package: tidyr
 Title: Easily Tidy Data with 'spread()' and 'gather()' Functions
-Version: 0.8.2.9000
+Version: 0.8.3.9000
 Authors@R: 
     c(person(given = "Hadley",
              family = "Wickham",
@@ -30,7 +30,8 @@ Imports:
     rlang,
     stringi,
     tibble,
-    tidyselect (>= 0.2.5)
+    tidyselect (>= 0.2.5),
+    utils
 Suggests: 
     covr,
     gapminder,

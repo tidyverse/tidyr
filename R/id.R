@@ -38,7 +38,7 @@ id <- function(.variables, drop = FALSE) {
 }
 
 id_var <- function(x, drop = FALSE) {
-  if (!is_null(attr(x, "n")) && !drop) return(x)
+  if (!is_null(attr(x, "n", exact = TRUE)) && !drop) return(x)
 
   if (is.factor(x) && !drop) {
     x_na <- addNA(x, ifany = TRUE)

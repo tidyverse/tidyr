@@ -9,8 +9,8 @@ home:
 template:
   package: tidytemplate
 
-# development:
-#   mode: auto
+development:
+  mode: auto
 
 navbar:
   title: ~
@@ -35,6 +35,7 @@ reference:
   - separate
   - separate_rows
   - spread
+  - uncount
   - unite
   - unnest
 
@@ -46,7 +47,8 @@ reference:
   - fill
   - full_seq
   - replace_na
-  - uncount
+
+-
 
 - title: Data
   contents:

@@ -53,7 +53,7 @@ stocksm \%>\% spread(time, price)
 
 # Spread and gather are complements
 df <- data.frame(x = c("a", "b"), y = c(3, 4), z = c(5, 6))
-df \%>\% spread(x, y) \%>\% gather(x, y, a:b, na.rm = TRUE)
+df \%>\% spread(x, y) \%>\% gather("x", "y", a:b, na.rm = TRUE)
 
 # Use 'convert = TRUE' to produce variables of mixed type
 df <- data.frame(row = rep(c(1, 51), each = 3),

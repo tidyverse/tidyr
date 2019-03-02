@@ -46,7 +46,7 @@
 #'   more options, see the [dplyr::select()] documentation. See also
 #'   the section on selection rules below.
 #' @param na.rm If `TRUE`, will remove rows from output where the
-#'   value column in `NA`.
+#'   value column is `NA`.
 #' @param convert If `TRUE` will automatically run
 #'   [type.convert()] on the key column. This is useful if the column
 #'   types are actually numeric, integer, or logical.
@@ -65,16 +65,16 @@
 #'   Z = rnorm(10, 0, 4)
 #' )
 #'
-#' gather(stocks, stock, price, -time)
-#' stocks %>% gather(stock, price, -time)
+#' gather(stocks, "stock", "price", -time)
+#' stocks %>% gather("stock", "price", -time)
 #'
 #' # get first observation for each Species in iris data -- base R
 #' mini_iris <- iris[c(1, 51, 101), ]
 #' # gather Sepal.Length, Sepal.Width, Petal.Length, Petal.Width
-#' gather(mini_iris, key = flower_att, value = measurement,
+#' gather(mini_iris, key = "flower_att", value = "measurement",
 #'        Sepal.Length, Sepal.Width, Petal.Length, Petal.Width)
 #' # same result but less verbose
-#' gather(mini_iris, key = flower_att, value = measurement, -Species)
+#' gather(mini_iris, key = "flower_att", value = "measurement", -Species)
 #'
 #' # repeat iris example using dplyr and the pipe operator
 #' library(dplyr)
@@ -82,7 +82,7 @@
 #'   iris %>%
 #'   group_by(Species) %>%
 #'   slice(1)
-#' mini_iris %>% gather(key = flower_att, value = measurement, -Species)
+#' mini_iris %>% gather(key = "flower_att", value = "measurement", -Species)
 gather <- function(data, key = "key", value = "value", ...,
                    na.rm = FALSE, convert = FALSE, factor_key = FALSE) {
   UseMethod("gather")

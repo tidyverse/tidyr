@@ -10,44 +10,36 @@
 
 ## revdepcheck results
 
-We checked 571 reverse dependencies (518 from CRAN + 53 from BioConductor), comparing R CMD check results across CRAN and dev versions of this package.
+We checked 653 reverse dependencies (581 from CRAN + 72 from BioConductor), comparing R CMD check results across CRAN and dev versions of this package.
 
- * We saw 2 new problems
- * We failed to check 19 packages
+ * We saw 1 new problems
+ * We failed to check 14 packages
 
 Issues with CRAN packages are summarised below.
 
 ### New problems
 (This reports the first line of each new failure)
 
-* ggfortify
+* cutpointr
   checking tests ...
   
-  Appears to be unlreated: Lapack routine dgesv: system is exactly singular: U[4,4] = 0
-
-* postal
-  checking tests ...
-  
-  Appears to be unrelated: "cannot open the connection"
+  I have corresponded with the author to determine that this is a fragile
+  test; i.e. the package is still functional. The author is preparing an
+  update for submission in the near future.
 
 ### Failed to check
 
-* ALA4R            (check timed out)
 * anomalyDetection (failed to install)
 * circumplex       (failed to install)
 * colorednoise     (failed to install)
 * dynfrail         (failed to install)
-* ggstatsplot      (check timed out)
+* easyformatr      (failed to install)
 * HTSSIP           (check timed out)
-* iotables         (failed to install)
 * morse            (failed to install)
-* nlmixr           (failed to install)
+* phenofit         (failed to install)
 * pmc              (check timed out)
-* ppcSpatial       (failed to install)
-* prisonbrief      (failed to install)
 * qdap             (failed to install)
 * SCORPIUS         (failed to install)
 * sf               (failed to install)
-* trialr           (failed to install)
 * vlad             (failed to install)
 * wand             (failed to install)
