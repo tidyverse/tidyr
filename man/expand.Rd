@@ -35,17 +35,15 @@ that don't appear in the data: to do so use expressions like
 Length-zero (empty) elements are automatically dropped.}
 }
 \description{
-\code{expand()} is often useful in conjunction with \code{left_join} if
+\code{expand()} is often useful in conjunction with \code{left_join()} if
 you want to convert implicit missing values to explicit missing values.
 Or you can use it in conjunction with \code{anti_join()} to figure
 out which combinations are missing.
 }
 \details{
-\code{crossing()} is similar to \code{\link[=expand.grid]{expand.grid()}}, this never
-converts strings to factors, returns a \code{tbl_df} without additional
-attributes, and first factors vary slowest. \code{nesting()} is the
-complement to \code{crossing()}: it only keeps combinations of all variables
-that appear in the data.
+\code{crossing()} is a wrapper around \code{\link[=expand_grid]{expand_grid()}} that deduplicates and sorts
+each input. \code{nesting()} is the complement to \code{crossing()}: it only keeps
+combinations of values that appear in the data.
 }
 \examples{
 library(dplyr)
@@ -104,5 +102,6 @@ crossing(formula = formulas, data)
 }
 \seealso{
 \code{\link[=complete]{complete()}} for a common application of \code{expand}:
-completing a data frame with missing combinations.
+completing a data frame with missing combinations. \code{\link[=expand_grid]{expand_grid()}}
+is low-level that doesn't deduplicate or sort values.
 }
