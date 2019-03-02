@@ -1,5 +1,8 @@
 # tidyr (development version)
 
+* `complete()` now uses `full_join()` so that all levels are preserved even
+  when not all levels are specified (@Ryo-N7, #493).
+
 * `gather()` throws an error if a column is a data frame (#553)
 
 # tidyr 0.8.3
