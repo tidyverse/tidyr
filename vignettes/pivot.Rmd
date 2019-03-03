@@ -167,6 +167,55 @@ construction %>% pivot(spec)
 
 # Long to wide
 
+## Single measure
+
+From <http://stackoverflow.com/questions/24929954>
+
+```{r}
+df <- expand_grid(
+    Product = c("A", "B"), 
+    Country = c("AI", "EI"), 
+    Year = 2000:2014
+  ) %>%
+  mutate(value = rnorm(nrow(.))) %>%
+  filter((Product == "A" & Country == "AI") | (Product == "B" & Country == "EI"))
+
+spec <- df %>% 
+  expand(Product, Country, measure = "value") %>% 
+  mutate(
+    col_name = paste0(Product, "_", Country)
+  )
+spec
+
+df %>% pivot(spec) %>% head()
+```
+
+## Multiple measure
+
+(From Jenny Bryan)
+
+```{r}
+input <- tribble(
+  ~hw,   ~name,  ~mark,   ~pr,
+  "hw1", "anna",    95,  "ok",
+  "hw1", "alan",    90, "meh",
+  "hw1", "carl",    85,  "ok",
+  "hw2", "alan",    70, "meh",
+  "hw2", "carl",    80,  "ok"
+)
+
+spec <- input %>% 
+  expand(hw, measure = c("mark", "pr")) %>% 
+  mutate(
+    col_name = paste0(hw, "_", measure)
+  )
+spec
+
+input %>% pivot(spec)
+```
+
+
+
 # Multiple transformations
 
 ## Weather data
