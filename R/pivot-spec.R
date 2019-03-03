@@ -3,7 +3,7 @@
 #' @export
 #' @rdname pivot
 pivot_spec_long <- function(df, cols, measure = "value", variable = "variable") {
-  cols <- tidyselect::vars_select(names(df), !!enquo(cols))
+  cols <- tidyselect::vars_select(unique(names(df)), !!enquo(cols))
 
   tibble(
     col_name = cols,
