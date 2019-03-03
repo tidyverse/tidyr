@@ -64,7 +64,10 @@ pivot_to_long <- function(df, spec, na.rm = FALSE, .ptype = list()) {
     val_cols[-col_id] <- list(rep(NA, nrow(df)))
 
     val_type <- vec_type_common(!!!val_cols, .ptype = .ptype[[measure]])
-    vals[[measure]] <- vec_c(!!!val_cols, .ptype = val_type)
+    out <- vec_c(!!!val_cols, .ptype = val_type)
+    # Interleave into correct order
+    idx <- (matrix(seq_len(nrow(df) * length(val_cols)), ncol = nrow(df), byrow = TRUE))
+    vals[[measure]] <- vec_slice(out, as.integer(idx))
   }
   vals <- as_tibble(vals)
 

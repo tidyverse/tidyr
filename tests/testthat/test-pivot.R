@@ -16,7 +16,19 @@ test_that("can pivot all cols to long", {
 
   expect_named(pv, c("variable", "value"))
   expect_equal(pv$variable, rep(sp$col_name, 2))
-  expect_equal(pv$value, 1:4)
+  expect_equal(pv$value, c(1, 3, 2, 4))
+})
+
+test_that("values interleaved correctly", {
+  df <- tibble(
+    x = c(1, 2),
+    y = c(10, 20),
+    z = c(100, 200),
+  )
+  sp <- pivot_spec_long(df, 1:3)
+  pv <- pivot(df, sp)
+
+  expect_equal(pv$value, c(1, 10, 100, 2, 20, 200))
 })
 
 test_that("can add multiple columns from spec", {
