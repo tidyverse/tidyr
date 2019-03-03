@@ -1,5 +1,14 @@
 # tidyr (development version)
 
+* `pivot()`
+
+  * Better control of expansion of factor levels not present in the data (#193)
+  * Multi-spread (#149)
+  * Multi-gather (#150)
+  * Greater control over generated column names when widening (#208)
+  * Works with a much greater type of vectors (#333)
+  * Lengthening and widening are now symmetric (#453)
+
 * `complete()` now uses `full_join()` so that all levels are preserved even
   when not all levels are specified (@Ryo-N7, #493).
 
