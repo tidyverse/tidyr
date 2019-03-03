@@ -129,3 +129,13 @@ test_that("can pivot from multiple measure cols", {
   expect_equal(pv$x_a, 1)
   expect_equal(pv$y_b, 4)
 })
+
+test_that("warn when overwriting existing column", {
+  df <- tibble(
+    a = c(1, 1),
+    key = c("a", "b"),
+    value = c(1, 2)
+  )
+  sp <- pivot_spec_wide(df, key, value)
+  expect_message(pv <- pivot(df, sp), "New names")
+})
