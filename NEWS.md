@@ -8,6 +8,7 @@
   * Greater control over generated column names when widening (#208)
   * Works with a much greater type of vectors (#333)
   * Lengthening and widening are now symmetric (#453)
+  * Conflicting column names follow standard tidyverse principles (#496, #478)
 
 * `complete()` now uses `full_join()` so that all levels are preserved even
   when not all levels are specified (@Ryo-N7, #493).
