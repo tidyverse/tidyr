@@ -218,6 +218,26 @@ input %>% pivot(spec)
 
 # Multiple transformations
 
+## Anscombe's quartet
+
+Need to introduce identifying variable
+
+```{r}
+anscombe <- anscombe %>% 
+  as_tibble() %>% 
+  mutate(id = row_number())
+anscombe
+
+spec <- anscombe %>% 
+  pivot_spec_long(-id) %>% 
+  separate(variable, c("var", "ex"), 1, convert = TRUE)
+spec
+
+anscombe %>% 
+  pivot(spec) %>% 
+  pivot(pivot_spec_wide(., var, value))
+```
+
 ## Weather data
 
 ```{r}
