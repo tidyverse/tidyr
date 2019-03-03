@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Articles • tidyr</title>
+<title>Pivot a data frame from wide to long or long to wide — pivot_spec_long • tidyr</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -31,7 +31,13 @@
 
 
 
-<meta property="og:title" content="Articles" />
+<meta property="og:title" content="Pivot a data frame from wide to long or long to wide — pivot_spec_long" />
+
+<meta property="og:description" content="pivot() is provides rectangular reshaping like gather() and spread().
+It differs primarily from existing approaches in tidyr because the details
+of the reshaping a described by a data frame, spec. For simple cases, you
+can construct the spec with pivot_spec_long() and pivot_spec_wide().
+See details in vignette(&quot;pivot&quot;)" />
 
 <meta property="og:image" content="https://tidyr.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -58,7 +64,7 @@
   </head>
 
   <body>
-    <div class="container template-article-index">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -107,18 +113,60 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Articles</h1>
+    <h1>Pivot a data frame from wide to long or long to wide</h1>
+    <small class="dont-index">Source: <a href='https://github.com/tidyverse/tidyr/blob/master/R/pivot-spec.R'><code>R/pivot-spec.R</code></a>, <a href='https://github.com/tidyverse/tidyr/blob/master/R/pivot.R'><code>R/pivot.R</code></a></small>
+    <div class="hidden name"><code>pivot.Rd</code></div>
     </div>
 
-    <div class="section ">
-      <h3>All vignettes</h3>
-      <p class="section-desc"></p>
-
-      <ul>
-        <li><a href="pivot.html">Pivotting</a></li>
-        <li><a href="tidy-data.html">Tidy data</a></li>
-      </ul>
+    <div class="ref-description">
+    
+    <p><code>pivot()</code> is provides rectangular reshaping like <code><a href='gather.html'>gather()</a></code> and <code><a href='spread.html'>spread()</a></code>.
+It differs primarily from existing approaches in tidyr because the details
+of the reshaping a described by a data frame, <code>spec</code>. For simple cases, you
+can construct the spec with <code>pivot_spec_long()</code> and <code>pivot_spec_wide()</code>.
+See details in <code><a href='../articles/pivot.html'>vignette("pivot")</a></code></p>
+    
     </div>
+
+    <pre class="usage"><span class='fu'>pivot_spec_long</span>(<span class='no'>df</span>, <span class='no'>cols</span>, <span class='kw'>measure</span> <span class='kw'>=</span> <span class='st'>"value"</span>, <span class='kw'>variable</span> <span class='kw'>=</span> <span class='st'>"variable"</span>)
+
+<span class='fu'>pivot_spec_wide</span>(<span class='no'>df</span>, <span class='no'>cols</span>, <span class='kw'>measure</span> <span class='kw'>=</span> <span class='no'>value</span>, <span class='kw'>sep</span> <span class='kw'>=</span> <span class='st'>"_"</span>)
+
+<span class='fu'>pivot</span>(<span class='no'>df</span>, <span class='no'>spec</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>ptypes</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>df</th>
+      <td><p>A data frame to reshape.</p></td>
+    </tr>
+    <tr>
+      <th>spec</th>
+      <td><p>A data frame defining the reshaping specification.
+Must contain <code>col_name</code> and <code>measure</code> columns that are character
+vectors.</p></td>
+    </tr>
+    <tr>
+      <th>na.rm</th>
+      <td><p>If <code>TRUE</code>, will convert explicit missing values to implicit
+missing values. Used only when pivotting to long.</p></td>
+    </tr>
+    <tr>
+      <th>.ptype</th>
+      <td><p>A named list that optionally override the types of
+measured columns. Used only when pivotting to long.</p></td>
+    </tr>
+    </table>
+    
+
+  </div>
+  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+    <h2>Contents</h2>
+    <ul class="nav nav-pills nav-stacked">
+      <li><a href="#arguments">Arguments</a></li>
+                </ul>
+
   </div>
 </div>
 

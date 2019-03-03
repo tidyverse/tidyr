@@ -40,6 +40,9 @@
     <loc>https://tidyr.tidyverse.org/reference/pipe.html</loc>
   </url>
   <url>
+    <loc>https://tidyr.tidyverse.org/reference/pivot.html</loc>
+  </url>
+  <url>
     <loc>https://tidyr.tidyverse.org/reference/replace_na.html</loc>
   </url>
   <url>
@@ -71,6 +74,9 @@
   </url>
   <url>
     <loc>https://tidyr.tidyverse.org/reference/who.html</loc>
+  </url>
+  <url>
+    <loc>https://tidyr.tidyverse.org/articles/pivot.html</loc>
   </url>
   <url>
     <loc>https://tidyr.tidyverse.org/articles/tidy-data.html</loc>
