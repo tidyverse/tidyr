@@ -17,7 +17,6 @@ NULL
 #'   [dplyr::select()] documentation.
 #' @param .direction Direction in which to fill missing values. Currently
 #'   either "down" (the default), "up", "downup" or "updown".
-#' @importFrom purrr compose
 #' @export
 #' @examples
 #' df <- data.frame(Month = 1:12, Year = c(2000, rep(NA, 11)))
@@ -31,7 +30,8 @@ fill.data.frame <- function(data, ..., .direction = c("down", "up", "downup", "u
 
   .direction <- match.arg(.direction)
   fillVector <- switch(.direction, down = fillDown, up = fillUp,
-                       downup = compose(fillUp, fillDown), updown = compose(fillDown, fillUp))
+                       downup = function(x) {fillUp(fillDown(x))},
+                       updown = function(x) {fillDown(fillUp(x))})
 
   for (col in fill_cols) {
     data[[col]] <- fillVector(data[[col]])
