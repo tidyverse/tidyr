@@ -14,8 +14,8 @@ test_that("can pivot all cols to long", {
   sp <- pivot_spec_long(df, x:y)
   pv <- pivot(df, sp)
 
-  expect_named(pv, c("variable", "value"))
-  expect_equal(pv$variable, rep(sp$col_name, 2))
+  expect_named(pv, c("name", "value"))
+  expect_equal(pv$name, rep(sp$col_name, 2))
   expect_equal(pv$value, c(1, 3, 2, 4))
 })
 
@@ -44,7 +44,7 @@ test_that("preserves original keys", {
   sp <- pivot_spec_long(df, y:z)
   pv <- pivot(df, sp)
 
-  expect_named(pv, c("x", "variable", "value"))
+  expect_named(pv, c("x", "name", "value"))
   expect_equal(pv$x, rep(df$x, each = 2))
 })
 
@@ -53,7 +53,7 @@ test_that("can drop missing values", {
   sp <- pivot_spec_long(df, x:y)
   pv <- pivot(df, sp, na.rm = TRUE)
 
-  expect_equal(pv$variable, c("x", "y"))
+  expect_equal(pv$name, c("x", "y"))
   expect_equal(pv$value, c(1, 2))
 })
 

@@ -6,9 +6,10 @@
 \alias{pivot}
 \title{Pivot a data frame from wide to long or long to wide}
 \usage{
-pivot_spec_long(df, cols, measure = "value", variable = "variable")
+pivot_spec_long(df, cols, names_to = "name", values_to = "value")
 
-pivot_spec_wide(df, cols, measure = value, sep = "_")
+pivot_spec_wide(df, names_from = name, values_from = value,
+  sep = "_")
 
 pivot(df, spec, na.rm = FALSE, ptypes = NULL)
 }

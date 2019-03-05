@@ -48,7 +48,7 @@ pew
 To tidy this data we first create a spec. We are tidying from wide to long so we use `pivot_spec_long()`:
 
 ```{r}
-spec <- pew %>% pivot_spec_long(-1, "count", "income")
+spec <- pew %>% pivot_spec_long(-1, names_to = "count", values_to = "income")
 spec
 ```
 
@@ -78,12 +78,12 @@ billboard
 ```
 
 ```{r}
-billboard %>% pivot_spec_long(starts_with("wk"), "rank", "week")
+billboard %>% pivot_spec_long(starts_with("wk"), names_to = "week", values_to = "rank")
 ```
 
 ```{r}
 spec <- billboard %>%
-  pivot_spec_long(starts_with("wk"), "rank", "week") %>%
+  pivot_spec_long(starts_with("wk"), names_to = "week", values_to = "rank") %>%
   mutate(week = parse_number(week))
 spec
 ```
@@ -104,8 +104,8 @@ who
 who %>% pivot_spec_long(new_sp_m014:newrel_f65)
 
 spec <- who %>%
-  pivot_spec_long(new_sp_m014:newrel_f65, "count") %>%
-  extract(variable, c("diagnosis", "gender", "age"), "new_?(.*)_(.)(.*)") %>%
+  pivot_spec_long(new_sp_m014:newrel_f65, values_to = "count") %>%
+  extract(name, c("diagnosis", "gender", "age"), "new_?(.*)_(.)(.*)") %>%
   mutate(age = factor(age, levels = unique(age), ordered = TRUE))
 spec
 ```
@@ -131,7 +131,7 @@ family <- tibble::tribble(
 
 spec <- family %>%
   pivot_spec_long(-(1:2)) %>%
-  separate(variable, c("measure", "child")) %>%
+  separate(name, c("measure", "child")) %>%
   mutate(child = parse_number(child))
 
 family %>%
@@ -230,7 +230,7 @@ anscombe
 
 spec <- anscombe %>% 
   pivot_spec_long(-id) %>% 
-  separate(variable, c("var", "ex"), 1, convert = TRUE)
+  separate(name, c("var", "ex"), 1, convert = TRUE)
 spec
 
 anscombe %>% 
@@ -248,7 +248,7 @@ weather <- read_csv("weather.csv", col_types = list())
 weather %>% pivot_spec_long(d1:d31, "temp", "day")
 
 weather_spec <- weather %>%
-  pivot_spec_long(d1:d31, "temp", "day") %>%
+  pivot_spec_long(d1:d31, names_to = "day", values_to = "temp") %>%
   mutate(day = parse_number(day))
 weather_spec
 weather2 <- pivot(weather, weather_spec, na.rm = TRUE)
@@ -280,11 +280,10 @@ df <- df %>%
     type = rep(c("var", "value"), length = nrow(df))
   ) 
 
-spec <- pivot_spec_wide(df, type, meta)
+spec <- pivot_spec_wide(df, names_from = type, values_from = meta)
 df2 <- df %>% pivot(spec)
 
-spec2 <- pivot_spec_wide(df2, var, value)
+spec2 <- pivot_spec_wide(df2, names_from = var, values_from = value)
 df2 %>% select(-row) %>% pivot(spec2)
-
 ```
 
