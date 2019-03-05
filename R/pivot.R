@@ -1,4 +1,4 @@
-#' Pivot a data frame from wide to long or long to wide
+#' Pivot data from wide to long or long to wide
 #'
 #' `pivot()` is provides rectangular reshaping like `gather()` and `spread()`.
 #' It differs primarily from existing approaches in tidyr because the details
@@ -12,44 +12,13 @@
 #'   vectors.
 #' @param na.rm If `TRUE`, will convert explicit missing values to implicit
 #'   missing values. Used only when pivotting to long.
-#' @param .ptype A named list that optionally override the types of
+#' @param ptype A named list that optionally override the types of
 #'   measured columns. Used only when pivotting to long.
 #' @keywords internal
 #' @export
-pivot <- function(df, spec, na.rm = FALSE, ptypes = NULL) {
+pivot_long <- function(df, spec, na.rm = FALSE, ptype = list()) {
   spec <- check_spec(spec)
 
-  # Check colnames match up and error otherwise
-  df_in_spec <- all(spec$col_name %in% names(df))
-  spec_in_df <- all(setdiff(names(spec), c("col_name", "measure")) %in% names(df))
-
-  if (df_in_spec) {
-    pivot_to_long(df, spec, na.rm = na.rm, .ptype = ptypes)
-  } else if (spec_in_df) {
-    pivot_to_wide(df, spec)
-  } else {
-    stop("Mismatch between spec and df. Need better message")
-  }
-}
-
-check_spec <- function(spec) {
-  # Eventually should just be vec_assert() on partial_frame()
-  # Waiting for https://github.com/r-lib/vctrs/issues/198
-
-  if (!is.data.frame(spec)) {
-    stop("`spec` must be a data frame", call. = FALSE)
-  }
-
-  if (!has_name(spec, "col_name") || !has_name(spec, "measure")) {
-    stop("`spec` must have `col_name` and `measure` columns", call. = FALSE)
-  }
-
-  # Ensure col_name and measure come first
-  vars <- union(c("col_name", "measure"), names(spec))
-  spec[vars]
-}
-
-pivot_to_long <- function(df, spec, na.rm = FALSE, .ptype = list()) {
   measures <- split(spec$col_name, spec$measure)
   measure_keys <- split(spec[-(1:2)], spec$measure)
   keys <- vec_unique(spec[-(1:2)])
@@ -63,7 +32,7 @@ pivot_to_long <- function(df, spec, na.rm = FALSE, .ptype = list()) {
     val_cols[col_id] <- unname(as.list(df[cols]))
     val_cols[-col_id] <- list(rep(NA, nrow(df)))
 
-    val_type <- vec_type_common(!!!val_cols, .ptype = .ptype[[measure]])
+    val_type <- vec_type_common(!!!val_cols, .ptype = ptype[[measure]])
     out <- vec_c(!!!val_cols, .ptype = val_type)
     # Interleave into correct order
     idx <- (matrix(seq_len(nrow(df) * length(val_cols)), ncol = nrow(df), byrow = TRUE))
@@ -105,7 +74,11 @@ vec_along <- function(x) {
   seq_len(vec_size(x))
 }
 
-pivot_to_wide <- function(df, spec) {
+#' @export
+#' @rdname pivot_long
+pivot_wide <- function(df, spec) {
+  spec <- check_spec(spec)
+
   measures <- vec_unique(spec$measure)
   spec_cols <- c(names(spec)[-(1:2)], measures)
 
@@ -158,4 +131,23 @@ wrap_vec <- function(vec, names) {
   }
 
   as_tibble(out)
+}
+
+# Helpers -----------------------------------------------------------------
+
+check_spec <- function(spec) {
+  # Eventually should just be vec_assert() on partial_frame()
+  # Waiting for https://github.com/r-lib/vctrs/issues/198
+
+  if (!is.data.frame(spec)) {
+    stop("`spec` must be a data frame", call. = FALSE)
+  }
+
+  if (!has_name(spec, "col_name") || !has_name(spec, "measure")) {
+    stop("`spec` must have `col_name` and `measure` columns", call. = FALSE)
+  }
+
+  # Ensure col_name and measure come first
+  vars <- union(c("col_name", "measure"), names(spec))
+  spec[vars]
 }

@@ -1,7 +1,7 @@
 # where metadata becomes data
 
 #' @export
-#' @rdname pivot
+#' @rdname pivot_long
 pivot_spec_long <- function(df, cols, names_to = "name", values_to = "value") {
   cols <- tidyselect::vars_select(unique(names(df)), !!enquo(cols))
 
@@ -13,7 +13,7 @@ pivot_spec_long <- function(df, cols, names_to = "name", values_to = "value") {
 }
 
 #' @export
-#' @rdname pivot
+#' @rdname pivot_long
 pivot_spec_wide <- function(df, names_from = name, values_from = value, sep = "_") {
   names_from <- tidyselect::vars_select(names(df), !!enquo(names_from))
   values_from <- tidyselect::vars_pull(names(df), !!enquo(values_from))

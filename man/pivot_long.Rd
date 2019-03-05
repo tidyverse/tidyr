@@ -3,15 +3,18 @@
 \name{pivot_spec_long}
 \alias{pivot_spec_long}
 \alias{pivot_spec_wide}
-\alias{pivot}
-\title{Pivot a data frame from wide to long or long to wide}
+\alias{pivot_long}
+\alias{pivot_wide}
+\title{Pivot data from wide to long or long to wide}
 \usage{
 pivot_spec_long(df, cols, names_to = "name", values_to = "value")
 
 pivot_spec_wide(df, names_from = name, values_from = value,
   sep = "_")
 
-pivot(df, spec, na.rm = FALSE, ptypes = NULL)
+pivot_long(df, spec, na.rm = FALSE, ptype = list())
+
+pivot_wide(df, spec)
 }
 \arguments{
 \item{df}{A data frame to reshape.}
@@ -23,7 +26,7 @@ vectors.}
 \item{na.rm}{If \code{TRUE}, will convert explicit missing values to implicit
 missing values. Used only when pivotting to long.}
 
-\item{.ptype}{A named list that optionally override the types of
+\item{ptype}{A named list that optionally override the types of
 measured columns. Used only when pivotting to long.}
 }
 \description{

@@ -64,7 +64,7 @@ spec
 We can now achieve the desired reshaping by pivot `pew` with this `spec`:
 
 ```{r}
-pew %>% pivot(spec)
+pew %>% pivot_long(spec)
 ```
 
 ## Billboard
@@ -89,7 +89,7 @@ spec
 ```
 
 ```{r}
-billboard %>% pivot(spec)
+billboard %>% pivot_long(spec)
 ```
 
 ## WHO tuberculosis data
@@ -111,7 +111,7 @@ spec
 ```
 
 ```{r}
-who %>% pivot(spec, na.rm = TRUE)
+who %>% pivot_long(spec, na.rm = TRUE)
 ```
 
 ## Multiple value columns 
@@ -136,7 +136,7 @@ spec <- family %>%
 
 family %>%
   select(-age_mother) %>%
-  pivot(spec, na.rm = TRUE)
+  pivot_long(spec, na.rm = TRUE)
 ```
 
 ## Census data
@@ -162,7 +162,7 @@ spec <- tribble(
 )
 spec
 
-construction %>% pivot(spec)
+construction %>% pivot_long(spec)
 ```
 
 # Long to wide
@@ -187,7 +187,7 @@ spec <- df %>%
   )
 spec
 
-df %>% pivot(spec) %>% head()
+df %>% pivot_wide(spec) %>% head()
 ```
 
 ## Multiple measure
@@ -211,7 +211,7 @@ spec <- input %>%
   )
 spec
 
-input %>% pivot(spec)
+input %>% pivot_wide(spec)
 ```
 
 
@@ -234,8 +234,8 @@ spec <- anscombe %>%
 spec
 
 anscombe %>% 
-  pivot(spec) %>% 
-  pivot(pivot_spec_wide(., var, value))
+  pivot_long(spec) %>% 
+  pivot_wide(pivot_spec_wide(., var, value))
 ```
 
 ## Weather data
@@ -251,12 +251,12 @@ weather_spec <- weather %>%
   pivot_spec_long(d1:d31, names_to = "day", values_to = "temp") %>%
   mutate(day = parse_number(day))
 weather_spec
-weather2 <- pivot(weather, weather_spec, na.rm = TRUE)
+weather2 <- pivot_long(weather, weather_spec, na.rm = TRUE)
 weather2
 
 spec2 <- weather2 %>% pivot_spec_wide(element, temp)
 spec2
-weather2 %>% pivot(spec2)
+weather2 %>% pivot_wide(spec2)
 ```
 
 ## Contact list
@@ -281,9 +281,9 @@ df <- df %>%
   ) 
 
 spec <- pivot_spec_wide(df, names_from = type, values_from = meta)
-df2 <- df %>% pivot(spec)
+df2 <- df %>% pivot_wide(spec)
 
 spec2 <- pivot_spec_wide(df2, names_from = var, values_from = value)
-df2 %>% select(-row) %>% pivot(spec2)
+df2 %>% select(-row) %>% pivot_wide(spec2)
 ```
 
