@@ -28,6 +28,8 @@
 
 * `crossing()` now takes the unique values of data frame inputs, not just
   vector inputs (#490).
+  
+* `fill()` now accepts `downup` and `updown` as fill directions. (@coolbutuseless #505)
 
 # tidyr 0.8.3
 

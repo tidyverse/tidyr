@@ -30,9 +30,13 @@ fill.data.frame <- function(data, ..., .direction = c("down", "up", "downup", "u
   fill_cols <- unname(tidyselect::vars_select(names(data), ...))
 
   .direction <- match.arg(.direction)
-  fillVector <- switch(.direction, down = fillDown, up = fillUp,
-                       downup = function(x) {fillUp(fillDown(x))},
-                       updown = function(x) {fillDown(fillUp(x))})
+  fillVector <- switch(
+    .direction,
+    down = fillDown,
+    up = fillUp,
+    downup = function(x) {fillUp(fillDown(x))},
+    updown = function(x) {fillDown(fillUp(x))}
+  )
 
   for (col in fill_cols) {
     data[[col]] <- fillVector(data[[col]])
