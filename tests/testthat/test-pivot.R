@@ -4,7 +4,7 @@ context("test-pivot")
 
 test_that("basic sanity checks for spec occur", {
   expect_error(check_spec(1), "data.frame")
-  expect_error(check_spec(mtcars), "col_name")
+  expect_error(check_spec(mtcars), ".name")
 })
 
 # pivot_long --------------------------------------------------------------
@@ -31,7 +31,7 @@ test_that("values interleaved correctly", {
 
 test_that("can add multiple columns from spec", {
   df <- tibble(x = 1:2, y = 3:4)
-  sp <- tibble(col_name = c("x", "y"), measure = "v", a = 1, b = 2)
+  sp <- tibble(.name = c("x", "y"), .value = "v", a = 1, b = 2)
   pv <- pivot_long(df, spec = sp)
 
   expect_named(pv, c("a", "b", "v"))
@@ -70,7 +70,7 @@ test_that("can override default output column type", {
 test_that("can pivot to multiple measure cols", {
   df <- tibble(x = "x", y = 1)
   sp <- tibble::tribble(
-    ~ col_name, ~measure, ~row,
+    ~.name, ~.value, ~row,
     "x", "X", 1,
     "y", "Y", 1,
   )
@@ -119,7 +119,7 @@ test_that("duplicated keys produce list column", {
 test_that("can pivot from multiple measure cols", {
   df <- tibble(row = 1, var = c("x", "y"), a = 1:2, b = 3:4)
   sp <- tibble::tribble(
-    ~ col_name, ~measure, ~var,
+    ~.name, ~.value, ~var,
     "x_a", "a", "x",
     "y_a", "a", "y",
     "x_b", "b", "x",

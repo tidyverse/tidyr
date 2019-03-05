@@ -4,7 +4,7 @@
 #'
 #' @param df A data frame to reshape.
 #' @param spec A data frame defining the reshaping specification.
-#'   Must contain `col_name` and `measure` columns that are character
+#'   Must contain `.name` and `.value` columns that are character
 #'   vectors. See [pivot_wide_spec()] and [pivot_long_spec()] for details.
 #' @param na.rm If `TRUE`, will convert explicit missing values to implicit
 #'   missing values. Used only when pivotting to long.
@@ -28,8 +28,8 @@ pivot_long <- function(df,
     spec <- check_spec(spec)
   }
 
-  measures <- split(spec$col_name, spec$measure)
-  measure_keys <- split(spec[-(1:2)], spec$measure)
+  measures <- split(spec$.name, spec$.value)
+  measure_keys <- split(spec[-(1:2)], spec$.value)
   keys <- vec_unique(spec[-(1:2)])
 
   vals <- set_names(vec_na(list(), length(measures)), names(measures))
@@ -71,7 +71,7 @@ pivot_long <- function(df,
 
   # Bind original keys back on if there are any
   # Because of https://github.com/r-lib/vctrs/issues/199
-  df_out <- df[setdiff(names(df), spec$col_name)]
+  df_out <- df[setdiff(names(df), spec$.name)]
   if (ncol(df_out) > 0) {
     out <- vec_cbind(vec_slice(df_out, rows$df_id), out)
   }
@@ -105,7 +105,7 @@ pivot_wide <- function(df,
     spec <- check_spec(spec)
   }
 
-  measures <- vec_unique(spec$measure)
+  measures <- vec_unique(spec$.value)
   spec_cols <- c(names(spec)[-(1:2)], measures)
 
   # Figure out rows in output
@@ -118,12 +118,12 @@ pivot_wide <- function(df,
     row_id <- vec_match(df_rows, rows)
   }
 
-  measure_specs <- unname(split(spec, spec$measure))
+  measure_specs <- unname(split(spec, spec$.value))
   measure_out <- vec_na(list(), length(measure_specs))
 
   for (i in seq_along(measure_out)) {
     spec <- measure_specs[[i]]
-    measure <- spec$measure[[1]]
+    measure <- spec$.value[[1]]
     val <- df[[measure]]
 
     cols <- df[names(spec)[-(1:2)]]
@@ -142,7 +142,7 @@ pivot_wide <- function(df,
     out <- vec_na(val, nrow * ncol)
     vec_slice(out, val_id$row + nrow * (val_id$col - 1L)) <- val
 
-    measure_out[[i]] <- wrap_vec(out, spec$col_name)
+    measure_out[[i]] <- wrap_vec(out, spec$.name)
   }
   vec_cbind(rows, !!!measure_out)
 }
@@ -169,11 +169,11 @@ check_spec <- function(spec) {
     stop("`spec` must be a data frame", call. = FALSE)
   }
 
-  if (!has_name(spec, "col_name") || !has_name(spec, "measure")) {
-    stop("`spec` must have `col_name` and `measure` columns", call. = FALSE)
+  if (!has_name(spec, ".name") || !has_name(spec, ".value")) {
+    stop("`spec` must have `.name` and `.value` columns", call. = FALSE)
   }
 
-  # Ensure col_name and measure come first
-  vars <- union(c("col_name", "measure"), names(spec))
+  # Ensure .name and .value come first
+  vars <- union(c(".name", ".value"), names(spec))
   spec[vars]
 }

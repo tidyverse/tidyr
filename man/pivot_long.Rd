@@ -24,7 +24,7 @@ previously stored in the column names.}
 previously stored in the cell values.}
 
 \item{spec}{A data frame defining the reshaping specification.
-Must contain \code{col_name} and \code{measure} columns that are character
+Must contain \code{.name} and \code{.value} columns that are character
 vectors. See \code{\link[=pivot_wide_spec]{pivot_wide_spec()}} and \code{\link[=pivot_long_spec]{pivot_long_spec()}} for details.}
 
 \item{na.rm}{If \code{TRUE}, will convert explicit missing values to implicit

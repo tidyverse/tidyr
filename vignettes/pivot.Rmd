@@ -1,8 +1,8 @@
 ---
-title: "Pivotting"
+title: "Pivoting"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Pivotting}
+  %\VignetteIndexEntry{Pivoting}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -32,7 +32,7 @@ They also differ from previous functions in tidyr, reshape2, and reshape, in two
   by John Mount and Nina Zumel. For simple cases, this specification is
   implicit, but for more complex cases it is useful to make it explicit.
   
-* Reshaping works with multiple measure variables that may have different types. 
+* Reshaping works with multiple value variables that may have different types. 
   This is inspired by the enhanced `melt()` and `dcast()` functions provided 
   by the [data.table](https://github.com/Rdatatable/data.table/wiki) package
   by Matt Dowle and Arun Srinivasan.
@@ -111,6 +111,12 @@ spec <- billboard %>%
 spec
 ```
 
+The spec is a data frame with one row for each column, and two special columns that start with `.`:
+
+* `.name` gives the name of the column
+* `.value` gives the name of the column that the values in the cells will
+  go into.
+
 To make this spec a more accurate rendition of the metadata that's stored in the column names, we want to strip off the `"wk"` prefix and turn the string into a number. We can do that in one step with `readr::parse_number()`[^readr]:
 
 [^readr]: It's not uncommon to use readr functions when generating pivoting specifications. This isn't too surprising as the job of the readr packge is to turn text into data.
@@ -128,7 +134,7 @@ billboard %>%
   pivot_long(spec = spec)
 ```
 
-Note that `week` is now a number vector as desired.
+Note that the spec allows us to make precise exactly what `pivot_long()` does. Each row of the original dataset is replaced by `nrow(spec)` rows.
 
 ## WHO tuberculosis data
 
@@ -194,15 +200,15 @@ This sort of data is not uncommon from government agencies: the column names act
 
 ```{r}
 spec <- tribble(
-  ~col_name,         ~units,  ~region,      ~measure,
-  "Total",            "total", NA,          "n",
-  "1 unit",           "1",     NA,          "n",
-  "2 to 4 units",     "2-4",   NA,          "n",
-  "5 units or more",  "5+",    NA,          "n",
-  "Northeast",        NA,      "Northeast", "n",
-  "Midwest",          NA,      "Midwest",   "n",
-  "South",            NA,      "South",     "n",
-  "West",             NA,      "West",      "n",
+  ~.name,            ~.value, ~units,  ~region,     
+  "Total",           "n",     "total", NA,          
+  "1 unit",          "n",     "1",     NA,          
+  "2 to 4 units",    "n",     "2-4",   NA,          
+  "5 units or more", "n",     "5+",    NA,          
+  "Northeast",       "n",     NA,      "Northeast", 
+  "Midwest",         "n",     NA,      "Midwest",   
+  "South",           "n",     NA,      "South",     
+  "West",            "n",     NA,      "West",      
 )
 ```
 
@@ -214,7 +220,7 @@ construction %>% pivot_long(spec = spec)
 
 ## Multiple value columns 
 
-Finally, an explicit specification can be used to access a new feature inspired by data.table: it's now possible gather columns with different types. The following example is adapted from the [data.table vignette](https://cran.r-project.org/web/packages/data.table/vignettes/datatable-reshape.html):
+So far the `.value` column has been constant, so you might wonder why we need it. An explicit specification can be used to access a new feature inspired by data.table: it's now possible gather columns with different types. The following example is adapted from the [data.table vignette](https://cran.r-project.org/web/packages/data.table/vignettes/datatable-reshape.html):
 
 ```{r}
 family <- tibble::tribble(
@@ -229,12 +235,12 @@ family <- family %>% mutate_at(vars(starts_with("dob")), parse_date)
 family
 ```
 
-Note that we have two pieces of information about each child: their gender and their date of birth. These need to go into separate columns in the result. We can do this by generating a spec where the `value_to` column varies.
+Note that we have two pieces of information about each child: their gender and their date of birth. These need to go into separate columns in the result. We can do this by generating a spec where the `.value` column varies.
 
 ```{r}
 spec <- family %>%
   pivot_long_spec(-family_id) %>%
-  separate(name, c("measure", "child")) %>%
+  separate(name, c(".value", "child")) %>%
   mutate(child = parse_number(child))
 spec
 ```
@@ -260,9 +266,9 @@ df <- expand_grid(
   filter((Product == "A" & Country == "AI") | (Product == "B" & Country == "EI"))
 
 spec <- df %>% 
-  expand(Product, Country, measure = "value") %>% 
+  expand(Product, Country, .value = "value") %>% 
   mutate(
-    col_name = paste0(Product, "_", Country)
+    .name = paste0(Product, "_", Country)
   )
 spec
 
@@ -284,9 +290,9 @@ input <- tribble(
 )
 
 spec <- input %>% 
-  expand(hw, measure = c("mark", "pr")) %>% 
+  expand(hw, .value = c("mark", "pr")) %>% 
   mutate(
-    col_name = paste0(hw, "_", measure)
+    .name = paste0(hw, "_", .value)
   )
 spec
 

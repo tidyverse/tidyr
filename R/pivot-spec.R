@@ -14,8 +14,8 @@ pivot_long_spec <- function(df, cols, names_to = "name", values_to = "value") {
   cols <- tidyselect::vars_select(unique(names(df)), !!enquo(cols))
 
   tibble(
-    col_name = cols,
-    measure = values_to,
+    .name = cols,
+    .value = values_to,
     !!names_to := cols
   )
 }
@@ -35,8 +35,8 @@ pivot_wide_spec <- function(df, names_from = name, values_from = value, sep = "_
 
   row_ids <- vec_unique(df[names_from])
   out <- tibble(
-    col_name = exec(paste, !!!row_ids, sep = sep),
-    measure = values_from
+    .name = exec(paste, !!!row_ids, sep = sep),
+    .value = values_from
   )
   vec_cbind(out, row_ids)
 }
