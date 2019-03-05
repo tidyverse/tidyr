@@ -23,7 +23,8 @@ There are two primary ways that `pivot()` differs from previous functions in tid
 * The reshaping operation is specified with a data frame that describes 
   precisely how metadata stored in column names becomes real data variables. 
   This is inspired by the [cdata](https://winvector.github.io/cdata/) package 
-  by John Mount and Nina Zumel.
+  by John Mount and Nina Zumel. For simple cases, this specification is
+  implicit, but for more complex cases it is useful to make it explicit.
   
 * Reshaping works with multiple measure variables that may have different types. 
   This is inspired by the enhanced `melt()` and `dcast()` functions provided 
@@ -45,10 +46,10 @@ pew <- read_csv("pew.csv", col_types = list())
 pew
 ```
 
-To tidy this data we first create a spec. We are tidying from wide to long so we use `pivot_spec_long()`:
+To tidy this data we first create a spec. We are tidying from wide to long so we use `pivot_long_spec()`:
 
 ```{r}
-spec <- pew %>% pivot_spec_long(-1, names_to = "count", values_to = "income")
+spec <- pew %>% pivot_long_spec(-1, names_to = "count", values_to = "income")
 spec
 ```
 
@@ -64,7 +65,7 @@ spec
 We can now achieve the desired reshaping by pivot `pew` with this `spec`:
 
 ```{r}
-pew %>% pivot_long(spec)
+pew %>% pivot_long(spec = spec)
 ```
 
 ## Billboard
@@ -78,18 +79,18 @@ billboard
 ```
 
 ```{r}
-billboard %>% pivot_spec_long(starts_with("wk"), names_to = "week", values_to = "rank")
+billboard %>% pivot_long_spec(starts_with("wk"), names_to = "week", values_to = "rank")
 ```
 
 ```{r}
 spec <- billboard %>%
-  pivot_spec_long(starts_with("wk"), names_to = "week", values_to = "rank") %>%
+  pivot_long_spec(starts_with("wk"), names_to = "week", values_to = "rank") %>%
   mutate(week = parse_number(week))
 spec
 ```
 
 ```{r}
-billboard %>% pivot_long(spec)
+billboard %>% pivot_long(spec = spec)
 ```
 
 ## WHO tuberculosis data
@@ -101,17 +102,17 @@ who
 ```
 
 ```{r}
-who %>% pivot_spec_long(new_sp_m014:newrel_f65)
+who %>% pivot_long_spec(new_sp_m014:newrel_f65)
 
 spec <- who %>%
-  pivot_spec_long(new_sp_m014:newrel_f65, values_to = "count") %>%
+  pivot_long_spec(new_sp_m014:newrel_f65, values_to = "count") %>%
   extract(name, c("diagnosis", "gender", "age"), "new_?(.*)_(.)(.*)") %>%
   mutate(age = factor(age, levels = unique(age), ordered = TRUE))
 spec
 ```
 
 ```{r}
-who %>% pivot_long(spec, na.rm = TRUE)
+who %>% pivot_long(spec = spec, na.rm = TRUE)
 ```
 
 ## Multiple value columns 
@@ -130,13 +131,13 @@ family <- tibble::tribble(
   mutate_at(vars(starts_with("dob")), parse_date)
 
 spec <- family %>%
-  pivot_spec_long(-(1:2)) %>%
+  pivot_long_spec(-(1:2)) %>%
   separate(name, c("measure", "child")) %>%
   mutate(child = parse_number(child))
 
 family %>%
   select(-age_mother) %>%
-  pivot_long(spec, na.rm = TRUE)
+  pivot_long(spec = spec, na.rm = TRUE)
 ```
 
 ## Census data
@@ -162,7 +163,7 @@ spec <- tribble(
 )
 spec
 
-construction %>% pivot_long(spec)
+construction %>% pivot_long(spec = spec)
 ```
 
 # Long to wide
@@ -187,7 +188,7 @@ spec <- df %>%
   )
 spec
 
-df %>% pivot_wide(spec) %>% head()
+df %>% pivot_wide(spec = spec) %>% head()
 ```
 
 ## Multiple measure
@@ -211,7 +212,7 @@ spec <- input %>%
   )
 spec
 
-input %>% pivot_wide(spec)
+input %>% pivot_wide(spec = spec)
 ```
 
 
@@ -229,13 +230,13 @@ anscombe <- anscombe %>%
 anscombe
 
 spec <- anscombe %>% 
-  pivot_spec_long(-id) %>% 
+  pivot_long_spec(-id) %>% 
   separate(name, c("var", "ex"), 1, convert = TRUE)
 spec
 
 anscombe %>% 
-  pivot_long(spec) %>% 
-  pivot_wide(pivot_spec_wide(., var, value))
+  pivot_long(spec = spec) %>% 
+  pivot_wide(var, value)
 ```
 
 ## Weather data
@@ -245,18 +246,18 @@ anscombe %>%
 
 weather <- read_csv("weather.csv", col_types = list()) 
 
-weather %>% pivot_spec_long(d1:d31, "temp", "day")
+weather %>% pivot_long_spec(d1:d31, "temp", "day")
 
 weather_spec <- weather %>%
-  pivot_spec_long(d1:d31, names_to = "day", values_to = "temp") %>%
+  pivot_long_spec(d1:d31, names_to = "day", values_to = "temp") %>%
   mutate(day = parse_number(day))
 weather_spec
-weather2 <- pivot_long(weather, weather_spec, na.rm = TRUE)
+weather2 <- pivot_long(weather, spec = weather_spec, na.rm = TRUE)
 weather2
 
-spec2 <- weather2 %>% pivot_spec_wide(element, temp)
+spec2 <- weather2 %>% pivot_wide_spec(element, temp)
 spec2
-weather2 %>% pivot_wide(spec2)
+weather2 %>% pivot_wide(spec = spec2)
 ```
 
 ## Contact list
@@ -280,10 +281,10 @@ df <- df %>%
     type = rep(c("var", "value"), length = nrow(df))
   ) 
 
-spec <- pivot_spec_wide(df, names_from = type, values_from = meta)
-df2 <- df %>% pivot_wide(spec)
+spec <- pivot_wide_spec(df, names_from = type, values_from = meta)
+df2 <- df %>% pivot_wide(spec = spec)
 
-spec2 <- pivot_spec_wide(df2, names_from = var, values_from = value)
-df2 %>% select(-row) %>% pivot_wide(spec2)
+spec2 <- pivot_wide_spec(df2, names_from = var, values_from = value)
+df2 %>% select(-row) %>% pivot_wide(spec = spec2)
 ```
 

@@ -1,23 +1,32 @@
 #' Pivot data from wide to long or long to wide
 #'
-#' `pivot()` is provides rectangular reshaping like `gather()` and `spread()`.
-#' It differs primarily from existing approaches in tidyr because the details
-#' of the reshaping a described by a data frame, `spec`. For simple cases, you
-#' can construct the spec with `pivot_spec_long()` and `pivot_spec_wide()`.
 #' See details in `vignette("pivot")`
 #'
 #' @param df A data frame to reshape.
 #' @param spec A data frame defining the reshaping specification.
 #'   Must contain `col_name` and `measure` columns that are character
-#'   vectors.
+#'   vectors. See [pivot_wide_spec()] and [pivot_long_spec()] for details.
 #' @param na.rm If `TRUE`, will convert explicit missing values to implicit
 #'   missing values. Used only when pivotting to long.
 #' @param ptype A named list that optionally override the types of
 #'   measured columns. Used only when pivotting to long.
-#' @keywords internal
+#' @inheritParams pivot_long_spec
 #' @export
-pivot_long <- function(df, spec, na.rm = FALSE, ptype = list()) {
-  spec <- check_spec(spec)
+pivot_long <- function(df,
+                       cols,
+                       names_to = "name",
+                       values_to = "value",
+                       spec = NULL,
+                       na.rm = FALSE,
+                       ptype = list()
+                       ) {
+
+  if (is.null(spec)) {
+    cols <- enquo(cols)
+    spec <- pivot_long_spec(df, !!cols, names_to = names_to, values_to = values_to)
+  } else {
+    spec <- check_spec(spec)
+  }
 
   measures <- split(spec$col_name, spec$measure)
   measure_keys <- split(spec[-(1:2)], spec$measure)
@@ -76,8 +85,25 @@ vec_along <- function(x) {
 
 #' @export
 #' @rdname pivot_long
-pivot_wide <- function(df, spec) {
-  spec <- check_spec(spec)
+#' @inheritParams pivot_wide_spec
+pivot_wide <- function(df,
+                       names_from = name,
+                       values_from = value,
+                       sep = "_",
+                       spec = NULL) {
+
+  if (is.null(spec)) {
+    names_from <- enquo(names_from)
+    values_from <- enquo(values_from)
+
+    spec <- pivot_wide_spec(df,
+      names_from = !!names_from,
+      values_from = !!values_from,
+      sep = sep
+    )
+  } else {
+    spec <- check_spec(spec)
+  }
 
   measures <- vec_unique(spec$measure)
   spec_cols <- c(names(spec)[-(1:2)], measures)
