@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Articles • tidyr</title>
+<title>Pivot data from wide to long or long to wide — pivot_long • tidyr</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -31,7 +31,9 @@
 
 
 
-<meta property="og:title" content="Articles" />
+<meta property="og:title" content="Pivot data from wide to long or long to wide — pivot_long" />
+
+<meta property="og:description" content="See details in vignette(&quot;pivot&quot;)" />
 
 <meta property="og:image" content="https://tidyr.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -58,7 +60,7 @@
   </head>
 
   <body>
-    <div class="container template-article-index">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -107,18 +109,87 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Articles</h1>
+    <h1>Pivot data from wide to long or long to wide</h1>
+    <small class="dont-index">Source: <a href='https://github.com/tidyverse/tidyr/blob/master/R/pivot.R'><code>R/pivot.R</code></a></small>
+    <div class="hidden name"><code>pivot_long.Rd</code></div>
     </div>
 
-    <div class="section ">
-      <h3>All vignettes</h3>
-      <p class="section-desc"></p>
-
-      <ul>
-        <li><a href="pivot.html">Pivoting</a></li>
-        <li><a href="tidy-data.html">Tidy data</a></li>
-      </ul>
+    <div class="ref-description">
+    
+    <p>See details in <code><a href='../articles/pivot.html'>vignette("pivot")</a></code></p>
+    
     </div>
+
+    <pre class="usage"><span class='fu'>pivot_long</span>(<span class='no'>df</span>, <span class='no'>cols</span>, <span class='kw'>names_to</span> <span class='kw'>=</span> <span class='st'>"name"</span>, <span class='kw'>values_to</span> <span class='kw'>=</span> <span class='st'>"value"</span>,
+  <span class='kw'>spec</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>ptype</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>())
+
+<span class='fu'>pivot_wide</span>(<span class='no'>df</span>, <span class='kw'>names_from</span> <span class='kw'>=</span> <span class='no'>name</span>, <span class='kw'>values_from</span> <span class='kw'>=</span> <span class='no'>value</span>, <span class='kw'>sep</span> <span class='kw'>=</span> <span class='st'>"_"</span>,
+  <span class='kw'>spec</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>df</th>
+      <td><p>A data frame to reshape.</p></td>
+    </tr>
+    <tr>
+      <th>cols</th>
+      <td><p>Columns to pivot into longer format. This takes a tidyselect
+specification.</p></td>
+    </tr>
+    <tr>
+      <th>names_to</th>
+      <td><p>A string giving the name of the column to contain the data
+previously stored in the column names.</p></td>
+    </tr>
+    <tr>
+      <th>values_to</th>
+      <td><p>A string giving the name of the column to contain the data
+previously stored in the cell values.</p></td>
+    </tr>
+    <tr>
+      <th>spec</th>
+      <td><p>A data frame defining the reshaping specification.
+Must contain <code>.name</code> and <code>.value</code> columns that are character
+vectors. See <code><a href='pivot_long_spec.html'>pivot_wide_spec()</a></code> and <code><a href='pivot_long_spec.html'>pivot_long_spec()</a></code> for details.</p></td>
+    </tr>
+    <tr>
+      <th>na.rm</th>
+      <td><p>If <code>TRUE</code>, will convert explicit missing values to implicit
+missing values. Used only when pivotting to long.</p></td>
+    </tr>
+    <tr>
+      <th>ptype</th>
+      <td><p>A named list that optionally override the types of
+measured columns. Used only when pivotting to long.</p></td>
+    </tr>
+    <tr>
+      <th>names_from</th>
+      <td><p>Name of the variable (or variables) that will be used to
+generate column names.</p></td>
+    </tr>
+    <tr>
+      <th>values_from</th>
+      <td><p>Name of the variable that will be used to generate
+cell values.</p></td>
+    </tr>
+    <tr>
+      <th>sep</th>
+      <td><p>If <code>names_from</code> contains multiple variables, this will be
+used to join their values together into a single string to use as
+a column name.</p></td>
+    </tr>
+    </table>
+    
+
+  </div>
+  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+    <h2>Contents</h2>
+    <ul class="nav nav-pills nav-stacked">
+      <li><a href="#arguments">Arguments</a></li>
+                </ul>
+
   </div>
 </div>
 
