@@ -27,6 +27,18 @@ test_that("missings filled up from last non-missing", {
   expect_equal(out$x, c(1, 1, 1))
 })
 
+test_that("missings filled down-and-then-up from last non-missing", {
+  df <- tibble(x = c(NA, 1, NA, 2, NA, NA))
+  out <- fill(df, x, .direction = 'downup')
+  expect_equal(out$x, c(1, 1, 1, 2, 2, 2))
+})
+
+test_that("missings filled up-and-then-down from last non-missing", {
+  df <- tibble(x = c(NA, 1, NA, 2, NA, NA))
+  out <- fill(df, x, .direction = 'updown')
+  expect_equal(out$x, c(1, 1, 2, 2, 2, 2))
+})
+
 test_that("missings filled down for each atomic vector", {
   df <- tibble(
     lgl = c(T, NA),
