@@ -16,9 +16,15 @@ knitr::opts_chunk$set(
 
 # Introduction
 
-This vignette describes the use of the new `pivot()` function. 
+This vignette describes the use of the new `pivot_long()` and `pivot_wide()` functions. These are complete reimaginings of `gather()` and `spread()` that aim to solve:
 
-There are two primary ways that `pivot()` differs from previous functions in tidyr, reshape2, and reshape:
+* The challenge of remembering which direction is spreading and which is
+  gathering.
+  
+* The supoptimal argument names which mean that you need to consistently
+  refresh your memory by reading the documentation.
+
+They also differ from previous functions in tidyr, reshape2, and reshape, in two more profound ways:
 
 * The reshaping operation is specified with a data frame that describes 
   precisely how metadata stored in column names becomes real data variables. 
@@ -31,6 +37,8 @@ There are two primary ways that `pivot()` differs from previous functions in tid
   by the [data.table](https://github.com/Rdatatable/data.table/wiki) package
   by Matt Dowle and Arun Srinivasan.
 
+The goal of this vignette is to get you up to speed with these new functions as quickly as possible.
+
 ```{r setup}
 library(tidyr)
 library(dplyr)
@@ -39,117 +47,152 @@ library(readr)
 
 # Wide to long
 
-## Pew data
+Many wild-caught datasets require some "lengthening" with `pivot_long()`.
+
+## Pew
+
+The `pew` dataset is a 2d table with religion in the rows, income spread across the column names, and a count stored in the cell values:
 
 ```{r}
 pew <- read_csv("pew.csv", col_types = list())
 pew
 ```
 
-To tidy this data we first create a spec. We are tidying from wide to long so we use `pivot_long_spec()`:
+To tidy this data we need `pivot_long()`:
 
 ```{r}
-spec <- pew %>% pivot_long_spec(-1, names_to = "count", values_to = "income")
-spec
+pew %>% 
+  pivot_long(cols = -religion, names_to = "income", values_to = "count")
 ```
 
-* The first argument describes which columns this transformation applies to.
-  In this case, it's every column apart from the first.
+* The first argument describes which columns need to be transformed. 
+  In this case, it's every column apart from the religion.
 
-* The `cell_val` gives the name of the variable stored in the cells. 
-  In this the case the values are measurements of counts.
+* The `names_to` gives the name of the variable that will be created from
+  the data stored in the column names.
   
-* The `col_name` gives the name of the variable stored in the column names.
-  In this case, it's an `income` range.
-
-We can now achieve the desired reshaping by pivot `pew` with this `spec`:
-
-```{r}
-pew %>% pivot_long(spec = spec)
-```
+* The `values_to` gives the name of the variable that will be created from
+  the data stored in the cell values.
+  
+Neither `names_to` nor the `values_to` column exists, so we have to put their name in quotes.
 
 ## Billboard
 
-Similar to `pew`, but the variable encoded in the columns is not a string, and requires some additional manipulation to extract:
+For many datasets, `pivot_long()` is all you need. But for more complex datasets it often makes sense to manully generate a data frame that precisely describes the transformation. For example, take the billboard data:
 
 ```{r}
-billboard <- read_csv("billboard.csv", col_types = list()) %>%
-  mutate_at(vars(starts_with("wk")), as.numeric)
+billboard <- read_csv("billboard.csv", col_types = list(time = col_skip()))
 billboard
 ```
 
-```{r}
-billboard %>% pivot_long_spec(starts_with("wk"), names_to = "week", values_to = "rank")
-```
+This records the billboard rank of songs over time. It is very similar in form to the `pew` data above, but the data encoded in the column names is really a number, not a string. This means that `pivot_long()` works, but will require some additional cleaning afterwards.
 
 ```{r}
-spec <- billboard %>%
-  pivot_long_spec(starts_with("wk"), names_to = "week", values_to = "rank") %>%
+billboard %>% 
+  pivot_long(
+    cols = starts_with("wk"), 
+    names_to = "week", 
+    values_to = "rank",
+    na.rm = TRUE
+  )
+```
+
+Instead of doing that cleaning on the long form of the data, we can tackle the problem in another way: by generating a pivot spec. A pivoting spec is a data frame that has one row for each column that needs to be transformed, describing the metadata that is encoded in this variable. (Using a pivotting spec is probably overkill for this problem, but it's a good bridge between very simple cases and the more complex cases you'll learn about shortly.)
+
+We can start with the basic spec that `pivot_long()` generates behind the scenes:
+
+```{r}
+spec <- billboard %>% 
+  pivot_long_spec(
+    cols = starts_with("wk"), 
+    names_to = "week", 
+    values_to = "rank"
+  )
+spec
+```
+
+To make this spec a more accurate rendition of the metadata that's stored in the column names, we want to strip off the `"wk"` prefix and turn the string into a number. We can do that in one step with `readr::parse_number()`[^readr]:
+
+[^readr]: It's not uncommon to use readr functions when generating pivoting specifications. This isn't too surprising as the job of the readr packge is to turn text into data.
+
+```{r}
+spec <- spec %>% 
   mutate(week = parse_number(week))
 spec
 ```
 
+We can now provide this spec to `pivot_long()`:
+
 ```{r}
-billboard %>% pivot_long(spec = spec)
+billboard %>% 
+  pivot_long(spec = spec)
 ```
+
+Note that `week` is now a number vector as desired.
 
 ## WHO tuberculosis data
 
-In more complex cases, the column name might encode multiple variables, and require significant parsing to extract.
+In more complex cases, the column name might encode multiple variables, and require significant parsing to extract. For example take the `who` dataset bundled with this package:
 
 ```{r}
 who
 ```
 
 ```{r}
-who %>% pivot_long_spec(new_sp_m014:newrel_f65)
-
 spec <- who %>%
-  pivot_long_spec(new_sp_m014:newrel_f65, values_to = "count") %>%
-  extract(name, c("diagnosis", "gender", "age"), "new_?(.*)_(.)(.*)") %>%
-  mutate(age = factor(age, levels = unique(age), ordered = TRUE))
+  pivot_long_spec(new_sp_m014:newrel_f65, values_to = "count")
 spec
 ```
+
+The columns names (`new_sp_m014` through `newrel_f65)` actually contain three variables:
+
+* The `new_`/`new` prefix indicates these are counts of new cases. This
+  dataset only contains new cases, so we can ignore this component.
+  
+* `sp`/`rel`/`sp`/`ep` describe how the case was diagnosed.
+
+* `m`/`f` indicate the gender of the person
+
+* `014`/`1524`/`2535`/`3544`/`4554`/`65` indicate the age range.
+
+We can extract these varables out of the `variable` variable using `extract()`:
+
+```{r}
+spec <- spec %>%
+  extract(name, c("diagnosis", "gender", "age"), "new_?(.*)_(.)(.*)")
+spec
+```
+
+Gender and age have fixed and known values, so it's good practice to convert these strings to factors:
+
+```{r}
+spec <- spec %>%
+  mutate(
+    gender = factor(gender, levels = c("f", "m")),
+    age = factor(age, levels = unique(age), ordered = TRUE)
+  )
+spec
+```
+
+Finally, we can use this spec to tidy the dataset:
 
 ```{r}
 who %>% pivot_long(spec = spec, na.rm = TRUE)
 ```
 
-## Multiple value columns 
-
-From <https://cran.r-project.org/web/packages/data.table/vignettes/datatable-reshape.html>
-
-```{r}
-family <- tibble::tribble(
-  ~family_id, ~age_mother,  ~dob_child1,  ~dob_child2, ~gender_child1, ~gender_child2,
-          1L,         30L, "1998-11-26", "2000-01-29",             1L,             2L,
-          2L,         27L, "1996-06-22",           NA,             2L,             NA,
-          3L,         26L, "2002-07-11", "2004-04-05",             2L,             2L,
-          4L,         32L, "2004-10-10", "2009-08-27",             1L,             1L,
-          5L,         29L, "2000-12-05", "2005-02-28",             2L,             1L,
-) %>%
-  mutate_at(vars(starts_with("dob")), parse_date)
-
-spec <- family %>%
-  pivot_long_spec(-(1:2)) %>%
-  separate(name, c("measure", "child")) %>%
-  mutate(child = parse_number(child))
-
-family %>%
-  select(-age_mother) %>%
-  pivot_long(spec = spec, na.rm = TRUE)
-```
-
 ## Census data
 
-Lightly modified from Table 5 "completions" found at 
-<https://www.census.gov/construction/nrc/index.html>.
+Sometimes it's not possible to derive the spec from the data in the variables. In this case, it can be convenient to construct the spec completed by hand. For example, take this `construction` data, which is lightly modified from Table 5 "completions" found at 
+<https://www.census.gov/construction/nrc/index.html>:
 
 ```{r}
 construction <- read_csv("construction.csv", col_types = list("2 to 4 units" = col_integer()))
 construction
-# multiple variables encoded, but no way to parse; must manually specify
+```
 
+This sort of data is not uncommon from government agencies: the column names actually belong to different variables, and here we have summaries for number of units (1, 2-4, 5+) and regions of the country (NE, NW, midW, S, W). We can most easily describe that will a tibble:
+
+```{r}
 spec <- tribble(
   ~col_name,         ~units,  ~region,      ~measure,
   "Total",            "total", NA,          "n",
@@ -161,9 +204,44 @@ spec <- tribble(
   "South",            NA,      "South",     "n",
   "West",             NA,      "West",      "n",
 )
-spec
+```
 
+Which again we can use to tidy the data:
+
+```{r}
 construction %>% pivot_long(spec = spec)
+```
+
+## Multiple value columns 
+
+Finally, an explicit specification can be used to access a new feature inspired by data.table: it's now possible gather columns with different types. The following example is adapted from the [data.table vignette](https://cran.r-project.org/web/packages/data.table/vignettes/datatable-reshape.html):
+
+```{r}
+family <- tibble::tribble(
+  ~family_id,  ~dob_child1,  ~dob_child2, ~gender_child1, ~gender_child2,
+          1L, "1998-11-26", "2000-01-29",             1L,             2L,
+          2L, "1996-06-22",           NA,             2L,             NA,
+          3L, "2002-07-11", "2004-04-05",             2L,             2L,
+          4L, "2004-10-10", "2009-08-27",             1L,             1L,
+          5L, "2000-12-05", "2005-02-28",             2L,             1L,
+)
+family <- family %>% mutate_at(vars(starts_with("dob")), parse_date)
+family
+```
+
+Note that we have two pieces of information about each child: their gender and their date of birth. These need to go into separate columns in the result. We can do this by generating a spec where the `value_to` column varies.
+
+```{r}
+spec <- family %>%
+  pivot_long_spec(-family_id) %>%
+  separate(name, c("measure", "child")) %>%
+  mutate(child = parse_number(child))
+spec
+```
+
+```{r}
+family %>%
+  pivot_long(spec = spec, na.rm = TRUE)
 ```
 
 # Long to wide
