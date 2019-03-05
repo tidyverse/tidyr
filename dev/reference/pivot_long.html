@@ -123,7 +123,8 @@
     <pre class="usage"><span class='fu'>pivot_long</span>(<span class='no'>df</span>, <span class='no'>cols</span>, <span class='kw'>names_to</span> <span class='kw'>=</span> <span class='st'>"name"</span>, <span class='kw'>values_to</span> <span class='kw'>=</span> <span class='st'>"value"</span>,
   <span class='kw'>spec</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>ptype</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>())
 
-<span class='fu'>pivot_wide</span>(<span class='no'>df</span>, <span class='kw'>names_from</span> <span class='kw'>=</span> <span class='no'>name</span>, <span class='kw'>values_from</span> <span class='kw'>=</span> <span class='no'>value</span>, <span class='kw'>sep</span> <span class='kw'>=</span> <span class='st'>"_"</span>,
+<span class='fu'>pivot_wide</span>(<span class='no'>df</span>, <span class='kw'>names_from</span> <span class='kw'>=</span> <span class='no'>name</span>, <span class='kw'>values_from</span> <span class='kw'>=</span> <span class='no'>value</span>,
+  <span class='kw'>names_prefix</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>names_sep</span> <span class='kw'>=</span> <span class='st'>"_"</span>, <span class='kw'>values_fill</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>spec</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -175,10 +176,20 @@ generate column names.</p></td>
 cell values.</p></td>
     </tr>
     <tr>
-      <th>sep</th>
+      <th>names_prefix</th>
+      <td><p>String added to the start of every variable name. This is
+particularly useful if <code>names_from</code> is not a character vector.</p></td>
+    </tr>
+    <tr>
+      <th>names_sep</th>
       <td><p>If <code>names_from</code> contains multiple variables, this will be
 used to join their values together into a single string to use as
 a column name.</p></td>
+    </tr>
+    <tr>
+      <th>values_fill</th>
+      <td><p>Optionally, a named list specifying what each <code>value</code>
+should be filled in with when missing.</p></td>
     </tr>
     </table>
     
