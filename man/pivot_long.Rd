@@ -8,7 +8,8 @@
 pivot_long(df, cols, names_to = "name", values_to = "value",
   spec = NULL, na.rm = FALSE, ptype = list())
 
-pivot_wide(df, names_from = name, values_from = value, sep = "_",
+pivot_wide(df, names_from = name, values_from = value,
+  names_prefix = "", names_sep = "_", values_fill = NULL,
   spec = NULL)
 }
 \arguments{
@@ -39,9 +40,15 @@ generate column names.}
 \item{values_from}{Name of the variable that will be used to generate
 cell values.}
 
-\item{sep}{If \code{names_from} contains multiple variables, this will be
+\item{names_prefix}{String added to the start of every variable name. This is
+particularly useful if \code{names_from} is not a character vector.}
+
+\item{names_sep}{If \code{names_from} contains multiple variables, this will be
 used to join their values together into a single string to use as
 a column name.}
+
+\item{values_fill}{Optionally, a named list specifying what each \code{value}
+should be filled in with when missing.}
 }
 \description{
 See details in \code{vignette("pivot")}

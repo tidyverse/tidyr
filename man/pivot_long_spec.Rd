@@ -8,7 +8,7 @@
 pivot_long_spec(df, cols, names_to = "name", values_to = "value")
 
 pivot_wide_spec(df, names_from = name, values_from = value,
-  sep = "_")
+  names_prefix = "", names_sep = "_")
 }
 \arguments{
 \item{df}{A data frame}
@@ -28,7 +28,10 @@ generate column names.}
 \item{values_from}{Name of the variable that will be used to generate
 cell values.}
 
-\item{sep}{If \code{names_from} contains multiple variables, this will be
+\item{names_prefix}{String added to the start of every variable name. This is
+particularly useful if \code{names_from} is not a character vector.}
+
+\item{names_sep}{If \code{names_from} contains multiple variables, this will be
 used to join their values together into a single string to use as
 a column name.}
 }

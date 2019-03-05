@@ -86,10 +86,14 @@ vec_along <- function(x) {
 #' @export
 #' @rdname pivot_long
 #' @inheritParams pivot_wide_spec
+#' @param values_fill Optionally, a named list specifying what each `value`
+#'   should be filled in with when missing.
 pivot_wide <- function(df,
                        names_from = name,
                        values_from = value,
-                       sep = "_",
+                       names_prefix = "",
+                       names_sep = "_",
+                       values_fill = NULL,
                        spec = NULL) {
 
   if (is.null(spec)) {
@@ -99,7 +103,8 @@ pivot_wide <- function(df,
     spec <- pivot_wide_spec(df,
       names_from = !!names_from,
       values_from = !!values_from,
-      sep = sep
+      names_prefix = names_prefix,
+      names_sep = names_sep
     )
   } else {
     spec <- check_spec(spec)
@@ -139,7 +144,15 @@ pivot_wide <- function(df,
 
     nrow <- nrow(rows)
     ncol <- nrow(spec)
-    out <- vec_na(val, nrow * ncol)
+
+    fill <- values_fill[[measure]]
+    if (is.null(fill)) {
+      out <- vec_na(val, nrow * ncol)
+    } else {
+      stopifnot(vec_size(fill) == 1)
+      fill <- vec_cast(fill, val)
+      out <- vec_repeat(fill, nrow * ncol)
+    }
     vec_slice(out, val_id$row + nrow * (val_id$col - 1L)) <- val
 
     measure_out[[i]] <- wrap_vec(out, spec$.name)

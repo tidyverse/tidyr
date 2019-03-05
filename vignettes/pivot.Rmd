@@ -47,7 +47,7 @@ library(readr)
 
 # Wide to long
 
-Many wild-caught datasets require some "lengthening" with `pivot_long()`.
+`pivot_long()` makes datasets __longer__ by reducing the number of columns and increasing the number of rows. `pivot_long()` is commonly needed to tidy wild-caught datasets as they often optimse ease of data entry or comparison rather than ease of analysis. 
 
 ## Pew
 
@@ -134,11 +134,11 @@ billboard %>%
   pivot_long(spec = spec)
 ```
 
-Note that the spec allows us to make precise exactly what `pivot_long()` does. Each row of the original dataset is replaced by `nrow(spec)` rows.
+Note we can now be more precise about the output shape of `pivot_long(df, spec = spec)`: it will have `nrow(df) * nrow(spec)` rows, and `ncol(df) - nrow(spec) + ncol(spec) - 2` columns.
 
 ## WHO tuberculosis data
 
-In more complex cases, the column name might encode multiple variables, and require significant parsing to extract. For example take the `who` dataset bundled with this package:
+In more complex cases, the column name might encode multiple variables, and require more significant parsing to extract. For example take the `who` dataset bundled with this package:
 
 ```{r}
 who
@@ -150,10 +150,11 @@ spec <- who %>%
 spec
 ```
 
-The columns names (`new_sp_m014` through `newrel_f65)` actually contain three variables:
+The columns names (`new_sp_m014` through `newrel_f65)` encode four variables:
 
 * The `new_`/`new` prefix indicates these are counts of new cases. This
-  dataset only contains new cases, so we can ignore this component.
+  dataset only contains new cases, so we can ignore this component because 
+  it's constant.
   
 * `sp`/`rel`/`sp`/`ep` describe how the case was diagnosed.
 
@@ -252,24 +253,70 @@ family %>%
 
 # Long to wide
 
-## Single measure
+`pivot_wide()` is the opposite of `pivot_long()`: it makes a dataset __wider__ by reducing the number of rows and increasing the number of columns. It's relatively rare to need `pivot_wide()` to make tidy data, but it's commonly needed to produce data compatible with other systems.
 
-From <http://stackoverflow.com/questions/24929954>
+(Note that it is generally true that `pivot_long()` and `pivot_wide()` are precisely symmetric: `df %>% pivot_long(spec = spec) %>% pivot_wide(spec = spec)` and `df %>% pivot_wide(spec = spec) %>% pivot_long(spec = spec)` will yield `df`)
+
+## Capture-recapture data
+
+From <https://github.com/PlethodoNick/markrecapture>
+
+```{r}
+mr <- read_csv("mark-recapture.csv", col_types = list()) %>% 
+  transmute(
+    date = as.Date(strptime(Date, "%d-%b-%y")),
+    individual = match(Individual, unique(Individual)),
+    seen = 1
+  ) %>% 
+  filter(individual <= 10)
+mr
+```
+
+Often need a form where each time-point is a column.
+
+```{r}
+mr %>% pivot_wide(date, seen)
+```
+
+```{r}
+mr %>% pivot_wide(
+  names_from = date, 
+  values_from = seen, 
+  names_prefix = "time_", 
+  values_fill = list(seen = 0)
+)
+```
+
+## Multiple `names_from`
+
+Imagine, as in <http://stackoverflow.com/questions/24929954>, that we have information collected the combination of product, country, and year. In tidy form it might look like this:
 
 ```{r}
 df <- expand_grid(
-    Product = c("A", "B"), 
-    Country = c("AI", "EI"), 
-    Year = 2000:2014
+    product = c("A", "B"), 
+    country = c("AI", "EI"), 
+    year = 2000:2014
   ) %>%
-  mutate(value = rnorm(nrow(.))) %>%
-  filter((Product == "A" & Country == "AI") | (Product == "B" & Country == "EI"))
+  filter(
+    (product == "A" & country == "AI") | 
+    (product == "B" & country == "EI")
+  ) %>% 
+  mutate(value = rnorm(nrow(.)))
+df
+```
 
+We want to widen the data so we have one column for each combination of `product` and `country`
+
+```{r}
+df %>% pivot_wide(names_from = c(product, country), values_from = value)
+```
+
+For this data set, you might want to generate a custom spec if you wanted to ensure that every possible combination of `country` and `product` got it's own column, not just those present in the data:
+
+```{r}
 spec <- df %>% 
-  expand(Product, Country, .value = "value") %>% 
-  mutate(
-    .name = paste0(Product, "_", Country)
-  )
+  expand(product, country, .value = "value") %>% 
+  unite(".name", product, country, remove = FALSE)
 spec
 
 df %>% pivot_wide(spec = spec) %>% head()
@@ -323,25 +370,35 @@ anscombe %>%
   pivot_wide(var, value)
 ```
 
+## World bank
+
+Need to `pivot_long` and then `pivot_wide`.
+
+```{r, eval = FALSE}
+# https://data.worldbank.org/topic/climate-change?view=chart
+wb <- read_csv("vignettes/API_19_DS2_en_csv_v2_10400593.csv", skip = 4)
+wb %>% select(country = `Country Code`, indicator = `Indicator Code`, `1960`:`2018`)
+```
+
+
 ## Weather data
 
+Need to `pivot_long` and then `pivot_wide`. Retire in favour of World Bank?
+
 ```{r}
-# need to pivot in both directions
-
 weather <- read_csv("weather.csv", col_types = list()) 
+weather
+```
 
-weather %>% pivot_long_spec(d1:d31, "temp", "day")
+```{r}
+weather %>% 
+  pivot_long(d1:d31, names_to = "day", values_to = "temp", na.rm = TRUE) 
+```
 
-weather_spec <- weather %>%
-  pivot_long_spec(d1:d31, names_to = "day", values_to = "temp") %>%
-  mutate(day = parse_number(day))
-weather_spec
-weather2 <- pivot_long(weather, spec = weather_spec, na.rm = TRUE)
-weather2
-
-spec2 <- weather2 %>% pivot_wide_spec(element, temp)
-spec2
-weather2 %>% pivot_wide(spec = spec2)
+```{r}
+weather %>% 
+  pivot_long(d1:d31, names_to = "day", values_to = "temp", na.rm = TRUE) %>% 
+  pivot_wide(names_from = element, values_from = temp)
 ```
 
 ## Contact list
