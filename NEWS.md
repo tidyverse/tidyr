@@ -1,6 +1,7 @@
 # tidyr (development version)
 
-* New `us_rent_income()` dataset to demonstrate `pivot_wide()`.
+* New `us_rent_income`, `fish_encounters` and `world_bank_pop` datasets to 
+  demonstrate pivoting challenges.
 
 * `pivot()`
 

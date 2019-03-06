@@ -102,3 +102,20 @@
 #'   \item{seen}{Was the fish seen? (1 if yes, and true for all rows)}
 #' }
 "fish_encounters"
+
+#' Population data from the world bank
+#'
+#' Data about population from the World Bank.
+#'
+#' @source
+#' Dataset from the World Bank data bank: <https://data.worldbank.org>
+#'
+#' @format A dataset with variables:
+#' \describe{
+#'   \item{country}{Three letter country code}
+#'   \item{indicator}{Indicator name: `SP.POP.GROW` = population growth,
+#'     `SP.POP.TOTL` = total population, `SP.URB.GROW` = urban population
+#'     growth, `SP.URB.TOTL` = total urban population}
+#'   \item{2000-2018}{Value for each year}
+#' }
+"world_bank_pop"

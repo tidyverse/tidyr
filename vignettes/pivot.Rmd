@@ -295,8 +295,6 @@ fish_encounters %>% pivot_wide(
 )
 ```
 
-## Manually generate spec
-
 ## Generate column name from multiple variables
 
 Imagine, as in <http://stackoverflow.com/questions/24929954>, that we have information collected the combination of product, country, and year. In tidy form it might look like this:
@@ -307,19 +305,18 @@ df <- expand_grid(
     country = c("AI", "EI"), 
     year = 2000:2014
   ) %>%
-  filter(
-    (product == "A" & country == "AI") | 
-    (product == "B" & country == "EI")
-  ) %>% 
+  filter((product == "A" & country == "AI") | product == "B") %>% 
   mutate(value = rnorm(nrow(.)))
 df
 ```
 
-We want to widen the data so we have one column for each combination of `product` and `country`
+We want to widen the data so we have one column for each combination of `product` and `country`. The key is to specify multiple variables for `names_from`:
 
 ```{r}
 df %>% pivot_wide(names_from = c(product, country), values_from = value)
 ```
+
+If you want finer control over the generated columns, you can create a spec data frame. This has exactly the same format as the `pivot_long()`: a data frame with special `.name` and `.value` columns. But when fed to `pivot_wide()` it does the opposite transformation to `pivot_long()`: it create the columns specified in `.name`, using the information from `.value` and the other columns.
 
 For this data set, you might want to generate a custom spec if you wanted to ensure that every possible combination of `country` and `product` got it's own column, not just those present in the data:
 
@@ -332,8 +329,6 @@ spec
 df %>% pivot_wide(spec = spec) %>% head()
 ```
 
-
-
 ## Tidy census
 
 The `us_rent_income` income contains information about median income and rent for each state in the US for 2017 (from the American Community Survey, retrieved with the [tidycensus][tidycensus] package).
@@ -342,7 +337,7 @@ The `us_rent_income` income contains information about median income and rent fo
 us_rent_income
 ```
 
-We'd like to generate a dataset with columns `rent`, `rent_moe`, `income`, `income_moe`.  There are many ways that you could generate this spec, but the key is that we need to generate every combination of the `variable` values and `estimate`/`moe`:
+We'd like to generate a dataset with columns `rent`, `rent_moe`, `income`, `income_moe`.  There are many ways that you could generate this spec, but the key is that we need to generate every combination of the `variable` values and `estimate`/`moe`, and then carefully generate the column name:
 
 ```{r}
 spec <- us_rent_income %>% 
@@ -353,14 +348,49 @@ spec <- us_rent_income %>%
 spec
 ```
 
-This works as we'd expect, generating columns of the correct type.
+Supplying this spec to `pivot_wide()` gives us the result we're looking for:
 
 ```{r}
 us_rent_income %>% pivot_wide(spec = spec)
 ```
 
-
 # Multiple transformations
+
+Sometimes getting a dataset into the needed form requires multiple pivots. The final three case studies show a few examples that require substantial work to get into a useful format.
+
+## World bank
+
+`world_bank_pop` contains data from the World Bank about population per country from 2000 to 2018:
+
+```{r}
+world_bank_pop
+```
+
+```{r}
+pop2 <- world_bank_pop %>% 
+  pivot_long(`2000`:`2017`, names_to = "year")
+pop2
+```
+```{r}
+pop3 <- pop2 %>% 
+  separate(indicator, c(NA, "area", "variable"))
+pop3
+```
+
+```{r}
+pop3 %>% 
+  pivot_wide(names_from = variable, values_from = value)
+```
+
+
+Need to `pivot_long` and then `pivot_wide`.  Extract reasonable subset that can be included in package.
+
+```{r, eval = FALSE}
+# https://data.worldbank.org/topic/climate-change?view=chart
+wb <- read_csv("vignettes/API_19_DS2_en_csv_v2_10400593.csv", skip = 4)
+wb %>% select(country = `Country Code`, indicator = `Indicator Code`, `1960`:`2018`)
+```
+
 
 ## Anscombe's quartet
 
@@ -408,16 +438,6 @@ anscombe %>%
   pivot_wide(var, value) %>% 
   select(-row) %>% 
   arrange(graph)
-```
-
-## World bank
-
-Need to `pivot_long` and then `pivot_wide`.  Extract reasonable subset that can be included in package.
-
-```{r, eval = FALSE}
-# https://data.worldbank.org/topic/climate-change?view=chart
-wb <- read_csv("vignettes/API_19_DS2_en_csv_v2_10400593.csv", skip = 4)
-wb %>% select(country = `Country Code`, indicator = `Indicator Code`, `1960`:`2018`)
 ```
 
 ## Contact list
