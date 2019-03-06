@@ -430,7 +430,7 @@ spec
 ```{r}
 anscombe %>% 
   pivot_long(spec = spec) %>% 
-  pivot_wide(var, value) 
+  pivot_wide(names_from = var, values_from = value) 
 ```
 
 We can now sort all observations for graph together and remove the `row` variable since it's no longer needed.
@@ -438,7 +438,7 @@ We can now sort all observations for graph together and remove the `row` variabl
 ```{r}
 anscombe %>% 
   pivot_long(spec = spec) %>% 
-  pivot_wide(var, value) %>% 
+  pivot_wide(names_from = var, values_from = value) %>% 
   select(-row) %>% 
   arrange(graph)
 ```

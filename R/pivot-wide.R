@@ -5,6 +5,9 @@
 #' and see [pivot_long()] for the inverse transformation.
 #'
 #' @inheritParams pivot_long
+#' @param keys Keys, a set of columns that uniquely identifies each
+#'   observation. Defaults to all columns in `df` except for the columns
+#'   specified in `names_from` and `values_from`.
 #' @param names_from,values_from A pair of arguments describing which column
 #'   (or columns) to get the name of the output column (`name_from`), and
 #'   which column to get the cell values from (`values_from`).
@@ -29,6 +32,7 @@
 #'     values_fill = list(seen = 0)
 #'   )
 pivot_wide <- function(df,
+                       keys = NULL,
                        names_from = name,
                        values_from = value,
                        names_prefix = "",
@@ -54,8 +58,16 @@ pivot_wide <- function(df,
   measures <- vec_unique(spec$.value)
   spec_cols <- c(names(spec)[-(1:2)], measures)
 
+  keys <- enquo(keys)
+  if (!quo_is_null(keys)) {
+    key_vars <- tidyselect::vars_select(names(df), !!keys)
+  } else {
+    key_vars <- names(df)
+  }
+  key_vars <- setdiff(key_vars, spec_cols)
+
   # Figure out rows in output
-  df_rows <- df[setdiff(names(df), spec_cols)]
+  df_rows <- df[key_vars]
   if (ncol(df_rows) == 0) {
     rows <- tibble(.rows = 1)
     row_id <- rep(1L, nrow(spec))

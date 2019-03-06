@@ -5,7 +5,7 @@
 \alias{pivot_wide_spec}
 \title{Pivot data from long to wide}
 \usage{
-pivot_wide(df, names_from = name, values_from = value,
+pivot_wide(df, keys = NULL, names_from = name, values_from = value,
   names_prefix = "", names_sep = "_", values_fill = NULL,
   values_collapse = NULL, spec = NULL)
 
@@ -14,6 +14,10 @@ pivot_wide_spec(df, names_from = name, values_from = value,
 }
 \arguments{
 \item{df}{A data frame to pivot.}
+
+\item{keys}{Keys, a set of columns that uniquely identifies each
+observation. Defaults to all columns in \code{df} except for the columns
+specified in \code{names_from} and \code{values_from}.}
 
 \item{names_from, values_from}{A pair of arguments describing which column
 (or columns) to get the name of the output column (\code{name_from}), and
