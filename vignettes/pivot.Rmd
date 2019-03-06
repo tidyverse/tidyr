@@ -16,28 +16,28 @@ knitr::opts_chunk$set(
 
 # Introduction
 
-This vignette describes the use of the new `pivot_long()` and `pivot_wide()` functions. These are complete reimaginings of `gather()` and `spread()` that aim to solve:
+This vignette describes the use of the new `pivot_long()` and `pivot_wide()` functions. Their goal is to improve the usability of `gather()` and `spread()`, and incorporate state-of-art features found in other packages.
 
-* The challenge of remembering which direction is spreading and which is
-  gathering.
+For some time, it's been obvious that there is something fundmentally wrong with the design of `spread()` and `gather()`. Many people don't find the names intuitive, and find it hard to remember which direction corresponds to spreading and which to gathering. It's also seems surprisingly hard to remember the arguments to these functions, meaning that many people (including me!) have to consult the documentation every time.
+
+There are two important new features inspired by other R packages that have been advancing of reshaping in R:
+
+* The reshaping operation can be specified with a data frame that describes 
+  precisely how metadata stored in column names becomes data variables (and 
+  vice versa). This is inspired by the [cdata][cdata] package by John Mount and 
+  Nina Zumel. For simple uses of `pivot_long()` and `pivot_wide()`, this 
+  specification is implicit, but for more complex cases it is useful to make 
+  it explicit, and operate on the specification data frame using dplyr and 
+  tidyr.
   
-* The supoptimal argument names which mean that you need to consistently
-  refresh your memory by reading the documentation.
+* `pivot_long()` can work with multiple value variables that may have 
+  different types. This is inspired by the enhanced `melt()` and `dcast()` 
+  functions provided by the [data.table][data.table] package by Matt Dowle and
+  Arun Srinivasan.
 
-They also differ from previous functions in tidyr, reshape2, and reshape, in two more profound ways:
+In this vignette, you'll learn the key ideas behind `pivot_long()` and `pivot_wide()` as you see them used to solve a variety of data reshaping challenges from simple to complex.
 
-* The reshaping operation is specified with a data frame that describes 
-  precisely how metadata stored in column names becomes real data variables. 
-  This is inspired by the [cdata](https://winvector.github.io/cdata/) package 
-  by John Mount and Nina Zumel. For simple cases, this specification is
-  implicit, but for more complex cases it is useful to make it explicit.
-  
-* Reshaping works with multiple value variables that may have different types. 
-  This is inspired by the enhanced `melt()` and `dcast()` functions provided 
-  by the [data.table](https://github.com/Rdatatable/data.table/wiki) package
-  by Matt Dowle and Arun Srinivasan.
-
-The goal of this vignette is to get you up to speed with these new functions as quickly as possible.
+To begin we'll load some needed packages. In real analysis code, I'd expect many people will do this with `library(tidyverse)`.
 
 ```{r setup, message = FALSE}
 library(tidyr)
@@ -47,18 +47,18 @@ library(readr)
 
 # Wide to long
 
-`pivot_long()` makes datasets __longer__ by reducing the number of columns and increasing the number of rows. `pivot_long()` is commonly needed to tidy wild-caught datasets as they often optimse ease of data entry or comparison rather than ease of analysis. 
+`pivot_long()` makes datasets __longer__ by reducing the number of columns and increasing the number of rows. `pivot_long()` is commonly needed to tidy wild-caught datasets as they often optimse for ease of data entry or ease of comparison rather than ease of analysis. 
 
-## Pew
+## Simple pivotting {#pew}
 
-The `pew` dataset is a 2d table with religion in the rows, income spread across the column names, and a count stored in the cell values:
+The `pew` dataset stores count from a survey which (among other things) asked people there religion and annaul income:
 
 ```{r}
 pew <- read_csv("pew.csv", col_types = list())
 pew
 ```
 
-To tidy this data we need `pivot_long()`:
+This is 2d table with religion in the rows, income spread across the column names, and a count stored in the cell values. To tidy it we need `pivot_long()`:
 
 ```{r}
 pew %>% 
@@ -66,7 +66,7 @@ pew %>%
 ```
 
 * The first argument describes which columns need to be transformed. 
-  In this case, it's every column apart from the religion.
+  In this case, it's every column apart from `religion`.
 
 * The `names_to` gives the name of the variable that will be created from
   the data stored in the column names.
@@ -74,9 +74,9 @@ pew %>%
 * The `values_to` gives the name of the variable that will be created from
   the data stored in the cell values.
   
-Neither `names_to` nor the `values_to` column exists, so we have to put their name in quotes.
+Neither the `names_to` nor the `values_to` column exists in `pew`, so we have to put their name in quotes.
 
-## Billboard
+## Numeric data in column names {#billboard}
 
 For many datasets, `pivot_long()` is all you need. But for more complex datasets it often makes sense to manully generate a data frame that precisely describes the transformation. For example, take the billboard data:
 
@@ -85,7 +85,7 @@ billboard <- read_csv("billboard.csv", col_types = list(time = col_skip()))
 billboard
 ```
 
-This records the billboard rank of songs over time. It is very similar in form to the `pew` data above, but the data encoded in the column names is really a number, not a string. This means that `pivot_long()` works, but will require some additional cleaning afterwards.
+This records the billboard rank of songs over time. It is very similar in form to the `pew` data above, but the data encoded in the column names is really a number, not a string. This means that `pivot_long()` works, but will require some additional cleaning afterwards:
 
 ```{r}
 billboard %>% 
@@ -97,9 +97,9 @@ billboard %>%
   )
 ```
 
-Instead of doing that cleaning on the long form of the data, we can tackle the problem in another way: by generating a pivot spec. A pivoting spec is a data frame that has one row for each column that needs to be transformed, describing the metadata that is encoded in this variable. (Using a pivotting spec is probably overkill for this problem, but it's a good bridge between very simple cases and the more complex cases you'll learn about shortly.)
+Instead of doing that cleaning on the long data, we can tackle the problem in another way: by generating a pivot spec. (Using a pivotting spec is probably overkill for this problem, but it's a good bridge between very simple cases and the more complex cases you'll learn about shortly.) A pivoting spec is a data frame that describes the metadata stored in the column name, with one row for each column, and one column for each variable mashed into the column name. 
 
-We can start with the basic spec that `pivot_long()` generates behind the scenes:
+We start using `pivot_long_spec()` to generate the spec that `pivot_long()` generates behind the scenes:
 
 ```{r}
 spec <- billboard %>% 
@@ -113,9 +113,11 @@ spec
 
 The spec is a data frame with one row for each column, and two special columns that start with `.`:
 
-* `.name` gives the name of the column
+* `.name` gives the name of the column.
 * `.value` gives the name of the column that the values in the cells will
   go into.
+  
+All other variables are maintained in the output of the pivot.
 
 To make this spec a more accurate rendition of the metadata that's stored in the column names, we want to strip off the `"wk"` prefix and turn the string into a number. We can do that in one step with `readr::parse_number()`[^readr]:
 
@@ -134,9 +136,11 @@ billboard %>%
   pivot_long(spec = spec)
 ```
 
-Note we can now be more precise about the output shape of `pivot_long(df, spec = spec)`: it will have `nrow(df) * nrow(spec)` rows, and `ncol(df) - nrow(spec) + ncol(spec) - 2` columns.
+This seems like a lot of work to get something very similar to the previous result, but as you'll see shortly, it generalises it very useful ways.
 
-## WHO tuberculosis data
+The pivotting spec allows us to be more precise about exactly how `pivot_long(df, spec = spec)` changes the shape of `df`: it will have `nrow(df) * nrow(spec)` rows, and `ncol(df) - nrow(spec) + ncol(spec) - 2` columns.
+
+## Many variables in column names
 
 In more complex cases, the column name might encode multiple variables, and require more significant parsing to extract. For example take the `who` dataset bundled with this package:
 
@@ -144,31 +148,35 @@ In more complex cases, the column name might encode multiple variables, and requ
 who
 ```
 
+`country`, `iso2`, `iso3`, `year` are already variables, so can be left as is. We want to pivot the columns from `new_sp_m014` to `newrel_f65`:
+
 ```{r}
 spec <- who %>%
   pivot_long_spec(new_sp_m014:newrel_f65, values_to = "count")
 spec
 ```
 
-The columns names (`new_sp_m014` through `newrel_f65)` encode four variables:
+These columns encode four variables in their names:
 
 * The `new_`/`new` prefix indicates these are counts of new cases. This
-  dataset only contains new cases, so we can ignore this component because 
+  dataset only contains new cases, so here we'll ignore this variable because 
   it's constant.
   
 * `sp`/`rel`/`sp`/`ep` describe how the case was diagnosed.
 
-* `m`/`f` indicate the gender of the person
+* `m`/`f` gives the gender.
 
-* `014`/`1524`/`2535`/`3544`/`4554`/`65` indicate the age range.
+* `014`/`1524`/`2535`/`3544`/`4554`/`65` supplies the age range.
 
-We can extract these varables out of the `variable` variable using `extract()`:
+We can extract these varables out of the `name` using `extract()`:
 
 ```{r}
 spec <- spec %>%
   extract(name, c("diagnosis", "gender", "age"), "new_?(.*)_(.)(.*)")
 spec
 ```
+
+(Note that `.name` must stay unchanged as it's our index into the column names of the original dataset.)
 
 Gender and age have fixed and known values, so it's good practice to convert these strings to factors:
 
@@ -184,20 +192,19 @@ spec
 Finally, we can use this spec to tidy the dataset:
 
 ```{r}
-who %>% pivot_long(spec = spec, na.rm = TRUE)
+who %>% pivot_long(spec = spec)
 ```
 
-## Census data
+## Manual spec construction
 
-Sometimes it's not possible to derive the spec from the data in the variables. In this case, it can be convenient to construct the spec completed by hand. For example, take this `construction` data, which is lightly modified from Table 5 "completions" found at 
-<https://www.census.gov/construction/nrc/index.html>:
+Sometimes it's not possible (or not convenient) to compute the spec from the column names, and inside it can be convenient to construct the spec by hand. For example, take this `construction` data, which is lightly modified from Table 5 "completions" found at <https://www.census.gov/construction/nrc/index.html>:
 
 ```{r}
 construction <- read_csv("construction.csv", col_types = list("2 to 4 units" = col_integer()))
 construction
 ```
 
-This sort of data is not uncommon from government agencies: the column names actually belong to different variables, and here we have summaries for number of units (1, 2-4, 5+) and regions of the country (NE, NW, midW, S, W). We can most easily describe that will a tibble:
+This sort of data is not uncommon from government agencies: the column names actually belong to different variables, and here we have summaries for number of units (1, 2-4, 5+) and regions of the country (NE, NW, midwest, S, W). We can most easily describe that with a tibble:
 
 ```{r}
 spec <- tribble(
@@ -213,24 +220,26 @@ spec <- tribble(
 )
 ```
 
-Which again we can use to tidy the data:
+Which yields the following long form:
 
 ```{r}
 construction %>% pivot_long(spec = spec)
 ```
 
+(Note that there is no overlap between the `units` and `region` variables; here the data would really be most naturally described in two independent tables.)
+
 ## Multiple value columns 
 
-So far the `.value` column has been constant, so you might wonder why we need it. An explicit specification can be used to access a new feature inspired by data.table: it's now possible gather columns with different types. The following example is adapted from the [data.table vignette](https://cran.r-project.org/web/packages/data.table/vignettes/datatable-reshape.html):
+So far the `.value` column has only even contained a single value, so you might wonder why we need it. In fact, `.value` is very important as it allows us to solve a problem that was previously very challenging with `spread()`. Multiple values of `.value` allows us access a new feature inspired by data.table: you can gather columns with different types. The following example is adapted from the [data.table vignette](https://cran.r-project.org/web/packages/data.table/vignettes/datatable-reshape.html):
 
 ```{r}
 family <- tibble::tribble(
-  ~family_id,  ~dob_child1,  ~dob_child2, ~gender_child1, ~gender_child2,
-          1L, "1998-11-26", "2000-01-29",             1L,             2L,
-          2L, "1996-06-22",           NA,             2L,             NA,
-          3L, "2002-07-11", "2004-04-05",             2L,             2L,
-          4L, "2004-10-10", "2009-08-27",             1L,             1L,
-          5L, "2000-12-05", "2005-02-28",             2L,             1L,
+  ~family,  ~dob_child1,  ~dob_child2, ~gender_child1, ~gender_child2,
+       1L, "1998-11-26", "2000-01-29",             1L,             2L,
+       2L, "1996-06-22",           NA,             2L,             NA,
+       3L, "2002-07-11", "2004-04-05",             2L,             2L,
+       4L, "2004-10-10", "2009-08-27",             1L,             1L,
+       5L, "2000-12-05", "2005-02-28",             2L,             1L,
 )
 family <- family %>% mutate_at(vars(starts_with("dob")), parse_date)
 family
@@ -240,22 +249,26 @@ Note that we have two pieces of information about each child: their gender and t
 
 ```{r}
 spec <- family %>%
-  pivot_long_spec(-family_id) %>%
+  pivot_long_spec(-family) %>%
   separate(name, c(".value", "child")) %>%
   mutate(child = parse_number(child))
 spec
 ```
+
+Pivoting with this spec yields a data frame with a date `dob` column and an integer `gender` column:
 
 ```{r}
 family %>%
   pivot_long(spec = spec, na.rm = TRUE)
 ```
 
+We use `na.rm = TRUE` here because this shape of the data forces the creation of explicit missing variables for observations that don't exist. This ensures that family 2 has a single row in the output.
+
 # Long to wide
 
-`pivot_wide()` is the opposite of `pivot_long()`: it makes a dataset __wider__ by reducing the number of rows and increasing the number of columns. It's relatively rare to need `pivot_wide()` to make tidy data, but it's commonly needed to produce data compatible with other systems.
+`pivot_wide()` is the opposite of `pivot_long()`: it makes a dataset __wider__ by reducing the number of rows and increasing the number of columns. It's relatively rare to need `pivot_wide()` to make tidy data, but it's often useful for creating summary tables for presentation, or data in a format needed by other tools.
 
-(Note that it is generally true that `pivot_long()` and `pivot_wide()` are precisely symmetric: `df %>% pivot_long(spec = spec) %>% pivot_wide(spec = spec)` and `df %>% pivot_wide(spec = spec) %>% pivot_long(spec = spec)` will yield `df`)
+Note that it is generally true that `pivot_long()` and `pivot_wide()` are precisely symmetric: `df %>% pivot_long(spec = spec) %>% pivot_wide(spec = spec)` and `df %>% pivot_wide(spec = spec) %>% pivot_long(spec = spec)` will yield `df`)
 
 ## Capture-recapture data
 
@@ -328,7 +341,13 @@ spec
 df %>% pivot_wide(spec = spec) %>% head()
 ```
 
-## Multiple value columns
+
+
+## Tidy census
+
+<https://walkerke.github.io/tidycensus/articles/basic-usage.html>
+
+Replaces:
 
 Like with `pivot_long()` it is also possible to use multiple `.values`. For example, take this example generated by Jenny Bryan
 
@@ -449,3 +468,6 @@ df2 <- df %>% pivot_wide(spec = spec)
 spec2 <- pivot_wide_spec(df2, names_from = var, values_from = value)
 df2 %>% select(-row) %>% pivot_wide(spec = spec2)
 ```
+
+[cdata]: https://winvector.github.io/cdata/
+[data.table]: https://github.com/Rdatatable/data.table/wiki
