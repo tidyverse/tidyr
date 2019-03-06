@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Pivot data from wide to long. — pivot_long_spec • tidyr</title>
+<title>Pivot data from long to wide — pivot_wide_spec • tidyr</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -31,11 +31,11 @@
 
 
 
-<meta property="og:title" content="Pivot data from wide to long. — pivot_long_spec" />
+<meta property="og:title" content="Pivot data from long to wide — pivot_wide_spec" />
 
-<meta property="og:description" content="pivot_long() &quot;lengthens&quot; data, increasing the number of rows and
-decreasing the number of columns. See more details in vignette(&quot;pivot&quot;),
-and see pivot_wide() for the inverse transformation." />
+<meta property="og:description" content="pivot_wide() &quot;widens&quot; data, increasing the number of columns and
+decreasing the number of rows. See more details in vignette(&quot;pivot&quot;),
+and see pivot_long() for the inverse transformation." />
 
 <meta property="og:image" content="https://tidyr.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -111,23 +111,25 @@ and see pivot_wide() for the inverse transformation." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Pivot data from wide to long.</h1>
+    <h1>Pivot data from long to wide</h1>
     <small class="dont-index">Source: <a href='https://github.com/tidyverse/tidyr/blob/master/R/pivot-spec.R'><code>R/pivot-spec.R</code></a>, <a href='https://github.com/tidyverse/tidyr/blob/master/R/pivot.R'><code>R/pivot.R</code></a></small>
-    <div class="hidden name"><code>pivot_long.Rd</code></div>
+    <div class="hidden name"><code>pivot_wide.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p><code>pivot_long()</code> "lengthens" data, increasing the number of rows and
-decreasing the number of columns. See more details in <code><a href='../articles/pivot.html'>vignette("pivot")</a></code>,
-and see <code><a href='pivot_wide.html'>pivot_wide()</a></code> for the inverse transformation.</p>
+    <p><code>pivot_wide()</code> "widens" data, increasing the number of columns and
+decreasing the number of rows. See more details in <code><a href='../articles/pivot.html'>vignette("pivot")</a></code>,
+and see <code><a href='pivot_long.html'>pivot_long()</a></code> for the inverse transformation.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>pivot_long_spec</span>(<span class='no'>df</span>, <span class='no'>cols</span>, <span class='kw'>names_to</span> <span class='kw'>=</span> <span class='st'>"name"</span>, <span class='kw'>values_to</span> <span class='kw'>=</span> <span class='st'>"value"</span>)
+    <pre class="usage"><span class='fu'>pivot_wide_spec</span>(<span class='no'>df</span>, <span class='kw'>names_from</span> <span class='kw'>=</span> <span class='no'>name</span>, <span class='kw'>values_from</span> <span class='kw'>=</span> <span class='no'>value</span>,
+  <span class='kw'>names_prefix</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>names_sep</span> <span class='kw'>=</span> <span class='st'>"_"</span>)
 
-<span class='fu'>pivot_long</span>(<span class='no'>df</span>, <span class='no'>cols</span>, <span class='kw'>names_to</span> <span class='kw'>=</span> <span class='st'>"name"</span>, <span class='kw'>values_to</span> <span class='kw'>=</span> <span class='st'>"value"</span>,
-  <span class='kw'>spec</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>ptype</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>())</pre>
+<span class='fu'>pivot_wide</span>(<span class='no'>df</span>, <span class='kw'>names_from</span> <span class='kw'>=</span> <span class='no'>name</span>, <span class='kw'>values_from</span> <span class='kw'>=</span> <span class='no'>value</span>,
+  <span class='kw'>names_prefix</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>names_sep</span> <span class='kw'>=</span> <span class='st'>"_"</span>, <span class='kw'>values_fill</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>spec</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -137,16 +139,27 @@ and see <code><a href='pivot_wide.html'>pivot_wide()</a></code> for the inverse 
       <td><p>A data frame to pivot.</p></td>
     </tr>
     <tr>
-      <th>cols</th>
-      <td><p>Columns to pivot into longer format. This takes a tidyselect
-specification.</p></td>
+      <th>names_from, values_from</th>
+      <td><p>A pair of arguments describing which column
+(or columns) to get the name of the output column (<code>name_from</code>), and
+which column to get the cell values from (<code>values_from</code>).</p></td>
     </tr>
     <tr>
-      <th>names_to, values_to</th>
-      <td><p>This pair of arguments determine which columns
-the data stored in the column names (<code>names_to</code>) and the data stored in
-the cell values (<code>values_to</code>) turn into in the result.</p>
-<p>Note that these variables do not exist, so must be specified as strings.</p></td>
+      <th>names_prefix</th>
+      <td><p>String added to the start of every variable name. This is
+particularly useful if <code>names_from</code> is a numeric vector and you want to
+create syntactic variable names.</p></td>
+    </tr>
+    <tr>
+      <th>names_sep</th>
+      <td><p>If <code>names_from</code> contains multiple variables, this will be
+used to join their values together into a single string to use as
+a column name.</p></td>
+    </tr>
+    <tr>
+      <th>values_fill</th>
+      <td><p>Optionally, a named list specifying what each <code>value</code>
+should be filled in with when missing.</p></td>
     </tr>
     <tr>
       <th>spec</th>
@@ -155,20 +168,6 @@ the cell values (<code>values_to</code>) turn into in the result.</p>
 for more complex pivots because it gives you greater control on how
 metadata stored in the column names turns into columns in the result.</p>
 <p>Must be a data frame containing character <code>.name</code> and <code>.value</code> columns.</p></td>
-    </tr>
-    <tr>
-      <th>na.rm</th>
-      <td><p>If <code>TRUE</code>, will drop rows that contain only <code>NA</code>s in the
-<code>value_to</code> column. This effectively converts explicit missing values to
-implicit missing values, and should generally be used only when missing
-values in <code>df</code> were created by its structure.</p></td>
-    </tr>
-    <tr>
-      <th>ptype</th>
-      <td><p>If not specified, the type of the <code>value_to</code> column will be
-automatically guess from the data. Supply this argument when you want to
-override that default. Should be a named list, where the names are
-given by the value columns.</p></td>
     </tr>
     </table>
     
