@@ -172,12 +172,44 @@ metadata stored in the column names turns into columns in the result.</p>
     </table>
     
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='co'># Use values_fill to fill in missing values when you know what they</span>
+<span class='co'># represent</span>
+<span class='no'>fish_encounters</span> <span class='kw'>%&gt;%</span>
+  <span class='fu'>pivot_wide</span>(
+    <span class='kw'>names_from</span> <span class='kw'>=</span> <span class='no'>station</span>,
+    <span class='kw'>values_from</span> <span class='kw'>=</span> <span class='no'>seen</span>,
+    <span class='kw'>values_fill</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(<span class='kw'>seen</span> <span class='kw'>=</span> <span class='fl'>0</span>)
+  )</div><div class='output co'>#&gt; # A tibble: 19 x 12
+#&gt;    fish  Release I80_1 Lisbon  Rstr Base_TD   BCE   BCW  BCE2  BCW2   MAE   MAW
+#&gt;    &lt;fct&gt;   &lt;int&gt; &lt;int&gt;  &lt;int&gt; &lt;int&gt;   &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;
+#&gt;  1 4842        1     1      1     1       1     1     1     1     1     1     1
+#&gt;  2 4843        1     1      1     1       1     1     1     1     1     1     1
+#&gt;  3 4844        1     1      1     1       1     1     1     1     1     1     1
+#&gt;  4 4845        1     1      1     1       1     0     0     0     0     0     0
+#&gt;  5 4847        1     1      1     0       0     0     0     0     0     0     0
+#&gt;  6 4848        1     1      1     1       0     0     0     0     0     0     0
+#&gt;  7 4849        1     1      0     0       0     0     0     0     0     0     0
+#&gt;  8 4850        1     1      0     1       1     1     1     0     0     0     0
+#&gt;  9 4851        1     1      0     0       0     0     0     0     0     0     0
+#&gt; 10 4854        1     1      0     0       0     0     0     0     0     0     0
+#&gt; 11 4855        1     1      1     1       1     0     0     0     0     0     0
+#&gt; 12 4857        1     1      1     1       1     1     1     1     1     0     0
+#&gt; 13 4858        1     1      1     1       1     1     1     1     1     1     1
+#&gt; 14 4859        1     1      1     1       1     0     0     0     0     0     0
+#&gt; 15 4861        1     1      1     1       1     1     1     1     1     1     1
+#&gt; 16 4862        1     1      1     1       1     1     1     1     1     0     0
+#&gt; 17 4863        1     1      0     0       0     0     0     0     0     0     0
+#&gt; 18 4864        1     1      0     0       0     0     0     0     0     0     0
+#&gt; 19 4865        1     1      1     0       0     0     0     0     0     0     0</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-                </ul>
+            
+      <li><a href="#examples">Examples</a></li>
+    </ul>
 
   </div>
 </div>
