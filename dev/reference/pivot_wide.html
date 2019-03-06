@@ -126,7 +126,7 @@ and see <code><a href='pivot_long.html'>pivot_long()</a></code> for the inverse 
 
     <pre class="usage"><span class='fu'>pivot_wide</span>(<span class='no'>df</span>, <span class='kw'>names_from</span> <span class='kw'>=</span> <span class='no'>name</span>, <span class='kw'>values_from</span> <span class='kw'>=</span> <span class='no'>value</span>,
   <span class='kw'>names_prefix</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>names_sep</span> <span class='kw'>=</span> <span class='st'>"_"</span>, <span class='kw'>values_fill</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>spec</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
+  <span class='kw'>values_collapse</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>spec</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
 
 <span class='fu'>pivot_wide_spec</span>(<span class='no'>df</span>, <span class='kw'>names_from</span> <span class='kw'>=</span> <span class='no'>name</span>, <span class='kw'>values_from</span> <span class='kw'>=</span> <span class='no'>value</span>,
   <span class='kw'>names_prefix</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>names_sep</span> <span class='kw'>=</span> <span class='st'>"_"</span>)</pre>
@@ -160,6 +160,11 @@ a column name.</p></td>
       <th>values_fill</th>
       <td><p>Optionally, a named list specifying what each <code>value</code>
 should be filled in with when missing.</p></td>
+    </tr>
+    <tr>
+      <th>values_collapse</th>
+      <td><p>Optionally, a named list describing how to collapse
+each <code>value</code> if the keys are not unique.</p></td>
     </tr>
     <tr>
       <th>spec</th>
