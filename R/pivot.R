@@ -65,11 +65,9 @@ pivot_long <- function(df,
   vals <- as_tibble(vals)
 
   # Line up output rows by combining spec and existing data frame
-  # https://github.com/tidyverse/tidyr/issues/557
-  rows <- expand.grid(
-    key_id = vec_seq_along(keys),
+  rows <- expand_grid(
     df_id = vec_seq_along(df),
-    KEEP.OUT.ATTRS = FALSE
+    key_id = vec_seq_along(keys),
   )
   rows$val_id <- vec_seq_along(rows)
 
