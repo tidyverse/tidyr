@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Pivot data from long to wide — pivot_wide_spec • tidyr</title>
+<title>Pivot data from long to wide — pivot_wide • tidyr</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -31,7 +31,7 @@
 
 
 
-<meta property="og:title" content="Pivot data from long to wide — pivot_wide_spec" />
+<meta property="og:title" content="Pivot data from long to wide — pivot_wide" />
 
 <meta property="og:description" content="pivot_wide() &quot;widens&quot; data, increasing the number of columns and
 decreasing the number of rows. See more details in vignette(&quot;pivot&quot;),
@@ -112,7 +112,7 @@ and see pivot_long() for the inverse transformation." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Pivot data from long to wide</h1>
-    <small class="dont-index">Source: <a href='https://github.com/tidyverse/tidyr/blob/master/R/pivot-spec.R'><code>R/pivot-spec.R</code></a>, <a href='https://github.com/tidyverse/tidyr/blob/master/R/pivot.R'><code>R/pivot.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/tidyverse/tidyr/blob/master/R/pivot-wide.R'><code>R/pivot-wide.R</code></a></small>
     <div class="hidden name"><code>pivot_wide.Rd</code></div>
     </div>
 
@@ -124,12 +124,12 @@ and see <code><a href='pivot_long.html'>pivot_long()</a></code> for the inverse 
     
     </div>
 
-    <pre class="usage"><span class='fu'>pivot_wide_spec</span>(<span class='no'>df</span>, <span class='kw'>names_from</span> <span class='kw'>=</span> <span class='no'>name</span>, <span class='kw'>values_from</span> <span class='kw'>=</span> <span class='no'>value</span>,
-  <span class='kw'>names_prefix</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>names_sep</span> <span class='kw'>=</span> <span class='st'>"_"</span>)
-
-<span class='fu'>pivot_wide</span>(<span class='no'>df</span>, <span class='kw'>names_from</span> <span class='kw'>=</span> <span class='no'>name</span>, <span class='kw'>values_from</span> <span class='kw'>=</span> <span class='no'>value</span>,
+    <pre class="usage"><span class='fu'>pivot_wide</span>(<span class='no'>df</span>, <span class='kw'>names_from</span> <span class='kw'>=</span> <span class='no'>name</span>, <span class='kw'>values_from</span> <span class='kw'>=</span> <span class='no'>value</span>,
   <span class='kw'>names_prefix</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>names_sep</span> <span class='kw'>=</span> <span class='st'>"_"</span>, <span class='kw'>values_fill</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>spec</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+  <span class='kw'>spec</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
+
+<span class='fu'>pivot_wide_spec</span>(<span class='no'>df</span>, <span class='kw'>names_from</span> <span class='kw'>=</span> <span class='no'>name</span>, <span class='kw'>values_from</span> <span class='kw'>=</span> <span class='no'>value</span>,
+  <span class='kw'>names_prefix</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>names_sep</span> <span class='kw'>=</span> <span class='st'>"_"</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">

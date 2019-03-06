@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Pivot data from wide to long. — pivot_long_spec • tidyr</title>
+<title>Pivot data from wide to long. — pivot_long • tidyr</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -31,7 +31,7 @@
 
 
 
-<meta property="og:title" content="Pivot data from wide to long. — pivot_long_spec" />
+<meta property="og:title" content="Pivot data from wide to long. — pivot_long" />
 
 <meta property="og:description" content="pivot_long() &quot;lengthens&quot; data, increasing the number of rows and
 decreasing the number of columns. See more details in vignette(&quot;pivot&quot;),
@@ -112,7 +112,7 @@ and see pivot_wide() for the inverse transformation." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Pivot data from wide to long.</h1>
-    <small class="dont-index">Source: <a href='https://github.com/tidyverse/tidyr/blob/master/R/pivot-spec.R'><code>R/pivot-spec.R</code></a>, <a href='https://github.com/tidyverse/tidyr/blob/master/R/pivot.R'><code>R/pivot.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/tidyverse/tidyr/blob/master/R/pivot-long.R'><code>R/pivot-long.R</code></a></small>
     <div class="hidden name"><code>pivot_long.Rd</code></div>
     </div>
 
@@ -124,10 +124,10 @@ and see <code><a href='pivot_wide.html'>pivot_wide()</a></code> for the inverse 
     
     </div>
 
-    <pre class="usage"><span class='fu'>pivot_long_spec</span>(<span class='no'>df</span>, <span class='no'>cols</span>, <span class='kw'>names_to</span> <span class='kw'>=</span> <span class='st'>"name"</span>, <span class='kw'>values_to</span> <span class='kw'>=</span> <span class='st'>"value"</span>)
+    <pre class="usage"><span class='fu'>pivot_long</span>(<span class='no'>df</span>, <span class='no'>cols</span>, <span class='kw'>names_to</span> <span class='kw'>=</span> <span class='st'>"name"</span>, <span class='kw'>values_to</span> <span class='kw'>=</span> <span class='st'>"value"</span>,
+  <span class='kw'>spec</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>ptype</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>())
 
-<span class='fu'>pivot_long</span>(<span class='no'>df</span>, <span class='no'>cols</span>, <span class='kw'>names_to</span> <span class='kw'>=</span> <span class='st'>"name"</span>, <span class='kw'>values_to</span> <span class='kw'>=</span> <span class='st'>"value"</span>,
-  <span class='kw'>spec</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>ptype</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>())</pre>
+<span class='fu'>pivot_long_spec</span>(<span class='no'>df</span>, <span class='no'>cols</span>, <span class='kw'>names_to</span> <span class='kw'>=</span> <span class='st'>"name"</span>, <span class='kw'>values_to</span> <span class='kw'>=</span> <span class='st'>"value"</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
