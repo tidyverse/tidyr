@@ -65,12 +65,12 @@ pivot_wide <- function(df,
   measure_out <- vec_na(list(), length(measure_specs))
 
   for (i in seq_along(measure_out)) {
-    spec <- measure_specs[[i]]
-    measure <- spec$.value[[1]]
+    spec_i <- measure_specs[[i]]
+    measure <- spec_i$.value[[1]]
     val <- df[[measure]]
 
-    cols <- df[names(spec)[-(1:2)]]
-    col_id <- vec_match(cols, spec[-(1:2)])
+    cols <- df[names(spec_i)[-(1:2)]]
+    col_id <- vec_match(cols, spec_i[-(1:2)])
     val_id <- data.frame(row = row_id, col = col_id)
     if (vec_duplicate_any(val_id)) {
       warn("Values are not uniquely identified; output will contain list-columns")
@@ -81,7 +81,7 @@ pivot_wide <- function(df,
     }
 
     nrow <- nrow(rows)
-    ncol <- nrow(spec)
+    ncol <- nrow(spec_i)
 
     fill <- values_fill[[measure]]
     if (is.null(fill)) {
@@ -93,9 +93,17 @@ pivot_wide <- function(df,
     }
     vec_slice(out, val_id$row + nrow * (val_id$col - 1L)) <- val
 
-    measure_out[[i]] <- wrap_vec(out, spec$.name)
+    measure_out[[i]] <- wrap_vec(out, spec_i$.name)
   }
-  vec_cbind(rows, !!!measure_out)
+
+  out <- vec_cbind(rows, !!!measure_out)
+
+  # recreate desired column order
+  # https://github.com/r-lib/vctrs/issues/227
+  if (all(spec$.name %in% names(out))) {
+    out <- out[c(names(rows), spec$.name)]
+  }
+  out
 }
 
 #' @export

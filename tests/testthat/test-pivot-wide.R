@@ -33,6 +33,17 @@ test_that("duplicated keys produce list column", {
   expect_equal(pv$x, list_of(c(1L, 2L), 3L))
 })
 
+test_that("warn when overwriting existing column", {
+  df <- tibble(
+    a = c(1, 1),
+    key = c("a", "b"),
+    val = c(1, 2)
+  )
+  expect_message(pv <- pivot_wide(df, key, val), "New names")
+})
+
+# multiple values ----------------------------------------------------------
+
 test_that("can pivot from multiple measure cols", {
   df <- tibble(row = 1, var = c("x", "y"), a = 1:2, b = 3:4)
   sp <- tibble::tribble(
@@ -49,11 +60,22 @@ test_that("can pivot from multiple measure cols", {
   expect_equal(pv$y_b, 4)
 })
 
-test_that("warn when overwriting existing column", {
-  df <- tibble(
-    a = c(1, 1),
-    key = c("a", "b"),
-    val = c(1, 2)
+test_that("column order in output matches spec", {
+  df <- tibble::tribble(
+    ~hw,   ~name,  ~mark,   ~pr,
+    "hw1", "anna",    95,  "ok",
+    "hw2", "anna",    70, "meh",
   )
-  expect_message(pv <- pivot_wide(df, key, val), "New names")
+
+  # deliberately create weird order
+  sp <- tibble::tribble(
+    ~hw, ~.value,  ~.name,
+    "hw1", "mark", "hw1_mark",
+    "hw1", "pr",   "hw1_pr",
+    "hw2", "pr",   "hw2_pr",
+    "hw2", "mark", "hw2_mark",
+  )
+
+  pv <- pivot_wide(df, spec = sp)
+  expect_named(pv, c("name", sp$.name))
 })
