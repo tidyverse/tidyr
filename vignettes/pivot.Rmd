@@ -354,9 +354,9 @@ Supplying this spec to `pivot_wide()` gives us the result we're looking for:
 us_rent_income %>% pivot_wide(spec = spec)
 ```
 
-# Multiple transformations
+# Other challenges
 
-Sometimes getting a dataset into the needed form requires multiple pivots. The final three case studies show a few examples that require substantial work to get into a useful format.
+Sometimes getting a dataset into the needed form requires multiple steps. These final case studies show a few examples that require multiple steps to get into a useful format.
 
 ## World bank
 
@@ -445,30 +445,35 @@ anscombe %>%
 
 ## Contact list
 
-Requires to widening twice.
-
-Inspired by <https://github.com/jienagu/tidyverse_examples/blob/master/example_long_wide.R>
+A final challenge comes is inspired by [Jiena Gu](https://github.com/jienagu/tidyverse_examples/blob/master/example_long_wide.R). Imagine you have a contact list that you've copied and pasted from a website:
 
 ```{r}
-contacts <- 
-  c(
-    "company", "Toyota", "name", "Jiena McLellan",
-    "company", "McDonalds", "name", "John Smith"
-  )
+contacts <- tribble(
+  ~field, ~value,
+  "name", "Jiena McLellan",
+  "company", "Toyota", 
+  "name", "John Smith", 
+  "company", "google", 
+  "email", "john@google.com",
+  "name", "Huxley Ratcliffe"
+)
+```
 
-df <- tibble(meta = contacts)
-df <- df %>% 
+This is challenging because there's no variable that identifies which observations belong together, and unlike `anscombe` there's no regular pattern. We can fix this by noting that every contact starts with a name, so we can create a unique id by counting every time see "name" as the `field`: 
+
+```{r}
+contacts <- contacts %>% 
   mutate(
-    id = cumsum(meta == "company"),
-    row = rep(seq_len(nrow(df) / 2), each = 2),
-    type = rep(c("var", "value"), length = nrow(df))
-  ) 
+    person_id = cumsum(field == "name")
+  )
+contacts
+```
 
-spec <- pivot_wide_spec(df, names_from = type, values_from = meta)
-df2 <- df %>% pivot_wide(spec = spec)
+Now that we have a unique identifier for each person, we can pivot `field` and `value` into the columns:
 
-spec2 <- pivot_wide_spec(df2, names_from = var, values_from = value)
-df2 %>% select(-row) %>% pivot_wide(spec = spec2)
+```{r}
+contacts %>% 
+  pivot_wide(names_from = field, values_from = value)
 ```
 
 [cdata]: https://winvector.github.io/cdata/
