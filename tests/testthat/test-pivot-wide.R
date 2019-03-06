@@ -25,14 +25,6 @@ test_that("implicit missings turn into explicit missings", {
   expect_equal(pv$y, c(NA, 2))
 })
 
-test_that("duplicated keys produce list column", {
-  df <- tibble(a = c(1, 1, 2), key = c("x", "x", "x"), val = 1:3)
-  expect_warning(pv <- pivot_wide(df, key, val), "list-col")
-
-  expect_equal(pv$a, c(1, 2))
-  expect_equal(pv$x, list_of(c(1L, 2L), 3L))
-})
-
 test_that("warn when overwriting existing column", {
   df <- tibble(
     a = c(1, 1),
@@ -41,6 +33,25 @@ test_that("warn when overwriting existing column", {
   )
   expect_message(pv <- pivot_wide(df, key, val), "New names")
 })
+
+# duplicated keys ---------------------------------------------------------
+
+test_that("duplicated keys produce list column", {
+  df <- tibble(a = c(1, 1, 2), key = c("x", "x", "x"), val = 1:3)
+  expect_warning(pv <- pivot_wide(df, key, val), "list-col")
+
+  expect_equal(pv$a, c(1, 2))
+  expect_equal(pv$x, list_of(c(1L, 2L), 3L))
+})
+
+test_that("unless values_collapse is supplied", {
+  df <- tibble(a = c(1, 1, 2), key = c("x", "x", "x"), val = 1:3)
+  pv <- pivot_wide(df, key, val, values_collapse = list(val = length))
+
+  expect_equal(pv$a, c(1, 2))
+  expect_equal(pv$x, c(2L, 1L))
+})
+
 
 # multiple values ----------------------------------------------------------
 

@@ -16,6 +16,8 @@
 #'   create syntactic variable names.
 #' @param values_fill Optionally, a named list specifying what each `value`
 #'   should be filled in with when missing.
+#' @param values_collapse Optionally, a named list describing how to collapse
+#'   each `value` if the keys are not unique.
 #' @export
 #' @examples
 #' # Use values_fill to fill in missing values when you know what they
@@ -32,6 +34,7 @@ pivot_wide <- function(df,
                        names_prefix = "",
                        names_sep = "_",
                        values_fill = NULL,
+                       values_collapse = NULL,
                        spec = NULL) {
 
   if (is.null(spec)) {
@@ -73,10 +76,20 @@ pivot_wide <- function(df,
     col_id <- vec_match(cols, spec_i[-(1:2)])
     val_id <- data.frame(row = row_id, col = col_id)
     if (vec_duplicate_any(val_id)) {
-      warn("Values are not uniquely identified; output will contain list-columns")
+      collapse <- values_collapse[[measure]]
+      if (is.null(collapse)) {
+        warn("Values are not uniquely identified; output will contain list-columns")
+      }
 
       pieces <- vec_split(val, val_id)
       val <- pieces$val
+      if (!is.null(collapse)) {
+        collapse <- as_function(collapse)
+        # This is only correct if `values_collapse` always returns a single
+        # Needs https://github.com/r-lib/vctrs/issues/183
+        val <- vec_c(!!!map(val, collapse))
+      }
+
       val_id <- pieces$key
     }
 

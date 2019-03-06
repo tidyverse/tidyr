@@ -7,7 +7,7 @@
 \usage{
 pivot_wide(df, names_from = name, values_from = value,
   names_prefix = "", names_sep = "_", values_fill = NULL,
-  spec = NULL)
+  values_collapse = NULL, spec = NULL)
 
 pivot_wide_spec(df, names_from = name, values_from = value,
   names_prefix = "", names_sep = "_")
@@ -29,6 +29,9 @@ a column name.}
 
 \item{values_fill}{Optionally, a named list specifying what each \code{value}
 should be filled in with when missing.}
+
+\item{values_collapse}{Optionally, a named list describing how to collapse
+each \code{value} if the keys are not unique.}
 
 \item{spec}{Alternatively, instead of providing \code{cols} (and \code{names_to} and
 \code{values_to}) you can parse a specification data frame. This is useful
