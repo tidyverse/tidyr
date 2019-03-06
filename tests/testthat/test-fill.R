@@ -17,22 +17,17 @@ test_that("all missings left unchanged", {
 
 test_that("missings are filled correctly", {
   # filled down from last non-missing
-  df <- tibble(x = c(1, NA, NA))
-  out <- fill(df, x)
-  expect_equal(out$x, c(1, 1, 1))
-
-  # filled up from last non-missing
-  df <- tibble(x = c(NA, NA, 1))
-  out <- fill(df, x, .direction = "up")
-  expect_equal(out$x, c(1, 1, 1))
-
-  # filled down-and-then-up from last non-missing
   df <- tibble(x = c(NA, 1, NA, 2, NA, NA))
+
+  out <- fill(df, x)
+  expect_equal(out$x, c(NA, 1, 1, 2, 2, 2))
+
+  out <- fill(df, x, .direction = "up")
+  expect_equal(out$x, c(1, 1, 2, 2, NA, NA))
+
   out <- fill(df, x, .direction = 'downup')
   expect_equal(out$x, c(1, 1, 1, 2, 2, 2))
 
-  # filled up-and-then-down from last non-missing
-  df <- tibble(x = c(NA, 1, NA, 2, NA, NA))
   out <- fill(df, x, .direction = 'updown')
   expect_equal(out$x, c(1, 1, 2, 2, 2, 2))
 })
