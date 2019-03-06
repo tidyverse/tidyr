@@ -67,11 +67,11 @@ pivot_long <- function(df,
   # Line up output rows by combining spec and existing data frame
   # https://github.com/tidyverse/tidyr/issues/557
   rows <- expand.grid(
-    key_id = vec_along(keys),
-    df_id = vec_along(df),
+    key_id = vec_seq_along(keys),
+    df_id = vec_seq_along(df),
     KEEP.OUT.ATTRS = FALSE
   )
-  rows$val_id <- vec_along(rows)
+  rows$val_id <- vec_seq_along(rows)
 
   if (na.rm) {
     # https://github.com/r-lib/vctrs/issues/201
@@ -91,11 +91,6 @@ pivot_long <- function(df,
     out <- vec_cbind(vec_slice(df_out, rows$df_id), out)
   }
   out
-}
-
-# https://github.com/r-lib/vctrs/issues/189
-vec_along <- function(x) {
-  seq_len(vec_size(x))
 }
 
 #' Pivot data from long to wide
