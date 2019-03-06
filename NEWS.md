@@ -1,5 +1,7 @@
 # tidyr (development version)
 
+* New `us_rent_income()` dataset to demonstrate `pivot_wide()`.
+
 * `pivot()`
 
   * Better control of expansion of factor levels not present in the data (#193)

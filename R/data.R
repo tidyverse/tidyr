@@ -66,3 +66,19 @@
 #'
 #' @format A data frame with 2 rows and 5 columns.
 "smiths"
+
+#' US rent and income data
+#'
+#' Captured from the 2017 American Community Survey using the tidycensus
+#' package.
+#'
+#' @format A dataset with the variables
+#' \describe{
+#'   \item{GEOID}{FIP state identifier}
+#'   \item{NAME}{Name of state}
+#'   \item{variable}{Variable name: income = median yearly income,
+#'      rent = median monthly rent}
+#'   \item{estimate}{Estimated value}
+#'   \item{moe}{90\% margin of error}
+#' }
+"us_rent_income"
