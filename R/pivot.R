@@ -72,7 +72,6 @@ pivot_long <- function(df,
   rows$val_id <- vec_seq_along(rows)
 
   if (na.rm) {
-    # https://github.com/r-lib/vctrs/issues/201
     rows <- vec_slice(rows, !vec_equal_na(vals))
   }
 
