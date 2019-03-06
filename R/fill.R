@@ -34,8 +34,8 @@ fill.data.frame <- function(data, ..., .direction = c("down", "up", "downup", "u
     .direction,
     down = fillDown,
     up = fillUp,
-    downup = function(x) {fillUp(fillDown(x))},
-    updown = function(x) {fillDown(fillUp(x))}
+    downup = function(x) fillUp(fillDown(x)),
+    updown = function(x) fillDown(fillUp(x))
   )
 
   for (col in fill_cols) {
