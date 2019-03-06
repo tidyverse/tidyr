@@ -75,23 +75,10 @@ pivot_wide <- function(df,
     cols <- df[names(spec_i)[-(1:2)]]
     col_id <- vec_match(cols, spec_i[-(1:2)])
     val_id <- data.frame(row = row_id, col = col_id)
-    if (vec_duplicate_any(val_id)) {
-      collapse <- values_collapse[[measure]]
-      if (is.null(collapse)) {
-        warn("Values are not uniquely identified; output will contain list-columns")
-      }
 
-      pieces <- vec_split(val, val_id)
-      val <- pieces$val
-      if (!is.null(collapse)) {
-        collapse <- as_function(collapse)
-        # This is only correct if `values_collapse` always returns a single
-        # Needs https://github.com/r-lib/vctrs/issues/183
-        val <- vec_c(!!!map(val, collapse))
-      }
-
-      val_id <- pieces$key
-    }
+    dedup <- vals_dedup(val_id, val, values_collapse[[measure]])
+    val_id <- dedup$key
+    val <- dedup$val
 
     nrow <- nrow(rows)
     ncol <- nrow(spec_i)
@@ -141,6 +128,26 @@ pivot_wide_spec <- function(df,
 name <- value <- NULL
 
 # Helpers -----------------------------------------------------------------
+
+vals_dedup <- function(key, val, collapse = NULL) {
+  if (!vec_duplicate_any(key)) {
+    return(list(key = key, val = val))
+  }
+
+  if (is.null(collapse)) {
+    warn("Values are not uniquely identified; output will contain list-columns")
+  }
+
+  out <- vec_split(val, key)
+  if (!is.null(collapse)) {
+    collapse <- as_function(collapse)
+    # This is only correct if `values_collapse` always returns a single value
+    # Needs https://github.com/r-lib/vctrs/issues/183
+    out$val <- vec_c(!!!map(out$val, collapse))
+  }
+
+  out
+}
 
 # Wrap a "rectangular" vector into a data frame
 wrap_vec <- function(vec, names) {
