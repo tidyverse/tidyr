@@ -72,7 +72,7 @@
 #' Captured from the 2017 American Community Survey using the tidycensus
 #' package.
 #'
-#' @format A dataset with the variables
+#' @format A dataset with variables:
 #' \describe{
 #'   \item{GEOID}{FIP state identifier}
 #'   \item{NAME}{Name of state}
@@ -82,3 +82,23 @@
 #'   \item{moe}{90\% margin of error}
 #' }
 "us_rent_income"
+
+#' Fish encounters
+#'
+#' Information about fish swimming down a river: each station represents an
+#' autonomous monitor that records if a tagged fish was seen at that location.
+#' Fish travel in one direction (migrating downstream). Information about
+#' misses is just as important as hits, but is not directly recorded in this
+#' form of the data.
+#'
+#' @source
+#' Dataset provided by Myfanwy Johnston; more details at
+#' <https://fishsciences.github.io/post/visualizing-fish-encounter-histories/>
+#'
+#' @format A dataset with variables:
+#' \describe{
+#'   \item{fish}{Fish identifier}
+#'   \item{station}{Measurement station}
+#'   \item{seen}{Was the fish seen? (1 if yes, and true for all rows)}
+#' }
+"fish_encounters"

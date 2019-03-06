@@ -4,7 +4,7 @@
 \name{us_rent_income}
 \alias{us_rent_income}
 \title{US rent and income data}
-\format{A dataset with the variables
+\format{A dataset with variables:
 \describe{
 \item{GEOID}{FIP state identifier}
 \item{NAME}{Name of state}

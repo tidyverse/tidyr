@@ -117,6 +117,15 @@ vec_along <- function(x) {
 #' @param values_fill Optionally, a named list specifying what each `value`
 #'   should be filled in with when missing.
 #' @export
+#' @examples
+#' # Use values_fill to fill in missing values when you know what they
+#' # represent
+#' fish_encounters %>%
+#'   pivot_wide(
+#'     names_from = station,
+#'     values_from = seen,
+#'     values_fill = list(seen = 0)
+#'   )
 pivot_wide <- function(df,
                        names_from = name,
                        values_from = value,

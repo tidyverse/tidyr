@@ -42,3 +42,13 @@ Must be a data frame containing character \code{.name} and \code{.value} columns
 decreasing the number of rows. See more details in \code{vignette("pivot")},
 and see \code{\link[=pivot_long]{pivot_long()}} for the inverse transformation.
 }
+\examples{
+# Use values_fill to fill in missing values when you know what they
+# represent
+fish_encounters \%>\%
+  pivot_wide(
+    names_from = station,
+    values_from = seen,
+    values_fill = list(seen = 0)
+  )
+}

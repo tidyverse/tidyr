@@ -12,6 +12,7 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
+options(tibble.print_max = 10)
 ```
 
 # Introduction
@@ -268,40 +269,30 @@ We use `na.rm = TRUE` here because this shape of the data forces the creation of
 
 `pivot_wide()` is the opposite of `pivot_long()`: it makes a dataset __wider__ by reducing the number of rows and increasing the number of columns. It's relatively rare to need `pivot_wide()` to make tidy data, but it's often useful for creating summary tables for presentation, or data in a format needed by other tools.
 
-Note that it is generally true that `pivot_long()` and `pivot_wide()` are precisely symmetric: `df %>% pivot_long(spec = spec) %>% pivot_wide(spec = spec)` and `df %>% pivot_wide(spec = spec) %>% pivot_long(spec = spec)` will yield `df`)
+Note that it is generally true that `pivot_long()` and `pivot_wide()` are symmetric: `df %>% pivot_long(spec = spec) %>% pivot_wide(spec = spec)` and `df %>% pivot_wide(spec = spec) %>% pivot_long(spec = spec)` will yield `df`.
 
 ## Capture-recapture data
 
-From <https://github.com/PlethodoNick/markrecapture>
+The `fish_encounters` dataset, contributed by [Myfanwy Johnston](https://fishsciences.github.io/post/visualizing-fish-encounter-histories/),  describe when fish swimming down a river are detected by automatic monitoring stations:
 
 ```{r}
-mr <- read_csv("mark-recapture.csv", col_types = list()) %>% 
-  transmute(
-    date = as.Date(strptime(Date, "%d-%b-%y")),
-    individual = match(Individual, unique(Individual)),
-    seen = 1
-  ) %>% 
-  filter(individual <= 10)
-mr
+fish_encounters
 ```
 
-Often need a form where each time-point is a column.
+Many tools used to analyse this data need it in a form where each station is a column:
 
 ```{r}
-mr %>% pivot_wide(date, seen)
+fish_encounters %>% pivot_wide(names_from = station, values_from = seen)
 ```
 
-Can do a bit better by tweaking the column names, and filling the missing values with `0` (since we didn't observe them).
+This dataset only records when a fish was detected by the station - it doesn't record when it wasn't detected (this is common with this sort of data). That means the output data is filled with `NA`s. However, in this case we know that the absence of a record is means that the fish was not `seen`, so we can ask `pivot_wide()` to fill these missing values in with zeros:
 
 ```{r}
-mr %>% 
-  mutate(date = match(date, unique(date))) %>% 
-  pivot_wide(
-    names_from = date, 
-    values_from = seen,
-    names_prefix = "d", 
-    values_fill = list(seen = 0)
-  )
+fish_encounters %>% pivot_wide(
+  names_from = station, 
+  values_from = seen,
+  values_fill = list(seen = 0)
+)
 ```
 
 ## Manually generate spec
