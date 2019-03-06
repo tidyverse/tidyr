@@ -360,37 +360,40 @@ Sometimes getting a dataset into the needed form requires multiple pivots. The f
 
 ## World bank
 
-`world_bank_pop` contains data from the World Bank about population per country from 2000 to 2018:
+`world_bank_pop` contains data from the World Bank about population per country from 2000 to 2018.
 
 ```{r}
 world_bank_pop
 ```
+
+My goal is to produce a tidy dataset where each variable is in a column. It's not obvious exactly what steps are needed yet, but I'll start with the most obvious problem: year is spread across multiple columns.
 
 ```{r}
 pop2 <- world_bank_pop %>% 
   pivot_long(`2000`:`2017`, names_to = "year")
 pop2
 ```
+
+Next we need to consider the `indicator` variable:
+
+```{r}
+pop2 %>% count(indicator)
+```
+
+Here `SP.POP.GROW` is population growth, `SP.POP.TOTL` is total population, and `SP.URB.*` are the same but only for urban areas. Let's split this up into two variables: `area` (total or urban) and the actual variable (population or growth): 
+
 ```{r}
 pop3 <- pop2 %>% 
   separate(indicator, c(NA, "area", "variable"))
 pop3
 ```
 
+Now we can complet the tidying by pivoting `variable` and `value` to make `TOTL` and `GROW` columns:
+
 ```{r}
 pop3 %>% 
   pivot_wide(names_from = variable, values_from = value)
 ```
-
-
-Need to `pivot_long` and then `pivot_wide`.  Extract reasonable subset that can be included in package.
-
-```{r, eval = FALSE}
-# https://data.worldbank.org/topic/climate-change?view=chart
-wb <- read_csv("vignettes/API_19_DS2_en_csv_v2_10400593.csv", skip = 4)
-wb %>% select(country = `Country Code`, indicator = `Indicator Code`, `1960`:`2018`)
-```
-
 
 ## Anscombe's quartet
 
