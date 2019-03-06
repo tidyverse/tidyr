@@ -1,16 +1,31 @@
-#' Pivot data from wide to long or long to wide
+#' Pivot data from wide to long.
 #'
-#' See details in `vignette("pivot")`
+#' `pivot_long()` "lengthens" data, increasing the number of rows and
+#' decreasing the number of columns. See more details in `vignette("pivot")`,
+#' and see [pivot_wide()] for the inverse transformation.
 #'
-#' @param df A data frame to reshape.
-#' @param spec A data frame defining the reshaping specification.
-#'   Must contain `.name` and `.value` columns that are character
-#'   vectors. See [pivot_wide_spec()] and [pivot_long_spec()] for details.
-#' @param na.rm If `TRUE`, will convert explicit missing values to implicit
-#'   missing values. Used only when pivotting to long.
-#' @param ptype A named list that optionally override the types of
-#'   measured columns. Used only when pivotting to long.
-#' @inheritParams pivot_long_spec
+#' @param df A data frame to pivot.
+#' @param cols Columns to pivot into longer format. This takes a tidyselect
+#'   specification.
+#' @param names_to,values_to This pair of arguments determine which columns
+#'   the data stored in the column names (`names_to`) and the data stored in
+#'   the cell values (`values_to`) turn into in the result.
+#'
+#'   Note that these variables do not exist, so must be specified as strings.
+#' @param spec Alternatively, instead of providing `cols` (and `names_to` and
+#'   `values_to`) you can parse a specification data frame. This is useful
+#'   for more complex pivots because it gives you greater control on how
+#'   metadata stored in the column names turns into columns in the result.
+#'
+#'   Must be a data frame containing character `.name` and `.value` columns.
+#' @param na.rm If `TRUE`, will drop rows that contain only `NA`s in the
+#'   `value_to` column. This effectively converts explicit missing values to
+#'   implicit missing values, and should generally be used only when missing
+#'   values in `df` were created by its structure.
+#' @param ptype If not specified, the type of the `value_to` column will be
+#'   automatically guess from the data. Supply this argument when you want to
+#'   override that default. Should be a named list, where the names are
+#'   given by the value columns.
 #' @export
 pivot_long <- function(df,
                        cols,
@@ -83,11 +98,25 @@ vec_along <- function(x) {
   seq_len(vec_size(x))
 }
 
-#' @export
-#' @rdname pivot_long
-#' @inheritParams pivot_wide_spec
+#' Pivot data from long to wide
+#'
+#' `pivot_wide()` "widens" data, increasing the number of columns and
+#' decreasing the number of rows. See more details in `vignette("pivot")`,
+#' and see [pivot_long()] for the inverse transformation.
+#'
+#' @inheritParams pivot_long
+#' @param names_from,values_from A pair of arguments describing which column
+#'   (or columns) to get the name of the output column (`name_from`), and
+#'   which column to get the cell values from (`values_from`).
+#' @param names_sep If `names_from` contains multiple variables, this will be
+#'   used to join their values together into a single string to use as
+#'   a column name.
+#' @param names_prefix String added to the start of every variable name. This is
+#'   particularly useful if `names_from` is a numeric vector and you want to
+#'   create syntactic variable names.
 #' @param values_fill Optionally, a named list specifying what each `value`
 #'   should be filled in with when missing.
+#' @export
 pivot_wide <- function(df,
                        names_from = name,
                        values_from = value,
