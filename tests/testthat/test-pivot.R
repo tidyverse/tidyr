@@ -113,7 +113,7 @@ test_that("duplicated keys produce list column", {
   expect_warning(pv <- pivot_wide(df, key, val), "list-col")
 
   expect_equal(pv$a, c(1, 2))
-  expect_equal(pv$x, list(c(1, 2), 3))
+  expect_equal(pv$x, list_of(c(1L, 2L), 3L))
 })
 
 test_that("can pivot from multiple measure cols", {

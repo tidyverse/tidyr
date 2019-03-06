@@ -161,9 +161,9 @@ pivot_wide <- function(df,
     if (vec_duplicate_any(val_id)) {
       warn("Values are not uniquely identified; output will contain list-columns")
 
-      # https://github.com/r-lib/vctrs/issues/196
-      val <- unname(split(val, vec_duplicate_id(val_id)))
-      val_id <- vec_unique(val_id)
+      pieces <- vec_split(val, val_id)
+      val <- pieces$val
+      val_id <- pieces$key
     }
 
     nrow <- nrow(rows)
