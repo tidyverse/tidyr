@@ -79,18 +79,12 @@ pivot_long <- function(df,
   }
 
   # Join together df, spec, and val to produce final tibble
-  out <- vec_cbind(
+  df_out <- df[setdiff(names(df), spec$.name)]
+  vec_cbind(
+    vec_slice(df_out, rows$df_id),
     vec_slice(keys, rows$key_id),
     vec_slice(vals, rows$val_id),
   )
-
-  # Bind original keys back on if there are any
-  # Because of https://github.com/r-lib/vctrs/issues/199
-  df_out <- df[setdiff(names(df), spec$.name)]
-  if (ncol(df_out) > 0) {
-    out <- vec_cbind(vec_slice(df_out, rows$df_id), out)
-  }
-  out
 }
 
 #' Pivot data from long to wide
