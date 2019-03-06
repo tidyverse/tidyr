@@ -5,6 +5,8 @@
 
 * `pivot()`
 
+  * `pivot_wide()` can aggregate (#474)
+  * `pivot_wide()` can select keys (#572) 
   * Better control of expansion of factor levels not present in the data (#193)
   * Multi-spread (#149)
   * Multi-gather (#150)
