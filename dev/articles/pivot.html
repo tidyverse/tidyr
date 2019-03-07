@@ -607,34 +607,34 @@
 <a class="sourceLine" id="cb25-7" data-line-number="7"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="dt">value =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/Normal">rnorm</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/nrow">nrow</a></span>(.)))</a>
 <a class="sourceLine" id="cb25-8" data-line-number="8">df</a>
 <a class="sourceLine" id="cb25-9" data-line-number="9"><span class="co">#&gt; # A tibble: 45 x 4</span></a>
-<a class="sourceLine" id="cb25-10" data-line-number="10"><span class="co">#&gt;    product country  year   value</span></a>
-<a class="sourceLine" id="cb25-11" data-line-number="11"><span class="co">#&gt;    &lt;chr&gt;   &lt;chr&gt;   &lt;int&gt;   &lt;dbl&gt;</span></a>
-<a class="sourceLine" id="cb25-12" data-line-number="12"><span class="co">#&gt;  1 A       AI       2000  2.34  </span></a>
-<a class="sourceLine" id="cb25-13" data-line-number="13"><span class="co">#&gt;  2 A       AI       2001  1.14  </span></a>
-<a class="sourceLine" id="cb25-14" data-line-number="14"><span class="co">#&gt;  3 A       AI       2002  0.626 </span></a>
-<a class="sourceLine" id="cb25-15" data-line-number="15"><span class="co">#&gt;  4 A       AI       2003  0.0991</span></a>
-<a class="sourceLine" id="cb25-16" data-line-number="16"><span class="co">#&gt;  5 A       AI       2004 -1.51  </span></a>
-<a class="sourceLine" id="cb25-17" data-line-number="17"><span class="co">#&gt;  6 A       AI       2005 -1.12  </span></a>
-<a class="sourceLine" id="cb25-18" data-line-number="18"><span class="co">#&gt;  7 A       AI       2006  0.163 </span></a>
-<a class="sourceLine" id="cb25-19" data-line-number="19"><span class="co">#&gt;  8 A       AI       2007 -0.377 </span></a>
-<a class="sourceLine" id="cb25-20" data-line-number="20"><span class="co">#&gt;  9 A       AI       2008 -0.716 </span></a>
-<a class="sourceLine" id="cb25-21" data-line-number="21"><span class="co">#&gt; 10 A       AI       2009 -1.75  </span></a>
+<a class="sourceLine" id="cb25-10" data-line-number="10"><span class="co">#&gt;    product country  year  value</span></a>
+<a class="sourceLine" id="cb25-11" data-line-number="11"><span class="co">#&gt;    &lt;chr&gt;   &lt;chr&gt;   &lt;int&gt;  &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb25-12" data-line-number="12"><span class="co">#&gt;  1 A       AI       2000 -0.680</span></a>
+<a class="sourceLine" id="cb25-13" data-line-number="13"><span class="co">#&gt;  2 A       AI       2001 -0.412</span></a>
+<a class="sourceLine" id="cb25-14" data-line-number="14"><span class="co">#&gt;  3 A       AI       2002 -0.114</span></a>
+<a class="sourceLine" id="cb25-15" data-line-number="15"><span class="co">#&gt;  4 A       AI       2003 -0.539</span></a>
+<a class="sourceLine" id="cb25-16" data-line-number="16"><span class="co">#&gt;  5 A       AI       2004 -1.25 </span></a>
+<a class="sourceLine" id="cb25-17" data-line-number="17"><span class="co">#&gt;  6 A       AI       2005 -2.08 </span></a>
+<a class="sourceLine" id="cb25-18" data-line-number="18"><span class="co">#&gt;  7 A       AI       2006 -0.441</span></a>
+<a class="sourceLine" id="cb25-19" data-line-number="19"><span class="co">#&gt;  8 A       AI       2007  0.931</span></a>
+<a class="sourceLine" id="cb25-20" data-line-number="20"><span class="co">#&gt;  9 A       AI       2008 -0.199</span></a>
+<a class="sourceLine" id="cb25-21" data-line-number="21"><span class="co">#&gt; 10 A       AI       2009 -1.31 </span></a>
 <a class="sourceLine" id="cb25-22" data-line-number="22"><span class="co">#&gt; # … with 35 more rows</span></a></code></pre></div>
 <p>We want to widen the data so we have one column for each combination of <code>product</code> and <code>country</code>. The key is to specify multiple variables for <code>names_from</code>:</p>
 <div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb26-1" data-line-number="1">df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/pivot_wide.html">pivot_wide</a></span>(<span class="dt">names_from =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(product, country), <span class="dt">values_from =</span> value)</a>
 <a class="sourceLine" id="cb26-2" data-line-number="2"><span class="co">#&gt; # A tibble: 15 x 4</span></a>
-<a class="sourceLine" id="cb26-3" data-line-number="3"><span class="co">#&gt;     year    A_AI    B_AI   B_EI</span></a>
-<a class="sourceLine" id="cb26-4" data-line-number="4"><span class="co">#&gt;    &lt;int&gt;   &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;</span></a>
-<a class="sourceLine" id="cb26-5" data-line-number="5"><span class="co">#&gt;  1  2000  2.34    0.549  -1.18 </span></a>
-<a class="sourceLine" id="cb26-6" data-line-number="6"><span class="co">#&gt;  2  2001  1.14   -1.01   -0.152</span></a>
-<a class="sourceLine" id="cb26-7" data-line-number="7"><span class="co">#&gt;  3  2002  0.626  -0.0410  3.00 </span></a>
-<a class="sourceLine" id="cb26-8" data-line-number="8"><span class="co">#&gt;  4  2003  0.0991 -0.438   1.02 </span></a>
-<a class="sourceLine" id="cb26-9" data-line-number="9"><span class="co">#&gt;  5  2004 -1.51    0.996  -1.18 </span></a>
-<a class="sourceLine" id="cb26-10" data-line-number="10"><span class="co">#&gt;  6  2005 -1.12   -0.228   1.57 </span></a>
-<a class="sourceLine" id="cb26-11" data-line-number="11"><span class="co">#&gt;  7  2006  0.163  -1.11   -0.469</span></a>
-<a class="sourceLine" id="cb26-12" data-line-number="12"><span class="co">#&gt;  8  2007 -0.377  -0.323  -1.29 </span></a>
-<a class="sourceLine" id="cb26-13" data-line-number="13"><span class="co">#&gt;  9  2008 -0.716  -1.03    0.653</span></a>
-<a class="sourceLine" id="cb26-14" data-line-number="14"><span class="co">#&gt; 10  2009 -1.75   -1.21   -0.280</span></a>
+<a class="sourceLine" id="cb26-3" data-line-number="3"><span class="co">#&gt;     year   A_AI    B_AI   B_EI</span></a>
+<a class="sourceLine" id="cb26-4" data-line-number="4"><span class="co">#&gt;    &lt;int&gt;  &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb26-5" data-line-number="5"><span class="co">#&gt;  1  2000 -0.680  1.56    0.359</span></a>
+<a class="sourceLine" id="cb26-6" data-line-number="6"><span class="co">#&gt;  2  2001 -0.412 -1.31    1.95 </span></a>
+<a class="sourceLine" id="cb26-7" data-line-number="7"><span class="co">#&gt;  3  2002 -0.114  0.834  -0.959</span></a>
+<a class="sourceLine" id="cb26-8" data-line-number="8"><span class="co">#&gt;  4  2003 -0.539 -1.20    0.791</span></a>
+<a class="sourceLine" id="cb26-9" data-line-number="9"><span class="co">#&gt;  5  2004 -1.25  -0.0618 -1.55 </span></a>
+<a class="sourceLine" id="cb26-10" data-line-number="10"><span class="co">#&gt;  6  2005 -2.08   0.345  -0.110</span></a>
+<a class="sourceLine" id="cb26-11" data-line-number="11"><span class="co">#&gt;  7  2006 -0.441  0.548   0.406</span></a>
+<a class="sourceLine" id="cb26-12" data-line-number="12"><span class="co">#&gt;  8  2007  0.931 -1.58    0.262</span></a>
+<a class="sourceLine" id="cb26-13" data-line-number="13"><span class="co">#&gt;  9  2008 -0.199 -1.28   -1.39 </span></a>
+<a class="sourceLine" id="cb26-14" data-line-number="14"><span class="co">#&gt; 10  2009 -1.31  -1.49    0.170</span></a>
 <a class="sourceLine" id="cb26-15" data-line-number="15"><span class="co">#&gt; # … with 5 more rows</span></a></code></pre></div>
 <p>If you want finer control over the generated columns, you can create a spec data frame. This has exactly the same format as the <code><a href="../reference/pivot_long.html">pivot_long()</a></code>: a data frame with special <code>.name</code> and <code>.value</code> columns. But when fed to <code><a href="../reference/pivot_wide.html">pivot_wide()</a></code> it does the opposite transformation to <code><a href="../reference/pivot_long.html">pivot_long()</a></code>: it create the columns specified in <code>.name</code>, using the information from <code>.value</code> and the other columns.</p>
 <p>For this data set, you might want to generate a custom spec if you wanted to ensure that every possible combination of <code>country</code> and <code>product</code> got it’s own column, not just those present in the data:</p>
@@ -652,14 +652,14 @@
 <a class="sourceLine" id="cb27-12" data-line-number="12"></a>
 <a class="sourceLine" id="cb27-13" data-line-number="13">df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/pivot_wide.html">pivot_wide</a></span>(<span class="dt">spec =</span> spec) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">head</a></span>()</a>
 <a class="sourceLine" id="cb27-14" data-line-number="14"><span class="co">#&gt; # A tibble: 6 x 5</span></a>
-<a class="sourceLine" id="cb27-15" data-line-number="15"><span class="co">#&gt;    year    A_AI  A_EI    B_AI   B_EI</span></a>
-<a class="sourceLine" id="cb27-16" data-line-number="16"><span class="co">#&gt;   &lt;int&gt;   &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;</span></a>
-<a class="sourceLine" id="cb27-17" data-line-number="17"><span class="co">#&gt; 1  2000  2.34      NA  0.549  -1.18 </span></a>
-<a class="sourceLine" id="cb27-18" data-line-number="18"><span class="co">#&gt; 2  2001  1.14      NA -1.01   -0.152</span></a>
-<a class="sourceLine" id="cb27-19" data-line-number="19"><span class="co">#&gt; 3  2002  0.626     NA -0.0410  3.00 </span></a>
-<a class="sourceLine" id="cb27-20" data-line-number="20"><span class="co">#&gt; 4  2003  0.0991    NA -0.438   1.02 </span></a>
-<a class="sourceLine" id="cb27-21" data-line-number="21"><span class="co">#&gt; 5  2004 -1.51      NA  0.996  -1.18 </span></a>
-<a class="sourceLine" id="cb27-22" data-line-number="22"><span class="co">#&gt; 6  2005 -1.12      NA -0.228   1.57</span></a></code></pre></div>
+<a class="sourceLine" id="cb27-15" data-line-number="15"><span class="co">#&gt;    year   A_AI  A_EI    B_AI   B_EI</span></a>
+<a class="sourceLine" id="cb27-16" data-line-number="16"><span class="co">#&gt;   &lt;int&gt;  &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb27-17" data-line-number="17"><span class="co">#&gt; 1  2000 -0.680    NA  1.56    0.359</span></a>
+<a class="sourceLine" id="cb27-18" data-line-number="18"><span class="co">#&gt; 2  2001 -0.412    NA -1.31    1.95 </span></a>
+<a class="sourceLine" id="cb27-19" data-line-number="19"><span class="co">#&gt; 3  2002 -0.114    NA  0.834  -0.959</span></a>
+<a class="sourceLine" id="cb27-20" data-line-number="20"><span class="co">#&gt; 4  2003 -0.539    NA -1.20    0.791</span></a>
+<a class="sourceLine" id="cb27-21" data-line-number="21"><span class="co">#&gt; 5  2004 -1.25     NA -0.0618 -1.55 </span></a>
+<a class="sourceLine" id="cb27-22" data-line-number="22"><span class="co">#&gt; 6  2005 -2.08     NA  0.345  -0.110</span></a></code></pre></div>
 </div>
 <div id="tidy-census" class="section level2">
 <h2 class="hasAnchor">
@@ -800,43 +800,71 @@
 <a class="sourceLine" id="cb35-15" data-line-number="15"><span class="co">#&gt; 10 ABW     URB   2009  44052 -0.731 </span></a>
 <a class="sourceLine" id="cb35-16" data-line-number="16"><span class="co">#&gt; # … with 9,494 more rows</span></a></code></pre></div>
 </div>
+<div id="multi-choice" class="section level2">
+<h2 class="hasAnchor">
+<a href="#multi-choice" class="anchor"></a>Multi-choice</h2>
+<p>Thanks to Maxime Wack. From <a href="https://github.com/tidyverse/tidyr/issues/384" class="uri">https://github.com/tidyverse/tidyr/issues/384</a></p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb36-1" data-line-number="1">df &lt;-<span class="st"> </span>tibble<span class="op">::</span><span class="kw"><a href="https://tibble.tidyverse.org/reference/tribble.html">tribble</a></span>(</a>
+<a class="sourceLine" id="cb36-2" data-line-number="2">  <span class="op">~</span>id, <span class="op">~</span>choice1, <span class="op">~</span>choice2, <span class="op">~</span>choice3,</a>
+<a class="sourceLine" id="cb36-3" data-line-number="3">  <span class="dv">1</span>, <span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"C"</span>,</a>
+<a class="sourceLine" id="cb36-4" data-line-number="4">  <span class="dv">2</span>, <span class="st">"B"</span>, <span class="st">"C"</span>,  <span class="ot">NA</span>,</a>
+<a class="sourceLine" id="cb36-5" data-line-number="5">  <span class="dv">3</span>, <span class="st">"D"</span>,  <span class="ot">NA</span>,  <span class="ot">NA</span>,</a>
+<a class="sourceLine" id="cb36-6" data-line-number="6">  <span class="dv">4</span>, <span class="st">"B"</span>, <span class="st">"D"</span>,  <span class="ot">NA</span></a>
+<a class="sourceLine" id="cb36-7" data-line-number="7">)</a>
+<a class="sourceLine" id="cb36-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb36-9" data-line-number="9">df <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb36-10" data-line-number="10"><span class="st">  </span><span class="kw"><a href="../reference/pivot_long.html">pivot_long</a></span>(<span class="op">-</span>id, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb36-11" data-line-number="11"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/tally.html">count</a></span>(id, value) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb36-12" data-line-number="12"><span class="st">  </span><span class="kw"><a href="../reference/pivot_wide.html">pivot_wide</a></span>(</a>
+<a class="sourceLine" id="cb36-13" data-line-number="13">    <span class="dt">names_from =</span> value, </a>
+<a class="sourceLine" id="cb36-14" data-line-number="14">    <span class="dt">values_from =</span> n, </a>
+<a class="sourceLine" id="cb36-15" data-line-number="15">    <span class="dt">values_fill =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="dt">n =</span> <span class="dv">0</span>)</a>
+<a class="sourceLine" id="cb36-16" data-line-number="16">  )</a>
+<a class="sourceLine" id="cb36-17" data-line-number="17"><span class="co">#&gt; # A tibble: 4 x 5</span></a>
+<a class="sourceLine" id="cb36-18" data-line-number="18"><span class="co">#&gt;      id     A     B     C     D</span></a>
+<a class="sourceLine" id="cb36-19" data-line-number="19"><span class="co">#&gt;   &lt;dbl&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;</span></a>
+<a class="sourceLine" id="cb36-20" data-line-number="20"><span class="co">#&gt; 1     1     1     1     1     0</span></a>
+<a class="sourceLine" id="cb36-21" data-line-number="21"><span class="co">#&gt; 2     2     0     1     1     0</span></a>
+<a class="sourceLine" id="cb36-22" data-line-number="22"><span class="co">#&gt; 3     3     0     0     0     1</span></a>
+<a class="sourceLine" id="cb36-23" data-line-number="23"><span class="co">#&gt; 4     4     0     1     0     1</span></a></code></pre></div>
+</div>
 <div id="contact-list" class="section level2">
 <h2 class="hasAnchor">
 <a href="#contact-list" class="anchor"></a>Contact list</h2>
 <p>A final challenge comes is inspired by <a href="https://github.com/jienagu/tidyverse_examples/blob/master/example_long_wide.R">Jiena Gu</a>. Imagine you have a contact list that you’ve copied and pasted from a website:</p>
-<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb36-1" data-line-number="1">contacts &lt;-<span class="st"> </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/reexports.html">tribble</a></span>(</a>
-<a class="sourceLine" id="cb36-2" data-line-number="2">  <span class="op">~</span>field, <span class="op">~</span>value,</a>
-<a class="sourceLine" id="cb36-3" data-line-number="3">  <span class="st">"name"</span>, <span class="st">"Jiena McLellan"</span>,</a>
-<a class="sourceLine" id="cb36-4" data-line-number="4">  <span class="st">"company"</span>, <span class="st">"Toyota"</span>, </a>
-<a class="sourceLine" id="cb36-5" data-line-number="5">  <span class="st">"name"</span>, <span class="st">"John Smith"</span>, </a>
-<a class="sourceLine" id="cb36-6" data-line-number="6">  <span class="st">"company"</span>, <span class="st">"google"</span>, </a>
-<a class="sourceLine" id="cb36-7" data-line-number="7">  <span class="st">"email"</span>, <span class="st">"john@google.com"</span>,</a>
-<a class="sourceLine" id="cb36-8" data-line-number="8">  <span class="st">"name"</span>, <span class="st">"Huxley Ratcliffe"</span></a>
-<a class="sourceLine" id="cb36-9" data-line-number="9">)</a></code></pre></div>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb37-1" data-line-number="1">contacts &lt;-<span class="st"> </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/reexports.html">tribble</a></span>(</a>
+<a class="sourceLine" id="cb37-2" data-line-number="2">  <span class="op">~</span>field, <span class="op">~</span>value,</a>
+<a class="sourceLine" id="cb37-3" data-line-number="3">  <span class="st">"name"</span>, <span class="st">"Jiena McLellan"</span>,</a>
+<a class="sourceLine" id="cb37-4" data-line-number="4">  <span class="st">"company"</span>, <span class="st">"Toyota"</span>, </a>
+<a class="sourceLine" id="cb37-5" data-line-number="5">  <span class="st">"name"</span>, <span class="st">"John Smith"</span>, </a>
+<a class="sourceLine" id="cb37-6" data-line-number="6">  <span class="st">"company"</span>, <span class="st">"google"</span>, </a>
+<a class="sourceLine" id="cb37-7" data-line-number="7">  <span class="st">"email"</span>, <span class="st">"john@google.com"</span>,</a>
+<a class="sourceLine" id="cb37-8" data-line-number="8">  <span class="st">"name"</span>, <span class="st">"Huxley Ratcliffe"</span></a>
+<a class="sourceLine" id="cb37-9" data-line-number="9">)</a></code></pre></div>
 <p>This is challenging because there’s no variable that identifies which observations belong together, and unlike <code>anscombe</code> there’s no regular pattern. We can fix this by noting that every contact starts with a name, so we can create a unique id by counting every time see “name” as the <code>field</code>:</p>
-<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb37-1" data-line-number="1">contacts &lt;-<span class="st"> </span>contacts <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb37-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(</a>
-<a class="sourceLine" id="cb37-3" data-line-number="3">    <span class="dt">person_id =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/cumsum">cumsum</a></span>(field <span class="op">==</span><span class="st"> "name"</span>)</a>
-<a class="sourceLine" id="cb37-4" data-line-number="4">  )</a>
-<a class="sourceLine" id="cb37-5" data-line-number="5">contacts</a>
-<a class="sourceLine" id="cb37-6" data-line-number="6"><span class="co">#&gt; # A tibble: 6 x 3</span></a>
-<a class="sourceLine" id="cb37-7" data-line-number="7"><span class="co">#&gt;   field   value            person_id</span></a>
-<a class="sourceLine" id="cb37-8" data-line-number="8"><span class="co">#&gt;   &lt;chr&gt;   &lt;chr&gt;                &lt;int&gt;</span></a>
-<a class="sourceLine" id="cb37-9" data-line-number="9"><span class="co">#&gt; 1 name    Jiena McLellan           1</span></a>
-<a class="sourceLine" id="cb37-10" data-line-number="10"><span class="co">#&gt; 2 company Toyota                   1</span></a>
-<a class="sourceLine" id="cb37-11" data-line-number="11"><span class="co">#&gt; 3 name    John Smith               2</span></a>
-<a class="sourceLine" id="cb37-12" data-line-number="12"><span class="co">#&gt; 4 company google                   2</span></a>
-<a class="sourceLine" id="cb37-13" data-line-number="13"><span class="co">#&gt; 5 email   john@google.com          2</span></a>
-<a class="sourceLine" id="cb37-14" data-line-number="14"><span class="co">#&gt; 6 name    Huxley Ratcliffe         3</span></a></code></pre></div>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb38-1" data-line-number="1">contacts &lt;-<span class="st"> </span>contacts <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb38-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(</a>
+<a class="sourceLine" id="cb38-3" data-line-number="3">    <span class="dt">person_id =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/cumsum">cumsum</a></span>(field <span class="op">==</span><span class="st"> "name"</span>)</a>
+<a class="sourceLine" id="cb38-4" data-line-number="4">  )</a>
+<a class="sourceLine" id="cb38-5" data-line-number="5">contacts</a>
+<a class="sourceLine" id="cb38-6" data-line-number="6"><span class="co">#&gt; # A tibble: 6 x 3</span></a>
+<a class="sourceLine" id="cb38-7" data-line-number="7"><span class="co">#&gt;   field   value            person_id</span></a>
+<a class="sourceLine" id="cb38-8" data-line-number="8"><span class="co">#&gt;   &lt;chr&gt;   &lt;chr&gt;                &lt;int&gt;</span></a>
+<a class="sourceLine" id="cb38-9" data-line-number="9"><span class="co">#&gt; 1 name    Jiena McLellan           1</span></a>
+<a class="sourceLine" id="cb38-10" data-line-number="10"><span class="co">#&gt; 2 company Toyota                   1</span></a>
+<a class="sourceLine" id="cb38-11" data-line-number="11"><span class="co">#&gt; 3 name    John Smith               2</span></a>
+<a class="sourceLine" id="cb38-12" data-line-number="12"><span class="co">#&gt; 4 company google                   2</span></a>
+<a class="sourceLine" id="cb38-13" data-line-number="13"><span class="co">#&gt; 5 email   john@google.com          2</span></a>
+<a class="sourceLine" id="cb38-14" data-line-number="14"><span class="co">#&gt; 6 name    Huxley Ratcliffe         3</span></a></code></pre></div>
 <p>Now that we have a unique identifier for each person, we can pivot <code>field</code> and <code>value</code> into the columns:</p>
-<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb38-1" data-line-number="1">contacts <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb38-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/pivot_wide.html">pivot_wide</a></span>(<span class="dt">names_from =</span> field, <span class="dt">values_from =</span> value)</a>
-<a class="sourceLine" id="cb38-3" data-line-number="3"><span class="co">#&gt; # A tibble: 3 x 4</span></a>
-<a class="sourceLine" id="cb38-4" data-line-number="4"><span class="co">#&gt;   person_id name             company email          </span></a>
-<a class="sourceLine" id="cb38-5" data-line-number="5"><span class="co">#&gt;       &lt;int&gt; &lt;chr&gt;            &lt;chr&gt;   &lt;chr&gt;          </span></a>
-<a class="sourceLine" id="cb38-6" data-line-number="6"><span class="co">#&gt; 1         1 Jiena McLellan   Toyota  &lt;NA&gt;           </span></a>
-<a class="sourceLine" id="cb38-7" data-line-number="7"><span class="co">#&gt; 2         2 John Smith       google  john@google.com</span></a>
-<a class="sourceLine" id="cb38-8" data-line-number="8"><span class="co">#&gt; 3         3 Huxley Ratcliffe &lt;NA&gt;    &lt;NA&gt;</span></a></code></pre></div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb39-1" data-line-number="1">contacts <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb39-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/pivot_wide.html">pivot_wide</a></span>(<span class="dt">names_from =</span> field, <span class="dt">values_from =</span> value)</a>
+<a class="sourceLine" id="cb39-3" data-line-number="3"><span class="co">#&gt; # A tibble: 3 x 4</span></a>
+<a class="sourceLine" id="cb39-4" data-line-number="4"><span class="co">#&gt;   person_id name             company email          </span></a>
+<a class="sourceLine" id="cb39-5" data-line-number="5"><span class="co">#&gt;       &lt;int&gt; &lt;chr&gt;            &lt;chr&gt;   &lt;chr&gt;          </span></a>
+<a class="sourceLine" id="cb39-6" data-line-number="6"><span class="co">#&gt; 1         1 Jiena McLellan   Toyota  &lt;NA&gt;           </span></a>
+<a class="sourceLine" id="cb39-7" data-line-number="7"><span class="co">#&gt; 2         2 John Smith       google  john@google.com</span></a>
+<a class="sourceLine" id="cb39-8" data-line-number="8"><span class="co">#&gt; 3         3 Huxley Ratcliffe &lt;NA&gt;    &lt;NA&gt;</span></a></code></pre></div>
 </div>
 </div>
 <div class="footnotes">
@@ -872,6 +900,7 @@
       <li>
 <a href="#other-challenges">Other challenges</a><ul class="nav nav-pills nav-stacked">
 <li><a href="#world-bank">World bank</a></li>
+      <li><a href="#multi-choice">Multi-choice</a></li>
       <li><a href="#contact-list">Contact list</a></li>
       </ul>
 </li>
