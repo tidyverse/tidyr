@@ -1,4 +1,6 @@
 # tidyr (development version)
+  
+* `fill()` now accepts `downup` and `updown` as fill directions. (@coolbutuseless #505)
 
 * `unnest()` now supports `NULL` entries (#436) 
 

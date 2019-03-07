@@ -94,7 +94,8 @@ columns are integer, numeric or logical.}
 \item{fill_cols}{Character vector of column names.}
 
 \item{.direction}{Direction in which to fill missing values. Currently
-either "down" (the default) or "up".}
+either "down" (the default), "up", "downup" (i.e. first down and then up)
+or "updown" (first up and then down).}
 
 \item{key_col, value_col}{Strings giving names of key and value columns to
 create.}
