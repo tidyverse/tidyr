@@ -23,6 +23,7 @@ NULL
 #' df <- data.frame(Month = 1:12, Year = c(2000, rep(NA, 11)))
 #' df %>% fill(Year)
 fill <- function(data, ..., .direction = c("down", "up", "downup", "updown")) {
+  ellipsis::check_dots_unnamed()
   UseMethod("fill")
 }
 #' @export

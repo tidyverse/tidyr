@@ -10,6 +10,7 @@
 #' df %>% drop_na(x)
 #' @export
 drop_na <- function(data, ...) {
+  ellipsis::check_dots_unnamed()
   UseMethod("drop_na")
 }
 #' @export

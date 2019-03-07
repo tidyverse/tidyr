@@ -31,6 +31,7 @@
 #'     nest(-country, -continent)
 #' }
 nest <- function(data, ..., .key = "data") {
+  ellipsis::check_dots_unnamed()
   UseMethod("nest")
 }
 #' @importFrom utils packageVersion

@@ -25,6 +25,7 @@
 #' df$x %>% replace_na(0)
 #' df$y %>% replace_na("unknown")
 replace_na <- function(data, replace, ...) {
+  ellipsis::check_dots_used()
   UseMethod("replace_na")
 }
 

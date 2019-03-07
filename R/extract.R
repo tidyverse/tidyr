@@ -31,6 +31,7 @@
 #' df %>% extract(x, c("A", "B"), "([a-d]+)-([a-d]+)")
 extract <- function(data, col, into, regex = "([[:alnum:]]+)",
                     remove = TRUE, convert = FALSE, ...) {
+  ellipsis::check_dots_used()
   UseMethod("extract")
 }
 #' @export

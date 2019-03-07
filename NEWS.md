@@ -2,6 +2,10 @@
   
 * `fill()` now accepts `downup` and `updown` as fill directions. (@coolbutuseless #505)
 
+* tidyr now uses the ellipsis package to ensure that all functions with `...`
+  either always use all inputs, or warn that you've supplied arguments that
+  ignored (typically because you've misspelled an argument name) (#573).
+
 * `unnest()` now supports `NULL` entries (#436) 
 
 * `unite()` gains `na.rm` argument making it easier to remove missing values
