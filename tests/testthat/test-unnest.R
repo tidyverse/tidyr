@@ -195,7 +195,7 @@ test_that("column order is preserved", {
   df <- tibble(x = "a", y = list("b", "c"), z = "d")
   expect_named(unnest(df), c("x", "y", "z"))
 
-  df$y <- list(tibble(y = "b"), tibble(y = "c"))
+  df$y <- list(tibble(y1 = "b", y2 = "e"), tibble(y1 = "c", y2 = "f"))
   expect_named(unnest(df), c("x", "y", "z"))
 })
 
