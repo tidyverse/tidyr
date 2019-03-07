@@ -33,3 +33,11 @@ test_that("empty var spec uses all vars", {
   df <- tibble(x = "a", y = "b")
   expect_equal(unite(df, "z"), tibble(z = "a_b"))
 })
+
+
+test_that("can remove missing vars on request", {
+  df <- expand_grid(x = c("a", NA), y = c("b", NA))
+  out <- unite(df, "z", x:y, na.rm = TRUE)
+
+  expect_equal(out$z, c("a_b", "a", "b", ""))
+})

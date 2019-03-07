@@ -4,7 +4,7 @@
 \alias{unite}
 \title{Unite multiple columns into one.}
 \usage{
-unite(data, col, ..., sep = "_", remove = TRUE)
+unite(data, col, ..., sep = "_", remove = TRUE, na.rm = FALSE)
 }
 \arguments{
 \item{data}{A data frame.}
@@ -27,6 +27,9 @@ the section on selection rules below.}
 \item{sep}{Separator to use between values.}
 
 \item{remove}{If \code{TRUE}, remove input columns from output data frame.}
+
+\item{na.rm}{If \code{TRUE}, missing values will be remove prior to uniting
+each value.}
 }
 \description{
 Convenience function to paste together multiple columns into one.
@@ -60,13 +63,18 @@ can contain either a column name as string or a column position).
 }
 
 \examples{
-library(dplyr)
-unite_(mtcars, "vs_am", c("vs","am"))
+df <- expand_grid(x = c("a", NA), y = c("b", NA))
+df
 
-# Separate is the complement of unite
-mtcars \%>\%
-  unite("vs_am", vs, am) \%>\%
-  separate(vs_am, c("vs", "am"))
+df \%>\% unite("z", x:y, remove = FALSE)
+# To remove missing values:
+df \%>\% unite("z", x:y, na.rm = TRUE, remove = FALSE)
+
+# Separate is almost the complement of unite
+df \%>\%
+  unite("xy", x:y) \%>\%
+  separate(xy, c("x", "y"))
+# (but note `x` and `y` contain now "NA" not NA)
 }
 \seealso{
 \code{\link[=separate]{separate()}}, the complement.

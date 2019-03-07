@@ -1,5 +1,8 @@
 # tidyr (development version)
 
+* `unite()` gains `na.rm` argument making it easier to remove missing values
+  prior to uniting values together (#203)
+  
 * New `us_rent_income`, `fish_encounters` and `world_bank_pop` datasets to 
   demonstrate pivoting challenges.
 
