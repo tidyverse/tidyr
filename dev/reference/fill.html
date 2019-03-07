@@ -124,7 +124,7 @@ each time they change.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>fill</span>(<span class='no'>data</span>, <span class='no'>...</span>, <span class='kw'>.direction</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"down"</span>, <span class='st'>"up"</span>))</pre>
+    <pre class="usage"><span class='fu'>fill</span>(<span class='no'>data</span>, <span class='no'>...</span>, <span class='kw'>.direction</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"down"</span>, <span class='st'>"up"</span>, <span class='st'>"downup"</span>, <span class='st'>"updown"</span>))</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -143,7 +143,8 @@ with <code>x:z</code>, exclude <code>y</code> with <code>-y</code>. For more sel
     <tr>
       <th>.direction</th>
       <td><p>Direction in which to fill missing values. Currently
-either "down" (the default) or "up".</p></td>
+either "down" (the default), "up", "downup" (i.e. first down and then up)
+or "updown" (first up and then down).</p></td>
     </tr>
     </table>
     
