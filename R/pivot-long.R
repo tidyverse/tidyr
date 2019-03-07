@@ -43,24 +43,26 @@ pivot_long <- function(df,
     spec <- check_spec(spec)
   }
 
-  measures <- split(spec$.name, spec$.value)
-  measure_keys <- split(spec[-(1:2)], spec$.value)
+  values <- split(spec$.name, spec$.value)
+  value_keys <- split(spec[-(1:2)], spec$.value)
   keys <- vec_unique(spec[-(1:2)])
 
-  vals <- set_names(vec_na(list(), length(measures)), names(measures))
-  for (measure in names(measures)) {
-    cols <- measures[[measure]]
-    col_id <- vec_match(measure_keys[[measure]], keys)
+  vals <- set_names(vec_na(list(), length(values)), names(values))
+  for (value in names(values)) {
+    cols <- values[[value]]
+    cols_df <- names(df) %in% cols
 
-    val_cols <- vec_na(list(), nrow(keys))
-    val_cols[col_id] <- unname(as.list(df[cols]))
+    col_id <- vec_match(value_keys[[value]], keys)
+
+    val_cols <- vec_na(list(), sum(cols_df))
+    val_cols[col_id] <- unname(as.list(df[cols_df]))
     val_cols[-col_id] <- list(rep(NA, nrow(df)))
 
-    val_type <- vec_type_common(!!!val_cols, .ptype = ptype[[measure]])
+    val_type <- vec_type_common(!!!val_cols, .ptype = ptype[[value]])
     out <- vec_c(!!!val_cols, .ptype = val_type)
     # Interleave into correct order
     idx <- (matrix(seq_len(nrow(df) * length(val_cols)), ncol = nrow(df), byrow = TRUE))
-    vals[[measure]] <- vec_slice(out, as.integer(idx))
+    vals[[value]] <- vec_slice(out, as.integer(idx))
   }
   vals <- as_tibble(vals)
 

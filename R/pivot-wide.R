@@ -55,8 +55,8 @@ pivot_wide <- function(df,
     spec <- check_spec(spec)
   }
 
-  measures <- vec_unique(spec$.value)
-  spec_cols <- c(names(spec)[-(1:2)], measures)
+  values <- vec_unique(spec$.value)
+  spec_cols <- c(names(spec)[-(1:2)], values)
 
   keys <- enquo(keys)
   if (!quo_is_null(keys)) {
@@ -76,26 +76,26 @@ pivot_wide <- function(df,
     row_id <- vec_match(df_rows, rows)
   }
 
-  measure_specs <- unname(split(spec, spec$.value))
-  measure_out <- vec_na(list(), length(measure_specs))
+  value_specs <- unname(split(spec, spec$.value))
+  value_out <- vec_na(list(), length(value_specs))
 
-  for (i in seq_along(measure_out)) {
-    spec_i <- measure_specs[[i]]
-    measure <- spec_i$.value[[1]]
-    val <- df[[measure]]
+  for (i in seq_along(value_out)) {
+    spec_i <- value_specs[[i]]
+    value <- spec_i$.value[[1]]
+    val <- df[[value]]
 
     cols <- df[names(spec_i)[-(1:2)]]
     col_id <- vec_match(cols, spec_i[-(1:2)])
     val_id <- data.frame(row = row_id, col = col_id)
 
-    dedup <- vals_dedup(val_id, val, values_collapse[[measure]])
+    dedup <- vals_dedup(val_id, val, values_collapse[[value]])
     val_id <- dedup$key
     val <- dedup$val
 
     nrow <- nrow(rows)
     ncol <- nrow(spec_i)
 
-    fill <- values_fill[[measure]]
+    fill <- values_fill[[value]]
     if (is.null(fill)) {
       out <- vec_na(val, nrow * ncol)
     } else {
@@ -105,10 +105,10 @@ pivot_wide <- function(df,
     }
     vec_slice(out, val_id$row + nrow * (val_id$col - 1L)) <- val
 
-    measure_out[[i]] <- wrap_vec(out, spec_i$.name)
+    value_out[[i]] <- wrap_vec(out, spec_i$.name)
   }
 
-  out <- vec_cbind(rows, !!!measure_out)
+  out <- vec_cbind(rows, !!!value_out)
 
   # recreate desired column order
   # https://github.com/r-lib/vctrs/issues/227
