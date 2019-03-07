@@ -265,6 +265,24 @@ family %>%
 
 We use `na.rm = TRUE` here because this shape of the data forces the creation of explicit missing variables for observations that don't exist. This ensures that family 2 has a single row in the output.
 
+Another case of this problem is the built-in `anscombe` dataset:
+
+```{r}
+anscombe
+```
+
+This dataset contains four pairs of variables (`x1` + `y1`, `x2` + `y2`, etc) that underlie Anscombe's quartet, a collection of four datasets that have the same summary statistics (mean, sd, correlation etc), but have quite different data. We want to produce a dataset with columns with `graph`, `x` and `y`. 
+
+```{r}
+spec <- anscombe %>% 
+  pivot_long_spec(everything()) %>% 
+  separate(name, c(".value", "graph"), 1)
+
+anscombe %>% 
+  pivot_long(spec = spec) %>% 
+  arrange()
+```
+
 # Long to wide
 
 `pivot_wide()` is the opposite of `pivot_long()`: it makes a dataset __wider__ by reducing the number of rows and increasing the number of columns. It's relatively rare to need `pivot_wide()` to make tidy data, but it's often useful for creating summary tables for presentation, or data in a format needed by other tools.
@@ -393,54 +411,6 @@ Now we can complet the tidying by pivoting `variable` and `value` to make `TOTL`
 ```{r}
 pop3 %>% 
   pivot_wide(names_from = variable, values_from = value)
-```
-
-## Anscombe's quartet
-
-Sometimes datasets are missing variables that let you identify related observations after lengthening. For example, take the built-in `anscombe` dataset:
-
-```{r}
-anscombe
-```
-
-This dataset contains four pairs of variables (`x1` + `y1`, `x2` + `y2`, etc) that underlie Anscombe's quartet, a collection of four datasets that have the same summary statistics (mean, sd, correlation etc), but have quite different data.
-
-We want to produce a dataset with columns with `graph`, `x` and `y`. It will require a few steps to get there. Firstly, we need to lengthen the data because currently we have a lot of data in the column names:
-
-```{r}
-anscombe %>% pivot_long(everything())
-```
-
-But now we've lost the relationship between the particularly values of `x1` and `y1`. The easiest way to fix this is to introduce a variable that uniquely identifies each row:
-
-```{r}
-anscombe <- anscombe %>% 
-  as_tibble() %>% 
-  mutate(row = row_number())
-anscombe
-```
-
-```{r}
-spec <- anscombe %>% 
-  pivot_long_spec(-row) %>% 
-  separate(name, c("var", "graph"), 1, convert = TRUE)
-spec
-```
-
-```{r}
-anscombe %>% 
-  pivot_long(spec = spec) %>% 
-  pivot_wide(names_from = var, values_from = value) 
-```
-
-We can now sort all observations for graph together and remove the `row` variable since it's no longer needed.
-
-```{r}
-anscombe %>% 
-  pivot_long(spec = spec) %>% 
-  pivot_wide(names_from = var, values_from = value) %>% 
-  select(-row) %>% 
-  arrange(graph)
 ```
 
 ## Contact list
