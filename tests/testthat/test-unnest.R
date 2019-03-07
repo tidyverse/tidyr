@@ -55,6 +55,18 @@ test_that("can't combine vectors and data frames", {
   expect_error(unnest(df), "a list of vectors or a list of data frames")
 })
 
+test_that("can combine NULL with vectors or data frames", {
+  df1 <- tibble(x = 1:2, y = list(NULL, tibble(z = 1)))
+  out <- unnest(df1, y)
+  expect_named(out, c("x", "z"))
+  expect_equal(out$z, 1)
+
+  df2 <- tibble(x = 1:2, y = list(NULL, 1))
+  out <- unnest(df2, y)
+  expect_named(out, c("x", "y"))
+  expect_equal(out$y, 1)
+})
+
 test_that("multiple columns must be same length", {
   df <- tibble(x = list(1), y = list(1:2))
   expect_error(unnest(df), "same number of elements")

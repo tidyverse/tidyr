@@ -161,8 +161,8 @@ unnest.data.frame <- function(data, ..., .drop = NA, .id = NULL,
 }
 
 list_col_type <- function(x) {
-  is_data_frame <- is.data.frame(attr(x, "ptype", exact = TRUE)) || (is.list(x) && all(map_lgl(x, is.data.frame)))
-  is_atomic <- all(map_lgl(x, function(x) is_atomic(x) || (is_list(x) && !is.object(x))))
+  is_data_frame <- is.data.frame(attr(x, "ptype", exact = TRUE)) || (is.list(x) && all(map_lgl(x, ~ is.data.frame(.x) || is.null(.x))))
+  is_atomic <- all(map_lgl(x, function(x) is_atomic(x) || (is_list(x) && !is.object(x)) || is_null(x)))
 
   if (is_data_frame) {
     "dataframe"

@@ -1,5 +1,7 @@
 # tidyr (development version)
 
+* `unnest()` now supports `NULL` entries (#436) 
+
 * `unite()` gains `na.rm` argument making it easier to remove missing values
   prior to uniting values together (#203)
   
