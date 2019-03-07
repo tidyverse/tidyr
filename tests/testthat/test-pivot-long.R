@@ -71,3 +71,12 @@ test_that("can pivot to multiple measure cols", {
   expect_equal(pv$X, "x")
   expect_equal(pv$Y, 1)
 })
+
+test_that("handles duplicated column names", {
+  df <- tibble(x = 1, a = 1, a = 2, b = 3, b = 4, .name_repair = "minimal")
+  expect_warning(pv <- pivot_long(df, -x), "Duplicate column names")
+
+  expect_named(pv, c("x", "name", ".copy", "value"))
+  expect_equal(pv$.copy, rep(1:2, times = 2))
+  expect_equal(pv$value, 1:4)
+})

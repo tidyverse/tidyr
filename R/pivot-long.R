@@ -42,6 +42,7 @@ pivot_long <- function(df,
   } else {
     spec <- check_spec(spec)
   }
+  spec <- deduplicate_names(spec, df)
 
   values <- split(spec$.name, spec$.value)
   value_keys <- split(spec[-(1:2)], spec$.value)
@@ -50,12 +51,10 @@ pivot_long <- function(df,
   vals <- set_names(vec_na(list(), length(values)), names(values))
   for (value in names(values)) {
     cols <- values[[value]]
-    cols_df <- names(df) %in% cols
-
     col_id <- vec_match(value_keys[[value]], keys)
 
-    val_cols <- vec_na(list(), sum(cols_df))
-    val_cols[col_id] <- unname(as.list(df[cols_df]))
+    val_cols <- vec_na(list(), length(cols))
+    val_cols[col_id] <- unname(as.list(df[cols]))
     val_cols[-col_id] <- list(rep(NA, nrow(df)))
 
     val_type <- vec_type_common(!!!val_cols, .ptype = ptype[[value]])
@@ -78,7 +77,7 @@ pivot_long <- function(df,
   }
 
   # Join together df, spec, and val to produce final tibble
-  df_out <- df[setdiff(names(df), spec$.name)]
+  df_out <- drop_cols(df, spec$.name)
   vec_cbind(
     vec_slice(df_out, rows$df_id),
     vec_slice(keys, rows$key_id),
@@ -96,4 +95,40 @@ pivot_long_spec <- function(df, cols, names_to = "name", values_to = "value") {
     .value = values_to,
     !!names_to := cols
   )
+}
+
+drop_cols <- function(df, cols) {
+  if (is.character(cols)) {
+    df[setdiff(names(df), cols)]
+  } else if (is.integer(cols)) {
+    df[-cols]
+  } else {
+    abort("Invalid input")
+  }
+}
+
+# Match spec to data, handling duplicated column names
+deduplicate_names <- function(spec, df) {
+  col_id <- vec_match(names(df), spec$.name)
+  has_match <- !is.na(col_id)
+
+  if (!vec_duplicate_any(col_id[has_match])) {
+    return(spec)
+  }
+
+  warn("Duplicate column names detected, adding .copy variable")
+
+  spec <- vec_slice(spec, col_id[has_match])
+  # Need to use numeric indices because names only match first
+  spec$.name <- seq_along(df)[has_match]
+
+  pieces <- vec_split(seq_len(nrow(spec)), col_id[has_match])
+  copy <- integer(nrow(spec))
+  for (i in seq_along(pieces$val)) {
+    idx <- pieces$val[[i]]
+    copy[idx] <- seq_along(idx)
+  }
+
+  spec$.copy <- copy
+  spec
 }
