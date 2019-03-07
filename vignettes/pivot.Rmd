@@ -413,6 +413,30 @@ pop3 %>%
   pivot_wide(names_from = variable, values_from = value)
 ```
 
+## Multi-choice
+
+Thanks to Maxime Wack. From <https://github.com/tidyverse/tidyr/issues/384>
+
+```{r}
+df <- tibble::tribble(
+  ~id, ~choice1, ~choice2, ~choice3,
+  1, "A", "B", "C",
+  2, "B", "C",  NA,
+  3, "D",  NA,  NA,
+  4, "B", "D",  NA
+)
+
+df %>% 
+  pivot_long(-id, na.rm = TRUE) %>% 
+  dplyr::count(id, value) %>% 
+  pivot_wide(
+    names_from = value, 
+    values_from = n, 
+    values_fill = list(n = 0)
+  )
+```
+
+
 ## Contact list
 
 A final challenge comes is inspired by [Jiena Gu](https://github.com/jienagu/tidyverse_examples/blob/master/example_long_wide.R). Imagine you have a contact list that you've copied and pasted from a website:
