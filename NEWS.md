@@ -1,4 +1,8 @@
 # tidyr (development version)
+
+* Implement `fill()` using `dplyr::mutate_at()`. This radically simplifies 
+  implementation and considerably improves performance when working with
+  grouped data (#520).
   
 * `fill()` now accepts `downup` and `updown` as fill directions. (@coolbutuseless #505)
 

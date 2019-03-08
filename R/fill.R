@@ -28,24 +28,21 @@ fill <- function(data, ..., .direction = c("down", "up", "downup", "updown")) {
 }
 #' @export
 fill.data.frame <- function(data, ..., .direction = c("down", "up", "downup", "updown")) {
-  fill_cols <- unname(tidyselect::vars_select(names(data), ...))
+  vec_fill <- vec_fill_fun(.direction)
+  dplyr::mutate_at(data, dplyr::vars(...), vec_fill)
+}
+#' @export
+fill.grouped_df <- function(data, ..., .direction = c("down", "up", "downup", "updown")) {
+  NextMethod()
+}
 
+vec_fill_fun <- function(.direction = c("down", "up", "downup", "updown")) {
   .direction <- match.arg(.direction)
-  fillVector <- switch(
+  switch(
     .direction,
     down = fillDown,
     up = fillUp,
     downup = function(x) fillUp(fillDown(x)),
     updown = function(x) fillDown(fillUp(x))
   )
-
-  for (col in fill_cols) {
-    data[[col]] <- fillVector(data[[col]])
-  }
-
-  data
-}
-#' @export
-fill.grouped_df <- function(data, ..., .direction = c("down", "up", "downup", "updown")) {
-  dplyr::do(data, fill(., ..., .direction = .direction))
 }
