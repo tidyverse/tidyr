@@ -73,7 +73,7 @@ test_that("nested is split as a list (#84)", {
 
 test_that("unnest has mutate semantics", {
   df <- tibble(x = 1:3, y = list(1, 2:3, 4))
-  out <- df %>% unnest(z = map(y, `+`, 1))
+  out <- unnest(df, z = map(y, `+`, 1))
 
   expect_equal(out$z, 2:5)
 })
@@ -140,11 +140,11 @@ test_that("empty ... returns df if no list-cols", {
 
 test_that("can optional preserve list cols", {
   df <- tibble(x = list(3, 4), y = list("a", "b"))
-  rs <- df %>% unnest(x, .preserve = y)
+  rs <- unnest(df, x, .preserve = y)
   expect_identical(rs$y, df$y)
 
   df <- tibble(x = list(c("d", "e")), y = list(1:2))
-  rs <- df %>% unnest(.preserve = y)
+  rs <- unnest(df, .preserve = y)
   expect_identical(rs$y, rep(df$y, 2))
 })
 
@@ -152,14 +152,14 @@ test_that("can optional preserve list cols", {
 
 test_that("unnest drops list cols if expanding", {
   df <- tibble(x = 1:2, y = list(3, 4), z = list(5, 6:7))
-  out <- df %>% unnest(z)
+  out <- unnest(df, z)
 
   expect_named(out, c("x", "z"))
 })
 
 test_that("unnest keeps list cols if not expanding", {
   df <- tibble(x = 1:2, y = list(3, 4), z = list(5, 6:7))
-  out <- df %>% unnest(y)
+  out <- unnest(df, y)
 
   expect_equal(class(out$z), "list")
   expect_named(out, c("x", "y", "z"))
@@ -168,13 +168,13 @@ test_that("unnest keeps list cols if not expanding", {
 test_that("unnest respects .drop_lists", {
   df <- tibble(x = 1:2, y = list(3, 4), z = list(5, 6:7))
 
-  expect_named(df %>% unnest(y, .drop = TRUE), c("x", "y"))
-  expect_named(df %>% unnest(z, .drop = FALSE), c("x", "y", "z"))
+  expect_named(unnest(df, y, .drop = TRUE), c("x", "y"))
+  expect_named(unnest(df, z, .drop = FALSE), c("x", "y", "z"))
 })
 
 test_that("grouping is preserved", {
   df <- tibble(g = 1, x = list(1:3)) %>% dplyr::group_by(g)
-  rs <- df %>% unnest(x)
+  rs <- unnest(df, x)
 
   expect_equal(rs$x, 1:3)
   expect_equal(class(df), class(rs))
