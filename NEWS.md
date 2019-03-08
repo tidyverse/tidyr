@@ -35,6 +35,8 @@
 * `crossing()` now takes the unique values of data frame inputs, not just
   vector inputs (#490).
 
+* `unnest()` now preserves column order (#406, @aaronwolen).
+
 # tidyr 0.8.3
 
 * `crossing()` preserves factor levels (#410), now works with list-columns 
@@ -62,7 +64,6 @@
 
 * `unnest()` weakens test of "atomicity" to restore previous behaviour when
   unnesting factors and dates (#407).
-* `unnest()` now preserves column order (#406, @aaronwolen)
 
 # tidyr 0.8.0
 
