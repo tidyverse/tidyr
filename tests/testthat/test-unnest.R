@@ -162,6 +162,7 @@ test_that("unnest keeps list cols if not expanding", {
   out <- df %>% unnest(y)
 
   expect_equal(class(out$z), "list")
+  expect_named(out, c("x", "y", "z"))
 })
 
 test_that("unnest respects .drop_lists", {
