@@ -19,7 +19,7 @@ options(tibble.print_max = 10)
 
 This vignette describes the use of the new `pivot_long()` and `pivot_wide()` functions. Their goal is to improve the usability of `gather()` and `spread()`, and incorporate state-of-art features found in other packages.
 
-For some time, it's been obvious that there is something fundmentally wrong with the design of `spread()` and `gather()`. Many people don't find the names intuitive, and find it hard to remember which direction corresponds to spreading and which to gathering. It's also seems surprisingly hard to remember the arguments to these functions, meaning that many people (including me!) have to consult the documentation every time.
+For some time, it's been obvious that there is something fundmentally wrong with the design of `spread()` and `gather()`. Many people don't find the names intuitive, and find it hard to remember which direction corresponds to spreading and which to gathering. It also seems surprisingly hard to remember the arguments to these functions, meaning that many people (including me!) have to consult the documentation every time.
 
 There are two important new features inspired by other R packages that have been advancing of reshaping in R:
 
@@ -52,7 +52,7 @@ library(readr)
 
 ## Simple pivotting {#pew}
 
-The `pew` dataset stores count from a survey which (among other things) asked people there religion and annaul income:
+The `pew` dataset stores count from a survey which (among other things) asked people about their religion and annual income:
 
 ```{r}
 pew <- read_csv("pew.csv", col_types = list())
@@ -79,7 +79,7 @@ Neither the `names_to` nor the `values_to` column exists in `pew`, so we have to
 
 ## Numeric data in column names {#billboard}
 
-For many datasets, `pivot_long()` is all you need. But for more complex datasets it often makes sense to manully generate a data frame that precisely describes the transformation. For example, take the billboard data:
+For many datasets, `pivot_long()` is all you need. But for more complex datasets it often makes sense to manually generate a data frame that precisely describes the transformation. For example, take the billboard data:
 
 ```{r}
 billboard <- read_csv("billboard.csv", col_types = list(time = col_skip()))
@@ -149,7 +149,7 @@ In more complex cases, the column name might encode multiple variables, and requ
 who
 ```
 
-`country`, `iso2`, `iso3`, `year` are already variables, so can be left as is. We want to pivot the columns from `new_sp_m014` to `newrel_f65`:
+`country`, `iso2`, `iso3`, and `year` are already variables, so can be left as is. We want to pivot the columns from `new_sp_m014` to `newrel_f65`:
 
 ```{r}
 spec <- who %>%
@@ -198,7 +198,7 @@ who %>% pivot_long(spec = spec)
 
 ## Manual spec construction
 
-Sometimes it's not possible (or not convenient) to compute the spec from the column names, and inside it can be convenient to construct the spec by hand. For example, take this `construction` data, which is lightly modified from Table 5 "completions" found at <https://www.census.gov/construction/nrc/index.html>:
+Sometimes it's not possible (or not convenient) to compute the spec from the column names, and instead it can be convenient to construct the spec by hand. For example, take this `construction` data, which is lightly modified from Table 5 "completions" found at <https://www.census.gov/construction/nrc/index.html>:
 
 ```{r}
 construction <- read_csv("construction.csv", col_types = list("2 to 4 units" = col_integer()))
@@ -231,7 +231,7 @@ construction %>% pivot_long(spec = spec)
 
 ## Multiple value columns 
 
-So far the `.value` column has only even contained a single value, so you might wonder why we need it. In fact, `.value` is very important as it allows us to solve a problem that was previously very challenging with `spread()`. Multiple values of `.value` allows us access a new feature inspired by data.table: you can gather columns with different types. The following example is adapted from the [data.table vignette](https://cran.r-project.org/web/packages/data.table/vignettes/datatable-reshape.html):
+So far the `.value` column has only ever contained a single value, so you might wonder why we need it. In fact, `.value` is very important as it allows us to solve a problem that was previously very challenging with `spread()`. Multiple values of `.value` allows us access to a new feature inspired by data.table: you can gather columns with different types. The following example is adapted from the [data.table vignette](https://cran.r-project.org/web/packages/data.table/vignettes/datatable-reshape.html):
 
 ```{r}
 family <- tibble::tribble(
@@ -271,7 +271,7 @@ Another case of this problem is the built-in `anscombe` dataset:
 anscombe
 ```
 
-This dataset contains four pairs of variables (`x1` + `y1`, `x2` + `y2`, etc) that underlie Anscombe's quartet, a collection of four datasets that have the same summary statistics (mean, sd, correlation etc), but have quite different data. We want to produce a dataset with columns with `graph`, `x` and `y`. 
+This dataset contains four pairs of variables (`x1` + `y1`, `x2` + `y2`, etc) that underlie Anscombe's quartet, a collection of four datasets that have the same summary statistics (mean, sd, correlation etc), but have quite different data. We want to produce a dataset with columns `graph`, `x` and `y`. 
 
 ```{r}
 spec <- anscombe %>% 
@@ -291,7 +291,7 @@ Note that it is generally true that `pivot_long()` and `pivot_wide()` are symmet
 
 ## Capture-recapture data
 
-The `fish_encounters` dataset, contributed by [Myfanwy Johnston](https://fishsciences.github.io/post/visualizing-fish-encounter-histories/),  describe when fish swimming down a river are detected by automatic monitoring stations:
+The `fish_encounters` dataset, contributed by [Myfanwy Johnston](https://fishsciences.github.io/post/visualizing-fish-encounter-histories/), describes when fish swimming down a river are detected by automatic monitoring stations:
 
 ```{r}
 fish_encounters
@@ -303,7 +303,7 @@ Many tools used to analyse this data need it in a form where each station is a c
 fish_encounters %>% pivot_wide(names_from = station, values_from = seen)
 ```
 
-This dataset only records when a fish was detected by the station - it doesn't record when it wasn't detected (this is common with this sort of data). That means the output data is filled with `NA`s. However, in this case we know that the absence of a record is means that the fish was not `seen`, so we can ask `pivot_wide()` to fill these missing values in with zeros:
+This dataset only records when a fish was detected by the station - it doesn't record when it wasn't detected (this is common with this sort of data). That means the output data is filled with `NA`s. However, in this case we know that the absence of a record means that the fish was not `seen`, so we can ask `pivot_wide()` to fill these missing values in with zeros:
 
 ```{r}
 fish_encounters %>% pivot_wide(
@@ -315,7 +315,7 @@ fish_encounters %>% pivot_wide(
 
 ## Generate column name from multiple variables
 
-Imagine, as in <http://stackoverflow.com/questions/24929954>, that we have information collected the combination of product, country, and year. In tidy form it might look like this:
+Imagine, as in <http://stackoverflow.com/questions/24929954>, that we have information containing the combination of product, country, and year. In tidy form it might look like this:
 
 ```{r}
 df <- expand_grid(
@@ -334,9 +334,9 @@ We want to widen the data so we have one column for each combination of `product
 df %>% pivot_wide(names_from = c(product, country), values_from = value)
 ```
 
-If you want finer control over the generated columns, you can create a spec data frame. This has exactly the same format as the `pivot_long()`: a data frame with special `.name` and `.value` columns. But when fed to `pivot_wide()` it does the opposite transformation to `pivot_long()`: it create the columns specified in `.name`, using the information from `.value` and the other columns.
+If you want finer control over the generated columns, you can create a spec data frame. This has exactly the same format as for `pivot_long()`: a data frame with special `.name` and `.value` columns. But when fed to `pivot_wide()` it does the opposite transformation to `pivot_long()`: it create the columns specified in `.name`, using the information from `.value` and the other columns.
 
-For this data set, you might want to generate a custom spec if you wanted to ensure that every possible combination of `country` and `product` got it's own column, not just those present in the data:
+For this dataset, you might want to generate a custom spec if you wanted to ensure that every possible combination of `country` and `product` got it's own column, not just those present in the data:
 
 ```{r}
 spec <- df %>% 
@@ -349,13 +349,13 @@ df %>% pivot_wide(spec = spec) %>% head()
 
 ## Tidy census
 
-The `us_rent_income` income contains information about median income and rent for each state in the US for 2017 (from the American Community Survey, retrieved with the [tidycensus][tidycensus] package).
+The `us_rent_income` dataset contains information about median income and rent for each state in the US for 2017 (from the American Community Survey, retrieved with the [tidycensus][tidycensus] package).
 
 ```{r}
 us_rent_income
 ```
 
-We'd like to generate a dataset with columns `rent`, `rent_moe`, `income`, `income_moe`.  There are many ways that you could generate this spec, but the key is that we need to generate every combination of the `variable` values and `estimate`/`moe`, and then carefully generate the column name:
+We'd like to generate a dataset with columns `rent`, `rent_moe`, `income`, and `income_moe`.  There are many ways that you could generate this spec, but the key is that we need to generate every combination of the `variable` values and `estimate`/`moe`, and then carefully generate the column name:
 
 ```{r}
 spec <- us_rent_income %>% 
@@ -374,7 +374,7 @@ us_rent_income %>% pivot_wide(spec = spec)
 
 # Other challenges
 
-Sometimes getting a dataset into the needed form requires multiple steps. These final case studies show a few examples that require multiple steps to get into a useful format.
+Sometimes getting a dataset into the needed form requires multiple steps. These final case studies show a few examples that require multiple steps to get them into a useful format.
 
 ## World bank
 
@@ -406,7 +406,7 @@ pop3 <- pop2 %>%
 pop3
 ```
 
-Now we can complet the tidying by pivoting `variable` and `value` to make `TOTL` and `GROW` columns:
+Now we can complete the tidying by pivoting `variable` and `value` to make `TOTL` and `GROW` columns:
 
 ```{r}
 pop3 %>% 
@@ -439,7 +439,7 @@ df %>%
 
 ## Contact list
 
-A final challenge comes is inspired by [Jiena Gu](https://github.com/jienagu/tidyverse_examples/blob/master/example_long_wide.R). Imagine you have a contact list that you've copied and pasted from a website:
+A final challenge is inspired by [Jiena Gu](https://github.com/jienagu/tidyverse_examples/blob/master/example_long_wide.R). Imagine you have a contact list that you've copied and pasted from a website:
 
 ```{r}
 contacts <- tribble(
@@ -453,7 +453,7 @@ contacts <- tribble(
 )
 ```
 
-This is challenging because there's no variable that identifies which observations belong together, and unlike `anscombe` there's no regular pattern. We can fix this by noting that every contact starts with a name, so we can create a unique id by counting every time see "name" as the `field`: 
+This is challenging because there's no variable that identifies which observations belong together, and unlike `anscombe` there's no regular pattern. We can fix this by noting that every contact starts with a name, so we can create a unique id by counting every time we see "name" as the `field`: 
 
 ```{r}
 contacts <- contacts %>% 
