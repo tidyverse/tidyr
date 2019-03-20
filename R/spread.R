@@ -22,6 +22,13 @@
 #' @param sep If `NULL`, the column names will be taken from the values of
 #'   `key` variable. If non-`NULL`, the column names will be given
 #'   by "<key_name><sep><key_value>".
+#'
+#' @details
+#'
+#' `spread` is a cornerstone of the `tidyr` package and the concept of Tidy Data introduced by Hadley Wickham \url{http://doi.org/10.18637/jss.v059.i10}. However, many experience users of `tidyr` have conceptual difficulties with using the function. An alternative, and potentially simpler to understand, is provided by the `pivot_wide` function. This and other `pivot_*` functions were first introduced in `tidyr vX.X`.
+#'
+#' Note that the `pivot_wide` is more flexible and supports more complex use cases than `spread`. However, `spread` will not and is not being deprecated. For detailed examples of how to use `pivot_wide`, consult the vigentte \code{vignette("tidyr", package = "pivot")}
+#'
 #' @export
 #' @examples
 #' library(dplyr)
