@@ -31,10 +31,6 @@ fill.data.frame <- function(data, ..., .direction = c("down", "up", "downup", "u
   vec_fill <- vec_fill_fun(.direction)
   dplyr::mutate_at(data, dplyr::vars(...), vec_fill)
 }
-#' @export
-fill.grouped_df <- function(data, ..., .direction = c("down", "up", "downup", "updown")) {
-  NextMethod()
-}
 
 vec_fill_fun <- function(.direction = c("down", "up", "downup", "updown")) {
   .direction <- match.arg(.direction)
