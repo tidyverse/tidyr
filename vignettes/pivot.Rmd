@@ -137,7 +137,7 @@ billboard %>%
   pivot_long(spec = spec)
 ```
 
-This seems like a lot of work to get something very similar to the previous result, but as you'll see shortly, it generalises it very useful ways.
+This seems like a lot of work to get something very similar to the previous result, but as you'll see shortly, it generalises in very useful ways.
 
 The pivotting spec allows us to be more precise about exactly how `pivot_long(df, spec = spec)` changes the shape of `df`: it will have `nrow(df) * nrow(spec)` rows, and `ncol(df) - nrow(spec) + ncol(spec) - 2` columns.
 
