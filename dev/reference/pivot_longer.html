@@ -140,9 +140,11 @@ and see <code><a href='pivot_wider.html'>pivot_wider()</a></code> for the invers
     </div>
 
     <pre class="usage"><span class='fu'>pivot_longer</span>(<span class='no'>df</span>, <span class='no'>cols</span>, <span class='kw'>names_to</span> <span class='kw'>=</span> <span class='st'>"name"</span>, <span class='kw'>values_to</span> <span class='kw'>=</span> <span class='st'>"value"</span>,
-  <span class='kw'>spec</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>ptype</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>())
+  <span class='kw'>names_prefix</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>names_sep</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>values_type</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(), <span class='kw'>spec</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
 
-<span class='fu'>pivot_longer_spec</span>(<span class='no'>df</span>, <span class='no'>cols</span>, <span class='kw'>names_to</span> <span class='kw'>=</span> <span class='st'>"name"</span>, <span class='kw'>values_to</span> <span class='kw'>=</span> <span class='st'>"value"</span>)</pre>
+<span class='fu'>pivot_longer_spec</span>(<span class='no'>df</span>, <span class='no'>cols</span>, <span class='kw'>names_to</span> <span class='kw'>=</span> <span class='st'>"name"</span>, <span class='kw'>values_to</span> <span class='kw'>=</span> <span class='st'>"value"</span>,
+  <span class='kw'>names_prefix</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>names_sep</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -164,12 +166,19 @@ the cell values (<code>values_to</code>) turn into in the result.</p>
 <p>Note that these variables do not exist, so must be specified as strings.</p></td>
     </tr>
     <tr>
-      <th>spec</th>
-      <td><p>Alternatively, instead of providing <code>cols</code> (and <code>names_to</code> and
-<code>values_to</code>) you can parse a specification data frame. This is useful
-for more complex pivots because it gives you greater control on how
-metadata stored in the column names turns into columns in the result.</p>
-<p>Must be a data frame containing character <code>.name</code> and <code>.value</code> columns.</p></td>
+      <th>names_prefix</th>
+      <td><p>A regular expressiong used to remove matching text
+from the start of each variable name.</p></td>
+    </tr>
+    <tr>
+      <th>names_sep</th>
+      <td><p>If <code>names_to</code> contains multiple values, this argument
+controls how the column name is split up into multiple variables. It
+takes the same specification as <code><a href='separate.html'>separate()</a></code>, and can either be a
+numeric vector (specifying positions to break on), or a single string
+(specifying a regular expression to split on). If this does not give you
+enough control, use <code>pivot_longer_spec()</code> to create a spec object and
+process as needed.</p></td>
     </tr>
     <tr>
       <th>na.rm</th>
@@ -179,11 +188,19 @@ implicit missing values, and should generally be used only when missing
 values in <code>df</code> were created by its structure.</p></td>
     </tr>
     <tr>
-      <th>ptype</th>
-      <td><p>If not specified, the type of the <code>value_to</code> column will be
-automatically guess from the data. Supply this argument when you want to
-override that default. Should be a named list, where the names are
+      <th>values_type</th>
+      <td><p>If not specified, the type of the <code>value_to</code> column will
+be automatically guessed from the data. Supply this argument when you want
+to override that default. Should be a named list, where the names are
 given by the value columns.</p></td>
+    </tr>
+    <tr>
+      <th>spec</th>
+      <td><p>Alternatively, instead of providing <code>cols</code> (and <code>names_to</code> and
+<code>values_to</code>) you can parse a specification data frame. This is useful
+for more complex pivots because it gives you greater control on how
+metadata stored in the column names turns into columns in the result.</p>
+<p>Must be a data frame containing character <code>.name</code> and <code>.value</code> columns.</p></td>
     </tr>
     </table>
     
