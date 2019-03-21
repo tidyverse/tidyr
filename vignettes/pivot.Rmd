@@ -169,7 +169,7 @@ These columns encode four variables in their names:
 
 * `014`/`1524`/`2535`/`3544`/`4554`/`65` supplies the age range.
 
-We can extract these varables out of the `name` using `extract()`:
+We can extract these variables out of the `name` using `extract()`:
 
 ```{r}
 spec <- spec %>%
