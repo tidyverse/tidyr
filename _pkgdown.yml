@@ -24,8 +24,8 @@ reference:
   contents:
   - extract
   - nest
-  - pivot_long
-  - pivot_wide
+  - pivot_longer
+  - pivot_wider
   - separate
   - separate_rows
   - uncount

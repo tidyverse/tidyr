@@ -17,7 +17,7 @@ options(tibble.print_max = 10)
 
 # Introduction
 
-This vignette describes the use of the new `pivot_long()` and `pivot_wide()` functions. Their goal is to improve the usability of `gather()` and `spread()`, and incorporate state-of-art features found in other packages.
+This vignette describes the use of the new `pivot_longer()` and `pivot_wider()` functions. Their goal is to improve the usability of `gather()` and `spread()`, and incorporate state-of-art features found in other packages.
 
 For some time, it's been obvious that there is something fundamentally wrong with the design of `spread()` and `gather()`. Many people don't find the names intuitive and find it hard to remember which direction corresponds to spreading and which to gathering. It also seems surprisingly hard to remember the arguments to these functions, meaning that many people (including me!) have to consult the documentation every time.
 
@@ -26,17 +26,17 @@ There are two important new features inspired by other R packages that have been
 * The reshaping operation can be specified with a data frame that describes 
   precisely how metadata stored in column names becomes data variables (and 
   vice versa). This is inspired by the [cdata][cdata] package by John Mount and 
-  Nina Zumel. For simple uses of `pivot_long()` and `pivot_wide()`, this 
+  Nina Zumel. For simple uses of `pivot_longer()` and `pivot_wider()`, this 
   specification is implicit, but for more complex cases it is useful to make 
   it explicit, and operate on the specification data frame using dplyr and 
   tidyr.
   
-* `pivot_long()` can work with multiple value variables that may have 
+* `pivot_longer()` can work with multiple value variables that may have 
   different types. This is inspired by the enhanced `melt()` and `dcast()` 
   functions provided by the [data.table][data.table] package by Matt Dowle and
   Arun Srinivasan.
 
-In this vignette, you'll learn the key ideas behind `pivot_long()` and `pivot_wide()` as you see them used to solve a variety of data reshaping challenges from simple to complex.
+In this vignette, you'll learn the key ideas behind `pivot_longer()` and `pivot_wider()` as you see them used to solve a variety of data reshaping challenges from simple to complex.
 
 To begin we'll load some needed packages. In real analysis code, I'd expect many people will do this with `library(tidyverse)`.
 
@@ -48,7 +48,7 @@ library(readr)
 
 # Wide to long
 
-`pivot_long()` makes datasets __longer__ by reducing the number of columns and increasing the number of rows. `pivot_long()` is commonly needed to tidy wild-caught datasets as they often optimise for ease of data entry or ease of comparison rather than ease of analysis. 
+`pivot_longer()` makes datasets __longer__ by reducing the number of columns and increasing the number of rows. `pivot_longer()` is commonly needed to tidy wild-caught datasets as they often optimise for ease of data entry or ease of comparison rather than ease of analysis. 
 
 ## Simple pivoting {#pew}
 
@@ -59,11 +59,11 @@ pew <- read_csv("pew.csv", col_types = list())
 pew
 ```
 
-This is 2d table with religion in the rows, income spread across the column names, and a count stored in the cell values. To tidy it we need `pivot_long()`:
+This is 2d table with religion in the rows, income spread across the column names, and a count stored in the cell values. To tidy it we need `pivot_longer()`:
 
 ```{r}
 pew %>% 
-  pivot_long(cols = -religion, names_to = "income", values_to = "count")
+  pivot_longer(cols = -religion, names_to = "income", values_to = "count")
 ```
 
 * The first argument describes which columns need to be transformed. 
@@ -79,18 +79,18 @@ Neither the `names_to` nor the `values_to` column exists in `pew`, so we have to
 
 ## Numeric data in column names {#billboard}
 
-For many datasets, `pivot_long()` is all you need. But for more complex datasets it often makes sense to manually generate a data frame that precisely describes the transformation. For example, take the billboard data:
+For many datasets, `pivot_longer()` is all you need. But for more complex datasets it often makes sense to manually generate a data frame that precisely describes the transformation. For example, take the billboard data:
 
 ```{r}
 billboard <- read_csv("billboard.csv", col_types = list(time = col_skip()))
 billboard
 ```
 
-This records the billboard rank of songs over time. It is very similar in form to the `pew` data above, but the data encoded in the column names is really a number, not a string. This means that `pivot_long()` works, but will require some additional cleaning afterwards:
+This records the billboard rank of songs over time. It is very similar in form to the `pew` data above, but the data encoded in the column names is really a number, not a string. This means that `pivot_longer()` works, but will require some additional cleaning afterwards:
 
 ```{r}
 billboard %>% 
-  pivot_long(
+  pivot_longer(
     cols = starts_with("wk"), 
     names_to = "week", 
     values_to = "rank",
@@ -100,11 +100,11 @@ billboard %>%
 
 Instead of doing that cleaning on the long data, we can tackle the problem in another way: by generating a pivot spec. (Using a pivoting spec is probably overkill for this problem, but it's a good bridge between very simple cases and the more complex cases you'll learn about shortly.) A pivoting spec is a data frame that describes the metadata stored in the column name, with one row for each column, and one column for each variable mashed into the column name. 
 
-We start using `pivot_long_spec()` to generate the spec that `pivot_long()` generates behind the scenes:
+We start using `pivot_longer_spec()` to generate the spec that `pivot_longer()` generates behind the scenes:
 
 ```{r}
 spec <- billboard %>% 
-  pivot_long_spec(
+  pivot_longer_spec(
     cols = starts_with("wk"), 
     names_to = "week", 
     values_to = "rank"
@@ -130,16 +130,16 @@ spec <- spec %>%
 spec
 ```
 
-We can now provide this spec to `pivot_long()`:
+We can now provide this spec to `pivot_longer()`:
 
 ```{r}
 billboard %>% 
-  pivot_long(spec = spec)
+  pivot_longer(spec = spec)
 ```
 
 This seems like a lot of work to get something very similar to the previous result, but as you'll see shortly, it generalises in very useful ways.
 
-The pivotting spec allows us to be more precise about exactly how `pivot_long(df, spec = spec)` changes the shape of `df`: it will have `nrow(df) * nrow(spec)` rows, and `ncol(df) - nrow(spec) + ncol(spec) - 2` columns.
+The pivotting spec allows us to be more precise about exactly how `pivot_longer(df, spec = spec)` changes the shape of `df`: it will have `nrow(df) * nrow(spec)` rows, and `ncol(df) - nrow(spec) + ncol(spec) - 2` columns.
 
 ## Many variables in column names
 
@@ -153,7 +153,7 @@ who
 
 ```{r}
 spec <- who %>%
-  pivot_long_spec(new_sp_m014:newrel_f65, values_to = "count")
+  pivot_longer_spec(new_sp_m014:newrel_f65, values_to = "count")
 spec
 ```
 
@@ -193,7 +193,7 @@ spec
 Finally, we can use this spec to tidy the dataset:
 
 ```{r}
-who %>% pivot_long(spec = spec)
+who %>% pivot_longer(spec = spec)
 ```
 
 ## Manual spec construction
@@ -224,7 +224,7 @@ spec <- tribble(
 Which yields the following long form:
 
 ```{r}
-construction %>% pivot_long(spec = spec)
+construction %>% pivot_longer(spec = spec)
 ```
 
 (Note that there is no overlap between the `units` and `region` variables; here the data would really be most naturally described in two independent tables.)
@@ -250,7 +250,7 @@ Note that we have two pieces of information about each child: their gender and t
 
 ```{r}
 spec <- family %>%
-  pivot_long_spec(-family) %>%
+  pivot_longer_spec(-family) %>%
   separate(name, c(".value", "child")) %>%
   mutate(child = parse_number(child))
 spec
@@ -260,7 +260,7 @@ Pivoting with this spec yields a data frame with a date `dob` column and an inte
 
 ```{r}
 family %>%
-  pivot_long(spec = spec, na.rm = TRUE)
+  pivot_longer(spec = spec, na.rm = TRUE)
 ```
 
 We use `na.rm = TRUE` here because this shape of the data forces the creation of explicit missing variables for observations that don't exist. This ensures that family 2 has a single row in the output.
@@ -275,11 +275,11 @@ This dataset contains four pairs of variables (`x1` + `y1`, `x2` + `y2`, etc) th
 
 ```{r}
 spec <- anscombe %>% 
-  pivot_long_spec(everything()) %>% 
+  pivot_longer_spec(everything()) %>% 
   separate(name, c(".value", "graph"), 1)
 
 anscombe %>% 
-  pivot_long(spec = spec) %>% 
+  pivot_longer(spec = spec) %>% 
   arrange()
 ```
 
@@ -296,18 +296,18 @@ pnl <- tibble(
   z2 = rep(-2, 4),
 )
 
-spec <- pivot_long_spec(pnl, c(starts_with("y"), starts_with("z"))) %>%
+spec <- pivot_longer_spec(pnl, c(starts_with("y"), starts_with("z"))) %>%
   separate(name, c(".value", "time"), 1, convert = TRUE)
 spec
 
-pnl %>% pivot_long(spec = spec)
+pnl %>% pivot_longer(spec = spec)
 ```
 
 # Long to wide
 
-`pivot_wide()` is the opposite of `pivot_long()`: it makes a dataset __wider__ by reducing the number of rows and increasing the number of columns. It's relatively rare to need `pivot_wide()` to make tidy data, but it's often useful for creating summary tables for presentation, or data in a format needed by other tools.
+`pivot_wider()` is the opposite of `pivot_longer()`: it makes a dataset __wider__ by reducing the number of rows and increasing the number of columns. It's relatively rare to need `pivot_wider()` to make tidy data, but it's often useful for creating summary tables for presentation, or data in a format needed by other tools.
 
-Note that it is generally true that `pivot_long()` and `pivot_wide()` are symmetric: `df %>% pivot_long(spec = spec) %>% pivot_wide(spec = spec)` and `df %>% pivot_wide(spec = spec) %>% pivot_long(spec = spec)` will yield `df`.
+Note that it is generally true that `pivot_longer()` and `pivot_wider()` are symmetric: `df %>% pivot_longer(spec = spec) %>% pivot_wider(spec = spec)` and `df %>% pivot_wider(spec = spec) %>% pivot_longer(spec = spec)` will yield `df`.
 
 ## Capture-recapture data
 
@@ -320,13 +320,13 @@ fish_encounters
 Many tools used to analyse this data need it in a form where each station is a column:
 
 ```{r}
-fish_encounters %>% pivot_wide(names_from = station, values_from = seen)
+fish_encounters %>% pivot_wider(names_from = station, values_from = seen)
 ```
 
-This dataset only records when a fish was detected by the station - it doesn't record when it wasn't detected (this is common with this sort of data). That means the output data is filled with `NA`s. However, in this case we know that the absence of a record means that the fish was not `seen`, so we can ask `pivot_wide()` to fill these missing values in with zeros:
+This dataset only records when a fish was detected by the station - it doesn't record when it wasn't detected (this is common with this sort of data). That means the output data is filled with `NA`s. However, in this case we know that the absence of a record means that the fish was not `seen`, so we can ask `pivot_wider()` to fill these missing values in with zeros:
 
 ```{r}
-fish_encounters %>% pivot_wide(
+fish_encounters %>% pivot_wider(
   names_from = station, 
   values_from = seen,
   values_fill = list(seen = 0)
@@ -351,10 +351,10 @@ df
 We want to widen the data so we have one column for each combination of `product` and `country`. The key is to specify multiple variables for `names_from`:
 
 ```{r}
-df %>% pivot_wide(names_from = c(product, country), values_from = value)
+df %>% pivot_wider(names_from = c(product, country), values_from = value)
 ```
 
-If you want finer control over the generated columns, you can create a spec data frame. This has exactly the same format as for `pivot_long()`: a data frame with special `.name` and `.value` columns. But when fed to `pivot_wide()` it does the opposite transformation to `pivot_long()`: it create the columns specified in `.name`, using the information from `.value` and the other columns.
+If you want finer control over the generated columns, you can create a spec data frame. This has exactly the same format as for `pivot_longer()`: a data frame with special `.name` and `.value` columns. But when fed to `pivot_wider()` it does the opposite transformation to `pivot_longer()`: it create the columns specified in `.name`, using the information from `.value` and the other columns.
 
 For this dataset, you might want to generate a custom spec if you wanted to ensure that every possible combination of `country` and `product` got it's own column, not just those present in the data:
 
@@ -364,7 +364,7 @@ spec <- df %>%
   unite(".name", product, country, remove = FALSE)
 spec
 
-df %>% pivot_wide(spec = spec) %>% head()
+df %>% pivot_wider(spec = spec) %>% head()
 ```
 
 ## Tidy census
@@ -386,10 +386,10 @@ spec <- us_rent_income %>%
 spec
 ```
 
-Supplying this spec to `pivot_wide()` gives us the result we're looking for:
+Supplying this spec to `pivot_wider()` gives us the result we're looking for:
 
 ```{r}
-us_rent_income %>% pivot_wide(spec = spec)
+us_rent_income %>% pivot_wider(spec = spec)
 ```
 
 # Other challenges
@@ -408,7 +408,7 @@ My goal is to produce a tidy dataset where each variable is in a column. It's no
 
 ```{r}
 pop2 <- world_bank_pop %>% 
-  pivot_long(`2000`:`2017`, names_to = "year")
+  pivot_longer(`2000`:`2017`, names_to = "year")
 pop2
 ```
 
@@ -430,7 +430,7 @@ Now we can complete the tidying by pivoting `variable` and `value` to make `TOTL
 
 ```{r}
 pop3 %>% 
-  pivot_wide(names_from = variable, values_from = value)
+  pivot_wider(names_from = variable, values_from = value)
 ```
 
 ## Multi-choice
@@ -447,9 +447,9 @@ df <- tibble::tribble(
 )
 
 df %>% 
-  pivot_long(-id, na.rm = TRUE) %>% 
+  pivot_longer(-id, na.rm = TRUE) %>% 
   dplyr::count(id, value) %>% 
-  pivot_wide(
+  pivot_wider(
     names_from = value, 
     values_from = n, 
     values_fill = list(n = 0)
@@ -487,7 +487,7 @@ Now that we have a unique identifier for each person, we can pivot `field` and `
 
 ```{r}
 contacts %>% 
-  pivot_wide(names_from = field, values_from = value)
+  pivot_wider(names_from = field, values_from = value)
 ```
 
 [cdata]: https://winvector.github.io/cdata/

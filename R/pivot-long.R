@@ -1,8 +1,8 @@
 #' Pivot data from wide to long.
 #'
-#' `pivot_long()` "lengthens" data, increasing the number of rows and
+#' `pivot_longer()` "lengthens" data, increasing the number of rows and
 #' decreasing the number of columns. See more details in `vignette("pivot")`,
-#' and see [pivot_wide()] for the inverse transformation.
+#' and see [pivot_wider()] for the inverse transformation.
 #'
 #' @param df A data frame to pivot.
 #' @param cols Columns to pivot into longer format. This takes a tidyselect
@@ -27,7 +27,7 @@
 #'   override that default. Should be a named list, where the names are
 #'   given by the value columns.
 #' @export
-pivot_long <- function(df,
+pivot_longer <- function(df,
                        cols,
                        names_to = "name",
                        values_to = "value",
@@ -38,7 +38,7 @@ pivot_long <- function(df,
 
   if (is.null(spec)) {
     cols <- enquo(cols)
-    spec <- pivot_long_spec(df, !!cols, names_to = names_to, values_to = values_to)
+    spec <- pivot_longer_spec(df, !!cols, names_to = names_to, values_to = values_to)
   } else {
     spec <- check_spec(spec)
   }
@@ -85,9 +85,9 @@ pivot_long <- function(df,
   )
 }
 
-#' @rdname pivot_long
+#' @rdname pivot_longer
 #' @export
-pivot_long_spec <- function(df, cols, names_to = "name", values_to = "value") {
+pivot_longer_spec <- function(df, cols, names_to = "name", values_to = "value") {
   cols <- tidyselect::vars_select(unique(names(df)), !!enquo(cols))
 
   tibble(

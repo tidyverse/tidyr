@@ -20,9 +20,9 @@
 
 * `pivot()`
 
-  * `pivot_long()` gracefully handles duplicated column names (#472)
-  * `pivot_wide()` can aggregate (#474)
-  * `pivot_wide()` can select keys (#572) 
+  * `pivot_longer()` gracefully handles duplicated column names (#472)
+  * `pivot_wider()` can aggregate (#474)
+  * `pivot_wider()` can select keys (#572) 
   * Better control of expansion of factor levels not present in the data (#193)
   * Multi-spread (#149)
   * Multi-gather (#150)

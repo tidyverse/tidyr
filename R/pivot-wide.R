@@ -1,10 +1,10 @@
 #' Pivot data from long to wide
 #'
-#' `pivot_wide()` "widens" data, increasing the number of columns and
+#' `pivot_wider()` "widens" data, increasing the number of columns and
 #' decreasing the number of rows. See more details in `vignette("pivot")`,
-#' and see [pivot_long()] for the inverse transformation.
+#' and see [pivot_longer()] for the inverse transformation.
 #'
-#' @inheritParams pivot_long
+#' @inheritParams pivot_longer
 #' @param keys Keys, a set of columns that uniquely identifies each
 #'   observation. Defaults to all columns in `df` except for the columns
 #'   specified in `names_from` and `values_from`.
@@ -26,12 +26,12 @@
 #' # Use values_fill to fill in missing values when you know what they
 #' # represent
 #' fish_encounters %>%
-#'   pivot_wide(
+#'   pivot_wider(
 #'     names_from = station,
 #'     values_from = seen,
 #'     values_fill = list(seen = 0)
 #'   )
-pivot_wide <- function(df,
+pivot_wider <- function(df,
                        keys = NULL,
                        names_from = name,
                        values_from = value,
@@ -45,7 +45,7 @@ pivot_wide <- function(df,
     names_from <- enquo(names_from)
     values_from <- enquo(values_from)
 
-    spec <- pivot_wide_spec(df,
+    spec <- pivot_wider_spec(df,
       names_from = !!names_from,
       values_from = !!values_from,
       names_prefix = names_prefix,
@@ -119,8 +119,8 @@ pivot_wide <- function(df,
 }
 
 #' @export
-#' @rdname pivot_wide
-pivot_wide_spec <- function(df,
+#' @rdname pivot_wider
+pivot_wider_spec <- function(df,
                             names_from = name,
                             values_from = value,
                             names_prefix = "",
