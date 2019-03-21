@@ -93,6 +93,7 @@ billboard %>%
   pivot_longer(
     cols = starts_with("wk"), 
     names_to = "week", 
+    names_prefix = "wk",
     values_to = "rank",
     na.rm = TRUE
   )
@@ -107,6 +108,7 @@ spec <- billboard %>%
   pivot_longer_spec(
     cols = starts_with("wk"), 
     names_to = "week", 
+    names_prefix = "wk",
     values_to = "rank"
   )
 spec
@@ -120,13 +122,11 @@ The spec is a data frame with one row for each column, and two special columns t
   
 All other variables are maintained in the output of the pivot.
 
-To make this spec a more accurate rendition of the metadata that's stored in the column names, we want to strip off the `"wk"` prefix and turn the string into a number. We can do that in one step with `readr::parse_number()`[^readr]:
-
-[^readr]: It's not uncommon to use readr functions when generating pivoting specifications. This isn't too surprising as the job of the readr package is to turn text into data.
+To make this spec a more accurate rendition of the metadata that's stored in the column names, we need to turn the string into an integer:
 
 ```{r}
 spec <- spec %>% 
-  mutate(week = parse_number(week))
+  mutate(week = as.integer(week))
 spec
 ```
 
@@ -141,9 +141,66 @@ This seems like a lot of work to get something very similar to the previous resu
 
 The pivotting spec allows us to be more precise about exactly how `pivot_longer(df, spec = spec)` changes the shape of `df`: it will have `nrow(df) * nrow(spec)` rows, and `ncol(df) - nrow(spec) + ncol(spec) - 2` columns.
 
+## Multiple value columns 
+
+So far the `.value` column has only ever contained a single value, so you might wonder why we need it. In fact, `.value` is very important as it allows us to solve a problem that was previously very challenging with `spread()`. Multiple values of `.value` allows us access to a new feature inspired by data.table: you can gather columns with different types. The following example is adapted from the [data.table vignette](https://cran.r-project.org/web/packages/data.table/vignettes/datatable-reshape.html):
+
+```{r}
+family <- tibble::tribble(
+  ~family,  ~dob_child1,  ~dob_child2, ~gender_child1, ~gender_child2,
+       1L, "1998-11-26", "2000-01-29",             1L,             2L,
+       2L, "1996-06-22",           NA,             2L,             NA,
+       3L, "2002-07-11", "2004-04-05",             2L,             2L,
+       4L, "2004-10-10", "2009-08-27",             1L,             1L,
+       5L, "2000-12-05", "2005-02-28",             2L,             1L,
+)
+family <- family %>% mutate_at(vars(starts_with("dob")), parse_date)
+family
+```
+
+Note that we have two pieces of information about each child: their gender and their date of birth. These need to go into separate columns in the result. We can do this by suppling multiple elements to `names_to`, where `.value` is a special sentinel that represent the value column in the output.
+
+```{r}
+family %>% 
+  pivot_longer(-family, names_to = c(".value", "child"), names_sep = "_", na.rm = TRUE)
+```
+
+We use `na.rm = TRUE` here because this shape of the data forces the creation of explicit missing variables for observations that don't exist. This ensures that family 2 has a single row in the output.
+
+Another case of this problem is the built-in `anscombe` dataset:
+
+```{r}
+anscombe
+```
+
+This dataset contains four pairs of variables (`x1` + `y1`, `x2` + `y2`, etc) that underlie Anscombe's quartet, a collection of four datasets that have the same summary statistics (mean, sd, correlation etc), but have quite different data. We want to produce a dataset with columns `graph`, `x` and `y`. 
+
+```{r}
+anscombe %>% 
+  pivot_longer(everything(), names_to = c(".value", "graph"), names_sep = 1) %>% 
+  arrange(graph)
+```
+
+A similar situation can arise with panel data. For example, take this example dataset provided by [Thomas Leeper](http://github.com/leeper/rio/issues/193):
+
+```{r}
+pnl <- tibble(
+  x = 1:4,
+  a = c(1, 1,0, 0),
+  b = c(0, 1, 1, 1),
+  y1 = rnorm(4),
+  y2 = rnorm(4),
+  z1 = rep(3, 4),
+  z2 = rep(-2, 4),
+)
+
+pnl %>% 
+  pivot_longer(-(x:b), names_to = c(".value", "time"), names_sep = 1)
+```
+
 ## Many variables in column names
 
-In more complex cases, the column name might encode multiple variables, and require more significant parsing to extract. For example, take the `who` dataset bundled with this package:
+In more complex cases, the variables encoded the column names might require more significant parsing to extract. For example, take the `who` dataset bundled with this package:
 
 ```{r}
 who
@@ -228,80 +285,6 @@ construction %>% pivot_longer(spec = spec)
 ```
 
 (Note that there is no overlap between the `units` and `region` variables; here the data would really be most naturally described in two independent tables.)
-
-## Multiple value columns 
-
-So far the `.value` column has only ever contained a single value, so you might wonder why we need it. In fact, `.value` is very important as it allows us to solve a problem that was previously very challenging with `spread()`. Multiple values of `.value` allows us access to a new feature inspired by data.table: you can gather columns with different types. The following example is adapted from the [data.table vignette](https://cran.r-project.org/web/packages/data.table/vignettes/datatable-reshape.html):
-
-```{r}
-family <- tibble::tribble(
-  ~family,  ~dob_child1,  ~dob_child2, ~gender_child1, ~gender_child2,
-       1L, "1998-11-26", "2000-01-29",             1L,             2L,
-       2L, "1996-06-22",           NA,             2L,             NA,
-       3L, "2002-07-11", "2004-04-05",             2L,             2L,
-       4L, "2004-10-10", "2009-08-27",             1L,             1L,
-       5L, "2000-12-05", "2005-02-28",             2L,             1L,
-)
-family <- family %>% mutate_at(vars(starts_with("dob")), parse_date)
-family
-```
-
-Note that we have two pieces of information about each child: their gender and their date of birth. These need to go into separate columns in the result. We can do this by generating a spec where the `.value` column varies.
-
-```{r}
-spec <- family %>%
-  pivot_longer_spec(-family) %>%
-  separate(name, c(".value", "child")) %>%
-  mutate(child = parse_number(child))
-spec
-```
-
-Pivoting with this spec yields a data frame with a date `dob` column and an integer `gender` column:
-
-```{r}
-family %>%
-  pivot_longer(spec = spec, na.rm = TRUE)
-```
-
-We use `na.rm = TRUE` here because this shape of the data forces the creation of explicit missing variables for observations that don't exist. This ensures that family 2 has a single row in the output.
-
-Another case of this problem is the built-in `anscombe` dataset:
-
-```{r}
-anscombe
-```
-
-This dataset contains four pairs of variables (`x1` + `y1`, `x2` + `y2`, etc) that underlie Anscombe's quartet, a collection of four datasets that have the same summary statistics (mean, sd, correlation etc), but have quite different data. We want to produce a dataset with columns `graph`, `x` and `y`. 
-
-```{r}
-spec <- anscombe %>% 
-  pivot_longer_spec(everything()) %>% 
-  separate(name, c(".value", "graph"), 1)
-
-anscombe %>% 
-  pivot_longer(spec = spec) %>% 
-  arrange()
-```
-
-A similar situation can arise with panel data. For example, take this example dataset provided by [Thomas Leeper](http://github.com/leeper/rio/issues/193):
-
-```{r}
-pnl <- tibble(
-  x = 1:4,
-  a = c(1, 1,0, 0),
-  b = c(0, 1, 1, 1),
-  y1 = rnorm(4),
-  y2 = rnorm(4),
-  z1 = rep(3, 4),
-  z2 = rep(-2, 4),
-)
-
-spec <- pivot_longer_spec(pnl, c(starts_with("y"), starts_with("z"))) %>%
-  separate(name, c(".value", "time"), 1, convert = TRUE)
-spec
-
-pnl %>% pivot_longer(spec = spec)
-```
 
 # Long to wide
 

@@ -53,7 +53,7 @@ test_that("mixed columns are automatically coerced", {
 
 test_that("can override default output column type", {
   df <- tibble(x = "x", y = 1)
-  pv <- pivot_longer(df, x:y, ptype = list(value = list()))
+  pv <- pivot_longer(df, x:y, values_type = list(value = list()))
 
   expect_equal(pv$value, list("x", 1))
 })

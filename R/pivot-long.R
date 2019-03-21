@@ -12,6 +12,15 @@
 #'   the cell values (`values_to`) turn into in the result.
 #'
 #'   Note that these variables do not exist, so must be specified as strings.
+#' @param names_prefix A regular expressiong used to remove matching text
+#'   from the start of each variable name.
+#' @param names_sep If `names_to` contains multiple values, this argument
+#'   controls how the column name is split up into multiple variables. It
+#'   takes the same specification as [separate()], and can either be a
+#'   numeric vector (specifying positions to break on), or a single string
+#'   (specifying a regular expression to split on). If this does not give you
+#'   enough control, use `pivot_longer_spec()` to create a spec object and
+#'   process as needed.
 #' @param spec Alternatively, instead of providing `cols` (and `names_to` and
 #'   `values_to`) you can parse a specification data frame. This is useful
 #'   for more complex pivots because it gives you greater control on how
@@ -22,23 +31,30 @@
 #'   `value_to` column. This effectively converts explicit missing values to
 #'   implicit missing values, and should generally be used only when missing
 #'   values in `df` were created by its structure.
-#' @param ptype If not specified, the type of the `value_to` column will be
-#'   automatically guess from the data. Supply this argument when you want to
-#'   override that default. Should be a named list, where the names are
+#' @param values_type If not specified, the type of the `value_to` column will
+#'   be automatically guessed from the data. Supply this argument when you want
+#'   to override that default. Should be a named list, where the names are
 #'   given by the value columns.
 #' @export
 pivot_longer <- function(df,
                        cols,
                        names_to = "name",
                        values_to = "value",
-                       spec = NULL,
+                       names_prefix = NULL,
+                       names_sep = NULL,
                        na.rm = FALSE,
-                       ptype = list()
+                       values_type = list(),
+                       spec = NULL
                        ) {
 
   if (is.null(spec)) {
     cols <- enquo(cols)
-    spec <- pivot_longer_spec(df, !!cols, names_to = names_to, values_to = values_to)
+    spec <- pivot_longer_spec(df, !!cols,
+      names_to = names_to,
+      values_to = values_to,
+      names_prefix = names_prefix,
+      names_sep = names_sep
+    )
   } else {
     spec <- check_spec(spec)
   }
@@ -57,7 +73,7 @@ pivot_longer <- function(df,
     val_cols[col_id] <- unname(as.list(df[cols]))
     val_cols[-col_id] <- list(rep(NA, nrow(df)))
 
-    val_type <- vec_type_common(!!!val_cols, .ptype = ptype[[value]])
+    val_type <- vec_type_common(!!!val_cols, .ptype = values_type[[value]])
     out <- vec_c(!!!val_cols, .ptype = val_type)
     # Interleave into correct order
     idx <- (matrix(seq_len(nrow(df) * length(val_cols)), ncol = nrow(df), byrow = TRUE))
@@ -87,14 +103,38 @@ pivot_longer <- function(df,
 
 #' @rdname pivot_longer
 #' @export
-pivot_longer_spec <- function(df, cols, names_to = "name", values_to = "value") {
+pivot_longer_spec <- function(df, cols,
+                              names_to = "name",
+                              values_to = "value",
+                              names_prefix = NULL,
+                              names_sep = NULL) {
   cols <- tidyselect::vars_select(unique(names(df)), !!enquo(cols))
 
-  tibble(
-    .name = cols,
-    .value = values_to,
-    !!names_to := cols
-  )
+  if (is.null(names_prefix)) {
+    names <- cols
+  } else {
+    names <- stringi::stri_replace_all_regex(cols, paste0("^", names_prefix), "")
+  }
+
+  if (length(names_to) > 1) {
+    if (is.null(names_sep)) {
+      abort("If you supply multiple names in `names_to` you must also supply `names_sep`")
+    }
+
+    names <- str_separate(names, names_to, sep = names_sep)
+
+    if (".value" %in% names_to) {
+      values_to <- NULL
+    }
+  } else {
+    names <- tibble(!!names_to := names)
+  }
+
+  out <- tibble(.name = cols)
+  out[[".value"]] <- values_to
+  out <- vec_cbind(out, names)
+  out
+
 }
 
 drop_cols <- function(df, cols) {

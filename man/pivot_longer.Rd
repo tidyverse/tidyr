@@ -6,9 +6,11 @@
 \title{Pivot data from wide to long.}
 \usage{
 pivot_longer(df, cols, names_to = "name", values_to = "value",
-  spec = NULL, na.rm = FALSE, ptype = list())
+  names_prefix = NULL, names_sep = NULL, na.rm = FALSE,
+  values_type = list(), spec = NULL)
 
-pivot_longer_spec(df, cols, names_to = "name", values_to = "value")
+pivot_longer_spec(df, cols, names_to = "name", values_to = "value",
+  names_prefix = NULL, names_sep = NULL)
 }
 \arguments{
 \item{df}{A data frame to pivot.}
@@ -22,22 +24,33 @@ the cell values (\code{values_to}) turn into in the result.
 
 Note that these variables do not exist, so must be specified as strings.}
 
-\item{spec}{Alternatively, instead of providing \code{cols} (and \code{names_to} and
-\code{values_to}) you can parse a specification data frame. This is useful
-for more complex pivots because it gives you greater control on how
-metadata stored in the column names turns into columns in the result.
+\item{names_prefix}{A regular expressiong used to remove matching text
+from the start of each variable name.}
 
-Must be a data frame containing character \code{.name} and \code{.value} columns.}
+\item{names_sep}{If \code{names_to} contains multiple values, this argument
+controls how the column name is split up into multiple variables. It
+takes the same specification as \code{\link[=separate]{separate()}}, and can either be a
+numeric vector (specifying positions to break on), or a single string
+(specifying a regular expression to split on). If this does not give you
+enough control, use \code{pivot_longer_spec()} to create a spec object and
+process as needed.}
 
 \item{na.rm}{If \code{TRUE}, will drop rows that contain only \code{NA}s in the
 \code{value_to} column. This effectively converts explicit missing values to
 implicit missing values, and should generally be used only when missing
 values in \code{df} were created by its structure.}
 
-\item{ptype}{If not specified, the type of the \code{value_to} column will be
-automatically guess from the data. Supply this argument when you want to
-override that default. Should be a named list, where the names are
+\item{values_type}{If not specified, the type of the \code{value_to} column will
+be automatically guessed from the data. Supply this argument when you want
+to override that default. Should be a named list, where the names are
 given by the value columns.}
+
+\item{spec}{Alternatively, instead of providing \code{cols} (and \code{names_to} and
+\code{values_to}) you can parse a specification data frame. This is useful
+for more complex pivots because it gives you greater control on how
+metadata stored in the column names turns into columns in the result.
+
+Must be a data frame containing character \code{.name} and \code{.value} columns.}
 }
 \description{
 \code{pivot_longer()} "lengthens" data, increasing the number of rows and
