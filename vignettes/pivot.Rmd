@@ -283,6 +283,26 @@ anscombe %>%
   arrange()
 ```
 
+A similar situation can arise with panel data. For example, take this example dataset provided by [Thomas Leeper](http://github.com/leeper/rio/issues/193):
+
+```{r}
+pnl <- tibble(
+  x = 1:4,
+  a = c(1, 1,0, 0),
+  b = c(0, 1, 1, 1),
+  y1 = rnorm(4),
+  y2 = rnorm(4),
+  z1 = rep(3, 4),
+  z2 = rep(-2, 4),
+)
+
+spec <- pivot_long_spec(pnl, c(starts_with("y"), starts_with("z"))) %>%
+  separate(name, c(".value", "time"), 1, convert = TRUE)
+spec
+
+pnl %>% pivot_long(spec = spec)
+```
+
 # Long to wide
 
 `pivot_wide()` is the opposite of `pivot_long()`: it makes a dataset __wider__ by reducing the number of rows and increasing the number of columns. It's relatively rare to need `pivot_wide()` to make tidy data, but it's often useful for creating summary tables for presentation, or data in a format needed by other tools.
