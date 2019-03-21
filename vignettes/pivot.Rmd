@@ -50,6 +50,8 @@ library(readr)
 
 `pivot_longer()` makes datasets __longer__ by reducing the number of columns and increasing the number of rows. `pivot_longer()` is commonly needed to tidy wild-caught datasets as they often optimise for ease of data entry or ease of comparison rather than ease of analysis. 
 
+Note that I don't believe it makes sense to describe a dataset as being in "long form". Length is a relative term, and you can only say (e.g.) that dataset A is longer than dataset B. 
+
 ## Simple pivoting {#pew}
 
 The `pew` dataset stores count from a survey which (among other things) asked people about their religion and annual income:
