@@ -163,7 +163,9 @@ specified in <code>names_from</code> and <code>values_from</code>.</p></td>
       <th>names_from, values_from</th>
       <td><p>A pair of arguments describing which column
 (or columns) to get the name of the output column (<code>name_from</code>), and
-which column to get the cell values from (<code>values_from</code>).</p></td>
+which column (or columns) to get the cell values from (<code>values_from</code>).</p>
+<p>If <code>values_from</code> contains multiple values, the value will be added to the
+front of the output column.</p></td>
     </tr>
     <tr>
       <th>names_prefix</th>
@@ -173,9 +175,9 @@ create syntactic variable names.</p></td>
     </tr>
     <tr>
       <th>names_sep</th>
-      <td><p>If <code>names_from</code> contains multiple variables, this will be
-used to join their values together into a single string to use as
-a column name.</p></td>
+      <td><p>If <code>names_from</code> or <code>values_from</code> contains multiple
+variables, this will be used to join their values together into a single
+string to use as a column name.</p></td>
     </tr>
     <tr>
       <th>values_fill</th>
