@@ -12,7 +12,7 @@
 #'   the cell values (`values_to`) turn into in the result.
 #'
 #'   Note that these variables do not exist, so must be specified as strings.
-#' @param names_prefix A regular expressiong used to remove matching text
+#' @param names_prefix A regular expression used to remove matching text
 #'   from the start of each variable name.
 #' @param names_sep If `names_to` contains multiple values, this argument
 #'   controls how the column name is split up into multiple variables. It
