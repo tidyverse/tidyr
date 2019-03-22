@@ -79,18 +79,12 @@ test_that("unless values_collapse is supplied", {
 
 test_that("can pivot from multiple measure cols", {
   df <- tibble(row = 1, var = c("x", "y"), a = 1:2, b = 3:4)
-  sp <- tibble::tribble(
-    ~.name, ~.value, ~var,
-    "x_a", "a", "x",
-    "y_a", "a", "y",
-    "x_b", "b", "x",
-    "y_b", "b", "y",
-  )
+  sp <- pivot_wider_spec(df, names_from = var, values_from = c(a, b))
   pv <- pivot_wider(df, spec = sp)
 
-  expect_named(pv, c("row", "x_a", "y_a", "x_b", "y_b"))
-  expect_equal(pv$x_a, 1)
-  expect_equal(pv$y_b, 4)
+  expect_named(pv, c("row", "a_x", "a_y", "b_x", "b_y"))
+  expect_equal(pv$a_x, 1)
+  expect_equal(pv$b_y, 4)
 })
 
 test_that("column order in output matches spec", {

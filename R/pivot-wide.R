@@ -10,10 +10,13 @@
 #'   specified in `names_from` and `values_from`.
 #' @param names_from,values_from A pair of arguments describing which column
 #'   (or columns) to get the name of the output column (`name_from`), and
-#'   which column to get the cell values from (`values_from`).
-#' @param names_sep If `names_from` contains multiple variables, this will be
-#'   used to join their values together into a single string to use as
-#'   a column name.
+#'   which column (or columns) to get the cell values from (`values_from`).
+#'
+#'   If `values_from` contains multiple values, the value will be added to the
+#'   front of the output column.
+#' @param names_sep If `names_from` or `values_from` contains multiple
+#'   variables, this will be used to join their values together into a single
+#'   string to use as a column name.
 #' @param names_prefix String added to the start of every variable name. This is
 #'   particularly useful if `names_from` is a numeric vector and you want to
 #'   create syntactic variable names.
@@ -121,18 +124,30 @@ pivot_wider <- function(df,
 #' @export
 #' @rdname pivot_wider
 pivot_wider_spec <- function(df,
-                            names_from = name,
-                            values_from = value,
-                            names_prefix = "",
-                            names_sep = "_") {
+                             names_from = name,
+                             values_from = value,
+                             names_prefix = "",
+                             names_sep = "_") {
   names_from <- tidyselect::vars_select(names(df), !!enquo(names_from))
-  values_from <- tidyselect::vars_pull(names(df), !!enquo(values_from))
+  values_from <- tidyselect::vars_select(names(df), !!enquo(values_from))
 
   row_ids <- vec_unique(df[names_from])
+  row_names <- exec(paste, !!!row_ids, sep = names_sep)
+
   out <- tibble(
-    .name = paste0(names_prefix, exec(paste, !!!row_ids, sep = names_sep)),
-    .value = values_from
+    .name = paste0(names_prefix, row_names)
   )
+
+  if (length(values_from) == 1) {
+    out$.value <- values_from
+  } else {
+    out <- vec_repeat(out, times = vec_size(values_from))
+    out$.value <- vec_repeat(values_from, each = vec_size(row_ids))
+    out$.name <- paste0(out$.value, names_sep, out$.name)
+
+    row_ids <- vec_repeat(row_ids, times = vec_size(values_from))
+  }
+
   vec_cbind(out, row_ids)
 }
 

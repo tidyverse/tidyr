@@ -21,15 +21,18 @@ specified in \code{names_from} and \code{values_from}.}
 
 \item{names_from, values_from}{A pair of arguments describing which column
 (or columns) to get the name of the output column (\code{name_from}), and
-which column to get the cell values from (\code{values_from}).}
+which column (or columns) to get the cell values from (\code{values_from}).
+
+If \code{values_from} contains multiple values, the value will be added to the
+front of the output column.}
 
 \item{names_prefix}{String added to the start of every variable name. This is
 particularly useful if \code{names_from} is a numeric vector and you want to
 create syntactic variable names.}
 
-\item{names_sep}{If \code{names_from} contains multiple variables, this will be
-used to join their values together into a single string to use as
-a column name.}
+\item{names_sep}{If \code{names_from} or \code{values_from} contains multiple
+variables, this will be used to join their values together into a single
+string to use as a column name.}
 
 \item{values_fill}{Optionally, a named list specifying what each \code{value}
 should be filled in with when missing.}
