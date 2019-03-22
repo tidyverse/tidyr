@@ -88,7 +88,7 @@ billboard <- read_csv("billboard.csv", col_types = list(time = col_skip()))
 billboard
 ```
 
-This records the billboard rank of songs over time. It is very similar in form to the `pew` data above, but the data encoded in the column names is really a number, not a string. This means that `pivot_longer()` works, but will require some additional cleaning afterwards:
+This records the billboard rank of songs over time. It is very similar in form to the `pew` data above, but the data encoded in the column names is really a number, not a string. We can use `names_prefix` to automatically strip off the `wk` prefix:
 
 ```{r}
 billboard %>% 
@@ -101,7 +101,7 @@ billboard %>%
   )
 ```
 
-Instead of doing that cleaning on the long data, we can tackle the problem in another way: by generating a pivot spec. (Using a pivoting spec is probably overkill for this problem, but it's a good bridge between very simple cases and the more complex cases you'll learn about shortly.) A pivoting spec is a data frame that describes the metadata stored in the column name, with one row for each column, and one column for each variable mashed into the column name. 
+This has one small problem: the `week` variable is a character variable rather than an integer. We could fix that after pivotting, but we can tackle the problem in another way: by generating a pivot spec. Using a pivoting spec is overkill for this problem, but it's a good bridge between very simple cases and the more complex cases you'll learn about later. A pivoting spec is a data frame that describes the metadata stored in the column name, with one row for each column, and one column for each variable mashed into the column name. 
 
 We start using `pivot_longer_spec()` to generate the spec that `pivot_longer()` generates behind the scenes:
 
@@ -139,13 +139,13 @@ billboard %>%
   pivot_longer(spec = spec)
 ```
 
-This seems like a lot of work to get something very similar to the previous result, but as you'll see shortly, it generalises in very useful ways.
+This seems like a lot of work to get something very similar to the previous result, but as you'll see later, it generalises in useful ways.
 
 The pivotting spec allows us to be more precise about exactly how `pivot_longer(df, spec = spec)` changes the shape of `df`: it will have `nrow(df) * nrow(spec)` rows, and `ncol(df) - nrow(spec) + ncol(spec) - 2` columns.
 
 ## Multiple value columns 
 
-So far the `.value` column has only ever contained a single value, so you might wonder why we need it. In fact, `.value` is very important as it allows us to solve a problem that was previously very challenging with `spread()`. Multiple values of `.value` allows us access to a new feature inspired by data.table: you can gather columns with different types. The following example is adapted from the [data.table vignette](https://cran.r-project.org/web/packages/data.table/vignettes/datatable-reshape.html):
+So far, we have been working with data frames that have a single value column. But many important pivotting problems involve multiple values. In this section, you'll learn how to pivot this sort of data. The following example is adapted from the [data.table vignette](https://cran.r-project.org/web/packages/data.table/vignettes/datatable-reshape.html), which inspired tidyr's solution to this problem:
 
 ```{r}
 family <- tibble::tribble(
@@ -160,14 +160,19 @@ family <- family %>% mutate_at(vars(starts_with("dob")), parse_date)
 family
 ```
 
-Note that we have two pieces of information about each child: their gender and their date of birth. These need to go into separate columns in the result. We can do this by suppling multiple elements to `names_to`, where `.value` is a special sentinel that represent the value column in the output.
+Note that we have two pieces of information about each child: their gender and their date of birth. These need to go into separate value columns in the result. We tell `pivot_longer()` to do this by suppling a character vector to `names_to` and a regular expresion to `names_sep`:
 
 ```{r}
 family %>% 
-  pivot_longer(-family, names_to = c(".value", "child"), names_sep = "_", na.rm = TRUE)
+  pivot_longer(
+    -family, 
+    names_to = c(".value", "child"), 
+    names_sep = "_", 
+    na.rm = TRUE
+  )
 ```
 
-We use `na.rm = TRUE` here because this shape of the data forces the creation of explicit missing variables for observations that don't exist. This ensures that family 2 has a single row in the output.
+Here `.value` is a special sentinel that represents the value column in the output, and overrides the value of the `value_to` argument. Note that I use `na.rm = TRUE` here because this shape of the data forces the creation of explicit missing variables for observations that don't exist. This ensures that family 2 has a single row in the output.
 
 Another case of this problem is the built-in `anscombe` dataset:
 
@@ -175,7 +180,7 @@ Another case of this problem is the built-in `anscombe` dataset:
 anscombe
 ```
 
-This dataset contains four pairs of variables (`x1` + `y1`, `x2` + `y2`, etc) that underlie Anscombe's quartet, a collection of four datasets that have the same summary statistics (mean, sd, correlation etc), but have quite different data. We want to produce a dataset with columns `graph`, `x` and `y`. 
+This dataset contains four pairs of variables (`x1` + `y1`, `x2` + `y2`, etc) that underlie Anscombe's quartet, a collection of four datasets that have the same summary statistics (mean, sd, correlation etc), but have quite different data. We want to produce a dataset with columns `graph`, `x` and `y`. Here we can't use a regular expression to split up the column names, and instead specify a split position:
 
 ```{r}
 anscombe %>% 
@@ -197,7 +202,7 @@ pnl <- tibble(
 )
 
 pnl %>% 
-  pivot_longer(-(x:b), names_to = c(".value", "time"), names_sep = 1)
+  pivot_longer(-c(x, a, b), names_to = c(".value", "time"), names_sep = 1)
 ```
 
 ## Many variables in column names
@@ -260,7 +265,7 @@ who %>% pivot_longer(spec = spec)
 Sometimes it's not possible (or not convenient) to compute the spec from the column names, and instead it can be convenient to construct the spec by hand. For example, take this `construction` data, which is lightly modified from Table 5 "completions" found at <https://www.census.gov/construction/nrc/index.html>:
 
 ```{r}
-construction <- read_csv("construction.csv", col_types = list("2 to 4 units" = col_integer()))
+construction <- read_csv("construction.csv", col_types = list())
 construction
 ```
 
