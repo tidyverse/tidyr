@@ -44,3 +44,19 @@ given by the value columns.}
 decreasing the number of columns. See more details in \code{vignette("pivot")},
 and see \code{\link[=pivot_wide]{pivot_wide()}} for the inverse transformation.
 }
+\details{
+\code{pivot_long} is a generalisation of the function \code{gather}, it differs from
+\code{gather} in two ways:
+
+1: It's designed to be easier to read and use. Years of user feedback has
+made it clear that the name of \code{gather} is not intuitive and users
+(including \code{tidyr} developers) refer to the documentation almost every time
+they use the function.
+
+2: \code{pivot_long} has been inspired by new features in other R packages, it's
+therefore more powerful and flexible than \code{gather}.
+
+However, \code{gather} will never be deprecated. For detailed examples of how to
+use \code{pivot_long}, consult the vigentte
+\code{vignette("pivot", package = "tidyr")}
+}

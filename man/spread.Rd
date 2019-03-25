@@ -39,6 +39,20 @@ by "<key_name><sep><key_value>".}
 \description{
 Spread a key-value pair across multiple columns.
 }
+\details{
+\code{spread} is a cornerstone of the \code{tidyr} package and the concept of Tidy Data
+introduced by Hadley Wickham \url{http://doi.org/10.18637/jss.v059.i10}.
+However, it's clear from user feedback back that there are conceptual
+difficulties in using the function. An alternative, and potentially
+simpler to understand, solution for spreading data is provided by the
+\code{pivot_wide} function. This and other \code{pivot_*} functions were first
+introduced in \code{tidyr vX.X}.
+
+Note that \code{pivot_wide} is more flexible and supports more complex use
+cases than \code{spread}. However, \code{spread} will never be deprecated.
+For detailed examples of how to use \code{pivot_wide}, consult the vigentte
+\code{vignette("pivot", package = "tidyr")}.
+}
 \examples{
 library(dplyr)
 stocks <- data.frame(

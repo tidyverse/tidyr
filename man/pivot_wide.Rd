@@ -49,6 +49,22 @@ Must be a data frame containing character \code{.name} and \code{.value} columns
 decreasing the number of rows. See more details in \code{vignette("pivot")},
 and see \code{\link[=pivot_long]{pivot_long()}} for the inverse transformation.
 }
+\details{
+\code{pivot_wide} is a generalisation of the function \code{spread}, it differs from
+\code{spread} in two ways:
+
+1: It's designed to be easier to read and use. Years of user feedback has
+made it clear that the name of \code{spread} is not intuitive and users
+(including \code{tidyr} developers) refer to the documentation almost every time
+they use the function.
+
+2: \code{pivot_wide} has been inspired by new features in other R packages, it's
+therefore more powerful and flexible than \code{spread}.
+
+However, \code{spread} will never be deprecated. For detailed examples of how to
+use \code{pivot_wide}, consult the vigentte
+\code{vignette("pivot", package = "tidyr")}
+}
 \examples{
 # Use values_fill to fill in missing values when you know what they
 # represent

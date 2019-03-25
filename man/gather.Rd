@@ -42,6 +42,20 @@ Gather takes multiple columns and collapses into key-value pairs,
 duplicating all other columns as needed. You use \code{gather()} when
 you notice that you have columns that are not variables.
 }
+\details{
+\code{gather} is a cornerstone of the \code{tidyr} package and the concept of Tidy Data
+introduced by Hadley Wickham \url{http://doi.org/10.18637/jss.v059.i10}.
+However, it's clear from user feedback back that there are conceptual
+difficulties in using the function. An alternative, and potentially
+simpler to understand, solution for gathering data is provided by the
+\code{pivot_long} function. This and other \code{pivot_*} functions were first
+introduced in \code{tidyr vX.X}.
+
+Note that \code{pivot_long} is more flexible and supports more complex use
+cases than \code{gather}. However, \code{gather} will never be deprecated.
+For detailed examples of how to use \code{pivot_long}, consult the vigentte
+\code{vignette("pivot", package = "tidyr")}.
+}
 \section{Rules for selection}{
 
 
