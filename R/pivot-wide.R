@@ -23,8 +23,10 @@
 #'   create syntactic variable names.
 #' @param values_fill Optionally, a named list specifying what each `value`
 #'   should be filled in with when missing.
-#' @param values_collapse Optionally, a named list describing how to collapse
-#'   each `value` if the keys are not unique.
+#' @param values_fn Optionally, a named list providing a function that will be
+#'   applied to the `value` in each cell in the output. You will typically
+#'   use this when the combination of `id_cols` and `value` column does not
+#'   uniquely identify an observation.
 #' @export
 #' @examples
 #' # Use values_fill to fill in missing values when you know what they
@@ -42,7 +44,7 @@ pivot_wider <- function(df,
                         names_prefix = "",
                         names_sep = "_",
                         values_fill = NULL,
-                        values_collapse = NULL,
+                        values_fn = NULL,
                         spec = NULL) {
 
   if (is.null(spec)) {
@@ -92,7 +94,12 @@ pivot_wider <- function(df,
     col_id <- vec_match(cols, spec_i[-(1:2)])
     val_id <- data.frame(row = row_id, col = col_id)
 
-    dedup <- vals_dedup(val_id, val, values_collapse[[value]])
+    dedup <- vals_dedup(
+      key = val_id,
+      val = val,
+      value = value,
+      summarize = values_fn[[value]]
+    )
     val_id <- dedup$key
     val <- dedup$val
 
@@ -157,21 +164,28 @@ name <- value <- NULL
 
 # Helpers -----------------------------------------------------------------
 
-vals_dedup <- function(key, val, collapse = NULL) {
-  if (!vec_duplicate_any(key)) {
-    return(list(key = key, val = val))
-  }
+# Not a great name as it now also casts
+vals_dedup <- function(key, val, value, summarize = NULL) {
 
-  if (is.null(collapse)) {
-    warn("Values are not uniquely identified; output will contain list-columns")
+  if (is.null(summarize)) {
+    if (!vec_duplicate_any(key)) {
+      return(list(key = key, val = val))
+    }
+
+    warn(glue::glue(
+      "Values in `{value}` are not uniquely identified; output will contain list-cols.\n",
+      "* Use `values_fn = list({value} = list)` to suppress this warning.\n",
+      "* Use `values_fn = list({value} = length)` to identify where the duplicates arise\n",
+      "* Use `values_fn = list({value} = summary_fun)` to summarise duplicates"
+    ))
   }
 
   out <- vec_split(val, key)
-  if (!is.null(collapse)) {
-    collapse <- as_function(collapse)
+  if (!is.null(summarize) && !identical(summarize, list)) {
+    summarize <- as_function(summarize)
     # This is only correct if `values_collapse` always returns a single value
     # Needs https://github.com/r-lib/vctrs/issues/183
-    out$val <- vec_c(!!!map(out$val, collapse))
+    out$val <- vec_c(!!!map(out$val, summarize))
   }
 
   out

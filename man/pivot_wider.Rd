@@ -7,7 +7,7 @@
 \usage{
 pivot_wider(df, id_cols = NULL, names_from = name,
   values_from = value, names_prefix = "", names_sep = "_",
-  values_fill = NULL, values_collapse = NULL, spec = NULL)
+  values_fill = NULL, values_fn = NULL, spec = NULL)
 
 pivot_wider_spec(df, names_from = name, values_from = value,
   names_prefix = "", names_sep = "_")
@@ -38,8 +38,10 @@ string to use as a column name.}
 \item{values_fill}{Optionally, a named list specifying what each \code{value}
 should be filled in with when missing.}
 
-\item{values_collapse}{Optionally, a named list describing how to collapse
-each \code{value} if the keys are not unique.}
+\item{values_fn}{Optionally, a named list providing a function that will be
+applied to the \code{value} in each cell in the output. You will typically
+use this when the combination of \code{id_cols} and \code{value} column does not
+uniquely identify an observation.}
 
 \item{spec}{Alternatively, instead of providing \code{cols} (and \code{names_to} and
 \code{values_to}) you can parse a specification data frame. This is useful

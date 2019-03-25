@@ -51,7 +51,10 @@ test_that("can override default keys", {
   expect_equal(nrow(pv), 2)
 })
 
-test_that("duplicated keys produce list column", {
+
+# non-unqiue keys ---------------------------------------------------------
+
+test_that("duplicated keys produce list column with warning", {
   df <- tibble(a = c(1, 1, 2), key = c("x", "x", "x"), val = 1:3)
   expect_warning(
     pv <- pivot_wider(df, names_from = key, values_from = val),
@@ -62,18 +65,31 @@ test_that("duplicated keys produce list column", {
   expect_equal(pv$x, list_of(c(1L, 2L), 3L))
 })
 
-test_that("unless values_collapse is supplied", {
+test_that("warning suppressed by supplying values_fn", {
   df <- tibble(a = c(1, 1, 2), key = c("x", "x", "x"), val = 1:3)
+  expect_warning(
+    pv <- pivot_wider(df,
+      names_from = key,
+      values_from = val,
+      values_fn = list(val = list)
+    ),
+    NA
+  )
+  expect_equal(pv$a, c(1, 2))
+  expect_equal(pv$x, list_of(c(1L, 2L), 3L))
+})
+
+test_that("values_summarize applied even when no-duplicates", {
+  df <- tibble(a = c(1, 2), key = c("x", "x"), val = 1:2)
   pv <- pivot_wider(df,
     names_from = key,
     values_from = val,
-    values_collapse = list(val = length)
+    values_fn = list(val = list)
   )
 
   expect_equal(pv$a, c(1, 2))
-  expect_equal(pv$x, c(2L, 1L))
+  expect_equal(pv$x, list_of(1L, 2L))
 })
-
 
 # multiple values ----------------------------------------------------------
 
