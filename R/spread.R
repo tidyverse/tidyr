@@ -36,7 +36,7 @@
 #' Note that `pivot_wide` is more flexible and supports more complex use
 #'   cases than `spread`. However, `spread` will never be deprecated.
 #'   For detailed examples of how to use `pivot_wide`, consult the vigentte
-#'   \code{vignette("tidyr", package = "pivot")}.
+#'   \code{vignette("pivot", package = "tidyr")}.
 #'
 #' @export
 #' @examples
