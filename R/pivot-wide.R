@@ -5,9 +5,10 @@
 #' and see [pivot_longer()] for the inverse transformation.
 #'
 #' @inheritParams pivot_longer
-#' @param keys Keys, a set of columns that uniquely identifies each
-#'   observation. Defaults to all columns in `df` except for the columns
-#'   specified in `names_from` and `values_from`.
+#' @param id_cols A set of columns that uniquely identifies each observation.
+#'   Defaults to all columns in `df` except for the columns specified in
+#'   `names_from` and `values_from`. Typically used when you have additional
+#'   variables that is directly related.
 #' @param names_from,values_from A pair of arguments describing which column
 #'   (or columns) to get the name of the output column (`name_from`), and
 #'   which column (or columns) to get the cell values from (`values_from`).
@@ -35,7 +36,7 @@
 #'     values_fill = list(seen = 0)
 #'   )
 pivot_wider <- function(df,
-                       keys = NULL,
+                       id_cols = NULL,
                        names_from = name,
                        values_from = value,
                        names_prefix = "",
@@ -61,9 +62,9 @@ pivot_wider <- function(df,
   values <- vec_unique(spec$.value)
   spec_cols <- c(names(spec)[-(1:2)], values)
 
-  keys <- enquo(keys)
-  if (!quo_is_null(keys)) {
-    key_vars <- tidyselect::vars_select(names(df), !!keys)
+  id_cols <- enquo(id_cols)
+  if (!quo_is_null(id_cols)) {
+    key_vars <- tidyselect::vars_select(names(df), !!id_cols)
   } else {
     key_vars <- names(df)
   }

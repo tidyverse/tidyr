@@ -47,7 +47,7 @@ test_that("can override default keys", {
     3,    "Bob", "age", 20,
   )
 
-  pv <- df %>% pivot_wider(keys = name, names_from = var, values_from = value)
+  pv <- df %>% pivot_wider(id_cols = name, names_from = var, values_from = value)
   expect_equal(nrow(pv), 2)
 })
 

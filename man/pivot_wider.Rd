@@ -5,9 +5,9 @@
 \alias{pivot_wider_spec}
 \title{Pivot data from long to wide}
 \usage{
-pivot_wider(df, keys = NULL, names_from = name, values_from = value,
-  names_prefix = "", names_sep = "_", values_fill = NULL,
-  values_collapse = NULL, spec = NULL)
+pivot_wider(df, id_cols = NULL, names_from = name,
+  values_from = value, names_prefix = "", names_sep = "_",
+  values_fill = NULL, values_collapse = NULL, spec = NULL)
 
 pivot_wider_spec(df, names_from = name, values_from = value,
   names_prefix = "", names_sep = "_")
@@ -15,9 +15,10 @@ pivot_wider_spec(df, names_from = name, values_from = value,
 \arguments{
 \item{df}{A data frame to pivot.}
 
-\item{keys}{Keys, a set of columns that uniquely identifies each
-observation. Defaults to all columns in \code{df} except for the columns
-specified in \code{names_from} and \code{values_from}.}
+\item{id_cols}{A set of columns that uniquely identifies each observation.
+Defaults to all columns in \code{df} except for the columns specified in
+\code{names_from} and \code{values_from}. Typically used when you have additional
+variables that is directly related.}
 
 \item{names_from, values_from}{A pair of arguments describing which column
 (or columns) to get the name of the output column (\code{name_from}), and

@@ -24,7 +24,7 @@ the cell values (\code{values_to}) turn into in the result.
 
 Note that these variables do not exist, so must be specified as strings.}
 
-\item{names_prefix}{A regular expressiong used to remove matching text
+\item{names_prefix}{A regular expression used to remove matching text
 from the start of each variable name.}
 
 \item{names_sep}{If \code{names_to} contains multiple values, this argument
