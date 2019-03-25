@@ -40,9 +40,9 @@
 pivot_wider <- function(df,
                         id_cols = NULL,
                         names_from = name,
-                        values_from = value,
                         names_prefix = "",
                         names_sep = "_",
+                        values_from = value,
                         values_fill = NULL,
                         values_fn = NULL,
                         spec = NULL) {

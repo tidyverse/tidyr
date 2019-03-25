@@ -39,9 +39,9 @@
 pivot_longer <- function(df,
                          cols,
                          names_to = "name",
-                         values_to = "value",
                          names_prefix = NULL,
                          names_sep = NULL,
+                         values_to = "value",
                          na.rm = FALSE,
                          values_type = list(),
                          spec = NULL

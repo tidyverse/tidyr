@@ -5,8 +5,8 @@
 \alias{pivot_longer_spec}
 \title{Pivot data from wide to long.}
 \usage{
-pivot_longer(df, cols, names_to = "name", values_to = "value",
-  names_prefix = NULL, names_sep = NULL, na.rm = FALSE,
+pivot_longer(df, cols, names_to = "name", names_prefix = NULL,
+  names_sep = NULL, values_to = "value", na.rm = FALSE,
   values_type = list(), spec = NULL)
 
 pivot_longer_spec(df, cols, names_to = "name", values_to = "value",

@@ -5,9 +5,9 @@
 \alias{pivot_wider_spec}
 \title{Pivot data from long to wide}
 \usage{
-pivot_wider(df, id_cols = NULL, names_from = name,
-  values_from = value, names_prefix = "", names_sep = "_",
-  values_fill = NULL, values_fn = NULL, spec = NULL)
+pivot_wider(df, id_cols = NULL, names_from = name, names_prefix = "",
+  names_sep = "_", values_from = value, values_fill = NULL,
+  values_fn = NULL, spec = NULL)
 
 pivot_wider_spec(df, names_from = name, values_from = value,
   names_prefix = "", names_sep = "_")
