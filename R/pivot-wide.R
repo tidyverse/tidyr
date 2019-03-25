@@ -21,6 +21,24 @@
 #'   should be filled in with when missing.
 #' @param values_collapse Optionally, a named list describing how to collapse
 #'   each `value` if the keys are not unique.
+#'
+#' @details
+#'
+#' `pivot_wide` is a generalisation of the function `spread`, it differs from
+#'   `spread` in two ways:
+#'
+#'   1: It's designed to be easier to read and use. Years of user feedback has
+#'   made it clear that the name of `spread` is not intuitive and users
+#'   (including `tidyr` developers) refer to the documentation almost every time
+#'   they use the function.
+#'
+#'   2: `pivot_wide` has been inspired by new features in other R packages, it's
+#'   therefore more powerful and flexible than `spread`.
+#'
+#'   However, `spread` will never be deprecated. For detailed examples of how to
+#'   use `pivot_wide`, consult the vigentte
+#'   \code{vignette("pivot", package = "tidyr")}
+#'
 #' @export
 #' @examples
 #' # Use values_fill to fill in missing values when you know what they
