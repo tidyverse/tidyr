@@ -37,15 +37,15 @@
 #'   given by the value columns.
 #' @export
 pivot_longer <- function(df,
-                       cols,
-                       names_to = "name",
-                       values_to = "value",
-                       names_prefix = NULL,
-                       names_sep = NULL,
-                       na.rm = FALSE,
-                       values_type = list(),
-                       spec = NULL
-                       ) {
+                         cols,
+                         names_to = "name",
+                         values_to = "value",
+                         names_prefix = NULL,
+                         names_sep = NULL,
+                         na.rm = FALSE,
+                         values_type = list(),
+                         spec = NULL
+                         ) {
 
   if (is.null(spec)) {
     cols <- enquo(cols)

@@ -36,14 +36,14 @@
 #'     values_fill = list(seen = 0)
 #'   )
 pivot_wider <- function(df,
-                       id_cols = NULL,
-                       names_from = name,
-                       values_from = value,
-                       names_prefix = "",
-                       names_sep = "_",
-                       values_fill = NULL,
-                       values_collapse = NULL,
-                       spec = NULL) {
+                        id_cols = NULL,
+                        names_from = name,
+                        values_from = value,
+                        names_prefix = "",
+                        names_sep = "_",
+                        values_fill = NULL,
+                        values_collapse = NULL,
+                        spec = NULL) {
 
   if (is.null(spec)) {
     names_from <- enquo(names_from)
