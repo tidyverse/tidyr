@@ -365,7 +365,14 @@ The `us_rent_income` dataset contains information about median income and rent f
 us_rent_income
 ```
 
-We'd like to generate a dataset with columns `rent`, `rent_moe`, `income`, and `income_moe`.  There are many ways that you could generate this spec, but the key is that we need to generate every combination of the `variable` values and `estimate`/`moe`, and then carefully generate the column name:
+Here both `estimate` and `moe` are values columns, so we can supply them to `values_from`:
+
+```{r}
+us_rent_income %>% 
+  pivot_wider(names_from = variable, values_from = c(estimate, moe))
+```
+
+This works, but the column names could be improved. I think it would be better to have columns `rent`, `rent_moe`, `income`, and `income_moe`, which we can do with a manual spec. There are many ways that you could generate the spec, but the key is that we need to generate every combination of the `variable` values and `estimate`/`moe`, and then carefully generate the column name:
 
 ```{r}
 spec <- us_rent_income %>% 
