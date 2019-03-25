@@ -25,9 +25,18 @@
 #'
 #' @details
 #'
-#' `spread` is a cornerstone of the `tidyr` package and the concept of Tidy Data introduced by Hadley Wickham \url{http://doi.org/10.18637/jss.v059.i10}. However, many experience users of `tidyr` have conceptual difficulties with using the function. An alternative, and potentially simpler to understand, is provided by the `pivot_wide` function. This and other `pivot_*` functions were first introduced in `tidyr vX.X`.
+#' `spread` is a cornerstone of the `tidyr` package and the concept of Tidy Data
+#'   introduced by Hadley Wickham \url{http://doi.org/10.18637/jss.v059.i10}.
+#'   However, it's clear from user feedback back that there are conceptual
+#'   difficulties in using the function. An alternative, and potentially
+#'   simpler to understand, solution for spreading data is provided by the
+#'   `pivot_wide` function. This and other `pivot_*` functions were first
+#'   introduced in `tidyr vX.X`.
 #'
-#' Note that the `pivot_wide` is more flexible and supports more complex use cases than `spread`. However, `spread` will not and is not being deprecated. For detailed examples of how to use `pivot_wide`, consult the vigentte \code{vignette("tidyr", package = "pivot")}
+#' Note that `pivot_wide` is more flexible and supports more complex use
+#'   cases than `spread`. However, `spread` will not and is not being deprecated.
+#'   For detailed examples of how to use `pivot_wide`, consult the vigentte
+#'   \code{vignette("tidyr", package = "pivot")}.
 #'
 #' @export
 #' @examples
