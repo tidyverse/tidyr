@@ -26,6 +26,25 @@
 #'   automatically guess from the data. Supply this argument when you want to
 #'   override that default. Should be a named list, where the names are
 #'   given by the value columns.
+#'
+#' @details
+#'
+#' `pivot_long` is a generalisation of the function `gather`, it differs from
+#'   `gather` in two ways:
+#'
+#'   1: It's designed to be easier to read and use. Years of user feedback has
+#'   made it clear that the name of `gather` is not intuitive and users
+#'   (including `tidyr` developers) refer to the documentation almost every time
+#'   they use the function.
+#'
+#'   2: `pivot_long` has been inspired by new features in other R packages, it's
+#'   therefore more powerful and flexible than `gather`.
+#'
+#'   However, `gather` will never be deprecated. For detailed examples of how to
+#'   use `pivot_long`, consult the vigentte
+#'   \code{vignette("pivot", package = "tidyr")}
+#'
+#'
 #' @export
 pivot_long <- function(df,
                        cols,
