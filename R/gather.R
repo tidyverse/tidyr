@@ -65,7 +65,7 @@
 #'   introduced in `tidyr vX.X`.
 #'
 #' Note that `pivot_long` is more flexible and supports more complex use
-#'   cases than `gather`. However, `gather` will not and is not being deprecated.
+#'   cases than `gather`. However, `gather` will never be deprecated.
 #'   For detailed examples of how to use `pivot_long`, consult the vigentte
 #'   \code{vignette("tidyr", package = "pivot")}.
 #'
