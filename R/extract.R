@@ -60,9 +60,8 @@ str_extract <- function(x, into, regex, convert = FALSE) {
     )
   }
 
-  # Use as_tibble post https://github.com/hadley/dplyr/issues/876
-  out <- map(seq_ncol(matches), function(i) matches[, i])
-  names(out) <- enc2utf8(into)
+  colnames(matches) <- as_utf8_character(into)
+  out <- as_tibble(matches)
 
   if (convert) {
     out[] <- map(out, type.convert, as.is = TRUE)
