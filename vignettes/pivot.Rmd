@@ -46,13 +46,13 @@ library(dplyr)
 library(readr)
 ```
 
-# Wide to long
+# Longer
 
 `pivot_longer()` makes datasets __longer__ by reducing the number of columns and increasing the number of rows. `pivot_longer()` is commonly needed to tidy wild-caught datasets as they often optimise for ease of data entry or ease of comparison rather than ease of analysis. 
 
 Note that I don't believe it makes sense to describe a dataset as being in "long form". Length is a relative term, and you can only say (e.g.) that dataset A is longer than dataset B. 
 
-## Simple pivoting {#pew}
+## String data in column names {#pew}
 
 The `pew` dataset stores count from a survey which (among other things) asked people about their religion and annual income:
 
@@ -81,14 +81,26 @@ Neither the `names_to` nor the `values_to` column exists in `pew`, so we have to
 
 ## Numeric data in column names {#billboard}
 
-For many datasets, `pivot_longer()` is all you need. But for more complex datasets it often makes sense to manually generate a data frame that precisely describes the transformation. For example, take the billboard data:
+This records the billboard rank of songs over time. It is very similar in form to the `pew` data above, but the data encoded in the column names is really a number, not a string. 
 
 ```{r}
 billboard <- read_csv("billboard.csv", col_types = list(time = col_skip()))
 billboard
 ```
 
-This records the billboard rank of songs over time. It is very similar in form to the `pew` data above, but the data encoded in the column names is really a number, not a string. We can use `names_prefix` to automatically strip off the `wk` prefix:
+A simple pivotting:
+
+```{r}
+billboard %>% 
+  pivot_longer(
+    cols = starts_with("wk"), 
+    names_to = "week", 
+    values_to = "rank",
+    values_drop_na = TRUE
+  )
+```
+
+We can use `names_prefix` to automatically strip off the `wk` prefix:
 
 ```{r}
 billboard %>% 
@@ -97,51 +109,52 @@ billboard %>%
     names_to = "week", 
     names_prefix = "wk",
     values_to = "rank",
+    # values_ptype = list(week = integer()),
     values_drop_na = TRUE
   )
 ```
 
-This has one small problem: the `week` variable is a character variable rather than an integer. We could fix that after pivotting, but we can tackle the problem in another way: by generating a pivot spec. Using a pivoting spec is overkill for this problem, but it's a good bridge between very simple cases and the more complex cases you'll learn about later. A pivoting spec is a data frame that describes the metadata stored in the column name, with one row for each column, and one column for each variable mashed into the column name. 
+This has one small problem: the `week` variable is a character variable rather than an integer. 
 
-We start using `pivot_longer_spec()` to generate the spec that `pivot_longer()` generates behind the scenes:
+## Many variables in column names
+
+In more complex cases, the variables encoded the column names might require more significant parsing to extract. For example, take the `who` dataset bundled with this package:
 
 ```{r}
-spec <- billboard %>% 
-  pivot_longer_spec(
-    cols = starts_with("wk"), 
-    names_to = "week", 
-    names_prefix = "wk",
-    values_to = "rank"
+who
+```
+
+`country`, `iso2`, `iso3`, and `year` are already variables, so can be left as is. We want to pivot the columns from `new_sp_m014` to `newrel_f65`. These columns encode four variables in their names:
+
+* The `new_`/`new` prefix indicates these are counts of new cases. This
+  dataset only contains new cases, so here we'll ignore this variable because 
+  it's constant.
+  
+* `sp`/`rel`/`sp`/`ep` describe how the case was diagnosed.
+
+* `m`/`f` gives the gender.
+
+* `014`/`1524`/`2535`/`3544`/`4554`/`65` supplies the age range.
+
+We can extract these variables using a regular expression:
+
+```{r}
+who %>% pivot_longer(
+  cols = new_sp_m014:newrel_f65,
+  names_pattern = "new_?(.*)_(.)(.*)",
+  names_to = c("diagnosis", "gender", "age"), 
+  values_to = "count"
+)
+```
+
+```{r, eval = FALSE}
+spec <- spec %>%
+  mutate(
+    gender = factor(gender, levels = c("f", "m")),
+    age = factor(age, levels = unique(age), ordered = TRUE)
   )
 spec
 ```
-
-The spec is a data frame with one row for each column, and two special columns that start with `.`:
-
-* `.name` gives the name of the column.
-* `.value` gives the name of the column that the values in the cells will
-  go into.
-  
-All other variables are maintained in the output of the pivot.
-
-To make this spec a more accurate rendition of the metadata that's stored in the column names, we need to turn the string into an integer:
-
-```{r}
-spec <- spec %>% 
-  mutate(week = as.integer(week))
-spec
-```
-
-We can now provide this spec to `pivot_longer()`:
-
-```{r}
-billboard %>% 
-  pivot_longer(spec = spec)
-```
-
-This seems like a lot of work to get something very similar to the previous result, but as you'll see later, it generalises in useful ways.
-
-The pivotting spec allows us to be more precise about exactly how `pivot_longer(df, spec = spec)` changes the shape of `df`: it will have `nrow(df) * nrow(spec)` rows, and `ncol(df) - nrow(spec) + ncol(spec) - 2` columns.
 
 ## Multiple value columns 
 
@@ -184,7 +197,10 @@ This dataset contains four pairs of variables (`x1` + `y1`, `x2` + `y2`, etc) th
 
 ```{r}
 anscombe %>% 
-  pivot_longer(everything(), names_to = c(".value", "graph"), names_sep = 1) %>% 
+  pivot_longer(everything(), 
+    names_to = c(".value", "graph"), 
+    names_pattern = "(.)(.)"
+  ) %>% 
   arrange(graph)
 ```
 
@@ -202,102 +218,16 @@ pnl <- tibble(
 )
 
 pnl %>% 
-  pivot_longer(-c(x, a, b), names_to = c(".value", "time"), names_sep = 1)
-```
-
-## Many variables in column names
-
-In more complex cases, the variables encoded the column names might require more significant parsing to extract. For example, take the `who` dataset bundled with this package:
-
-```{r}
-who
-```
-
-`country`, `iso2`, `iso3`, and `year` are already variables, so can be left as is. We want to pivot the columns from `new_sp_m014` to `newrel_f65`:
-
-```{r}
-spec <- who %>%
-  pivot_longer_spec(new_sp_m014:newrel_f65, values_to = "count")
-spec
-```
-
-These columns encode four variables in their names:
-
-* The `new_`/`new` prefix indicates these are counts of new cases. This
-  dataset only contains new cases, so here we'll ignore this variable because 
-  it's constant.
-  
-* `sp`/`rel`/`sp`/`ep` describe how the case was diagnosed.
-
-* `m`/`f` gives the gender.
-
-* `014`/`1524`/`2535`/`3544`/`4554`/`65` supplies the age range.
-
-We can extract these variables out of the `name` using `extract()`:
-
-```{r}
-spec <- spec %>%
-  extract(name, c("diagnosis", "gender", "age"), "new_?(.*)_(.)(.*)")
-spec
-```
-
-(Note that `.name` must stay unchanged as it's our index into the column names of the original dataset.)
-
-Gender and age have fixed and known values, so it's good practice to convert these strings to factors:
-
-```{r}
-spec <- spec %>%
-  mutate(
-    gender = factor(gender, levels = c("f", "m")),
-    age = factor(age, levels = unique(age), ordered = TRUE)
+  pivot_longer(
+    -c(x, a, b), 
+    names_to = c(".value", "time"), 
+    names_pattern = "(.)(.)"
   )
-spec
 ```
 
-Finally, we can use this spec to tidy the dataset:
-
-```{r}
-who %>% pivot_longer(spec = spec)
-```
-
-## Manual spec construction
-
-Sometimes it's not possible (or not convenient) to compute the spec from the column names, and instead it can be convenient to construct the spec by hand. For example, take this `construction` data, which is lightly modified from Table 5 "completions" found at <https://www.census.gov/construction/nrc/index.html>:
-
-```{r}
-construction <- read_csv("construction.csv", col_types = list())
-construction
-```
-
-This sort of data is not uncommon from government agencies: the column names actually belong to different variables, and here we have summaries for number of units (1, 2-4, 5+) and regions of the country (NE, NW, midwest, S, W). We can most easily describe that with a tibble:
-
-```{r}
-spec <- tribble(
-  ~.name,            ~.value, ~units,  ~region,     
-  "Total",           "n",     "total", NA,          
-  "1 unit",          "n",     "1",     NA,          
-  "2 to 4 units",    "n",     "2-4",   NA,          
-  "5 units or more", "n",     "5+",    NA,          
-  "Northeast",       "n",     NA,      "Northeast", 
-  "Midwest",         "n",     NA,      "Midwest",   
-  "South",           "n",     NA,      "South",     
-  "West",            "n",     NA,      "West",      
-)
-```
-
-Which yields the following long form:
-
-```{r}
-construction %>% pivot_longer(spec = spec)
-```
-
-(Note that there is no overlap between the `units` and `region` variables; here the data would really be most naturally described in two independent tables.)
-
-# Long to wide
+# Wider
 
 `pivot_wider()` is the opposite of `pivot_longer()`: it makes a dataset __wider__ by reducing the number of rows and increasing the number of columns. It's relatively rare to need `pivot_wider()` to make tidy data, but it's often useful for creating summary tables for presentation, or data in a format needed by other tools.
-
-Note that it is generally true that `pivot_longer()` and `pivot_wider()` are symmetric: `df %>% pivot_longer(spec = spec) %>% pivot_wider(spec = spec)` and `df %>% pivot_wider(spec = spec) %>% pivot_longer(spec = spec)` will yield `df`.
 
 ## Capture-recapture data
 
@@ -328,34 +258,23 @@ fish_encounters %>% pivot_wider(
 Imagine, as in <http://stackoverflow.com/questions/24929954>, that we have information containing the combination of product, country, and year. In tidy form it might look like this:
 
 ```{r}
-df <- expand_grid(
+production <- expand_grid(
     product = c("A", "B"), 
     country = c("AI", "EI"), 
     year = 2000:2014
   ) %>%
   filter((product == "A" & country == "AI") | product == "B") %>% 
   mutate(value = rnorm(nrow(.)))
-df
+production
 ```
 
 We want to widen the data so we have one column for each combination of `product` and `country`. The key is to specify multiple variables for `names_from`:
 
 ```{r}
-df %>% pivot_wider(names_from = c(product, country), values_from = value)
+production %>% pivot_wider(names_from = c(product, country), values_from = value)
 ```
 
 If you want finer control over the generated columns, you can create a spec data frame. This has exactly the same format as for `pivot_longer()`: a data frame with special `.name` and `.value` columns. But when fed to `pivot_wider()` it does the opposite transformation to `pivot_longer()`: it create the columns specified in `.name`, using the information from `.value` and the other columns.
-
-For this dataset, you might want to generate a custom spec if you wanted to ensure that every possible combination of `country` and `product` got it's own column, not just those present in the data:
-
-```{r}
-spec <- df %>% 
-  expand(product, country, .value = "value") %>% 
-  unite(".name", product, country, remove = FALSE)
-spec
-
-df %>% pivot_wider(spec = spec) %>% head()
-```
 
 ## Tidy census
 
@@ -372,26 +291,40 @@ us_rent_income %>%
   pivot_wider(names_from = variable, values_from = c(estimate, moe))
 ```
 
-This works, but the column names could be improved. I think it would be better to have columns `rent`, `rent_moe`, `income`, and `income_moe`, which we can do with a manual spec. There are many ways that you could generate the spec, but the key is that we need to generate every combination of the `variable` values and `estimate`/`moe`, and then carefully generate the column name:
+## Contact list
+
+A final challenge is inspired by [Jiena Gu](https://github.com/jienagu/tidyverse_examples/blob/master/example_long_wide.R). Imagine you have a contact list that you've copied and pasted from a website:
 
 ```{r}
-spec <- us_rent_income %>% 
-  expand(variable, .value = c("estimate", "moe")) %>% 
+contacts <- tribble(
+  ~field, ~value,
+  "name", "Jiena McLellan",
+  "company", "Toyota", 
+  "name", "John Smith", 
+  "company", "google", 
+  "email", "john@google.com",
+  "name", "Huxley Ratcliffe"
+)
+```
+
+This is challenging because there's no variable that identifies which observations belong together, and unlike `anscombe` there's no regular pattern. We can fix this by noting that every contact starts with a name, so we can create a unique id by counting every time we see "name" as the `field`: 
+
+```{r}
+contacts <- contacts %>% 
   mutate(
-    .name = paste0(variable, ifelse(.value == "moe", "_moe", ""))
+    person_id = cumsum(field == "name")
   )
-spec
+contacts
 ```
 
-Supplying this spec to `pivot_wider()` gives us the result we're looking for:
+Now that we have a unique identifier for each person, we can pivot `field` and `value` into the columns:
 
 ```{r}
-us_rent_income %>% pivot_wider(spec = spec)
+contacts %>% 
+  pivot_wider(names_from = field, values_from = value)
 ```
 
-# Other challenges
-
-Sometimes getting a dataset into the needed form requires multiple steps. These final case studies show a few examples that require multiple steps to get them into a useful format.
+# Longer, then wider
 
 ## World bank
 
@@ -453,40 +386,120 @@ df %>%
   )
 ```
 
+# Manual specs
 
-## Contact list
 
-A final challenge is inspired by [Jiena Gu](https://github.com/jienagu/tidyverse_examples/blob/master/example_long_wide.R). Imagine you have a contact list that you've copied and pasted from a website:
+Note that it is generally true that `pivot_longer()` and `pivot_wider()` are symmetric: `df %>% pivot_longer(spec = spec) %>% pivot_wider(spec = spec)` and `df %>% pivot_wider(spec = spec) %>% pivot_longer(spec = spec)` will yield `df`.
+
+
+## Motivation
+
+We could fix that after pivotting, but we can tackle the problem in another way: by generating a pivot spec. Using a pivoting spec is overkill for this problem, but it's a good bridge between very simple cases and the more complex cases you'll learn about later. A pivoting spec is a data frame that describes the metadata stored in the column name, with one row for each column, and one column for each variable mashed into the column name. 
+
+We start using `pivot_longer_spec()` to generate the spec that `pivot_longer()` generates behind the scenes:
 
 ```{r}
-contacts <- tribble(
-  ~field, ~value,
-  "name", "Jiena McLellan",
-  "company", "Toyota", 
-  "name", "John Smith", 
-  "company", "google", 
-  "email", "john@google.com",
-  "name", "Huxley Ratcliffe"
+spec <- billboard %>% 
+  pivot_longer_spec(
+    cols = starts_with("wk"), 
+    names_to = "week", 
+    names_prefix = "wk",
+    values_to = "rank"
+  )
+spec
+```
+
+The spec is a data frame with one row for each column, and two special columns that start with `.`:
+
+* `.name` gives the name of the column.
+* `.value` gives the name of the column that the values in the cells will
+  go into.
+  
+All other variables are maintained in the output of the pivot.
+
+To make this spec a more accurate rendition of the metadata that's stored in the column names, we need to turn the string into an integer:
+
+```{r}
+spec <- spec %>% 
+  mutate(week = as.integer(week))
+spec
+```
+
+We can now provide this spec to `pivot_longer()`:
+
+```{r}
+billboard %>% 
+  pivot_longer(spec = spec)
+```
+
+This seems like a lot of work to get something very similar to the previous result, but as you'll see later, it generalises in useful ways.
+
+The pivotting spec allows us to be more precise about exactly how `pivot_longer(df, spec = spec)` changes the shape of `df`: it will have `nrow(df) * nrow(spec)` rows, and `ncol(df) - nrow(spec) + ncol(spec) - 2` columns.
+
+
+## Longer
+
+Sometimes it's not possible (or not convenient) to compute the spec from the column names, and instead it can be convenient to construct the spec by hand. For example, take this `construction` data, which is lightly modified from Table 5 "completions" found at <https://www.census.gov/construction/nrc/index.html>:
+
+```{r}
+construction <- read_csv("construction.csv", col_types = list())
+construction
+```
+
+This sort of data is not uncommon from government agencies: the column names actually belong to different variables, and here we have summaries for number of units (1, 2-4, 5+) and regions of the country (NE, NW, midwest, S, W). We can most easily describe that with a tibble:
+
+```{r}
+spec <- tribble(
+  ~.name,            ~.value, ~units,  ~region,     
+  "Total",           "n",     "total", NA,          
+  "1 unit",          "n",     "1",     NA,          
+  "2 to 4 units",    "n",     "2-4",   NA,          
+  "5 units or more", "n",     "5+",    NA,          
+  "Northeast",       "n",     NA,      "Northeast", 
+  "Midwest",         "n",     NA,      "Midwest",   
+  "South",           "n",     NA,      "South",     
+  "West",            "n",     NA,      "West",      
 )
 ```
 
-This is challenging because there's no variable that identifies which observations belong together, and unlike `anscombe` there's no regular pattern. We can fix this by noting that every contact starts with a name, so we can create a unique id by counting every time we see "name" as the `field`: 
+Which yields the following long form:
 
 ```{r}
-contacts <- contacts %>% 
+construction %>% pivot_longer(spec = spec)
+```
+
+(Note that there is no overlap between the `units` and `region` variables; here the data would really be most naturally described in two independent tables.)
+
+## Wider
+
+For this dataset, you might want to generate a custom spec if you wanted to ensure that every possible combination of `country` and `product` got it's own column, not just those present in the data:
+
+```{r}
+spec <- production %>% 
+  expand(product, country, .value = "value") %>% 
+  unite(".name", product, country, remove = FALSE)
+spec
+
+production %>% pivot_wider(spec = spec) %>% head()
+```
+
+This works, but the column names could be improved. I think it would be better to have columns `rent`, `rent_moe`, `income`, and `income_moe`, which we can do with a manual spec. There are many ways that you could generate the spec, but the key is that we need to generate every combination of the `variable` values and `estimate`/`moe`, and then carefully generate the column name:
+
+```{r}
+spec <- us_rent_income %>% 
+  expand(variable, .value = c("estimate", "moe")) %>% 
   mutate(
-    person_id = cumsum(field == "name")
+    .name = paste0(variable, ifelse(.value == "moe", "_moe", ""))
   )
-contacts
+spec
 ```
 
-Now that we have a unique identifier for each person, we can pivot `field` and `value` into the columns:
+Supplying this spec to `pivot_wider()` gives us the result we're looking for:
 
 ```{r}
-contacts %>% 
-  pivot_wider(names_from = field, values_from = value)
+us_rent_income %>% pivot_wider(spec = spec)
 ```
-
 [cdata]: https://winvector.github.io/cdata/
 [data.table]: https://github.com/Rdatatable/data.table/wiki
 [tidycensus]: https://walkerke.github.io/tidycensus
+

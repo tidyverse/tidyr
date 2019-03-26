@@ -80,3 +80,54 @@ test_that("handles duplicated column names", {
   expect_equal(pv$.copy, rep(1:2, times = 2))
   expect_equal(pv$value, 1:4)
 })
+
+
+# spec --------------------------------------------------------------------
+
+test_that("multiple names requires names_sep/names_pattern", {
+  df <- tibble(x_y = 1)
+  expect_error(
+    pivot_longer_spec(df, 1, names_to = c("a", "b")),
+    "multiple names"
+  )
+
+  expect_error(
+    pivot_longer_spec(df, 1,
+      names_to = c("a", "b"),
+      names_sep = "x",
+      names_pattern = "x"
+    ),
+    "one of `names_sep` or `names_pattern"
+  )
+})
+
+test_that("names_sep generates correct spec", {
+  df <- tibble(x_y = 1)
+  sp <- pivot_longer_spec(df, 1, names_to = c("a", "b"), names_sep = "_")
+
+  expect_equal(sp$a, "x")
+  expect_equal(sp$b, "y")
+})
+
+test_that("names_pattern generates correct spec", {
+  df <- tibble(zx_y = 1)
+  sp <- pivot_longer_spec(df, 1, names_to = c("a", "b"), names_pattern = "z(.)_(.)")
+
+  expect_equal(sp$a, "x")
+  expect_equal(sp$b, "y")
+})
+
+test_that("names_to can override value_to", {
+  df <- tibble(x_y = 1)
+  sp <- pivot_longer_spec(df, 1, names_to = c("a", ".value"), names_sep = "_")
+
+  expect_equal(sp$.value, "y")
+})
+
+test_that("names_prefix strips off from beginning", {
+  df <- tibble(zzyz = 1)
+  sp <- pivot_longer_spec(df, 1, names_prefix = "z")
+
+  expect_equal(sp$name, "zyz")
+})
+

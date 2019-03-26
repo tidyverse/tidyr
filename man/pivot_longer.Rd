@@ -6,11 +6,11 @@
 \title{Pivot data from wide to long.}
 \usage{
 pivot_longer(df, cols, names_to = "name", names_prefix = NULL,
-  names_sep = NULL, values_to = "value", values_drop_na = FALSE,
-  values_ptype = list(), spec = NULL)
+  names_sep = NULL, names_pattern = NULL, values_to = "value",
+  values_drop_na = FALSE, values_ptype = list(), spec = NULL)
 
 pivot_longer_spec(df, cols, names_to = "name", values_to = "value",
-  names_prefix = NULL, names_sep = NULL)
+  names_prefix = NULL, names_sep = NULL, names_pattern = NULL)
 }
 \arguments{
 \item{df}{A data frame to pivot.}
@@ -27,13 +27,19 @@ Note that these variables do not exist, so must be specified as strings.}
 \item{names_prefix}{A regular expression used to remove matching text
 from the start of each variable name.}
 
-\item{names_sep}{If \code{names_to} contains multiple values, this argument
-controls how the column name is split up into multiple variables. It
-takes the same specification as \code{\link[=separate]{separate()}}, and can either be a
-numeric vector (specifying positions to break on), or a single string
-(specifying a regular expression to split on). If this does not give you
-enough control, use \code{pivot_longer_spec()} to create a spec object and
-process as needed.}
+\item{names_sep, names_pattern}{If \code{names_to} contains multiple values,
+these arguments control how the column name is broken up.
+
+\code{names_sep} takes the same specification as \code{\link[=separate]{separate()}}, and can either
+be a numeric vector (specifying positions to break on), or a single string
+(specifying a regular expression to split on).
+
+\code{names_pattern} takes the same specification as \code{\link[=extract]{extract()}}, a regular
+expression containing matching groups (\code{()}).
+
+If these arguments does not give you enough control, use
+\code{pivot_longer_spec()} to create a spec object and process manually as
+needed.}
 
 \item{values_drop_na}{If \code{TRUE}, will drop rows that contain only \code{NA}s
 in the \code{value_to} column. This effectively converts explicit missing values

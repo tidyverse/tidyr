@@ -14,13 +14,19 @@
 #'   Note that these variables do not exist, so must be specified as strings.
 #' @param names_prefix A regular expression used to remove matching text
 #'   from the start of each variable name.
-#' @param names_sep If `names_to` contains multiple values, this argument
-#'   controls how the column name is split up into multiple variables. It
-#'   takes the same specification as [separate()], and can either be a
-#'   numeric vector (specifying positions to break on), or a single string
-#'   (specifying a regular expression to split on). If this does not give you
-#'   enough control, use `pivot_longer_spec()` to create a spec object and
-#'   process as needed.
+#' @param names_sep,names_pattern If `names_to` contains multiple values,
+#'   these arguments control how the column name is broken up.
+#'
+#'   `names_sep` takes the same specification as [separate()], and can either
+#'   be a numeric vector (specifying positions to break on), or a single string
+#'   (specifying a regular expression to split on).
+#'
+#'   `names_pattern` takes the same specification as [extract()], a regular
+#'   expression containing matching groups (`()`).
+#'
+#'   If these arguments does not give you enough control, use
+#'   `pivot_longer_spec()` to create a spec object and process manually as
+#'   needed.
 #' @param spec Alternatively, instead of providing `cols` (and `names_to` and
 #'   `values_to`) you can parse a specification data frame. This is useful
 #'   for more complex pivots because it gives you greater control on how
@@ -41,6 +47,7 @@ pivot_longer <- function(df,
                          names_to = "name",
                          names_prefix = NULL,
                          names_sep = NULL,
+                         names_pattern = NULL,
                          values_to = "value",
                          values_drop_na = FALSE,
                          values_ptype = list(),
@@ -53,7 +60,8 @@ pivot_longer <- function(df,
       names_to = names_to,
       values_to = values_to,
       names_prefix = names_prefix,
-      names_sep = names_sep
+      names_sep = names_sep,
+      names_pattern = names_pattern
     )
   } else {
     spec <- check_spec(spec)
@@ -107,7 +115,8 @@ pivot_longer_spec <- function(df, cols,
                               names_to = "name",
                               values_to = "value",
                               names_prefix = NULL,
-                              names_sep = NULL) {
+                              names_sep = NULL,
+                              names_pattern = NULL) {
   cols <- tidyselect::vars_select(unique(names(df)), !!enquo(cols))
 
   if (is.null(names_prefix)) {
@@ -117,11 +126,18 @@ pivot_longer_spec <- function(df, cols,
   }
 
   if (length(names_to) > 1) {
-    if (is.null(names_sep)) {
-      abort("If you supply multiple names in `names_to` you must also supply `names_sep`")
+    if (!xor(is.null(names_sep), is.null(names_pattern))) {
+      abort(glue::glue(
+        "If you supply multiple names in `names_to` you must also supply one",
+        " of `names_sep` or `names_pattern`."
+      ))
     }
 
-    names <- str_separate(names, names_to, sep = names_sep)
+    if (!is.null(names_sep)) {
+      names <- str_separate(names, names_to, sep = names_sep)
+    } else {
+      names <- str_extract(names, names_to, regex = names_pattern)
+    }
 
     if (".value" %in% names_to) {
       values_to <- NULL
