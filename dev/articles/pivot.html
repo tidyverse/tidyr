@@ -222,29 +222,29 @@
 <a class="sourceLine" id="cb5-19" data-line-number="19"><span class="co">#&gt;  9  2000 2Ge+her The Hardest Part Of ... 2000-09-02   wk2      87</span></a>
 <a class="sourceLine" id="cb5-20" data-line-number="20"><span class="co">#&gt; 10  2000 2Ge+her The Hardest Part Of ... 2000-09-02   wk3      92</span></a>
 <a class="sourceLine" id="cb5-21" data-line-number="21"><span class="co">#&gt; # … with 5,297 more rows</span></a></code></pre></div>
-<p>We can use <code>names_prefix</code> to automatically strip off the <code>wk</code> prefix:</p>
+<p>We can use <code>names_prefix</code> to automatically strip off the <code>wk</code> prefix, and <code>col_types</code> to specify that <code>week</code> should be an integer.</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">billboard <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb6-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/pivot_longer.html">pivot_longer</a></span>(</a>
 <a class="sourceLine" id="cb6-3" data-line-number="3">    <span class="dt">cols =</span> <span class="kw"><a href="https://dplyr.tidyverse.org/reference/reexports.html">starts_with</a></span>(<span class="st">"wk"</span>), </a>
 <a class="sourceLine" id="cb6-4" data-line-number="4">    <span class="dt">names_to =</span> <span class="st">"week"</span>, </a>
 <a class="sourceLine" id="cb6-5" data-line-number="5">    <span class="dt">names_prefix =</span> <span class="st">"wk"</span>,</a>
 <a class="sourceLine" id="cb6-6" data-line-number="6">    <span class="dt">values_to =</span> <span class="st">"rank"</span>,</a>
-<a class="sourceLine" id="cb6-7" data-line-number="7">    <span class="co"># values_ptype = list(week = integer()),</span></a>
-<a class="sourceLine" id="cb6-8" data-line-number="8">    <span class="dt">values_drop_na =</span> <span class="ot">TRUE</span></a>
+<a class="sourceLine" id="cb6-7" data-line-number="7">    <span class="dt">values_drop_na =</span> <span class="ot">TRUE</span>,</a>
+<a class="sourceLine" id="cb6-8" data-line-number="8">    <span class="dt">col_ptypes =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="dt">week =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/integer">integer</a></span>()),</a>
 <a class="sourceLine" id="cb6-9" data-line-number="9">  )</a>
 <a class="sourceLine" id="cb6-10" data-line-number="10"><span class="co">#&gt; # A tibble: 5,307 x 6</span></a>
-<a class="sourceLine" id="cb6-11" data-line-number="11"><span class="co">#&gt;     year artist  track                   date.entered week   rank</span></a>
-<a class="sourceLine" id="cb6-12" data-line-number="12"><span class="co">#&gt;    &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;                   &lt;date&gt;       &lt;chr&gt; &lt;dbl&gt;</span></a>
-<a class="sourceLine" id="cb6-13" data-line-number="13"><span class="co">#&gt;  1  2000 2 Pac   Baby Don't Cry (Keep... 2000-02-26   1        87</span></a>
-<a class="sourceLine" id="cb6-14" data-line-number="14"><span class="co">#&gt;  2  2000 2 Pac   Baby Don't Cry (Keep... 2000-02-26   2        82</span></a>
-<a class="sourceLine" id="cb6-15" data-line-number="15"><span class="co">#&gt;  3  2000 2 Pac   Baby Don't Cry (Keep... 2000-02-26   3        72</span></a>
-<a class="sourceLine" id="cb6-16" data-line-number="16"><span class="co">#&gt;  4  2000 2 Pac   Baby Don't Cry (Keep... 2000-02-26   4        77</span></a>
-<a class="sourceLine" id="cb6-17" data-line-number="17"><span class="co">#&gt;  5  2000 2 Pac   Baby Don't Cry (Keep... 2000-02-26   5        87</span></a>
-<a class="sourceLine" id="cb6-18" data-line-number="18"><span class="co">#&gt;  6  2000 2 Pac   Baby Don't Cry (Keep... 2000-02-26   6        94</span></a>
-<a class="sourceLine" id="cb6-19" data-line-number="19"><span class="co">#&gt;  7  2000 2 Pac   Baby Don't Cry (Keep... 2000-02-26   7        99</span></a>
-<a class="sourceLine" id="cb6-20" data-line-number="20"><span class="co">#&gt;  8  2000 2Ge+her The Hardest Part Of ... 2000-09-02   1        91</span></a>
-<a class="sourceLine" id="cb6-21" data-line-number="21"><span class="co">#&gt;  9  2000 2Ge+her The Hardest Part Of ... 2000-09-02   2        87</span></a>
-<a class="sourceLine" id="cb6-22" data-line-number="22"><span class="co">#&gt; 10  2000 2Ge+her The Hardest Part Of ... 2000-09-02   3        92</span></a>
+<a class="sourceLine" id="cb6-11" data-line-number="11"><span class="co">#&gt;     year artist  track                   date.entered  week  rank</span></a>
+<a class="sourceLine" id="cb6-12" data-line-number="12"><span class="co">#&gt;    &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;                   &lt;date&gt;       &lt;int&gt; &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb6-13" data-line-number="13"><span class="co">#&gt;  1  2000 2 Pac   Baby Don't Cry (Keep... 2000-02-26       1    87</span></a>
+<a class="sourceLine" id="cb6-14" data-line-number="14"><span class="co">#&gt;  2  2000 2 Pac   Baby Don't Cry (Keep... 2000-02-26       2    82</span></a>
+<a class="sourceLine" id="cb6-15" data-line-number="15"><span class="co">#&gt;  3  2000 2 Pac   Baby Don't Cry (Keep... 2000-02-26       3    72</span></a>
+<a class="sourceLine" id="cb6-16" data-line-number="16"><span class="co">#&gt;  4  2000 2 Pac   Baby Don't Cry (Keep... 2000-02-26       4    77</span></a>
+<a class="sourceLine" id="cb6-17" data-line-number="17"><span class="co">#&gt;  5  2000 2 Pac   Baby Don't Cry (Keep... 2000-02-26       5    87</span></a>
+<a class="sourceLine" id="cb6-18" data-line-number="18"><span class="co">#&gt;  6  2000 2 Pac   Baby Don't Cry (Keep... 2000-02-26       6    94</span></a>
+<a class="sourceLine" id="cb6-19" data-line-number="19"><span class="co">#&gt;  7  2000 2 Pac   Baby Don't Cry (Keep... 2000-02-26       7    99</span></a>
+<a class="sourceLine" id="cb6-20" data-line-number="20"><span class="co">#&gt;  8  2000 2Ge+her The Hardest Part Of ... 2000-09-02       1    91</span></a>
+<a class="sourceLine" id="cb6-21" data-line-number="21"><span class="co">#&gt;  9  2000 2Ge+her The Hardest Part Of ... 2000-09-02       2    87</span></a>
+<a class="sourceLine" id="cb6-22" data-line-number="22"><span class="co">#&gt; 10  2000 2Ge+her The Hardest Part Of ... 2000-09-02       3    92</span></a>
 <a class="sourceLine" id="cb6-23" data-line-number="23"><span class="co">#&gt; # … with 5,297 more rows</span></a></code></pre></div>
 <p>This has one small problem: the <code>week</code> variable is a character variable rather than an integer.</p>
 </div>
@@ -416,16 +416,16 @@
 <a class="sourceLine" id="cb14-15" data-line-number="15">    <span class="dt">names_pattern =</span> <span class="st">"(.)(.)"</span></a>
 <a class="sourceLine" id="cb14-16" data-line-number="16">  )</a>
 <a class="sourceLine" id="cb14-17" data-line-number="17"><span class="co">#&gt; # A tibble: 8 x 6</span></a>
-<a class="sourceLine" id="cb14-18" data-line-number="18"><span class="co">#&gt;       x     a     b time        y     z</span></a>
-<a class="sourceLine" id="cb14-19" data-line-number="19"><span class="co">#&gt;   &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt;</span></a>
-<a class="sourceLine" id="cb14-20" data-line-number="20"><span class="co">#&gt; 1     1     1     0 1      1.39       3</span></a>
-<a class="sourceLine" id="cb14-21" data-line-number="21"><span class="co">#&gt; 2     1     1     0 2     -0.528     -2</span></a>
-<a class="sourceLine" id="cb14-22" data-line-number="22"><span class="co">#&gt; 3     2     1     1 1      0.0285     3</span></a>
-<a class="sourceLine" id="cb14-23" data-line-number="23"><span class="co">#&gt; 4     2     1     1 2      1.68      -2</span></a>
-<a class="sourceLine" id="cb14-24" data-line-number="24"><span class="co">#&gt; 5     3     0     1 1     -0.293      3</span></a>
-<a class="sourceLine" id="cb14-25" data-line-number="25"><span class="co">#&gt; 6     3     0     1 2     -0.0206    -2</span></a>
-<a class="sourceLine" id="cb14-26" data-line-number="26"><span class="co">#&gt; 7     4     0     1 1     -0.460      3</span></a>
-<a class="sourceLine" id="cb14-27" data-line-number="27"><span class="co">#&gt; 8     4     0     1 2      1.67      -2</span></a></code></pre></div>
+<a class="sourceLine" id="cb14-18" data-line-number="18"><span class="co">#&gt;       x     a     b time       y     z</span></a>
+<a class="sourceLine" id="cb14-19" data-line-number="19"><span class="co">#&gt;   &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;  &lt;dbl&gt; &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb14-20" data-line-number="20"><span class="co">#&gt; 1     1     1     0 1     -1.17      3</span></a>
+<a class="sourceLine" id="cb14-21" data-line-number="21"><span class="co">#&gt; 2     1     1     0 2     -1.34     -2</span></a>
+<a class="sourceLine" id="cb14-22" data-line-number="22"><span class="co">#&gt; 3     2     1     1 1      1.09      3</span></a>
+<a class="sourceLine" id="cb14-23" data-line-number="23"><span class="co">#&gt; 4     2     1     1 2      1.39     -2</span></a>
+<a class="sourceLine" id="cb14-24" data-line-number="24"><span class="co">#&gt; 5     3     0     1 1     -0.119     3</span></a>
+<a class="sourceLine" id="cb14-25" data-line-number="25"><span class="co">#&gt; 6     3     0     1 2      0.270    -2</span></a>
+<a class="sourceLine" id="cb14-26" data-line-number="26"><span class="co">#&gt; 7     4     0     1 1      0.837     3</span></a>
+<a class="sourceLine" id="cb14-27" data-line-number="27"><span class="co">#&gt; 8     4     0     1 2      0.118    -2</span></a></code></pre></div>
 </div>
 </div>
 <div id="wider" class="section level1">
@@ -503,32 +503,32 @@
 <a class="sourceLine" id="cb18-9" data-line-number="9"><span class="co">#&gt; # A tibble: 45 x 4</span></a>
 <a class="sourceLine" id="cb18-10" data-line-number="10"><span class="co">#&gt;    product country  year  value</span></a>
 <a class="sourceLine" id="cb18-11" data-line-number="11"><span class="co">#&gt;    &lt;chr&gt;   &lt;chr&gt;   &lt;int&gt;  &lt;dbl&gt;</span></a>
-<a class="sourceLine" id="cb18-12" data-line-number="12"><span class="co">#&gt;  1 A       AI       2000 -0.992</span></a>
-<a class="sourceLine" id="cb18-13" data-line-number="13"><span class="co">#&gt;  2 A       AI       2001  0.748</span></a>
-<a class="sourceLine" id="cb18-14" data-line-number="14"><span class="co">#&gt;  3 A       AI       2002  0.617</span></a>
-<a class="sourceLine" id="cb18-15" data-line-number="15"><span class="co">#&gt;  4 A       AI       2003  0.357</span></a>
-<a class="sourceLine" id="cb18-16" data-line-number="16"><span class="co">#&gt;  5 A       AI       2004 -0.458</span></a>
-<a class="sourceLine" id="cb18-17" data-line-number="17"><span class="co">#&gt;  6 A       AI       2005 -0.884</span></a>
-<a class="sourceLine" id="cb18-18" data-line-number="18"><span class="co">#&gt;  7 A       AI       2006  1.32 </span></a>
-<a class="sourceLine" id="cb18-19" data-line-number="19"><span class="co">#&gt;  8 A       AI       2007  1.70 </span></a>
-<a class="sourceLine" id="cb18-20" data-line-number="20"><span class="co">#&gt;  9 A       AI       2008 -2.12 </span></a>
-<a class="sourceLine" id="cb18-21" data-line-number="21"><span class="co">#&gt; 10 A       AI       2009 -0.681</span></a>
+<a class="sourceLine" id="cb18-12" data-line-number="12"><span class="co">#&gt;  1 A       AI       2000 -0.873</span></a>
+<a class="sourceLine" id="cb18-13" data-line-number="13"><span class="co">#&gt;  2 A       AI       2001  0.667</span></a>
+<a class="sourceLine" id="cb18-14" data-line-number="14"><span class="co">#&gt;  3 A       AI       2002  1.22 </span></a>
+<a class="sourceLine" id="cb18-15" data-line-number="15"><span class="co">#&gt;  4 A       AI       2003  0.395</span></a>
+<a class="sourceLine" id="cb18-16" data-line-number="16"><span class="co">#&gt;  5 A       AI       2004  0.607</span></a>
+<a class="sourceLine" id="cb18-17" data-line-number="17"><span class="co">#&gt;  6 A       AI       2005  0.604</span></a>
+<a class="sourceLine" id="cb18-18" data-line-number="18"><span class="co">#&gt;  7 A       AI       2006  0.257</span></a>
+<a class="sourceLine" id="cb18-19" data-line-number="19"><span class="co">#&gt;  8 A       AI       2007  0.679</span></a>
+<a class="sourceLine" id="cb18-20" data-line-number="20"><span class="co">#&gt;  9 A       AI       2008 -1.91 </span></a>
+<a class="sourceLine" id="cb18-21" data-line-number="21"><span class="co">#&gt; 10 A       AI       2009  0.759</span></a>
 <a class="sourceLine" id="cb18-22" data-line-number="22"><span class="co">#&gt; # … with 35 more rows</span></a></code></pre></div>
 <p>We want to widen the data so we have one column for each combination of <code>product</code> and <code>country</code>. The key is to specify multiple variables for <code>names_from</code>:</p>
 <div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" data-line-number="1">production <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/pivot_wider.html">pivot_wider</a></span>(<span class="dt">names_from =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(product, country), <span class="dt">values_from =</span> value)</a>
 <a class="sourceLine" id="cb19-2" data-line-number="2"><span class="co">#&gt; # A tibble: 15 x 4</span></a>
-<a class="sourceLine" id="cb19-3" data-line-number="3"><span class="co">#&gt;     year   A_AI      B_AI    B_EI</span></a>
-<a class="sourceLine" id="cb19-4" data-line-number="4"><span class="co">#&gt;    &lt;int&gt;  &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;</span></a>
-<a class="sourceLine" id="cb19-5" data-line-number="5"><span class="co">#&gt;  1  2000 -0.992 -0.719    -0.128 </span></a>
-<a class="sourceLine" id="cb19-6" data-line-number="6"><span class="co">#&gt;  2  2001  0.748  0.126     0.265 </span></a>
-<a class="sourceLine" id="cb19-7" data-line-number="7"><span class="co">#&gt;  3  2002  0.617  1.94     -0.210 </span></a>
-<a class="sourceLine" id="cb19-8" data-line-number="8"><span class="co">#&gt;  4  2003  0.357  0.902     0.0660</span></a>
-<a class="sourceLine" id="cb19-9" data-line-number="9"><span class="co">#&gt;  5  2004 -0.458  0.104    -0.0433</span></a>
-<a class="sourceLine" id="cb19-10" data-line-number="10"><span class="co">#&gt;  6  2005 -0.884  0.976     1.13  </span></a>
-<a class="sourceLine" id="cb19-11" data-line-number="11"><span class="co">#&gt;  7  2006  1.32  -1.89     -0.287 </span></a>
-<a class="sourceLine" id="cb19-12" data-line-number="12"><span class="co">#&gt;  8  2007  1.70  -0.000278  1.06  </span></a>
-<a class="sourceLine" id="cb19-13" data-line-number="13"><span class="co">#&gt;  9  2008 -2.12  -0.765     0.858 </span></a>
-<a class="sourceLine" id="cb19-14" data-line-number="14"><span class="co">#&gt; 10  2009 -0.681 -0.959     0.998 </span></a>
+<a class="sourceLine" id="cb19-3" data-line-number="3"><span class="co">#&gt;     year   A_AI   B_AI   B_EI</span></a>
+<a class="sourceLine" id="cb19-4" data-line-number="4"><span class="co">#&gt;    &lt;int&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb19-5" data-line-number="5"><span class="co">#&gt;  1  2000 -0.873  0.759  0.445</span></a>
+<a class="sourceLine" id="cb19-6" data-line-number="6"><span class="co">#&gt;  2  2001  0.667  1.40   0.389</span></a>
+<a class="sourceLine" id="cb19-7" data-line-number="7"><span class="co">#&gt;  3  2002  1.22  -0.306  0.147</span></a>
+<a class="sourceLine" id="cb19-8" data-line-number="8"><span class="co">#&gt;  4  2003  0.395  0.292  0.853</span></a>
+<a class="sourceLine" id="cb19-9" data-line-number="9"><span class="co">#&gt;  5  2004  0.607 -2.07   0.772</span></a>
+<a class="sourceLine" id="cb19-10" data-line-number="10"><span class="co">#&gt;  6  2005  0.604  1.21   1.52 </span></a>
+<a class="sourceLine" id="cb19-11" data-line-number="11"><span class="co">#&gt;  7  2006  0.257  0.824 -0.267</span></a>
+<a class="sourceLine" id="cb19-12" data-line-number="12"><span class="co">#&gt;  8  2007  0.679 -0.312  0.119</span></a>
+<a class="sourceLine" id="cb19-13" data-line-number="13"><span class="co">#&gt;  9  2008 -1.91  -0.241 -0.752</span></a>
+<a class="sourceLine" id="cb19-14" data-line-number="14"><span class="co">#&gt; 10  2009  0.759  0.563  0.434</span></a>
 <a class="sourceLine" id="cb19-15" data-line-number="15"><span class="co">#&gt; # … with 5 more rows</span></a></code></pre></div>
 <p>If you want finer control over the generated columns, you can create a spec data frame. This has exactly the same format as for <code><a href="../reference/pivot_longer.html">pivot_longer()</a></code>: a data frame with special <code>.name</code> and <code>.value</code> columns. But when fed to <code><a href="../reference/pivot_wider.html">pivot_wider()</a></code> it does the opposite transformation to <code><a href="../reference/pivot_longer.html">pivot_longer()</a></code>: it create the columns specified in <code>.name</code>, using the information from <code>.value</code> and the other columns.</p>
 </div>
@@ -869,14 +869,14 @@
 <a class="sourceLine" id="cb37-12" data-line-number="12"></a>
 <a class="sourceLine" id="cb37-13" data-line-number="13">production <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/pivot_wider.html">pivot_wider</a></span>(<span class="dt">spec =</span> spec) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">head</a></span>()</a>
 <a class="sourceLine" id="cb37-14" data-line-number="14"><span class="co">#&gt; # A tibble: 6 x 5</span></a>
-<a class="sourceLine" id="cb37-15" data-line-number="15"><span class="co">#&gt;    year   A_AI  A_EI   B_AI    B_EI</span></a>
-<a class="sourceLine" id="cb37-16" data-line-number="16"><span class="co">#&gt;   &lt;int&gt;  &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;</span></a>
-<a class="sourceLine" id="cb37-17" data-line-number="17"><span class="co">#&gt; 1  2000 -0.992    NA -0.719 -0.128 </span></a>
-<a class="sourceLine" id="cb37-18" data-line-number="18"><span class="co">#&gt; 2  2001  0.748    NA  0.126  0.265 </span></a>
-<a class="sourceLine" id="cb37-19" data-line-number="19"><span class="co">#&gt; 3  2002  0.617    NA  1.94  -0.210 </span></a>
-<a class="sourceLine" id="cb37-20" data-line-number="20"><span class="co">#&gt; 4  2003  0.357    NA  0.902  0.0660</span></a>
-<a class="sourceLine" id="cb37-21" data-line-number="21"><span class="co">#&gt; 5  2004 -0.458    NA  0.104 -0.0433</span></a>
-<a class="sourceLine" id="cb37-22" data-line-number="22"><span class="co">#&gt; 6  2005 -0.884    NA  0.976  1.13</span></a></code></pre></div>
+<a class="sourceLine" id="cb37-15" data-line-number="15"><span class="co">#&gt;    year   A_AI  A_EI   B_AI  B_EI</span></a>
+<a class="sourceLine" id="cb37-16" data-line-number="16"><span class="co">#&gt;   &lt;int&gt;  &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb37-17" data-line-number="17"><span class="co">#&gt; 1  2000 -0.873    NA  0.759 0.445</span></a>
+<a class="sourceLine" id="cb37-18" data-line-number="18"><span class="co">#&gt; 2  2001  0.667    NA  1.40  0.389</span></a>
+<a class="sourceLine" id="cb37-19" data-line-number="19"><span class="co">#&gt; 3  2002  1.22     NA -0.306 0.147</span></a>
+<a class="sourceLine" id="cb37-20" data-line-number="20"><span class="co">#&gt; 4  2003  0.395    NA  0.292 0.853</span></a>
+<a class="sourceLine" id="cb37-21" data-line-number="21"><span class="co">#&gt; 5  2004  0.607    NA -2.07  0.772</span></a>
+<a class="sourceLine" id="cb37-22" data-line-number="22"><span class="co">#&gt; 6  2005  0.604    NA  1.21  1.52</span></a></code></pre></div>
 <p>This works, but the column names could be improved. I think it would be better to have columns <code>rent</code>, <code>rent_moe</code>, <code>income</code>, and <code>income_moe</code>, which we can do with a manual spec. There are many ways that you could generate the spec, but the key is that we need to generate every combination of the <code>variable</code> values and <code>estimate</code>/<code>moe</code>, and then carefully generate the column name:</p>
 <div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb38-1" data-line-number="1">spec &lt;-<span class="st"> </span>us_rent_income <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb38-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/expand.html">expand</a></span>(variable, <span class="dt">.value =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"estimate"</span>, <span class="st">"moe"</span>)) <span class="op">%&gt;%</span><span class="st"> </span></a>
