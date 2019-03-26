@@ -139,12 +139,12 @@ and see <code><a href='pivot_wider.html'>pivot_wider()</a></code> for the invers
     
     </div>
 
-    <pre class="usage"><span class='fu'>pivot_longer</span>(<span class='no'>df</span>, <span class='no'>cols</span>, <span class='kw'>names_to</span> <span class='kw'>=</span> <span class='st'>"name"</span>, <span class='kw'>values_to</span> <span class='kw'>=</span> <span class='st'>"value"</span>,
-  <span class='kw'>names_prefix</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>names_sep</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>values_type</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(), <span class='kw'>spec</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
+    <pre class="usage"><span class='fu'>pivot_longer</span>(<span class='no'>df</span>, <span class='no'>cols</span>, <span class='kw'>names_to</span> <span class='kw'>=</span> <span class='st'>"name"</span>, <span class='kw'>names_prefix</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>names_sep</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>names_pattern</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>values_to</span> <span class='kw'>=</span> <span class='st'>"value"</span>,
+  <span class='kw'>values_drop_na</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>values_ptype</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(), <span class='kw'>spec</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
 
 <span class='fu'>pivot_longer_spec</span>(<span class='no'>df</span>, <span class='no'>cols</span>, <span class='kw'>names_to</span> <span class='kw'>=</span> <span class='st'>"name"</span>, <span class='kw'>values_to</span> <span class='kw'>=</span> <span class='st'>"value"</span>,
-  <span class='kw'>names_prefix</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>names_sep</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+  <span class='kw'>names_prefix</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>names_sep</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>names_pattern</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -171,24 +171,27 @@ the cell values (<code>values_to</code>) turn into in the result.</p>
 from the start of each variable name.</p></td>
     </tr>
     <tr>
-      <th>names_sep</th>
-      <td><p>If <code>names_to</code> contains multiple values, this argument
-controls how the column name is split up into multiple variables. It
-takes the same specification as <code><a href='separate.html'>separate()</a></code>, and can either be a
-numeric vector (specifying positions to break on), or a single string
-(specifying a regular expression to split on). If this does not give you
-enough control, use <code>pivot_longer_spec()</code> to create a spec object and
-process as needed.</p></td>
+      <th>names_sep, names_pattern</th>
+      <td><p>If <code>names_to</code> contains multiple values,
+these arguments control how the column name is broken up.</p>
+<p><code>names_sep</code> takes the same specification as <code><a href='separate.html'>separate()</a></code>, and can either
+be a numeric vector (specifying positions to break on), or a single string
+(specifying a regular expression to split on).</p>
+<p><code>names_pattern</code> takes the same specification as <code><a href='extract.html'>extract()</a></code>, a regular
+expression containing matching groups (<code>()</code>).</p>
+<p>If these arguments does not give you enough control, use
+<code>pivot_longer_spec()</code> to create a spec object and process manually as
+needed.</p></td>
     </tr>
     <tr>
-      <th>na.rm</th>
-      <td><p>If <code>TRUE</code>, will drop rows that contain only <code>NA</code>s in the
-<code>value_to</code> column. This effectively converts explicit missing values to
-implicit missing values, and should generally be used only when missing
+      <th>values_drop_na</th>
+      <td><p>If <code>TRUE</code>, will drop rows that contain only <code>NA</code>s
+in the <code>value_to</code> column. This effectively converts explicit missing values
+to implicit missing values, and should generally be used only when missing
 values in <code>df</code> were created by its structure.</p></td>
     </tr>
     <tr>
-      <th>values_type</th>
+      <th>values_ptype</th>
       <td><p>If not specified, the type of the <code>value_to</code> column will
 be automatically guessed from the data. Supply this argument when you want
 to override that default. Should be a named list, where the names are
