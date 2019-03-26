@@ -80,8 +80,6 @@ separate <- function(data, col, into, sep = "[^[:alnum:]]+", remove = TRUE,
 separate.data.frame <- function(data, col, into, sep = "[^[:alnum:]]+",
                                 remove = TRUE, convert = FALSE,
                                 extra = "warn", fill = "warn", ...) {
-  orig <- data
-
   var <- tidyselect::vars_pull(names(data), !! enquo(col))
   value <- as.character(data[[var]])
 
@@ -92,9 +90,8 @@ separate.data.frame <- function(data, col, into, sep = "[^[:alnum:]]+",
     extra = extra,
     fill = fill
   )
-
-  data <- append_df(data, new_cols, var, remove = remove)
-  reconstruct_tibble(orig, data, if (remove) var else NULL)
+  out <- append_df(data, new_cols, var, remove = remove)
+  reconstruct_tibble(data, out, if (remove) var else NULL)
 }
 
 str_separate <- function(x, into, sep, convert = FALSE, extra = "warn", fill = "warn") {
