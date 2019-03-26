@@ -118,25 +118,29 @@ expand.grouped_df <- function(data, ...) {
 #' @rdname expand
 #' @export
 crossing <- function(...) {
-  dots <- enquos(..., .named = TRUE)
-  dots <- map(dots, eval_tidy)
-  dots <- discard(dots, is.null)
+  cols <- dots_cols(...)
 
-  cols <- map(dots, sorted_unique)
+  cols <- map(cols, sorted_unique)
   expand_grid(!!!cols)
+}
+
+sorted_unique <- function(x) {
+  if (is.factor(x)) {
+    # forcats::fct_unique
+    factor(levels(x), levels(x), exclude = NULL, ordered = is.ordered(x))
+  } else if (is_bare_list(x)) {
+    vec_unique(x)
+  } else {
+    vec_sort(vec_unique(x))
+  }
 }
 
 #' @rdname expand
 #' @export
 nesting <- function(...) {
-  # https://github.com/tidyverse/tibble/issues/580
-  dots <- enquos(..., .named = TRUE)
-  dots <- map(dots, eval_tidy)
-  dots <- discard(dots, is.null)
-
-  sorted_unique(tibble::tibble(!!!dots))
+  cols <- dots_cols(...)
+  sorted_unique(tibble::tibble(!!!cols))
 }
-
 
 # expand_grid -------------------------------------------------------------
 
@@ -163,9 +167,7 @@ nesting <- function(...) {
 #' # And matrices
 #' expand_grid(x1 = matrix(1:4, nrow = 2), x2 = matrix(5:8, nrow = 2))
 expand_grid <- function(...) {
-  dots <- enquos(..., .named = TRUE)
-  dots <- map(dots, eval_tidy)
-  dots <- discard(dots, is.null)
+  dots <- dots_cols(...)
 
   # Generate sequence of indices
   ns <- map_int(dots, vec_size)
@@ -177,17 +179,14 @@ expand_grid <- function(...) {
   as_tibble(out)
 }
 
-sorted_unique <- function(x) {
-  if (is.factor(x)) {
-    # forcats::fct_unique
-    factor(levels(x), levels(x), exclude = NULL, ordered = is.ordered(x))
-  } else if (is_bare_list(x)) {
-    vec_unique(x)
-  } else {
-    vec_sort(vec_unique(x))
-  }
-}
+# Helpers -----------------------------------------------------------------
 
+dots_cols <- function(...) {
+  dots <- enquos(..., .named = TRUE)
+  dots <- map(dots, eval_tidy)
+  dots <- discard(dots, is.null)
+  dots
+}
 
 flatten_at <- function(x, to_flatten) {
   if (!any(to_flatten)) {
@@ -213,3 +212,4 @@ flatten_at <- function(x, to_flatten) {
   names(out) <- names
   out
 }
+
