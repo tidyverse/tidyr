@@ -103,6 +103,16 @@ test_that("can pivot from multiple measure cols", {
   expect_equal(pv$b_y, 4)
 })
 
+test_that("can pivot from multiple measure cols using all keys", {
+  df <- tibble(var = c("x", "y"), a = 1:2, b = 3:4)
+  sp <- pivot_wider_spec(df, names_from = var, values_from = c(a, b))
+  pv <- pivot_wider(df, spec = sp)
+
+  expect_named(pv, c("a_x", "a_y", "b_x", "b_y"))
+  expect_equal(pv$a_x, 1)
+  expect_equal(pv$b_y, 4)
+})
+
 test_that("column order in output matches spec", {
   df <- tibble::tribble(
     ~hw,   ~name,  ~mark,   ~pr,

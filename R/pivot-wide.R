@@ -76,7 +76,7 @@ pivot_wider <- function(df,
   df_rows <- df[key_vars]
   if (ncol(df_rows) == 0) {
     rows <- tibble(.rows = 1)
-    row_id <- rep(1L, nrow(spec))
+    row_id <- rep(1L, nrow(df_rows))
   } else {
     rows <- vec_unique(df_rows)
     row_id <- vec_match(df_rows, rows)
