@@ -53,7 +53,7 @@ test_that("mixed columns are automatically coerced", {
 
 test_that("can override default output column type", {
   df <- tibble(x = "x", y = 1)
-  pv <- pivot_longer(df, x:y, values_ptype = list(value = list()))
+  pv <- pivot_longer(df, x:y, col_ptypes = list(value = list()))
 
   expect_equal(pv$value, list("x", 1))
 })
@@ -141,3 +141,12 @@ test_that("names_prefix strips off from beginning", {
   expect_equal(sp$name, "zyz")
 })
 
+test_that("can cast to custom type", {
+  df <- tibble(w1 = 1)
+  sp <- pivot_longer_spec(df, 1,
+    names_prefix = "w",
+    col_ptypes = list(name = integer())
+  )
+
+  expect_equal(sp$name, 1L)
+})

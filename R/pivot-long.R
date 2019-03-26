@@ -37,10 +37,11 @@
 #'   in the `value_to` column. This effectively converts explicit missing values
 #'   to implicit missing values, and should generally be used only when missing
 #'   values in `df` were created by its structure.
-#' @param values_ptype If not specified, the type of the `value_to` column will
-#'   be automatically guessed from the data. Supply this argument when you want
-#'   to override that default. Should be a named list, where the names are
-#'   given by the value columns.
+#' @param col_ptypes A list of of column name-prototype pairs.
+#'
+#'   If not specified, the type of the generated from `names_to` will be
+#'   character, and the type of the variables generated from `values_to`
+#'   will be the common type of the input columns used to generate them.
 #' @export
 pivot_longer <- function(df,
                          cols,
@@ -50,7 +51,7 @@ pivot_longer <- function(df,
                          names_pattern = NULL,
                          values_to = "value",
                          values_drop_na = FALSE,
-                         values_ptype = list(),
+                         col_ptypes = list(),
                          spec = NULL
                          ) {
 
@@ -61,7 +62,8 @@ pivot_longer <- function(df,
       values_to = values_to,
       names_prefix = names_prefix,
       names_sep = names_sep,
-      names_pattern = names_pattern
+      names_pattern = names_pattern,
+      col_ptypes = col_ptypes
     )
   } else {
     spec <- check_spec(spec)
@@ -83,7 +85,7 @@ pivot_longer <- function(df,
     val_cols[col_id] <- unname(as.list(df[cols]))
     val_cols[-col_id] <- list(rep(NA, nrow(df)))
 
-    val_type <- vec_type_common(!!!val_cols, .ptype = values_ptype[[value]])
+    val_type <- vec_type_common(!!!val_cols, .ptype = col_ptypes[[value]])
     out <- vec_c(!!!val_cols, .ptype = val_type)
     # Interleave into correct order
     idx <- (matrix(seq_len(nrow(df) * length(val_cols)), ncol = nrow(df), byrow = TRUE))
@@ -118,7 +120,8 @@ pivot_longer_spec <- function(df, cols,
                               values_to = "value",
                               names_prefix = NULL,
                               names_sep = NULL,
-                              names_pattern = NULL) {
+                              names_pattern = NULL,
+                              col_ptypes = NULL) {
   cols <- tidyselect::vars_select(unique(names(df)), !!enquo(cols))
 
   if (is.null(names_prefix)) {
@@ -146,6 +149,12 @@ pivot_longer_spec <- function(df, cols,
     }
   } else {
     names <- tibble(!!names_to := names)
+  }
+
+  # optionally, cast variables generated from columns
+  cast_cols <- intersect(names(names), names(col_ptypes))
+  for (col in cast_cols) {
+    names[[col]] <- vec_cast(names[[col]], col_ptypes[[col]])
   }
 
   out <- tibble(.name = cols)

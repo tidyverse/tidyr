@@ -100,7 +100,7 @@ billboard %>%
   )
 ```
 
-We can use `names_prefix` to automatically strip off the `wk` prefix:
+We can use `names_prefix` to automatically strip off the `wk` prefix, and `col_types` to specify that `week` should be an integer.
 
 ```{r}
 billboard %>% 
@@ -109,8 +109,8 @@ billboard %>%
     names_to = "week", 
     names_prefix = "wk",
     values_to = "rank",
-    # values_ptype = list(week = integer()),
-    values_drop_na = TRUE
+    values_drop_na = TRUE,
+    col_ptypes = list(week = integer()),
   )
 ```
 

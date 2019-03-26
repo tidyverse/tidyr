@@ -7,10 +7,11 @@
 \usage{
 pivot_longer(df, cols, names_to = "name", names_prefix = NULL,
   names_sep = NULL, names_pattern = NULL, values_to = "value",
-  values_drop_na = FALSE, values_ptype = list(), spec = NULL)
+  values_drop_na = FALSE, col_ptypes = list(), spec = NULL)
 
 pivot_longer_spec(df, cols, names_to = "name", values_to = "value",
-  names_prefix = NULL, names_sep = NULL, names_pattern = NULL)
+  names_prefix = NULL, names_sep = NULL, names_pattern = NULL,
+  col_ptypes = NULL)
 }
 \arguments{
 \item{df}{A data frame to pivot.}
@@ -46,10 +47,11 @@ in the \code{value_to} column. This effectively converts explicit missing values
 to implicit missing values, and should generally be used only when missing
 values in \code{df} were created by its structure.}
 
-\item{values_ptype}{If not specified, the type of the \code{value_to} column will
-be automatically guessed from the data. Supply this argument when you want
-to override that default. Should be a named list, where the names are
-given by the value columns.}
+\item{col_ptypes}{A list of of column name-prototype pairs.
+
+If not specified, the type of the generated from \code{names_to} will be
+character, and the type of the variables generated from \code{values_to}
+will be the common type of the input columns used to generate them.}
 
 \item{spec}{Alternatively, instead of providing \code{cols} (and \code{names_to} and
 \code{values_to}) you can parse a specification data frame. This is useful
