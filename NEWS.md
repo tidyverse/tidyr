@@ -18,19 +18,21 @@
 * New `us_rent_income`, `fish_encounters` and `world_bank_pop` datasets to 
   demonstrate pivoting challenges.
 
-* `pivot()`
-
-  * `pivot_longer()` gracefully handles duplicated column names (#472)
-  * `pivot_wider()` can aggregate (#474)
-  * `pivot_wider()` can select keys (#572) 
-  * Better control of expansion of factor levels not present in the data (#193)
-  * Multi-spread (#149)
-  * Multi-gather (#150)
-  * Greater control over generated column names when widening (#208)
-  * Works with a much greater type of vectors (#333)
-  * Lengthening and widening are now symmetric (#453)
-  * Conflicting column names follow standard tidyverse principles (#496, #478)
-
+*   New `pivot_longer()` and `pivot_wider()` provide modern alternatives to
+    `spread()` and `gather()`. They have been carefully redesigned to easier to 
+    learn and remember, and include many new fatures. Learn more in
+    `vignette("pivot")`.
+    
+    Both functions now handle mulitple value columns (#149/#150), support more 
+    vector types (#333),  use tidverse conventions for duplicated column names 
+    (#496, #478) for and are symmetric (#453). 
+    
+    `pivot_longer()` gracefully handles duplicated column names (#472), and 
+    can directly split column names into multiple variables.
+    
+    `pivot_wider()` can now aggregate (#474), select keys (#572), and
+    has control over generated column names when (#208)
+  
 * `complete()` now uses `full_join()` so that all levels are preserved even
   when not all levels are specified (@Ryo-N7, #493).
 
