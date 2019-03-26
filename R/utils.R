@@ -18,6 +18,8 @@ regroup <- function(output, input, except = NULL) {
 
   dplyr::grouped_df(output, groups)
 }
+
+# https://github.com/r-lib/vctrs/issues/211
 reconstruct_tibble <- function(input, output, ungrouped_vars = chr()) {
   if (inherits(input, "grouped_df")) {
     regroup(output, input, ungrouped_vars)

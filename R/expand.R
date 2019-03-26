@@ -92,19 +92,12 @@ expand <- function(data, ...) {
 
 #' @export
 expand.data.frame <- function(data, ...) {
-  cols <- enquos(...)
-  has_name <- names(cols) != ""
-  cols <- quos_auto_name(cols)
-  cols <- map(cols, eval_tidy, data)
+  cols <- dots_cols(..., `_data` = data)
+  cols[] <- map(cols, sorted_unique)
 
-  out <- crossing(!!!cols)
+  out <- expand_grid(!!!cols)
+  out <- flatten_nested(out, attr(cols, "named"))
 
-  # flatten unnamed nested data frames to preserve existing behaviour
-  to_flatten <- !has_name & unname(map_lgl(out, is.data.frame))
-  out <- flatten_at(out, to_flatten)
-  out <- as_tibble(out)
-
-  # https://github.com/r-lib/vctrs/issues/211
   reconstruct_tibble(data, out)
 }
 
@@ -119,9 +112,10 @@ expand.grouped_df <- function(data, ...) {
 #' @export
 crossing <- function(...) {
   cols <- dots_cols(...)
+  cols[] <- map(cols, sorted_unique)
 
-  cols <- map(cols, sorted_unique)
-  expand_grid(!!!cols)
+  out <- expand_grid(!!!cols)
+  flatten_nested(out, attr(cols, "named"))
 }
 
 sorted_unique <- function(x) {
@@ -139,7 +133,8 @@ sorted_unique <- function(x) {
 #' @export
 nesting <- function(...) {
   cols <- dots_cols(...)
-  sorted_unique(tibble::tibble(!!!cols))
+  out <- sorted_unique(tibble::tibble(!!!cols))
+  flatten_nested(out, attr(cols, "named"))
 }
 
 # expand_grid -------------------------------------------------------------
@@ -176,16 +171,34 @@ expand_grid <- function(...) {
   times <- n / each / ns
 
   out <- pmap(list(x = dots, each = each, times = times), vec_repeat)
-  as_tibble(out)
+  out <- as_tibble(out)
+
+  flatten_nested(out, attr(dots, "named"))
 }
 
 # Helpers -----------------------------------------------------------------
 
-dots_cols <- function(...) {
-  dots <- enquos(..., .named = TRUE)
-  dots <- map(dots, eval_tidy)
-  dots <- discard(dots, is.null)
-  dots
+dots_cols <- function(..., `_data` = NULL) {
+  dots <- enquos(...)
+  named <- names(dots) != ""
+
+  dots <- quos_auto_name(dots)
+  dots <- map(dots, eval_tidy, data = `_data`)
+
+  is_null <- map_lgl(dots, is.null)
+  if (any(is_null)) {
+    dots <- dots[!is_null]
+    named <- named[!is_null]
+  }
+
+  structure(dots, named = named)
+}
+
+# flatten unnamed nested data frames to preserve existing behaviour
+flatten_nested <- function(x, named) {
+  to_flatten <- !named & unname(map_lgl(x, is.data.frame))
+  out <- flatten_at(x, to_flatten)
+  as_tibble(out)
 }
 
 flatten_at <- function(x, to_flatten) {

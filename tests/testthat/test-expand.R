@@ -17,9 +17,21 @@ test_that("nesting doesn't expand values", {
   expect_equal(expand(df, nesting(x, y)), df)
 })
 
+test_that("unnamed data frames are flattened", {
+  df <- data.frame(x = 1:2, y = 1:2)
+  out <- expand(df, nesting(x, y))
+  expect_equal(out$x, df$x)
+
+  out <- crossing(df)
+  expect_equal(out$x, df$x)
+})
+
 test_that("named data frames are not flattened", {
   df <- data.frame(x = 1:2, y = 1:2)
   out <- expand(df, x = nesting(x, y))
+  expect_equal(out$x, df)
+
+  out <- crossing(x = df)
   expect_equal(out$x, df)
 })
 
