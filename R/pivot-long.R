@@ -27,11 +27,11 @@
 #'   metadata stored in the column names turns into columns in the result.
 #'
 #'   Must be a data frame containing character `.name` and `.value` columns.
-#' @param na.rm If `TRUE`, will drop rows that contain only `NA`s in the
-#'   `value_to` column. This effectively converts explicit missing values to
-#'   implicit missing values, and should generally be used only when missing
+#' @param values_drop_na If `TRUE`, will drop rows that contain only `NA`s
+#'   in the `value_to` column. This effectively converts explicit missing values
+#'   to implicit missing values, and should generally be used only when missing
 #'   values in `df` were created by its structure.
-#' @param values_type If not specified, the type of the `value_to` column will
+#' @param values_ptype If not specified, the type of the `value_to` column will
 #'   be automatically guessed from the data. Supply this argument when you want
 #'   to override that default. Should be a named list, where the names are
 #'   given by the value columns.
@@ -42,8 +42,8 @@ pivot_longer <- function(df,
                          names_prefix = NULL,
                          names_sep = NULL,
                          values_to = "value",
-                         na.rm = FALSE,
-                         values_type = list(),
+                         values_drop_na = FALSE,
+                         values_ptype = list(),
                          spec = NULL
                          ) {
 
@@ -73,7 +73,7 @@ pivot_longer <- function(df,
     val_cols[col_id] <- unname(as.list(df[cols]))
     val_cols[-col_id] <- list(rep(NA, nrow(df)))
 
-    val_type <- vec_type_common(!!!val_cols, .ptype = values_type[[value]])
+    val_type <- vec_type_common(!!!val_cols, .ptype = values_ptype[[value]])
     out <- vec_c(!!!val_cols, .ptype = val_type)
     # Interleave into correct order
     idx <- (matrix(seq_len(nrow(df) * length(val_cols)), ncol = nrow(df), byrow = TRUE))
@@ -88,7 +88,7 @@ pivot_longer <- function(df,
   )
   rows$val_id <- vec_seq_along(rows)
 
-  if (na.rm) {
+  if (values_drop_na) {
     rows <- vec_slice(rows, !vec_equal_na(vals))
   }
 

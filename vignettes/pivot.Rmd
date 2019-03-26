@@ -97,7 +97,7 @@ billboard %>%
     names_to = "week", 
     names_prefix = "wk",
     values_to = "rank",
-    na.rm = TRUE
+    values_drop_na = TRUE
   )
 ```
 
@@ -168,11 +168,11 @@ family %>%
     -family, 
     names_to = c(".value", "child"), 
     names_sep = "_", 
-    na.rm = TRUE
+    values_drop_na = TRUE
   )
 ```
 
-Here `.value` is a special sentinel that represents the value column in the output, and overrides the value of the `value_to` argument. Note that I use `na.rm = TRUE` here because this shape of the data forces the creation of explicit missing variables for observations that don't exist. This ensures that family 2 has a single row in the output.
+Here `.value` is a special sentinel that represents the value column in the output, and overrides the value of the `value_to` argument. Note that I use `values_drop_na = TRUE` here because this shape of the data forces the creation of explicit missing variables for observations that don't exist. This ensures that family 2 has a single row in the output.
 
 Another case of this problem is the built-in `anscombe` dataset:
 
@@ -444,7 +444,7 @@ df <- tibble::tribble(
 )
 
 df %>% 
-  pivot_longer(-id, na.rm = TRUE) %>% 
+  pivot_longer(-id, values_drop_na = TRUE) %>% 
   dplyr::count(id, value) %>% 
   pivot_wider(
     names_from = value, 

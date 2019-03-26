@@ -6,8 +6,8 @@
 \title{Pivot data from wide to long.}
 \usage{
 pivot_longer(df, cols, names_to = "name", names_prefix = NULL,
-  names_sep = NULL, values_to = "value", na.rm = FALSE,
-  values_type = list(), spec = NULL)
+  names_sep = NULL, values_to = "value", values_drop_na = FALSE,
+  values_ptype = list(), spec = NULL)
 
 pivot_longer_spec(df, cols, names_to = "name", values_to = "value",
   names_prefix = NULL, names_sep = NULL)
@@ -35,12 +35,12 @@ numeric vector (specifying positions to break on), or a single string
 enough control, use \code{pivot_longer_spec()} to create a spec object and
 process as needed.}
 
-\item{na.rm}{If \code{TRUE}, will drop rows that contain only \code{NA}s in the
-\code{value_to} column. This effectively converts explicit missing values to
-implicit missing values, and should generally be used only when missing
+\item{values_drop_na}{If \code{TRUE}, will drop rows that contain only \code{NA}s
+in the \code{value_to} column. This effectively converts explicit missing values
+to implicit missing values, and should generally be used only when missing
 values in \code{df} were created by its structure.}
 
-\item{values_type}{If not specified, the type of the \code{value_to} column will
+\item{values_ptype}{If not specified, the type of the \code{value_to} column will
 be automatically guessed from the data. Supply this argument when you want
 to override that default. Should be a named list, where the names are
 given by the value columns.}

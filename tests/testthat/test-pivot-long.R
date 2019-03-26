@@ -38,7 +38,7 @@ test_that("preserves original keys", {
 
 test_that("can drop missing values", {
   df <- data.frame(x = c(1, NA), y = c(NA, 2))
-  pv <- pivot_longer(df, x:y, na.rm = TRUE)
+  pv <- pivot_longer(df, x:y, values_drop_na = TRUE)
 
   expect_equal(pv$name, c("x", "y"))
   expect_equal(pv$value, c(1, 2))
@@ -53,7 +53,7 @@ test_that("mixed columns are automatically coerced", {
 
 test_that("can override default output column type", {
   df <- tibble(x = "x", y = 1)
-  pv <- pivot_longer(df, x:y, values_type = list(value = list()))
+  pv <- pivot_longer(df, x:y, values_ptype = list(value = list()))
 
   expect_equal(pv$value, list("x", 1))
 })
