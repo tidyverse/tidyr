@@ -72,6 +72,16 @@ test_that("can pivot to multiple measure cols", {
   expect_equal(pv$Y, 1)
 })
 
+test_that("original col order is preserved", {
+  df <- tibble::tribble(
+    ~id, ~z_1, ~y_1, ~x_1, ~z_2,  ~y_2, ~x_2,
+    "A",    1,    2,    3,     4,    5,    6,
+    "B",    7,    8,    9,    10,   11,   12,
+  )
+  pv <- pivot_longer(df, -id, names_to = c(".value", "n"), names_sep = "_")
+  expect_named(pv, c("id", "n", "z", "y", "x"))
+})
+
 test_that("handles duplicated column names", {
   df <- tibble(x = 1, a = 1, a = 2, b = 3, b = 4, .name_repair = "minimal")
   expect_warning(pv <- pivot_longer(df, -x), "Duplicate column names")
