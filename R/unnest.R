@@ -193,7 +193,7 @@ id_col <- function(x) {
 
 # unnest2 -----------------------------------------------------------------
 
-unnest2 <- function(df, col, id = NULL, drop_empty = TRUE, ptype = NULL) {
+unnest2 <- function(df, col, id = NULL, keep_empty = FALSE, ptype = NULL) {
   col <- tidyselect::vars_pull(names(df), !!enquo(col))
   x <- df[[col]]
   stopifnot(is.list(x))
@@ -205,7 +205,7 @@ unnest2 <- function(df, col, id = NULL, drop_empty = TRUE, ptype = NULL) {
 
   # Fill empty elements to ensure original rows are preserved
   empty <- n == 0
-  if (!drop_empty && any(empty)) {
+  if (keep_empty && any(empty)) {
     vec_slice(x, empty) <- list(vec_na(ptype))
     n[empty] <- 1L
   }
