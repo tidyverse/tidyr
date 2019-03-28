@@ -1,7 +1,9 @@
 # tidyr (development version)
 
-* tidyr now re-exports `tibble()`, `as_tibble()`, and `tribble()`. This
-  makes generating documentation, reprexes, and tests easier.
+* tidyr now re-exports `tibble()`, `as_tibble()`, and `tribble()`, 
+  as well as the tidyselect helpers (`starts_with()`, `ends_width()`, ...).
+  This makes generating documentation, reprexes, and tests easier, and
+  makes tidyr easier to use without also attaching dplyr.
 
 * Implement `fill()` using `dplyr::mutate_at()`. This radically simplifies 
   implementation and considerably improves performance when working with
