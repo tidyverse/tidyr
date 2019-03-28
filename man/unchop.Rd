@@ -27,10 +27,11 @@ the default that will be guessed from the combination of individual
 values.}
 }
 \description{
-Chopping and unchopping preserve the width of a data frame, change it's
+Chopping and unchopping preserve the width of a data frame, changing its
 length. \code{chop()} makes \code{df} shorter by converting rows within each group
 into list-columns. \code{unchop()} makes \code{df} longer by expanding list-columns
 so that each element of the list-column gets its own row in the output.
+Learn more in \code{vignette("chop-pack-nest")}.
 }
 \examples{
 df <- tibble(x = 1:4, y = list(integer(), 1L, 1:2, 1:3))

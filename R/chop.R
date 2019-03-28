@@ -1,9 +1,10 @@
 #' Chop and unchop
 #'
-#' Chopping and unchopping preserve the width of a data frame, change it's
+#' Chopping and unchopping preserve the width of a data frame, changing its
 #' length. `chop()` makes `df` shorter by converting rows within each group
 #' into list-columns. `unchop()` makes `df` longer by expanding list-columns
 #' so that each element of the list-column gets its own row in the output.
+#' Learn more in `vignette("chop-pack-nest")`.
 #'
 #' @param df A data frame.
 #' @param col Column to unchop (automatically quoted).
