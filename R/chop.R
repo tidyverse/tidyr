@@ -4,10 +4,16 @@
 #' length. `chop()` makes `df` shorter by converting rows within each group
 #' into list-columns. `unchop()` makes `df` longer by expanding list-columns
 #' so that each element of the list-column gets its own row in the output.
+#'
+#' Generally, unchopping is more useful than chopping because it simplifies
+#' a complex data structure, and [nest()]ing is usually more appropriate
+#' that `chop()`ing` since it better preserves the connections between
+#' observations.
+#'
 #' Learn more in `vignette("chop-pack-nest")`.
 #'
 #' @param df A data frame.
-#' @param col Column to unchop (automatically quoted).
+#' @param col,cols Column to unchop (automatically quoted).
 #'
 #'   This should be a list-column containing generalised vectors (e.g.
 #'   any mix of `NULL`s, atomic vector, S3 vectors, a lists, or data frames).
@@ -23,6 +29,15 @@
 #'   values.
 #' @export
 #' @examples
+#' # Chop ==============================================================
+#' df <- tibble(x = c(1, 1, 1, 2, 2, 3), y = 1:6, z = 6:1)
+#' # Note that we get one row of output for each unique combination of
+#' # non-chopped variables
+#' df %>% chop(c(y, z))
+#' # cf nest
+#' df %>% nest(c(y, z))
+#'
+#' # Unchop ============================================================
 #' df <- tibble(x = 1:4, y = list(integer(), 1L, 1:2, 1:3))
 #' df %>% unchop(y)
 #' df %>% unchop(y, keep_empty = FALSE)
@@ -49,6 +64,20 @@
 #' df <- tibble(x = 1:3, y = list(NULL, tibble(x = 1), tibble(y = 1:2)))
 #' df %>% unchop(y)
 #' df %>% unchop(y, keep_empty = FALSE)
+chop <- function(df, cols) {
+  cols <- tidyselect::vars_select(names(df), !!enquo(cols))
+
+  vals <- df[cols]
+  keys <- df[setdiff(names(df), cols)]
+  split <- vec_split(vals, keys)
+
+  vals <- map(split$val, ~ new_data_frame(map(.x, list), n = 1L))
+
+  vec_cbind(split$key, vec_rbind(!!!vals))
+}
+
+#' @export
+#' @rdname chop
 unchop <- function(df, col, id = NULL, keep_empty = FALSE, ptype = NULL) {
   col <- tidyselect::vars_pull(names(df), !!enquo(col))
   x <- df[[col]]
@@ -79,6 +108,7 @@ unchop <- function(df, col, id = NULL, keep_empty = FALSE, ptype = NULL) {
 
   out
 }
+
 
 index <- function(x) {
   names(x) %||% seq_along(x)
