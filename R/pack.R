@@ -20,13 +20,22 @@
 #' # preserves the length of the input
 #' df <- tibble(x = 1:3, y = list(NULL, tibble(a = 1, b = 2), tibble(b = 1:3)))
 #' df %>% unpack(y)
+#'
+#' # Data frame column ---------------------------------------------------
+#' df <- tibble(x = 1:3, y = tibble(a = 1:3, b = 3:1))
+#' df %>% unpack(y)
 unpack <- function(df, col, ptype = NULL) {
   col <- tidyselect::vars_pull(names(df), !!enquo(col))
   x <- df[[col]]
-  stopifnot(is.list(x))
 
-  x_df <- map(x, df_row, outer = col)
-  out <- vec_rbind(!!!x_df, .ptype = ptype)
+  if (is_bare_list(vec_proxy(x))) {
+    x_df <- map(x, df_row, outer = col)
+    out <- vec_rbind(!!!x_df, .ptype = ptype)
+  } else if (is.data.frame(x)) {
+    out <- x
+  } else {
+    abort("`col` must be a list or data frame")
+  }
 
   append_df(df, out, col, remove = TRUE)
 }

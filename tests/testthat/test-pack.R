@@ -39,3 +39,10 @@ test_that("column containing only zero length components goes away", {
 
   expect_equal(out, tibble(x = 1:2))
 })
+
+test_that("df-cols are directly unpacked", {
+  df <- tibble(x = 1:3, y = tibble(a = 1:3, b = 3:1))
+  out <- df %>% unpack(y)
+  expect_named(out, c("x", "a", "b"))
+  expect_equal(out[c("a", "b")], df$y)
+})

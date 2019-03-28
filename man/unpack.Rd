@@ -37,4 +37,8 @@ df \%>\% unpack(y)
 # preserves the length of the input
 df <- tibble(x = 1:3, y = list(NULL, tibble(a = 1, b = 2), tibble(b = 1:3)))
 df \%>\% unpack(y)
+
+# Data frame column ---------------------------------------------------
+df <- tibble(x = 1:3, y = tibble(a = 1:3, b = 3:1))
+df \%>\% unpack(y)
 }
