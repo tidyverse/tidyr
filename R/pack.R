@@ -1,14 +1,31 @@
-#' Pack and packing
+#' Pack and unpack
 #'
 #' Packing and unpacking preserve the length of a data frame, changing its
-#' width. `chop()` makes `df` shorter by converting rows within each group
-#' into list-columns. `unchop()` makes `df` longer by expanding list-columns
-#' so that each element of the list-column gets its own row in the output.
+#' width. `pack()` makes `df` narrow by collapsing a set of columns into a
+#' single df-column. `unpack()` makes `df` wider by expanding list-columns and
+#' df-columns into individual columns.
+#'
+#' Generally, unpacking is more useful than packing because it simplifies
+#' a complex data structure. Currently, few functions work with df-cols,
+#' and they are mostly a curiosity, but seem worth exploring further because
+#' they mimic the nested column headers that are so popular in Excel.
+#'
 #' Learn more in `vignette("chop-pack-nest")`.
 #'
 #' @inheritParams unchop
+#' @param ... Name-variable pairs of the form `new_col = c(col1, col2, col3)`,
+#'   that describe how you wish to pack existing columns into new columns.
+#'   The right hand side can be any expression supported by tidyselect.
 #' @export
 #' @examples
+#' # Packing =============================================================
+#' # It's not currently clear why you would ever want to pack columns
+#' # since few functions work with this sort of data.
+#' df <- tibble(x1 = 1:3, x2 = 4:6, x3 = 7:9, y = 1:3)
+#' df %>% pack(x = c(x1, x2, x3))
+#' df %>% pack(x = c(x1, x2, x3))
+#'
+#' # Unpacking ===========================================================
 #' df <- tibble(x = 1:3, y = list(c(a = 1L), c(a = 1, b = 2), c(b = 3)))
 #' df %>% unpack(y)
 #'
@@ -24,6 +41,22 @@
 #' # Data frame column ---------------------------------------------------
 #' df <- tibble(x = 1:3, y = tibble(a = 1:3, b = 3:1))
 #' df %>% unpack(y)
+pack <- function(df, ...) {
+  cols <- enquos(...)
+  if (any(names2(cols) == "")) {
+    abort("All elements of `...` must be named")
+  }
+
+  cols <- map(cols, ~ tidyselect::vars_select(names(df), !!.x))
+  packed <- map(cols, ~ df[.x])
+
+  # TODO: find a different approach that preserves order
+  asis <- setdiff(names(df), unlist(cols))
+  vec_cbind(df[asis], new_data_frame(packed, n = nrow(df)))
+}
+
+#' @export
+#' @rdname pack
 unpack <- function(df, col, ptype = NULL) {
   col <- tidyselect::vars_pull(names(df), !!enquo(col))
   x <- df[[col]]
@@ -39,6 +72,8 @@ unpack <- function(df, col, ptype = NULL) {
 
   append_df(df, out, col, remove = TRUE)
 }
+
+# Helpers -----------------------------------------------------------------
 
 # Always returns a single row
 df_row <- function(x, outer) {
