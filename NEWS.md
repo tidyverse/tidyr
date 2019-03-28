@@ -1,5 +1,8 @@
 # tidyr (development version)
 
+* tidyr now re-exports `tibble()`, `as_tibble()`, and `tribble()`. This
+  makes generating documentation, reprexes, and tests easier.
+
 * Implement `fill()` using `dplyr::mutate_at()`. This radically simplifies 
   implementation and considerably improves performance when working with
   grouped data (#520).
