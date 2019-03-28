@@ -1,0 +1,48 @@
+---
+title: "chop-pack-nest"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{chop-pack-nest}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(tidyr)
+library(dplyr)
+```
+
+* `unchop()`: `ncol()` preserved
+* `unpack()`: `nrow()` preserved
+* `unnest()`
+
+```{r, eval = FALSE}
+df <- tibble(
+  x = 1:4,
+  y = list(character(), "a", c("d", "e", "f"), c("g", "h"))
+)
+df %>% unchop(y)
+df %>% unpack(y)
+
+df <- tibble(
+ x = 1:4,
+ y = list(character(), c(a = 1), c(a = 2, b = 3), c(b = 4))
+)
+df %>% unchop(y)
+df %>% unpack(y)
+
+df <- tibble(
+  x = 1:3,
+  y = list(NULL, tibble(a = 1), tibble(a = 1:2, b = 3:4))
+)
+df %>% unchop(y)
+df %>% unpack(y)
+df %>% unnest2(y)
+```

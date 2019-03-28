@@ -76,6 +76,7 @@
 unnest <- function(data, ..., .drop = NA, .id = NULL, .sep = NULL, .preserve = NULL) {
   UseMethod("unnest")
 }
+
 #' @export
 unnest.data.frame <- function(data, ..., .drop = NA, .id = NULL,
                               .sep = NULL, .preserve = NULL) {
@@ -189,3 +190,39 @@ id_col <- function(x) {
 
   ids[rep(seq_along(ids), lengths)]
 }
+
+# unnest2 -----------------------------------------------------------------
+
+unnest2 <- function(df, col, id = NULL, drop_empty = TRUE, ptype = NULL) {
+  col <- tidyselect::vars_pull(names(df), !!enquo(col))
+  x <- df[[col]]
+  stopifnot(is.list(x))
+
+  x <- map(x, as_df, outer = col)
+
+  n <- map_int(x, vec_size)
+  ptype <- vec_type_common(!!!x, .ptype = ptype)
+
+  # Fill empty elements to ensure original rows are preserved
+  empty <- n == 0
+  if (!drop_empty && any(empty)) {
+    vec_slice(x, empty) <- list(vec_na(ptype))
+    n[empty] <- 1L
+  }
+
+  out <- vec_rbind(!!!x, .ptype = ptype)
+  df <- vec_slice(df, rep(vec_seq_along(df), n))
+  append_df(df, out, after = col, remove = TRUE)
+}
+
+as_df <- function(x, outer) {
+  if (is.null(x)) {
+    x
+  } else if (is.data.frame(x)) {
+    x
+  } else {
+    # Should this be a warning?I w
+    tibble(!!outer := x)
+  }
+}
+
