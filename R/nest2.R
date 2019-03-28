@@ -6,8 +6,11 @@
 #'
 #' Learn more in `vignette("chop-pack-nest")`.
 #'
+#' @param col Name of column that you wish to unnest.
+#' @param ... Name-variable pairs of the form `new_col = c(col1, col2, col3)`,
+#'   that describe how you wish to nest existing columns into new columns.
+#'   The right hand side can be any expression supported by tidyselect.
 #' @inheritParams unchop
-#' @inheritParams unpack
 #' @export
 #' @examples
 #' # nest =============================================================

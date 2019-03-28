@@ -16,10 +16,7 @@ unpack(df, col, ptype = NULL)
 that describe how you wish to pack existing columns into new columns.
 The right hand side can be any expression supported by tidyselect.}
 
-\item{col}{Column to unchop (automatically quoted).
-
-This should be a list-column containing generalised vectors (e.g.
-any mix of \code{NULL}s, atomic vector, S3 vectors, a lists, or data frames).}
+\item{col}{Name of column that you wish to unpack.}
 
 \item{ptype}{Optionally, supply a prototype for the output \code{col}, overriding
 the default that will be guessed from the combination of individual

@@ -13,6 +13,7 @@
 #' Learn more in `vignette("chop-pack-nest")`.
 #'
 #' @inheritParams unchop
+#' @param col Name of column that you wish to unpack.
 #' @param ... Name-variable pairs of the form `new_col = c(col1, col2, col3)`,
 #'   that describe how you wish to pack existing columns into new columns.
 #'   The right hand side can be any expression supported by tidyselect.

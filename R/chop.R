@@ -13,11 +13,10 @@
 #' Learn more in `vignette("chop-pack-nest")`.
 #'
 #' @param df A data frame.
-#' @param col,cols Column to unchop (automatically quoted).
+#' @param cols Column to chop or unchop (automatically quoted).
 #'
 #'   This should be a list-column containing generalised vectors (e.g.
 #'   any mix of `NULL`s, atomic vector, S3 vectors, a lists, or data frames).
-#'
 #' @param id A string specifying giving the name of a new column which will
 #'   contain the inner names of `col`. If unnamed, `col` will instead contain
 #'   numeric indices.
@@ -82,10 +81,16 @@ chop <- function(df, cols) {
 
 #' @export
 #' @rdname chop
-unchop <- function(df, col, id = NULL, keep_empty = FALSE, ptype = NULL) {
-  col <- tidyselect::vars_pull(names(df), !!enquo(col))
-  x <- df[[col]]
-  stopifnot(is.list(x))
+unchop <- function(df, cols, id = NULL, keep_empty = FALSE, ptype = NULL) {
+  cols <- tidyselect::vars_select(names(df), !!enquo(cols))
+
+  if (length(cols) == 1) {
+    x <- df[[cols]]
+    stopifnot(is.list(x))
+  } else if (length(cols) > 1) {
+    # Use tibble to enforce the size invariant
+    x <- pmap(df[cols], tibble)
+  }
 
   n <- map_int(x, vec_size)
   ptype <- vec_type_common(!!!x, .ptype = ptype)
@@ -97,17 +102,21 @@ unchop <- function(df, col, id = NULL, keep_empty = FALSE, ptype = NULL) {
     n[empty] <- 1L
   }
 
-  # Somewhat inefficient to duplicate out[[col]] when we're just about
+  # Somewhat inefficient to duplicate out[cols] when we're just about
   # to remove it, but otherwise need to put back in the correct place
   out <- vec_slice(df, rep(vec_seq_along(df), n))
-  # https://github.com/r-lib/vctrs/issues/232
-  out[[col]] <- vec_c(!!!x, .ptype = ptype)
+  if (length(cols) == 1) {
+    # https://github.com/r-lib/vctrs/issues/232
+    out[[cols]] <- vec_c(!!!x, .ptype = ptype)
+  } else {
+    out[cols] <- vec_rbind(!!!x, .ptype = ptype)
+  }
 
   if (!is.null(id)) {
     # What happens if it's a mix of named and unnamed?
     idx <- map(x, index)
     idx[empty] <- NA
-    out <- append_col(out, vec_c(!!!idx), id, after = col)
+    out <- append_col(out, vec_c(!!!idx), id, after = last(cols))
   }
 
   out

@@ -13,13 +13,10 @@ unnest2(df, col, id = NULL, keep_empty = FALSE, ptype = NULL)
 \item{df}{A data frame.}
 
 \item{...}{Name-variable pairs of the form \code{new_col = c(col1, col2, col3)},
-that describe how you wish to pack existing columns into new columns.
+that describe how you wish to nest existing columns into new columns.
 The right hand side can be any expression supported by tidyselect.}
 
-\item{col}{Column to unchop (automatically quoted).
-
-This should be a list-column containing generalised vectors (e.g.
-any mix of \code{NULL}s, atomic vector, S3 vectors, a lists, or data frames).}
+\item{col}{Name of column that you wish to unnest.}
 
 \item{id}{A string specifying giving the name of a new column which will
 contain the inner names of \code{col}. If unnamed, \code{col} will instead contain

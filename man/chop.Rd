@@ -7,12 +7,12 @@
 \usage{
 chop(df, cols)
 
-unchop(df, col, id = NULL, keep_empty = FALSE, ptype = NULL)
+unchop(df, cols, id = NULL, keep_empty = FALSE, ptype = NULL)
 }
 \arguments{
 \item{df}{A data frame.}
 
-\item{col, cols}{Column to unchop (automatically quoted).
+\item{cols}{Column to chop or unchop (automatically quoted).
 
 This should be a list-column containing generalised vectors (e.g.
 any mix of \code{NULL}s, atomic vector, S3 vectors, a lists, or data frames).}

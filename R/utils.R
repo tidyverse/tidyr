@@ -53,3 +53,5 @@ ensym2 <- function(arg) {
     abort("Must supply a symbol or a string as argument")
   }
 }
+
+last <- function(x) x[[length(x)]]
