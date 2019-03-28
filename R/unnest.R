@@ -193,6 +193,26 @@ id_col <- function(x) {
 
 # unnest2 -----------------------------------------------------------------
 
+#' Nesting and unnesting
+#'
+#' Nesting and unnesting changing both the length and width of a data frame.
+#' They primarily work with nested-dfs, list-cols of data frames. See [unchop()]
+#' and [unpack()] for tools tailored for list-cols of 1d vectors.
+#' Learn more in `vignette("chop-pack-nest")`.
+#'
+#' @inheritParams unchop
+#' @export
+#' @examples
+#' df <- tibble(
+#'   x = 1:3,
+#'   y = list(
+#'     NULL,
+#'     tibble(a = 1, b = 2),
+#'     tibble(a = 1:3, b = 3:1)
+#'   )
+#' )
+#' df %>% unnest2(y)
+#' df %>% unnest2(y, keep_empty = TRUE)
 unnest2 <- function(df, col, id = NULL, keep_empty = FALSE, ptype = NULL) {
   col <- tidyselect::vars_pull(names(df), !!enquo(col))
   x <- df[[col]]
