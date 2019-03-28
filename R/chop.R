@@ -65,6 +65,10 @@
 #' df %>% unchop(y)
 #' df %>% unchop(y, keep_empty = FALSE)
 chop <- function(df, cols) {
+  if (missing(cols)) {
+    return(df)
+  }
+
   cols <- tidyselect::vars_select(names(df), !!enquo(cols))
 
   vals <- df[cols]

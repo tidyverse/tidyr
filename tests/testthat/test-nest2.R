@@ -1,5 +1,26 @@
 context("test-nest2")
 
+# nest2 -------------------------------------------------------------------
+
+test_that("can nest multiple columns", {
+  df <- tibble(x = 1, a1 = 1, a2 = 2, b1 = 1, b2 = 2)
+  out <- df %>% nest2(a = c(a1, a2), b = c(b1, b2))
+
+  expect_named(out, c("x", "a", "b"))
+  expect_equal(out$a, list_of(df[c("a1", "a2")]))
+  expect_equal(out$b, list_of(df[c("b1", "b2")]))
+})
+
+test_that("nesting no columns returns input", {
+  df <- tibble(a1 = 1, a2 = 2, b1 = 1, b2 = 2)
+  expect_equal(nest2(df), df)
+})
+
+test_that("all inputs must be named", {
+  df <- tibble(a1 = 1, a2 = 2, b1 = 1, b2 = 2)
+  expect_error(nest2(df, a = c(a1, a2), c(b1, b2)), "must be named")
+  expect_error(nest2(df, c(a1, a2), c(b1, b2)), "must be named")
+})
 
 # unnest2 -----------------------------------------------------------------
 
