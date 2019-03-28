@@ -1,22 +1,53 @@
+#' Chop and unchop
+#'
+#' Chopping and unchopping preserve the width of a data frame, change it's
+#' length. `chop()` makes `df` shorter by converting rows within each group
+#' into list-columns. `unchop()` makes `df` longer by expanding list-columns
+#' so that each element of the list-column gets its own row in the output.
+#'
+#' @param df A data frame.
+#' @param col Column to unchop (automatically quoted).
+#'
+#'   This should be a list-column containing generalised vectors (e.g.
+#'   any mix of `NULL`s, atomic vector, S3 vectors, a lists, or data frames).
+#'
+#' @param id A string specifying giving the name of a new column which will
+#'   contain the inner names of `col`. If unnamed, `col` will instead contain
+#'   numeric indices.
+#' @param keep_empty By default, elements of `col` that have size zero will
+#'   be ommitted from the output. Setting `keep_empty = TRUE` will ensure
+#'   that they're preserved
+#' @param ptype Optionally, supply a prototype for the output `col`, overriding
+#'   the default that will be guessed from the combination of individual
+#'   values.
+#' @export
 #' @examples
 #' df <- tibble(x = 1:4, y = list(integer(), 1L, 1:2, 1:3))
 #' df %>% unchop(y)
 #' df %>% unchop(y, keep_empty = FALSE)
 #'
-#' df <- tibble(x = 1:3, y = list(A = c(a = 1L), B = c(b1 = 1, b2 = 2), C = c(c = 3)))
+#' # Preserving names --------------------------------------------------
+#' df <- tibble(
+#'   x = 1:3,
+#'   y = list(A = c(a = 1L), B = c(b1 = 1, b2 = 2), C = c(c = 3))
+#' )
 #' df %>% unchop(y)
-#' df %>% unchop(y, id = "name")
+#' df %>% unchop(y, id = "y_name")
 #'
+#' # Incompatible types -------------------------------------------------
+#' # If the list-col contains types that can not be natively
 #' df <- tibble(x = 1:2, y = list("1", 1:3))
-#' df %>% unchop(y)
+#' try(df %>% unchop(y))
 #' df %>% unchop(y, ptype = integer())
 #' df %>% unchop(y, ptype = character())
 #' df %>% unchop(y, ptype = list())
 #'
+#' # Unchopping data frames -----------------------------------------------------
+#' # Unchopping a list-col of data frames must generate a df-col because
+#' # unchop leaves the column names unchanged
 #' df <- tibble(x = 1:3, y = list(NULL, tibble(x = 1), tibble(y = 1:2)))
 #' df %>% unchop(y)
 #' df %>% unchop(y, keep_empty = FALSE)
-#'
 unchop <- function(df, col, id = NULL, keep_empty = FALSE, ptype = NULL) {
   col <- tidyselect::vars_pull(names(df), !!enquo(col))
   x <- df[[col]]
