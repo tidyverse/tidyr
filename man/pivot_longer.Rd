@@ -23,7 +23,11 @@ specification.}
 the data stored in the column names (\code{names_to}) and the data stored in
 the cell values (\code{values_to}) turn into in the result.
 
-Note that these variables do not exist, so must be specified as strings.}
+Note that these variables do not exist, so must be specified as strings.
+
+If \code{names_to} contains multiple columns (i.e., \code{c(".value", "time")}),
+you won't need to specify \code{values_to} because the special variable name
+\code{.value} defines the name of the output value columns.}
 
 \item{names_prefix}{A regular expression used to remove matching text
 from the start of each variable name.}
