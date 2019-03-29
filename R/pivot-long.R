@@ -12,6 +12,10 @@
 #'   the cell values (`values_to`) turn into in the result.
 #'
 #'   Note that these variables do not exist, so must be specified as strings.
+#'
+#'   If `names_to` contains multiple columns (i.e., `c(".value", "time")`),
+#'   you won't need to specify `values_to` because the special variable name
+#'   `.value` defines the name of the output value columns.
 #' @param names_prefix A regular expression used to remove matching text
 #'   from the start of each variable name.
 #' @param names_sep,names_pattern If `names_to` contains multiple values,
