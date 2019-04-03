@@ -23,12 +23,12 @@ For some time, it's been obvious that there is something fundamentally wrong wit
 
 There are two important new features inspired by other R packages that have been advancing reshaping in R:
 
-* `pivot_long()` can work with multiple value variables that may have 
+* `pivot_longer()` can work with multiple value variables that may have 
   different types, inspired by the enhanced `melt()` and `dcast()` 
   functions provided by the [data.table][data.table] package by Matt Dowle 
   and Arun Srinivasan.
 
-* `pivot_long()` and `pivot_wide()` can take a data frame that specifies
+* `pivot_longer()` and `pivot_wider()` can take a data frame that specifies
   precisely how metadata stored in column names becomes data variables (and 
   vice versa), inspired by the [cdata][cdata] package by John Mount and 
   Nina Zumel. 
@@ -193,7 +193,7 @@ family <- family %>% mutate_at(vars(starts_with("dob")), parse_date)
 family
 ```
 
-Note that we have two pieces of information (or values) for each child: their `gender` and their `dob` (date of birth). These need to go into separate columns in the result. Again we supply multiple variables to `names_to`, using `names_sep` to split up each variable name. Note the special variable name `.value`: this tells `pivot_long()` that that component of the variable name defines the name of the output value column.
+Note that we have two pieces of information (or values) for each child: their `gender` and their `dob` (date of birth). These need to go into separate columns in the result. Again we supply multiple variables to `names_to`, using `names_sep` to split up each variable name. Note the special variable name `.value`: this tells `pivot_longer()` that that component of the variable name defines the name of the output value column.
 
 ```{r}
 family %>% 
