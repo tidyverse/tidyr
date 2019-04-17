@@ -55,7 +55,7 @@ unnest2 <- function(df, col, id = NULL, keep_empty = FALSE, ptype = NULL) {
   x <- df[[col]]
   stopifnot(is.list(x))
 
-  x <- map(x, as_df, outer = col)
+  x <- map(x, df_col, outer = col)
 
   n <- map_int(x, vec_size)
   ptype <- vec_type_common(!!!x, .ptype = ptype)
@@ -72,7 +72,7 @@ unnest2 <- function(df, col, id = NULL, keep_empty = FALSE, ptype = NULL) {
   append_df(df, out, after = col, remove = TRUE)
 }
 
-as_df <- function(x, outer) {
+df_col <- function(x, outer) {
   if (is.null(x)) {
     x
   } else if (is.data.frame(x)) {

@@ -7,7 +7,7 @@
 \usage{
 pack(df, ...)
 
-unpack(df, col, ptype = NULL)
+unpack(df, col)
 }
 \arguments{
 \item{df}{A data frame.}
@@ -17,16 +17,12 @@ that describe how you wish to pack existing columns into new columns.
 The right hand side can be any expression supported by tidyselect.}
 
 \item{col}{Name of column that you wish to unpack.}
-
-\item{ptype}{Optionally, supply a prototype for the output \code{col}, overriding
-the default that will be guessed from the combination of individual
-values.}
 }
 \description{
 Packing and unpacking preserve the length of a data frame, changing its
 width. \code{pack()} makes \code{df} narrow by collapsing a set of columns into a
-single df-column. \code{unpack()} makes \code{df} wider by expanding list-columns and
-df-columns into individual columns.
+single df-column. \code{unpack()} makes \code{df} wider by expanding df-columns
+back out into individual columns.
 }
 \details{
 Generally, unpacking is more useful than packing because it simplifies
@@ -41,23 +37,17 @@ Learn more in \code{vignette("chop-pack-nest")}.
 # It's not currently clear why you would ever want to pack columns
 # since few functions work with this sort of data.
 df <- tibble(x1 = 1:3, x2 = 4:6, x3 = 7:9, y = 1:3)
-df \%>\% pack(x = c(x1, x2, x3))
-df \%>\% pack(x = c(x1, x2, x3))
+df
+df \%>\% pack(x = starts_with("x"))
+df \%>\% pack(x = c(x1, x2, x3), y = y)
 
 # Unpacking ===========================================================
-df <- tibble(x = 1:3, y = list(c(a = 1L), c(a = 1, b = 2), c(b = 3)))
+df <- tibble(
+  x = 1:3,
+  y = tibble(a = 1:3, b = 3:1),
+  z = tibble(X = c("a", "b", "c"), Y = runif(3), Z = c(TRUE, FALSE, NA))
+)
+df
 df \%>\% unpack(y)
-
-df <- tibble(x = 1:4, y = list(integer(), 1, 2:3, 4:6))
-df \%>\% unpack(y)
-
-# Lists of data frames ------------------------------------------------
-# A list of data frames becomes multiple list-cols because unpack()
-# preserves the length of the input
-df <- tibble(x = 1:3, y = list(NULL, tibble(a = 1, b = 2), tibble(b = 1:3)))
-df \%>\% unpack(y)
-
-# Data frame column ---------------------------------------------------
-df <- tibble(x = 1:3, y = tibble(a = 1:3, b = 3:1))
-df \%>\% unpack(y)
+df \%>\% unpack(c(y, z))
 }
