@@ -42,7 +42,8 @@ Suggests:
     readr,
     testthat
 Remotes:
-    r-lib/vctrs
+    r-lib/vctrs,
+    r-lib/rlang
 LinkingTo: 
     Rcpp
 VignetteBuilder: 
