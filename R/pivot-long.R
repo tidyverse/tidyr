@@ -74,8 +74,8 @@ pivot_longer <- function(df,
   # Quick hack to ensure that split() preserves order
   v_fct <- factor(spec$.value, levels = unique(spec$.value))
   values <- split(spec$.name, v_fct)
-  value_keys <- split(spec[setdiff(names(spec), c(".name", ".value"))], v_fct)
-  keys <- vec_unique(spec[setdiff(names(spec), c(".name", ".value"))])
+  value_keys <- split(spec[-(1:2)], v_fct)
+  keys <- vec_unique(spec[-(1:2)])
 
   vals <- set_names(vec_na(list(), length(values)), names(values))
   for (value in names(values)) {
