@@ -61,6 +61,7 @@ unnest2 <- function(df, col, id = NULL, keep_empty = FALSE, ptype = NULL) {
   ptype <- vec_type_common(!!!x, .ptype = ptype)
 
   # Fill empty elements to ensure original rows are preserved
+  # https://github.com/r-lib/vctrs/issues/255
   empty <- n == 0
   if (keep_empty && any(empty)) {
     vec_slice(x, empty) <- list(vec_na(ptype))
@@ -72,13 +73,15 @@ unnest2 <- function(df, col, id = NULL, keep_empty = FALSE, ptype = NULL) {
   append_df(df, out, after = col, remove = TRUE)
 }
 
-as_df <- function(x, outer) {
-  if (is.null(x)) {
-    x
+as_df <- function(x, outer, keep_empty = FALSE) {
+  if (keep_empty && vec_size(x) == 0) {
+    unspecified(1)
   } else if (is.data.frame(x)) {
     x
+  } else if (is.null(x)) {
+    x
   } else {
-    # Should this be a warning?I w
+    # Should this be a warning?
     tibble(!!outer := x)
   }
 }
