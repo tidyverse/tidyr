@@ -65,6 +65,7 @@ pivot_longer <- function(df,
       names_pattern = names_pattern,
       col_ptypes = col_ptypes
     )
+    spec <- check_spec(spec)
   } else {
     spec <- check_spec(spec)
   }
