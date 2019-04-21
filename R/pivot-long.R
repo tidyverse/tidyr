@@ -65,10 +65,8 @@ pivot_longer <- function(df,
       names_pattern = names_pattern,
       col_ptypes = col_ptypes
     )
-    spec <- check_spec(spec)
-  } else {
-    spec <- check_spec(spec)
   }
+  spec <- check_spec(spec)
   spec <- deduplicate_names(spec, df)
 
   # Quick hack to ensure that split() preserves order

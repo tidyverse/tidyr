@@ -57,9 +57,8 @@ pivot_wider <- function(df,
       names_prefix = names_prefix,
       names_sep = names_sep
     )
-  } else {
-    spec <- check_spec(spec)
   }
+  spec <- check_spec(spec)
 
   values <- vec_unique(spec$.value)
   spec_cols <- c(names(spec)[-(1:2)], values)
