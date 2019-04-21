@@ -91,6 +91,29 @@ test_that("handles duplicated column names", {
   expect_equal(pv$value, 1:4)
 })
 
+test_that(".value can be at any position in `names_to`", {
+  samp <- tibble(
+    i = 1:4,
+    y_t1 = rnorm(4),
+    y_t2 = rnorm(4),
+    z_t1 = rep(3, 4),
+    z_t2 = rep(-2, 4),
+  )
+
+  value_first <- pivot_longer(samp, -i,
+                              names_to = c(".value", "time"), names_sep = "_")
+
+  samp2 <- dplyr::rename(samp, t1_y = y_t1,
+                               t2_y = y_t2,
+                               t1_z = z_t1,
+                               t2_z = z_t2)
+
+  value_second <- pivot_longer(samp2, -i,
+                               names_to = c("time", ".value"), names_sep = "_")
+
+  expect_identical(value_first, value_second)
+})
+
 
 # spec --------------------------------------------------------------------
 
