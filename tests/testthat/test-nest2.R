@@ -42,9 +42,61 @@ test_that("can keep empty rows", {
   expect_equal(out2$a, c(NA, 1))
 })
 
-test_that("vectors treated like unchop", {
+test_that("vectors become columns", {
   df <- tibble(x = 1:2, y = list(1, 1:2))
-  out <- df %>% unnest2(y)
+  out <- unnest2(df, y)
+  expect_equal(out$y, c(1L, 1:2))
+})
 
-  expect_equal(out, unchop(df, y))
+test_that("bad inputs generate errors", {
+  df <- tibble(x = 1, y = list(mean))
+  expect_error(unnest2(df, y), "must be list of vectors")
+})
+
+# unnest_wider --------------------------------------------------------
+
+test_that("number of rows is preserved", {
+  df <- tibble(
+    x = 1:3,
+    y = list(NULL, c(a = 1), c(a = 1, b = 2))
+  )
+  out <- df %>% unnest_wider(y)
+  expect_equal(nrow(out), 3)
+})
+
+test_that("can handle data frames consistently with vectors" , {
+  df <- tibble(x = 1:2, y = list(tibble(a = 1:2, b = 2:3)))
+  out <- df %>% unnest_wider(y)
+
+  expect_named(out, c("x", "a", "b"))
+  expect_equal(nrow(out), 2)
+})
+
+test_that("bad inputs generate errors", {
+  df <- tibble(x = 1, y = list(mean))
+  expect_error(unnest_wider(df, y), "must be list of vectors")
+})
+
+# unnest_longer -----------------------------------------------------------
+
+test_that("can preserve empty rows", {
+  df <- tibble(
+    x = 1:3,
+    y = list(NULL, NULL, 1)
+  )
+  out <- df %>% unnest_longer(y, keep_empty = TRUE)
+  expect_equal(nrow(out), 3)
+})
+
+test_that("can handle data frames consistently with vectors" , {
+  df <- tibble(x = 1:2, y = list(tibble(a = 1:2, b = 2:3)))
+  out <- df %>% unnest_longer(y)
+
+  expect_named(out, c("x", "y"))
+  expect_equal(nrow(out), 4)
+})
+
+test_that("bad inputs generate errors", {
+  df <- tibble(x = 1, y = list(mean))
+  expect_error(unnest_longer(df, y), "must be list of vectors")
 })

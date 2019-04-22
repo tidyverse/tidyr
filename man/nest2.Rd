@@ -3,11 +3,18 @@
 \name{nest2}
 \alias{nest2}
 \alias{unnest2}
+\alias{unnest_longer}
+\alias{unnest_wider}
 \title{Nesting and unnesting}
 \usage{
 nest2(df, ...)
 
-unnest2(df, col, id = NULL, keep_empty = FALSE, ptype = NULL)
+unnest2(df, cols, keep_empty = FALSE, ptype = NULL)
+
+unnest_longer(df, cols, value_to = "values", index_to = "index",
+  keep_empty = FALSE)
+
+unnest_wider(df, cols)
 }
 \arguments{
 \item{df}{A data frame.}
@@ -16,11 +23,7 @@ unnest2(df, col, id = NULL, keep_empty = FALSE, ptype = NULL)
 that describe how you wish to nest existing columns into new columns.
 The right hand side can be any expression supported by tidyselect.}
 
-\item{col}{Name of column that you wish to unnest.}
-
-\item{id}{A string specifying giving the name of a new column which will
-contain the inner names of \code{col}. If unnamed, \code{col} will instead contain
-numeric indices.}
+\item{cols}{Names of columns to unnest.}
 
 \item{keep_empty}{By default, elements of \code{col} that have size zero will
 be ommitted from the output. Setting \code{keep_empty = TRUE} will ensure
@@ -29,13 +32,22 @@ that they're preserved}
 \item{ptype}{Optionally, supply a prototype for the output \code{col}, overriding
 the default that will be guessed from the combination of individual
 values.}
+
+\item{value_to}{Name of column to store vector values.}
+
+\item{index_to}{Name of column to store vector names or positions.}
 }
 \description{
 Nesting and unnesting change both the length and width of a data frame.
-They primarily work with nested-dfs, list-cols of data frames. See \code{\link[=unchop]{unchop()}}
-and \code{\link[=unpack]{unpack()}} for tools tailored for list-cols of 1d vectors.
+\code{nest()} and \code{unnest()} are designed to create with nested-dfs, list-cols of
+data frames.
 }
 \details{
+\code{unnest_wider()} and \code{unnest_longer()} are special cases of \code{unnest()}
+that unnest for lists of vectors; the suffixes are needed because depending
+on the context a vector might represent a row or a column. They also
+provide greater control
+
 Learn more in \code{vignette("chop-pack-nest")}.
 }
 \examples{
@@ -58,4 +70,31 @@ df <- tibble(
 )
 df \%>\% unnest2(y)
 df \%>\% unnest2(y, keep_empty = TRUE)
+
+# You can use unnest_longer() and unnest_wider() with nested dfs,
+# although it's not clear how useful the results are. unnest_longer()
+# maintains the same number of columns, creating a packed data frame,
+# while unnest_wider() maintains the same number of rows, creating
+# list-cols of vectors
+df \%>\% unnest_wider(y)
+df \%>\% unnest_longer(y)
+
+# Typically, however, you'll use unnest_longer() and _wider() with
+# list-cols containing vectors
+df <- tibble(
+  x = 1:3,
+  y = list(NULL, 1:3, 4:5)
+)
+df \%>\% unnest_longer(y)
+df \%>\% unnest_longer(y, keep_empty = TRUE)
+# Automatically creates names if widening
+df \%>\% unnest_wider(y)
+
+# And similarly if the vectors are named
+df <- tibble(
+  x = 1:2,
+  y = list(c(a = 1, b = 2), c(a = 10, b = 11, c = 12))
+)
+df \%>\% unnest_wider(y)
+df \%>\% unnest_longer(y)
 }
