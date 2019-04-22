@@ -35,7 +35,9 @@ values.}
 
 \item{value_to}{Name of column to store vector values.}
 
-\item{index_to}{Name of column to store vector names or positions.}
+\item{index_to}{A string giving the name of a new column which will
+contain the inner names of the values. If unnamed, \code{col} will instead
+contain numeric indices.}
 }
 \description{
 Nesting and unnesting change both the length and width of a data frame.

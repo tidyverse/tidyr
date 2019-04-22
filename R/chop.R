@@ -17,9 +17,6 @@
 #'
 #'   This should be a list-column containing generalised vectors (e.g.
 #'   any mix of `NULL`s, atomic vector, S3 vectors, a lists, or data frames).
-#' @param id A string specifying giving the name of a new column which will
-#'   contain the inner names of `col`. If unnamed, `col` will instead contain
-#'   numeric indices.
 #' @param keep_empty By default, elements of `col` that have size zero will
 #'   be ommitted from the output. Setting `keep_empty = TRUE` will ensure
 #'   that they're preserved
@@ -40,14 +37,6 @@
 #' df <- tibble(x = 1:4, y = list(integer(), 1L, 1:2, 1:3))
 #' df %>% unchop(y)
 #' df %>% unchop(y, keep_empty = FALSE)
-#'
-#' # Preserving names --------------------------------------------------
-#' df <- tibble(
-#'   x = 1:3,
-#'   y = list(A = c(a = 1L), B = c(b1 = 1, b2 = 2), C = c(c = 3))
-#' )
-#' df %>% unchop(y)
-#' df %>% unchop(y, id = "y_name")
 #'
 #' # Incompatible types -------------------------------------------------
 #' # If the list-col contains types that can not be natively
@@ -81,7 +70,7 @@ chop <- function(df, cols) {
 
 #' @export
 #' @rdname chop
-unchop <- function(df, cols, id = NULL, keep_empty = FALSE, ptype = NULL) {
+unchop <- function(df, cols, keep_empty = FALSE, ptype = NULL) {
   cols <- tidyselect::vars_select(names(df), !!enquo(cols))
 
   if (length(cols) == 1) {
@@ -112,17 +101,5 @@ unchop <- function(df, cols, id = NULL, keep_empty = FALSE, ptype = NULL) {
     out[cols] <- vec_rbind(!!!x, .ptype = ptype)
   }
 
-  if (!is.null(id)) {
-    # What happens if it's a mix of named and unnamed?
-    idx <- map(x, index)
-    idx[empty] <- NA
-    out <- append_col(out, vec_c(!!!idx), id, after = last(cols))
-  }
-
   out
-}
-
-
-index <- function(x) {
-  names(x) %||% seq_along(x)
 }

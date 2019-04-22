@@ -98,7 +98,9 @@ unnest2 <- function(df, cols, keep_empty = FALSE, ptype = NULL) {
 #' @export
 #' @rdname nest2
 #' @param value_to Name of column to store vector values.
-#' @param index_to Name of column to store vector names or positions.
+#' @param index_to A string giving the name of a new column which will
+#'   contain the inner names of the values. If unnamed, `col` will instead
+#'   contain numeric indices.
 unnest_longer <- function(df, cols,
                           value_to = "values",
                           index_to = "index",
@@ -175,4 +177,8 @@ vec_to_long <- function(x, col, value_to = "values", index_to = "index") {
   } else {
     stop("Input must be list of vectors", call. = FALSE)
   }
+}
+
+index <- function(x) {
+  names(x) %||% seq_along(x)
 }

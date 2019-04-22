@@ -7,7 +7,7 @@
 \usage{
 chop(df, cols)
 
-unchop(df, cols, id = NULL, keep_empty = FALSE, ptype = NULL)
+unchop(df, cols, keep_empty = FALSE, ptype = NULL)
 }
 \arguments{
 \item{df}{A data frame.}
@@ -16,10 +16,6 @@ unchop(df, cols, id = NULL, keep_empty = FALSE, ptype = NULL)
 
 This should be a list-column containing generalised vectors (e.g.
 any mix of \code{NULL}s, atomic vector, S3 vectors, a lists, or data frames).}
-
-\item{id}{A string specifying giving the name of a new column which will
-contain the inner names of \code{col}. If unnamed, \code{col} will instead contain
-numeric indices.}
 
 \item{keep_empty}{By default, elements of \code{col} that have size zero will
 be ommitted from the output. Setting \code{keep_empty = TRUE} will ensure
@@ -56,14 +52,6 @@ df \%>\% nest(c(y, z))
 df <- tibble(x = 1:4, y = list(integer(), 1L, 1:2, 1:3))
 df \%>\% unchop(y)
 df \%>\% unchop(y, keep_empty = FALSE)
-
-# Preserving names --------------------------------------------------
-df <- tibble(
-  x = 1:3,
-  y = list(A = c(a = 1L), B = c(b1 = 1, b2 = 2), C = c(c = 3))
-)
-df \%>\% unchop(y)
-df \%>\% unchop(y, id = "y_name")
 
 # Incompatible types -------------------------------------------------
 # If the list-col contains types that can not be natively
