@@ -60,8 +60,8 @@
 #'   name = rep(c("Alex", "Robert", "Sam"), c(3, 2, 1)),
 #'   trt  = rep(c("a", "b", "a"), c(3, 2, 1)),
 #'   rep = c(1, 2, 3, 1, 2, 1),
-#'   measurment_1 = runif(6),
-#'   measurment_2 = runif(6)
+#'   measurement_1 = runif(6),
+#'   measurement_2 = runif(6)
 #' )
 #'
 #' # We can figure out the complete set of data with expand()
