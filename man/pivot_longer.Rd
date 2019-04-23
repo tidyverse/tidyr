@@ -19,11 +19,11 @@ pivot_longer_spec(df, cols, names_to = "name", values_to = "value",
 \item{cols}{Columns to pivot into longer format. This takes a tidyselect
 specification.}
 
-\item{names_to, values_to}{This pair of arguments determine which columns
-the data stored in the column names (\code{names_to}) and the data stored in
-the cell values (\code{values_to}) turn into in the result.
+\item{names_to}{A string specifying the name of the column to create
+from the data stored in the column names of \code{df}.
 
-Note that these variables do not exist, so must be specified as strings.}
+Can be a character vector, creating multiple columns, if \code{names_sep}
+or \code{names_pattern} is provided.}
 
 \item{names_prefix}{A regular expression used to remove matching text
 from the start of each variable name.}
@@ -41,6 +41,12 @@ expression containing matching groups (\code{()}).
 If these arguments does not give you enough control, use
 \code{pivot_longer_spec()} to create a spec object and process manually as
 needed.}
+
+\item{values_to}{A string specifying the name of the column to create
+from the data stored in cell values. If \code{names_to} is a character
+containing the special \code{.value} sentinel, this value will be ignored,
+and the name of the value column will be derived from part of the
+existing column names.}
 
 \item{values_drop_na}{If \code{TRUE}, will drop rows that contain only \code{NA}s
 in the \code{value_to} column. This effectively converts explicit missing values

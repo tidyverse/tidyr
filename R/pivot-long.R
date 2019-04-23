@@ -7,11 +7,11 @@
 #' @param df A data frame to pivot.
 #' @param cols Columns to pivot into longer format. This takes a tidyselect
 #'   specification.
-#' @param names_to,values_to This pair of arguments determine which columns
-#'   the data stored in the column names (`names_to`) and the data stored in
-#'   the cell values (`values_to`) turn into in the result.
+#' @param names_to A string specifying the name of the column to create
+#'   from the data stored in the column names of `df`.
 #'
-#'   Note that these variables do not exist, so must be specified as strings.
+#'   Can be a character vector, creating multiple columns, if `names_sep`
+#'   or `names_pattern` is provided.
 #' @param names_prefix A regular expression used to remove matching text
 #'   from the start of each variable name.
 #' @param names_sep,names_pattern If `names_to` contains multiple values,
@@ -27,12 +27,11 @@
 #'   If these arguments does not give you enough control, use
 #'   `pivot_longer_spec()` to create a spec object and process manually as
 #'   needed.
-#' @param spec Alternatively, instead of providing `cols` (and `names_to` and
-#'   `values_to`) you can parse a specification data frame. This is useful
-#'   for more complex pivots because it gives you greater control on how
-#'   metadata stored in the column names turns into columns in the result.
-#'
-#'   Must be a data frame containing character `.name` and `.value` columns.
+#' @param values_to A string specifying the name of the column to create
+#'   from the data stored in cell values. If `names_to` is a character
+#'   containing the special `.value` sentinel, this value will be ignored,
+#'   and the name of the value column will be derived from part of the
+#'   existing column names.
 #' @param values_drop_na If `TRUE`, will drop rows that contain only `NA`s
 #'   in the `value_to` column. This effectively converts explicit missing values
 #'   to implicit missing values, and should generally be used only when missing
@@ -42,6 +41,12 @@
 #'   If not specified, the type of the generated from `names_to` will be
 #'   character, and the type of the variables generated from `values_to`
 #'   will be the common type of the input columns used to generate them.
+#' @param spec Alternatively, instead of providing `cols` (and `names_to` and
+#'   `values_to`) you can parse a specification data frame. This is useful
+#'   for more complex pivots because it gives you greater control on how
+#'   metadata stored in the column names turns into columns in the result.
+#'
+#'   Must be a data frame containing character `.name` and `.value` columns.
 #' @export
 pivot_longer <- function(df,
                          cols,
