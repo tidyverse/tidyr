@@ -45,7 +45,7 @@ test_that("can control name_repair", {
     out <- df %>% unpack(c(y, z), name_repair = "unique"),
     "New names"
   )
-  expect_named(out, c("x", "a..2", "a..3"))
+  expect_named(out, c("x", "a...2", "a...3"))
 })
 
 test_that("can choose to add separtor", {
