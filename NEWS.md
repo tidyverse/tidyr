@@ -1,5 +1,27 @@
 # tidyr (development version)
 
+* New `unnest_longer()` and `unnest_wider()` make it easier to unnest
+  list-columns of vectors into either rows or columns (#418)
+  
+* New `pack()` and `unpack()` allow you to pack and unpack columns into
+  data frame columns (#523). New `chop()` and `unchop()` chop up rows into
+  sets of list-columns. Packing and chopping are primarily interesting because
+  they are the atomic operations the underlying nesting (and similarly, 
+  unchop and unpacking underlie unnesting), and I don't expect them to be
+  used directly very often.
+  
+* `unnest()` has been overhauled:
+
+  * New `keep_empty()` parameter ensures that every row in the input gets
+    at least one row in the output, inserting missing values as needed (#358)
+  
+  * Provides `names_sep` argument to control how inner and outer column names
+    are combined.
+    
+  * Uses standard tidyverse name repair rules, so by default you will get an
+    error if the output would contain multiple columns with the same name. You
+    can override by with `name_repair`. (#514)
+
 * tidyr now re-exports `tibble()`, `as_tibble()`, and `tribble()`, 
   as well as the tidyselect helpers (`starts_with()`, `ends_width()`, ...).
   This makes generating documentation, reprexes, and tests easier, and
