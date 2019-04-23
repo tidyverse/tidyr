@@ -11,11 +11,12 @@
 #'
 #' Learn more in `vignette("chop-pack-nest")`.
 #'
+#' @inheritParams unchop
+#' @inheritParams unpack
 #' @param cols Names of columns to unnest.
 #' @param ... Name-variable pairs of the form `new_col = c(col1, col2, col3)`,
 #'   that describe how you wish to nest existing columns into new columns.
 #'   The right hand side can be any expression supported by tidyselect.
-#' @inheritParams unchop
 #' @export
 #' @examples
 #' # nest =============================================================
@@ -84,7 +85,11 @@ nest2 <- function(df, ...) {
 
 #' @export
 #' @rdname nest2
-unnest2 <- function(df, cols, keep_empty = FALSE, ptype = NULL) {
+unnest2 <- function(df, cols,
+                    keep_empty = FALSE,
+                    ptype = NULL,
+                    names_sep = NULL,
+                    name_repair = "check_unique") {
   cols <- tidyselect::vars_select(names(df), !!enquo(cols))
 
   for (col in cols) {
@@ -92,7 +97,7 @@ unnest2 <- function(df, cols, keep_empty = FALSE, ptype = NULL) {
   }
 
   df <- unchop(df, !!cols, keep_empty = keep_empty, ptype = ptype)
-  unpack(df, !!cols)
+  unpack(df, !!cols, names_sep = names_sep, name_repair = name_repair)
 }
 
 #' @export
@@ -104,7 +109,10 @@ unnest2 <- function(df, cols, keep_empty = FALSE, ptype = NULL) {
 unnest_longer <- function(df, cols,
                           value_to = "values",
                           index_to = "index",
-                          keep_empty = FALSE) {
+                          keep_empty = FALSE,
+                          names_sep = NULL,
+                          name_repair = "check_unique"
+                          ) {
 
   cols <- tidyselect::vars_select(names(df), !!enquo(cols))
 
@@ -118,12 +126,14 @@ unnest_longer <- function(df, cols,
   }
 
   df <- unchop(df, !!cols, keep_empty = keep_empty)
-  unpack(df, !!cols)
+  unpack(df, !!cols, names_sep = names_sep, name_repair = name_repair)
 }
 
 #' @export
 #' @rdname nest2
-unnest_wider <- function(df, cols) {
+unnest_wider <- function(df, cols,
+                         names_sep = NULL,
+                         name_repair = "check_unique") {
   cols <- tidyselect::vars_select(names(df), !!enquo(cols))
 
   for (col in cols) {
@@ -131,7 +141,7 @@ unnest_wider <- function(df, cols) {
   }
 
   df <- unchop(df, !!cols, keep_empty = TRUE)
-  unpack(df, !!cols)
+  unpack(df, !!cols, names_sep = names_sep, name_repair = name_repair)
 }
 
 # helpers -----------------------------------------------------------------

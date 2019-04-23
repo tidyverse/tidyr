@@ -9,12 +9,13 @@
 \usage{
 nest2(df, ...)
 
-unnest2(df, cols, keep_empty = FALSE, ptype = NULL)
+unnest2(df, cols, keep_empty = FALSE, ptype = NULL, names_sep = NULL,
+  name_repair = "check_unique")
 
 unnest_longer(df, cols, value_to = "values", index_to = "index",
-  keep_empty = FALSE)
+  keep_empty = FALSE, names_sep = NULL, name_repair = "check_unique")
 
-unnest_wider(df, cols)
+unnest_wider(df, cols, names_sep = NULL, name_repair = "check_unique")
 }
 \arguments{
 \item{df}{A data frame.}
@@ -32,6 +33,27 @@ that they're preserved}
 \item{ptype}{Optionally, supply a prototype for the output \code{col}, overriding
 the default that will be guessed from the combination of individual
 values.}
+
+\item{names_sep}{If \code{NULL}, the default, the names of new columns will
+come directly from the inner data frame.
+
+If a string, the names of the new columns will be formed by pasting
+together the outer column name with the inner names, separated by
+\code{names_sep}.}
+
+\item{name_repair}{Used to check that output data frame has valid
+names. Must be one of the following options:
+\itemize{
+\item "minimal": No name repair or checks, beyond basic existence,
+\item "unique": Make sure names are unique and not empty,
+\item "check_unique": (the default), no name repair, but check they are unique,
+\item "universal": Make the names unique and syntactic
+\item a function: apply custom name repair.
+\item a formula: a purrr-style anonymous function (see \code{\link[rlang:as_function]{rlang::as_function()}})
+}
+
+See \link[tibble:name-repair]{tibble::name-repair} for more details on these terms and the
+strategies used to enforce them.}
 
 \item{value_to}{Name of column to store vector values.}
 

@@ -36,3 +36,21 @@ test_that("df-cols are directly unpacked", {
   expect_named(out, c("x", "a", "b"))
   expect_equal(out[c("a", "b")], df$y)
 })
+
+test_that("can control name_repair", {
+  df <- tibble(x = 1, y = tibble(a = 2), z = tibble(a = 3))
+  expect_error(df %>% unpack(c(y, z)), "must not be duplicated")
+
+  expect_message(
+    out <- df %>% unpack(c(y, z), name_repair = "unique"),
+    "New names"
+  )
+  expect_named(out, c("x", "a..2", "a..3"))
+})
+
+test_that("can choose to add separtor", {
+  df <- tibble(x = 1, y = tibble(a = 2), z = tibble(a = 3))
+  out <- df %>% unpack(c(y, z), names_sep = "_")
+  expect_named(out, c("x", "y_a", "z_a"))
+})
+

@@ -7,7 +7,7 @@
 \usage{
 pack(df, ...)
 
-unpack(df, col)
+unpack(df, cols, names_sep = NULL, name_repair = "check_unique")
 }
 \arguments{
 \item{df}{A data frame.}
@@ -16,7 +16,28 @@ unpack(df, col)
 that describe how you wish to pack existing columns into new columns.
 The right hand side can be any expression supported by tidyselect.}
 
-\item{col}{Name of column that you wish to unpack.}
+\item{cols}{Name of column that you wish to unpack.}
+
+\item{names_sep}{If \code{NULL}, the default, the names of new columns will
+come directly from the inner data frame.
+
+If a string, the names of the new columns will be formed by pasting
+together the outer column name with the inner names, separated by
+\code{names_sep}.}
+
+\item{name_repair}{Used to check that output data frame has valid
+names. Must be one of the following options:
+\itemize{
+\item "minimal": No name repair or checks, beyond basic existence,
+\item "unique": Make sure names are unique and not empty,
+\item "check_unique": (the default), no name repair, but check they are unique,
+\item "universal": Make the names unique and syntactic
+\item a function: apply custom name repair.
+\item a formula: a purrr-style anonymous function (see \code{\link[rlang:as_function]{rlang::as_function()}})
+}
+
+See \link[tibble:name-repair]{tibble::name-repair} for more details on these terms and the
+strategies used to enforce them.}
 }
 \description{
 Packing and unpacking preserve the length of a data frame, changing its
@@ -50,4 +71,6 @@ df <- tibble(
 df
 df \%>\% unpack(y)
 df \%>\% unpack(c(y, z))
+df \%>\% unpack(c(y, z), names_sep = "_")
+
 }

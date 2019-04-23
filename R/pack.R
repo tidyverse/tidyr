@@ -13,7 +13,7 @@
 #' Learn more in `vignette("chop-pack-nest")`.
 #'
 #' @inheritParams unchop
-#' @param col Name of column that you wish to unpack.
+#' @param cols Name of column that you wish to unpack.
 #' @param ... Name-variable pairs of the form `new_col = c(col1, col2, col3)`,
 #'   that describe how you wish to pack existing columns into new columns.
 #'   The right hand side can be any expression supported by tidyselect.
@@ -36,6 +36,8 @@
 #' df
 #' df %>% unpack(y)
 #' df %>% unpack(c(y, z))
+#' df %>% unpack(c(y, z), names_sep = "_")
+#'
 pack <- function(df, ...) {
   cols <- enquos(...)
   if (any(names2(cols) == "")) {
@@ -52,17 +54,41 @@ pack <- function(df, ...) {
 
 #' @export
 #' @rdname pack
-unpack <- function(df, col) {
-  cols <- tidyselect::vars_select(names(df), !!enquo(col))
+#' @param names_sep If `NULL`, the default, the names of new columns will
+#'   come directly from the inner data frame.
+#'
+#'   If a string, the names of the new columns will be formed by pasting
+#'   together the outer column name with the inner names, separated by
+#'   `names_sep`.
+#' @param name_repair Used to check that output data frame has valid
+#'   names. Must be one of the following options:
+#'
+#'   * "minimal": No name repair or checks, beyond basic existence,
+#'   * "unique": Make sure names are unique and not empty,
+#'   * "check_unique": (the default), no name repair, but check they are unique,
+#'   * "universal": Make the names unique and syntactic
+#'   * a function: apply custom name repair.
+#'   * a formula: a purrr-style anonymous function (see [rlang::as_function()])
+#'
+#'   See [tibble::name-repair] for more details on these terms and the
+#'   strategies used to enforce them.
+unpack <- function(df, cols, names_sep = NULL, name_repair = "check_unique") {
+  cols <- tidyselect::vars_select(names(df), !!enquo(cols))
 
-  for (col in cols) {
-    x <- df[[col]]
-    if (!is.data.frame(x)) {
-      abort(glue("`{col}` must be a data frame column"))
-    }
-    df <- append_df(df, x, col, remove = TRUE)
-  }
+  df[cols] <- map2(df[cols], cols, check_unpack, names_sep = names_sep)
+  out <- flatten_at(df, names(df) %in% cols)
 
-  df
+  as_tibble(out, .name_repair = name_repair)
 }
 
+check_unpack <- function(x, col, names_sep = NULL) {
+  if (!is.data.frame(x)) {
+    abort(glue("`{col}` must be a data frame column"))
+  }
+
+  if (!is.null(names_sep)) {
+    names(x) <- paste0(col, names_sep, names(x))
+  }
+
+  x
+}
