@@ -98,6 +98,9 @@ the nested variables: this seems to be the most useful form in practice." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
+      <a href="../articles/chop-pack-nest.html">chop-pack-nest</a>
+    </li>
+    <li>
       <a href="../articles/pivot.html">Pivoting</a>
     </li>
     <li>
@@ -199,12 +202,12 @@ can contain either a column name as string or a column position).</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>dplyr</span>)
-<span class='fu'><a href='https://dplyr.tidyverse.org/reference/reexports.html'>as_tibble</a></span>(<span class='no'>iris</span>) <span class='kw'>%&gt;%</span> <span class='fu'>nest</span>(-<span class='no'>Species</span>)</div><div class='output co'>#&gt; # A tibble: 3 x 2
+<span class='fu'><a href='https://tibble.tidyverse.org/reference/as_tibble.html'>as_tibble</a></span>(<span class='no'>iris</span>) <span class='kw'>%&gt;%</span> <span class='fu'>nest</span>(-<span class='no'>Species</span>)</div><div class='output co'>#&gt; # A tibble: 3 x 2
 #&gt;   Species    data             
 #&gt;   &lt;fct&gt;      &lt;list&gt;           
 #&gt; 1 setosa     &lt;tibble [50 × 4]&gt;
 #&gt; 2 versicolor &lt;tibble [50 × 4]&gt;
-#&gt; 3 virginica  &lt;tibble [50 × 4]&gt;</div><div class='input'><span class='fu'><a href='https://dplyr.tidyverse.org/reference/reexports.html'>as_tibble</a></span>(<span class='no'>chickwts</span>) <span class='kw'>%&gt;%</span> <span class='fu'>nest</span>(<span class='no'>weight</span>)</div><div class='output co'>#&gt; # A tibble: 6 x 2
+#&gt; 3 virginica  &lt;tibble [50 × 4]&gt;</div><div class='input'><span class='fu'><a href='https://tibble.tidyverse.org/reference/as_tibble.html'>as_tibble</a></span>(<span class='no'>chickwts</span>) <span class='kw'>%&gt;%</span> <span class='fu'>nest</span>(<span class='no'>weight</span>)</div><div class='output co'>#&gt; # A tibble: 6 x 2
 #&gt;   feed      data             
 #&gt;   &lt;fct&gt;     &lt;list&gt;           
 #&gt; 1 horsebean &lt;tibble [10 × 1]&gt;

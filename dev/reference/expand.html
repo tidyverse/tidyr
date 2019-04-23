@@ -99,6 +99,9 @@ out which combinations are missing." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
+      <a href="../articles/chop-pack-nest.html">chop-pack-nest</a>
+    </li>
+    <li>
       <a href="../articles/pivot.html">Pivoting</a>
     </li>
     <li>
@@ -209,7 +212,7 @@ is low-level that doesn't deduplicate or sort values.</p></div>
 #&gt; 4     1     4
 #&gt; 5     1     6</div><div class='input'>
 <span class='co'># Implicit missings ---------------------------------------------------------</span>
-<span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/reexports.html'>tibble</a></span>(
+<span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(
   <span class='kw'>year</span>   <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>2010</span>, <span class='fl'>2010</span>, <span class='fl'>2010</span>, <span class='fl'>2010</span>, <span class='fl'>2012</span>, <span class='fl'>2012</span>, <span class='fl'>2012</span>),
   <span class='kw'>qtr</span>    <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(   <span class='fl'>1</span>,    <span class='fl'>2</span>,    <span class='fl'>3</span>,    <span class='fl'>4</span>,    <span class='fl'>1</span>,    <span class='fl'>2</span>,    <span class='fl'>3</span>),
   <span class='kw'>return</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/Normal'>rnorm</a></span>(<span class='fl'>7</span>)
@@ -271,12 +274,12 @@ is low-level that doesn't deduplicate or sort values.</p></div>
 <span class='co'># Each person was given one of two treatments, repeated three times</span>
 <span class='co'># But some of the replications haven't happened yet, so we have</span>
 <span class='co'># incomplete data:</span>
-<span class='no'>experiment</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/reexports.html'>tibble</a></span>(
+<span class='no'>experiment</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(
   <span class='kw'>name</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/rep'>rep</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"Alex"</span>, <span class='st'>"Robert"</span>, <span class='st'>"Sam"</span>), <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>3</span>, <span class='fl'>2</span>, <span class='fl'>1</span>)),
   <span class='kw'>trt</span>  <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/rep'>rep</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"a"</span>, <span class='st'>"b"</span>, <span class='st'>"a"</span>), <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>3</span>, <span class='fl'>2</span>, <span class='fl'>1</span>)),
   <span class='kw'>rep</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>3</span>, <span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>1</span>),
-  <span class='kw'>measurment_1</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/Uniform'>runif</a></span>(<span class='fl'>6</span>),
-  <span class='kw'>measurment_2</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/Uniform'>runif</a></span>(<span class='fl'>6</span>)
+  <span class='kw'>measurement_1</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/Uniform'>runif</a></span>(<span class='fl'>6</span>),
+  <span class='kw'>measurement_2</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/Uniform'>runif</a></span>(<span class='fl'>6</span>)
 )
 
 <span class='co'># We can figure out the complete set of data with expand()</span>
@@ -304,29 +307,29 @@ is low-level that doesn't deduplicate or sort values.</p></div>
 <span class='co'># And use right_join to add in the appropriate missing values to the</span>
 <span class='co'># original data</span>
 <span class='no'>experiment</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/join.html'>right_join</a></span>(<span class='no'>all</span>)</div><div class='output co'>#&gt; <span class='message'>Joining, by = c("name", "trt", "rep")</span></div><div class='output co'>#&gt; # A tibble: 9 x 5
-#&gt;   name   trt     rep measurment_1 measurment_2
-#&gt;   &lt;chr&gt;  &lt;chr&gt; &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt;
-#&gt; 1 Alex   a         1       0.402         0.290
-#&gt; 2 Alex   a         2       0.196         0.678
-#&gt; 3 Alex   a         3       0.404         0.735
-#&gt; 4 Robert b         1       0.0637        0.196
-#&gt; 5 Robert b         2       0.389         0.981
-#&gt; 6 Robert b         3      NA            NA    
-#&gt; 7 Sam    a         1       0.976         0.742
-#&gt; 8 Sam    a         2      NA            NA    
-#&gt; 9 Sam    a         3      NA            NA    </div><div class='input'><span class='co'># Or use the complete() short-hand</span>
+#&gt;   name   trt     rep measurement_1 measurement_2
+#&gt;   &lt;chr&gt;  &lt;chr&gt; &lt;dbl&gt;         &lt;dbl&gt;         &lt;dbl&gt;
+#&gt; 1 Alex   a         1        0.402          0.290
+#&gt; 2 Alex   a         2        0.196          0.678
+#&gt; 3 Alex   a         3        0.404          0.735
+#&gt; 4 Robert b         1        0.0637         0.196
+#&gt; 5 Robert b         2        0.389          0.981
+#&gt; 6 Robert b         3       NA             NA    
+#&gt; 7 Sam    a         1        0.976          0.742
+#&gt; 8 Sam    a         2       NA             NA    
+#&gt; 9 Sam    a         3       NA             NA    </div><div class='input'><span class='co'># Or use the complete() short-hand</span>
 <span class='no'>experiment</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='complete.html'>complete</a></span>(<span class='fu'>nesting</span>(<span class='no'>name</span>, <span class='no'>trt</span>), <span class='no'>rep</span>)</div><div class='output co'>#&gt; # A tibble: 9 x 5
-#&gt;   name   trt     rep measurment_1 measurment_2
-#&gt;   &lt;chr&gt;  &lt;chr&gt; &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt;
-#&gt; 1 Alex   a         1       0.402         0.290
-#&gt; 2 Alex   a         2       0.196         0.678
-#&gt; 3 Alex   a         3       0.404         0.735
-#&gt; 4 Robert b         1       0.0637        0.196
-#&gt; 5 Robert b         2       0.389         0.981
-#&gt; 6 Robert b         3      NA            NA    
-#&gt; 7 Sam    a         1       0.976         0.742
-#&gt; 8 Sam    a         2      NA            NA    
-#&gt; 9 Sam    a         3      NA            NA    </div><div class='input'>
+#&gt;   name   trt     rep measurement_1 measurement_2
+#&gt;   &lt;chr&gt;  &lt;chr&gt; &lt;dbl&gt;         &lt;dbl&gt;         &lt;dbl&gt;
+#&gt; 1 Alex   a         1        0.402          0.290
+#&gt; 2 Alex   a         2        0.196          0.678
+#&gt; 3 Alex   a         3        0.404          0.735
+#&gt; 4 Robert b         1        0.0637         0.196
+#&gt; 5 Robert b         2        0.389          0.981
+#&gt; 6 Robert b         3       NA             NA    
+#&gt; 7 Sam    a         1        0.976          0.742
+#&gt; 8 Sam    a         2       NA             NA    
+#&gt; 9 Sam    a         3       NA             NA    </div><div class='input'>
 <span class='co'># Generate all combinations with expand():</span>
 <span class='no'>formulas</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(
   <span class='kw'>formula1</span> <span class='kw'>=</span> <span class='no'>Sepal.Length</span> ~ <span class='no'>Sepal.Width</span>,

@@ -94,6 +94,9 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
+      <a href="../articles/chop-pack-nest.html">chop-pack-nest</a>
+    </li>
+    <li>
       <a href="../articles/pivot.html">Pivoting</a>
     </li>
     <li>
@@ -251,7 +254,7 @@ mtcars %&gt;% gather(var, value, !! 1:x)
 mtcars %&gt;% gather(var, value, !! -(1:x))</code></pre>
 <p>An alternative is to turn your data expression into a context expression by using <code><a href="https://www.rdocumentation.org/packages/base/topics/seq">seq()</a></code> or <code><a href="https://www.rdocumentation.org/packages/base/topics/seq">seq_len()</a></code> instead of <code>:</code>. See the section on tidyselect for more information about these semantics.</p>
 </li>
-<li><p>Following the switch to tidy evaluation, you might see warnings about the “variable context not set”. This is most likely caused by supplyng helpers like <code>everything()</code> to underscored versions of tidyr verbs. Helpers should be always be evaluated lazily. To fix this, just quote the helper with a formula: <code><a href="../reference/drop_na.html">drop_na(df, ~everything())</a></code>.</p></li>
+<li><p>Following the switch to tidy evaluation, you might see warnings about the “variable context not set”. This is most likely caused by supplyng helpers like <code><a href="https://www.rdocumentation.org/packages/tidyselect/topics/select_helpers">everything()</a></code> to underscored versions of tidyr verbs. Helpers should be always be evaluated lazily. To fix this, just quote the helper with a formula: <code><a href="../reference/drop_na.html">drop_na(df, ~everything())</a></code>.</p></li>
 <li>
 <p>The selecting functions are now stricter when you supply integer positions. If you see an error along the lines of</p>
 <pre><code>`-0.949999999999999`, `-0.940000000000001`, ... must resolve to

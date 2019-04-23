@@ -4,6 +4,9 @@
     <loc>https://tidyr.tidyverse.org/index.html</loc>
   </url>
   <url>
+    <loc>https://tidyr.tidyverse.org/reference/chop.html</loc>
+  </url>
+  <url>
     <loc>https://tidyr.tidyverse.org/reference/complete.html</loc>
   </url>
   <url>
@@ -40,6 +43,12 @@
     <loc>https://tidyr.tidyverse.org/reference/nest.html</loc>
   </url>
   <url>
+    <loc>https://tidyr.tidyverse.org/reference/nest2.html</loc>
+  </url>
+  <url>
+    <loc>https://tidyr.tidyverse.org/reference/pack.html</loc>
+  </url>
+  <url>
     <loc>https://tidyr.tidyverse.org/reference/pipe.html</loc>
   </url>
   <url>
@@ -47,6 +56,9 @@
   </url>
   <url>
     <loc>https://tidyr.tidyverse.org/reference/pivot_wider.html</loc>
+  </url>
+  <url>
+    <loc>https://tidyr.tidyverse.org/reference/reexports.html</loc>
   </url>
   <url>
     <loc>https://tidyr.tidyverse.org/reference/replace_na.html</loc>
@@ -86,6 +98,9 @@
   </url>
   <url>
     <loc>https://tidyr.tidyverse.org/reference/world_bank_pop.html</loc>
+  </url>
+  <url>
+    <loc>https://tidyr.tidyverse.org/articles/chop-pack-nest.html</loc>
   </url>
   <url>
     <loc>https://tidyr.tidyverse.org/articles/pivot.html</loc>

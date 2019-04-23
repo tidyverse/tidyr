@@ -96,6 +96,9 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
+      <a href="../articles/chop-pack-nest.html">chop-pack-nest</a>
+    </li>
+    <li>
       <a href="../articles/pivot.html">Pivoting</a>
     </li>
     <li>
@@ -192,24 +195,24 @@ by "&lt;key_name&gt;&lt;sep&gt;&lt;key_value&gt;".</p></td>
   <span class='kw'>Z</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/Normal'>rnorm</a></span>(<span class='fl'>10</span>, <span class='fl'>0</span>, <span class='fl'>4</span>)
 )
 <span class='no'>stocksm</span> <span class='kw'>&lt;-</span> <span class='no'>stocks</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='gather.html'>gather</a></span>(<span class='no'>stock</span>, <span class='no'>price</span>, -<span class='no'>time</span>)
-<span class='no'>stocksm</span> <span class='kw'>%&gt;%</span> <span class='fu'>spread</span>(<span class='no'>stock</span>, <span class='no'>price</span>)</div><div class='output co'>#&gt;          time           X           Y          Z
-#&gt; 1  2009-01-01 -0.25148344  0.03835518 -0.9835856
-#&gt; 2  2009-01-02  0.44479712  0.05912151 -4.7102532
-#&gt; 3  2009-01-03  2.75541758  1.09965508 -3.9034025
-#&gt; 4  2009-01-04  0.04653138 -4.54822971  4.2602293
-#&gt; 5  2009-01-05  0.57770907  5.36511437  0.5266825
-#&gt; 6  2009-01-06  0.11819487 -0.72244251  1.9545152
-#&gt; 7  2009-01-07 -1.91172049  0.42671150 -6.7978023
-#&gt; 8  2009-01-08  0.86208648  2.14869176 -5.8829452
-#&gt; 9  2009-01-09 -0.24323674 -1.33017650  1.1366014
-#&gt; 10 2009-01-10 -0.20608719  2.22790484  5.3492817</div><div class='input'><span class='no'>stocksm</span> <span class='kw'>%&gt;%</span> <span class='fu'>spread</span>(<span class='no'>time</span>, <span class='no'>price</span>)</div><div class='output co'>#&gt;   stock  2009-01-01  2009-01-02 2009-01-03  2009-01-04 2009-01-05 2009-01-06
-#&gt; 1     X -0.25148344  0.44479712   2.755418  0.04653138  0.5777091  0.1181949
-#&gt; 2     Y  0.03835518  0.05912151   1.099655 -4.54822971  5.3651144 -0.7224425
-#&gt; 3     Z -0.98358565 -4.71025324  -3.903402  4.26022928  0.5266825  1.9545152
+<span class='no'>stocksm</span> <span class='kw'>%&gt;%</span> <span class='fu'>spread</span>(<span class='no'>stock</span>, <span class='no'>price</span>)</div><div class='output co'>#&gt;          time           X             Y          Z
+#&gt; 1  2009-01-01 -1.56651447  1.9526835441 -3.4428971
+#&gt; 2  2009-01-02 -1.04057911  2.2930009979  1.6849217
+#&gt; 3  2009-01-03  1.01993374  2.4345433749  5.8021729
+#&gt; 4  2009-01-04 -0.70208198  0.0009600261  0.7775698
+#&gt; 5  2009-01-05  0.97331578  1.5102501123 -2.7648217
+#&gt; 6  2009-01-06 -0.07681765  0.6848070209  5.3594397
+#&gt; 7  2009-01-07  0.89292492  0.3369456486 10.9444338
+#&gt; 8  2009-01-08 -0.77750309  2.7941330176 -3.7764066
+#&gt; 9  2009-01-09  0.43679711 -1.3581908643 -7.1242477
+#&gt; 10 2009-01-10  0.41344393  1.4752588960 -2.8642347</div><div class='input'><span class='no'>stocksm</span> <span class='kw'>%&gt;%</span> <span class='fu'>spread</span>(<span class='no'>time</span>, <span class='no'>price</span>)</div><div class='output co'>#&gt;   stock 2009-01-01 2009-01-02 2009-01-03    2009-01-04 2009-01-05  2009-01-06
+#&gt; 1     X  -1.566514  -1.040579   1.019934 -0.7020819780  0.9733158 -0.07681765
+#&gt; 2     Y   1.952684   2.293001   2.434543  0.0009600261  1.5102501  0.68480702
+#&gt; 3     Z  -3.442897   1.684922   5.802173  0.7775697701 -2.7648217  5.35943967
 #&gt;   2009-01-07 2009-01-08 2009-01-09 2009-01-10
-#&gt; 1 -1.9117205  0.8620865 -0.2432367 -0.2060872
-#&gt; 2  0.4267115  2.1486918 -1.3301765  2.2279048
-#&gt; 3 -6.7978023 -5.8829452  1.1366014  5.3492817</div><div class='input'>
+#&gt; 1  0.8929249 -0.7775031  0.4367971  0.4134439
+#&gt; 2  0.3369456  2.7941330 -1.3581909  1.4752589
+#&gt; 3 10.9444338 -3.7764066 -7.1242477 -2.8642347</div><div class='input'>
 <span class='co'># Spread and gather are complements</span>
 <span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/data.frame'>data.frame</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"a"</span>, <span class='st'>"b"</span>), <span class='kw'>y</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>3</span>, <span class='fl'>4</span>), <span class='kw'>z</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>5</span>, <span class='fl'>6</span>))
 <span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>spread</span>(<span class='no'>x</span>, <span class='no'>y</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='gather.html'>gather</a></span>(<span class='st'>"x"</span>, <span class='st'>"y"</span>, <span class='no'>a</span>:<span class='no'>b</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt;   z x y

@@ -98,6 +98,9 @@ and see pivot_wider() for the inverse transformation." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
+      <a href="../articles/chop-pack-nest.html">chop-pack-nest</a>
+    </li>
+    <li>
       <a href="../articles/pivot.html">Pivoting</a>
     </li>
     <li>
@@ -160,11 +163,11 @@ and see <code><a href='pivot_wider.html'>pivot_wider()</a></code> for the invers
 specification.</p></td>
     </tr>
     <tr>
-      <th>names_to, values_to</th>
-      <td><p>This pair of arguments determine which columns
-the data stored in the column names (<code>names_to</code>) and the data stored in
-the cell values (<code>values_to</code>) turn into in the result.</p>
-<p>Note that these variables do not exist, so must be specified as strings.</p></td>
+      <th>names_to</th>
+      <td><p>A string specifying the name of the column to create
+from the data stored in the column names of <code>df</code>.</p>
+<p>Can be a character vector, creating multiple columns, if <code>names_sep</code>
+or <code>names_pattern</code> is provided.</p></td>
     </tr>
     <tr>
       <th>names_prefix</th>
@@ -183,6 +186,14 @@ expression containing matching groups (<code>()</code>).</p>
 <p>If these arguments does not give you enough control, use
 <code>pivot_longer_spec()</code> to create a spec object and process manually as
 needed.</p></td>
+    </tr>
+    <tr>
+      <th>values_to</th>
+      <td><p>A string specifying the name of the column to create
+from the data stored in cell values. If <code>names_to</code> is a character
+containing the special <code>.value</code> sentinel, this value will be ignored,
+and the name of the value column will be derived from part of the
+existing column names.</p></td>
     </tr>
     <tr>
       <th>values_drop_na</th>

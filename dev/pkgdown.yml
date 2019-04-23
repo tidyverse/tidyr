@@ -2,6 +2,7 @@ pandoc: '2.2'
 pkgdown: 1.3.0
 pkgdown_sha: ~
 articles:
+  chop-pack-nest: chop-pack-nest.html
   pivot: pivot.html
   tidy-data: tidy-data.html
 urls:
