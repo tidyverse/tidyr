@@ -126,7 +126,7 @@ unnest.data.frame <- function(data, ..., .drop = NA, .id = NULL,
     unnested_dataframe <- imap(
       unnested_dataframe,
       function(df, name) {
-        set_names(df, paste(name, names(df), sep = .sep))
+        set_names(df, sprintf("%s%s%s", name, .sep, names(df)))
       }
     )
   }
