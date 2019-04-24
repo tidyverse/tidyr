@@ -54,20 +54,19 @@
 #'   stored as a character vector. If `TRUE`, will be stored as a factor,
 #'   which preserves the original ordering of the columns.
 #'
-#' @details
+#' @section Compared to `pivot_long()`:
 #'
-#' `gather` is a cornerstone of the `tidyr` package and the concept of Tidy Data
-#'   introduced by Hadley Wickham \url{http://doi.org/10.18637/jss.v059.i10}.
-#'   However, it's clear from user feedback back that there are conceptual
-#'   difficulties in using the function. An alternative, and potentially
-#'   simpler to understand, solution for gathering data is provided by the
-#'   `pivot_long` function. This and other `pivot_*` functions were first
-#'   introduced in `tidyr vX.X`.
-#'
-#' Note that `pivot_long` is more flexible and supports more complex use
-#'   cases than `gather`. However, `gather` will never be deprecated.
-#'   For detailed examples of how to use `pivot_long`, consult the vigentte
+#' [pivot_long()] is a more flexible and simpler to use alternative to
+#'   `gather()`. It is highly recommended that users switch to `pivot_long()`
+#'   as it supports complex use cases than `gather()`. For detailed examples
+#'   of how to use `pivot_long`, consult the vigentte
 #'   \code{vignette("pivot", package = "tidyr")}.
+#'
+#' `pivot_long()` and other `pivot_*()` functions were first introduced in
+#'   `tidyr vX.X` in response to feedback from both new and advanced
+#'   users in using the `gather()` and `spread()` functions. Note that
+#'   `gather()` will never be deprecated, but future `tidyr` development and
+#'   documentation will prefer `pivot_long()`.
 #'
 #' @inheritParams gather_
 #' @export

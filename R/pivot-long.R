@@ -27,10 +27,13 @@
 #'   override that default. Should be a named list, where the names are
 #'   given by the value columns.
 #'
-#' @details
+#' @section Compared to `gather()`:
 #'
-#' `pivot_long` is a generalisation of the function `gather`, it differs from
-#'   `gather` in two ways:
+#' `pivot_long()` is a generalisation of the function `gather`, designed to
+#'   be both simpler to use and to handle more complex use caes than
+#'   previously supported.
+#'
+#'
 #'
 #'   1: It's designed to be easier to read and use. Years of user feedback has
 #'   made it clear that the name of `gather` is not intuitive and users
