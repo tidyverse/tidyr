@@ -51,11 +51,10 @@ library(readr)
 
 ## String data in column names {#pew}
 
-The `pew` dataset stores count based a survey which (among other things) asked people about their religion and annual income:
+The `relig_income` dataset stores count based a survey which (among other things) asked people about their religion and annual income:
 
 ```{r}
-pew <- read_csv("pew.csv", col_types = list())
-pew
+relig_income
 ```
 
 This dataset contains three variables:
@@ -67,11 +66,11 @@ This dataset contains three variables:
 To tidy it we use `pivot_longer()`:
 
 ```{r}
-pew %>% 
+relig_income %>% 
   pivot_longer(-religion, names_to = "income", values_to = "count")
 ```
 
-* The first argument is the dataset to reshape, `pew`.
+* The first argument is the dataset to reshape, `relig_income`.
 
 * The second argument describes which columns need to be reshaped. In this 
   case, it's every column apart from `religion`.
@@ -82,24 +81,17 @@ pew %>%
 * The `values_to` gives the name of the variable that will be created from
   the data stored in the cell value, i.e. `count`.
   
-Neither the `names_to` nor the `values_to` column exists in `pew`, so we provide them as character strings surrounded in quotes.
+Neither the `names_to` nor the `values_to` column exists in `relig_income`, so we provide them as character strings surrounded in quotes.
 
 ## Numeric data in column names {#billboard}
 
-The `billboard` dataset records the billboard rank of songs in the year 2000. It has a form similar to the `pew` data, but the data encoded in the column names is really a number, not a string. 
+The `billboard` dataset records the billboard rank of songs in the year 2000. It has a form similar to the `relig_income` data, but the data encoded in the column names is really a number, not a string. 
 
 ```{r}
-billboard <- read_csv(
-  "billboard.csv", 
-  col_types = list(
-    year = col_skip(), 
-    time = col_skip()
-  )
-)
 billboard
 ```
 
-We can start with the same basic specification as for the `pew` dataset. Here we want the names to become a variable called `week`, and the values to become a variable called `rank`. I also use `values_drop_na` to drop rows that correspond to missing values. Not every song stays in the charts for all 76 weeks, so the structure of the input data force the creation of unnessary explicit `NA`s.
+We can start with the same basic specification as for the `relig_income` dataset. Here we want the names to become a variable called `week`, and the values to become a variable called `rank`. I also use `values_drop_na` to drop rows that correspond to missing values. Not every song stays in the charts for all 76 weeks, so the structure of the input data force the creation of unnessary explicit `NA`s.
 
 ```{r}
 billboard %>% 
@@ -478,15 +470,15 @@ The arguments to `pivot_longer()` and `pivot_wider()` allow you to pivot a wide 
 
 ## Longer
 
-To see how this works, lets return to the simplest case of pivotting applied to the `pew` dataset. Now pivotting happens in two steps: we first create a spec object (using `pivot_longer_spec()`) then use that to describe the pivotting operation:
+To see how this works, lets return to the simplest case of pivotting applied to the `relig_income` dataset. Now pivotting happens in two steps: we first create a spec object (using `pivot_longer_spec()`) then use that to describe the pivotting operation:
 
 ```{r}
-spec <- pew %>% pivot_longer_spec(
+spec <- relig_income %>% pivot_longer_spec(
   cols = -religion, 
   names_to = "income",
   values_to = "count"
 )
-pew %>% pivot_longer(spec = spec)
+relig_income %>% pivot_longer(spec = spec)
 ```
 
 (This gives the same result as before, just with more code. There's no need to use it here, it is presented as a simple example for using `spec`.)
@@ -539,7 +531,6 @@ us_rent_income %>% pivot_wider(spec = spec)
 Sometimes it's not possible (or not convenient) to compute the spec, and instead it's more convenient to construct the spec "by hand". For example, take this `construction` data, which is lightly modified from Table 5 "completions" found at <https://www.census.gov/construction/nrc/index.html>:
 
 ```{r}
-construction <- read_csv("construction.csv", col_types = list())
 construction
 ```
 
@@ -548,7 +539,6 @@ This sort of data is not uncommon from government agencies: the column names act
 ```{r}
 spec <- tribble(
   ~.name,            ~.value, ~units,  ~region,     
-  "Total",           "n",     "total", NA,          
   "1 unit",          "n",     "1",     NA,          
   "2 to 4 units",    "n",     "2-4",   NA,          
   "5 units or more", "n",     "5+",    NA,          

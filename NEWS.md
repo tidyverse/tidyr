@@ -70,8 +70,9 @@
 * `unite()` gains `na.rm` argument making it easier to remove missing values
   prior to uniting values together (#203)
   
-* New `us_rent_income`, `fish_encounters` and `world_bank_pop` datasets to 
-  demonstrate pivoting challenges.
+* New `relig_income`, `construction`, `billboard`, `us_rent_income`, 
+  `fish_encounters` and `world_bank_pop` datasets to demonstrate pivoting 
+  challenges.
 
 *   New `pivot_longer()` and `pivot_wider()` provide modern alternatives to
     `spread()` and `gather()`. They have been carefully redesigned to easier to 

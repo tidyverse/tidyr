@@ -119,3 +119,46 @@
 #'   \item{2000-2018}{Value for each year}
 #' }
 "world_bank_pop"
+
+#' Pew religion and income survey
+#'
+#' @format A dataset with variables:
+#' \describe{
+#'   \item{religion}{Name of religion}
+#'   \item{`<$10k`-`Don\'t know/refused`}{Number of respondees with
+#'     income range in column name}
+#' }
+#' @source
+#' Downloaded from <https://www.pewforum.org/religious-landscape-study/>
+#' (downloaded November 2009)
+"relig_income"
+
+#' Completed construction in the US in 2018
+#' <https://www.census.gov/construction/nrc/>
+#'
+#' @format A dataset with variables:
+#' \describe{
+#'   \item{Year,Month}{Record date}
+#'   \item{`1 unit`, `2 to 4 units`, `5 units or mote`}{Number of completed
+#'     units of each size}
+#'   \item{Northeast,Midwest,South,West}{Number of completed units in each region}
+#' }
+#' @source
+#' Completions of "New Residential Construction" found in Table 5 at
+#' <https://www.census.gov/construction/nrc/xls/newresconst.xls>
+#' (downloaded March 2019)
+"construction"
+
+#' Song rankings for billboard top 100 in the year 2000
+#'
+#' @format A dataset with variables:
+#' \describe{
+#'   \item{artist}{Artist name}
+#'   \item{track}{Song name},
+#'   \item{date.enter}{Date the song entered the top 100}
+#'   \item{wk1 -- wk76}{Rank of the song in each week after it entered}
+#' }
+#' @source
+#' The "Whitburn" project, <https://waxy.org/2008/05/the_whitburn_project/>,
+#' (downloaded April 2008)
+"billboard"
