@@ -72,19 +72,6 @@ test_that("gather_() works with non-syntactic names", {
   )
 })
 
-test_that("nest_()", {
-  df <- tibble(x = c(1, 1, 1), y = 1:3)
-  expect_identical(nest_(df, "y", "y"), nest(df, y, .key = y))
-})
-
-test_that("nest_() works with non-syntactic names", {
-  df <- tibble(`x` = c(1, 1, 1), `non-syntactic` = 1:3)
-  expect_identical(
-    nest_(df, "non-syntactic", "non-syntactic"),
-    nest(df, `non-syntactic`, .key = `non-syntactic`)
-  )
-})
-
 test_that("separate_()", {
   df <- tibble(x = c(NA, "a b"))
   out <- separate_(df, "x", c("x", "y"))
@@ -137,7 +124,4 @@ test_that("unite_() works with non-syntactic names", {
     unite(df, x, `non-syntactic`)
   )
 })
-test_that("unnest_()", {
-  df <- tibble(x = list(1, 2:3, 4:10))
-  expect_identical(unnest_(df)$x, dbl(1:10))
-})
+

@@ -13,28 +13,21 @@ development:
   mode: auto
 
 navbar:
-  title: ~
-  type: default
-  left:
-  - text: Tidy data
-    href: articles/tidy-data.html
-  - text: Reference
-    href: reference/index.html
-  - text: News
-    href: news/index.html
-  right:
-  - icon: fa-github fa-lg
-    href: https://github.com/tidyverse/tidyr
+  components:
+    home: ~
+    intro:
+      text: Tidy data
+      href: articles/tidy-data.html
 
 reference:
 - title: Tidying
   contents:
   - extract
-  - gather
   - nest
+  - pivot_longer
+  - pivot_wider
   - separate
   - separate_rows
-  - spread
   - uncount
   - unite
   - unnest
@@ -44,14 +37,16 @@ reference:
   - complete
   - drop_na
   - expand
+  - expand_grid
   - fill
   - full_seq
   - replace_na
 
--
-
 - title: Data
   contents:
+  - fish_encounters
   - smiths
   - table1
+  - us_rent_income
   - who
+  - world_bank_pop

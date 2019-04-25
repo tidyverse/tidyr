@@ -1,5 +1,60 @@
 # tidyr (development version)
 
+* New `hoist()` provides a convenient way of plucking components of a 
+  list-column out into their own top level columns (#341). This is particularly 
+  useful when you are working with deeply nested JSON, because it provides
+  a convenient shortcut for the `mutate()` + `map()` pattern:
+  
+    ```{r}
+    df %>% hoist(metadata, name = "name")
+    # shortcut for
+    df %>% mutate(name = map_chr(metadata, "name"))
+    ```
+    
+* `unnest_()`/`nest_()` and the lazyeval methods for `unnest()`/`nest()` are 
+  officially defunct.
+
+* `nest()` and `unnest()` have new interfaces that more is closely aligned to 
+  evolving tidyverse conventions. It uses the theory developed in vctrs to 
+  more consistently handle mixtures of input types, and its arguments have
+  been overhauled based on the last few years of experience. 
+  
+    The biggest change is to their operation with multiple columns:
+    `df %>% unnest(x, y, z)` becomes `df %>% unnest(c(x, y, z))` and
+    `df %>% nest(x, y, z)` becomes `df %>% unnest(data = c(x, y, z))`
+  
+    I have done my best to ensure that common uses of `unnest()` will continue 
+    to work, generating an informative warning tell you how to update your 
+    code. Please [file an issue](https://github.com/tidyverse/tidyr/issues/new) 
+    if I've missed an important use case.
+  
+* New `unnest_longer()` and `unnest_wider()` make it easier to unnest
+  list-columns of vectors into either rows or columns (#418)
+  
+* New `pack()` and `unpack()` allow you to pack and unpack columns into
+  data frame columns (#523). New `chop()` and `unchop()` chop up rows into
+  sets of list-columns. Packing and chopping are primarily interesting because
+  they are the atomic operations the underlying nesting (and similarly, 
+  unchop and unpacking underlie unnesting), and I don't expect them to be
+  used directly very often.
+  
+* `unnest()` has been overhauled:
+
+  * New `keep_empty` parameter ensures that every row in the input gets
+    at least one row in the output, inserting missing values as needed (#358)
+  
+  * Provides `names_sep` argument to control how inner and outer column names
+    are combined.
+    
+  * Uses standard tidyverse name repair rules, so by default you will get an
+    error if the output would contain multiple columns with the same name. You
+    can override by with `name_repair`. (#514)
+
+* tidyr now re-exports `tibble()`, `as_tibble()`, and `tribble()`, 
+  as well as the tidyselect helpers (`starts_with()`, `ends_width()`, ...).
+  This makes generating documentation, reprexes, and tests easier, and
+  makes tidyr easier to use without also attaching dplyr.
+
 * Implement `fill()` using `dplyr::mutate_at()`. This radically simplifies 
   implementation and considerably improves performance when working with
   grouped data (#520).
@@ -15,22 +70,25 @@
 * `unite()` gains `na.rm` argument making it easier to remove missing values
   prior to uniting values together (#203)
   
-* New `us_rent_income`, `fish_encounters` and `world_bank_pop` datasets to 
-  demonstrate pivoting challenges.
+* New `relig_income`, `construction`, `billboard`, `us_rent_income`, 
+  `fish_encounters` and `world_bank_pop` datasets to demonstrate pivoting 
+  challenges.
 
-* `pivot()`
-
-  * `pivot_long()` gracefully handles duplicated column names (#472)
-  * `pivot_wide()` can aggregate (#474)
-  * `pivot_wide()` can select keys (#572) 
-  * Better control of expansion of factor levels not present in the data (#193)
-  * Multi-spread (#149)
-  * Multi-gather (#150)
-  * Greater control over generated column names when widening (#208)
-  * Works with a much greater type of vectors (#333)
-  * Lengthening and widening are now symmetric (#453)
-  * Conflicting column names follow standard tidyverse principles (#496, #478)
-
+*   New `pivot_longer()` and `pivot_wider()` provide modern alternatives to
+    `spread()` and `gather()`. They have been carefully redesigned to easier to 
+    learn and remember, and include many new fatures. Learn more in
+    `vignette("pivot")`.
+    
+    Both functions now handle mulitple value columns (#149/#150), support more 
+    vector types (#333),  use tidverse conventions for duplicated column names 
+    (#496, #478) for and are symmetric (#453). 
+    
+    `pivot_longer()` gracefully handles duplicated column names (#472), and 
+    can directly split column names into multiple variables.
+    
+    `pivot_wider()` can now aggregate (#474), select keys (#572), and
+    has control over generated column names when (#208)
+  
 * `complete()` now uses `full_join()` so that all levels are preserved even
   when not all levels are specified (@Ryo-N7, #493).
 

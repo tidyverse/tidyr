@@ -99,8 +99,7 @@ spread.data.frame <- function(data, key, value, fill = NA, convert = FALSE,
     abort(glue(
       "Each row of output must be identified by a unique combination of keys.",
       "\nKeys are shared for {shared} rows:",
-      "\n{rows}",
-      "Do you need to create unique ID with tibble::rowid_to_column()?"
+      "\n{rows}"
     ))
   }
 

@@ -23,26 +23,27 @@ Depends:
     R (>= 3.1)
 Imports: 
     dplyr (>= 0.7.0),
-    ellipsis,
+    ellipsis (>= 0.1.0),
     glue,
     magrittr,
     purrr,
     Rcpp,
     rlang,
     stringi,
-    tibble,
+    tibble (>= 2.1.1),
     tidyselect (>= 0.2.5),
     utils,
-    vctrs (>= 0.1.0.9002)
+    vctrs (>= 0.1.0.9003)
 Suggests: 
     covr,
-    gapminder,
     knitr,
+    repurrrsive,
     rmarkdown,
     readr,
     testthat
 Remotes:
-    r-lib/vctrs
+    r-lib/vctrs,
+    r-lib/rlang
 LinkingTo: 
     Rcpp
 VignetteBuilder: 

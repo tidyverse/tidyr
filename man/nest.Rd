@@ -2,74 +2,56 @@
 % Please edit documentation in R/nest.R
 \name{nest}
 \alias{nest}
-\title{Nest repeated values in a list-variable.}
+\title{Nest repeated values in a list-column of data frames}
 \usage{
-nest(data, ..., .key = "data")
+nest(.data, ..., .key = "DEPRECATED")
 }
 \arguments{
-\item{data}{A data frame.}
+\item{.data}{A data frame.}
 
-\item{...}{A selection of columns. If empty, all variables are
-selected. You can supply bare variable names, select all
-variables between x and z with \code{x:z}, exclude y with \code{-y}. For
-more options, see the \code{\link[dplyr:select]{dplyr::select()}} documentation. See also
-the section on selection rules below.}
+\item{...}{Name-variable pairs of the form \code{new_col = c(col1, col2, col3)},
+that describe how you wish to nest existing columns into new columns.
+The right hand side can be any expression supported by tidyselect.
 
-\item{.key}{The name of the new column, as a string or symbol.
+\strong{Deprecated}: previously you could write \code{df \%>\% nest(x, y, z)},
+now you should rewrite this as \code{df \%>\% nest(data = c(x, y, z))}.}
 
-This argument is passed by expression and supports
-\link[rlang:quasiquotation]{quasiquotation} (you can unquote strings
-and symbols). The name is captured from the expression with
-\code{\link[rlang:ensym]{rlang::ensym()}} (note that this kind of interface where
-symbols do not represent actual objects is now discouraged in the
-tidyverse; we support it here for backward compatibility).}
+\item{.key}{\strong{Deprecated}: No longer needed because of the updated \code{...}
+syntax.}
 }
 \description{
-There are many possible ways one could choose to nest columns inside a
-data frame. \code{nest()} creates a list of data frames containing all
-the nested variables: this seems to be the most useful form in practice.
+Nesting is implicitly a summarising operation: you get one row defined
+by the grouping defined by the non-nested columns. This is useful in
+conjunction with other summaries that work with whole datasets, most
+notably models, as described in \url{https://r4ds.had.co.nz/many-models.html}.
+
+Learn more in \code{vignette("nesting")}.
 }
-\section{Rules for selection}{
+\section{Grouped data frames}{
 
-
-Arguments for selecting columns are passed to
-\code{\link[tidyselect:vars_select]{tidyselect::vars_select()}} and are treated specially. Unlike other
-verbs, selecting functions make a strict distinction between data
-expressions and context expressions.
-\itemize{
-\item A data expression is either a bare name like \code{x} or an expression
-like \code{x:y} or \code{c(x, y)}. In a data expression, you can only refer
-to columns from the data frame.
-\item Everything else is a context expression in which you can only
-refer to objects that you have defined with \code{<-}.
-}
-
-For instance, \code{col1:col3} is a data expression that refers to data
-columns, while \code{seq(start, end)} is a context expression that
-refers to objects from the contexts.
-
-If you really need to refer to contextual objects from a data
-expression, you can unquote them with the tidy eval operator
-\code{!!}. This operator evaluates its argument in the context and
-inlines the result in the surrounding function call. For instance,
-\code{c(x, !! x)} selects the \code{x} column within the data frame and the
-column referred to by the object \code{x} defined in the context (which
-can contain either a column name as string or a column position).
+\code{nest()} specify the columns to be nested; i.e. the columns that will appear
+in the inner data frame. Alternatively, you \code{nest()} a grouped data frame
+created by \code{\link[dplyr:group_by]{dplyr::group_by()}}. Here the grouping variables will remain
+in the outer data frame, and all other variables will go into the inner
+data frame. The result will be an ungrouped tibble, where each row
+represents a group in the input.
 }
 
 \examples{
-library(dplyr)
-as_tibble(iris) \%>\% nest(-Species)
-as_tibble(chickwts) \%>\% nest(weight)
+df <- tibble(x = c(1, 1, 1, 2, 2, 3), y = 1:6, z = 6:1)
+# Note that we get one row of output for each unique combination of
+# non-chopped variables
+df \%>\% nest(data = c(y, z))
+# cf nest
+df \%>\% chop(c(y, z))
 
-if (require("gapminder")) {
-  gapminder \%>\%
-    group_by(country, continent) \%>\%
-    nest()
+iris \%>\% nest(data = -Species)
+chickwts \%>\% nest(data = weight)
 
-  gapminder \%>\%
-    nest(-country, -continent)
-}
+# Nesting a grouped data frame nests all variables apart from the group vars
+fish_encounters \%>\%
+  dplyr::group_by(fish) \%>\%
+  nest()
 }
 \seealso{
 \code{\link[=unnest]{unnest()}} for the inverse operation.

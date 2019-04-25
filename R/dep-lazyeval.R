@@ -176,26 +176,14 @@ gather_.data.frame <- function(data, key_col, value_col, gather_cols,
   )
 }
 
-#' @export
-nest.default <- function(data, ..., .key = "data") {
-  key_col <- compat_as_lazy(enquo(.key))
-  nest_cols <- compat_as_lazy_dots(...)
-  nest_(data, key_col = key_col, nest_cols = nest_cols)
-}
 #' @rdname deprecated-se
 #' @inheritParams nest
 #' @param key_col Name of the column that will contain the nested data frames.
 #' @param nest_cols Character vector of columns to nest.
 #' @keywords internal
 #' @export
-nest_ <- function(data, key_col, nest_cols = character()) {
-  UseMethod("nest_")
-}
-#' @export
-nest_.data.frame <- function(data, key_col, nest_cols = character()) {
-  key_col <- sym(key_col)
-  nest_cols <- syms(nest_cols)
-  nest(data, .key = !! key_col, !!! nest_cols)
+nest_ <- function(...) {
+  .Defunct("nest")
 }
 
 #' @export
@@ -315,23 +303,12 @@ unite_.data.frame <- function(data, col, from, sep = "_", remove = TRUE) {
   unite(data, !! col, !!! from, sep = sep, remove = remove)
 }
 
-#' @export
-unnest.default <- function(data, ..., .drop = NA, .id = NULL, .sep = NULL, .preserve = NULL) {
-  unnest_cols <- compat_as_lazy_dots(...)
-  unnest_(data, unnest_cols = unnest_cols, .drop = .drop, .id = .id, .sep = .sep, .preserve = .preserve)
-}
 #' @rdname deprecated-se
 #' @inheritParams unnest
 #' @param unnest_cols Name of columns that needs to be unnested.
 #' @export
-unnest_ <- function(data, unnest_cols, .drop = NA, .id = NULL, .sep = NULL, .preserve = NULL) {
-  UseMethod("unnest_")
-}
-#' @export
-unnest_.data.frame <- function(data, unnest_cols, .drop = NA, .id = NULL,
-                               .sep = NULL, .preserve = NULL) {
-  unnest_cols <- compat_lazy_dots(unnest_cols, caller_env())
-  unnest(data, !!! unnest_cols, .drop = .drop, .id = .id, .sep = .sep, .preserve = .preserve)
+unnest_ <- function(...) {
+  .Defunct("unnest")
 }
 
 # nocov end

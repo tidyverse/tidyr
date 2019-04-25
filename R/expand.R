@@ -60,8 +60,8 @@
 #'   name = rep(c("Alex", "Robert", "Sam"), c(3, 2, 1)),
 #'   trt  = rep(c("a", "b", "a"), c(3, 2, 1)),
 #'   rep = c(1, 2, 3, 1, 2, 1),
-#'   measurment_1 = runif(6),
-#'   measurment_2 = runif(6)
+#'   measurement_1 = runif(6),
+#'   measurement_2 = runif(6)
 #' )
 #'
 #' # We can figure out the complete set of data with expand()
@@ -92,19 +92,12 @@ expand <- function(data, ...) {
 
 #' @export
 expand.data.frame <- function(data, ...) {
-  cols <- enquos(...)
-  has_name <- names(cols) != ""
-  cols <- quos_auto_name(cols)
-  cols <- map(cols, eval_tidy, data)
+  cols <- dots_cols(..., `_data` = data)
+  cols[] <- map(cols, sorted_unique)
 
-  out <- crossing(!!!cols)
+  out <- expand_grid(!!!cols)
+  out <- flatten_nested(out, attr(cols, "named"))
 
-  # flatten unnamed nested data frames to preserve existing behaviour
-  to_flatten <- !has_name & unname(map_lgl(out, is.data.frame))
-  out <- flatten_at(out, to_flatten)
-  out <- as_tibble(out)
-
-  # https://github.com/r-lib/vctrs/issues/211
   reconstruct_tibble(data, out)
 }
 
@@ -118,25 +111,31 @@ expand.grouped_df <- function(data, ...) {
 #' @rdname expand
 #' @export
 crossing <- function(...) {
-  dots <- enquos(..., .named = TRUE)
-  dots <- map(dots, eval_tidy)
-  dots <- discard(dots, is.null)
+  cols <- dots_cols(...)
+  cols[] <- map(cols, sorted_unique)
 
-  cols <- map(dots, sorted_unique)
-  expand_grid(!!!cols)
+  out <- expand_grid(!!!cols)
+  flatten_nested(out, attr(cols, "named"))
+}
+
+sorted_unique <- function(x) {
+  if (is.factor(x)) {
+    # forcats::fct_unique
+    factor(levels(x), levels(x), exclude = NULL, ordered = is.ordered(x))
+  } else if (is_bare_list(x)) {
+    vec_unique(x)
+  } else {
+    vec_sort(vec_unique(x))
+  }
 }
 
 #' @rdname expand
 #' @export
 nesting <- function(...) {
-  # https://github.com/tidyverse/tibble/issues/580
-  dots <- enquos(..., .named = TRUE)
-  dots <- map(dots, eval_tidy)
-  dots <- discard(dots, is.null)
-
-  sorted_unique(tibble::tibble(!!!dots))
+  cols <- dots_cols(...)
+  out <- sorted_unique(tibble::tibble(!!!cols))
+  flatten_nested(out, attr(cols, "named"))
 }
-
 
 # expand_grid -------------------------------------------------------------
 
@@ -163,9 +162,7 @@ nesting <- function(...) {
 #' # And matrices
 #' expand_grid(x1 = matrix(1:4, nrow = 2), x2 = matrix(5:8, nrow = 2))
 expand_grid <- function(...) {
-  dots <- enquos(..., .named = TRUE)
-  dots <- map(dots, eval_tidy)
-  dots <- discard(dots, is.null)
+  dots <- dots_cols(...)
 
   # Generate sequence of indices
   ns <- map_int(dots, vec_size)
@@ -174,20 +171,35 @@ expand_grid <- function(...) {
   times <- n / each / ns
 
   out <- pmap(list(x = dots, each = each, times = times), vec_repeat)
+  out <- as_tibble(out)
+
+  flatten_nested(out, attr(dots, "named"))
+}
+
+# Helpers -----------------------------------------------------------------
+
+dots_cols <- function(..., `_data` = NULL) {
+  dots <- enquos(...)
+  named <- names(dots) != ""
+
+  dots <- quos_auto_name(dots)
+  dots <- map(dots, eval_tidy, data = `_data`)
+
+  is_null <- map_lgl(dots, is.null)
+  if (any(is_null)) {
+    dots <- dots[!is_null]
+    named <- named[!is_null]
+  }
+
+  structure(dots, named = named)
+}
+
+# flatten unnamed nested data frames to preserve existing behaviour
+flatten_nested <- function(x, named) {
+  to_flatten <- !named & unname(map_lgl(x, is.data.frame))
+  out <- flatten_at(x, to_flatten)
   as_tibble(out)
 }
-
-sorted_unique <- function(x) {
-  if (is.factor(x)) {
-    # forcats::fct_unique
-    factor(levels(x), levels(x), exclude = NULL, ordered = is.ordered(x))
-  } else if (is_bare_list(x)) {
-    vec_unique(x)
-  } else {
-    vec_sort(vec_unique(x))
-  }
-}
-
 
 flatten_at <- function(x, to_flatten) {
   if (!any(to_flatten)) {
@@ -201,6 +213,10 @@ flatten_at <- function(x, to_flatten) {
   names <- vector("character", sum(cols))
   j <- 1
   for (i in seq_along(x)) {
+    if (cols[[i]] == 0) {
+      next
+    }
+
     if (to_flatten[[i]]) {
       out[j:(j + cols[[i]] - 1)] <- x[[i]]
       names[j:(j + cols[[i]] - 1)] <- names(x[[i]])
@@ -213,3 +229,4 @@ flatten_at <- function(x, to_flatten) {
   names(out) <- names
   out
 }
+

@@ -117,9 +117,7 @@ A common type of messy dataset is tabular data designed for presentation, where 
 The following code shows a subset of a typical dataset of this form. This dataset explores the relationship between income and religion in the US. It comes from a report[^1] produced by the Pew Research Center, an American think-tank that collects data on attitudes to topics ranging from religion to the internet, and produces many reports that contain datasets in this format.
 
 ```{r}
-library(tibble)
-pew <- as_tibble(read.csv("pew.csv", stringsAsFactors = FALSE, check.names = FALSE))
-pew
+relig_income
 ```
 
 This dataset has three variables, `religion`, `income` and `frequency`. To tidy it, we need to **gather** the non-variable columns into a two-column key-value pair. This action is often described as making a wide dataset long (or tall), but I'll avoid those terms because they're imprecise. 
@@ -127,7 +125,7 @@ This dataset has three variables, `religion`, `income` and `frequency`. To tidy 
 When gathering variables, we need to provide the name of the new key-value columns to create. The first argument, is the name of the key column, which is the name of the variable defined by the values of the column headings. In this case, it's `income`. The second argument is the name of the value column, `frequency`. The third argument defines the columns to gather, here, every column except religion.
 
 ```{r}
-pew %>%
+relig_income %>%
   gather(income, frequency, -religion)
 ```
 
@@ -136,7 +134,6 @@ This form is tidy because each column represents a variable and each row represe
 This format is also used to record regularly spaced observations over time. For example, the Billboard dataset shown below records the date a song first entered the billboard top 100. It has variables for `artist`, `track`, `date.entered`, `rank` and `week`. The rank in each week after it enters the top 100 is recorded in 75 columns, `wk1` to `wk75`. This form of storage is not tidy, but it is useful for data entry. It reduces duplication since otherwise each song in each week would need its own row, and song metadata like title and artist would need to be repeated. This will be discussed in more depth in [multiple types](#multiple-types).
 
 ```{r}
-billboard <- as_tibble(read.csv("billboard.csv", stringsAsFactors = FALSE))
 billboard
 ```
 
@@ -243,13 +240,13 @@ This form is tidy: there's one variable in each column, and each row represents 
 
 Datasets often involve values collected at multiple levels, on different types of observational units. During tidying, each type of observational unit should be stored in its own table. This is closely related to the idea of database normalisation, where each fact is expressed in only one place. It's important because otherwise inconsistencies can arise.
 
-The billboard dataset actually contains observations on two types of observational units: the song and its rank in each week. This manifests itself through the duplication of facts about the song: `artist`, `year` and `time` are repeated many times. 
+The billboard dataset actually contains observations on two types of observational units: the song and its rank in each week. This manifests itself through the duplication of facts about the song: `artist` is repeated many times. 
 
-This dataset needs to be broken down into two pieces: a song dataset which stores `artist`, `song name` and `time`, and a ranking dataset which gives the `rank` of the `song` in each `week`.  We first extract a `song` dataset:
+This dataset needs to be broken down into two pieces: a song dataset which stores `artist` and `song name`, and a ranking dataset which gives the `rank` of the `song` in each `week`.  We first extract a `song` dataset:
 
 ```{r}
 song <- billboard3 %>% 
-  select(artist, track, year, time) %>%
+  select(artist, track) %>%
   unique() %>%
   mutate(song_id = row_number())
 song
@@ -259,7 +256,7 @@ Then use that to make a `rank` dataset by replacing repeated song facts with a p
 
 ```{r}
 rank <- billboard3 %>%
-  left_join(song, c("artist", "track", "year", "time")) %>%
+  left_join(song, c("artist", "track")) %>%
   select(song_id, date, week, rank) %>%
   arrange(song_id, date)
 rank

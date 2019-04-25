@@ -77,7 +77,7 @@ can contain either a column name as string or a column position).
 \code{gather()}. It is highly recommended that users switch to \code{pivot_long()}
 as it supports complex use cases than \code{gather()}. For detailed examples
 of how to use \code{pivot_long}, consult the vigentte
-\code{vignette("pivot", package = "tidyr")}. \code{\link{pivot_long()}}
+\code{vignette("pivot", package = "tidyr")}.
 
 \code{pivot_long()} and other \code{pivot_*()} functions were first introduced in
 \code{tidyr vX.X} in response to feedback from both new and advanced

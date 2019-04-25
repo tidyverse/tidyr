@@ -53,7 +53,6 @@ can contain either a column name as string or a column position).
 }
 
 \examples{
-
 df <- data.frame(
   x = 1:3,
   y = c("a", "d,e,f", "g,h"),

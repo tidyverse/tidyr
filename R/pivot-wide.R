@@ -1,29 +1,10 @@
 #' Pivot data from long to wide
 #'
-#' `pivot_wide()` "widens" data, increasing the number of columns and
+#' `pivot_wider()` "widens" data, increasing the number of columns and
 #' decreasing the number of rows. See more details in `vignette("pivot")`,
-#' and see [pivot_long()] for the inverse transformation.
+#' and see [pivot_longer()] for the inverse transformation.
 #'
-#' @inheritParams pivot_long
-#' @param keys Keys, a set of columns that uniquely identifies each
-#'   observation. Defaults to all columns in `df` except for the columns
-#'   specified in `names_from` and `values_from`.
-#' @param names_from,values_from A pair of arguments describing which column
-#'   (or columns) to get the name of the output column (`name_from`), and
-#'   which column to get the cell values from (`values_from`).
-#' @param names_sep If `names_from` contains multiple variables, this will be
-#'   used to join their values together into a single string to use as
-#'   a column name.
-#' @param names_prefix String added to the start of every variable name. This is
-#'   particularly useful if `names_from` is a numeric vector and you want to
-#'   create syntactic variable names.
-#' @param values_fill Optionally, a named list specifying what each `value`
-#'   should be filled in with when missing.
-#' @param values_collapse Optionally, a named list describing how to collapse
-#'   each `value` if the keys are not unique.
-#'
-#' @details
-#'
+#' @section Compared to spread:
 #' `pivot_wide` is a generalisation of the function `spread`, it differs from
 #'   `spread` in two ways:
 #'
@@ -39,56 +20,78 @@
 #'   use `pivot_wide`, consult the vigentte
 #'   \code{vignette("pivot", package = "tidyr")}
 #'
+#' @inheritParams pivot_longer
+#' @param id_cols A set of columns that uniquely identifies each observation.
+#'   Defaults to all columns in `data` except for the columns specified in
+#'   `names_from` and `values_from`. Typically used when you have additional
+#'   variables that is directly related.
+#' @param names_from,values_from A pair of arguments describing which column
+#'   (or columns) to get the name of the output column (`name_from`), and
+#'   which column (or columns) to get the cell values from (`values_from`).
+#'
+#'   If `values_from` contains multiple values, the value will be added to the
+#'   front of the output column.
+#' @param names_sep If `names_from` or `values_from` contains multiple
+#'   variables, this will be used to join their values together into a single
+#'   string to use as a column name.
+#' @param names_prefix String added to the start of every variable name. This is
+#'   particularly useful if `names_from` is a numeric vector and you want to
+#'   create syntactic variable names.
+#' @param values_fill Optionally, a named list specifying what each `value`
+#'   should be filled in with when missing.
+#' @param values_fn Optionally, a named list providing a function that will be
+#'   applied to the `value` in each cell in the output. You will typically
+#'   use this when the combination of `id_cols` and `value` column does not
+#'   uniquely identify an observation.
 #' @export
 #' @examples
 #' # Use values_fill to fill in missing values when you know what they
 #' # represent
 #' fish_encounters %>%
-#'   pivot_wide(
+#'   pivot_wider(
 #'     names_from = station,
 #'     values_from = seen,
 #'     values_fill = list(seen = 0)
 #'   )
-pivot_wide <- function(df,
-                       keys = NULL,
-                       names_from = name,
-                       values_from = value,
-                       names_prefix = "",
-                       names_sep = "_",
-                       values_fill = NULL,
-                       values_collapse = NULL,
-                       spec = NULL) {
+pivot_wider <- function(data,
+                        id_cols = NULL,
+                        names_from = name,
+                        names_prefix = "",
+                        names_sep = "_",
+                        values_from = value,
+                        values_fill = NULL,
+                        values_fn = NULL,
+                        spec = NULL) {
 
   if (is.null(spec)) {
     names_from <- enquo(names_from)
     values_from <- enquo(values_from)
 
-    spec <- pivot_wide_spec(df,
+    spec <- pivot_wider_spec(data,
       names_from = !!names_from,
       values_from = !!values_from,
       names_prefix = names_prefix,
       names_sep = names_sep
     )
-  } else {
-    spec <- check_spec(spec)
   }
+  spec <- check_spec(spec)
 
   values <- vec_unique(spec$.value)
   spec_cols <- c(names(spec)[-(1:2)], values)
 
-  keys <- enquo(keys)
-  if (!quo_is_null(keys)) {
-    key_vars <- tidyselect::vars_select(names(df), !!keys)
+  id_cols <- enquo(id_cols)
+  if (!quo_is_null(id_cols)) {
+    key_vars <- tidyselect::vars_select(names(data), !!id_cols)
   } else {
-    key_vars <- names(df)
+    key_vars <- names(data)
   }
   key_vars <- setdiff(key_vars, spec_cols)
 
   # Figure out rows in output
-  df_rows <- df[key_vars]
+  df_rows <- data[key_vars]
   if (ncol(df_rows) == 0) {
     rows <- tibble(.rows = 1)
-    row_id <- rep(1L, nrow(spec))
+    row_id <- rep(1L, nrow(df_rows))
   } else {
     rows <- vec_unique(df_rows)
     row_id <- vec_match(df_rows, rows)
@@ -100,13 +103,18 @@ pivot_wide <- function(df,
   for (i in seq_along(value_out)) {
     spec_i <- value_specs[[i]]
     value <- spec_i$.value[[1]]
-    val <- df[[value]]
+    val <- data[[value]]
 
-    cols <- df[names(spec_i)[-(1:2)]]
+    cols <- data[names(spec_i)[-(1:2)]]
     col_id <- vec_match(cols, spec_i[-(1:2)])
     val_id <- data.frame(row = row_id, col = col_id)
 
-    dedup <- vals_dedup(val_id, val, values_collapse[[value]])
+    dedup <- vals_dedup(
+      key = val_id,
+      val = val,
+      value = value,
+      summarize = values_fn[[value]]
+    )
     val_id <- dedup$key
     val <- dedup$val
 
@@ -137,20 +145,32 @@ pivot_wide <- function(df,
 }
 
 #' @export
-#' @rdname pivot_wide
-pivot_wide_spec <- function(df,
-                            names_from = name,
-                            values_from = value,
-                            names_prefix = "",
-                            names_sep = "_") {
-  names_from <- tidyselect::vars_select(names(df), !!enquo(names_from))
-  values_from <- tidyselect::vars_pull(names(df), !!enquo(values_from))
+#' @rdname pivot_wider
+pivot_wider_spec <- function(data,
+                             names_from = name,
+                             values_from = value,
+                             names_prefix = "",
+                             names_sep = "_") {
+  names_from <- tidyselect::vars_select(names(data), !!enquo(names_from))
+  values_from <- tidyselect::vars_select(names(data), !!enquo(values_from))
 
-  row_ids <- vec_unique(df[names_from])
+  row_ids <- vec_unique(data[names_from])
+  row_names <- exec(paste, !!!row_ids, sep = names_sep)
+
   out <- tibble(
-    .name = paste0(names_prefix, exec(paste, !!!row_ids, sep = names_sep)),
-    .value = values_from
+    .name = paste0(names_prefix, row_names)
   )
+
+  if (length(values_from) == 1) {
+    out$.value <- values_from
+  } else {
+    out <- vec_repeat(out, times = vec_size(values_from))
+    out$.value <- vec_repeat(values_from, each = vec_size(row_ids))
+    out$.name <- paste0(out$.value, names_sep, out$.name)
+
+    row_ids <- vec_repeat(row_ids, times = vec_size(values_from))
+  }
+
   vec_cbind(out, row_ids)
 }
 
@@ -159,21 +179,28 @@ name <- value <- NULL
 
 # Helpers -----------------------------------------------------------------
 
-vals_dedup <- function(key, val, collapse = NULL) {
-  if (!vec_duplicate_any(key)) {
-    return(list(key = key, val = val))
-  }
+# Not a great name as it now also casts
+vals_dedup <- function(key, val, value, summarize = NULL) {
 
-  if (is.null(collapse)) {
-    warn("Values are not uniquely identified; output will contain list-columns")
+  if (is.null(summarize)) {
+    if (!vec_duplicate_any(key)) {
+      return(list(key = key, val = val))
+    }
+
+    warn(glue::glue(
+      "Values in `{value}` are not uniquely identified; output will contain list-cols.\n",
+      "* Use `values_fn = list({value} = list)` to suppress this warning.\n",
+      "* Use `values_fn = list({value} = length)` to identify where the duplicates arise\n",
+      "* Use `values_fn = list({value} = summary_fun)` to summarise duplicates"
+    ))
   }
 
   out <- vec_split(val, key)
-  if (!is.null(collapse)) {
-    collapse <- as_function(collapse)
+  if (!is.null(summarize) && !identical(summarize, list)) {
+    summarize <- as_function(summarize)
     # This is only correct if `values_collapse` always returns a single value
     # Needs https://github.com/r-lib/vctrs/issues/183
-    out$val <- vec_c(!!!map(out$val, collapse))
+    out$val <- vec_c(!!!map(out$val, summarize))
   }
 
   out

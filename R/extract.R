@@ -38,14 +38,20 @@ extract <- function(data, col, into, regex = "([[:alnum:]]+)",
 extract.data.frame <- function(data, col, into, regex = "([[:alnum:]]+)",
                                remove = TRUE, convert = FALSE, ...) {
   var <- tidyselect::vars_pull(names(data), !! enquo(col))
+  value <- as.character(data[[var]])
+
+  new_cols <- str_extract(value, into = into, regex = regex, convert = convert)
+  out <- append_df(data, new_cols, var, remove = remove)
+  reconstruct_tibble(data, out, if (remove) var else chr())
+}
+
+str_extract <- function(x, into, regex, convert = FALSE) {
   stopifnot(
     is_string(regex),
     is_character(into)
   )
 
-  # Extract matching groups
-  value <- as.character(data[[var]])
-  matches <- stringi::stri_match_first_regex(value, regex)[, -1, drop = FALSE]
+  matches <- stringi::stri_match_first_regex(x, regex)[, -1, drop = FALSE]
 
   if (ncol(matches) != length(into)) {
     stop(
@@ -54,16 +60,12 @@ extract.data.frame <- function(data, col, into, regex = "([[:alnum:]]+)",
     )
   }
 
-  # Use as_tibble post https://github.com/hadley/dplyr/issues/876
-  l <- map(seq_ncol(matches), function(i) matches[, i])
-  names(l) <- enc2utf8(into)
+  colnames(matches) <- as_utf8_character(into)
+  out <- as_tibble(matches)
 
   if (convert) {
-    l[] <- map(l, type.convert, as.is = TRUE)
+    out[] <- map(out, type.convert, as.is = TRUE)
   }
 
-  # Insert into existing data frame
-  out <- append_df(data, l, var, remove = remove)
-
-  reconstruct_tibble(data, out, if (remove) var else chr())
+  out
 }

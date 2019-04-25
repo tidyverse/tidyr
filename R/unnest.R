@@ -1,191 +1,297 @@
-#' Unnest a list column.
+#' Unnest a list-column of data frames
 #'
-#' If you have a list-column, this makes each element of the list its own
-#' row. `unnest()` can handle list-columns that contain atomic vectors, lists, or
-#' data frames (but not a mixture of the different types).
+#' @description
+#' `unnest()`, `unnest_longer()`, and `unnest_wider()` flatten list-columns
+#' into regular columns. `unnest()` is designed primarily for lists of data
+#' frames, where `unnest_wider()` and `unnest_longer()` are designed
+#' specifically for lists of vectors.
 #'
-#' If you unnest multiple columns, parallel entries must have the same length
-#' or number of rows (if a data frame).
+#' Learn more in `vignette("rectangling")`.
 #'
-#' @inheritParams expand
-#' @param ... Specification of columns to unnest. Use bare variable names or
-#'   functions of variables. If omitted, defaults to all list-cols.
-#' @param .drop Should additional list columns be dropped? By default,
-#'   `unnest` will drop them if unnesting the specified columns requires
-#'   the rows to be duplicated.
-#' @param .preserve Optionally, list-columns to preserve in the output. These
-#'   will be duplicated in the same way as atomic vectors. This has
-#'   [dplyr::select] semantics so you can preserve multiple variables with
-#'   `.preserve = c(x, y)` or `.preserve = starts_with("list")`.
-#' @param .id Data frame identifier - if supplied, will create a new column
-#'   with name `.id`, giving a unique identifier. This is most useful if
-#'   the list column is named.
-#' @param .sep If non-`NULL`, the names of unnested data frame columns
-#'   will combine the name of the original list-col with the names from
-#'   nested data frame, separated by `.sep`.
+#' @section Unnest variants:
+#'
+#' The three `unnest()` functions differ in how they change the shape of the
+#' output data frame:
+#'
+#' * `unnest_wider()` preserves the rows, but changes the columns.
+#' * `unnest_longer()` preserves the columns, but changes the rows
+#' * `unnest()` can change both rows and columns.
+#'
+#' These principles guide their behaviour when they are called with a
+#' non-primary data type. For example, if you `unnest_wider()` a list of data
+#' frames, the number of rows must be preserved, so each column is turned into
+#' a list column of length one. Or if you `unnest_longer()` a list of data
+#' frame, the number of columns must be preserved so it creates a packed
+#' column. I'm not sure how if these behaviours are useful in practice, but
+#' they are theoretically pleasing.
+#'
+#' @param data A data frame.
+#' @param cols Names of columns to unnest.
+#'
+#'   If you `unnest()` multiple columns, parallel entries must compatible
+#'   sizes, i.e. they're either equal or length 1 (following the standard
+#'   tidyverse recycling rules).
+#' @inheritParams unchop
+#' @inheritParams unpack
+#' @param ... **Deprecated**:
+#'   Convert `df %>% unnest(x, y)` to `df %>% unnest(c(x, y))` and
+#'   `df %>% unnest(y = fun(x, y, z))` to
+#'   `df %>% mutate(y = fun(x, y, z)) %>% unnest(y)`.
+#' @param .drop,.preserve **Deprecated**: all list-columns are now preserved;
+#'   If there are any that you don't want in the output use `select()` to
+#'   remove them prior to unnesting.
+#' @param .id **Deprecated**: convert `df %>% unnest(x, .id = "id")` to
+#'   `df %>% mutate(id = names(x)) %>% unnest(x))`.
+#' @param .sep **Deprecated**: use `names_sep` instead.
 #' @seealso [nest()] for the inverse operation.
 #' @export
 #' @examples
-#' library(dplyr)
+#' # unnest() is primarily design to work with nested columns, i.e. lists
+#' # of tibbles or data frames
 #' df <- tibble(
 #'   x = 1:3,
-#'   y = c("a", "d,e,f", "g,h")
-#' )
-#' df %>%
-#'   transform(y = strsplit(y, ",")) %>%
-#'   unnest(y)
-#'
-#' # Or just
-#' df %>%
-#'   unnest(y = strsplit(y, ","))
-#'
-#' # It also works if you have a column that contains other data frames!
-#' df <- tibble(
-#'   x = 1:2,
 #'   y = list(
-#'    tibble(z = 1),
-#'    tibble(z = 3:4)
-#'  )
+#'     NULL,
+#'     tibble(a = 1, b = 2),
+#'     tibble(a = 1:3, b = 3:1)
+#'   )
 #' )
 #' df %>% unnest(y)
+#' df %>% unnest(y, keep_empty = TRUE)
 #'
-#' # You can also unnest multiple columns simultaneously
+#' # You can use unnest_longer() and unnest_wider() with nested dfs,
+#' # although it's not clear how useful the results are. unnest_longer()
+#' # maintains the same number of columns, creating a packed data frame,
+#' # while unnest_wider() maintains the same number of rows, creating
+#' # list-cols of vectors
+#' df %>% unnest_wider(y)
+#' df %>% unnest_longer(y)
+#'
+#' # Typically, however, you'll use unnest_longer() and _wider() with
+#' # list-cols containing vectors
+#' df <- tibble(
+#'   x = 1:3,
+#'   y = list(NULL, 1:3, 4:5)
+#' )
+#' df %>% unnest_longer(y)
+#' df %>% unnest_longer(y, keep_empty = TRUE)
+#' # Automatically creates names if widening
+#' df %>% unnest_wider(y)
+#'
+#' # And similarly if the vectors are named
+#' df <- tibble(
+#'   x = 1:2,
+#'   y = list(c(a = 1, b = 2), c(a = 10, b = 11, c = 12))
+#' )
+#' df %>% unnest_wider(y)
+#' df %>% unnest_longer(y)
+#'
+#' # You can unnest multiple columns simultaneously
 #' df <- tibble(
 #'  a = list(c("a", "b"), "c"),
 #'  b = list(1:2, 3),
 #'  c = c(11, 22)
 #' )
-#' df %>% unnest(a, b)
-#' # If you omit the column names, it'll unnest all list-cols
-#' df %>% unnest()
+#' df %>% unnest(c(a, b))
 #'
-#' # You can also choose to preserve one or more list-cols
-#' df %>% unnest(a, .preserve = b)
-#'
-#' # Nest and unnest are inverses
-#' df <- data.frame(x = c(1, 1, 2), y = 3:1)
-#' df %>% nest(y)
-#' df %>% nest(y) %>% unnest()
-#'
-#' # If you have a named list-column, you may want to supply .id
-#' df <- tibble(
-#'   x = 1:2,
-#'   y = list(a = 1, b = 3:4)
-#' )
-#' unnest(df, .id = "name")
-unnest <- function(data, ..., .drop = NA, .id = NULL, .sep = NULL, .preserve = NULL) {
-  UseMethod("unnest")
-}
-#' @export
-unnest.data.frame <- function(data, ..., .drop = NA, .id = NULL,
-                              .sep = NULL, .preserve = NULL) {
+#' # Compare with unnesting one column at a time, which generates
+#' # the Cartesian product
+#' df %>% unnest(a) %>% unnest(b)
+unnest <- function(data,
+                   cols,
+                   ...,
+                   keep_empty = FALSE,
+                   ptype = NULL,
+                   names_sep = NULL,
+                   names_repair = "check_unique",
+                   .drop = "DEPRECATED",
+                   .id = "DEPRECATED",
+                   .sep = "DEPRECATED",
+                   .preserve = "DEPRECATED") {
 
-  preserve <- tidyselect::vars_select(names(data), !!enquo(.preserve))
-  quos <- quos(...)
-  if (is_empty(quos)) {
+  deprecated <- FALSE
+  if (!missing(.preserve)) {
+    warn("`.preserve` is deprecated. All list-columns are now preserved")
+    deprecated <- TRUE
+    .preserve <- tidyselect::vars_select(names(data), !!enquo(.preserve))
+  } else {
+    .preserve <- NULL
+  }
+
+  if (missing(cols) && missing(...)) {
     list_cols <- names(data)[map_lgl(data, is_list)]
-    list_cols <- setdiff(list_cols, preserve)
-
-    quos <- syms(list_cols)
-  }
-
-  if (length(quos) == 0) {
-    return(data)
-  }
-
-  nested <- dplyr::transmute(dplyr::ungroup(data), !!! quos)
-  n <- map(nested, function(x) unname(map_int(x, NROW)))
-  if (length(unique(n)) != 1) {
-    abort("All nested columns must have the same number of elements.")
-  }
-
-  types <- map_chr(nested, list_col_type)
-  nest_types <- split.default(nested, types)
-  if (length(nest_types$mixed) > 0) {
-    probs <- paste(names(nest_types$mixed), collapse = ",")
-    abort(glue(
-      "Each column must either be a list of vectors or a list of ",
-      "data frames [{probs}]"
+    cols <- expr(c(!!!syms(setdiff(list_cols, .preserve))))
+    warn(paste0(
+      "`cols` is now required.\n",
+      "Please use `cols = ", expr_text(cols), "`"
     ))
+    deprecated <- TRUE
   }
 
-  unnested_atomic <- imap(nest_types$atomic %||% list(), enframe, .id = .id)
-  if (length(unnested_atomic) > 0) {
-    unnested_atomic <- dplyr::bind_cols(unnested_atomic)
+  if (missing(...)) {
+    cols <- enquo(cols)
+  } else {
+    dots <- enquos(cols, ..., .named = TRUE, .ignore_empty = "all")
+    data <- dplyr::mutate(data, !!!dots)
+    cols <- expr(c(!!!syms(names(dots))))
+    warn(paste0(
+      "unnest() has a new interface. See ?unnest for details.\n",
+      "Try `cols = ", expr_text(cols), "`, with `mutate()` needed"
+    ))
+    deprecated <- TRUE
   }
 
-  unnested_dataframe <- map(nest_types$dataframe %||% list(), function(.){
-    if (length(.) == 0L) {
-      attr(., "ptype") %||% data.frame()
-    } else {
-      dplyr::bind_rows(., .id = .id)
-    }
-  })
-  if (!is_null(.sep)) {
-    unnested_dataframe <- imap(
-      unnested_dataframe,
-      function(df, name) {
-        set_names(df, paste(name, names(df), sep = .sep))
-      }
+  if (!missing(.drop)) {
+    warn("`.drop` is deprecated. All list-columns are now preserved.")
+    deprecated <- TRUE
+  }
+
+  if (!missing(.id)) {
+    warn("`.id` is deprecated. Manually create column of names instead.")
+    deprecated <- TRUE
+    first_col <- tidyselect::vars_select(names(data), !!cols)[[1]]
+    data[[.id]] <- names(data[[first_col]])
+  }
+
+  if (!missing(.sep)) {
+    warn(glue("`.sep` is deprecated. Use `name_sep = {.sep}` instead."))
+    deprecated <- TRUE
+    names_sep <- .sep
+  }
+
+  if (deprecated) {
+    return(unnest(
+      data,
+      cols = !!cols,
+      names_sep = names_sep,
+      keep_empty = keep_empty,
+      ptype = ptype)
     )
   }
-  if (length(unnested_dataframe) > 0) {
-    unnested_dataframe <- dplyr::bind_cols(unnested_dataframe)
+
+  UseMethod("unnest")
+}
+
+#' @export
+unnest.data.frame <- function(
+                              data,
+                              cols,
+                              ...,
+                              keep_empty = FALSE,
+                              ptype = NULL,
+                              names_sep = NULL,
+                              names_repair = "check_unique",
+                              .drop = "DEPRECATED",
+                              .id = "DEPRECATED",
+                              .sep = "DEPRECATED",
+                              .preserve = "DEPRECATED") {
+
+  cols <- tidyselect::vars_select(names(data), !!enquo(cols))
+  for (col in cols) {
+    data[[col]][] <- map(data[[col]], as_df, col = col)
   }
 
-  # Keep list columns by default, only if the rows aren't expanded
-  if (identical(.drop, NA)) {
-    n_in <- nrow(data)
-    if (length(unnested_atomic)) {
-      n_out <- nrow(unnested_atomic)
+  data <- unchop(data, !!cols, keep_empty = keep_empty, ptype = ptype)
+  unpack(data, !!cols, names_sep = names_sep, names_repair = names_repair)
+}
+
+#' @export
+#' @rdname unnest
+#' @param values_to Name of column to store vector values.
+#' @param indices_to A string giving the name of a new column which will
+#'   contain the inner names of the values. If unnamed, `col` will instead
+#'   contain numeric indices.
+unnest_longer <- function(data, cols,
+                          values_to = "values",
+                          indices_to = "index",
+                          keep_empty = FALSE,
+                          names_sep = NULL,
+                          names_repair = "check_unique"
+                          ) {
+
+  cols <- tidyselect::vars_select(names(data), !!enquo(cols))
+
+  for (col in cols) {
+    data[[col]][] <- map(
+      data[[col]], vec_to_long,
+      col = col,
+      values_to = values_to,
+      indices_to = indices_to
+    )
+  }
+
+  data <- unchop(data, !!cols, keep_empty = keep_empty)
+  unpack(data, !!cols, names_sep = names_sep, names_repair = names_repair)
+}
+
+#' @export
+#' @rdname unnest
+unnest_wider <- function(data, cols,
+                         names_sep = NULL,
+                         names_repair = "check_unique") {
+  cols <- tidyselect::vars_select(names(data), !!enquo(cols))
+
+  for (col in cols) {
+    data[[col]][] <- map(data[[col]], vec_to_wide, col = col)
+  }
+
+  data <- unchop(data, !!cols, keep_empty = TRUE)
+  unpack(data, !!cols, names_sep = names_sep, names_repair = names_repair)
+}
+
+# helpers -----------------------------------------------------------------
+
+# n cols, n rows
+as_df <- function(x, col) {
+  if (is.null(x)) {
+    x
+  } else if (is.data.frame(x)) {
+    x
+  } else if (vec_is(x)) {
+    # Preserves vec_size() invariant
+    tibble(!!col := x)
+  } else {
+    stop("Input must be list of vectors", call. = FALSE)
+  }
+}
+
+# 1 row; n cols
+vec_to_wide <- function(x, col) {
+  if (is.null(x)) {
+    NULL
+  } else if (is.data.frame(x)) {
+    as_tibble(map(x, list))
+  } else if (vec_is(x)) {
+    if (is.list(x)) {
+      x <- purrr::compact(x)
+      # Hack: probably should always apply and then vec_simplify()
+      # in unnest_wider()
+      x <- map_if(x, ~ vec_size(.x) != 1, list)
     } else {
-      n_out <- nrow(unnested_dataframe)
+      x <- as.list(x)
     }
-    .drop <- n_out != n_in
-  }
-  if (.drop) {
-    is_atomic <- map_lgl(data, is_atomic)
-    group_vars <- names(data)[is_atomic]
+    tibble::as_tibble(x, .name_repair = "unique", .rows = 1L)
   } else {
-    group_vars <- names(data)
+    stop("Input must be list of vectors", call. = FALSE)
   }
-  group_vars <- setdiff(group_vars, names(nested))
-
-  # Add list columns to be preserved
-  group_vars <- union(group_vars, preserve)
-
-  rest <- data[rep(seq_nrow(data), n[[1]]), group_vars, drop = FALSE]
-  out <- dplyr::bind_cols(rest, unnested_atomic, unnested_dataframe)
-
-  reconstruct_tibble(data, out)
 }
 
-list_col_type <- function(x) {
-  is_data_frame <- is.data.frame(attr(x, "ptype", exact = TRUE)) || (is.list(x) && all(map_lgl(x, ~ is.data.frame(.x) || is.null(.x))))
-  is_atomic <- all(map_lgl(x, function(x) is_atomic(x) || (is_list(x) && !is.object(x)) || is_null(x)))
-
-  if (is_data_frame) {
-    "dataframe"
-  } else if (is_atomic) {
-    "atomic"
+# 1 col; n rows
+vec_to_long <- function(x, col, values_to = "values", indices_to = "index") {
+  if (is.null(x)) {
+    NULL
+  } else if (is.data.frame(x)) {
+    tibble(!!col := x)
+  } else if (vec_is(x)) {
+    tibble::tibble(
+      !!values_to := x,
+      !!indices_to := index(x)
+    )
   } else {
-    "mixed"
+    stop("Input must be list of vectors", call. = FALSE)
   }
 }
-enframe <- function(x, col_name, .id = NULL) {
-  out <- tibble(dplyr::combine(x))
-  names(out) <- col_name
 
-  if (!is_null(.id)) {
-    out[[.id]] <- id_col(x)
-  }
-  out
-}
-id_col <- function(x) {
-  stopifnot(is_list(x))
-
-  ids <- if (is_null(names(x))) seq_along(x) else names(x)
-  lengths <- map_int(x, length)
-
-  ids[rep(seq_along(ids), lengths)]
+index <- function(x) {
+  names(x) %||% seq_along(x)
 }
