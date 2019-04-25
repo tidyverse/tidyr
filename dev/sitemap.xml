@@ -4,10 +4,16 @@
     <loc>https://tidyr.tidyverse.org/index.html</loc>
   </url>
   <url>
+    <loc>https://tidyr.tidyverse.org/reference/billboard.html</loc>
+  </url>
+  <url>
     <loc>https://tidyr.tidyverse.org/reference/chop.html</loc>
   </url>
   <url>
     <loc>https://tidyr.tidyverse.org/reference/complete.html</loc>
+  </url>
+  <url>
+    <loc>https://tidyr.tidyverse.org/reference/construction.html</loc>
   </url>
   <url>
     <loc>https://tidyr.tidyverse.org/reference/deprecated-se.html</loc>
@@ -59,6 +65,9 @@
   </url>
   <url>
     <loc>https://tidyr.tidyverse.org/reference/reexports.html</loc>
+  </url>
+  <url>
+    <loc>https://tidyr.tidyverse.org/reference/relig_income.html</loc>
   </url>
   <url>
     <loc>https://tidyr.tidyverse.org/reference/replace_na.html</loc>

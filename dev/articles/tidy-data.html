@@ -192,31 +192,29 @@
 <a href="#column-headers-are-values-not-variable-names" class="anchor"></a>Column headers are values, not variable names</h2>
 <p>A common type of messy dataset is tabular data designed for presentation, where variables form both the rows and columns, and column headers are values, not variable names. While I would call this arrangement messy, in some cases it can be extremely useful. It provides efficient storage for completely crossed designs, and it can lead to extremely efficient computation if desired operations can be expressed as matrix operations.</p>
 <p>The following code shows a subset of a typical dataset of this form. This dataset explores the relationship between income and religion in the US. It comes from a report<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> produced by the Pew Research Center, an American think-tank that collects data on attitudes to topics ranging from religion to the internet, and produces many reports that contain datasets in this format.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(tibble)</a>
-<a class="sourceLine" id="cb4-2" data-line-number="2">pew &lt;-<span class="st"> </span><span class="kw"><a href="https://tibble.tidyverse.org/reference/as_tibble.html">as_tibble</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/read.table">read.csv</a></span>(<span class="st">"pew.csv"</span>, <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>, <span class="dt">check.names =</span> <span class="ot">FALSE</span>))</a>
-<a class="sourceLine" id="cb4-3" data-line-number="3">pew</a>
-<a class="sourceLine" id="cb4-4" data-line-number="4"><span class="co">#&gt; # A tibble: 18 x 11</span></a>
-<a class="sourceLine" id="cb4-5" data-line-number="5"><span class="co">#&gt;    religion `&lt;$10k` `$10-20k` `$20-30k` `$30-40k` `$40-50k` `$50-75k`</span></a>
-<a class="sourceLine" id="cb4-6" data-line-number="6"><span class="co">#&gt;    &lt;chr&gt;      &lt;int&gt;     &lt;int&gt;     &lt;int&gt;     &lt;int&gt;     &lt;int&gt;     &lt;int&gt;</span></a>
-<a class="sourceLine" id="cb4-7" data-line-number="7"><span class="co">#&gt;  1 Agnostic      27        34        60        81        76       137</span></a>
-<a class="sourceLine" id="cb4-8" data-line-number="8"><span class="co">#&gt;  2 Atheist       12        27        37        52        35        70</span></a>
-<a class="sourceLine" id="cb4-9" data-line-number="9"><span class="co">#&gt;  3 Buddhist      27        21        30        34        33        58</span></a>
-<a class="sourceLine" id="cb4-10" data-line-number="10"><span class="co">#&gt;  4 Catholic     418       617       732       670       638      1116</span></a>
-<a class="sourceLine" id="cb4-11" data-line-number="11"><span class="co">#&gt;  5 Don’t k…      15        14        15        11        10        35</span></a>
-<a class="sourceLine" id="cb4-12" data-line-number="12"><span class="co">#&gt;  6 Evangel…     575       869      1064       982       881      1486</span></a>
-<a class="sourceLine" id="cb4-13" data-line-number="13"><span class="co">#&gt;  7 Hindu          1         9         7         9        11        34</span></a>
-<a class="sourceLine" id="cb4-14" data-line-number="14"><span class="co">#&gt;  8 Histori…     228       244       236       238       197       223</span></a>
-<a class="sourceLine" id="cb4-15" data-line-number="15"><span class="co">#&gt;  9 Jehovah…      20        27        24        24        21        30</span></a>
-<a class="sourceLine" id="cb4-16" data-line-number="16"><span class="co">#&gt; 10 Jewish        19        19        25        25        30        95</span></a>
-<a class="sourceLine" id="cb4-17" data-line-number="17"><span class="co">#&gt; # … with 8 more rows, and 4 more variables: `$75-100k` &lt;int&gt;,</span></a>
-<a class="sourceLine" id="cb4-18" data-line-number="18"><span class="co">#&gt; #   `$100-150k` &lt;int&gt;, `&gt;150k` &lt;int&gt;, `Don't know/refused` &lt;int&gt;</span></a></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">relig_income</a>
+<a class="sourceLine" id="cb4-2" data-line-number="2"><span class="co">#&gt; # A tibble: 18 x 11</span></a>
+<a class="sourceLine" id="cb4-3" data-line-number="3"><span class="co">#&gt;    religion `&lt;$10k` `$10-20k` `$20-30k` `$30-40k` `$40-50k` `$50-75k`</span></a>
+<a class="sourceLine" id="cb4-4" data-line-number="4"><span class="co">#&gt;    &lt;chr&gt;      &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb4-5" data-line-number="5"><span class="co">#&gt;  1 Agnostic      27        34        60        81        76       137</span></a>
+<a class="sourceLine" id="cb4-6" data-line-number="6"><span class="co">#&gt;  2 Atheist       12        27        37        52        35        70</span></a>
+<a class="sourceLine" id="cb4-7" data-line-number="7"><span class="co">#&gt;  3 Buddhist      27        21        30        34        33        58</span></a>
+<a class="sourceLine" id="cb4-8" data-line-number="8"><span class="co">#&gt;  4 Catholic     418       617       732       670       638      1116</span></a>
+<a class="sourceLine" id="cb4-9" data-line-number="9"><span class="co">#&gt;  5 Don’t k…      15        14        15        11        10        35</span></a>
+<a class="sourceLine" id="cb4-10" data-line-number="10"><span class="co">#&gt;  6 Evangel…     575       869      1064       982       881      1486</span></a>
+<a class="sourceLine" id="cb4-11" data-line-number="11"><span class="co">#&gt;  7 Hindu          1         9         7         9        11        34</span></a>
+<a class="sourceLine" id="cb4-12" data-line-number="12"><span class="co">#&gt;  8 Histori…     228       244       236       238       197       223</span></a>
+<a class="sourceLine" id="cb4-13" data-line-number="13"><span class="co">#&gt;  9 Jehovah…      20        27        24        24        21        30</span></a>
+<a class="sourceLine" id="cb4-14" data-line-number="14"><span class="co">#&gt; 10 Jewish        19        19        25        25        30        95</span></a>
+<a class="sourceLine" id="cb4-15" data-line-number="15"><span class="co">#&gt; # … with 8 more rows, and 4 more variables: `$75-100k` &lt;dbl&gt;,</span></a>
+<a class="sourceLine" id="cb4-16" data-line-number="16"><span class="co">#&gt; #   `$100-150k` &lt;dbl&gt;, `&gt;150k` &lt;dbl&gt;, `Don't know/refused` &lt;dbl&gt;</span></a></code></pre></div>
 <p>This dataset has three variables, <code>religion</code>, <code>income</code> and <code>frequency</code>. To tidy it, we need to <strong>gather</strong> the non-variable columns into a two-column key-value pair. This action is often described as making a wide dataset long (or tall), but I’ll avoid those terms because they’re imprecise.</p>
 <p>When gathering variables, we need to provide the name of the new key-value columns to create. The first argument, is the name of the key column, which is the name of the variable defined by the values of the column headings. In this case, it’s <code>income</code>. The second argument is the name of the value column, <code>frequency</code>. The third argument defines the columns to gather, here, every column except religion.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">pew <span class="op">%&gt;%</span></a>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">relig_income <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb5-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/gather.html">gather</a></span>(income, frequency, <span class="op">-</span>religion)</a>
 <a class="sourceLine" id="cb5-3" data-line-number="3"><span class="co">#&gt; # A tibble: 180 x 3</span></a>
 <a class="sourceLine" id="cb5-4" data-line-number="4"><span class="co">#&gt;    religion                income frequency</span></a>
-<a class="sourceLine" id="cb5-5" data-line-number="5"><span class="co">#&gt;    &lt;chr&gt;                   &lt;chr&gt;      &lt;int&gt;</span></a>
+<a class="sourceLine" id="cb5-5" data-line-number="5"><span class="co">#&gt;    &lt;chr&gt;                   &lt;chr&gt;      &lt;dbl&gt;</span></a>
 <a class="sourceLine" id="cb5-6" data-line-number="6"><span class="co">#&gt;  1 Agnostic                &lt;$10k         27</span></a>
 <a class="sourceLine" id="cb5-7" data-line-number="7"><span class="co">#&gt;  2 Atheist                 &lt;$10k         12</span></a>
 <a class="sourceLine" id="cb5-8" data-line-number="8"><span class="co">#&gt;  3 Buddhist                &lt;$10k         27</span></a>
@@ -230,53 +228,52 @@
 <a class="sourceLine" id="cb5-16" data-line-number="16"><span class="co">#&gt; # … with 170 more rows</span></a></code></pre></div>
 <p>This form is tidy because each column represents a variable and each row represents an observation, in this case a demographic unit corresponding to a combination of <code>religion</code> and <code>income</code>.</p>
 <p>This format is also used to record regularly spaced observations over time. For example, the Billboard dataset shown below records the date a song first entered the billboard top 100. It has variables for <code>artist</code>, <code>track</code>, <code>date.entered</code>, <code>rank</code> and <code>week</code>. The rank in each week after it enters the top 100 is recorded in 75 columns, <code>wk1</code> to <code>wk75</code>. This form of storage is not tidy, but it is useful for data entry. It reduces duplication since otherwise each song in each week would need its own row, and song metadata like title and artist would need to be repeated. This will be discussed in more depth in <a href="#multiple-types">multiple types</a>.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">billboard &lt;-<span class="st"> </span><span class="kw"><a href="https://tibble.tidyverse.org/reference/as_tibble.html">as_tibble</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/read.table">read.csv</a></span>(<span class="st">"billboard.csv"</span>, <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>))</a>
-<a class="sourceLine" id="cb6-2" data-line-number="2">billboard</a>
-<a class="sourceLine" id="cb6-3" data-line-number="3"><span class="co">#&gt; # A tibble: 317 x 81</span></a>
-<a class="sourceLine" id="cb6-4" data-line-number="4"><span class="co">#&gt;     year artist track time  date.entered   wk1   wk2   wk3   wk4   wk5</span></a>
-<a class="sourceLine" id="cb6-5" data-line-number="5"><span class="co">#&gt;    &lt;int&gt; &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;        &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;</span></a>
-<a class="sourceLine" id="cb6-6" data-line-number="6"><span class="co">#&gt;  1  2000 2 Pac  Baby… 4:22  2000-02-26      87    82    72    77    87</span></a>
-<a class="sourceLine" id="cb6-7" data-line-number="7"><span class="co">#&gt;  2  2000 2Ge+h… The … 3:15  2000-09-02      91    87    92    NA    NA</span></a>
-<a class="sourceLine" id="cb6-8" data-line-number="8"><span class="co">#&gt;  3  2000 3 Doo… Kryp… 3:53  2000-04-08      81    70    68    67    66</span></a>
-<a class="sourceLine" id="cb6-9" data-line-number="9"><span class="co">#&gt;  4  2000 3 Doo… Loser 4:24  2000-10-21      76    76    72    69    67</span></a>
-<a class="sourceLine" id="cb6-10" data-line-number="10"><span class="co">#&gt;  5  2000 504 B… Wobb… 3:35  2000-04-15      57    34    25    17    17</span></a>
-<a class="sourceLine" id="cb6-11" data-line-number="11"><span class="co">#&gt;  6  2000 98^0   Give… 3:24  2000-08-19      51    39    34    26    26</span></a>
-<a class="sourceLine" id="cb6-12" data-line-number="12"><span class="co">#&gt;  7  2000 A*Tee… Danc… 3:44  2000-07-08      97    97    96    95   100</span></a>
-<a class="sourceLine" id="cb6-13" data-line-number="13"><span class="co">#&gt;  8  2000 Aaliy… I Do… 4:15  2000-01-29      84    62    51    41    38</span></a>
-<a class="sourceLine" id="cb6-14" data-line-number="14"><span class="co">#&gt;  9  2000 Aaliy… Try … 4:03  2000-03-18      59    53    38    28    21</span></a>
-<a class="sourceLine" id="cb6-15" data-line-number="15"><span class="co">#&gt; 10  2000 Adams… Open… 5:30  2000-08-26      76    76    74    69    68</span></a>
-<a class="sourceLine" id="cb6-16" data-line-number="16"><span class="co">#&gt; # … with 307 more rows, and 71 more variables: wk6 &lt;int&gt;, wk7 &lt;int&gt;,</span></a>
-<a class="sourceLine" id="cb6-17" data-line-number="17"><span class="co">#&gt; #   wk8 &lt;int&gt;, wk9 &lt;int&gt;, wk10 &lt;int&gt;, wk11 &lt;int&gt;, wk12 &lt;int&gt;, wk13 &lt;int&gt;,</span></a>
-<a class="sourceLine" id="cb6-18" data-line-number="18"><span class="co">#&gt; #   wk14 &lt;int&gt;, wk15 &lt;int&gt;, wk16 &lt;int&gt;, wk17 &lt;int&gt;, wk18 &lt;int&gt;,</span></a>
-<a class="sourceLine" id="cb6-19" data-line-number="19"><span class="co">#&gt; #   wk19 &lt;int&gt;, wk20 &lt;int&gt;, wk21 &lt;int&gt;, wk22 &lt;int&gt;, wk23 &lt;int&gt;,</span></a>
-<a class="sourceLine" id="cb6-20" data-line-number="20"><span class="co">#&gt; #   wk24 &lt;int&gt;, wk25 &lt;int&gt;, wk26 &lt;int&gt;, wk27 &lt;int&gt;, wk28 &lt;int&gt;,</span></a>
-<a class="sourceLine" id="cb6-21" data-line-number="21"><span class="co">#&gt; #   wk29 &lt;int&gt;, wk30 &lt;int&gt;, wk31 &lt;int&gt;, wk32 &lt;int&gt;, wk33 &lt;int&gt;,</span></a>
-<a class="sourceLine" id="cb6-22" data-line-number="22"><span class="co">#&gt; #   wk34 &lt;int&gt;, wk35 &lt;int&gt;, wk36 &lt;int&gt;, wk37 &lt;int&gt;, wk38 &lt;int&gt;,</span></a>
-<a class="sourceLine" id="cb6-23" data-line-number="23"><span class="co">#&gt; #   wk39 &lt;int&gt;, wk40 &lt;int&gt;, wk41 &lt;int&gt;, wk42 &lt;int&gt;, wk43 &lt;int&gt;,</span></a>
-<a class="sourceLine" id="cb6-24" data-line-number="24"><span class="co">#&gt; #   wk44 &lt;int&gt;, wk45 &lt;int&gt;, wk46 &lt;int&gt;, wk47 &lt;int&gt;, wk48 &lt;int&gt;,</span></a>
-<a class="sourceLine" id="cb6-25" data-line-number="25"><span class="co">#&gt; #   wk49 &lt;int&gt;, wk50 &lt;int&gt;, wk51 &lt;int&gt;, wk52 &lt;int&gt;, wk53 &lt;int&gt;,</span></a>
-<a class="sourceLine" id="cb6-26" data-line-number="26"><span class="co">#&gt; #   wk54 &lt;int&gt;, wk55 &lt;int&gt;, wk56 &lt;int&gt;, wk57 &lt;int&gt;, wk58 &lt;int&gt;,</span></a>
-<a class="sourceLine" id="cb6-27" data-line-number="27"><span class="co">#&gt; #   wk59 &lt;int&gt;, wk60 &lt;int&gt;, wk61 &lt;int&gt;, wk62 &lt;int&gt;, wk63 &lt;int&gt;,</span></a>
-<a class="sourceLine" id="cb6-28" data-line-number="28"><span class="co">#&gt; #   wk64 &lt;int&gt;, wk65 &lt;int&gt;, wk66 &lt;lgl&gt;, wk67 &lt;lgl&gt;, wk68 &lt;lgl&gt;,</span></a>
-<a class="sourceLine" id="cb6-29" data-line-number="29"><span class="co">#&gt; #   wk69 &lt;lgl&gt;, wk70 &lt;lgl&gt;, wk71 &lt;lgl&gt;, wk72 &lt;lgl&gt;, wk73 &lt;lgl&gt;,</span></a>
-<a class="sourceLine" id="cb6-30" data-line-number="30"><span class="co">#&gt; #   wk74 &lt;lgl&gt;, wk75 &lt;lgl&gt;, wk76 &lt;lgl&gt;</span></a></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">billboard</a>
+<a class="sourceLine" id="cb6-2" data-line-number="2"><span class="co">#&gt; # A tibble: 317 x 79</span></a>
+<a class="sourceLine" id="cb6-3" data-line-number="3"><span class="co">#&gt;    artist track date.entered   wk1   wk2   wk3   wk4   wk5   wk6   wk7</span></a>
+<a class="sourceLine" id="cb6-4" data-line-number="4"><span class="co">#&gt;    &lt;chr&gt;  &lt;chr&gt; &lt;date&gt;       &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb6-5" data-line-number="5"><span class="co">#&gt;  1 2 Pac  Baby… 2000-02-26      87    82    72    77    87    94    99</span></a>
+<a class="sourceLine" id="cb6-6" data-line-number="6"><span class="co">#&gt;  2 2Ge+h… The … 2000-09-02      91    87    92    NA    NA    NA    NA</span></a>
+<a class="sourceLine" id="cb6-7" data-line-number="7"><span class="co">#&gt;  3 3 Doo… Kryp… 2000-04-08      81    70    68    67    66    57    54</span></a>
+<a class="sourceLine" id="cb6-8" data-line-number="8"><span class="co">#&gt;  4 3 Doo… Loser 2000-10-21      76    76    72    69    67    65    55</span></a>
+<a class="sourceLine" id="cb6-9" data-line-number="9"><span class="co">#&gt;  5 504 B… Wobb… 2000-04-15      57    34    25    17    17    31    36</span></a>
+<a class="sourceLine" id="cb6-10" data-line-number="10"><span class="co">#&gt;  6 98^0   Give… 2000-08-19      51    39    34    26    26    19     2</span></a>
+<a class="sourceLine" id="cb6-11" data-line-number="11"><span class="co">#&gt;  7 A*Tee… Danc… 2000-07-08      97    97    96    95   100    NA    NA</span></a>
+<a class="sourceLine" id="cb6-12" data-line-number="12"><span class="co">#&gt;  8 Aaliy… I Do… 2000-01-29      84    62    51    41    38    35    35</span></a>
+<a class="sourceLine" id="cb6-13" data-line-number="13"><span class="co">#&gt;  9 Aaliy… Try … 2000-03-18      59    53    38    28    21    18    16</span></a>
+<a class="sourceLine" id="cb6-14" data-line-number="14"><span class="co">#&gt; 10 Adams… Open… 2000-08-26      76    76    74    69    68    67    61</span></a>
+<a class="sourceLine" id="cb6-15" data-line-number="15"><span class="co">#&gt; # … with 307 more rows, and 69 more variables: wk8 &lt;dbl&gt;, wk9 &lt;dbl&gt;,</span></a>
+<a class="sourceLine" id="cb6-16" data-line-number="16"><span class="co">#&gt; #   wk10 &lt;dbl&gt;, wk11 &lt;dbl&gt;, wk12 &lt;dbl&gt;, wk13 &lt;dbl&gt;, wk14 &lt;dbl&gt;,</span></a>
+<a class="sourceLine" id="cb6-17" data-line-number="17"><span class="co">#&gt; #   wk15 &lt;dbl&gt;, wk16 &lt;dbl&gt;, wk17 &lt;dbl&gt;, wk18 &lt;dbl&gt;, wk19 &lt;dbl&gt;,</span></a>
+<a class="sourceLine" id="cb6-18" data-line-number="18"><span class="co">#&gt; #   wk20 &lt;dbl&gt;, wk21 &lt;dbl&gt;, wk22 &lt;dbl&gt;, wk23 &lt;dbl&gt;, wk24 &lt;dbl&gt;,</span></a>
+<a class="sourceLine" id="cb6-19" data-line-number="19"><span class="co">#&gt; #   wk25 &lt;dbl&gt;, wk26 &lt;dbl&gt;, wk27 &lt;dbl&gt;, wk28 &lt;dbl&gt;, wk29 &lt;dbl&gt;,</span></a>
+<a class="sourceLine" id="cb6-20" data-line-number="20"><span class="co">#&gt; #   wk30 &lt;dbl&gt;, wk31 &lt;dbl&gt;, wk32 &lt;dbl&gt;, wk33 &lt;dbl&gt;, wk34 &lt;dbl&gt;,</span></a>
+<a class="sourceLine" id="cb6-21" data-line-number="21"><span class="co">#&gt; #   wk35 &lt;dbl&gt;, wk36 &lt;dbl&gt;, wk37 &lt;dbl&gt;, wk38 &lt;dbl&gt;, wk39 &lt;dbl&gt;,</span></a>
+<a class="sourceLine" id="cb6-22" data-line-number="22"><span class="co">#&gt; #   wk40 &lt;dbl&gt;, wk41 &lt;dbl&gt;, wk42 &lt;dbl&gt;, wk43 &lt;dbl&gt;, wk44 &lt;dbl&gt;,</span></a>
+<a class="sourceLine" id="cb6-23" data-line-number="23"><span class="co">#&gt; #   wk45 &lt;dbl&gt;, wk46 &lt;dbl&gt;, wk47 &lt;dbl&gt;, wk48 &lt;dbl&gt;, wk49 &lt;dbl&gt;,</span></a>
+<a class="sourceLine" id="cb6-24" data-line-number="24"><span class="co">#&gt; #   wk50 &lt;dbl&gt;, wk51 &lt;dbl&gt;, wk52 &lt;dbl&gt;, wk53 &lt;dbl&gt;, wk54 &lt;dbl&gt;,</span></a>
+<a class="sourceLine" id="cb6-25" data-line-number="25"><span class="co">#&gt; #   wk55 &lt;dbl&gt;, wk56 &lt;dbl&gt;, wk57 &lt;dbl&gt;, wk58 &lt;dbl&gt;, wk59 &lt;dbl&gt;,</span></a>
+<a class="sourceLine" id="cb6-26" data-line-number="26"><span class="co">#&gt; #   wk60 &lt;dbl&gt;, wk61 &lt;dbl&gt;, wk62 &lt;dbl&gt;, wk63 &lt;dbl&gt;, wk64 &lt;dbl&gt;,</span></a>
+<a class="sourceLine" id="cb6-27" data-line-number="27"><span class="co">#&gt; #   wk65 &lt;dbl&gt;, wk66 &lt;lgl&gt;, wk67 &lt;lgl&gt;, wk68 &lt;lgl&gt;, wk69 &lt;lgl&gt;,</span></a>
+<a class="sourceLine" id="cb6-28" data-line-number="28"><span class="co">#&gt; #   wk70 &lt;lgl&gt;, wk71 &lt;lgl&gt;, wk72 &lt;lgl&gt;, wk73 &lt;lgl&gt;, wk74 &lt;lgl&gt;,</span></a>
+<a class="sourceLine" id="cb6-29" data-line-number="29"><span class="co">#&gt; #   wk75 &lt;lgl&gt;, wk76 &lt;lgl&gt;</span></a></code></pre></div>
 <p>To tidy this dataset, we first gather together all the <code>wk</code> columns. The column names give the <code>week</code> and the values are the <code>rank</code>s:</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">billboard2 &lt;-<span class="st"> </span>billboard <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb7-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/gather.html">gather</a></span>(week, rank, wk1<span class="op">:</span>wk76, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)</a>
 <a class="sourceLine" id="cb7-3" data-line-number="3">billboard2</a>
-<a class="sourceLine" id="cb7-4" data-line-number="4"><span class="co">#&gt; # A tibble: 5,307 x 7</span></a>
-<a class="sourceLine" id="cb7-5" data-line-number="5"><span class="co">#&gt;     year artist         track                time  date.entered week   rank</span></a>
-<a class="sourceLine" id="cb7-6" data-line-number="6"><span class="co">#&gt;    &lt;int&gt; &lt;chr&gt;          &lt;chr&gt;                &lt;chr&gt; &lt;chr&gt;        &lt;chr&gt; &lt;int&gt;</span></a>
-<a class="sourceLine" id="cb7-7" data-line-number="7"><span class="co">#&gt;  1  2000 2 Pac          Baby Don't Cry (Kee… 4:22  2000-02-26   wk1      87</span></a>
-<a class="sourceLine" id="cb7-8" data-line-number="8"><span class="co">#&gt;  2  2000 2Ge+her        The Hardest Part Of… 3:15  2000-09-02   wk1      91</span></a>
-<a class="sourceLine" id="cb7-9" data-line-number="9"><span class="co">#&gt;  3  2000 3 Doors Down   Kryptonite           3:53  2000-04-08   wk1      81</span></a>
-<a class="sourceLine" id="cb7-10" data-line-number="10"><span class="co">#&gt;  4  2000 3 Doors Down   Loser                4:24  2000-10-21   wk1      76</span></a>
-<a class="sourceLine" id="cb7-11" data-line-number="11"><span class="co">#&gt;  5  2000 504 Boyz       Wobble Wobble        3:35  2000-04-15   wk1      57</span></a>
-<a class="sourceLine" id="cb7-12" data-line-number="12"><span class="co">#&gt;  6  2000 98^0           Give Me Just One Ni… 3:24  2000-08-19   wk1      51</span></a>
-<a class="sourceLine" id="cb7-13" data-line-number="13"><span class="co">#&gt;  7  2000 A*Teens        Dancing Queen        3:44  2000-07-08   wk1      97</span></a>
-<a class="sourceLine" id="cb7-14" data-line-number="14"><span class="co">#&gt;  8  2000 Aaliyah        I Don't Wanna        4:15  2000-01-29   wk1      84</span></a>
-<a class="sourceLine" id="cb7-15" data-line-number="15"><span class="co">#&gt;  9  2000 Aaliyah        Try Again            4:03  2000-03-18   wk1      59</span></a>
-<a class="sourceLine" id="cb7-16" data-line-number="16"><span class="co">#&gt; 10  2000 Adams, Yolanda Open My Heart        5:30  2000-08-26   wk1      76</span></a>
+<a class="sourceLine" id="cb7-4" data-line-number="4"><span class="co">#&gt; # A tibble: 5,307 x 5</span></a>
+<a class="sourceLine" id="cb7-5" data-line-number="5"><span class="co">#&gt;    artist         track                   date.entered week   rank</span></a>
+<a class="sourceLine" id="cb7-6" data-line-number="6"><span class="co">#&gt;    &lt;chr&gt;          &lt;chr&gt;                   &lt;date&gt;       &lt;chr&gt; &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb7-7" data-line-number="7"><span class="co">#&gt;  1 2 Pac          Baby Don't Cry (Keep... 2000-02-26   wk1      87</span></a>
+<a class="sourceLine" id="cb7-8" data-line-number="8"><span class="co">#&gt;  2 2Ge+her        The Hardest Part Of ... 2000-09-02   wk1      91</span></a>
+<a class="sourceLine" id="cb7-9" data-line-number="9"><span class="co">#&gt;  3 3 Doors Down   Kryptonite              2000-04-08   wk1      81</span></a>
+<a class="sourceLine" id="cb7-10" data-line-number="10"><span class="co">#&gt;  4 3 Doors Down   Loser                   2000-10-21   wk1      76</span></a>
+<a class="sourceLine" id="cb7-11" data-line-number="11"><span class="co">#&gt;  5 504 Boyz       Wobble Wobble           2000-04-15   wk1      57</span></a>
+<a class="sourceLine" id="cb7-12" data-line-number="12"><span class="co">#&gt;  6 98^0           Give Me Just One Nig... 2000-08-19   wk1      51</span></a>
+<a class="sourceLine" id="cb7-13" data-line-number="13"><span class="co">#&gt;  7 A*Teens        Dancing Queen           2000-07-08   wk1      97</span></a>
+<a class="sourceLine" id="cb7-14" data-line-number="14"><span class="co">#&gt;  8 Aaliyah        I Don't Wanna           2000-01-29   wk1      84</span></a>
+<a class="sourceLine" id="cb7-15" data-line-number="15"><span class="co">#&gt;  9 Aaliyah        Try Again               2000-03-18   wk1      59</span></a>
+<a class="sourceLine" id="cb7-16" data-line-number="16"><span class="co">#&gt; 10 Adams, Yolanda Open My Heart           2000-08-26   wk1      76</span></a>
 <a class="sourceLine" id="cb7-17" data-line-number="17"><span class="co">#&gt; # … with 5,297 more rows</span></a></code></pre></div>
 <p>Here we use <code>na.rm</code> to drop any missing values from the gather columns. In this data, missing values represent weeks that the song wasn’t in the charts, so can be safely dropped.</p>
 <p>In this case it’s also nice to do a little cleaning, converting the week variable to a number, and figuring out the date corresponding to each week on the charts:</p>
@@ -287,51 +284,51 @@
 <a class="sourceLine" id="cb8-5" data-line-number="5"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(<span class="op">-</span>date.entered)</a>
 <a class="sourceLine" id="cb8-6" data-line-number="6"><span class="co">#&gt; extract_numeric() is deprecated: please use readr::parse_number() instead</span></a>
 <a class="sourceLine" id="cb8-7" data-line-number="7">billboard3</a>
-<a class="sourceLine" id="cb8-8" data-line-number="8"><span class="co">#&gt; # A tibble: 5,307 x 7</span></a>
-<a class="sourceLine" id="cb8-9" data-line-number="9"><span class="co">#&gt;     year artist         track                  time   week  rank date      </span></a>
-<a class="sourceLine" id="cb8-10" data-line-number="10"><span class="co">#&gt;    &lt;int&gt; &lt;chr&gt;          &lt;chr&gt;                  &lt;chr&gt; &lt;dbl&gt; &lt;int&gt; &lt;date&gt;    </span></a>
-<a class="sourceLine" id="cb8-11" data-line-number="11"><span class="co">#&gt;  1  2000 2 Pac          Baby Don't Cry (Keep.… 4:22      1    87 2000-02-26</span></a>
-<a class="sourceLine" id="cb8-12" data-line-number="12"><span class="co">#&gt;  2  2000 2Ge+her        The Hardest Part Of .… 3:15      1    91 2000-09-02</span></a>
-<a class="sourceLine" id="cb8-13" data-line-number="13"><span class="co">#&gt;  3  2000 3 Doors Down   Kryptonite             3:53      1    81 2000-04-08</span></a>
-<a class="sourceLine" id="cb8-14" data-line-number="14"><span class="co">#&gt;  4  2000 3 Doors Down   Loser                  4:24      1    76 2000-10-21</span></a>
-<a class="sourceLine" id="cb8-15" data-line-number="15"><span class="co">#&gt;  5  2000 504 Boyz       Wobble Wobble          3:35      1    57 2000-04-15</span></a>
-<a class="sourceLine" id="cb8-16" data-line-number="16"><span class="co">#&gt;  6  2000 98^0           Give Me Just One Nig.… 3:24      1    51 2000-08-19</span></a>
-<a class="sourceLine" id="cb8-17" data-line-number="17"><span class="co">#&gt;  7  2000 A*Teens        Dancing Queen          3:44      1    97 2000-07-08</span></a>
-<a class="sourceLine" id="cb8-18" data-line-number="18"><span class="co">#&gt;  8  2000 Aaliyah        I Don't Wanna          4:15      1    84 2000-01-29</span></a>
-<a class="sourceLine" id="cb8-19" data-line-number="19"><span class="co">#&gt;  9  2000 Aaliyah        Try Again              4:03      1    59 2000-03-18</span></a>
-<a class="sourceLine" id="cb8-20" data-line-number="20"><span class="co">#&gt; 10  2000 Adams, Yolanda Open My Heart          5:30      1    76 2000-08-26</span></a>
+<a class="sourceLine" id="cb8-8" data-line-number="8"><span class="co">#&gt; # A tibble: 5,307 x 5</span></a>
+<a class="sourceLine" id="cb8-9" data-line-number="9"><span class="co">#&gt;    artist         track                    week  rank date      </span></a>
+<a class="sourceLine" id="cb8-10" data-line-number="10"><span class="co">#&gt;    &lt;chr&gt;          &lt;chr&gt;                   &lt;dbl&gt; &lt;dbl&gt; &lt;date&gt;    </span></a>
+<a class="sourceLine" id="cb8-11" data-line-number="11"><span class="co">#&gt;  1 2 Pac          Baby Don't Cry (Keep...     1    87 2000-02-26</span></a>
+<a class="sourceLine" id="cb8-12" data-line-number="12"><span class="co">#&gt;  2 2Ge+her        The Hardest Part Of ...     1    91 2000-09-02</span></a>
+<a class="sourceLine" id="cb8-13" data-line-number="13"><span class="co">#&gt;  3 3 Doors Down   Kryptonite                  1    81 2000-04-08</span></a>
+<a class="sourceLine" id="cb8-14" data-line-number="14"><span class="co">#&gt;  4 3 Doors Down   Loser                       1    76 2000-10-21</span></a>
+<a class="sourceLine" id="cb8-15" data-line-number="15"><span class="co">#&gt;  5 504 Boyz       Wobble Wobble               1    57 2000-04-15</span></a>
+<a class="sourceLine" id="cb8-16" data-line-number="16"><span class="co">#&gt;  6 98^0           Give Me Just One Nig...     1    51 2000-08-19</span></a>
+<a class="sourceLine" id="cb8-17" data-line-number="17"><span class="co">#&gt;  7 A*Teens        Dancing Queen               1    97 2000-07-08</span></a>
+<a class="sourceLine" id="cb8-18" data-line-number="18"><span class="co">#&gt;  8 Aaliyah        I Don't Wanna               1    84 2000-01-29</span></a>
+<a class="sourceLine" id="cb8-19" data-line-number="19"><span class="co">#&gt;  9 Aaliyah        Try Again                   1    59 2000-03-18</span></a>
+<a class="sourceLine" id="cb8-20" data-line-number="20"><span class="co">#&gt; 10 Adams, Yolanda Open My Heart               1    76 2000-08-26</span></a>
 <a class="sourceLine" id="cb8-21" data-line-number="21"><span class="co">#&gt; # … with 5,297 more rows</span></a></code></pre></div>
 <p>Finally, it’s always a good idea to sort the data. We could do it by artist, track and week:</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">billboard3 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span>(artist, track, week)</a>
-<a class="sourceLine" id="cb9-2" data-line-number="2"><span class="co">#&gt; # A tibble: 5,307 x 7</span></a>
-<a class="sourceLine" id="cb9-3" data-line-number="3"><span class="co">#&gt;     year artist  track                   time   week  rank date      </span></a>
-<a class="sourceLine" id="cb9-4" data-line-number="4"><span class="co">#&gt;    &lt;int&gt; &lt;chr&gt;   &lt;chr&gt;                   &lt;chr&gt; &lt;dbl&gt; &lt;int&gt; &lt;date&gt;    </span></a>
-<a class="sourceLine" id="cb9-5" data-line-number="5"><span class="co">#&gt;  1  2000 2 Pac   Baby Don't Cry (Keep... 4:22      1    87 2000-02-26</span></a>
-<a class="sourceLine" id="cb9-6" data-line-number="6"><span class="co">#&gt;  2  2000 2 Pac   Baby Don't Cry (Keep... 4:22      2    82 2000-03-04</span></a>
-<a class="sourceLine" id="cb9-7" data-line-number="7"><span class="co">#&gt;  3  2000 2 Pac   Baby Don't Cry (Keep... 4:22      3    72 2000-03-11</span></a>
-<a class="sourceLine" id="cb9-8" data-line-number="8"><span class="co">#&gt;  4  2000 2 Pac   Baby Don't Cry (Keep... 4:22      4    77 2000-03-18</span></a>
-<a class="sourceLine" id="cb9-9" data-line-number="9"><span class="co">#&gt;  5  2000 2 Pac   Baby Don't Cry (Keep... 4:22      5    87 2000-03-25</span></a>
-<a class="sourceLine" id="cb9-10" data-line-number="10"><span class="co">#&gt;  6  2000 2 Pac   Baby Don't Cry (Keep... 4:22      6    94 2000-04-01</span></a>
-<a class="sourceLine" id="cb9-11" data-line-number="11"><span class="co">#&gt;  7  2000 2 Pac   Baby Don't Cry (Keep... 4:22      7    99 2000-04-08</span></a>
-<a class="sourceLine" id="cb9-12" data-line-number="12"><span class="co">#&gt;  8  2000 2Ge+her The Hardest Part Of ... 3:15      1    91 2000-09-02</span></a>
-<a class="sourceLine" id="cb9-13" data-line-number="13"><span class="co">#&gt;  9  2000 2Ge+her The Hardest Part Of ... 3:15      2    87 2000-09-09</span></a>
-<a class="sourceLine" id="cb9-14" data-line-number="14"><span class="co">#&gt; 10  2000 2Ge+her The Hardest Part Of ... 3:15      3    92 2000-09-16</span></a>
+<a class="sourceLine" id="cb9-2" data-line-number="2"><span class="co">#&gt; # A tibble: 5,307 x 5</span></a>
+<a class="sourceLine" id="cb9-3" data-line-number="3"><span class="co">#&gt;    artist  track                    week  rank date      </span></a>
+<a class="sourceLine" id="cb9-4" data-line-number="4"><span class="co">#&gt;    &lt;chr&gt;   &lt;chr&gt;                   &lt;dbl&gt; &lt;dbl&gt; &lt;date&gt;    </span></a>
+<a class="sourceLine" id="cb9-5" data-line-number="5"><span class="co">#&gt;  1 2 Pac   Baby Don't Cry (Keep...     1    87 2000-02-26</span></a>
+<a class="sourceLine" id="cb9-6" data-line-number="6"><span class="co">#&gt;  2 2 Pac   Baby Don't Cry (Keep...     2    82 2000-03-04</span></a>
+<a class="sourceLine" id="cb9-7" data-line-number="7"><span class="co">#&gt;  3 2 Pac   Baby Don't Cry (Keep...     3    72 2000-03-11</span></a>
+<a class="sourceLine" id="cb9-8" data-line-number="8"><span class="co">#&gt;  4 2 Pac   Baby Don't Cry (Keep...     4    77 2000-03-18</span></a>
+<a class="sourceLine" id="cb9-9" data-line-number="9"><span class="co">#&gt;  5 2 Pac   Baby Don't Cry (Keep...     5    87 2000-03-25</span></a>
+<a class="sourceLine" id="cb9-10" data-line-number="10"><span class="co">#&gt;  6 2 Pac   Baby Don't Cry (Keep...     6    94 2000-04-01</span></a>
+<a class="sourceLine" id="cb9-11" data-line-number="11"><span class="co">#&gt;  7 2 Pac   Baby Don't Cry (Keep...     7    99 2000-04-08</span></a>
+<a class="sourceLine" id="cb9-12" data-line-number="12"><span class="co">#&gt;  8 2Ge+her The Hardest Part Of ...     1    91 2000-09-02</span></a>
+<a class="sourceLine" id="cb9-13" data-line-number="13"><span class="co">#&gt;  9 2Ge+her The Hardest Part Of ...     2    87 2000-09-09</span></a>
+<a class="sourceLine" id="cb9-14" data-line-number="14"><span class="co">#&gt; 10 2Ge+her The Hardest Part Of ...     3    92 2000-09-16</span></a>
 <a class="sourceLine" id="cb9-15" data-line-number="15"><span class="co">#&gt; # … with 5,297 more rows</span></a></code></pre></div>
 <p>Or by date and rank:</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1">billboard3 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span>(date, rank)</a>
-<a class="sourceLine" id="cb10-2" data-line-number="2"><span class="co">#&gt; # A tibble: 5,307 x 7</span></a>
-<a class="sourceLine" id="cb10-3" data-line-number="3"><span class="co">#&gt;     year artist   track  time   week  rank date      </span></a>
-<a class="sourceLine" id="cb10-4" data-line-number="4"><span class="co">#&gt;    &lt;int&gt; &lt;chr&gt;    &lt;chr&gt;  &lt;chr&gt; &lt;dbl&gt; &lt;int&gt; &lt;date&gt;    </span></a>
-<a class="sourceLine" id="cb10-5" data-line-number="5"><span class="co">#&gt;  1  2000 Lonestar Amazed 4:25      1    81 1999-06-05</span></a>
-<a class="sourceLine" id="cb10-6" data-line-number="6"><span class="co">#&gt;  2  2000 Lonestar Amazed 4:25      2    54 1999-06-12</span></a>
-<a class="sourceLine" id="cb10-7" data-line-number="7"><span class="co">#&gt;  3  2000 Lonestar Amazed 4:25      3    44 1999-06-19</span></a>
-<a class="sourceLine" id="cb10-8" data-line-number="8"><span class="co">#&gt;  4  2000 Lonestar Amazed 4:25      4    39 1999-06-26</span></a>
-<a class="sourceLine" id="cb10-9" data-line-number="9"><span class="co">#&gt;  5  2000 Lonestar Amazed 4:25      5    38 1999-07-03</span></a>
-<a class="sourceLine" id="cb10-10" data-line-number="10"><span class="co">#&gt;  6  2000 Lonestar Amazed 4:25      6    33 1999-07-10</span></a>
-<a class="sourceLine" id="cb10-11" data-line-number="11"><span class="co">#&gt;  7  2000 Lonestar Amazed 4:25      7    29 1999-07-17</span></a>
-<a class="sourceLine" id="cb10-12" data-line-number="12"><span class="co">#&gt;  8  2000 Amber    Sexual 4:38      1    99 1999-07-17</span></a>
-<a class="sourceLine" id="cb10-13" data-line-number="13"><span class="co">#&gt;  9  2000 Lonestar Amazed 4:25      8    29 1999-07-24</span></a>
-<a class="sourceLine" id="cb10-14" data-line-number="14"><span class="co">#&gt; 10  2000 Amber    Sexual 4:38      2    99 1999-07-24</span></a>
+<a class="sourceLine" id="cb10-2" data-line-number="2"><span class="co">#&gt; # A tibble: 5,307 x 5</span></a>
+<a class="sourceLine" id="cb10-3" data-line-number="3"><span class="co">#&gt;    artist   track   week  rank date      </span></a>
+<a class="sourceLine" id="cb10-4" data-line-number="4"><span class="co">#&gt;    &lt;chr&gt;    &lt;chr&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;date&gt;    </span></a>
+<a class="sourceLine" id="cb10-5" data-line-number="5"><span class="co">#&gt;  1 Lonestar Amazed     1    81 1999-06-05</span></a>
+<a class="sourceLine" id="cb10-6" data-line-number="6"><span class="co">#&gt;  2 Lonestar Amazed     2    54 1999-06-12</span></a>
+<a class="sourceLine" id="cb10-7" data-line-number="7"><span class="co">#&gt;  3 Lonestar Amazed     3    44 1999-06-19</span></a>
+<a class="sourceLine" id="cb10-8" data-line-number="8"><span class="co">#&gt;  4 Lonestar Amazed     4    39 1999-06-26</span></a>
+<a class="sourceLine" id="cb10-9" data-line-number="9"><span class="co">#&gt;  5 Lonestar Amazed     5    38 1999-07-03</span></a>
+<a class="sourceLine" id="cb10-10" data-line-number="10"><span class="co">#&gt;  6 Lonestar Amazed     6    33 1999-07-10</span></a>
+<a class="sourceLine" id="cb10-11" data-line-number="11"><span class="co">#&gt;  7 Lonestar Amazed     7    29 1999-07-17</span></a>
+<a class="sourceLine" id="cb10-12" data-line-number="12"><span class="co">#&gt;  8 Amber    Sexual     1    99 1999-07-17</span></a>
+<a class="sourceLine" id="cb10-13" data-line-number="13"><span class="co">#&gt;  9 Lonestar Amazed     8    29 1999-07-24</span></a>
+<a class="sourceLine" id="cb10-14" data-line-number="14"><span class="co">#&gt; 10 Amber    Sexual     2    99 1999-07-24</span></a>
 <a class="sourceLine" id="cb10-15" data-line-number="15"><span class="co">#&gt; # … with 5,297 more rows</span></a></code></pre></div>
 </div>
 <div id="multiple-variables-stored-in-one-column" class="section level2">
@@ -481,36 +478,36 @@
 <h2 class="hasAnchor">
 <a href="#multiple-types" class="anchor"></a>Multiple types in one table</h2>
 <p>Datasets often involve values collected at multiple levels, on different types of observational units. During tidying, each type of observational unit should be stored in its own table. This is closely related to the idea of database normalisation, where each fact is expressed in only one place. It’s important because otherwise inconsistencies can arise.</p>
-<p>The billboard dataset actually contains observations on two types of observational units: the song and its rank in each week. This manifests itself through the duplication of facts about the song: <code>artist</code>, <code>year</code> and <code>time</code> are repeated many times.</p>
-<p>This dataset needs to be broken down into two pieces: a song dataset which stores <code>artist</code>, <code>song name</code> and <code>time</code>, and a ranking dataset which gives the <code>rank</code> of the <code>song</code> in each <code>week</code>. We first extract a <code>song</code> dataset:</p>
+<p>The billboard dataset actually contains observations on two types of observational units: the song and its rank in each week. This manifests itself through the duplication of facts about the song: <code>artist</code> is repeated many times.</p>
+<p>This dataset needs to be broken down into two pieces: a song dataset which stores <code>artist</code> and <code>song name</code>, and a ranking dataset which gives the <code>rank</code> of the <code>song</code> in each <code>week</code>. We first extract a <code>song</code> dataset:</p>
 <div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" data-line-number="1">song &lt;-<span class="st"> </span>billboard3 <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb18-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(artist, track, year, time) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb18-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(artist, track) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb18-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/unique">unique</a></span>() <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb18-4" data-line-number="4"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="dt">song_id =</span> <span class="kw"><a href="https://dplyr.tidyverse.org/reference/ranking.html">row_number</a></span>())</a>
 <a class="sourceLine" id="cb18-5" data-line-number="5">song</a>
-<a class="sourceLine" id="cb18-6" data-line-number="6"><span class="co">#&gt; # A tibble: 317 x 5</span></a>
-<a class="sourceLine" id="cb18-7" data-line-number="7"><span class="co">#&gt;    artist         track                    year time  song_id</span></a>
-<a class="sourceLine" id="cb18-8" data-line-number="8"><span class="co">#&gt;    &lt;chr&gt;          &lt;chr&gt;                   &lt;int&gt; &lt;chr&gt;   &lt;int&gt;</span></a>
-<a class="sourceLine" id="cb18-9" data-line-number="9"><span class="co">#&gt;  1 2 Pac          Baby Don't Cry (Keep...  2000 4:22        1</span></a>
-<a class="sourceLine" id="cb18-10" data-line-number="10"><span class="co">#&gt;  2 2Ge+her        The Hardest Part Of ...  2000 3:15        2</span></a>
-<a class="sourceLine" id="cb18-11" data-line-number="11"><span class="co">#&gt;  3 3 Doors Down   Kryptonite               2000 3:53        3</span></a>
-<a class="sourceLine" id="cb18-12" data-line-number="12"><span class="co">#&gt;  4 3 Doors Down   Loser                    2000 4:24        4</span></a>
-<a class="sourceLine" id="cb18-13" data-line-number="13"><span class="co">#&gt;  5 504 Boyz       Wobble Wobble            2000 3:35        5</span></a>
-<a class="sourceLine" id="cb18-14" data-line-number="14"><span class="co">#&gt;  6 98^0           Give Me Just One Nig...  2000 3:24        6</span></a>
-<a class="sourceLine" id="cb18-15" data-line-number="15"><span class="co">#&gt;  7 A*Teens        Dancing Queen            2000 3:44        7</span></a>
-<a class="sourceLine" id="cb18-16" data-line-number="16"><span class="co">#&gt;  8 Aaliyah        I Don't Wanna            2000 4:15        8</span></a>
-<a class="sourceLine" id="cb18-17" data-line-number="17"><span class="co">#&gt;  9 Aaliyah        Try Again                2000 4:03        9</span></a>
-<a class="sourceLine" id="cb18-18" data-line-number="18"><span class="co">#&gt; 10 Adams, Yolanda Open My Heart            2000 5:30       10</span></a>
+<a class="sourceLine" id="cb18-6" data-line-number="6"><span class="co">#&gt; # A tibble: 317 x 3</span></a>
+<a class="sourceLine" id="cb18-7" data-line-number="7"><span class="co">#&gt;    artist         track                   song_id</span></a>
+<a class="sourceLine" id="cb18-8" data-line-number="8"><span class="co">#&gt;    &lt;chr&gt;          &lt;chr&gt;                     &lt;int&gt;</span></a>
+<a class="sourceLine" id="cb18-9" data-line-number="9"><span class="co">#&gt;  1 2 Pac          Baby Don't Cry (Keep...       1</span></a>
+<a class="sourceLine" id="cb18-10" data-line-number="10"><span class="co">#&gt;  2 2Ge+her        The Hardest Part Of ...       2</span></a>
+<a class="sourceLine" id="cb18-11" data-line-number="11"><span class="co">#&gt;  3 3 Doors Down   Kryptonite                    3</span></a>
+<a class="sourceLine" id="cb18-12" data-line-number="12"><span class="co">#&gt;  4 3 Doors Down   Loser                         4</span></a>
+<a class="sourceLine" id="cb18-13" data-line-number="13"><span class="co">#&gt;  5 504 Boyz       Wobble Wobble                 5</span></a>
+<a class="sourceLine" id="cb18-14" data-line-number="14"><span class="co">#&gt;  6 98^0           Give Me Just One Nig...       6</span></a>
+<a class="sourceLine" id="cb18-15" data-line-number="15"><span class="co">#&gt;  7 A*Teens        Dancing Queen                 7</span></a>
+<a class="sourceLine" id="cb18-16" data-line-number="16"><span class="co">#&gt;  8 Aaliyah        I Don't Wanna                 8</span></a>
+<a class="sourceLine" id="cb18-17" data-line-number="17"><span class="co">#&gt;  9 Aaliyah        Try Again                     9</span></a>
+<a class="sourceLine" id="cb18-18" data-line-number="18"><span class="co">#&gt; 10 Adams, Yolanda Open My Heart                10</span></a>
 <a class="sourceLine" id="cb18-19" data-line-number="19"><span class="co">#&gt; # … with 307 more rows</span></a></code></pre></div>
 <p>Then use that to make a <code>rank</code> dataset by replacing repeated song facts with a pointer to song details (a unique song id):</p>
 <div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" data-line-number="1">rank &lt;-<span class="st"> </span>billboard3 <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb19-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/join.html">left_join</a></span>(song, <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"artist"</span>, <span class="st">"track"</span>, <span class="st">"year"</span>, <span class="st">"time"</span>)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb19-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/join.html">left_join</a></span>(song, <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"artist"</span>, <span class="st">"track"</span>)) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb19-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(song_id, date, week, rank) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb19-4" data-line-number="4"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span>(song_id, date)</a>
 <a class="sourceLine" id="cb19-5" data-line-number="5">rank</a>
 <a class="sourceLine" id="cb19-6" data-line-number="6"><span class="co">#&gt; # A tibble: 5,307 x 4</span></a>
 <a class="sourceLine" id="cb19-7" data-line-number="7"><span class="co">#&gt;    song_id date        week  rank</span></a>
-<a class="sourceLine" id="cb19-8" data-line-number="8"><span class="co">#&gt;      &lt;int&gt; &lt;date&gt;     &lt;dbl&gt; &lt;int&gt;</span></a>
+<a class="sourceLine" id="cb19-8" data-line-number="8"><span class="co">#&gt;      &lt;int&gt; &lt;date&gt;     &lt;dbl&gt; &lt;dbl&gt;</span></a>
 <a class="sourceLine" id="cb19-9" data-line-number="9"><span class="co">#&gt;  1       1 2000-02-26     1    87</span></a>
 <a class="sourceLine" id="cb19-10" data-line-number="10"><span class="co">#&gt;  2       1 2000-03-04     2    82</span></a>
 <a class="sourceLine" id="cb19-11" data-line-number="11"><span class="co">#&gt;  3       1 2000-03-11     3    72</span></a>
