@@ -1,8 +1,17 @@
 #' Pivot data from wide to long.
 #'
+#' @description
 #' `pivot_longer()` "lengthens" data, increasing the number of rows and
-#' decreasing the number of columns. See more details in `vignette("pivot")`,
-#' and see [pivot_wider()] for the inverse transformation.
+#' decreasing the number of columns. The inverse transformation. in
+#' [pivot_wider()]
+#'
+#' Learn more in `vignette("pivot")`.
+#'
+#' @details
+#' `pivot_long()` is an updated approach to [gather()], designed to be both
+#' simpler to use and to handle more use cases. We recomend you use
+#' `pivot_long()` for new code; `gather()` isn't going away but is no longer
+#' under active development.
 #'
 #' @param data A data frame to pivot.
 #' @param cols Columns to pivot into longer format. This takes a tidyselect
@@ -48,6 +57,41 @@
 #'
 #'   Must be a data frame containing character `.name` and `.value` columns.
 #' @export
+#' @examples
+#' # See vignette("pivot") for examples and explanation
+#'
+#' # Simplest case where column names are character data
+#' relig_income
+#' relig_income %>%
+#'  pivot_longer(-religion, names_to = "income", values_to = "count")
+#'
+#' # Slightly more complex case where columns have common prefix,
+#' # and missing missings are structural so should be dropped.
+#' billboard
+#' billboard %>%
+#'  pivot_longer(
+#'    cols = starts_with("wk"),
+#'    names_to = "week",
+#'    names_prefix = "wk",
+#'    values_to = "rank",
+#'    values_drop_na = TRUE
+#'  )
+#'
+#' # Multiple variables stored in colum names
+#' who %>% pivot_longer(
+#'   cols = new_sp_m014:newrel_f65,
+#'   names_to = c("diagnosis", "gender", "age"),
+#'   names_pattern = "new_?(.*)_(.)(.*)",
+#'   values_to = "count"
+#' )
+#'
+#' # Multiple observations per row
+#' anscombe
+#' anscombe %>%
+#'  pivot_longer(everything(),
+#'    names_to = c(".value", "set"),
+#'    names_pattern = "(.)(.)"
+#'  )
 pivot_longer <- function(data,
                          cols,
                          names_to = "name",

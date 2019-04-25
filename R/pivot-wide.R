@@ -1,8 +1,17 @@
 #' Pivot data from long to wide
-#'
+#
+#' @description
 #' `pivot_wider()` "widens" data, increasing the number of columns and
-#' decreasing the number of rows. See more details in `vignette("pivot")`,
-#' and see [pivot_longer()] for the inverse transformation.
+#' decreasing the number of rows. The inverse transformation is
+#' [pivot_longer()].
+#'
+#' Learn more in `vignette("pivot")`.
+#'
+#' @details
+#' `pivot_wider()` is an updated approach to [spread()], designed to be both
+#' simpler to use and to handle more use cases. We recomend you use
+#' `pivot_wide()` for new code; `spread()` isn't going away but is no longer
+#' under active development.
 #'
 #' @inheritParams pivot_longer
 #' @param id_cols A set of columns that uniquely identifies each observation.
@@ -29,13 +38,31 @@
 #'   uniquely identify an observation.
 #' @export
 #' @examples
-#' # Use values_fill to fill in missing values when you know what they
-#' # represent
+#' # See vignette("pivot") for examples and explanation
+#'
+#' fish_encounters
+#' fish_encounters %>%
+#'   pivot_wider(names_from = station, values_from = seen)
+#' # Fill in missing values
 #' fish_encounters %>%
 #'   pivot_wider(
 #'     names_from = station,
 #'     values_from = seen,
 #'     values_fill = list(seen = 0)
+#'   )
+#'
+#' # Generate column names from multiple variables
+#' us_rent_income %>%
+#'   pivot_wider(names_from = variable, values_from = c(estimate, moe))
+#'
+#' # Can perform aggregation with values_fn
+#' warpbreaks <- as_tibble(warpbreaks[c("wool", "tension", "breaks")])
+#' warpbreaks
+#' warpbreaks %>%
+#'   pivot_wider(
+#'     names_from = wool,
+#'     values_from = breaks,
+#'     values_fn = list(breaks = mean)
 #'   )
 pivot_wider <- function(data,
                         id_cols = NULL,

@@ -52,16 +52,42 @@ Must be a data frame containing character \code{.name} and \code{.value} columns
 }
 \description{
 \code{pivot_wider()} "widens" data, increasing the number of columns and
-decreasing the number of rows. See more details in \code{vignette("pivot")},
-and see \code{\link[=pivot_longer]{pivot_longer()}} for the inverse transformation.
+decreasing the number of rows. The inverse transformation is
+\code{\link[=pivot_longer]{pivot_longer()}}.
+
+Learn more in \code{vignette("pivot")}.
+}
+\details{
+\code{pivot_wider()} is an updated approach to \code{\link[=spread]{spread()}}, designed to be both
+simpler to use and to handle more use cases. We recomend you use
+\code{pivot_wide()} for new code; \code{spread()} isn't going away but is no longer
+under active development.
 }
 \examples{
-# Use values_fill to fill in missing values when you know what they
-# represent
+# See vignette("pivot") for examples and explanation
+
+fish_encounters
+fish_encounters \%>\%
+  pivot_wider(names_from = station, values_from = seen)
+# Fill in missing values
 fish_encounters \%>\%
   pivot_wider(
     names_from = station,
     values_from = seen,
     values_fill = list(seen = 0)
+  )
+
+# Generate column names from multiple variables
+us_rent_income \%>\%
+  pivot_wider(names_from = variable, values_from = c(estimate, moe))
+
+# Can perform aggregation with values_fn
+warpbreaks <- as_tibble(warpbreaks[c("wool", "tension", "breaks")])
+warpbreaks
+warpbreaks \%>\%
+  pivot_wider(
+    names_from = wool,
+    values_from = breaks,
+    values_fn = list(breaks = mean)
   )
 }

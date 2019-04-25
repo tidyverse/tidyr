@@ -1,8 +1,13 @@
 #' Gather columns into key-value pairs.
 #'
-#' Gather takes multiple columns and collapses into key-value pairs,
-#' duplicating all other columns as needed. You use `gather()` when
-#' you notice that you have columns that are not variables.
+#' @description
+#' Development on `gather()` is complete, and for new code we recommend
+#' switching to `pivot_longer()`, which is easier to use, more featureful, and
+#' still under active development.
+#' `df %>% gather("key", "value", x, y, z)` is equivalent to
+#' `df %>% pivot_longer(c(x, y, z), names_to = "key", values_to = "value")`
+#'
+#' See more details in `vignette("pivot")`.
 #'
 #' @section Rules for selection:
 #'

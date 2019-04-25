@@ -38,9 +38,13 @@ stored as a character vector. If \code{TRUE}, will be stored as a factor,
 which preserves the original ordering of the columns.}
 }
 \description{
-Gather takes multiple columns and collapses into key-value pairs,
-duplicating all other columns as needed. You use \code{gather()} when
-you notice that you have columns that are not variables.
+Development on \code{gather()} is complete, and for new code we recommend
+switching to \code{pivot_longer()}, which is easier to use, more featureful, and
+still under active development.
+\code{df \%>\% gather("key", "value", x, y, z)} is equivalent to
+\code{df \%>\% pivot_longer(c(x, y, z), names_to = "key", values_to = "value")}
+
+See more details in \code{vignette("pivot")}.
 }
 \section{Rules for selection}{
 

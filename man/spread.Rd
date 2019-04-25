@@ -37,7 +37,13 @@ data, filling in missing combinations with \code{fill}.}
 by "<key_name><sep><key_value>".}
 }
 \description{
-Spread a key-value pair across multiple columns.
+Development on \code{spread()} is complete, and for new code we recommend
+switching to \code{pivot_wider()}, which is easier to use, more featureful, and
+still under active development.
+\code{df \%>\% gather(key, value)} is equivalent to
+\code{df \%>\% pivot_wider(names_to = key, values_to = value)}
+
+See more details in \code{vignette("pivot")}.
 }
 \examples{
 library(dplyr)
