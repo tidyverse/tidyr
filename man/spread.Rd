@@ -37,24 +37,14 @@ data, filling in missing combinations with \code{fill}.}
 by "<key_name><sep><key_value>".}
 }
 \description{
-Spread a key-value pair across multiple columns.
+Development on \code{spread()} is complete, and for new code we recommend
+switching to \code{pivot_wider()}, which is easier to use, more featureful, and
+still under active development.
+\code{df \%>\% gather(key, value)} is equivalent to
+\code{df \%>\% pivot_wider(names_to = key, values_to = value)}
+
+See more details in \code{vignette("pivot")}.
 }
-\section{Compared to \code{pivot_wide()}}{
-
-
-\code{\link[=pivot_wide]{pivot_wide()}} is a more flexible and simpler to use alternative to
-\code{spread()}. It is highly recommended that users switch to \code{pivot_wide()}
-as it supports complex use cases than \code{spread()}. For detailed examples
-of how to use \code{pivot_wide}, consult the vigentte
-\code{vignette("pivot", package = "tidyr")}.
-
-\code{pivot_wide()} and other \code{pivot_*()} functions were first introduced in
-\code{tidyr vX.X} in response to feedback from both new and advanced
-users in using the \code{spread()} and \code{gather()} functions. Note that
-\code{spread()} will never be deprecated, but future \code{tidyr} development and
-documentation will prefer \code{pivot_wide()}.
-}
-
 \examples{
 library(dplyr)
 stocks <- data.frame(

@@ -1,5 +1,14 @@
 #' Spread a key-value pair across multiple columns.
 #'
+#' @description
+#' Development on `spread()` is complete, and for new code we recommend
+#' switching to `pivot_wider()`, which is easier to use, more featureful, and
+#' still under active development.
+#' `df %>% gather(key, value)` is equivalent to
+#' `df %>% pivot_wider(names_to = key, values_to = value)`
+#'
+#' See more details in `vignette("pivot")`.
+#'
 #' @param data A data frame.
 #' @param key,value Column names or positions. This is passed to
 #'   [tidyselect::vars_pull()].
@@ -22,21 +31,6 @@
 #' @param sep If `NULL`, the column names will be taken from the values of
 #'   `key` variable. If non-`NULL`, the column names will be given
 #'   by "<key_name><sep><key_value>".
-#'
-#' @section Compared to `pivot_wide()`:
-#'
-#' [pivot_wide()] is a more flexible and simpler to use alternative to
-#'   `spread()`. It is highly recommended that users switch to `pivot_wide()`
-#'   as it supports complex use cases than `spread()`. For detailed examples
-#'   of how to use `pivot_wide`, consult the vigentte
-#'   \code{vignette("pivot", package = "tidyr")}.
-#'
-#' `pivot_wide()` and other `pivot_*()` functions were first introduced in
-#'   `tidyr vX.X` in response to feedback from both new and advanced
-#'   users in using the `spread()` and `gather()` functions. Note that
-#'   `spread()` will never be deprecated, but future `tidyr` development and
-#'   documentation will prefer `pivot_wide()`.
-#'
 #' @export
 #' @examples
 #' library(dplyr)

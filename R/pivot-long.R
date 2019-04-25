@@ -1,9 +1,13 @@
 #' Pivot data from wide to long.
 #'
+#' @description
 #' `pivot_longer()` "lengthens" data, increasing the number of rows and
-#' decreasing the number of columns. See more details in `vignette("pivot")`,
-#' and see [pivot_wider()] for the inverse transformation.
+#' decreasing the number of columns. The inverse transformation. in
+#' [pivot_wider()]
 #'
+#' Learn more in `vignette("pivot")`.
+#'
+#' @details
 #' `pivot_long()` is an updated approach to [gather()], designed to be both
 #' simpler to use and to handle more use cases. We recomend you use
 #' `pivot_long()` for new code; `gather()` isn't going away but is no longer

@@ -68,8 +68,10 @@ Must be a data frame containing character \code{.name} and \code{.value} columns
 }
 \description{
 \code{pivot_longer()} "lengthens" data, increasing the number of rows and
-decreasing the number of columns. See more details in \code{vignette("pivot")},
-and see \code{\link[=pivot_wider]{pivot_wider()}} for the inverse transformation.
+decreasing the number of columns. The inverse transformation. in
+\code{\link[=pivot_wider]{pivot_wider()}}
+
+Learn more in \code{vignette("pivot")}.
 }
 \details{
 \code{pivot_long()} is an updated approach to \code{\link[=gather]{gather()}}, designed to be both

@@ -1,8 +1,13 @@
 #' Gather columns into key-value pairs.
 #'
-#' Gather takes multiple columns and collapses into key-value pairs,
-#' duplicating all other columns as needed. You use `gather()` when
-#' you notice that you have columns that are not variables.
+#' @description
+#' Development on `gather()` is complete, and for new code we recommend
+#' switching to `pivot_longer()`, which is easier to use, more featureful, and
+#' still under active development.
+#' `df %>% gather("key", "value", x, y, z)` is equivalent to
+#' `df %>% pivot_longer(c(x, y, z), names_to = "key", values_to = "value")`
+#'
+#' See more details in `vignette("pivot")`.
 #'
 #' @section Rules for selection:
 #'
@@ -53,21 +58,6 @@
 #' @param factor_key If `FALSE`, the default, the key values will be
 #'   stored as a character vector. If `TRUE`, will be stored as a factor,
 #'   which preserves the original ordering of the columns.
-#'
-#' @section Compared to `pivot_long()`:
-#'
-#' [pivot_long()] is a more flexible and simpler to use alternative to
-#'   `gather()`. It is highly recommended that users switch to `pivot_long()`
-#'   as it supports complex use cases than `gather()`. For detailed examples
-#'   of how to use `pivot_long`, consult the vigentte
-#'   \code{vignette("pivot", package = "tidyr")}.
-#'
-#' `pivot_long()` and other `pivot_*()` functions were first introduced in
-#'   `tidyr vX.X` in response to feedback from both new and advanced
-#'   users in using the `gather()` and `spread()` functions. Note that
-#'   `gather()` will never be deprecated, but future `tidyr` development and
-#'   documentation will prefer `pivot_long()`.
-#'
 #' @inheritParams gather_
 #' @export
 #' @examples

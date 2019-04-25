@@ -38,9 +38,13 @@ stored as a character vector. If \code{TRUE}, will be stored as a factor,
 which preserves the original ordering of the columns.}
 }
 \description{
-Gather takes multiple columns and collapses into key-value pairs,
-duplicating all other columns as needed. You use \code{gather()} when
-you notice that you have columns that are not variables.
+Development on \code{gather()} is complete, and for new code we recommend
+switching to \code{pivot_longer()}, which is easier to use, more featureful, and
+still under active development.
+\code{df \%>\% gather("key", "value", x, y, z)} is equivalent to
+\code{df \%>\% pivot_longer(c(x, y, z), names_to = "key", values_to = "value")}
+
+See more details in \code{vignette("pivot")}.
 }
 \section{Rules for selection}{
 
@@ -68,22 +72,6 @@ inlines the result in the surrounding function call. For instance,
 \code{c(x, !! x)} selects the \code{x} column within the data frame and the
 column referred to by the object \code{x} defined in the context (which
 can contain either a column name as string or a column position).
-}
-
-\section{Compared to \code{pivot_long()}}{
-
-
-\code{\link[=pivot_long]{pivot_long()}} is a more flexible and simpler to use alternative to
-\code{gather()}. It is highly recommended that users switch to \code{pivot_long()}
-as it supports complex use cases than \code{gather()}. For detailed examples
-of how to use \code{pivot_long}, consult the vigentte
-\code{vignette("pivot", package = "tidyr")}.
-
-\code{pivot_long()} and other \code{pivot_*()} functions were first introduced in
-\code{tidyr vX.X} in response to feedback from both new and advanced
-users in using the \code{gather()} and \code{spread()} functions. Note that
-\code{gather()} will never be deprecated, but future \code{tidyr} development and
-documentation will prefer \code{pivot_long()}.
 }
 
 \examples{

@@ -52,8 +52,10 @@ Must be a data frame containing character \code{.name} and \code{.value} columns
 }
 \description{
 \code{pivot_wider()} "widens" data, increasing the number of columns and
-decreasing the number of rows. See more details in \code{vignette("pivot")},
-and see \code{\link[=pivot_longer]{pivot_longer()}} for the inverse transformation.
+decreasing the number of rows. The inverse transformation is
+\code{\link[=pivot_longer]{pivot_longer()}}.
+
+Learn more in \code{vignette("pivot")}.
 }
 \details{
 \code{pivot_wider()} is an updated approach to \code{\link[=spread]{spread()}}, designed to be both
