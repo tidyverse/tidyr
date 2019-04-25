@@ -4,23 +4,10 @@
 #' decreasing the number of columns. See more details in `vignette("pivot")`,
 #' and see [pivot_wider()] for the inverse transformation.
 #'
-#' @section Compared to `gather()`:
-#'
-#' `pivot_long()` is a generalisation of the function `gather`, designed to
-#'   be both simpler to use and to handle more complex use caes than
-#'   previously supported.
-#'
-#'   1: It's designed to be easier to read and use. Years of user feedback has
-#'   made it clear that the name of `gather` is not intuitive and users
-#'   (including `tidyr` developers) refer to the documentation almost every time
-#'   they use the function.
-#'
-#'   2: `pivot_long` has been inspired by new features in other R packages, it's
-#'   therefore more powerful and flexible than `gather`.
-#'
-#'   However, `gather` will never be deprecated. For detailed examples of how to
-#'   use `pivot_long`, consult the vigentte
-#'   \code{vignette("pivot", package = "tidyr")}
+#' `pivot_long()` is an updated approach to [gather()], designed to be both
+#' simpler to use and to handle more use cases. We recomend you use
+#' `pivot_long()` for new code; `gather()` isn't going away but is no longer
+#' under active development.
 #'
 #' @param data A data frame to pivot.
 #' @param cols Columns to pivot into longer format. This takes a tidyselect

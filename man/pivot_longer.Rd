@@ -71,23 +71,9 @@ Must be a data frame containing character \code{.name} and \code{.value} columns
 decreasing the number of columns. See more details in \code{vignette("pivot")},
 and see \code{\link[=pivot_wider]{pivot_wider()}} for the inverse transformation.
 }
-\section{Compared to \code{gather()}}{
-
-
-\code{pivot_long()} is a generalisation of the function \code{gather}, designed to
-be both simpler to use and to handle more complex use caes than
-previously supported.
-
-1: It's designed to be easier to read and use. Years of user feedback has
-made it clear that the name of \code{gather} is not intuitive and users
-(including \code{tidyr} developers) refer to the documentation almost every time
-they use the function.
-
-2: \code{pivot_long} has been inspired by new features in other R packages, it's
-therefore more powerful and flexible than \code{gather}.
-
-However, \code{gather} will never be deprecated. For detailed examples of how to
-use \code{pivot_long}, consult the vigentte
-\code{vignette("pivot", package = "tidyr")}
+\details{
+\code{pivot_long()} is an updated approach to \code{\link[=gather]{gather()}}, designed to be both
+simpler to use and to handle more use cases. We recomend you use
+\code{pivot_long()} for new code; \code{gather()} isn't going away but is no longer
+under active development.
 }
-

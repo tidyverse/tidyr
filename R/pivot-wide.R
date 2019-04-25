@@ -4,21 +4,10 @@
 #' decreasing the number of rows. See more details in `vignette("pivot")`,
 #' and see [pivot_longer()] for the inverse transformation.
 #'
-#' @section Compared to spread:
-#' `pivot_wide` is a generalisation of the function `spread`, it differs from
-#'   `spread` in two ways:
-#'
-#'   1: It's designed to be easier to read and use. Years of user feedback has
-#'   made it clear that the name of `spread` is not intuitive and users
-#'   (including `tidyr` developers) refer to the documentation almost every time
-#'   they use the function.
-#'
-#'   2: `pivot_wide` has been inspired by new features in other R packages, it's
-#'   therefore more powerful and flexible than `spread`.
-#'
-#'   However, `spread` will never be deprecated. For detailed examples of how to
-#'   use `pivot_wide`, consult the vigentte
-#'   \code{vignette("pivot", package = "tidyr")}
+#' `pivot_wider()` is an updated approach to [spread()], designed to be both
+#' simpler to use and to handle more use cases. We recomend you use
+#' `pivot_wide()` for new code; `spread()` isn't going away but is no longer
+#' under active development.
 #'
 #' @inheritParams pivot_longer
 #' @param id_cols A set of columns that uniquely identifies each observation.
