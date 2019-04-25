@@ -33,9 +33,12 @@
 
 <meta property="og:title" content="Gather columns into key-value pairs. — gather" />
 
-<meta property="og:description" content="Gather takes multiple columns and collapses into key-value pairs,
-duplicating all other columns as needed. You use gather() when
-you notice that you have columns that are not variables." />
+<meta property="og:description" content="Development on gather() is complete, and for new code we recommend
+switching to pivot_longer(), which is easier to use, more featureful, and
+still under active development.
+df %&amp;gt;% gather(&quot;key&quot;, &quot;value&quot;, x, y, z) is equivalent to
+df %&amp;gt;% pivot_longer(c(x, y, z), names_to = &quot;key&quot;, values_to = &quot;value&quot;)
+See more details in vignette(&quot;pivot&quot;)." />
 
 <meta property="og:image" content="https://tidyr.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -133,9 +136,12 @@ you notice that you have columns that are not variables." />
 
     <div class="ref-description">
     
-    <p>Gather takes multiple columns and collapses into key-value pairs,
-duplicating all other columns as needed. You use <code>gather()</code> when
-you notice that you have columns that are not variables.</p>
+    <p>Development on <code>gather()</code> is complete, and for new code we recommend
+switching to <code><a href='pivot_longer.html'>pivot_longer()</a></code>, which is easier to use, more featureful, and
+still under active development.
+<code>df %&gt;% gather("key", "value", x, y, z)</code> is equivalent to
+<code>df %&gt;% pivot_longer(c(x, y, z), names_to = "key", values_to = "value")</code></p>
+<p>See more details in <code><a href='../articles/pivot.html'>vignette("pivot")</a></code>.</p>
     
     </div>
 

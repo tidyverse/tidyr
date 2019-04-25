@@ -34,8 +34,9 @@
 <meta property="og:title" content="Pivot data from long to wide — pivot_wider" />
 
 <meta property="og:description" content="pivot_wider() &quot;widens&quot; data, increasing the number of columns and
-decreasing the number of rows. See more details in vignette(&quot;pivot&quot;),
-and see pivot_longer() for the inverse transformation." />
+decreasing the number of rows. The inverse transformation is
+pivot_longer().
+Learn more in vignette(&quot;pivot&quot;)." />
 
 <meta property="og:image" content="https://tidyr.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -134,8 +135,9 @@ and see pivot_longer() for the inverse transformation." />
     <div class="ref-description">
     
     <p><code>pivot_wider()</code> "widens" data, increasing the number of columns and
-decreasing the number of rows. See more details in <code><a href='../articles/pivot.html'>vignette("pivot")</a></code>,
-and see <code><a href='pivot_longer.html'>pivot_longer()</a></code> for the inverse transformation.</p>
+decreasing the number of rows. The inverse transformation is
+<code><a href='pivot_longer.html'>pivot_longer()</a></code>.</p>
+<p>Learn more in <code><a href='../articles/pivot.html'>vignette("pivot")</a></code>.</p>
     
     </div>
 
@@ -202,10 +204,53 @@ metadata stored in the column names turns into columns in the result.</p>
     </tr>
     </table>
     
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p><code>pivot_wider()</code> is an updated approach to <code><a href='spread.html'>spread()</a></code>, designed to be both
+simpler to use and to handle more use cases. We recomend you use
+<code>pivot_wide()</code> for new code; <code><a href='spread.html'>spread()</a></code> isn't going away but is no longer
+under active development.</p>
+    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># Use values_fill to fill in missing values when you know what they</span>
-<span class='co'># represent</span>
+    <pre class="examples"><div class='input'><span class='co'># See vignette("pivot") for examples and explanation</span>
+
+<span class='no'>fish_encounters</span></div><div class='output co'>#&gt; # A tibble: 114 x 3
+#&gt;    fish  station  seen
+#&gt;    &lt;fct&gt; &lt;fct&gt;   &lt;int&gt;
+#&gt;  1 4842  Release     1
+#&gt;  2 4842  I80_1       1
+#&gt;  3 4842  Lisbon      1
+#&gt;  4 4842  Rstr        1
+#&gt;  5 4842  Base_TD     1
+#&gt;  6 4842  BCE         1
+#&gt;  7 4842  BCW         1
+#&gt;  8 4842  BCE2        1
+#&gt;  9 4842  BCW2        1
+#&gt; 10 4842  MAE         1
+#&gt; # … with 104 more rows</div><div class='input'><span class='no'>fish_encounters</span> <span class='kw'>%&gt;%</span>
+  <span class='fu'>pivot_wider</span>(<span class='kw'>names_from</span> <span class='kw'>=</span> <span class='no'>station</span>, <span class='kw'>values_from</span> <span class='kw'>=</span> <span class='no'>seen</span>)</div><div class='output co'>#&gt; # A tibble: 19 x 12
+#&gt;    fish  Release I80_1 Lisbon  Rstr Base_TD   BCE   BCW  BCE2  BCW2   MAE   MAW
+#&gt;    &lt;fct&gt;   &lt;int&gt; &lt;int&gt;  &lt;int&gt; &lt;int&gt;   &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;
+#&gt;  1 4842        1     1      1     1       1     1     1     1     1     1     1
+#&gt;  2 4843        1     1      1     1       1     1     1     1     1     1     1
+#&gt;  3 4844        1     1      1     1       1     1     1     1     1     1     1
+#&gt;  4 4845        1     1      1     1       1    NA    NA    NA    NA    NA    NA
+#&gt;  5 4847        1     1      1    NA      NA    NA    NA    NA    NA    NA    NA
+#&gt;  6 4848        1     1      1     1      NA    NA    NA    NA    NA    NA    NA
+#&gt;  7 4849        1     1     NA    NA      NA    NA    NA    NA    NA    NA    NA
+#&gt;  8 4850        1     1     NA     1       1     1     1    NA    NA    NA    NA
+#&gt;  9 4851        1     1     NA    NA      NA    NA    NA    NA    NA    NA    NA
+#&gt; 10 4854        1     1     NA    NA      NA    NA    NA    NA    NA    NA    NA
+#&gt; 11 4855        1     1      1     1       1    NA    NA    NA    NA    NA    NA
+#&gt; 12 4857        1     1      1     1       1     1     1     1     1    NA    NA
+#&gt; 13 4858        1     1      1     1       1     1     1     1     1     1     1
+#&gt; 14 4859        1     1      1     1       1    NA    NA    NA    NA    NA    NA
+#&gt; 15 4861        1     1      1     1       1     1     1     1     1     1     1
+#&gt; 16 4862        1     1      1     1       1     1     1     1     1    NA    NA
+#&gt; 17 4863        1     1     NA    NA      NA    NA    NA    NA    NA    NA    NA
+#&gt; 18 4864        1     1     NA    NA      NA    NA    NA    NA    NA    NA    NA
+#&gt; 19 4865        1     1      1    NA      NA    NA    NA    NA    NA    NA    NA</div><div class='input'><span class='co'># Fill in missing values</span>
 <span class='no'>fish_encounters</span> <span class='kw'>%&gt;%</span>
   <span class='fu'>pivot_wider</span>(
     <span class='kw'>names_from</span> <span class='kw'>=</span> <span class='no'>station</span>,
@@ -232,13 +277,57 @@ metadata stored in the column names turns into columns in the result.</p>
 #&gt; 16 4862        1     1      1     1       1     1     1     1     1     0     0
 #&gt; 17 4863        1     1      0     0       0     0     0     0     0     0     0
 #&gt; 18 4864        1     1      0     0       0     0     0     0     0     0     0
-#&gt; 19 4865        1     1      1     0       0     0     0     0     0     0     0</div></pre>
+#&gt; 19 4865        1     1      1     0       0     0     0     0     0     0     0</div><div class='input'>
+<span class='co'># Generate column names from multiple variables</span>
+<span class='no'>us_rent_income</span> <span class='kw'>%&gt;%</span>
+  <span class='fu'>pivot_wider</span>(<span class='kw'>names_from</span> <span class='kw'>=</span> <span class='no'>variable</span>, <span class='kw'>values_from</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='no'>estimate</span>, <span class='no'>moe</span>))</div><div class='output co'>#&gt; # A tibble: 52 x 6
+#&gt;    GEOID NAME                 estimate_income estimate_rent moe_income moe_rent
+#&gt;    &lt;chr&gt; &lt;chr&gt;                          &lt;dbl&gt;         &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt;
+#&gt;  1 01    Alabama                        24476           747        136        3
+#&gt;  2 02    Alaska                         32940          1200        508       13
+#&gt;  3 04    Arizona                        27517           972        148        4
+#&gt;  4 05    Arkansas                       23789           709        165        5
+#&gt;  5 06    California                     29454          1358        109        3
+#&gt;  6 08    Colorado                       32401          1125        109        5
+#&gt;  7 09    Connecticut                    35326          1123        195        5
+#&gt;  8 10    Delaware                       31560          1076        247       10
+#&gt;  9 11    District of Columbia           43198          1424        681       17
+#&gt; 10 12    Florida                        25952          1077         70        3
+#&gt; # … with 42 more rows</div><div class='input'>
+<span class='co'># Can perform aggregation with values_fn</span>
+<span class='no'>warpbreaks</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/as_tibble.html'>as_tibble</a></span>(<span class='no'>warpbreaks</span>[<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"wool"</span>, <span class='st'>"tension"</span>, <span class='st'>"breaks"</span>)])
+<span class='no'>warpbreaks</span></div><div class='output co'>#&gt; # A tibble: 54 x 3
+#&gt;    wool  tension breaks
+#&gt;    &lt;fct&gt; &lt;fct&gt;    &lt;dbl&gt;
+#&gt;  1 A     L           26
+#&gt;  2 A     L           30
+#&gt;  3 A     L           54
+#&gt;  4 A     L           25
+#&gt;  5 A     L           70
+#&gt;  6 A     L           52
+#&gt;  7 A     L           51
+#&gt;  8 A     L           26
+#&gt;  9 A     L           67
+#&gt; 10 A     M           18
+#&gt; # … with 44 more rows</div><div class='input'><span class='no'>warpbreaks</span> <span class='kw'>%&gt;%</span>
+  <span class='fu'>pivot_wider</span>(
+    <span class='kw'>names_from</span> <span class='kw'>=</span> <span class='no'>wool</span>,
+    <span class='kw'>values_from</span> <span class='kw'>=</span> <span class='no'>breaks</span>,
+    <span class='kw'>values_fn</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(<span class='kw'>breaks</span> <span class='kw'>=</span> <span class='no'>mean</span>)
+  )</div><div class='output co'>#&gt; # A tibble: 3 x 3
+#&gt;   tension     A     B
+#&gt;   &lt;fct&gt;   &lt;dbl&gt; &lt;dbl&gt;
+#&gt; 1 L        44.6  28.2
+#&gt; 2 M        24    28.8
+#&gt; 3 H        24.6  18.8</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-            
+      
+      <li><a href="#details">Details</a></li>
+      
       <li><a href="#examples">Examples</a></li>
     </ul>
 
