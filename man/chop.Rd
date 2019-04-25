@@ -21,9 +21,9 @@ any mix of \code{NULL}s, atomic vector, S3 vectors, a lists, or data frames).}
 be ommitted from the output. Setting \code{keep_empty = TRUE} will ensure
 that they're preserved}
 
-\item{ptype}{Optionally, supply a prototype for the output \code{col}, overriding
-the default that will be guessed from the combination of individual
-values.}
+\item{ptype}{Optionally, supply a data frame prototype for the output \code{cols},
+overriding the default that will be guessed from the combination of
+individual values.}
 }
 \description{
 Chopping and unchopping preserve the width of a data frame, changing its
@@ -36,8 +36,6 @@ Generally, unchopping is more useful than chopping because it simplifies
 a complex data structure, and \code{\link[=nest]{nest()}}ing is usually more appropriate
 that \code{chop()}ing` since it better preserves the connections between
 observations.
-
-Learn more in \code{vignette("chop-pack-nest")}.
 }
 \examples{
 # Chop ==============================================================
@@ -51,15 +49,15 @@ df \%>\% nest(c(y, z))
 # Unchop ============================================================
 df <- tibble(x = 1:4, y = list(integer(), 1L, 1:2, 1:3))
 df \%>\% unchop(y)
-df \%>\% unchop(y, keep_empty = FALSE)
+df \%>\% unchop(y, keep_empty = TRUE)
 
 # Incompatible types -------------------------------------------------
 # If the list-col contains types that can not be natively
 df <- tibble(x = 1:2, y = list("1", 1:3))
 try(df \%>\% unchop(y))
-df \%>\% unchop(y, ptype = integer())
-df \%>\% unchop(y, ptype = character())
-df \%>\% unchop(y, ptype = list())
+df \%>\% unchop(y, ptype = tibble(y = integer()))
+df \%>\% unchop(y, ptype = tibble(y = character()))
+df \%>\% unchop(y, ptype = tibble(y = list()))
 
 # Unchopping data frames -----------------------------------------------------
 # Unchopping a list-col of data frames must generate a df-col because

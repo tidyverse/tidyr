@@ -10,7 +10,24 @@
     # shortcut for
     df %>% mutate(name = map_chr(metadata, "name"))
     ```
+    
+* `unnest_()`/`nest_()` and the lazyeval methods for `unnest()`/`nest()` are 
+  officially defunct.
 
+* `nest()` and `unnest()` have new interfaces that more is closely aligned to 
+  evolving tidyverse conventions. It uses the theory developed in vctrs to 
+  more consistently handle mixtures of input types, and its arguments have
+  been overhauled based on the last few years of experience. 
+  
+    The biggest change is to their operation with multiple columns:
+    `df %>% unnest(x, y, z)` becomes `df %>% unnest(c(x, y, z))` and
+    `df %>% nest(x, y, z)` becomes `df %>% unnest(data = c(x, y, z))`
+  
+    I have done my best to ensure that common uses of `unnest()` will continue 
+    to work, generating an informative warning tell you how to update your 
+    code. Please [file an issue](https://github.com/tidyverse/tidyr/issues/new) 
+    if I've missed an important use case.
+  
 * New `unnest_longer()` and `unnest_wider()` make it easier to unnest
   list-columns of vectors into either rows or columns (#418)
   
@@ -23,7 +40,7 @@
   
 * `unnest()` has been overhauled:
 
-  * New `keep_empty()` parameter ensures that every row in the input gets
+  * New `keep_empty` parameter ensures that every row in the input gets
     at least one row in the output, inserting missing values as needed (#358)
   
   * Provides `names_sep` argument to control how inner and outer column names

@@ -50,8 +50,6 @@ Generally, unpacking is more useful than packing because it simplifies
 a complex data structure. Currently, few functions work with df-cols,
 and they are mostly a curiosity, but seem worth exploring further because
 they mimic the nested column headers that are so popular in Excel.
-
-Learn more in \code{vignette("chop-pack-nest")}.
 }
 \examples{
 # Packing =============================================================

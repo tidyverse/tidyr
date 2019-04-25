@@ -10,8 +10,6 @@
 #' and they are mostly a curiosity, but seem worth exploring further because
 #' they mimic the nested column headers that are so popular in Excel.
 #'
-#' Learn more in `vignette("chop-pack-nest")`.
-#'
 #' @inheritParams unchop
 #' @param cols Name of column that you wish to unpack.
 #' @param ... Name-variable pairs of the form `new_col = c(col1, col2, col3)`,
@@ -75,20 +73,25 @@ pack <- function(df, ...) {
 unpack <- function(df, cols, names_sep = NULL, name_repair = "check_unique") {
   cols <- tidyselect::vars_select(names(df), !!enquo(cols))
 
-  df[cols] <- map2(df[cols], cols, check_unpack, names_sep = names_sep)
+  new_cols <- map2(df[cols], cols, check_unpack, names_sep = names_sep)
+  # Work around bug in base R where df[x] <- df[x] turns a 0-col data frame-col
+  # into a list of NULLs
+  for (col in cols) {
+    df[[col]] <- new_cols[[col]]
+  }
   out <- flatten_at(df, names(df) %in% cols)
 
-  as_tibble(out, .name_repair = name_repair)
+  out <- as_tibble(out, .name_repair = name_repair)
+  reconstruct_tibble(df, out)
 }
 
 check_unpack <- function(x, col, names_sep = NULL) {
-  if (!is.data.frame(x)) {
+  if (!is.data.frame(x) && !is_empty(x)) {
     abort(glue("`{col}` must be a data frame column"))
   }
 
   if (!is.null(names_sep)) {
     names(x) <- paste0(col, names_sep, names(x))
   }
-
   x
 }

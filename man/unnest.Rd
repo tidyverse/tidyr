@@ -2,91 +2,160 @@
 % Please edit documentation in R/unnest.R
 \name{unnest}
 \alias{unnest}
-\title{Unnest a list column.}
+\alias{unnest_longer}
+\alias{unnest_wider}
+\title{Unnest a list-column of data frames}
 \usage{
-unnest(data, ..., .drop = NA, .id = NULL, .sep = NULL,
-  .preserve = NULL)
+unnest(data, cols, ..., keep_empty = FALSE, ptype = NULL,
+  names_sep = NULL, name_repair = "check_unique",
+  .drop = "DEPRECATED", .id = "DEPRECATED", .sep = "DEPRECATED",
+  .preserve = "DEPRECATED")
+
+unnest_longer(df, cols, value_to = "values", index_to = "index",
+  keep_empty = FALSE, names_sep = NULL, name_repair = "check_unique")
+
+unnest_wider(df, cols, names_sep = NULL, name_repair = "check_unique")
 }
 \arguments{
 \item{data}{A data frame.}
 
-\item{...}{Specification of columns to unnest. Use bare variable names or
-functions of variables. If omitted, defaults to all list-cols.}
+\item{cols}{Names of columns to unnest.
 
-\item{.drop}{Should additional list columns be dropped? By default,
-\code{unnest} will drop them if unnesting the specified columns requires
-the rows to be duplicated.}
+If you \code{unnest()} multiple columns, parallel entries must compatible
+sizes, i.e. they're either equal or length 1 (following the standard
+tidyverse recycling rules).}
 
-\item{.id}{Data frame identifier - if supplied, will create a new column
-with name \code{.id}, giving a unique identifier. This is most useful if
-the list column is named.}
+\item{...}{\strong{Deprecated}:
+Convert \code{df \%>\% unnest(x, y)} to \code{df \%>\% unnest(c(x, y))} and
+\code{df \%>\% unnest(y = fun(x, y, z))} to
+\code{df \%>\% mutate(y = fun(x, y, z)) \%>\% unnest(y)}.}
 
-\item{.sep}{If non-\code{NULL}, the names of unnested data frame columns
-will combine the name of the original list-col with the names from
-nested data frame, separated by \code{.sep}.}
+\item{keep_empty}{By default, elements of \code{col} that have size zero will
+be ommitted from the output. Setting \code{keep_empty = TRUE} will ensure
+that they're preserved}
 
-\item{.preserve}{Optionally, list-columns to preserve in the output. These
-will be duplicated in the same way as atomic vectors. This has
-\link[dplyr:select]{dplyr::select} semantics so you can preserve multiple variables with
-\code{.preserve = c(x, y)} or \code{.preserve = starts_with("list")}.}
+\item{ptype}{Optionally, supply a data frame prototype for the output \code{cols},
+overriding the default that will be guessed from the combination of
+individual values.}
+
+\item{names_sep}{If \code{NULL}, the default, the names of new columns will
+come directly from the inner data frame.
+
+If a string, the names of the new columns will be formed by pasting
+together the outer column name with the inner names, separated by
+\code{names_sep}.}
+
+\item{name_repair}{Used to check that output data frame has valid
+names. Must be one of the following options:
+\itemize{
+\item "minimal": No name repair or checks, beyond basic existence,
+\item "unique": Make sure names are unique and not empty,
+\item "check_unique": (the default), no name repair, but check they are unique,
+\item "universal": Make the names unique and syntactic
+\item a function: apply custom name repair.
+\item a formula: a purrr-style anonymous function (see \code{\link[rlang:as_function]{rlang::as_function()}})
+}
+
+See \link[tibble:name-repair]{tibble::name-repair} for more details on these terms and the
+strategies used to enforce them.}
+
+\item{.drop, .preserve}{\strong{Deprecated}: all list-columns are now preserved;
+If there are any that you don't want in the output use \code{select()} to
+remove them prior to unnesting.}
+
+\item{.id}{\strong{Deprecated}: convert \code{df \%>\% unnest(x, .id = "id")} to
+\code{df \%>\% mutate(id = names(x)) \%>\% unnest(x))}.}
+
+\item{.sep}{\strong{Deprecated}: use \code{names_sep} instead.}
+
+\item{df}{A data frame.}
+
+\item{value_to}{Name of column to store vector values.}
+
+\item{index_to}{A string giving the name of a new column which will
+contain the inner names of the values. If unnamed, \code{col} will instead
+contain numeric indices.}
 }
 \description{
-If you have a list-column, this makes each element of the list its own
-row. \code{unnest()} can handle list-columns that contain atomic vectors, lists, or
-data frames (but not a mixture of the different types).
+\code{unnest()}, \code{unnest_longer()}, and \code{unnest_wider()} flatten list-columns
+into regular columns. \code{unnest()} is designed primarily for lists of data
+frames, where \code{unnest_wider()} and \code{unnest_longer()} are designed
+specifically for lists of vectors.
+
+Learn more in \code{vignette("rectangling")}.
 }
-\details{
-If you unnest multiple columns, parallel entries must have the same length
-or number of rows (if a data frame).
+\section{Unnest variants}{
+
+
+The three \code{unnest()} functions differ in how they change the shape of the
+output data frame:
+\itemize{
+\item \code{unnest_wider()} preserves the rows, but changes the columns.
+\item \code{unnest_longer()} preserves the columns, but changes the rows
+\item \code{unnest()} can change both rows and columns.
 }
+
+These principles guide their behaviour when they are called with a
+non-primary data type. For example, if you \code{unnest_wider()} a list of data
+frames, the number of rows must be preserved, so each column is turned into
+a list column of length one. Or if you \code{unnest_longer()} a list of data
+frame, the number of columns must be preserved so it creates a packed
+column. I'm not sure how if these behaviours are useful in practice, but
+they are theoretically pleasing.
+}
+
 \examples{
-library(dplyr)
+# unnest() is primarily design to work with nested columns, i.e. lists
+# of tibbles or data frames
 df <- tibble(
   x = 1:3,
-  y = c("a", "d,e,f", "g,h")
-)
-df \%>\%
-  transform(y = strsplit(y, ",")) \%>\%
-  unnest(y)
-
-# Or just
-df \%>\%
-  unnest(y = strsplit(y, ","))
-
-# It also works if you have a column that contains other data frames!
-df <- tibble(
-  x = 1:2,
   y = list(
-   tibble(z = 1),
-   tibble(z = 3:4)
- )
+    NULL,
+    tibble(a = 1, b = 2),
+    tibble(a = 1:3, b = 3:1)
+  )
 )
 df \%>\% unnest(y)
+df \%>\% unnest(y, keep_empty = TRUE)
 
-# You can also unnest multiple columns simultaneously
+# You can use unnest_longer() and unnest_wider() with nested dfs,
+# although it's not clear how useful the results are. unnest_longer()
+# maintains the same number of columns, creating a packed data frame,
+# while unnest_wider() maintains the same number of rows, creating
+# list-cols of vectors
+df \%>\% unnest_wider(y)
+df \%>\% unnest_longer(y)
+
+# Typically, however, you'll use unnest_longer() and _wider() with
+# list-cols containing vectors
+df <- tibble(
+  x = 1:3,
+  y = list(NULL, 1:3, 4:5)
+)
+df \%>\% unnest_longer(y)
+df \%>\% unnest_longer(y, keep_empty = TRUE)
+# Automatically creates names if widening
+df \%>\% unnest_wider(y)
+
+# And similarly if the vectors are named
+df <- tibble(
+  x = 1:2,
+  y = list(c(a = 1, b = 2), c(a = 10, b = 11, c = 12))
+)
+df \%>\% unnest_wider(y)
+df \%>\% unnest_longer(y)
+
+# You can unnest multiple columns simultaneously
 df <- tibble(
  a = list(c("a", "b"), "c"),
  b = list(1:2, 3),
  c = c(11, 22)
 )
-df \%>\% unnest(a, b)
-# If you omit the column names, it'll unnest all list-cols
-df \%>\% unnest()
+df \%>\% unnest(c(a, b))
 
-# You can also choose to preserve one or more list-cols
-df \%>\% unnest(a, .preserve = b)
-
-# Nest and unnest are inverses
-df <- data.frame(x = c(1, 1, 2), y = 3:1)
-df \%>\% nest(y)
-df \%>\% nest(y) \%>\% unnest()
-
-# If you have a named list-column, you may want to supply .id
-df <- tibble(
-  x = 1:2,
-  y = list(a = 1, b = 3:4)
-)
-unnest(df, .id = "name")
+# Compare with unnesting one column at a time, which generates
+# the Cartesian product
+df \%>\% unnest(a) \%>\% unnest(b)
 }
 \seealso{
 \code{\link[=nest]{nest()}} for the inverse operation.

@@ -213,6 +213,10 @@ flatten_at <- function(x, to_flatten) {
   names <- vector("character", sum(cols))
   j <- 1
   for (i in seq_along(x)) {
+    if (cols[[i]] == 0) {
+      next
+    }
+
     if (to_flatten[[i]]) {
       out[j:(j + cols[[i]] - 1)] <- x[[i]]
       names[j:(j + cols[[i]] - 1)] <- names(x[[i]])

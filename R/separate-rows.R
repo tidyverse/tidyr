@@ -9,7 +9,6 @@
 #' @param sep Separator delimiting collapsed values.
 #' @export
 #' @examples
-#'
 #' df <- data.frame(
 #'   x = 1:3,
 #'   y = c("a", "d,e,f", "g,h"),
@@ -17,29 +16,26 @@
 #'   stringsAsFactors = FALSE
 #' )
 #' separate_rows(df, y, z, convert = TRUE)
-separate_rows <- function(data, ..., sep = "[^[:alnum:].]+",
+separate_rows <- function(data,
+                          ...,
+                          sep = "[^[:alnum:].]+",
                           convert = FALSE) {
   ellipsis::check_dots_unnamed()
   UseMethod("separate_rows")
 }
+
 #' @export
-separate_rows.data.frame <- function(data, ..., sep = "[^[:alnum:].]+",
+separate_rows.data.frame <- function(data,
+                                     ...,
+                                     sep = "[^[:alnum:].]+",
                                      convert = FALSE) {
-  orig <- data
-  vars <- unname(tidyselect::vars_select(names(data), ...))
+  vars <- tidyselect::vars_select(names(data), ...)
 
-  data[vars] <- map(data[vars], function(x) {
-    out <- stringi::stri_split_regex(x, sep)
-    attr(out, "ptype") <- character()
-    out
-  })
-  data <- unnest(data, !!! syms(vars), .drop = FALSE)
-  data <- dplyr::select(data, !!! intersect(names(orig), names(data)))
-
+  out <- purrr::modify_at(data, vars, stringi::stri_split_regex, pattern = sep)
+  out <- unchop(out, vars)
   if (convert) {
-    data[vars] <- map(data[vars], type.convert, as.is = TRUE)
+    out[vars] <- map(out[vars], type.convert, as.is = TRUE)
   }
 
-  reconstruct_tibble(orig, data, vars)
+  reconstruct_tibble(data, out, vars)
 }
-

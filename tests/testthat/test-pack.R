@@ -37,6 +37,18 @@ test_that("df-cols are directly unpacked", {
   expect_equal(out[c("a", "b")], df$y)
 })
 
+test_that("can unpack 0-col dataframe", {
+  df <- tibble(x = 1:3, y = tibble(.rows = 3))
+  out <- df %>% unpack(y)
+  expect_named(out, c("x"))
+})
+
+test_that("can unpack 0-row dataframe", {
+  df <- tibble(x = integer(), y = tibble(a = integer()))
+  out <- df %>% unpack(y)
+  expect_named(out, c("x", "a"))
+})
+
 test_that("can control name_repair", {
   df <- tibble(x = 1, y = tibble(a = 2), z = tibble(a = 3))
   expect_error(df %>% unpack(c(y, z)), "must not be duplicated")
