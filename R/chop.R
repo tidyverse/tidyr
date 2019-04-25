@@ -10,7 +10,7 @@
 #' that `chop()`ing` since it better preserves the connections between
 #' observations.
 #'
-#' @param df A data frame.
+#' @param data A data frame.
 #' @param cols Column to chop or unchop (automatically quoted).
 #'
 #'   This should be a list-column containing generalised vectors (e.g.
@@ -50,15 +50,15 @@
 #' df <- tibble(x = 1:3, y = list(NULL, tibble(x = 1), tibble(y = 1:2)))
 #' df %>% unchop(y)
 #' df %>% unchop(y, keep_empty = FALSE)
-chop <- function(df, cols) {
+chop <- function(data, cols) {
   if (missing(cols)) {
-    return(df)
+    return(data)
   }
 
-  cols <- tidyselect::vars_select(names(df), !!enquo(cols))
+  cols <- tidyselect::vars_select(names(data), !!enquo(cols))
 
-  vals <- df[cols]
-  keys <- df[setdiff(names(df), cols)]
+  vals <- data[cols]
+  keys <- data[setdiff(names(data), cols)]
   split <- vec_split(vals, keys)
 
   vals <- map(split$val, ~ new_data_frame(map(.x, list), n = 1L))
@@ -68,27 +68,27 @@ chop <- function(df, cols) {
 
 #' @export
 #' @rdname chop
-unchop <- function(df, cols, keep_empty = FALSE, ptype = NULL) {
-  cols <- tidyselect::vars_select(names(df), !!enquo(cols))
+unchop <- function(data, cols, keep_empty = FALSE, ptype = NULL) {
+  cols <- tidyselect::vars_select(names(data), !!enquo(cols))
   if (length(cols) == 0) {
-    return(df)
+    return(data)
   }
 
   if (keep_empty) {
     for (col in cols) {
-      df[[col]][] <- map_if(df[[col]], is_empty, ~ vec_na(.x, 1) %||% unspecified(1))
+      data[[col]][] <- map_if(data[[col]], is_empty, ~ vec_na(.x, 1) %||% unspecified(1))
     }
   }
 
   # https://github.com/tidyverse/tibble/issues/580
-  x <- pmap(as.list(df)[cols], vec_recycle_common)
+  x <- pmap(as.list(data)[cols], vec_recycle_common)
   x <- map(x, ~ as_tibble(purrr::compact(.x)))
 
   n <- map_int(x, vec_size)
-  out <- vec_slice(df, rep(vec_seq_along(df), n))
+  out <- vec_slice(data, rep(vec_seq_along(data), n))
 
   if (nrow(out) == 0) {
-    out[cols] <- map(df[cols], ~ attr(.x, "ptype") %||% unspecified(0))
+    out[cols] <- map(data[cols], ~ attr(.x, "ptype") %||% unspecified(0))
   } else {
     out[cols] <- vec_rbind(!!!x, .ptype = ptype)
   }

@@ -4,11 +4,11 @@
 #' decreasing the number of columns. See more details in `vignette("pivot")`,
 #' and see [pivot_wider()] for the inverse transformation.
 #'
-#' @param df A data frame to pivot.
+#' @param data A data frame to pivot.
 #' @param cols Columns to pivot into longer format. This takes a tidyselect
 #'   specification.
 #' @param names_to A string specifying the name of the column to create
-#'   from the data stored in the column names of `df`.
+#'   from the data stored in the column names of `data`.
 #'
 #'   Can be a character vector, creating multiple columns, if `names_sep`
 #'   or `names_pattern` is provided.
@@ -35,7 +35,7 @@
 #' @param values_drop_na If `TRUE`, will drop rows that contain only `NA`s
 #'   in the `value_to` column. This effectively converts explicit missing values
 #'   to implicit missing values, and should generally be used only when missing
-#'   values in `df` were created by its structure.
+#'   values in `data` were created by its structure.
 #' @param col_ptypes A list of of column name-prototype pairs.
 #'
 #'   If not specified, the type of the generated from `names_to` will be
@@ -48,7 +48,7 @@
 #'
 #'   Must be a data frame containing character `.name` and `.value` columns.
 #' @export
-pivot_longer <- function(df,
+pivot_longer <- function(data,
                          cols,
                          names_to = "name",
                          names_prefix = NULL,
@@ -62,7 +62,7 @@ pivot_longer <- function(df,
 
   if (is.null(spec)) {
     cols <- enquo(cols)
-    spec <- pivot_longer_spec(df, !!cols,
+    spec <- pivot_longer_spec(data, !!cols,
       names_to = names_to,
       values_to = values_to,
       names_prefix = names_prefix,
@@ -72,7 +72,7 @@ pivot_longer <- function(df,
     )
   }
   spec <- check_spec(spec)
-  spec <- deduplicate_names(spec, df)
+  spec <- deduplicate_names(spec, data)
 
   # Quick hack to ensure that split() preserves order
   v_fct <- factor(spec$.value, levels = unique(spec$.value))
@@ -86,20 +86,20 @@ pivot_longer <- function(df,
     col_id <- vec_match(value_keys[[value]], keys)
 
     val_cols <- vec_na(list(), length(cols))
-    val_cols[col_id] <- unname(as.list(df[cols]))
-    val_cols[-col_id] <- list(rep(NA, nrow(df)))
+    val_cols[col_id] <- unname(as.list(data[cols]))
+    val_cols[-col_id] <- list(rep(NA, nrow(data)))
 
     val_type <- vec_type_common(!!!val_cols, .ptype = col_ptypes[[value]])
     out <- vec_c(!!!val_cols, .ptype = val_type)
     # Interleave into correct order
-    idx <- (matrix(seq_len(nrow(df) * length(val_cols)), ncol = nrow(df), byrow = TRUE))
+    idx <- (matrix(seq_len(nrow(data) * length(val_cols)), ncol = nrow(data), byrow = TRUE))
     vals[[value]] <- vec_slice(out, as.integer(idx))
   }
   vals <- as_tibble(vals)
 
   # Line up output rows by combining spec and existing data frame
   rows <- expand_grid(
-    df_id = vec_seq_along(df),
+    df_id = vec_seq_along(data),
     key_id = vec_seq_along(keys),
   )
   rows$val_id <- vec_seq_along(rows)
@@ -109,7 +109,7 @@ pivot_longer <- function(df,
   }
 
   # Join together df, spec, and val to produce final tibble
-  df_out <- drop_cols(df, spec$.name)
+  df_out <- drop_cols(data, spec$.name)
   vec_cbind(
     vec_slice(df_out, rows$df_id),
     vec_slice(keys, rows$key_id),
@@ -119,14 +119,14 @@ pivot_longer <- function(df,
 
 #' @rdname pivot_longer
 #' @export
-pivot_longer_spec <- function(df, cols,
+pivot_longer_spec <- function(data, cols,
                               names_to = "name",
                               values_to = "value",
                               names_prefix = NULL,
                               names_sep = NULL,
                               names_pattern = NULL,
                               col_ptypes = NULL) {
-  cols <- tidyselect::vars_select(unique(names(df)), !!enquo(cols))
+  cols <- tidyselect::vars_select(unique(names(data)), !!enquo(cols))
 
   if (is.null(names_prefix)) {
     names <- cols

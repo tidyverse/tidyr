@@ -5,12 +5,12 @@
 \alias{unpack}
 \title{Pack and unpack}
 \usage{
-pack(df, ...)
+pack(data, ...)
 
-unpack(df, cols, names_sep = NULL, name_repair = "check_unique")
+unpack(data, cols, names_sep = NULL, names_repair = "check_unique")
 }
 \arguments{
-\item{df}{A data frame.}
+\item{data}{A data frame.}
 
 \item{...}{Name-variable pairs of the form \code{new_col = c(col1, col2, col3)},
 that describe how you wish to pack existing columns into new columns.
@@ -25,7 +25,7 @@ If a string, the names of the new columns will be formed by pasting
 together the outer column name with the inner names, separated by
 \code{names_sep}.}
 
-\item{name_repair}{Used to check that output data frame has valid
+\item{names_repair}{Used to check that output data frame has valid
 names. Must be one of the following options:
 \itemize{
 \item "minimal": No name repair or checks, beyond basic existence,
@@ -42,7 +42,7 @@ strategies used to enforce them.}
 \description{
 Packing and unpacking preserve the length of a data frame, changing its
 width. \code{pack()} makes \code{df} narrow by collapsing a set of columns into a
-single df-column. \code{unpack()} makes \code{df} wider by expanding df-columns
+single df-column. \code{unpack()} makes \code{data} wider by expanding df-columns
 back out into individual columns.
 }
 \details{
@@ -70,5 +70,4 @@ df
 df \%>\% unpack(y)
 df \%>\% unpack(c(y, z))
 df \%>\% unpack(c(y, z), names_sep = "_")
-
 }

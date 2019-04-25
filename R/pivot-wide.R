@@ -6,7 +6,7 @@
 #'
 #' @inheritParams pivot_longer
 #' @param id_cols A set of columns that uniquely identifies each observation.
-#'   Defaults to all columns in `df` except for the columns specified in
+#'   Defaults to all columns in `data` except for the columns specified in
 #'   `names_from` and `values_from`. Typically used when you have additional
 #'   variables that is directly related.
 #' @param names_from,values_from A pair of arguments describing which column
@@ -37,7 +37,7 @@
 #'     values_from = seen,
 #'     values_fill = list(seen = 0)
 #'   )
-pivot_wider <- function(df,
+pivot_wider <- function(data,
                         id_cols = NULL,
                         names_from = name,
                         names_prefix = "",
@@ -51,7 +51,7 @@ pivot_wider <- function(df,
     names_from <- enquo(names_from)
     values_from <- enquo(values_from)
 
-    spec <- pivot_wider_spec(df,
+    spec <- pivot_wider_spec(data,
       names_from = !!names_from,
       values_from = !!values_from,
       names_prefix = names_prefix,
@@ -65,14 +65,14 @@ pivot_wider <- function(df,
 
   id_cols <- enquo(id_cols)
   if (!quo_is_null(id_cols)) {
-    key_vars <- tidyselect::vars_select(names(df), !!id_cols)
+    key_vars <- tidyselect::vars_select(names(data), !!id_cols)
   } else {
-    key_vars <- names(df)
+    key_vars <- names(data)
   }
   key_vars <- setdiff(key_vars, spec_cols)
 
   # Figure out rows in output
-  df_rows <- df[key_vars]
+  df_rows <- data[key_vars]
   if (ncol(df_rows) == 0) {
     rows <- tibble(.rows = 1)
     row_id <- rep(1L, nrow(df_rows))
@@ -87,9 +87,9 @@ pivot_wider <- function(df,
   for (i in seq_along(value_out)) {
     spec_i <- value_specs[[i]]
     value <- spec_i$.value[[1]]
-    val <- df[[value]]
+    val <- data[[value]]
 
-    cols <- df[names(spec_i)[-(1:2)]]
+    cols <- data[names(spec_i)[-(1:2)]]
     col_id <- vec_match(cols, spec_i[-(1:2)])
     val_id <- data.frame(row = row_id, col = col_id)
 
@@ -130,15 +130,15 @@ pivot_wider <- function(df,
 
 #' @export
 #' @rdname pivot_wider
-pivot_wider_spec <- function(df,
+pivot_wider_spec <- function(data,
                              names_from = name,
                              values_from = value,
                              names_prefix = "",
                              names_sep = "_") {
-  names_from <- tidyselect::vars_select(names(df), !!enquo(names_from))
-  values_from <- tidyselect::vars_select(names(df), !!enquo(values_from))
+  names_from <- tidyselect::vars_select(names(data), !!enquo(names_from))
+  values_from <- tidyselect::vars_select(names(data), !!enquo(values_from))
 
-  row_ids <- vec_unique(df[names_from])
+  row_ids <- vec_unique(data[names_from])
   row_names <- exec(paste, !!!row_ids, sep = names_sep)
 
   out <- tibble(

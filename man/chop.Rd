@@ -5,12 +5,12 @@
 \alias{unchop}
 \title{Chop and unchop}
 \usage{
-chop(df, cols)
+chop(data, cols)
 
-unchop(df, cols, keep_empty = FALSE, ptype = NULL)
+unchop(data, cols, keep_empty = FALSE, ptype = NULL)
 }
 \arguments{
-\item{df}{A data frame.}
+\item{data}{A data frame.}
 
 \item{cols}{Column to chop or unchop (automatically quoted).
 

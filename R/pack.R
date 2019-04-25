@@ -2,7 +2,7 @@
 #'
 #' Packing and unpacking preserve the length of a data frame, changing its
 #' width. `pack()` makes `df` narrow by collapsing a set of columns into a
-#' single df-column. `unpack()` makes `df` wider by expanding df-columns
+#' single df-column. `unpack()` makes `data` wider by expanding df-columns
 #' back out into individual columns.
 #'
 #' Generally, unpacking is more useful than packing because it simplifies
@@ -35,19 +35,18 @@
 #' df %>% unpack(y)
 #' df %>% unpack(c(y, z))
 #' df %>% unpack(c(y, z), names_sep = "_")
-#'
-pack <- function(df, ...) {
+pack <- function(data, ...) {
   cols <- enquos(...)
   if (any(names2(cols) == "")) {
     abort("All elements of `...` must be named")
   }
 
-  cols <- map(cols, ~ tidyselect::vars_select(names(df), !!.x))
-  packed <- map(cols, ~ df[.x])
+  cols <- map(cols, ~ tidyselect::vars_select(names(data), !!.x))
+  packed <- map(cols, ~ data[.x])
 
   # TODO: find a different approach that preserves order
-  asis <- setdiff(names(df), unlist(cols))
-  vec_cbind(df[asis], new_data_frame(packed, n = nrow(df)))
+  asis <- setdiff(names(data), unlist(cols))
+  vec_cbind(data[asis], new_data_frame(packed, n = nrow(data)))
 }
 
 #' @export
@@ -58,7 +57,7 @@ pack <- function(df, ...) {
 #'   If a string, the names of the new columns will be formed by pasting
 #'   together the outer column name with the inner names, separated by
 #'   `names_sep`.
-#' @param name_repair Used to check that output data frame has valid
+#' @param names_repair Used to check that output data frame has valid
 #'   names. Must be one of the following options:
 #'
 #'   * "minimal": No name repair or checks, beyond basic existence,
@@ -70,19 +69,19 @@ pack <- function(df, ...) {
 #'
 #'   See [tibble::name-repair] for more details on these terms and the
 #'   strategies used to enforce them.
-unpack <- function(df, cols, names_sep = NULL, name_repair = "check_unique") {
-  cols <- tidyselect::vars_select(names(df), !!enquo(cols))
+unpack <- function(data, cols, names_sep = NULL, names_repair = "check_unique") {
+  cols <- tidyselect::vars_select(names(data), !!enquo(cols))
 
-  new_cols <- map2(df[cols], cols, check_unpack, names_sep = names_sep)
-  # Work around bug in base R where df[x] <- df[x] turns a 0-col data frame-col
+  new_cols <- map2(data[cols], cols, check_unpack, names_sep = names_sep)
+  # Work around bug in base R where data[x] <- data[x] turns a 0-col data frame-col
   # into a list of NULLs
   for (col in cols) {
-    df[[col]] <- new_cols[[col]]
+    data[[col]] <- new_cols[[col]]
   }
-  out <- flatten_at(df, names(df) %in% cols)
+  out <- flatten_at(data, names(data) %in% cols)
 
-  out <- as_tibble(out, .name_repair = name_repair)
-  reconstruct_tibble(df, out)
+  out <- as_tibble(out, .name_repair = names_repair)
+  reconstruct_tibble(data, out)
 }
 
 check_unpack <- function(x, col, names_sep = NULL) {

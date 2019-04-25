@@ -5,22 +5,22 @@
 \alias{pivot_longer_spec}
 \title{Pivot data from wide to long.}
 \usage{
-pivot_longer(df, cols, names_to = "name", names_prefix = NULL,
+pivot_longer(data, cols, names_to = "name", names_prefix = NULL,
   names_sep = NULL, names_pattern = NULL, values_to = "value",
   values_drop_na = FALSE, col_ptypes = list(), spec = NULL)
 
-pivot_longer_spec(df, cols, names_to = "name", values_to = "value",
+pivot_longer_spec(data, cols, names_to = "name", values_to = "value",
   names_prefix = NULL, names_sep = NULL, names_pattern = NULL,
   col_ptypes = NULL)
 }
 \arguments{
-\item{df}{A data frame to pivot.}
+\item{data}{A data frame to pivot.}
 
 \item{cols}{Columns to pivot into longer format. This takes a tidyselect
 specification.}
 
 \item{names_to}{A string specifying the name of the column to create
-from the data stored in the column names of \code{df}.
+from the data stored in the column names of \code{data}.
 
 Can be a character vector, creating multiple columns, if \code{names_sep}
 or \code{names_pattern} is provided.}
@@ -51,7 +51,7 @@ existing column names.}
 \item{values_drop_na}{If \code{TRUE}, will drop rows that contain only \code{NA}s
 in the \code{value_to} column. This effectively converts explicit missing values
 to implicit missing values, and should generally be used only when missing
-values in \code{df} were created by its structure.}
+values in \code{data} were created by its structure.}
 
 \item{col_ptypes}{A list of of column name-prototype pairs.
 

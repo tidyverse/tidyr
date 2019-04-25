@@ -7,14 +7,16 @@
 \title{Unnest a list-column of data frames}
 \usage{
 unnest(data, cols, ..., keep_empty = FALSE, ptype = NULL,
-  names_sep = NULL, name_repair = "check_unique",
+  names_sep = NULL, names_repair = "check_unique",
   .drop = "DEPRECATED", .id = "DEPRECATED", .sep = "DEPRECATED",
   .preserve = "DEPRECATED")
 
-unnest_longer(df, cols, value_to = "values", index_to = "index",
-  keep_empty = FALSE, names_sep = NULL, name_repair = "check_unique")
+unnest_longer(data, cols, values_to = "values", indices_to = "index",
+  keep_empty = FALSE, names_sep = NULL,
+  names_repair = "check_unique")
 
-unnest_wider(df, cols, names_sep = NULL, name_repair = "check_unique")
+unnest_wider(data, cols, names_sep = NULL,
+  names_repair = "check_unique")
 }
 \arguments{
 \item{data}{A data frame.}
@@ -45,7 +47,7 @@ If a string, the names of the new columns will be formed by pasting
 together the outer column name with the inner names, separated by
 \code{names_sep}.}
 
-\item{name_repair}{Used to check that output data frame has valid
+\item{names_repair}{Used to check that output data frame has valid
 names. Must be one of the following options:
 \itemize{
 \item "minimal": No name repair or checks, beyond basic existence,
@@ -68,11 +70,9 @@ remove them prior to unnesting.}
 
 \item{.sep}{\strong{Deprecated}: use \code{names_sep} instead.}
 
-\item{df}{A data frame.}
+\item{values_to}{Name of column to store vector values.}
 
-\item{value_to}{Name of column to store vector values.}
-
-\item{index_to}{A string giving the name of a new column which will
+\item{indices_to}{A string giving the name of a new column which will
 contain the inner names of the values. If unnamed, \code{col} will instead
 contain numeric indices.}
 }

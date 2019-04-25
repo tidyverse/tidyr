@@ -103,7 +103,7 @@ unnest <- function(data,
                    keep_empty = FALSE,
                    ptype = NULL,
                    names_sep = NULL,
-                   name_repair = "check_unique",
+                   names_repair = "check_unique",
                    .drop = "DEPRECATED",
                    .id = "DEPRECATED",
                    .sep = "DEPRECATED",
@@ -180,7 +180,7 @@ unnest.data.frame <- function(
                               keep_empty = FALSE,
                               ptype = NULL,
                               names_sep = NULL,
-                              name_repair = "check_unique",
+                              names_repair = "check_unique",
                               .drop = "DEPRECATED",
                               .id = "DEPRECATED",
                               .sep = "DEPRECATED",
@@ -192,51 +192,51 @@ unnest.data.frame <- function(
   }
 
   data <- unchop(data, !!cols, keep_empty = keep_empty, ptype = ptype)
-  unpack(data, !!cols, names_sep = names_sep, name_repair = name_repair)
+  unpack(data, !!cols, names_sep = names_sep, names_repair = names_repair)
 }
 
 #' @export
 #' @rdname unnest
-#' @param value_to Name of column to store vector values.
-#' @param index_to A string giving the name of a new column which will
+#' @param values_to Name of column to store vector values.
+#' @param indices_to A string giving the name of a new column which will
 #'   contain the inner names of the values. If unnamed, `col` will instead
 #'   contain numeric indices.
-unnest_longer <- function(df, cols,
-                          value_to = "values",
-                          index_to = "index",
+unnest_longer <- function(data, cols,
+                          values_to = "values",
+                          indices_to = "index",
                           keep_empty = FALSE,
                           names_sep = NULL,
-                          name_repair = "check_unique"
+                          names_repair = "check_unique"
                           ) {
 
-  cols <- tidyselect::vars_select(names(df), !!enquo(cols))
+  cols <- tidyselect::vars_select(names(data), !!enquo(cols))
 
   for (col in cols) {
-    df[[col]][] <- map(
-      df[[col]], vec_to_long,
+    data[[col]][] <- map(
+      data[[col]], vec_to_long,
       col = col,
-      value_to = value_to,
-      index_to = index_to
+      values_to = values_to,
+      indices_to = indices_to
     )
   }
 
-  df <- unchop(df, !!cols, keep_empty = keep_empty)
-  unpack(df, !!cols, names_sep = names_sep, name_repair = name_repair)
+  data <- unchop(data, !!cols, keep_empty = keep_empty)
+  unpack(data, !!cols, names_sep = names_sep, names_repair = names_repair)
 }
 
 #' @export
 #' @rdname unnest
-unnest_wider <- function(df, cols,
+unnest_wider <- function(data, cols,
                          names_sep = NULL,
-                         name_repair = "check_unique") {
-  cols <- tidyselect::vars_select(names(df), !!enquo(cols))
+                         names_repair = "check_unique") {
+  cols <- tidyselect::vars_select(names(data), !!enquo(cols))
 
   for (col in cols) {
-    df[[col]][] <- map(df[[col]], vec_to_wide, col = col)
+    data[[col]][] <- map(data[[col]], vec_to_wide, col = col)
   }
 
-  df <- unchop(df, !!cols, keep_empty = TRUE)
-  unpack(df, !!cols, names_sep = names_sep, name_repair = name_repair)
+  data <- unchop(data, !!cols, keep_empty = TRUE)
+  unpack(data, !!cols, names_sep = names_sep, names_repair = names_repair)
 }
 
 # helpers -----------------------------------------------------------------
@@ -277,15 +277,15 @@ vec_to_wide <- function(x, col) {
 }
 
 # 1 col; n rows
-vec_to_long <- function(x, col, value_to = "values", index_to = "index") {
+vec_to_long <- function(x, col, values_to = "values", indices_to = "index") {
   if (is.null(x)) {
     NULL
   } else if (is.data.frame(x)) {
     tibble(!!col := x)
   } else if (vec_is(x)) {
     tibble::tibble(
-      !!value_to := x,
-      !!index_to := index(x)
+      !!values_to := x,
+      !!indices_to := index(x)
     )
   } else {
     stop("Input must be list of vectors", call. = FALSE)

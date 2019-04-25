@@ -54,7 +54,7 @@ test_that("can control name_repair", {
   expect_error(df %>% unpack(c(y, z)), "must not be duplicated")
 
   expect_message(
-    out <- df %>% unpack(c(y, z), name_repair = "unique"),
+    out <- df %>% unpack(c(y, z), names_repair = "unique"),
     "New names"
   )
   expect_named(out, c("x", "a...2", "a...3"))

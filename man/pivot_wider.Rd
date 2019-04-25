@@ -5,18 +5,18 @@
 \alias{pivot_wider_spec}
 \title{Pivot data from long to wide}
 \usage{
-pivot_wider(df, id_cols = NULL, names_from = name, names_prefix = "",
-  names_sep = "_", values_from = value, values_fill = NULL,
-  values_fn = NULL, spec = NULL)
+pivot_wider(data, id_cols = NULL, names_from = name,
+  names_prefix = "", names_sep = "_", values_from = value,
+  values_fill = NULL, values_fn = NULL, spec = NULL)
 
-pivot_wider_spec(df, names_from = name, values_from = value,
+pivot_wider_spec(data, names_from = name, values_from = value,
   names_prefix = "", names_sep = "_")
 }
 \arguments{
-\item{df}{A data frame to pivot.}
+\item{data}{A data frame to pivot.}
 
 \item{id_cols}{A set of columns that uniquely identifies each observation.
-Defaults to all columns in \code{df} except for the columns specified in
+Defaults to all columns in \code{data} except for the columns specified in
 \code{names_from} and \code{values_from}. Typically used when you have additional
 variables that is directly related.}
 
