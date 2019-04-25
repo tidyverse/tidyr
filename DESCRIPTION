@@ -38,6 +38,7 @@ Suggests:
     covr,
     gapminder,
     knitr,
+    repurrrsive,
     rmarkdown,
     readr,
     testthat

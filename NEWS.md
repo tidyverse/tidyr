@@ -1,5 +1,16 @@
 # tidyr (development version)
 
+* New `hoist()` provides a convenient way of plucking components of a 
+  list-column out into their own top level columns (#341). This is particularly 
+  useful when you are working with deeply nested JSON, because it provides
+  a convenient shortcut for the `mutate()` + `map()` pattern:
+  
+    ```{r}
+    df %>% hoist(metadata, name = "name")
+    # shortcut for
+    df %>% mutate(name = map_chr(metadata, "name"))
+    ```
+
 * New `unnest_longer()` and `unnest_wider()` make it easier to unnest
   list-columns of vectors into either rows or columns (#418)
   

@@ -167,7 +167,16 @@ vec_to_wide <- function(x, col) {
   } else if (is.data.frame(x)) {
     as_tibble(map(x, list))
   } else if (vec_is(x)) {
-    tibble::as_tibble(as.list(x), .name_repair = "unique", .rows = 1L)
+    if (is.list(x)) {
+      x <- purrr::compact(x)
+      # Hack: probably should always apply and then vec_simplify()
+      # in unnest_wider()
+      x <- map_if(x, ~ vec_size(.x) != 1, list)
+    } else {
+      x <- as.list(x)
+    }
+
+    tibble::as_tibble(x, .name_repair = "unique", .rows = 1L)
   } else {
     stop("Input must be list of vectors", call. = FALSE)
   }
