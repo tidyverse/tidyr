@@ -278,8 +278,8 @@ observations.</p>
 #&gt;  50. │                                     └─function_list[[k]](value)
 #&gt;  51. │                                       └─tidyr::unchop(., y)
 #&gt;  52. │                                         └─vctrs::vec_type_common(!!!x, .ptype = ptype) /home/travis/build/tidyverse/tidyr/R/chop.R:85:2
-#&gt;  53. ├─vctrs:::vec_type2_dispatch(...)
-#&gt;  54. ├─vctrs::vec_type2.character(...)
+#&gt;  53. ├─vctrs:::vec_type2_dispatch(x = x, y = y, x_arg = x_arg, y_arg = y_arg)
+#&gt;  54. ├─vctrs::vec_type2.character(x = x, y = y, x_arg = x_arg, y_arg = y_arg)
 #&gt;  55. └─vctrs:::vec_type2.character.default(...)
 #&gt;  56.   └─vctrs::stop_incompatible_type(x, y, x_arg = x_arg, y_arg = y_arg)
 #&gt;  57.     └─vctrs:::stop_incompatible(...)</div><div class='input'><span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>unchop</span>(<span class='no'>y</span>, <span class='kw'>ptype</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/integer'>integer</a></span>())</div><div class='output co'>#&gt; # A tibble: 4 x 2
