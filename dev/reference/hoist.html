@@ -101,9 +101,6 @@ so more details in vignette(&quot;rectangling&quot;)." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/chop-pack-nest.html">chop-pack-nest</a>
-    </li>
-    <li>
       <a href="../articles/pivot.html">Pivoting</a>
     </li>
     <li>
@@ -141,7 +138,7 @@ so more details in vignette(&quot;rectangling&quot;)." />
     
     <p><code>hoist()</code> allows you to selectively pull components of a list-column out
 in to their own top-level columns, using the same syntax as <code><a href='https://purrr.tidyverse.org/reference/pluck.html'>purrr::pluck()</a></code>.
-It's a useful complement to <code><a href='nest2.html'>unnest_wider()</a></code>, which turns every component
+It's a useful complement to <code><a href='unnest.html'>unnest_wider()</a></code>, which turns every component
 into its own column.</p>
 <p>It is particularly useful when working with deeply nested JSON data,
 so more details in <code>vignette("rectangling")</code>.</p>
@@ -216,7 +213,7 @@ output type of each component.</p></td>
 #&gt; 1 Toothless dragon    How to Train Your… How to Train Your Dragon: Th… &lt;list [2…
 #&gt; 2 Dory      clownfish Finding Nemo       &lt;NA&gt;                          &lt;list [2…</div><div class='input'>
 <span class='co'># cf unnest_wider() which extracts all columns</span>
-<span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='nest2.html'>unnest_wider</a></span>(<span class='no'>metadata</span>)</div><div class='output co'>#&gt; # A tibble: 2 x 4
+<span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='unnest.html'>unnest_wider</a></span>(<span class='no'>metadata</span>)</div><div class='output co'>#&gt; # A tibble: 2 x 4
 #&gt;   character species   color films    
 #&gt;   &lt;chr&gt;     &lt;chr&gt;     &lt;chr&gt; &lt;list&gt;   
 #&gt; 1 Toothless dragon    black &lt;chr [3]&gt;

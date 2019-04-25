@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Nest repeated values in a list-variable. — nest • tidyr</title>
+<title>Nest repeated values in a list-column of data frames — nest • tidyr</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -31,11 +31,13 @@
 
 
 
-<meta property="og:title" content="Nest repeated values in a list-variable. — nest" />
+<meta property="og:title" content="Nest repeated values in a list-column of data frames — nest" />
 
-<meta property="og:description" content="There are many possible ways one could choose to nest columns inside a
-data frame. nest() creates a list of data frames containing all
-the nested variables: this seems to be the most useful form in practice." />
+<meta property="og:description" content="Nesting is implicitly a summarising operation: you get one row defined
+by the grouping defined by the non-nested columns. This is useful in
+conjunction with other summaries that work with whole datasets, most
+notably models, as described in https://r4ds.had.co.nz/many-models.html.
+Learn more in vignette(&quot;nesting&quot;)." />
 
 <meta property="og:image" content="https://tidyr.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -98,9 +100,6 @@ the nested variables: this seems to be the most useful form in practice." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/chop-pack-nest.html">chop-pack-nest</a>
-    </li>
-    <li>
       <a href="../articles/pivot.html">Pivoting</a>
     </li>
     <li>
@@ -129,71 +128,54 @@ the nested variables: this seems to be the most useful form in practice." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Nest repeated values in a list-variable.</h1>
+    <h1>Nest repeated values in a list-column of data frames</h1>
     <small class="dont-index">Source: <a href='https://github.com/tidyverse/tidyr/blob/master/R/nest.R'><code>R/nest.R</code></a></small>
     <div class="hidden name"><code>nest.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>There are many possible ways one could choose to nest columns inside a
-data frame. <code>nest()</code> creates a list of data frames containing all
-the nested variables: this seems to be the most useful form in practice.</p>
+    <p>Nesting is implicitly a summarising operation: you get one row defined
+by the grouping defined by the non-nested columns. This is useful in
+conjunction with other summaries that work with whole datasets, most
+notably models, as described in <a href='https://r4ds.had.co.nz/many-models.html'>https://r4ds.had.co.nz/many-models.html</a>.</p>
+<p>Learn more in <code>vignette("nesting")</code>.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>nest</span>(<span class='no'>data</span>, <span class='no'>...</span>, <span class='kw'>.key</span> <span class='kw'>=</span> <span class='st'>"data"</span>)</pre>
+    <pre class="usage"><span class='fu'>nest</span>(<span class='no'>.data</span>, <span class='no'>...</span>, <span class='kw'>.key</span> <span class='kw'>=</span> <span class='st'>"DEPRECATED"</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>data</th>
+      <th>.data</th>
       <td><p>A data frame.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>A selection of columns. If empty, all variables are
-selected. You can supply bare variable names, select all
-variables between x and z with <code>x:z</code>, exclude y with <code>-y</code>. For
-more options, see the <code><a href='https://dplyr.tidyverse.org/reference/select.html'>dplyr::select()</a></code> documentation. See also
-the section on selection rules below.</p></td>
+      <td><p>Name-variable pairs of the form <code>new_col = c(col1, col2, col3)</code>,
+that describe how you wish to nest existing columns into new columns.
+The right hand side can be any expression supported by tidyselect.</p>
+<p><strong>Deprecated</strong>: previously you could write <code>df %&gt;% nest(x, y, z)</code>,
+now you should rewrite this as <code>df %&gt;% nest(data = c(x, y, z))</code>.</p></td>
     </tr>
     <tr>
       <th>.key</th>
-      <td><p>The name of the new column, as a string or symbol.</p>
-<p>This argument is passed by expression and supports
-<a href='https://rlang.r-lib.org/reference/quasiquotation.html'>quasiquotation</a> (you can unquote strings
-and symbols). The name is captured from the expression with
-<code><a href='https://rlang.r-lib.org/reference/quotation.html'>rlang::ensym()</a></code> (note that this kind of interface where
-symbols do not represent actual objects is now discouraged in the
-tidyverse; we support it here for backward compatibility).</p></td>
+      <td><p><strong>Deprecated</strong>: No longer needed because of the updated <code>...</code>
+syntax.</p></td>
     </tr>
     </table>
     
-    <h2 class="hasAnchor" id="rules-for-selection"><a class="anchor" href="#rules-for-selection"></a>Rules for selection</h2>
+    <h2 class="hasAnchor" id="grouped-data-frames"><a class="anchor" href="#grouped-data-frames"></a>Grouped data frames</h2>
 
     
-    <p>Arguments for selecting columns are passed to
-<code><a href='https://www.rdocumentation.org/packages/tidyselect/topics/vars_select'>tidyselect::vars_select()</a></code> and are treated specially. Unlike other
-verbs, selecting functions make a strict distinction between data
-expressions and context expressions.</p><ul>
-<li><p>A data expression is either a bare name like <code>x</code> or an expression
-like <code>x:y</code> or <code><a href='https://www.rdocumentation.org/packages/base/topics/c'>c(x, y)</a></code>. In a data expression, you can only refer
-to columns from the data frame.</p></li>
-<li><p>Everything else is a context expression in which you can only
-refer to objects that you have defined with <code>&lt;-</code>.</p></li>
-</ul>
-    <p>For instance, <code>col1:col3</code> is a data expression that refers to data
-columns, while <code><a href='https://www.rdocumentation.org/packages/base/topics/seq'>seq(start, end)</a></code> is a context expression that
-refers to objects from the contexts.</p>
-<p>If you really need to refer to contextual objects from a data
-expression, you can unquote them with the tidy eval operator
-<code>!!</code>. This operator evaluates its argument in the context and
-inlines the result in the surrounding function call. For instance,
-<code><a href='https://www.rdocumentation.org/packages/base/topics/c'>c(x, !! x)</a></code> selects the <code>x</code> column within the data frame and the
-column referred to by the object <code>x</code> defined in the context (which
-can contain either a column name as string or a column position).</p>
+    <p><code>nest()</code> specify the columns to be nested; i.e. the columns that will appear
+in the inner data frame. Alternatively, you <code>nest()</code> a grouped data frame
+created by <code><a href='https://dplyr.tidyverse.org/reference/group_by.html'>dplyr::group_by()</a></code>. Here the grouping variables will remain
+in the outer data frame, and all other variables will go into the inner
+data frame. The result will be an ungrouped tibble, where each row
+represents a group in the input.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
@@ -201,49 +183,68 @@ can contain either a column name as string or a column position).</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>dplyr</span>)
-<span class='fu'><a href='https://tibble.tidyverse.org/reference/as_tibble.html'>as_tibble</a></span>(<span class='no'>iris</span>) <span class='kw'>%&gt;%</span> <span class='fu'>nest</span>(-<span class='no'>Species</span>)</div><div class='output co'>#&gt; # A tibble: 3 x 2
-#&gt;   Species    data             
-#&gt;   &lt;fct&gt;      &lt;list&gt;           
-#&gt; 1 setosa     &lt;tibble [50 × 4]&gt;
-#&gt; 2 versicolor &lt;tibble [50 × 4]&gt;
-#&gt; 3 virginica  &lt;tibble [50 × 4]&gt;</div><div class='input'><span class='fu'><a href='https://tibble.tidyverse.org/reference/as_tibble.html'>as_tibble</a></span>(<span class='no'>chickwts</span>) <span class='kw'>%&gt;%</span> <span class='fu'>nest</span>(<span class='no'>weight</span>)</div><div class='output co'>#&gt; # A tibble: 6 x 2
-#&gt;   feed      data             
-#&gt;   &lt;fct&gt;     &lt;list&gt;           
-#&gt; 1 horsebean &lt;tibble [10 × 1]&gt;
-#&gt; 2 linseed   &lt;tibble [12 × 1]&gt;
-#&gt; 3 soybean   &lt;tibble [14 × 1]&gt;
-#&gt; 4 sunflower &lt;tibble [12 × 1]&gt;
-#&gt; 5 meatmeal  &lt;tibble [11 × 1]&gt;
-#&gt; 6 casein    &lt;tibble [12 × 1]&gt;</div><div class='input'>
-<span class='kw'>if</span> (<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>require</a></span>(<span class='st'>"gapminder"</span>)) {
-  <span class='no'>gapminder</span> <span class='kw'>%&gt;%</span>
-    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span>(<span class='no'>country</span>, <span class='no'>continent</span>) <span class='kw'>%&gt;%</span>
-    <span class='fu'>nest</span>()
-
-  <span class='no'>gapminder</span> <span class='kw'>%&gt;%</span>
-    <span class='fu'>nest</span>(-<span class='no'>country</span>, -<span class='no'>continent</span>)
-}</div><div class='output co'>#&gt; <span class='message'>Loading required package: gapminder</span></div><div class='output co'>#&gt; # A tibble: 142 x 3
-#&gt;    country     continent data             
-#&gt;    &lt;fct&gt;       &lt;fct&gt;     &lt;list&gt;           
-#&gt;  1 Afghanistan Asia      &lt;tibble [12 × 4]&gt;
-#&gt;  2 Albania     Europe    &lt;tibble [12 × 4]&gt;
-#&gt;  3 Algeria     Africa    &lt;tibble [12 × 4]&gt;
-#&gt;  4 Angola      Africa    &lt;tibble [12 × 4]&gt;
-#&gt;  5 Argentina   Americas  &lt;tibble [12 × 4]&gt;
-#&gt;  6 Australia   Oceania   &lt;tibble [12 × 4]&gt;
-#&gt;  7 Austria     Europe    &lt;tibble [12 × 4]&gt;
-#&gt;  8 Bahrain     Asia      &lt;tibble [12 × 4]&gt;
-#&gt;  9 Bangladesh  Asia      &lt;tibble [12 × 4]&gt;
-#&gt; 10 Belgium     Europe    &lt;tibble [12 × 4]&gt;
-#&gt; # … with 132 more rows</div></pre>
+    <pre class="examples"><div class='input'><span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>2</span>, <span class='fl'>3</span>), <span class='kw'>y</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>6</span>, <span class='kw'>z</span> <span class='kw'>=</span> <span class='fl'>6</span>:<span class='fl'>1</span>)
+<span class='co'># Note that we get one row of output for each unique combination of</span>
+<span class='co'># non-chopped variables</span>
+<span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>nest</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='no'>y</span>, <span class='no'>z</span>))</div><div class='output co'>#&gt; # A tibble: 3 x 2
+#&gt;       x             data
+#&gt;   &lt;dbl&gt;   &lt;list&lt;df[,2]&gt;&gt;
+#&gt; 1     1 1, 2, 3, 6, 5, 4
+#&gt; 2     2       4, 5, 3, 2
+#&gt; 3     3             6, 1</div><div class='input'><span class='co'># cf nest</span>
+<span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='chop.html'>chop</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='no'>y</span>, <span class='no'>z</span>))</div><div class='output co'>#&gt; # A tibble: 3 x 3
+#&gt;       x y         z        
+#&gt;   &lt;dbl&gt; &lt;list&gt;    &lt;list&gt;   
+#&gt; 1     1 &lt;int [3]&gt; &lt;int [3]&gt;
+#&gt; 2     2 &lt;int [2]&gt; &lt;int [2]&gt;
+#&gt; 3     3 &lt;int [1]&gt; &lt;int [1]&gt;</div><div class='input'>
+<span class='no'>iris</span> <span class='kw'>%&gt;%</span> <span class='fu'>nest</span>(<span class='kw'>data</span> <span class='kw'>=</span> -<span class='no'>Species</span>)</div><div class='output co'>#&gt; # A tibble: 3 x 2
+#&gt;   Species
+#&gt;   &lt;fct&gt;  
+#&gt; 1 setosa 
+#&gt; 2 versic…
+#&gt; 3 virgin…
+#&gt; # … with 1 more variable: data &lt;list&lt;df[,4]&gt;&gt;</div><div class='input'><span class='no'>chickwts</span> <span class='kw'>%&gt;%</span> <span class='fu'>nest</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>weight</span>)</div><div class='output co'>#&gt; # A tibble: 6 x 2
+#&gt;   feed                                                                      data
+#&gt;   &lt;fct&gt;                                                           &lt;list&lt;df[,1]&gt;&gt;
+#&gt; 1 horsebean                     179, 160, 136, 227, 217, 168, 108, 124, 143, 140
+#&gt; 2 linseed             309, 229, 181, 141, 260, 203, 148, 169, 213, 257, 244, 271
+#&gt; 3 soybean   243, 230, 248, 327, 329, 250, 193, 271, 316, 267, 199, 171, 158, 248
+#&gt; 4 sunflower           423, 340, 392, 339, 341, 226, 320, 295, 334, 322, 297, 318
+#&gt; 5 meatmeal                 325, 257, 303, 315, 380, 153, 263, 242, 206, 344, 258
+#&gt; 6 casein              368, 390, 379, 260, 404, 318, 352, 359, 216, 222, 283, 332</div><div class='input'>
+<span class='co'># Nesting a grouped data frame nests all variables apart from the group vars</span>
+<span class='no'>fish_encounters</span> <span class='kw'>%&gt;%</span>
+  <span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span>(<span class='no'>fish</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'>nest</span>()</div><div class='output co'>#&gt; # A tibble: 19 x 2
+#&gt;    fish                                                                data
+#&gt;    &lt;fct&gt;                                                     &lt;list&lt;df[,2]&gt;&gt;
+#&gt;  1 4842  1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1
+#&gt;  2 4843  1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1
+#&gt;  3 4844  1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1
+#&gt;  4 4845                                        1, 2, 3, 4, 5, 1, 1, 1, 1, 1
+#&gt;  5 4847                                                    1, 2, 3, 1, 1, 1
+#&gt;  6 4848                                              1, 2, 3, 4, 1, 1, 1, 1
+#&gt;  7 4849                                                          1, 2, 1, 1
+#&gt;  8 4850                                  1, 2, 4, 5, 6, 7, 1, 1, 1, 1, 1, 1
+#&gt;  9 4851                                                          1, 2, 1, 1
+#&gt; 10 4854                                                          1, 2, 1, 1
+#&gt; 11 4855                                        1, 2, 3, 4, 5, 1, 1, 1, 1, 1
+#&gt; 12 4857                1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 1, 1, 1, 1, 1, 1, 1, 1
+#&gt; 13 4858  1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1
+#&gt; 14 4859                                        1, 2, 3, 4, 5, 1, 1, 1, 1, 1
+#&gt; 15 4861  1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1
+#&gt; 16 4862                1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 1, 1, 1, 1, 1, 1, 1, 1
+#&gt; 17 4863                                                          1, 2, 1, 1
+#&gt; 18 4864                                                          1, 2, 1, 1
+#&gt; 19 4865                                                    1, 2, 3, 1, 1, 1</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
       
-      <li><a href="#rules-for-selection">Rules for selection</a></li>
+      <li><a href="#grouped-data-frames">Grouped data frames</a></li>
 
       <li><a href="#see-also">See also</a></li>
       

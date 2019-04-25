@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Unnest a list column. — unnest • tidyr</title>
+<title>Unnest a list-column of data frames — unnest • tidyr</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -31,11 +31,13 @@
 
 
 
-<meta property="og:title" content="Unnest a list column. — unnest" />
+<meta property="og:title" content="Unnest a list-column of data frames — unnest" />
 
-<meta property="og:description" content="If you have a list-column, this makes each element of the list its own
-row. unnest() can handle list-columns that contain atomic vectors, lists, or
-data frames (but not a mixture of the different types)." />
+<meta property="og:description" content="unnest(), unnest_longer(), and unnest_wider() flatten list-columns
+into regular columns. unnest() is designed primarily for lists of data
+frames, where unnest_wider() and unnest_longer() are designed
+specifically for lists of vectors.
+Learn more in vignette(&quot;rectangling&quot;)." />
 
 <meta property="og:image" content="https://tidyr.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -98,9 +100,6 @@ data frames (but not a mixture of the different types)." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/chop-pack-nest.html">chop-pack-nest</a>
-    </li>
-    <li>
       <a href="../articles/pivot.html">Pivoting</a>
     </li>
     <li>
@@ -129,21 +128,30 @@ data frames (but not a mixture of the different types)." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Unnest a list column.</h1>
+    <h1>Unnest a list-column of data frames</h1>
     <small class="dont-index">Source: <a href='https://github.com/tidyverse/tidyr/blob/master/R/unnest.R'><code>R/unnest.R</code></a></small>
     <div class="hidden name"><code>unnest.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>If you have a list-column, this makes each element of the list its own
-row. <code>unnest()</code> can handle list-columns that contain atomic vectors, lists, or
-data frames (but not a mixture of the different types).</p>
+    <p><code>unnest()</code>, <code>unnest_longer()</code>, and <code>unnest_wider()</code> flatten list-columns
+into regular columns. <code>unnest()</code> is designed primarily for lists of data
+frames, where <code>unnest_wider()</code> and <code>unnest_longer()</code> are designed
+specifically for lists of vectors.</p>
+<p>Learn more in <code>vignette("rectangling")</code>.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>unnest</span>(<span class='no'>data</span>, <span class='no'>...</span>, <span class='kw'>.drop</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>.id</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>.sep</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>.preserve</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>unnest</span>(<span class='no'>data</span>, <span class='no'>cols</span>, <span class='no'>...</span>, <span class='kw'>keep_empty</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>ptype</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>names_sep</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>name_repair</span> <span class='kw'>=</span> <span class='st'>"check_unique"</span>,
+  <span class='kw'>.drop</span> <span class='kw'>=</span> <span class='st'>"DEPRECATED"</span>, <span class='kw'>.id</span> <span class='kw'>=</span> <span class='st'>"DEPRECATED"</span>, <span class='kw'>.sep</span> <span class='kw'>=</span> <span class='st'>"DEPRECATED"</span>,
+  <span class='kw'>.preserve</span> <span class='kw'>=</span> <span class='st'>"DEPRECATED"</span>)
+
+<span class='fu'>unnest_longer</span>(<span class='no'>df</span>, <span class='no'>cols</span>, <span class='kw'>value_to</span> <span class='kw'>=</span> <span class='st'>"values"</span>, <span class='kw'>index_to</span> <span class='kw'>=</span> <span class='st'>"index"</span>,
+  <span class='kw'>keep_empty</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>names_sep</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>name_repair</span> <span class='kw'>=</span> <span class='st'>"check_unique"</span>)
+
+<span class='fu'>unnest_wider</span>(<span class='no'>df</span>, <span class='no'>cols</span>, <span class='kw'>names_sep</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>name_repair</span> <span class='kw'>=</span> <span class='st'>"check_unique"</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -153,41 +161,101 @@ data frames (but not a mixture of the different types).</p>
       <td><p>A data frame.</p></td>
     </tr>
     <tr>
-      <th>...</th>
-      <td><p>Specification of columns to unnest. Use bare variable names or
-functions of variables. If omitted, defaults to all list-cols.</p></td>
+      <th>cols</th>
+      <td><p>Names of columns to unnest.</p>
+<p>If you <code>unnest()</code> multiple columns, parallel entries must compatible
+sizes, i.e. they're either equal or length 1 (following the standard
+tidyverse recycling rules).</p></td>
     </tr>
     <tr>
-      <th>.drop</th>
-      <td><p>Should additional list columns be dropped? By default,
-<code>unnest</code> will drop them if unnesting the specified columns requires
-the rows to be duplicated.</p></td>
+      <th>...</th>
+      <td><p><strong>Deprecated</strong>:
+Convert <code>df %&gt;% unnest(x, y)</code> to <code>df %&gt;% unnest(c(x, y))</code> and
+<code>df %&gt;% unnest(y = fun(x, y, z))</code> to
+<code>df %&gt;% mutate(y = fun(x, y, z)) %&gt;% unnest(y)</code>.</p></td>
+    </tr>
+    <tr>
+      <th>keep_empty</th>
+      <td><p>By default, elements of <code>col</code> that have size zero will
+be ommitted from the output. Setting <code>keep_empty = TRUE</code> will ensure
+that they're preserved</p></td>
+    </tr>
+    <tr>
+      <th>ptype</th>
+      <td><p>Optionally, supply a data frame prototype for the output <code>cols</code>,
+overriding the default that will be guessed from the combination of
+individual values.</p></td>
+    </tr>
+    <tr>
+      <th>names_sep</th>
+      <td><p>If <code>NULL</code>, the default, the names of new columns will
+come directly from the inner data frame.</p>
+<p>If a string, the names of the new columns will be formed by pasting
+together the outer column name with the inner names, separated by
+<code>names_sep</code>.</p></td>
+    </tr>
+    <tr>
+      <th>name_repair</th>
+      <td><p>Used to check that output data frame has valid
+names. Must be one of the following options:</p><ul>
+<li><p>"minimal": No name repair or checks, beyond basic existence,</p></li>
+<li><p>"unique": Make sure names are unique and not empty,</p></li>
+<li><p>"check_unique": (the default), no name repair, but check they are unique,</p></li>
+<li><p>"universal": Make the names unique and syntactic</p></li>
+<li><p>a function: apply custom name repair.</p></li>
+<li><p>a formula: a purrr-style anonymous function (see <code><a href='https://rlang.r-lib.org/reference/as_function.html'>rlang::as_function()</a></code>)</p></li>
+</ul>
+
+<p>See <a href='https://tibble.tidyverse.org/reference/name-repair.html'>tibble::name-repair</a> for more details on these terms and the
+strategies used to enforce them.</p></td>
+    </tr>
+    <tr>
+      <th>.drop, .preserve</th>
+      <td><p><strong>Deprecated</strong>: all list-columns are now preserved;
+If there are any that you don't want in the output use <code>select()</code> to
+remove them prior to unnesting.</p></td>
     </tr>
     <tr>
       <th>.id</th>
-      <td><p>Data frame identifier - if supplied, will create a new column
-with name <code>.id</code>, giving a unique identifier. This is most useful if
-the list column is named.</p></td>
+      <td><p><strong>Deprecated</strong>: convert <code>df %&gt;% unnest(x, .id = "id")</code> to
+<code>df %&gt;% mutate(id = names(x)) %&gt;% unnest(x))</code>.</p></td>
     </tr>
     <tr>
       <th>.sep</th>
-      <td><p>If non-<code>NULL</code>, the names of unnested data frame columns
-will combine the name of the original list-col with the names from
-nested data frame, separated by <code>.sep</code>.</p></td>
+      <td><p><strong>Deprecated</strong>: use <code>names_sep</code> instead.</p></td>
     </tr>
     <tr>
-      <th>.preserve</th>
-      <td><p>Optionally, list-columns to preserve in the output. These
-will be duplicated in the same way as atomic vectors. This has
-<a href='https://dplyr.tidyverse.org/reference/select.html'>dplyr::select</a> semantics so you can preserve multiple variables with
-<code>.preserve = c(x, y)</code> or <code>.preserve = starts_with("list")</code>.</p></td>
+      <th>df</th>
+      <td><p>A data frame.</p></td>
+    </tr>
+    <tr>
+      <th>value_to</th>
+      <td><p>Name of column to store vector values.</p></td>
+    </tr>
+    <tr>
+      <th>index_to</th>
+      <td><p>A string giving the name of a new column which will
+contain the inner names of the values. If unnamed, <code>col</code> will instead
+contain numeric indices.</p></td>
     </tr>
     </table>
     
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+    <h2 class="hasAnchor" id="unnest-variants"><a class="anchor" href="#unnest-variants"></a>Unnest variants</h2>
 
-    <p>If you unnest multiple columns, parallel entries must have the same length
-or number of rows (if a data frame).</p>
+    
+    <p>The three <code>unnest()</code> functions differ in how they change the shape of the
+output data frame:</p><ul>
+<li><p><code>unnest_wider()</code> preserves the rows, but changes the columns.</p></li>
+<li><p><code>unnest_longer()</code> preserves the columns, but changes the rows</p></li>
+<li><p><code>unnest()</code> can change both rows and columns.</p></li>
+</ul>
+    <p>These principles guide their behaviour when they are called with a
+non-primary data type. For example, if you <code>unnest_wider()</code> a list of data
+frames, the number of rows must be preserved, so each column is turned into
+a list column of length one. Or if you <code>unnest_longer()</code> a list of data
+frame, the number of columns must be preserved so it creates a packed
+column. I'm not sure how if these behaviours are useful in practice, but
+they are theoretically pleasing.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
@@ -195,100 +263,126 @@ or number of rows (if a data frame).</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>dplyr</span>)
+    <pre class="examples"><div class='input'><span class='co'># unnest() is primarily design to work with nested columns, i.e. lists</span>
+<span class='co'># of tibbles or data frames</span>
 <span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(
   <span class='kw'>x</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>3</span>,
-  <span class='kw'>y</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"a"</span>, <span class='st'>"d,e,f"</span>, <span class='st'>"g,h"</span>)
+  <span class='kw'>y</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(
+    <span class='kw'>NULL</span>,
+    <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(<span class='kw'>a</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>b</span> <span class='kw'>=</span> <span class='fl'>2</span>),
+    <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(<span class='kw'>a</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>3</span>, <span class='kw'>b</span> <span class='kw'>=</span> <span class='fl'>3</span>:<span class='fl'>1</span>)
+  )
 )
-<span class='no'>df</span> <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/transform'>transform</a></span>(<span class='kw'>y</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/strsplit'>strsplit</a></span>(<span class='no'>y</span>, <span class='st'>","</span>)) <span class='kw'>%&gt;%</span>
-  <span class='fu'>unnest</span>(<span class='no'>y</span>)</div><div class='output co'>#&gt;   x y
-#&gt; 1 1 a
-#&gt; 2 2 d
-#&gt; 3 2 e
-#&gt; 4 2 f
-#&gt; 5 3 g
-#&gt; 6 3 h</div><div class='input'>
-<span class='co'># Or just</span>
-<span class='no'>df</span> <span class='kw'>%&gt;%</span>
-  <span class='fu'>unnest</span>(<span class='kw'>y</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/strsplit'>strsplit</a></span>(<span class='no'>y</span>, <span class='st'>","</span>))</div><div class='output co'>#&gt; # A tibble: 6 x 2
-#&gt;       x y    
-#&gt;   &lt;int&gt; &lt;chr&gt;
-#&gt; 1     1 a    
-#&gt; 2     2 d    
-#&gt; 3     2 e    
-#&gt; 4     2 f    
-#&gt; 5     3 g    
-#&gt; 6     3 h    </div><div class='input'>
-<span class='co'># It also works if you have a column that contains other data frames!</span>
+<span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>unnest</span>(<span class='no'>y</span>)</div><div class='output co'>#&gt; # A tibble: 4 x 3
+#&gt;       x     a     b
+#&gt;   &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;
+#&gt; 1     2     1     2
+#&gt; 2     3     1     3
+#&gt; 3     3     2     2
+#&gt; 4     3     3     1</div><div class='input'><span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>unnest</span>(<span class='no'>y</span>, <span class='kw'>keep_empty</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; # A tibble: 5 x 3
+#&gt;       x     a     b
+#&gt;   &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;
+#&gt; 1     1    NA    NA
+#&gt; 2     2     1     2
+#&gt; 3     3     1     3
+#&gt; 4     3     2     2
+#&gt; 5     3     3     1</div><div class='input'>
+<span class='co'># You can use unnest_longer() and unnest_wider() with nested dfs,</span>
+<span class='co'># although it's not clear how useful the results are. unnest_longer()</span>
+<span class='co'># maintains the same number of columns, creating a packed data frame,</span>
+<span class='co'># while unnest_wider() maintains the same number of rows, creating</span>
+<span class='co'># list-cols of vectors</span>
+<span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>unnest_wider</span>(<span class='no'>y</span>)</div><div class='output co'>#&gt; # A tibble: 3 x 3
+#&gt;       x a         b        
+#&gt;   &lt;int&gt; &lt;list&gt;    &lt;list&gt;   
+#&gt; 1     1 &lt;NULL&gt;    &lt;NULL&gt;   
+#&gt; 2     2 &lt;dbl [1]&gt; &lt;dbl [1]&gt;
+#&gt; 3     3 &lt;int [3]&gt; &lt;int [3]&gt;</div><div class='input'><span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>unnest_longer</span>(<span class='no'>y</span>)</div><div class='output co'>#&gt; # A tibble: 4 x 2
+#&gt;       x   y$a    $b
+#&gt;   &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;
+#&gt; 1     2     1     2
+#&gt; 2     3     1     3
+#&gt; 3     3     2     2
+#&gt; 4     3     3     1</div><div class='input'>
+<span class='co'># Typically, however, you'll use unnest_longer() and _wider() with</span>
+<span class='co'># list-cols containing vectors</span>
+<span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(
+  <span class='kw'>x</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>3</span>,
+  <span class='kw'>y</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(<span class='kw'>NULL</span>, <span class='fl'>1</span>:<span class='fl'>3</span>, <span class='fl'>4</span>:<span class='fl'>5</span>)
+)
+<span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>unnest_longer</span>(<span class='no'>y</span>)</div><div class='output co'>#&gt; # A tibble: 5 x 3
+#&gt;       x values index
+#&gt;   &lt;int&gt;  &lt;int&gt; &lt;int&gt;
+#&gt; 1     2      1     1
+#&gt; 2     2      2     2
+#&gt; 3     2      3     3
+#&gt; 4     3      4     1
+#&gt; 5     3      5     2</div><div class='input'><span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>unnest_longer</span>(<span class='no'>y</span>, <span class='kw'>keep_empty</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; # A tibble: 6 x 3
+#&gt;       x values index
+#&gt;   &lt;int&gt;  &lt;int&gt; &lt;int&gt;
+#&gt; 1     1     NA    NA
+#&gt; 2     2      1     1
+#&gt; 3     2      2     2
+#&gt; 4     2      3     3
+#&gt; 5     3      4     1
+#&gt; 6     3      5     2</div><div class='input'><span class='co'># Automatically creates names if widening</span>
+<span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>unnest_wider</span>(<span class='no'>y</span>)</div><div class='output co'>#&gt; <span class='message'>New names:</span>
+#&gt; <span class='message'>* `` -&gt; ...1</span>
+#&gt; <span class='message'>* `` -&gt; ...2</span>
+#&gt; <span class='message'>* `` -&gt; ...3</span></div><div class='output co'>#&gt; <span class='message'>New names:</span>
+#&gt; <span class='message'>* `` -&gt; ...1</span>
+#&gt; <span class='message'>* `` -&gt; ...2</span></div><div class='output co'>#&gt; # A tibble: 3 x 4
+#&gt;       x  ...1  ...2  ...3
+#&gt;   &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;
+#&gt; 1     1    NA    NA    NA
+#&gt; 2     2     1     2     3
+#&gt; 3     3     4     5    NA</div><div class='input'>
+<span class='co'># And similarly if the vectors are named</span>
 <span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(
   <span class='kw'>x</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>2</span>,
-  <span class='kw'>y</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(
-   <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(<span class='kw'>z</span> <span class='kw'>=</span> <span class='fl'>1</span>),
-   <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(<span class='kw'>z</span> <span class='kw'>=</span> <span class='fl'>3</span>:<span class='fl'>4</span>)
- )
+  <span class='kw'>y</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='kw'>a</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>b</span> <span class='kw'>=</span> <span class='fl'>2</span>), <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='kw'>a</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>b</span> <span class='kw'>=</span> <span class='fl'>11</span>, <span class='kw'>c</span> <span class='kw'>=</span> <span class='fl'>12</span>))
 )
-<span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>unnest</span>(<span class='no'>y</span>)</div><div class='output co'>#&gt; # A tibble: 3 x 2
-#&gt;       x     z
-#&gt;   &lt;int&gt; &lt;dbl&gt;
-#&gt; 1     1     1
-#&gt; 2     2     3
-#&gt; 3     2     4</div><div class='input'>
-<span class='co'># You can also unnest multiple columns simultaneously</span>
+<span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>unnest_wider</span>(<span class='no'>y</span>)</div><div class='output co'>#&gt; # A tibble: 2 x 4
+#&gt;       x     a     b     c
+#&gt;   &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+#&gt; 1     1     1     2    NA
+#&gt; 2     2    10    11    12</div><div class='input'><span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>unnest_longer</span>(<span class='no'>y</span>)</div><div class='output co'>#&gt; # A tibble: 5 x 3
+#&gt;       x values index
+#&gt;   &lt;int&gt;  &lt;dbl&gt; &lt;chr&gt;
+#&gt; 1     1      1 a    
+#&gt; 2     1      2 b    
+#&gt; 3     2     10 a    
+#&gt; 4     2     11 b    
+#&gt; 5     2     12 c    </div><div class='input'>
+<span class='co'># You can unnest multiple columns simultaneously</span>
 <span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(
  <span class='kw'>a</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"a"</span>, <span class='st'>"b"</span>), <span class='st'>"c"</span>),
  <span class='kw'>b</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(<span class='fl'>1</span>:<span class='fl'>2</span>, <span class='fl'>3</span>),
  <span class='kw'>c</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>11</span>, <span class='fl'>22</span>)
 )
-<span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>unnest</span>(<span class='no'>a</span>, <span class='no'>b</span>)</div><div class='output co'>#&gt; # A tibble: 3 x 3
-#&gt;       c a         b
-#&gt;   &lt;dbl&gt; &lt;chr&gt; &lt;dbl&gt;
-#&gt; 1    11 a         1
-#&gt; 2    11 b         2
-#&gt; 3    22 c         3</div><div class='input'><span class='co'># If you omit the column names, it'll unnest all list-cols</span>
-<span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>unnest</span>()</div><div class='output co'>#&gt; # A tibble: 3 x 3
-#&gt;       c a         b
-#&gt;   &lt;dbl&gt; &lt;chr&gt; &lt;dbl&gt;
-#&gt; 1    11 a         1
-#&gt; 2    11 b         2
-#&gt; 3    22 c         3</div><div class='input'>
-<span class='co'># You can also choose to preserve one or more list-cols</span>
-<span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>unnest</span>(<span class='no'>a</span>, <span class='kw'>.preserve</span> <span class='kw'>=</span> <span class='no'>b</span>)</div><div class='output co'>#&gt; # A tibble: 3 x 3
-#&gt;       c b         a    
-#&gt;   &lt;dbl&gt; &lt;list&gt;    &lt;chr&gt;
-#&gt; 1    11 &lt;int [2]&gt; a    
-#&gt; 2    11 &lt;int [2]&gt; b    
-#&gt; 3    22 &lt;dbl [1]&gt; c    </div><div class='input'>
-<span class='co'># Nest and unnest are inverses</span>
-<span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/data.frame'>data.frame</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>2</span>), <span class='kw'>y</span> <span class='kw'>=</span> <span class='fl'>3</span>:<span class='fl'>1</span>)
-<span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='nest.html'>nest</a></span>(<span class='no'>y</span>)</div><div class='output co'>#&gt; # A tibble: 2 x 2
-#&gt;       x data            
-#&gt;   &lt;dbl&gt; &lt;list&gt;          
-#&gt; 1     1 &lt;tibble [2 × 1]&gt;
-#&gt; 2     2 &lt;tibble [1 × 1]&gt;</div><div class='input'><span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='nest.html'>nest</a></span>(<span class='no'>y</span>) <span class='kw'>%&gt;%</span> <span class='fu'>unnest</span>()</div><div class='output co'>#&gt; # A tibble: 3 x 2
-#&gt;       x     y
-#&gt;   &lt;dbl&gt; &lt;int&gt;
-#&gt; 1     1     3
-#&gt; 2     1     2
-#&gt; 3     2     1</div><div class='input'>
-<span class='co'># If you have a named list-column, you may want to supply .id</span>
-<span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(
-  <span class='kw'>x</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>2</span>,
-  <span class='kw'>y</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(<span class='kw'>a</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>b</span> <span class='kw'>=</span> <span class='fl'>3</span>:<span class='fl'>4</span>)
-)
-<span class='fu'>unnest</span>(<span class='no'>df</span>, <span class='kw'>.id</span> <span class='kw'>=</span> <span class='st'>"name"</span>)</div><div class='output co'>#&gt; # A tibble: 3 x 3
-#&gt;       x     y name 
-#&gt;   &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;
-#&gt; 1     1     1 a    
-#&gt; 2     2     3 b    
-#&gt; 3     2     4 b    </div></pre>
+<span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>unnest</span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='no'>a</span>, <span class='no'>b</span>))</div><div class='output co'>#&gt; # A tibble: 3 x 3
+#&gt;   a         b     c
+#&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;
+#&gt; 1 a         1    11
+#&gt; 2 b         2    11
+#&gt; 3 c         3    22</div><div class='input'>
+<span class='co'># Compare with unnesting one column at a time, which generates</span>
+<span class='co'># the Cartesian product</span>
+<span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>unnest</span>(<span class='no'>a</span>) <span class='kw'>%&gt;%</span> <span class='fu'>unnest</span>(<span class='no'>b</span>)</div><div class='output co'>#&gt; # A tibble: 5 x 3
+#&gt;   a         b     c
+#&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;
+#&gt; 1 a         1    11
+#&gt; 2 a         2    11
+#&gt; 3 b         1    11
+#&gt; 4 b         2    11
+#&gt; 5 c         3    22</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
       
-      <li><a href="#details">Details</a></li>
+      <li><a href="#unnest-variants">Unnest variants</a></li>
 
       <li><a href="#see-also">See also</a></li>
       

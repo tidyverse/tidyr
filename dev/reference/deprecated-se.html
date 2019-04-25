@@ -103,9 +103,6 @@ with NSE verbs. Thus, the underscored versions are now superfluous." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/chop-pack-nest.html">chop-pack-nest</a>
-    </li>
-    <li>
       <a href="../articles/pivot.html">Pivoting</a>
     </li>
     <li>
@@ -170,7 +167,7 @@ with NSE verbs. Thus, the underscored versions are now superfluous.</p>
 <span class='fu'>gather_</span>(<span class='no'>data</span>, <span class='no'>key_col</span>, <span class='no'>value_col</span>, <span class='no'>gather_cols</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>convert</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>factor_key</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
-<span class='fu'>nest_</span>(<span class='no'>data</span>, <span class='no'>key_col</span>, <span class='kw'>nest_cols</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/character'>character</a></span>())
+<span class='fu'>nest_</span>(<span class='no'>...</span>)
 
 <span class='fu'>separate_rows_</span>(<span class='no'>data</span>, <span class='no'>cols</span>, <span class='kw'>sep</span> <span class='kw'>=</span> <span class='st'>"[^[:alnum:].]+"</span>, <span class='kw'>convert</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
@@ -182,8 +179,7 @@ with NSE verbs. Thus, the underscored versions are now superfluous.</p>
 
 <span class='fu'>unite_</span>(<span class='no'>data</span>, <span class='no'>col</span>, <span class='no'>from</span>, <span class='kw'>sep</span> <span class='kw'>=</span> <span class='st'>"_"</span>, <span class='kw'>remove</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 
-<span class='fu'>unnest_</span>(<span class='no'>data</span>, <span class='no'>unnest_cols</span>, <span class='kw'>.drop</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>.id</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>.sep</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>.preserve</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+<span class='fu'>unnest_</span>(<span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -273,10 +269,6 @@ stored as a character vector. If <code>TRUE</code>, will be stored as a factor,
 which preserves the original ordering of the columns.</p></td>
     </tr>
     <tr>
-      <th>nest_cols</th>
-      <td><p>Character vector of columns to nest.</p></td>
-    </tr>
-    <tr>
       <th>sep</th>
       <td><p>Separator delimiting collapsed values.</p></td>
     </tr>
@@ -299,35 +291,6 @@ data, filling in missing combinations with <code>fill</code>.</p></td>
       <td><p>Names of existing columns as character vector</p></td>
     </tr>
     <tr>
-      <th>unnest_cols</th>
-      <td><p>Name of columns that needs to be unnested.</p></td>
-    </tr>
-    <tr>
-      <th>.drop</th>
-      <td><p>Should additional list columns be dropped? By default,
-<code>unnest</code> will drop them if unnesting the specified columns requires
-the rows to be duplicated.</p></td>
-    </tr>
-    <tr>
-      <th>.id</th>
-      <td><p>Data frame identifier - if supplied, will create a new column
-with name <code>.id</code>, giving a unique identifier. This is most useful if
-the list column is named.</p></td>
-    </tr>
-    <tr>
-      <th>.sep</th>
-      <td><p>If non-<code>NULL</code>, the names of unnested data frame columns
-will combine the name of the original list-col with the names from
-nested data frame, separated by <code>.sep</code>.</p></td>
-    </tr>
-    <tr>
-      <th>.preserve</th>
-      <td><p>Optionally, list-columns to preserve in the output. These
-will be duplicated in the same way as atomic vectors. This has
-<a href='https://dplyr.tidyverse.org/reference/select.html'>dplyr::select</a> semantics so you can preserve multiple variables with
-<code>.preserve = c(x, y)</code> or <code>.preserve = starts_with("list")</code>.</p></td>
-    </tr>
-    <tr>
       <th>expand_cols</th>
       <td><p>Character vector of column names to be expanded.</p></td>
     </tr>
@@ -336,8 +299,16 @@ will be duplicated in the same way as atomic vectors. This has
       <td><p>Name of the column that will contain the nested data frames.</p></td>
     </tr>
     <tr>
+      <th>nest_cols</th>
+      <td><p>Character vector of columns to nest.</p></td>
+    </tr>
+    <tr>
       <th>key_col, value_col</th>
       <td><p>Strings giving names of key and value cols.</p></td>
+    </tr>
+    <tr>
+      <th>unnest_cols</th>
+      <td><p>Name of columns that needs to be unnested.</p></td>
     </tr>
     </table>
     

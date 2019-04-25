@@ -99,9 +99,6 @@ so that each element of the list-column gets its own row in the output." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/chop-pack-nest.html">chop-pack-nest</a>
-    </li>
-    <li>
       <a href="../articles/pivot.html">Pivoting</a>
     </li>
     <li>
@@ -169,9 +166,9 @@ that they're preserved</p></td>
     </tr>
     <tr>
       <th>ptype</th>
-      <td><p>Optionally, supply a prototype for the output <code>col</code>, overriding
-the default that will be guessed from the combination of individual
-values.</p></td>
+      <td><p>Optionally, supply a data frame prototype for the output <code>cols</code>,
+overriding the default that will be guessed from the combination of
+individual values.</p></td>
     </tr>
     </table>
     
@@ -181,7 +178,6 @@ values.</p></td>
 a complex data structure, and <code><a href='nest.html'>nest()</a></code>ing is usually more appropriate
 that <code>chop()</code>ing` since it better preserves the connections between
 observations.</p>
-<p>Learn more in <code><a href='../articles/chop-pack-nest.html'>vignette("chop-pack-nest")</a></code>.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -195,12 +191,13 @@ observations.</p>
 #&gt; 1     1 &lt;int [3]&gt; &lt;int [3]&gt;
 #&gt; 2     2 &lt;int [2]&gt; &lt;int [2]&gt;
 #&gt; 3     3 &lt;int [1]&gt; &lt;int [1]&gt;</div><div class='input'><span class='co'># cf nest</span>
-<span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='nest.html'>nest</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='no'>y</span>, <span class='no'>z</span>))</div><div class='output co'>#&gt; # A tibble: 3 x 2
-#&gt;       x data            
-#&gt;   &lt;dbl&gt; &lt;list&gt;          
-#&gt; 1     1 &lt;tibble [3 × 2]&gt;
-#&gt; 2     2 &lt;tibble [2 × 2]&gt;
-#&gt; 3     3 &lt;tibble [1 × 2]&gt;</div><div class='input'>
+<span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='nest.html'>nest</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='no'>y</span>, <span class='no'>z</span>))</div><div class='output co'>#&gt; <span class='warning'>Warning: All elements of `...` must be named.</span>
+#&gt; <span class='warning'>Did you want `data = c(y, z)`?</span></div><div class='output co'>#&gt; # A tibble: 3 x 2
+#&gt;       x             data
+#&gt;   &lt;dbl&gt;   &lt;list&lt;df[,2]&gt;&gt;
+#&gt; 1     1 1, 2, 3, 6, 5, 4
+#&gt; 2     2       4, 5, 3, 2
+#&gt; 3     3             6, 1</div><div class='input'>
 <span class='co'># Unchop ============================================================</span>
 <span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>4</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/integer'>integer</a></span>(), <span class='fl'>1L</span>, <span class='fl'>1</span>:<span class='fl'>2</span>, <span class='fl'>1</span>:<span class='fl'>3</span>))
 <span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>unchop</span>(<span class='no'>y</span>)</div><div class='output co'>#&gt; # A tibble: 6 x 2
@@ -211,19 +208,20 @@ observations.</p>
 #&gt; 3     3     2
 #&gt; 4     4     1
 #&gt; 5     4     2
-#&gt; 6     4     3</div><div class='input'><span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>unchop</span>(<span class='no'>y</span>, <span class='kw'>keep_empty</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; # A tibble: 6 x 2
+#&gt; 6     4     3</div><div class='input'><span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>unchop</span>(<span class='no'>y</span>, <span class='kw'>keep_empty</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; # A tibble: 7 x 2
 #&gt;       x     y
 #&gt;   &lt;int&gt; &lt;int&gt;
-#&gt; 1     2     1
-#&gt; 2     3     1
-#&gt; 3     3     2
-#&gt; 4     4     1
-#&gt; 5     4     2
-#&gt; 6     4     3</div><div class='input'>
+#&gt; 1     1    NA
+#&gt; 2     2     1
+#&gt; 3     3     1
+#&gt; 4     3     2
+#&gt; 5     4     1
+#&gt; 6     4     2
+#&gt; 7     4     3</div><div class='input'>
 <span class='co'># Incompatible types -------------------------------------------------</span>
 <span class='co'># If the list-col contains types that can not be natively</span>
 <span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>2</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(<span class='st'>"1"</span>, <span class='fl'>1</span>:<span class='fl'>3</span>))
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/try'>try</a></span>(<span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>unchop</span>(<span class='no'>y</span>))</div><div class='output co'>#&gt; Error : No common type for &lt;character&gt; and &lt;integer&gt;.
+<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/try'>try</a></span>(<span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>unchop</span>(<span class='no'>y</span>))</div><div class='output co'>#&gt; Error : No common type for `y` &lt;character&gt; and `y` &lt;integer&gt;.
 #&gt; Backtrace:
 #&gt;      █
 #&gt;   1. ├─base::tryCatch(...)
@@ -277,24 +275,33 @@ observations.</p>
 #&gt;  49. │                                     ├─base::withVisible(function_list[[k]](value))
 #&gt;  50. │                                     └─function_list[[k]](value)
 #&gt;  51. │                                       └─tidyr::unchop(., y)
-#&gt;  52. │                                         └─vctrs::vec_type_common(!!!x, .ptype = ptype) /home/travis/build/tidyverse/tidyr/R/chop.R:85:2
-#&gt;  53. ├─vctrs:::vec_type2_dispatch(x = x, y = y, x_arg = x_arg, y_arg = y_arg)
-#&gt;  54. ├─vctrs::vec_type2.character(x = x, y = y, x_arg = x_arg, y_arg = y_arg)
-#&gt;  55. └─vctrs:::vec_type2.character.default(...)
-#&gt;  56.   └─vctrs::stop_incompatible_type(x, y, x_arg = x_arg, y_arg = y_arg)
-#&gt;  57.     └─vctrs:::stop_incompatible(...)</div><div class='input'><span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>unchop</span>(<span class='no'>y</span>, <span class='kw'>ptype</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/integer'>integer</a></span>())</div><div class='output co'>#&gt; # A tibble: 4 x 2
+#&gt;  52. │                                         └─vctrs::vec_rbind(!!!x, .ptype = ptype) /home/travis/build/tidyverse/tidyr/R/chop.R:93:4
+#&gt;  53. │                                           └─vctrs::vec_type_common(!!!tbls, .ptype = .ptype)
+#&gt;  54. ├─vctrs:::vec_type2_dispatch(x = x, y = y, x_arg = x_arg, y_arg = y_arg)
+#&gt;  55. ├─vctrs::vec_type2.tbl_df(x = x, y = y, x_arg = x_arg, y_arg = y_arg)
+#&gt;  56. ├─vctrs:::vec_type2.tbl_df.data.frame(...)
+#&gt;  57. │ └─vctrs:::df_col_type2(x, y, ...)
+#&gt;  58. │   └─vctrs:::pmap(...)
+#&gt;  59. │     ├─base::do.call(...)
+#&gt;  60. │     └─base::mapply(...)
+#&gt;  61. │       └─(function (x, y, ..., x_arg = "", y_arg = "") ...
+#&gt;  62. ├─vctrs:::vec_type2_dispatch(x = x, y = y, x_arg = x_arg, y_arg = y_arg)
+#&gt;  63. ├─vctrs::vec_type2.character(x = x, y = y, x_arg = x_arg, y_arg = y_arg)
+#&gt;  64. └─vctrs:::vec_type2.character.default(...)
+#&gt;  65.   └─vctrs::stop_incompatible_type(x, y, x_arg = x_arg, y_arg = y_arg)
+#&gt;  66.     └─vctrs:::stop_incompatible(...)</div><div class='input'><span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>unchop</span>(<span class='no'>y</span>, <span class='kw'>ptype</span> <span class='kw'>=</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(<span class='kw'>y</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/integer'>integer</a></span>()))</div><div class='output co'>#&gt; # A tibble: 4 x 2
 #&gt;       x     y
 #&gt;   &lt;int&gt; &lt;int&gt;
 #&gt; 1     1     1
 #&gt; 2     2     1
 #&gt; 3     2     2
-#&gt; 4     2     3</div><div class='input'><span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>unchop</span>(<span class='no'>y</span>, <span class='kw'>ptype</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/character'>character</a></span>())</div><div class='output co'>#&gt; # A tibble: 4 x 2
+#&gt; 4     2     3</div><div class='input'><span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>unchop</span>(<span class='no'>y</span>, <span class='kw'>ptype</span> <span class='kw'>=</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(<span class='kw'>y</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/character'>character</a></span>()))</div><div class='output co'>#&gt; # A tibble: 4 x 2
 #&gt;       x y    
 #&gt;   &lt;int&gt; &lt;chr&gt;
 #&gt; 1     1 1    
 #&gt; 2     2 1    
 #&gt; 3     2 2    
-#&gt; 4     2 3    </div><div class='input'><span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>unchop</span>(<span class='no'>y</span>, <span class='kw'>ptype</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>())</div><div class='output co'>#&gt; # A tibble: 4 x 2
+#&gt; 4     2 3    </div><div class='input'><span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>unchop</span>(<span class='no'>y</span>, <span class='kw'>ptype</span> <span class='kw'>=</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(<span class='kw'>y</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>()))</div><div class='output co'>#&gt; # A tibble: 4 x 2
 #&gt;       x y        
 #&gt;   &lt;int&gt; &lt;list&gt;   
 #&gt; 1     1 &lt;chr [1]&gt;

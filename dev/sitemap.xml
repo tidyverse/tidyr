@@ -46,9 +46,6 @@
     <loc>https://tidyr.tidyverse.org/reference/nest.html</loc>
   </url>
   <url>
-    <loc>https://tidyr.tidyverse.org/reference/nest2.html</loc>
-  </url>
-  <url>
     <loc>https://tidyr.tidyverse.org/reference/pack.html</loc>
   </url>
   <url>
@@ -101,9 +98,6 @@
   </url>
   <url>
     <loc>https://tidyr.tidyverse.org/reference/world_bank_pop.html</loc>
-  </url>
-  <url>
-    <loc>https://tidyr.tidyverse.org/articles/chop-pack-nest.html</loc>
   </url>
   <url>
     <loc>https://tidyr.tidyverse.org/articles/pivot.html</loc>
