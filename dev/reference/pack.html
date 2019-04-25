@@ -35,7 +35,7 @@
 
 <meta property="og:description" content="Packing and unpacking preserve the length of a data frame, changing its
 width. pack() makes df narrow by collapsing a set of columns into a
-single df-column. unpack() makes df wider by expanding df-columns
+single df-column. unpack() makes data wider by expanding df-columns
 back out into individual columns." />
 
 <meta property="og:image" content="https://tidyr.tidyverse.org/logo.png" />
@@ -136,20 +136,20 @@ back out into individual columns." />
     
     <p>Packing and unpacking preserve the length of a data frame, changing its
 width. <code>pack()</code> makes <code>df</code> narrow by collapsing a set of columns into a
-single df-column. <code>unpack()</code> makes <code>df</code> wider by expanding df-columns
+single df-column. <code>unpack()</code> makes <code>data</code> wider by expanding df-columns
 back out into individual columns.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>pack</span>(<span class='no'>df</span>, <span class='no'>...</span>)
+    <pre class="usage"><span class='fu'>pack</span>(<span class='no'>data</span>, <span class='no'>...</span>)
 
-<span class='fu'>unpack</span>(<span class='no'>df</span>, <span class='no'>cols</span>, <span class='kw'>names_sep</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>name_repair</span> <span class='kw'>=</span> <span class='st'>"check_unique"</span>)</pre>
+<span class='fu'>unpack</span>(<span class='no'>data</span>, <span class='no'>cols</span>, <span class='kw'>names_sep</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>names_repair</span> <span class='kw'>=</span> <span class='st'>"check_unique"</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>df</th>
+      <th>data</th>
       <td><p>A data frame.</p></td>
     </tr>
     <tr>
@@ -171,7 +171,7 @@ together the outer column name with the inner names, separated by
 <code>names_sep</code>.</p></td>
     </tr>
     <tr>
-      <th>name_repair</th>
+      <th>names_repair</th>
       <td><p>Used to check that output data frame has valid
 names. Must be one of the following options:</p><ul>
 <li><p>"minimal": No name repair or checks, beyond basic existence,</p></li>
@@ -242,8 +242,7 @@ they mimic the nested column headers that are so popular in Excel.</p>
 #&gt;   &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;dbl&gt; &lt;lgl&gt;
 #&gt; 1     1     1     3 a     0.401 TRUE 
 #&gt; 2     2     2     2 b     0.213 FALSE
-#&gt; 3     3     3     1 c     0.672 NA   </div><div class='input'>
-</div></pre>
+#&gt; 3     3     3     1 c     0.672 NA   </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

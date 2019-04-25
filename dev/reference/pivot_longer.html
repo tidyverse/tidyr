@@ -139,11 +139,11 @@ and see <code><a href='pivot_wider.html'>pivot_wider()</a></code> for the invers
     
     </div>
 
-    <pre class="usage"><span class='fu'>pivot_longer</span>(<span class='no'>df</span>, <span class='no'>cols</span>, <span class='kw'>names_to</span> <span class='kw'>=</span> <span class='st'>"name"</span>, <span class='kw'>names_prefix</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+    <pre class="usage"><span class='fu'>pivot_longer</span>(<span class='no'>data</span>, <span class='no'>cols</span>, <span class='kw'>names_to</span> <span class='kw'>=</span> <span class='st'>"name"</span>, <span class='kw'>names_prefix</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>names_sep</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>names_pattern</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>values_to</span> <span class='kw'>=</span> <span class='st'>"value"</span>,
   <span class='kw'>values_drop_na</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>col_ptypes</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(), <span class='kw'>spec</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
 
-<span class='fu'>pivot_longer_spec</span>(<span class='no'>df</span>, <span class='no'>cols</span>, <span class='kw'>names_to</span> <span class='kw'>=</span> <span class='st'>"name"</span>, <span class='kw'>values_to</span> <span class='kw'>=</span> <span class='st'>"value"</span>,
+<span class='fu'>pivot_longer_spec</span>(<span class='no'>data</span>, <span class='no'>cols</span>, <span class='kw'>names_to</span> <span class='kw'>=</span> <span class='st'>"name"</span>, <span class='kw'>values_to</span> <span class='kw'>=</span> <span class='st'>"value"</span>,
   <span class='kw'>names_prefix</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>names_sep</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>names_pattern</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>col_ptypes</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
@@ -151,7 +151,7 @@ and see <code><a href='pivot_wider.html'>pivot_wider()</a></code> for the invers
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>df</th>
+      <th>data</th>
       <td><p>A data frame to pivot.</p></td>
     </tr>
     <tr>
@@ -162,7 +162,7 @@ specification.</p></td>
     <tr>
       <th>names_to</th>
       <td><p>A string specifying the name of the column to create
-from the data stored in the column names of <code>df</code>.</p>
+from the data stored in the column names of <code>data</code>.</p>
 <p>Can be a character vector, creating multiple columns, if <code>names_sep</code>
 or <code>names_pattern</code> is provided.</p></td>
     </tr>
@@ -197,7 +197,7 @@ existing column names.</p></td>
       <td><p>If <code>TRUE</code>, will drop rows that contain only <code>NA</code>s
 in the <code>value_to</code> column. This effectively converts explicit missing values
 to implicit missing values, and should generally be used only when missing
-values in <code>df</code> were created by its structure.</p></td>
+values in <code>data</code> were created by its structure.</p></td>
     </tr>
     <tr>
       <th>col_ptypes</th>

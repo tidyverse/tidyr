@@ -144,14 +144,16 @@ specifically for lists of vectors.</p>
     </div>
 
     <pre class="usage"><span class='fu'>unnest</span>(<span class='no'>data</span>, <span class='no'>cols</span>, <span class='no'>...</span>, <span class='kw'>keep_empty</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>ptype</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>names_sep</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>name_repair</span> <span class='kw'>=</span> <span class='st'>"check_unique"</span>,
+  <span class='kw'>names_sep</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>names_repair</span> <span class='kw'>=</span> <span class='st'>"check_unique"</span>,
   <span class='kw'>.drop</span> <span class='kw'>=</span> <span class='st'>"DEPRECATED"</span>, <span class='kw'>.id</span> <span class='kw'>=</span> <span class='st'>"DEPRECATED"</span>, <span class='kw'>.sep</span> <span class='kw'>=</span> <span class='st'>"DEPRECATED"</span>,
   <span class='kw'>.preserve</span> <span class='kw'>=</span> <span class='st'>"DEPRECATED"</span>)
 
-<span class='fu'>unnest_longer</span>(<span class='no'>df</span>, <span class='no'>cols</span>, <span class='kw'>value_to</span> <span class='kw'>=</span> <span class='st'>"values"</span>, <span class='kw'>index_to</span> <span class='kw'>=</span> <span class='st'>"index"</span>,
-  <span class='kw'>keep_empty</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>names_sep</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>name_repair</span> <span class='kw'>=</span> <span class='st'>"check_unique"</span>)
+<span class='fu'>unnest_longer</span>(<span class='no'>data</span>, <span class='no'>cols</span>, <span class='kw'>values_to</span> <span class='kw'>=</span> <span class='st'>"values"</span>, <span class='kw'>indices_to</span> <span class='kw'>=</span> <span class='st'>"index"</span>,
+  <span class='kw'>keep_empty</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>names_sep</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>names_repair</span> <span class='kw'>=</span> <span class='st'>"check_unique"</span>)
 
-<span class='fu'>unnest_wider</span>(<span class='no'>df</span>, <span class='no'>cols</span>, <span class='kw'>names_sep</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>name_repair</span> <span class='kw'>=</span> <span class='st'>"check_unique"</span>)</pre>
+<span class='fu'>unnest_wider</span>(<span class='no'>data</span>, <span class='no'>cols</span>, <span class='kw'>names_sep</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>names_repair</span> <span class='kw'>=</span> <span class='st'>"check_unique"</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -195,7 +197,7 @@ together the outer column name with the inner names, separated by
 <code>names_sep</code>.</p></td>
     </tr>
     <tr>
-      <th>name_repair</th>
+      <th>names_repair</th>
       <td><p>Used to check that output data frame has valid
 names. Must be one of the following options:</p><ul>
 <li><p>"minimal": No name repair or checks, beyond basic existence,</p></li>
@@ -225,15 +227,11 @@ remove them prior to unnesting.</p></td>
       <td><p><strong>Deprecated</strong>: use <code>names_sep</code> instead.</p></td>
     </tr>
     <tr>
-      <th>df</th>
-      <td><p>A data frame.</p></td>
-    </tr>
-    <tr>
-      <th>value_to</th>
+      <th>values_to</th>
       <td><p>Name of column to store vector values.</p></td>
     </tr>
     <tr>
-      <th>index_to</th>
+      <th>indices_to</th>
       <td><p>A string giving the name of a new column which will
 contain the inner names of the values. If unnamed, <code>col</code> will instead
 contain numeric indices.</p></td>
