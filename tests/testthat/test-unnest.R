@@ -19,7 +19,7 @@ test_that("bad inputs generate errors", {
 
 
 test_that("unesting combines augmented vectors", {
-  df <- tibble::tibble(x = as.list(as.factor(letters[1:3])))
+  df <- tibble(x = as.list(as.factor(letters[1:3])))
   expect_equal(unnest(df, x)$x, factor(letters[1:3]))
 })
 

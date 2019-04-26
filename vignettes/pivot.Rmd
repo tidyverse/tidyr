@@ -173,7 +173,7 @@ So far, we have been working with data frames that have a single value column. B
 The following example is adapted from the [data.table vignette](https://cran.r-project.org/web/packages/data.table/vignettes/datatable-reshape.html), as inspiration for tidyr's solution to this problem.
 
 ```{r}
-family <- tibble::tribble(
+family <- tribble(
   ~family,  ~dob_child1,  ~dob_child2, ~gender_child1, ~gender_child2,
        1L, "1998-11-26", "2000-01-29",             1L,             2L,
        2L, "1996-06-22",           NA,             2L,             NA,
@@ -434,7 +434,7 @@ pop3 %>%
 Based on a suggestion by [Maxime Wack](https://github.com/MaximeWack), <https://github.com/tidyverse/tidyr/issues/384>), the final example shows how to deal with a common way of recording multiple choice data. Often you will get such data as follows:
 
 ```{r}
-multi <- tibble::tribble(
+multi <- tribble(
   ~id, ~choice1, ~choice2, ~choice3,
   1, "A", "B", "C",
   2, "C", "B",  NA,

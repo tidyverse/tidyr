@@ -11,7 +11,7 @@
 #' @param .remove If `TRUE`, and `weights` is a `single`
 #' @export
 #' @examples
-#' df <- tibble::tibble(x = c("a", "b"), n = c(1, 2))
+#' df <- tibble(x = c("a", "b"), n = c(1, 2))
 #' uncount(df, n)
 #' uncount(df, n, .id = "id")
 #'

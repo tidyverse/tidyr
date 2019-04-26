@@ -60,7 +60,7 @@ test_that("can override default output column type", {
 
 test_that("can pivot to multiple measure cols", {
   df <- tibble(x = "x", y = 1)
-  sp <- tibble::tribble(
+  sp <- tribble(
     ~.name, ~.value, ~row,
     "x", "X", 1,
     "y", "Y", 1,
@@ -73,7 +73,7 @@ test_that("can pivot to multiple measure cols", {
 })
 
 test_that("original col order is preserved", {
-  df <- tibble::tribble(
+  df <- tribble(
     ~id, ~z_1, ~y_1, ~x_1, ~z_2,  ~y_2, ~x_2,
     "A",    1,    2,    3,     4,    5,    6,
     "B",    7,    8,    9,    10,   11,   12,

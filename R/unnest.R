@@ -270,7 +270,7 @@ vec_to_wide <- function(x, col) {
     } else {
       x <- as.list(x)
     }
-    tibble::as_tibble(x, .name_repair = "unique", .rows = 1L)
+    as_tibble(x, .name_repair = "unique", .rows = 1L)
   } else {
     stop("Input must be list of vectors", call. = FALSE)
   }
@@ -283,7 +283,7 @@ vec_to_long <- function(x, col, values_to = "values", indices_to = "index") {
   } else if (is.data.frame(x)) {
     tibble(!!col := x)
   } else if (vec_is(x)) {
-    tibble::tibble(
+    tibble(
       !!values_to := x,
       !!indices_to := index(x)
     )

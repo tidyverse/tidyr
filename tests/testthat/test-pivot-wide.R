@@ -40,7 +40,7 @@ test_that("warn when overwriting existing column", {
 # keys ---------------------------------------------------------
 
 test_that("can override default keys", {
-  df <- tibble::tribble(
+  df <- tribble(
     ~row, ~name, ~var, ~value,
     1,    "Sam", "age", 10,
     2,    "Sam", "height", 1.5,
@@ -114,14 +114,14 @@ test_that("can pivot from multiple measure cols using all keys", {
 })
 
 test_that("column order in output matches spec", {
-  df <- tibble::tribble(
+  df <- tribble(
     ~hw,   ~name,  ~mark,   ~pr,
     "hw1", "anna",    95,  "ok",
     "hw2", "anna",    70, "meh",
   )
 
   # deliberately create weird order
-  sp <- tibble::tribble(
+  sp <- tribble(
     ~hw, ~.value,  ~.name,
     "hw1", "mark", "hw1_mark",
     "hw1", "pr",   "hw1_pr",

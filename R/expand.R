@@ -133,7 +133,7 @@ sorted_unique <- function(x) {
 #' @export
 nesting <- function(...) {
   cols <- dots_cols(...)
-  out <- sorted_unique(tibble::tibble(!!!cols))
+  out <- sorted_unique(tibble(!!!cols))
   flatten_nested(out, attr(cols, "named"))
 }
 
