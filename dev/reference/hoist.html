@@ -214,10 +214,10 @@ output type of each component.</p></td>
 #&gt; 2 Dory      clownfish Finding Nemo       &lt;NA&gt;                          &lt;list [2…</div><div class='input'>
 <span class='co'># cf unnest_wider() which extracts all columns</span>
 <span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='unnest.html'>unnest_wider</a></span>(<span class='no'>metadata</span>)</div><div class='output co'>#&gt; # A tibble: 2 x 4
-#&gt;   character species   color films    
-#&gt;   &lt;chr&gt;     &lt;chr&gt;     &lt;chr&gt; &lt;list&gt;   
-#&gt; 1 Toothless dragon    black &lt;chr [3]&gt;
-#&gt; 2 Dory      clownfish blue  &lt;chr [2]&gt;</div></pre>
+#&gt;   character species   color     films    
+#&gt;   &lt;chr&gt;     &lt;list&gt;    &lt;list&gt;    &lt;list&gt;   
+#&gt; 1 Toothless &lt;chr [1]&gt; &lt;chr [1]&gt; &lt;chr [3]&gt;
+#&gt; 2 Dory      &lt;chr [1]&gt; &lt;chr [1]&gt; &lt;chr [2]&gt;</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
