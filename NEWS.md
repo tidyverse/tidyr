@@ -1,5 +1,8 @@
 # tidyr (development version)
 
+* All tidyr demos have been removed. They are dated, and have been superseded
+  by `vignette("pivot)`.
+
 * New `hoist()` provides a convenient way of plucking components of a 
   list-column out into their own top level columns (#341). This is particularly 
   useful when you are working with deeply nested JSON, because it provides

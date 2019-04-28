@@ -266,7 +266,7 @@ vec_to_wide <- function(x, col) {
       x <- purrr::compact(x)
       # Hack: probably should always apply and then vec_simplify()
       # in unnest_wider()
-      x <- map_if(x, ~ vec_size(.x) != 1, list)
+      x <- map(x, list)
     } else {
       x <- as.list(x)
     }
