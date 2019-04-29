@@ -26,6 +26,12 @@ test_that("extract keeps characters as character", {
   expect_equal(out$y, 1L)
 })
 
+test_that("can combine into multiple columns", {
+  df <- tibble(x = "abcd")
+  out <- extract(df, x, c("a", "b", "a" , "b"), "(.)(.)(.)(.)", convert = TRUE)
+  expect_equal(out, tibble(a = "ac", b = "bd"))
+})
+
 test_that("groups are preserved", {
   df <- tibble(g = 1, x = "X1") %>% dplyr::group_by(g)
   rs <- df %>% extract(x, c("x", "y"), "(.)(.)")

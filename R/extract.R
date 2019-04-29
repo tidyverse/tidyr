@@ -60,8 +60,15 @@ str_extract <- function(x, into, regex, convert = FALSE) {
     )
   }
 
-  colnames(matches) <- as_utf8_character(into)
   out <- as_tibble(matches)
+
+  # Handle duplicated names
+  if (anyDuplicated(into)) {
+    pieces <- split(as.list(out), into)
+    out <- as_tibble(map(pieces, pmap_chr, paste0, sep = ""))
+  } else {
+    names(out) <- as_utf8_character(into)
+  }
 
   if (convert) {
     out[] <- map(out, type.convert, as.is = TRUE)
