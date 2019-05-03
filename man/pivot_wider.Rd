@@ -60,7 +60,7 @@ Learn more in \code{vignette("pivot")}.
 \details{
 \code{pivot_wider()} is an updated approach to \code{\link[=spread]{spread()}}, designed to be both
 simpler to use and to handle more use cases. We recomend you use
-\code{pivot_wide()} for new code; \code{spread()} isn't going away but is no longer
+\code{pivot_wider()} for new code; \code{spread()} isn't going away but is no longer
 under active development.
 }
 \examples{
