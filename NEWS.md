@@ -1,5 +1,8 @@
 # tidyr (development version)
 
+* `extract()` (and hence `pivot_longer()`) can extract multiple input values
+  into a single output column (#619)
+
 * All tidyr demos have been removed. They are dated, and have been superseded
   by `vignette("pivot)`.
 
