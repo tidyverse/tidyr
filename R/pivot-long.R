@@ -8,9 +8,9 @@
 #' Learn more in `vignette("pivot")`.
 #'
 #' @details
-#' `pivot_long()` is an updated approach to [gather()], designed to be both
+#' `pivot_longer()` is an updated approach to [gather()], designed to be both
 #' simpler to use and to handle more use cases. We recomend you use
-#' `pivot_long()` for new code; `gather()` isn't going away but is no longer
+#' `pivot_longer()` for new code; `gather()` isn't going away but is no longer
 #' under active development.
 #'
 #' @param data A data frame to pivot.
