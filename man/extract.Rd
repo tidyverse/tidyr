@@ -20,7 +20,7 @@ names or column positions).}
 \item{into}{Names of new variables to create as character vector.}
 
 \item{regex}{a regular expression used to extract the desired values.
-The should be one group (defined by \code{()}) for each element of \code{into}.}
+There should be one group (defined by \code{()}) for each element of \code{into}.}
 
 \item{remove}{If \code{TRUE}, remove input column from output data frame.}
 
