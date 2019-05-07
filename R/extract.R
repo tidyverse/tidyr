@@ -13,7 +13,7 @@
 #'   names or column positions).
 #' @param into Names of new variables to create as character vector.
 #' @param regex a regular expression used to extract the desired values.
-#'   The should be one group (defined by `()`) for each element of `into`.
+#'   There should be one group (defined by `()`) for each element of `into`.
 #' @param remove If `TRUE`, remove input column from output data frame.
 #' @param convert If `TRUE`, will run [type.convert()] with
 #'   `as.is = TRUE` on new columns. This is useful if the component
