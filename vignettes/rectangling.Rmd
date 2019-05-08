@@ -1,0 +1,120 @@
+---
+title: "Rectangling"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{rectangling}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+## Introduction
+
+Rectangling is the art and craft of taking a deeply nested list (often sourced from wild caught JSON or XML) and taming it into a tidy data set of rows and columns. There are three functions from tidyr that are particularly useful for rectangling:
+
+* `unnest_longer()` takes each element of a list-column and makes a new row.
+* `unnest_wider()` takes each element of a list-column and makes a new column.
+* `hoist()` is similar to `unnest_wider()` put only plucks out selected 
+  components, and can reach down multiple levels.
+  
+A very large number of data rectangling problems can be solved by combining this functions with a splash of dplyr code.
+  
+```{r setup}
+library(tidyr)
+library(dplyr)
+library(repurrrsive)
+```
+
+## GitHub users
+
+All of these functions work with data frames, so you'll always start by putting your list into a one-column data frame. This seems a bit counter-intuitive at first: why is the first step in making a list more to make it more complicated? But a data frame has a big advantage: because it bundles together multiple vectors, everything is tracked together in a single object.
+
+```{r}
+users <- tibble(user = gh_users)
+users %>% unnest_wider(user)
+```
+
+In this case, there are many components and we don't need most of them so `hoist()` provides a simpler alternative. It allows us to pull out selected components using the same syntax as `purrr::pluck()`:
+
+```{r}
+users %>% hoist(user, 
+  followers = "followers", 
+  login = "login", 
+  url = "html_url"
+)
+```
+
+## Github repos
+
+We start off `gh_repos` similarly, by putting it in a tibble:
+
+```{r}
+repos <- tibble(user = gh_repos)
+repos
+```
+
+But in this case each element is an unnamed list, representing the repos for each user. So we need to peel back another layer:
+
+```{r}
+repos %>% unnest_longer(user, values_to = "repo")
+```
+
+```{r}
+repos <- repos %>% unnest_longer(user, values_to = "repo", indices_to = NULL)
+repos
+```
+
+Then we can use `hoist()`:
+
+```{r}
+repos %>% hoist(repo, 
+  login = c("owner", "login"), 
+  name = "name",
+  homepage = "homepage",
+  watchers = "watchers_count"
+)
+```
+
+
+## Game of Thrones Characters
+
+Extacting the Game of Thrones characters works in a similar fashion:
+
+```{r}
+chars <- tibble(char = got_chars)
+
+chars %>% unnest_wider(char)
+
+chars %>% 
+  hoist(char, name = "name", gender = "gender", titles = "titles")
+```
+
+Each character can have one or more titles. One way to record this sort of information as a flat file would be to extract it out into it's own table. We can do that by selecting just the name and the title, and using `unnest_longer()` to flatten:
+
+```{r}
+chars %>% 
+  hoist(char, name = "name", titles = "titles") %>% 
+  select(name, titles) %>% 
+  unnest_longer(titles, values_to = "title", indices_to = NULL)
+```
+
+## Shara's discography
+
+```{r}
+discog <- tibble(disc = discog)
+
+discog <- discog %>% 
+  unnest_wider(disc) %>% 
+  dplyr::mutate(date_added = as.POSIXct(strptime(date_added, "%Y-%m-%dT%H:%M:%S"))) 
+
+discog %>% 
+  hoist(basic_information, title = "title", label = "labels", artist = list("artists", 1, "name"))
+```
+
+
