@@ -202,7 +202,7 @@ unnest.data.frame <- function(
 #'   contain the inner names of the values. If unnamed, `col` will instead
 #'   contain numeric indices.
 unnest_longer <- function(data, cols,
-                          values_to = "values",
+                          values_to = "value",
                           indices_to = "index",
                           keep_empty = FALSE,
                           names_sep = NULL,
@@ -226,9 +226,13 @@ unnest_longer <- function(data, cols,
 
 #' @export
 #' @rdname unnest
+#' @param simplify If `TRUE`, will attempt to simplify lists of length-1
+#'   vectors to an atomic vector
 unnest_wider <- function(data, cols,
                          names_sep = NULL,
-                         names_repair = "check_unique") {
+                         simplify = TRUE,
+                         names_repair = "check_unique",
+                         ptype = list()) {
   cols <- tidyselect::vars_select(names(data), !!enquo(cols))
 
   for (col in cols) {
@@ -236,6 +240,18 @@ unnest_wider <- function(data, cols,
   }
 
   data <- unchop(data, !!cols, keep_empty = TRUE)
+
+  for (col in cols) {
+    inner_cols <- names(data[[col]])
+
+    data[[col]][] <- map2(
+      data[[col]], ptype[inner_cols],
+      simplify_col,
+      keep_empty = TRUE,
+      simplify = simplify
+    )
+  }
+
   unpack(data, !!cols, names_sep = names_sep, names_repair = names_repair)
 }
 
@@ -264,8 +280,6 @@ vec_to_wide <- function(x, col) {
   } else if (vec_is(x)) {
     if (is.list(x)) {
       x <- purrr::compact(x)
-      # Hack: probably should always apply and then vec_simplify()
-      # in unnest_wider()
       x <- map(x, list)
     } else {
       x <- as.list(x)
@@ -283,10 +297,14 @@ vec_to_long <- function(x, col, values_to = "values", indices_to = "index") {
   } else if (is.data.frame(x)) {
     tibble(!!col := x)
   } else if (vec_is(x)) {
-    tibble(
-      !!values_to := x,
-      !!indices_to := index(x)
-    )
+    if (is.null(indices_to)) {
+      tibble(!!values_to := x)
+    } else {
+      tibble(
+        !!values_to := x,
+        !!indices_to := index(x)
+      )
+    }
   } else {
     stop("Input must be list of vectors", call. = FALSE)
   }

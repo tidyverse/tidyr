@@ -15,6 +15,8 @@
 #'   `col_name = "pluck_specification"`. You can pluck by name with a character
 #'   vector, by position with an integer vector, or with a combination of the
 #'   two with a list. See [purrr::pluck()] for details.
+#' @param .simplify If `TRUE`, will attempt to simplify lists of length-1
+#'   vectors to an atomic vector
 #' @param .ptype Optionally, a named list of prototypes declaring the desired
 #'   output type of each component.
 #' @param .remove If `TRUE`, the default, will remove extracted components
@@ -50,7 +52,7 @@
 #' # cf unnest_wider() which extracts all columns
 #' df %>% unnest_wider(metadata)
 #' @export hoist
-hoist <- function(.data, .col, ..., .remove = TRUE, .ptype = list()) {
+hoist <- function(.data, .col, ..., .remove = TRUE, .simplify = TRUE, .ptype = list()) {
   .col <- tidyselect::vars_pull(names(.data), !!enquo(.col))
   x <- .data[[.col]]
   if (!is.list(x)) {
@@ -62,49 +64,38 @@ hoist <- function(.data, .col, ..., .remove = TRUE, .ptype = list()) {
     stop("All elements of `...` must be named", call. = FALSE)
   }
 
-  new_cols <- rep_named(names(pluckers), list())
-  for (i in seq_along(new_cols)) {
-    pieces <- map(x, ~ purrr::pluck(.x, !!!pluckers[[i]], .default = unspecified(1)))
-
-    ptype <- .ptype[[names(pluckers)[[i]]]]
-    if (is.null(ptype)) {
-      new_cols[[i]] <- vec_simplify(pieces)
-    } else {
-      new_cols[[i]] <- vec_cast(pieces, ptype)
-    }
-  }
-
-  if (.remove) {
-    x <- map(x, function(x) {
-      # rev() is sneaky hack assuming that most people will remove in
-      # numeric order, so this should avoid most order problems. A full
-      # resolution will be considerably more work.
-      for (plucker in rev(pluckers)) {
-        x <- strike(x, plucker)
-      }
-      x
-    })
-    if (every(x, vec_empty)) {
-      x <- NULL
-    }
-  }
+  new_cols <- map(pluckers, function(idx) {
+    map(x, ~ purrr::pluck(.x, !!!idx))
+  })
+  new_cols <- map2(
+    new_cols, .ptype[names(new_cols)],
+    simplify_col,
+    simplify = .simplify,
+    keep_empty = TRUE
+  )
 
   # Place new columns before old column
   out <- append_df(.data, new_cols, after = match(.col, names(.data)) - 1L)
-  out[[.col]] <- x
-  out
-}
 
-vec_simplify <- function(x) {
-  n <- map_int(x, vec_size)
-  if (!all(n == 1)) {
-    return(x)
+  if (!.remove) {
+    return(out)
   }
 
-  tryCatch(
-    vec_c(!!!x),
-    vctrs_error_incompatible_type = function(e) x
-  )
+  x <- map(x, function(x) {
+    # rev() is sneaky hack assuming that most people will remove in
+    # numeric order, so this should avoid most order problems. A full
+    # resolution will be considerably more work.
+    for (plucker in rev(pluckers)) {
+      x <- strike(x, plucker)
+    }
+    x
+  })
+  if (every(x, vec_empty)) {
+    x <- NULL
+  }
+  out[[.col]] <- x
+
+  out
 }
 
 strike <- function(x, idx) {
@@ -148,4 +139,38 @@ strike <- function(x, idx) {
       x
     }
   }
+}
+
+simplify_col <- function(x, ptype, keep_empty = FALSE, simplify = FALSE) {
+  if (!is.list(x) || is.data.frame(x)) {
+    return(x)
+  }
+
+  if (is_empty(x)) {
+    return(attr(x, "ptype") %||% unspecified(0))
+  }
+
+  if (keep_empty) {
+    x[] <- map_if(x, is_empty, ~ vec_na(.x, 1) %||% unspecified(1))
+  }
+
+  if (!is.null(ptype)) {
+    x <- vec_cast(x, ptype)
+  } else if (simplify) {
+    x <- vec_simplify(x)
+  }
+
+  x
+}
+
+vec_simplify <- function(x) {
+  n <- map_int(x, vec_size)
+  if (!all(n == 1)) {
+    return(x)
+  }
+
+  tryCatch(
+    vec_c(!!!x),
+    vctrs_error_incompatible_type = function(e) x
+  )
 }

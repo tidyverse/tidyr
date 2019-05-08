@@ -17,7 +17,6 @@ test_that("bad inputs generate errors", {
   expect_error(unnest(df, y), "must be list of vectors")
 })
 
-
 test_that("unesting combines augmented vectors", {
   df <- tibble(x = as.list(as.factor(letters[1:3])))
   expect_equal(unnest(df, x)$x, factor(letters[1:3]))
@@ -170,6 +169,19 @@ test_that("number of rows is preserved", {
   expect_equal(nrow(out), 3)
 })
 
+test_that("simplifies length-1 lists", {
+  df <- tibble(
+    x = 1:2,
+    y = list(
+      list(a = 1, b = 2),
+      list(a = 3)
+    )
+  )
+  out <- df %>% unnest_wider(y)
+  expect_equal(out$a, c(1, 3))
+  expect_equal(out$b, c(2, NA))
+})
+
 test_that("can handle data frames consistently with vectors" , {
   df <- tibble(x = 1:2, y = list(tibble(a = 1:2, b = 2:3)))
   out <- df %>% unnest_wider(y)
@@ -209,6 +221,13 @@ test_that("can handle data frames consistently with vectors" , {
 
   expect_named(out, c("x", "y"))
   expect_equal(nrow(out), 4)
+})
+
+test_that("can suppress index column" , {
+  df <- tibble(x = 1:2, y = list(c(a = 1), c(b = 2)))
+  out <- df %>% unnest_longer(y, indices_to = NULL)
+
+  expect_named(out, c("x", "value"))
 })
 
 test_that("bad inputs generate errors", {

@@ -11,12 +11,12 @@ unnest(data, cols, ..., keep_empty = FALSE, ptype = NULL,
   .drop = "DEPRECATED", .id = "DEPRECATED", .sep = "DEPRECATED",
   .preserve = "DEPRECATED")
 
-unnest_longer(data, cols, values_to = "values", indices_to = "index",
+unnest_longer(data, cols, values_to = "value", indices_to = "index",
   keep_empty = FALSE, names_sep = NULL,
   names_repair = "check_unique")
 
-unnest_wider(data, cols, names_sep = NULL,
-  names_repair = "check_unique")
+unnest_wider(data, cols, names_sep = NULL, simplify = TRUE,
+  names_repair = "check_unique", ptype = list())
 }
 \arguments{
 \item{data}{A data frame.}
@@ -75,6 +75,9 @@ remove them prior to unnesting.}
 \item{indices_to}{A string giving the name of a new column which will
 contain the inner names of the values. If unnamed, \code{col} will instead
 contain numeric indices.}
+
+\item{simplify}{If \code{TRUE}, will attempt to simplify lists of length-1
+vectors to an atomic vector}
 }
 \description{
 \code{unnest()}, \code{unnest_longer()}, and \code{unnest_wider()} flatten list-columns

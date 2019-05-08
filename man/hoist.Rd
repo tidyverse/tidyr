@@ -4,7 +4,8 @@
 \alias{hoist}
 \title{Selectively pull out components of a list-column}
 \usage{
-hoist(.data, .col, ..., .remove = TRUE, .ptype = list())
+hoist(.data, .col, ..., .remove = TRUE, .simplify = TRUE,
+  .ptype = list())
 }
 \arguments{
 \item{.data}{A data frame.}
@@ -18,6 +19,9 @@ two with a list. See \code{\link[purrr:pluck]{purrr::pluck()}} for details.}
 
 \item{.remove}{If \code{TRUE}, the default, will remove extracted components
 from \code{.col}. This ensures that each value lives only in one place.}
+
+\item{.simplify}{If \code{TRUE}, will attempt to simplify lists of length-1
+vectors to an atomic vector}
 
 \item{.ptype}{Optionally, a named list of prototypes declaring the desired
 output type of each component.}
