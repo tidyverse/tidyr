@@ -23,9 +23,9 @@ Rectangling is the art and craft of taking a deeply nested list (often sourced f
 * `hoist()` is similar to `unnest_wider()` put only plucks out selected 
   components, and can reach down multiple levels.
   
-A very large number of data rectangling problems can be solved by combining this functions with a splash of dplyr code.
+A very large number of data rectangling problems can be solved by combining this functions with a splash of dplyr code. To illustrate these techniques, we'll use the repurrrsive package, which provides a number of datasets with deeply nested lists originally captured from JSON APIs.
   
-```{r setup}
+```{r setup, message = FALSE}
 library(tidyr)
 library(dplyr)
 library(repurrrsive)
@@ -33,14 +33,27 @@ library(repurrrsive)
 
 ## GitHub users
 
-All of these functions work with data frames, so you'll always start by putting your list into a one-column data frame. This seems a bit counter-intuitive at first: why is the first step in making a list more to make it more complicated? But a data frame has a big advantage: because it bundles together multiple vectors, everything is tracked together in a single object.
+We'll start with `gh_users`, a list which contains information about six GitHub users. To begin, we put the `gh_users` list into a data frame:
 
 ```{r}
 users <- tibble(user = gh_users)
+```
+
+This seems a bit counter-intuitive: why is the first step in making a list more to make it more complicated? But a data frame has a big advantage: it bundles together multiple vectors so that everything is tracked together in a single object.
+
+Each `user` is a named list, which we want to turn into columns.
+
+```{r}
+names(users$user[[1]])
+```
+
+There are two ways to turn the list components into columns. `unnest_wider()` takes every component and makes a new column:
+
+```{r}
 users %>% unnest_wider(user)
 ```
 
-In this case, there are many components and we don't need most of them so `hoist()` provides a simpler alternative. It allows us to pull out selected components using the same syntax as `purrr::pluck()`:
+But in this case, there are many components and we don't need most of them so we can instead use `hoist()`. `hoist()` allows us to pull out selected components using the same syntax as `purrr::pluck()`:
 
 ```{r}
 users %>% hoist(user, 
@@ -49,6 +62,8 @@ users %>% hoist(user,
   url = "html_url"
 )
 ```
+
+`hoist()` removes the named components from the `user` list-column, so you can think of it as moving components out of the inner list into the top-level data frame. 
 
 ## Github repos
 
@@ -59,18 +74,20 @@ repos <- tibble(user = gh_repos)
 repos
 ```
 
-But in this case each element is an unnamed list, representing the repos for each user. So we need to peel back another layer:
+In this case, the elements of `user` are a list of repositories that belong to that user. These should become new rows, so we use `unnest_longer()` rather than `unnest_wider()`:
 
 ```{r}
 repos %>% unnest_longer(user, values_to = "repo")
 ```
+
+In this case, the index of the repo within the user is not informative, so we can drop with `indices_to = NULL`:
 
 ```{r}
 repos <- repos %>% unnest_longer(user, values_to = "repo", indices_to = NULL)
 repos
 ```
 
-Then we can use `hoist()`:
+Then we can use `unnest_wider()` or `hoist()`:
 
 ```{r}
 repos %>% hoist(repo, 
@@ -81,40 +98,102 @@ repos %>% hoist(repo,
 )
 ```
 
+Note the use of `c("owner", "login")`: this allows us to reach two levels deep inside of a list. An alternative approach would be to pull out just `owner` and then put each element of it in a column:
 
-## Game of Thrones Characters
+```{r}
+repos %>% 
+  hoist(repo, owner = "owner") %>% 
+  unnest_wider(owner)
+```
 
-Extacting the Game of Thrones characters works in a similar fashion:
+
+## Game of Thrones characters
+
+`got_chars` has a similar structure to `gh_users`: it's a list of named lists, which each element of the inner list describing some attribute of a GoT character. We start in the same way, first by creating a data frame and then by unnesting each component into a column:
 
 ```{r}
 chars <- tibble(char = got_chars)
+chars
 
-chars %>% unnest_wider(char)
-
-chars %>% 
-  hoist(char, name = "name", gender = "gender", titles = "titles")
+chars2 <- chars %>% unnest_wider(char)
+chars2
 ```
 
-Each character can have one or more titles. One way to record this sort of information as a flat file would be to extract it out into it's own table. We can do that by selecting just the name and the title, and using `unnest_longer()` to flatten:
+This is more complex than `gh_users` because some component of `char` are themselves a list, giving us a collection of list-columns:
 
 ```{r}
-chars %>% 
-  hoist(char, name = "name", titles = "titles") %>% 
+chars2 %>% select_if(is.list)
+```
+
+What you do next will depend on the purposes of the analysis. Maybe you want a row for every book and tv series that the character appears in:
+
+```{r}
+chars2 %>% 
+  select(name, books, tvSeries) %>% 
+  pivot_longer(c(books, tvSeries), names_to = "media", values_to = "value") %>% 
+  unnest_longer(value, indices_to = NULL)
+```
+
+Or maybe you want to build a table that lets you match title to name:
+
+```{r}
+chars2 %>% 
   select(name, titles) %>% 
   unnest_longer(titles, values_to = "title", indices_to = NULL)
 ```
 
-## Shara's discography
+(Note that the empty titles (`""`) are due to an infelicity in the input `got_chars`: ideally people without titles would have a title vector of length 0, not a title vector of length 1 containing an empty string.)
+
+## Sharla Gelfand's discography
+
+We'll finish off with the most complex list [Sharla Gelfand's](https://sharla.party/posts/discog-purrr/). We'll start the usual way: putting the list into a single column data frame, and then widening so each component is a column. I also parse the `date_added` column into a real date-time (I'd normally use `readr::parse_datetime()`, but I can't here because it's a vignette and I don't want to introduce another dependency to tidyr).
 
 ```{r}
-discog <- tibble(disc = discog)
-
-discog <- discog %>% 
+discs <- tibble(disc = discog) %>% 
   unnest_wider(disc) %>% 
-  dplyr::mutate(date_added = as.POSIXct(strptime(date_added, "%Y-%m-%dT%H:%M:%S"))) 
-
-discog %>% 
-  hoist(basic_information, title = "title", label = "labels", artist = list("artists", 1, "name"))
+  mutate(date_added = as.POSIXct(strptime(date_added, "%Y-%m-%dT%H:%M:%S"))) 
+discs
 ```
 
+At this level, we see information about when each disc was added to Sharla's discography, not any information about the disc itself. To do that we need to widen the `basic_information` column:
+
+```{r, error = TRUE}
+discs %>% unnest_wider(basic_information)
+```
+
+Unfortunately that fails because there's an `id` column inside `basic_information`. We can quickly see what's going on by setting `names_repair = "unique"`:
+
+```{r}
+discs %>% unnest_wider(basic_information, names_repair = "unique")
+```
+
+The problem is that `basic_information` repeats the `id` column that's also stored at the top-level, so we can just drop that:
+
+```{r}
+discs %>% 
+  select(-id) %>% 
+  unnest_wider(basic_information)
+```
+
+Alternatively, we could use `hoist()`:
+
+```{r}
+discs %>% 
+  hoist(basic_information,
+    title = "title",
+    year = "year",
+    label = list("labels", 1, "name"),
+    artist = list("artists", 1, "name")
+  )
+```
+
+Here I quickly extract the name of the first label and artist by indexing deeply into the nested list. You might want to do this more systematically using `unnest_wider()` and `unnest_longer()`
+
+```{r}
+discs %>% 
+  hoist(basic_information, label = "labels") %>% 
+  select(id, label) %>% 
+  unnest_longer(label, values_to = "label", indices_to = NULL) %>% 
+  unnest_wider(label, names_repair = "unique")
+```
 
