@@ -6,6 +6,10 @@
 * All tidyr demos have been removed. They are dated, and have been superseded
   by `vignette("pivot)`.
 
+* New `unnest_longer()` and `unnest_wider()` make it easier to unnest
+  list-columns of vectors into either rows or columns (#418).
+  They are documented along with `hoist()` in `vignette("rectangle")`.
+  
 * New `hoist()` provides a convenient way of plucking components of a 
   list-column out into their own top level columns (#341). This is particularly 
   useful when you are working with deeply nested JSON, because it provides
@@ -33,9 +37,6 @@
     to work, generating an informative warning tell you how to update your 
     code. Please [file an issue](https://github.com/tidyverse/tidyr/issues/new) 
     if I've missed an important use case.
-  
-* New `unnest_longer()` and `unnest_wider()` make it easier to unnest
-  list-columns of vectors into either rows or columns (#418)
   
 * New `pack()` and `unpack()` allow you to pack and unpack columns into
   data frame columns (#523). New `chop()` and `unchop()` chop up rows into

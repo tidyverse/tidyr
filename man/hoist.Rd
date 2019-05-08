@@ -78,7 +78,7 @@ in to their own top-level columns, using the same syntax as \code{\link[purrr:pl
 \code{unnest_wider()} turns each element of a list-column into a column, and
 \code{unnest_longer()} turns each element of a list-column into a row.
 
-Learn more in \code{vignette("rectangling")}.
+Learn more in \code{vignette("rectangle")}.
 }
 \section{Unnest variants}{
 

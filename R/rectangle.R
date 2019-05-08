@@ -8,7 +8,7 @@
 #' `unnest_wider()` turns each element of a list-column into a column, and
 #' `unnest_longer()` turns each element of a list-column into a row.
 #'
-#' Learn more in `vignette("rectangling")`.
+#' Learn more in `vignette("rectangle")`.
 #'
 #' @section Unnest variants:
 #'
