@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Selectively pull out components of a list-column — hoist • tidyr</title>
+<title>Rectangling tools: hosting &amp; directional unnesting — hoist • tidyr</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -31,14 +31,15 @@
 
 
 
-<meta property="og:title" content="Selectively pull out components of a list-column — hoist" />
+<meta property="og:title" content="Rectangling tools: hosting &amp; directional unnesting — hoist" />
 
-<meta property="og:description" content="hoist() allows you to selectively pull components of a list-column out
+<meta property="og:description" content="hoist(), unnest_longer(), and unnest_wider() provide tools for
+rectangling, collapsing deeply nested lists into regular columns.
+hoist() allows you to selectively pull components of a list-column out
 in to their own top-level columns, using the same syntax as purrr::pluck().
-It's a useful complement to unnest_wider(), which turns every component
-into its own column.
-It is particularly useful when working with deeply nested JSON data,
-so more details in vignette(&quot;rectangling&quot;)." />
+unnest_wider() turns each element of a list-column into a column, and
+unnest_longer() turns each element of a list-column into a row.
+Learn more in vignette(&quot;rectangling&quot;)." />
 
 <meta property="og:image" content="https://tidyr.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -104,6 +105,9 @@ so more details in vignette(&quot;rectangling&quot;)." />
       <a href="../articles/pivot.html">Pivoting</a>
     </li>
     <li>
+      <a href="../articles/rectangling.html">Rectangling</a>
+    </li>
+    <li>
       <a href="../articles/tidy-data.html">Tidy data</a>
     </li>
   </ul>
@@ -129,29 +133,37 @@ so more details in vignette(&quot;rectangling&quot;)." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Selectively pull out components of a list-column</h1>
-    <small class="dont-index">Source: <a href='https://github.com/tidyverse/tidyr/blob/master/R/hoist.R'><code>R/hoist.R</code></a></small>
+    <h1>Rectangling tools: hosting &amp; directional unnesting</h1>
+    <small class="dont-index">Source: <a href='https://github.com/tidyverse/tidyr/blob/master/R/rectangle.R'><code>R/rectangle.R</code></a></small>
     <div class="hidden name"><code>hoist.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p><code>hoist()</code> allows you to selectively pull components of a list-column out
+    <p><code>hoist()</code>, <code>unnest_longer()</code>, and <code>unnest_wider()</code> provide tools for
+rectangling, collapsing deeply nested lists into regular columns.
+<code>hoist()</code> allows you to selectively pull components of a list-column out
 in to their own top-level columns, using the same syntax as <code><a href='https://purrr.tidyverse.org/reference/pluck.html'>purrr::pluck()</a></code>.
-It's a useful complement to <code><a href='unnest.html'>unnest_wider()</a></code>, which turns every component
-into its own column.</p>
-<p>It is particularly useful when working with deeply nested JSON data,
-so more details in <code>vignette("rectangling")</code>.</p>
+<code>unnest_wider()</code> turns each element of a list-column into a column, and
+<code>unnest_longer()</code> turns each element of a list-column into a row.</p>
+<p>Learn more in <code><a href='../articles/rectangling.html'>vignette("rectangling")</a></code>.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>hoist</span>(<span class='no'>.data</span>, <span class='no'>.col</span>, <span class='no'>...</span>, <span class='kw'>.remove</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>.ptype</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>())</pre>
+    <pre class="usage"><span class='fu'>hoist</span>(<span class='no'>.data</span>, <span class='no'>.col</span>, <span class='no'>...</span>, <span class='kw'>.remove</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>.simplify</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>.ptype</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>())
+
+<span class='fu'>unnest_longer</span>(<span class='no'>data</span>, <span class='no'>cols</span>, <span class='kw'>values_to</span> <span class='kw'>=</span> <span class='st'>"value"</span>, <span class='kw'>indices_to</span> <span class='kw'>=</span> <span class='st'>"index"</span>,
+  <span class='kw'>names_sep</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>names_repair</span> <span class='kw'>=</span> <span class='st'>"check_unique"</span>)
+
+<span class='fu'>unnest_wider</span>(<span class='no'>data</span>, <span class='no'>cols</span>, <span class='kw'>names_sep</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>simplify</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>names_repair</span> <span class='kw'>=</span> <span class='st'>"check_unique"</span>, <span class='kw'>ptype</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>())</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>.data</th>
+      <th>.data, data</th>
       <td><p>A data frame.</p></td>
     </tr>
     <tr>
@@ -171,11 +183,81 @@ two with a list. See <code><a href='https://purrr.tidyverse.org/reference/pluck.
 from <code>.col</code>. This ensures that each value lives only in one place.</p></td>
     </tr>
     <tr>
+      <th>.simplify</th>
+      <td><p>If <code>TRUE</code>, will attempt to simplify lists of length-1
+vectors to an atomic vector</p></td>
+    </tr>
+    <tr>
       <th>.ptype</th>
       <td><p>Optionally, a named list of prototypes declaring the desired
 output type of each component.</p></td>
     </tr>
+    <tr>
+      <th>cols</th>
+      <td><p>Columns to unnest.</p></td>
+    </tr>
+    <tr>
+      <th>values_to</th>
+      <td><p>Name of column to store vector values.</p></td>
+    </tr>
+    <tr>
+      <th>indices_to</th>
+      <td><p>A string giving the name of a new column which will
+contain the inner names of the values. If unnamed, <code>col</code> will instead
+contain numeric indices.</p></td>
+    </tr>
+    <tr>
+      <th>names_sep</th>
+      <td><p>If <code>NULL</code>, the default, the names of new columns will
+come directly from the inner data frame.</p>
+<p>If a string, the names of the new columns will be formed by pasting
+together the outer column name with the inner names, separated by
+<code>names_sep</code>.</p></td>
+    </tr>
+    <tr>
+      <th>names_repair</th>
+      <td><p>Used to check that output data frame has valid
+names. Must be one of the following options:</p><ul>
+<li><p>"minimal": No name repair or checks, beyond basic existence,</p></li>
+<li><p>"unique": Make sure names are unique and not empty,</p></li>
+<li><p>"check_unique": (the default), no name repair, but check they are unique,</p></li>
+<li><p>"universal": Make the names unique and syntactic</p></li>
+<li><p>a function: apply custom name repair.</p></li>
+<li><p>a formula: a purrr-style anonymous function (see <code><a href='https://rlang.r-lib.org/reference/as_function.html'>rlang::as_function()</a></code>)</p></li>
+</ul>
+
+<p>See <a href='https://tibble.tidyverse.org/reference/name-repair.html'>tibble::name-repair</a> for more details on these terms and the
+strategies used to enforce them.</p></td>
+    </tr>
+    <tr>
+      <th>simplify</th>
+      <td><p>If <code>TRUE</code>, will attempt to simplify lists of length-1
+vectors to an atomic vector</p></td>
+    </tr>
+    <tr>
+      <th>ptype</th>
+      <td><p>Optionally, supply a data frame prototype for the output <code>cols</code>,
+overriding the default that will be guessed from the combination of
+individual values.</p></td>
+    </tr>
     </table>
+    
+    <h2 class="hasAnchor" id="unnest-variants"><a class="anchor" href="#unnest-variants"></a>Unnest variants</h2>
+
+    
+    <p>The three <code><a href='nest.html'>unnest()</a></code> functions differ in how they change the shape of the
+output data frame:</p><ul>
+<li><p><code>unnest_wider()</code> preserves the rows, but changes the columns.</p></li>
+<li><p><code>unnest_longer()</code> preserves the columns, but changes the rows</p></li>
+<li><p><code><a href='nest.html'>unnest()</a></code> can change both rows and columns.</p></li>
+</ul>
+    <p>These principles guide their behaviour when they are called with a
+non-primary data type. For example, if you <code>unnest_wider()</code> a list of data
+frames, the number of rows must be preserved, so each column is turned into
+a list column of length one. Or if you <code>unnest_longer()</code> a list of data
+frame, the number of columns must be preserved so it creates a packed
+column. I'm not sure how if these behaviours are useful in practice, but
+they are theoretically pleasing.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -203,7 +285,15 @@ output type of each component.</p></td>
 #&gt;   character metadata  
 #&gt;   &lt;chr&gt;     &lt;list&gt;    
 #&gt; 1 Toothless &lt;list [3]&gt;
-#&gt; 2 Dory      &lt;list [3]&gt;</div><div class='input'><span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>hoist</span>(<span class='no'>metadata</span>,
+#&gt; 2 Dory      &lt;list [3]&gt;</div><div class='input'>
+<span class='co'># Turn all components of metadata into columns</span>
+<span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>unnest_wider</span>(<span class='no'>metadata</span>)</div><div class='output co'>#&gt; # A tibble: 2 x 4
+#&gt;   character species   color films    
+#&gt;   &lt;chr&gt;     &lt;chr&gt;     &lt;chr&gt; &lt;list&gt;   
+#&gt; 1 Toothless dragon    black &lt;chr [3]&gt;
+#&gt; 2 Dory      clownfish blue  &lt;chr [2]&gt;</div><div class='input'>
+<span class='co'># Extract only specified components</span>
+<span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>hoist</span>(<span class='no'>metadata</span>,
   <span class='kw'>species</span> <span class='kw'>=</span> <span class='st'>"species"</span>,
   <span class='kw'>first_film</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(<span class='st'>"films"</span>, <span class='fl'>1L</span>),
   <span class='kw'>third_film</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(<span class='st'>"films"</span>, <span class='fl'>3L</span>)
@@ -212,18 +302,58 @@ output type of each component.</p></td>
 #&gt;   &lt;chr&gt;     &lt;chr&gt;     &lt;chr&gt;              &lt;chr&gt;                         &lt;list&gt;   
 #&gt; 1 Toothless dragon    How to Train Your… How to Train Your Dragon: Th… &lt;list [2…
 #&gt; 2 Dory      clownfish Finding Nemo       &lt;NA&gt;                          &lt;list [2…</div><div class='input'>
-<span class='co'># cf unnest_wider() which extracts all columns</span>
-<span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='unnest.html'>unnest_wider</a></span>(<span class='no'>metadata</span>)</div><div class='output co'>#&gt; # A tibble: 2 x 4
-#&gt;   character species   color     films    
-#&gt;   &lt;chr&gt;     &lt;list&gt;    &lt;list&gt;    &lt;list&gt;   
-#&gt; 1 Toothless &lt;chr [1]&gt; &lt;chr [1]&gt; &lt;chr [3]&gt;
-#&gt; 2 Dory      &lt;chr [1]&gt; &lt;chr [1]&gt; &lt;chr [2]&gt;</div></pre>
+<span class='co'># unnest_longer() is useful when each component of the list should</span>
+<span class='co'># form a row</span>
+<span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(
+  <span class='kw'>x</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>3</span>,
+  <span class='kw'>y</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(<span class='kw'>NULL</span>, <span class='fl'>1</span>:<span class='fl'>3</span>, <span class='fl'>4</span>:<span class='fl'>5</span>)
+)
+<span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>unnest_longer</span>(<span class='no'>y</span>)</div><div class='output co'>#&gt; # A tibble: 6 x 3
+#&gt;       x value index
+#&gt;   &lt;int&gt; &lt;int&gt; &lt;int&gt;
+#&gt; 1     1    NA    NA
+#&gt; 2     2     1     1
+#&gt; 3     2     2     2
+#&gt; 4     2     3     3
+#&gt; 5     3     4     1
+#&gt; 6     3     5     2</div><div class='input'><span class='co'># Automatically creates names if widening</span>
+<span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>unnest_wider</span>(<span class='no'>y</span>)</div><div class='output co'>#&gt; <span class='message'>New names:</span>
+#&gt; <span class='message'>* `` -&gt; ...1</span>
+#&gt; <span class='message'>* `` -&gt; ...2</span>
+#&gt; <span class='message'>* `` -&gt; ...3</span></div><div class='output co'>#&gt; <span class='message'>New names:</span>
+#&gt; <span class='message'>* `` -&gt; ...1</span>
+#&gt; <span class='message'>* `` -&gt; ...2</span></div><div class='output co'>#&gt; # A tibble: 3 x 4
+#&gt;       x  ...1  ...2  ...3
+#&gt;   &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;
+#&gt; 1     1    NA    NA    NA
+#&gt; 2     2     1     2     3
+#&gt; 3     3     4     5    NA</div><div class='input'>
+<span class='co'># And similarly if the vectors are named</span>
+<span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(
+  <span class='kw'>x</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>2</span>,
+  <span class='kw'>y</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='kw'>a</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>b</span> <span class='kw'>=</span> <span class='fl'>2</span>), <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='kw'>a</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>b</span> <span class='kw'>=</span> <span class='fl'>11</span>, <span class='kw'>c</span> <span class='kw'>=</span> <span class='fl'>12</span>))
+)
+<span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>unnest_wider</span>(<span class='no'>y</span>)</div><div class='output co'>#&gt; # A tibble: 2 x 4
+#&gt;       x     a     b     c
+#&gt;   &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+#&gt; 1     1     1     2    NA
+#&gt; 2     2    10    11    12</div><div class='input'><span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>unnest_longer</span>(<span class='no'>y</span>)</div><div class='output co'>#&gt; # A tibble: 5 x 3
+#&gt;       x value index
+#&gt;   &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;
+#&gt; 1     1     1 a    
+#&gt; 2     1     2 b    
+#&gt; 3     2    10 a    
+#&gt; 4     2    11 b    
+#&gt; 5     2    12 c    </div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-            
+      
+      <li><a href="#unnest-variants">Unnest variants</a></li>
+      
       <li><a href="#examples">Examples</a></li>
     </ul>
 

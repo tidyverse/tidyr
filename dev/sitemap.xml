@@ -97,9 +97,6 @@
     <loc>https://tidyr.tidyverse.org/reference/unite.html</loc>
   </url>
   <url>
-    <loc>https://tidyr.tidyverse.org/reference/unnest.html</loc>
-  </url>
-  <url>
     <loc>https://tidyr.tidyverse.org/reference/us_rent_income.html</loc>
   </url>
   <url>
@@ -110,6 +107,9 @@
   </url>
   <url>
     <loc>https://tidyr.tidyverse.org/articles/pivot.html</loc>
+  </url>
+  <url>
+    <loc>https://tidyr.tidyverse.org/articles/rectangling.html</loc>
   </url>
   <url>
     <loc>https://tidyr.tidyverse.org/articles/tidy-data.html</loc>
