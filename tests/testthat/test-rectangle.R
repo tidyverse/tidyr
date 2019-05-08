@@ -1,5 +1,7 @@
 context("test-hoist")
 
+# hoist -------------------------------------------------------------------
+
 test_that("hoist extracts named elements", {
   df <- tibble(x = list(list(1, b = "b")))
   out <- df %>% hoist(x, a = 1, b = "b")
@@ -85,4 +87,82 @@ test_that("ignores weird inputs", {
   expect_equal(strike(x, list()), x)
   expect_equal(strike(x, mean), x)
   expect_equal(strike(x, list(mean, mean)), x)
+})
+
+
+# unnest_wider --------------------------------------------------------
+
+test_that("number of rows is preserved", {
+  df <- tibble(
+    x = 1:3,
+    y = list(NULL, c(a = 1), c(a = 1, b = 2))
+  )
+  out <- df %>% unnest_wider(y)
+  expect_equal(nrow(out), 3)
+})
+
+test_that("simplifies length-1 lists", {
+  df <- tibble(
+    x = 1:2,
+    y = list(
+      list(a = 1, b = 2),
+      list(a = 3)
+    )
+  )
+  out <- df %>% unnest_wider(y)
+  expect_equal(out$a, c(1, 3))
+  expect_equal(out$b, c(2, NA))
+})
+
+test_that("can handle data frames consistently with vectors" , {
+  df <- tibble(x = 1:2, y = list(tibble(a = 1:2, b = 2:3)))
+  out <- df %>% unnest_wider(y)
+
+  expect_named(out, c("x", "a", "b"))
+  expect_equal(nrow(out), 2)
+})
+
+test_that("bad inputs generate errors", {
+  df <- tibble(x = 1, y = list(mean))
+  expect_error(unnest_wider(df, y), "must be list of vectors")
+})
+
+test_that("list of 0-length vectors yields no new columns", {
+  df <- tibble(x = 1:2, y = list(integer(), integer()))
+  expect_named(unnest_wider(df, y), "x")
+
+  # similarly when empty
+  df <- tibble(x = integer(), y = list())
+  expect_named(unnest_wider(df, y), "x")
+})
+
+# unnest_longer -----------------------------------------------------------
+
+test_that("preserves empty rows", {
+  df <- tibble(
+    x = 1:3,
+    y = list(NULL, NULL, 1)
+  )
+  out <- df %>% unnest_longer(y)
+  expect_equal(nrow(out), 3)
+})
+
+test_that("can handle data frames consistently with vectors" , {
+  df <- tibble(x = 1:2, y = list(tibble(a = 1:2, b = 2:3)))
+  out <- df %>% unnest_longer(y)
+
+  expect_named(out, c("x", "y"))
+  expect_equal(nrow(out), 4)
+})
+
+test_that("can suppress index column" , {
+  df <- tibble(x = 1:2, y = list(c(a = 1), c(b = 2)))
+  out <- df %>% unnest_longer(y, indices_to = NULL)
+
+  expect_named(out, c("x", "value"))
+})
+
+test_that("bad inputs generate errors", {
+  df <- tibble(x = 1, y = list(mean))
+  expect_error(unnest_longer(df, y), "must be list of vectors")
 })
