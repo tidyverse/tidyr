@@ -1,5 +1,8 @@
 # tidyr (development version)
 
+* New `vignette("nest")` which outlies some of the main ideas of nested data
+  (it's still very rough, but will get better over time.)
+
 * `extract()` (and hence `pivot_longer()`) can extract multiple input values
   into a single output column (#619)
 

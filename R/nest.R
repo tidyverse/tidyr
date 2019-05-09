@@ -7,7 +7,7 @@
 #' in conjunction with other summaries that work with whole datasets, most
 #' notably models.
 #'
-#' Learn more in `vignette("nesting")`.
+#' Learn more in `vignette("nest")`.
 #'
 #' @section Grouped data frames:
 #' `df %>% nest(x, y)` specify the columns to be nested; i.e. the columns

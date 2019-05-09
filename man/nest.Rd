@@ -83,7 +83,7 @@ get one row for each group defined by the non-nested columns. This is useful
 in conjunction with other summaries that work with whole datasets, most
 notably models.
 
-Learn more in \code{vignette("nesting")}.
+Learn more in \code{vignette("nest")}.
 }
 \section{Grouped data frames}{
 
