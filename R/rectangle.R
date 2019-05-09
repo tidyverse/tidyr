@@ -28,7 +28,7 @@
 #' they are theoretically pleasing.
 #'
 #' @param .data,data A data frame.
-#' @param .col List-column to extract components from.
+#' @param .col,col List-column to extract components from.
 #' @param ... Components of `.col` to turn into columns in the form
 #'   `col_name = "pluck_specification"`. You can pluck by name with a character
 #'   vector, by position with an integer vector, or with a combination of the
@@ -59,7 +59,6 @@
 #'     )
 #'   )
 #' )
-#'
 #' df
 #'
 #' # Turn all components of metadata into columns
@@ -72,6 +71,10 @@
 #'   third_film = list("films", 3L)
 #' )
 #'
+#' df %>%
+#'   unnest_wider(metadata) %>%
+#'   unnest_longer(films)
+#
 #' # unnest_longer() is useful when each component of the list should
 #' # form a row
 #' df <- tibble(
@@ -139,63 +142,66 @@ hoist <- function(.data, .col, ..., .remove = TRUE, .simplify = TRUE, .ptype = l
 
 #' @export
 #' @rdname hoist
-#' @param cols Columns to unnest.
-#' @param values_to Name of column to store vector values.
-#' @param indices_to A string giving the name of a new column which will
-#'   contain the inner names of the values. If unnamed, `col` will instead
-#'   contain numeric indices.
+#' @param values_to Name of column to store vector values. Defaults to `col`.
+#' @param indices_to A string giving the name of column which will contain the
+#'   inner names or position (if not named) of the values. Defaults to `col`
+#'   with `_id` suffix
+#' @param indices_include Add an index column? Defaults to `TRUE` when `col`
+#'   has inner names.
+#' @oaran
+#' @param
 #' @inheritParams unnest
-unnest_longer <- function(data, cols,
-                          values_to = "value",
-                          indices_to = "index",
-                          names_sep = NULL,
+unnest_longer <- function(data, col,
+                          values_to = NULL,
+                          indices_to = NULL,
+                          indices_include = NULL,
                           names_repair = "check_unique"
                           ) {
 
-  cols <- tidyselect::vars_select(names(data), !!enquo(cols))
+  col <- tidyselect::vars_pull(names(data), !!enquo(col))
 
-  for (col in cols) {
-    data[[col]][] <- map(
-      data[[col]], vec_to_long,
-      col = col,
-      values_to = values_to,
-      indices_to = indices_to
-    )
+  values_to <- values_to %||% col
+  if (!is.null(indices_to)) {
+    indices_include <- indices_include %||% TRUE
+  } else {
+    indices_to <- paste0(col, "_id")
   }
 
-  data <- unchop(data, !!cols, keep_empty = TRUE)
-  unpack(data, !!cols, names_sep = names_sep, names_repair = names_repair)
+  data[[col]][] <- map(
+    data[[col]], vec_to_long,
+    col = col,
+    values_to = values_to,
+    indices_to = indices_to,
+    indices_include = indices_include
+  )
+
+  data <- unchop(data, !!col, keep_empty = TRUE)
+  unpack(data, !!col, names_repair = names_repair)
 }
 
 #' @export
 #' @rdname hoist
 #' @param simplify If `TRUE`, will attempt to simplify lists of length-1
 #'   vectors to an atomic vector
-unnest_wider <- function(data, cols,
+unnest_wider <- function(data, col,
                          names_sep = NULL,
                          simplify = TRUE,
                          names_repair = "check_unique",
                          ptype = list()) {
-  cols <- tidyselect::vars_select(names(data), !!enquo(cols))
+  col <- tidyselect::vars_select(names(data), !!enquo(col))
 
-  for (col in cols) {
-    data[[col]][] <- map(data[[col]], vec_to_wide, col = col)
-  }
+  data[[col]][] <- map(data[[col]], vec_to_wide, col = col)
+  data <- unchop(data, !!col, keep_empty = TRUE)
+  inner_cols <- names(data[[col]])
 
-  data <- unchop(data, !!cols, keep_empty = TRUE)
+  data[[col]][] <- map2(
+    data[[col]], ptype[inner_cols],
+    simplify_col,
+    keep_empty = TRUE,
+    simplify = simplify
+  )
 
-  for (col in cols) {
-    inner_cols <- names(data[[col]])
-
-    data[[col]][] <- map2(
-      data[[col]], ptype[inner_cols],
-      simplify_col,
-      keep_empty = TRUE,
-      simplify = simplify
-    )
-  }
-
-  unpack(data, !!cols, names_sep = names_sep, names_repair = names_repair)
+  unpack(data, !!col, names_sep = names_sep, names_repair = names_repair)
 }
 
 # Helpers -----------------------------------------------------------------
@@ -298,19 +304,22 @@ vec_to_wide <- function(x, col) {
 }
 
 # 1 col; n rows
-vec_to_long <- function(x, col, values_to = "values", indices_to = "index") {
+vec_to_long <- function(x, col, values_to, indices_to, indices_include = NULL) {
   if (is.null(x)) {
     NULL
   } else if (is.data.frame(x)) {
     tibble(!!col := x)
   } else if (vec_is(x)) {
-    if (is.null(indices_to)) {
-      tibble(!!values_to := x)
-    } else {
+
+    indices_include <- indices_include %||% !is.null(names(x))
+
+    if (isTRUE(indices_include)) {
       tibble(
         !!values_to := x,
         !!indices_to := index(x)
       )
+    } else {
+      tibble(!!values_to := x)
     }
   } else {
     stop("Input must be list of vectors", call. = FALSE)

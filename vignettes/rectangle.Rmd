@@ -70,20 +70,14 @@ users %>% hoist(user,
 We start off `gh_repos` similarly, by putting it in a tibble:
 
 ```{r}
-repos <- tibble(user = gh_repos)
+repos <- tibble(repo = gh_repos)
 repos
 ```
 
 In this case, the elements of `user` are a list of repositories that belong to that user. These should become new rows, so we use `unnest_longer()` rather than `unnest_wider()`:
 
 ```{r}
-repos %>% unnest_longer(user, values_to = "repo")
-```
-
-In this case, the index of the repo within the user is not informative, so we can drop with `indices_to = NULL`:
-
-```{r}
-repos <- repos %>% unnest_longer(user, values_to = "repo", indices_to = NULL)
+repos <- repos %>% unnest_longer(repo)
 repos
 ```
 
@@ -131,22 +125,22 @@ What you do next will depend on the purposes of the analysis. Maybe you want a r
 chars2 %>% 
   select(name, books, tvSeries) %>% 
   pivot_longer(c(books, tvSeries), names_to = "media", values_to = "value") %>% 
-  unnest_longer(value, indices_to = NULL)
+  unnest_longer(value)
 ```
 
 Or maybe you want to build a table that lets you match title to name:
 
 ```{r}
 chars2 %>% 
-  select(name, titles) %>% 
-  unnest_longer(titles, values_to = "title", indices_to = NULL)
+  select(name, title = titles) %>% 
+  unnest_longer(title)
 ```
 
 (Note that the empty titles (`""`) are due to an infelicity in the input `got_chars`: ideally people without titles would have a title vector of length 0, not a title vector of length 1 containing an empty string.)
 
 ## Sharla Gelfand's discography
 
-We'll finish off with the most complex list [Sharla Gelfand's](https://sharla.party/posts/discog-purrr/). We'll start the usual way: putting the list into a single column data frame, and then widening so each component is a column. I also parse the `date_added` column into a real date-time (I'd normally use `readr::parse_datetime()`, but I can't here because it's a vignette and I don't want to introduce another dependency to tidyr).
+We'll finish off with the most complex list, from [Sharla Gelfand's](https://sharla.party/posts/discog-purrr/) discography. We'll start the usual way: putting the list into a single column data frame, and then widening so each component is a column. I also parse the `date_added` column into a real date-time (I'd normally use `readr::parse_datetime()`, but I can't here because it's a vignette and I don't want to introduce another dependency to tidyr).
 
 ```{r}
 discs <- tibble(disc = discog) %>% 
@@ -187,13 +181,22 @@ discs %>%
   )
 ```
 
-Here I quickly extract the name of the first label and artist by indexing deeply into the nested list. You might want to do this more systematically using `unnest_wider()` and `unnest_longer()`
+Here I quickly extract the name of the first label and artist by indexing deeply into the nested list. 
+
+A more systematic approach would be to create separate tables for artist and label.
 
 ```{r}
 discs %>% 
-  hoist(basic_information, label = "labels") %>% 
-  select(id, label) %>% 
-  unnest_longer(label, values_to = "label", indices_to = NULL) %>% 
-  unnest_wider(label, names_repair = "unique")
+  hoist(basic_information, artist = "artists") %>% 
+  select(disc_id = id, artist) %>% 
+  unnest_longer(artist) %>% 
+  unnest_wider(artist)
+
+discs %>% 
+  hoist(basic_information, format = "formats") %>% 
+  select(disc_id = id, format) %>% 
+  unnest_wider(format) %>% 
+  unnest_longer(descriptions)
 ```
 
+Then you could join these back on to the original dataset as needed.

@@ -9,16 +9,16 @@
 hoist(.data, .col, ..., .remove = TRUE, .simplify = TRUE,
   .ptype = list())
 
-unnest_longer(data, cols, values_to = "value", indices_to = "index",
-  names_sep = NULL, names_repair = "check_unique")
+unnest_longer(data, col, values_to = NULL, indices_to = NULL,
+  indices_include = NULL, names_repair = "check_unique")
 
-unnest_wider(data, cols, names_sep = NULL, simplify = TRUE,
+unnest_wider(data, col, names_sep = NULL, simplify = TRUE,
   names_repair = "check_unique", ptype = list())
 }
 \arguments{
 \item{.data, data}{A data frame.}
 
-\item{.col}{List-column to extract components from.}
+\item{.col, col}{List-column to extract components from.}
 
 \item{...}{Components of \code{.col} to turn into columns in the form
 \code{col_name = "pluck_specification"}. You can pluck by name with a character
@@ -34,20 +34,14 @@ vectors to an atomic vector}
 \item{.ptype}{Optionally, a named list of prototypes declaring the desired
 output type of each component.}
 
-\item{cols}{Columns to unnest.}
+\item{values_to}{Name of column to store vector values. Defaults to \code{col}.}
 
-\item{values_to}{Name of column to store vector values.}
+\item{indices_to}{A string giving the name of column which will contain the
+inner names or position (if not named) of the values. Defaults to \code{col}
+with \code{_id} suffix}
 
-\item{indices_to}{A string giving the name of a new column which will
-contain the inner names of the values. If unnamed, \code{col} will instead
-contain numeric indices.}
-
-\item{names_sep}{If \code{NULL}, the default, the names of new columns will
-come directly from the inner data frame.
-
-If a string, the names of the new columns will be formed by pasting
-together the outer column name with the inner names, separated by
-\code{names_sep}.}
+\item{indices_include}{Add an index column? Defaults to \code{TRUE} when \code{col}
+has inner names.}
 
 \item{names_repair}{Used to check that output data frame has valid
 names. Must be one of the following options:
@@ -62,6 +56,13 @@ names. Must be one of the following options:
 
 See \link[tibble:name-repair]{tibble::name-repair} for more details on these terms and the
 strategies used to enforce them.}
+
+\item{names_sep}{If \code{NULL}, the default, the names of new columns will
+come directly from the inner data frame.
+
+If a string, the names of the new columns will be formed by pasting
+together the outer column name with the inner names, separated by
+\code{names_sep}.}
 
 \item{simplify}{If \code{TRUE}, will attempt to simplify lists of length-1
 vectors to an atomic vector}

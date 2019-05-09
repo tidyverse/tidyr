@@ -138,6 +138,29 @@ test_that("list of 0-length vectors yields no new columns", {
 
 # unnest_longer -----------------------------------------------------------
 
+test_that("uses input for default column names", {
+  df <- tibble(x = 1:2, y = list(1, 1:2))
+  out <- df %>% unnest_longer(y)
+
+  expect_named(out, c("x", "y"))
+})
+
+test_that("automatically adds id col if named", {
+  df <- tibble(x = 1:2, y = list(c(a = 1), c(b = 2)))
+  out <- df %>% unnest_longer(y)
+
+  expect_named(out, c("x", "y", "y_id"))
+})
+
+test_that("can force integer indexes", {
+  df <- tibble(x = 1:2, y = list(1, 2))
+  out <- df %>% unnest_longer(y, indices_include = TRUE)
+  expect_named(out, c("x", "y", "y_id"))
+
+  out <- df %>% unnest_longer(y, indices_to = "y2")
+  expect_named(out, c("x", "y", "y2"))
+})
+
 test_that("preserves empty rows", {
   df <- tibble(
     x = 1:3,
@@ -153,13 +176,6 @@ test_that("can handle data frames consistently with vectors" , {
 
   expect_named(out, c("x", "y"))
   expect_equal(nrow(out), 4)
-})
-
-test_that("can suppress index column" , {
-  df <- tibble(x = 1:2, y = list(c(a = 1), c(b = 2)))
-  out <- df %>% unnest_longer(y, indices_to = NULL)
-
-  expect_named(out, c("x", "value"))
 })
 
 test_that("bad inputs generate errors", {
