@@ -138,6 +138,112 @@ chars2 %>%
 
 (Note that the empty titles (`""`) are due to an infelicity in the input `got_chars`: ideally people without titles would have a title vector of length 0, not a title vector of length 1 containing an empty string.)
 
+## Geocoding with google
+
+Next we'll tackle a more complex form of data that comes from Google's geocoding service. It's against the terms of service to cache this data, so first write a very simple wrapper around the API. This relies on having an Google maps API key stored in an environment; if that's not available these code chunks won't be run.
+
+```{r}
+has_key <- !identical(Sys.getenv("GOOGLE_MAPS_API_KEY"), "")
+if (!has_key) {
+  message("No Google Maps API key found; code chunks will not be run")
+}
+
+# https://developers.google.com/maps/documentation/geocoding
+geocode <- function(address, api_key = Sys.getenv("GOOGLE_MAPS_API_KEY")) {
+  url <- "https://maps.googleapis.com/maps/api/geocode/json"
+  url <- paste0(url, "?address=", URLencode(address), "&key=", api_key)
+
+  jsonlite::read_json(url)
+}
+```
+
+The list that this function returns is quite complex:
+
+```{r}
+houston <- geocode("Houston TX")
+str(houston)
+```
+
+Fortunately, we can attack the problem step by step with tidyr functions. To make the problem a bit harder (!) and more realistic, I'll start by geocoding a few cities:
+
+```{r, eval = has_key, cache = TRUE}
+city <- c("Houston", "LA", "New York", "Chicago", "Springfield")
+city_geo <- purrr::map(city, geocode)
+```
+
+I'll put these results in a tibble, next to the original city name.
+
+```{r, eval = has_key}
+loc <- tibble(city = city, json = city_geo)
+loc
+```
+
+The first level contains components `status` and `result`, which we can reveal with `unnest_wider()`:
+
+```{r, eval = has_key}
+loc %>%
+  unnest_wider(json)
+```
+
+Notice that `results` is a list of lists. Most of the cities have 1 elements, but Springfield has two. We can pull these out into separate rows with `unnest_longer()`:
+
+```{r, eval = has_key}
+loc %>%
+  unnest_wider(json) %>% 
+  unnest_longer(results)
+```
+
+Now these all have the same components, as revealed by `unnest_wider()`:
+
+```{r, eval = has_key}
+loc %>%
+  unnest_wider(json) %>% 
+  unnest_longer(results) %>% 
+  unnest_wider(results)
+```
+
+We can find the lat and lon coordinates by unnesting `geometry`:
+
+```{r, eval = has_key}
+loc %>%
+  unnest_wider(json) %>% 
+  unnest_longer(results) %>% 
+  unnest_wider(results) %>% 
+  unnest_wider(geometry)
+```
+
+And then location:
+
+```{r, eval = has_key}
+loc %>%
+  unnest_wider(json) %>%
+  unnest_longer(results) %>%
+  unnest_wider(results) %>%
+  unnest_wider(geometry) %>%
+  unnest_wider(location)
+```
+
+We could also just look at the first address for each city:
+
+```{r, eval = has_key}
+loc %>%
+  unnest_wider(json) %>%
+  hoist(results, first_result = 1) %>%
+  unnest_wider(first_result) %>%
+  unnest_wider(geometry) %>%
+  unnest_wider(location)
+```
+
+Or use `hoist()` to dive deeply to get directly to `lat` and `lng`:
+
+```{r, eval = has_key}
+loc %>%
+  hoist(json,
+    lat = list("results", 1, "geometry", "location", "lat"),
+    lng = list("results", 1, "geometry", "location", "lng")
+  )
+```
+
 ## Sharla Gelfand's discography
 
 We'll finish off with the most complex list, from [Sharla Gelfand's](https://sharla.party/posts/discog-purrr/) discography. We'll start the usual way: putting the list into a single column data frame, and then widening so each component is a column. I also parse the `date_added` column into a real date-time (I'd normally use `readr::parse_datetime()`, but I can't here because it's a vignette and I don't want to introduce another dependency to tidyr).

@@ -36,6 +36,7 @@ Imports:
     vctrs (>= 0.1.0.9003)
 Suggests: 
     covr,
+    jsonlite,
     knitr,
     repurrrsive,
     rmarkdown,
