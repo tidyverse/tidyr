@@ -20,7 +20,8 @@ Rectangling is the art and craft of taking a deeply nested list (often sourced f
 
 * `unnest_longer()` takes each element of a list-column and makes a new row.
 * `unnest_wider()` takes each element of a list-column and makes a new column.
-* `hoist()` is similar to `unnest_wider()` put only plucks out selected 
+* `unnest_auto()` guesses whether you want `unnest_longer()` or `unnest_wider()`.
+* `hoist()` is similar to `unnest_wider()` put only plucks out selected
   components, and can reach down multiple levels.
   
 A very large number of data rectangling problems can be solved by combining this functions with a splash of dplyr code. To illustrate these techniques, we'll use the repurrrsive package, which provides a number of datasets with deeply nested lists originally captured from JSON APIs.
@@ -41,7 +42,7 @@ users <- tibble(user = gh_users)
 
 This seems a bit counter-intuitive: why is the first step in making a list more to make it more complicated? But a data frame has a big advantage: it bundles together multiple vectors so that everything is tracked together in a single object.
 
-Each `user` is a named list, which we want to turn into columns.
+Each `user` is a named list, where each element represents a column.
 
 ```{r}
 names(users$user[[1]])
@@ -74,7 +75,7 @@ repos <- tibble(repo = gh_repos)
 repos
 ```
 
-In this case, the elements of `user` are a list of repositories that belong to that user. These should become new rows, so we use `unnest_longer()` rather than `unnest_wider()`:
+This time the elements of `user` are a list of repositories that belong to that user. These are observations, so should become new rows, so we use `unnest_longer()` rather than `unnest_wider()`:
 
 ```{r}
 repos <- repos %>% unnest_longer(repo)
@@ -100,6 +101,13 @@ repos %>%
   unnest_wider(owner)
 ```
 
+Instead of looking at the list and carefully thinking about whether we need to go longer or wider at each stage, we can instead use `unnest_auto()`. It uses a handful of heuristics to figure out whether `unnest_longer()` or `unnest_wider()` is appropriate, and tells you about its reasoning.
+
+```{r}
+tibble(repo = gh_repos) %>% 
+  unnest_auto(repo) %>% 
+  unnest_auto(repo)
+```
 
 ## Game of Thrones characters
 
@@ -137,6 +145,15 @@ chars2 %>%
 ```
 
 (Note that the empty titles (`""`) are due to an infelicity in the input `got_chars`: ideally people without titles would have a title vector of length 0, not a title vector of length 1 containing an empty string.)
+
+Again, we could rewrite using `unnest_auto()`. This is convenient for exploration, but I wouldn't rely on it in the long term - `unnest_auto()` has the undesirable property that it will always suceed. That means if your data structure changes, `unnest_auto()` will continue to work, but potentially give very different output that will cause cryptic downstream failures.
+
+```{r}
+tibble(char = got_chars) %>% 
+  unnest_auto(char) %>% 
+  select(name, title = titles) %>% 
+  unnest_auto(title)
+```
 
 ## Geocoding with google
 
@@ -221,6 +238,17 @@ loc %>%
   unnest_wider(results) %>%
   unnest_wider(geometry) %>%
   unnest_wider(location)
+```
+
+Again, `unnest_auto()` makes this simpler with the small risk of failing in unexpected ways if the input structure changes:
+
+```{r, eval = has_key}
+loc %>%
+  unnest_auto(json) %>%
+  unnest_auto(results) %>%
+  unnest_auto(results) %>%
+  unnest_auto(geometry) %>%
+  unnest_auto(location)
 ```
 
 We could also just look at the first address for each city:

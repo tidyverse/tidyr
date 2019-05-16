@@ -4,6 +4,7 @@
 \alias{hoist}
 \alias{unnest_longer}
 \alias{unnest_wider}
+\alias{unnest_auto}
 \title{Rectangling tools: hosting & directional unnesting}
 \usage{
 hoist(.data, .col, ..., .remove = TRUE, .simplify = TRUE,
@@ -15,6 +16,8 @@ unnest_longer(data, col, values_to = NULL, indices_to = NULL,
 
 unnest_wider(data, col, names_sep = NULL, simplify = TRUE,
   names_repair = "check_unique", ptype = list())
+
+unnest_auto(data, col, ...)
 }
 \arguments{
 \item{.data, data}{A data frame.}
@@ -79,6 +82,8 @@ rectangling, collapsing deeply nested lists into regular columns.
 in to their own top-level columns, using the same syntax as \code{\link[purrr:pluck]{purrr::pluck()}}.
 \code{unnest_wider()} turns each element of a list-column into a column, and
 \code{unnest_longer()} turns each element of a list-column into a row.
+\code{unnest_auto()} picks between \code{unnest_wider()} or \code{unnest_longer()}
+based heuristics described below.
 
 Learn more in \code{vignette("rectangle")}.
 }
@@ -100,6 +105,17 @@ a list column of length one. Or if you \code{unnest_longer()} a list of data
 frame, the number of columns must be preserved so it creates a packed
 column. I'm not sure how if these behaviours are useful in practice, but
 they are theoretically pleasing.
+}
+
+\section{\code{unnest_auto()} heuristics}{
+
+\code{unnest_auto()} inspects the inner names of the list-col:
+\itemize{
+\item If all elements are unnamed, it uses \code{unnest_longer()}
+\item If all elements are named, and there's at least one name in
+common acros all components, it uses \code{unnest_wider()}
+\item Otherwise, it falls back to \code{unnest_longer(indices_include = TRUE)}.
+}
 }
 
 \examples{

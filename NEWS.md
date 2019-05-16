@@ -12,6 +12,8 @@
 * New `unnest_longer()` and `unnest_wider()` make it easier to unnest
   list-columns of vectors into either rows or columns (#418).
   They are documented along with `hoist()` in `vignette("rectangle")`.
+  `unnest_auto()` automatically picks between `_longer()` and `_wider()`
+  using a heuristic that often works.
   
 * New `hoist()` provides a convenient way of plucking components of a 
   list-column out into their own top level columns (#341). This is particularly 

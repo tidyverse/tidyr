@@ -7,6 +7,8 @@
 #' in to their own top-level columns, using the same syntax as [purrr::pluck()].
 #' `unnest_wider()` turns each element of a list-column into a column, and
 #' `unnest_longer()` turns each element of a list-column into a row.
+#' `unnest_auto()` picks between `unnest_wider()` or `unnest_longer()`
+#' based heuristics described below.
 #'
 #' Learn more in `vignette("rectangle")`.
 #'
@@ -26,6 +28,13 @@
 #' frame, the number of columns must be preserved so it creates a packed
 #' column. I'm not sure how if these behaviours are useful in practice, but
 #' they are theoretically pleasing.
+#'
+#' @section `unnest_auto()` heuristics:
+#' `unnest_auto()` inspects the inner names of the list-col:
+#' * If all elements are unnamed, it uses `unnest_longer()`
+#' * If all elements are named, and there's at least one name in
+#'   common acros all components, it uses `unnest_wider()`
+#' * Otherwise, it falls back to `unnest_longer(indices_include = TRUE)`.
 #'
 #' @param .data,data A data frame.
 #' @param .col,col List-column to extract components from.
@@ -211,6 +220,48 @@ unnest_wider <- function(data, col,
   )
 
   unpack(data, !!col, names_sep = names_sep, names_repair = names_repair)
+}
+
+#' @export
+#' @rdname hoist
+#' @params ... Other arguments passed on to which ever of
+#'   `unnest_longer()` and `unnest_wider()` are selected.
+unnest_auto <- function(data, col, ...) {
+  col <- tidyselect::vars_select(names(data), !!enquo(col))
+
+  x <- data[[col]]
+  dir <- guess_dir(x, col)
+
+  switch(dir,
+    longer = unnest_longer(data, col, indices_include = FALSE),
+    longer_idx = unnest_longer(data, col, indices_include = TRUE),
+    wider = unnest_wider(data, col, names_repair = "unique")
+  )
+}
+
+guess_dir <- function(x, col) {
+  names <- map(x, names)
+  is_null <- unique(map_lgl(names, is.null))
+
+  if (isTRUE(is_null)) {
+    # all unnamed
+    message(glue::glue("unnest_longer({col}) # no elements have names"))
+    "longer"
+  } else if (isFALSE(is_null)) {
+    # all named
+    common <- reduce(names, intersect)
+    n_common <- length(common)
+    if (n_common == 0) {
+      message(glue::glue("unnest_longer({col}, indices_include = TRUE) # fallback"))
+      "longer_idx"
+    } else {
+      message(glue::glue("unnest_wider({col}) # {n_common} names in common"))
+      "wider"
+    }
+  } else {
+    message(glue::glue("unnest_longer({col}) # mix of named and unnamed"))
+    "longer"
+  }
 }
 
 # Helpers -----------------------------------------------------------------
