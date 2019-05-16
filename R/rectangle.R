@@ -148,14 +148,15 @@ hoist <- function(.data, .col, ..., .remove = TRUE, .simplify = TRUE, .ptype = l
 #'   with `_id` suffix
 #' @param indices_include Add an index column? Defaults to `TRUE` when `col`
 #'   has inner names.
-#' @oaran
-#' @param
+#' @simplify If `TRUE`,
 #' @inheritParams unnest
 unnest_longer <- function(data, col,
                           values_to = NULL,
                           indices_to = NULL,
                           indices_include = NULL,
-                          names_repair = "check_unique"
+                          names_repair = "check_unique",
+                          simplify = TRUE,
+                          ptype = list()
                           ) {
 
   col <- tidyselect::vars_pull(names(data), !!enquo(col))
@@ -176,6 +177,14 @@ unnest_longer <- function(data, col,
   )
 
   data <- unchop(data, !!col, keep_empty = TRUE)
+  inner_cols <- names(data[[col]])
+  data[[col]][] <- map2(
+    data[[col]], ptype[inner_cols],
+    simplify_col,
+    keep_empty = TRUE,
+    simplify = simplify
+  )
+
   unpack(data, !!col, names_repair = names_repair)
 }
 
@@ -274,6 +283,13 @@ simplify_col <- function(x, ptype, keep_empty = FALSE, simplify = FALSE) {
 vec_simplify <- function(x) {
   n <- map_int(x, vec_size)
   if (!all(n == 1)) {
+    return(x)
+  }
+
+  # Don't simplify lists of lists, because that typically indicates that
+  # there might be multiple values.
+  is_list <- map_lgl(x, is.list)
+  if (any(is_list)) {
     return(x)
   }
 

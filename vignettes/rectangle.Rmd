@@ -195,6 +195,7 @@ discs %>%
 discs %>% 
   hoist(basic_information, format = "formats") %>% 
   select(disc_id = id, format) %>% 
+  unnest_longer(format) %>% 
   unnest_wider(format) %>% 
   unnest_longer(descriptions)
 ```

@@ -10,7 +10,8 @@ hoist(.data, .col, ..., .remove = TRUE, .simplify = TRUE,
   .ptype = list())
 
 unnest_longer(data, col, values_to = NULL, indices_to = NULL,
-  indices_include = NULL, names_repair = "check_unique")
+  indices_include = NULL, names_repair = "check_unique",
+  simplify = TRUE, ptype = list())
 
 unnest_wider(data, col, names_sep = NULL, simplify = TRUE,
   names_repair = "check_unique", ptype = list())
@@ -57,19 +58,19 @@ names. Must be one of the following options:
 See \link[tibble:name-repair]{tibble::name-repair} for more details on these terms and the
 strategies used to enforce them.}
 
-\item{names_sep}{If \code{NULL}, the default, the names of new columns will
-come directly from the inner data frame.
-
-If a string, the names of the new columns will be formed by pasting
-together the outer column name with the inner names, separated by
-\code{names_sep}.}
-
 \item{simplify}{If \code{TRUE}, will attempt to simplify lists of length-1
 vectors to an atomic vector}
 
 \item{ptype}{Optionally, supply a data frame prototype for the output \code{cols},
 overriding the default that will be guessed from the combination of
 individual values.}
+
+\item{names_sep}{If \code{NULL}, the default, the names of new columns will
+come directly from the inner data frame.
+
+If a string, the names of the new columns will be formed by pasting
+together the outer column name with the inner names, separated by
+\code{names_sep}.}
 }
 \description{
 \code{hoist()}, \code{unnest_longer()}, and \code{unnest_wider()} provide tools for
@@ -121,7 +122,6 @@ df <- tibble(
     )
   )
 )
-
 df
 
 # Turn all components of metadata into columns
@@ -134,6 +134,9 @@ df \%>\% hoist(metadata,
   third_film = list("films", 3L)
 )
 
+df \%>\%
+  unnest_wider(metadata) \%>\%
+  unnest_longer(films)
 # unnest_longer() is useful when each component of the list should
 # form a row
 df <- tibble(

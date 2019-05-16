@@ -29,6 +29,17 @@ test_that("doesn't simplify uneven lengths", {
   expect_equal(out$a, list(1, 2:3))
 })
 
+test_that("doesn't simplify lists of lists", {
+  df <- tibble(x = list(
+    list(a = list(1)),
+    list(a = list(2))
+  ))
+
+  out <- df %>% hoist(x, a = "a")
+  expect_equal(out$a, list(list(1), list(2)))
+})
+
+
 test_that("input validation catches problems", {
   df <- tibble(x = list(list(1, b = "b")), y = 1)
 
