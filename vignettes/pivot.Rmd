@@ -103,7 +103,7 @@ billboard %>%
   )
 ```
 
-It would be nice to easily determine how long each song stayed in the charts, but to do that, we'll need to convert the `week` variable to an integer. We can do that by using two additional arguments: `names_prefix` strips off the `wk` prefix, and `col_types` specifies that `week` should be an integer:
+It would be nice to easily determine how long each song stayed in the charts, but to do that, we'll need to convert the `week` variable to an integer. We can do that by using two additional arguments: `names_prefix` strips off the `wk` prefix, and `col_ptypes` specifies that `week` should be an integer:
 
 ```{r}
 billboard %>% 
@@ -156,7 +156,7 @@ who %>% pivot_longer(
   names_to = c("diagnosis", "gender", "age"), 
   names_pattern = "new_?(.*)_(.)(.*)",
   values_to = "count",
-  col_ptype = list(
+  col_ptypes = list(
     gender = factor(levels = c("f", "m")),
     age = factor(
       levels = c("014", "1524", "2534", "3544", "4554", "5564", "65"), 
