@@ -39,7 +39,7 @@ df1
 
 (It is possible to create list-columns in regular data frames, not just in tibbles, but it's considerably more work because the default behaviour of `data.frame()` is to treat lists as lists of columns.)
 
-But more commonly you'll create them with the `nest()` function:
+But more commonly you'll create them with `tidyr::nest()`:
 
 ```{r}
 df2 <- tribble(
@@ -52,7 +52,7 @@ df2 <- tribble(
 df2 %>% nest(data = c(x, y))
 ```
 
-Often from grouped data:
+`nest()` specifies which variables should be nested inside; an alternative is to use `dplyr::group_by()` to describe which variables should be kept outside.
 
 ```{r}
 df2 %>% group_by(g) %>% nest()
