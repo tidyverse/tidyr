@@ -20,19 +20,40 @@ navbar:
       href: articles/tidy-data.html
 
 reference:
-- title: Tidying
+- title: Data shape
+  description: |
+    tidyr provides three families of tools for changing the form of a dataset,
+    while preserving its values:
+    * Pivotting, which changes the representation of a rectangular dataset.
+      See `vignette("pivot")` for more details.
+    * Rectangling, which turns deeply nested lists into tidy tibbles.
+      See `vignette("rectangle")` for more details.
+    * Nesting and unnesting, which support converstaion to and from an
+      alternative representation of grouped data where a group becomes a
+      single row containing a nested data frame. See `vignette("nest")`
+      for more details.
   contents:
-  - extract
-  - nest
   - pivot_longer
   - pivot_wider
+  - nest
+  - unnest_longer
+  - spread
+  - gather
+
+- title: Character vectors
+  description: |
+    Multiple variables are sometimes pasted together into a single column,
+    and these tools help you separate back out into individual columns.
+  contents:
+  - extract
   - separate
   - separate_rows
-  - uncount
   - unite
-  - unnest
 
-- title: Implicit and explicit missing values
+- title: Missing values
+  description: |
+    Tools for converting between implicit (absent rows) and explicit (`NA`)
+    missing values, and for handling explicit `NA`s.
   contents:
   - complete
   - drop_na
@@ -42,9 +63,18 @@ reference:
   - full_seq
   - replace_na
 
+- title: Miscellanea
+  contents:
+  - chop
+  - pack
+  - uncount
+
 - title: Data
   contents:
+  - billboard
+  - construction
   - fish_encounters
+  - relig_income
   - smiths
   - table1
   - us_rent_income

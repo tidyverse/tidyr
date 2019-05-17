@@ -60,7 +60,7 @@
 #' @rdname table1
 "table5"
 
-#' Some data about the Smith family.
+#' Some data about the Smith family
 #'
 #' A small demo dataset describing John and Mary Smith.
 #'
@@ -134,7 +134,6 @@
 "relig_income"
 
 #' Completed construction in the US in 2018
-#' <https://www.census.gov/construction/nrc/>
 #'
 #' @format A dataset with variables:
 #' \describe{

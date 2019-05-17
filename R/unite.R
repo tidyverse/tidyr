@@ -1,4 +1,4 @@
-#' Unite multiple columns into one.
+#' Unite multiple columns into one by pasting strings together
 #'
 #' Convenience function to paste together multiple columns into one.
 #'

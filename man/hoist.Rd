@@ -5,7 +5,7 @@
 \alias{unnest_longer}
 \alias{unnest_wider}
 \alias{unnest_auto}
-\title{Rectangling tools: hosting & directional unnesting}
+\title{Rectangle a nested list into a tidy tibble}
 \usage{
 hoist(.data, .col, ..., .remove = TRUE, .simplify = TRUE,
   .ptype = list())

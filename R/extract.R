@@ -1,4 +1,5 @@
-#' Extract one column into multiple columns.
+#' Extract a character column into multiple columns using regular
+#' expression groups
 #'
 #' Given a regular expression with capturing groups, `extract()` turns
 #' each group into a new column. If the groups don't match, or the input

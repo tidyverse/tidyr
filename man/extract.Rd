@@ -2,7 +2,8 @@
 % Please edit documentation in R/extract.R
 \name{extract}
 \alias{extract}
-\title{Extract one column into multiple columns.}
+\title{Extract a character column into multiple columns using regular
+expression groups}
 \usage{
 extract(data, col, into, regex = "([[:alnum:]]+)", remove = TRUE,
   convert = FALSE, ...)

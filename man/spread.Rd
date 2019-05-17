@@ -2,7 +2,7 @@
 % Please edit documentation in R/spread.R
 \name{spread}
 \alias{spread}
-\title{Spread a key-value pair across multiple columns.}
+\title{Spread a key-value pair across multiple columns}
 \usage{
 spread(data, key, value, fill = NA, convert = FALSE, drop = TRUE,
   sep = NULL)

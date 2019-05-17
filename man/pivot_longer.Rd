@@ -3,7 +3,7 @@
 \name{pivot_longer}
 \alias{pivot_longer}
 \alias{pivot_longer_spec}
-\title{Pivot data from wide to long.}
+\title{Pivot data from wide to long}
 \usage{
 pivot_longer(data, cols, names_to = "name", names_prefix = NULL,
   names_sep = NULL, names_pattern = NULL, values_to = "value",

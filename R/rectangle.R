@@ -1,4 +1,4 @@
-#' Rectangling tools: hosting & directional unnesting
+#' Rectangle a nested list into a tidy tibble
 #'
 #' @description
 #' `hoist()`, `unnest_longer()`, and `unnest_wider()` provide tools for

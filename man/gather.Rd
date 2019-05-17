@@ -2,7 +2,7 @@
 % Please edit documentation in R/gather.R
 \name{gather}
 \alias{gather}
-\title{Gather columns into key-value pairs.}
+\title{Gather columns into key-value pairs}
 \usage{
 gather(data, key = "key", value = "value", ..., na.rm = FALSE,
   convert = FALSE, factor_key = FALSE)

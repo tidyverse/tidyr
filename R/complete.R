@@ -1,4 +1,4 @@
-#' Complete a data frame with missing combinations of data.
+#' Complete a data frame with missing combinations of data
 #'
 #' Turns implicit missing values into explicit missing values.
 #' This is a wrapper around [expand()],

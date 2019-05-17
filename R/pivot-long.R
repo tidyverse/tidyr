@@ -1,4 +1,4 @@
-#' Pivot data from wide to long.
+#' Pivot data from wide to long
 #'
 #' @description
 #' `pivot_longer()` "lengthens" data, increasing the number of rows and

@@ -1,14 +1,13 @@
 #' @importFrom Rcpp sourceCpp
 NULL
 
-#' Fill in missing values.
+#' Fill in missing values with previous or next value
 #'
-#' Fills missing values in selected columns using the previous entry. This is useful in the
-#' common output format where values are not repeated, they're recorded
-#' each time they change.
+#' Fills missing values in selected columns using the next or previous entry.
+#' This is useful in the common output format where values are not repeated,
+#' and are only recorded when they change.
 #'
-#' Missing values are replaced in atomic vectors; `NULL`s are replaced
-#' in list.
+#' Missing values are replaced in atomic vectors; `NULL`s are replaced in lists.
 #'
 #' @inheritParams gather
 #' @param ... A selection of columns. If empty, nothing happens. You can

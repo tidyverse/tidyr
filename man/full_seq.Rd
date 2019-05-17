@@ -2,7 +2,7 @@
 % Please edit documentation in R/seq.R
 \name{full_seq}
 \alias{full_seq}
-\title{Create the full sequence of values in a vector.}
+\title{Create the full sequence of values in a vector}
 \usage{
 full_seq(x, period, tol = 1e-06)
 }

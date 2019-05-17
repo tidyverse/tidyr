@@ -2,7 +2,7 @@
 % Please edit documentation in R/complete.R
 \name{complete}
 \alias{complete}
-\title{Complete a data frame with missing combinations of data.}
+\title{Complete a data frame with missing combinations of data}
 \usage{
 complete(data, ..., fill = list())
 }

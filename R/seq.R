@@ -1,4 +1,4 @@
-#' Create the full sequence of values in a vector.
+#' Create the full sequence of values in a vector
 #'
 #' This is useful if you want to fill in missing values that should have
 #' been observed but weren't. For example, `full_seq(c(1, 2, 4, 6), 1)`

@@ -2,7 +2,7 @@
 % Please edit documentation in R/unite.R
 \name{unite}
 \alias{unite}
-\title{Unite multiple columns into one.}
+\title{Unite multiple columns into one by pasting strings together}
 \usage{
 unite(data, col, ..., sep = "_", remove = TRUE, na.rm = FALSE)
 }

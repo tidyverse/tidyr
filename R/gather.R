@@ -1,4 +1,4 @@
-#' Gather columns into key-value pairs.
+#' Gather columns into key-value pairs
 #'
 #' @description
 #' Development on `gather()` is complete, and for new code we recommend

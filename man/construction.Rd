@@ -3,8 +3,7 @@
 \docType{data}
 \name{construction}
 \alias{construction}
-\title{Completed construction in the US in 2018
-\url{https://www.census.gov/construction/nrc/}}
+\title{Completed construction in the US in 2018}
 \format{A dataset with variables:
 \describe{
 \item{Year,Month}{Record date}
@@ -22,6 +21,5 @@ construction
 }
 \description{
 Completed construction in the US in 2018
-\url{https://www.census.gov/construction/nrc/}
 }
 \keyword{datasets}

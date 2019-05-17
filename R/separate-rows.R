@@ -1,4 +1,4 @@
-#' Separate a collapsed column into multiple rows.
+#' Separate a collapsed column into multiple rows
 #'
 #' If a variable contains observations with multiple delimited values, this
 #' separates the values and places each one in its own row.

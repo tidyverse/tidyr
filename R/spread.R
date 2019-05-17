@@ -1,4 +1,4 @@
-#' Spread a key-value pair across multiple columns.
+#' Spread a key-value pair across multiple columns
 #'
 #' @description
 #' Development on `spread()` is complete, and for new code we recommend
