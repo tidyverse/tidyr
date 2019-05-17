@@ -240,11 +240,11 @@ guess_dir <- function(x, col) {
   names <- map(x, names)
   is_null <- unique(map_lgl(names, is.null))
 
-  if (isTRUE(is_null)) {
+  if (identical(is_null, TRUE)) {
     # all unnamed
     message(glue::glue("unnest_longer({col}) # no elements have names"))
     "longer"
-  } else if (isFALSE(is_null)) {
+  } else if (identical(is_null, FALSE)) {
     # all named
     common <- reduce(names, intersect)
     n_common <- length(common)
