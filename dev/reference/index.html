@@ -142,28 +142,23 @@
     <tbody>
       <tr>
         <th colspan="2">
-          <h2 id="section-tidying" class="hasAnchor"><a href="#section-tidying" class="anchor"></a>Tidying</h2>
-          <p class="section-desc"></p>
+          <h2 id="section-data-shape" class="hasAnchor"><a href="#section-data-shape" class="anchor"></a>Data shape</h2>
+          <p class="section-desc">
+<p>tidyr provides three families of tools for changing the form of a dataset, while preserving its values:</p>
+<ul>
+<li>Pivotting, which changes the representation of a rectangular dataset. See <code><a href="../articles/pivot.html">vignette("pivot")</a></code> for more details.</li>
+<li>Rectangling, which turns deeply nested lists into tidy tibbles. See <code><a href="../articles/rectangle.html">vignette("rectangle")</a></code> for more details.</li>
+<li>Nesting and unnesting, which support converstaion to and from an alternative representation of grouped data where a group becomes a single row containing a nested data frame. See <code><a href="../articles/nest.html">vignette("nest")</a></code> for more details.</li>
+</ul>
+</p>
         </th>
       </tr>
       <tr>
         
         <td>
-          <p><code><a href="extract.html">extract()</a></code> </p>
-        </td>
-        <td><p>Extract one column into multiple columns.</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="nest.html">nest()</a></code> <code><a href="nest.html">unnest()</a></code> </p>
-        </td>
-        <td><p>Nest and unnest</p></td>
-      </tr><tr>
-        
-        <td>
           <p><code><a href="pivot_longer.html">pivot_longer()</a></code> <code><a href="pivot_longer.html">pivot_longer_spec()</a></code> </p>
         </td>
-        <td><p>Pivot data from wide to long.</p></td>
+        <td><p>Pivot data from wide to long</p></td>
       </tr><tr>
         
         <td>
@@ -173,33 +168,67 @@
       </tr><tr>
         
         <td>
+          <p><code><a href="nest.html">nest()</a></code> <code><a href="nest.html">unnest()</a></code> </p>
+        </td>
+        <td><p>Nest and unnest</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="hoist.html">hoist()</a></code> <code><a href="hoist.html">unnest_longer()</a></code> <code><a href="hoist.html">unnest_wider()</a></code> <code><a href="hoist.html">unnest_auto()</a></code> </p>
+        </td>
+        <td><p>Rectangle a nested list into a tidy tibble</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="spread.html">spread()</a></code> </p>
+        </td>
+        <td><p>Spread a key-value pair across multiple columns</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="gather.html">gather()</a></code> </p>
+        </td>
+        <td><p>Gather columns into key-value pairs</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-character-vectors" class="hasAnchor"><a href="#section-character-vectors" class="anchor"></a>Character vectors</h2>
+          <p class="section-desc"><p>Multiple variables are sometimes pasted together into a single column, and these tools help you separate back out into individual columns.</p></p>
+        </th>
+      </tr>
+      <tr>
+        
+        <td>
+          <p><code><a href="extract.html">extract()</a></code> </p>
+        </td>
+        <td><p>Extract a character column into multiple columns using regular
+expression groups</p></td>
+      </tr><tr>
+        
+        <td>
           <p><code><a href="separate.html">separate()</a></code> </p>
         </td>
-        <td><p>Separate one column into multiple columns.</p></td>
+        <td><p>Separate a character column into multiple columns using a regular
+expression separator</p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="separate_rows.html">separate_rows()</a></code> </p>
         </td>
-        <td><p>Separate a collapsed column into multiple rows.</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="uncount.html">uncount()</a></code> </p>
-        </td>
-        <td><p>"Uncount" a data frame</p></td>
+        <td><p>Separate a collapsed column into multiple rows</p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="unite.html">unite()</a></code> </p>
         </td>
-        <td><p>Unite multiple columns into one.</p></td>
+        <td><p>Unite multiple columns into one by pasting strings together</p></td>
       </tr>
     </tbody><tbody>
       <tr>
         <th colspan="2">
-          <h2 id="section-implicit-and-explicit-missing-values" class="hasAnchor"><a href="#section-implicit-and-explicit-missing-values" class="anchor"></a>Implicit and explicit missing values</h2>
-          <p class="section-desc"></p>
+          <h2 id="section-missing-values" class="hasAnchor"><a href="#section-missing-values" class="anchor"></a>Missing values</h2>
+          <p class="section-desc"><p>Tools for converting between implicit (absent rows) and explicit (<code>NA</code>) missing values, and for handling explicit <code>NA</code>s.</p></p>
         </th>
       </tr>
       <tr>
@@ -207,7 +236,7 @@
         <td>
           <p><code><a href="complete.html">complete()</a></code> </p>
         </td>
-        <td><p>Complete a data frame with missing combinations of data.</p></td>
+        <td><p>Complete a data frame with missing combinations of data</p></td>
       </tr><tr>
         
         <td>
@@ -231,19 +260,45 @@
         <td>
           <p><code><a href="fill.html">fill()</a></code> </p>
         </td>
-        <td><p>Fill in missing values.</p></td>
+        <td><p>Fill in missing values with previous or next value</p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="full_seq.html">full_seq()</a></code> </p>
         </td>
-        <td><p>Create the full sequence of values in a vector.</p></td>
+        <td><p>Create the full sequence of values in a vector</p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="replace_na.html">replace_na()</a></code> </p>
         </td>
         <td><p>Replace missing values</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-miscellanea" class="hasAnchor"><a href="#section-miscellanea" class="anchor"></a>Miscellanea</h2>
+          <p class="section-desc"></p>
+        </th>
+      </tr>
+      <tr>
+        
+        <td>
+          <p><code><a href="chop.html">chop()</a></code> <code><a href="chop.html">unchop()</a></code> </p>
+        </td>
+        <td><p>Chop and unchop</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="pack.html">pack()</a></code> <code><a href="pack.html">unpack()</a></code> </p>
+        </td>
+        <td><p>Pack and unpack</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="uncount.html">uncount()</a></code> </p>
+        </td>
+        <td><p>"Uncount" a data frame</p></td>
       </tr>
     </tbody><tbody>
       <tr>
@@ -255,15 +310,33 @@
       <tr>
         
         <td>
+          <p><code><a href="billboard.html">billboard</a></code> </p>
+        </td>
+        <td><p>Song rankings for billboard top 100 in the year 2000</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="construction.html">construction</a></code> </p>
+        </td>
+        <td><p>Completed construction in the US in 2018</p></td>
+      </tr><tr>
+        
+        <td>
           <p><code><a href="fish_encounters.html">fish_encounters</a></code> </p>
         </td>
         <td><p>Fish encounters</p></td>
       </tr><tr>
         
         <td>
+          <p><code><a href="relig_income.html">relig_income</a></code> </p>
+        </td>
+        <td><p>Pew religion and income survey</p></td>
+      </tr><tr>
+        
+        <td>
           <p><code><a href="smiths.html">smiths</a></code> </p>
         </td>
-        <td><p>Some data about the Smith family.</p></td>
+        <td><p>Some data about the Smith family</p></td>
       </tr><tr>
         
         <td>
@@ -296,8 +369,10 @@
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#section-tidying">Tidying</a></li>
-      <li><a href="#section-implicit-and-explicit-missing-values">Implicit and explicit missing values</a></li>
+      <li><a href="#section-data-shape">Data shape</a></li>
+      <li><a href="#section-character-vectors">Character vectors</a></li>
+      <li><a href="#section-missing-values">Missing values</a></li>
+      <li><a href="#section-miscellanea">Miscellanea</a></li>
       <li><a href="#section-data">Data</a></li>
     </ul>
   </div>

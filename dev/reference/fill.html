@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Fill in missing values. — fill • tidyr</title>
+<title>Fill in missing values with previous or next value — fill • tidyr</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -31,11 +31,11 @@
 
 
 
-<meta property="og:title" content="Fill in missing values. — fill" />
+<meta property="og:title" content="Fill in missing values with previous or next value — fill" />
 
-<meta property="og:description" content="Fills missing values in selected columns using the previous entry. This is useful in the
-common output format where values are not repeated, they're recorded
-each time they change." />
+<meta property="og:description" content="Fills missing values in selected columns using the next or previous entry.
+This is useful in the common output format where values are not repeated,
+and are only recorded when they change." />
 
 <meta property="og:image" content="https://tidyr.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -132,16 +132,16 @@ each time they change." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Fill in missing values.</h1>
+    <h1>Fill in missing values with previous or next value</h1>
     <small class="dont-index">Source: <a href='https://github.com/tidyverse/tidyr/blob/master/R/fill.R'><code>R/fill.R</code></a></small>
     <div class="hidden name"><code>fill.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Fills missing values in selected columns using the previous entry. This is useful in the
-common output format where values are not repeated, they're recorded
-each time they change.</p>
+    <p>Fills missing values in selected columns using the next or previous entry.
+This is useful in the common output format where values are not repeated,
+and are only recorded when they change.</p>
     
     </div>
 
@@ -171,8 +171,7 @@ or "updown" (first up and then down).</p></td>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Missing values are replaced in atomic vectors; <code>NULL</code>s are replaced
-in list.</p>
+    <p>Missing values are replaced in atomic vectors; <code>NULL</code>s are replaced in lists.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Rectangling tools: hosting &amp; directional unnesting — hoist • tidyr</title>
+<title>Rectangle a nested list into a tidy tibble — hoist • tidyr</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -31,7 +31,7 @@
 
 
 
-<meta property="og:title" content="Rectangling tools: hosting &amp; directional unnesting — hoist" />
+<meta property="og:title" content="Rectangle a nested list into a tidy tibble — hoist" />
 
 <meta property="og:description" content="hoist(), unnest_longer(), and unnest_wider() provide tools for
 rectangling, collapsing deeply nested lists into regular columns.
@@ -138,7 +138,7 @@ Learn more in vignette(&quot;rectangle&quot;)." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Rectangling tools: hosting &amp; directional unnesting</h1>
+    <h1>Rectangle a nested list into a tidy tibble</h1>
     <small class="dont-index">Source: <a href='https://github.com/tidyverse/tidyr/blob/master/R/rectangle.R'><code>R/rectangle.R</code></a></small>
     <div class="hidden name"><code>hoist.Rd</code></div>
     </div>
@@ -167,7 +167,7 @@ based heuristics described below.</p>
 <span class='fu'>unnest_wider</span>(<span class='no'>data</span>, <span class='no'>col</span>, <span class='kw'>names_sep</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>simplify</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>names_repair</span> <span class='kw'>=</span> <span class='st'>"check_unique"</span>, <span class='kw'>ptype</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>())
 
-<span class='fu'>unnest_auto</span>(<span class='no'>data</span>, <span class='no'>col</span>, <span class='no'>...</span>)</pre>
+<span class='fu'>unnest_auto</span>(<span class='no'>data</span>, <span class='no'>col</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
