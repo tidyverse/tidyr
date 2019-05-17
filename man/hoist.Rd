@@ -17,7 +17,7 @@ unnest_longer(data, col, values_to = NULL, indices_to = NULL,
 unnest_wider(data, col, names_sep = NULL, simplify = TRUE,
   names_repair = "check_unique", ptype = list())
 
-unnest_auto(data, col, ...)
+unnest_auto(data, col)
 }
 \arguments{
 \item{.data, data}{A data frame.}

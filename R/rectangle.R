@@ -224,9 +224,7 @@ unnest_wider <- function(data, col,
 
 #' @export
 #' @rdname hoist
-#' @params ... Other arguments passed on to which ever of
-#'   `unnest_longer()` and `unnest_wider()` are selected.
-unnest_auto <- function(data, col, ...) {
+unnest_auto <- function(data, col) {
   col <- tidyselect::vars_select(names(data), !!enquo(col))
 
   x <- data[[col]]
