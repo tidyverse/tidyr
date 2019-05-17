@@ -24,7 +24,9 @@ Rectangling is the art and craft of taking a deeply nested list (often sourced f
 * `hoist()` is similar to `unnest_wider()` put only plucks out selected
   components, and can reach down multiple levels.
   
-A very large number of data rectangling problems can be solved by combining this functions with a splash of dplyr code. To illustrate these techniques, we'll use the repurrrsive package, which provides a number of datasets with deeply nested lists originally captured from JSON APIs.
+A very large number of data rectangling problems can be solved by combining these functions with a splash of dplyr (largely eliminating prior approaches that combined `mutate()` with multiple `purrr::map()`s). 
+
+To illustrate these techniques, we'll use the repurrrsive package, which provides a number deeply nested lists originally mostly captured from web APIs.
   
 ```{r setup, message = FALSE}
 library(tidyr)
@@ -40,7 +42,7 @@ We'll start with `gh_users`, a list which contains information about six GitHub 
 users <- tibble(user = gh_users)
 ```
 
-This seems a bit counter-intuitive: why is the first step in making a list more to make it more complicated? But a data frame has a big advantage: it bundles together multiple vectors so that everything is tracked together in a single object.
+This seems a bit counter-intuitive: why is the first step in making a list simpler to make it more complicated? But a data frame has a big advantage: it bundles together multiple vectors so that everything is tracked together in a single object.
 
 Each `user` is a named list, where each element represents a column.
 
@@ -101,7 +103,7 @@ repos %>%
   unnest_wider(owner)
 ```
 
-Instead of looking at the list and carefully thinking about whether we need to go longer or wider at each stage, we can instead use `unnest_auto()`. It uses a handful of heuristics to figure out whether `unnest_longer()` or `unnest_wider()` is appropriate, and tells you about its reasoning.
+Instead of looking at the list and carefully thinking about whether it needs to become rows or columns, you can use `unnest_auto()`. It uses a handful of heuristics to figure out whether `unnest_longer()` or `unnest_wider()` is appropriate, and tells you about its reasoning.
 
 ```{r}
 tibble(repo = gh_repos) %>% 
@@ -111,7 +113,7 @@ tibble(repo = gh_repos) %>%
 
 ## Game of Thrones characters
 
-`got_chars` has a similar structure to `gh_users`: it's a list of named lists, which each element of the inner list describing some attribute of a GoT character. We start in the same way, first by creating a data frame and then by unnesting each component into a column:
+`got_chars` has a similar structure to `gh_users`: it's a list of named lists, where each element of the inner list describes some attribute of a GoT character. We start in the same way, first by creating a data frame and then by unnesting each component into a column:
 
 ```{r}
 chars <- tibble(char = got_chars)
@@ -127,7 +129,7 @@ This is more complex than `gh_users` because some component of `char` are themse
 chars2 %>% select_if(is.list)
 ```
 
-What you do next will depend on the purposes of the analysis. Maybe you want a row for every book and tv series that the character appears in:
+What you do next will depend on the purposes of the analysis. Maybe you want a row for every book and TV series that the character appears in:
 
 ```{r}
 chars2 %>% 
@@ -146,7 +148,7 @@ chars2 %>%
 
 (Note that the empty titles (`""`) are due to an infelicity in the input `got_chars`: ideally people without titles would have a title vector of length 0, not a title vector of length 1 containing an empty string.)
 
-Again, we could rewrite using `unnest_auto()`. This is convenient for exploration, but I wouldn't rely on it in the long term - `unnest_auto()` has the undesirable property that it will always suceed. That means if your data structure changes, `unnest_auto()` will continue to work, but potentially give very different output that will cause cryptic downstream failures.
+Again, we could rewrite using `unnest_auto()`. This is convenient for exploration, but I wouldn't rely on it in the long term - `unnest_auto()` has the undesirable property that it will always succeed. That means if your data structure changes, `unnest_auto()` will continue to work, but might give very different output that causes cryptic failures from downstream functions.
 
 ```{r}
 tibble(char = got_chars) %>% 
@@ -157,7 +159,7 @@ tibble(char = got_chars) %>%
 
 ## Geocoding with google
 
-Next we'll tackle a more complex form of data that comes from Google's geocoding service. It's against the terms of service to cache this data, so first write a very simple wrapper around the API. This relies on having an Google maps API key stored in an environment; if that's not available these code chunks won't be run.
+Next we'll tackle a more complex form of data that comes from Google's geocoding service. It's against the terms of service to cache this data, so I first write a very simple wrapper around the API. This relies on having an Google maps API key stored in an environment; if that's not available these code chunks won't be run.
 
 ```{r}
 has_key <- !identical(Sys.getenv("GOOGLE_MAPS_API_KEY"), "")
@@ -188,7 +190,7 @@ city <- c("Houston", "LA", "New York", "Chicago", "Springfield")
 city_geo <- purrr::map(city, geocode)
 ```
 
-I'll put these results in a tibble, next to the original city name.
+I'll put these results in a tibble, next to the original city name:
 
 ```{r, eval = has_key}
 loc <- tibble(city = city, json = city_geo)
@@ -202,7 +204,7 @@ loc %>%
   unnest_wider(json)
 ```
 
-Notice that `results` is a list of lists. Most of the cities have 1 elements, but Springfield has two. We can pull these out into separate rows with `unnest_longer()`:
+Notice that `results` is a list of lists. Most of the cities have 1 element (representing a unique match from the geocoding API), but Springfield has two. We can pull these out into separate rows with `unnest_longer()`:
 
 ```{r, eval = has_key}
 loc %>%
@@ -274,7 +276,9 @@ loc %>%
 
 ## Sharla Gelfand's discography
 
-We'll finish off with the most complex list, from [Sharla Gelfand's](https://sharla.party/posts/discog-purrr/) discography. We'll start the usual way: putting the list into a single column data frame, and then widening so each component is a column. I also parse the `date_added` column into a real date-time (I'd normally use `readr::parse_datetime()`, but I can't here because it's a vignette and I don't want to introduce another dependency to tidyr).
+We'll finish off with the most complex list, from [Sharla Gelfand's](https://sharla.party/posts/discog-purrr/) discography. We'll start the usual way: putting the list into a single column data frame, and then widening so each component is a column. I also parse the `date_added` column into a real date-time[^readr].
+
+[^readr]: I'd normally use `readr::parse_datetime()` or `lubridate::ymd_hms()`, but I can't here because it's a vignette and I don't want to add a dependency to tidyr just to simplify one example.
 
 ```{r}
 discs <- tibble(disc = discog) %>% 
@@ -317,7 +321,7 @@ discs %>%
 
 Here I quickly extract the name of the first label and artist by indexing deeply into the nested list. 
 
-A more systematic approach would be to create separate tables for artist and label.
+A more systematic approach would be to create separate tables for artist and label:
 
 ```{r}
 discs %>% 
