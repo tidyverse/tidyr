@@ -174,17 +174,17 @@
 <li><p><code><a href="../reference/separate.html">separate()</a></code> now correctly uses -1 to refer to the far right position, instead of -2. If you depended on this behaviour, you’ll need to switch on <code>packageVersion("tidyr") &gt; "0.7.2"</code></p></li>
 </ul>
 </div>
-<div id="new-features" class="section level2">
+<div id="new-features-1" class="section level2">
 <h2 class="hasAnchor">
-<a href="#new-features" class="anchor"></a>New features</h2>
+<a href="#new-features-1" class="anchor"></a>New features</h2>
 <ul>
 <li><p>Increased test coverage from 84% to 99%.</p></li>
 <li><p><code><a href="../reference/uncount.html">uncount()</a></code> performs the inverse operation of <code><a href="https://dplyr.tidyverse.org/reference/tally.html">dplyr::count()</a></code> (<a href='https://github.com/tidyverse/tidyr/issues/279'>#279</a>)</p></li>
 </ul>
 </div>
-<div id="bug-fixes-and-minor-improvements" class="section level2">
+<div id="bug-fixes-and-minor-improvements-1" class="section level2">
 <h2 class="hasAnchor">
-<a href="#bug-fixes-and-minor-improvements" class="anchor"></a>Bug fixes and minor improvements</h2>
+<a href="#bug-fixes-and-minor-improvements-1" class="anchor"></a>Bug fixes and minor improvements</h2>
 <ul>
 <li><p><code><a href="../reference/complete.html">complete(data)</a></code> now returns <code>data</code> rather than throwing an error (<a href='https://github.com/tidyverse/tidyr/issues/390'>#390</a>). <code><a href="../reference/complete.html">complete()</a></code> with zero-length completions returns original input (<a href='https://github.com/tidyverse/tidyr/issues/331'>#331</a>).</p></li>
 <li><p><code><a href="../reference/expand.html">crossing()</a></code> preserves <code>NA</code>s (<a href='https://github.com/tidyverse/tidyr/issues/364'>#364</a>).</p></li>
@@ -334,9 +334,9 @@ drop_na(df, starts_with(x))</code></pre>
 <li><p>Renamed <code>table4</code> and <code>table5</code> to <code>table4a</code> and <code>table4b</code> to make their connection more clear. The <code>key</code> and <code>value</code> variables in <code>table2</code> have been renamed to <code>type</code> and <code>count</code>.</p></li>
 </ul>
 </div>
-<div id="bug-fixes-and-minor-improvements-1" class="section level2">
+<div id="bug-fixes-and-minor-improvements-2" class="section level2">
 <h2 class="hasAnchor">
-<a href="#bug-fixes-and-minor-improvements-1" class="anchor"></a>Bug fixes and minor improvements</h2>
+<a href="#bug-fixes-and-minor-improvements-2" class="anchor"></a>Bug fixes and minor improvements</h2>
 <ul>
 <li><p><code><a href="../reference/expand.html">expand()</a></code>, <code><a href="../reference/expand.html">crossing()</a></code>, and <code><a href="../reference/expand.html">nesting()</a></code> now silently drop zero-length inputs.</p></li>
 <li><p><code><a href="../reference/deprecated-se.html">crossing_()</a></code> and <code><a href="../reference/deprecated-se.html">nesting_()</a></code> are versions of <code><a href="../reference/expand.html">crossing()</a></code> and <code><a href="../reference/expand.html">nesting()</a></code> that take a list as input.</p></li>
@@ -364,9 +364,9 @@ drop_na(df, starts_with(x))</code></pre>
 <code><a href="../reference/separate_rows.html">separate_rows()</a></code> separates observations with multiple delimited values into separate rows (<a href='https://github.com/tidyverse/tidyr/issues/69'>#69</a>, <a href='https://github.com/aaronwolen'>@aaronwolen</a>).</li>
 </ul>
 </div>
-<div id="bug-fixes-and-minor-improvements-2" class="section level2">
+<div id="bug-fixes-and-minor-improvements-3" class="section level2">
 <h2 class="hasAnchor">
-<a href="#bug-fixes-and-minor-improvements-2" class="anchor"></a>Bug fixes and minor improvements</h2>
+<a href="#bug-fixes-and-minor-improvements-3" class="anchor"></a>Bug fixes and minor improvements</h2>
 <ul>
 <li><p><code><a href="../reference/complete.html">complete()</a></code> preserves grouping created by dplyr (<a href='https://github.com/tidyverse/tidyr/issues/168'>#168</a>).</p></li>
 <li><p><code><a href="../reference/expand.html">expand()</a></code> (and hence <code><a href="../reference/complete.html">complete()</a></code>) preserves the ordered attribute of factors (<a href='https://github.com/tidyverse/tidyr/issues/165'>#165</a>).</p></li>
@@ -444,9 +444,9 @@ drop_na(df, starts_with(x))</code></pre>
 <h1 class="page-header">
 <a href="#tidyr-0-3-0" class="anchor"></a>tidyr 0.3.0<small> 2015-09-08 </small>
 </h1>
-<div id="new-features-1" class="section level2">
+<div id="new-features-2" class="section level2">
 <h2 class="hasAnchor">
-<a href="#new-features-1" class="anchor"></a>New features</h2>
+<a href="#new-features-2" class="anchor"></a>New features</h2>
 <ul>
 <li><p>New <code><a href="../reference/complete.html">complete()</a></code> provides a wrapper around <code><a href="../reference/expand.html">expand()</a></code>, <code>left_join()</code> and <code><a href="../reference/replace_na.html">replace_na()</a></code> for a common task: completing a data frame with missing combinations of variables.</p></li>
 <li><p><code><a href="../reference/fill.html">fill()</a></code> fills in missing values in a column with the last non-missing value (<a href='https://github.com/tidyverse/tidyr/issues/4'>#4</a>).</p></li>
@@ -455,9 +455,9 @@ drop_na(df, starts_with(x))</code></pre>
 <li><p><code><a href="../reference/nest.html">unnest()</a></code> can now work with multiple list-columns at the same time. If you don’t supply any columns names, it will unlist all list-columns (<a href='https://github.com/tidyverse/tidyr/issues/44'>#44</a>). <code><a href="../reference/nest.html">unnest()</a></code> can also handle columns that are lists of data frames (<a href='https://github.com/tidyverse/tidyr/issues/58'>#58</a>).</p></li>
 </ul>
 </div>
-<div id="bug-fixes-and-minor-improvements-3" class="section level2">
+<div id="bug-fixes-and-minor-improvements-4" class="section level2">
 <h2 class="hasAnchor">
-<a href="#bug-fixes-and-minor-improvements-3" class="anchor"></a>Bug fixes and minor improvements</h2>
+<a href="#bug-fixes-and-minor-improvements-4" class="anchor"></a>Bug fixes and minor improvements</h2>
 <ul>
 <li><p>tidyr no longer depends on reshape2. This should fix issues if you also try to load reshape (<a href='https://github.com/tidyverse/tidyr/issues/88'>#88</a>).</p></li>
 <li><p><code>%&gt;%</code> is re-exported from magrittr.</p></li>
@@ -485,9 +485,9 @@ drop_na(df, starts_with(x))</code></pre>
 <li><p>Experiment <code><a href="../reference/nest.html">unnest()</a></code> function for converting named lists into data frames. (<a href='https://github.com/tidyverse/tidyr/issues/3'>#3</a>, <a href='https://github.com/tidyverse/tidyr/issues/22'>#22</a>)</p></li>
 </ul>
 </div>
-<div id="bug-fixes-and-minor-improvements-4" class="section level2">
+<div id="bug-fixes-and-minor-improvements-5" class="section level2">
 <h2 class="hasAnchor">
-<a href="#bug-fixes-and-minor-improvements-4" class="anchor"></a>Bug fixes and minor improvements</h2>
+<a href="#bug-fixes-and-minor-improvements-5" class="anchor"></a>Bug fixes and minor improvements</h2>
 <ul>
 <li><p><code><a href="../reference/extract_numeric.html">extract_numeric()</a></code> preserves negative signs (<a href='https://github.com/tidyverse/tidyr/issues/20'>#20</a>).</p></li>
 <li><p><code><a href="../reference/gather.html">gather()</a></code> has better defaults if <code>key</code> and <code>value</code> are not supplied. If <code>...</code> is ommitted, <code><a href="../reference/gather.html">gather()</a></code> selects all columns (<a href='https://github.com/tidyverse/tidyr/issues/28'>#28</a>). Performance is now comparable to <code>reshape2::melt()</code> (<a href='https://github.com/tidyverse/tidyr/issues/18'>#18</a>).</p></li>
