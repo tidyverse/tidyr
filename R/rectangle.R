@@ -157,7 +157,6 @@ hoist <- function(.data, .col, ..., .remove = TRUE, .simplify = TRUE, .ptype = l
 #'   with `_id` suffix
 #' @param indices_include Add an index column? Defaults to `TRUE` when `col`
 #'   has inner names.
-#' @simplify If `TRUE`,
 #' @inheritParams unnest
 unnest_longer <- function(data, col,
                           values_to = NULL,
