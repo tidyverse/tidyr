@@ -107,7 +107,7 @@ test_that("expand() reconstructs input dots is empty", {
 test_that("crossing checks for bad inputs", {
   expect_error(
     crossing(x = 1:10, y = quote(a)),
-    "not a vector"
+    class = "vctrs_error_scalar_type"
   )
 })
 
