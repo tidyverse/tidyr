@@ -156,10 +156,11 @@ in to their own top-level columns, using the same syntax as <code><a href='https
     <pre class="usage"><span class='fu'>hoist</span>(<span class='no'>.data</span>, <span class='no'>.col</span>, <span class='no'>...</span>, <span class='kw'>.remove</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>.simplify</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>.ptype</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>())
 
-<span class='fu'>unnest_longer</span>(<span class='no'>data</span>, <span class='no'>cols</span>, <span class='kw'>values_to</span> <span class='kw'>=</span> <span class='st'>"value"</span>, <span class='kw'>indices_to</span> <span class='kw'>=</span> <span class='st'>"index"</span>,
-  <span class='kw'>names_sep</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>names_repair</span> <span class='kw'>=</span> <span class='st'>"check_unique"</span>)
+<span class='fu'>unnest_longer</span>(<span class='no'>data</span>, <span class='no'>col</span>, <span class='kw'>values_to</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>indices_to</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>indices_include</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>names_repair</span> <span class='kw'>=</span> <span class='st'>"check_unique"</span>,
+  <span class='kw'>simplify</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>ptype</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>())
 
-<span class='fu'>unnest_wider</span>(<span class='no'>data</span>, <span class='no'>cols</span>, <span class='kw'>names_sep</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>simplify</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+<span class='fu'>unnest_wider</span>(<span class='no'>data</span>, <span class='no'>col</span>, <span class='kw'>names_sep</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>simplify</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>names_repair</span> <span class='kw'>=</span> <span class='st'>"check_unique"</span>, <span class='kw'>ptype</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>())</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -170,7 +171,7 @@ in to their own top-level columns, using the same syntax as <code><a href='https
       <td><p>A data frame.</p></td>
     </tr>
     <tr>
-      <th>.col</th>
+      <th>.col, col</th>
       <td><p>List-column to extract components from.</p></td>
     </tr>
     <tr>
@@ -196,26 +197,19 @@ vectors to an atomic vector</p></td>
 output type of each component.</p></td>
     </tr>
     <tr>
-      <th>cols</th>
-      <td><p>Columns to unnest.</p></td>
-    </tr>
-    <tr>
       <th>values_to</th>
-      <td><p>Name of column to store vector values.</p></td>
+      <td><p>Name of column to store vector values. Defaults to <code>col</code>.</p></td>
     </tr>
     <tr>
       <th>indices_to</th>
-      <td><p>A string giving the name of a new column which will
-contain the inner names of the values. If unnamed, <code>col</code> will instead
-contain numeric indices.</p></td>
+      <td><p>A string giving the name of column which will contain the
+inner names or position (if not named) of the values. Defaults to <code>col</code>
+with <code>_id</code> suffix</p></td>
     </tr>
     <tr>
-      <th>names_sep</th>
-      <td><p>If <code>NULL</code>, the default, the names of new columns will
-come directly from the inner data frame.</p>
-<p>If a string, the names of the new columns will be formed by pasting
-together the outer column name with the inner names, separated by
-<code>names_sep</code>.</p></td>
+      <th>indices_include</th>
+      <td><p>Add an index column? Defaults to <code>TRUE</code> when <code>col</code>
+has inner names.</p></td>
     </tr>
     <tr>
       <th>names_repair</th>
@@ -242,6 +236,14 @@ vectors to an atomic vector</p></td>
       <td><p>Optionally, supply a data frame prototype for the output <code>cols</code>,
 overriding the default that will be guessed from the combination of
 individual values.</p></td>
+    </tr>
+    <tr>
+      <th>names_sep</th>
+      <td><p>If <code>NULL</code>, the default, the names of new columns will
+come directly from the inner data frame.</p>
+<p>If a string, the names of the new columns will be formed by pasting
+together the outer column name with the inner names, separated by
+<code>names_sep</code>.</p></td>
     </tr>
     </table>
     
@@ -283,7 +285,6 @@ they are theoretically pleasing.</p>
     )
   )
 )
-
 <span class='no'>df</span></div><div class='output co'>#&gt; # A tibble: 2 x 2
 #&gt;   character metadata  
 #&gt;   &lt;chr&gt;     &lt;list&gt;    
@@ -305,21 +306,30 @@ they are theoretically pleasing.</p>
 #&gt;   &lt;chr&gt;     &lt;chr&gt;     &lt;chr&gt;              &lt;chr&gt;                         &lt;list&gt;   
 #&gt; 1 Toothless dragon    How to Train Your… How to Train Your Dragon: Th… &lt;list [2…
 #&gt; 2 Dory      clownfish Finding Nemo       &lt;NA&gt;                          &lt;list [2…</div><div class='input'>
-<span class='co'># unnest_longer() is useful when each component of the list should</span>
+<span class='no'>df</span> <span class='kw'>%&gt;%</span>
+  <span class='fu'>unnest_wider</span>(<span class='no'>metadata</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'>unnest_longer</span>(<span class='no'>films</span>)</div><div class='output co'>#&gt; # A tibble: 5 x 4
+#&gt;   character species   color films                                     
+#&gt;   &lt;chr&gt;     &lt;chr&gt;     &lt;chr&gt; &lt;chr&gt;                                     
+#&gt; 1 Toothless dragon    black How to Train Your Dragon                  
+#&gt; 2 Toothless dragon    black How to Train Your Dragon 2                
+#&gt; 3 Toothless dragon    black How to Train Your Dragon: The Hidden World
+#&gt; 4 Dory      clownfish blue  Finding Nemo                              
+#&gt; 5 Dory      clownfish blue  Finding Dory                              </div><div class='input'><span class='co'># unnest_longer() is useful when each component of the list should</span>
 <span class='co'># form a row</span>
 <span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(
   <span class='kw'>x</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>3</span>,
   <span class='kw'>y</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(<span class='kw'>NULL</span>, <span class='fl'>1</span>:<span class='fl'>3</span>, <span class='fl'>4</span>:<span class='fl'>5</span>)
 )
-<span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>unnest_longer</span>(<span class='no'>y</span>)</div><div class='output co'>#&gt; # A tibble: 6 x 3
-#&gt;       x value index
-#&gt;   &lt;int&gt; &lt;int&gt; &lt;int&gt;
-#&gt; 1     1    NA    NA
-#&gt; 2     2     1     1
-#&gt; 3     2     2     2
-#&gt; 4     2     3     3
-#&gt; 5     3     4     1
-#&gt; 6     3     5     2</div><div class='input'><span class='co'># Automatically creates names if widening</span>
+<span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>unnest_longer</span>(<span class='no'>y</span>)</div><div class='output co'>#&gt; # A tibble: 6 x 2
+#&gt;       x     y
+#&gt;   &lt;int&gt; &lt;int&gt;
+#&gt; 1     1    NA
+#&gt; 2     2     1
+#&gt; 3     2     2
+#&gt; 4     2     3
+#&gt; 5     3     4
+#&gt; 6     3     5</div><div class='input'><span class='co'># Automatically creates names if widening</span>
 <span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>unnest_wider</span>(<span class='no'>y</span>)</div><div class='output co'>#&gt; <span class='message'>New names:</span>
 #&gt; <span class='message'>* `` -&gt; ...1</span>
 #&gt; <span class='message'>* `` -&gt; ...2</span>
@@ -341,7 +351,7 @@ they are theoretically pleasing.</p>
 #&gt;   &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
 #&gt; 1     1     1     2    NA
 #&gt; 2     2    10    11    12</div><div class='input'><span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>unnest_longer</span>(<span class='no'>y</span>)</div><div class='output co'>#&gt; # A tibble: 5 x 3
-#&gt;       x value index
+#&gt;       x     y y_id 
 #&gt;   &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;
 #&gt; 1     1     1 a    
 #&gt; 2     1     2 b    

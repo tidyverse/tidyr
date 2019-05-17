@@ -235,55 +235,51 @@ under active development.</p>
 #&gt;  9 4842  BCW2        1
 #&gt; 10 4842  MAE         1
 #&gt; # … with 104 more rows</div><div class='input'><span class='no'>fish_encounters</span> <span class='kw'>%&gt;%</span>
-  <span class='fu'>pivot_wider</span>(<span class='kw'>names_from</span> <span class='kw'>=</span> <span class='no'>station</span>, <span class='kw'>values_from</span> <span class='kw'>=</span> <span class='no'>seen</span>)</div><div class='output co'>#&gt; # A tibble: 19 x 12
-#&gt;    fish  Release I80_1 Lisbon  Rstr Base_TD   BCE   BCW  BCE2  BCW2   MAE   MAW
-#&gt;    &lt;fct&gt;   &lt;int&gt; &lt;int&gt;  &lt;int&gt; &lt;int&gt;   &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;
-#&gt;  1 4842        1     1      1     1       1     1     1     1     1     1     1
-#&gt;  2 4843        1     1      1     1       1     1     1     1     1     1     1
-#&gt;  3 4844        1     1      1     1       1     1     1     1     1     1     1
-#&gt;  4 4845        1     1      1     1       1    NA    NA    NA    NA    NA    NA
-#&gt;  5 4847        1     1      1    NA      NA    NA    NA    NA    NA    NA    NA
-#&gt;  6 4848        1     1      1     1      NA    NA    NA    NA    NA    NA    NA
-#&gt;  7 4849        1     1     NA    NA      NA    NA    NA    NA    NA    NA    NA
-#&gt;  8 4850        1     1     NA     1       1     1     1    NA    NA    NA    NA
-#&gt;  9 4851        1     1     NA    NA      NA    NA    NA    NA    NA    NA    NA
-#&gt; 10 4854        1     1     NA    NA      NA    NA    NA    NA    NA    NA    NA
-#&gt; 11 4855        1     1      1     1       1    NA    NA    NA    NA    NA    NA
-#&gt; 12 4857        1     1      1     1       1     1     1     1     1    NA    NA
-#&gt; 13 4858        1     1      1     1       1     1     1     1     1     1     1
-#&gt; 14 4859        1     1      1     1       1    NA    NA    NA    NA    NA    NA
-#&gt; 15 4861        1     1      1     1       1     1     1     1     1     1     1
-#&gt; 16 4862        1     1      1     1       1     1     1     1     1    NA    NA
-#&gt; 17 4863        1     1     NA    NA      NA    NA    NA    NA    NA    NA    NA
-#&gt; 18 4864        1     1     NA    NA      NA    NA    NA    NA    NA    NA    NA
-#&gt; 19 4865        1     1      1    NA      NA    NA    NA    NA    NA    NA    NA</div><div class='input'><span class='co'># Fill in missing values</span>
+  <span class='fu'>pivot_wider</span>(<span class='kw'>names_from</span> <span class='kw'>=</span> <span class='no'>station</span>, <span class='kw'>values_from</span> <span class='kw'>=</span> <span class='no'>seen</span>)</div><div class='output co'>#&gt;    fish Release I80_1 Lisbon Rstr Base_TD BCE BCW BCE2 BCW2 MAE MAW
+#&gt; 1  4842       1     1      1    1       1   1   1    1    1   1   1
+#&gt; 2  4843       1     1      1    1       1   1   1    1    1   1   1
+#&gt; 3  4844       1     1      1    1       1   1   1    1    1   1   1
+#&gt; 4  4845       1     1      1    1       1  NA  NA   NA   NA  NA  NA
+#&gt; 5  4847       1     1      1   NA      NA  NA  NA   NA   NA  NA  NA
+#&gt; 6  4848       1     1      1    1      NA  NA  NA   NA   NA  NA  NA
+#&gt; 7  4849       1     1     NA   NA      NA  NA  NA   NA   NA  NA  NA
+#&gt; 8  4850       1     1     NA    1       1   1   1   NA   NA  NA  NA
+#&gt; 9  4851       1     1     NA   NA      NA  NA  NA   NA   NA  NA  NA
+#&gt; 10 4854       1     1     NA   NA      NA  NA  NA   NA   NA  NA  NA
+#&gt; 11 4855       1     1      1    1       1  NA  NA   NA   NA  NA  NA
+#&gt; 12 4857       1     1      1    1       1   1   1    1    1  NA  NA
+#&gt; 13 4858       1     1      1    1       1   1   1    1    1   1   1
+#&gt; 14 4859       1     1      1    1       1  NA  NA   NA   NA  NA  NA
+#&gt; 15 4861       1     1      1    1       1   1   1    1    1   1   1
+#&gt; 16 4862       1     1      1    1       1   1   1    1    1  NA  NA
+#&gt; 17 4863       1     1     NA   NA      NA  NA  NA   NA   NA  NA  NA
+#&gt; 18 4864       1     1     NA   NA      NA  NA  NA   NA   NA  NA  NA
+#&gt; 19 4865       1     1      1   NA      NA  NA  NA   NA   NA  NA  NA</div><div class='input'><span class='co'># Fill in missing values</span>
 <span class='no'>fish_encounters</span> <span class='kw'>%&gt;%</span>
   <span class='fu'>pivot_wider</span>(
     <span class='kw'>names_from</span> <span class='kw'>=</span> <span class='no'>station</span>,
     <span class='kw'>values_from</span> <span class='kw'>=</span> <span class='no'>seen</span>,
     <span class='kw'>values_fill</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(<span class='kw'>seen</span> <span class='kw'>=</span> <span class='fl'>0</span>)
-  )</div><div class='output co'>#&gt; # A tibble: 19 x 12
-#&gt;    fish  Release I80_1 Lisbon  Rstr Base_TD   BCE   BCW  BCE2  BCW2   MAE   MAW
-#&gt;    &lt;fct&gt;   &lt;int&gt; &lt;int&gt;  &lt;int&gt; &lt;int&gt;   &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;
-#&gt;  1 4842        1     1      1     1       1     1     1     1     1     1     1
-#&gt;  2 4843        1     1      1     1       1     1     1     1     1     1     1
-#&gt;  3 4844        1     1      1     1       1     1     1     1     1     1     1
-#&gt;  4 4845        1     1      1     1       1     0     0     0     0     0     0
-#&gt;  5 4847        1     1      1     0       0     0     0     0     0     0     0
-#&gt;  6 4848        1     1      1     1       0     0     0     0     0     0     0
-#&gt;  7 4849        1     1      0     0       0     0     0     0     0     0     0
-#&gt;  8 4850        1     1      0     1       1     1     1     0     0     0     0
-#&gt;  9 4851        1     1      0     0       0     0     0     0     0     0     0
-#&gt; 10 4854        1     1      0     0       0     0     0     0     0     0     0
-#&gt; 11 4855        1     1      1     1       1     0     0     0     0     0     0
-#&gt; 12 4857        1     1      1     1       1     1     1     1     1     0     0
-#&gt; 13 4858        1     1      1     1       1     1     1     1     1     1     1
-#&gt; 14 4859        1     1      1     1       1     0     0     0     0     0     0
-#&gt; 15 4861        1     1      1     1       1     1     1     1     1     1     1
-#&gt; 16 4862        1     1      1     1       1     1     1     1     1     0     0
-#&gt; 17 4863        1     1      0     0       0     0     0     0     0     0     0
-#&gt; 18 4864        1     1      0     0       0     0     0     0     0     0     0
-#&gt; 19 4865        1     1      1     0       0     0     0     0     0     0     0</div><div class='input'>
+  )</div><div class='output co'>#&gt;    fish Release I80_1 Lisbon Rstr Base_TD BCE BCW BCE2 BCW2 MAE MAW
+#&gt; 1  4842       1     1      1    1       1   1   1    1    1   1   1
+#&gt; 2  4843       1     1      1    1       1   1   1    1    1   1   1
+#&gt; 3  4844       1     1      1    1       1   1   1    1    1   1   1
+#&gt; 4  4845       1     1      1    1       1   0   0    0    0   0   0
+#&gt; 5  4847       1     1      1    0       0   0   0    0    0   0   0
+#&gt; 6  4848       1     1      1    1       0   0   0    0    0   0   0
+#&gt; 7  4849       1     1      0    0       0   0   0    0    0   0   0
+#&gt; 8  4850       1     1      0    1       1   1   1    0    0   0   0
+#&gt; 9  4851       1     1      0    0       0   0   0    0    0   0   0
+#&gt; 10 4854       1     1      0    0       0   0   0    0    0   0   0
+#&gt; 11 4855       1     1      1    1       1   0   0    0    0   0   0
+#&gt; 12 4857       1     1      1    1       1   1   1    1    1   0   0
+#&gt; 13 4858       1     1      1    1       1   1   1    1    1   1   1
+#&gt; 14 4859       1     1      1    1       1   0   0    0    0   0   0
+#&gt; 15 4861       1     1      1    1       1   1   1    1    1   1   1
+#&gt; 16 4862       1     1      1    1       1   1   1    1    1   0   0
+#&gt; 17 4863       1     1      0    0       0   0   0    0    0   0   0
+#&gt; 18 4864       1     1      0    0       0   0   0    0    0   0   0
+#&gt; 19 4865       1     1      1    0       0   0   0    0    0   0   0</div><div class='input'>
 <span class='co'># Generate column names from multiple variables</span>
 <span class='no'>us_rent_income</span> <span class='kw'>%&gt;%</span>
   <span class='fu'>pivot_wider</span>(<span class='kw'>names_from</span> <span class='kw'>=</span> <span class='no'>variable</span>, <span class='kw'>values_from</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='no'>estimate</span>, <span class='no'>moe</span>))</div><div class='output co'>#&gt; # A tibble: 52 x 6

@@ -259,20 +259,20 @@ is low-level that doesn't deduplicate or sort values.</p></div>
 #&gt; 10  2012     2
 #&gt; 11  2012     3
 #&gt; 12  2012     4</div><div class='input'><span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='complete.html'>complete</a></span>(<span class='kw'>year</span> <span class='kw'>=</span> <span class='fu'><a href='full_seq.html'>full_seq</a></span>(<span class='no'>year</span>, <span class='fl'>1</span>), <span class='no'>qtr</span>)</div><div class='output co'>#&gt; # A tibble: 12 x 3
-#&gt;     year   qtr    return
-#&gt;    &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;
-#&gt;  1  2010     1  -1.40   
-#&gt;  2  2010     2   0.255  
-#&gt;  3  2010     3  -2.44   
-#&gt;  4  2010     4  -0.00557
-#&gt;  5  2011     1  NA      
-#&gt;  6  2011     2  NA      
-#&gt;  7  2011     3  NA      
-#&gt;  8  2011     4  NA      
-#&gt;  9  2012     1   0.622  
-#&gt; 10  2012     2   1.15   
-#&gt; 11  2012     3  -1.82   
-#&gt; 12  2012     4  NA      </div><div class='input'>
+#&gt;     year   qtr   return
+#&gt;    &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;
+#&gt;  1  2010     1 -1.40   
+#&gt;  2  2010     2  0.255  
+#&gt;  3  2010     3 -2.44   
+#&gt;  4  2010     4 -0.00557
+#&gt;  5  2011     1 NA      
+#&gt;  6  2011     2 NA      
+#&gt;  7  2011     3 NA      
+#&gt;  8  2011     4 NA      
+#&gt;  9  2012     1  0.622  
+#&gt; 10  2012     2  1.15   
+#&gt; 11  2012     3 -1.82   
+#&gt; 12  2012     4 NA      </div><div class='input'>
 <span class='co'># Nesting -------------------------------------------------------------------</span>
 <span class='co'># Each person was given one of two treatments, repeated three times</span>
 <span class='co'># But some of the replications haven't happened yet, so we have</span>
@@ -341,17 +341,17 @@ is low-level that doesn't deduplicate or sort values.</p></div>
 )
 <span class='no'>data</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/split'>split</a></span>(<span class='no'>iris</span>, <span class='no'>iris</span>$<span class='no'>Species</span>)
 <span class='fu'>crossing</span>(<span class='kw'>formula</span> <span class='kw'>=</span> <span class='no'>formulas</span>, <span class='no'>data</span>)</div><div class='output co'>#&gt; # A tibble: 9 x 2
-#&gt;   formula       data                 
-#&gt;   &lt;list&gt;        &lt;list&gt;               
-#&gt; 1 &lt;S3: formula&gt; &lt;data.frame [50 × 5]&gt;
-#&gt; 2 &lt;S3: formula&gt; &lt;data.frame [50 × 5]&gt;
-#&gt; 3 &lt;S3: formula&gt; &lt;data.frame [50 × 5]&gt;
-#&gt; 4 &lt;S3: formula&gt; &lt;data.frame [50 × 5]&gt;
-#&gt; 5 &lt;S3: formula&gt; &lt;data.frame [50 × 5]&gt;
-#&gt; 6 &lt;S3: formula&gt; &lt;data.frame [50 × 5]&gt;
-#&gt; 7 &lt;S3: formula&gt; &lt;data.frame [50 × 5]&gt;
-#&gt; 8 &lt;S3: formula&gt; &lt;data.frame [50 × 5]&gt;
-#&gt; 9 &lt;S3: formula&gt; &lt;data.frame [50 × 5]&gt;</div></pre>
+#&gt;   formula   data             
+#&gt;   &lt;list&gt;    &lt;list&gt;           
+#&gt; 1 &lt;formula&gt; &lt;df[,5] [50 × 5]&gt;
+#&gt; 2 &lt;formula&gt; &lt;df[,5] [50 × 5]&gt;
+#&gt; 3 &lt;formula&gt; &lt;df[,5] [50 × 5]&gt;
+#&gt; 4 &lt;formula&gt; &lt;df[,5] [50 × 5]&gt;
+#&gt; 5 &lt;formula&gt; &lt;df[,5] [50 × 5]&gt;
+#&gt; 6 &lt;formula&gt; &lt;df[,5] [50 × 5]&gt;
+#&gt; 7 &lt;formula&gt; &lt;df[,5] [50 × 5]&gt;
+#&gt; 8 &lt;formula&gt; &lt;df[,5] [50 × 5]&gt;
+#&gt; 9 &lt;formula&gt; &lt;df[,5] [50 × 5]&gt;</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
