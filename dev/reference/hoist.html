@@ -39,6 +39,8 @@ hoist() allows you to selectively pull components of a list-column out
 in to their own top-level columns, using the same syntax as purrr::pluck().
 unnest_wider() turns each element of a list-column into a column, and
 unnest_longer() turns each element of a list-column into a row.
+unnest_auto() picks between unnest_wider() or unnest_longer()
+based heuristics described below.
 Learn more in vignette(&quot;rectangle&quot;)." />
 
 <meta property="og:image" content="https://tidyr.tidyverse.org/logo.png" />
@@ -148,7 +150,9 @@ rectangling, collapsing deeply nested lists into regular columns.
 <code>hoist()</code> allows you to selectively pull components of a list-column out
 in to their own top-level columns, using the same syntax as <code><a href='https://purrr.tidyverse.org/reference/pluck.html'>purrr::pluck()</a></code>.
 <code>unnest_wider()</code> turns each element of a list-column into a column, and
-<code>unnest_longer()</code> turns each element of a list-column into a row.</p>
+<code>unnest_longer()</code> turns each element of a list-column into a row.
+<code>unnest_auto()</code> picks between <code>unnest_wider()</code> or <code>unnest_longer()</code>
+based heuristics described below.</p>
 <p>Learn more in <code><a href='../articles/rectangle.html'>vignette("rectangle")</a></code>.</p>
     
     </div>
@@ -161,7 +165,9 @@ in to their own top-level columns, using the same syntax as <code><a href='https
   <span class='kw'>simplify</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>ptype</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>())
 
 <span class='fu'>unnest_wider</span>(<span class='no'>data</span>, <span class='no'>col</span>, <span class='kw'>names_sep</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>simplify</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>names_repair</span> <span class='kw'>=</span> <span class='st'>"check_unique"</span>, <span class='kw'>ptype</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>())</pre>
+  <span class='kw'>names_repair</span> <span class='kw'>=</span> <span class='st'>"check_unique"</span>, <span class='kw'>ptype</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>())
+
+<span class='fu'>unnest_auto</span>(<span class='no'>data</span>, <span class='no'>col</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -263,6 +269,16 @@ a list column of length one. Or if you <code>unnest_longer()</code> a list of da
 frame, the number of columns must be preserved so it creates a packed
 column. I'm not sure how if these behaviours are useful in practice, but
 they are theoretically pleasing.</p>
+    
+    <h2 class="hasAnchor" id="unnest-auto-heuristics"><a class="anchor" href="#unnest-auto-heuristics"></a><code>unnest_auto()</code> heuristics</h2>
+
+    
+    <p><code>unnest_auto()</code> inspects the inner names of the list-col:</p><ul>
+<li><p>If all elements are unnamed, it uses <code>unnest_longer()</code></p></li>
+<li><p>If all elements are named, and there's at least one name in
+common acros all components, it uses <code>unnest_wider()</code></p></li>
+<li><p>Otherwise, it falls back to <code>unnest_longer(indices_include = TRUE)</code>.</p></li>
+</ul>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -366,6 +382,8 @@ they are theoretically pleasing.</p>
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#unnest-variants">Unnest variants</a></li>
+
+      <li><a href="#unnest-auto-heuristics"><code>unnest_auto()</code> heuristics</a></li>
       
       <li><a href="#examples">Examples</a></li>
     </ul>
