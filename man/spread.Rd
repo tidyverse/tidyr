@@ -40,7 +40,7 @@ by "<key_name><sep><key_value>".}
 Development on \code{spread()} is complete, and for new code we recommend
 switching to \code{pivot_wider()}, which is easier to use, more featureful, and
 still under active development.
-\code{df \%>\% gather(key, value)} is equivalent to
+\code{df \%>\% spread(key, value)} is equivalent to
 \code{df \%>\% pivot_wider(names_to = key, values_to = value)}
 
 See more details in \code{vignette("pivot")}.
