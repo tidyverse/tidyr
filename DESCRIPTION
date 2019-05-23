@@ -12,9 +12,9 @@ Authors@R:
              email = "lionel@rstudio.com"),
       person(given = "RStudio",
              role = "cph"))
-Description: An evolution of 'reshape2'. It's designed
-    specifically for data tidying (not general reshaping or aggregating)
-    and works well with 'dplyr' data pipelines.
+Description: Create tidy data with functions designed to easily handle 
+    many types of issues, including missing values/observations, 
+    collapsed rows/columns, and wide/long/nested data structures.
 License: MIT + file LICENSE
 URL: http://tidyr.tidyverse.org,
     https://github.com/tidyverse/tidyr
