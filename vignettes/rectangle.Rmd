@@ -21,7 +21,7 @@ Rectangling is the art and craft of taking a deeply nested list (often sourced f
 * `unnest_longer()` takes each element of a list-column and makes a new row.
 * `unnest_wider()` takes each element of a list-column and makes a new column.
 * `unnest_auto()` guesses whether you want `unnest_longer()` or `unnest_wider()`.
-* `hoist()` is similar to `unnest_wider()` put only plucks out selected
+* `hoist()` is similar to `unnest_wider()` but only plucks out selected
   components, and can reach down multiple levels.
   
 A very large number of data rectangling problems can be solved by combining these functions with a splash of dplyr (largely eliminating prior approaches that combined `mutate()` with multiple `purrr::map()`s). 
