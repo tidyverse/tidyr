@@ -1,5 +1,5 @@
 Package: tidyr
-Title: Easily Tidy Data with 'spread()' and 'gather()' Functions
+Title: Tidy Messy Data
 Version: 0.8.3.9000
 Authors@R: 
     c(person(given = "Hadley",
@@ -12,9 +12,12 @@ Authors@R:
              email = "lionel@rstudio.com"),
       person(given = "RStudio",
              role = "cph"))
-Description: Create tidy data with functions designed to easily handle 
-    many types of issues, including missing values/observations, 
-    collapsed rows/columns, and wide/long/nested data structures.
+Description: tidyr helps to create tidy data, where each column is a variable, 
+    each row is an observation, and each cell contains a single value. 
+    tidyr contains tools for changing the shape (pivoting) and hierarchy 
+    (nesting and unnesting) of a dataset, as well as extracting values out of
+    string columns. It also includes tools for working with missing values 
+    (both implicit and explicit).
 License: MIT + file LICENSE
 URL: http://tidyr.tidyverse.org,
     https://github.com/tidyverse/tidyr
