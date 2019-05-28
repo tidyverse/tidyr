@@ -79,11 +79,13 @@ test_that("can nest multiple columns", {
   expect_equal(out$b, list_of(df[c("b1", "b2")]))
 })
 
-test_that("nesting no columns returns input", {
+test_that("nesting no columns nests all inputs", {
+  # included only for backward compatibility
   df <- tibble(a1 = 1, a2 = 2, b1 = 1, b2 = 2)
-  expect_equal(nest(df), df)
+  out <- nest(df)
+  expect_named(out, "data")
+  expect_equal(out$data[[1]], df)
 })
-
 
 # unnest ------------------------------------------------------------------
 
@@ -204,13 +206,20 @@ test_that("warn about old style interface", {
 
 test_that("can control output column name", {
   df <- tibble(x = c(1, 1, 1), y = 1:3)
-  expect_warning(out <- nest(df, y, .key = y), "y = c(y)", fixed = TRUE)
+  expect_warning(out <- nest(df, y, .key = "y"), "y = c(y)", fixed = TRUE)
+  expect_named(out, c("x", "y"))
+})
+
+test_that("can control output column name when nested", {
+  df <- dplyr::group_by(tibble(x = c(1, 1, 1), y = 1:3), x)
+  expect_warning(out <- nest(df, .key = "y"), "`.key`", fixed = TRUE)
   expect_named(out, c("x", "y"))
 })
 
 test_that(".key gets warning with new interface", {
   df <- tibble(x = c(1, 1, 1), y = 1:3)
-  expect_warning(out <- nest(df, y = y, .key = y), ".key", fixed = TRUE)
+  expect_warning(out <- nest(df, y = y, .key = "y"), ".key", fixed = TRUE)
+  expect_named(df, c("x", "y"))
 })
 
 test_that("cols must go in cols", {

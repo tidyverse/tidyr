@@ -86,6 +86,7 @@
 #' df %>% unnest(a) %>% unnest(b)
 nest <- function(.data, ..., .key = "DEPRECATED") {
   cols <- enquos(...)
+
   if (any(names2(cols) == "")) {
     col_names <- unname(tidyselect::vars_select(names(.data), !!!cols))
     cols_expr <- expr(c(!!!syms(col_names)))
@@ -100,10 +101,6 @@ nest <- function(.data, ..., .key = "DEPRECATED") {
     return(nest(.data, !!!cols))
   }
 
-  if (!missing(.key)) {
-    warn(".key is deprecated")
-  }
-
   UseMethod("nest")
 }
 
@@ -115,13 +112,20 @@ nest.data.frame <- function(.data, ..., .key = "DEPRECATED") {
     .data <- as_tibble(.data)
   }
 
-  nest.tbl_df(.data, ...)
+  nest.tbl_df(.data, ..., .key = .key)
 }
 
 #' @export
 nest.tbl_df <- function(.data, ..., .key = "DEPRECATED") {
-  cols <- enquos(...)
-  cols <- map(cols, ~ tidyselect::vars_select(names(.data), !!.x))
+  .key <- check_key(.key)
+
+  if (missing(...)) {
+    cols <- list2(!!.key := names(.data))
+  } else {
+    cols <- enquos(...)
+    cols <- map(cols, ~ tidyselect::vars_select(names(.data), !!.x))
+  }
+
   asis <- setdiff(names(.data), unlist(cols))
 
   keys <- .data[asis]
@@ -133,11 +137,22 @@ nest.tbl_df <- function(.data, ..., .key = "DEPRECATED") {
 
 #' @export
 nest.grouped_df <- function(.data, ..., .key = "DEPRECATED") {
+  .key <- check_key(.key)
+
   if (missing(...)) {
     nest_vars <- setdiff(names(.data), dplyr::group_vars(.data))
-    nest.tbl_df(.data, data = !!nest_vars)
+    nest.tbl_df(.data, !!.key := !!nest_vars)
   } else {
     NextMethod()
+  }
+}
+
+check_key <- function(.key) {
+  if (!identical(.key, "DEPRECATED")) {
+    warn("`.key` is deprecated")
+    .key
+  } else {
+    "data"
   }
 }
 
