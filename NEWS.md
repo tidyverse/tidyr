@@ -7,6 +7,12 @@
   has changed, package authors will need to update to deprecation warnings.
   I think one clean break should be less work for everyone.
 
+* `crossing()` and `nesting()` now return 0-row outputs if any input is a 
+  length-0 vector. If you want to preserve the previous behaviour which 
+  silently dropped these inputs, you should convert empty vectors to `NULL`.
+  (More discussion on this general pattern at 
+  https://github.com/tidyverse/principles/issues/24)
+
 ## Pivoting
 
 New `pivot_longer()` and `pivot_wider()` provide modern alternatives to `spread()` and `gather()`. They have been carefully redesigned to be easier to learn and remember, and include many new features. Learn more in `vignette("pivot")`.
