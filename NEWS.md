@@ -1,5 +1,12 @@
 # tidyr (development version)
 
+## Breaking changes
+
+* `unnest_()`/`nest_()` and the lazyeval methods for `unnest()`/`nest()` are 
+  now defunct. They have been deprecated for some time, and since the interface
+  has changed, package authors will need to update to deprecation warnings.
+  I think one clean break should be less work for everyone.
+
 ## Pivoting
 
 New `pivot_longer()` and `pivot_wider()` provide modern alternatives to `spread()` and `gather()`. They have been carefully redesigned to be easier to learn and remember, and include many new features. Learn more in `vignette("pivot")`.
@@ -45,8 +52,6 @@ I have done my best to ensure that common uses of `unnest()` will continue to wo
   can override by using `name_repair`. (#514)
   
 * Now supports `NULL` entries (#436) 
-
-As part of this overhaul, `unnest_()`/`nest_()` and the lazyeval methods for `unnest()`/`nest()` are officially defunct.
 
 ## Packing and chopping
 
