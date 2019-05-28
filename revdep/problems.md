@@ -1,1420 +1,142 @@
-# abjutils
+# bayesammi
 
-Version: 0.2.3
+<details>
 
-## In both
+* Version: 0.1.0
+* Source code: https://github.com/cran/bayesammi
+* Date/Publication: 2018-04-12 09:03:23 UTC
+* Number of recursive dependencies: 53
 
-*   checking package dependencies ... ERROR
-    ```
-    Package required but not available: ‘devtools’
+Run `revdep_details(,"bayesammi")` for more info
+
+</details>
+
+## Newly broken
+
+*   R CMD check timed out
     
-    See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-    manual.
-    ```
 
-# ActisoftR
+# bench
 
-Version: 0.0.2
+<details>
 
-## In both
+* Version: 1.0.2
+* Source code: https://github.com/cran/bench
+* URL: https://github.com/r-lib/bench
+* BugReports: https://github.com/r-lib/bench/issues
+* Date/Publication: 2019-04-29 20:30:02 UTC
+* Number of recursive dependencies: 61
 
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    Error in re-building vignettes:
-      ...
-    Quitting from lines 29-30 (ActisoftR.Rmd) 
-    Error: processing vignette 'ActisoftR.Rmd' failed with diagnostics:
-    there is no package called 'devtools'
-    Execution halted
-    ```
+Run `revdep_details(,"bench")` for more info
 
-*   checking package dependencies ... NOTE
-    ```
-    Package suggested but not available for checking: ‘devtools’
-    ```
+</details>
 
-# AeRobiology
+## Newly broken
 
-Version: 1.0.2
-
-## In both
-
-*   checking package dependencies ... ERROR
-    ```
-    Package required but not available: ‘devtools’
-    
-    See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-    manual.
-    ```
-
-# afex
-
-Version: 0.23-0
-
-## In both
-
-*   checking installed package size ... NOTE
-    ```
-      installed size is  5.4Mb
-      sub-directories of 1Mb or more:
-        doc       2.7Mb
-        extdata   1.8Mb
-    ```
-
-*   checking Rd cross-references ... NOTE
-    ```
-    Package unavailable to check Rd xrefs: ‘ez’
-    ```
-
-# ahpsurvey
-
-Version: 0.4.0
-
-## In both
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespaces in Imports field not imported from:
-      ‘knitr’ ‘randomNames’ ‘tidyr’
-      All declared Imports should be used.
-    ```
-
-# aire.zmvm
-
-Version: 0.8.1
-
-## In both
-
-*   checking data for non-ASCII characters ... NOTE
-    ```
-      Note: found 52 marked UTF-8 strings
-    ```
-
-# alphavantager
-
-Version: 0.1.0
-
-## In both
-
-*   checking package dependencies ... ERROR
-    ```
-    Package required but not available: ‘devtools’
-    
-    See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-    manual.
-    ```
-
-# amt
-
-Version: 0.0.5.0
-
-## In both
-
-*   checking re-building of vignette outputs ... WARNING
+*   checking examples ... ERROR
     ```
     ...
-    Attaching package: 'sp'
-    
-    The following object is masked from 'package:amt':
-    
-        bbox
-    
-    
-    Attaching package: 'raster'
-    
-    The following object is masked from 'package:amt':
-    
-        select
-    
-    Warning in random_steps.steps_xy(., n = 15) :
-      Step-lengths or turning angles contained NA, which were removed.
-    Warning in random_steps.steps_xy(., n = 15) :
-      Step-lengths or turning angles contained NA, which were removed.
-    Quitting from lines 144-145 (p4_SSF.Rmd) 
-    Error: processing vignette 'p4_SSF.Rmd' failed with diagnostics:
-    there is no package called 'devtools'
+    + }
+    Loading required package: ggplot2
+    Loading required namespace: tidyr
+    Warning: `cols` is now required.
+    Please use `cols = c(result, memory, time, gc)`
+    Error: Incompatible lengths: 4958, 42.
+    Backtrace:
+    [90m     [39m█
+    [90m  1. [39m├─ggplot2::autoplot(res)
+    [90m  2. [39m└─bench:::autoplot.bench_mark(res)
+    [90m  3. [39m  └─tidyr::unnest(object) [90m00_pkg_src/bench/R/autoplot.R:58:2[39m
+    [90m  4. [39m    ├─tidyr::unnest(...)
+    [90m  5. [39m    ├─bench:::unnest.bench_mark(...)
+    [90m  6. [39m    │ └─base::suppressWarnings(NextMethod(.Generic, data, time, gc, .drop = FALSE)) [90m00_pkg_src/bench/R/mark.R:296:2[39m
+    [90m  7. [39m    │   └─base::withCallingHandlers(expr, warning = function(w) invokeRestart("muffleWarning"))
+    [90m  8. [39m    ├─base::NextMethod(.Generic, data, time, gc, .drop = FALSE) [90m00_pkg_src/bench/R/mark.R:296:2[39m
+    [90m  9. [39m    └─tidyr:::unnest.data.frame(...)
+    [90m 10. [39m      └─tidyr::unchop(data, !!cols, keep_empty = keep_empty, ptype = ptype)
+    [90m 11. [39m        └─purrr::pmap(as.list(data)[cols], vec_recycle_common)
+    [90m 12. [39m     
     Execution halted
     ```
-
-*   checking package dependencies ... NOTE
-    ```
-    Package suggested but not available for checking: ‘devtools’
-    ```
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespaces in Imports field not imported from:
-      ‘Rcpp’ ‘magrittr’
-      All declared Imports should be used.
-    ```
-
-# anomalize
-
-Version: 0.1.1
-
-## In both
-
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    Error in re-building vignettes:
-      ...
-    Quitting from lines 15-24 (anomalize_methods.Rmd) 
-    Error: processing vignette 'anomalize_methods.Rmd' failed with diagnostics:
-    there is no package called 'devtools'
-    Execution halted
-    ```
-
-*   checking package dependencies ... NOTE
-    ```
-    Package suggested but not available for checking: ‘devtools’
-    ```
-
-*   checking installed package size ... NOTE
-    ```
-      installed size is  5.5Mb
-      sub-directories of 1Mb or more:
-        help   4.7Mb
-    ```
-
-# anomalyDetection
-
-Version: 0.2.5
-
-## In both
-
-*   checking whether package ‘anomalyDetection’ can be installed ... ERROR
-    ```
-    Installation failed.
-    See ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/anomalyDetection/new/anomalyDetection.Rcheck/00install.out’ for details.
-    ```
-
-## Installation
-
-### Devel
-
-```
-* installing *source* package ‘anomalyDetection’ ...
-** package ‘anomalyDetection’ successfully unpacked and MD5 sums checked
-** libs
-ccache clang++ -Qunused-arguments  -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/anomalyDetection/Rcpp/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/anomalyDetection/RcppArmadillo/include" -I/usr/local/include  -fopenmp  -fPIC  -Wall -g -O2  -c RcppExports.cpp -o RcppExports.o
-clang: error: unsupported option '-fopenmp'
-make: *** [RcppExports.o] Error 1
-ERROR: compilation failed for package ‘anomalyDetection’
-* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/anomalyDetection/new/anomalyDetection.Rcheck/anomalyDetection’
-
-```
-### CRAN
-
-```
-* installing *source* package ‘anomalyDetection’ ...
-** package ‘anomalyDetection’ successfully unpacked and MD5 sums checked
-** libs
-ccache clang++ -Qunused-arguments  -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/anomalyDetection/Rcpp/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/anomalyDetection/RcppArmadillo/include" -I/usr/local/include  -fopenmp  -fPIC  -Wall -g -O2  -c RcppExports.cpp -o RcppExports.o
-clang: error: unsupported option '-fopenmp'
-make: *** [RcppExports.o] Error 1
-ERROR: compilation failed for package ‘anomalyDetection’
-* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/anomalyDetection/old/anomalyDetection.Rcheck/anomalyDetection’
-
-```
-# arena2r
-
-Version: 1.0.0
-
-## In both
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespaces in Imports field not imported from:
-      ‘purrr’ ‘shinyBS’ ‘shinydashboard’ ‘shinyjs’
-      All declared Imports should be used.
-    ```
-
-# artMS
-
-Version: 1.0.7
-
-## In both
-
-*   checking package dependencies ... ERROR
-    ```
-    Packages required but not available: ‘org.Hs.eg.db’ ‘org.Mm.eg.db’
-    
-    See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-    manual.
-    ```
-
-# auctestr
-
-Version: 1.0.0
-
-## In both
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespace in Imports field not imported from: ‘tidyr’
-      All declared Imports should be used.
-    ```
-
-# auk
-
-Version: 0.3.2
-
-## In both
-
-*   checking data for non-ASCII characters ... NOTE
-    ```
-      Note: found 552 marked UTF-8 strings
-    ```
-
-# BaMORC
-
-Version: 1.0.1
-
-## In both
-
-*   checking package dependencies ... ERROR
-    ```
-    Package required but not available: ‘devtools’
-    
-    See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-    manual.
-    ```
-
-# banter
-
-Version: 0.9.3
-
-## In both
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespace in Imports field not imported from: ‘ranger’
-      All declared Imports should be used.
-    ```
-
-# basecallQC
-
-Version: 1.6.0
-
-## In both
-
-*   checking installed package size ... NOTE
-    ```
-      installed size is  5.1Mb
-      sub-directories of 1Mb or more:
-        doc       1.8Mb
-        extdata   2.8Mb
-    ```
-
-# bayesCT
-
-Version: 0.99.0
-
-## In both
-
-*   checking package dependencies ... ERROR
-    ```
-    Package required but not available: ‘devtools’
-    
-    See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-    manual.
-    ```
-
-# baystability
-
-Version: 0.1.0
-
-## In both
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespaces in Imports field not imported from:
-      ‘ggfortify’ ‘ggplot2’ ‘matrixStats’ ‘reshape2’ ‘scales’
-      All declared Imports should be used.
-    ```
-
-# BgeeDB
-
-Version: 2.8.0
-
-## In both
-
-*   checking whether package ‘BgeeDB’ can be installed ... ERROR
-    ```
-    Installation failed.
-    See ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/BgeeDB/new/BgeeDB.Rcheck/00install.out’ for details.
-    ```
-
-## Installation
-
-### Devel
-
-```
-* installing *source* package ‘BgeeDB’ ...
-** R
-** data
-** inst
-** byte-compile and prepare package for lazy loading
-Error : package ‘GO.db’ required by ‘topGO’ could not be found
-ERROR: lazy loading failed for package ‘BgeeDB’
-* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/BgeeDB/new/BgeeDB.Rcheck/BgeeDB’
-
-```
-### CRAN
-
-```
-* installing *source* package ‘BgeeDB’ ...
-** R
-** data
-** inst
-** byte-compile and prepare package for lazy loading
-Error : package ‘GO.db’ required by ‘topGO’ could not be found
-ERROR: lazy loading failed for package ‘BgeeDB’
-* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/BgeeDB/old/BgeeDB.Rcheck/BgeeDB’
-
-```
-# bib2df
-
-Version: 1.0.1
-
-## In both
 
 *   checking tests ...
     ```
      ERROR
     Running the tests in ‘tests/testthat.R’ failed.
     Last 13 lines of output:
-      > library("testthat")
-      > library("bib2df")
-      > test_check("bib2df")
-      [31m──[39m [31m1. Failure: bib2df() throws error messages (@tests.R#70) [39m [31m────────────────────────────[39m
-      `bib2df("https://www.example.com/data/x.bib")` threw an error with unexpected message.
-      Expected match: "Invalid URL: File is not readable."
-      Actual message: "Could not resolve host: www.example.com"
+      3: unnest.bench_mark(data, cols = !!cols, names_sep = names_sep, keep_empty = keep_empty, ptype = ptype) at /private/tmp/RtmpquPhal/R.INSTALL91f746b5a07/tidyr/R/nest.R:233
+      4: suppressWarnings(NextMethod(.Generic, data, time, gc, .drop = FALSE)) at /Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/bench/new/bench.Rcheck/00_pkg_src/bench/R/mark.R:296
+      5: withCallingHandlers(expr, warning = function(w) invokeRestart("muffleWarning"))
+      6: NextMethod(.Generic, data, time, gc, .drop = FALSE) at /Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/bench/new/bench.Rcheck/00_pkg_src/bench/R/mark.R:296
+      7: unnest.data.frame(data, cols = !!cols, names_sep = names_sep, keep_empty = keep_empty, ptype = ptype, .drop = FALSE)
+      8: map(data[[col]], as_df, col = col) at /private/tmp/RtmpquPhal/R.INSTALL91f746b5a07/tidyr/R/nest.R:252
+      9: .f(.x[[i]], ...)
+      10: stop("Input must be list of vectors", call. = FALSE) at /private/tmp/RtmpquPhal/R.INSTALL91f746b5a07/tidyr/R/nest.R:272
       
-      ══ testthat results  ════════════════════════════════════════════════════════════════════
-      OK: 19 SKIPPED: 0 FAILED: 1
-      1. Failure: bib2df() throws error messages (@tests.R#70) 
+      ══ testthat results  ═════════════════════════════════════════════════════════════════════════════════
+      OK: 184 SKIPPED: 1 WARNINGS: 1 FAILED: 1
+      1. Error: unnest.bench_mark: does not contain result or memory columns (@test-mark.R#185) 
       
       Error: testthat unit tests failed
       Execution halted
     ```
 
-# binneR
-
-Version: 2.0.10
-
-## In both
-
-*   checking package dependencies ... NOTE
-    ```
-    Package suggested but not available for checking: ‘metaboData’
-    ```
-
-# biobroom
-
-Version: 1.14.0
-
-## In both
-
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    ...
-    
-    The following object is masked from 'package:dplyr':
-    
-        count
-    
-    Loading required package: BiocParallel
-    
-    Attaching package: 'DelayedArray'
-    
-    The following objects are masked from 'package:matrixStats':
-    
-        colMaxs, colMins, colRanges, rowMaxs, rowMins, rowRanges
-    
-    The following objects are masked from 'package:base':
-    
-        aperm, apply
-    
-    Quitting from lines 136-141 (biobroom_vignette.Rmd) 
-    Error: processing vignette 'biobroom_vignette.Rmd' failed with diagnostics:
-    there is no package called 'airway'
-    Execution halted
-    ```
-
-*   checking package dependencies ... NOTE
-    ```
-    Package suggested but not available for checking: ‘airway’
-    ```
-
-*   checking dependencies in R code ... NOTE
-    ```
-    'library' or 'require' call to ‘DESeq2’ in package code.
-      Please use :: or requireNamespace() instead.
-      See section 'Suggested packages' in the 'Writing R Extensions' manual.
-    Missing or unexported object: ‘dplyr::tbl_dt’
-    ```
-
-*   checking R code for possible problems ... NOTE
-    ```
-    ...
-    tidy.qvalue: no visible binding for global variable ‘smoothed’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/biobroom/new/biobroom.Rcheck/00_pkg_src/biobroom/R/qvalue_tidiers.R:65-66)
-    tidy.qvalue: no visible binding for global variable ‘pi0’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/biobroom/new/biobroom.Rcheck/00_pkg_src/biobroom/R/qvalue_tidiers.R:65-66)
-    tidy.qvalue: no visible binding for global variable ‘lambda’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/biobroom/new/biobroom.Rcheck/00_pkg_src/biobroom/R/qvalue_tidiers.R:65-66)
-    tidy_matrix: no visible binding for global variable ‘value’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/biobroom/new/biobroom.Rcheck/00_pkg_src/biobroom/R/limma_tidiers.R:197-199)
-    tidy_matrix: no visible binding for global variable ‘gene’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/biobroom/new/biobroom.Rcheck/00_pkg_src/biobroom/R/limma_tidiers.R:197-199)
-    Undefined global functions or variables:
-      . DGEList calcNormFactors colData counts design end estimate
-      estimateSizeFactors exprs<- fData<- gene gr is lambda model.matrix
-      p.adjust pData pData<- pi0 protein rowRanges sample.id seqnames
-      setNames smoothed start tbl_dt term value voom voomWithQualityWeights
-    Consider adding
-      importFrom("methods", "is")
-      importFrom("stats", "end", "model.matrix", "p.adjust", "setNames",
-                 "start")
-    to your NAMESPACE file (and ensure that your DESCRIPTION Imports field
-    contains 'methods').
-    ```
-
-# BiocPkgTools
-
-Version: 1.0.3
-
-## In both
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespace in Imports field not imported from: ‘gh’
-      All declared Imports should be used.
-    ```
-
-*   checking R code for possible problems ... NOTE
-    ```
-    ...
-    process_data: no visible binding for global variable ‘biocViews’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/BiocPkgTools/new/BiocPkgTools.Rcheck/00_pkg_src/BiocPkgTools/R/getData.R:51-70)
-    process_data: no visible binding for global variable ‘Description’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/BiocPkgTools/new/BiocPkgTools.Rcheck/00_pkg_src/BiocPkgTools/R/getData.R:51-70)
-    process_data: no visible binding for global variable ‘downloads_month’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/BiocPkgTools/new/BiocPkgTools.Rcheck/00_pkg_src/BiocPkgTools/R/getData.R:51-70)
-    process_data: no visible binding for global variable ‘downloads_total’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/BiocPkgTools/new/BiocPkgTools.Rcheck/00_pkg_src/BiocPkgTools/R/getData.R:51-70)
-    summarise_dl_stats: no visible binding for global variable ‘Package’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/BiocPkgTools/new/BiocPkgTools.Rcheck/00_pkg_src/BiocPkgTools/R/getData.R:79-84)
-    summarise_dl_stats: no visible binding for global variable
-      ‘Nb_of_downloads’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/BiocPkgTools/new/BiocPkgTools.Rcheck/00_pkg_src/BiocPkgTools/R/getData.R:79-84)
-    Undefined global functions or variables:
-      Author Description License Nb_of_downloads Package V<- any_alnums
-      any_alphas any_blanks any_non_alnums any_of anything biocViews blank
-      capture digit downloads_month downloads_total except_any_of gh maybe
-      start tags
-    Consider adding
-      importFrom("stats", "start")
-    to your NAMESPACE file.
-    ```
-
-# blkbox
-
-Version: 1.0
-
-## In both
-
-*   checking package dependencies ... NOTE
-    ```
-    Package suggested but not available for checking: ‘bigrf’
-    ```
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespaces in Imports field not imported from:
-      ‘glmnet’ ‘gtools’ ‘knitr’ ‘nnet’ ‘parallel’ ‘rJava’ ‘reshape’
-      ‘rmarkdown’ ‘shinyjs’
-      All declared Imports should be used.
-    Missing or unexported object: ‘xgboost::predict’
-    ```
-
-# BloodCancerMultiOmics2017
-
-Version: 1.2.0
-
-## In both
-
-*   checking package dependencies ... ERROR
-    ```
-    Package required but not available: ‘devtools’
-    
-    Package suggested but not available for checking: ‘org.Hs.eg.db’
-    
-    See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-    manual.
-    ```
-
-# blorr
-
-Version: 0.2.0
-
-## In both
-
-*   checking Rd cross-references ... NOTE
-    ```
-    Package unavailable to check Rd xrefs: ‘lmtest’
-    ```
-
-# bootnet
-
-Version: 1.2
-
-## In both
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespace in Imports field not imported from: ‘psych’
-      All declared Imports should be used.
-    ```
-
-# bossMaps
-
-Version: 0.1.0
-
-## In both
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespaces in Imports field not imported from:
-      ‘rgdal’ ‘tidyr’
-      All declared Imports should be used.
-    ```
-
-# bpbounds
-
-Version: 0.1.3
-
-## In both
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespace in Imports field not imported from: ‘methods’
-      All declared Imports should be used.
-    ```
-
-# breathtestcore
-
-Version: 0.4.6
-
-## In both
-
-*   checking Rd cross-references ... NOTE
-    ```
-    Package unavailable to check Rd xrefs: ‘breathteststan’
-    ```
-
-# breathteststan
-
-Version: 0.4.7
-
-## In both
-
-*   checking for GNU extensions in Makefiles ... NOTE
-    ```
-    GNU make is a SystemRequirements.
-    ```
-
-# broom.mixed
-
-Version: 0.2.4
-
-## In both
-
-*   checking package dependencies ... NOTE
-    ```
-    Package suggested but not available for checking: ‘glmmADMB’
-    ```
-
-# c14bazAAR
-
-Version: 1.0.2
-
-## In both
-
-*   checking data for non-ASCII characters ... NOTE
-    ```
-      Note: found 76 marked UTF-8 strings
-    ```
-
-# caffsim
-
-Version: 0.2.2
-
-## In both
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespace in Imports field not imported from: ‘markdown’
-      All declared Imports should be used.
-    ```
-
-# capm
-
-Version: 0.13.9
-
-## In both
-
-*   checking data for non-ASCII characters ... NOTE
-    ```
-      Note: found 59 marked UTF-8 strings
-    ```
-
-# casino
-
-Version: 0.1.0
-
-## In both
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespaces in Imports field not imported from:
-      ‘R6’ ‘crayon’ ‘dplyr’ ‘tidyr’
-      All declared Imports should be used.
-    ```
-
-# CATALYST
-
-Version: 1.6.4
-
-## In both
-
-*   checking whether package ‘CATALYST’ can be installed ... ERROR
-    ```
-    Installation failed.
-    See ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/CATALYST/new/CATALYST.Rcheck/00install.out’ for details.
-    ```
-
-*   checking for hidden files and directories ... NOTE
-    ```
-    Found the following hidden files and directories:
-      .travis.yml
-    These were most likely included in error. See section ‘Package
-    structure’ in the ‘Writing R Extensions’ manual.
-    ```
-
-## Installation
-
-### Devel
-
-```
-* installing *source* package ‘CATALYST’ ...
-** R
-** data
-*** moving datasets to lazyload DB
-** inst
-** byte-compile and prepare package for lazy loading
-Error : in method for ‘filter’ with signature ‘.data="daFrame"’:  arguments (‘.preserve’) after ‘...’ in the generic must appear in the method, in the same place at the end of the argument list
-Error : unable to load R code in package ‘CATALYST’
-ERROR: lazy loading failed for package ‘CATALYST’
-* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/CATALYST/new/CATALYST.Rcheck/CATALYST’
-
-```
-### CRAN
-
-```
-* installing *source* package ‘CATALYST’ ...
-** R
-** data
-*** moving datasets to lazyload DB
-** inst
-** byte-compile and prepare package for lazy loading
-Error : in method for ‘filter’ with signature ‘.data="daFrame"’:  arguments (‘.preserve’) after ‘...’ in the generic must appear in the method, in the same place at the end of the argument list
-Error : unable to load R code in package ‘CATALYST’
-ERROR: lazy loading failed for package ‘CATALYST’
-* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/CATALYST/old/CATALYST.Rcheck/CATALYST’
-
-```
-# ccfa
-
-Version: 1.1.0
-
-## In both
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespaces in Imports field not imported from:
-      ‘doParallel’ ‘foreach’
-      All declared Imports should be used.
-    ```
-
-# CDECRetrieve
-
-Version: 0.1.2
-
-## In both
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespaces in Imports field not imported from:
-      ‘lazyeval’ ‘purrr’ ‘roxygen2’
-      All declared Imports should be used.
-    ```
-
 # cellbaseR
 
-Version: 1.6.0
+<details>
 
-## In both
+* Version: 1.6.1
+* Source code: https://github.com/cran/cellbaseR
+* URL: https://github.com/melsiddieg/cellbaseR
+* Date/Publication: 2019-04-08
+* Number of recursive dependencies: 131
+
+Run `revdep_details(,"cellbaseR")` for more info
+
+</details>
+
+## Newly broken
 
 *   checking examples ... ERROR
     ```
     Running examples in ‘cellbaseR-Ex.R’ failed
     The error most likely occurred in:
     
-    > ### Name: AnnotateVcf,CellBaseR-method
-    > ### Title: AnnotateVcf
-    > ### Aliases: AnnotateVcf,CellBaseR-method AnnotateVcf
+    > ### Name: createGeneModel
+    > ### Title: createGeneModel
+    > ### Aliases: createGeneModel
     > 
     > ### ** Examples
     > 
     > cb <- CellBaseR()
-    > fl <- system.file("extdata", "hapmap_exome_chr22_500.vcf.gz",
-    +                   package = "cellbaseR" )
-    > res <- AnnotateVcf(object=cb, file=fl, BPPARAM = bpparam(workers=2))
-    Error: BiocParallel errors
-      element index: 1, 2
-      first error: lexical error: invalid char in json text.
-                                           <!DOCTYPE html><html><head><tit
-                         (right here) ------^
+    > test <- createGeneModel(object = cb, region = "17:1500000-1550000")
+    Error in names[j:(j + cols[[i]] - 1)] <- names(x[[i]]) : 
+      replacement has length zero
+    Calls: createGeneModel ... <Anonymous> -> unnest.data.frame -> unpack -> flatten_at
     Execution halted
     ```
 
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    ...
-        type
-    
-    The following object is masked from 'package:base':
-    
-        strsplit
-    
-    
-    Attaching package: 'VariantAnnotation'
-    
-    The following object is masked from 'package:base':
-    
-        tabulate
-    
-    Quitting from lines 153-163 (cellbaseR.Rmd) 
-    Error: processing vignette 'cellbaseR.Rmd' failed with diagnostics:
-    BiocParallel errors
-      element index: 1, 2
-      first error: lexical error: invalid char in json text.
-                                           <!DOCTYPE html><html><head><tit
-                         (right here) ------^
-    Execution halted
-    ```
+# collector
 
-# CEMiTool
+<details>
 
-Version: 1.6.10
+* Version: 0.1.2
+* Source code: https://github.com/cran/collector
+* URL: https://collector.tidyrisk.org
+* BugReports: https://github.com/davidski/collector/issues
+* Date/Publication: 2019-05-21 07:30:03 UTC
+* Number of recursive dependencies: 119
 
-## In both
+Run `revdep_details(,"collector")` for more info
 
-*   checking whether package ‘CEMiTool’ can be installed ... ERROR
-    ```
-    Installation failed.
-    See ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/CEMiTool/new/CEMiTool.Rcheck/00install.out’ for details.
-    ```
-
-## Installation
-
-### Devel
-
-```
-* installing *source* package ‘CEMiTool’ ...
-** R
-** data
-*** moving datasets to lazyload DB
-** exec
-** inst
-** byte-compile and prepare package for lazy loading
-Error in loadNamespace(i, c(lib.loc, .libPaths()), versionCheck = vI[[i]]) : 
-  there is no package called ‘GO.db’
-ERROR: lazy loading failed for package ‘CEMiTool’
-* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/CEMiTool/new/CEMiTool.Rcheck/CEMiTool’
-
-```
-### CRAN
-
-```
-* installing *source* package ‘CEMiTool’ ...
-** R
-** data
-*** moving datasets to lazyload DB
-** exec
-** inst
-** byte-compile and prepare package for lazy loading
-Error in loadNamespace(i, c(lib.loc, .libPaths()), versionCheck = vI[[i]]) : 
-  there is no package called ‘GO.db’
-ERROR: lazy loading failed for package ‘CEMiTool’
-* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/CEMiTool/old/CEMiTool.Rcheck/CEMiTool’
-
-```
-# childsds
-
-Version: 0.7.1
-
-## In both
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespace in Imports field not imported from: ‘gamlss.dist’
-      All declared Imports should be used.
-    ```
-
-*   checking data for non-ASCII characters ... NOTE
-    ```
-      Note: found 24 marked UTF-8 strings
-    ```
-
-# chromswitch
-
-Version: 1.4.1
-
-## In both
-
-*   checking package dependencies ... NOTE
-    ```
-    Package suggested but not available for checking: ‘devtools’
-    ```
-
-# cimir
-
-Version: 0.1-0
-
-## In both
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespace in Imports field not imported from: ‘readr’
-      All declared Imports should be used.
-    ```
-
-# circumplex
-
-Version: 0.2.1
-
-## In both
-
-*   checking whether package ‘circumplex’ can be installed ... ERROR
-    ```
-    Installation failed.
-    See ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/circumplex/new/circumplex.Rcheck/00install.out’ for details.
-    ```
-
-## Installation
-
-### Devel
-
-```
-* installing *source* package ‘circumplex’ ...
-** package ‘circumplex’ successfully unpacked and MD5 sums checked
-** libs
-clang++ -std=gnu++11 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/circumplex/Rcpp/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/circumplex/RcppArmadillo/include" -I/usr/local/include  -fopenmp  -fPIC  -Wall -g -O2 -c RcppExports.cpp -o RcppExports.o
-clang: error: unsupported option '-fopenmp'
-make: *** [RcppExports.o] Error 1
-ERROR: compilation failed for package ‘circumplex’
-* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/circumplex/new/circumplex.Rcheck/circumplex’
-
-```
-### CRAN
-
-```
-* installing *source* package ‘circumplex’ ...
-** package ‘circumplex’ successfully unpacked and MD5 sums checked
-** libs
-clang++ -std=gnu++11 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/circumplex/Rcpp/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/circumplex/RcppArmadillo/include" -I/usr/local/include  -fopenmp  -fPIC  -Wall -g -O2 -c RcppExports.cpp -o RcppExports.o
-clang: error: unsupported option '-fopenmp'
-make: *** [RcppExports.o] Error 1
-ERROR: compilation failed for package ‘circumplex’
-* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/circumplex/old/circumplex.Rcheck/circumplex’
-
-```
-# classyfireR
-
-Version: 0.1.2
-
-## In both
-
-*   checking tests ...
-    ```
-     ERROR
-    Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-      3: eval_bare(get_expr(quo), get_env(quo))
-      4: dplyr::is.tbl(retrieve_classification(inchi_sub$query_id))
-      5: retrieve_classification(inchi_sub$query_id)
-      6: jsonlite::fromJSON(text_content) at /Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/classyfireR/new/classyfireR.Rcheck/00_pkg_src/classyfireR/R/retrieve_classification.R:27
-      7: parse_and_simplify(txt = txt, simplifyVector = simplifyVector, simplifyDataFrame = simplifyDataFrame, 
-             simplifyMatrix = simplifyMatrix, flatten = flatten, ...)
-      8: parseJSON(txt, bigint_as_char)
-      9: parse_string(txt, bigint_as_char)
-      
-      ══ testthat results  ════════════════════════════════════════════════════════════════════
-      OK: 9 SKIPPED: 0 FAILED: 1
-      1. Error: submit-classification (@test-submission.R#16) 
-      
-      Error: testthat unit tests failed
-      Execution halted
-    ```
-
-# CNPBayes
-
-Version: 1.12.0
-
-## In both
-
-*   R CMD check timed out
-    
-
-*   checking installed package size ... NOTE
-    ```
-      installed size is  7.2Mb
-      sub-directories of 1Mb or more:
-        R     2.1Mb
-        doc   3.5Mb
-    ```
-
-# CNVScope
-
-Version: 1.9.7
-
-## In both
-
-*   checking package dependencies ... ERROR
-    ```
-    Package required but not available: ‘BSgenome.Hsapiens.UCSC.hg19’
-    
-    See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-    manual.
-    ```
-
-# cocktailApp
-
-Version: 0.2.0
-
-## In both
-
-*   checking data for non-ASCII characters ... NOTE
-    ```
-      Note: found 14661 marked UTF-8 strings
-    ```
-
-# codebook
-
-Version: 0.8.0
-
-## In both
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespaces in Imports field not imported from:
-      ‘graphics’ ‘jsonlite’ ‘pander’ ‘rlang’
-      All declared Imports should be used.
-    ```
-
-*   checking Rd cross-references ... NOTE
-    ```
-    Package unavailable to check Rd xrefs: ‘mice’
-    ```
-
-*   checking data for non-ASCII characters ... NOTE
-    ```
-      Note: found 65 marked UTF-8 strings
-    ```
-
-# codified
-
-Version: 0.2.0
-
-## In both
-
-*   checking package dependencies ... NOTE
-    ```
-    Package suggested but not available for checking: ‘devtools’
-    ```
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespaces in Imports field not imported from:
-      ‘methods’ ‘readr’
-      All declared Imports should be used.
-    ```
-
-# colorednoise
-
-Version: 1.0.4
-
-## In both
-
-*   checking whether package ‘colorednoise’ can be installed ... ERROR
-    ```
-    Installation failed.
-    See ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/colorednoise/new/colorednoise.Rcheck/00install.out’ for details.
-    ```
-
-## Installation
-
-### Devel
-
-```
-* installing *source* package ‘colorednoise’ ...
-** package ‘colorednoise’ successfully unpacked and MD5 sums checked
-** libs
-ccache clang++ -Qunused-arguments  -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/colorednoise/Rcpp/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/colorednoise/RcppArmadillo/include" -I/usr/local/include  -fopenmp -fPIC  -Wall -g -O2  -c RcppExports.cpp -o RcppExports.o
-clang: error: unsupported option '-fopenmp'
-make: *** [RcppExports.o] Error 1
-ERROR: compilation failed for package ‘colorednoise’
-* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/colorednoise/new/colorednoise.Rcheck/colorednoise’
-
-```
-### CRAN
-
-```
-* installing *source* package ‘colorednoise’ ...
-** package ‘colorednoise’ successfully unpacked and MD5 sums checked
-** libs
-ccache clang++ -Qunused-arguments  -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/colorednoise/Rcpp/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/colorednoise/RcppArmadillo/include" -I/usr/local/include  -fopenmp -fPIC  -Wall -g -O2  -c RcppExports.cpp -o RcppExports.o
-clang: error: unsupported option '-fopenmp'
-make: *** [RcppExports.o] Error 1
-ERROR: compilation failed for package ‘colorednoise’
-* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/colorednoise/old/colorednoise.Rcheck/colorednoise’
-
-```
-# compareDF
-
-Version: 1.7.1
-
-## In both
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespaces in Imports field not imported from:
-      ‘magrittr’ ‘stringr’
-      All declared Imports should be used.
-    ```
-
-# COMPASS
-
-Version: 1.20.1
-
-## In both
-
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    Error in re-building vignettes:
-      ...
-    Quitting from lines 39-41 (SimpleCOMPASS.Rmd) 
-    Error: processing vignette 'SimpleCOMPASS.Rmd' failed with diagnostics:
-    there is no package called 'readxl'
-    Execution halted
-    ```
-
-*   checking package dependencies ... NOTE
-    ```
-    Package suggested but not available for checking: ‘devtools’
-    ```
-
-*   checking for hidden files and directories ... NOTE
-    ```
-    Found the following hidden files and directories:
-      .github
-    These were most likely included in error. See section ‘Package
-    structure’ in the ‘Writing R Extensions’ manual.
-    ```
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespaces in Imports field not imported from:
-      ‘BiocStyle’ ‘rmarkdown’
-      All declared Imports should be used.
-    ':::' call which should be '::': ‘flowWorkspace:::.getNodeInd’
-      See the note in ?`:::` about the use of this operator.
-    ```
-
-*   checking R code for possible problems ... NOTE
-    ```
-    ...
-      ‘_COMPASS_CellCounts’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/COMPASS/new/COMPASS.Rcheck/00_pkg_src/COMPASS/R/RcppExports.R:9)
-    COMPASSfitToCountsTable: no visible binding for global variable
-      ‘population’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/COMPASS/new/COMPASS.Rcheck/00_pkg_src/COMPASS/R/utils.R:193)
-    COMPASSfitToCountsTable: no visible binding for global variable ‘Count’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/COMPASS/new/COMPASS.Rcheck/00_pkg_src/COMPASS/R/utils.R:193)
-    COMPASSfitToCountsTable: no visible binding for global variable
-      ‘population’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/COMPASS/new/COMPASS.Rcheck/00_pkg_src/COMPASS/R/utils.R:194)
-    COMPASSfitToCountsTable: no visible binding for global variable ‘Count’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/COMPASS/new/COMPASS.Rcheck/00_pkg_src/COMPASS/R/utils.R:194)
-    COMPASSfitToCountsTable: no visible binding for global variable ‘id’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/COMPASS/new/COMPASS.Rcheck/00_pkg_src/COMPASS/R/utils.R:200)
-    COMPASSfitToCountsTable: no visible binding for global variable ‘id’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/COMPASS/new/COMPASS.Rcheck/00_pkg_src/COMPASS/R/utils.R:206)
-    CellCounts_character: no visible binding for global variable
-      ‘_COMPASS_CellCounts_character’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/COMPASS/new/COMPASS.Rcheck/00_pkg_src/COMPASS/R/RcppExports.R:5)
-    Undefined global functions or variables:
-      Count _COMPASS_CellCounts _COMPASS_CellCounts_character id population
-    ```
-
-*   checking for unstated dependencies in vignettes ... NOTE
-    ```
-    'library' or 'require' calls not declared from:
-      ‘ggplot2’ ‘readxl’
-    ```
-
-# congressbr
-
-Version: 0.2.0
-
-## In both
-
-*   checking package dependencies ... NOTE
-    ```
-    Package suggested but not available for checking: ‘devtools’
-    ```
-
-*   checking data for non-ASCII characters ... NOTE
-    ```
-      Note: found 1 marked UTF-8 string
-    ```
-
-# corrr
-
-Version: 0.3.0
-
-## In both
-
-*   checking tests ...
-    ```
-     ERROR
-    Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-      22: vars_select_eval(.vars, quos)
-      23: map_if(quos, !is_helper, eval_tidy, mask)
-      24: map(.x[sel], .f, ...)
-      25: .f(.x[[i]], ...)
-      26: -rowname
-      27: is_character(x)
-      
-      ══ testthat results  ════════════════════════════════════════════════════════════════════
-      OK: 71 SKIPPED: 0 FAILED: 3
-      1. Error: Diagonal sets correctly (@test-as_cordf.R#18) 
-      2. Error: Converts values accurately (@test-as_matrix.R#11) 
-      3. Error: Diagonal sets correctly (@test-correlate.R#18) 
-      
-      Error: testthat unit tests failed
-      Execution halted
-    ```
-
-# countsimQC
-
-Version: 1.0.1
-
-## In both
-
-*   checking for hidden files and directories ... NOTE
-    ```
-    Found the following hidden files and directories:
-      .travis.yml
-    These were most likely included in error. See section ‘Package
-    structure’ in the ‘Writing R Extensions’ manual.
-    ```
-
-*   checking R code for possible problems ... NOTE
-    ```
-    makeDF: no visible binding for global variable ‘X1’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/countsimQC/new/countsimQC.Rcheck/00_pkg_src/countsimQC/R/makeDF.R:35-37)
-    makeDF: no visible binding for global variable ‘X2’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/countsimQC/new/countsimQC.Rcheck/00_pkg_src/countsimQC/R/makeDF.R:35-37)
-    makeDF : <anonymous>: no visible binding for global variable ‘dataset’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/countsimQC/new/countsimQC.Rcheck/00_pkg_src/countsimQC/R/makeDF.R:41-42)
-    Undefined global functions or variables:
-      X1 X2 dataset
-    ```
-
-# countyfloods
-
-Version: 0.1.0
-
-## In both
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespace in Imports field not imported from: ‘maps’
-      All declared Imports should be used.
-    ```
-
-# countyweather
-
-Version: 0.1.0
-
-## In both
-
-*   checking data for non-ASCII characters ... NOTE
-    ```
-      Note: found 1 marked UTF-8 string
-    ```
-
-# coveffectsplot
-
-Version: 0.0.2
-
-## In both
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespaces in Imports field not imported from:
-      ‘colourpicker’ ‘dplyr’ ‘markdown’ ‘shinyjs’ ‘tidyr’
-      All declared Imports should be used.
-    ```
-
-# coxed
-
-Version: 0.2.0
-
-## In both
-
-*   checking Rd cross-references ... NOTE
-    ```
-    Package unavailable to check Rd xrefs: ‘mediation’
-    ```
-
-# crawl
-
-Version: 2.2.1
-
-## In both
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespaces in Imports field not imported from:
-      ‘gdistance’ ‘raster’
-      All declared Imports should be used.
-    ```
-
-# curatedMetagenomicData
-
-Version: 1.12.3
-
-## In both
-
-*   checking package dependencies ... NOTE
-    ```
-    Package suggested but not available for checking: ‘devtools’
-    ```
-
-*   checking installed package size ... NOTE
-    ```
-      installed size is  6.1Mb
-      sub-directories of 1Mb or more:
-        doc    1.5Mb
-        help   2.7Mb
-    ```
-
-# cutpointr
-
-Version: 0.7.4
+</details>
 
 ## Newly broken
 
-*   checking tests ...
-    ```
-     ERROR
-    Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-      `print\(scp\)` does not match "accuracy_oob 0.8201".
-      Actual value: "Method: oc_youden_normal \\nPredictor: dsi \\nOutcome: suicide \\nDirection: >= \\nSubgroups: female, male \\nNr\. of bootstraps: 10 \\n\\nSubgroup: female \\n-------------------------------------------------------------------------------- \\n optimal_cutpoint accuracy    acc sensitivity specificity    AUC n_pos n_neg\\n           2\.4778   0\.8954 0\.8954      0\.8148      0\.9014 0\.9446    27   365\\n\\nCutpoint 2\.47775393352595:\\n          observation\\nprediction yes  no\\n       yes  22  36\\n       no    5 329\\n\\n\\nPredictor summary: \\n Min\. 5% 1st Qu\. Median   Mean 3rd Qu\. 95% Max\.     SD\\n    0  0       0      0 0\.8393       1   5   10 1\.7452\\n\\nPredictor summary per class: \\n    Min\.  5% 1st Qu\. Median   Mean 3rd Qu\. 95% Max     SD\\nno     0 0\.0       0      0 0\.5479       0   4  10 1\.3181\\nyes    0 1\.3       4      5 4\.7778       6   7   9 2\.0444\\n\\nBootstrap summary: \\n# A tibble: 13 x 10\\n   Variable       Min\.  `5%` `1st Qu\.` Median  Mean `3rd Qu\.` `95%`  Max\.     SD\\n   <chr>         <dbl> <dbl>     <dbl>  <dbl> <dbl>     <dbl> <dbl> <dbl>  <dbl>\\n 1 optimal_cutp… 2\.18  2\.23      2\.33   2\.43  2\.47      2\.51  2\.83  2\.94  0\.218 \\n 2 AUC_b         0\.941 0\.943     0\.950  0\.964 0\.960     0\.967 0\.974 0\.976 0\.0119\\n 3 AUC_oob       0\.894 0\.894     0\.912  0\.924 0\.925     0\.939 0\.955 0\.956 0\.0222\\n 4 accuracy_b    0\.860 0\.871     0\.888  0\.908 0\.904     0\.923 0\.927 0\.929 0\.0226\\n 5 accuracy_oob  0\.820 0\.838     0\.873  0\.876 0\.880     0\.901 0\.912 0\.914 0\.0278\\n 6 acc_b         0\.860 0\.871     0\.888  0\.908 0\.904     0\.923 0\.927 0\.929 0\.0226\\n 7 acc_oob       0\.820 0\.838     0\.873  0\.876 0\.880     0\.901 0\.912 0\.914 0\.0278\\n 8 sensitivity_b 0\.708 0\.737     0\.779  0\.823 0\.826     0\.851 0\.940 0\.954 0\.0728\\n 9 sensitivity_… 0\.625 0\.644     0\.762  0\.809 0\.800     0\.872 0\.913 0\.923 0\.0971\\n10 specificity_b 0\.870 0\.875     0\.894  0\.915 0\.909     0\.927 0\.931 0\.932 0\.0223\\n11 specificity_… 0\.835 0\.845     0\.876  0\.880 0\.886     0\.912 0\.921 0\.922 0\.0283\\n12 kappa_b       0\.321 0\.329     0\.423  0\.509 0\.485     0\.562 0\.590 0\.610 0\.0995\\n13 kappa_oob     0\.305 0\.324     0\.368  0\.420 0\.444     0\.511 0\.608 0\.631 0\.106 \\n\\nSubgroup: male \\n-------------------------------------------------------------------------------- \\n optimal_cutpoint accuracy    acc sensitivity specificity    AUC n_pos n_neg\\n           3\.1723   0\.8643 0\.8643      0\.6667      0\.8779 0\.8617     9   131\\n\\nCutpoint 3\.17225507835137:\\n          observation\\nprediction yes  no\\n       yes   6  16\\n       no    3 115\\n\\n\\nPredictor summary: \\n Min\. 5% 1st Qu\. Median Mean 3rd Qu\. 95% Max\.     SD\\n    0  0       0      0 1\.15       1   6   11 2\.1151\\n\\nPredictor summary per class: \\n    Min\.  5% 1st Qu\. Median   Mean 3rd Qu\.  95% Max     SD\\nno     0 0\.0       0      0 0\.8702       1  5\.0   6 1\.6286\\nyes    0 0\.4       3      4 5\.2222       8 10\.6  11 3\.8333\\n\\nBootstrap summary: \\n# A tibble: 13 x 10\\n   Variable       Min\.  `5%` `1st Qu\.` Median  Mean `3rd Qu\.` `95%`  Max\.     SD\\n   <chr>         <dbl> <dbl>     <dbl>  <dbl> <dbl>     <dbl> <dbl> <dbl>  <dbl>\\n 1 optimal_cutp… 2\.82  2\.84      2\.92   3\.27  3\.26      3\.55  3\.82  3\.90  0\.387 \\n 2 AUC_b         0\.758 0\.787     0\.825  0\.879 0\.871     0\.904 0\.959 0\.968 0\.0641\\n 3 AUC_oob       0\.631 0\.691     0\.792  0\.885 0\.859     0\.943 0\.972 0\.977 0\.109 \\n 4 accuracy_b    0\.807 0\.814     0\.834  0\.864 0\.852     0\.871 0\.871 0\.871 0\.0243\\n 5 accuracy_oob  0\.822 0\.823     0\.839  0\.871 0\.866     0\.896 0\.905 0\.906 0\.0327\\n 6 acc_b         0\.807 0\.814     0\.834  0\.864 0\.852     0\.871 0\.871 0\.871 0\.0243\\n 7 acc_oob       0\.822 0\.823     0\.839  0\.871 0\.866     0\.896 0\.905 0\.906 0\.0327\\n 8 sensitivity_b 0\.556 0\.582     0\.667  0\.703 0\.735     0\.794 0\.936 1     0\.129 \\n 9 sensitivity_… 0\.333 0\.363     0\.5    0\.667 0\.707     1     1     1     0\.272 \\n10 specificity_b 0\.817 0\.825     0\.846  0\.867 0\.862     0\.875 0\.892 0\.898 0\.0246\\n11 specificity_… 0\.818 0\.826     0\.853  0\.887 0\.877     0\.898 0\.917 0\.918 0\.0342\\n12 kappa_b       0\.210 0\.220     0\.243  0\.338 0\.319     0\.380 0\.407 0\.411 0\.0757\\n13 kappa_oob     0\.118 0\.145     0\.208  0\.306 0\.310     0\.398 0\.497 0\.570 0\.139 "
-      
-      [31m──[39m [31m3. Failure: summary is printed correctly (@test-cutpointr.R#1211) [39m [31m───────────────────────────────────────────[39m
-      `print\(scp\)` does not match "accuracy_oob 0.8163".
-      Actual value: "Method: oc_youden_normal \\nPredictor: x \\nOutcome: class \\nDirection: >= \\nSubgroups: female, male \\nNr\. of bootstraps: 10 \\n\\nSubgroup: female \\n-------------------------------------------------------------------------------- \\n optimal_cutpoint accuracy    acc sensitivity specificity    AUC n_pos n_neg\\n           2\.4778   0\.8954 0\.8954      0\.8148      0\.9014 0\.9446    27   365\\n\\nCutpoint 2\.47775393352595:\\n          observation\\nprediction yes  no\\n       yes  22  36\\n       no    5 329\\n\\n\\nPredictor summary: \\n Min\. 5% 1st Qu\. Median   Mean 3rd Qu\. 95% Max\.     SD\\n    0  0       0      0 0\.8393       1   5   10 1\.7452\\n\\nPredictor summary per class: \\n    Min\.  5% 1st Qu\. Median   Mean 3rd Qu\. 95% Max     SD\\nno     0 0\.0       0      0 0\.5479       0   4  10 1\.3181\\nyes    0 1\.3       4      5 4\.7778       6   7   9 2\.0444\\n\\nBootstrap summary: \\n# A tibble: 13 x 10\\n   Variable       Min\.  `5%` `1st Qu\.` Median  Mean `3rd Qu\.` `95%`  Max\.     SD\\n   <chr>         <dbl> <dbl>     <dbl>  <dbl> <dbl>     <dbl> <dbl> <dbl>  <dbl>\\n 1 optimal_cutp… 2\.02  2\.12      2\.32   2\.40  2\.40      2\.54  2\.62  2\.66  0\.185 \\n 2 AUC_b         0\.907 0\.910     0\.92   0\.950 0\.940     0\.958 0\.965 0\.966 0\.0227\\n 3 AUC_oob       0\.898 0\.905     0\.931  0\.953 0\.947     0\.968 0\.978 0\.980 0\.0274\\n 4 accuracy_b    0\.878 0\.878     0\.895  0\.902 0\.900     0\.908 0\.916 0\.921 0\.0138\\n 5 accuracy_oob  0\.865 0\.868     0\.879  0\.888 0\.891     0\.906 0\.914 0\.917 0\.0176\\n 6 acc_b         0\.878 0\.878     0\.895  0\.902 0\.900     0\.908 0\.916 0\.921 0\.0138\\n 7 acc_oob       0\.865 0\.868     0\.879  0\.888 0\.891     0\.906 0\.914 0\.917 0\.0176\\n 8 sensitivity_b 0\.66  0\.689     0\.759  0\.786 0\.796     0\.849 0\.896 0\.917 0\.076 \\n 9 sensitivity_… 0\.7   0\.712     0\.8    0\.847 0\.861     0\.972 1     1     0\.112 \\n10 specificity_b 0\.878 0\.881     0\.901  0\.913 0\.910     0\.922 0\.934 0\.939 0\.019 \\n11 specificity_… 0\.864 0\.867     0\.882  0\.892 0\.895     0\.909 0\.925 0\.926 0\.0216\\n12 kappa_b       0\.362 0\.410     0\.475  0\.528 0\.514     0\.566 0\.582 0\.585 0\.0692\\n13 kappa_oob     0\.160 0\.214     0\.391  0\.420 0\.404     0\.475 0\.524 0\.539 0\.112 \\n\\nSubgroup: male \\n-------------------------------------------------------------------------------- \\n optimal_cutpoint accuracy    acc sensitivity specificity    AUC n_pos n_neg\\n           3\.1723   0\.8643 0\.8643      0\.6667      0\.8779 0\.8617     9   131\\n\\nCutpoint 3\.17225507835137:\\n          observation\\nprediction yes  no\\n       yes   6  16\\n       no    3 115\\n\\n\\nPredictor summary: \\n Min\. 5% 1st Qu\. Median Mean 3rd Qu\. 95% Max\.     SD\\n    0  0       0      0 1\.15       1   6   11 2\.1151\\n\\nPredictor summary per class: \\n    Min\.  5% 1st Qu\. Median   Mean 3rd Qu\.  95% Max     SD\\nno     0 0\.0       0      0 0\.8702       1  5\.0   6 1\.6286\\nyes    0 0\.4       3      4 5\.2222       8 10\.6  11 3\.8333\\n\\nBootstrap summary: \\n# A tibble: 13 x 10\\n   Variable       Min\.  `5%` `1st Qu\.` Median  Mean `3rd Qu\.` `95%`  Max\.     SD\\n   <chr>         <dbl> <dbl>     <dbl>  <dbl> <dbl>     <dbl> <dbl> <dbl>  <dbl>\\n 1 optimal_cutp… 2\.14  2\.26      2\.93   3\.05  2\.97      3\.28  3\.35  3\.36  0\.403 \\n 2 AUC_b         0\.738 0\.760     0\.823  0\.848 0\.852     0\.904 0\.925 0\.929 0\.0611\\n 3 AUC_oob       0\.806 0\.815     0\.838  0\.901 0\.899     0\.958 0\.990 1     0\.0688\\n 4 accuracy_b    0\.8   0\.8       0\.848  0\.868 0\.854     0\.871 0\.875 0\.879 0\.0298\\n 5 accuracy_oob  0\.816 0\.820     0\.835  0\.87  0\.862     0\.877 0\.899 0\.917 0\.031 \\n 6 acc_b         0\.8   0\.8       0\.848  0\.868 0\.854     0\.871 0\.875 0\.879 0\.0298\\n 7 acc_oob       0\.816 0\.820     0\.835  0\.87  0\.862     0\.877 0\.899 0\.917 0\.031 \\n 8 sensitivity_b 0\.333 0\.376     0\.542  0\.690 0\.656     0\.744 0\.9   1     0\.192 \\n 9 sensitivity_… 0\.5   0\.545     0\.617  0\.8   0\.777     0\.95  1     1     0\.183 \\n10 specificity_b 0\.806 0\.807     0\.865  0\.876 0\.864     0\.879 0\.894 0\.903 0\.0316\\n11 specificity_… 0\.808 0\.823     0\.852  0\.874 0\.870     0\.886 0\.909 0\.909 0\.031 \\n12 kappa_b       0\.133 0\.135     0\.154  0\.264 0\.264     0\.364 0\.416 0\.436 0\.116 \\n13 kappa_oob     0\.140 0\.192     0\.318  0\.448 0\.405     0\.493 0\.575 0\.625 0\.143 "
-      
-      ══ testthat results  ════════════════════════════════════════════════════════════════════════════════════════════
-      OK: 369 SKIPPED: 0 FAILED: 3
-      1. Failure: summary is printed correctly (@test-cutpointr.R#1179) 
-      2. Failure: summary is printed correctly (@test-cutpointr.R#1195) 
-      3. Failure: summary is printed correctly (@test-cutpointr.R#1211) 
-      
-      Error: testthat unit tests failed
-      Execution halted
-    ```
-
-# d3r
-
-Version: 0.8.5
-
-## In both
-
-*   checking package dependencies ... NOTE
-    ```
-    Packages which this enhances but not available for checking:
-      ‘igraph’ ‘partykit’ ‘treemap’ ‘V8’
-    ```
-
-# dabestr
-
-Version: 0.2.0
-
-## In both
-
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    ...
-    
-    The following objects are masked from 'package:base':
-    
-        intersect, setdiff, setequal, union
-    
-    
-    Attaching package: 'cowplot'
-    
-    The following object is masked from 'package:ggplot2':
-    
-        ggsave
-    
-    Warning: `data_frame()` is deprecated, use `tibble()`.
-    This warning is displayed once per session.
-    Loading required package: boot
-    Loading required package: magrittr
-    Warning: Some components of ... were not used: ..1
-    Quitting from lines 110-166 (robust-statistical-visualization.Rmd) 
-    Error: processing vignette 'robust-statistical-visualization.Rmd' failed with diagnostics:
-    polygon edge not found
-    Execution halted
-    ```
-
-*   checking installed package size ... NOTE
-    ```
-      installed size is  6.6Mb
-      sub-directories of 1Mb or more:
-        doc   5.8Mb
-    ```
-
-# DAPAR
-
-Version: 1.14.5
-
-## In both
-
-*   checking whether package ‘DAPAR’ can be installed ... ERROR
+*   checking whether package ‘collector’ can be installed ... ERROR
     ```
     Installation failed.
-    See ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/DAPAR/new/DAPAR.Rcheck/00install.out’ for details.
+    See ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/collector/new/collector.Rcheck/00install.out’ for details.
     ```
 
 ## Installation
@@ -1422,898 +144,57 @@ Version: 1.14.5
 ### Devel
 
 ```
-* installing *source* package ‘DAPAR’ ...
-** R
-** inst
-** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
-  there is no package called ‘GO.db’
-ERROR: lazy loading failed for package ‘DAPAR’
-* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/DAPAR/new/DAPAR.Rcheck/DAPAR’
-
-```
-### CRAN
-
-```
-* installing *source* package ‘DAPAR’ ...
-** R
-** inst
-** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
-  there is no package called ‘GO.db’
-ERROR: lazy loading failed for package ‘DAPAR’
-* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/DAPAR/old/DAPAR.Rcheck/DAPAR’
-
-```
-# DChIPRep
-
-Version: 1.12.0
-
-## In both
-
-*   checking whether package ‘DChIPRep’ can be installed ... ERROR
-    ```
-    Installation failed.
-    See ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/DChIPRep/new/DChIPRep.Rcheck/00install.out’ for details.
-    ```
-
-## Installation
-
-### Devel
-
-```
-* installing *source* package ‘DChIPRep’ ...
+* installing *source* package ‘collector’ ...
+** package ‘collector’ successfully unpacked and MD5 sums checked
 ** R
 ** data
 *** moving datasets to lazyload DB
-Warning: namespace ‘DChIPRep’ is not available and has been replaced
-by .GlobalEnv when processing object ‘testData’
-Warning: namespace ‘DChIPRep’ is not available and has been replaced
-by .GlobalEnv when processing object ‘testData’
-** exec
 ** inst
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(i, c(lib.loc, .libPaths()), versionCheck = vI[[i]]) : 
-  there is no package called ‘GO.db’
-ERROR: lazy loading failed for package ‘DChIPRep’
-* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/DChIPRep/new/DChIPRep.Rcheck/DChIPRep’
+Error : object ‘vec_proxy_equal’ is not exported by 'namespace:vctrs'
+ERROR: lazy loading failed for package ‘collector’
+* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/collector/new/collector.Rcheck/collector’
 
 ```
 ### CRAN
 
 ```
-* installing *source* package ‘DChIPRep’ ...
+* installing *source* package ‘collector’ ...
+** package ‘collector’ successfully unpacked and MD5 sums checked
 ** R
 ** data
 *** moving datasets to lazyload DB
-Warning: namespace ‘DChIPRep’ is not available and has been replaced
-by .GlobalEnv when processing object ‘testData’
-Warning: namespace ‘DChIPRep’ is not available and has been replaced
-by .GlobalEnv when processing object ‘testData’
-** exec
 ** inst
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(i, c(lib.loc, .libPaths()), versionCheck = vI[[i]]) : 
-  there is no package called ‘GO.db’
-ERROR: lazy loading failed for package ‘DChIPRep’
-* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/DChIPRep/old/DChIPRep.Rcheck/DChIPRep’
+** help
+*** installing help indices
+*** copying figures
+** building package indices
+** installing vignettes
+** testing if installed package can be loaded
+* DONE (collector)
 
 ```
-# DeepBlueR
+# cutpointr
 
-Version: 1.8.0
+<details>
 
-## In both
+* Version: 0.7.6
+* Source code: https://github.com/cran/cutpointr
+* URL: https://github.com/thie1e/cutpointr
+* BugReports: https://github.com/thie1e/cutpointr/issues
+* Date/Publication: 2019-03-27 10:10:03 UTC
+* Number of recursive dependencies: 69
 
-*   R CMD check timed out
-    
+Run `revdep_details(,"cutpointr")` for more info
 
-*   checking Rd files ... NOTE
-    ```
-    prepare_Rd: deepblue_enrich_regions_fast.Rd:35-38: Dropping empty section \examples
-    ```
+</details>
 
-# DEGreport
-
-Version: 1.18.1
-
-## In both
-
-*   checking for hidden files and directories ... NOTE
-    ```
-    Found the following hidden files and directories:
-      .travis.yml
-    These were most likely included in error. See section ‘Package
-    structure’ in the ‘Writing R Extensions’ manual.
-    ```
-
-*   checking DESCRIPTION meta-information ... NOTE
-    ```
-    Package listed in more than one of Depends, Imports, Suggests, Enhances:
-      ‘knitr’
-    A package should be listed in only one of these fields.
-    ```
-
-*   checking R code for possible problems ... NOTE
-    ```
-    ...
-    degPlotCluster: no visible binding for global variable ‘cluster’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/DEGreport/new/DEGreport.Rcheck/00_pkg_src/DEGreport/R/clustering.R:44)
-    degPlotWide : <anonymous>: no visible binding for global variable
-      ‘count’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/DEGreport/new/DEGreport.Rcheck/00_pkg_src/DEGreport/R/genePlots.R:235-238)
-    significants,TopTags: no visible binding for global variable ‘FDR’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/DEGreport/new/DEGreport.Rcheck/00_pkg_src/DEGreport/R/AllMethods.R:153-157)
-    significants,TopTags: no visible binding for global variable ‘logFC’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/DEGreport/new/DEGreport.Rcheck/00_pkg_src/DEGreport/R/AllMethods.R:153-157)
-    significants,list : <anonymous>: no visible binding for global variable
-      ‘gene’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/DEGreport/new/DEGreport.Rcheck/00_pkg_src/DEGreport/R/AllMethods.R:248)
-    Undefined global functions or variables:
-      .x FDR base_mean boxplot cluster comp compare count counts covar desc
-      enrichGO fdr gene genes itemConsensus k keys lm log2FoldChange log2fc
-      logFC max_sd min_median n p.value r ratios rowMedians score simplify
-      value_fc value_fdr x xend y yend
-    Consider adding
-      importFrom("graphics", "boxplot")
-      importFrom("stats", "lm")
-    to your NAMESPACE file.
-    ```
-
-# DEP
-
-Version: 1.4.1
-
-## In both
-
-*   checking installed package size ... NOTE
-    ```
-      installed size is  6.0Mb
-      sub-directories of 1Mb or more:
-        R      1.2Mb
-        data   1.4Mb
-        doc    3.1Mb
-    ```
-
-# destiny
-
-Version: 2.12.0
-
-## In both
-
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘destiny-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: DPT methods
-    > ### Title: DPT methods
-    > ### Aliases: 'DPT methods' branch_divide dataset,DPT-method
-    > ###   dataset<-,DPT-method tips
-    > 
-    > ### ** Examples
-    > 
-    > data(guo_norm)
-    > dpt <- DPT(DiffusionMap(guo_norm))
-    > dpt_9_branches <- branch_divide(dpt, 1:3)
-    > plot(dpt_9_branches, col_by = 'branch')
-    Error in alpha(data[["colour"]], data[["alpha"]]) : 
-      could not find function "alpha"
-    Calls: <Anonymous> ... do.call -> <Anonymous> -> f -> gpar -> validGP -> numnotnull
-    Execution halted
-    ```
-
-*   checking running R code from vignettes ...
-    ```
-    ...
-      When tangling ‘Diffusion-Map-recap.ipynbmeta’:
-    Error: Either IPython 3+ or Jupyter has to be installed, but neither could be called.
-    Execution halted
-    when running code in ‘Diffusion-Maps.ipynbmeta’
-      ...
-    
-      When tangling ‘Diffusion-Maps.ipynbmeta’:
-    Error: Either IPython 3+ or Jupyter has to be installed, but neither could be called.
-    Execution halted
-    when running code in ‘Global-Sigma.ipynbmeta’
-      ...
-    
-      When tangling ‘Global-Sigma.ipynbmeta’:
-    Error: Either IPython 3+ or Jupyter has to be installed, but neither could be called.
-    Execution halted
-    when running code in ‘tidyverse.ipynbmeta’
-      ...
-    
-      When tangling ‘tidyverse.ipynbmeta’:
-    Error: Either IPython 3+ or Jupyter has to be installed, but neither could be called.
-    Execution halted
-    ```
-
-*   checking package dependencies ... NOTE
-    ```
-    Package which this enhances but not available for checking: ‘rgl’
-    ```
-
-*   checking installed package size ... NOTE
-    ```
-      installed size is  6.5Mb
-      sub-directories of 1Mb or more:
-        R     2.1Mb
-        doc   3.8Mb
-    ```
-
-*   checking DESCRIPTION meta-information ... NOTE
-    ```
-    Package listed in more than one of Depends, Imports, Suggests, Enhances:
-      ‘SingleCellExperiment’
-    A package should be listed in only one of these fields.
-    'LinkingTo' for ‘grDevices’ is unused as it has no 'include' directory
-    ```
-
-*   checking Rd cross-references ... NOTE
-    ```
-    Package unavailable to check Rd xrefs: ‘rgl’
-    ```
-
-*   checking Rd \usage sections ... NOTE
-    ```
-    S3 methods shown with full name in documentation object 'plot.DPT':
-      ‘plot.DPT’
-    
-    S3 methods shown with full name in documentation object 'plot.DiffusionMap':
-      ‘plot.DiffusionMap’
-    
-    The \usage entries for S3 methods should use the \method markup and not
-    their full name.
-    See chapter ‘Writing R documentation files’ in the ‘Writing R
-    Extensions’ manual.
-    ```
-
-*   checking for unstated dependencies in vignettes ... NOTE
-    ```
-    '::' or ':::' imports not declared from:
-      ‘gridExtra’ ‘viridis’
-    'library' or 'require' calls not declared from:
-      ‘IRdisplay’ ‘IRkernel’ ‘base64enc’ ‘forcats’ ‘readxl’ ‘repr’
-      ‘tidyverse’
-    ```
-
-*   checking re-building of vignette outputs ... NOTE
-    ```
-    Error in re-building vignettes:
-      ...
-    Error: processing vignette 'DPT.ipynbmeta' failed with diagnostics:
-    Either IPython 3+ or Jupyter has to be installed, but neither could be called.
-    Execution halted
-    ```
-
-# detrendr
-
-Version: 0.6.0
-
-## In both
-
-*   checking for GNU extensions in Makefiles ... NOTE
-    ```
-    GNU make is a SystemRequirements.
-    ```
-
-# dextergui
-
-Version: 0.1.5
-
-## In both
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Unexported objects imported by ':::' calls:
-      ‘dexter:::get_resp_data’ ‘dexter:::qcolors’
-      See the note in ?`:::` about the use of this operator.
-    ```
-
-# DiagrammeR
-
-Version: 1.0.0
-
-## In both
-
-*   checking installed package size ... NOTE
-    ```
-      installed size is  6.9Mb
-      sub-directories of 1Mb or more:
-        R             3.0Mb
-        htmlwidgets   3.0Mb
-    ```
-
-*   checking data for non-ASCII characters ... NOTE
-    ```
-      Note: found 1 marked UTF-8 string
-    ```
-
-# diffcyt
-
-Version: 1.2.10
-
-## In both
-
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    Error in re-building vignettes:
-      ...
-    Quitting from lines 127-144 (diffcyt_workflow.Rmd) 
-    Error: processing vignette 'diffcyt_workflow.Rmd' failed with diagnostics:
-    there is no package called 'HDCytoData'
-    Execution halted
-    ```
-
-*   checking package dependencies ... NOTE
-    ```
-    Package suggested but not available for checking: ‘HDCytoData’
-    ```
-
-*   checking R code for possible problems ... NOTE
-    ```
-    ...
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/diffcyt/new/diffcyt.Rcheck/00_pkg_src/diffcyt/R/calcMedians.R:133-136)
-    calcMediansByClusterMarker: no visible binding for global variable
-      ‘cluster_id’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/diffcyt/new/diffcyt.Rcheck/00_pkg_src/diffcyt/R/calcMediansByClusterMarker.R:123-126)
-    calcMediansByClusterMarker: no visible binding for global variable
-      ‘marker_id’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/diffcyt/new/diffcyt.Rcheck/00_pkg_src/diffcyt/R/calcMediansByClusterMarker.R:123-126)
-    calcMediansByClusterMarker: no visible binding for global variable
-      ‘value’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/diffcyt/new/diffcyt.Rcheck/00_pkg_src/diffcyt/R/calcMediansByClusterMarker.R:123-126)
-    calcMediansBySampleMarker: no visible binding for global variable
-      ‘sample_id’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/diffcyt/new/diffcyt.Rcheck/00_pkg_src/diffcyt/R/calcMediansBySampleMarker.R:119-122)
-    calcMediansBySampleMarker: no visible binding for global variable
-      ‘marker_id’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/diffcyt/new/diffcyt.Rcheck/00_pkg_src/diffcyt/R/calcMediansBySampleMarker.R:119-122)
-    calcMediansBySampleMarker: no visible binding for global variable
-      ‘value’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/diffcyt/new/diffcyt.Rcheck/00_pkg_src/diffcyt/R/calcMediansBySampleMarker.R:119-122)
-    Undefined global functions or variables:
-      cluster_id marker_id sample_id value
-    ```
-
-# dimRed
-
-Version: 0.2.2
-
-## In both
-
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘dimRed-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: PCA_L1-class
-    > ### Title: Principal Component Analysis with L1 error.
-    > ### Aliases: PCA_L1-class PCA_L1
-    > 
-    > ### ** Examples
-    > 
-    > dat <- loadDataSet("Iris")
-    > 
-    > ## using the S4 Class
-    > pca_l1 <- PCA_L1()
-    > emb <- pca_l1@fun(dat, pca_l1@stdpars)
-    Error in chckpkg("pcaL1") : 
-      require 'pcaL1' package, install it using install.packages('pcaL1')
-    Calls: <Anonymous> -> chckpkg
-    Execution halted
-    ```
-
-*   checking tests ...
-    ```
-     ERROR
-    Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-      
-      The following object is masked from 'package:stats':
-      
-          embed
-      
-      The following object is masked from 'package:base':
-      
-          as.data.frame
-      
-      > 
-      > test_check("dimRed", reporter = ListReporter)
-      2019-02-22 10:55:58.631771: I tensorflow/core/platform/cpu_feature_guard.cc:137] Your CPU supports instructions that this TensorFlow binary was not compiled to use: SSE4.1 SSE4.2 AVX AVX2 FMA
-      Using TensorFlow backend.
-      Error: Test failures
-      Execution halted
-    ```
-
-*   checking package dependencies ... NOTE
-    ```
-    Package suggested but not available for checking: ‘pcaL1’
-    ```
-
-# disto
-
-Version: 0.2.0
-
-## In both
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespaces in Imports field not imported from:
-      ‘dplyr’ ‘proxy’
-      All declared Imports should be used.
-    ```
-
-# DLMtool
-
-Version: 5.2.3
-
-## In both
-
-*   checking package dependencies ... ERROR
-    ```
-    Package required but not available: ‘devtools’
-    
-    See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-    manual.
-    ```
-
-# dlookr
-
-Version: 0.3.8
-
-## In both
-
-*   checking installed package size ... NOTE
-    ```
-      installed size is  5.2Mb
-      sub-directories of 1Mb or more:
-        doc   4.1Mb
-    ```
-
-# dplyrAssist
-
-Version: 0.1.0
-
-## In both
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespaces in Imports field not imported from:
-      ‘tidyr’ ‘tidyverse’
-      All declared Imports should be used.
-    ```
-
-# DSAIDE
-
-Version: 0.7.0
-
-## In both
-
-*   checking installed package size ... NOTE
-    ```
-      installed size is  5.4Mb
-      sub-directories of 1Mb or more:
-        media       2.2Mb
-        shinyapps   2.6Mb
-    ```
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespaces in Imports field not imported from:
-      ‘knitr’ ‘rmarkdown’ ‘utils’
-      All declared Imports should be used.
-    ```
-
-# DuoClustering2018
-
-Version: 1.0.0
-
-## In both
-
-*   checking R code for possible problems ... NOTE
-    ```
-    ...
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/DuoClustering2018/new/DuoClustering2018.Rcheck/00_pkg_src/DuoClustering2018/R/plot_timing.R:98-112)
-    plot_timing: no visible binding for global variable ‘norm.time’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/DuoClustering2018/new/DuoClustering2018.Rcheck/00_pkg_src/DuoClustering2018/R/plot_timing.R:98-112)
-    plot_timing: no visible binding for global variable ‘dataset’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/DuoClustering2018/new/DuoClustering2018.Rcheck/00_pkg_src/DuoClustering2018/R/plot_timing.R:115-128)
-    plot_timing: no visible binding for global variable ‘filtering’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/DuoClustering2018/new/DuoClustering2018.Rcheck/00_pkg_src/DuoClustering2018/R/plot_timing.R:115-128)
-    plot_timing: no visible binding for global variable ‘method’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/DuoClustering2018/new/DuoClustering2018.Rcheck/00_pkg_src/DuoClustering2018/R/plot_timing.R:115-128)
-    plot_timing: no visible binding for global variable ‘k’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/DuoClustering2018/new/DuoClustering2018.Rcheck/00_pkg_src/DuoClustering2018/R/plot_timing.R:115-128)
-    plot_timing: no visible binding for global variable ‘elapsed’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/DuoClustering2018/new/DuoClustering2018.Rcheck/00_pkg_src/DuoClustering2018/R/plot_timing.R:115-128)
-    plot_timing: no visible binding for global variable ‘medianelapsed’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/DuoClustering2018/new/DuoClustering2018.Rcheck/00_pkg_src/DuoClustering2018/R/plot_timing.R:115-128)
-    Undefined global functions or variables:
-      ARI ari.stab cell cluster data.wide dataset ds ds.norm elapsed
-      entropy est_k estnclust filtering k k_diff med.t medARI
-      median.elapsed median.stability medianARI medianelapsed method
-      norm.time run s s.norm s.true s.true.norm sce stability trueclass
-      truenclust
-    ```
-
-# dynfrail
-
-Version: 0.5.2
-
-## In both
-
-*   checking whether package ‘dynfrail’ can be installed ... ERROR
-    ```
-    Installation failed.
-    See ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/dynfrail/new/dynfrail.Rcheck/00install.out’ for details.
-    ```
-
-## Installation
-
-### Devel
-
-```
-* installing *source* package ‘dynfrail’ ...
-** package ‘dynfrail’ successfully unpacked and MD5 sums checked
-** libs
-ccache clang++ -Qunused-arguments  -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/dynfrail/Rcpp/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/dynfrail/RcppArmadillo/include" -I/usr/local/include  -fopenmp  -fPIC  -Wall -g -O2  -c RcppExports.cpp -o RcppExports.o
-clang: error: unsupported option '-fopenmp'
-make: *** [RcppExports.o] Error 1
-ERROR: compilation failed for package ‘dynfrail’
-* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/dynfrail/new/dynfrail.Rcheck/dynfrail’
-
-```
-### CRAN
-
-```
-* installing *source* package ‘dynfrail’ ...
-** package ‘dynfrail’ successfully unpacked and MD5 sums checked
-** libs
-ccache clang++ -Qunused-arguments  -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/dynfrail/Rcpp/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/dynfrail/RcppArmadillo/include" -I/usr/local/include  -fopenmp  -fPIC  -Wall -g -O2  -c RcppExports.cpp -o RcppExports.o
-clang: error: unsupported option '-fopenmp'
-make: *** [RcppExports.o] Error 1
-ERROR: compilation failed for package ‘dynfrail’
-* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/dynfrail/old/dynfrail.Rcheck/dynfrail’
-
-```
-# dynutils
-
-Version: 1.0.1
-
-## In both
-
-*   checking package dependencies ... ERROR
-    ```
-    Package required but not available: ‘devtools’
-    
-    See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-    manual.
-    ```
-
-# easyformatr
-
-Version: 0.1.2
-
-## In both
-
-*   checking whether package ‘easyformatr’ can be installed ... ERROR
-    ```
-    Installation failed.
-    See ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/easyformatr/new/easyformatr.Rcheck/00install.out’ for details.
-    ```
-
-## Installation
-
-### Devel
-
-```
-* installing *source* package ‘easyformatr’ ...
-** package ‘easyformatr’ successfully unpacked and MD5 sums checked
-** R
-** inst
-** byte-compile and prepare package for lazy loading
-Joining, by = "code"
-Warning in materialize_binding(index, mask_proxy_xp) :
-  Hybrid callback proxy out of scope
-Warning in materialize_binding(index, mask_proxy_xp) :
-  Hybrid callback proxy out of scope
-Error in envlist(e) : object 'name' not found
-ERROR: lazy loading failed for package ‘easyformatr’
-* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/easyformatr/new/easyformatr.Rcheck/easyformatr’
-
-```
-### CRAN
-
-```
-* installing *source* package ‘easyformatr’ ...
-** package ‘easyformatr’ successfully unpacked and MD5 sums checked
-** R
-** inst
-** byte-compile and prepare package for lazy loading
-Joining, by = "code"
-Warning in materialize_binding(index, mask_proxy_xp) :
-  Hybrid callback proxy out of scope
-Warning in materialize_binding(index, mask_proxy_xp) :
-  Hybrid callback proxy out of scope
-Error in envlist(e) : object 'name' not found
-ERROR: lazy loading failed for package ‘easyformatr’
-* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/easyformatr/old/easyformatr.Rcheck/easyformatr’
-
-```
-# echor
-
-Version: 0.1.2
-
-## In both
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespace in Imports field not imported from: ‘lubridate’
-      All declared Imports should be used.
-    ```
-
-# edgarWebR
-
-Version: 1.0.0
-
-## In both
-
-*   checking package dependencies ... NOTE
-    ```
-    Package suggested but not available for checking: ‘devtools’
-    ```
-
-# eechidna
-
-Version: 1.1
-
-## In both
-
-*   checking installed package size ... NOTE
-    ```
-      installed size is  6.6Mb
-      sub-directories of 1Mb or more:
-        data   5.1Mb
-        doc    1.2Mb
-    ```
-
-# EFDR
-
-Version: 0.1.1
-
-## In both
-
-*   checking R code for possible problems ... NOTE
-    ```
-    ...
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/EFDR/new/EFDR.Rcheck/00_pkg_src/EFDR/R/EFDR_functions.R:686)
-    .relist.dwt: no visible global function definition for ‘as’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/EFDR/new/EFDR.Rcheck/00_pkg_src/EFDR/R/EFDR_functions.R:686)
-    .std.wav.coeff : <anonymous>: no visible global function definition for
-      ‘mad’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/EFDR/new/EFDR.Rcheck/00_pkg_src/EFDR/R/EFDR_functions.R:698)
-    regrid: no visible global function definition for ‘predict’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/EFDR/new/EFDR.Rcheck/00_pkg_src/EFDR/R/EFDR_functions.R:391-396)
-    regrid: no visible global function definition for ‘var’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/EFDR/new/EFDR.Rcheck/00_pkg_src/EFDR/R/EFDR_functions.R:406)
-    regrid: no visible global function definition for ‘medpolish’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/EFDR/new/EFDR.Rcheck/00_pkg_src/EFDR/R/EFDR_functions.R:427)
-    Undefined global functions or variables:
-      as mad medpolish pnorm predict relist rnorm var
-    Consider adding
-      importFrom("methods", "as")
-      importFrom("stats", "mad", "medpolish", "pnorm", "predict", "rnorm",
-                 "var")
-      importFrom("utils", "relist")
-    to your NAMESPACE file (and ensure that your DESCRIPTION Imports field
-    contains 'methods').
-    ```
-
-# egor
-
-Version: 0.19.1
-
-## In both
-
-*   checking Rd cross-references ... NOTE
-    ```
-    Package unavailable to check Rd xrefs: ‘haven’
-    ```
-
-# ELMER
-
-Version: 2.6.1
-
-## In both
-
-*   checking whether package ‘ELMER’ can be installed ... ERROR
-    ```
-    Installation failed.
-    See ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/ELMER/new/ELMER.Rcheck/00install.out’ for details.
-    ```
-
-## Installation
-
-### Devel
-
-```
-* installing *source* package ‘ELMER’ ...
-** R
-** inst
-** byte-compile and prepare package for lazy loading
-Error in loadNamespace(i, c(lib.loc, .libPaths()), versionCheck = vI[[i]]) : 
-  there is no package called 'sesameData'
-ERROR: lazy loading failed for package 'ELMER'
-* removing '/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/ELMER/new/ELMER.Rcheck/ELMER'
-
-```
-### CRAN
-
-```
-* installing *source* package ‘ELMER’ ...
-** R
-** inst
-** byte-compile and prepare package for lazy loading
-Error in loadNamespace(i, c(lib.loc, .libPaths()), versionCheck = vI[[i]]) : 
-  there is no package called 'sesameData'
-ERROR: lazy loading failed for package 'ELMER'
-* removing '/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/ELMER/old/ELMER.Rcheck/ELMER'
-
-```
-# emuR
-
-Version: 1.1.2
-
-## In both
-
-*   checking installed package size ... NOTE
-    ```
-      installed size is  7.1Mb
-      sub-directories of 1Mb or more:
-        R         3.1Mb
-        doc       1.2Mb
-        extdata   1.5Mb
-    ```
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespaces in Imports field not imported from:
-      ‘git2r’ ‘servr’
-      All declared Imports should be used.
-    ```
-
-# ENCODExplorer
-
-Version: 2.8.0
-
-## In both
-
-*   checking installed package size ... NOTE
-    ```
-      installed size is 74.0Mb
-      sub-directories of 1Mb or more:
-        data     24.1Mb
-        doc       1.5Mb
-        extdata  48.0Mb
-    ```
-
-*   checking R code for possible problems ... NOTE
-    ```
-    ...
-    step6_target: no visible binding for global variable ‘target’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/ENCODExplorer/new/ENCODExplorer.Rcheck/00_pkg_src/ENCODExplorer/R/prepare_data.R:354-355)
-    step7: no visible binding for global variable ‘organism’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/ENCODExplorer/new/ENCODExplorer.Rcheck/00_pkg_src/ENCODExplorer/R/prepare_data.R:424-425)
-    step8: no visible binding for global variable ‘investigated_as’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/ENCODExplorer/new/ENCODExplorer.Rcheck/00_pkg_src/ENCODExplorer/R/prepare_data.R:436-437)
-    step8: no visible binding for global variable ‘target’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/ENCODExplorer/new/ENCODExplorer.Rcheck/00_pkg_src/ENCODExplorer/R/prepare_data.R:439-440)
-    step9: no visible binding for global variable ‘organism’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/ENCODExplorer/new/ENCODExplorer.Rcheck/00_pkg_src/ENCODExplorer/R/prepare_data.R:449-450)
-    Undefined global functions or variables:
-      . Experiment Value accession antibody_caption
-      antibody_characterization antibody_target assay
-      biological_replicate_number biosample_name biosample_type col_name
-      controls data date_released download.file encode_df file_accession
-      file_format href investigated_as lab nucleic_acid_term organism
-      platform project replicate_antibody replicate_library server status
-      submitted_by target technical_replicate_number treatment ui value
-    Consider adding
-      importFrom("utils", "data", "download.file")
-    to your NAMESPACE file.
-    ```
-
-*   checking data for non-ASCII characters ... NOTE
-    ```
-      Note: found 771 marked UTF-8 strings
-    ```
-
-# EpiReport
-
-Version: 0.1.0
-
-## In both
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespaces in Imports field not imported from:
-      ‘extrafont’ ‘graphics’ ‘knitr’ ‘rmarkdown’ ‘utils’
-      All declared Imports should be used.
-    ```
-
-# epitable
-
-Version: 0.1.2
-
-## In both
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespaces in Imports field not imported from:
-      ‘magrittr’ ‘readr’
-      All declared Imports should be used.
-    ```
-
-# epos
-
-Version: 0.1.0
-
-## In both
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespaces in Imports field not imported from:
-      ‘dplyr’ ‘testthat’ ‘tidyr’
-      All declared Imports should be used.
-    ```
-
-# eurostat
-
-Version: 3.3.1.3
-
-## In both
-
-*   checking data for non-ASCII characters ... NOTE
-    ```
-      Note: found 595 marked UTF-8 strings
-    ```
-
-# ExPanDaR
-
-Version: 0.3.0
-
-## In both
-
-*   checking package dependencies ... NOTE
-    ```
-    Package suggested but not available for checking: ‘devtools’
-    ```
-
-# ezplot
-
-Version: 0.2.2
-
-## In both
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespace in Imports field not imported from: ‘magrittr’
-      All declared Imports should be used.
-    ```
-
-# ezsummary
-
-Version: 0.2.1
-
-## In both
+## Newly broken
 
 *   checking examples ... ERROR
     ```
     ...
-    > 
-    > library(dplyr)
     
     Attaching package: ‘dplyr’
     
@@ -2325,13 +206,15 @@ Version: 0.2.1
     
         intersect, setdiff, setequal, union
     
-    > dt <- mtcars %>% group_by(cyl) %>% select(gear, carb) %>% ezsummary_categorical(n=TRUE)
-    Adding missing grouping variables: `cyl`
-    > 
-    > ezmarkup(dt, "...[.(.)]")
-    Error in ezmarkup(dt, "...[.(.)]") : 
-      The number of dots(.) you entered does not match up with the number of columns in the table. Please review your pattern expression. 
-     Note: If you do want to Add an actual dot, please use `.` to denote that specific dot
+    > library(cutpointr)
+    > cutpointr(suicide, dsi, suicide, gender) %>%
+    +   add_metric(list(ppv, npv)) %>%
+    +   select(optimal_cutpoint, subgroup, AUC, sum_sens_spec, ppv, npv)
+    Assuming the positive class is yes
+    Assuming the positive class has higher x values
+    Error: 'nest_' is defunct.
+    Use 'nest' instead.
+    See help("Defunct")
     Execution halted
     ```
 
@@ -2340,133 +223,279 @@ Version: 0.2.1
      ERROR
     Running the tests in ‘tests/testthat.R’ failed.
     Last 13 lines of output:
-      17: check_names_before_after_character(j, names(unclass(x)))
-      18: abort(error_unknown_names(unknown_names))
-      
-      ══ testthat results  ════════════════════════════════════════════════════════════════════
-      OK: 20 SKIPPED: 0 FAILED: 7
-      1. Failure: ezsummary_c can't rename the variables for data with grouping info (@test-ezsummary_categorical.R#29) 
-      2. Failure: ezsummary_c can't rename the variables for data with grouping info (@test-ezsummary_categorical.R#31) 
-      3. Failure: ezsummary_c can't rename the variables for data with grouping info (@test-ezsummary_categorical.R#33) 
-      4. Failure: ezsummary_c can't rename the variables for data with grouping info (@test-ezsummary_categorical.R#35) 
-      5. Error: ezsummary_quantitative can evaluate grouping info correctly with 1 variable (@test-ezsummary_quantitative.R#19) 
-      6. Error: ezsummary_quantitative can work with 2 variables with grouping info (@test-ezsummary_quantitative.R#33) 
-      7. Error: ezsummary_quantitative can handle NAs when running with quantile=TRUE (@test-ezsummary_quantitative.R#40) 
+      ══ testthat results  ═════════════════════════════════════════════════════════════════════════════════
+      OK: 28 SKIPPED: 0 WARNINGS: 0 FAILED: 45
+      1. Error: Cutpointr returns a cutpointr without NAs and a certain Nr of rows (@test-cutpointr.R#3) 
+      2. Error: Cutpointr works with different data types (@test-cutpointr.R#19) 
+      3. Error: Bootstrap does not return duplicate colnames (@test-cutpointr.R#78) 
+      4. Error: Plotting with bootstrapping is silent (@test-cutpointr.R#94) 
+      5. Error: AUC calculation is correct and works with Inf and -Inf (@test-cutpointr.R#110) 
+      6. Error: Correct midpoints are found (@test-cutpointr.R#125) 
+      7. Error: find_metric_name finds metric (@test-cutpointr.R#136) 
+      8. Error: no duplicate column names are returned (@test-cutpointr.R#150) 
+      9. Error: Correct cutpoints with example data (@test-cutpointr.R#188) 
+      1. ...
       
       Error: testthat unit tests failed
       Execution halted
     ```
 
-*   checking re-building of vignette outputs ... WARNING
+# d3r
+
+<details>
+
+* Version: 0.8.5
+* Source code: https://github.com/cran/d3r
+* URL: https://github.com/timelyportfolio/d3r
+* BugReports: https://github.com/timelyportfolio/d3r/issues
+* Date/Publication: 2019-01-29 09:00:03 UTC
+* Number of recursive dependencies: 44
+
+Run `revdep_details(,"d3r")` for more info
+
+</details>
+
+## Newly broken
+
+*   checking examples ... ERROR
     ```
-    Error in re-building vignettes:
-      ...
-    Each row of output must be identified by a unique combination of keys.
-    Keys are shared for 63 rows:
+    ...
+    +   select(Class,Age,Survived,Sex,Freq) %>%
+    +   d3_nest(value_cols="Freq", root="titanic")
+    Warning: .key is deprecated
+    Error: No tidyselect variables were registered
+    Backtrace:
+    [90m     [39m█
+    [90m  1. [39m└─`%>%`(...)
+    [90m  2. [39m  ├─base::withVisible(eval(quote(`_fseq`(`_lhs`)), env, env))
+    [90m  3. [39m  └─base::eval(quote(`_fseq`(`_lhs`)), env, env)
+    [90m  4. [39m    └─base::eval(quote(`_fseq`(`_lhs`)), env, env)
+    [90m  5. [39m      └─global::`_fseq`(`_lhs`)
+    [90m  6. [39m        └─magrittr::freduce(value, `_function_list`)
+    [90m  7. [39m          ├─base::withVisible(function_list[[k]](value))
+    [90m  8. [39m          └─function_list[[k]](value)
+    [90m  9. [39m            └─d3r::d3_nest(., value_cols = "Freq", root = "titanic")
+    [90m 10. [39m              ├─dplyr::bind_rows(...) [90m00_pkg_src/d3r/R/hierarchy.R:91:2[39m
+    [90m 11. [39m              │ ├─dplyr:::flatten_bindable(dots_values(...))
+    [90m 12. [39m              │ └─rlang::dots_values(...)
+    [90m 13. [39m              ├─d3r:::promote_na(...)
+    [90m 14. [39m         
+    Execution halted
     ```
 
-# factoextra
+## In both
 
-Version: 1.0.5
+*   checking package dependencies ... NOTE
+    ```
+    Packages which this enhances but not available for checking:
+      ‘igraph’ ‘partykit’ ‘treemap’ ‘V8’
+    ```
+
+# easyalluvial
+
+<details>
+
+* Version: 0.2.0
+* Source code: https://github.com/cran/easyalluvial
+* URL: https://github.com/erblast/easyalluvial
+* Date/Publication: 2019-04-01 11:20:12 UTC
+* Number of recursive dependencies: 126
+
+Run `revdep_details(,"easyalluvial")` for more info
+
+</details>
+
+## Newly broken
+
+*   checking examples ... ERROR
+    ```
+    Running examples in ‘easyalluvial-Ex.R’ failed
+    The error most likely occurred in:
+    
+    > ### Name: palette_filter
+    > ### Title: color filters for any vector of hex color values
+    > ### Aliases: palette_filter
+    > 
+    > ### ** Examples
+    > 
+    > 
+    > require(magrittr)
+    Loading required package: magrittr
+    > 
+    > palette_qualitative() %>%
+    +   palette_filter(thresh_similar = 0) %>%
+    +   palette_plot_intensity()
+    Error in ifelse(similar_index > index, similar_index, index) : 
+      object 'similar_index' not found
+    Calls: %>% ... <Anonymous> -> mutate -> mutate.tbl_df -> mutate_impl -> ifelse
+    Execution halted
+    ```
+
+*   checking tests ...
+    ```
+     ERROR
+    Running the tests in ‘tests/testthat.R’ failed.
+    Last 13 lines of output:
+      13: `_fseq`(`_lhs`)
+      14: freduce(value, `_function_list`)
+      15: function_list[[i]](value)
+      16: mutate(., larger_index = ifelse(similar_index > index, similar_index, index))
+      17: mutate.tbl_df(., larger_index = ifelse(similar_index > index, similar_index, index))
+      18: mutate_impl(.data, dots, caller_env())
+      19: ifelse(similar_index > index, similar_index, index)
+      
+      ══ testthat results  ═════════════════════════════════════════════════════════════════════════════════
+      OK: 65 SKIPPED: 49 WARNINGS: 581 FAILED: 2
+      1. Failure: n_feats == degree (@test_alluvial_model_response.R#260) 
+      2. Error: palettes (@test_palette.R#15) 
+      
+      Error: testthat unit tests failed
+      Execution halted
+    ```
+
+# echarts4r
+
+<details>
+
+* Version: 0.2.2
+* Source code: https://github.com/cran/echarts4r
+* URL: http://echarts4r.john-coene.com/
+* BugReports: https://github.com/JohnCoene/echarts4r/issues
+* Date/Publication: 2019-04-09 14:12:48 UTC
+* Number of recursive dependencies: 116
+
+Run `revdep_details(,"echarts4r")` for more info
+
+</details>
+
+## Newly broken
+
+*   checking examples ... ERROR
+    ```
+    ...
+    > 
+    > df %>% 
+    +   e_charts() %>% 
+    +   e_sunburst(parent, child, value) %>% 
+    +   e_theme("westeros")
+    Warning: .key is deprecated
+    Error: No tidyselect variables were registered
+    Backtrace:
+    [90m     [39m█
+    [90m  1. [39m└─df %>% e_charts() %>% e_sunburst(parent, child, value) %>% e_theme("westeros")
+    [90m  2. [39m  ├─base::withVisible(eval(quote(`_fseq`(`_lhs`)), env, env))
+    [90m  3. [39m  └─base::eval(quote(`_fseq`(`_lhs`)), env, env)
+    [90m  4. [39m    └─base::eval(quote(`_fseq`(`_lhs`)), env, env)
+    [90m  5. [39m      └─global::`_fseq`(`_lhs`)
+    [90m  6. [39m        └─magrittr::freduce(value, `_function_list`)
+    [90m  7. [39m          └─function_list[[i]](value)
+    [90m  8. [39m            └─echarts4r::e_sunburst(., parent, child, value)
+    [90m  9. [39m              └─echarts4r::e_sunburst_(...) [90m00_pkg_src/echarts4r/R/add.R:931:2[39m
+    [90m 10. [39m                └─echarts4r:::.build_sun(e, parent, child, value, itemStyle) [90m00_pkg_src/echarts4r/R/add_.R:967:2[39m
+    [90m 11. [39m                  └─d3r::d3_nest(data, value_cols = cols, json = FALSE, ro
+    Execution halted
+    ```
+
+## Newly fixed
+
+*   checking installed package size ... NOTE
+    ```
+      installed size is  5.9Mb
+      sub-directories of 1Mb or more:
+        R             2.0Mb
+        htmlwidgets   3.6Mb
+    ```
+
+# egor
+
+<details>
+
+* Version: 0.19.1
+* Source code: https://github.com/cran/egor
+* URL: https://github.com/tilltnet/egor, https://tilltnet.github.io/egor/
+* BugReports: https://github.com/tilltnet/egor/issues
+* Date/Publication: 2019-02-01 16:43:22 UTC
+* Number of recursive dependencies: 57
+
+Run `revdep_details(,"egor")` for more info
+
+</details>
+
+## Newly broken
+
+*   checking examples ... ERROR
+    ```
+    Running examples in ‘egor-Ex.R’ failed
+    The error most likely occurred in:
+    
+    > ### Name: as_alts_df
+    > ### Title: Create global alters and alter-alter relations dataframes from
+    > ###   an 'egor' object
+    > ### Aliases: as_alts_df as_aaties_df
+    > 
+    > ### ** Examples
+    > 
+    > # Load example data
+    > data(egor32)
+    > 
+    > # Create global alters dataframes
+    > as_alts_df(egor32)
+    Error: 'unnest_' is defunct.
+    Use 'unnest' instead.
+    See help("Defunct")
+    Execution halted
+    ```
+
+*   checking tests ...
+    ```
+     ERROR
+    Running the tests in ‘tests/testthat.R’ failed.
+    Last 13 lines of output:
+      ══ testthat results  ═════════════════════════════════════════════════════════════════════════════════
+      OK: 4 SKIPPED: 0 WARNINGS: 0 FAILED: 19
+      1. Error: Methods are working. (@test_clustered_graphs.R#8) 
+      2. Error: Methods are working with partially missing data. (@test_clustered_graphs.R#27) 
+      3. Error: Methods work (properly) with NAs in grouping variable. (@test_clustered_graphs.R#49) 
+      4. Error: Methods work (properly) with grouping variable being completly NA. (@test_clustered_graphs.R#76) 
+      5. Error: Composition commands work. (@test_composition.R#6) 
+      6. Error: as_network works. (@test_conversions.R#6) 
+      7. Error: as_igraph works. (@test_conversions.R#29) 
+      8. Error: as_alts_df works. (@test_conversions.R#52) 
+      9. Error: as_aaties_df works. (@test_conversions.R#63) 
+      1. ...
+      
+      Error: testthat unit tests failed
+      Execution halted
+    ```
 
 ## In both
 
 *   checking Rd cross-references ... NOTE
     ```
-    Package unavailable to check Rd xrefs: ‘NbClust’
+    Package unavailable to check Rd xrefs: ‘haven’
     ```
 
-# fastR2
+# evaluator
 
-Version: 1.2.1
+<details>
 
-## In both
+* Version: 0.4.0
+* Source code: https://github.com/cran/evaluator
+* URL: https://evaluator.tidyrisk.org
+* BugReports: https://github.com/davidski/evaluator/issues
+* Date/Publication: 2019-04-10 16:17:58 UTC
+* Number of recursive dependencies: 134
 
-*   checking installed package size ... NOTE
-    ```
-      installed size is  5.0Mb
-      sub-directories of 1Mb or more:
-        snippet   3.7Mb
-    ```
+Run `revdep_details(,"evaluator")` for more info
 
-# fedregs
+</details>
 
-Version: 0.1.1
+## Newly broken
 
-## In both
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespaces in Imports field not imported from:
-      ‘rvest’ ‘stringi’
-      All declared Imports should be used.
-    ```
-
-# finalfit
-
-Version: 0.9.0
-
-## In both
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespace in Imports field not imported from: ‘readr’
-      All declared Imports should be used.
-    ```
-
-# fingertipscharts
-
-Version: 0.0.4
-
-## In both
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespaces in Imports field not imported from:
-      ‘curl’ ‘mapproj’
-      All declared Imports should be used.
-    ```
-
-# fold
-
-Version: 0.2.6
-
-## In both
-
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘fold-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: boxplot.folded
-    > ### Title: Boxplot Method for Folded
-    > ### Aliases: boxplot.folded
-    > 
-    > ### ** Examples
-    > 
-    > data(eventsf)
-    > boxplot(eventsf, SEX, WT, ref = 68)
-    Error in get(fun, mode = "function", envir = parent.frame()) : 
-      object 'boxplot_panel' of mode 'function' was not found
-    Calls: boxplot ... <Anonymous> -> bwplot.formula -> %in% -> formals -> get
-    Execution halted
-    ```
-
-# FoldGO
-
-Version: 1.0.1
-
-## In both
-
-*   checking whether package ‘FoldGO’ can be installed ... ERROR
+*   checking whether package ‘evaluator’ can be installed ... ERROR
     ```
     Installation failed.
-    See ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/FoldGO/new/FoldGO.Rcheck/00install.out’ for details.
-    ```
-
-*   checking package dependencies ... NOTE
-    ```
-    Package suggested but not available for checking: ‘devtools’
+    See ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/evaluator/new/evaluator.Rcheck/00install.out’ for details.
     ```
 
 ## Installation
@@ -2474,530 +503,288 @@ Version: 1.0.1
 ### Devel
 
 ```
-* installing *source* package ‘FoldGO’ ...
+* installing *source* package ‘evaluator’ ...
+** package ‘evaluator’ successfully unpacked and MD5 sums checked
 ** R
 ** data
 *** moving datasets to lazyload DB
-Warning: namespace ‘topGO’ is not available and has been replaced
-by .GlobalEnv when processing object ‘down_annotobj’
-Warning: namespace ‘topGO’ is not available and has been replaced
-by .GlobalEnv when processing object ‘down_annotobj’
-Warning: namespace ‘topGO’ is not available and has been replaced
-by .GlobalEnv when processing object ‘up_annotobj’
-Warning: namespace ‘topGO’ is not available and has been replaced
-by .GlobalEnv when processing object ‘up_annotobj’
 ** inst
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(i, c(lib.loc, .libPaths()), versionCheck = vI[[i]]) : 
-  there is no package called ‘GO.db’
-ERROR: lazy loading failed for package ‘FoldGO’
-* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/FoldGO/new/FoldGO.Rcheck/FoldGO’
+Error : object ‘vec_proxy_equal’ is not exported by 'namespace:vctrs'
+ERROR: lazy loading failed for package ‘evaluator’
+* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/evaluator/new/evaluator.Rcheck/evaluator’
 
 ```
 ### CRAN
 
 ```
-* installing *source* package ‘FoldGO’ ...
+* installing *source* package ‘evaluator’ ...
+** package ‘evaluator’ successfully unpacked and MD5 sums checked
 ** R
 ** data
 *** moving datasets to lazyload DB
-Warning: namespace ‘topGO’ is not available and has been replaced
-by .GlobalEnv when processing object ‘down_annotobj’
-Warning: namespace ‘topGO’ is not available and has been replaced
-by .GlobalEnv when processing object ‘down_annotobj’
-Warning: namespace ‘topGO’ is not available and has been replaced
-by .GlobalEnv when processing object ‘up_annotobj’
-Warning: namespace ‘topGO’ is not available and has been replaced
-by .GlobalEnv when processing object ‘up_annotobj’
 ** inst
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(i, c(lib.loc, .libPaths()), versionCheck = vI[[i]]) : 
-  there is no package called ‘GO.db’
-ERROR: lazy loading failed for package ‘FoldGO’
-* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/FoldGO/old/FoldGO.Rcheck/FoldGO’
+** help
+*** installing help indices
+*** copying figures
+** building package indices
+** installing vignettes
+** testing if installed package can be loaded
+* DONE (evaluator)
 
 ```
-# GA4GHshiny
+# fuzzyjoin
 
-Version: 1.4.0
+<details>
 
-## In both
+* Version: 0.1.4
+* Source code: https://github.com/cran/fuzzyjoin
+* Date/Publication: 2018-03-02 09:10:25 UTC
+* Number of recursive dependencies: 77
 
-*   checking tests ...
-    ```
-     ERROR
-    Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-      2: stop(txt, domain = NA)
-      
-      ══ testthat results  ════════════════════════════════════════════════════════════════════
-      OK: 2 SKIPPED: 0 FAILED: 8
-      1. Error: app works (@test-app.R#5) 
-      2. Error: getGene works (@test-getGene.R#4) 
-      3. Error: getGeneSymbols works (@test-getGeneSymbols.R#4) 
-      4. Error: initializeReferences works (@test-initializeReferences.R#6) 
-      5. Error: initializeVariantSet works (@test-initializeVariantSet.R#6) 
-      6. Error: (unknown) (@test-searchVariantsByGeneSymbol.R#3) 
-      7. Error: tidyVariants works with searchVariants output (@test-tidyVariants.R#6) 
-      8. Error: tidyVariants works with searchVariantsByGeneSymbol output (@test-tidyVariants.R#16) 
-      
-      Error: testthat unit tests failed
-      Execution halted
-    ```
+Run `revdep_details(,"fuzzyjoin")` for more info
 
-*   checking package dependencies ... NOTE
-    ```
-    Packages suggested but not available for checking:
-      ‘org.Hs.eg.db’ ‘TxDb.Hsapiens.UCSC.hg19.knownGene’
-    ```
+</details>
 
-*   checking for hidden files and directories ... NOTE
-    ```
-    Found the following hidden files and directories:
-      .travis.yml
-    These were most likely included in error. See section ‘Package
-    structure’ in the ‘Writing R Extensions’ manual.
-    ```
+## Newly broken
 
-# gaiah
-
-Version: 0.0.2
-
-## In both
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespaces in Imports field not imported from:
-      ‘ggplot2’ ‘maptools’ ‘rgeos’ ‘stringr’ ‘tidyr’
-      All declared Imports should be used.
-    ```
-
-# ganalytics
-
-Version: 0.10.6
-
-## In both
-
-*   checking package dependencies ... NOTE
-    ```
-    Package suggested but not available for checking: ‘devtools’
-    ```
-
-# GEOquery
-
-Version: 2.50.5
-
-## In both
-
-*   checking installed package size ... NOTE
-    ```
-      installed size is 14.0Mb
-      sub-directories of 1Mb or more:
-        extdata  12.8Mb
-    ```
-
-*   checking whether the namespace can be loaded with stated dependencies ... NOTE
-    ```
-    Warning: no function found corresponding to methods exports from ‘GEOquery’ for: ‘show’
-    
-    A namespace must be able to be loaded with just the base namespace
-    loaded: otherwise if the namespace gets loaded by a saved object, the
-    session will be unable to start.
-    
-    Probably some imports need to be declared in the NAMESPACE file.
-    ```
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespace in Imports field not imported from: ‘httr’
-      All declared Imports should be used.
-    Package in Depends field not imported from: ‘methods’
-      These packages need to be imported from (in the NAMESPACE file)
-      for when this namespace is loaded but not attached.
-    ```
-
-*   checking R code for possible problems ... NOTE
+*   checking examples ... ERROR
     ```
     ...
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/GEOquery/new/GEOquery.Rcheck/00_pkg_src/GEOquery/R/parseGEO.R:556-564)
-    parseGSEMatrix: no visible binding for global variable ‘accession’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/GEOquery/new/GEOquery.Rcheck/00_pkg_src/GEOquery/R/parseGEO.R:556-564)
-    parseGSEMatrix: no visible binding for global variable ‘accession’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/GEOquery/new/GEOquery.Rcheck/00_pkg_src/GEOquery/R/parseGEO.R:566-567)
-    parseGSEMatrix: no visible global function definition for ‘new’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/GEOquery/new/GEOquery.Rcheck/00_pkg_src/GEOquery/R/parseGEO.R:598)
-    parseGSEMatrix: no visible global function definition for ‘new’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/GEOquery/new/GEOquery.Rcheck/00_pkg_src/GEOquery/R/parseGEO.R:620)
-    parseGSEMatrix: no visible global function definition for ‘new’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/GEOquery/new/GEOquery.Rcheck/00_pkg_src/GEOquery/R/parseGEO.R:636-641)
-    parseGSEMatrix: no visible global function definition for ‘as’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/GEOquery/new/GEOquery.Rcheck/00_pkg_src/GEOquery/R/parseGEO.R:636-641)
-    Undefined global functions or variables:
-      . MA accession as characteristics k kvpair new read.delim read.table
-      v
-    Consider adding
-      importFrom("methods", "as", "new")
-      importFrom("utils", "read.delim", "read.table")
-    to your NAMESPACE file (and ensure that your DESCRIPTION Imports field
-    contains 'methods').
-    ```
-
-# GerminaR
-
-Version: 1.2
-
-## In both
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespaces in Imports field not imported from:
-      ‘DT’ ‘shinydashboard’
-      All declared Imports should be used.
-    ```
-
-# getCRUCLdata
-
-Version: 0.2.5
-
-## In both
-
-*   checking tests ...
-    ```
-     ERROR
-    Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-      1/1 mismatches
-      [1] 12.9 - 12.9 == 5.72e-07
-      
-      [31m──[39m [31m2. Failure: Test that create_stack creates tmn if requested (@test-create_CRU_stack.R#[39m
-      raster::maxValue(CRU_stack_list[[1]][[1]]) not equal to 4.3.
-      1/1 mismatches
-      [1] 4.3 - 4.3 == -1.91e-07
-      
-      ══ testthat results  ════════════════════════════════════════════════════════════════════
-      OK: 637 SKIPPED: 23 FAILED: 2
-      1. Failure: Test that create_stack creates tmx if requested (@test-create_CRU_stack.R#868) 
-      2. Failure: Test that create_stack creates tmn if requested (@test-create_CRU_stack.R#1233) 
-      
-      Error: testthat unit tests failed
-      Execution halted
-    ```
-
-# getTBinR
-
-Version: 0.5.7
-
-## In both
-
-*   checking package dependencies ... NOTE
-    ```
-    Package suggested but not available for checking: ‘devtools’
-    ```
-
-# gfer
-
-Version: 0.1.10
-
-## In both
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespace in Imports field not imported from: ‘tidyr’
-      All declared Imports should be used.
-    ```
-
-# ggCompNet
-
-Version: 0.1.0
-
-## In both
-
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    Error in re-building vignettes:
-      ...
-    
-    Attaching package: 'dplyr'
-    
-    The following objects are masked from 'package:stats':
-    
-        filter, lag
-    
-    The following objects are masked from 'package:base':
-    
-        intersect, setdiff, setequal, union
-    
-    Warning: Removed 8 rows containing missing values (geom_segment).
-    Quitting from lines 617-629 (examples-from-paper.Rmd) 
-    Error: processing vignette 'examples-from-paper.Rmd' failed with diagnostics:
-    there is no package called 'mapproj'
+    > x2 <- data_frame(id2 = 1:4,
+    +                  chromosome = c("chr1", "chr2", "chr2", "chr1"),
+    +                  start = c(140, 210, 400, 300),
+    +                  end = c(160, 240, 415, 320))
+    > 
+    > if (requireNamespace("IRanges", quietly = TRUE)) {
+    +   # note that the the third and fourth items don't join (even though
+    +   # 300-350 and 300-320 overlap) since the chromosomes are different:
+    +   genome_inner_join(x1, x2, by = c("chromosome", "start", "end"))
+    + 
+    +   # other functions:
+    +   genome_full_join(x1, x2, by = c("chromosome", "start", "end"))
+    +   genome_left_join(x1, x2, by = c("chromosome", "start", "end"))
+    +   genome_right_join(x1, x2, by = c("chromosome", "start", "end"))
+    +   genome_semi_join(x1, x2, by = c("chromosome", "start", "end"))
+    +   genome_anti_join(x1, x2, by = c("chromosome", "start", "end"))
+    + }
+    Error: 'nest_' is defunct.
+    Use 'nest' instead.
+    See help("Defunct")
     Execution halted
     ```
 
-*   checking installed package size ... NOTE
+*   checking tests ...
     ```
-      installed size is  6.4Mb
-      sub-directories of 1Mb or more:
-        doc   6.1Mb
-    ```
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespaces in Imports field not imported from:
-      ‘dplyr’ ‘ggmap’ ‘gridExtra’ ‘scales’ ‘tnet’
-      All declared Imports should be used.
-    ```
-
-# ggedit
-
-Version: 0.3.0
-
-## In both
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespace in Imports field not imported from: ‘magrittr’
-      All declared Imports should be used.
+     ERROR
+    Running the tests in ‘tests/testthat.R’ failed.
+    Last 13 lines of output:
+      See help("Defunct")
+      1: genome_inner_join(x1, x2, by = c("chromosome", "start", "end")) at testthat/test_genome_join.R:18
+      2: genome_join(x, y, by, mode = "inner", ...) at /Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/fuzzyjoin/new/fuzzyjoin.Rcheck/00_pkg_src/fuzzyjoin/R/genome_join.R:90
+      3: fuzzy_join(x, y, mode = mode, index_match_fun = f, multi_by = by) at /Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/fuzzyjoin/new/fuzzyjoin.Rcheck/00_pkg_src/fuzzyjoin/R/genome_join.R:83
+      4: index_match_fun(d1, d2) at /Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/fuzzyjoin/new/fuzzyjoin.Rcheck/00_pkg_src/fuzzyjoin/R/fuzzy_join.R:231
+      5: tidyr::nest_(x, "x_data", colnames(x)[-1]) at /Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/fuzzyjoin/new/fuzzyjoin.Rcheck/00_pkg_src/fuzzyjoin/R/genome_join.R:64
+      6: .Defunct("nest") at /private/tmp/RtmpquPhal/R.INSTALL91f746b5a07/tidyr/R/dep-lazyeval.R:186
+      7: stop(paste(msg, collapse = ""), call. = FALSE, domain = NA)
+      
+      ══ testthat results  ═════════════════════════════════════════════════════════════════════════════════
+      OK: 218 SKIPPED: 0 WARNINGS: 146 FAILED: 1
+      1. Error: Can join genomes on chromosomes and intervals (@test_genome_join.R#18) 
+      
+      Error: testthat unit tests failed
+      Execution halted
     ```
 
-# ggeffects
+# genogeographer
 
-Version: 0.8.0
+<details>
 
-## In both
+* Version: 0.1.8
+* Source code: https://github.com/cran/genogeographer
+* Date/Publication: 2018-03-14 10:16:07 UTC
+* Number of recursive dependencies: 109
 
-*   checking Rd cross-references ... NOTE
+Run `revdep_details(,"genogeographer")` for more info
+
+</details>
+
+## Newly broken
+
+*   checking examples ... ERROR
     ```
-    Package unavailable to check Rd xrefs: ‘ordinal’
+    ...
+    > df_ <- simulate_pops(pop_n = 4, aims_n = 50)
+    > df_db <- pops_to_DB(df_)
+    Warning: .key is deprecated
+    > profile <- random_AIMs_profile(df_db, keep_pop = TRUE)
+    Warning: `cols` is now required.
+    Please use `cols = c()`
+    Error: `n` must evaluate to column positions or names, not a logical vector
+    Backtrace:
+    [90m     [39m█
+    [90m  1. [39m└─genogeographer::random_AIMs_profile(df_db, keep_pop = TRUE)
+    [90m  2. [39m  └─genogeographer:::rand_profile(...) [90m00_pkg_src/genogeographer/R/random_AIMs_profile.R:66:2[39m
+    [90m  3. [39m    └─df %>% select(pop, n) %>% distinct() [90m00_pkg_src/genogeographer/R/random_AIMs_profile.R:28:4[39m
+    [90m  4. [39m      ├─base::withVisible(eval(quote(`_fseq`(`_lhs`)), env, env))
+    [90m  5. [39m      └─base::eval(quote(`_fseq`(`_lhs`)), env, env)
+    [90m  6. [39m        └─base::eval(quote(`_fseq`(`_lhs`)), env, env)
+    [90m  7. [39m          └─genogeographer:::`_fseq`(`_lhs`)
+    [90m  8. [39m            └─magrittr::freduce(value, `_function_list`)
+    [90m  9. [39m              └─function_list[[i]](value)
+    [90m 10. [39m                ├─dplyr::select(., pop, n)
+    [90m 11. [39m                └─dplyr:::select.data.frame(., po
+    Execution halted
     ```
 
-# ggfan
+# ggasym
 
-Version: 0.1.2
+<details>
 
-## In both
+* Version: 0.1.1
+* Source code: https://github.com/cran/ggasym
+* URL: https://github.com/jhrcook/ggasym https://jhrcook.github.io/ggasym/
+* BugReports: https://github.com/jhrcook/ggasym/issues
+* Date/Publication: 2019-03-23 16:50:03 UTC
+* Number of recursive dependencies: 69
+
+Run `revdep_details(,"ggasym")` for more info
+
+</details>
+
+## Newly broken
+
+*   checking examples ... ERROR
+    ```
+    ...
+    3 C B         3         group2
+    > 
+    > asymmetrise(df, a, b)
+      a b untouched grouping_value
+    1 A C         1         group1
+    2 B A         2         group1
+    3 C B         3         group2
+    4 C A         1         group1
+    5 A B         2         group1
+    6 B C         3         group2
+    7 A A        NA           <NA>
+    8 B B        NA           <NA>
+    9 C C        NA           <NA>
+    > 
+    > grouped_df <- dplyr::group_by(df, grouping_value)
+    > asymmetrise(grouped_df, a, b)
+    Warning: .key is deprecated
+    Error in purrr::map(.grp_nest, function(df) { : 
+      object '.grp_nest' not found
+    Calls: asymmetrise ... <Anonymous> -> mutate.tbl_df -> mutate_impl -> <Anonymous>
+    Execution halted
+    ```
 
 *   checking tests ...
     ```
      ERROR
     Running the tests in ‘tests/testthat.R’ failed.
     Last 13 lines of output:
-      length(unique(p_b$data[[1]]$interval)) not equal to 1.
-      1/1 mismatches
-      [1] 0 - 1 == -1
+      23: mutate.tbl_df(., .grp_nest = purrr::map(.grp_nest, function(df) {
+             new_df <- bind_missing_combs(df, !!.x, !!.y)
+         }))
+      24: mutate_impl(.data, dots, caller_env())
+      25: purrr::map(.grp_nest, function(df) {
+             new_df <- bind_missing_combs(df, ~a, ~b)
+         })
       
-      [31m──[39m [31m2. Failure: stat_interval filters precomputed quantiles to match interval args (@test_[39m
-      unique(p_b$data[[1]]$interval) not equal to as.factor(0.2).
-      target is NULL, current is factor
-      
-      ══ testthat results  ════════════════════════════════════════════════════════════════════
-      OK: 9 SKIPPED: 0 FAILED: 2
-      1. Failure: stat_interval filters precomputed quantiles to match interval args (@test_stat_interval.R#30) 
-      2. Failure: stat_interval filters precomputed quantiles to match interval args (@test_stat_interval.R#31) 
+      ══ testthat results  ═════════════════════════════════════════════════════════════════════════════════
+      OK: 260 SKIPPED: 0 WARNINGS: 2 FAILED: 2
+      1. Error: adding all combinations (@test-asymmetrise.R#89) 
+      2. Error: data frame is asymmeterized (@test-asymmetrise.R#151) 
       
       Error: testthat unit tests failed
       Execution halted
     ```
 
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespaces in Imports field not imported from:
-      ‘colorspace’ ‘grid’ ‘rstan’
-      All declared Imports should be used.
-    ```
+# ggmap
 
-# ggformula
+<details>
 
-Version: 0.9.1
+* Version: 3.0.0
+* Source code: https://github.com/cran/ggmap
+* URL: https://github.com/dkahle/ggmap
+* BugReports: https://github.com/dkahle/ggmap/issues
+* Date/Publication: 2019-02-05 10:19:04
+* Number of recursive dependencies: 57
 
-## In both
+Run `revdep_details(,"ggmap")` for more info
 
-*   checking installed package size ... NOTE
-    ```
-      installed size is  6.0Mb
-      sub-directories of 1Mb or more:
-        R     2.0Mb
-        doc   2.7Mb
-    ```
+</details>
 
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespace in Imports field not imported from: ‘tidyr’
-      All declared Imports should be used.
-    ```
-
-*   checking Rd cross-references ... NOTE
-    ```
-    Package unavailable to check Rd xrefs: ‘quantreg’
-    ```
-
-# ggiraphExtra
-
-Version: 0.2.9
-
-## In both
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespaces in Imports field not imported from:
-      ‘ggforce’ ‘webshot’ ‘ztable’
-      All declared Imports should be used.
-    ```
-
-# ggpubr
-
-Version: 0.2
-
-## In both
-
-*   checking Rd cross-references ... NOTE
-    ```
-    Package unavailable to check Rd xrefs: ‘FactoMineR’
-    ```
-
-# ggquickeda
-
-Version: 0.1.1
-
-## In both
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespaces in Imports field not imported from:
-      ‘DT’ ‘Formula’ ‘Hmisc’ ‘colourpicker’ ‘dplyr’ ‘ggpmisc’ ‘ggrepel’
-      ‘grDevices’ ‘gridExtra’ ‘lazyeval’ ‘markdown’ ‘plotly’ ‘quantreg’
-      ‘rlang’ ‘shinyjs’ ‘table1’ ‘tidyr’
-      All declared Imports should be used.
-    ```
-
-# ggRandomForests
-
-Version: 2.0.1
-
-## In both
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespace in Imports field not imported from: ‘randomForest’
-      All declared Imports should be used.
-    ```
-
-# ggspatial
-
-Version: 1.0.3
-
-## In both
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespaces in Imports field not imported from:
-      ‘reshape2’ ‘rosm’
-      All declared Imports should be used.
-    ```
-
-# ggstatsplot
-
-Version: 0.0.9
-
-## In both
+## Newly broken
 
 *   checking installed package size ... NOTE
     ```
-      installed size is  5.4Mb
+      installed size is  5.6Mb
       sub-directories of 1Mb or more:
-        R      1.1Mb
-        help   4.1Mb
+        data   5.1Mb
     ```
 
-# ggthemes
+# gratia
 
-Version: 4.1.0
+<details>
 
-## In both
+* Version: 0.2-8
+* Source code: https://github.com/cran/gratia
+* URL: https://gavinsimpson.github.io/gratia
+* BugReports: https://github.com/gavinsimpson/gratia/issues
+* Date/Publication: 2019-03-12 23:00:02 UTC
+* Number of recursive dependencies: 94
 
-*   checking data for non-ASCII characters ... NOTE
+Run `revdep_details(,"gratia")` for more info
+
+</details>
+
+## Newly broken
+
+*   checking tests ...
     ```
-      Note: found 138 marked UTF-8 strings
-    ```
-
-# ggtree
-
-Version: 1.14.6
-
-## In both
-
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    ...
-    
-    Average angle change [1] 0.188567929509117
-    Average angle change [2] 0.0493174411182864
-    Warning in min(y) : no non-missing arguments to min; returning Inf
-    Warning in max(y) : no non-missing arguments to max; returning -Inf
-    Warning: Removed 1 rows containing missing values (geom_point_g_gtree).
-    Warning: Removed 1 rows containing missing values (geom_point_g_gtree).
-    Warning: Removed 13 rows containing missing values (geom_text).
-    Warning: Removed 12 rows containing missing values (geom_text).
-    Scale for 'fill' is already present. Adding another scale for 'fill',
-    which will replace the existing scale.
-    Warning: Duplicated aesthetics after name standardisation: size
-    Scale for 'y' is already present. Adding another scale for 'y', which
-    will replace the existing scale.
-    Loading required package: Biostrings
-    Warning in library(package, lib.loc = lib.loc, character.only = TRUE, logical.return = TRUE,  :
-      there is no package called 'Biostrings'
-    Quitting from lines 304-306 (treeAnnotation.Rmd) 
-    Error: processing vignette 'treeAnnotation.Rmd' failed with diagnostics:
-    object 'readBStringSet' not found
-    Execution halted
-    ```
-
-*   checking installed package size ... NOTE
-    ```
-      installed size is  9.9Mb
-      sub-directories of 1Mb or more:
-        doc        4.9Mb
-        examples   3.7Mb
-    ```
-
-# ggwordcloud
-
-Version: 0.3.0
-
-## In both
-
-*   checking data for non-ASCII characters ... NOTE
-    ```
-      Note: found 102 marked UTF-8 strings
-    ```
-
-# googlesheets
-
-Version: 0.3.0
-
-## In both
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespace in Imports field not imported from: ‘tibble’
-      All declared Imports should be used.
-    ```
-
-# graphTweets
-
-Version: 0.5.1
-
-## In both
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespace in Imports field not imported from: ‘utils’
-      All declared Imports should be used.
+     ERROR
+    Running the tests in ‘tests/test-all.R’ failed.
+    Last 13 lines of output:
+      14: vec_sort(vec_unique(x)) at /private/tmp/RtmpquPhal/R.INSTALL91f746b5a07/tidyr/R/expand.R:128
+      15: vec_order(x, direction = direction, na_value = na_value) at /private/tmp/RtmpOo2RHI/R.INSTALL8d285a08eb82/vctrs/R/compare.R:118
+      16: order_proxy(vec_proxy_compare(x), direction = direction, na_value = na_value) at /private/tmp/RtmpOo2RHI/R.INSTALL8d285a08eb82/vctrs/R/compare.R:107
+      17: `$<-`(`*tmp*`, "decreasing", value = FALSE) at /private/tmp/RtmpOo2RHI/R.INSTALL8d285a08eb82/vctrs/R/compare.R:131
+      18: `$<-.data.frame`(`*tmp*`, "decreasing", value = FALSE) at /private/tmp/RtmpOo2RHI/R.INSTALL8d285a08eb82/vctrs/R/compare.R:131
+      19: stop(sprintf(ngettext(N, "replacement has %d row, data has %d", "replacement has %d rows, data has %d"), 
+             N, nrows), domain = NA)
+      
+      ══ testthat results  ═════════════════════════════════════════════════════════════════════════════════
+      OK: 424 SKIPPED: 64 WARNINGS: 0 FAILED: 2
+      1. Error: data_slice works for a GAM (@test-data-slice.R#15) 
+      2. Error: data_slice works for a GAM with factor by (@test-data-slice.R#77) 
+      
+      Error: testthat unit tests failed
+      Execution halted
     ```
 
 # gutenbergr
 
-Version: 0.1.4
+<details>
+
+* Version: 0.1.4
+* Source code: https://github.com/cran/gutenbergr
+* URL: http://github.com/ropenscilabs/gutenbergr
+* BugReports: http://github.com/ropenscilabs/gutenbergr/issues
+* Date/Publication: 2018-01-26 12:31:18 UTC
+* Number of recursive dependencies: 71
+
+Run `revdep_details(,"gutenbergr")` for more info
+
+</details>
+
+## Newly broken
+
+*   R CMD check timed out
+    
 
 ## In both
 
@@ -3006,128 +793,44 @@ Version: 0.1.4
       Note: found 13617 marked UTF-8 strings
     ```
 
-# hansard
+# HTSSIP
 
-Version: 0.6.3
+<details>
 
-## In both
+* Version: 1.4.0
+* Source code: https://github.com/cran/HTSSIP
+* Date/Publication: 2018-05-15 07:23:00 UTC
+* Number of recursive dependencies: 124
+
+Run `revdep_details(,"HTSSIP")` for more info
+
+</details>
+
+## Newly broken
 
 *   checking tests ...
     ```
      ERROR
-    Running the tests in ‘tests/testthat-all2q.R’ failed.
+    Running the tests in ‘tests/testthat.R’ failed.
     Last 13 lines of output:
-      2: jsonlite::fromJSON(paste0(baseurl, answering_member_query, tabling_member_query, house_query, 
-             dept_query, dates, extra_args, "&_pageSize=1"), flatten = TRUE) at /Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/hansard/new/hansard.Rcheck/00_pkg_src/hansard/R/all_answered_questions.R:195
-      3: parse_and_simplify(txt = txt, simplifyVector = simplifyVector, simplifyDataFrame = simplifyDataFrame, 
-             simplifyMatrix = simplifyMatrix, flatten = flatten, ...)
-      4: parseJSON(txt, bigint_as_char)
-      5: parse_con(txt, bigint_as_char)
-      6: open(con, "rb")
-      7: open.connection(con, "rb")
+      5: eval(quote(`_fseq`(`_lhs`)), env, env)
+      6: `_fseq`(`_lhs`)
+      7: freduce(value, `_function_list`)
+      8: function_list[[i]](value)
+      9: tidyr::nest_(., key_col = "data")
+      10: .Defunct("nest") at /private/tmp/RtmpquPhal/R.INSTALL91f746b5a07/tidyr/R/dep-lazyeval.R:186
+      11: stop(paste(msg, collapse = ""), call. = FALSE, domain = NA)
       
-      ══ testthat results  ════════════════════════════════════════════════════════════════════
-      OK: 0 SKIPPED: 0 FAILED: 1
-      1. Error: all_answered_questions return expected format (@test_2all_answered_questions.R#6) 
+      ══ testthat results  ═════════════════════════════════════════════════════════════════════════════════
+      OK: 107 SKIPPED: 18 WARNINGS: 0 FAILED: 2
+      1. Error: delta BD on rep3 dataset (@test-delta_BD.R#29) 
+      2. Error: bootstrap iteration is working (@test-qSIP_atom_excess.R#41) 
       
       Error: testthat unit tests failed
       Execution halted
     ```
 
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    Error in re-building vignettes:
-      ...
-    Quitting from lines 68-73 (introduction.Rmd) 
-    Error: processing vignette 'introduction.Rmd' failed with diagnostics:
-    HTTP error 524.
-    Execution halted
-    ```
-
-*   checking Rd cross-references ... NOTE
-    ```
-    Package unavailable to check Rd xrefs: ‘mnis’
-    ```
-
-# highcharter
-
-Version: 0.7.0
-
 ## In both
-
-*   checking installed package size ... NOTE
-    ```
-      installed size is  9.2Mb
-      sub-directories of 1Mb or more:
-        doc           3.7Mb
-        htmlwidgets   4.0Mb
-    ```
-
-# HPAanalyze
-
-Version: 1.0.0
-
-## In both
-
-*   checking whether package ‘HPAanalyze’ can be installed ... ERROR
-    ```
-    Installation failed.
-    See ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/HPAanalyze/new/HPAanalyze.Rcheck/00install.out’ for details.
-    ```
-
-*   checking package dependencies ... NOTE
-    ```
-    Package suggested but not available for checking: ‘devtools’
-    ```
-
-## Installation
-
-### Devel
-
-```
-* installing *source* package ‘HPAanalyze’ ...
-** R
-** data
-*** moving datasets to lazyload DB
-** inst
-** byte-compile and prepare package for lazy loading
-Error : .onLoad failed in loadNamespace() for 'rJava', details:
-  call: dyn.load(file, DLLpath = DLLpath, ...)
-  error: unable to load shared object '/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/HPAanalyze/rJava/libs/rJava.so':
-  dlopen(/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/HPAanalyze/rJava/libs/rJava.so, 6): Library not loaded: /Library/Java/JavaVirtualMachines/jdk-9.jdk/Contents/Home/lib/server/libjvm.dylib
-  Referenced from: /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/HPAanalyze/rJava/libs/rJava.so
-  Reason: image not found
-ERROR: lazy loading failed for package ‘HPAanalyze’
-* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/HPAanalyze/new/HPAanalyze.Rcheck/HPAanalyze’
-
-```
-### CRAN
-
-```
-* installing *source* package ‘HPAanalyze’ ...
-** R
-** data
-*** moving datasets to lazyload DB
-** inst
-** byte-compile and prepare package for lazy loading
-Error : .onLoad failed in loadNamespace() for 'rJava', details:
-  call: dyn.load(file, DLLpath = DLLpath, ...)
-  error: unable to load shared object '/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/HPAanalyze/rJava/libs/rJava.so':
-  dlopen(/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/HPAanalyze/rJava/libs/rJava.so, 6): Library not loaded: /Library/Java/JavaVirtualMachines/jdk-9.jdk/Contents/Home/lib/server/libjvm.dylib
-  Referenced from: /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/HPAanalyze/rJava/libs/rJava.so
-  Reason: image not found
-ERROR: lazy loading failed for package ‘HPAanalyze’
-* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/HPAanalyze/old/HPAanalyze.Rcheck/HPAanalyze’
-
-```
-# HTSSIP
-
-Version: 1.4.0
-
-## In both
-
-*   R CMD check timed out
-    
 
 *   checking dependencies in R code ... NOTE
     ```
@@ -3135,48 +838,42 @@ Version: 1.4.0
       All declared Imports should be used.
     ```
 
-# HURDAT
-
-Version: 0.2.0
-
-## In both
-
-*   checking package dependencies ... NOTE
-    ```
-    Package suggested but not available for checking: ‘devtools’
-    ```
-
-# hurricaneexposure
-
-Version: 0.0.1
-
-## In both
-
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘hurricaneexposure-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: default_map
-    > ### Title: Create a default map with eastern US states
-    > ### Aliases: default_map
-    > 
-    > ### ** Examples
-    > 
-    > default_map()
-    Error in loadNamespace(name) : there is no package called ‘mapproj’
-    Calls: <Anonymous> ... mapply -> <Anonymous> -> <Anonymous> -> f -> mproject
-    Execution halted
-    ```
-
-*   checking package dependencies ... NOTE
-    ```
-    Package suggested but not available for checking: ‘hurricaneexposuredata’
-    ```
-
 # ICD10gm
 
-Version: 1.0.3
+<details>
+
+* Version: 1.0.3
+* Source code: https://github.com/cran/ICD10gm
+* URL: https://github.com/edonnachie/ICD10gm, https://doi.org/10.5281/zenodo.2542833
+* BugReports: https://github.com/edonnachie/ICD10gm/issues
+* Date/Publication: 2019-02-12 17:30:07 UTC
+* Number of recursive dependencies: 48
+
+Run `revdep_details(,"ICD10gm")` for more info
+
+</details>
+
+## Newly broken
+
+*   checking tests ...
+    ```
+     ERROR
+    Running the tests in ‘tests/testthat.R’ failed.
+    Complete output:
+      > library(testthat)
+      > library(ICD10gm)
+      > 
+      > test_check("ICD10gm")
+      [31m──[39m [31m1. Failure: Expands down the hierarchy (@test-icd_expand.R#52) [39m [31m───────────────────────────────────[39m
+      `ICD10gm::icd_expand(...)` produced warnings.
+      
+      ══ testthat results  ═════════════════════════════════════════════════════════════════════════════════
+      OK: 43 SKIPPED: 0 WARNINGS: 10 FAILED: 1
+      1. Failure: Expands down the hierarchy (@test-icd_expand.R#52) 
+      
+      Error: testthat unit tests failed
+      Execution halted
+    ```
 
 ## In both
 
@@ -3192,593 +889,169 @@ Version: 1.0.3
       Note: found 252748 marked UTF-8 strings
     ```
 
-# iCNV
+# jstor
 
-Version: 1.2.1
+<details>
 
-## In both
+* Version: 0.3.6
+* Source code: https://github.com/cran/jstor
+* URL: https://github.com/ropensci/jstor, https://ropensci.github.io/jstor/
+* BugReports: https://github.com/ropensci/jstor/issues
+* Date/Publication: 2018-12-12 23:20:04 UTC
+* Number of recursive dependencies: 58
 
-*   checking whether package ‘iCNV’ can be installed ... ERROR
+Run `revdep_details(,"jstor")` for more info
+
+</details>
+
+## Newly broken
+
+*   checking examples ... ERROR
     ```
-    Installation failed.
-    See ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/iCNV/new/iCNV.Rcheck/00install.out’ for details.
+    Running examples in ‘jstor-Ex.R’ failed
+    The error most likely occurred in:
+    
+    > ### Name: jst_subset_ngrams
+    > ### Title: Define a subset of ngrams
+    > ### Aliases: jst_subset_ngrams
+    > 
+    > ### ** Examples
+    > 
+    > # create sample output
+    > tmp <- tempdir()
+    > jst_import_zip(jst_example("pseudo_dfr.zip"),
+    +                import_spec = jst_define_import(book = jst_get_book),
+    +                out_file = "test", out_path = tmp)
+    Processing files for [32mbook_chapter[39m with functions [34mjst_get_book[39m
+    Error: Can't slice a scalar
+    Execution halted
     ```
-
-## Installation
-
-### Devel
-
-```
-* installing *source* package ‘iCNV’ ...
-** R
-** data
-*** moving datasets to lazyload DB
-** inst
-** byte-compile and prepare package for lazy loading
-Error : package ‘BSgenome.Hsapiens.UCSC.hg19’ required by ‘CODEX’ could not be found
-ERROR: lazy loading failed for package ‘iCNV’
-* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/iCNV/new/iCNV.Rcheck/iCNV’
-
-```
-### CRAN
-
-```
-* installing *source* package ‘iCNV’ ...
-** R
-** data
-*** moving datasets to lazyload DB
-** inst
-** byte-compile and prepare package for lazy loading
-Error : package ‘BSgenome.Hsapiens.UCSC.hg19’ required by ‘CODEX’ could not be found
-ERROR: lazy loading failed for package ‘iCNV’
-* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/iCNV/old/iCNV.Rcheck/iCNV’
-
-```
-# idealstan
-
-Version: 0.7.1
-
-## In both
-
-*   checking installed package size ... NOTE
-    ```
-      installed size is  6.8Mb
-      sub-directories of 1Mb or more:
-        R      1.0Mb
-        libs   5.1Mb
-    ```
-
-*   checking for GNU extensions in Makefiles ... NOTE
-    ```
-    GNU make is a SystemRequirements.
-    ```
-
-# IHWpaper
-
-Version: 1.10.0
-
-## In both
 
 *   checking tests ...
     ```
      ERROR
     Running the tests in ‘tests/testthat.R’ failed.
     Last 13 lines of output:
-      [1] "LSL GBH"
-      [1] "TST GBH"
-      [1] "SBH"
-      [1] "Clfdr"
-      [1] "Greedy Indep. Filt."
-      [1] "IHW"
-      [1] "IHW-Bonferroni E3"
-      [1] "Bonferroni"
-      [1] "qvalue"
-      ══ testthat results  ════════════════════════════════════════════════════════════════════
-      OK: 1 SKIPPED: 0 FAILED: 1
-      1. Error: (unknown) (@test_analyze_datasets.R#6) 
+      17: `_fseq`(`_lhs`)
+      18: freduce(value, `_function_list`)
+      19: function_list[[i]](value)
+      20: tidyr::unnest(., fun_names)
+      21: unnest.data.frame(., fun_names) at /private/tmp/RtmpquPhal/R.INSTALL91f746b5a07/tidyr/R/nest.R:233
+      22: unchop(data, !!cols, keep_empty = keep_empty, ptype = ptype) at /private/tmp/RtmpquPhal/R.INSTALL91f746b5a07/tidyr/R/nest.R:255
+      23: vec_slice(data, rep(vec_seq_along(data), n)) at /private/tmp/RtmpquPhal/R.INSTALL91f746b5a07/tidyr/R/chop.R:88
+      
+      ══ testthat results  ═════════════════════════════════════════════════════════════════════════════════
+      OK: 246 SKIPPED: 4 WARNINGS: 18 FAILED: 2
+      1. Error: subsetting ngrams works (@test-ngram.R#32) 
+      2. Error: importing from zip works (@test-zip.R#29) 
       
       Error: testthat unit tests failed
       Execution halted
     ```
 
-*   checking package dependencies ... NOTE
-    ```
-    Package suggested but not available for checking: ‘airway’
-    ```
-
-*   checking for hidden files and directories ... NOTE
-    ```
-    Found the following hidden files and directories:
-      .travis.yml
-    These were most likely included in error. See section ‘Package
-    structure’ in the ‘Writing R Extensions’ manual.
-    ```
-
-*   checking installed package size ... NOTE
-    ```
-      installed size is 84.0Mb
-      sub-directories of 1Mb or more:
-        doc      12.4Mb
-        extdata  70.6Mb
-    ```
-
-*   checking R code for possible problems ... NOTE
-    ```
-    ...
-    sim_fun_eval: no visible binding for global variable ‘fdr_method’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/IHWpaper/new/IHWpaper.Rcheck/00_pkg_src/IHWpaper/R/benchmarking.R:61-63)
-    sim_fun_eval: no visible binding for global variable ‘fdr_pars’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/IHWpaper/new/IHWpaper.Rcheck/00_pkg_src/IHWpaper/R/benchmarking.R:61-63)
-    sim_fun_eval: no visible binding for global variable ‘FDP’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/IHWpaper/new/IHWpaper.Rcheck/00_pkg_src/IHWpaper/R/benchmarking.R:61-63)
-    sim_fun_eval: no visible binding for global variable ‘power’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/IHWpaper/new/IHWpaper.Rcheck/00_pkg_src/IHWpaper/R/benchmarking.R:61-63)
-    sim_fun_eval: no visible binding for global variable ‘rj_ratio’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/IHWpaper/new/IHWpaper.Rcheck/00_pkg_src/IHWpaper/R/benchmarking.R:61-63)
-    sim_fun_eval: no visible binding for global variable ‘FPR’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/IHWpaper/new/IHWpaper.Rcheck/00_pkg_src/IHWpaper/R/benchmarking.R:61-63)
-    sim_fun_eval: no visible global function definition for ‘sd’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/IHWpaper/new/IHWpaper.Rcheck/00_pkg_src/IHWpaper/R/benchmarking.R:61-63)
-    sim_fun_eval: no visible binding for global variable ‘FWER’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/IHWpaper/new/IHWpaper.Rcheck/00_pkg_src/IHWpaper/R/benchmarking.R:61-63)
-    Undefined global functions or variables:
-      FDP FDRreg FPR FWER fdr_method fdr_pars getFDR power rj_ratio sd
-    Consider adding
-      importFrom("stats", "power", "sd")
-    to your NAMESPACE file.
-    ```
-
-# INDperform
-
-Version: 0.2.0
-
-## In both
-
-*   checking installed package size ... NOTE
-    ```
-      installed size is  5.3Mb
-      sub-directories of 1Mb or more:
-        R      1.0Mb
-        data   3.1Mb
-        help   1.1Mb
-    ```
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespace in Imports field not imported from: ‘lazyeval’
-      All declared Imports should be used.
-    ```
-
-# IONiseR
-
-Version: 2.6.0
-
-## In both
-
-*   checking for hidden files and directories ... NOTE
-    ```
-    Found the following hidden files and directories:
-      .travis.yml
-    These were most likely included in error. See section ‘Package
-    structure’ in the ‘Writing R Extensions’ manual.
-    ```
-
-*   checking installed package size ... NOTE
-    ```
-      installed size is  5.7Mb
-      sub-directories of 1Mb or more:
-        doc       3.7Mb
-        extdata   1.5Mb
-    ```
-
-*   checking R code for possible problems ... NOTE
-    ```
-    ...
-      ‘idx’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/IONiseR/new/IONiseR.Rcheck/00_pkg_src/IONiseR/R/Methods-subsetting.R:19-21)
-    [,Fast5Summary-ANY-ANY-ANY: no visible binding for global variable
-      ‘component’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/IONiseR/new/IONiseR.Rcheck/00_pkg_src/IONiseR/R/Methods-subsetting.R:24-26)
-    [,Fast5Summary-ANY-ANY-ANY: no visible binding for global variable
-      ‘idx’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/IONiseR/new/IONiseR.Rcheck/00_pkg_src/IONiseR/R/Methods-subsetting.R:24-26)
-    show,Fast5Summary: no visible binding for global variable ‘full_2D’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/IONiseR/new/IONiseR.Rcheck/00_pkg_src/IONiseR/R/classes.R:70-71)
-    show,Fast5Summary: no visible binding for global variable ‘pass’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/IONiseR/new/IONiseR.Rcheck/00_pkg_src/IONiseR/R/classes.R:75)
-    show,Fast5Summary: no visible binding for global variable ‘pass’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/IONiseR/new/IONiseR.Rcheck/00_pkg_src/IONiseR/R/classes.R:77)
-    Undefined global functions or variables:
-      := AAAAA TTTTT accumulation baseCalledComplement baseCalledTemplate
-      bases_called category channel circleFun component duration error freq
-      full_2D group hour idx matrixCol matrixRow meanZValue mean_value
-      median_signal minute mux name nbases new_reads num_events oddEven
-      pass pentamer rbindlist readIDs seq_length start_time time_bin
-      time_group x y zvalue
-    ```
-
-# iotables
-
-Version: 0.4.2
-
-## In both
-
-*   checking data for non-ASCII characters ... NOTE
-    ```
-      Note: found 53206 marked UTF-8 strings
-    ```
-
-# ipumsr
-
-Version: 0.3.0
-
-## In both
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespace in Imports field not imported from: ‘R6’
-      All declared Imports should be used.
-    ```
-
-# isomiRs
-
-Version: 1.10.1
-
-## In both
-
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘isomiRs-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: mirna2targetscan
-    > ### Title: Find targets in targetscan database
-    > ### Aliases: mirna2targetscan
-    > 
-    > ### ** Examples
-    > 
-    > library(targetscan.Hs.eg.db)
-    Error in library(targetscan.Hs.eg.db) : 
-      there is no package called ‘targetscan.Hs.eg.db’
-    Execution halted
-    ```
-
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    ...
-    cranial nerve structural organization
-    hepatocyte growth factor receptor signaling pathway
-    regulation of neurotransmitter uptake
-    establishment of blood-brain barrier
-    regulation of cellular response to hypoxia
-    positive regulation of membrane depolarization
-    response to hexose
-    negative regulation of phosphorylation
-    response to monosaccharide
-    cell-cell adhesion via plasma-membrane adhesion molecules
-    Number of mirnas 20
-    Number of genes 20
-    Factors genescontrolday1day2day3day7day14
-    Factors mirnascontrolday1day2day3day7day14
-    Order genescontrolcontrolcontrolday1day1day1day2day2day2day3day3day3day7day7day7day14day14day14
-    Order mirnascontrolcontrolcontrolday1day1day1day2day2day2day3day3day3day7day7day7day14day14day14
-    Calculating correlation matrix
-    Quitting from lines 301-304 (isomiRs.Rmd) 
-    Error: processing vignette 'isomiRs.Rmd' failed with diagnostics:
-    there is no package called 'targetscan.Hs.eg.db'
-    Execution halted
-    ```
-
-*   checking package dependencies ... NOTE
-    ```
-    Packages suggested but not available for checking:
-      ‘org.Mm.eg.db’ ‘targetscan.Hs.eg.db’
-    ```
-
-*   checking for hidden files and directories ... NOTE
-    ```
-    Found the following hidden files and directories:
-      .travis.yml
-    These were most likely included in error. See section ‘Package
-    structure’ in the ‘Writing R Extensions’ manual.
-    ```
-
-*   checking R code for possible problems ... NOTE
-    ```
-    ...
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/isomiRs/new/isomiRs.Rcheck/00_pkg_src/isomiRs/R/targets.R:535)
-    mirna2targetscan: no visible binding for global variable
-      ‘targetscan.Hs.egTARGETSFULL’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/isomiRs/new/isomiRs.Rcheck/00_pkg_src/isomiRs/R/targets.R:536)
-    mirna2targetscan: no visible binding for global variable
-      ‘targetscan.Mm.egMIRNA’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/isomiRs/new/isomiRs.Rcheck/00_pkg_src/isomiRs/R/targets.R:538)
-    mirna2targetscan: no visible binding for global variable
-      ‘targetscan.Mm.egMIRBASE2FAMILY’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/isomiRs/new/isomiRs.Rcheck/00_pkg_src/isomiRs/R/targets.R:539)
-    mirna2targetscan: no visible binding for global variable
-      ‘targetscan.Mm.egTARGETS’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/isomiRs/new/isomiRs.Rcheck/00_pkg_src/isomiRs/R/targets.R:540)
-    mirna2targetscan: no visible binding for global variable
-      ‘targetscan.Mm.egTARGETSFULL’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/isomiRs/new/isomiRs.Rcheck/00_pkg_src/isomiRs/R/targets.R:541)
-    Undefined global functions or variables:
-      iso_sample targetscan.Hs.egMIRBASE2FAMILY targetscan.Hs.egMIRNA
-      targetscan.Hs.egTARGETS targetscan.Hs.egTARGETSFULL
-      targetscan.Mm.egMIRBASE2FAMILY targetscan.Mm.egMIRNA
-      targetscan.Mm.egTARGETS targetscan.Mm.egTARGETSFULL
-    ```
-
-# jpndistrict
-
-Version: 0.3.2
-
-## In both
-
-*   checking data for non-ASCII characters ... NOTE
-    ```
-      Note: found 502 marked UTF-8 strings
-    ```
-
-# konfound
-
-Version: 0.1.1
-
-## In both
-
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    Error in re-building vignettes:
-      ...
-    Quitting from lines 50-51 (introduction-to-konfound.Rmd) 
-    Error: processing vignette 'introduction-to-konfound.Rmd' failed with diagnostics:
-    there is no package called 'devtools'
-    Execution halted
-    ```
-
-*   checking package dependencies ... NOTE
-    ```
-    Package suggested but not available for checking: ‘devtools’
-    ```
-
-# LAGOSNE
-
-Version: 1.2.0
-
-## In both
-
-*   checking package dependencies ... NOTE
-    ```
-    Package suggested but not available for checking: ‘devtools’
-    ```
-
-# Lahman
-
-Version: 6.0-0
-
-## In both
-
-*   checking installed package size ... NOTE
-    ```
-      installed size is  7.6Mb
-      sub-directories of 1Mb or more:
-        data   7.4Mb
-    ```
-
-# linguisticsdown
-
-Version: 1.1.0
-
-## In both
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespace in Imports field not imported from: ‘tidyr’
-      All declared Imports should be used.
-    ```
-
-# mafs
-
-Version: 0.0.3
-
-## In both
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespaces in Imports field not imported from:
-      ‘Rcpp’ ‘cmprsk’ ‘colorspace’ ‘etm’ ‘fracdiff’ ‘gtable’ ‘munsell’
-      ‘numDeriv’ ‘plyr’ ‘quadprog’ ‘scales’ ‘timeDate’ ‘tseries’ ‘zoo’
-      All declared Imports should be used.
-    ```
-
-# malariaAtlas
-
-Version: 0.0.3
-
-## In both
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespace in Imports field not imported from: ‘grid’
-      All declared Imports should be used.
-    ```
-
-# MANOVA.RM
-
-Version: 0.3.1
-
-## In both
-
-*   checking package dependencies ... NOTE
-    ```
-    Package suggested but not available for checking: ‘RGtk2’
-    ```
-
-*   checking Rd cross-references ... NOTE
-    ```
-    Package unavailable to check Rd xrefs: ‘nparLD’
-    ```
-
-# mason
-
-Version: 0.2.6
-
-## In both
-
-*   checking Rd cross-references ... NOTE
-    ```
-    Packages unavailable to check Rd xrefs: ‘ggplot2’, ‘pander’, ‘pixiedust’
-    ```
-
-# matsbyname
-
-Version: 0.4.10
-
-## In both
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespace in Imports field not imported from: ‘dplyr’
-      All declared Imports should be used.
-    ```
-
-# memapp
-
-Version: 2.12
-
-## In both
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespaces in Imports field not imported from:
-      ‘DT’ ‘RColorBrewer’ ‘RODBC’ ‘dplyr’ ‘foreign’ ‘formattable’ ‘ggplot2’
-      ‘haven’ ‘mem’ ‘openxlsx’ ‘plotly’ ‘readxl’ ‘shinyBS’ ‘shinydashboard’
-      ‘shinydashboardPlus’ ‘shinyjs’ ‘shinythemes’ ‘stringi’ ‘stringr’
-      ‘tidyr’
-      All declared Imports should be used.
-    ```
-
-# MetaCyto
-
-Version: 1.4.1
-
-## In both
-
-*   checking R code for possible problems ... NOTE
-    ```
-    ...
-    collectData: no visible binding for global variable ‘value’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/MetaCyto/new/MetaCyto.Rcheck/00_pkg_src/MetaCyto/R/collectData.R:27)
-    panelSummary: no visible binding for global variable ‘antibodies’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/MetaCyto/new/MetaCyto.Rcheck/00_pkg_src/MetaCyto/R/panelSummary.R:34)
-    panelSummary: no visible binding for global variable ‘value’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/MetaCyto/new/MetaCyto.Rcheck/00_pkg_src/MetaCyto/R/panelSummary.R:34)
-    plotGA: no visible binding for global variable ‘lower’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/MetaCyto/new/MetaCyto.Rcheck/00_pkg_src/MetaCyto/R/plotGA.R:33-39)
-    plotGA: no visible binding for global variable ‘upper’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/MetaCyto/new/MetaCyto.Rcheck/00_pkg_src/MetaCyto/R/plotGA.R:33-39)
-    searchCluster : <anonymous>: no visible binding for global variable
-      ‘triS’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/MetaCyto/new/MetaCyto.Rcheck/00_pkg_src/MetaCyto/R/searchCluster.R:102)
-    searchCluster : <anonymous>: no visible binding for global variable
-      ‘triS’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/MetaCyto/new/MetaCyto.Rcheck/00_pkg_src/MetaCyto/R/searchCluster.R:103)
-    searchCluster : <anonymous>: no visible binding for global variable
-      ‘triS’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/MetaCyto/new/MetaCyto.Rcheck/00_pkg_src/MetaCyto/R/searchCluster.R:104)
-    Undefined global functions or variables:
-      antibodies lower parameter_name triS upper value
-    ```
-
-# MetamapsDB
-
-Version: 0.0.2
-
-## In both
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespaces in Imports field not imported from:
-      ‘Matrix’ ‘shiny’
-      All declared Imports should be used.
-    ```
-
-# missCompare
-
-Version: 1.0.1
-
-## In both
-
-*   checking package dependencies ... NOTE
-    ```
-    Package suggested but not available for checking: ‘devtools’
-    ```
-
-# miWQS
-
-Version: 0.0.9
-
-## In both
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespace in Imports field not imported from: ‘graphics’
-      All declared Imports should be used.
-    ```
-
-# mixOmics
-
-Version: 6.6.1
-
-## In both
-
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    Error in re-building vignettes:
-      ...
-    Loading required package: MASS
-    Loading required package: lattice
-    Loading required package: ggplot2
-    
-    Loaded mixOmics 6.6.1
-    
-    Thank you for using mixOmics! Learn how to apply our methods with our tutorials on www.mixOmics.org, vignette and bookdown on  https://github.com/mixOmicsTeam/mixOmics
-    Questions: email us at mixomics[at]math.univ-toulouse.fr  
-    Bugs, Issues? https://github.com/mixOmicsTeam/mixOmics/issues
-    Cite us:  citation('mixOmics')
-    Warning in shape.input.plotIndiv(object = object, n = n, blocks = blocks,  :
-      'ind.names' is set to FALSE as 'pch' overrides it
-    Quitting from lines 1317-1326 (vignette.Rmd) 
-    Error: processing vignette 'vignette.Rmd' failed with diagnostics:
-    could not find function "n"
-    Execution halted
-    ```
-
-*   checking installed package size ... NOTE
-    ```
-      installed size is 14.8Mb
-      sub-directories of 1Mb or more:
-        R      5.1Mb
-        data   3.0Mb
-        doc    6.2Mb
-    ```
-
-# mlbgameday
-
-Version: 0.1.4
-
-## In both
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespaces in Imports field not imported from:
-      ‘doParallel’ ‘iterators’ ‘parallel’
-      All declared Imports should be used.
+# kntnr
+
+<details>
+
+* Version: 0.4.1
+* Source code: https://github.com/cran/kntnr
+* URL: https://github.com/yutannihilation/kntnr
+* BugReports: https://github.com/yutannihilation/kntnr/issues
+* Date/Publication: 2017-08-23 07:09:38 UTC
+* Number of recursive dependencies: 39
+
+Run `revdep_details(,"kntnr")` for more info
+
+</details>
+
+## Newly broken
+
+*   checking tests ...
+    ```
+     ERROR
+    Running the tests in ‘tests/testthat.R’ failed.
+    Last 13 lines of output:
+      6: freduce(value, `_function_list`)
+      7: withVisible(function_list[[k]](value))
+      8: function_list[[k]](value)
+      9: kntn_unnest(.)
+      10: tidyr::unnest_(records, col, .drop = FALSE) at /Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/kntnr/new/kntnr.Rcheck/00_pkg_src/kntnr/R/kntn_unnest.R:35
+      11: .Defunct("unnest") at /private/tmp/RtmpquPhal/R.INSTALL91f746b5a07/tidyr/R/dep-lazyeval.R:311
+      12: stop(paste(msg, collapse = ""), call. = FALSE, domain = NA)
+      
+      ══ testthat results  ═════════════════════════════════════════════════════════════════════════════════
+      OK: 67 SKIPPED: 0 WARNINGS: 0 FAILED: 2
+      1. Error: unnesting records works (@test-parse-record.R#23) 
+      2. Error: unnesting terriblly-nested records works (@test-parse-record.R#42) 
+      
+      Error: testthat unit tests failed
+      Execution halted
     ```
 
 # modelr
 
-Version: 0.1.4
+<details>
+
+* Version: 0.1.4
+* Source code: https://github.com/cran/modelr
+* URL: https://modelr.tidyverse.org, https://github.com/tidyverse/modelr
+* BugReports: https://github.com/tidyverse/modelr/issues
+* Date/Publication: 2019-02-18 22:00:03 UTC
+* Number of recursive dependencies: 55
+
+Run `revdep_details(,"modelr")` for more info
+
+</details>
+
+## Newly broken
+
+*   checking examples ... ERROR
+    ```
+    ...
+         mpg
+       [3m[90m<dbl>[39m[23m
+    [90m 1[39m  10.4
+    [90m 2[39m  13.0
+    [90m 3[39m  15.6
+    [90m 4[39m  18.2
+    [90m 5[39m  20.8
+    [90m 6[39m  23.5
+    [90m 7[39m  26.1
+    [90m 8[39m  28.7
+    [90m 9[39m  31.3
+    [90m10[39m  33.9
+    > 
+    > # If you optionally supply a model, missing predictors will
+    > # be filled in with typical values
+    > mod <- lm(mpg ~ wt + cyl + vs, data = mtcars)
+    > data_grid(mtcars, .model = mod)
+    Error in `$<-.data.frame`(`*tmp*`, "decreasing", value = FALSE) : 
+      replacement has 1 row, data has 0
+    Calls: data_grid ... vec_sort -> vec_order -> order_proxy -> $<- -> $<-.data.frame
+    Execution halted
+    ```
+
+*   checking tests ...
+    ```
+     ERROR
+    Running the tests in ‘tests/testthat.R’ failed.
+    Last 13 lines of output:
+      5: vec_sort(vec_unique(x)) at /private/tmp/RtmpquPhal/R.INSTALL91f746b5a07/tidyr/R/expand.R:128
+      6: vec_order(x, direction = direction, na_value = na_value) at /private/tmp/RtmpOo2RHI/R.INSTALL8d285a08eb82/vctrs/R/compare.R:118
+      7: order_proxy(vec_proxy_compare(x), direction = direction, na_value = na_value) at /private/tmp/RtmpOo2RHI/R.INSTALL8d285a08eb82/vctrs/R/compare.R:107
+      8: `$<-`(`*tmp*`, "decreasing", value = FALSE) at /private/tmp/RtmpOo2RHI/R.INSTALL8d285a08eb82/vctrs/R/compare.R:131
+      9: `$<-.data.frame`(`*tmp*`, "decreasing", value = FALSE) at /private/tmp/RtmpOo2RHI/R.INSTALL8d285a08eb82/vctrs/R/compare.R:131
+      10: stop(sprintf(ngettext(N, "replacement has %d row, data has %d", "replacement has %d rows, data has %d"), 
+             N, nrows), domain = NA)
+      
+      ══ testthat results  ═════════════════════════════════════════════════════════════════════════════════
+      OK: 119 SKIPPED: 0 WARNINGS: 0 FAILED: 2
+      1. Error: can generate typical values (@test-data-grid.R#10) 
+      2. Error: data_grid() returns a tibble (@test-data-grid.R#18) 
+      
+      Error: testthat unit tests failed
+      Execution halted
+    ```
 
 ## In both
 
@@ -3787,874 +1060,251 @@ Version: 0.1.4
     Packages unavailable to check Rd xrefs: ‘lme4’, ‘rstanarm’
     ```
 
-# monkeylearn
+# mudata2
 
-Version: 0.2.0
+<details>
 
-## In both
+* Version: 1.0.6
+* Source code: https://github.com/cran/mudata2
+* URL: https://github.com/paleolimbot/mudata
+* BugReports: https://github.com/paleolimbot/mudata/issues
+* Date/Publication: 2019-03-16 17:30:09 UTC
+* Number of recursive dependencies: 82
 
-*   checking dependencies in R code ... NOTE
+Run `revdep_details(,"mudata2")` for more info
+
+</details>
+
+## Newly broken
+
+*   checking examples ... ERROR
     ```
-    Namespace in Imports field not imported from: ‘ratelimitr’
-      All declared Imports should be used.
+    ...
+    > # create mudata object using just the data table
+    > mudata(kg_data)
+    Guessing x columns: date
+    Warning: `cols` is now required.
+    Please use `cols = c(.data)`
+    Error: `c(.data)` must evaluate to column positions or names, not a list
+    Backtrace:
+    [90m     [39m█
+    [90m  1. [39m└─mudata2::mudata(kg_data)
+    [90m  2. [39m  └─`%>%`(...) [90m00_pkg_src/mudata2/R/mudata.R:149:4[39m
+    [90m  3. [39m    ├─base::withVisible(eval(quote(`_fseq`(`_lhs`)), env, env))
+    [90m  4. [39m    └─base::eval(quote(`_fseq`(`_lhs`)), env, env)
+    [90m  5. [39m      └─base::eval(quote(`_fseq`(`_lhs`)), env, env)
+    [90m  6. [39m        └─mudata2:::`_fseq`(`_lhs`)
+    [90m  7. [39m          └─magrittr::freduce(value, `_function_list`)
+    [90m  8. [39m            ├─base::withVisible(function_list[[k]](value))
+    [90m  9. [39m            └─function_list[[k]](value)
+    [90m 10. [39m              ├─mudata2:::generate_type_tbl(., default = "guess")
+    [90m 11. [39m              └─mudata2:::generate_type_tbl.mudata(., default = "guess") [90m00_pkg_src/mudata2/R/types.R:14:21[39m
+    [90m 12. [39m                └─tidyr::unnest(allcol
+    Execution halted
     ```
-
-# morse
-
-Version: 3.2.2
-
-## In both
-
-*   checking whether package ‘morse’ can be installed ... ERROR
-    ```
-    Installation failed.
-    See ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/morse/new/morse.Rcheck/00install.out’ for details.
-    ```
-
-## Installation
-
-### Devel
-
-```
-* installing *source* package ‘morse’ ...
-** package ‘morse’ successfully unpacked and MD5 sums checked
-** R
-** data
-*** moving datasets to lazyload DB
-** inst
-** byte-compile and prepare package for lazy loading
-Error : .onLoad failed in loadNamespace() for 'rjags', details:
-  call: dyn.load(file, DLLpath = DLLpath, ...)
-  error: unable to load shared object '/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/morse/rjags/libs/rjags.so':
-  dlopen(/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/morse/rjags/libs/rjags.so, 10): Library not loaded: /usr/local/lib/libjags.4.dylib
-  Referenced from: /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/morse/rjags/libs/rjags.so
-  Reason: image not found
-ERROR: lazy loading failed for package ‘morse’
-* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/morse/new/morse.Rcheck/morse’
-
-```
-### CRAN
-
-```
-* installing *source* package ‘morse’ ...
-** package ‘morse’ successfully unpacked and MD5 sums checked
-** R
-** data
-*** moving datasets to lazyload DB
-** inst
-** byte-compile and prepare package for lazy loading
-Error : .onLoad failed in loadNamespace() for 'rjags', details:
-  call: dyn.load(file, DLLpath = DLLpath, ...)
-  error: unable to load shared object '/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/morse/rjags/libs/rjags.so':
-  dlopen(/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/morse/rjags/libs/rjags.so, 10): Library not loaded: /usr/local/lib/libjags.4.dylib
-  Referenced from: /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/morse/rjags/libs/rjags.so
-  Reason: image not found
-ERROR: lazy loading failed for package ‘morse’
-* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/morse/old/morse.Rcheck/morse’
-
-```
-# mosaic
-
-Version: 1.5.0
-
-## In both
-
-*   checking package dependencies ... NOTE
-    ```
-    Package which this enhances but not available for checking: ‘manipulate’
-    ```
-
-*   checking installed package size ... NOTE
-    ```
-      installed size is  6.4Mb
-      sub-directories of 1Mb or more:
-        R     4.1Mb
-        doc   1.8Mb
-    ```
-
-*   checking Rd cross-references ... NOTE
-    ```
-    Package unavailable to check Rd xrefs: ‘cubature’
-    ```
-
-# mosaicData
-
-Version: 0.17.0
-
-## In both
-
-*   checking data for non-ASCII characters ... NOTE
-    ```
-      Note: found 7 marked UTF-8 strings
-    ```
-
-# mosaicModel
-
-Version: 0.3.0
-
-## In both
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespaces in Imports field not imported from:
-      ‘MASS’ ‘caret’ ‘ggformula’ ‘knitr’ ‘testthat’ ‘tidyverse’
-      All declared Imports should be used.
-    ```
-
-# MPTmultiverse
-
-Version: 0.1
-
-## In both
 
 *   checking tests ...
     ```
      ERROR
-    Running the tests in ‘tests/testthat.R’ failed.
+    Running the tests in ‘tests/test-all.R’ failed.
     Last 13 lines of output:
-      3: getExportedValue(pkg, name)
-      4: asNamespace(ns)
-      5: getNamespace(ns)
-      6: tryCatch(loadNamespace(name), error = function(e) stop(e))
-      7: tryCatchList(expr, classes, parentenv, handlers)
-      8: tryCatchOne(expr, names, parentenv, handlers[[1L]])
-      9: value[[3L]](cond)
-      
-      ══ testthat results  ════════════════════════════════════════════════════════════════════
-      OK: 0 SKIPPED: 3 FAILED: 2
-      1. Error: No-pooling approaches work (@test-mptinr.R#23) 
-      2. Error: Complete-pooling approaches work (@test-mptinr.R#164) 
+      ══ testthat results  ═════════════════════════════════════════════════════════════════════════════════
+      OK: 453 SKIPPED: 0 WARNINGS: 26 FAILED: 23
+      1. Error: mudata constructor creates a mudata object (@test_mudata.R#10) 
+      2. Error: default dataset/location actually changes the default dataset/location name (@test_mudata.R#15) 
+      3. Error: x_columns are correctly assigned/identified (@test_mudata.R#30) 
+      4. Error: passing invalid inputs throws an error (@test_mudata.R#79) 
+      5. Failure: dataset/location/param types of incorrect type are detected (@test_mudata.R#123) 
+      6. Failure: dataset/location/param types of incorrect type are detected (@test_mudata.R#127) 
+      7. Failure: dataset/location/param types of incorrect type are detected (@test_mudata.R#131) 
+      8. Error: duplicate data is detected (@test_mudata.R#143) 
+      9. Error: printing of a mudata actually prints things (@test_mudata.R#178) 
+      1. ...
       
       Error: testthat unit tests failed
       Execution halted
     ```
 
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    Error in re-building vignettes:
-      ...
-    Quitting from lines 57-80 (introduction-bayen_kuhlmann_2011.rmd) 
-    Error: processing vignette 'introduction-bayen_kuhlmann_2011.rmd' failed with diagnostics:
-    .onLoad failed in loadNamespace() for 'rjags', details:
-      call: dyn.load(file, DLLpath = DLLpath, ...)
-      error: unable to load shared object '/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/MPTmultiverse/rjags/libs/rjags.so':
-      dlopen(/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/MPTmultiverse/rjags/libs/rjags.so, 10): Library not loaded: /usr/local/lib/libjags.4.dylib
-      Referenced from: /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/MPTmultiverse/rjags/libs/rjags.so
-      Reason: image not found
-    Execution halted
-    ```
+# pammtools
 
-# MSstats
+<details>
 
-Version: 3.14.1
+* Version: 0.1.11
+* Source code: https://github.com/cran/pammtools
+* URL: https://github.com/adibender/pammtools
+* BugReports: https://github.com/adibender/pammtools/issues
+* Date/Publication: 2019-04-18 08:30:03 UTC
+* Number of recursive dependencies: 100
 
-## In both
+Run `revdep_details(,"pammtools")` for more info
 
-*   checking R code for possible problems ... NOTE
-    ```
-    ...
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/MSstats/new/MSstats.Rcheck/00_pkg_src/MSstats/R/plot_quantlim.R:194-197)
-    plot_quantlim: no visible binding for global variable ‘ymax’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/MSstats/new/MSstats.Rcheck/00_pkg_src/MSstats/R/plot_quantlim.R:194-197)
-    plot_quantlim: no visible binding for global variable ‘x’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/MSstats/new/MSstats.Rcheck/00_pkg_src/MSstats/R/plot_quantlim.R:218-221)
-    plot_quantlim: no visible binding for global variable ‘y’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/MSstats/new/MSstats.Rcheck/00_pkg_src/MSstats/R/plot_quantlim.R:218-221)
-    plot_quantlim: no visible binding for global variable ‘shape’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/MSstats/new/MSstats.Rcheck/00_pkg_src/MSstats/R/plot_quantlim.R:218-221)
-    plot_quantlim: no visible binding for global variable ‘x’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/MSstats/new/MSstats.Rcheck/00_pkg_src/MSstats/R/plot_quantlim.R:223-226)
-    plot_quantlim: no visible binding for global variable ‘y’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/MSstats/new/MSstats.Rcheck/00_pkg_src/MSstats/R/plot_quantlim.R:223-226)
-    plot_quantlim: no visible binding for global variable ‘shape’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/MSstats/new/MSstats.Rcheck/00_pkg_src/MSstats/R/plot_quantlim.R:223-226)
-    Undefined global functions or variables:
-      ABUNDANCE FEATURE FRACTION Intensity LABEL Mean Name PeptideSequence
-      Protein ProteinName Protein_number RUN Selected_fragments
-      Selected_peptides Train_size aggr_Fragment_Annotation aggr_Peak_Area
-      analysis ciw datafeature fea label logFC missing.col ncount ount
-      residual shape weight x y ymax ymin
-    ```
+</details>
 
-# MSstatsTMT
-
-Version: 1.0.1
-
-## In both
+## Newly broken
 
 *   checking tests ...
     ```
      ERROR
     Running the tests in ‘tests/testthat.R’ failed.
     Last 13 lines of output:
-        |==========================================                            |  60%
-        |                                                                            
-        |=================================================                     |  70%
-        |                                                                            
-        |========================================================              |  80%
-        |                                                                            
-        |===============================================================       |  90%
-        |                                                                            
-        |======================================================================| 100%
-      ══ testthat results  ════════════════════════════════════════════════════════════════════
-      OK: 32 SKIPPED: 0 FAILED: 1
-      1. Failure: groupComparision works (@test-groupComparisionTMT.R#6) 
+      6: vec_fill_fun(.direction) at /private/tmp/RtmpquPhal/R.INSTALL91f746b5a07/tidyr/R/fill.R:30
+      7: match.arg(.direction) at /private/tmp/RtmpquPhal/R.INSTALL91f746b5a07/tidyr/R/fill.R:35
+      8: stop("'arg' must be of length 1")
+      
+      ══ testthat results  ═════════════════════════════════════════════════════════════════════════════════
+      OK: 262 SKIPPED: 0 WARNINGS: 8 FAILED: 6
+      1. Error: Trafo works for list objects (with TDCs) (@test-as-ped.R#38) 
+      2. Error: Formula special 'concurrent' works as expected (@test-specials.R#36) 
+      3. Error: Covariate to matrix Transformation works (@test-specials.R#49) 
+      4. Error: Concurrent TDC are transformed correctly (@test-tdc-transform.R#18) 
+      5. Error: split_tdc works correctly (@test-tdc-transform.R#113) 
+      6. Error: ped class is preserved after tidyr operations (@test-tidyverse-S3methods.R#39) 
       
       Error: testthat unit tests failed
       Execution halted
     ```
 
-# MultiAssayExperiment
+# partition
 
-Version: 1.8.3
+<details>
 
-## In both
+* Version: 0.1.0
+* Source code: https://github.com/cran/partition
+* URL: https://uscbiostats.github.io/partition/, https://github.com/USCbiostats/partition
+* BugReports: https://github.com/USCbiostats/partition/issues
+* Date/Publication: 2019-05-17 07:00:04 UTC
+* Number of recursive dependencies: 71
 
-*   checking dependencies in R code ... NOTE
-    ```
-    Unexported objects imported by ':::' calls:
-      ‘BiocGenerics:::replaceSlots’ ‘S4Vectors:::selectSome’
-      See the note in ?`:::` about the use of this operator.
-    ```
+Run `revdep_details(,"partition")` for more info
 
-# multicolor
+</details>
 
-Version: 0.1.1
-
-## In both
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespace in Imports field not imported from: ‘cowsay’
-      All declared Imports should be used.
-    ```
-
-# multistateutils
-
-Version: 1.2.2
-
-## In both
+## Newly broken
 
 *   checking examples ... ERROR
     ```
     ...
-    +                data=ebmt3,
-    +                trans=tmat,
-    +                keep=c('age', 'dissub'))
-    > 
-    > # Fit parametric models
-    > models <- lapply(1:3, function(i) {
-    +     flexsurvreg(Surv(time, status) ~ age + dissub, data=long, dist='weibull')
-    + })
-    > 
-    > sim <- cohort_simulation(models, ebmt3, tmat)
-    
-     *** caught illegal operation ***
-    address 0x10b29fb50, cause 'illegal opcode'
-    
-    Traceback:
-     1: desCpp(transitions, trans_mat, newdata_mat, start_times, start_states -     1, tcovs)
-     2: data.table::as.data.table(desCpp(transitions, trans_mat, newdata_mat,     start_times, start_states - 1, tcovs))
-     3: run_sim(transition_list, attr_mat, trans_mat, tcovs, start_times,     start_states)
-     4: state_occupancy(models, trans_mat, newdata, tcovs, start_time,     start_state, ci, M, agelimit, agecol, agescale)
-     5: cohort_simulation(models, ebmt3, tmat)
-    An irrecoverable exception occurred. R is aborting now ...
-    ```
-
-*   checking tests ...
-    ```
-     ERROR
-    Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-      26: tryCatchList(expr, classes, parentenv, handlers)
-      27: tryCatch(withCallingHandlers({    eval(code, test_env)    if (!handled && !is.null(test)) {        skip_empty()    }}, expectation = handle_expectation, skip = handle_skip, warning = handle_warning,     message = handle_message, error = handle_error), error = handle_fatal,     skip = function(e) {    })
-      28: test_code(NULL, exprs, env)
-      29: source_file(path, new.env(parent = env), chdir = TRUE, wrap = wrap)
-      30: force(code)
-      31: with_reporter(reporter = reporter, start_end_reporter = start_end_reporter,     {        lister$start_file(basename(path))        source_file(path, new.env(parent = env), chdir = TRUE,             wrap = wrap)        end_context()    })
-      32: FUN(X[[i]], ...)
-      33: lapply(paths, test_file, env = env, reporter = current_reporter,     start_end_reporter = FALSE, load_helpers = FALSE, wrap = wrap)
-      34: force(code)
-      35: with_reporter(reporter = current_reporter, results <- lapply(paths,     test_file, env = env, reporter = current_reporter, start_end_reporter = FALSE,     load_helpers = FALSE, wrap = wrap))
-      36: test_files(paths, reporter = reporter, env = env, stop_on_failure = stop_on_failure,     stop_on_warning = stop_on_warning, wrap = wrap)
-      37: test_dir(path = test_path, reporter = reporter, env = env, filter = filter,     ..., stop_on_failure = stop_on_failure, stop_on_warning = stop_on_warning,     wrap = wrap)
-      38: test_package_dir(package = package, test_path = test_path, filter = filter,     reporter = reporter, ..., stop_on_failure = stop_on_failure,     stop_on_warning = stop_on_warning, wrap = wrap)
-      39: test_check("multistateutils")
-      An irrecoverable exception occurred. R is aborting now ...
-    ```
-
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    ...
-    11: timing_fn(handle(ev <- withCallingHandlers(withVisible(eval(expr,     envir, enclos)), warning = wHandler, error = eHandler, message = mHandler)))
-    12: evaluate_call(expr, parsed$src[[i]], envir = envir, enclos = enclos,     debug = debug, last = i == length(out), use_try = stop_on_error !=         2L, keep_warning = keep_warning, keep_message = keep_message,     output_handler = output_handler, include_timing = include_timing)
-    13: evaluate::evaluate(...)
-    14: evaluate(code, envir = env, new_device = FALSE, keep_warning = !isFALSE(options$warning),     keep_message = !isFALSE(options$message), stop_on_error = if (options$error &&         options$include) 0L else 2L, output_handler = knit_handlers(options$render,         options))
-    15: in_dir(input_dir(), evaluate(code, envir = env, new_device = FALSE,     keep_warning = !isFALSE(options$warning), keep_message = !isFALSE(options$message),     stop_on_error = if (options$error && options$include) 0L else 2L,     output_handler = knit_handlers(options$render, options)))
-    16: block_exec(params)
-    17: call_block(x)
-    18: process_group.block(group)
-    19: process_group(group)
-    20: withCallingHandlers(if (tangle) process_tangle(group) else process_group(group),     error = function(e) {        setwd(wd)        cat(res, sep = "\n", file = output %n% "")        message("Quitting from lines ", paste(current_lines(i),             collapse = "-"), " (", knit_concord$get("infile"),             ") ")    })
-    21: process_file(text, output)
-    22: knitr::knit(knit_input, knit_output, envir = envir, quiet = quiet,     encoding = encoding)
-    23: rmarkdown::render(file, encoding = encoding, quiet = quiet, envir = globalenv(),     ...)
-    24: vweave_rmarkdown(...)
-    25: engine$weave(file, quiet = quiet, encoding = enc)
-    26: doTryCatch(return(expr), name, parentenv, handler)
-    27: tryCatchOne(expr, names, parentenv, handlers[[1L]])
-    28: tryCatchList(expr, classes, parentenv, handlers)
-    29: tryCatch({    engine$weave(file, quiet = quiet, encoding = enc)    setwd(startdir)    find_vignette_product(name, by = "weave", engine = engine)}, error = function(e) {    stop(gettextf("processing vignette '%s' failed with diagnostics:\n%s",         file, conditionMessage(e)), domain = NA, call. = FALSE)})
-    30: buildVignettes(dir = "/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/multistateutils/new/multistateutils.Rcheck/vign_test/multistateutils")
-    An irrecoverable exception occurred. R is aborting now ...
-    ```
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespace in Imports field not imported from: ‘webshot’
-      All declared Imports should be used.
-    ```
-
-# nandb
-
-Version: 2.0.0
-
-## In both
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespaces in Imports field not imported from:
-      ‘MASS’ ‘stats’
-      All declared Imports should be used.
-    ```
-
-# ncappc
-
-Version: 0.3.0
-
-## In both
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespace in Imports field not imported from: ‘bookdown’
-      All declared Imports should be used.
-    ```
-
-# ndexr
-
-Version: 1.4.1
-
-## In both
-
-*   checking DESCRIPTION meta-information ... NOTE
-    ```
-    Deprecated license: BSD
-    ```
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Package in Depends field not imported from: ‘igraph’
-      These packages need to be imported from (in the NAMESPACE file)
-      for when this namespace is loaded but not attached.
-    Unexported object imported by a ':::' call: ‘httr:::default_ua’
-      See the note in ?`:::` about the use of this operator.
-    ```
-
-*   checking R code for possible problems ... NOTE
-    ```
-    ...
-    rcx_toRCXgraph: no visible global function definition for ‘E’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/ndexr/new/ndexr.Rcheck/00_pkg_src/ndexr/R/ndex_RCXgraph.r:117)
-    rcx_toRCXgraph: no visible global function definition for ‘E<-’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/ndexr/new/ndexr.Rcheck/00_pkg_src/ndexr/R/ndex_RCXgraph.r:117)
-    rcxgraph_fromRCX: no visible global function definition for ‘V’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/ndexr/new/ndexr.Rcheck/00_pkg_src/ndexr/R/ndex_RCXgraph.r:116)
-    rcxgraph_fromRCX: no visible global function definition for ‘V<-’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/ndexr/new/ndexr.Rcheck/00_pkg_src/ndexr/R/ndex_RCXgraph.r:116)
-    rcxgraph_fromRCX: no visible global function definition for ‘E’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/ndexr/new/ndexr.Rcheck/00_pkg_src/ndexr/R/ndex_RCXgraph.r:117)
-    rcxgraph_fromRCX: no visible global function definition for ‘E<-’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/ndexr/new/ndexr.Rcheck/00_pkg_src/ndexr/R/ndex_RCXgraph.r:117)
-    rcxgraph_toRCX: no visible binding for global variable ‘po’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/ndexr/new/ndexr.Rcheck/00_pkg_src/ndexr/R/ndex_RCXgraph.r:268)
-    rcxgraph_toRCX: no visible binding for global variable ‘po’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/ndexr/new/ndexr.Rcheck/00_pkg_src/ndexr/R/ndex_RCXgraph.r:294)
-    Undefined global functions or variables:
-      E E<- V V<- packageVersion po tail
-    Consider adding
-      importFrom("utils", "packageVersion", "tail")
-    to your NAMESPACE file.
-    ```
-
-# neo4r
-
-Version: 0.1.1
-
-## In both
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespaces in Imports field not imported from:
-      ‘igraph’ ‘rlang’ ‘tidyselect’
-      All declared Imports should be used.
-    ```
-
-# neonUtilities
-
-Version: 1.2.0
-
-## In both
-
-*   checking examples ... ERROR
-    ```
-    ...
-    > ### Name: getDatatable
-    > ### Title: Get NEON data table
-    > ### Aliases: getDatatable
-    > 
-    > ### ** Examples
-    > 
-    > sls_soilCoreCollection <- getDatatable(
-    +   sample_location_list = c('CPER','TALL'),
-    +   sample_date_min = '2014-01-01',
-    +   sample_date_max = '2014-06-01',
-    +   dpid = "DP1.10086.001",
-    +   data_table_name = 'sls_soilCoreCollection')
-    Loading required namespace: dplyr
-    Note: method with signature ‘Timespan#Timespan’ chosen for function ‘%/%’,
-     target signature ‘Interval#Period’.
-     "Interval#ANY", "ANY#Period" would also be valid
-    Warning: Expected 3 pieces. Additional pieces discarded in 534 rows [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, ...].
-    Error in mapply(FUN = fn_get_available_data, data_table_name = data_table_name,  : 
-      zero-length inputs cannot be mixed with those of non-zero length
-    Calls: getDatatable -> mapply
-    Execution halted
-    ```
-
-# NetworkChange
-
-Version: 0.4
-
-## In both
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespace in Imports field not imported from: ‘plyr’
-      All declared Imports should be used.
-    ```
-
-# neuropsychology
-
-Version: 0.5.0
-
-## In both
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespaces in Imports field not imported from:
-      ‘htmlTable’ ‘lme4’ ‘stringi’
-      All declared Imports should be used.
-    ```
-
-# NFP
-
-Version: 0.99.2
-
-## In both
-
-*   checking package dependencies ... NOTE
-    ```
-    Package suggested but not available for checking: ‘NFPdata’
-    ```
-
-*   checking installed package size ... NOTE
-    ```
-      installed size is  8.6Mb
-      sub-directories of 1Mb or more:
-        data   8.0Mb
-    ```
-
-# nlmixr
-
-Version: 1.0.0-7
-
-## In both
-
-*   checking whether the package can be loaded ... ERROR
-    ```
-    Loading this package had a fatal error status code 1
-    Loading log:
-    Error: package or namespace load failed for ‘nlmixr’ in dyn.load(file, DLLpath = DLLpath, ...):
-     unable to load shared object '/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/nlmixr/new/nlmixr.Rcheck/nlmixr/libs/nlmixr.so':
-      dlopen(/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/nlmixr/new/nlmixr.Rcheck/nlmixr/libs/nlmixr.so, 6): Symbol not found: _wrapper_ddot_
-      Referenced from: /Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/nlmixr/new/nlmixr.Rcheck/nlmixr/libs/nlmixr.so
-      Expected in: flat namespace
-     in /Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/nlmixr/new/nlmixr.Rcheck/nlmixr/libs/nlmixr.so
-    Execution halted
-    ```
-
-*   checking package dependencies ... NOTE
-    ```
-    Package suggested but not available for checking: ‘devtools’
-    ```
-
-*   checking installed package size ... NOTE
-    ```
-      installed size is  5.3Mb
-      sub-directories of 1Mb or more:
-        R      3.1Mb
-        libs   1.0Mb
-    ```
-
-# noaastormevents
-
-Version: 0.1.0
-
-## In both
-
-*   checking package dependencies ... NOTE
-    ```
-    Package suggested but not available for checking: ‘hurricaneexposuredata’
-    ```
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespaces in Imports field not imported from:
-      ‘RColorBrewer’ ‘XML’ ‘choroplethr’ ‘choroplethrMaps’ ‘data.table’
-      ‘forcats’ ‘hurricaneexposure’ ‘plyr’
-      All declared Imports should be used.
-    ```
-
-# NOAAWeather
-
-Version: 0.1.0
-
-## In both
-
-*   checking installed package size ... NOTE
-    ```
-      installed size is  5.6Mb
-      sub-directories of 1Mb or more:
-        data   5.1Mb
-    ```
-
-# nullabor
-
-Version: 0.3.5
-
-## In both
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespaces in Imports field not imported from:
-      ‘forecast’ ‘rlang’ ‘tidyverse’ ‘tsibble’
-      All declared Imports should be used.
-    ```
-
-# nzelect
-
-Version: 0.4.0
-
-## In both
-
-*   checking installed package size ... NOTE
-    ```
-      installed size is  5.4Mb
-      sub-directories of 1Mb or more:
-        data   5.0Mb
-    ```
-
-*   checking data for non-ASCII characters ... NOTE
-    ```
-      Note: found 6409 marked UTF-8 strings
-    ```
-
-# OMICsPCA
-
-Version: 1.0.1
-
-## In both
-
-*   checking package dependencies ... ERROR
-    ```
-    Package required but not available: ‘OMICsPCAdata’
-    
-    See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-    manual.
-    ```
-
-# openair
-
-Version: 2.6-1
-
-## In both
-
-*   checking installed package size ... NOTE
-    ```
-      installed size is  6.0Mb
-      sub-directories of 1Mb or more:
-        R   4.0Mb
-    ```
-
-# parsemsf
-
-Version: 0.1.1
-
-## In both
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespace in Imports field not imported from: ‘dbplyr’
-      All declared Imports should be used.
-    ```
-
-# PathoStat
-
-Version: 1.8.4
-
-## In both
-
-*   checking package dependencies ... ERROR
-    ```
-    Package required but not available: ‘devtools’
-    
-    See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-    manual.
-    ```
-
-# pcaExplorer
-
-Version: 2.8.1
-
-## In both
-
-*   checking package dependencies ... ERROR
-    ```
-    Package required but not available: ‘GO.db’
-    
-    Packages suggested but not available for checking: ‘airway’ ‘org.Hs.eg.db’
-    
-    See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-    manual.
-    ```
-
-# pcr
-
-Version: 1.1.2
-
-## In both
-
-*   checking package dependencies ... ERROR
-    ```
-    Package required but not available: ‘devtools’
-    
-    See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-    manual.
-    ```
-
-# performanceEstimation
-
-Version: 1.1.0
-
-## In both
-
-*   checking package dependencies ... NOTE
-    ```
-    Package suggested but not available for checking: ‘devtools’
-    ```
-
-# permutes
-
-Version: 0.1
-
-## In both
-
-*   checking installed package size ... NOTE
-    ```
-      installed size is  5.7Mb
-      sub-directories of 1Mb or more:
-        data   5.1Mb
-    ```
-
-# perturbatr
-
-Version: 1.2.1
-
-## In both
-
-*   R CMD check timed out
-    
-
-*   checking installed package size ... NOTE
-    ```
-      installed size is  5.2Mb
-      sub-directories of 1Mb or more:
-        data   3.1Mb
-    ```
-
-# phenofit
-
-Version: 0.2.0
-
-## In both
-
-*   checking whether package ‘phenofit’ can be installed ... ERROR
-    ```
-    Installation failed.
-    See ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/phenofit/new/phenofit.Rcheck/00install.out’ for details.
-    ```
-
-## Installation
-
-### Devel
-
-```
-* installing *source* package ‘phenofit’ ...
-** package ‘phenofit’ successfully unpacked and MD5 sums checked
-** libs
-clang++ -std=gnu++11 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/phenofit/Rcpp/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/phenofit/RcppArmadillo/include" -I/usr/local/include  -fopenmp  -fPIC  -Wall -g -O2 -c RcppExports.cpp -o RcppExports.o
-clang: error: unsupported option '-fopenmp'
-make: *** [RcppExports.o] Error 1
-ERROR: compilation failed for package ‘phenofit’
-* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/phenofit/new/phenofit.Rcheck/phenofit’
-
-```
-### CRAN
-
-```
-* installing *source* package ‘phenofit’ ...
-** package ‘phenofit’ successfully unpacked and MD5 sums checked
-** libs
-clang++ -std=gnu++11 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/phenofit/Rcpp/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/phenofit/RcppArmadillo/include" -I/usr/local/include  -fopenmp  -fPIC  -Wall -g -O2 -c RcppExports.cpp -o RcppExports.o
-clang: error: unsupported option '-fopenmp'
-make: *** [RcppExports.o] Error 1
-ERROR: compilation failed for package ‘phenofit’
-* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/phenofit/old/phenofit.Rcheck/phenofit’
-
-```
-# phenopath
-
-Version: 1.6.0
-
-## In both
-
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    Error in re-building vignettes:
-      ...
-    Quitting from lines 64-72 (introduction_to_phenopath.Rmd) 
-    Error: processing vignette 'introduction_to_phenopath.Rmd' failed with diagnostics:
-    Columns 1, 2, 3, 4, 5, … (and 3 more) must be named.
+    Please use `cols = c(mapping, indices)`
+    Warning: `cols` is now required.
+    Please use `cols = c(permutation)`
+    Error: Column name `target_info` must not be duplicated.
     Use .name_repair to specify repair.
+    Backtrace:
+    [90m     [39m█
+    [90m  1. [39m└─`%>%`(...)
+    [90m  2. [39m  ├─base::withVisible(eval(quote(`_fseq`(`_lhs`)), env, env))
+    [90m  3. [39m  └─base::eval(quote(`_fseq`(`_lhs`)), env, env)
+    [90m  4. [39m    └─base::eval(quote(`_fseq`(`_lhs`)), env, env)
+    [90m  5. [39m      └─global::`_fseq`(`_lhs`)
+    [90m  6. [39m        └─magrittr::freduce(value, `_function_list`)
+    [90m  7. [39m          ├─base::withVisible(function_list[[k]](value))
+    [90m  8. [39m          └─function_list[[k]](value)
+    [90m  9. [39m            └─partition::plot_permutation(., "nclusters")
+    [90m 10. [39m              └─`%>%`(...) [90m00_pkg_src/partition/R/plot.R:334:2[39m
+    [90m 11. [39m                ├─base::withVisible(eval(quote(`_fseq`(`_lhs`)), env, env))
+    [90m 12. [39m                └─base::eval(quote(`_fseq`(`_lhs`)), env, env)
+    [90m 13. [39m        
     Execution halted
     ```
 
-# philr
-
-Version: 1.8.1
-
-## In both
-
-*   checking R code for possible problems ... NOTE
+*   checking tests ...
     ```
-    name.balance: no visible global function definition for ‘as’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/philr/new/philr.Rcheck/00_pkg_src/philr/R/name_balances.R:57)
-    vote.annotation: no visible global function definition for ‘is’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/philr/new/philr.Rcheck/00_pkg_src/philr/R/name_balances.R:127-131)
-    Undefined global functions or variables:
-      as is
-    Consider adding
-      importFrom("methods", "as", "is")
-    to your NAMESPACE file (and ensure that your DESCRIPTION Imports field
-    contains 'methods').
-    ```
-
-*   checking Rd cross-references ... NOTE
-    ```
-    Package unavailable to check Rd xrefs: ‘compositions’
+     ERROR
+    Running the tests in ‘tests/testthat.R’ failed.
+    Last 13 lines of output:
+      16: set_repaired_names(x, .name_repair)
+      17: set_names(x, repaired_names(names(x), .name_repair = .name_repair))
+      18: set_names_impl(x, x, nm, ...) at /private/tmp/RtmpY9b5QA/R.INSTALL8c9f1ab63242/rlang/R/attr.R:163
+      19: is_function(nm) at /private/tmp/RtmpY9b5QA/R.INSTALL8c9f1ab63242/rlang/R/attr.R:170
+      20: is_closure(x) at /private/tmp/RtmpY9b5QA/R.INSTALL8c9f1ab63242/rlang/R/fn.R:275
+      21: repaired_names(names(x), .name_repair = .name_repair)
+      22: check_unique(new_name)
+      23: abort(error_column_names_must_be_unique(name[dups]))
+      
+      ══ testthat results  ═════════════════════════════════════════════════════════════════════════════════
+      OK: 151 SKIPPED: 0 WARNINGS: 47 FAILED: 1
+      1. Error: plots are plotting (@test-plots-are-plotting.R#6) 
+      
+      Error: testthat unit tests failed
+      Execution halted
     ```
 
-# Pi
+# PHEindicatormethods
 
-Version: 1.10.0
+<details>
 
-## In both
+* Version: 1.1.3
+* Source code: https://github.com/cran/PHEindicatormethods
+* BugReports: https://github.com/PublicHealthEngland/PHEindicatormethods/issues
+* Date/Publication: 2019-05-15 13:30:03 UTC
+* Number of recursive dependencies: 53
 
-*   checking package dependencies ... ERROR
+Run `revdep_details(,"PHEindicatormethods")` for more info
+
+</details>
+
+## Newly broken
+
+*   checking tests ...
     ```
-    Package required but not available: ‘XGR’
-    
-    See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-    manual.
-    ```
-
-# pivot
-
-Version: 18.4.17
-
-## In both
-
-*   checking package dependencies ... NOTE
-    ```
-    Package which this enhances but not available for checking: ‘odbc’
-    ```
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespaces in Imports field not imported from:
-      ‘colorspace’ ‘lubridate’
-      All declared Imports should be used.
-    ```
-
-# pixiedust
-
-Version: 0.8.6
-
-## In both
-
-*   checking Rd cross-references ... NOTE
-    ```
-    Package unavailable to check Rd xrefs: ‘Hmisc’
-    ```
-
-# plotGrouper
-
-Version: 1.0.1
-
-## In both
-
-*   checking R code for possible problems ... NOTE
-    ```
-    gplot: no visible binding for global variable ‘max_value’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/plotGrouper/new/plotGrouper.Rcheck/00_pkg_src/plotGrouper/R/gplot.R:360-395)
-    gplot: no visible binding for global variable ‘max_error’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/plotGrouper/new/plotGrouper.Rcheck/00_pkg_src/plotGrouper/R/gplot.R:360-395)
-    Undefined global functions or variables:
-      max_error max_value
-    ```
-
-# plotly
-
-Version: 4.8.0
-
-## In both
-
-*   checking package dependencies ... NOTE
-    ```
-    Package suggested but not available for checking: ‘devtools’
-    ```
-
-*   checking installed package size ... NOTE
-    ```
-      installed size is  7.0Mb
-      sub-directories of 1Mb or more:
-        R             2.3Mb
-        htmlwidgets   3.1Mb
+     ERROR
+    Running the tests in ‘tests/testthat.R’ failed.
+    Last 13 lines of output:
+      12: tidyselect::vars_select(names(data), !!enquo(cols)) at /private/tmp/RtmpquPhal/R.INSTALL91f746b5a07/tidyr/R/nest.R:250
+      13: vars_select_eval(.vars, quos)
+      14: map_if(ind_list, is_helper, eval_tidy)
+      15: map(.x[sel], .f, ...)
+      16: .f(.x[[i]], ...)
+      17: model %>% purrr::map(broom::tidy) at /private/tmp/RtmpY9b5QA/R.INSTALL8c9f1ab63242/rlang/R/eval-tidy.R:153
+      18: eval(lhs, parent, parent)
+      19: eval(lhs, parent, parent)
+      
+      ══ testthat results  ═════════════════════════════════════════════════════════════════════════════════
+      OK: 193 SKIPPED: 0 WARNINGS: 0 FAILED: 1
+      1. Error: (unknown) (@testSII.R#22) 
+      
+      Error: testthat unit tests failed
+      Execution halted
     ```
 
 # plyranges
 
-Version: 1.2.0
+<details>
+
+* Version: 1.2.0
+* Source code: https://github.com/cran/plyranges
+* BugReports: https://github.com/sa-lee/plyranges
+* Date/Publication: 2018-10-30
+* Number of recursive dependencies: 110
+
+Run `revdep_details(,"plyranges")` for more info
+
+</details>
+
+## Newly broken
+
+*   checking examples ... ERROR
+    ```
+    Running examples in ‘plyranges-Ex.R’ failed
+    The error most likely occurred in:
+    
+    > ### Name: unnest.GenomicRanges
+    > ### Title: Expand list-columns in a Ranges object
+    > ### Aliases: unnest.GenomicRanges
+    > 
+    > ### ** Examples
+    > 
+    > grng <- as_granges(data.frame(seqnames = "chr1", start = 20:23, width = 1000))
+    > grng <- mutate(grng, exon_id = IntegerList(a = 1, b = c(4,5), c = 3, d = c(2,5)))
+    > unnest(grng)
+    Error: `.x` must be a vector, not a `GRanges` object
+    Backtrace:
+    [90m    [39m█
+    [90m 1. [39m├─tidyr::unnest(grng)
+    [90m 2. [39m│ └─purrr::map_lgl(data, is_list)
+    [90m 3. [39m└─purrr:::stop_bad_type(...)
+    Execution halted
+    ```
 
 ## In both
 
@@ -4663,18 +1313,18 @@ Version: 1.2.0
      ERROR
     Running the tests in ‘tests/testthat.R’ failed.
     Last 13 lines of output:
-             e$handled <- TRUE
-             test_error <<- e
-         }, "could not find function \"WIGFile\"", quote(WIGFile(test_wig))) at testthat/test-io-wig.R:24
-      2: eval(code, test_env)
+             "purrr_error_bad_type"))
       
-      ══ testthat results  ════════════════════════════════════════════════════════════════════
-      OK: 284 SKIPPED: 0 FAILED: 5
+      ══ testthat results  ═════════════════════════════════════════════════════════════════════════════════
+      OK: 265 SKIPPED: 0 WARNINGS: 9 FAILED: 8
       1. Error: read_bed returns correct GRanges (@test-io-bed.R#67) 
       2. Error: read_bed_graph returns correct GRanges (@test-io-bedGraph.R#39) 
       3. Error: reading/ writing bigwig files returns correct GRanges (@test-io-bw.R#19) 
       4. Error: reading GFF files returns correct GRanges (@test-io-gff.R#87) 
       5. Error: reading WIG files (@test-io-wig.R#24) 
+      6. Failure: unnesting makes sense (@test-unnest.R#6) 
+      7. Failure: unnesting makes sense (@test-unnest.R#11) 
+      8. Error: unnesting makes sense (@test-unnest.R#26) 
       
       Error: testthat unit tests failed
       Execution halted
@@ -4685,416 +1335,46 @@ Version: 1.2.0
     Package suggested but not available for checking: ‘BSgenome.Hsapiens.UCSC.hg19’
     ```
 
-# pmc
+# pointblank
 
-Version: 1.0.3
+<details>
 
-## In both
+* Version: 0.2.0
+* Source code: https://github.com/cran/pointblank
+* URL: https://github.com/rich-iannone/pointblank
+* BugReports: https://github.com/rich-iannone/pointblank/issues
+* Date/Publication: 2018-05-02 07:51:25 UTC
+* Number of recursive dependencies: 52
 
-*   R CMD check timed out
-    
+Run `revdep_details(,"pointblank")` for more info
 
-# PopED
+</details>
 
-Version: 0.4.0
-
-## In both
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespace in Imports field not imported from: ‘tidyr’
-      All declared Imports should be used.
-    ```
-
-# primirTSS
-
-Version: 1.0.1
-
-## In both
-
-*   checking package dependencies ... ERROR
-    ```
-    Packages required but not available:
-      ‘BSgenome.Hsapiens.UCSC.hg38’ ‘phastCons100way.UCSC.hg38’
-    
-    See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-    manual.
-    ```
-
-# prisonbrief
-
-Version: 0.1.0
-
-## In both
-
-*   checking data for non-ASCII characters ... NOTE
-    ```
-      Note: found 2 marked UTF-8 strings
-    ```
-
-# processanimateR
-
-Version: 1.0.0
-
-## In both
-
-*   checking installed package size ... NOTE
-    ```
-      installed size is 11.2Mb
-      sub-directories of 1Mb or more:
-        doc           6.5Mb
-        help          2.1Mb
-        htmlwidgets   2.5Mb
-    ```
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespace in Imports field not imported from: ‘zoo’
-      All declared Imports should be used.
-    ```
-
-# proteoQC
-
-Version: 1.18.1
-
-## In both
-
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    Error in re-building vignettes:
-      ...
-    Error: processing vignette 'proteoQC.Rmd' failed with diagnostics:
-    there is no package called ‘prettydoc’
-    Execution halted
-    ```
-
-*   checking package dependencies ... NOTE
-    ```
-    Package suggested but not available for checking: ‘RforProteomics’
-    ```
-
-*   checking installed package size ... NOTE
-    ```
-      installed size is  8.1Mb
-      sub-directories of 1Mb or more:
-        doc       3.0Mb
-        extdata   3.9Mb
-    ```
-
-*   checking R code for possible problems ... NOTE
-    ```
-    ...
-    qcHist: no visible binding for global variable ‘techRep’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/proteoQC/new/proteoQC.Rcheck/00_pkg_src/proteoQC/R/visualization.R:406-416)
-    qcHist: no visible binding for global variable ‘bioRep’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/proteoQC/new/proteoQC.Rcheck/00_pkg_src/proteoQC/R/visualization.R:406-416)
-    qcHist2: no visible binding for global variable ‘error’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/proteoQC/new/proteoQC.Rcheck/00_pkg_src/proteoQC/R/visualization.R:357-365)
-    qcHist2: no visible binding for global variable ‘fractile’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/proteoQC/new/proteoQC.Rcheck/00_pkg_src/proteoQC/R/visualization.R:357-365)
-    qcHist2: no visible binding for global variable ‘fractile’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/proteoQC/new/proteoQC.Rcheck/00_pkg_src/proteoQC/R/visualization.R:367-369)
-    qcHist2: no visible binding for global variable ‘error’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/proteoQC/new/proteoQC.Rcheck/00_pkg_src/proteoQC/R/visualization.R:377-385)
-    qcHist2: no visible binding for global variable ‘fractile’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/proteoQC/new/proteoQC.Rcheck/00_pkg_src/proteoQC/R/visualization.R:377-385)
-    qcHist2: no visible binding for global variable ‘fractile’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/proteoQC/new/proteoQC.Rcheck/00_pkg_src/proteoQC/R/visualization.R:389-391)
-    Undefined global functions or variables:
-      ..count.. Intensity MS1QC MS2QC TMT10 TMT6 Tag V1 V2 V3 V4 V5 bioRep
-      curenv delta error exprs fractile fraction grid.draw iTRAQ4 iTRAQ8
-      label peplength peptide_summary precursorCharge quantify ratio
-      readMgfData se techRep val x y
-    ```
-
-# proustr
-
-Version: 0.4.0
-
-## In both
-
-*   checking data for non-ASCII characters ... NOTE
-    ```
-      Note: found 12717 marked UTF-8 strings
-    ```
-
-# psychmeta
-
-Version: 2.3.1
-
-## In both
-
-*   checking installed package size ... NOTE
-    ```
-      installed size is  8.9Mb
-      sub-directories of 1Mb or more:
-        R   7.1Mb
-    ```
-
-# psycho
-
-Version: 0.4.0
-
-## In both
-
-*   checking installed package size ... NOTE
-    ```
-      installed size is  5.7Mb
-      sub-directories of 1Mb or more:
-        R     1.1Mb
-        doc   4.3Mb
-    ```
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespace in Imports field not imported from: ‘methods’
-      All declared Imports should be used.
-    ```
-
-# ptstem
-
-Version: 0.0.4
-
-## In both
-
-*   checking installed package size ... NOTE
-    ```
-      installed size is  5.3Mb
-      sub-directories of 1Mb or more:
-        dict   5.1Mb
-    ```
-
-# qdap
-
-Version: 2.3.2
-
-## In both
-
-*   checking whether package ‘qdap’ can be installed ... ERROR
-    ```
-    Installation failed.
-    See ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/qdap/new/qdap.Rcheck/00install.out’ for details.
-    ```
-
-## Installation
-
-### Devel
-
-```
-* installing *source* package ‘qdap’ ...
-** package ‘qdap’ successfully unpacked and MD5 sums checked
-** R
-** data
-*** moving datasets to lazyload DB
-** inst
-** byte-compile and prepare package for lazy loading
-Error : .onLoad failed in loadNamespace() for 'rJava', details:
-  call: dyn.load(file, DLLpath = DLLpath, ...)
-  error: unable to load shared object '/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/qdap/rJava/libs/rJava.so':
-  dlopen(/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/qdap/rJava/libs/rJava.so, 6): Library not loaded: /Library/Java/JavaVirtualMachines/jdk-9.jdk/Contents/Home/lib/server/libjvm.dylib
-  Referenced from: /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/qdap/rJava/libs/rJava.so
-  Reason: image not found
-ERROR: lazy loading failed for package ‘qdap’
-* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/qdap/new/qdap.Rcheck/qdap’
-
-```
-### CRAN
-
-```
-* installing *source* package ‘qdap’ ...
-** package ‘qdap’ successfully unpacked and MD5 sums checked
-** R
-** data
-*** moving datasets to lazyload DB
-** inst
-** byte-compile and prepare package for lazy loading
-Error : .onLoad failed in loadNamespace() for 'rJava', details:
-  call: dyn.load(file, DLLpath = DLLpath, ...)
-  error: unable to load shared object '/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/qdap/rJava/libs/rJava.so':
-  dlopen(/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/qdap/rJava/libs/rJava.so, 6): Library not loaded: /Library/Java/JavaVirtualMachines/jdk-9.jdk/Contents/Home/lib/server/libjvm.dylib
-  Referenced from: /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/qdap/rJava/libs/rJava.so
-  Reason: image not found
-ERROR: lazy loading failed for package ‘qdap’
-* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/qdap/old/qdap.Rcheck/qdap’
-
-```
-# qPLEXanalyzer
-
-Version: 1.0.3
-
-## In both
-
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    ...
-    
-    Loading required package: ProtGenerics
-    
-    This is MSnbase version 2.8.3 
-      Visit https://lgatto.github.io/MSnbase/ to get started.
-    
-    
-    Attaching package: 'MSnbase'
-    
-    The following object is masked from 'package:stats':
-    
-        smooth
-    
-    The following object is masked from 'package:base':
-    
-        trimws
-    
-    Quitting from lines 67-71 (qPLEXanalyzer.rnw) 
-    Error: processing vignette 'qPLEXanalyzer.rnw' failed with diagnostics:
-    there is no package called 'gridExtra'
-    Execution halted
-    ```
-
-*   checking package dependencies ... NOTE
-    ```
-    Package suggested but not available for checking: ‘qPLEXdata’
-    ```
-
-*   checking R code for possible problems ... NOTE
-    ```
-    ...
-    rliPlot: no visible binding for global variable ‘logInt’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/qPLEXanalyzer/new/qPLEXanalyzer.Rcheck/00_pkg_src/qPLEXanalyzer/R/plots.R:599-621)
-    rliPlot: no visible binding for global variable ‘medianLogInt’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/qPLEXanalyzer/new/qPLEXanalyzer.Rcheck/00_pkg_src/qPLEXanalyzer/R/plots.R:599-621)
-    summarizeIntensities: no visible binding for global variable
-      ‘Accessions’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/qPLEXanalyzer/new/qPLEXanalyzer.Rcheck/00_pkg_src/qPLEXanalyzer/R/Allfunctions.R:55-60)
-    summarizeIntensities: no visible binding for global variable
-      ‘Sequences’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/qPLEXanalyzer/new/qPLEXanalyzer.Rcheck/00_pkg_src/qPLEXanalyzer/R/Allfunctions.R:55-60)
-    summarizeIntensities: no visible binding for global variable
-      ‘Accessions’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/qPLEXanalyzer/new/qPLEXanalyzer.Rcheck/00_pkg_src/qPLEXanalyzer/R/Allfunctions.R:62-68)
-    summarizeIntensities: no visible binding for global variable ‘Count’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/qPLEXanalyzer/new/qPLEXanalyzer.Rcheck/00_pkg_src/qPLEXanalyzer/R/Allfunctions.R:62-68)
-    Undefined global functions or variables:
-      . Accessions AveExpr B Cor CorTxt Count GeneSymbol Grouping_column
-      Intensity Mean Modifications PeptideID RawIntensity RowID SampleName
-      Sequence Sequences Variance X Y adj.P.Val controlLogFoldChange group
-      logFC logInt logIntensity meanscaledIntensity medianLogInt
-      normalizedIntensities scaledIntensity scalingFactors x xend y yend
-    ```
-
-*   checking for unstated dependencies in vignettes ... NOTE
-    ```
-    'library' or 'require' call not declared from: ‘gridExtra’
-    ```
-
-# questionr
-
-Version: 0.7.0
-
-## In both
-
-*   checking Rd cross-references ... NOTE
-    ```
-    Package unavailable to check Rd xrefs: ‘Hmisc’
-    ```
-
-*   checking data for non-ASCII characters ... NOTE
-    ```
-      Note: found 4145 marked UTF-8 strings
-    ```
-
-# quokar
-
-Version: 0.1.0
-
-## In both
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespaces in Imports field not imported from:
-      ‘MCMCpack’ ‘gridExtra’ ‘knitr’
-      All declared Imports should be used.
-    ```
-
-# radiant.data
-
-Version: 0.9.7
-
-## In both
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespace in Imports field not imported from: ‘shinyFiles’
-      All declared Imports should be used.
-    ```
-
-# railtrails
-
-Version: 0.1.1
-
-## In both
-
-*   checking data for non-ASCII characters ... NOTE
-    ```
-      Note: found 1557 marked UTF-8 strings
-    ```
-
-# rattle
-
-Version: 5.2.0
-
-## In both
-
-*   checking package dependencies ... NOTE
-    ```
-    Packages suggested but not available for checking:
-      ‘gWidgetsRGtk2’ ‘playwith’ ‘rggobi’ ‘RGtk2’ ‘RGtk2Extras’
-    ```
-
-*   checking installed package size ... NOTE
-    ```
-      installed size is 10.9Mb
-      sub-directories of 1Mb or more:
-        R      4.0Mb
-        data   3.0Mb
-        etc    1.9Mb
-        po     1.2Mb
-    ```
-
-*   checking dependencies in R code ... NOTE
-    ```
-    2019-02-22 16:35:33.912 R[37851:35994928] *** WARNING: Method userSpaceScaleFactor in class NSView is deprecated on 10.7 and later. It should not be used in new applications. Use convertRectToBacking: instead. 
-    ```
-
-# rclimateca
-
-Version: 1.0.2
-
-## In both
-
-*   checking data for non-ASCII characters ... NOTE
-    ```
-      Note: found 24 marked UTF-8 strings
-    ```
-
-# rcongresso
-
-Version: 0.4.6
-
-## In both
+## Newly broken
 
 *   checking examples ... ERROR
     ```
-    Running examples in ‘rcongresso-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: fetch_despesas_deputado
-    > ### Title: Fetches expenditures from deputy
-    > ### Aliases: fetch_despesas_deputado
+    ...
     > 
-    > ### ** Examples
-    > 
-    > gastos_abel_mesquita <- fetch_despesas_deputado(id = 178957)
-    Error: Falha na requisicao a API dos Dados Abertos. Erro 400 ao tentar acessar: https://dadosabertos.camara.leg.br/api/v2/deputados/178957/despesas?id=178957
+    > # Create 2 simple validation steps
+    > # that test whether values within
+    > # column `a`
+    > agent <-
+    +   create_agent() %>%
+    +   focus_on(tbl_name = "df") %>%
+    +   col_vals_between(
+    +     column = a,
+    +     left = 4,
+    +     right = 6) %>%
+    +   col_vals_lte(
+    +     column = a,
+    +     value = 10) %>%
+    +   interrogate(
+    +     get_problem_rows = TRUE,
+    +     get_first_n = 10)
+    Error: 'nest_' is defunct.
+    Use 'nest' instead.
+    See help("Defunct")
     Execution halted
     ```
 
@@ -5103,105 +1383,114 @@ Version: 0.4.6
      ERROR
     Running the tests in ‘tests/testthat.R’ failed.
     Last 13 lines of output:
-      9: doWithOneRestart(return(expr), restart)
+      5: `_fseq`(`_lhs`)
+      6: freduce(value, `_function_list`)
+      7: withVisible(function_list[[k]](value))
+      8: function_list[[k]](value)
+      9: interrogate(.)
+      10: tidyr::nest_(data = problem_rows, key_col = "data", nest_cols = names_problem_rows) at /Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/pointblank/new/pointblank.Rcheck/00_pkg_src/pointblank/R/interrogate.R:590
+      11: .Defunct("nest") at /private/tmp/RtmpquPhal/R.INSTALL91f746b5a07/tidyr/R/dep-lazyeval.R:186
+      12: stop(paste(msg, collapse = ""), call. = FALSE, domain = NA)
       
-      [31m──[39m [31m3. Error: (unknown) (@test_votacoes.R#70) [39m [31m───────────────────────────────────────────[39m
-      argument "message" is missing, with no default
-      1: skip() at testthat/test_votacoes.R:70
-      2: structure(list(message = message), class = c("skip", "condition"))
-      
-      ══ testthat results  ════════════════════════════════════════════════════════════════════
-      OK: 13 SKIPPED: 0 FAILED: 3
-      1. Error: (unknown) (@test_deputados.R#81) 
-      2. Error: (unknown) (@test_proposicoes.R#91) 
-      3. Error: (unknown) (@test_votacoes.R#70) 
+      ══ testthat results  ═════════════════════════════════════════════════════════════════════════════════
+      OK: 779 SKIPPED: 0 WARNINGS: 0 FAILED: 1
+      1. Error: Interrogating for valid row values (@test-interrogate.R#230) 
       
       Error: testthat unit tests failed
       Execution halted
     ```
 
-*   checking re-building of vignette outputs ... WARNING
+# predict3d
+
+<details>
+
+* Version: 0.1.0
+* Source code: https://github.com/cran/predict3d
+* URL: https://github.com/cardiomoon/predict3d
+* BugReports: https://github.com/cardiomoon/predict3d/issues
+* Date/Publication: 2019-03-06 17:30:03 UTC
+* Number of recursive dependencies: 104
+
+Run `revdep_details(,"predict3d")` for more info
+
+</details>
+
+## Newly broken
+
+*   checking examples ... ERROR
     ```
-    Error in re-building vignettes:
-      ...
-    
-    Attaching package: 'dplyr'
-    
-    The following objects are masked from 'package:stats':
-    
-        filter, lag
-    
-    The following objects are masked from 'package:base':
-    
-        intersect, setdiff, setequal, union
-    
-    Quitting from lines 36-38 (introducao-rcongresso.Rmd) 
-    Error: processing vignette 'introducao-rcongresso.Rmd' failed with diagnostics:
-    could not find function "FUN1"
+    ...
+    > ### ** Examples
+    > 
+    > fit=lm(mpg~hp*wt*cyl+carb+am,data=mtcars)
+    > fit2newdata(fit,predictors=c("hp","wt","am"))
+    Error: Column name `<dbl>` must not be duplicated.
+    Use .name_repair to specify repair.
+    Backtrace:
+    [90m     [39m█
+    [90m  1. [39m└─predict3d::fit2newdata(fit, predictors = c("hp", "wt", "am"))
+    [90m  2. [39m  └─newdf2 %>% reduce(crossing) [90m00_pkg_src/predict3d/R/ggPredict.R:194:8[39m
+    [90m  3. [39m    ├─base::withVisible(eval(quote(`_fseq`(`_lhs`)), env, env))
+    [90m  4. [39m    └─base::eval(quote(`_fseq`(`_lhs`)), env, env)
+    [90m  5. [39m      └─base::eval(quote(`_fseq`(`_lhs`)), env, env)
+    [90m  6. [39m        └─predict3d:::`_fseq`(`_lhs`)
+    [90m  7. [39m          └─magrittr::freduce(value, `_function_list`)
+    [90m  8. [39m            ├─base::withVisible(function_list[[k]](value))
+    [90m  9. [39m            └─function_list[[k]](value)
+    [90m 10. [39m              └─purrr::reduce(., crossing)
+    [90m 11. [39m                └─purrr:::reduce_impl(.x, .f, ..., .init = .init, .dir = .dir)
+    [90m 12. [39m                  └─tidyr
     Execution halted
     ```
 
-# rcv
-
-Version: 0.2.1
-
 ## In both
 
-*   checking installed package size ... NOTE
+*   checking dependencies in R code ... NOTE
     ```
-      installed size is  5.2Mb
-      sub-directories of 1Mb or more:
-        data   5.0Mb
-    ```
-
-*   checking data for non-ASCII characters ... NOTE
-    ```
-      Note: found 6543 marked UTF-8 strings
-    ```
-
-# readability
-
-Version: 0.1.1
-
-## In both
-
-*   checking package dependencies ... ERROR
-    ```
-    Package required but not available: ‘syllable’
-    
-    See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-    manual.
-    ```
-
-# readat
-
-Version: 1.8.0
-
-## In both
-
-*   checking R code for possible problems ... NOTE
-    ```
-    sfread: no visible binding for global variable ‘header’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/readat/new/readat.Rcheck/00_pkg_src/readat/R/sfread.R:54)
-    sfread: no visible binding for global variable ‘nrows’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/readat/new/readat.Rcheck/00_pkg_src/readat/R/sfread.R:54)
-    Undefined global functions or variables:
-      header nrows
+    Namespace in Imports field not imported from: ‘TH.data’
+      All declared Imports should be used.
     ```
 
 # recipes
 
-Version: 0.1.4
+<details>
+
+* Version: 0.1.5
+* Source code: https://github.com/cran/recipes
+* URL: https://github.com/tidymodels/recipes
+* BugReports: https://github.com/tidymodels/recipes/issues
+* Date/Publication: 2019-03-21 08:50:03 UTC
+* Number of recursive dependencies: 110
+
+Run `revdep_details(,"recipes")` for more info
+
+</details>
+
+## Newly broken
+
+*   checking tests ...
+    ```
+     ERROR
+    Running the tests in ‘tests/testthat.R’ failed.
+    Last 13 lines of output:
+      `prep(rec1, training = iris2)` generated warnings:
+      * All elements of `...` must be named.
+      Did you want `data = c(type, role, source)`?
+      
+      ══ testthat results  ═════════════════════════════════════════════════════════════════════════════════
+      OK: 1152 SKIPPED: 4 WARNINGS: 693 FAILED: 6
+      1. Failure: basic usage (@test_downsample.R#44) 
+      2. Failure: new levels (@test_dummies.R#189) 
+      3. Failure: missing columns (@test_interact.R#185) 
+      4. Failure: in recipe (@test_range_check.R#38) 
+      5. Failure: works with all_predictors() selector (@test_relu.R#66) 
+      6. Failure: basic usage (@test_upsample.R#42) 
+      
+      Error: testthat unit tests failed
+      Execution halted
+    ```
 
 ## In both
-
-*   checking Rd cross-references ... WARNING
-    ```
-    Missing link or links in documentation object 'step_nnmf.Rd':
-      ‘[dimRed:NNMF]{dimRed::NNMF()}’
-    
-    See section 'Cross-references' in the 'Writing R Extensions' manual.
-    ```
 
 *   checking dependencies in R code ... NOTE
     ```
@@ -5209,89 +1498,44 @@ Version: 0.1.4
       All declared Imports should be used.
     ```
 
-# redcapAPI
+# rmapzen
 
-Version: 2.2
+<details>
 
-## In both
+* Version: 0.4.1
+* Source code: https://github.com/cran/rmapzen
+* URL: https://tarakc02.github.io/rmapzen/
+* BugReports: https://github.com/tarakc02/rmapzen/issues
+* Date/Publication: 2018-10-07 21:00:02 UTC
+* Number of recursive dependencies: 71
 
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespaces in Imports field not imported from:
-      ‘DBI’ ‘readr’
-      All declared Imports should be used.
-    ```
+Run `revdep_details(,"rmapzen")` for more info
 
-# REDCapR
+</details>
 
-Version: 0.9.8
-
-## In both
+## Newly broken
 
 *   checking tests ...
     ```
      ERROR
-    Running the tests in ‘tests/test-all.R’ failed.
+    Running the tests in ‘tests/testthat.R’ failed.
     Last 13 lines of output:
-      ══ testthat results  ════════════════════════════════════════════════════════════════════
-      OK: 91 SKIPPED: 15 FAILED: 11
-      1. Error: (unknown) (@test-metadata-read.R#4) 
-      2. Error: (unknown) (@test-read-batch-longitudinal.R#4) 
-      3. Error: (unknown) (@test-read-batch-simple.R#4) 
-      4. Error: One Shot: Bad Uri -Not HTTPS (@test-read-errors.R#8) 
-      5. Error: One Shot: Bad Uri -wrong address (@test-read-errors.R#30) 
-      6. Error: Batch: Bad Uri -Not HTTPS (@test-read-errors.R#51) 
-      7. Error: Batch: Bad Uri -wrong address (@test-read-errors.R#72) 
-      8. Error: (unknown) (@test-read-oneshot.R#4) 
-      9. Error: (unknown) (@test-read-russian.R#4) 
-      1. ...
+      'unnest_' is defunct.
+      Use 'unnest' instead.
+      See help("Defunct")
+      1: as.data.frame(marina_walks) at testthat/test-as-data-frame.R:10
+      2: as.data.frame.mapzen_isochrone_list(marina_walks)
+      3: tidyr::unnest_(res, "contours") at /Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/rmapzen/new/rmapzen.Rcheck/00_pkg_src/rmapzen/R/tidy.R:37
+      4: .Defunct("unnest") at /private/tmp/RtmpquPhal/R.INSTALL91f746b5a07/tidyr/R/dep-lazyeval.R:311
+      5: stop(paste(msg, collapse = ""), call. = FALSE, domain = NA)
+      
+      ══ testthat results  ═════════════════════════════════════════════════════════════════════════════════
+      OK: 202 SKIPPED: 2 WARNINGS: 0 FAILED: 1
+      1. Error: as.data.frame converts isochrone results to sf (@test-as-data-frame.R#10) 
       
       Error: testthat unit tests failed
       Execution halted
     ```
-
-*   checking package dependencies ... NOTE
-    ```
-    Package suggested but not available for checking: ‘devtools’
-    ```
-
-# rfbCNPJ
-
-Version: 0.1.1
-
-## In both
-
-*   checking data for non-ASCII characters ... NOTE
-    ```
-      Note: found 27 marked UTF-8 strings
-    ```
-
-# rhmmer
-
-Version: 0.1.0
-
-## In both
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespace in Imports field not imported from: ‘dplyr’
-      All declared Imports should be used.
-    ```
-
-# Rilostat
-
-Version: 0.2.1
-
-## In both
-
-*   checking package dependencies ... NOTE
-    ```
-    Package suggested but not available for checking: ‘devtools’
-    ```
-
-# rmapzen
-
-Version: 0.4.1
 
 ## In both
 
@@ -5300,22 +1544,22 @@ Version: 0.4.1
       Note: found 31 marked UTF-8 strings
     ```
 
-# RNeXML
-
-Version: 2.3.0
-
-## In both
-
-*   checking package dependencies ... NOTE
-    ```
-    Package suggested but not available for checking: ‘taxadb’
-    ```
-
 # rnoaa
 
-Version: 0.8.4
+<details>
 
-## In both
+* Version: 0.8.4
+* Source code: https://github.com/cran/rnoaa
+* URL: https://github.com/ropensci/rnoaa
+* BugReports: https://github.com/ropensci/rnoaa/issues
+* Date/Publication: 2019-01-14 23:10:03 UTC
+* Number of recursive dependencies: 136
+
+Run `revdep_details(,"rnoaa")` for more info
+
+</details>
+
+## Newly broken
 
 *   checking installed package size ... NOTE
     ```
@@ -5324,647 +1568,218 @@ Version: 0.8.4
         vign   1.2Mb
     ```
 
-# rODE
+# seqCAT
 
-Version: 0.99.6
+<details>
 
-## In both
+* Version: 1.4.1
+* Source code: https://github.com/cran/seqCAT
+* Date/Publication: 2019-01-14
+* Number of recursive dependencies: 103
 
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespace in Imports field not imported from: ‘data.table’
-      All declared Imports should be used.
-    ```
+Run `revdep_details(,"seqCAT")` for more info
 
-# ropenaq
+</details>
 
-Version: 0.2.7
-
-## In both
-
-*   checking package dependencies ... NOTE
-    ```
-    Package suggested but not available for checking: ‘devtools’
-    ```
-
-# rscopus
-
-Version: 0.6.3
-
-## In both
-
-*   checking package dependencies ... ERROR
-    ```
-    Package required but not available: ‘plyr’
-    
-    Packages suggested but not available for checking:
-      ‘xml2’ ‘rvest’ ‘testthat’ ‘jpeg’
-    
-    See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-    manual.
-    ```
-
-# RSDA
-
-Version: 2.0.8
-
-## In both
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespace in Imports field not imported from: ‘randomcoloR’
-      All declared Imports should be used.
-    ```
-
-# rsinaica
-
-Version: 0.6.1
-
-## In both
-
-*   checking data for non-ASCII characters ... NOTE
-    ```
-      Note: found 467 marked UTF-8 strings
-    ```
-
-# rtable
-
-Version: 0.1.5
-
-## In both
-
-*   checking package dependencies ... ERROR
-    ```
-    Package required but not available: ‘ReporteRs’
-    
-    See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-    manual.
-    ```
-
-# RTCGA
-
-Version: 1.12.1
-
-## In both
-
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘RTCGA-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: boxplotTCGA
-    > ### Title: Create Boxplots for TCGA Datasets
-    > ### Aliases: boxplotTCGA
-    > 
-    > ### ** Examples
-    > 
-    > library(RTCGA.rnaseq)
-    Error in library(RTCGA.rnaseq) : 
-      there is no package called ‘RTCGA.rnaseq’
-    Execution halted
-    ```
+## Newly broken
 
 *   checking tests ...
     ```
      ERROR
     Running the tests in ‘tests/testthat.R’ failed.
-    Complete output:
-      > library(testthat)
-      > library(RTCGA)
-      Welcome to the RTCGA (version: 1.12.1).
-      > library(RTCGA.rnaseq)
-      Error in library(RTCGA.rnaseq) : 
-        there is no package called 'RTCGA.rnaseq'
+    Last 13 lines of output:
+      2: withCallingHandlers(expr, message = function(c) invokeRestart("muffleMessage"))
+      3: create_profile(vcf_file = file1, sample = "sample1", output_file = "profile_1.txt", filter_depth = 10, 
+             python = FALSE)
+      4: create_profile_R(vcf_file, sample, output_file, filter_depth) at /Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/seqCAT/new/seqCAT.Rcheck/00_pkg_src/seqCAT/R/create_profile.R:51
+      5: filter_annotations(data) at /Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/seqCAT/new/seqCAT.Rcheck/00_pkg_src/seqCAT/R/create_profile.R:221
+      6: tidyr::unnest_(data, "ANN") at /Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/seqCAT/new/seqCAT.Rcheck/00_pkg_src/seqCAT/R/create_profile.R:283
+      7: .Defunct("unnest") at /private/tmp/RtmpquPhal/R.INSTALL91f746b5a07/tidyr/R/dep-lazyeval.R:311
+      8: stop(paste(msg, collapse = ""), call. = FALSE, domain = NA)
+      
+      ══ testthat results  ═════════════════════════════════════════════════════════════════════════════════
+      OK: 85 SKIPPED: 0 WARNINGS: 0 FAILED: 1
+      1. Error: (unknown) (@test_01_create_profile.R#10) 
+      
+      Error: testthat unit tests failed
       Execution halted
     ```
 
-*   checking package dependencies ... NOTE
-    ```
-    Packages suggested but not available for checking:
-      ‘devtools’ ‘RTCGA.rnaseq’ ‘RTCGA.clinical’ ‘RTCGA.mutations’
-      ‘RTCGA.RPPA’ ‘RTCGA.mRNA’ ‘RTCGA.miRNASeq’ ‘RTCGA.methylation’
-      ‘RTCGA.CNV’ ‘RTCGA.PANCAN12’
-    ```
-
-*   checking R code for possible problems ... NOTE
-    ```
-    ...
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/RTCGA/new/RTCGA.Rcheck/00_pkg_src/RTCGA/R/ggbiplot.R:157-161)
-    ggbiplot: no visible binding for global variable ‘xvar’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/RTCGA/new/RTCGA.Rcheck/00_pkg_src/RTCGA/R/ggbiplot.R:157-161)
-    ggbiplot: no visible binding for global variable ‘yvar’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/RTCGA/new/RTCGA.Rcheck/00_pkg_src/RTCGA/R/ggbiplot.R:157-161)
-    ggbiplot: no visible binding for global variable ‘angle’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/RTCGA/new/RTCGA.Rcheck/00_pkg_src/RTCGA/R/ggbiplot.R:157-161)
-    ggbiplot: no visible binding for global variable ‘hjust’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/RTCGA/new/RTCGA.Rcheck/00_pkg_src/RTCGA/R/ggbiplot.R:157-161)
-    read.mutations: no visible binding for global variable ‘.’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/RTCGA/new/RTCGA.Rcheck/00_pkg_src/RTCGA/R/readTCGA.R:383)
-    read.mutations: no visible binding for global variable ‘.’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/RTCGA/new/RTCGA.Rcheck/00_pkg_src/RTCGA/R/readTCGA.R:386)
-    read.rnaseq: no visible binding for global variable ‘.’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/RTCGA/new/RTCGA.Rcheck/00_pkg_src/RTCGA/R/readTCGA.R:372-375)
-    survivalTCGA: no visible binding for global variable ‘times’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/RTCGA/new/RTCGA.Rcheck/00_pkg_src/RTCGA/R/survivalTCGA.R:101-137)
-    whichDateToUse: no visible binding for global variable ‘.’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/RTCGA/new/RTCGA.Rcheck/00_pkg_src/RTCGA/R/downloadTCGA.R:167-168)
-    Undefined global functions or variables:
-      . angle hjust muted times varname xvar yvar
-    ```
-
-*   checking Rd cross-references ... NOTE
-    ```
-    Packages unavailable to check Rd xrefs: ‘RTCGA.rnaseq’, ‘RTCGA.clinical’, ‘RTCGA.mutations’, ‘RTCGA.CNV’, ‘RTCGA.RPPA’, ‘RTCGA.mRNA’, ‘RTCGA.miRNASeq’, ‘RTCGA.methylation’, ‘devtools’
-    ```
-
-# rtimicropem
-
-Version: 1.3
-
 ## In both
 
-*   checking dependencies in R code ... NOTE
+*   checking whether package ‘seqCAT’ can be installed ... WARNING
     ```
-    Namespace in Imports field not imported from: ‘R6’
-      All declared Imports should be used.
-    ```
-
-# rtrek
-
-Version: 0.2.0
-
-## In both
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespaces in Imports field not imported from:
-      ‘memoise’ ‘tidyr’
-      All declared Imports should be used.
-    ```
-
-*   checking data for non-ASCII characters ... NOTE
-    ```
-      Note: found 988 marked UTF-8 strings
-    ```
-
-# rtrends
-
-Version: 0.1.0
-
-## In both
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespace in Imports field not imported from: ‘dplyr’
-      All declared Imports should be used.
-    ```
-
-# RtutoR
-
-Version: 1.2
-
-## In both
-
-*   checking package dependencies ... ERROR
-    ```
-    Package required but not available: ‘devtools’
-    
-    See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-    manual.
-    ```
-
-# rubias
-
-Version: 0.2.0
-
-## In both
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespace in Imports field not imported from: ‘ggplot2’
-      All declared Imports should be used.
-    ```
-
-# RxODE
-
-Version: 0.8.0-9
-
-## In both
-
-*   checking package dependencies ... NOTE
-    ```
-    Package suggested but not available for checking: ‘devtools’
-    ```
-
-*   checking installed package size ... NOTE
-    ```
-      installed size is  6.1Mb
-      sub-directories of 1Mb or more:
-        R      2.1Mb
-        doc    1.6Mb
-        libs   2.1Mb
-    ```
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespace in Imports field not imported from: ‘n1qn1’
-      All declared Imports should be used.
-    ```
-
-# SanzCircos
-
-Version: 0.1.0
-
-## In both
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespaces in Imports field not imported from:
-      ‘purrr’ ‘tidyr’
-      All declared Imports should be used.
-    ```
-
-# SCORPIUS
-
-Version: 1.0.2
-
-## In both
-
-*   checking whether package ‘SCORPIUS’ can be installed ... ERROR
-    ```
-    Installation failed.
-    See ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/SCORPIUS/new/SCORPIUS.Rcheck/00install.out’ for details.
-    ```
-
-## Installation
-
-### Devel
-
-```
-* installing *source* package ‘SCORPIUS’ ...
-** package ‘SCORPIUS’ successfully unpacked and MD5 sums checked
-** R
-** data
-*** moving datasets to lazyload DB
-** inst
-** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
-  there is no package called ‘devtools’
-ERROR: lazy loading failed for package ‘SCORPIUS’
-* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/SCORPIUS/new/SCORPIUS.Rcheck/SCORPIUS’
-
-```
-### CRAN
-
-```
-* installing *source* package ‘SCORPIUS’ ...
-** package ‘SCORPIUS’ successfully unpacked and MD5 sums checked
-** R
-** data
-*** moving datasets to lazyload DB
-** inst
-** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
-  there is no package called ‘devtools’
-ERROR: lazy loading failed for package ‘SCORPIUS’
-* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/SCORPIUS/old/SCORPIUS.Rcheck/SCORPIUS’
-
-```
-# sdStaf
-
-Version: 1.0.2
-
-## In both
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespaces in Imports field not imported from:
-      ‘rgdal’ ‘rgeos’ ‘tidyr’
-      All declared Imports should be used.
-    ```
-
-# sejmRP
-
-Version: 1.3.4
-
-## In both
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespaces in Imports field not imported from:
-      ‘cluster’ ‘factoextra’ ‘tidyr’
-      All declared Imports should be used.
-    ```
-
-# Seurat
-
-Version: 2.3.4
-
-## In both
-
-*   checking package dependencies ... NOTE
-    ```
-    Package suggested but not available for checking: ‘loomR’
-    ```
-
-# sf
-
-Version: 0.7-3
-
-## In both
-
-*   checking whether package ‘sf’ can be installed ... ERROR
-    ```
-    Installation failed.
-    See ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/sf/new/sf.Rcheck/00install.out’ for details.
-    ```
-
-## Installation
-
-### Devel
-
-```
-* installing *source* package ‘sf’ ...
-** package ‘sf’ successfully unpacked and MD5 sums checked
-configure: CC: ccache clang -Qunused-arguments
-configure: CXX: clang++ -std=gnu++11
-checking for gdal-config... /usr/local/bin/gdal-config
-checking gdal-config usability... yes
-configure: GDAL: 2.1.2
-checking GDAL version >= 2.0.0... yes
-checking for gcc... ccache clang -Qunused-arguments
-checking whether the C compiler works... yes
-checking for C compiler default output file name... a.out
-checking for suffix of executables... 
-checking whether we are cross compiling... no
-checking for suffix of object files... o
-checking whether we are using the GNU C compiler... yes
-checking whether ccache clang -Qunused-arguments accepts -g... yes
-checking for ccache clang -Qunused-arguments option to accept ISO C89... none needed
-checking how to run the C preprocessor... ccache clang -Qunused-arguments -E
-checking for grep that handles long lines and -e... /usr/bin/grep
-checking for egrep... /usr/bin/grep -E
-checking for ANSI C header files... rm: conftest.dSYM: is a directory
-rm: conftest.dSYM: is a directory
-yes
-checking for sys/types.h... yes
-checking for sys/stat.h... yes
-checking for stdlib.h... yes
-checking for string.h... yes
-checking for memory.h... yes
-checking for strings.h... yes
-checking for inttypes.h... yes
-checking for stdint.h... yes
-checking for unistd.h... yes
-checking gdal.h usability... yes
-checking gdal.h presence... yes
-checking for gdal.h... yes
-checking GDAL: linking with --libs only... yes
-checking GDAL: /usr/local/Cellar/gdal2/2.1.2/share/gdal/pcs.csv readable... yes
-checking GDAL: checking whether PROJ is available for linking:... yes
-checking GDAL: checking whether PROJ is available fur running:... dyld: Library not loaded: /usr/local/opt/webp/lib/libwebp.6.dylib
-  Referenced from: /usr/local/opt/gdal2/lib/libgdal.20.dylib
-  Reason: image not found
-./configure: line 3606: 84990 Abort trap: 6           ./gdal_proj
-no
-configure: error: OGRCoordinateTransformation() does not return a coord.trans: PROJ not available?
-ERROR: configuration failed for package ‘sf’
-* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/sf/new/sf.Rcheck/sf’
-
-```
-### CRAN
-
-```
-* installing *source* package ‘sf’ ...
-** package ‘sf’ successfully unpacked and MD5 sums checked
-configure: CC: ccache clang -Qunused-arguments
-configure: CXX: clang++ -std=gnu++11
-checking for gdal-config... /usr/local/bin/gdal-config
-checking gdal-config usability... yes
-configure: GDAL: 2.1.2
-checking GDAL version >= 2.0.0... yes
-checking for gcc... ccache clang -Qunused-arguments
-checking whether the C compiler works... yes
-checking for C compiler default output file name... a.out
-checking for suffix of executables... 
-checking whether we are cross compiling... no
-checking for suffix of object files... o
-checking whether we are using the GNU C compiler... yes
-checking whether ccache clang -Qunused-arguments accepts -g... yes
-checking for ccache clang -Qunused-arguments option to accept ISO C89... none needed
-checking how to run the C preprocessor... ccache clang -Qunused-arguments -E
-checking for grep that handles long lines and -e... /usr/bin/grep
-checking for egrep... /usr/bin/grep -E
-checking for ANSI C header files... rm: conftest.dSYM: is a directory
-rm: conftest.dSYM: is a directory
-yes
-checking for sys/types.h... yes
-checking for sys/stat.h... yes
-checking for stdlib.h... yes
-checking for string.h... yes
-checking for memory.h... yes
-checking for strings.h... yes
-checking for inttypes.h... yes
-checking for stdint.h... yes
-checking for unistd.h... yes
-checking gdal.h usability... yes
-checking gdal.h presence... yes
-checking for gdal.h... yes
-checking GDAL: linking with --libs only... yes
-checking GDAL: /usr/local/Cellar/gdal2/2.1.2/share/gdal/pcs.csv readable... yes
-checking GDAL: checking whether PROJ is available for linking:... yes
-checking GDAL: checking whether PROJ is available fur running:... dyld: Library not loaded: /usr/local/opt/webp/lib/libwebp.6.dylib
-  Referenced from: /usr/local/opt/gdal2/lib/libgdal.20.dylib
-  Reason: image not found
-./configure: line 3606: 84310 Abort trap: 6           ./gdal_proj
-no
-configure: error: OGRCoordinateTransformation() does not return a coord.trans: PROJ not available?
-ERROR: configuration failed for package ‘sf’
-* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/sf/old/sf.Rcheck/sf’
-
-```
-# SIBER
-
-Version: 2.1.3
-
-## In both
-
-*   checking examples ... ERROR
-    ```
-    ...
-    > ### ** Examples
-    > 
-    > x <- stats::rnorm(50)
-    > y <- stats::rnorm(50)
-    > parms <- list()
-    > parms$n.iter <- 2 * 10^3
-    > parms$n.burnin <- 500
-    > parms$n.thin <- 2     
-    > parms$n.chains <- 2    
-    > priors <- list()
-    > priors$R <- 1 * diag(2)
-    > priors$k <- 2
-    > priors$tau.mu <- 1.0E-3
-    > fitEllipse(x, y, parms, priors)
-    Error: .onLoad failed in loadNamespace() for 'rjags', details:
-      call: dyn.load(file, DLLpath = DLLpath, ...)
-      error: unable to load shared object '/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/SIBER/rjags/libs/rjags.so':
-      dlopen(/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/SIBER/rjags/libs/rjags.so, 10): Library not loaded: /usr/local/lib/libjags.4.dylib
-      Referenced from: /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/SIBER/rjags/libs/rjags.so
-      Reason: image not found
-    Execution halted
-    ```
-
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    Error in re-building vignettes:
-      ...
-    Warning in engine$weave(file, quiet = quiet, encoding = enc) :
-      The vignette engine knitr::rmarkdown is not available, because the rmarkdown package is not installed. Please install it.
-    Quitting from lines 74-93 (Centroid-Vectors.Rmd) 
-    Error: processing vignette 'Centroid-Vectors.Rmd' failed with diagnostics:
-    .onLoad failed in loadNamespace() for 'rjags', details:
-      call: dyn.load(file, DLLpath = DLLpath, ...)
-      error: unable to load shared object '/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/SIBER/rjags/libs/rjags.so':
-      dlopen(/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/SIBER/rjags/libs/rjags.so, 10): Library not loaded: /usr/local/lib/libjags.4.dylib
-      Referenced from: /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/SIBER/rjags/libs/rjags.so
-      Reason: image not found
-    Execution halted
-    ```
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespaces in Imports field not imported from:
-      ‘dplyr’ ‘ggplot2’ ‘viridis’
-      All declared Imports should be used.
-    ```
-
-# sidrar
-
-Version: 0.2.4
-
-## In both
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespace in Imports field not imported from: ‘dplyr’
-      All declared Imports should be used.
+    Found the following significant warnings:
+      Warning: package ‘VariantAnnotation’ was built under R version 3.5.3
+    See ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/seqCAT/new/seqCAT.Rcheck/00install.out’ for details.
     ```
 
 # simTool
 
-Version: 1.1.2
+<details>
 
-## In both
+* Version: 1.1.3
+* Source code: https://github.com/cran/simTool
+* URL: https://github.com/MarselScheer/simTool
+* BugReports: https://github.com/MarselScheer/simTool/issues
+* Date/Publication: 2019-03-22 14:00:02 UTC
+* Number of recursive dependencies: 60
+
+Run `revdep_details(,"simTool")` for more info
+
+</details>
+
+## Newly broken
 
 *   checking tests ...
     ```
      ERROR
     Running the tests in ‘tests/testthat.R’ failed.
     Last 13 lines of output:
-      [1] "Estimated replications per hour:  227280"
-      [1] "Estimated replications per hour:  3463186"
-      [1] "Estimated replications per hour:  595079"
-      [1] "Estimated replications per hour:  5222750"
-      [1] "Estimated replications per hour:  524300"
-      [31m──[39m [31m1. Failure: Two groups for summary_fun. Results were created and stored in simulation [39m
-      eg$simulation[[col]] not identical to expected_df[[col]].
-      Objects equal but not identical
-      
-      ══ testthat results  ════════════════════════════════════════════════════════════════════
-      OK: 119 SKIPPED: 0 FAILED: 1
-      1. Failure: Two groups for summary_fun. Results were created and stored in simulation (@test_eval_tibbles.R#847) 
+      ══ testthat results  ═════════════════════════════════════════════════════════════════════════════════
+      OK: 108 SKIPPED: 0 WARNINGS: 19 FAILED: 12
+      1. Error: Explicit defined .truth parameter of the data analyzing function can access the matrix for the data generating function (@test_eval_tibbles.R#28) 
+      2. Error: Explicit defined .truth parameter of the data analyzing function can access the matrix for the data generating function (@test_eval_tibbles.R#51) 
+      3. Error: Explicit defined .truth parameter of the post analyzing function can access the matrix for the data generating function (@test_eval_tibbles.R#74) 
+      4. Error: Warning if proc_grid has a .truth-column (@test_eval_tibbles.R#140) 
+      5. Failure: Tibbles for data generating functions can be used. Results were created and stored in simulation (@test_eval_tibbles.R#212) 
+      6. Failure: Tibbles for data generating functions can be used. Results were created and stored in simulation (@test_eval_tibbles.R#212) 
+      7. Failure: Three analyzing functions. Results were created and stored in simulation (@test_eval_tibbles.R#456) 
+      8. Failure: Three analyzing functions and one summary function. Results were created and stored in simulation (@test_eval_tibbles.R#534) 
+      9. Failure: Three analyzing functions and three summary function. Results were created and stored in simulation (@test_eval_tibbles.R#680) 
+      1. ...
       
       Error: testthat unit tests failed
       Execution halted
-    ```
-
-# sjstats
-
-Version: 0.17.3
-
-## In both
-
-*   checking Rd cross-references ... NOTE
-    ```
-    Package unavailable to check Rd xrefs: ‘arm’
-    ```
-
-# skimr
-
-Version: 1.0.4
-
-## In both
-
-*   checking Rd cross-references ... NOTE
-    ```
-    Packages unavailable to check Rd xrefs: ‘dtplyr’, ‘dbplyr’
     ```
 
 # slinky
 
-Version: 1.0.0
+<details>
 
-## In both
+* Version: 1.0.2
+* Source code: https://github.com/cran/slinky
+* Date/Publication: 2019-02-28
+* Number of recursive dependencies: 95
+
+Run `revdep_details(,"slinky")` for more info
+
+</details>
+
+## Newly broken
+
+*   checking examples ... ERROR
+    ```
+    ...
+    > 
+    > ### ** Examples
+    > 
+    > 
+    > # for build/demo only.  You MUST use your own key when using the slinky
+    > # package.
+    > user_key <- httr::content(httr::GET('https://api.clue.io/temp_api_key'),
+    +                           as='parsed')$user_key
+    > sl <- Slinky(user_key,
+    +                  system.file('extdata', 'demo.gctx',
+    +                       package='slinky'),
+    +                  system.file('extdata', 'demo_inst_info.txt',
+    +                      package = 'slinky'))
+    > amox_gold <- clueInstances(sl, where_clause = list('pert_type' = 'trt_cp',
+    +                  'pert_iname' = 'amoxicillin',
+    +                  'cell_id' = 'MCF7',
+    +                  'is_gold' = TRUE), poscon = 'omit')
+    Error in vapply(ids[, 1], function(x) { : values must be length 1,
+     but FUN(X[[1]]) result is length 5
+    Calls: clueInstances -> clueInstances -> unlist -> vapply
+    Execution halted
+    ```
 
 *   checking tests ...
     ```
      ERROR
     Running the tests in ‘tests/testthat.R’ failed.
     Last 13 lines of output:
-      > library(testthat)
-      > library(slinky)
-      > 
-      > test_check("slinky")
-      [31m──[39m [31m1. Failure: Cell lines can be retrieved by iname (@test_clue.R#33) [39m [31m──────────────────[39m
-      nrow(tt) not equal to 3.
-      target is NULL, current is numeric
+             strsplit(x, "\\|")
+         }, list("a")) at /Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/slinky/new/slinky.Rcheck/00_pkg_src/slinky/R/slinky_clue.R:365
       
-      ══ testthat results  ════════════════════════════════════════════════════════════════════
-      OK: 45 SKIPPED: 0 FAILED: 1
-      1. Failure: Cell lines can be retrieved by iname (@test_clue.R#33) 
+      ══ testthat results  ═════════════════════════════════════════════════════════════════════════════════
+      OK: 32 SKIPPED: 0 WARNINGS: 0 FAILED: 7
+      1. Error: A list of instance ids can be retrieved (@test_clue.R#53) 
+      2. Error: Instance ids can be retrieved (@test_clue.R#73) 
+      3. Error: Robust z-scores can be calculated correctly (@test_score.R#28) 
+      4. Error: Scoring on landmark genes only works. (@test_score.R#33) 
+      5. Error: (unknown) (@test_score.R#39) 
+      6. Error: SummarizedExperiment can be created by where clause (@test_sumexp.R#24) 
+      7. Error: SummarizedExperiment can be created with controls id'd automatically (@test_sumexp.R#35) 
       
       Error: testthat unit tests failed
       Execution halted
     ```
 
-# sparklyr
-
-Version: 0.9.4
-
-## In both
-
-*   checking installed package size ... NOTE
-    ```
-      installed size is  7.1Mb
-      sub-directories of 1Mb or more:
-        R      4.1Mb
-        java   1.9Mb
-    ```
-
-# starmie
-
-Version: 0.1.2
-
-## In both
-
-*   checking installed package size ... NOTE
-    ```
-      installed size is  7.2Mb
-      sub-directories of 1Mb or more:
-        doc       1.1Mb
-        extdata   4.9Mb
-    ```
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespace in Imports field not imported from: ‘MCMCpack’
-      All declared Imports should be used.
-    ```
-
 # statsDK
 
-Version: 0.1.1
+<details>
+
+* Version: 0.1.1
+* Source code: https://github.com/cran/statsDK
+* URL: https://github.com/mikkelkrogsholm/statsDK
+* BugReports: https://github.com/mikkelkrogsholm/statsDK/issues
+* Date/Publication: 2017-09-30 08:30:06 UTC
+* Number of recursive dependencies: 65
+
+Run `revdep_details(,"statsDK")` for more info
+
+</details>
+
+## Newly broken
+
+*   checking examples ... ERROR
+    ```
+    ...
+     $ documentation      :List of 2
+      ..$ id : chr "738a2ebc-263d-403d-a2d9-7bcd3292eede"
+      ..$ url: chr "https://www.dst.dk/documentationofstatistics/738a2ebc-263d-403d-a2d9-7bcd3292eede"
+     $ footnote           :List of 2
+      ..$ text     : chr "The 21. February 2018 the number of livebirths is revised with 125 more born in 2017."
+      ..$ mandatory: logi FALSE
+     $ variables          :'data.frame':	2 obs. of  5 variables:
+      ..$ id         : chr [1:2] "BEVÆGELSEV" "Tid"
+      ..$ text       : chr [1:2] "movement" "time"
+      ..$ elimination: logi [1:2] FALSE FALSE
+      ..$ time       : logi [1:2] FALSE TRUE
+      ..$ values     :List of 2
+      .. ..$ :'data.frame':	2 obs. of  2 variables:
+      .. ..$ :'data.frame':	1419 obs. of  2 variables:
+    > 
+    > # See the variables as a data frame
+    > variables <- get_variables(metadata)
+    Error: 'unnest_' is defunct.
+    Use 'unnest' instead.
+    See help("Defunct")
+    Execution halted
+    ```
+
+*   checking tests ...
+    ```
+     ERROR
+    Running the tests in ‘tests/testthat.R’ failed.
+    Last 13 lines of output:
+      [31m──[39m [31m1. Error: (unknown) (@test_fixers.R#27) [39m [31m──────────────────────────────────────────────────────────[39m
+      'unnest_' is defunct.
+      Use 'unnest' instead.
+      See help("Defunct")
+      1: get_variables(metadata) at testthat/test_fixers.R:27
+      2: tidyr::unnest_(metadata$variables, "values") at /Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/statsDK/new/statsDK.Rcheck/00_pkg_src/statsDK/R/fixer_functions.R:63
+      3: .Defunct("unnest") at /private/tmp/RtmpquPhal/R.INSTALL91f746b5a07/tidyr/R/dep-lazyeval.R:311
+      4: stop(paste(msg, collapse = ""), call. = FALSE, domain = NA)
+      
+      ══ testthat results  ═════════════════════════════════════════════════════════════════════════════════
+      OK: 14 SKIPPED: 0 WARNINGS: 0 FAILED: 1
+      1. Error: (unknown) (@test_fixers.R#27) 
+      
+      Error: testthat unit tests failed
+      Execution halted
+    ```
 
 ## In both
 
@@ -5975,151 +1790,152 @@ Version: 0.1.1
       All declared Imports should be used.
     ```
 
-# STRMPS
+# strapgod
 
-Version: 0.5.8
+<details>
 
-## In both
+* Version: 0.0.2
+* Source code: https://github.com/cran/strapgod
+* URL: https://github.com/DavisVaughan/strapgod
+* BugReports: https://github.com/DavisVaughan/strapgod/issues
+* Date/Publication: 2019-05-16 15:30:04 UTC
+* Number of recursive dependencies: 54
 
-*   checking package dependencies ... NOTE
+Run `revdep_details(,"strapgod")` for more info
+
+</details>
+
+## Newly broken
+
+*   checking tests ...
     ```
-    Package suggested but not available for checking: ‘STRaitRazoR’
+     ERROR
+    Running the tests in ‘tests/testthat.R’ failed.
+    Last 13 lines of output:
+      22: set_names_impl(x, x, nm, ...) at /private/tmp/RtmpY9b5QA/R.INSTALL8c9f1ab63242/rlang/R/attr.R:163
+      23: is_function(nm) at /private/tmp/RtmpY9b5QA/R.INSTALL8c9f1ab63242/rlang/R/attr.R:170
+      24: is_closure(x) at /private/tmp/RtmpY9b5QA/R.INSTALL8c9f1ab63242/rlang/R/fn.R:275
+      25: repaired_names(names(x), .name_repair = .name_repair)
+      26: check_unique(new_name)
+      27: abort(error_column_names_must_be_unique(name[dups]))
+      
+      ══ testthat results  ═════════════════════════════════════════════════════════════════════════════════
+      OK: 147 SKIPPED: 0 WARNINGS: 62 FAILED: 3
+      1. Error: can correctly double bootstrap (@test-bootstrapify.R#69) 
+      2. Failure: nest() (@test-compat-tidyr.R#17) 
+      3. Error: group_keys() can find the virtual groups (@test-dplyr-group-funs.R#133) 
+      
+      Error: testthat unit tests failed
+      Execution halted
     ```
 
-# subSeq
+# suddengains
 
-Version: 1.12.1
+<details>
 
-## In both
+* Version: 0.2.1
+* Source code: https://github.com/cran/suddengains
+* URL: https://github.com/milanwiedemann/suddengains
+* BugReports: https://github.com/milanwiedemann/suddengains/issues
+* Date/Publication: 2019-05-21 13:50:03 UTC
+* Number of recursive dependencies: 78
 
-*   checking R code for possible problems ... NOTE
+Run `revdep_details(,"suddengains")` for more info
+
+</details>
+
+## Newly broken
+
+*   checking examples ... ERROR
     ```
     ...
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/subSeq/new/subSeq.Rcheck/00_pkg_src/subSeq/R/summary.subsamples.R:127-129)
-    summary.subsamples: no visible binding for global variable ‘percent’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/subSeq/new/subSeq.Rcheck/00_pkg_src/subSeq/R/summary.subsamples.R:127-129)
-    summary.subsamples: no visible binding for global variable ‘proportion’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/subSeq/new/subSeq.Rcheck/00_pkg_src/subSeq/R/summary.subsamples.R:127-129)
-    summary.subsamples: no visible binding for global variable ‘method’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/subSeq/new/subSeq.Rcheck/00_pkg_src/subSeq/R/summary.subsamples.R:127-129)
-    voomLimma: no visible global function definition for ‘model.matrix’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/subSeq/new/subSeq.Rcheck/00_pkg_src/subSeq/R/handlers.R:41)
-    Undefined global functions or variables:
-      . ID average.depth average.value coefficient cor count cov depth
-      estFDP method metric model.matrix o.coefficient o.lfdr o.padj
-      p.adjust padj percent plot proportion pvalue rFDP rbinom replication
-      selectMethod significant valid value var
-    Consider adding
-      importFrom("graphics", "plot")
-      importFrom("methods", "selectMethod")
-      importFrom("stats", "cor", "cov", "model.matrix", "p.adjust", "rbinom",
-                 "var")
-    to your NAMESPACE file (and ensure that your DESCRIPTION Imports field
-    contains 'methods').
-    ```
-
-# SummarizedBenchmark
-
-Version: 2.0.1
-
-## In both
-
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    ...
-    
-    The following object is masked from 'package:SummarizedBenchmark':
-    
-        plotROC
-    
-    
-    Attaching package: 'magrittr'
-    
-    The following object is masked from 'package:rlang':
-    
-        set_names
-    
-    The following object is masked from 'package:tidyr':
-    
-        extract
-    
-    Loading required package: SingleCellExperiment
-    Quitting from lines 47-54 (SingleCellBenchmark.Rmd) 
-    Error: processing vignette 'SingleCellBenchmark.Rmd' failed with diagnostics:
-    there is no package called 'scRNAseq'
+    +                                 "bdi_s4", "bdi_s5", "bdi_s6",
+    +                                 "bdi_s7", "bdi_s8", "bdi_s9",
+    +                                 "bdi_s10", "bdi_s11", "bdi_s12"),
+    +                 sg_measure_name = "bdi",
+    +                 multiple_sg_select = "largest")
+    First, second, and third sudden gains criteria were applied.
+    Error: `by` can't contain join column `id_var_name` which is missing from RHS
+    Backtrace:
+    [90m     [39m█
+    [90m  1. [39m└─suddengains::create_byperson(...)
+    [90m  2. [39m  └─suddengains::create_bysg(...) [90m00_pkg_src/suddengains/R/create_byperson.R:57:4[39m
+    [90m  3. [39m    └─suddengains::extract_values(...) [90m00_pkg_src/suddengains/R/create_bysg.R:136:2[39m
+    [90m  4. [39m      └─data_extract %>% tidyr::complete(id_var_name = id_list) [90m00_pkg_src/suddengains/R/extract_values.R:86:4[39m
+    [90m  5. [39m        ├─base::withVisible(eval(quote(`_fseq`(`_lhs`)), env, env))
+    [90m  6. [39m        └─base::eval(quote(`_fseq`(`_lhs`)), env, env)
+    [90m  7. [39m          └─base::eval(quote(`_fseq`(`_lhs`)), env, env)
+    [90m  8. [39m            └─suddengains:::`_fseq`(`_lhs`)
+    [90m  9. [39m              └─magrittr::freduce(value, `_function_list`)
+    [90m 10. [39m                ├─base::withVisible(function_list[[k]](value))
+    [90m 11. [
     Execution halted
-    ```
-
-*   checking package dependencies ... NOTE
-    ```
-    Package suggested but not available for checking: ‘scRNAseq’
-    
-    Depends: includes the non-default packages:
-      ‘tidyr’ ‘SummarizedExperiment’ ‘S4Vectors’ ‘BiocGenerics’ ‘UpSetR’
-      ‘rlang’ ‘stringr’ ‘BiocParallel’ ‘ggplot2’ ‘mclust’ ‘dplyr’ ‘digest’
-      ‘sessioninfo’ ‘crayon’ ‘tibble’
-    Adding so many packages to the search path is excessive and importing
-    selectively is preferable.
-    ```
-
-*   checking installed package size ... NOTE
-    ```
-      installed size is 15.8Mb
-      sub-directories of 1Mb or more:
-        R      1.0Mb
-        data  11.1Mb
-        doc    3.4Mb
-    ```
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Package in Depends field not imported from: ‘BiocGenerics’
-      These packages need to be imported from (in the NAMESPACE file)
-      for when this namespace is loaded but not attached.
-    Unexported object imported by a ':::' call: ‘BiocGenerics:::replaceSlots’
-      See the note in ?`:::` about the use of this operator.
-    ```
-
-*   checking R code for possible problems ... NOTE
-    ```
-    ...
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/SummarizedBenchmark/new/SummarizedBenchmark.Rcheck/00_pkg_src/SummarizedBenchmark/R/BDData-show.R:11)
-    show,BDMethodList: no visible global function definition for ‘head’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/SummarizedBenchmark/new/SummarizedBenchmark.Rcheck/00_pkg_src/SummarizedBenchmark/R/BDMethodList-show.R:8)
-    show,BDMethodList: no visible global function definition for ‘head’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/SummarizedBenchmark/new/SummarizedBenchmark.Rcheck/00_pkg_src/SummarizedBenchmark/R/BDMethodList-show.R:10)
-    show,BenchDesign: no visible global function definition for ‘head’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/SummarizedBenchmark/new/SummarizedBenchmark.Rcheck/00_pkg_src/SummarizedBenchmark/R/BenchDesign-show.R:19)
-    show,BenchDesign: no visible global function definition for ‘head’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/SummarizedBenchmark/new/SummarizedBenchmark.Rcheck/00_pkg_src/SummarizedBenchmark/R/BenchDesign-show.R:21)
-    show,BenchDesign: no visible global function definition for ‘head’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/SummarizedBenchmark/new/SummarizedBenchmark.Rcheck/00_pkg_src/SummarizedBenchmark/R/BenchDesign-show.R:23-28)
-    Undefined global functions or variables:
-      . .id .method .val .valueClassTest FDR TPR colid comparison cor f
-      head label meta metadata method overlap params post rerun sd slot
-      value
-    Consider adding
-      importFrom("methods", ".valueClassTest", "slot")
-      importFrom("stats", "cor", "sd")
-      importFrom("utils", "head")
-    to your NAMESPACE file (and ensure that your DESCRIPTION Imports field
-    contains 'methods').
-    ```
-
-# summarytools
-
-Version: 0.9.2
-
-## In both
-
-*   checking data for non-ASCII characters ... NOTE
-    ```
-      Note: found 78 marked UTF-8 strings
     ```
 
 # sunburstR
 
-Version: 2.1.0
+<details>
+
+* Version: 2.1.1
+* Source code: https://github.com/cran/sunburstR
+* URL: https://github.com/timelyportfolio/sunburstR
+* BugReports: https://github.com/timelyportfolio/sunburstR/issues
+* Date/Publication: 2019-03-04 09:00:03 UTC
+* Number of recursive dependencies: 43
+
+Run `revdep_details(,"sunburstR")` for more info
+
+</details>
+
+## Newly broken
+
+*   checking examples ... ERROR
+    ```
+    ...
+    > sunburst(sequences)
+    Warning: .key is deprecated
+    Error: No tidyselect variables were registered
+    Backtrace:
+    [90m     [39m█
+    [90m  1. [39m└─sunburstR::sunburst(sequences)
+    [90m  2. [39m  └─sunburstR:::csv_to_hier(data) [90m00_pkg_src/sunburstR/R/sunburst.R:109:4[39m
+    [90m  3. [39m    └─d3r::d3_nest(df, value_cols = "size") [90m00_pkg_src/sunburstR/R/converters.R:16:2[39m
+    [90m  4. [39m      ├─dplyr::bind_rows(...)
+    [90m  5. [39m      │ ├─dplyr:::flatten_bindable(dots_values(...))
+    [90m  6. [39m      │ └─rlang::dots_values(...)
+    [90m  7. [39m      ├─d3r:::promote_na(...)
+    [90m  8. [39m      │ ├─base::lapply(...)
+    [90m  9. [39m      │ └─base::nrow(x)
+    [90m 10. [39m      ├─d3r:::change_to_name(...)
+    [90m 11. [39m      │ └─base::lapply(...)
+    [90m 12. [39m      ├─tidyr::nest(...)
+    [90m 13. [39m      └─dplyr::one_of(c(nonnest_cols[length(nonnest_cols)], value_cols))
+    [90m 14. [39m        ├─keep %in% .vars
+    [90m 15. [39m        └─tidyselect::peek_var
+    Execution halted
+    ```
+
+*   checking tests ...
+    ```
+     ERROR
+    Running the tests in ‘tests/testthat.R’ failed.
+    Last 13 lines of output:
+             dplyr::rename_(y, name = colnames(y)[column])
+         })
+      17: tidyr::nest(data = data, dplyr::one_of(c(nonnest_cols[length(nonnest_cols)], value_cols)), .key = "children")
+      18: dplyr::one_of(c(nonnest_cols[length(nonnest_cols)], value_cols)) at /private/tmp/RtmpquPhal/R.INSTALL91f746b5a07/tidyr/R/nest.R:107
+      19: keep %in% .vars
+      20: peek_vars()
+      21: vars_env$selected %||% abort("No tidyselect variables were registered")
+      22: abort("No tidyselect variables were registered")
+      
+      ══ testthat results  ═════════════════════════════════════════════════════════════════════════════════
+      OK: 9 SKIPPED: 0 WARNINGS: 0 FAILED: 1
+      1. Error: sunburstR works with both csv and json data (@test-basic.R#33) 
+      
+      Error: testthat unit tests failed
+      Execution halted
+    ```
 
 ## In both
 
@@ -6128,989 +1944,338 @@ Version: 2.1.0
     Package which this enhances but not available for checking: ‘treemap’
     ```
 
-# suropt
+# tidygenomics
 
-Version: 0.1.1
+<details>
 
-## In both
+* Version: 0.1.1
+* Source code: https://github.com/cran/tidygenomics
+* URL: https://github.com/const-ae/tidygenomics
+* Date/Publication: 2019-05-27 09:30:03 UTC
+* Number of recursive dependencies: 48
 
-*   checking dependencies in R code ... NOTE
+Run `revdep_details(,"tidygenomics")` for more info
+
+</details>
+
+## Newly broken
+
+*   checking examples ... ERROR
     ```
-    Namespaces in Imports field not imported from:
-      ‘DiceOptim’ ‘GPareto’ ‘rgenoud’
-      All declared Imports should be used.
-    ```
-
-# survminer
-
-Version: 0.4.3
-
-## In both
-
-*   checking installed package size ... NOTE
-    ```
-      installed size is  6.1Mb
-      sub-directories of 1Mb or more:
-        doc   5.1Mb
-    ```
-
-# sweep
-
-Version: 0.2.1.1
-
-## In both
-
-*   checking package dependencies ... ERROR
-    ```
-    Package required but not available: ‘devtools’
+    ...
+    Attaching package: ‘dplyr’
     
-    See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-    manual.
-    ```
-
-# switchde
-
-Version: 1.8.1
-
-## In both
-
-*   checking for hidden files and directories ... NOTE
-    ```
-    Found the following hidden files and directories:
-      .travis.yml
-    These were most likely included in error. See section ‘Package
-    structure’ in the ‘Writing R Extensions’ manual.
-    ```
-
-# SWMPrExtension
-
-Version: 0.3.16
-
-## In both
-
-*   checking installed package size ... NOTE
-    ```
-      installed size is  5.2Mb
-      sub-directories of 1Mb or more:
-        data   4.0Mb
-    ```
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespace in Imports field not imported from: ‘rgeos’
-      All declared Imports should be used.
-    ```
-
-# syuzhet
-
-Version: 1.0.4
-
-## In both
-
-*   checking package dependencies ... NOTE
-    ```
-    Package suggested but not available for checking: ‘devtools’
-    ```
-
-*   checking installed package size ... NOTE
-    ```
-      installed size is  5.8Mb
-      sub-directories of 1Mb or more:
-        R         2.1Mb
-        extdata   3.1Mb
-    ```
-
-# tabula
-
-Version: 1.0.0
-
-## In both
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespaces in Imports field not imported from:
-      ‘dplyr’ ‘tidyr’
-      All declared Imports should be used.
-    ```
-
-# taxa
-
-Version: 0.3.2
-
-## In both
-
-*   checking installed package size ... NOTE
-    ```
-      installed size is  5.3Mb
-      sub-directories of 1Mb or more:
-        R      2.0Mb
-        data   1.1Mb
-        doc    1.7Mb
-    ```
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespaces in Imports field not imported from:
-      ‘knitr’ ‘lazyeval’ ‘rlang’ ‘tidyr’
-      All declared Imports should be used.
-    ```
-
-# TCGAbiolinks
-
-Version: 2.10.4
-
-## In both
-
-*   checking whether package ‘TCGAbiolinks’ can be installed ... ERROR
-    ```
-    Installation failed.
-    See ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/TCGAbiolinks/new/TCGAbiolinks.Rcheck/00install.out’ for details.
-    ```
-
-*   checking package dependencies ... NOTE
-    ```
-    Package suggested but not available for checking: ‘devtools’
-    ```
-
-## Installation
-
-### Devel
-
-```
-* installing *source* package ‘TCGAbiolinks’ ...
-** R
-** data
-*** moving datasets to lazyload DB
-** inst
-** byte-compile and prepare package for lazy loading
-Error in loadNamespace(i, c(lib.loc, .libPaths()), versionCheck = vI[[i]]) : 
-  there is no package called ‘sesameData’
-ERROR: lazy loading failed for package ‘TCGAbiolinks’
-* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/TCGAbiolinks/new/TCGAbiolinks.Rcheck/TCGAbiolinks’
-
-```
-### CRAN
-
-```
-* installing *source* package ‘TCGAbiolinks’ ...
-** R
-** data
-*** moving datasets to lazyload DB
-** inst
-** byte-compile and prepare package for lazy loading
-Error in loadNamespace(i, c(lib.loc, .libPaths()), versionCheck = vI[[i]]) : 
-  there is no package called ‘sesameData’
-ERROR: lazy loading failed for package ‘TCGAbiolinks’
-* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/TCGAbiolinks/old/TCGAbiolinks.Rcheck/TCGAbiolinks’
-
-```
-# teachingApps
-
-Version: 1.0.4
-
-## In both
-
-*   checking package dependencies ... ERROR
-    ```
-    Package required but not available: ‘devtools’
+    The following objects are masked from ‘package:stats’:
     
-    See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-    manual.
-    ```
-
-# TextForecast
-
-Version: 0.1.0
-
-## In both
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespaces in Imports field not imported from:
-      ‘doParallel’ ‘forecast’ ‘lars’ ‘parallel’ ‘tau’ ‘tsDyn’
-      All declared Imports should be used.
-    ```
-
-*   checking data for non-ASCII characters ... NOTE
-    ```
-      Note: found 40 marked UTF-8 strings
-    ```
-
-# textreuse
-
-Version: 0.1.4
-
-## In both
-
-*   checking Rd cross-references ... NOTE
-    ```
-    Package unavailable to check Rd xrefs: ‘tm’
-    ```
-
-# TFEA.ChIP
-
-Version: 1.2.3
-
-## In both
-
-*   checking package dependencies ... ERROR
-    ```
-    Packages required but not available:
-      ‘TxDb.Hsapiens.UCSC.hg19.knownGene’ ‘org.Hs.eg.db’
+        filter, lag
     
-    See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-    manual.
-    ```
-
-# theseus
-
-Version: 0.1.0
-
-## In both
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespaces in Imports field not imported from:
-      ‘gridExtra’ ‘splancs’ ‘tidyverse’
-      All declared Imports should be used.
-    ```
-
-*   checking Rd cross-references ... NOTE
-    ```
-    Packages unavailable to check Rd xrefs: ‘DESeq2’, ‘dada2’
-    ```
-
-# thinkr
-
-Version: 0.13
-
-## In both
-
-*   checking package dependencies ... ERROR
-    ```
-    Package required but not available: ‘devtools’
+    The following objects are masked from ‘package:base’:
     
-    See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-    manual.
+        intersect, setdiff, setequal, union
+    
+    > 
+    > x1 <- data.frame(id = 1:4, bla=letters[1:4],
+    +                  chromosome = c("chr1", "chr1", "chr2", "chr1"),
+    +                  start = c(100, 200, 300, 400),
+    +                  end = c(150, 250, 350, 450))
+    > 
+    > genome_complement(x1, by=c("chromosome", "start", "end"))
+    Error: 'nest_' is defunct.
+    Use 'nest' instead.
+    See help("Defunct")
+    Execution halted
     ```
-
-# tidybayes
-
-Version: 1.0.4
-
-## In both
 
 *   checking tests ...
     ```
      ERROR
     Running the tests in ‘tests/testthat.R’ failed.
     Last 13 lines of output:
-             modules = modules, factories = factories, jags = jags, call.setup = TRUE, method = method, 
-             mutate = mutate)
-      10: setup.jags(model = outmodel, monitor = outmonitor, data = outdata, n.chains = n.chains, inits = outinits, 
-             modules = modules, factories = factories, response = response, fitted = fitted, residual = residual, 
-             jags = jags, method = method, mutate = mutate)
-      11: loadandcheckrjags()
-      12: stop("Loading the rjags package failed (diagnostics are given above this error message)", 
-             call. = FALSE)
+      5: stop(paste(msg, collapse = ""), call. = FALSE, domain = NA)
       
-      ══ testthat results  ════════════════════════════════════════════════════════════════════
-      OK: 224 SKIPPED: 43 FAILED: 1
-      1. Error: tidy_draws works with runjags (@test.tidy_draws.R#87) 
+      ══ testthat results  ═════════════════════════════════════════════════════════════════════════════════
+      OK: 9 SKIPPED: 1 WARNINGS: 0 FAILED: 8
+      1. Error: Calculating the complement of a sequence works (@test_complement.R#12) 
+      2. Error: Intersection (both) of 2 data frames works as expected (@test_intersect.R#17) 
+      3. Error: Intersection of 2 data frames works for multi-overlap ranges (@test_intersect.R#29) 
+      4. Error: Intersection of 2 data frames works for multi-overlap ranges the other way around (@test_intersect.R#46) 
+      5. Error: Joining with closest works as expected (@test_join_closest.R#17) 
+      6. Error: Subtraction of 2 data frames works as expected (@test_subtract.R#18) 
+      7. Error: Edge cases of subtraction of 2 data frames works as expected (@test_subtract.R#38) 
+      8. Error: during subtraction the intervals are not unified (@test_subtract.R#57) 
       
       Error: testthat unit tests failed
       Execution halted
     ```
 
-# tidyLPA
+# tidygraph
 
-Version: 0.2.4
+<details>
 
-## In both
+* Version: 1.1.2
+* Source code: https://github.com/cran/tidygraph
+* URL: https://github.com/thomasp85/tidygraph
+* BugReports: https://github.com/thomasp85/tidygraph/issues
+* Date/Publication: 2019-02-18 22:30:03 UTC
+* Number of recursive dependencies: 95
 
-*   checking package dependencies ... NOTE
-    ```
-    Package suggested but not available for checking: ‘devtools’
-    ```
+Run `revdep_details(,"tidygraph")` for more info
 
-# tidyquant
+</details>
 
-Version: 0.5.5
-
-## In both
-
-*   checking installed package size ... NOTE
-    ```
-      installed size is  5.2Mb
-      sub-directories of 1Mb or more:
-        doc   4.1Mb
-    ```
-
-# tidytransit
-
-Version: 0.3.6
-
-## In both
-
-*   checking installed package size ... NOTE
-    ```
-      installed size is  5.4Mb
-      sub-directories of 1Mb or more:
-        extdata   4.4Mb
-    ```
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespaces in Imports field not imported from:
-      ‘here’ ‘htmltools’ ‘scales’ ‘stringr’
-      All declared Imports should be used.
-    ```
-
-*   checking data for non-ASCII characters ... NOTE
-    ```
-      Note: found 41 marked UTF-8 strings
-    ```
-
-# tidyverse
-
-Version: 1.2.1
-
-## In both
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespaces in Imports field not imported from:
-      ‘dbplyr’ ‘reprex’ ‘rlang’
-      All declared Imports should be used.
-    ```
-
-# tidyxl
-
-Version: 1.0.4
-
-## In both
-
-*   checking compiled code ... WARNING
-    ```
-    File ‘tidyxl/libs/tidyxl.so’:
-      Found ‘_abort’, possibly from ‘abort’ (C)
-        Object: ‘xlex.o’
-    
-    Compiled code should not call entry points which might terminate R nor
-    write to stdout/stderr instead of to the console, nor use Fortran I/O
-    nor system RNGs.
-    
-    See ‘Writing portable packages’ in the ‘Writing R Extensions’ manual.
-    ```
-
-# tilegramsR
-
-Version: 0.2.0
-
-## In both
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespace in Imports field not imported from: ‘sp’
-      All declared Imports should be used.
-    ```
-
-*   checking data for non-ASCII characters ... NOTE
-    ```
-      Note: found 341 marked UTF-8 strings
-    ```
-
-# TimeSeriesExperiment
-
-Version: 1.0.4
-
-## In both
+## Newly broken
 
 *   checking examples ... ERROR
     ```
     ...
     The error most likely occurred in:
     
-    > ### Name: pathwayEnrichment
-    > ### Title: Pathway enrichment testing.
-    > ### Aliases: pathwayEnrichment
+    > ### Name: morph
+    > ### Title: Create a temporary alternative representation of the graph to
+    > ###   compute on
+    > ### Aliases: morph unmorph crystallise crystallize convert
     > 
     > ### ** Examples
     > 
-    > data("endoderm_small")
-    > selected_genes <- c('114299', '2825', '3855', '221400', '7941',
-    +                     '6164', '1292', '6161', '6144', '23521')
-    > enrich_res <- pathwayEnrichment(
-    +   object = endoderm_small, clustered = FALSE,
-    +   features = selected_genes,
-    +   species = "Hs", ontology = "BP", fltr_DE = 0,
-    +   fltr_N = Inf, fltr_P.DE = 0.05)
-    Error: Package org.Hs.eg.db needed for this function to work.Please install it using: 
-    if (!requireNamespace("BiocManager", quietly = TRUE))
-        install.packages("BiocManager")
-    BiocManager::install("org.Hs.eg.db")
+    > create_notable('meredith') %>%
+    +   mutate(group = group_infomap()) %>%
+    +   morph(to_contracted, group) %>%
+    +   mutate(group_centrality = centrality_pagerank()) %>%
+    +   unmorph()
+    Warning: .key is deprecated
+    Warning: Unknown or uninitialised column: '.orig_data'.
+    Warning: Unknown or uninitialised column: '.orig_data'.
+    Error in `$<-.data.frame`(`*tmp*`, ".orig_data", value = list()) : 
+      replacement has 0 rows, data has 10
+    Calls: %>% ... morph -> morph.tbl_graph -> .f -> $<- -> $<-.data.frame
     Execution halted
     ```
-
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    ...
-    
-    The following object is masked from 'package:BiocGenerics':
-    
-        clusterMap
-    
-    The following object is masked from 'package:parallel':
-    
-        clusterMap
-    
-    Loading required package: dbplyr
-    
-    Attaching package: 'dbplyr'
-    
-    The following objects are masked from 'package:dplyr':
-    
-        ident, sql
-    
-    Quitting from lines 110-124 (cop1_knockout_timecourse.Rmd) 
-    Error: processing vignette 'cop1_knockout_timecourse.Rmd' failed with diagnostics:
-    could not find function "read_csv"
-    Execution halted
-    ```
-
-*   checking package dependencies ... NOTE
-    ```
-    Packages suggested but not available for checking:
-      ‘GO.db’ ‘org.Mm.eg.db’ ‘org.Hs.eg.db’
-    ```
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Unexported object imported by a ':::' call: ‘S4Vectors:::selectSome’
-      See the note in ?`:::` about the use of this operator.
-    ```
-
-*   checking R code for possible problems ... NOTE
-    ```
-    clusterTimeSeries: no visible binding for global variable ‘freq’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/TimeSeriesExperiment/new/TimeSeriesExperiment.Rcheck/00_pkg_src/TimeSeriesExperiment/R/clustering.R:276-280)
-    clusterTimeSeries: no visible binding for global variable ‘.’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/TimeSeriesExperiment/new/TimeSeriesExperiment.Rcheck/00_pkg_src/TimeSeriesExperiment/R/clustering.R:276-280)
-    Undefined global functions or variables:
-      . freq
-    ```
-
-# timetk
-
-Version: 0.1.1.1
-
-## In both
-
-*   checking package dependencies ... ERROR
-    ```
-    Package required but not available: ‘devtools’
-    
-    See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-    manual.
-    ```
-
-# TissueEnrich
-
-Version: 1.2.1
-
-## In both
-
-*   checking R code for possible problems ... NOTE
-    ```
-    teEnrichment: no visible global function definition for ‘is’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/TissueEnrich/new/TissueEnrich.Rcheck/00_pkg_src/TissueEnrich/R/teEnrichment.R:68-71)
-    teEnrichment: no visible global function definition for ‘is’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/TissueEnrich/new/TissueEnrich.Rcheck/00_pkg_src/TissueEnrich/R/teEnrichment.R:93-98)
-    teEnrichmentCustom: no visible global function definition for ‘is’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/TissueEnrich/new/TissueEnrich.Rcheck/00_pkg_src/TissueEnrich/R/teEnrichmentCustom.R:66-69)
-    teEnrichmentCustom: no visible global function definition for ‘is’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/TissueEnrich/new/TissueEnrich.Rcheck/00_pkg_src/TissueEnrich/R/teEnrichmentCustom.R:71-80)
-    teEnrichmentCustom: no visible global function definition for ‘is’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/TissueEnrich/new/TissueEnrich.Rcheck/00_pkg_src/TissueEnrich/R/teEnrichmentCustom.R:119-124)
-    teGeneRetrieval: no visible global function definition for ‘is’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/TissueEnrich/new/TissueEnrich.Rcheck/00_pkg_src/TissueEnrich/R/teGeneRetrieval.R:42-49)
-    Undefined global functions or variables:
-      is
-    Consider adding
-      importFrom("methods", "is")
-    to your NAMESPACE file (and ensure that your DESCRIPTION Imports field
-    contains 'methods').
-    ```
-
-# tmap
-
-Version: 2.2
-
-## In both
-
-*   checking installed package size ... NOTE
-    ```
-      installed size is  6.1Mb
-      sub-directories of 1Mb or more:
-        R      3.0Mb
-        data   1.4Mb
-        doc    1.4Mb
-    ```
-
-# toxplot
-
-Version: 0.1.1
-
-## In both
-
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘toxplot-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: fit_curve_tcpl
-    > ### Title: fit dose-resopnse curve using tcpl hill model
-    > ### Aliases: fit_curve_tcpl
-    > 
-    > ### ** Examples
-    > 
-    > ## fit curve with default significant threshold 20
-    > 
-    > demo_md <- fit_curve_tcpl(demo_mc_norm, assay_info =
-    + list(prim_assay = "Primary", toxi_assay = "Cytotox"))
-    Processing 9 samples(spid)....
-    TP0001501G09 ||TP0001501G10 ||TP0001501G11 ||TP0001502A01 ||TP0001502B01 ||TP0001502B03 ||Error in (function (..., row.names = NULL, check.rows = FALSE, check.names = TRUE,  : 
-      arguments imply differing number of rows: 1, 18, 0
-    Calls: fit_curve_tcpl ... as.data.frame -> as.data.frame.list -> do.call -> <Anonymous>
-    Execution halted
-    ```
-
-*   checking package dependencies ... NOTE
-    ```
-    Package suggested but not available for checking: ‘devtools’
-    ```
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespace in Imports field not imported from: ‘tidyr’
-      All declared Imports should be used.
-    ```
-
-# TPP
-
-Version: 3.10.1
-
-## In both
-
-*   checking installed package size ... NOTE
-    ```
-      installed size is 15.5Mb
-      sub-directories of 1Mb or more:
-        R              2.0Mb
-        data           1.9Mb
-        example_data   8.2Mb
-        test_data      2.0Mb
-    ```
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespace in Imports field not imported from: ‘broom’
-      All declared Imports should be used.
-    Unexported objects imported by ':::' calls:
-      ‘doParallel:::.options’ ‘mefa:::rep.data.frame’
-      See the note in ?`:::` about the use of this operator.
-    ```
-
-*   checking R code for possible problems ... NOTE
-    ```
-    File ‘TPP/R/TPP.R’:
-      .onLoad calls:
-        packageStartupMessage(msgText, "\n")
-    
-    See section ‘Good practice’ in '?.onAttach'.
-    
-    plot_fSta_distribution: no visible binding for global variable
-      ‘..density..’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/TPP/new/TPP.Rcheck/00_pkg_src/TPP/R/plot_fSta_distribution.R:19-28)
-    plot_pVal_distribution: no visible binding for global variable
-      ‘..density..’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/TPP/new/TPP.Rcheck/00_pkg_src/TPP/R/plot_pVal_distribution.R:22-31)
-    Undefined global functions or variables:
-      ..density..
-    ```
-
-# transcriptogramer
-
-Version: 1.4.1
-
-## In both
-
-*   checking whether package ‘transcriptogramer’ can be installed ... ERROR
-    ```
-    Installation failed.
-    See ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/transcriptogramer/new/transcriptogramer.Rcheck/00install.out’ for details.
-    ```
-
-## Installation
-
-### Devel
-
-```
-* installing *source* package ‘transcriptogramer’ ...
-** R
-** data
-*** moving datasets to lazyload DB
-** inst
-** byte-compile and prepare package for lazy loading
-Error in loadNamespace(i, c(lib.loc, .libPaths()), versionCheck = vI[[i]]) : 
-  there is no package called ‘GO.db’
-ERROR: lazy loading failed for package ‘transcriptogramer’
-* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/transcriptogramer/new/transcriptogramer.Rcheck/transcriptogramer’
-
-```
-### CRAN
-
-```
-* installing *source* package ‘transcriptogramer’ ...
-** R
-** data
-*** moving datasets to lazyload DB
-** inst
-** byte-compile and prepare package for lazy loading
-Error in loadNamespace(i, c(lib.loc, .libPaths()), versionCheck = vI[[i]]) : 
-  there is no package called ‘GO.db’
-ERROR: lazy loading failed for package ‘transcriptogramer’
-* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/transcriptogramer/old/transcriptogramer.Rcheck/transcriptogramer’
-
-```
-# translateSPSS2R
-
-Version: 1.0.0
-
-## In both
-
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘translateSPSS2R-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: xpssFlip
-    > ### Title: Flips variables
-    > ### Aliases: xpssFlip
-    > 
-    > ### ** Examples
-    > 
-    > data(fromXPSS)
-    > xpssFlip(x=fromXPSS,variables=c("V4","V5","V6"),names="V1")
-    Error in if (variables == "all") { : the condition has length > 1
-    Calls: xpssFlip
-    Execution halted
-    ```
-
-*   checking R code for possible problems ... NOTE
-    ```
-    ...
-    xpssTtest: no visible global function definition for ‘t.test’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/translateSPSS2R/new/translateSPSS2R.Rcheck/00_pkg_src/translateSPSS2R/R/xpssTtest.R:617)
-    xpssTtest: no visible global function definition for ‘na.omit’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/translateSPSS2R/new/translateSPSS2R.Rcheck/00_pkg_src/translateSPSS2R/R/xpssTtest.R:627)
-    xpssTtest: no visible global function definition for ‘sd’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/translateSPSS2R/new/translateSPSS2R.Rcheck/00_pkg_src/translateSPSS2R/R/xpssTtest.R:628)
-    xpssTtest: no visible global function definition for ‘na.omit’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/translateSPSS2R/new/translateSPSS2R.Rcheck/00_pkg_src/translateSPSS2R/R/xpssTtest.R:628)
-    xpssTtest: no visible global function definition for ‘cor.test’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/translateSPSS2R/new/translateSPSS2R.Rcheck/00_pkg_src/translateSPSS2R/R/xpssTtest.R:631)
-    Undefined global functions or variables:
-      anova as.formula complete.cases cor.test density frequency
-      globalVariables head lines lm median na.omit quantile sd summary.lm
-      t.test tail title var
-    Consider adding
-      importFrom("graphics", "lines", "title")
-      importFrom("stats", "anova", "as.formula", "complete.cases",
-                 "cor.test", "density", "frequency", "lm", "median",
-                 "na.omit", "quantile", "sd", "summary.lm", "t.test", "var")
-      importFrom("utils", "globalVariables", "head", "tail")
-    to your NAMESPACE file.
-    ```
-
-# trialr
-
-Version: 0.0.6
-
-## In both
-
-*   checking installed package size ... NOTE
-    ```
-      installed size is  8.3Mb
-      sub-directories of 1Mb or more:
-        libs   6.5Mb
-    ```
-
-*   checking for GNU extensions in Makefiles ... NOTE
-    ```
-    GNU make is a SystemRequirements.
-    ```
-
-# trread
-
-Version: 0.2.7
-
-## In both
-
-*   checking installed package size ... NOTE
-    ```
-      installed size is  5.2Mb
-      sub-directories of 1Mb or more:
-        extdata   4.4Mb
-    ```
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespaces in Imports field not imported from:
-      ‘here’ ‘htmltools’ ‘scales’ ‘stringr’
-      All declared Imports should be used.
-    ```
-
-*   checking data for non-ASCII characters ... NOTE
-    ```
-      Note: found 41 marked UTF-8 strings
-    ```
-
-# ukbtools
-
-Version: 0.11.0
-
-## In both
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespace in Imports field not imported from: ‘plyr’
-      All declared Imports should be used.
-    ```
-
-*   checking data for non-ASCII characters ... NOTE
-    ```
-      Note: found 5 marked UTF-8 strings
-    ```
-
-# understandBPMN
-
-Version: 1.1.0
-
-## In both
-
-*   checking package dependencies ... ERROR
-    ```
-    Package required but not available: ‘devtools’
-    
-    See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-    manual.
-    ```
-
-# unvotes
-
-Version: 0.2.0
-
-## In both
-
-*   checking package dependencies ... NOTE
-    ```
-    Package suggested but not available for checking: ‘devtools’
-    ```
-
-*   checking data for non-ASCII characters ... NOTE
-    ```
-      Note: found 4494 marked UTF-8 strings
-    ```
-
-# valr
-
-Version: 0.5.0
-
-## In both
-
-*   checking package dependencies ... NOTE
-    ```
-    Package suggested but not available for checking: ‘devtools’
-    ```
-
-# vidger
-
-Version: 1.2.1
-
-## In both
-
-*   checking installed package size ... NOTE
-    ```
-      installed size is 10.8Mb
-      sub-directories of 1Mb or more:
-        data   4.0Mb
-        doc    6.1Mb
-    ```
-
-# vlad
-
-Version: 0.2.0
-
-## In both
-
-*   checking whether package ‘vlad’ can be installed ... ERROR
-    ```
-    Installation failed.
-    See ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/vlad/new/vlad.Rcheck/00install.out’ for details.
-    ```
-
-## Installation
-
-### Devel
-
-```
-* installing *source* package ‘vlad’ ...
-** package ‘vlad’ successfully unpacked and MD5 sums checked
-** libs
-clang++ -std=gnu++11 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG -I../inst/include/ -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/vlad/Rcpp/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/vlad/RcppArmadillo/include" -I/usr/local/include  -fopenmp -fPIC  -Wall -g -O2 -c RcppExports.cpp -o RcppExports.o
-clang: error: unsupported option '-fopenmp'
-make: *** [RcppExports.o] Error 1
-ERROR: compilation failed for package ‘vlad’
-* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/vlad/new/vlad.Rcheck/vlad’
-
-```
-### CRAN
-
-```
-* installing *source* package ‘vlad’ ...
-** package ‘vlad’ successfully unpacked and MD5 sums checked
-** libs
-clang++ -std=gnu++11 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG -I../inst/include/ -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/vlad/Rcpp/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/vlad/RcppArmadillo/include" -I/usr/local/include  -fopenmp -fPIC  -Wall -g -O2 -c RcppExports.cpp -o RcppExports.o
-clang: error: unsupported option '-fopenmp'
-make: *** [RcppExports.o] Error 1
-ERROR: compilation failed for package ‘vlad’
-* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/vlad/old/vlad.Rcheck/vlad’
-
-```
-# vqtl
-
-Version: 2.0.4
-
-## In both
 
 *   checking tests ...
     ```
      ERROR
     Running the tests in ‘tests/testthat.R’ failed.
     Last 13 lines of output:
-      11: function_list[[i]](value)
-      12: dplyr::summarise_(., mean = lazyeval::interp(~mean(var, na.rm = TRUE), var = as.name(phenotype.name)), 
-             sd = lazyeval::interp(~sd(var, na.rm = TRUE), var = as.name(phenotype.name)), mean.se = quote(sd/sqrt(n())), 
-             sd.se = quote(sqrt(2) * sd^2/sqrt(n() - 1)))
-      13: summarise_.tbl_df(., mean = lazyeval::interp(~mean(var, na.rm = TRUE), var = as.name(phenotype.name)), 
-             sd = lazyeval::interp(~sd(var, na.rm = TRUE), var = as.name(phenotype.name)), mean.se = quote(sd/sqrt(n())), 
-             sd.se = quote(sqrt(2) * sd^2/sqrt(n() - 1)))
-      14: summarise_impl(.data, dots, environment(), caller_env())
+      7: function_list[[i]](value)
+      8: morph(., to_contracted, group)
+      9: morph.tbl_graph(., to_contracted, group) at /Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/tidygraph/new/tidygraph.Rcheck/00_pkg_src/tidygraph/R/morph.R:71
+      10: .f(.data, ...) at /Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/tidygraph/new/tidygraph.Rcheck/00_pkg_src/tidygraph/R/morph.R:104
+      11: `$<-`(`*tmp*`, ".orig_data", value = list()) at /Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/tidygraph/new/tidygraph.Rcheck/00_pkg_src/tidygraph/R/morphers.R:248
+      12: `$<-.data.frame`(`*tmp*`, ".orig_data", value = list()) at /Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/tidygraph/new/tidygraph.Rcheck/00_pkg_src/tidygraph/R/morphers.R:248
+      13: stop(sprintf(ngettext(N, "replacement has %d row, data has %d", "replacement has %d rows, data has %d"), 
+             N, nrows), domain = NA)
       
-      ══ testthat results  ════════════════════════════════════════════════════════════════════
-      OK: 118 SKIPPED: 2 FAILED: 1
-      1. Error: mean_var_sample_plot (@test-4-plots.R#76) 
+      ══ testthat results  ═════════════════════════════════════════════════════════════════════════════════
+      OK: 273 SKIPPED: 0 WARNINGS: 3 FAILED: 1
+      1. Error: to_contracted works (@test-morph.R#107) 
       
       Error: testthat unit tests failed
       Execution halted
     ```
 
-*   checking package dependencies ... NOTE
+# tidync
+
+<details>
+
+* Version: 0.2.1
+* Source code: https://github.com/cran/tidync
+* URL: https://github.com/ropensci/tidync
+* BugReports: https://github.com/ropensci/tidync/issues
+* Date/Publication: 2019-05-23 11:10:03 UTC
+* Number of recursive dependencies: 68
+
+Run `revdep_details(,"tidync")` for more info
+
+</details>
+
+## Newly broken
+
+*   checking tests ...
     ```
-    Package suggested but not available for checking: ‘hglm’
+     ERROR
+    Running the tests in ‘tests/testthat.R’ failed.
+    Last 13 lines of output:
+      > 
+      > test_check("tidync")
+      [31m──[39m [31m1. Failure: slicing works (@test-hyper-slice.R#8) [39m [31m────────────────────────────────────────────────[39m
+      `tidync(l3file) %>% hyper_filter() %>% hyper_array()` produced warnings.
+      
+      [31m──[39m [31m2. Failure: select_var is robust (@test-select_var.R#13) [39m [31m─────────────────────────────────────────[39m
+      ``%>%`(...)` produced warnings.
+      
+      ══ testthat results  ═════════════════════════════════════════════════════════════════════════════════
+      OK: 75 SKIPPED: 5 WARNINGS: 25 FAILED: 2
+      1. Failure: slicing works (@test-hyper-slice.R#8) 
+      2. Failure: select_var is robust (@test-select_var.R#13) 
+      
+      Error: testthat unit tests failed
+      Execution halted
     ```
 
-*   checking dependencies in R code ... NOTE
+# trelliscopejs
+
+<details>
+
+* Version: 0.1.18
+* Source code: https://github.com/cran/trelliscopejs
+* URL: https://github.com/hafen/trelliscopejs
+* BugReports: https://github.com/hafen/trelliscopejs/issues
+* Date/Publication: 2019-01-09 06:20:03 UTC
+* Number of recursive dependencies: 119
+
+Run `revdep_details(,"trelliscopejs")` for more info
+
+</details>
+
+## Newly broken
+
+*   checking tests ...
     ```
-    Namespaces in Imports field not imported from:
-      ‘iterators’ ‘knitr’ ‘purrr’ ‘testthat’
-      All declared Imports should be used.
+     ERROR
+    Running the tests in ‘tests/testthat.R’ failed.
+    Last 13 lines of output:
+      17: vec_type2_dispatch(x = x, y = y, x_arg = x_arg, y_arg = y_arg) at /private/tmp/RtmpOo2RHI/R.INSTALL8d285a08eb82/vctrs/R/type-tibble.R:12
+      18: vec_type2.integer(x = x, y = y, x_arg = x_arg, y_arg = y_arg) at /private/tmp/RtmpOo2RHI/R.INSTALL8d285a08eb82/vctrs/R/type2.R:46
+      19: vec_type2.integer.integer(x = x, y = y, x_arg = x_arg, y_arg = y_arg) at /private/tmp/RtmpOo2RHI/R.INSTALL8d285a08eb82/vctrs/R/type2.R:79
+      20: shape_match(integer(), x, y) at /private/tmp/RtmpOo2RHI/R.INSTALL8d285a08eb82/vctrs/R/type2.R:101
+      21: shape_common(x, y) at /private/tmp/RtmpOo2RHI/R.INSTALL8d285a08eb82/vctrs/R/shape.R:15
+      22: dim2(shape(x), shape(y)) at /private/tmp/RtmpOo2RHI/R.INSTALL8d285a08eb82/vctrs/R/shape.R:20
+      23: shape(x) at /private/tmp/RtmpOo2RHI/R.INSTALL8d285a08eb82/vctrs/R/shape.R:20
+      24: abort("Only bare vectors have shapes.") at /private/tmp/RtmpOo2RHI/R.INSTALL8d285a08eb82/vctrs/R/shape.R:70
+      
+      ══ testthat results  ═════════════════════════════════════════════════════════════════════════════════
+      OK: 0 SKIPPED: 0 WARNINGS: 694 FAILED: 1
+      1. Error: examples run without barfing (@test-trelliscope.R#140) 
+      
+      Error: testthat unit tests failed
+      Execution halted
     ```
 
-# VWPre
+# tsibble
 
-Version: 1.1.0
+<details>
 
-## In both
+* Version: 0.8.0
+* Source code: https://github.com/cran/tsibble
+* URL: https://tsibble.tidyverts.org
+* BugReports: https://github.com/tidyverts/tsibble/issues
+* Date/Publication: 2019-04-28 11:20:03 UTC
+* Number of recursive dependencies: 83
 
-*   checking installed package size ... NOTE
+Run `revdep_details(,"tsibble")` for more info
+
+</details>
+
+## Newly broken
+
+*   checking examples ... ERROR
     ```
-      installed size is  5.0Mb
-      sub-directories of 1Mb or more:
-        data   3.1Mb
-        doc    1.3Mb
+    ...
+      [3m[90m<chr>[39m[23m [3m[90m<list>[39m[23m             [3m[90m<chr>[39m[23m
+    [90m1[39m X     [90m<tsibble [10 × 2]>[39m X    
+    [90m2[39m Y     [90m<tsibble [10 × 2]>[39m Y    
+    [90m3[39m Z     [90m<tsibble [10 × 2]>[39m Z    
+    > stock_qtl <- stocksm %>% 
+    +   group_by(stock) %>% 
+    +   index_by(day3 = lubridate::floor_date(time, unit = "3 day")) %>% 
+    +   summarise(
+    +     value = list(quantile(price)), 
+    +     qtl = list(c("0%", "25%", "50%", "75%", "100%"))
+    +   )
+    > unnest(stock_qtl, key = qtl)
+    Warning: unnest() has a new interface. See ?unnest for details.
+    Try `cols = c(key)`, with `mutate()` needed
+    Warning: `.preserve` is deprecated. All list-columns are now preserved
+    Warning: `.drop` is deprecated. All list-columns are now preserved.
+    Warning: `.id` is deprecated. Manually create column of names instead.
+    Error in x[[i]] <- value : 
+      attempt to select less than one element in OneIndex
+    Calls: unnest ... unnest -> unnest.tbl_ts -> unnest -> [[<- -> [[<-.data.frame
+    Execution halted
     ```
 
-# wand
-
-Version: 0.2.0
-
-## In both
-
-*   checking whether package ‘wand’ can be installed ... ERROR
+*   checking tests ...
     ```
-    Installation failed.
-    See ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/wand/new/wand.Rcheck/00install.out’ for details.
+     ERROR
+    Running the tests in ‘tests/testthat.R’ failed.
+    Last 13 lines of output:
+      18: mutate.tbl_df(data, !!!dots)
+      19: mutate_impl(.data, dots, caller_env())
+      
+      ══ testthat results  ═════════════════════════════════════════════════════════════════════════════════
+      OK: 780 SKIPPED: 0 WARNINGS: 17 FAILED: 7
+      1. Failure: nest() (@test-tidyr.R#75) 
+      2. Failure: unnest.lst_ts() (@test-tidyr.R#86) 
+      3. Error: unnest.lst_ts() (@test-tidyr.R#87) 
+      4. Failure: unnest.tbl_ts() (@test-tidyr.R#105) 
+      5. Error: unnest.tbl_ts() (@test-tidyr.R#106) 
+      6. Failure: dplyr verbs for lst_ts (@test-tidyr.R#111) 
+      7. Error: dplyr verbs for lst_ts (@test-tidyr.R#115) 
+      
+      Error: testthat unit tests failed
+      Execution halted
     ```
 
-## Installation
+# unpivotr
 
-### Devel
+<details>
 
-```
-* installing *source* package ‘wand’ ...
-** package ‘wand’ successfully unpacked and MD5 sums checked
-Checking to see if libmagic is available...
-** libs
-ccache clang++ -Qunused-arguments  -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG -L/usr/local/include -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/wand/Rcpp/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c RcppExports.cpp -o RcppExports.o
-ccache clang++ -Qunused-arguments  -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG -L/usr/local/include -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/wand/Rcpp/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c wand.cpp -o wand.o
-ccache clang++ -Qunused-arguments -dynamiclib -Wl,-headerpad_max_install_names -undefined dynamic_lookup -single_module -multiply_defined suppress -L/Library/Frameworks/R.framework/Resources/lib -L/usr/local/lib -o wand.so RcppExports.o wand.o -L/usr/local/lib -L/usr/lib -lmagic -F/Library/Frameworks/R.framework/.. -framework R -Wl,-framework -Wl,CoreFoundation
-ld: library not found for -lmagic
-clang: error: linker command failed with exit code 1 (use -v to see invocation)
-make: *** [wand.so] Error 1
-ERROR: compilation failed for package ‘wand’
-* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/wand/new/wand.Rcheck/wand’
+* Version: 0.5.1
+* Source code: https://github.com/cran/unpivotr
+* URL: https://github.com/nacnudus/unpivotr
+* BugReports: https://github.com/nacnudus/unpivotr/issues
+* Date/Publication: 2019-03-30 19:10:03 UTC
+* Number of recursive dependencies: 87
 
-```
-### CRAN
+Run `revdep_details(,"unpivotr")` for more info
 
-```
-* installing *source* package ‘wand’ ...
-** package ‘wand’ successfully unpacked and MD5 sums checked
-Checking to see if libmagic is available...
-** libs
-ccache clang++ -Qunused-arguments  -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG -L/usr/local/include -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/wand/Rcpp/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c RcppExports.cpp -o RcppExports.o
-ccache clang++ -Qunused-arguments  -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG -L/usr/local/include -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/wand/Rcpp/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c wand.cpp -o wand.o
-ccache clang++ -Qunused-arguments -dynamiclib -Wl,-headerpad_max_install_names -undefined dynamic_lookup -single_module -multiply_defined suppress -L/Library/Frameworks/R.framework/Resources/lib -L/usr/local/lib -o wand.so RcppExports.o wand.o -L/usr/local/lib -L/usr/lib -lmagic -F/Library/Frameworks/R.framework/.. -framework R -Wl,-framework -Wl,CoreFoundation
-ld: library not found for -lmagic
-clang: error: linker command failed with exit code 1 (use -v to see invocation)
-make: *** [wand.so] Error 1
-ERROR: compilation failed for package ‘wand’
-* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/wand/old/wand.Rcheck/wand’
+</details>
 
-```
-# wbstats
+## Newly broken
 
-Version: 0.2
-
-## In both
-
-*   checking data for non-ASCII characters ... NOTE
+*   checking tests ...
     ```
-      Note: found 1528 marked UTF-8 strings
+     ERROR
+    Running the tests in ‘tests/testthat.R’ failed.
+    Last 13 lines of output:
+      12: set_repaired_names(x, .name_repair)
+      13: set_names(x, repaired_names(names(x), .name_repair = .name_repair))
+      14: set_names_impl(x, x, nm, ...) at /private/tmp/RtmpY9b5QA/R.INSTALL8c9f1ab63242/rlang/R/attr.R:163
+      15: is_function(nm) at /private/tmp/RtmpY9b5QA/R.INSTALL8c9f1ab63242/rlang/R/attr.R:170
+      16: is_closure(x) at /private/tmp/RtmpY9b5QA/R.INSTALL8c9f1ab63242/rlang/R/fn.R:275
+      17: repaired_names(names(x), .name_repair = .name_repair)
+      18: check_unique(new_name)
+      19: abort(error_column_names_must_be_unique(name[dups]))
+      
+      ══ testthat results  ═════════════════════════════════════════════════════════════════════════════════
+      OK: 251 SKIPPED: 0 WARNINGS: 155 FAILED: 1
+      1. Error: partition() works (@test-partition.R#59) 
+      
+      Error: testthat unit tests failed
+      Execution halted
     ```
 
 # weathercan
 
-Version: 0.2.8
+<details>
+
+* Version: 0.2.8
+* Source code: https://github.com/cran/weathercan
+* URL: https://github.com/ropensci/weathercan
+* BugReports: https://github.com/ropensci/weathercan/issues
+* Date/Publication: 2018-10-08 20:30:02 UTC
+* Number of recursive dependencies: 102
+
+Run `revdep_details(,"weathercan")` for more info
+
+</details>
+
+## Newly broken
+
+*   R CMD check timed out
+    
 
 ## In both
-
-*   checking package dependencies ... NOTE
-    ```
-    Package suggested but not available for checking: ‘devtools’
-    ```
 
 *   checking dependencies in R code ... NOTE
     ```
@@ -7123,191 +2288,137 @@ Version: 0.2.8
       Note: found 25 marked UTF-8 strings
     ```
 
-# wordbankr
+# widyr
 
-Version: 0.3.0
+<details>
 
-## In both
+* Version: 0.1.1
+* Source code: https://github.com/cran/widyr
+* URL: http://github.com/dgrtwo/widyr
+* BugReports: http://github.com/dgrtwo/widyr/issues
+* Date/Publication: 2018-03-11 04:51:37 UTC
+* Number of recursive dependencies: 97
 
-*   checking dependencies in R code ... NOTE
+Run `revdep_details(,"widyr")` for more info
+
+</details>
+
+## Newly broken
+
+*   checking examples ... ERROR
     ```
-    Namespace in Imports field not imported from: ‘dbplyr’
-      All declared Imports should be used.
+    ...
+    > library(dplyr)
+    
+    Attaching package: ‘dplyr’
+    
+    The following objects are masked from ‘package:stats’:
+    
+        filter, lag
+    
+    The following objects are masked from ‘package:base’:
+    
+        intersect, setdiff, setequal, union
+    
+    > library(gapminder)
+    > 
+    > closest_continent <- gapminder %>%
+    +   group_by(continent) %>%
+    +   squarely(dist)(country, year, lifeExp)
+    Error: 'nest_' is defunct.
+    Use 'nest' instead.
+    See help("Defunct")
+    Execution halted
     ```
 
-# XGR
+*   checking tests ...
+    ```
+     ERROR
+    Running the tests in ‘tests/testthat.R’ failed.
+    Last 13 lines of output:
+      15: `_fseq`(`_lhs`)
+      16: freduce(value, `_function_list`)
+      17: function_list[[i]](value)
+      18: tidyr::nest_(., "..data", nest_cols = c(row, column, value))
+      19: .Defunct("nest") at /private/tmp/RtmpquPhal/R.INSTALL91f746b5a07/tidyr/R/dep-lazyeval.R:186
+      20: stop(paste(msg, collapse = ""), call. = FALSE, domain = NA)
+      
+      ══ testthat results  ═════════════════════════════════════════════════════════════════════════════════
+      OK: 54 SKIPPED: 0 WARNINGS: 0 FAILED: 3
+      1. Error: Can count within groups (@test-pairwise-count.R#104) 
+      2. Error: Can perform 'squarely' within groups (@test-squarely.R#20) 
+      3. Error: widely works within groups (@test-widely.R#27) 
+      
+      Error: testthat unit tests failed
+      Execution halted
+    ```
 
-Version: 1.1.4
+# xpose
+
+<details>
+
+* Version: 0.4.4
+* Source code: https://github.com/cran/xpose
+* URL: https://github.com/UUPharmacometrics/xpose
+* BugReports: https://github.com/UUPharmacometrics/xpose/issues
+* Date/Publication: 2019-03-21 17:10:03 UTC
+* Number of recursive dependencies: 92
+
+Run `revdep_details(,"xpose")` for more info
+
+</details>
+
+## Newly broken
+
+*   checking examples ... ERROR
+    ```
+    Running examples in ‘xpose-Ex.R’ failed
+    The error most likely occurred in:
+    
+    > ### Name: get_data
+    > ### Title: Access model output table data
+    > ### Aliases: get_data
+    > 
+    > ### ** Examples
+    > 
+    > # By table name
+    > sdtab <- get_data(xpdb_ex_pk, 'sdtab001')
+    Error: 'unnest_' is defunct.
+    Use 'unnest' instead.
+    See help("Defunct")
+    Execution halted
+    ```
+
+*   checking tests ...
+    ```
+     ERROR
+    Running the tests in ‘tests/testthat.R’ failed.
+    Last 13 lines of output:
+      ══ testthat results  ═════════════════════════════════════════════════════════════════════════════════
+      OK: 405 SKIPPED: 3 WARNINGS: 46 FAILED: 41
+      1. Error: (unknown) (@test-console_outputs.R#4) 
+      2. Error: (unknown) (@test-edits.R#4) 
+      3. Error: (unknown) (@test-manual_import.R#7) 
+      4. Error: summary is properly created with the appropriate information (@test-model-summary.R#54) 
+      5. Failure: no error occurs when xpdb is from a simulation only for not_sim_function dv_vs_idv (@test-plots.R#57) 
+      6. Failure: no error occurs when xpdb is from a simulation only for not_sim_function res_vs_idv (@test-plots.R#57) 
+      7. Failure: no error occurs when xpdb is from a simulation only for not_sim_function absval_res_vs_idv (@test-plots.R#57) 
+      8. Failure: have proper error check for iteration_plot_function prm_vs_iteration (@test-plots.R#63) 
+      9. Failure: have proper error check for iteration_plot_function grd_vs_iteration (@test-plots.R#63) 
+      1. ...
+      
+      Error: testthat unit tests failed
+      Execution halted
+    ```
 
 ## In both
 
 *   checking installed package size ... NOTE
     ```
-      installed size is  6.8Mb
+      installed size is  5.6Mb
       sub-directories of 1Mb or more:
-        R      4.0Mb
-        data   1.1Mb
-    ```
-
-# xpose
-
-Version: 0.4.3
-
-## In both
-
-*   checking tests ...
-    ```
-     ERROR
-    Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-      Names: 2 string mismatches
-      Component 1: Cols in y but not x: `PRED`, `A1`, `TAD`, `IWRES`, `IPRED`, `EVID`, `CWRES`, `WRES`, `II`, `AMT`, `SS`, `CPRED`, `RES`, `DV`, `DOSE`, `TIME`, `A2`. 
-      Component 1: Cols in x but not y: `ETA2`, `ETA1`, `ALAG1`, `V`, `CL`, `ETA3`, `KA`. 
-      Component 2: Cols in y but not x: `ETA2`, `ETA1`, `ALAG1`, `V`, `CL`, `ETA3`, `KA`. 
-      Component 2: Cols in x but not y: `PRED`, `A1`, `TAD`, `IWRES`, `IPRED`, `EVID`, `CWRES`, `WRES`, `II`, `AMT`, `SS`, `CPRED`, `RES`, `DV`, `DOSE`, `TIME`, `A2`. 
-      
-      ══ testthat results  ════════════════════════════════════════════════════════════════════
-      OK: 520 SKIPPED: 6 FAILED: 4
-      1. Failure: Check summary.xpose_data returns a proper message (@test-console_outputs.R#32) 
-      2. Failure: dot arguments are properly passed to readr (@test-read_nm_tables.R#57) 
-      3. Error: vpc_data works properly with xpdb tables (@test-vpc.R#43) 
-      4. Failure: get_data works properly (@test-xpdb_access.R#57) 
-      
-      Error: testthat unit tests failed
-      Execution halted
-    ```
-
-# ypr
-
-Version: 0.3.0
-
-## In both
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespace in Imports field not imported from: ‘graphics’
-      All declared Imports should be used.
-    ```
-
-# zFactor
-
-Version: 0.1.7
-
-## In both
-
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘zFactor-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: z.plot.range
-    > ### Title: Tile plot of best fit area for a correlation
-    > ### Aliases: z.plot.range
-    > 
-    > ### ** Examples
-    > 
-    > # plot Dranchuk-AbouKassem
-    > z.plot.range("DAK")
-    Error in n() : could not find function "n"
-    Calls: z.plot.range ... z.stats -> summarise -> summarise.tbl_df -> summarise_impl
-    Execution halted
-    ```
-
-*   checking tests ...
-    ```
-     ERROR
-    Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-      12: summarise.tbl_df(grouped, z.chart, z.calc, RMSE = sqrt(mean((z.chart - z.calc)^2)), MPE = sum((z.chart - 
-             z.calc)/z.chart) * 100/n(), MAPE = sum(abs((z.chart - z.calc)/z.chart)) * 100/n(), MSE = sum((z.chart - 
-             z.calc)^2)/n(), RSS = sum((z.chart - z.calc)^2), MAE = sum(abs(z.chart - z.calc))/n(), 
-             MAAPE = sum(atan(abs((z.chart - z.calc)/z.chart)))/n())
-      13: summarise_impl(.data, dots, environment(), caller_env())
-      
-      ══ testthat results  ════════════════════════════════════════════════════════════════════
-      OK: 120 SKIPPED: 0 FAILED: 4
-      1. Error: z.stats matches dimension and mean of MAPE. default interval = coarse (@test_stats.R#8) 
-      2. Error: z.stats matches dimension and mean of MAPE, interval = fine (@test_stats.R#19) 
-      3. Error: z.stats matches dimension and mean of MAPE, range = hp (@test_stats.R#30) 
-      4. Error: z.plot.range work for Hall-Yarborough (@test_stats.R#62) 
-      
-      Error: testthat unit tests failed
-      Execution halted
-    ```
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespace in Imports field not imported from: ‘rootSolve’
-      All declared Imports should be used.
-    ```
-
-# zFPKM
-
-Version: 1.4.1
-
-## In both
-
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    ...
-    The following object is masked from 'package:S4Vectors':
-    
-        expand
-    
-    trying URL 'ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE94nnn/GSE94802/suppl/GSE94802_Minkina_etal_normalized_FPKM.csv.gz'
-    Content type 'unknown' length 800733 bytes (781 KB)
-    ==================================================
-    trying URL 'ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE94nnn/GSE94802/suppl/GSE94802_Minkina_etal_raw_counts.csv.gz'
-    Content type 'unknown' length 574041 bytes (560 KB)
-    ==================================================
-    
-    Attaching package: 'limma'
-    
-    The following object is masked from 'package:BiocGenerics':
-    
-        plotMA
-    
-    Quitting from lines 108-122 (zFPKM.Rmd) 
-    Error: processing vignette 'zFPKM.Rmd' failed with diagnostics:
-    statmod package required but is not installed
-    Execution halted
-    ```
-
-*   checking R code for possible problems ... NOTE
-    ```
-    ...
-    PlotGaussianFitDF: no visible binding for global variable ‘density’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/zFPKM/new/zFPKM.Rcheck/00_pkg_src/zFPKM/R/zfpkm.R:223)
-    PlotGaussianFitDF: no visible binding for global variable ‘log2fpkm’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/zFPKM/new/zFPKM.Rcheck/00_pkg_src/zFPKM/R/zfpkm.R:223)
-    PlotGaussianFitDF: no visible binding for global variable ‘sample_name’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/zFPKM/new/zFPKM.Rcheck/00_pkg_src/zFPKM/R/zfpkm.R:223)
-    PlotGaussianFitDF: no visible binding for global variable ‘log2fpkm’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/zFPKM/new/zFPKM.Rcheck/00_pkg_src/zFPKM/R/zfpkm.R:227-233)
-    PlotGaussianFitDF: no visible binding for global variable ‘density’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/zFPKM/new/zFPKM.Rcheck/00_pkg_src/zFPKM/R/zfpkm.R:227-233)
-    zFPKMCalc: no visible global function definition for ‘density’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/zFPKM/new/zFPKM.Rcheck/00_pkg_src/zFPKM/R/zfpkm.R:162)
-    zFPKMTransform: no visible global function definition for ‘is’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/zFPKM/new/zFPKM.Rcheck/00_pkg_src/zFPKM/R/zfpkm.R:125-127)
-    Undefined global functions or variables:
-      density dnorm is log2fpkm sample_name
-    Consider adding
-      importFrom("methods", "is")
-      importFrom("stats", "density", "dnorm")
-    to your NAMESPACE file (and ensure that your DESCRIPTION Imports field
-    contains 'methods').
-    ```
-
-# zscorer
-
-Version: 0.2.0
-
-## In both
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespace in Imports field not imported from: ‘tidyr’
-      All declared Imports should be used.
+        R      1.0Mb
+        doc    2.9Mb
+        help   1.1Mb
     ```
 
