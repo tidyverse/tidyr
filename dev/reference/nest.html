@@ -263,11 +263,11 @@ represents a group in the input.</p>
 <span class='co'># Note that we get one row of output for each unique combination of</span>
 <span class='co'># non-chopped variables</span>
 <span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>nest</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='no'>y</span>, <span class='no'>z</span>))</div><div class='output co'>#&gt; # A tibble: 3 x 2
-#&gt;       x data            
-#&gt;   &lt;dbl&gt; &lt;list&lt;df[,2]&gt;&gt;  
-#&gt; 1     1 1, 2, 3, 6, 5, 4
-#&gt; 2     2 4, 5, 3, 2      
-#&gt; 3     3 6, 1            </div><div class='input'><span class='co'># cf nest</span>
+#&gt;       x           data
+#&gt;   &lt;dbl&gt; &lt;list&lt;df[,2]&gt;&gt;
+#&gt; 1     1        [3 × 2]
+#&gt; 2     2        [2 × 2]
+#&gt; 3     3        [1 × 2]</div><div class='input'><span class='co'># cf nest</span>
 <span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='chop.html'>chop</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='no'>y</span>, <span class='no'>z</span>))</div><div class='output co'>#&gt; # A tibble: 3 x 3
 #&gt;       x y         z        
 #&gt;   &lt;dbl&gt; &lt;list&gt;    &lt;list&gt;   
@@ -275,55 +275,55 @@ represents a group in the input.</p>
 #&gt; 2     2 &lt;int [2]&gt; &lt;int [2]&gt;
 #&gt; 3     3 &lt;int [1]&gt; &lt;int [1]&gt;</div><div class='input'>
 <span class='no'>iris</span> <span class='kw'>%&gt;%</span> <span class='fu'>nest</span>(<span class='kw'>data</span> <span class='kw'>=</span> -<span class='no'>Species</span>)</div><div class='output co'>#&gt; # A tibble: 3 x 2
-#&gt;   Species    data                                                               
-#&gt;   &lt;fct&gt;      &lt;list&lt;df[,4]&gt;&gt;                                                     
-#&gt; 1 setosa     5.1, 4.9, 4.7, 4.6, 5.0, 5.4, 4.6, 5.0, 4.4, 4.9, 5.4, 4.8, 4.8, 4…
-#&gt; 2 versicolor 7.0, 6.4, 6.9, 5.5, 6.5, 5.7, 6.3, 4.9, 6.6, 5.2, 5.0, 5.9, 6.0, 6…
-#&gt; 3 virginica  6.3, 5.8, 7.1, 6.3, 6.5, 7.6, 4.9, 7.3, 6.7, 7.2, 6.5, 6.4, 6.8, 5…</div><div class='input'><span class='no'>chickwts</span> <span class='kw'>%&gt;%</span> <span class='fu'>nest</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>weight</span>)</div><div class='output co'>#&gt; # A tibble: 6 x 2
-#&gt;   feed      data                                                                
-#&gt;   &lt;fct&gt;     &lt;list&lt;df[,1]&gt;&gt;                                                      
-#&gt; 1 horsebean 179, 160, 136, 227, 217, 168, 108, 124, 143, 140                    
-#&gt; 2 linseed   309, 229, 181, 141, 260, 203, 148, 169, 213, 257, 244, 271          
-#&gt; 3 soybean   243, 230, 248, 327, 329, 250, 193, 271, 316, 267, 199, 171, 158, 248
-#&gt; 4 sunflower 423, 340, 392, 339, 341, 226, 320, 295, 334, 322, 297, 318          
-#&gt; 5 meatmeal  325, 257, 303, 315, 380, 153, 263, 242, 206, 344, 258               
-#&gt; 6 casein    368, 390, 379, 260, 404, 318, 352, 359, 216, 222, 283, 332          </div><div class='input'>
+#&gt;   Species              data
+#&gt;   &lt;fct&gt;      &lt;list&lt;df[,4]&gt;&gt;
+#&gt; 1 setosa           [50 × 4]
+#&gt; 2 versicolor       [50 × 4]
+#&gt; 3 virginica        [50 × 4]</div><div class='input'><span class='no'>chickwts</span> <span class='kw'>%&gt;%</span> <span class='fu'>nest</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>weight</span>)</div><div class='output co'>#&gt; # A tibble: 6 x 2
+#&gt;   feed                data
+#&gt;   &lt;fct&gt;     &lt;list&lt;df[,1]&gt;&gt;
+#&gt; 1 horsebean       [10 × 1]
+#&gt; 2 linseed         [12 × 1]
+#&gt; 3 soybean         [14 × 1]
+#&gt; 4 sunflower       [12 × 1]
+#&gt; 5 meatmeal        [11 × 1]
+#&gt; 6 casein          [12 × 1]</div><div class='input'>
 <span class='co'># Nesting a grouped data frame nests all variables apart from the group vars</span>
 <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>dplyr</span>)
 <span class='no'>fish_encounters</span> <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span>(<span class='no'>fish</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'>nest</span>()</div><div class='output co'>#&gt; # A tibble: 19 x 2
-#&gt;    fish  data                                                              
-#&gt;    &lt;fct&gt; &lt;list&lt;df[,2]&gt;&gt;                                                    
-#&gt;  1 4842  1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1
-#&gt;  2 4843  1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1
-#&gt;  3 4844  1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1
-#&gt;  4 4845  1, 2, 3, 4, 5, 1, 1, 1, 1, 1                                      
-#&gt;  5 4847  1, 2, 3, 1, 1, 1                                                  
-#&gt;  6 4848  1, 2, 3, 4, 1, 1, 1, 1                                            
-#&gt;  7 4849  1, 2, 1, 1                                                        
-#&gt;  8 4850  1, 2, 4, 5, 6, 7, 1, 1, 1, 1, 1, 1                                
-#&gt;  9 4851  1, 2, 1, 1                                                        
-#&gt; 10 4854  1, 2, 1, 1                                                        
-#&gt; 11 4855  1, 2, 3, 4, 5, 1, 1, 1, 1, 1                                      
-#&gt; 12 4857  1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 1, 1, 1, 1, 1, 1, 1, 1              
-#&gt; 13 4858  1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1
-#&gt; 14 4859  1, 2, 3, 4, 5, 1, 1, 1, 1, 1                                      
-#&gt; 15 4861  1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1
-#&gt; 16 4862  1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 1, 1, 1, 1, 1, 1, 1, 1              
-#&gt; 17 4863  1, 2, 1, 1                                                        
-#&gt; 18 4864  1, 2, 1, 1                                                        
-#&gt; 19 4865  1, 2, 3, 1, 1, 1                                                  </div><div class='input'>
+#&gt;    fish            data
+#&gt;    &lt;fct&gt; &lt;list&lt;df[,2]&gt;&gt;
+#&gt;  1 4842        [11 × 2]
+#&gt;  2 4843        [11 × 2]
+#&gt;  3 4844        [11 × 2]
+#&gt;  4 4845         [5 × 2]
+#&gt;  5 4847         [3 × 2]
+#&gt;  6 4848         [4 × 2]
+#&gt;  7 4849         [2 × 2]
+#&gt;  8 4850         [6 × 2]
+#&gt;  9 4851         [2 × 2]
+#&gt; 10 4854         [2 × 2]
+#&gt; 11 4855         [5 × 2]
+#&gt; 12 4857         [9 × 2]
+#&gt; 13 4858        [11 × 2]
+#&gt; 14 4859         [5 × 2]
+#&gt; 15 4861        [11 × 2]
+#&gt; 16 4862         [9 × 2]
+#&gt; 17 4863         [2 × 2]
+#&gt; 18 4864         [2 × 2]
+#&gt; 19 4865         [3 × 2]</div><div class='input'>
 <span class='co'># Nesting is often useful for creating per group models</span>
 <span class='no'>mtcars</span> <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span>(<span class='no'>cyl</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'>nest</span>() <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span>(<span class='kw'>models</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/lapply'>lapply</a></span>(<span class='no'>data</span>, <span class='kw'>function</span>(<span class='no'>df</span>) <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/lm'>lm</a></span>(<span class='no'>mpg</span> ~ <span class='no'>wt</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>df</span>)))</div><div class='output co'>#&gt; # A tibble: 3 x 3
-#&gt;     cyl data                                                              models
-#&gt;   &lt;dbl&gt; &lt;list&lt;df[,10]&gt;&gt;                                                   &lt;list&gt;
-#&gt; 1     6 21.000, 21.000, 21.400, 18.100, 19.200, 17.800, 19.700, 160.000,… &lt;lm&gt;  
-#&gt; 2     4 22.800, 24.400, 22.800, 32.400, 30.400, 33.900, 21.500, 27.300, … &lt;lm&gt;  
-#&gt; 3     8 18.700, 14.300, 16.400, 17.300, 15.200, 10.400, 10.400, 14.700, … &lt;lm&gt;  </div><div class='input'>
+#&gt;     cyl            data models
+#&gt;   &lt;dbl&gt; &lt;list&lt;df[,10]&gt;&gt; &lt;list&gt;
+#&gt; 1     6        [7 × 10] &lt;lm&gt;  
+#&gt; 2     4       [11 × 10] &lt;lm&gt;  
+#&gt; 3     8       [14 × 10] &lt;lm&gt;  </div><div class='input'>
 <span class='co'># unnest() is primarily designed to work with lists of data frames</span>
 <span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(
   <span class='kw'>x</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>3</span>,
