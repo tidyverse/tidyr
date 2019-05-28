@@ -7,6 +7,10 @@
   has changed, package authors will need to update to deprecation warnings.
   I think one clean break should be less work for everyone.
 
+* `unnest()` uses the [emerging tidyverse standard](https://www.tidyverse.org/articles/2019/01/tibble-2.0.1/#name-repair)
+  to disambiguate unique names. Use `names_repair = tidyr_legacy` to 
+  restore to the previous approach.
+
 * `crossing()` and `nesting()` now return 0-row outputs if any input is a 
   length-0 vector. If you want to preserve the previous behaviour which 
   silently dropped these inputs, you should convert empty vectors to `NULL`.

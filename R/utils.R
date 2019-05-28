@@ -55,3 +55,37 @@ ensym2 <- function(arg) {
 }
 
 last <- function(x) x[[length(x)]]
+
+
+#' Legacy name repair
+#'
+#' Ensures all column names are unique using the approach found in
+#' tidyr 0.8.3 are earlier. Only use this function if you want to preserve
+#' the naming strategy, otherwise you're better off adopting the new
+#' tidyverse standard with `name_repair = "universal"`
+#'
+#' @param nm Character vector of names
+#' @param prefix prefix Prefix to use for unnamed column
+#' @param sep Separator to use between name and unique suffix
+#' @keywords internal
+#' @export
+#' @examples
+#' df <- tibble(x = 1:2, y = list(tibble(x = 3:5), tibble(x = 4:7)))
+#'
+#' # Doesn't work because it would produce a data frame with two
+#' # columns called x
+#' \dontrun{unnest(df, y)}
+#'
+#' # The new tidyverse standard:
+#' unnest(df, y, names_repair = "universal")
+#'
+#' # The old tidyr approach
+#' unnest(df, y, names_repair = tidyr_legacy)
+tidyr_legacy <- function(nms, prefix = "V", sep = "") {
+  if (length(nms) == 0) return(character())
+  blank <- nms == ""
+  nms[!blank] <- make.unique(nms[!blank], sep = sep)
+  new_nms <- setdiff(paste(prefix, seq_along(nms), sep = sep), nms)
+  nms[blank] <- new_nms[seq_len(sum(blank))]
+  nms
+}
