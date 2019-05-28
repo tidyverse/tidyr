@@ -166,9 +166,9 @@
 <h1 class="page-header">
 <a href="#tidyr-0-8-0" class="anchor"></a>tidyr 0.8.0<small> 2018-01-29 </small>
 </h1>
-<div id="breaking-changes" class="section level2">
+<div id="breaking-changes-1" class="section level2">
 <h2 class="hasAnchor">
-<a href="#breaking-changes" class="anchor"></a>Breaking changes</h2>
+<a href="#breaking-changes-1" class="anchor"></a>Breaking changes</h2>
 <ul>
 <li><p>There are no deliberate breaking changes in this release. However, a number of packages are failing with errors related to numbers of elements in columns, and row names. It is possible that these are accidental API changes or new bugs. If you see such an error in your package, I would sincerely appreciate a minimal reprex.</p></li>
 <li><p><code><a href="../reference/separate.html">separate()</a></code> now correctly uses -1 to refer to the far right position, instead of -2. If you depended on this behaviour, you’ll need to switch on <code>packageVersion("tidyr") &gt; "0.7.2"</code></p></li>
@@ -234,9 +234,9 @@
 <a href="#tidyr-0-7-0" class="anchor"></a>tidyr 0.7.0<small> 2017-08-16 </small>
 </h1>
 <p>This release includes important changes to tidyr internals. Tidyr now supports the new tidy evaluation framework for quoting (NSE) functions. It also uses the new tidyselect package as selecting backend.</p>
-<div id="breaking-changes-1" class="section level2">
+<div id="breaking-changes-2" class="section level2">
 <h2 class="hasAnchor">
-<a href="#breaking-changes-1" class="anchor"></a>Breaking changes</h2>
+<a href="#breaking-changes-2" class="anchor"></a>Breaking changes</h2>
 <ul>
 <li>
 <p>If you see error messages about objects or functions not found, it is likely because the selecting functions are now stricter in their arguments An example of selecting function is <code><a href="../reference/gather.html">gather()</a></code> and its <code>...</code> argument. This change makes the code more robust by disallowing ambiguous scoping. Consider the following code:</p>
