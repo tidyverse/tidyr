@@ -6,12 +6,13 @@
 \title{Pivot data from wide to long}
 \usage{
 pivot_longer(data, cols, names_to = "name", names_prefix = NULL,
-  names_sep = NULL, names_pattern = NULL, values_to = "value",
-  values_drop_na = FALSE, col_ptypes = list(), spec = NULL)
+  names_sep = NULL, names_pattern = NULL, names_ptypes = list(),
+  values_to = "value", values_drop_na = FALSE,
+  values_ptypes = list(), spec = NULL)
 
 pivot_longer_spec(data, cols, names_to = "name", values_to = "value",
   names_prefix = NULL, names_sep = NULL, names_pattern = NULL,
-  col_ptypes = NULL)
+  names_ptypes = NULL)
 }
 \arguments{
 \item{data}{A data frame to pivot.}
@@ -42,6 +43,14 @@ If these arguments does not give you enough control, use
 \code{pivot_longer_spec()} to create a spec object and process manually as
 needed.}
 
+\item{names_ptypes, values_ptypes}{A list of of column name-prototype pairs.
+A prototype (or ptype for short) is a zero-length vector (like \code{integer()}
+or \code{numeric()}) that defines the type, class, and attributes of a vector.
+
+If not specified, the type of the columns generated from \code{names_to} will
+be character, and the type of the variables generated from \code{values_to}
+will be the common type of the input columns used to generate them.}
+
 \item{values_to}{A string specifying the name of the column to create
 from the data stored in cell values. If \code{names_to} is a character
 containing the special \code{.value} sentinel, this value will be ignored,
@@ -52,12 +61,6 @@ existing column names.}
 in the \code{value_to} column. This effectively converts explicit missing values
 to implicit missing values, and should generally be used only when missing
 values in \code{data} were created by its structure.}
-
-\item{col_ptypes}{A list of of column name-prototype pairs.
-
-If not specified, the type of the generated from \code{names_to} will be
-character, and the type of the variables generated from \code{values_to}
-will be the common type of the input columns used to generate them.}
 
 \item{spec}{Alternatively, instead of providing \code{cols} (and \code{names_to} and
 \code{values_to}) you can parse a specification data frame. This is useful

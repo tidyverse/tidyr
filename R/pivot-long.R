@@ -45,10 +45,12 @@
 #'   in the `value_to` column. This effectively converts explicit missing values
 #'   to implicit missing values, and should generally be used only when missing
 #'   values in `data` were created by its structure.
-#' @param col_ptypes A list of of column name-prototype pairs.
+#' @param names_ptypes,values_ptypes A list of of column name-prototype pairs.
+#'   A prototype (or ptype for short) is a zero-length vector (like `integer()`
+#'   or `numeric()`) that defines the type, class, and attributes of a vector.
 #'
-#'   If not specified, the type of the generated from `names_to` will be
-#'   character, and the type of the variables generated from `values_to`
+#'   If not specified, the type of the columns generated from `names_to` will
+#'   be character, and the type of the variables generated from `values_to`
 #'   will be the common type of the input columns used to generate them.
 #' @param spec Alternatively, instead of providing `cols` (and `names_to` and
 #'   `values_to`) you can parse a specification data frame. This is useful
@@ -98,9 +100,10 @@ pivot_longer <- function(data,
                          names_prefix = NULL,
                          names_sep = NULL,
                          names_pattern = NULL,
+                         names_ptypes = list(),
                          values_to = "value",
                          values_drop_na = FALSE,
-                         col_ptypes = list(),
+                         values_ptypes = list(),
                          spec = NULL
                          ) {
 
@@ -112,7 +115,7 @@ pivot_longer <- function(data,
       names_prefix = names_prefix,
       names_sep = names_sep,
       names_pattern = names_pattern,
-      col_ptypes = col_ptypes
+      names_ptypes = names_ptypes
     )
   }
   spec <- check_spec(spec)
@@ -133,7 +136,7 @@ pivot_longer <- function(data,
     val_cols[col_id] <- unname(as.list(data[cols]))
     val_cols[-col_id] <- list(rep(NA, nrow(data)))
 
-    val_type <- vec_type_common(!!!val_cols, .ptype = col_ptypes[[value]])
+    val_type <- vec_type_common(!!!val_cols, .ptype = values_ptypes[[value]])
     out <- vec_c(!!!val_cols, .ptype = val_type)
     # Interleave into correct order
     idx <- (matrix(seq_len(nrow(data) * length(val_cols)), ncol = nrow(data), byrow = TRUE))
@@ -169,7 +172,7 @@ pivot_longer_spec <- function(data, cols,
                               names_prefix = NULL,
                               names_sep = NULL,
                               names_pattern = NULL,
-                              col_ptypes = NULL) {
+                              names_ptypes = NULL) {
   cols <- tidyselect::vars_select(unique(names(data)), !!enquo(cols))
 
   if (is.null(names_prefix)) {
@@ -200,9 +203,9 @@ pivot_longer_spec <- function(data, cols,
   }
 
   # optionally, cast variables generated from columns
-  cast_cols <- intersect(names(names), names(col_ptypes))
+  cast_cols <- intersect(names(names), names(names_ptypes))
   for (col in cast_cols) {
-    names[[col]] <- vec_cast(names[[col]], col_ptypes[[col]])
+    names[[col]] <- vec_cast(names[[col]], names_ptypes[[col]])
   }
 
   out <- tibble(.name = cols)
