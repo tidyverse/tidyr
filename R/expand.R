@@ -150,8 +150,9 @@ nesting <- function(...) {
 #' @param ... Name-value pairs. The name will become the column name in the
 #'   output.
 #' @return A tibble with one column for each input in `...`. The output
-#'   will have one row for each combination of the inputs (i.e. the size
-#'   be equal to the product of the sizes of the inputs).
+#'   will have one row for each combination of the inputs, i.e. the size
+#'   be equal to the product of the sizes of the inputs. This implies
+#'   that if any input has length 0, the output will have zero rows.
 #' @export
 #' @examples
 #' expand_grid(x = 1:3, y = 1:2)
@@ -167,10 +168,15 @@ expand_grid <- function(...) {
   # Generate sequence of indices
   ns <- map_int(dots, vec_size)
   n <- prod(ns)
-  each <- n / cumprod(ns)
-  times <- n / each / ns
 
-  out <- pmap(list(x = dots, each = each, times = times), vec_repeat)
+  if (n == 0) {
+    out <- map(dots, vec_slice, integer())
+  } else {
+    each <- n / cumprod(ns)
+    times <- n / each / ns
+
+    out <- pmap(list(x = dots, each = each, times = times), vec_repeat)
+  }
   out <- as_tibble(out)
 
   flatten_nested(out, attr(dots, "named"))

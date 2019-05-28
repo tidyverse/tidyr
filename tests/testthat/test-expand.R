@@ -86,6 +86,11 @@ test_that("zero length input gives zero length output", {
   tb <- tibble(x = character())
   expect_equal(expand(tb, x), tb)
   expect_equal(expand(tb, y = NULL), tibble())
+
+  expect_equal(
+    expand_grid(x = integer(), y = 1:3),
+    tibble(x = integer(), y = integer())
+  )
 })
 
 test_that("expand & crossing expand missing factor leves; nesting does not", {

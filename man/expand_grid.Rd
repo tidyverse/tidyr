@@ -12,8 +12,9 @@ output.}
 }
 \value{
 A tibble with one column for each input in \code{...}. The output
-will have one row for each combination of the inputs (i.e. the size
-be equal to the product of the sizes of the inputs).
+will have one row for each combination of the inputs, i.e. the size
+be equal to the product of the sizes of the inputs. This implies
+that if any input has length 0, the output will have zero rows.
 }
 \description{
 Create a tibble from all combinations of inputs
