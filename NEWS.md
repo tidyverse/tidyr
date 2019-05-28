@@ -2,17 +2,17 @@
 
 ## Pivoting
 
-New `pivot_longer()` and `pivot_wider()` provide modern alternatives to `spread()` and `gather()`. They have been carefully redesigned to easier to learn and remember, and include many new features. Learn more in `vignette("pivot")`.
+New `pivot_longer()` and `pivot_wider()` provide modern alternatives to `spread()` and `gather()`. They have been carefully redesigned to be easier to learn and remember, and include many new features. Learn more in `vignette("pivot")`.
     
 These functions resolve multiple existing issues with `spread()`/`gather()`. Both functions now handle mulitple value columns (#149/#150), support more vector types (#333), use tidverse conventions for duplicated column names (#496, #478) for and are symmetric (#453). `pivot_longer()` gracefully handles duplicated column names (#472), and can directly split column names into multiple variables. `pivot_wider()` can now aggregate (#474), select keys (#572), and has control over generated column names when (#208).
   
 To demonstrate how these functions work in practice, tidyr has gained many new datasets: `relig_income`, `construction`, `billboard`, `us_rent_income`, `fish_encounters` and `world_bank_pop`.
 
-Finally, tidyr demos have been removed. They are dated, and have been superseded by `vignette("pivot)`.
+Finally, tidyr demos have been removed. They are dated, and have been superseded by `vignette("pivot")`.
 
 ## Rectangling
 
-tidyr contains four new functions to support **retangling**, turning a deeply nested list into a tidy tibble: `unnest_longer()`, `unnest_wider()`, `unnest_auto()`, and `hoist()`. They are documented in a new vignette: `vignette("rectangle")`.
+tidyr contains four new functions to support **rectangling**, turning a deeply nested list into a tidy tibble: `unnest_longer()`, `unnest_wider()`, `unnest_auto()`, and `hoist()`. They are documented in a new vignette: `vignette("rectangle")`.
 
 `unnest_longer()` and `unnest_wider()` make it easier to unnest list-columns of vectors into either rows or columns (#418). `unnest_auto()` automatically picks between `_longer()` and `_wider()` using a little magic.
   
@@ -26,11 +26,11 @@ df %>% mutate(name = map_chr(metadata, "name"))
 
 ## Nesting
 
-`nest()` and `unnest()` have been updated with new interfaces that are more closely aligned to evolving tidyverse conventions. They uses the theory developed in [vctrs](https://vctrs.r-lib.org) to more consistently handle mixtures of input types, and their arguments have been overhauled based on the last few years of experience. They are supported by a new `vignette("nest")`, which outlies some of the main ideas of nested data (it's still very rough, but will get better over time.)
+`nest()` and `unnest()` have been updated with new interfaces that are more closely aligned to evolving tidyverse conventions. They use the theory developed in [vctrs](https://vctrs.r-lib.org) to more consistently handle mixtures of input types, and their arguments have been overhauled based on the last few years of experience. They are supported by a new `vignette("nest")`, which outlines some of the main ideas of nested data (it's still very rough, but will get better over time.)
   
 The biggest change is to their operation with multiple columns: `df %>% unnest(x, y, z)` becomes `df %>% unnest(c(x, y, z))` and `df %>% nest(x, y, z)` becomes `df %>% unnest(data = c(x, y, z))`
   
-I have done my best to ensure that common uses of `unnest()` will continue to work, generating an informative warning tell you precisely how you need to update your code. Please [file an issue](https://github.com/tidyverse/tidyr/issues/new) if I've missed an important use case.
+I have done my best to ensure that common uses of `unnest()` will continue to work, generating an informative warning telling you precisely how you need to update your code. Please [file an issue](https://github.com/tidyverse/tidyr/issues/new) if I've missed an important use case.
 
 `unnest()` has been overhauled:
 
@@ -42,7 +42,7 @@ I have done my best to ensure that common uses of `unnest()` will continue to wo
   
 * Uses standard tidyverse name repair rules, so by default you will get an
   error if the output would contain multiple columns with the same name. You
-  can override by with `name_repair`. (#514)
+  can override by using `name_repair`. (#514)
   
 * Now supports `NULL` entries (#436) 
 
