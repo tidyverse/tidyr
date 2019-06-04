@@ -141,7 +141,7 @@ hoist <- function(.data, .col, ..., .remove = TRUE, .simplify = TRUE, .ptype = l
     }
     x
   })
-  if (every(x, vec_empty)) {
+  if (every(x, vec_is_empty)) {
     x <- NULL
   }
   out[[.col]] <- x
