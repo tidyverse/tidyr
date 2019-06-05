@@ -74,11 +74,7 @@ unpack <- function(data, cols, names_sep = NULL, names_repair = "check_unique") 
   cols <- tidyselect::vars_select(names(data), !!enquo(cols))
 
   new_cols <- map2(data[cols], cols, check_unpack, names_sep = names_sep)
-  # Work around bug in base R where data[x] <- data[x] turns a 0-col data frame-col
-  # into a list of NULLs
-  for (col in cols) {
-    data[[col]] <- new_cols[[col]]
-  }
+  data <- update_cols(data, new_cols)
   out <- flatten_at(data, names(data) %in% cols)
 
   out <- as_tibble(out, .name_repair = names_repair)

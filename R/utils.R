@@ -89,3 +89,18 @@ tidyr_legacy <- function(nms, prefix = "V", sep = "") {
   nms[blank] <- new_nms[seq_len(sum(blank))]
   nms
 }
+
+
+drop_null <- function(x) {
+  is_null <- vapply(x, is.null, logical(1))
+  x[!is_null]
+}
+
+# Work around bug in base R where data[x] <- data[x] turns a 0-col data frame-col
+# into a list of NULLs
+update_cols <- function(old, new) {
+  for (col in names(new)) {
+    old[[col]] <- new[[col]]
+  }
+  old
+}

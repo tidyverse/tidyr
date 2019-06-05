@@ -76,23 +76,22 @@ unchop <- function(data, cols, keep_empty = FALSE, ptype = NULL) {
 
   if (keep_empty) {
     for (col in cols) {
-      vec_is_empty <- function(x) vec_size(x) == 0L
       data[[col]][] <- map_if(data[[col]], vec_is_empty, ~ vec_na(.x, 1) %||% unspecified(1))
     }
   }
 
   # https://github.com/tidyverse/tibble/issues/580
   x <- pmap(as.list(data)[cols], vec_recycle_common)
-  x <- map(x, ~ as_tibble(purrr::compact(.x)))
+  x <- map(x, ~ as_tibble(drop_null(.x)))
 
   n <- map_int(x, vec_size)
   out <- vec_slice(data, rep(vec_seq_along(data), n))
 
   if (nrow(out) == 0) {
-    out[cols] <- map(data[cols], ~ attr(.x, "ptype") %||% unspecified(0))
+    new_cols <- map(data[cols], ~ attr(.x, "ptype") %||% unspecified(0))
   } else {
-    out[cols] <- vec_rbind(!!!x, .ptype = ptype)
+    new_cols <- vec_rbind(!!!x, .ptype = ptype)
   }
 
-  out
+  update_cols(out, new_cols)
 }
