@@ -303,10 +303,10 @@ common acros all components, it uses <code>unnest_wider()</code></p></li>
   )
 )
 <span class='no'>df</span></div><div class='output co'>#&gt; # A tibble: 2 x 2
-#&gt;   character metadata  
-#&gt;   &lt;chr&gt;     &lt;list&gt;    
-#&gt; 1 Toothless &lt;list [3]&gt;
-#&gt; 2 Dory      &lt;list [3]&gt;</div><div class='input'>
+#&gt;   character metadata        
+#&gt;   &lt;chr&gt;     &lt;list&gt;          
+#&gt; 1 Toothless &lt;named list [3]&gt;
+#&gt; 2 Dory      &lt;named list [3]&gt;</div><div class='input'>
 <span class='co'># Turn all components of metadata into columns</span>
 <span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>unnest_wider</span>(<span class='no'>metadata</span>)</div><div class='output co'>#&gt; # A tibble: 2 x 4
 #&gt;   character species   color films    
@@ -319,10 +319,10 @@ common acros all components, it uses <code>unnest_wider()</code></p></li>
   <span class='kw'>first_film</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(<span class='st'>"films"</span>, <span class='fl'>1L</span>),
   <span class='kw'>third_film</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(<span class='st'>"films"</span>, <span class='fl'>3L</span>)
 )</div><div class='output co'>#&gt; # A tibble: 2 x 5
-#&gt;   character species   first_film         third_film                    metadata 
-#&gt;   &lt;chr&gt;     &lt;chr&gt;     &lt;chr&gt;              &lt;chr&gt;                         &lt;list&gt;   
-#&gt; 1 Toothless dragon    How to Train Your… How to Train Your Dragon: Th… &lt;list [2…
-#&gt; 2 Dory      clownfish Finding Nemo       &lt;NA&gt;                          &lt;list [2…</div><div class='input'>
+#&gt;   character species   first_film        third_film                  metadata    
+#&gt;   &lt;chr&gt;     &lt;chr&gt;     &lt;chr&gt;             &lt;chr&gt;                       &lt;list&gt;      
+#&gt; 1 Toothless dragon    How to Train You… How to Train Your Dragon: … &lt;named list…
+#&gt; 2 Dory      clownfish Finding Nemo      &lt;NA&gt;                        &lt;named list…</div><div class='input'>
 <span class='no'>df</span> <span class='kw'>%&gt;%</span>
   <span class='fu'>unnest_wider</span>(<span class='no'>metadata</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'>unnest_longer</span>(<span class='no'>films</span>)</div><div class='output co'>#&gt; # A tibble: 5 x 4
