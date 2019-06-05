@@ -64,5 +64,5 @@ df \%>\% unchop(y, ptype = tibble(y = list()))
 # unchop leaves the column names unchanged
 df <- tibble(x = 1:3, y = list(NULL, tibble(x = 1), tibble(y = 1:2)))
 df \%>\% unchop(y)
-df \%>\% unchop(y, keep_empty = FALSE)
+df \%>\% unchop(y, keep_empty = TRUE)
 }
