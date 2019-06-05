@@ -36,7 +36,7 @@ Imports:
     tibble (>= 2.1.1),
     tidyselect (>= 0.2.5),
     utils,
-    vctrs (>= 0.1.0.9003)
+    vctrs (>= 0.1.0.9004)
 Suggests: 
     covr,
     jsonlite,
