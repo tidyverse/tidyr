@@ -127,12 +127,12 @@ pivot_longer <- function(data,
   value_keys <- split(spec[-(1:2)], v_fct)
   keys <- vec_unique(spec[-(1:2)])
 
-  vals <- set_names(vec_na(list(), length(values)), names(values))
+  vals <- set_names(vec_init(list(), length(values)), names(values))
   for (value in names(values)) {
     cols <- values[[value]]
     col_id <- vec_match(value_keys[[value]], keys)
 
-    val_cols <- vec_na(list(), length(cols))
+    val_cols <- vec_init(list(), length(cols))
     val_cols[col_id] <- unname(as.list(data[cols]))
     val_cols[-col_id] <- list(rep(NA, nrow(data)))
 

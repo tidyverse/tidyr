@@ -76,7 +76,7 @@ unchop <- function(data, cols, keep_empty = FALSE, ptype = NULL) {
 
   if (keep_empty) {
     for (col in cols) {
-      data[[col]][] <- map_if(data[[col]], vec_is_empty, ~ vec_na(.x, 1) %||% unspecified(1))
+      data[[col]][] <- map_if(data[[col]], vec_is_empty, ~ vec_init(.x, 1) %||% unspecified(1))
     }
   }
 
