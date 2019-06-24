@@ -124,11 +124,11 @@
 <a class="sourceLine" id="cb2-9" data-line-number="9"></a>
 <a class="sourceLine" id="cb2-10" data-line-number="10">df1</a>
 <a class="sourceLine" id="cb2-11" data-line-number="11"><span class="co">#&gt; # A tibble: 3 x 2</span></a>
-<a class="sourceLine" id="cb2-12" data-line-number="12"><span class="co">#&gt;       g data            </span></a>
-<a class="sourceLine" id="cb2-13" data-line-number="13"><span class="co">#&gt;   &lt;dbl&gt; &lt;list&gt;          </span></a>
-<a class="sourceLine" id="cb2-14" data-line-number="14"><span class="co">#&gt; 1     1 &lt;tibble [1 × 2]&gt;</span></a>
-<a class="sourceLine" id="cb2-15" data-line-number="15"><span class="co">#&gt; 2     2 &lt;tibble [2 × 2]&gt;</span></a>
-<a class="sourceLine" id="cb2-16" data-line-number="16"><span class="co">#&gt; 3     3 &lt;tibble [1 × 1]&gt;</span></a></code></pre></div>
+<a class="sourceLine" id="cb2-12" data-line-number="12"><span class="co">#&gt;       g data        </span></a>
+<a class="sourceLine" id="cb2-13" data-line-number="13"><span class="co">#&gt;   &lt;dbl&gt; &lt;list&gt;      </span></a>
+<a class="sourceLine" id="cb2-14" data-line-number="14"><span class="co">#&gt; 1     1 &lt;tibble [2]&gt;</span></a>
+<a class="sourceLine" id="cb2-15" data-line-number="15"><span class="co">#&gt; 2     2 &lt;tibble [2]&gt;</span></a>
+<a class="sourceLine" id="cb2-16" data-line-number="16"><span class="co">#&gt; 3     3 &lt;tibble [1]&gt;</span></a></code></pre></div>
 <p>(It is possible to create list-columns in regular data frames, not just in tibbles, but it’s considerably more work because the default behaviour of <code><a href="https://www.rdocumentation.org/packages/base/topics/data.frame">data.frame()</a></code> is to treat lists as lists of columns.)</p>
 <p>But more commonly you’ll create them with <code><a href="../reference/nest.html">tidyr::nest()</a></code>:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">df2 &lt;-<span class="st"> </span><span class="kw"><a href="https://tibble.tidyverse.org/reference/tribble.html">tribble</a></span>(</a>
@@ -142,9 +142,9 @@
 <a class="sourceLine" id="cb3-9" data-line-number="9"><span class="co">#&gt; # A tibble: 3 x 2</span></a>
 <a class="sourceLine" id="cb3-10" data-line-number="10"><span class="co">#&gt;       g           data</span></a>
 <a class="sourceLine" id="cb3-11" data-line-number="11"><span class="co">#&gt;   &lt;dbl&gt; &lt;list&lt;df[,2]&gt;&gt;</span></a>
-<a class="sourceLine" id="cb3-12" data-line-number="12"><span class="co">#&gt; 1     1        [1 × 2]</span></a>
-<a class="sourceLine" id="cb3-13" data-line-number="13"><span class="co">#&gt; 2     2        [2 × 2]</span></a>
-<a class="sourceLine" id="cb3-14" data-line-number="14"><span class="co">#&gt; 3     3        [1 × 2]</span></a></code></pre></div>
+<a class="sourceLine" id="cb3-12" data-line-number="12"><span class="co">#&gt; 1     1            [2]</span></a>
+<a class="sourceLine" id="cb3-13" data-line-number="13"><span class="co">#&gt; 2     2            [2]</span></a>
+<a class="sourceLine" id="cb3-14" data-line-number="14"><span class="co">#&gt; 3     3            [2]</span></a></code></pre></div>
 <p><code><a href="../reference/nest.html">nest()</a></code> specifies which variables should be nested inside; an alternative is to use <code><a href="https://dplyr.tidyverse.org/reference/group_by.html">dplyr::group_by()</a></code> to describe which variables should be kept outside.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">df2 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(g) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/nest.html">nest</a></span>()</a>
 <a class="sourceLine" id="cb4-2" data-line-number="2"><span class="co">#&gt;   g       data</span></a>

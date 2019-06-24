@@ -266,9 +266,9 @@ represents a group in the input.</p>
 <span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>nest</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='no'>y</span>, <span class='no'>z</span>))</div><div class='output co'>#&gt; # A tibble: 3 x 2
 #&gt;       x           data
 #&gt;   &lt;dbl&gt; &lt;list&lt;df[,2]&gt;&gt;
-#&gt; 1     1        [3 × 2]
-#&gt; 2     2        [2 × 2]
-#&gt; 3     3        [1 × 2]</div><div class='input'><span class='co'># cf nest</span>
+#&gt; 1     1            [2]
+#&gt; 2     2            [2]
+#&gt; 3     3            [2]</div><div class='input'><span class='co'># cf nest</span>
 <span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='chop.html'>chop</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='no'>y</span>, <span class='no'>z</span>))</div><div class='output co'>#&gt; # A tibble: 3 x 3
 #&gt;       x y         z        
 #&gt;   &lt;dbl&gt; &lt;list&gt;    &lt;list&gt;   
@@ -278,17 +278,17 @@ represents a group in the input.</p>
 <span class='no'>iris</span> <span class='kw'>%&gt;%</span> <span class='fu'>nest</span>(<span class='kw'>data</span> <span class='kw'>=</span> -<span class='no'>Species</span>)</div><div class='output co'>#&gt; # A tibble: 3 x 2
 #&gt;   Species              data
 #&gt;   &lt;fct&gt;      &lt;list&lt;df[,4]&gt;&gt;
-#&gt; 1 setosa           [50 × 4]
-#&gt; 2 versicolor       [50 × 4]
-#&gt; 3 virginica        [50 × 4]</div><div class='input'><span class='no'>chickwts</span> <span class='kw'>%&gt;%</span> <span class='fu'>nest</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>weight</span>)</div><div class='output co'>#&gt; # A tibble: 6 x 2
+#&gt; 1 setosa                [4]
+#&gt; 2 versicolor            [4]
+#&gt; 3 virginica             [4]</div><div class='input'><span class='no'>chickwts</span> <span class='kw'>%&gt;%</span> <span class='fu'>nest</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>weight</span>)</div><div class='output co'>#&gt; # A tibble: 6 x 2
 #&gt;   feed                data
 #&gt;   &lt;fct&gt;     &lt;list&lt;df[,1]&gt;&gt;
-#&gt; 1 horsebean       [10 × 1]
-#&gt; 2 linseed         [12 × 1]
-#&gt; 3 soybean         [14 × 1]
-#&gt; 4 sunflower       [12 × 1]
-#&gt; 5 meatmeal        [11 × 1]
-#&gt; 6 casein          [12 × 1]</div><div class='input'>
+#&gt; 1 horsebean            [1]
+#&gt; 2 linseed              [1]
+#&gt; 3 soybean              [1]
+#&gt; 4 sunflower            [1]
+#&gt; 5 meatmeal             [1]
+#&gt; 6 casein               [1]</div><div class='input'>
 <span class='co'># Nesting a grouped data frame nests all variables apart from the group vars</span>
 <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>dplyr</span>)
 <span class='no'>fish_encounters</span> <span class='kw'>%&gt;%</span>
