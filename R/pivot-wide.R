@@ -109,7 +109,7 @@ pivot_wider <- function(data,
   }
 
   value_specs <- unname(split(spec, spec$.value))
-  value_out <- vec_na(list(), length(value_specs))
+  value_out <- vec_init(list(), length(value_specs))
 
   for (i in seq_along(value_out)) {
     spec_i <- value_specs[[i]]
@@ -134,7 +134,7 @@ pivot_wider <- function(data,
 
     fill <- values_fill[[value]]
     if (is.null(fill)) {
-      out <- vec_na(val, nrow * ncol)
+      out <- vec_init(val, nrow * ncol)
     } else {
       stopifnot(vec_size(fill) == 1)
       fill <- vec_cast(fill, val)
@@ -221,7 +221,7 @@ vals_dedup <- function(key, val, value, summarize = NULL) {
 wrap_vec <- function(vec, names) {
   ncol <- length(names)
   nrow <- length(vec) / ncol
-  out <- set_names(vec_na(list(), ncol), names)
+  out <- set_names(vec_init(list(), ncol), names)
   for (i in 1:ncol) {
     out[[i]] <- vec_slice(vec, ((i - 1) * nrow + 1):(i * nrow))
   }

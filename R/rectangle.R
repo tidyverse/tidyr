@@ -316,7 +316,7 @@ simplify_col <- function(x, ptype, keep_empty = FALSE, simplify = FALSE) {
   }
 
   if (keep_empty) {
-    x[] <- map_if(x, is_empty, ~ vec_na(.x, 1) %||% unspecified(1))
+    x[] <- map_if(x, is_empty, ~ vec_init(.x, 1) %||% unspecified(1))
   }
 
   if (!is.null(ptype)) {
