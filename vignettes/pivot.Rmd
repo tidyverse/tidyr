@@ -549,7 +549,7 @@ spec <- tribble(
 )
 ```
 
-Which yields the following long form:
+Which yields the following longer form:
 
 ```{r}
 construction %>% pivot_longer(spec = spec)
