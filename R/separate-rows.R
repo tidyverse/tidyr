@@ -29,7 +29,7 @@ separate_rows.data.frame <- function(data,
                                      ...,
                                      sep = "[^[:alnum:].]+",
                                      convert = FALSE) {
-  vars <- tidyselect::vars_select(names(data), ...)
+  vars <- tidyselect::vars_select(tbl_vars(data), ...)
 
   out <- purrr::modify_at(data, vars, stringi::stri_split_regex, pattern = sep)
   out <- unchop(out, vars)

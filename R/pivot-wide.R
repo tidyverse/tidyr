@@ -92,9 +92,9 @@ pivot_wider <- function(data,
 
   id_cols <- enquo(id_cols)
   if (!quo_is_null(id_cols)) {
-    key_vars <- tidyselect::vars_select(names(data), !!id_cols)
+    key_vars <- tidyselect::vars_select(tbl_vars(data), !!id_cols)
   } else {
-    key_vars <- names(data)
+    key_vars <- tbl_vars(data)
   }
   key_vars <- setdiff(key_vars, spec_cols)
 
@@ -162,8 +162,8 @@ pivot_wider_spec <- function(data,
                              values_from = value,
                              names_prefix = "",
                              names_sep = "_") {
-  names_from <- tidyselect::vars_select(names(data), !!enquo(names_from))
-  values_from <- tidyselect::vars_select(names(data), !!enquo(values_from))
+  names_from <- tidyselect::vars_select(tbl_vars(data), !!enquo(names_from))
+  values_from <- tidyselect::vars_select(tbl_vars(data), !!enquo(values_from))
 
   row_ids <- vec_unique(data[names_from])
   row_names <- exec(paste, !!!row_ids, sep = names_sep)

@@ -88,7 +88,7 @@ nest <- function(.data, ..., .key = "DEPRECATED") {
   cols <- enquos(...)
 
   if (any(names2(cols) == "")) {
-    col_names <- unname(tidyselect::vars_select(names(.data), !!!cols))
+    col_names <- unname(tidyselect::vars_select(tbl_vars(.data), !!!cols))
     cols_expr <- expr(c(!!!syms(col_names)))
     .key <- if (missing(.key)) "data" else as.character(ensym(.key))
     cols <- quos(!!.key := !!cols_expr)
@@ -123,7 +123,7 @@ nest.tbl_df <- function(.data, ..., .key = "DEPRECATED") {
     cols <- list2(!!.key := names(.data))
   } else {
     cols <- enquos(...)
-    cols <- map(cols, ~ tidyselect::vars_select(names(.data), !!.x))
+    cols <- map(cols, ~ tidyselect::vars_select(tbl_vars(.data), !!.x))
   }
 
   asis <- setdiff(names(.data), unlist(cols))
@@ -189,7 +189,7 @@ unnest <- function(data,
   if (!missing(.preserve)) {
     warn("`.preserve` is deprecated. All list-columns are now preserved")
     deprecated <- TRUE
-    .preserve <- tidyselect::vars_select(names(data), !!enquo(.preserve))
+    .preserve <- tidyselect::vars_select(tbl_vars(data), !!enquo(.preserve))
   } else {
     .preserve <- NULL
   }
@@ -225,7 +225,7 @@ unnest <- function(data,
   if (!missing(.id)) {
     warn("`.id` is deprecated. Manually create column of names instead.")
     deprecated <- TRUE
-    first_col <- tidyselect::vars_select(names(data), !!cols)[[1]]
+    first_col <- tidyselect::vars_select(tbl_vars(data), !!cols)[[1]]
     data[[.id]] <- names(data[[first_col]])
   }
 
@@ -262,7 +262,7 @@ unnest.data.frame <- function(
                               .sep = "DEPRECATED",
                               .preserve = "DEPRECATED") {
 
-  cols <- tidyselect::vars_select(names(data), !!enquo(cols))
+  cols <- tidyselect::vars_select(tbl_vars(data), !!enquo(cols))
   for (col in cols) {
     data[[col]][] <- map(data[[col]], as_df, col = col)
   }

@@ -43,7 +43,7 @@ unite.data.frame <- function(data, col, ..., sep = "_", remove = TRUE, na.rm = F
   if (dots_n(...) == 0) {
     from_vars <- colnames(data)
   } else {
-    from_vars <- tidyselect::vars_select(colnames(data), ...)
+    from_vars <- tidyselect::vars_select(tbl_vars(data), ...)
   }
 
   out <- data

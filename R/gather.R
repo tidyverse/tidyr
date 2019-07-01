@@ -104,7 +104,7 @@ gather.data.frame <- function(data, key = "key", value = "value", ...,
   if (is_empty(quos)) {
     gather_vars <- setdiff(names(data), c(key_var, value_var))
   } else {
-    gather_vars <- unname(tidyselect::vars_select(names(data), !!! quos))
+    gather_vars <- unname(tidyselect::vars_select(tbl_vars(data), !!! quos))
   }
 
   if (is_empty(gather_vars)) {
