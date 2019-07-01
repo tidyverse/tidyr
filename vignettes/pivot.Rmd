@@ -502,28 +502,26 @@ us_rent_income %>%
   pivot_wider(names_from = variable, values_from = c(estimate, moe))
 ```
 
-I think it would be better to have columns `rent`, `rent_moe`, `income`, and `income_moe`, which we can achieve with a manual spec. The current spec looks like this:
+I think it would be better to have columns `income`, `rent`, `income_moe`, and `rent_moe`, which we can achieve with a manual spec. The current spec looks like this:
 
 ```{r}
-us_rent_income %>% 
+spec1 <- us_rent_income %>% 
   pivot_wider_spec(names_from = variable, values_from = c(estimate, moe))
+spec1
 ```
 
-For this case, we start with all the needed combinations of `.value` and `variable` and then carefully construct the column names:
+For this case, we mutate `spec` to carefully construct the column names:
 
 ```{r}
-spec <- us_rent_income %>% 
-  expand(variable, .value = c("estimate", "moe")) %>% 
-  mutate(
-    .name = paste0(variable, ifelse(.value == "moe", "_moe", ""))
-  )
-spec
+spec2 <- spec1 %>%
+  mutate(.name = paste0(variable, ifelse(.value == "moe", "_moe", "")))
+spec2
 ```
 
 Supplying this spec to `pivot_wider()` gives us the result we're looking for:
 
 ```{r}
-us_rent_income %>% pivot_wider(spec = spec)
+us_rent_income %>% pivot_wider(spec = spec2)
 ```
 
 ## By hand
