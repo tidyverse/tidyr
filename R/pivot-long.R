@@ -95,7 +95,7 @@
 #'    names_pattern = "(.)(.)"
 #'  )
 pivot_longer <- function(data,
-                         cols,
+                         cols = NULL,
                          names_to = "name",
                          names_prefix = NULL,
                          names_sep = NULL,
