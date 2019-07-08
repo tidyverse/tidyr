@@ -174,6 +174,9 @@ pivot_longer_spec <- function(data, cols,
                               names_pattern = NULL,
                               names_ptypes = NULL) {
   cols <- tidyselect::vars_select(unique(names(data)), !!enquo(cols))
+  if (length(cols) == 0) {
+    abort(glue::glue("`cols` must select at least one column."))
+  }
 
   if (is.null(names_prefix)) {
     names <- cols
