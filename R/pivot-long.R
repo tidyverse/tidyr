@@ -208,9 +208,9 @@ pivot_longer_spec <- function(data, cols,
     names[[col]] <- vec_cast(names[[col]], names_ptypes[[col]])
   }
 
-  # test the value of `col when it` uses `matches()` arg
+  # Error message for `cols` when there is no match using matches()
   if (length(cols) == 0) {
-    abort(glue::glue("Val ue in `matches()` has no corresponding value in `data`."))
+    abort(glue::glue("`cols` must select at least one column."))
   }
 
   out <- tibble(.name = cols)

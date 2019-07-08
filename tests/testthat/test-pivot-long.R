@@ -173,3 +173,8 @@ test_that("can cast to custom type", {
 
   expect_equal(sp$name, 1L)
 })
+
+test_that("Error if the `col` can't be selected.", {
+  expect_error(pivot_longer(iris, matches("foo")),
+               regexp = "cols` must select at least one column.")
+})
