@@ -208,6 +208,11 @@ pivot_longer_spec <- function(data, cols,
     names[[col]] <- vec_cast(names[[col]], names_ptypes[[col]])
   }
 
+  # test the value of `col when it` uses `matches()` arg
+  if (length(cols) == 0) {
+    abort(glue::glue("Val ue in `matches()` has no corresponding value in `data`."))
+  }
+
   out <- tibble(.name = cols)
   out[[".value"]] <- values_to
   out <- vec_cbind(out, names)
