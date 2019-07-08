@@ -21,7 +21,7 @@
 
 New `pivot_longer()` and `pivot_wider()` provide modern alternatives to `spread()` and `gather()`. They have been carefully redesigned to be easier to learn and remember, and include many new features. Learn more in `vignette("pivot")`.
     
-These functions resolve multiple existing issues with `spread()`/`gather()`. Both functions now handle mulitple value columns (#149/#150), support more vector types (#333), use tidverse conventions for duplicated column names (#496, #478) for and are symmetric (#453). `pivot_longer()` gracefully handles duplicated column names (#472), and can directly split column names into multiple variables. `pivot_wider()` can now aggregate (#474), select keys (#572), and has control over generated column names when (#208).
+These functions resolve multiple existing issues with `spread()`/`gather()`. Both functions now handle mulitple value columns (#149/#150), support more vector types (#333), use tidyverse conventions for duplicated column names (#496, #478) for and are symmetric (#453). `pivot_longer()` gracefully handles duplicated column names (#472), and can directly split column names into multiple variables. `pivot_wider()` can now aggregate (#474), select keys (#572), and has control over generated column names when (#208).
   
 To demonstrate how these functions work in practice, tidyr has gained many new datasets: `relig_income`, `construction`, `billboard`, `us_rent_income`, `fish_encounters` and `world_bank_pop`.
 
