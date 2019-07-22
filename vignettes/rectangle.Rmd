@@ -178,7 +178,7 @@ geocode <- function(address, api_key = Sys.getenv("GOOGLE_MAPS_API_KEY")) {
 
 The list that this function returns is quite complex:
 
-```{r}
+```{r, eval = has_key}
 houston <- geocode("Houston TX")
 str(houston)
 ```
