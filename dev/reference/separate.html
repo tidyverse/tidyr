@@ -188,7 +188,8 @@ far-right of the string. The length of <code>sep</code> should be one less than
       <th>convert</th>
       <td><p>If <code>TRUE</code>, will run <code><a href='https://www.rdocumentation.org/packages/utils/topics/type.convert'>type.convert()</a></code> with
 <code>as.is = TRUE</code> on new columns. This is useful if the component
-columns are integer, numeric or logical.</p></td>
+columns are integer, numeric or logical.</p>
+<p>NB: this will cause string <code>"NA"</code>s to be converted to <code>NA</code>s.</p></td>
     </tr>
     <tr>
       <th>extra</th>

@@ -226,7 +226,8 @@ that don't appear in the data: to do so use expressions like
     </tr>
     <tr>
       <th>into</th>
-      <td><p>Names of new variables to create as character vector.</p></td>
+      <td><p>Names of new variables to create as character vector.
+Use <code>NA</code> to omit the variable in the output.</p></td>
     </tr>
     <tr>
       <th>regex</th>
@@ -241,7 +242,8 @@ There should be one group (defined by <code>()</code>) for each element of <code
       <th>convert</th>
       <td><p>If <code>TRUE</code>, will run <code><a href='https://www.rdocumentation.org/packages/utils/topics/type.convert'>type.convert()</a></code> with
 <code>as.is = TRUE</code> on new columns. This is useful if the component
-columns are integer, numeric or logical.</p></td>
+columns are integer, numeric or logical.</p>
+<p>NB: this will cause string <code>"NA"</code>s to be converted to <code>NA</code>s.</p></td>
     </tr>
     <tr>
       <th>fill_cols</th>
