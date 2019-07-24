@@ -60,7 +60,7 @@ str_extract <- function(x, into, regex, convert = FALSE) {
     )
   }
 
-  out <- as_tibble(matches)
+  out <- as_tibble(matches, .name_repair = "minimal")
 
   # Handle duplicated names
   if (anyDuplicated(into)) {
