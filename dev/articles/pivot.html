@@ -358,7 +358,7 @@
 <div id="multiple-observations-per-row" class="section level2">
 <h2 class="hasAnchor">
 <a href="#multiple-observations-per-row" class="anchor"></a>Multiple observations per row</h2>
-<p>So far, we have been working with data frames that have a single value column. But many important pivotting problems involve multiple values, which you can recognise because the name of the column that you want to appear in the output is part of the column name in the input. In this section, you’ll learn how to pivot this sort of data.</p>
+<p>So far, we have been working with data frames that have one observation per row, but many important pivotting problems involve multiple observations per row. You can usually recognise this case because name of the column that you want to appear in the output is part of the column name in the input. In this section, you’ll learn how to pivot this sort of data.</p>
 <p>The following example is adapted from the <a href="https://cran.r-project.org/web/packages/data.table/vignettes/datatable-reshape.html">data.table vignette</a>, as inspiration for tidyr’s solution to this problem.</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1">family &lt;-<span class="st"> </span><span class="kw"><a href="https://tibble.tidyverse.org/reference/tribble.html">tribble</a></span>(</a>
 <a class="sourceLine" id="cb10-2" data-line-number="2">  <span class="op">~</span>family,  <span class="op">~</span>dob_child1,  <span class="op">~</span>dob_child2, <span class="op">~</span>gender_child1, <span class="op">~</span>gender_child2,</a>
@@ -378,7 +378,7 @@
 <a class="sourceLine" id="cb10-16" data-line-number="16"><span class="co">#&gt; 3      3 2002-07-11 2004-04-05             2             2</span></a>
 <a class="sourceLine" id="cb10-17" data-line-number="17"><span class="co">#&gt; 4      4 2004-10-10 2009-08-27             1             1</span></a>
 <a class="sourceLine" id="cb10-18" data-line-number="18"><span class="co">#&gt; 5      5 2000-12-05 2005-02-28             2             1</span></a></code></pre></div>
-<p>Note that we have two pieces of information (or values) for each child: their <code>gender</code> and their <code>dob</code> (date of birth). These need to go into separate columns in the result. Again we supply multiple variables to <code>names_to</code>, using <code>names_sep</code> to split up each variable name. Note the special variable name <code>.value</code>: this tells <code><a href="../reference/pivot_longer.html">pivot_longer()</a></code> that that component of the variable name defines the name of the output value column.</p>
+<p>Note that we have two pieces of information (or values) for each child: their <code>gender</code> and their <code>dob</code> (date of birth). These need to go into separate columns in the result. Again we supply multiple variables to <code>names_to</code>, using <code>names_sep</code> to split up each variable name. Note the special name <code>.value</code>: this tells <code><a href="../reference/pivot_longer.html">pivot_longer()</a></code> that that part of the column name specifies the “value” being measured (which will become a variable in the output).</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1">family <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb11-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/pivot_longer.html">pivot_longer</a></span>(</a>
 <a class="sourceLine" id="cb11-3" data-line-number="3">    <span class="op">-</span>family, </a>
@@ -454,14 +454,14 @@
 <a class="sourceLine" id="cb14-17" data-line-number="17"><span class="co">#&gt; # A tibble: 8 x 6</span></a>
 <a class="sourceLine" id="cb14-18" data-line-number="18"><span class="co">#&gt;       x     a     b time       y     z</span></a>
 <a class="sourceLine" id="cb14-19" data-line-number="19"><span class="co">#&gt;   &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;  &lt;dbl&gt; &lt;dbl&gt;</span></a>
-<a class="sourceLine" id="cb14-20" data-line-number="20"><span class="co">#&gt; 1     1     1     0 1      0.177     3</span></a>
-<a class="sourceLine" id="cb14-21" data-line-number="21"><span class="co">#&gt; 2     1     1     0 2     -2.57     -2</span></a>
-<a class="sourceLine" id="cb14-22" data-line-number="22"><span class="co">#&gt; 3     2     1     1 1      0.123     3</span></a>
-<a class="sourceLine" id="cb14-23" data-line-number="23"><span class="co">#&gt; 4     2     1     1 2     -0.415    -2</span></a>
-<a class="sourceLine" id="cb14-24" data-line-number="24"><span class="co">#&gt; 5     3     0     1 1      0.367     3</span></a>
-<a class="sourceLine" id="cb14-25" data-line-number="25"><span class="co">#&gt; 6     3     0     1 2     -0.586    -2</span></a>
-<a class="sourceLine" id="cb14-26" data-line-number="26"><span class="co">#&gt; 7     4     0     1 1      0.473     3</span></a>
-<a class="sourceLine" id="cb14-27" data-line-number="27"><span class="co">#&gt; 8     4     0     1 2     -0.561    -2</span></a></code></pre></div>
+<a class="sourceLine" id="cb14-20" data-line-number="20"><span class="co">#&gt; 1     1     1     0 1      1.07      3</span></a>
+<a class="sourceLine" id="cb14-21" data-line-number="21"><span class="co">#&gt; 2     1     1     0 2      0.607    -2</span></a>
+<a class="sourceLine" id="cb14-22" data-line-number="22"><span class="co">#&gt; 3     2     1     1 1     -0.148     3</span></a>
+<a class="sourceLine" id="cb14-23" data-line-number="23"><span class="co">#&gt; 4     2     1     1 2      1.53     -2</span></a>
+<a class="sourceLine" id="cb14-24" data-line-number="24"><span class="co">#&gt; 5     3     0     1 1      0.678     3</span></a>
+<a class="sourceLine" id="cb14-25" data-line-number="25"><span class="co">#&gt; 6     3     0     1 2      3.09     -2</span></a>
+<a class="sourceLine" id="cb14-26" data-line-number="26"><span class="co">#&gt; 7     4     0     1 1     -2.24      3</span></a>
+<a class="sourceLine" id="cb14-27" data-line-number="27"><span class="co">#&gt; 8     4     0     1 2     -1.05     -2</span></a></code></pre></div>
 </div>
 <div id="duplicated-column-names" class="section level2">
 <h2 class="hasAnchor">
@@ -625,16 +625,16 @@
 <a class="sourceLine" id="cb24-9" data-line-number="9"><span class="co">#&gt; # A tibble: 45 x 4</span></a>
 <a class="sourceLine" id="cb24-10" data-line-number="10"><span class="co">#&gt;    product country  year production</span></a>
 <a class="sourceLine" id="cb24-11" data-line-number="11"><span class="co">#&gt;    &lt;chr&gt;   &lt;chr&gt;   &lt;int&gt;      &lt;dbl&gt;</span></a>
-<a class="sourceLine" id="cb24-12" data-line-number="12"><span class="co">#&gt;  1 A       AI       2000    -0.513 </span></a>
-<a class="sourceLine" id="cb24-13" data-line-number="13"><span class="co">#&gt;  2 A       AI       2001     0.799 </span></a>
-<a class="sourceLine" id="cb24-14" data-line-number="14"><span class="co">#&gt;  3 A       AI       2002     1.12  </span></a>
-<a class="sourceLine" id="cb24-15" data-line-number="15"><span class="co">#&gt;  4 A       AI       2003     1.26  </span></a>
-<a class="sourceLine" id="cb24-16" data-line-number="16"><span class="co">#&gt;  5 A       AI       2004     0.475 </span></a>
-<a class="sourceLine" id="cb24-17" data-line-number="17"><span class="co">#&gt;  6 A       AI       2005    -0.294 </span></a>
-<a class="sourceLine" id="cb24-18" data-line-number="18"><span class="co">#&gt;  7 A       AI       2006    -0.652 </span></a>
-<a class="sourceLine" id="cb24-19" data-line-number="19"><span class="co">#&gt;  8 A       AI       2007     0.0778</span></a>
-<a class="sourceLine" id="cb24-20" data-line-number="20"><span class="co">#&gt;  9 A       AI       2008     0.558 </span></a>
-<a class="sourceLine" id="cb24-21" data-line-number="21"><span class="co">#&gt; 10 A       AI       2009     0.472 </span></a>
+<a class="sourceLine" id="cb24-12" data-line-number="12"><span class="co">#&gt;  1 A       AI       2000     -0.422</span></a>
+<a class="sourceLine" id="cb24-13" data-line-number="13"><span class="co">#&gt;  2 A       AI       2001     -1.21 </span></a>
+<a class="sourceLine" id="cb24-14" data-line-number="14"><span class="co">#&gt;  3 A       AI       2002      0.246</span></a>
+<a class="sourceLine" id="cb24-15" data-line-number="15"><span class="co">#&gt;  4 A       AI       2003      1.51 </span></a>
+<a class="sourceLine" id="cb24-16" data-line-number="16"><span class="co">#&gt;  5 A       AI       2004     -1.59 </span></a>
+<a class="sourceLine" id="cb24-17" data-line-number="17"><span class="co">#&gt;  6 A       AI       2005      0.292</span></a>
+<a class="sourceLine" id="cb24-18" data-line-number="18"><span class="co">#&gt;  7 A       AI       2006      0.463</span></a>
+<a class="sourceLine" id="cb24-19" data-line-number="19"><span class="co">#&gt;  8 A       AI       2007     -0.953</span></a>
+<a class="sourceLine" id="cb24-20" data-line-number="20"><span class="co">#&gt;  9 A       AI       2008     -0.851</span></a>
+<a class="sourceLine" id="cb24-21" data-line-number="21"><span class="co">#&gt; 10 A       AI       2009     -1.64 </span></a>
 <a class="sourceLine" id="cb24-22" data-line-number="22"><span class="co">#&gt; # … with 35 more rows</span></a></code></pre></div>
 <p>We want to widen the data so we have one column for each combination of <code>product</code> and <code>country</code>. The key is to specify multiple variables for <code>names_from</code>:</p>
 <div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" data-line-number="1">production <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/pivot_wider.html">pivot_wider</a></span>(</a>
@@ -642,18 +642,18 @@
 <a class="sourceLine" id="cb25-3" data-line-number="3">  <span class="dt">values_from =</span> production</a>
 <a class="sourceLine" id="cb25-4" data-line-number="4">)</a>
 <a class="sourceLine" id="cb25-5" data-line-number="5"><span class="co">#&gt; # A tibble: 15 x 4</span></a>
-<a class="sourceLine" id="cb25-6" data-line-number="6"><span class="co">#&gt;     year    A_AI    B_AI    B_EI</span></a>
-<a class="sourceLine" id="cb25-7" data-line-number="7"><span class="co">#&gt;    &lt;int&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;</span></a>
-<a class="sourceLine" id="cb25-8" data-line-number="8"><span class="co">#&gt;  1  2000 -0.513   0.755   0.815 </span></a>
-<a class="sourceLine" id="cb25-9" data-line-number="9"><span class="co">#&gt;  2  2001  0.799   0.149  -0.307 </span></a>
-<a class="sourceLine" id="cb25-10" data-line-number="10"><span class="co">#&gt;  3  2002  1.12    1.50    2.20  </span></a>
-<a class="sourceLine" id="cb25-11" data-line-number="11"><span class="co">#&gt;  4  2003  1.26   -0.817   0.454 </span></a>
-<a class="sourceLine" id="cb25-12" data-line-number="12"><span class="co">#&gt;  5  2004  0.475   0.196  -0.0156</span></a>
-<a class="sourceLine" id="cb25-13" data-line-number="13"><span class="co">#&gt;  6  2005 -0.294  -1.63   -0.737 </span></a>
-<a class="sourceLine" id="cb25-14" data-line-number="14"><span class="co">#&gt;  7  2006 -0.652  -0.564   0.391 </span></a>
-<a class="sourceLine" id="cb25-15" data-line-number="15"><span class="co">#&gt;  8  2007  0.0778 -2.01    0.0207</span></a>
-<a class="sourceLine" id="cb25-16" data-line-number="16"><span class="co">#&gt;  9  2008  0.558  -0.0836  0.580 </span></a>
-<a class="sourceLine" id="cb25-17" data-line-number="17"><span class="co">#&gt; 10  2009  0.472   1.43    0.915 </span></a>
+<a class="sourceLine" id="cb25-6" data-line-number="6"><span class="co">#&gt;     year   A_AI   B_AI   B_EI</span></a>
+<a class="sourceLine" id="cb25-7" data-line-number="7"><span class="co">#&gt;    &lt;int&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb25-8" data-line-number="8"><span class="co">#&gt;  1  2000 -0.422 -0.137 -0.995</span></a>
+<a class="sourceLine" id="cb25-9" data-line-number="9"><span class="co">#&gt;  2  2001 -1.21   0.927 -0.343</span></a>
+<a class="sourceLine" id="cb25-10" data-line-number="10"><span class="co">#&gt;  3  2002  0.246  1.53   0.591</span></a>
+<a class="sourceLine" id="cb25-11" data-line-number="11"><span class="co">#&gt;  4  2003  1.51   0.696 -3.06 </span></a>
+<a class="sourceLine" id="cb25-12" data-line-number="12"><span class="co">#&gt;  5  2004 -1.59  -1.06   0.481</span></a>
+<a class="sourceLine" id="cb25-13" data-line-number="13"><span class="co">#&gt;  6  2005  0.292  0.417 -1.02 </span></a>
+<a class="sourceLine" id="cb25-14" data-line-number="14"><span class="co">#&gt;  7  2006  0.463 -0.161 -0.539</span></a>
+<a class="sourceLine" id="cb25-15" data-line-number="15"><span class="co">#&gt;  8  2007 -0.953 -0.911 -1.58 </span></a>
+<a class="sourceLine" id="cb25-16" data-line-number="16"><span class="co">#&gt;  9  2008 -0.851  1.18  -0.531</span></a>
+<a class="sourceLine" id="cb25-17" data-line-number="17"><span class="co">#&gt; 10  2009 -1.64  -1.05   0.969</span></a>
 <a class="sourceLine" id="cb25-18" data-line-number="18"><span class="co">#&gt; # … with 5 more rows</span></a></code></pre></div>
 </div>
 <div id="tidy-census" class="section level2">
