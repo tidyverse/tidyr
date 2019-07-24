@@ -148,8 +148,9 @@ decreasing the number of rows. The inverse transformation is
     </div>
 
     <pre class="usage"><span class='fu'>pivot_wider</span>(<span class='no'>data</span>, <span class='kw'>id_cols</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>names_from</span> <span class='kw'>=</span> <span class='no'>name</span>,
-  <span class='kw'>names_prefix</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>names_sep</span> <span class='kw'>=</span> <span class='st'>"_"</span>, <span class='kw'>values_from</span> <span class='kw'>=</span> <span class='no'>value</span>,
-  <span class='kw'>values_fill</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>values_fn</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>spec</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
+  <span class='kw'>names_prefix</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>names_sep</span> <span class='kw'>=</span> <span class='st'>"_"</span>, <span class='kw'>names_repair</span> <span class='kw'>=</span> <span class='st'>"check_unique"</span>,
+  <span class='kw'>values_from</span> <span class='kw'>=</span> <span class='no'>value</span>, <span class='kw'>values_fill</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>values_fn</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>spec</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
 
 <span class='fu'>pivot_wider_spec</span>(<span class='no'>data</span>, <span class='kw'>names_from</span> <span class='kw'>=</span> <span class='no'>name</span>, <span class='kw'>values_from</span> <span class='kw'>=</span> <span class='no'>value</span>,
   <span class='kw'>names_prefix</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>names_sep</span> <span class='kw'>=</span> <span class='st'>"_"</span>)</pre>
@@ -187,6 +188,14 @@ create syntactic variable names.</p></td>
       <td><p>If <code>names_from</code> or <code>values_from</code> contains multiple
 variables, this will be used to join their values together into a single
 string to use as a column name.</p></td>
+    </tr>
+    <tr>
+      <th>names_repair</th>
+      <td><p>What happen if the output has invalid column names?
+The default, <code>"check_unique"</code> is to error if the columns are duplicated.
+Use <code>"minimal"</code> to allow duplicates in the output, or <code>"unique"</code> to
+de-duplicated by adding numeric suffixes. See <code><a href='https://www.rdocumentation.org/packages/vctrs/topics/vec_as_names'>vctrs::vec_as_names()</a></code>
+for more options.</p></td>
     </tr>
     <tr>
       <th>values_fill</th>

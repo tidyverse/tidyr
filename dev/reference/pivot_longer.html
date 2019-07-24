@@ -149,8 +149,8 @@ decreasing the number of columns. The inverse transformation. in
 
     <pre class="usage"><span class='fu'>pivot_longer</span>(<span class='no'>data</span>, <span class='no'>cols</span>, <span class='kw'>names_to</span> <span class='kw'>=</span> <span class='st'>"name"</span>, <span class='kw'>names_prefix</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>names_sep</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>names_pattern</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>names_ptypes</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(),
-  <span class='kw'>values_to</span> <span class='kw'>=</span> <span class='st'>"value"</span>, <span class='kw'>values_drop_na</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>values_ptypes</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(), <span class='kw'>spec</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
+  <span class='kw'>names_repair</span> <span class='kw'>=</span> <span class='st'>"check_unique"</span>, <span class='kw'>values_to</span> <span class='kw'>=</span> <span class='st'>"value"</span>,
+  <span class='kw'>values_drop_na</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>values_ptypes</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(), <span class='kw'>spec</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
 
 <span class='fu'>pivot_longer_spec</span>(<span class='no'>data</span>, <span class='no'>cols</span>, <span class='kw'>names_to</span> <span class='kw'>=</span> <span class='st'>"name"</span>, <span class='kw'>values_to</span> <span class='kw'>=</span> <span class='st'>"value"</span>,
   <span class='kw'>names_prefix</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>names_sep</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>names_pattern</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
@@ -201,6 +201,14 @@ or <code><a href='https://www.rdocumentation.org/packages/base/topics/numeric'>n
 <p>If not specified, the type of the columns generated from <code>names_to</code> will
 be character, and the type of the variables generated from <code>values_to</code>
 will be the common type of the input columns used to generate them.</p></td>
+    </tr>
+    <tr>
+      <th>names_repair</th>
+      <td><p>What happen if the output has invalid column names?
+The default, <code>"check_unique"</code> is to error if the columns are duplicated.
+Use <code>"minimal"</code> to allow duplicates in the output, or <code>"unique"</code> to
+de-duplicated by adding numeric suffixes. See <code><a href='https://www.rdocumentation.org/packages/vctrs/topics/vec_as_names'>vctrs::vec_as_names()</a></code>
+for more options.</p></td>
     </tr>
     <tr>
       <th>values_to</th>
