@@ -266,9 +266,17 @@ unnest.data.frame <- function(
                               .preserve = "DEPRECATED") {
 
   cols <- tidyselect::vars_select(names(data), !!enquo(cols))
-  for (col in cols) {
-    data[[col]][] <- map(data[[col]], as_df, col = col)
+
+  if (nrow(data) == 0) {
+    for (col in cols) {
+      data[[col]] <- as_empty_df(data[[col]], col = col)
+    }
+  } else {
+    for (col in cols) {
+      data[[col]][] <- map(data[[col]], as_df, col = col)
+    }
   }
+
 
   data <- unchop(data, !!cols, keep_empty = keep_empty, ptype = ptype)
   unpack(data, !!cols, names_sep = names_sep, names_repair = names_repair)
@@ -291,3 +299,12 @@ as_df <- function(x, col) {
   }
 }
 
+as_empty_df <- function(x, col) {
+  if (is_list_of(x)) {
+    x
+  } else if (is.list(x)) {
+    list_of(.ptype = tibble(!!col := unspecified()))
+  } else {
+    stop("Input must be list of vectors", call. = FALSE)
+  }
+}

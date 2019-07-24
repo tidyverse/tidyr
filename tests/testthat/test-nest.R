@@ -182,13 +182,18 @@ test_that("can use non-syntactic names", {
 test_that("can unnest empty data frame", {
   df <- tibble(x = integer(), y = list())
   out <- unnest(df, y)
-  expect_equal(out, tibble(x = integer()))
+  expect_equal(out, tibble(x = integer(), y = unspecified()))
 })
 
 test_that("unnest() preserves ptype", {
   tbl <- tibble(x = integer(), y = list_of(ptype = tibble(a = integer())))
   res <- unnest(tbl, y)
   expect_equal(res, tibble(x = integer(), a = integer()))
+})
+
+test_that("errors on bad inputs", {
+  df <- tibble(x = integer(), y = list())
+  expect_error(unnest(df, x), "list of vectors")
 })
 
 test_that("unnest keeps list cols", {
