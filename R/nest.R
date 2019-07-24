@@ -141,10 +141,13 @@ nest.grouped_df <- function(.data, ..., .key = "DEPRECATED") {
 
   if (missing(...)) {
     nest_vars <- setdiff(names(.data), dplyr::group_vars(.data))
-    nest.tbl_df(.data, !!.key := !!nest_vars)
+    out <- nest.tbl_df(.data, !!.key := !!nest_vars)
   } else {
-    NextMethod()
+    out <- NextMethod()
   }
+  group_vars <- intersect(names(out), dplyr::group_vars(.data))
+
+  dplyr::grouped_df(out, group_vars)
 }
 
 check_key <- function(.key) {
@@ -230,7 +233,7 @@ unnest <- function(data,
   }
 
   if (!missing(.sep)) {
-    warn(glue("`.sep` is deprecated. Use `name_sep = {.sep}` instead."))
+    warn(glue("`.sep` is deprecated. Use `names_sep = '{.sep}'` instead."))
     deprecated <- TRUE
     names_sep <- .sep
   }

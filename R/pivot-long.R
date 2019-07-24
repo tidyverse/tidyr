@@ -136,7 +136,7 @@ pivot_longer <- function(data,
     val_cols[col_id] <- unname(as.list(data[cols]))
     val_cols[-col_id] <- list(rep(NA, nrow(data)))
 
-    val_type <- vec_type_common(!!!val_cols, .ptype = values_ptypes[[value]])
+    val_type <- vec_ptype_common(!!!val_cols, .ptype = values_ptypes[[value]])
     out <- vec_c(!!!val_cols, .ptype = val_type)
     # Interleave into correct order
     idx <- (matrix(seq_len(nrow(data) * length(val_cols)), ncol = nrow(data), byrow = TRUE))
@@ -174,6 +174,9 @@ pivot_longer_spec <- function(data, cols,
                               names_pattern = NULL,
                               names_ptypes = NULL) {
   cols <- tidyselect::vars_select(unique(names(data)), !!enquo(cols))
+  if (length(cols) == 0) {
+    abort(glue::glue("`cols` must select at least one column."))
+  }
 
   if (is.null(names_prefix)) {
     names <- cols

@@ -36,7 +36,7 @@ Imports:
     tibble (>= 2.1.1),
     tidyselect (>= 0.2.5),
     utils,
-    vctrs (>= 0.1.0.9005)
+    vctrs (>= 0.2.0)
 Suggests: 
     covr,
     jsonlite,
@@ -46,7 +46,6 @@ Suggests:
     readr,
     testthat
 Remotes:
-    r-lib/vctrs,
     jennybc/repurrrsive
 LinkingTo: 
     Rcpp

@@ -13,12 +13,14 @@ test_that("nest turns grouped values into one list-df", {
 test_that("nest uses grouping vars if present", {
   df <- tibble(x = c(1, 1, 1), y = 1:3)
   out <- df %>% dplyr::group_by(x) %>% nest()
+  expect_s3_class(out, "grouped_df")
   expect_equal(out$data[[1]], data.frame(y = 1:3))
 })
 
 test_that("provided grouping vars override grouped defaults", {
   df <- tibble(x = 1, y = 2, z = 3) %>% dplyr::group_by(x)
   out <- df %>% nest(data = y)
+  expect_s3_class(out, "grouped_df")
   expect_named(out, c("x", "z", "data"))
   expect_named(out$data[[1]], "y")
 })
@@ -234,7 +236,7 @@ test_that("need supply column names", {
 
 test_that("sep combines column names", {
   df <- tibble(x = list(tibble(x = 1)), y = list(tibble(x = 1)))
-  out <- expect_warning(df %>% unnest(c(x, y), .sep = "_"), "name_sep")
+  out <- expect_warning(df %>% unnest(c(x, y), .sep = "_"), "names_sep")
   expect_named(out, c("x_x", "y_x"))
 })
 
