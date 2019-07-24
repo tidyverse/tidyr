@@ -41,12 +41,10 @@ Suggests:
     covr,
     jsonlite,
     knitr,
-    repurrrsive,
+    repurrrsive (>= 1.0.0),
     rmarkdown,
     readr,
     testthat
-Remotes:
-    jennybc/repurrrsive
 LinkingTo: 
     Rcpp
 VignetteBuilder: 
