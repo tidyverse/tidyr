@@ -114,6 +114,13 @@ test_that(".value can be at any position in `names_to`", {
   expect_identical(value_first, value_second)
 })
 
+test_that("type error message use variable names", {
+  df <- data.frame(abc = 1, xyz = "b")
+  err <- capture_error(pivot_longer(df, everything()))
+  expect_s3_class(err, "vctrs_error_incompatible_type")
+  expect_equal(err$x_arg, "abc")
+  expect_equal(err$y_arg, "xyz")
+})
 
 # spec --------------------------------------------------------------------
 
