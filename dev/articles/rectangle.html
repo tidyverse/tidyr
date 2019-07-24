@@ -257,8 +257,8 @@
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1"><span class="kw"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span>(<span class="dt">repo =</span> gh_repos) <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb10-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/hoist.html">unnest_auto</a></span>(repo) <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb10-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="../reference/hoist.html">unnest_auto</a></span>(repo)</a>
-<a class="sourceLine" id="cb10-4" data-line-number="4"><span class="co">#&gt; unnest_longer(repo) # no elements have names</span></a>
-<a class="sourceLine" id="cb10-5" data-line-number="5"><span class="co">#&gt; unnest_wider(repo) # 68 names in common</span></a>
+<a class="sourceLine" id="cb10-4" data-line-number="4"><span class="co">#&gt; Using `unnest_longer(repo)`; no element has names</span></a>
+<a class="sourceLine" id="cb10-5" data-line-number="5"><span class="co">#&gt; Using `unnest_wider(repo)`; elements have {n_common} names in common</span></a>
 <a class="sourceLine" id="cb10-6" data-line-number="6"><span class="co">#&gt; # A tibble: 176 x 67</span></a>
 <a class="sourceLine" id="cb10-7" data-line-number="7"><span class="co">#&gt;        id name  full_name owner private html_url description fork  url  </span></a>
 <a class="sourceLine" id="cb10-8" data-line-number="8"><span class="co">#&gt;     &lt;int&gt; &lt;chr&gt; &lt;chr&gt;     &lt;lis&gt; &lt;lgl&gt;   &lt;chr&gt;    &lt;chr&gt;       &lt;lgl&gt; &lt;chr&gt;</span></a>
@@ -391,8 +391,8 @@
 <a class="sourceLine" id="cb15-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/hoist.html">unnest_auto</a></span>(char) <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb15-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(name, <span class="dt">title =</span> titles) <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb15-4" data-line-number="4"><span class="st">  </span><span class="kw"><a href="../reference/hoist.html">unnest_auto</a></span>(title)</a>
-<a class="sourceLine" id="cb15-5" data-line-number="5"><span class="co">#&gt; unnest_wider(char) # 18 names in common</span></a>
-<a class="sourceLine" id="cb15-6" data-line-number="6"><span class="co">#&gt; unnest_longer(title) # no elements have names</span></a>
+<a class="sourceLine" id="cb15-5" data-line-number="5"><span class="co">#&gt; Using `unnest_wider(char)`; elements have {n_common} names in common</span></a>
+<a class="sourceLine" id="cb15-6" data-line-number="6"><span class="co">#&gt; Using `unnest_longer(title)`; no element has names</span></a>
 <a class="sourceLine" id="cb15-7" data-line-number="7"><span class="co">#&gt; # A tibble: 60 x 2</span></a>
 <a class="sourceLine" id="cb15-8" data-line-number="8"><span class="co">#&gt;    name              title                                               </span></a>
 <a class="sourceLine" id="cb15-9" data-line-number="9"><span class="co">#&gt;    &lt;chr&gt;             &lt;chr&gt;                                               </span></a>
@@ -570,11 +570,11 @@
 <a class="sourceLine" id="cb25-4" data-line-number="4"><span class="st">  </span><span class="kw"><a href="../reference/hoist.html">unnest_auto</a></span>(results) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb25-5" data-line-number="5"><span class="st">  </span><span class="kw"><a href="../reference/hoist.html">unnest_auto</a></span>(geometry) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb25-6" data-line-number="6"><span class="st">  </span><span class="kw"><a href="../reference/hoist.html">unnest_auto</a></span>(location)</a>
-<a class="sourceLine" id="cb25-7" data-line-number="7"><span class="co">#&gt; unnest_wider(json) # 2 names in common</span></a>
-<a class="sourceLine" id="cb25-8" data-line-number="8"><span class="co">#&gt; unnest_longer(results) # no elements have names</span></a>
-<a class="sourceLine" id="cb25-9" data-line-number="9"><span class="co">#&gt; unnest_wider(results) # 5 names in common</span></a>
-<a class="sourceLine" id="cb25-10" data-line-number="10"><span class="co">#&gt; unnest_wider(geometry) # 4 names in common</span></a>
-<a class="sourceLine" id="cb25-11" data-line-number="11"><span class="co">#&gt; unnest_wider(location) # 2 names in common</span></a>
+<a class="sourceLine" id="cb25-7" data-line-number="7"><span class="co">#&gt; Using `unnest_wider(json)`; elements have {n_common} names in common</span></a>
+<a class="sourceLine" id="cb25-8" data-line-number="8"><span class="co">#&gt; Using `unnest_longer(results)`; no element has names</span></a>
+<a class="sourceLine" id="cb25-9" data-line-number="9"><span class="co">#&gt; Using `unnest_wider(results)`; elements have {n_common} names in common</span></a>
+<a class="sourceLine" id="cb25-10" data-line-number="10"><span class="co">#&gt; Using `unnest_wider(geometry)`; elements have {n_common} names in common</span></a>
+<a class="sourceLine" id="cb25-11" data-line-number="11"><span class="co">#&gt; Using `unnest_wider(location)`; elements have {n_common} names in common</span></a>
 <a class="sourceLine" id="cb25-12" data-line-number="12"><span class="co">#&gt; # A tibble: 5 x 11</span></a>
 <a class="sourceLine" id="cb25-13" data-line-number="13"><span class="co">#&gt;   city  address_compone… formatted_addre… bounds   lat    lng location_type</span></a>
 <a class="sourceLine" id="cb25-14" data-line-number="14"><span class="co">#&gt;   &lt;chr&gt; &lt;list&gt;           &lt;chr&gt;            &lt;list&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt;        </span></a>
