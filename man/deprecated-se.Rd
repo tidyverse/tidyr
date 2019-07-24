@@ -79,7 +79,8 @@ Length-zero (empty) elements are automatically dropped.}
 
 \item{x}{For \code{nesting_} and \code{crossing_} a list of variables.}
 
-\item{into}{Names of new variables to create as character vector.}
+\item{into}{Names of new variables to create as character vector.
+Use \code{NA} to omit the variable in the output.}
 
 \item{regex}{a regular expression used to extract the desired values.
 There should be one group (defined by \code{()}) for each element of \code{into}.}
@@ -88,7 +89,9 @@ There should be one group (defined by \code{()}) for each element of \code{into}
 
 \item{convert}{If \code{TRUE}, will run \code{\link[=type.convert]{type.convert()}} with
 \code{as.is = TRUE} on new columns. This is useful if the component
-columns are integer, numeric or logical.}
+columns are integer, numeric or logical.
+
+NB: this will cause string \code{"NA"}s to be converted to \code{NA}s.}
 
 \item{fill_cols}{Character vector of column names.}
 

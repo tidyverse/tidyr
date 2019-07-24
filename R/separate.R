@@ -5,8 +5,6 @@
 #' `separate()` turns a single character column into multiple columns.
 #'
 #' @inheritParams extract
-#' @param into Names of new variables to create as character vector.
-#'    Use `NA` to omit the variable in the output.
 #' @param sep Separator between columns.
 #'
 #'   If character, is interpreted as a regular expression. The default
@@ -29,11 +27,6 @@
 #'   * "warn" (the default): emit a warning and fill from the right
 #'   * "right": fill with missing values on the right
 #'   * "left": fill with missing values on the left
-#' @param remove If `TRUE`, remove input column from output data frame.
-#' @param convert If `TRUE`, will run [type.convert()] with
-#'   `as.is = TRUE` on new columns. This is useful if the component
-#'   columns are integer, numeric or logical.
-#' @param ... Additional arguments passed on to methods.
 #' @seealso [unite()], the complement, [extract()] which uses regular
 #'   expression capturing groups.
 #' @export
