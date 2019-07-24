@@ -114,11 +114,11 @@
 <a href="#overview" class="anchor"></a>Overview</h2>
 <p>The goal of tidyr is to help you create <strong>tidy data</strong>. Tidy data is data where:</p>
 <ol style="list-style-type: decimal">
-<li>Each variable is in a column.</li>
-<li>Each observation is a row.</li>
-<li>Each value is a cell.</li>
+<li>Every column is variable.</li>
+<li>Every row is an observation..</li>
+<li>Every cell is a single value.</li>
 </ol>
-<p>Tidy data describes a standard way of storing data that is used wherever possible throughout the <a href="http://tidyverse.org">tidyverse</a>. If you ensure that your data is tidy, you’ll spend less time fighting with the tools and more time working on your analysis.</p>
+<p>Tidy data describes a standard way of storing data that is used wherever possible throughout the <a href="http://tidyverse.org">tidyverse</a>. If you ensure that your data is tidy, you’ll spend less time fighting with the tools and more time working on your analysis. Learn more about tidy data in <code><a href="articles/tidy-data.html">vignette("tidy-data")</a></code>.</p>
 </div>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
@@ -142,13 +142,14 @@
 <h2 class="hasAnchor">
 <a href="#getting-started" class="anchor"></a>Getting started</h2>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(tidyr)</a></code></pre></div>
-<p>There are two fundamental verbs of data tidying:</p>
+<p>tidyr functions fall into five main categories:</p>
 <ul>
-<li><p><code><a href="reference/gather.html">gather()</a></code> takes multiple columns, and gathers them into key-value pairs: it makes “wide” data longer.</p></li>
-<li><p><code><a href="reference/spread.html">spread()</a></code> takes two columns (key &amp; value), and spreads into multiple columns: it makes “long” data wider.</p></li>
+<li><p>“Pivotting” which converts between long and wide forms. tidyr 1.0.0 introduces <code><a href="reference/pivot_longer.html">pivot_longer()</a></code> and <code><a href="reference/pivot_wider.html">pivot_wider()</a></code>, replacing the older <code><a href="reference/spread.html">spread()</a></code> and <code><a href="reference/gather.html">gather()</a></code> functions. See <code><a href="articles/pivot.html">vignette("pivot")</a></code> for more details.</p></li>
+<li><p>“Rectangling”, which turns deeply nested lists (as from JSOM) into tidy tibbles. See <code><a href="reference/hoist.html">unnest_longer()</a></code>, <code><a href="reference/hoist.html">unnest_wider()</a></code>, <code><a href="reference/hoist.html">hoist()</a></code>, and <code><a href="articles/rectangle.html">vignette("rectangle")</a></code> for more details.</p></li>
+<li><p>Nesting converts grouped data to a form where each group becomes a single row containing a nested data frame, and unnesting does the opposite. See <code><a href="reference/nest.html">nest()</a></code>, <code><a href="reference/nest.html">unnest()</a></code>, and <code><a href="articles/nest.html">vignette("nest")</a></code> for more details.</p></li>
+<li><p>Splitting and combining character columns. Use <code><a href="reference/separate.html">separate()</a></code> and <code><a href="reference/extract.html">extract()</a></code> to pull a single character column into multiple columns; use <code><a href="reference/unite.html">unite()</a></code> to combine multiple columns into a single character column.</p></li>
+<li><p>Make implicit missing values explicit with <code><a href="reference/complete.html">complete()</a></code>; make explicit missing values implicit with <code><a href="reference/drop_na.html">drop_na()</a></code>; replace missing values with next/previous value with <code><a href="reference/fill.html">fill()</a></code>, or a known value with <code><a href="reference/replace_na.html">replace_na()</a></code>.</p></li>
 </ul>
-<p>tidyr also provides <code><a href="reference/separate.html">separate()</a></code> and <code><a href="reference/extract.html">extract()</a></code> functions which makes it easier to pull apart a column that represents multiple variables. The complement to <code><a href="reference/separate.html">separate()</a></code> is <code><a href="reference/unite.html">unite()</a></code>.</p>
-<p>To get started, read the tidy data vignette (<code><a href="articles/tidy-data.html">vignette("tidy-data")</a></code>) and check out the demos (<code><a href="https://www.rdocumentation.org/packages/utils/topics/demo">demo(package = "tidyr")</a></code>).</p>
 </div>
 <div id="related-work" class="section level2">
 <h2 class="hasAnchor">
