@@ -529,7 +529,7 @@
 <a class="sourceLine" id="cb22-9" data-line-number="9"><span class="co">#&gt; 2 LA     &lt;list [4]&gt;        Los Angeles, CA… &lt;named … ChIJE9on… &lt;lis… OK    </span></a>
 <a class="sourceLine" id="cb22-10" data-line-number="10"><span class="co">#&gt; 3 New Y… &lt;list [3]&gt;        New York, NY, U… &lt;named … ChIJOwg_… &lt;lis… OK    </span></a>
 <a class="sourceLine" id="cb22-11" data-line-number="11"><span class="co">#&gt; 4 Chica… &lt;list [4]&gt;        Chicago, IL, USA &lt;named … ChIJ7cv0… &lt;lis… OK    </span></a>
-<a class="sourceLine" id="cb22-12" data-line-number="12"><span class="co">#&gt; 5 Sprin… &lt;list [4]&gt;        Springfield, IL… &lt;named … ChIJd9Hb… &lt;lis… OK</span></a></code></pre></div>
+<a class="sourceLine" id="cb22-12" data-line-number="12"><span class="co">#&gt; 5 Sprin… &lt;list [5]&gt;        Springfield, MO… &lt;named … ChIJP5jI… &lt;lis… OK</span></a></code></pre></div>
 <p>We can find the lat and lon coordinates by unnesting <code>geometry</code>:</p>
 <div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" data-line-number="1">loc <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb23-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/hoist.html">unnest_wider</a></span>(json) <span class="op">%&gt;%</span><span class="st"> </span></a>
@@ -543,7 +543,7 @@
 <a class="sourceLine" id="cb23-10" data-line-number="10"><span class="co">#&gt; 2 LA    &lt;list [4]&gt;       Los Angeles, CA… &lt;name… &lt;named … APPROXIMATE  </span></a>
 <a class="sourceLine" id="cb23-11" data-line-number="11"><span class="co">#&gt; 3 New … &lt;list [3]&gt;       New York, NY, U… &lt;name… &lt;named … APPROXIMATE  </span></a>
 <a class="sourceLine" id="cb23-12" data-line-number="12"><span class="co">#&gt; 4 Chic… &lt;list [4]&gt;       Chicago, IL, USA &lt;name… &lt;named … APPROXIMATE  </span></a>
-<a class="sourceLine" id="cb23-13" data-line-number="13"><span class="co">#&gt; 5 Spri… &lt;list [4]&gt;       Springfield, IL… &lt;name… &lt;named … APPROXIMATE  </span></a>
+<a class="sourceLine" id="cb23-13" data-line-number="13"><span class="co">#&gt; 5 Spri… &lt;list [5]&gt;       Springfield, MO… &lt;name… &lt;named … APPROXIMATE  </span></a>
 <a class="sourceLine" id="cb23-14" data-line-number="14"><span class="co">#&gt; # … with 4 more variables: viewport &lt;list&gt;, place_id &lt;chr&gt;, types &lt;list&gt;,</span></a>
 <a class="sourceLine" id="cb23-15" data-line-number="15"><span class="co">#&gt; #   status &lt;chr&gt;</span></a></code></pre></div>
 <p>And then location:</p>
@@ -560,7 +560,7 @@
 <a class="sourceLine" id="cb24-11" data-line-number="11"><span class="co">#&gt; 2 LA    &lt;list [4]&gt;       Los Angeles, CA… &lt;name…  34.1 -118.  APPROXIMATE  </span></a>
 <a class="sourceLine" id="cb24-12" data-line-number="12"><span class="co">#&gt; 3 New … &lt;list [3]&gt;       New York, NY, U… &lt;name…  40.7  -74.0 APPROXIMATE  </span></a>
 <a class="sourceLine" id="cb24-13" data-line-number="13"><span class="co">#&gt; 4 Chic… &lt;list [4]&gt;       Chicago, IL, USA &lt;name…  41.9  -87.6 APPROXIMATE  </span></a>
-<a class="sourceLine" id="cb24-14" data-line-number="14"><span class="co">#&gt; 5 Spri… &lt;list [4]&gt;       Springfield, IL… &lt;name…  39.8  -89.7 APPROXIMATE  </span></a>
+<a class="sourceLine" id="cb24-14" data-line-number="14"><span class="co">#&gt; 5 Spri… &lt;list [5]&gt;       Springfield, MO… &lt;name…  37.2  -93.3 APPROXIMATE  </span></a>
 <a class="sourceLine" id="cb24-15" data-line-number="15"><span class="co">#&gt; # … with 4 more variables: viewport &lt;list&gt;, place_id &lt;chr&gt;, types &lt;list&gt;,</span></a>
 <a class="sourceLine" id="cb24-16" data-line-number="16"><span class="co">#&gt; #   status &lt;chr&gt;</span></a></code></pre></div>
 <p>Again, <code><a href="../reference/hoist.html">unnest_auto()</a></code> makes this simpler with the small risk of failing in unexpected ways if the input structure changes:</p>
@@ -582,7 +582,7 @@
 <a class="sourceLine" id="cb25-16" data-line-number="16"><span class="co">#&gt; 2 LA    &lt;list [4]&gt;       Los Angeles, CA… &lt;name…  34.1 -118.  APPROXIMATE  </span></a>
 <a class="sourceLine" id="cb25-17" data-line-number="17"><span class="co">#&gt; 3 New … &lt;list [3]&gt;       New York, NY, U… &lt;name…  40.7  -74.0 APPROXIMATE  </span></a>
 <a class="sourceLine" id="cb25-18" data-line-number="18"><span class="co">#&gt; 4 Chic… &lt;list [4]&gt;       Chicago, IL, USA &lt;name…  41.9  -87.6 APPROXIMATE  </span></a>
-<a class="sourceLine" id="cb25-19" data-line-number="19"><span class="co">#&gt; 5 Spri… &lt;list [4]&gt;       Springfield, IL… &lt;name…  39.8  -89.7 APPROXIMATE  </span></a>
+<a class="sourceLine" id="cb25-19" data-line-number="19"><span class="co">#&gt; 5 Spri… &lt;list [5]&gt;       Springfield, MO… &lt;name…  37.2  -93.3 APPROXIMATE  </span></a>
 <a class="sourceLine" id="cb25-20" data-line-number="20"><span class="co">#&gt; # … with 4 more variables: viewport &lt;list&gt;, place_id &lt;chr&gt;, types &lt;list&gt;,</span></a>
 <a class="sourceLine" id="cb25-21" data-line-number="21"><span class="co">#&gt; #   status &lt;chr&gt;</span></a></code></pre></div>
 <p>We could also just look at the first address for each city:</p>
@@ -599,7 +599,7 @@
 <a class="sourceLine" id="cb26-11" data-line-number="11"><span class="co">#&gt; 2 LA    &lt;list [4]&gt;       Los Angeles, CA… &lt;name…  34.1 -118.  APPROXIMATE  </span></a>
 <a class="sourceLine" id="cb26-12" data-line-number="12"><span class="co">#&gt; 3 New … &lt;list [3]&gt;       New York, NY, U… &lt;name…  40.7  -74.0 APPROXIMATE  </span></a>
 <a class="sourceLine" id="cb26-13" data-line-number="13"><span class="co">#&gt; 4 Chic… &lt;list [4]&gt;       Chicago, IL, USA &lt;name…  41.9  -87.6 APPROXIMATE  </span></a>
-<a class="sourceLine" id="cb26-14" data-line-number="14"><span class="co">#&gt; 5 Spri… &lt;list [4]&gt;       Springfield, IL… &lt;name…  39.8  -89.7 APPROXIMATE  </span></a>
+<a class="sourceLine" id="cb26-14" data-line-number="14"><span class="co">#&gt; 5 Spri… &lt;list [5]&gt;       Springfield, MO… &lt;name…  37.2  -93.3 APPROXIMATE  </span></a>
 <a class="sourceLine" id="cb26-15" data-line-number="15"><span class="co">#&gt; # … with 4 more variables: viewport &lt;list&gt;, place_id &lt;chr&gt;, types &lt;list&gt;,</span></a>
 <a class="sourceLine" id="cb26-16" data-line-number="16"><span class="co">#&gt; #   status &lt;chr&gt;</span></a></code></pre></div>
 <p>Or use <code><a href="../reference/hoist.html">hoist()</a></code> to dive deeply to get directly to <code>lat</code> and <code>lng</code>:</p>
@@ -615,7 +615,7 @@
 <a class="sourceLine" id="cb27-10" data-line-number="10"><span class="co">#&gt; 2 LA           34.1 -118.  &lt;named list [2]&gt;</span></a>
 <a class="sourceLine" id="cb27-11" data-line-number="11"><span class="co">#&gt; 3 New York     40.7  -74.0 &lt;named list [2]&gt;</span></a>
 <a class="sourceLine" id="cb27-12" data-line-number="12"><span class="co">#&gt; 4 Chicago      41.9  -87.6 &lt;named list [2]&gt;</span></a>
-<a class="sourceLine" id="cb27-13" data-line-number="13"><span class="co">#&gt; 5 Springfield  39.8  -89.7 &lt;named list [2]&gt;</span></a></code></pre></div>
+<a class="sourceLine" id="cb27-13" data-line-number="13"><span class="co">#&gt; 5 Springfield  37.2  -93.3 &lt;named list [2]&gt;</span></a></code></pre></div>
 </div>
 <div id="sharla-gelfands-discography" class="section level2">
 <h2 class="hasAnchor">
