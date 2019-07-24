@@ -17,6 +17,13 @@ test_that("chopping no columns returns input", {
   expect_equal(chop(df), df)
 })
 
+test_that("grouping is preserved", {
+  df <- tibble(g = c(1, 1), x = 1:2)
+  out <- df %>% dplyr::group_by(g) %>% chop(x)
+  expect_equal(dplyr::group_vars(out), "g")
+})
+
+
 # unchop ------------------------------------------------------------------
 
 test_that("extends into rows", {
@@ -59,4 +66,10 @@ test_that("preserves colums of empty inputs", {
 test_that("respects list_of types", {
   df <- tibble(x = integer(), y = list_of(.ptype = integer()))
   expect_equal(df %>% unchop(y), tibble(x = integer(), y = integer()))
+})
+
+test_that("grouping is preserved", {
+  df <- tibble(g = 1, x = list(1, 2))
+  out <- df %>% dplyr::group_by(g) %>% unchop(x)
+  expect_equal(dplyr::group_vars(out), "g")
 })

@@ -152,7 +152,8 @@ pivot_wider <- function(data,
   if (all(spec$.name %in% names(out))) {
     out <- out[c(names(rows), spec$.name)]
   }
-  out
+
+  reconstruct_tibble(data, out)
 }
 
 #' @export

@@ -122,6 +122,14 @@ test_that("type error message use variable names", {
   expect_equal(err$y_arg, "xyz")
 })
 
+test_that("grouping is preserved", {
+  df <- tibble(g = 1, x1 = 1, x2 = 2)
+  out <- df %>%
+    dplyr::group_by(g) %>%
+    pivot_longer(x1:x2, names_to = "x", values_to = "v")
+  expect_equal(dplyr::group_vars(out), "g")
+})
+
 # spec --------------------------------------------------------------------
 
 test_that("multiple names requires names_sep/names_pattern", {

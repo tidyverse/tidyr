@@ -157,11 +157,13 @@ pivot_longer <- function(data,
 
   # Join together df, spec, and val to produce final tibble
   df_out <- drop_cols(data, spec$.name)
-  vec_cbind(
+  out <- vec_cbind(
     vec_slice(df_out, rows$df_id),
     vec_slice(keys, rows$key_id),
     vec_slice(vals, rows$val_id),
   )
+
+  reconstruct_tibble(data, out)
 }
 
 #' @rdname pivot_longer

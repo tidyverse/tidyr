@@ -46,7 +46,9 @@ pack <- function(data, ...) {
 
   # TODO: find a different approach that preserves order
   asis <- setdiff(names(data), unlist(cols))
-  vec_cbind(data[asis], new_data_frame(packed, n = nrow(data)))
+  out <- vec_cbind(data[asis], new_data_frame(packed, n = nrow(data)))
+
+  reconstruct_tibble(data, out)
 }
 
 #' @export

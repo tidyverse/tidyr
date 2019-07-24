@@ -37,6 +37,14 @@ test_that("warn when overwriting existing column", {
   )
 })
 
+test_that("grouping is preserved", {
+  df <- tibble(g = 1, k = "x", v = 2)
+  out <- df %>%
+    dplyr::group_by(g) %>%
+    pivot_wider(names_from = k, values_from = v)
+  expect_equal(dplyr::group_vars(out), "g")
+})
+
 # keys ---------------------------------------------------------
 
 test_that("can override default keys", {
