@@ -168,7 +168,7 @@ who %>% pivot_longer(
 
 ## Multiple observations per row
 
-So far, we have been working with data frames that have a single value column. But many important pivotting problems involve multiple values, which you can recognise because the name of the column that you want to appear in the output is part of the column name in the input. In this section, you'll learn how to pivot this sort of data. 
+So far, we have been working with data frames that have one observation per row, but many important pivotting problems involve multiple observations per row. You can usually recognise this case because name of the column that you want to appear in the output is part of the column name in the input. In this section, you'll learn how to pivot this sort of data. 
 
 The following example is adapted from the [data.table vignette](https://cran.r-project.org/web/packages/data.table/vignettes/datatable-reshape.html), as inspiration for tidyr's solution to this problem.
 
@@ -185,7 +185,7 @@ family <- family %>% mutate_at(vars(starts_with("dob")), parse_date)
 family
 ```
 
-Note that we have two pieces of information (or values) for each child: their `gender` and their `dob` (date of birth). These need to go into separate columns in the result. Again we supply multiple variables to `names_to`, using `names_sep` to split up each variable name. Note the special variable name `.value`: this tells `pivot_longer()` that that component of the variable name defines the name of the output value column.
+Note that we have two pieces of information (or values) for each child: their `gender` and their `dob` (date of birth). These need to go into separate columns in the result. Again we supply multiple variables to `names_to`, using `names_sep` to split up each variable name. Note the special name `.value`: this tells `pivot_longer()` that that part of the column name specifies the "value" being measured (which will become a variable in the output).
 
 ```{r}
 family %>% 
