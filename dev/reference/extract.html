@@ -194,8 +194,7 @@ how the regular expression is processed.</p></td>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>dplyr</span>)
-<span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/data.frame'>data.frame</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>NA</span>, <span class='st'>"a-b"</span>, <span class='st'>"a-d"</span>, <span class='st'>"b-c"</span>, <span class='st'>"d-e"</span>))
+    <pre class="examples"><div class='input'><span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/data.frame'>data.frame</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>NA</span>, <span class='st'>"a-b"</span>, <span class='st'>"a-d"</span>, <span class='st'>"b-c"</span>, <span class='st'>"d-e"</span>))
 <span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>extract</span>(<span class='no'>x</span>, <span class='st'>"A"</span>)</div><div class='output co'>#&gt;      A
 #&gt; 1 &lt;NA&gt;
 #&gt; 2    a
