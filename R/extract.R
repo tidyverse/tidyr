@@ -23,7 +23,6 @@
 #'   how the regular expression is processed.
 #' @export
 #' @examples
-#' library(dplyr)
 #' df <- data.frame(x = c(NA, "a-b", "a-d", "b-c", "d-e"))
 #' df %>% extract(x, "A")
 #' df %>% extract(x, c("A", "B"), "([[:alnum:]]+)-([[:alnum:]]+)")

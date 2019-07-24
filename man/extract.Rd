@@ -38,7 +38,6 @@ each group into a new column. If the groups don't match, or the input
 is NA, the output will be NA.
 }
 \examples{
-library(dplyr)
 df <- data.frame(x = c(NA, "a-b", "a-d", "b-c", "d-e"))
 df \%>\% extract(x, "A")
 df \%>\% extract(x, c("A", "B"), "([[:alnum:]]+)-([[:alnum:]]+)")
