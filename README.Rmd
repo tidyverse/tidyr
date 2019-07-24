@@ -24,11 +24,11 @@ knitr::opts_chunk$set(
 
 The goal of tidyr is to help you create __tidy data__. Tidy data is data where:
 
-1. Each variable is in a column.
-1. Each observation is a row.
-1. Each value is a cell.
+1. Every column is variable.
+1. Every row is an observation..
+1. Every cell is a single value.
 
-Tidy data describes a standard way of storing data that is used wherever possible throughout the [tidyverse](http://tidyverse.org). If you ensure that your data is tidy, you'll spend less time fighting with the tools and more time working on your analysis.
+Tidy data describes a standard way of storing data that is used wherever possible throughout the [tidyverse](http://tidyverse.org). If you ensure that your data is tidy, you'll spend less time fighting with the tools and more time working on your analysis. Learn more about tidy data in `vignette("tidy-data")`.
 
 ## Installation
 
@@ -54,17 +54,28 @@ devtools::install_github("tidyverse/tidyr")
 library(tidyr)
 ```
 
-There are two fundamental verbs of data tidying: 
+tidyr functions fall into five main categories:
 
-* `gather()` takes multiple columns, and gathers them into key-value pairs: it 
-  makes "wide" data longer.
+* "Pivotting" which converts between long and wide forms. tidyr 1.0.0 
+  introduces `pivot_longer()` and `pivot_wider()`, replacing the older 
+  `spread()` and `gather()` functions. See `vignette("pivot")` for more 
+  details.
+  
+* "Rectangling", which turns deeply nested lists (as from JSOM) into tidy
+  tibbles. See `unnest_longer()`, `unnest_wider()`, `hoist()`, and 
+  `vignette("rectangle")` for more details.
+  
+* Nesting converts grouped data to a form where each group becomes a
+  single row containing a nested data frame, and unnesting does the opposite.
+  See `nest()`, `unnest()`, and  `vignette("nest")` for more details.
 
-* `spread()` takes two columns (key & value), and spreads into multiple 
-  columns: it makes "long" data wider. 
+* Splitting and combining character columns. Use `separate()` and `extract()` 
+  to pull a single character column into multiple columns; use `unite()` to
+  combine multiple columns into a single character column.
 
-tidyr also provides `separate()` and `extract()` functions which makes it easier to pull apart a column that represents multiple variables. The complement to `separate()` is `unite()`.
-
-To get started, read the tidy data vignette (`vignette("tidy-data")`) and check out the demos (`demo(package = "tidyr")`). 
+* Make implicit missing values explicit with `complete()`; make explicit 
+  missing values implicit with `drop_na()`; replace missing values with
+  next/previous value with `fill()`, or a known value with `replace_na()`.
 
 ## Related work
 

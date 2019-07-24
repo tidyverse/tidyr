@@ -20,7 +20,7 @@ navbar:
       href: articles/tidy-data.html
 
 reference:
-- title: Data shape
+- title: Pivotting
   description: |
     tidyr provides three families of tools for changing the form of a dataset,
     while preserving its values:
