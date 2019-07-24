@@ -149,12 +149,19 @@ test_that("names_sep generates correct spec", {
   expect_equal(sp$b, "y")
 })
 
+test_that("names_sep fails with single name", {
+  df <- tibble(x_y = 1)
+  expect_error(pivot_longer_spec(df, 1, names_to = "x", names_sep = "_"), "`names_sep`")
+})
+
 test_that("names_pattern generates correct spec", {
   df <- tibble(zx_y = 1)
   sp <- pivot_longer_spec(df, 1, names_to = c("a", "b"), names_pattern = "z(.)_(.)")
-
   expect_equal(sp$a, "x")
   expect_equal(sp$b, "y")
+
+  sp <- pivot_longer_spec(df, 1, names_to = "a", names_pattern = "z(.)")
+  expect_equal(sp$a, "x")
 })
 
 test_that("names_to can override value_to", {

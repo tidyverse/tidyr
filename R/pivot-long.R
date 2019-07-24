@@ -202,6 +202,13 @@ pivot_longer_spec <- function(data, cols,
       values_to <- NULL
     }
   } else {
+    if (!is.null(names_sep)) {
+      abort("`names_sep` can not be used with length-1 `names_to`")
+    }
+    if (!is.null(names_pattern)) {
+      names <- str_extract(names, names_to, regex = names_pattern)[[1]]
+    }
+
     names <- tibble(!!names_to := names)
   }
 
