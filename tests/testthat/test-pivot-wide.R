@@ -31,9 +31,9 @@ test_that("warn when overwriting existing column", {
     key = c("a", "b"),
     val = c(1, 2)
   )
-  expect_message(
+  expect_error(
     pivot_wider(df, names_from = key, values_from = val),
-    "New names"
+    "bad names"
   )
 })
 

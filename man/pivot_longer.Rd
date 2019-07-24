@@ -7,8 +7,8 @@
 \usage{
 pivot_longer(data, cols, names_to = "name", names_prefix = NULL,
   names_sep = NULL, names_pattern = NULL, names_ptypes = list(),
-  values_to = "value", values_drop_na = FALSE,
-  values_ptypes = list(), spec = NULL)
+  names_repair = "check_unique", values_to = "value",
+  values_drop_na = FALSE, values_ptypes = list(), spec = NULL)
 
 pivot_longer_spec(data, cols, names_to = "name", values_to = "value",
   names_prefix = NULL, names_sep = NULL, names_pattern = NULL,
@@ -50,6 +50,12 @@ or \code{numeric()}) that defines the type, class, and attributes of a vector.
 If not specified, the type of the columns generated from \code{names_to} will
 be character, and the type of the variables generated from \code{values_to}
 will be the common type of the input columns used to generate them.}
+
+\item{names_repair}{What happen if the output has invalid column names?
+The default, \code{"check_unique"} is to error if the columns are duplicated.
+Use \code{"minimal"} to allow duplicates in the output, or \code{"unique"} to
+de-duplicated by adding numeric suffixes. See \code{\link[vctrs:vec_as_names]{vctrs::vec_as_names()}}
+for more options.}
 
 \item{values_to}{A string specifying the name of the column to create
 from the data stored in cell values. If \code{names_to} is a character
