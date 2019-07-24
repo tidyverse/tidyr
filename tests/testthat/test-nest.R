@@ -146,6 +146,17 @@ test_that("can unnest mixture of name and unnamed lists of same length", {
   )
 })
 
+test_that("can unnest list_of", {
+  df <- tibble(
+    x = 1:2,
+    y = vctrs::list_of(1:3, 4:9)
+  )
+  expect_equal(
+    unnest(df, y),
+    tibble(x = rep(1:2, c(3, 6)), y = 1:9)
+  )
+})
+
 test_that("can combine NULL with vectors or data frames", {
   df1 <- tibble(x = 1:2, y = list(NULL, tibble(z = 1)))
   out <- unnest(df1, y)

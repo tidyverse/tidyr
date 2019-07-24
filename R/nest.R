@@ -273,10 +273,9 @@ unnest.data.frame <- function(
     }
   } else {
     for (col in cols) {
-      data[[col]][] <- map(data[[col]], as_df, col = col)
+      data[[col]] <- map(data[[col]], as_df, col = col)
     }
   }
-
 
   data <- unchop(data, !!cols, keep_empty = keep_empty, ptype = ptype)
   unpack(data, !!cols, names_sep = names_sep, names_repair = names_repair)
