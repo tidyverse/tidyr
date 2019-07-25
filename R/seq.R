@@ -18,9 +18,15 @@ full_seq <- function(x, period, tol = 1e-6) {
 #' @export
 full_seq.numeric <- function(x, period, tol = 1e-6) {
   rng <- range(x, na.rm = TRUE)
-  if (any((x - rng[1]) %% period > tol)) {
+  if (any(((x - rng[1]) %% period > tol) &
+          (period - (x - rng[1]) %% period > tol))) {
     stop("`x` is not a regular sequence.", call. = FALSE)
   }
+
+  # in cases where the last element is within tolerance, pad it so that
+  #   the output length is correct
+  if (period - ((rng[2] - rng[1]) %% period) <= tol)
+    rng[2] <- rng[2] + tol
 
   seq(rng[1], rng[2], by = period)
 }
