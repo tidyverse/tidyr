@@ -244,8 +244,9 @@ unnest <- function(data,
       cols = !!cols,
       names_sep = names_sep,
       keep_empty = keep_empty,
-      ptype = ptype)
-    )
+      ptype = ptype,
+      names_repair = tidyr_legacy
+    ))
   }
 
   UseMethod("unnest")
