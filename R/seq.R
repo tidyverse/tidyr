@@ -25,8 +25,9 @@ full_seq.numeric <- function(x, period, tol = 1e-6) {
 
   # in cases where the last element is within tolerance, pad it so that
   #   the output length is correct
-  if (period - ((rng[2] - rng[1]) %% period) <= tol)
+  if (period - ((rng[2] - rng[1]) %% period) <= tol) {
     rng[2] <- rng[2] + tol
+  }
 
   seq(rng[1], rng[2], by = period)
 }
