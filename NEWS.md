@@ -89,6 +89,12 @@ Packing and chopping are primarily interesting because they are the atomic opera
 
 ## Bug fixes and minor improvements
 
+* `full_seq()` now also works when gaps between observations are shorter than 
+  the given `period`, but are within the tolerance given by `tol`. Previously, 
+  gaps between consecutive observations had to be in the range [`period`, 
+  `period + tol`]; gaps can now be in the range [`period - tol`, `period + tol`]
+  (@ha0ye, #657).
+
 * tidyr now re-exports `tibble()`, `as_tibble()`, and `tribble()`, 
   as well as the tidyselect helpers (`starts_with()`, `ends_width()`, ...).
   This makes generating documentation, reprexes, and tests easier, and
