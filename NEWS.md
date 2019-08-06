@@ -11,7 +11,8 @@
   to disambiguate unique names. Use `names_repair = tidyr_legacy` to 
   restore to the previous approach.
 
-* `nest()` now preserves grouping.
+* `nest()` has a new syntax (see below for more details), it preserves 
+  grouping, and the first argument is now `.data` (not `data`).
 
 * `crossing()` and `nesting()` now return 0-row outputs if any input is a 
   length-0 vector. If you want to preserve the previous behaviour which 
