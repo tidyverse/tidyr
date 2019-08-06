@@ -1,4 +1,4 @@
-#' Legacy versions of `nest()` and `unnest()`.
+#' Legacy versions of `nest()` and `unnest()`
 #'
 #' @description
 #' tidyr 1.0.0 introduced a new syntax for [nest()] and [unnest()]. These
@@ -25,17 +25,17 @@
 #' @param ... Specification of columns to unnest. Use bare variable names or
 #'   functions of variables. If omitted, defaults to all list-cols.
 #' @param .drop Should additional list columns be dropped? By default,
-#'   `unnest` will drop them if unnesting the specified columns requires
+#'   `unnest()` will drop them if unnesting the specified columns requires
 #'   the rows to be duplicated.
 #' @param .preserve Optionally, list-columns to preserve in the output. These
 #'   will be duplicated in the same way as atomic vectors. This has
-#'   [dplyr::select] semantics so you can preserve multiple variables with
+#'   [dplyr::select()] semantics so you can preserve multiple variables with
 #'   `.preserve = c(x, y)` or `.preserve = starts_with("list")`.
 #' @param .id Data frame identifier - if supplied, will create a new column
 #'   with name `.id`, giving a unique identifier. This is most useful if
 #'   the list column is named.
 #' @param .sep If non-`NULL`, the names of unnested data frame columns
-#'   will combine the name of the original list-col with the names from
+#'   will combine the name of the original list-col with the names from the
 #'   nested data frame, separated by `.sep`.
 #' @export
 #' @examples
@@ -52,17 +52,17 @@
 #' df <- tibble(
 #'   x = 1:2,
 #'   y = list(
-#'    tibble(z = 1),
-#'    tibble(z = 3:4)
-#'  )
+#'     tibble(z = 1),
+#'     tibble(z = 3:4)
+#'   )
 #' )
 #' df %>% unnest_legacy(y)
 #'
 #' # You can also unnest multiple columns simultaneously
 #' df <- tibble(
-#'  a = list(c("a", "b"), "c"),
-#'  b = list(1:2, 3),
-#'  c = c(11, 22)
+#'   a = list(c("a", "b"), "c"),
+#'   b = list(1:2, 3),
+#'   c = c(11, 22)
 #' )
 #' df %>% unnest_legacy(a, b)
 #' # If you omit the column names, it'll unnest all list-cols
@@ -129,7 +129,7 @@ unnest_legacy <- function(data, ..., .drop = NA, .id = NULL, .sep = NULL, .prese
 }
 #' @export
 unnest_legacy.data.frame <- function(data, ..., .drop = NA, .id = NULL,
-                              .sep = NULL, .preserve = NULL) {
+                                     .sep = NULL, .preserve = NULL) {
 
   preserve <- tidyselect::vars_select(names(data), !!enquo(.preserve))
   quos <- quos(...)
