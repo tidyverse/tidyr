@@ -113,12 +113,12 @@
 <h2 class="hasAnchor">
 <a href="#basics" class="anchor"></a>Basics</h2>
 <p>A nested data frame is a data frame where one (or more) columns is a list of data frames. You can create simple nested data frames by hand:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">df1 &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/tibble/topics/tibble">tibble</a></span>(</a>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">df1 &lt;-<span class="st"> </span><span class="kw"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span>(</a>
 <a class="sourceLine" id="cb2-2" data-line-number="2">  <span class="dt">g =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>),</a>
 <a class="sourceLine" id="cb2-3" data-line-number="3">  <span class="dt">data =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(</a>
-<a class="sourceLine" id="cb2-4" data-line-number="4">    <span class="kw"><a href="https://www.rdocumentation.org/packages/tibble/topics/tibble">tibble</a></span>(<span class="dt">x =</span> <span class="dv">1</span>, <span class="dt">y =</span> <span class="dv">2</span>),</a>
-<a class="sourceLine" id="cb2-5" data-line-number="5">    <span class="kw"><a href="https://www.rdocumentation.org/packages/tibble/topics/tibble">tibble</a></span>(<span class="dt">x =</span> <span class="dv">4</span><span class="op">:</span><span class="dv">5</span>, <span class="dt">y =</span> <span class="dv">6</span><span class="op">:</span><span class="dv">7</span>),</a>
-<a class="sourceLine" id="cb2-6" data-line-number="6">    <span class="kw"><a href="https://www.rdocumentation.org/packages/tibble/topics/tibble">tibble</a></span>(<span class="dt">x =</span> <span class="dv">10</span>)</a>
+<a class="sourceLine" id="cb2-4" data-line-number="4">    <span class="kw"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span>(<span class="dt">x =</span> <span class="dv">1</span>, <span class="dt">y =</span> <span class="dv">2</span>),</a>
+<a class="sourceLine" id="cb2-5" data-line-number="5">    <span class="kw"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span>(<span class="dt">x =</span> <span class="dv">4</span><span class="op">:</span><span class="dv">5</span>, <span class="dt">y =</span> <span class="dv">6</span><span class="op">:</span><span class="dv">7</span>),</a>
+<a class="sourceLine" id="cb2-6" data-line-number="6">    <span class="kw"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span>(<span class="dt">x =</span> <span class="dv">10</span>)</a>
 <a class="sourceLine" id="cb2-7" data-line-number="7">  )</a>
 <a class="sourceLine" id="cb2-8" data-line-number="8">)</a>
 <a class="sourceLine" id="cb2-9" data-line-number="9"></a>
@@ -131,7 +131,7 @@
 <a class="sourceLine" id="cb2-16" data-line-number="16"><span class="co">#&gt; 3     3 &lt;tibble [1 × 1]&gt;</span></a></code></pre></div>
 <p>(It is possible to create list-columns in regular data frames, not just in tibbles, but it’s considerably more work because the default behaviour of <code><a href="https://www.rdocumentation.org/packages/base/topics/data.frame">data.frame()</a></code> is to treat lists as lists of columns.)</p>
 <p>But more commonly you’ll create them with <code><a href="../reference/nest.html">tidyr::nest()</a></code>:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">df2 &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/tibble/topics/tribble">tribble</a></span>(</a>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">df2 &lt;-<span class="st"> </span><span class="kw"><a href="https://tibble.tidyverse.org/reference/tribble.html">tribble</a></span>(</a>
 <a class="sourceLine" id="cb3-2" data-line-number="2">  <span class="op">~</span>g, <span class="op">~</span>x, <span class="op">~</span>y,</a>
 <a class="sourceLine" id="cb3-3" data-line-number="3">   <span class="dv">1</span>,  <span class="dv">1</span>,  <span class="dv">2</span>,</a>
 <a class="sourceLine" id="cb3-4" data-line-number="4">   <span class="dv">2</span>,  <span class="dv">4</span>,  <span class="dv">6</span>,</a>
@@ -145,8 +145,8 @@
 <a class="sourceLine" id="cb3-12" data-line-number="12"><span class="co">#&gt; 1     1        [1 × 2]</span></a>
 <a class="sourceLine" id="cb3-13" data-line-number="13"><span class="co">#&gt; 2     2        [2 × 2]</span></a>
 <a class="sourceLine" id="cb3-14" data-line-number="14"><span class="co">#&gt; 3     3        [1 × 2]</span></a></code></pre></div>
-<p><code><a href="../reference/nest.html">nest()</a></code> specifies which variables should be nested inside; an alternative is to use <code><a href="https://www.rdocumentation.org/packages/dplyr/topics/group_by">dplyr::group_by()</a></code> to describe which variables should be kept outside.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">df2 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/dplyr/topics/group_by">group_by</a></span>(g) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/nest.html">nest</a></span>()</a>
+<p><code><a href="../reference/nest.html">nest()</a></code> specifies which variables should be nested inside; an alternative is to use <code><a href="https://dplyr.tidyverse.org/reference/group_by.html">dplyr::group_by()</a></code> to describe which variables should be kept outside.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">df2 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(g) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/nest.html">nest</a></span>()</a>
 <a class="sourceLine" id="cb4-2" data-line-number="2"><span class="co">#&gt; # A tibble: 3 x 2</span></a>
 <a class="sourceLine" id="cb4-3" data-line-number="3"><span class="co">#&gt; # Groups:   g [3]</span></a>
 <a class="sourceLine" id="cb4-4" data-line-number="4"><span class="co">#&gt;       g           data</span></a>
@@ -170,7 +170,7 @@
 <a href="#nested-data-and-models" class="anchor"></a>Nested data and models</h2>
 <p>Nested data is a great fit for problems where you have one of <em>something</em> for each group. A common place this arises is when you’re fitting multiple models.</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">mtcars_nested &lt;-<span class="st"> </span>mtcars <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb6-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/dplyr/topics/group_by">group_by</a></span>(cyl) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb6-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(cyl) <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb6-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="../reference/nest.html">nest</a></span>()</a>
 <a class="sourceLine" id="cb6-4" data-line-number="4"></a>
 <a class="sourceLine" id="cb6-5" data-line-number="5">mtcars_nested</a>
@@ -183,7 +183,7 @@
 <a class="sourceLine" id="cb6-12" data-line-number="12"><span class="co">#&gt; 3     8       [14 × 10]</span></a></code></pre></div>
 <p>Once you have a list of data frames, it’s very natural to produce a list of models:</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">mtcars_nested &lt;-<span class="st"> </span>mtcars_nested <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb7-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/dplyr/topics/mutate">mutate</a></span>(<span class="dt">model =</span> <span class="kw"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span>(data, <span class="cf">function</span>(df) <span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/lm">lm</a></span>(mpg <span class="op">~</span><span class="st"> </span>wt, <span class="dt">data =</span> df)))</a>
+<a class="sourceLine" id="cb7-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="dt">model =</span> <span class="kw"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span>(data, <span class="cf">function</span>(df) <span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/lm">lm</a></span>(mpg <span class="op">~</span><span class="st"> </span>wt, <span class="dt">data =</span> df)))</a>
 <a class="sourceLine" id="cb7-3" data-line-number="3">mtcars_nested</a>
 <a class="sourceLine" id="cb7-4" data-line-number="4"><span class="co">#&gt; # A tibble: 3 x 3</span></a>
 <a class="sourceLine" id="cb7-5" data-line-number="5"><span class="co">#&gt; # Groups:   cyl [3]</span></a>
@@ -194,7 +194,7 @@
 <a class="sourceLine" id="cb7-10" data-line-number="10"><span class="co">#&gt; 3     8       [14 × 10] &lt;lm&gt;</span></a></code></pre></div>
 <p>And then you could even produce a list of predictions:</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">mtcars_nested &lt;-<span class="st"> </span>mtcars_nested <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb8-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/dplyr/topics/mutate">mutate</a></span>(<span class="dt">model =</span> <span class="kw"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span>(model, predict))</a>
+<a class="sourceLine" id="cb8-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="dt">model =</span> <span class="kw"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span>(model, predict))</a>
 <a class="sourceLine" id="cb8-3" data-line-number="3">mtcars_nested  </a>
 <a class="sourceLine" id="cb8-4" data-line-number="4"><span class="co">#&gt; # A tibble: 3 x 3</span></a>
 <a class="sourceLine" id="cb8-5" data-line-number="5"><span class="co">#&gt; # Groups:   cyl [3]</span></a>

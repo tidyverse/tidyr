@@ -155,7 +155,7 @@
       <td><p>A selection of columns. If empty, all variables are
 selected. You can supply bare variable names, select all
 variables between x and z with <code>x:z</code>, exclude y with <code>-y</code>. For
-more options, see the <code><a href='https://www.rdocumentation.org/packages/dplyr/topics/select'>dplyr::select()</a></code> documentation. See also
+more options, see the <code><a href='https://dplyr.tidyverse.org/reference/select.html'>dplyr::select()</a></code> documentation. See also
 the section on selection rules below.</p></td>
     </tr>
     </table>
@@ -187,7 +187,7 @@ can contain either a column name as string or a column position).</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>dplyr</span>)
-<span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/tibble/topics/tibble'>tibble</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>NA</span>), <span class='kw'>y</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"a"</span>, <span class='fl'>NA</span>, <span class='st'>"b"</span>))
+<span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>NA</span>), <span class='kw'>y</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"a"</span>, <span class='fl'>NA</span>, <span class='st'>"b"</span>))
 <span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>drop_na</span>()</div><div class='output co'>#&gt; # A tibble: 1 x 2
 #&gt;       x y    
 #&gt;   &lt;dbl&gt; &lt;chr&gt;

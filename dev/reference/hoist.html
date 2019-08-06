@@ -227,10 +227,10 @@ names. Must be one of the following options:</p><ul>
 <li><p>"universal": make the names unique and syntactic</p></li>
 <li><p>a function: apply custom name repair.</p></li>
 <li><p><a href='tidyr_legacy.html'>tidyr_legacy</a>: use the name repair from tidyr 0.8.</p></li>
-<li><p>a formula: a purrr-style anonymous function (see <code><a href='https://www.rdocumentation.org/packages/rlang/topics/as_function'>rlang::as_function()</a></code>)</p></li>
+<li><p>a formula: a purrr-style anonymous function (see <code><a href='https://rlang.r-lib.org/reference/as_function.html'>rlang::as_function()</a></code>)</p></li>
 </ul>
 
-<p>See <a href='https://www.rdocumentation.org/packages/tibble/topics/name-repair'>tibble::name-repair</a> for more details on these terms and the
+<p>See <a href='https://tibble.tidyverse.org/reference/name-repair.html'>tibble::name-repair</a> for more details on these terms and the
 strategies used to enforce them.</p></td>
     </tr>
     <tr>
@@ -283,7 +283,7 @@ common acros all components, it uses <code>unnest_wider()</code></p></li>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/tibble/topics/tibble'>tibble</a></span>(
+    <pre class="examples"><div class='input'><span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(
   <span class='kw'>character</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"Toothless"</span>, <span class='st'>"Dory"</span>),
   <span class='kw'>metadata</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(
     <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(
@@ -334,7 +334,7 @@ common acros all components, it uses <code>unnest_wider()</code></p></li>
 #&gt; 4 Dory      clownfish blue  Finding Nemo                              
 #&gt; 5 Dory      clownfish blue  Finding Dory                              </div><div class='input'><span class='co'># unnest_longer() is useful when each component of the list should</span>
 <span class='co'># form a row</span>
-<span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/tibble/topics/tibble'>tibble</a></span>(
+<span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(
   <span class='kw'>x</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>3</span>,
   <span class='kw'>y</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(<span class='kw'>NULL</span>, <span class='fl'>1</span>:<span class='fl'>3</span>, <span class='fl'>4</span>:<span class='fl'>5</span>)
 )
@@ -359,7 +359,7 @@ common acros all components, it uses <code>unnest_wider()</code></p></li>
 #&gt; 2     2     1     2     3
 #&gt; 3     3     4     5    NA</div><div class='input'>
 <span class='co'># And similarly if the vectors are named</span>
-<span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/tibble/topics/tibble'>tibble</a></span>(
+<span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(
   <span class='kw'>x</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>2</span>,
   <span class='kw'>y</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='kw'>a</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>b</span> <span class='kw'>=</span> <span class='fl'>2</span>), <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='kw'>a</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>b</span> <span class='kw'>=</span> <span class='fl'>11</span>, <span class='kw'>c</span> <span class='kw'>=</span> <span class='fl'>12</span>))
 )
