@@ -1,10 +1,11 @@
 #' Legacy versions of `nest()` and `unnest()`
 #'
 #' @description
-#' tidyr 1.0.0 introduced a new syntax for [nest()] and [unnest()]. These
-#' functions provide the previous functions so you can quickly restore the
-#' old behaviour when needed. To make old code work as is, add the following
-#' code to the top of your script:
+#' tidyr 1.0.0 introduced a new syntax for [nest()] and [unnest()]. The majority
+#' of existing usage should be automatically translated to the new syntax with a
+#' warning. However, if you need to quickly roll back to the previous behaviour,
+#' these functions provide the previous interface. To make old code work as is,
+#' add the following code to the top of your script:
 #'
 #' ```
 #' library(tidyr)
@@ -15,28 +16,28 @@
 #' @inheritParams gather
 #' @inheritParams expand
 #' @param data A data frame.
-#' @param .key The name of the new column, as a string or symbol.
-#'   This argument is passed by expression and supports
-#'   [quasiquotation][rlang::quasiquotation] (you can unquote strings
-#'   and symbols). The name is captured from the expression with
-#'   [rlang::ensym()] (note that this kind of interface where
-#'   symbols do not represent actual objects is now discouraged in the
-#'   tidyverse; we support it here for backward compatibility).
+#' @param .key The name of the new column, as a string or symbol. This argument
+#'   is passed by expression and supports
+#'   [quasiquotation][rlang::quasiquotation] (you can unquote strings and
+#'   symbols). The name is captured from the expression with [rlang::ensym()]
+#'   (note that this kind of interface where symbols do not represent actual
+#'   objects is now discouraged in the tidyverse; we support it here for
+#'   backward compatibility).
 #' @param ... Specification of columns to unnest. Use bare variable names or
 #'   functions of variables. If omitted, defaults to all list-cols.
 #' @param .drop Should additional list columns be dropped? By default,
-#'   `unnest()` will drop them if unnesting the specified columns requires
-#'   the rows to be duplicated.
+#'   `unnest()` will drop them if unnesting the specified columns requires the
+#'   rows to be duplicated.
 #' @param .preserve Optionally, list-columns to preserve in the output. These
 #'   will be duplicated in the same way as atomic vectors. This has
 #'   [dplyr::select()] semantics so you can preserve multiple variables with
 #'   `.preserve = c(x, y)` or `.preserve = starts_with("list")`.
-#' @param .id Data frame identifier - if supplied, will create a new column
-#'   with name `.id`, giving a unique identifier. This is most useful if
-#'   the list column is named.
-#' @param .sep If non-`NULL`, the names of unnested data frame columns
-#'   will combine the name of the original list-col with the names from the
-#'   nested data frame, separated by `.sep`.
+#' @param .id Data frame identifier - if supplied, will create a new column with
+#'   name `.id`, giving a unique identifier. This is most useful if the list
+#'   column is named.
+#' @param .sep If non-`NULL`, the names of unnested data frame columns will
+#'   combine the name of the original list-col with the names from the nested
+#'   data frame, separated by `.sep`.
 #' @export
 #' @examples
 #' # Nest and unnest are inverses

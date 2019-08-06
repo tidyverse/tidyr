@@ -8,7 +8,9 @@
   until you can take a closer look and update your code:
 
   ```r
-  nest <- nest_legacy; unnest <- unnest_legacy
+  library(tidyr)
+  nest <- nest_legacy
+  unnest <- unnest_legacy
   ```
 
 * `nest()` now preserves grouping, which has implications for downstream calls
