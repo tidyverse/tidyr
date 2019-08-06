@@ -11,6 +11,8 @@
   to disambiguate unique names. Use `names_repair = tidyr_legacy` to 
   restore to the previous approach.
 
+* `nest()` now preserves grouping.
+
 * `crossing()` and `nesting()` now return 0-row outputs if any input is a 
   length-0 vector. If you want to preserve the previous behaviour which 
   silently dropped these inputs, you should convert empty vectors to `NULL`.

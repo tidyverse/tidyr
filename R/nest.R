@@ -14,8 +14,7 @@
 #' that will appear in the inner data frame. Alternatively, you `nest()` a
 #' grouped data frame created by [dplyr::group_by()]. Here the grouping
 #' variables will remain in the outer data frame, and nesting all other
-#' data frames. The result will be an ungrouped tibble, where each row
-#' represents a group in the input.
+#' data frames. The result will preserve the grouping of the input.
 #'
 #' Variables supplied to `nest()` will override grouping variables so that
 #' `df %>% group_by(x, y) %>% nest(z)` will be equivalent to `df %>% nest(z)`.
