@@ -83,7 +83,7 @@ unchop <- function(data, cols, keep_empty = FALSE, ptype = NULL) {
 
   # https://github.com/tidyverse/tibble/issues/580
   x <- pmap(as.list(data)[cols], vec_recycle_common)
-  x <- map(x, ~ as_tibble(drop_null(.x)))
+  x <- map(x, ~ new_data_frame(drop_null(.x)))
 
   n <- map_int(x, vec_size)
   out <- vec_slice(data, rep(vec_seq_along(data), n))

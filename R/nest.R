@@ -293,7 +293,7 @@ as_df <- function(x, col) {
     x
   } else if (vec_is(x)) {
     # Preserves vec_size() invariant
-    tibble(!!col := x)
+    new_data_frame(setNames(list(x), col))
   } else {
     stop("Input must be list of vectors", call. = FALSE)
   }
