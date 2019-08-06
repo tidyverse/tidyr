@@ -128,8 +128,8 @@ nest.data.frame <- function(.data, ..., .key = "DEPRECATED") {
 
 #' @export
 nest.tbl_df <- function(.data, ..., .key = "DEPRECATED") {
+  .key <- check_key(.key)
   if (missing(...)) {
-    .key <- check_key(.key)
     cols <- list2(!!.key := names(.data))
   } else {
     cols <- enquos(...)
@@ -147,9 +147,8 @@ nest.tbl_df <- function(.data, ..., .key = "DEPRECATED") {
 
 #' @export
 nest.grouped_df <- function(.data, ..., .key = "DEPRECATED") {
-  .key <- check_key(.key)
-
   if (missing(...)) {
+    .key <- check_key(.key)
     nest_vars <- setdiff(names(.data), dplyr::group_vars(.data))
     out <- nest.tbl_df(.data, !!.key := !!nest_vars)
   } else {
