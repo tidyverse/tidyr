@@ -142,7 +142,7 @@ useful for completing missing combinations of data." />
     
     <p>Turns implicit missing values into explicit missing values.
 This is a wrapper around <code><a href='expand.html'>expand()</a></code>,
-<code><a href='https://dplyr.tidyverse.org/reference/join.html'>dplyr::left_join()</a></code> and <code><a href='replace_na.html'>replace_na()</a></code> that's
+<code><a href='https://www.rdocumentation.org/packages/dplyr/topics/join'>dplyr::left_join()</a></code> and <code><a href='replace_na.html'>replace_na()</a></code> that's
 useful for completing missing combinations of data.</p>
     
     </div>
@@ -188,7 +188,7 @@ explicit missing values in the data set.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>dplyr</span>, <span class='kw'>warn.conflicts</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
-<span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(
+<span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/tibble/topics/tibble'>tibble</a></span>(
   <span class='kw'>group</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1</span>:<span class='fl'>2</span>, <span class='fl'>1</span>),
   <span class='kw'>item_id</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1</span>:<span class='fl'>2</span>, <span class='fl'>2</span>),
   <span class='kw'>item_name</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"a"</span>, <span class='st'>"b"</span>, <span class='st'>"b"</span>),

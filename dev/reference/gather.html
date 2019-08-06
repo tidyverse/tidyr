@@ -166,9 +166,9 @@ still under active development.
       <td><p>Names of new key and value columns, as strings or
 symbols.</p>
 <p>This argument is passed by expression and supports
-<a href='https://rlang.r-lib.org/reference/quasiquotation.html'>quasiquotation</a> (you can unquote strings
+<a href='https://www.rdocumentation.org/packages/rlang/topics/quasiquotation'>quasiquotation</a> (you can unquote strings
 and symbols). The name is captured from the expression with
-<code><a href='https://rlang.r-lib.org/reference/quotation.html'>rlang::ensym()</a></code> (note that this kind of interface where
+<code><a href='https://www.rdocumentation.org/packages/rlang/topics/quotation'>rlang::ensym()</a></code> (note that this kind of interface where
 symbols do not represent actual objects is now discouraged in the
 tidyverse; we support it here for backward compatibility).</p></td>
     </tr>
@@ -177,7 +177,7 @@ tidyverse; we support it here for backward compatibility).</p></td>
       <td><p>A selection of columns. If empty, all variables are
 selected. You can supply bare variable names, select all
 variables between x and z with <code>x:z</code>, exclude y with <code>-y</code>. For
-more options, see the <code><a href='https://dplyr.tidyverse.org/reference/select.html'>dplyr::select()</a></code> documentation. See also
+more options, see the <code><a href='https://www.rdocumentation.org/packages/dplyr/topics/select'>dplyr::select()</a></code> documentation. See also
 the section on selection rules below.</p></td>
     </tr>
     <tr>
@@ -227,7 +227,7 @@ can contain either a column name as string or a column position).</p>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>dplyr</span>)
 <span class='co'># From http://stackoverflow.com/questions/1181060</span>
-<span class='no'>stocks</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(
+<span class='no'>stocks</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/tibble/topics/tibble'>tibble</a></span>(
   <span class='kw'>time</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/as.Date'>as.Date</a></span>(<span class='st'>'2009-01-01'</span>) + <span class='fl'>0</span>:<span class='fl'>9</span>,
   <span class='kw'>X</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/Normal'>rnorm</a></span>(<span class='fl'>10</span>, <span class='fl'>0</span>, <span class='fl'>1</span>),
   <span class='kw'>Y</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/Normal'>rnorm</a></span>(<span class='fl'>10</span>, <span class='fl'>0</span>, <span class='fl'>2</span>),
@@ -295,8 +295,8 @@ can contain either a column name as string or a column position).</p>
 <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>dplyr</span>)
 <span class='no'>mini_iris</span> <span class='kw'>&lt;-</span>
   <span class='no'>iris</span> <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span>(<span class='no'>Species</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/slice.html'>slice</a></span>(<span class='fl'>1</span>)
+  <span class='fu'><a href='https://www.rdocumentation.org/packages/dplyr/topics/group_by'>group_by</a></span>(<span class='no'>Species</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='https://www.rdocumentation.org/packages/dplyr/topics/slice'>slice</a></span>(<span class='fl'>1</span>)
 <span class='no'>mini_iris</span> <span class='kw'>%&gt;%</span> <span class='fu'>gather</span>(<span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"flower_att"</span>, <span class='kw'>value</span> <span class='kw'>=</span> <span class='st'>"measurement"</span>, -<span class='no'>Species</span>)</div><div class='output co'>#&gt; # A tibble: 12 x 3
 #&gt; # Groups:   Species [3]
 #&gt;    Species    flower_att   measurement

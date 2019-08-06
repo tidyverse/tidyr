@@ -360,7 +360,7 @@
 <a href="#multiple-observations-per-row" class="anchor"></a>Multiple observations per row</h2>
 <p>So far, we have been working with data frames that have one observation per row, but many important pivotting problems involve multiple observations per row. You can usually recognise this case because name of the column that you want to appear in the output is part of the column name in the input. In this section, you’ll learn how to pivot this sort of data.</p>
 <p>The following example is adapted from the <a href="https://cran.r-project.org/web/packages/data.table/vignettes/datatable-reshape.html">data.table vignette</a>, as inspiration for tidyr’s solution to this problem.</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1">family &lt;-<span class="st"> </span><span class="kw"><a href="https://tibble.tidyverse.org/reference/tribble.html">tribble</a></span>(</a>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1">family &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/tibble/topics/tribble">tribble</a></span>(</a>
 <a class="sourceLine" id="cb10-2" data-line-number="2">  <span class="op">~</span>family,  <span class="op">~</span>dob_child1,  <span class="op">~</span>dob_child2, <span class="op">~</span>gender_child1, <span class="op">~</span>gender_child2,</a>
 <a class="sourceLine" id="cb10-3" data-line-number="3">       1L, <span class="st">"1998-11-26"</span>, <span class="st">"2000-01-29"</span>,             1L,             2L,</a>
 <a class="sourceLine" id="cb10-4" data-line-number="4">       2L, <span class="st">"1996-06-22"</span>,           <span class="ot">NA</span>,             2L,             <span class="ot">NA</span>,</a>
@@ -368,7 +368,7 @@
 <a class="sourceLine" id="cb10-6" data-line-number="6">       4L, <span class="st">"2004-10-10"</span>, <span class="st">"2009-08-27"</span>,             1L,             1L,</a>
 <a class="sourceLine" id="cb10-7" data-line-number="7">       5L, <span class="st">"2000-12-05"</span>, <span class="st">"2005-02-28"</span>,             2L,             1L,</a>
 <a class="sourceLine" id="cb10-8" data-line-number="8">)</a>
-<a class="sourceLine" id="cb10-9" data-line-number="9">family &lt;-<span class="st"> </span>family <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/mutate_all.html">mutate_at</a></span>(<span class="kw"><a href="https://dplyr.tidyverse.org/reference/vars.html">vars</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/tidyselect/topics/select_helpers">starts_with</a></span>(<span class="st">"dob"</span>)), parse_date)</a>
+<a class="sourceLine" id="cb10-9" data-line-number="9">family &lt;-<span class="st"> </span>family <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/dplyr/topics/mutate_all">mutate_at</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/dplyr/topics/vars">vars</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/tidyselect/topics/select_helpers">starts_with</a></span>(<span class="st">"dob"</span>)), parse_date)</a>
 <a class="sourceLine" id="cb10-10" data-line-number="10">family</a>
 <a class="sourceLine" id="cb10-11" data-line-number="11"><span class="co">#&gt; # A tibble: 5 x 5</span></a>
 <a class="sourceLine" id="cb10-12" data-line-number="12"><span class="co">#&gt;   family dob_child1 dob_child2 gender_child1 gender_child2</span></a>
@@ -419,7 +419,7 @@
 <a class="sourceLine" id="cb13-3" data-line-number="3">    <span class="dt">names_to =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">".value"</span>, <span class="st">"set"</span>), </a>
 <a class="sourceLine" id="cb13-4" data-line-number="4">    <span class="dt">names_pattern =</span> <span class="st">"(.)(.)"</span></a>
 <a class="sourceLine" id="cb13-5" data-line-number="5">  ) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb13-6" data-line-number="6"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span>(set)</a>
+<a class="sourceLine" id="cb13-6" data-line-number="6"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/dplyr/topics/arrange">arrange</a></span>(set)</a>
 <a class="sourceLine" id="cb13-7" data-line-number="7"><span class="co">#&gt; # A tibble: 44 x 3</span></a>
 <a class="sourceLine" id="cb13-8" data-line-number="8"><span class="co">#&gt;    set       x     y</span></a>
 <a class="sourceLine" id="cb13-9" data-line-number="9"><span class="co">#&gt;    &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;</span></a>
@@ -435,7 +435,7 @@
 <a class="sourceLine" id="cb13-19" data-line-number="19"><span class="co">#&gt; 10 1         7  4.82</span></a>
 <a class="sourceLine" id="cb13-20" data-line-number="20"><span class="co">#&gt; # … with 34 more rows</span></a></code></pre></div>
 <p>A similar situation can arise with panel data. For example, take this example dataset provided by <a href="http://github.com/leeper/rio/issues/193">Thomas Leeper</a>. We can tidy it using the same approach as for <code>anscombe</code>:</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1">pnl &lt;-<span class="st"> </span><span class="kw"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span>(</a>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1">pnl &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/tibble/topics/tibble">tibble</a></span>(</a>
 <a class="sourceLine" id="cb14-2" data-line-number="2">  <span class="dt">x =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">4</span>,</a>
 <a class="sourceLine" id="cb14-3" data-line-number="3">  <span class="dt">a =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">1</span>, <span class="dv">1</span>,<span class="dv">0</span>, <span class="dv">0</span>),</a>
 <a class="sourceLine" id="cb14-4" data-line-number="4">  <span class="dt">b =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>),</a>
@@ -452,22 +452,22 @@
 <a class="sourceLine" id="cb14-15" data-line-number="15">    <span class="dt">names_pattern =</span> <span class="st">"(.)(.)"</span></a>
 <a class="sourceLine" id="cb14-16" data-line-number="16">  )</a>
 <a class="sourceLine" id="cb14-17" data-line-number="17"><span class="co">#&gt; # A tibble: 8 x 6</span></a>
-<a class="sourceLine" id="cb14-18" data-line-number="18"><span class="co">#&gt;       x     a     b time        y     z</span></a>
-<a class="sourceLine" id="cb14-19" data-line-number="19"><span class="co">#&gt;   &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt;</span></a>
-<a class="sourceLine" id="cb14-20" data-line-number="20"><span class="co">#&gt; 1     1     1     0 1      0.0564     3</span></a>
-<a class="sourceLine" id="cb14-21" data-line-number="21"><span class="co">#&gt; 2     1     1     0 2     -0.0627    -2</span></a>
-<a class="sourceLine" id="cb14-22" data-line-number="22"><span class="co">#&gt; 3     2     1     1 1     -1.68       3</span></a>
-<a class="sourceLine" id="cb14-23" data-line-number="23"><span class="co">#&gt; 4     2     1     1 2      0.498     -2</span></a>
-<a class="sourceLine" id="cb14-24" data-line-number="24"><span class="co">#&gt; 5     3     0     1 1      0.934      3</span></a>
-<a class="sourceLine" id="cb14-25" data-line-number="25"><span class="co">#&gt; 6     3     0     1 2      1.96      -2</span></a>
-<a class="sourceLine" id="cb14-26" data-line-number="26"><span class="co">#&gt; 7     4     0     1 1     -0.319      3</span></a>
-<a class="sourceLine" id="cb14-27" data-line-number="27"><span class="co">#&gt; 8     4     0     1 2      1.12      -2</span></a></code></pre></div>
+<a class="sourceLine" id="cb14-18" data-line-number="18"><span class="co">#&gt;       x     a     b time       y     z</span></a>
+<a class="sourceLine" id="cb14-19" data-line-number="19"><span class="co">#&gt;   &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;  &lt;dbl&gt; &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb14-20" data-line-number="20"><span class="co">#&gt; 1     1     1     0 1      1.12      3</span></a>
+<a class="sourceLine" id="cb14-21" data-line-number="21"><span class="co">#&gt; 2     1     1     0 2      0.337    -2</span></a>
+<a class="sourceLine" id="cb14-22" data-line-number="22"><span class="co">#&gt; 3     2     1     1 1     -0.507     3</span></a>
+<a class="sourceLine" id="cb14-23" data-line-number="23"><span class="co">#&gt; 4     2     1     1 2      0.583    -2</span></a>
+<a class="sourceLine" id="cb14-24" data-line-number="24"><span class="co">#&gt; 5     3     0     1 1      1.12      3</span></a>
+<a class="sourceLine" id="cb14-25" data-line-number="25"><span class="co">#&gt; 6     3     0     1 2     -2.33     -2</span></a>
+<a class="sourceLine" id="cb14-26" data-line-number="26"><span class="co">#&gt; 7     4     0     1 1     -0.801     3</span></a>
+<a class="sourceLine" id="cb14-27" data-line-number="27"><span class="co">#&gt; 8     4     0     1 2     -0.322    -2</span></a></code></pre></div>
 </div>
 <div id="duplicated-column-names" class="section level2">
 <h2 class="hasAnchor">
 <a href="#duplicated-column-names" class="anchor"></a>Duplicated column names</h2>
 <p>Occassionally you will come across datasets that have duplicated column names. Generally, such datasets are hard to work with in R, because when you refer to a column by name it only finds the first match. To create a tibble with duplicated names, you have to explicitly opt out of the name repair that usually prevents you from creating such a dataset:</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1">df &lt;-<span class="st"> </span><span class="kw"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span>(<span class="dt">x =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dt">y =</span> <span class="dv">4</span><span class="op">:</span><span class="dv">6</span>, <span class="dt">y =</span> <span class="dv">5</span><span class="op">:</span><span class="dv">7</span>, <span class="dt">y =</span> <span class="dv">7</span><span class="op">:</span><span class="dv">9</span>, <span class="dt">.name_repair =</span> <span class="st">"minimal"</span>)</a>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1">df &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/tibble/topics/tibble">tibble</a></span>(<span class="dt">x =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dt">y =</span> <span class="dv">4</span><span class="op">:</span><span class="dv">6</span>, <span class="dt">y =</span> <span class="dv">5</span><span class="op">:</span><span class="dv">7</span>, <span class="dt">y =</span> <span class="dv">7</span><span class="op">:</span><span class="dv">9</span>, <span class="dt">.name_repair =</span> <span class="st">"minimal"</span>)</a>
 <a class="sourceLine" id="cb15-2" data-line-number="2">df</a>
 <a class="sourceLine" id="cb15-3" data-line-number="3"><span class="co">#&gt; # A tibble: 3 x 4</span></a>
 <a class="sourceLine" id="cb15-4" data-line-number="4"><span class="co">#&gt;       x     y     y     y</span></a>
@@ -556,7 +556,7 @@
 <h2 class="hasAnchor">
 <a href="#aggregation" class="anchor"></a>Aggregation</h2>
 <p>You can also use <code><a href="../reference/pivot_wider.html">pivot_wider()</a></code> to perform simple aggregation. For example, take the <code>warpbreaks</code> dataset built in to base R (converted to a tibble for the better print method):</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" data-line-number="1">warpbreaks &lt;-<span class="st"> </span>warpbreaks <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="https://tibble.tidyverse.org/reference/as_tibble.html">as_tibble</a></span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(wool, tension, breaks)</a>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" data-line-number="1">warpbreaks &lt;-<span class="st"> </span>warpbreaks <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/tibble/topics/as_tibble">as_tibble</a></span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/dplyr/topics/select">select</a></span>(wool, tension, breaks)</a>
 <a class="sourceLine" id="cb20-2" data-line-number="2">warpbreaks</a>
 <a class="sourceLine" id="cb20-3" data-line-number="3"><span class="co">#&gt; # A tibble: 54 x 3</span></a>
 <a class="sourceLine" id="cb20-4" data-line-number="4"><span class="co">#&gt;    wool  tension breaks</span></a>
@@ -573,7 +573,7 @@
 <a class="sourceLine" id="cb20-15" data-line-number="15"><span class="co">#&gt; 10 A     M           18</span></a>
 <a class="sourceLine" id="cb20-16" data-line-number="16"><span class="co">#&gt; # … with 44 more rows</span></a></code></pre></div>
 <p>This is a designed experiment with nine replicates for every combination of <code>wool</code> (<code>A</code> and <code>B</code>) and <code>tension</code> (<code>L</code>, <code>M</code>, <code>H</code>):</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" data-line-number="1">warpbreaks <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/tally.html">count</a></span>(wool, tension)</a>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" data-line-number="1">warpbreaks <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/dplyr/topics/tally">count</a></span>(wool, tension)</a>
 <a class="sourceLine" id="cb21-2" data-line-number="2"><span class="co">#&gt; # A tibble: 6 x 3</span></a>
 <a class="sourceLine" id="cb21-3" data-line-number="3"><span class="co">#&gt;   wool  tension     n</span></a>
 <a class="sourceLine" id="cb21-4" data-line-number="4"><span class="co">#&gt;   &lt;fct&gt; &lt;fct&gt;   &lt;int&gt;</span></a>
@@ -619,22 +619,22 @@
 <a class="sourceLine" id="cb24-3" data-line-number="3">    <span class="dt">country =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"AI"</span>, <span class="st">"EI"</span>), </a>
 <a class="sourceLine" id="cb24-4" data-line-number="4">    <span class="dt">year =</span> <span class="dv">2000</span><span class="op">:</span><span class="dv">2014</span></a>
 <a class="sourceLine" id="cb24-5" data-line-number="5">  ) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb24-6" data-line-number="6"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span>((product <span class="op">==</span><span class="st"> "A"</span> <span class="op">&amp;</span><span class="st"> </span>country <span class="op">==</span><span class="st"> "AI"</span>) <span class="op">|</span><span class="st"> </span>product <span class="op">==</span><span class="st"> "B"</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb24-7" data-line-number="7"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="dt">production =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/Normal">rnorm</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/nrow">nrow</a></span>(.)))</a>
+<a class="sourceLine" id="cb24-6" data-line-number="6"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/dplyr/topics/filter">filter</a></span>((product <span class="op">==</span><span class="st"> "A"</span> <span class="op">&amp;</span><span class="st"> </span>country <span class="op">==</span><span class="st"> "AI"</span>) <span class="op">|</span><span class="st"> </span>product <span class="op">==</span><span class="st"> "B"</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb24-7" data-line-number="7"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/dplyr/topics/mutate">mutate</a></span>(<span class="dt">production =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/Normal">rnorm</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/nrow">nrow</a></span>(.)))</a>
 <a class="sourceLine" id="cb24-8" data-line-number="8">production</a>
 <a class="sourceLine" id="cb24-9" data-line-number="9"><span class="co">#&gt; # A tibble: 45 x 4</span></a>
 <a class="sourceLine" id="cb24-10" data-line-number="10"><span class="co">#&gt;    product country  year production</span></a>
 <a class="sourceLine" id="cb24-11" data-line-number="11"><span class="co">#&gt;    &lt;chr&gt;   &lt;chr&gt;   &lt;int&gt;      &lt;dbl&gt;</span></a>
-<a class="sourceLine" id="cb24-12" data-line-number="12"><span class="co">#&gt;  1 A       AI       2000   -0.668  </span></a>
-<a class="sourceLine" id="cb24-13" data-line-number="13"><span class="co">#&gt;  2 A       AI       2001    2.42   </span></a>
-<a class="sourceLine" id="cb24-14" data-line-number="14"><span class="co">#&gt;  3 A       AI       2002   -0.246  </span></a>
-<a class="sourceLine" id="cb24-15" data-line-number="15"><span class="co">#&gt;  4 A       AI       2003   -2.23   </span></a>
-<a class="sourceLine" id="cb24-16" data-line-number="16"><span class="co">#&gt;  5 A       AI       2004   -0.489  </span></a>
-<a class="sourceLine" id="cb24-17" data-line-number="17"><span class="co">#&gt;  6 A       AI       2005    0.0831 </span></a>
-<a class="sourceLine" id="cb24-18" data-line-number="18"><span class="co">#&gt;  7 A       AI       2006    0.907  </span></a>
-<a class="sourceLine" id="cb24-19" data-line-number="19"><span class="co">#&gt;  8 A       AI       2007    0.00264</span></a>
-<a class="sourceLine" id="cb24-20" data-line-number="20"><span class="co">#&gt;  9 A       AI       2008   -0.733  </span></a>
-<a class="sourceLine" id="cb24-21" data-line-number="21"><span class="co">#&gt; 10 A       AI       2009   -1.11   </span></a>
+<a class="sourceLine" id="cb24-12" data-line-number="12"><span class="co">#&gt;  1 A       AI       2000     -0.675</span></a>
+<a class="sourceLine" id="cb24-13" data-line-number="13"><span class="co">#&gt;  2 A       AI       2001     -0.565</span></a>
+<a class="sourceLine" id="cb24-14" data-line-number="14"><span class="co">#&gt;  3 A       AI       2002     -1.80 </span></a>
+<a class="sourceLine" id="cb24-15" data-line-number="15"><span class="co">#&gt;  4 A       AI       2003     -0.356</span></a>
+<a class="sourceLine" id="cb24-16" data-line-number="16"><span class="co">#&gt;  5 A       AI       2004      1.60 </span></a>
+<a class="sourceLine" id="cb24-17" data-line-number="17"><span class="co">#&gt;  6 A       AI       2005     -0.545</span></a>
+<a class="sourceLine" id="cb24-18" data-line-number="18"><span class="co">#&gt;  7 A       AI       2006     -1.05 </span></a>
+<a class="sourceLine" id="cb24-19" data-line-number="19"><span class="co">#&gt;  8 A       AI       2007     -0.394</span></a>
+<a class="sourceLine" id="cb24-20" data-line-number="20"><span class="co">#&gt;  9 A       AI       2008      0.503</span></a>
+<a class="sourceLine" id="cb24-21" data-line-number="21"><span class="co">#&gt; 10 A       AI       2009     -1.30 </span></a>
 <a class="sourceLine" id="cb24-22" data-line-number="22"><span class="co">#&gt; # … with 35 more rows</span></a></code></pre></div>
 <p>We want to widen the data so we have one column for each combination of <code>product</code> and <code>country</code>. The key is to specify multiple variables for <code>names_from</code>:</p>
 <div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" data-line-number="1">production <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/pivot_wider.html">pivot_wider</a></span>(</a>
@@ -642,18 +642,18 @@
 <a class="sourceLine" id="cb25-3" data-line-number="3">  <span class="dt">values_from =</span> production</a>
 <a class="sourceLine" id="cb25-4" data-line-number="4">)</a>
 <a class="sourceLine" id="cb25-5" data-line-number="5"><span class="co">#&gt; # A tibble: 15 x 4</span></a>
-<a class="sourceLine" id="cb25-6" data-line-number="6"><span class="co">#&gt;     year     A_AI   B_AI   B_EI</span></a>
-<a class="sourceLine" id="cb25-7" data-line-number="7"><span class="co">#&gt;    &lt;int&gt;    &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;</span></a>
-<a class="sourceLine" id="cb25-8" data-line-number="8"><span class="co">#&gt;  1  2000 -0.668    0.331  0.300</span></a>
-<a class="sourceLine" id="cb25-9" data-line-number="9"><span class="co">#&gt;  2  2001  2.42     0.503 -0.416</span></a>
-<a class="sourceLine" id="cb25-10" data-line-number="10"><span class="co">#&gt;  3  2002 -0.246   -2.08   1.36 </span></a>
-<a class="sourceLine" id="cb25-11" data-line-number="11"><span class="co">#&gt;  4  2003 -2.23    -0.149  0.577</span></a>
-<a class="sourceLine" id="cb25-12" data-line-number="12"><span class="co">#&gt;  5  2004 -0.489    0.545 -0.753</span></a>
-<a class="sourceLine" id="cb25-13" data-line-number="13"><span class="co">#&gt;  6  2005  0.0831  -0.233  0.483</span></a>
-<a class="sourceLine" id="cb25-14" data-line-number="14"><span class="co">#&gt;  7  2006  0.907   -1.85  -1.42 </span></a>
-<a class="sourceLine" id="cb25-15" data-line-number="15"><span class="co">#&gt;  8  2007  0.00264  0.342  0.313</span></a>
-<a class="sourceLine" id="cb25-16" data-line-number="16"><span class="co">#&gt;  9  2008 -0.733   -0.129 -0.673</span></a>
-<a class="sourceLine" id="cb25-17" data-line-number="17"><span class="co">#&gt; 10  2009 -1.11    -0.337 -1.38 </span></a>
+<a class="sourceLine" id="cb25-6" data-line-number="6"><span class="co">#&gt;     year   A_AI    B_AI    B_EI</span></a>
+<a class="sourceLine" id="cb25-7" data-line-number="7"><span class="co">#&gt;    &lt;int&gt;  &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb25-8" data-line-number="8"><span class="co">#&gt;  1  2000 -0.675 -0.402  -0.0791</span></a>
+<a class="sourceLine" id="cb25-9" data-line-number="9"><span class="co">#&gt;  2  2001 -0.565 -0.126   1.18  </span></a>
+<a class="sourceLine" id="cb25-10" data-line-number="10"><span class="co">#&gt;  3  2002 -1.80  -1.14   -0.139 </span></a>
+<a class="sourceLine" id="cb25-11" data-line-number="11"><span class="co">#&gt;  4  2003 -0.356 -0.315   1.33  </span></a>
+<a class="sourceLine" id="cb25-12" data-line-number="12"><span class="co">#&gt;  5  2004  1.60   0.116  -0.598 </span></a>
+<a class="sourceLine" id="cb25-13" data-line-number="13"><span class="co">#&gt;  6  2005 -0.545  0.364  -0.522 </span></a>
+<a class="sourceLine" id="cb25-14" data-line-number="14"><span class="co">#&gt;  7  2006 -1.05   1.33   -0.381 </span></a>
+<a class="sourceLine" id="cb25-15" data-line-number="15"><span class="co">#&gt;  8  2007 -0.394  0.0372  0.573 </span></a>
+<a class="sourceLine" id="cb25-16" data-line-number="16"><span class="co">#&gt;  9  2008  0.503 -1.05    1.97  </span></a>
+<a class="sourceLine" id="cb25-17" data-line-number="17"><span class="co">#&gt; 10  2009 -1.30  -0.0946  0.497 </span></a>
 <a class="sourceLine" id="cb25-18" data-line-number="18"><span class="co">#&gt; # … with 5 more rows</span></a></code></pre></div>
 </div>
 <div id="tidy-census" class="section level2">
@@ -698,7 +698,7 @@
 <h2 class="hasAnchor">
 <a href="#contact-list" class="anchor"></a>Contact list</h2>
 <p>A final challenge is inspired by <a href="https://github.com/jienagu/tidyverse_examples/blob/master/example_long_wide.R">Jiena Gu</a>. Imagine you have a contact list that you’ve copied and pasted from a website:</p>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb28-1" data-line-number="1">contacts &lt;-<span class="st"> </span><span class="kw"><a href="https://tibble.tidyverse.org/reference/tribble.html">tribble</a></span>(</a>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb28-1" data-line-number="1">contacts &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/tibble/topics/tribble">tribble</a></span>(</a>
 <a class="sourceLine" id="cb28-2" data-line-number="2">  <span class="op">~</span>field, <span class="op">~</span>value,</a>
 <a class="sourceLine" id="cb28-3" data-line-number="3">  <span class="st">"name"</span>, <span class="st">"Jiena McLellan"</span>,</a>
 <a class="sourceLine" id="cb28-4" data-line-number="4">  <span class="st">"company"</span>, <span class="st">"Toyota"</span>, </a>
@@ -709,7 +709,7 @@
 <a class="sourceLine" id="cb28-9" data-line-number="9">)</a></code></pre></div>
 <p>This is challenging because there’s no variable that identifies which observations belong together. We can fix this by noting that every contact starts with a name, so we can create a unique id by counting every time we see “name” as the <code>field</code>:</p>
 <div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" data-line-number="1">contacts &lt;-<span class="st"> </span>contacts <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb29-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(</a>
+<a class="sourceLine" id="cb29-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/dplyr/topics/mutate">mutate</a></span>(</a>
 <a class="sourceLine" id="cb29-3" data-line-number="3">    <span class="dt">person_id =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/cumsum">cumsum</a></span>(field <span class="op">==</span><span class="st"> "name"</span>)</a>
 <a class="sourceLine" id="cb29-4" data-line-number="4">  )</a>
 <a class="sourceLine" id="cb29-5" data-line-number="5">contacts</a>
@@ -777,7 +777,7 @@
 <a class="sourceLine" id="cb32-16" data-line-number="16"><span class="co">#&gt; 10 ABW     SP.URB.TOTL 2009  44052</span></a>
 <a class="sourceLine" id="cb32-17" data-line-number="17"><span class="co">#&gt; # … with 18,998 more rows</span></a></code></pre></div>
 <p>Next we need to consider the <code>indicator</code> variable:</p>
-<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb33-1" data-line-number="1">pop2 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/tally.html">count</a></span>(indicator)</a>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb33-1" data-line-number="1">pop2 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/dplyr/topics/tally">count</a></span>(indicator)</a>
 <a class="sourceLine" id="cb33-2" data-line-number="2"><span class="co">#&gt; # A tibble: 4 x 2</span></a>
 <a class="sourceLine" id="cb33-3" data-line-number="3"><span class="co">#&gt;   indicator       n</span></a>
 <a class="sourceLine" id="cb33-4" data-line-number="4"><span class="co">#&gt;   &lt;chr&gt;       &lt;int&gt;</span></a>
@@ -825,7 +825,7 @@
 <h2 class="hasAnchor">
 <a href="#multi-choice" class="anchor"></a>Multi-choice</h2>
 <p>Based on a suggestion by <a href="https://github.com/MaximeWack">Maxime Wack</a>, <a href="https://github.com/tidyverse/tidyr/issues/384" class="uri">https://github.com/tidyverse/tidyr/issues/384</a>), the final example shows how to deal with a common way of recording multiple choice data. Often you will get such data as follows:</p>
-<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb36-1" data-line-number="1">multi &lt;-<span class="st"> </span><span class="kw"><a href="https://tibble.tidyverse.org/reference/tribble.html">tribble</a></span>(</a>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb36-1" data-line-number="1">multi &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/tibble/topics/tribble">tribble</a></span>(</a>
 <a class="sourceLine" id="cb36-2" data-line-number="2">  <span class="op">~</span>id, <span class="op">~</span>choice1, <span class="op">~</span>choice2, <span class="op">~</span>choice3,</a>
 <a class="sourceLine" id="cb36-3" data-line-number="3">  <span class="dv">1</span>, <span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"C"</span>,</a>
 <a class="sourceLine" id="cb36-4" data-line-number="4">  <span class="dv">2</span>, <span class="st">"C"</span>, <span class="st">"B"</span>,  <span class="ot">NA</span>,</a>
@@ -835,7 +835,7 @@
 <p>But the actual order isn’t important, and you’d prefer to have the individual questions in the columns. You can achieve the desired transformation in two steps. First, you make the data longer, eliminating the explcit <code>NA</code>s, and adding a column to indicate that this choice was chosen:</p>
 <div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb37-1" data-line-number="1">multi2 &lt;-<span class="st"> </span>multi <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb37-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/pivot_longer.html">pivot_longer</a></span>(<span class="op">-</span>id, <span class="dt">values_drop_na =</span> <span class="ot">TRUE</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb37-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="dt">checked =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb37-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/dplyr/topics/mutate">mutate</a></span>(<span class="dt">checked =</span> <span class="ot">TRUE</span>)</a>
 <a class="sourceLine" id="cb37-4" data-line-number="4">multi2</a>
 <a class="sourceLine" id="cb37-5" data-line-number="5"><span class="co">#&gt; # A tibble: 8 x 4</span></a>
 <a class="sourceLine" id="cb37-6" data-line-number="6"><span class="co">#&gt;      id name    value checked</span></a>
@@ -949,7 +949,7 @@
 <a class="sourceLine" id="cb42-10" data-line-number="10"><span class="co">#&gt; 4 moe_rent        moe      rent</span></a></code></pre></div>
 <p>For this case, we mutate <code>spec</code> to carefully construct the column names:</p>
 <div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb43-1" data-line-number="1">spec2 &lt;-<span class="st"> </span>spec1 <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb43-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="dt">.name =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/paste">paste0</a></span>(variable, <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/ifelse">ifelse</a></span>(.value <span class="op">==</span><span class="st"> "moe"</span>, <span class="st">"_moe"</span>, <span class="st">""</span>)))</a>
+<a class="sourceLine" id="cb43-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/dplyr/topics/mutate">mutate</a></span>(<span class="dt">.name =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/paste">paste0</a></span>(variable, <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/ifelse">ifelse</a></span>(.value <span class="op">==</span><span class="st"> "moe"</span>, <span class="st">"_moe"</span>, <span class="st">""</span>)))</a>
 <a class="sourceLine" id="cb43-3" data-line-number="3">spec2</a>
 <a class="sourceLine" id="cb43-4" data-line-number="4"><span class="co">#&gt; # A tibble: 4 x 3</span></a>
 <a class="sourceLine" id="cb43-5" data-line-number="5"><span class="co">#&gt;   .name      .value   variable</span></a>
@@ -994,7 +994,7 @@
 <a class="sourceLine" id="cb45-13" data-line-number="13"><span class="co">#&gt; 9  2018 Sept…      835 NA                          304       117     175</span></a>
 <a class="sourceLine" id="cb45-14" data-line-number="14"><span class="co">#&gt; # … with 2 more variables: South &lt;dbl&gt;, West &lt;dbl&gt;</span></a></code></pre></div>
 <p>This sort of data is not uncommon from government agencies: the column names actually belong to different variables, and here we have summaries for number of units (1, 2-4, 5+) and regions of the country (NE, NW, midwest, S, W). We can most easily describe that with a tibble:</p>
-<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb46-1" data-line-number="1">spec &lt;-<span class="st"> </span><span class="kw"><a href="https://tibble.tidyverse.org/reference/tribble.html">tribble</a></span>(</a>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb46-1" data-line-number="1">spec &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/tibble/topics/tribble">tribble</a></span>(</a>
 <a class="sourceLine" id="cb46-2" data-line-number="2">  <span class="op">~</span>.name,            <span class="op">~</span>.value, <span class="op">~</span>units,  <span class="op">~</span>region,     </a>
 <a class="sourceLine" id="cb46-3" data-line-number="3">  <span class="st">"1 unit"</span>,          <span class="st">"n"</span>,     <span class="st">"1"</span>,     <span class="ot">NA</span>,          </a>
 <a class="sourceLine" id="cb46-4" data-line-number="4">  <span class="st">"2 to 4 units"</span>,    <span class="st">"n"</span>,     <span class="st">"2-4"</span>,   <span class="ot">NA</span>,          </a>

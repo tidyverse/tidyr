@@ -146,8 +146,8 @@
 <a class="sourceLine" id="cb3-2" data-line-number="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(dplyr)</a>
 <a class="sourceLine" id="cb3-3" data-line-number="3">preg2 &lt;-<span class="st"> </span>preg <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb3-4" data-line-number="4"><span class="st">  </span><span class="kw"><a href="../reference/gather.html">gather</a></span>(treatment, n, treatmenta<span class="op">:</span>treatmentb) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb3-5" data-line-number="5"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="dt">treatment =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/grep">gsub</a></span>(<span class="st">"treatment"</span>, <span class="st">""</span>, treatment)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb3-6" data-line-number="6"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span>(name, treatment)</a>
+<a class="sourceLine" id="cb3-5" data-line-number="5"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/dplyr/topics/mutate">mutate</a></span>(<span class="dt">treatment =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/grep">gsub</a></span>(<span class="st">"treatment"</span>, <span class="st">""</span>, treatment)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb3-6" data-line-number="6"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/dplyr/topics/arrange">arrange</a></span>(name, treatment)</a>
 <a class="sourceLine" id="cb3-7" data-line-number="7">preg2</a>
 <a class="sourceLine" id="cb3-8" data-line-number="8"><span class="co">#&gt;           name treatment  n</span></a>
 <a class="sourceLine" id="cb3-9" data-line-number="9"><span class="co">#&gt; 1     Jane Doe         a  4</span></a>
@@ -284,10 +284,10 @@
 <p>Here we use <code>na.rm</code> to drop any missing values from the gather columns. In this data, missing values represent weeks that the song wasn’t in the charts, so can be safely dropped.</p>
 <p>In this case it’s also nice to do a little cleaning, converting the week variable to a number, and figuring out the date corresponding to each week on the charts:</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">billboard3 &lt;-<span class="st"> </span>billboard2 <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb8-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(</a>
+<a class="sourceLine" id="cb8-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/dplyr/topics/mutate">mutate</a></span>(</a>
 <a class="sourceLine" id="cb8-3" data-line-number="3">    <span class="dt">week =</span> <span class="kw"><a href="../reference/extract_numeric.html">extract_numeric</a></span>(week),</a>
 <a class="sourceLine" id="cb8-4" data-line-number="4">    <span class="dt">date =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/as.Date">as.Date</a></span>(date.entered) <span class="op">+</span><span class="st"> </span><span class="dv">7</span> <span class="op">*</span><span class="st"> </span>(week <span class="op">-</span><span class="st"> </span><span class="dv">1</span>)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb8-5" data-line-number="5"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(<span class="op">-</span>date.entered)</a>
+<a class="sourceLine" id="cb8-5" data-line-number="5"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/dplyr/topics/select">select</a></span>(<span class="op">-</span>date.entered)</a>
 <a class="sourceLine" id="cb8-6" data-line-number="6"><span class="co">#&gt; extract_numeric() is deprecated: please use readr::parse_number() instead</span></a>
 <a class="sourceLine" id="cb8-7" data-line-number="7">billboard3</a>
 <a class="sourceLine" id="cb8-8" data-line-number="8"><span class="co">#&gt; # A tibble: 5,307 x 5</span></a>
@@ -305,7 +305,7 @@
 <a class="sourceLine" id="cb8-20" data-line-number="20"><span class="co">#&gt; 10 Adams, Yolanda Open My Heart               1    76 2000-08-26</span></a>
 <a class="sourceLine" id="cb8-21" data-line-number="21"><span class="co">#&gt; # … with 5,297 more rows</span></a></code></pre></div>
 <p>Finally, it’s always a good idea to sort the data. We could do it by artist, track and week:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">billboard3 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span>(artist, track, week)</a>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">billboard3 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/dplyr/topics/arrange">arrange</a></span>(artist, track, week)</a>
 <a class="sourceLine" id="cb9-2" data-line-number="2"><span class="co">#&gt; # A tibble: 5,307 x 5</span></a>
 <a class="sourceLine" id="cb9-3" data-line-number="3"><span class="co">#&gt;    artist  track                    week  rank date      </span></a>
 <a class="sourceLine" id="cb9-4" data-line-number="4"><span class="co">#&gt;    &lt;chr&gt;   &lt;chr&gt;                   &lt;dbl&gt; &lt;dbl&gt; &lt;date&gt;    </span></a>
@@ -321,7 +321,7 @@
 <a class="sourceLine" id="cb9-14" data-line-number="14"><span class="co">#&gt; 10 2Ge+her The Hardest Part Of ...     3    92 2000-09-16</span></a>
 <a class="sourceLine" id="cb9-15" data-line-number="15"><span class="co">#&gt; # … with 5,297 more rows</span></a></code></pre></div>
 <p>Or by date and rank:</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1">billboard3 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span>(date, rank)</a>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1">billboard3 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/dplyr/topics/arrange">arrange</a></span>(date, rank)</a>
 <a class="sourceLine" id="cb10-2" data-line-number="2"><span class="co">#&gt; # A tibble: 5,307 x 5</span></a>
 <a class="sourceLine" id="cb10-3" data-line-number="3"><span class="co">#&gt;    artist   track   week  rank date      </span></a>
 <a class="sourceLine" id="cb10-4" data-line-number="4"><span class="co">#&gt;    &lt;chr&gt;    &lt;chr&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;date&gt;    </span></a>
@@ -341,7 +341,7 @@
 <h2 class="hasAnchor">
 <a href="#multiple-variables-stored-in-one-column" class="anchor"></a>Multiple variables stored in one column</h2>
 <p>After gathering columns, the key column is sometimes a combination of multiple underlying variable names. This happens in the <code>tb</code> (tuberculosis) dataset, shown below. This dataset comes from the World Health Organisation, and records the counts of confirmed tuberculosis cases by <code>country</code>, <code>year</code>, and demographic group. The demographic groups are broken down by <code>sex</code> (m, f) and <code>age</code> (0-14, 15-25, 25-34, 35-44, 45-54, 55-64, unknown).</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1">tb &lt;-<span class="st"> </span><span class="kw"><a href="https://tibble.tidyverse.org/reference/as_tibble.html">as_tibble</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/read.table">read.csv</a></span>(<span class="st">"tb.csv"</span>, <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>))</a>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1">tb &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/tibble/topics/as_tibble">as_tibble</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/read.table">read.csv</a></span>(<span class="st">"tb.csv"</span>, <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>))</a>
 <a class="sourceLine" id="cb11-2" data-line-number="2">tb</a>
 <a class="sourceLine" id="cb11-3" data-line-number="3"><span class="co">#&gt; # A tibble: 5,769 x 22</span></a>
 <a class="sourceLine" id="cb11-4" data-line-number="4"><span class="co">#&gt;    iso2   year   m04  m514  m014 m1524 m2534 m3544 m4554 m5564   m65    mu</span></a>
@@ -401,7 +401,7 @@
 <h2 class="hasAnchor">
 <a href="#variables-are-stored-in-both-rows-and-columns" class="anchor"></a>Variables are stored in both rows and columns</h2>
 <p>The most complicated form of messy data occurs when variables are stored in both rows and columns. The code below loads daily weather data from the Global Historical Climatology Network for one weather station (MX17004) in Mexico for five months in 2010.</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1">weather &lt;-<span class="st"> </span><span class="kw"><a href="https://tibble.tidyverse.org/reference/as_tibble.html">as_tibble</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/read.table">read.csv</a></span>(<span class="st">"weather.csv"</span>, <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>))</a>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1">weather &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/tibble/topics/as_tibble">as_tibble</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/read.table">read.csv</a></span>(<span class="st">"weather.csv"</span>, <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>))</a>
 <a class="sourceLine" id="cb14-2" data-line-number="2">weather</a>
 <a class="sourceLine" id="cb14-3" data-line-number="3"><span class="co">#&gt; # A tibble: 22 x 35</span></a>
 <a class="sourceLine" id="cb14-4" data-line-number="4"><span class="co">#&gt;    id     year month element    d1    d2    d3    d4    d5    d6    d7</span></a>
@@ -443,9 +443,9 @@
 <p>For presentation, I’ve dropped the missing values, making them implicit rather than explicit. This is ok because we know how many days are in each month and can easily reconstruct the explicit missing values.</p>
 <p>We’ll also do a little cleaning:</p>
 <div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1">weather3 &lt;-<span class="st"> </span>weather2 <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb16-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="dt">day =</span> <span class="kw"><a href="../reference/extract_numeric.html">extract_numeric</a></span>(day)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb16-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(id, year, month, day, element, value) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb16-4" data-line-number="4"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span>(id, year, month, day)</a>
+<a class="sourceLine" id="cb16-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/dplyr/topics/mutate">mutate</a></span>(<span class="dt">day =</span> <span class="kw"><a href="../reference/extract_numeric.html">extract_numeric</a></span>(day)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb16-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/dplyr/topics/select">select</a></span>(id, year, month, day, element, value) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb16-4" data-line-number="4"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/dplyr/topics/arrange">arrange</a></span>(id, year, month, day)</a>
 <a class="sourceLine" id="cb16-5" data-line-number="5"><span class="co">#&gt; extract_numeric() is deprecated: please use readr::parse_number() instead</span></a>
 <a class="sourceLine" id="cb16-6" data-line-number="6">weather3</a>
 <a class="sourceLine" id="cb16-7" data-line-number="7"><span class="co">#&gt; # A tibble: 66 x 6</span></a>
@@ -487,9 +487,9 @@
 <p>The billboard dataset actually contains observations on two types of observational units: the song and its rank in each week. This manifests itself through the duplication of facts about the song: <code>artist</code> is repeated many times.</p>
 <p>This dataset needs to be broken down into two pieces: a song dataset which stores <code>artist</code> and <code>song name</code>, and a ranking dataset which gives the <code>rank</code> of the <code>song</code> in each <code>week</code>. We first extract a <code>song</code> dataset:</p>
 <div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" data-line-number="1">song &lt;-<span class="st"> </span>billboard3 <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb18-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(artist, track) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb18-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/dplyr/topics/select">select</a></span>(artist, track) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb18-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/unique">unique</a></span>() <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb18-4" data-line-number="4"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="dt">song_id =</span> <span class="kw"><a href="https://dplyr.tidyverse.org/reference/ranking.html">row_number</a></span>())</a>
+<a class="sourceLine" id="cb18-4" data-line-number="4"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/dplyr/topics/mutate">mutate</a></span>(<span class="dt">song_id =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/dplyr/topics/ranking">row_number</a></span>())</a>
 <a class="sourceLine" id="cb18-5" data-line-number="5">song</a>
 <a class="sourceLine" id="cb18-6" data-line-number="6"><span class="co">#&gt; # A tibble: 317 x 3</span></a>
 <a class="sourceLine" id="cb18-7" data-line-number="7"><span class="co">#&gt;    artist         track                   song_id</span></a>
@@ -507,9 +507,9 @@
 <a class="sourceLine" id="cb18-19" data-line-number="19"><span class="co">#&gt; # … with 307 more rows</span></a></code></pre></div>
 <p>Then use that to make a <code>rank</code> dataset by replacing repeated song facts with a pointer to song details (a unique song id):</p>
 <div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" data-line-number="1">rank &lt;-<span class="st"> </span>billboard3 <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb19-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/join.html">left_join</a></span>(song, <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"artist"</span>, <span class="st">"track"</span>)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb19-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(song_id, date, week, rank) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb19-4" data-line-number="4"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span>(song_id, date)</a>
+<a class="sourceLine" id="cb19-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/dplyr/topics/join">left_join</a></span>(song, <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"artist"</span>, <span class="st">"track"</span>)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb19-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/dplyr/topics/select">select</a></span>(song_id, date, week, rank) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb19-4" data-line-number="4"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/dplyr/topics/arrange">arrange</a></span>(song_id, date)</a>
 <a class="sourceLine" id="cb19-5" data-line-number="5">rank</a>
 <a class="sourceLine" id="cb19-6" data-line-number="6"><span class="co">#&gt; # A tibble: 5,307 x 4</span></a>
 <a class="sourceLine" id="cb19-7" data-line-number="7"><span class="co">#&gt;    song_id date        week  rank</span></a>
