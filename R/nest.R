@@ -116,9 +116,8 @@ nest.data.frame <- function(.data, ..., .key = "DEPRECATED") {
 
 #' @export
 nest.tbl_df <- function(.data, ..., .key = "DEPRECATED") {
-  .key <- check_key(.key)
-
   if (missing(...)) {
+    .key <- check_key(.key)
     cols <- list2(!!.key := names(.data))
   } else {
     cols <- enquos(...)
@@ -307,3 +306,4 @@ as_empty_df <- function(x, col) {
     stop("Input must be list of vectors", call. = FALSE)
   }
 }
+
