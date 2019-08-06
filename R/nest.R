@@ -17,6 +17,7 @@
 #' behaviour using [nest_legacy()] and [unnest_legacy()] as follows:
 #'
 #' ```
+#' library(tidyr)
 #' nest <- nest_legacy
 #' unnest <- unnest_legacy
 #' ```
