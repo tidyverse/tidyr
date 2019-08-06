@@ -253,8 +253,7 @@ remove them prior to unnesting.</p></td>
 that will appear in the inner data frame. Alternatively, you <code>nest()</code> a
 grouped data frame created by <code><a href='https://dplyr.tidyverse.org/reference/group_by.html'>dplyr::group_by()</a></code>. Here the grouping
 variables will remain in the outer data frame, and nesting all other
-data frames. The result will be an ungrouped tibble, where each row
-represents a group in the input.</p>
+data frames. The result will preserve the grouping of the input.</p>
 <p>Variables supplied to <code>nest()</code> will override grouping variables so that
 <code>df %&gt;% group_by(x, y) %&gt;% nest(z)</code> will be equivalent to <code>df %&gt;% nest(z)</code>.</p>
     
