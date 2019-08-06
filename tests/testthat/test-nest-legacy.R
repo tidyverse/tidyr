@@ -20,6 +20,8 @@ test_that("can control output column name", {
   df <- tibble(x = c(1, 1, 1), y = 1:3)
   out <- nest_legacy(df, y, .key = y)
   expect_equal(names(out), c("x", "y"))
+  out <- nest_legacy(df, y, .key = "y")
+  expect_equal(names(out), c("x", "y"))
 })
 
 test_that("nest doesn't include grouping vars in nested data", {
@@ -82,6 +84,11 @@ test_that("tibble conversion occurs in the `nest.data.frame()` method", {
   expect_is(tbl$data[[1L]], "tbl_df")
 })
 
+test_that("nest_legacy() does not preserve grouping", {
+  df <- tibble(x = c(1, 1, 2), y = 1:3) %>% dplyr::group_by(x)
+  out <- nest_legacy(df)
+  expect_false(inherits(out, "grouped_df"))
+})
 
 # unnest ------------------------------------------------------------------
 
