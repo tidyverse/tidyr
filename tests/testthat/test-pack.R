@@ -70,6 +70,9 @@ test_that("can control name_repair", {
     "New names"
   )
   expect_named(out, c("x", "a...2", "a...3"))
+
+  out <- df %>% unpack(c(y, z), names_repair = "minimal")
+  expect_named(out, c("x", "a", "a"))
 })
 
 test_that("can choose to add separtor", {

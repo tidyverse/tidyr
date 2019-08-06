@@ -17,7 +17,8 @@ reconstruct_tibble <- function(input, output, ungrouped_vars = character()) {
     new_groups <- intersect(setdiff(old_groups, ungrouped_vars), names(output))
     dplyr::grouped_df(output, new_groups)
   } else if (inherits(input, "tbl_df")) {
-    as_tibble(output)
+    # Assume name repair carried out elsewhere
+    as_tibble(output, .name_repair = "minimal")
   } else {
     output
   }
