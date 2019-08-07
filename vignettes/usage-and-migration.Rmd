@@ -52,9 +52,9 @@ We will consider whether the code:
 
 ### `unnest_()`
 
-## Automated checking against tidyr
+## Automated package checking against tidyr
 
-Hopefully you've already adopted continuous integration for your package, in which `R CMD check` (which includes your own tests) is run on a regular basis, e.g. every time you pushes changes to your package's source on GitHub or similar. The tidyverse team currently relies most heavily on Travis-CI for this, so that will be our example. `usethis::use_travis()` can help you get started.
+Hopefully you've already adopted continuous integration for your package, in which `R CMD check` (which includes your own tests) is run on a regular basis, e.g. every time you push changes to your package's source on GitHub or similar. The tidyverse team currently relies most heavily on Travis-CI for this, so that will be our example. `usethis::use_travis()` can help you get started.
 
 We recommend adding a build to your matrix that targets the devel version of tidyr:
 
@@ -80,3 +80,7 @@ matrix:
     before_script: Rscript -e "remotes::install_github('tidyverse/tidyr')"
   - r: oldrel
 ```
+
+## Transmitting unquoted user input
+
+*In my revdep work, I came across zero examples where the problem had anything to do with `{{ }}` or `enquo()` + `!!` or those sorts of patterns. So it's not on my mind as a tidyr-specific matter. But, given the mandate of this vignette, readers could reasonably expect some content about this.
