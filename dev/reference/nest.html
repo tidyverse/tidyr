@@ -246,6 +246,18 @@ remove them prior to unnesting.</p></td>
     </tr>
     </table>
     
+    <h2 class="hasAnchor" id="new-syntax"><a class="anchor" href="#new-syntax"></a>New syntax</h2>
+
+    
+    <p>tidyr 1.0.0 introduced a new syntax for <code>nest()</code> and <code>unnest()</code> that's
+designed to be more similar to other functions. Converting to the new syntax
+should be straightforward (guided by the message you'll recieve) but if
+you just need to run an old analysis you can easily revert to the previous
+behaviour using <code><a href='nest_legacy.html'>nest_legacy()</a></code> and <code><a href='nest_legacy.html'>unnest_legacy()</a></code> as follows:</p><pre>library(tidyr)
+nest &lt;- nest_legacy
+unnest &lt;- unnest_legacy
+</pre>
+    
     <h2 class="hasAnchor" id="grouped-data-frames"><a class="anchor" href="#grouped-data-frames"></a>Grouped data frames</h2>
 
     
@@ -380,6 +392,8 @@ data frames. The result will preserve the grouping of the input.</p>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
       
+      <li><a href="#new-syntax">New syntax</a></li>
+
       <li><a href="#grouped-data-frames">Grouped data frames</a></li>
       
       <li><a href="#examples">Examples</a></li>

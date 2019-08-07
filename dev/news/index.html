@@ -282,10 +282,10 @@ integer column positions, not a double vector</code></pre>
 <li>
 <p>Multiple variables are now selected a bit differently. We now make a strict distinction between data and context expressions. A data expression is either a bare name of an expression like <code>x:y</code> or <code><a href="https://www.rdocumentation.org/packages/base/topics/c">c(x, y)</a></code>. In a data expression, you can only refer to columns from the data frame. Everything else is a context expression in which you can only refer to objects that you have defined with <code>&lt;-</code>.</p>
 <p>You can still refer to contextual objects in a data expression by being explicit. One way of being explicit is to unquote a variable from the environment with the tidy eval operator <code>!!</code>:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">x &lt;-<span class="st"> </span><span class="dv">2</span></a>
-<a class="sourceLine" id="cb6-2" data-line-number="2"><span class="kw"><a href="../reference/drop_na.html">drop_na</a></span>(df, <span class="dv">2</span>)     <span class="co"># Works fine</span></a>
-<a class="sourceLine" id="cb6-3" data-line-number="3"><span class="kw"><a href="../reference/drop_na.html">drop_na</a></span>(df, x)     <span class="co"># Object 'x' not found</span></a>
-<a class="sourceLine" id="cb6-4" data-line-number="4"><span class="kw"><a href="../reference/drop_na.html">drop_na</a></span>(df, <span class="op">!!</span><span class="st"> </span>x)  <span class="co"># Works as if you had supplied 2</span></a></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">x &lt;-<span class="st"> </span><span class="dv">2</span></a>
+<a class="sourceLine" id="cb7-2" data-line-number="2"><span class="kw"><a href="../reference/drop_na.html">drop_na</a></span>(df, <span class="dv">2</span>)     <span class="co"># Works fine</span></a>
+<a class="sourceLine" id="cb7-3" data-line-number="3"><span class="kw"><a href="../reference/drop_na.html">drop_na</a></span>(df, x)     <span class="co"># Object 'x' not found</span></a>
+<a class="sourceLine" id="cb7-4" data-line-number="4"><span class="kw"><a href="../reference/drop_na.html">drop_na</a></span>(df, <span class="op">!!</span><span class="st"> </span>x)  <span class="co"># Works as if you had supplied 2</span></a></code></pre></div>
 <p>On the other hand, select helpers like <code>start_with()</code> are context expressions. It is therefore easy to refer to objects and they will never be ambiguous with data columns:</p>
 <pre class="{r}"><code>x &lt;- "d"
 drop_na(df, starts_with(x))</code></pre>
