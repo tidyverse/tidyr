@@ -2,17 +2,30 @@
 
 ## Breaking changes
 
-* `unnest_()`/`nest_()` and the lazyeval methods for `unnest()`/`nest()` are 
-  now defunct. They have been deprecated for some time, and since the interface
-  has changed, package authors will need to update to deprecation warnings.
-  I think one clean break should be less work for everyone.
+* `nest()` and `unnest()` have new syntax. The majority of existing usage 
+  should be automatically translated to the new syntax with a warning. 
+  If that doesn't work, put this in your script to use the old versions
+  until you can take a closer look and update your code:
+
+  ```r
+  library(tidyr)
+  nest <- nest_legacy
+  unnest <- unnest_legacy
+  ```
+
+* `nest()` now preserves grouping, which has implications for downstream calls
+  to group-aware functions, such as `dplyr::mutate()` and `filter()`.
+
+* The first argument of `nest()` has changed from `data` to `.data`.
 
 * `unnest()` uses the [emerging tidyverse standard](https://www.tidyverse.org/articles/2019/01/tibble-2.0.1/#name-repair)
   to disambiguate unique names. Use `names_repair = tidyr_legacy` to 
-  restore to the previous approach.
+  request the previous approach.
 
-* `nest()` has a new syntax (see below for more details), it preserves 
-  grouping, and the first argument is now `.data` (not `data`).
+* `unnest_()`/`nest_()` and the lazyeval methods for `unnest()`/`nest()` are 
+  now defunct. They have been deprecated for some time, and since the interface
+  has changed, package authors will need to update to avoid deprecation
+  warnings. I think one clean break should be less work for everyone.
 
 * `crossing()` and `nesting()` now return 0-row outputs if any input is a 
   length-0 vector. If you want to preserve the previous behaviour which 

@@ -44,7 +44,7 @@ Suggests:
     repurrrsive (>= 1.0.0),
     rmarkdown,
     readr,
-    testthat
+    testthat (>= 2.1.0)
 LinkingTo: 
     Rcpp
 VignetteBuilder: 

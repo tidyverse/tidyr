@@ -9,6 +9,19 @@
 #'
 #' Learn more in `vignette("nest")`.
 #'
+#' @section New syntax:
+#' tidyr 1.0.0 introduced a new syntax for `nest()` and `unnest()` that's
+#' designed to be more similar to other functions. Converting to the new syntax
+#' should be straightforward (guided by the message you'll recieve) but if
+#' you just need to run an old analysis you can easily revert to the previous
+#' behaviour using [nest_legacy()] and [unnest_legacy()] as follows:
+#'
+#' ```
+#' library(tidyr)
+#' nest <- nest_legacy
+#' unnest <- unnest_legacy
+#' ```
+#'
 #' @section Grouped data frames:
 #' `df %>% nest(x, y)` specify the columns to be nested; i.e. the columns
 #' that will appear in the inner data frame. Alternatively, you `nest()` a
