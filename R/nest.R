@@ -209,10 +209,12 @@ unnest <- function(data,
   } else {
     dots <- enquos(cols, ..., .named = TRUE, .ignore_empty = "all")
     data <- dplyr::mutate(data, !!!dots)
+
     cols <- expr(c(!!!syms(names(dots))))
+    unnest_call <- expr(unnest(!!cols))
     warn(paste0(
       "unnest() has a new interface. See ?unnest for details.\n",
-      "Try `cols = ", expr_text(cols), "`, with `mutate()` needed"
+      "Try `df %>% ", expr_text(unnest_call), "`, with `mutate()` if needed"
     ))
     deprecated <- TRUE
   }
