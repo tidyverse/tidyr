@@ -1,0 +1,26 @@
+---
+title: "Usage and migration"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Usage and migration}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(tidyr)
+```
+
+This guide serves two distinct-but-related purposes:
+
+  * Recommend best practices to maintainers of external packages that depend on tidyr. This is inspired by a similar guide in the development version of ggplot2: [Using ggplot2 in packages](https://ggplot2.tidyverse.org/dev/articles/ggplot2-in-packages.html).
+  * Describe migration patterns for the transition from tidyr v0.8.3 to v1.0.0. This is a more time-dependent topic, but is handled here because it has considerable overlap with the first point.
+
+
