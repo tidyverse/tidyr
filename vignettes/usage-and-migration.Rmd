@@ -1,5 +1,5 @@
 ---
-title: "Usage and migration"
+title: "In packages"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Usage and migration}
@@ -15,21 +15,90 @@ knitr::opts_chunk$set(
 options(tidyverse.quiet = TRUE)
 ```
 
-Attach the tidyverse, expose the tidyr version, and make a little dataset we can use in lots of examples.
+## Introduction
+
+This vignette serves two distinct, but related, purposes:
+
+* It documents general best practices for packages that use tidyr, 
+  inspired by the [similar guide for ggplot2][ggplot2-packages].
+  
+* It describe migration patterns for the transition from tidyr v0.8.3 to 
+  v1.0.0. 
+
+Before we go on, we'll attach the packages we use, expose the version of tidyr, and make a small dataset to use in examples.
 
 ```{r setup}
-library(tidyverse)
-packageVersion("tidyr")
+library(tidyr)
+library(dplyr, warn.conflicts = FALSE)
+library(purrr)
 
 (mini_iris <- iris %>% 
     as_tibble() %>% 
-    slice(c(1, 2, 51, 52, 101, 102)))
+    .[c(1, 2, 51, 52, 101, 102), ])
 ```
 
-This guide serves two distinct, but related, purposes:
+## Using tidyr in packages
 
-  * Recommend best practices to maintainers of external packages that depend on tidyr. This is inspired by a similar guide in the development version of ggplot2: [Using ggplot2 in packages](https://ggplot2.tidyverse.org/dev/articles/ggplot2-in-packages.html).
-  * Describe migration patterns for the transition from tidyr v0.8.3 to v1.0.0. This is a more time-dependent topic, but is handled here because it has considerable overlap with the first point.
+Compared to dplyr and ggplot2, most tidyr functions have select semantics, rather than mutate semantics. This means that you provide them with an expression that works with column names (like `starts_with("x")` or `a:c`) not column values (like `y = x * 2`), and the way that you wrap in package functions is a little different.
+
+There are three main cases:
+
+* The column names are fixed: use strings and `one_of()`.
+
+* The columns are in character vector: use `one_of()`.
+
+* The user specified the column names using select syntax: use `{{ col }}`.
+
+### Fixed column names
+
+This code works just fine inside a package:
+
+```{r}
+mini_iris %>% nest(
+  petal = c(Petal.Length, Petal.Width), 
+  sepal = c(Sepal.Length, Sepal.Width)
+)
+```
+
+But `R CMD check` will warn about undefined global variables `Petal.Length`, `Petal.Width`, `Sepal.Length`, and `Sepal.Width` because it doesn't know that `nest()` is looking for the variables inside of `mini_iris`.
+
+The easiest way to fix the problem is to use `one_of()`. `one_of()` is a tidyselect helper (like `starts_with()`, `ends_with()`, etc) that takes a vector of character names:
+
+```{r}
+mini_iris %>% nest(
+  petal = one_of(c("Petal.Length", "Petal.Width")), 
+  sepal = one_of(c("Sepal.Length", "Sepal.Width"))
+)
+```
+
+### Column names in a character vector
+
+If the column names are in a character (possibly from a function call), just use `one_of()`, as above:
+
+```{r}
+nest_egg <- function(data, cols) {
+  nest(data, egg = one_of(cols))
+}
+
+nest_egg(mini_iris, c("Petal.Length", "Petal.Width", "Sepal.Length", "Sepal.Width"))
+```
+
+The use of `one_of()` here is important; if you don't use it, and `data` contains a column called `cols`, nest will use it instead of the variables that you've supplied.
+
+### tidyselect interface
+
+To provide an interface that works like tidyr, you'll can pass your argument along using `{{ arg }}`. `{{ }}` is a special tidy eval operator that captures the expression supplied by the user and forwards it to another tidy eval-enabled function.
+
+```{r}
+nest_egg <- function(df, cols) {
+  nest(df, egg = {{ cols }})
+}
+nest_egg(mini_iris, -Species)
+```
+
+(Many tidyr functions currently accept `...` so you can easily select many variables, e.g. `fill(df, x, y, z)`. I now believe that the disadvantages of this approach outweigh the benefits, and that this interface would have been better as `fill(df, c(x, y, z))`. So for new functions that select columns, please just use a single argument and not `...`.)
+
+If you want your functions to support this syntax, you should also re-export the select helpers so that users can use `starts_with()` etc, without any extra work. There's no helper to do this yet, but you can copy-and-paste the code that [tidyr uses](https://github.com/tidyverse/tidyr/blob/00a66b44d2f304a73e953dd73139db61ed9cc289/R/tidyr.R#L29-L53).
 
 ## Links or notes for development of this document
 
@@ -63,7 +132,9 @@ We need to add any error messages or `R CMD check` failures that are characteris
 
 *dump unplaced thoughts and todo's here*
 
-## Satisfying joint constraints
+## tidyr 0.8.3 -> 1.0.0 migration
+
+### Satisfying joint constraints
 
 Package maintainers are subject to multiple constraints that are in some tension with each other. As we write or migrate code, we must consider whether it:
 
@@ -76,7 +147,7 @@ Package maintainers are subject to multiple constraints that are in some tension
     
 Sometimes you can write code that works with v0.8.3 and v1.0.0. But this often forces you to write code that's not particularly natural for either version and you'd be better off to (temporarily) have separate code paths, each containing non-contrived code. You get to re-use your existing code in the "old" branch, which will eventually be phased out, and write clean, forward-looking code in the "new" branch.
 
-## `nest()`
+### `nest()`
 
 Specify the name of the new list-column (`my_data`, here) and the columns to nest like so:
 
@@ -308,3 +379,5 @@ matrix:
 ## Transmitting unquoted user input
 
 *In my revdep work, I came across zero examples where the problem had anything to do with `{{ }}` or `enquo()` + `!!` or those sorts of patterns. So it's not on my mind as a tidyr-specific matter. But, given the mandate of this vignette, readers could reasonably expect some content about this.*
+
+[ggplot2-packages]: https://ggplot2.tidyverse.org/dev/articles/ggplot2-in-packages.html
