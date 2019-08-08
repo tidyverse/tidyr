@@ -79,7 +79,8 @@ Length-zero (empty) elements are automatically dropped.}
 
 \item{x}{For \code{nesting_} and \code{crossing_} a list of variables.}
 
-\item{into}{Names of new variables to create as character vector.}
+\item{into}{Names of new variables to create as character vector.
+Use \code{NA} to omit the variable in the output.}
 
 \item{regex}{a regular expression used to extract the desired values.
 There should be one group (defined by \code{()}) for each element of \code{into}.}
@@ -88,7 +89,9 @@ There should be one group (defined by \code{()}) for each element of \code{into}
 
 \item{convert}{If \code{TRUE}, will run \code{\link[=type.convert]{type.convert()}} with
 \code{as.is = TRUE} on new columns. This is useful if the component
-columns are integer, numeric or logical.}
+columns are integer, numeric or logical.
+
+NB: this will cause string \code{"NA"}s to be converted to \code{NA}s.}
 
 \item{fill_cols}{Character vector of column names.}
 
@@ -126,15 +129,11 @@ data, filling in missing combinations with \code{fill}.}
 
 \item{expand_cols}{Character vector of column names to be expanded.}
 
-\item{key_col}{Name of the column that will contain the nested data frames.}
-
-\item{nest_cols}{Character vector of columns to nest.}
-
 \item{key_col, value_col}{Strings giving names of key and value cols.}
-
-\item{unnest_cols}{Name of columns that needs to be unnested.}
 }
 \description{
+\lifecycle{deprecated}
+
 tidyr used to offer twin versions of each verb suffixed with an
 underscore. These versions had standard evaluation (SE) semantics:
 rather than taking arguments by code, like NSE verbs, they took
@@ -143,8 +142,7 @@ program with tidyr. However, tidyr now uses tidy evaluation
 semantics. NSE verbs still capture their arguments, but you can now
 unquote parts of these arguments. This offers full programmability
 with NSE verbs. Thus, the underscored versions are now superfluous.
-}
-\details{
+
 Unquoting triggers immediate evaluation of its operand and inlines
 the result within the captured expression. This result can be a
 value or an expression to be evaluated later with the rest of the

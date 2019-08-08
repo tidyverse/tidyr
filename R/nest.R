@@ -9,13 +9,25 @@
 #'
 #' Learn more in `vignette("nest")`.
 #'
+#' @section New syntax:
+#' tidyr 1.0.0 introduced a new syntax for `nest()` and `unnest()` that's
+#' designed to be more similar to other functions. Converting to the new syntax
+#' should be straightforward (guided by the message you'll recieve) but if
+#' you just need to run an old analysis you can easily revert to the previous
+#' behaviour using [nest_legacy()] and [unnest_legacy()] as follows:
+#'
+#' ```
+#' library(tidyr)
+#' nest <- nest_legacy
+#' unnest <- unnest_legacy
+#' ```
+#'
 #' @section Grouped data frames:
 #' `df %>% nest(x, y)` specify the columns to be nested; i.e. the columns
 #' that will appear in the inner data frame. Alternatively, you `nest()` a
 #' grouped data frame created by [dplyr::group_by()]. Here the grouping
 #' variables will remain in the outer data frame, and nesting all other
-#' data frames. The result will be an ungrouped tibble, where each row
-#' represents a group in the input.
+#' data frames. The result will preserve the grouping of the input.
 #'
 #' Variables supplied to `nest()` will override grouping variables so that
 #' `df %>% group_by(x, y) %>% nest(z)` will be equivalent to `df %>% nest(z)`.
@@ -25,14 +37,14 @@
 #'   that describe how you wish to nest existing columns into new columns.
 #'   The right hand side can be any expression supported by tidyselect.
 #'
-#'   **Deprecated**: previously you could write `df %>% nest(x, y, z)`
+#'   \lifecycle{deprecated}: previously you could write `df %>% nest(x, y, z)`
 #'   and `df %>% unnest(x, y, z)`. Convert to `df %>% nest(data = c(x, y, z))`.
 #'   and `df %>% unnest(c(x, y, z))`.
 #'
 #'   If you previously created new variable in `unnest()` you'll now need to
 #'   do it explicitly with `mutate()`. Convert `df %>% unnest(y = fun(x, y, z))`
 #'   to `df %>% mutate(y = fun(x, y, z)) %>% unnest(y)`.
-#' @param .key **Deprecated**: No longer needed because of the updated `...`
+#' @param .key \lifecycle{deprecated}: No longer needed because of the updated `...`
 #'   syntax.
 #' @export
 #' @examples
@@ -84,7 +96,7 @@
 #' # Compare with unnesting one column at a time, which generates
 #' # the Cartesian product
 #' df %>% unnest(a) %>% unnest(b)
-nest <- function(.data, ..., .key = "DEPRECATED") {
+nest <- function(.data, ..., .key = deprecated()) {
   cols <- enquos(...)
 
   if (any(names2(cols) == "")) {
@@ -105,7 +117,7 @@ nest <- function(.data, ..., .key = "DEPRECATED") {
 }
 
 #' @export
-nest.data.frame <- function(.data, ..., .key = "DEPRECATED") {
+nest.data.frame <- function(.data, ..., .key = deprecated()) {
   # The data frame print handles nested data frames poorly, so we want to
   # convert data frames (but not subclasses) to tibbles
   if (identical(class(.data), "data.frame")) {
@@ -116,9 +128,8 @@ nest.data.frame <- function(.data, ..., .key = "DEPRECATED") {
 }
 
 #' @export
-nest.tbl_df <- function(.data, ..., .key = "DEPRECATED") {
+nest.tbl_df <- function(.data, ..., .key = deprecated()) {
   .key <- check_key(.key)
-
   if (missing(...)) {
     cols <- list2(!!.key := names(.data))
   } else {
@@ -136,10 +147,9 @@ nest.tbl_df <- function(.data, ..., .key = "DEPRECATED") {
 }
 
 #' @export
-nest.grouped_df <- function(.data, ..., .key = "DEPRECATED") {
-  .key <- check_key(.key)
-
+nest.grouped_df <- function(.data, ..., .key = deprecated()) {
   if (missing(...)) {
+    .key <- check_key(.key)
     nest_vars <- setdiff(names(.data), dplyr::group_vars(.data))
     out <- nest.tbl_df(.data, !!.key := !!nest_vars)
   } else {
@@ -151,7 +161,7 @@ nest.grouped_df <- function(.data, ..., .key = "DEPRECATED") {
 }
 
 check_key <- function(.key) {
-  if (!identical(.key, "DEPRECATED")) {
+  if (!is_missing(.key)) {
     warn("`.key` is deprecated")
     .key
   } else {
@@ -168,12 +178,12 @@ check_key <- function(.key) {
 #'   If you `unnest()` multiple columns, parallel entries must compatible
 #'   sizes, i.e. they're either equal or length 1 (following the standard
 #'   tidyverse recycling rules).
-#' @param .drop,.preserve **Deprecated**: all list-columns are now preserved;
+#' @param .drop,.preserve \lifecycle{deprecated} all list-columns are now preserved;
 #'   If there are any that you don't want in the output use `select()` to
 #'   remove them prior to unnesting.
-#' @param .id **Deprecated**: convert `df %>% unnest(x, .id = "id")` to
+#' @param .id \lifecycle{deprecated}: convert `df %>% unnest(x, .id = "id")` to
 #'   `df %>% mutate(id = names(x)) %>% unnest(x))`.
-#' @param .sep **Deprecated**: use `names_sep` instead.
+#' @param .sep \lifecycle{deprecated}: use `names_sep` instead.
 #' @export
 #' @rdname nest
 unnest <- function(data,
@@ -183,14 +193,16 @@ unnest <- function(data,
                    ptype = NULL,
                    names_sep = NULL,
                    names_repair = "check_unique",
-                   .drop = "DEPRECATED",
-                   .id = "DEPRECATED",
-                   .sep = "DEPRECATED",
-                   .preserve = "DEPRECATED") {
+                   .drop = deprecated(),
+                   .id = deprecated(),
+                   .sep = deprecated(),
+                   .preserve = deprecated()) {
 
   deprecated <- FALSE
   if (!missing(.preserve)) {
-    warn("`.preserve` is deprecated. All list-columns are now preserved")
+    lifecycle::deprecate_warn("1.0.0", "unnest(.preserve = )",
+      details = "All list-columns are now preserved"
+    )
     deprecated <- TRUE
     .preserve <- tidyselect::vars_select(tbl_vars(data), !!enquo(.preserve))
   } else {
@@ -212,28 +224,36 @@ unnest <- function(data,
   } else {
     dots <- enquos(cols, ..., .named = TRUE, .ignore_empty = "all")
     data <- dplyr::mutate(data, !!!dots)
+
     cols <- expr(c(!!!syms(names(dots))))
+    unnest_call <- expr(unnest(!!cols))
     warn(paste0(
       "unnest() has a new interface. See ?unnest for details.\n",
-      "Try `cols = ", expr_text(cols), "`, with `mutate()` needed"
+      "Try `df %>% ", expr_text(unnest_call), "`, with `mutate()` if needed"
     ))
     deprecated <- TRUE
   }
 
-  if (!missing(.drop)) {
-    warn("`.drop` is deprecated. All list-columns are now preserved.")
+  if (!is_missing(.drop)) {
+    lifecycle::deprecate_warn("1.0.0", "unnest(.drop = )",
+      details = "All list-columns are now preserved."
+    )
     deprecated <- TRUE
   }
 
-  if (!missing(.id)) {
-    warn("`.id` is deprecated. Manually create column of names instead.")
+  if (!is_missing(.id)) {
+    lifecycle::deprecate_warn("1.0.0", "unnest(.id = )",
+      details = "Manually create column of names instead."
+    )
     deprecated <- TRUE
     first_col <- tidyselect::vars_select(tbl_vars(data), !!cols)[[1]]
     data[[.id]] <- names(data[[first_col]])
   }
 
-  if (!missing(.sep)) {
-    warn(glue("`.sep` is deprecated. Use `names_sep = '{.sep}'` instead."))
+  if (!is_missing(.sep)) {
+    lifecycle::deprecate_warn("1.0.0", "unnest(.sep = )",
+      details = glue("Use `names_sep = '{.sep}'` instead.")
+    )
     deprecated <- TRUE
     names_sep <- .sep
   }
@@ -244,8 +264,9 @@ unnest <- function(data,
       cols = !!cols,
       names_sep = names_sep,
       keep_empty = keep_empty,
-      ptype = ptype)
-    )
+      ptype = ptype,
+      names_repair = tidyr_legacy
+    ))
   }
 
   UseMethod("unnest")
@@ -266,8 +287,15 @@ unnest.data.frame <- function(
                               .preserve = "DEPRECATED") {
 
   cols <- tidyselect::vars_select(tbl_vars(data), !!enquo(cols))
-  for (col in cols) {
-    data[[col]][] <- map(data[[col]], as_df, col = col)
+
+  if (nrow(data) == 0) {
+    for (col in cols) {
+      data[[col]] <- as_empty_df(data[[col]], col = col)
+    }
+  } else {
+    for (col in cols) {
+      data[[col]] <- map(data[[col]], as_df, col = col)
+    }
   }
 
   data <- unchop(data, !!cols, keep_empty = keep_empty, ptype = ptype)
@@ -285,7 +313,17 @@ as_df <- function(x, col) {
     x
   } else if (vec_is(x)) {
     # Preserves vec_size() invariant
-    tibble(!!col := x)
+    new_data_frame(set_names(list(x), col))
+  } else {
+    stop("Input must be list of vectors", call. = FALSE)
+  }
+}
+
+as_empty_df <- function(x, col) {
+  if (is_list_of(x)) {
+    x
+  } else if (is.list(x)) {
+    list_of(.ptype = tibble(!!col := unspecified()))
   } else {
     stop("Input must be list of vectors", call. = FALSE)
   }

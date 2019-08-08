@@ -2,14 +2,33 @@
 
 ## Breaking changes
 
-* `unnest_()`/`nest_()` and the lazyeval methods for `unnest()`/`nest()` are 
-  now defunct. They have been deprecated for some time, and since the interface
-  has changed, package authors will need to update to deprecation warnings.
-  I think one clean break should be less work for everyone.
+* `nest()` and `unnest()` have new syntax. The majority of existing usage 
+  should be automatically translated to the new syntax with a warning. 
+  If that doesn't work, put this in your script to use the old versions
+  until you can take a closer look and update your code:
+
+  ```r
+  library(tidyr)
+  nest <- nest_legacy
+  unnest <- unnest_legacy
+  ```
+
+* `nest()` now preserves grouping, which has implications for downstream calls
+  to group-aware functions, such as `dplyr::mutate()` and `filter()`.
+
+* The first argument of `nest()` has changed from `data` to `.data`.
 
 * `unnest()` uses the [emerging tidyverse standard](https://www.tidyverse.org/articles/2019/01/tibble-2.0.1/#name-repair)
   to disambiguate unique names. Use `names_repair = tidyr_legacy` to 
-  restore to the previous approach.
+  request the previous approach.
+
+* `unnest_()`/`nest_()` and the lazyeval methods for `unnest()`/`nest()` are 
+  now defunct. They have been deprecated for some time, and since the interface
+  has changed, package authors will need to update to avoid deprecation
+  warnings. I think one clean break should be less work for everyone.
+  
+    All other lazyeval functions have been formally deprecated, and will be
+    made defunct in the next major release.
 
 * `crossing()` and `nesting()` now return 0-row outputs if any input is a 
   length-0 vector. If you want to preserve the previous behaviour which 
@@ -45,7 +64,7 @@ df %>% mutate(name = map_chr(metadata, "name"))
 
 `nest()` and `unnest()` have been updated with new interfaces that are more closely aligned to evolving tidyverse conventions. They use the theory developed in [vctrs](https://vctrs.r-lib.org) to more consistently handle mixtures of input types, and their arguments have been overhauled based on the last few years of experience. They are supported by a new `vignette("nest")`, which outlines some of the main ideas of nested data (it's still very rough, but will get better over time.)
   
-The biggest change is to their operation with multiple columns: `df %>% unnest(x, y, z)` becomes `df %>% unnest(c(x, y, z))` and `df %>% nest(x, y, z)` becomes `df %>% unnest(data = c(x, y, z))`
+The biggest change is to their operation with multiple columns: `df %>% unnest(x, y, z)` becomes `df %>% unnest(c(x, y, z))` and `df %>% nest(x, y, z)` becomes `df %>% nest(data = c(x, y, z))`
   
 I have done my best to ensure that common uses of `nest()` and `unnest()` will continue to work, generating an informative warning telling you precisely how you need to update your code. Please [file an issue](https://github.com/tidyverse/tidyr/issues/new) if I've missed an important use case.
 
@@ -88,6 +107,12 @@ Packing and chopping are primarily interesting because they are the atomic opera
   vector.
 
 ## Bug fixes and minor improvements
+
+* `full_seq()` now also works when gaps between observations are shorter than 
+  the given `period`, but are within the tolerance given by `tol`. Previously, 
+  gaps between consecutive observations had to be in the range [`period`, 
+  `period + tol`]; gaps can now be in the range [`period - tol`, `period + tol`]
+  (@ha0ye, #657).
 
 * tidyr now re-exports `tibble()`, `as_tibble()`, and `tribble()`, 
   as well as the tidyselect helpers (`starts_with()`, `ends_width()`, ...).

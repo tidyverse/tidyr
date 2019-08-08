@@ -18,3 +18,18 @@ check_spec <- function(spec) {
   vars <- union(c(".name", ".value"), names(spec))
   spec[vars]
 }
+
+wrap_error_names <- function(code) {
+  tryCatch(
+    code,
+    vctrs_error_names = function(cnd) {
+      abort(
+        c(
+          "Failed to create output due to bad names.",
+          "Choose another strategy with `names_repair`"
+        ),
+        parent = cnd
+      )
+    }
+  )
+}

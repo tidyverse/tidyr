@@ -6,8 +6,9 @@
 \title{Pivot data from long to wide}
 \usage{
 pivot_wider(data, id_cols = NULL, names_from = name,
-  names_prefix = "", names_sep = "_", values_from = value,
-  values_fill = NULL, values_fn = NULL, spec = NULL)
+  names_prefix = "", names_sep = "_", names_repair = "check_unique",
+  values_from = value, values_fill = NULL, values_fn = NULL,
+  spec = NULL)
 
 pivot_wider_spec(data, names_from = name, values_from = value,
   names_prefix = "", names_sep = "_")
@@ -35,6 +36,12 @@ create syntactic variable names.}
 variables, this will be used to join their values together into a single
 string to use as a column name.}
 
+\item{names_repair}{What happen if the output has invalid column names?
+The default, \code{"check_unique"} is to error if the columns are duplicated.
+Use \code{"minimal"} to allow duplicates in the output, or \code{"unique"} to
+de-duplicated by adding numeric suffixes. See \code{\link[vctrs:vec_as_names]{vctrs::vec_as_names()}}
+for more options.}
+
 \item{values_fill}{Optionally, a named list specifying what each \code{value}
 should be filled in with when missing.}
 
@@ -51,6 +58,8 @@ metadata stored in the column names turns into columns in the result.
 Must be a data frame containing character \code{.name} and \code{.value} columns.}
 }
 \description{
+\lifecycle{maturing}
+
 \code{pivot_wider()} "widens" data, increasing the number of columns and
 decreasing the number of rows. The inverse transformation is
 \code{\link[=pivot_longer]{pivot_longer()}}.

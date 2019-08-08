@@ -1,6 +1,8 @@
 #' Pivot data from long to wide
 #
 #' @description
+#' \lifecycle{maturing}
+#'
 #' `pivot_wider()` "widens" data, increasing the number of columns and
 #' decreasing the number of rows. The inverse transformation is
 #' [pivot_longer()].
@@ -69,6 +71,7 @@ pivot_wider <- function(data,
                         names_from = name,
                         names_prefix = "",
                         names_sep = "_",
+                        names_repair = "check_unique",
                         values_from = value,
                         values_fill = NULL,
                         values_fn = NULL,
@@ -145,14 +148,15 @@ pivot_wider <- function(data,
     value_out[[i]] <- wrap_vec(out, spec_i$.name)
   }
 
-  out <- vec_cbind(rows, !!!value_out)
+  out <- wrap_error_names(vec_cbind(rows, !!!value_out, .name_repair = names_repair))
 
   # recreate desired column order
   # https://github.com/r-lib/vctrs/issues/227
   if (all(spec$.name %in% names(out))) {
     out <- out[c(names(rows), spec$.name)]
   }
-  out
+
+  reconstruct_tibble(data, out)
 }
 
 #' @export

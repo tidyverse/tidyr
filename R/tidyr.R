@@ -8,6 +8,7 @@
 #'   pmap_lgl reduce some transpose
 #' @importFrom dplyr tbl_vars
 #' @importFrom utils type.convert
+#' @importFrom lifecycle deprecated
 #' @useDynLib tidyr, .registration = TRUE
 "_PACKAGE"
 

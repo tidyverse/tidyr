@@ -18,14 +18,15 @@ coverage](https://codecov.io/gh/tidyverse/tidyr/branch/master/graph/badge.svg)](
 The goal of tidyr is to help you create **tidy data**. Tidy data is data
 where:
 
-1.  Each variable is in a column.
-2.  Each observation is a row.
-3.  Each value is a cell.
+1.  Every column is variable.
+2.  Every row is an observation..
+3.  Every cell is a single value.
 
 Tidy data describes a standard way of storing data that is used wherever
 possible throughout the [tidyverse](http://tidyverse.org). If you ensure
 that your data is tidy, you’ll spend less time fighting with the tools
-and more time working on your analysis.
+and more time working on your analysis. Learn more about tidy data in
+`vignette("tidy-data")`.
 
 ## Installation
 
@@ -51,27 +52,41 @@ devtools::install_github("tidyverse/tidyr")
 library(tidyr)
 ```
 
-There are two fundamental verbs of data tidying:
+tidyr functions fall into five main categories:
 
-  - `gather()` takes multiple columns, and gathers them into key-value
-    pairs: it makes “wide” data longer.
+  - “Pivotting” to convert between long and wide forms. tidyr 1.0.0
+    introduces `pivot_longer()` and `pivot_wider()`, replacing the older
+    `spread()` and `gather()` functions. See `vignette("pivot")` for
+    more details.
 
-  - `spread()` takes two columns (key & value), and spreads into
-    multiple columns: it makes “long” data wider.
+  - “Rectangling”, which turns deeply nested lists (as from JSOM) into
+    tidy tibbles. See `unnest_longer()`, `unnest_wider()`, `hoist()`,
+    and `vignette("rectangle")` for more details.
 
-tidyr also provides `separate()` and `extract()` functions which makes
-it easier to pull apart a column that represents multiple variables. The
-complement to `separate()` is `unite()`.
+  - Nesting converts grouped data to a form where each group becomes a
+    single row containing a nested data frame, and unnesting does the
+    opposite. See `nest()`, `unnest()`, and `vignette("nest")` for more
+    details.
 
-To get started, read the tidy data vignette (`vignette("tidy-data")`)
-and check out the demos (`demo(package = "tidyr")`).
+  - Splitting and combining character columns. Use `separate()` and
+    `extract()` to pull a single character column into multiple columns;
+    use `unite()` to combine multiple columns into a single character
+    column.
+
+  - Make implicit missing values explicit with `complete()`; make
+    explicit missing values implicit with `drop_na()`; replace missing
+    values with next/previous value with `fill()`, or a known value with
+    `replace_na()`.
 
 ## Related work
 
 tidyr replaces reshape2 (2010-2014) and reshape (2005-2010). Somewhat
-counterintuitively each iteration of the package has done less. tidyr is
-designed specifically for tidying data, not general reshaping
+counterintuitively, each iteration of the package has done less. tidyr
+is designed specifically for tidying data, not general reshaping
 (reshape2), or the general aggregation (reshape).
+
+[data.table](http://r-datatable.com/) provides high-performance
+implementations of `melt()` and `dcast()`
 
 If you’d like to read more about data reshaping from a CS perspective,
 I’d recommend the following three papers:

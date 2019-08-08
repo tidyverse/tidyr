@@ -37,10 +37,12 @@ names. Must be one of the following options:
 \item a formula: a purrr-style anonymous function (see \code{\link[rlang:as_function]{rlang::as_function()}})
 }
 
-See \link[tibble:name-repair]{tibble::name-repair} for more details on these terms and the
+See \code{\link[vctrs:vec_as_names]{vctrs::vec_as_names()}} for more details on these terms and the
 strategies used to enforce them.}
 }
 \description{
+\lifecycle{maturing}
+
 Packing and unpacking preserve the length of a data frame, changing its
 width. \code{pack()} makes \code{df} narrow by collapsing a set of columns into a
 single df-column. \code{unpack()} makes \code{data} wider by expanding df-columns

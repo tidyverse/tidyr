@@ -59,7 +59,7 @@ names. Must be one of the following options:
 \item a formula: a purrr-style anonymous function (see \code{\link[rlang:as_function]{rlang::as_function()}})
 }
 
-See \link[tibble:name-repair]{tibble::name-repair} for more details on these terms and the
+See \code{\link[vctrs:vec_as_names]{vctrs::vec_as_names()}} for more details on these terms and the
 strategies used to enforce them.}
 
 \item{simplify}{If \code{TRUE}, will attempt to simplify lists of length-1
@@ -77,6 +77,8 @@ together the outer column name with the inner names, separated by
 \code{names_sep}.}
 }
 \description{
+\lifecycle{maturing}
+
 \code{hoist()}, \code{unnest_longer()}, and \code{unnest_wider()} provide tools for
 rectangling, collapsing deeply nested lists into regular columns.
 \code{hoist()} allows you to selectively pull components of a list-column out

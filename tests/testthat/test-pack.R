@@ -23,7 +23,19 @@ test_that("all inputs must be named", {
   expect_error(pack(df, c(a1, a2), c(b1, b2)), "must be named")
 })
 
+test_that("grouping is preserved", {
+  df <- tibble(g1 = 1, g2 = 1, g3 = 1)
+  out <- df %>% dplyr::group_by(g1, g2) %>% pack(g = c(g2, g3))
+  expect_equal(dplyr::group_vars(out), "g1")
+})
+
 # unpack ------------------------------------------------------------------
+
+test_that("grouping is preserved", {
+  df <- tibble(g = 1, x = tibble(y = 1))
+  out <- df %>% dplyr::group_by(g) %>% unpack(x)
+  expect_equal(dplyr::group_vars(out), "g")
+})
 
 test_that("can't unpack atomic vectors", {
   df <- tibble(x = 1:2)
@@ -58,6 +70,9 @@ test_that("can control name_repair", {
     "New names"
   )
   expect_named(out, c("x", "a...2", "a...3"))
+
+  out <- df %>% unpack(c(y, z), names_repair = "minimal")
+  expect_named(out, c("x", "a", "a"))
 })
 
 test_that("can choose to add separtor", {

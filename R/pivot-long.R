@@ -1,6 +1,8 @@
 #' Pivot data from wide to long
 #'
 #' @description
+#' \lifecycle{maturing}
+#'
 #' `pivot_longer()` "lengthens" data, increasing the number of rows and
 #' decreasing the number of columns. The inverse transformation. in
 #' [pivot_wider()]
@@ -36,6 +38,11 @@
 #'   If these arguments does not give you enough control, use
 #'   `pivot_longer_spec()` to create a spec object and process manually as
 #'   needed.
+#' @param names_repair What happen if the output has invalid column names?
+#'   The default, `"check_unique"` is to error if the columns are duplicated.
+#'   Use `"minimal"` to allow duplicates in the output, or `"unique"` to
+#'   de-duplicated by adding numeric suffixes. See [vctrs::vec_as_names()]
+#'   for more options.
 #' @param values_to A string specifying the name of the column to create
 #'   from the data stored in cell values. If `names_to` is a character
 #'   containing the special `.value` sentinel, this value will be ignored,
@@ -101,6 +108,7 @@ pivot_longer <- function(data,
                          names_sep = NULL,
                          names_pattern = NULL,
                          names_ptypes = list(),
+                         names_repair = "check_unique",
                          values_to = "value",
                          values_drop_na = FALSE,
                          values_ptypes = list(),
@@ -136,7 +144,7 @@ pivot_longer <- function(data,
     val_cols[col_id] <- unname(as.list(data[cols]))
     val_cols[-col_id] <- list(rep(NA, nrow(data)))
 
-    val_type <- vec_ptype_common(!!!val_cols, .ptype = values_ptypes[[value]])
+    val_type <- vec_ptype_common(!!!set_names(val_cols, cols), .ptype = values_ptypes[[value]])
     out <- vec_c(!!!val_cols, .ptype = val_type)
     # Interleave into correct order
     idx <- (matrix(seq_len(nrow(data) * length(val_cols)), ncol = nrow(data), byrow = TRUE))
@@ -157,11 +165,14 @@ pivot_longer <- function(data,
 
   # Join together df, spec, and val to produce final tibble
   df_out <- drop_cols(data, spec$.name)
-  vec_cbind(
+  out <- wrap_error_names(vec_cbind(
     vec_slice(df_out, rows$df_id),
     vec_slice(keys, rows$key_id),
     vec_slice(vals, rows$val_id),
-  )
+    .name_repair = names_repair
+  ))
+
+  reconstruct_tibble(data, out)
 }
 
 #' @rdname pivot_longer
@@ -202,6 +213,13 @@ pivot_longer_spec <- function(data, cols,
       values_to <- NULL
     }
   } else {
+    if (!is.null(names_sep)) {
+      abort("`names_sep` can not be used with length-1 `names_to`")
+    }
+    if (!is.null(names_pattern)) {
+      names <- str_extract(names, names_to, regex = names_pattern)[[1]]
+    }
+
     names <- tibble(!!names_to := names)
   }
 

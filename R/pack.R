@@ -1,10 +1,14 @@
 #' Pack and unpack
 #'
+#' @description
+#' \lifecycle{maturing}
+#'
 #' Packing and unpacking preserve the length of a data frame, changing its
 #' width. `pack()` makes `df` narrow by collapsing a set of columns into a
 #' single df-column. `unpack()` makes `data` wider by expanding df-columns
 #' back out into individual columns.
 #'
+#' @details
 #' Generally, unpacking is more useful than packing because it simplifies
 #' a complex data structure. Currently, few functions work with df-cols,
 #' and they are mostly a curiosity, but seem worth exploring further because
@@ -46,7 +50,9 @@ pack <- function(data, ...) {
 
   # TODO: find a different approach that preserves order
   asis <- setdiff(names(data), unlist(cols))
-  vec_cbind(data[asis], new_data_frame(packed, n = nrow(data)))
+  out <- vec_cbind(data[asis], new_data_frame(packed, n = nrow(data)))
+
+  reconstruct_tibble(data, out)
 }
 
 #' @export
@@ -68,7 +74,7 @@ pack <- function(data, ...) {
 #'   * [tidyr_legacy]: use the name repair from tidyr 0.8.
 #'   * a formula: a purrr-style anonymous function (see [rlang::as_function()])
 #'
-#'   See [tibble::name-repair] for more details on these terms and the
+#'   See [vctrs::vec_as_names()] for more details on these terms and the
 #'   strategies used to enforce them.
 unpack <- function(data, cols, names_sep = NULL, names_repair = "check_unique") {
   cols <- tidyselect::vars_select(tbl_vars(data), !!enquo(cols))

@@ -10,21 +10,15 @@
 #' @usage lhs \%>\% rhs
 NULL
 
-regroup <- function(output, input, except = NULL) {
-  groups <- dplyr::group_vars(input)
-  if (!is.null(except)) {
-    groups <- setdiff(groups, except)
-  }
-
-  dplyr::grouped_df(output, groups)
-}
-
 # https://github.com/r-lib/vctrs/issues/211
-reconstruct_tibble <- function(input, output, ungrouped_vars = chr()) {
+reconstruct_tibble <- function(input, output, ungrouped_vars = character()) {
   if (inherits(input, "grouped_df")) {
-    regroup(output, input, ungrouped_vars)
+    old_groups <- dplyr::group_vars(input)
+    new_groups <- intersect(setdiff(old_groups, ungrouped_vars), names(output))
+    dplyr::grouped_df(output, new_groups)
   } else if (inherits(input, "tbl_df")) {
-    as_tibble(output)
+    # Assume name repair carried out elsewhere
+    as_tibble(output, .name_repair = "minimal")
   } else {
     output
   }

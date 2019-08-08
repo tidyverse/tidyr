@@ -13,14 +13,17 @@
 #'   [quasiquotation][rlang::quasiquotation] (you can unquote column
 #'   names or column positions).
 #' @param into Names of new variables to create as character vector.
+#'    Use `NA` to omit the variable in the output.
 #' @param regex a regular expression used to extract the desired values.
 #'   There should be one group (defined by `()`) for each element of `into`.
 #' @param remove If `TRUE`, remove input column from output data frame.
 #' @param convert If `TRUE`, will run [type.convert()] with
 #'   `as.is = TRUE` on new columns. This is useful if the component
 #'   columns are integer, numeric or logical.
-#' @param ... Other arguments passed on to [regexec()] to control
-#'   how the regular expression is processed.
+#'
+#'   NB: this will cause string `"NA"`s to be converted to `NA`s.
+#' @param ... Additional arguments passed on to methods.
+#' @seealso [separate()] to split up by a separator.
 #' @export
 #' @examples
 #' df <- data.frame(x = c(NA, "a-b", "a-d", "b-c", "d-e"))
@@ -60,7 +63,7 @@ str_extract <- function(x, into, regex, convert = FALSE) {
     )
   }
 
-  out <- as_tibble(matches)
+  out <- as_tibble(matches, .name_repair = "minimal")
 
   # Handle duplicated names
   if (anyDuplicated(into)) {

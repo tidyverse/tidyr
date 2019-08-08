@@ -37,6 +37,8 @@ data, filling in missing combinations with \code{fill}.}
 by "<key_name><sep><key_value>".}
 }
 \description{
+\lifecycle{retired}
+
 Development on \code{spread()} is complete, and for new code we recommend
 switching to \code{pivot_wider()}, which is easier to use, more featureful, and
 still under active development.

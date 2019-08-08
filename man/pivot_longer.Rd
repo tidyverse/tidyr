@@ -7,8 +7,8 @@
 \usage{
 pivot_longer(data, cols, names_to = "name", names_prefix = NULL,
   names_sep = NULL, names_pattern = NULL, names_ptypes = list(),
-  values_to = "value", values_drop_na = FALSE,
-  values_ptypes = list(), spec = NULL)
+  names_repair = "check_unique", values_to = "value",
+  values_drop_na = FALSE, values_ptypes = list(), spec = NULL)
 
 pivot_longer_spec(data, cols, names_to = "name", values_to = "value",
   names_prefix = NULL, names_sep = NULL, names_pattern = NULL,
@@ -51,6 +51,12 @@ If not specified, the type of the columns generated from \code{names_to} will
 be character, and the type of the variables generated from \code{values_to}
 will be the common type of the input columns used to generate them.}
 
+\item{names_repair}{What happen if the output has invalid column names?
+The default, \code{"check_unique"} is to error if the columns are duplicated.
+Use \code{"minimal"} to allow duplicates in the output, or \code{"unique"} to
+de-duplicated by adding numeric suffixes. See \code{\link[vctrs:vec_as_names]{vctrs::vec_as_names()}}
+for more options.}
+
 \item{values_to}{A string specifying the name of the column to create
 from the data stored in cell values. If \code{names_to} is a character
 containing the special \code{.value} sentinel, this value will be ignored,
@@ -70,6 +76,8 @@ metadata stored in the column names turns into columns in the result.
 Must be a data frame containing character \code{.name} and \code{.value} columns.}
 }
 \description{
+\lifecycle{maturing}
+
 \code{pivot_longer()} "lengthens" data, increasing the number of rows and
 decreasing the number of columns. The inverse transformation. in
 \code{\link[=pivot_wider]{pivot_wider()}}

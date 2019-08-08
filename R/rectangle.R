@@ -1,6 +1,8 @@
 #' Rectangle a nested list into a tidy tibble
 #'
 #' @description
+#' \lifecycle{maturing}
+#'
 #' `hoist()`, `unnest_longer()`, and `unnest_wider()` provide tools for
 #' rectangling, collapsing deeply nested lists into regular columns.
 #' `hoist()` allows you to selectively pull components of a list-column out
@@ -242,23 +244,30 @@ guess_dir <- function(x, col) {
 
   if (identical(is_null, TRUE)) {
     # all unnamed
-    message(glue::glue("unnest_longer({col}) # no elements have names"))
-    "longer"
+    code <- glue::glue("unnest_longer({col})")
+    reason <- "no element has names"
+    out <- "longer"
   } else if (identical(is_null, FALSE)) {
     # all named
     common <- reduce(names, intersect)
     n_common <- length(common)
     if (n_common == 0) {
-      message(glue::glue("unnest_longer({col}, indices_include = TRUE) # fallback"))
-      "longer_idx"
+      code <- glue::glue("unnest_longer({col}, indices_include = TRUE)")
+      reason <- "elements are named, but have no names in common"
+      out <- "longer_idx"
     } else {
-      message(glue::glue("unnest_wider({col}) # {n_common} names in common"))
-      "wider"
+      code <- glue::glue("unnest_wider({col})")
+      reason <- "elements have {n_common} names in common"
+      out <- "wider"
     }
   } else {
-    message(glue::glue("unnest_longer({col}) # mix of named and unnamed"))
-    "longer"
+    code <- glue::glue("unnest_longer({col})")
+    reason <- "mix of named and unnamed elements"
+    out <- "longer"
   }
+
+  message(glue::glue("Using `{code}`; {reason}"))
+  out
 }
 
 # Helpers -----------------------------------------------------------------

@@ -36,7 +36,9 @@ far-right of the string. The length of \code{sep} should be one less than
 
 \item{convert}{If \code{TRUE}, will run \code{\link[=type.convert]{type.convert()}} with
 \code{as.is = TRUE} on new columns. This is useful if the component
-columns are integer, numeric or logical.}
+columns are integer, numeric or logical.
+
+NB: this will cause string \code{"NA"}s to be converted to \code{NA}s.}
 
 \item{extra}{If \code{sep} is a character vector, this controls what
 happens when there are too many pieces. There are three valid options:

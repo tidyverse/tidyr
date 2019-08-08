@@ -16,3 +16,4 @@
 ^appveyor\.yml$
 ^CRAN-RELEASE$
 ^\.github$
+^vignettes/.*_cache

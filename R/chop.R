@@ -1,10 +1,14 @@
 #' Chop and unchop
 #'
+#' @description
+#' \lifecycle{maturing}
+#'
 #' Chopping and unchopping preserve the width of a data frame, changing its
 #' length. `chop()` makes `df` shorter by converting rows within each group
 #' into list-columns. `unchop()` makes `df` longer by expanding list-columns
 #' so that each element of the list-column gets its own row in the output.
 #'
+#' @details
 #' Generally, unchopping is more useful than chopping because it simplifies
 #' a complex data structure, and [nest()]ing is usually more appropriate
 #' that `chop()`ing` since it better preserves the connections between
@@ -63,7 +67,8 @@ chop <- function(data, cols) {
 
   vals <- map(split$val, ~ new_data_frame(map(.x, list), n = 1L))
 
-  vec_cbind(split$key, vec_rbind(!!!vals))
+  out <- vec_cbind(split$key, vec_rbind(!!!vals))
+  reconstruct_tibble(data, out)
 }
 
 #' @export
@@ -82,7 +87,7 @@ unchop <- function(data, cols, keep_empty = FALSE, ptype = NULL) {
 
   # https://github.com/tidyverse/tibble/issues/580
   x <- pmap(as.list(data)[cols], vec_recycle_common)
-  x <- map(x, ~ as_tibble(drop_null(.x)))
+  x <- map(x, ~ new_data_frame(drop_null(.x)))
 
   n <- map_int(x, vec_size)
   out <- vec_slice(data, rep(vec_seq_along(data), n))
@@ -93,5 +98,6 @@ unchop <- function(data, cols, keep_empty = FALSE, ptype = NULL) {
     new_cols <- vec_rbind(!!!x, .ptype = ptype)
   }
 
-  update_cols(out, new_cols)
+  out <- update_cols(out, new_cols)
+  reconstruct_tibble(data, out)
 }

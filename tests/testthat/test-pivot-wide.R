@@ -31,10 +31,18 @@ test_that("warn when overwriting existing column", {
     key = c("a", "b"),
     val = c(1, 2)
   )
-  expect_message(
+  expect_error(
     pivot_wider(df, names_from = key, values_from = val),
-    "New names"
+    "bad names"
   )
+})
+
+test_that("grouping is preserved", {
+  df <- tibble(g = 1, k = "x", v = 2)
+  out <- df %>%
+    dplyr::group_by(g) %>%
+    pivot_wider(names_from = k, values_from = v)
+  expect_equal(dplyr::group_vars(out), "g")
 })
 
 # keys ---------------------------------------------------------
