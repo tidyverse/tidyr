@@ -59,7 +59,7 @@ chop <- function(data, cols) {
     return(data)
   }
 
-  cols <- tidyselect::vars_select(names(data), !!enquo(cols))
+  cols <- tidyselect::vars_select(tbl_vars(data), !!enquo(cols))
 
   vals <- data[cols]
   keys <- data[setdiff(names(data), cols)]
@@ -74,7 +74,7 @@ chop <- function(data, cols) {
 #' @export
 #' @rdname chop
 unchop <- function(data, cols, keep_empty = FALSE, ptype = NULL) {
-  cols <- tidyselect::vars_select(names(data), !!enquo(cols))
+  cols <- tidyselect::vars_select(tbl_vars(data), !!enquo(cols))
   if (length(cols) == 0) {
     return(data)
   }

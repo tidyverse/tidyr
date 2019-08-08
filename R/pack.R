@@ -45,7 +45,7 @@ pack <- function(data, ...) {
     abort("All elements of `...` must be named")
   }
 
-  cols <- map(cols, ~ tidyselect::vars_select(names(data), !!.x))
+  cols <- map(cols, ~ tidyselect::vars_select(tbl_vars(data), !!.x))
   packed <- map(cols, ~ data[.x])
 
   # TODO: find a different approach that preserves order
@@ -77,7 +77,7 @@ pack <- function(data, ...) {
 #'   See [vctrs::vec_as_names()] for more details on these terms and the
 #'   strategies used to enforce them.
 unpack <- function(data, cols, names_sep = NULL, names_repair = "check_unique") {
-  cols <- tidyselect::vars_select(names(data), !!enquo(cols))
+  cols <- tidyselect::vars_select(tbl_vars(data), !!enquo(cols))
 
   new_cols <- map2(data[cols], cols, check_unpack, names_sep = names_sep)
   data <- update_cols(data, new_cols)

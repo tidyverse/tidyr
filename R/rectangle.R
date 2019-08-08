@@ -207,7 +207,7 @@ unnest_wider <- function(data, col,
                          simplify = TRUE,
                          names_repair = "check_unique",
                          ptype = list()) {
-  col <- tidyselect::vars_select(names(data), !!enquo(col))
+  col <- tidyselect::vars_select(tbl_vars(data), !!enquo(col))
 
   data[[col]][] <- map(data[[col]], vec_to_wide, col = col)
   data <- unchop(data, !!col, keep_empty = TRUE)
@@ -226,7 +226,7 @@ unnest_wider <- function(data, col,
 #' @export
 #' @rdname hoist
 unnest_auto <- function(data, col) {
-  col <- tidyselect::vars_select(names(data), !!enquo(col))
+  col <- tidyselect::vars_select(tbl_vars(data), !!enquo(col))
 
   x <- data[[col]]
   dir <- guess_dir(x, col)

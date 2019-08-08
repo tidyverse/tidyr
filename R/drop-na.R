@@ -15,7 +15,7 @@ drop_na <- function(data, ...) {
 }
 #' @export
 drop_na.data.frame <- function(data, ...) {
-  vars <- unname(tidyselect::vars_select(colnames(data), ...))
+  vars <- unname(tidyselect::vars_select(tbl_vars(data), ...))
 
   if (is_empty(vars)) {
     f <- complete_cases(data)
