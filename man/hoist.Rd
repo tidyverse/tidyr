@@ -77,6 +77,8 @@ together the outer column name with the inner names, separated by
 \code{names_sep}.}
 }
 \description{
+\lifecycle{maturing}
+
 \code{hoist()}, \code{unnest_longer()}, and \code{unnest_wider()} provide tools for
 rectangling, collapsing deeply nested lists into regular columns.
 \code{hoist()} allows you to selectively pull components of a list-column out

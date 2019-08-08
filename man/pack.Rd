@@ -41,6 +41,8 @@ See \link[tibble:name-repair]{tibble::name-repair} for more details on these ter
 strategies used to enforce them.}
 }
 \description{
+\lifecycle{maturing}
+
 Packing and unpacking preserve the length of a data frame, changing its
 width. \code{pack()} makes \code{df} narrow by collapsing a set of columns into a
 single df-column. \code{unpack()} makes \code{data} wider by expanding df-columns

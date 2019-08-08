@@ -1,10 +1,14 @@
 #' Pack and unpack
 #'
+#' @description
+#' \lifecycle{maturing}
+#'
 #' Packing and unpacking preserve the length of a data frame, changing its
 #' width. `pack()` makes `df` narrow by collapsing a set of columns into a
 #' single df-column. `unpack()` makes `data` wider by expanding df-columns
 #' back out into individual columns.
 #'
+#' @details
 #' Generally, unpacking is more useful than packing because it simplifies
 #' a complex data structure. Currently, few functions work with df-cols,
 #' and they are mostly a curiosity, but seem worth exploring further because

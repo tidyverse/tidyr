@@ -26,6 +26,8 @@ overriding the default that will be guessed from the combination of
 individual values.}
 }
 \description{
+\lifecycle{maturing}
+
 Chopping and unchopping preserve the width of a data frame, changing its
 length. \code{chop()} makes \code{df} shorter by converting rows within each group
 into list-columns. \code{unchop()} makes \code{df} longer by expanding list-columns

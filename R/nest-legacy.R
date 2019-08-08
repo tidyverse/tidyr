@@ -1,6 +1,8 @@
 #' Legacy versions of `nest()` and `unnest()`
 #'
 #' @description
+#' \lifecycle{retired}
+#'
 #' tidyr 1.0.0 introduced a new syntax for [nest()] and [unnest()]. The majority
 #' of existing usage should be automatically translated to the new syntax with a
 #' warning. However, if you need to quickly roll back to the previous behaviour,

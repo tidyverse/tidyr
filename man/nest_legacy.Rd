@@ -42,6 +42,8 @@ will be duplicated in the same way as atomic vectors. This has
 \code{.preserve = c(x, y)} or \code{.preserve = starts_with("list")}.}
 }
 \description{
+\lifecycle{retired}
+
 tidyr 1.0.0 introduced a new syntax for \code{\link[=nest]{nest()}} and \code{\link[=unnest]{unnest()}}. The majority
 of existing usage should be automatically translated to the new syntax with a
 warning. However, if you need to quickly roll back to the previous behaviour,

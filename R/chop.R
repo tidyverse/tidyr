@@ -1,10 +1,14 @@
 #' Chop and unchop
 #'
+#' @description
+#' \lifecycle{maturing}
+#'
 #' Chopping and unchopping preserve the width of a data frame, changing its
 #' length. `chop()` makes `df` shorter by converting rows within each group
 #' into list-columns. `unchop()` makes `df` longer by expanding list-columns
 #' so that each element of the list-column gets its own row in the output.
 #'
+#' @details
 #' Generally, unchopping is more useful than chopping because it simplifies
 #' a complex data structure, and [nest()]ing is usually more appropriate
 #' that `chop()`ing` since it better preserves the connections between
