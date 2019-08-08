@@ -19,7 +19,7 @@ unnest(data, cols, ..., keep_empty = FALSE, ptype = NULL,
 that describe how you wish to nest existing columns into new columns.
 The right hand side can be any expression supported by tidyselect.
 
-\strong{Deprecated}: previously you could write \code{df \%>\% nest(x, y, z)}
+\lifecycle{deprecated}: previously you could write \code{df \%>\% nest(x, y, z)}
 and \code{df \%>\% unnest(x, y, z)}. Convert to \code{df \%>\% nest(data = c(x, y, z))}.
 and \code{df \%>\% unnest(c(x, y, z))}.
 
@@ -27,7 +27,7 @@ If you previously created new variable in \code{unnest()} you'll now need to
 do it explicitly with \code{mutate()}. Convert \code{df \%>\% unnest(y = fun(x, y, z))}
 to \code{df \%>\% mutate(y = fun(x, y, z)) \%>\% unnest(y)}.}
 
-\item{.key}{\strong{Deprecated}: No longer needed because of the updated \code{...}
+\item{.key}{\lifecycle{deprecated}: No longer needed because of the updated \code{...}
 syntax.}
 
 \item{data}{A data frame.}
@@ -65,7 +65,7 @@ names. Must be one of the following options:
 \item a formula: a purrr-style anonymous function (see \code{\link[rlang:as_function]{rlang::as_function()}})
 }
 
-See \link[tibble:name-repair]{tibble::name-repair} for more details on these terms and the
+See \code{\link[vctrs:vec_as_names]{vctrs::vec_as_names()}} for more details on these terms and the
 strategies used to enforce them.}
 
 \item{.drop, .preserve}{\lifecycle{deprecated} all list-columns are now preserved;

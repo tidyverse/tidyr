@@ -74,7 +74,7 @@ pack <- function(data, ...) {
 #'   * [tidyr_legacy]: use the name repair from tidyr 0.8.
 #'   * a formula: a purrr-style anonymous function (see [rlang::as_function()])
 #'
-#'   See [tibble::name-repair] for more details on these terms and the
+#'   See [vctrs::vec_as_names()] for more details on these terms and the
 #'   strategies used to enforce them.
 unpack <- function(data, cols, names_sep = NULL, names_repair = "check_unique") {
   cols <- tidyselect::vars_select(names(data), !!enquo(cols))
