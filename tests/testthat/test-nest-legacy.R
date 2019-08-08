@@ -171,14 +171,21 @@ test_that("unnest has mutate semantics", {
 })
 
 test_that(".id creates vector of names for vector unnest", {
-  df <- tibble(x = 1:2, y = list(a = 1, b = 1:2))
+  df <- tibble(x = 1:2, y = list(1, 1:2))
+  # tidyverse/tibble#630
+  names(df$y) <- c("a", "b")
+
   out <- unnest_legacy(df, .id = "name")
 
   expect_equal(out$name, c("a", "b", "b"))
 })
 
 test_that(".id creates vector of names for grouped vector unnest", {
-  df <- tibble(x = 1:2, y = list(a = 1, b = 1:2)) %>%
+  df <- tibble(x = 1:2, y = list(1, 1:2))
+  # tidyverse/tibble#630
+  names(df$y) <- c("a", "b")
+
+  df <- df %>%
     dplyr::group_by(x)
   out <- unnest_legacy(df, .id = "name")
 
@@ -186,20 +193,31 @@ test_that(".id creates vector of names for grouped vector unnest", {
 })
 
 test_that(".id creates vector of names for data frame unnest", {
-  df <- tibble(x = 1:2, y = list(
-    a = tibble(y = 1),
-    b = tibble(y = 1:2)
-  ))
+  df <- tibble(
+    x = 1:2,
+    y = list(
+      a = tibble(y = 1),
+      b = tibble(y = 1:2)
+    )
+  )
+  # tidyverse/tibble#630
+  names(df$y) <- c("a", "b")
   out <- unnest_legacy(df, .id = "name")
 
   expect_equal(out$name, c("a", "b", "b"))
 })
 
 test_that(".id creates vector of names for grouped data frame unnest", {
-  df <- tibble(x = 1:2, y = list(
-    a = tibble(y = 1),
-    b = tibble(y = 1:2)
-  )) %>%
+  df <- tibble(
+    x = 1:2,
+    y = list(
+      a = tibble(y = 1),
+      b = tibble(y = 1:2)
+    )
+  )
+  # tidyverse/tibble#630
+  names(df$y) <- c("a", "b")
+  df <- df %>%
     dplyr::group_by(x)
   out <- unnest_legacy(df, .id = "name")
 

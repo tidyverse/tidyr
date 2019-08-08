@@ -271,7 +271,9 @@ test_that(".drop and .preserve are deprecated", {
 })
 
 test_that(".id creates vector of names for vector unnest", {
-  df <- tibble(x = 1:2, y = list(a = 1, b = 1:2))
+  df <- tibble(x = 1:2, y = list(1, 1:2))
+  # tidyverse/tibble#630
+  names(df$y) <- c("a", "b")
   out <- expect_warning(unnest(df, y, .id = "name"), "names")
 
   expect_equal(out$name, c("a", "b", "b"))
