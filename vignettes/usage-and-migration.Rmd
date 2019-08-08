@@ -109,24 +109,11 @@ Revdep effort for v0.8.3 --> v.1.0.0
   * revdep folder: <https://github.com/tidyverse/tidyr/tree/master/revdep>
   * spreadsheet: <https://docs.google.com/spreadsheets/d/13XXN8sepsc0Ftl5nVz4YdJCONbD_k00HOZUxbPosThM/edit#gid=0>
 
-What needs to be done to make the tidyselect helpers available inside a package?
-
-Do we mention or even hammer on the phrase "select semantics"?
-
-Opinionated review of these measures re: undefined global variables NOTE:
-
-  * `globalVariables(c("this", "that", "the_other"))`. Do for every col name? Pick a handful of names and reuse them?
-  * Set `thing <- NULL` (and then `rm(thing)`?) Where? In each function? Close to the usage or at the top? Or do this in some package-wide place?
-  * Always use the name of an obscure function in the base namespace (lol, jk)
-  * In a package, there may already be a precedent re: the above tricks. In which case our advice should be tempered by an assessment of current reality. If you've already crossed the `globalVariables()` or `thingy <- NULL` Rubicon, why not keep going?
-
 Examples of `{{ }}` and `enquo()` + `!!` in tidyr-specific examples? Placeholder at the end.
 
 I have not inlined any examples of conditional code for v0.8.3 vs v1.0.0.
 
 No coverage yet of `nest_legacy()` and `unnest_legacy()`.
-
-No coverage yet of the `.data` pronoun. It doesn't feel as natural with tidyr as it is in other packages, because the list-column is *also* often named `data` or `.data`. So you can legitimately end up with a call to `unnest(data, .data$data)`.
 
 We need to add any error messages or `R CMD check` failures that are characteristic of each migration issue below.
 
