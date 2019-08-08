@@ -23,7 +23,8 @@ This vignette serves two distinct, but related, purposes:
   
 * It describes migration patterns for the transition from tidyr v0.8.3 to 
   v1.0.0. This release includes breaking changes to `nest()` and `unnest()`
-  in order to increase consistency within tidyr.
+  in order to increase consistency within tidyr and with the rest of the
+  tidyverse.
 
 Before we go on, we'll attach the packages we use, expose the version of tidyr, and make a small dataset to use in examples.
 
@@ -39,19 +40,19 @@ library(purrr)
 
 ## Using tidyr in packages
 
-Compared to dplyr and ggplot2, most tidyr functions have __select semantics__, not the more common mutate semantics. This means that you typically provide tidyr functions with an expression that works with column names (like `starts_with("x")` or `a:c`) not with column values (like `y = x * 2`), so the way that you use them within a package wrap is a little different.
+Compared to dplyr and ggplot2, most tidyr functions have __select semantics__, not the more common mutate semantics. This means that you typically provide tidyr functions with an expression that works with column names (like `starts_with("x")` or `a:c`) not with column values (like `y = x * 2`). As a consequence, it's worthwhile to clarify the best patterns for calling tidyr functions inside another package.
 
 There are three main cases that you'll encounter:
 
 * The column names are fixed: use `one_of("col1", "col2", "col3")`.
 
-* The columns names are in a character vector: use `one_of(cols)`.
+* The column names are in a character vector: use `one_of(cols)`.
 
-* The user specify the column names using select syntax: use `{{ cols }}`.
+* The column names are specified by the user, using select syntax: use `{{ cols }}`.
 
 ### Fixed column names
 
-If you know the names of the columns, the code works in the same way in and out of a package:
+If you know the column names, this code works in the same way, in and out of a package:
 
 ```{r}
 mini_iris %>% nest(
@@ -60,9 +61,9 @@ mini_iris %>% nest(
 )
 ```
 
-But `R CMD check` will warn about undefined global variables (`Petal.Length`, `Petal.Width`, `Sepal.Length`, and `Sepal.Width`) because it doesn't know that `nest()` is looking for the variables inside of `mini_iris`.
+But `R CMD check` will warn about undefined global variables (`Petal.Length`, `Petal.Width`, `Sepal.Length`, and `Sepal.Width`), because it doesn't know that `nest()` is looking for the variables inside of `mini_iris`.
 
-The easiest way to silence this note is to use `one_of()`. `one_of()` is a tidyselect helper (like `starts_with()`, `ends_with()`, etc) that takes column names stored as strings:
+The easiest way to silence this note is to use `one_of()`. `one_of()` is a tidyselect helper (like `starts_with()`, `ends_with()`, etc.) that takes column names stored as strings:
 
 ```{r}
 mini_iris %>% nest(
@@ -71,9 +72,11 @@ mini_iris %>% nest(
 )
 ```
 
+The [tidyselect](https://tidyselect.r-lib.org) package offers an entire family of select helpers. You are probably already familiar with them from using `dplyr::select()`.
+
 ### Column names in a character vector
 
-If the column names are in a character vector (possibly from a function call), you can use `one_of()`, as above:
+If the column names are in a character vector (possibly from a function call), you can provide that to `one_of()`, as above:
 
 ```{r}
 nest_egg <- function(data, cols) {
@@ -83,16 +86,17 @@ nest_egg <- function(data, cols) {
 nest_egg(mini_iris, c("Petal.Length", "Petal.Width", "Sepal.Length", "Sepal.Width"))
 ```
 
-The use of `one_of()` here is important; if you don't use it, and `data` contains a column called `cols`, `nest()` will use it instead of the variables that you've supplied.
+The use of `one_of()` here is important; if you don't use it, and `data` contains a column named `cols`, `nest()` will nest it instead of the columns named in `cols`.
 
 ### tidyselect interface
 
-To provide an interface that works like the tidyr function that you're wrapping, you'll can pass the argument along using `{{ arg }}`. `{{ }}` is a special tidy eval operator that captures the expression supplied by the user and forwards it to another tidy eval-enabled function.
+To provide an interface that works like the tidyr function that you're wrapping, you should pass the argument along using `{{ arg }}`. `{{ }}` is a special tidy eval operator that captures the expression supplied by the user and forwards it to another tidy eval-enabled function.
 
 ```{r}
 nest_egg <- function(df, cols) {
   nest(df, egg = {{ cols }})
 }
+
 nest_egg(mini_iris, -Species)
 ```
 
@@ -102,14 +106,15 @@ For more complicated functions, you might want to use tidyselect directly:
 sel_vars <- function(df, cols) {
   tidyselect::vars_select(names(df), {{ cols }})
 }
+
 sel_vars(mini_iris, -Species)
 ```
 
 (Many tidyr functions use `...` so you can easily select many variables, e.g. `fill(df, x, y, z)`. I now believe that the disadvantages of this approach outweigh the benefits, and that this interface would have been better as `fill(df, c(x, y, z))`. For new functions that select columns, please just use a single argument and not `...`.)
 
-If you decide to support tidyselect syntax, I'd recomend also re-exporting the select helpers so that users can use (e.g.) `starts_with()` without any extra work. There's no helper to [do this yet](https://github.com/r-lib/usethis/issues/868), but you can copy-and-paste the code that [tidyr uses](https://github.com/tidyverse/tidyr/blob/00a66b44d2f304a73e953dd73139db61ed9cc289/R/tidyr.R#L29-L53).
+If you decide to support tidyselect syntax, I recommend re-exporting the select helpers so that users can use (e.g.) `starts_with()` without any extra work. There's no helper to [do this yet](https://github.com/r-lib/usethis/issues/868), but you can copy-and-paste the code that [tidyr uses](https://github.com/tidyverse/tidyr/blob/00a66b44d2f304a73e953dd73139db61ed9cc289/R/tidyr.R#L29-L53).
 
-### Travis
+### Travis-CI
 
 Hopefully you've already adopted continuous integration for your package, in which `R CMD check` (which includes your own tests) is run on a regular basis, e.g. every time you push changes to your package's source on GitHub or similar. The tidyverse team currently relies most heavily on Travis-CI for this, so that will be our example. `usethis::use_travis()` can help you get started.
 
@@ -122,7 +127,8 @@ We recommend adding a build to your matrix that targets the devel version of tid
   
 * Right before a tidyr release? For everyone else, you could just add a 
   tidyr-devel build during the period preceding a major tidyr release that has 
-  the potential for breaking changes.
+  the potential for breaking changes, especially if you've been contacted during
+  our reverse dependency checks.
 
 Example of `.travis.yml` config that tests against R devel, release, and oldrel, assesses test coverage, and includes a build against devel tidyr:
 
@@ -150,15 +156,15 @@ v1.0.0 (aka v0.8.99.9000) makes considerable changes to the interface of `nest()
 
 Ideally, you'll tweak your package so that it works with both tidyr 0.8.3 and tidyr 1.0.0. This makes life considerably easier because it means there's no need to coordinate CRAN submissions - you can submit your package that works with both tidyr versions, before I submit tidyr to CRAN. This section describes our recommend practices for doing so, drawing from the general principles described in <https://principles.tidyverse.org/changes-multivers.html>.
 
-If you use travis already, we **strongly** recommend adding a build that tests with the development version of tidyr; see above for details.
+If you use Travis-CI already, we **strongly** recommend adding a build that tests with the development version of tidyr; see above for details.
 
-This section briefly describes how to run different code for different version of tidyr, then goes through the major changes that might require workarounds: 
+This section briefly describes how to run different code for different versions of tidyr, then goes through the major changes that might require workarounds: 
 
 * `nest()` and `unnest()` get new interfaces.
 * `nest()` preserves groups.
 * `nest_()` and `unnest_()` are defunct.
 
-If you're struggling with an problem that's not described here, please reach out via [github](https://github.com/tidyverse/tidyr/issues/new) or [email](hadley@rstudio.com) so we can help out.
+If you're struggling with a problem that's not described here, please reach out via [github](https://github.com/tidyverse/tidyr/issues/new) or [email](hadley@rstudio.com) so we can help out.
 
 ### Conditional code
 
@@ -172,7 +178,7 @@ tidyr_new_interface <- function() {
 }
 ```
 
-We highly recommend keeping this as a function because it provides an obvious place to jot any transition notes for your package, and it makes it easier to remove transitional code later on.
+We highly recommend keeping this as a function because it provides an obvious place to jot any transition notes for your package, and it makes it easier to remove transitional code later on. Another benefit is that the tidyr version is determined at *run time*, not at *build time*, and will therefore detect your user's current tidyr version.
 
 Then in your functions, you use an `if` statement to call different code for different versions:
 
@@ -182,17 +188,17 @@ my_function_inside_a_package <- function(...)
 
   if (tidyr_new_interface()) {
     # Freshly written code for v1.0.0
-    out <- tidyr::nest_legacy(df, x, y, z)
+    out <- tidyr::nest(df, data = one_of("x", "y", "z"))
   } else {
     # Existing code for v0.8.3
-    out <- tidyr::nest(df, c(x, y, z))
+    out <- tidyr::nest(df, x, y, z)
   }
 
   # more code here
 }
 ```
 
-If your new code uses a function that only exists in tidyr 1.0.0, you will get an `R CMD check` `NOTE`: this is one of the few notes that you can explain in your CRAN submission comments. Just mention that it's for forward compatibility with tidyr 1.0.0, and CRAN will let your package through.
+If your new code uses a function that only exists in tidyr 1.0.0, you will get a `NOTE` from `R CMD check`: this is one of the few notes that you can explain in your CRAN submission comments. Just mention that it's for forward compatibility with tidyr 1.0.0, and CRAN will let your package through.
 
 ### New syntax for `nest()`
 
@@ -235,13 +241,13 @@ mini_iris %>%
   nest(my_data = -one_of("Species"))
 ```
 
-If you need a quick and dirty fix with having to think, just call `nest_legacy()` instead of `nest()`. It's the same as `nest()` in v0.8.3:
+If you need a quick and dirty fix without having to think, just call `nest_legacy()` instead of `nest()`. It's the same as `nest()` in v0.8.3:
 
 ```{r, eval = FALSE}
 if (tidyr_new_interface()) {
   out <- tidyr::nest_legacy(df, x, y, z)
 } else {
-  out <- tidyr::nest(df, c(x, y, z))
+  out <- tidyr::nest(df, x, y, z)
 }
 ```
 
@@ -258,7 +264,8 @@ What changed:
   to disambiguate duplicated names. Use `names_repair = tidyr_legacy` to 
   request the previous approach.
 
-* `.id` has been duplicated because it's easily replicated outside of unnest.
+* `.id` has been deprecated because it can be easily replaced by creating the column
+  of names prior to `unnest()`, e.g. with an upstream call to `mutate()`.
 
     ```{r, eval = FALSE}
     # v0.8.3
@@ -292,7 +299,7 @@ nested %>% unnest()
 nested %>% unnest(one_of("my_data"))
 ```
 
-If you are pressed for time, and need a quick fix, call `unnest_legacy()` instead of `unnest()`. It's the same as `unnest()` in v0.8.3:
+If you need a quick and dirty fix without having to think, just call `unnest_legacy()` instead of `unnest()`. It's the same as `unnest()` in v0.8.3:
 
 ```{r, eval = FALSE}
 if (tidyr_new_interface()) {
@@ -310,7 +317,9 @@ What changed:
 
 Why it changed:
 
-* To be more consistent with other functions.
+* To reflect the growing support for grouped data frames, especially in recent
+  releases of dplyr. See, for example, `dplyr::group_modify()`, `group_map()`,
+  and friends.
 
 If the fact that `nest()` now preserves groups is problematic downstream, you have a few choices:
 
@@ -321,7 +330,7 @@ If the fact that `nest()` now preserves groups is problematic downstream, you ha
   `group_by()` call and specify which columns should be nested versus not 
   nested directly in `nest()`.
 
-* Adjust the downstream code to accomodate grouping.
+* Adjust the downstream code to accommodate grouping.
 
 Imagine we used `group_by()` then `nest()` on `mini_iris`, then we computed on the list-column *outside the data frame*.
 
@@ -346,7 +355,7 @@ df %>%
   mutate(n_rows = map_int(data, nrow))
 ```
 
-If, somehow, the grouping seems approriate AND working inside the data frame is not an option, `tibble::add_column()` is group-unaware. It lets you add external data to a grouped data frame.
+If, somehow, the grouping seems appropriate AND working inside the data frame is not an option, `tibble::add_column()` is group-unaware. It lets you add external data to a grouped data frame.
 
 ```{r}
 df %>% 
@@ -361,8 +370,11 @@ What changed:
 
 Why it changed:
 
-* We are gradually remove support for the old lazyeval framework in favour of 
-  the more powerful tidy eval.
+* We are transitioning the whole tidyverse to the powerful tidy eval framework.
+  Therefore, we are gradually removing all previous solutions:
+  - Specialized standard evaluation versions of functions, e.g., `foo_()` as a
+    complement to `foo()`.
+  - The older lazyeval framework.
   
 Before and after:
 
@@ -378,7 +390,7 @@ nested %>% unnest_(~ my_data)
 
 # v1.0.0
 mini_iris %>% 
-  nest(my_data = one_of(c("Sepal.Length", "Sepal.Width", "Petal.Length", "Petal.Width")))
+  nest(my_data = one_of("Sepal.Length", "Sepal.Width", "Petal.Length", "Petal.Width"))
 
 nested %>% unnest(one_of("my_data"))
 ```
