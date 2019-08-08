@@ -2,6 +2,9 @@
 
 #' Deprecated SE versions of main verbs
 #'
+#' @description
+#' \lifecycle{deprecated}
+#'
 #' tidyr used to offer twin versions of each verb suffixed with an
 #' underscore. These versions had standard evaluation (SE) semantics:
 #' rather than taking arguments by code, like NSE verbs, they took
@@ -30,6 +33,7 @@ complete.default <- function(data, ..., fill = list()) {
 #' @inheritParams complete
 #' @export
 complete_ <- function(data, cols, fill = list(), ...) {
+  lifecycle::deprecate_warn("1.0.0", "complete_()", "complete()")
   UseMethod("complete_")
 }
 #' @export
@@ -45,6 +49,7 @@ drop_na.default <- function(data, ...) {
 #' @rdname deprecated-se
 #' @export
 drop_na_ <- function(data, vars) {
+  lifecycle::deprecate_warn("1.0.0", "drop_na_()", "drop_na()")
   UseMethod("drop_na_")
 }
 #' @export
@@ -61,6 +66,7 @@ expand.default <- function(data, ...) {
 #' @param expand_cols Character vector of column names to be expanded.
 #' @export
 expand_ <- function(data, dots, ...) {
+  lifecycle::deprecate_warn("1.0.0", "expand_()", "expand()")
   UseMethod("expand_")
 }
 #' @export
@@ -72,6 +78,7 @@ expand_.data.frame <- function(data, dots, ...) {
 #' @param x For `nesting_` and `crossing_` a list of variables.
 #' @export
 crossing_ <- function(x) {
+  lifecycle::deprecate_warn("1.0.0", "crossing_()", "crossing()")
   x <- compat_lazy_dots(x, caller_env())
   crossing(!!! x)
 }
@@ -99,6 +106,7 @@ extract.default <- function(data, col, into, regex = "([[:alnum:]]+)",
 #' @export
 extract_ <- function(data, col, into, regex = "([[:alnum:]]+)", remove = TRUE,
                       convert = FALSE, ...) {
+  lifecycle::deprecate_warn("1.0.0", "extract_()", "extract()")
   UseMethod("extract_")
 }
 #' @export
@@ -178,12 +186,10 @@ gather_.data.frame <- function(data, key_col, value_col, gather_cols,
 
 #' @rdname deprecated-se
 #' @inheritParams nest
-#' @param key_col Name of the column that will contain the nested data frames.
-#' @param nest_cols Character vector of columns to nest.
 #' @keywords internal
 #' @export
 nest_ <- function(...) {
-  .Defunct("nest")
+  lifecycle::deprecate_stop("1.0.0", "nest_()", "nest()")
 }
 
 #' @export
@@ -305,10 +311,9 @@ unite_.data.frame <- function(data, col, from, sep = "_", remove = TRUE) {
 
 #' @rdname deprecated-se
 #' @inheritParams unnest
-#' @param unnest_cols Name of columns that needs to be unnested.
 #' @export
 unnest_ <- function(...) {
-  .Defunct("unnest")
+  lifecycle::deprecate_stop("1.0.0", "unnest_()", "unnest()")
 }
 
 # nocov end
