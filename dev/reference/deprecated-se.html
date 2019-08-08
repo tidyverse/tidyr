@@ -33,14 +33,19 @@
 
 <meta property="og:title" content="Deprecated SE versions of main verbs — deprecated-se" />
 
-<meta property="og:description" content="tidyr used to offer twin versions of each verb suffixed with an
+<meta property="og:description" content="
+tidyr used to offer twin versions of each verb suffixed with an
 underscore. These versions had standard evaluation (SE) semantics:
 rather than taking arguments by code, like NSE verbs, they took
 arguments by value. Their purpose was to make it possible to
 program with tidyr. However, tidyr now uses tidy evaluation
 semantics. NSE verbs still capture their arguments, but you can now
 unquote parts of these arguments. This offers full programmability
-with NSE verbs. Thus, the underscored versions are now superfluous." />
+with NSE verbs. Thus, the underscored versions are now superfluous.
+Unquoting triggers immediate evaluation of its operand and inlines
+the result within the captured expression. This result can be a
+value or an expression to be evaluated later with the rest of the
+argument. See vignette(&quot;programming&quot;, &quot;dplyr&quot;) for more information." />
 
 <meta property="og:image" content="https://tidyr.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -144,7 +149,8 @@ with NSE verbs. Thus, the underscored versions are now superfluous." />
 
     <div class="ref-description">
     
-    <p>tidyr used to offer twin versions of each verb suffixed with an
+    <p><img src='figures/lifecycle-deprecated.svg' alt='Deprecated lifecycle' /></p>
+<p>tidyr used to offer twin versions of each verb suffixed with an
 underscore. These versions had standard evaluation (SE) semantics:
 rather than taking arguments by code, like NSE verbs, they took
 arguments by value. Their purpose was to make it possible to
@@ -152,6 +158,10 @@ program with tidyr. However, tidyr now uses tidy evaluation
 semantics. NSE verbs still capture their arguments, but you can now
 unquote parts of these arguments. This offers full programmability
 with NSE verbs. Thus, the underscored versions are now superfluous.</p>
+<p>Unquoting triggers immediate evaluation of its operand and inlines
+the result within the captured expression. This result can be a
+value or an expression to be evaluated later with the rest of the
+argument. See <code><a href='https://dplyr.tidyverse.org/articles/programming.html'>vignette("programming", "dplyr")</a></code> for more information.</p>
     
     </div>
 
@@ -303,29 +313,10 @@ data, filling in missing combinations with <code>fill</code>.</p></td>
       <td><p>Character vector of column names to be expanded.</p></td>
     </tr>
     <tr>
-      <th>key_col</th>
-      <td><p>Name of the column that will contain the nested data frames.</p></td>
-    </tr>
-    <tr>
-      <th>nest_cols</th>
-      <td><p>Character vector of columns to nest.</p></td>
-    </tr>
-    <tr>
       <th>key_col, value_col</th>
       <td><p>Strings giving names of key and value cols.</p></td>
     </tr>
-    <tr>
-      <th>unnest_cols</th>
-      <td><p>Name of columns that needs to be unnested.</p></td>
-    </tr>
     </table>
-    
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
-
-    <p>Unquoting triggers immediate evaluation of its operand and inlines
-the result within the captured expression. This result can be a
-value or an expression to be evaluated later with the rest of the
-argument. See <code><a href='https://dplyr.tidyverse.org/articles/programming.html'>vignette("programming", "dplyr")</a></code> for more information.</p>
     
 
   </div>
@@ -333,9 +324,7 @@ argument. See <code><a href='https://dplyr.tidyverse.org/articles/programming.ht
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#details">Details</a></li>
-          </ul>
+                </ul>
 
   </div>
 </div>

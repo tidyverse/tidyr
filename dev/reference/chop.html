@@ -33,7 +33,8 @@
 
 <meta property="og:title" content="Chop and unchop — chop" />
 
-<meta property="og:description" content="Chopping and unchopping preserve the width of a data frame, changing its
+<meta property="og:description" content="
+Chopping and unchopping preserve the width of a data frame, changing its
 length. chop() makes df shorter by converting rows within each group
 into list-columns. unchop() makes df longer by expanding list-columns
 so that each element of the list-column gets its own row in the output." />
@@ -140,7 +141,8 @@ so that each element of the list-column gets its own row in the output." />
 
     <div class="ref-description">
     
-    <p>Chopping and unchopping preserve the width of a data frame, changing its
+    <p><a href='https://www.tidyverse.org/lifecycle/#maturing'><img src='figures/lifecycle-maturing.svg' alt='Maturing lifecycle'></a></p>
+<p>Chopping and unchopping preserve the width of a data frame, changing its
 length. <code>chop()</code> makes <code>df</code> shorter by converting rows within each group
 into list-columns. <code>unchop()</code> makes <code>df</code> longer by expanding list-columns
 so that each element of the list-column gets its own row in the output.</p>
@@ -281,7 +283,7 @@ observations.</p>
 #&gt;  49. │                                     ├─base::withVisible(function_list[[k]](value))
 #&gt;  50. │                                     └─function_list[[k]](value)
 #&gt;  51. │                                       └─tidyr::unchop(., y)
-#&gt;  52. │                                         └─vctrs::vec_rbind(!!!x, .ptype = ptype) /home/travis/build/tidyverse/tidyr/R/chop.R:94:4
+#&gt;  52. │                                         └─vctrs::vec_rbind(!!!x, .ptype = ptype) /home/travis/build/tidyverse/tidyr/R/chop.R:98:4
 #&gt;  53. ├─vctrs:::vec_type2_dispatch(x = x, y = y, x_arg = x_arg, y_arg = y_arg)
 #&gt;  54. ├─vctrs::vec_ptype2.character(x = x, y = y, x_arg = x_arg, y_arg = y_arg)
 #&gt;  55. └─vctrs:::vec_ptype2.character.default(...)
