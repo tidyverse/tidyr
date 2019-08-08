@@ -12,18 +12,26 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
+options(tidyverse.quiet = TRUE)
 ```
+
+Attach the tidyverse, expose the tidyr version, and make a little dataset we can use in lots of examples.
 
 ```{r setup}
-library(tidyr)
+library(tidyverse)
+packageVersion("tidyr")
+
+(mini_iris <- iris %>% 
+    as_tibble() %>% 
+    slice(c(1, 2, 51, 52, 101, 102)))
 ```
 
-This guide serves two distinct-but-related purposes:
+This guide serves two distinct, but related, purposes:
 
   * Recommend best practices to maintainers of external packages that depend on tidyr. This is inspired by a similar guide in the development version of ggplot2: [Using ggplot2 in packages](https://ggplot2.tidyverse.org/dev/articles/ggplot2-in-packages.html).
   * Describe migration patterns for the transition from tidyr v0.8.3 to v1.0.0. This is a more time-dependent topic, but is handled here because it has considerable overlap with the first point.
 
-## Stuff handy during development of this document
+## Links or notes for development of this document
 
 Revdep effort for v0.8.3 --> v.1.0.0
 
@@ -32,25 +40,231 @@ Revdep effort for v0.8.3 --> v.1.0.0
   * revdep folder: <https://github.com/tidyverse/tidyr/tree/master/revdep>
   * spreadsheet: <https://docs.google.com/spreadsheets/d/13XXN8sepsc0Ftl5nVz4YdJCONbD_k00HOZUxbPosThM/edit#gid=0>
 
+What needs to be done to make the tidyselect helpers available inside a package?
+
+Do we mention or even hammer on the phrase "select semantics"?
+
+Opinionated review of these measures re: undefined global variables NOTE:
+
+  * `globalVariables(c("this", "that", "the_other"))`. Do for every col name? Pick a handful of names and reuse them?
+  * Set `thing <- NULL` (and then `rm(thing)`?) Where? In each function? Close to the usage or at the top? Or do this in some package-wide place?
+  * Always use the name of an obscure function in the base namespace (lol, jk)
+  * In a package, there may already be a precedent re: the above tricks. In which case our advice should be tempered by an assessment of current reality. If you've already crossed the `globalVariables()` or `thingy <- NULL` Rubicon, why not keep going?
+
+Examples of `{{ }}` and `enquo()` + `!!` in tidyr-specific examples? Placeholder at the end.
+
+I have not inlined any examples of conditional code for v0.8.3 vs v1.0.0.
+
+No coverage yet of `nest_legacy()` and `unnest_legacy()`.
+
 *dump unplaced thoughts and todo's here*
 
 ## Satisfying joint constraints
 
-We will consider whether the code:
+Package maintainers are subject to multiple constraints that are in some tension with each other. As we write or migrate code, we must consider whether it:
 
   * Works with tidyr v1.0.0.
-    - Implications for a package: your package won't start failing on CRAN and for users when tidyr updates.
+    - Benefits in a package: your package won't start failing on CRAN and for your users, when tidyr updates.
   * Also works with tidyr v0.8.3.
-    - Implications for a package: you can submit your update to CRAN now. Your users will enjoy some reasonable period of backward/forward compatibility w.r.t. their installed version of tidyr.
+    - Benefits in a package: you can submit your update to CRAN now. Your users will appreciate a reasonable period of backward/forward compatibility w.r.t. their installed version of tidyr.
   * Does not cause NOTEs or WARNINGs in `R CMD check`.
+    - Benefits in a package: your package passes CRAN's incoming checks.
+    
+Sometimes you can write code that works with v0.8.3 and v1.0.0. But this often forces you to write code that's not particularly natural for either version and you'd be better off to (temporarily) have separate code paths, each containing non-contrived code. You get to re-use your existing code in the "old" branch, which will eventually be phased out, and write clean, forward-looking code in the "new" branch.
 
 ## `nest()`
 
+Specify the name of the new list-column (`my_data`, here) and the columns to nest like so:
+
+```{r}
+mini_iris %>% 
+  nest(my_data = c(Sepal.Length, Sepal.Width, Petal.Length, Petal.Width))
+```
+
+Here's the previous syntax to do the same:
+
+```{r eval = FALSE}
+# syntax to get same in tidyr v0.8.3
+mini_iris %>% 
+  nest(Sepal.Length, Sepal.Width, Petal.Length, Petal.Width, .key = "my_data")
+```
+
+What changed:
+
+  * The to-be-nested columns are no longer accepted as "loose parts".
+  * The new list-column's name is no longer provided via the `.key` argument.
+  * Now we use a construct like this: `new_col = <something about existing cols>`.
+  
+Why it changed:
+
+  * The use of `...` to make data is a problematic pattern we're moving away from. <https://principles.tidyverse.org/dots-data.html>
+  * *Is there anything to point to re: deprecating the `.key` argument specifically? It's sort of a natural consequence of the other decision, but also not 100% implied.* 
+
+### More ways to specify the columns
+
+Listing the to-be-nested columns individually is quite verbose. You can also use the [tidyselect helpers](https://tidyselect.r-lib.org/reference/select_helpers.html):
+
+```{r}
+mini_iris %>% 
+  nest(my_data = matches("Sepal|Petal"))
+
+mini_iris %>% 
+  nest(my_data = matches("Length|Width"))
+
+mini_iris %>% 
+  nest(my_data = contains("."))
+```
+
+Note that it is generally rewarding to use the tidyselect helpers inside packages. It designs away an `R CMD check` NOTE about undefined global variables that is otherwise triggered by unquoted column names.
+
+Sometimes it's easier to work the problem from the other direction, i.e. to specify the column(s) that do not get nested (`Species`, here).
+
+```{r}
+mini_iris %>% 
+  nest(my_data = -Species)
+
+mini_iris %>% 
+  nest(my_data = -one_of("Species"))
+```
+
+Again, in a script it's convenient to write `-Species`, whereas `-one_of("Species")`  works better in a package.
+
+You can also formally group, in the dplyr sense, then nest. Note this now returns a **grouped** data frame, whereas in tidyr v0.8.3, it did not. This has implications for downstream calls to group-aware functions, such as `dplyr::mutate()` and `filter()`.
+
+```{r}
+mini_iris %>% 
+  group_by(Species) %>% 
+  nest()
+
+mini_iris %>% 
+  group_by_at("Species") %>% 
+  nest()
+```
+
+Again, in a script it's convenient to write `group_by(Species)`, whereas `group_by_at("Species")` works better in a package.
+
+### Dealing with groups
+
+If the fact that `nest()` now preserves groups is problematic downstream, you have a few choices:
+
+  * Apply `ungroup()` to the result. This level of pragmatism suggests, however, you should at least consider the next two options.
+  * You should never have grouped in the first place. Eliminate the `group_by()` call and specify which columns should be nested versus not nested directly in `nest()`.
+  * Adjust the downstream code to accomodate grouping.
+
+Imagine we used `group_by()` then `nest()` on `mini_iris`, then we computed on the list-column *outside the data frame*.
+
+```{r}
+(df <- mini_iris %>% 
+   group_by(Species) %>% 
+   nest())
+(external_variable <- map_int(df$data, nrow))
+```
+
+And now we try to add that back to the data *post hoc*:
+
+```{r error = TRUE}
+df %>% 
+  mutate(n_rows = external_variable)
+```
+
+This fails because `df` is grouped and `mutate()` is group-aware, so it's hard to add a completely external variable. Other than pragmatically `ungroup()`ing, what can we do?
+
+Work inside the data frame, i.e. bring the `map()` inside the `mutate()`, and design this problem away:
+
+```{r}
+df %>% 
+  mutate(n_rows = map_int(data, nrow))
+```
+
+If, somehow, the grouping seems approriate AND working inside the data frame is not an option, `tibble::add_column()` is group-unaware. It lets you add external data to a grouped data frame.
+
+```{r}
+df %>% 
+  tibble::add_column(n_rows = external_variable)
+```
+
 ### `nest_()`
+
+`nest_()` is defunct in v1.0.0. These calls must be eliminated. Consider this call:
+
+```{r eval = FALSE}
+# works in v0.3.8, does not work in v1.0.0
+mini_iris %>% 
+  nest_(
+    key_col = "my_data",
+    nest_cols = c("Sepal.Length", "Sepal.Width", "Petal.Length", "Petal.Width")
+  )
+```
+
+The options described above for `nest()` provide various ways to re-express this, e.g.:
+
+```{r eval = FALSE}
+mini_iris %>% 
+  nest(my_data = -one_of("Species"))
+
+mini_iris %>% 
+  nest(my_data = one_of(
+    c("Sepal.Length", "Sepal.Width", "Petal.Length", "Petal.Width")
+  ))
+```
+
+These calls *almost* work in v0.8.3, but that is something of a lucky accident. The nesting is done correctly, but the list-column's name is not set to `my_data` but, rather, to the default of `data`.
+
+If it's very important to write code that works in both versions, move column specification into a `group_by()`, call `nest()` with no arguments, and do any necessary `ungroup()`ing or `rename()`ing afterwards.
+
+This is also a good occasion to use separate branches for v0.8.3 and v1.0.0 (explained elsewhere).
 
 ## `unnest()`
 
-### `unnest_()`
+First create a nested data frame from `mini_iris` to use in our examples.
+
+```{r}
+nested <- mini_iris %>% 
+  nest(my_data = c(Sepal.Length, Sepal.Width, Petal.Length, Petal.Width))
+```
+
+Here's how we `unnest()`:
+
+```{r}
+nested %>% 
+  unnest(my_data)
+```
+
+That call works in v1.0.0 and in v0.8.3. However, in v0.8.3, you could also call `unnest()` here with no arguments. This usage still works but is now deprecated:
+
+```{r}
+nested %>% 
+  unnest()
+```
+
+What changed:
+
+  * The to-be-unnested columns must now be specified explicitly, instead of
+    defaulting to all list-columns.
+  * There are new details arguments and some existing ones are deprecated, such
+    as, `.id` and `.sep`.
+  
+Why it changed:
+
+  * The use of `...` to make data is a problematic pattern we're moving away from. <https://principles.tidyverse.org/dots-data.html>
+  * The changes to details arguments relate to features rolling out
+    across multiple packages in the tidyverse. For example, `ptype` exposes
+    protoype support from the new [vctrs package](https://vctrs.r-lib.org).
+    `names_repair` specifies what to do about duplicated or non-syntactic names,
+    consistent with tibble and readxl.
+
+### Migration from `unnest()` and `unnest_()`
+
+Replace empty `unnest()` calls with a call that specificies the to-be-unnested list-column. In a package, you may want to quote the name or use tidyselect helpers.
+
+```{r}
+nested %>% 
+  unnest("my_data")
+
+mini_iris %>% 
+  nest(petal = matches("Petal"), sepal = matches("Sepal")) %>% 
+  unnest(one_of(c("petal", "sepal")))
+```
 
 ## Automated package checking against tidyr
 
@@ -83,4 +297,4 @@ matrix:
 
 ## Transmitting unquoted user input
 
-*In my revdep work, I came across zero examples where the problem had anything to do with `{{ }}` or `enquo()` + `!!` or those sorts of patterns. So it's not on my mind as a tidyr-specific matter. But, given the mandate of this vignette, readers could reasonably expect some content about this.
+*In my revdep work, I came across zero examples where the problem had anything to do with `{{ }}` or `enquo()` + `!!` or those sorts of patterns. So it's not on my mind as a tidyr-specific matter. But, given the mandate of this vignette, readers could reasonably expect some content about this.*
