@@ -2,6 +2,8 @@
 
 ## Breaking changes
 
+See `vignette("in-packages")` for a detailed transition guide.
+
 * `nest()` and `unnest()` have new syntax. The majority of existing usage 
   should be automatically translated to the new syntax with a warning. 
   If that doesn't work, put this in your script to use the old versions
