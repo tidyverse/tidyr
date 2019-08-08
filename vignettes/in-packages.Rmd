@@ -19,11 +19,12 @@ options(tidyverse.quiet = TRUE)
 
 This vignette serves two distinct, but related, purposes:
 
-* It documents general best practices for packages that use tidyr, 
-  inspired by the [similar guide for ggplot2][ggplot2-packages].
+* It documents general best practices for using tidyr in a package, 
+  inspired by [using ggplot2 in packages][ggplot2-packages].
   
-* It describe migration patterns for the transition from tidyr v0.8.3 to 
-  v1.0.0. 
+* It describes migration patterns for the transition from tidyr v0.8.3 to 
+  v1.0.0. This release includes breaking changes to `nest()` and `unnest()`
+  in order to increase consistency within tidyr.
 
 Before we go on, we'll attach the packages we use, expose the version of tidyr, and make a small dataset to use in examples.
 
@@ -39,19 +40,19 @@ library(purrr)
 
 ## Using tidyr in packages
 
-Compared to dplyr and ggplot2, most tidyr functions have select semantics, rather than mutate semantics. This means that you provide them with an expression that works with column names (like `starts_with("x")` or `a:c`) not column values (like `y = x * 2`), and the way that you wrap in package functions is a little different.
+Compared to dplyr and ggplot2, most tidyr functions have __select semantics__, not the more common mutate semantics. This means that you typically provide tidyr functions with an expression that works with column names (like `starts_with("x")` or `a:c`) not with column values (like `y = x * 2`), so the way that you use them within a package wrap is a little different.
 
-There are three main cases:
+There are three main cases that you'll encounter:
 
-* The column names are fixed: use strings and `one_of()`.
+* The column names are fixed: use `one_of("col1", "col2", "col3")`.
 
-* The columns are in character vector: use `one_of()`.
+* The columns names are in a character vector: use `one_of(cols)`.
 
-* The user specified the column names using select syntax: use `{{ col }}`.
+* The user specify the column names using select syntax: use `{{ cols }}`.
 
 ### Fixed column names
 
-This code works just fine inside a package:
+If you know the names of the columns, the code works in the same way in and out of a package:
 
 ```{r}
 mini_iris %>% nest(
@@ -60,20 +61,20 @@ mini_iris %>% nest(
 )
 ```
 
-But `R CMD check` will warn about undefined global variables `Petal.Length`, `Petal.Width`, `Sepal.Length`, and `Sepal.Width` because it doesn't know that `nest()` is looking for the variables inside of `mini_iris`.
+But `R CMD check` will warn about undefined global variables (`Petal.Length`, `Petal.Width`, `Sepal.Length`, and `Sepal.Width`) because it doesn't know that `nest()` is looking for the variables inside of `mini_iris`.
 
-The easiest way to fix the problem is to use `one_of()`. `one_of()` is a tidyselect helper (like `starts_with()`, `ends_with()`, etc) that takes a vector of character names:
+The easiest way to silence this note is to use `one_of()`. `one_of()` is a tidyselect helper (like `starts_with()`, `ends_with()`, etc) that takes column names stored as strings:
 
 ```{r}
 mini_iris %>% nest(
-  petal = one_of(c("Petal.Length", "Petal.Width")), 
-  sepal = one_of(c("Sepal.Length", "Sepal.Width"))
+  petal = one_of("Petal.Length", "Petal.Width"), 
+  sepal = one_of("Sepal.Length", "Sepal.Width")
 )
 ```
 
 ### Column names in a character vector
 
-If the column names are in a character (possibly from a function call), just use `one_of()`, as above:
+If the column names are in a character vector (possibly from a function call), you can use `one_of()`, as above:
 
 ```{r}
 nest_egg <- function(data, cols) {
@@ -83,11 +84,11 @@ nest_egg <- function(data, cols) {
 nest_egg(mini_iris, c("Petal.Length", "Petal.Width", "Sepal.Length", "Sepal.Width"))
 ```
 
-The use of `one_of()` here is important; if you don't use it, and `data` contains a column called `cols`, nest will use it instead of the variables that you've supplied.
+The use of `one_of()` here is important; if you don't use it, and `data` contains a column called `cols`, `nest()` will use it instead of the variables that you've supplied.
 
 ### tidyselect interface
 
-To provide an interface that works like tidyr, you'll can pass your argument along using `{{ arg }}`. `{{ }}` is a special tidy eval operator that captures the expression supplied by the user and forwards it to another tidy eval-enabled function.
+To provide an interface that works like the tidyr function that you're wrapping, you'll can pass the argument along using `{{ arg }}`. `{{ }}` is a special tidy eval operator that captures the expression supplied by the user and forwards it to another tidy eval-enabled function.
 
 ```{r}
 nest_egg <- function(df, cols) {
@@ -96,9 +97,18 @@ nest_egg <- function(df, cols) {
 nest_egg(mini_iris, -Species)
 ```
 
-(Many tidyr functions currently accept `...` so you can easily select many variables, e.g. `fill(df, x, y, z)`. I now believe that the disadvantages of this approach outweigh the benefits, and that this interface would have been better as `fill(df, c(x, y, z))`. So for new functions that select columns, please just use a single argument and not `...`.)
+For more complicated functions, you might want to use tidyselect directly:
 
-If you want your functions to support this syntax, you should also re-export the select helpers so that users can use `starts_with()` etc, without any extra work. There's no helper to do this yet, but you can copy-and-paste the code that [tidyr uses](https://github.com/tidyverse/tidyr/blob/00a66b44d2f304a73e953dd73139db61ed9cc289/R/tidyr.R#L29-L53).
+```{r}
+sel_vars <- function(df, cols) {
+  tidyselect::vars_select(names(df), {{ cols }})
+}
+sel_vars(mini_iris, -Species)
+```
+
+(Many tidyr functions use `...` so you can easily select many variables, e.g. `fill(df, x, y, z)`. I now believe that the disadvantages of this approach outweigh the benefits, and that this interface would have been better as `fill(df, c(x, y, z))`. For new functions that select columns, please just use a single argument and not `...`.)
+
+If you decide to support tidyselect syntax, I'd recomend also re-exporting the select helpers so that users can use (e.g.) `starts_with()` without any extra work. There's no helper to [do this yet](https://github.com/r-lib/usethis/issues/868), but you can copy-and-paste the code that [tidyr uses](https://github.com/tidyverse/tidyr/blob/00a66b44d2f304a73e953dd73139db61ed9cc289/R/tidyr.R#L29-L53).
 
 ### Travis
 
@@ -135,9 +145,9 @@ matrix:
   - r: oldrel
 ```
 
-## tidyr 0.8.3 -> 1.0.0 migration
+## tidyr v0.8.3 -> v1.0.0
 
-tidyr 1.0.0 (tidyr 0.8.99.9000 in the development version) makes considerable changes to the interface of `nest()` and `unnest()` in order to bring them inline with newer tidyverse conventions. I have tried to make the functions as backward compatible as possible and to give informative warning messages, but I could not cover 100% of use cases, so you may need to change your package code.
+v1.0.0 (aka v0.8.99.9000) makes considerable changes to the interface of `nest()` and `unnest()` in order to bring them in line with newer tidyverse conventions. I have tried to make the functions as backward compatible as possible and to give informative warning messages, but I could not cover 100% of use cases, so you may need to change your package code. This guide will help you do so with a minimum of pain.
 
 Ideally, you'll tweak your package so that it works with both tidyr 0.8.3 and tidyr 1.0.0. This makes life considerably easier because it means there's no need to coordinate CRAN submissions - you can submit your package that works with both tidyr versions, before I submit tidyr to CRAN. This section describes our recommend practices for doing so, drawing from the general principles described in <https://principles.tidyverse.org/changes-multivers.html>.
 
@@ -153,7 +163,7 @@ If you're struggling with an problem that's not described here, please reach out
 
 ### Conditional code
 
-Sometimes you'll be able to write code that works with v0.8.3 and v1.0.0. But this often requires code that's not particularly natural for either version and you'd be better off to (temporarily) have separate code paths, each containing non-contrived code. You get to re-use your existing code in the "old" branch, which will eventually be phased out, and write clean, forward-looking code in the "new" branch.
+Sometimes you'll be able to write code that works with v0.8.3 _and_ v1.0.0. But this often requires code that's not particularly natural for either version and you'd be better off to (temporarily) have separate code paths, each containing non-contrived code. You get to re-use your existing code in the "old" branch, which will eventually be phased out, and write clean, forward-looking code in the "new" branch.
 
 The basic approach looks like this. First you define a function that returns `TRUE` for new versions of tidyr:
 
