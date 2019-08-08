@@ -102,7 +102,12 @@ What changed:
 Why it changed:
 
   * The use of `...` to make data is a problematic pattern we're moving away from. <https://principles.tidyverse.org/dots-data.html>
-  * *Is there anything to point to re: deprecating the `.key` argument specifically? It's sort of a natural consequence of the other decision, but also not 100% implied.* 
+  * The `new_col = <something about existing cols>` construct lets us create multiple nested list-columns at once ("multi-nest").
+
+```{r}
+mini_iris %>% 
+  nest(petal = matches("Petal"), sepal = matches("Sepal")) 
+```
 
 ### More ways to specify the columns
 
@@ -259,12 +264,13 @@ Why it changed:
 
 ### Migration from `unnest()` and `unnest_()`
 
-Replace empty `unnest()` calls with a call that specificies the to-be-unnested list-column. In a package, you may want to quote the name or use tidyselect helpers.
+Replace empty `unnest()` calls with a call that specifies the to-be-unnested list-column(s). In a package, you may want to quote the name or use tidyselect helpers.
 
 ```{r}
 nested %>% 
   unnest("my_data")
 
+# mult-nest() and multi-unnest()
 mini_iris %>% 
   nest(petal = matches("Petal"), sepal = matches("Sepal")) %>% 
   unnest(one_of(c("petal", "sepal")))
