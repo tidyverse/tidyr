@@ -143,28 +143,70 @@ Ideally, you'll tweak your package so that it works with both tidyr 0.8.3 and ti
 
 If you use travis already, we **strongly** recommend adding a build that tests with the development version of tidyr; see above for details.
 
+This section briefly describes how to run different code for different version of tidyr, then goes through the major changes that might require workarounds: 
+
+* `nest()` and `unnest()` get new interfaces.
+* `nest()` preserves groups.
+* `nest_()` and `unnest_()` are defunct.
+
+If you're struggling with an problem that's not described here, please reach out via [github](https://github.com/tidyverse/tidyr/issues/new) or [email](hadley@rstudio.com) so we can help out.
+
 ### Conditional code
 
-Sometimes you'll be able to write code that works with v0.8.3 and v1.0.0. But this often forces you to write code that's not particularly natural for either version and you'd be better off to (temporarily) have separate code paths, each containing non-contrived code. You get to re-use your existing code in the "old" branch, which will eventually be phased out, and write clean, forward-looking code in the "new" branch.
+Sometimes you'll be able to write code that works with v0.8.3 and v1.0.0. But this often requires code that's not particularly natural for either version and you'd be better off to (temporarily) have separate code paths, each containing non-contrived code. You get to re-use your existing code in the "old" branch, which will eventually be phased out, and write clean, forward-looking code in the "new" branch.
 
-The basic template looks like this:
+The basic approach looks like this. First you define a function that returns `TRUE` for new versions of tidyr:
 
 ```{r}
 tidyr_new_interface <- function() {
   packageVersion("tidyr") > "0.8.99"
 }
+```
 
-if (tidyr_new_interface()) {
-  # Freshly written code for v1.0.0
-  out <- tidyr::nest_legacy(df, x, y, z)
-} else {
-  # Existing code for v0.8.3
-  out <- tidyr::nest(df, c(x, y, z))
+We highly recommend keeping this as a function because it provides an obvious place to jot any transition notes for your package, and it makes it easier to remove transitional code later on.
+
+Then in your functions, you use an `if` statement to call different code for different versions:
+
+```{r, eval = FALSE}
+my_function_inside_a_package <- function(...)
+  # my code here
+
+  if (tidyr_new_interface()) {
+    # Freshly written code for v1.0.0
+    out <- tidyr::nest_legacy(df, x, y, z)
+  } else {
+    # Existing code for v0.8.3
+    out <- tidyr::nest(df, c(x, y, z))
+  }
+
+  # more code here
 }
 ```
 
+If your new code uses a function that only exists in tidyr 1.0.0, you will get an `R CMD check` `NOTE`: this is one of the few notes that you can explain in your CRAN submission comments. Just mention that it's for forward compatibility with tidyr 1.0.0, and CRAN will let your package through.
 
 ### New syntax for `nest()`
+
+What changed:
+
+*   The to-be-nested columns are no longer accepted as "loose parts".
+*   The new list-column's name is no longer provided via the `.key` argument.
+*   Now we use a construct like this: `new_col = <something about existing cols>`.
+  
+Why it changed:
+
+*   The use of `...` to make data is a problematic pattern we're moving away from.
+    <https://principles.tidyverse.org/dots-data.html>
+
+*   The `new_col = <something about existing cols>` construct lets us create 
+    multiple nested list-columns at once ("multi-nest").
+
+    ```{r}
+    mini_iris %>% 
+      nest(petal = matches("Petal"), sepal = matches("Sepal")) 
+    ```
+
+Before and after examples:
 
 ```{r eval = FALSE}
 # v0.8.3
@@ -194,51 +236,7 @@ if (tidyr_new_interface()) {
 }
 ```
 
-What changed:
-
-*   The to-be-nested columns are no longer accepted as "loose parts".
-*   The new list-column's name is no longer provided via the `.key` argument.
-*   Now we use a construct like this: `new_col = <something about existing cols>`.
-  
-Why it changed:
-
-*   The use of `...` to make data is a problematic pattern we're moving away from.
-    <https://principles.tidyverse.org/dots-data.html>
-
-*   The `new_col = <something about existing cols>` construct lets us create 
-    multiple nested list-columns at once ("multi-nest").
-
-    ```{r}
-    mini_iris %>% 
-      nest(petal = matches("Petal"), sepal = matches("Sepal")) 
-    ```
-
 ### New syntax for `unnest()`
-
-First, lets create an example to make the problem concrete:
-
-```{r}
-nested <- mini_iris %>% 
-  nest(my_data = c(Sepal.Length, Sepal.Width, Petal.Length, Petal.Width))
-```
-
-```{r, eval = FALSE}
-# v0.8.3 automatically unnests list-cols
-nested %>% unnest()
-
-# v1.0.0 must be told which columns to unnest
-nested %>% unnest(one_of("my_data"))
-```
-
-If you are pressed for time, and need a quick fix, call `unnest_legacy()` instead of `unnest()`. It's the same as `unnest()` in v0.8.3:
-
-```{r, eval = FALSE}
-if (tidyr_new_interface()) {
-  out <- tidyr::unnest_legacy(df)
-} else {
-  out <- tidyr::unnest(df)
-}
-```
 
 What changed:
 
@@ -272,7 +270,38 @@ Why it changed:
   `names_repair` specifies what to do about duplicated or non-syntactic names,
   consistent with tibble and readxl.
 
+Before and after:
+
+```{r, eval = FALSE}
+nested <- mini_iris %>% 
+  nest(my_data = c(Sepal.Length, Sepal.Width, Petal.Length, Petal.Width))
+
+# v0.8.3 automatically unnests list-cols
+nested %>% unnest()
+
+# v1.0.0 must be told which columns to unnest
+nested %>% unnest(one_of("my_data"))
+```
+
+If you are pressed for time, and need a quick fix, call `unnest_legacy()` instead of `unnest()`. It's the same as `unnest()` in v0.8.3:
+
+```{r, eval = FALSE}
+if (tidyr_new_interface()) {
+  out <- tidyr::unnest_legacy(df)
+} else {
+  out <- tidyr::unnest(df)
+}
+```
+
 ### `nest()` preserves groups
+
+What changed:
+
+* `nest()` now preserves the groups present in the input.
+
+Why it changed:
+
+* To be more consistent with other functions.
 
 If the fact that `nest()` now preserves groups is problematic downstream, you have a few choices:
 
@@ -317,7 +346,16 @@ df %>%
 
 ### `nest_()` and `unnest_()` are defunct
 
-`nest_()` and `unnest_()` no longer work as we gradually remove support for the old lazyeval framework in favour of the more powerful tidy eval.
+What changed:
+
+* `nest_()` and `unnest_()` no longer work
+
+Why it changed:
+
+* We are gradually remove support for the old lazyeval framework in favour of 
+  the more powerful tidy eval.
+  
+Before and after:
 
 ```{r eval = FALSE}
 # v0.8.3
