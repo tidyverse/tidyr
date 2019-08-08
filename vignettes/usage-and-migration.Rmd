@@ -57,6 +57,8 @@ I have not inlined any examples of conditional code for v0.8.3 vs v1.0.0.
 
 No coverage yet of `nest_legacy()` and `unnest_legacy()`.
 
+No coverage yet of the `.data` pronoun. It doesn't feel as natural with tidyr as it is in other packages, because the list-column is *also* often named `data` or `.data`. So you can legitimately end up with a call to `unnest(data, .data$data)`.
+
 *dump unplaced thoughts and todo's here*
 
 ## Satisfying joint constraints
