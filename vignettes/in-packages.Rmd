@@ -12,7 +12,6 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
-options(tidyverse.quiet = TRUE)
 ```
 
 ## Introduction
