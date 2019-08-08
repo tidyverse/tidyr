@@ -59,6 +59,8 @@ No coverage yet of `nest_legacy()` and `unnest_legacy()`.
 
 No coverage yet of the `.data` pronoun. It doesn't feel as natural with tidyr as it is in other packages, because the list-column is *also* often named `data` or `.data`. So you can legitimately end up with a call to `unnest(data, .data$data)`.
 
+We need to add any error messages or `R CMD check` failures that are characteristic of each migration issue below.
+
 *dump unplaced thoughts and todo's here*
 
 ## Satisfying joint constraints
