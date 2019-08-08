@@ -43,7 +43,7 @@ test_that("errors are raised", {
 
 test_that("single variable data.frame doesn't lose dimension", {
   df <- data.frame(x = c(1, 2, NA))
-  res <- tidyr::drop_na_(df, "x")
+  res <- tidyr::drop_na(df, "x")
   exp <- data.frame(x = c(1, 2))
   expect_equal(res, exp)
 })

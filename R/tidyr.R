@@ -7,6 +7,7 @@
 #'   map_if map_int map_lgl pmap pmap_chr pmap_dbl pmap_df pmap_int
 #'   pmap_lgl reduce some transpose
 #' @importFrom utils type.convert
+#' @importFrom lifecycle deprecated
 #' @useDynLib tidyr, .registration = TRUE
 "_PACKAGE"
 

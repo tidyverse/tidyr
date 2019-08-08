@@ -58,6 +58,8 @@ metadata stored in the column names turns into columns in the result.
 Must be a data frame containing character \code{.name} and \code{.value} columns.}
 }
 \description{
+\lifecycle{maturing}
+
 \code{pivot_wider()} "widens" data, increasing the number of columns and
 decreasing the number of rows. The inverse transformation is
 \code{\link[=pivot_longer]{pivot_longer()}}.

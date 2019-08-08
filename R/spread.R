@@ -1,6 +1,8 @@
 #' Spread a key-value pair across multiple columns
 #'
 #' @description
+#' \lifecycle{retired}
+#'
 #' Development on `spread()` is complete, and for new code we recommend
 #' switching to `pivot_wider()`, which is easier to use, more featureful, and
 #' still under active development.

@@ -26,6 +26,9 @@
   now defunct. They have been deprecated for some time, and since the interface
   has changed, package authors will need to update to avoid deprecation
   warnings. I think one clean break should be less work for everyone.
+  
+    All other lazyeval functions have been formally deprecated, and will be
+    made defunct in the next major release.
 
 * `crossing()` and `nesting()` now return 0-row outputs if any input is a 
   length-0 vector. If you want to preserve the previous behaviour which 

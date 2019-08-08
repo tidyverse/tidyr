@@ -38,6 +38,8 @@ stored as a character vector. If \code{TRUE}, will be stored as a factor,
 which preserves the original ordering of the columns.}
 }
 \description{
+\lifecycle{retired}
+
 Development on \code{gather()} is complete, and for new code we recommend
 switching to \code{pivot_longer()}, which is easier to use, more featureful, and
 still under active development.

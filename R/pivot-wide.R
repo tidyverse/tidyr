@@ -1,6 +1,8 @@
 #' Pivot data from long to wide
 #
 #' @description
+#' \lifecycle{maturing}
+#'
 #' `pivot_wider()` "widens" data, increasing the number of columns and
 #' decreasing the number of rows. The inverse transformation is
 #' [pivot_longer()].
