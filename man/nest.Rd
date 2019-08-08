@@ -5,12 +5,12 @@
 \alias{unnest}
 \title{Nest and unnest}
 \usage{
-nest(.data, ..., .key = "DEPRECATED")
+nest(.data, ..., .key = deprecated())
 
 unnest(data, cols, ..., keep_empty = FALSE, ptype = NULL,
   names_sep = NULL, names_repair = "check_unique",
-  .drop = "DEPRECATED", .id = "DEPRECATED", .sep = "DEPRECATED",
-  .preserve = "DEPRECATED")
+  .drop = deprecated(), .id = deprecated(), .sep = deprecated(),
+  .preserve = deprecated())
 }
 \arguments{
 \item{.data}{A data frame.}
@@ -68,14 +68,14 @@ names. Must be one of the following options:
 See \link[tibble:name-repair]{tibble::name-repair} for more details on these terms and the
 strategies used to enforce them.}
 
-\item{.drop, .preserve}{\strong{Deprecated}: all list-columns are now preserved;
+\item{.drop, .preserve}{\lifecycle{deprecated} all list-columns are now preserved;
 If there are any that you don't want in the output use \code{select()} to
 remove them prior to unnesting.}
 
-\item{.id}{\strong{Deprecated}: convert \code{df \%>\% unnest(x, .id = "id")} to
+\item{.id}{\lifecycle{deprecated}: convert \code{df \%>\% unnest(x, .id = "id")} to
 \code{df \%>\% mutate(id = names(x)) \%>\% unnest(x))}.}
 
-\item{.sep}{\strong{Deprecated}: use \code{names_sep} instead.}
+\item{.sep}{\lifecycle{deprecated}: use \code{names_sep} instead.}
 }
 \description{
 Nesting creates a list-column of data frames; unnesting flattens it back out

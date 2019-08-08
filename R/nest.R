@@ -37,14 +37,14 @@
 #'   that describe how you wish to nest existing columns into new columns.
 #'   The right hand side can be any expression supported by tidyselect.
 #'
-#'   **Deprecated**: previously you could write `df %>% nest(x, y, z)`
+#'   \lifecycle{deprecated}: previously you could write `df %>% nest(x, y, z)`
 #'   and `df %>% unnest(x, y, z)`. Convert to `df %>% nest(data = c(x, y, z))`.
 #'   and `df %>% unnest(c(x, y, z))`.
 #'
 #'   If you previously created new variable in `unnest()` you'll now need to
 #'   do it explicitly with `mutate()`. Convert `df %>% unnest(y = fun(x, y, z))`
 #'   to `df %>% mutate(y = fun(x, y, z)) %>% unnest(y)`.
-#' @param .key **Deprecated**: No longer needed because of the updated `...`
+#' @param .key \lifecycle{deprecated}: No longer needed because of the updated `...`
 #'   syntax.
 #' @export
 #' @examples
@@ -96,7 +96,7 @@
 #' # Compare with unnesting one column at a time, which generates
 #' # the Cartesian product
 #' df %>% unnest(a) %>% unnest(b)
-nest <- function(.data, ..., .key = "DEPRECATED") {
+nest <- function(.data, ..., .key = deprecated()) {
   cols <- enquos(...)
 
   if (any(names2(cols) == "")) {
@@ -117,7 +117,7 @@ nest <- function(.data, ..., .key = "DEPRECATED") {
 }
 
 #' @export
-nest.data.frame <- function(.data, ..., .key = "DEPRECATED") {
+nest.data.frame <- function(.data, ..., .key = deprecated()) {
   # The data frame print handles nested data frames poorly, so we want to
   # convert data frames (but not subclasses) to tibbles
   if (identical(class(.data), "data.frame")) {
@@ -128,7 +128,7 @@ nest.data.frame <- function(.data, ..., .key = "DEPRECATED") {
 }
 
 #' @export
-nest.tbl_df <- function(.data, ..., .key = "DEPRECATED") {
+nest.tbl_df <- function(.data, ..., .key = deprecated()) {
   .key <- check_key(.key)
   if (missing(...)) {
     cols <- list2(!!.key := names(.data))
@@ -147,7 +147,7 @@ nest.tbl_df <- function(.data, ..., .key = "DEPRECATED") {
 }
 
 #' @export
-nest.grouped_df <- function(.data, ..., .key = "DEPRECATED") {
+nest.grouped_df <- function(.data, ..., .key = deprecated()) {
   if (missing(...)) {
     .key <- check_key(.key)
     nest_vars <- setdiff(names(.data), dplyr::group_vars(.data))
@@ -161,7 +161,7 @@ nest.grouped_df <- function(.data, ..., .key = "DEPRECATED") {
 }
 
 check_key <- function(.key) {
-  if (!identical(.key, "DEPRECATED")) {
+  if (!is_missing(.key)) {
     warn("`.key` is deprecated")
     .key
   } else {
@@ -178,12 +178,12 @@ check_key <- function(.key) {
 #'   If you `unnest()` multiple columns, parallel entries must compatible
 #'   sizes, i.e. they're either equal or length 1 (following the standard
 #'   tidyverse recycling rules).
-#' @param .drop,.preserve **Deprecated**: all list-columns are now preserved;
+#' @param .drop,.preserve \lifecycle{deprecated} all list-columns are now preserved;
 #'   If there are any that you don't want in the output use `select()` to
 #'   remove them prior to unnesting.
-#' @param .id **Deprecated**: convert `df %>% unnest(x, .id = "id")` to
+#' @param .id \lifecycle{deprecated}: convert `df %>% unnest(x, .id = "id")` to
 #'   `df %>% mutate(id = names(x)) %>% unnest(x))`.
-#' @param .sep **Deprecated**: use `names_sep` instead.
+#' @param .sep \lifecycle{deprecated}: use `names_sep` instead.
 #' @export
 #' @rdname nest
 unnest <- function(data,
@@ -193,14 +193,16 @@ unnest <- function(data,
                    ptype = NULL,
                    names_sep = NULL,
                    names_repair = "check_unique",
-                   .drop = "DEPRECATED",
-                   .id = "DEPRECATED",
-                   .sep = "DEPRECATED",
-                   .preserve = "DEPRECATED") {
+                   .drop = deprecated(),
+                   .id = deprecated(),
+                   .sep = deprecated(),
+                   .preserve = deprecated()) {
 
   deprecated <- FALSE
   if (!missing(.preserve)) {
-    warn("`.preserve` is deprecated. All list-columns are now preserved")
+    lifecycle::deprecate_warn("1.0.0", "unnest(.preserve = )",
+      details = "All list-columns are now preserved"
+    )
     deprecated <- TRUE
     .preserve <- tidyselect::vars_select(names(data), !!enquo(.preserve))
   } else {
@@ -232,20 +234,26 @@ unnest <- function(data,
     deprecated <- TRUE
   }
 
-  if (!missing(.drop)) {
-    warn("`.drop` is deprecated. All list-columns are now preserved.")
+  if (!is_missing(.drop)) {
+    lifecycle::deprecate_warn("1.0.0", "unnest(.drop = )",
+      details = "All list-columns are now preserved."
+    )
     deprecated <- TRUE
   }
 
-  if (!missing(.id)) {
-    warn("`.id` is deprecated. Manually create column of names instead.")
+  if (!is_missing(.id)) {
+    lifecycle::deprecate_warn("1.0.0", "unnest(.id = )",
+      details = "Manually create column of names instead."
+    )
     deprecated <- TRUE
     first_col <- tidyselect::vars_select(names(data), !!cols)[[1]]
     data[[.id]] <- names(data[[first_col]])
   }
 
-  if (!missing(.sep)) {
-    warn(glue("`.sep` is deprecated. Use `names_sep = '{.sep}'` instead."))
+  if (!is_missing(.sep)) {
+    lifecycle::deprecate_warn("1.0.0", "unnest(.sep = )",
+      details = glue("Use `names_sep = '{.sep}'` instead.")
+    )
     deprecated <- TRUE
     names_sep <- .sep
   }
