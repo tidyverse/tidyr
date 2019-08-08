@@ -1,4 +1,14 @@
-release_date: 2018-01-29
-release_version: 0.8.0
-rel_release_date: today
+release_date: 2019-09-09
+release_version: 1.0.0
+rel_release_date: month
 my_news_url: https://github.com/tidyverse/tidyr/blob/master/NEWS.md
+release_details: >
+  This release includes breaking changes to nest() and unnest() in order
+  to increase consistency across existing functions. This unfortunately
+  causes some packages to break, so we've prepared an extensive transition
+  guide to help with the change:
+  <http://tidyr.tidyverse.org/dev/articles/in-packages.html>
+
+  (the vignette it also includes general advice on using tidyr in a package)
+
+  If you have any problems please feel to reach out to us so we can help.
