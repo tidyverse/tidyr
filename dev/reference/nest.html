@@ -170,7 +170,8 @@ notably models.</p>
       <td><p>Name-variable pairs of the form <code>new_col = c(col1, col2, col3)</code>,
 that describe how you wish to nest existing columns into new columns.
 The right hand side can be any expression supported by tidyselect.</p>
-<p><strong>Deprecated</strong>: previously you could write <code>df %&gt;% nest(x, y, z)</code>
+<p><img src='figures/lifecycle-deprecated.svg' alt='Deprecated lifecycle' />
+: previously you could write <code>df %&gt;% nest(x, y, z)</code>
 and <code>df %&gt;% unnest(x, y, z)</code>. Convert to <code>df %&gt;% nest(data = c(x, y, z))</code>.
 and <code>df %&gt;% unnest(c(x, y, z))</code>.</p>
 <p>If you previously created new variable in <code>unnest()</code> you'll now need to
@@ -179,7 +180,8 @@ to <code>df %&gt;% mutate(y = fun(x, y, z)) %&gt;% unnest(y)</code>.</p></td>
     </tr>
     <tr>
       <th>.key</th>
-      <td><p><strong>Deprecated</strong>: No longer needed because of the updated <code>...</code>
+      <td><p><img src='figures/lifecycle-deprecated.svg' alt='Deprecated lifecycle' />
+: No longer needed because of the updated <code>...</code>
 syntax.</p></td>
     </tr>
     <tr>
@@ -226,7 +228,7 @@ names. Must be one of the following options:</p><ul>
 <li><p>a formula: a purrr-style anonymous function (see <code><a href='https://rlang.r-lib.org/reference/as_function.html'>rlang::as_function()</a></code>)</p></li>
 </ul>
 
-<p>See <a href='https://tibble.tidyverse.org/reference/name-repair.html'>tibble::name-repair</a> for more details on these terms and the
+<p>See <code><a href='https://www.rdocumentation.org/packages/vctrs/topics/vec_as_names'>vctrs::vec_as_names()</a></code> for more details on these terms and the
 strategies used to enforce them.</p></td>
     </tr>
     <tr>
