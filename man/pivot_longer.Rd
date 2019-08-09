@@ -2,17 +2,12 @@
 % Please edit documentation in R/pivot-long.R
 \name{pivot_longer}
 \alias{pivot_longer}
-\alias{pivot_longer_spec}
 \title{Pivot data from wide to long}
 \usage{
 pivot_longer(data, cols, names_to = "name", names_prefix = NULL,
   names_sep = NULL, names_pattern = NULL, names_ptypes = list(),
   names_repair = "check_unique", values_to = "value",
-  values_drop_na = FALSE, values_ptypes = list(), spec = NULL)
-
-pivot_longer_spec(data, cols, names_to = "name", values_to = "value",
-  names_prefix = NULL, names_sep = NULL, names_pattern = NULL,
-  names_ptypes = NULL)
+  values_drop_na = FALSE, values_ptypes = list())
 }
 \arguments{
 \item{data}{A data frame to pivot.}
@@ -67,13 +62,6 @@ existing column names.}
 in the \code{value_to} column. This effectively converts explicit missing values
 to implicit missing values, and should generally be used only when missing
 values in \code{data} were created by its structure.}
-
-\item{spec}{Alternatively, instead of providing \code{cols} (and \code{names_to} and
-\code{values_to}) you can parse a specification data frame. This is useful
-for more complex pivots because it gives you greater control on how
-metadata stored in the column names turns into columns in the result.
-
-Must be a data frame containing character \code{.name} and \code{.value} columns.}
 }
 \description{
 \lifecycle{maturing}

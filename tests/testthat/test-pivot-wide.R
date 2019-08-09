@@ -103,8 +103,8 @@ test_that("values_summarize applied even when no-duplicates", {
 
 test_that("can pivot from multiple measure cols", {
   df <- tibble(row = 1, var = c("x", "y"), a = 1:2, b = 3:4)
-  sp <- pivot_wider_spec(df, names_from = var, values_from = c(a, b))
-  pv <- pivot_wider(df, spec = sp)
+  sp <- build_wider_spec(df, names_from = var, values_from = c(a, b))
+  pv <- pivot_wider_spec(df, sp)
 
   expect_named(pv, c("row", "a_x", "a_y", "b_x", "b_y"))
   expect_equal(pv$a_x, 1)
@@ -113,8 +113,8 @@ test_that("can pivot from multiple measure cols", {
 
 test_that("can pivot from multiple measure cols using all keys", {
   df <- tibble(var = c("x", "y"), a = 1:2, b = 3:4)
-  sp <- pivot_wider_spec(df, names_from = var, values_from = c(a, b))
-  pv <- pivot_wider(df, spec = sp)
+  sp <- build_wider_spec(df, names_from = var, values_from = c(a, b))
+  pv <- pivot_wider_spec(df, sp)
 
   expect_named(pv, c("a_x", "a_y", "b_x", "b_y"))
   expect_equal(pv$a_x, 1)
@@ -137,6 +137,6 @@ test_that("column order in output matches spec", {
     "hw2", "mark", "hw2_mark",
   )
 
-  pv <- pivot_wider(df, spec = sp)
+  pv <- pivot_wider_spec(df, sp)
   expect_named(pv, c("name", sp$.name))
 })

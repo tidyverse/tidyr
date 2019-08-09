@@ -46,7 +46,7 @@ df <- tibble(x = c(1, 1, 1, 2, 2, 3), y = 1:6, z = 6:1)
 # non-chopped variables
 df \%>\% chop(c(y, z))
 # cf nest
-df \%>\% nest(c(y, z))
+df \%>\% nest(data = c(y, z))
 
 # Unchop ============================================================
 df <- tibble(x = 1:4, y = list(integer(), 1L, 1:2, 1:3))
