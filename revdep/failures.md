@@ -354,7 +354,7 @@ ERROR: compilation failed for package ‘dynfrail’
 * Version: 2.8.0
 * Source code: https://github.com/cran/ELMER
 * Date/Publication: 2019-05-02
-* Number of recursive dependencies: 204
+* Number of recursive dependencies: 203
 
 Run `revdep_details(,"ELMER")` for more info
 
@@ -438,11 +438,6 @@ Run `revdep_details(,"")` for more info
 
 ```
 
-  There is a binary version available but the source version is later:
-        binary source needs_compilation
-RSQLite  2.1.1  2.1.2              TRUE
-
-  Binaries will be installed
 
 
 installing the source packages ‘hugene10sttranscriptcluster.db’, ‘pd.hugene.1.0.st.v1’, ‘reactome.db’
@@ -454,11 +449,6 @@ installing the source packages ‘hugene10sttranscriptcluster.db’, ‘pd.hugen
 
 ```
 
-  There is a binary version available but the source version is later:
-        binary source needs_compilation
-RSQLite  2.1.1  2.1.2              TRUE
-
-  Binaries will be installed
 
 
 installing the source packages ‘hugene10sttranscriptcluster.db’, ‘pd.hugene.1.0.st.v1’, ‘reactome.db’
@@ -1431,6 +1421,35 @@ ERROR: compilation failed for package ‘nlmixr’
 * removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/nlmixr/old/nlmixr.Rcheck/nlmixr’
 
 ```
+# perturbatr
+
+<details>
+
+* Version: 1.4.0
+* Source code: https://github.com/cran/perturbatr
+* URL: https://github.com/cbg-ethz/perturbatr
+* BugReports: https://github.com/cbg-ethz/perturbatr/issues
+* Date/Publication: 2019-05-02
+* Number of recursive dependencies: 82
+
+Run `revdep_details(,"perturbatr")` for more info
+
+</details>
+
+## Newly broken
+
+*   R CMD check timed out
+    
+
+## In both
+
+*   checking installed package size ... NOTE
+    ```
+      installed size is  5.0Mb
+      sub-directories of 1Mb or more:
+        data   3.1Mb
+    ```
+
 # phenofit
 
 <details>
@@ -1540,14 +1559,9 @@ Run `revdep_details(,"")` for more info
 
 ```
 
-  There is a binary version available but the source version is later:
-        binary source needs_compilation
-RSQLite  2.1.1  2.1.2              TRUE
-
-  Binaries will be installed
 
 
-installing the source packages ‘FlowSorted.Blood.450k’, ‘FlowSorted.CordBloodNorway.450k’, ‘sesameData’
+installing the source packages ‘FlowSorted.Blood.450k’, ‘FlowSorted.CordBloodNorway.450k’
 
 
 
@@ -1556,14 +1570,9 @@ installing the source packages ‘FlowSorted.Blood.450k’, ‘FlowSorted.CordBl
 
 ```
 
-  There is a binary version available but the source version is later:
-        binary source needs_compilation
-RSQLite  2.1.1  2.1.2              TRUE
-
-  Binaries will be installed
 
 
-installing the source packages ‘FlowSorted.Blood.450k’, ‘FlowSorted.CordBloodNorway.450k’, ‘sesameData’
+installing the source packages ‘FlowSorted.Blood.450k’, ‘FlowSorted.CordBloodNorway.450k’
 
 
 
@@ -1638,7 +1647,7 @@ checking GDAL: checking whether PROJ is available for linking:... yes
 checking GDAL: checking whether PROJ is available fur running:... dyld: Library not loaded: /usr/local/opt/armadillo/lib/libarmadillo.7.dylib
   Referenced from: /usr/local/opt/gdal2/lib/libgdal.20.dylib
   Reason: image not found
-./configure: line 3626: 68561 Abort trap: 6           ./gdal_proj
+./configure: line 3626: 37971 Abort trap: 6           ./gdal_proj
 no
 configure: error: OGRCoordinateTransformation() does not return a coord.trans: PROJ not available?
 ERROR: configuration failed for package ‘sf’
@@ -1690,7 +1699,7 @@ checking GDAL: checking whether PROJ is available for linking:... yes
 checking GDAL: checking whether PROJ is available fur running:... dyld: Library not loaded: /usr/local/opt/armadillo/lib/libarmadillo.7.dylib
   Referenced from: /usr/local/opt/gdal2/lib/libgdal.20.dylib
   Reason: image not found
-./configure: line 3626: 67593 Abort trap: 6           ./gdal_proj
+./configure: line 3626: 37080 Abort trap: 6           ./gdal_proj
 no
 configure: error: OGRCoordinateTransformation() does not return a coord.trans: PROJ not available?
 ERROR: configuration failed for package ‘sf’
@@ -1706,7 +1715,7 @@ ERROR: configuration failed for package ‘sf’
 * URL: https://github.com/BioinformaticsFMRP/TCGAbiolinks
 * BugReports: https://github.com/BioinformaticsFMRP/TCGAbiolinks/issues
 * Date/Publication: 2019-07-10
-* Number of recursive dependencies: 256
+* Number of recursive dependencies: 255
 
 Run `revdep_details(,"TCGAbiolinks")` for more info
 
@@ -1735,11 +1744,11 @@ Run `revdep_details(,"TCGAbiolinks")` for more info
 
 *   checking installed package size ... NOTE
     ```
-      installed size is 99.4Mb
+      installed size is 97.0Mb
       sub-directories of 1Mb or more:
         R      2.7Mb
         data   4.3Mb
-        doc   92.2Mb
+        doc   89.7Mb
     ```
 
 *   checking dependencies in R code ... NOTE
@@ -1773,6 +1782,60 @@ Run `revdep_details(,"TCGAbiolinks")` for more info
       Tumor.purity barcode c3net clinical coordinates dCommSignif
       dNetInduce dNetPipeline exon knnmi.cross limmacontrasts.fit
       limmamakeContrasts minet openSesame portions rse_gene value visNet
+    ```
+
+# TPP
+
+<details>
+
+* Version: 3.12.0
+* Source code: https://github.com/cran/TPP
+* Date/Publication: 2019-05-02
+* Number of recursive dependencies: 86
+
+Run `revdep_details(,"TPP")` for more info
+
+</details>
+
+## In both
+
+*   R CMD check timed out
+    
+
+*   checking installed package size ... NOTE
+    ```
+      installed size is 13.9Mb
+      sub-directories of 1Mb or more:
+        data           1.9Mb
+        example_data   8.0Mb
+        test_data      1.9Mb
+    ```
+
+*   checking dependencies in R code ... NOTE
+    ```
+    Namespace in Imports field not imported from: ‘broom’
+      All declared Imports should be used.
+    Unexported objects imported by ':::' calls:
+      ‘doParallel:::.options’ ‘mefa:::rep.data.frame’
+      See the note in ?`:::` about the use of this operator.
+    ```
+
+*   checking R code for possible problems ... NOTE
+    ```
+    File ‘TPP/R/TPP.R’:
+      .onLoad calls:
+        packageStartupMessage(msgText, "\n")
+    
+    See section ‘Good practice’ in '?.onAttach'.
+    
+    plot_fSta_distribution: no visible binding for global variable
+      ‘..density..’
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/TPP/new/TPP.Rcheck/00_pkg_src/TPP/R/plot_fSta_distribution.R:19-28)
+    plot_pVal_distribution: no visible binding for global variable
+      ‘..density..’
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/TPP/new/TPP.Rcheck/00_pkg_src/TPP/R/plot_pVal_distribution.R:22-31)
+    Undefined global functions or variables:
+      ..density..
     ```
 
 # trialr
