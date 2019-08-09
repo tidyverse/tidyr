@@ -33,6 +33,8 @@ library(tidyr)
 library(dplyr, warn.conflicts = FALSE)
 library(purrr)
 
+packageVersion("tidyr")
+
 (mini_iris <- iris %>% 
     as_tibble() %>% 
     .[c(1, 2, 51, 52, 101, 102), ])
