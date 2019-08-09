@@ -106,4 +106,4 @@ If you encounter a clear bug, please file a minimal reproducible example on [git
 
 ---
 
-Please note that the tidyr project is released with a [Contributor Code of Conduct](.github/CODE_OF_CONDUCT.md). By contributing to this project, you agree to abide by its terms.
+Please note that the tidyr project is released with a [Contributor Code of Conduct](https://tidyr.tidyverse.org/CODE_OF_CONDUCT.html). By contributing to this project, you agree to abide by its terms.

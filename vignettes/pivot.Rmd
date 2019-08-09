@@ -170,7 +170,7 @@ who %>% pivot_longer(
 
 So far, we have been working with data frames that have one observation per row, but many important pivotting problems involve multiple observations per row. You can usually recognise this case because name of the column that you want to appear in the output is part of the column name in the input. In this section, you'll learn how to pivot this sort of data. 
 
-The following example is adapted from the [data.table vignette](https://cran.r-project.org/web/packages/data.table/vignettes/datatable-reshape.html), as inspiration for tidyr's solution to this problem.
+The following example is adapted from the [data.table vignette](https://CRAN.R-project.org/package=data.table/vignettes/datatable-reshape.html), as inspiration for tidyr's solution to this problem.
 
 ```{r}
 family <- tribble(

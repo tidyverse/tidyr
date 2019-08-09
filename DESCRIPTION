@@ -12,12 +12,13 @@ Authors@R:
              email = "lionel@rstudio.com"),
       person(given = "RStudio",
              role = "cph"))
-Description: tidyr helps to create tidy data, where each
-    column is a variable, each row is an observation, and each cell
-    contains a single value.  tidyr contains tools for changing the shape
-    (pivoting) and hierarchy (nesting and unnesting) of a dataset, as well
-    as extracting values out of string columns. It also includes tools for
-    working with missing values (both implicit and explicit).
+Description: Tools to help to create tidy data, where each column is a 
+    variable, each row is an observation, and each cell contains a single value.  
+    'tidyr' contains tools for changing the shape (pivoting) and hierarchy
+    (nesting and 'unnesting') of a dataset, turning deeply nested lists
+    into rectangular data frames ('rectangling'), and extracting values out 
+    of string columns. It also includes tools for working with missing values 
+    (both implicit and explicit).
 License: MIT + file LICENSE
 URL: http://tidyr.tidyverse.org,
     https://github.com/tidyverse/tidyr
