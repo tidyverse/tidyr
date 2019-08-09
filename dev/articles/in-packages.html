@@ -141,7 +141,7 @@
 <div id="using-tidyr-in-packages" class="section level2">
 <h2 class="hasAnchor">
 <a href="#using-tidyr-in-packages" class="anchor"></a>Using tidyr in packages</h2>
-<p>Compared to dplyr and ggplot2, most tidyr functions have <strong>select semantics</strong>, not the more common mutate semantics. This means that you typically provide tidyr functions with an expression that works with column names (like <code><a href="https://www.rdocumentation.org/packages/tidyselect/topics/select_helpers">starts_with("x")</a></code> or <code>a:c</code>) not with column values (like <code>y = x * 2</code>). As a consequence, it’s worthwhile to clarify the best patterns for calling tidyr functions inside another package.</p>
+<p>Compared to dplyr and ggplot2, most tidyr functions have <strong>select semantics</strong> (like <code>dplyr:select()</code>), not the more common action semantics (like <code><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate()</a></code>, <code><a href="https://dplyr.tidyverse.org/reference/filter.html">filter()</a></code>, <code><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange()</a></code>, <code><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by()</a></code>, …). This means that you typically provide tidyr functions with an expression that works with column names (like <code><a href="https://www.rdocumentation.org/packages/tidyselect/topics/select_helpers">starts_with("x")</a></code> or <code>a:c</code>) not with column values (like <code>y = x * 2</code>). As a consequence, it’s worthwhile to clarify the best patterns for calling tidyr functions inside another package.</p>
 <p>There are three main cases that you’ll encounter:</p>
 <ul>
 <li><p>The column names are fixed: use <code><a href="https://www.rdocumentation.org/packages/tidyselect/topics/select_helpers">one_of("col1", "col2", "col3")</a></code>.</p></li>
@@ -299,7 +299,7 @@
 </ul>
 <p>Why it changed:</p>
 <ul>
-<li><p>The use of <code>...</code> to make data is a problematic pattern we’re moving away from. <a href="https://principles.tidyverse.org/dots-data.html" class="uri">https://principles.tidyverse.org/dots-data.html</a></p></li>
+<li><p>The use of <code>...</code> for metadata is a problematic pattern we’re moving away from. <a href="https://principles.tidyverse.org/dots-data.html" class="uri">https://principles.tidyverse.org/dots-data.html</a></p></li>
 <li>
 <p>The <code>new_col = &lt;something about existing cols&gt;</code> construct lets us create multiple nested list-columns at once (“multi-nest”).</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1">mini_iris <span class="op">%&gt;%</span><span class="st"> </span></a>

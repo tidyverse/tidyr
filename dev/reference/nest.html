@@ -184,8 +184,8 @@ to <code>df %&gt;% mutate(y = fun(x, y, z)) %&gt;% unnest(y)</code>.</p></td>
     <tr>
       <th>.key</th>
       <td><p><img src='figures/lifecycle-deprecated.svg' alt='Deprecated lifecycle' />
-: No longer needed because of the updated <code>...</code>
-syntax.</p></td>
+: No longer needed because of the new
+<code>new_col = c(col1, col2, col3)</code> syntax.</p></td>
     </tr>
     <tr>
       <th>data</th>
@@ -260,7 +260,7 @@ remove them prior to unnesting.</p></td>
     <p>tidyr 1.0.0 introduced a new syntax for <code>nest()</code> and <code>unnest()</code> that's
 designed to be more similar to other functions. Converting to the new syntax
 should be straightforward (guided by the message you'll recieve) but if
-you just need to run an old analysis you can easily revert to the previous
+you just need to run an old analysis, you can easily revert to the previous
 behaviour using <code><a href='nest_legacy.html'>nest_legacy()</a></code> and <code><a href='nest_legacy.html'>unnest_legacy()</a></code> as follows:</p><pre>library(tidyr)
 nest &lt;- nest_legacy
 unnest &lt;- unnest_legacy
@@ -269,11 +269,11 @@ unnest &lt;- unnest_legacy
     <h2 class="hasAnchor" id="grouped-data-frames"><a class="anchor" href="#grouped-data-frames"></a>Grouped data frames</h2>
 
     
-    <p><code>df %&gt;% nest(x, y)</code> specify the columns to be nested; i.e. the columns
-that will appear in the inner data frame. Alternatively, you <code>nest()</code> a
-grouped data frame created by <code><a href='https://dplyr.tidyverse.org/reference/group_by.html'>dplyr::group_by()</a></code>. Here the grouping
-variables will remain in the outer data frame, and nesting all other
-data frames. The result will preserve the grouping of the input.</p>
+    <p><code>df %&gt;% nest(x, y)</code> specifies the columns to be nested; i.e. the columns that
+will appear in the inner data frame. Alternatively, you can <code>nest()</code> a
+grouped data frame created by <code><a href='https://dplyr.tidyverse.org/reference/group_by.html'>dplyr::group_by()</a></code>. The grouping variables
+remain in the outer data frame and the others are nested. The result
+preserves the grouping of the input.</p>
 <p>Variables supplied to <code>nest()</code> will override grouping variables so that
 <code>df %&gt;% group_by(x, y) %&gt;% nest(z)</code> will be equivalent to <code>df %&gt;% nest(z)</code>.</p>
     
@@ -281,33 +281,50 @@ data frames. The result will preserve the grouping of the input.</p>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>2</span>, <span class='fl'>3</span>), <span class='kw'>y</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>6</span>, <span class='kw'>z</span> <span class='kw'>=</span> <span class='fl'>6</span>:<span class='fl'>1</span>)
 <span class='co'># Note that we get one row of output for each unique combination of</span>
-<span class='co'># non-chopped variables</span>
+<span class='co'># non-nested variables</span>
 <span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>nest</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='no'>y</span>, <span class='no'>z</span>))</div><div class='output co'>#&gt; # A tibble: 3 x 2
 #&gt;       x           data
 #&gt;   &lt;dbl&gt; &lt;list&lt;df[,2]&gt;&gt;
 #&gt; 1     1        [3 × 2]
 #&gt; 2     2        [2 × 2]
-#&gt; 3     3        [1 × 2]</div><div class='input'><span class='co'># cf nest</span>
+#&gt; 3     3        [1 × 2]</div><div class='input'><span class='co'># chop does something similar, but retains individual columns</span>
 <span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='chop.html'>chop</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='no'>y</span>, <span class='no'>z</span>))</div><div class='output co'>#&gt; # A tibble: 3 x 3
 #&gt;       x y         z        
 #&gt;   &lt;dbl&gt; &lt;list&gt;    &lt;list&gt;   
 #&gt; 1     1 &lt;int [3]&gt; &lt;int [3]&gt;
 #&gt; 2     2 &lt;int [2]&gt; &lt;int [2]&gt;
 #&gt; 3     3 &lt;int [1]&gt; &lt;int [1]&gt;</div><div class='input'>
+<span class='co'># use tidyselect syntax and helpers, just like in dplyr::select()</span>
+<span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>nest</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/tidyselect/topics/select_helpers'>one_of</a></span>(<span class='st'>"y"</span>, <span class='st'>"z"</span>))</div><div class='output co'>#&gt; # A tibble: 3 x 2
+#&gt;       x           data
+#&gt;   &lt;dbl&gt; &lt;list&lt;df[,2]&gt;&gt;
+#&gt; 1     1        [3 × 2]
+#&gt; 2     2        [2 × 2]
+#&gt; 3     3        [1 × 2]</div><div class='input'>
 <span class='no'>iris</span> <span class='kw'>%&gt;%</span> <span class='fu'>nest</span>(<span class='kw'>data</span> <span class='kw'>=</span> -<span class='no'>Species</span>)</div><div class='output co'>#&gt; # A tibble: 3 x 2
 #&gt;   Species              data
 #&gt;   &lt;fct&gt;      &lt;list&lt;df[,4]&gt;&gt;
 #&gt; 1 setosa           [50 × 4]
 #&gt; 2 versicolor       [50 × 4]
-#&gt; 3 virginica        [50 × 4]</div><div class='input'><span class='no'>chickwts</span> <span class='kw'>%&gt;%</span> <span class='fu'>nest</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>weight</span>)</div><div class='output co'>#&gt; # A tibble: 6 x 2
-#&gt;   feed                data
-#&gt;   &lt;fct&gt;     &lt;list&lt;df[,1]&gt;&gt;
-#&gt; 1 horsebean       [10 × 1]
-#&gt; 2 linseed         [12 × 1]
-#&gt; 3 soybean         [14 × 1]
-#&gt; 4 sunflower       [12 × 1]
-#&gt; 5 meatmeal        [11 × 1]
-#&gt; 6 casein          [12 × 1]</div><div class='input'>
+#&gt; 3 virginica        [50 × 4]</div><div class='input'><span class='no'>nest_vars</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/names'>names</a></span>(<span class='no'>iris</span>)[<span class='fl'>1</span>:<span class='fl'>4</span>]
+<span class='no'>iris</span> <span class='kw'>%&gt;%</span> <span class='fu'>nest</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/tidyselect/topics/select_helpers'>one_of</a></span>(<span class='no'>nest_vars</span>))</div><div class='output co'>#&gt; # A tibble: 3 x 2
+#&gt;   Species              data
+#&gt;   &lt;fct&gt;      &lt;list&lt;df[,4]&gt;&gt;
+#&gt; 1 setosa           [50 × 4]
+#&gt; 2 versicolor       [50 × 4]
+#&gt; 3 virginica        [50 × 4]</div><div class='input'><span class='no'>iris</span> <span class='kw'>%&gt;%</span>
+  <span class='fu'>nest</span>(<span class='kw'>petal</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/tidyselect/topics/select_helpers'>starts_with</a></span>(<span class='st'>"Petal"</span>), <span class='kw'>sepal</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/tidyselect/topics/select_helpers'>starts_with</a></span>(<span class='st'>"Sepal"</span>))</div><div class='output co'>#&gt; # A tibble: 3 x 3
+#&gt;   Species             petal          sepal
+#&gt;   &lt;fct&gt;      &lt;list&lt;df[,2]&gt;&gt; &lt;list&lt;df[,2]&gt;&gt;
+#&gt; 1 setosa           [50 × 2]       [50 × 2]
+#&gt; 2 versicolor       [50 × 2]       [50 × 2]
+#&gt; 3 virginica        [50 × 2]       [50 × 2]</div><div class='input'><span class='no'>iris</span> <span class='kw'>%&gt;%</span>
+  <span class='fu'>nest</span>(<span class='kw'>width</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/tidyselect/topics/select_helpers'>contains</a></span>(<span class='st'>"Width"</span>), <span class='kw'>length</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/tidyselect/topics/select_helpers'>contains</a></span>(<span class='st'>"Length"</span>))</div><div class='output co'>#&gt; # A tibble: 3 x 3
+#&gt;   Species             width         length
+#&gt;   &lt;fct&gt;      &lt;list&lt;df[,2]&gt;&gt; &lt;list&lt;df[,2]&gt;&gt;
+#&gt; 1 setosa           [50 × 2]       [50 × 2]
+#&gt; 2 versicolor       [50 × 2]       [50 × 2]
+#&gt; 3 virginica        [50 × 2]       [50 × 2]</div><div class='input'>
 <span class='co'># Nesting a grouped data frame nests all variables apart from the group vars</span>
 <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>dplyr</span>)
 <span class='no'>fish_encounters</span> <span class='kw'>%&gt;%</span>

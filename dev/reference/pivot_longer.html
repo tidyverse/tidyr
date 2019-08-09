@@ -155,11 +155,7 @@ decreasing the number of columns. The inverse transformation. in
     <pre class="usage"><span class='fu'>pivot_longer</span>(<span class='no'>data</span>, <span class='no'>cols</span>, <span class='kw'>names_to</span> <span class='kw'>=</span> <span class='st'>"name"</span>, <span class='kw'>names_prefix</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>names_sep</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>names_pattern</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>names_ptypes</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(),
   <span class='kw'>names_repair</span> <span class='kw'>=</span> <span class='st'>"check_unique"</span>, <span class='kw'>values_to</span> <span class='kw'>=</span> <span class='st'>"value"</span>,
-  <span class='kw'>values_drop_na</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>values_ptypes</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(), <span class='kw'>spec</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
-
-<span class='fu'>pivot_longer_spec</span>(<span class='no'>data</span>, <span class='no'>cols</span>, <span class='kw'>names_to</span> <span class='kw'>=</span> <span class='st'>"name"</span>, <span class='kw'>values_to</span> <span class='kw'>=</span> <span class='st'>"value"</span>,
-  <span class='kw'>names_prefix</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>names_sep</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>names_pattern</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>names_ptypes</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+  <span class='kw'>values_drop_na</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>values_ptypes</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>())</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -195,7 +191,7 @@ be a numeric vector (specifying positions to break on), or a single string
 <p><code>names_pattern</code> takes the same specification as <code><a href='extract.html'>extract()</a></code>, a regular
 expression containing matching groups (<code>()</code>).</p>
 <p>If these arguments does not give you enough control, use
-<code>pivot_longer_spec()</code> to create a spec object and process manually as
+<code><a href='pivot_longer_spec.html'>pivot_longer_spec()</a></code> to create a spec object and process manually as
 needed.</p></td>
     </tr>
     <tr>
@@ -229,14 +225,6 @@ existing column names.</p></td>
 in the <code>value_to</code> column. This effectively converts explicit missing values
 to implicit missing values, and should generally be used only when missing
 values in <code>data</code> were created by its structure.</p></td>
-    </tr>
-    <tr>
-      <th>spec</th>
-      <td><p>Alternatively, instead of providing <code>cols</code> (and <code>names_to</code> and
-<code>values_to</code>) you can parse a specification data frame. This is useful
-for more complex pivots because it gives you greater control on how
-metadata stored in the column names turns into columns in the result.</p>
-<p>Must be a data frame containing character <code>.name</code> and <code>.value</code> columns.</p></td>
     </tr>
     </table>
     

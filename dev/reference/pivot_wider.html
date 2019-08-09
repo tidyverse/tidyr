@@ -154,11 +154,7 @@ decreasing the number of rows. The inverse transformation is
 
     <pre class="usage"><span class='fu'>pivot_wider</span>(<span class='no'>data</span>, <span class='kw'>id_cols</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>names_from</span> <span class='kw'>=</span> <span class='no'>name</span>,
   <span class='kw'>names_prefix</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>names_sep</span> <span class='kw'>=</span> <span class='st'>"_"</span>, <span class='kw'>names_repair</span> <span class='kw'>=</span> <span class='st'>"check_unique"</span>,
-  <span class='kw'>values_from</span> <span class='kw'>=</span> <span class='no'>value</span>, <span class='kw'>values_fill</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>values_fn</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>spec</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
-
-<span class='fu'>pivot_wider_spec</span>(<span class='no'>data</span>, <span class='kw'>names_from</span> <span class='kw'>=</span> <span class='no'>name</span>, <span class='kw'>values_from</span> <span class='kw'>=</span> <span class='no'>value</span>,
-  <span class='kw'>names_prefix</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>names_sep</span> <span class='kw'>=</span> <span class='st'>"_"</span>)</pre>
+  <span class='kw'>values_from</span> <span class='kw'>=</span> <span class='no'>value</span>, <span class='kw'>values_fill</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>values_fn</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -214,14 +210,6 @@ applied to the <code>value</code> in each cell in the output. You will typically
 use this when the combination of <code>id_cols</code> and <code>value</code> column does not
 uniquely identify an observation.</p></td>
     </tr>
-    <tr>
-      <th>spec</th>
-      <td><p>Alternatively, instead of providing <code>cols</code> (and <code>names_to</code> and
-<code>values_to</code>) you can parse a specification data frame. This is useful
-for more complex pivots because it gives you greater control on how
-metadata stored in the column names turns into columns in the result.</p>
-<p>Must be a data frame containing character <code>.name</code> and <code>.value</code> columns.</p></td>
-    </tr>
     </table>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
@@ -230,6 +218,11 @@ metadata stored in the column names turns into columns in the result.</p>
 simpler to use and to handle more use cases. We recomend you use
 <code>pivot_wider()</code> for new code; <code><a href='spread.html'>spread()</a></code> isn't going away but is no longer
 under active development.</p>
+    
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p><code><a href='pivot_wider_spec.html'>pivot_wider_spec()</a></code> to pivot "by hand" with a data frame that
+defines a pivotting specification.</p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -347,6 +340,8 @@ under active development.</p>
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#details">Details</a></li>
+
+      <li><a href="#see-also">See also</a></li>
       
       <li><a href="#examples">Examples</a></li>
     </ul>
