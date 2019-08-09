@@ -13,7 +13,7 @@
 #' tidyr 1.0.0 introduced a new syntax for `nest()` and `unnest()` that's
 #' designed to be more similar to other functions. Converting to the new syntax
 #' should be straightforward (guided by the message you'll recieve) but if
-#' you just need to run an old analysis you can easily revert to the previous
+#' you just need to run an old analysis, you can easily revert to the previous
 #' behaviour using [nest_legacy()] and [unnest_legacy()] as follows:
 #'
 #' ```
@@ -23,11 +23,11 @@
 #' ```
 #'
 #' @section Grouped data frames:
-#' `df %>% nest(x, y)` specify the columns to be nested; i.e. the columns
-#' that will appear in the inner data frame. Alternatively, you `nest()` a
-#' grouped data frame created by [dplyr::group_by()]. Here the grouping
-#' variables will remain in the outer data frame, and nesting all other
-#' data frames. The result will preserve the grouping of the input.
+#' `df %>% nest(x, y)` specifies the columns to be nested; i.e. the columns that
+#' will appear in the inner data frame. Alternatively, you can `nest()` a
+#' grouped data frame created by [dplyr::group_by()]. The grouping variables
+#' remain in the outer data frame and the others are nested. The result
+#' preserves the grouping of the input.
 #'
 #' Variables supplied to `nest()` will override grouping variables so that
 #' `df %>% group_by(x, y) %>% nest(z)` will be equivalent to `df %>% nest(z)`.
@@ -44,19 +44,27 @@
 #'   If you previously created new variable in `unnest()` you'll now need to
 #'   do it explicitly with `mutate()`. Convert `df %>% unnest(y = fun(x, y, z))`
 #'   to `df %>% mutate(y = fun(x, y, z)) %>% unnest(y)`.
-#' @param .key \lifecycle{deprecated}: No longer needed because of the updated `...`
-#'   syntax.
+#' @param .key \lifecycle{deprecated}: No longer needed because of the new
+#'   `new_col = c(col1, col2, col3)` syntax.
 #' @export
 #' @examples
 #' df <- tibble(x = c(1, 1, 1, 2, 2, 3), y = 1:6, z = 6:1)
 #' # Note that we get one row of output for each unique combination of
-#' # non-chopped variables
+#' # non-nested variables
 #' df %>% nest(data = c(y, z))
-#' # cf nest
+#' # chop does something similar, but retains individual columns
 #' df %>% chop(c(y, z))
 #'
+#' # use tidyselect syntax and helpers, just like in dplyr::select()
+#' df %>% nest(data = one_of("y", "z"))
+#'
 #' iris %>% nest(data = -Species)
-#' chickwts %>% nest(data = weight)
+#' nest_vars <- names(iris)[1:4]
+#' iris %>% nest(data = one_of(nest_vars))
+#' iris %>%
+#'   nest(petal = starts_with("Petal"), sepal = starts_with("Sepal"))
+#' iris %>%
+#'   nest(width = contains("Width"), length = contains("Length"))
 #'
 #' # Nesting a grouped data frame nests all variables apart from the group vars
 #' library(dplyr)
