@@ -202,8 +202,7 @@ observations.</p>
 #&gt; 1     1 &lt;int [3]&gt; &lt;int [3]&gt;
 #&gt; 2     2 &lt;int [2]&gt; &lt;int [2]&gt;
 #&gt; 3     3 &lt;int [1]&gt; &lt;int [1]&gt;</div><div class='input'><span class='co'># cf nest</span>
-<span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='nest.html'>nest</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='no'>y</span>, <span class='no'>z</span>))</div><div class='output co'>#&gt; <span class='warning'>Warning: All elements of `...` must be named.</span>
-#&gt; <span class='warning'>Did you want `data = c(y, z)`?</span></div><div class='output co'>#&gt; # A tibble: 3 x 2
+<span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='nest.html'>nest</a></span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='no'>y</span>, <span class='no'>z</span>))</div><div class='output co'>#&gt; # A tibble: 3 x 2
 #&gt;       x           data
 #&gt;   &lt;dbl&gt; &lt;list&lt;df[,2]&gt;&gt;
 #&gt; 1     1        [3 × 2]
