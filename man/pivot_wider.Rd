@@ -2,16 +2,11 @@
 % Please edit documentation in R/pivot-wide.R
 \name{pivot_wider}
 \alias{pivot_wider}
-\alias{pivot_wider_spec}
 \title{Pivot data from long to wide}
 \usage{
 pivot_wider(data, id_cols = NULL, names_from = name,
   names_prefix = "", names_sep = "_", names_repair = "check_unique",
-  values_from = value, values_fill = NULL, values_fn = NULL,
-  spec = NULL)
-
-pivot_wider_spec(data, names_from = name, values_from = value,
-  names_prefix = "", names_sep = "_")
+  values_from = value, values_fill = NULL, values_fn = NULL)
 }
 \arguments{
 \item{data}{A data frame to pivot.}
@@ -49,13 +44,6 @@ should be filled in with when missing.}
 applied to the \code{value} in each cell in the output. You will typically
 use this when the combination of \code{id_cols} and \code{value} column does not
 uniquely identify an observation.}
-
-\item{spec}{Alternatively, instead of providing \code{cols} (and \code{names_to} and
-\code{values_to}) you can parse a specification data frame. This is useful
-for more complex pivots because it gives you greater control on how
-metadata stored in the column names turns into columns in the result.
-
-Must be a data frame containing character \code{.name} and \code{.value} columns.}
 }
 \description{
 \lifecycle{maturing}
@@ -99,4 +87,8 @@ warpbreaks \%>\%
     values_from = breaks,
     values_fn = list(breaks = mean)
   )
+}
+\seealso{
+\code{\link[=pivot_wider_spec]{pivot_wider_spec()}} to pivot "by hand" with a data frame that
+defines a pivotting specification.
 }

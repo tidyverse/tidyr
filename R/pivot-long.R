@@ -59,12 +59,6 @@
 #'   If not specified, the type of the columns generated from `names_to` will
 #'   be character, and the type of the variables generated from `values_to`
 #'   will be the common type of the input columns used to generate them.
-#' @param spec Alternatively, instead of providing `cols` (and `names_to` and
-#'   `values_to`) you can parse a specification data frame. This is useful
-#'   for more complex pivots because it gives you greater control on how
-#'   metadata stored in the column names turns into columns in the result.
-#'
-#'   Must be a data frame containing character `.name` and `.value` columns.
 #' @export
 #' @examples
 #' # See vignette("pivot") for examples and explanation
@@ -111,21 +105,46 @@ pivot_longer <- function(data,
                          names_repair = "check_unique",
                          values_to = "value",
                          values_drop_na = FALSE,
-                         values_ptypes = list(),
-                         spec = NULL
+                         values_ptypes = list()
                          ) {
 
-  if (is.null(spec)) {
-    cols <- enquo(cols)
-    spec <- pivot_longer_spec(data, !!cols,
-      names_to = names_to,
-      values_to = values_to,
-      names_prefix = names_prefix,
-      names_sep = names_sep,
-      names_pattern = names_pattern,
-      names_ptypes = names_ptypes
-    )
-  }
+  cols <- enquo(cols)
+  spec <- build_longer_spec(data, !!cols,
+    names_to = names_to,
+    values_to = values_to,
+    names_prefix = names_prefix,
+    names_sep = names_sep,
+    names_pattern = names_pattern,
+    names_ptypes = names_ptypes
+  )
+
+  pivot_longer_spec(data, spec,
+    names_repair = names_repair,
+    values_drop_na = values_drop_na,
+    values_ptypes = values_ptypes
+  )
+}
+
+
+#' Pivot data from wide to long using a spec
+#'
+#' This is a low level interface to pivotting, inspired by the cdata package,
+#' that allows you to describe pivotting with a data frame.
+#'
+#' @keywords internal
+#' @export
+#' @inheritParams pivot_longer
+#' @param spec A specification data frame. This is useful for more complex
+#'  pivots because it gives you greater control on how metadata stored in the
+#'  column names turns into columns in the result.
+#'
+#'   Must be a data frame containing character `.name` and `.value` columns.
+pivot_longer_spec <- function(data,
+                              spec,
+                              names_repair = "check_unique",
+                              values_drop_na = FALSE,
+                              values_ptypes = list()
+                              ) {
   spec <- check_spec(spec)
   spec <- deduplicate_names(spec, data)
 
@@ -175,9 +194,9 @@ pivot_longer <- function(data,
   reconstruct_tibble(data, out)
 }
 
-#' @rdname pivot_longer
+#' @rdname pivot_longer_spec
 #' @export
-pivot_longer_spec <- function(data, cols,
+build_longer_spec <- function(data, cols,
                               names_to = "name",
                               values_to = "value",
                               names_prefix = NULL,

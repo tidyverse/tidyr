@@ -15,6 +15,8 @@
 #' `pivot_wider()` for new code; `spread()` isn't going away but is no longer
 #' under active development.
 #'
+#' @seealso [pivot_wider_spec()] to pivot "by hand" with a data frame that
+#'   defines a pivotting specification.
 #' @inheritParams pivot_longer
 #' @param id_cols A set of columns that uniquely identifies each observation.
 #'   Defaults to all columns in `data` except for the columns specified in
@@ -74,20 +76,39 @@ pivot_wider <- function(data,
                         names_repair = "check_unique",
                         values_from = value,
                         values_fill = NULL,
-                        values_fn = NULL,
-                        spec = NULL) {
+                        values_fn = NULL) {
 
-  if (is.null(spec)) {
-    names_from <- enquo(names_from)
-    values_from <- enquo(values_from)
+  names_from <- enquo(names_from)
+  values_from <- enquo(values_from)
+  spec <- build_wider_spec(data,
+    names_from = !!names_from,
+    values_from = !!values_from,
+    names_prefix = names_prefix,
+    names_sep = names_sep
+  )
 
-    spec <- pivot_wider_spec(data,
-      names_from = !!names_from,
-      values_from = !!values_from,
-      names_prefix = names_prefix,
-      names_sep = names_sep
-    )
-  }
+  id_cols <- enquo(id_cols)
+  pivot_wider_spec(data, spec, !!id_cols,
+    names_repair = names_repair,
+    values_fill = values_fill,
+    values_fn = values_fn
+  )
+}
+
+#' Pivot data from long to wide using a spec
+#'
+#' This is a low level interface to pivotting, inspired by the cdata package,
+#' that allows you to describe pivotting with a data frame.
+#'
+#' @keywords internal
+#' @export
+#' @inheritParams pivot_wider
+pivot_wider_spec <- function(data,
+                                  spec,
+                                  names_repair = "check_unique",
+                                  id_cols = NULL,
+                                  values_fill = NULL,
+                                  values_fn = NULL) {
   spec <- check_spec(spec)
 
   values <- vec_unique(spec$.value)
@@ -157,11 +178,13 @@ pivot_wider <- function(data,
   }
 
   reconstruct_tibble(data, out)
+
 }
 
 #' @export
-#' @rdname pivot_wider
-pivot_wider_spec <- function(data,
+#' @rdname pivot_wider_spec
+#' @inheritParams pivot_wider
+build_wider_spec <- function(data,
                              names_from = name,
                              values_from = value,
                              names_prefix = "",

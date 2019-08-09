@@ -470,15 +470,15 @@ The arguments to `pivot_longer()` and `pivot_wider()` allow you to pivot a wide 
 
 ## Longer
 
-To see how this works, lets return to the simplest case of pivotting applied to the `relig_income` dataset. Now pivotting happens in two steps: we first create a spec object (using `pivot_longer_spec()`) then use that to describe the pivotting operation:
+To see how this works, lets return to the simplest case of pivotting applied to the `relig_income` dataset. Now pivotting happens in two steps: we first create a spec object (using `build_longer_spec()`) then use that to describe the pivotting operation:
 
 ```{r}
-spec <- relig_income %>% pivot_longer_spec(
+spec <- relig_income %>% build_longer_spec(
   cols = -religion, 
   names_to = "income",
   values_to = "count"
 )
-relig_income %>% pivot_longer(spec = spec)
+pivot_longer_spec(relig_income, spec)
 ```
 
 (This gives the same result as before, just with more code. There's no need to use it here, it is presented as a simple example for using `spec`.)
@@ -506,7 +506,7 @@ I think it would be better to have columns `income`, `rent`, `income_moe`, and `
 
 ```{r}
 spec1 <- us_rent_income %>% 
-  pivot_wider_spec(names_from = variable, values_from = c(estimate, moe))
+  build_wider_spec(names_from = variable, values_from = c(estimate, moe))
 spec1
 ```
 
@@ -521,7 +521,7 @@ spec2
 Supplying this spec to `pivot_wider()` gives us the result we're looking for:
 
 ```{r}
-us_rent_income %>% pivot_wider(spec = spec2)
+pivot_wider_spec(us_rent_income, spec2)
 ```
 
 ## By hand
@@ -550,7 +550,7 @@ spec <- tribble(
 Which yields the following longer form:
 
 ```{r}
-construction %>% pivot_longer(spec = spec)
+pivot_longer_spec(construction, spec)
 ```
 
 Note that there is no overlap between the `units` and `region` variables; here the data would really be most naturally described in two independent tables.
@@ -561,8 +561,8 @@ One neat property of the `spec` is that you need the same spec for `pivot_longer
 
 ```{r}
 construction %>% 
-  pivot_longer(spec = spec) %>% 
-  pivot_wider(spec = spec)
+  pivot_longer_spec(spec) %>% 
+  pivot_wider_spec(spec)
 ```
 
 The pivotting spec allows us to be more precise about exactly how `pivot_longer(df, spec = spec)` changes the shape of `df`: it will have `nrow(df) * nrow(spec)` rows, and `ncol(df) - nrow(spec) + ncol(spec) - 2` columns.
