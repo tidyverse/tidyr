@@ -9,6 +9,8 @@
 status](https://www.r-pkg.org/badges/version/tidyr)](https://cran.r-project.org/package=tidyr)
 [![Travis build
 status](https://travis-ci.org/tidyverse/tidyr.svg?branch=master)](https://travis-ci.org/tidyverse/tidyr)
+[![AppVeyor build
+status](https://ci.appveyor.com/api/projects/status/github/tidyverse/tidyr?branch=master&svg=true)](https://ci.appveyor.com/project/tidyverse/tidyr)
 [![Codecov test
 coverage](https://codecov.io/gh/tidyverse/tidyr/branch/master/graph/badge.svg)](https://codecov.io/gh/tidyverse/tidyr?branch=master)
 <!-- badges: end -->
@@ -54,7 +56,7 @@ library(tidyr)
 
 tidyr functions fall into five main categories:
 
-  - “Pivotting” to convert between long and wide forms. tidyr 1.0.0
+  - “Pivotting” which converts between long and wide forms. tidyr 1.0.0
     introduces `pivot_longer()` and `pivot_wider()`, replacing the older
     `spread()` and `gather()` functions. See `vignette("pivot")` for
     more details.
