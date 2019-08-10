@@ -279,7 +279,7 @@ What changed:
 
 Why it changed:
 
-* The use of `...` to make data is a problematic pattern we're moving away from.
+* The use of `...` for metadata is a problematic pattern we're moving away from.
   <https://principles.tidyverse.org/dots-data.html>
   
 * The changes to details arguments relate to features rolling out
