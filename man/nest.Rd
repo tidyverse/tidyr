@@ -19,16 +19,16 @@ unnest(data, cols, ..., keep_empty = FALSE, ptype = NULL,
 that describe how you wish to nest existing columns into new columns.
 The right hand side can be any expression supported by tidyselect.
 
-\lifecycle{deprecated}: previously you could write \code{df \%>\% nest(x, y, z)}
-and \code{df \%>\% unnest(x, y, z)}. Convert to \code{df \%>\% nest(data = c(x, y, z))}.
+\Sexpr[results=rd, stage=render]{lifecycle::badge("deprecated")}:
+previously you could write \code{df \%>\% nest(x, y, z)} and \code{df \%>\% unnest(x, y, z)}. Convert to \code{df \%>\% nest(data = c(x, y, z))}.
 and \code{df \%>\% unnest(c(x, y, z))}.
 
 If you previously created new variable in \code{unnest()} you'll now need to
 do it explicitly with \code{mutate()}. Convert \code{df \%>\% unnest(y = fun(x, y, z))}
 to \code{df \%>\% mutate(y = fun(x, y, z)) \%>\% unnest(y)}.}
 
-\item{.key}{\lifecycle{deprecated}: No longer needed because of the new
-\code{new_col = c(col1, col2, col3)} syntax.}
+\item{.key}{\Sexpr[results=rd, stage=render]{lifecycle::badge("deprecated")}:
+No longer needed because of the new \code{new_col = c(col1, col2, col3)} syntax.}
 
 \item{data}{A data frame.}
 
@@ -68,14 +68,16 @@ names. Must be one of the following options:
 See \code{\link[vctrs:vec_as_names]{vctrs::vec_as_names()}} for more details on these terms and the
 strategies used to enforce them.}
 
-\item{.drop, .preserve}{\lifecycle{deprecated} all list-columns are now preserved;
-If there are any that you don't want in the output use \code{select()} to
-remove them prior to unnesting.}
+\item{.drop, .preserve}{\Sexpr[results=rd, stage=render]{lifecycle::badge("deprecated")}:
+all list-columns are now preserved; If there are any that you
+don't want in the output use \code{select()} to remove them prior to
+unnesting.}
 
-\item{.id}{\lifecycle{deprecated}: convert \code{df \%>\% unnest(x, .id = "id")} to
-\code{df \%>\% mutate(id = names(x)) \%>\% unnest(x))}.}
+\item{.id}{\Sexpr[results=rd, stage=render]{lifecycle::badge("deprecated")}:
+convert \code{df \%>\% unnest(x, .id = "id")} to \code{df \%>\% mutate(id = names(x)) \%>\% unnest(x))}.}
 
-\item{.sep}{\lifecycle{deprecated}: use \code{names_sep} instead.}
+\item{.sep}{\Sexpr[results=rd, stage=render]{lifecycle::badge("deprecated")}:
+use \code{names_sep} instead.}
 }
 \description{
 Nesting creates a list-column of data frames; unnesting flattens it back out

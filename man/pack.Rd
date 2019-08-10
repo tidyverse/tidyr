@@ -41,7 +41,7 @@ See \code{\link[vctrs:vec_as_names]{vctrs::vec_as_names()}} for more details on 
 strategies used to enforce them.}
 }
 \description{
-\lifecycle{maturing}
+\Sexpr[results=rd, stage=render]{lifecycle::badge("maturing")}
 
 Packing and unpacking preserve the length of a data frame, changing its
 width. \code{pack()} makes \code{df} narrow by collapsing a set of columns into a

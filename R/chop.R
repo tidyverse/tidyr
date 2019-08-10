@@ -1,7 +1,7 @@
 #' Chop and unchop
 #'
 #' @description
-#' \lifecycle{maturing}
+#' \Sexpr[results=rd, stage=render]{lifecycle::badge("maturing")}
 #'
 #' Chopping and unchopping preserve the width of a data frame, changing its
 #' length. `chop()` makes `df` shorter by converting rows within each group

@@ -46,7 +46,7 @@ use this when the combination of \code{id_cols} and \code{value} column does not
 uniquely identify an observation.}
 }
 \description{
-\lifecycle{maturing}
+\Sexpr[results=rd, stage=render]{lifecycle::badge("maturing")}
 
 \code{pivot_wider()} "widens" data, increasing the number of columns and
 decreasing the number of rows. The inverse transformation is
