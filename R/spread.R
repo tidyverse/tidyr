@@ -7,7 +7,7 @@
 #' switching to `pivot_wider()`, which is easier to use, more featureful, and
 #' still under active development.
 #' `df %>% spread(key, value)` is equivalent to
-#' `df %>% pivot_wider(names_to = key, values_to = value)`
+#' `df %>% pivot_wider(names_from = key, values_from = value)`
 #'
 #' See more details in `vignette("pivot")`.
 #'
