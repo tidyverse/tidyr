@@ -42,7 +42,7 @@ packageVersion("tidyr")
 
 ## Using tidyr in packages
 
-Compared to dplyr and ggplot2, most tidyr functions have __select semantics__ (like `dplyr:select()`), not the more common action semantics (like `mutate()`, `filter()`, `arrange()`, `group_by()`, ...). This means that you typically provide tidyr functions with an expression that works with column names (like `starts_with("x")` or `a:c`) not with column values (like `y = x * 2`). As a consequence, it's worthwhile to clarify the best patterns for calling tidyr functions inside another package.
+Compared to dplyr and ggplot2, most tidyr functions have __select semantics__ (like `dplyr::select()`), not the more common action semantics (like `mutate()`, `filter()`, `arrange()`, `group_by()`, ...). This means that you typically provide tidyr functions with an expression that works with column names (like `starts_with("x")` or `a:c`) not with column values (like `y = x * 2`). As a consequence, it's worthwhile to clarify the best patterns for calling tidyr functions inside another package.
 
 There are three main cases that you'll encounter:
 
