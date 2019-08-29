@@ -51,7 +51,7 @@ library(readr)
 
 ## String data in column names {#pew}
 
-The `relig_income` dataset stores count based a survey which (among other things) asked people about their religion and annual income:
+The `relig_income` dataset stores counts based on a survey which (among other things) asked people about their religion and annual income:
 
 ```{r}
 relig_income
