@@ -18,6 +18,14 @@ Run `revdep_details(,"BgeeDB")` for more info
 *   R CMD check timed out
     
 
+*   checking whether package ‘BgeeDB’ can be installed ... WARNING
+    ```
+    Found the following significant warnings:
+      Warning: package ‘AnnotationDbi’ was built under R version 3.6.1
+      Warning: package ‘IRanges’ was built under R version 3.6.1
+    See ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/BgeeDB/new/BgeeDB.Rcheck/00install.out’ for details.
+    ```
+
 *   checking top-level files ... NOTE
     ```
     File
@@ -29,11 +37,11 @@ Run `revdep_details(,"BgeeDB")` for more info
 
 <details>
 
-* Version: 0.3.1
+* Version: 0.3.2
 * Source code: https://github.com/cran/circumplex
 * URL: https://github.com/jmgirard/circumplex
 * BugReports: https://github.com/jmgirard/circumplex/issues
-* Date/Publication: 2019-05-15 18:00:03 UTC
+* Date/Publication: 2019-08-21 17:50:02 UTC
 * Number of recursive dependencies: 94
 
 Run `revdep_details(,"circumplex")` for more info
@@ -125,6 +133,13 @@ Run `revdep_details(,"CNPBayes")` for more info
 
 *   R CMD check timed out
     
+
+*   checking whether package ‘CNPBayes’ can be installed ... WARNING
+    ```
+    Found the following significant warnings:
+      Warning: package ‘IRanges’ was built under R version 3.6.1
+    See ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/CNPBayes/new/CNPBayes.Rcheck/00install.out’ for details.
+    ```
 
 *   checking for missing documentation entries ... WARNING
     ```
@@ -296,6 +311,59 @@ ERROR: compilation failed for package ‘colorednoise’
 * removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/colorednoise/old/colorednoise.Rcheck/colorednoise’
 
 ```
+# dexter
+
+<details>
+
+* Version: 1.0.0
+* Source code: https://github.com/cran/dexter
+* URL: http://dexterities.netlify.com
+* BugReports: https://github.com/jessekps/dexter/issues
+* Date/Publication: 2019-08-22 12:30:02 UTC
+* Number of recursive dependencies: 67
+
+Run `revdep_details(,"dexter")` for more info
+
+</details>
+
+## In both
+
+*   checking whether package ‘dexter’ can be installed ... ERROR
+    ```
+    Installation failed.
+    See ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/dexter/new/dexter.Rcheck/00install.out’ for details.
+    ```
+
+## Installation
+
+### Devel
+
+```
+* installing *source* package ‘dexter’ ...
+** package ‘dexter’ successfully unpacked and MD5 sums checked
+** using staged installation
+** libs
+clang++ -std=gnu++11 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/new/Rcpp/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/dexter/RcppArmadillo/include" -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -I/usr/local/include -fopenmp  -fPIC  -Wall -g -O2  -c RcppExports.cpp -o RcppExports.o
+clang: error: unsupported option '-fopenmp'
+make: *** [RcppExports.o] Error 1
+ERROR: compilation failed for package ‘dexter’
+* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/dexter/new/dexter.Rcheck/dexter’
+
+```
+### CRAN
+
+```
+* installing *source* package ‘dexter’ ...
+** package ‘dexter’ successfully unpacked and MD5 sums checked
+** using staged installation
+** libs
+clang++ -std=gnu++11 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/old/Rcpp/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/dexter/RcppArmadillo/include" -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -I/usr/local/include -fopenmp  -fPIC  -Wall -g -O2  -c RcppExports.cpp -o RcppExports.o
+clang: error: unsupported option '-fopenmp'
+make: *** [RcppExports.o] Error 1
+ERROR: compilation failed for package ‘dexter’
+* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/dexter/old/dexter.Rcheck/dexter’
+
+```
 # dynfrail
 
 <details>
@@ -351,9 +419,9 @@ ERROR: compilation failed for package ‘dynfrail’
 
 <details>
 
-* Version: 2.8.0
+* Version: 2.8.2
 * Source code: https://github.com/cran/ELMER
-* Date/Publication: 2019-05-02
+* Date/Publication: 2019-08-20
 * Number of recursive dependencies: 203
 
 Run `revdep_details(,"ELMER")` for more info
@@ -367,9 +435,9 @@ Run `revdep_details(,"ELMER")` for more info
 
 *   checking installed package size ... NOTE
     ```
-      installed size is 83.7Mb
+      installed size is 75.8Mb
       sub-directories of 1Mb or more:
-        doc  82.9Mb
+        doc  75.1Mb
     ```
 
 *   checking R code for possible problems ... NOTE
@@ -384,9 +452,9 @@ Run `revdep_details(,"ELMER")` for more info
     getRegionNearGenes: no visible binding for global variable 'ID'
       (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/ELMER/new/ELMER.Rcheck/00_pkg_src/ELMER/R/GetNearbyGenes.R:551)
     getTFtargets: no visible binding for global variable 'TF'
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/ELMER/new/ELMER.Rcheck/00_pkg_src/ELMER/R/Main_function.R:1587)
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/ELMER/new/ELMER.Rcheck/00_pkg_src/ELMER/R/Main_function.R:1620)
     getTFtargets: no visible binding for global variable 'TF'
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/ELMER/new/ELMER.Rcheck/00_pkg_src/ELMER/R/Main_function.R:1589)
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/ELMER/new/ELMER.Rcheck/00_pkg_src/ELMER/R/Main_function.R:1622)
     Undefined global functions or variables:
       DistanceTSS Hugo_Symbol ID Side TF
     ```
@@ -460,11 +528,11 @@ installing the source packages ‘hugene10sttranscriptcluster.db’, ‘pd.hugen
 
 <details>
 
-* Version: 3.16.0
+* Version: 3.16.2
 * Source code: https://github.com/cran/MSstats
 * URL: http://msstats.org
 * BugReports: https://groups.google.com/forum/#!forum/msstats
-* Date/Publication: 2019-05-02
+* Date/Publication: 2019-08-16
 * Number of recursive dependencies: 86
 
 Run `revdep_details(,"MSstats")` for more info
@@ -498,9 +566,9 @@ Run `revdep_details(,"MSstats")` for more info
     plot_quantlim: no visible binding for global variable ‘shape’
       (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/MSstats/new/MSstats.Rcheck/00_pkg_src/MSstats/R/plot_quantlim.R:223-226)
     Undefined global functions or variables:
-      .resid ABUNDANCE FEATURE FRACTION Intensity LABEL Mean Name PEPTIDE
-      PROTEIN PeptideSequence Protein ProteinName Protein_number RUN
-      Selected_fragments Selected_peptides Train_size
+      .resid ABUNDANCE FEATURE FRACTION INTENSITY Intensity LABEL Mean Name
+      PEPTIDE PROTEIN PeptideSequence Protein ProteinName Protein_number
+      RUN Selected_fragments Selected_peptides Train_size
       aggr_Fragment_Annotation aggr_Peak_Area analysis censored ciw
       cover_feature datafeature df_resid fea feature is_censored is_lowcvr
       is_obs is_olr label log2inty logFC min_obs missing.col nb_feature
@@ -513,11 +581,11 @@ Run `revdep_details(,"MSstats")` for more info
 
 <details>
 
-* Version: 1.0.0-7
+* Version: 1.1.1-2
 * Source code: https://github.com/cran/nlmixr
 * URL: https://github.com/nlmixrdevelopment/nlmixr
-* Date/Publication: 2018-09-23 14:00:03 UTC
-* Number of recursive dependencies: 127
+* Date/Publication: 2019-08-29 12:10:03 UTC
+* Number of recursive dependencies: 155
 
 Run `revdep_details(,"nlmixr")` for more info
 
@@ -539,16 +607,51 @@ Run `revdep_details(,"nlmixr")` for more info
 * installing *source* package ‘nlmixr’ ...
 ** package ‘nlmixr’ successfully unpacked and MD5 sums checked
 ** using staged installation
+checking for gcc... ccache clang -Qunused-arguments
+checking whether the C compiler works... yes
+checking for C compiler default output file name... a.out
+checking for suffix of executables... 
+checking whether we are cross compiling... no
+checking for suffix of object files... o
+checking whether we are using the GNU C compiler... yes
+checking whether ccache clang -Qunused-arguments accepts -g... yes
+checking for ccache clang -Qunused-arguments option to accept ISO C89... none needed
+checking for ccache clang -Qunused-arguments option to support OpenMP... unsupported
+configure: creating ./config.status
+config.status: creating src/Makevars
+--------[begin src/Makevars]--------
+# -*- mode: makefile-gmake -*-
+ARMA=`"$(R_HOME)/bin$(R_ARCH_BIN)/Rscript" -e 'cat(file.path(find.package("RcppArmadillo"),"include"))'`
+BH=`"$(R_HOME)/bin$(R_ARCH_BIN)/Rscript" -e 'cat(file.path(find.package("BH"),"include"))'`
+RCPP=`"$(R_HOME)/bin$(R_ARCH_BIN)/Rscript" -e 'cat(file.path(find.package("Rcpp"),"include"))'`
+EG=`"$(R_HOME)/bin$(R_ARCH_BIN)/Rscript" -e 'cat(file.path(find.package("RcppEigen"),"include"))'`
+SH=`"$(R_HOME)/bin$(R_ARCH_BIN)/Rscript" -e 'cat(file.path(find.package("StanHeaders"),"include"))'`
+
+CXX_STD     = CXX14
+
+
+PKG_LIBS = $(LAPACK_LIBS) $(BLAS_LIBS) $(FLIBS)
+PKG_CXXFLAGS = -Id -I../inst/include -DBOOST_DISABLE_ASSERTS -I"$(BH)" -I"$(EG)" -I"$(SH)" -I"$(RCPP)" -I"$(ARMA)"
+SHLIB_LDFLAGS = $(SHLIB_CXXLDFLAGS) 
+SHLIB_LD = $(SHLIB_CXXLD)
+SOURCES_C = jj.c jj.g.d_parser.c init.c rprintf.c merge3.c lbfgsR.c
+SOURCES_CPP = neldermead.cpp slice.cpp RcppExportMod.cpp ode_cmt1.cpp RcppExports.cpp resid.cpp inner.cpp saem.cpp
+OBJECTS = $(SOURCES_C:.c=.o) $(SOURCES_CPP:.cpp=.o)
+
+all: $(SHLIB)
+$(SHLIB): $(OBJECTS)
+
+--------[end src/Makevars]--------
 ** libs
-ccache clang -Qunused-arguments  -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/dparser/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/new/Rcpp/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/new/BH/include" -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -I/usr/local/include  -fPIC  -Wall -g -O2  -c jj.c -o jj.o
-ccache clang -Qunused-arguments  -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/dparser/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/new/Rcpp/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/new/BH/include" -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -I/usr/local/include  -fPIC  -Wall -g -O2  -c jj.g.d_parser.c -o jj.g.d_parser.o
-ccache clang -Qunused-arguments  -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/dparser/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/new/Rcpp/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/new/BH/include" -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -I/usr/local/include  -fPIC  -Wall -g -O2  -c init.c -o init.o
-ccache clang -Qunused-arguments  -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/dparser/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/new/Rcpp/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/new/BH/include" -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -I/usr/local/include  -fPIC  -Wall -g -O2  -c rprintf.c -o rprintf.o
-ccache clang -Qunused-arguments  -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/dparser/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/new/Rcpp/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/new/BH/include" -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -I/usr/local/include  -fPIC  -Wall -g -O2  -c chkSolved.c -o chkSolved.o
-ccache clang -Qunused-arguments  -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/dparser/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/new/Rcpp/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/new/BH/include" -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -I/usr/local/include  -fPIC  -Wall -g -O2  -c merge3.c -o merge3.o
-clang++ -std=gnu++11 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/dparser/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/new/Rcpp/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/new/BH/include" -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -I/usr/local/include -Id -I../inst/include -DBOOST_DISABLE_ASSERTS -I"`"/Library/Frameworks/R.framework/Resources/bin/Rscript" -e 'cat(file.path(find.package("RcppArmadillo"),"include"))'`" -fPIC  -Wall -g -O2  -c neldermead.cpp -o neldermead.o
-clang++ -std=gnu++11 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/dparser/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/new/Rcpp/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/new/BH/include" -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -I/usr/local/include -Id -I../inst/include -DBOOST_DISABLE_ASSERTS -I"`"/Library/Frameworks/R.framework/Resources/bin/Rscript" -e 'cat(file.path(find.package("RcppArmadillo"),"include"))'`" -fPIC  -Wall -g -O2  -c slice.cpp -o slice.o
-clang++ -std=gnu++11 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/dparser/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/new/Rcpp/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/new/BH/include" -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -I/usr/local/include -Id -I../inst/include -DBOOST_DISABLE_ASSERTS -I"`"/Library/Frameworks/R.framework/Resources/bin/Rscript" -e 'cat(file.path(find.package("RcppArmadillo"),"include"))'`" -fPIC  -Wall -g -O2  -c RcppExportMod.cpp -o RcppExportMod.o
+ccache clang -Qunused-arguments  -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/dparser/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RxODE/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/lbfgsb3c/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/new/Rcpp/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/new/BH/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include" -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -I/usr/local/include  -fPIC  -Wall -g -O2  -c jj.c -o jj.o
+ccache clang -Qunused-arguments  -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/dparser/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RxODE/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/lbfgsb3c/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/new/Rcpp/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/new/BH/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include" -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -I/usr/local/include  -fPIC  -Wall -g -O2  -c jj.g.d_parser.c -o jj.g.d_parser.o
+ccache clang -Qunused-arguments  -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/dparser/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RxODE/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/lbfgsb3c/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/new/Rcpp/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/new/BH/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include" -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -I/usr/local/include  -fPIC  -Wall -g -O2  -c init.c -o init.o
+ccache clang -Qunused-arguments  -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/dparser/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RxODE/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/lbfgsb3c/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/new/Rcpp/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/new/BH/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include" -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -I/usr/local/include  -fPIC  -Wall -g -O2  -c rprintf.c -o rprintf.o
+ccache clang -Qunused-arguments  -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/dparser/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RxODE/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/lbfgsb3c/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/new/Rcpp/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/new/BH/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include" -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -I/usr/local/include  -fPIC  -Wall -g -O2  -c merge3.c -o merge3.o
+ccache clang -Qunused-arguments  -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/dparser/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RxODE/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/lbfgsb3c/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/new/Rcpp/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/new/BH/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include" -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -I/usr/local/include  -fPIC  -Wall -g -O2  -c lbfgsR.c -o lbfgsR.o
+clang++ -std=gnu++14 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/dparser/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RxODE/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/lbfgsb3c/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/new/Rcpp/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/new/BH/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include" -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -I/usr/local/include -Id -I../inst/include -DBOOST_DISABLE_ASSERTS -I"`"/Library/Frameworks/R.framework/Resources/bin/Rscript" -e 'cat(file.path(find.package("BH"),"include"))'`" -I"`"/Library/Frameworks/R.framework/Resources/bin/Rscript" -e 'cat(file.path(find.package("RcppEigen"),"include"))'`" -I"`"/Library/Frameworks/R.framework/Resources/bin/Rscript" -e 'cat(file.path(find.package("StanHeaders"),"include"))'`" -I"`"/Library/Frameworks/R.framework/Resources/bin/Rscript" -e 'cat(file.path(find.package("Rcpp"),"include"))'`" -I"`"/Library/Frameworks/R.framework/Resources/bin/Rscript" -e 'cat(file.path(find.package("RcppArmadillo"),"include"))'`" -fPIC  -Wall -g -O2  -c neldermead.cpp -o neldermead.o
+clang++ -std=gnu++14 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/dparser/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RxODE/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/lbfgsb3c/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/new/Rcpp/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/new/BH/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include" -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -I/usr/local/include -Id -I../inst/include -DBOOST_DISABLE_ASSERTS -I"`"/Library/Frameworks/R.framework/Resources/bin/Rscript" -e 'cat(file.path(find.package("BH"),"include"))'`" -I"`"/Library/Frameworks/R.framework/Resources/bin/Rscript" -e 'cat(file.path(find.package("RcppEigen"),"include"))'`" -I"`"/Library/Frameworks/R.framework/Resources/bin/Rscript" -e 'cat(file.path(find.package("StanHeaders"),"include"))'`" -I"`"/Library/Frameworks/R.framework/Resources/bin/Rscript" -e 'cat(file.path(find.package("Rcpp"),"include"))'`" -I"`"/Library/Frameworks/R.framework/Resources/bin/Rscript" -e 'cat(file.path(find.package("RcppArmadillo"),"include"))'`" -fPIC  -Wall -g -O2  -c slice.cpp -o slice.o
+clang++ -std=gnu++14 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/dparser/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RxODE/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/lbfgsb3c/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/new/Rcpp/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/new/BH/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include" -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -I/usr/local/include -Id -I../inst/include -DBOOST_DISABLE_ASSERTS -I"`"/Library/Frameworks/R.framework/Resources/bin/Rscript" -e 'cat(file.path(find.package("BH"),"include"))'`" -I"`"/Library/Frameworks/R.framework/Resources/bin/Rscript" -e 'cat(file.path(find.package("RcppEigen"),"include"))'`" -I"`"/Library/Frameworks/R.framework/Resources/bin/Rscript" -e 'cat(file.path(find.package("StanHeaders"),"include"))'`" -I"`"/Library/Frameworks/R.framework/Resources/bin/Rscript" -e 'cat(file.path(find.package("Rcpp"),"include"))'`" -I"`"/Library/Frameworks/R.framework/Resources/bin/Rscript" -e 'cat(file.path(find.package("RcppArmadillo"),"include"))'`" -fPIC  -Wall -g -O2  -c RcppExportMod.cpp -o RcppExportMod.o
 In file included from RcppExportMod.cpp:1:
 In file included from ./../inst/include/nlmixr_types.h:4:
 In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
@@ -701,7 +804,7 @@ In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noi
     #pragma clang diagnostic pop
                              ^
 17 warnings generated.
-clang++ -std=gnu++11 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/dparser/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/new/Rcpp/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/new/BH/include" -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -I/usr/local/include -Id -I../inst/include -DBOOST_DISABLE_ASSERTS -I"`"/Library/Frameworks/R.framework/Resources/bin/Rscript" -e 'cat(file.path(find.package("RcppArmadillo"),"include"))'`" -fPIC  -Wall -g -O2  -c ode_cmt1.cpp -o ode_cmt1.o
+clang++ -std=gnu++14 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/dparser/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RxODE/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/lbfgsb3c/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/new/Rcpp/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/new/BH/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include" -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -I/usr/local/include -Id -I../inst/include -DBOOST_DISABLE_ASSERTS -I"`"/Library/Frameworks/R.framework/Resources/bin/Rscript" -e 'cat(file.path(find.package("BH"),"include"))'`" -I"`"/Library/Frameworks/R.framework/Resources/bin/Rscript" -e 'cat(file.path(find.package("RcppEigen"),"include"))'`" -I"`"/Library/Frameworks/R.framework/Resources/bin/Rscript" -e 'cat(file.path(find.package("StanHeaders"),"include"))'`" -I"`"/Library/Frameworks/R.framework/Resources/bin/Rscript" -e 'cat(file.path(find.package("Rcpp"),"include"))'`" -I"`"/Library/Frameworks/R.framework/Resources/bin/Rscript" -e 'cat(file.path(find.package("RcppArmadillo"),"include"))'`" -fPIC  -Wall -g -O2  -c ode_cmt1.cpp -o ode_cmt1.o
 In file included from ode_cmt1.cpp:1:
 In file included from ./../inst/include/nlmixr_types.h:4:
 In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
@@ -853,7 +956,7 @@ In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noi
 /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/unsupported/Eigen/../../Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
     #pragma clang diagnostic pop
                              ^
-In file included from ode_cmt1.cpp:6:
+In file included from ode_cmt1.cpp:9:
 In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include/stan/math.hpp:4:
 In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include/stan/math/rev/mat.hpp:12:
 In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include/stan/math/prim/mat.hpp:292:
@@ -871,108 +974,189 @@ BOOST_HEADER_DEPRECATED("<boost/integer/integer_log2.hpp>");
 /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/new/BH/include/boost/config/pragma_message.hpp:24:34: note: expanded from macro 'BOOST_PRAGMA_MESSAGE'
 # define BOOST_PRAGMA_MESSAGE(x) _Pragma(BOOST_STRINGIZE(message(x)))
                                  ^
-<scratch space>:29:2: note: expanded from here
+<scratch space>:54:2: note: expanded from here
  message("This header is deprecated. Use " "<boost/integer/integer_log2.hpp>" " instead.")
  ^
-In file included from ode_cmt1.cpp:6:
+In file included from ode_cmt1.cpp:7:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include/stan/math/rev/core.hpp:45:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include/stan/math/rev/core/set_zero_all_adjoints.hpp:14:13: warning: unused function 'set_zero_all_adjoints' [-Wunused-function]
+static void set_zero_all_adjoints() {
+            ^
+In file included from ode_cmt1.cpp:9:
 In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include/stan/math.hpp:4:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include/stan/math/rev/mat.hpp:41:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include/stan/math/rev/mat/fun/ordered_constrain.hpp:6:
-/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include/stan/math/rev/mat/functor/adj_jac_apply.hpp:31:27: error: no template named 'index_sequence' in namespace 'std'; did you mean 'boost::fusion::detail::index_sequence'?
-                          std::index_sequence<I...> i) {
-                          ^~~~~~~~~~~~~~~~~~~
-                          boost::fusion::detail::index_sequence
-/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/new/BH/include/boost/fusion/support/detail/index_sequence.hpp:37:12: note: 'boost::fusion::detail::index_sequence' declared here
-    struct index_sequence
-           ^
-In file included from ode_cmt1.cpp:6:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include/stan/math.hpp:4:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include/stan/math/rev/mat.hpp:41:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include/stan/math/rev/mat/fun/ordered_constrain.hpp:6:
-/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include/stan/math/rev/mat/functor/adj_jac_apply.hpp:30:11: error: 'auto' return without trailing return type; deduced return types are a C++14 extension
-constexpr auto apply_impl(const F& f, const Tuple& t,
-          ^
-/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include/stan/math/rev/mat/functor/adj_jac_apply.hpp:48:11: error: 'auto' return without trailing return type; deduced return types are a C++14 extension
-constexpr auto apply(const F& f, const Tuple& t) {
-          ^
-/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include/stan/math/rev/mat/functor/adj_jac_apply.hpp:49:27: error: no template named 'make_index_sequence' in namespace 'std'; did you mean 'boost::fusion::detail::make_index_sequence'?
-  return apply_impl(f, t, std::make_index_sequence<std::tuple_size<Tuple>{}>{});
-                          ^~~~~~~~~~~~~~~~~~~~~~~~
-                          boost::fusion::detail::make_index_sequence
-/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/new/BH/include/boost/fusion/support/detail/index_sequence.hpp:59:12: note: 'boost::fusion::detail::make_index_sequence' declared here
-    struct make_index_sequence
-           ^
-In file included from ode_cmt1.cpp:6:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include/stan/math.hpp:4:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include/stan/math/rev/mat.hpp:41:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include/stan/math/rev/mat/fun/ordered_constrain.hpp:6:
-/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include/stan/math/rev/mat/functor/adj_jac_apply.hpp:151:14: error: no template named 'result_of_t' in namespace 'std'; did you mean 'result_of'?
-      = std::result_of_t<F(decltype(is_var_), decltype(value_of(Targs()))...)>;
-        ~~~~~^~~~~~~~~~~
-             result_of
-/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1/type_traits:2863:34: note: 'result_of' declared here
-template <class _Callable> class result_of;
-                                 ^
-In file included from ode_cmt1.cpp:6:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include/stan/math.hpp:4:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include/stan/math/rev/mat.hpp:41:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include/stan/math/rev/mat/fun/ordered_constrain.hpp:6:
-/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include/stan/math/rev/mat/functor/adj_jac_apply.hpp:408:3: error: 'auto' return without trailing return type; deduced return types are a C++14 extension
-  auto operator()(const Targs&... args) {
-  ^
-/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include/stan/math/rev/mat/functor/adj_jac_apply.hpp:536:16: error: 'auto' not allowed in lambda parameter
-        [this](auto&&... args) { this->accumulate_adjoints(args...); },
-               ^~~~
-/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include/stan/math/rev/mat/functor/adj_jac_apply.hpp:536:22: error: type 'int &&' of function parameter pack does not contain any unexpanded parameter packs
-        [this](auto&&... args) { this->accumulate_adjoints(args...); },
-               ~~~~~~^~~~~~~~
-/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include/stan/math/rev/mat/functor/adj_jac_apply.hpp:616:1: error: 'auto' return without trailing return type; deduced return types are a C++14 extension
-auto adj_jac_apply(const Targs&... args) {
-^
-In file included from ode_cmt1.cpp:6:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include/stan/math.hpp:4:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include/stan/math/rev/mat.hpp:41:
-/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include/stan/math/rev/mat/fun/ordered_constrain.hpp:60:3: error: 'auto' return without trailing return type; deduced return types are a C++14 extension
-  auto multiply_adjoint_jacobian(const std::array<bool, size>& needs_adj,
-  ^
-/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include/stan/math/rev/mat/fun/ordered_constrain.hpp:73:12: error: no viable conversion from returned value of type 'tuple<typename __make_tuple_return<Matrix<double, -1, 1, 0, -1, 1> &>::type>' (aka 'tuple<Eigen::Matrix<double, -1, 1, 0, -1, 1> >') to function return type 'int'
-    return std::make_tuple(adj_times_jac);
-           ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include/stan/math/rev/mat/fun/ordered_constrain.hpp:88:10: error: no matching function for call to 'adj_jac_apply'
-  return adj_jac_apply<internal::ordered_constrain_op>(x);
-         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-In file included from ode_cmt1.cpp:6:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include/stan/math.hpp:4:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include/stan/math/rev/mat.hpp:42:
-/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include/stan/math/rev/mat/fun/positive_ordered_constrain.hpp:61:3: error: 'auto' return without trailing return type; deduced return types are a C++14 extension
-  auto multiply_adjoint_jacobian(const std::array<bool, size>& needs_adj,
-  ^
-/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include/stan/math/rev/mat/fun/positive_ordered_constrain.hpp:71:12: error: no viable conversion from returned value of type 'tuple<typename __make_tuple_return<Matrix<double, -1, 1, 0, -1, 1> &>::type>' (aka 'tuple<Eigen::Matrix<double, -1, 1, 0, -1, 1> >') to function return type 'int'
-    return std::make_tuple(adj_times_jac);
-           ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include/stan/math/rev/mat/fun/positive_ordered_constrain.hpp:86:10: error: no matching function for call to 'adj_jac_apply'
-  return adj_jac_apply<internal::positive_ordered_constrain_op>(x);
-         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-In file included from ode_cmt1.cpp:6:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include/stan/math.hpp:4:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include/stan/math/rev/mat.hpp:48:
-/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include/stan/math/rev/mat/fun/simplex_constrain.hpp:66:3: error: 'auto' return without trailing return type; deduced return types are a C++14 extension
-  auto multiply_adjoint_jacobian(const std::array<bool, size>& needs_adj,
-  ^
-/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include/stan/math/rev/mat/fun/simplex_constrain.hpp:79:12: error: no viable conversion from returned value of type 'tuple<typename __make_tuple_return<Matrix<double, -1, 1, 0, -1, 1> &>::type>' (aka 'tuple<Eigen::Matrix<double, -1, 1, 0, -1, 1> >') to function return type 'int'
-    return std::make_tuple(adj_times_jac);
-           ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include/stan/math/rev/mat/fun/simplex_constrain.hpp:97:10: error: no matching function for call to 'adj_jac_apply'
-  return adj_jac_apply<internal::simplex_constrain_op>(y);
-         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-In file included from ode_cmt1.cpp:6:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include/stan/math.hpp:4:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include/stan/math/rev/mat.hpp:49:
-/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include/stan/math/rev/mat/fun/softmax.hpp:78:10: error: no matching function for call to 'adj_jac_apply'
-  return adj_jac_apply<internal::softmax_op>(alpha);
-         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-18 warnings and 19 errors generated.
-make: *** [ode_cmt1.o] Error 1
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include/stan/math/rev/mat.hpp:12:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include/stan/math/prim/mat.hpp:336:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include/stan/math/prim/mat/prob/poisson_log_glm_log.hpp:5:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include/stan/math/prim/mat/prob/poisson_log_glm_lpmf.hpp:64:59: warning: unused typedef 'T_alpha_val' [-Wunused-local-typedef]
+      typename partials_return_type<T_alpha>::type>::type T_alpha_val;
+                                                          ^
+20 warnings generated.
+clang++ -std=gnu++14 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/dparser/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RxODE/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/lbfgsb3c/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/new/Rcpp/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/new/BH/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include" -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -I/usr/local/include -Id -I../inst/include -DBOOST_DISABLE_ASSERTS -I"`"/Library/Frameworks/R.framework/Resources/bin/Rscript" -e 'cat(file.path(find.package("BH"),"include"))'`" -I"`"/Library/Frameworks/R.framework/Resources/bin/Rscript" -e 'cat(file.path(find.package("RcppEigen"),"include"))'`" -I"`"/Library/Frameworks/R.framework/Resources/bin/Rscript" -e 'cat(file.path(find.package("StanHeaders"),"include"))'`" -I"`"/Library/Frameworks/R.framework/Resources/bin/Rscript" -e 'cat(file.path(find.package("Rcpp"),"include"))'`" -I"`"/Library/Frameworks/R.framework/Resources/bin/Rscript" -e 'cat(file.path(find.package("RcppArmadillo"),"include"))'`" -fPIC  -Wall -g -O2  -c RcppExports.cpp -o RcppExports.o
+In file included from RcppExports.cpp:4:
+In file included from ./../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:30:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Dense:1:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Core:535:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from RcppExports.cpp:4:
+In file included from ./../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:30:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Dense:2:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/LU:47:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from RcppExports.cpp:4:
+In file included from ./../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:30:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Dense:3:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Cholesky:12:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Jacobi:29:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from RcppExports.cpp:4:
+In file included from ./../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:30:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Dense:3:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Cholesky:43:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from RcppExports.cpp:4:
+In file included from ./../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:30:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Dense:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/QR:17:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Householder:27:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from RcppExports.cpp:4:
+In file included from ./../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:30:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Dense:5:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/SVD:48:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from RcppExports.cpp:4:
+In file included from ./../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:30:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Dense:6:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Geometry:58:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from RcppExports.cpp:4:
+In file included from ./../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:30:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Dense:7:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Eigenvalues:58:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from RcppExports.cpp:4:
+In file included from ./../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:31:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Sparse:26:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/SparseCore:66:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from RcppExports.cpp:4:
+In file included from ./../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:31:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Sparse:27:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/OrderingMethods:71:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from RcppExports.cpp:4:
+In file included from ./../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:31:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Sparse:29:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/SparseCholesky:43:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from RcppExports.cpp:4:
+In file included from ./../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:31:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Sparse:32:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/SparseQR:35:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from RcppExports.cpp:4:
+In file included from ./../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:31:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Sparse:33:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/IterativeLinearSolvers:46:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from RcppExports.cpp:4:
+In file included from ./../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:32:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/CholmodSupport:45:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from RcppExports.cpp:4:
+In file included from ./../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:35:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/unsupported/Eigen/KroneckerProduct:34:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/unsupported/Eigen/../../Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from RcppExports.cpp:4:
+In file included from ./../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:39:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/unsupported/Eigen/Polynomials:135:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/unsupported/Eigen/../../Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from RcppExports.cpp:4:
+In file included from ./../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:40:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/unsupported/Eigen/SparseExtra:51:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/unsupported/Eigen/../../Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+17 warnings generated.
+clang++ -std=gnu++14 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/dparser/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RxODE/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/lbfgsb3c/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/new/Rcpp/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/new/BH/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include" -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -I/usr/local/include -Id -I../inst/include -DBOOST_DISABLE_ASSERTS -I"`"/Library/Frameworks/R.framework/Resources/bin/Rscript" -e 'cat(file.path(find.package("BH"),"include"))'`" -I"`"/Library/Frameworks/R.framework/Resources/bin/Rscript" -e 'cat(file.path(find.package("RcppEigen"),"include"))'`" -I"`"/Library/Frameworks/R.framework/Resources/bin/Rscript" -e 'cat(file.path(find.package("StanHeaders"),"include"))'`" -I"`"/Library/Frameworks/R.framework/Resources/bin/Rscript" -e 'cat(file.path(find.package("Rcpp"),"include"))'`" -I"`"/Library/Frameworks/R.framework/Resources/bin/Rscript" -e 'cat(file.path(find.package("RcppArmadillo"),"include"))'`" -fPIC  -Wall -g -O2  -c resid.cpp -o resid.o
+In file included from resid.cpp:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppArmadillo/include/RcppArmadillo.h:31:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppArmadillo/include/RcppArmadilloForward.h:46:
+In file included from /usr/local/include/armadillo:87:
+/usr/local/include/armadillo_bits/include_hdf5.hpp:26:14: fatal error: '/usr/local/Cellar/hdf5/1.10.5_1/include/hdf5.h' file not found
+    #include ARMA_INCFILE_WRAP(ARMA_HDF5_HEADER)
+             ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/usr/local/include/armadillo_bits/compiler_setup.hpp:79:30: note: expanded from macro 'ARMA_INCFILE_WRAP'
+#define ARMA_INCFILE_WRAP(x) <x>
+                             ^~~
+1 error generated.
+make: *** [resid.o] Error 1
 ERROR: compilation failed for package ‘nlmixr’
 * removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/nlmixr/new/nlmixr.Rcheck/nlmixr’
 
@@ -983,16 +1167,51 @@ ERROR: compilation failed for package ‘nlmixr’
 * installing *source* package ‘nlmixr’ ...
 ** package ‘nlmixr’ successfully unpacked and MD5 sums checked
 ** using staged installation
+checking for gcc... ccache clang -Qunused-arguments
+checking whether the C compiler works... yes
+checking for C compiler default output file name... a.out
+checking for suffix of executables... 
+checking whether we are cross compiling... no
+checking for suffix of object files... o
+checking whether we are using the GNU C compiler... yes
+checking whether ccache clang -Qunused-arguments accepts -g... yes
+checking for ccache clang -Qunused-arguments option to accept ISO C89... none needed
+checking for ccache clang -Qunused-arguments option to support OpenMP... unsupported
+configure: creating ./config.status
+config.status: creating src/Makevars
+--------[begin src/Makevars]--------
+# -*- mode: makefile-gmake -*-
+ARMA=`"$(R_HOME)/bin$(R_ARCH_BIN)/Rscript" -e 'cat(file.path(find.package("RcppArmadillo"),"include"))'`
+BH=`"$(R_HOME)/bin$(R_ARCH_BIN)/Rscript" -e 'cat(file.path(find.package("BH"),"include"))'`
+RCPP=`"$(R_HOME)/bin$(R_ARCH_BIN)/Rscript" -e 'cat(file.path(find.package("Rcpp"),"include"))'`
+EG=`"$(R_HOME)/bin$(R_ARCH_BIN)/Rscript" -e 'cat(file.path(find.package("RcppEigen"),"include"))'`
+SH=`"$(R_HOME)/bin$(R_ARCH_BIN)/Rscript" -e 'cat(file.path(find.package("StanHeaders"),"include"))'`
+
+CXX_STD     = CXX14
+
+
+PKG_LIBS = $(LAPACK_LIBS) $(BLAS_LIBS) $(FLIBS)
+PKG_CXXFLAGS = -Id -I../inst/include -DBOOST_DISABLE_ASSERTS -I"$(BH)" -I"$(EG)" -I"$(SH)" -I"$(RCPP)" -I"$(ARMA)"
+SHLIB_LDFLAGS = $(SHLIB_CXXLDFLAGS) 
+SHLIB_LD = $(SHLIB_CXXLD)
+SOURCES_C = jj.c jj.g.d_parser.c init.c rprintf.c merge3.c lbfgsR.c
+SOURCES_CPP = neldermead.cpp slice.cpp RcppExportMod.cpp ode_cmt1.cpp RcppExports.cpp resid.cpp inner.cpp saem.cpp
+OBJECTS = $(SOURCES_C:.c=.o) $(SOURCES_CPP:.cpp=.o)
+
+all: $(SHLIB)
+$(SHLIB): $(OBJECTS)
+
+--------[end src/Makevars]--------
 ** libs
-ccache clang -Qunused-arguments  -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/dparser/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/old/Rcpp/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/old/BH/include" -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -I/usr/local/include  -fPIC  -Wall -g -O2  -c jj.c -o jj.o
-ccache clang -Qunused-arguments  -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/dparser/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/old/Rcpp/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/old/BH/include" -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -I/usr/local/include  -fPIC  -Wall -g -O2  -c jj.g.d_parser.c -o jj.g.d_parser.o
-ccache clang -Qunused-arguments  -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/dparser/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/old/Rcpp/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/old/BH/include" -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -I/usr/local/include  -fPIC  -Wall -g -O2  -c init.c -o init.o
-ccache clang -Qunused-arguments  -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/dparser/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/old/Rcpp/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/old/BH/include" -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -I/usr/local/include  -fPIC  -Wall -g -O2  -c rprintf.c -o rprintf.o
-ccache clang -Qunused-arguments  -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/dparser/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/old/Rcpp/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/old/BH/include" -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -I/usr/local/include  -fPIC  -Wall -g -O2  -c chkSolved.c -o chkSolved.o
-ccache clang -Qunused-arguments  -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/dparser/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/old/Rcpp/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/old/BH/include" -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -I/usr/local/include  -fPIC  -Wall -g -O2  -c merge3.c -o merge3.o
-clang++ -std=gnu++11 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/dparser/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/old/Rcpp/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/old/BH/include" -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -I/usr/local/include -Id -I../inst/include -DBOOST_DISABLE_ASSERTS -I"`"/Library/Frameworks/R.framework/Resources/bin/Rscript" -e 'cat(file.path(find.package("RcppArmadillo"),"include"))'`" -fPIC  -Wall -g -O2  -c neldermead.cpp -o neldermead.o
-clang++ -std=gnu++11 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/dparser/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/old/Rcpp/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/old/BH/include" -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -I/usr/local/include -Id -I../inst/include -DBOOST_DISABLE_ASSERTS -I"`"/Library/Frameworks/R.framework/Resources/bin/Rscript" -e 'cat(file.path(find.package("RcppArmadillo"),"include"))'`" -fPIC  -Wall -g -O2  -c slice.cpp -o slice.o
-clang++ -std=gnu++11 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/dparser/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/old/Rcpp/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/old/BH/include" -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -I/usr/local/include -Id -I../inst/include -DBOOST_DISABLE_ASSERTS -I"`"/Library/Frameworks/R.framework/Resources/bin/Rscript" -e 'cat(file.path(find.package("RcppArmadillo"),"include"))'`" -fPIC  -Wall -g -O2  -c RcppExportMod.cpp -o RcppExportMod.o
+ccache clang -Qunused-arguments  -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/dparser/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RxODE/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/lbfgsb3c/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/old/Rcpp/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/old/BH/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include" -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -I/usr/local/include  -fPIC  -Wall -g -O2  -c jj.c -o jj.o
+ccache clang -Qunused-arguments  -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/dparser/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RxODE/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/lbfgsb3c/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/old/Rcpp/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/old/BH/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include" -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -I/usr/local/include  -fPIC  -Wall -g -O2  -c jj.g.d_parser.c -o jj.g.d_parser.o
+ccache clang -Qunused-arguments  -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/dparser/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RxODE/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/lbfgsb3c/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/old/Rcpp/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/old/BH/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include" -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -I/usr/local/include  -fPIC  -Wall -g -O2  -c init.c -o init.o
+ccache clang -Qunused-arguments  -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/dparser/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RxODE/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/lbfgsb3c/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/old/Rcpp/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/old/BH/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include" -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -I/usr/local/include  -fPIC  -Wall -g -O2  -c rprintf.c -o rprintf.o
+ccache clang -Qunused-arguments  -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/dparser/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RxODE/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/lbfgsb3c/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/old/Rcpp/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/old/BH/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include" -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -I/usr/local/include  -fPIC  -Wall -g -O2  -c merge3.c -o merge3.o
+ccache clang -Qunused-arguments  -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/dparser/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RxODE/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/lbfgsb3c/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/old/Rcpp/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/old/BH/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include" -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -I/usr/local/include  -fPIC  -Wall -g -O2  -c lbfgsR.c -o lbfgsR.o
+clang++ -std=gnu++14 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/dparser/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RxODE/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/lbfgsb3c/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/old/Rcpp/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/old/BH/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include" -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -I/usr/local/include -Id -I../inst/include -DBOOST_DISABLE_ASSERTS -I"`"/Library/Frameworks/R.framework/Resources/bin/Rscript" -e 'cat(file.path(find.package("BH"),"include"))'`" -I"`"/Library/Frameworks/R.framework/Resources/bin/Rscript" -e 'cat(file.path(find.package("RcppEigen"),"include"))'`" -I"`"/Library/Frameworks/R.framework/Resources/bin/Rscript" -e 'cat(file.path(find.package("StanHeaders"),"include"))'`" -I"`"/Library/Frameworks/R.framework/Resources/bin/Rscript" -e 'cat(file.path(find.package("Rcpp"),"include"))'`" -I"`"/Library/Frameworks/R.framework/Resources/bin/Rscript" -e 'cat(file.path(find.package("RcppArmadillo"),"include"))'`" -fPIC  -Wall -g -O2  -c neldermead.cpp -o neldermead.o
+clang++ -std=gnu++14 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/dparser/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RxODE/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/lbfgsb3c/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/old/Rcpp/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/old/BH/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include" -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -I/usr/local/include -Id -I../inst/include -DBOOST_DISABLE_ASSERTS -I"`"/Library/Frameworks/R.framework/Resources/bin/Rscript" -e 'cat(file.path(find.package("BH"),"include"))'`" -I"`"/Library/Frameworks/R.framework/Resources/bin/Rscript" -e 'cat(file.path(find.package("RcppEigen"),"include"))'`" -I"`"/Library/Frameworks/R.framework/Resources/bin/Rscript" -e 'cat(file.path(find.package("StanHeaders"),"include"))'`" -I"`"/Library/Frameworks/R.framework/Resources/bin/Rscript" -e 'cat(file.path(find.package("Rcpp"),"include"))'`" -I"`"/Library/Frameworks/R.framework/Resources/bin/Rscript" -e 'cat(file.path(find.package("RcppArmadillo"),"include"))'`" -fPIC  -Wall -g -O2  -c slice.cpp -o slice.o
+clang++ -std=gnu++14 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/dparser/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RxODE/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/lbfgsb3c/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/old/Rcpp/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/old/BH/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include" -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -I/usr/local/include -Id -I../inst/include -DBOOST_DISABLE_ASSERTS -I"`"/Library/Frameworks/R.framework/Resources/bin/Rscript" -e 'cat(file.path(find.package("BH"),"include"))'`" -I"`"/Library/Frameworks/R.framework/Resources/bin/Rscript" -e 'cat(file.path(find.package("RcppEigen"),"include"))'`" -I"`"/Library/Frameworks/R.framework/Resources/bin/Rscript" -e 'cat(file.path(find.package("StanHeaders"),"include"))'`" -I"`"/Library/Frameworks/R.framework/Resources/bin/Rscript" -e 'cat(file.path(find.package("Rcpp"),"include"))'`" -I"`"/Library/Frameworks/R.framework/Resources/bin/Rscript" -e 'cat(file.path(find.package("RcppArmadillo"),"include"))'`" -fPIC  -Wall -g -O2  -c RcppExportMod.cpp -o RcppExportMod.o
 In file included from RcppExportMod.cpp:1:
 In file included from ./../inst/include/nlmixr_types.h:4:
 In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
@@ -1145,7 +1364,7 @@ In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noi
     #pragma clang diagnostic pop
                              ^
 17 warnings generated.
-clang++ -std=gnu++11 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/dparser/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/old/Rcpp/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/old/BH/include" -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -I/usr/local/include -Id -I../inst/include -DBOOST_DISABLE_ASSERTS -I"`"/Library/Frameworks/R.framework/Resources/bin/Rscript" -e 'cat(file.path(find.package("RcppArmadillo"),"include"))'`" -fPIC  -Wall -g -O2  -c ode_cmt1.cpp -o ode_cmt1.o
+clang++ -std=gnu++14 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/dparser/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RxODE/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/lbfgsb3c/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/old/Rcpp/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/old/BH/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include" -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -I/usr/local/include -Id -I../inst/include -DBOOST_DISABLE_ASSERTS -I"`"/Library/Frameworks/R.framework/Resources/bin/Rscript" -e 'cat(file.path(find.package("BH"),"include"))'`" -I"`"/Library/Frameworks/R.framework/Resources/bin/Rscript" -e 'cat(file.path(find.package("RcppEigen"),"include"))'`" -I"`"/Library/Frameworks/R.framework/Resources/bin/Rscript" -e 'cat(file.path(find.package("StanHeaders"),"include"))'`" -I"`"/Library/Frameworks/R.framework/Resources/bin/Rscript" -e 'cat(file.path(find.package("Rcpp"),"include"))'`" -I"`"/Library/Frameworks/R.framework/Resources/bin/Rscript" -e 'cat(file.path(find.package("RcppArmadillo"),"include"))'`" -fPIC  -Wall -g -O2  -c ode_cmt1.cpp -o ode_cmt1.o
 In file included from ode_cmt1.cpp:1:
 In file included from ./../inst/include/nlmixr_types.h:4:
 In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
@@ -1297,7 +1516,7 @@ In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noi
 /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/unsupported/Eigen/../../Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
     #pragma clang diagnostic pop
                              ^
-In file included from ode_cmt1.cpp:6:
+In file included from ode_cmt1.cpp:9:
 In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include/stan/math.hpp:4:
 In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include/stan/math/rev/mat.hpp:12:
 In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include/stan/math/prim/mat.hpp:292:
@@ -1315,108 +1534,189 @@ BOOST_HEADER_DEPRECATED("<boost/integer/integer_log2.hpp>");
 /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/old/BH/include/boost/config/pragma_message.hpp:24:34: note: expanded from macro 'BOOST_PRAGMA_MESSAGE'
 # define BOOST_PRAGMA_MESSAGE(x) _Pragma(BOOST_STRINGIZE(message(x)))
                                  ^
-<scratch space>:29:2: note: expanded from here
+<scratch space>:54:2: note: expanded from here
  message("This header is deprecated. Use " "<boost/integer/integer_log2.hpp>" " instead.")
  ^
-In file included from ode_cmt1.cpp:6:
+In file included from ode_cmt1.cpp:7:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include/stan/math/rev/core.hpp:45:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include/stan/math/rev/core/set_zero_all_adjoints.hpp:14:13: warning: unused function 'set_zero_all_adjoints' [-Wunused-function]
+static void set_zero_all_adjoints() {
+            ^
+In file included from ode_cmt1.cpp:9:
 In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include/stan/math.hpp:4:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include/stan/math/rev/mat.hpp:41:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include/stan/math/rev/mat/fun/ordered_constrain.hpp:6:
-/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include/stan/math/rev/mat/functor/adj_jac_apply.hpp:31:27: error: no template named 'index_sequence' in namespace 'std'; did you mean 'boost::fusion::detail::index_sequence'?
-                          std::index_sequence<I...> i) {
-                          ^~~~~~~~~~~~~~~~~~~
-                          boost::fusion::detail::index_sequence
-/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/old/BH/include/boost/fusion/support/detail/index_sequence.hpp:37:12: note: 'boost::fusion::detail::index_sequence' declared here
-    struct index_sequence
-           ^
-In file included from ode_cmt1.cpp:6:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include/stan/math.hpp:4:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include/stan/math/rev/mat.hpp:41:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include/stan/math/rev/mat/fun/ordered_constrain.hpp:6:
-/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include/stan/math/rev/mat/functor/adj_jac_apply.hpp:30:11: error: 'auto' return without trailing return type; deduced return types are a C++14 extension
-constexpr auto apply_impl(const F& f, const Tuple& t,
-          ^
-/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include/stan/math/rev/mat/functor/adj_jac_apply.hpp:48:11: error: 'auto' return without trailing return type; deduced return types are a C++14 extension
-constexpr auto apply(const F& f, const Tuple& t) {
-          ^
-/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include/stan/math/rev/mat/functor/adj_jac_apply.hpp:49:27: error: no template named 'make_index_sequence' in namespace 'std'; did you mean 'boost::fusion::detail::make_index_sequence'?
-  return apply_impl(f, t, std::make_index_sequence<std::tuple_size<Tuple>{}>{});
-                          ^~~~~~~~~~~~~~~~~~~~~~~~
-                          boost::fusion::detail::make_index_sequence
-/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/old/BH/include/boost/fusion/support/detail/index_sequence.hpp:59:12: note: 'boost::fusion::detail::make_index_sequence' declared here
-    struct make_index_sequence
-           ^
-In file included from ode_cmt1.cpp:6:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include/stan/math.hpp:4:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include/stan/math/rev/mat.hpp:41:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include/stan/math/rev/mat/fun/ordered_constrain.hpp:6:
-/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include/stan/math/rev/mat/functor/adj_jac_apply.hpp:151:14: error: no template named 'result_of_t' in namespace 'std'; did you mean 'result_of'?
-      = std::result_of_t<F(decltype(is_var_), decltype(value_of(Targs()))...)>;
-        ~~~~~^~~~~~~~~~~
-             result_of
-/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1/type_traits:2863:34: note: 'result_of' declared here
-template <class _Callable> class result_of;
-                                 ^
-In file included from ode_cmt1.cpp:6:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include/stan/math.hpp:4:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include/stan/math/rev/mat.hpp:41:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include/stan/math/rev/mat/fun/ordered_constrain.hpp:6:
-/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include/stan/math/rev/mat/functor/adj_jac_apply.hpp:408:3: error: 'auto' return without trailing return type; deduced return types are a C++14 extension
-  auto operator()(const Targs&... args) {
-  ^
-/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include/stan/math/rev/mat/functor/adj_jac_apply.hpp:536:16: error: 'auto' not allowed in lambda parameter
-        [this](auto&&... args) { this->accumulate_adjoints(args...); },
-               ^~~~
-/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include/stan/math/rev/mat/functor/adj_jac_apply.hpp:536:22: error: type 'int &&' of function parameter pack does not contain any unexpanded parameter packs
-        [this](auto&&... args) { this->accumulate_adjoints(args...); },
-               ~~~~~~^~~~~~~~
-/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include/stan/math/rev/mat/functor/adj_jac_apply.hpp:616:1: error: 'auto' return without trailing return type; deduced return types are a C++14 extension
-auto adj_jac_apply(const Targs&... args) {
-^
-In file included from ode_cmt1.cpp:6:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include/stan/math.hpp:4:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include/stan/math/rev/mat.hpp:41:
-/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include/stan/math/rev/mat/fun/ordered_constrain.hpp:60:3: error: 'auto' return without trailing return type; deduced return types are a C++14 extension
-  auto multiply_adjoint_jacobian(const std::array<bool, size>& needs_adj,
-  ^
-/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include/stan/math/rev/mat/fun/ordered_constrain.hpp:73:12: error: no viable conversion from returned value of type 'tuple<typename __make_tuple_return<Matrix<double, -1, 1, 0, -1, 1> &>::type>' (aka 'tuple<Eigen::Matrix<double, -1, 1, 0, -1, 1> >') to function return type 'int'
-    return std::make_tuple(adj_times_jac);
-           ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include/stan/math/rev/mat/fun/ordered_constrain.hpp:88:10: error: no matching function for call to 'adj_jac_apply'
-  return adj_jac_apply<internal::ordered_constrain_op>(x);
-         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-In file included from ode_cmt1.cpp:6:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include/stan/math.hpp:4:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include/stan/math/rev/mat.hpp:42:
-/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include/stan/math/rev/mat/fun/positive_ordered_constrain.hpp:61:3: error: 'auto' return without trailing return type; deduced return types are a C++14 extension
-  auto multiply_adjoint_jacobian(const std::array<bool, size>& needs_adj,
-  ^
-/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include/stan/math/rev/mat/fun/positive_ordered_constrain.hpp:71:12: error: no viable conversion from returned value of type 'tuple<typename __make_tuple_return<Matrix<double, -1, 1, 0, -1, 1> &>::type>' (aka 'tuple<Eigen::Matrix<double, -1, 1, 0, -1, 1> >') to function return type 'int'
-    return std::make_tuple(adj_times_jac);
-           ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include/stan/math/rev/mat/fun/positive_ordered_constrain.hpp:86:10: error: no matching function for call to 'adj_jac_apply'
-  return adj_jac_apply<internal::positive_ordered_constrain_op>(x);
-         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-In file included from ode_cmt1.cpp:6:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include/stan/math.hpp:4:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include/stan/math/rev/mat.hpp:48:
-/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include/stan/math/rev/mat/fun/simplex_constrain.hpp:66:3: error: 'auto' return without trailing return type; deduced return types are a C++14 extension
-  auto multiply_adjoint_jacobian(const std::array<bool, size>& needs_adj,
-  ^
-/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include/stan/math/rev/mat/fun/simplex_constrain.hpp:79:12: error: no viable conversion from returned value of type 'tuple<typename __make_tuple_return<Matrix<double, -1, 1, 0, -1, 1> &>::type>' (aka 'tuple<Eigen::Matrix<double, -1, 1, 0, -1, 1> >') to function return type 'int'
-    return std::make_tuple(adj_times_jac);
-           ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include/stan/math/rev/mat/fun/simplex_constrain.hpp:97:10: error: no matching function for call to 'adj_jac_apply'
-  return adj_jac_apply<internal::simplex_constrain_op>(y);
-         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-In file included from ode_cmt1.cpp:6:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include/stan/math.hpp:4:
-In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include/stan/math/rev/mat.hpp:49:
-/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include/stan/math/rev/mat/fun/softmax.hpp:78:10: error: no matching function for call to 'adj_jac_apply'
-  return adj_jac_apply<internal::softmax_op>(alpha);
-         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-18 warnings and 19 errors generated.
-make: *** [ode_cmt1.o] Error 1
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include/stan/math/rev/mat.hpp:12:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include/stan/math/prim/mat.hpp:336:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include/stan/math/prim/mat/prob/poisson_log_glm_log.hpp:5:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include/stan/math/prim/mat/prob/poisson_log_glm_lpmf.hpp:64:59: warning: unused typedef 'T_alpha_val' [-Wunused-local-typedef]
+      typename partials_return_type<T_alpha>::type>::type T_alpha_val;
+                                                          ^
+20 warnings generated.
+clang++ -std=gnu++14 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/dparser/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RxODE/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/lbfgsb3c/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/old/Rcpp/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/old/BH/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include" -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -I/usr/local/include -Id -I../inst/include -DBOOST_DISABLE_ASSERTS -I"`"/Library/Frameworks/R.framework/Resources/bin/Rscript" -e 'cat(file.path(find.package("BH"),"include"))'`" -I"`"/Library/Frameworks/R.framework/Resources/bin/Rscript" -e 'cat(file.path(find.package("RcppEigen"),"include"))'`" -I"`"/Library/Frameworks/R.framework/Resources/bin/Rscript" -e 'cat(file.path(find.package("StanHeaders"),"include"))'`" -I"`"/Library/Frameworks/R.framework/Resources/bin/Rscript" -e 'cat(file.path(find.package("Rcpp"),"include"))'`" -I"`"/Library/Frameworks/R.framework/Resources/bin/Rscript" -e 'cat(file.path(find.package("RcppArmadillo"),"include"))'`" -fPIC  -Wall -g -O2  -c RcppExports.cpp -o RcppExports.o
+In file included from RcppExports.cpp:4:
+In file included from ./../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:30:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Dense:1:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Core:535:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from RcppExports.cpp:4:
+In file included from ./../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:30:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Dense:2:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/LU:47:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from RcppExports.cpp:4:
+In file included from ./../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:30:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Dense:3:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Cholesky:12:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Jacobi:29:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from RcppExports.cpp:4:
+In file included from ./../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:30:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Dense:3:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Cholesky:43:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from RcppExports.cpp:4:
+In file included from ./../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:30:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Dense:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/QR:17:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Householder:27:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from RcppExports.cpp:4:
+In file included from ./../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:30:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Dense:5:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/SVD:48:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from RcppExports.cpp:4:
+In file included from ./../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:30:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Dense:6:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Geometry:58:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from RcppExports.cpp:4:
+In file included from ./../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:30:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Dense:7:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Eigenvalues:58:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from RcppExports.cpp:4:
+In file included from ./../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:31:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Sparse:26:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/SparseCore:66:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from RcppExports.cpp:4:
+In file included from ./../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:31:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Sparse:27:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/OrderingMethods:71:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from RcppExports.cpp:4:
+In file included from ./../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:31:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Sparse:29:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/SparseCholesky:43:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from RcppExports.cpp:4:
+In file included from ./../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:31:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Sparse:32:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/SparseQR:35:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from RcppExports.cpp:4:
+In file included from ./../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:31:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/Sparse:33:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/IterativeLinearSolvers:46:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from RcppExports.cpp:4:
+In file included from ./../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:32:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/CholmodSupport:45:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from RcppExports.cpp:4:
+In file included from ./../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:35:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/unsupported/Eigen/KroneckerProduct:34:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/unsupported/Eigen/../../Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from RcppExports.cpp:4:
+In file included from ./../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:39:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/unsupported/Eigen/Polynomials:135:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/unsupported/Eigen/../../Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+In file included from RcppExports.cpp:4:
+In file included from ./../inst/include/nlmixr_types.h:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigen.h:25:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/RcppEigenForward.h:40:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/unsupported/Eigen/SparseExtra:51:
+/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include/unsupported/Eigen/../../Eigen/src/Core/util/ReenableStupidWarnings.h:10:30: warning: pragma diagnostic pop could not pop, no matching push [-Wunknown-pragmas]
+    #pragma clang diagnostic pop
+                             ^
+17 warnings generated.
+clang++ -std=gnu++14 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/dparser/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RxODE/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppEigen/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/lbfgsb3c/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/old/Rcpp/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/old/BH/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/StanHeaders/include" -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -I/usr/local/include -Id -I../inst/include -DBOOST_DISABLE_ASSERTS -I"`"/Library/Frameworks/R.framework/Resources/bin/Rscript" -e 'cat(file.path(find.package("BH"),"include"))'`" -I"`"/Library/Frameworks/R.framework/Resources/bin/Rscript" -e 'cat(file.path(find.package("RcppEigen"),"include"))'`" -I"`"/Library/Frameworks/R.framework/Resources/bin/Rscript" -e 'cat(file.path(find.package("StanHeaders"),"include"))'`" -I"`"/Library/Frameworks/R.framework/Resources/bin/Rscript" -e 'cat(file.path(find.package("Rcpp"),"include"))'`" -I"`"/Library/Frameworks/R.framework/Resources/bin/Rscript" -e 'cat(file.path(find.package("RcppArmadillo"),"include"))'`" -fPIC  -Wall -g -O2  -c resid.cpp -o resid.o
+In file included from resid.cpp:4:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppArmadillo/include/RcppArmadillo.h:31:
+In file included from /Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/nlmixr/RcppArmadillo/include/RcppArmadilloForward.h:46:
+In file included from /usr/local/include/armadillo:87:
+/usr/local/include/armadillo_bits/include_hdf5.hpp:26:14: fatal error: '/usr/local/Cellar/hdf5/1.10.5_1/include/hdf5.h' file not found
+    #include ARMA_INCFILE_WRAP(ARMA_HDF5_HEADER)
+             ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/usr/local/include/armadillo_bits/compiler_setup.hpp:79:30: note: expanded from macro 'ARMA_INCFILE_WRAP'
+#define ARMA_INCFILE_WRAP(x) <x>
+                             ^~~
+1 error generated.
+make: *** [resid.o] Error 1
 ERROR: compilation failed for package ‘nlmixr’
 * removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/nlmixr/old/nlmixr.Rcheck/nlmixr’
 
@@ -1438,17 +1738,17 @@ Run `revdep_details(,"perturbatr")` for more info
 
 ## Newly broken
 
-*   R CMD check timed out
-    
-
-## In both
-
 *   checking installed package size ... NOTE
     ```
       installed size is  5.0Mb
       sub-directories of 1Mb or more:
         data   3.1Mb
     ```
+
+## In both
+
+*   R CMD check timed out
+    
 
 # phenofit
 
@@ -1647,7 +1947,7 @@ checking GDAL: checking whether PROJ is available for linking:... yes
 checking GDAL: checking whether PROJ is available fur running:... dyld: Library not loaded: /usr/local/opt/armadillo/lib/libarmadillo.7.dylib
   Referenced from: /usr/local/opt/gdal2/lib/libgdal.20.dylib
   Reason: image not found
-./configure: line 3626: 37971 Abort trap: 6           ./gdal_proj
+./configure: line 3626: 54042 Abort trap: 6           ./gdal_proj
 no
 configure: error: OGRCoordinateTransformation() does not return a coord.trans: PROJ not available?
 ERROR: configuration failed for package ‘sf’
@@ -1699,7 +1999,7 @@ checking GDAL: checking whether PROJ is available for linking:... yes
 checking GDAL: checking whether PROJ is available fur running:... dyld: Library not loaded: /usr/local/opt/armadillo/lib/libarmadillo.7.dylib
   Referenced from: /usr/local/opt/gdal2/lib/libgdal.20.dylib
   Reason: image not found
-./configure: line 3626: 37080 Abort trap: 6           ./gdal_proj
+./configure: line 3626: 53138 Abort trap: 6           ./gdal_proj
 no
 configure: error: OGRCoordinateTransformation() does not return a coord.trans: PROJ not available?
 ERROR: configuration failed for package ‘sf’
@@ -1710,11 +2010,11 @@ ERROR: configuration failed for package ‘sf’
 
 <details>
 
-* Version: 2.12.3
+* Version: 2.12.4
 * Source code: https://github.com/cran/TCGAbiolinks
 * URL: https://github.com/BioinformaticsFMRP/TCGAbiolinks
 * BugReports: https://github.com/BioinformaticsFMRP/TCGAbiolinks/issues
-* Date/Publication: 2019-07-10
+* Date/Publication: 2019-08-20
 * Number of recursive dependencies: 255
 
 Run `revdep_details(,"TCGAbiolinks")` for more info
@@ -1726,17 +2026,9 @@ Run `revdep_details(,"TCGAbiolinks")` for more info
 *   R CMD check timed out
     
 
-*   checking whether package ‘TCGAbiolinks’ can be installed ... WARNING
-    ```
-    Found the following significant warnings:
-      Warning: objects ‘.Random.seed’, ‘.Random.seed’, ‘.Random.seed’, ‘.Random.seed’, ‘.Random.seed’, ‘.Random.seed’, ‘.Random.seed’, ‘.Random.seed’, ‘.Random.seed’ are created by more than one data call
-    See ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/TCGAbiolinks/new/TCGAbiolinks.Rcheck/00install.out’ for details.
-    ```
-
 *   checking for missing documentation entries ... WARNING
     ```
-    Undocumented data sets:
-      ‘.Random.seed’
+    Warning: package ‘maftools’ was built under R version 3.6.1
     All user-level objects in a package should have documentation entries.
     See chapter ‘Writing R documentation files’ in the ‘Writing R
     Extensions’ manual.
@@ -1744,7 +2036,7 @@ Run `revdep_details(,"TCGAbiolinks")` for more info
 
 *   checking installed package size ... NOTE
     ```
-      installed size is 97.0Mb
+      installed size is 96.9Mb
       sub-directories of 1Mb or more:
         R      2.7Mb
         data   4.3Mb
@@ -1777,7 +2069,7 @@ Run `revdep_details(,"TCGAbiolinks")` for more info
       (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/TCGAbiolinks/new/TCGAbiolinks.Rcheck/00_pkg_src/TCGAbiolinks/R/prepare.R:236-237)
     readIDATDNAmethylation: no visible global function definition for
       ‘openSesame’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/TCGAbiolinks/new/TCGAbiolinks.Rcheck/00_pkg_src/TCGAbiolinks/R/prepare.R:526)
+      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/TCGAbiolinks/new/TCGAbiolinks.Rcheck/00_pkg_src/TCGAbiolinks/R/prepare.R:527)
     Undefined global functions or variables:
       Tumor.purity barcode c3net clinical coordinates dCommSignif
       dNetInduce dNetPipeline exon knnmi.cross limmacontrasts.fit

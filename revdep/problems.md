@@ -119,18 +119,17 @@ Run `revdep_details(,"AzureKusto")` for more info
       All declared Imports should be used.
     ```
 
-# bench
+# cellbaseR
 
 <details>
 
-* Version: 1.0.2
-* Source code: https://github.com/cran/bench
-* URL: https://github.com/r-lib/bench
-* BugReports: https://github.com/r-lib/bench/issues
-* Date/Publication: 2019-04-29 20:30:02 UTC
-* Number of recursive dependencies: 63
+* Version: 1.8.0
+* Source code: https://github.com/cran/cellbaseR
+* URL: https://github.com/melsiddieg/cellbaseR
+* Date/Publication: 2019-05-02
+* Number of recursive dependencies: 133
 
-Run `revdep_details(,"bench")` for more info
+Run `revdep_details(,"cellbaseR")` for more info
 
 </details>
 
@@ -138,89 +137,21 @@ Run `revdep_details(,"bench")` for more info
 
 *   checking examples ... ERROR
     ```
-    ...
-    +   }
-    + }
-    Loading required package: ggplot2
-    Loading required namespace: tidyr
-    Warning: `cols` is now required.
-    Please use `cols = c(result, memory, time, gc)`
-    Error: No common size for `result`, size 4958, and `memory`, size 32.
-    Backtrace:
-    [90m     [39m█
-    [90m  1. [39m├─ggplot2::autoplot(res)
-    [90m  2. [39m├─bench:::autoplot.bench_mark(res)
-    [90m  3. [39m│ └─tidyr::unnest(object) [90m00_pkg_src/bench/R/autoplot.R:58:2[39m
-    [90m  4. [39m│   ├─tidyr::unnest(...)
-    [90m  5. [39m│   ├─bench:::unnest.bench_mark(...)
-    [90m  6. [39m│   │ └─base::suppressWarnings(NextMethod(.Generic, data, time, gc, .drop = FALSE)) [90m00_pkg_src/bench/R/mark.R:296:2[39m
-    [90m  7. [39m│   │   └─base::withCallingHandlers(expr, warning = function(w) invokeRestart("muffleWarning"))
-    [90m  8. [39m│   ├─base::NextMethod(.Generic, data, time, gc, .drop = FALSE) [90m00_pkg_src/bench/R/mark.R:296:2[39m
-    [90m  9. [39m│   └─tidyr:::unnest.data.frame(...)
-    [90m 10. [39m│     └─tidyr::unchop(data, !!cols, keep_empty = keep_empty, ptype = ptype)
-    [90m 11. [39m│       └─purrr::pmap(as.list(data
+    Running examples in ‘cellbaseR-Ex.R’ failed
+    The error most likely occurred in:
+    
+    > ### Name: createGeneModel
+    > ### Title: createGeneModel
+    > ### Aliases: createGeneModel
+    > 
+    > ### ** Examples
+    > 
+    > cb <- CellBaseR()
+    > test <- createGeneModel(object = cb, region = "17:1500000-1550000")
+    Error in `[.tbl_df`(hope, , c("gene", "symbol", "transcript", "exons"),  : 
+      unused argument (with = FALSE)
+    Calls: createGeneModel -> [
     Execution halted
-    ```
-
-*   checking tests ...
-    ```
-     ERROR
-    Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-      4: suppressWarnings(NextMethod(.Generic, data, time, gc, .drop = FALSE)) at /Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/bench/new/bench.Rcheck/00_pkg_src/bench/R/mark.R:296
-      5: withCallingHandlers(expr, warning = function(w) invokeRestart("muffleWarning"))
-      6: NextMethod(.Generic, data, time, gc, .drop = FALSE) at /Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/bench/new/bench.Rcheck/00_pkg_src/bench/R/mark.R:296
-      7: unnest.data.frame(data, cols = !!cols, names_sep = names_sep, keep_empty = keep_empty, ptype = ptype, names_repair = tidyr_legacy, 
-             .drop = FALSE)
-      8: map(data[[col]], as_df, col = col) at /private/tmp/RtmpBEzAiw/R.INSTALL570366266439/tidyr/R/nest.R:297
-      9: .f(.x[[i]], ...)
-      10: stop("Input must be list of vectors", call. = FALSE) at /private/tmp/RtmpBEzAiw/R.INSTALL570366266439/tidyr/R/nest.R:318
-      
-      ══ testthat results  ═════════════════════════════════════════════════════════════════════════════════════════════
-      [ OK: 184 | SKIPPED: 1 | WARNINGS: 1 | FAILED: 1 ]
-      1. Error: unnest.bench_mark: does not contain result or memory columns (@test-mark.R#185) 
-      
-      Error: testthat unit tests failed
-      Execution halted
-    ```
-
-# broomExtra
-
-<details>
-
-* Version: 0.0.4
-* Source code: https://github.com/cran/broomExtra
-* URL: https://indrajeetpatil.github.io/broomExtra/, https://github.com/IndrajeetPatil/broomExtra
-* BugReports: https://github.com/IndrajeetPatil/broomExtra/issues
-* Date/Publication: 2019-06-25 08:00:03 UTC
-* Number of recursive dependencies: 77
-
-Run `revdep_details(,"broomExtra")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking tests ...
-    ```
-     ERROR
-    Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-      1/2 mismatches
-      [2] 7 - 6 == 1
-      
-      [31m──[39m [31m2. Failure: `boot_augment()` works (@test_boot_generics.R#119) [39m [31m───────────────────────────────────────────────[39m
-      dim(df_boot) not equal to c(320L, 11L).
-      1/2 mismatches
-      [2] 12 - 11 == 1
-      
-      ══ testthat results  ═════════════════════════════════════════════════════════════════════════════════════════════
-      [ OK: 24 | SKIPPED: 0 | WARNINGS: 0 | FAILED: 2 ]
-      1. Failure: `boot_tidy()` works (@test_boot_generics.R#41) 
-      2. Failure: `boot_augment()` works (@test_boot_generics.R#119) 
-      
-      Error: testthat unit tests failed
-      Execution halted
     ```
 
 # CellBench
@@ -268,6 +199,7 @@ Run `revdep_details(,"CellBench")` for more info
     ```
     Found the following significant warnings:
       Warning: package ‘SummarizedExperiment’ was built under R version 3.6.1
+      Warning: package ‘IRanges’ was built under R version 3.6.1
       Warning: package ‘BiocParallel’ was built under R version 3.6.1
     See ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/CellBench/new/CellBench.Rcheck/00install.out’ for details.
     ```
@@ -324,6 +256,13 @@ Run `revdep_details(,"CNPBayes")` for more info
 
 *   R CMD check timed out
     
+
+*   checking whether package ‘CNPBayes’ can be installed ... WARNING
+    ```
+    Found the following significant warnings:
+      Warning: package ‘IRanges’ was built under R version 3.6.1
+    See ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/CNPBayes/new/CNPBayes.Rcheck/00install.out’ for details.
+    ```
 
 *   checking for missing documentation entries ... WARNING
     ```
@@ -612,57 +551,6 @@ Run `revdep_details(,"cvms")` for more info
       Execution halted
     ```
 
-# d3r
-
-<details>
-
-* Version: 0.8.6
-* Source code: https://github.com/cran/d3r
-* URL: https://github.com/timelyportfolio/d3r
-* BugReports: https://github.com/timelyportfolio/d3r/issues
-* Date/Publication: 2019-07-23 05:10:04 UTC
-* Number of recursive dependencies: 46
-
-Run `revdep_details(,"d3r")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    ...
-    > tit_tb <- titanic_df %>%
-    +   select(Class,Age,Survived,Sex,Freq) %>%
-    +   d3_nest(value_cols="Freq", root="titanic")
-    Error: No tidyselect variables were registered
-    Backtrace:
-    [90m     [39m█
-    [90m  1. [39m└─`%>%`(...)
-    [90m  2. [39m  ├─base::withVisible(eval(quote(`_fseq`(`_lhs`)), env, env))
-    [90m  3. [39m  └─base::eval(quote(`_fseq`(`_lhs`)), env, env)
-    [90m  4. [39m    └─base::eval(quote(`_fseq`(`_lhs`)), env, env)
-    [90m  5. [39m      └─`_fseq`(`_lhs`)
-    [90m  6. [39m        └─magrittr::freduce(value, `_function_list`)
-    [90m  7. [39m          ├─base::withVisible(function_list[[k]](value))
-    [90m  8. [39m          └─function_list[[k]](value)
-    [90m  9. [39m            └─d3r::d3_nest(., value_cols = "Freq", root = "titanic")
-    [90m 10. [39m              ├─dplyr::bind_rows(...) [90m00_pkg_src/d3r/R/hierarchy.R:91:2[39m
-    [90m 11. [39m              │ ├─dplyr:::flatten_bindable(dots_values(...))
-    [90m 12. [39m              │ └─rlang::dots_values(...)
-    [90m 13. [39m              ├─d3r:::promote_na(...)
-    [90m 14. [39m              │
-    Execution halted
-    ```
-
-## In both
-
-*   checking package dependencies ... NOTE
-    ```
-    Packages which this enhances but not available for checking:
-      'igraph', 'partykit', 'treemap', 'V8'
-    ```
-
 # easyalluvial
 
 <details>
@@ -723,49 +611,6 @@ Run `revdep_details(,"easyalluvial")` for more info
       
       Error: testthat unit tests failed
       Execution halted
-    ```
-
-# echarts4r
-
-<details>
-
-* Version: 0.2.3
-* Source code: https://github.com/cran/echarts4r
-* URL: http://echarts4r.john-coene.com/
-* BugReports: https://github.com/JohnCoene/echarts4r/issues
-* Date/Publication: 2019-07-18 06:37:08 UTC
-* Number of recursive dependencies: 75
-
-Run `revdep_details(,"echarts4r")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    ...
-    + )
-    > 
-    > df %>% 
-    +   e_charts() %>% 
-    +   e_sunburst(parent, child, value) %>% 
-    +   e_theme("westeros")
-    Error: No tidyselect variables were registered
-    Backtrace:
-    [90m     [39m█
-    [90m  1. [39m└─df %>% e_charts() %>% e_sunburst(parent, child, value) %>% e_theme("westeros")
-    [90m  2. [39m  ├─base::withVisible(eval(quote(`_fseq`(`_lhs`)), env, env))
-    [90m  3. [39m  └─base::eval(quote(`_fseq`(`_lhs`)), env, env)
-    [90m  4. [39m    └─base::eval(quote(`_fseq`(`_lhs`)), env, env)
-    [90m  5. [39m      └─`_fseq`(`_lhs`)
-    [90m  6. [39m        └─magrittr::freduce(value, `_function_list`)
-    [90m  7. [39m          └─function_list[[i]](value)
-    [90m  8. [39m            └─echarts4r::e_sunburst(., parent, child, value)
-    [90m  9. [39m              └─echarts4r::e_sunburst_(...) [90m00_pkg_src/echarts4r/R/add.R:931:2[39m
-    [90m 10. [39m                └─echarts4r:::.build_sun(e, parent, child, value, itemStyle) [90m00_pkg_src/echarts4r/R/add_.R:967:2[39m
-    [90m 11. [39m                  └─d3r::d3_nest(data, value_cols = cols, json = FALSE, root = NUL
-    Execution halted
     ```
 
 # egor
@@ -875,6 +720,51 @@ Run `revdep_details(,"embed")` for more info
       Execution halted
     ```
 
+# fedregs
+
+<details>
+
+* Version: 0.1.1
+* Source code: https://github.com/cran/fedregs
+* BugReports: https://github.com/slarge/fedregs/issues
+* Date/Publication: 2019-02-04 15:13:30 UTC
+* Number of recursive dependencies: 64
+
+Run `revdep_details(,"fedregs")` for more info
+
+</details>
+
+## Newly broken
+
+*   checking tests ...
+    ```
+     ERROR
+    Running the tests in ‘tests/testthat.R’ failed.
+    Complete output:
+      > library(testthat)
+      > library(fedregs)
+      > 
+      > test_check("fedregs")
+      [31m──[39m [31m1. Failure: We can go all the way (@test-fedregs.R#148) [39m [31m──────────────────────────────────────────────────────[39m
+      all(...) isn't true.
+      
+      ══ testthat results  ═════════════════════════════════════════════════════════════════════════════════════════════
+      [ OK: 27 | SKIPPED: 0 | WARNINGS: 2 | FAILED: 1 ]
+      1. Failure: We can go all the way (@test-fedregs.R#148) 
+      
+      Error: testthat unit tests failed
+      Execution halted
+    ```
+
+## In both
+
+*   checking dependencies in R code ... NOTE
+    ```
+    Namespaces in Imports field not imported from:
+      ‘rvest’ ‘stringi’
+      All declared Imports should be used.
+    ```
+
 # fuzzyjoin
 
 <details>
@@ -928,7 +818,7 @@ Run `revdep_details(,"fuzzyjoin")` for more info
       3: fuzzy_join(x, y, mode = mode, index_match_fun = f, multi_by = by) at /Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/fuzzyjoin/new/fuzzyjoin.Rcheck/00_pkg_src/fuzzyjoin/R/genome_join.R:83
       4: index_match_fun(d1, d2) at /Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/fuzzyjoin/new/fuzzyjoin.Rcheck/00_pkg_src/fuzzyjoin/R/fuzzy_join.R:231
       5: tidyr::nest_(x, "x_data", colnames(x)[-1]) at /Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/fuzzyjoin/new/fuzzyjoin.Rcheck/00_pkg_src/fuzzyjoin/R/genome_join.R:64
-      6: lifecycle::deprecate_stop("1.0.0", "nest_()", "nest()") at /private/tmp/RtmpBEzAiw/R.INSTALL570366266439/tidyr/R/dep-lazyeval.R:192
+      6: lifecycle::deprecate_stop("1.0.0", "nest_()", "nest()") at /private/tmp/RtmpdjEXdv/R.INSTALL147853701e705/tidyr/R/dep-lazyeval.R:192
       
       ══ testthat results  ═════════════════════════════════════════════════════════════════════════════════════════════
       [ OK: 218 | SKIPPED: 0 | WARNINGS: 146 | FAILED: 1 ]
@@ -1004,7 +894,7 @@ Run `revdep_details(,"ggalluvial")` for more info
              axes = 1:4, factor_key = TRUE)) at testthat/test-is-alluvial.r:36
       2: withCallingHandlers(expr, warning = function(w) invokeRestart("muffleWarning"))
       3: tidyr::gather(dplyr::mutate(titanic_alluvia, Index = 1:nrow(titanic_alluvia)), "Variable", "Value", axes = 1:4, factor_key = TRUE)
-      4: ellipsis::check_dots_unnamed() at /private/tmp/RtmpBEzAiw/R.INSTALL570366266439/tidyr/R/gather.R:95
+      4: ellipsis::check_dots_unnamed() at /private/tmp/RtmpdjEXdv/R.INSTALL147853701e705/tidyr/R/gather.R:95
       5: stop_dots(message = paste0(length(named), " components of `...` had unexpected names."), dot_names = named, .subclass = "rlib_error_dots_named")
       6: abort(message, .subclass = c(.subclass, "rlib_error_dots"), ...)
       
@@ -1016,166 +906,28 @@ Run `revdep_details(,"ggalluvial")` for more info
       Execution halted
     ```
 
-# ggstatsplot
+# ggmap
 
 <details>
 
-* Version: 0.0.12
-* Source code: https://github.com/cran/ggstatsplot
-* URL: https://indrajeetpatil.github.io/ggstatsplot/, https://github.com/IndrajeetPatil/ggstatsplot
-* BugReports: https://github.com/IndrajeetPatil/ggstatsplot/issues
-* Date/Publication: 2019-07-12 14:00:03 UTC
-* Number of recursive dependencies: 243
+* Version: 3.0.0
+* Source code: https://github.com/cran/ggmap
+* URL: https://github.com/dkahle/ggmap
+* BugReports: https://github.com/dkahle/ggmap/issues
+* Date/Publication: 2019-02-05 10:19:04
+* Number of recursive dependencies: 59
 
-Run `revdep_details(,"ggstatsplot")` for more info
+Run `revdep_details(,"ggmap")` for more info
 
 </details>
 
 ## Newly broken
 
-*   checking examples ... ERROR
+*   checking installed package size ... NOTE
     ```
-    ...
-    > ### Aliases: ggbarstats
-    > 
-    > ### ** Examples
-    > 
-    > 
-    > # for reproducibility
-    > set.seed(123)
-    > 
-    > # simple function call with the defaults (with condition)
-    > ggstatsplot::ggbarstats(
-    +   data = datasets::mtcars,
-    +   main = vs,
-    +   condition = cyl,
-    +   nboot = 10,
-    +   labels.legend = c("0 = V-shaped", "1 = straight"),
-    +   legend.title = "Engine"
-    + )
-    Error in tbl_vars_dispatch(x) : 
-      argument ".data" is missing, with no default
-    Calls: <Anonymous> ... tbl_vars -> new_sel_vars -> structure -> tbl_vars_dispatch
-    Execution halted
-    ```
-
-*   checking tests ...
-    ```
-     ERROR
-    Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-      39: scoped_vars(vars)
-      40: poke_vars(vars)
-      41: is_null(vars)
-      42: tbl_vars(.data)
-      43: new_sel_vars(tbl_vars_dispatch(x), group_vars(x))
-      44: structure(vars, groups = group_vars, class = c("dplyr_sel_vars", "character"))
-      45: tbl_vars_dispatch(x)
-      
-      ══ testthat results  ═════════════════════════════════════════════════════════════════════════════════════════════
-      [ OK: 183 | SKIPPED: 194 | WARNINGS: 0 | FAILED: 2 ]
-      1. Error: checking labels with counts (@test_ggbarstats.R#19) 
-      2. Error: checking labels with contingency tab (@test_ggpiestats.R#113) 
-      
-      Error: testthat unit tests failed
-      Execution halted
-    ```
-
-# groupedstats
-
-<details>
-
-* Version: 0.0.8
-* Source code: https://github.com/cran/groupedstats
-* URL: https://indrajeetpatil.github.io/groupedstats/, https://github.com/IndrajeetPatil/groupedstats/
-* BugReports: https://github.com/IndrajeetPatil/groupedstats/issues/
-* Date/Publication: 2019-08-07 04:50:06 UTC
-* Number of recursive dependencies: 134
-
-Run `revdep_details(,"groupedstats")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    ...
-    > ### Title: Running analysis of variance (aov) across multiple grouping
-    > ###   variables.
-    > ### Aliases: grouped_aov
-    > 
-    > ### ** Examples
-    > 
-    > 
-    > # uses dataset included in the groupedstats package
-    > set.seed(123)
-    > library(groupedstats)
-    > 
-    > groupedstats::grouped_aov(
-    +   formula = rating ~ belief * outcome * question,
-    +   data = intent_morality,
-    +   grouping.vars = item,
-    +   effsize = "eta"
-    + )
-    Error in tbl_vars_dispatch(x) : 
-      argument ".data" is missing, with no default
-    Calls: <Anonymous> ... tbl_vars -> new_sel_vars -> structure -> tbl_vars_dispatch
-    Execution halted
-    ```
-
-# gtsummary
-
-<details>
-
-* Version: 0.1.0
-* Source code: https://github.com/cran/gtsummary
-* Date/Publication: 2019-05-10 15:10:10 UTC
-* Number of recursive dependencies: 112
-
-Run `revdep_details(,"gtsummary")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘gtsummary-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: add_comparison
-    > ### Title: Adds p-values to the output comparing values across groups
-    > ### Aliases: add_comparison
-    > 
-    > ### ** Examples
-    > 
-    > trial %>% fmt_table1(by = "trt") %>% add_comparison()
-    Error: `unnest_()` is deprecated as of tidyr 1.0.0.
-    Please use `unnest()` instead.
-    Execution halted
-    ```
-
-*   checking tests ...
-    ```
-     ERROR
-    Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-      ══ testthat results  ═════════════════════════════════════════════════════════════════════════════════════════════
-      [ OK: 14 | SKIPPED: 0 | WARNINGS: 12 | FAILED: 40 ]
-      1. Error: (unknown) (@test-add_global.R#3) 
-      2. Error: (unknown) (@test-add_n.R#3) 
-      3. Failure: no errors/warnings with standard use (@test-add_overall.R#5) 
-      4. Error: no errors/warnings with standard use (@test-add_overall.R#6) 
-      5. Failure: no errors/warnings with missing data (@test-add_overall.R#13) 
-      6. Error: no errors/warnings with missing data (@test-add_overall.R#14) 
-      7. Error: no errors/warnings with standard use after fmt_table1() and add_comparison() (@test-add_q.R#4) 
-      8. Error: expect error if no p value in table 1 (@test-add_q.R#14) 
-      9. Error: no errors/warnings with standard use after fmt_uni_regression() and add_global() (@test-add_q.R#26) 
-      1. ...
-      
-      Error: testthat unit tests failed
-      Execution halted
+      installed size is  5.6Mb
+      sub-directories of 1Mb or more:
+        data   5.1Mb
     ```
 
 # gutenbergr
@@ -1231,7 +983,7 @@ Run `revdep_details(,"HTSSIP")` for more info
       7: freduce(value, `_function_list`)
       8: function_list[[i]](value)
       9: tidyr::nest_(., key_col = "data")
-      10: lifecycle::deprecate_stop("1.0.0", "nest_()", "nest()") at /private/tmp/RtmpBEzAiw/R.INSTALL570366266439/tidyr/R/dep-lazyeval.R:192
+      10: lifecycle::deprecate_stop("1.0.0", "nest_()", "nest()") at /private/tmp/RtmpdjEXdv/R.INSTALL147853701e705/tidyr/R/dep-lazyeval.R:192
       
       ══ testthat results  ═════════════════════════════════════════════════════════════════════════════════════════════
       [ OK: 107 | SKIPPED: 18 | WARNINGS: 0 | FAILED: 2 ]
@@ -1248,59 +1000,6 @@ Run `revdep_details(,"HTSSIP")` for more info
     ```
     Namespace in Imports field not imported from: ‘igraph’
       All declared Imports should be used.
-    ```
-
-# ICD10gm
-
-<details>
-
-* Version: 1.0.3
-* Source code: https://github.com/cran/ICD10gm
-* URL: https://github.com/edonnachie/ICD10gm, https://doi.org/10.5281/zenodo.2542833
-* BugReports: https://github.com/edonnachie/ICD10gm/issues
-* Date/Publication: 2019-02-12 17:30:07 UTC
-* Number of recursive dependencies: 49
-
-Run `revdep_details(,"ICD10gm")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking tests ...
-    ```
-     ERROR
-    Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-      `icd_k52_2010` not identical to ICD10gm::icd_history(icd_k52_2010, years = 2010).
-      Objects equal but not identical
-      
-      [31m──[39m [31m3. Failure: Coding break: Check that K52.9 specified for 2009 is removed for 2010 (@test-icd_history.R#30) [39m [31m───[39m
-      icd_history(icd_k52_2009, years = 2009:2010) not identical to `icd_k52_2009`.
-      Objects equal but not identical
-      
-      ══ testthat results  ═════════════════════════════════════════════════════════════════════════════════════════════
-      [ OK: 41 | SKIPPED: 0 | WARNINGS: 10 | FAILED: 3 ]
-      1. Failure: Expands down the hierarchy (@test-icd_expand.R#52) 
-      2. Failure: icd_history returns input if years == year (@test-icd_history.R#24) 
-      3. Failure: Coding break: Check that K52.9 specified for 2009 is removed for 2010 (@test-icd_history.R#30) 
-      
-      Error: testthat unit tests failed
-      Execution halted
-    ```
-
-## In both
-
-*   checking installed package size ... NOTE
-    ```
-      installed size is  7.9Mb
-      sub-directories of 1Mb or more:
-        data   7.0Mb
-    ```
-
-*   checking data for non-ASCII characters ... NOTE
-    ```
-      Note: found 252748 marked UTF-8 strings
     ```
 
 # idmodelr
@@ -1415,118 +1114,14 @@ Run `revdep_details(,"jstor")` for more info
       18: freduce(value, `_function_list`)
       19: function_list[[i]](value)
       20: tidyr::unnest(., fun_names)
-      21: unnest.data.frame(., fun_names) at /private/tmp/RtmpBEzAiw/R.INSTALL570366266439/tidyr/R/nest.R:272
-      22: unchop(data, !!cols, keep_empty = keep_empty, ptype = ptype) at /private/tmp/RtmpBEzAiw/R.INSTALL570366266439/tidyr/R/nest.R:301
-      23: vec_slice(data, rep(vec_seq_along(data), n)) at /private/tmp/RtmpBEzAiw/R.INSTALL570366266439/tidyr/R/chop.R:93
+      21: unnest.data.frame(., fun_names) at /private/tmp/RtmpdjEXdv/R.INSTALL147853701e705/tidyr/R/nest.R:280
+      22: unchop(data, !!cols, keep_empty = keep_empty, ptype = ptype) at /private/tmp/RtmpdjEXdv/R.INSTALL147853701e705/tidyr/R/nest.R:309
+      23: vec_slice(data, rep(vec_seq_along(data), n)) at /private/tmp/RtmpdjEXdv/R.INSTALL147853701e705/tidyr/R/chop.R:93
       
       ══ testthat results  ═════════════════════════════════════════════════════════════════════════════════════════════
       [ OK: 246 | SKIPPED: 4 | WARNINGS: 19 | FAILED: 2 ]
       1. Error: subsetting ngrams works (@test-ngram.R#32) 
       2. Error: importing from zip works (@test-zip.R#29) 
-      
-      Error: testthat unit tests failed
-      Execution halted
-    ```
-
-# kntnr
-
-<details>
-
-* Version: 0.4.1
-* Source code: https://github.com/cran/kntnr
-* URL: https://github.com/yutannihilation/kntnr
-* BugReports: https://github.com/yutannihilation/kntnr/issues
-* Date/Publication: 2017-08-23 07:09:38 UTC
-* Number of recursive dependencies: 41
-
-Run `revdep_details(,"kntnr")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking tests ...
-    ```
-     ERROR
-    Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-      5: `_fseq`(`_lhs`)
-      6: freduce(value, `_function_list`)
-      7: withVisible(function_list[[k]](value))
-      8: function_list[[k]](value)
-      9: kntn_unnest(.)
-      10: tidyr::unnest_(records, col, .drop = FALSE) at /Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/kntnr/new/kntnr.Rcheck/00_pkg_src/kntnr/R/kntn_unnest.R:35
-      11: lifecycle::deprecate_stop("1.0.0", "unnest_()", "unnest()") at /private/tmp/RtmpBEzAiw/R.INSTALL570366266439/tidyr/R/dep-lazyeval.R:316
-      
-      ══ testthat results  ═════════════════════════════════════════════════════════════════════════════════════════════
-      [ OK: 67 | SKIPPED: 0 | WARNINGS: 0 | FAILED: 2 ]
-      1. Error: unnesting records works (@test-parse-record.R#23) 
-      2. Error: unnesting terriblly-nested records works (@test-parse-record.R#42) 
-      
-      Error: testthat unit tests failed
-      Execution halted
-    ```
-
-# mudata2
-
-<details>
-
-* Version: 1.0.6
-* Source code: https://github.com/cran/mudata2
-* URL: https://github.com/paleolimbot/mudata
-* BugReports: https://github.com/paleolimbot/mudata/issues
-* Date/Publication: 2019-03-16 17:30:09 UTC
-* Number of recursive dependencies: 83
-
-Run `revdep_details(,"mudata2")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    ...
-    > # create mudata object using just the data table
-    > mudata(kg_data)
-    Guessing x columns: date
-    Warning: `cols` is now required.
-    Please use `cols = c(.data)`
-    Error: `c(.data)` must evaluate to column positions or names, not a list
-    Backtrace:
-    [90m     [39m█
-    [90m  1. [39m└─mudata2::mudata(kg_data)
-    [90m  2. [39m  └─`%>%`(...) [90m00_pkg_src/mudata2/R/mudata.R:149:4[39m
-    [90m  3. [39m    ├─base::withVisible(eval(quote(`_fseq`(`_lhs`)), env, env))
-    [90m  4. [39m    └─base::eval(quote(`_fseq`(`_lhs`)), env, env)
-    [90m  5. [39m      └─base::eval(quote(`_fseq`(`_lhs`)), env, env)
-    [90m  6. [39m        └─mudata2:::`_fseq`(`_lhs`)
-    [90m  7. [39m          └─magrittr::freduce(value, `_function_list`)
-    [90m  8. [39m            ├─base::withVisible(function_list[[k]](value))
-    [90m  9. [39m            └─function_list[[k]](value)
-    [90m 10. [39m              ├─mudata2:::generate_type_tbl(., default = "guess")
-    [90m 11. [39m              └─mudata2:::generate_type_tbl.mudata(., default = "guess") [90m00_pkg_src/mudata2/R/types.R:14:21[39m
-    [90m 12. [39m                └─tidyr::unnest(allcol
-    Execution halted
-    ```
-
-*   checking tests ...
-    ```
-     ERROR
-    Running the tests in ‘tests/test-all.R’ failed.
-    Last 13 lines of output:
-      ══ testthat results  ═════════════════════════════════════════════════════════════════════════════════════════════
-      [ OK: 453 | SKIPPED: 0 | WARNINGS: 26 | FAILED: 23 ]
-      1. Error: mudata constructor creates a mudata object (@test_mudata.R#10) 
-      2. Error: default dataset/location actually changes the default dataset/location name (@test_mudata.R#15) 
-      3. Error: x_columns are correctly assigned/identified (@test_mudata.R#30) 
-      4. Error: passing invalid inputs throws an error (@test_mudata.R#79) 
-      5. Failure: dataset/location/param types of incorrect type are detected (@test_mudata.R#123) 
-      6. Failure: dataset/location/param types of incorrect type are detected (@test_mudata.R#127) 
-      7. Failure: dataset/location/param types of incorrect type are detected (@test_mudata.R#131) 
-      8. Error: duplicate data is detected (@test_mudata.R#143) 
-      9. Error: printing of a mudata actually prints things (@test_mudata.R#178) 
-      1. ...
       
       Error: testthat unit tests failed
       Execution halted
@@ -1554,8 +1149,8 @@ Run `revdep_details(,"pammtools")` for more info
      ERROR
     Running the tests in ‘tests/testthat.R’ failed.
     Last 13 lines of output:
-      6: vec_fill_fun(.direction) at /private/tmp/RtmpBEzAiw/R.INSTALL570366266439/tidyr/R/fill.R:30
-      7: match.arg(.direction) at /private/tmp/RtmpBEzAiw/R.INSTALL570366266439/tidyr/R/fill.R:35
+      6: vec_fill_fun(.direction) at /private/tmp/RtmpdjEXdv/R.INSTALL147853701e705/tidyr/R/fill.R:30
+      7: match.arg(.direction) at /private/tmp/RtmpdjEXdv/R.INSTALL147853701e705/tidyr/R/fill.R:35
       8: stop("'arg' must be of length 1")
       
       ══ testthat results  ═════════════════════════════════════════════════════════════════════════════════════════════
@@ -1588,17 +1183,17 @@ Run `revdep_details(,"perturbatr")` for more info
 
 ## Newly broken
 
-*   R CMD check timed out
-    
-
-## In both
-
 *   checking installed package size ... NOTE
     ```
       installed size is  5.0Mb
       sub-directories of 1Mb or more:
         data   3.1Mb
     ```
+
+## In both
+
+*   R CMD check timed out
+    
 
 # PHEindicatormethods
 
@@ -1621,7 +1216,7 @@ Run `revdep_details(,"PHEindicatormethods")` for more info
      ERROR
     Running the tests in ‘tests/testthat.R’ failed.
     Last 13 lines of output:
-      12: tidyselect::vars_select(tbl_vars(data), !!enquo(cols)) at /private/tmp/RtmpBEzAiw/R.INSTALL570366266439/tidyr/R/nest.R:289
+      12: tidyselect::vars_select(tbl_vars(data), !!enquo(cols)) at /private/tmp/RtmpdjEXdv/R.INSTALL147853701e705/tidyr/R/nest.R:297
       13: vars_select_eval(.vars, quos)
       14: map_if(ind_list, is_helper, eval_tidy)
       15: map(.x[sel], .f, ...)
@@ -1633,45 +1228,6 @@ Run `revdep_details(,"PHEindicatormethods")` for more info
       ══ testthat results  ═════════════════════════════════════════════════════════════════════════════════════════════
       [ OK: 193 | SKIPPED: 0 | WARNINGS: 0 | FAILED: 1 ]
       1. Error: (unknown) (@testSII.R#22) 
-      
-      Error: testthat unit tests failed
-      Execution halted
-    ```
-
-# photobiologyInOut
-
-<details>
-
-* Version: 0.4.20
-* Source code: https://github.com/cran/photobiologyInOut
-* URL: http://www.r4photobiology.info/
-* BugReports: https://bitbucket.org/aphalo/photobiologyinout/issues/
-* Date/Publication: 2019-06-15 09:30:03 UTC
-* Number of recursive dependencies: 93
-
-Run `revdep_details(,"photobiologyInOut")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking tests ...
-    ```
-     ERROR
-    Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-      * `.dots`
-      
-      Did you misspecify an argument?
-      1: read_tuv_usrout(file = file.name, ozone.du = 300, geocode = data.frame(lon = -15, lat = 60), tz = "UTC") at testthat/test-tuv.R:193
-      2: tidyr::gather(wide.df, .dots = -c("w.length"), value = "s.e.irrad", key = "spct.idx") at /Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/photobiologyInOut/new/photobiologyInOut.Rcheck/00_pkg_src/photobiologyInOut/R/read-tuv-file.r:86
-      3: ellipsis::check_dots_unnamed() at /private/tmp/RtmpBEzAiw/R.INSTALL570366266439/tidyr/R/gather.R:95
-      4: stop_dots(message = paste0(length(named), " components of `...` had unexpected names."), dot_names = named, .subclass = "rlib_error_dots_named")
-      5: abort(message, .subclass = c(.subclass, "rlib_error_dots"), ...)
-      
-      ══ testthat results  ═════════════════════════════════════════════════════════════════════════════════════════════
-      [ OK: 434 | SKIPPED: 3 | WARNINGS: 0 | FAILED: 1 ]
-      1. Error: read TUV (@test-tuv.R#193) 
       
       Error: testthat unit tests failed
       Execution halted
@@ -1743,9 +1299,54 @@ Run `revdep_details(,"plyranges")` for more info
       Execution halted
     ```
 
+*   checking whether package ‘plyranges’ can be installed ... WARNING
+    ```
+    Found the following significant warnings:
+      Warning: package ‘IRanges’ was built under R version 3.6.1
+    See ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/plyranges/new/plyranges.Rcheck/00install.out’ for details.
+    ```
+
 *   checking package dependencies ... NOTE
     ```
     Package suggested but not available for checking: ‘BSgenome.Hsapiens.UCSC.hg19’
+    ```
+
+# PML
+
+<details>
+
+* Version: 1.0
+* Source code: https://github.com/cran/PML
+* URL: https://github.com/xinyue-L/PML
+* BugReports: https://github.com/xinyue-L/PML/issues
+* Date/Publication: 2019-08-23 15:10:05 UTC
+* Number of recursive dependencies: 83
+
+Run `revdep_details(,"PML")` for more info
+
+</details>
+
+## Newly broken
+
+*   checking examples ... ERROR
+    ```
+    Running examples in ‘PML-Ex.R’ failed
+    The error most likely occurred in:
+    
+    > ### Name: PML-package
+    > ### Title: Penalized Multi-Band Learning for Circadian Rhythm Analysis
+    > ###   Using Actigraphy
+    > ### Aliases: PML-package PML
+    > ### Keywords: PML
+    > 
+    > ### ** Examples
+    > 
+    > library(PML)
+    > ##reformat data for further analysis
+    > data(lis3)
+    > pa3 <- form(lis3)
+    Error: Column `activity` must be length 1 (the group size), not 13
+    Execution halted
     ```
 
 # pointblank
@@ -1803,7 +1404,7 @@ Run `revdep_details(,"pointblank")` for more info
       8: function_list[[k]](value)
       9: interrogate(.)
       10: tidyr::nest_(data = problem_rows, key_col = "data", nest_cols = names_problem_rows) at /Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/pointblank/new/pointblank.Rcheck/00_pkg_src/pointblank/R/interrogate.R:590
-      11: lifecycle::deprecate_stop("1.0.0", "nest_()", "nest()") at /private/tmp/RtmpBEzAiw/R.INSTALL570366266439/tidyr/R/dep-lazyeval.R:192
+      11: lifecycle::deprecate_stop("1.0.0", "nest_()", "nest()") at /private/tmp/RtmpdjEXdv/R.INSTALL147853701e705/tidyr/R/dep-lazyeval.R:192
       
       ══ testthat results  ═════════════════════════════════════════════════════════════════════════════════════════════
       [ OK: 779 | SKIPPED: 0 | WARNINGS: 0 | FAILED: 1 ]
@@ -1940,18 +1541,18 @@ Run `revdep_details(,"rclimateca")` for more info
      ERROR
     Running the tests in ‘tests/test-all.R’ failed.
     Last 13 lines of output:
-      22: bad_calls(bad, "must evaluate to { singular(.vars) } positions or names, \\\n       not { first_type }")
-      23: glubort(fmt_calls(calls), ..., .envir = .envir)
-      24: .abort(text)
-      
+        |====================================================                  |  75%
+        |                                                                            
+        |==========================================================            |  83%
+        |                                                                            
+        |================================================================      |  92%
+        |                                                                            
+        |======================================================================| 100%
       ══ testthat results  ═════════════════════════════════════════════════════════════════════════════════════════════
-      [ OK: 164 | SKIPPED: 0 | WARNINGS: 8 | FAILED: 6 ]
+      [ OK: 174 | SKIPPED: 0 | WARNINGS: 5 | FAILED: 3 ]
       1. Error: no files are downloaded when the locations table indicates there is no data (@test-climate_data.R#277) 
       2. Error: no files are downloaded when the locations table indicates there was never data (@test-climate_data.R#310) 
-      3. Error: get mudata function for climate data works (@test-climate_data.R#445) 
-      4. Error: get_mudata function works on zero-row (empty) outputs (@test-climate_data.R#474) 
-      5. Error: all timeframes and output types of data work for a random location (@test-deprecated_functions.R#88) 
-      6. Error: deprecated functions all have a warning (@test-deprecated_functions.R#106) 
+      3. Error: get_mudata function works on zero-row (empty) outputs (@test-climate_data.R#474) 
       
       Error: testthat unit tests failed
       Execution halted
@@ -2003,52 +1604,6 @@ Run `revdep_details(,"recipes")` for more info
       Execution halted
     ```
 
-# rmapzen
-
-<details>
-
-* Version: 0.4.1
-* Source code: https://github.com/cran/rmapzen
-* URL: https://tarakc02.github.io/rmapzen/
-* BugReports: https://github.com/tarakc02/rmapzen/issues
-* Date/Publication: 2018-10-07 21:00:02 UTC
-* Number of recursive dependencies: 72
-
-Run `revdep_details(,"rmapzen")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking tests ...
-    ```
-     ERROR
-    Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-      > test_check("rmapzen")
-      [31m──[39m [31m1. Error: as.data.frame converts isochrone results to sf (@test-as-data-frame.R#10) [39m [31m──────────────────────────[39m
-      `unnest_()` is deprecated as of tidyr 1.0.0.
-      Please use `unnest()` instead.
-      1: as.data.frame(marina_walks) at testthat/test-as-data-frame.R:10
-      2: as.data.frame.mapzen_isochrone_list(marina_walks)
-      3: tidyr::unnest_(res, "contours") at /Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/rmapzen/new/rmapzen.Rcheck/00_pkg_src/rmapzen/R/tidy.R:37
-      4: lifecycle::deprecate_stop("1.0.0", "unnest_()", "unnest()") at /private/tmp/RtmpBEzAiw/R.INSTALL570366266439/tidyr/R/dep-lazyeval.R:316
-      
-      ══ testthat results  ═════════════════════════════════════════════════════════════════════════════════════════════
-      [ OK: 202 | SKIPPED: 2 | WARNINGS: 0 | FAILED: 1 ]
-      1. Error: as.data.frame converts isochrone results to sf (@test-as-data-frame.R#10) 
-      
-      Error: testthat unit tests failed
-      Execution halted
-    ```
-
-## In both
-
-*   checking data for non-ASCII characters ... NOTE
-    ```
-      Note: found 31 marked UTF-8 strings
-    ```
-
 # rstatix
 
 <details>
@@ -2092,67 +1647,6 @@ Run `revdep_details(,"rstatix")` for more info
     Execution halted
     ```
 
-# RxODE
-
-<details>
-
-* Version: 0.9.1-3
-* Source code: https://github.com/cran/RxODE
-* URL: https://nlmixrdevelopment.github.io/RxODE/
-* BugReports: https://github.com/nlmixrdevelopment/RxODE/issues
-* Date/Publication: 2019-08-06 15:20:05 UTC
-* Number of recursive dependencies: 118
-
-Run `revdep_details(,"RxODE")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking tests ...
-    ```
-     ERROR
-    Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-             assign(".mv", .rxDll$modVars, envir = <environment>)
-         })
-      5: eval(substitute(expr), data, enclos = parent.frame())
-      6: eval(substitute(expr), data, enclos = parent.frame())
-      7: RxODE::rxCompile(.mv, dir = mdir, extraC = extraC, debug = debug, modName = modName, package = NULL)
-      8: rxCompile.rxModelVars(.mv, dir = mdir, extraC = extraC, debug = debug, modName = modName, package = NULL) at /Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/RxODE/new/RxODE.Rcheck/00_pkg_src/RxODE/R/RxODE.R:1318
-      9: stop("Error building model on another thread.") at /Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/RxODE/new/RxODE.Rcheck/00_pkg_src/RxODE/R/RxODE.R:1380
-      
-      [====|====|====|====|====|====|====|====|====|====
-      [====|====|====|====|====|====|====|====|====|====══ testthat results  ═════════════════════════════════════════════════════════════════════════════════════════════
-      [ OK: 2349 | SKIPPED: 1 | WARNINGS: 1 | FAILED: 1 ]
-      1. Error: Issue #56 (@test-issue-56.R#9) 
-      
-      Error: testthat unit tests failed
-      Execution halted
-    ```
-
-## In both
-
-*   checking package dependencies ... NOTE
-    ```
-    Package suggested but not available for checking: ‘installr’
-    ```
-
-*   checking installed package size ... NOTE
-    ```
-      installed size is  5.2Mb
-      sub-directories of 1Mb or more:
-        R      1.0Mb
-        doc    1.3Mb
-        libs   2.4Mb
-    ```
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespace in Imports field not imported from: ‘n1qn1’
-      All declared Imports should be used.
-    ```
-
 # sampler
 
 <details>
@@ -2185,53 +1679,6 @@ Run `revdep_details(,"sampler")` for more info
     > alresults <- ssamp(albania, 890, qarku)
     Error: Column `nh` must be length 1 (the group size), not 12
     Execution halted
-    ```
-
-# seqCAT
-
-<details>
-
-* Version: 1.6.0
-* Source code: https://github.com/cran/seqCAT
-* Date/Publication: 2019-05-02
-* Number of recursive dependencies: 105
-
-Run `revdep_details(,"seqCAT")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking tests ...
-    ```
-     ERROR
-    Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-             filter = TRUE, python = FALSE)) at testthat/test_01_create_profile.R:11
-      2: withCallingHandlers(expr, message = function(c) invokeRestart("muffleMessage"))
-      3: create_profile(vcf_file = file1, sample = "sample1", output_file = "profile_1.txt", min_depth = 10, filter = TRUE, 
-             python = FALSE)
-      4: create_profile_R(vcf_file, sample, output_file, min_depth, filter) at /Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/seqCAT/new/seqCAT.Rcheck/00_pkg_src/seqCAT/R/create_profile.R:53
-      5: filter_annotations(data) at /Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/seqCAT/new/seqCAT.Rcheck/00_pkg_src/seqCAT/R/create_profile.R:264
-      6: tidyr::unnest_(data, "ANN") at /Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/seqCAT/new/seqCAT.Rcheck/00_pkg_src/seqCAT/R/create_profile.R:326
-      7: lifecycle::deprecate_stop("1.0.0", "unnest_()", "unnest()") at /private/tmp/RtmpBEzAiw/R.INSTALL570366266439/tidyr/R/dep-lazyeval.R:316
-      
-      ══ testthat results  ═════════════════════════════════════════════════════════════════════════════════════════════
-      [ OK: 85 | SKIPPED: 0 | WARNINGS: 0 | FAILED: 1 ]
-      1. Error: (unknown) (@test_01_create_profile.R#11) 
-      
-      Error: testthat unit tests failed
-      Execution halted
-    ```
-
-## In both
-
-*   checking whether package ‘seqCAT’ can be installed ... WARNING
-    ```
-    Found the following significant warnings:
-      Warning: package ‘SummarizedExperiment’ was built under R version 3.6.1
-      Warning: package ‘BiocParallel’ was built under R version 3.6.1
-    See ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/seqCAT/new/seqCAT.Rcheck/00install.out’ for details.
     ```
 
 # simTool
@@ -2267,71 +1714,6 @@ Run `revdep_details(,"simTool")` for more info
       7. Failure: Three analyzing functions. Results were created and stored in simulation (@test_eval_tibbles.R#456) 
       8. Failure: Three analyzing functions and one summary function. Results were created and stored in simulation (@test_eval_tibbles.R#534) 
       9. Failure: Three analyzing functions and three summary function. Results were created and stored in simulation (@test_eval_tibbles.R#680) 
-      1. ...
-      
-      Error: testthat unit tests failed
-      Execution halted
-    ```
-
-# SingleCaseES
-
-<details>
-
-* Version: 0.4.2
-* Source code: https://github.com/cran/SingleCaseES
-* URL: https://github.com/jepusto/SingleCaseES
-* BugReports: https://github.com/jepusto/SingleCaseES/issues
-* Date/Publication: 2019-06-14 15:40:03 UTC
-* Number of recursive dependencies: 85
-
-Run `revdep_details(,"SingleCaseES")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    ...
-    [90m1[39m Period 1       LRRd  -[31m0[39m[31m.[39m[31m807[39m 0.198  -[31m1[39m[31m.[39m[31m19[39m    -[31m0[39m[31m.[39m[31m419[39m 
-    [90m2[39m Period 1       LRRi   0.807 0.198   0.419    1.19  
-    [90m3[39m Period 2       LRRd  -[31m0[39m[31m.[39m[31m610[39m 0.349  -[31m1[39m[31m.[39m[31m29[39m     0.073[4m6[24m
-    [90m4[39m Period 2       LRRi   0.610 0.349  -[31m0[39m[31m.[39m[31m0[39m[31m73[4m6[24m[39m   1.29  
-    [90m5[39m Period 3       LRRd  -[31m0[39m[31m.[39m[31m748[39m 0.353  -[31m1[39m[31m.[39m[31m44[39m    -[31m0[39m[31m.[39m[31m0[39m[31m55[4m0[24m[39m
-    [90m6[39m Period 3       LRRi   0.748 0.353   0.055[4m0[24m   1.44  
-    >               
-    > data(Schmidt2007)               
-    > batch_calc_ES(dat = Schmidt2007,
-    +               grouping = c(Behavior_type, Case_pseudonym, Phase_num),
-    +               condition = Condition,
-    +               outcome = Outcome,
-    +               ES = c("LRRi","LRRd"),
-    +               improvement = direction,
-    +               scale = Metric,
-    +               bias_correct = TRUE,
-    +               confidence = NULL,
-    +               format = "wide")
-    Error: 1 components of `...` had unexpected names.
-    
-    We detected these problematic arguments:
-    ```
-
-*   checking tests ...
-    ```
-     ERROR
-    Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-      ══ testthat results  ═════════════════════════════════════════════════════════════════════════════════════════════
-      [ OK: 89 | SKIPPED: 0 | WARNINGS: 0 | FAILED: 12 ]
-      1. Error: (unknown) (@test-Pustejovsky-2015.R#19) 
-      2. Error: (unknown) (@test-Pustejovsky-2018-LRR.R#107) 
-      3. Error: Wide format works for ES = 'all' when confidence is specified (@test-format.R#28) 
-      4. Error: Wide format works for ES = 'all', when confidence is NULL (@test-format.R#44) 
-      5. Error: Wide format works for ES = 'parametric', when confidence is specified (@test-format.R#61) 
-      6. Error: Wide format works for ES = 'parametric', when confidence is NULL (@test-format.R#79) 
-      7. Error: Wide format works for ES = 'NOM', when confidence is specified (@test-format.R#99) 
-      8. Error: Wide format works for ES = 'NOM', when confidence is NULL (@test-format.R#118) 
-      9. Error: Wide format works for other NOMs. (@test-format.R#140) 
       1. ...
       
       Error: testthat unit tests failed
@@ -2561,6 +1943,30 @@ Run `revdep_details(,"sociome")` for more info
       Execution halted
     ```
 
+# staRdom
+
+<details>
+
+* Version: 1.0.14
+* Source code: https://github.com/cran/staRdom
+* URL: https://cran.r-project.org/package=staRdom
+* BugReports: https://github.com/MatthiasPucher/staRdom/issues
+* Date/Publication: 2019-06-27 08:30:07 UTC
+* Number of recursive dependencies: 150
+
+Run `revdep_details(,"staRdom")` for more info
+
+</details>
+
+## Newly broken
+
+*   checking installed package size ... NOTE
+    ```
+      installed size is  5.0Mb
+      sub-directories of 1Mb or more:
+        doc   3.3Mb
+    ```
+
 # statsDK
 
 <details>
@@ -2616,7 +2022,7 @@ Run `revdep_details(,"statsDK")` for more info
       Please use `unnest()` instead.
       1: get_variables(metadata) at testthat/test_fixers.R:27
       2: tidyr::unnest_(metadata$variables, "values") at /Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/statsDK/new/statsDK.Rcheck/00_pkg_src/statsDK/R/fixer_functions.R:63
-      3: lifecycle::deprecate_stop("1.0.0", "unnest_()", "unnest()") at /private/tmp/RtmpBEzAiw/R.INSTALL570366266439/tidyr/R/dep-lazyeval.R:316
+      3: lifecycle::deprecate_stop("1.0.0", "unnest_()", "unnest()") at /private/tmp/RtmpdjEXdv/R.INSTALL147853701e705/tidyr/R/dep-lazyeval.R:316
       
       ══ testthat results  ═════════════════════════════════════════════════════════════════════════════════════════════
       [ OK: 14 | SKIPPED: 0 | WARNINGS: 0 | FAILED: 1 ]
@@ -2678,11 +2084,11 @@ Run `revdep_details(,"strapgod")` for more info
 
 <details>
 
-* Version: 0.2.1
+* Version: 0.3.0
 * Source code: https://github.com/cran/suddengains
 * URL: https://github.com/milanwiedemann/suddengains
 * BugReports: https://github.com/milanwiedemann/suddengains/issues
-* Date/Publication: 2019-05-21 13:50:03 UTC
+* Date/Publication: 2019-08-20 12:40:02 UTC
 * Number of recursive dependencies: 78
 
 Run `revdep_details(,"suddengains")` for more info
@@ -2764,7 +2170,7 @@ Run `revdep_details(,"SummarizedBenchmark")` for more info
     Running the tests in ‘tests/testthat.R’ failed.
     Last 13 lines of output:
       3: gather(tidyRes, keys = valueCols) at /Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/SummarizedBenchmark/new/SummarizedBenchmark.Rcheck/00_pkg_src/SummarizedBenchmark/R/PerformanceMetrics.R:318
-      4: ellipsis::check_dots_unnamed() at /private/tmp/RtmpBEzAiw/R.INSTALL570366266439/tidyr/R/gather.R:95
+      4: ellipsis::check_dots_unnamed() at /private/tmp/RtmpdjEXdv/R.INSTALL147853701e705/tidyr/R/gather.R:95
       5: stop_dots(message = paste0(length(named), " components of `...` had unexpected names."), dot_names = named, .subclass = "rlib_error_dots_named")
       6: abort(message, .subclass = c(.subclass, "rlib_error_dots"), ...)
       
@@ -2786,6 +2192,7 @@ Run `revdep_details(,"SummarizedBenchmark")` for more info
     ```
     Found the following significant warnings:
       Warning: package ‘SummarizedExperiment’ was built under R version 3.6.1
+      Warning: package ‘IRanges’ was built under R version 3.6.1
       Warning: package ‘BiocParallel’ was built under R version 3.6.1
     See ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/SummarizedBenchmark/new/SummarizedBenchmark.Rcheck/00install.out’ for details.
     ```
@@ -2843,78 +2250,6 @@ Run `revdep_details(,"SummarizedBenchmark")` for more info
     contains 'methods').
     ```
 
-# sunburstR
-
-<details>
-
-* Version: 2.1.1
-* Source code: https://github.com/cran/sunburstR
-* URL: https://github.com/timelyportfolio/sunburstR
-* BugReports: https://github.com/timelyportfolio/sunburstR/issues
-* Date/Publication: 2019-03-04 09:00:03 UTC
-* Number of recursive dependencies: 44
-
-Run `revdep_details(,"sunburstR")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    ...
-    > 
-    > sunburst(sequences)
-    Error: No tidyselect variables were registered
-    Backtrace:
-    [90m     [39m█
-    [90m  1. [39m└─sunburstR::sunburst(sequences)
-    [90m  2. [39m  └─sunburstR:::csv_to_hier(data) [90m00_pkg_src/sunburstR/R/sunburst.R:109:4[39m
-    [90m  3. [39m    └─d3r::d3_nest(df, value_cols = "size") [90m00_pkg_src/sunburstR/R/converters.R:16:2[39m
-    [90m  4. [39m      ├─dplyr::bind_rows(...)
-    [90m  5. [39m      │ ├─dplyr:::flatten_bindable(dots_values(...))
-    [90m  6. [39m      │ └─rlang::dots_values(...)
-    [90m  7. [39m      ├─d3r:::promote_na(...)
-    [90m  8. [39m      │ ├─base::lapply(...)
-    [90m  9. [39m      │ └─base::nrow(x)
-    [90m 10. [39m      ├─d3r:::change_to_name(...)
-    [90m 11. [39m      │ └─base::lapply(...)
-    [90m 12. [39m      ├─tidyr::nest(...)
-    [90m 13. [39m      └─dplyr::one_of(c(nonnest_cols[length(nonnest_cols)], value_cols))
-    [90m 14. [39m        ├─keep %in% .vars
-    [90m 15. [39m        └─tidyselect::peek_var
-    Execution halted
-    ```
-
-*   checking tests ...
-    ```
-     ERROR
-    Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-             dplyr::rename_(y, name = colnames(y)[column])
-         })
-      17: tidyr::nest(data = data, dplyr::one_of(c(nonnest_cols[length(nonnest_cols)], value_cols)), .key = "children")
-      18: dplyr::one_of(c(nonnest_cols[length(nonnest_cols)], value_cols)) at /private/tmp/RtmpBEzAiw/R.INSTALL570366266439/tidyr/R/nest.R:116
-      19: keep %in% .vars
-      20: peek_vars()
-      21: vars_env$selected %||% abort("No tidyselect variables were registered")
-      22: abort("No tidyselect variables were registered")
-      
-      ══ testthat results  ═════════════════════════════════════════════════════════════════════════════════════════════
-      [ OK: 9 | SKIPPED: 0 | WARNINGS: 0 | FAILED: 1 ]
-      1. Error: sunburstR works with both csv and json data (@test-basic.R#33) 
-      
-      Error: testthat unit tests failed
-      Execution halted
-    ```
-
-## In both
-
-*   checking package dependencies ... NOTE
-    ```
-    Package which this enhances but not available for checking: ‘treemap’
-    ```
-
 # survminer
 
 <details>
@@ -2962,40 +2297,6 @@ Run `revdep_details(,"survminer")` for more info
       installed size is  5.7Mb
       sub-directories of 1Mb or more:
         doc   5.1Mb
-    ```
-
-# taxa
-
-<details>
-
-* Version: 0.3.2
-* Source code: https://github.com/cran/taxa
-* URL: https://github.com/ropensci/taxa
-* BugReports: https://github.com/ropensci/taxa/issues
-* Date/Publication: 2019-01-02 22:40:04 UTC
-* Number of recursive dependencies: 96
-
-Run `revdep_details(,"taxa")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking installed package size ... NOTE
-    ```
-      installed size is  5.0Mb
-      sub-directories of 1Mb or more:
-        data   2.1Mb
-        doc    1.7Mb
-    ```
-
-## In both
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespaces in Imports field not imported from:
-      ‘knitr’ ‘lazyeval’ ‘rlang’ ‘tidyr’
-      All declared Imports should be used.
     ```
 
 # tibbletime
@@ -3046,11 +2347,11 @@ Run `revdep_details(,"tibbletime")` for more info
      ERROR
     Running the tests in ‘tests/testthat.R’ failed.
     Last 13 lines of output:
-      10: nest.tbl_time(.data, !!!cols) at /private/tmp/RtmpBEzAiw/R.INSTALL570366266439/tidyr/R/nest.R:116
+      10: nest.tbl_time(.data, !!!cols) at /private/tmp/RtmpdjEXdv/R.INSTALL147853701e705/tidyr/R/nest.R:124
       11: tidyr::nest(as_tibble(data), ..., .key = !!.key) at /Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/tibbletime/new/tibbletime.Rcheck/00_pkg_src/tibbletime/R/compat-tidyr.R:12
-      12: nest.tbl_df(as_tibble(data), ..., .key = !!.key) at /private/tmp/RtmpBEzAiw/R.INSTALL570366266439/tidyr/R/nest.R:116
-      13: check_key(.key) at /private/tmp/RtmpBEzAiw/R.INSTALL570366266439/tidyr/R/nest.R:132
-      14: is_missing(.key) at /private/tmp/RtmpBEzAiw/R.INSTALL570366266439/tidyr/R/nest.R:164
+      12: nest.tbl_df(as_tibble(data), ..., .key = !!.key) at /private/tmp/RtmpdjEXdv/R.INSTALL147853701e705/tidyr/R/nest.R:124
+      13: check_key(.key) at /private/tmp/RtmpdjEXdv/R.INSTALL147853701e705/tidyr/R/nest.R:140
+      14: is_missing(.key) at /private/tmp/RtmpdjEXdv/R.INSTALL147853701e705/tidyr/R/nest.R:172
       
       ══ testthat results  ═════════════════════════════════════════════════════════════════════════════════════════════
       [ OK: 123 | SKIPPED: 0 | WARNINGS: 2 | FAILED: 4 ]
@@ -3058,45 +2359,6 @@ Run `revdep_details(,"tibbletime")` for more info
       2. Error: nest() without index stays tbl_time (@test_compat-tidyr.R#31) 
       3. Error: unnest() with index goes back to tbl_time (@test_compat-tidyr.R#38) 
       4. Error: unnest() without index stays tbl_time (@test_compat-tidyr.R#46) 
-      
-      Error: testthat unit tests failed
-      Execution halted
-    ```
-
-# tidync
-
-<details>
-
-* Version: 0.2.1
-* Source code: https://github.com/cran/tidync
-* URL: https://github.com/ropensci/tidync
-* BugReports: https://github.com/ropensci/tidync/issues
-* Date/Publication: 2019-05-23 11:10:03 UTC
-* Number of recursive dependencies: 68
-
-Run `revdep_details(,"tidync")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking tests ...
-    ```
-     ERROR
-    Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-      > 
-      > test_check("tidync")
-      [31m──[39m [31m1. Failure: slicing works (@test-hyper-slice.R#8) [39m [31m────────────────────────────────────────────────────────────[39m
-      `tidync(l3file) %>% hyper_filter() %>% hyper_array()` produced warnings.
-      
-      [31m──[39m [31m2. Failure: select_var is robust (@test-select_var.R#13) [39m [31m─────────────────────────────────────────────────────[39m
-      ``%>%`(...)` produced warnings.
-      
-      ══ testthat results  ═════════════════════════════════════════════════════════════════════════════════════════════
-      [ OK: 75 | SKIPPED: 5 | WARNINGS: 25 | FAILED: 2 ]
-      1. Failure: slicing works (@test-hyper-slice.R#8) 
-      2. Failure: select_var is robust (@test-select_var.R#13) 
       
       Error: testthat unit tests failed
       Execution halted
@@ -3300,7 +2562,7 @@ Run `revdep_details(,"widyr")` for more info
       16: freduce(value, `_function_list`)
       17: function_list[[i]](value)
       18: tidyr::nest_(., "..data", nest_cols = c(row, column, value))
-      19: lifecycle::deprecate_stop("1.0.0", "nest_()", "nest()") at /private/tmp/RtmpBEzAiw/R.INSTALL570366266439/tidyr/R/dep-lazyeval.R:192
+      19: lifecycle::deprecate_stop("1.0.0", "nest_()", "nest()") at /private/tmp/RtmpdjEXdv/R.INSTALL147853701e705/tidyr/R/dep-lazyeval.R:192
       
       ══ testthat results  ═════════════════════════════════════════════════════════════════════════════════════════════
       [ OK: 54 | SKIPPED: 0 | WARNINGS: 0 | FAILED: 3 ]
