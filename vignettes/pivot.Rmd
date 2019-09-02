@@ -353,7 +353,7 @@ us_rent_income %>%
   pivot_wider(names_from = variable, values_from = c(estimate, moe))
 ```
 
-Note that the name of the variable is automatically appending in the output columns.
+Note that the name of the variable is automatically appended to the output columns.
 
 ## Contact list
 
