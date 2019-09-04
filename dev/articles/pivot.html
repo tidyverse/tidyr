@@ -6,25 +6,26 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Pivoting • tidyr</title>
-<!-- jquery --><script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script><!-- Bootstrap --><link href="../tidyverse.css" rel="stylesheet">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script><!-- Font Awesome icons --><link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
+<!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png">
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png">
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png">
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
+<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="../tidyverse.css" rel="stylesheet">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous">
+<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
 <script src="../pkgdown.js"></script><link href="../tidyverse-2.css" rel="stylesheet">
 <meta property="og:title" content="Pivoting">
 <meta property="og:description" content="">
 <meta property="og:image" content="https://tidyr.tidyverse.org/logo.png">
 <meta name="twitter:card" content="summary">
 <meta name="robots" content="noindex">
-<!-- mathjax --><script src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--[if lt IE 9]>
+<!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-<![endif]--><!-- google analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-115082821-1"></script><script>
- window.dataLayer = window.dataLayer || [];
- function gtag(){dataLayer.push(arguments);}
- gtag('js', new Date());
-
- gtag('config', 'UA-115082821-1');
-</script>
+<![endif]-->
 </head>
 <body>
     <div class="container template-article">
@@ -78,12 +79,47 @@
     </li>
   </ul>
 </li>
-<li>
-  <a href="../news/index.html">Changelog</a>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    News
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+<li class="dropdown-header">Release notes</li>
+    <li>
+      <a href="https://www.tidyverse.org/articles/2018/02/tidyr-0-8-0/">Version 0.8.0</a>
+    </li>
+    <li>
+      <a href="https://www.tidyverse.org/articles/2017/08/tidyr-0.7.0/">Version 0.7.0</a>
+    </li>
+    <li>
+      <a href="https://blog.rstudio.com/2016/08/15/tidyr-0-6-0/">Version 0.6.0</a>
+    </li>
+    <li>
+      <a href="https://blog.rstudio.com/2016/06/13/tidyr-0-5-0/">Version 0.5.0</a>
+    </li>
+    <li>
+      <a href="https://blog.rstudio.com/2016/02/02/tidyr-0-4-0/">Version 0.5.0</a>
+    </li>
+    <li>
+      <a href="https://blog.rstudio.com/2015/09/13/tidyr-0-3-0/">Version 0.4.0</a>
+    </li>
+    <li>
+      <a href="https://blog.rstudio.com/2014/12/08/tidyr-0-2-0/">Version 0.2.0</a>
+    </li>
+    <li>
+      <a href="https://blog.rstudio.com/2014/07/22/introducing-tidyr/">Version 0.1.0</a>
+    </li>
+    <li class="divider">
+    <li>
+      <a href="../news/index.html">Change log</a>
+    </li>
+  </ul>
 </li>
         <li>
   <a href="https://github.com/tidyverse/tidyr">
-    <span class="fa fa-github fa-lg"></span>
+    <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -96,6 +132,7 @@
 <!--/.navbar -->
 
       
+
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
@@ -120,10 +157,10 @@
 <li><p><code><a href="../reference/pivot_longer.html">pivot_longer()</a></code> and <code><a href="../reference/pivot_wider.html">pivot_wider()</a></code> can take a data frame that specifies precisely how metadata stored in column names becomes data variables (and vice versa), inspired by the <a href="https://winvector.github.io/cdata/">cdata</a> package by John Mount and Nina Zumel.</p></li>
 </ul>
 <p>In this vignette, you’ll learn the key ideas behind <code><a href="../reference/pivot_longer.html">pivot_longer()</a></code> and <code><a href="../reference/pivot_wider.html">pivot_wider()</a></code> as you see them used to solve a variety of data reshaping challenges ranging from simple to complex.</p>
-<p>To begin we’ll load some needed packages. In real analysis code, I’d imagine you’d do with the <code><a href="https://www.rdocumentation.org/packages/base/topics/library">library(tidyverse)</a></code>, but I can’t do that here since this vignette is embedded in a package.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(tidyr)</a>
-<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(dplyr)</a>
-<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(readr)</a></code></pre></div>
+<p>To begin we’ll load some needed packages. In real analysis code, I’d imagine you’d do with the <code><a href="https://rdrr.io/r/base/library.html">library(tidyverse)</a></code>, but I can’t do that here since this vignette is embedded in a package.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(tidyr)</a>
+<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(dplyr)</a>
+<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(readr)</a></code></pre></div>
 </div>
 <div id="longer" class="section level1">
 <h1 class="hasAnchor">
@@ -220,7 +257,7 @@
 <p>We can start with the same basic specification as for the <code>relig_income</code> dataset. Here we want the names to become a variable called <code>week</code>, and the values to become a variable called <code>rank</code>. I also use <code>values_drop_na</code> to drop rows that correspond to missing values. Not every song stays in the charts for all 76 weeks, so the structure of the input data force the creation of unnessary explicit <code>NA</code>s.</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">billboard <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb5-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/pivot_longer.html">pivot_longer</a></span>(</a>
-<a class="sourceLine" id="cb5-3" data-line-number="3">    <span class="dt">cols =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/tidyselect/topics/select_helpers">starts_with</a></span>(<span class="st">"wk"</span>), </a>
+<a class="sourceLine" id="cb5-3" data-line-number="3">    <span class="dt">cols =</span> <span class="kw"><a href="https://rdrr.io/pkg/tidyselect/man/select_helpers.html">starts_with</a></span>(<span class="st">"wk"</span>), </a>
 <a class="sourceLine" id="cb5-4" data-line-number="4">    <span class="dt">names_to =</span> <span class="st">"week"</span>, </a>
 <a class="sourceLine" id="cb5-5" data-line-number="5">    <span class="dt">values_to =</span> <span class="st">"rank"</span>,</a>
 <a class="sourceLine" id="cb5-6" data-line-number="6">    <span class="dt">values_drop_na =</span> <span class="ot">TRUE</span></a>
@@ -242,10 +279,10 @@
 <p>It would be nice to easily determine how long each song stayed in the charts, but to do that, we’ll need to convert the <code>week</code> variable to an integer. We can do that by using two additional arguments: <code>names_prefix</code> strips off the <code>wk</code> prefix, and <code>names_ptypes</code> specifies that <code>week</code> should be an integer:</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">billboard <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb6-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/pivot_longer.html">pivot_longer</a></span>(</a>
-<a class="sourceLine" id="cb6-3" data-line-number="3">    <span class="dt">cols =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/tidyselect/topics/select_helpers">starts_with</a></span>(<span class="st">"wk"</span>), </a>
+<a class="sourceLine" id="cb6-3" data-line-number="3">    <span class="dt">cols =</span> <span class="kw"><a href="https://rdrr.io/pkg/tidyselect/man/select_helpers.html">starts_with</a></span>(<span class="st">"wk"</span>), </a>
 <a class="sourceLine" id="cb6-4" data-line-number="4">    <span class="dt">names_to =</span> <span class="st">"week"</span>, </a>
 <a class="sourceLine" id="cb6-5" data-line-number="5">    <span class="dt">names_prefix =</span> <span class="st">"wk"</span>,</a>
-<a class="sourceLine" id="cb6-6" data-line-number="6">    <span class="dt">names_ptypes =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="dt">week =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/integer">integer</a></span>()),</a>
+<a class="sourceLine" id="cb6-6" data-line-number="6">    <span class="dt">names_ptypes =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="dt">week =</span> <span class="kw"><a href="https://rdrr.io/r/base/integer.html">integer</a></span>()),</a>
 <a class="sourceLine" id="cb6-7" data-line-number="7">    <span class="dt">values_to =</span> <span class="st">"rank"</span>,</a>
 <a class="sourceLine" id="cb6-8" data-line-number="8">    <span class="dt">values_drop_na =</span> <span class="ot">TRUE</span>,</a>
 <a class="sourceLine" id="cb6-9" data-line-number="9">  )</a>
@@ -311,7 +348,7 @@
 <p>We can break these variables up by specifying multiple column names in <code>names_to</code>, and then either providing <code>names_sep</code> or <code>names_pattern</code>. Here <code>names_pattern</code> is the most natural fit. It has a similar interface to <code>extract</code>: you give it a regular expression containing groups (defined by <code>()</code>) and it puts each group in a column.</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">who <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/pivot_longer.html">pivot_longer</a></span>(</a>
 <a class="sourceLine" id="cb8-2" data-line-number="2">  <span class="dt">cols =</span> new_sp_m014<span class="op">:</span>newrel_f65,</a>
-<a class="sourceLine" id="cb8-3" data-line-number="3">  <span class="dt">names_to =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"diagnosis"</span>, <span class="st">"gender"</span>, <span class="st">"age"</span>), </a>
+<a class="sourceLine" id="cb8-3" data-line-number="3">  <span class="dt">names_to =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"diagnosis"</span>, <span class="st">"gender"</span>, <span class="st">"age"</span>), </a>
 <a class="sourceLine" id="cb8-4" data-line-number="4">  <span class="dt">names_pattern =</span> <span class="st">"new_?(.*)_(.)(.*)"</span>,</a>
 <a class="sourceLine" id="cb8-5" data-line-number="5">  <span class="dt">values_to =</span> <span class="st">"count"</span></a>
 <a class="sourceLine" id="cb8-6" data-line-number="6">)</a>
@@ -332,12 +369,12 @@
 <p>We could go one step further and specify the types of the <code>gender</code> and <code>age</code> columns. I think this is good practice when you have categorical variables with a known set of values.</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">who <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/pivot_longer.html">pivot_longer</a></span>(</a>
 <a class="sourceLine" id="cb9-2" data-line-number="2">  <span class="dt">cols =</span> new_sp_m014<span class="op">:</span>newrel_f65,</a>
-<a class="sourceLine" id="cb9-3" data-line-number="3">  <span class="dt">names_to =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"diagnosis"</span>, <span class="st">"gender"</span>, <span class="st">"age"</span>), </a>
+<a class="sourceLine" id="cb9-3" data-line-number="3">  <span class="dt">names_to =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"diagnosis"</span>, <span class="st">"gender"</span>, <span class="st">"age"</span>), </a>
 <a class="sourceLine" id="cb9-4" data-line-number="4">  <span class="dt">names_pattern =</span> <span class="st">"new_?(.*)_(.)(.*)"</span>,</a>
-<a class="sourceLine" id="cb9-5" data-line-number="5">  <span class="dt">names_ptypes =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(</a>
-<a class="sourceLine" id="cb9-6" data-line-number="6">    <span class="dt">gender =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/factor">factor</a></span>(<span class="dt">levels =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"f"</span>, <span class="st">"m"</span>)),</a>
-<a class="sourceLine" id="cb9-7" data-line-number="7">    <span class="dt">age =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/factor">factor</a></span>(</a>
-<a class="sourceLine" id="cb9-8" data-line-number="8">      <span class="dt">levels =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"014"</span>, <span class="st">"1524"</span>, <span class="st">"2534"</span>, <span class="st">"3544"</span>, <span class="st">"4554"</span>, <span class="st">"5564"</span>, <span class="st">"65"</span>), </a>
+<a class="sourceLine" id="cb9-5" data-line-number="5">  <span class="dt">names_ptypes =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(</a>
+<a class="sourceLine" id="cb9-6" data-line-number="6">    <span class="dt">gender =</span> <span class="kw"><a href="https://rdrr.io/r/base/factor.html">factor</a></span>(<span class="dt">levels =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"f"</span>, <span class="st">"m"</span>)),</a>
+<a class="sourceLine" id="cb9-7" data-line-number="7">    <span class="dt">age =</span> <span class="kw"><a href="https://rdrr.io/r/base/factor.html">factor</a></span>(</a>
+<a class="sourceLine" id="cb9-8" data-line-number="8">      <span class="dt">levels =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"014"</span>, <span class="st">"1524"</span>, <span class="st">"2534"</span>, <span class="st">"3544"</span>, <span class="st">"4554"</span>, <span class="st">"5564"</span>, <span class="st">"65"</span>), </a>
 <a class="sourceLine" id="cb9-9" data-line-number="9">      <span class="dt">ordered =</span> <span class="ot">TRUE</span></a>
 <a class="sourceLine" id="cb9-10" data-line-number="10">    )</a>
 <a class="sourceLine" id="cb9-11" data-line-number="11">  ),</a>
@@ -371,7 +408,7 @@
 <a class="sourceLine" id="cb10-6" data-line-number="6">       4L, <span class="st">"2004-10-10"</span>, <span class="st">"2009-08-27"</span>,             1L,             1L,</a>
 <a class="sourceLine" id="cb10-7" data-line-number="7">       5L, <span class="st">"2000-12-05"</span>, <span class="st">"2005-02-28"</span>,             2L,             1L,</a>
 <a class="sourceLine" id="cb10-8" data-line-number="8">)</a>
-<a class="sourceLine" id="cb10-9" data-line-number="9">family &lt;-<span class="st"> </span>family <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/mutate_all.html">mutate_at</a></span>(<span class="kw"><a href="https://dplyr.tidyverse.org/reference/vars.html">vars</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/tidyselect/topics/select_helpers">starts_with</a></span>(<span class="st">"dob"</span>)), parse_date)</a>
+<a class="sourceLine" id="cb10-9" data-line-number="9">family &lt;-<span class="st"> </span>family <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/mutate_all.html">mutate_at</a></span>(<span class="kw"><a href="https://dplyr.tidyverse.org/reference/vars.html">vars</a></span>(<span class="kw"><a href="https://rdrr.io/pkg/tidyselect/man/select_helpers.html">starts_with</a></span>(<span class="st">"dob"</span>)), parse_date)</a>
 <a class="sourceLine" id="cb10-10" data-line-number="10">family</a>
 <a class="sourceLine" id="cb10-11" data-line-number="11"><span class="co">#&gt; # A tibble: 5 x 5</span></a>
 <a class="sourceLine" id="cb10-12" data-line-number="12"><span class="co">#&gt;   family dob_child1 dob_child2 gender_child1 gender_child2</span></a>
@@ -385,7 +422,7 @@
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1">family <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb11-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/pivot_longer.html">pivot_longer</a></span>(</a>
 <a class="sourceLine" id="cb11-3" data-line-number="3">    <span class="op">-</span>family, </a>
-<a class="sourceLine" id="cb11-4" data-line-number="4">    <span class="dt">names_to =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">".value"</span>, <span class="st">"child"</span>), </a>
+<a class="sourceLine" id="cb11-4" data-line-number="4">    <span class="dt">names_to =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">".value"</span>, <span class="st">"child"</span>), </a>
 <a class="sourceLine" id="cb11-5" data-line-number="5">    <span class="dt">names_sep =</span> <span class="st">"_"</span>, </a>
 <a class="sourceLine" id="cb11-6" data-line-number="6">    <span class="dt">values_drop_na =</span> <span class="ot">TRUE</span></a>
 <a class="sourceLine" id="cb11-7" data-line-number="7">  )</a>
@@ -418,8 +455,8 @@
 <a class="sourceLine" id="cb12-13" data-line-number="13"><span class="co">#&gt; 11  5  5  5  8  5.68 4.74  5.73  6.89</span></a></code></pre></div>
 <p>This dataset contains four pairs of variables (<code>x1</code> and <code>y1</code>, <code>x2</code> and <code>y2</code>, etc) that underlie Anscombe’s quartet, a collection of four datasets that have the same summary statistics (mean, sd, correlation etc), but have quite different data. We want to produce a dataset with columns <code>set</code>, <code>x</code> and <code>y</code>.</p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1">anscombe <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb13-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/pivot_longer.html">pivot_longer</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/tidyselect/topics/select_helpers">everything</a></span>(), </a>
-<a class="sourceLine" id="cb13-3" data-line-number="3">    <span class="dt">names_to =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">".value"</span>, <span class="st">"set"</span>), </a>
+<a class="sourceLine" id="cb13-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/pivot_longer.html">pivot_longer</a></span>(<span class="kw"><a href="https://rdrr.io/pkg/tidyselect/man/select_helpers.html">everything</a></span>(), </a>
+<a class="sourceLine" id="cb13-3" data-line-number="3">    <span class="dt">names_to =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">".value"</span>, <span class="st">"set"</span>), </a>
 <a class="sourceLine" id="cb13-4" data-line-number="4">    <span class="dt">names_pattern =</span> <span class="st">"(.)(.)"</span></a>
 <a class="sourceLine" id="cb13-5" data-line-number="5">  ) <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb13-6" data-line-number="6"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span>(set)</a>
@@ -440,31 +477,31 @@
 <p>A similar situation can arise with panel data. For example, take this example dataset provided by <a href="http://github.com/leeper/rio/issues/193">Thomas Leeper</a>. We can tidy it using the same approach as for <code>anscombe</code>:</p>
 <div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1">pnl &lt;-<span class="st"> </span><span class="kw"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span>(</a>
 <a class="sourceLine" id="cb14-2" data-line-number="2">  <span class="dt">x =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">4</span>,</a>
-<a class="sourceLine" id="cb14-3" data-line-number="3">  <span class="dt">a =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">1</span>, <span class="dv">1</span>,<span class="dv">0</span>, <span class="dv">0</span>),</a>
-<a class="sourceLine" id="cb14-4" data-line-number="4">  <span class="dt">b =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>),</a>
-<a class="sourceLine" id="cb14-5" data-line-number="5">  <span class="dt">y1 =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/Normal">rnorm</a></span>(<span class="dv">4</span>),</a>
-<a class="sourceLine" id="cb14-6" data-line-number="6">  <span class="dt">y2 =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/Normal">rnorm</a></span>(<span class="dv">4</span>),</a>
-<a class="sourceLine" id="cb14-7" data-line-number="7">  <span class="dt">z1 =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/rep">rep</a></span>(<span class="dv">3</span>, <span class="dv">4</span>),</a>
-<a class="sourceLine" id="cb14-8" data-line-number="8">  <span class="dt">z2 =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/rep">rep</a></span>(<span class="op">-</span><span class="dv">2</span>, <span class="dv">4</span>),</a>
+<a class="sourceLine" id="cb14-3" data-line-number="3">  <span class="dt">a =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">1</span>, <span class="dv">1</span>,<span class="dv">0</span>, <span class="dv">0</span>),</a>
+<a class="sourceLine" id="cb14-4" data-line-number="4">  <span class="dt">b =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>),</a>
+<a class="sourceLine" id="cb14-5" data-line-number="5">  <span class="dt">y1 =</span> <span class="kw"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span>(<span class="dv">4</span>),</a>
+<a class="sourceLine" id="cb14-6" data-line-number="6">  <span class="dt">y2 =</span> <span class="kw"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span>(<span class="dv">4</span>),</a>
+<a class="sourceLine" id="cb14-7" data-line-number="7">  <span class="dt">z1 =</span> <span class="kw"><a href="https://rdrr.io/r/base/rep.html">rep</a></span>(<span class="dv">3</span>, <span class="dv">4</span>),</a>
+<a class="sourceLine" id="cb14-8" data-line-number="8">  <span class="dt">z2 =</span> <span class="kw"><a href="https://rdrr.io/r/base/rep.html">rep</a></span>(<span class="op">-</span><span class="dv">2</span>, <span class="dv">4</span>),</a>
 <a class="sourceLine" id="cb14-9" data-line-number="9">)</a>
 <a class="sourceLine" id="cb14-10" data-line-number="10"></a>
 <a class="sourceLine" id="cb14-11" data-line-number="11">pnl <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb14-12" data-line-number="12"><span class="st">  </span><span class="kw"><a href="../reference/pivot_longer.html">pivot_longer</a></span>(</a>
-<a class="sourceLine" id="cb14-13" data-line-number="13">    <span class="op">-</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(x, a, b), </a>
-<a class="sourceLine" id="cb14-14" data-line-number="14">    <span class="dt">names_to =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">".value"</span>, <span class="st">"time"</span>), </a>
+<a class="sourceLine" id="cb14-13" data-line-number="13">    <span class="op">-</span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(x, a, b), </a>
+<a class="sourceLine" id="cb14-14" data-line-number="14">    <span class="dt">names_to =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">".value"</span>, <span class="st">"time"</span>), </a>
 <a class="sourceLine" id="cb14-15" data-line-number="15">    <span class="dt">names_pattern =</span> <span class="st">"(.)(.)"</span></a>
 <a class="sourceLine" id="cb14-16" data-line-number="16">  )</a>
 <a class="sourceLine" id="cb14-17" data-line-number="17"><span class="co">#&gt; # A tibble: 8 x 6</span></a>
 <a class="sourceLine" id="cb14-18" data-line-number="18"><span class="co">#&gt;       x     a     b time       y     z</span></a>
 <a class="sourceLine" id="cb14-19" data-line-number="19"><span class="co">#&gt;   &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;  &lt;dbl&gt; &lt;dbl&gt;</span></a>
-<a class="sourceLine" id="cb14-20" data-line-number="20"><span class="co">#&gt; 1     1     1     0 1     -1.18      3</span></a>
-<a class="sourceLine" id="cb14-21" data-line-number="21"><span class="co">#&gt; 2     1     1     0 2      0.789    -2</span></a>
-<a class="sourceLine" id="cb14-22" data-line-number="22"><span class="co">#&gt; 3     2     1     1 1      0.944     3</span></a>
-<a class="sourceLine" id="cb14-23" data-line-number="23"><span class="co">#&gt; 4     2     1     1 2      1.03     -2</span></a>
-<a class="sourceLine" id="cb14-24" data-line-number="24"><span class="co">#&gt; 5     3     0     1 1      0.248     3</span></a>
-<a class="sourceLine" id="cb14-25" data-line-number="25"><span class="co">#&gt; 6     3     0     1 2      1.07     -2</span></a>
-<a class="sourceLine" id="cb14-26" data-line-number="26"><span class="co">#&gt; 7     4     0     1 1     -1.86      3</span></a>
-<a class="sourceLine" id="cb14-27" data-line-number="27"><span class="co">#&gt; 8     4     0     1 2      0.642    -2</span></a></code></pre></div>
+<a class="sourceLine" id="cb14-20" data-line-number="20"><span class="co">#&gt; 1     1     1     0 1     -0.444     3</span></a>
+<a class="sourceLine" id="cb14-21" data-line-number="21"><span class="co">#&gt; 2     1     1     0 2      1.65     -2</span></a>
+<a class="sourceLine" id="cb14-22" data-line-number="22"><span class="co">#&gt; 3     2     1     1 1      1.70      3</span></a>
+<a class="sourceLine" id="cb14-23" data-line-number="23"><span class="co">#&gt; 4     2     1     1 2      0.164    -2</span></a>
+<a class="sourceLine" id="cb14-24" data-line-number="24"><span class="co">#&gt; 5     3     0     1 1      0.336     3</span></a>
+<a class="sourceLine" id="cb14-25" data-line-number="25"><span class="co">#&gt; 6     3     0     1 2      0.131    -2</span></a>
+<a class="sourceLine" id="cb14-26" data-line-number="26"><span class="co">#&gt; 7     4     0     1 1      1.14      3</span></a>
+<a class="sourceLine" id="cb14-27" data-line-number="27"><span class="co">#&gt; 8     4     0     1 2      0.211    -2</span></a></code></pre></div>
 </div>
 <div id="duplicated-column-names" class="section level2">
 <h2 class="hasAnchor">
@@ -538,7 +575,7 @@
 <div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" data-line-number="1">fish_encounters <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/pivot_wider.html">pivot_wider</a></span>(</a>
 <a class="sourceLine" id="cb19-2" data-line-number="2">  <span class="dt">names_from =</span> station, </a>
 <a class="sourceLine" id="cb19-3" data-line-number="3">  <span class="dt">values_from =</span> seen,</a>
-<a class="sourceLine" id="cb19-4" data-line-number="4">  <span class="dt">values_fill =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="dt">seen =</span> <span class="dv">0</span>)</a>
+<a class="sourceLine" id="cb19-4" data-line-number="4">  <span class="dt">values_fill =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="dt">seen =</span> <span class="dv">0</span>)</a>
 <a class="sourceLine" id="cb19-5" data-line-number="5">)</a>
 <a class="sourceLine" id="cb19-6" data-line-number="6"><span class="co">#&gt; # A tibble: 19 x 12</span></a>
 <a class="sourceLine" id="cb19-7" data-line-number="7"><span class="co">#&gt;    fish  Release I80_1 Lisbon  Rstr Base_TD   BCE   BCW  BCE2  BCW2   MAE</span></a>
@@ -603,7 +640,7 @@
 <a class="sourceLine" id="cb23-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/pivot_wider.html">pivot_wider</a></span>(</a>
 <a class="sourceLine" id="cb23-3" data-line-number="3">    <span class="dt">names_from =</span> wool, </a>
 <a class="sourceLine" id="cb23-4" data-line-number="4">    <span class="dt">values_from =</span> breaks,</a>
-<a class="sourceLine" id="cb23-5" data-line-number="5">    <span class="dt">values_fn =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="dt">breaks =</span> mean)</a>
+<a class="sourceLine" id="cb23-5" data-line-number="5">    <span class="dt">values_fn =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="dt">breaks =</span> mean)</a>
 <a class="sourceLine" id="cb23-6" data-line-number="6">  )</a>
 <a class="sourceLine" id="cb23-7" data-line-number="7"><span class="co">#&gt; # A tibble: 3 x 3</span></a>
 <a class="sourceLine" id="cb23-8" data-line-number="8"><span class="co">#&gt;   tension     A     B</span></a>
@@ -618,45 +655,45 @@
 <a href="#generate-column-name-from-multiple-variables" class="anchor"></a>Generate column name from multiple variables</h2>
 <p>Imagine, as in <a href="http://stackoverflow.com/questions/24929954" class="uri">http://stackoverflow.com/questions/24929954</a>, that we have information containing the combination of product, country, and year. In tidy form it might look like this:</p>
 <div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb24-1" data-line-number="1">production &lt;-<span class="st"> </span><span class="kw"><a href="../reference/expand_grid.html">expand_grid</a></span>(</a>
-<a class="sourceLine" id="cb24-2" data-line-number="2">    <span class="dt">product =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"A"</span>, <span class="st">"B"</span>), </a>
-<a class="sourceLine" id="cb24-3" data-line-number="3">    <span class="dt">country =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"AI"</span>, <span class="st">"EI"</span>), </a>
+<a class="sourceLine" id="cb24-2" data-line-number="2">    <span class="dt">product =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"A"</span>, <span class="st">"B"</span>), </a>
+<a class="sourceLine" id="cb24-3" data-line-number="3">    <span class="dt">country =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"AI"</span>, <span class="st">"EI"</span>), </a>
 <a class="sourceLine" id="cb24-4" data-line-number="4">    <span class="dt">year =</span> <span class="dv">2000</span><span class="op">:</span><span class="dv">2014</span></a>
 <a class="sourceLine" id="cb24-5" data-line-number="5">  ) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb24-6" data-line-number="6"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span>((product <span class="op">==</span><span class="st"> "A"</span> <span class="op">&amp;</span><span class="st"> </span>country <span class="op">==</span><span class="st"> "AI"</span>) <span class="op">|</span><span class="st"> </span>product <span class="op">==</span><span class="st"> "B"</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb24-7" data-line-number="7"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="dt">production =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/Normal">rnorm</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/nrow">nrow</a></span>(.)))</a>
+<a class="sourceLine" id="cb24-7" data-line-number="7"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="dt">production =</span> <span class="kw"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span>(.)))</a>
 <a class="sourceLine" id="cb24-8" data-line-number="8">production</a>
 <a class="sourceLine" id="cb24-9" data-line-number="9"><span class="co">#&gt; # A tibble: 45 x 4</span></a>
 <a class="sourceLine" id="cb24-10" data-line-number="10"><span class="co">#&gt;    product country  year production</span></a>
 <a class="sourceLine" id="cb24-11" data-line-number="11"><span class="co">#&gt;    &lt;chr&gt;   &lt;chr&gt;   &lt;int&gt;      &lt;dbl&gt;</span></a>
-<a class="sourceLine" id="cb24-12" data-line-number="12"><span class="co">#&gt;  1 A       AI       2000     -0.361</span></a>
-<a class="sourceLine" id="cb24-13" data-line-number="13"><span class="co">#&gt;  2 A       AI       2001     -0.482</span></a>
-<a class="sourceLine" id="cb24-14" data-line-number="14"><span class="co">#&gt;  3 A       AI       2002     -1.69 </span></a>
-<a class="sourceLine" id="cb24-15" data-line-number="15"><span class="co">#&gt;  4 A       AI       2003      0.216</span></a>
-<a class="sourceLine" id="cb24-16" data-line-number="16"><span class="co">#&gt;  5 A       AI       2004     -1.88 </span></a>
-<a class="sourceLine" id="cb24-17" data-line-number="17"><span class="co">#&gt;  6 A       AI       2005      0.636</span></a>
-<a class="sourceLine" id="cb24-18" data-line-number="18"><span class="co">#&gt;  7 A       AI       2006     -0.400</span></a>
-<a class="sourceLine" id="cb24-19" data-line-number="19"><span class="co">#&gt;  8 A       AI       2007      0.560</span></a>
-<a class="sourceLine" id="cb24-20" data-line-number="20"><span class="co">#&gt;  9 A       AI       2008     -0.397</span></a>
-<a class="sourceLine" id="cb24-21" data-line-number="21"><span class="co">#&gt; 10 A       AI       2009     -1.47 </span></a>
+<a class="sourceLine" id="cb24-12" data-line-number="12"><span class="co">#&gt;  1 A       AI       2000     0.316 </span></a>
+<a class="sourceLine" id="cb24-13" data-line-number="13"><span class="co">#&gt;  2 A       AI       2001     1.47  </span></a>
+<a class="sourceLine" id="cb24-14" data-line-number="14"><span class="co">#&gt;  3 A       AI       2002     0.255 </span></a>
+<a class="sourceLine" id="cb24-15" data-line-number="15"><span class="co">#&gt;  4 A       AI       2003    -0.212 </span></a>
+<a class="sourceLine" id="cb24-16" data-line-number="16"><span class="co">#&gt;  5 A       AI       2004    -0.509 </span></a>
+<a class="sourceLine" id="cb24-17" data-line-number="17"><span class="co">#&gt;  6 A       AI       2005     0.609 </span></a>
+<a class="sourceLine" id="cb24-18" data-line-number="18"><span class="co">#&gt;  7 A       AI       2006     0.641 </span></a>
+<a class="sourceLine" id="cb24-19" data-line-number="19"><span class="co">#&gt;  8 A       AI       2007    -0.328 </span></a>
+<a class="sourceLine" id="cb24-20" data-line-number="20"><span class="co">#&gt;  9 A       AI       2008    -0.143 </span></a>
+<a class="sourceLine" id="cb24-21" data-line-number="21"><span class="co">#&gt; 10 A       AI       2009    -0.0154</span></a>
 <a class="sourceLine" id="cb24-22" data-line-number="22"><span class="co">#&gt; # … with 35 more rows</span></a></code></pre></div>
 <p>We want to widen the data so we have one column for each combination of <code>product</code> and <code>country</code>. The key is to specify multiple variables for <code>names_from</code>:</p>
 <div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" data-line-number="1">production <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/pivot_wider.html">pivot_wider</a></span>(</a>
-<a class="sourceLine" id="cb25-2" data-line-number="2">  <span class="dt">names_from =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(product, country), </a>
+<a class="sourceLine" id="cb25-2" data-line-number="2">  <span class="dt">names_from =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(product, country), </a>
 <a class="sourceLine" id="cb25-3" data-line-number="3">  <span class="dt">values_from =</span> production</a>
 <a class="sourceLine" id="cb25-4" data-line-number="4">)</a>
 <a class="sourceLine" id="cb25-5" data-line-number="5"><span class="co">#&gt; # A tibble: 15 x 4</span></a>
-<a class="sourceLine" id="cb25-6" data-line-number="6"><span class="co">#&gt;     year   A_AI   B_AI    B_EI</span></a>
-<a class="sourceLine" id="cb25-7" data-line-number="7"><span class="co">#&gt;    &lt;int&gt;  &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;</span></a>
-<a class="sourceLine" id="cb25-8" data-line-number="8"><span class="co">#&gt;  1  2000 -0.361  0.280 -0.493 </span></a>
-<a class="sourceLine" id="cb25-9" data-line-number="9"><span class="co">#&gt;  2  2001 -0.482  0.607 -1.22  </span></a>
-<a class="sourceLine" id="cb25-10" data-line-number="10"><span class="co">#&gt;  3  2002 -1.69   0.665  0.783 </span></a>
-<a class="sourceLine" id="cb25-11" data-line-number="11"><span class="co">#&gt;  4  2003  0.216  0.354 -0.563 </span></a>
-<a class="sourceLine" id="cb25-12" data-line-number="12"><span class="co">#&gt;  5  2004 -1.88  -1.58   0.0271</span></a>
-<a class="sourceLine" id="cb25-13" data-line-number="13"><span class="co">#&gt;  6  2005  0.636  0.253  0.357 </span></a>
-<a class="sourceLine" id="cb25-14" data-line-number="14"><span class="co">#&gt;  7  2006 -0.400  0.293 -1.45  </span></a>
-<a class="sourceLine" id="cb25-15" data-line-number="15"><span class="co">#&gt;  8  2007  0.560  1.29   0.115 </span></a>
-<a class="sourceLine" id="cb25-16" data-line-number="16"><span class="co">#&gt;  9  2008 -0.397  0.693  0.324 </span></a>
-<a class="sourceLine" id="cb25-17" data-line-number="17"><span class="co">#&gt; 10  2009 -1.47  -2.58  -0.252 </span></a>
+<a class="sourceLine" id="cb25-6" data-line-number="6"><span class="co">#&gt;     year    A_AI     B_AI    B_EI</span></a>
+<a class="sourceLine" id="cb25-7" data-line-number="7"><span class="co">#&gt;    &lt;int&gt;   &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb25-8" data-line-number="8"><span class="co">#&gt;  1  2000  0.316  -0.810   -0.139 </span></a>
+<a class="sourceLine" id="cb25-9" data-line-number="9"><span class="co">#&gt;  2  2001  1.47    0.371    0.0418</span></a>
+<a class="sourceLine" id="cb25-10" data-line-number="10"><span class="co">#&gt;  3  2002  0.255  -0.514   -0.744 </span></a>
+<a class="sourceLine" id="cb25-11" data-line-number="11"><span class="co">#&gt;  4  2003 -0.212  -1.08    -2.02  </span></a>
+<a class="sourceLine" id="cb25-12" data-line-number="12"><span class="co">#&gt;  5  2004 -0.509   0.00565 -1.34  </span></a>
+<a class="sourceLine" id="cb25-13" data-line-number="13"><span class="co">#&gt;  6  2005  0.609  -1.26     0.545 </span></a>
+<a class="sourceLine" id="cb25-14" data-line-number="14"><span class="co">#&gt;  7  2006  0.641   0.598    2.11  </span></a>
+<a class="sourceLine" id="cb25-15" data-line-number="15"><span class="co">#&gt;  8  2007 -0.328  -0.714    1.48  </span></a>
+<a class="sourceLine" id="cb25-16" data-line-number="16"><span class="co">#&gt;  9  2008 -0.143  -0.162    1.43  </span></a>
+<a class="sourceLine" id="cb25-17" data-line-number="17"><span class="co">#&gt; 10  2009 -0.0154  0.301   -1.03  </span></a>
 <a class="sourceLine" id="cb25-18" data-line-number="18"><span class="co">#&gt; # … with 5 more rows</span></a></code></pre></div>
 </div>
 <div id="tidy-census" class="section level2">
@@ -680,7 +717,7 @@
 <a class="sourceLine" id="cb26-15" data-line-number="15"><span class="co">#&gt; # … with 94 more rows</span></a></code></pre></div>
 <p>Here both <code>estimate</code> and <code>moe</code> are values columns, so we can supply them to <code>values_from</code>:</p>
 <div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb27-1" data-line-number="1">us_rent_income <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb27-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/pivot_wider.html">pivot_wider</a></span>(<span class="dt">names_from =</span> variable, <span class="dt">values_from =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(estimate, moe))</a>
+<a class="sourceLine" id="cb27-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/pivot_wider.html">pivot_wider</a></span>(<span class="dt">names_from =</span> variable, <span class="dt">values_from =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(estimate, moe))</a>
 <a class="sourceLine" id="cb27-3" data-line-number="3"><span class="co">#&gt; # A tibble: 52 x 6</span></a>
 <a class="sourceLine" id="cb27-4" data-line-number="4"><span class="co">#&gt;    GEOID NAME             estimate_income estimate_rent moe_income moe_rent</span></a>
 <a class="sourceLine" id="cb27-5" data-line-number="5"><span class="co">#&gt;    &lt;chr&gt; &lt;chr&gt;                      &lt;dbl&gt;         &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt;</span></a>
@@ -713,7 +750,7 @@
 <p>This is challenging because there’s no variable that identifies which observations belong together. We can fix this by noting that every contact starts with a name, so we can create a unique id by counting every time we see “name” as the <code>field</code>:</p>
 <div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" data-line-number="1">contacts &lt;-<span class="st"> </span>contacts <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb29-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(</a>
-<a class="sourceLine" id="cb29-3" data-line-number="3">    <span class="dt">person_id =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/cumsum">cumsum</a></span>(field <span class="op">==</span><span class="st"> "name"</span>)</a>
+<a class="sourceLine" id="cb29-3" data-line-number="3">    <span class="dt">person_id =</span> <span class="kw"><a href="https://rdrr.io/r/base/cumsum.html">cumsum</a></span>(field <span class="op">==</span><span class="st"> "name"</span>)</a>
 <a class="sourceLine" id="cb29-4" data-line-number="4">  )</a>
 <a class="sourceLine" id="cb29-5" data-line-number="5">contacts</a>
 <a class="sourceLine" id="cb29-6" data-line-number="6"><span class="co">#&gt; # A tibble: 6 x 3</span></a>
@@ -790,7 +827,7 @@
 <a class="sourceLine" id="cb33-8" data-line-number="8"><span class="co">#&gt; 4 SP.URB.TOTL  4752</span></a></code></pre></div>
 <p>Here <code>SP.POP.GROW</code> is population growth, <code>SP.POP.TOTL</code> is total population, and <code>SP.URB.*</code> are the same but only for urban areas. Let’s split this up into two variables: <code>area</code> (total or urban) and the actual variable (population or growth):</p>
 <div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb34-1" data-line-number="1">pop3 &lt;-<span class="st"> </span>pop2 <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb34-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/separate.html">separate</a></span>(indicator, <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="ot">NA</span>, <span class="st">"area"</span>, <span class="st">"variable"</span>))</a>
+<a class="sourceLine" id="cb34-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/separate.html">separate</a></span>(indicator, <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="ot">NA</span>, <span class="st">"area"</span>, <span class="st">"variable"</span>))</a>
 <a class="sourceLine" id="cb34-3" data-line-number="3">pop3</a>
 <a class="sourceLine" id="cb34-4" data-line-number="4"><span class="co">#&gt; # A tibble: 19,008 x 5</span></a>
 <a class="sourceLine" id="cb34-5" data-line-number="5"><span class="co">#&gt;    country area  variable year  value</span></a>
@@ -857,7 +894,7 @@
 <a class="sourceLine" id="cb38-3" data-line-number="3">    <span class="dt">id_cols =</span> id,</a>
 <a class="sourceLine" id="cb38-4" data-line-number="4">    <span class="dt">names_from =</span> value, </a>
 <a class="sourceLine" id="cb38-5" data-line-number="5">    <span class="dt">values_from =</span> checked, </a>
-<a class="sourceLine" id="cb38-6" data-line-number="6">    <span class="dt">values_fill =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="dt">checked =</span> <span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb38-6" data-line-number="6">    <span class="dt">values_fill =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="dt">checked =</span> <span class="ot">FALSE</span>)</a>
 <a class="sourceLine" id="cb38-7" data-line-number="7">  )</a>
 <a class="sourceLine" id="cb38-8" data-line-number="8"><span class="co">#&gt; # A tibble: 4 x 5</span></a>
 <a class="sourceLine" id="cb38-9" data-line-number="9"><span class="co">#&gt;      id A     B     C     D    </span></a>
@@ -924,7 +961,7 @@
 <a href="#wider-1" class="anchor"></a>Wider</h2>
 <p>Below we widen <code>us_rent_income</code> with <code><a href="../reference/pivot_wider.html">pivot_wider()</a></code>. The result is ok, but I think it could be improved:</p>
 <div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb41-1" data-line-number="1">us_rent_income <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb41-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/pivot_wider.html">pivot_wider</a></span>(<span class="dt">names_from =</span> variable, <span class="dt">values_from =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(estimate, moe))</a>
+<a class="sourceLine" id="cb41-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/pivot_wider.html">pivot_wider</a></span>(<span class="dt">names_from =</span> variable, <span class="dt">values_from =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(estimate, moe))</a>
 <a class="sourceLine" id="cb41-3" data-line-number="3"><span class="co">#&gt; # A tibble: 52 x 6</span></a>
 <a class="sourceLine" id="cb41-4" data-line-number="4"><span class="co">#&gt;    GEOID NAME             estimate_income estimate_rent moe_income moe_rent</span></a>
 <a class="sourceLine" id="cb41-5" data-line-number="5"><span class="co">#&gt;    &lt;chr&gt; &lt;chr&gt;                      &lt;dbl&gt;         &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt;</span></a>
@@ -941,7 +978,7 @@
 <a class="sourceLine" id="cb41-16" data-line-number="16"><span class="co">#&gt; # … with 42 more rows</span></a></code></pre></div>
 <p>I think it would be better to have columns <code>income</code>, <code>rent</code>, <code>income_moe</code>, and <code>rent_moe</code>, which we can achieve with a manual spec. The current spec looks like this:</p>
 <div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb42-1" data-line-number="1">spec1 &lt;-<span class="st"> </span>us_rent_income <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb42-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/pivot_wider_spec.html">build_wider_spec</a></span>(<span class="dt">names_from =</span> variable, <span class="dt">values_from =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(estimate, moe))</a>
+<a class="sourceLine" id="cb42-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/pivot_wider_spec.html">build_wider_spec</a></span>(<span class="dt">names_from =</span> variable, <span class="dt">values_from =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(estimate, moe))</a>
 <a class="sourceLine" id="cb42-3" data-line-number="3">spec1</a>
 <a class="sourceLine" id="cb42-4" data-line-number="4"><span class="co">#&gt; # A tibble: 4 x 3</span></a>
 <a class="sourceLine" id="cb42-5" data-line-number="5"><span class="co">#&gt;   .name           .value   variable</span></a>
@@ -952,7 +989,7 @@
 <a class="sourceLine" id="cb42-10" data-line-number="10"><span class="co">#&gt; 4 moe_rent        moe      rent</span></a></code></pre></div>
 <p>For this case, we mutate <code>spec</code> to carefully construct the column names:</p>
 <div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb43-1" data-line-number="1">spec2 &lt;-<span class="st"> </span>spec1 <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb43-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="dt">.name =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/paste">paste0</a></span>(variable, <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/ifelse">ifelse</a></span>(.value <span class="op">==</span><span class="st"> "moe"</span>, <span class="st">"_moe"</span>, <span class="st">""</span>)))</a>
+<a class="sourceLine" id="cb43-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="dt">.name =</span> <span class="kw"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span>(variable, <span class="kw"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span>(.value <span class="op">==</span><span class="st"> "moe"</span>, <span class="st">"_moe"</span>, <span class="st">""</span>)))</a>
 <a class="sourceLine" id="cb43-3" data-line-number="3">spec2</a>
 <a class="sourceLine" id="cb43-4" data-line-number="4"><span class="co">#&gt; # A tibble: 4 x 3</span></a>
 <a class="sourceLine" id="cb43-5" data-line-number="5"><span class="co">#&gt;   .name      .value   variable</span></a>
@@ -1051,6 +1088,7 @@
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+
         <div id="tocnav">
       <h2 class="hasAnchor">
 <a href="#tocnav" class="anchor"></a>Contents</h2>
@@ -1095,6 +1133,7 @@
 </div>
 
 
+
       <footer><div class="tidyverse">
   <p>tidyr is a part of the <strong>tidyverse</strong>, an ecosystem of packages designed with common APIs and a shared philosophy. Learn more at <a href="https://tidyverse.org">tidyverse.org</a>.</p>
 </div>
@@ -1105,10 +1144,12 @@
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>
+
       </footer>
 </div>
 
   
+
 
   </body>
 </html>

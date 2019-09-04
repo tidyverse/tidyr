@@ -6,25 +6,26 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Rectangling • tidyr</title>
-<!-- jquery --><script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script><!-- Bootstrap --><link href="../tidyverse.css" rel="stylesheet">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script><!-- Font Awesome icons --><link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
+<!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png">
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png">
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png">
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
+<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="../tidyverse.css" rel="stylesheet">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous">
+<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
 <script src="../pkgdown.js"></script><link href="../tidyverse-2.css" rel="stylesheet">
 <meta property="og:title" content="Rectangling">
 <meta property="og:description" content="">
 <meta property="og:image" content="https://tidyr.tidyverse.org/logo.png">
 <meta name="twitter:card" content="summary">
 <meta name="robots" content="noindex">
-<!-- mathjax --><script src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--[if lt IE 9]>
+<!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-<![endif]--><!-- google analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-115082821-1"></script><script>
- window.dataLayer = window.dataLayer || [];
- function gtag(){dataLayer.push(arguments);}
- gtag('js', new Date());
-
- gtag('config', 'UA-115082821-1');
-</script>
+<![endif]-->
 </head>
 <body>
     <div class="container template-article">
@@ -78,12 +79,47 @@
     </li>
   </ul>
 </li>
-<li>
-  <a href="../news/index.html">Changelog</a>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    News
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+<li class="dropdown-header">Release notes</li>
+    <li>
+      <a href="https://www.tidyverse.org/articles/2018/02/tidyr-0-8-0/">Version 0.8.0</a>
+    </li>
+    <li>
+      <a href="https://www.tidyverse.org/articles/2017/08/tidyr-0.7.0/">Version 0.7.0</a>
+    </li>
+    <li>
+      <a href="https://blog.rstudio.com/2016/08/15/tidyr-0-6-0/">Version 0.6.0</a>
+    </li>
+    <li>
+      <a href="https://blog.rstudio.com/2016/06/13/tidyr-0-5-0/">Version 0.5.0</a>
+    </li>
+    <li>
+      <a href="https://blog.rstudio.com/2016/02/02/tidyr-0-4-0/">Version 0.5.0</a>
+    </li>
+    <li>
+      <a href="https://blog.rstudio.com/2015/09/13/tidyr-0-3-0/">Version 0.4.0</a>
+    </li>
+    <li>
+      <a href="https://blog.rstudio.com/2014/12/08/tidyr-0-2-0/">Version 0.2.0</a>
+    </li>
+    <li>
+      <a href="https://blog.rstudio.com/2014/07/22/introducing-tidyr/">Version 0.1.0</a>
+    </li>
+    <li class="divider">
+    <li>
+      <a href="../news/index.html">Change log</a>
+    </li>
+  </ul>
 </li>
         <li>
   <a href="https://github.com/tidyverse/tidyr">
-    <span class="fa fa-github fa-lg"></span>
+    <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -96,6 +132,7 @@
 <!--/.navbar -->
 
       
+
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
@@ -125,9 +162,9 @@
 </ul>
 <p>A very large number of data rectangling problems can be solved by combining these functions with a splash of dplyr (largely eliminating prior approaches that combined <code><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate()</a></code> with multiple <code><a href="https://purrr.tidyverse.org/reference/map.html">purrr::map()</a></code>s).</p>
 <p>To illustrate these techniques, we’ll use the repurrrsive package, which provides a number deeply nested lists originally mostly captured from web APIs.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(tidyr)</a>
-<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(dplyr)</a>
-<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(repurrrsive)</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(tidyr)</a>
+<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(dplyr)</a>
+<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(repurrrsive)</a></code></pre></div>
 </div>
 <div id="github-users" class="section level2">
 <h2 class="hasAnchor">
@@ -136,7 +173,7 @@
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">users &lt;-<span class="st"> </span><span class="kw"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span>(<span class="dt">user =</span> gh_users)</a></code></pre></div>
 <p>This seems a bit counter-intuitive: why is the first step in making a list simpler to make it more complicated? But a data frame has a big advantage: it bundles together multiple vectors so that everything is tracked together in a single object.</p>
 <p>Each <code>user</code> is a named list, where each element represents a column.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/names">names</a></span>(users<span class="op">$</span>user[[<span class="dv">1</span>]])</a>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/names.html">names</a></span>(users<span class="op">$</span>user[[<span class="dv">1</span>]])</a>
 <a class="sourceLine" id="cb3-2" data-line-number="2"><span class="co">#&gt;  [1] "login"               "id"                  "avatar_url"         </span></a>
 <a class="sourceLine" id="cb3-3" data-line-number="3"><span class="co">#&gt;  [4] "gravatar_id"         "url"                 "html_url"           </span></a>
 <a class="sourceLine" id="cb3-4" data-line-number="4"><span class="co">#&gt;  [7] "followers_url"       "following_url"       "gists_url"          </span></a>
@@ -216,7 +253,7 @@
 <a class="sourceLine" id="cb7-16" data-line-number="16"><span class="co">#&gt; # … with 166 more rows</span></a></code></pre></div>
 <p>Then we can use <code><a href="../reference/hoist.html">unnest_wider()</a></code> or <code><a href="../reference/hoist.html">hoist()</a></code>:</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">repos <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/hoist.html">hoist</a></span>(repo, </a>
-<a class="sourceLine" id="cb8-2" data-line-number="2">  <span class="dt">login =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"owner"</span>, <span class="st">"login"</span>), </a>
+<a class="sourceLine" id="cb8-2" data-line-number="2">  <span class="dt">login =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"owner"</span>, <span class="st">"login"</span>), </a>
 <a class="sourceLine" id="cb8-3" data-line-number="3">  <span class="dt">name =</span> <span class="st">"name"</span>,</a>
 <a class="sourceLine" id="cb8-4" data-line-number="4">  <span class="dt">homepage =</span> <span class="st">"homepage"</span>,</a>
 <a class="sourceLine" id="cb8-5" data-line-number="5">  <span class="dt">watchers =</span> <span class="st">"watchers_count"</span></a>
@@ -235,7 +272,7 @@
 <a class="sourceLine" id="cb8-18" data-line-number="18"><span class="co">#&gt;  9 gaborcsardi conditions  &lt;NA&gt;            0 &lt;named list [65]&gt;</span></a>
 <a class="sourceLine" id="cb8-19" data-line-number="19"><span class="co">#&gt; 10 gaborcsardi crayon      &lt;NA&gt;           52 &lt;named list [65]&gt;</span></a>
 <a class="sourceLine" id="cb8-20" data-line-number="20"><span class="co">#&gt; # … with 166 more rows</span></a></code></pre></div>
-<p>Note the use of <code><a href="https://www.rdocumentation.org/packages/base/topics/c">c("owner", "login")</a></code>: this allows us to reach two levels deep inside of a list. An alternative approach would be to pull out just <code>owner</code> and then put each element of it in a column:</p>
+<p>Note the use of <code><a href="https://rdrr.io/r/base/c.html">c("owner", "login")</a></code>: this allows us to reach two levels deep inside of a list. An alternative approach would be to pull out just <code>owner</code> and then put each element of it in a column:</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">repos <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb9-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/hoist.html">hoist</a></span>(repo, <span class="dt">owner =</span> <span class="st">"owner"</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb9-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="../reference/hoist.html">unnest_wider</a></span>(owner)</a>
@@ -261,7 +298,7 @@
 <a class="sourceLine" id="cb10-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/hoist.html">unnest_auto</a></span>(repo) <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb10-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="../reference/hoist.html">unnest_auto</a></span>(repo)</a>
 <a class="sourceLine" id="cb10-4" data-line-number="4"><span class="co">#&gt; Using `unnest_longer(repo)`; no element has names</span></a>
-<a class="sourceLine" id="cb10-5" data-line-number="5"><span class="co">#&gt; Using `unnest_wider(repo)`; elements have {n_common} names in common</span></a>
+<a class="sourceLine" id="cb10-5" data-line-number="5"><span class="co">#&gt; Using `unnest_wider(repo)`; elements have 68 names in common</span></a>
 <a class="sourceLine" id="cb10-6" data-line-number="6"><span class="co">#&gt; # A tibble: 176 x 67</span></a>
 <a class="sourceLine" id="cb10-7" data-line-number="7"><span class="co">#&gt;        id name  full_name owner private html_url description fork  url  </span></a>
 <a class="sourceLine" id="cb10-8" data-line-number="8"><span class="co">#&gt;     &lt;int&gt; &lt;chr&gt; &lt;chr&gt;     &lt;lis&gt; &lt;lgl&gt;   &lt;chr&gt;    &lt;chr&gt;       &lt;lgl&gt; &lt;chr&gt;</span></a>
@@ -354,7 +391,7 @@
 <p>What you do next will depend on the purposes of the analysis. Maybe you want a row for every book and TV series that the character appears in:</p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1">chars2 <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb13-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(name, books, tvSeries) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb13-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="../reference/pivot_longer.html">pivot_longer</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(books, tvSeries), <span class="dt">names_to =</span> <span class="st">"media"</span>, <span class="dt">values_to =</span> <span class="st">"value"</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb13-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="../reference/pivot_longer.html">pivot_longer</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(books, tvSeries), <span class="dt">names_to =</span> <span class="st">"media"</span>, <span class="dt">values_to =</span> <span class="st">"value"</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb13-4" data-line-number="4"><span class="st">  </span><span class="kw"><a href="../reference/hoist.html">unnest_longer</a></span>(value)</a>
 <a class="sourceLine" id="cb13-5" data-line-number="5"><span class="co">#&gt; # A tibble: 180 x 3</span></a>
 <a class="sourceLine" id="cb13-6" data-line-number="6"><span class="co">#&gt;    name             media    value            </span></a>
@@ -394,7 +431,7 @@
 <a class="sourceLine" id="cb15-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/hoist.html">unnest_auto</a></span>(char) <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb15-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(name, <span class="dt">title =</span> titles) <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb15-4" data-line-number="4"><span class="st">  </span><span class="kw"><a href="../reference/hoist.html">unnest_auto</a></span>(title)</a>
-<a class="sourceLine" id="cb15-5" data-line-number="5"><span class="co">#&gt; Using `unnest_wider(char)`; elements have {n_common} names in common</span></a>
+<a class="sourceLine" id="cb15-5" data-line-number="5"><span class="co">#&gt; Using `unnest_wider(char)`; elements have 18 names in common</span></a>
 <a class="sourceLine" id="cb15-6" data-line-number="6"><span class="co">#&gt; Using `unnest_longer(title)`; no element has names</span></a>
 <a class="sourceLine" id="cb15-7" data-line-number="7"><span class="co">#&gt; # A tibble: 60 x 2</span></a>
 <a class="sourceLine" id="cb15-8" data-line-number="8"><span class="co">#&gt;    name              title                                               </span></a>
@@ -415,21 +452,21 @@
 <h2 class="hasAnchor">
 <a href="#geocoding-with-google" class="anchor"></a>Geocoding with google</h2>
 <p>Next we’ll tackle a more complex form of data that comes from Google’s geocoding service. It’s against the terms of service to cache this data, so I first write a very simple wrapper around the API. This relies on having an Google maps API key stored in an environment; if that’s not available these code chunks won’t be run.</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1">has_key &lt;-<span class="st"> </span><span class="op">!</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/identical">identical</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Sys.getenv">Sys.getenv</a></span>(<span class="st">"GOOGLE_MAPS_API_KEY"</span>), <span class="st">""</span>)</a>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1">has_key &lt;-<span class="st"> </span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/identical.html">identical</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/Sys.getenv.html">Sys.getenv</a></span>(<span class="st">"GOOGLE_MAPS_API_KEY"</span>), <span class="st">""</span>)</a>
 <a class="sourceLine" id="cb16-2" data-line-number="2"><span class="cf">if</span> (<span class="op">!</span>has_key) {</a>
-<a class="sourceLine" id="cb16-3" data-line-number="3">  <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/message">message</a></span>(<span class="st">"No Google Maps API key found; code chunks will not be run"</span>)</a>
+<a class="sourceLine" id="cb16-3" data-line-number="3">  <span class="kw"><a href="https://rdrr.io/r/base/message.html">message</a></span>(<span class="st">"No Google Maps API key found; code chunks will not be run"</span>)</a>
 <a class="sourceLine" id="cb16-4" data-line-number="4">}</a>
 <a class="sourceLine" id="cb16-5" data-line-number="5"></a>
 <a class="sourceLine" id="cb16-6" data-line-number="6"><span class="co"># https://developers.google.com/maps/documentation/geocoding</span></a>
-<a class="sourceLine" id="cb16-7" data-line-number="7">geocode &lt;-<span class="st"> </span><span class="cf">function</span>(address, <span class="dt">api_key =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Sys.getenv">Sys.getenv</a></span>(<span class="st">"GOOGLE_MAPS_API_KEY"</span>)) {</a>
+<a class="sourceLine" id="cb16-7" data-line-number="7">geocode &lt;-<span class="st"> </span><span class="cf">function</span>(address, <span class="dt">api_key =</span> <span class="kw"><a href="https://rdrr.io/r/base/Sys.getenv.html">Sys.getenv</a></span>(<span class="st">"GOOGLE_MAPS_API_KEY"</span>)) {</a>
 <a class="sourceLine" id="cb16-8" data-line-number="8">  url &lt;-<span class="st"> "https://maps.googleapis.com/maps/api/geocode/json"</span></a>
-<a class="sourceLine" id="cb16-9" data-line-number="9">  url &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/paste">paste0</a></span>(url, <span class="st">"?address="</span>, <span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/URLencode">URLencode</a></span>(address), <span class="st">"&amp;key="</span>, api_key)</a>
+<a class="sourceLine" id="cb16-9" data-line-number="9">  url &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span>(url, <span class="st">"?address="</span>, <span class="kw"><a href="https://rdrr.io/r/utils/URLencode.html">URLencode</a></span>(address), <span class="st">"&amp;key="</span>, api_key)</a>
 <a class="sourceLine" id="cb16-10" data-line-number="10"></a>
-<a class="sourceLine" id="cb16-11" data-line-number="11">  jsonlite<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/jsonlite/topics/read_json">read_json</a></span>(url)</a>
+<a class="sourceLine" id="cb16-11" data-line-number="11">  jsonlite<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/jsonlite/man/read_json.html">read_json</a></span>(url)</a>
 <a class="sourceLine" id="cb16-12" data-line-number="12">}</a></code></pre></div>
 <p>The list that this function returns is quite complex:</p>
 <div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1">houston &lt;-<span class="st"> </span><span class="kw">geocode</span>(<span class="st">"Houston TX"</span>)</a>
-<a class="sourceLine" id="cb17-2" data-line-number="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/str">str</a></span>(houston)</a>
+<a class="sourceLine" id="cb17-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/utils/str.html">str</a></span>(houston)</a>
 <a class="sourceLine" id="cb17-3" data-line-number="3"><span class="co">#&gt; List of 2</span></a>
 <a class="sourceLine" id="cb17-4" data-line-number="4"><span class="co">#&gt;  $ results:List of 1</span></a>
 <a class="sourceLine" id="cb17-5" data-line-number="5"><span class="co">#&gt;   ..$ :List of 5</span></a>
@@ -484,7 +521,7 @@
 <a class="sourceLine" id="cb17-54" data-line-number="54"><span class="co">#&gt;   .. .. ..$ : chr "political"</span></a>
 <a class="sourceLine" id="cb17-55" data-line-number="55"><span class="co">#&gt;  $ status : chr "OK"</span></a></code></pre></div>
 <p>Fortunately, we can attack the problem step by step with tidyr functions. To make the problem a bit harder (!) and more realistic, I’ll start by geocoding a few cities:</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" data-line-number="1">city &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"Houston"</span>, <span class="st">"LA"</span>, <span class="st">"New York"</span>, <span class="st">"Chicago"</span>, <span class="st">"Springfield"</span>)</a>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" data-line-number="1">city &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Houston"</span>, <span class="st">"LA"</span>, <span class="st">"New York"</span>, <span class="st">"Chicago"</span>, <span class="st">"Springfield"</span>)</a>
 <a class="sourceLine" id="cb18-2" data-line-number="2">city_geo &lt;-<span class="st"> </span>purrr<span class="op">::</span><span class="kw"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span>(city, geocode)</a></code></pre></div>
 <p>I’ll put these results in a tibble, next to the original city name:</p>
 <div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" data-line-number="1">loc &lt;-<span class="st"> </span><span class="kw"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span>(<span class="dt">city =</span> city, <span class="dt">json =</span> city_geo)</a>
@@ -573,11 +610,11 @@
 <a class="sourceLine" id="cb25-4" data-line-number="4"><span class="st">  </span><span class="kw"><a href="../reference/hoist.html">unnest_auto</a></span>(results) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb25-5" data-line-number="5"><span class="st">  </span><span class="kw"><a href="../reference/hoist.html">unnest_auto</a></span>(geometry) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb25-6" data-line-number="6"><span class="st">  </span><span class="kw"><a href="../reference/hoist.html">unnest_auto</a></span>(location)</a>
-<a class="sourceLine" id="cb25-7" data-line-number="7"><span class="co">#&gt; Using `unnest_wider(json)`; elements have {n_common} names in common</span></a>
+<a class="sourceLine" id="cb25-7" data-line-number="7"><span class="co">#&gt; Using `unnest_wider(json)`; elements have 2 names in common</span></a>
 <a class="sourceLine" id="cb25-8" data-line-number="8"><span class="co">#&gt; Using `unnest_longer(results)`; no element has names</span></a>
-<a class="sourceLine" id="cb25-9" data-line-number="9"><span class="co">#&gt; Using `unnest_wider(results)`; elements have {n_common} names in common</span></a>
-<a class="sourceLine" id="cb25-10" data-line-number="10"><span class="co">#&gt; Using `unnest_wider(geometry)`; elements have {n_common} names in common</span></a>
-<a class="sourceLine" id="cb25-11" data-line-number="11"><span class="co">#&gt; Using `unnest_wider(location)`; elements have {n_common} names in common</span></a>
+<a class="sourceLine" id="cb25-9" data-line-number="9"><span class="co">#&gt; Using `unnest_wider(results)`; elements have 5 names in common</span></a>
+<a class="sourceLine" id="cb25-10" data-line-number="10"><span class="co">#&gt; Using `unnest_wider(geometry)`; elements have 4 names in common</span></a>
+<a class="sourceLine" id="cb25-11" data-line-number="11"><span class="co">#&gt; Using `unnest_wider(location)`; elements have 2 names in common</span></a>
 <a class="sourceLine" id="cb25-12" data-line-number="12"><span class="co">#&gt; # A tibble: 5 x 11</span></a>
 <a class="sourceLine" id="cb25-13" data-line-number="13"><span class="co">#&gt;   city  address_compone… formatted_addre… bounds   lat    lng location_type</span></a>
 <a class="sourceLine" id="cb25-14" data-line-number="14"><span class="co">#&gt;   &lt;chr&gt; &lt;list&gt;           &lt;chr&gt;            &lt;list&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt;        </span></a>
@@ -608,8 +645,8 @@
 <p>Or use <code><a href="../reference/hoist.html">hoist()</a></code> to dive deeply to get directly to <code>lat</code> and <code>lng</code>:</p>
 <div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb27-1" data-line-number="1">loc <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb27-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/hoist.html">hoist</a></span>(json,</a>
-<a class="sourceLine" id="cb27-3" data-line-number="3">    <span class="dt">lat =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="st">"results"</span>, <span class="dv">1</span>, <span class="st">"geometry"</span>, <span class="st">"location"</span>, <span class="st">"lat"</span>),</a>
-<a class="sourceLine" id="cb27-4" data-line-number="4">    <span class="dt">lng =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="st">"results"</span>, <span class="dv">1</span>, <span class="st">"geometry"</span>, <span class="st">"location"</span>, <span class="st">"lng"</span>)</a>
+<a class="sourceLine" id="cb27-3" data-line-number="3">    <span class="dt">lat =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="st">"results"</span>, <span class="dv">1</span>, <span class="st">"geometry"</span>, <span class="st">"location"</span>, <span class="st">"lat"</span>),</a>
+<a class="sourceLine" id="cb27-4" data-line-number="4">    <span class="dt">lng =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="st">"results"</span>, <span class="dv">1</span>, <span class="st">"geometry"</span>, <span class="st">"location"</span>, <span class="st">"lng"</span>)</a>
 <a class="sourceLine" id="cb27-5" data-line-number="5">  )</a>
 <a class="sourceLine" id="cb27-6" data-line-number="6"><span class="co">#&gt; # A tibble: 5 x 4</span></a>
 <a class="sourceLine" id="cb27-7" data-line-number="7"><span class="co">#&gt;   city          lat    lng json            </span></a>
@@ -626,7 +663,7 @@
 <p>We’ll finish off with the most complex list, from <a href="https://sharla.party/posts/discog-purrr/">Sharla Gelfand’s</a> discography. We’ll start the usual way: putting the list into a single column data frame, and then widening so each component is a column. I also parse the <code>date_added</code> column into a real date-time<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>.</p>
 <div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb28-1" data-line-number="1">discs &lt;-<span class="st"> </span><span class="kw"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span>(<span class="dt">disc =</span> discog) <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb28-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/hoist.html">unnest_wider</a></span>(disc) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb28-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="dt">date_added =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/as.POSIXlt">as.POSIXct</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/strptime">strptime</a></span>(date_added, <span class="st">"%Y-%m-%dT%H:%M:%S"</span>))) </a>
+<a class="sourceLine" id="cb28-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="dt">date_added =</span> <span class="kw"><a href="https://rdrr.io/r/base/as.POSIXlt.html">as.POSIXct</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/strptime.html">strptime</a></span>(date_added, <span class="st">"%Y-%m-%dT%H:%M:%S"</span>))) </a>
 <a class="sourceLine" id="cb28-4" data-line-number="4">discs</a>
 <a class="sourceLine" id="cb28-5" data-line-number="5"><span class="co">#&gt; # A tibble: 155 x 5</span></a>
 <a class="sourceLine" id="cb28-6" data-line-number="6"><span class="co">#&gt;    instance_id date_added          basic_information       id rating</span></a>
@@ -692,8 +729,8 @@
 <a class="sourceLine" id="cb32-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/hoist.html">hoist</a></span>(basic_information,</a>
 <a class="sourceLine" id="cb32-3" data-line-number="3">    <span class="dt">title =</span> <span class="st">"title"</span>,</a>
 <a class="sourceLine" id="cb32-4" data-line-number="4">    <span class="dt">year =</span> <span class="st">"year"</span>,</a>
-<a class="sourceLine" id="cb32-5" data-line-number="5">    <span class="dt">label =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="st">"labels"</span>, <span class="dv">1</span>, <span class="st">"name"</span>),</a>
-<a class="sourceLine" id="cb32-6" data-line-number="6">    <span class="dt">artist =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="st">"artists"</span>, <span class="dv">1</span>, <span class="st">"name"</span>)</a>
+<a class="sourceLine" id="cb32-5" data-line-number="5">    <span class="dt">label =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="st">"labels"</span>, <span class="dv">1</span>, <span class="st">"name"</span>),</a>
+<a class="sourceLine" id="cb32-6" data-line-number="6">    <span class="dt">artist =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="st">"artists"</span>, <span class="dv">1</span>, <span class="st">"name"</span>)</a>
 <a class="sourceLine" id="cb32-7" data-line-number="7">  )</a>
 <a class="sourceLine" id="cb32-8" data-line-number="8"><span class="co">#&gt; # A tibble: 155 x 9</span></a>
 <a class="sourceLine" id="cb32-9" data-line-number="9"><span class="co">#&gt;    instance_id date_added          title  year label artist</span></a>
@@ -763,6 +800,7 @@
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+
         <div id="tocnav">
       <h2 class="hasAnchor">
 <a href="#tocnav" class="anchor"></a>Contents</h2>
@@ -780,6 +818,7 @@
 </div>
 
 
+
       <footer><div class="tidyverse">
   <p>tidyr is a part of the <strong>tidyverse</strong>, an ecosystem of packages designed with common APIs and a shared philosophy. Learn more at <a href="https://tidyverse.org">tidyverse.org</a>.</p>
 </div>
@@ -790,10 +829,12 @@
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>
+
       </footer>
 </div>
 
   
+
 
   </body>
 </html>
