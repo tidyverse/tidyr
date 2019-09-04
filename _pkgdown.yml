@@ -6,18 +6,42 @@ home:
     - text: Learn more
       href: http://r4ds.had.co.nz/tidy-data.html
 
-template:
-  package: tidytemplate
-
-development:
-  mode: auto
-
 navbar:
   components:
     home: ~
     intro:
       text: Tidy data
       href: articles/tidy-data.html
+    news:
+      text: News
+      menu:
+      - text: "Release notes"
+      - text: "Version 0.8.0"
+        href: https://www.tidyverse.org/articles/2018/02/tidyr-0-8-0/
+      - text: "Version 0.7.0"
+        href: https://www.tidyverse.org/articles/2017/08/tidyr-0.7.0/
+      - text: "Version 0.6.0"
+        href: https://blog.rstudio.com/2016/08/15/tidyr-0-6-0/
+      - text: "Version 0.5.0"
+        href: https://blog.rstudio.com/2016/06/13/tidyr-0-5-0/
+      - text: "Version 0.5.0"
+        href: https://blog.rstudio.com/2016/02/02/tidyr-0-4-0/
+      - text: "Version 0.4.0"
+        href: https://blog.rstudio.com/2015/09/13/tidyr-0-3-0/
+      - text: "Version 0.2.0"
+        href: https://blog.rstudio.com/2014/12/08/tidyr-0-2-0/
+      - text: "Version 0.1.0"
+        href: https://blog.rstudio.com/2014/07/22/introducing-tidyr/
+      - text: "------------------"
+      - text: "Change log"
+        href: news/index.html
+
+
+template:
+  package: tidytemplate
+
+development:
+  mode: auto
 
 reference:
 - title: Pivotting
