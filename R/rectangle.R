@@ -257,7 +257,7 @@ guess_dir <- function(x, col) {
       out <- "longer_idx"
     } else {
       code <- glue::glue("unnest_wider({col})")
-      reason <- "elements have {n_common} names in common"
+      reason <- glue::glue("elements have {n_common} names in common")
       out <- "wider"
     }
   } else {
