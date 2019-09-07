@@ -61,7 +61,7 @@ tidyr functions fall into five main categories:
     `spread()` and `gather()` functions. See `vignette("pivot")` for
     more details.
 
-  - “Rectangling”, which turns deeply nested lists (as from JSOM) into
+  - “Rectangling”, which turns deeply nested lists (as from JSON) into
     tidy tibbles. See `unnest_longer()`, `unnest_wider()`, `hoist()`,
     and `vignette("rectangle")` for more details.
 
