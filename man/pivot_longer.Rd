@@ -67,7 +67,7 @@ values in \code{data} were created by its structure.}
 \Sexpr[results=rd, stage=render]{lifecycle::badge("maturing")}
 
 \code{pivot_longer()} "lengthens" data, increasing the number of rows and
-decreasing the number of columns. The inverse transformation. in
+decreasing the number of columns. The inverse transformation is
 \code{\link[=pivot_wider]{pivot_wider()}}
 
 Learn more in \code{vignette("pivot")}.
