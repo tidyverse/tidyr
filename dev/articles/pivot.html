@@ -492,16 +492,16 @@
 <a class="sourceLine" id="cb14-15" data-line-number="15">    <span class="dt">names_pattern =</span> <span class="st">"(.)(.)"</span></a>
 <a class="sourceLine" id="cb14-16" data-line-number="16">  )</a>
 <a class="sourceLine" id="cb14-17" data-line-number="17"><span class="co">#&gt; # A tibble: 8 x 6</span></a>
-<a class="sourceLine" id="cb14-18" data-line-number="18"><span class="co">#&gt;       x     a     b time        y     z</span></a>
-<a class="sourceLine" id="cb14-19" data-line-number="19"><span class="co">#&gt;   &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt;</span></a>
-<a class="sourceLine" id="cb14-20" data-line-number="20"><span class="co">#&gt; 1     1     1     0 1      0.373      3</span></a>
-<a class="sourceLine" id="cb14-21" data-line-number="21"><span class="co">#&gt; 2     1     1     0 2     -1.54      -2</span></a>
-<a class="sourceLine" id="cb14-22" data-line-number="22"><span class="co">#&gt; 3     2     1     1 1      0.225      3</span></a>
-<a class="sourceLine" id="cb14-23" data-line-number="23"><span class="co">#&gt; 4     2     1     1 2      0.241     -2</span></a>
-<a class="sourceLine" id="cb14-24" data-line-number="24"><span class="co">#&gt; 5     3     0     1 1      1.28       3</span></a>
-<a class="sourceLine" id="cb14-25" data-line-number="25"><span class="co">#&gt; 6     3     0     1 2      0.0299    -2</span></a>
-<a class="sourceLine" id="cb14-26" data-line-number="26"><span class="co">#&gt; 7     4     0     1 1      1.12       3</span></a>
-<a class="sourceLine" id="cb14-27" data-line-number="27"><span class="co">#&gt; 8     4     0     1 2     -1.98      -2</span></a></code></pre></div>
+<a class="sourceLine" id="cb14-18" data-line-number="18"><span class="co">#&gt;       x     a     b time         y     z</span></a>
+<a class="sourceLine" id="cb14-19" data-line-number="19"><span class="co">#&gt;   &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;    &lt;dbl&gt; &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb14-20" data-line-number="20"><span class="co">#&gt; 1     1     1     0 1     -1.83        3</span></a>
+<a class="sourceLine" id="cb14-21" data-line-number="21"><span class="co">#&gt; 2     1     1     0 2      0.928      -2</span></a>
+<a class="sourceLine" id="cb14-22" data-line-number="22"><span class="co">#&gt; 3     2     1     1 1      0.0277      3</span></a>
+<a class="sourceLine" id="cb14-23" data-line-number="23"><span class="co">#&gt; 4     2     1     1 2      0.0275     -2</span></a>
+<a class="sourceLine" id="cb14-24" data-line-number="24"><span class="co">#&gt; 5     3     0     1 1     -0.231       3</span></a>
+<a class="sourceLine" id="cb14-25" data-line-number="25"><span class="co">#&gt; 6     3     0     1 2      0.00940    -2</span></a>
+<a class="sourceLine" id="cb14-26" data-line-number="26"><span class="co">#&gt; 7     4     0     1 1     -0.366       3</span></a>
+<a class="sourceLine" id="cb14-27" data-line-number="27"><span class="co">#&gt; 8     4     0     1 2     -0.0527     -2</span></a></code></pre></div>
 </div>
 <div id="duplicated-column-names" class="section level2">
 <h2 class="hasAnchor">
@@ -665,16 +665,16 @@
 <a class="sourceLine" id="cb24-9" data-line-number="9"><span class="co">#&gt; # A tibble: 45 x 4</span></a>
 <a class="sourceLine" id="cb24-10" data-line-number="10"><span class="co">#&gt;    product country  year production</span></a>
 <a class="sourceLine" id="cb24-11" data-line-number="11"><span class="co">#&gt;    &lt;chr&gt;   &lt;chr&gt;   &lt;int&gt;      &lt;dbl&gt;</span></a>
-<a class="sourceLine" id="cb24-12" data-line-number="12"><span class="co">#&gt;  1 A       AI       2000     0.0891</span></a>
-<a class="sourceLine" id="cb24-13" data-line-number="13"><span class="co">#&gt;  2 A       AI       2001    -0.212 </span></a>
-<a class="sourceLine" id="cb24-14" data-line-number="14"><span class="co">#&gt;  3 A       AI       2002     1.19  </span></a>
-<a class="sourceLine" id="cb24-15" data-line-number="15"><span class="co">#&gt;  4 A       AI       2003    -1.33  </span></a>
-<a class="sourceLine" id="cb24-16" data-line-number="16"><span class="co">#&gt;  5 A       AI       2004    -0.366 </span></a>
-<a class="sourceLine" id="cb24-17" data-line-number="17"><span class="co">#&gt;  6 A       AI       2005    -0.501 </span></a>
-<a class="sourceLine" id="cb24-18" data-line-number="18"><span class="co">#&gt;  7 A       AI       2006     1.92  </span></a>
-<a class="sourceLine" id="cb24-19" data-line-number="19"><span class="co">#&gt;  8 A       AI       2007    -1.74  </span></a>
-<a class="sourceLine" id="cb24-20" data-line-number="20"><span class="co">#&gt;  9 A       AI       2008    -0.476 </span></a>
-<a class="sourceLine" id="cb24-21" data-line-number="21"><span class="co">#&gt; 10 A       AI       2009    -1.05  </span></a>
+<a class="sourceLine" id="cb24-12" data-line-number="12"><span class="co">#&gt;  1 A       AI       2000     0.0156</span></a>
+<a class="sourceLine" id="cb24-13" data-line-number="13"><span class="co">#&gt;  2 A       AI       2001     0.559 </span></a>
+<a class="sourceLine" id="cb24-14" data-line-number="14"><span class="co">#&gt;  3 A       AI       2002    -1.09  </span></a>
+<a class="sourceLine" id="cb24-15" data-line-number="15"><span class="co">#&gt;  4 A       AI       2003    -1.45  </span></a>
+<a class="sourceLine" id="cb24-16" data-line-number="16"><span class="co">#&gt;  5 A       AI       2004     0.497 </span></a>
+<a class="sourceLine" id="cb24-17" data-line-number="17"><span class="co">#&gt;  6 A       AI       2005     0.143 </span></a>
+<a class="sourceLine" id="cb24-18" data-line-number="18"><span class="co">#&gt;  7 A       AI       2006    -0.258 </span></a>
+<a class="sourceLine" id="cb24-19" data-line-number="19"><span class="co">#&gt;  8 A       AI       2007    -0.182 </span></a>
+<a class="sourceLine" id="cb24-20" data-line-number="20"><span class="co">#&gt;  9 A       AI       2008    -0.0120</span></a>
+<a class="sourceLine" id="cb24-21" data-line-number="21"><span class="co">#&gt; 10 A       AI       2009     1.44  </span></a>
 <a class="sourceLine" id="cb24-22" data-line-number="22"><span class="co">#&gt; # … with 35 more rows</span></a></code></pre></div>
 <p>We want to widen the data so we have one column for each combination of <code>product</code> and <code>country</code>. The key is to specify multiple variables for <code>names_from</code>:</p>
 <div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" data-line-number="1">production <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/pivot_wider.html">pivot_wider</a></span>(</a>
@@ -682,18 +682,18 @@
 <a class="sourceLine" id="cb25-3" data-line-number="3">  <span class="dt">values_from =</span> production</a>
 <a class="sourceLine" id="cb25-4" data-line-number="4">)</a>
 <a class="sourceLine" id="cb25-5" data-line-number="5"><span class="co">#&gt; # A tibble: 15 x 4</span></a>
-<a class="sourceLine" id="cb25-6" data-line-number="6"><span class="co">#&gt;     year    A_AI    B_AI   B_EI</span></a>
-<a class="sourceLine" id="cb25-7" data-line-number="7"><span class="co">#&gt;    &lt;int&gt;   &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;</span></a>
-<a class="sourceLine" id="cb25-8" data-line-number="8"><span class="co">#&gt;  1  2000  0.0891 -0.0547  0.394</span></a>
-<a class="sourceLine" id="cb25-9" data-line-number="9"><span class="co">#&gt;  2  2001 -0.212   0.494  -0.684</span></a>
-<a class="sourceLine" id="cb25-10" data-line-number="10"><span class="co">#&gt;  3  2002  1.19   -1.14   -0.549</span></a>
-<a class="sourceLine" id="cb25-11" data-line-number="11"><span class="co">#&gt;  4  2003 -1.33    0.142   0.378</span></a>
-<a class="sourceLine" id="cb25-12" data-line-number="12"><span class="co">#&gt;  5  2004 -0.366  -1.09   -0.887</span></a>
-<a class="sourceLine" id="cb25-13" data-line-number="13"><span class="co">#&gt;  6  2005 -0.501  -0.243  -1.45 </span></a>
-<a class="sourceLine" id="cb25-14" data-line-number="14"><span class="co">#&gt;  7  2006  1.92   -0.654   0.538</span></a>
-<a class="sourceLine" id="cb25-15" data-line-number="15"><span class="co">#&gt;  8  2007 -1.74    0.333   1.12 </span></a>
-<a class="sourceLine" id="cb25-16" data-line-number="16"><span class="co">#&gt;  9  2008 -0.476   1.29   -0.729</span></a>
-<a class="sourceLine" id="cb25-17" data-line-number="17"><span class="co">#&gt; 10  2009 -1.05   -1.27   -1.42 </span></a>
+<a class="sourceLine" id="cb25-6" data-line-number="6"><span class="co">#&gt;     year    A_AI   B_AI   B_EI</span></a>
+<a class="sourceLine" id="cb25-7" data-line-number="7"><span class="co">#&gt;    &lt;int&gt;   &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb25-8" data-line-number="8"><span class="co">#&gt;  1  2000  0.0156 -0.170 -2.62 </span></a>
+<a class="sourceLine" id="cb25-9" data-line-number="9"><span class="co">#&gt;  2  2001  0.559   0.354  0.656</span></a>
+<a class="sourceLine" id="cb25-10" data-line-number="10"><span class="co">#&gt;  3  2002 -1.09   -0.323  1.07 </span></a>
+<a class="sourceLine" id="cb25-11" data-line-number="11"><span class="co">#&gt;  4  2003 -1.45   -1.06  -0.592</span></a>
+<a class="sourceLine" id="cb25-12" data-line-number="12"><span class="co">#&gt;  5  2004  0.497   2.45  -0.170</span></a>
+<a class="sourceLine" id="cb25-13" data-line-number="13"><span class="co">#&gt;  6  2005  0.143  -1.74  -0.105</span></a>
+<a class="sourceLine" id="cb25-14" data-line-number="14"><span class="co">#&gt;  7  2006 -0.258   2.21  -0.287</span></a>
+<a class="sourceLine" id="cb25-15" data-line-number="15"><span class="co">#&gt;  8  2007 -0.182   0.927 -0.599</span></a>
+<a class="sourceLine" id="cb25-16" data-line-number="16"><span class="co">#&gt;  9  2008 -0.0120  1.80  -0.122</span></a>
+<a class="sourceLine" id="cb25-17" data-line-number="17"><span class="co">#&gt; 10  2009  1.44   -0.540 -0.152</span></a>
 <a class="sourceLine" id="cb25-18" data-line-number="18"><span class="co">#&gt; # … with 5 more rows</span></a></code></pre></div>
 </div>
 <div id="tidy-census" class="section level2">
