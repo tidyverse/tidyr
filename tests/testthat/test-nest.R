@@ -84,7 +84,7 @@ test_that("can nest multiple columns", {
 test_that("nesting no columns nests all inputs", {
   # included only for backward compatibility
   df <- tibble(a1 = 1, a2 = 2, b1 = 1, b2 = 2)
-  out <- nest(df)
+  expect_warning(out <- nest(df), "must not be empty")
   expect_named(out, "data")
   expect_equal(out$data[[1]], df)
 })

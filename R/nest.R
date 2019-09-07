@@ -143,6 +143,10 @@ nest.data.frame <- function(.data, ..., .key = deprecated()) {
 nest.tbl_df <- function(.data, ..., .key = deprecated()) {
   .key <- check_key(.key)
   if (missing(...)) {
+    warn(paste0(
+      "`...` must not be empty for ungrouped data frames.\n",
+      "Did you want `", .key, " = everything()`?"
+    ))
     cols <- list2(!!.key := names(.data))
   } else {
     cols <- enquos(...)
