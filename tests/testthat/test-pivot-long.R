@@ -44,6 +44,19 @@ test_that("can drop missing values", {
   expect_equal(pv$value, c(1, 2))
 })
 
+test_that("can handle missing combinations", {
+  df <- tribble(
+    ~id, ~x_1, ~x_2, ~y_2,
+    "A",    1,    2,  "a",
+    "B",    3,    4,  "b",
+  )
+  pv <- pivot_longer(df, -id, names_to = c(".value", "n"), names_sep = "_")
+
+  expect_named(pv, c("id", "n", "x", "y"))
+  expect_equal(pv$x, 1:4)
+  expect_equal(pv$y, c(NA, "a", NA, "b"))
+})
+
 test_that("mixed columns are automatically coerced", {
   df <- data.frame(x = factor("a"), y = factor("b"))
   pv <- pivot_longer(df, x:y)

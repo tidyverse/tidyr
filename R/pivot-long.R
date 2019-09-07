@@ -159,11 +159,11 @@ pivot_longer_spec <- function(data,
     cols <- values[[value]]
     col_id <- vec_match(value_keys[[value]], keys)
 
-    val_cols <- vec_init(list(), length(cols))
+    val_cols <- vec_init(list(), nrow(keys))
     val_cols[col_id] <- unname(as.list(data[cols]))
     val_cols[-col_id] <- list(rep(NA, nrow(data)))
 
-    val_type <- vec_ptype_common(!!!set_names(val_cols, cols), .ptype = values_ptypes[[value]])
+    val_type <- vec_ptype_common(!!!set_names(val_cols[col_id], cols), .ptype = values_ptypes[[value]])
     out <- vec_c(!!!val_cols, .ptype = val_type)
     # Interleave into correct order
     idx <- (matrix(seq_len(nrow(data) * length(val_cols)), ncol = nrow(data), byrow = TRUE))
