@@ -63,7 +63,12 @@ test_that("can unpack 0-row dataframe", {
 
 test_that("can control name_repair", {
   df <- tibble(x = 1, y = tibble(a = 2), z = tibble(a = 3))
-  expect_error(df %>% unpack(c(y, z)), "must not be duplicated")
+
+  if (packageVersion("tibble") > "2.99") {
+    expect_error(df %>% unpack(c(y, z)), class = "vctrs_error_names_must_be_unique")
+  } else {
+    expect_error(df %>% unpack(c(y, z)), "must not be duplicated")
+  }
 
   expect_message(
     out <- df %>% unpack(c(y, z), names_repair = "unique"),
