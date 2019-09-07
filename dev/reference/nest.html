@@ -211,8 +211,8 @@ notably models.</p>
 that describe how you wish to nest existing columns into new columns.
 The right hand side can be any expression supported by tidyselect.</p>
 <p><img src='figures/lifecycle-deprecated.svg' alt='Deprecated lifecycle' />
-: previously you could write <code>df %&gt;% nest(x, y, z)</code>
-and <code>df %&gt;% unnest(x, y, z)</code>. Convert to <code>df %&gt;% nest(data = c(x, y, z))</code>.
+:
+previously you could write <code>df %&gt;% nest(x, y, z)</code> and <code>df %&gt;% unnest(x, y, z)</code>. Convert to <code>df %&gt;% nest(data = c(x, y, z))</code>.
 and <code>df %&gt;% unnest(c(x, y, z))</code>.</p>
 <p>If you previously created new variable in <code>unnest()</code> you'll now need to
 do it explicitly with <code>mutate()</code>. Convert <code>df %&gt;% unnest(y = fun(x, y, z))</code>
@@ -221,8 +221,8 @@ to <code>df %&gt;% mutate(y = fun(x, y, z)) %&gt;% unnest(y)</code>.</p></td>
     <tr>
       <th>.key</th>
       <td><p><img src='figures/lifecycle-deprecated.svg' alt='Deprecated lifecycle' />
-: No longer needed because of the new
-<code>new_col = c(col1, col2, col3)</code> syntax.</p></td>
+:
+No longer needed because of the new <code>new_col = c(col1, col2, col3)</code> syntax.</p></td>
     </tr>
     <tr>
       <th>data</th>
@@ -274,20 +274,22 @@ strategies used to enforce them.</p></td>
     <tr>
       <th>.drop, .preserve</th>
       <td><p><img src='figures/lifecycle-deprecated.svg' alt='Deprecated lifecycle' />
- all list-columns are now preserved;
-If there are any that you don't want in the output use <code>select()</code> to
-remove them prior to unnesting.</p></td>
+:
+all list-columns are now preserved; If there are any that you
+don't want in the output use <code>select()</code> to remove them prior to
+unnesting.</p></td>
     </tr>
     <tr>
       <th>.id</th>
       <td><p><img src='figures/lifecycle-deprecated.svg' alt='Deprecated lifecycle' />
-: convert <code>df %&gt;% unnest(x, .id = "id")</code> to
-<code>df %&gt;% mutate(id = names(x)) %&gt;% unnest(x))</code>.</p></td>
+:
+convert <code>df %&gt;% unnest(x, .id = "id")</code> to <code>df %&gt;% mutate(id = names(x)) %&gt;% unnest(x))</code>.</p></td>
     </tr>
     <tr>
       <th>.sep</th>
       <td><p><img src='figures/lifecycle-deprecated.svg' alt='Deprecated lifecycle' />
-: use <code>names_sep</code> instead.</p></td>
+:
+use <code>names_sep</code> instead.</p></td>
     </tr>
     </table>
 
