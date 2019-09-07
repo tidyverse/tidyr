@@ -132,7 +132,7 @@ data, filling in missing combinations with \code{fill}.}
 \item{key_col, value_col}{Strings giving names of key and value cols.}
 }
 \description{
-\lifecycle{deprecated}
+\Sexpr[results=rd, stage=render]{lifecycle::badge("deprecated")}
 
 tidyr used to offer twin versions of each verb suffixed with an
 underscore. These versions had standard evaluation (SE) semantics:

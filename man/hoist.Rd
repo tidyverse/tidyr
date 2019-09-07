@@ -77,7 +77,7 @@ together the outer column name with the inner names, separated by
 \code{names_sep}.}
 }
 \description{
-\lifecycle{maturing}
+\Sexpr[results=rd, stage=render]{lifecycle::badge("maturing")}
 
 \code{hoist()}, \code{unnest_longer()}, and \code{unnest_wider()} provide tools for
 rectangling, collapsing deeply nested lists into regular columns.

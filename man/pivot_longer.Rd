@@ -64,7 +64,7 @@ to implicit missing values, and should generally be used only when missing
 values in \code{data} were created by its structure.}
 }
 \description{
-\lifecycle{maturing}
+\Sexpr[results=rd, stage=render]{lifecycle::badge("maturing")}
 
 \code{pivot_longer()} "lengthens" data, increasing the number of rows and
 decreasing the number of columns. The inverse transformation. in

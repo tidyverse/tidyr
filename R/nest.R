@@ -37,15 +37,19 @@
 #'   that describe how you wish to nest existing columns into new columns.
 #'   The right hand side can be any expression supported by tidyselect.
 #'
-#'   \lifecycle{deprecated}: previously you could write `df %>% nest(x, y, z)`
-#'   and `df %>% unnest(x, y, z)`. Convert to `df %>% nest(data = c(x, y, z))`.
+#'
+#'   \Sexpr[results=rd, stage=render]{lifecycle::badge("deprecated")}:
+#'   previously you could write `df %>% nest(x, y, z)` and `df %>%
+#'   unnest(x, y, z)`. Convert to `df %>% nest(data = c(x, y, z))`.
 #'   and `df %>% unnest(c(x, y, z))`.
 #'
 #'   If you previously created new variable in `unnest()` you'll now need to
 #'   do it explicitly with `mutate()`. Convert `df %>% unnest(y = fun(x, y, z))`
 #'   to `df %>% mutate(y = fun(x, y, z)) %>% unnest(y)`.
-#' @param .key \lifecycle{deprecated}: No longer needed because of the new
-#'   `new_col = c(col1, col2, col3)` syntax.
+#' @param .key
+#'   \Sexpr[results=rd, stage=render]{lifecycle::badge("deprecated")}:
+#'   No longer needed because of the new `new_col = c(col1, col2,
+#'   col3)` syntax.
 #' @export
 #' @examples
 #' df <- tibble(x = c(1, 1, 1, 2, 2, 3), y = 1:6, z = 6:1)
@@ -186,12 +190,18 @@ check_key <- function(.key) {
 #'   If you `unnest()` multiple columns, parallel entries must compatible
 #'   sizes, i.e. they're either equal or length 1 (following the standard
 #'   tidyverse recycling rules).
-#' @param .drop,.preserve \lifecycle{deprecated} all list-columns are now preserved;
-#'   If there are any that you don't want in the output use `select()` to
-#'   remove them prior to unnesting.
-#' @param .id \lifecycle{deprecated}: convert `df %>% unnest(x, .id = "id")` to
-#'   `df %>% mutate(id = names(x)) %>% unnest(x))`.
-#' @param .sep \lifecycle{deprecated}: use `names_sep` instead.
+#' @param .drop,.preserve
+#'   \Sexpr[results=rd, stage=render]{lifecycle::badge("deprecated")}:
+#'   all list-columns are now preserved; If there are any that you
+#'   don't want in the output use `select()` to remove them prior to
+#'   unnesting.
+#' @param .id
+#'   \Sexpr[results=rd, stage=render]{lifecycle::badge("deprecated")}:
+#'   convert `df %>% unnest(x, .id = "id")` to `df %>% mutate(id =
+#'   names(x)) %>% unnest(x))`.
+#' @param .sep
+#'   \Sexpr[results=rd, stage=render]{lifecycle::badge("deprecated")}:
+#'   use `names_sep` instead.
 #' @export
 #' @rdname nest
 unnest <- function(data,

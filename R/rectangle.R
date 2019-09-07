@@ -1,7 +1,7 @@
 #' Rectangle a nested list into a tidy tibble
 #'
 #' @description
-#' \lifecycle{maturing}
+#' \Sexpr[results=rd, stage=render]{lifecycle::badge("maturing")}
 #'
 #' `hoist()`, `unnest_longer()`, and `unnest_wider()` provide tools for
 #' rectangling, collapsing deeply nested lists into regular columns.
