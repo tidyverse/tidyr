@@ -20,7 +20,7 @@ Description: Tools to help to create tidy data, where each column is a
     of string columns. It also includes tools for working with missing values 
     (both implicit and explicit).
 License: MIT + file LICENSE
-URL: http://tidyr.tidyverse.org,
+URL: https://tidyr.tidyverse.org,
     https://github.com/tidyverse/tidyr
 BugReports: https://github.com/tidyverse/tidyr/issues
 Depends: 

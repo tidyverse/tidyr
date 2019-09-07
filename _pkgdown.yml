@@ -4,7 +4,7 @@ home:
   strip_header: true
   links:
     - text: Learn more
-      href: http://r4ds.had.co.nz/tidy-data.html
+      href: https://r4ds.had.co.nz/tidy-data.html
 
 navbar:
   components:

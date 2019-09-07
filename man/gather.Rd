@@ -78,7 +78,7 @@ can contain either a column name as string or a column position).
 
 \examples{
 library(dplyr)
-# From http://stackoverflow.com/questions/1181060
+# From https://stackoverflow.com/questions/1181060
 stocks <- tibble(
   time = as.Date('2009-01-01') + 0:9,
   X = rnorm(10, 0, 1),

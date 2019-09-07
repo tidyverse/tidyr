@@ -13,7 +13,7 @@ set.seed(1014)
 options(dplyr.print_max = 10)
 ```
 
-(This is an informal and code heavy version of the full [tidy data paper](http://vita.had.co.nz/papers/tidy-data.html). Please refer to that for more details.)
+(This is an informal and code heavy version of the full [tidy data paper](https://vita.had.co.nz/papers/tidy-data.html). Please refer to that for more details.)
 
 # Data tidying
 
@@ -290,4 +290,4 @@ Once you have a single table, you can perform additional tidying as needed. An e
 
 A more complicated situation occurs when the dataset structure changes over time. For example, the datasets may contain different variables, the same variables with different names, different file formats, or different conventions for missing values. This may require you to tidy each file to individually (or, if you're lucky, in small groups) and then combine them once tidied. An example of this type of tidying is illustrated in <https://github.com/hadley/data-fuel-economy>, which shows the tidying of <span>epa</span> fuel economy data for over 50,000 cars from 1978 to 2008. The raw data is available online, but each year is stored in a separate file and there are four major formats with many minor variations, making tidying this dataset a considerable challenge.
 
-[^1]: <http://religions.pewforum.org/pdf/comparison-Income%20Distribution%20of%20Religious%20Traditions.pdf>
+[^1]: <https://religions.pewforum.org/pdf/comparison-Income%20Distribution%20of%20Religious%20Traditions.pdf>

@@ -1,7 +1,7 @@
 library(tidyverse)
 # https://data.worldbank.org/topic/climate-change?view=chart
 
-url <- "http://api.worldbank.org/v2/en/topic/19?downloadformat=csv"
+url <- "https://api.worldbank.org/v2/en/topic/19?downloadformat=csv"
 temp <- tempfile()
 download.file(url, temp)
 

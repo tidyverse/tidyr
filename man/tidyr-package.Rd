@@ -19,7 +19,7 @@ Tools to help to create tidy data, where each column is a
 \seealso{
 Useful links:
 \itemize{
-  \item \url{http://tidyr.tidyverse.org}
+  \item \url{https://tidyr.tidyverse.org}
   \item \url{https://github.com/tidyverse/tidyr}
   \item Report bugs at \url{https://github.com/tidyverse/tidyr/issues}
 }

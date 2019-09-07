@@ -29,7 +29,7 @@ The goal of tidyr is to help you create __tidy data__. Tidy data is data where:
 1. Every row is an observation..
 1. Every cell is a single value.
 
-Tidy data describes a standard way of storing data that is used wherever possible throughout the [tidyverse](http://tidyverse.org). If you ensure that your data is tidy, you'll spend less time fighting with the tools and more time working on your analysis. Learn more about tidy data in `vignette("tidy-data")`.
+Tidy data describes a standard way of storing data that is used wherever possible throughout the [tidyverse](https://tidyverse.org). If you ensure that your data is tidy, you'll spend less time fighting with the tools and more time working on your analysis. Learn more about tidy data in `vignette("tidy-data")`.
 
 ## Installation
 
@@ -90,7 +90,7 @@ If you'd like to read more about data reshaping from a CS perspective, I'd recom
 
 * [An interactive framework for data cleaning](https://www.eecs.berkeley.edu/Pubs/TechRpts/2000/CSD-00-1110.pdf) (Potter's wheel)
 
-* [On efficiently implementing SchemaSQL on a SQL database system](http://www.vldb.org/conf/1999/P45.pdf)
+* [On efficiently implementing SchemaSQL on a SQL database system](https://www.vldb.org/conf/1999/P45.pdf)
 
 To guide your reading, here's a translation between the terminology used in different places:
 

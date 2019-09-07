@@ -25,10 +25,10 @@ where:
 3.  Every cell is a single value.
 
 Tidy data describes a standard way of storing data that is used wherever
-possible throughout the [tidyverse](http://tidyverse.org). If you ensure
-that your data is tidy, you’ll spend less time fighting with the tools
-and more time working on your analysis. Learn more about tidy data in
-`vignette("tidy-data")`.
+possible throughout the [tidyverse](https://tidyverse.org). If you
+ensure that your data is tidy, you’ll spend less time fighting with the
+tools and more time working on your analysis. Learn more about tidy data
+in `vignette("tidy-data")`.
 
 ## Installation
 
@@ -101,7 +101,7 @@ I’d recommend the following three papers:
     (Potter’s wheel)
 
   - [On efficiently implementing SchemaSQL on a SQL database
-    system](http://www.vldb.org/conf/1999/P45.pdf)
+    system](https://www.vldb.org/conf/1999/P45.pdf)
 
 To guide your reading, here’s a translation between the terminology used
 in different places:

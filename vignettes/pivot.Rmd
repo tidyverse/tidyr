@@ -317,7 +317,7 @@ For more complex summary operations, I recommend summarising before reshaping, b
 
 ## Generate column name from multiple variables
 
-Imagine, as in <http://stackoverflow.com/questions/24929954>, that we have information containing the combination of product, country, and year. In tidy form it might look like this:
+Imagine, as in <https://stackoverflow.com/questions/24929954>, that we have information containing the combination of product, country, and year. In tidy form it might look like this:
 
 ```{r}
 production <- expand_grid(
