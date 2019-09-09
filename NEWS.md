@@ -53,7 +53,7 @@ Finally, tidyr demos have been removed. They are dated, and have been superseded
 
 tidyr contains four new functions to support **rectangling**, turning a deeply nested list into a tidy tibble: `unnest_longer()`, `unnest_wider()`, `unnest_auto()`, and `hoist()`. They are documented in a new vignette: `vignette("rectangle")`.
 
-`unnest_longer()` and `unnest_wider()` make it easier to unnest list-columns of vectors into either rows or columns (#418). `unnest_auto()` automatically picks between `_longer()` and `_wider()` using a little magic.
+`unnest_longer()` and `unnest_wider()` make it easier to unnest list-columns of vectors into either rows or columns (#418). `unnest_auto()` automatically picks between `_longer()` and `_wider()` using heuristics based on the presence of common names.
   
 New `hoist()` provides a convenient way of plucking components of a list-column out into their own top-level columns (#341). This is particularly useful when you are working with deeply nested JSON, because it provides a convenient shortcut for the `mutate()` + `map()` pattern:
   
