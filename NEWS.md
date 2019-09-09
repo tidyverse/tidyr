@@ -25,7 +25,7 @@ See `vignette("in-packages")` for a detailed transition guide.
   request the previous approach.
 
 * `unnest_()`/`nest_()` and the lazyeval methods for `unnest()`/`nest()` are 
-  now defunct. They have been deprecated for some time, and since the interface
+  now defunct. They have been deprecated for some time, and, since the interface
   has changed, package authors will need to update to avoid deprecation
   warnings. I think one clean break should be less work for everyone.
   
@@ -42,9 +42,9 @@ See `vignette("in-packages")` for a detailed transition guide.
 
 New `pivot_longer()` and `pivot_wider()` provide modern alternatives to `spread()` and `gather()`. They have been carefully redesigned to be easier to learn and remember, and include many new features. Learn more in `vignette("pivot")`.
     
-These functions resolve multiple existing issues with `spread()`/`gather()`. Both functions now handle mulitple value columns (#149/#150), support more vector types (#333), use tidyverse conventions for duplicated column names (#496, #478) for and are symmetric (#453). `pivot_longer()` gracefully handles duplicated column names (#472), and can directly split column names into multiple variables. `pivot_wider()` can now aggregate (#474), select keys (#572), and has control over generated column names when (#208).
+These functions resolve multiple existing issues with `spread()`/`gather()`. Both functions now handle mulitple value columns (#149/#150), support more vector types (#333), use tidyverse conventions for duplicated column names (#496, #478), and are symmetric (#453). `pivot_longer()` gracefully handles duplicated column names (#472), and can directly split column names into multiple variables. `pivot_wider()` can now aggregate (#474), select keys (#572), and has control over generated column names (#208).
   
-To demonstrate how these functions work in practice, tidyr has gained many new datasets: `relig_income`, `construction`, `billboard`, `us_rent_income`, `fish_encounters` and `world_bank_pop`.
+To demonstrate how these functions work in practice, tidyr has gained several new datasets: `relig_income`, `construction`, `billboard`, `us_rent_income`, `fish_encounters` and `world_bank_pop`.
 
 Finally, tidyr demos have been removed. They are dated, and have been superseded by `vignette("pivot")`.
 
@@ -54,7 +54,7 @@ tidyr contains four new functions to support **rectangling**, turning a deeply n
 
 `unnest_longer()` and `unnest_wider()` make it easier to unnest list-columns of vectors into either rows or columns (#418). `unnest_auto()` automatically picks between `_longer()` and `_wider()` using a little magic.
   
-New `hoist()` provides a convenient way of plucking components of a list-column out into their own top level columns (#341). This is particularly useful when you are working with deeply nested JSON, because it provides a convenient shortcut for the `mutate()` + `map()` pattern:
+New `hoist()` provides a convenient way of plucking components of a list-column out into their own top-level columns (#341). This is particularly useful when you are working with deeply nested JSON, because it provides a convenient shortcut for the `mutate()` + `map()` pattern:
   
 ```{r}
 df %>% hoist(metadata, name = "name")
@@ -64,25 +64,25 @@ df %>% mutate(name = map_chr(metadata, "name"))
 
 ## Nesting
 
-`nest()` and `unnest()` have been updated with new interfaces that are more closely aligned to evolving tidyverse conventions. They use the theory developed in [vctrs](https://vctrs.r-lib.org) to more consistently handle mixtures of input types, and their arguments have been overhauled based on the last few years of experience. They are supported by a new `vignette("nest")`, which outlines some of the main ideas of nested data (it's still very rough, but will get better over time.)
+`nest()` and `unnest()` have been updated with new interfaces that are more closely aligned to evolving tidyverse conventions. They use the theory developed in [vctrs](https://vctrs.r-lib.org) to more consistently handle mixtures of input types, and their arguments have been overhauled based on the last few years of experience. They are supported by a new `vignette("nest")`, which outlines some of the main ideas of nested data (it's still very rough, but will get better over time).
   
-The biggest change is to their operation with multiple columns: `df %>% unnest(x, y, z)` becomes `df %>% unnest(c(x, y, z))` and `df %>% nest(x, y, z)` becomes `df %>% nest(data = c(x, y, z))`
+The biggest change is to their operation with multiple columns: `df %>% unnest(x, y, z)` becomes `df %>% unnest(c(x, y, z))` and `df %>% nest(x, y, z)` becomes `df %>% nest(data = c(x, y, z))`.
   
 I have done my best to ensure that common uses of `nest()` and `unnest()` will continue to work, generating an informative warning telling you precisely how you need to update your code. Please [file an issue](https://github.com/tidyverse/tidyr/issues/new) if I've missed an important use case.
 
 `unnest()` has been overhauled:
 
 * New `keep_empty` parameter ensures that every row in the input gets
-  at least one row in the output, inserting missing values as needed (#358)
+  at least one row in the output, inserting missing values as needed (#358).
 
 * Provides `names_sep` argument to control how inner and outer column names
   are combined.
   
-* Uses standard tidyverse name repair rules, so by default you will get an
+* Uses standard tidyverse name-repair rules, so by default you will get an
   error if the output would contain multiple columns with the same name. You
-  can override by using `name_repair`. (#514)
+  can override by using `name_repair` (#514).
   
-* Now supports `NULL` entries (#436) 
+* Now supports `NULL` entries (#436). 
 
 ## Packing and chopping
 
@@ -93,12 +93,12 @@ Under the hood, `nest()` and `unnest()` are implemented with `chop()`, `pack()`,
   
 * `chop()` and `unchop()` chop up rows into sets of list-columns. 
 
-Packing and chopping are primarily interesting because they are the atomic operations the underlying nesting (and similarly, unchop and unpacking underlie unnesting), and I don't expect them to be used directly very often.
+Packing and chopping are interesting primarily because they are the atomic operations underlying nesting (and similarly, unchop and unpacking underlie unnesting), and I don't expect them to be used directly very often.
 
 ## New features
 
-* New `expand_grid()`, a tidy version of `expand.grid()`. It is lower-level 
-  than the existing `expand()` and `crossing()` functions as it takes individual
+* New `expand_grid()`, a tidy version of `expand.grid()`, is lower-level than 
+  the existing `expand()` and `crossing()` functions, as it takes individual
   vectors, and does not sort or uniquify them.
 
 * `crossing()`, `nesting()`, and `expand()` have been rewritten to use 
@@ -132,19 +132,19 @@ Packing and chopping are primarily interesting because they are the atomic opera
 * `crossing()` now takes the unique values of data frame inputs, not just
   vector inputs (#490).
 
-* `gather()` throws an error if a column is a data frame (#553)
+* `gather()` throws an error if a column is a data frame (#553).
 
 * `extract()` (and hence `pivot_longer()`) can extract multiple input values
-  into a single output column (#619)
+  into a single output column (#619).
   
-* `fill()` is implemented using `dplyr::mutate_at()`. This radically simplifies 
-  the implementation and considerably improves performance when working with
-  grouped data (#520).
+* `fill()` is now implemented using `dplyr::mutate_at()`. This radically 
+  simplifies the implementation and considerably improves performance when 
+  working with grouped data (#520).  
   
 * `fill()` now accepts `downup` and `updown` as fill directions
-  (@coolbutuseless #505).
+  (@coolbutuseless, #505).
 
-* `unite()` gains `na.rm` argument making it easier to remove missing values
+* `unite()` gains `na.rm` argument, making it easier to remove missing values
   prior to uniting values together (#203)
 
 # tidyr 0.8.3
