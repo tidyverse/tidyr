@@ -19,9 +19,12 @@
 #'
 #'   This should be a list-column containing generalised vectors (e.g.
 #'   any mix of `NULL`s, atomic vector, S3 vectors, a lists, or data frames).
-#' @param keep_empty By default, elements of `col` that have size zero will
-#'   be ommitted from the output. Setting `keep_empty = TRUE` will ensure
-#'   that they're preserved
+#' @param keep_empty By default, you get one row of output for each element
+#'   of the list your unchopping/unnesting. This means that if there's a
+#'   size-0 element (like `NULL` or an empty data frame), that entire row
+#'   will be dropped from the output. If you want to preserve all rows,
+#'   use `keep_empty = TRUE` to replace size-0 elements with a single row
+#'   of missing values.
 #' @param ptype Optionally, supply a data frame prototype for the output `cols`,
 #'   overriding the default that will be guessed from the combination of
 #'   individual values.

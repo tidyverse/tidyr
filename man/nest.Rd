@@ -38,9 +38,12 @@ If you \code{unnest()} multiple columns, parallel entries must compatible
 sizes, i.e. they're either equal or length 1 (following the standard
 tidyverse recycling rules).}
 
-\item{keep_empty}{By default, elements of \code{col} that have size zero will
-be ommitted from the output. Setting \code{keep_empty = TRUE} will ensure
-that they're preserved}
+\item{keep_empty}{By default, you get one row of output for each element
+of the list your unchopping/unnesting. This means that if there's a
+size-0 element (like \code{NULL} or an empty data frame), that entire row
+will be dropped from the output. If you want to preserve all rows,
+use \code{keep_empty = TRUE} to replace size-0 elements with a single row
+of missing values.}
 
 \item{ptype}{Optionally, supply a data frame prototype for the output \code{cols},
 overriding the default that will be guessed from the combination of
