@@ -185,15 +185,8 @@
     <tbody>
       <tr>
         <th colspan="2">
-          <h2 id="section-pivotting" class="hasAnchor"><a href="#section-pivotting" class="anchor"></a>Pivotting</h2>
-          <p class="section-desc">
-<p>tidyr provides three families of tools for changing the form of a dataset, while preserving its values:</p>
-<ul>
-<li>Pivotting, which changes the representation of a rectangular dataset. See <code><a href="../articles/pivot.html">vignette("pivot")</a></code> for more details.</li>
-<li>Rectangling, which turns deeply nested lists into tidy tibbles. See <code><a href="../articles/rectangle.html">vignette("rectangle")</a></code> for more details.</li>
-<li>Nesting and unnesting, which support converstaion to and from an alternative representation of grouped data where a group becomes a single row containing a nested data frame. See <code><a href="../articles/nest.html">vignette("nest")</a></code> for more details.</li>
-</ul>
-</p>
+          <h2 id="section-pivoting" class="hasAnchor"><a href="#section-pivoting" class="anchor"></a>Pivoting</h2>
+          <p class="section-desc"><p><strong>Pivoting</strong> changes the representation of a rectangular dataset, without changing the data inside of it. See <code><a href="../articles/pivot.html">vignette("pivot")</a></code> for more details and examples.</p></p>
         </th>
       </tr>
       <tr>
@@ -211,18 +204,6 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="nest.html">nest()</a></code> <code><a href="nest.html">unnest()</a></code> </p>
-        </td>
-        <td><p>Nest and unnest</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="hoist.html">hoist()</a></code> <code><a href="hoist.html">unnest_longer()</a></code> <code><a href="hoist.html">unnest_wider()</a></code> <code><a href="hoist.html">unnest_auto()</a></code> </p>
-        </td>
-        <td><p>Rectangle a nested list into a tidy tibble</p></td>
-      </tr><tr>
-        
-        <td>
           <p><code><a href="spread.html">spread()</a></code> </p>
         </td>
         <td><p>Spread a key-value pair across multiple columns</p></td>
@@ -232,6 +213,40 @@
           <p><code><a href="gather.html">gather()</a></code> </p>
         </td>
         <td><p>Gather columns into key-value pairs</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-rectangling" class="hasAnchor"><a href="#section-rectangling" class="anchor"></a>Rectangling</h2>
+          <p class="section-desc"><p><strong>Rectangling</strong> turns deeply nested lists into tidy tibbles. See <code><a href="../articles/rectangle.html">vignette("rectangle")</a></code> for more details and examples.</p></p>
+        </th>
+      </tr>
+      <tr>
+        
+        <td>
+          <p><code><a href="hoist.html">hoist()</a></code> <code><a href="hoist.html">unnest_longer()</a></code> <code><a href="hoist.html">unnest_wider()</a></code> <code><a href="hoist.html">unnest_auto()</a></code> </p>
+        </td>
+        <td><p>Rectangle a nested list into a tidy tibble</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-nesting" class="hasAnchor"><a href="#section-nesting" class="anchor"></a>Nesting</h2>
+          <p class="section-desc"><p><strong>Nesting</strong> uses alternative representation of grouped data where a group becomes a single row containing a nested data frame. See <code><a href="../articles/nest.html">vignette("nest")</a></code> for more details and examples.</p></p>
+        </th>
+      </tr>
+      <tr>
+        
+        <td>
+          <p><code><a href="nest.html">nest()</a></code> <code><a href="nest.html">unnest()</a></code> </p>
+        </td>
+        <td><p>Nest and unnest</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="nest_legacy.html">nest_legacy()</a></code> <code><a href="nest_legacy.html">unnest_legacy()</a></code> </p>
+        </td>
+        <td><p>Legacy versions of <code>nest()</code> and <code>unnest()</code></p></td>
       </tr>
     </tbody><tbody>
       <tr>
@@ -412,7 +427,9 @@ expression separator</p></td>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#section-pivotting">Pivotting</a></li>
+      <li><a href="#section-pivoting">Pivoting</a></li>
+      <li><a href="#section-rectangling">Rectangling</a></li>
+      <li><a href="#section-nesting">Nesting</a></li>
       <li><a href="#section-character-vectors">Character vectors</a></li>
       <li><a href="#section-missing-values">Missing values</a></li>
       <li><a href="#section-miscellanea">Miscellanea</a></li>
