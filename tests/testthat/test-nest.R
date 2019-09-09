@@ -101,6 +101,18 @@ test_that("can keep empty rows", {
   expect_equal(out2$a, c(NA, NA, 1))
 })
 
+test_that("empty rows still affect output type", {
+  df <- tibble(
+    x = 1:2,
+    data = list(
+      tibble(y = character(0)),
+      tibble(z = integer(0))
+    )
+  )
+  out <- unnest(df, data)
+  expect_equal(out, tibble(x = integer(), y = character(), z = integer()))
+})
+
 test_that("bad inputs generate errors", {
   df <- tibble(x = 1, y = list(mean))
   expect_error(unnest(df, y), "must be list of vectors")

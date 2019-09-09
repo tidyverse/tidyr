@@ -92,7 +92,7 @@ unchop <- function(data, cols, keep_empty = FALSE, ptype = NULL) {
   n <- map_int(x, vec_size)
   out <- vec_slice(data, rep(vec_seq_along(data), n))
 
-  if (nrow(out) == 0) {
+  if (nrow(data) == 0) {
     new_cols <- map(data[cols], ~ attr(.x, "ptype") %||% unspecified(0))
   } else {
     new_cols <- vec_rbind(!!!x, .ptype = ptype)
