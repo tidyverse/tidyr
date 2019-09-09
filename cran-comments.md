@@ -10,36 +10,126 @@
 
 ## revdepcheck results
 
-We checked 653 reverse dependencies (581 from CRAN + 72 from BioConductor), comparing R CMD check results across CRAN and dev versions of this package.
+We checked 811 reverse dependencies (716 from CRAN + 95 from BioConductor), comparing R CMD check results across CRAN and dev versions of this package.
 
- * We saw 1 new problems
- * We failed to check 14 packages
+ * We saw 29 new problems
+ * We failed to check 11 packages
 
-Issues with CRAN packages are summarised below.
+These failures are due to deliberate interface changes and maintainers were informed one month ago, one week ago, and again day.
 
 ### New problems
 (This reports the first line of each new failure)
 
-* cutpointr
+* anomalize
+  checking examples ... ERROR
   checking tests ...
-  
-  I have corresponded with the author to determine that this is a fragile
-  test; i.e. the package is still functional. The author is preparing an
-  update for submission in the near future.
+
+* collector
+  checking examples ... ERROR
+  checking tests ...
+
+* cutpointr
+  checking examples ... ERROR
+  checking tests ...
+
+* easyalluvial
+  checking examples ... ERROR
+  checking tests ...
+
+* eechidna
+  checking installed package size ... NOTE
+
+* egor
+  checking examples ... ERROR
+  checking tests ...
+
+* embed
+  checking tests ...
+
+* fedregs
+  checking tests ...
+
+* genogeographer
+  checking examples ... ERROR
+
+* HTSSIP
+  checking tests ...
+
+* idmodelr
+  checking examples ... ERROR
+  checking tests ...
+
+* PHEindicatormethods
+  checking tests ...
+
+* PML
+  checking examples ... ERROR
+
+* pointblank
+  checking examples ... ERROR
+  checking tests ...
+
+* rclimateca
+  checking tests ...
+
+* recipes
+  checking tests ...
+
+* sampler
+  checking examples ... ERROR
+
+* simTool
+  checking tests ...
+
+* sjstats
+  checking examples ... ERROR
+  checking tests ...
+
+* sociome
+  checking tests ...
+
+* statsDK
+  checking examples ... ERROR
+  checking tests ...
+
+* strapgod
+  checking tests ...
+
+* suddengains
+  checking examples ... ERROR
+
+* taxa
+  checking installed package size ... NOTE
+
+* tibbletime
+  checking examples ... ERROR
+  checking tests ...
+
+* tidyquant
+  checking tests ...
+
+* tsibble
+  checking examples ... ERROR
+  checking tests ...
+
+* widyr
+  checking examples ... ERROR
+  checking tests ...
+
+* xpose
+  checking examples ... ERROR
+  checking tests ...
 
 ### Failed to check
 
-* anomalyDetection (failed to install)
-* circumplex       (failed to install)
-* colorednoise     (failed to install)
-* dynfrail         (failed to install)
-* easyformatr      (failed to install)
-* HTSSIP           (check timed out)
-* morse            (failed to install)
-* phenofit         (failed to install)
-* pmc              (check timed out)
-* qdap             (failed to install)
-* SCORPIUS         (failed to install)
-* sf               (failed to install)
-* vlad             (failed to install)
-* wand             (failed to install)
+* circumplex   (NA)
+* colorednoise (NA)
+* dexter       (NA)
+* dynfrail     (NA)
+* gutenbergr   (NA)
+* nlmixr       (NA)
+* phenofit     (NA)
+* sf           (NA)
+* trialr       (NA)
+* vlad         (NA)
+* weathercan   (NA)

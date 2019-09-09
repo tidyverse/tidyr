@@ -138,6 +138,7 @@ Run `revdep_details(,"CNPBayes")` for more info
     ```
     Found the following significant warnings:
       Warning: package ‘IRanges’ was built under R version 3.6.1
+      Warning: package ‘GenomicRanges’ was built under R version 3.6.1
     See ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/CNPBayes/new/CNPBayes.Rcheck/00install.out’ for details.
     ```
 
@@ -267,7 +268,7 @@ Run `revdep_details(,"CNPBayes")` for more info
 * Source code: https://github.com/cran/colorednoise
 * BugReports: http://github.com/japilo/colorednoise/issues
 * Date/Publication: 2019-01-23 12:50:14 UTC
-* Number of recursive dependencies: 86
+* Number of recursive dependencies: 78
 
 Run `revdep_details(,"colorednoise")` for more info
 
@@ -419,9 +420,9 @@ ERROR: compilation failed for package ‘dynfrail’
 
 <details>
 
-* Version: 2.8.2
+* Version: 2.8.3
 * Source code: https://github.com/cran/ELMER
-* Date/Publication: 2019-08-20
+* Date/Publication: 2019-09-06
 * Number of recursive dependencies: 203
 
 Run `revdep_details(,"ELMER")` for more info
@@ -430,8 +431,161 @@ Run `revdep_details(,"ELMER")` for more info
 
 ## In both
 
+*   checking examples ... ERROR
+    ```
+    ...
+    Identifying gene position for each probe
+    
+      |                                                                            
+      |                                                                      |   0%
+      |                                                                            
+      |======================================================================| 100%Saving as: .//cg19403323.schematic.byProbe
+    
+    > schematic.plot(data,
+    +                group.col = "definition",
+    +                group1 = "Primary solid Tumor",
+    +                group2 = "Solid Tissue Normal",
+    +                pair = pair,
+    +                byGeneID = "ENSG00000009790")
+    
+      |                                                                            
+      |                                                                      |   0%
+      |                                                                            
+      |======================================================================| 100%Error in if (chromosome != "" & !(chromosome %in% seqlevels(x))) { : 
+      the condition has length > 1
+    Calls: schematic.plot
+    Execution halted
+    ```
+
 *   R CMD check timed out
     
+
+*   checking whether the package can be unloaded cleanly ... WARNING
+    ```
+    Error in setLoadActions(function(ns) { : 
+      could not find function "setLoadActions"
+    Error: package or namespace load failed for ‘ELMER’:
+     unable to load R code in package ‘circlize’
+    Execution halted
+    ```
+
+*   checking whether the namespace can be loaded with stated dependencies ... WARNING
+    ```
+    Error in setLoadActions(function(ns) { : 
+      could not find function "setLoadActions"
+    Error: unable to load R code in package ‘circlize’
+    Execution halted
+    
+    A namespace must be able to be loaded with just the base namespace
+    loaded: otherwise if the namespace gets loaded by a saved object, the
+    session will be unable to start.
+    
+    Probably some imports need to be declared in the NAMESPACE file.
+    ```
+
+*   checking S3 generic/method consistency ... WARNING
+    ```
+    ...
+    5: value[[3L]](cond)
+    4: tryCatchOne(expr, names, parentenv, handlers[[1L]])
+    3: tryCatchList(expr, classes, parentenv, handlers)
+    2: tryCatch({
+           attr(package, "LibPath") <- which.lib.loc
+           ns <- loadNamespace(package, lib.loc)
+           env <- attachNamespace(ns, pos = pos, deps, exclude, include.only)
+       }, error = function(e) {
+           P <- if (!is.null(cc <- conditionCall(e))) 
+               paste(" in", deparse(cc)[1L])
+           else ""
+           msg <- gettextf("package or namespace load failed for %s%s:\n %s", 
+               sQuote(package), P, conditionMessage(e))
+           if (logical.return) 
+               message(paste("Error:", msg), domain = NA)
+           else stop(msg, call. = FALSE, domain = NA)
+       })
+    1: library(package, lib.loc = lib.loc, character.only = TRUE, verbose = FALSE)
+    Execution halted
+    See section ‘Generic functions and methods’ in the ‘Writing R
+    Extensions’ manual.
+    ```
+
+*   checking replacement functions ... WARNING
+    ```
+    ...
+    5: value[[3L]](cond)
+    4: tryCatchOne(expr, names, parentenv, handlers[[1L]])
+    3: tryCatchList(expr, classes, parentenv, handlers)
+    2: tryCatch({
+           attr(package, "LibPath") <- which.lib.loc
+           ns <- loadNamespace(package, lib.loc)
+           env <- attachNamespace(ns, pos = pos, deps, exclude, include.only)
+       }, error = function(e) {
+           P <- if (!is.null(cc <- conditionCall(e))) 
+               paste(" in", deparse(cc)[1L])
+           else ""
+           msg <- gettextf("package or namespace load failed for %s%s:\n %s", 
+               sQuote(package), P, conditionMessage(e))
+           if (logical.return) 
+               message(paste("Error:", msg), domain = NA)
+           else stop(msg, call. = FALSE, domain = NA)
+       })
+    1: library(package, lib.loc = lib.loc, character.only = TRUE, verbose = FALSE)
+    Execution halted
+    The argument of a replacement function which corresponds to the right
+    hand side must be named ‘value’.
+    ```
+
+*   checking for code/documentation mismatches ... WARNING
+    ```
+    ...
+    Call sequence:
+    6: stop(msg, call. = FALSE, domain = NA)
+    5: value[[3L]](cond)
+    4: tryCatchOne(expr, names, parentenv, handlers[[1L]])
+    3: tryCatchList(expr, classes, parentenv, handlers)
+    2: tryCatch({
+           attr(package, "LibPath") <- which.lib.loc
+           ns <- loadNamespace(package, lib.loc)
+           env <- attachNamespace(ns, pos = pos, deps, exclude, include.only)
+       }, error = function(e) {
+           P <- if (!is.null(cc <- conditionCall(e))) 
+               paste(" in", deparse(cc)[1L])
+           else ""
+           msg <- gettextf("package or namespace load failed for %s%s:\n %s", 
+               sQuote(package), P, conditionMessage(e))
+           if (logical.return) 
+               message(paste("Error:", msg), domain = NA)
+           else stop(msg, call. = FALSE, domain = NA)
+       })
+    1: library(package, lib.loc = lib.loc, character.only = TRUE, verbose = FALSE)
+    Execution halted
+    ```
+
+*   checking Rd \usage sections ... WARNING
+    ```
+    ...
+    3: tryCatchList(expr, classes, parentenv, handlers)
+    2: tryCatch({
+           attr(package, "LibPath") <- which.lib.loc
+           ns <- loadNamespace(package, lib.loc)
+           env <- attachNamespace(ns, pos = pos, deps, exclude, include.only)
+       }, error = function(e) {
+           P <- if (!is.null(cc <- conditionCall(e))) 
+               paste(" in", deparse(cc)[1L])
+           else ""
+           msg <- gettextf("package or namespace load failed for %s%s:\n %s", 
+               sQuote(package), P, conditionMessage(e))
+           if (logical.return) 
+               message(paste("Error:", msg), domain = NA)
+           else stop(msg, call. = FALSE, domain = NA)
+       })
+    1: library(package, lib.loc = lib.loc, character.only = TRUE, verbose = FALSE)
+    Execution halted
+    The \usage entries for S3 methods should use the \method markup and not
+    their full name.
+    See chapter ‘Writing R documentation files’ in the ‘Writing R
+    Extensions’ manual.
+    ```
 
 *   checking installed package size ... NOTE
     ```
@@ -440,23 +594,64 @@ Run `revdep_details(,"ELMER")` for more info
         doc  75.1Mb
     ```
 
+*   checking dependencies in R code ... NOTE
+    ```
+    ...
+    Call sequence:
+    6: stop(msg, call. = FALSE, domain = NA)
+    5: value[[3L]](cond)
+    4: tryCatchOne(expr, names, parentenv, handlers[[1L]])
+    3: tryCatchList(expr, classes, parentenv, handlers)
+    2: tryCatch({
+           attr(package, "LibPath") <- which.lib.loc
+           ns <- loadNamespace(package, lib.loc)
+           env <- attachNamespace(ns, pos = pos, deps, exclude, include.only)
+       }, error = function(e) {
+           P <- if (!is.null(cc <- conditionCall(e))) 
+               paste(" in", deparse(cc)[1L])
+           else ""
+           msg <- gettextf("package or namespace load failed for %s%s:\n %s", 
+               sQuote(package), P, conditionMessage(e))
+           if (logical.return) 
+               message(paste("Error:", msg), domain = NA)
+           else stop(msg, call. = FALSE, domain = NA)
+       })
+    1: library(package, lib.loc = lib.loc, character.only = TRUE, verbose = FALSE)
+    Execution halted
+    ```
+
+*   checking foreign function calls ... NOTE
+    ```
+    ...
+    5: value[[3L]](cond)
+    4: tryCatchOne(expr, names, parentenv, handlers[[1L]])
+    3: tryCatchList(expr, classes, parentenv, handlers)
+    2: tryCatch({
+           attr(package, "LibPath") <- which.lib.loc
+           ns <- loadNamespace(package, lib.loc)
+           env <- attachNamespace(ns, pos = pos, deps, exclude, include.only)
+       }, error = function(e) {
+           P <- if (!is.null(cc <- conditionCall(e))) 
+               paste(" in", deparse(cc)[1L])
+           else ""
+           msg <- gettextf("package or namespace load failed for %s%s:\n %s", 
+               sQuote(package), P, conditionMessage(e))
+           if (logical.return) 
+               message(paste("Error:", msg), domain = NA)
+           else stop(msg, call. = FALSE, domain = NA)
+       })
+    1: library(package, lib.loc = lib.loc, character.only = TRUE, verbose = FALSE)
+    Execution halted
+    See chapter ‘System and foreign language interfaces’ in the ‘Writing R
+    Extensions’ manual.
+    ```
+
 *   checking R code for possible problems ... NOTE
     ```
-    addMutCol: no visible binding for global variable 'Hugo_Symbol'
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/ELMER/new/ELMER.Rcheck/00_pkg_src/ELMER/R/TCGA_pipe.R:513)
-    calcDistNearestTSS: no visible binding for global variable
-      'DistanceTSS'
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/ELMER/new/ELMER.Rcheck/00_pkg_src/ELMER/R/GetNearbyGenes.R:346-347)
-    getRegionNearGenes : f: no visible binding for global variable 'Side'
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/ELMER/new/ELMER.Rcheck/00_pkg_src/ELMER/R/GetNearbyGenes.R:538-539)
-    getRegionNearGenes: no visible binding for global variable 'ID'
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/ELMER/new/ELMER.Rcheck/00_pkg_src/ELMER/R/GetNearbyGenes.R:551)
-    getTFtargets: no visible binding for global variable 'TF'
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/ELMER/new/ELMER.Rcheck/00_pkg_src/ELMER/R/Main_function.R:1620)
-    getTFtargets: no visible binding for global variable 'TF'
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/ELMER/new/ELMER.Rcheck/00_pkg_src/ELMER/R/Main_function.R:1622)
-    Undefined global functions or variables:
-      DistanceTSS Hugo_Symbol ID Side TF
+    Error in setLoadActions(function(ns) { : 
+      could not find function "setLoadActions"
+    Error: unable to load R code in package ‘circlize’
+    Execution halted
     ```
 
 # gutenbergr
@@ -492,7 +687,7 @@ Run `revdep_details(,"gutenbergr")` for more info
 
 * Version: 
 * Source code: ???
-* URL: http://tidyr.tidyverse.org, https://github.com/tidyverse/tidyr
+* URL: https://tidyr.tidyverse.org, https://github.com/tidyverse/tidyr
 * BugReports: https://github.com/tidyverse/tidyr/issues
 * Number of recursive dependencies: 0
 
@@ -506,6 +701,11 @@ Run `revdep_details(,"")` for more info
 
 ```
 
+  There is a binary version available but the source version is later:
+            binary source needs_compilation
+matrixStats 0.54.0 0.55.0              TRUE
+
+  Binaries will be installed
 
 
 installing the source packages ‘hugene10sttranscriptcluster.db’, ‘pd.hugene.1.0.st.v1’, ‘reactome.db’
@@ -517,6 +717,11 @@ installing the source packages ‘hugene10sttranscriptcluster.db’, ‘pd.hugen
 
 ```
 
+  There is a binary version available but the source version is later:
+            binary source needs_compilation
+matrixStats 0.54.0 0.55.0              TRUE
+
+  Binaries will be installed
 
 
 installing the source packages ‘hugene10sttranscriptcluster.db’, ‘pd.hugene.1.0.st.v1’, ‘reactome.db’
@@ -585,7 +790,7 @@ Run `revdep_details(,"MSstats")` for more info
 * Source code: https://github.com/cran/nlmixr
 * URL: https://github.com/nlmixrdevelopment/nlmixr
 * Date/Publication: 2019-08-29 12:10:03 UTC
-* Number of recursive dependencies: 155
+* Number of recursive dependencies: 165
 
 Run `revdep_details(,"nlmixr")` for more info
 
@@ -1721,35 +1926,6 @@ ERROR: compilation failed for package ‘nlmixr’
 * removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/nlmixr/old/nlmixr.Rcheck/nlmixr’
 
 ```
-# perturbatr
-
-<details>
-
-* Version: 1.4.0
-* Source code: https://github.com/cran/perturbatr
-* URL: https://github.com/cbg-ethz/perturbatr
-* BugReports: https://github.com/cbg-ethz/perturbatr/issues
-* Date/Publication: 2019-05-02
-* Number of recursive dependencies: 82
-
-Run `revdep_details(,"perturbatr")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking installed package size ... NOTE
-    ```
-      installed size is  5.0Mb
-      sub-directories of 1Mb or more:
-        data   3.1Mb
-    ```
-
-## In both
-
-*   R CMD check timed out
-    
-
 # phenofit
 
 <details>
@@ -1809,7 +1985,7 @@ ERROR: compilation failed for package ‘phenofit’
 
 * Version: 
 * Source code: ???
-* URL: http://tidyr.tidyverse.org, https://github.com/tidyverse/tidyr
+* URL: https://tidyr.tidyverse.org, https://github.com/tidyverse/tidyr
 * BugReports: https://github.com/tidyverse/tidyr/issues
 * Number of recursive dependencies: 0
 
@@ -1845,7 +2021,7 @@ Run `revdep_details(,"")` for more info
 
 * Version: 
 * Source code: ???
-* URL: http://tidyr.tidyverse.org, https://github.com/tidyverse/tidyr
+* URL: https://tidyr.tidyverse.org, https://github.com/tidyverse/tidyr
 * BugReports: https://github.com/tidyverse/tidyr/issues
 * Number of recursive dependencies: 0
 
@@ -1859,6 +2035,11 @@ Run `revdep_details(,"")` for more info
 
 ```
 
+  There is a binary version available but the source version is later:
+            binary source needs_compilation
+matrixStats 0.54.0 0.55.0              TRUE
+
+  Binaries will be installed
 
 
 installing the source packages ‘FlowSorted.Blood.450k’, ‘FlowSorted.CordBloodNorway.450k’
@@ -1870,6 +2051,11 @@ installing the source packages ‘FlowSorted.Blood.450k’, ‘FlowSorted.CordBl
 
 ```
 
+  There is a binary version available but the source version is later:
+            binary source needs_compilation
+matrixStats 0.54.0 0.55.0              TRUE
+
+  Binaries will be installed
 
 
 installing the source packages ‘FlowSorted.Blood.450k’, ‘FlowSorted.CordBloodNorway.450k’
@@ -1886,7 +2072,7 @@ installing the source packages ‘FlowSorted.Blood.450k’, ‘FlowSorted.CordBl
 * URL: https://github.com/r-spatial/sf/, https://r-spatial.github.io/sf/
 * BugReports: https://github.com/r-spatial/sf/issues/
 * Date/Publication: 2019-07-24 10:30:02 UTC
-* Number of recursive dependencies: 137
+* Number of recursive dependencies: 138
 
 Run `revdep_details(,"sf")` for more info
 
@@ -1947,7 +2133,7 @@ checking GDAL: checking whether PROJ is available for linking:... yes
 checking GDAL: checking whether PROJ is available fur running:... dyld: Library not loaded: /usr/local/opt/armadillo/lib/libarmadillo.7.dylib
   Referenced from: /usr/local/opt/gdal2/lib/libgdal.20.dylib
   Reason: image not found
-./configure: line 3626: 54042 Abort trap: 6           ./gdal_proj
+./configure: line 3626: 39271 Abort trap: 6           ./gdal_proj
 no
 configure: error: OGRCoordinateTransformation() does not return a coord.trans: PROJ not available?
 ERROR: configuration failed for package ‘sf’
@@ -1999,7 +2185,7 @@ checking GDAL: checking whether PROJ is available for linking:... yes
 checking GDAL: checking whether PROJ is available fur running:... dyld: Library not loaded: /usr/local/opt/armadillo/lib/libarmadillo.7.dylib
   Referenced from: /usr/local/opt/gdal2/lib/libgdal.20.dylib
   Reason: image not found
-./configure: line 3626: 53138 Abort trap: 6           ./gdal_proj
+./configure: line 3626: 38284 Abort trap: 6           ./gdal_proj
 no
 configure: error: OGRCoordinateTransformation() does not return a coord.trans: PROJ not available?
 ERROR: configuration failed for package ‘sf’
@@ -2010,12 +2196,12 @@ ERROR: configuration failed for package ‘sf’
 
 <details>
 
-* Version: 2.12.4
+* Version: 2.12.6
 * Source code: https://github.com/cran/TCGAbiolinks
 * URL: https://github.com/BioinformaticsFMRP/TCGAbiolinks
 * BugReports: https://github.com/BioinformaticsFMRP/TCGAbiolinks/issues
-* Date/Publication: 2019-08-20
-* Number of recursive dependencies: 255
+* Date/Publication: 2019-09-05
+* Number of recursive dependencies: 264
 
 Run `revdep_details(,"TCGAbiolinks")` for more info
 
@@ -2026,6 +2212,81 @@ Run `revdep_details(,"TCGAbiolinks")` for more info
 *   R CMD check timed out
     
 
+*   checking whether the package can be unloaded cleanly ... WARNING
+    ```
+    Error in setLoadActions(function(ns) { : 
+      could not find function "setLoadActions"
+    Error: package or namespace load failed for ‘TCGAbiolinks’:
+     unable to load R code in package ‘circlize’
+    Execution halted
+    ```
+
+*   checking whether the namespace can be loaded with stated dependencies ... WARNING
+    ```
+    Error in setLoadActions(function(ns) { : 
+      could not find function "setLoadActions"
+    Error: unable to load R code in package ‘circlize’
+    Execution halted
+    
+    A namespace must be able to be loaded with just the base namespace
+    loaded: otherwise if the namespace gets loaded by a saved object, the
+    session will be unable to start.
+    
+    Probably some imports need to be declared in the NAMESPACE file.
+    ```
+
+*   checking S3 generic/method consistency ... WARNING
+    ```
+    ...
+    5: value[[3L]](cond)
+    4: tryCatchOne(expr, names, parentenv, handlers[[1L]])
+    3: tryCatchList(expr, classes, parentenv, handlers)
+    2: tryCatch({
+           attr(package, "LibPath") <- which.lib.loc
+           ns <- loadNamespace(package, lib.loc)
+           env <- attachNamespace(ns, pos = pos, deps, exclude, include.only)
+       }, error = function(e) {
+           P <- if (!is.null(cc <- conditionCall(e))) 
+               paste(" in", deparse(cc)[1L])
+           else ""
+           msg <- gettextf("package or namespace load failed for %s%s:\n %s", 
+               sQuote(package), P, conditionMessage(e))
+           if (logical.return) 
+               message(paste("Error:", msg), domain = NA)
+           else stop(msg, call. = FALSE, domain = NA)
+       })
+    1: library(package, lib.loc = lib.loc, character.only = TRUE, verbose = FALSE)
+    Execution halted
+    See section ‘Generic functions and methods’ in the ‘Writing R
+    Extensions’ manual.
+    ```
+
+*   checking replacement functions ... WARNING
+    ```
+    ...
+    5: value[[3L]](cond)
+    4: tryCatchOne(expr, names, parentenv, handlers[[1L]])
+    3: tryCatchList(expr, classes, parentenv, handlers)
+    2: tryCatch({
+           attr(package, "LibPath") <- which.lib.loc
+           ns <- loadNamespace(package, lib.loc)
+           env <- attachNamespace(ns, pos = pos, deps, exclude, include.only)
+       }, error = function(e) {
+           P <- if (!is.null(cc <- conditionCall(e))) 
+               paste(" in", deparse(cc)[1L])
+           else ""
+           msg <- gettextf("package or namespace load failed for %s%s:\n %s", 
+               sQuote(package), P, conditionMessage(e))
+           if (logical.return) 
+               message(paste("Error:", msg), domain = NA)
+           else stop(msg, call. = FALSE, domain = NA)
+       })
+    1: library(package, lib.loc = lib.loc, character.only = TRUE, verbose = FALSE)
+    Execution halted
+    The argument of a replacement function which corresponds to the right
+    hand side must be named ‘value’.
+    ```
+
 *   checking for missing documentation entries ... WARNING
     ```
     Warning: package ‘maftools’ was built under R version 3.6.1
@@ -2034,46 +2295,125 @@ Run `revdep_details(,"TCGAbiolinks")` for more info
     Extensions’ manual.
     ```
 
+*   checking for code/documentation mismatches ... WARNING
+    ```
+    ...
+    Call sequence:
+    6: stop(msg, call. = FALSE, domain = NA)
+    5: value[[3L]](cond)
+    4: tryCatchOne(expr, names, parentenv, handlers[[1L]])
+    3: tryCatchList(expr, classes, parentenv, handlers)
+    2: tryCatch({
+           attr(package, "LibPath") <- which.lib.loc
+           ns <- loadNamespace(package, lib.loc)
+           env <- attachNamespace(ns, pos = pos, deps, exclude, include.only)
+       }, error = function(e) {
+           P <- if (!is.null(cc <- conditionCall(e))) 
+               paste(" in", deparse(cc)[1L])
+           else ""
+           msg <- gettextf("package or namespace load failed for %s%s:\n %s", 
+               sQuote(package), P, conditionMessage(e))
+           if (logical.return) 
+               message(paste("Error:", msg), domain = NA)
+           else stop(msg, call. = FALSE, domain = NA)
+       })
+    1: library(package, lib.loc = lib.loc, character.only = TRUE, verbose = FALSE)
+    Execution halted
+    ```
+
 *   checking installed package size ... NOTE
     ```
-      installed size is 96.9Mb
+      installed size is 97.3Mb
       sub-directories of 1Mb or more:
         R      2.7Mb
         data   4.3Mb
-        doc   89.7Mb
+        doc   90.1Mb
     ```
 
 *   checking dependencies in R code ... NOTE
     ```
-    There are ::: calls to the package's namespace in its code. A package
-      almost never needs to use ::: for its own objects:
-      ‘move’
+    ...
+    Call sequence:
+    6: stop(msg, call. = FALSE, domain = NA)
+    5: value[[3L]](cond)
+    4: tryCatchOne(expr, names, parentenv, handlers[[1L]])
+    3: tryCatchList(expr, classes, parentenv, handlers)
+    2: tryCatch({
+           attr(package, "LibPath") <- which.lib.loc
+           ns <- loadNamespace(package, lib.loc)
+           env <- attachNamespace(ns, pos = pos, deps, exclude, include.only)
+       }, error = function(e) {
+           P <- if (!is.null(cc <- conditionCall(e))) 
+               paste(" in", deparse(cc)[1L])
+           else ""
+           msg <- gettextf("package or namespace load failed for %s%s:\n %s", 
+               sQuote(package), P, conditionMessage(e))
+           if (logical.return) 
+               message(paste("Error:", msg), domain = NA)
+           else stop(msg, call. = FALSE, domain = NA)
+       })
+    1: library(package, lib.loc = lib.loc, character.only = TRUE, verbose = FALSE)
+    Execution halted
+    ```
+
+*   checking foreign function calls ... NOTE
+    ```
+    ...
+    5: value[[3L]](cond)
+    4: tryCatchOne(expr, names, parentenv, handlers[[1L]])
+    3: tryCatchList(expr, classes, parentenv, handlers)
+    2: tryCatch({
+           attr(package, "LibPath") <- which.lib.loc
+           ns <- loadNamespace(package, lib.loc)
+           env <- attachNamespace(ns, pos = pos, deps, exclude, include.only)
+       }, error = function(e) {
+           P <- if (!is.null(cc <- conditionCall(e))) 
+               paste(" in", deparse(cc)[1L])
+           else ""
+           msg <- gettextf("package or namespace load failed for %s%s:\n %s", 
+               sQuote(package), P, conditionMessage(e))
+           if (logical.return) 
+               message(paste("Error:", msg), domain = NA)
+           else stop(msg, call. = FALSE, domain = NA)
+       })
+    1: library(package, lib.loc = lib.loc, character.only = TRUE, verbose = FALSE)
+    Execution halted
+    See chapter ‘System and foreign language interfaces’ in the ‘Writing R
+    Extensions’ manual.
     ```
 
 *   checking R code for possible problems ... NOTE
     ```
+    Error in setLoadActions(function(ns) { : 
+      could not find function "setLoadActions"
+    Error: unable to load R code in package ‘circlize’
+    Execution halted
+    ```
+
+*   checking Rd \usage sections ... NOTE
+    ```
     ...
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/TCGAbiolinks/new/TCGAbiolinks.Rcheck/00_pkg_src/TCGAbiolinks/R/visualize.R:161-162)
-    TCGAvisualize_SurvivalCoxNET: no visible global function definition for
-      ‘dCommSignif’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/TCGAbiolinks/new/TCGAbiolinks.Rcheck/00_pkg_src/TCGAbiolinks/R/visualize.R:174)
-    TCGAvisualize_SurvivalCoxNET: no visible global function definition for
-      ‘visNet’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/TCGAbiolinks/new/TCGAbiolinks.Rcheck/00_pkg_src/TCGAbiolinks/R/visualize.R:184-189)
-    TCGAvisualize_oncoprint: no visible binding for global variable ‘value’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/TCGAbiolinks/new/TCGAbiolinks.Rcheck/00_pkg_src/TCGAbiolinks/R/visualize.R:932)
-    readExonQuantification: no visible binding for global variable ‘exon’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/TCGAbiolinks/new/TCGAbiolinks.Rcheck/00_pkg_src/TCGAbiolinks/R/prepare.R:236-237)
-    readExonQuantification: no visible binding for global variable
-      ‘coordinates’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/TCGAbiolinks/new/TCGAbiolinks.Rcheck/00_pkg_src/TCGAbiolinks/R/prepare.R:236-237)
-    readIDATDNAmethylation: no visible global function definition for
-      ‘openSesame’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/TCGAbiolinks/new/TCGAbiolinks.Rcheck/00_pkg_src/TCGAbiolinks/R/prepare.R:527)
-    Undefined global functions or variables:
-      Tumor.purity barcode c3net clinical coordinates dCommSignif
-      dNetInduce dNetPipeline exon knnmi.cross limmacontrasts.fit
-      limmamakeContrasts minet openSesame portions rse_gene value visNet
+    3: tryCatchList(expr, classes, parentenv, handlers)
+    2: tryCatch({
+           attr(package, "LibPath") <- which.lib.loc
+           ns <- loadNamespace(package, lib.loc)
+           env <- attachNamespace(ns, pos = pos, deps, exclude, include.only)
+       }, error = function(e) {
+           P <- if (!is.null(cc <- conditionCall(e))) 
+               paste(" in", deparse(cc)[1L])
+           else ""
+           msg <- gettextf("package or namespace load failed for %s%s:\n %s", 
+               sQuote(package), P, conditionMessage(e))
+           if (logical.return) 
+               message(paste("Error:", msg), domain = NA)
+           else stop(msg, call. = FALSE, domain = NA)
+       })
+    1: library(package, lib.loc = lib.loc, character.only = TRUE, verbose = FALSE)
+    Execution halted
+    The \usage entries for S3 methods should use the \method markup and not
+    their full name.
+    See chapter ‘Writing R documentation files’ in the ‘Writing R
+    Extensions’ manual.
     ```
 
 # TPP
@@ -2089,10 +2429,12 @@ Run `revdep_details(,"TPP")` for more info
 
 </details>
 
-## In both
+## Newly broken
 
 *   R CMD check timed out
     
+
+## In both
 
 *   checking installed package size ... NOTE
     ```
@@ -2211,7 +2553,7 @@ ERROR: compilation failed for package ‘vlad’
 * URL: https://github.com/ropensci/weathercan
 * BugReports: https://github.com/ropensci/weathercan/issues
 * Date/Publication: 2018-10-08 20:30:02 UTC
-* Number of recursive dependencies: 105
+* Number of recursive dependencies: 117
 
 Run `revdep_details(,"weathercan")` for more info
 
