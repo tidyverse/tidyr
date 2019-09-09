@@ -30,7 +30,8 @@ See `vignette("in-packages")` for a detailed transition guide.
   warnings. I think one clean break should be less work for everyone.
   
     All other lazyeval functions have been formally deprecated, and will be
-    made defunct in the next major release.
+    made defunct in the next major release. (See [lifecycle vignette](https://lifecycle.r-lib.org/articles/lifecycle.html) for 
+    details on deprecation stages).
 
 * `crossing()` and `nesting()` now return 0-row outputs if any input is a 
   length-0 vector. If you want to preserve the previous behaviour which 
