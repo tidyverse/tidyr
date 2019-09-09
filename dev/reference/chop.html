@@ -208,9 +208,12 @@ any mix of <code>NULL</code>s, atomic vector, S3 vectors, a lists, or data frame
     </tr>
     <tr>
       <th>keep_empty</th>
-      <td><p>By default, elements of <code>col</code> that have size zero will
-be ommitted from the output. Setting <code>keep_empty = TRUE</code> will ensure
-that they're preserved</p></td>
+      <td><p>By default, you get one row of output for each element
+of the list your unchopping/unnesting. This means that if there's a
+size-0 element (like <code>NULL</code> or an empty data frame), that entire row
+will be dropped from the output. If you want to preserve all rows,
+use <code>keep_empty = TRUE</code> to replace size-0 elements with a single row
+of missing values.</p></td>
     </tr>
     <tr>
       <th>ptype</th>
