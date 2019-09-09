@@ -44,25 +44,32 @@ development:
   mode: auto
 
 reference:
-- title: Pivotting
+- title: Pivoting
   description: |
-    tidyr provides three families of tools for changing the form of a dataset,
-    while preserving its values:
-    * Pivotting, which changes the representation of a rectangular dataset.
-      See `vignette("pivot")` for more details.
-    * Rectangling, which turns deeply nested lists into tidy tibbles.
-      See `vignette("rectangle")` for more details.
-    * Nesting and unnesting, which support converstaion to and from an
-      alternative representation of grouped data where a group becomes a
-      single row containing a nested data frame. See `vignette("nest")`
-      for more details.
+    **Pivoting** changes the representation of a rectangular dataset, without
+    changing the data inside of it. See `vignette("pivot")` for more details
+    and examples.
   contents:
   - pivot_longer
   - pivot_wider
-  - nest
-  - unnest_longer
   - spread
   - gather
+
+- title: Rectangling
+  description: |
+    **Rectangling** turns deeply nested lists into tidy tibbles.
+    See `vignette("rectangle")` for more details and examples.
+  contents:
+  - unnest_longer
+
+- title: Nesting
+  description: |
+    **Nesting** uses alternative representation of grouped data where a
+    group becomes a single row containing a nested data frame.
+    See `vignette("nest")` for more details and examples.
+  contents:
+  - nest
+  - nest_legacy
 
 - title: Character vectors
   description: |
