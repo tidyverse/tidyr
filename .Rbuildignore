@@ -17,3 +17,4 @@
 ^CRAN-RELEASE$
 ^\.github$
 ^vignettes/.*_cache
+^pkgdown$
