@@ -91,11 +91,14 @@ test_that("nesting no columns nests all inputs", {
 
 # unnest ------------------------------------------------------------------
 
-test_that("keeps empty rows", {
+test_that("can keep empty rows", {
   df <- tibble(x = 1:3, y = list(NULL, tibble(), tibble(a = 1)))
-  out <- df %>% unnest(y)
-  expect_equal(nrow(out), 3)
-  expect_equal(out$a, c(NA, NA, 1))
+  out1 <- df %>% unnest(y)
+  expect_equal(nrow(out1), 1)
+
+  out2 <- df %>% unnest(y, keep_empty = TRUE)
+  expect_equal(nrow(out2), 3)
+  expect_equal(out2$a, c(NA, NA, 1))
 })
 
 test_that("bad inputs generate errors", {
@@ -158,12 +161,12 @@ test_that("can combine NULL with vectors or data frames", {
   df1 <- tibble(x = 1:2, y = list(NULL, tibble(z = 1)))
   out <- unnest(df1, y)
   expect_named(out, c("x", "z"))
-  expect_equal(out$z, c(NA, 1))
+  expect_equal(out$z, 1)
 
   df2 <- tibble(x = 1:2, y = list(NULL, 1))
   out <- unnest(df2, y)
   expect_named(out, c("x", "y"))
-  expect_equal(out$y, c(NA, 1))
+  expect_equal(out$y, 1)
 })
 
 test_that("vectors become columns", {

@@ -7,9 +7,10 @@
 \usage{
 nest(.data, ..., .key = deprecated())
 
-unnest(data, cols, ..., ptype = NULL, names_sep = NULL,
-  names_repair = "check_unique", .drop = deprecated(),
-  .id = deprecated(), .sep = deprecated(), .preserve = deprecated())
+unnest(data, cols, ..., keep_empty = FALSE, ptype = NULL,
+  names_sep = NULL, names_repair = "check_unique",
+  .drop = deprecated(), .id = deprecated(), .sep = deprecated(),
+  .preserve = deprecated())
 }
 \arguments{
 \item{.data}{A data frame.}
@@ -36,6 +37,10 @@ No longer needed because of the new \code{new_col = c(col1, col2, col3)} syntax.
 If you \code{unnest()} multiple columns, parallel entries must compatible
 sizes, i.e. they're either equal or length 1 (following the standard
 tidyverse recycling rules).}
+
+\item{keep_empty}{By default, elements of \code{col} that have size zero will
+be ommitted from the output. Setting \code{keep_empty = TRUE} will ensure
+that they're preserved}
 
 \item{ptype}{Optionally, supply a data frame prototype for the output \code{cols},
 overriding the default that will be guessed from the combination of
@@ -148,6 +153,7 @@ df <- tibble(
   )
 )
 df \%>\% unnest(y)
+df \%>\% unnest(y, keep_empty = TRUE)
 
 # If you have lists of lists, or lists of atomic vectors, instead
 # see hoist(), unnest_wider(), and unnest_longer()

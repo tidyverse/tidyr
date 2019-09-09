@@ -92,6 +92,7 @@
 #'   )
 #' )
 #' df %>% unnest(y)
+#' df %>% unnest(y, keep_empty = TRUE)
 #'
 #' # If you have lists of lists, or lists of atomic vectors, instead
 #' # see hoist(), unnest_wider(), and unnest_longer()
@@ -210,6 +211,7 @@ check_key <- function(.key) {
 unnest <- function(data,
                    cols,
                    ...,
+                   keep_empty = FALSE,
                    ptype = NULL,
                    names_sep = NULL,
                    names_repair = "check_unique",
@@ -283,6 +285,7 @@ unnest <- function(data,
       data,
       cols = !!cols,
       names_sep = names_sep,
+      keep_empty = keep_empty,
       ptype = ptype,
       names_repair = tidyr_legacy
     ))
@@ -296,6 +299,7 @@ unnest.data.frame <- function(
                               data,
                               cols,
                               ...,
+                              keep_empty = FALSE,
                               ptype = NULL,
                               names_sep = NULL,
                               names_repair = "check_unique",
@@ -316,7 +320,7 @@ unnest.data.frame <- function(
     }
   }
 
-  data <- unchop(data, !!cols, keep_empty = TRUE, ptype = ptype)
+  data <- unchop(data, !!cols, keep_empty = keep_empty, ptype = ptype)
   unpack(data, !!cols, names_sep = names_sep, names_repair = names_repair)
 }
 
