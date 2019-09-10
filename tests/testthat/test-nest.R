@@ -297,3 +297,19 @@ test_that("grouping is preserved", {
   expect_equal(class(df), class(rs))
   expect_equal(dplyr::groups(df), dplyr::groups(rs))
 })
+
+test_that("`.key` still works", {
+  df <- tibble(g = 1:3, x = 1:3) %>% dplyr::group_by(g)
+  expect_warning(
+    expect_named(nest(df, .key = foo), c("g", "foo")),
+    "deprecated"
+  )
+
+  method <- function(.data, ..., .key = "data") {
+    nest(.data, ..., .key = !!.key)
+  }
+  expect_warning(
+    expect_named(method(df), c("g", "data")),
+    "deprecated"
+  )
+})

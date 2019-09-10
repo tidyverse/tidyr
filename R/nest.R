@@ -136,12 +136,12 @@ nest.data.frame <- function(.data, ..., .key = deprecated()) {
     .data <- as_tibble(.data)
   }
 
-  nest.tbl_df(.data, ..., .key = .key)
+  nest.tbl_df(.data, ..., .key = !!enquo(.key))
 }
 
 #' @export
 nest.tbl_df <- function(.data, ..., .key = deprecated()) {
-  .key <- check_key(.key)
+  .key <- check_key(enquo(.key))
   if (missing(...)) {
     warn(paste0(
       "`...` must not be empty for ungrouped data frames.\n",
@@ -165,7 +165,7 @@ nest.tbl_df <- function(.data, ..., .key = deprecated()) {
 #' @export
 nest.grouped_df <- function(.data, ..., .key = deprecated()) {
   if (missing(...)) {
-    .key <- check_key(.key)
+    .key <- check_key(enquo(.key))
     nest_vars <- setdiff(names(.data), dplyr::group_vars(.data))
     out <- nest.tbl_df(.data, !!.key := !!nest_vars)
   } else {
@@ -177,9 +177,9 @@ nest.grouped_df <- function(.data, ..., .key = deprecated()) {
 }
 
 check_key <- function(.key) {
-  if (!is_missing(.key)) {
+  if (!quo_is_call(.key, "deprecated")) {
     warn("`.key` is deprecated")
-    .key
+    as_name(.key)
   } else {
     "data"
   }
