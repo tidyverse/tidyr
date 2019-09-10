@@ -72,29 +72,6 @@ Run `revdep_details(,"anomalize")` for more info
         help   4.7Mb
     ```
 
-# basecallQC
-
-<details>
-
-* Version: 1.8.0
-* Source code: https://github.com/cran/basecallQC
-* Date/Publication: 2019-05-02
-* Number of recursive dependencies: 101
-
-Run `revdep_details(,"basecallQC")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking installed package size ... NOTE
-    ```
-      installed size is  5.0Mb
-      sub-directories of 1Mb or more:
-        doc       1.8Mb
-        extdata   2.8Mb
-    ```
-
 # cellbaseR
 
 <details>
@@ -324,7 +301,7 @@ Run `revdep_details(,"CNPBayes")` for more info
     ```
       installed size is  8.1Mb
       sub-directories of 1Mb or more:
-        R     3.1Mb
+        R     3.0Mb
         doc   3.0Mb
     ```
 
@@ -506,74 +483,26 @@ Run `revdep_details(,"easyalluvial")` for more info
 
 ## Newly broken
 
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘easyalluvial-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: palette_filter
-    > ### Title: color filters for any vector of hex color values
-    > ### Aliases: palette_filter
-    > 
-    > ### ** Examples
-    > 
-    > 
-    > require(magrittr)
-    Loading required package: magrittr
-    > 
-    > palette_qualitative() %>%
-    +   palette_filter(thresh_similar = 0) %>%
-    +   palette_plot_intensity()
-    Error in ifelse(similar_index > index, similar_index, index) : 
-      object 'similar_index' not found
-    Calls: %>% ... <Anonymous> -> mutate -> mutate.tbl_df -> mutate_impl -> ifelse
-    Execution halted
-    ```
-
 *   checking tests ...
     ```
      ERROR
     Running the tests in ‘tests/testthat.R’ failed.
     Last 13 lines of output:
-      13: `_fseq`(`_lhs`)
-      14: freduce(value, `_function_list`)
-      15: function_list[[i]](value)
-      16: mutate(., larger_index = ifelse(similar_index > index, similar_index, index))
-      17: mutate.tbl_df(., larger_index = ifelse(similar_index > index, similar_index, index))
-      18: mutate_impl(.data, dots, caller_env())
-      19: ifelse(similar_index > index, similar_index, index)
+      [1] "Number of flows: 17245"
+      [1] "Original Dataframe reduced to 32 %"
+      [1] "Maximum weight of a singfle flow 0.4 %"
+      [31m──[39m [31m1. Failure: n_feats == degree (@test_alluvial_model_response.R#260) [39m [31m──────────────────────────────────────────[39m
+      `... <- NULL` produced warnings.
       
+      [1] "Number of flows: 17245"
+      [1] "Original Dataframe reduced to 32 %"
+      [1] "Maximum weight of a single flow 0.4 %"
       ══ testthat results  ═════════════════════════════════════════════════════════════════════════════════════════════
-      [ OK: 65 | SKIPPED: 49 | WARNINGS: 544 | FAILED: 2 ]
+      [ OK: 65 | SKIPPED: 49 | WARNINGS: 544 | FAILED: 1 ]
       1. Failure: n_feats == degree (@test_alluvial_model_response.R#260) 
-      2. Error: palettes (@test_palette.R#15) 
       
       Error: testthat unit tests failed
       Execution halted
-    ```
-
-# eechidna
-
-<details>
-
-* Version: 1.3.0
-* Source code: https://github.com/cran/eechidna
-* URL: https://github.com/ropenscilabs/eechidna
-* BugReports: https://github.com/ropenscilabs/eechidna/issues
-* Date/Publication: 2019-03-18 00:00:03 UTC
-* Number of recursive dependencies: 117
-
-Run `revdep_details(,"eechidna")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking installed package size ... NOTE
-    ```
-      installed size is  5.2Mb
-      sub-directories of 1Mb or more:
-        data   4.3Mb
     ```
 
 # egor
@@ -820,7 +749,7 @@ Run `revdep_details(,"HTSSIP")` for more info
       7: freduce(value, `_function_list`)
       8: function_list[[i]](value)
       9: tidyr::nest_(., key_col = "data")
-      10: lifecycle::deprecate_stop("1.0.0", "nest_()", "nest()") at /private/tmp/RtmpmZkLeu/R.INSTALLd9681f04bb8d/tidyr/R/dep-lazyeval.R:192
+      10: lifecycle::deprecate_stop("1.0.0", "nest_()", "nest()") at /private/tmp/Rtmpn4E0mo/R.INSTALL4d3f341731e7/tidyr/R/dep-lazyeval.R:192
       
       ══ testthat results  ═════════════════════════════════════════════════════════════════════════════════════════════
       [ OK: 107 | SKIPPED: 18 | WARNINGS: 0 | FAILED: 2 ]
@@ -925,7 +854,7 @@ Run `revdep_details(,"PHEindicatormethods")` for more info
      ERROR
     Running the tests in ‘tests/testthat.R’ failed.
     Last 13 lines of output:
-      12: tidyselect::vars_select(tbl_vars(data), !!enquo(cols)) at /private/tmp/RtmpmZkLeu/R.INSTALLd9681f04bb8d/tidyr/R/nest.R:311
+      12: tidyselect::vars_select(tbl_vars(data), !!enquo(cols)) at /private/tmp/Rtmpn4E0mo/R.INSTALL4d3f341731e7/tidyr/R/nest.R:311
       13: vars_select_eval(.vars, quos)
       14: map_if(ind_list, is_helper, eval_tidy)
       15: map(.x[sel], .f, ...)
@@ -1114,7 +1043,7 @@ Run `revdep_details(,"pointblank")` for more info
       8: function_list[[k]](value)
       9: interrogate(.)
       10: tidyr::nest_(data = problem_rows, key_col = "data", nest_cols = names_problem_rows) at /Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/pointblank/new/pointblank.Rcheck/00_pkg_src/pointblank/R/interrogate.R:590
-      11: lifecycle::deprecate_stop("1.0.0", "nest_()", "nest()") at /private/tmp/RtmpmZkLeu/R.INSTALLd9681f04bb8d/tidyr/R/dep-lazyeval.R:192
+      11: lifecycle::deprecate_stop("1.0.0", "nest_()", "nest()") at /private/tmp/Rtmpn4E0mo/R.INSTALL4d3f341731e7/tidyr/R/dep-lazyeval.R:192
       
       ══ testthat results  ═════════════════════════════════════════════════════════════════════════════════════════════
       [ OK: 779 | SKIPPED: 0 | WARNINGS: 0 | FAILED: 1 ]
@@ -1200,18 +1129,18 @@ Run `revdep_details(,"rclimateca")` for more info
      ERROR
     Running the tests in ‘tests/test-all.R’ failed.
     Last 13 lines of output:
-      1: ec_climate_mudata(27141, timeframe = "daily", start = "1995-01-01", end = "1995-12-31") at testthat/test-climate_data.R:474
-      2: ec_climate_data(location = location, timeframe = timeframe, start = start, end = end, cache = cache, quiet = quiet) at /Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/rclimateca/new/rclimateca.Rcheck/00_pkg_src/rclimateca/R/climate_data.R:187
-      3: ec_climate_parse_dates(climate_out) at /Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/rclimateca/new/rclimateca.Rcheck/00_pkg_src/rclimateca/R/climate_data.R:133
-      4: readr::parse_integer(df_nice$year) at /Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/rclimateca/new/rclimateca.Rcheck/00_pkg_src/rclimateca/R/climate_data.R:521
-      5: parse_vector(x, col_integer(), na = na, locale = locale, trim_ws = trim_ws)
-      6: stopifnot(is.character(x))
-      
+        |===============================================                       |  67%
+        |                                                                            
+        |====================================================                  |  75%
+        |                                                                            
+        |==========================================================            |  83%
+        |                                                                            
+        |================================================================      |  92%
+        |                                                                            
+        |======================================================================| 100%
       ══ testthat results  ═════════════════════════════════════════════════════════════════════════════════════════════
-      [ OK: 174 | SKIPPED: 0 | WARNINGS: 5 | FAILED: 3 ]
-      1. Error: no files are downloaded when the locations table indicates there is no data (@test-climate_data.R#277) 
-      2. Error: no files are downloaded when the locations table indicates there was never data (@test-climate_data.R#310) 
-      3. Error: get_mudata function works on zero-row (empty) outputs (@test-climate_data.R#474) 
+      [ OK: 183 | SKIPPED: 0 | WARNINGS: 2 | FAILED: 1 ]
+      1. Error: no files are downloaded when the locations table indicates there is no data (@test-climate_data.R#290) 
       
       Error: testthat unit tests failed
       Execution halted
@@ -1261,6 +1190,61 @@ Run `revdep_details(,"recipes")` for more info
       
       Error: testthat unit tests failed
       Execution halted
+    ```
+
+# RxODE
+
+<details>
+
+* Version: 0.9.1-4
+* Source code: https://github.com/cran/RxODE
+* URL: https://nlmixrdevelopment.github.io/RxODE/
+* BugReports: https://github.com/nlmixrdevelopment/RxODE/issues
+* Date/Publication: 2019-08-29 04:40:12 UTC
+* Number of recursive dependencies: 118
+
+Run `revdep_details(,"RxODE")` for more info
+
+</details>
+
+## Newly broken
+
+*   checking tests ...
+    ```
+     ERROR
+    Running the tests in ‘tests/testthat.R’ failed.
+    Last 13 lines of output:
+             assign(".mv", .rxDll$modVars, envir = <environment>)
+         })
+      5: eval(substitute(expr), data, enclos = parent.frame())
+      6: eval(substitute(expr), data, enclos = parent.frame())
+      7: RxODE::rxCompile(.mv, dir = mdir, extraC = extraC, debug = debug, modName = modName, package = NULL)
+      8: rxCompile.rxModelVars(.mv, dir = mdir, extraC = extraC, debug = debug, modName = modName, package = NULL) at /Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/RxODE/new/RxODE.Rcheck/00_pkg_src/RxODE/R/RxODE.R:1355
+      9: stop("Error building model on another thread.") at /Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/RxODE/new/RxODE.Rcheck/00_pkg_src/RxODE/R/RxODE.R:1417
+      
+      [====|====|====|====|====|====|====|====|====|====
+      [====|====|====|====|====|====|====|====|====|====══ testthat results  ═════════════════════════════════════════════════════════════════════════════════════════════
+      [ OK: 2349 | SKIPPED: 0 | WARNINGS: 1 | FAILED: 1 ]
+      1. Error: Issue #56 (@test-issue-56.R#10) 
+      
+      Error: testthat unit tests failed
+      Execution halted
+    ```
+
+## In both
+
+*   checking package dependencies ... NOTE
+    ```
+    Package suggested but not available for checking: ‘installr’
+    ```
+
+*   checking installed package size ... NOTE
+    ```
+      installed size is  5.3Mb
+      sub-directories of 1Mb or more:
+        R      1.1Mb
+        doc    1.3Mb
+        libs   2.4Mb
     ```
 
 # sampler
@@ -1334,83 +1318,6 @@ Run `revdep_details(,"simTool")` for more info
       
       Error: testthat unit tests failed
       Execution halted
-    ```
-
-# sjstats
-
-<details>
-
-* Version: 0.17.5
-* Source code: https://github.com/cran/sjstats
-* URL: https://github.com/strengejacke/sjstats, https://strengejacke.github.io/sjstats
-* BugReports: https://github.com/strengejacke/sjstats/issues
-* Date/Publication: 2019-06-04 13:10:02 UTC
-* Number of recursive dependencies: 195
-
-Run `revdep_details(,"sjstats")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    ...
-    
-    Anova: R2=0.401; adj.R2=0.393; F=49.160; p=0.000
-    > 
-    > # also works for grouped data frames
-    > library(dplyr)
-    
-    Attaching package: ‘dplyr’
-    
-    The following objects are masked from ‘package:stats’:
-    
-        filter, lag
-    
-    The following objects are masked from ‘package:base’:
-    
-        intersect, setdiff, setequal, union
-    
-    > efc %>%
-    +   group_by(c172code) %>%
-    +   grpmean(c12hour, e42dep)
-    Error: Result must have length 1, not 4
-    Execution halted
-    ```
-
-*   checking tests ...
-    ```
-     ERROR
-    Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-      7: `_fseq`(`_lhs`)
-      8: freduce(value, `_function_list`)
-      9: withVisible(function_list[[k]](value))
-      10: function_list[[k]](value)
-      11: dplyr::filter(., !!cc)
-      12: filter.tbl_df(., !!cc)
-      13: filter_impl(.data, quo)
-      
-      ══ testthat results  ═════════════════════════════════════════════════════════════════════════════════════════════
-      [ OK: 12 | SKIPPED: 4 | WARNINGS: 0 | FAILED: 2 ]
-      1. Error: grpmean, grouping (@test-grpmean.R#20) 
-      2. Error: grpmean, grouped weighting (@test-grpmean.R#25) 
-      
-      Error: testthat unit tests failed
-      Execution halted
-    ```
-
-## In both
-
-*   checking package dependencies ... NOTE
-    ```
-    Package suggested but not available for checking: ‘sjPlot’
-    ```
-
-*   checking Rd cross-references ... NOTE
-    ```
-    Packages unavailable to check Rd xrefs: ‘sjPlot’, ‘arm’
     ```
 
 # slinky
@@ -1569,7 +1476,7 @@ Run `revdep_details(,"statsDK")` for more info
       Please use `unnest()` instead.
       1: get_variables(metadata) at testthat/test_fixers.R:27
       2: tidyr::unnest_(metadata$variables, "values") at /Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/statsDK/new/statsDK.Rcheck/00_pkg_src/statsDK/R/fixer_functions.R:63
-      3: lifecycle::deprecate_stop("1.0.0", "unnest_()", "unnest()") at /private/tmp/RtmpmZkLeu/R.INSTALLd9681f04bb8d/tidyr/R/dep-lazyeval.R:316
+      3: lifecycle::deprecate_stop("1.0.0", "unnest_()", "unnest()") at /private/tmp/Rtmpn4E0mo/R.INSTALL4d3f341731e7/tidyr/R/dep-lazyeval.R:316
       
       ══ testthat results  ═════════════════════════════════════════════════════════════════════════════════════════════
       [ OK: 14 | SKIPPED: 0 | WARNINGS: 0 | FAILED: 1 ]
@@ -1717,7 +1624,7 @@ Run `revdep_details(,"SummarizedBenchmark")` for more info
     Running the tests in ‘tests/testthat.R’ failed.
     Last 13 lines of output:
       3: gather(tidyRes, keys = valueCols) at /Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/SummarizedBenchmark/new/SummarizedBenchmark.Rcheck/00_pkg_src/SummarizedBenchmark/R/PerformanceMetrics.R:318
-      4: ellipsis::check_dots_unnamed() at /private/tmp/RtmpmZkLeu/R.INSTALLd9681f04bb8d/tidyr/R/gather.R:95
+      4: ellipsis::check_dots_unnamed() at /private/tmp/Rtmpn4E0mo/R.INSTALL4d3f341731e7/tidyr/R/gather.R:95
       5: stop_dots(message = paste0(length(named), " components of `...` had unexpected names."), dot_names = named, .subclass = "rlib_error_dots_named")
       6: abort(message, .subclass = c(.subclass, "rlib_error_dots"), ...)
       
@@ -1798,40 +1705,6 @@ Run `revdep_details(,"SummarizedBenchmark")` for more info
     contains 'methods').
     ```
 
-# taxa
-
-<details>
-
-* Version: 0.3.2
-* Source code: https://github.com/cran/taxa
-* URL: https://github.com/ropensci/taxa
-* BugReports: https://github.com/ropensci/taxa/issues
-* Date/Publication: 2019-01-02 22:40:04 UTC
-* Number of recursive dependencies: 96
-
-Run `revdep_details(,"taxa")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking installed package size ... NOTE
-    ```
-      installed size is  5.0Mb
-      sub-directories of 1Mb or more:
-        data   2.1Mb
-        doc    1.7Mb
-    ```
-
-## In both
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespaces in Imports field not imported from:
-      ‘knitr’ ‘lazyeval’ ‘rlang’ ‘tidyr’
-      All declared Imports should be used.
-    ```
-
 # tibbletime
 
 <details>
@@ -1880,11 +1753,11 @@ Run `revdep_details(,"tibbletime")` for more info
      ERROR
     Running the tests in ‘tests/testthat.R’ failed.
     Last 13 lines of output:
-      10: nest.tbl_time(.data, !!!cols) at /private/tmp/RtmpmZkLeu/R.INSTALLd9681f04bb8d/tidyr/R/nest.R:128
+      10: nest.tbl_time(.data, !!!cols) at /private/tmp/Rtmpn4E0mo/R.INSTALL4d3f341731e7/tidyr/R/nest.R:128
       11: tidyr::nest(as_tibble(data), ..., .key = !!.key) at /Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/tibbletime/new/tibbletime.Rcheck/00_pkg_src/tibbletime/R/compat-tidyr.R:12
-      12: nest.tbl_df(as_tibble(data), ..., .key = !!.key) at /private/tmp/RtmpmZkLeu/R.INSTALLd9681f04bb8d/tidyr/R/nest.R:128
-      13: check_key(.key) at /private/tmp/RtmpmZkLeu/R.INSTALLd9681f04bb8d/tidyr/R/nest.R:144
-      14: is_missing(.key) at /private/tmp/RtmpmZkLeu/R.INSTALLd9681f04bb8d/tidyr/R/nest.R:180
+      12: nest.tbl_df(as_tibble(data), ..., .key = !!.key) at /private/tmp/Rtmpn4E0mo/R.INSTALL4d3f341731e7/tidyr/R/nest.R:128
+      13: check_key(.key) at /private/tmp/Rtmpn4E0mo/R.INSTALL4d3f341731e7/tidyr/R/nest.R:144
+      14: is_missing(.key) at /private/tmp/Rtmpn4E0mo/R.INSTALL4d3f341731e7/tidyr/R/nest.R:180
       
       ══ testthat results  ═════════════════════════════════════════════════════════════════════════════════════════════
       [ OK: 123 | SKIPPED: 0 | WARNINGS: 2 | FAILED: 4 ]
@@ -1942,62 +1815,6 @@ Run `revdep_details(,"tidyquant")` for more info
     ```
     Namespace in Imports field not imported from: ‘xml2’
       All declared Imports should be used.
-    ```
-
-# TPP
-
-<details>
-
-* Version: 3.12.0
-* Source code: https://github.com/cran/TPP
-* Date/Publication: 2019-05-02
-* Number of recursive dependencies: 86
-
-Run `revdep_details(,"TPP")` for more info
-
-</details>
-
-## Newly broken
-
-*   R CMD check timed out
-    
-
-## In both
-
-*   checking installed package size ... NOTE
-    ```
-      installed size is 13.9Mb
-      sub-directories of 1Mb or more:
-        data           1.9Mb
-        example_data   8.0Mb
-        test_data      1.9Mb
-    ```
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespace in Imports field not imported from: ‘broom’
-      All declared Imports should be used.
-    Unexported objects imported by ':::' calls:
-      ‘doParallel:::.options’ ‘mefa:::rep.data.frame’
-      See the note in ?`:::` about the use of this operator.
-    ```
-
-*   checking R code for possible problems ... NOTE
-    ```
-    File ‘TPP/R/TPP.R’:
-      .onLoad calls:
-        packageStartupMessage(msgText, "\n")
-    
-    See section ‘Good practice’ in '?.onAttach'.
-    
-    plot_fSta_distribution: no visible binding for global variable
-      ‘..density..’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/TPP/new/TPP.Rcheck/00_pkg_src/TPP/R/plot_fSta_distribution.R:19-28)
-    plot_pVal_distribution: no visible binding for global variable
-      ‘..density..’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/TPP/new/TPP.Rcheck/00_pkg_src/TPP/R/plot_pVal_distribution.R:22-31)
-    Undefined global functions or variables:
-      ..density..
     ```
 
 # tsibble
@@ -2096,71 +1913,6 @@ Run `revdep_details(,"weathercan")` for more info
 *   checking data for non-ASCII characters ... NOTE
     ```
       Note: found 25 marked UTF-8 strings
-    ```
-
-# widyr
-
-<details>
-
-* Version: 0.1.1
-* Source code: https://github.com/cran/widyr
-* URL: http://github.com/dgrtwo/widyr
-* BugReports: http://github.com/dgrtwo/widyr/issues
-* Date/Publication: 2018-03-11 04:51:37 UTC
-* Number of recursive dependencies: 101
-
-Run `revdep_details(,"widyr")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    ...
-    > 
-    > library(dplyr)
-    
-    Attaching package: ‘dplyr’
-    
-    The following objects are masked from ‘package:stats’:
-    
-        filter, lag
-    
-    The following objects are masked from ‘package:base’:
-    
-        intersect, setdiff, setequal, union
-    
-    > library(gapminder)
-    > 
-    > closest_continent <- gapminder %>%
-    +   group_by(continent) %>%
-    +   squarely(dist)(country, year, lifeExp)
-    Error: `nest_()` is deprecated as of tidyr 1.0.0.
-    Please use `nest()` instead.
-    Execution halted
-    ```
-
-*   checking tests ...
-    ```
-     ERROR
-    Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-      14: eval(quote(`_fseq`(`_lhs`)), env, env)
-      15: `_fseq`(`_lhs`)
-      16: freduce(value, `_function_list`)
-      17: function_list[[i]](value)
-      18: tidyr::nest_(., "..data", nest_cols = c(row, column, value))
-      19: lifecycle::deprecate_stop("1.0.0", "nest_()", "nest()") at /private/tmp/RtmpmZkLeu/R.INSTALLd9681f04bb8d/tidyr/R/dep-lazyeval.R:192
-      
-      ══ testthat results  ═════════════════════════════════════════════════════════════════════════════════════════════
-      [ OK: 54 | SKIPPED: 0 | WARNINGS: 0 | FAILED: 3 ]
-      1. Error: Can count within groups (@test-pairwise-count.R#104) 
-      2. Error: Can perform 'squarely' within groups (@test-squarely.R#20) 
-      3. Error: widely works within groups (@test-widely.R#27) 
-      
-      Error: testthat unit tests failed
-      Execution halted
     ```
 
 # xpose

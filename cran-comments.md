@@ -8,14 +8,15 @@
 
 0 errors | 0 warnings | 0 notes
 
+[master] > revdepcheck::revdep_report_cran()
 ## revdepcheck results
 
-We checked 811 reverse dependencies (716 from CRAN + 95 from BioConductor), comparing R CMD check results across CRAN and dev versions of this package.
+We checked 812 reverse dependencies (717 from CRAN + 95 from BioConductor), comparing R CMD check results across CRAN and dev versions of this package.
 
- * We saw 29 new problems
- * We failed to check 11 packages
+ * We saw 26 new problems
+ * We failed to check 12 packages
 
-These failures are due to deliberate interface changes and maintainers were informed one month ago, one week ago, and again day.
+Issues with CRAN packages are summarised below.
 
 ### New problems
 (This reports the first line of each new failure)
@@ -33,11 +34,7 @@ These failures are due to deliberate interface changes and maintainers were info
   checking tests ...
 
 * easyalluvial
-  checking examples ... ERROR
   checking tests ...
-
-* eechidna
-  checking installed package size ... NOTE
 
 * egor
   checking examples ... ERROR
@@ -75,14 +72,13 @@ These failures are due to deliberate interface changes and maintainers were info
 * recipes
   checking tests ...
 
+* RxODE
+  checking tests ...
+
 * sampler
   checking examples ... ERROR
 
 * simTool
-  checking tests ...
-
-* sjstats
-  checking examples ... ERROR
   checking tests ...
 
 * sociome
@@ -98,9 +94,6 @@ These failures are due to deliberate interface changes and maintainers were info
 * suddengains
   checking examples ... ERROR
 
-* taxa
-  checking installed package size ... NOTE
-
 * tibbletime
   checking examples ... ERROR
   checking tests ...
@@ -109,10 +102,6 @@ These failures are due to deliberate interface changes and maintainers were info
   checking tests ...
 
 * tsibble
-  checking examples ... ERROR
-  checking tests ...
-
-* widyr
   checking examples ... ERROR
   checking tests ...
 
@@ -127,6 +116,7 @@ These failures are due to deliberate interface changes and maintainers were info
 * dexter       (NA)
 * dynfrail     (NA)
 * gutenbergr   (NA)
+* idealstan    (NA)
 * nlmixr       (NA)
 * phenofit     (NA)
 * sf           (NA)

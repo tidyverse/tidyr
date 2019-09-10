@@ -224,7 +224,7 @@ Run `revdep_details(,"CNPBayes")` for more info
     ```
       installed size is  8.1Mb
       sub-directories of 1Mb or more:
-        R     3.1Mb
+        R     3.0Mb
         doc   3.0Mb
     ```
 
@@ -312,6 +312,47 @@ ERROR: compilation failed for package ‘colorednoise’
 * removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/colorednoise/old/colorednoise.Rcheck/colorednoise’
 
 ```
+# DChIPRep
+
+<details>
+
+* Version: 1.14.0
+* Source code: https://github.com/cran/DChIPRep
+* Date/Publication: 2019-05-02
+* Number of recursive dependencies: 149
+
+Run `revdep_details(,"DChIPRep")` for more info
+
+</details>
+
+## In both
+
+*   R CMD check timed out
+    
+
+*   checking whether package ‘DChIPRep’ can be installed ... WARNING
+    ```
+    Found the following significant warnings:
+      Warning: package ‘IRanges’ was built under R version 3.6.1
+      Warning: package ‘GenomicRanges’ was built under R version 3.6.1
+      Warning: package ‘SummarizedExperiment’ was built under R version 3.6.1
+      Warning: package ‘BiocParallel’ was built under R version 3.6.1
+    See ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/DChIPRep/new/DChIPRep.Rcheck/00install.out’ for details.
+    ```
+
+*   checking installed package size ... NOTE
+    ```
+      installed size is  5.2Mb
+      sub-directories of 1Mb or more:
+        doc       1.7Mb
+        extdata   2.2Mb
+    ```
+
+*   checking DESCRIPTION meta-information ... NOTE
+    ```
+    Malformed Description field: should contain one or more complete sentences.
+    ```
+
 # dexter
 
 <details>
@@ -430,32 +471,6 @@ Run `revdep_details(,"ELMER")` for more info
 </details>
 
 ## In both
-
-*   checking examples ... ERROR
-    ```
-    ...
-    Identifying gene position for each probe
-    
-      |                                                                            
-      |                                                                      |   0%
-      |                                                                            
-      |======================================================================| 100%Saving as: .//cg19403323.schematic.byProbe
-    
-    > schematic.plot(data,
-    +                group.col = "definition",
-    +                group1 = "Primary solid Tumor",
-    +                group2 = "Solid Tissue Normal",
-    +                pair = pair,
-    +                byGeneID = "ENSG00000009790")
-    
-      |                                                                            
-      |                                                                      |   0%
-      |                                                                            
-      |======================================================================| 100%Error in if (chromosome != "" & !(chromosome %in% seqlevels(x))) { : 
-      the condition has length > 1
-    Calls: schematic.plot
-    Execution halted
-    ```
 
 *   R CMD check timed out
     
@@ -681,6 +696,33 @@ Run `revdep_details(,"gutenbergr")` for more info
       Note: found 13617 marked UTF-8 strings
     ```
 
+# idealstan
+
+<details>
+
+* Version: 0.7.2
+* Source code: https://github.com/cran/idealstan
+* BugReports: https://github.com/saudiwin/idealstan/issues
+* Date/Publication: 2019-07-10 15:00:03 UTC
+* Number of recursive dependencies: 107
+
+Run `revdep_details(,"idealstan")` for more info
+
+</details>
+
+## In both
+
+*   R CMD check timed out
+    
+
+*   checking installed package size ... NOTE
+    ```
+      installed size is  7.2Mb
+      sub-directories of 1Mb or more:
+        doc    1.0Mb
+        libs   5.3Mb
+    ```
+
 # maEndToEnd
 
 <details>
@@ -701,11 +743,6 @@ Run `revdep_details(,"")` for more info
 
 ```
 
-  There is a binary version available but the source version is later:
-            binary source needs_compilation
-matrixStats 0.54.0 0.55.0              TRUE
-
-  Binaries will be installed
 
 
 installing the source packages ‘hugene10sttranscriptcluster.db’, ‘pd.hugene.1.0.st.v1’, ‘reactome.db’
@@ -717,11 +754,6 @@ installing the source packages ‘hugene10sttranscriptcluster.db’, ‘pd.hugen
 
 ```
 
-  There is a binary version available but the source version is later:
-            binary source needs_compilation
-matrixStats 0.54.0 0.55.0              TRUE
-
-  Binaries will be installed
 
 
 installing the source packages ‘hugene10sttranscriptcluster.db’, ‘pd.hugene.1.0.st.v1’, ‘reactome.db’
@@ -1926,6 +1958,26 @@ ERROR: compilation failed for package ‘nlmixr’
 * removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/nlmixr/old/nlmixr.Rcheck/nlmixr’
 
 ```
+# perturbatr
+
+<details>
+
+* Version: 1.4.0
+* Source code: https://github.com/cran/perturbatr
+* URL: https://github.com/cbg-ethz/perturbatr
+* BugReports: https://github.com/cbg-ethz/perturbatr/issues
+* Date/Publication: 2019-05-02
+* Number of recursive dependencies: 82
+
+Run `revdep_details(,"perturbatr")` for more info
+
+</details>
+
+## In both
+
+*   R CMD check timed out
+    
+
 # phenofit
 
 <details>
@@ -1979,6 +2031,34 @@ ERROR: compilation failed for package ‘phenofit’
 * removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/phenofit/old/phenofit.Rcheck/phenofit’
 
 ```
+# profileplyr
+
+<details>
+
+* Version: 1.0.1
+* Source code: https://github.com/cran/profileplyr
+* Date/Publication: 2019-05-12
+* Number of recursive dependencies: 172
+
+Run `revdep_details(,"profileplyr")` for more info
+
+</details>
+
+## In both
+
+*   R CMD check timed out
+    
+
+*   checking whether package ‘profileplyr’ can be installed ... WARNING
+    ```
+    Found the following significant warnings:
+      Warning: package ‘SummarizedExperiment’ was built under R version 3.6.1
+      Warning: package ‘GenomicRanges’ was built under R version 3.6.1
+      Warning: package ‘IRanges’ was built under R version 3.6.1
+      Warning: package ‘BiocParallel’ was built under R version 3.6.1
+    See ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/profileplyr/new/profileplyr.Rcheck/00install.out’ for details.
+    ```
+
 # psycho
 
 <details>
@@ -2035,11 +2115,6 @@ Run `revdep_details(,"")` for more info
 
 ```
 
-  There is a binary version available but the source version is later:
-            binary source needs_compilation
-matrixStats 0.54.0 0.55.0              TRUE
-
-  Binaries will be installed
 
 
 installing the source packages ‘FlowSorted.Blood.450k’, ‘FlowSorted.CordBloodNorway.450k’
@@ -2051,11 +2126,6 @@ installing the source packages ‘FlowSorted.Blood.450k’, ‘FlowSorted.CordBl
 
 ```
 
-  There is a binary version available but the source version is later:
-            binary source needs_compilation
-matrixStats 0.54.0 0.55.0              TRUE
-
-  Binaries will be installed
 
 
 installing the source packages ‘FlowSorted.Blood.450k’, ‘FlowSorted.CordBloodNorway.450k’
@@ -2133,7 +2203,7 @@ checking GDAL: checking whether PROJ is available for linking:... yes
 checking GDAL: checking whether PROJ is available fur running:... dyld: Library not loaded: /usr/local/opt/armadillo/lib/libarmadillo.7.dylib
   Referenced from: /usr/local/opt/gdal2/lib/libgdal.20.dylib
   Reason: image not found
-./configure: line 3626: 39271 Abort trap: 6           ./gdal_proj
+./configure: line 3626: 89920 Abort trap: 6           ./gdal_proj
 no
 configure: error: OGRCoordinateTransformation() does not return a coord.trans: PROJ not available?
 ERROR: configuration failed for package ‘sf’
@@ -2185,7 +2255,7 @@ checking GDAL: checking whether PROJ is available for linking:... yes
 checking GDAL: checking whether PROJ is available fur running:... dyld: Library not loaded: /usr/local/opt/armadillo/lib/libarmadillo.7.dylib
   Referenced from: /usr/local/opt/gdal2/lib/libgdal.20.dylib
   Reason: image not found
-./configure: line 3626: 38284 Abort trap: 6           ./gdal_proj
+./configure: line 3626: 89845 Abort trap: 6           ./gdal_proj
 no
 configure: error: OGRCoordinateTransformation() does not return a coord.trans: PROJ not available?
 ERROR: configuration failed for package ‘sf’
@@ -2323,11 +2393,11 @@ Run `revdep_details(,"TCGAbiolinks")` for more info
 
 *   checking installed package size ... NOTE
     ```
-      installed size is 97.3Mb
+      installed size is 97.8Mb
       sub-directories of 1Mb or more:
         R      2.7Mb
         data   4.3Mb
-        doc   90.1Mb
+        doc   90.6Mb
     ```
 
 *   checking dependencies in R code ... NOTE
@@ -2429,12 +2499,10 @@ Run `revdep_details(,"TPP")` for more info
 
 </details>
 
-## Newly broken
+## In both
 
 *   R CMD check timed out
     
-
-## In both
 
 *   checking installed package size ... NOTE
     ```
