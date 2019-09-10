@@ -8,7 +8,6 @@
 
 0 errors | 0 warnings | 0 notes
 
-[master] > revdepcheck::revdep_report_cran()
 ## revdepcheck results
 
 We checked 812 reverse dependencies (717 from CRAN + 95 from BioConductor), comparing R CMD check results across CRAN and dev versions of this package.
