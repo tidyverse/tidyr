@@ -4,7 +4,16 @@
     <loc>https://tidyr.tidyverse.org/index.html</loc>
   </url>
   <url>
+    <loc>https://tidyr.tidyverse.org/reference/billboard.html</loc>
+  </url>
+  <url>
+    <loc>https://tidyr.tidyverse.org/reference/chop.html</loc>
+  </url>
+  <url>
     <loc>https://tidyr.tidyverse.org/reference/complete.html</loc>
+  </url>
+  <url>
+    <loc>https://tidyr.tidyverse.org/reference/construction.html</loc>
   </url>
   <url>
     <loc>https://tidyr.tidyverse.org/reference/deprecated-se.html</loc>
@@ -16,6 +25,9 @@
     <loc>https://tidyr.tidyverse.org/reference/expand.html</loc>
   </url>
   <url>
+    <loc>https://tidyr.tidyverse.org/reference/expand_grid.html</loc>
+  </url>
+  <url>
     <loc>https://tidyr.tidyverse.org/reference/extract.html</loc>
   </url>
   <url>
@@ -25,16 +37,46 @@
     <loc>https://tidyr.tidyverse.org/reference/fill.html</loc>
   </url>
   <url>
+    <loc>https://tidyr.tidyverse.org/reference/fish_encounters.html</loc>
+  </url>
+  <url>
     <loc>https://tidyr.tidyverse.org/reference/full_seq.html</loc>
   </url>
   <url>
     <loc>https://tidyr.tidyverse.org/reference/gather.html</loc>
   </url>
   <url>
+    <loc>https://tidyr.tidyverse.org/reference/hoist.html</loc>
+  </url>
+  <url>
     <loc>https://tidyr.tidyverse.org/reference/nest.html</loc>
   </url>
   <url>
+    <loc>https://tidyr.tidyverse.org/reference/nest_legacy.html</loc>
+  </url>
+  <url>
+    <loc>https://tidyr.tidyverse.org/reference/pack.html</loc>
+  </url>
+  <url>
     <loc>https://tidyr.tidyverse.org/reference/pipe.html</loc>
+  </url>
+  <url>
+    <loc>https://tidyr.tidyverse.org/reference/pivot_longer.html</loc>
+  </url>
+  <url>
+    <loc>https://tidyr.tidyverse.org/reference/pivot_longer_spec.html</loc>
+  </url>
+  <url>
+    <loc>https://tidyr.tidyverse.org/reference/pivot_wider.html</loc>
+  </url>
+  <url>
+    <loc>https://tidyr.tidyverse.org/reference/pivot_wider_spec.html</loc>
+  </url>
+  <url>
+    <loc>https://tidyr.tidyverse.org/reference/reexports.html</loc>
+  </url>
+  <url>
+    <loc>https://tidyr.tidyverse.org/reference/relig_income.html</loc>
   </url>
   <url>
     <loc>https://tidyr.tidyverse.org/reference/replace_na.html</loc>
@@ -58,16 +100,34 @@
     <loc>https://tidyr.tidyverse.org/reference/tidyr-package.html</loc>
   </url>
   <url>
+    <loc>https://tidyr.tidyverse.org/reference/tidyr_legacy.html</loc>
+  </url>
+  <url>
     <loc>https://tidyr.tidyverse.org/reference/uncount.html</loc>
   </url>
   <url>
     <loc>https://tidyr.tidyverse.org/reference/unite.html</loc>
   </url>
   <url>
-    <loc>https://tidyr.tidyverse.org/reference/unnest.html</loc>
+    <loc>https://tidyr.tidyverse.org/reference/us_rent_income.html</loc>
   </url>
   <url>
     <loc>https://tidyr.tidyverse.org/reference/who.html</loc>
+  </url>
+  <url>
+    <loc>https://tidyr.tidyverse.org/reference/world_bank_pop.html</loc>
+  </url>
+  <url>
+    <loc>https://tidyr.tidyverse.org/articles/in-packages.html</loc>
+  </url>
+  <url>
+    <loc>https://tidyr.tidyverse.org/articles/nest.html</loc>
+  </url>
+  <url>
+    <loc>https://tidyr.tidyverse.org/articles/pivot.html</loc>
+  </url>
+  <url>
+    <loc>https://tidyr.tidyverse.org/articles/rectangle.html</loc>
   </url>
   <url>
     <loc>https://tidyr.tidyverse.org/articles/tidy-data.html</loc>
