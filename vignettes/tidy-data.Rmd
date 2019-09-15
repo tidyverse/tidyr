@@ -238,7 +238,7 @@ This dataset is mostly tidy, but the `element` column is not a variable; it stor
 
 ```{r}
 weather3 %>% 
-  pivot_wider(names_from = "element", values_from = value)
+  pivot_wider(names_from = element, values_from = value)
 ```
 
 This form is tidy: there's one variable in each column, and each row represents one day.
