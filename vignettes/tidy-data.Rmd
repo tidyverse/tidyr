@@ -234,7 +234,7 @@ weather3 <- weather2 %>%
 weather3
 ```
 
-This dataset is mostly tidy, but the `element` column is not a variable; it stores the names of variables. (Not shown in this example are the other meteorological variables `prcp` (precipitation) and `snow` (snowfall)). Fixing this requires the pivot_wider operation. This performs the inverse of pivot_longer by spreading the `element` and `value` columns back out into the columns:
+This dataset is mostly tidy, but the `element` column is not a variable; it stores the names of variables. (Not shown in this example are the other meteorological variables `prcp` (precipitation) and `snow` (snowfall)). Fixing this requires widening the data. This performs the inverse of `pivot_longer()` by pivoting the `element` and `value` columns back out into the columns:
 
 ```{r}
 weather3 %>% 
