@@ -68,7 +68,7 @@ be a numeric vector (specifying positions to break on), or a single string
 \code{names_pattern} takes the same specification as \code{\link[=extract]{extract()}}, a regular
 expression containing matching groups (\code{()}).
 
-If these arguments does not give you enough control, use
+If these arguments do not give you enough control, use
 \code{pivot_longer_spec()} to create a spec object and process manually as
 needed.}
 
@@ -82,7 +82,7 @@ be a numeric vector (specifying positions to break on), or a single string
 \code{names_pattern} takes the same specification as \code{\link[=extract]{extract()}}, a regular
 expression containing matching groups (\code{()}).
 
-If these arguments does not give you enough control, use
+If these arguments do not give you enough control, use
 \code{pivot_longer_spec()} to create a spec object and process manually as
 needed.}
 

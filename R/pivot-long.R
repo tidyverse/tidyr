@@ -35,7 +35,7 @@
 #'   `names_pattern` takes the same specification as [extract()], a regular
 #'   expression containing matching groups (`()`).
 #'
-#'   If these arguments does not give you enough control, use
+#'   If these arguments do not give you enough control, use
 #'   `pivot_longer_spec()` to create a spec object and process manually as
 #'   needed.
 #' @param names_repair What happen if the output has invalid column names?
