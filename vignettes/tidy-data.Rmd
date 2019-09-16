@@ -51,12 +51,15 @@ A dataset is a collection of **values**, usually either numbers (if quantitative
 
 A tidy version of the pregnancy data looks like this: (you'll learn how the functions work a little later)
 
-```{r, message = FALSE}
+```{r setup, message = FALSE}
 library(tidyr)
 library(dplyr)
 library(stringr)
+```
+
+```{r}
 preg2 <- preg %>% 
-  pivot_longer((treatmenta:treatmentb), names_to = "treatment", values_to = "n") %>% 
+  pivot_longer(treatmenta:treatmentb, names_to = "treatment", values_to = "n") %>% 
   mutate(treatment = str_remove(treatment, "treatment")) %>%
   arrange(name, treatment)
 preg2
@@ -109,7 +112,7 @@ Real datasets can, and often do, violate the three precepts of tidy data in almo
 
 -   A single observational unit is stored in multiple tables.
 
-Surprisingly, most messy datasets, including types of messiness not explicitly described above, can be tidied with a small set of tools: pivoting (using **pivot_longer** and **pivot_wider**) and separating. The following sections illustrate each problem with a real dataset that I have encountered, and show how to tidy them.
+Surprisingly, most messy datasets, including types of messiness not explicitly described above, can be tidied with a small set of tools: pivoting (longer and wider) and separating. The following sections illustrate each problem with a real dataset that I have encountered, and show how to tidy them.
 
 ## Column headers are values, not variable names
 
@@ -138,12 +141,16 @@ This format is also used to record regularly spaced observations over time. For 
 billboard
 ```
 
-To tidy this dataset, we first use pivot_longer to gether up all the `wk` columns. The column names give the `week` and the values are the `rank`s:
+To tidy this dataset, we first use `pivot_longer()` to make the dataset longer. We transform the columns from `wk1` to `wk76`, making a new column for their names, `week`, and a new value for their values, `rank`:
 
 ```{r}
 billboard2 <- billboard %>% 
-  pivot_longer((wk1:wk76), names_to = "week", values_to = "rank", values_drop_na = TRUE) %>% 
-  arrange(week, artist)
+  pivot_longer(
+    wk1:wk76, 
+    names_to = "week", 
+    values_to = "rank", 
+    values_drop_na = TRUE
+  )
 billboard2
 ```
 
@@ -154,9 +161,10 @@ In this case it's also nice to do a little cleaning, converting the week variabl
 ```{r}
 billboard3 <- billboard2 %>%
   mutate(
-    week = extract_numeric(week),
-    date = as.Date(date.entered) + 7 * (week - 1)) %>%
-  select(-date.entered)
+    week = as.integer(str_remove(week, "wk")),
+    date = as.Date(date.entered) + 7 * (week - 1),
+    date.entered = NULL
+  )
 billboard3
 ```
 
@@ -185,8 +193,12 @@ First we use `pivot_longer()` to gather up the non-variable columns:
 
 ```{r}
 tb2 <- tb %>% 
-  pivot_longer(c(-iso2, -year), names_to = "demo", values_to = "n", values_drop_na = TRUE) %>% 
-  arrange(demo, iso2, year)
+  pivot_longer(
+    c(-iso2, -year), 
+    names_to = "demo", 
+    values_to = "n", 
+    values_drop_na = TRUE
+  )
 tb2
 ```
 
@@ -199,6 +211,20 @@ tb3
 ```
 
 Storing the values in this form resolves a problem in the original data. We want to compare rates, not counts, which means we need to know the population. In the original format, there is no easy way to add a population variable. It has to be stored in a separate table, which makes it hard to correctly match populations to counts. In tidy form, adding variables for population and rate is easy because they're just additional columns.
+
+In this case, we could also do the transformation in a single step by supplying multiple column names to `names_to` and also supplying a grouped regular expression to `names_pattern`:
+
+```{r}
+tb %>% pivot_longer(
+  c(-iso2, -year), 
+  names_to = c("sex", "age"), 
+  names_pattern = "(.)(.+)",
+  values_to = "n", 
+  values_drop_na = TRUE
+)
+
+```
+
 
 ## Variables are stored in both rows and columns
 
@@ -215,7 +241,12 @@ To tidy this dataset we first use pivot_longer to gather the day columns:
 
 ```{r}
 weather2 <- weather %>% 
-  pivot_longer((d1:d31), names_to = "day", values_to = "value", values_drop_na = TRUE) 
+  pivot_longer(
+    d1:d31, 
+    names_to = "day", 
+    values_to = "value", 
+    values_drop_na = TRUE
+  ) 
 weather2
 ```
 
@@ -225,13 +256,12 @@ We'll also do a little cleaning:
 
 ```{r}
 weather3 <- weather2 %>% 
-  mutate(day = extract_numeric(day)) %>%
-  select(id, year, month, day, element, value) %>%
-  arrange(id, year, month, day)
+  mutate(day = as.integer(str_remove(day, "d"))) %>%
+  select(id, year, month, day, element, value)
 weather3
 ```
 
-This dataset is mostly tidy, but the `element` column is not a variable; it stores the names of variables. (Not shown in this example are the other meteorological variables `prcp` (precipitation) and `snow` (snowfall)). Fixing this requires widening the data. This performs the inverse of `pivot_longer()` by pivoting the `element` and `value` columns back out into the columns:
+This dataset is mostly tidy, but the `element` column is not a variable; it stores the names of variables. (Not shown in this example are the other meteorological variables `prcp` (precipitation) and `snow` (snowfall)). Fixing this requires widening the data: `pivot_wider()` is inverse of `pivot_longer()`, pivoting `element` and `value` back out across multiple columns:
 
 ```{r}
 weather3 %>% 
@@ -250,8 +280,7 @@ This dataset needs to be broken down into two pieces: a song dataset which store
 
 ```{r}
 song <- billboard3 %>% 
-  select(artist, track) %>%
-  unique() %>%
+  distinct(artist, track) %>%
   mutate(song_id = row_number())
 song
 ```  
@@ -261,8 +290,7 @@ Then use that to make a `rank` dataset by replacing repeated song facts with a p
 ```{r}
 rank <- billboard3 %>%
   left_join(song, c("artist", "track")) %>%
-  select(song_id, date, week, rank) %>%
-  arrange(song_id, date)
+  select(song_id, date, week, rank)
 rank
 ```
 
