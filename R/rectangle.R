@@ -209,7 +209,7 @@ unnest_wider <- function(data, col,
                          ptype = list()) {
   col <- tidyselect::vars_select(tbl_vars(data), !!enquo(col))
 
-  data[[col]][] <- map(data[[col]], vec_to_wide, col = col)
+  data[[col]] <- map(data[[col]], vec_to_wide, col = col)
   data <- unchop(data, !!col, keep_empty = TRUE)
   inner_cols <- names(data[[col]])
 

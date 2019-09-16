@@ -147,6 +147,14 @@ test_that("list of 0-length vectors yields no new columns", {
   expect_named(unnest_wider(df, y), "x")
 })
 
+test_that("list_of columns can be unnested", {
+  df <- tibble(x = 1:2, y = list_of(1L, 1:2))
+  expect_named(unnest_wider(df, y), c("x", "...1", "...2"))
+
+  df <- tibble(x = 1:2, y = list_of(c(a = 1L), c(b = 1:2)))
+  expect_named(unnest_wider(df, y), c("x", "a", "b1", "b2"))
+})
+
 # unnest_longer -----------------------------------------------------------
 
 test_that("uses input for default column names", {
