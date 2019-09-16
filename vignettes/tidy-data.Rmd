@@ -55,8 +55,8 @@ A tidy version of the pregnancy data looks like this: (you'll learn how the func
 library(tidyr)
 library(dplyr)
 library(stringr)
-preg2 <-preg %>% 
-  pivot_longer(cols = c(treatmenta:treatmentb), names_to = "treatment", values_to = "n") %>% 
+preg2 <- preg %>% 
+  pivot_longer((treatmenta:treatmentb), names_to = "treatment", values_to = "n") %>% 
   mutate(treatment = str_remove(treatment, "treatment")) %>%
   arrange(name, treatment)
 preg2
@@ -142,13 +142,12 @@ To tidy this dataset, we first use pivot_longer to gether up all the `wk` column
 
 ```{r}
 billboard2 <- billboard %>% 
-  pivot_longer(cols = c(wk1:wk76), names_to = "week", values_to = "rank") %>% 
-  filter(!is.na(rank)) %>% 
+  pivot_longer((wk1:wk76), names_to = "week", values_to = "rank", values_drop_na = TRUE) %>% 
   arrange(week, artist)
 billboard2
 ```
 
-Here we use `filter(!is.na())` to drop any missing values from the rank column. In this data, missing values represent weeks that the song wasn't in the charts, so can be safely dropped.
+Here we use `values_drop_na = TRUE` to drop any missing values from the rank column. In this data, missing values represent weeks that the song wasn't in the charts, so can be safely dropped.
 
 In this case it's also nice to do a little cleaning, converting the week variable to a number, and figuring out the date corresponding to each week on the charts:
 
@@ -186,8 +185,7 @@ First we use pivot_longer to gather up the non-variable columns:
 
 ```{r}
 tb2 <- tb %>% 
-  pivot_longer(cols = c(-iso2, -year), names_to = "demo", values_to = "n") %>% 
-  filter(!is.na(n)) %>% 
+  pivot_longer(c(-iso2, -year), names_to = "demo", values_to = "n", values_drop_na = TRUE) %>% 
   arrange(demo, iso2, year)
 tb2
 ```
@@ -217,8 +215,7 @@ To tidy this dataset we first use pivot_longer to gather the day columns:
 
 ```{r}
 weather2 <- weather %>% 
-  pivot_longer(cols = c(d1:d31), names_to = "day", values_to = "value") %>% 
-  filter(!is.na(value))
+  pivot_longer((d1:d31), names_to = "day", values_to = "value", values_drop_na = TRUE) 
 weather2
 ```
 
