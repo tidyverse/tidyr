@@ -1,7 +1,5 @@
 # tidyr (development version)
 
-## Bug fixes and minor improvements
-
 * `unnest_wider()` and `unnest_longer()` can now unnest `list_of` columns. This
   is important for unnesting columns created from `nest()`, which are always
   `list_of` columns, and for usage after `pivot_wider()`, which, by default, 
