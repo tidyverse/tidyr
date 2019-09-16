@@ -181,7 +181,7 @@ tb <- as_tibble(read.csv("tb.csv", stringsAsFactors = FALSE))
 tb
 ```
 
-First we use pivot_longer to gather up the non-variable columns:
+First we use `pivot_longer()` to gather up the non-variable columns:
 
 ```{r}
 tb2 <- tb %>% 
