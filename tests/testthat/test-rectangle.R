@@ -148,8 +148,8 @@ test_that("list of 0-length vectors yields no new columns", {
 })
 
 test_that("list_of columns can be unnested", {
-  df <- tibble(x = 1:2, y = list_of(1L, 1:2))
-  expect_named(unnest_wider(df, y), c("x", "...1", "...2"))
+  df <- tibble(x = 1:2, y = list_of(c(a = 1L), c(a = 1L, b = 2L)))
+  expect_named(unnest_wider(df, y), c("x", "a", "b"))
 
   df <- tibble(x = 1:2, y = list_of(c(a = 1L), c(b = 1:2)))
   expect_named(unnest_wider(df, y), c("x", "a", "b1", "b2"))
