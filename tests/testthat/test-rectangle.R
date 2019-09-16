@@ -202,6 +202,17 @@ test_that("bad inputs generate errors", {
   expect_error(unnest_longer(df, y), "must be list of vectors")
 })
 
+test_that("list_of columns can be unnested", {
+  df <- tibble(x = 1:2, y = list_of(1L, 1:2))
+  out <- unnest_longer(df, y)
+
+  expect_named(out, c("x", "y"))
+  expect_equal(nrow(out), 3)
+
+  # With id column
+  df <- tibble(x = 1:2, y = list_of(c(a = 1L), c(b = 1:2)))
+  expect_named(unnest_longer(df, y), c("x", "y", "y_id"))
+})
 
 # unnest_auto -------------------------------------------------------------
 

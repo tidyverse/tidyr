@@ -178,7 +178,7 @@ unnest_longer <- function(data, col,
     indices_to <- paste0(col, "_id")
   }
 
-  data[[col]][] <- map(
+  data[[col]] <- map(
     data[[col]], vec_to_long,
     col = col,
     values_to = values_to,
