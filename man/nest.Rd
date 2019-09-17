@@ -34,9 +34,9 @@ No longer needed because of the new \code{new_col = c(col1, col2, col3)} syntax.
 
 \item{cols}{Names of columns to unnest.
 
-If you \code{unnest()} multiple columns, parallel entries must compatible
-sizes, i.e. they're either equal or length 1 (following the standard
-tidyverse recycling rules).}
+If you \code{unnest()} multiple columns, parallel entries must be of
+compatible sizes, i.e. they're either equal or length 1 (following the
+standard tidyverse recycling rules).}
 
 \item{keep_empty}{By default, you get one row of output for each element
 of the list your unchopping/unnesting. This means that if there's a
