@@ -38,7 +38,7 @@ If these arguments do not give you enough control, use
 \code{pivot_longer_spec()} to create a spec object and process manually as
 needed.}
 
-\item{names_ptypes, values_ptypes}{A list of of column name-prototype pairs.
+\item{names_ptypes, values_ptypes}{A list of column name-prototype pairs.
 A prototype (or ptype for short) is a zero-length vector (like \code{integer()}
 or \code{numeric()}) that defines the type, class, and attributes of a vector.
 
