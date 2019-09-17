@@ -52,7 +52,7 @@
 #'   in the `value_to` column. This effectively converts explicit missing values
 #'   to implicit missing values, and should generally be used only when missing
 #'   values in `data` were created by its structure.
-#' @param names_ptypes,values_ptypes A list of of column name-prototype pairs.
+#' @param names_ptypes,values_ptypes A list of column name-prototype pairs.
 #'   A prototype (or ptype for short) is a zero-length vector (like `integer()`
 #'   or `numeric()`) that defines the type, class, and attributes of a vector.
 #'
