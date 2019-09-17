@@ -191,9 +191,9 @@ check_key <- function(.key) {
 #' @inheritParams unpack
 #' @param cols Names of columns to unnest.
 #'
-#'   If you `unnest()` multiple columns, parallel entries must compatible
-#'   sizes, i.e. they're either equal or length 1 (following the standard
-#'   tidyverse recycling rules).
+#'   If you `unnest()` multiple columns, parallel entries must be of
+#'   compatible sizes, i.e. they're either equal or length 1 (following the
+#'   standard tidyverse recycling rules).
 #' @param .drop,.preserve
 #'   \Sexpr[results=rd, stage=render]{lifecycle::badge("deprecated")}:
 #'   all list-columns are now preserved; If there are any that you
