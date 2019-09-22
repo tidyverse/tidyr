@@ -11,7 +11,7 @@
 #'
 #' @details
 #' `pivot_wider()` is an updated approach to [spread()], designed to be both
-#' simpler to use and to handle more use cases. We recomend you use
+#' simpler to use and to handle more use cases. We recommend you use
 #' `pivot_wider()` for new code; `spread()` isn't going away but is no longer
 #' under active development.
 #'
