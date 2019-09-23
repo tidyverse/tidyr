@@ -330,7 +330,20 @@ defines a pivotting specification.</p></div>
 #&gt; 18 4864        1     1      0     0       0     0     0     0     0     0     0
 #&gt; 19 4865        1     1      1     0       0     0     0     0     0     0     0</div><div class='input'>
 <span class='co'># Generate column names from multiple variables</span>
-<span class='no'>us_rent_income</span> <span class='kw'>%&gt;%</span>
+<span class='no'>us_rent_income</span></div><div class='output co'>#&gt; # A tibble: 104 x 5
+#&gt;    GEOID NAME       variable estimate   moe
+#&gt;    &lt;chr&gt; &lt;chr&gt;      &lt;chr&gt;       &lt;dbl&gt; &lt;dbl&gt;
+#&gt;  1 01    Alabama    income      24476   136
+#&gt;  2 01    Alabama    rent          747     3
+#&gt;  3 02    Alaska     income      32940   508
+#&gt;  4 02    Alaska     rent         1200    13
+#&gt;  5 04    Arizona    income      27517   148
+#&gt;  6 04    Arizona    rent          972     4
+#&gt;  7 05    Arkansas   income      23789   165
+#&gt;  8 05    Arkansas   rent          709     5
+#&gt;  9 06    California income      29454   109
+#&gt; 10 06    California rent         1358     3
+#&gt; # … with 94 more rows</div><div class='input'><span class='no'>us_rent_income</span> <span class='kw'>%&gt;%</span>
   <span class='fu'>pivot_wider</span>(<span class='kw'>names_from</span> <span class='kw'>=</span> <span class='no'>variable</span>, <span class='kw'>values_from</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='no'>estimate</span>, <span class='no'>moe</span>))</div><div class='output co'>#&gt; # A tibble: 52 x 6
 #&gt;    GEOID NAME                 estimate_income estimate_rent moe_income moe_rent
 #&gt;    &lt;chr&gt; &lt;chr&gt;                          &lt;dbl&gt;         &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt;
