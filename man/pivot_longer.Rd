@@ -74,7 +74,7 @@ Learn more in \code{vignette("pivot")}.
 }
 \details{
 \code{pivot_longer()} is an updated approach to \code{\link[=gather]{gather()}}, designed to be both
-simpler to use and to handle more use cases. We recomend you use
+simpler to use and to handle more use cases. We recommend you use
 \code{pivot_longer()} for new code; \code{gather()} isn't going away but is no longer
 under active development.
 }
