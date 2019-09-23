@@ -32,7 +32,7 @@ in the \code{value_to} column. This effectively converts explicit missing values
 to implicit missing values, and should generally be used only when missing
 values in \code{data} were created by its structure.}
 
-\item{values_ptypes}{A list of of column name-prototype pairs.
+\item{values_ptypes}{A list of column name-prototype pairs.
 A prototype (or ptype for short) is a zero-length vector (like \code{integer()}
 or \code{numeric()}) that defines the type, class, and attributes of a vector.
 
@@ -86,7 +86,7 @@ If these arguments do not give you enough control, use
 \code{pivot_longer_spec()} to create a spec object and process manually as
 needed.}
 
-\item{names_ptypes}{A list of of column name-prototype pairs.
+\item{names_ptypes}{A list of column name-prototype pairs.
 A prototype (or ptype for short) is a zero-length vector (like \code{integer()}
 or \code{numeric()}) that defines the type, class, and attributes of a vector.
 

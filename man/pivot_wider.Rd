@@ -75,6 +75,7 @@ fish_encounters \%>\%
   )
 
 # Generate column names from multiple variables
+us_rent_income
 us_rent_income \%>\%
   pivot_wider(names_from = variable, values_from = c(estimate, moe))
 
