@@ -54,13 +54,12 @@ A tidy version of the pregnancy data looks like this: (you'll learn how the func
 ```{r setup, message = FALSE}
 library(tidyr)
 library(dplyr)
-library(stringr)
 ```
 
 ```{r}
 preg2 <- preg %>% 
   pivot_longer(treatmenta:treatmentb, names_to = "treatment", values_to = "n") %>% 
-  mutate(treatment = str_remove(treatment, "treatment")) %>%
+  mutate(treatment = gsub("treatment", "", treatment)) %>%
   arrange(name, treatment)
 preg2
 ```
