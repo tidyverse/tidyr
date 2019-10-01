@@ -54,13 +54,12 @@ A tidy version of the pregnancy data looks like this: (you'll learn how the func
 ```{r setup, message = FALSE}
 library(tidyr)
 library(dplyr)
-library(stringr)
 ```
 
 ```{r}
 preg2 <- preg %>% 
   pivot_longer(treatmenta:treatmentb, names_to = "treatment", values_to = "n") %>% 
-  mutate(treatment = str_remove(treatment, "treatment")) %>%
+  mutate(treatment = gsub("treatment", "", treatment)) %>%
   arrange(name, treatment)
 preg2
 ```
@@ -161,7 +160,7 @@ In this case it's also nice to do a little cleaning, converting the week variabl
 ```{r}
 billboard3 <- billboard2 %>%
   mutate(
-    week = as.integer(str_remove(week, "wk")),
+    week = as.integer(gsub("wk", "", week)),
     date = as.Date(date.entered) + 7 * (week - 1),
     date.entered = NULL
   )
@@ -256,7 +255,7 @@ We'll also do a little cleaning:
 
 ```{r}
 weather3 <- weather2 %>% 
-  mutate(day = as.integer(str_remove(day, "d"))) %>%
+  mutate(day = as.integer(gsub("d", "", day))) %>%
   select(id, year, month, day, element, value)
 weather3
 ```
