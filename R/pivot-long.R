@@ -17,7 +17,7 @@
 #'
 #' @param data A data frame to pivot.
 #' @param cols Columns to pivot into longer format. This takes a tidyselect
-#'   specification.
+#'   specification, use `everything()` to operate on all columns in `data`.
 #' @param names_to A string specifying the name of the column to create
 #'   from the data stored in the column names of `data`.
 #'
