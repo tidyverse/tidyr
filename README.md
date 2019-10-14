@@ -21,7 +21,7 @@ The goal of tidyr is to help you create **tidy data**. Tidy data is data
 where:
 
 1.  Every column is variable.
-2.  Every row is an observation..
+2.  Every row is an observation.
 3.  Every cell is a single value.
 
 Tidy data describes a standard way of storing data that is used wherever
