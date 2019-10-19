@@ -82,8 +82,8 @@ Length-zero (empty) elements are automatically dropped.}
 \item{into}{Names of new variables to create as character vector.
 Use \code{NA} to omit the variable in the output.}
 
-\item{regex}{a regular expression used to extract the desired values.
-There should be one group (defined by \code{()}) for each element of \code{into}.}
+\item{regex}{a \link[stringi:stringi-search-regex]{regular expression} used to extract the desired values.
+There should be one group (defined by \code{()}) for each element of \code{into}.  This must be passed in as a string.}
 
 \item{remove}{If \code{TRUE}, remove input column from output data frame.}
 
