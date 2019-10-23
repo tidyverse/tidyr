@@ -37,7 +37,7 @@ Imports:
     tibble (>= 2.1.1),
     tidyselect (>= 0.2.5),
     utils,
-    vctrs (>= 0.2.0),
+    vctrs (>= 0.2.0.9007),
     lifecycle
 Suggests: 
     covr,
@@ -55,3 +55,5 @@ Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 6.1.1
+Remotes:
+  r-lib/vctrs
