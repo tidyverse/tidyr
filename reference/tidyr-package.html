@@ -15,7 +15,6 @@
 <link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
-
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 
@@ -42,6 +41,7 @@
 
 
 <meta property="og:title" content="tidyr: Tidy Messy Data — tidyr-package" />
+
 <meta property="og:description" content="
 Tools to help to create tidy data, where each column is a 
     variable, each row is an observation, and each cell contains a single value.  
@@ -50,9 +50,9 @@ Tools to help to create tidy data, where each column is a
     into rectangular data frames ('rectangling'), and extracting values out 
     of string columns. It also includes tools for working with missing values 
     (both implicit and explicit)." />
+
 <meta property="og:image" content="https://tidyr.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
-
 
 
 
@@ -65,7 +65,15 @@ Tools to help to create tidy data, where each column is a
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-115082821-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
+  gtag('config', 'UA-115082821-1');
+</script>
 
   </head>
 
@@ -131,6 +139,9 @@ Tools to help to create tidy data, where each column is a
   <ul class="dropdown-menu" role="menu">
     <li class="dropdown-header">Release notes</li>
     <li>
+      <a href="https://www.tidyverse.org/articles/2019/09/tidyr-1-0-0/">Version 1.0.0</a>
+    </li>
+    <li>
       <a href="https://www.tidyverse.org/articles/2018/02/tidyr-0-8-0/">Version 0.8.0</a>
     </li>
     <li>
@@ -185,6 +196,7 @@ Tools to help to create tidy data, where each column is a
     </div>
 
     <div class="ref-description">
+    
     <p><img src='figures/logo.png' align='right' /></p>
 <p>Tools to help to create tidy data, where each column is a 
     variable, each row is an observation, and each cell contains a single value.  
@@ -193,10 +205,10 @@ Tools to help to create tidy data, where each column is a
     into rectangular data frames ('rectangling'), and extracting values out 
     of string columns. It also includes tools for working with missing values 
     (both implicit and explicit).</p>
+    
     </div>
 
-
-
+        
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Useful links:</p><ul>
@@ -206,13 +218,15 @@ Tools to help to create tidy data, where each column is a
 </ul>
 
 </div>
+    
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
+      
       <li><a href="#see-also">See also</a></li>
-    </ul>
+          </ul>
 
     <h2>Author</h2>
     <p><strong>Maintainer</strong>: Hadley Wickham <a href='mailto:hadley@rstudio.com'>hadley@rstudio.com</a></p>

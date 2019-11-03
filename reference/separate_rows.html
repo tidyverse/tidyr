@@ -15,7 +15,6 @@
 <link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
-
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 
@@ -42,11 +41,12 @@
 
 
 <meta property="og:title" content="Separate a collapsed column into multiple rows — separate_rows" />
+
 <meta property="og:description" content="If a variable contains observations with multiple delimited values, this
 separates the values and places each one in its own row." />
+
 <meta property="og:image" content="https://tidyr.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
-
 
 
 
@@ -59,7 +59,15 @@ separates the values and places each one in its own row." />
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-115082821-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
+  gtag('config', 'UA-115082821-1');
+</script>
 
   </head>
 
@@ -125,6 +133,9 @@ separates the values and places each one in its own row." />
   <ul class="dropdown-menu" role="menu">
     <li class="dropdown-header">Release notes</li>
     <li>
+      <a href="https://www.tidyverse.org/articles/2019/09/tidyr-1-0-0/">Version 1.0.0</a>
+    </li>
+    <li>
       <a href="https://www.tidyverse.org/articles/2018/02/tidyr-0-8-0/">Version 0.8.0</a>
     </li>
     <li>
@@ -179,12 +190,14 @@ separates the values and places each one in its own row." />
     </div>
 
     <div class="ref-description">
+    
     <p>If a variable contains observations with multiple delimited values, this
 separates the values and places each one in its own row.</p>
+    
     </div>
 
     <pre class="usage"><span class='fu'>separate_rows</span>(<span class='no'>data</span>, <span class='no'>...</span>, <span class='kw'>sep</span> <span class='kw'>=</span> <span class='st'>"[^[:alnum:].]+"</span>, <span class='kw'>convert</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
-
+    
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -210,7 +223,7 @@ with <code>x:z</code>, exclude <code>y</code> with <code>-y</code>. For more sel
 types are actually numeric, integer, or logical.</p></td>
     </tr>
     </table>
-
+    
     <h2 class="hasAnchor" id="rules-for-selection"><a class="anchor" href="#rules-for-selection"></a>Rules for selection</h2>
 
     
@@ -237,6 +250,7 @@ inlines the result in the surrounding function call. For instance,
 <code><a href='https://rdrr.io/r/base/c.html'>c(x, !! x)</a></code> selects the <code>x</code> column within the data frame and the
 column referred to by the object <code>x</code> defined in the context (which
 can contain either a column name as string or a column position).</p>
+    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(
@@ -257,7 +271,9 @@ can contain either a column name as string or a column position).</p>
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
+      
       <li><a href="#rules-for-selection">Rules for selection</a></li>
+      
       <li><a href="#examples">Examples</a></li>
     </ul>
 

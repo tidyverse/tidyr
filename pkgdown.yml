@@ -1,5 +1,5 @@
-pandoc: '2.2'
-pkgdown: 1.4.0
+pandoc: 2.7.3
+pkgdown: 1.4.1
 pkgdown_sha: ~
 articles:
   in-packages: in-packages.html

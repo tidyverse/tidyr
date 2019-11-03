@@ -15,7 +15,6 @@
 <link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
-
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 
@@ -42,15 +41,16 @@
 
 
 <meta property="og:title" content="Nest and unnest — nest" />
+
 <meta property="og:description" content="Nesting creates a list-column of data frames; unnesting flattens it back out
 into regular columns. Nesting is implicitly a summarising operation: you
 get one row for each group defined by the non-nested columns. This is useful
 in conjunction with other summaries that work with whole datasets, most
 notably models.
 Learn more in vignette(&quot;nest&quot;)." />
+
 <meta property="og:image" content="https://tidyr.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
-
 
 
 
@@ -63,7 +63,15 @@ Learn more in vignette(&quot;nest&quot;)." />
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-115082821-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
+  gtag('config', 'UA-115082821-1');
+</script>
 
   </head>
 
@@ -129,6 +137,9 @@ Learn more in vignette(&quot;nest&quot;)." />
   <ul class="dropdown-menu" role="menu">
     <li class="dropdown-header">Release notes</li>
     <li>
+      <a href="https://www.tidyverse.org/articles/2019/09/tidyr-1-0-0/">Version 1.0.0</a>
+    </li>
+    <li>
       <a href="https://www.tidyverse.org/articles/2018/02/tidyr-0-8-0/">Version 0.8.0</a>
     </li>
     <li>
@@ -183,12 +194,14 @@ Learn more in vignette(&quot;nest&quot;)." />
     </div>
 
     <div class="ref-description">
+    
     <p>Nesting creates a list-column of data frames; unnesting flattens it back out
 into regular columns. Nesting is implicitly a summarising operation: you
 get one row for each group defined by the non-nested columns. This is useful
 in conjunction with other summaries that work with whole datasets, most
 notably models.</p>
 <p>Learn more in <code><a href='../articles/nest.html'>vignette("nest")</a></code>.</p>
+    
     </div>
 
     <pre class="usage"><span class='fu'>nest</span>(<span class='no'>.data</span>, <span class='no'>...</span>, <span class='kw'>.key</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Deprecated.html'>deprecated</a></span>())
@@ -197,7 +210,7 @@ notably models.</p>
   <span class='kw'>names_sep</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>names_repair</span> <span class='kw'>=</span> <span class='st'>"check_unique"</span>,
   <span class='kw'>.drop</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Deprecated.html'>deprecated</a></span>(), <span class='kw'>.id</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Deprecated.html'>deprecated</a></span>(), <span class='kw'>.sep</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Deprecated.html'>deprecated</a></span>(),
   <span class='kw'>.preserve</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Deprecated.html'>deprecated</a></span>())</pre>
-
+    
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -231,9 +244,9 @@ No longer needed because of the new <code>new_col = c(col1, col2, col3)</code> s
     <tr>
       <th>cols</th>
       <td><p>Names of columns to unnest.</p>
-<p>If you <code>unnest()</code> multiple columns, parallel entries must compatible
-sizes, i.e. they're either equal or length 1 (following the standard
-tidyverse recycling rules).</p></td>
+<p>If you <code>unnest()</code> multiple columns, parallel entries must be of
+compatible sizes, i.e. they're either equal or length 1 (following the
+standard tidyverse recycling rules).</p></td>
     </tr>
     <tr>
       <th>keep_empty</th>
@@ -295,7 +308,7 @@ convert <code>df %&gt;% unnest(x, .id = "id")</code> to <code>df %&gt;% mutate(i
 use <code>names_sep</code> instead.</p></td>
     </tr>
     </table>
-
+    
     <h2 class="hasAnchor" id="new-syntax"><a class="anchor" href="#new-syntax"></a>New syntax</h2>
 
     
@@ -309,6 +322,7 @@ nest &lt;- nest_legacy
 unnest &lt;- unnest_legacy
 </pre>
 
+    
     <h2 class="hasAnchor" id="grouped-data-frames"><a class="anchor" href="#grouped-data-frames"></a>Grouped data frames</h2>
 
     
@@ -320,92 +334,93 @@ remain in the outer data frame and the others are nested. The result
 preserves the grouping of the input.</p>
 <p>Variables supplied to <code>nest()</code> will override grouping variables so that
 <code>df %&gt;% group_by(x, y) %&gt;% nest(z)</code> will be equivalent to <code>df %&gt;% nest(z)</code>.</p>
+    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>2</span>, <span class='fl'>3</span>), <span class='kw'>y</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>6</span>, <span class='kw'>z</span> <span class='kw'>=</span> <span class='fl'>6</span>:<span class='fl'>1</span>)
 <span class='co'># Note that we get one row of output for each unique combination of</span>
 <span class='co'># non-nested variables</span>
-<span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>nest</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='no'>y</span>, <span class='no'>z</span>))</div><div class='output co'>#&gt; # A tibble: 3 x 2
+<span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>nest</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='no'>y</span>, <span class='no'>z</span>))</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 3 x 2</span><span>
 #&gt;       x           data
-#&gt;   &lt;dbl&gt; &lt;list&lt;df[,2]&gt;&gt;
-#&gt; 1     1        [3 × 2]
-#&gt; 2     2        [2 × 2]
-#&gt; 3     3        [1 × 2]</div><div class='input'><span class='co'># chop does something similar, but retains individual columns</span>
-<span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='chop.html'>chop</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='no'>y</span>, <span class='no'>z</span>))</div><div class='output co'>#&gt; # A tibble: 3 x 3
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;list&lt;df[,2]&gt;&gt;</span><span>
+#&gt; </span><span style='color: #555555;'>1</span><span>     1        [3 × 2]
+#&gt; </span><span style='color: #555555;'>2</span><span>     2        [2 × 2]
+#&gt; </span><span style='color: #555555;'>3</span><span>     3        [1 × 2]</div><div class='input'><span class='co'># chop does something similar, but retains individual columns</span>
+<span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='chop.html'>chop</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='no'>y</span>, <span class='no'>z</span>))</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 3 x 3</span><span>
 #&gt;       x y         z        
-#&gt;   &lt;dbl&gt; &lt;list&gt;    &lt;list&gt;   
-#&gt; 1     1 &lt;int [3]&gt; &lt;int [3]&gt;
-#&gt; 2     2 &lt;int [2]&gt; &lt;int [2]&gt;
-#&gt; 3     3 &lt;int [1]&gt; &lt;int [1]&gt;</div><div class='input'>
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;list&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;list&gt;</span><span>   
+#&gt; </span><span style='color: #555555;'>1</span><span>     1 </span><span style='color: #555555;'>&lt;int [3]&gt;</span><span> </span><span style='color: #555555;'>&lt;int [3]&gt;</span><span>
+#&gt; </span><span style='color: #555555;'>2</span><span>     2 </span><span style='color: #555555;'>&lt;int [2]&gt;</span><span> </span><span style='color: #555555;'>&lt;int [2]&gt;</span><span>
+#&gt; </span><span style='color: #555555;'>3</span><span>     3 </span><span style='color: #555555;'>&lt;int [1]&gt;</span><span> </span><span style='color: #555555;'>&lt;int [1]&gt;</span><span></div><div class='input'>
 <span class='co'># use tidyselect syntax and helpers, just like in dplyr::select()</span>
-<span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>nest</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/pkg/tidyselect/man/select_helpers.html'>one_of</a></span>(<span class='st'>"y"</span>, <span class='st'>"z"</span>))</div><div class='output co'>#&gt; # A tibble: 3 x 2
+<span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>nest</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/pkg/tidyselect/man/select_helpers.html'>one_of</a></span>(<span class='st'>"y"</span>, <span class='st'>"z"</span>))</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 3 x 2</span><span>
 #&gt;       x           data
-#&gt;   &lt;dbl&gt; &lt;list&lt;df[,2]&gt;&gt;
-#&gt; 1     1        [3 × 2]
-#&gt; 2     2        [2 × 2]
-#&gt; 3     3        [1 × 2]</div><div class='input'>
-<span class='no'>iris</span> <span class='kw'>%&gt;%</span> <span class='fu'>nest</span>(<span class='kw'>data</span> <span class='kw'>=</span> -<span class='no'>Species</span>)</div><div class='output co'>#&gt; # A tibble: 3 x 2
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;list&lt;df[,2]&gt;&gt;</span><span>
+#&gt; </span><span style='color: #555555;'>1</span><span>     1        [3 × 2]
+#&gt; </span><span style='color: #555555;'>2</span><span>     2        [2 × 2]
+#&gt; </span><span style='color: #555555;'>3</span><span>     3        [1 × 2]</div><div class='input'>
+<span class='no'>iris</span> <span class='kw'>%&gt;%</span> <span class='fu'>nest</span>(<span class='kw'>data</span> <span class='kw'>=</span> -<span class='no'>Species</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 3 x 2</span><span>
 #&gt;   Species              data
-#&gt;   &lt;fct&gt;      &lt;list&lt;df[,4]&gt;&gt;
-#&gt; 1 setosa           [50 × 4]
-#&gt; 2 versicolor       [50 × 4]
-#&gt; 3 virginica        [50 × 4]</div><div class='input'><span class='no'>nest_vars</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span>(<span class='no'>iris</span>)[<span class='fl'>1</span>:<span class='fl'>4</span>]
-<span class='no'>iris</span> <span class='kw'>%&gt;%</span> <span class='fu'>nest</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/pkg/tidyselect/man/select_helpers.html'>one_of</a></span>(<span class='no'>nest_vars</span>))</div><div class='output co'>#&gt; # A tibble: 3 x 2
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>      </span><span style='color: #555555;font-style: italic;'>&lt;list&lt;df[,4]&gt;&gt;</span><span>
+#&gt; </span><span style='color: #555555;'>1</span><span> setosa           [50 × 4]
+#&gt; </span><span style='color: #555555;'>2</span><span> versicolor       [50 × 4]
+#&gt; </span><span style='color: #555555;'>3</span><span> virginica        [50 × 4]</div><div class='input'><span class='no'>nest_vars</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span>(<span class='no'>iris</span>)[<span class='fl'>1</span>:<span class='fl'>4</span>]
+<span class='no'>iris</span> <span class='kw'>%&gt;%</span> <span class='fu'>nest</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/pkg/tidyselect/man/select_helpers.html'>one_of</a></span>(<span class='no'>nest_vars</span>))</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 3 x 2</span><span>
 #&gt;   Species              data
-#&gt;   &lt;fct&gt;      &lt;list&lt;df[,4]&gt;&gt;
-#&gt; 1 setosa           [50 × 4]
-#&gt; 2 versicolor       [50 × 4]
-#&gt; 3 virginica        [50 × 4]</div><div class='input'><span class='no'>iris</span> <span class='kw'>%&gt;%</span>
-  <span class='fu'>nest</span>(<span class='kw'>petal</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/pkg/tidyselect/man/select_helpers.html'>starts_with</a></span>(<span class='st'>"Petal"</span>), <span class='kw'>sepal</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/pkg/tidyselect/man/select_helpers.html'>starts_with</a></span>(<span class='st'>"Sepal"</span>))</div><div class='output co'>#&gt; # A tibble: 3 x 3
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>      </span><span style='color: #555555;font-style: italic;'>&lt;list&lt;df[,4]&gt;&gt;</span><span>
+#&gt; </span><span style='color: #555555;'>1</span><span> setosa           [50 × 4]
+#&gt; </span><span style='color: #555555;'>2</span><span> versicolor       [50 × 4]
+#&gt; </span><span style='color: #555555;'>3</span><span> virginica        [50 × 4]</div><div class='input'><span class='no'>iris</span> <span class='kw'>%&gt;%</span>
+  <span class='fu'>nest</span>(<span class='kw'>petal</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/pkg/tidyselect/man/select_helpers.html'>starts_with</a></span>(<span class='st'>"Petal"</span>), <span class='kw'>sepal</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/pkg/tidyselect/man/select_helpers.html'>starts_with</a></span>(<span class='st'>"Sepal"</span>))</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 3 x 3</span><span>
 #&gt;   Species             petal          sepal
-#&gt;   &lt;fct&gt;      &lt;list&lt;df[,2]&gt;&gt; &lt;list&lt;df[,2]&gt;&gt;
-#&gt; 1 setosa           [50 × 2]       [50 × 2]
-#&gt; 2 versicolor       [50 × 2]       [50 × 2]
-#&gt; 3 virginica        [50 × 2]       [50 × 2]</div><div class='input'><span class='no'>iris</span> <span class='kw'>%&gt;%</span>
-  <span class='fu'>nest</span>(<span class='kw'>width</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/pkg/tidyselect/man/select_helpers.html'>contains</a></span>(<span class='st'>"Width"</span>), <span class='kw'>length</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/pkg/tidyselect/man/select_helpers.html'>contains</a></span>(<span class='st'>"Length"</span>))</div><div class='output co'>#&gt; # A tibble: 3 x 3
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>      </span><span style='color: #555555;font-style: italic;'>&lt;list&lt;df[,2]&gt;&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;list&lt;df[,2]&gt;&gt;</span><span>
+#&gt; </span><span style='color: #555555;'>1</span><span> setosa           [50 × 2]       [50 × 2]
+#&gt; </span><span style='color: #555555;'>2</span><span> versicolor       [50 × 2]       [50 × 2]
+#&gt; </span><span style='color: #555555;'>3</span><span> virginica        [50 × 2]       [50 × 2]</div><div class='input'><span class='no'>iris</span> <span class='kw'>%&gt;%</span>
+  <span class='fu'>nest</span>(<span class='kw'>width</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/pkg/tidyselect/man/select_helpers.html'>contains</a></span>(<span class='st'>"Width"</span>), <span class='kw'>length</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/pkg/tidyselect/man/select_helpers.html'>contains</a></span>(<span class='st'>"Length"</span>))</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 3 x 3</span><span>
 #&gt;   Species             width         length
-#&gt;   &lt;fct&gt;      &lt;list&lt;df[,2]&gt;&gt; &lt;list&lt;df[,2]&gt;&gt;
-#&gt; 1 setosa           [50 × 2]       [50 × 2]
-#&gt; 2 versicolor       [50 × 2]       [50 × 2]
-#&gt; 3 virginica        [50 × 2]       [50 × 2]</div><div class='input'>
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>      </span><span style='color: #555555;font-style: italic;'>&lt;list&lt;df[,2]&gt;&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;list&lt;df[,2]&gt;&gt;</span><span>
+#&gt; </span><span style='color: #555555;'>1</span><span> setosa           [50 × 2]       [50 × 2]
+#&gt; </span><span style='color: #555555;'>2</span><span> versicolor       [50 × 2]       [50 × 2]
+#&gt; </span><span style='color: #555555;'>3</span><span> virginica        [50 × 2]       [50 × 2]</div><div class='input'>
 <span class='co'># Nesting a grouped data frame nests all variables apart from the group vars</span>
 <span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>dplyr</span>)
 <span class='no'>fish_encounters</span> <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span>(<span class='no'>fish</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'>nest</span>()</div><div class='output co'>#&gt; # A tibble: 19 x 2
-#&gt; # Groups:   fish [19]
+  <span class='fu'>nest</span>()</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 19 x 2</span><span>
+#&gt; </span><span style='color: #555555;'># Groups:   fish [19]</span><span>
 #&gt;    fish            data
-#&gt;    &lt;fct&gt; &lt;list&lt;df[,2]&gt;&gt;
-#&gt;  1 4842        [11 × 2]
-#&gt;  2 4843        [11 × 2]
-#&gt;  3 4844        [11 × 2]
-#&gt;  4 4845         [5 × 2]
-#&gt;  5 4847         [3 × 2]
-#&gt;  6 4848         [4 × 2]
-#&gt;  7 4849         [2 × 2]
-#&gt;  8 4850         [6 × 2]
-#&gt;  9 4851         [2 × 2]
-#&gt; 10 4854         [2 × 2]
-#&gt; 11 4855         [5 × 2]
-#&gt; 12 4857         [9 × 2]
-#&gt; 13 4858        [11 × 2]
-#&gt; 14 4859         [5 × 2]
-#&gt; 15 4861        [11 × 2]
-#&gt; 16 4862         [9 × 2]
-#&gt; 17 4863         [2 × 2]
-#&gt; 18 4864         [2 × 2]
-#&gt; 19 4865         [3 × 2]</div><div class='input'>
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;list&lt;df[,2]&gt;&gt;</span><span>
+#&gt; </span><span style='color: #555555;'> 1</span><span> 4842        [11 × 2]
+#&gt; </span><span style='color: #555555;'> 2</span><span> 4843        [11 × 2]
+#&gt; </span><span style='color: #555555;'> 3</span><span> 4844        [11 × 2]
+#&gt; </span><span style='color: #555555;'> 4</span><span> 4845         [5 × 2]
+#&gt; </span><span style='color: #555555;'> 5</span><span> 4847         [3 × 2]
+#&gt; </span><span style='color: #555555;'> 6</span><span> 4848         [4 × 2]
+#&gt; </span><span style='color: #555555;'> 7</span><span> 4849         [2 × 2]
+#&gt; </span><span style='color: #555555;'> 8</span><span> 4850         [6 × 2]
+#&gt; </span><span style='color: #555555;'> 9</span><span> 4851         [2 × 2]
+#&gt; </span><span style='color: #555555;'>10</span><span> 4854         [2 × 2]
+#&gt; </span><span style='color: #555555;'>11</span><span> 4855         [5 × 2]
+#&gt; </span><span style='color: #555555;'>12</span><span> 4857         [9 × 2]
+#&gt; </span><span style='color: #555555;'>13</span><span> 4858        [11 × 2]
+#&gt; </span><span style='color: #555555;'>14</span><span> 4859         [5 × 2]
+#&gt; </span><span style='color: #555555;'>15</span><span> 4861        [11 × 2]
+#&gt; </span><span style='color: #555555;'>16</span><span> 4862         [9 × 2]
+#&gt; </span><span style='color: #555555;'>17</span><span> 4863         [2 × 2]
+#&gt; </span><span style='color: #555555;'>18</span><span> 4864         [2 × 2]
+#&gt; </span><span style='color: #555555;'>19</span><span> 4865         [3 × 2]</div><div class='input'>
 <span class='co'># Nesting is often useful for creating per group models</span>
 <span class='no'>mtcars</span> <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span>(<span class='no'>cyl</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'>nest</span>() <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span>(<span class='kw'>models</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span>(<span class='no'>data</span>, <span class='kw'>function</span>(<span class='no'>df</span>) <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span>(<span class='no'>mpg</span> ~ <span class='no'>wt</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>df</span>)))</div><div class='output co'>#&gt; # A tibble: 3 x 3
-#&gt; # Groups:   cyl [3]
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span>(<span class='kw'>models</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span>(<span class='no'>data</span>, <span class='kw'>function</span>(<span class='no'>df</span>) <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span>(<span class='no'>mpg</span> ~ <span class='no'>wt</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>df</span>)))</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 3 x 3</span><span>
+#&gt; </span><span style='color: #555555;'># Groups:   cyl [3]</span><span>
 #&gt;     cyl            data models
-#&gt;   &lt;dbl&gt; &lt;list&lt;df[,10]&gt;&gt; &lt;list&gt;
-#&gt; 1     6        [7 × 10] &lt;lm&gt;  
-#&gt; 2     4       [11 × 10] &lt;lm&gt;  
-#&gt; 3     8       [14 × 10] &lt;lm&gt;  </div><div class='input'>
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;list&lt;df[,10]&gt;&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;list&gt;</span><span>
+#&gt; </span><span style='color: #555555;'>1</span><span>     6        [7 × 10] </span><span style='color: #555555;'>&lt;lm&gt;</span><span>  
+#&gt; </span><span style='color: #555555;'>2</span><span>     4       [11 × 10] </span><span style='color: #555555;'>&lt;lm&gt;</span><span>  
+#&gt; </span><span style='color: #555555;'>3</span><span>     8       [14 × 10] </span><span style='color: #555555;'>&lt;lm&gt;</span><span>  </div><div class='input'>
 <span class='co'># unnest() is primarily designed to work with lists of data frames</span>
 <span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(
   <span class='kw'>x</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>3</span>,
@@ -415,20 +430,20 @@ preserves the grouping of the input.</p>
     <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(<span class='kw'>a</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>3</span>, <span class='kw'>b</span> <span class='kw'>=</span> <span class='fl'>3</span>:<span class='fl'>1</span>)
   )
 )
-<span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>unnest</span>(<span class='no'>y</span>)</div><div class='output co'>#&gt; # A tibble: 4 x 3
+<span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>unnest</span>(<span class='no'>y</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 4 x 3</span><span>
 #&gt;       x     a     b
-#&gt;   &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;
-#&gt; 1     2     1     2
-#&gt; 2     3     1     3
-#&gt; 3     3     2     2
-#&gt; 4     3     3     1</div><div class='input'><span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>unnest</span>(<span class='no'>y</span>, <span class='kw'>keep_empty</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; # A tibble: 5 x 3
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'>1</span><span>     2     1     2
+#&gt; </span><span style='color: #555555;'>2</span><span>     3     1     3
+#&gt; </span><span style='color: #555555;'>3</span><span>     3     2     2
+#&gt; </span><span style='color: #555555;'>4</span><span>     3     3     1</div><div class='input'><span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>unnest</span>(<span class='no'>y</span>, <span class='kw'>keep_empty</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 5 x 3</span><span>
 #&gt;       x     a     b
-#&gt;   &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;
-#&gt; 1     1    NA    NA
-#&gt; 2     2     1     2
-#&gt; 3     3     1     3
-#&gt; 4     3     2     2
-#&gt; 5     3     3     1</div><div class='input'>
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'>1</span><span>     1    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>
+#&gt; </span><span style='color: #555555;'>2</span><span>     2     1     2
+#&gt; </span><span style='color: #555555;'>3</span><span>     3     1     3
+#&gt; </span><span style='color: #555555;'>4</span><span>     3     2     2
+#&gt; </span><span style='color: #555555;'>5</span><span>     3     3     1</div><div class='input'>
 <span class='co'># If you have lists of lists, or lists of atomic vectors, instead</span>
 <span class='co'># see hoist(), unnest_wider(), and unnest_longer()</span>
 
@@ -438,29 +453,32 @@ preserves the grouping of the input.</p>
  <span class='kw'>b</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='fl'>1</span>:<span class='fl'>2</span>, <span class='fl'>3</span>),
  <span class='kw'>c</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>11</span>, <span class='fl'>22</span>)
 )
-<span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>unnest</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='no'>a</span>, <span class='no'>b</span>))</div><div class='output co'>#&gt; # A tibble: 3 x 3
+<span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>unnest</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='no'>a</span>, <span class='no'>b</span>))</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 3 x 3</span><span>
 #&gt;   a         b     c
-#&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;
-#&gt; 1 a         1    11
-#&gt; 2 b         2    11
-#&gt; 3 c         3    22</div><div class='input'>
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'>1</span><span> a         1    11
+#&gt; </span><span style='color: #555555;'>2</span><span> b         2    11
+#&gt; </span><span style='color: #555555;'>3</span><span> c         3    22</div><div class='input'>
 <span class='co'># Compare with unnesting one column at a time, which generates</span>
 <span class='co'># the Cartesian product</span>
-<span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>unnest</span>(<span class='no'>a</span>) <span class='kw'>%&gt;%</span> <span class='fu'>unnest</span>(<span class='no'>b</span>)</div><div class='output co'>#&gt; # A tibble: 5 x 3
+<span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>unnest</span>(<span class='no'>a</span>) <span class='kw'>%&gt;%</span> <span class='fu'>unnest</span>(<span class='no'>b</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 5 x 3</span><span>
 #&gt;   a         b     c
-#&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;
-#&gt; 1 a         1    11
-#&gt; 2 a         2    11
-#&gt; 3 b         1    11
-#&gt; 4 b         2    11
-#&gt; 5 c         3    22</div></pre>
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'>1</span><span> a         1    11
+#&gt; </span><span style='color: #555555;'>2</span><span> a         2    11
+#&gt; </span><span style='color: #555555;'>3</span><span> b         1    11
+#&gt; </span><span style='color: #555555;'>4</span><span> b         2    11
+#&gt; </span><span style='color: #555555;'>5</span><span> c         3    22</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
+      
       <li><a href="#new-syntax">New syntax</a></li>
+
       <li><a href="#grouped-data-frames">Grouped data frames</a></li>
+      
       <li><a href="#examples">Examples</a></li>
     </ul>
 

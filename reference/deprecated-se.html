@@ -15,7 +15,6 @@
 <link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
-
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 
@@ -42,6 +41,7 @@
 
 
 <meta property="og:title" content="Deprecated SE versions of main verbs — deprecated-se" />
+
 <meta property="og:description" content="
 tidyr used to offer twin versions of each verb suffixed with an
 underscore. These versions had standard evaluation (SE) semantics:
@@ -55,9 +55,9 @@ Unquoting triggers immediate evaluation of its operand and inlines
 the result within the captured expression. This result can be a
 value or an expression to be evaluated later with the rest of the
 argument. See vignette(&quot;programming&quot;, &quot;dplyr&quot;) for more information." />
+
 <meta property="og:image" content="https://tidyr.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
-
 
 
 
@@ -70,7 +70,15 @@ argument. See vignette(&quot;programming&quot;, &quot;dplyr&quot;) for more info
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-115082821-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
+  gtag('config', 'UA-115082821-1');
+</script>
 
   </head>
 
@@ -136,6 +144,9 @@ argument. See vignette(&quot;programming&quot;, &quot;dplyr&quot;) for more info
   <ul class="dropdown-menu" role="menu">
     <li class="dropdown-header">Release notes</li>
     <li>
+      <a href="https://www.tidyverse.org/articles/2019/09/tidyr-1-0-0/">Version 1.0.0</a>
+    </li>
+    <li>
       <a href="https://www.tidyverse.org/articles/2018/02/tidyr-0-8-0/">Version 0.8.0</a>
     </li>
     <li>
@@ -190,6 +201,7 @@ argument. See vignette(&quot;programming&quot;, &quot;dplyr&quot;) for more info
     </div>
 
     <div class="ref-description">
+    
     <p><img src='figures/lifecycle-deprecated.svg' alt='Deprecated lifecycle' /></p>
 <p>tidyr used to offer twin versions of each verb suffixed with an
 underscore. These versions had standard evaluation (SE) semantics:
@@ -203,6 +215,7 @@ with NSE verbs. Thus, the underscored versions are now superfluous.</p>
 the result within the captured expression. This result can be a
 value or an expression to be evaluated later with the rest of the
 argument. See <code><a href='https://dplyr.tidyverse.org/articles/programming.html'>vignette("programming", "dplyr")</a></code> for more information.</p>
+    
     </div>
 
     <pre class="usage"><span class='fu'>complete_</span>(<span class='no'>data</span>, <span class='no'>cols</span>, <span class='kw'>fill</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(), <span class='no'>...</span>)
@@ -236,7 +249,7 @@ argument. See <code><a href='https://dplyr.tidyverse.org/articles/programming.ht
 <span class='fu'>unite_</span>(<span class='no'>data</span>, <span class='no'>col</span>, <span class='no'>from</span>, <span class='kw'>sep</span> <span class='kw'>=</span> <span class='st'>"_"</span>, <span class='kw'>remove</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 
 <span class='fu'>unnest_</span>(<span class='no'>...</span>)</pre>
-
+    
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -357,14 +370,14 @@ data, filling in missing combinations with <code>fill</code>.</p></td>
       <td><p>Strings giving names of key and value cols.</p></td>
     </tr>
     </table>
-
+    
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-    </ul>
+                </ul>
 
   </div>
 </div>

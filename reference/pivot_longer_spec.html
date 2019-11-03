@@ -15,7 +15,6 @@
 <link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
-
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 
@@ -42,11 +41,12 @@
 
 
 <meta property="og:title" content="Pivot data from wide to long using a spec — pivot_longer_spec" />
+
 <meta property="og:description" content="This is a low level interface to pivotting, inspired by the cdata package,
 that allows you to describe pivotting with a data frame." />
+
 <meta property="og:image" content="https://tidyr.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
-
 
 
 
@@ -59,7 +59,15 @@ that allows you to describe pivotting with a data frame." />
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-115082821-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
+  gtag('config', 'UA-115082821-1');
+</script>
 
   </head>
 
@@ -125,6 +133,9 @@ that allows you to describe pivotting with a data frame." />
   <ul class="dropdown-menu" role="menu">
     <li class="dropdown-header">Release notes</li>
     <li>
+      <a href="https://www.tidyverse.org/articles/2019/09/tidyr-1-0-0/">Version 1.0.0</a>
+    </li>
+    <li>
       <a href="https://www.tidyverse.org/articles/2018/02/tidyr-0-8-0/">Version 0.8.0</a>
     </li>
     <li>
@@ -179,8 +190,10 @@ that allows you to describe pivotting with a data frame." />
     </div>
 
     <div class="ref-description">
+    
     <p>This is a low level interface to pivotting, inspired by the cdata package,
 that allows you to describe pivotting with a data frame.</p>
+    
     </div>
 
     <pre class="usage"><span class='fu'>pivot_longer_spec</span>(<span class='no'>data</span>, <span class='no'>spec</span>, <span class='kw'>names_repair</span> <span class='kw'>=</span> <span class='st'>"check_unique"</span>,
@@ -189,7 +202,7 @@ that allows you to describe pivotting with a data frame.</p>
 <span class='fu'>build_longer_spec</span>(<span class='no'>data</span>, <span class='no'>cols</span>, <span class='kw'>names_to</span> <span class='kw'>=</span> <span class='st'>"name"</span>, <span class='kw'>values_to</span> <span class='kw'>=</span> <span class='st'>"value"</span>,
   <span class='kw'>names_prefix</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>names_sep</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>names_pattern</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>names_ptypes</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
-
+    
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -221,7 +234,7 @@ values in <code>data</code> were created by its structure.</p></td>
     </tr>
     <tr>
       <th>values_ptypes</th>
-      <td><p>A list of of column name-prototype pairs.
+      <td><p>A list of column name-prototype pairs.
 A prototype (or ptype for short) is a zero-length vector (like <code><a href='https://rdrr.io/r/base/integer.html'>integer()</a></code>
 or <code><a href='https://rdrr.io/r/base/numeric.html'>numeric()</a></code>) that defines the type, class, and attributes of a vector.</p>
 <p>If not specified, the type of the columns generated from <code>names_to</code> will
@@ -262,7 +275,7 @@ be a numeric vector (specifying positions to break on), or a single string
 (specifying a regular expression to split on).</p>
 <p><code>names_pattern</code> takes the same specification as <code><a href='extract.html'>extract()</a></code>, a regular
 expression containing matching groups (<code>()</code>).</p>
-<p>If these arguments does not give you enough control, use
+<p>If these arguments do not give you enough control, use
 <code>pivot_longer_spec()</code> to create a spec object and process manually as
 needed.</p></td>
     </tr>
@@ -275,13 +288,13 @@ be a numeric vector (specifying positions to break on), or a single string
 (specifying a regular expression to split on).</p>
 <p><code>names_pattern</code> takes the same specification as <code><a href='extract.html'>extract()</a></code>, a regular
 expression containing matching groups (<code>()</code>).</p>
-<p>If these arguments does not give you enough control, use
+<p>If these arguments do not give you enough control, use
 <code>pivot_longer_spec()</code> to create a spec object and process manually as
 needed.</p></td>
     </tr>
     <tr>
       <th>names_ptypes</th>
-      <td><p>A list of of column name-prototype pairs.
+      <td><p>A list of column name-prototype pairs.
 A prototype (or ptype for short) is a zero-length vector (like <code><a href='https://rdrr.io/r/base/integer.html'>integer()</a></code>
 or <code><a href='https://rdrr.io/r/base/numeric.html'>numeric()</a></code>) that defines the type, class, and attributes of a vector.</p>
 <p>If not specified, the type of the columns generated from <code>names_to</code> will
@@ -289,14 +302,14 @@ be character, and the type of the variables generated from <code>values_to</code
 will be the common type of the input columns used to generate them.</p></td>
     </tr>
     </table>
-
+    
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-    </ul>
+                </ul>
 
   </div>
 </div>

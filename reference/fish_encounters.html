@@ -15,7 +15,6 @@
 <link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
-
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 
@@ -42,14 +41,15 @@
 
 
 <meta property="og:title" content="Fish encounters — fish_encounters" />
+
 <meta property="og:description" content="Information about fish swimming down a river: each station represents an
 autonomous monitor that records if a tagged fish was seen at that location.
 Fish travel in one direction (migrating downstream). Information about
 misses is just as important as hits, but is not directly recorded in this
 form of the data." />
+
 <meta property="og:image" content="https://tidyr.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
-
 
 
 
@@ -62,7 +62,15 @@ form of the data." />
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-115082821-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
+  gtag('config', 'UA-115082821-1');
+</script>
 
   </head>
 
@@ -128,6 +136,9 @@ form of the data." />
   <ul class="dropdown-menu" role="menu">
     <li class="dropdown-header">Release notes</li>
     <li>
+      <a href="https://www.tidyverse.org/articles/2019/09/tidyr-1-0-0/">Version 1.0.0</a>
+    </li>
+    <li>
       <a href="https://www.tidyverse.org/articles/2018/02/tidyr-0-8-0/">Version 0.8.0</a>
     </li>
     <li>
@@ -182,16 +193,17 @@ form of the data." />
     </div>
 
     <div class="ref-description">
+    
     <p>Information about fish swimming down a river: each station represents an
 autonomous monitor that records if a tagged fish was seen at that location.
 Fish travel in one direction (migrating downstream). Information about
 misses is just as important as hits, but is not directly recorded in this
 form of the data.</p>
+    
     </div>
 
     <pre class="usage"><span class='no'>fish_encounters</span></pre>
-
-
+        
     <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
 
     <p>A dataset with variables:</p><dl class='dl-horizontal'>
@@ -200,18 +212,22 @@ form of the data.</p>
 <dt>seen</dt><dd><p>Was the fish seen? (1 if yes, and true for all rows)</p></dd>
 
 </dl>
+    
     <h2 class="hasAnchor" id="source"><a class="anchor" href="#source"></a>Source</h2>
 
     <p>Dataset provided by Myfanwy Johnston; more details at
 <a href='https://fishsciences.github.io/post/visualizing-fish-encounter-histories/'>https://fishsciences.github.io/post/visualizing-fish-encounter-histories/</a></p>
+    
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
+      
       <li><a href="#format">Format</a></li>
+
       <li><a href="#source">Source</a></li>
-    </ul>
+          </ul>
 
   </div>
 </div>

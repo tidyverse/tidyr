@@ -15,7 +15,6 @@
 <link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
-
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 
@@ -42,6 +41,7 @@
 
 
 <meta property="og:title" content="Rectangle a nested list into a tidy tibble — hoist" />
+
 <meta property="og:description" content="
 hoist(), unnest_longer(), and unnest_wider() provide tools for
 rectangling, collapsing deeply nested lists into regular columns.
@@ -52,9 +52,9 @@ unnest_longer() turns each element of a list-column into a row.
 unnest_auto() picks between unnest_wider() or unnest_longer()
 based heuristics described below.
 Learn more in vignette(&quot;rectangle&quot;)." />
+
 <meta property="og:image" content="https://tidyr.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
-
 
 
 
@@ -67,7 +67,15 @@ Learn more in vignette(&quot;rectangle&quot;)." />
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-115082821-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
+  gtag('config', 'UA-115082821-1');
+</script>
 
   </head>
 
@@ -133,6 +141,9 @@ Learn more in vignette(&quot;rectangle&quot;)." />
   <ul class="dropdown-menu" role="menu">
     <li class="dropdown-header">Release notes</li>
     <li>
+      <a href="https://www.tidyverse.org/articles/2019/09/tidyr-1-0-0/">Version 1.0.0</a>
+    </li>
+    <li>
       <a href="https://www.tidyverse.org/articles/2018/02/tidyr-0-8-0/">Version 0.8.0</a>
     </li>
     <li>
@@ -187,6 +198,7 @@ Learn more in vignette(&quot;rectangle&quot;)." />
     </div>
 
     <div class="ref-description">
+    
     <p><a href='https://www.tidyverse.org/lifecycle/#maturing'><img src='figures/lifecycle-maturing.svg' alt='Maturing lifecycle'></a></p>
 <p><code>hoist()</code>, <code>unnest_longer()</code>, and <code>unnest_wider()</code> provide tools for
 rectangling, collapsing deeply nested lists into regular columns.
@@ -197,6 +209,7 @@ in to their own top-level columns, using the same syntax as <code><a href='https
 <code>unnest_auto()</code> picks between <code>unnest_wider()</code> or <code>unnest_longer()</code>
 based heuristics described below.</p>
 <p>Learn more in <code><a href='../articles/rectangle.html'>vignette("rectangle")</a></code>.</p>
+    
     </div>
 
     <pre class="usage"><span class='fu'>hoist</span>(<span class='no'>.data</span>, <span class='no'>.col</span>, <span class='no'>...</span>, <span class='kw'>.remove</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>.simplify</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
@@ -210,7 +223,7 @@ based heuristics described below.</p>
   <span class='kw'>names_repair</span> <span class='kw'>=</span> <span class='st'>"check_unique"</span>, <span class='kw'>ptype</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>())
 
 <span class='fu'>unnest_auto</span>(<span class='no'>data</span>, <span class='no'>col</span>)</pre>
-
+    
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -295,7 +308,7 @@ together the outer column name with the inner names, separated by
 <code>names_sep</code>.</p></td>
     </tr>
     </table>
-
+    
     <h2 class="hasAnchor" id="unnest-variants"><a class="anchor" href="#unnest-variants"></a>Unnest variants</h2>
 
     
@@ -315,6 +328,7 @@ a list column of length one. Or if you <code>unnest_longer()</code> a list of da
 frame, the number of columns must be preserved so it creates a packed
 column. I'm not sure how if these behaviours are useful in practice, but
 they are theoretically pleasing.</p>
+    
     <h2 class="hasAnchor" id="unnest-auto-heuristics"><a class="anchor" href="#unnest-auto-heuristics"></a><code>unnest_auto()</code> heuristics</h2>
 
     
@@ -326,6 +340,7 @@ common acros all components, it uses <code>unnest_wider()</code></p></li>
 <li><p>Otherwise, it falls back to <code>unnest_longer(indices_include = TRUE)</code>.</p></li>
 </ul>
 
+    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(
@@ -347,87 +362,90 @@ common acros all components, it uses <code>unnest_wider()</code></p></li>
     )
   )
 )
-<span class='no'>df</span></div><div class='output co'>#&gt; # A tibble: 2 x 2
+<span class='no'>df</span></div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 2 x 2</span><span>
 #&gt;   character metadata        
-#&gt;   &lt;chr&gt;     &lt;list&gt;          
-#&gt; 1 Toothless &lt;named list [3]&gt;
-#&gt; 2 Dory      &lt;named list [3]&gt;</div><div class='input'>
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;list&gt;</span><span>          
+#&gt; </span><span style='color: #555555;'>1</span><span> Toothless </span><span style='color: #555555;'>&lt;named list [3]&gt;</span><span>
+#&gt; </span><span style='color: #555555;'>2</span><span> Dory      </span><span style='color: #555555;'>&lt;named list [3]&gt;</span><span></div><div class='input'>
 <span class='co'># Turn all components of metadata into columns</span>
-<span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>unnest_wider</span>(<span class='no'>metadata</span>)</div><div class='output co'>#&gt; # A tibble: 2 x 4
+<span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>unnest_wider</span>(<span class='no'>metadata</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 2 x 4</span><span>
 #&gt;   character species   color films    
-#&gt;   &lt;chr&gt;     &lt;chr&gt;     &lt;chr&gt; &lt;list&gt;   
-#&gt; 1 Toothless dragon    black &lt;chr [3]&gt;
-#&gt; 2 Dory      clownfish blue  &lt;chr [2]&gt;</div><div class='input'>
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;list&gt;</span><span>   
+#&gt; </span><span style='color: #555555;'>1</span><span> Toothless dragon    black </span><span style='color: #555555;'>&lt;chr [3]&gt;</span><span>
+#&gt; </span><span style='color: #555555;'>2</span><span> Dory      clownfish blue  </span><span style='color: #555555;'>&lt;chr [2]&gt;</span><span></div><div class='input'>
 <span class='co'># Extract only specified components</span>
 <span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>hoist</span>(<span class='no'>metadata</span>,
   <span class='kw'>species</span> <span class='kw'>=</span> <span class='st'>"species"</span>,
   <span class='kw'>first_film</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='st'>"films"</span>, <span class='fl'>1L</span>),
   <span class='kw'>third_film</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='st'>"films"</span>, <span class='fl'>3L</span>)
-)</div><div class='output co'>#&gt; # A tibble: 2 x 5
+)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 2 x 5</span><span>
 #&gt;   character species   first_film        third_film                  metadata    
-#&gt;   &lt;chr&gt;     &lt;chr&gt;     &lt;chr&gt;             &lt;chr&gt;                       &lt;list&gt;      
-#&gt; 1 Toothless dragon    How to Train You… How to Train Your Dragon: … &lt;named list…
-#&gt; 2 Dory      clownfish Finding Nemo      &lt;NA&gt;                        &lt;named list…</div><div class='input'>
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>             </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>                       </span><span style='color: #555555;font-style: italic;'>&lt;list&gt;</span><span>      
+#&gt; </span><span style='color: #555555;'>1</span><span> Toothless dragon    How to Train You… How to Train Your Dragon: … </span><span style='color: #555555;'>&lt;named list</span><span>…
+#&gt; </span><span style='color: #555555;'>2</span><span> Dory      clownfish Finding Nemo      </span><span style='color: #BB0000;'>NA</span><span>                          </span><span style='color: #555555;'>&lt;named list</span><span>…</div><div class='input'>
 <span class='no'>df</span> <span class='kw'>%&gt;%</span>
   <span class='fu'>unnest_wider</span>(<span class='no'>metadata</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'>unnest_longer</span>(<span class='no'>films</span>)</div><div class='output co'>#&gt; # A tibble: 5 x 4
+  <span class='fu'>unnest_longer</span>(<span class='no'>films</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 5 x 4</span><span>
 #&gt;   character species   color films                                     
-#&gt;   &lt;chr&gt;     &lt;chr&gt;     &lt;chr&gt; &lt;chr&gt;                                     
-#&gt; 1 Toothless dragon    black How to Train Your Dragon                  
-#&gt; 2 Toothless dragon    black How to Train Your Dragon 2                
-#&gt; 3 Toothless dragon    black How to Train Your Dragon: The Hidden World
-#&gt; 4 Dory      clownfish blue  Finding Nemo                              
-#&gt; 5 Dory      clownfish blue  Finding Dory                              </div><div class='input'><span class='co'># unnest_longer() is useful when each component of the list should</span>
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>                                     
+#&gt; </span><span style='color: #555555;'>1</span><span> Toothless dragon    black How to Train Your Dragon                  
+#&gt; </span><span style='color: #555555;'>2</span><span> Toothless dragon    black How to Train Your Dragon 2                
+#&gt; </span><span style='color: #555555;'>3</span><span> Toothless dragon    black How to Train Your Dragon: The Hidden World
+#&gt; </span><span style='color: #555555;'>4</span><span> Dory      clownfish blue  Finding Nemo                              
+#&gt; </span><span style='color: #555555;'>5</span><span> Dory      clownfish blue  Finding Dory                              </div><div class='input'><span class='co'># unnest_longer() is useful when each component of the list should</span>
 <span class='co'># form a row</span>
 <span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(
   <span class='kw'>x</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>3</span>,
   <span class='kw'>y</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>NULL</span>, <span class='fl'>1</span>:<span class='fl'>3</span>, <span class='fl'>4</span>:<span class='fl'>5</span>)
 )
-<span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>unnest_longer</span>(<span class='no'>y</span>)</div><div class='output co'>#&gt; # A tibble: 6 x 2
+<span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>unnest_longer</span>(<span class='no'>y</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 6 x 2</span><span>
 #&gt;       x     y
-#&gt;   &lt;int&gt; &lt;int&gt;
-#&gt; 1     1    NA
-#&gt; 2     2     1
-#&gt; 3     2     2
-#&gt; 4     2     3
-#&gt; 5     3     4
-#&gt; 6     3     5</div><div class='input'><span class='co'># Automatically creates names if widening</span>
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
+#&gt; </span><span style='color: #555555;'>1</span><span>     1    </span><span style='color: #BB0000;'>NA</span><span>
+#&gt; </span><span style='color: #555555;'>2</span><span>     2     1
+#&gt; </span><span style='color: #555555;'>3</span><span>     2     2
+#&gt; </span><span style='color: #555555;'>4</span><span>     2     3
+#&gt; </span><span style='color: #555555;'>5</span><span>     3     4
+#&gt; </span><span style='color: #555555;'>6</span><span>     3     5</div><div class='input'><span class='co'># Automatically creates names if widening</span>
 <span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>unnest_wider</span>(<span class='no'>y</span>)</div><div class='output co'>#&gt; <span class='message'>New names:</span>
 #&gt; <span class='message'>* `` -&gt; ...1</span>
 #&gt; <span class='message'>* `` -&gt; ...2</span>
 #&gt; <span class='message'>* `` -&gt; ...3</span></div><div class='output co'>#&gt; <span class='message'>New names:</span>
 #&gt; <span class='message'>* `` -&gt; ...1</span>
-#&gt; <span class='message'>* `` -&gt; ...2</span></div><div class='output co'>#&gt; # A tibble: 3 x 4
+#&gt; <span class='message'>* `` -&gt; ...2</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 3 x 4</span><span>
 #&gt;       x  ...1  ...2  ...3
-#&gt;   &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;
-#&gt; 1     1    NA    NA    NA
-#&gt; 2     2     1     2     3
-#&gt; 3     3     4     5    NA</div><div class='input'>
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
+#&gt; </span><span style='color: #555555;'>1</span><span>     1    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>
+#&gt; </span><span style='color: #555555;'>2</span><span>     2     1     2     3
+#&gt; </span><span style='color: #555555;'>3</span><span>     3     4     5    </span><span style='color: #BB0000;'>NA</span><span></div><div class='input'>
 <span class='co'># And similarly if the vectors are named</span>
 <span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(
   <span class='kw'>x</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>2</span>,
   <span class='kw'>y</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='kw'>a</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>b</span> <span class='kw'>=</span> <span class='fl'>2</span>), <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='kw'>a</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>b</span> <span class='kw'>=</span> <span class='fl'>11</span>, <span class='kw'>c</span> <span class='kw'>=</span> <span class='fl'>12</span>))
 )
-<span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>unnest_wider</span>(<span class='no'>y</span>)</div><div class='output co'>#&gt; # A tibble: 2 x 4
+<span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>unnest_wider</span>(<span class='no'>y</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 2 x 4</span><span>
 #&gt;       x     a     b     c
-#&gt;   &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
-#&gt; 1     1     1     2    NA
-#&gt; 2     2    10    11    12</div><div class='input'><span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>unnest_longer</span>(<span class='no'>y</span>)</div><div class='output co'>#&gt; # A tibble: 5 x 3
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'>1</span><span>     1     1     2    </span><span style='color: #BB0000;'>NA</span><span>
+#&gt; </span><span style='color: #555555;'>2</span><span>     2    10    11    12</div><div class='input'><span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>unnest_longer</span>(<span class='no'>y</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 5 x 3</span><span>
 #&gt;       x     y y_id 
-#&gt;   &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;
-#&gt; 1     1     1 a    
-#&gt; 2     1     2 b    
-#&gt; 3     2    10 a    
-#&gt; 4     2    11 b    
-#&gt; 5     2    12 c    </div><div class='input'>
-</div></pre>
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>
+#&gt; </span><span style='color: #555555;'>1</span><span>     1     1 a    
+#&gt; </span><span style='color: #555555;'>2</span><span>     1     2 b    
+#&gt; </span><span style='color: #555555;'>3</span><span>     2    10 a    
+#&gt; </span><span style='color: #555555;'>4</span><span>     2    11 b    
+#&gt; </span><span style='color: #555555;'>5</span><span>     2    12 c    </div><div class='input'>
+</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
+      
       <li><a href="#unnest-variants">Unnest variants</a></li>
+
       <li><a href="#unnest-auto-heuristics"><code>unnest_auto()</code> heuristics</a></li>
+      
       <li><a href="#examples">Examples</a></li>
     </ul>
 

@@ -15,7 +15,6 @@
 <link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
-
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 
@@ -42,13 +41,14 @@
 
 
 <meta property="og:title" content="Expand data frame to include all combinations of values — expand" />
+
 <meta property="og:description" content="expand() is often useful in conjunction with left_join() if
 you want to convert implicit missing values to explicit missing values.
 Or you can use it in conjunction with anti_join() to figure
 out which combinations are missing." />
+
 <meta property="og:image" content="https://tidyr.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
-
 
 
 
@@ -61,7 +61,15 @@ out which combinations are missing." />
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-115082821-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
+  gtag('config', 'UA-115082821-1');
+</script>
 
   </head>
 
@@ -127,6 +135,9 @@ out which combinations are missing." />
   <ul class="dropdown-menu" role="menu">
     <li class="dropdown-header">Release notes</li>
     <li>
+      <a href="https://www.tidyverse.org/articles/2019/09/tidyr-1-0-0/">Version 1.0.0</a>
+    </li>
+    <li>
       <a href="https://www.tidyverse.org/articles/2018/02/tidyr-0-8-0/">Version 0.8.0</a>
     </li>
     <li>
@@ -181,10 +192,12 @@ out which combinations are missing." />
     </div>
 
     <div class="ref-description">
+    
     <p><code>expand()</code> is often useful in conjunction with <code>left_join()</code> if
 you want to convert implicit missing values to explicit missing values.
 Or you can use it in conjunction with <code>anti_join()</code> to figure
 out which combinations are missing.</p>
+    
     </div>
 
     <pre class="usage"><span class='fu'>expand</span>(<span class='no'>data</span>, <span class='no'>...</span>)
@@ -192,7 +205,7 @@ out which combinations are missing.</p>
 <span class='fu'>crossing</span>(<span class='no'>...</span>)
 
 <span class='fu'>nesting</span>(<span class='no'>...</span>)</pre>
-
+    
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -218,99 +231,101 @@ that don't appear in the data: to do so use expressions like
 <p>Length-zero (empty) elements are automatically dropped.</p></td>
     </tr>
     </table>
-
+    
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p><code>crossing()</code> is a wrapper around <code><a href='expand_grid.html'>expand_grid()</a></code> that deduplicates and sorts
 each input. <code>nesting()</code> is the complement to <code>crossing()</code>: it only keeps
 combinations of values that appear in the data.</p>
+    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='complete.html'>complete()</a></code> for a common application of <code>expand</code>:
 completing a data frame with missing combinations. <code><a href='expand_grid.html'>expand_grid()</a></code>
 is low-level that doesn't deduplicate or sort values.</p></div>
+    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>dplyr</span>)
 <span class='co'># All possible combinations of vs &amp; cyl, even those that aren't</span>
 <span class='co'># present in the data</span>
-<span class='fu'>expand</span>(<span class='no'>mtcars</span>, <span class='no'>vs</span>, <span class='no'>cyl</span>)</div><div class='output co'>#&gt; # A tibble: 6 x 2
+<span class='fu'>expand</span>(<span class='no'>mtcars</span>, <span class='no'>vs</span>, <span class='no'>cyl</span>)</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 6 x 2</span><span>
 #&gt;      vs   cyl
-#&gt;   &lt;dbl&gt; &lt;dbl&gt;
-#&gt; 1     0     4
-#&gt; 2     0     6
-#&gt; 3     0     8
-#&gt; 4     1     4
-#&gt; 5     1     6
-#&gt; 6     1     8</div><div class='input'>
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'>1</span><span>     0     4
+#&gt; </span><span style='color: #555555;'>2</span><span>     0     6
+#&gt; </span><span style='color: #555555;'>3</span><span>     0     8
+#&gt; </span><span style='color: #555555;'>4</span><span>     1     4
+#&gt; </span><span style='color: #555555;'>5</span><span>     1     6
+#&gt; </span><span style='color: #555555;'>6</span><span>     1     8</div><div class='input'>
 <span class='co'># Only combinations of vs and cyl that appear in the data</span>
-<span class='fu'>expand</span>(<span class='no'>mtcars</span>, <span class='fu'>nesting</span>(<span class='no'>vs</span>, <span class='no'>cyl</span>))</div><div class='output co'>#&gt; # A tibble: 5 x 2
+<span class='fu'>expand</span>(<span class='no'>mtcars</span>, <span class='fu'>nesting</span>(<span class='no'>vs</span>, <span class='no'>cyl</span>))</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 5 x 2</span><span>
 #&gt;      vs   cyl
-#&gt;   &lt;dbl&gt; &lt;dbl&gt;
-#&gt; 1     0     4
-#&gt; 2     0     6
-#&gt; 3     0     8
-#&gt; 4     1     4
-#&gt; 5     1     6</div><div class='input'>
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'>1</span><span>     0     4
+#&gt; </span><span style='color: #555555;'>2</span><span>     0     6
+#&gt; </span><span style='color: #555555;'>3</span><span>     0     8
+#&gt; </span><span style='color: #555555;'>4</span><span>     1     4
+#&gt; </span><span style='color: #555555;'>5</span><span>     1     6</div><div class='input'>
 <span class='co'># Implicit missings ---------------------------------------------------------</span>
 <span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(
   <span class='kw'>year</span>   <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2010</span>, <span class='fl'>2010</span>, <span class='fl'>2010</span>, <span class='fl'>2010</span>, <span class='fl'>2012</span>, <span class='fl'>2012</span>, <span class='fl'>2012</span>),
   <span class='kw'>qtr</span>    <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(   <span class='fl'>1</span>,    <span class='fl'>2</span>,    <span class='fl'>3</span>,    <span class='fl'>4</span>,    <span class='fl'>1</span>,    <span class='fl'>2</span>,    <span class='fl'>3</span>),
   <span class='kw'>return</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>7</span>)
 )
-<span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>expand</span>(<span class='no'>year</span>, <span class='no'>qtr</span>)</div><div class='output co'>#&gt; # A tibble: 8 x 2
+<span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>expand</span>(<span class='no'>year</span>, <span class='no'>qtr</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 8 x 2</span><span>
 #&gt;    year   qtr
-#&gt;   &lt;dbl&gt; &lt;dbl&gt;
-#&gt; 1  2010     1
-#&gt; 2  2010     2
-#&gt; 3  2010     3
-#&gt; 4  2010     4
-#&gt; 5  2012     1
-#&gt; 6  2012     2
-#&gt; 7  2012     3
-#&gt; 8  2012     4</div><div class='input'><span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>expand</span>(<span class='kw'>year</span> <span class='kw'>=</span> <span class='fl'>2010</span>:<span class='fl'>2012</span>, <span class='no'>qtr</span>)</div><div class='output co'>#&gt; # A tibble: 12 x 2
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'>1</span><span>  </span><span style='text-decoration: underline;'>2</span><span>010     1
+#&gt; </span><span style='color: #555555;'>2</span><span>  </span><span style='text-decoration: underline;'>2</span><span>010     2
+#&gt; </span><span style='color: #555555;'>3</span><span>  </span><span style='text-decoration: underline;'>2</span><span>010     3
+#&gt; </span><span style='color: #555555;'>4</span><span>  </span><span style='text-decoration: underline;'>2</span><span>010     4
+#&gt; </span><span style='color: #555555;'>5</span><span>  </span><span style='text-decoration: underline;'>2</span><span>012     1
+#&gt; </span><span style='color: #555555;'>6</span><span>  </span><span style='text-decoration: underline;'>2</span><span>012     2
+#&gt; </span><span style='color: #555555;'>7</span><span>  </span><span style='text-decoration: underline;'>2</span><span>012     3
+#&gt; </span><span style='color: #555555;'>8</span><span>  </span><span style='text-decoration: underline;'>2</span><span>012     4</div><div class='input'><span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>expand</span>(<span class='kw'>year</span> <span class='kw'>=</span> <span class='fl'>2010</span>:<span class='fl'>2012</span>, <span class='no'>qtr</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 12 x 2</span><span>
 #&gt;     year   qtr
-#&gt;    &lt;int&gt; &lt;dbl&gt;
-#&gt;  1  2010     1
-#&gt;  2  2010     2
-#&gt;  3  2010     3
-#&gt;  4  2010     4
-#&gt;  5  2011     1
-#&gt;  6  2011     2
-#&gt;  7  2011     3
-#&gt;  8  2011     4
-#&gt;  9  2012     1
-#&gt; 10  2012     2
-#&gt; 11  2012     3
-#&gt; 12  2012     4</div><div class='input'><span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>expand</span>(<span class='kw'>year</span> <span class='kw'>=</span> <span class='fu'><a href='full_seq.html'>full_seq</a></span>(<span class='no'>year</span>, <span class='fl'>1</span>), <span class='no'>qtr</span>)</div><div class='output co'>#&gt; # A tibble: 12 x 2
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'> 1</span><span>  </span><span style='text-decoration: underline;'>2</span><span>010     1
+#&gt; </span><span style='color: #555555;'> 2</span><span>  </span><span style='text-decoration: underline;'>2</span><span>010     2
+#&gt; </span><span style='color: #555555;'> 3</span><span>  </span><span style='text-decoration: underline;'>2</span><span>010     3
+#&gt; </span><span style='color: #555555;'> 4</span><span>  </span><span style='text-decoration: underline;'>2</span><span>010     4
+#&gt; </span><span style='color: #555555;'> 5</span><span>  </span><span style='text-decoration: underline;'>2</span><span>011     1
+#&gt; </span><span style='color: #555555;'> 6</span><span>  </span><span style='text-decoration: underline;'>2</span><span>011     2
+#&gt; </span><span style='color: #555555;'> 7</span><span>  </span><span style='text-decoration: underline;'>2</span><span>011     3
+#&gt; </span><span style='color: #555555;'> 8</span><span>  </span><span style='text-decoration: underline;'>2</span><span>011     4
+#&gt; </span><span style='color: #555555;'> 9</span><span>  </span><span style='text-decoration: underline;'>2</span><span>012     1
+#&gt; </span><span style='color: #555555;'>10</span><span>  </span><span style='text-decoration: underline;'>2</span><span>012     2
+#&gt; </span><span style='color: #555555;'>11</span><span>  </span><span style='text-decoration: underline;'>2</span><span>012     3
+#&gt; </span><span style='color: #555555;'>12</span><span>  </span><span style='text-decoration: underline;'>2</span><span>012     4</div><div class='input'><span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>expand</span>(<span class='kw'>year</span> <span class='kw'>=</span> <span class='fu'><a href='full_seq.html'>full_seq</a></span>(<span class='no'>year</span>, <span class='fl'>1</span>), <span class='no'>qtr</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 12 x 2</span><span>
 #&gt;     year   qtr
-#&gt;    &lt;dbl&gt; &lt;dbl&gt;
-#&gt;  1  2010     1
-#&gt;  2  2010     2
-#&gt;  3  2010     3
-#&gt;  4  2010     4
-#&gt;  5  2011     1
-#&gt;  6  2011     2
-#&gt;  7  2011     3
-#&gt;  8  2011     4
-#&gt;  9  2012     1
-#&gt; 10  2012     2
-#&gt; 11  2012     3
-#&gt; 12  2012     4</div><div class='input'><span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='complete.html'>complete</a></span>(<span class='kw'>year</span> <span class='kw'>=</span> <span class='fu'><a href='full_seq.html'>full_seq</a></span>(<span class='no'>year</span>, <span class='fl'>1</span>), <span class='no'>qtr</span>)</div><div class='output co'>#&gt; # A tibble: 12 x 3
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'> 1</span><span>  </span><span style='text-decoration: underline;'>2</span><span>010     1
+#&gt; </span><span style='color: #555555;'> 2</span><span>  </span><span style='text-decoration: underline;'>2</span><span>010     2
+#&gt; </span><span style='color: #555555;'> 3</span><span>  </span><span style='text-decoration: underline;'>2</span><span>010     3
+#&gt; </span><span style='color: #555555;'> 4</span><span>  </span><span style='text-decoration: underline;'>2</span><span>010     4
+#&gt; </span><span style='color: #555555;'> 5</span><span>  </span><span style='text-decoration: underline;'>2</span><span>011     1
+#&gt; </span><span style='color: #555555;'> 6</span><span>  </span><span style='text-decoration: underline;'>2</span><span>011     2
+#&gt; </span><span style='color: #555555;'> 7</span><span>  </span><span style='text-decoration: underline;'>2</span><span>011     3
+#&gt; </span><span style='color: #555555;'> 8</span><span>  </span><span style='text-decoration: underline;'>2</span><span>011     4
+#&gt; </span><span style='color: #555555;'> 9</span><span>  </span><span style='text-decoration: underline;'>2</span><span>012     1
+#&gt; </span><span style='color: #555555;'>10</span><span>  </span><span style='text-decoration: underline;'>2</span><span>012     2
+#&gt; </span><span style='color: #555555;'>11</span><span>  </span><span style='text-decoration: underline;'>2</span><span>012     3
+#&gt; </span><span style='color: #555555;'>12</span><span>  </span><span style='text-decoration: underline;'>2</span><span>012     4</div><div class='input'><span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='complete.html'>complete</a></span>(<span class='kw'>year</span> <span class='kw'>=</span> <span class='fu'><a href='full_seq.html'>full_seq</a></span>(<span class='no'>year</span>, <span class='fl'>1</span>), <span class='no'>qtr</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 12 x 3</span><span>
 #&gt;     year   qtr   return
-#&gt;    &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;
-#&gt;  1  2010     1 -1.40   
-#&gt;  2  2010     2  0.255  
-#&gt;  3  2010     3 -2.44   
-#&gt;  4  2010     4 -0.00557
-#&gt;  5  2011     1 NA      
-#&gt;  6  2011     2 NA      
-#&gt;  7  2011     3 NA      
-#&gt;  8  2011     4 NA      
-#&gt;  9  2012     1  0.622  
-#&gt; 10  2012     2  1.15   
-#&gt; 11  2012     3 -1.82   
-#&gt; 12  2012     4 NA      </div><div class='input'>
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'> 1</span><span>  </span><span style='text-decoration: underline;'>2</span><span>010     1 -</span><span style='color: #BB0000;'>1.40</span><span>   
+#&gt; </span><span style='color: #555555;'> 2</span><span>  </span><span style='text-decoration: underline;'>2</span><span>010     2  0.255  
+#&gt; </span><span style='color: #555555;'> 3</span><span>  </span><span style='text-decoration: underline;'>2</span><span>010     3 -</span><span style='color: #BB0000;'>2.44</span><span>   
+#&gt; </span><span style='color: #555555;'> 4</span><span>  </span><span style='text-decoration: underline;'>2</span><span>010     4 -</span><span style='color: #BB0000;'>0.005</span><span style='color: #BB0000;text-decoration: underline;'>57</span><span>
+#&gt; </span><span style='color: #555555;'> 5</span><span>  </span><span style='text-decoration: underline;'>2</span><span>011     1 </span><span style='color: #BB0000;'>NA</span><span>      
+#&gt; </span><span style='color: #555555;'> 6</span><span>  </span><span style='text-decoration: underline;'>2</span><span>011     2 </span><span style='color: #BB0000;'>NA</span><span>      
+#&gt; </span><span style='color: #555555;'> 7</span><span>  </span><span style='text-decoration: underline;'>2</span><span>011     3 </span><span style='color: #BB0000;'>NA</span><span>      
+#&gt; </span><span style='color: #555555;'> 8</span><span>  </span><span style='text-decoration: underline;'>2</span><span>011     4 </span><span style='color: #BB0000;'>NA</span><span>      
+#&gt; </span><span style='color: #555555;'> 9</span><span>  </span><span style='text-decoration: underline;'>2</span><span>012     1  0.622  
+#&gt; </span><span style='color: #555555;'>10</span><span>  </span><span style='text-decoration: underline;'>2</span><span>012     2  1.15   
+#&gt; </span><span style='color: #555555;'>11</span><span>  </span><span style='text-decoration: underline;'>2</span><span>012     3 -</span><span style='color: #BB0000;'>1.82</span><span>   
+#&gt; </span><span style='color: #555555;'>12</span><span>  </span><span style='text-decoration: underline;'>2</span><span>012     4 </span><span style='color: #BB0000;'>NA</span><span>      </div><div class='input'>
 <span class='co'># Nesting -------------------------------------------------------------------</span>
 <span class='co'># Each person was given one of two treatments, repeated three times</span>
 <span class='co'># But some of the replications haven't happened yet, so we have</span>
@@ -326,51 +341,51 @@ is low-level that doesn't deduplicate or sort values.</p></div>
 <span class='co'># We can figure out the complete set of data with expand()</span>
 <span class='co'># Each person only gets one treatment, so we nest name and trt together:</span>
 <span class='no'>all</span> <span class='kw'>&lt;-</span> <span class='no'>experiment</span> <span class='kw'>%&gt;%</span> <span class='fu'>expand</span>(<span class='fu'>nesting</span>(<span class='no'>name</span>, <span class='no'>trt</span>), <span class='no'>rep</span>)
-<span class='no'>all</span></div><div class='output co'>#&gt; # A tibble: 9 x 3
+<span class='no'>all</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 9 x 3</span><span>
 #&gt;   name   trt     rep
-#&gt;   &lt;chr&gt;  &lt;chr&gt; &lt;dbl&gt;
-#&gt; 1 Alex   a         1
-#&gt; 2 Alex   a         2
-#&gt; 3 Alex   a         3
-#&gt; 4 Robert b         1
-#&gt; 5 Robert b         2
-#&gt; 6 Robert b         3
-#&gt; 7 Sam    a         1
-#&gt; 8 Sam    a         2
-#&gt; 9 Sam    a         3</div><div class='input'>
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'>1</span><span> Alex   a         1
+#&gt; </span><span style='color: #555555;'>2</span><span> Alex   a         2
+#&gt; </span><span style='color: #555555;'>3</span><span> Alex   a         3
+#&gt; </span><span style='color: #555555;'>4</span><span> Robert b         1
+#&gt; </span><span style='color: #555555;'>5</span><span> Robert b         2
+#&gt; </span><span style='color: #555555;'>6</span><span> Robert b         3
+#&gt; </span><span style='color: #555555;'>7</span><span> Sam    a         1
+#&gt; </span><span style='color: #555555;'>8</span><span> Sam    a         2
+#&gt; </span><span style='color: #555555;'>9</span><span> Sam    a         3</div><div class='input'>
 <span class='co'># We can use anti_join to figure out which observations are missing</span>
-<span class='no'>all</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/join.html'>anti_join</a></span>(<span class='no'>experiment</span>)</div><div class='output co'>#&gt; <span class='message'>Joining, by = c("name", "trt", "rep")</span></div><div class='output co'>#&gt; # A tibble: 3 x 3
+<span class='no'>all</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/join.html'>anti_join</a></span>(<span class='no'>experiment</span>)</div><div class='output co'>#&gt; <span class='message'>Joining, by = c("name", "trt", "rep")</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 3 x 3</span><span>
 #&gt;   name   trt     rep
-#&gt;   &lt;chr&gt;  &lt;chr&gt; &lt;dbl&gt;
-#&gt; 1 Robert b         3
-#&gt; 2 Sam    a         2
-#&gt; 3 Sam    a         3</div><div class='input'>
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'>1</span><span> Robert b         3
+#&gt; </span><span style='color: #555555;'>2</span><span> Sam    a         2
+#&gt; </span><span style='color: #555555;'>3</span><span> Sam    a         3</div><div class='input'>
 <span class='co'># And use right_join to add in the appropriate missing values to the</span>
 <span class='co'># original data</span>
-<span class='no'>experiment</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/join.html'>right_join</a></span>(<span class='no'>all</span>)</div><div class='output co'>#&gt; <span class='message'>Joining, by = c("name", "trt", "rep")</span></div><div class='output co'>#&gt; # A tibble: 9 x 5
+<span class='no'>experiment</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/join.html'>right_join</a></span>(<span class='no'>all</span>)</div><div class='output co'>#&gt; <span class='message'>Joining, by = c("name", "trt", "rep")</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 9 x 5</span><span>
 #&gt;   name   trt     rep measurement_1 measurement_2
-#&gt;   &lt;chr&gt;  &lt;chr&gt; &lt;dbl&gt;         &lt;dbl&gt;         &lt;dbl&gt;
-#&gt; 1 Alex   a         1        0.402          0.290
-#&gt; 2 Alex   a         2        0.196          0.678
-#&gt; 3 Alex   a         3        0.404          0.735
-#&gt; 4 Robert b         1        0.0637         0.196
-#&gt; 5 Robert b         2        0.389          0.981
-#&gt; 6 Robert b         3       NA             NA    
-#&gt; 7 Sam    a         1        0.976          0.742
-#&gt; 8 Sam    a         2       NA             NA    
-#&gt; 9 Sam    a         3       NA             NA    </div><div class='input'><span class='co'># Or use the complete() short-hand</span>
-<span class='no'>experiment</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='complete.html'>complete</a></span>(<span class='fu'>nesting</span>(<span class='no'>name</span>, <span class='no'>trt</span>), <span class='no'>rep</span>)</div><div class='output co'>#&gt; # A tibble: 9 x 5
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'>1</span><span> Alex   a         1        0.402          0.290
+#&gt; </span><span style='color: #555555;'>2</span><span> Alex   a         2        0.196          0.678
+#&gt; </span><span style='color: #555555;'>3</span><span> Alex   a         3        0.404          0.735
+#&gt; </span><span style='color: #555555;'>4</span><span> Robert b         1        0.063</span><span style='text-decoration: underline;'>7</span><span>         0.196
+#&gt; </span><span style='color: #555555;'>5</span><span> Robert b         2        0.389          0.981
+#&gt; </span><span style='color: #555555;'>6</span><span> Robert b         3       </span><span style='color: #BB0000;'>NA</span><span>             </span><span style='color: #BB0000;'>NA</span><span>    
+#&gt; </span><span style='color: #555555;'>7</span><span> Sam    a         1        0.976          0.742
+#&gt; </span><span style='color: #555555;'>8</span><span> Sam    a         2       </span><span style='color: #BB0000;'>NA</span><span>             </span><span style='color: #BB0000;'>NA</span><span>    
+#&gt; </span><span style='color: #555555;'>9</span><span> Sam    a         3       </span><span style='color: #BB0000;'>NA</span><span>             </span><span style='color: #BB0000;'>NA</span><span>    </div><div class='input'><span class='co'># Or use the complete() short-hand</span>
+<span class='no'>experiment</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='complete.html'>complete</a></span>(<span class='fu'>nesting</span>(<span class='no'>name</span>, <span class='no'>trt</span>), <span class='no'>rep</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 9 x 5</span><span>
 #&gt;   name   trt     rep measurement_1 measurement_2
-#&gt;   &lt;chr&gt;  &lt;chr&gt; &lt;dbl&gt;         &lt;dbl&gt;         &lt;dbl&gt;
-#&gt; 1 Alex   a         1        0.402          0.290
-#&gt; 2 Alex   a         2        0.196          0.678
-#&gt; 3 Alex   a         3        0.404          0.735
-#&gt; 4 Robert b         1        0.0637         0.196
-#&gt; 5 Robert b         2        0.389          0.981
-#&gt; 6 Robert b         3       NA             NA    
-#&gt; 7 Sam    a         1        0.976          0.742
-#&gt; 8 Sam    a         2       NA             NA    
-#&gt; 9 Sam    a         3       NA             NA    </div><div class='input'>
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'>1</span><span> Alex   a         1        0.402          0.290
+#&gt; </span><span style='color: #555555;'>2</span><span> Alex   a         2        0.196          0.678
+#&gt; </span><span style='color: #555555;'>3</span><span> Alex   a         3        0.404          0.735
+#&gt; </span><span style='color: #555555;'>4</span><span> Robert b         1        0.063</span><span style='text-decoration: underline;'>7</span><span>         0.196
+#&gt; </span><span style='color: #555555;'>5</span><span> Robert b         2        0.389          0.981
+#&gt; </span><span style='color: #555555;'>6</span><span> Robert b         3       </span><span style='color: #BB0000;'>NA</span><span>             </span><span style='color: #BB0000;'>NA</span><span>    
+#&gt; </span><span style='color: #555555;'>7</span><span> Sam    a         1        0.976          0.742
+#&gt; </span><span style='color: #555555;'>8</span><span> Sam    a         2       </span><span style='color: #BB0000;'>NA</span><span>             </span><span style='color: #BB0000;'>NA</span><span>    
+#&gt; </span><span style='color: #555555;'>9</span><span> Sam    a         3       </span><span style='color: #BB0000;'>NA</span><span>             </span><span style='color: #BB0000;'>NA</span><span>    </div><div class='input'>
 <span class='co'># Generate all combinations with expand():</span>
 <span class='no'>formulas</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(
   <span class='kw'>formula1</span> <span class='kw'>=</span> <span class='no'>Sepal.Length</span> ~ <span class='no'>Sepal.Width</span>,
@@ -378,25 +393,17 @@ is low-level that doesn't deduplicate or sort values.</p></div>
   <span class='kw'>formula3</span> <span class='kw'>=</span> <span class='no'>Sepal.Length</span> ~ <span class='no'>Sepal.Width</span> + <span class='no'>Petal.Width</span> + <span class='no'>Petal.Length</span>
 )
 <span class='no'>data</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/split.html'>split</a></span>(<span class='no'>iris</span>, <span class='no'>iris</span>$<span class='no'>Species</span>)
-<span class='fu'>crossing</span>(<span class='kw'>formula</span> <span class='kw'>=</span> <span class='no'>formulas</span>, <span class='no'>data</span>)</div><div class='output co'>#&gt; # A tibble: 9 x 2
-#&gt;   formula      data             
-#&gt;   &lt;named list&gt; &lt;named list&gt;     
-#&gt; 1 &lt;formula&gt;    &lt;df[,5] [50 × 5]&gt;
-#&gt; 2 &lt;formula&gt;    &lt;df[,5] [50 × 5]&gt;
-#&gt; 3 &lt;formula&gt;    &lt;df[,5] [50 × 5]&gt;
-#&gt; 4 &lt;formula&gt;    &lt;df[,5] [50 × 5]&gt;
-#&gt; 5 &lt;formula&gt;    &lt;df[,5] [50 × 5]&gt;
-#&gt; 6 &lt;formula&gt;    &lt;df[,5] [50 × 5]&gt;
-#&gt; 7 &lt;formula&gt;    &lt;df[,5] [50 × 5]&gt;
-#&gt; 8 &lt;formula&gt;    &lt;df[,5] [50 × 5]&gt;
-#&gt; 9 &lt;formula&gt;    &lt;df[,5] [50 × 5]&gt;</div></pre>
+<span class='fu'>crossing</span>(<span class='kw'>formula</span> <span class='kw'>=</span> <span class='no'>formulas</span>, <span class='no'>data</span>)</div><div class='output co'>#&gt; <span class='error'>Error: `x` must be a vector, not a `formula` object</span></div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
+      
       <li><a href="#details">Details</a></li>
+
       <li><a href="#see-also">See also</a></li>
+      
       <li><a href="#examples">Examples</a></li>
     </ul>
 
