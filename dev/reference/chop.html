@@ -62,7 +62,15 @@ so that each element of the list-column gets its own row in the output." />
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-115082821-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
+  gtag('config', 'UA-115082821-1');
+</script>
 
   </head>
 
@@ -273,64 +281,7 @@ observations.</p>
 <span class='co'># Incompatible types -------------------------------------------------</span>
 <span class='co'># If the list-col contains types that can not be natively</span>
 <span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>2</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='st'>"1"</span>, <span class='fl'>1</span>:<span class='fl'>3</span>))
-<span class='fu'><a href='https://rdrr.io/r/base/try.html'>try</a></span>(<span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>unchop</span>(<span class='no'>y</span>))</div><div class='output co'>#&gt; Error : No common type for `..1$y` &lt;character&gt; and `..2$y` &lt;integer&gt;.
-#&gt; Backtrace:
-#&gt;      █
-#&gt;   1. ├─base::tryCatch(...)
-#&gt;   2. │ └─base:::tryCatchList(expr, classes, parentenv, handlers)
-#&gt;   3. │   ├─base:::tryCatchOne(...)
-#&gt;   4. │   │ └─base:::doTryCatch(return(expr), name, parentenv, handler)
-#&gt;   5. │   └─base:::tryCatchList(expr, names[-nh], parentenv, handlers[-nh])
-#&gt;   6. │     └─base:::tryCatchOne(expr, names, parentenv, handlers[[1L]])
-#&gt;   7. │       └─base:::doTryCatch(return(expr), name, parentenv, handler)
-#&gt;   8. ├─base::withCallingHandlers(...)
-#&gt;   9. ├─base::saveRDS(...)
-#&gt;  10. ├─base::do.call(...)
-#&gt;  11. ├─(function (what, args, quote = FALSE, envir = parent.frame()) ...
-#&gt;  12. ├─(function (..., crayon_enabled, crayon_colors, pkgdown_internet) ...
-#&gt;  13. │ └─pkgdown::build_site(...)
-#&gt;  14. │   └─pkgdown:::build_site_local(...)
-#&gt;  15. │     └─pkgdown::build_reference(...)
-#&gt;  16. │       └─purrr::map(...)
-#&gt;  17. │         └─pkgdown:::.f(.x[[i]], ...)
-#&gt;  18. │           └─pkgdown:::data_reference_topic(...)
-#&gt;  19. │             └─pkgdown:::run_examples(...)
-#&gt;  20. │               └─pkgdown:::highlight_examples(code, topic, env = env)
-#&gt;  21. │                 └─evaluate::evaluate(x, child_env(env), new_device = TRUE)
-#&gt;  22. │                   └─evaluate:::evaluate_call(...)
-#&gt;  23. │                     ├─evaluate:::timing_fn(...)
-#&gt;  24. │                     ├─evaluate:::handle(...)
-#&gt;  25. │                     │ └─base::try(f, silent = TRUE)
-#&gt;  26. │                     │   └─base::tryCatch(...)
-#&gt;  27. │                     │     └─base:::tryCatchList(expr, classes, parentenv, handlers)
-#&gt;  28. │                     │       └─base:::tryCatchOne(expr, names, parentenv, handlers[[1L]])
-#&gt;  29. │                     │         └─base:::doTryCatch(return(expr), name, parentenv, handler)
-#&gt;  30. │                     ├─base::withCallingHandlers(...)
-#&gt;  31. │                     ├─base::withVisible(eval(expr, envir, enclos))
-#&gt;  32. │                     └─base::eval(expr, envir, enclos)
-#&gt;  33. │                       └─base::eval(expr, envir, enclos)
-#&gt;  34. │                         ├─base::try(df %&gt;% unchop(y))
-#&gt;  35. │                         │ └─base::tryCatch(...)
-#&gt;  36. │                         │   └─base:::tryCatchList(expr, classes, parentenv, handlers)
-#&gt;  37. │                         │     └─base:::tryCatchOne(expr, names, parentenv, handlers[[1L]])
-#&gt;  38. │                         │       └─base:::doTryCatch(return(expr), name, parentenv, handler)
-#&gt;  39. │                         └─df %&gt;% unchop(y)
-#&gt;  40. │                           ├─base::withVisible(eval(quote(`_fseq`(`_lhs`)), env, env))
-#&gt;  41. │                           └─base::eval(quote(`_fseq`(`_lhs`)), env, env)
-#&gt;  42. │                             └─base::eval(quote(`_fseq`(`_lhs`)), env, env)
-#&gt;  43. │                               └─`_fseq`(`_lhs`)
-#&gt;  44. │                                 └─magrittr::freduce(value, `_function_list`)
-#&gt;  45. │                                   ├─base::withVisible(function_list[[k]](value))
-#&gt;  46. │                                   └─function_list[[k]](value)
-#&gt;  47. │                                     └─tidyr::unchop(., y)
-#&gt;  48. │                                       └─vctrs::vec_rbind(!!!x, .ptype = ptype)
-#&gt;  49. ├─vctrs:::vec_type2_dispatch(x = x, y = y, x_arg = x_arg, y_arg = y_arg)
-#&gt;  50. ├─vctrs::vec_ptype2.character(x = x, y = y, x_arg = x_arg, y_arg = y_arg)
-#&gt;  51. └─vctrs:::vec_ptype2.character.default(...)
-#&gt;  52.   └─vctrs::vec_default_ptype2(x, y, x_arg = x_arg, y_arg = y_arg)
-#&gt;  53.     └─vctrs::stop_incompatible_type(x, y, x_arg = x_arg, y_arg = y_arg)
-#&gt;  54.       └─vctrs:::stop_incompatible(...)
-#&gt;  55.         └─vctrs:::stop_vctrs(...)</div><div class='input'><span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>unchop</span>(<span class='no'>y</span>, <span class='kw'>ptype</span> <span class='kw'>=</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(<span class='kw'>y</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/integer.html'>integer</a></span>()))</div><div class='output co'>#&gt; # A tibble: 4 x 2
+<span class='fu'><a href='https://rdrr.io/r/base/try.html'>try</a></span>(<span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>unchop</span>(<span class='no'>y</span>))</div><div class='output co'>#&gt; Error : No common type for `..1$y` &lt;character&gt; and `..2$y` &lt;integer&gt;.</div><div class='input'><span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>unchop</span>(<span class='no'>y</span>, <span class='kw'>ptype</span> <span class='kw'>=</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(<span class='kw'>y</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/integer.html'>integer</a></span>()))</div><div class='output co'>#&gt; # A tibble: 4 x 2
 #&gt;       x     y
 #&gt;   &lt;int&gt; &lt;int&gt;
 #&gt; 1     1     1

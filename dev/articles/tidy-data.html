@@ -25,7 +25,13 @@
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-<![endif]-->
+<![endif]--><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-115082821-1"></script><script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-115082821-1');
+</script>
 </head>
 <body>
     <div class="container template-article">
@@ -245,20 +251,20 @@
 <p>The following code shows a subset of a typical dataset of this form. This dataset explores the relationship between income and religion in the US. It comes from a report produced by the Pew Research Center, an American think-tank that collects data on attitudes to topics ranging from religion to the internet, and produces many reports that contain datasets in this format.</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">relig_income</a>
 <a class="sourceLine" id="cb5-2" data-line-number="2"><span class="co">#&gt; # A tibble: 18 x 11</span></a>
-<a class="sourceLine" id="cb5-3" data-line-number="3"><span class="co">#&gt;    religion `&lt;$10k` `$10-20k` `$20-30k` `$30-40k` `$40-50k` `$50-75k`</span></a>
-<a class="sourceLine" id="cb5-4" data-line-number="4"><span class="co">#&gt;    &lt;chr&gt;      &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;</span></a>
-<a class="sourceLine" id="cb5-5" data-line-number="5"><span class="co">#&gt;  1 Agnostic      27        34        60        81        76       137</span></a>
-<a class="sourceLine" id="cb5-6" data-line-number="6"><span class="co">#&gt;  2 Atheist       12        27        37        52        35        70</span></a>
-<a class="sourceLine" id="cb5-7" data-line-number="7"><span class="co">#&gt;  3 Buddhist      27        21        30        34        33        58</span></a>
-<a class="sourceLine" id="cb5-8" data-line-number="8"><span class="co">#&gt;  4 Catholic     418       617       732       670       638      1116</span></a>
-<a class="sourceLine" id="cb5-9" data-line-number="9"><span class="co">#&gt;  5 Don’t k…      15        14        15        11        10        35</span></a>
-<a class="sourceLine" id="cb5-10" data-line-number="10"><span class="co">#&gt;  6 Evangel…     575       869      1064       982       881      1486</span></a>
-<a class="sourceLine" id="cb5-11" data-line-number="11"><span class="co">#&gt;  7 Hindu          1         9         7         9        11        34</span></a>
-<a class="sourceLine" id="cb5-12" data-line-number="12"><span class="co">#&gt;  8 Histori…     228       244       236       238       197       223</span></a>
-<a class="sourceLine" id="cb5-13" data-line-number="13"><span class="co">#&gt;  9 Jehovah…      20        27        24        24        21        30</span></a>
-<a class="sourceLine" id="cb5-14" data-line-number="14"><span class="co">#&gt; 10 Jewish        19        19        25        25        30        95</span></a>
-<a class="sourceLine" id="cb5-15" data-line-number="15"><span class="co">#&gt; # … with 8 more rows, and 4 more variables: `$75-100k` &lt;dbl&gt;,</span></a>
-<a class="sourceLine" id="cb5-16" data-line-number="16"><span class="co">#&gt; #   `$100-150k` &lt;dbl&gt;, `&gt;150k` &lt;dbl&gt;, `Don't know/refused` &lt;dbl&gt;</span></a></code></pre></div>
+<a class="sourceLine" id="cb5-3" data-line-number="3"><span class="co">#&gt;    religion `&lt;$10k` `$10-20k` `$20-30k` `$30-40k` `$40-50k` `$50-75k` `$75-100k`</span></a>
+<a class="sourceLine" id="cb5-4" data-line-number="4"><span class="co">#&gt;    &lt;chr&gt;      &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;      &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb5-5" data-line-number="5"><span class="co">#&gt;  1 Agnostic      27        34        60        81        76       137        122</span></a>
+<a class="sourceLine" id="cb5-6" data-line-number="6"><span class="co">#&gt;  2 Atheist       12        27        37        52        35        70         73</span></a>
+<a class="sourceLine" id="cb5-7" data-line-number="7"><span class="co">#&gt;  3 Buddhist      27        21        30        34        33        58         62</span></a>
+<a class="sourceLine" id="cb5-8" data-line-number="8"><span class="co">#&gt;  4 Catholic     418       617       732       670       638      1116        949</span></a>
+<a class="sourceLine" id="cb5-9" data-line-number="9"><span class="co">#&gt;  5 Don’t k…      15        14        15        11        10        35         21</span></a>
+<a class="sourceLine" id="cb5-10" data-line-number="10"><span class="co">#&gt;  6 Evangel…     575       869      1064       982       881      1486        949</span></a>
+<a class="sourceLine" id="cb5-11" data-line-number="11"><span class="co">#&gt;  7 Hindu          1         9         7         9        11        34         47</span></a>
+<a class="sourceLine" id="cb5-12" data-line-number="12"><span class="co">#&gt;  8 Histori…     228       244       236       238       197       223        131</span></a>
+<a class="sourceLine" id="cb5-13" data-line-number="13"><span class="co">#&gt;  9 Jehovah…      20        27        24        24        21        30         15</span></a>
+<a class="sourceLine" id="cb5-14" data-line-number="14"><span class="co">#&gt; 10 Jewish        19        19        25        25        30        95         69</span></a>
+<a class="sourceLine" id="cb5-15" data-line-number="15"><span class="co">#&gt; # … with 8 more rows, and 3 more variables: `$100-150k` &lt;dbl&gt;, `&gt;150k` &lt;dbl&gt;,</span></a>
+<a class="sourceLine" id="cb5-16" data-line-number="16"><span class="co">#&gt; #   `Don't know/refused` &lt;dbl&gt;</span></a></code></pre></div>
 <p>This dataset has three variables, <code>religion</code>, <code>income</code> and <code>frequency</code>. To tidy it, we need to <strong>pivot</strong> the non-variable columns into a two-column key-value pair. This action is often described as making a wide dataset longer (or taller).</p>
 <p>When pivoting variables, we need to provide the name of the new key-value columns to create. After defining the colums to pivot (every column except for religion), you will need the name of the key column, which is the name of the variable defined by the values of the column headings. In this case, it’s <code>income</code>. The second argument is the name of the value column, <code>frequency</code>.</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">relig_income <span class="op">%&gt;%</span><span class="st"> </span></a>
@@ -281,33 +287,30 @@
 <p>This format is also used to record regularly spaced observations over time. For example, the Billboard dataset shown below records the date a song first entered the billboard top 100. It has variables for <code>artist</code>, <code>track</code>, <code>date.entered</code>, <code>rank</code> and <code>week</code>. The rank in each week after it enters the top 100 is recorded in 75 columns, <code>wk1</code> to <code>wk75</code>. This form of storage is not tidy, but it is useful for data entry. It reduces duplication since otherwise each song in each week would need its own row, and song metadata like title and artist would need to be repeated. This will be discussed in more depth in <a href="#multiple-types">multiple types</a>.</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">billboard</a>
 <a class="sourceLine" id="cb7-2" data-line-number="2"><span class="co">#&gt; # A tibble: 317 x 79</span></a>
-<a class="sourceLine" id="cb7-3" data-line-number="3"><span class="co">#&gt;    artist track date.entered   wk1   wk2   wk3   wk4   wk5   wk6   wk7</span></a>
-<a class="sourceLine" id="cb7-4" data-line-number="4"><span class="co">#&gt;    &lt;chr&gt;  &lt;chr&gt; &lt;date&gt;       &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span></a>
-<a class="sourceLine" id="cb7-5" data-line-number="5"><span class="co">#&gt;  1 2 Pac  Baby… 2000-02-26      87    82    72    77    87    94    99</span></a>
-<a class="sourceLine" id="cb7-6" data-line-number="6"><span class="co">#&gt;  2 2Ge+h… The … 2000-09-02      91    87    92    NA    NA    NA    NA</span></a>
-<a class="sourceLine" id="cb7-7" data-line-number="7"><span class="co">#&gt;  3 3 Doo… Kryp… 2000-04-08      81    70    68    67    66    57    54</span></a>
-<a class="sourceLine" id="cb7-8" data-line-number="8"><span class="co">#&gt;  4 3 Doo… Loser 2000-10-21      76    76    72    69    67    65    55</span></a>
-<a class="sourceLine" id="cb7-9" data-line-number="9"><span class="co">#&gt;  5 504 B… Wobb… 2000-04-15      57    34    25    17    17    31    36</span></a>
-<a class="sourceLine" id="cb7-10" data-line-number="10"><span class="co">#&gt;  6 98^0   Give… 2000-08-19      51    39    34    26    26    19     2</span></a>
-<a class="sourceLine" id="cb7-11" data-line-number="11"><span class="co">#&gt;  7 A*Tee… Danc… 2000-07-08      97    97    96    95   100    NA    NA</span></a>
-<a class="sourceLine" id="cb7-12" data-line-number="12"><span class="co">#&gt;  8 Aaliy… I Do… 2000-01-29      84    62    51    41    38    35    35</span></a>
-<a class="sourceLine" id="cb7-13" data-line-number="13"><span class="co">#&gt;  9 Aaliy… Try … 2000-03-18      59    53    38    28    21    18    16</span></a>
-<a class="sourceLine" id="cb7-14" data-line-number="14"><span class="co">#&gt; 10 Adams… Open… 2000-08-26      76    76    74    69    68    67    61</span></a>
-<a class="sourceLine" id="cb7-15" data-line-number="15"><span class="co">#&gt; # … with 307 more rows, and 69 more variables: wk8 &lt;dbl&gt;, wk9 &lt;dbl&gt;,</span></a>
-<a class="sourceLine" id="cb7-16" data-line-number="16"><span class="co">#&gt; #   wk10 &lt;dbl&gt;, wk11 &lt;dbl&gt;, wk12 &lt;dbl&gt;, wk13 &lt;dbl&gt;, wk14 &lt;dbl&gt;,</span></a>
-<a class="sourceLine" id="cb7-17" data-line-number="17"><span class="co">#&gt; #   wk15 &lt;dbl&gt;, wk16 &lt;dbl&gt;, wk17 &lt;dbl&gt;, wk18 &lt;dbl&gt;, wk19 &lt;dbl&gt;,</span></a>
-<a class="sourceLine" id="cb7-18" data-line-number="18"><span class="co">#&gt; #   wk20 &lt;dbl&gt;, wk21 &lt;dbl&gt;, wk22 &lt;dbl&gt;, wk23 &lt;dbl&gt;, wk24 &lt;dbl&gt;,</span></a>
-<a class="sourceLine" id="cb7-19" data-line-number="19"><span class="co">#&gt; #   wk25 &lt;dbl&gt;, wk26 &lt;dbl&gt;, wk27 &lt;dbl&gt;, wk28 &lt;dbl&gt;, wk29 &lt;dbl&gt;,</span></a>
-<a class="sourceLine" id="cb7-20" data-line-number="20"><span class="co">#&gt; #   wk30 &lt;dbl&gt;, wk31 &lt;dbl&gt;, wk32 &lt;dbl&gt;, wk33 &lt;dbl&gt;, wk34 &lt;dbl&gt;,</span></a>
-<a class="sourceLine" id="cb7-21" data-line-number="21"><span class="co">#&gt; #   wk35 &lt;dbl&gt;, wk36 &lt;dbl&gt;, wk37 &lt;dbl&gt;, wk38 &lt;dbl&gt;, wk39 &lt;dbl&gt;,</span></a>
-<a class="sourceLine" id="cb7-22" data-line-number="22"><span class="co">#&gt; #   wk40 &lt;dbl&gt;, wk41 &lt;dbl&gt;, wk42 &lt;dbl&gt;, wk43 &lt;dbl&gt;, wk44 &lt;dbl&gt;,</span></a>
-<a class="sourceLine" id="cb7-23" data-line-number="23"><span class="co">#&gt; #   wk45 &lt;dbl&gt;, wk46 &lt;dbl&gt;, wk47 &lt;dbl&gt;, wk48 &lt;dbl&gt;, wk49 &lt;dbl&gt;,</span></a>
-<a class="sourceLine" id="cb7-24" data-line-number="24"><span class="co">#&gt; #   wk50 &lt;dbl&gt;, wk51 &lt;dbl&gt;, wk52 &lt;dbl&gt;, wk53 &lt;dbl&gt;, wk54 &lt;dbl&gt;,</span></a>
-<a class="sourceLine" id="cb7-25" data-line-number="25"><span class="co">#&gt; #   wk55 &lt;dbl&gt;, wk56 &lt;dbl&gt;, wk57 &lt;dbl&gt;, wk58 &lt;dbl&gt;, wk59 &lt;dbl&gt;,</span></a>
-<a class="sourceLine" id="cb7-26" data-line-number="26"><span class="co">#&gt; #   wk60 &lt;dbl&gt;, wk61 &lt;dbl&gt;, wk62 &lt;dbl&gt;, wk63 &lt;dbl&gt;, wk64 &lt;dbl&gt;,</span></a>
-<a class="sourceLine" id="cb7-27" data-line-number="27"><span class="co">#&gt; #   wk65 &lt;dbl&gt;, wk66 &lt;lgl&gt;, wk67 &lt;lgl&gt;, wk68 &lt;lgl&gt;, wk69 &lt;lgl&gt;,</span></a>
-<a class="sourceLine" id="cb7-28" data-line-number="28"><span class="co">#&gt; #   wk70 &lt;lgl&gt;, wk71 &lt;lgl&gt;, wk72 &lt;lgl&gt;, wk73 &lt;lgl&gt;, wk74 &lt;lgl&gt;,</span></a>
-<a class="sourceLine" id="cb7-29" data-line-number="29"><span class="co">#&gt; #   wk75 &lt;lgl&gt;, wk76 &lt;lgl&gt;</span></a></code></pre></div>
+<a class="sourceLine" id="cb7-3" data-line-number="3"><span class="co">#&gt;    artist track date.entered   wk1   wk2   wk3   wk4   wk5   wk6   wk7   wk8</span></a>
+<a class="sourceLine" id="cb7-4" data-line-number="4"><span class="co">#&gt;    &lt;chr&gt;  &lt;chr&gt; &lt;date&gt;       &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb7-5" data-line-number="5"><span class="co">#&gt;  1 2 Pac  Baby… 2000-02-26      87    82    72    77    87    94    99    NA</span></a>
+<a class="sourceLine" id="cb7-6" data-line-number="6"><span class="co">#&gt;  2 2Ge+h… The … 2000-09-02      91    87    92    NA    NA    NA    NA    NA</span></a>
+<a class="sourceLine" id="cb7-7" data-line-number="7"><span class="co">#&gt;  3 3 Doo… Kryp… 2000-04-08      81    70    68    67    66    57    54    53</span></a>
+<a class="sourceLine" id="cb7-8" data-line-number="8"><span class="co">#&gt;  4 3 Doo… Loser 2000-10-21      76    76    72    69    67    65    55    59</span></a>
+<a class="sourceLine" id="cb7-9" data-line-number="9"><span class="co">#&gt;  5 504 B… Wobb… 2000-04-15      57    34    25    17    17    31    36    49</span></a>
+<a class="sourceLine" id="cb7-10" data-line-number="10"><span class="co">#&gt;  6 98^0   Give… 2000-08-19      51    39    34    26    26    19     2     2</span></a>
+<a class="sourceLine" id="cb7-11" data-line-number="11"><span class="co">#&gt;  7 A*Tee… Danc… 2000-07-08      97    97    96    95   100    NA    NA    NA</span></a>
+<a class="sourceLine" id="cb7-12" data-line-number="12"><span class="co">#&gt;  8 Aaliy… I Do… 2000-01-29      84    62    51    41    38    35    35    38</span></a>
+<a class="sourceLine" id="cb7-13" data-line-number="13"><span class="co">#&gt;  9 Aaliy… Try … 2000-03-18      59    53    38    28    21    18    16    14</span></a>
+<a class="sourceLine" id="cb7-14" data-line-number="14"><span class="co">#&gt; 10 Adams… Open… 2000-08-26      76    76    74    69    68    67    61    58</span></a>
+<a class="sourceLine" id="cb7-15" data-line-number="15"><span class="co">#&gt; # … with 307 more rows, and 68 more variables: wk9 &lt;dbl&gt;, wk10 &lt;dbl&gt;,</span></a>
+<a class="sourceLine" id="cb7-16" data-line-number="16"><span class="co">#&gt; #   wk11 &lt;dbl&gt;, wk12 &lt;dbl&gt;, wk13 &lt;dbl&gt;, wk14 &lt;dbl&gt;, wk15 &lt;dbl&gt;, wk16 &lt;dbl&gt;,</span></a>
+<a class="sourceLine" id="cb7-17" data-line-number="17"><span class="co">#&gt; #   wk17 &lt;dbl&gt;, wk18 &lt;dbl&gt;, wk19 &lt;dbl&gt;, wk20 &lt;dbl&gt;, wk21 &lt;dbl&gt;, wk22 &lt;dbl&gt;,</span></a>
+<a class="sourceLine" id="cb7-18" data-line-number="18"><span class="co">#&gt; #   wk23 &lt;dbl&gt;, wk24 &lt;dbl&gt;, wk25 &lt;dbl&gt;, wk26 &lt;dbl&gt;, wk27 &lt;dbl&gt;, wk28 &lt;dbl&gt;,</span></a>
+<a class="sourceLine" id="cb7-19" data-line-number="19"><span class="co">#&gt; #   wk29 &lt;dbl&gt;, wk30 &lt;dbl&gt;, wk31 &lt;dbl&gt;, wk32 &lt;dbl&gt;, wk33 &lt;dbl&gt;, wk34 &lt;dbl&gt;,</span></a>
+<a class="sourceLine" id="cb7-20" data-line-number="20"><span class="co">#&gt; #   wk35 &lt;dbl&gt;, wk36 &lt;dbl&gt;, wk37 &lt;dbl&gt;, wk38 &lt;dbl&gt;, wk39 &lt;dbl&gt;, wk40 &lt;dbl&gt;,</span></a>
+<a class="sourceLine" id="cb7-21" data-line-number="21"><span class="co">#&gt; #   wk41 &lt;dbl&gt;, wk42 &lt;dbl&gt;, wk43 &lt;dbl&gt;, wk44 &lt;dbl&gt;, wk45 &lt;dbl&gt;, wk46 &lt;dbl&gt;,</span></a>
+<a class="sourceLine" id="cb7-22" data-line-number="22"><span class="co">#&gt; #   wk47 &lt;dbl&gt;, wk48 &lt;dbl&gt;, wk49 &lt;dbl&gt;, wk50 &lt;dbl&gt;, wk51 &lt;dbl&gt;, wk52 &lt;dbl&gt;,</span></a>
+<a class="sourceLine" id="cb7-23" data-line-number="23"><span class="co">#&gt; #   wk53 &lt;dbl&gt;, wk54 &lt;dbl&gt;, wk55 &lt;dbl&gt;, wk56 &lt;dbl&gt;, wk57 &lt;dbl&gt;, wk58 &lt;dbl&gt;,</span></a>
+<a class="sourceLine" id="cb7-24" data-line-number="24"><span class="co">#&gt; #   wk59 &lt;dbl&gt;, wk60 &lt;dbl&gt;, wk61 &lt;dbl&gt;, wk62 &lt;dbl&gt;, wk63 &lt;dbl&gt;, wk64 &lt;dbl&gt;,</span></a>
+<a class="sourceLine" id="cb7-25" data-line-number="25"><span class="co">#&gt; #   wk65 &lt;dbl&gt;, wk66 &lt;lgl&gt;, wk67 &lt;lgl&gt;, wk68 &lt;lgl&gt;, wk69 &lt;lgl&gt;, wk70 &lt;lgl&gt;,</span></a>
+<a class="sourceLine" id="cb7-26" data-line-number="26"><span class="co">#&gt; #   wk71 &lt;lgl&gt;, wk72 &lt;lgl&gt;, wk73 &lt;lgl&gt;, wk74 &lt;lgl&gt;, wk75 &lt;lgl&gt;, wk76 &lt;lgl&gt;</span></a></code></pre></div>
 <p>To tidy this dataset, we first use <code><a href="../reference/pivot_longer.html">pivot_longer()</a></code> to make the dataset longer. We transform the columns from <code>wk1</code> to <code>wk76</code>, making a new column for their names, <code>week</code>, and a new value for their values, <code>rank</code>:</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">billboard2 &lt;-<span class="st"> </span>billboard <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb8-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/pivot_longer.html">pivot_longer</a></span>(</a>
@@ -394,21 +397,21 @@
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1">tb &lt;-<span class="st"> </span><span class="kw"><a href="https://tibble.tidyverse.org/reference/as_tibble.html">as_tibble</a></span>(<span class="kw"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span>(<span class="st">"tb.csv"</span>, <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>))</a>
 <a class="sourceLine" id="cb12-2" data-line-number="2">tb</a>
 <a class="sourceLine" id="cb12-3" data-line-number="3"><span class="co">#&gt; # A tibble: 5,769 x 22</span></a>
-<a class="sourceLine" id="cb12-4" data-line-number="4"><span class="co">#&gt;    iso2   year   m04  m514  m014 m1524 m2534 m3544 m4554 m5564   m65    mu</span></a>
-<a class="sourceLine" id="cb12-5" data-line-number="5"><span class="co">#&gt;    &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;</span></a>
-<a class="sourceLine" id="cb12-6" data-line-number="6"><span class="co">#&gt;  1 AD     1989    NA    NA    NA    NA    NA    NA    NA    NA    NA    NA</span></a>
-<a class="sourceLine" id="cb12-7" data-line-number="7"><span class="co">#&gt;  2 AD     1990    NA    NA    NA    NA    NA    NA    NA    NA    NA    NA</span></a>
-<a class="sourceLine" id="cb12-8" data-line-number="8"><span class="co">#&gt;  3 AD     1991    NA    NA    NA    NA    NA    NA    NA    NA    NA    NA</span></a>
-<a class="sourceLine" id="cb12-9" data-line-number="9"><span class="co">#&gt;  4 AD     1992    NA    NA    NA    NA    NA    NA    NA    NA    NA    NA</span></a>
-<a class="sourceLine" id="cb12-10" data-line-number="10"><span class="co">#&gt;  5 AD     1993    NA    NA    NA    NA    NA    NA    NA    NA    NA    NA</span></a>
-<a class="sourceLine" id="cb12-11" data-line-number="11"><span class="co">#&gt;  6 AD     1994    NA    NA    NA    NA    NA    NA    NA    NA    NA    NA</span></a>
-<a class="sourceLine" id="cb12-12" data-line-number="12"><span class="co">#&gt;  7 AD     1996    NA    NA     0     0     0     4     1     0     0    NA</span></a>
-<a class="sourceLine" id="cb12-13" data-line-number="13"><span class="co">#&gt;  8 AD     1997    NA    NA     0     0     1     2     2     1     6    NA</span></a>
-<a class="sourceLine" id="cb12-14" data-line-number="14"><span class="co">#&gt;  9 AD     1998    NA    NA     0     0     0     1     0     0     0    NA</span></a>
-<a class="sourceLine" id="cb12-15" data-line-number="15"><span class="co">#&gt; 10 AD     1999    NA    NA     0     0     0     1     1     0     0    NA</span></a>
-<a class="sourceLine" id="cb12-16" data-line-number="16"><span class="co">#&gt; # … with 5,759 more rows, and 10 more variables: f04 &lt;int&gt;, f514 &lt;int&gt;,</span></a>
-<a class="sourceLine" id="cb12-17" data-line-number="17"><span class="co">#&gt; #   f014 &lt;int&gt;, f1524 &lt;int&gt;, f2534 &lt;int&gt;, f3544 &lt;int&gt;, f4554 &lt;int&gt;,</span></a>
-<a class="sourceLine" id="cb12-18" data-line-number="18"><span class="co">#&gt; #   f5564 &lt;int&gt;, f65 &lt;int&gt;, fu &lt;int&gt;</span></a></code></pre></div>
+<a class="sourceLine" id="cb12-4" data-line-number="4"><span class="co">#&gt;    iso2   year   m04  m514  m014 m1524 m2534 m3544 m4554 m5564   m65    mu   f04</span></a>
+<a class="sourceLine" id="cb12-5" data-line-number="5"><span class="co">#&gt;    &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;</span></a>
+<a class="sourceLine" id="cb12-6" data-line-number="6"><span class="co">#&gt;  1 AD     1989    NA    NA    NA    NA    NA    NA    NA    NA    NA    NA    NA</span></a>
+<a class="sourceLine" id="cb12-7" data-line-number="7"><span class="co">#&gt;  2 AD     1990    NA    NA    NA    NA    NA    NA    NA    NA    NA    NA    NA</span></a>
+<a class="sourceLine" id="cb12-8" data-line-number="8"><span class="co">#&gt;  3 AD     1991    NA    NA    NA    NA    NA    NA    NA    NA    NA    NA    NA</span></a>
+<a class="sourceLine" id="cb12-9" data-line-number="9"><span class="co">#&gt;  4 AD     1992    NA    NA    NA    NA    NA    NA    NA    NA    NA    NA    NA</span></a>
+<a class="sourceLine" id="cb12-10" data-line-number="10"><span class="co">#&gt;  5 AD     1993    NA    NA    NA    NA    NA    NA    NA    NA    NA    NA    NA</span></a>
+<a class="sourceLine" id="cb12-11" data-line-number="11"><span class="co">#&gt;  6 AD     1994    NA    NA    NA    NA    NA    NA    NA    NA    NA    NA    NA</span></a>
+<a class="sourceLine" id="cb12-12" data-line-number="12"><span class="co">#&gt;  7 AD     1996    NA    NA     0     0     0     4     1     0     0    NA    NA</span></a>
+<a class="sourceLine" id="cb12-13" data-line-number="13"><span class="co">#&gt;  8 AD     1997    NA    NA     0     0     1     2     2     1     6    NA    NA</span></a>
+<a class="sourceLine" id="cb12-14" data-line-number="14"><span class="co">#&gt;  9 AD     1998    NA    NA     0     0     0     1     0     0     0    NA    NA</span></a>
+<a class="sourceLine" id="cb12-15" data-line-number="15"><span class="co">#&gt; 10 AD     1999    NA    NA     0     0     0     1     1     0     0    NA    NA</span></a>
+<a class="sourceLine" id="cb12-16" data-line-number="16"><span class="co">#&gt; # … with 5,759 more rows, and 9 more variables: f514 &lt;int&gt;, f014 &lt;int&gt;,</span></a>
+<a class="sourceLine" id="cb12-17" data-line-number="17"><span class="co">#&gt; #   f1524 &lt;int&gt;, f2534 &lt;int&gt;, f3544 &lt;int&gt;, f4554 &lt;int&gt;, f5564 &lt;int&gt;, f65 &lt;int&gt;,</span></a>
+<a class="sourceLine" id="cb12-18" data-line-number="18"><span class="co">#&gt; #   fu &lt;int&gt;</span></a></code></pre></div>
 <p>First we use <code><a href="../reference/pivot_longer.html">pivot_longer()</a></code> to gather up the non-variable columns:</p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1">tb2 &lt;-<span class="st"> </span>tb <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb13-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/pivot_longer.html">pivot_longer</a></span>(</a>
@@ -481,23 +484,23 @@
 <div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1">weather &lt;-<span class="st"> </span><span class="kw"><a href="https://tibble.tidyverse.org/reference/as_tibble.html">as_tibble</a></span>(<span class="kw"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span>(<span class="st">"weather.csv"</span>, <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>))</a>
 <a class="sourceLine" id="cb16-2" data-line-number="2">weather</a>
 <a class="sourceLine" id="cb16-3" data-line-number="3"><span class="co">#&gt; # A tibble: 22 x 35</span></a>
-<a class="sourceLine" id="cb16-4" data-line-number="4"><span class="co">#&gt;    id     year month element    d1    d2    d3    d4    d5    d6    d7</span></a>
-<a class="sourceLine" id="cb16-5" data-line-number="5"><span class="co">#&gt;    &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span></a>
-<a class="sourceLine" id="cb16-6" data-line-number="6"><span class="co">#&gt;  1 MX17…  2010     1 tmax       NA  NA    NA      NA  NA      NA    NA</span></a>
-<a class="sourceLine" id="cb16-7" data-line-number="7"><span class="co">#&gt;  2 MX17…  2010     1 tmin       NA  NA    NA      NA  NA      NA    NA</span></a>
-<a class="sourceLine" id="cb16-8" data-line-number="8"><span class="co">#&gt;  3 MX17…  2010     2 tmax       NA  27.3  24.1    NA  NA      NA    NA</span></a>
-<a class="sourceLine" id="cb16-9" data-line-number="9"><span class="co">#&gt;  4 MX17…  2010     2 tmin       NA  14.4  14.4    NA  NA      NA    NA</span></a>
-<a class="sourceLine" id="cb16-10" data-line-number="10"><span class="co">#&gt;  5 MX17…  2010     3 tmax       NA  NA    NA      NA  32.1    NA    NA</span></a>
-<a class="sourceLine" id="cb16-11" data-line-number="11"><span class="co">#&gt;  6 MX17…  2010     3 tmin       NA  NA    NA      NA  14.2    NA    NA</span></a>
-<a class="sourceLine" id="cb16-12" data-line-number="12"><span class="co">#&gt;  7 MX17…  2010     4 tmax       NA  NA    NA      NA  NA      NA    NA</span></a>
-<a class="sourceLine" id="cb16-13" data-line-number="13"><span class="co">#&gt;  8 MX17…  2010     4 tmin       NA  NA    NA      NA  NA      NA    NA</span></a>
-<a class="sourceLine" id="cb16-14" data-line-number="14"><span class="co">#&gt;  9 MX17…  2010     5 tmax       NA  NA    NA      NA  NA      NA    NA</span></a>
-<a class="sourceLine" id="cb16-15" data-line-number="15"><span class="co">#&gt; 10 MX17…  2010     5 tmin       NA  NA    NA      NA  NA      NA    NA</span></a>
-<a class="sourceLine" id="cb16-16" data-line-number="16"><span class="co">#&gt; # … with 12 more rows, and 24 more variables: d8 &lt;dbl&gt;, d9 &lt;lgl&gt;,</span></a>
-<a class="sourceLine" id="cb16-17" data-line-number="17"><span class="co">#&gt; #   d10 &lt;dbl&gt;, d11 &lt;dbl&gt;, d12 &lt;lgl&gt;, d13 &lt;dbl&gt;, d14 &lt;dbl&gt;, d15 &lt;dbl&gt;,</span></a>
-<a class="sourceLine" id="cb16-18" data-line-number="18"><span class="co">#&gt; #   d16 &lt;dbl&gt;, d17 &lt;dbl&gt;, d18 &lt;lgl&gt;, d19 &lt;lgl&gt;, d20 &lt;lgl&gt;, d21 &lt;lgl&gt;,</span></a>
-<a class="sourceLine" id="cb16-19" data-line-number="19"><span class="co">#&gt; #   d22 &lt;lgl&gt;, d23 &lt;dbl&gt;, d24 &lt;lgl&gt;, d25 &lt;dbl&gt;, d26 &lt;dbl&gt;, d27 &lt;dbl&gt;,</span></a>
-<a class="sourceLine" id="cb16-20" data-line-number="20"><span class="co">#&gt; #   d28 &lt;dbl&gt;, d29 &lt;dbl&gt;, d30 &lt;dbl&gt;, d31 &lt;dbl&gt;</span></a></code></pre></div>
+<a class="sourceLine" id="cb16-4" data-line-number="4"><span class="co">#&gt;    id     year month element    d1    d2    d3    d4    d5    d6    d7    d8</span></a>
+<a class="sourceLine" id="cb16-5" data-line-number="5"><span class="co">#&gt;    &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb16-6" data-line-number="6"><span class="co">#&gt;  1 MX17…  2010     1 tmax       NA  NA    NA      NA  NA      NA    NA    NA</span></a>
+<a class="sourceLine" id="cb16-7" data-line-number="7"><span class="co">#&gt;  2 MX17…  2010     1 tmin       NA  NA    NA      NA  NA      NA    NA    NA</span></a>
+<a class="sourceLine" id="cb16-8" data-line-number="8"><span class="co">#&gt;  3 MX17…  2010     2 tmax       NA  27.3  24.1    NA  NA      NA    NA    NA</span></a>
+<a class="sourceLine" id="cb16-9" data-line-number="9"><span class="co">#&gt;  4 MX17…  2010     2 tmin       NA  14.4  14.4    NA  NA      NA    NA    NA</span></a>
+<a class="sourceLine" id="cb16-10" data-line-number="10"><span class="co">#&gt;  5 MX17…  2010     3 tmax       NA  NA    NA      NA  32.1    NA    NA    NA</span></a>
+<a class="sourceLine" id="cb16-11" data-line-number="11"><span class="co">#&gt;  6 MX17…  2010     3 tmin       NA  NA    NA      NA  14.2    NA    NA    NA</span></a>
+<a class="sourceLine" id="cb16-12" data-line-number="12"><span class="co">#&gt;  7 MX17…  2010     4 tmax       NA  NA    NA      NA  NA      NA    NA    NA</span></a>
+<a class="sourceLine" id="cb16-13" data-line-number="13"><span class="co">#&gt;  8 MX17…  2010     4 tmin       NA  NA    NA      NA  NA      NA    NA    NA</span></a>
+<a class="sourceLine" id="cb16-14" data-line-number="14"><span class="co">#&gt;  9 MX17…  2010     5 tmax       NA  NA    NA      NA  NA      NA    NA    NA</span></a>
+<a class="sourceLine" id="cb16-15" data-line-number="15"><span class="co">#&gt; 10 MX17…  2010     5 tmin       NA  NA    NA      NA  NA      NA    NA    NA</span></a>
+<a class="sourceLine" id="cb16-16" data-line-number="16"><span class="co">#&gt; # … with 12 more rows, and 23 more variables: d9 &lt;lgl&gt;, d10 &lt;dbl&gt;, d11 &lt;dbl&gt;,</span></a>
+<a class="sourceLine" id="cb16-17" data-line-number="17"><span class="co">#&gt; #   d12 &lt;lgl&gt;, d13 &lt;dbl&gt;, d14 &lt;dbl&gt;, d15 &lt;dbl&gt;, d16 &lt;dbl&gt;, d17 &lt;dbl&gt;,</span></a>
+<a class="sourceLine" id="cb16-18" data-line-number="18"><span class="co">#&gt; #   d18 &lt;lgl&gt;, d19 &lt;lgl&gt;, d20 &lt;lgl&gt;, d21 &lt;lgl&gt;, d22 &lt;lgl&gt;, d23 &lt;dbl&gt;,</span></a>
+<a class="sourceLine" id="cb16-19" data-line-number="19"><span class="co">#&gt; #   d24 &lt;lgl&gt;, d25 &lt;dbl&gt;, d26 &lt;dbl&gt;, d27 &lt;dbl&gt;, d28 &lt;dbl&gt;, d29 &lt;dbl&gt;,</span></a>
+<a class="sourceLine" id="cb16-20" data-line-number="20"><span class="co">#&gt; #   d30 &lt;dbl&gt;, d31 &lt;dbl&gt;</span></a></code></pre></div>
 <p>It has variables in individual columns (<code>id</code>, <code>year</code>, <code>month</code>), spread across columns (<code>day</code>, d1-d31) and across rows (<code>tmin</code>, <code>tmax</code>) (minimum and maximum temperature). Months with fewer than 31 days have structural missing values for the last day(s) of the month.</p>
 <p>To tidy this dataset we first use pivot_longer to gather the day columns:</p>
 <div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1">weather2 &lt;-<span class="st"> </span>weather <span class="op">%&gt;%</span><span class="st"> </span></a>
