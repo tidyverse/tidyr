@@ -231,7 +231,10 @@ for more options.</p></td>
       <td><p>A set of columns that uniquely identifies each observation.
 Defaults to all columns in <code>data</code> except for the columns specified in
 <code>names_from</code> and <code>values_from</code>. Typically used when you have additional
-variables that is directly related.</p></td>
+variables that is directly related.</p>
+<p>This takes a tidyselect specification, e.g. use <code>a:c</code> to select all
+columns from <code>a</code> to <code>c</code>, <code><a href='https://rdrr.io/pkg/tidyselect/man/select_helpers.html'>starts_with("prefix")</a></code> to select all columns
+starting with "prefix", or <code><a href='https://rdrr.io/pkg/tidyselect/man/select_helpers.html'>everything()</a></code> to select all columns.</p></td>
     </tr>
     <tr>
       <th>values_fill</th>

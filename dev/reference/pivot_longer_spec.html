@@ -253,8 +253,10 @@ will be the common type of the input columns used to generate them.</p></td>
     </tr>
     <tr>
       <th>cols</th>
-      <td><p>Columns to pivot into longer format. This takes a tidyselect
-specification.</p></td>
+      <td><p>Columns to pivot into longer format.</p>
+<p>This takes a tidyselect specification, e.g. use <code>a:c</code> to select all
+columns from <code>a</code> to <code>c</code>, <code><a href='https://rdrr.io/pkg/tidyselect/man/select_helpers.html'>starts_with("prefix")</a></code> to select all columns
+starting with "prefix", or <code><a href='https://rdrr.io/pkg/tidyselect/man/select_helpers.html'>everything()</a></code> to select all columns.</p></td>
     </tr>
     <tr>
       <th>names_to</th>
