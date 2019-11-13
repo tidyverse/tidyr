@@ -16,8 +16,11 @@
 #' under active development.
 #'
 #' @param data A data frame to pivot.
-#' @param cols Columns to pivot into longer format. This takes a tidyselect
-#'   specification.
+#' @param cols Columns to pivot into longer format.
+#'
+#'   This takes a tidyselect specification, e.g. use `a:c` to select all
+#'   columns from `a` to `c`, `starts_with("prefix")` to select all columns
+#'   starting with "prefix", or `everything()` to select all columns.
 #' @param names_to A string specifying the name of the column to create
 #'   from the data stored in the column names of `data`.
 #'
