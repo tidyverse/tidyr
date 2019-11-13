@@ -52,8 +52,11 @@ If not specified, the type of the columns generated from \code{names_to} will
 be character, and the type of the variables generated from \code{values_to}
 will be the common type of the input columns used to generate them.}
 
-\item{cols}{Columns to pivot into longer format. This takes a tidyselect
-specification.}
+\item{cols}{Columns to pivot into longer format.
+
+This takes a tidyselect specification, e.g. use \code{a:c} to select all
+columns from \code{a} to \code{c}, \code{starts_with("prefix")} to select all columns
+starting with "prefix", or \code{everything()} to select all columns.}
 
 \item{names_to}{A string specifying the name of the column to create
 from the data stored in the column names of \code{data}.

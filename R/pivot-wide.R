@@ -22,6 +22,10 @@
 #'   Defaults to all columns in `data` except for the columns specified in
 #'   `names_from` and `values_from`. Typically used when you have additional
 #'   variables that is directly related.
+#'
+#'   This takes a tidyselect specification, e.g. use `a:c` to select all
+#'   columns from `a` to `c`, `starts_with("prefix")` to select all columns
+#'   starting with "prefix", or `everything()` to select all columns.
 #' @param names_from,values_from A pair of arguments describing which column
 #'   (or columns) to get the name of the output column (`name_from`), and
 #'   which column (or columns) to get the cell values from (`values_from`).
