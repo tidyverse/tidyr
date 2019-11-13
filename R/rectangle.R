@@ -64,7 +64,7 @@
 #'        )
 #'     ),
 #'     list(
-#'       species = "clownfish",
+#'       species = "blue tang",
 #'       color = "blue",
 #'       films = c("Finding Nemo", "Finding Dory")
 #'     )

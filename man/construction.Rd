@@ -7,7 +7,7 @@
 \format{A dataset with variables:
 \describe{
 \item{Year,Month}{Record date}
-\item{\code{1 unit}, \code{2 to 4 units}, \code{5 units or mote}}{Number of completed
+\item{\verb{1 unit}, \verb{2 to 4 units}, \verb{5 units or mote}}{Number of completed
 units of each size}
 \item{Northeast,Midwest,South,West}{Number of completed units in each region}
 }}

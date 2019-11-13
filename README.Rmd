@@ -17,7 +17,7 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 [![CRAN status](https://www.r-pkg.org/badges/version/tidyr)](https://cran.r-project.org/package=tidyr)
 [![Travis build status](https://travis-ci.org/tidyverse/tidyr.svg?branch=master)](https://travis-ci.org/tidyverse/tidyr)
-[![AppVeyor build status](https://ci.appveyor.com/api/projects/status/github/tidyverse/tidyr?branch=master&svg=true)](https://ci.appveyor.com/project/tidyverse/tidyr)
+[![R build status](https://github.com/tidyverse/tidyr/workflows/R-CMD-check/badge.svg)](https://github.com/tidyverse/tidyr/actions?workflow=R-CMD-check)
 [![Codecov test coverage](https://codecov.io/gh/tidyverse/tidyr/branch/master/graph/badge.svg)](https://codecov.io/gh/tidyverse/tidyr?branch=master)
 <!-- badges: end -->
   
@@ -26,7 +26,7 @@ knitr::opts_chunk$set(
 The goal of tidyr is to help you create __tidy data__. Tidy data is data where:
 
 1. Every column is variable.
-1. Every row is an observation..
+1. Every row is an observation.
 1. Every cell is a single value.
 
 Tidy data describes a standard way of storing data that is used wherever possible throughout the [tidyverse](https://tidyverse.org). If you ensure that your data is tidy, you'll spend less time fighting with the tools and more time working on your analysis. Learn more about tidy data in `vignette("tidy-data")`.

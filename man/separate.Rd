@@ -5,8 +5,17 @@
 \title{Separate a character column into multiple columns using a regular
 expression separator}
 \usage{
-separate(data, col, into, sep = "[^[:alnum:]]+", remove = TRUE,
-  convert = FALSE, extra = "warn", fill = "warn", ...)
+separate(
+  data,
+  col,
+  into,
+  sep = "[^[:alnum:]]+",
+  remove = TRUE,
+  convert = FALSE,
+  extra = "warn",
+  fill = "warn",
+  ...
+)
 }
 \arguments{
 \item{data}{A data frame.}
