@@ -24,7 +24,7 @@ a row for every student for each date.
 For factors, the full set of levels (not just those that appear in the
 data) are used. For continuous variables, you may need to fill in values
 that don't appear in the data: to do so use expressions like
-\code{year = 2010:2020} or \code{year = \link{full_seq}(year,1)}.
+\code{year = 2010:2020} or \verb{year = \link{full_seq}(year,1)}.
 
 Length-zero (empty) elements are automatically dropped.}
 

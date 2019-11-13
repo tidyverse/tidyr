@@ -15,8 +15,6 @@
 #' unnest <- unnest_legacy
 #' ```
 #'
-#' @inheritParams gather
-#' @inheritParams expand
 #' @param data A data frame.
 #' @param .key The name of the new column, as a string or symbol. This argument
 #'   is passed by expression and supports
