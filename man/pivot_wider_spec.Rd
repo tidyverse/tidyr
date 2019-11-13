@@ -5,11 +5,22 @@
 \alias{build_wider_spec}
 \title{Pivot data from long to wide using a spec}
 \usage{
-pivot_wider_spec(data, spec, names_repair = "check_unique",
-  id_cols = NULL, values_fill = NULL, values_fn = NULL)
+pivot_wider_spec(
+  data,
+  spec,
+  names_repair = "check_unique",
+  id_cols = NULL,
+  values_fill = NULL,
+  values_fn = NULL
+)
 
-build_wider_spec(data, names_from = name, values_from = value,
-  names_prefix = "", names_sep = "_")
+build_wider_spec(
+  data,
+  names_from = name,
+  values_from = value,
+  names_prefix = "",
+  names_sep = "_"
+)
 }
 \arguments{
 \item{data}{A data frame to pivot.}
@@ -23,7 +34,11 @@ for more options.}
 \item{id_cols}{A set of columns that uniquely identifies each observation.
 Defaults to all columns in \code{data} except for the columns specified in
 \code{names_from} and \code{values_from}. Typically used when you have additional
-variables that is directly related.}
+variables that is directly related.
+
+This takes a tidyselect specification, e.g. use \code{a:c} to select all
+columns from \code{a} to \code{c}, \code{starts_with("prefix")} to select all columns
+starting with "prefix", or \code{everything()} to select all columns.}
 
 \item{values_fill}{Optionally, a named list specifying what each \code{value}
 should be filled in with when missing.}

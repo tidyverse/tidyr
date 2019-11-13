@@ -5,8 +5,15 @@
 \title{Extract a character column into multiple columns using regular
 expression groups}
 \usage{
-extract(data, col, into, regex = "([[:alnum:]]+)", remove = TRUE,
-  convert = FALSE, ...)
+extract(
+  data,
+  col,
+  into,
+  regex = "([[:alnum:]]+)",
+  remove = TRUE,
+  convert = FALSE,
+  ...
+)
 }
 \arguments{
 \item{data}{A data frame.}
@@ -22,7 +29,7 @@ names or column positions).}
 Use \code{NA} to omit the variable in the output.}
 
 \item{regex}{a regular expression used to extract the desired values.
-There should be one group (defined by \code{()}) for each element of \code{into}.}
+There should be one group (defined by \verb{()}) for each element of \code{into}.}
 
 \item{remove}{If \code{TRUE}, remove input column from output data frame.}
 

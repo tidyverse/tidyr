@@ -32,7 +32,7 @@
 #'   data, filling in missing combinations with `fill`.
 #' @param sep If `NULL`, the column names will be taken from the values of
 #'   `key` variable. If non-`NULL`, the column names will be given
-#'   by "<key_name><sep><key_value>".
+#'   by `"<key_name><sep><key_value>"`.
 #' @export
 #' @examples
 #' library(dplyr)

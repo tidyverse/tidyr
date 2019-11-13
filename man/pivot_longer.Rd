@@ -4,16 +4,28 @@
 \alias{pivot_longer}
 \title{Pivot data from wide to long}
 \usage{
-pivot_longer(data, cols, names_to = "name", names_prefix = NULL,
-  names_sep = NULL, names_pattern = NULL, names_ptypes = list(),
-  names_repair = "check_unique", values_to = "value",
-  values_drop_na = FALSE, values_ptypes = list())
+pivot_longer(
+  data,
+  cols,
+  names_to = "name",
+  names_prefix = NULL,
+  names_sep = NULL,
+  names_pattern = NULL,
+  names_ptypes = list(),
+  names_repair = "check_unique",
+  values_to = "value",
+  values_drop_na = FALSE,
+  values_ptypes = list()
+)
 }
 \arguments{
 \item{data}{A data frame to pivot.}
 
-\item{cols}{Columns to pivot into longer format. This takes a tidyselect
-specification.}
+\item{cols}{Columns to pivot into longer format.
+
+This takes a tidyselect specification, e.g. use \code{a:c} to select all
+columns from \code{a} to \code{c}, \code{starts_with("prefix")} to select all columns
+starting with "prefix", or \code{everything()} to select all columns.}
 
 \item{names_to}{A string specifying the name of the column to create
 from the data stored in the column names of \code{data}.
@@ -32,7 +44,7 @@ be a numeric vector (specifying positions to break on), or a single string
 (specifying a regular expression to split on).
 
 \code{names_pattern} takes the same specification as \code{\link[=extract]{extract()}}, a regular
-expression containing matching groups (\code{()}).
+expression containing matching groups (\verb{()}).
 
 If these arguments do not give you enough control, use
 \code{pivot_longer_spec()} to create a spec object and process manually as

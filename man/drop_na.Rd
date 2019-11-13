@@ -30,7 +30,7 @@ expressions and context expressions.
 like \code{x:y} or \code{c(x, y)}. In a data expression, you can only refer
 to columns from the data frame.
 \item Everything else is a context expression in which you can only
-refer to objects that you have defined with \code{<-}.
+refer to objects that you have defined with \verb{<-}.
 }
 
 For instance, \code{col1:col3} is a data expression that refers to data
@@ -39,7 +39,7 @@ refers to objects from the contexts.
 
 If you really need to refer to contextual objects from a data
 expression, you can unquote them with the tidy eval operator
-\code{!!}. This operator evaluates its argument in the context and
+\verb{!!}. This operator evaluates its argument in the context and
 inlines the result in the surrounding function call. For instance,
 \code{c(x, !! x)} selects the \code{x} column within the data frame and the
 column referred to by the object \code{x} defined in the context (which

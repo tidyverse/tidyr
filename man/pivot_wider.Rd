@@ -4,9 +4,17 @@
 \alias{pivot_wider}
 \title{Pivot data from long to wide}
 \usage{
-pivot_wider(data, id_cols = NULL, names_from = name,
-  names_prefix = "", names_sep = "_", names_repair = "check_unique",
-  values_from = value, values_fill = NULL, values_fn = NULL)
+pivot_wider(
+  data,
+  id_cols = NULL,
+  names_from = name,
+  names_prefix = "",
+  names_sep = "_",
+  names_repair = "check_unique",
+  values_from = value,
+  values_fill = NULL,
+  values_fn = NULL
+)
 }
 \arguments{
 \item{data}{A data frame to pivot.}
@@ -14,7 +22,11 @@ pivot_wider(data, id_cols = NULL, names_from = name,
 \item{id_cols}{A set of columns that uniquely identifies each observation.
 Defaults to all columns in \code{data} except for the columns specified in
 \code{names_from} and \code{values_from}. Typically used when you have additional
-variables that is directly related.}
+variables that is directly related.
+
+This takes a tidyselect specification, e.g. use \code{a:c} to select all
+columns from \code{a} to \code{c}, \code{starts_with("prefix")} to select all columns
+starting with "prefix", or \code{everything()} to select all columns.}
 
 \item{names_from, values_from}{A pair of arguments describing which column
 (or columns) to get the name of the output column (\code{name_from}), and

@@ -79,7 +79,7 @@
 #'   \item{variable}{Variable name: income = median yearly income,
 #'      rent = median monthly rent}
 #'   \item{estimate}{Estimated value}
-#'   \item{moe}{90\% margin of error}
+#'   \item{moe}{90% margin of error}
 #' }
 "us_rent_income"
 
