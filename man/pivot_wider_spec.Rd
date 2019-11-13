@@ -5,11 +5,22 @@
 \alias{build_wider_spec}
 \title{Pivot data from long to wide using a spec}
 \usage{
-pivot_wider_spec(data, spec, names_repair = "check_unique",
-  id_cols = NULL, values_fill = NULL, values_fn = NULL)
+pivot_wider_spec(
+  data,
+  spec,
+  names_repair = "check_unique",
+  id_cols = NULL,
+  values_fill = NULL,
+  values_fn = NULL
+)
 
-build_wider_spec(data, names_from = name, values_from = value,
-  names_prefix = "", names_sep = "_")
+build_wider_spec(
+  data,
+  names_from = name,
+  values_from = value,
+  names_prefix = "",
+  names_sep = "_"
+)
 }
 \arguments{
 \item{data}{A data frame to pivot.}

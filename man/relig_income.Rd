@@ -7,7 +7,7 @@
 \format{A dataset with variables:
 \describe{
 \item{religion}{Name of religion}
-\item{\code{<$10k}-\code{Don\'t know/refused}}{Number of respondees with
+\item{\verb{<$10k}-\verb{Don\\'t know/refused}}{Number of respondees with
 income range in column name}
 }}
 \source{

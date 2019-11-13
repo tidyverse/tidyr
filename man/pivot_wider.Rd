@@ -4,9 +4,17 @@
 \alias{pivot_wider}
 \title{Pivot data from long to wide}
 \usage{
-pivot_wider(data, id_cols = NULL, names_from = name,
-  names_prefix = "", names_sep = "_", names_repair = "check_unique",
-  values_from = value, values_fill = NULL, values_fn = NULL)
+pivot_wider(
+  data,
+  id_cols = NULL,
+  names_from = name,
+  names_prefix = "",
+  names_sep = "_",
+  names_repair = "check_unique",
+  values_from = value,
+  values_fill = NULL,
+  values_fn = NULL
+)
 }
 \arguments{
 \item{data}{A data frame to pivot.}

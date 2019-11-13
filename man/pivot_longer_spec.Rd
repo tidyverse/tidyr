@@ -5,12 +5,24 @@
 \alias{build_longer_spec}
 \title{Pivot data from wide to long using a spec}
 \usage{
-pivot_longer_spec(data, spec, names_repair = "check_unique",
-  values_drop_na = FALSE, values_ptypes = list())
+pivot_longer_spec(
+  data,
+  spec,
+  names_repair = "check_unique",
+  values_drop_na = FALSE,
+  values_ptypes = list()
+)
 
-build_longer_spec(data, cols, names_to = "name", values_to = "value",
-  names_prefix = NULL, names_sep = NULL, names_pattern = NULL,
-  names_ptypes = NULL)
+build_longer_spec(
+  data,
+  cols,
+  names_to = "name",
+  values_to = "value",
+  names_prefix = NULL,
+  names_sep = NULL,
+  names_pattern = NULL,
+  names_ptypes = NULL
+)
 }
 \arguments{
 \item{data}{A data frame to pivot.}
@@ -66,7 +78,7 @@ be a numeric vector (specifying positions to break on), or a single string
 (specifying a regular expression to split on).
 
 \code{names_pattern} takes the same specification as \code{\link[=extract]{extract()}}, a regular
-expression containing matching groups (\code{()}).
+expression containing matching groups (\verb{()}).
 
 If these arguments does not give you enough control, use
 \code{pivot_longer_spec()} to create a spec object and process manually as
@@ -80,7 +92,7 @@ be a numeric vector (specifying positions to break on), or a single string
 (specifying a regular expression to split on).
 
 \code{names_pattern} takes the same specification as \code{\link[=extract]{extract()}}, a regular
-expression containing matching groups (\code{()}).
+expression containing matching groups (\verb{()}).
 
 If these arguments does not give you enough control, use
 \code{pivot_longer_spec()} to create a spec object and process manually as

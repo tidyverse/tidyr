@@ -7,10 +7,19 @@
 \usage{
 nest(.data, ..., .key = deprecated())
 
-unnest(data, cols, ..., keep_empty = FALSE, ptype = NULL,
-  names_sep = NULL, names_repair = "check_unique",
-  .drop = deprecated(), .id = deprecated(), .sep = deprecated(),
-  .preserve = deprecated())
+unnest(
+  data,
+  cols,
+  ...,
+  keep_empty = FALSE,
+  ptype = NULL,
+  names_sep = NULL,
+  names_repair = "check_unique",
+  .drop = deprecated(),
+  .id = deprecated(),
+  .sep = deprecated(),
+  .preserve = deprecated()
+)
 }
 \arguments{
 \item{.data}{A data frame.}
@@ -77,7 +86,7 @@ don't want in the output use \code{select()} to remove them prior to
 unnesting.}
 
 \item{.id}{\Sexpr[results=rd, stage=render]{lifecycle::badge("deprecated")}:
-convert \code{df \%>\% unnest(x, .id = "id")} to \code{df \%>\% mutate(id = names(x)) \%>\% unnest(x))}.}
+convert \code{df \%>\% unnest(x, .id = "id")} to \verb{df \%>\% mutate(id = names(x)) \%>\% unnest(x))}.}
 
 \item{.sep}{\Sexpr[results=rd, stage=render]{lifecycle::badge("deprecated")}:
 use \code{names_sep} instead.}

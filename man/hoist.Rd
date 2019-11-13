@@ -7,15 +7,27 @@
 \alias{unnest_auto}
 \title{Rectangle a nested list into a tidy tibble}
 \usage{
-hoist(.data, .col, ..., .remove = TRUE, .simplify = TRUE,
-  .ptype = list())
+hoist(.data, .col, ..., .remove = TRUE, .simplify = TRUE, .ptype = list())
 
-unnest_longer(data, col, values_to = NULL, indices_to = NULL,
-  indices_include = NULL, names_repair = "check_unique",
-  simplify = TRUE, ptype = list())
+unnest_longer(
+  data,
+  col,
+  values_to = NULL,
+  indices_to = NULL,
+  indices_include = NULL,
+  names_repair = "check_unique",
+  simplify = TRUE,
+  ptype = list()
+)
 
-unnest_wider(data, col, names_sep = NULL, simplify = TRUE,
-  names_repair = "check_unique", ptype = list())
+unnest_wider(
+  data,
+  col,
+  names_sep = NULL,
+  simplify = TRUE,
+  names_repair = "check_unique",
+  ptype = list()
+)
 
 unnest_auto(data, col)
 }
@@ -42,7 +54,7 @@ output type of each component.}
 
 \item{indices_to}{A string giving the name of column which will contain the
 inner names or position (if not named) of the values. Defaults to \code{col}
-with \code{_id} suffix}
+with \verb{_id} suffix}
 
 \item{indices_include}{Add an index column? Defaults to \code{TRUE} when \code{col}
 has inner names.}

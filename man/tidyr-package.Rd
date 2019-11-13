@@ -6,7 +6,7 @@
 \alias{tidyr-package}
 \title{tidyr: Tidy Messy Data}
 \description{
-\if{html}{\figure{logo.png}{options: align='right'}}
+\if{html}{\figure{logo.png}{options: align='right' alt='logo' width='120'}}
 
 Tools to help to create tidy data, where each column is a 
     variable, each row is an observation, and each cell contains a single value.  
