@@ -235,7 +235,7 @@ unnest <- function(data,
     list_cols <- names(data)[map_lgl(data, is_list)]
     cols <- expr(c(!!!syms(setdiff(list_cols, .preserve))))
     warn(paste0(
-      "`cols` is now required.\n",
+      "`cols` is now required when using unnest().\n",
       "Please use `cols = ", expr_text(cols), "`"
     ))
     deprecated <- TRUE
