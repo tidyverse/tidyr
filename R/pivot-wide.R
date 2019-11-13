@@ -131,10 +131,12 @@ pivot_wider_spec <- function(data,
   df_rows <- data[key_vars]
   if (ncol(df_rows) == 0) {
     rows <- tibble(.rows = 1)
+    nrow <- 1L
     row_id <- rep(1L, nrow(df_rows))
   } else {
-    rows <- vec_unique(df_rows)
-    row_id <- vec_match(df_rows, rows)
+    row_id <- vec_group_id(df_rows)
+    nrow <- attr(row_id, "n")
+    rows <- vec_slice(df_rows, vec_unique_loc(row_id))
   }
 
   value_specs <- unname(split(spec, spec$.value))
@@ -158,7 +160,6 @@ pivot_wider_spec <- function(data,
     val_id <- dedup$key
     val <- dedup$val
 
-    nrow <- nrow(rows)
     ncol <- nrow(spec_i)
 
     fill <- values_fill[[value]]
