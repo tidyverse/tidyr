@@ -226,23 +226,53 @@ argument. See <code><a href='https://dplyr.tidyverse.org/articles/programming.ht
 
 <span class='fu'>nesting_</span>(<span class='no'>x</span>)
 
-<span class='fu'>extract_</span>(<span class='no'>data</span>, <span class='no'>col</span>, <span class='no'>into</span>, <span class='kw'>regex</span> <span class='kw'>=</span> <span class='st'>"([[:alnum:]]+)"</span>, <span class='kw'>remove</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>convert</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)
+<span class='fu'>extract_</span>(
+  <span class='no'>data</span>,
+  <span class='no'>col</span>,
+  <span class='no'>into</span>,
+  <span class='kw'>regex</span> <span class='kw'>=</span> <span class='st'>"([[:alnum:]]+)"</span>,
+  <span class='kw'>remove</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>convert</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='no'>...</span>
+)
 
 <span class='fu'>fill_</span>(<span class='no'>data</span>, <span class='no'>fill_cols</span>, <span class='kw'>.direction</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"down"</span>, <span class='st'>"up"</span>))
 
-<span class='fu'>gather_</span>(<span class='no'>data</span>, <span class='no'>key_col</span>, <span class='no'>value_col</span>, <span class='no'>gather_cols</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>convert</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>factor_key</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+<span class='fu'>gather_</span>(
+  <span class='no'>data</span>,
+  <span class='no'>key_col</span>,
+  <span class='no'>value_col</span>,
+  <span class='no'>gather_cols</span>,
+  <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>convert</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>factor_key</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
+)
 
 <span class='fu'>nest_</span>(<span class='no'>...</span>)
 
 <span class='fu'>separate_rows_</span>(<span class='no'>data</span>, <span class='no'>cols</span>, <span class='kw'>sep</span> <span class='kw'>=</span> <span class='st'>"[^[:alnum:].]+"</span>, <span class='kw'>convert</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
-<span class='fu'>separate_</span>(<span class='no'>data</span>, <span class='no'>col</span>, <span class='no'>into</span>, <span class='kw'>sep</span> <span class='kw'>=</span> <span class='st'>"[^[:alnum:]]+"</span>, <span class='kw'>remove</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>convert</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>extra</span> <span class='kw'>=</span> <span class='st'>"warn"</span>, <span class='kw'>fill</span> <span class='kw'>=</span> <span class='st'>"warn"</span>, <span class='no'>...</span>)
+<span class='fu'>separate_</span>(
+  <span class='no'>data</span>,
+  <span class='no'>col</span>,
+  <span class='no'>into</span>,
+  <span class='kw'>sep</span> <span class='kw'>=</span> <span class='st'>"[^[:alnum:]]+"</span>,
+  <span class='kw'>remove</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>convert</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>extra</span> <span class='kw'>=</span> <span class='st'>"warn"</span>,
+  <span class='kw'>fill</span> <span class='kw'>=</span> <span class='st'>"warn"</span>,
+  <span class='no'>...</span>
+)
 
-<span class='fu'>spread_</span>(<span class='no'>data</span>, <span class='no'>key_col</span>, <span class='no'>value_col</span>, <span class='kw'>fill</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>convert</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>drop</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>sep</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
+<span class='fu'>spread_</span>(
+  <span class='no'>data</span>,
+  <span class='no'>key_col</span>,
+  <span class='no'>value_col</span>,
+  <span class='kw'>fill</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
+  <span class='kw'>convert</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>drop</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>sep</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
+)
 
 <span class='fu'>unite_</span>(<span class='no'>data</span>, <span class='no'>col</span>, <span class='no'>from</span>, <span class='kw'>sep</span> <span class='kw'>=</span> <span class='st'>"_"</span>, <span class='kw'>remove</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 
@@ -274,7 +304,7 @@ a row for every student for each date.</p>
 <p>For factors, the full set of levels (not just those that appear in the
 data) are used. For continuous variables, you may need to fill in values
 that don't appear in the data: to do so use expressions like
-<code>year = 2010:2020</code> or <code>year = <a href='full_seq.html'>full_seq</a>(year,1)</code>.</p>
+<code>year = 2010:2020</code> or <code>year = \link{full_seq}(year,1)</code>.</p>
 <p>Length-zero (empty) elements are automatically dropped.</p></td>
     </tr>
     <tr>
@@ -318,8 +348,7 @@ or "updown" (first up and then down).</p></td>
     </tr>
     <tr>
       <th>key_col, value_col</th>
-      <td><p>Strings giving names of key and value columns to
-create.</p></td>
+      <td><p>Strings giving names of key and value cols.</p></td>
     </tr>
     <tr>
       <th>gather_cols</th>
@@ -339,7 +368,9 @@ which preserves the original ordering of the columns.</p></td>
     </tr>
     <tr>
       <th>sep</th>
-      <td><p>Separator delimiting collapsed values.</p></td>
+      <td><p><img src='figures/lifecycle-deprecated.svg' alt='Deprecated lifecycle' />
+:
+use <code>names_sep</code> instead.</p></td>
     </tr>
     <tr>
       <th>extra</th>
@@ -352,8 +383,11 @@ happens when there are too many pieces. There are three valid options:</p><ul>
     </tr>
     <tr>
       <th>drop</th>
-      <td><p>If <code>FALSE</code>, will keep factor levels that don't appear in the
-data, filling in missing combinations with <code>fill</code>.</p></td>
+      <td><p><img src='figures/lifecycle-deprecated.svg' alt='Deprecated lifecycle' />
+:
+all list-columns are now preserved; If there are any that you
+don't want in the output use <code>select()</code> to remove them prior to
+unnesting.</p></td>
     </tr>
     <tr>
       <th>from</th>
@@ -362,10 +396,6 @@ data, filling in missing combinations with <code>fill</code>.</p></td>
     <tr>
       <th>expand_cols</th>
       <td><p>Character vector of column names to be expanded.</p></td>
-    </tr>
-    <tr>
-      <th>key_col, value_col</th>
-      <td><p>Strings giving names of key and value cols.</p></td>
     </tr>
     </table>
 

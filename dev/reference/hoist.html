@@ -210,15 +210,27 @@ based heuristics described below.</p>
 <p>Learn more in <code><a href='../articles/rectangle.html'>vignette("rectangle")</a></code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>hoist</span>(<span class='no'>.data</span>, <span class='no'>.col</span>, <span class='no'>...</span>, <span class='kw'>.remove</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>.simplify</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>.ptype</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>())
+    <pre class="usage"><span class='fu'>hoist</span>(<span class='no'>.data</span>, <span class='no'>.col</span>, <span class='no'>...</span>, <span class='kw'>.remove</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>.simplify</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>.ptype</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>())
 
-<span class='fu'>unnest_longer</span>(<span class='no'>data</span>, <span class='no'>col</span>, <span class='kw'>values_to</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>indices_to</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>indices_include</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>names_repair</span> <span class='kw'>=</span> <span class='st'>"check_unique"</span>,
-  <span class='kw'>simplify</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>ptype</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>())
+<span class='fu'>unnest_longer</span>(
+  <span class='no'>data</span>,
+  <span class='no'>col</span>,
+  <span class='kw'>values_to</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>indices_to</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>indices_include</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>names_repair</span> <span class='kw'>=</span> <span class='st'>"check_unique"</span>,
+  <span class='kw'>simplify</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>ptype</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>()
+)
 
-<span class='fu'>unnest_wider</span>(<span class='no'>data</span>, <span class='no'>col</span>, <span class='kw'>names_sep</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>simplify</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>names_repair</span> <span class='kw'>=</span> <span class='st'>"check_unique"</span>, <span class='kw'>ptype</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>())
+<span class='fu'>unnest_wider</span>(
+  <span class='no'>data</span>,
+  <span class='no'>col</span>,
+  <span class='kw'>names_sep</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>simplify</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>names_repair</span> <span class='kw'>=</span> <span class='st'>"check_unique"</span>,
+  <span class='kw'>ptype</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>()
+)
 
 <span class='fu'>unnest_auto</span>(<span class='no'>data</span>, <span class='no'>col</span>)</pre>
 
@@ -352,7 +364,7 @@ common acros all components, it uses <code>unnest_wider()</code></p></li>
        )
     ),
     <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(
-      <span class='kw'>species</span> <span class='kw'>=</span> <span class='st'>"clownfish"</span>,
+      <span class='kw'>species</span> <span class='kw'>=</span> <span class='st'>"blue tang"</span>,
       <span class='kw'>color</span> <span class='kw'>=</span> <span class='st'>"blue"</span>,
       <span class='kw'>films</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Finding Nemo"</span>, <span class='st'>"Finding Dory"</span>)
     )
@@ -368,7 +380,7 @@ common acros all components, it uses <code>unnest_wider()</code></p></li>
 #&gt;   character species   color films    
 #&gt;   &lt;chr&gt;     &lt;chr&gt;     &lt;chr&gt; &lt;list&gt;   
 #&gt; 1 Toothless dragon    black &lt;chr [3]&gt;
-#&gt; 2 Dory      clownfish blue  &lt;chr [2]&gt;</div><div class='input'>
+#&gt; 2 Dory      blue tang blue  &lt;chr [2]&gt;</div><div class='input'>
 <span class='co'># Extract only specified components</span>
 <span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>hoist</span>(<span class='no'>metadata</span>,
   <span class='kw'>species</span> <span class='kw'>=</span> <span class='st'>"species"</span>,
@@ -378,7 +390,7 @@ common acros all components, it uses <code>unnest_wider()</code></p></li>
 #&gt;   character species   first_film        third_film                  metadata    
 #&gt;   &lt;chr&gt;     &lt;chr&gt;     &lt;chr&gt;             &lt;chr&gt;                       &lt;list&gt;      
 #&gt; 1 Toothless dragon    How to Train You… How to Train Your Dragon: … &lt;named list…
-#&gt; 2 Dory      clownfish Finding Nemo      &lt;NA&gt;                        &lt;named list…</div><div class='input'>
+#&gt; 2 Dory      blue tang Finding Nemo      &lt;NA&gt;                        &lt;named list…</div><div class='input'>
 <span class='no'>df</span> <span class='kw'>%&gt;%</span>
   <span class='fu'>unnest_wider</span>(<span class='no'>metadata</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'>unnest_longer</span>(<span class='no'>films</span>)</div><div class='output co'>#&gt; # A tibble: 5 x 4
@@ -387,8 +399,8 @@ common acros all components, it uses <code>unnest_wider()</code></p></li>
 #&gt; 1 Toothless dragon    black How to Train Your Dragon                  
 #&gt; 2 Toothless dragon    black How to Train Your Dragon 2                
 #&gt; 3 Toothless dragon    black How to Train Your Dragon: The Hidden World
-#&gt; 4 Dory      clownfish blue  Finding Nemo                              
-#&gt; 5 Dory      clownfish blue  Finding Dory                              </div><div class='input'><span class='co'># unnest_longer() is useful when each component of the list should</span>
+#&gt; 4 Dory      blue tang blue  Finding Nemo                              
+#&gt; 5 Dory      blue tang blue  Finding Dory                              </div><div class='input'><span class='co'># unnest_longer() is useful when each component of the list should</span>
 <span class='co'># form a row</span>
 <span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(
   <span class='kw'>x</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>3</span>,
