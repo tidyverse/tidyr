@@ -47,6 +47,16 @@ test_that("input validation catches problems", {
   expect_error(df %>% hoist(x, "a"), "named")
 })
 
+# https://github.com/tidyverse/tidyr/issues/806
+test_that("hoisted list-col represents emptiness with a length-0 element", {
+  df <- tibble(x = list(
+    list(universal = "a", patchy = 1:2),
+    list(universal = "b")
+  ))
+  out <- df %>% hoist(x, patchy = "patchy")
+  expect_length(out$patchy[[2]], 0)
+})
+
 # strike ------------------------------------------------------------------
 
 test_that("strike can remove using a character vector", {
@@ -153,6 +163,16 @@ test_that("list_of columns can be unnested", {
 
   df <- tibble(x = 1:2, y = list_of(c(a = 1L), c(b = 1:2)))
   expect_named(unnest_wider(df, y), c("x", "a", "b1", "b2"))
+})
+
+# https://github.com/tidyverse/tidyr/issues/806
+test_that("unnested list-col represents emptiness with a length-0 element", {
+  df <- tibble(x = list(
+    list(universal = "a", patchy = 1:2),
+    list(universal = "b")
+  ))
+  out <- df %>% unnest_wider(x)
+  expect_length(out$patchy[[2]], 0)
 })
 
 # unnest_longer -----------------------------------------------------------
