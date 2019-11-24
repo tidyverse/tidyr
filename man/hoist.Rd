@@ -168,6 +168,7 @@ df \%>\% hoist(metadata,
 df \%>\%
   unnest_wider(metadata) \%>\%
   unnest_longer(films)
+
 # unnest_longer() is useful when each component of the list should
 # form a row
 df <- tibble(
@@ -177,6 +178,8 @@ df <- tibble(
 df \%>\% unnest_longer(y)
 # Automatically creates names if widening
 df \%>\% unnest_wider(y)
+# But you'll usually want to provide names_sep:
+df \%>\% unnest_wider(y, names_sep = "_")
 
 # And similarly if the vectors are named
 df <- tibble(

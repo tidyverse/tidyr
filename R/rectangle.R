@@ -85,7 +85,7 @@
 #' df %>%
 #'   unnest_wider(metadata) %>%
 #'   unnest_longer(films)
-#
+#'
 #' # unnest_longer() is useful when each component of the list should
 #' # form a row
 #' df <- tibble(
@@ -95,6 +95,8 @@
 #' df %>% unnest_longer(y)
 #' # Automatically creates names if widening
 #' df %>% unnest_wider(y)
+#' # But you'll usually want to provide names_sep:
+#' df %>% unnest_wider(y, names_sep = "_")
 #'
 #' # And similarly if the vectors are named
 #' df <- tibble(
@@ -209,7 +211,7 @@ unnest_wider <- function(data, col,
                          ptype = list()) {
   col <- tidyselect::vars_select(tbl_vars(data), !!enquo(col))
 
-  data[[col]] <- map(data[[col]], vec_to_wide, col = col)
+  data[[col]] <- map(data[[col]], vec_to_wide, col = col, names_sep = names_sep)
   data <- unchop(data, !!col, keep_empty = TRUE)
   inner_cols <- names(data[[col]])
 
@@ -220,7 +222,7 @@ unnest_wider <- function(data, col,
     simplify = simplify
   )
 
-  unpack(data, !!col, names_sep = names_sep, names_repair = names_repair)
+  unpack(data, !!col, names_repair = names_repair)
 }
 
 #' @export
@@ -358,10 +360,16 @@ vec_simplify <- function(x) {
 
 
 # 1 row; n cols
-vec_to_wide <- function(x, col) {
+vec_to_wide <- function(x, col, names_sep = NULL) {
   if (is.null(x)) {
-    NULL
-  } else if (is.data.frame(x)) {
+    return(NULL)
+  }
+
+  if (!is.null(names_sep)) {
+    names(x) <- paste0(col, names_sep, index(x))
+  }
+
+  if (is.data.frame(x)) {
     as_tibble(map(x, list))
   } else if (vec_is(x)) {
     if (is.list(x)) {

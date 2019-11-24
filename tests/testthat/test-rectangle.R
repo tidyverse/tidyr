@@ -155,6 +155,19 @@ test_that("list_of columns can be unnested", {
   expect_named(unnest_wider(df, y), c("x", "a", "b1", "b2"))
 })
 
+test_that("names_sep creates unique names", {
+  df <- tibble(
+    x = list("a", c("a", "b", "c")),
+    y = list(c(a = 1), c(b = 2, a = 1))
+  )
+  expect_warning(out <- unnest_wider(df, x, names_sep = "_"), NA)
+  expect_named(out, c("x_1", "x_2", "x_3", "y"))
+
+  expect_warning(out <- unnest_wider(df, y, names_sep = "_"), NA)
+  expect_named(out, c("x", "y_a", "y_b"))
+  expect_equal(out$y_a, c(1, 1))
+})
+
 # unnest_longer -----------------------------------------------------------
 
 test_that("uses input for default column names", {

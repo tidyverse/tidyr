@@ -1,5 +1,8 @@
 # tidyr (development version)
 
+* `unnest_wider(names_sep = "")` now provides default names for unnamed inputs,
+  suppressing the many previous name repair messages (#742).
+
 * `unite(na.rm = TRUE)` now works for all types of variable, not just
   character vectors (#765).
 
