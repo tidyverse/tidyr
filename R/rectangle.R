@@ -228,7 +228,7 @@ unnest_wider <- function(data, col,
 #' @export
 #' @rdname hoist
 unnest_auto <- function(data, col) {
-  col <- tidyselect::vars_select(tbl_vars(data), !!enquo(col))
+  col <- tidyselect::vars_pull(tbl_vars(data), !!enquo(col))
 
   x <- data[[col]]
   dir <- guess_dir(x, col)
