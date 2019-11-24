@@ -112,7 +112,7 @@ hoist <- function(.data, .col, ..., .remove = TRUE, .simplify = TRUE, .ptype = l
     abort("`col` must be a list-column")
   }
 
-  pluckers <- list(...)
+  pluckers <- list2(...)
   if (!is_named(pluckers)) {
     stop("All elements of `...` must be named", call. = FALSE)
   }

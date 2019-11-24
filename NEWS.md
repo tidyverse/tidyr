@@ -1,5 +1,8 @@
 # tidyr (development version)
 
+* `hoist()` now uses `rlang::list2()` which means that you can now use `!!!` and 
+  `:=` (#801).
+
 * In `extract()`, you can now use `NA` in `into` as documented (#793).
 
 * `pivot_wider()` and `pivot_longer()` are considerably more performant, thanks
