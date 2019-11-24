@@ -72,6 +72,7 @@ str_extract <- function(x, into, regex, convert = FALSE) {
   } else {
     names(out) <- as_utf8_character(into)
   }
+  out <- out[!is.na(names(out))]
 
   if (convert) {
     out[] <- map(out, type.convert, as.is = TRUE)

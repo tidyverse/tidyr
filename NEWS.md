@@ -1,5 +1,7 @@
 # tidyr (development version)
 
+* In `extract()`, you can now use `NA` in `into` as documented (#793).
+
 * `pivot_wider()` and `pivot_longer()` are considerably more performant, thanks
   largely to improvements in the underlying vctrs code (#790, @DavisVaughan)
 
