@@ -209,7 +209,7 @@ unnest_wider <- function(data, col,
                          simplify = TRUE,
                          names_repair = "check_unique",
                          ptype = list()) {
-  col <- tidyselect::vars_select(tbl_vars(data), !!enquo(col))
+  col <- tidyselect::vars_pull(tbl_vars(data), !!enquo(col))
 
   data[[col]] <- map(data[[col]], vec_to_wide, col = col, names_sep = names_sep)
   data <- unchop(data, !!col, keep_empty = TRUE)

@@ -1,5 +1,8 @@
 # tidyr (development version)
 
+* `unnest_wider()` gives a better error message if you attempt to unnest
+  multiple columns (#740).
+
 * `unnest_wider(names_sep = "")` now provides default names for unnamed inputs,
   suppressing the many previous name repair messages (#742).
 
