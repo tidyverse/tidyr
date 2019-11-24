@@ -96,7 +96,7 @@ df \%>\% separate(x, c("key", "value"), ": ", extra = "merge")
 
 # Use regular expressions to separate on multiple characters:
 df <- data.frame(x = c(NA, "a?b", "a.d", "b:c"))
-df \%>\% separate(x, c("A","B"), sep = "([\\\\.\\\\?\\\\:])")
+df \%>\% separate(x, c("A","B"), sep = "([\\.\\?\\:])")
 
 # convert = TRUE detects column classes
 df <- data.frame(x = c("a:1", "a:2", "c:4", "d", NA))
