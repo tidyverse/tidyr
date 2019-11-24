@@ -191,6 +191,7 @@
 <a href="#tidyr-development-version" class="anchor"></a>tidyr (development version)<small> Unreleased </small>
 </h1>
 <ul>
+<li><p><code><a href="../reference/hoist.html">unnest_wider()</a></code> gives a better error message if you attempt to unnest multiple columns (<a href='https://github.com/tidyverse/tidyr/issues/740'>#740</a>).</p></li>
 <li><p><code><a href="../reference/hoist.html">unnest_wider(names_sep = "")</a></code> now provides default names for unnamed inputs, suppressing the many previous name repair messages (<a href='https://github.com/tidyverse/tidyr/issues/742'>#742</a>).</p></li>
 <li><p><code><a href="../reference/unite.html">unite(na.rm = TRUE)</a></code> now works for all types of variable, not just character vectors (<a href='https://github.com/tidyverse/tidyr/issues/765'>#765</a>).</p></li>
 <li><p><code><a href="../reference/hoist.html">hoist()</a></code> now uses <code><a href="https://rlang.r-lib.org/reference/list2.html">rlang::list2()</a></code> which means that you can now use <code>!!!</code> and <code>:=</code> (<a href='https://github.com/tidyverse/tidyr/issues/801'>#801</a>).</p></li>
