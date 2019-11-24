@@ -1,5 +1,8 @@
 # tidyr (development version)
 
+* `unite(na.rm = TRUE)` now works for all types of variable, not just
+  character vectors (#765).
+
 * `hoist()` now uses `rlang::list2()` which means that you can now use `!!!` and 
   `:=` (#801).
 

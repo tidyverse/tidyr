@@ -34,10 +34,27 @@ test_that("empty var spec uses all vars", {
   expect_equal(unite(df, "z"), tibble(z = "a_b"))
 })
 
-
 test_that("can remove missing vars on request", {
   df <- expand_grid(x = c("a", NA), y = c("b", NA))
   out <- unite(df, "z", x:y, na.rm = TRUE)
 
   expect_equal(out$z, c("a_b", "a", "b", ""))
 })
+
+test_that("regardless of the type of the NA", {
+  vec_unite <- function(df, vars) {
+    unite(df, "out", one_of(vars), na.rm = TRUE)$out
+  }
+
+  df <- tibble(
+    x = c("x", "y", "z"),
+    lgl = NA,
+    dbl = NA_real_,
+    chr = NA_character_
+  )
+
+  expect_equal(vec_unite(df, c("x", "lgl")), c("x", "y", "z"))
+  expect_equal(vec_unite(df, c("x", "dbl")), c("x", "y", "z"))
+  expect_equal(vec_unite(df, c("x", "chr")), c("x", "y", "z"))
+})
+
