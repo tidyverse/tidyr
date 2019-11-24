@@ -191,6 +191,10 @@
 <a href="#tidyr-development-version" class="anchor"></a>tidyr (development version)<small> Unreleased </small>
 </h1>
 <ul>
+<li><p><code><a href="../reference/hoist.html">unnest_wider(names_sep = "")</a></code> now provides default names for unnamed inputs, suppressing the many previous name repair messages (<a href='https://github.com/tidyverse/tidyr/issues/742'>#742</a>).</p></li>
+<li><p><code><a href="../reference/unite.html">unite(na.rm = TRUE)</a></code> now works for all types of variable, not just character vectors (<a href='https://github.com/tidyverse/tidyr/issues/765'>#765</a>).</p></li>
+<li><p><code><a href="../reference/hoist.html">hoist()</a></code> now uses <code><a href="https://rlang.r-lib.org/reference/list2.html">rlang::list2()</a></code> which means that you can now use <code>!!!</code> and <code>:=</code> (<a href='https://github.com/tidyverse/tidyr/issues/801'>#801</a>).</p></li>
+<li><p>In <code><a href="../reference/extract.html">extract()</a></code>, you can now use <code>NA</code> in <code>into</code> as documented (<a href='https://github.com/tidyverse/tidyr/issues/793'>#793</a>).</p></li>
 <li><p><code><a href="../reference/pivot_wider.html">pivot_wider()</a></code> and <code><a href="../reference/pivot_longer.html">pivot_longer()</a></code> are considerably more performant, thanks largely to improvements in the underlying vctrs code (<a href='https://github.com/tidyverse/tidyr/issues/790'>#790</a>, <a href='https://github.com/DavisVaughan'>@DavisVaughan</a>)</p></li>
 <li><p><code><a href="../reference/hoist.html">unnest_wider()</a></code> and <code><a href="../reference/hoist.html">unnest_longer()</a></code> can now unnest <code>list_of</code> columns. This is important for unnesting columns created from <code><a href="../reference/nest.html">nest()</a></code>, which are always <code>list_of</code> columns, and for usage after <code><a href="../reference/pivot_wider.html">pivot_wider()</a></code>, which, by default, will create <code>list_of</code> columns when duplicates arise (<a href='https://github.com/tidyverse/tidyr/issues/741'>#741</a>).</p></li>
 </ul>

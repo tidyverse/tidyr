@@ -221,7 +221,7 @@ expression separator</h1>
       <td><p>Column name or position. This is passed to
 <code><a href='https://rdrr.io/pkg/tidyselect/man/vars_pull.html'>tidyselect::vars_pull()</a></code>.</p>
 <p>This argument is passed by expression and supports
-<a href='https://rlang.r-lib.org/reference/quasiquotation.html'>quasiquotation</a> (you can unquote column
+<a href='https://rlang.r-lib.org/reference/nse-force.html'>quasiquotation</a> (you can unquote column
 names or column positions).</p></td>
     </tr>
     <tr>
@@ -324,7 +324,7 @@ expression capturing groups.</p></div>
 #&gt; 2   y error: 7</div><div class='input'>
 <span class='co'># Use regular expressions to separate on multiple characters:</span>
 <span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>NA</span>, <span class='st'>"a?b"</span>, <span class='st'>"a.d"</span>, <span class='st'>"b:c"</span>))
-<span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>separate</span>(<span class='no'>x</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"A"</span>,<span class='st'>"B"</span>), <span class='kw'>sep</span> <span class='kw'>=</span> <span class='st'>"([\\.\\?\\:])"</span>)</div><div class='output co'>#&gt;      A    B
+<span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>separate</span>(<span class='no'>x</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"A"</span>,<span class='st'>"B"</span>), <span class='kw'>sep</span> <span class='kw'>=</span> <span class='st'>"([.?:])"</span>)</div><div class='output co'>#&gt;      A    B
 #&gt; 1 &lt;NA&gt; &lt;NA&gt;
 #&gt; 2    a    b
 #&gt; 3    a    d

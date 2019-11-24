@@ -400,7 +400,8 @@ common acros all components, it uses <code>unnest_wider()</code></p></li>
 #&gt; 2 Toothless dragon    black How to Train Your Dragon 2                
 #&gt; 3 Toothless dragon    black How to Train Your Dragon: The Hidden World
 #&gt; 4 Dory      blue tang blue  Finding Nemo                              
-#&gt; 5 Dory      blue tang blue  Finding Dory                              </div><div class='input'><span class='co'># unnest_longer() is useful when each component of the list should</span>
+#&gt; 5 Dory      blue tang blue  Finding Dory                              </div><div class='input'>
+<span class='co'># unnest_longer() is useful when each component of the list should</span>
 <span class='co'># form a row</span>
 <span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(
   <span class='kw'>x</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>3</span>,
@@ -422,6 +423,12 @@ common acros all components, it uses <code>unnest_wider()</code></p></li>
 #&gt; <span class='message'>* `` -&gt; ...1</span>
 #&gt; <span class='message'>* `` -&gt; ...2</span></div><div class='output co'>#&gt; # A tibble: 3 x 4
 #&gt;       x  ...1  ...2  ...3
+#&gt;   &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;
+#&gt; 1     1    NA    NA    NA
+#&gt; 2     2     1     2     3
+#&gt; 3     3     4     5    NA</div><div class='input'><span class='co'># But you'll usually want to provide names_sep:</span>
+<span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>unnest_wider</span>(<span class='no'>y</span>, <span class='kw'>names_sep</span> <span class='kw'>=</span> <span class='st'>"_"</span>)</div><div class='output co'>#&gt; # A tibble: 3 x 4
+#&gt;       x   y_1   y_2   y_3
 #&gt;   &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;
 #&gt; 1     1    NA    NA    NA
 #&gt; 2     2     1     2     3
