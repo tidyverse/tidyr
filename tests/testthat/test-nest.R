@@ -68,7 +68,7 @@ test_that("nesting works for empty data frames", {
 
   out <- nest(df, data = c(x, y))
   expect_named(out, "data")
-  expect_equal(nrow(out), 0L)
+  expect_equal(nrow(out), 1L)
 })
 
 test_that("tibble conversion occurs in the `nest.data.frame()` method", {

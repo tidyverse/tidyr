@@ -171,8 +171,13 @@ nest.tbl_df <- function(.data, ..., .names_sep = NULL, .key = deprecated()) {
   asis <- setdiff(names(.data), unlist(cols))
 
   keys <- .data[asis]
-  u_keys <- vec_unique(keys)
-  out <- map(cols, ~ vec_split(set_names(.data[.x], names(.x)), keys)$val)
+  if (has_length(asis) || vec_size(keys) != 0) {
+    u_keys <- vec_unique(keys)
+    out <- map(cols, ~ vec_split(set_names(.data[.x], names(.x)), keys)$val)
+  } else {
+    u_keys <- vec_slice(keys, NA_integer_)
+    out <- map(cols, ~ list_of(.data[.x]))
+  }
 
   vec_cbind(u_keys, new_data_frame(out, n = nrow(u_keys)))
 }
