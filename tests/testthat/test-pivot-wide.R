@@ -47,8 +47,8 @@ test_that("grouping is preserved", {
 
 # https://github.com/tidyverse/tidyr/issues/804
 test_that("column with `...j` name can be used as `names_from`", {
-  df <- tibble("...8" = c("x", "y", "z"), val = 1:3)
-  pv <- pivot_wider(df, names_from = "...8", values_from = val)
+  df <- tibble(...8 = c("x", "y", "z"), val = 1:3)
+  pv <- pivot_wider(df, names_from = ...8, values_from = val)
   expect_named(pv, c("x", "y", "z"))
   expect_equal(nrow(pv), 1)
 })
