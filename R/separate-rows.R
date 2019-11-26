@@ -30,12 +30,13 @@ separate_rows.data.frame <- function(data,
                                      sep = "[^[:alnum:].]+",
                                      convert = FALSE) {
   vars <- tidyselect::vars_select(tbl_vars(data), ...)
+  super <- as.data.frame(data)
 
-  out <- purrr::modify_at(data, vars, stringi::stri_split_regex, pattern = sep)
+  out <- purrr::modify_at(super, vars, stringi::stri_split_regex, pattern = sep)
   out <- unchop(out, vars)
   if (convert) {
     out[vars] <- map(out[vars], type.convert, as.is = TRUE)
   }
 
-  reconstruct_tibble(data, out, vars)
+  df_restore(out, data, vars)
 }

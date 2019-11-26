@@ -52,3 +52,8 @@ tidyselect::starts_with
 #' @importFrom tidyselect last_col
 #' @export
 tidyselect::last_col
+
+vec_is_unspecified <- NULL
+.onLoad <- function(libname, pkgname) {
+  vec_is_unspecified <<- env_get(ns_env("vctrs"), "is_unspecified")
+}
