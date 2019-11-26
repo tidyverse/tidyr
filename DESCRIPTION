@@ -37,7 +37,7 @@ Imports:
     tibble (>= 2.1.1),
     tidyselect (>= 0.2.5),
     utils,
-    vctrs (>= 0.2.0.9007),
+    vctrs (>= 0.2.0.9008),
     lifecycle
 Suggests: 
     covr,
@@ -56,4 +56,4 @@ LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.0.2
 Remotes:
-  r-lib/vctrs
+  lionel-/vctrs@add-grouped-df
