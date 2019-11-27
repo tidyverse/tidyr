@@ -128,6 +128,7 @@ hoist <- function(.data, .col, ..., .remove = TRUE, .simplify = TRUE, .ptype = l
     simplify_col,
     simplify = .simplify
   )
+  new_cols <- new_data_frame(new_cols, n = vec_size(new_cols[[1]]))
 
   # Place new columns before old column
   out <- append_df(.data, new_cols, after = match(.col, names(.data)) - 1L)

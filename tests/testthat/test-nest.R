@@ -211,7 +211,7 @@ test_that("can use non-syntactic names", {
 test_that("can unnest empty data frame", {
   df <- tibble(x = integer(), y = list())
   out <- unnest(df, y)
-  expect_equal(out, tibble(x = integer(), y = unspecified()))
+  expect_equal(out, tibble(x = integer(), y = logical()))
 })
 
 test_that("unnest() preserves ptype", {

@@ -119,6 +119,7 @@ spread.data.frame <- function(data, key, value, fill = NA, convert = FALSE,
   colnames(ordered) <- enc2utf8(col_names(col_labels, sep = sep))
 
   ordered <- as_tibble_matrix(ordered)
+  ordered <- as.data.frame(ordered)
 
   if (convert) {
     ordered[] <- map(ordered, type.convert, as.is = TRUE)
