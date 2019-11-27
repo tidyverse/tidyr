@@ -17,27 +17,9 @@ df_cast <- function(x, to, new_vars = character()) {
 
   # For grouped-df this relies on the custom `[` method below
   to_common <- to[common_vars]
-  x_common <- x[common_vars]
-
-  # Don't preserve column semantics (e.g. groups) if type is not compatible
-  compatible <- map2_lgl(x_common, to_common, vec_has_common_type)
-  to_common <- to_common[compatible]
 
   to_ptype <- vec_ptype_common(x, to_common)
   vec_cast(x, to = to_ptype)
-}
-
-vec_has_common_type <- function(x, y) {
-  if (vec_is_unspecified(x) || vec_is_unspecified(y)) {
-    return(FALSE)
-  }
-  tryCatch(
-    {
-      vec_ptype2(x, y)
-      TRUE
-    },
-    vctrs_error_incompatible_type = function(...) FALSE
-  )
 }
 
 # Hijack dplyr method so the grouped-df class is preserved when there

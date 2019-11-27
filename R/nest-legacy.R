@@ -209,7 +209,7 @@ unnest_legacy.data.frame <- function(data, ..., .drop = NA, .id = NULL,
   rest <- data[rep(seq_nrow(data), n[[1]]), group_vars, drop = FALSE]
   out <- dplyr::bind_cols(rest, unnested_atomic, unnested_dataframe)
 
-  df_cast(out, data)
+  df_cast(out, data, new_vars = names(nested))
 }
 
 list_col_type <- function(x) {

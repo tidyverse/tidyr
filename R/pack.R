@@ -76,7 +76,7 @@ pack <- function(data, ..., .names_sep = NULL) {
   asis <- setdiff(names(data), unlist(cols))
   out <- vec_cbind(data[asis], new_data_frame(packed, n = nrow(data)))
 
-  df_cast(out, data)
+  df_cast(out, data, new_vars = cols)
 }
 
 #' @export
@@ -103,7 +103,7 @@ unpack <- function(data, cols, names_sep = NULL, names_repair = "check_unique") 
   out <- flatten_at(data, names(data) %in% cols)
 
   out <- as_tibble(out, .name_repair = names_repair)
-  df_cast(out, data)
+  df_cast(out, data, new_vars = cols)
 }
 
 check_unpack <- function(x, col, names_sep = NULL) {
