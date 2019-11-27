@@ -37,5 +37,5 @@ complete.data.frame <- function(data, ..., fill = list()) {
   full <- dplyr::full_join(full, data, by = names(full))
   full <- replace_na(full, replace = fill)
 
-  reconstruct_tibble(data, full)
+  df_cast(full, data)
 }

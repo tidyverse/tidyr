@@ -63,5 +63,5 @@ unite.data.frame <- function(data, col, ..., sep = "_", remove = TRUE, na.rm = F
 
   first_pos <- which(names(data) %in% from_vars)[1]
   out <- append_col(out, united, var, after = first_pos - 1L)
-  reconstruct_tibble(data, out, if (remove) from_vars)
+  df_cast(out, data, if (remove) from_vars)
 }

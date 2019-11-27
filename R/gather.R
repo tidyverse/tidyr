@@ -144,7 +144,7 @@ gather.data.frame <- function(data, key = "key", value = "value", ...,
     out[[key_var]] <- type.convert(as.character(out[[key_var]]), as.is = TRUE)
   }
 
-  reconstruct_tibble(data, out, gather_vars)
+  df_cast(out, data, gather_vars)
 }
 
 # Functions from reshape2 -------------------------------------------------

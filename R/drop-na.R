@@ -24,7 +24,7 @@ drop_na.data.frame <- function(data, ...) {
   }
   out <- data[f, , drop = FALSE]
 
-  reconstruct_tibble(data, out)
+  df_cast(out, data)
 }
 
 # copied from ggplot2

@@ -202,7 +202,7 @@ pivot_longer_spec <- function(data,
   ))
   out$.seq <- NULL
 
-  reconstruct_tibble(data, out)
+  df_cast(out, data)
 }
 
 #' @rdname pivot_longer_spec

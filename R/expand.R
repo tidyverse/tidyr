@@ -99,7 +99,7 @@ expand.data.frame <- function(data, ..., .name_repair = "check_unique") {
   out <- expand_grid(!!!cols, .name_repair = .name_repair)
   out <- flatten_nested(out, attr(cols, "named"), .name_repair = .name_repair)
 
-  reconstruct_tibble(data, out)
+  df_cast(out, data)
 }
 
 #' @export

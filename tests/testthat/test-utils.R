@@ -9,5 +9,5 @@ test_that("tidyr_legacy copies old approach", {
 test_that("reconstruct doesn't repair names", {
   # This ensures that name repair elsewhere isn't overridden
   df <- tibble(x = 1, x = 2, .name_repair = "minimal")
-  expect_equal(reconstruct_tibble(df, df), df)
+  expect_equal(df_cast(df, df), df)
 })

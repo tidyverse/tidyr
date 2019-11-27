@@ -11,21 +11,6 @@
 NULL
 
 # https://github.com/r-lib/vctrs/issues/211
-reconstruct_tibble <- function(input, output, ungrouped_vars = character()) {
-  return(df_cast(output, input, ungrouped_vars))
-
-  if (inherits(input, "grouped_df")) {
-    old_groups <- dplyr::group_vars(input)
-    new_groups <- intersect(setdiff(old_groups, ungrouped_vars), names(output))
-    dplyr::grouped_df(output, new_groups)
-  } else if (inherits(input, "tbl_df")) {
-    # Assume name repair carried out elsewhere
-    as_tibble(output, .name_repair = "minimal")
-  } else {
-    output
-  }
-}
-
 df_cast <- function(x, to, new_vars = character()) {
   common_vars <- setdiff(names(to), new_vars)
   common_vars <- intersect(names(x), common_vars)

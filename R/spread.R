@@ -126,7 +126,7 @@ spread.data.frame <- function(data, key, value, fill = NA, convert = FALSE,
   }
 
   out <- append_df(row_labels, ordered)
-  reconstruct_tibble(data, out, c(key_var, value_var))
+  df_cast(out, data, c(key_var, value_var))
 }
 
 col_names <- function(x, sep = NULL) {

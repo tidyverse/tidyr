@@ -46,7 +46,7 @@ extract.data.frame <- function(data, col, into, regex = "([[:alnum:]]+)",
 
   new_cols <- str_extract(value, into = into, regex = regex, convert = convert)
   out <- append_df(data, new_cols, var, remove = remove)
-  reconstruct_tibble(data, out, if (remove) var else chr())
+  df_cast(out, data, if (remove) var else chr())
 }
 
 str_extract <- function(x, into, regex, convert = FALSE) {

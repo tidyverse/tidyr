@@ -38,5 +38,5 @@ uncount <- function(data, weights, .remove = TRUE, .id = NULL) {
     out[[.id]] <- sequence(w)
   }
 
-  reconstruct_tibble(data, out)
+  df_cast(out, data)
 }

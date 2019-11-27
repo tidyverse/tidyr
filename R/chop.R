@@ -71,7 +71,7 @@ chop <- function(data, cols) {
   vals <- map(split$val, ~ new_data_frame(map(.x, list), n = 1L))
 
   out <- vec_cbind(split$key, vec_rbind(!!!vals))
-  reconstruct_tibble(data, out)
+  df_cast(out, data)
 }
 
 #' @export
@@ -103,7 +103,7 @@ unchop <- function(data, cols, keep_empty = FALSE, ptype = NULL) {
   }
 
   out <- update_cols(out, new_cols)
-  reconstruct_tibble(data, out)
+  df_cast(out, data)
 }
 
 

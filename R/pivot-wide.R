@@ -192,7 +192,7 @@ pivot_wider_spec <- function(data,
     out <- out[c(names(rows), spec$.name)]
   }
 
-  reconstruct_tibble(data, out)
+  df_cast(out, data)
 
 }
 

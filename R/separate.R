@@ -86,7 +86,7 @@ separate.data.frame <- function(data, col, into, sep = "[^[:alnum:]]+",
     fill = fill
   )
   out <- append_df(data, new_cols, var, remove = remove)
-  reconstruct_tibble(data, out, if (remove) var else NULL)
+  df_cast(out, data, if (remove) var else NULL)
 }
 
 str_separate <- function(x, into, sep, convert = FALSE, extra = "warn", fill = "warn") {
