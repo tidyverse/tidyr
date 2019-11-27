@@ -38,5 +38,5 @@ separate_rows.data.frame <- function(data,
     out[vars] <- map(out[vars], type.convert, as.is = TRUE)
   }
 
-  df_restore(out, data, vars)
+  df_cast(out, data, vars)
 }
