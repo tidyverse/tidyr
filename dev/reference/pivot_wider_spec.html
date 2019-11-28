@@ -238,15 +238,18 @@ starting with "prefix", or <code><a href='https://rdrr.io/pkg/tidyselect/man/sel
     </tr>
     <tr>
       <th>values_fill</th>
-      <td><p>Optionally, a named list specifying what each <code>value</code>
-should be filled in with when missing.</p></td>
+      <td><p>Optionally, a value that specifies what each <code>value</code>
+should be filled in with when missing.</p>
+<p>This can be a named list if you want to apply different aggregations
+to different value columns.</p></td>
     </tr>
     <tr>
       <th>values_fn</th>
-      <td><p>Optionally, a named list providing a function that will be
-applied to the <code>value</code> in each cell in the output. You will typically
-use this when the combination of <code>id_cols</code> and <code>value</code> column does not
-uniquely identify an observation.</p></td>
+      <td><p>Optionally, a function applied to the <code>value</code> in each cell
+in the output. You will typically use this when the combination of
+<code>id_cols</code> and <code>value</code> column does not uniquely identify an observation.</p>
+<p>This can be a named list if you want to apply different aggregations
+to different value columns.</p></td>
     </tr>
     <tr>
       <th>names_from</th>

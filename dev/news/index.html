@@ -191,6 +191,7 @@
 <a href="#tidyr-development-version" class="anchor"></a>tidyr (development version)<small> Unreleased </small>
 </h1>
 <ul>
+<li><p>In <code><a href="../reference/pivot_wider.html">pivot_wider()</a></code>, <code>values_fn</code> and <code>values_fill</code> can now be single values; you now only need to use a named list if you want to use different values for different value columns (<a href='https://github.com/tidyverse/tidyr/issues/739'>#739</a>, <a href='https://github.com/tidyverse/tidyr/issues/746'>#746</a>).</p></li>
 <li><p><code><a href="../reference/hoist.html">unnest_wider()</a></code> gives a better error message if you attempt to unnest multiple columns (<a href='https://github.com/tidyverse/tidyr/issues/740'>#740</a>).</p></li>
 <li><p><code><a href="../reference/hoist.html">unnest_wider(names_sep = "")</a></code> now provides default names for unnamed inputs, suppressing the many previous name repair messages (<a href='https://github.com/tidyverse/tidyr/issues/742'>#742</a>).</p></li>
 <li><p><code><a href="../reference/unite.html">unite(na.rm = TRUE)</a></code> now works for all types of variable, not just character vectors (<a href='https://github.com/tidyverse/tidyr/issues/765'>#765</a>).</p></li>
