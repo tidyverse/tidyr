@@ -4,11 +4,23 @@
 \alias{expand_grid}
 \title{Create a tibble from all combinations of inputs}
 \usage{
-expand_grid(...)
+expand_grid(..., .name_repair = "check_unique")
 }
 \arguments{
 \item{...}{Name-value pairs. The name will become the column name in the
 output.}
+
+\item{.name_repair}{Used to check that output data frame has valid
+names. Must be one of the following options:
+\itemize{
+\item "minimal": no name repair or checks, beyond basic existence,
+\item "unique": make sure names are unique and not empty,
+\item "check_unique": (the default), no name repair, but check they are unique,
+\item "universal": make the names unique and syntactic
+\item a function: apply custom name repair.
+\item \link{tidyr_legacy}: use the name repair from tidyr 0.8.
+\item a formula: a purrr-style anonymous function (see \code{\link[rlang:as_function]{rlang::as_function()}})
+}}
 }
 \value{
 A tibble with one column for each input in \code{...}. The output
