@@ -28,6 +28,19 @@
 #'   `year = 2010:2020` or `year = \link{full_seq}(year,1)`.
 #'
 #'   Length-zero (empty) elements are automatically dropped.
+#' @param .name_repair Used to check that output data frame has valid
+#'   names. Must be one of the following options:
+#'
+#'   * "minimal": no name repair or checks, beyond basic existence,
+#'   * "unique": make sure names are unique and not empty,
+#'   * "check_unique": (the default), no name repair, but check they are unique,
+#'   * "universal": make the names unique and syntactic
+#'   * a function: apply custom name repair.
+#'   * [tidyr_legacy]: use the name repair from tidyr 0.8.
+#'   * a formula: a purrr-style anonymous function (see [rlang::as_function()])
+#'
+#'   See [vctrs::vec_as_names()] for more details on these terms and the
+#'   strategies used to enforce them.
 #' @seealso [complete()] for a common application of `expand`:
 #'   completing a data frame with missing combinations. [expand_grid()]
 #'   is low-level that doesn't deduplicate or sort values.
@@ -86,36 +99,36 @@
 #' )
 #' data <- split(iris, iris$Species)
 #' crossing(formula = formulas, data)
-expand <- function(data, ...) {
+expand <- function(data, ..., .name_repair = "check_unique") {
   UseMethod("expand")
 }
 
 #' @export
-expand.data.frame <- function(data, ...) {
+expand.data.frame <- function(data, ..., .name_repair = "check_unique") {
   cols <- dots_cols(..., `_data` = data)
   cols[] <- map(cols, sorted_unique)
 
-  out <- expand_grid(!!!cols)
-  out <- flatten_nested(out, attr(cols, "named"))
+  out <- expand_grid(!!!cols, .name_repair = .name_repair)
+  out <- flatten_nested(out, attr(cols, "named"), .name_repair = .name_repair)
 
   reconstruct_tibble(data, out)
 }
 
 #' @export
-expand.grouped_df <- function(data, ...) {
-  dplyr::do(data, expand(., ...))
+expand.grouped_df <- function(data, ..., .name_repair = "check_unique") {
+  dplyr::do(data, expand(., ..., .name_repair = .name_repair))
 }
 
 # Nesting & crossing ------------------------------------------------------
 
 #' @rdname expand
 #' @export
-crossing <- function(...) {
+crossing <- function(..., .name_repair = "check_unique") {
   cols <- dots_cols(...)
   cols[] <- map(cols, sorted_unique)
 
-  out <- expand_grid(!!!cols)
-  flatten_nested(out, attr(cols, "named"))
+  out <- expand_grid(!!!cols, .name_repair = .name_repair)
+  flatten_nested(out, attr(cols, "named"), .name_repair)
 }
 
 sorted_unique <- function(x) {
@@ -131,10 +144,10 @@ sorted_unique <- function(x) {
 
 #' @rdname expand
 #' @export
-nesting <- function(...) {
+nesting <- function(..., .name_repair = "check_unique") {
   cols <- dots_cols(...)
-  out <- sorted_unique(tibble(!!!cols))
-  flatten_nested(out, attr(cols, "named"))
+  out <- sorted_unique(tibble(!!!cols, .name_repair = .name_repair))
+  flatten_nested(out, attr(cols, "named"), .name_repair)
 }
 
 # expand_grid -------------------------------------------------------------
@@ -149,6 +162,16 @@ nesting <- function(...) {
 #' * Can expand any generalised vector, including data frames.
 #' @param ... Name-value pairs. The name will become the column name in the
 #'   output.
+#' @param .name_repair Used to check that output data frame has valid
+#'   names. Must be one of the following options:
+#'
+#'   * "minimal": no name repair or checks, beyond basic existence,
+#'   * "unique": make sure names are unique and not empty,
+#'   * "check_unique": (the default), no name repair, but check they are unique,
+#'   * "universal": make the names unique and syntactic
+#'   * a function: apply custom name repair.
+#'   * [tidyr_legacy]: use the name repair from tidyr 0.8.
+#'   * a formula: a purrr-style anonymous function (see [rlang::as_function()])
 #' @return A tibble with one column for each input in `...`. The output
 #'   will have one row for each combination of the inputs, i.e. the size
 #'   be equal to the product of the sizes of the inputs. This implies
@@ -162,7 +185,7 @@ nesting <- function(...) {
 #' expand_grid(df = data.frame(x = 1:2, y = c(2, 1)), z = 1:3)
 #' # And matrices
 #' expand_grid(x1 = matrix(1:4, nrow = 2), x2 = matrix(5:8, nrow = 2))
-expand_grid <- function(...) {
+expand_grid <- function(..., .name_repair = "check_unique") {
   dots <- dots_cols(...)
 
   # Generate sequence of indices
@@ -177,9 +200,9 @@ expand_grid <- function(...) {
 
     out <- pmap(list(x = dots, each = each, times = times), vec_repeat)
   }
-  out <- as_tibble(out)
+  out <- as_tibble(out, .name_repair = .name_repair)
 
-  flatten_nested(out, attr(dots, "named"))
+  flatten_nested(out, attr(dots, "named"), .name_repair)
 }
 
 # Helpers -----------------------------------------------------------------
@@ -201,10 +224,10 @@ dots_cols <- function(..., `_data` = NULL) {
 }
 
 # flatten unnamed nested data frames to preserve existing behaviour
-flatten_nested <- function(x, named) {
+flatten_nested <- function(x, named, .name_repair) {
   to_flatten <- !named & unname(map_lgl(x, is.data.frame))
   out <- flatten_at(x, to_flatten)
-  as_tibble(out)
+  as_tibble(out, .name_repair = .name_repair)
 }
 
 flatten_at <- function(x, to_flatten) {
