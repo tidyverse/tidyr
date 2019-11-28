@@ -120,6 +120,12 @@ test_that("can fill in missing cells", {
   expect_equal(widen(values_fill = list(val = 0))$x, c(1, 0))
 })
 
+test_that("values_fill only affects missing cells", {
+  df <- tibble(g = c(1, 2), names = c("x", "y"), value = c(1, NA))
+  out <- pivot_wider(df, names_from = names, values_from = value, values_fill = 0 )
+  expect_equal(out$y, c(0, NA))
+})
+
 # multiple values ----------------------------------------------------------
 
 test_that("can pivot from multiple measure cols", {
