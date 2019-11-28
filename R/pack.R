@@ -77,6 +77,7 @@ pack <- function(data, ...) {
 #'   See [vctrs::vec_as_names()] for more details on these terms and the
 #'   strategies used to enforce them.
 unpack <- function(data, cols, names_sep = NULL, names_repair = "check_unique") {
+  check_present(cols)
   cols <- tidyselect::vars_select(tbl_vars(data), !!enquo(cols))
 
   new_cols <- map2(data[cols], cols, check_unpack, names_sep = names_sep)
