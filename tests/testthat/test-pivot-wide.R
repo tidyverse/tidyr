@@ -25,7 +25,7 @@ test_that("implicit missings turn into explicit missings", {
   expect_equal(pv$y, c(NA, 2))
 })
 
-test_that("warn when overwriting existing column", {
+test_that("error when overwriting existing column", {
   df <- tibble(
     a = c(1, 1),
     key = c("a", "b"),
@@ -43,6 +43,14 @@ test_that("grouping is preserved", {
     dplyr::group_by(g) %>%
     pivot_wider(names_from = k, values_from = v)
   expect_equal(dplyr::group_vars(out), "g")
+})
+
+# https://github.com/tidyverse/tidyr/issues/804
+test_that("column with `...j` name can be used as `names_from`", {
+  df <- tibble(...8 = c("x", "y", "z"), val = 1:3)
+  pv <- pivot_wider(df, names_from = ...8, values_from = val)
+  expect_named(pv, c("x", "y", "z"))
+  expect_equal(nrow(pv), 1)
 })
 
 # keys ---------------------------------------------------------
