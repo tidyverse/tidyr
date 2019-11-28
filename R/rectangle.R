@@ -108,6 +108,7 @@
 #'
 #' @export hoist
 hoist <- function(.data, .col, ..., .remove = TRUE, .simplify = TRUE, .ptype = list()) {
+  check_present(.col)
   .col <- tidyselect::vars_pull(names(.data), !!enquo(.col))
   x <- .data[[.col]]
   if (!is.list(x)) {
@@ -171,6 +172,7 @@ unnest_longer <- function(data, col,
                           ptype = list()
                           ) {
 
+  check_present(col)
   col <- tidyselect::vars_pull(names(data), !!enquo(col))
 
   values_to <- values_to %||% col
@@ -209,6 +211,7 @@ unnest_wider <- function(data, col,
                          simplify = TRUE,
                          names_repair = "check_unique",
                          ptype = list()) {
+  check_present(col)
   col <- tidyselect::vars_pull(tbl_vars(data), !!enquo(col))
 
   data[[col]] <- map(data[[col]], vec_to_wide, col = col, names_sep = names_sep)
@@ -228,6 +231,7 @@ unnest_wider <- function(data, col,
 #' @export
 #' @rdname hoist
 unnest_auto <- function(data, col) {
+  check_present(col)
   col <- tidyselect::vars_pull(tbl_vars(data), !!enquo(col))
 
   x <- data[[col]]

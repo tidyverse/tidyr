@@ -1,5 +1,8 @@
 # tidyr (development version)
 
+* `extract()`, `separate()`, `hoist()`, `unnest_longer()`, and `unnest_wider()`
+  give a better error message if `col` is missing (#805).
+
 * In `pivot_wider()`, `values_fn` and `values_fill` can now be single values; 
   you now only need to use a named list if you want to use different values
   for different value columns (#739, #746).

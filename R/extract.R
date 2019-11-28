@@ -40,6 +40,7 @@ extract <- function(data, col, into, regex = "([[:alnum:]]+)",
 #' @export
 extract.data.frame <- function(data, col, into, regex = "([[:alnum:]]+)",
                                remove = TRUE, convert = FALSE, ...) {
+  check_present(col)
   var <- tidyselect::vars_pull(names(data), !! enquo(col))
   value <- as.character(data[[var]])
 

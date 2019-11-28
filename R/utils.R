@@ -118,3 +118,11 @@ vec_repeat <- function(x, each = 1L, times = 1L) {
   idx <- rep(vec_seq_along(x), times = times, each = each)
   vec_slice(x, idx)
 }
+
+check_present <- function(x) {
+  arg <- ensym(x)
+  if (missing(x)) {
+    abort(paste0("Argument `", arg, "` is missing with no default"))
+  }
+
+}
