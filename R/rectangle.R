@@ -126,8 +126,7 @@ hoist <- function(.data, .col, ..., .remove = TRUE, .simplify = TRUE, .ptype = l
   new_cols <- map2(
     new_cols, .ptype[names(new_cols)],
     simplify_col,
-    simplify = .simplify,
-    keep_empty = TRUE
+    simplify = .simplify
   )
 
   # Place new columns before old column
@@ -195,7 +194,6 @@ unnest_longer <- function(data, col,
   data[[col]][] <- map2(
     data[[col]], ptype[inner_cols],
     simplify_col,
-    keep_empty = TRUE,
     simplify = simplify
   )
 
@@ -221,7 +219,6 @@ unnest_wider <- function(data, col,
   data[[col]][] <- map2(
     data[[col]], ptype[inner_cols],
     simplify_col,
-    keep_empty = TRUE,
     simplify = simplify
   )
 
@@ -321,31 +318,16 @@ strike <- function(x, idx) {
   }
 }
 
-simplify_col <- function(x, ptype, keep_empty = FALSE, simplify = FALSE) {
+simplify_col <- function(x, ptype, simplify = FALSE) {
   if (!is.list(x) || is.data.frame(x)) {
     return(x)
   }
 
-  if (is_empty(x)) {
-    return(attr(x, "ptype") %||% unspecified(0))
-  }
-
-  if (keep_empty) {
-    x[] <- map(x, init_col)
-  }
-
   if (!is.null(ptype)) {
-    x <- vec_cast(x, ptype)
-  } else if (simplify) {
-    x <- vec_simplify(x)
+    return(vec_cast(x, ptype))
   }
 
-  x
-}
-
-vec_simplify <- function(x) {
-  n <- map_int(x, vec_size)
-  if (!all(n == 1)) {
+  if (!simplify) {
     return(x)
   }
 
@@ -355,6 +337,14 @@ vec_simplify <- function(x) {
   if (any(is_list)) {
     return(x)
   }
+
+  n <- map_int(x, vec_size)
+  if (!all(n %in% c(0, 1))) {
+    return(x)
+  }
+
+  # Ensure empty elements filled in with a single unspecified value
+  x[n == 0] <- list(unspecified(1))
 
   tryCatch(
     vec_c(!!!x),

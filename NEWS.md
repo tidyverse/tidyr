@@ -1,5 +1,10 @@
 # tidyr (development version)
 
+* `unnest_longer()`, `unnest_wider()`, and `hoist()` do a better job 
+  simplifying list-cols. They no longer add uneeded `unspecified()` when
+  the result is still a list (#806), and work when the list contains 
+  non-vectors (#810).
+
 * `extract()`, `separate()`, `hoist()`, `unnest_longer()`, and `unnest_wider()`
   give a better error message if `col` is missing (#805).
 

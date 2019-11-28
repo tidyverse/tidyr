@@ -99,16 +99,6 @@ update_cols <- function(old, new) {
   old
 }
 
-init_col <- function(x) {
-  if (is_null(x)) {
-    unspecified(1)
-  } else if (vec_is_empty(x)) {
-    vec_init(x, 1)
-  } else {
-    x
-  }
-}
-
 # Own copy since it might disappear from vctrs since it
 # isn't well thought out
 vec_repeat <- function(x, each = 1L, times = 1L) {

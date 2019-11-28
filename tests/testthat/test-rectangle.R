@@ -116,13 +116,22 @@ test_that("simplifies length-1 lists", {
   df <- tibble(
     x = 1:2,
     y = list(
-      list(a = 1, b = 2),
+      list(a = 1, b = 2, c = c(1, 2)),
       list(a = 3)
     )
   )
   out <- df %>% unnest_wider(y)
   expect_equal(out$a, c(1, 3))
   expect_equal(out$b, c(2, NA))
+  expect_equal(out$c, list(c(1, 2), NULL))
+
+  # Works when casting too
+  out <- df %>% unnest_wider(y,
+    ptype = list(a = double(), b = double(), c = list())
+  )
+  expect_equal(out$a, c(1, 3))
+  expect_equal(out$b, c(2, NA))
+  expect_equal(out$c, list(c(1, 2), NULL))
 })
 
 test_that("can handle data frames consistently with vectors" , {

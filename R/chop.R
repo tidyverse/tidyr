@@ -104,3 +104,17 @@ unchop <- function(data, cols, keep_empty = FALSE, ptype = NULL) {
   out <- update_cols(out, new_cols)
   reconstruct_tibble(data, out)
 }
+
+
+# Helpers -----------------------------------------------------------------
+
+init_col <- function(x) {
+  if (is_null(x)) {
+    unspecified(1)
+  } else if (vec_is_empty(x)) {
+    vec_init(x, 1)
+  } else {
+    x
+  }
+}
+
