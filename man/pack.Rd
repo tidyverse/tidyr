@@ -5,7 +5,7 @@
 \alias{unpack}
 \title{Pack and unpack}
 \usage{
-pack(data, ...)
+pack(data, ..., .names_sep = NULL)
 
 unpack(data, cols, names_sep = NULL, names_repair = "check_unique")
 }
@@ -18,12 +18,16 @@ The right hand side can be any expression supported by tidyselect.}
 
 \item{cols}{Name of column that you wish to unpack.}
 
-\item{names_sep}{If \code{NULL}, the default, the names of new columns will
-come directly from the inner data frame.
+\item{names_sep, .names_sep}{If \code{NULL}, the default, the names will be left
+as is. In \code{pack()}, inner names will come from the former outer names;
+in \code{unpack()}, the new outer names will come from the inner names.
 
-If a string, the names of the new columns will be formed by pasting
-together the outer column name with the inner names, separated by
-\code{names_sep}.}
+If a string, the inner and outer names will be used together. In \code{pack()},
+the names of the new outer columns will be formed by pasting together the
+outer and the inner column names, separated by \code{names_sep}. In \code{unpack()},
+the new inner names will have the outer names (+ \code{names_sep}) automatically
+stripped. This makes \code{names_sep} roughly symmetric between packing
+and unpacking.}
 
 \item{names_repair}{Used to check that output data frame has valid
 names. Must be one of the following options:
@@ -62,6 +66,16 @@ df <- tibble(x1 = 1:3, x2 = 4:6, x3 = 7:9, y = 1:3)
 df
 df \%>\% pack(x = starts_with("x"))
 df \%>\% pack(x = c(x1, x2, x3), y = y)
+
+# .names_sep allows you to strip off common prefixes; this
+# acts as a natural inverse to name_sep in unpack()
+iris \%>\%
+  as_tibble() \%>\%
+  pack(
+    Sepal = starts_with("Sepal"),
+    Petal = starts_with("Petal"),
+    .names_sep = "."
+  )
 
 # Unpacking ===========================================================
 df <- tibble(

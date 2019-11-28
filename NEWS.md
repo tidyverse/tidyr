@@ -1,5 +1,9 @@
 # tidyr (development version)
 
+* `pack()` gains a `.names_sep` argument allows you to strip outer names from
+  inner names, in symmetrical way to how the same argument to `pack()` combines
+  inner and outer names (#795).
+
 * `unnest_longer()`, `unnest_wider()`, and `hoist()` do a better job 
   simplifying list-cols. They no longer add uneeded `unspecified()` when
   the result is still a list (#806), and work when the list contains 
