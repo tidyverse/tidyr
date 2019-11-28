@@ -88,6 +88,7 @@ unchop <- function(data, cols, keep_empty = FALSE, ptype = NULL) {
     }
   }
 
+  # If multiple columns, create one data frame for each row
   # https://github.com/tidyverse/tibble/issues/580
   x <- pmap(as.list(data)[cols], vec_recycle_common)
   x <- map(x, ~ new_data_frame(drop_null(.x)))
