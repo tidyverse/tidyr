@@ -46,6 +46,14 @@ test_that("unchopping nothing leaves input unchanged", {
   expect_equal(unchop(df, integer()), df)
 })
 
+test_that("NULL inputs are automatically dropped", {
+  df <- tibble(x = 1:2, y = list(NULL, 1:2))
+  out <- df %>% unchop(c(x, y))
+
+  expect_equal(out$x, c(1, 2, 2))
+  expect_equal(out$y, c(NA, 1, 2))
+})
+
 test_that("optionally keep empty rows", {
   df <- tibble(x = 1:2, y = list(NULL, 1:2), z = list(tibble(x = integer()), tibble(x = 1:2)))
   out <- df %>% unchop(y, keep_empty = TRUE)
