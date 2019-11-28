@@ -5,16 +5,18 @@
 \alias{unpack}
 \title{Pack and unpack}
 \usage{
-pack(data, ...)
+pack(.data, ...)
 
 unpack(data, cols, names_sep = NULL, names_repair = "check_unique")
 }
 \arguments{
-\item{data}{A data frame.}
+\item{.data}{A data frame.}
 
 \item{...}{Name-variable pairs of the form \code{new_col = c(col1, col2, col3)},
 that describe how you wish to pack existing columns into new columns.
 The right hand side can be any expression supported by tidyselect.}
+
+\item{data}{A data frame.}
 
 \item{cols}{Name of column that you wish to unpack.}
 

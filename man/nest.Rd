@@ -8,7 +8,7 @@
 nest(.data, ..., .key = deprecated())
 
 unnest(
-  data,
+  .data,
   cols,
   ...,
   keep_empty = FALSE,
@@ -38,8 +38,6 @@ to \code{df \%>\% mutate(y = fun(x, y, z)) \%>\% unnest(y)}.}
 
 \item{.key}{\Sexpr[results=rd, stage=render]{lifecycle::badge("deprecated")}:
 No longer needed because of the new \code{new_col = c(col1, col2, col3)} syntax.}
-
-\item{data}{A data frame.}
 
 \item{cols}{Names of columns to unnest.
 

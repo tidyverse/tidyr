@@ -1,5 +1,8 @@
 # tidyr (development version)
 
+* `pack()` and `unnest()` now use `.data` instead of data for the first 
+  argument (#759).
+
 * In `pivot_wider()`, `values_fn` and `values_fill` can now be single values; 
   you now only need to use a named list if you want to use different values
   for different value columns (#739, #746).

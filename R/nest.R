@@ -208,7 +208,7 @@ check_key <- function(.key) {
 #'   use `names_sep` instead.
 #' @export
 #' @rdname nest
-unnest <- function(data,
+unnest <- function(.data,
                    cols,
                    ...,
                    keep_empty = FALSE,
@@ -226,13 +226,13 @@ unnest <- function(data,
       details = "All list-columns are now preserved"
     )
     deprecated <- TRUE
-    .preserve <- tidyselect::vars_select(tbl_vars(data), !!enquo(.preserve))
+    .preserve <- tidyselect::vars_select(tbl_vars(.data), !!enquo(.preserve))
   } else {
     .preserve <- NULL
   }
 
   if (missing(cols) && missing(...)) {
-    list_cols <- names(data)[map_lgl(data, is_list)]
+    list_cols <- names(.data)[map_lgl(.data, is_list)]
     cols <- expr(c(!!!syms(setdiff(list_cols, .preserve))))
     warn(paste0(
       "`cols` is now required when using unnest().\n",
@@ -245,7 +245,7 @@ unnest <- function(data,
     cols <- enquo(cols)
   } else {
     dots <- enquos(cols, ..., .named = TRUE, .ignore_empty = "all")
-    data <- dplyr::mutate(data, !!!dots)
+    .data <- dplyr::mutate(.data, !!!dots)
 
     cols <- expr(c(!!!syms(names(dots))))
     unnest_call <- expr(unnest(!!cols))
@@ -268,8 +268,8 @@ unnest <- function(data,
       details = "Manually create column of names instead."
     )
     deprecated <- TRUE
-    first_col <- tidyselect::vars_select(tbl_vars(data), !!cols)[[1]]
-    data[[.id]] <- names(data[[first_col]])
+    first_col <- tidyselect::vars_select(tbl_vars(.data), !!cols)[[1]]
+    .data[[.id]] <- names(.data[[first_col]])
   }
 
   if (!is_missing(.sep)) {
@@ -282,7 +282,7 @@ unnest <- function(data,
 
   if (deprecated) {
     return(unnest(
-      data,
+      .data,
       cols = !!cols,
       names_sep = names_sep,
       keep_empty = keep_empty,
@@ -296,7 +296,7 @@ unnest <- function(data,
 
 #' @export
 unnest.data.frame <- function(
-                              data,
+                              .data,
                               cols,
                               ...,
                               keep_empty = FALSE,
@@ -308,20 +308,20 @@ unnest.data.frame <- function(
                               .sep = "DEPRECATED",
                               .preserve = "DEPRECATED") {
 
-  cols <- tidyselect::vars_select(tbl_vars(data), !!enquo(cols))
+  cols <- tidyselect::vars_select(tbl_vars(.data), !!enquo(cols))
 
-  if (nrow(data) == 0) {
+  if (nrow(.data) == 0) {
     for (col in cols) {
-      data[[col]] <- as_empty_df(data[[col]], col = col)
+      .data[[col]] <- as_empty_df(.data[[col]], col = col)
     }
   } else {
     for (col in cols) {
-      data[[col]] <- map(data[[col]], as_df, col = col)
+      .data[[col]] <- map(.data[[col]], as_df, col = col)
     }
   }
 
-  data <- unchop(data, !!cols, keep_empty = keep_empty, ptype = ptype)
-  unpack(data, !!cols, names_sep = names_sep, names_repair = names_repair)
+  .data <- unchop(.data, !!cols, keep_empty = keep_empty, ptype = ptype)
+  unpack(.data, !!cols, names_sep = names_sep, names_repair = names_repair)
 }
 
 

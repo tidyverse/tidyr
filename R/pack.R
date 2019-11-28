@@ -39,20 +39,20 @@
 #' df %>% unpack(y)
 #' df %>% unpack(c(y, z))
 #' df %>% unpack(c(y, z), names_sep = "_")
-pack <- function(data, ...) {
+pack <- function(.data, ...) {
   cols <- enquos(...)
   if (any(names2(cols) == "")) {
     abort("All elements of `...` must be named")
   }
 
-  cols <- map(cols, ~ tidyselect::vars_select(tbl_vars(data), !!.x))
-  packed <- map(cols, ~ data[.x])
+  cols <- map(cols, ~ tidyselect::vars_select(tbl_vars(.data), !!.x))
+  packed <- map(cols, ~ .data[.x])
 
   # TODO: find a different approach that preserves order
-  asis <- setdiff(names(data), unlist(cols))
-  out <- vec_cbind(data[asis], new_data_frame(packed, n = nrow(data)))
+  asis <- setdiff(names(.data), unlist(cols))
+  out <- vec_cbind(.data[asis], new_data_frame(packed, n = nrow(.data)))
 
-  reconstruct_tibble(data, out)
+  reconstruct_tibble(.data, out)
 }
 
 #' @export
