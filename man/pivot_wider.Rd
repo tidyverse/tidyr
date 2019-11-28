@@ -49,13 +49,18 @@ Use \code{"minimal"} to allow duplicates in the output, or \code{"unique"} to
 de-duplicated by adding numeric suffixes. See \code{\link[vctrs:vec_as_names]{vctrs::vec_as_names()}}
 for more options.}
 
-\item{values_fill}{Optionally, a named list specifying what each \code{value}
-should be filled in with when missing.}
+\item{values_fill}{Optionally, a value that specifies what each \code{value}
+should be filled in with when missing.
 
-\item{values_fn}{Optionally, a named list providing a function that will be
-applied to the \code{value} in each cell in the output. You will typically
-use this when the combination of \code{id_cols} and \code{value} column does not
-uniquely identify an observation.}
+This can be a named list if you want to apply different aggregations
+to different value columns.}
+
+\item{values_fn}{Optionally, a function applied to the \code{value} in each cell
+in the output. You will typically use this when the combination of
+\code{id_cols} and \code{value} column does not uniquely identify an observation.
+
+This can be a named list if you want to apply different aggregations
+to different value columns.}
 }
 \description{
 \Sexpr[results=rd, stage=render]{lifecycle::badge("maturing")}
@@ -80,11 +85,7 @@ fish_encounters \%>\%
   pivot_wider(names_from = station, values_from = seen)
 # Fill in missing values
 fish_encounters \%>\%
-  pivot_wider(
-    names_from = station,
-    values_from = seen,
-    values_fill = list(seen = 0)
-  )
+  pivot_wider(names_from = station, values_from = seen, values_fill = 0)
 
 # Generate column names from multiple variables
 us_rent_income
@@ -98,7 +99,7 @@ warpbreaks \%>\%
   pivot_wider(
     names_from = wool,
     values_from = breaks,
-    values_fn = list(breaks = mean)
+    values_fn = mean
   )
 }
 \seealso{

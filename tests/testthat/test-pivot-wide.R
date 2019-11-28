@@ -87,6 +87,12 @@ test_that("warning suppressed by supplying values_fn", {
   expect_equal(pv$x, list_of(c(1L, 2L), 3L))
 })
 
+test_that("values_fn can be a single function", {
+  df <- tibble(a = c(1, 1, 2), key = c("x", "x", "x"), val = c(1, 10, 100))
+  pv <- pivot_wider(df, names_from = key, values_from = val, values_fn = sum)
+  expect_equal(pv$x, c(11, 100))
+})
+
 test_that("values_summarize applied even when no-duplicates", {
   df <- tibble(a = c(1, 2), key = c("x", "x"), val = 1:2)
   pv <- pivot_wider(df,
@@ -97,6 +103,21 @@ test_that("values_summarize applied even when no-duplicates", {
 
   expect_equal(pv$a, c(1, 2))
   expect_equal(pv$x, list_of(1L, 2L))
+})
+
+
+# can fill missing cells --------------------------------------------------
+
+test_that("can fill in missing cells", {
+  df <- tibble(g = c(1, 2), var = c("x", "y"), val = c(1, 2))
+
+  widen <- function(...) {
+    df %>% pivot_wider(names_from = var, values_from = val, ...)
+  }
+
+  expect_equal(widen()$x, c(1, NA))
+  expect_equal(widen(values_fill = 0)$x, c(1, 0))
+  expect_equal(widen(values_fill = list(val = 0))$x, c(1, 0))
 })
 
 # multiple values ----------------------------------------------------------

@@ -1,5 +1,9 @@
 # tidyr (development version)
 
+* In `pivot_wider()`, `values_fn` and `values_fill` can now be single values; 
+  you now only need to use a named list if you want to use different values
+  for different value columns (#739, #746).
+
 * `unnest_wider()` gives a better error message if you attempt to unnest
   multiple columns (#740).
 

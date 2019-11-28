@@ -40,13 +40,18 @@ This takes a tidyselect specification, e.g. use \code{a:c} to select all
 columns from \code{a} to \code{c}, \code{starts_with("prefix")} to select all columns
 starting with "prefix", or \code{everything()} to select all columns.}
 
-\item{values_fill}{Optionally, a named list specifying what each \code{value}
-should be filled in with when missing.}
+\item{values_fill}{Optionally, a value that specifies what each \code{value}
+should be filled in with when missing.
 
-\item{values_fn}{Optionally, a named list providing a function that will be
-applied to the \code{value} in each cell in the output. You will typically
-use this when the combination of \code{id_cols} and \code{value} column does not
-uniquely identify an observation.}
+This can be a named list if you want to apply different aggregations
+to different value columns.}
+
+\item{values_fn}{Optionally, a function applied to the \code{value} in each cell
+in the output. You will typically use this when the combination of
+\code{id_cols} and \code{value} column does not uniquely identify an observation.
+
+This can be a named list if you want to apply different aggregations
+to different value columns.}
 
 \item{names_from}{A pair of arguments describing which column
 (or columns) to get the name of the output column (\code{name_from}), and

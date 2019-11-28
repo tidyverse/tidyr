@@ -38,12 +38,17 @@
 #' @param names_prefix String added to the start of every variable name. This is
 #'   particularly useful if `names_from` is a numeric vector and you want to
 #'   create syntactic variable names.
-#' @param values_fill Optionally, a named list specifying what each `value`
+#' @param values_fill Optionally, a value that specifies what each `value`
 #'   should be filled in with when missing.
-#' @param values_fn Optionally, a named list providing a function that will be
-#'   applied to the `value` in each cell in the output. You will typically
-#'   use this when the combination of `id_cols` and `value` column does not
-#'   uniquely identify an observation.
+#'
+#'   This can be a named list if you want to apply different aggregations
+#'   to different value columns.
+#' @param values_fn Optionally, a function applied to the `value` in each cell
+#'   in the output. You will typically use this when the combination of
+#'   `id_cols` and `value` column does not uniquely identify an observation.
+#'
+#'   This can be a named list if you want to apply different aggregations
+#'   to different value columns.
 #' @export
 #' @examples
 #' # See vignette("pivot") for examples and explanation
@@ -53,11 +58,7 @@
 #'   pivot_wider(names_from = station, values_from = seen)
 #' # Fill in missing values
 #' fish_encounters %>%
-#'   pivot_wider(
-#'     names_from = station,
-#'     values_from = seen,
-#'     values_fill = list(seen = 0)
-#'   )
+#'   pivot_wider(names_from = station, values_from = seen, values_fill = 0)
 #'
 #' # Generate column names from multiple variables
 #' us_rent_income
@@ -71,7 +72,7 @@
 #'   pivot_wider(
 #'     names_from = wool,
 #'     values_from = breaks,
-#'     values_fn = list(breaks = mean)
+#'     values_fn = mean
 #'   )
 pivot_wider <- function(data,
                         id_cols = NULL,
@@ -115,6 +116,14 @@ pivot_wider_spec <- function(data,
                                   values_fill = NULL,
                                   values_fn = NULL) {
   spec <- check_spec(spec)
+
+  if (is.function(values_fn)) {
+    values_fn <- rep_named(unique(spec$.value), list(values_fn))
+  }
+
+  if (is_scalar(values_fill)) {
+    values_fill <- rep_named(unique(spec$.value), list(values_fill))
+  }
 
   values <- vec_unique(spec$.value)
   spec_cols <- c(names(spec)[-(1:2)], values)
@@ -232,17 +241,17 @@ vals_dedup <- function(key, val, value, summarize = NULL) {
     }
 
     warn(glue::glue(
-      "Values in `{value}` are not uniquely identified; output will contain list-cols.\n",
-      "* Use `values_fn = list({value} = list)` to suppress this warning.\n",
-      "* Use `values_fn = list({value} = length)` to identify where the duplicates arise\n",
-      "* Use `values_fn = list({value} = summary_fun)` to summarise duplicates"
+      "Values are not uniquely identified; output will contain list-cols.\n",
+      "* Use `values_fn = list` to suppress this warning.\n",
+      "* Use `values_fn = length` to identify where the duplicates arise\n",
+      "* Use `values_fn = {{summary_fun}}` to summarise duplicates"
     ))
   }
 
   out <- vec_split(val, key)
   if (!is.null(summarize) && !identical(summarize, list)) {
     summarize <- as_function(summarize)
-    # This is only correct if `values_collapse` always returns a single value
+    # This is only correct if `values_fn` always returns a single value
     # Needs https://github.com/r-lib/vctrs/issues/183
     out$val <- vec_c(!!!map(out$val, summarize))
   }
@@ -260,4 +269,16 @@ wrap_vec <- function(vec, names) {
   }
 
   as_tibble(out)
+}
+
+is_scalar <- function(x) {
+  if (is.null(x)) {
+    return(FALSE)
+  }
+
+  if (is.list(x)) {
+    (length(x) == 1) && !have_name(x)
+  } else {
+    TRUE
+  }
 }

@@ -277,7 +277,7 @@ This dataset only records when a fish was detected by the station - it doesn't r
 fish_encounters %>% pivot_wider(
   names_from = station, 
   values_from = seen,
-  values_fill = list(seen = 0)
+  values_fill = 0
 )
 ```
 
@@ -460,7 +460,7 @@ multi2 %>%
     id_cols = id,
     names_from = value, 
     values_from = checked, 
-    values_fill = list(checked = FALSE)
+    values_fill = FALSE
   )
 ```
 
