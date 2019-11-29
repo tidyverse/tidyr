@@ -20,7 +20,10 @@ names. Must be one of the following options:
 \item a function: apply custom name repair.
 \item \link{tidyr_legacy}: use the name repair from tidyr 0.8.
 \item a formula: a purrr-style anonymous function (see \code{\link[rlang:as_function]{rlang::as_function()}})
-}}
+}
+
+See \code{\link[vctrs:vec_as_names]{vctrs::vec_as_names()}} for more details on these terms and the
+strategies used to enforce them.}
 }
 \value{
 A tibble with one column for each input in \code{...}. The output
