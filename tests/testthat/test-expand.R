@@ -136,10 +136,7 @@ test_that("expand_grid can control name_repair", {
     expect_error(expand_grid(x, x), "must not be duplicated")
   }
 
-  expect_message(
-    out <- expand_grid(x, x, .name_repair = "unique"),
-    "New names:"
-  )
+  expect_message(out <- expand_grid(x, x, .name_repair = "unique"), "New names:")
   expect_named(out, c("x...1", "x...2"))
 
   out <- expand_grid(x, x, .name_repair = "minimal")
@@ -149,21 +146,12 @@ test_that("expand_grid can control name_repair", {
 test_that("crossing/nesting/expand respect .name_repair", {
 
   x <- 1:2
-  expect_named(
-    crossing(x, x, .name_repair = "unique"),
-    c("x...1", "x...2")
-  )
+  expect_named(crossing(x, x, .name_repair = "unique"), c("x...1", "x...2"))
 
-  expect_named(
-    nesting(x, x, .name_repair = "unique"),
-    c("x...1", "x...2")
-  )
+  expect_named(nesting(x, x, .name_repair = "unique"), c("x...1", "x...2"))
 
   df <- tibble(x)
-  expect_named(
-    df %>% expand(x, x, .name_repair = "unique"),
-    c("x...1", "x...2")
-  )
+  expect_named(df %>% expand(x, x, .name_repair = "unique"), c("x...1", "x...2"))
 })
 
 
