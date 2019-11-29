@@ -9,6 +9,7 @@
 #' each input. `nesting()` is the complement to `crossing()`: it only keeps
 #' combinations of values that appear in the data.
 #'
+#' @inheritParams expand_grid
 #' @param data A data frame.
 #' @param ... Specification of columns to expand. Columns can be atomic vectors
 #'   or lists.
@@ -28,19 +29,6 @@
 #'   `year = 2010:2020` or `year = \link{full_seq}(year,1)`.
 #'
 #'   Length-zero (empty) elements are automatically dropped.
-#' @param .name_repair Used to check that output data frame has valid
-#'   names. Must be one of the following options:
-#'
-#'   * "minimal": no name repair or checks, beyond basic existence,
-#'   * "unique": make sure names are unique and not empty,
-#'   * "check_unique": (the default), no name repair, but check they are unique,
-#'   * "universal": make the names unique and syntactic
-#'   * a function: apply custom name repair.
-#'   * [tidyr_legacy]: use the name repair from tidyr 0.8.
-#'   * a formula: a purrr-style anonymous function (see [rlang::as_function()])
-#'
-#'   See [vctrs::vec_as_names()] for more details on these terms and the
-#'   strategies used to enforce them.
 #' @seealso [complete()] for a common application of `expand`:
 #'   completing a data frame with missing combinations. [expand_grid()]
 #'   is low-level that doesn't deduplicate or sort values.
@@ -172,6 +160,9 @@ nesting <- function(..., .name_repair = "check_unique") {
 #'   * a function: apply custom name repair.
 #'   * [tidyr_legacy]: use the name repair from tidyr 0.8.
 #'   * a formula: a purrr-style anonymous function (see [rlang::as_function()])
+#'
+#'   See [vctrs::vec_as_names()] for more details on these terms and the
+#'   strategies used to enforce them.
 #' @return A tibble with one column for each input in `...`. The output
 #'   will have one row for each combination of the inputs, i.e. the size
 #'   be equal to the product of the sizes of the inputs. This implies
