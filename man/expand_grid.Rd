@@ -10,20 +10,20 @@ expand_grid(..., .name_repair = "check_unique")
 \item{...}{Name-value pairs. The name will become the column name in the
 output.}
 
-\item{.name_repair}{Used to check that output data frame has valid
-names. Must be one of the following options:
+\item{.name_repair}{Treatment of problematic column names:
 \itemize{
-\item "minimal": no name repair or checks, beyond basic existence,
-\item "unique": make sure names are unique and not empty,
-\item "check_unique": (the default), no name repair, but check they are unique,
-\item "universal": make the names unique and syntactic
-\item a function: apply custom name repair.
-\item \link{tidyr_legacy}: use the name repair from tidyr 0.8.
-\item a formula: a purrr-style anonymous function (see \code{\link[rlang:as_function]{rlang::as_function()}})
+\item \code{"minimal"}: No name repair or checks, beyond basic existence,
+\item \code{"unique"}: Make sure names are unique and not empty,
+\item \code{"check_unique"}: (default value), no name repair, but check they are
+\code{unique},
+\item \code{"universal"}: Make the names \code{unique} and syntactic
+\item a function: apply custom name repair (e.g., \code{.name_repair = make.names}
+for names in the style of base R).
+\item A purrr-style anonymous function, see \code{\link[rlang:as_function]{rlang::as_function()}}
 }
 
-See \code{\link[vctrs:vec_as_names]{vctrs::vec_as_names()}} for more details on these terms and the
-strategies used to enforce them.}
+See \link[tibble]{name-repair} for more details on these terms and the strategies used
+to enforce them.}
 }
 \value{
 A tibble with one column for each input in \code{...}. The output

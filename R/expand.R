@@ -150,19 +150,7 @@ nesting <- function(..., .name_repair = "check_unique") {
 #' * Can expand any generalised vector, including data frames.
 #' @param ... Name-value pairs. The name will become the column name in the
 #'   output.
-#' @param .name_repair Used to check that output data frame has valid
-#'   names. Must be one of the following options:
-#'
-#'   * "minimal": no name repair or checks, beyond basic existence,
-#'   * "unique": make sure names are unique and not empty,
-#'   * "check_unique": (the default), no name repair, but check they are unique,
-#'   * "universal": make the names unique and syntactic
-#'   * a function: apply custom name repair.
-#'   * [tidyr_legacy]: use the name repair from tidyr 0.8.
-#'   * a formula: a purrr-style anonymous function (see [rlang::as_function()])
-#'
-#'   See [vctrs::vec_as_names()] for more details on these terms and the
-#'   strategies used to enforce them.
+#' @inheritParams tibble::as_tibble
 #' @return A tibble with one column for each input in `...`. The output
 #'   will have one row for each combination of the inputs, i.e. the size
 #'   be equal to the product of the sizes of the inputs. This implies
