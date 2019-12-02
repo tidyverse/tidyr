@@ -1,8 +1,8 @@
 # tidyr (development version)
 
-* `expand()`, `expand_grid()`, `crossing` and `nesting` gain a `.name_repair`
-  argument allowing them to respect `.name_repair` if it is passed to them
-  (@jeffreypullin, #798).
+* `expand()`, `expand_grid()`, `crossing()`, and `nesting()` gain a 
+  `.name_repair` argument allowing them to respect `.name_repair` if it is 
+  passed to them (@jeffreypullin, #798).
 
 * `pack()` gains a `.names_sep` argument allows you to strip outer names from
   inner names, in symmetrical way to how the same argument to `pack()` combines
