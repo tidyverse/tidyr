@@ -192,7 +192,7 @@
     <p>Create a tibble from all combinations of inputs</p>
     </div>
 
-    <pre class="usage"><span class='fu'>expand_grid</span>(<span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>expand_grid</span>(<span class='no'>...</span>, <span class='kw'>.name_repair</span> <span class='kw'>=</span> <span class='st'>"check_unique"</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -201,6 +201,22 @@
       <th>...</th>
       <td><p>Name-value pairs. The name will become the column name in the
 output.</p></td>
+    </tr>
+    <tr>
+      <th>.name_repair</th>
+      <td><p>Treatment of problematic column names:</p><ul>
+<li><p><code>"minimal"</code>: No name repair or checks, beyond basic existence,</p></li>
+<li><p><code>"unique"</code>: Make sure names are unique and not empty,</p></li>
+<li><p><code>"check_unique"</code>: (default value), no name repair, but check they are
+<code>unique</code>,</p></li>
+<li><p><code>"universal"</code>: Make the names <code>unique</code> and syntactic</p></li>
+<li><p>a function: apply custom name repair (e.g., <code>.name_repair = make.names</code>
+for names in the style of base R).</p></li>
+<li><p>A purrr-style anonymous function, see <code><a href='https://rlang.r-lib.org/reference/as_function.html'>rlang::as_function()</a></code></p></li>
+</ul>
+
+<p>See <a href='https://tibble.tidyverse.org/reference/name-repair.html'>name-repair</a> for more details on these terms and the strategies used
+to enforce them.</p></td>
     </tr>
     </table>
 
