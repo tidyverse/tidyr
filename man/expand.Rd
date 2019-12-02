@@ -6,11 +6,11 @@
 \alias{nesting}
 \title{Expand data frame to include all combinations of values}
 \usage{
-expand(data, ...)
+expand(data, ..., .name_repair = "check_unique")
 
-crossing(...)
+crossing(..., .name_repair = "check_unique")
 
-nesting(...)
+nesting(..., .name_repair = "check_unique")
 }
 \arguments{
 \item{data}{A data frame.}
@@ -33,6 +33,21 @@ that don't appear in the data: to do so use expressions like
 \code{year = 2010:2020} or \verb{year = \link{full_seq}(year,1)}.
 
 Length-zero (empty) elements are automatically dropped.}
+
+\item{.name_repair}{Treatment of problematic column names:
+\itemize{
+\item \code{"minimal"}: No name repair or checks, beyond basic existence,
+\item \code{"unique"}: Make sure names are unique and not empty,
+\item \code{"check_unique"}: (default value), no name repair, but check they are
+\code{unique},
+\item \code{"universal"}: Make the names \code{unique} and syntactic
+\item a function: apply custom name repair (e.g., \code{.name_repair = make.names}
+for names in the style of base R).
+\item A purrr-style anonymous function, see \code{\link[rlang:as_function]{rlang::as_function()}}
+}
+
+See \link[tibble]{name-repair} for more details on these terms and the strategies used
+to enforce them.}
 }
 \description{
 \code{expand()} is often useful in conjunction with \code{left_join()} if

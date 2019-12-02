@@ -126,3 +126,32 @@ test_that("crossing handles list columns", {
   expect_equal(out$x, rep(x, each = 2))
   expect_equal(out$y, rep(y, 2))
 })
+
+test_that("expand_grid can control name_repair", {
+  x <- 1:2
+
+  if (packageVersion("tibble") > "2.99") {
+    expect_error(expand_grid(x, x), class = "vctrs_error_names_must_be_unique")
+  } else {
+    expect_error(expand_grid(x, x), "must not be duplicated")
+  }
+
+  expect_message(out <- expand_grid(x, x, .name_repair = "unique"), "New names:")
+  expect_named(out, c("x...1", "x...2"))
+
+  out <- expand_grid(x, x, .name_repair = "minimal")
+  expect_named(out, c("x", "x"))
+})
+
+test_that("crossing/nesting/expand respect .name_repair", {
+
+  x <- 1:2
+  expect_named(crossing(x, x, .name_repair = "unique"), c("x...1", "x...2"))
+
+  expect_named(nesting(x, x, .name_repair = "unique"), c("x...1", "x...2"))
+
+  df <- tibble(x)
+  expect_named(df %>% expand(x, x, .name_repair = "unique"), c("x...1", "x...2"))
+})
+
+
