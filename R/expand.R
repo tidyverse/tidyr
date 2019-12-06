@@ -191,15 +191,20 @@ dots_cols <- function(..., `_data` = NULL) {
   named <- names(dots) != ""
 
   dots <- quos_auto_name(dots)
-  dots <- map(dots, eval_tidy, data = `_data`)
 
-  is_null <- map_lgl(dots, is.null)
+  out <- as.list(`_data`)
+  for (i in seq_along(dots)) {
+    out[[names(dots)[[i]]]] <- eval_tidy(dots[[i]], data = out)
+  }
+  out <- out[names(dots)]
+
+  is_null <- map_lgl(out, is.null)
   if (any(is_null)) {
-    dots <- dots[!is_null]
+    out <- out[!is_null]
     named <- named[!is_null]
   }
 
-  structure(dots, named = named)
+  structure(out, named = named)
 }
 
 # flatten unnamed nested data frames to preserve existing behaviour

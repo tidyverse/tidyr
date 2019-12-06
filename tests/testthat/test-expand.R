@@ -155,3 +155,9 @@ test_that("crossing/nesting/expand respect .name_repair", {
 })
 
 
+# dots_cols supports lazy evaluation --------------------------------------
+
+test_that("dots_cols evaluates each expression in turn", {
+  out <- dots_cols(x = seq(-2, 2), y = x)
+  expect_equal(out$x, out$y)
+})

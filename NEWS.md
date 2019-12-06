@@ -1,5 +1,9 @@
 # tidyr (development version)
 
+* `expand()`, `expand_grid()`, `crossing()`, and `nesting()` once again 
+  evaluate their inputs iteratively, so you can refer to freshly created 
+  columns, e.g. `crossing(x = seq(-2, 2), y = x)` (#820).
+
 * `expand()`, `expand_grid()`, `crossing()`, and `nesting()` gain a 
   `.name_repair` argument allowing them to respect `.name_repair` if it is 
   passed to them (@jeffreypullin, #798).
