@@ -156,7 +156,7 @@ pivot_longer_spec <- function(data,
                               values_ptypes = list()
                               ) {
   spec <- check_spec(spec)
-  spec <- deduplicate_names(spec, data)
+  spec <- deduplicate_spec(spec, data)
 
   # Quick hack to ensure that split() preserves order
   v_fct <- factor(spec$.value, levels = unique(spec$.value))
@@ -259,16 +259,6 @@ build_longer_spec <- function(data, cols,
     names[[col]] <- vec_cast(names[[col]], names_ptypes[[col]])
   }
 
-  # Ensure that names uniquely identifies each row
-  if (vec_duplicate_any(names)) {
-    pos <- vec_group_pos(names)$pos
-    .seq <- vector("integer", length = nrow(names))
-    for (i in seq_along(pos)) {
-      .seq[pos[[i]]] <- seq_along(pos[[i]])
-    }
-    names$.seq <- .seq
-  }
-
   out <- tibble(.name = cols)
   out[[".value"]] <- values_to
   out <- vec_cbind(out, names)
@@ -285,8 +275,22 @@ drop_cols <- function(df, cols) {
   }
 }
 
-# Match spec to data, handling duplicated column names
-deduplicate_names <- function(spec, df) {
+# Ensure that there's a one-to-one match from spec to data by adding
+# a special .seq variable which is automatically removed after pivotting.
+deduplicate_spec <- function(spec, df) {
+
+  # Ensure each .name has a unique output identifier
+  key <- spec[setdiff(names(spec), ".name")]
+  if (vec_duplicate_any(key)) {
+    pos <- vec_group_pos(key)$pos
+    seq <- vector("integer", length = nrow(spec))
+    for (i in seq_along(pos)) {
+      seq[pos[[i]]] <- seq_along(pos[[i]])
+    }
+    spec$.seq <- seq
+  }
+
+  # Match spec to data, handling duplicated column names
   col_id <- vec_match(names(df), spec$.name)
   has_match <- !is.na(col_id)
 
