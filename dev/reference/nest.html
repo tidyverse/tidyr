@@ -202,7 +202,7 @@ notably models.</p>
 <p>Learn more in <code><a href='../articles/nest.html'>vignette("nest")</a></code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>nest</span>(<span class='no'>.data</span>, <span class='no'>...</span>, <span class='kw'>.key</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Deprecated.html'>deprecated</a></span>())
+    <pre class="usage"><span class='fu'>nest</span>(<span class='no'>.data</span>, <span class='no'>...</span>, <span class='kw'>.names_sep</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>.key</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Deprecated.html'>deprecated</a></span>())
 
 <span class='fu'>unnest</span>(
   <span class='no'>data</span>,
@@ -271,16 +271,16 @@ overriding the default that will be guessed from the combination of
 individual values.</p></td>
     </tr>
     <tr>
-      <th>names_sep</th>
+      <th>names_sep, .names_sep</th>
       <td><p>If <code>NULL</code>, the default, the names will be left
-as is. In <code><a href='pack.html'>pack()</a></code>, inner names will come from the former outer names;
-in <code><a href='pack.html'>unpack()</a></code>, the new outer names will come from the inner names.</p>
-<p>If a string, the inner and outer names will be used together. In <code><a href='pack.html'>pack()</a></code>,
+as is. In <code>nest()</code>, inner names will come from the former outer names;
+in <code>unnest()</code>, the new outer names will come from the inner names.</p>
+<p>If a string, the inner and outer names will be used together. In <code>nest()</code>,
 the names of the new outer columns will be formed by pasting together the
-outer and the inner column names, separated by <code>names_sep</code>. In <code><a href='pack.html'>unpack()</a></code>,
+outer and the inner column names, separated by <code>names_sep</code>. In <code>unnest()</code>,
 the new inner names will have the outer names (+ <code>names_sep</code>) automatically
-stripped. This makes <code>names_sep</code> roughly symmetric between packing
-and unpacking.</p></td>
+stripped. This makes <code>names_sep</code> roughly symmetric between nesting and
+unnesting.</p></td>
     </tr>
     <tr>
       <th>names_repair</th>
