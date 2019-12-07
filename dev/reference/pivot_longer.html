@@ -233,7 +233,12 @@ starting with "prefix", or <code><a href='https://rdrr.io/pkg/tidyselect/man/sel
       <td><p>A string specifying the name of the column to create
 from the data stored in the column names of <code>data</code>.</p>
 <p>Can be a character vector, creating multiple columns, if <code>names_sep</code>
-or <code>names_pattern</code> is provided.</p></td>
+or <code>names_pattern</code> is provided. In this case, there are two special
+values you can take advantage of:</p><ul>
+<li><p><code>NA</code> will discard that component of the name.</p></li>
+<li><p><code>.value</code> indicates that component of the name defines the name of the
+column containing the cell values, overriding <code>values_to</code>.</p></li>
+</ul></td>
     </tr>
     <tr>
       <th>names_prefix</th>
