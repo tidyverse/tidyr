@@ -25,7 +25,12 @@
 #'   from the data stored in the column names of `data`.
 #'
 #'   Can be a character vector, creating multiple columns, if `names_sep`
-#'   or `names_pattern` is provided.
+#'   or `names_pattern` is provided. In this case, there are two special
+#'   values you can take advantage of:
+#'
+#'   * `NA` will discard that component of the name.
+#'   * `.value` indicates that component of the name defines the name of the
+#'     column containing the cell values, overriding `values_to`.
 #' @param names_prefix A regular expression used to remove matching text
 #'   from the start of each variable name.
 #' @param names_sep,names_pattern If `names_to` contains multiple values,
@@ -193,6 +198,7 @@ pivot_longer_spec <- function(data,
     vec_slice(vals, rows$val_id),
     .name_repair = names_repair
   ))
+  out$.seq <- NULL
 
   reconstruct_tibble(data, out)
 }
@@ -230,10 +236,6 @@ build_longer_spec <- function(data, cols,
     } else {
       names <- str_extract(names, names_to, regex = names_pattern)
     }
-
-    if (".value" %in% names_to) {
-      values_to <- NULL
-    }
   } else {
     if (!is.null(names_sep)) {
       abort("`names_sep` can not be used with length-1 `names_to`")
@@ -245,17 +247,30 @@ build_longer_spec <- function(data, cols,
     names <- tibble(!!names_to := names)
   }
 
+  if (".value" %in% names_to) {
+    values_to <- NULL
+  }
+
   # optionally, cast variables generated from columns
   cast_cols <- intersect(names(names), names(names_ptypes))
   for (col in cast_cols) {
     names[[col]] <- vec_cast(names[[col]], names_ptypes[[col]])
   }
 
+  # Ensure that names uniquely identifies each row
+  if (vec_duplicate_any(names)) {
+    pos <- vec_group_pos(names)$pos
+    .seq <- vector("integer", length = nrow(names))
+    for (i in seq_along(pos)) {
+      .seq[pos[[i]]] <- seq_along(pos[[i]])
+    }
+    names$.seq <- .seq
+  }
+
   out <- tibble(.name = cols)
   out[[".value"]] <- values_to
   out <- vec_cbind(out, names)
   out
-
 }
 
 drop_cols <- function(df, cols) {

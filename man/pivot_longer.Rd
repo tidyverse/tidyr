@@ -31,7 +31,13 @@ starting with "prefix", or \code{everything()} to select all columns.}
 from the data stored in the column names of \code{data}.
 
 Can be a character vector, creating multiple columns, if \code{names_sep}
-or \code{names_pattern} is provided.}
+or \code{names_pattern} is provided. In this case, there are two special
+values you can take advantage of:
+\itemize{
+\item \code{NA} will discard that component of the name.
+\item \code{.value} indicates that component of the name defines the name of the
+column containing the cell values, overriding \code{values_to}.
+}}
 
 \item{names_prefix}{A regular expression used to remove matching text
 from the start of each variable name.}

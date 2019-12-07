@@ -1,5 +1,16 @@
 # tidyr (development version)
 
+* `pivot_longer()` automatically disambiguates non-unique ouputs, which can
+  occur when the input variables include some additional component that you
+  don't care about and want to discard (#792, #793).
+  
+    ```{r}
+    df <- tibble(id = 1:3, x_1 = 1:3, x_2 = 4:6)  
+    df %>% pivot_longer(-id, names_pattern = "(.)_.")
+    df %>% pivot_longer(-id, names_sep = "_", names_to = c("name", NA))
+    df %>% pivot_longer(-id, names_sep = "_", names_to = c(".value", NA))
+    ```
+
 * `expand()`, `expand_grid()`, `crossing()`, and `nesting()` once again 
   evaluate their inputs iteratively, so you can refer to freshly created 
   columns, e.g. `crossing(x = seq(-2, 2), y = x)` (#820).

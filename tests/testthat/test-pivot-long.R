@@ -104,6 +104,18 @@ test_that("handles duplicated column names", {
   expect_equal(pv$value, 1:4)
 })
 
+test_that("can pivot duplicated names to .value", {
+  df <- tibble(x = 1, a_1 = 1, a_2 = 2, b_1 = 3, b_2 = 4)
+  pv1 <- pivot_longer(df, -x, names_to = c(".value", NA), names_sep = "_")
+  pv2 <- pivot_longer(df, -x, names_to = c(".value", NA), names_pattern = "(.)_(.)")
+  pv3 <- pivot_longer(df, -x, names_to = ".value", names_pattern = "(.)_.")
+
+  expect_named(pv1, c("x", "a", "b"))
+  expect_equal(pv1$a, c(1, 2))
+  expect_equal(pv2, pv1)
+  expect_equal(pv3, pv1)
+})
+
 test_that(".value can be at any position in `names_to`", {
   samp <- tibble(
     i = 1:4,
