@@ -147,6 +147,8 @@ pivot_longer <- function(data,
 #'  column names turns into columns in the result.
 #'
 #'   Must be a data frame containing character `.name` and `.value` columns.
+#'   The special `.seq` variable is used to disambiguate rows internally;
+#'   it is automatically removed after pivotting.
 pivot_longer_spec <- function(data,
                               spec,
                               names_repair = "check_unique",
