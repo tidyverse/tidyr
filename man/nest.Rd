@@ -5,7 +5,7 @@
 \alias{unnest}
 \title{Nest and unnest}
 \usage{
-nest(.data, ..., .key = deprecated())
+nest(.data, ..., .names_sep = NULL, .key = deprecated())
 
 unnest(
   data,
@@ -58,16 +58,16 @@ of missing values.}
 overriding the default that will be guessed from the combination of
 individual values.}
 
-\item{names_sep}{If \code{NULL}, the default, the names will be left
-as is. In \code{pack()}, inner names will come from the former outer names;
-in \code{unpack()}, the new outer names will come from the inner names.
+\item{names_sep, .names_sep}{If \code{NULL}, the default, the names will be left
+as is. In \code{nest()}, inner names will come from the former outer names;
+in \code{unnest()}, the new outer names will come from the inner names.
 
-If a string, the inner and outer names will be used together. In \code{pack()},
+If a string, the inner and outer names will be used together. In \code{nest()},
 the names of the new outer columns will be formed by pasting together the
-outer and the inner column names, separated by \code{names_sep}. In \code{unpack()},
+outer and the inner column names, separated by \code{names_sep}. In \code{unnest()},
 the new inner names will have the outer names (+ \code{names_sep}) automatically
-stripped. This makes \code{names_sep} roughly symmetric between packing
-and unpacking.}
+stripped. This makes \code{names_sep} roughly symmetric between nesting and
+unnesting.}
 
 \item{names_repair}{Used to check that output data frame has valid
 names. Must be one of the following options:

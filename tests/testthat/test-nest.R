@@ -44,6 +44,12 @@ test_that("nest preserves order of data", {
   expect_equal(out$x, c(1, 3, 2))
 })
 
+test_that("can strip names", {
+  df <- tibble(x = c(1, 1, 1), ya = 1:3, yb = 4:6)
+  out <- nest(df, y = starts_with("y"), .names_sep = "")
+  expect_named(out$y[[1]], c("a", "b"))
+})
+
 test_that("empty factor levels don't affect nest", {
   df <- tibble(
     x = factor(c("z", "a"), levels = letters),

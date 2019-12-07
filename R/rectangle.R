@@ -204,6 +204,9 @@ unnest_longer <- function(data, col,
 #' @rdname hoist
 #' @param simplify If `TRUE`, will attempt to simplify lists of length-1
 #'   vectors to an atomic vector
+#' @param names_sep If `NULL`, the default, the names will be left
+#'   as is. If a string, the inner and outer names will be paste together using
+#'   `names_sep` as a separator.
 unnest_wider <- function(data, col,
                          names_sep = NULL,
                          simplify = TRUE,

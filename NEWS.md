@@ -23,9 +23,9 @@
   `.name_repair` argument allowing them to respect `.name_repair` if it is 
   passed to them (@jeffreypullin, #798).
 
-* `pack()` gains a `.names_sep` argument allows you to strip outer names from
-  inner names, in symmetrical way to how the same argument to `pack()` combines
-  inner and outer names (#795).
+* `pack()` and `nest()` gains a `.names_sep` argument allows you to strip outer 
+  names from inner names, in symmetrical way to how the same argument to 
+  `unpack()` and `unnest()` combines inner and outer names (#795, #797).
 
 * `unnest_longer()`, `unnest_wider()`, and `hoist()` do a better job 
   simplifying list-cols. They no longer add uneeded `unspecified()` when
