@@ -292,8 +292,6 @@ deduplicate_names <- function(spec, df) {
     return(spec)
   }
 
-  warn("Duplicate column names detected, adding .copy variable")
-
   spec <- vec_slice(spec, col_id[has_match])
   # Need to use numeric indices because names only match first
   spec$.name <- seq_along(df)[has_match]
@@ -305,6 +303,6 @@ deduplicate_names <- function(spec, df) {
     copy[idx] <- seq_along(idx)
   }
 
-  spec$.copy <- copy
+  spec$.seq <- copy
   spec
 }

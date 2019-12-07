@@ -97,10 +97,10 @@ test_that("original col order is preserved", {
 
 test_that("handles duplicated column names", {
   df <- tibble(x = 1, a = 1, a = 2, b = 3, b = 4, .name_repair = "minimal")
-  expect_warning(pv <- pivot_longer(df, -x), "Duplicate column names")
+  pv <- pivot_longer(df, -x)
 
-  expect_named(pv, c("x", "name", ".copy", "value"))
-  expect_equal(pv$.copy, rep(1:2, times = 2))
+  expect_named(pv, c("x", "name", "value"))
+  expect_equal(pv$name, c("a", "a", "b", "b"))
   expect_equal(pv$value, 1:4)
 })
 

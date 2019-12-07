@@ -1,5 +1,9 @@
 # tidyr (development version)
 
+* `pivot_longer()` no longer creates a `.copy` variable in the presence of
+  duplicate column names. This makes it more consistent with the handling
+  of non-unique specs.
+
 * `pivot_longer()` automatically disambiguates non-unique ouputs, which can
   occur when the input variables include some additional component that you
   don't care about and want to discard (#792, #793).
