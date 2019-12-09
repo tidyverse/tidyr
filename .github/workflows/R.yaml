@@ -42,6 +42,7 @@ jobs:
         run: |
           tlmgr install atbegshi
           tlmgr install atveryend
+          tlmgr install rerunfilecheck
 
       - name: Cache R packages
         uses: actions/cache@v1
