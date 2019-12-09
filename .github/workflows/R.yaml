@@ -43,6 +43,10 @@ jobs:
           path: ${{ env.R_LIBS_USER }}
           key: ${{ runner.os }}-r-${{ matrix.config.r }}-${{ hashFiles('DESCRIPTION') }}
 
+      - name: Install missing latex pacakges
+        run: |
+          tlmgr install atbegshi
+
       - name: Install system dependencies
         if: runner.os == 'Linux'
         env:
