@@ -41,6 +41,7 @@ jobs:
         if: contains(matrix.config.args, 'no-manual') == false
         run: |
           tlmgr install atbegshi
+          tlmgr install atveryend
 
       - name: Cache R packages
         uses: actions/cache@v1
