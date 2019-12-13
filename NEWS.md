@@ -50,6 +50,9 @@
 
 * `hoist()` now uses `rlang::list2()` which means that you can now use `!!!` and 
   `:=` (#801).
+  
+* `hoist()` gains a `.drop` argument that allows to drop the list column after
+  components were extracted (@mgirlich).
 
 * In `extract()`, you can now use `NA` in `into` as documented (#793).
 
