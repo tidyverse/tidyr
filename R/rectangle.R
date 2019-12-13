@@ -50,6 +50,9 @@
 #'   output type of each component.
 #' @param .remove If `TRUE`, the default, will remove extracted components
 #'   from `.col`. This ensures that each value lives only in one place.
+#'   If all components from `.col` are extracted the column `.col` will be
+#'   removed.
+#' @param .drop If `TRUE`, will remove `.col`.
 #' @examples
 #' df <- tibble(
 #'   character = c("Toothless", "Dory"),
@@ -107,7 +110,11 @@
 #' df %>% unnest_longer(y)
 #'
 #' @export hoist
-hoist <- function(.data, .col, ..., .remove = TRUE, .simplify = TRUE, .ptype = list()) {
+hoist <- function(.data, .col, ...,
+                  .remove = TRUE,
+                  .simplify = TRUE,
+                  .ptype = list(),
+                  .drop = FALSE) {
   check_present(.col)
   .col <- tidyselect::vars_pull(names(.data), !!enquo(.col))
   x <- .data[[.col]]
@@ -131,6 +138,11 @@ hoist <- function(.data, .col, ..., .remove = TRUE, .simplify = TRUE, .ptype = l
 
   # Place new columns before old column
   out <- append_df(.data, new_cols, after = match(.col, names(.data)) - 1L)
+
+  if (.drop) {
+    out[[.col]] <- NULL
+    return(out)
+  }
 
   if (!.remove) {
     return(out)
