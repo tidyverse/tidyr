@@ -41,9 +41,12 @@
 #' @param .data,data A data frame.
 #' @param .col,col List-column to extract components from.
 #' @param ... Components of `.col` to turn into columns in the form
-#'   `col_name = "pluck_specification"`. You can pluck by name with a character
-#'   vector, by position with an integer vector, or with a combination of the
-#'   two with a list. See [purrr::pluck()] for details.
+#'   `col_name = "pluck_specification"` or when unnamed the column name is
+#'   the last character element of the "pluck_specification". Numbers following
+#'   in the specification are pasted to the name with "_" as a separater.
+#'   You can pluck by name with a character vector, by position with an integer
+#'   vector, or with a combination of the two with a list.
+#'   See [purrr::pluck()] for details.
 #' @param .simplify If `TRUE`, will attempt to simplify lists of length-1
 #'   vectors to an atomic vector
 #' @param .ptype Optionally, a named list of prototypes declaring the desired
@@ -116,9 +119,7 @@ hoist <- function(.data, .col, ..., .remove = TRUE, .simplify = TRUE, .ptype = l
   }
 
   pluckers <- list2(...)
-  if (!is_named(pluckers)) {
-    stop("All elements of `...` must be named", call. = FALSE)
-  }
+  pluckers <- auto_name_pluckers(pluckers)
 
   new_cols <- map(pluckers, function(idx) {
     map(x, ~ purrr::pluck(.x, !!!idx))
@@ -152,6 +153,32 @@ hoist <- function(.data, .col, ..., .remove = TRUE, .simplify = TRUE, .ptype = l
 
   out
 }
+
+
+name_from_path <- function(x) {
+  n <- length(x)
+  last_char_index <- max(which(vapply(x, is.character, logical(1))))
+
+  # if any trailing numbers in the path add them
+  if (n > last_char_index) {
+    trailing_nums <- x[seq(last_char_index + 1, n)]
+    suffix <- paste0("_", trailing_nums, collapse = "")
+  } else {
+    suffix <- NULL
+  }
+
+  paste0(x[[last_char_index]], suffix)
+}
+
+
+auto_name_pluckers <- function(pluckers) {
+  nms <- rlang::names2(pluckers)
+
+  nms_auto <- vapply(pluckers, name_from_path, character(1))
+  names(pluckers) <- ifelse(nms == "", nms_auto, nms)
+  pluckers
+}
+
 
 #' @export
 #' @rdname hoist

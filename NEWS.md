@@ -50,6 +50,9 @@
 
 * `hoist()` now uses `rlang::list2()` which means that you can now use `!!!` and 
   `:=` (#801).
+  
+* `hoist()` automatically generates a name for unnamed arguments in `...`
+  (@mgirlich).
 
 * In `extract()`, you can now use `NA` in `into` as documented (#793).
 
