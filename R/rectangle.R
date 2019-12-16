@@ -44,6 +44,7 @@
 #'   `col_name = "pluck_specification"`. You can pluck by name with a character
 #'   vector, by position with an integer vector, or with a combination of the
 #'   two with a list. See [purrr::pluck()] for details.
+#' @inheritParams unnest_longer
 #' @param .simplify If `TRUE`, will attempt to simplify lists of length-1
 #'   vectors to an atomic vector
 #' @param .ptype Optionally, a named list of prototypes declaring the desired
@@ -107,7 +108,7 @@
 #' df %>% unnest_longer(y)
 #'
 #' @export hoist
-hoist <- function(.data, .col, ..., .remove = TRUE, .simplify = TRUE, .ptype = list()) {
+hoist <- function(.data, .col, ..., indices_to = NULL, .remove = TRUE, .simplify = TRUE, .ptype = list()) {
   check_present(.col)
   .col <- tidyselect::vars_pull(names(.data), !!enquo(.col))
   x <- .data[[.col]]
@@ -128,6 +129,13 @@ hoist <- function(.data, .col, ..., .remove = TRUE, .simplify = TRUE, .ptype = l
     simplify_col,
     simplify = .simplify
   )
+
+  if (!is.null(indices_to)) {
+    new_cols <- rlang::list2(
+      !!indices_to := index(x),
+      !!!new_cols
+    )
+  }
 
   # Place new columns before old column
   out <- append_df(.data, new_cols, after = match(.col, names(.data)) - 1L)

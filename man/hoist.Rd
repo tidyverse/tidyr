@@ -7,7 +7,15 @@
 \alias{unnest_auto}
 \title{Rectangle a nested list into a tidy tibble}
 \usage{
-hoist(.data, .col, ..., .remove = TRUE, .simplify = TRUE, .ptype = list())
+hoist(
+  .data,
+  .col,
+  ...,
+  indices_to = NULL,
+  .remove = TRUE,
+  .simplify = TRUE,
+  .ptype = list()
+)
 
 unnest_longer(
   data,
@@ -41,6 +49,10 @@ unnest_auto(data, col)
 vector, by position with an integer vector, or with a combination of the
 two with a list. See \code{\link[purrr:pluck]{purrr::pluck()}} for details.}
 
+\item{indices_to}{A string giving the name of column which will contain the
+inner names or position (if not named) of the values. Defaults to \code{col}
+with \verb{_id} suffix}
+
 \item{.remove}{If \code{TRUE}, the default, will remove extracted components
 from \code{.col}. This ensures that each value lives only in one place.}
 
@@ -51,10 +63,6 @@ vectors to an atomic vector}
 output type of each component.}
 
 \item{values_to}{Name of column to store vector values. Defaults to \code{col}.}
-
-\item{indices_to}{A string giving the name of column which will contain the
-inner names or position (if not named) of the values. Defaults to \code{col}
-with \verb{_id} suffix}
 
 \item{indices_include}{Add an index column? Defaults to \code{TRUE} when \code{col}
 has inner names.}
@@ -77,9 +85,8 @@ strategies used to enforce them.}
 \item{simplify}{If \code{TRUE}, will attempt to simplify lists of length-1
 vectors to an atomic vector}
 
-\item{ptype}{Optionally, supply a data frame prototype for the output \code{cols},
-overriding the default that will be guessed from the combination of
-individual values.}
+\item{ptype}{Optionally, a named list of prototypes declaring the desired
+output type of each component.}
 
 \item{names_sep}{If \code{NULL}, the default, the names will be left
 as is. If a string, the inner and outer names will be paste together using

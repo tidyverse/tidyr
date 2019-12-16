@@ -50,6 +50,8 @@
 
 * `hoist()` now uses `rlang::list2()` which means that you can now use `!!!` and 
   `:=` (#801).
+  
+* `hoist()` gains a `indices_to` argument to add the names of the list column.
 
 * In `extract()`, you can now use `NA` in `into` as documented (#793).
 
