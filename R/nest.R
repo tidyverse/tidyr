@@ -172,7 +172,7 @@ nest.tbl_df <- function(.data, ..., .names_sep = NULL, .key = deprecated()) {
 
   keys <- .data[asis]
   u_keys <- vec_unique(keys)
-  out <- map(cols, ~ vec_split(set_names(.data[.x], names(.x)), keys)$val)
+  out <- map(cols, ~ vec_split_list_of(set_names(.data[.x], names(.x)), keys)$val)
 
   vec_cbind(u_keys, new_data_frame(out, n = nrow(u_keys)))
 }

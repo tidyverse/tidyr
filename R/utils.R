@@ -116,3 +116,9 @@ check_present <- function(x) {
   }
 
 }
+
+vec_split_list_of <- function(x, by) {
+  out <- vec_split(x, by)
+  out$val <- as_list_of(out$val, .ptype = x)
+  out
+}
