@@ -137,7 +137,7 @@ test_that("gather throws error for weird objects", {
   expect_error(gather(df, key, val, -x), "atomic vectors or list")
   expect_error(gather(df, key, val, -y), "atomic vectors or list")
 
-  df <- tibble(tibble(x = 1))
+  df <- tibble(`tibble(x = 1)` = tibble(x = 1))
   expect_error(gather(df), "atomic vectors or lists")
 })
 
