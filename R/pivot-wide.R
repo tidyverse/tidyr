@@ -256,7 +256,7 @@ vals_dedup <- function(key, val, value, summarize = NULL) {
     # Needs https://github.com/r-lib/vctrs/issues/183
     out$val <- vec_c(!!!map(out$val, summarize))
   } else {
-    out$val <- as_list_of(out$val, .ptype = val)
+    out$val <- new_list_of(out$val, ptype = vec_slice(val, 0))
   }
 
   out
