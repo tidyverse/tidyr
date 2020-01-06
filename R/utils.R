@@ -15,10 +15,14 @@ df_cast <- function(x, to, new_vars = character()) {
   common_vars <- setdiff(names(to), new_vars)
   common_vars <- intersect(names(x), common_vars)
 
-  # For grouped-df this relies on the custom `[` method below
+  # Collect the common variables in a data frame of type `to`. For
+  # grouped-df this relies on the custom `[` method below.
   to_common <- to[common_vars]
 
+  # Compute the prototype that contains the common variables with `to`
+  # type, and the remanining variables with `x` type
   to_ptype <- vec_ptype_common(x, to_common)
+
   vec_cast(x, to = to_ptype)
 }
 
