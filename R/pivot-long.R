@@ -203,7 +203,7 @@ build_longer_spec <- function(data, cols,
                               names_sep = NULL,
                               names_pattern = NULL,
                               names_ptypes = NULL) {
-  cols <- tidyselect::vars_select(unique(names(data)), !!enquo(cols))
+  cols <- unname(tidyselect::vars_select(unique(names(data)), !!enquo(cols)))
   if (length(cols) == 0) {
     abort(glue::glue("`cols` must select at least one column."))
   }
