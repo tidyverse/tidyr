@@ -77,8 +77,8 @@ test_that("can nest multiple columns", {
   out <- df %>% nest(a = c(a1, a2), b = c(b1, b2))
 
   expect_named(out, c("x", "a", "b"))
-  expect_equal(out$a, list_of(df[c("a1", "a2")]))
-  expect_equal(out$b, list_of(df[c("b1", "b2")]))
+  expect_equal(as.list(out$a), list(df[c("a1", "a2")]))
+  expect_equal(as.list(out$b), list(df[c("b1", "b2")]))
 })
 
 test_that("nesting no columns nests all inputs", {
