@@ -1,3 +1,7 @@
+# tidyr 1.0.1
+
+* Minor fixes for dev versions of rlang, tidyselect, and tibble.
+
 # tidyr 1.0.0
 
 ## Breaking changes
