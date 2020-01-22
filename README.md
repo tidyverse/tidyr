@@ -9,8 +9,6 @@
 status](https://www.r-pkg.org/badges/version/tidyr)](https://cran.r-project.org/package=tidyr)
 [![Travis build
 status](https://travis-ci.org/tidyverse/tidyr.svg?branch=master)](https://travis-ci.org/tidyverse/tidyr)
-[![AppVeyor build
-status](https://ci.appveyor.com/api/projects/status/github/tidyverse/tidyr?branch=master&svg=true)](https://ci.appveyor.com/project/tidyverse/tidyr)
 [![Codecov test
 coverage](https://codecov.io/gh/tidyverse/tidyr/branch/master/graph/badge.svg)](https://codecov.io/gh/tidyverse/tidyr?branch=master)
 <!-- badges: end -->
