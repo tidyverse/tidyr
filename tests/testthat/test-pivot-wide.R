@@ -78,7 +78,7 @@ test_that("duplicated keys produce list column with warning", {
   )
 
   expect_equal(pv$a, c(1, 2))
-  expect_equal(pv$x, list_of(c(1L, 2L), 3L))
+  expect_equal(as.list(pv$x), list(c(1L, 2L), 3L))
 })
 
 test_that("warning suppressed by supplying values_fn", {
@@ -92,7 +92,7 @@ test_that("warning suppressed by supplying values_fn", {
     NA
   )
   expect_equal(pv$a, c(1, 2))
-  expect_equal(pv$x, list_of(c(1L, 2L), 3L))
+  expect_equal(as.list(pv$x), list(c(1L, 2L), 3L))
 })
 
 test_that("values_fn can be a single function", {
@@ -110,7 +110,7 @@ test_that("values_summarize applied even when no-duplicates", {
   )
 
   expect_equal(pv$a, c(1, 2))
-  expect_equal(pv$x, list_of(1L, 2L))
+  expect_equal(as.list(pv$x), list(1L, 2L))
 })
 
 
