@@ -61,9 +61,13 @@
   `list_of` columns, and for usage after `pivot_wider()`, which, by default, 
   will create `list_of` columns when duplicates arise (#741).
 
-# tidyr 1.0.1
+# tidyr 1.0.2
 
 * Minor fixes for dev versions of rlang, tidyselect, and tibble.
+
+# tidyr 1.0.1
+
+* Did not exist since I accidentally released v1.0.2
 
 # tidyr 1.0.0
 
