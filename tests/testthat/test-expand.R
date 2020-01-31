@@ -131,7 +131,7 @@ test_that("expand_grid can control name_repair", {
   x <- 1:2
 
   if (packageVersion("tibble") > "2.99") {
-    expect_error(expand_grid(x, x), class = "vctrs_error_names_must_be_unique")
+    expect_error(expand_grid(x, x), class = "rlang_error")
   } else {
     expect_error(expand_grid(x, x), "must not be duplicated")
   }
