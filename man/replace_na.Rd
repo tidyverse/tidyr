@@ -44,8 +44,9 @@ df_list <- tibble(z = list(1:5, NULL, 10:20))
 df_list \%>\% replace_na(list(z = list(5)))
 }
 \seealso{
-\code{\link[dplyr]{na_if}} to replace specified values with a \code{NA}.
-\code{\link[dplyr]{coalesce}} to replace missing values with a specified
-value.
-\code{\link[dplyr]{recode}} to more generally replace values.
+\code{\link[dplyr]{na_if}} replaces specified values with \code{NA}s.
+
+\code{\link[dplyr]{coalesce}} replaces \code{NA}s with values from other vectors.
+
+\code{\link[dplyr]{recode}} replaces values more generally.
 }

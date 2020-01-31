@@ -8,10 +8,11 @@
 #' @return If `data` is a data frame, returns a data frame. If `data` is a
 #'   vector, returns a vector of class determined by the union of `data` and
 #'   `replace`.
-#' @seealso \code{\link[dplyr]{na_if}} to replace specified values with a `NA`.
-#'  \code{\link[dplyr]{coalesce}} to replace missing values with a specified
-#'   value.
-#' \code{\link[dplyr]{recode}} to more generally replace values.
+#' @seealso \code{\link[dplyr]{na_if}} replaces specified values with `NA`s.
+#'
+#' \code{\link[dplyr]{coalesce}} replaces `NA`s with values from other vectors.
+#'
+#' \code{\link[dplyr]{recode}} replaces values more generally.
 #' @export
 #' @examples
 #' library(dplyr)
