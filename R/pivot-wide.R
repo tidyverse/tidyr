@@ -109,6 +109,13 @@ pivot_wider <- function(data,
 #' @keywords internal
 #' @export
 #' @inheritParams pivot_wider
+#' @param spec A specification data frame. This is useful for more complex
+#'  pivots because it gives you greater control on how metadata stored in the
+#'  columns become column names in the result.
+#'
+#'   Must be a data frame containing character `.name` and `.value` columns.
+#'   The special `.seq` variable is used to disambiguate rows internally;
+#'   it is automatically removed after pivotting.
 pivot_wider_spec <- function(data,
                                   spec,
                                   names_repair = "check_unique",

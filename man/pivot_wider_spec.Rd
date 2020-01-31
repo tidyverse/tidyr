@@ -25,7 +25,18 @@ build_wider_spec(
 \arguments{
 \item{data}{A data frame to pivot.}
 
+
+\item{spec}{A specification data frame. This is useful for more complex
+pivots because it gives you greater control on how metadata stored in the
+columns become column names in the result.
+
+Must be a data frame containing character \code{.name} and \code{.value} columns.
+The special \code{.seq} variable is used to disambiguate rows internally;
+it is automatically removed after pivotting.}
+
+
 \item{names_repair}{What happens if the output has invalid column names?
+
 The default, \code{"check_unique"} is to error if the columns are duplicated.
 Use \code{"minimal"} to allow duplicates in the output, or \code{"unique"} to
 de-duplicated by adding numeric suffixes. See \code{\link[vctrs:vec_as_names]{vctrs::vec_as_names()}}
