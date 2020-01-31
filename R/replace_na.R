@@ -1,4 +1,4 @@
-#' Replace missing values
+#' Replace NAs with specified values
 #'
 #' @param data A data frame or vector.
 #' @param replace If `data` is a data frame, a named list giving the value to

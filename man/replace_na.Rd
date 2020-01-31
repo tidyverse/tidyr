@@ -2,7 +2,7 @@
 % Please edit documentation in R/replace_na.R
 \name{replace_na}
 \alias{replace_na}
-\title{Replace missing values}
+\title{Replace NAs with specified values}
 \usage{
 replace_na(data, replace, ...)
 }
@@ -21,7 +21,7 @@ If \code{data} is a data frame, \code{replace_na} returns a data frame.
 If \code{data} is a vector, \code{replace_na} returns a vector, where the vector's class is determined by the union of \code{data} and \code{replace}.
 }
 \description{
-Replace missing values
+Replace NAs with specified values
 }
 \examples{
 library(dplyr)
