@@ -16,9 +16,9 @@ used for replacement.}
 \item{...}{Additional arguments for methods. Currently unused.}
 }
 \value{
-If \code{data} is a data frame, returns a data frame. If \code{data} is a
-vector, returns a vector of class determined by the union of \code{data} and
-\code{replace}.
+If \code{data} is a data frame, \code{replace_na} returns a data frame.
+
+If \code{data} is a vector, \code{replace_na} returns a vector, where the vector's class is determined by the union of \code{data} and \code{replace}.
 }
 \description{
 Replace missing values
