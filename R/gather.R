@@ -29,14 +29,15 @@
 #' columns, while `seq(start, end)` is a context expression that
 #' refers to objects from the contexts.
 #'
-#' If you really need to refer to contextual objects from a data
-#' expression, you can unquote them with the tidy eval operator
-#' `!!`. This operator evaluates its argument in the context and
-#' inlines the result in the surrounding function call. For instance,
-#' `c(x, !! a)` selects the `x` column within the data frame and the
-#' column referred to by the object `a` defined in the context (which
-#' can contain either a column name as string or a column position
-#' `a <- 2` or `a <- "y"`).
+#' If you need to refer to contextual objects from a data expression,
+#' you can use `all_of()` or `any_of()`. These functions
+#' evaluate its argument in the context and inline the result in
+#' the surrounding function call. For instance, `all_of(a)` selects
+#' the object `a` defined in the context (which can contain either a
+#' column name as a string or a column position, `a <- 2` or `a <- "y"`).
+#' `all_of()` and `any_of()` can accept multiple objects as a vector,
+#' `all_of(c(1, a))`. For more details, see the
+#' [tidyselect::select_helpers()] documentation.
 #'
 #' @inheritParams expand
 #' @param key,value Names of new key and value columns, as strings or

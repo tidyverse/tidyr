@@ -37,14 +37,15 @@ For instance, \code{col1:col3} is a data expression that refers to data
 columns, while \code{seq(start, end)} is a context expression that
 refers to objects from the contexts.
 
-If you really need to refer to contextual objects from a data
-expression, you can unquote them with the tidy eval operator
-\verb{!!}. This operator evaluates its argument in the context and
-inlines the result in the surrounding function call. For instance,
-\code{c(x, !! a)} selects the \code{x} column within the data frame and the
-column referred to by the object \code{a} defined in the context (which
-can contain either a column name as string or a column position
-\code{a <- 2} or \code{a <- "y"}).
+If you need to refer to contextual objects from a data expression,
+you can use \code{all_of()} or \code{any_of()}. These functions
+evaluate its argument in the context and inline the result in
+the surrounding function call. For instance, \code{all_of(a)} selects
+the object \code{a} defined in the context (which can contain either a
+column name as a string or a column position, \code{a <- 2} or \code{a <- "y"}).
+\code{all_of()} and \code{any_of()} can accept multiple objects as a vector,
+\code{all_of(c(1, a))}. For more details, see the
+\code{\link[tidyselect:select_helpers]{tidyselect::select_helpers()}} documentation.
 }
 
 \examples{
@@ -52,6 +53,7 @@ library(dplyr)
 df <- tibble(x = c(1, 2, NA), y = c("a", NA, "b"))
 df \%>\% drop_na()
 df \%>\% drop_na(x)
+# using a contextual object with all_of()
 z <- 2
-df \%>\% drop_na(!! z)
+df \%>\% drop_na(x, all_of(z))
 }
