@@ -54,7 +54,7 @@ happens when there are too many pieces. There are three valid options:
 \itemize{
 \item "warn" (the default): emit a warning and drop extra values.
 \item "drop": drop any extra values without a warning.
-\item "merge": only splits at most \link{length(into)} times
+\item "merge": only splits at most \code{length(into)} times
 }}
 
 \item{fill}{If \code{sep} is a character vector, this controls what

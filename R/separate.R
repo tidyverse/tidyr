@@ -20,7 +20,7 @@
 #'
 #'   * "warn" (the default): emit a warning and drop extra values.
 #'   * "drop": drop any extra values without a warning.
-#'   * "merge": only splits at most [length(into)] times
+#'   * "merge": only splits at most `length(into)` times
 #' @param fill If `sep` is a character vector, this controls what
 #'   happens when there are not enough pieces. There are three valid options:
 #'
