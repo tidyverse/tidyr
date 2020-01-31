@@ -9,8 +9,8 @@
 #' @param ... Additional arguments for methods. Currently unused.
 #' @return
 #' * If `data` is a data frame, `replace_na()` returns a data frame.
-#' * If `data` is a vector, `replace_na()` returns a vector, with determined
-#'   by the union of `data` and `replace`.
+#' * If `data` is a vector, `replace_na()` returns a vector, with class
+#'   given by the union of `data` and `replace`.
 #' @seealso [dplyr::na_if()] to replace specified values with `NA`s;
 #'   [dplyr::coalesce()] to replaces `NA`s with values from other vectors.
 #' @export
