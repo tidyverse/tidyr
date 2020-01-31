@@ -9,9 +9,9 @@ replace_na(data, replace, ...)
 \arguments{
 \item{data}{A data frame or vector.}
 
-\item{replace}{If \code{data} is a data frame, a named list giving the value to
-replace \code{NA} with for each column. If \code{data} is a vector, a single value
-used for replacement.}
+\item{replace}{If \code{data} is a data frame, \code{replace} takes a list of values, where there is one value for each column that has \code{NA} values to be replaced.
+
+If \code{data} is a vector, \code{replace} takes a single value. This single value replaces all of the \code{NA} values in the vector.}
 
 \item{...}{Additional arguments for methods. Currently unused.}
 }
