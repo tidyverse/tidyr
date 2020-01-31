@@ -91,7 +91,7 @@ back out into individual columns." />
         <a class="navbar-brand" href="../index.html">tidyr</a>
         <div class="info">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.0.0.9000</span>
+          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.0.2.9000</span>
         </div>
       </div>
     </div>
@@ -268,7 +268,7 @@ they mimic the nested column headers that are so popular in Excel.</p>
 #&gt;   &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;
 #&gt; 1     1     4     7     1
 #&gt; 2     2     5     8     2
-#&gt; 3     3     6     9     3</div><div class='input'><span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>pack</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/pkg/tidyselect/man/select_helpers.html'>starts_with</a></span>(<span class='st'>"x"</span>))</div><div class='output co'>#&gt; # A tibble: 3 x 2
+#&gt; 3     3     6     9     3</div><div class='input'><span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>pack</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'><a href='https://tidyselect.r-lib.org/reference/select_helpers.html'>starts_with</a></span>(<span class='st'>"x"</span>))</div><div class='output co'>#&gt; # A tibble: 3 x 2
 #&gt;       y  x$x1   $x2   $x3
 #&gt;   &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;
 #&gt; 1     1     1     4     7
@@ -284,8 +284,8 @@ they mimic the nested column headers that are so popular in Excel.</p>
 <span class='no'>iris</span> <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='https://tibble.tidyverse.org/reference/as_tibble.html'>as_tibble</a></span>() <span class='kw'>%&gt;%</span>
   <span class='fu'>pack</span>(
-    <span class='kw'>Sepal</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/pkg/tidyselect/man/select_helpers.html'>starts_with</a></span>(<span class='st'>"Sepal"</span>),
-    <span class='kw'>Petal</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/pkg/tidyselect/man/select_helpers.html'>starts_with</a></span>(<span class='st'>"Petal"</span>),
+    <span class='kw'>Sepal</span> <span class='kw'>=</span> <span class='fu'><a href='https://tidyselect.r-lib.org/reference/select_helpers.html'>starts_with</a></span>(<span class='st'>"Sepal"</span>),
+    <span class='kw'>Petal</span> <span class='kw'>=</span> <span class='fu'><a href='https://tidyselect.r-lib.org/reference/select_helpers.html'>starts_with</a></span>(<span class='st'>"Petal"</span>),
     <span class='kw'>.names_sep</span> <span class='kw'>=</span> <span class='st'>"."</span>
   )</div><div class='output co'>#&gt; # A tibble: 150 x 3
 #&gt;    Species Sepal$Length $Width Petal$Length $Width

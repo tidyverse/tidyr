@@ -88,7 +88,7 @@ that allows you to describe pivotting with a data frame." />
         <a class="navbar-brand" href="../index.html">tidyr</a>
         <div class="info">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.0.0.9000</span>
+          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.0.2.9000</span>
         </div>
       </div>
     </div>
@@ -219,9 +219,18 @@ that allows you to describe pivotting with a data frame.</p>
       <td><p>A data frame to pivot.</p></td>
     </tr>
     <tr>
+      <th>spec</th>
+      <td><p>A specification data frame. This is useful for more complex
+pivots because it gives you greater control on how metadata stored in the
+columns become column names in the result.</p>
+<p>Must be a data frame containing character <code>.name</code> and <code>.value</code> columns.
+The special <code>.seq</code> variable is used to disambiguate rows internally;
+it is automatically removed after pivotting.</p></td>
+    </tr>
+    <tr>
       <th>names_repair</th>
-      <td><p>What happen if the output has invalid column names?
-The default, <code>"check_unique"</code> is to error if the columns are duplicated.
+      <td><p>What happens if the output has invalid column names?</p>
+<p>The default, <code>"check_unique"</code> is to error if the columns are duplicated.
 Use <code>"minimal"</code> to allow duplicates in the output, or <code>"unique"</code> to
 de-duplicated by adding numeric suffixes. See <code><a href='https://rdrr.io/pkg/vctrs/man/vec_as_names.html'>vctrs::vec_as_names()</a></code>
 for more options.</p></td>
@@ -233,8 +242,8 @@ Defaults to all columns in <code>data</code> except for the columns specified in
 <code>names_from</code> and <code>values_from</code>. Typically used when you have additional
 variables that is directly related.</p>
 <p>This takes a tidyselect specification, e.g. use <code>a:c</code> to select all
-columns from <code>a</code> to <code>c</code>, <code><a href='https://rdrr.io/pkg/tidyselect/man/select_helpers.html'>starts_with("prefix")</a></code> to select all columns
-starting with "prefix", or <code><a href='https://rdrr.io/pkg/tidyselect/man/select_helpers.html'>everything()</a></code> to select all columns.</p></td>
+columns from <code>a</code> to <code>c</code>, <code><a href='https://tidyselect.r-lib.org/reference/select_helpers.html'>starts_with("prefix")</a></code> to select all columns
+starting with "prefix", or <code><a href='https://tidyselect.r-lib.org/reference/select_helpers.html'>everything()</a></code> to select all columns.</p></td>
     </tr>
     <tr>
       <th>values_fill</th>

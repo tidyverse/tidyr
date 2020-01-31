@@ -86,7 +86,7 @@
         <a class="navbar-brand" href="../index.html">tidyr</a>
         <div class="info">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.0.0.9000</span>
+          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.0.2.9000</span>
         </div>
       </div>
     </div>
@@ -214,6 +214,22 @@ df %&gt;% pivot_longer(-id, names_sep = "_", names_to = c(".value", NA))</code><
 <li><p><code><a href="../reference/hoist.html">unnest_wider()</a></code> and <code><a href="../reference/hoist.html">unnest_longer()</a></code> can now unnest <code>list_of</code> columns. This is important for unnesting columns created from <code><a href="../reference/nest.html">nest()</a></code>, which are always <code>list_of</code> columns, and for usage after <code><a href="../reference/pivot_wider.html">pivot_wider()</a></code>, which, by default, will create <code>list_of</code> columns when duplicates arise (<a href='https://github.com/tidyverse/tidyr/issues/741'>#741</a>).</p></li>
 </ul>
 </div>
+    <div id="tidyr-1-0-2" class="section level1">
+<h1 class="page-header">
+<a href="#tidyr-1-0-2" class="anchor"></a>tidyr 1.0.2<small> 2020-01-24 </small>
+</h1>
+<ul>
+<li>Minor fixes for dev versions of rlang, tidyselect, and tibble.</li>
+</ul>
+</div>
+    <div id="tidyr-1-0-1" class="section level1">
+<h1 class="page-header">
+<a href="#tidyr-1-0-1" class="anchor"></a>tidyr 1.0.1<small> Unreleased </small>
+</h1>
+<ul>
+<li>Did not exist since I accidentally released v1.0.2</li>
+</ul>
+</div>
     <div id="tidyr-1-0-0" class="section level1">
 <h1 class="page-header">
 <a href="#tidyr-1-0-0" class="anchor"></a>tidyr 1.0.0<small> 2019-09-11 </small>
@@ -294,7 +310,7 @@ df %&gt;% mutate(name = map_chr(metadata, "name"))</code></pre>
 <a href="#bug-fixes-and-minor-improvements" class="anchor"></a>Bug fixes and minor improvements</h2>
 <ul>
 <li><p><code><a href="../reference/full_seq.html">full_seq()</a></code> now also works when gaps between observations are shorter than the given <code>period</code>, but are within the tolerance given by <code>tol</code>. Previously, gaps between consecutive observations had to be in the range [<code>period</code>, <code>period + tol</code>]; gaps can now be in the range [<code>period - tol</code>, <code>period + tol</code>] (<a href='https://github.com/ha0ye'>@ha0ye</a>, <a href='https://github.com/tidyverse/tidyr/issues/657'>#657</a>).</p></li>
-<li><p>tidyr now re-exports <code><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble()</a></code>, <code><a href="https://tibble.tidyverse.org/reference/as_tibble.html">as_tibble()</a></code>, and <code><a href="https://tibble.tidyverse.org/reference/tribble.html">tribble()</a></code>, as well as the tidyselect helpers (<code><a href="https://rdrr.io/pkg/tidyselect/man/select_helpers.html">starts_with()</a></code>, <code>ends_width()</code>, …). This makes generating documentation, reprexes, and tests easier, and makes tidyr easier to use without also attaching dplyr.</p></li>
+<li><p>tidyr now re-exports <code><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble()</a></code>, <code><a href="https://tibble.tidyverse.org/reference/as_tibble.html">as_tibble()</a></code>, and <code><a href="https://tibble.tidyverse.org/reference/tribble.html">tribble()</a></code>, as well as the tidyselect helpers (<code><a href="https://tidyselect.r-lib.org/reference/select_helpers.html">starts_with()</a></code>, <code>ends_width()</code>, …). This makes generating documentation, reprexes, and tests easier, and makes tidyr easier to use without also attaching dplyr.</p></li>
 <li><p>All functions that take <code>...</code> have been instrumented with functions from the <a href="https://github.com/r-lib/ellipsis/">ellipsis</a> package to warn if you’ve supplied arguments that are ignored (typically because you’ve misspelled an argument name) (<a href='https://github.com/tidyverse/tidyr/issues/573'>#573</a>).</p></li>
 <li><p><code><a href="../reference/complete.html">complete()</a></code> now uses <code>full_join()</code> so that all levels are preserved even when not all levels are specified (<a href='https://github.com/Ryo-N7'>@Ryo-N7</a>, <a href='https://github.com/tidyverse/tidyr/issues/493'>#493</a>).</p></li>
 <li><p><code><a href="../reference/expand.html">crossing()</a></code> now takes the unique values of data frame inputs, not just vector inputs (<a href='https://github.com/tidyverse/tidyr/issues/490'>#490</a>).</p></li>
@@ -431,7 +447,7 @@ mtcars %&gt;% gather(var, value, !! 1:x)
 mtcars %&gt;% gather(var, value, !! -(1:x))</code></pre>
 <p>An alternative is to turn your data expression into a context expression by using <code><a href="https://rdrr.io/r/base/seq.html">seq()</a></code> or <code><a href="https://rdrr.io/r/base/seq.html">seq_len()</a></code> instead of <code>:</code>. See the section on tidyselect for more information about these semantics.</p>
 </li>
-<li><p>Following the switch to tidy evaluation, you might see warnings about the “variable context not set”. This is most likely caused by supplyng helpers like <code><a href="https://rdrr.io/pkg/tidyselect/man/select_helpers.html">everything()</a></code> to underscored versions of tidyr verbs. Helpers should be always be evaluated lazily. To fix this, just quote the helper with a formula: <code><a href="../reference/drop_na.html">drop_na(df, ~everything())</a></code>.</p></li>
+<li><p>Following the switch to tidy evaluation, you might see warnings about the “variable context not set”. This is most likely caused by supplyng helpers like <code><a href="https://tidyselect.r-lib.org/reference/select_helpers.html">everything()</a></code> to underscored versions of tidyr verbs. Helpers should be always be evaluated lazily. To fix this, just quote the helper with a formula: <code><a href="../reference/drop_na.html">drop_na(df, ~everything())</a></code>.</p></li>
 <li>
 <p>The selecting functions are now stricter when you supply integer positions. If you see an error along the lines of</p>
 <pre><code>`-0.949999999999999`, `-0.940000000000001`, ... must resolve to
@@ -677,6 +693,8 @@ drop_na(df, starts_with(x))</code></pre>
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
         <li><a href="#tidyr-development-version">development version</a></li>
+        <li><a href="#tidyr-1-0-2">1.0.2</a></li>
+        <li><a href="#tidyr-1-0-1">1.0.1</a></li>
         <li><a href="#tidyr-1-0-0">1.0.0</a></li>
         <li><a href="#tidyr-0-8-3">0.8.3</a></li>
         <li><a href="#tidyr-0-8-2">0.8.2</a></li>

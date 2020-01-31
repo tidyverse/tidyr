@@ -92,7 +92,7 @@ Learn more in vignette(&quot;nest&quot;)." />
         <a class="navbar-brand" href="../index.html">tidyr</a>
         <div class="info">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.0.0.9000</span>
+          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.0.2.9000</span>
         </div>
       </div>
     </div>
@@ -350,11 +350,11 @@ preserves the grouping of the input.</p>
 <span class='co'># Note that we get one row of output for each unique combination of</span>
 <span class='co'># non-nested variables</span>
 <span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>nest</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='no'>y</span>, <span class='no'>z</span>))</div><div class='output co'>#&gt; # A tibble: 3 x 2
-#&gt;       x           data
-#&gt;   &lt;dbl&gt; &lt;list&lt;df[,2]&gt;&gt;
-#&gt; 1     1        [3 × 2]
-#&gt; 2     2        [2 × 2]
-#&gt; 3     3        [1 × 2]</div><div class='input'><span class='co'># chop does something similar, but retains individual columns</span>
+#&gt;       x data            
+#&gt;   &lt;dbl&gt; &lt;list&gt;          
+#&gt; 1     1 &lt;tibble [3 × 2]&gt;
+#&gt; 2     2 &lt;tibble [2 × 2]&gt;
+#&gt; 3     3 &lt;tibble [1 × 2]&gt;</div><div class='input'><span class='co'># chop does something similar, but retains individual columns</span>
 <span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='chop.html'>chop</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='no'>y</span>, <span class='no'>z</span>))</div><div class='output co'>#&gt; # A tibble: 3 x 3
 #&gt;       x y         z        
 #&gt;   &lt;dbl&gt; &lt;list&gt;    &lt;list&gt;   
@@ -362,74 +362,74 @@ preserves the grouping of the input.</p>
 #&gt; 2     2 &lt;int [2]&gt; &lt;int [2]&gt;
 #&gt; 3     3 &lt;int [1]&gt; &lt;int [1]&gt;</div><div class='input'>
 <span class='co'># use tidyselect syntax and helpers, just like in dplyr::select()</span>
-<span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>nest</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/pkg/tidyselect/man/select_helpers.html'>one_of</a></span>(<span class='st'>"y"</span>, <span class='st'>"z"</span>))</div><div class='output co'>#&gt; # A tibble: 3 x 2
-#&gt;       x           data
-#&gt;   &lt;dbl&gt; &lt;list&lt;df[,2]&gt;&gt;
-#&gt; 1     1        [3 × 2]
-#&gt; 2     2        [2 × 2]
-#&gt; 3     3        [1 × 2]</div><div class='input'>
+<span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>nest</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='fu'><a href='https://tidyselect.r-lib.org/reference/one_of.html'>one_of</a></span>(<span class='st'>"y"</span>, <span class='st'>"z"</span>))</div><div class='output co'>#&gt; # A tibble: 3 x 2
+#&gt;       x data            
+#&gt;   &lt;dbl&gt; &lt;list&gt;          
+#&gt; 1     1 &lt;tibble [3 × 2]&gt;
+#&gt; 2     2 &lt;tibble [2 × 2]&gt;
+#&gt; 3     3 &lt;tibble [1 × 2]&gt;</div><div class='input'>
 <span class='no'>iris</span> <span class='kw'>%&gt;%</span> <span class='fu'>nest</span>(<span class='kw'>data</span> <span class='kw'>=</span> -<span class='no'>Species</span>)</div><div class='output co'>#&gt; # A tibble: 3 x 2
-#&gt;   Species              data
-#&gt;   &lt;fct&gt;      &lt;list&lt;df[,4]&gt;&gt;
-#&gt; 1 setosa           [50 × 4]
-#&gt; 2 versicolor       [50 × 4]
-#&gt; 3 virginica        [50 × 4]</div><div class='input'><span class='no'>nest_vars</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span>(<span class='no'>iris</span>)[<span class='fl'>1</span>:<span class='fl'>4</span>]
-<span class='no'>iris</span> <span class='kw'>%&gt;%</span> <span class='fu'>nest</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/pkg/tidyselect/man/select_helpers.html'>one_of</a></span>(<span class='no'>nest_vars</span>))</div><div class='output co'>#&gt; # A tibble: 3 x 2
-#&gt;   Species              data
-#&gt;   &lt;fct&gt;      &lt;list&lt;df[,4]&gt;&gt;
-#&gt; 1 setosa           [50 × 4]
-#&gt; 2 versicolor       [50 × 4]
-#&gt; 3 virginica        [50 × 4]</div><div class='input'><span class='no'>iris</span> <span class='kw'>%&gt;%</span>
-  <span class='fu'>nest</span>(<span class='kw'>petal</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/pkg/tidyselect/man/select_helpers.html'>starts_with</a></span>(<span class='st'>"Petal"</span>), <span class='kw'>sepal</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/pkg/tidyselect/man/select_helpers.html'>starts_with</a></span>(<span class='st'>"Sepal"</span>))</div><div class='output co'>#&gt; # A tibble: 3 x 3
-#&gt;   Species             petal          sepal
-#&gt;   &lt;fct&gt;      &lt;list&lt;df[,2]&gt;&gt; &lt;list&lt;df[,2]&gt;&gt;
-#&gt; 1 setosa           [50 × 2]       [50 × 2]
-#&gt; 2 versicolor       [50 × 2]       [50 × 2]
-#&gt; 3 virginica        [50 × 2]       [50 × 2]</div><div class='input'><span class='no'>iris</span> <span class='kw'>%&gt;%</span>
-  <span class='fu'>nest</span>(<span class='kw'>width</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/pkg/tidyselect/man/select_helpers.html'>contains</a></span>(<span class='st'>"Width"</span>), <span class='kw'>length</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/pkg/tidyselect/man/select_helpers.html'>contains</a></span>(<span class='st'>"Length"</span>))</div><div class='output co'>#&gt; # A tibble: 3 x 3
-#&gt;   Species             width         length
-#&gt;   &lt;fct&gt;      &lt;list&lt;df[,2]&gt;&gt; &lt;list&lt;df[,2]&gt;&gt;
-#&gt; 1 setosa           [50 × 2]       [50 × 2]
-#&gt; 2 versicolor       [50 × 2]       [50 × 2]
-#&gt; 3 virginica        [50 × 2]       [50 × 2]</div><div class='input'>
+#&gt;   Species    data             
+#&gt;   &lt;fct&gt;      &lt;list&gt;           
+#&gt; 1 setosa     &lt;tibble [50 × 4]&gt;
+#&gt; 2 versicolor &lt;tibble [50 × 4]&gt;
+#&gt; 3 virginica  &lt;tibble [50 × 4]&gt;</div><div class='input'><span class='no'>nest_vars</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span>(<span class='no'>iris</span>)[<span class='fl'>1</span>:<span class='fl'>4</span>]
+<span class='no'>iris</span> <span class='kw'>%&gt;%</span> <span class='fu'>nest</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='fu'><a href='https://tidyselect.r-lib.org/reference/one_of.html'>one_of</a></span>(<span class='no'>nest_vars</span>))</div><div class='output co'>#&gt; # A tibble: 3 x 2
+#&gt;   Species    data             
+#&gt;   &lt;fct&gt;      &lt;list&gt;           
+#&gt; 1 setosa     &lt;tibble [50 × 4]&gt;
+#&gt; 2 versicolor &lt;tibble [50 × 4]&gt;
+#&gt; 3 virginica  &lt;tibble [50 × 4]&gt;</div><div class='input'><span class='no'>iris</span> <span class='kw'>%&gt;%</span>
+  <span class='fu'>nest</span>(<span class='kw'>petal</span> <span class='kw'>=</span> <span class='fu'><a href='https://tidyselect.r-lib.org/reference/select_helpers.html'>starts_with</a></span>(<span class='st'>"Petal"</span>), <span class='kw'>sepal</span> <span class='kw'>=</span> <span class='fu'><a href='https://tidyselect.r-lib.org/reference/select_helpers.html'>starts_with</a></span>(<span class='st'>"Sepal"</span>))</div><div class='output co'>#&gt; # A tibble: 3 x 3
+#&gt;   Species    petal             sepal            
+#&gt;   &lt;fct&gt;      &lt;list&gt;            &lt;list&gt;           
+#&gt; 1 setosa     &lt;tibble [50 × 2]&gt; &lt;tibble [50 × 2]&gt;
+#&gt; 2 versicolor &lt;tibble [50 × 2]&gt; &lt;tibble [50 × 2]&gt;
+#&gt; 3 virginica  &lt;tibble [50 × 2]&gt; &lt;tibble [50 × 2]&gt;</div><div class='input'><span class='no'>iris</span> <span class='kw'>%&gt;%</span>
+  <span class='fu'>nest</span>(<span class='kw'>width</span> <span class='kw'>=</span> <span class='fu'><a href='https://tidyselect.r-lib.org/reference/select_helpers.html'>contains</a></span>(<span class='st'>"Width"</span>), <span class='kw'>length</span> <span class='kw'>=</span> <span class='fu'><a href='https://tidyselect.r-lib.org/reference/select_helpers.html'>contains</a></span>(<span class='st'>"Length"</span>))</div><div class='output co'>#&gt; # A tibble: 3 x 3
+#&gt;   Species    width             length           
+#&gt;   &lt;fct&gt;      &lt;list&gt;            &lt;list&gt;           
+#&gt; 1 setosa     &lt;tibble [50 × 2]&gt; &lt;tibble [50 × 2]&gt;
+#&gt; 2 versicolor &lt;tibble [50 × 2]&gt; &lt;tibble [50 × 2]&gt;
+#&gt; 3 virginica  &lt;tibble [50 × 2]&gt; &lt;tibble [50 × 2]&gt;</div><div class='input'>
 <span class='co'># Nesting a grouped data frame nests all variables apart from the group vars</span>
 <span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>dplyr</span>)
 <span class='no'>fish_encounters</span> <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span>(<span class='no'>fish</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'>nest</span>()</div><div class='output co'>#&gt; # A tibble: 19 x 2
 #&gt; # Groups:   fish [19]
-#&gt;    fish            data
-#&gt;    &lt;fct&gt; &lt;list&lt;df[,2]&gt;&gt;
-#&gt;  1 4842        [11 × 2]
-#&gt;  2 4843        [11 × 2]
-#&gt;  3 4844        [11 × 2]
-#&gt;  4 4845         [5 × 2]
-#&gt;  5 4847         [3 × 2]
-#&gt;  6 4848         [4 × 2]
-#&gt;  7 4849         [2 × 2]
-#&gt;  8 4850         [6 × 2]
-#&gt;  9 4851         [2 × 2]
-#&gt; 10 4854         [2 × 2]
-#&gt; 11 4855         [5 × 2]
-#&gt; 12 4857         [9 × 2]
-#&gt; 13 4858        [11 × 2]
-#&gt; 14 4859         [5 × 2]
-#&gt; 15 4861        [11 × 2]
-#&gt; 16 4862         [9 × 2]
-#&gt; 17 4863         [2 × 2]
-#&gt; 18 4864         [2 × 2]
-#&gt; 19 4865         [3 × 2]</div><div class='input'>
+#&gt;    fish  data             
+#&gt;    &lt;fct&gt; &lt;list&gt;           
+#&gt;  1 4842  &lt;tibble [11 × 2]&gt;
+#&gt;  2 4843  &lt;tibble [11 × 2]&gt;
+#&gt;  3 4844  &lt;tibble [11 × 2]&gt;
+#&gt;  4 4845  &lt;tibble [5 × 2]&gt; 
+#&gt;  5 4847  &lt;tibble [3 × 2]&gt; 
+#&gt;  6 4848  &lt;tibble [4 × 2]&gt; 
+#&gt;  7 4849  &lt;tibble [2 × 2]&gt; 
+#&gt;  8 4850  &lt;tibble [6 × 2]&gt; 
+#&gt;  9 4851  &lt;tibble [2 × 2]&gt; 
+#&gt; 10 4854  &lt;tibble [2 × 2]&gt; 
+#&gt; 11 4855  &lt;tibble [5 × 2]&gt; 
+#&gt; 12 4857  &lt;tibble [9 × 2]&gt; 
+#&gt; 13 4858  &lt;tibble [11 × 2]&gt;
+#&gt; 14 4859  &lt;tibble [5 × 2]&gt; 
+#&gt; 15 4861  &lt;tibble [11 × 2]&gt;
+#&gt; 16 4862  &lt;tibble [9 × 2]&gt; 
+#&gt; 17 4863  &lt;tibble [2 × 2]&gt; 
+#&gt; 18 4864  &lt;tibble [2 × 2]&gt; 
+#&gt; 19 4865  &lt;tibble [3 × 2]&gt; </div><div class='input'>
 <span class='co'># Nesting is often useful for creating per group models</span>
 <span class='no'>mtcars</span> <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span>(<span class='no'>cyl</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'>nest</span>() <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span>(<span class='kw'>models</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span>(<span class='no'>data</span>, <span class='kw'>function</span>(<span class='no'>df</span>) <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span>(<span class='no'>mpg</span> ~ <span class='no'>wt</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>df</span>)))</div><div class='output co'>#&gt; # A tibble: 3 x 3
 #&gt; # Groups:   cyl [3]
-#&gt;     cyl            data models
-#&gt;   &lt;dbl&gt; &lt;list&lt;df[,10]&gt;&gt; &lt;list&gt;
-#&gt; 1     6        [7 × 10] &lt;lm&gt;  
-#&gt; 2     4       [11 × 10] &lt;lm&gt;  
-#&gt; 3     8       [14 × 10] &lt;lm&gt;  </div><div class='input'>
+#&gt;     cyl data               models
+#&gt;   &lt;dbl&gt; &lt;list&gt;             &lt;list&gt;
+#&gt; 1     6 &lt;tibble [7 × 10]&gt;  &lt;lm&gt;  
+#&gt; 2     4 &lt;tibble [11 × 10]&gt; &lt;lm&gt;  
+#&gt; 3     8 &lt;tibble [14 × 10]&gt; &lt;lm&gt;  </div><div class='input'>
 <span class='co'># unnest() is primarily designed to work with lists of data frames</span>
 <span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(
   <span class='kw'>x</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>3</span>,

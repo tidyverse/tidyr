@@ -87,7 +87,7 @@
         <a class="navbar-brand" href="../index.html">tidyr</a>
         <div class="info">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.0.0.9000</span>
+          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.0.2.9000</span>
         </div>
       </div>
     </div>
@@ -240,7 +240,7 @@ each value.</p></td>
 
 
 <p>Arguments for selecting columns are passed to
-<code><a href='https://rdrr.io/pkg/tidyselect/man/vars_select.html'>tidyselect::vars_select()</a></code> and are treated specially. Unlike other
+<code><a href='https://tidyselect.r-lib.org/reference/vars_select.html'>tidyselect::vars_select()</a></code> and are treated specially. Unlike other
 verbs, selecting functions make a strict distinction between data
 expressions and context expressions.</p><ul>
 <li><p>A data expression is either a bare name like <code>x</code> or an expression
@@ -283,9 +283,9 @@ can contain either a column name as string or a column position).</p>
 <span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>unite</span>(<span class='st'>"z"</span>, <span class='no'>x</span>:<span class='no'>y</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>remove</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; # A tibble: 4 x 3
 #&gt;   z     x     y    
 #&gt;   &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;
-#&gt; 1 a_b   a     b    
-#&gt; 2 a     a     &lt;NA&gt; 
-#&gt; 3 b     &lt;NA&gt;  b    
+#&gt; 1 "a_b" a     b    
+#&gt; 2 "a"   a     &lt;NA&gt; 
+#&gt; 3 "b"   &lt;NA&gt;  b    
 #&gt; 4 ""    &lt;NA&gt;  &lt;NA&gt; </div><div class='input'>
 <span class='co'># Separate is almost the complement of unite</span>
 <span class='no'>df</span> <span class='kw'>%&gt;%</span>

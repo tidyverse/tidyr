@@ -91,7 +91,7 @@ Learn more in vignette(&quot;pivot&quot;)." />
         <a class="navbar-brand" href="../index.html">tidyr</a>
         <div class="info">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.0.0.9000</span>
+          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.0.2.9000</span>
         </div>
       </div>
     </div>
@@ -225,8 +225,8 @@ decreasing the number of columns. The inverse transformation is
       <th>cols</th>
       <td><p>Columns to pivot into longer format.</p>
 <p>This takes a tidyselect specification, e.g. use <code>a:c</code> to select all
-columns from <code>a</code> to <code>c</code>, <code><a href='https://rdrr.io/pkg/tidyselect/man/select_helpers.html'>starts_with("prefix")</a></code> to select all columns
-starting with "prefix", or <code><a href='https://rdrr.io/pkg/tidyselect/man/select_helpers.html'>everything()</a></code> to select all columns.</p></td>
+columns from <code>a</code> to <code>c</code>, <code><a href='https://tidyselect.r-lib.org/reference/select_helpers.html'>starts_with("prefix")</a></code> to select all columns
+starting with "prefix", or <code><a href='https://tidyselect.r-lib.org/reference/select_helpers.html'>everything()</a></code> to select all columns.</p></td>
     </tr>
     <tr>
       <th>names_to</th>
@@ -269,7 +269,7 @@ will be the common type of the input columns used to generate them.</p></td>
     </tr>
     <tr>
       <th>names_repair</th>
-      <td><p>What happen if the output has invalid column names?
+      <td><p>What happens if the output has invalid column names?
 The default, <code>"check_unique"</code> is to error if the columns are duplicated.
 Use <code>"minimal"</code> to allow duplicates in the output, or <code>"unique"</code> to
 de-duplicated by adding numeric suffixes. See <code><a href='https://rdrr.io/pkg/vctrs/man/vec_as_names.html'>vctrs::vec_as_names()</a></code>
@@ -368,7 +368,7 @@ under active development.</p>
 #&gt; #   wk65 &lt;dbl&gt;, wk66 &lt;lgl&gt;, wk67 &lt;lgl&gt;, wk68 &lt;lgl&gt;, wk69 &lt;lgl&gt;, wk70 &lt;lgl&gt;,
 #&gt; #   wk71 &lt;lgl&gt;, wk72 &lt;lgl&gt;, wk73 &lt;lgl&gt;, wk74 &lt;lgl&gt;, wk75 &lt;lgl&gt;, wk76 &lt;lgl&gt;</div><div class='input'><span class='no'>billboard</span> <span class='kw'>%&gt;%</span>
  <span class='fu'>pivot_longer</span>(
-   <span class='kw'>cols</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/pkg/tidyselect/man/select_helpers.html'>starts_with</a></span>(<span class='st'>"wk"</span>),
+   <span class='kw'>cols</span> <span class='kw'>=</span> <span class='fu'><a href='https://tidyselect.r-lib.org/reference/select_helpers.html'>starts_with</a></span>(<span class='st'>"wk"</span>),
    <span class='kw'>names_to</span> <span class='kw'>=</span> <span class='st'>"week"</span>,
    <span class='kw'>names_prefix</span> <span class='kw'>=</span> <span class='st'>"wk"</span>,
    <span class='kw'>values_to</span> <span class='kw'>=</span> <span class='st'>"rank"</span>,
@@ -420,7 +420,7 @@ under active development.</p>
 #&gt; 9  12 12 12  8 10.84 9.13  8.15  5.56
 #&gt; 10  7  7  7  8  4.82 7.26  6.42  7.91
 #&gt; 11  5  5  5  8  5.68 4.74  5.73  6.89</div><div class='input'><span class='no'>anscombe</span> <span class='kw'>%&gt;%</span>
- <span class='fu'>pivot_longer</span>(<span class='fu'><a href='https://rdrr.io/pkg/tidyselect/man/select_helpers.html'>everything</a></span>(),
+ <span class='fu'>pivot_longer</span>(<span class='fu'><a href='https://tidyselect.r-lib.org/reference/select_helpers.html'>everything</a></span>(),
    <span class='kw'>names_to</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>".value"</span>, <span class='st'>"set"</span>),
    <span class='kw'>names_pattern</span> <span class='kw'>=</span> <span class='st'>"(.)(.)"</span>
  )</div><div class='output co'>#&gt; # A tibble: 44 x 3

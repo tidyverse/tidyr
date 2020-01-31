@@ -49,7 +49,7 @@
         <a class="navbar-brand" href="../index.html">tidyr</a>
         <div class="info">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.0.0.9000</span>
+          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.0.2.9000</span>
         </div>
       </div>
     </div>
@@ -189,20 +189,20 @@
 <a class="sourceLine" id="cb3-7" data-line-number="7">)</a>
 <a class="sourceLine" id="cb3-8" data-line-number="8">df2 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/nest.html">nest</a></span>(<span class="dt">data =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(x, y))</a>
 <a class="sourceLine" id="cb3-9" data-line-number="9"><span class="co">#&gt; # A tibble: 3 x 2</span></a>
-<a class="sourceLine" id="cb3-10" data-line-number="10"><span class="co">#&gt;       g           data</span></a>
-<a class="sourceLine" id="cb3-11" data-line-number="11"><span class="co">#&gt;   &lt;dbl&gt; &lt;list&lt;df[,2]&gt;&gt;</span></a>
-<a class="sourceLine" id="cb3-12" data-line-number="12"><span class="co">#&gt; 1     1        [1 × 2]</span></a>
-<a class="sourceLine" id="cb3-13" data-line-number="13"><span class="co">#&gt; 2     2        [2 × 2]</span></a>
-<a class="sourceLine" id="cb3-14" data-line-number="14"><span class="co">#&gt; 3     3        [1 × 2]</span></a></code></pre></div>
+<a class="sourceLine" id="cb3-10" data-line-number="10"><span class="co">#&gt;       g data            </span></a>
+<a class="sourceLine" id="cb3-11" data-line-number="11"><span class="co">#&gt;   &lt;dbl&gt; &lt;list&gt;          </span></a>
+<a class="sourceLine" id="cb3-12" data-line-number="12"><span class="co">#&gt; 1     1 &lt;tibble [1 × 2]&gt;</span></a>
+<a class="sourceLine" id="cb3-13" data-line-number="13"><span class="co">#&gt; 2     2 &lt;tibble [2 × 2]&gt;</span></a>
+<a class="sourceLine" id="cb3-14" data-line-number="14"><span class="co">#&gt; 3     3 &lt;tibble [1 × 2]&gt;</span></a></code></pre></div>
 <p><code><a href="../reference/nest.html">nest()</a></code> specifies which variables should be nested inside; an alternative is to use <code><a href="https://dplyr.tidyverse.org/reference/group_by.html">dplyr::group_by()</a></code> to describe which variables should be kept outside.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">df2 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(g) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/nest.html">nest</a></span>()</a>
 <a class="sourceLine" id="cb4-2" data-line-number="2"><span class="co">#&gt; # A tibble: 3 x 2</span></a>
 <a class="sourceLine" id="cb4-3" data-line-number="3"><span class="co">#&gt; # Groups:   g [3]</span></a>
-<a class="sourceLine" id="cb4-4" data-line-number="4"><span class="co">#&gt;       g           data</span></a>
-<a class="sourceLine" id="cb4-5" data-line-number="5"><span class="co">#&gt;   &lt;dbl&gt; &lt;list&lt;df[,2]&gt;&gt;</span></a>
-<a class="sourceLine" id="cb4-6" data-line-number="6"><span class="co">#&gt; 1     1        [1 × 2]</span></a>
-<a class="sourceLine" id="cb4-7" data-line-number="7"><span class="co">#&gt; 2     2        [2 × 2]</span></a>
-<a class="sourceLine" id="cb4-8" data-line-number="8"><span class="co">#&gt; 3     3        [1 × 2]</span></a></code></pre></div>
+<a class="sourceLine" id="cb4-4" data-line-number="4"><span class="co">#&gt;       g data            </span></a>
+<a class="sourceLine" id="cb4-5" data-line-number="5"><span class="co">#&gt;   &lt;dbl&gt; &lt;list&gt;          </span></a>
+<a class="sourceLine" id="cb4-6" data-line-number="6"><span class="co">#&gt; 1     1 &lt;tibble [1 × 2]&gt;</span></a>
+<a class="sourceLine" id="cb4-7" data-line-number="7"><span class="co">#&gt; 2     2 &lt;tibble [2 × 2]&gt;</span></a>
+<a class="sourceLine" id="cb4-8" data-line-number="8"><span class="co">#&gt; 3     3 &lt;tibble [1 × 2]&gt;</span></a></code></pre></div>
 <p>I think nesting is easiest to understand in connection to grouped data: each row in the output corresponds to one <em>group</em> in the input. We’ll see shortly this is particularly convenient when you have other per-group objects.</p>
 <p>The opposite of <code><a href="../reference/nest.html">nest()</a></code> is <code><a href="../reference/nest.html">unnest()</a></code>. You give it the name of a list-column containing data frames, and it row-binds the data frames together, repeating the outer columns the right number of times to line up.</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">df1 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/nest.html">unnest</a></span>(data)</a>
@@ -225,33 +225,33 @@
 <a class="sourceLine" id="cb6-5" data-line-number="5">mtcars_nested</a>
 <a class="sourceLine" id="cb6-6" data-line-number="6"><span class="co">#&gt; # A tibble: 3 x 2</span></a>
 <a class="sourceLine" id="cb6-7" data-line-number="7"><span class="co">#&gt; # Groups:   cyl [3]</span></a>
-<a class="sourceLine" id="cb6-8" data-line-number="8"><span class="co">#&gt;     cyl            data</span></a>
-<a class="sourceLine" id="cb6-9" data-line-number="9"><span class="co">#&gt;   &lt;dbl&gt; &lt;list&lt;df[,10]&gt;&gt;</span></a>
-<a class="sourceLine" id="cb6-10" data-line-number="10"><span class="co">#&gt; 1     6        [7 × 10]</span></a>
-<a class="sourceLine" id="cb6-11" data-line-number="11"><span class="co">#&gt; 2     4       [11 × 10]</span></a>
-<a class="sourceLine" id="cb6-12" data-line-number="12"><span class="co">#&gt; 3     8       [14 × 10]</span></a></code></pre></div>
+<a class="sourceLine" id="cb6-8" data-line-number="8"><span class="co">#&gt;     cyl data              </span></a>
+<a class="sourceLine" id="cb6-9" data-line-number="9"><span class="co">#&gt;   &lt;dbl&gt; &lt;list&gt;            </span></a>
+<a class="sourceLine" id="cb6-10" data-line-number="10"><span class="co">#&gt; 1     6 &lt;tibble [7 × 10]&gt; </span></a>
+<a class="sourceLine" id="cb6-11" data-line-number="11"><span class="co">#&gt; 2     4 &lt;tibble [11 × 10]&gt;</span></a>
+<a class="sourceLine" id="cb6-12" data-line-number="12"><span class="co">#&gt; 3     8 &lt;tibble [14 × 10]&gt;</span></a></code></pre></div>
 <p>Once you have a list of data frames, it’s very natural to produce a list of models:</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">mtcars_nested &lt;-<span class="st"> </span>mtcars_nested <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb7-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="dt">model =</span> <span class="kw"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span>(data, <span class="cf">function</span>(df) <span class="kw"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span>(mpg <span class="op">~</span><span class="st"> </span>wt, <span class="dt">data =</span> df)))</a>
 <a class="sourceLine" id="cb7-3" data-line-number="3">mtcars_nested</a>
 <a class="sourceLine" id="cb7-4" data-line-number="4"><span class="co">#&gt; # A tibble: 3 x 3</span></a>
 <a class="sourceLine" id="cb7-5" data-line-number="5"><span class="co">#&gt; # Groups:   cyl [3]</span></a>
-<a class="sourceLine" id="cb7-6" data-line-number="6"><span class="co">#&gt;     cyl            data model </span></a>
-<a class="sourceLine" id="cb7-7" data-line-number="7"><span class="co">#&gt;   &lt;dbl&gt; &lt;list&lt;df[,10]&gt;&gt; &lt;list&gt;</span></a>
-<a class="sourceLine" id="cb7-8" data-line-number="8"><span class="co">#&gt; 1     6        [7 × 10] &lt;lm&gt;  </span></a>
-<a class="sourceLine" id="cb7-9" data-line-number="9"><span class="co">#&gt; 2     4       [11 × 10] &lt;lm&gt;  </span></a>
-<a class="sourceLine" id="cb7-10" data-line-number="10"><span class="co">#&gt; 3     8       [14 × 10] &lt;lm&gt;</span></a></code></pre></div>
+<a class="sourceLine" id="cb7-6" data-line-number="6"><span class="co">#&gt;     cyl data               model </span></a>
+<a class="sourceLine" id="cb7-7" data-line-number="7"><span class="co">#&gt;   &lt;dbl&gt; &lt;list&gt;             &lt;list&gt;</span></a>
+<a class="sourceLine" id="cb7-8" data-line-number="8"><span class="co">#&gt; 1     6 &lt;tibble [7 × 10]&gt;  &lt;lm&gt;  </span></a>
+<a class="sourceLine" id="cb7-9" data-line-number="9"><span class="co">#&gt; 2     4 &lt;tibble [11 × 10]&gt; &lt;lm&gt;  </span></a>
+<a class="sourceLine" id="cb7-10" data-line-number="10"><span class="co">#&gt; 3     8 &lt;tibble [14 × 10]&gt; &lt;lm&gt;</span></a></code></pre></div>
 <p>And then you could even produce a list of predictions:</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">mtcars_nested &lt;-<span class="st"> </span>mtcars_nested <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb8-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="dt">model =</span> <span class="kw"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span>(model, predict))</a>
 <a class="sourceLine" id="cb8-3" data-line-number="3">mtcars_nested  </a>
 <a class="sourceLine" id="cb8-4" data-line-number="4"><span class="co">#&gt; # A tibble: 3 x 3</span></a>
 <a class="sourceLine" id="cb8-5" data-line-number="5"><span class="co">#&gt; # Groups:   cyl [3]</span></a>
-<a class="sourceLine" id="cb8-6" data-line-number="6"><span class="co">#&gt;     cyl            data model     </span></a>
-<a class="sourceLine" id="cb8-7" data-line-number="7"><span class="co">#&gt;   &lt;dbl&gt; &lt;list&lt;df[,10]&gt;&gt; &lt;list&gt;    </span></a>
-<a class="sourceLine" id="cb8-8" data-line-number="8"><span class="co">#&gt; 1     6        [7 × 10] &lt;dbl [7]&gt; </span></a>
-<a class="sourceLine" id="cb8-9" data-line-number="9"><span class="co">#&gt; 2     4       [11 × 10] &lt;dbl [11]&gt;</span></a>
-<a class="sourceLine" id="cb8-10" data-line-number="10"><span class="co">#&gt; 3     8       [14 × 10] &lt;dbl [14]&gt;</span></a></code></pre></div>
+<a class="sourceLine" id="cb8-6" data-line-number="6"><span class="co">#&gt;     cyl data               model     </span></a>
+<a class="sourceLine" id="cb8-7" data-line-number="7"><span class="co">#&gt;   &lt;dbl&gt; &lt;list&gt;             &lt;list&gt;    </span></a>
+<a class="sourceLine" id="cb8-8" data-line-number="8"><span class="co">#&gt; 1     6 &lt;tibble [7 × 10]&gt;  &lt;dbl [7]&gt; </span></a>
+<a class="sourceLine" id="cb8-9" data-line-number="9"><span class="co">#&gt; 2     4 &lt;tibble [11 × 10]&gt; &lt;dbl [11]&gt;</span></a>
+<a class="sourceLine" id="cb8-10" data-line-number="10"><span class="co">#&gt; 3     8 &lt;tibble [14 × 10]&gt; &lt;dbl [14]&gt;</span></a></code></pre></div>
 <p>This workflow works particularly well in conjunction with <a href="https://broom.tidyverse.org/">broom</a>, which makes it easy to turn models into tidy data frames which can then be <code><a href="../reference/nest.html">unnest()</a></code>ed to get back to flat data frames. You can see a bigger example in the <a href="https://broom.tidyverse.org/articles/broom_and_dplyr.html">broom and dplyr vignette</a>.</p>
 </div>
   </div>

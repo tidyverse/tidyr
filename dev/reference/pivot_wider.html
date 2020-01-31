@@ -91,7 +91,7 @@ Learn more in vignette(&quot;pivot&quot;)." />
         <a class="navbar-brand" href="../index.html">tidyr</a>
         <div class="info">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.0.0.9000</span>
+          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.0.2.9000</span>
         </div>
       </div>
     </div>
@@ -226,8 +226,8 @@ Defaults to all columns in <code>data</code> except for the columns specified in
 <code>names_from</code> and <code>values_from</code>. Typically used when you have additional
 variables that is directly related.</p>
 <p>This takes a tidyselect specification, e.g. use <code>a:c</code> to select all
-columns from <code>a</code> to <code>c</code>, <code><a href='https://rdrr.io/pkg/tidyselect/man/select_helpers.html'>starts_with("prefix")</a></code> to select all columns
-starting with "prefix", or <code><a href='https://rdrr.io/pkg/tidyselect/man/select_helpers.html'>everything()</a></code> to select all columns.</p></td>
+columns from <code>a</code> to <code>c</code>, <code><a href='https://tidyselect.r-lib.org/reference/select_helpers.html'>starts_with("prefix")</a></code> to select all columns
+starting with "prefix", or <code><a href='https://tidyselect.r-lib.org/reference/select_helpers.html'>everything()</a></code> to select all columns.</p></td>
     </tr>
     <tr>
       <th>names_from, values_from</th>
@@ -251,7 +251,7 @@ string to use as a column name.</p></td>
     </tr>
     <tr>
       <th>names_repair</th>
-      <td><p>What happen if the output has invalid column names?
+      <td><p>What happens if the output has invalid column names?
 The default, <code>"check_unique"</code> is to error if the columns are duplicated.
 Use <code>"minimal"</code> to allow duplicates in the output, or <code>"unique"</code> to
 de-duplicated by adding numeric suffixes. See <code><a href='https://rdrr.io/pkg/vctrs/man/vec_as_names.html'>vctrs::vec_as_names()</a></code>
