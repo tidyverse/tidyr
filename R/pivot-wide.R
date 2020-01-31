@@ -109,6 +109,7 @@ pivot_wider <- function(data,
 #' @keywords internal
 #' @export
 #' @inheritParams pivot_wider
+#' @inheritParams pivot_longer_spec
 pivot_wider_spec <- function(data,
                                   spec,
                                   names_repair = "check_unique",
