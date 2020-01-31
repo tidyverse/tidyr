@@ -35,7 +35,7 @@ Must be a data frame containing character \code{.name} and \code{.value} columns
 The special \code{.seq} variable is used to disambiguate rows internally;
 it is automatically removed after pivotting.}
 
-\item{names_repair}{What happen if the output has invalid column names?
+\item{names_repair}{What happens if the output has invalid column names?
 The default, \code{"check_unique"} is to error if the columns are duplicated.
 Use \code{"minimal"} to allow duplicates in the output, or \code{"unique"} to
 de-duplicated by adding numeric suffixes. See \code{\link[vctrs:vec_as_names]{vctrs::vec_as_names()}}

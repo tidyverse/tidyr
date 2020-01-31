@@ -46,7 +46,7 @@
 #'   If these arguments do not give you enough control, use
 #'   `pivot_longer_spec()` to create a spec object and process manually as
 #'   needed.
-#' @param names_repair What happen if the output has invalid column names?
+#' @param names_repair What happens if the output has invalid column names?
 #'   The default, `"check_unique"` is to error if the columns are duplicated.
 #'   Use `"minimal"` to allow duplicates in the output, or `"unique"` to
 #'   de-duplicated by adding numeric suffixes. See [vctrs::vec_as_names()]
