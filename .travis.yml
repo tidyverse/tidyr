@@ -6,7 +6,6 @@ cache: packages
 
 matrix:
   include:
-  - r: devel
   - r: release
     after_success:
     - Rscript -e 'covr::codecov()'
@@ -17,7 +16,3 @@ matrix:
       provider: script
       script: Rscript -e 'pkgdown::deploy_site_github(verbose = TRUE)'
       skip_cleanup: true
-  - r: oldrel
-  - r: 3.4
-  - r: 3.3
-  - r: 3.2
