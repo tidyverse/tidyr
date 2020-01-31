@@ -27,7 +27,7 @@ build_wider_spec(
 
 \item{spec}{A specification data frame. This is useful for more complex
 pivots because it gives you greater control on how metadata stored in the
-column names turns into columns in the result.
+columns become column names in the result.
 
 Must be a data frame containing character \code{.name} and \code{.value} columns.
 The special \code{.seq} variable is used to disambiguate rows internally;
