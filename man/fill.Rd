@@ -27,90 +27,74 @@ and are only recorded when they change.
 Missing values are replaced in atomic vectors; \code{NULL}s are replaced in lists.
 }
 \examples{
-# Here we have some spreadsheet data where the analyst has only updated year
-# when the year has changed, leading to a consistent placement of year at the top
-# followed by trailing NAs up to the next year
-
-sales <- tibble(quarter = rep(c("Q1", "Q2", "Q3", "Q4"), 4),
-                year = c(2000, rep(NA, 3),
-                         2001, rep(NA, 3),
-                         2002, rep(NA, 3),
-                         2004, rep(NA, 3)
-                ),
-                sales = c(66013, 69182, 53175, 21001, 46036, 58842, 44568, 50197,
-                          39113, 41668, 30144, 52897, 32129, 67686, 31768, 49094)
+# Value (year) is recorded only when it changes
+sales <- tibble::tribble(
+  ~quarter, ~year, ~sales,
+  "Q1",    2000,    66013,
+  "Q2",      NA,    69182,
+  "Q3",      NA,    53175,
+  "Q4",      NA,    21001,
+  "Q1",    2001,    46036,
+  "Q2",      NA,    58842,
+  "Q3",      NA,    44568,
+  "Q4",      NA,    50197,
+  "Q1",    2002,    39113,
+  "Q2",      NA,    41668,
+  "Q3",      NA,    30144,
+  "Q4",      NA,    52897,
+  "Q1",    2004,    32129,
+  "Q2",      NA,    67686,
+  "Q3",      NA,    31768,
+  "Q4",      NA,    49094
 )
 
-sales
-
-# We can call `fill()` and only need to specify the column to fill since the
-# default for the `.direction` argument is "down"
-# As such `fill()` will replace missing data from top to bottom in this example
-
+# `fill()` defaults to replacing missing data from top to bottom
 sales \%>\% fill(year)
 
-
-# In this next example we are looking at the most popular pet breeds for cats and dogs
-# The pet type (dog or cat) is missing in a consistent way up to the last
-# observation within the respective pet type
-
-tidy_pets <- tibble(pet_type = c(rep(NA, 9), "Dog", rep(NA, 9), "Cat"),
-                    breed = c("Retrievers (Labrador)", "German Shepherd Dogs",
-                              "Retrievers (Golden)", "French Bulldogs", "Bulldogs",
-                              "Beagles", "Poodles", "Rottweilers",
-                              "Pointers (German Shorthaired)", "Yorkshire Terriers",
-                              "Persian", "Maine Coon", "Ragdoll", "Exotic", "Siamese",
-                              "American Short", "Abyssinian", "Birman", "Sphynx", "Bengal"),
-                    rank = rep(c("1", "2", "3", "4", "5", "6", "7", "8", "9", "10"), 2)
+# Value (pet_type) is missing above
+tidy_pets <- tibble::tribble(
+  ~rank, ~pet_type, ~breed,
+  1L,        NA,    "Boston Terrier",
+  2L,        NA,    "Retrievers (Labrador)",
+  3L,        NA,    "Retrievers (Golden)",
+  4L,        NA,    "French Bulldogs",
+  5L,        NA,    "Bulldogs",
+  6L,     "Dog",    "Beagles",
+  1L,        NA,    "Persian",
+  2L,        NA,    "Maine Coon",
+  3L,        NA,    "Ragdoll",
+  4L,        NA,    "Exotic",
+  5L,        NA,    "Siamese",
+  6L,     "Cat",    "American Short"
 )
 
-tidy_pets
-
-# Notice in this example the data to fill is now at the _bottom_, rather than the top
-# If we were to use the default of fill (.direction = "down") it would actually
-# add the "dog" `pet_type` to all the cats!
-# So let's specify the direction with `.direction = "up")`
-
+# For values that are missing above you can use `.direction = "up"`
 tidy_pets \%>\%
   fill(pet_type, .direction = "up")
 
-
-# In this example, some squirrel enthusiasts are walking around Central Park and
-# counting the number of squirrels observed by their respective groups
-
-squirrels <- tibble(
-  group = rep(1:3, each = 4),
-  name = c("Sam", "Mara", "Jesse", "Tom",
-           "Mike", "Rachael", "Sydekea", "Gabriela",
-           "Derrick", "Kara", "Emily", "Danielle"),
-  role = c("Observer", "Scorekeeper", rep("Observer", 4), "Scorekeeper",
-           rep("Observer", 2), "Scorekeeper", rep("Observer", 2)),
-  n_squirrels = c(NA, 8, NA, NA, NA, NA, 14, NA, NA, 9, NA, NA)
+# Value (n_squirrels) is missing above and below within a group
+squirrels <- tibble::tribble(
+  ~group,    ~name,     ~role,     ~n_squirrels,
+  1,      "Sam",    "Observer",   NA,
+  1,     "Mara", "Scorekeeper",    8,
+  1,    "Jesse",    "Observer",   NA,
+  1,      "Tom",    "Observer",   NA,
+  2,     "Mike",    "Observer",   NA,
+  2,  "Rachael",    "Observer",   NA,
+  2,  "Sydekea", "Scorekeeper",   14,
+  2, "Gabriela",    "Observer",   NA,
+  3,  "Derrick",    "Observer",   NA,
+  3,     "Kara", "Scorekeeper",    9,
+  3,    "Emily",    "Observer",   NA,
+  3, "Danielle",    "Observer",   NA
 )
 
-# Note that there are four people per team, but only one "scorekeeper" who tracks
-# the groups total observed squirrels in their notebook.
-# The data is inconsistently missing by position within the group, so using
-# .direction = "up" or "down" once doesn't fully solve the problem
-
-squirrels
-
-# We can now use the specify the direction via `.direction = 'downup'`
-# along with a `dplyr::group_by()` to fill in the missing data for the entire group!
-# Note that this will first fill down and then fill back up
-
+# The values are inconsistently missing by position within the group
+# Use .direction = "downup" to fill missing values in both directions
 squirrels \%>\%
   dplyr::group_by(group) \%>\%
-  fill(n_squirrels, .direction = 'downup') \%>\%
+  fill(n_squirrels, .direction = "downup") \%>\%
   dplyr::ungroup()
 
-# Similar problems could also be solved with the argument `.direction = updown`
-# These options are very helpful in situations where data is
-# inconsistently missing by actual location, and is not simply
-# at the top or bottom of the respective groups
-
-squirrels \%>\%
-  dplyr::group_by(group) \%>\%
-  fill(n_squirrels, .direction = 'updown') \%>\%
-  dplyr::ungroup()
+# Using `.direction = "updown"` accomplishes the same goal in this example
 }
