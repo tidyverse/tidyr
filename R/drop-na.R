@@ -8,6 +8,9 @@
 #' df <- tibble(x = c(1, 2, NA), y = c("a", NA, "b"))
 #' df %>% drop_na()
 #' df %>% drop_na(x)
+#' # using a contextual object with all_of()
+#' z <- 2
+#' df %>% drop_na(x, all_of(z))
 #' @export
 drop_na <- function(data, ...) {
   ellipsis::check_dots_unnamed()

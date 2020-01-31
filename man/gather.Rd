@@ -58,10 +58,9 @@ See more details in \code{vignette("pivot")}.
 \section{Rules for selection}{
 
 
-Arguments for selecting columns are passed to
-\code{\link[tidyselect:vars_select]{tidyselect::vars_select()}} and are treated specially. Unlike other
-verbs, selecting functions make a strict distinction between data
-expressions and context expressions.
+Arguments for selecting columns are passed to \code{\link[tidyselect:vars_select]{tidyselect::vars_select()}}
+and are treated specially. Unlike other verbs, selecting functions make a
+strict distinction between data expressions and context expressions.
 \itemize{
 \item A data expression is either a bare name like \code{x} or an expression
 like \code{x:y} or \code{c(x, y)}. In a data expression, you can only refer
@@ -74,13 +73,11 @@ For instance, \code{col1:col3} is a data expression that refers to data
 columns, while \code{seq(start, end)} is a context expression that
 refers to objects from the contexts.
 
-If you really need to refer to contextual objects from a data
-expression, you can unquote them with the tidy eval operator
-\verb{!!}. This operator evaluates its argument in the context and
-inlines the result in the surrounding function call. For instance,
-\code{c(x, !! x)} selects the \code{x} column within the data frame and the
-column referred to by the object \code{x} defined in the context (which
-can contain either a column name as string or a column position).
+If you need to refer to contextual objects from a data expression, you can
+use \code{all_of()} or \code{any_of()}. These functions are used to select
+data-variables whose names are stored in a env-variable. For instance,
+\code{all_of(a)} selects the variables listed in the character vector \code{a}.
+For more details, see the \code{\link[tidyselect:select_helpers]{tidyselect::select_helpers()}} documentation.
 }
 
 \examples{
