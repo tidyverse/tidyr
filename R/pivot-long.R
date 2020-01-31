@@ -282,7 +282,7 @@ deduplicate_spec <- function(spec, df) {
   # Ensure each .name has a unique output identifier
   key <- spec[setdiff(names(spec), ".name")]
   if (vec_duplicate_any(key)) {
-    pos <- vec_group_loc(key)$pos
+    pos <- vec_group_loc(key)$loc
     seq <- vector("integer", length = nrow(spec))
     for (i in seq_along(pos)) {
       seq[pos[[i]]] <- seq_along(pos[[i]])
