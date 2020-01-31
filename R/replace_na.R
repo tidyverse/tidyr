@@ -1,18 +1,18 @@
 #' Replace NAs with specified values
 #'
 #' @param data A data frame or vector.
-#' @param replace If `data` is a data frame, `replace` takes a list of values, where there is one value for each column that has `NA` values to be replaced.
+#' @param replace If `data` is a data frame, `replace` takes a list of values,
+#'   with one value for each column that has `NA` values to be replaced.
 #'
-#' If `data` is a vector, `replace` takes a single value. This single value replaces all of the `NA` values in the vector.
+#'   If `data` is a vector, `replace` takes a single value. This single value
+#'   replaces all of the `NA` values in the vector.
 #' @param ... Additional arguments for methods. Currently unused.
-#' @return If `data` is a data frame, `replace_na` returns a data frame.
-#'
-#' If `data` is a vector, `replace_na` returns a vector, where the vector's class is determined by the union of `data` and `replace`.
-#' @seealso \code{\link[dplyr]{na_if}} replaces specified values with `NA`s.
-#'
-#' \code{\link[dplyr]{coalesce}} replaces `NA`s with values from other vectors.
-#'
-#' \code{\link[dplyr]{recode}} replaces values more generally.
+#' @return
+#' * If `data` is a data frame, `replace_na()` returns a data frame.
+#' * If `data` is a vector, `replace_na()` returns a vector, with determined
+#'   by the union of `data` and `replace`.
+#' @seealso [dplyr::na_if()] to replace specified values with `NA`s;
+#'   [dplyr::coalesce()] to replaces `NA`s with values from other vectors.
 #' @export
 #' @examples
 #' library(dplyr)

@@ -9,16 +9,20 @@ replace_na(data, replace, ...)
 \arguments{
 \item{data}{A data frame or vector.}
 
-\item{replace}{If \code{data} is a data frame, \code{replace} takes a list of values, where there is one value for each column that has \code{NA} values to be replaced.
+\item{replace}{If \code{data} is a data frame, \code{replace} takes a list of values,
+with one value for each column that has \code{NA} values to be replaced.
 
-If \code{data} is a vector, \code{replace} takes a single value. This single value replaces all of the \code{NA} values in the vector.}
+If \code{data} is a vector, \code{replace} takes a single value. This single value
+replaces all of the \code{NA} values in the vector.}
 
 \item{...}{Additional arguments for methods. Currently unused.}
 }
 \value{
-If \code{data} is a data frame, \code{replace_na} returns a data frame.
-
-If \code{data} is a vector, \code{replace_na} returns a vector, where the vector's class is determined by the union of \code{data} and \code{replace}.
+\itemize{
+\item If \code{data} is a data frame, \code{replace_na()} returns a data frame.
+\item If \code{data} is a vector, \code{replace_na()} returns a vector, with determined
+by the union of \code{data} and \code{replace}.
+}
 }
 \description{
 Replace NAs with specified values
@@ -44,9 +48,6 @@ df_list <- tibble(z = list(1:5, NULL, 10:20))
 df_list \%>\% replace_na(list(z = list(5)))
 }
 \seealso{
-\code{\link[dplyr]{na_if}} replaces specified values with \code{NA}s.
-
-\code{\link[dplyr]{coalesce}} replaces \code{NA}s with values from other vectors.
-
-\code{\link[dplyr]{recode}} replaces values more generally.
+\code{\link[dplyr:na_if]{dplyr::na_if()}} to replace specified values with \code{NA}s;
+\code{\link[dplyr:coalesce]{dplyr::coalesce()}} to replaces \code{NA}s with values from other vectors.
 }
