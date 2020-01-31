@@ -33,9 +33,10 @@
 #' expression, you can unquote them with the tidy eval operator
 #' `!!`. This operator evaluates its argument in the context and
 #' inlines the result in the surrounding function call. For instance,
-#' `c(x, !! x)` selects the `x` column within the data frame and the
-#' column referred to by the object `x` defined in the context (which
-#' can contain either a column name as string or a column position).
+#' `c(x, !! a)` selects the `x` column within the data frame and the
+#' column referred to by the object `a` defined in the context (which
+#' can contain either a column name as string or a column position
+#' `a <- 2` or `a <- "y"`).
 #'
 #' @inheritParams expand
 #' @param key,value Names of new key and value columns, as strings or

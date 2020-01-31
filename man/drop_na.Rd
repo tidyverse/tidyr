@@ -41,9 +41,10 @@ If you really need to refer to contextual objects from a data
 expression, you can unquote them with the tidy eval operator
 \verb{!!}. This operator evaluates its argument in the context and
 inlines the result in the surrounding function call. For instance,
-\code{c(x, !! x)} selects the \code{x} column within the data frame and the
-column referred to by the object \code{x} defined in the context (which
-can contain either a column name as string or a column position).
+\code{c(x, !! a)} selects the \code{x} column within the data frame and the
+column referred to by the object \code{a} defined in the context (which
+can contain either a column name as string or a column position
+\code{a <- 2} or \code{a <- "y"}).
 }
 
 \examples{
@@ -51,4 +52,6 @@ library(dplyr)
 df <- tibble(x = c(1, 2, NA), y = c("a", NA, "b"))
 df \%>\% drop_na()
 df \%>\% drop_na(x)
+z <- 2
+df \%>\% drop_na(!! z)
 }
