@@ -22,8 +22,7 @@ for names in the style of base R).
 \item A purrr-style anonymous function, see \code{\link[rlang:as_function]{rlang::as_function()}}
 }
 
-This argument is passed on as \code{repair} to \code{\link[vctrs:vec_as_names]{vctrs::vec_as_names()}}.
-See there for more details on these terms and the strategies used
+See \link[tibble]{name-repair} for more details on these terms and the strategies used
 to enforce them.}
 }
 \value{
