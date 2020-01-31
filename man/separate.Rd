@@ -2,8 +2,8 @@
 % Please edit documentation in R/separate.R
 \name{separate}
 \alias{separate}
-\title{Separate a character column into multiple columns with regular
-expression or numeric location}
+\title{Separate a character column into multiple columns with a regular
+expression or numeric locations}
 \usage{
 separate(
   data,

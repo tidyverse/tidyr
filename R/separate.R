@@ -1,5 +1,5 @@
-#' Separate a character column into multiple columns with regular
-#' expression or numeric location
+#' Separate a character column into multiple columns with a regular
+#' expression or numeric locations
 #'
 #' Given either a regular expression or a vector of character positions,
 #' `separate()` turns a single character column into multiple columns.
