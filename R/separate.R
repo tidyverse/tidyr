@@ -1,8 +1,8 @@
-#' Separate a character column into multiple columns by a regular
-#' expression separator or by numeric position
+#' Separate a character column into multiple columns with regular
+#' expression or numeric location
 #'
 #' Given either a regular expression or a vector of character positions,
-#' [separate()] turns a single character column into multiple columns.
+#' `separate()` turns a single character column into multiple columns.
 #'
 #' @inheritParams extract
 #' @param sep Separator between columns.
@@ -13,7 +13,7 @@
 #'
 #'   If numeric, `sep` is interpreted as character positions to split at. Positive
 #'   values start at 1 at the far-left of the string; negative value start at -1 at
-#'   the far-right of the string. The [length()] of `sep` should be one less than
+#'   the far-right of the string. The length of `sep` should be one less than
 #'   `into`.
 #' @param extra If `sep` is a character vector, this controls what
 #'   happens when there are too many pieces. There are three valid options:
@@ -62,10 +62,6 @@
 #' df <- data.frame(x = c("a:1", "a:2", "c:4", "d", NA))
 #' df %>% separate(x, c("key","value"), ":") %>% str
 #' df %>% separate(x, c("key","value"), ":", convert = TRUE) %>% str
-#'
-#' # col argument will accept quasiquotation to work with strings:
-#' var <- "x"
-#' df %>% separate(!!var, c("key","value"), ":")
 separate <- function(data, col, into, sep = "[^[:alnum:]]+", remove = TRUE,
                      convert = FALSE, extra = "warn", fill = "warn", ...) {
   ellipsis::check_dots_used()

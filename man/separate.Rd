@@ -2,8 +2,8 @@
 % Please edit documentation in R/separate.R
 \name{separate}
 \alias{separate}
-\title{Separate a character column into multiple columns by a regular
-expression separator or by numeric position}
+\title{Separate a character column into multiple columns with regular
+expression or numeric location}
 \usage{
 separate(
   data,
@@ -38,7 +38,7 @@ non-alphanumeric values.
 
 If numeric, \code{sep} is interpreted as character positions to split at. Positive
 values start at 1 at the far-left of the string; negative value start at -1 at
-the far-right of the string. The \code{\link[=length]{length()}} of \code{sep} should be one less than
+the far-right of the string. The length of \code{sep} should be one less than
 \code{into}.}
 
 \item{remove}{If \code{TRUE}, remove input column from output data frame.}
@@ -69,7 +69,7 @@ happens when there are not enough pieces. There are three valid options:
 }
 \description{
 Given either a regular expression or a vector of character positions,
-\code{\link[=separate]{separate()}} turns a single character column into multiple columns.
+\code{separate()} turns a single character column into multiple columns.
 }
 \examples{
 library(dplyr)
@@ -103,10 +103,6 @@ df \%>\% separate(x, c("A","B"), sep = "([.?:])")
 df <- data.frame(x = c("a:1", "a:2", "c:4", "d", NA))
 df \%>\% separate(x, c("key","value"), ":") \%>\% str
 df \%>\% separate(x, c("key","value"), ":", convert = TRUE) \%>\% str
-
-# col argument will accept quasiquotation to work with strings:
-var <- "x"
-df \%>\% separate(!!var, c("key","value"), ":")
 }
 \seealso{
 \code{\link[=unite]{unite()}}, the complement, \code{\link[=extract]{extract()}} which uses regular
