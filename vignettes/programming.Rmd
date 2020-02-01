@@ -1,0 +1,91 @@
+---
+title: "Programming with tidyr"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Programming with tidyr}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\usepackage[utf8]{inputenc}
+---
+
+```{r setup, echo = FALSE, message = FALSE}
+knitr::opts_chunk$set(collapse = T, comment = "#>")
+options(tibble.print_min = 4L, tibble.print_max = 4L)
+set.seed(1014)
+```
+
+## Introduction
+
+Most tidyr verbs use **tidy evaluation** in some way. Tidy evaluation is a special type of non-standard evaluation used throughout the tidyverse. There are two basic forms found in tidyr:
+
+* `pivot_longer()`, `nest()`, `unite()`, `drop_na()`, and `fill()` use **tidy selection** so you can easily choose variables based on their position, name, or type (e.g. `starts_with("x")` or `is.numeric`).
+
+* `unnest()` and `separate()` use **data masking** so that you can use data variables as if they were variables in the environment (i.e. you write `my_variable` not `df$myvariable`). 
+
+To determine whether a function argument uses tidy selection or data masking, look at the documentation: in the arguments list, you'll see `<data-masking>` or `<tidy-select>`.
+
+Tidy selection and data masking make interactive data exploration fast and fluid, but they add some new challenges when you attempt to use them indirectly such as in a for loop or a function. This vignette shows you how to overcome those challenges. We'll first go over the basics of tidy selection and data masking, talk about how to use them indirectly, and then show you a number of recipes to solve common problems.
+
+This vignette will give you the minimum knowledge you need to be an effective programmer with tidy evaluation. If you'd like to learn more about the underlying theory, or precisely how it's different from non-standard evaluation, we recommend that you read the Metaprogramming chapters in [_Advanced R_](https://adv-r.hadley.nz).
+
+```{r, message = FALSE}
+library(tidyr)
+```
+
+## Tidy selection
+
+Tidy selection makes it easy to work with the columns of a dataset.
+
+### The tidyselect DSL
+
+Underneath all functions that use tidy selection is the [tidyselect](http://tidyselect.r-lib.org/) package. It provides a miniature domain specific language that makes it easy to select columns by name, position, or type. For example:
+
+* `select(df, 1)` selects the first column; 
+  `select(1, last_col())` selects the last column.
+  
+* `select(df, c(a, b, c))` selects columns `a`, `b`, and `c`.
+
+* `select(df, starts_with("a"))` selects all columns whose name starts with "a";
+  `select(df, ends_with("z"))` selects all columns whose name ends with "z".
+  
+* `select(df, is.numeric)` selects all numeric columns.
+
+You can see more details in `?dplyr_tidy_select`.
+
+### Indirection
+
+Tidy selection makes a common task easier at the cost of making a less common task harder. When you want to use tidy select indirectly with the column specification stored in an intermediate variable, you'll need to learn some new tools. Again, there are two forms of indirection:
+
+*   When you have the data-variable in an env-variable that is a function
+    argument, you use the same technique as data masking: you **embrace** the
+    argument by surrounding it in doubled braces.
+    
+    The following function summarises a data frame by computing
+    the mean of all variables selected by the user:
+
+    ```{r, results = FALSE, eval = FALSE}
+    # Note: in order for this to work, tidyr needs to switch over to a newer version of tidyselect to be able to use function predicates. Setting to eval=FALSE in the meantime and keeping this as a placeholder.
+    
+    nest_egg <- function(df, cols) {
+      nest(df, egg = {{ cols }})
+    }
+    
+    nest_egg(billboard, is.numeric)
+    ```
+
+*   When you have an env-variable that is a character vector, you need to use
+    `all_of()` or `any_of()` depending on whether you want the
+    function to error if a variable is not found. 
+    
+    The following code uses `all_of()` to select all of the variables found
+    in a character vector; then `!` plus `all_of()` to select all of the 
+    variables *not* found in a character vector:
+
+    ```{r, results = FALSE}
+    # Note: I believe once tidyr uses tidyselect 1.0.0.9, we can remove the `tidyselect::`
+    
+    vars <- c("artist")
+    billboard %>% 
+      dplyr::group_by(tidyselect::all_of(vars)) %>% 
+      nest()
+    ```
+
