@@ -264,10 +264,9 @@ which preserves the original ordering of the columns.</p></td>
     
 
 
-<p>Arguments for selecting columns are passed to
-<code><a href='https://tidyselect.r-lib.org/reference/vars_select.html'>tidyselect::vars_select()</a></code> and are treated specially. Unlike other
-verbs, selecting functions make a strict distinction between data
-expressions and context expressions.</p><ul>
+<p>Arguments for selecting columns are passed to <code><a href='https://tidyselect.r-lib.org/reference/vars_select.html'>tidyselect::vars_select()</a></code>
+and are treated specially. Unlike other verbs, selecting functions make a
+strict distinction between data expressions and context expressions.</p><ul>
 <li><p>A data expression is either a bare name like <code>x</code> or an expression
 like <code>x:y</code> or <code><a href='https://rdrr.io/r/base/c.html'>c(x, y)</a></code>. In a data expression, you can only refer
 to columns from the data frame.</p></li>
@@ -278,13 +277,11 @@ refer to objects that you have defined with <code>&lt;-</code>.</p></li>
 <p>For instance, <code>col1:col3</code> is a data expression that refers to data
 columns, while <code><a href='https://rdrr.io/r/base/seq.html'>seq(start, end)</a></code> is a context expression that
 refers to objects from the contexts.</p>
-<p>If you really need to refer to contextual objects from a data
-expression, you can unquote them with the tidy eval operator
-<code>!!</code>. This operator evaluates its argument in the context and
-inlines the result in the surrounding function call. For instance,
-<code><a href='https://rdrr.io/r/base/c.html'>c(x, !! x)</a></code> selects the <code>x</code> column within the data frame and the
-column referred to by the object <code>x</code> defined in the context (which
-can contain either a column name as string or a column position).</p>
+<p>If you need to refer to contextual objects from a data expression, you can
+use <code>all_of()</code> or <code>any_of()</code>. These functions are used to select
+data-variables whose names are stored in a env-variable. For instance,
+<code>all_of(a)</code> selects the variables listed in the character vector <code>a</code>.
+For more details, see the <code><a href='https://tidyselect.r-lib.org/reference/select_helpers.html'>tidyselect::select_helpers()</a></code> documentation.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>dplyr</span>)
