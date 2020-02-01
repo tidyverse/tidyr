@@ -46,7 +46,8 @@ Suggests:
     repurrrsive (>= 1.0.0),
     rmarkdown,
     readr,
-    testthat (>= 2.1.0)
+    testthat (>= 2.1.0),
+    forcats
 LinkingTo: 
     Rcpp
 VignetteBuilder: 
