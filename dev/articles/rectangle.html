@@ -229,7 +229,7 @@
 </div>
 <div id="github-repos" class="section level2">
 <h2 class="hasAnchor">
-<a href="#github-repos" class="anchor"></a>Github repos</h2>
+<a href="#github-repos" class="anchor"></a>GitHub repos</h2>
 <p>We start off <code>gh_repos</code> similarly, by putting it in a tibble:</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">repos &lt;-<span class="st"> </span><span class="kw"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span>(<span class="dt">repo =</span> gh_repos)</a>
 <a class="sourceLine" id="cb6-2" data-line-number="2">repos</a>
@@ -468,7 +468,7 @@
 <a class="sourceLine" id="cb16-8" data-line-number="8">  url &lt;-<span class="st"> "https://maps.googleapis.com/maps/api/geocode/json"</span></a>
 <a class="sourceLine" id="cb16-9" data-line-number="9">  url &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span>(url, <span class="st">"?address="</span>, <span class="kw"><a href="https://rdrr.io/r/utils/URLencode.html">URLencode</a></span>(address), <span class="st">"&amp;key="</span>, api_key)</a>
 <a class="sourceLine" id="cb16-10" data-line-number="10"></a>
-<a class="sourceLine" id="cb16-11" data-line-number="11">  jsonlite<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/jsonlite/man/read_json.html">read_json</a></span>(url)</a>
+<a class="sourceLine" id="cb16-11" data-line-number="11">  jsonlite<span class="op">::</span><span class="kw"><a href="https://jeroen.cran.dev/jsonlite/reference/read_json.html">read_json</a></span>(url)</a>
 <a class="sourceLine" id="cb16-12" data-line-number="12">}</a></code></pre></div>
 <p>The list that this function returns is quite complex:</p>
 <div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1">houston &lt;-<span class="st"> </span><span class="kw">geocode</span>(<span class="st">"Houston TX"</span>)</a>
@@ -811,7 +811,7 @@
       <ul class="nav nav-pills nav-stacked">
 <li><a href="#introduction">Introduction</a></li>
       <li><a href="#github-users">GitHub users</a></li>
-      <li><a href="#github-repos">Github repos</a></li>
+      <li><a href="#github-repos">GitHub repos</a></li>
       <li><a href="#game-of-thrones-characters">Game of Thrones characters</a></li>
       <li><a href="#geocoding-with-google">Geocoding with google</a></li>
       <li><a href="#sharla-gelfands-discography">Sharla Gelfand’s discography</a></li>
