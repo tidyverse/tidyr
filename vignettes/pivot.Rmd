@@ -131,7 +131,7 @@ who
   dataset only contains new cases, so we'll ignore it here because it's 
   constant.
   
-* `sp`/`rel`/`sp`/`ep` describe how the case was diagnosed.
+* `sp`/`rel`/`ep` describe how the case was diagnosed.
 
 * `m`/`f` gives the gender.
 
