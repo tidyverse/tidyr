@@ -110,11 +110,9 @@ fruits \%>\% expand(nesting(type, size, year))
 
 
 # Variations on expand ------------------------------------------------------
-# Use in conjunction with `forcats::fct_drop` to drop unused factor levels
-fruits \%>\% expand(type, forcats::fct_drop(size), year)
 # Use in conjunction with `tidyr::full_seq` to fill in values of continuous variables
-fruits \%>\% expand(type, forcats::fct_drop(size), full_seq(year, 1))
-fruits \%>\% expand(type, forcats::fct_drop(size), 2010:2012)
+fruits \%>\% expand(type, size, full_seq(year, 1))
+fruits \%>\% expand(type, size, 2010:2012)
 
 # Additional utilities of expand --------------------------------------------
 # Use `anti_join` to determine which observations are missing
