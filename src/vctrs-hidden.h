@@ -5,6 +5,7 @@
 #include <R.h>
 #include <Rversion.h>
 #include <Rinternals.h>
+#include <R_ext/Rdynload.h>
 
 // Short callables
 extern R_len_t (*vec_size_common)(SEXP, R_len_t);
