@@ -7,7 +7,6 @@
 #include <Rinternals.h>
 
 // Short callables
-extern R_len_t (*vec_size)(SEXP);
 extern R_len_t (*vec_size_common)(SEXP, R_len_t);
 extern SEXP (*vec_recycle_common)(SEXP, R_len_t);
 
