@@ -97,7 +97,7 @@ unchop <- function(data, cols, keep_empty = FALSE, ptype = NULL) {
   out <- vec_slice(data, rep(vec_seq_along(data), n))
 
   if (nrow(data) == 0) {
-    new_cols <- map(data[cols], ~ attr(.x, "ptype") %||% unspecified(0))
+    new_cols <- map(data[cols], unchop_ptype)
   } else {
     new_cols <- vec_rbind(!!!x, .ptype = ptype)
   }
@@ -106,6 +106,13 @@ unchop <- function(data, cols, keep_empty = FALSE, ptype = NULL) {
   reconstruct_tibble(data, out)
 }
 
+unchop_ptype <- function(x) {
+  if (is.list(x)) {
+    attr(x, "ptype") %||% unspecified(0)
+  } else {
+    vec_ptype(x)
+  }
+}
 
 # Helpers -----------------------------------------------------------------
 

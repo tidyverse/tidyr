@@ -81,3 +81,8 @@ test_that("grouping is preserved", {
   out <- df %>% dplyr::group_by(g) %>% unchop(x)
   expect_equal(dplyr::group_vars(out), "g")
 })
+
+test_that("unchop() only creates unspecified vectors for empty lists", {
+  df <- data.frame(x = integer(), y = integer())
+  expect_identical(unchop(df, y)$y, integer())
+})
