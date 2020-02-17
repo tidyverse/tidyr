@@ -90,7 +90,7 @@ unchop <- function(data, cols, keep_empty = FALSE, ptype = NULL) {
 
   # In case `x` is a grouped data frame and any `cols` are lists,
   # in which case `[.grouped_df` will error
-  cols <- new_data_frame(as.list(data)[cols])
+  cols <- new_data_frame(unclass(data)[cols])
 
   res <- vec_lengthen(cols, ptype)
   new_cols <- res$value
