@@ -88,32 +88,133 @@ unchop <- function(data, cols, keep_empty = FALSE, ptype = NULL) {
     }
   }
 
-  size <- vec_size(data)
-
-  # In case `data` is a grouped data frame and any `cols` are lists,
+  # In case `x` is a grouped data frame and any `cols` are lists,
   # in which case `[.grouped_df` will error
-  data_lst <- as.list(data)
-  cols_lst <- data_lst[cols]
+  cols <- new_data_frame(as.list(data)[cols])
 
-  # If multiple columns, create one data frame for each row
-  results <- unchop_rows(cols_lst, size)
-  rows <- results[[1]]
-  sizes <- results[[2]]
+  res <- vec_lengthen(cols, ptype)
+  new_cols <- res$value
+  slice_loc <- res$loc
 
-  out <- vec_slice(data, rep(seq_len(size), sizes))
-
-  if (size == 0) {
-    new_cols <- map(cols_lst, ~ attr(.x, "ptype") %||% unspecified(0))
-  } else {
-    new_cols <- vec_rbind(!!!rows, .ptype = ptype)
-  }
+  out <- vec_slice(data, slice_loc)
 
   out <- update_cols(out, new_cols)
   reconstruct_tibble(data, out)
 }
 
-
 # Helpers -----------------------------------------------------------------
+
+vec_lengthen <- function(x, ptype = NULL) {
+  n <- length(x)
+  size <- vec_size(x)
+
+  if (size == 0L) {
+    cols <- map(x, vec_lengthen_ptype)
+    out <- new_lengthen_df(integer(), cols, 0L, ptype)
+    return(out)
+  }
+
+  seq_len_n <- seq_len(n)
+  seq_len_size <- seq_len(size)
+
+  sizes <- rep_len(NA_integer_, size)
+
+  for (i in seq_len_n) {
+    col <- x[[i]]
+
+    for (j in seq_len_size) {
+      # TODO: col[[j]] -> vec_slice2(col, j)
+      sizes[[j]] <- update_size(sizes[[j]], col[[j]])
+    }
+  }
+
+  sizes <- map_int(sizes, finalise_size)
+
+  cols <- vector("list", n)
+  names(cols) <- names(x)
+
+  pieces <- vector("list", size)
+
+  for (i in seq_len_n) {
+    col <- x[[i]]
+
+    for (j in seq_len_size) {
+      # TODO: col[[j]] -> vec_slice2(col, j)
+      pieces[[j]] <- tidyr_recycle(col[[j]], sizes[[j]])
+    }
+
+    cols[[i]] <- vec_c(!!!pieces)
+  }
+
+  out_size <- sum(sizes)
+  loc <- rep(seq_len_size, sizes)
+
+  new_lengthen_df(loc, cols, out_size, ptype)
+}
+
+new_lengthen_df <- function(loc, cols, n, ptype) {
+  value <- new_data_frame(cols, n = n)
+
+  if (!is.null(ptype)) {
+    value <- vec_cast(value, ptype)
+  }
+
+  out <- list(loc = loc, value = value)
+  new_data_frame(out, n = n)
+}
+
+vec_lengthen_ptype <- function(x) {
+  # TODO: Update if `list_of()` ever explicitly inherits from `"list"`
+  if (inherits(x, "list") || inherits(x, "vctrs_list_of")) {
+    attr(x, "ptype") %||% unspecified(0L)
+  } else {
+    vec_ptype(x)
+  }
+}
+
+finalise_size <- function(size) {
+  if (is.na(size)) {
+    0L
+  } else {
+    size
+  }
+}
+
+tidyr_recycle <- function(x, size) {
+  if (is.null(x)) {
+    unspecified(size)
+  } else {
+    vec_recycle(x, size)
+  }
+}
+
+update_size <- function(size, x) {
+  size2(size, tidyr_size(x))
+}
+
+tidyr_size <- function(x) {
+  if (is.null(x)) {
+    NA_integer_
+  } else {
+    vec_size(x)
+  }
+}
+
+size2 <- function(nx, ny) {
+  if (is.na(nx)) {
+    ny
+  } else if (is.na(ny)) {
+    nx
+  } else if (nx == ny) {
+    nx
+  } else if (nx == 1L) {
+    ny
+  } else if (ny == 1L) {
+    nx
+  } else {
+    abort(paste0("Incompatible lengths: ", nx, ", ", ny, "."))
+  }
+}
 
 init_col <- function(x) {
   if (is_null(x)) {
