@@ -68,7 +68,7 @@ static SEXP unchop_rows_impl(SEXP cols, R_len_t size) {
     // Normal case. Assign i-th element of each column into their own row.
     rows_elt = PROTECT(unchop_row(rows_elt, &sizes_elt, cols, names, call, n, &current));
 
-    // NULL detected. Continue inversion while removing NULLs.
+    // NULL detected. Continue unchopping while removing NULLs.
     if (current != -1) {
       rows_elt = unchop_row_with_null(rows_elt, &sizes_elt, cols, names, call, n, current);
     }
