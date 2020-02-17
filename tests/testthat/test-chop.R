@@ -90,3 +90,25 @@ test_that("unchop() only creates unspecified vectors for empty lists", {
   df <- tibble(x = integer(), y = data.frame(z = integer()))
   expect_identical(unchop(df, y)$y, data.frame(z = integer()))
 })
+
+test_that("can specify a ptype with extra columns", {
+  df <- tibble(x = 1, y = list(1, 2))
+  ptype <- tibble(y = numeric(), z = numeric())
+
+  expect <- tibble(x = c(1, 1), y = c(1, 2), z = c(NA_real_, NA_real_))
+
+  expect_identical(unchop(df, y, ptype = ptype), expect)
+})
+
+test_that("can specify a ptype to force an output type", {
+  df <- tibble(x = list("1", 2))
+  ptype <- tibble(x = numeric())
+
+  expect_error(unchop(df, x), class = "vctrs_error_incompatible_type")
+
+  expect_identical(unchop(df, x, ptype = ptype), tibble(x = c(1, 2)))
+})
+
+test_that("the ptype must be a data frame", {
+  expect_error(unchop(mtcars, mpg, ptype = 1), "`ptype` must be a data frame")
+})

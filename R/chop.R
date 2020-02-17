@@ -130,8 +130,15 @@ vec_lengthen <- function(x, ptype = NULL) {
 
   sizes <- map_int(sizes, finalise_size)
 
+  names <- names(x)
+
+  has_ptype <- !is.null(ptype)
+  if (has_ptype && !is.data.frame(ptype)) {
+    abort("`ptype` must be a data frame")
+  }
+
   cols <- vector("list", n)
-  names(cols) <- names(x)
+  names(cols) <- names
 
   pieces <- vector("list", size)
 
@@ -143,7 +150,13 @@ vec_lengthen <- function(x, ptype = NULL) {
       pieces[[j]] <- tidyr_recycle(col[[j]], sizes[[j]])
     }
 
-    cols[[i]] <- vec_c(!!!pieces)
+    if (has_ptype) {
+      col_ptype <- ptype[[names[[i]]]]
+    } else {
+      col_ptype <- NULL
+    }
+
+    cols[[i]] <- vec_c(!!!pieces, .ptype = col_ptype)
   }
 
   out_size <- sum(sizes)
