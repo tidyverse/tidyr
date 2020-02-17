@@ -10,7 +10,7 @@ tidyr_unchop_rows_env <- NULL
   tidyr_unchop_rows_env <<- new.env(parent = globalenv())
 
   # Initialize vctrs callables
-  tidy_init_library(asNamespace("tidyr"))
+  tidyr_init_library(asNamespace("tidyr"))
 }
 
 # nocov end

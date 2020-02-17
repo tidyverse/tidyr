@@ -4,7 +4,7 @@ void tidyr_init_vctrs();
 void tidyr_init_utils(SEXP ns);
 
 // [[Rcpp::export]]
-SEXP tidy_init_library(SEXP ns) {
+SEXP tidyr_init_library(SEXP ns) {
   tidyr_init_vctrs();
   tidyr_init_utils(ns);
 

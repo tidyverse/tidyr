@@ -9,8 +9,8 @@ fillUp <- function(x) {
     .Call(`_tidyr_fillUp`, x)
 }
 
-tidy_init_library <- function(ns) {
-    .Call(`_tidyr_tidy_init_library`, ns)
+tidyr_init_library <- function(ns) {
+    .Call(`_tidyr_tidyr_init_library`, ns)
 }
 
 melt_dataframe <- function(data, id_ind, measure_ind, variable_name, value_name, attrTemplate, factorsAsStrings, valueAsFactor, variableAsFactor) {
