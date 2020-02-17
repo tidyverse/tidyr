@@ -27,17 +27,6 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// tidyr_init_library
-SEXP tidyr_init_library(SEXP ns);
-RcppExport SEXP _tidyr_tidyr_init_library(SEXP nsSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< SEXP >::type ns(nsSEXP);
-    rcpp_result_gen = Rcpp::wrap(tidyr_init_library(ns));
-    return rcpp_result_gen;
-END_RCPP
-}
 // melt_dataframe
 List melt_dataframe(const DataFrame& data, const IntegerVector& id_ind, const IntegerVector& measure_ind, String variable_name, String value_name, SEXP attrTemplate, bool factorsAsStrings, bool valueAsFactor, bool variableAsFactor);
 RcppExport SEXP _tidyr_melt_dataframe(SEXP dataSEXP, SEXP id_indSEXP, SEXP measure_indSEXP, SEXP variable_nameSEXP, SEXP value_nameSEXP, SEXP attrTemplateSEXP, SEXP factorsAsStringsSEXP, SEXP valueAsFactorSEXP, SEXP variableAsFactorSEXP) {
@@ -70,26 +59,12 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// unchop_rows
-SEXP unchop_rows(SEXP cols, SEXP size);
-RcppExport SEXP _tidyr_unchop_rows(SEXP colsSEXP, SEXP sizeSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< SEXP >::type cols(colsSEXP);
-    Rcpp::traits::input_parameter< SEXP >::type size(sizeSEXP);
-    rcpp_result_gen = Rcpp::wrap(unchop_rows(cols, size));
-    return rcpp_result_gen;
-END_RCPP
-}
 
 static const R_CallMethodDef CallEntries[] = {
     {"_tidyr_fillDown", (DL_FUNC) &_tidyr_fillDown, 1},
     {"_tidyr_fillUp", (DL_FUNC) &_tidyr_fillUp, 1},
-    {"_tidyr_tidyr_init_library", (DL_FUNC) &_tidyr_tidyr_init_library, 1},
     {"_tidyr_melt_dataframe", (DL_FUNC) &_tidyr_melt_dataframe, 9},
     {"_tidyr_simplifyPieces", (DL_FUNC) &_tidyr_simplifyPieces, 3},
-    {"_tidyr_unchop_rows", (DL_FUNC) &_tidyr_unchop_rows, 2},
     {NULL, NULL, 0}
 };
 
