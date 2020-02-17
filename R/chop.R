@@ -107,7 +107,7 @@ unchop <- function(data, cols, keep_empty = FALSE, ptype = NULL) {
 }
 
 unchop_ptype <- function(x) {
-  if (is.list(x)) {
+  if (is.list(x) && !is.data.frame(x)) {
     attr(x, "ptype") %||% unspecified(0)
   } else {
     vec_ptype(x)

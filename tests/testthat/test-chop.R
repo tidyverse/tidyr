@@ -85,4 +85,7 @@ test_that("grouping is preserved", {
 test_that("unchop() only creates unspecified vectors for empty lists", {
   df <- data.frame(x = integer(), y = integer())
   expect_identical(unchop(df, y)$y, integer())
+
+  df <- tibble(x = integer(), y = data.frame(z = integer()))
+  expect_identical(unchop(df, y)$y, data.frame(z = integer()))
 })
