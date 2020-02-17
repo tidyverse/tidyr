@@ -103,7 +103,7 @@ unchop <- function(data, cols, keep_empty = FALSE, ptype = NULL) {
   out <- vec_slice(data, rep(seq_len(size), sizes))
 
   if (size == 0) {
-    new_cols <- map(data[cols], ~ attr(.x, "ptype") %||% unspecified(0))
+    new_cols <- map(cols_lst, ~ attr(.x, "ptype") %||% unspecified(0))
   } else {
     new_cols <- vec_rbind(!!!rows, .ptype = ptype)
   }
