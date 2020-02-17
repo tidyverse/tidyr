@@ -21,7 +21,7 @@ simplifyPieces <- function(pieces, p, fillLeft = TRUE) {
     .Call(`_tidyr_simplifyPieces`, pieces, p, fillLeft)
 }
 
-unchop_rows <- function(cols) {
-    .Call(`_tidyr_unchop_rows`, cols)
+unchop_rows <- function(cols, size) {
+    .Call(`_tidyr_unchop_rows`, cols, size)
 }
 

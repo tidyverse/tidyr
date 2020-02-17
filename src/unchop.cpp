@@ -2,11 +2,6 @@
 #include "vctrs-hidden.h"
 #include "utils.h"
 
-static inline SEXP unchop_row(SEXP rows_elt, int* sizes_elt, SEXP cols, SEXP names, SEXP call, R_len_t n, R_len_t* current);
-static inline SEXP unchop_row_with_null(SEXP rows_elt, int* sizes_elt, SEXP cols, SEXP names, SEXP call, R_len_t n, R_len_t current);
-
-static inline void init_data_frame(SEXP x, SEXP names, R_len_t size);
-
 /*
  * `unchop_rows()` takes a data frame of `cols` to unchop and splits each row
  * into its own data frame. Any lists are "flattened" by using `[[` to extract
@@ -23,10 +18,22 @@ static inline void init_data_frame(SEXP x, SEXP names, R_len_t size);
  * the R level by replacing `NULL` elements with `unspecified(1)`.
  */
 
+static SEXP unchop_rows_impl(SEXP cols, R_len_t size);
+
 // [[Rcpp::export]]
-SEXP unchop_rows(SEXP cols) {
+SEXP unchop_rows(SEXP cols, SEXP size) {
+  R_len_t size_ = INTEGER(size)[0];
+
+  return unchop_rows_impl(cols, size_);
+}
+
+static inline SEXP unchop_row(SEXP rows_elt, int* sizes_elt, SEXP cols, SEXP names, SEXP call, R_len_t n, R_len_t* current);
+static inline SEXP unchop_row_with_null(SEXP rows_elt, int* sizes_elt, SEXP cols, SEXP names, SEXP call, R_len_t n, R_len_t current);
+
+static inline void init_data_frame(SEXP x, SEXP names, R_len_t size);
+
+static SEXP unchop_rows_impl(SEXP cols, R_len_t size) {
   R_len_t n = Rf_length(cols);
-  R_len_t size = vec_size(cols);
 
   if (n == 0) {
     Rf_errorcall(R_NilValue, "Internal error: 0-column case should be handled at the R level");

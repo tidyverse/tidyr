@@ -88,14 +88,21 @@ unchop <- function(data, cols, keep_empty = FALSE, ptype = NULL) {
     }
   }
 
+  size <- vec_size(data)
+
+  # In case `data` is a grouped data frame and any `cols` are lists,
+  # in which case `[.grouped_df` will error
+  data_lst <- as.list(data)
+  cols_lst <- data_lst[cols]
+
   # If multiple columns, create one data frame for each row
-  results <- unchop_rows(data[cols])
+  results <- unchop_rows(cols_lst, size)
   rows <- results[[1]]
   sizes <- results[[2]]
 
-  out <- vec_slice(data, rep(vec_seq_along(data), sizes))
+  out <- vec_slice(data, rep(seq_len(size), sizes))
 
-  if (nrow(data) == 0) {
+  if (size == 0) {
     new_cols <- map(data[cols], ~ attr(.x, "ptype") %||% unspecified(0))
   } else {
     new_cols <- vec_rbind(!!!rows, .ptype = ptype)
