@@ -9,11 +9,19 @@ fillUp <- function(x) {
     .Call(`_tidyr_fillUp`, x)
 }
 
+tidy_init_library <- function(ns) {
+    .Call(`_tidyr_tidy_init_library`, ns)
+}
+
 melt_dataframe <- function(data, id_ind, measure_ind, variable_name, value_name, attrTemplate, factorsAsStrings, valueAsFactor, variableAsFactor) {
     .Call(`_tidyr_melt_dataframe`, data, id_ind, measure_ind, variable_name, value_name, attrTemplate, factorsAsStrings, valueAsFactor, variableAsFactor)
 }
 
 simplifyPieces <- function(pieces, p, fillLeft = TRUE) {
     .Call(`_tidyr_simplifyPieces`, pieces, p, fillLeft)
+}
+
+unchop_rows <- function(cols) {
+    .Call(`_tidyr_unchop_rows`, cols)
 }
 

@@ -89,17 +89,16 @@ unchop <- function(data, cols, keep_empty = FALSE, ptype = NULL) {
   }
 
   # If multiple columns, create one data frame for each row
-  # https://github.com/tidyverse/tibble/issues/580
-  x <- pmap(as.list(data)[cols], vec_recycle_common)
-  x <- map(x, ~ new_data_frame(drop_null(.x)))
+  results <- unchop_rows(data[cols])
+  rows <- results[[1]]
+  sizes <- results[[2]]
 
-  n <- map_int(x, vec_size)
-  out <- vec_slice(data, rep(vec_seq_along(data), n))
+  out <- vec_slice(data, rep(vec_seq_along(data), sizes))
 
   if (nrow(data) == 0) {
     new_cols <- map(data[cols], ~ attr(.x, "ptype") %||% unspecified(0))
   } else {
-    new_cols <- vec_rbind(!!!x, .ptype = ptype)
+    new_cols <- vec_rbind(!!!rows, .ptype = ptype)
   }
 
   out <- update_cols(out, new_cols)
