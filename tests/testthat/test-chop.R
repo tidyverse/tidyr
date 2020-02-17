@@ -91,6 +91,12 @@ test_that("unchop() only creates unspecified vectors for empty lists", {
   expect_identical(unchop(df, y)$y, data.frame(z = integer()))
 })
 
+test_that("correctly performs tidy recycling with size 1 inputs", {
+  df <- tibble(x = list(1, 2:3), y = list(2:3, 1))
+  expect <- tibble(x = c(1, 1, 2, 3), y = c(2, 3, 1, 1))
+  expect_identical(unchop(df, c(x, y)), expect)
+})
+
 test_that("can specify a ptype with extra columns", {
   df <- tibble(x = 1, y = list(1, 2))
   ptype <- tibble(y = numeric(), z = numeric())
