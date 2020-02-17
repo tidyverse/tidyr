@@ -41,6 +41,13 @@ Generally, unchopping is more useful than chopping because it simplifies
 a complex data structure, and \code{\link[=nest]{nest()}}ing is usually more appropriate
 that \code{chop()}ing` since it better preserves the connections between
 observations.
+
+\code{chop()} creates list-columns of class \code{\link[vctrs:list_of]{vctrs::list_of()}} to ensure
+consistent behaviour when the chopped data frame is emptied. For
+instance this helps getting back the original column types after
+the roundtrip chop and unchop. Because \verb{<list_of>} keeps tracks of
+the type of its elements, \code{unchop()} is able to reconstitute the
+correct vector type even for empty list-columns.
 }
 \examples{
 # Chop ==============================================================

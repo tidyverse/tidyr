@@ -1,5 +1,10 @@
 # tidyr (development version)
 
+* `chop()` now creates list-columns of class `vctrs::list_of()`. This
+  helps keep track of the type in case the chopped data frame is
+  emptied. This allows `unchop()` to reconstitute a data frame with
+  the correct column types even when there is no observation.
+
 * `chop()` now preserves the width of the input data frame even when
   it has no observation.
 
