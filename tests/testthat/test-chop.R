@@ -23,6 +23,12 @@ test_that("grouping is preserved", {
   expect_equal(dplyr::group_vars(out), "g")
 })
 
+test_that("can chop empty data frame", {
+  df <- tibble(x = integer(), y = integer())
+  expect_identical(chop(df, y), df)
+  expect_identical(chop(df, x), df[2:1])
+})
+
 
 # unchop ------------------------------------------------------------------
 

@@ -68,9 +68,12 @@ chop <- function(data, cols) {
   keys <- data[setdiff(names(data), cols)]
   split <- vec_split(vals, keys)
 
-  vals <- map(split$val, ~ new_data_frame(map(.x, list), n = 1L))
+  if (length(split$val)) {
+    chopped_vals <- map(split$val, ~ new_data_frame(map(.x, list), n = 1L))
+    vals <- vec_rbind(!!!chopped_vals)
+  }
 
-  out <- vec_cbind(split$key, vec_rbind(!!!vals))
+  out <- vec_cbind(split$key, vals)
   reconstruct_tibble(data, out)
 }
 
