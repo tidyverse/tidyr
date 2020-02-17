@@ -111,7 +111,7 @@ unchop <- function(data, cols, keep_empty = FALSE, ptype = NULL) {
 
 init_col <- function(x) {
   if (is_null(x)) {
-    unspecified(1)
+    NA
   } else if (vec_is_empty(x)) {
     vec_init(x, 1)
   } else {
