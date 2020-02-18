@@ -1,5 +1,8 @@
 # tidyr (development version)
 
+* `chop()` now preserves the width of the input data frame even when
+  it has no observation.
+
 * `pivot_longer()` no longer creates a `.copy` variable in the presence of
   duplicate column names. This makes it more consistent with the handling
   of non-unique specs.
