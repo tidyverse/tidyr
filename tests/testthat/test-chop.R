@@ -8,8 +8,8 @@ test_that("can chop multiple columns", {
   out <- df %>% chop(c(a, b))
 
   expect_named(out, c("x", "a", "b"))
-  expect_equal(out$a, list(1:2, 3L))
-  expect_equal(out$b, list(1:2, 3L))
+  expect_equal(out$a, list_of(1:2, 3L))
+  expect_equal(out$b, list_of(1:2, 3L))
 })
 
 test_that("chopping no columns returns input", {
@@ -86,4 +86,15 @@ test_that("grouping is preserved", {
   df <- tibble(g = 1, x = list(1, 2))
   out <- df %>% dplyr::group_by(g) %>% unchop(x)
   expect_equal(dplyr::group_vars(out), "g")
+})
+
+test_that("can unchop empty data frame", {
+  chopped <- tibble(x = integer(), y = list())
+  expect_identical(unchop(chopped, y), tibble(x = integer(), y = unspecified()))
+})
+
+test_that("unchop retrieves correct types with emptied chopped df", {
+  chopped <- chop(tibble(x = 1:3, y = 4:6), y)
+  empty <- vec_slice(chopped, 0L)
+  expect_identical(unchop(empty, y), tibble(x = integer(), y = integer()))
 })

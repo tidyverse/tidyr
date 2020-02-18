@@ -14,6 +14,13 @@
 #' that `chop()`ing` since it better preserves the connections between
 #' observations.
 #'
+#' `chop()` creates list-columns of class [vctrs::list_of()] to ensure
+#' consistent behaviour when the chopped data frame is emptied. For
+#' instance this helps getting back the original column types after
+#' the roundtrip chop and unchop. Because `<list_of>` keeps tracks of
+#' the type of its elements, `unchop()` is able to reconstitute the
+#' correct vector type even for empty list-columns.
+#'
 #' @param data A data frame.
 #' @param cols Column to chop or unchop (automatically quoted).
 #'
@@ -69,8 +76,9 @@ chop <- function(data, cols) {
   split <- vec_split(vals, keys)
 
   if (length(split$val)) {
-    chopped_vals <- map(split$val, ~ new_data_frame(map(.x, list), n = 1L))
-    vals <- vec_rbind(!!!chopped_vals)
+    split_vals <- transpose(split$val)
+    vals <- map2(split_vals, vec_ptype(vals), new_list_of)
+    vals <- new_data_frame(vals)
   }
 
   out <- vec_cbind(split$key, vals)
