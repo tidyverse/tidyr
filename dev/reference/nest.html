@@ -356,11 +356,11 @@ preserves the grouping of the input.</p>
 #&gt; 2     2 &lt;tibble [2 × 2]&gt;
 #&gt; 3     3 &lt;tibble [1 × 2]&gt;</div><div class='input'><span class='co'># chop does something similar, but retains individual columns</span>
 <span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='chop.html'>chop</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='no'>y</span>, <span class='no'>z</span>))</div><div class='output co'>#&gt; # A tibble: 3 x 3
-#&gt;       x y         z        
-#&gt;   &lt;dbl&gt; &lt;list&gt;    &lt;list&gt;   
-#&gt; 1     1 &lt;int [3]&gt; &lt;int [3]&gt;
-#&gt; 2     2 &lt;int [2]&gt; &lt;int [2]&gt;
-#&gt; 3     3 &lt;int [1]&gt; &lt;int [1]&gt;</div><div class='input'>
+#&gt;       x           y           z
+#&gt;   &lt;dbl&gt; &lt;list&lt;int&gt;&gt; &lt;list&lt;int&gt;&gt;
+#&gt; 1     1         [3]         [3]
+#&gt; 2     2         [2]         [2]
+#&gt; 3     3         [1]         [1]</div><div class='input'>
 <span class='co'># use tidyselect syntax and helpers, just like in dplyr::select()</span>
 <span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>nest</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='fu'><a href='https://tidyselect.r-lib.org/reference/one_of.html'>one_of</a></span>(<span class='st'>"y"</span>, <span class='st'>"z"</span>))</div><div class='output co'>#&gt; # A tibble: 3 x 2
 #&gt;       x data            
