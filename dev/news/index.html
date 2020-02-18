@@ -191,6 +191,7 @@
 <a href="#tidyr-development-version" class="anchor"></a>tidyr (development version)<small> Unreleased </small>
 </h1>
 <ul>
+<li><p><code><a href="../reference/chop.html">chop()</a></code> now preserves the width of the input data frame even when it has no observation.</p></li>
 <li><p><code><a href="../reference/pivot_longer.html">pivot_longer()</a></code> no longer creates a <code>.copy</code> variable in the presence of duplicate column names. This makes it more consistent with the handling of non-unique specs.</p></li>
 <li>
 <p><code><a href="../reference/pivot_longer.html">pivot_longer()</a></code> automatically disambiguates non-unique ouputs, which can occur when the input variables include some additional component that you don’t care about and want to discard (<a href='https://github.com/tidyverse/tidyr/issues/792'>#792</a>, <a href='https://github.com/tidyverse/tidyr/issues/793'>#793</a>).</p>
