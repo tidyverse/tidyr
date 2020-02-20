@@ -294,31 +294,31 @@ For more details, see the <code><a href='https://tidyselect.r-lib.org/reference/
 )
 
 <span class='fu'>gather</span>(<span class='no'>stocks</span>, <span class='st'>"stock"</span>, <span class='st'>"price"</span>, -<span class='no'>time</span>)</div><div class='output co'>#&gt; # A tibble: 30 x 3
-#&gt;    time       stock   price
-#&gt;    &lt;date&gt;     &lt;chr&gt;   &lt;dbl&gt;
-#&gt;  1 2009-01-01 X     -1.63  
-#&gt;  2 2009-01-02 X      0.512 
-#&gt;  3 2009-01-03 X     -1.86  
-#&gt;  4 2009-01-04 X     -0.522 
-#&gt;  5 2009-01-05 X     -0.0526
-#&gt;  6 2009-01-06 X      0.543 
-#&gt;  7 2009-01-07 X     -0.914 
-#&gt;  8 2009-01-08 X      0.468 
-#&gt;  9 2009-01-09 X      0.363 
-#&gt; 10 2009-01-10 X     -1.30  
+#&gt;    time       stock  price
+#&gt;    &lt;date&gt;     &lt;chr&gt;  &lt;dbl&gt;
+#&gt;  1 2009-01-01 X     -1.82 
+#&gt;  2 2009-01-02 X     -0.247
+#&gt;  3 2009-01-03 X     -0.244
+#&gt;  4 2009-01-04 X     -0.283
+#&gt;  5 2009-01-05 X     -0.554
+#&gt;  6 2009-01-06 X      0.629
+#&gt;  7 2009-01-07 X      2.07 
+#&gt;  8 2009-01-08 X     -1.63 
+#&gt;  9 2009-01-09 X      0.512
+#&gt; 10 2009-01-10 X     -1.86 
 #&gt; # … with 20 more rows</div><div class='input'><span class='no'>stocks</span> <span class='kw'>%&gt;%</span> <span class='fu'>gather</span>(<span class='st'>"stock"</span>, <span class='st'>"price"</span>, -<span class='no'>time</span>)</div><div class='output co'>#&gt; # A tibble: 30 x 3
-#&gt;    time       stock   price
-#&gt;    &lt;date&gt;     &lt;chr&gt;   &lt;dbl&gt;
-#&gt;  1 2009-01-01 X     -1.63  
-#&gt;  2 2009-01-02 X      0.512 
-#&gt;  3 2009-01-03 X     -1.86  
-#&gt;  4 2009-01-04 X     -0.522 
-#&gt;  5 2009-01-05 X     -0.0526
-#&gt;  6 2009-01-06 X      0.543 
-#&gt;  7 2009-01-07 X     -0.914 
-#&gt;  8 2009-01-08 X      0.468 
-#&gt;  9 2009-01-09 X      0.363 
-#&gt; 10 2009-01-10 X     -1.30  
+#&gt;    time       stock  price
+#&gt;    &lt;date&gt;     &lt;chr&gt;  &lt;dbl&gt;
+#&gt;  1 2009-01-01 X     -1.82 
+#&gt;  2 2009-01-02 X     -0.247
+#&gt;  3 2009-01-03 X     -0.244
+#&gt;  4 2009-01-04 X     -0.283
+#&gt;  5 2009-01-05 X     -0.554
+#&gt;  6 2009-01-06 X      0.629
+#&gt;  7 2009-01-07 X      2.07 
+#&gt;  8 2009-01-08 X     -1.63 
+#&gt;  9 2009-01-09 X      0.512
+#&gt; 10 2009-01-10 X     -1.86 
 #&gt; # … with 20 more rows</div><div class='input'>
 <span class='co'># get first observation for each Species in iris data -- base R</span>
 <span class='no'>mini_iris</span> <span class='kw'>&lt;-</span> <span class='no'>iris</span>[<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>51</span>, <span class='fl'>101</span>), ]

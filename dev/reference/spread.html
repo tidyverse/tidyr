@@ -260,24 +260,24 @@ by <code>"&lt;key_name&gt;&lt;sep&gt;&lt;key_value&gt;"</code>.</p></td>
   <span class='kw'>Z</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>10</span>, <span class='fl'>0</span>, <span class='fl'>4</span>)
 )
 <span class='no'>stocksm</span> <span class='kw'>&lt;-</span> <span class='no'>stocks</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='gather.html'>gather</a></span>(<span class='no'>stock</span>, <span class='no'>price</span>, -<span class='no'>time</span>)
-<span class='no'>stocksm</span> <span class='kw'>%&gt;%</span> <span class='fu'>spread</span>(<span class='no'>stock</span>, <span class='no'>price</span>)</div><div class='output co'>#&gt;          time           X             Y          Z
-#&gt; 1  2009-01-01 -1.56651447  1.9526835441 -3.4428971
-#&gt; 2  2009-01-02 -1.04057911  2.2930009979  1.6849217
-#&gt; 3  2009-01-03  1.01993374  2.4345433749  5.8021729
-#&gt; 4  2009-01-04 -0.70208198  0.0009600261  0.7775698
-#&gt; 5  2009-01-05  0.97331578  1.5102501123 -2.7648217
-#&gt; 6  2009-01-06 -0.07681765  0.6848070209  5.3594397
-#&gt; 7  2009-01-07  0.89292492  0.3369456486 10.9444338
-#&gt; 8  2009-01-08 -0.77750309  2.7941330176 -3.7764066
-#&gt; 9  2009-01-09  0.43679711 -1.3581908643 -7.1242477
-#&gt; 10 2009-01-10  0.41344393  1.4752588960 -2.8642347</div><div class='input'><span class='no'>stocksm</span> <span class='kw'>%&gt;%</span> <span class='fu'>spread</span>(<span class='no'>time</span>, <span class='no'>price</span>)</div><div class='output co'>#&gt;   stock 2009-01-01 2009-01-02 2009-01-03    2009-01-04 2009-01-05  2009-01-06
-#&gt; 1     X  -1.566514  -1.040579   1.019934 -0.7020819780  0.9733158 -0.07681765
-#&gt; 2     Y   1.952684   2.293001   2.434543  0.0009600261  1.5102501  0.68480702
-#&gt; 3     Z  -3.442897   1.684922   5.802173  0.7775697701 -2.7648217  5.35943967
+<span class='no'>stocksm</span> <span class='kw'>%&gt;%</span> <span class='fu'>spread</span>(<span class='no'>stock</span>, <span class='no'>price</span>)</div><div class='output co'>#&gt;          time          X          Y            Z
+#&gt; 1  2009-01-01 -2.0524039 -1.4041640  0.001920052
+#&gt; 2  2009-01-02  0.1507482  1.9466316  3.020500225
+#&gt; 3  2009-01-03 -0.2928727 -0.1536353  1.369614042
+#&gt; 4  2009-01-04  0.2549976  1.7858498  0.673891297
+#&gt; 5  2009-01-05 -0.5532382 -1.5550062  5.588266035
+#&gt; 6  2009-01-06  1.4051089  0.8735942 -2.716381729
+#&gt; 7  2009-01-07 -0.7954609  0.8268879  2.950517792
+#&gt; 8  2009-01-08 -1.5665145  1.9526835 -3.442897102
+#&gt; 9  2009-01-09 -1.0405791  2.2930010  1.684921683
+#&gt; 10 2009-01-10  1.0199337  2.4345434  5.802172853</div><div class='input'><span class='no'>stocksm</span> <span class='kw'>%&gt;%</span> <span class='fu'>spread</span>(<span class='no'>time</span>, <span class='no'>price</span>)</div><div class='output co'>#&gt;   stock   2009-01-01 2009-01-02 2009-01-03 2009-01-04 2009-01-05 2009-01-06
+#&gt; 1     X -2.052403887  0.1507482 -0.2928727  0.2549976 -0.5532382  1.4051089
+#&gt; 2     Y -1.404163956  1.9466316 -0.1536353  1.7858498 -1.5550062  0.8735942
+#&gt; 3     Z  0.001920052  3.0205002  1.3696140  0.6738913  5.5882660 -2.7163817
 #&gt;   2009-01-07 2009-01-08 2009-01-09 2009-01-10
-#&gt; 1  0.8929249 -0.7775031  0.4367971  0.4134439
-#&gt; 2  0.3369456  2.7941330 -1.3581909  1.4752589
-#&gt; 3 10.9444338 -3.7764066 -7.1242477 -2.8642347</div><div class='input'>
+#&gt; 1 -0.7954609  -1.566514  -1.040579   1.019934
+#&gt; 2  0.8268879   1.952684   2.293001   2.434543
+#&gt; 3  2.9505178  -3.442897   1.684922   5.802173</div><div class='input'>
 <span class='co'># Spread and gather are complements</span>
 <span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"a"</span>, <span class='st'>"b"</span>), <span class='kw'>y</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>3</span>, <span class='fl'>4</span>), <span class='kw'>z</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>5</span>, <span class='fl'>6</span>))
 <span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>spread</span>(<span class='no'>x</span>, <span class='no'>y</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='gather.html'>gather</a></span>(<span class='st'>"x"</span>, <span class='st'>"y"</span>, <span class='no'>a</span>:<span class='no'>b</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt;   z x y

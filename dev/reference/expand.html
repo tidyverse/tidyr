@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Expand data frame to include all combinations of values — expand • tidyr</title>
+<title>Expand data frame to include all possible combinations of values — expand • tidyr</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -41,11 +41,19 @@
 
 
 
-<meta property="og:title" content="Expand data frame to include all combinations of values — expand" />
-<meta property="og:description" content="expand() is often useful in conjunction with left_join() if
-you want to convert implicit missing values to explicit missing values.
-Or you can use it in conjunction with anti_join() to figure
-out which combinations are missing." />
+<meta property="og:title" content="Expand data frame to include all possible combinations of values — expand" />
+<meta property="og:description" content="expand() generates all combination of variables found in a dataset.
+It is paired with nesting() and crossing() helpers. crossing()
+is a wrapper around expand_grid() that de-duplicates and sorts its inputs;
+nesting() is a helper that only finds combinations already present in the
+data.
+expand() is often useful in conjunction with joins:
+use it with right_join() to convert implicit missing values to
+explicit missing values (e.g., fill in gaps in your data frame).
+use it with anti_join() to figure out which combinations are missing
+(e.g., identify gaps in your data frame).
+
+" />
 <meta property="og:image" content="https://tidyr.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -186,16 +194,24 @@ out which combinations are missing." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Expand data frame to include all combinations of values</h1>
+    <h1>Expand data frame to include all possible combinations of values</h1>
     <small class="dont-index">Source: <a href='https://github.com/tidyverse/tidyr/blob/master/R/expand.R'><code>R/expand.R</code></a></small>
     <div class="hidden name"><code>expand.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p><code>expand()</code> is often useful in conjunction with <code>left_join()</code> if
-you want to convert implicit missing values to explicit missing values.
-Or you can use it in conjunction with <code>anti_join()</code> to figure
-out which combinations are missing.</p>
+    <p><code>expand()</code> generates all combination of variables found in a dataset.
+It is paired with <code>nesting()</code> and <code>crossing()</code> helpers. <code>crossing()</code>
+is a wrapper around <code><a href='expand_grid.html'>expand_grid()</a></code> that de-duplicates and sorts its inputs;
+<code>nesting()</code> is a helper that only finds combinations already present in the
+data.</p>
+<p><code>expand()</code> is often useful in conjunction with joins:</p><ul>
+<li><p>use it with <code>right_join()</code> to convert implicit missing values to
+explicit missing values (e.g., fill in gaps in your data frame).</p></li>
+<li><p>use it with <code>anti_join()</code> to figure out which combinations are missing
+(e.g., identify gaps in your data frame).</p></li>
+</ul>
+
     </div>
 
     <pre class="usage"><span class='fu'>expand</span>(<span class='no'>data</span>, <span class='no'>...</span>, <span class='kw'>.name_repair</span> <span class='kw'>=</span> <span class='st'>"check_unique"</span>)
@@ -214,19 +230,24 @@ out which combinations are missing.</p>
     <tr>
       <th>...</th>
       <td><p>Specification of columns to expand. Columns can be atomic vectors
-or lists.</p>
-<p>To find all unique combinations of x, y and z, including those not
-found in the data, supply each variable as a separate argument.
-To find only the combinations that occur in the data, use nest:
-<code>expand(df, nesting(x, y, z))</code>.</p>
-<p>You can combine the two forms. For example,
+or lists.</p><ul>
+<li><p>To find all unique combinations of <code>x</code>, <code>y</code> and <code>z</code>, including those not
+present in the data, supply each variable as a separate argument:
+<code>expand(df, x, y, z)</code>.</p></li>
+<li><p>To find only the combinations that occur in the
+data, use <code>nesting</code>: <code>expand(df, nesting(x, y, z))</code>.</p></li>
+<li><p>You can combine the two forms. For example,
 <code>expand(df, nesting(school_id, student_id), date)</code> would produce
-a row for every student for each date.</p>
-<p>For factors, the full set of levels (not just those that appear in the
-data) are used. For continuous variables, you may need to fill in values
-that don't appear in the data: to do so use expressions like
-<code>year = 2010:2020</code> or <code>year = \link{full_seq}(year,1)</code>.</p>
-<p>Length-zero (empty) elements are automatically dropped.</p></td>
+a row for each present school-student combination for all possible
+dates.</p></li>
+</ul>
+
+<p>When used with factors, <code>expand()</code> uses the full set of levels, not just
+those that appear in the data. If you want to use only the values seen in
+the data, use <code>forcats::fct_drop()</code>.</p>
+<p>When used with continuous variables, you may need to fill in values
+that do not appear in the data: to do so use expressions like
+<code>year = 2010:2020</code> or <code>year = \link{full_seq}(year,1)</code>.</p></td>
     </tr>
     <tr>
       <th>.name_repair</th>
@@ -247,183 +268,167 @@ to enforce them.</p></td>
     </tr>
     </table>
 
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
-
-    <p><code>crossing()</code> is a wrapper around <code><a href='expand_grid.html'>expand_grid()</a></code> that deduplicates and sorts
-each input. <code>nesting()</code> is the complement to <code>crossing()</code>: it only keeps
-combinations of values that appear in the data.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='complete.html'>complete()</a></code> for a common application of <code>expand</code>:
-completing a data frame with missing combinations. <code><a href='expand_grid.html'>expand_grid()</a></code>
-is low-level that doesn't deduplicate or sort values.</p></div>
+    <div class='dont-index'><p><code><a href='complete.html'>complete()</a></code> to expand list objects. <code><a href='expand_grid.html'>expand_grid()</a></code>
+to input vectors rather than a data frame.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>dplyr</span>)
-<span class='co'># All possible combinations of vs &amp; cyl, even those that aren't</span>
-<span class='co'># present in the data</span>
-<span class='fu'>expand</span>(<span class='no'>mtcars</span>, <span class='no'>vs</span>, <span class='no'>cyl</span>)</div><div class='output co'>#&gt; # A tibble: 6 x 2
-#&gt;      vs   cyl
-#&gt;   &lt;dbl&gt; &lt;dbl&gt;
-#&gt; 1     0     4
-#&gt; 2     0     6
-#&gt; 3     0     8
-#&gt; 4     1     4
-#&gt; 5     1     6
-#&gt; 6     1     8</div><div class='input'>
-<span class='co'># Only combinations of vs and cyl that appear in the data</span>
-<span class='fu'>expand</span>(<span class='no'>mtcars</span>, <span class='fu'>nesting</span>(<span class='no'>vs</span>, <span class='no'>cyl</span>))</div><div class='output co'>#&gt; # A tibble: 5 x 2
-#&gt;      vs   cyl
-#&gt;   &lt;dbl&gt; &lt;dbl&gt;
-#&gt; 1     0     4
-#&gt; 2     0     6
-#&gt; 3     0     8
-#&gt; 4     1     4
-#&gt; 5     1     6</div><div class='input'>
-<span class='co'># Implicit missings ---------------------------------------------------------</span>
-<span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(
-  <span class='kw'>year</span>   <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2010</span>, <span class='fl'>2010</span>, <span class='fl'>2010</span>, <span class='fl'>2010</span>, <span class='fl'>2012</span>, <span class='fl'>2012</span>, <span class='fl'>2012</span>),
-  <span class='kw'>qtr</span>    <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(   <span class='fl'>1</span>,    <span class='fl'>2</span>,    <span class='fl'>3</span>,    <span class='fl'>4</span>,    <span class='fl'>1</span>,    <span class='fl'>2</span>,    <span class='fl'>3</span>),
-  <span class='kw'>return</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>7</span>)
-)
-<span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>expand</span>(<span class='no'>year</span>, <span class='no'>qtr</span>)</div><div class='output co'>#&gt; # A tibble: 8 x 2
-#&gt;    year   qtr
-#&gt;   &lt;dbl&gt; &lt;dbl&gt;
-#&gt; 1  2010     1
-#&gt; 2  2010     2
-#&gt; 3  2010     3
-#&gt; 4  2010     4
-#&gt; 5  2012     1
-#&gt; 6  2012     2
-#&gt; 7  2012     3
-#&gt; 8  2012     4</div><div class='input'><span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>expand</span>(<span class='kw'>year</span> <span class='kw'>=</span> <span class='fl'>2010</span>:<span class='fl'>2012</span>, <span class='no'>qtr</span>)</div><div class='output co'>#&gt; # A tibble: 12 x 2
-#&gt;     year   qtr
-#&gt;    &lt;int&gt; &lt;dbl&gt;
-#&gt;  1  2010     1
-#&gt;  2  2010     2
-#&gt;  3  2010     3
-#&gt;  4  2010     4
-#&gt;  5  2011     1
-#&gt;  6  2011     2
-#&gt;  7  2011     3
-#&gt;  8  2011     4
-#&gt;  9  2012     1
-#&gt; 10  2012     2
-#&gt; 11  2012     3
-#&gt; 12  2012     4</div><div class='input'><span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>expand</span>(<span class='kw'>year</span> <span class='kw'>=</span> <span class='fu'><a href='full_seq.html'>full_seq</a></span>(<span class='no'>year</span>, <span class='fl'>1</span>), <span class='no'>qtr</span>)</div><div class='output co'>#&gt; # A tibble: 12 x 2
-#&gt;     year   qtr
-#&gt;    &lt;dbl&gt; &lt;dbl&gt;
-#&gt;  1  2010     1
-#&gt;  2  2010     2
-#&gt;  3  2010     3
-#&gt;  4  2010     4
-#&gt;  5  2011     1
-#&gt;  6  2011     2
-#&gt;  7  2011     3
-#&gt;  8  2011     4
-#&gt;  9  2012     1
-#&gt; 10  2012     2
-#&gt; 11  2012     3
-#&gt; 12  2012     4</div><div class='input'><span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='complete.html'>complete</a></span>(<span class='kw'>year</span> <span class='kw'>=</span> <span class='fu'><a href='full_seq.html'>full_seq</a></span>(<span class='no'>year</span>, <span class='fl'>1</span>), <span class='no'>qtr</span>)</div><div class='output co'>#&gt; # A tibble: 12 x 3
-#&gt;     year   qtr   return
-#&gt;    &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;
-#&gt;  1  2010     1 -1.40   
-#&gt;  2  2010     2  0.255  
-#&gt;  3  2010     3 -2.44   
-#&gt;  4  2010     4 -0.00557
-#&gt;  5  2011     1 NA      
-#&gt;  6  2011     2 NA      
-#&gt;  7  2011     3 NA      
-#&gt;  8  2011     4 NA      
-#&gt;  9  2012     1  0.622  
-#&gt; 10  2012     2  1.15   
-#&gt; 11  2012     3 -1.82   
-#&gt; 12  2012     4 NA      </div><div class='input'>
-<span class='co'># Nesting -------------------------------------------------------------------</span>
-<span class='co'># Each person was given one of two treatments, repeated three times</span>
-<span class='co'># But some of the replications haven't happened yet, so we have</span>
-<span class='co'># incomplete data:</span>
-<span class='no'>experiment</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(
-  <span class='kw'>name</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Alex"</span>, <span class='st'>"Robert"</span>, <span class='st'>"Sam"</span>), <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>3</span>, <span class='fl'>2</span>, <span class='fl'>1</span>)),
-  <span class='kw'>trt</span>  <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"a"</span>, <span class='st'>"b"</span>, <span class='st'>"a"</span>), <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>3</span>, <span class='fl'>2</span>, <span class='fl'>1</span>)),
-  <span class='kw'>rep</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>3</span>, <span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>1</span>),
-  <span class='kw'>measurement_1</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span>(<span class='fl'>6</span>),
-  <span class='kw'>measurement_2</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span>(<span class='fl'>6</span>)
+    <pre class="examples"><div class='input'><span class='no'>fruits</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(
+  <span class='kw'>type</span>   <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"apple"</span>, <span class='st'>"orange"</span>, <span class='st'>"apple"</span>, <span class='st'>"orange"</span>, <span class='st'>"orange"</span>, <span class='st'>"orange"</span>),
+  <span class='kw'>year</span>   <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2010</span>, <span class='fl'>2010</span>, <span class='fl'>2012</span>, <span class='fl'>2010</span>, <span class='fl'>2010</span>, <span class='fl'>2012</span>),
+  <span class='kw'>size</span>  <span class='kw'>=</span>  <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(
+    <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"XS"</span>, <span class='st'>"S"</span>,  <span class='st'>"M"</span>, <span class='st'>"S"</span>, <span class='st'>"S"</span>, <span class='st'>"M"</span>),
+    <span class='kw'>levels</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"XS"</span>, <span class='st'>"S"</span>, <span class='st'>"M"</span>, <span class='st'>"L"</span>)
+  ),
+  <span class='kw'>weights</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>6</span>, <span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span>(<span class='no'>size</span>) + <span class='fl'>2</span>)
 )
 
-<span class='co'># We can figure out the complete set of data with expand()</span>
-<span class='co'># Each person only gets one treatment, so we nest name and trt together:</span>
-<span class='no'>all</span> <span class='kw'>&lt;-</span> <span class='no'>experiment</span> <span class='kw'>%&gt;%</span> <span class='fu'>expand</span>(<span class='fu'>nesting</span>(<span class='no'>name</span>, <span class='no'>trt</span>), <span class='no'>rep</span>)
-<span class='no'>all</span></div><div class='output co'>#&gt; # A tibble: 9 x 3
-#&gt;   name   trt     rep
-#&gt;   &lt;chr&gt;  &lt;chr&gt; &lt;dbl&gt;
-#&gt; 1 Alex   a         1
-#&gt; 2 Alex   a         2
-#&gt; 3 Alex   a         3
-#&gt; 4 Robert b         1
-#&gt; 5 Robert b         2
-#&gt; 6 Robert b         3
-#&gt; 7 Sam    a         1
-#&gt; 8 Sam    a         2
-#&gt; 9 Sam    a         3</div><div class='input'>
-<span class='co'># We can use anti_join to figure out which observations are missing</span>
-<span class='no'>all</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/join.html'>anti_join</a></span>(<span class='no'>experiment</span>)</div><div class='output co'>#&gt; <span class='message'>Joining, by = c("name", "trt", "rep")</span></div><div class='output co'>#&gt; # A tibble: 3 x 3
-#&gt;   name   trt     rep
-#&gt;   &lt;chr&gt;  &lt;chr&gt; &lt;dbl&gt;
-#&gt; 1 Robert b         3
-#&gt; 2 Sam    a         2
-#&gt; 3 Sam    a         3</div><div class='input'>
-<span class='co'># And use right_join to add in the appropriate missing values to the</span>
-<span class='co'># original data</span>
-<span class='no'>experiment</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/join.html'>right_join</a></span>(<span class='no'>all</span>)</div><div class='output co'>#&gt; <span class='message'>Joining, by = c("name", "trt", "rep")</span></div><div class='output co'>#&gt; # A tibble: 9 x 5
-#&gt;   name   trt     rep measurement_1 measurement_2
-#&gt;   &lt;chr&gt;  &lt;chr&gt; &lt;dbl&gt;         &lt;dbl&gt;         &lt;dbl&gt;
-#&gt; 1 Alex   a         1        0.402          0.290
-#&gt; 2 Alex   a         2        0.196          0.678
-#&gt; 3 Alex   a         3        0.404          0.735
-#&gt; 4 Robert b         1        0.0637         0.196
-#&gt; 5 Robert b         2        0.389          0.981
-#&gt; 6 Robert b         3       NA             NA    
-#&gt; 7 Sam    a         1        0.976          0.742
-#&gt; 8 Sam    a         2       NA             NA    
-#&gt; 9 Sam    a         3       NA             NA    </div><div class='input'><span class='co'># Or use the complete() short-hand</span>
-<span class='no'>experiment</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='complete.html'>complete</a></span>(<span class='fu'>nesting</span>(<span class='no'>name</span>, <span class='no'>trt</span>), <span class='no'>rep</span>)</div><div class='output co'>#&gt; # A tibble: 9 x 5
-#&gt;   name   trt     rep measurement_1 measurement_2
-#&gt;   &lt;chr&gt;  &lt;chr&gt; &lt;dbl&gt;         &lt;dbl&gt;         &lt;dbl&gt;
-#&gt; 1 Alex   a         1        0.402          0.290
-#&gt; 2 Alex   a         2        0.196          0.678
-#&gt; 3 Alex   a         3        0.404          0.735
-#&gt; 4 Robert b         1        0.0637         0.196
-#&gt; 5 Robert b         2        0.389          0.981
-#&gt; 6 Robert b         3       NA             NA    
-#&gt; 7 Sam    a         1        0.976          0.742
-#&gt; 8 Sam    a         2       NA             NA    
-#&gt; 9 Sam    a         3       NA             NA    </div><div class='input'>
-<span class='co'># Generate all combinations with expand():</span>
-<span class='no'>formulas</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(
-  <span class='kw'>formula1</span> <span class='kw'>=</span> <span class='no'>Sepal.Length</span> ~ <span class='no'>Sepal.Width</span>,
-  <span class='kw'>formula2</span> <span class='kw'>=</span> <span class='no'>Sepal.Length</span> ~ <span class='no'>Sepal.Width</span> + <span class='no'>Petal.Width</span>,
-  <span class='kw'>formula3</span> <span class='kw'>=</span> <span class='no'>Sepal.Length</span> ~ <span class='no'>Sepal.Width</span> + <span class='no'>Petal.Width</span> + <span class='no'>Petal.Length</span>
-)
-<span class='no'>data</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/split.html'>split</a></span>(<span class='no'>iris</span>, <span class='no'>iris</span>$<span class='no'>Species</span>)
-<span class='fu'>crossing</span>(<span class='kw'>formula</span> <span class='kw'>=</span> <span class='no'>formulas</span>, <span class='no'>data</span>)</div><div class='output co'>#&gt; # A tibble: 9 x 2
-#&gt;   formula      data             
-#&gt;   &lt;named list&gt; &lt;named list&gt;     
-#&gt; 1 &lt;formula&gt;    &lt;df[,5] [50 × 5]&gt;
-#&gt; 2 &lt;formula&gt;    &lt;df[,5] [50 × 5]&gt;
-#&gt; 3 &lt;formula&gt;    &lt;df[,5] [50 × 5]&gt;
-#&gt; 4 &lt;formula&gt;    &lt;df[,5] [50 × 5]&gt;
-#&gt; 5 &lt;formula&gt;    &lt;df[,5] [50 × 5]&gt;
-#&gt; 6 &lt;formula&gt;    &lt;df[,5] [50 × 5]&gt;
-#&gt; 7 &lt;formula&gt;    &lt;df[,5] [50 × 5]&gt;
-#&gt; 8 &lt;formula&gt;    &lt;df[,5] [50 × 5]&gt;
-#&gt; 9 &lt;formula&gt;    &lt;df[,5] [50 × 5]&gt;</div></pre>
+<span class='co'># All possible combinations ---------------------------------------</span>
+<span class='co'># Note that all defined, but not necessarily present, levels of the</span>
+<span class='co'># factor variable `size` are retained.</span>
+<span class='no'>fruits</span> <span class='kw'>%&gt;%</span> <span class='fu'>expand</span>(<span class='no'>type</span>)</div><div class='output co'>#&gt; # A tibble: 2 x 1
+#&gt;   type  
+#&gt;   &lt;chr&gt; 
+#&gt; 1 apple 
+#&gt; 2 orange</div><div class='input'><span class='no'>fruits</span> <span class='kw'>%&gt;%</span> <span class='fu'>expand</span>(<span class='no'>type</span>, <span class='no'>size</span>)</div><div class='output co'>#&gt; # A tibble: 8 x 2
+#&gt;   type   size 
+#&gt;   &lt;chr&gt;  &lt;fct&gt;
+#&gt; 1 apple  XS   
+#&gt; 2 apple  S    
+#&gt; 3 apple  M    
+#&gt; 4 apple  L    
+#&gt; 5 orange XS   
+#&gt; 6 orange S    
+#&gt; 7 orange M    
+#&gt; 8 orange L    </div><div class='input'><span class='no'>fruits</span> <span class='kw'>%&gt;%</span> <span class='fu'>expand</span>(<span class='no'>type</span>, <span class='no'>size</span>, <span class='no'>year</span>)</div><div class='output co'>#&gt; # A tibble: 16 x 3
+#&gt;    type   size   year
+#&gt;    &lt;chr&gt;  &lt;fct&gt; &lt;dbl&gt;
+#&gt;  1 apple  XS     2010
+#&gt;  2 apple  XS     2012
+#&gt;  3 apple  S      2010
+#&gt;  4 apple  S      2012
+#&gt;  5 apple  M      2010
+#&gt;  6 apple  M      2012
+#&gt;  7 apple  L      2010
+#&gt;  8 apple  L      2012
+#&gt;  9 orange XS     2010
+#&gt; 10 orange XS     2012
+#&gt; 11 orange S      2010
+#&gt; 12 orange S      2012
+#&gt; 13 orange M      2010
+#&gt; 14 orange M      2012
+#&gt; 15 orange L      2010
+#&gt; 16 orange L      2012</div><div class='input'>
+<span class='co'># Only combinations that already appear in the data ---------------</span>
+<span class='no'>fruits</span> <span class='kw'>%&gt;%</span> <span class='fu'>expand</span>(<span class='fu'>nesting</span>(<span class='no'>type</span>))</div><div class='output co'>#&gt; # A tibble: 2 x 1
+#&gt;   type  
+#&gt;   &lt;chr&gt; 
+#&gt; 1 apple 
+#&gt; 2 orange</div><div class='input'><span class='no'>fruits</span> <span class='kw'>%&gt;%</span> <span class='fu'>expand</span>(<span class='fu'>nesting</span>(<span class='no'>type</span>, <span class='no'>size</span>))</div><div class='output co'>#&gt; # A tibble: 4 x 2
+#&gt;   type   size 
+#&gt;   &lt;chr&gt;  &lt;fct&gt;
+#&gt; 1 apple  XS   
+#&gt; 2 apple  M    
+#&gt; 3 orange S    
+#&gt; 4 orange M    </div><div class='input'><span class='no'>fruits</span> <span class='kw'>%&gt;%</span> <span class='fu'>expand</span>(<span class='fu'>nesting</span>(<span class='no'>type</span>, <span class='no'>size</span>, <span class='no'>year</span>))</div><div class='output co'>#&gt; # A tibble: 4 x 3
+#&gt;   type   size   year
+#&gt;   &lt;chr&gt;  &lt;fct&gt; &lt;dbl&gt;
+#&gt; 1 apple  XS     2010
+#&gt; 2 apple  M      2012
+#&gt; 3 orange S      2010
+#&gt; 4 orange M      2012</div><div class='input'>
+<span class='co'># Other uses -------------------------------------------------------</span>
+<span class='co'># Use with `full_seq()` to fill in values of continuous variables</span>
+<span class='no'>fruits</span> <span class='kw'>%&gt;%</span> <span class='fu'>expand</span>(<span class='no'>type</span>, <span class='no'>size</span>, <span class='fu'><a href='full_seq.html'>full_seq</a></span>(<span class='no'>year</span>, <span class='fl'>1</span>))</div><div class='output co'>#&gt; # A tibble: 24 x 3
+#&gt;    type  size  `full_seq(year, 1)`
+#&gt;    &lt;chr&gt; &lt;fct&gt;               &lt;dbl&gt;
+#&gt;  1 apple XS                   2010
+#&gt;  2 apple XS                   2011
+#&gt;  3 apple XS                   2012
+#&gt;  4 apple S                    2010
+#&gt;  5 apple S                    2011
+#&gt;  6 apple S                    2012
+#&gt;  7 apple M                    2010
+#&gt;  8 apple M                    2011
+#&gt;  9 apple M                    2012
+#&gt; 10 apple L                    2010
+#&gt; # … with 14 more rows</div><div class='input'><span class='no'>fruits</span> <span class='kw'>%&gt;%</span> <span class='fu'>expand</span>(<span class='no'>type</span>, <span class='no'>size</span>, <span class='fl'>2010</span>:<span class='fl'>2012</span>)</div><div class='output co'>#&gt; # A tibble: 24 x 3
+#&gt;    type  size  `2010:2012`
+#&gt;    &lt;chr&gt; &lt;fct&gt;       &lt;int&gt;
+#&gt;  1 apple XS           2010
+#&gt;  2 apple XS           2011
+#&gt;  3 apple XS           2012
+#&gt;  4 apple S            2010
+#&gt;  5 apple S            2011
+#&gt;  6 apple S            2012
+#&gt;  7 apple M            2010
+#&gt;  8 apple M            2011
+#&gt;  9 apple M            2012
+#&gt; 10 apple L            2010
+#&gt; # … with 14 more rows</div><div class='input'>
+<span class='co'># Use `anti_join()` to determine which observations are missing</span>
+<span class='no'>all</span> <span class='kw'>&lt;-</span> <span class='no'>fruits</span> <span class='kw'>%&gt;%</span> <span class='fu'>expand</span>(<span class='no'>type</span>, <span class='no'>size</span>, <span class='no'>year</span>)
+<span class='no'>all</span></div><div class='output co'>#&gt; # A tibble: 16 x 3
+#&gt;    type   size   year
+#&gt;    &lt;chr&gt;  &lt;fct&gt; &lt;dbl&gt;
+#&gt;  1 apple  XS     2010
+#&gt;  2 apple  XS     2012
+#&gt;  3 apple  S      2010
+#&gt;  4 apple  S      2012
+#&gt;  5 apple  M      2010
+#&gt;  6 apple  M      2012
+#&gt;  7 apple  L      2010
+#&gt;  8 apple  L      2012
+#&gt;  9 orange XS     2010
+#&gt; 10 orange XS     2012
+#&gt; 11 orange S      2010
+#&gt; 12 orange S      2012
+#&gt; 13 orange M      2010
+#&gt; 14 orange M      2012
+#&gt; 15 orange L      2010
+#&gt; 16 orange L      2012</div><div class='input'><span class='no'>all</span> <span class='kw'>%&gt;%</span> <span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/join.html'>anti_join</a></span>(<span class='no'>fruits</span>)</div><div class='output co'>#&gt; <span class='message'>Joining, by = c("type", "size", "year")</span></div><div class='output co'>#&gt; # A tibble: 12 x 3
+#&gt;    type   size   year
+#&gt;    &lt;chr&gt;  &lt;fct&gt; &lt;dbl&gt;
+#&gt;  1 apple  XS     2012
+#&gt;  2 apple  S      2010
+#&gt;  3 apple  S      2012
+#&gt;  4 apple  M      2010
+#&gt;  5 apple  L      2010
+#&gt;  6 apple  L      2012
+#&gt;  7 orange XS     2010
+#&gt;  8 orange XS     2012
+#&gt;  9 orange S      2012
+#&gt; 10 orange M      2010
+#&gt; 11 orange L      2010
+#&gt; 12 orange L      2012</div><div class='input'>
+<span class='co'># Use with `right_join()` to fill in missing rows</span>
+<span class='no'>fruits</span> <span class='kw'>%&gt;%</span> <span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/join.html'>right_join</a></span>(<span class='no'>all</span>)</div><div class='output co'>#&gt; <span class='message'>Joining, by = c("type", "year", "size")</span></div><div class='output co'>#&gt; # A tibble: 18 x 4
+#&gt;    type    year size  weights
+#&gt;    &lt;chr&gt;  &lt;dbl&gt; &lt;fct&gt;   &lt;dbl&gt;
+#&gt;  1 apple   2010 XS       1.60
+#&gt;  2 apple   2012 XS      NA   
+#&gt;  3 apple   2010 S       NA   
+#&gt;  4 apple   2012 S       NA   
+#&gt;  5 apple   2010 M       NA   
+#&gt;  6 apple   2012 M        2.56
+#&gt;  7 apple   2010 L       NA   
+#&gt;  8 apple   2012 L       NA   
+#&gt;  9 orange  2010 XS      NA   
+#&gt; 10 orange  2012 XS      NA   
+#&gt; 11 orange  2010 S        4.26
+#&gt; 12 orange  2010 S        3.99
+#&gt; 13 orange  2010 S        4.62
+#&gt; 14 orange  2012 S       NA   
+#&gt; 15 orange  2010 M       NA   
+#&gt; 16 orange  2012 M        6.15
+#&gt; 17 orange  2010 L       NA   
+#&gt; 18 orange  2012 L       NA   </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#details">Details</a></li>
       <li><a href="#see-also">See also</a></li>
       <li><a href="#examples">Examples</a></li>
     </ul>
