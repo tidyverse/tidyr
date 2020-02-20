@@ -87,7 +87,26 @@ unnest_(...)
 use instead of \code{NA} for missing combinations.}
 
 \item{...}{Specification of columns to expand. Columns can be atomic vectors
-or lists.}
+or lists.
+\itemize{
+\item To find all unique combinations of \code{x}, \code{y} and \code{z}, including those not
+present in the data, supply each variable as a separate argument:
+\code{expand(df, x, y, z)}.
+\item To find only the combinations that occur in the
+data, use \code{nesting}: \code{expand(df, nesting(x, y, z))}.
+\item You can combine the two forms. For example,
+\code{expand(df, nesting(school_id, student_id), date)} would produce
+a row for each present school-student combination for all possible
+dates.
+}
+
+When used with factors, \code{expand()} uses the full set of levels, not just
+those that appear in the data. If you want to use only the values seen in
+the data, use \code{forcats::fct_drop()}.
+
+When used with continuous variables, you may need to fill in values
+that do not appear in the data: to do so use expressions like
+\code{year = 2010:2020} or \verb{year = \link{full_seq}(year,1)}.}
 
 \item{vars, cols, col}{Name of columns.}
 
