@@ -224,6 +224,9 @@ that allows you to describe pivotting with a data frame.</p>
 pivots because it gives you greater control on how metadata stored in the
 columns become column names in the result.</p>
 <p>Must be a data frame containing character <code>.name</code> and <code>.value</code> columns.
+Additional columns in <code>spec</code> should be named to match columns in the
+long format of the dataset and contain values corresponding to columns
+pivoted from the wide format.
 The special <code>.seq</code> variable is used to disambiguate rows internally;
 it is automatically removed after pivotting.</p></td>
     </tr>
@@ -291,11 +294,92 @@ string to use as a column name.</p></td>
     </table>
 
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='co'># See vignette("pivot") for examples and explanation</span>
+
+<span class='no'>us_rent_income</span></div><div class='output co'>#&gt; # A tibble: 104 x 5
+#&gt;    GEOID NAME       variable estimate   moe
+#&gt;    &lt;chr&gt; &lt;chr&gt;      &lt;chr&gt;       &lt;dbl&gt; &lt;dbl&gt;
+#&gt;  1 01    Alabama    income      24476   136
+#&gt;  2 01    Alabama    rent          747     3
+#&gt;  3 02    Alaska     income      32940   508
+#&gt;  4 02    Alaska     rent         1200    13
+#&gt;  5 04    Arizona    income      27517   148
+#&gt;  6 04    Arizona    rent          972     4
+#&gt;  7 05    Arkansas   income      23789   165
+#&gt;  8 05    Arkansas   rent          709     5
+#&gt;  9 06    California income      29454   109
+#&gt; 10 06    California rent         1358     3
+#&gt; # … with 94 more rows</div><div class='input'><span class='no'>spec1</span> <span class='kw'>&lt;-</span> <span class='no'>us_rent_income</span> <span class='kw'>%&gt;%</span>
+  <span class='fu'>build_wider_spec</span>(<span class='kw'>names_from</span> <span class='kw'>=</span> <span class='no'>variable</span>, <span class='kw'>values_from</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='no'>estimate</span>, <span class='no'>moe</span>))
+<span class='no'>spec1</span></div><div class='output co'>#&gt; # A tibble: 4 x 3
+#&gt;   .name           .value   variable
+#&gt;   &lt;chr&gt;           &lt;chr&gt;    &lt;chr&gt;   
+#&gt; 1 estimate_income estimate income  
+#&gt; 2 estimate_rent   estimate rent    
+#&gt; 3 moe_income      moe      income  
+#&gt; 4 moe_rent        moe      rent    </div><div class='input'>
+<span class='no'>us_rent_income</span> <span class='kw'>%&gt;%</span>
+  <span class='fu'>pivot_wider_spec</span>(<span class='no'>spec1</span>)</div><div class='output co'>#&gt; # A tibble: 52 x 6
+#&gt;    GEOID NAME                 estimate_income estimate_rent moe_income moe_rent
+#&gt;    &lt;chr&gt; &lt;chr&gt;                          &lt;dbl&gt;         &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt;
+#&gt;  1 01    Alabama                        24476           747        136        3
+#&gt;  2 02    Alaska                         32940          1200        508       13
+#&gt;  3 04    Arizona                        27517           972        148        4
+#&gt;  4 05    Arkansas                       23789           709        165        5
+#&gt;  5 06    California                     29454          1358        109        3
+#&gt;  6 08    Colorado                       32401          1125        109        5
+#&gt;  7 09    Connecticut                    35326          1123        195        5
+#&gt;  8 10    Delaware                       31560          1076        247       10
+#&gt;  9 11    District of Columbia           43198          1424        681       17
+#&gt; 10 12    Florida                        25952          1077         70        3
+#&gt; # … with 42 more rows</div><div class='input'>
+<span class='co'># Is equivalent to</span>
+<span class='no'>us_rent_income</span> <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='pivot_wider.html'>pivot_wider</a></span>(<span class='kw'>names_from</span> <span class='kw'>=</span> <span class='no'>variable</span>, <span class='kw'>values_from</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='no'>estimate</span>, <span class='no'>moe</span>))</div><div class='output co'>#&gt; # A tibble: 52 x 6
+#&gt;    GEOID NAME                 estimate_income estimate_rent moe_income moe_rent
+#&gt;    &lt;chr&gt; &lt;chr&gt;                          &lt;dbl&gt;         &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt;
+#&gt;  1 01    Alabama                        24476           747        136        3
+#&gt;  2 02    Alaska                         32940          1200        508       13
+#&gt;  3 04    Arizona                        27517           972        148        4
+#&gt;  4 05    Arkansas                       23789           709        165        5
+#&gt;  5 06    California                     29454          1358        109        3
+#&gt;  6 08    Colorado                       32401          1125        109        5
+#&gt;  7 09    Connecticut                    35326          1123        195        5
+#&gt;  8 10    Delaware                       31560          1076        247       10
+#&gt;  9 11    District of Columbia           43198          1424        681       17
+#&gt; 10 12    Florida                        25952          1077         70        3
+#&gt; # … with 42 more rows</div><div class='input'>
+<span class='co'># `pivot-wider_spec()` provides more control over column names and output format</span>
+<span class='co'># instead of creating columns with estimate_ and moe_ prefixes,</span>
+<span class='co'># keep original variable name for estimates and attach _moe as suffix</span>
+<span class='no'>spec2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(
+  <span class='kw'>.name</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"income"</span>, <span class='st'>"rent"</span>, <span class='st'>"income_moe"</span>, <span class='st'>"rent_moe"</span>),
+  <span class='kw'>.value</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"estimate"</span>, <span class='st'>"estimate"</span>, <span class='st'>"moe"</span>, <span class='st'>"moe"</span>),
+  <span class='kw'>variable</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"income"</span>, <span class='st'>"rent"</span>, <span class='st'>"income"</span>, <span class='st'>"rent"</span>)
+)
+
+<span class='no'>us_rent_income</span> <span class='kw'>%&gt;%</span>
+  <span class='fu'>pivot_wider_spec</span>(<span class='no'>spec2</span>)</div><div class='output co'>#&gt; # A tibble: 52 x 6
+#&gt;    GEOID NAME                 income  rent income_moe rent_moe
+#&gt;    &lt;chr&gt; &lt;chr&gt;                 &lt;dbl&gt; &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt;
+#&gt;  1 01    Alabama               24476   747        136        3
+#&gt;  2 02    Alaska                32940  1200        508       13
+#&gt;  3 04    Arizona               27517   972        148        4
+#&gt;  4 05    Arkansas              23789   709        165        5
+#&gt;  5 06    California            29454  1358        109        3
+#&gt;  6 08    Colorado              32401  1125        109        5
+#&gt;  7 09    Connecticut           35326  1123        195        5
+#&gt;  8 10    Delaware              31560  1076        247       10
+#&gt;  9 11    District of Columbia  43198  1424        681       17
+#&gt; 10 12    Florida               25952  1077         70        3
+#&gt; # … with 42 more rows</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
+      <li><a href="#examples">Examples</a></li>
     </ul>
 
   </div>

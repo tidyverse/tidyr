@@ -226,6 +226,9 @@ that allows you to describe pivotting with a data frame.</p>
 pivots because it gives you greater control on how metadata stored in the
 column names turns into columns in the result.</p>
 <p>Must be a data frame containing character <code>.name</code> and <code>.value</code> columns.
+Additional columns in <code>spec</code> should be named to match columns in the
+long format of the dataset and contain values corresponding to columns
+pivoted from the wide format.
 The special <code>.seq</code> variable is used to disambiguate rows internally;
 it is automatically removed after pivotting.</p></td>
     </tr>
@@ -323,11 +326,69 @@ will be the common type of the input columns used to generate them.</p></td>
     </table>
 
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='co'># See vignette("pivot") for examples and explanation</span>
+
+<span class='co'># Use `build_longer_spec()` to build `spec` using similar syntax to `pivot_longer()`</span>
+<span class='co'># and run `pivot_longer_spec()` based on `spec`.</span>
+<span class='no'>spec</span> <span class='kw'>&lt;-</span> <span class='no'>relig_income</span> <span class='kw'>%&gt;%</span> <span class='fu'>build_longer_spec</span>(
+  <span class='kw'>cols</span> <span class='kw'>=</span> -<span class='no'>religion</span>,
+  <span class='kw'>names_to</span> <span class='kw'>=</span> <span class='st'>"income"</span>,
+  <span class='kw'>values_to</span> <span class='kw'>=</span> <span class='st'>"count"</span>
+)
+
+<span class='no'>spec</span></div><div class='output co'>#&gt; # A tibble: 10 x 3
+#&gt;    .name              .value income            
+#&gt;    &lt;chr&gt;              &lt;chr&gt;  &lt;chr&gt;             
+#&gt;  1 &lt;$10k              count  &lt;$10k             
+#&gt;  2 $10-20k            count  $10-20k           
+#&gt;  3 $20-30k            count  $20-30k           
+#&gt;  4 $30-40k            count  $30-40k           
+#&gt;  5 $40-50k            count  $40-50k           
+#&gt;  6 $50-75k            count  $50-75k           
+#&gt;  7 $75-100k           count  $75-100k          
+#&gt;  8 $100-150k          count  $100-150k         
+#&gt;  9 &gt;150k              count  &gt;150k             
+#&gt; 10 Don't know/refused count  Don't know/refused</div><div class='input'>
+<span class='fu'>pivot_longer_spec</span>(<span class='no'>relig_income</span>, <span class='no'>spec</span>)</div><div class='output co'>#&gt; # A tibble: 180 x 3
+#&gt;    religion income             count
+#&gt;    &lt;chr&gt;    &lt;chr&gt;              &lt;dbl&gt;
+#&gt;  1 Agnostic &lt;$10k                 27
+#&gt;  2 Agnostic $10-20k               34
+#&gt;  3 Agnostic $20-30k               60
+#&gt;  4 Agnostic $30-40k               81
+#&gt;  5 Agnostic $40-50k               76
+#&gt;  6 Agnostic $50-75k              137
+#&gt;  7 Agnostic $75-100k             122
+#&gt;  8 Agnostic $100-150k            109
+#&gt;  9 Agnostic &gt;150k                 84
+#&gt; 10 Agnostic Don't know/refused    96
+#&gt; # … with 170 more rows</div><div class='input'>
+<span class='co'># Is equivalent to:</span>
+<span class='no'>relig_income</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='pivot_longer.html'>pivot_longer</a></span>(
+  <span class='kw'>cols</span> <span class='kw'>=</span> -<span class='no'>religion</span>,
+  <span class='kw'>names_to</span> <span class='kw'>=</span> <span class='st'>"income"</span>,
+  <span class='kw'>values_to</span> <span class='kw'>=</span> <span class='st'>"count"</span>)</div><div class='output co'>#&gt; # A tibble: 180 x 3
+#&gt;    religion income             count
+#&gt;    &lt;chr&gt;    &lt;chr&gt;              &lt;dbl&gt;
+#&gt;  1 Agnostic &lt;$10k                 27
+#&gt;  2 Agnostic $10-20k               34
+#&gt;  3 Agnostic $20-30k               60
+#&gt;  4 Agnostic $30-40k               81
+#&gt;  5 Agnostic $40-50k               76
+#&gt;  6 Agnostic $50-75k              137
+#&gt;  7 Agnostic $75-100k             122
+#&gt;  8 Agnostic $100-150k            109
+#&gt;  9 Agnostic &gt;150k                 84
+#&gt; 10 Agnostic Don't know/refused    96
+#&gt; # … with 170 more rows</div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
+      <li><a href="#examples">Examples</a></li>
     </ul>
 
   </div>
