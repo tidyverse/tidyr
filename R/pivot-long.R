@@ -88,7 +88,7 @@
 #'    values_drop_na = TRUE
 #'  )
 #'
-#' # Multiple variables stored in colum names
+#' # Multiple variables stored in column names
 #' who %>% pivot_longer(
 #'   cols = new_sp_m014:newrel_f65,
 #'   names_to = c("diagnosis", "gender", "age"),
@@ -147,8 +147,33 @@ pivot_longer <- function(data,
 #'  column names turns into columns in the result.
 #'
 #'   Must be a data frame containing character `.name` and `.value` columns.
+#'   Additional columns in `spec` should be named to match columns in the
+#'   long format of the dataset and contain values corresponding to columns
+#'   pivoted from the wide format.
 #'   The special `.seq` variable is used to disambiguate rows internally;
 #'   it is automatically removed after pivotting.
+#'
+#' @examples
+#' # See vignette("pivot") for examples and explanation
+#'
+#' # Use `build_longer_spec()` to build `spec` using similar syntax to `pivot_longer()`
+#' # and run `pivot_longer_spec()` based on `spec`.
+#' spec <- relig_income %>% build_longer_spec(
+#'   cols = -religion,
+#'   names_to = "income",
+#'   values_to = "count"
+#' )
+#'
+#' spec
+#'
+#' pivot_longer_spec(relig_income, spec)
+#'
+#' # Is equivalent to:
+#' relig_income %>% pivot_longer(
+#'   cols = -religion,
+#'   names_to = "income",
+#'   values_to = "count")
+#'
 pivot_longer_spec <- function(data,
                               spec,
                               names_repair = "check_unique",
