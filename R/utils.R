@@ -15,7 +15,7 @@ reconstruct_tibble <- function(input, output, ungrouped_vars = character()) {
   if (inherits(input, "grouped_df")) {
     old_groups <- dplyr::group_vars(input)
     new_groups <- intersect(setdiff(old_groups, ungrouped_vars), names(output))
-    dplyr::grouped_df(output, new_groups)
+    dplyr::grouped_df(output, new_groups, drop = dplyr::group_by_drop_default(input))
   } else if (inherits(input, "tbl_df")) {
     # Assume name repair carried out elsewhere
     as_tibble(output, .name_repair = "minimal")
