@@ -225,12 +225,20 @@ list_col_type <- function(x) {
   }
 }
 enframe <- function(x, col_name, .id = NULL) {
-  out <- tibble(dplyr::combine(x))
-  names(out) <- col_name
+  if (!is_list(x)) {
+    x <- list(x)
+  }
+
+  col <- unname(x)
+  col <- vec_unchop(col)
+
+  out <- set_names(list(col), col_name)
+  out <- as_tibble(out)
 
   if (!is_null(.id)) {
     out[[.id]] <- id_col(x)
   }
+
   out
 }
 id_col <- function(x) {
