@@ -5,7 +5,7 @@ test_that("nest turns grouped values into one list-df", {
   out <- nest_legacy(df, y)
   expect_equal(out$x, 1)
   expect_equal(length(out$data), 1L)
-  expect_equal(out$data[[1L]], data.frame(y = 1:3))
+  expect_equal(out$data[[1L]], tibble(y = 1:3))
 })
 
 test_that("nest works with data frames too", {
@@ -13,7 +13,7 @@ test_that("nest works with data frames too", {
   out <- nest_legacy(df, y)
   expect_equal(out$x, 1)
   expect_equal(length(out$data), 1L)
-  expect_equal(out$data[[1L]], data.frame(y = 1:3))
+  expect_equal(out$data[[1L]], tibble(y = 1:3))
 })
 
 test_that("can control output column name", {
@@ -27,7 +27,7 @@ test_that("can control output column name", {
 test_that("nest doesn't include grouping vars in nested data", {
   df <- tibble(x = c(1, 1, 1), y = 1:3)
   out <- df %>% dplyr::group_by(x) %>% nest_legacy()
-  expect_equal(out$data[[1]], data.frame(y = 1:3))
+  expect_equal(out$data[[1]], tibble(y = 1:3))
 })
 
 test_that("can restrict variables in grouped nest", {
