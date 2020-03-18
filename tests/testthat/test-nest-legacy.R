@@ -136,10 +136,7 @@ test_that("can unnest mixture of name and unnamed lists of same length", {
 
 test_that("elements must all be of same type", {
   df <- tibble(x = list(1, "a"))
-  expect_error(
-    unnest_legacy(df),
-    "(incompatible type)|(numeric to character)|(character to numeric)"
-  )
+  expect_error(unnest_legacy(df), class = "vctrs_error_incompatible_type")
 })
 
 test_that("can't combine vectors and data frames", {
