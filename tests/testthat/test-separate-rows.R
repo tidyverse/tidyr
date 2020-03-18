@@ -32,7 +32,7 @@ test_that("drops grouping when needed", {
   expect_equal(dplyr::groups(out), list(as.name("x")))
 
   out <- df %>% dplyr::group_by(y) %>% separate_rows(y)
-  expect_equal(dplyr::groups(out), NULL)
+  expect_equal(dplyr::groups(out), list())
 })
 
 test_that("convert produces integers etc", {

@@ -26,7 +26,7 @@ test_that("drops grouping when needed", {
   df <- tibble(g = 1, x = "a") %>% dplyr::group_by(g)
   rs <- df %>% unite(gx, g, x)
   expect_equal(rs$gx, "1_a")
-  expect_equal(dplyr::groups(rs), NULL)
+  expect_equal(dplyr::groups(rs), list())
 })
 
 test_that("empty var spec uses all vars", {
