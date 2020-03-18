@@ -272,7 +272,7 @@ test_that("grouping is preserved", {
 
 test_that("unnesting zero row column preserves names", {
   df <- tibble(a = character(), b = character())
-  expect_equal(df %>% unnest_legacy(b), tibble(b = character(), a = character()))
+  expect_equal(df %>% unnest_legacy(b), tibble(a = character(), b = character()))
 })
 
 test_that("unnest_legacy() recognize ptype", {
