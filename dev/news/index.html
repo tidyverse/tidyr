@@ -69,7 +69,7 @@
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-news">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -182,12 +182,12 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Changelog <small></small></h1>
+      <h1 data-toc-skip>Changelog <small></small></h1>
       <small>Source: <a href='https://github.com/tidyverse/tidyr/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
     <div id="tidyr-development-version" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="tidyr development version">
 <a href="#tidyr-development-version" class="anchor"></a>tidyr (development version)<small> Unreleased </small>
 </h1>
 <ul>
@@ -217,7 +217,7 @@ df %&gt;% pivot_longer(-id, names_sep = "_", names_to = c(".value", NA))</code><
 </ul>
 </div>
     <div id="tidyr-102" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="tidyr 1.0.2">
 <a href="#tidyr-102" class="anchor"></a>tidyr 1.0.2<small> 2020-01-24 </small>
 </h1>
 <ul>
@@ -225,7 +225,7 @@ df %&gt;% pivot_longer(-id, names_sep = "_", names_to = c(".value", NA))</code><
 </ul>
 </div>
     <div id="tidyr-101" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="tidyr 1.0.1">
 <a href="#tidyr-101" class="anchor"></a>tidyr 1.0.1<small> Unreleased </small>
 </h1>
 <ul>
@@ -233,7 +233,7 @@ df %&gt;% pivot_longer(-id, names_sep = "_", names_to = c(".value", NA))</code><
 </ul>
 </div>
     <div id="tidyr-100" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="tidyr 1.0.0">
 <a href="#tidyr-100" class="anchor"></a>tidyr 1.0.0<small> 2019-09-11 </small>
 </h1>
 <div id="breaking-changes" class="section level2">
@@ -325,7 +325,7 @@ df %&gt;% mutate(name = map_chr(metadata, "name"))</code></pre>
 </div>
 </div>
     <div id="tidyr-083" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="tidyr 0.8.3">
 <a href="#tidyr-083" class="anchor"></a>tidyr 0.8.3<small> 2019-03-01 </small>
 </h1>
 <ul>
@@ -337,7 +337,7 @@ df %&gt;% mutate(name = map_chr(metadata, "name"))</code></pre>
 </ul>
 </div>
     <div id="tidyr-082" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="tidyr 0.8.2">
 <a href="#tidyr-082" class="anchor"></a>tidyr 0.8.2<small> 2018-10-28 </small>
 </h1>
 <ul>
@@ -346,7 +346,7 @@ df %&gt;% mutate(name = map_chr(metadata, "name"))</code></pre>
 </ul>
 </div>
     <div id="tidyr-081" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="tidyr 0.8.1">
 <a href="#tidyr-081" class="anchor"></a>tidyr 0.8.1<small> 2018-05-18 </small>
 </h1>
 <ul>
@@ -355,7 +355,7 @@ df %&gt;% mutate(name = map_chr(metadata, "name"))</code></pre>
 </ul>
 </div>
     <div id="tidyr-080" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="tidyr 0.8.0">
 <a href="#tidyr-080" class="anchor"></a>tidyr 0.8.0<small> 2018-01-29 </small>
 </h1>
 <div id="breaking-changes-1" class="section level2">
@@ -405,7 +405,7 @@ df %&gt;% mutate(name = map_chr(metadata, "name"))</code></pre>
 </div>
 </div>
     <div id="tidyr-072" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="tidyr 0.7.2">
 <a href="#tidyr-072" class="anchor"></a>tidyr 0.7.2<small> 2017-10-16 </small>
 </h1>
 <ul>
@@ -414,7 +414,7 @@ df %&gt;% mutate(name = map_chr(metadata, "name"))</code></pre>
 </ul>
 </div>
     <div id="tidyr-071" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="tidyr 0.7.1">
 <a href="#tidyr-071" class="anchor"></a>tidyr 0.7.1<small> 2017-09-01 </small>
 </h1>
 <p>This is a hotfix release to account for some tidyselect changes in the unit tests.</p>
@@ -422,7 +422,7 @@ df %&gt;% mutate(name = map_chr(metadata, "name"))</code></pre>
 <p>However the semantics for context expressions (any calls other than to <code>:</code> and <code><a href="https://rdrr.io/r/base/c.html">c()</a></code>) remain the same. Those expressions are evaluated in the context only and cannot refer to registered variables. If you’re writing functions and refer to contextual objects, it is still a good idea to avoid data expressions by following the advice of the 0.7.0 release notes.</p>
 </div>
     <div id="tidyr-070" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="tidyr 0.7.0">
 <a href="#tidyr-070" class="anchor"></a>tidyr 0.7.0<small> 2017-08-16 </small>
 </h1>
 <p>This release includes important changes to tidyr internals. Tidyr now supports the new tidy evaluation framework for quoting (NSE) functions. It also uses the new tidyselect package as selecting backend.</p>
@@ -487,7 +487,7 @@ drop_na(df, starts_with(x))</code></pre>
 </div>
 </div>
     <div id="tidyr-063" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="tidyr 0.6.3">
 <a href="#tidyr-063" class="anchor"></a>tidyr 0.6.3<small> 2017-05-15 </small>
 </h1>
 <ul>
@@ -495,7 +495,7 @@ drop_na(df, starts_with(x))</code></pre>
 </ul>
 </div>
     <div id="tidyr-062" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="tidyr 0.6.2">
 <a href="#tidyr-062" class="anchor"></a>tidyr 0.6.2<small> 2017-05-04 </small>
 </h1>
 <ul>
@@ -505,7 +505,7 @@ drop_na(df, starts_with(x))</code></pre>
 </ul>
 </div>
     <div id="tidyr-061" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="tidyr 0.6.1">
 <a href="#tidyr-061" class="anchor"></a>tidyr 0.6.1<small> 2017-01-10 </small>
 </h1>
 <ul>
@@ -514,7 +514,7 @@ drop_na(df, starts_with(x))</code></pre>
 </ul>
 </div>
     <div id="tidyr-060" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="tidyr 0.6.0">
 <a href="#tidyr-060" class="anchor"></a>tidyr 0.6.0<small> 2016-08-12 </small>
 </h1>
 <div id="api-changes" class="section level2">
@@ -537,7 +537,7 @@ drop_na(df, starts_with(x))</code></pre>
 </div>
 </div>
     <div id="tidyr-051" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="tidyr 0.5.1">
 <a href="#tidyr-051" class="anchor"></a>tidyr 0.5.1<small> 2016-06-14 </small>
 </h1>
 <ul>
@@ -545,7 +545,7 @@ drop_na(df, starts_with(x))</code></pre>
 </ul>
 </div>
     <div id="tidyr-050" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="tidyr 0.5.0">
 <a href="#tidyr-050" class="anchor"></a>tidyr 0.5.0<small> 2016-06-12 </small>
 </h1>
 <div id="new-functions" class="section level2">
@@ -579,7 +579,7 @@ drop_na(df, starts_with(x))</code></pre>
 </div>
 </div>
     <div id="tidyr-041" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="tidyr 0.4.1">
 <a href="#tidyr-041" class="anchor"></a>tidyr 0.4.1<small> 2016-02-05 </small>
 </h1>
 <ul>
@@ -587,7 +587,7 @@ drop_na(df, starts_with(x))</code></pre>
 </ul>
 </div>
     <div id="tidyr-040" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="tidyr 0.4.0">
 <a href="#tidyr-040" class="anchor"></a>tidyr 0.4.0<small> 2016-01-18 </small>
 </h1>
 <div id="nested-data-frames" class="section level2">
@@ -625,7 +625,7 @@ drop_na(df, starts_with(x))</code></pre>
 </div>
 </div>
     <div id="tidyr-031" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="tidyr 0.3.1">
 <a href="#tidyr-031" class="anchor"></a>tidyr 0.3.1<small> 2015-09-10 </small>
 </h1>
 <ul>
@@ -633,7 +633,7 @@ drop_na(df, starts_with(x))</code></pre>
 </ul>
 </div>
     <div id="tidyr-030" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="tidyr 0.3.0">
 <a href="#tidyr-030" class="anchor"></a>tidyr 0.3.0<small> 2015-09-08 </small>
 </h1>
 <div id="new-features-2" class="section level2">
@@ -666,7 +666,7 @@ drop_na(df, starts_with(x))</code></pre>
 </div>
 </div>
     <div id="tidyr-020" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="tidyr 0.2.0">
 <a href="#tidyr-020" class="anchor"></a>tidyr 0.2.0<small> 2014-12-05 </small>
 </h1>
 <div id="new-functions-1" class="section level2">
@@ -691,33 +691,9 @@ drop_na(df, starts_with(x))</code></pre>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
-    <div id="tocnav">
-      <h2>Contents</h2>
-      <ul class="nav nav-pills nav-stacked">
-        <li><a href="#tidyr-development-version">development version</a></li>
-        <li><a href="#tidyr-102">1.0.2</a></li>
-        <li><a href="#tidyr-101">1.0.1</a></li>
-        <li><a href="#tidyr-100">1.0.0</a></li>
-        <li><a href="#tidyr-083">0.8.3</a></li>
-        <li><a href="#tidyr-082">0.8.2</a></li>
-        <li><a href="#tidyr-081">0.8.1</a></li>
-        <li><a href="#tidyr-080">0.8.0</a></li>
-        <li><a href="#tidyr-072">0.7.2</a></li>
-        <li><a href="#tidyr-071">0.7.1</a></li>
-        <li><a href="#tidyr-070">0.7.0</a></li>
-        <li><a href="#tidyr-063">0.6.3</a></li>
-        <li><a href="#tidyr-062">0.6.2</a></li>
-        <li><a href="#tidyr-061">0.6.1</a></li>
-        <li><a href="#tidyr-060">0.6.0</a></li>
-        <li><a href="#tidyr-051">0.5.1</a></li>
-        <li><a href="#tidyr-050">0.5.0</a></li>
-        <li><a href="#tidyr-041">0.4.1</a></li>
-        <li><a href="#tidyr-040">0.4.0</a></li>
-        <li><a href="#tidyr-031">0.3.1</a></li>
-        <li><a href="#tidyr-030">0.3.0</a></li>
-        <li><a href="#tidyr-020">0.2.0</a></li>
-      </ul>
-    </div>
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 
 </div>

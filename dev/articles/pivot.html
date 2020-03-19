@@ -33,7 +33,7 @@
   gtag('config', 'UA-115082821-1');
 </script>
 </head>
-<body>
+<body data-spy="scroll" data-target="#toc">
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -145,7 +145,7 @@
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1>Pivoting</h1>
+      <h1 data-toc-skip>Pivoting</h1>
             
       
       <small class="dont-index">Source: <a href="https://github.com/tidyverse/tidyr/blob/master/vignettes/pivot.Rmd"><code>vignettes/pivot.Rmd</code></a></small>
@@ -497,16 +497,16 @@
 <span id="cb14-15"><a href="#cb14-15"></a>    <span class="dt">names_pattern =</span> <span class="st">"(.)(.)"</span></span>
 <span id="cb14-16"><a href="#cb14-16"></a>  )</span>
 <span id="cb14-17"><a href="#cb14-17"></a><span class="co">#&gt; # A tibble: 8 x 6</span></span>
-<span id="cb14-18"><a href="#cb14-18"></a><span class="co">#&gt;       x     a     b time       y     z</span></span>
-<span id="cb14-19"><a href="#cb14-19"></a><span class="co">#&gt;   &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;  &lt;dbl&gt; &lt;dbl&gt;</span></span>
-<span id="cb14-20"><a href="#cb14-20"></a><span class="co">#&gt; 1     1     1     0 1     -0.731     3</span></span>
-<span id="cb14-21"><a href="#cb14-21"></a><span class="co">#&gt; 2     1     1     0 2      0.543    -2</span></span>
-<span id="cb14-22"><a href="#cb14-22"></a><span class="co">#&gt; 3     2     1     1 1     -0.801     3</span></span>
-<span id="cb14-23"><a href="#cb14-23"></a><span class="co">#&gt; 4     2     1     1 2     -1.32     -2</span></span>
-<span id="cb14-24"><a href="#cb14-24"></a><span class="co">#&gt; 5     3     0     1 1      1.05      3</span></span>
-<span id="cb14-25"><a href="#cb14-25"></a><span class="co">#&gt; 6     3     0     1 2      0.869    -2</span></span>
-<span id="cb14-26"><a href="#cb14-26"></a><span class="co">#&gt; 7     4     0     1 1     -0.207     3</span></span>
-<span id="cb14-27"><a href="#cb14-27"></a><span class="co">#&gt; 8     4     0     1 2      0.116    -2</span></span></code></pre></div>
+<span id="cb14-18"><a href="#cb14-18"></a><span class="co">#&gt;       x     a     b time        y     z</span></span>
+<span id="cb14-19"><a href="#cb14-19"></a><span class="co">#&gt;   &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt;</span></span>
+<span id="cb14-20"><a href="#cb14-20"></a><span class="co">#&gt; 1     1     1     0 1     -1.23       3</span></span>
+<span id="cb14-21"><a href="#cb14-21"></a><span class="co">#&gt; 2     1     1     0 2     -0.318     -2</span></span>
+<span id="cb14-22"><a href="#cb14-22"></a><span class="co">#&gt; 3     2     1     1 1      1.23       3</span></span>
+<span id="cb14-23"><a href="#cb14-23"></a><span class="co">#&gt; 4     2     1     1 2     -0.738     -2</span></span>
+<span id="cb14-24"><a href="#cb14-24"></a><span class="co">#&gt; 5     3     0     1 1     -0.143      3</span></span>
+<span id="cb14-25"><a href="#cb14-25"></a><span class="co">#&gt; 6     3     0     1 2     -1.48      -2</span></span>
+<span id="cb14-26"><a href="#cb14-26"></a><span class="co">#&gt; 7     4     0     1 1      0.811      3</span></span>
+<span id="cb14-27"><a href="#cb14-27"></a><span class="co">#&gt; 8     4     0     1 2     -0.0992    -2</span></span></code></pre></div>
 </div>
 <div id="duplicated-column-names" class="section level2">
 <h2 class="hasAnchor">
@@ -681,16 +681,16 @@
 <span id="cb25-9"><a href="#cb25-9"></a><span class="co">#&gt; # A tibble: 45 x 4</span></span>
 <span id="cb25-10"><a href="#cb25-10"></a><span class="co">#&gt;    product country  year production</span></span>
 <span id="cb25-11"><a href="#cb25-11"></a><span class="co">#&gt;    &lt;chr&gt;   &lt;chr&gt;   &lt;int&gt;      &lt;dbl&gt;</span></span>
-<span id="cb25-12"><a href="#cb25-12"></a><span class="co">#&gt;  1 A       AI       2000      0.218</span></span>
-<span id="cb25-13"><a href="#cb25-13"></a><span class="co">#&gt;  2 A       AI       2001      0.686</span></span>
-<span id="cb25-14"><a href="#cb25-14"></a><span class="co">#&gt;  3 A       AI       2002      0.632</span></span>
-<span id="cb25-15"><a href="#cb25-15"></a><span class="co">#&gt;  4 A       AI       2003      0.617</span></span>
-<span id="cb25-16"><a href="#cb25-16"></a><span class="co">#&gt;  5 A       AI       2004     -1.52 </span></span>
-<span id="cb25-17"><a href="#cb25-17"></a><span class="co">#&gt;  6 A       AI       2005      0.376</span></span>
-<span id="cb25-18"><a href="#cb25-18"></a><span class="co">#&gt;  7 A       AI       2006      0.811</span></span>
-<span id="cb25-19"><a href="#cb25-19"></a><span class="co">#&gt;  8 A       AI       2007     -1.08 </span></span>
-<span id="cb25-20"><a href="#cb25-20"></a><span class="co">#&gt;  9 A       AI       2008     -0.742</span></span>
-<span id="cb25-21"><a href="#cb25-21"></a><span class="co">#&gt; 10 A       AI       2009      1.16 </span></span>
+<span id="cb25-12"><a href="#cb25-12"></a><span class="co">#&gt;  1 A       AI       2000    -0.975 </span></span>
+<span id="cb25-13"><a href="#cb25-13"></a><span class="co">#&gt;  2 A       AI       2001    -0.829 </span></span>
+<span id="cb25-14"><a href="#cb25-14"></a><span class="co">#&gt;  3 A       AI       2002    -1.10  </span></span>
+<span id="cb25-15"><a href="#cb25-15"></a><span class="co">#&gt;  4 A       AI       2003     1.64  </span></span>
+<span id="cb25-16"><a href="#cb25-16"></a><span class="co">#&gt;  5 A       AI       2004     0.696 </span></span>
+<span id="cb25-17"><a href="#cb25-17"></a><span class="co">#&gt;  6 A       AI       2005     0.307 </span></span>
+<span id="cb25-18"><a href="#cb25-18"></a><span class="co">#&gt;  7 A       AI       2006    -0.664 </span></span>
+<span id="cb25-19"><a href="#cb25-19"></a><span class="co">#&gt;  8 A       AI       2007    -0.0148</span></span>
+<span id="cb25-20"><a href="#cb25-20"></a><span class="co">#&gt;  9 A       AI       2008    -0.0225</span></span>
+<span id="cb25-21"><a href="#cb25-21"></a><span class="co">#&gt; 10 A       AI       2009    -0.303 </span></span>
 <span id="cb25-22"><a href="#cb25-22"></a><span class="co">#&gt; # … with 35 more rows</span></span></code></pre></div>
 <p>We want to widen the data so we have one column for each combination of <code>product</code> and <code>country</code>. The key is to specify multiple variables for <code>names_from</code>:</p>
 <div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a>production <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/pivot_wider.html">pivot_wider</a></span>(</span>
@@ -698,18 +698,18 @@
 <span id="cb26-3"><a href="#cb26-3"></a>  <span class="dt">values_from =</span> production</span>
 <span id="cb26-4"><a href="#cb26-4"></a>)</span>
 <span id="cb26-5"><a href="#cb26-5"></a><span class="co">#&gt; # A tibble: 15 x 4</span></span>
-<span id="cb26-6"><a href="#cb26-6"></a><span class="co">#&gt;     year   A_AI    B_AI    B_EI</span></span>
-<span id="cb26-7"><a href="#cb26-7"></a><span class="co">#&gt;    &lt;int&gt;  &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;</span></span>
-<span id="cb26-8"><a href="#cb26-8"></a><span class="co">#&gt;  1  2000  0.218  0.254   1.26  </span></span>
-<span id="cb26-9"><a href="#cb26-9"></a><span class="co">#&gt;  2  2001  0.686 -0.818   0.396 </span></span>
-<span id="cb26-10"><a href="#cb26-10"></a><span class="co">#&gt;  3  2002  0.632 -0.195   0.775 </span></span>
-<span id="cb26-11"><a href="#cb26-11"></a><span class="co">#&gt;  4  2003  0.617 -0.0178  0.593 </span></span>
-<span id="cb26-12"><a href="#cb26-12"></a><span class="co">#&gt;  5  2004 -1.52   0.858   0.316 </span></span>
-<span id="cb26-13"><a href="#cb26-13"></a><span class="co">#&gt;  6  2005  0.376 -0.960  -0.281 </span></span>
-<span id="cb26-14"><a href="#cb26-14"></a><span class="co">#&gt;  7  2006  0.811  1.60    0.431 </span></span>
-<span id="cb26-15"><a href="#cb26-15"></a><span class="co">#&gt;  8  2007 -1.08  -0.680   1.70  </span></span>
-<span id="cb26-16"><a href="#cb26-16"></a><span class="co">#&gt;  9  2008 -0.742  0.957   0.0144</span></span>
-<span id="cb26-17"><a href="#cb26-17"></a><span class="co">#&gt; 10  2009  1.16   1.51    0.734 </span></span>
+<span id="cb26-6"><a href="#cb26-6"></a><span class="co">#&gt;     year    A_AI   B_AI   B_EI</span></span>
+<span id="cb26-7"><a href="#cb26-7"></a><span class="co">#&gt;    &lt;int&gt;   &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;</span></span>
+<span id="cb26-8"><a href="#cb26-8"></a><span class="co">#&gt;  1  2000 -0.975  -0.157  1.79 </span></span>
+<span id="cb26-9"><a href="#cb26-9"></a><span class="co">#&gt;  2  2001 -0.829   1.44  -0.945</span></span>
+<span id="cb26-10"><a href="#cb26-10"></a><span class="co">#&gt;  3  2002 -1.10    0.651 -0.254</span></span>
+<span id="cb26-11"><a href="#cb26-11"></a><span class="co">#&gt;  4  2003  1.64    0.748 -1.61 </span></span>
+<span id="cb26-12"><a href="#cb26-12"></a><span class="co">#&gt;  5  2004  0.696  -0.256 -1.42 </span></span>
+<span id="cb26-13"><a href="#cb26-13"></a><span class="co">#&gt;  6  2005  0.307  -0.732 -0.363</span></span>
+<span id="cb26-14"><a href="#cb26-14"></a><span class="co">#&gt;  7  2006 -0.664  -0.785  0.294</span></span>
+<span id="cb26-15"><a href="#cb26-15"></a><span class="co">#&gt;  8  2007 -0.0148 -0.338  0.647</span></span>
+<span id="cb26-16"><a href="#cb26-16"></a><span class="co">#&gt;  9  2008 -0.0225 -1.75  -1.68 </span></span>
+<span id="cb26-17"><a href="#cb26-17"></a><span class="co">#&gt; 10  2009 -0.303   0.475 -0.509</span></span>
 <span id="cb26-18"><a href="#cb26-18"></a><span class="co">#&gt; # … with 5 more rows</span></span></code></pre></div>
 </div>
 <div id="tidy-census" class="section level2">
@@ -1106,46 +1106,9 @@
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
 
-        <div id="tocnav">
-      <h2 class="hasAnchor">
-<a href="#tocnav" class="anchor"></a>Contents</h2>
-      <ul class="nav nav-pills nav-stacked">
-<li><a href="#introduction">Introduction</a></li>
-      <li>
-<a href="#longer">Longer</a><ul class="nav nav-pills nav-stacked">
-<li><a href="#pew">String data in column names</a></li>
-      <li><a href="#billboard">Numeric data in column names</a></li>
-      <li><a href="#many-variables-in-column-names">Many variables in column names</a></li>
-      <li><a href="#multiple-observations-per-row">Multiple observations per row</a></li>
-      <li><a href="#duplicated-column-names">Duplicated column names</a></li>
-      </ul>
-</li>
-      <li>
-<a href="#wider">Wider</a><ul class="nav nav-pills nav-stacked">
-<li><a href="#capture-recapture-data">Capture-recapture data</a></li>
-      <li><a href="#aggregation">Aggregation</a></li>
-      <li><a href="#generate-column-name-from-multiple-variables">Generate column name from multiple variables</a></li>
-      <li><a href="#tidy-census">Tidy census</a></li>
-      <li><a href="#contact-list">Contact list</a></li>
-      </ul>
-</li>
-      <li>
-<a href="#longer-then-wider">Longer, then wider</a><ul class="nav nav-pills nav-stacked">
-<li><a href="#world-bank">World bank</a></li>
-      <li><a href="#multi-choice">Multi-choice</a></li>
-      </ul>
-</li>
-      <li>
-<a href="#manual-specs">Manual specs</a><ul class="nav nav-pills nav-stacked">
-<li><a href="#longer-1">Longer</a></li>
-      <li><a href="#wider-1">Wider</a></li>
-      <li><a href="#by-hand">By hand</a></li>
-      <li><a href="#theory">Theory</a></li>
-      </ul>
-</li>
-      </ul>
+        <nav id="toc" data-toggle="toc"><h2 data-toc-skip>Contents</h2>
+    </nav>
 </div>
-      </div>
 
 </div>
 
