@@ -164,7 +164,7 @@
   </ul>
 </li>
         <li>
-  <a href="https://github.com/tidyverse/tidyr">
+  <a href="https://github.com/tidyverse/tidyr/">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -201,7 +201,7 @@ df %&gt;% pivot_longer(-id, names_pattern = "(.)_.")
 df %&gt;% pivot_longer(-id, names_sep = "_", names_to = c("name", NA))
 df %&gt;% pivot_longer(-id, names_sep = "_", names_to = c(".value", NA))</code></pre>
 </li>
-<li><p><code><a href="../reference/expand.html">expand()</a></code>, <code><a href="../reference/expand_grid.html">expand_grid()</a></code>, <code><a href="../reference/expand.html">crossing()</a></code>, and <code><a href="../reference/expand.html">nesting()</a></code> once again evaluate their inputs iteratively, so you can refer to freshly created columns, e.g. <code><a href="../reference/expand.html">crossing(x = seq(-2, 2), y = x)</a></code> (<a href='https://github.com/tidyverse/tidyr/issues/820'>#820</a>).</p></li>
+<li><p><code><a href="../reference/expand.html">expand()</a></code>, <code><a href="../reference/expand_grid.html">expand_grid()</a></code>, <code><a href="../reference/expand.html">crossing()</a></code>, and <code><a href="../reference/expand.html">nesting()</a></code> once again evaluate their inputs iteratively, so you can refer to freshly created columns, e.g. <code><a href="../reference/expand.html">crossing(x = seq(-2, 2), y = x)</a></code> (<a href='https://github.com/tidyverse/tidyr/issues/820'>#820</a>).</p></li>
 <li><p><code><a href="../reference/expand.html">expand()</a></code>, <code><a href="../reference/expand_grid.html">expand_grid()</a></code>, <code><a href="../reference/expand.html">crossing()</a></code>, and <code><a href="../reference/expand.html">nesting()</a></code> gain a <code>.name_repair</code> argument allowing them to respect <code>.name_repair</code> if it is passed to them (<a href='https://github.com/jeffreypullin'>@jeffreypullin</a>, <a href='https://github.com/tidyverse/tidyr/issues/798'>#798</a>).</p></li>
 <li><p><code><a href="../reference/pack.html">pack()</a></code> and <code><a href="../reference/nest.html">nest()</a></code> gains a <code>.names_sep</code> argument allows you to strip outer names from inner names, in symmetrical way to how the same argument to <code><a href="../reference/pack.html">unpack()</a></code> and <code><a href="../reference/nest.html">unnest()</a></code> combines inner and outer names (<a href='https://github.com/tidyverse/tidyr/issues/795'>#795</a>, <a href='https://github.com/tidyverse/tidyr/issues/797'>#797</a>).</p></li>
 <li><p><code><a href="../reference/hoist.html">unnest_longer()</a></code>, <code><a href="../reference/hoist.html">unnest_wider()</a></code>, and <code><a href="../reference/hoist.html">hoist()</a></code> do a better job simplifying list-cols. They no longer add uneeded <code>unspecified()</code> when the result is still a list (<a href='https://github.com/tidyverse/tidyr/issues/806'>#806</a>), and work when the list contains non-vectors (<a href='https://github.com/tidyverse/tidyr/issues/810'>#810</a>).</p></li>
@@ -216,25 +216,25 @@ df %&gt;% pivot_longer(-id, names_sep = "_", names_to = c(".value", NA))</code><
 <li><p><code><a href="../reference/hoist.html">unnest_wider()</a></code> and <code><a href="../reference/hoist.html">unnest_longer()</a></code> can now unnest <code>list_of</code> columns. This is important for unnesting columns created from <code><a href="../reference/nest.html">nest()</a></code>, which are always <code>list_of</code> columns, and for usage after <code><a href="../reference/pivot_wider.html">pivot_wider()</a></code>, which, by default, will create <code>list_of</code> columns when duplicates arise (<a href='https://github.com/tidyverse/tidyr/issues/741'>#741</a>).</p></li>
 </ul>
 </div>
-    <div id="tidyr-1-0-2" class="section level1">
+    <div id="tidyr-102" class="section level1">
 <h1 class="page-header">
-<a href="#tidyr-1-0-2" class="anchor"></a>tidyr 1.0.2<small> 2020-01-24 </small>
+<a href="#tidyr-102" class="anchor"></a>tidyr 1.0.2<small> 2020-01-24 </small>
 </h1>
 <ul>
 <li>Minor fixes for dev versions of rlang, tidyselect, and tibble.</li>
 </ul>
 </div>
-    <div id="tidyr-1-0-1" class="section level1">
+    <div id="tidyr-101" class="section level1">
 <h1 class="page-header">
-<a href="#tidyr-1-0-1" class="anchor"></a>tidyr 1.0.1<small> Unreleased </small>
+<a href="#tidyr-101" class="anchor"></a>tidyr 1.0.1<small> Unreleased </small>
 </h1>
 <ul>
 <li>Did not exist since I accidentally released v1.0.2</li>
 </ul>
 </div>
-    <div id="tidyr-1-0-0" class="section level1">
+    <div id="tidyr-100" class="section level1">
 <h1 class="page-header">
-<a href="#tidyr-1-0-0" class="anchor"></a>tidyr 1.0.0<small> 2019-09-11 </small>
+<a href="#tidyr-100" class="anchor"></a>tidyr 1.0.0<small> 2019-09-11 </small>
 </h1>
 <div id="breaking-changes" class="section level2">
 <h2 class="hasAnchor">
@@ -243,9 +243,9 @@ df %&gt;% pivot_longer(-id, names_sep = "_", names_to = c(".value", NA))</code><
 <ul>
 <li>
 <p><code><a href="../reference/nest.html">nest()</a></code> and <code><a href="../reference/nest.html">unnest()</a></code> have new syntax. The majority of existing usage should be automatically translated to the new syntax with a warning. If that doesn’t work, put this in your script to use the old versions until you can take a closer look and update your code:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(tidyr)</a>
-<a class="sourceLine" id="cb2-2" data-line-number="2">nest &lt;-<span class="st"> </span>nest_legacy</a>
-<a class="sourceLine" id="cb2-3" data-line-number="3">unnest &lt;-<span class="st"> </span>unnest_legacy</a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(tidyr)</span>
+<span id="cb2-2"><a href="#cb2-2"></a>nest &lt;-<span class="st"> </span>nest_legacy</span>
+<span id="cb2-3"><a href="#cb2-3"></a>unnest &lt;-<span class="st"> </span>unnest_legacy</span></code></pre></div>
 </li>
 <li><p><code><a href="../reference/nest.html">nest()</a></code> now preserves grouping, which has implications for downstream calls to group-aware functions, such as <code><a href="https://dplyr.tidyverse.org/reference/mutate.html">dplyr::mutate()</a></code> and <code><a href="https://rdrr.io/r/stats/filter.html">filter()</a></code>.</p></li>
 <li><p>The first argument of <code><a href="../reference/nest.html">nest()</a></code> has changed from <code>data</code> to <code>.data</code>.</p></li>
@@ -324,9 +324,9 @@ df %&gt;% mutate(name = map_chr(metadata, "name"))</code></pre>
 </ul>
 </div>
 </div>
-    <div id="tidyr-0-8-3" class="section level1">
+    <div id="tidyr-083" class="section level1">
 <h1 class="page-header">
-<a href="#tidyr-0-8-3" class="anchor"></a>tidyr 0.8.3<small> 2019-03-01 </small>
+<a href="#tidyr-083" class="anchor"></a>tidyr 0.8.3<small> 2019-03-01 </small>
 </h1>
 <ul>
 <li><p><code><a href="../reference/expand.html">crossing()</a></code> preserves factor levels (<a href='https://github.com/tidyverse/tidyr/issues/410'>#410</a>), now works with list-columns (<a href='https://github.com/tidyverse/tidyr/issues/446'>#446</a>, <a href='https://github.com/SamanthaToet'>@SamanthaToet</a>). (These also help <code><a href="../reference/expand.html">expand()</a></code> which is built on top of <code><a href="../reference/expand.html">crossing()</a></code>)</p></li>
@@ -336,27 +336,27 @@ df %&gt;% mutate(name = map_chr(metadata, "name"))</code></pre>
 <li><p><code><a href="../reference/nest.html">unnest()</a></code> will run with named and unnamed list-columns of same length (<a href='https://github.com/hlendway'>@hlendway</a>, <a href='https://github.com/tidyverse/tidyr/issues/460'>#460</a>).</p></li>
 </ul>
 </div>
-    <div id="tidyr-0-8-2" class="section level1">
+    <div id="tidyr-082" class="section level1">
 <h1 class="page-header">
-<a href="#tidyr-0-8-2" class="anchor"></a>tidyr 0.8.2<small> 2018-10-28 </small>
+<a href="#tidyr-082" class="anchor"></a>tidyr 0.8.2<small> 2018-10-28 </small>
 </h1>
 <ul>
 <li><p><code><a href="../reference/separate.html">separate()</a></code> now accepts <code>NA</code> as a column name in the <code>into</code> argument to denote columns which are omitted from the result. (<a href='https://github.com/markdly'>@markdly</a>, <a href='https://github.com/tidyverse/tidyr/issues/397'>#397</a>).</p></li>
 <li><p>Minor updates to ensure compatibility with dependencies.</p></li>
 </ul>
 </div>
-    <div id="tidyr-0-8-1" class="section level1">
+    <div id="tidyr-081" class="section level1">
 <h1 class="page-header">
-<a href="#tidyr-0-8-1" class="anchor"></a>tidyr 0.8.1<small> 2018-05-18 </small>
+<a href="#tidyr-081" class="anchor"></a>tidyr 0.8.1<small> 2018-05-18 </small>
 </h1>
 <ul>
 <li>
 <code><a href="../reference/nest.html">unnest()</a></code> weakens test of “atomicity” to restore previous behaviour when unnesting factors and dates (<a href='https://github.com/tidyverse/tidyr/issues/407'>#407</a>).</li>
 </ul>
 </div>
-    <div id="tidyr-0-8-0" class="section level1">
+    <div id="tidyr-080" class="section level1">
 <h1 class="page-header">
-<a href="#tidyr-0-8-0" class="anchor"></a>tidyr 0.8.0<small> 2018-01-29 </small>
+<a href="#tidyr-080" class="anchor"></a>tidyr 0.8.0<small> 2018-01-29 </small>
 </h1>
 <div id="breaking-changes-1" class="section level2">
 <h2 class="hasAnchor">
@@ -404,26 +404,26 @@ df %&gt;% mutate(name = map_chr(metadata, "name"))</code></pre>
 </ul>
 </div>
 </div>
-    <div id="tidyr-0-7-2" class="section level1">
+    <div id="tidyr-072" class="section level1">
 <h1 class="page-header">
-<a href="#tidyr-0-7-2" class="anchor"></a>tidyr 0.7.2<small> 2017-10-16 </small>
+<a href="#tidyr-072" class="anchor"></a>tidyr 0.7.2<small> 2017-10-16 </small>
 </h1>
 <ul>
 <li><p>The SE variants <code><a href="../reference/deprecated-se.html">gather_()</a></code>, <code><a href="../reference/deprecated-se.html">spread_()</a></code> and <code><a href="../reference/deprecated-se.html">nest_()</a></code> now treat non-syntactic names in the same way as pre tidy eval versions of tidyr (<a href='https://github.com/tidyverse/tidyr/issues/361'>#361</a>).</p></li>
 <li><p>Fix tidyr bug revealed by R-devel.</p></li>
 </ul>
 </div>
-    <div id="tidyr-0-7-1" class="section level1">
+    <div id="tidyr-071" class="section level1">
 <h1 class="page-header">
-<a href="#tidyr-0-7-1" class="anchor"></a>tidyr 0.7.1<small> 2017-09-01 </small>
+<a href="#tidyr-071" class="anchor"></a>tidyr 0.7.1<small> 2017-09-01 </small>
 </h1>
 <p>This is a hotfix release to account for some tidyselect changes in the unit tests.</p>
 <p>Note that the upcoming version of tidyselect backtracks on some of the changes announced for 0.7.0. The special evaluation semantics for selection have been changed back to the old behaviour because the new rules were causing too much trouble and confusion. From now on data expressions (symbols and calls to <code>:</code> and <code><a href="https://rdrr.io/r/base/c.html">c()</a></code>) can refer to both registered variables and to objects from the context.</p>
 <p>However the semantics for context expressions (any calls other than to <code>:</code> and <code><a href="https://rdrr.io/r/base/c.html">c()</a></code>) remain the same. Those expressions are evaluated in the context only and cannot refer to registered variables. If you’re writing functions and refer to contextual objects, it is still a good idea to avoid data expressions by following the advice of the 0.7.0 release notes.</p>
 </div>
-    <div id="tidyr-0-7-0" class="section level1">
+    <div id="tidyr-070" class="section level1">
 <h1 class="page-header">
-<a href="#tidyr-0-7-0" class="anchor"></a>tidyr 0.7.0<small> 2017-08-16 </small>
+<a href="#tidyr-070" class="anchor"></a>tidyr 0.7.0<small> 2017-08-16 </small>
 </h1>
 <p>This release includes important changes to tidyr internals. Tidyr now supports the new tidy evaluation framework for quoting (NSE) functions. It also uses the new tidyselect package as selecting backend.</p>
 <div id="breaking-changes-2" class="section level2">
@@ -474,10 +474,10 @@ integer column positions, not a double vector</code></pre>
 <li>
 <p>Multiple variables are now selected a bit differently. We now make a strict distinction between data and context expressions. A data expression is either a bare name of an expression like <code>x:y</code> or <code><a href="https://rdrr.io/r/base/c.html">c(x, y)</a></code>. In a data expression, you can only refer to columns from the data frame. Everything else is a context expression in which you can only refer to objects that you have defined with <code>&lt;-</code>.</p>
 <p>You can still refer to contextual objects in a data expression by being explicit. One way of being explicit is to unquote a variable from the environment with the tidy eval operator <code>!!</code>:</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">x &lt;-<span class="st"> </span><span class="dv">2</span></a>
-<a class="sourceLine" id="cb8-2" data-line-number="2"><span class="kw"><a href="../reference/drop_na.html">drop_na</a></span>(df, <span class="dv">2</span>)     <span class="co"># Works fine</span></a>
-<a class="sourceLine" id="cb8-3" data-line-number="3"><span class="kw"><a href="../reference/drop_na.html">drop_na</a></span>(df, x)     <span class="co"># Object 'x' not found</span></a>
-<a class="sourceLine" id="cb8-4" data-line-number="4"><span class="kw"><a href="../reference/drop_na.html">drop_na</a></span>(df, <span class="op">!!</span><span class="st"> </span>x)  <span class="co"># Works as if you had supplied 2</span></a></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>x &lt;-<span class="st"> </span><span class="dv">2</span></span>
+<span id="cb8-2"><a href="#cb8-2"></a><span class="kw"><a href="../reference/drop_na.html">drop_na</a></span>(df, <span class="dv">2</span>)     <span class="co"># Works fine</span></span>
+<span id="cb8-3"><a href="#cb8-3"></a><span class="kw"><a href="../reference/drop_na.html">drop_na</a></span>(df, x)     <span class="co"># Object 'x' not found</span></span>
+<span id="cb8-4"><a href="#cb8-4"></a><span class="kw"><a href="../reference/drop_na.html">drop_na</a></span>(df, <span class="op">!!</span><span class="st"> </span>x)  <span class="co"># Works as if you had supplied 2</span></span></code></pre></div>
 <p>On the other hand, select helpers like <code>start_with()</code> are context expressions. It is therefore easy to refer to objects and they will never be ambiguous with data columns:</p>
 <pre class="{r}"><code>x &lt;- "d"
 drop_na(df, starts_with(x))</code></pre>
@@ -486,17 +486,17 @@ drop_na(df, starts_with(x))</code></pre>
 </ul>
 </div>
 </div>
-    <div id="tidyr-0-6-3" class="section level1">
+    <div id="tidyr-063" class="section level1">
 <h1 class="page-header">
-<a href="#tidyr-0-6-3" class="anchor"></a>tidyr 0.6.3<small> 2017-05-15 </small>
+<a href="#tidyr-063" class="anchor"></a>tidyr 0.6.3<small> 2017-05-15 </small>
 </h1>
 <ul>
 <li>Patch tests to be compatible with dev tibble</li>
 </ul>
 </div>
-    <div id="tidyr-0-6-2" class="section level1">
+    <div id="tidyr-062" class="section level1">
 <h1 class="page-header">
-<a href="#tidyr-0-6-2" class="anchor"></a>tidyr 0.6.2<small> 2017-05-04 </small>
+<a href="#tidyr-062" class="anchor"></a>tidyr 0.6.2<small> 2017-05-04 </small>
 </h1>
 <ul>
 <li><p>Register C functions</p></li>
@@ -504,18 +504,18 @@ drop_na(df, starts_with(x))</code></pre>
 <li><p>Patch tests to be compatible with dev dplyr.</p></li>
 </ul>
 </div>
-    <div id="tidyr-0-6-1" class="section level1">
+    <div id="tidyr-061" class="section level1">
 <h1 class="page-header">
-<a href="#tidyr-0-6-1" class="anchor"></a>tidyr 0.6.1<small> 2017-01-10 </small>
+<a href="#tidyr-061" class="anchor"></a>tidyr 0.6.1<small> 2017-01-10 </small>
 </h1>
 <ul>
 <li><p>Patch test to be compatible with dev tibble</p></li>
 <li><p>Changed deprecation message of <code><a href="../reference/extract_numeric.html">extract_numeric()</a></code> to point to <code><a href="https://readr.tidyverse.org/reference/parse_number.html">readr::parse_number()</a></code> rather than <code>readr::parse_numeric()</code></p></li>
 </ul>
 </div>
-    <div id="tidyr-0-6-0" class="section level1">
+    <div id="tidyr-060" class="section level1">
 <h1 class="page-header">
-<a href="#tidyr-0-6-0" class="anchor"></a>tidyr 0.6.0<small> 2016-08-12 </small>
+<a href="#tidyr-060" class="anchor"></a>tidyr 0.6.0<small> 2016-08-12 </small>
 </h1>
 <div id="api-changes" class="section level2">
 <h2 class="hasAnchor">
@@ -536,17 +536,17 @@ drop_na(df, starts_with(x))</code></pre>
 </ul>
 </div>
 </div>
-    <div id="tidyr-0-5-1" class="section level1">
+    <div id="tidyr-051" class="section level1">
 <h1 class="page-header">
-<a href="#tidyr-0-5-1" class="anchor"></a>tidyr 0.5.1<small> 2016-06-14 </small>
+<a href="#tidyr-051" class="anchor"></a>tidyr 0.5.1<small> 2016-06-14 </small>
 </h1>
 <ul>
 <li>Restored compatibility with R &lt; 3.3.0 by avoiding <code><a href="https://rdrr.io/r/utils/getS3method.html">getS3method(envir = )</a></code> (<a href='https://github.com/tidyverse/tidyr/issues/205'>#205</a>, <a href='https://github.com/krlmlr'>@krlmlr</a>).</li>
 </ul>
 </div>
-    <div id="tidyr-0-5-0" class="section level1">
+    <div id="tidyr-050" class="section level1">
 <h1 class="page-header">
-<a href="#tidyr-0-5-0" class="anchor"></a>tidyr 0.5.0<small> 2016-06-12 </small>
+<a href="#tidyr-050" class="anchor"></a>tidyr 0.5.0<small> 2016-06-12 </small>
 </h1>
 <div id="new-functions" class="section level2">
 <h2 class="hasAnchor">
@@ -578,17 +578,17 @@ drop_na(df, starts_with(x))</code></pre>
 </ul>
 </div>
 </div>
-    <div id="tidyr-0-4-1" class="section level1">
+    <div id="tidyr-041" class="section level1">
 <h1 class="page-header">
-<a href="#tidyr-0-4-1" class="anchor"></a>tidyr 0.4.1<small> 2016-02-05 </small>
+<a href="#tidyr-041" class="anchor"></a>tidyr 0.4.1<small> 2016-02-05 </small>
 </h1>
 <ul>
 <li>Fixed bug in <code><a href="../reference/nest.html">nest()</a></code> where nested data was ending up in the wrong row (<a href='https://github.com/tidyverse/tidyr/issues/158'>#158</a>).</li>
 </ul>
 </div>
-    <div id="tidyr-0-4-0" class="section level1">
+    <div id="tidyr-040" class="section level1">
 <h1 class="page-header">
-<a href="#tidyr-0-4-0" class="anchor"></a>tidyr 0.4.0<small> 2016-01-18 </small>
+<a href="#tidyr-040" class="anchor"></a>tidyr 0.4.0<small> 2016-01-18 </small>
 </h1>
 <div id="nested-data-frames" class="section level2">
 <h2 class="hasAnchor">
@@ -624,17 +624,17 @@ drop_na(df, starts_with(x))</code></pre>
 </ul>
 </div>
 </div>
-    <div id="tidyr-0-3-1" class="section level1">
+    <div id="tidyr-031" class="section level1">
 <h1 class="page-header">
-<a href="#tidyr-0-3-1" class="anchor"></a>tidyr 0.3.1<small> 2015-09-10 </small>
+<a href="#tidyr-031" class="anchor"></a>tidyr 0.3.1<small> 2015-09-10 </small>
 </h1>
 <ul>
 <li>Fixed bug where attributes of non-gather columns were lost (<a href='https://github.com/tidyverse/tidyr/issues/104'>#104</a>)</li>
 </ul>
 </div>
-    <div id="tidyr-0-3-0" class="section level1">
+    <div id="tidyr-030" class="section level1">
 <h1 class="page-header">
-<a href="#tidyr-0-3-0" class="anchor"></a>tidyr 0.3.0<small> 2015-09-08 </small>
+<a href="#tidyr-030" class="anchor"></a>tidyr 0.3.0<small> 2015-09-08 </small>
 </h1>
 <div id="new-features-2" class="section level2">
 <h2 class="hasAnchor">
@@ -665,9 +665,9 @@ drop_na(df, starts_with(x))</code></pre>
 </ul>
 </div>
 </div>
-    <div id="tidyr-0-2-0" class="section level1">
+    <div id="tidyr-020" class="section level1">
 <h1 class="page-header">
-<a href="#tidyr-0-2-0" class="anchor"></a>tidyr 0.2.0<small> 2014-12-05 </small>
+<a href="#tidyr-020" class="anchor"></a>tidyr 0.2.0<small> 2014-12-05 </small>
 </h1>
 <div id="new-functions-1" class="section level2">
 <h2 class="hasAnchor">
@@ -690,32 +690,32 @@ drop_na(df, starts_with(x))</code></pre>
 </div>
   </div>
 
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
         <li><a href="#tidyr-development-version">development version</a></li>
-        <li><a href="#tidyr-1-0-2">1.0.2</a></li>
-        <li><a href="#tidyr-1-0-1">1.0.1</a></li>
-        <li><a href="#tidyr-1-0-0">1.0.0</a></li>
-        <li><a href="#tidyr-0-8-3">0.8.3</a></li>
-        <li><a href="#tidyr-0-8-2">0.8.2</a></li>
-        <li><a href="#tidyr-0-8-1">0.8.1</a></li>
-        <li><a href="#tidyr-0-8-0">0.8.0</a></li>
-        <li><a href="#tidyr-0-7-2">0.7.2</a></li>
-        <li><a href="#tidyr-0-7-1">0.7.1</a></li>
-        <li><a href="#tidyr-0-7-0">0.7.0</a></li>
-        <li><a href="#tidyr-0-6-3">0.6.3</a></li>
-        <li><a href="#tidyr-0-6-2">0.6.2</a></li>
-        <li><a href="#tidyr-0-6-1">0.6.1</a></li>
-        <li><a href="#tidyr-0-6-0">0.6.0</a></li>
-        <li><a href="#tidyr-0-5-1">0.5.1</a></li>
-        <li><a href="#tidyr-0-5-0">0.5.0</a></li>
-        <li><a href="#tidyr-0-4-1">0.4.1</a></li>
-        <li><a href="#tidyr-0-4-0">0.4.0</a></li>
-        <li><a href="#tidyr-0-3-1">0.3.1</a></li>
-        <li><a href="#tidyr-0-3-0">0.3.0</a></li>
-        <li><a href="#tidyr-0-2-0">0.2.0</a></li>
+        <li><a href="#tidyr-102">1.0.2</a></li>
+        <li><a href="#tidyr-101">1.0.1</a></li>
+        <li><a href="#tidyr-100">1.0.0</a></li>
+        <li><a href="#tidyr-083">0.8.3</a></li>
+        <li><a href="#tidyr-082">0.8.2</a></li>
+        <li><a href="#tidyr-081">0.8.1</a></li>
+        <li><a href="#tidyr-080">0.8.0</a></li>
+        <li><a href="#tidyr-072">0.7.2</a></li>
+        <li><a href="#tidyr-071">0.7.1</a></li>
+        <li><a href="#tidyr-070">0.7.0</a></li>
+        <li><a href="#tidyr-063">0.6.3</a></li>
+        <li><a href="#tidyr-062">0.6.2</a></li>
+        <li><a href="#tidyr-061">0.6.1</a></li>
+        <li><a href="#tidyr-060">0.6.0</a></li>
+        <li><a href="#tidyr-051">0.5.1</a></li>
+        <li><a href="#tidyr-050">0.5.0</a></li>
+        <li><a href="#tidyr-041">0.4.1</a></li>
+        <li><a href="#tidyr-040">0.4.0</a></li>
+        <li><a href="#tidyr-031">0.3.1</a></li>
+        <li><a href="#tidyr-030">0.3.0</a></li>
+        <li><a href="#tidyr-020">0.2.0</a></li>
       </ul>
     </div>
   </div>

@@ -169,7 +169,7 @@ Learn more in vignette(&quot;pivot&quot;)." />
   </ul>
 </li>
         <li>
-  <a href="https://github.com/tidyverse/tidyr">
+  <a href="https://github.com/tidyverse/tidyr/">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -288,122 +288,122 @@ defines a pivotting specification.</p></div>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># See vignette("pivot") for examples and explanation</span>
 
-<span class='no'>fish_encounters</span></div><div class='output co'>#&gt; # A tibble: 114 x 3
+<span class='no'>fish_encounters</span></div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 114 x 3</span><span>
 #&gt;    fish  station  seen
-#&gt;    &lt;fct&gt; &lt;fct&gt;   &lt;int&gt;
-#&gt;  1 4842  Release     1
-#&gt;  2 4842  I80_1       1
-#&gt;  3 4842  Lisbon      1
-#&gt;  4 4842  Rstr        1
-#&gt;  5 4842  Base_TD     1
-#&gt;  6 4842  BCE         1
-#&gt;  7 4842  BCW         1
-#&gt;  8 4842  BCE2        1
-#&gt;  9 4842  BCW2        1
-#&gt; 10 4842  MAE         1
-#&gt; # … with 104 more rows</div><div class='input'><span class='no'>fish_encounters</span> <span class='kw'>%&gt;%</span>
-  <span class='fu'>pivot_wider</span>(<span class='kw'>names_from</span> <span class='kw'>=</span> <span class='no'>station</span>, <span class='kw'>values_from</span> <span class='kw'>=</span> <span class='no'>seen</span>)</div><div class='output co'>#&gt; # A tibble: 19 x 12
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
+#&gt; </span><span style='color: #555555;'> 1</span><span> 4842  Release     1
+#&gt; </span><span style='color: #555555;'> 2</span><span> 4842  I80_1       1
+#&gt; </span><span style='color: #555555;'> 3</span><span> 4842  Lisbon      1
+#&gt; </span><span style='color: #555555;'> 4</span><span> 4842  Rstr        1
+#&gt; </span><span style='color: #555555;'> 5</span><span> 4842  Base_TD     1
+#&gt; </span><span style='color: #555555;'> 6</span><span> 4842  BCE         1
+#&gt; </span><span style='color: #555555;'> 7</span><span> 4842  BCW         1
+#&gt; </span><span style='color: #555555;'> 8</span><span> 4842  BCE2        1
+#&gt; </span><span style='color: #555555;'> 9</span><span> 4842  BCW2        1
+#&gt; </span><span style='color: #555555;'>10</span><span> 4842  MAE         1
+#&gt; </span><span style='color: #555555;'># … with 104 more rows</span><span></div><div class='input'><span class='no'>fish_encounters</span> <span class='kw'>%&gt;%</span>
+  <span class='fu'>pivot_wider</span>(<span class='kw'>names_from</span> <span class='kw'>=</span> <span class='no'>station</span>, <span class='kw'>values_from</span> <span class='kw'>=</span> <span class='no'>seen</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 19 x 12</span><span>
 #&gt;    fish  Release I80_1 Lisbon  Rstr Base_TD   BCE   BCW  BCE2  BCW2   MAE   MAW
-#&gt;    &lt;fct&gt;   &lt;int&gt; &lt;int&gt;  &lt;int&gt; &lt;int&gt;   &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;
-#&gt;  1 4842        1     1      1     1       1     1     1     1     1     1     1
-#&gt;  2 4843        1     1      1     1       1     1     1     1     1     1     1
-#&gt;  3 4844        1     1      1     1       1     1     1     1     1     1     1
-#&gt;  4 4845        1     1      1     1       1    NA    NA    NA    NA    NA    NA
-#&gt;  5 4847        1     1      1    NA      NA    NA    NA    NA    NA    NA    NA
-#&gt;  6 4848        1     1      1     1      NA    NA    NA    NA    NA    NA    NA
-#&gt;  7 4849        1     1     NA    NA      NA    NA    NA    NA    NA    NA    NA
-#&gt;  8 4850        1     1     NA     1       1     1     1    NA    NA    NA    NA
-#&gt;  9 4851        1     1     NA    NA      NA    NA    NA    NA    NA    NA    NA
-#&gt; 10 4854        1     1     NA    NA      NA    NA    NA    NA    NA    NA    NA
-#&gt; 11 4855        1     1      1     1       1    NA    NA    NA    NA    NA    NA
-#&gt; 12 4857        1     1      1     1       1     1     1     1     1    NA    NA
-#&gt; 13 4858        1     1      1     1       1     1     1     1     1     1     1
-#&gt; 14 4859        1     1      1     1       1    NA    NA    NA    NA    NA    NA
-#&gt; 15 4861        1     1      1     1       1     1     1     1     1     1     1
-#&gt; 16 4862        1     1      1     1       1     1     1     1     1    NA    NA
-#&gt; 17 4863        1     1     NA    NA      NA    NA    NA    NA    NA    NA    NA
-#&gt; 18 4864        1     1     NA    NA      NA    NA    NA    NA    NA    NA    NA
-#&gt; 19 4865        1     1      1    NA      NA    NA    NA    NA    NA    NA    NA</div><div class='input'><span class='co'># Fill in missing values</span>
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
+#&gt; </span><span style='color: #555555;'> 1</span><span> 4842        1     1      1     1       1     1     1     1     1     1     1
+#&gt; </span><span style='color: #555555;'> 2</span><span> 4843        1     1      1     1       1     1     1     1     1     1     1
+#&gt; </span><span style='color: #555555;'> 3</span><span> 4844        1     1      1     1       1     1     1     1     1     1     1
+#&gt; </span><span style='color: #555555;'> 4</span><span> 4845        1     1      1     1       1    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>
+#&gt; </span><span style='color: #555555;'> 5</span><span> 4847        1     1      1    </span><span style='color: #BB0000;'>NA</span><span>      </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>
+#&gt; </span><span style='color: #555555;'> 6</span><span> 4848        1     1      1     1      </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>
+#&gt; </span><span style='color: #555555;'> 7</span><span> 4849        1     1     </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>      </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>
+#&gt; </span><span style='color: #555555;'> 8</span><span> 4850        1     1     </span><span style='color: #BB0000;'>NA</span><span>     1       1     1     1    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>
+#&gt; </span><span style='color: #555555;'> 9</span><span> 4851        1     1     </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>      </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>
+#&gt; </span><span style='color: #555555;'>10</span><span> 4854        1     1     </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>      </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>
+#&gt; </span><span style='color: #555555;'>11</span><span> 4855        1     1      1     1       1    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>
+#&gt; </span><span style='color: #555555;'>12</span><span> 4857        1     1      1     1       1     1     1     1     1    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>
+#&gt; </span><span style='color: #555555;'>13</span><span> 4858        1     1      1     1       1     1     1     1     1     1     1
+#&gt; </span><span style='color: #555555;'>14</span><span> 4859        1     1      1     1       1    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>
+#&gt; </span><span style='color: #555555;'>15</span><span> 4861        1     1      1     1       1     1     1     1     1     1     1
+#&gt; </span><span style='color: #555555;'>16</span><span> 4862        1     1      1     1       1     1     1     1     1    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>
+#&gt; </span><span style='color: #555555;'>17</span><span> 4863        1     1     </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>      </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>
+#&gt; </span><span style='color: #555555;'>18</span><span> 4864        1     1     </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>      </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>
+#&gt; </span><span style='color: #555555;'>19</span><span> 4865        1     1      1    </span><span style='color: #BB0000;'>NA</span><span>      </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span></div><div class='input'><span class='co'># Fill in missing values</span>
 <span class='no'>fish_encounters</span> <span class='kw'>%&gt;%</span>
-  <span class='fu'>pivot_wider</span>(<span class='kw'>names_from</span> <span class='kw'>=</span> <span class='no'>station</span>, <span class='kw'>values_from</span> <span class='kw'>=</span> <span class='no'>seen</span>, <span class='kw'>values_fill</span> <span class='kw'>=</span> <span class='fl'>0</span>)</div><div class='output co'>#&gt; # A tibble: 19 x 12
+  <span class='fu'>pivot_wider</span>(<span class='kw'>names_from</span> <span class='kw'>=</span> <span class='no'>station</span>, <span class='kw'>values_from</span> <span class='kw'>=</span> <span class='no'>seen</span>, <span class='kw'>values_fill</span> <span class='kw'>=</span> <span class='fl'>0</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 19 x 12</span><span>
 #&gt;    fish  Release I80_1 Lisbon  Rstr Base_TD   BCE   BCW  BCE2  BCW2   MAE   MAW
-#&gt;    &lt;fct&gt;   &lt;int&gt; &lt;int&gt;  &lt;int&gt; &lt;int&gt;   &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;
-#&gt;  1 4842        1     1      1     1       1     1     1     1     1     1     1
-#&gt;  2 4843        1     1      1     1       1     1     1     1     1     1     1
-#&gt;  3 4844        1     1      1     1       1     1     1     1     1     1     1
-#&gt;  4 4845        1     1      1     1       1     0     0     0     0     0     0
-#&gt;  5 4847        1     1      1     0       0     0     0     0     0     0     0
-#&gt;  6 4848        1     1      1     1       0     0     0     0     0     0     0
-#&gt;  7 4849        1     1      0     0       0     0     0     0     0     0     0
-#&gt;  8 4850        1     1      0     1       1     1     1     0     0     0     0
-#&gt;  9 4851        1     1      0     0       0     0     0     0     0     0     0
-#&gt; 10 4854        1     1      0     0       0     0     0     0     0     0     0
-#&gt; 11 4855        1     1      1     1       1     0     0     0     0     0     0
-#&gt; 12 4857        1     1      1     1       1     1     1     1     1     0     0
-#&gt; 13 4858        1     1      1     1       1     1     1     1     1     1     1
-#&gt; 14 4859        1     1      1     1       1     0     0     0     0     0     0
-#&gt; 15 4861        1     1      1     1       1     1     1     1     1     1     1
-#&gt; 16 4862        1     1      1     1       1     1     1     1     1     0     0
-#&gt; 17 4863        1     1      0     0       0     0     0     0     0     0     0
-#&gt; 18 4864        1     1      0     0       0     0     0     0     0     0     0
-#&gt; 19 4865        1     1      1     0       0     0     0     0     0     0     0</div><div class='input'>
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
+#&gt; </span><span style='color: #555555;'> 1</span><span> 4842        1     1      1     1       1     1     1     1     1     1     1
+#&gt; </span><span style='color: #555555;'> 2</span><span> 4843        1     1      1     1       1     1     1     1     1     1     1
+#&gt; </span><span style='color: #555555;'> 3</span><span> 4844        1     1      1     1       1     1     1     1     1     1     1
+#&gt; </span><span style='color: #555555;'> 4</span><span> 4845        1     1      1     1       1     0     0     0     0     0     0
+#&gt; </span><span style='color: #555555;'> 5</span><span> 4847        1     1      1     0       0     0     0     0     0     0     0
+#&gt; </span><span style='color: #555555;'> 6</span><span> 4848        1     1      1     1       0     0     0     0     0     0     0
+#&gt; </span><span style='color: #555555;'> 7</span><span> 4849        1     1      0     0       0     0     0     0     0     0     0
+#&gt; </span><span style='color: #555555;'> 8</span><span> 4850        1     1      0     1       1     1     1     0     0     0     0
+#&gt; </span><span style='color: #555555;'> 9</span><span> 4851        1     1      0     0       0     0     0     0     0     0     0
+#&gt; </span><span style='color: #555555;'>10</span><span> 4854        1     1      0     0       0     0     0     0     0     0     0
+#&gt; </span><span style='color: #555555;'>11</span><span> 4855        1     1      1     1       1     0     0     0     0     0     0
+#&gt; </span><span style='color: #555555;'>12</span><span> 4857        1     1      1     1       1     1     1     1     1     0     0
+#&gt; </span><span style='color: #555555;'>13</span><span> 4858        1     1      1     1       1     1     1     1     1     1     1
+#&gt; </span><span style='color: #555555;'>14</span><span> 4859        1     1      1     1       1     0     0     0     0     0     0
+#&gt; </span><span style='color: #555555;'>15</span><span> 4861        1     1      1     1       1     1     1     1     1     1     1
+#&gt; </span><span style='color: #555555;'>16</span><span> 4862        1     1      1     1       1     1     1     1     1     0     0
+#&gt; </span><span style='color: #555555;'>17</span><span> 4863        1     1      0     0       0     0     0     0     0     0     0
+#&gt; </span><span style='color: #555555;'>18</span><span> 4864        1     1      0     0       0     0     0     0     0     0     0
+#&gt; </span><span style='color: #555555;'>19</span><span> 4865        1     1      1     0       0     0     0     0     0     0     0</div><div class='input'>
 <span class='co'># Generate column names from multiple variables</span>
-<span class='no'>us_rent_income</span></div><div class='output co'>#&gt; # A tibble: 104 x 5
+<span class='no'>us_rent_income</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 104 x 5</span><span>
 #&gt;    GEOID NAME       variable estimate   moe
-#&gt;    &lt;chr&gt; &lt;chr&gt;      &lt;chr&gt;       &lt;dbl&gt; &lt;dbl&gt;
-#&gt;  1 01    Alabama    income      24476   136
-#&gt;  2 01    Alabama    rent          747     3
-#&gt;  3 02    Alaska     income      32940   508
-#&gt;  4 02    Alaska     rent         1200    13
-#&gt;  5 04    Arizona    income      27517   148
-#&gt;  6 04    Arizona    rent          972     4
-#&gt;  7 05    Arkansas   income      23789   165
-#&gt;  8 05    Arkansas   rent          709     5
-#&gt;  9 06    California income      29454   109
-#&gt; 10 06    California rent         1358     3
-#&gt; # … with 94 more rows</div><div class='input'><span class='no'>us_rent_income</span> <span class='kw'>%&gt;%</span>
-  <span class='fu'>pivot_wider</span>(<span class='kw'>names_from</span> <span class='kw'>=</span> <span class='no'>variable</span>, <span class='kw'>values_from</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='no'>estimate</span>, <span class='no'>moe</span>))</div><div class='output co'>#&gt; # A tibble: 52 x 6
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>      </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>       </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'> 1</span><span> 01    Alabama    income      </span><span style='text-decoration: underline;'>24</span><span>476   136
+#&gt; </span><span style='color: #555555;'> 2</span><span> 01    Alabama    rent          747     3
+#&gt; </span><span style='color: #555555;'> 3</span><span> 02    Alaska     income      </span><span style='text-decoration: underline;'>32</span><span>940   508
+#&gt; </span><span style='color: #555555;'> 4</span><span> 02    Alaska     rent         </span><span style='text-decoration: underline;'>1</span><span>200    13
+#&gt; </span><span style='color: #555555;'> 5</span><span> 04    Arizona    income      </span><span style='text-decoration: underline;'>27</span><span>517   148
+#&gt; </span><span style='color: #555555;'> 6</span><span> 04    Arizona    rent          972     4
+#&gt; </span><span style='color: #555555;'> 7</span><span> 05    Arkansas   income      </span><span style='text-decoration: underline;'>23</span><span>789   165
+#&gt; </span><span style='color: #555555;'> 8</span><span> 05    Arkansas   rent          709     5
+#&gt; </span><span style='color: #555555;'> 9</span><span> 06    California income      </span><span style='text-decoration: underline;'>29</span><span>454   109
+#&gt; </span><span style='color: #555555;'>10</span><span> 06    California rent         </span><span style='text-decoration: underline;'>1</span><span>358     3
+#&gt; </span><span style='color: #555555;'># … with 94 more rows</span><span></div><div class='input'><span class='no'>us_rent_income</span> <span class='kw'>%&gt;%</span>
+  <span class='fu'>pivot_wider</span>(<span class='kw'>names_from</span> <span class='kw'>=</span> <span class='no'>variable</span>, <span class='kw'>values_from</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='no'>estimate</span>, <span class='no'>moe</span>))</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 52 x 6</span><span>
 #&gt;    GEOID NAME                 estimate_income estimate_rent moe_income moe_rent
-#&gt;    &lt;chr&gt; &lt;chr&gt;                          &lt;dbl&gt;         &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt;
-#&gt;  1 01    Alabama                        24476           747        136        3
-#&gt;  2 02    Alaska                         32940          1200        508       13
-#&gt;  3 04    Arizona                        27517           972        148        4
-#&gt;  4 05    Arkansas                       23789           709        165        5
-#&gt;  5 06    California                     29454          1358        109        3
-#&gt;  6 08    Colorado                       32401          1125        109        5
-#&gt;  7 09    Connecticut                    35326          1123        195        5
-#&gt;  8 10    Delaware                       31560          1076        247       10
-#&gt;  9 11    District of Columbia           43198          1424        681       17
-#&gt; 10 12    Florida                        25952          1077         70        3
-#&gt; # … with 42 more rows</div><div class='input'>
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>                          </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>      </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'> 1</span><span> 01    Alabama                        </span><span style='text-decoration: underline;'>24</span><span>476           747        136        3
+#&gt; </span><span style='color: #555555;'> 2</span><span> 02    Alaska                         </span><span style='text-decoration: underline;'>32</span><span>940          </span><span style='text-decoration: underline;'>1</span><span>200        508       13
+#&gt; </span><span style='color: #555555;'> 3</span><span> 04    Arizona                        </span><span style='text-decoration: underline;'>27</span><span>517           972        148        4
+#&gt; </span><span style='color: #555555;'> 4</span><span> 05    Arkansas                       </span><span style='text-decoration: underline;'>23</span><span>789           709        165        5
+#&gt; </span><span style='color: #555555;'> 5</span><span> 06    California                     </span><span style='text-decoration: underline;'>29</span><span>454          </span><span style='text-decoration: underline;'>1</span><span>358        109        3
+#&gt; </span><span style='color: #555555;'> 6</span><span> 08    Colorado                       </span><span style='text-decoration: underline;'>32</span><span>401          </span><span style='text-decoration: underline;'>1</span><span>125        109        5
+#&gt; </span><span style='color: #555555;'> 7</span><span> 09    Connecticut                    </span><span style='text-decoration: underline;'>35</span><span>326          </span><span style='text-decoration: underline;'>1</span><span>123        195        5
+#&gt; </span><span style='color: #555555;'> 8</span><span> 10    Delaware                       </span><span style='text-decoration: underline;'>31</span><span>560          </span><span style='text-decoration: underline;'>1</span><span>076        247       10
+#&gt; </span><span style='color: #555555;'> 9</span><span> 11    District of Columbia           </span><span style='text-decoration: underline;'>43</span><span>198          </span><span style='text-decoration: underline;'>1</span><span>424        681       17
+#&gt; </span><span style='color: #555555;'>10</span><span> 12    Florida                        </span><span style='text-decoration: underline;'>25</span><span>952          </span><span style='text-decoration: underline;'>1</span><span>077         70        3
+#&gt; </span><span style='color: #555555;'># … with 42 more rows</span><span></div><div class='input'>
 <span class='co'># Can perform aggregation with values_fn</span>
 <span class='no'>warpbreaks</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/as_tibble.html'>as_tibble</a></span>(<span class='no'>warpbreaks</span>[<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"wool"</span>, <span class='st'>"tension"</span>, <span class='st'>"breaks"</span>)])
-<span class='no'>warpbreaks</span></div><div class='output co'>#&gt; # A tibble: 54 x 3
+<span class='no'>warpbreaks</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 54 x 3</span><span>
 #&gt;    wool  tension breaks
-#&gt;    &lt;fct&gt; &lt;fct&gt;    &lt;dbl&gt;
-#&gt;  1 A     L           26
-#&gt;  2 A     L           30
-#&gt;  3 A     L           54
-#&gt;  4 A     L           25
-#&gt;  5 A     L           70
-#&gt;  6 A     L           52
-#&gt;  7 A     L           51
-#&gt;  8 A     L           26
-#&gt;  9 A     L           67
-#&gt; 10 A     M           18
-#&gt; # … with 44 more rows</div><div class='input'><span class='no'>warpbreaks</span> <span class='kw'>%&gt;%</span>
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'> 1</span><span> A     L           26
+#&gt; </span><span style='color: #555555;'> 2</span><span> A     L           30
+#&gt; </span><span style='color: #555555;'> 3</span><span> A     L           54
+#&gt; </span><span style='color: #555555;'> 4</span><span> A     L           25
+#&gt; </span><span style='color: #555555;'> 5</span><span> A     L           70
+#&gt; </span><span style='color: #555555;'> 6</span><span> A     L           52
+#&gt; </span><span style='color: #555555;'> 7</span><span> A     L           51
+#&gt; </span><span style='color: #555555;'> 8</span><span> A     L           26
+#&gt; </span><span style='color: #555555;'> 9</span><span> A     L           67
+#&gt; </span><span style='color: #555555;'>10</span><span> A     M           18
+#&gt; </span><span style='color: #555555;'># … with 44 more rows</span><span></div><div class='input'><span class='no'>warpbreaks</span> <span class='kw'>%&gt;%</span>
   <span class='fu'>pivot_wider</span>(
     <span class='kw'>names_from</span> <span class='kw'>=</span> <span class='no'>wool</span>,
     <span class='kw'>values_from</span> <span class='kw'>=</span> <span class='no'>breaks</span>,
     <span class='kw'>values_fn</span> <span class='kw'>=</span> <span class='no'>mean</span>
-  )</div><div class='output co'>#&gt; # A tibble: 3 x 3
+  )</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 3 x 3</span><span>
 #&gt;   tension     A     B
-#&gt;   &lt;fct&gt;   &lt;dbl&gt; &lt;dbl&gt;
-#&gt; 1 L        44.6  28.2
-#&gt; 2 M        24    28.8
-#&gt; 3 H        24.6  18.8</div></pre>
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'>1</span><span> L        44.6  28.2
+#&gt; </span><span style='color: #555555;'>2</span><span> M        24    28.8
+#&gt; </span><span style='color: #555555;'>3</span><span> H        24.6  18.8</div></span></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>

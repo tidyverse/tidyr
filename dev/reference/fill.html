@@ -167,7 +167,7 @@ and are only recorded when they change." />
   </ul>
 </li>
         <li>
-  <a href="https://github.com/tidyverse/tidyr">
+  <a href="https://github.com/tidyverse/tidyr/">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -247,25 +247,25 @@ or "updown" (first up and then down).</p></td>
 )
 
 <span class='co'># `fill()` defaults to replacing missing data from top to bottom</span>
-<span class='no'>sales</span> <span class='kw'>%&gt;%</span> <span class='fu'>fill</span>(<span class='no'>year</span>)</div><div class='output co'>#&gt; # A tibble: 16 x 3
+<span class='no'>sales</span> <span class='kw'>%&gt;%</span> <span class='fu'>fill</span>(<span class='no'>year</span>)</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 16 x 3</span><span>
 #&gt;    quarter  year sales
-#&gt;    &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt;
-#&gt;  1 Q1       2000 66013
-#&gt;  2 Q2       2000 69182
-#&gt;  3 Q3       2000 53175
-#&gt;  4 Q4       2000 21001
-#&gt;  5 Q1       2001 46036
-#&gt;  6 Q2       2001 58842
-#&gt;  7 Q3       2001 44568
-#&gt;  8 Q4       2001 50197
-#&gt;  9 Q1       2002 39113
-#&gt; 10 Q2       2002 41668
-#&gt; 11 Q3       2002 30144
-#&gt; 12 Q4       2002 52897
-#&gt; 13 Q1       2004 32129
-#&gt; 14 Q2       2004 67686
-#&gt; 15 Q3       2004 31768
-#&gt; 16 Q4       2004 49094</div><div class='input'>
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'> 1</span><span> Q1       </span><span style='text-decoration: underline;'>2</span><span>000 </span><span style='text-decoration: underline;'>66</span><span>013
+#&gt; </span><span style='color: #555555;'> 2</span><span> Q2       </span><span style='text-decoration: underline;'>2</span><span>000 </span><span style='text-decoration: underline;'>69</span><span>182
+#&gt; </span><span style='color: #555555;'> 3</span><span> Q3       </span><span style='text-decoration: underline;'>2</span><span>000 </span><span style='text-decoration: underline;'>53</span><span>175
+#&gt; </span><span style='color: #555555;'> 4</span><span> Q4       </span><span style='text-decoration: underline;'>2</span><span>000 </span><span style='text-decoration: underline;'>21</span><span>001
+#&gt; </span><span style='color: #555555;'> 5</span><span> Q1       </span><span style='text-decoration: underline;'>2</span><span>001 </span><span style='text-decoration: underline;'>46</span><span>036
+#&gt; </span><span style='color: #555555;'> 6</span><span> Q2       </span><span style='text-decoration: underline;'>2</span><span>001 </span><span style='text-decoration: underline;'>58</span><span>842
+#&gt; </span><span style='color: #555555;'> 7</span><span> Q3       </span><span style='text-decoration: underline;'>2</span><span>001 </span><span style='text-decoration: underline;'>44</span><span>568
+#&gt; </span><span style='color: #555555;'> 8</span><span> Q4       </span><span style='text-decoration: underline;'>2</span><span>001 </span><span style='text-decoration: underline;'>50</span><span>197
+#&gt; </span><span style='color: #555555;'> 9</span><span> Q1       </span><span style='text-decoration: underline;'>2</span><span>002 </span><span style='text-decoration: underline;'>39</span><span>113
+#&gt; </span><span style='color: #555555;'>10</span><span> Q2       </span><span style='text-decoration: underline;'>2</span><span>002 </span><span style='text-decoration: underline;'>41</span><span>668
+#&gt; </span><span style='color: #555555;'>11</span><span> Q3       </span><span style='text-decoration: underline;'>2</span><span>002 </span><span style='text-decoration: underline;'>30</span><span>144
+#&gt; </span><span style='color: #555555;'>12</span><span> Q4       </span><span style='text-decoration: underline;'>2</span><span>002 </span><span style='text-decoration: underline;'>52</span><span>897
+#&gt; </span><span style='color: #555555;'>13</span><span> Q1       </span><span style='text-decoration: underline;'>2</span><span>004 </span><span style='text-decoration: underline;'>32</span><span>129
+#&gt; </span><span style='color: #555555;'>14</span><span> Q2       </span><span style='text-decoration: underline;'>2</span><span>004 </span><span style='text-decoration: underline;'>67</span><span>686
+#&gt; </span><span style='color: #555555;'>15</span><span> Q3       </span><span style='text-decoration: underline;'>2</span><span>004 </span><span style='text-decoration: underline;'>31</span><span>768
+#&gt; </span><span style='color: #555555;'>16</span><span> Q4       </span><span style='text-decoration: underline;'>2</span><span>004 </span><span style='text-decoration: underline;'>49</span><span>094</div><div class='input'>
 <span class='co'># Value (pet_type) is missing above</span>
 <span class='no'>tidy_pets</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>tibble</span><span class='kw ns'>::</span><span class='fu'><a href='https://tibble.tidyverse.org/reference/tribble.html'>tribble</a></span>(
   ~<span class='no'>rank</span>, ~<span class='no'>pet_type</span>, ~<span class='no'>breed</span>,
@@ -285,21 +285,21 @@ or "updown" (first up and then down).</p></td>
 
 <span class='co'># For values that are missing above you can use `.direction = "up"`</span>
 <span class='no'>tidy_pets</span> <span class='kw'>%&gt;%</span>
-  <span class='fu'>fill</span>(<span class='no'>pet_type</span>, <span class='kw'>.direction</span> <span class='kw'>=</span> <span class='st'>"up"</span>)</div><div class='output co'>#&gt; # A tibble: 12 x 3
+  <span class='fu'>fill</span>(<span class='no'>pet_type</span>, <span class='kw'>.direction</span> <span class='kw'>=</span> <span class='st'>"up"</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 12 x 3</span><span>
 #&gt;     rank pet_type breed                
-#&gt;    &lt;int&gt; &lt;chr&gt;    &lt;chr&gt;                
-#&gt;  1     1 Dog      Boston Terrier       
-#&gt;  2     2 Dog      Retrievers (Labrador)
-#&gt;  3     3 Dog      Retrievers (Golden)  
-#&gt;  4     4 Dog      French Bulldogs      
-#&gt;  5     5 Dog      Bulldogs             
-#&gt;  6     6 Dog      Beagles              
-#&gt;  7     1 Cat      Persian              
-#&gt;  8     2 Cat      Maine Coon           
-#&gt;  9     3 Cat      Ragdoll              
-#&gt; 10     4 Cat      Exotic               
-#&gt; 11     5 Cat      Siamese              
-#&gt; 12     6 Cat      American Short       </div><div class='input'>
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>                
+#&gt; </span><span style='color: #555555;'> 1</span><span>     1 Dog      Boston Terrier       
+#&gt; </span><span style='color: #555555;'> 2</span><span>     2 Dog      Retrievers (Labrador)
+#&gt; </span><span style='color: #555555;'> 3</span><span>     3 Dog      Retrievers (Golden)  
+#&gt; </span><span style='color: #555555;'> 4</span><span>     4 Dog      French Bulldogs      
+#&gt; </span><span style='color: #555555;'> 5</span><span>     5 Dog      Bulldogs             
+#&gt; </span><span style='color: #555555;'> 6</span><span>     6 Dog      Beagles              
+#&gt; </span><span style='color: #555555;'> 7</span><span>     1 Cat      Persian              
+#&gt; </span><span style='color: #555555;'> 8</span><span>     2 Cat      Maine Coon           
+#&gt; </span><span style='color: #555555;'> 9</span><span>     3 Cat      Ragdoll              
+#&gt; </span><span style='color: #555555;'>10</span><span>     4 Cat      Exotic               
+#&gt; </span><span style='color: #555555;'>11</span><span>     5 Cat      Siamese              
+#&gt; </span><span style='color: #555555;'>12</span><span>     6 Cat      American Short       </div><div class='input'>
 <span class='co'># Value (n_squirrels) is missing above and below within a group</span>
 <span class='no'>squirrels</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>tibble</span><span class='kw ns'>::</span><span class='fu'><a href='https://tibble.tidyverse.org/reference/tribble.html'>tribble</a></span>(
   ~<span class='no'>group</span>,    ~<span class='no'>name</span>,     ~<span class='no'>role</span>,     ~<span class='no'>n_squirrels</span>,
@@ -322,25 +322,25 @@ or "updown" (first up and then down).</p></td>
 <span class='no'>squirrels</span> <span class='kw'>%&gt;%</span>
   <span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span>(<span class='no'>group</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'>fill</span>(<span class='no'>n_squirrels</span>, <span class='kw'>.direction</span> <span class='kw'>=</span> <span class='st'>"downup"</span>) <span class='kw'>%&gt;%</span>
-  <span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>ungroup</a></span>()</div><div class='output co'>#&gt; # A tibble: 12 x 4
+  <span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>ungroup</a></span>()</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 12 x 4</span><span>
 #&gt;    group name     role        n_squirrels
-#&gt;    &lt;dbl&gt; &lt;chr&gt;    &lt;chr&gt;             &lt;dbl&gt;
-#&gt;  1     1 Sam      Observer              8
-#&gt;  2     1 Mara     Scorekeeper           8
-#&gt;  3     1 Jesse    Observer              8
-#&gt;  4     1 Tom      Observer              8
-#&gt;  5     2 Mike     Observer             14
-#&gt;  6     2 Rachael  Observer             14
-#&gt;  7     2 Sydekea  Scorekeeper          14
-#&gt;  8     2 Gabriela Observer             14
-#&gt;  9     3 Derrick  Observer              9
-#&gt; 10     3 Kara     Scorekeeper           9
-#&gt; 11     3 Emily    Observer              9
-#&gt; 12     3 Danielle Observer              9</div><div class='input'>
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>             </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'> 1</span><span>     1 Sam      Observer              8
+#&gt; </span><span style='color: #555555;'> 2</span><span>     1 Mara     Scorekeeper           8
+#&gt; </span><span style='color: #555555;'> 3</span><span>     1 Jesse    Observer              8
+#&gt; </span><span style='color: #555555;'> 4</span><span>     1 Tom      Observer              8
+#&gt; </span><span style='color: #555555;'> 5</span><span>     2 Mike     Observer             14
+#&gt; </span><span style='color: #555555;'> 6</span><span>     2 Rachael  Observer             14
+#&gt; </span><span style='color: #555555;'> 7</span><span>     2 Sydekea  Scorekeeper          14
+#&gt; </span><span style='color: #555555;'> 8</span><span>     2 Gabriela Observer             14
+#&gt; </span><span style='color: #555555;'> 9</span><span>     3 Derrick  Observer              9
+#&gt; </span><span style='color: #555555;'>10</span><span>     3 Kara     Scorekeeper           9
+#&gt; </span><span style='color: #555555;'>11</span><span>     3 Emily    Observer              9
+#&gt; </span><span style='color: #555555;'>12</span><span>     3 Danielle Observer              9</div><div class='input'>
 # Using `.direction = "updown"` accomplishes the same goal in this example
-</div></pre>
+</div></span></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
