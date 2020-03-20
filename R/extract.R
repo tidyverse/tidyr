@@ -65,15 +65,22 @@ str_extract <- function(x, into, regex, convert = FALSE) {
   }
 
   out <- as_tibble(matches, .name_repair = "minimal")
+  out <- as.list(out)
 
   # Handle duplicated names
   if (anyDuplicated(into)) {
-    pieces <- split(as.list(out), into)
-    out <- as_tibble(map(pieces, pmap_chr, paste0, sep = ""))
-  } else {
-    names(out) <- as_utf8_character(into)
+    pieces <- split(out, into)
+    into <- names(pieces)
+    out <- map(pieces, pmap_chr, paste0, sep = "")
   }
-  out <- out[!is.na(names(out))]
+
+  into <- as_utf8_character(into)
+
+  non_na_into <- !is.na(into)
+  out <- out[non_na_into]
+  names(out) <- into[non_na_into]
+
+  out <- as_tibble(out)
 
   if (convert) {
     out[] <- map(out, type.convert, as.is = TRUE)

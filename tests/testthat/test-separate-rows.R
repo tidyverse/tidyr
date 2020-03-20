@@ -21,7 +21,7 @@ test_that("preserves grouping", {
   rs <- df %>% separate_rows(x)
 
   expect_equal(class(df), class(rs))
-  expect_equal(dplyr::groups(df), dplyr::groups(rs))
+  expect_equal(dplyr::group_vars(df), dplyr::group_vars(rs))
 })
 
 test_that("drops grouping when needed", {
@@ -29,10 +29,10 @@ test_that("drops grouping when needed", {
 
   out <- df %>% separate_rows(y)
   expect_equal(out$y, c("a", "b"))
-  expect_equal(dplyr::groups(out), list(as.name("x")))
+  expect_equal(dplyr::group_vars(out), "x")
 
   out <- df %>% dplyr::group_by(y) %>% separate_rows(y)
-  expect_equal(dplyr::groups(out), NULL)
+  expect_equal(dplyr::group_vars(out), character())
 })
 
 test_that("convert produces integers etc", {
