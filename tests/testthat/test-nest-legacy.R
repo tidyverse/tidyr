@@ -264,7 +264,7 @@ test_that("grouping is preserved", {
 
   expect_equal(rs$x, 1:3)
   expect_equal(class(df), class(rs))
-  expect_equal(dplyr::groups(df), dplyr::groups(rs))
+  expect_equal(dplyr::group_vars(df), dplyr::group_vars(rs))
 })
 
 test_that("unnesting zero row column preserves names", {
