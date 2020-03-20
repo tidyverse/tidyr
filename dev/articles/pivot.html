@@ -497,16 +497,16 @@
 <span id="cb14-15"><a href="#cb14-15"></a>    <span class="dt">names_pattern =</span> <span class="st">"(.)(.)"</span></span>
 <span id="cb14-16"><a href="#cb14-16"></a>  )</span>
 <span id="cb14-17"><a href="#cb14-17"></a><span class="co">#&gt; # A tibble: 8 x 6</span></span>
-<span id="cb14-18"><a href="#cb14-18"></a><span class="co">#&gt;       x     a     b time        y     z</span></span>
-<span id="cb14-19"><a href="#cb14-19"></a><span class="co">#&gt;   &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt;</span></span>
-<span id="cb14-20"><a href="#cb14-20"></a><span class="co">#&gt; 1     1     1     0 1     -1.23       3</span></span>
-<span id="cb14-21"><a href="#cb14-21"></a><span class="co">#&gt; 2     1     1     0 2     -0.318     -2</span></span>
-<span id="cb14-22"><a href="#cb14-22"></a><span class="co">#&gt; 3     2     1     1 1      1.23       3</span></span>
-<span id="cb14-23"><a href="#cb14-23"></a><span class="co">#&gt; 4     2     1     1 2     -0.738     -2</span></span>
-<span id="cb14-24"><a href="#cb14-24"></a><span class="co">#&gt; 5     3     0     1 1     -0.143      3</span></span>
-<span id="cb14-25"><a href="#cb14-25"></a><span class="co">#&gt; 6     3     0     1 2     -1.48      -2</span></span>
-<span id="cb14-26"><a href="#cb14-26"></a><span class="co">#&gt; 7     4     0     1 1      0.811      3</span></span>
-<span id="cb14-27"><a href="#cb14-27"></a><span class="co">#&gt; 8     4     0     1 2     -0.0992    -2</span></span></code></pre></div>
+<span id="cb14-18"><a href="#cb14-18"></a><span class="co">#&gt;       x     a     b time       y     z</span></span>
+<span id="cb14-19"><a href="#cb14-19"></a><span class="co">#&gt;   &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;  &lt;dbl&gt; &lt;dbl&gt;</span></span>
+<span id="cb14-20"><a href="#cb14-20"></a><span class="co">#&gt; 1     1     1     0 1     -0.257     3</span></span>
+<span id="cb14-21"><a href="#cb14-21"></a><span class="co">#&gt; 2     1     1     0 2     -0.651    -2</span></span>
+<span id="cb14-22"><a href="#cb14-22"></a><span class="co">#&gt; 3     2     1     1 1      0.746     3</span></span>
+<span id="cb14-23"><a href="#cb14-23"></a><span class="co">#&gt; 4     2     1     1 2      0.743    -2</span></span>
+<span id="cb14-24"><a href="#cb14-24"></a><span class="co">#&gt; 5     3     0     1 1      0.862     3</span></span>
+<span id="cb14-25"><a href="#cb14-25"></a><span class="co">#&gt; 6     3     0     1 2     -1.50     -2</span></span>
+<span id="cb14-26"><a href="#cb14-26"></a><span class="co">#&gt; 7     4     0     1 1      1.58      3</span></span>
+<span id="cb14-27"><a href="#cb14-27"></a><span class="co">#&gt; 8     4     0     1 2      1.06     -2</span></span></code></pre></div>
 </div>
 <div id="duplicated-column-names" class="section level2">
 <h2 class="hasAnchor">
@@ -681,16 +681,16 @@
 <span id="cb25-9"><a href="#cb25-9"></a><span class="co">#&gt; # A tibble: 45 x 4</span></span>
 <span id="cb25-10"><a href="#cb25-10"></a><span class="co">#&gt;    product country  year production</span></span>
 <span id="cb25-11"><a href="#cb25-11"></a><span class="co">#&gt;    &lt;chr&gt;   &lt;chr&gt;   &lt;int&gt;      &lt;dbl&gt;</span></span>
-<span id="cb25-12"><a href="#cb25-12"></a><span class="co">#&gt;  1 A       AI       2000    -0.975 </span></span>
-<span id="cb25-13"><a href="#cb25-13"></a><span class="co">#&gt;  2 A       AI       2001    -0.829 </span></span>
-<span id="cb25-14"><a href="#cb25-14"></a><span class="co">#&gt;  3 A       AI       2002    -1.10  </span></span>
-<span id="cb25-15"><a href="#cb25-15"></a><span class="co">#&gt;  4 A       AI       2003     1.64  </span></span>
-<span id="cb25-16"><a href="#cb25-16"></a><span class="co">#&gt;  5 A       AI       2004     0.696 </span></span>
-<span id="cb25-17"><a href="#cb25-17"></a><span class="co">#&gt;  6 A       AI       2005     0.307 </span></span>
-<span id="cb25-18"><a href="#cb25-18"></a><span class="co">#&gt;  7 A       AI       2006    -0.664 </span></span>
-<span id="cb25-19"><a href="#cb25-19"></a><span class="co">#&gt;  8 A       AI       2007    -0.0148</span></span>
-<span id="cb25-20"><a href="#cb25-20"></a><span class="co">#&gt;  9 A       AI       2008    -0.0225</span></span>
-<span id="cb25-21"><a href="#cb25-21"></a><span class="co">#&gt; 10 A       AI       2009    -0.303 </span></span>
+<span id="cb25-12"><a href="#cb25-12"></a><span class="co">#&gt;  1 A       AI       2000     0.473 </span></span>
+<span id="cb25-13"><a href="#cb25-13"></a><span class="co">#&gt;  2 A       AI       2001     0.255 </span></span>
+<span id="cb25-14"><a href="#cb25-14"></a><span class="co">#&gt;  3 A       AI       2002    -1.40  </span></span>
+<span id="cb25-15"><a href="#cb25-15"></a><span class="co">#&gt;  4 A       AI       2003    -1.71  </span></span>
+<span id="cb25-16"><a href="#cb25-16"></a><span class="co">#&gt;  5 A       AI       2004     1.70  </span></span>
+<span id="cb25-17"><a href="#cb25-17"></a><span class="co">#&gt;  6 A       AI       2005    -0.0354</span></span>
+<span id="cb25-18"><a href="#cb25-18"></a><span class="co">#&gt;  7 A       AI       2006     1.89  </span></span>
+<span id="cb25-19"><a href="#cb25-19"></a><span class="co">#&gt;  8 A       AI       2007    -1.06  </span></span>
+<span id="cb25-20"><a href="#cb25-20"></a><span class="co">#&gt;  9 A       AI       2008    -0.988 </span></span>
+<span id="cb25-21"><a href="#cb25-21"></a><span class="co">#&gt; 10 A       AI       2009     0.290 </span></span>
 <span id="cb25-22"><a href="#cb25-22"></a><span class="co">#&gt; # … with 35 more rows</span></span></code></pre></div>
 <p>We want to widen the data so we have one column for each combination of <code>product</code> and <code>country</code>. The key is to specify multiple variables for <code>names_from</code>:</p>
 <div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a>production <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/pivot_wider.html">pivot_wider</a></span>(</span>
@@ -698,18 +698,18 @@
 <span id="cb26-3"><a href="#cb26-3"></a>  <span class="dt">values_from =</span> production</span>
 <span id="cb26-4"><a href="#cb26-4"></a>)</span>
 <span id="cb26-5"><a href="#cb26-5"></a><span class="co">#&gt; # A tibble: 15 x 4</span></span>
-<span id="cb26-6"><a href="#cb26-6"></a><span class="co">#&gt;     year    A_AI   B_AI   B_EI</span></span>
-<span id="cb26-7"><a href="#cb26-7"></a><span class="co">#&gt;    &lt;int&gt;   &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;</span></span>
-<span id="cb26-8"><a href="#cb26-8"></a><span class="co">#&gt;  1  2000 -0.975  -0.157  1.79 </span></span>
-<span id="cb26-9"><a href="#cb26-9"></a><span class="co">#&gt;  2  2001 -0.829   1.44  -0.945</span></span>
-<span id="cb26-10"><a href="#cb26-10"></a><span class="co">#&gt;  3  2002 -1.10    0.651 -0.254</span></span>
-<span id="cb26-11"><a href="#cb26-11"></a><span class="co">#&gt;  4  2003  1.64    0.748 -1.61 </span></span>
-<span id="cb26-12"><a href="#cb26-12"></a><span class="co">#&gt;  5  2004  0.696  -0.256 -1.42 </span></span>
-<span id="cb26-13"><a href="#cb26-13"></a><span class="co">#&gt;  6  2005  0.307  -0.732 -0.363</span></span>
-<span id="cb26-14"><a href="#cb26-14"></a><span class="co">#&gt;  7  2006 -0.664  -0.785  0.294</span></span>
-<span id="cb26-15"><a href="#cb26-15"></a><span class="co">#&gt;  8  2007 -0.0148 -0.338  0.647</span></span>
-<span id="cb26-16"><a href="#cb26-16"></a><span class="co">#&gt;  9  2008 -0.0225 -1.75  -1.68 </span></span>
-<span id="cb26-17"><a href="#cb26-17"></a><span class="co">#&gt; 10  2009 -0.303   0.475 -0.509</span></span>
+<span id="cb26-6"><a href="#cb26-6"></a><span class="co">#&gt;     year    A_AI    B_AI    B_EI</span></span>
+<span id="cb26-7"><a href="#cb26-7"></a><span class="co">#&gt;    &lt;int&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;</span></span>
+<span id="cb26-8"><a href="#cb26-8"></a><span class="co">#&gt;  1  2000  0.473  -1.34   -0.375 </span></span>
+<span id="cb26-9"><a href="#cb26-9"></a><span class="co">#&gt;  2  2001  0.255   1.56   -0.592 </span></span>
+<span id="cb26-10"><a href="#cb26-10"></a><span class="co">#&gt;  3  2002 -1.40    0.0590 -0.233 </span></span>
+<span id="cb26-11"><a href="#cb26-11"></a><span class="co">#&gt;  4  2003 -1.71    0.966  -1.67  </span></span>
+<span id="cb26-12"><a href="#cb26-12"></a><span class="co">#&gt;  5  2004  1.70   -1.44   -0.853 </span></span>
+<span id="cb26-13"><a href="#cb26-13"></a><span class="co">#&gt;  6  2005 -0.0354 -0.152  -0.0249</span></span>
+<span id="cb26-14"><a href="#cb26-14"></a><span class="co">#&gt;  7  2006  1.89    0.282   0.299 </span></span>
+<span id="cb26-15"><a href="#cb26-15"></a><span class="co">#&gt;  8  2007 -1.06   -0.379   0.561 </span></span>
+<span id="cb26-16"><a href="#cb26-16"></a><span class="co">#&gt;  9  2008 -0.988  -2.69   -0.351 </span></span>
+<span id="cb26-17"><a href="#cb26-17"></a><span class="co">#&gt; 10  2009  0.290   0.0483  0.357 </span></span>
 <span id="cb26-18"><a href="#cb26-18"></a><span class="co">#&gt; # … with 5 more rows</span></span></code></pre></div>
 </div>
 <div id="tidy-census" class="section level2">
