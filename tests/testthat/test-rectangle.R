@@ -116,13 +116,22 @@ test_that("simplifies length-1 lists", {
   df <- tibble(
     x = 1:2,
     y = list(
-      list(a = 1, b = 2),
+      list(a = 1, b = 2, c = c(1, 2)),
       list(a = 3)
     )
   )
   out <- df %>% unnest_wider(y)
   expect_equal(out$a, c(1, 3))
   expect_equal(out$b, c(2, NA))
+  expect_equal(out$c, list(c(1, 2), NULL))
+
+  # Works when casting too
+  out <- df %>% unnest_wider(y,
+    ptype = list(a = double(), b = double(), c = list())
+  )
+  expect_equal(out$a, c(1, 3))
+  expect_equal(out$b, c(2, NA))
+  expect_equal(out$c, list(c(1, 2), NULL))
 })
 
 test_that("can handle data frames consistently with vectors" , {
@@ -145,6 +154,27 @@ test_that("list of 0-length vectors yields no new columns", {
   # similarly when empty
   df <- tibble(x = integer(), y = list())
   expect_named(unnest_wider(df, y), "x")
+})
+
+test_that("list_of columns can be unnested", {
+  df <- tibble(x = 1:2, y = list_of(c(a = 1L), c(a = 1L, b = 2L)))
+  expect_named(unnest_wider(df, y), c("x", "a", "b"))
+
+  df <- tibble(x = 1:2, y = list_of(c(a = 1L), c(b = 1:2)))
+  expect_named(unnest_wider(df, y), c("x", "a", "b1", "b2"))
+})
+
+test_that("names_sep creates unique names", {
+  df <- tibble(
+    x = list("a", c("a", "b", "c")),
+    y = list(c(a = 1), c(b = 2, a = 1))
+  )
+  expect_warning(out <- unnest_wider(df, x, names_sep = "_"), NA)
+  expect_named(out, c("x_1", "x_2", "x_3", "y"))
+
+  expect_warning(out <- unnest_wider(df, y, names_sep = "_"), NA)
+  expect_named(out, c("x", "y_a", "y_b"))
+  expect_equal(out$y_a, c(1, 1))
 })
 
 # unnest_longer -----------------------------------------------------------
@@ -194,6 +224,17 @@ test_that("bad inputs generate errors", {
   expect_error(unnest_longer(df, y), "must be list of vectors")
 })
 
+test_that("list_of columns can be unnested", {
+  df <- tibble(x = 1:2, y = list_of(1L, 1:2))
+  out <- unnest_longer(df, y)
+
+  expect_named(out, c("x", "y"))
+  expect_equal(nrow(out), 3)
+
+  # With id column
+  df <- tibble(x = 1:2, y = list_of(c(a = 1L), c(b = 1:2)))
+  expect_named(unnest_longer(df, y), c("x", "y", "y_id"))
+})
 
 # unnest_auto -------------------------------------------------------------
 

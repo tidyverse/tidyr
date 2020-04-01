@@ -64,7 +64,7 @@
 #'        )
 #'     ),
 #'     list(
-#'       species = "clownfish",
+#'       species = "blue tang",
 #'       color = "blue",
 #'       films = c("Finding Nemo", "Finding Dory")
 #'     )
@@ -85,7 +85,7 @@
 #' df %>%
 #'   unnest_wider(metadata) %>%
 #'   unnest_longer(films)
-#
+#'
 #' # unnest_longer() is useful when each component of the list should
 #' # form a row
 #' df <- tibble(
@@ -95,6 +95,8 @@
 #' df %>% unnest_longer(y)
 #' # Automatically creates names if widening
 #' df %>% unnest_wider(y)
+#' # But you'll usually want to provide names_sep:
+#' df %>% unnest_wider(y, names_sep = "_")
 #'
 #' # And similarly if the vectors are named
 #' df <- tibble(
@@ -106,13 +108,14 @@
 #'
 #' @export hoist
 hoist <- function(.data, .col, ..., .remove = TRUE, .simplify = TRUE, .ptype = list()) {
+  check_present(.col)
   .col <- tidyselect::vars_pull(names(.data), !!enquo(.col))
   x <- .data[[.col]]
   if (!is.list(x)) {
     abort("`col` must be a list-column")
   }
 
-  pluckers <- list(...)
+  pluckers <- list2(...)
   if (!is_named(pluckers)) {
     stop("All elements of `...` must be named", call. = FALSE)
   }
@@ -123,8 +126,7 @@ hoist <- function(.data, .col, ..., .remove = TRUE, .simplify = TRUE, .ptype = l
   new_cols <- map2(
     new_cols, .ptype[names(new_cols)],
     simplify_col,
-    simplify = .simplify,
-    keep_empty = TRUE
+    simplify = .simplify
   )
 
   # Place new columns before old column
@@ -169,6 +171,7 @@ unnest_longer <- function(data, col,
                           ptype = list()
                           ) {
 
+  check_present(col)
   col <- tidyselect::vars_pull(names(data), !!enquo(col))
 
   values_to <- values_to %||% col
@@ -178,7 +181,7 @@ unnest_longer <- function(data, col,
     indices_to <- paste0(col, "_id")
   }
 
-  data[[col]][] <- map(
+  data[[col]] <- map(
     data[[col]], vec_to_long,
     col = col,
     values_to = values_to,
@@ -191,7 +194,6 @@ unnest_longer <- function(data, col,
   data[[col]][] <- map2(
     data[[col]], ptype[inner_cols],
     simplify_col,
-    keep_empty = TRUE,
     simplify = simplify
   )
 
@@ -202,31 +204,35 @@ unnest_longer <- function(data, col,
 #' @rdname hoist
 #' @param simplify If `TRUE`, will attempt to simplify lists of length-1
 #'   vectors to an atomic vector
+#' @param names_sep If `NULL`, the default, the names will be left
+#'   as is. If a string, the inner and outer names will be paste together using
+#'   `names_sep` as a separator.
 unnest_wider <- function(data, col,
                          names_sep = NULL,
                          simplify = TRUE,
                          names_repair = "check_unique",
                          ptype = list()) {
-  col <- tidyselect::vars_select(tbl_vars(data), !!enquo(col))
+  check_present(col)
+  col <- tidyselect::vars_pull(tbl_vars(data), !!enquo(col))
 
-  data[[col]][] <- map(data[[col]], vec_to_wide, col = col)
+  data[[col]] <- map(data[[col]], vec_to_wide, col = col, names_sep = names_sep)
   data <- unchop(data, !!col, keep_empty = TRUE)
   inner_cols <- names(data[[col]])
 
   data[[col]][] <- map2(
     data[[col]], ptype[inner_cols],
     simplify_col,
-    keep_empty = TRUE,
     simplify = simplify
   )
 
-  unpack(data, !!col, names_sep = names_sep, names_repair = names_repair)
+  unpack(data, !!col, names_repair = names_repair)
 }
 
 #' @export
 #' @rdname hoist
 unnest_auto <- function(data, col) {
-  col <- tidyselect::vars_select(tbl_vars(data), !!enquo(col))
+  check_present(col)
+  col <- tidyselect::vars_pull(tbl_vars(data), !!enquo(col))
 
   x <- data[[col]]
   dir <- guess_dir(x, col)
@@ -315,31 +321,16 @@ strike <- function(x, idx) {
   }
 }
 
-simplify_col <- function(x, ptype, keep_empty = FALSE, simplify = FALSE) {
+simplify_col <- function(x, ptype, simplify = FALSE) {
   if (!is.list(x) || is.data.frame(x)) {
     return(x)
   }
 
-  if (is_empty(x)) {
-    return(attr(x, "ptype") %||% unspecified(0))
-  }
-
-  if (keep_empty) {
-    x[] <- map(x, init_col)
-  }
-
   if (!is.null(ptype)) {
-    x <- vec_cast(x, ptype)
-  } else if (simplify) {
-    x <- vec_simplify(x)
+    return(vec_cast(x, ptype))
   }
 
-  x
-}
-
-vec_simplify <- function(x) {
-  n <- map_int(x, vec_size)
-  if (!all(n == 1)) {
+  if (!simplify) {
     return(x)
   }
 
@@ -350,6 +341,14 @@ vec_simplify <- function(x) {
     return(x)
   }
 
+  n <- map_int(x, vec_size)
+  if (!all(n %in% c(0, 1))) {
+    return(x)
+  }
+
+  # Ensure empty elements filled in with a single unspecified value
+  x[n == 0] <- list(NA)
+
   tryCatch(
     vec_c(!!!x),
     vctrs_error_incompatible_type = function(e) x
@@ -358,10 +357,16 @@ vec_simplify <- function(x) {
 
 
 # 1 row; n cols
-vec_to_wide <- function(x, col) {
+vec_to_wide <- function(x, col, names_sep = NULL) {
   if (is.null(x)) {
-    NULL
-  } else if (is.data.frame(x)) {
+    return(NULL)
+  }
+
+  if (!is.null(names_sep)) {
+    names(x) <- paste0(col, names_sep, index(x))
+  }
+
+  if (is.data.frame(x)) {
     as_tibble(map(x, list))
   } else if (vec_is(x)) {
     if (is.list(x)) {

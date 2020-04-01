@@ -7,14 +7,14 @@ test_that("nest turns grouped values into one list-df", {
   out <- nest(df, data = y)
   expect_equal(out$x, 1)
   expect_equal(length(out$data), 1L)
-  expect_equal(out$data[[1L]], data.frame(y = 1:3))
+  expect_equal(out$data[[1L]], tibble(y = 1:3))
 })
 
 test_that("nest uses grouping vars if present", {
   df <- tibble(x = c(1, 1, 1), y = 1:3)
   out <- df %>% dplyr::group_by(x) %>% nest()
   expect_s3_class(out, "grouped_df")
-  expect_equal(out$data[[1]], data.frame(y = 1:3))
+  expect_equal(out$data[[1]], tibble(y = 1:3))
 })
 
 test_that("provided grouping vars override grouped defaults", {
@@ -42,6 +42,12 @@ test_that("nest preserves order of data", {
   df <- tibble(x = c(1, 3, 2, 3, 2), y = 1:5)
   out <- nest(df, data = y)
   expect_equal(out$x, c(1, 3, 2))
+})
+
+test_that("can strip names", {
+  df <- tibble(x = c(1, 1, 1), ya = 1:3, yb = 4:6)
+  out <- nest(df, y = starts_with("y"), .names_sep = "")
+  expect_named(out$y[[1]], c("a", "b"))
 })
 
 test_that("empty factor levels don't affect nest", {
@@ -295,5 +301,5 @@ test_that("grouping is preserved", {
 
   expect_equal(rs$x, 1:3)
   expect_equal(class(df), class(rs))
-  expect_equal(dplyr::groups(df), dplyr::groups(rs))
+  expect_equal(dplyr::group_vars(df), dplyr::group_vars(rs))
 })

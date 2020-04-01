@@ -15,7 +15,7 @@ reconstruct_tibble <- function(input, output, ungrouped_vars = character()) {
   if (inherits(input, "grouped_df")) {
     old_groups <- dplyr::group_vars(input)
     new_groups <- intersect(setdiff(old_groups, ungrouped_vars), names(output))
-    dplyr::grouped_df(output, new_groups)
+    dplyr::grouped_df(output, new_groups, drop = dplyr::group_by_drop_default(input))
   } else if (inherits(input, "tbl_df")) {
     # Assume name repair carried out elsewhere
     as_tibble(output, .name_repair = "minimal")
@@ -99,16 +99,6 @@ update_cols <- function(old, new) {
   old
 }
 
-init_col <- function(x) {
-  if (is_null(x)) {
-    unspecified(1)
-  } else if (vec_is_empty(x)) {
-    vec_init(x, 1)
-  } else {
-    x
-  }
-}
-
 # Own copy since it might disappear from vctrs since it
 # isn't well thought out
 vec_repeat <- function(x, each = 1L, times = 1L) {
@@ -117,4 +107,12 @@ vec_repeat <- function(x, each = 1L, times = 1L) {
 
   idx <- rep(vec_seq_along(x), times = times, each = each)
   vec_slice(x, idx)
+}
+
+check_present <- function(x) {
+  arg <- ensym(x)
+  if (missing(x)) {
+    abort(paste0("Argument `", arg, "` is missing with no default"))
+  }
+
 }

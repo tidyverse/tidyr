@@ -15,7 +15,7 @@ test_that("preserves grouping", {
   df <- tibble(x = 1:2, y = 1:2, z = 3:4) %>% dplyr::group_by(x)
   out <- complete(df, x, y)
   expect_s3_class(out, "grouped_df")
-  expect_equal(dplyr::groups(out), dplyr::groups(df))
+  expect_equal(dplyr::group_vars(out), dplyr::group_vars(df))
 })
 
 test_that("expands empty factors", {
@@ -39,5 +39,6 @@ test_that("empty expansion returns original", {
 test_that("not drop unspecified levels in complete", {
   df <- tibble(x = 1:3, y = 1:3, z = c("a", "b", "c"))
   df2 <- df %>% complete(z = c("a", "b"))
-  expect_equal(df, df2)
+  expect <- df[c("z", "x", "y")]
+  expect_equal(df2, expect)
 })

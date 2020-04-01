@@ -7,8 +7,8 @@
 
 [![CRAN
 status](https://www.r-pkg.org/badges/version/tidyr)](https://cran.r-project.org/package=tidyr)
-[![Travis build
-status](https://travis-ci.org/tidyverse/tidyr.svg?branch=master)](https://travis-ci.org/tidyverse/tidyr)
+[![R build
+status](https://github.com/tidyverse/tidyr/workflows/R-CMD-check/badge.svg)](https://github.com/tidyverse/tidyr/actions)
 [![Codecov test
 coverage](https://codecov.io/gh/tidyverse/tidyr/branch/master/graph/badge.svg)](https://codecov.io/gh/tidyverse/tidyr?branch=master)
 <!-- badges: end -->
@@ -19,7 +19,7 @@ The goal of tidyr is to help you create **tidy data**. Tidy data is data
 where:
 
 1.  Every column is variable.
-2.  Every row is an observation..
+2.  Every row is an observation.
 3.  Every cell is a single value.
 
 Tidy data describes a standard way of storing data that is used wherever

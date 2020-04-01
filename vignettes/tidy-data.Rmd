@@ -30,17 +30,17 @@ Like families, tidy datasets are all alike but every messy dataset is messy in i
 
 ## Data structure
 
-Most statistical datasets are data frames made up of **rows** and **columns**. The columns are almost always labeled and the rows are sometimes labeled. The following code provides some data about an imaginary experiment in a format commonly seen in the wild. The table has two columns and three rows, and both rows and columns are labeled.
+Most statistical datasets are data frames made up of **rows** and **columns**. The columns are almost always labeled and the rows are sometimes labeled. The following code provides some data about an imaginary classroom in a format commonly seen in the wild. The table has three columns and four rows, and both rows and columns are labeled.
 
 ```{r}
-preg <- read.csv("preg.csv", stringsAsFactors = FALSE)
-preg
+classroom <- read.csv("classroom.csv", stringsAsFactors = FALSE)
+classroom
 ```
 
 There are many ways to structure the same underlying data. The following table shows the same data as above, but the rows and columns have been transposed.
 
 ```{r}
-read.csv("preg2.csv", stringsAsFactors = FALSE)
+read.csv("classroom2.csv", stringsAsFactors = FALSE)
 ```
 
 The data is the same, but the layout is different. Our vocabulary of rows and columns is simply not rich enough to describe why the two tables represent the same data. In addition to appearance, we need a way to describe the underlying semantics, or meaning, of the values displayed in the table.
@@ -49,30 +49,31 @@ The data is the same, but the layout is different. Our vocabulary of rows and co
 
 A dataset is a collection of **values**, usually either numbers (if quantitative) or strings (if qualitative). Values are organised in two ways. Every value belongs to a **variable** and an **observation**. A variable contains all values that measure the same underlying attribute (like height, temperature, duration) across units. An observation contains all values measured on the same unit (like a person, or a day, or a race) across attributes.
 
-A tidy version of the pregnancy data looks like this: (you'll learn how the functions work a little later)
+A tidy version of the classroom data looks like this: (you'll learn how the functions work a little later)
 
-```{r, message = FALSE}
+```{r setup, message = FALSE}
 library(tidyr)
 library(dplyr)
-preg2 <- preg %>% 
-  gather(treatment, n, treatmenta:treatmentb) %>%
-  mutate(treatment = gsub("treatment", "", treatment)) %>%
-  arrange(name, treatment)
-preg2
 ```
 
-This makes the values, variables and observations more clear. The dataset contains 18 values representing three variables and six observations. The variables are:
+```{r}
+classroom2 <- classroom %>% 
+  pivot_longer(quiz1:test1, names_to = "assessment", values_to = "grade") %>% 
+  arrange(name, assessment)
+classroom2
+```
 
-1. `name`, with three possible values (John, Mary, and Jane).
+This makes the values, variables, and observations more clear. The dataset contains 36 values representing three variables and 12 observations. The variables are:
 
-2. `treatment`, with two possible values (a and b).
+1. `name`, with four possible values (Billy, Suzy, Lionel, and Jenny).
 
-3. `n`, with five or six values depending on how you think of the missing 
-   value (`r sort(preg2$n, na.last = TRUE)`)
+2. `assessment`, with three possible values (quiz1, quiz2, and test1).
 
-The experimental design tells us more about the structure of the observations. In this experiment, every combination of of `name` and `treatment` was measured, a completely crossed design. The experimental design also determines whether or not missing values can be safely dropped. In this experiment, the missing value represents an observation that should have been made, but wasn't, so it's important to keep it. Structural missing values, which represent measurements that can't be made (e.g., the count of pregnant males) can be safely removed.
+3. `grade`, with five or six values depending on how you think of the missing value (`r sort(unique(classroom2$grade), na.last = TRUE)`).
 
-For a given dataset, it's usually easy to figure out what are observations and what are variables, but it is surprisingly difficult to precisely define variables and observations in general. For example, if the columns in the pregnancy data were `height` and `weight` we would have been happy to call them variables. If the columns were `height` and `width`, it would be less clear cut, as we might think of height and width as values of a `dimension` variable. If the columns were `home phone` and `work phone`, we could treat these as two variables, but in a fraud detection environment we might want variables `phone number` and `number type` because the use of one phone number for multiple people might suggest fraud. A general rule of thumb is that it is easier to describe functional relationships between variables (e.g., `z` is a linear combination of `x` and `y`, `density` is the ratio of `weight` to `volume`) than between rows, and it is easier to make comparisons between groups of observations (e.g., average of group a vs. average of group b) than between groups of columns.
+The tidy data frame explicitly tells us the definition of an observation. In this classroom, every combination of `name` and `assessment` is a single measured observation. The dataset also informs us of missing values, which can and do have meaning. Billy was absent for the first quiz, but tried to salvage his grade. Suzy failed the first quiz, so she decided to drop the class. To calculate Billy's final grade, we might replace this missing value with an F (or he might get a second chance to take the quiz). However, if we want to know the class average for Test 1, dropping Suzy's structural missing value would be more appropriate than imputing a new value.
+
+For a given dataset, it's usually easy to figure out what are observations and what are variables, but it is surprisingly difficult to precisely define variables and observations in general. For example, if the columns in the classroom data were `height` and `weight` we would have been happy to call them variables. If the columns were `height` and `width`, it would be less clear cut, as we might think of height and width as values of a `dimension` variable. If the columns were `home phone` and `work phone`, we could treat these as two variables, but in a fraud detection environment we might want variables `phone number` and `number type` because the use of one phone number for multiple people might suggest fraud. A general rule of thumb is that it is easier to describe functional relationships between variables (e.g., `z` is a linear combination of `x` and `y`, `density` is the ratio of `weight` to `volume`) than between rows, and it is easier to make comparisons between groups of observations (e.g., average of group a vs. average of group b) than between groups of columns.
 
 In a given analysis, there may be multiple levels of observation. For example, in a trial of new allergy medication we might have three observational types: demographic data collected from each person (`age`, `sex`, `race`), medical data collected from each person on each day (`number of sneezes`, `redness of eyes`), and meteorological data collected on each day (`temperature`, `pollen count`).
 
@@ -90,7 +91,7 @@ Tidy data is a standard way of mapping the meaning of a dataset to its structure
 
 This is Codd's 3rd normal form, but with the constraints framed in statistical language, and the focus put on a single dataset rather than the many connected datasets common in relational databases. **Messy data** is any other arrangement of the data.
 
-Tidy data makes it easy for an analyst or a computer to extract needed variables because it provides a standard way of structuring a dataset. Compare the different versions of the pregnancy data: in the messy version you need to use different strategies to extract different variables. This slows analysis and invites errors. If you consider how many data analysis operations involve all of the values in a variable (every aggregation function), you can see how important it is to extract these values in a simple, standard way. Tidy data is particularly well suited for vectorised programming languages like R, because the layout ensures that values of different variables from the same observation are always paired.
+Tidy data makes it easy for an analyst or a computer to extract needed variables because it provides a standard way of structuring a dataset. Compare the different versions of the classroom data: in the messy version you need to use different strategies to extract different variables. This slows analysis and invites errors. If you consider how many data analysis operations involve all of the values in a variable (every aggregation function), you can see how important it is to extract these values in a simple, standard way. Tidy data is particularly well suited for vectorised programming languages like R, because the layout ensures that values of different variables from the same observation are always paired.
 
 While the order of variables and observations does not affect analysis, a good ordering makes it easier to scan the raw values. One way of organising variables is by their role in the analysis: are values fixed by the design of the data collection, or are they measured during the course of the experiment? Fixed variables describe the experimental design and are known in advance. Computer scientists often call fixed variables dimensions, and statisticians usually denote them with subscripts on random variables. Measured variables are what we actually measure in the study. Fixed variables should come first, followed by measured variables, each ordered so that related variables are contiguous. Rows can then be ordered by the first variable, breaking ties with the second and subsequent (fixed) variables. This is the convention adopted by all tabular displays in this paper.
 
@@ -108,7 +109,7 @@ Real datasets can, and often do, violate the three precepts of tidy data in almo
 
 -   A single observational unit is stored in multiple tables.
 
-Surprisingly, most messy datasets, including types of messiness not explicitly described above, can be tidied with a small set of tools: gathering, separating and spreading. The following sections illustrate each problem with a real dataset that I have encountered, and show how to tidy them.
+Surprisingly, most messy datasets, including types of messiness not explicitly described above, can be tidied with a small set of tools: pivoting (longer and wider) and separating. The following sections illustrate each problem with a real dataset that I have encountered, and show how to tidy them.
 
 ## Column headers are values, not variable names
 
@@ -120,13 +121,13 @@ The following code shows a subset of a typical dataset of this form. This datase
 relig_income
 ```
 
-This dataset has three variables, `religion`, `income` and `frequency`. To tidy it, we need to **gather** the non-variable columns into a two-column key-value pair. This action is often described as making a wide dataset long (or tall), but I'll avoid those terms because they're imprecise. 
+This dataset has three variables, `religion`, `income` and `frequency`. To tidy it, we need to **pivot** the non-variable columns into a two-column key-value pair. This action is often described as making a wide dataset longer (or taller). 
 
-When gathering variables, we need to provide the name of the new key-value columns to create. The first argument, is the name of the key column, which is the name of the variable defined by the values of the column headings. In this case, it's `income`. The second argument is the name of the value column, `frequency`. The third argument defines the columns to gather, here, every column except religion.
+When pivoting variables, we need to provide the name of the new key-value columns to create. After defining the colums to pivot (every column except for religion), you will need the name of the key column, which is the name of the variable defined by the values of the column headings. In this case, it's `income`. The second argument is the name of the value column, `frequency`. 
 
 ```{r}
-relig_income %>%
-  gather(income, frequency, -religion)
+relig_income %>% 
+  pivot_longer(-religion, names_to = "income", values_to = "frequency")
 ```
 
 This form is tidy because each column represents a variable and each row represents an observation, in this case a demographic unit corresponding to a combination of `religion` and `income`.
@@ -137,24 +138,30 @@ This format is also used to record regularly spaced observations over time. For 
 billboard
 ```
 
-To tidy this dataset, we first gather together all the `wk` columns. The column names give the `week` and the values are the `rank`s:
+To tidy this dataset, we first use `pivot_longer()` to make the dataset longer. We transform the columns from `wk1` to `wk76`, making a new column for their names, `week`, and a new value for their values, `rank`:
 
 ```{r}
 billboard2 <- billboard %>% 
-  gather(week, rank, wk1:wk76, na.rm = TRUE)
+  pivot_longer(
+    wk1:wk76, 
+    names_to = "week", 
+    values_to = "rank", 
+    values_drop_na = TRUE
+  )
 billboard2
 ```
 
-Here we use `na.rm` to drop any missing values from the gather columns. In this data, missing values represent weeks that the song wasn't in the charts, so can be safely dropped.
+Here we use `values_drop_na = TRUE` to drop any missing values from the rank column. In this data, missing values represent weeks that the song wasn't in the charts, so can be safely dropped.
 
 In this case it's also nice to do a little cleaning, converting the week variable to a number, and figuring out the date corresponding to each week on the charts:
 
 ```{r}
 billboard3 <- billboard2 %>%
   mutate(
-    week = extract_numeric(week),
-    date = as.Date(date.entered) + 7 * (week - 1)) %>%
-  select(-date.entered)
+    week = as.integer(gsub("wk", "", week)),
+    date = as.Date(date.entered) + 7 * (week - 1),
+    date.entered = NULL
+  )
 billboard3
 ```
 
@@ -172,18 +179,23 @@ billboard3 %>% arrange(date, rank)
 
 ## Multiple variables stored in one column
 
-After gathering columns, the key column is sometimes a combination of multiple underlying variable names. This happens in the `tb` (tuberculosis) dataset, shown below. This dataset comes from the World Health Organisation, and records the counts of confirmed tuberculosis cases by `country`, `year`, and demographic group. The demographic groups are broken down by `sex` (m, f) and `age` (0-14, 15-25, 25-34, 35-44, 45-54, 55-64, unknown).
+After pivoting columns, the key column is sometimes a combination of multiple underlying variable names. This happens in the `tb` (tuberculosis) dataset, shown below. This dataset comes from the World Health Organisation, and records the counts of confirmed tuberculosis cases by `country`, `year`, and demographic group. The demographic groups are broken down by `sex` (m, f) and `age` (0-14, 15-25, 25-34, 35-44, 45-54, 55-64, unknown).
 
 ```{r}
 tb <- as_tibble(read.csv("tb.csv", stringsAsFactors = FALSE))
 tb
 ```
 
-First we gather up the non-variable columns:
+First we use `pivot_longer()` to gather up the non-variable columns:
 
 ```{r}
 tb2 <- tb %>% 
-  gather(demo, n, -iso2, -year, na.rm = TRUE)
+  pivot_longer(
+    c(-iso2, -year), 
+    names_to = "demo", 
+    values_to = "n", 
+    values_drop_na = TRUE
+  )
 tb2
 ```
 
@@ -197,6 +209,20 @@ tb3
 
 Storing the values in this form resolves a problem in the original data. We want to compare rates, not counts, which means we need to know the population. In the original format, there is no easy way to add a population variable. It has to be stored in a separate table, which makes it hard to correctly match populations to counts. In tidy form, adding variables for population and rate is easy because they're just additional columns.
 
+In this case, we could also do the transformation in a single step by supplying multiple column names to `names_to` and also supplying a grouped regular expression to `names_pattern`:
+
+```{r}
+tb %>% pivot_longer(
+  c(-iso2, -year), 
+  names_to = c("sex", "age"), 
+  names_pattern = "(.)(.+)",
+  values_to = "n", 
+  values_drop_na = TRUE
+)
+
+```
+
+
 ## Variables are stored in both rows and columns
 
 The most complicated form of messy data occurs when variables are stored in both rows and columns. The code below loads daily weather data from the Global Historical Climatology Network for one weather station (MX17004) in Mexico for five months in 2010. 
@@ -208,11 +234,16 @@ weather
 
 It has variables in individual columns (`id`, `year`, `month`), spread across columns (`day`, d1-d31) and across rows (`tmin`, `tmax`) (minimum and maximum temperature). Months with fewer than 31 days have structural missing values for the last day(s) of the month.
 
-To tidy this dataset we first gather the day columns:
+To tidy this dataset we first use pivot_longer to gather the day columns:
 
 ```{r}
-weather2 <- weather %>%
-  gather(day, value, d1:d31, na.rm = TRUE)
+weather2 <- weather %>% 
+  pivot_longer(
+    d1:d31, 
+    names_to = "day", 
+    values_to = "value", 
+    values_drop_na = TRUE
+  ) 
 weather2
 ```
 
@@ -222,16 +253,16 @@ We'll also do a little cleaning:
 
 ```{r}
 weather3 <- weather2 %>% 
-  mutate(day = extract_numeric(day)) %>%
-  select(id, year, month, day, element, value) %>%
-  arrange(id, year, month, day)
+  mutate(day = as.integer(gsub("d", "", day))) %>%
+  select(id, year, month, day, element, value)
 weather3
 ```
 
-This dataset is mostly tidy, but the `element` column is not a variable; it stores the names of variables. (Not shown in this example are the other meteorological variables `prcp` (precipitation) and `snow` (snowfall)). Fixing this requires the spread operation. This performs the inverse of gathering by spreading the `element` and `value` columns back out into the columns:
+This dataset is mostly tidy, but the `element` column is not a variable; it stores the names of variables. (Not shown in this example are the other meteorological variables `prcp` (precipitation) and `snow` (snowfall)). Fixing this requires widening the data: `pivot_wider()` is inverse of `pivot_longer()`, pivoting `element` and `value` back out across multiple columns:
 
 ```{r}
-weather3 %>% spread(element, value)
+weather3 %>% 
+  pivot_wider(names_from = element, values_from = value)
 ```
 
 This form is tidy: there's one variable in each column, and each row represents one day.
@@ -246,8 +277,7 @@ This dataset needs to be broken down into two pieces: a song dataset which store
 
 ```{r}
 song <- billboard3 %>% 
-  select(artist, track) %>%
-  unique() %>%
+  distinct(artist, track) %>%
   mutate(song_id = row_number())
 song
 ```  
@@ -257,8 +287,7 @@ Then use that to make a `rank` dataset by replacing repeated song facts with a p
 ```{r}
 rank <- billboard3 %>%
   left_join(song, c("artist", "track")) %>%
-  select(song_id, date, week, rank) %>%
-  arrange(song_id, date)
+  select(song_id, date, week, rank)
 rank
 ```
 

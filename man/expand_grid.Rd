@@ -4,11 +4,27 @@
 \alias{expand_grid}
 \title{Create a tibble from all combinations of inputs}
 \usage{
-expand_grid(...)
+expand_grid(..., .name_repair = "check_unique")
 }
 \arguments{
 \item{...}{Name-value pairs. The name will become the column name in the
 output.}
+
+\item{.name_repair}{Treatment of problematic column names:
+\itemize{
+\item \code{"minimal"}: No name repair or checks, beyond basic existence,
+\item \code{"unique"}: Make sure names are unique and not empty,
+\item \code{"check_unique"}: (default value), no name repair, but check they are
+\code{unique},
+\item \code{"universal"}: Make the names \code{unique} and syntactic
+\item a function: apply custom name repair (e.g., \code{.name_repair = make.names}
+for names in the style of base R).
+\item A purrr-style anonymous function, see \code{\link[rlang:as_function]{rlang::as_function()}}
+}
+
+This argument is passed on as \code{repair} to \code{\link[vctrs:vec_as_names]{vctrs::vec_as_names()}}.
+See there for more details on these terms and the strategies used
+to enforce them.}
 }
 \value{
 A tibble with one column for each input in \code{...}. The output

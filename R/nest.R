@@ -46,6 +46,16 @@
 #'   If you previously created new variable in `unnest()` you'll now need to
 #'   do it explicitly with `mutate()`. Convert `df %>% unnest(y = fun(x, y, z))`
 #'   to `df %>% mutate(y = fun(x, y, z)) %>% unnest(y)`.
+#' @param names_sep,.names_sep If `NULL`, the default, the names will be left
+#'   as is. In `nest()`, inner names will come from the former outer names;
+#'   in `unnest()`, the new outer names will come from the inner names.
+#'
+#'   If a string, the inner and outer names will be used together. In `nest()`,
+#'   the names of the new outer columns will be formed by pasting together the
+#'   outer and the inner column names, separated by `names_sep`. In `unnest()`,
+#'   the new inner names will have the outer names (+ `names_sep`) automatically
+#'   stripped. This makes `names_sep` roughly symmetric between nesting and
+#'   unnesting.
 #' @param .key
 #'   \Sexpr[results=rd, stage=render]{lifecycle::badge("deprecated")}:
 #'   No longer needed because of the new `new_col = c(col1, col2,
@@ -108,7 +118,7 @@
 #' # Compare with unnesting one column at a time, which generates
 #' # the Cartesian product
 #' df %>% unnest(a) %>% unnest(b)
-nest <- function(.data, ..., .key = deprecated()) {
+nest <- function(.data, ..., .names_sep = NULL, .key = deprecated()) {
   cols <- enquos(...)
 
   if (any(names2(cols) == "")) {
@@ -129,7 +139,7 @@ nest <- function(.data, ..., .key = deprecated()) {
 }
 
 #' @export
-nest.data.frame <- function(.data, ..., .key = deprecated()) {
+nest.data.frame <- function(.data, ..., .names_sep = NULL, .key = deprecated()) {
   # The data frame print handles nested data frames poorly, so we want to
   # convert data frames (but not subclasses) to tibbles
   if (identical(class(.data), "data.frame")) {
@@ -140,7 +150,7 @@ nest.data.frame <- function(.data, ..., .key = deprecated()) {
 }
 
 #' @export
-nest.tbl_df <- function(.data, ..., .key = deprecated()) {
+nest.tbl_df <- function(.data, ..., .names_sep = NULL, .key = deprecated()) {
   .key <- check_key(.key)
   if (missing(...)) {
     warn(paste0(
@@ -153,21 +163,26 @@ nest.tbl_df <- function(.data, ..., .key = deprecated()) {
     cols <- map(cols, ~ tidyselect::vars_select(tbl_vars(.data), !!.x))
   }
 
+  cols <- map(cols, set_names)
+  if (!is.null(.names_sep)) {
+    cols <- imap(cols, strip_names, .names_sep)
+  }
+
   asis <- setdiff(names(.data), unlist(cols))
 
   keys <- .data[asis]
   u_keys <- vec_unique(keys)
-  out <- map(cols, ~ vec_split(.data[.x], keys)$val)
+  out <- map(cols, ~ vec_split(set_names(.data[.x], names(.x)), keys)$val)
 
   vec_cbind(u_keys, new_data_frame(out, n = nrow(u_keys)))
 }
 
 #' @export
-nest.grouped_df <- function(.data, ..., .key = deprecated()) {
+nest.grouped_df <- function(.data, ..., .names_sep = NULL, .key = deprecated()) {
   if (missing(...)) {
     .key <- check_key(.key)
     nest_vars <- setdiff(names(.data), dplyr::group_vars(.data))
-    out <- nest.tbl_df(.data, !!.key := !!nest_vars)
+    out <- nest.tbl_df(.data, !!.key := !!nest_vars, .names_sep = .names_sep)
   } else {
     out <- NextMethod()
   }
@@ -191,9 +206,9 @@ check_key <- function(.key) {
 #' @inheritParams unpack
 #' @param cols Names of columns to unnest.
 #'
-#'   If you `unnest()` multiple columns, parallel entries must compatible
-#'   sizes, i.e. they're either equal or length 1 (following the standard
-#'   tidyverse recycling rules).
+#'   If you `unnest()` multiple columns, parallel entries must be of
+#'   compatible sizes, i.e. they're either equal or length 1 (following the
+#'   standard tidyverse recycling rules).
 #' @param .drop,.preserve
 #'   \Sexpr[results=rd, stage=render]{lifecycle::badge("deprecated")}:
 #'   all list-columns are now preserved; If there are any that you
@@ -235,7 +250,7 @@ unnest <- function(data,
     list_cols <- names(data)[map_lgl(data, is_list)]
     cols <- expr(c(!!!syms(setdiff(list_cols, .preserve))))
     warn(paste0(
-      "`cols` is now required.\n",
+      "`cols` is now required when using unnest().\n",
       "Please use `cols = ", expr_text(cols), "`"
     ))
     deprecated <- TRUE

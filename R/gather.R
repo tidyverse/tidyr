@@ -13,10 +13,9 @@
 #'
 #' @section Rules for selection:
 #'
-#' Arguments for selecting columns are passed to
-#' [tidyselect::vars_select()] and are treated specially. Unlike other
-#' verbs, selecting functions make a strict distinction between data
-#' expressions and context expressions.
+#' Arguments for selecting columns are passed to [tidyselect::vars_select()]
+#' and are treated specially. Unlike other verbs, selecting functions make a
+#' strict distinction between data expressions and context expressions.
 #'
 #' * A data expression is either a bare name like `x` or an expression
 #'   like `x:y` or `c(x, y)`. In a data expression, you can only refer
@@ -29,13 +28,11 @@
 #' columns, while `seq(start, end)` is a context expression that
 #' refers to objects from the contexts.
 #'
-#' If you really need to refer to contextual objects from a data
-#' expression, you can unquote them with the tidy eval operator
-#' `!!`. This operator evaluates its argument in the context and
-#' inlines the result in the surrounding function call. For instance,
-#' `c(x, !! x)` selects the `x` column within the data frame and the
-#' column referred to by the object `x` defined in the context (which
-#' can contain either a column name as string or a column position).
+#' If you need to refer to contextual objects from a data expression, you can
+#' use `all_of()` or `any_of()`. These functions are used to select
+#' data-variables whose names are stored in a env-variable. For instance,
+#' `all_of(a)` selects the variables listed in the character vector `a`.
+#' For more details, see the [tidyselect::select_helpers()] documentation.
 #'
 #' @inheritParams expand
 #' @param key,value Names of new key and value columns, as strings or

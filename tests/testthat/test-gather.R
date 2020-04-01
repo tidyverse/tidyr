@@ -71,7 +71,7 @@ test_that("group_vars are kept where possible", {
 
   # Can keep
   out <- df %>% dplyr::group_by(x) %>% gather(key, val, y:z)
-  expect_equal(dplyr::groups(out), list(quote(x)))
+  expect_equal(dplyr::group_vars(out), "x")
 })
 
 test_that("overwrites existing vars", {

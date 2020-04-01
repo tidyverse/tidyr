@@ -4,104 +4,107 @@
 \alias{expand}
 \alias{crossing}
 \alias{nesting}
-\title{Expand data frame to include all combinations of values}
+\title{Expand data frame to include all possible combinations of values}
 \usage{
-expand(data, ...)
+expand(data, ..., .name_repair = "check_unique")
 
-crossing(...)
+crossing(..., .name_repair = "check_unique")
 
-nesting(...)
+nesting(..., .name_repair = "check_unique")
 }
 \arguments{
 \item{data}{A data frame.}
 
 \item{...}{Specification of columns to expand. Columns can be atomic vectors
 or lists.
-
-To find all unique combinations of x, y and z, including those not
-found in the data, supply each variable as a separate argument.
-To find only the combinations that occur in the data, use nest:
-\code{expand(df, nesting(x, y, z))}.
-
-You can combine the two forms. For example,
+\itemize{
+\item To find all unique combinations of \code{x}, \code{y} and \code{z}, including those not
+present in the data, supply each variable as a separate argument:
+\code{expand(df, x, y, z)}.
+\item To find only the combinations that occur in the
+data, use \code{nesting}: \code{expand(df, nesting(x, y, z))}.
+\item You can combine the two forms. For example,
 \code{expand(df, nesting(school_id, student_id), date)} would produce
-a row for every student for each date.
+a row for each present school-student combination for all possible
+dates.
+}
 
-For factors, the full set of levels (not just those that appear in the
-data) are used. For continuous variables, you may need to fill in values
-that don't appear in the data: to do so use expressions like
-\code{year = 2010:2020} or \verb{year = \link{full_seq}(year,1)}.
+When used with factors, \code{expand()} uses the full set of levels, not just
+those that appear in the data. If you want to use only the values seen in
+the data, use \code{forcats::fct_drop()}.
 
-Length-zero (empty) elements are automatically dropped.}
+When used with continuous variables, you may need to fill in values
+that do not appear in the data: to do so use expressions like
+\code{year = 2010:2020} or \verb{year = \link{full_seq}(year,1)}.}
+
+\item{.name_repair}{Treatment of problematic column names:
+\itemize{
+\item \code{"minimal"}: No name repair or checks, beyond basic existence,
+\item \code{"unique"}: Make sure names are unique and not empty,
+\item \code{"check_unique"}: (default value), no name repair, but check they are
+\code{unique},
+\item \code{"universal"}: Make the names \code{unique} and syntactic
+\item a function: apply custom name repair (e.g., \code{.name_repair = make.names}
+for names in the style of base R).
+\item A purrr-style anonymous function, see \code{\link[rlang:as_function]{rlang::as_function()}}
+}
+
+This argument is passed on as \code{repair} to \code{\link[vctrs:vec_as_names]{vctrs::vec_as_names()}}.
+See there for more details on these terms and the strategies used
+to enforce them.}
 }
 \description{
-\code{expand()} is often useful in conjunction with \code{left_join()} if
-you want to convert implicit missing values to explicit missing values.
-Or you can use it in conjunction with \code{anti_join()} to figure
-out which combinations are missing.
+\code{expand()} generates all combination of variables found in a dataset.
+It is paired with \code{nesting()} and \code{crossing()} helpers. \code{crossing()}
+is a wrapper around \code{\link[=expand_grid]{expand_grid()}} that de-duplicates and sorts its inputs;
+\code{nesting()} is a helper that only finds combinations already present in the
+data.
+
+\code{expand()} is often useful in conjunction with joins:
+\itemize{
+\item use it with \code{right_join()} to convert implicit missing values to
+explicit missing values (e.g., fill in gaps in your data frame).
+\item use it with \code{anti_join()} to figure out which combinations are missing
+(e.g., identify gaps in your data frame).
 }
-\details{
-\code{crossing()} is a wrapper around \code{\link[=expand_grid]{expand_grid()}} that deduplicates and sorts
-each input. \code{nesting()} is the complement to \code{crossing()}: it only keeps
-combinations of values that appear in the data.
 }
 \examples{
-library(dplyr)
-# All possible combinations of vs & cyl, even those that aren't
-# present in the data
-expand(mtcars, vs, cyl)
-
-# Only combinations of vs and cyl that appear in the data
-expand(mtcars, nesting(vs, cyl))
-
-# Implicit missings ---------------------------------------------------------
-df <- tibble(
-  year   = c(2010, 2010, 2010, 2010, 2012, 2012, 2012),
-  qtr    = c(   1,    2,    3,    4,    1,    2,    3),
-  return = rnorm(7)
-)
-df \%>\% expand(year, qtr)
-df \%>\% expand(year = 2010:2012, qtr)
-df \%>\% expand(year = full_seq(year, 1), qtr)
-df \%>\% complete(year = full_seq(year, 1), qtr)
-
-# Nesting -------------------------------------------------------------------
-# Each person was given one of two treatments, repeated three times
-# But some of the replications haven't happened yet, so we have
-# incomplete data:
-experiment <- tibble(
-  name = rep(c("Alex", "Robert", "Sam"), c(3, 2, 1)),
-  trt  = rep(c("a", "b", "a"), c(3, 2, 1)),
-  rep = c(1, 2, 3, 1, 2, 1),
-  measurement_1 = runif(6),
-  measurement_2 = runif(6)
+fruits <- tibble(
+  type   = c("apple", "orange", "apple", "orange", "orange", "orange"),
+  year   = c(2010, 2010, 2012, 2010, 2010, 2012),
+  size  =  factor(
+    c("XS", "S",  "M", "S", "S", "M"),
+    levels = c("XS", "S", "M", "L")
+  ),
+  weights = rnorm(6, as.numeric(size) + 2)
 )
 
-# We can figure out the complete set of data with expand()
-# Each person only gets one treatment, so we nest name and trt together:
-all <- experiment \%>\% expand(nesting(name, trt), rep)
+# All possible combinations ---------------------------------------
+# Note that all defined, but not necessarily present, levels of the
+# factor variable `size` are retained.
+fruits \%>\% expand(type)
+fruits \%>\% expand(type, size)
+fruits \%>\% expand(type, size, year)
+
+# Only combinations that already appear in the data ---------------
+fruits \%>\% expand(nesting(type))
+fruits \%>\% expand(nesting(type, size))
+fruits \%>\% expand(nesting(type, size, year))
+
+# Other uses -------------------------------------------------------
+# Use with `full_seq()` to fill in values of continuous variables
+fruits \%>\% expand(type, size, full_seq(year, 1))
+fruits \%>\% expand(type, size, 2010:2012)
+
+# Use `anti_join()` to determine which observations are missing
+all <- fruits \%>\% expand(type, size, year)
 all
+all \%>\% dplyr::anti_join(fruits)
 
-# We can use anti_join to figure out which observations are missing
-all \%>\% anti_join(experiment)
-
-# And use right_join to add in the appropriate missing values to the
-# original data
-experiment \%>\% right_join(all)
-# Or use the complete() short-hand
-experiment \%>\% complete(nesting(name, trt), rep)
-
-# Generate all combinations with expand():
-formulas <- list(
-  formula1 = Sepal.Length ~ Sepal.Width,
-  formula2 = Sepal.Length ~ Sepal.Width + Petal.Width,
-  formula3 = Sepal.Length ~ Sepal.Width + Petal.Width + Petal.Length
-)
-data <- split(iris, iris$Species)
-crossing(formula = formulas, data)
+# Use with `right_join()` to fill in missing rows
+fruits \%>\% dplyr::right_join(all)
 }
 \seealso{
-\code{\link[=complete]{complete()}} for a common application of \code{expand}:
-completing a data frame with missing combinations. \code{\link[=expand_grid]{expand_grid()}}
-is low-level that doesn't deduplicate or sort values.
+\code{\link[=complete]{complete()}} to expand list objects. \code{\link[=expand_grid]{expand_grid()}}
+to input vectors rather than a data frame.
 }

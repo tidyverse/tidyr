@@ -22,7 +22,11 @@ pivot_wider(
 \item{id_cols}{A set of columns that uniquely identifies each observation.
 Defaults to all columns in \code{data} except for the columns specified in
 \code{names_from} and \code{values_from}. Typically used when you have additional
-variables that is directly related.}
+variables that is directly related.
+
+This takes a tidyselect specification, e.g. use \code{a:c} to select all
+columns from \code{a} to \code{c}, \code{starts_with("prefix")} to select all columns
+starting with "prefix", or \code{everything()} to select all columns.}
 
 \item{names_from, values_from}{A pair of arguments describing which column
 (or columns) to get the name of the output column (\code{name_from}), and
@@ -39,19 +43,24 @@ create syntactic variable names.}
 variables, this will be used to join their values together into a single
 string to use as a column name.}
 
-\item{names_repair}{What happen if the output has invalid column names?
+\item{names_repair}{What happens if the output has invalid column names?
 The default, \code{"check_unique"} is to error if the columns are duplicated.
 Use \code{"minimal"} to allow duplicates in the output, or \code{"unique"} to
 de-duplicated by adding numeric suffixes. See \code{\link[vctrs:vec_as_names]{vctrs::vec_as_names()}}
 for more options.}
 
-\item{values_fill}{Optionally, a named list specifying what each \code{value}
-should be filled in with when missing.}
+\item{values_fill}{Optionally, a value that specifies what each \code{value}
+should be filled in with when missing.
 
-\item{values_fn}{Optionally, a named list providing a function that will be
-applied to the \code{value} in each cell in the output. You will typically
-use this when the combination of \code{id_cols} and \code{value} column does not
-uniquely identify an observation.}
+This can be a named list if you want to apply different aggregations
+to different value columns.}
+
+\item{values_fn}{Optionally, a function applied to the \code{value} in each cell
+in the output. You will typically use this when the combination of
+\code{id_cols} and \code{value} column does not uniquely identify an observation.
+
+This can be a named list if you want to apply different aggregations
+to different value columns.}
 }
 \description{
 \Sexpr[results=rd, stage=render]{lifecycle::badge("maturing")}
@@ -64,7 +73,7 @@ Learn more in \code{vignette("pivot")}.
 }
 \details{
 \code{pivot_wider()} is an updated approach to \code{\link[=spread]{spread()}}, designed to be both
-simpler to use and to handle more use cases. We recomend you use
+simpler to use and to handle more use cases. We recommend you use
 \code{pivot_wider()} for new code; \code{spread()} isn't going away but is no longer
 under active development.
 }
@@ -76,13 +85,10 @@ fish_encounters \%>\%
   pivot_wider(names_from = station, values_from = seen)
 # Fill in missing values
 fish_encounters \%>\%
-  pivot_wider(
-    names_from = station,
-    values_from = seen,
-    values_fill = list(seen = 0)
-  )
+  pivot_wider(names_from = station, values_from = seen, values_fill = 0)
 
 # Generate column names from multiple variables
+us_rent_income
 us_rent_income \%>\%
   pivot_wider(names_from = variable, values_from = c(estimate, moe))
 
@@ -93,7 +99,7 @@ warpbreaks \%>\%
   pivot_wider(
     names_from = wool,
     values_from = breaks,
-    values_fn = list(breaks = mean)
+    values_fn = mean
   )
 }
 \seealso{

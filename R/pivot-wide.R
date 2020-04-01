@@ -11,7 +11,7 @@
 #'
 #' @details
 #' `pivot_wider()` is an updated approach to [spread()], designed to be both
-#' simpler to use and to handle more use cases. We recomend you use
+#' simpler to use and to handle more use cases. We recommend you use
 #' `pivot_wider()` for new code; `spread()` isn't going away but is no longer
 #' under active development.
 #'
@@ -22,6 +22,10 @@
 #'   Defaults to all columns in `data` except for the columns specified in
 #'   `names_from` and `values_from`. Typically used when you have additional
 #'   variables that is directly related.
+#'
+#'   This takes a tidyselect specification, e.g. use `a:c` to select all
+#'   columns from `a` to `c`, `starts_with("prefix")` to select all columns
+#'   starting with "prefix", or `everything()` to select all columns.
 #' @param names_from,values_from A pair of arguments describing which column
 #'   (or columns) to get the name of the output column (`name_from`), and
 #'   which column (or columns) to get the cell values from (`values_from`).
@@ -34,12 +38,17 @@
 #' @param names_prefix String added to the start of every variable name. This is
 #'   particularly useful if `names_from` is a numeric vector and you want to
 #'   create syntactic variable names.
-#' @param values_fill Optionally, a named list specifying what each `value`
+#' @param values_fill Optionally, a value that specifies what each `value`
 #'   should be filled in with when missing.
-#' @param values_fn Optionally, a named list providing a function that will be
-#'   applied to the `value` in each cell in the output. You will typically
-#'   use this when the combination of `id_cols` and `value` column does not
-#'   uniquely identify an observation.
+#'
+#'   This can be a named list if you want to apply different aggregations
+#'   to different value columns.
+#' @param values_fn Optionally, a function applied to the `value` in each cell
+#'   in the output. You will typically use this when the combination of
+#'   `id_cols` and `value` column does not uniquely identify an observation.
+#'
+#'   This can be a named list if you want to apply different aggregations
+#'   to different value columns.
 #' @export
 #' @examples
 #' # See vignette("pivot") for examples and explanation
@@ -49,13 +58,10 @@
 #'   pivot_wider(names_from = station, values_from = seen)
 #' # Fill in missing values
 #' fish_encounters %>%
-#'   pivot_wider(
-#'     names_from = station,
-#'     values_from = seen,
-#'     values_fill = list(seen = 0)
-#'   )
+#'   pivot_wider(names_from = station, values_from = seen, values_fill = 0)
 #'
 #' # Generate column names from multiple variables
+#' us_rent_income
 #' us_rent_income %>%
 #'   pivot_wider(names_from = variable, values_from = c(estimate, moe))
 #'
@@ -66,7 +72,7 @@
 #'   pivot_wider(
 #'     names_from = wool,
 #'     values_from = breaks,
-#'     values_fn = list(breaks = mean)
+#'     values_fn = mean
 #'   )
 pivot_wider <- function(data,
                         id_cols = NULL,
@@ -103,6 +109,43 @@ pivot_wider <- function(data,
 #' @keywords internal
 #' @export
 #' @inheritParams pivot_wider
+#' @param spec A specification data frame. This is useful for more complex
+#'  pivots because it gives you greater control on how metadata stored in the
+#'  columns become column names in the result.
+#'
+#'   Must be a data frame containing character `.name` and `.value` columns.
+#'   Additional columns in `spec` should be named to match columns in the
+#'   long format of the dataset and contain values corresponding to columns
+#'   pivoted from the wide format.
+#'   The special `.seq` variable is used to disambiguate rows internally;
+#'   it is automatically removed after pivotting.
+#'
+#' @examples
+#' # See vignette("pivot") for examples and explanation
+#'
+#' us_rent_income
+#' spec1 <- us_rent_income %>%
+#'   build_wider_spec(names_from = variable, values_from = c(estimate, moe))
+#' spec1
+#'
+#' us_rent_income %>%
+#'   pivot_wider_spec(spec1)
+#'
+#' # Is equivalent to
+#' us_rent_income %>%
+#'   pivot_wider(names_from = variable, values_from = c(estimate, moe))
+#'
+#' # `pivot-wider_spec()` provides more control over column names and output format
+#' # instead of creating columns with estimate_ and moe_ prefixes,
+#' # keep original variable name for estimates and attach _moe as suffix
+#' spec2 <- tibble(
+#'   .name = c("income", "rent", "income_moe", "rent_moe"),
+#'   .value = c("estimate", "estimate", "moe", "moe"),
+#'   variable = c("income", "rent", "income", "rent")
+#' )
+#'
+#' us_rent_income %>%
+#'   pivot_wider_spec(spec2)
 pivot_wider_spec <- function(data,
                                   spec,
                                   names_repair = "check_unique",
@@ -110,6 +153,14 @@ pivot_wider_spec <- function(data,
                                   values_fill = NULL,
                                   values_fn = NULL) {
   spec <- check_spec(spec)
+
+  if (is.function(values_fn)) {
+    values_fn <- rep_named(unique(spec$.value), list(values_fn))
+  }
+
+  if (is_scalar(values_fill)) {
+    values_fill <- rep_named(unique(spec$.value), list(values_fill))
+  }
 
   values <- vec_unique(spec$.value)
   spec_cols <- c(names(spec)[-(1:2)], values)
@@ -126,10 +177,12 @@ pivot_wider_spec <- function(data,
   df_rows <- data[key_vars]
   if (ncol(df_rows) == 0) {
     rows <- tibble(.rows = 1)
+    nrow <- 1L
     row_id <- rep(1L, nrow(df_rows))
   } else {
-    rows <- vec_unique(df_rows)
-    row_id <- vec_match(df_rows, rows)
+    row_id <- vec_group_id(df_rows)
+    nrow <- attr(row_id, "n")
+    rows <- vec_slice(df_rows, vec_unique_loc(row_id))
   }
 
   value_specs <- unname(split(spec, spec$.value))
@@ -153,7 +206,6 @@ pivot_wider_spec <- function(data,
     val_id <- dedup$key
     val <- dedup$val
 
-    nrow <- nrow(rows)
     ncol <- nrow(spec_i)
 
     fill <- values_fill[[value]]
@@ -209,7 +261,7 @@ build_wider_spec <- function(data,
     row_ids <- vec_repeat(row_ids, times = vec_size(values_from))
   }
 
-  vec_cbind(out, row_ids)
+  vec_cbind(out, row_ids, .name_repair = "minimal")
 }
 
 # quiet R CMD check
@@ -226,17 +278,17 @@ vals_dedup <- function(key, val, value, summarize = NULL) {
     }
 
     warn(glue::glue(
-      "Values in `{value}` are not uniquely identified; output will contain list-cols.\n",
-      "* Use `values_fn = list({value} = list)` to suppress this warning.\n",
-      "* Use `values_fn = list({value} = length)` to identify where the duplicates arise\n",
-      "* Use `values_fn = list({value} = summary_fun)` to summarise duplicates"
+      "Values are not uniquely identified; output will contain list-cols.\n",
+      "* Use `values_fn = list` to suppress this warning.\n",
+      "* Use `values_fn = length` to identify where the duplicates arise\n",
+      "* Use `values_fn = {{summary_fun}}` to summarise duplicates"
     ))
   }
 
   out <- vec_split(val, key)
   if (!is.null(summarize) && !identical(summarize, list)) {
     summarize <- as_function(summarize)
-    # This is only correct if `values_collapse` always returns a single value
+    # This is only correct if `values_fn` always returns a single value
     # Needs https://github.com/r-lib/vctrs/issues/183
     out$val <- vec_c(!!!map(out$val, summarize))
   }
@@ -254,4 +306,16 @@ wrap_vec <- function(vec, names) {
   }
 
   as_tibble(out)
+}
+
+is_scalar <- function(x) {
+  if (is.null(x)) {
+    return(FALSE)
+  }
+
+  if (is.list(x)) {
+    (length(x) == 1) && !have_name(x)
+  } else {
+    TRUE
+  }
 }

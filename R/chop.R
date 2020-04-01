@@ -14,6 +14,13 @@
 #' that `chop()`ing` since it better preserves the connections between
 #' observations.
 #'
+#' `chop()` creates list-columns of class [vctrs::list_of()] to ensure
+#' consistent behaviour when the chopped data frame is emptied. For
+#' instance this helps getting back the original column types after
+#' the roundtrip chop and unchop. Because `<list_of>` keeps tracks of
+#' the type of its elements, `unchop()` is able to reconstitute the
+#' correct vector type even for empty list-columns.
+#'
 #' @param data A data frame.
 #' @param cols Column to chop or unchop (automatically quoted).
 #'
@@ -68,9 +75,13 @@ chop <- function(data, cols) {
   keys <- data[setdiff(names(data), cols)]
   split <- vec_split(vals, keys)
 
-  vals <- map(split$val, ~ new_data_frame(map(.x, list), n = 1L))
+  if (length(split$val)) {
+    split_vals <- transpose(split$val)
+    vals <- map2(split_vals, vec_ptype(vals), new_list_of)
+    vals <- new_data_frame(vals)
+  }
 
-  out <- vec_cbind(split$key, vec_rbind(!!!vals))
+  out <- vec_cbind(split$key, vals)
   reconstruct_tibble(data, out)
 }
 
@@ -88,6 +99,7 @@ unchop <- function(data, cols, keep_empty = FALSE, ptype = NULL) {
     }
   }
 
+  # If multiple columns, create one data frame for each row
   # https://github.com/tidyverse/tibble/issues/580
   x <- pmap(as.list(data)[cols], vec_recycle_common)
   x <- map(x, ~ new_data_frame(drop_null(.x)))
@@ -104,3 +116,17 @@ unchop <- function(data, cols, keep_empty = FALSE, ptype = NULL) {
   out <- update_cols(out, new_cols)
   reconstruct_tibble(data, out)
 }
+
+
+# Helpers -----------------------------------------------------------------
+
+init_col <- function(x) {
+  if (is_null(x)) {
+    NA
+  } else if (vec_is_empty(x)) {
+    vec_init(x, 1)
+  } else {
+    x
+  }
+}
+

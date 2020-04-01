@@ -2,8 +2,8 @@
 % Please edit documentation in R/separate.R
 \name{separate}
 \alias{separate}
-\title{Separate a character column into multiple columns using a regular
-expression separator}
+\title{Separate a character column into multiple columns with a regular
+expression or numeric locations}
 \usage{
 separate(
   data,
@@ -32,13 +32,13 @@ Use \code{NA} to omit the variable in the output.}
 
 \item{sep}{Separator between columns.
 
-If character, is interpreted as a regular expression. The default
+If character, \code{sep} is interpreted as a regular expression. The default
 value is a regular expression that matches any sequence of
 non-alphanumeric values.
 
-If numeric, interpreted as positions to split at. Positive values start
-at 1 at the far-left of the string; negative value start at -1 at the
-far-right of the string. The length of \code{sep} should be one less than
+If numeric, \code{sep} is interpreted as character positions to split at. Positive
+values start at 1 at the far-left of the string; negative value start at -1 at
+the far-right of the string. The length of \code{sep} should be one less than
 \code{into}.}
 
 \item{remove}{If \code{TRUE}, remove input column from output data frame.}
@@ -68,11 +68,12 @@ happens when there are not enough pieces. There are three valid options:
 \item{...}{Additional arguments passed on to methods.}
 }
 \description{
-Given either regular expression or a vector of character positions,
+Given either a regular expression or a vector of character positions,
 \code{separate()} turns a single character column into multiple columns.
 }
 \examples{
 library(dplyr)
+# If you want to split by any non-alphanumeric value (the default):
 df <- data.frame(x = c(NA, "a.b", "a.d", "b.c"))
 df \%>\% separate(x, c("A", "B"))
 
@@ -80,32 +81,28 @@ df \%>\% separate(x, c("A", "B"))
 df \%>\% separate(x, c(NA, "B"))
 
 # If every row doesn't split into the same number of pieces, use
-# the extra and fill arguments to control what happens
+# the extra and fill arguments to control what happens:
 df <- data.frame(x = c("a", "a b", "a b c", NA))
 df \%>\% separate(x, c("a", "b"))
-# The same behaviour drops the c but no warnings
+# The same behaviour as previous, but drops the c without warnings:
 df \%>\% separate(x, c("a", "b"), extra = "drop", fill = "right")
-# Another option:
+# Opposite of previous, keeping the c and filling left:
 df \%>\% separate(x, c("a", "b"), extra = "merge", fill = "left")
-# Or you can keep all three
+# Or you can keep all three:
 df \%>\% separate(x, c("a", "b", "c"))
 
-# If only want to split specified number of times use extra = "merge"
+# To only split a specified number of times use extra = "merge":
 df <- data.frame(x = c("x: 123", "y: error: 7"))
 df \%>\% separate(x, c("key", "value"), ": ", extra = "merge")
 
 # Use regular expressions to separate on multiple characters:
 df <- data.frame(x = c(NA, "a?b", "a.d", "b:c"))
-df \%>\% separate(x, c("A","B"), sep = "([\\\\.\\\\?\\\\:])")
+df \%>\% separate(x, c("A","B"), sep = "([.?:])")
 
-# convert = TRUE detects column classes
+# convert = TRUE detects column classes:
 df <- data.frame(x = c("a:1", "a:2", "c:4", "d", NA))
 df \%>\% separate(x, c("key","value"), ":") \%>\% str
 df \%>\% separate(x, c("key","value"), ":", convert = TRUE) \%>\% str
-
-# Argument col can take quasiquotation to work with strings
-var <- "x"
-df \%>\% separate(!!var, c("key","value"), ":")
 }
 \seealso{
 \code{\link[=unite]{unite()}}, the complement, \code{\link[=extract]{extract()}} which uses regular

@@ -17,6 +17,12 @@ test_that("packing no columns returns input", {
   expect_equal(pack(df), df)
 })
 
+test_that("can strip outer names from inner names", {
+  df <- tibble(ax = 1, ay = 2)
+  out <- pack(df, a = c(ax, ay), .names_sep = "")
+  expect_named(out$a, c("x", "y"))
+})
+
 test_that("all inputs must be named", {
   df <- tibble(a1 = 1, a2 = 2, b1 = 1, b2 = 2)
   expect_error(pack(df, a = c(a1, a2), c(b1, b2)), "must be named")

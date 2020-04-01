@@ -11,18 +11,26 @@
 #'
 #' @details
 #' `pivot_longer()` is an updated approach to [gather()], designed to be both
-#' simpler to use and to handle more use cases. We recomend you use
+#' simpler to use and to handle more use cases. We recommend you use
 #' `pivot_longer()` for new code; `gather()` isn't going away but is no longer
 #' under active development.
 #'
 #' @param data A data frame to pivot.
-#' @param cols Columns to pivot into longer format. This takes a tidyselect
-#'   specification.
+#' @param cols Columns to pivot into longer format.
+#'
+#'   This takes a tidyselect specification, e.g. use `a:c` to select all
+#'   columns from `a` to `c`, `starts_with("prefix")` to select all columns
+#'   starting with "prefix", or `everything()` to select all columns.
 #' @param names_to A string specifying the name of the column to create
 #'   from the data stored in the column names of `data`.
 #'
 #'   Can be a character vector, creating multiple columns, if `names_sep`
-#'   or `names_pattern` is provided.
+#'   or `names_pattern` is provided. In this case, there are two special
+#'   values you can take advantage of:
+#'
+#'   * `NA` will discard that component of the name.
+#'   * `.value` indicates that component of the name defines the name of the
+#'     column containing the cell values, overriding `values_to`.
 #' @param names_prefix A regular expression used to remove matching text
 #'   from the start of each variable name.
 #' @param names_sep,names_pattern If `names_to` contains multiple values,
@@ -35,10 +43,10 @@
 #'   `names_pattern` takes the same specification as [extract()], a regular
 #'   expression containing matching groups (`()`).
 #'
-#'   If these arguments does not give you enough control, use
+#'   If these arguments do not give you enough control, use
 #'   `pivot_longer_spec()` to create a spec object and process manually as
 #'   needed.
-#' @param names_repair What happen if the output has invalid column names?
+#' @param names_repair What happens if the output has invalid column names?
 #'   The default, `"check_unique"` is to error if the columns are duplicated.
 #'   Use `"minimal"` to allow duplicates in the output, or `"unique"` to
 #'   de-duplicated by adding numeric suffixes. See [vctrs::vec_as_names()]
@@ -52,7 +60,7 @@
 #'   in the `value_to` column. This effectively converts explicit missing values
 #'   to implicit missing values, and should generally be used only when missing
 #'   values in `data` were created by its structure.
-#' @param names_ptypes,values_ptypes A list of of column name-prototype pairs.
+#' @param names_ptypes,values_ptypes A list of column name-prototype pairs.
 #'   A prototype (or ptype for short) is a zero-length vector (like `integer()`
 #'   or `numeric()`) that defines the type, class, and attributes of a vector.
 #'
@@ -80,7 +88,7 @@
 #'    values_drop_na = TRUE
 #'  )
 #'
-#' # Multiple variables stored in colum names
+#' # Multiple variables stored in column names
 #' who %>% pivot_longer(
 #'   cols = new_sp_m014:newrel_f65,
 #'   names_to = c("diagnosis", "gender", "age"),
@@ -139,6 +147,33 @@ pivot_longer <- function(data,
 #'  column names turns into columns in the result.
 #'
 #'   Must be a data frame containing character `.name` and `.value` columns.
+#'   Additional columns in `spec` should be named to match columns in the
+#'   long format of the dataset and contain values corresponding to columns
+#'   pivoted from the wide format.
+#'   The special `.seq` variable is used to disambiguate rows internally;
+#'   it is automatically removed after pivotting.
+#'
+#' @examples
+#' # See vignette("pivot") for examples and explanation
+#'
+#' # Use `build_longer_spec()` to build `spec` using similar syntax to `pivot_longer()`
+#' # and run `pivot_longer_spec()` based on `spec`.
+#' spec <- relig_income %>% build_longer_spec(
+#'   cols = -religion,
+#'   names_to = "income",
+#'   values_to = "count"
+#' )
+#'
+#' spec
+#'
+#' pivot_longer_spec(relig_income, spec)
+#'
+#' # Is equivalent to:
+#' relig_income %>% pivot_longer(
+#'   cols = -religion,
+#'   names_to = "income",
+#'   values_to = "count")
+#'
 pivot_longer_spec <- function(data,
                               spec,
                               names_repair = "check_unique",
@@ -146,7 +181,7 @@ pivot_longer_spec <- function(data,
                               values_ptypes = list()
                               ) {
   spec <- check_spec(spec)
-  spec <- deduplicate_names(spec, data)
+  spec <- deduplicate_spec(spec, data)
 
   # Quick hack to ensure that split() preserves order
   v_fct <- factor(spec$.value, levels = unique(spec$.value))
@@ -190,6 +225,7 @@ pivot_longer_spec <- function(data,
     vec_slice(vals, rows$val_id),
     .name_repair = names_repair
   ))
+  out$.seq <- NULL
 
   reconstruct_tibble(data, out)
 }
@@ -227,10 +263,6 @@ build_longer_spec <- function(data, cols,
     } else {
       names <- str_extract(names, names_to, regex = names_pattern)
     }
-
-    if (".value" %in% names_to) {
-      values_to <- NULL
-    }
   } else {
     if (!is.null(names_sep)) {
       abort("`names_sep` can not be used with length-1 `names_to`")
@@ -240,6 +272,10 @@ build_longer_spec <- function(data, cols,
     }
 
     names <- tibble(!!names_to := names)
+  }
+
+  if (".value" %in% names_to) {
+    values_to <- NULL
   }
 
   # optionally, cast variables generated from columns
@@ -252,7 +288,6 @@ build_longer_spec <- function(data, cols,
   out[[".value"]] <- values_to
   out <- vec_cbind(out, names)
   out
-
 }
 
 drop_cols <- function(df, cols) {
@@ -265,16 +300,28 @@ drop_cols <- function(df, cols) {
   }
 }
 
-# Match spec to data, handling duplicated column names
-deduplicate_names <- function(spec, df) {
+# Ensure that there's a one-to-one match from spec to data by adding
+# a special .seq variable which is automatically removed after pivotting.
+deduplicate_spec <- function(spec, df) {
+
+  # Ensure each .name has a unique output identifier
+  key <- spec[setdiff(names(spec), ".name")]
+  if (vec_duplicate_any(key)) {
+    pos <- vec_group_loc(key)$loc
+    seq <- vector("integer", length = nrow(spec))
+    for (i in seq_along(pos)) {
+      seq[pos[[i]]] <- seq_along(pos[[i]])
+    }
+    spec$.seq <- seq
+  }
+
+  # Match spec to data, handling duplicated column names
   col_id <- vec_match(names(df), spec$.name)
   has_match <- !is.na(col_id)
 
   if (!vec_duplicate_any(col_id[has_match])) {
     return(spec)
   }
-
-  warn("Duplicate column names detected, adding .copy variable")
 
   spec <- vec_slice(spec, col_id[has_match])
   # Need to use numeric indices because names only match first
@@ -287,6 +334,6 @@ deduplicate_names <- function(spec, df) {
     copy[idx] <- seq_along(idx)
   }
 
-  spec$.copy <- copy
+  spec$.seq <- copy
   spec
 }

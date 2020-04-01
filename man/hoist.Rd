@@ -81,12 +81,9 @@ vectors to an atomic vector}
 overriding the default that will be guessed from the combination of
 individual values.}
 
-\item{names_sep}{If \code{NULL}, the default, the names of new columns will
-come directly from the inner data frame.
-
-If a string, the names of the new columns will be formed by pasting
-together the outer column name with the inner names, separated by
-\code{names_sep}.}
+\item{names_sep}{If \code{NULL}, the default, the names will be left
+as is. If a string, the inner and outer names will be paste together using
+\code{names_sep} as a separator.}
 }
 \description{
 \Sexpr[results=rd, stage=render]{lifecycle::badge("maturing")}
@@ -147,7 +144,7 @@ df <- tibble(
        )
     ),
     list(
-      species = "clownfish",
+      species = "blue tang",
       color = "blue",
       films = c("Finding Nemo", "Finding Dory")
     )
@@ -168,6 +165,7 @@ df \%>\% hoist(metadata,
 df \%>\%
   unnest_wider(metadata) \%>\%
   unnest_longer(films)
+
 # unnest_longer() is useful when each component of the list should
 # form a row
 df <- tibble(
@@ -177,6 +175,8 @@ df <- tibble(
 df \%>\% unnest_longer(y)
 # Automatically creates names if widening
 df \%>\% unnest_wider(y)
+# But you'll usually want to provide names_sep:
+df \%>\% unnest_wider(y, names_sep = "_")
 
 # And similarly if the vectors are named
 df <- tibble(

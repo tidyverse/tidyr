@@ -25,7 +25,7 @@ test_that("implicit missings turn into explicit missings", {
   expect_equal(pv$y, c(NA, 2))
 })
 
-test_that("warn when overwriting existing column", {
+test_that("error when overwriting existing column", {
   df <- tibble(
     a = c(1, 1),
     key = c("a", "b"),
@@ -43,6 +43,14 @@ test_that("grouping is preserved", {
     dplyr::group_by(g) %>%
     pivot_wider(names_from = k, values_from = v)
   expect_equal(dplyr::group_vars(out), "g")
+})
+
+# https://github.com/tidyverse/tidyr/issues/804
+test_that("column with `...j` name can be used as `names_from`", {
+  df <- tibble(...8 = c("x", "y", "z"), val = 1:3)
+  pv <- pivot_wider(df, names_from = ...8, values_from = val)
+  expect_named(pv, c("x", "y", "z"))
+  expect_equal(nrow(pv), 1)
 })
 
 # keys ---------------------------------------------------------
@@ -87,6 +95,12 @@ test_that("warning suppressed by supplying values_fn", {
   expect_equal(as.list(pv$x), list(c(1L, 2L), 3L))
 })
 
+test_that("values_fn can be a single function", {
+  df <- tibble(a = c(1, 1, 2), key = c("x", "x", "x"), val = c(1, 10, 100))
+  pv <- pivot_wider(df, names_from = key, values_from = val, values_fn = sum)
+  expect_equal(pv$x, c(11, 100))
+})
+
 test_that("values_summarize applied even when no-duplicates", {
   df <- tibble(a = c(1, 2), key = c("x", "x"), val = 1:2)
   pv <- pivot_wider(df,
@@ -97,6 +111,27 @@ test_that("values_summarize applied even when no-duplicates", {
 
   expect_equal(pv$a, c(1, 2))
   expect_equal(as.list(pv$x), list(1L, 2L))
+})
+
+
+# can fill missing cells --------------------------------------------------
+
+test_that("can fill in missing cells", {
+  df <- tibble(g = c(1, 2), var = c("x", "y"), val = c(1, 2))
+
+  widen <- function(...) {
+    df %>% pivot_wider(names_from = var, values_from = val, ...)
+  }
+
+  expect_equal(widen()$x, c(1, NA))
+  expect_equal(widen(values_fill = 0)$x, c(1, 0))
+  expect_equal(widen(values_fill = list(val = 0))$x, c(1, 0))
+})
+
+test_that("values_fill only affects missing cells", {
+  df <- tibble(g = c(1, 2), names = c("x", "y"), value = c(1, NA))
+  out <- pivot_wider(df, names_from = names, values_from = value, values_fill = 0 )
+  expect_equal(out$y, c(0, NA))
 })
 
 # multiple values ----------------------------------------------------------
