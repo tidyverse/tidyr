@@ -196,3 +196,18 @@ test_that("can gather list-columns", {
   out <- gather(df, k, v, y:z)
   expect_equal(out$v, list(1, 2, 3, 4))
 })
+
+test_that("can gather columns using regex", {
+  df <- tibble(x = 1:2, y = list(1, 2), z = list(3, 4))
+  out <- gather(df, k, v, "y|z", regex = TRUE)
+  expect_equal(out$v, list(1, 2, 3, 4))
+  expect_equal(colnames(out), c("x", "k", "v"))
+
+  out <- gather(df, k, v, ".", regex = TRUE)
+  expect_equal(out$v, list(1, 2, 1, 2, 3, 4))
+  expect_equal(colnames(out), c("k", "v"))
+
+  out <- gather(df, k, v, "[^x]", regex = TRUE)
+  expect_equal(out$v, list(1, 2, 3, 4))
+  expect_equal(colnames(out), c("x", "k", "v"))
+})

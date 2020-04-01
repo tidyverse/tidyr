@@ -60,6 +60,7 @@
 #' @param factor_key If `FALSE`, the default, the key values will be
 #'   stored as a character vector. If `TRUE`, will be stored as a factor,
 #'   which preserves the original ordering of the columns.
+#' @param regex If `TRUE`, select columns using `...` as regex.
 #' @inheritParams gather_
 #' @export
 #' @examples
@@ -91,22 +92,33 @@
 #'   slice(1)
 #' mini_iris %>% gather(key = "flower_att", value = "measurement", -Species)
 gather <- function(data, key = "key", value = "value", ...,
-                   na.rm = FALSE, convert = FALSE, factor_key = FALSE) {
+                   na.rm = FALSE, convert = FALSE,
+                   factor_key = FALSE, regex = FALSE) {
   ellipsis::check_dots_unnamed()
   UseMethod("gather")
 }
 #' @export
 gather.data.frame <- function(data, key = "key", value = "value", ...,
                               na.rm = FALSE, convert = FALSE,
-                              factor_key = FALSE) {
+                              factor_key = FALSE, regex = FALSE) {
   key_var <- as_string(ensym2(key))
   value_var <- as_string(ensym2(value))
 
-  quos <- quos(...)
+  if (regex == TRUE) {
+    quos <- quos(names(data)[unlist(stringr::str_match_all(names(data), ...))])
+  } else {
+    quos <- quos(...)
+  }
+
   if (is_empty(quos)) {
     gather_vars <- setdiff(names(data), c(key_var, value_var))
   } else {
-    gather_vars <- unname(tidyselect::vars_select(tbl_vars(data), !!! quos))
+    if (regex == TRUE) {
+      gather_vars <- unname(tidyselect::vars_select(tbl_vars(data),
+                                                    tidyselect::matches(...)))
+    } else {
+      gather_vars <- unname(tidyselect::vars_select(tbl_vars(data), !!! quos))
+    }
   }
 
   if (is_empty(gather_vars)) {
