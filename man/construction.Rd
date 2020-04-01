@@ -4,13 +4,15 @@
 \name{construction}
 \alias{construction}
 \title{Completed construction in the US in 2018}
-\format{A dataset with variables:
+\format{
+A dataset with variables:
 \describe{
 \item{Year,Month}{Record date}
 \item{\verb{1 unit}, \verb{2 to 4 units}, \verb{5 units or mote}}{Number of completed
 units of each size}
 \item{Northeast,Midwest,South,West}{Number of completed units in each region}
-}}
+}
+}
 \source{
 Completions of "New Residential Construction" found in Table 5 at
 \url{https://www.census.gov/construction/nrc/xls/newresconst.xls}

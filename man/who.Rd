@@ -5,14 +5,23 @@
 \alias{who}
 \alias{population}
 \title{World Health Organization TB data}
-\format{A dataset with the variables
+\format{
+\code{who}: a data frame with 7,240 rows and the columns:
 \describe{
 \item{country}{Country name}
 \item{iso2, iso3}{2 & 3 letter ISO country codes}
 \item{year}{Year}
 \item{new_sp_m014 - new_rel_f65}{Counts of new TB cases recorded by group.
 Column names encode three variables that describe the group (see details).}
-}}
+}
+
+\code{population}: a data frame with 4,060 rows and three columns:
+\describe{
+\item{country}{Country name}
+\item{year}{Year}
+\item{population}{Population}
+}
+}
 \source{
 \url{https://www.who.int/tb/country/data/download/en/}
 }
