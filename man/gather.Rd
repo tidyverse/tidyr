@@ -4,15 +4,8 @@
 \alias{gather}
 \title{Gather columns into key-value pairs}
 \usage{
-gather(
-  data,
-  key = "key",
-  value = "value",
-  ...,
-  na.rm = FALSE,
-  convert = FALSE,
-  factor_key = FALSE
-)
+gather(data, key = "key", value = "value", ..., na.rm = FALSE,
+  convert = FALSE, factor_key = FALSE, regex = FALSE)
 }
 \arguments{
 \item{data}{A data frame.}
@@ -43,6 +36,8 @@ types are actually numeric, integer, or logical.}
 \item{factor_key}{If \code{FALSE}, the default, the key values will be
 stored as a character vector. If \code{TRUE}, will be stored as a factor,
 which preserves the original ordering of the columns.}
+
+\item{regex}{If \code{TRUE}, select columns using \code{...} as regex.}
 }
 \description{
 \Sexpr[results=rd, stage=render]{lifecycle::badge("retired")}
@@ -67,7 +62,7 @@ expressions and context expressions.
 like \code{x:y} or \code{c(x, y)}. In a data expression, you can only refer
 to columns from the data frame.
 \item Everything else is a context expression in which you can only
-refer to objects that you have defined with \verb{<-}.
+refer to objects that you have defined with \code{<-}.
 }
 
 For instance, \code{col1:col3} is a data expression that refers to data
@@ -76,7 +71,7 @@ refers to objects from the contexts.
 
 If you really need to refer to contextual objects from a data
 expression, you can unquote them with the tidy eval operator
-\verb{!!}. This operator evaluates its argument in the context and
+\code{!!}. This operator evaluates its argument in the context and
 inlines the result in the surrounding function call. For instance,
 \code{c(x, !! x)} selects the \code{x} column within the data frame and the
 column referred to by the object \code{x} defined in the context (which
