@@ -171,492 +171,491 @@
 </ul>
 <p>A very large number of data rectangling problems can be solved by combining these functions with a splash of dplyr (largely eliminating prior approaches that combined <code><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate()</a></code> with multiple <code><a href="https://purrr.tidyverse.org/reference/map.html">purrr::map()</a></code>s).</p>
 <p>To illustrate these techniques, we’ll use the repurrrsive package, which provides a number deeply nested lists originally mostly captured from web APIs.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(tidyr)</span>
-<span id="cb1-2"><a href="#cb1-2"></a><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(dplyr)</span>
-<span id="cb1-3"><a href="#cb1-3"></a><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(repurrrsive)</span></code></pre></div>
+<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">tidyr</span>)
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">dplyr</span>)
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">repurrrsive</span>)</pre></body></html></div>
 </div>
 <div id="github-users" class="section level2">
 <h2 class="hasAnchor">
 <a href="#github-users" class="anchor"></a>GitHub users</h2>
 <p>We’ll start with <code>gh_users</code>, a list which contains information about six GitHub users. To begin, we put the <code>gh_users</code> list into a data frame:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>users &lt;-<span class="st"> </span><span class="kw"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span>(<span class="dt">user =</span> gh_users)</span></code></pre></div>
+<div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="no">users</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span>(<span class="kw">user</span> <span class="kw">=</span> <span class="no">gh_users</span>)</pre></body></html></div>
 <p>This seems a bit counter-intuitive: why is the first step in making a list simpler to make it more complicated? But a data frame has a big advantage: it bundles together multiple vectors so that everything is tracked together in a single object.</p>
 <p>Each <code>user</code> is a named list, where each element represents a column.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="kw"><a href="https://rdrr.io/r/base/names.html">names</a></span>(users<span class="op">$</span>user[[<span class="dv">1</span>]])</span>
-<span id="cb3-2"><a href="#cb3-2"></a><span class="co">#&gt;  [1] "login"               "id"                  "avatar_url"         </span></span>
-<span id="cb3-3"><a href="#cb3-3"></a><span class="co">#&gt;  [4] "gravatar_id"         "url"                 "html_url"           </span></span>
-<span id="cb3-4"><a href="#cb3-4"></a><span class="co">#&gt;  [7] "followers_url"       "following_url"       "gists_url"          </span></span>
-<span id="cb3-5"><a href="#cb3-5"></a><span class="co">#&gt; [10] "starred_url"         "subscriptions_url"   "organizations_url"  </span></span>
-<span id="cb3-6"><a href="#cb3-6"></a><span class="co">#&gt; [13] "repos_url"           "events_url"          "received_events_url"</span></span>
-<span id="cb3-7"><a href="#cb3-7"></a><span class="co">#&gt; [16] "type"                "site_admin"          "name"               </span></span>
-<span id="cb3-8"><a href="#cb3-8"></a><span class="co">#&gt; [19] "company"             "blog"                "location"           </span></span>
-<span id="cb3-9"><a href="#cb3-9"></a><span class="co">#&gt; [22] "email"               "hireable"            "bio"                </span></span>
-<span id="cb3-10"><a href="#cb3-10"></a><span class="co">#&gt; [25] "public_repos"        "public_gists"        "followers"          </span></span>
-<span id="cb3-11"><a href="#cb3-11"></a><span class="co">#&gt; [28] "following"           "created_at"          "updated_at"</span></span></code></pre></div>
+<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span>(<span class="no">users</span>$<span class="no">user</span><span class="kw">[[</span><span class="fl">1</span>]])
+<span class="co">#&gt;  [1] "login"               "id"                  "avatar_url"         </span>
+<span class="co">#&gt;  [4] "gravatar_id"         "url"                 "html_url"           </span>
+<span class="co">#&gt;  [7] "followers_url"       "following_url"       "gists_url"          </span>
+<span class="co">#&gt; [10] "starred_url"         "subscriptions_url"   "organizations_url"  </span>
+<span class="co">#&gt; [13] "repos_url"           "events_url"          "received_events_url"</span>
+<span class="co">#&gt; [16] "type"                "site_admin"          "name"               </span>
+<span class="co">#&gt; [19] "company"             "blog"                "location"           </span>
+<span class="co">#&gt; [22] "email"               "hireable"            "bio"                </span>
+<span class="co">#&gt; [25] "public_repos"        "public_gists"        "followers"          </span>
+<span class="co">#&gt; [28] "following"           "created_at"          "updated_at"</span></pre></body></html></div>
 <p>There are two ways to turn the list components into columns. <code><a href="../reference/hoist.html">unnest_wider()</a></code> takes every component and makes a new column:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>users <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/hoist.html">unnest_wider</a></span>(user)</span>
-<span id="cb4-2"><a href="#cb4-2"></a><span class="co">#&gt; # A tibble: 6 x 30</span></span>
-<span id="cb4-3"><a href="#cb4-3"></a><span class="co">#&gt;   login     id avatar_url gravatar_id url   html_url followers_url following_url</span></span>
-<span id="cb4-4"><a href="#cb4-4"></a><span class="co">#&gt;   &lt;chr&gt;  &lt;int&gt; &lt;chr&gt;      &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt;    &lt;chr&gt;         &lt;chr&gt;        </span></span>
-<span id="cb4-5"><a href="#cb4-5"></a><span class="co">#&gt; 1 gabo… 6.60e5 https://a… ""          http… https:/… https://api.… https://api.…</span></span>
-<span id="cb4-6"><a href="#cb4-6"></a><span class="co">#&gt; 2 jenn… 5.99e5 https://a… ""          http… https:/… https://api.… https://api.…</span></span>
-<span id="cb4-7"><a href="#cb4-7"></a><span class="co">#&gt; 3 jtle… 1.57e6 https://a… ""          http… https:/… https://api.… https://api.…</span></span>
-<span id="cb4-8"><a href="#cb4-8"></a><span class="co">#&gt; 4 juli… 1.25e7 https://a… ""          http… https:/… https://api.… https://api.…</span></span>
-<span id="cb4-9"><a href="#cb4-9"></a><span class="co">#&gt; 5 leep… 3.51e6 https://a… ""          http… https:/… https://api.… https://api.…</span></span>
-<span id="cb4-10"><a href="#cb4-10"></a><span class="co">#&gt; 6 masa… 8.36e6 https://a… ""          http… https:/… https://api.… https://api.…</span></span>
-<span id="cb4-11"><a href="#cb4-11"></a><span class="co">#&gt; # … with 22 more variables: gists_url &lt;chr&gt;, starred_url &lt;chr&gt;,</span></span>
-<span id="cb4-12"><a href="#cb4-12"></a><span class="co">#&gt; #   subscriptions_url &lt;chr&gt;, organizations_url &lt;chr&gt;, repos_url &lt;chr&gt;,</span></span>
-<span id="cb4-13"><a href="#cb4-13"></a><span class="co">#&gt; #   events_url &lt;chr&gt;, received_events_url &lt;chr&gt;, type &lt;chr&gt;, site_admin &lt;lgl&gt;,</span></span>
-<span id="cb4-14"><a href="#cb4-14"></a><span class="co">#&gt; #   name &lt;chr&gt;, company &lt;chr&gt;, blog &lt;chr&gt;, location &lt;chr&gt;, email &lt;chr&gt;,</span></span>
-<span id="cb4-15"><a href="#cb4-15"></a><span class="co">#&gt; #   public_repos &lt;int&gt;, public_gists &lt;int&gt;, followers &lt;int&gt;, following &lt;int&gt;,</span></span>
-<span id="cb4-16"><a href="#cb4-16"></a><span class="co">#&gt; #   created_at &lt;chr&gt;, updated_at &lt;chr&gt;, bio &lt;chr&gt;, hireable &lt;lgl&gt;</span></span></code></pre></div>
+<div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="no">users</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/hoist.html">unnest_wider</a></span>(<span class="no">user</span>)
+<span class="co">#&gt; # A tibble: 6 x 30</span>
+<span class="co">#&gt;   login     id avatar_url gravatar_id url   html_url followers_url following_url</span>
+<span class="co">#&gt;   &lt;chr&gt;  &lt;int&gt; &lt;chr&gt;      &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt;    &lt;chr&gt;         &lt;chr&gt;        </span>
+<span class="co">#&gt; 1 gabo… 6.60e5 https://a… ""          http… https:/… https://api.… https://api.…</span>
+<span class="co">#&gt; 2 jenn… 5.99e5 https://a… ""          http… https:/… https://api.… https://api.…</span>
+<span class="co">#&gt; 3 jtle… 1.57e6 https://a… ""          http… https:/… https://api.… https://api.…</span>
+<span class="co">#&gt; 4 juli… 1.25e7 https://a… ""          http… https:/… https://api.… https://api.…</span>
+<span class="co">#&gt; 5 leep… 3.51e6 https://a… ""          http… https:/… https://api.… https://api.…</span>
+<span class="co">#&gt; 6 masa… 8.36e6 https://a… ""          http… https:/… https://api.… https://api.…</span>
+<span class="co">#&gt; # … with 22 more variables: gists_url &lt;chr&gt;, starred_url &lt;chr&gt;,</span>
+<span class="co">#&gt; #   subscriptions_url &lt;chr&gt;, organizations_url &lt;chr&gt;, repos_url &lt;chr&gt;,</span>
+<span class="co">#&gt; #   events_url &lt;chr&gt;, received_events_url &lt;chr&gt;, type &lt;chr&gt;, site_admin &lt;lgl&gt;,</span>
+<span class="co">#&gt; #   name &lt;chr&gt;, company &lt;chr&gt;, blog &lt;chr&gt;, location &lt;chr&gt;, email &lt;chr&gt;,</span>
+<span class="co">#&gt; #   public_repos &lt;int&gt;, public_gists &lt;int&gt;, followers &lt;int&gt;, following &lt;int&gt;,</span>
+<span class="co">#&gt; #   created_at &lt;chr&gt;, updated_at &lt;chr&gt;, bio &lt;chr&gt;, hireable &lt;lgl&gt;</span></pre></body></html></div>
 <p>But in this case, there are many components and we don’t need most of them so we can instead use <code><a href="../reference/hoist.html">hoist()</a></code>. <code><a href="../reference/hoist.html">hoist()</a></code> allows us to pull out selected components using the same syntax as <code><a href="https://purrr.tidyverse.org/reference/pluck.html">purrr::pluck()</a></code>:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>users <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/hoist.html">hoist</a></span>(user, </span>
-<span id="cb5-2"><a href="#cb5-2"></a>  <span class="dt">followers =</span> <span class="st">"followers"</span>, </span>
-<span id="cb5-3"><a href="#cb5-3"></a>  <span class="dt">login =</span> <span class="st">"login"</span>, </span>
-<span id="cb5-4"><a href="#cb5-4"></a>  <span class="dt">url =</span> <span class="st">"html_url"</span></span>
-<span id="cb5-5"><a href="#cb5-5"></a>)</span>
-<span id="cb5-6"><a href="#cb5-6"></a><span class="co">#&gt; # A tibble: 6 x 4</span></span>
-<span id="cb5-7"><a href="#cb5-7"></a><span class="co">#&gt;   followers login       url                            user             </span></span>
-<span id="cb5-8"><a href="#cb5-8"></a><span class="co">#&gt;       &lt;int&gt; &lt;chr&gt;       &lt;chr&gt;                          &lt;list&gt;           </span></span>
-<span id="cb5-9"><a href="#cb5-9"></a><span class="co">#&gt; 1       303 gaborcsardi https://github.com/gaborcsardi &lt;named list [27]&gt;</span></span>
-<span id="cb5-10"><a href="#cb5-10"></a><span class="co">#&gt; 2       780 jennybc     https://github.com/jennybc     &lt;named list [27]&gt;</span></span>
-<span id="cb5-11"><a href="#cb5-11"></a><span class="co">#&gt; 3      3958 jtleek      https://github.com/jtleek      &lt;named list [27]&gt;</span></span>
-<span id="cb5-12"><a href="#cb5-12"></a><span class="co">#&gt; 4       115 juliasilge  https://github.com/juliasilge  &lt;named list [27]&gt;</span></span>
-<span id="cb5-13"><a href="#cb5-13"></a><span class="co">#&gt; 5       213 leeper      https://github.com/leeper      &lt;named list [27]&gt;</span></span>
-<span id="cb5-14"><a href="#cb5-14"></a><span class="co">#&gt; 6        34 masalmon    https://github.com/masalmon    &lt;named list [27]&gt;</span></span></code></pre></div>
+<div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="no">users</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/hoist.html">hoist</a></span>(<span class="no">user</span>,
+  <span class="kw">followers</span> <span class="kw">=</span> <span class="st">"followers"</span>,
+  <span class="kw">login</span> <span class="kw">=</span> <span class="st">"login"</span>,
+  <span class="kw">url</span> <span class="kw">=</span> <span class="st">"html_url"</span>
+)
+<span class="co">#&gt; # A tibble: 6 x 4</span>
+<span class="co">#&gt;   followers login       url                            user             </span>
+<span class="co">#&gt;       &lt;int&gt; &lt;chr&gt;       &lt;chr&gt;                          &lt;list&gt;           </span>
+<span class="co">#&gt; 1       303 gaborcsardi https://github.com/gaborcsardi &lt;named list [27]&gt;</span>
+<span class="co">#&gt; 2       780 jennybc     https://github.com/jennybc     &lt;named list [27]&gt;</span>
+<span class="co">#&gt; 3      3958 jtleek      https://github.com/jtleek      &lt;named list [27]&gt;</span>
+<span class="co">#&gt; 4       115 juliasilge  https://github.com/juliasilge  &lt;named list [27]&gt;</span>
+<span class="co">#&gt; 5       213 leeper      https://github.com/leeper      &lt;named list [27]&gt;</span>
+<span class="co">#&gt; 6        34 masalmon    https://github.com/masalmon    &lt;named list [27]&gt;</span></pre></body></html></div>
 <p><code><a href="../reference/hoist.html">hoist()</a></code> removes the named components from the <code>user</code> list-column, so you can think of it as moving components out of the inner list into the top-level data frame.</p>
 </div>
 <div id="github-repos" class="section level2">
 <h2 class="hasAnchor">
 <a href="#github-repos" class="anchor"></a>GitHub repos</h2>
 <p>We start off <code>gh_repos</code> similarly, by putting it in a tibble:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>repos &lt;-<span class="st"> </span><span class="kw"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span>(<span class="dt">repo =</span> gh_repos)</span>
-<span id="cb6-2"><a href="#cb6-2"></a>repos</span>
-<span id="cb6-3"><a href="#cb6-3"></a><span class="co">#&gt; # A tibble: 6 x 1</span></span>
-<span id="cb6-4"><a href="#cb6-4"></a><span class="co">#&gt;   repo       </span></span>
-<span id="cb6-5"><a href="#cb6-5"></a><span class="co">#&gt;   &lt;list&gt;     </span></span>
-<span id="cb6-6"><a href="#cb6-6"></a><span class="co">#&gt; 1 &lt;list [30]&gt;</span></span>
-<span id="cb6-7"><a href="#cb6-7"></a><span class="co">#&gt; 2 &lt;list [30]&gt;</span></span>
-<span id="cb6-8"><a href="#cb6-8"></a><span class="co">#&gt; 3 &lt;list [30]&gt;</span></span>
-<span id="cb6-9"><a href="#cb6-9"></a><span class="co">#&gt; 4 &lt;list [26]&gt;</span></span>
-<span id="cb6-10"><a href="#cb6-10"></a><span class="co">#&gt; 5 &lt;list [30]&gt;</span></span>
-<span id="cb6-11"><a href="#cb6-11"></a><span class="co">#&gt; 6 &lt;list [30]&gt;</span></span></code></pre></div>
+<div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="no">repos</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span>(<span class="kw">repo</span> <span class="kw">=</span> <span class="no">gh_repos</span>)
+<span class="no">repos</span>
+<span class="co">#&gt; # A tibble: 6 x 1</span>
+<span class="co">#&gt;   repo       </span>
+<span class="co">#&gt;   &lt;list&gt;     </span>
+<span class="co">#&gt; 1 &lt;list [30]&gt;</span>
+<span class="co">#&gt; 2 &lt;list [30]&gt;</span>
+<span class="co">#&gt; 3 &lt;list [30]&gt;</span>
+<span class="co">#&gt; 4 &lt;list [26]&gt;</span>
+<span class="co">#&gt; 5 &lt;list [30]&gt;</span>
+<span class="co">#&gt; 6 &lt;list [30]&gt;</span></pre></body></html></div>
 <p>This time the elements of <code>user</code> are a list of repositories that belong to that user. These are observations, so should become new rows, so we use <code><a href="../reference/hoist.html">unnest_longer()</a></code> rather than <code><a href="../reference/hoist.html">unnest_wider()</a></code>:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>repos &lt;-<span class="st"> </span>repos <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/hoist.html">unnest_longer</a></span>(repo)</span>
-<span id="cb7-2"><a href="#cb7-2"></a>repos</span>
-<span id="cb7-3"><a href="#cb7-3"></a><span class="co">#&gt; # A tibble: 176 x 1</span></span>
-<span id="cb7-4"><a href="#cb7-4"></a><span class="co">#&gt;    repo             </span></span>
-<span id="cb7-5"><a href="#cb7-5"></a><span class="co">#&gt;    &lt;list&gt;           </span></span>
-<span id="cb7-6"><a href="#cb7-6"></a><span class="co">#&gt;  1 &lt;named list [68]&gt;</span></span>
-<span id="cb7-7"><a href="#cb7-7"></a><span class="co">#&gt;  2 &lt;named list [68]&gt;</span></span>
-<span id="cb7-8"><a href="#cb7-8"></a><span class="co">#&gt;  3 &lt;named list [68]&gt;</span></span>
-<span id="cb7-9"><a href="#cb7-9"></a><span class="co">#&gt;  4 &lt;named list [68]&gt;</span></span>
-<span id="cb7-10"><a href="#cb7-10"></a><span class="co">#&gt;  5 &lt;named list [68]&gt;</span></span>
-<span id="cb7-11"><a href="#cb7-11"></a><span class="co">#&gt;  6 &lt;named list [68]&gt;</span></span>
-<span id="cb7-12"><a href="#cb7-12"></a><span class="co">#&gt;  7 &lt;named list [68]&gt;</span></span>
-<span id="cb7-13"><a href="#cb7-13"></a><span class="co">#&gt;  8 &lt;named list [68]&gt;</span></span>
-<span id="cb7-14"><a href="#cb7-14"></a><span class="co">#&gt;  9 &lt;named list [68]&gt;</span></span>
-<span id="cb7-15"><a href="#cb7-15"></a><span class="co">#&gt; 10 &lt;named list [68]&gt;</span></span>
-<span id="cb7-16"><a href="#cb7-16"></a><span class="co">#&gt; # … with 166 more rows</span></span></code></pre></div>
+<div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="no">repos</span> <span class="kw">&lt;-</span> <span class="no">repos</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/hoist.html">unnest_longer</a></span>(<span class="no">repo</span>)
+<span class="no">repos</span>
+<span class="co">#&gt; # A tibble: 176 x 1</span>
+<span class="co">#&gt;    repo             </span>
+<span class="co">#&gt;    &lt;list&gt;           </span>
+<span class="co">#&gt;  1 &lt;named list [68]&gt;</span>
+<span class="co">#&gt;  2 &lt;named list [68]&gt;</span>
+<span class="co">#&gt;  3 &lt;named list [68]&gt;</span>
+<span class="co">#&gt;  4 &lt;named list [68]&gt;</span>
+<span class="co">#&gt;  5 &lt;named list [68]&gt;</span>
+<span class="co">#&gt;  6 &lt;named list [68]&gt;</span>
+<span class="co">#&gt;  7 &lt;named list [68]&gt;</span>
+<span class="co">#&gt;  8 &lt;named list [68]&gt;</span>
+<span class="co">#&gt;  9 &lt;named list [68]&gt;</span>
+<span class="co">#&gt; 10 &lt;named list [68]&gt;</span>
+<span class="co">#&gt; # … with 166 more rows</span></pre></body></html></div>
 <p>Then we can use <code><a href="../reference/hoist.html">unnest_wider()</a></code> or <code><a href="../reference/hoist.html">hoist()</a></code>:</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>repos <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/hoist.html">hoist</a></span>(repo, </span>
-<span id="cb8-2"><a href="#cb8-2"></a>  <span class="dt">login =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"owner"</span>, <span class="st">"login"</span>), </span>
-<span id="cb8-3"><a href="#cb8-3"></a>  <span class="dt">name =</span> <span class="st">"name"</span>,</span>
-<span id="cb8-4"><a href="#cb8-4"></a>  <span class="dt">homepage =</span> <span class="st">"homepage"</span>,</span>
-<span id="cb8-5"><a href="#cb8-5"></a>  <span class="dt">watchers =</span> <span class="st">"watchers_count"</span></span>
-<span id="cb8-6"><a href="#cb8-6"></a>)</span>
-<span id="cb8-7"><a href="#cb8-7"></a><span class="co">#&gt; # A tibble: 176 x 5</span></span>
-<span id="cb8-8"><a href="#cb8-8"></a><span class="co">#&gt;    login       name        homepage watchers repo             </span></span>
-<span id="cb8-9"><a href="#cb8-9"></a><span class="co">#&gt;    &lt;chr&gt;       &lt;chr&gt;       &lt;chr&gt;       &lt;int&gt; &lt;list&gt;           </span></span>
-<span id="cb8-10"><a href="#cb8-10"></a><span class="co">#&gt;  1 gaborcsardi after        &lt;NA&gt;           5 &lt;named list [65]&gt;</span></span>
-<span id="cb8-11"><a href="#cb8-11"></a><span class="co">#&gt;  2 gaborcsardi argufy       &lt;NA&gt;          19 &lt;named list [65]&gt;</span></span>
-<span id="cb8-12"><a href="#cb8-12"></a><span class="co">#&gt;  3 gaborcsardi ask          &lt;NA&gt;           5 &lt;named list [65]&gt;</span></span>
-<span id="cb8-13"><a href="#cb8-13"></a><span class="co">#&gt;  4 gaborcsardi baseimports  &lt;NA&gt;           0 &lt;named list [65]&gt;</span></span>
-<span id="cb8-14"><a href="#cb8-14"></a><span class="co">#&gt;  5 gaborcsardi citest       &lt;NA&gt;           0 &lt;named list [65]&gt;</span></span>
-<span id="cb8-15"><a href="#cb8-15"></a><span class="co">#&gt;  6 gaborcsardi clisymbols  ""             18 &lt;named list [65]&gt;</span></span>
-<span id="cb8-16"><a href="#cb8-16"></a><span class="co">#&gt;  7 gaborcsardi cmaker       &lt;NA&gt;           0 &lt;named list [65]&gt;</span></span>
-<span id="cb8-17"><a href="#cb8-17"></a><span class="co">#&gt;  8 gaborcsardi cmark        &lt;NA&gt;           0 &lt;named list [65]&gt;</span></span>
-<span id="cb8-18"><a href="#cb8-18"></a><span class="co">#&gt;  9 gaborcsardi conditions   &lt;NA&gt;           0 &lt;named list [65]&gt;</span></span>
-<span id="cb8-19"><a href="#cb8-19"></a><span class="co">#&gt; 10 gaborcsardi crayon       &lt;NA&gt;          52 &lt;named list [65]&gt;</span></span>
-<span id="cb8-20"><a href="#cb8-20"></a><span class="co">#&gt; # … with 166 more rows</span></span></code></pre></div>
+<div class="sourceCode" id="cb8"><html><body><pre class="r"><span class="no">repos</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/hoist.html">hoist</a></span>(<span class="no">repo</span>,
+  <span class="kw">login</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"owner"</span>, <span class="st">"login"</span>),
+  <span class="kw">name</span> <span class="kw">=</span> <span class="st">"name"</span>,
+  <span class="kw">homepage</span> <span class="kw">=</span> <span class="st">"homepage"</span>,
+  <span class="kw">watchers</span> <span class="kw">=</span> <span class="st">"watchers_count"</span>
+)
+<span class="co">#&gt; # A tibble: 176 x 5</span>
+<span class="co">#&gt;    login       name        homepage watchers repo             </span>
+<span class="co">#&gt;    &lt;chr&gt;       &lt;chr&gt;       &lt;chr&gt;       &lt;int&gt; &lt;list&gt;           </span>
+<span class="co">#&gt;  1 gaborcsardi after        &lt;NA&gt;           5 &lt;named list [65]&gt;</span>
+<span class="co">#&gt;  2 gaborcsardi argufy       &lt;NA&gt;          19 &lt;named list [65]&gt;</span>
+<span class="co">#&gt;  3 gaborcsardi ask          &lt;NA&gt;           5 &lt;named list [65]&gt;</span>
+<span class="co">#&gt;  4 gaborcsardi baseimports  &lt;NA&gt;           0 &lt;named list [65]&gt;</span>
+<span class="co">#&gt;  5 gaborcsardi citest       &lt;NA&gt;           0 &lt;named list [65]&gt;</span>
+<span class="co">#&gt;  6 gaborcsardi clisymbols  ""             18 &lt;named list [65]&gt;</span>
+<span class="co">#&gt;  7 gaborcsardi cmaker       &lt;NA&gt;           0 &lt;named list [65]&gt;</span>
+<span class="co">#&gt;  8 gaborcsardi cmark        &lt;NA&gt;           0 &lt;named list [65]&gt;</span>
+<span class="co">#&gt;  9 gaborcsardi conditions   &lt;NA&gt;           0 &lt;named list [65]&gt;</span>
+<span class="co">#&gt; 10 gaborcsardi crayon       &lt;NA&gt;          52 &lt;named list [65]&gt;</span>
+<span class="co">#&gt; # … with 166 more rows</span></pre></body></html></div>
 <p>Note the use of <code><a href="https://rdrr.io/r/base/c.html">c("owner", "login")</a></code>: this allows us to reach two levels deep inside of a list. An alternative approach would be to pull out just <code>owner</code> and then put each element of it in a column:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>repos <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb9-2"><a href="#cb9-2"></a><span class="st">  </span><span class="kw"><a href="../reference/hoist.html">hoist</a></span>(repo, <span class="dt">owner =</span> <span class="st">"owner"</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb9-3"><a href="#cb9-3"></a><span class="st">  </span><span class="kw"><a href="../reference/hoist.html">unnest_wider</a></span>(owner)</span>
-<span id="cb9-4"><a href="#cb9-4"></a><span class="co">#&gt; # A tibble: 176 x 18</span></span>
-<span id="cb9-5"><a href="#cb9-5"></a><span class="co">#&gt;    login     id avatar_url gravatar_id url   html_url followers_url</span></span>
-<span id="cb9-6"><a href="#cb9-6"></a><span class="co">#&gt;    &lt;chr&gt;  &lt;int&gt; &lt;chr&gt;      &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt;    &lt;chr&gt;        </span></span>
-<span id="cb9-7"><a href="#cb9-7"></a><span class="co">#&gt;  1 gabo… 660288 https://a… ""          http… https:/… https://api.…</span></span>
-<span id="cb9-8"><a href="#cb9-8"></a><span class="co">#&gt;  2 gabo… 660288 https://a… ""          http… https:/… https://api.…</span></span>
-<span id="cb9-9"><a href="#cb9-9"></a><span class="co">#&gt;  3 gabo… 660288 https://a… ""          http… https:/… https://api.…</span></span>
-<span id="cb9-10"><a href="#cb9-10"></a><span class="co">#&gt;  4 gabo… 660288 https://a… ""          http… https:/… https://api.…</span></span>
-<span id="cb9-11"><a href="#cb9-11"></a><span class="co">#&gt;  5 gabo… 660288 https://a… ""          http… https:/… https://api.…</span></span>
-<span id="cb9-12"><a href="#cb9-12"></a><span class="co">#&gt;  6 gabo… 660288 https://a… ""          http… https:/… https://api.…</span></span>
-<span id="cb9-13"><a href="#cb9-13"></a><span class="co">#&gt;  7 gabo… 660288 https://a… ""          http… https:/… https://api.…</span></span>
-<span id="cb9-14"><a href="#cb9-14"></a><span class="co">#&gt;  8 gabo… 660288 https://a… ""          http… https:/… https://api.…</span></span>
-<span id="cb9-15"><a href="#cb9-15"></a><span class="co">#&gt;  9 gabo… 660288 https://a… ""          http… https:/… https://api.…</span></span>
-<span id="cb9-16"><a href="#cb9-16"></a><span class="co">#&gt; 10 gabo… 660288 https://a… ""          http… https:/… https://api.…</span></span>
-<span id="cb9-17"><a href="#cb9-17"></a><span class="co">#&gt; # … with 166 more rows, and 11 more variables: following_url &lt;chr&gt;,</span></span>
-<span id="cb9-18"><a href="#cb9-18"></a><span class="co">#&gt; #   gists_url &lt;chr&gt;, starred_url &lt;chr&gt;, subscriptions_url &lt;chr&gt;,</span></span>
-<span id="cb9-19"><a href="#cb9-19"></a><span class="co">#&gt; #   organizations_url &lt;chr&gt;, repos_url &lt;chr&gt;, events_url &lt;chr&gt;,</span></span>
-<span id="cb9-20"><a href="#cb9-20"></a><span class="co">#&gt; #   received_events_url &lt;chr&gt;, type &lt;chr&gt;, site_admin &lt;lgl&gt;, repo &lt;list&gt;</span></span></code></pre></div>
+<div class="sourceCode" id="cb9"><html><body><pre class="r"><span class="no">repos</span> <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="../reference/hoist.html">hoist</a></span>(<span class="no">repo</span>, <span class="kw">owner</span> <span class="kw">=</span> <span class="st">"owner"</span>) <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="../reference/hoist.html">unnest_wider</a></span>(<span class="no">owner</span>)
+<span class="co">#&gt; # A tibble: 176 x 18</span>
+<span class="co">#&gt;    login     id avatar_url gravatar_id url   html_url followers_url</span>
+<span class="co">#&gt;    &lt;chr&gt;  &lt;int&gt; &lt;chr&gt;      &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt;    &lt;chr&gt;        </span>
+<span class="co">#&gt;  1 gabo… 660288 https://a… ""          http… https:/… https://api.…</span>
+<span class="co">#&gt;  2 gabo… 660288 https://a… ""          http… https:/… https://api.…</span>
+<span class="co">#&gt;  3 gabo… 660288 https://a… ""          http… https:/… https://api.…</span>
+<span class="co">#&gt;  4 gabo… 660288 https://a… ""          http… https:/… https://api.…</span>
+<span class="co">#&gt;  5 gabo… 660288 https://a… ""          http… https:/… https://api.…</span>
+<span class="co">#&gt;  6 gabo… 660288 https://a… ""          http… https:/… https://api.…</span>
+<span class="co">#&gt;  7 gabo… 660288 https://a… ""          http… https:/… https://api.…</span>
+<span class="co">#&gt;  8 gabo… 660288 https://a… ""          http… https:/… https://api.…</span>
+<span class="co">#&gt;  9 gabo… 660288 https://a… ""          http… https:/… https://api.…</span>
+<span class="co">#&gt; 10 gabo… 660288 https://a… ""          http… https:/… https://api.…</span>
+<span class="co">#&gt; # … with 166 more rows, and 11 more variables: following_url &lt;chr&gt;,</span>
+<span class="co">#&gt; #   gists_url &lt;chr&gt;, starred_url &lt;chr&gt;, subscriptions_url &lt;chr&gt;,</span>
+<span class="co">#&gt; #   organizations_url &lt;chr&gt;, repos_url &lt;chr&gt;, events_url &lt;chr&gt;,</span>
+<span class="co">#&gt; #   received_events_url &lt;chr&gt;, type &lt;chr&gt;, site_admin &lt;lgl&gt;, repo &lt;list&gt;</span></pre></body></html></div>
 <p>Instead of looking at the list and carefully thinking about whether it needs to become rows or columns, you can use <code><a href="../reference/hoist.html">unnest_auto()</a></code>. It uses a handful of heuristics to figure out whether <code><a href="../reference/hoist.html">unnest_longer()</a></code> or <code><a href="../reference/hoist.html">unnest_wider()</a></code> is appropriate, and tells you about its reasoning.</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="kw"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span>(<span class="dt">repo =</span> gh_repos) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb10-2"><a href="#cb10-2"></a><span class="st">  </span><span class="kw"><a href="../reference/hoist.html">unnest_auto</a></span>(repo) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb10-3"><a href="#cb10-3"></a><span class="st">  </span><span class="kw"><a href="../reference/hoist.html">unnest_auto</a></span>(repo)</span>
-<span id="cb10-4"><a href="#cb10-4"></a><span class="co">#&gt; Using `unnest_longer(repo)`; no element has names</span></span>
-<span id="cb10-5"><a href="#cb10-5"></a><span class="co">#&gt; Using `unnest_wider(repo)`; elements have 68 names in common</span></span>
-<span id="cb10-6"><a href="#cb10-6"></a><span class="co">#&gt; # A tibble: 176 x 67</span></span>
-<span id="cb10-7"><a href="#cb10-7"></a><span class="co">#&gt;        id name  full_name owner private html_url description fork  url  </span></span>
-<span id="cb10-8"><a href="#cb10-8"></a><span class="co">#&gt;     &lt;int&gt; &lt;chr&gt; &lt;chr&gt;     &lt;lis&gt; &lt;lgl&gt;   &lt;chr&gt;    &lt;chr&gt;       &lt;lgl&gt; &lt;chr&gt;</span></span>
-<span id="cb10-9"><a href="#cb10-9"></a><span class="co">#&gt;  1 6.12e7 after gaborcsa… &lt;nam… FALSE   https:/… Run Code i… FALSE http…</span></span>
-<span id="cb10-10"><a href="#cb10-10"></a><span class="co">#&gt;  2 4.05e7 argu… gaborcsa… &lt;nam… FALSE   https:/… Declarativ… FALSE http…</span></span>
-<span id="cb10-11"><a href="#cb10-11"></a><span class="co">#&gt;  3 3.64e7 ask   gaborcsa… &lt;nam… FALSE   https:/… Friendly C… FALSE http…</span></span>
-<span id="cb10-12"><a href="#cb10-12"></a><span class="co">#&gt;  4 3.49e7 base… gaborcsa… &lt;nam… FALSE   https:/… Do we get … FALSE http…</span></span>
-<span id="cb10-13"><a href="#cb10-13"></a><span class="co">#&gt;  5 6.16e7 cite… gaborcsa… &lt;nam… FALSE   https:/… Test R pac… TRUE  http…</span></span>
-<span id="cb10-14"><a href="#cb10-14"></a><span class="co">#&gt;  6 3.39e7 clis… gaborcsa… &lt;nam… FALSE   https:/… Unicode sy… FALSE http…</span></span>
-<span id="cb10-15"><a href="#cb10-15"></a><span class="co">#&gt;  7 3.72e7 cmak… gaborcsa… &lt;nam… FALSE   https:/… port of cm… TRUE  http…</span></span>
-<span id="cb10-16"><a href="#cb10-16"></a><span class="co">#&gt;  8 6.80e7 cmark gaborcsa… &lt;nam… FALSE   https:/… CommonMark… TRUE  http…</span></span>
-<span id="cb10-17"><a href="#cb10-17"></a><span class="co">#&gt;  9 6.32e7 cond… gaborcsa… &lt;nam… FALSE   https:/… &lt;NA&gt;        TRUE  http…</span></span>
-<span id="cb10-18"><a href="#cb10-18"></a><span class="co">#&gt; 10 2.43e7 cray… gaborcsa… &lt;nam… FALSE   https:/… R package … FALSE http…</span></span>
-<span id="cb10-19"><a href="#cb10-19"></a><span class="co">#&gt; # … with 166 more rows, and 58 more variables: forks_url &lt;chr&gt;, keys_url &lt;chr&gt;,</span></span>
-<span id="cb10-20"><a href="#cb10-20"></a><span class="co">#&gt; #   collaborators_url &lt;chr&gt;, teams_url &lt;chr&gt;, hooks_url &lt;chr&gt;,</span></span>
-<span id="cb10-21"><a href="#cb10-21"></a><span class="co">#&gt; #   issue_events_url &lt;chr&gt;, events_url &lt;chr&gt;, assignees_url &lt;chr&gt;,</span></span>
-<span id="cb10-22"><a href="#cb10-22"></a><span class="co">#&gt; #   branches_url &lt;chr&gt;, tags_url &lt;chr&gt;, blobs_url &lt;chr&gt;, git_tags_url &lt;chr&gt;,</span></span>
-<span id="cb10-23"><a href="#cb10-23"></a><span class="co">#&gt; #   git_refs_url &lt;chr&gt;, trees_url &lt;chr&gt;, statuses_url &lt;chr&gt;,</span></span>
-<span id="cb10-24"><a href="#cb10-24"></a><span class="co">#&gt; #   languages_url &lt;chr&gt;, stargazers_url &lt;chr&gt;, contributors_url &lt;chr&gt;,</span></span>
-<span id="cb10-25"><a href="#cb10-25"></a><span class="co">#&gt; #   subscribers_url &lt;chr&gt;, subscription_url &lt;chr&gt;, commits_url &lt;chr&gt;,</span></span>
-<span id="cb10-26"><a href="#cb10-26"></a><span class="co">#&gt; #   git_commits_url &lt;chr&gt;, comments_url &lt;chr&gt;, issue_comment_url &lt;chr&gt;,</span></span>
-<span id="cb10-27"><a href="#cb10-27"></a><span class="co">#&gt; #   contents_url &lt;chr&gt;, compare_url &lt;chr&gt;, merges_url &lt;chr&gt;, archive_url &lt;chr&gt;,</span></span>
-<span id="cb10-28"><a href="#cb10-28"></a><span class="co">#&gt; #   downloads_url &lt;chr&gt;, issues_url &lt;chr&gt;, pulls_url &lt;chr&gt;,</span></span>
-<span id="cb10-29"><a href="#cb10-29"></a><span class="co">#&gt; #   milestones_url &lt;chr&gt;, notifications_url &lt;chr&gt;, labels_url &lt;chr&gt;,</span></span>
-<span id="cb10-30"><a href="#cb10-30"></a><span class="co">#&gt; #   releases_url &lt;chr&gt;, deployments_url &lt;chr&gt;, created_at &lt;chr&gt;,</span></span>
-<span id="cb10-31"><a href="#cb10-31"></a><span class="co">#&gt; #   updated_at &lt;chr&gt;, pushed_at &lt;chr&gt;, git_url &lt;chr&gt;, ssh_url &lt;chr&gt;,</span></span>
-<span id="cb10-32"><a href="#cb10-32"></a><span class="co">#&gt; #   clone_url &lt;chr&gt;, svn_url &lt;chr&gt;, size &lt;int&gt;, stargazers_count &lt;int&gt;,</span></span>
-<span id="cb10-33"><a href="#cb10-33"></a><span class="co">#&gt; #   watchers_count &lt;int&gt;, language &lt;chr&gt;, has_issues &lt;lgl&gt;,</span></span>
-<span id="cb10-34"><a href="#cb10-34"></a><span class="co">#&gt; #   has_downloads &lt;lgl&gt;, has_wiki &lt;lgl&gt;, has_pages &lt;lgl&gt;, forks_count &lt;int&gt;,</span></span>
-<span id="cb10-35"><a href="#cb10-35"></a><span class="co">#&gt; #   open_issues_count &lt;int&gt;, forks &lt;int&gt;, open_issues &lt;int&gt;, watchers &lt;int&gt;,</span></span>
-<span id="cb10-36"><a href="#cb10-36"></a><span class="co">#&gt; #   default_branch &lt;chr&gt;, homepage &lt;chr&gt;</span></span></code></pre></div>
+<div class="sourceCode" id="cb10"><html><body><pre class="r"><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span>(<span class="kw">repo</span> <span class="kw">=</span> <span class="no">gh_repos</span>) <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="../reference/hoist.html">unnest_auto</a></span>(<span class="no">repo</span>) <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="../reference/hoist.html">unnest_auto</a></span>(<span class="no">repo</span>)
+<span class="co">#&gt; Using `unnest_longer(repo)`; no element has names</span>
+<span class="co">#&gt; Using `unnest_wider(repo)`; elements have 68 names in common</span>
+<span class="co">#&gt; # A tibble: 176 x 67</span>
+<span class="co">#&gt;        id name  full_name owner private html_url description fork  url  </span>
+<span class="co">#&gt;     &lt;int&gt; &lt;chr&gt; &lt;chr&gt;     &lt;lis&gt; &lt;lgl&gt;   &lt;chr&gt;    &lt;chr&gt;       &lt;lgl&gt; &lt;chr&gt;</span>
+<span class="co">#&gt;  1 6.12e7 after gaborcsa… &lt;nam… FALSE   https:/… Run Code i… FALSE http…</span>
+<span class="co">#&gt;  2 4.05e7 argu… gaborcsa… &lt;nam… FALSE   https:/… Declarativ… FALSE http…</span>
+<span class="co">#&gt;  3 3.64e7 ask   gaborcsa… &lt;nam… FALSE   https:/… Friendly C… FALSE http…</span>
+<span class="co">#&gt;  4 3.49e7 base… gaborcsa… &lt;nam… FALSE   https:/… Do we get … FALSE http…</span>
+<span class="co">#&gt;  5 6.16e7 cite… gaborcsa… &lt;nam… FALSE   https:/… Test R pac… TRUE  http…</span>
+<span class="co">#&gt;  6 3.39e7 clis… gaborcsa… &lt;nam… FALSE   https:/… Unicode sy… FALSE http…</span>
+<span class="co">#&gt;  7 3.72e7 cmak… gaborcsa… &lt;nam… FALSE   https:/… port of cm… TRUE  http…</span>
+<span class="co">#&gt;  8 6.80e7 cmark gaborcsa… &lt;nam… FALSE   https:/… CommonMark… TRUE  http…</span>
+<span class="co">#&gt;  9 6.32e7 cond… gaborcsa… &lt;nam… FALSE   https:/… &lt;NA&gt;        TRUE  http…</span>
+<span class="co">#&gt; 10 2.43e7 cray… gaborcsa… &lt;nam… FALSE   https:/… R package … FALSE http…</span>
+<span class="co">#&gt; # … with 166 more rows, and 58 more variables: forks_url &lt;chr&gt;, keys_url &lt;chr&gt;,</span>
+<span class="co">#&gt; #   collaborators_url &lt;chr&gt;, teams_url &lt;chr&gt;, hooks_url &lt;chr&gt;,</span>
+<span class="co">#&gt; #   issue_events_url &lt;chr&gt;, events_url &lt;chr&gt;, assignees_url &lt;chr&gt;,</span>
+<span class="co">#&gt; #   branches_url &lt;chr&gt;, tags_url &lt;chr&gt;, blobs_url &lt;chr&gt;, git_tags_url &lt;chr&gt;,</span>
+<span class="co">#&gt; #   git_refs_url &lt;chr&gt;, trees_url &lt;chr&gt;, statuses_url &lt;chr&gt;,</span>
+<span class="co">#&gt; #   languages_url &lt;chr&gt;, stargazers_url &lt;chr&gt;, contributors_url &lt;chr&gt;,</span>
+<span class="co">#&gt; #   subscribers_url &lt;chr&gt;, subscription_url &lt;chr&gt;, commits_url &lt;chr&gt;,</span>
+<span class="co">#&gt; #   git_commits_url &lt;chr&gt;, comments_url &lt;chr&gt;, issue_comment_url &lt;chr&gt;,</span>
+<span class="co">#&gt; #   contents_url &lt;chr&gt;, compare_url &lt;chr&gt;, merges_url &lt;chr&gt;, archive_url &lt;chr&gt;,</span>
+<span class="co">#&gt; #   downloads_url &lt;chr&gt;, issues_url &lt;chr&gt;, pulls_url &lt;chr&gt;,</span>
+<span class="co">#&gt; #   milestones_url &lt;chr&gt;, notifications_url &lt;chr&gt;, labels_url &lt;chr&gt;,</span>
+<span class="co">#&gt; #   releases_url &lt;chr&gt;, deployments_url &lt;chr&gt;, created_at &lt;chr&gt;,</span>
+<span class="co">#&gt; #   updated_at &lt;chr&gt;, pushed_at &lt;chr&gt;, git_url &lt;chr&gt;, ssh_url &lt;chr&gt;,</span>
+<span class="co">#&gt; #   clone_url &lt;chr&gt;, svn_url &lt;chr&gt;, size &lt;int&gt;, stargazers_count &lt;int&gt;,</span>
+<span class="co">#&gt; #   watchers_count &lt;int&gt;, language &lt;chr&gt;, has_issues &lt;lgl&gt;,</span>
+<span class="co">#&gt; #   has_downloads &lt;lgl&gt;, has_wiki &lt;lgl&gt;, has_pages &lt;lgl&gt;, forks_count &lt;int&gt;,</span>
+<span class="co">#&gt; #   open_issues_count &lt;int&gt;, forks &lt;int&gt;, open_issues &lt;int&gt;, watchers &lt;int&gt;,</span>
+<span class="co">#&gt; #   default_branch &lt;chr&gt;, homepage &lt;chr&gt;</span></pre></body></html></div>
 </div>
 <div id="game-of-thrones-characters" class="section level2">
 <h2 class="hasAnchor">
 <a href="#game-of-thrones-characters" class="anchor"></a>Game of Thrones characters</h2>
 <p><code>got_chars</code> has a similar structure to <code>gh_users</code>: it’s a list of named lists, where each element of the inner list describes some attribute of a GoT character. We start in the same way, first by creating a data frame and then by unnesting each component into a column:</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>chars &lt;-<span class="st"> </span><span class="kw"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span>(<span class="dt">char =</span> got_chars)</span>
-<span id="cb11-2"><a href="#cb11-2"></a>chars</span>
-<span id="cb11-3"><a href="#cb11-3"></a><span class="co">#&gt; # A tibble: 30 x 1</span></span>
-<span id="cb11-4"><a href="#cb11-4"></a><span class="co">#&gt;    char             </span></span>
-<span id="cb11-5"><a href="#cb11-5"></a><span class="co">#&gt;    &lt;list&gt;           </span></span>
-<span id="cb11-6"><a href="#cb11-6"></a><span class="co">#&gt;  1 &lt;named list [18]&gt;</span></span>
-<span id="cb11-7"><a href="#cb11-7"></a><span class="co">#&gt;  2 &lt;named list [18]&gt;</span></span>
-<span id="cb11-8"><a href="#cb11-8"></a><span class="co">#&gt;  3 &lt;named list [18]&gt;</span></span>
-<span id="cb11-9"><a href="#cb11-9"></a><span class="co">#&gt;  4 &lt;named list [18]&gt;</span></span>
-<span id="cb11-10"><a href="#cb11-10"></a><span class="co">#&gt;  5 &lt;named list [18]&gt;</span></span>
-<span id="cb11-11"><a href="#cb11-11"></a><span class="co">#&gt;  6 &lt;named list [18]&gt;</span></span>
-<span id="cb11-12"><a href="#cb11-12"></a><span class="co">#&gt;  7 &lt;named list [18]&gt;</span></span>
-<span id="cb11-13"><a href="#cb11-13"></a><span class="co">#&gt;  8 &lt;named list [18]&gt;</span></span>
-<span id="cb11-14"><a href="#cb11-14"></a><span class="co">#&gt;  9 &lt;named list [18]&gt;</span></span>
-<span id="cb11-15"><a href="#cb11-15"></a><span class="co">#&gt; 10 &lt;named list [18]&gt;</span></span>
-<span id="cb11-16"><a href="#cb11-16"></a><span class="co">#&gt; # … with 20 more rows</span></span>
-<span id="cb11-17"><a href="#cb11-17"></a></span>
-<span id="cb11-18"><a href="#cb11-18"></a>chars2 &lt;-<span class="st"> </span>chars <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/hoist.html">unnest_wider</a></span>(char)</span>
-<span id="cb11-19"><a href="#cb11-19"></a>chars2</span>
-<span id="cb11-20"><a href="#cb11-20"></a><span class="co">#&gt; # A tibble: 30 x 18</span></span>
-<span id="cb11-21"><a href="#cb11-21"></a><span class="co">#&gt;    url      id name  gender culture born  died  alive titles aliases father</span></span>
-<span id="cb11-22"><a href="#cb11-22"></a><span class="co">#&gt;    &lt;chr&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;   &lt;chr&gt; &lt;chr&gt; &lt;lgl&gt; &lt;list&gt; &lt;list&gt;  &lt;chr&gt; </span></span>
-<span id="cb11-23"><a href="#cb11-23"></a><span class="co">#&gt;  1 http…  1022 Theo… Male   "Ironb… "In … ""    TRUE  &lt;chr … &lt;chr [… ""    </span></span>
-<span id="cb11-24"><a href="#cb11-24"></a><span class="co">#&gt;  2 http…  1052 Tyri… Male   ""      "In … ""    TRUE  &lt;chr … &lt;chr [… ""    </span></span>
-<span id="cb11-25"><a href="#cb11-25"></a><span class="co">#&gt;  3 http…  1074 Vict… Male   "Ironb… "In … ""    TRUE  &lt;chr … &lt;chr [… ""    </span></span>
-<span id="cb11-26"><a href="#cb11-26"></a><span class="co">#&gt;  4 http…  1109 Will  Male   ""      ""    "In … FALSE &lt;chr … &lt;chr [… ""    </span></span>
-<span id="cb11-27"><a href="#cb11-27"></a><span class="co">#&gt;  5 http…  1166 Areo… Male   "Norvo… "In … ""    TRUE  &lt;chr … &lt;chr [… ""    </span></span>
-<span id="cb11-28"><a href="#cb11-28"></a><span class="co">#&gt;  6 http…  1267 Chett Male   ""      "At … "In … FALSE &lt;chr … &lt;chr [… ""    </span></span>
-<span id="cb11-29"><a href="#cb11-29"></a><span class="co">#&gt;  7 http…  1295 Cres… Male   ""      "In … "In … FALSE &lt;chr … &lt;chr [… ""    </span></span>
-<span id="cb11-30"><a href="#cb11-30"></a><span class="co">#&gt;  8 http…   130 Aria… Female "Dorni… "In … ""    TRUE  &lt;chr … &lt;chr [… ""    </span></span>
-<span id="cb11-31"><a href="#cb11-31"></a><span class="co">#&gt;  9 http…  1303 Daen… Female "Valyr… "In … ""    TRUE  &lt;chr … &lt;chr [… ""    </span></span>
-<span id="cb11-32"><a href="#cb11-32"></a><span class="co">#&gt; 10 http…  1319 Davo… Male   "Weste… "In … ""    TRUE  &lt;chr … &lt;chr [… ""    </span></span>
-<span id="cb11-33"><a href="#cb11-33"></a><span class="co">#&gt; # … with 20 more rows, and 7 more variables: mother &lt;chr&gt;, spouse &lt;chr&gt;,</span></span>
-<span id="cb11-34"><a href="#cb11-34"></a><span class="co">#&gt; #   allegiances &lt;list&gt;, books &lt;list&gt;, povBooks &lt;list&gt;, tvSeries &lt;list&gt;,</span></span>
-<span id="cb11-35"><a href="#cb11-35"></a><span class="co">#&gt; #   playedBy &lt;list&gt;</span></span></code></pre></div>
+<div class="sourceCode" id="cb11"><html><body><pre class="r"><span class="no">chars</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span>(<span class="kw">char</span> <span class="kw">=</span> <span class="no">got_chars</span>)
+<span class="no">chars</span>
+<span class="co">#&gt; # A tibble: 30 x 1</span>
+<span class="co">#&gt;    char             </span>
+<span class="co">#&gt;    &lt;list&gt;           </span>
+<span class="co">#&gt;  1 &lt;named list [18]&gt;</span>
+<span class="co">#&gt;  2 &lt;named list [18]&gt;</span>
+<span class="co">#&gt;  3 &lt;named list [18]&gt;</span>
+<span class="co">#&gt;  4 &lt;named list [18]&gt;</span>
+<span class="co">#&gt;  5 &lt;named list [18]&gt;</span>
+<span class="co">#&gt;  6 &lt;named list [18]&gt;</span>
+<span class="co">#&gt;  7 &lt;named list [18]&gt;</span>
+<span class="co">#&gt;  8 &lt;named list [18]&gt;</span>
+<span class="co">#&gt;  9 &lt;named list [18]&gt;</span>
+<span class="co">#&gt; 10 &lt;named list [18]&gt;</span>
+<span class="co">#&gt; # … with 20 more rows</span>
+
+<span class="no">chars2</span> <span class="kw">&lt;-</span> <span class="no">chars</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/hoist.html">unnest_wider</a></span>(<span class="no">char</span>)
+<span class="no">chars2</span>
+<span class="co">#&gt; # A tibble: 30 x 18</span>
+<span class="co">#&gt;    url      id name  gender culture born  died  alive titles aliases father</span>
+<span class="co">#&gt;    &lt;chr&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;   &lt;chr&gt; &lt;chr&gt; &lt;lgl&gt; &lt;list&gt; &lt;list&gt;  &lt;chr&gt; </span>
+<span class="co">#&gt;  1 http…  1022 Theo… Male   "Ironb… "In … ""    TRUE  &lt;chr … &lt;chr [… ""    </span>
+<span class="co">#&gt;  2 http…  1052 Tyri… Male   ""      "In … ""    TRUE  &lt;chr … &lt;chr [… ""    </span>
+<span class="co">#&gt;  3 http…  1074 Vict… Male   "Ironb… "In … ""    TRUE  &lt;chr … &lt;chr [… ""    </span>
+<span class="co">#&gt;  4 http…  1109 Will  Male   ""      ""    "In … FALSE &lt;chr … &lt;chr [… ""    </span>
+<span class="co">#&gt;  5 http…  1166 Areo… Male   "Norvo… "In … ""    TRUE  &lt;chr … &lt;chr [… ""    </span>
+<span class="co">#&gt;  6 http…  1267 Chett Male   ""      "At … "In … FALSE &lt;chr … &lt;chr [… ""    </span>
+<span class="co">#&gt;  7 http…  1295 Cres… Male   ""      "In … "In … FALSE &lt;chr … &lt;chr [… ""    </span>
+<span class="co">#&gt;  8 http…   130 Aria… Female "Dorni… "In … ""    TRUE  &lt;chr … &lt;chr [… ""    </span>
+<span class="co">#&gt;  9 http…  1303 Daen… Female "Valyr… "In … ""    TRUE  &lt;chr … &lt;chr [… ""    </span>
+<span class="co">#&gt; 10 http…  1319 Davo… Male   "Weste… "In … ""    TRUE  &lt;chr … &lt;chr [… ""    </span>
+<span class="co">#&gt; # … with 20 more rows, and 7 more variables: mother &lt;chr&gt;, spouse &lt;chr&gt;,</span>
+<span class="co">#&gt; #   allegiances &lt;list&gt;, books &lt;list&gt;, povBooks &lt;list&gt;, tvSeries &lt;list&gt;,</span>
+<span class="co">#&gt; #   playedBy &lt;list&gt;</span></pre></body></html></div>
 <p>This is more complex than <code>gh_users</code> because some component of <code>char</code> are themselves a list, giving us a collection of list-columns:</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a>chars2 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/select_all.html">select_if</a></span>(is.list)</span>
-<span id="cb12-2"><a href="#cb12-2"></a><span class="co">#&gt; # A tibble: 30 x 7</span></span>
-<span id="cb12-3"><a href="#cb12-3"></a><span class="co">#&gt;    titles    aliases    allegiances books     povBooks  tvSeries  playedBy </span></span>
-<span id="cb12-4"><a href="#cb12-4"></a><span class="co">#&gt;    &lt;list&gt;    &lt;list&gt;     &lt;list&gt;      &lt;list&gt;    &lt;list&gt;    &lt;list&gt;    &lt;list&gt;   </span></span>
-<span id="cb12-5"><a href="#cb12-5"></a><span class="co">#&gt;  1 &lt;chr [3]&gt; &lt;chr [4]&gt;  &lt;chr [1]&gt;   &lt;chr [3]&gt; &lt;chr [2]&gt; &lt;chr [6]&gt; &lt;chr [1]&gt;</span></span>
-<span id="cb12-6"><a href="#cb12-6"></a><span class="co">#&gt;  2 &lt;chr [2]&gt; &lt;chr [11]&gt; &lt;chr [1]&gt;   &lt;chr [2]&gt; &lt;chr [4]&gt; &lt;chr [6]&gt; &lt;chr [1]&gt;</span></span>
-<span id="cb12-7"><a href="#cb12-7"></a><span class="co">#&gt;  3 &lt;chr [2]&gt; &lt;chr [1]&gt;  &lt;chr [1]&gt;   &lt;chr [3]&gt; &lt;chr [2]&gt; &lt;chr [1]&gt; &lt;chr [1]&gt;</span></span>
-<span id="cb12-8"><a href="#cb12-8"></a><span class="co">#&gt;  4 &lt;chr [1]&gt; &lt;chr [1]&gt;  &lt;NULL&gt;      &lt;chr [1]&gt; &lt;chr [1]&gt; &lt;chr [1]&gt; &lt;chr [1]&gt;</span></span>
-<span id="cb12-9"><a href="#cb12-9"></a><span class="co">#&gt;  5 &lt;chr [1]&gt; &lt;chr [1]&gt;  &lt;chr [1]&gt;   &lt;chr [3]&gt; &lt;chr [2]&gt; &lt;chr [2]&gt; &lt;chr [1]&gt;</span></span>
-<span id="cb12-10"><a href="#cb12-10"></a><span class="co">#&gt;  6 &lt;chr [1]&gt; &lt;chr [1]&gt;  &lt;NULL&gt;      &lt;chr [2]&gt; &lt;chr [1]&gt; &lt;chr [1]&gt; &lt;chr [1]&gt;</span></span>
-<span id="cb12-11"><a href="#cb12-11"></a><span class="co">#&gt;  7 &lt;chr [1]&gt; &lt;chr [1]&gt;  &lt;NULL&gt;      &lt;chr [2]&gt; &lt;chr [1]&gt; &lt;chr [1]&gt; &lt;chr [1]&gt;</span></span>
-<span id="cb12-12"><a href="#cb12-12"></a><span class="co">#&gt;  8 &lt;chr [1]&gt; &lt;chr [1]&gt;  &lt;chr [1]&gt;   &lt;chr [4]&gt; &lt;chr [1]&gt; &lt;chr [1]&gt; &lt;chr [1]&gt;</span></span>
-<span id="cb12-13"><a href="#cb12-13"></a><span class="co">#&gt;  9 &lt;chr [5]&gt; &lt;chr [11]&gt; &lt;chr [1]&gt;   &lt;chr [1]&gt; &lt;chr [4]&gt; &lt;chr [6]&gt; &lt;chr [1]&gt;</span></span>
-<span id="cb12-14"><a href="#cb12-14"></a><span class="co">#&gt; 10 &lt;chr [4]&gt; &lt;chr [5]&gt;  &lt;chr [2]&gt;   &lt;chr [1]&gt; &lt;chr [3]&gt; &lt;chr [5]&gt; &lt;chr [1]&gt;</span></span>
-<span id="cb12-15"><a href="#cb12-15"></a><span class="co">#&gt; # … with 20 more rows</span></span></code></pre></div>
+<div class="sourceCode" id="cb12"><html><body><pre class="r"><span class="no">chars2</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select_all.html">select_if</a></span>(<span class="no">is.list</span>)
+<span class="co">#&gt; # A tibble: 30 x 7</span>
+<span class="co">#&gt;    titles    aliases    allegiances books     povBooks  tvSeries  playedBy </span>
+<span class="co">#&gt;    &lt;list&gt;    &lt;list&gt;     &lt;list&gt;      &lt;list&gt;    &lt;list&gt;    &lt;list&gt;    &lt;list&gt;   </span>
+<span class="co">#&gt;  1 &lt;chr [3]&gt; &lt;chr [4]&gt;  &lt;chr [1]&gt;   &lt;chr [3]&gt; &lt;chr [2]&gt; &lt;chr [6]&gt; &lt;chr [1]&gt;</span>
+<span class="co">#&gt;  2 &lt;chr [2]&gt; &lt;chr [11]&gt; &lt;chr [1]&gt;   &lt;chr [2]&gt; &lt;chr [4]&gt; &lt;chr [6]&gt; &lt;chr [1]&gt;</span>
+<span class="co">#&gt;  3 &lt;chr [2]&gt; &lt;chr [1]&gt;  &lt;chr [1]&gt;   &lt;chr [3]&gt; &lt;chr [2]&gt; &lt;chr [1]&gt; &lt;chr [1]&gt;</span>
+<span class="co">#&gt;  4 &lt;chr [1]&gt; &lt;chr [1]&gt;  &lt;NULL&gt;      &lt;chr [1]&gt; &lt;chr [1]&gt; &lt;chr [1]&gt; &lt;chr [1]&gt;</span>
+<span class="co">#&gt;  5 &lt;chr [1]&gt; &lt;chr [1]&gt;  &lt;chr [1]&gt;   &lt;chr [3]&gt; &lt;chr [2]&gt; &lt;chr [2]&gt; &lt;chr [1]&gt;</span>
+<span class="co">#&gt;  6 &lt;chr [1]&gt; &lt;chr [1]&gt;  &lt;NULL&gt;      &lt;chr [2]&gt; &lt;chr [1]&gt; &lt;chr [1]&gt; &lt;chr [1]&gt;</span>
+<span class="co">#&gt;  7 &lt;chr [1]&gt; &lt;chr [1]&gt;  &lt;NULL&gt;      &lt;chr [2]&gt; &lt;chr [1]&gt; &lt;chr [1]&gt; &lt;chr [1]&gt;</span>
+<span class="co">#&gt;  8 &lt;chr [1]&gt; &lt;chr [1]&gt;  &lt;chr [1]&gt;   &lt;chr [4]&gt; &lt;chr [1]&gt; &lt;chr [1]&gt; &lt;chr [1]&gt;</span>
+<span class="co">#&gt;  9 &lt;chr [5]&gt; &lt;chr [11]&gt; &lt;chr [1]&gt;   &lt;chr [1]&gt; &lt;chr [4]&gt; &lt;chr [6]&gt; &lt;chr [1]&gt;</span>
+<span class="co">#&gt; 10 &lt;chr [4]&gt; &lt;chr [5]&gt;  &lt;chr [2]&gt;   &lt;chr [1]&gt; &lt;chr [3]&gt; &lt;chr [5]&gt; &lt;chr [1]&gt;</span>
+<span class="co">#&gt; # … with 20 more rows</span></pre></body></html></div>
 <p>What you do next will depend on the purposes of the analysis. Maybe you want a row for every book and TV series that the character appears in:</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a>chars2 <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb13-2"><a href="#cb13-2"></a><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(name, books, tvSeries) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb13-3"><a href="#cb13-3"></a><span class="st">  </span><span class="kw"><a href="../reference/pivot_longer.html">pivot_longer</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(books, tvSeries), <span class="dt">names_to =</span> <span class="st">"media"</span>, <span class="dt">values_to =</span> <span class="st">"value"</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb13-4"><a href="#cb13-4"></a><span class="st">  </span><span class="kw"><a href="../reference/hoist.html">unnest_longer</a></span>(value)</span>
-<span id="cb13-5"><a href="#cb13-5"></a><span class="co">#&gt; # A tibble: 180 x 3</span></span>
-<span id="cb13-6"><a href="#cb13-6"></a><span class="co">#&gt;    name             media    value            </span></span>
-<span id="cb13-7"><a href="#cb13-7"></a><span class="co">#&gt;    &lt;chr&gt;            &lt;chr&gt;    &lt;chr&gt;            </span></span>
-<span id="cb13-8"><a href="#cb13-8"></a><span class="co">#&gt;  1 Theon Greyjoy    books    A Game of Thrones</span></span>
-<span id="cb13-9"><a href="#cb13-9"></a><span class="co">#&gt;  2 Theon Greyjoy    books    A Storm of Swords</span></span>
-<span id="cb13-10"><a href="#cb13-10"></a><span class="co">#&gt;  3 Theon Greyjoy    books    A Feast for Crows</span></span>
-<span id="cb13-11"><a href="#cb13-11"></a><span class="co">#&gt;  4 Theon Greyjoy    tvSeries Season 1         </span></span>
-<span id="cb13-12"><a href="#cb13-12"></a><span class="co">#&gt;  5 Theon Greyjoy    tvSeries Season 2         </span></span>
-<span id="cb13-13"><a href="#cb13-13"></a><span class="co">#&gt;  6 Theon Greyjoy    tvSeries Season 3         </span></span>
-<span id="cb13-14"><a href="#cb13-14"></a><span class="co">#&gt;  7 Theon Greyjoy    tvSeries Season 4         </span></span>
-<span id="cb13-15"><a href="#cb13-15"></a><span class="co">#&gt;  8 Theon Greyjoy    tvSeries Season 5         </span></span>
-<span id="cb13-16"><a href="#cb13-16"></a><span class="co">#&gt;  9 Theon Greyjoy    tvSeries Season 6         </span></span>
-<span id="cb13-17"><a href="#cb13-17"></a><span class="co">#&gt; 10 Tyrion Lannister books    A Feast for Crows</span></span>
-<span id="cb13-18"><a href="#cb13-18"></a><span class="co">#&gt; # … with 170 more rows</span></span></code></pre></div>
+<div class="sourceCode" id="cb13"><html><body><pre class="r"><span class="no">chars2</span> <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(<span class="no">name</span>, <span class="no">books</span>, <span class="no">tvSeries</span>) <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="../reference/pivot_longer.html">pivot_longer</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="no">books</span>, <span class="no">tvSeries</span>), <span class="kw">names_to</span> <span class="kw">=</span> <span class="st">"media"</span>, <span class="kw">values_to</span> <span class="kw">=</span> <span class="st">"value"</span>) <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="../reference/hoist.html">unnest_longer</a></span>(<span class="no">value</span>)
+<span class="co">#&gt; # A tibble: 180 x 3</span>
+<span class="co">#&gt;    name             media    value            </span>
+<span class="co">#&gt;    &lt;chr&gt;            &lt;chr&gt;    &lt;chr&gt;            </span>
+<span class="co">#&gt;  1 Theon Greyjoy    books    A Game of Thrones</span>
+<span class="co">#&gt;  2 Theon Greyjoy    books    A Storm of Swords</span>
+<span class="co">#&gt;  3 Theon Greyjoy    books    A Feast for Crows</span>
+<span class="co">#&gt;  4 Theon Greyjoy    tvSeries Season 1         </span>
+<span class="co">#&gt;  5 Theon Greyjoy    tvSeries Season 2         </span>
+<span class="co">#&gt;  6 Theon Greyjoy    tvSeries Season 3         </span>
+<span class="co">#&gt;  7 Theon Greyjoy    tvSeries Season 4         </span>
+<span class="co">#&gt;  8 Theon Greyjoy    tvSeries Season 5         </span>
+<span class="co">#&gt;  9 Theon Greyjoy    tvSeries Season 6         </span>
+<span class="co">#&gt; 10 Tyrion Lannister books    A Feast for Crows</span>
+<span class="co">#&gt; # … with 170 more rows</span></pre></body></html></div>
 <p>Or maybe you want to build a table that lets you match title to name:</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a>chars2 <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb14-2"><a href="#cb14-2"></a><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(name, <span class="dt">title =</span> titles) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb14-3"><a href="#cb14-3"></a><span class="st">  </span><span class="kw"><a href="../reference/hoist.html">unnest_longer</a></span>(title)</span>
-<span id="cb14-4"><a href="#cb14-4"></a><span class="co">#&gt; # A tibble: 60 x 2</span></span>
-<span id="cb14-5"><a href="#cb14-5"></a><span class="co">#&gt;    name              title                                                 </span></span>
-<span id="cb14-6"><a href="#cb14-6"></a><span class="co">#&gt;    &lt;chr&gt;             &lt;chr&gt;                                                 </span></span>
-<span id="cb14-7"><a href="#cb14-7"></a><span class="co">#&gt;  1 Theon Greyjoy     "Prince of Winterfell"                                </span></span>
-<span id="cb14-8"><a href="#cb14-8"></a><span class="co">#&gt;  2 Theon Greyjoy     "Captain of Sea Bitch"                                </span></span>
-<span id="cb14-9"><a href="#cb14-9"></a><span class="co">#&gt;  3 Theon Greyjoy     "Lord of the Iron Islands (by law of the green lands)"</span></span>
-<span id="cb14-10"><a href="#cb14-10"></a><span class="co">#&gt;  4 Tyrion Lannister  "Acting Hand of the King (former)"                    </span></span>
-<span id="cb14-11"><a href="#cb14-11"></a><span class="co">#&gt;  5 Tyrion Lannister  "Master of Coin (former)"                             </span></span>
-<span id="cb14-12"><a href="#cb14-12"></a><span class="co">#&gt;  6 Victarion Greyjoy "Lord Captain of the Iron Fleet"                      </span></span>
-<span id="cb14-13"><a href="#cb14-13"></a><span class="co">#&gt;  7 Victarion Greyjoy "Master of the Iron Victory"                          </span></span>
-<span id="cb14-14"><a href="#cb14-14"></a><span class="co">#&gt;  8 Will              ""                                                    </span></span>
-<span id="cb14-15"><a href="#cb14-15"></a><span class="co">#&gt;  9 Areo Hotah        "Captain of the Guard at Sunspear"                    </span></span>
-<span id="cb14-16"><a href="#cb14-16"></a><span class="co">#&gt; 10 Chett             ""                                                    </span></span>
-<span id="cb14-17"><a href="#cb14-17"></a><span class="co">#&gt; # … with 50 more rows</span></span></code></pre></div>
+<div class="sourceCode" id="cb14"><html><body><pre class="r"><span class="no">chars2</span> <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(<span class="no">name</span>, <span class="kw">title</span> <span class="kw">=</span> <span class="no">titles</span>) <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="../reference/hoist.html">unnest_longer</a></span>(<span class="no">title</span>)
+<span class="co">#&gt; # A tibble: 60 x 2</span>
+<span class="co">#&gt;    name              title                                                 </span>
+<span class="co">#&gt;    &lt;chr&gt;             &lt;chr&gt;                                                 </span>
+<span class="co">#&gt;  1 Theon Greyjoy     "Prince of Winterfell"                                </span>
+<span class="co">#&gt;  2 Theon Greyjoy     "Captain of Sea Bitch"                                </span>
+<span class="co">#&gt;  3 Theon Greyjoy     "Lord of the Iron Islands (by law of the green lands)"</span>
+<span class="co">#&gt;  4 Tyrion Lannister  "Acting Hand of the King (former)"                    </span>
+<span class="co">#&gt;  5 Tyrion Lannister  "Master of Coin (former)"                             </span>
+<span class="co">#&gt;  6 Victarion Greyjoy "Lord Captain of the Iron Fleet"                      </span>
+<span class="co">#&gt;  7 Victarion Greyjoy "Master of the Iron Victory"                          </span>
+<span class="co">#&gt;  8 Will              ""                                                    </span>
+<span class="co">#&gt;  9 Areo Hotah        "Captain of the Guard at Sunspear"                    </span>
+<span class="co">#&gt; 10 Chett             ""                                                    </span>
+<span class="co">#&gt; # … with 50 more rows</span></pre></body></html></div>
 <p>(Note that the empty titles (<code>""</code>) are due to an infelicity in the input <code>got_chars</code>: ideally people without titles would have a title vector of length 0, not a title vector of length 1 containing an empty string.)</p>
 <p>Again, we could rewrite using <code><a href="../reference/hoist.html">unnest_auto()</a></code>. This is convenient for exploration, but I wouldn’t rely on it in the long term - <code><a href="../reference/hoist.html">unnest_auto()</a></code> has the undesirable property that it will always succeed. That means if your data structure changes, <code><a href="../reference/hoist.html">unnest_auto()</a></code> will continue to work, but might give very different output that causes cryptic failures from downstream functions.</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="kw"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span>(<span class="dt">char =</span> got_chars) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb15-2"><a href="#cb15-2"></a><span class="st">  </span><span class="kw"><a href="../reference/hoist.html">unnest_auto</a></span>(char) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb15-3"><a href="#cb15-3"></a><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(name, <span class="dt">title =</span> titles) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb15-4"><a href="#cb15-4"></a><span class="st">  </span><span class="kw"><a href="../reference/hoist.html">unnest_auto</a></span>(title)</span>
-<span id="cb15-5"><a href="#cb15-5"></a><span class="co">#&gt; Using `unnest_wider(char)`; elements have 18 names in common</span></span>
-<span id="cb15-6"><a href="#cb15-6"></a><span class="co">#&gt; Using `unnest_longer(title)`; no element has names</span></span>
-<span id="cb15-7"><a href="#cb15-7"></a><span class="co">#&gt; # A tibble: 60 x 2</span></span>
-<span id="cb15-8"><a href="#cb15-8"></a><span class="co">#&gt;    name              title                                                 </span></span>
-<span id="cb15-9"><a href="#cb15-9"></a><span class="co">#&gt;    &lt;chr&gt;             &lt;chr&gt;                                                 </span></span>
-<span id="cb15-10"><a href="#cb15-10"></a><span class="co">#&gt;  1 Theon Greyjoy     "Prince of Winterfell"                                </span></span>
-<span id="cb15-11"><a href="#cb15-11"></a><span class="co">#&gt;  2 Theon Greyjoy     "Captain of Sea Bitch"                                </span></span>
-<span id="cb15-12"><a href="#cb15-12"></a><span class="co">#&gt;  3 Theon Greyjoy     "Lord of the Iron Islands (by law of the green lands)"</span></span>
-<span id="cb15-13"><a href="#cb15-13"></a><span class="co">#&gt;  4 Tyrion Lannister  "Acting Hand of the King (former)"                    </span></span>
-<span id="cb15-14"><a href="#cb15-14"></a><span class="co">#&gt;  5 Tyrion Lannister  "Master of Coin (former)"                             </span></span>
-<span id="cb15-15"><a href="#cb15-15"></a><span class="co">#&gt;  6 Victarion Greyjoy "Lord Captain of the Iron Fleet"                      </span></span>
-<span id="cb15-16"><a href="#cb15-16"></a><span class="co">#&gt;  7 Victarion Greyjoy "Master of the Iron Victory"                          </span></span>
-<span id="cb15-17"><a href="#cb15-17"></a><span class="co">#&gt;  8 Will              ""                                                    </span></span>
-<span id="cb15-18"><a href="#cb15-18"></a><span class="co">#&gt;  9 Areo Hotah        "Captain of the Guard at Sunspear"                    </span></span>
-<span id="cb15-19"><a href="#cb15-19"></a><span class="co">#&gt; 10 Chett             ""                                                    </span></span>
-<span id="cb15-20"><a href="#cb15-20"></a><span class="co">#&gt; # … with 50 more rows</span></span></code></pre></div>
+<div class="sourceCode" id="cb15"><html><body><pre class="r"><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span>(<span class="kw">char</span> <span class="kw">=</span> <span class="no">got_chars</span>) <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="../reference/hoist.html">unnest_auto</a></span>(<span class="no">char</span>) <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(<span class="no">name</span>, <span class="kw">title</span> <span class="kw">=</span> <span class="no">titles</span>) <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="../reference/hoist.html">unnest_auto</a></span>(<span class="no">title</span>)
+<span class="co">#&gt; Using `unnest_wider(char)`; elements have 18 names in common</span>
+<span class="co">#&gt; Using `unnest_longer(title)`; no element has names</span>
+<span class="co">#&gt; # A tibble: 60 x 2</span>
+<span class="co">#&gt;    name              title                                                 </span>
+<span class="co">#&gt;    &lt;chr&gt;             &lt;chr&gt;                                                 </span>
+<span class="co">#&gt;  1 Theon Greyjoy     "Prince of Winterfell"                                </span>
+<span class="co">#&gt;  2 Theon Greyjoy     "Captain of Sea Bitch"                                </span>
+<span class="co">#&gt;  3 Theon Greyjoy     "Lord of the Iron Islands (by law of the green lands)"</span>
+<span class="co">#&gt;  4 Tyrion Lannister  "Acting Hand of the King (former)"                    </span>
+<span class="co">#&gt;  5 Tyrion Lannister  "Master of Coin (former)"                             </span>
+<span class="co">#&gt;  6 Victarion Greyjoy "Lord Captain of the Iron Fleet"                      </span>
+<span class="co">#&gt;  7 Victarion Greyjoy "Master of the Iron Victory"                          </span>
+<span class="co">#&gt;  8 Will              ""                                                    </span>
+<span class="co">#&gt;  9 Areo Hotah        "Captain of the Guard at Sunspear"                    </span>
+<span class="co">#&gt; 10 Chett             ""                                                    </span>
+<span class="co">#&gt; # … with 50 more rows</span></pre></body></html></div>
 </div>
 <div id="geocoding-with-google" class="section level2">
 <h2 class="hasAnchor">
 <a href="#geocoding-with-google" class="anchor"></a>Geocoding with google</h2>
 <p>Next we’ll tackle a more complex form of data that comes from Google’s geocoding service. It’s against the terms of service to cache this data, so I first write a very simple wrapper around the API. This relies on having an Google maps API key stored in an environment; if that’s not available these code chunks won’t be run.</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a>has_key &lt;-<span class="st"> </span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/identical.html">identical</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/Sys.getenv.html">Sys.getenv</a></span>(<span class="st">"GOOGLE_MAPS_API_KEY"</span>), <span class="st">""</span>)</span>
-<span id="cb16-2"><a href="#cb16-2"></a><span class="cf">if</span> (<span class="op">!</span>has_key) {</span>
-<span id="cb16-3"><a href="#cb16-3"></a>  <span class="kw"><a href="https://rdrr.io/r/base/message.html">message</a></span>(<span class="st">"No Google Maps API key found; code chunks will not be run"</span>)</span>
-<span id="cb16-4"><a href="#cb16-4"></a>}</span>
-<span id="cb16-5"><a href="#cb16-5"></a><span class="co">#&gt; No Google Maps API key found; code chunks will not be run</span></span>
-<span id="cb16-6"><a href="#cb16-6"></a></span>
-<span id="cb16-7"><a href="#cb16-7"></a><span class="co"># https://developers.google.com/maps/documentation/geocoding</span></span>
-<span id="cb16-8"><a href="#cb16-8"></a>geocode &lt;-<span class="st"> </span><span class="cf">function</span>(address, <span class="dt">api_key =</span> <span class="kw"><a href="https://rdrr.io/r/base/Sys.getenv.html">Sys.getenv</a></span>(<span class="st">"GOOGLE_MAPS_API_KEY"</span>)) {</span>
-<span id="cb16-9"><a href="#cb16-9"></a>  url &lt;-<span class="st"> "https://maps.googleapis.com/maps/api/geocode/json"</span></span>
-<span id="cb16-10"><a href="#cb16-10"></a>  url &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span>(url, <span class="st">"?address="</span>, <span class="kw"><a href="https://rdrr.io/r/utils/URLencode.html">URLencode</a></span>(address), <span class="st">"&amp;key="</span>, api_key)</span>
-<span id="cb16-11"><a href="#cb16-11"></a></span>
-<span id="cb16-12"><a href="#cb16-12"></a>  jsonlite<span class="op">::</span><span class="kw"><a href="https://jeroen.cran.dev/jsonlite/reference/read_json.html">read_json</a></span>(url)</span>
-<span id="cb16-13"><a href="#cb16-13"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb16"><html><body><pre class="r"><span class="no">has_key</span> <span class="kw">&lt;-</span> !<span class="fu"><a href="https://rdrr.io/r/base/identical.html">identical</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html">Sys.getenv</a></span>(<span class="st">"GOOGLE_MAPS_API_KEY"</span>), <span class="st">""</span>)
+<span class="kw">if</span> (!<span class="no">has_key</span>) {
+  <span class="fu"><a href="https://rdrr.io/r/base/message.html">message</a></span>(<span class="st">"No Google Maps API key found; code chunks will not be run"</span>)
+}
+<span class="co">#&gt; No Google Maps API key found; code chunks will not be run</span>
+
+<span class="co"># https://developers.google.com/maps/documentation/geocoding</span>
+<span class="no">geocode</span> <span class="kw">&lt;-</span> <span class="kw">function</span>(<span class="no">address</span>, <span class="no">api_key</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html">Sys.getenv</a></span>(<span class="st">"GOOGLE_MAPS_API_KEY"</span>)) {
+  <span class="no">url</span> <span class="kw">&lt;-</span> <span class="st">"https://maps.googleapis.com/maps/api/geocode/json"</span>
+  <span class="no">url</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span>(<span class="no">url</span>, <span class="st">"?address="</span>, <span class="fu"><a href="https://rdrr.io/r/utils/URLencode.html">URLencode</a></span>(<span class="no">address</span>), <span class="st">"&amp;key="</span>, <span class="no">api_key</span>)
+
+  <span class="kw pkg">jsonlite</span><span class="kw ns">::</span><span class="fu"><a href="https://jeroen.cran.dev/jsonlite/reference/read_json.html">read_json</a></span>(<span class="no">url</span>)
+}</pre></body></html></div>
 <p>The list that this function returns is quite complex:</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a>houston &lt;-<span class="st"> </span><span class="kw">geocode</span>(<span class="st">"Houston TX"</span>)</span>
-<span id="cb17-2"><a href="#cb17-2"></a><span class="kw"><a href="https://rdrr.io/r/utils/str.html">str</a></span>(houston)</span></code></pre></div>
+<div class="sourceCode" id="cb17"><html><body><pre class="r"><span class="no">houston</span> <span class="kw">&lt;-</span> <span class="fu">geocode</span>(<span class="st">"Houston TX"</span>)
+<span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span>(<span class="no">houston</span>)</pre></body></html></div>
 <p>Fortunately, we can attack the problem step by step with tidyr functions. To make the problem a bit harder (!) and more realistic, I’ll start by geocoding a few cities:</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a>city &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Houston"</span>, <span class="st">"LA"</span>, <span class="st">"New York"</span>, <span class="st">"Chicago"</span>, <span class="st">"Springfield"</span>)</span>
-<span id="cb18-2"><a href="#cb18-2"></a>city_geo &lt;-<span class="st"> </span>purrr<span class="op">::</span><span class="kw"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span>(city, geocode)</span></code></pre></div>
+<div class="sourceCode" id="cb18"><html><body><pre class="r"><span class="no">city</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Houston"</span>, <span class="st">"LA"</span>, <span class="st">"New York"</span>, <span class="st">"Chicago"</span>, <span class="st">"Springfield"</span>)
+<span class="no">city_geo</span> <span class="kw">&lt;-</span> <span class="kw pkg">purrr</span><span class="kw ns">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span>(<span class="no">city</span>, <span class="no">geocode</span>)</pre></body></html></div>
 <p>I’ll put these results in a tibble, next to the original city name:</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a>loc &lt;-<span class="st"> </span><span class="kw"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span>(<span class="dt">city =</span> city, <span class="dt">json =</span> city_geo)</span>
-<span id="cb19-2"><a href="#cb19-2"></a>loc</span></code></pre></div>
+<div class="sourceCode" id="cb19"><html><body><pre class="r"><span class="no">loc</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span>(<span class="kw">city</span> <span class="kw">=</span> <span class="no">city</span>, <span class="kw">json</span> <span class="kw">=</span> <span class="no">city_geo</span>)
+<span class="no">loc</span></pre></body></html></div>
 <p>The first level contains components <code>status</code> and <code>result</code>, which we can reveal with <code><a href="../reference/hoist.html">unnest_wider()</a></code>:</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a>loc <span class="op">%&gt;%</span></span>
-<span id="cb20-2"><a href="#cb20-2"></a><span class="st">  </span><span class="kw"><a href="../reference/hoist.html">unnest_wider</a></span>(json)</span></code></pre></div>
+<div class="sourceCode" id="cb20"><html><body><pre class="r"><span class="no">loc</span> <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="../reference/hoist.html">unnest_wider</a></span>(<span class="no">json</span>)</pre></body></html></div>
 <p>Notice that <code>results</code> is a list of lists. Most of the cities have 1 element (representing a unique match from the geocoding API), but Springfield has two. We can pull these out into separate rows with <code><a href="../reference/hoist.html">unnest_longer()</a></code>:</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a>loc <span class="op">%&gt;%</span></span>
-<span id="cb21-2"><a href="#cb21-2"></a><span class="st">  </span><span class="kw"><a href="../reference/hoist.html">unnest_wider</a></span>(json) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb21-3"><a href="#cb21-3"></a><span class="st">  </span><span class="kw"><a href="../reference/hoist.html">unnest_longer</a></span>(results)</span></code></pre></div>
+<div class="sourceCode" id="cb21"><html><body><pre class="r"><span class="no">loc</span> <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="../reference/hoist.html">unnest_wider</a></span>(<span class="no">json</span>) <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="../reference/hoist.html">unnest_longer</a></span>(<span class="no">results</span>)</pre></body></html></div>
 <p>Now these all have the same components, as revealed by <code><a href="../reference/hoist.html">unnest_wider()</a></code>:</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a>loc <span class="op">%&gt;%</span></span>
-<span id="cb22-2"><a href="#cb22-2"></a><span class="st">  </span><span class="kw"><a href="../reference/hoist.html">unnest_wider</a></span>(json) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb22-3"><a href="#cb22-3"></a><span class="st">  </span><span class="kw"><a href="../reference/hoist.html">unnest_longer</a></span>(results) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb22-4"><a href="#cb22-4"></a><span class="st">  </span><span class="kw"><a href="../reference/hoist.html">unnest_wider</a></span>(results)</span></code></pre></div>
+<div class="sourceCode" id="cb22"><html><body><pre class="r"><span class="no">loc</span> <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="../reference/hoist.html">unnest_wider</a></span>(<span class="no">json</span>) <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="../reference/hoist.html">unnest_longer</a></span>(<span class="no">results</span>) <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="../reference/hoist.html">unnest_wider</a></span>(<span class="no">results</span>)</pre></body></html></div>
 <p>We can find the lat and lon coordinates by unnesting <code>geometry</code>:</p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a>loc <span class="op">%&gt;%</span></span>
-<span id="cb23-2"><a href="#cb23-2"></a><span class="st">  </span><span class="kw"><a href="../reference/hoist.html">unnest_wider</a></span>(json) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb23-3"><a href="#cb23-3"></a><span class="st">  </span><span class="kw"><a href="../reference/hoist.html">unnest_longer</a></span>(results) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb23-4"><a href="#cb23-4"></a><span class="st">  </span><span class="kw"><a href="../reference/hoist.html">unnest_wider</a></span>(results) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb23-5"><a href="#cb23-5"></a><span class="st">  </span><span class="kw"><a href="../reference/hoist.html">unnest_wider</a></span>(geometry)</span></code></pre></div>
+<div class="sourceCode" id="cb23"><html><body><pre class="r"><span class="no">loc</span> <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="../reference/hoist.html">unnest_wider</a></span>(<span class="no">json</span>) <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="../reference/hoist.html">unnest_longer</a></span>(<span class="no">results</span>) <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="../reference/hoist.html">unnest_wider</a></span>(<span class="no">results</span>) <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="../reference/hoist.html">unnest_wider</a></span>(<span class="no">geometry</span>)</pre></body></html></div>
 <p>And then location:</p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a>loc <span class="op">%&gt;%</span></span>
-<span id="cb24-2"><a href="#cb24-2"></a><span class="st">  </span><span class="kw"><a href="../reference/hoist.html">unnest_wider</a></span>(json) <span class="op">%&gt;%</span></span>
-<span id="cb24-3"><a href="#cb24-3"></a><span class="st">  </span><span class="kw"><a href="../reference/hoist.html">unnest_longer</a></span>(results) <span class="op">%&gt;%</span></span>
-<span id="cb24-4"><a href="#cb24-4"></a><span class="st">  </span><span class="kw"><a href="../reference/hoist.html">unnest_wider</a></span>(results) <span class="op">%&gt;%</span></span>
-<span id="cb24-5"><a href="#cb24-5"></a><span class="st">  </span><span class="kw"><a href="../reference/hoist.html">unnest_wider</a></span>(geometry) <span class="op">%&gt;%</span></span>
-<span id="cb24-6"><a href="#cb24-6"></a><span class="st">  </span><span class="kw"><a href="../reference/hoist.html">unnest_wider</a></span>(location)</span></code></pre></div>
+<div class="sourceCode" id="cb24"><html><body><pre class="r"><span class="no">loc</span> <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="../reference/hoist.html">unnest_wider</a></span>(<span class="no">json</span>) <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="../reference/hoist.html">unnest_longer</a></span>(<span class="no">results</span>) <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="../reference/hoist.html">unnest_wider</a></span>(<span class="no">results</span>) <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="../reference/hoist.html">unnest_wider</a></span>(<span class="no">geometry</span>) <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="../reference/hoist.html">unnest_wider</a></span>(<span class="no">location</span>)</pre></body></html></div>
 <p>Again, <code><a href="../reference/hoist.html">unnest_auto()</a></code> makes this simpler with the small risk of failing in unexpected ways if the input structure changes:</p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a>loc <span class="op">%&gt;%</span></span>
-<span id="cb25-2"><a href="#cb25-2"></a><span class="st">  </span><span class="kw"><a href="../reference/hoist.html">unnest_auto</a></span>(json) <span class="op">%&gt;%</span></span>
-<span id="cb25-3"><a href="#cb25-3"></a><span class="st">  </span><span class="kw"><a href="../reference/hoist.html">unnest_auto</a></span>(results) <span class="op">%&gt;%</span></span>
-<span id="cb25-4"><a href="#cb25-4"></a><span class="st">  </span><span class="kw"><a href="../reference/hoist.html">unnest_auto</a></span>(results) <span class="op">%&gt;%</span></span>
-<span id="cb25-5"><a href="#cb25-5"></a><span class="st">  </span><span class="kw"><a href="../reference/hoist.html">unnest_auto</a></span>(geometry) <span class="op">%&gt;%</span></span>
-<span id="cb25-6"><a href="#cb25-6"></a><span class="st">  </span><span class="kw"><a href="../reference/hoist.html">unnest_auto</a></span>(location)</span></code></pre></div>
+<div class="sourceCode" id="cb25"><html><body><pre class="r"><span class="no">loc</span> <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="../reference/hoist.html">unnest_auto</a></span>(<span class="no">json</span>) <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="../reference/hoist.html">unnest_auto</a></span>(<span class="no">results</span>) <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="../reference/hoist.html">unnest_auto</a></span>(<span class="no">results</span>) <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="../reference/hoist.html">unnest_auto</a></span>(<span class="no">geometry</span>) <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="../reference/hoist.html">unnest_auto</a></span>(<span class="no">location</span>)</pre></body></html></div>
 <p>We could also just look at the first address for each city:</p>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a>loc <span class="op">%&gt;%</span></span>
-<span id="cb26-2"><a href="#cb26-2"></a><span class="st">  </span><span class="kw"><a href="../reference/hoist.html">unnest_wider</a></span>(json) <span class="op">%&gt;%</span></span>
-<span id="cb26-3"><a href="#cb26-3"></a><span class="st">  </span><span class="kw"><a href="../reference/hoist.html">hoist</a></span>(results, <span class="dt">first_result =</span> <span class="dv">1</span>) <span class="op">%&gt;%</span></span>
-<span id="cb26-4"><a href="#cb26-4"></a><span class="st">  </span><span class="kw"><a href="../reference/hoist.html">unnest_wider</a></span>(first_result) <span class="op">%&gt;%</span></span>
-<span id="cb26-5"><a href="#cb26-5"></a><span class="st">  </span><span class="kw"><a href="../reference/hoist.html">unnest_wider</a></span>(geometry) <span class="op">%&gt;%</span></span>
-<span id="cb26-6"><a href="#cb26-6"></a><span class="st">  </span><span class="kw"><a href="../reference/hoist.html">unnest_wider</a></span>(location)</span></code></pre></div>
+<div class="sourceCode" id="cb26"><html><body><pre class="r"><span class="no">loc</span> <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="../reference/hoist.html">unnest_wider</a></span>(<span class="no">json</span>) <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="../reference/hoist.html">hoist</a></span>(<span class="no">results</span>, <span class="kw">first_result</span> <span class="kw">=</span> <span class="fl">1</span>) <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="../reference/hoist.html">unnest_wider</a></span>(<span class="no">first_result</span>) <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="../reference/hoist.html">unnest_wider</a></span>(<span class="no">geometry</span>) <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="../reference/hoist.html">unnest_wider</a></span>(<span class="no">location</span>)</pre></body></html></div>
 <p>Or use <code><a href="../reference/hoist.html">hoist()</a></code> to dive deeply to get directly to <code>lat</code> and <code>lng</code>:</p>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a>loc <span class="op">%&gt;%</span></span>
-<span id="cb27-2"><a href="#cb27-2"></a><span class="st">  </span><span class="kw"><a href="../reference/hoist.html">hoist</a></span>(json,</span>
-<span id="cb27-3"><a href="#cb27-3"></a>    <span class="dt">lat =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="st">"results"</span>, <span class="dv">1</span>, <span class="st">"geometry"</span>, <span class="st">"location"</span>, <span class="st">"lat"</span>),</span>
-<span id="cb27-4"><a href="#cb27-4"></a>    <span class="dt">lng =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="st">"results"</span>, <span class="dv">1</span>, <span class="st">"geometry"</span>, <span class="st">"location"</span>, <span class="st">"lng"</span>)</span>
-<span id="cb27-5"><a href="#cb27-5"></a>  )</span></code></pre></div>
+<div class="sourceCode" id="cb27"><html><body><pre class="r"><span class="no">loc</span> <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="../reference/hoist.html">hoist</a></span>(<span class="no">json</span>,
+    <span class="kw">lat</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="st">"results"</span>, <span class="fl">1</span>, <span class="st">"geometry"</span>, <span class="st">"location"</span>, <span class="st">"lat"</span>),
+    <span class="kw">lng</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="st">"results"</span>, <span class="fl">1</span>, <span class="st">"geometry"</span>, <span class="st">"location"</span>, <span class="st">"lng"</span>)
+  )</pre></body></html></div>
 </div>
 <div id="sharla-gelfands-discography" class="section level2">
 <h2 class="hasAnchor">
 <a href="#sharla-gelfands-discography" class="anchor"></a>Sharla Gelfand’s discography</h2>
 <p>We’ll finish off with the most complex list, from <a href="https://sharla.party/posts/discog-purrr/">Sharla Gelfand’s</a> discography. We’ll start the usual way: putting the list into a single column data frame, and then widening so each component is a column. I also parse the <code>date_added</code> column into a real date-time<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>.</p>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a>discs &lt;-<span class="st"> </span><span class="kw"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span>(<span class="dt">disc =</span> discog) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb28-2"><a href="#cb28-2"></a><span class="st">  </span><span class="kw"><a href="../reference/hoist.html">unnest_wider</a></span>(disc) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb28-3"><a href="#cb28-3"></a><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="dt">date_added =</span> <span class="kw"><a href="https://rdrr.io/r/base/as.POSIXlt.html">as.POSIXct</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/strptime.html">strptime</a></span>(date_added, <span class="st">"%Y-%m-%dT%H:%M:%S"</span>))) </span>
-<span id="cb28-4"><a href="#cb28-4"></a>discs</span>
-<span id="cb28-5"><a href="#cb28-5"></a><span class="co">#&gt; # A tibble: 155 x 5</span></span>
-<span id="cb28-6"><a href="#cb28-6"></a><span class="co">#&gt;    instance_id date_added          basic_information       id rating</span></span>
-<span id="cb28-7"><a href="#cb28-7"></a><span class="co">#&gt;          &lt;int&gt; &lt;dttm&gt;              &lt;list&gt;               &lt;int&gt;  &lt;int&gt;</span></span>
-<span id="cb28-8"><a href="#cb28-8"></a><span class="co">#&gt;  1   354823933 2019-02-16 17:48:59 &lt;named list [11]&gt;  7496378      0</span></span>
-<span id="cb28-9"><a href="#cb28-9"></a><span class="co">#&gt;  2   354092601 2019-02-13 14:13:11 &lt;named list [11]&gt;  4490852      0</span></span>
-<span id="cb28-10"><a href="#cb28-10"></a><span class="co">#&gt;  3   354091476 2019-02-13 14:07:23 &lt;named list [11]&gt;  9827276      0</span></span>
-<span id="cb28-11"><a href="#cb28-11"></a><span class="co">#&gt;  4   351244906 2019-02-02 11:39:58 &lt;named list [11]&gt;  9769203      0</span></span>
-<span id="cb28-12"><a href="#cb28-12"></a><span class="co">#&gt;  5   351244801 2019-02-02 11:39:37 &lt;named list [11]&gt;  7237138      0</span></span>
-<span id="cb28-13"><a href="#cb28-13"></a><span class="co">#&gt;  6   351052065 2019-02-01 20:40:53 &lt;named list [11]&gt; 13117042      0</span></span>
-<span id="cb28-14"><a href="#cb28-14"></a><span class="co">#&gt;  7   350315345 2019-01-29 15:48:37 &lt;named list [11]&gt;  7113575      0</span></span>
-<span id="cb28-15"><a href="#cb28-15"></a><span class="co">#&gt;  8   350315103 2019-01-29 15:47:22 &lt;named list [11]&gt; 10540713      0</span></span>
-<span id="cb28-16"><a href="#cb28-16"></a><span class="co">#&gt;  9   350314507 2019-01-29 15:44:08 &lt;named list [11]&gt; 11260950      0</span></span>
-<span id="cb28-17"><a href="#cb28-17"></a><span class="co">#&gt; 10   350314047 2019-01-29 15:41:35 &lt;named list [11]&gt; 11726853      0</span></span>
-<span id="cb28-18"><a href="#cb28-18"></a><span class="co">#&gt; # … with 145 more rows</span></span></code></pre></div>
+<div class="sourceCode" id="cb28"><html><body><pre class="r"><span class="no">discs</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span>(<span class="kw">disc</span> <span class="kw">=</span> <span class="no">discog</span>) <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="../reference/hoist.html">unnest_wider</a></span>(<span class="no">disc</span>) <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="kw">date_added</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.POSIXlt.html">as.POSIXct</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/strptime.html">strptime</a></span>(<span class="no">date_added</span>, <span class="st">"%Y-%m-%dT%H:%M:%S"</span>)))
+<span class="no">discs</span>
+<span class="co">#&gt; # A tibble: 155 x 5</span>
+<span class="co">#&gt;    instance_id date_added          basic_information       id rating</span>
+<span class="co">#&gt;          &lt;int&gt; &lt;dttm&gt;              &lt;list&gt;               &lt;int&gt;  &lt;int&gt;</span>
+<span class="co">#&gt;  1   354823933 2019-02-16 17:48:59 &lt;named list [11]&gt;  7496378      0</span>
+<span class="co">#&gt;  2   354092601 2019-02-13 14:13:11 &lt;named list [11]&gt;  4490852      0</span>
+<span class="co">#&gt;  3   354091476 2019-02-13 14:07:23 &lt;named list [11]&gt;  9827276      0</span>
+<span class="co">#&gt;  4   351244906 2019-02-02 11:39:58 &lt;named list [11]&gt;  9769203      0</span>
+<span class="co">#&gt;  5   351244801 2019-02-02 11:39:37 &lt;named list [11]&gt;  7237138      0</span>
+<span class="co">#&gt;  6   351052065 2019-02-01 20:40:53 &lt;named list [11]&gt; 13117042      0</span>
+<span class="co">#&gt;  7   350315345 2019-01-29 15:48:37 &lt;named list [11]&gt;  7113575      0</span>
+<span class="co">#&gt;  8   350315103 2019-01-29 15:47:22 &lt;named list [11]&gt; 10540713      0</span>
+<span class="co">#&gt;  9   350314507 2019-01-29 15:44:08 &lt;named list [11]&gt; 11260950      0</span>
+<span class="co">#&gt; 10   350314047 2019-01-29 15:41:35 &lt;named list [11]&gt; 11726853      0</span>
+<span class="co">#&gt; # … with 145 more rows</span></pre></body></html></div>
 <p>At this level, we see information about when each disc was added to Sharla’s discography, not any information about the disc itself. To do that we need to widen the <code>basic_information</code> column:</p>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1"></a>discs <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/hoist.html">unnest_wider</a></span>(basic_information)</span>
-<span id="cb29-2"><a href="#cb29-2"></a><span class="co">#&gt; Error: Column name `id` must not be duplicated.</span></span>
-<span id="cb29-3"><a href="#cb29-3"></a><span class="co">#&gt; Use .name_repair to specify repair.</span></span></code></pre></div>
+<div class="sourceCode" id="cb29"><html><body><pre class="r"><span class="no">discs</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/hoist.html">unnest_wider</a></span>(<span class="no">basic_information</span>)
+<span class="co">#&gt; Error: Column name `id` must not be duplicated.</span></pre></body></html></div>
 <p>Unfortunately that fails because there’s an <code>id</code> column inside <code>basic_information</code>. We can quickly see what’s going on by setting <code>names_repair = "unique"</code>:</p>
-<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a>discs <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/hoist.html">unnest_wider</a></span>(basic_information, <span class="dt">names_repair =</span> <span class="st">"unique"</span>)</span>
-<span id="cb30-2"><a href="#cb30-2"></a><span class="co">#&gt; New names:</span></span>
-<span id="cb30-3"><a href="#cb30-3"></a><span class="co">#&gt; * id -&gt; id...6</span></span>
-<span id="cb30-4"><a href="#cb30-4"></a><span class="co">#&gt; * id -&gt; id...14</span></span>
-<span id="cb30-5"><a href="#cb30-5"></a><span class="co">#&gt; # A tibble: 155 x 15</span></span>
-<span id="cb30-6"><a href="#cb30-6"></a><span class="co">#&gt;    instance_id date_added          labels  year artists id...6 thumb title</span></span>
-<span id="cb30-7"><a href="#cb30-7"></a><span class="co">#&gt;          &lt;int&gt; &lt;dttm&gt;              &lt;list&gt; &lt;int&gt; &lt;list&gt;   &lt;int&gt; &lt;chr&gt; &lt;chr&gt;</span></span>
-<span id="cb30-8"><a href="#cb30-8"></a><span class="co">#&gt;  1   354823933 2019-02-16 17:48:59 &lt;list…  2015 &lt;list … 7.50e6 "htt… Demo </span></span>
-<span id="cb30-9"><a href="#cb30-9"></a><span class="co">#&gt;  2   354092601 2019-02-13 14:13:11 &lt;list…  2013 &lt;list … 4.49e6 "htt… Obse…</span></span>
-<span id="cb30-10"><a href="#cb30-10"></a><span class="co">#&gt;  3   354091476 2019-02-13 14:07:23 &lt;list…  2017 &lt;list … 9.83e6 "htt… I    </span></span>
-<span id="cb30-11"><a href="#cb30-11"></a><span class="co">#&gt;  4   351244906 2019-02-02 11:39:58 &lt;list…  2017 &lt;list … 9.77e6 "htt… Oído…</span></span>
-<span id="cb30-12"><a href="#cb30-12"></a><span class="co">#&gt;  5   351244801 2019-02-02 11:39:37 &lt;list…  2015 &lt;list … 7.24e6 "htt… A Ca…</span></span>
-<span id="cb30-13"><a href="#cb30-13"></a><span class="co">#&gt;  6   351052065 2019-02-01 20:40:53 &lt;list…  2019 &lt;list … 1.31e7 "htt… Tash…</span></span>
-<span id="cb30-14"><a href="#cb30-14"></a><span class="co">#&gt;  7   350315345 2019-01-29 15:48:37 &lt;list…  2014 &lt;list … 7.11e6 "htt… Demo </span></span>
-<span id="cb30-15"><a href="#cb30-15"></a><span class="co">#&gt;  8   350315103 2019-01-29 15:47:22 &lt;list…  2015 &lt;list … 1.05e7 "htt… Let …</span></span>
-<span id="cb30-16"><a href="#cb30-16"></a><span class="co">#&gt;  9   350314507 2019-01-29 15:44:08 &lt;list…  2017 &lt;list … 1.13e7 ""    Sub …</span></span>
-<span id="cb30-17"><a href="#cb30-17"></a><span class="co">#&gt; 10   350314047 2019-01-29 15:41:35 &lt;list…  2017 &lt;list … 1.17e7 "htt… Demo </span></span>
-<span id="cb30-18"><a href="#cb30-18"></a><span class="co">#&gt; # … with 145 more rows, and 7 more variables: formats &lt;list&gt;,</span></span>
-<span id="cb30-19"><a href="#cb30-19"></a><span class="co">#&gt; #   cover_image &lt;chr&gt;, resource_url &lt;chr&gt;, master_id &lt;int&gt;, master_url &lt;chr&gt;,</span></span>
-<span id="cb30-20"><a href="#cb30-20"></a><span class="co">#&gt; #   id...14 &lt;int&gt;, rating &lt;int&gt;</span></span></code></pre></div>
+<div class="sourceCode" id="cb30"><html><body><pre class="r"><span class="no">discs</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/hoist.html">unnest_wider</a></span>(<span class="no">basic_information</span>, <span class="kw">names_repair</span> <span class="kw">=</span> <span class="st">"unique"</span>)
+<span class="co">#&gt; New names:</span>
+<span class="co">#&gt; * id -&gt; id...6</span>
+<span class="co">#&gt; * id -&gt; id...14</span>
+<span class="co">#&gt; # A tibble: 155 x 15</span>
+<span class="co">#&gt;    instance_id date_added          labels  year artists id...6 thumb title</span>
+<span class="co">#&gt;          &lt;int&gt; &lt;dttm&gt;              &lt;list&gt; &lt;int&gt; &lt;list&gt;   &lt;int&gt; &lt;chr&gt; &lt;chr&gt;</span>
+<span class="co">#&gt;  1   354823933 2019-02-16 17:48:59 &lt;list…  2015 &lt;list … 7.50e6 "htt… Demo </span>
+<span class="co">#&gt;  2   354092601 2019-02-13 14:13:11 &lt;list…  2013 &lt;list … 4.49e6 "htt… Obse…</span>
+<span class="co">#&gt;  3   354091476 2019-02-13 14:07:23 &lt;list…  2017 &lt;list … 9.83e6 "htt… I    </span>
+<span class="co">#&gt;  4   351244906 2019-02-02 11:39:58 &lt;list…  2017 &lt;list … 9.77e6 "htt… Oído…</span>
+<span class="co">#&gt;  5   351244801 2019-02-02 11:39:37 &lt;list…  2015 &lt;list … 7.24e6 "htt… A Ca…</span>
+<span class="co">#&gt;  6   351052065 2019-02-01 20:40:53 &lt;list…  2019 &lt;list … 1.31e7 "htt… Tash…</span>
+<span class="co">#&gt;  7   350315345 2019-01-29 15:48:37 &lt;list…  2014 &lt;list … 7.11e6 "htt… Demo </span>
+<span class="co">#&gt;  8   350315103 2019-01-29 15:47:22 &lt;list…  2015 &lt;list … 1.05e7 "htt… Let …</span>
+<span class="co">#&gt;  9   350314507 2019-01-29 15:44:08 &lt;list…  2017 &lt;list … 1.13e7 ""    Sub …</span>
+<span class="co">#&gt; 10   350314047 2019-01-29 15:41:35 &lt;list…  2017 &lt;list … 1.17e7 "htt… Demo </span>
+<span class="co">#&gt; # … with 145 more rows, and 7 more variables: formats &lt;list&gt;,</span>
+<span class="co">#&gt; #   cover_image &lt;chr&gt;, resource_url &lt;chr&gt;, master_id &lt;int&gt;, master_url &lt;chr&gt;,</span>
+<span class="co">#&gt; #   id...14 &lt;int&gt;, rating &lt;int&gt;</span></pre></body></html></div>
 <p>The problem is that <code>basic_information</code> repeats the <code>id</code> column that’s also stored at the top-level, so we can just drop that:</p>
-<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1"></a>discs <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb31-2"><a href="#cb31-2"></a><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(<span class="op">-</span>id) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb31-3"><a href="#cb31-3"></a><span class="st">  </span><span class="kw"><a href="../reference/hoist.html">unnest_wider</a></span>(basic_information)</span>
-<span id="cb31-4"><a href="#cb31-4"></a><span class="co">#&gt; # A tibble: 155 x 14</span></span>
-<span id="cb31-5"><a href="#cb31-5"></a><span class="co">#&gt;    instance_id date_added          labels  year artists     id thumb title</span></span>
-<span id="cb31-6"><a href="#cb31-6"></a><span class="co">#&gt;          &lt;int&gt; &lt;dttm&gt;              &lt;list&gt; &lt;int&gt; &lt;list&gt;   &lt;int&gt; &lt;chr&gt; &lt;chr&gt;</span></span>
-<span id="cb31-7"><a href="#cb31-7"></a><span class="co">#&gt;  1   354823933 2019-02-16 17:48:59 &lt;list…  2015 &lt;list … 7.50e6 "htt… Demo </span></span>
-<span id="cb31-8"><a href="#cb31-8"></a><span class="co">#&gt;  2   354092601 2019-02-13 14:13:11 &lt;list…  2013 &lt;list … 4.49e6 "htt… Obse…</span></span>
-<span id="cb31-9"><a href="#cb31-9"></a><span class="co">#&gt;  3   354091476 2019-02-13 14:07:23 &lt;list…  2017 &lt;list … 9.83e6 "htt… I    </span></span>
-<span id="cb31-10"><a href="#cb31-10"></a><span class="co">#&gt;  4   351244906 2019-02-02 11:39:58 &lt;list…  2017 &lt;list … 9.77e6 "htt… Oído…</span></span>
-<span id="cb31-11"><a href="#cb31-11"></a><span class="co">#&gt;  5   351244801 2019-02-02 11:39:37 &lt;list…  2015 &lt;list … 7.24e6 "htt… A Ca…</span></span>
-<span id="cb31-12"><a href="#cb31-12"></a><span class="co">#&gt;  6   351052065 2019-02-01 20:40:53 &lt;list…  2019 &lt;list … 1.31e7 "htt… Tash…</span></span>
-<span id="cb31-13"><a href="#cb31-13"></a><span class="co">#&gt;  7   350315345 2019-01-29 15:48:37 &lt;list…  2014 &lt;list … 7.11e6 "htt… Demo </span></span>
-<span id="cb31-14"><a href="#cb31-14"></a><span class="co">#&gt;  8   350315103 2019-01-29 15:47:22 &lt;list…  2015 &lt;list … 1.05e7 "htt… Let …</span></span>
-<span id="cb31-15"><a href="#cb31-15"></a><span class="co">#&gt;  9   350314507 2019-01-29 15:44:08 &lt;list…  2017 &lt;list … 1.13e7 ""    Sub …</span></span>
-<span id="cb31-16"><a href="#cb31-16"></a><span class="co">#&gt; 10   350314047 2019-01-29 15:41:35 &lt;list…  2017 &lt;list … 1.17e7 "htt… Demo </span></span>
-<span id="cb31-17"><a href="#cb31-17"></a><span class="co">#&gt; # … with 145 more rows, and 6 more variables: formats &lt;list&gt;,</span></span>
-<span id="cb31-18"><a href="#cb31-18"></a><span class="co">#&gt; #   cover_image &lt;chr&gt;, resource_url &lt;chr&gt;, master_id &lt;int&gt;, master_url &lt;chr&gt;,</span></span>
-<span id="cb31-19"><a href="#cb31-19"></a><span class="co">#&gt; #   rating &lt;int&gt;</span></span></code></pre></div>
+<div class="sourceCode" id="cb31"><html><body><pre class="r"><span class="no">discs</span> <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(-<span class="no">id</span>) <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="../reference/hoist.html">unnest_wider</a></span>(<span class="no">basic_information</span>)
+<span class="co">#&gt; # A tibble: 155 x 14</span>
+<span class="co">#&gt;    instance_id date_added          labels  year artists     id thumb title</span>
+<span class="co">#&gt;          &lt;int&gt; &lt;dttm&gt;              &lt;list&gt; &lt;int&gt; &lt;list&gt;   &lt;int&gt; &lt;chr&gt; &lt;chr&gt;</span>
+<span class="co">#&gt;  1   354823933 2019-02-16 17:48:59 &lt;list…  2015 &lt;list … 7.50e6 "htt… Demo </span>
+<span class="co">#&gt;  2   354092601 2019-02-13 14:13:11 &lt;list…  2013 &lt;list … 4.49e6 "htt… Obse…</span>
+<span class="co">#&gt;  3   354091476 2019-02-13 14:07:23 &lt;list…  2017 &lt;list … 9.83e6 "htt… I    </span>
+<span class="co">#&gt;  4   351244906 2019-02-02 11:39:58 &lt;list…  2017 &lt;list … 9.77e6 "htt… Oído…</span>
+<span class="co">#&gt;  5   351244801 2019-02-02 11:39:37 &lt;list…  2015 &lt;list … 7.24e6 "htt… A Ca…</span>
+<span class="co">#&gt;  6   351052065 2019-02-01 20:40:53 &lt;list…  2019 &lt;list … 1.31e7 "htt… Tash…</span>
+<span class="co">#&gt;  7   350315345 2019-01-29 15:48:37 &lt;list…  2014 &lt;list … 7.11e6 "htt… Demo </span>
+<span class="co">#&gt;  8   350315103 2019-01-29 15:47:22 &lt;list…  2015 &lt;list … 1.05e7 "htt… Let …</span>
+<span class="co">#&gt;  9   350314507 2019-01-29 15:44:08 &lt;list…  2017 &lt;list … 1.13e7 ""    Sub …</span>
+<span class="co">#&gt; 10   350314047 2019-01-29 15:41:35 &lt;list…  2017 &lt;list … 1.17e7 "htt… Demo </span>
+<span class="co">#&gt; # … with 145 more rows, and 6 more variables: formats &lt;list&gt;,</span>
+<span class="co">#&gt; #   cover_image &lt;chr&gt;, resource_url &lt;chr&gt;, master_id &lt;int&gt;, master_url &lt;chr&gt;,</span>
+<span class="co">#&gt; #   rating &lt;int&gt;</span></pre></body></html></div>
 <p>Alternatively, we could use <code><a href="../reference/hoist.html">hoist()</a></code>:</p>
-<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a>discs <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb32-2"><a href="#cb32-2"></a><span class="st">  </span><span class="kw"><a href="../reference/hoist.html">hoist</a></span>(basic_information,</span>
-<span id="cb32-3"><a href="#cb32-3"></a>    <span class="dt">title =</span> <span class="st">"title"</span>,</span>
-<span id="cb32-4"><a href="#cb32-4"></a>    <span class="dt">year =</span> <span class="st">"year"</span>,</span>
-<span id="cb32-5"><a href="#cb32-5"></a>    <span class="dt">label =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="st">"labels"</span>, <span class="dv">1</span>, <span class="st">"name"</span>),</span>
-<span id="cb32-6"><a href="#cb32-6"></a>    <span class="dt">artist =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="st">"artists"</span>, <span class="dv">1</span>, <span class="st">"name"</span>)</span>
-<span id="cb32-7"><a href="#cb32-7"></a>  )</span>
-<span id="cb32-8"><a href="#cb32-8"></a><span class="co">#&gt; # A tibble: 155 x 9</span></span>
-<span id="cb32-9"><a href="#cb32-9"></a><span class="co">#&gt;    instance_id date_added          title  year label artist basic_informati…</span></span>
-<span id="cb32-10"><a href="#cb32-10"></a><span class="co">#&gt;          &lt;int&gt; &lt;dttm&gt;              &lt;chr&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt;  &lt;list&gt;          </span></span>
-<span id="cb32-11"><a href="#cb32-11"></a><span class="co">#&gt;  1   354823933 2019-02-16 17:48:59 Demo   2015 Tobi… Mollot &lt;named list [9]&gt;</span></span>
-<span id="cb32-12"><a href="#cb32-12"></a><span class="co">#&gt;  2   354092601 2019-02-13 14:13:11 Obse…  2013 La V… Una B… &lt;named list [9]&gt;</span></span>
-<span id="cb32-13"><a href="#cb32-13"></a><span class="co">#&gt;  3   354091476 2019-02-13 14:07:23 I      2017 La V… S.H.I… &lt;named list [9]&gt;</span></span>
-<span id="cb32-14"><a href="#cb32-14"></a><span class="co">#&gt;  4   351244906 2019-02-02 11:39:58 Oído…  2017 La V… Rata … &lt;named list [9]&gt;</span></span>
-<span id="cb32-15"><a href="#cb32-15"></a><span class="co">#&gt;  5   351244801 2019-02-02 11:39:37 A Ca…  2015 Kato… Ivy (… &lt;named list [9]&gt;</span></span>
-<span id="cb32-16"><a href="#cb32-16"></a><span class="co">#&gt;  6   351052065 2019-02-01 20:40:53 Tash…  2019 High… Tashme &lt;named list [9]&gt;</span></span>
-<span id="cb32-17"><a href="#cb32-17"></a><span class="co">#&gt;  7   350315345 2019-01-29 15:48:37 Demo   2014 Mind… Desgr… &lt;named list [9]&gt;</span></span>
-<span id="cb32-18"><a href="#cb32-18"></a><span class="co">#&gt;  8   350315103 2019-01-29 15:47:22 Let …  2015 Not … Phant… &lt;named list [9]&gt;</span></span>
-<span id="cb32-19"><a href="#cb32-19"></a><span class="co">#&gt;  9   350314507 2019-01-29 15:44:08 Sub …  2017 Not … Sub S… &lt;named list [9]&gt;</span></span>
-<span id="cb32-20"><a href="#cb32-20"></a><span class="co">#&gt; 10   350314047 2019-01-29 15:41:35 Demo   2017 Pres… Small… &lt;named list [9]&gt;</span></span>
-<span id="cb32-21"><a href="#cb32-21"></a><span class="co">#&gt; # … with 145 more rows, and 2 more variables: id &lt;int&gt;, rating &lt;int&gt;</span></span></code></pre></div>
+<div class="sourceCode" id="cb32"><html><body><pre class="r"><span class="no">discs</span> <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="../reference/hoist.html">hoist</a></span>(<span class="no">basic_information</span>,
+    <span class="kw">title</span> <span class="kw">=</span> <span class="st">"title"</span>,
+    <span class="kw">year</span> <span class="kw">=</span> <span class="st">"year"</span>,
+    <span class="kw">label</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="st">"labels"</span>, <span class="fl">1</span>, <span class="st">"name"</span>),
+    <span class="kw">artist</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="st">"artists"</span>, <span class="fl">1</span>, <span class="st">"name"</span>)
+  )
+<span class="co">#&gt; # A tibble: 155 x 9</span>
+<span class="co">#&gt;    instance_id date_added          title  year label artist basic_informati…</span>
+<span class="co">#&gt;          &lt;int&gt; &lt;dttm&gt;              &lt;chr&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt;  &lt;list&gt;          </span>
+<span class="co">#&gt;  1   354823933 2019-02-16 17:48:59 Demo   2015 Tobi… Mollot &lt;named list [9]&gt;</span>
+<span class="co">#&gt;  2   354092601 2019-02-13 14:13:11 Obse…  2013 La V… Una B… &lt;named list [9]&gt;</span>
+<span class="co">#&gt;  3   354091476 2019-02-13 14:07:23 I      2017 La V… S.H.I… &lt;named list [9]&gt;</span>
+<span class="co">#&gt;  4   351244906 2019-02-02 11:39:58 Oído…  2017 La V… Rata … &lt;named list [9]&gt;</span>
+<span class="co">#&gt;  5   351244801 2019-02-02 11:39:37 A Ca…  2015 Kato… Ivy (… &lt;named list [9]&gt;</span>
+<span class="co">#&gt;  6   351052065 2019-02-01 20:40:53 Tash…  2019 High… Tashme &lt;named list [9]&gt;</span>
+<span class="co">#&gt;  7   350315345 2019-01-29 15:48:37 Demo   2014 Mind… Desgr… &lt;named list [9]&gt;</span>
+<span class="co">#&gt;  8   350315103 2019-01-29 15:47:22 Let …  2015 Not … Phant… &lt;named list [9]&gt;</span>
+<span class="co">#&gt;  9   350314507 2019-01-29 15:44:08 Sub …  2017 Not … Sub S… &lt;named list [9]&gt;</span>
+<span class="co">#&gt; 10   350314047 2019-01-29 15:41:35 Demo   2017 Pres… Small… &lt;named list [9]&gt;</span>
+<span class="co">#&gt; # … with 145 more rows, and 2 more variables: id &lt;int&gt;, rating &lt;int&gt;</span></pre></body></html></div>
 <p>Here I quickly extract the name of the first label and artist by indexing deeply into the nested list.</p>
 <p>A more systematic approach would be to create separate tables for artist and label:</p>
-<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1"></a>discs <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb33-2"><a href="#cb33-2"></a><span class="st">  </span><span class="kw"><a href="../reference/hoist.html">hoist</a></span>(basic_information, <span class="dt">artist =</span> <span class="st">"artists"</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb33-3"><a href="#cb33-3"></a><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(<span class="dt">disc_id =</span> id, artist) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb33-4"><a href="#cb33-4"></a><span class="st">  </span><span class="kw"><a href="../reference/hoist.html">unnest_longer</a></span>(artist) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb33-5"><a href="#cb33-5"></a><span class="st">  </span><span class="kw"><a href="../reference/hoist.html">unnest_wider</a></span>(artist)</span>
-<span id="cb33-6"><a href="#cb33-6"></a><span class="co">#&gt; # A tibble: 167 x 8</span></span>
-<span id="cb33-7"><a href="#cb33-7"></a><span class="co">#&gt;     disc_id join  name          anv   tracks role  resource_url               id</span></span>
-<span id="cb33-8"><a href="#cb33-8"></a><span class="co">#&gt;       &lt;int&gt; &lt;chr&gt; &lt;chr&gt;         &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;                   &lt;int&gt;</span></span>
-<span id="cb33-9"><a href="#cb33-9"></a><span class="co">#&gt;  1  7496378 ""    Mollot        ""    ""     ""    https://api.discogs.c… 4.62e6</span></span>
-<span id="cb33-10"><a href="#cb33-10"></a><span class="co">#&gt;  2  4490852 ""    Una Bèstia I… ""    ""     ""    https://api.discogs.c… 3.19e6</span></span>
-<span id="cb33-11"><a href="#cb33-11"></a><span class="co">#&gt;  3  9827276 ""    S.H.I.T. (3)  ""    ""     ""    https://api.discogs.c… 2.77e6</span></span>
-<span id="cb33-12"><a href="#cb33-12"></a><span class="co">#&gt;  4  9769203 ""    Rata Negra    ""    ""     ""    https://api.discogs.c… 4.28e6</span></span>
-<span id="cb33-13"><a href="#cb33-13"></a><span class="co">#&gt;  5  7237138 ""    Ivy (18)      ""    ""     ""    https://api.discogs.c… 3.60e6</span></span>
-<span id="cb33-14"><a href="#cb33-14"></a><span class="co">#&gt;  6 13117042 ""    Tashme        ""    ""     ""    https://api.discogs.c… 5.21e6</span></span>
-<span id="cb33-15"><a href="#cb33-15"></a><span class="co">#&gt;  7  7113575 ""    Desgraciados  ""    ""     ""    https://api.discogs.c… 4.45e6</span></span>
-<span id="cb33-16"><a href="#cb33-16"></a><span class="co">#&gt;  8 10540713 ""    Phantom Head  ""    ""     ""    https://api.discogs.c… 4.27e6</span></span>
-<span id="cb33-17"><a href="#cb33-17"></a><span class="co">#&gt;  9 11260950 ""    Sub Space (2) ""    ""     ""    https://api.discogs.c… 5.69e6</span></span>
-<span id="cb33-18"><a href="#cb33-18"></a><span class="co">#&gt; 10 11726853 ""    Small Man (2) ""    ""     ""    https://api.discogs.c… 6.37e6</span></span>
-<span id="cb33-19"><a href="#cb33-19"></a><span class="co">#&gt; # … with 157 more rows</span></span>
-<span id="cb33-20"><a href="#cb33-20"></a></span>
-<span id="cb33-21"><a href="#cb33-21"></a>discs <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb33-22"><a href="#cb33-22"></a><span class="st">  </span><span class="kw"><a href="../reference/hoist.html">hoist</a></span>(basic_information, <span class="dt">format =</span> <span class="st">"formats"</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb33-23"><a href="#cb33-23"></a><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(<span class="dt">disc_id =</span> id, format) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb33-24"><a href="#cb33-24"></a><span class="st">  </span><span class="kw"><a href="../reference/hoist.html">unnest_longer</a></span>(format) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb33-25"><a href="#cb33-25"></a><span class="st">  </span><span class="kw"><a href="../reference/hoist.html">unnest_wider</a></span>(format) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb33-26"><a href="#cb33-26"></a><span class="st">  </span><span class="kw"><a href="../reference/hoist.html">unnest_longer</a></span>(descriptions)</span>
-<span id="cb33-27"><a href="#cb33-27"></a><span class="co">#&gt; # A tibble: 281 x 5</span></span>
-<span id="cb33-28"><a href="#cb33-28"></a><span class="co">#&gt;     disc_id descriptions text  name     qty  </span></span>
-<span id="cb33-29"><a href="#cb33-29"></a><span class="co">#&gt;       &lt;int&gt; &lt;chr&gt;        &lt;chr&gt; &lt;chr&gt;    &lt;chr&gt;</span></span>
-<span id="cb33-30"><a href="#cb33-30"></a><span class="co">#&gt;  1  7496378 "Numbered"   Black Cassette 1    </span></span>
-<span id="cb33-31"><a href="#cb33-31"></a><span class="co">#&gt;  2  4490852 "LP"         &lt;NA&gt;  Vinyl    1    </span></span>
-<span id="cb33-32"><a href="#cb33-32"></a><span class="co">#&gt;  3  9827276 "7\""        &lt;NA&gt;  Vinyl    1    </span></span>
-<span id="cb33-33"><a href="#cb33-33"></a><span class="co">#&gt;  4  9827276 "45 RPM"     &lt;NA&gt;  Vinyl    1    </span></span>
-<span id="cb33-34"><a href="#cb33-34"></a><span class="co">#&gt;  5  9827276 "EP"         &lt;NA&gt;  Vinyl    1    </span></span>
-<span id="cb33-35"><a href="#cb33-35"></a><span class="co">#&gt;  6  9769203 "LP"         &lt;NA&gt;  Vinyl    1    </span></span>
-<span id="cb33-36"><a href="#cb33-36"></a><span class="co">#&gt;  7  9769203 "Album"      &lt;NA&gt;  Vinyl    1    </span></span>
-<span id="cb33-37"><a href="#cb33-37"></a><span class="co">#&gt;  8  7237138 "7\""        &lt;NA&gt;  Vinyl    1    </span></span>
-<span id="cb33-38"><a href="#cb33-38"></a><span class="co">#&gt;  9  7237138 "45 RPM"     &lt;NA&gt;  Vinyl    1    </span></span>
-<span id="cb33-39"><a href="#cb33-39"></a><span class="co">#&gt; 10 13117042 "7\""        &lt;NA&gt;  Vinyl    1    </span></span>
-<span id="cb33-40"><a href="#cb33-40"></a><span class="co">#&gt; # … with 271 more rows</span></span></code></pre></div>
+<div class="sourceCode" id="cb33"><html><body><pre class="r"><span class="no">discs</span> <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="../reference/hoist.html">hoist</a></span>(<span class="no">basic_information</span>, <span class="kw">artist</span> <span class="kw">=</span> <span class="st">"artists"</span>) <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(<span class="kw">disc_id</span> <span class="kw">=</span> <span class="no">id</span>, <span class="no">artist</span>) <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="../reference/hoist.html">unnest_longer</a></span>(<span class="no">artist</span>) <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="../reference/hoist.html">unnest_wider</a></span>(<span class="no">artist</span>)
+<span class="co">#&gt; # A tibble: 167 x 8</span>
+<span class="co">#&gt;     disc_id join  name          anv   tracks role  resource_url               id</span>
+<span class="co">#&gt;       &lt;int&gt; &lt;chr&gt; &lt;chr&gt;         &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;                   &lt;int&gt;</span>
+<span class="co">#&gt;  1  7496378 ""    Mollot        ""    ""     ""    https://api.discogs.c… 4.62e6</span>
+<span class="co">#&gt;  2  4490852 ""    Una Bèstia I… ""    ""     ""    https://api.discogs.c… 3.19e6</span>
+<span class="co">#&gt;  3  9827276 ""    S.H.I.T. (3)  ""    ""     ""    https://api.discogs.c… 2.77e6</span>
+<span class="co">#&gt;  4  9769203 ""    Rata Negra    ""    ""     ""    https://api.discogs.c… 4.28e6</span>
+<span class="co">#&gt;  5  7237138 ""    Ivy (18)      ""    ""     ""    https://api.discogs.c… 3.60e6</span>
+<span class="co">#&gt;  6 13117042 ""    Tashme        ""    ""     ""    https://api.discogs.c… 5.21e6</span>
+<span class="co">#&gt;  7  7113575 ""    Desgraciados  ""    ""     ""    https://api.discogs.c… 4.45e6</span>
+<span class="co">#&gt;  8 10540713 ""    Phantom Head  ""    ""     ""    https://api.discogs.c… 4.27e6</span>
+<span class="co">#&gt;  9 11260950 ""    Sub Space (2) ""    ""     ""    https://api.discogs.c… 5.69e6</span>
+<span class="co">#&gt; 10 11726853 ""    Small Man (2) ""    ""     ""    https://api.discogs.c… 6.37e6</span>
+<span class="co">#&gt; # … with 157 more rows</span>
+
+<span class="no">discs</span> <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="../reference/hoist.html">hoist</a></span>(<span class="no">basic_information</span>, <span class="kw">format</span> <span class="kw">=</span> <span class="st">"formats"</span>) <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(<span class="kw">disc_id</span> <span class="kw">=</span> <span class="no">id</span>, <span class="no">format</span>) <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="../reference/hoist.html">unnest_longer</a></span>(<span class="no">format</span>) <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="../reference/hoist.html">unnest_wider</a></span>(<span class="no">format</span>) <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="../reference/hoist.html">unnest_longer</a></span>(<span class="no">descriptions</span>)
+<span class="co">#&gt; # A tibble: 281 x 5</span>
+<span class="co">#&gt;     disc_id descriptions text  name     qty  </span>
+<span class="co">#&gt;       &lt;int&gt; &lt;chr&gt;        &lt;chr&gt; &lt;chr&gt;    &lt;chr&gt;</span>
+<span class="co">#&gt;  1  7496378 "Numbered"   Black Cassette 1    </span>
+<span class="co">#&gt;  2  4490852 "LP"         &lt;NA&gt;  Vinyl    1    </span>
+<span class="co">#&gt;  3  9827276 "7\""        &lt;NA&gt;  Vinyl    1    </span>
+<span class="co">#&gt;  4  9827276 "45 RPM"     &lt;NA&gt;  Vinyl    1    </span>
+<span class="co">#&gt;  5  9827276 "EP"         &lt;NA&gt;  Vinyl    1    </span>
+<span class="co">#&gt;  6  9769203 "LP"         &lt;NA&gt;  Vinyl    1    </span>
+<span class="co">#&gt;  7  9769203 "Album"      &lt;NA&gt;  Vinyl    1    </span>
+<span class="co">#&gt;  8  7237138 "7\""        &lt;NA&gt;  Vinyl    1    </span>
+<span class="co">#&gt;  9  7237138 "45 RPM"     &lt;NA&gt;  Vinyl    1    </span>
+<span class="co">#&gt; 10 13117042 "7\""        &lt;NA&gt;  Vinyl    1    </span>
+<span class="co">#&gt; # … with 271 more rows</span></pre></body></html></div>
 <p>Then you could join these back on to the original dataset as needed.</p>
 </div>
 <div class="footnotes">

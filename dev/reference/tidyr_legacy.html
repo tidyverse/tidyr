@@ -239,7 +239,8 @@ tidyverse standard with <code>name_repair = "universal"</code></p>
 #&gt; </span><span style='color: #555555;'>6</span><span>     2     6
 #&gt; </span><span style='color: #555555;'>7</span><span>     2     7</div><div class='input'>
 <span class='co'># The old tidyr approach</span>
-<span class='fu'><a href='nest.html'>unnest</a></span>(<span class='no'>df</span>, <span class='no'>y</span>, <span class='kw'>names_repair</span> <span class='kw'>=</span> <span class='no'>tidyr_legacy</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 7 x 2</span><span>
+<span class='fu'><a href='nest.html'>unnest</a></span>(<span class='no'>df</span>, <span class='no'>y</span>, <span class='kw'>names_repair</span> <span class='kw'>=</span> <span class='no'>tidyr_legacy</span>)</div><div class='output co'>#&gt; <span class='message'>New names:</span>
+#&gt; <span class='message'>* x -&gt; x1</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 7 x 2</span><span>
 #&gt;       x    x1
 #&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
 #&gt; </span><span style='color: #555555;'>1</span><span>     1     3

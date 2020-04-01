@@ -287,25 +287,7 @@ correct vector type even for empty list-columns.</p>
 <span class='co'># Incompatible types -------------------------------------------------</span>
 <span class='co'># If the list-col contains types that can not be natively</span>
 <span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>2</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='st'>"1"</span>, <span class='fl'>1</span>:<span class='fl'>3</span>))
-<span class='fu'><a href='https://rdrr.io/r/base/try.html'>try</a></span>(<span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>unchop</span>(<span class='no'>y</span>))</div><div class='output co'>#&gt; Error : No common type for `..1$y` &lt;character&gt; and `..2$y` &lt;integer&gt;.</div><div class='input'><span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>unchop</span>(<span class='no'>y</span>, <span class='kw'>ptype</span> <span class='kw'>=</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(<span class='kw'>y</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/integer.html'>integer</a></span>()))</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 4 x 2</span><span>
-#&gt;       x     y
-#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
-#&gt; </span><span style='color: #555555;'>1</span><span>     1     1
-#&gt; </span><span style='color: #555555;'>2</span><span>     2     1
-#&gt; </span><span style='color: #555555;'>3</span><span>     2     2
-#&gt; </span><span style='color: #555555;'>4</span><span>     2     3</div><div class='input'><span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>unchop</span>(<span class='no'>y</span>, <span class='kw'>ptype</span> <span class='kw'>=</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(<span class='kw'>y</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/character.html'>character</a></span>()))</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 4 x 2</span><span>
-#&gt;       x y    
-#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>
-#&gt; </span><span style='color: #555555;'>1</span><span>     1 1    
-#&gt; </span><span style='color: #555555;'>2</span><span>     2 1    
-#&gt; </span><span style='color: #555555;'>3</span><span>     2 2    
-#&gt; </span><span style='color: #555555;'>4</span><span>     2 3    </div><div class='input'><span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>unchop</span>(<span class='no'>y</span>, <span class='kw'>ptype</span> <span class='kw'>=</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(<span class='kw'>y</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>()))</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 4 x 2</span><span>
-#&gt;       x y        
-#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;list&gt;</span><span>   
-#&gt; </span><span style='color: #555555;'>1</span><span>     1 </span><span style='color: #555555;'>&lt;chr [1]&gt;</span><span>
-#&gt; </span><span style='color: #555555;'>2</span><span>     2 </span><span style='color: #555555;'>&lt;int [1]&gt;</span><span>
-#&gt; </span><span style='color: #555555;'>3</span><span>     2 </span><span style='color: #555555;'>&lt;int [1]&gt;</span><span>
-#&gt; </span><span style='color: #555555;'>4</span><span>     2 </span><span style='color: #555555;'>&lt;int [1]&gt;</span><span></div><div class='input'>
+<span class='fu'><a href='https://rdrr.io/r/base/try.html'>try</a></span>(<span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>unchop</span>(<span class='no'>y</span>))</div><div class='output co'>#&gt; Error : No common type for `..1$y` &lt;character&gt; and `..2$y` &lt;integer&gt;.</div><div class='input'>
 <span class='co'># Unchopping data frames -----------------------------------------------------</span>
 <span class='co'># Unchopping a list-col of data frames must generate a df-col because</span>
 <span class='co'># unchop leaves the column names unchanged</span>

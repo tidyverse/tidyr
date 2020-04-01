@@ -173,19 +173,19 @@
 <h2 class="hasAnchor">
 <a href="#data-structure" class="anchor"></a>Data structure</h2>
 <p>Most statistical datasets are data frames made up of <strong>rows</strong> and <strong>columns</strong>. The columns are almost always labeled and the rows are sometimes labeled. The following code provides some data about an imaginary classroom in a format commonly seen in the wild. The table has three columns and four rows, and both rows and columns are labeled.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a>classroom &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span>(<span class="st">"classroom.csv"</span>, <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>)</span>
-<span id="cb1-2"><a href="#cb1-2"></a>classroom</span>
-<span id="cb1-3"><a href="#cb1-3"></a><span class="co">#&gt;     name quiz1 quiz2 test1</span></span>
-<span id="cb1-4"><a href="#cb1-4"></a><span class="co">#&gt; 1  Billy  &lt;NA&gt;     D     C</span></span>
-<span id="cb1-5"><a href="#cb1-5"></a><span class="co">#&gt; 2   Suzy     F  &lt;NA&gt;  &lt;NA&gt;</span></span>
-<span id="cb1-6"><a href="#cb1-6"></a><span class="co">#&gt; 3 Lionel     B     C     B</span></span>
-<span id="cb1-7"><a href="#cb1-7"></a><span class="co">#&gt; 4  Jenny     A     A     B</span></span></code></pre></div>
+<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="no">classroom</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span>(<span class="st">"classroom.csv"</span>, <span class="kw">stringsAsFactors</span> <span class="kw">=</span> <span class="fl">FALSE</span>)
+<span class="no">classroom</span>
+<span class="co">#&gt;     name quiz1 quiz2 test1</span>
+<span class="co">#&gt; 1  Billy  &lt;NA&gt;     D     C</span>
+<span class="co">#&gt; 2   Suzy     F  &lt;NA&gt;  &lt;NA&gt;</span>
+<span class="co">#&gt; 3 Lionel     B     C     B</span>
+<span class="co">#&gt; 4  Jenny     A     A     B</span></pre></body></html></div>
 <p>There are many ways to structure the same underlying data. The following table shows the same data as above, but the rows and columns have been transposed.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span>(<span class="st">"classroom2.csv"</span>, <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>)</span>
-<span id="cb2-2"><a href="#cb2-2"></a><span class="co">#&gt;   assessment Billy  Suzy Lionel Jenny</span></span>
-<span id="cb2-3"><a href="#cb2-3"></a><span class="co">#&gt; 1      quiz1  &lt;NA&gt; FALSE      B     A</span></span>
-<span id="cb2-4"><a href="#cb2-4"></a><span class="co">#&gt; 2      quiz2     D    NA      C     A</span></span>
-<span id="cb2-5"><a href="#cb2-5"></a><span class="co">#&gt; 3      test1     C    NA      B     B</span></span></code></pre></div>
+<div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span>(<span class="st">"classroom2.csv"</span>, <span class="kw">stringsAsFactors</span> <span class="kw">=</span> <span class="fl">FALSE</span>)
+<span class="co">#&gt;   assessment Billy  Suzy Lionel Jenny</span>
+<span class="co">#&gt; 1      quiz1  &lt;NA&gt; FALSE      B     A</span>
+<span class="co">#&gt; 2      quiz2     D    NA      C     A</span>
+<span class="co">#&gt; 3      test1     C    NA      B     B</span></pre></body></html></div>
 <p>The data is the same, but the layout is different. Our vocabulary of rows and columns is simply not rich enough to describe why the two tables represent the same data. In addition to appearance, we need a way to describe the underlying semantics, or meaning, of the values displayed in the table.</p>
 </div>
 <div id="data-semantics" class="section level2">
@@ -193,26 +193,26 @@
 <a href="#data-semantics" class="anchor"></a>Data semantics</h2>
 <p>A dataset is a collection of <strong>values</strong>, usually either numbers (if quantitative) or strings (if qualitative). Values are organised in two ways. Every value belongs to a <strong>variable</strong> and an <strong>observation</strong>. A variable contains all values that measure the same underlying attribute (like height, temperature, duration) across units. An observation contains all values measured on the same unit (like a person, or a day, or a race) across attributes.</p>
 <p>A tidy version of the classroom data looks like this: (you’ll learn how the functions work a little later)</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(tidyr)</span>
-<span id="cb3-2"><a href="#cb3-2"></a><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(dplyr)</span></code></pre></div>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>classroom2 &lt;-<span class="st"> </span>classroom <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb4-2"><a href="#cb4-2"></a><span class="st">  </span><span class="kw"><a href="../reference/pivot_longer.html">pivot_longer</a></span>(quiz1<span class="op">:</span>test1, <span class="dt">names_to =</span> <span class="st">"assessment"</span>, <span class="dt">values_to =</span> <span class="st">"grade"</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb4-3"><a href="#cb4-3"></a><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span>(name, assessment)</span>
-<span id="cb4-4"><a href="#cb4-4"></a>classroom2</span>
-<span id="cb4-5"><a href="#cb4-5"></a><span class="co">#&gt; # A tibble: 12 x 3</span></span>
-<span id="cb4-6"><a href="#cb4-6"></a><span class="co">#&gt;    name   assessment grade</span></span>
-<span id="cb4-7"><a href="#cb4-7"></a><span class="co">#&gt;    &lt;chr&gt;  &lt;chr&gt;      &lt;chr&gt;</span></span>
-<span id="cb4-8"><a href="#cb4-8"></a><span class="co">#&gt;  1 Billy  quiz1      &lt;NA&gt; </span></span>
-<span id="cb4-9"><a href="#cb4-9"></a><span class="co">#&gt;  2 Billy  quiz2      D    </span></span>
-<span id="cb4-10"><a href="#cb4-10"></a><span class="co">#&gt;  3 Billy  test1      C    </span></span>
-<span id="cb4-11"><a href="#cb4-11"></a><span class="co">#&gt;  4 Jenny  quiz1      A    </span></span>
-<span id="cb4-12"><a href="#cb4-12"></a><span class="co">#&gt;  5 Jenny  quiz2      A    </span></span>
-<span id="cb4-13"><a href="#cb4-13"></a><span class="co">#&gt;  6 Jenny  test1      B    </span></span>
-<span id="cb4-14"><a href="#cb4-14"></a><span class="co">#&gt;  7 Lionel quiz1      B    </span></span>
-<span id="cb4-15"><a href="#cb4-15"></a><span class="co">#&gt;  8 Lionel quiz2      C    </span></span>
-<span id="cb4-16"><a href="#cb4-16"></a><span class="co">#&gt;  9 Lionel test1      B    </span></span>
-<span id="cb4-17"><a href="#cb4-17"></a><span class="co">#&gt; 10 Suzy   quiz1      F    </span></span>
-<span id="cb4-18"><a href="#cb4-18"></a><span class="co">#&gt; # … with 2 more rows</span></span></code></pre></div>
+<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">tidyr</span>)
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">dplyr</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="no">classroom2</span> <span class="kw">&lt;-</span> <span class="no">classroom</span> <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="../reference/pivot_longer.html">pivot_longer</a></span>(<span class="no">quiz1</span>:<span class="no">test1</span>, <span class="kw">names_to</span> <span class="kw">=</span> <span class="st">"assessment"</span>, <span class="kw">values_to</span> <span class="kw">=</span> <span class="st">"grade"</span>) <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span>(<span class="no">name</span>, <span class="no">assessment</span>)
+<span class="no">classroom2</span>
+<span class="co">#&gt; # A tibble: 12 x 3</span>
+<span class="co">#&gt;    name   assessment grade</span>
+<span class="co">#&gt;    &lt;chr&gt;  &lt;chr&gt;      &lt;chr&gt;</span>
+<span class="co">#&gt;  1 Billy  quiz1      &lt;NA&gt; </span>
+<span class="co">#&gt;  2 Billy  quiz2      D    </span>
+<span class="co">#&gt;  3 Billy  test1      C    </span>
+<span class="co">#&gt;  4 Jenny  quiz1      A    </span>
+<span class="co">#&gt;  5 Jenny  quiz2      A    </span>
+<span class="co">#&gt;  6 Jenny  test1      B    </span>
+<span class="co">#&gt;  7 Lionel quiz1      B    </span>
+<span class="co">#&gt;  8 Lionel quiz2      C    </span>
+<span class="co">#&gt;  9 Lionel test1      B    </span>
+<span class="co">#&gt; 10 Suzy   quiz1      F    </span>
+<span class="co">#&gt; # … with 2 more rows</span></pre></body></html></div>
 <p>This makes the values, variables, and observations more clear. The dataset contains 36 values representing three variables and 12 observations. The variables are:</p>
 <ol style="list-style-type: decimal">
 <li><p><code>name</code>, with four possible values (Billy, Suzy, Lionel, and Jenny).</p></li>
@@ -255,319 +255,319 @@
 <a href="#column-headers-are-values-not-variable-names" class="anchor"></a>Column headers are values, not variable names</h2>
 <p>A common type of messy dataset is tabular data designed for presentation, where variables form both the rows and columns, and column headers are values, not variable names. While I would call this arrangement messy, in some cases it can be extremely useful. It provides efficient storage for completely crossed designs, and it can lead to extremely efficient computation if desired operations can be expressed as matrix operations.</p>
 <p>The following code shows a subset of a typical dataset of this form. This dataset explores the relationship between income and religion in the US. It comes from a report produced by the Pew Research Center, an American think-tank that collects data on attitudes to topics ranging from religion to the internet, and produces many reports that contain datasets in this format.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>relig_income</span>
-<span id="cb5-2"><a href="#cb5-2"></a><span class="co">#&gt; # A tibble: 18 x 11</span></span>
-<span id="cb5-3"><a href="#cb5-3"></a><span class="co">#&gt;    religion `&lt;$10k` `$10-20k` `$20-30k` `$30-40k` `$40-50k` `$50-75k` `$75-100k`</span></span>
-<span id="cb5-4"><a href="#cb5-4"></a><span class="co">#&gt;    &lt;chr&gt;      &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;      &lt;dbl&gt;</span></span>
-<span id="cb5-5"><a href="#cb5-5"></a><span class="co">#&gt;  1 Agnostic      27        34        60        81        76       137        122</span></span>
-<span id="cb5-6"><a href="#cb5-6"></a><span class="co">#&gt;  2 Atheist       12        27        37        52        35        70         73</span></span>
-<span id="cb5-7"><a href="#cb5-7"></a><span class="co">#&gt;  3 Buddhist      27        21        30        34        33        58         62</span></span>
-<span id="cb5-8"><a href="#cb5-8"></a><span class="co">#&gt;  4 Catholic     418       617       732       670       638      1116        949</span></span>
-<span id="cb5-9"><a href="#cb5-9"></a><span class="co">#&gt;  5 Don’t k…      15        14        15        11        10        35         21</span></span>
-<span id="cb5-10"><a href="#cb5-10"></a><span class="co">#&gt;  6 Evangel…     575       869      1064       982       881      1486        949</span></span>
-<span id="cb5-11"><a href="#cb5-11"></a><span class="co">#&gt;  7 Hindu          1         9         7         9        11        34         47</span></span>
-<span id="cb5-12"><a href="#cb5-12"></a><span class="co">#&gt;  8 Histori…     228       244       236       238       197       223        131</span></span>
-<span id="cb5-13"><a href="#cb5-13"></a><span class="co">#&gt;  9 Jehovah…      20        27        24        24        21        30         15</span></span>
-<span id="cb5-14"><a href="#cb5-14"></a><span class="co">#&gt; 10 Jewish        19        19        25        25        30        95         69</span></span>
-<span id="cb5-15"><a href="#cb5-15"></a><span class="co">#&gt; # … with 8 more rows, and 3 more variables: `$100-150k` &lt;dbl&gt;, `&gt;150k` &lt;dbl&gt;,</span></span>
-<span id="cb5-16"><a href="#cb5-16"></a><span class="co">#&gt; #   `Don't know/refused` &lt;dbl&gt;</span></span></code></pre></div>
+<div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="no">relig_income</span>
+<span class="co">#&gt; # A tibble: 18 x 11</span>
+<span class="co">#&gt;    religion `&lt;$10k` `$10-20k` `$20-30k` `$30-40k` `$40-50k` `$50-75k` `$75-100k`</span>
+<span class="co">#&gt;    &lt;chr&gt;      &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;      &lt;dbl&gt;</span>
+<span class="co">#&gt;  1 Agnostic      27        34        60        81        76       137        122</span>
+<span class="co">#&gt;  2 Atheist       12        27        37        52        35        70         73</span>
+<span class="co">#&gt;  3 Buddhist      27        21        30        34        33        58         62</span>
+<span class="co">#&gt;  4 Catholic     418       617       732       670       638      1116        949</span>
+<span class="co">#&gt;  5 Don’t k…      15        14        15        11        10        35         21</span>
+<span class="co">#&gt;  6 Evangel…     575       869      1064       982       881      1486        949</span>
+<span class="co">#&gt;  7 Hindu          1         9         7         9        11        34         47</span>
+<span class="co">#&gt;  8 Histori…     228       244       236       238       197       223        131</span>
+<span class="co">#&gt;  9 Jehovah…      20        27        24        24        21        30         15</span>
+<span class="co">#&gt; 10 Jewish        19        19        25        25        30        95         69</span>
+<span class="co">#&gt; # … with 8 more rows, and 3 more variables: `$100-150k` &lt;dbl&gt;, `&gt;150k` &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   `Don't know/refused` &lt;dbl&gt;</span></pre></body></html></div>
 <p>This dataset has three variables, <code>religion</code>, <code>income</code> and <code>frequency</code>. To tidy it, we need to <strong>pivot</strong> the non-variable columns into a two-column key-value pair. This action is often described as making a wide dataset longer (or taller).</p>
 <p>When pivoting variables, we need to provide the name of the new key-value columns to create. After defining the colums to pivot (every column except for religion), you will need the name of the key column, which is the name of the variable defined by the values of the column headings. In this case, it’s <code>income</code>. The second argument is the name of the value column, <code>frequency</code>.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>relig_income <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb6-2"><a href="#cb6-2"></a><span class="st">  </span><span class="kw"><a href="../reference/pivot_longer.html">pivot_longer</a></span>(<span class="op">-</span>religion, <span class="dt">names_to =</span> <span class="st">"income"</span>, <span class="dt">values_to =</span> <span class="st">"frequency"</span>)</span>
-<span id="cb6-3"><a href="#cb6-3"></a><span class="co">#&gt; # A tibble: 180 x 3</span></span>
-<span id="cb6-4"><a href="#cb6-4"></a><span class="co">#&gt;    religion income             frequency</span></span>
-<span id="cb6-5"><a href="#cb6-5"></a><span class="co">#&gt;    &lt;chr&gt;    &lt;chr&gt;                  &lt;dbl&gt;</span></span>
-<span id="cb6-6"><a href="#cb6-6"></a><span class="co">#&gt;  1 Agnostic &lt;$10k                     27</span></span>
-<span id="cb6-7"><a href="#cb6-7"></a><span class="co">#&gt;  2 Agnostic $10-20k                   34</span></span>
-<span id="cb6-8"><a href="#cb6-8"></a><span class="co">#&gt;  3 Agnostic $20-30k                   60</span></span>
-<span id="cb6-9"><a href="#cb6-9"></a><span class="co">#&gt;  4 Agnostic $30-40k                   81</span></span>
-<span id="cb6-10"><a href="#cb6-10"></a><span class="co">#&gt;  5 Agnostic $40-50k                   76</span></span>
-<span id="cb6-11"><a href="#cb6-11"></a><span class="co">#&gt;  6 Agnostic $50-75k                  137</span></span>
-<span id="cb6-12"><a href="#cb6-12"></a><span class="co">#&gt;  7 Agnostic $75-100k                 122</span></span>
-<span id="cb6-13"><a href="#cb6-13"></a><span class="co">#&gt;  8 Agnostic $100-150k                109</span></span>
-<span id="cb6-14"><a href="#cb6-14"></a><span class="co">#&gt;  9 Agnostic &gt;150k                     84</span></span>
-<span id="cb6-15"><a href="#cb6-15"></a><span class="co">#&gt; 10 Agnostic Don't know/refused        96</span></span>
-<span id="cb6-16"><a href="#cb6-16"></a><span class="co">#&gt; # … with 170 more rows</span></span></code></pre></div>
+<div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="no">relig_income</span> <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="../reference/pivot_longer.html">pivot_longer</a></span>(-<span class="no">religion</span>, <span class="kw">names_to</span> <span class="kw">=</span> <span class="st">"income"</span>, <span class="kw">values_to</span> <span class="kw">=</span> <span class="st">"frequency"</span>)
+<span class="co">#&gt; # A tibble: 180 x 3</span>
+<span class="co">#&gt;    religion income             frequency</span>
+<span class="co">#&gt;    &lt;chr&gt;    &lt;chr&gt;                  &lt;dbl&gt;</span>
+<span class="co">#&gt;  1 Agnostic &lt;$10k                     27</span>
+<span class="co">#&gt;  2 Agnostic $10-20k                   34</span>
+<span class="co">#&gt;  3 Agnostic $20-30k                   60</span>
+<span class="co">#&gt;  4 Agnostic $30-40k                   81</span>
+<span class="co">#&gt;  5 Agnostic $40-50k                   76</span>
+<span class="co">#&gt;  6 Agnostic $50-75k                  137</span>
+<span class="co">#&gt;  7 Agnostic $75-100k                 122</span>
+<span class="co">#&gt;  8 Agnostic $100-150k                109</span>
+<span class="co">#&gt;  9 Agnostic &gt;150k                     84</span>
+<span class="co">#&gt; 10 Agnostic Don't know/refused        96</span>
+<span class="co">#&gt; # … with 170 more rows</span></pre></body></html></div>
 <p>This form is tidy because each column represents a variable and each row represents an observation, in this case a demographic unit corresponding to a combination of <code>religion</code> and <code>income</code>.</p>
 <p>This format is also used to record regularly spaced observations over time. For example, the Billboard dataset shown below records the date a song first entered the billboard top 100. It has variables for <code>artist</code>, <code>track</code>, <code>date.entered</code>, <code>rank</code> and <code>week</code>. The rank in each week after it enters the top 100 is recorded in 75 columns, <code>wk1</code> to <code>wk75</code>. This form of storage is not tidy, but it is useful for data entry. It reduces duplication since otherwise each song in each week would need its own row, and song metadata like title and artist would need to be repeated. This will be discussed in more depth in <a href="#multiple-types">multiple types</a>.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>billboard</span>
-<span id="cb7-2"><a href="#cb7-2"></a><span class="co">#&gt; # A tibble: 317 x 79</span></span>
-<span id="cb7-3"><a href="#cb7-3"></a><span class="co">#&gt;    artist track date.entered   wk1   wk2   wk3   wk4   wk5   wk6   wk7   wk8</span></span>
-<span id="cb7-4"><a href="#cb7-4"></a><span class="co">#&gt;    &lt;chr&gt;  &lt;chr&gt; &lt;date&gt;       &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span></span>
-<span id="cb7-5"><a href="#cb7-5"></a><span class="co">#&gt;  1 2 Pac  Baby… 2000-02-26      87    82    72    77    87    94    99    NA</span></span>
-<span id="cb7-6"><a href="#cb7-6"></a><span class="co">#&gt;  2 2Ge+h… The … 2000-09-02      91    87    92    NA    NA    NA    NA    NA</span></span>
-<span id="cb7-7"><a href="#cb7-7"></a><span class="co">#&gt;  3 3 Doo… Kryp… 2000-04-08      81    70    68    67    66    57    54    53</span></span>
-<span id="cb7-8"><a href="#cb7-8"></a><span class="co">#&gt;  4 3 Doo… Loser 2000-10-21      76    76    72    69    67    65    55    59</span></span>
-<span id="cb7-9"><a href="#cb7-9"></a><span class="co">#&gt;  5 504 B… Wobb… 2000-04-15      57    34    25    17    17    31    36    49</span></span>
-<span id="cb7-10"><a href="#cb7-10"></a><span class="co">#&gt;  6 98^0   Give… 2000-08-19      51    39    34    26    26    19     2     2</span></span>
-<span id="cb7-11"><a href="#cb7-11"></a><span class="co">#&gt;  7 A*Tee… Danc… 2000-07-08      97    97    96    95   100    NA    NA    NA</span></span>
-<span id="cb7-12"><a href="#cb7-12"></a><span class="co">#&gt;  8 Aaliy… I Do… 2000-01-29      84    62    51    41    38    35    35    38</span></span>
-<span id="cb7-13"><a href="#cb7-13"></a><span class="co">#&gt;  9 Aaliy… Try … 2000-03-18      59    53    38    28    21    18    16    14</span></span>
-<span id="cb7-14"><a href="#cb7-14"></a><span class="co">#&gt; 10 Adams… Open… 2000-08-26      76    76    74    69    68    67    61    58</span></span>
-<span id="cb7-15"><a href="#cb7-15"></a><span class="co">#&gt; # … with 307 more rows, and 68 more variables: wk9 &lt;dbl&gt;, wk10 &lt;dbl&gt;,</span></span>
-<span id="cb7-16"><a href="#cb7-16"></a><span class="co">#&gt; #   wk11 &lt;dbl&gt;, wk12 &lt;dbl&gt;, wk13 &lt;dbl&gt;, wk14 &lt;dbl&gt;, wk15 &lt;dbl&gt;, wk16 &lt;dbl&gt;,</span></span>
-<span id="cb7-17"><a href="#cb7-17"></a><span class="co">#&gt; #   wk17 &lt;dbl&gt;, wk18 &lt;dbl&gt;, wk19 &lt;dbl&gt;, wk20 &lt;dbl&gt;, wk21 &lt;dbl&gt;, wk22 &lt;dbl&gt;,</span></span>
-<span id="cb7-18"><a href="#cb7-18"></a><span class="co">#&gt; #   wk23 &lt;dbl&gt;, wk24 &lt;dbl&gt;, wk25 &lt;dbl&gt;, wk26 &lt;dbl&gt;, wk27 &lt;dbl&gt;, wk28 &lt;dbl&gt;,</span></span>
-<span id="cb7-19"><a href="#cb7-19"></a><span class="co">#&gt; #   wk29 &lt;dbl&gt;, wk30 &lt;dbl&gt;, wk31 &lt;dbl&gt;, wk32 &lt;dbl&gt;, wk33 &lt;dbl&gt;, wk34 &lt;dbl&gt;,</span></span>
-<span id="cb7-20"><a href="#cb7-20"></a><span class="co">#&gt; #   wk35 &lt;dbl&gt;, wk36 &lt;dbl&gt;, wk37 &lt;dbl&gt;, wk38 &lt;dbl&gt;, wk39 &lt;dbl&gt;, wk40 &lt;dbl&gt;,</span></span>
-<span id="cb7-21"><a href="#cb7-21"></a><span class="co">#&gt; #   wk41 &lt;dbl&gt;, wk42 &lt;dbl&gt;, wk43 &lt;dbl&gt;, wk44 &lt;dbl&gt;, wk45 &lt;dbl&gt;, wk46 &lt;dbl&gt;,</span></span>
-<span id="cb7-22"><a href="#cb7-22"></a><span class="co">#&gt; #   wk47 &lt;dbl&gt;, wk48 &lt;dbl&gt;, wk49 &lt;dbl&gt;, wk50 &lt;dbl&gt;, wk51 &lt;dbl&gt;, wk52 &lt;dbl&gt;,</span></span>
-<span id="cb7-23"><a href="#cb7-23"></a><span class="co">#&gt; #   wk53 &lt;dbl&gt;, wk54 &lt;dbl&gt;, wk55 &lt;dbl&gt;, wk56 &lt;dbl&gt;, wk57 &lt;dbl&gt;, wk58 &lt;dbl&gt;,</span></span>
-<span id="cb7-24"><a href="#cb7-24"></a><span class="co">#&gt; #   wk59 &lt;dbl&gt;, wk60 &lt;dbl&gt;, wk61 &lt;dbl&gt;, wk62 &lt;dbl&gt;, wk63 &lt;dbl&gt;, wk64 &lt;dbl&gt;,</span></span>
-<span id="cb7-25"><a href="#cb7-25"></a><span class="co">#&gt; #   wk65 &lt;dbl&gt;, wk66 &lt;lgl&gt;, wk67 &lt;lgl&gt;, wk68 &lt;lgl&gt;, wk69 &lt;lgl&gt;, wk70 &lt;lgl&gt;,</span></span>
-<span id="cb7-26"><a href="#cb7-26"></a><span class="co">#&gt; #   wk71 &lt;lgl&gt;, wk72 &lt;lgl&gt;, wk73 &lt;lgl&gt;, wk74 &lt;lgl&gt;, wk75 &lt;lgl&gt;, wk76 &lt;lgl&gt;</span></span></code></pre></div>
+<div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="no">billboard</span>
+<span class="co">#&gt; # A tibble: 317 x 79</span>
+<span class="co">#&gt;    artist track date.entered   wk1   wk2   wk3   wk4   wk5   wk6   wk7   wk8</span>
+<span class="co">#&gt;    &lt;chr&gt;  &lt;chr&gt; &lt;date&gt;       &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span>
+<span class="co">#&gt;  1 2 Pac  Baby… 2000-02-26      87    82    72    77    87    94    99    NA</span>
+<span class="co">#&gt;  2 2Ge+h… The … 2000-09-02      91    87    92    NA    NA    NA    NA    NA</span>
+<span class="co">#&gt;  3 3 Doo… Kryp… 2000-04-08      81    70    68    67    66    57    54    53</span>
+<span class="co">#&gt;  4 3 Doo… Loser 2000-10-21      76    76    72    69    67    65    55    59</span>
+<span class="co">#&gt;  5 504 B… Wobb… 2000-04-15      57    34    25    17    17    31    36    49</span>
+<span class="co">#&gt;  6 98^0   Give… 2000-08-19      51    39    34    26    26    19     2     2</span>
+<span class="co">#&gt;  7 A*Tee… Danc… 2000-07-08      97    97    96    95   100    NA    NA    NA</span>
+<span class="co">#&gt;  8 Aaliy… I Do… 2000-01-29      84    62    51    41    38    35    35    38</span>
+<span class="co">#&gt;  9 Aaliy… Try … 2000-03-18      59    53    38    28    21    18    16    14</span>
+<span class="co">#&gt; 10 Adams… Open… 2000-08-26      76    76    74    69    68    67    61    58</span>
+<span class="co">#&gt; # … with 307 more rows, and 68 more variables: wk9 &lt;dbl&gt;, wk10 &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   wk11 &lt;dbl&gt;, wk12 &lt;dbl&gt;, wk13 &lt;dbl&gt;, wk14 &lt;dbl&gt;, wk15 &lt;dbl&gt;, wk16 &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   wk17 &lt;dbl&gt;, wk18 &lt;dbl&gt;, wk19 &lt;dbl&gt;, wk20 &lt;dbl&gt;, wk21 &lt;dbl&gt;, wk22 &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   wk23 &lt;dbl&gt;, wk24 &lt;dbl&gt;, wk25 &lt;dbl&gt;, wk26 &lt;dbl&gt;, wk27 &lt;dbl&gt;, wk28 &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   wk29 &lt;dbl&gt;, wk30 &lt;dbl&gt;, wk31 &lt;dbl&gt;, wk32 &lt;dbl&gt;, wk33 &lt;dbl&gt;, wk34 &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   wk35 &lt;dbl&gt;, wk36 &lt;dbl&gt;, wk37 &lt;dbl&gt;, wk38 &lt;dbl&gt;, wk39 &lt;dbl&gt;, wk40 &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   wk41 &lt;dbl&gt;, wk42 &lt;dbl&gt;, wk43 &lt;dbl&gt;, wk44 &lt;dbl&gt;, wk45 &lt;dbl&gt;, wk46 &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   wk47 &lt;dbl&gt;, wk48 &lt;dbl&gt;, wk49 &lt;dbl&gt;, wk50 &lt;dbl&gt;, wk51 &lt;dbl&gt;, wk52 &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   wk53 &lt;dbl&gt;, wk54 &lt;dbl&gt;, wk55 &lt;dbl&gt;, wk56 &lt;dbl&gt;, wk57 &lt;dbl&gt;, wk58 &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   wk59 &lt;dbl&gt;, wk60 &lt;dbl&gt;, wk61 &lt;dbl&gt;, wk62 &lt;dbl&gt;, wk63 &lt;dbl&gt;, wk64 &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   wk65 &lt;dbl&gt;, wk66 &lt;lgl&gt;, wk67 &lt;lgl&gt;, wk68 &lt;lgl&gt;, wk69 &lt;lgl&gt;, wk70 &lt;lgl&gt;,</span>
+<span class="co">#&gt; #   wk71 &lt;lgl&gt;, wk72 &lt;lgl&gt;, wk73 &lt;lgl&gt;, wk74 &lt;lgl&gt;, wk75 &lt;lgl&gt;, wk76 &lt;lgl&gt;</span></pre></body></html></div>
 <p>To tidy this dataset, we first use <code><a href="../reference/pivot_longer.html">pivot_longer()</a></code> to make the dataset longer. We transform the columns from <code>wk1</code> to <code>wk76</code>, making a new column for their names, <code>week</code>, and a new value for their values, <code>rank</code>:</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>billboard2 &lt;-<span class="st"> </span>billboard <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb8-2"><a href="#cb8-2"></a><span class="st">  </span><span class="kw"><a href="../reference/pivot_longer.html">pivot_longer</a></span>(</span>
-<span id="cb8-3"><a href="#cb8-3"></a>    wk1<span class="op">:</span>wk76, </span>
-<span id="cb8-4"><a href="#cb8-4"></a>    <span class="dt">names_to =</span> <span class="st">"week"</span>, </span>
-<span id="cb8-5"><a href="#cb8-5"></a>    <span class="dt">values_to =</span> <span class="st">"rank"</span>, </span>
-<span id="cb8-6"><a href="#cb8-6"></a>    <span class="dt">values_drop_na =</span> <span class="ot">TRUE</span></span>
-<span id="cb8-7"><a href="#cb8-7"></a>  )</span>
-<span id="cb8-8"><a href="#cb8-8"></a>billboard2</span>
-<span id="cb8-9"><a href="#cb8-9"></a><span class="co">#&gt; # A tibble: 5,307 x 5</span></span>
-<span id="cb8-10"><a href="#cb8-10"></a><span class="co">#&gt;    artist  track                   date.entered week   rank</span></span>
-<span id="cb8-11"><a href="#cb8-11"></a><span class="co">#&gt;    &lt;chr&gt;   &lt;chr&gt;                   &lt;date&gt;       &lt;chr&gt; &lt;dbl&gt;</span></span>
-<span id="cb8-12"><a href="#cb8-12"></a><span class="co">#&gt;  1 2 Pac   Baby Don't Cry (Keep... 2000-02-26   wk1      87</span></span>
-<span id="cb8-13"><a href="#cb8-13"></a><span class="co">#&gt;  2 2 Pac   Baby Don't Cry (Keep... 2000-02-26   wk2      82</span></span>
-<span id="cb8-14"><a href="#cb8-14"></a><span class="co">#&gt;  3 2 Pac   Baby Don't Cry (Keep... 2000-02-26   wk3      72</span></span>
-<span id="cb8-15"><a href="#cb8-15"></a><span class="co">#&gt;  4 2 Pac   Baby Don't Cry (Keep... 2000-02-26   wk4      77</span></span>
-<span id="cb8-16"><a href="#cb8-16"></a><span class="co">#&gt;  5 2 Pac   Baby Don't Cry (Keep... 2000-02-26   wk5      87</span></span>
-<span id="cb8-17"><a href="#cb8-17"></a><span class="co">#&gt;  6 2 Pac   Baby Don't Cry (Keep... 2000-02-26   wk6      94</span></span>
-<span id="cb8-18"><a href="#cb8-18"></a><span class="co">#&gt;  7 2 Pac   Baby Don't Cry (Keep... 2000-02-26   wk7      99</span></span>
-<span id="cb8-19"><a href="#cb8-19"></a><span class="co">#&gt;  8 2Ge+her The Hardest Part Of ... 2000-09-02   wk1      91</span></span>
-<span id="cb8-20"><a href="#cb8-20"></a><span class="co">#&gt;  9 2Ge+her The Hardest Part Of ... 2000-09-02   wk2      87</span></span>
-<span id="cb8-21"><a href="#cb8-21"></a><span class="co">#&gt; 10 2Ge+her The Hardest Part Of ... 2000-09-02   wk3      92</span></span>
-<span id="cb8-22"><a href="#cb8-22"></a><span class="co">#&gt; # … with 5,297 more rows</span></span></code></pre></div>
+<div class="sourceCode" id="cb8"><html><body><pre class="r"><span class="no">billboard2</span> <span class="kw">&lt;-</span> <span class="no">billboard</span> <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="../reference/pivot_longer.html">pivot_longer</a></span>(
+    <span class="no">wk1</span>:<span class="no">wk76</span>,
+    <span class="kw">names_to</span> <span class="kw">=</span> <span class="st">"week"</span>,
+    <span class="kw">values_to</span> <span class="kw">=</span> <span class="st">"rank"</span>,
+    <span class="kw">values_drop_na</span> <span class="kw">=</span> <span class="fl">TRUE</span>
+  )
+<span class="no">billboard2</span>
+<span class="co">#&gt; # A tibble: 5,307 x 5</span>
+<span class="co">#&gt;    artist  track                   date.entered week   rank</span>
+<span class="co">#&gt;    &lt;chr&gt;   &lt;chr&gt;                   &lt;date&gt;       &lt;chr&gt; &lt;dbl&gt;</span>
+<span class="co">#&gt;  1 2 Pac   Baby Don't Cry (Keep... 2000-02-26   wk1      87</span>
+<span class="co">#&gt;  2 2 Pac   Baby Don't Cry (Keep... 2000-02-26   wk2      82</span>
+<span class="co">#&gt;  3 2 Pac   Baby Don't Cry (Keep... 2000-02-26   wk3      72</span>
+<span class="co">#&gt;  4 2 Pac   Baby Don't Cry (Keep... 2000-02-26   wk4      77</span>
+<span class="co">#&gt;  5 2 Pac   Baby Don't Cry (Keep... 2000-02-26   wk5      87</span>
+<span class="co">#&gt;  6 2 Pac   Baby Don't Cry (Keep... 2000-02-26   wk6      94</span>
+<span class="co">#&gt;  7 2 Pac   Baby Don't Cry (Keep... 2000-02-26   wk7      99</span>
+<span class="co">#&gt;  8 2Ge+her The Hardest Part Of ... 2000-09-02   wk1      91</span>
+<span class="co">#&gt;  9 2Ge+her The Hardest Part Of ... 2000-09-02   wk2      87</span>
+<span class="co">#&gt; 10 2Ge+her The Hardest Part Of ... 2000-09-02   wk3      92</span>
+<span class="co">#&gt; # … with 5,297 more rows</span></pre></body></html></div>
 <p>Here we use <code>values_drop_na = TRUE</code> to drop any missing values from the rank column. In this data, missing values represent weeks that the song wasn’t in the charts, so can be safely dropped.</p>
 <p>In this case it’s also nice to do a little cleaning, converting the week variable to a number, and figuring out the date corresponding to each week on the charts:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>billboard3 &lt;-<span class="st"> </span>billboard2 <span class="op">%&gt;%</span></span>
-<span id="cb9-2"><a href="#cb9-2"></a><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(</span>
-<span id="cb9-3"><a href="#cb9-3"></a>    <span class="dt">week =</span> <span class="kw"><a href="https://rdrr.io/r/base/integer.html">as.integer</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/grep.html">gsub</a></span>(<span class="st">"wk"</span>, <span class="st">""</span>, week)),</span>
-<span id="cb9-4"><a href="#cb9-4"></a>    <span class="dt">date =</span> <span class="kw"><a href="https://rdrr.io/r/base/as.Date.html">as.Date</a></span>(date.entered) <span class="op">+</span><span class="st"> </span><span class="dv">7</span> <span class="op">*</span><span class="st"> </span>(week <span class="op">-</span><span class="st"> </span><span class="dv">1</span>),</span>
-<span id="cb9-5"><a href="#cb9-5"></a>    <span class="dt">date.entered =</span> <span class="ot">NULL</span></span>
-<span id="cb9-6"><a href="#cb9-6"></a>  )</span>
-<span id="cb9-7"><a href="#cb9-7"></a>billboard3</span>
-<span id="cb9-8"><a href="#cb9-8"></a><span class="co">#&gt; # A tibble: 5,307 x 5</span></span>
-<span id="cb9-9"><a href="#cb9-9"></a><span class="co">#&gt;    artist  track                    week  rank date      </span></span>
-<span id="cb9-10"><a href="#cb9-10"></a><span class="co">#&gt;    &lt;chr&gt;   &lt;chr&gt;                   &lt;int&gt; &lt;dbl&gt; &lt;date&gt;    </span></span>
-<span id="cb9-11"><a href="#cb9-11"></a><span class="co">#&gt;  1 2 Pac   Baby Don't Cry (Keep...     1    87 2000-02-26</span></span>
-<span id="cb9-12"><a href="#cb9-12"></a><span class="co">#&gt;  2 2 Pac   Baby Don't Cry (Keep...     2    82 2000-03-04</span></span>
-<span id="cb9-13"><a href="#cb9-13"></a><span class="co">#&gt;  3 2 Pac   Baby Don't Cry (Keep...     3    72 2000-03-11</span></span>
-<span id="cb9-14"><a href="#cb9-14"></a><span class="co">#&gt;  4 2 Pac   Baby Don't Cry (Keep...     4    77 2000-03-18</span></span>
-<span id="cb9-15"><a href="#cb9-15"></a><span class="co">#&gt;  5 2 Pac   Baby Don't Cry (Keep...     5    87 2000-03-25</span></span>
-<span id="cb9-16"><a href="#cb9-16"></a><span class="co">#&gt;  6 2 Pac   Baby Don't Cry (Keep...     6    94 2000-04-01</span></span>
-<span id="cb9-17"><a href="#cb9-17"></a><span class="co">#&gt;  7 2 Pac   Baby Don't Cry (Keep...     7    99 2000-04-08</span></span>
-<span id="cb9-18"><a href="#cb9-18"></a><span class="co">#&gt;  8 2Ge+her The Hardest Part Of ...     1    91 2000-09-02</span></span>
-<span id="cb9-19"><a href="#cb9-19"></a><span class="co">#&gt;  9 2Ge+her The Hardest Part Of ...     2    87 2000-09-09</span></span>
-<span id="cb9-20"><a href="#cb9-20"></a><span class="co">#&gt; 10 2Ge+her The Hardest Part Of ...     3    92 2000-09-16</span></span>
-<span id="cb9-21"><a href="#cb9-21"></a><span class="co">#&gt; # … with 5,297 more rows</span></span></code></pre></div>
+<div class="sourceCode" id="cb9"><html><body><pre class="r"><span class="no">billboard3</span> <span class="kw">&lt;-</span> <span class="no">billboard2</span> <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(
+    <span class="kw">week</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html">as.integer</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/grep.html">gsub</a></span>(<span class="st">"wk"</span>, <span class="st">""</span>, <span class="no">week</span>)),
+    <span class="kw">date</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html">as.Date</a></span>(<span class="no">date.entered</span>) + <span class="fl">7</span> * (<span class="no">week</span> - <span class="fl">1</span>),
+    <span class="kw">date.entered</span> <span class="kw">=</span> <span class="kw">NULL</span>
+  )
+<span class="no">billboard3</span>
+<span class="co">#&gt; # A tibble: 5,307 x 5</span>
+<span class="co">#&gt;    artist  track                    week  rank date      </span>
+<span class="co">#&gt;    &lt;chr&gt;   &lt;chr&gt;                   &lt;int&gt; &lt;dbl&gt; &lt;date&gt;    </span>
+<span class="co">#&gt;  1 2 Pac   Baby Don't Cry (Keep...     1    87 2000-02-26</span>
+<span class="co">#&gt;  2 2 Pac   Baby Don't Cry (Keep...     2    82 2000-03-04</span>
+<span class="co">#&gt;  3 2 Pac   Baby Don't Cry (Keep...     3    72 2000-03-11</span>
+<span class="co">#&gt;  4 2 Pac   Baby Don't Cry (Keep...     4    77 2000-03-18</span>
+<span class="co">#&gt;  5 2 Pac   Baby Don't Cry (Keep...     5    87 2000-03-25</span>
+<span class="co">#&gt;  6 2 Pac   Baby Don't Cry (Keep...     6    94 2000-04-01</span>
+<span class="co">#&gt;  7 2 Pac   Baby Don't Cry (Keep...     7    99 2000-04-08</span>
+<span class="co">#&gt;  8 2Ge+her The Hardest Part Of ...     1    91 2000-09-02</span>
+<span class="co">#&gt;  9 2Ge+her The Hardest Part Of ...     2    87 2000-09-09</span>
+<span class="co">#&gt; 10 2Ge+her The Hardest Part Of ...     3    92 2000-09-16</span>
+<span class="co">#&gt; # … with 5,297 more rows</span></pre></body></html></div>
 <p>Finally, it’s always a good idea to sort the data. We could do it by artist, track and week:</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a>billboard3 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span>(artist, track, week)</span>
-<span id="cb10-2"><a href="#cb10-2"></a><span class="co">#&gt; # A tibble: 5,307 x 5</span></span>
-<span id="cb10-3"><a href="#cb10-3"></a><span class="co">#&gt;    artist  track                    week  rank date      </span></span>
-<span id="cb10-4"><a href="#cb10-4"></a><span class="co">#&gt;    &lt;chr&gt;   &lt;chr&gt;                   &lt;int&gt; &lt;dbl&gt; &lt;date&gt;    </span></span>
-<span id="cb10-5"><a href="#cb10-5"></a><span class="co">#&gt;  1 2 Pac   Baby Don't Cry (Keep...     1    87 2000-02-26</span></span>
-<span id="cb10-6"><a href="#cb10-6"></a><span class="co">#&gt;  2 2 Pac   Baby Don't Cry (Keep...     2    82 2000-03-04</span></span>
-<span id="cb10-7"><a href="#cb10-7"></a><span class="co">#&gt;  3 2 Pac   Baby Don't Cry (Keep...     3    72 2000-03-11</span></span>
-<span id="cb10-8"><a href="#cb10-8"></a><span class="co">#&gt;  4 2 Pac   Baby Don't Cry (Keep...     4    77 2000-03-18</span></span>
-<span id="cb10-9"><a href="#cb10-9"></a><span class="co">#&gt;  5 2 Pac   Baby Don't Cry (Keep...     5    87 2000-03-25</span></span>
-<span id="cb10-10"><a href="#cb10-10"></a><span class="co">#&gt;  6 2 Pac   Baby Don't Cry (Keep...     6    94 2000-04-01</span></span>
-<span id="cb10-11"><a href="#cb10-11"></a><span class="co">#&gt;  7 2 Pac   Baby Don't Cry (Keep...     7    99 2000-04-08</span></span>
-<span id="cb10-12"><a href="#cb10-12"></a><span class="co">#&gt;  8 2Ge+her The Hardest Part Of ...     1    91 2000-09-02</span></span>
-<span id="cb10-13"><a href="#cb10-13"></a><span class="co">#&gt;  9 2Ge+her The Hardest Part Of ...     2    87 2000-09-09</span></span>
-<span id="cb10-14"><a href="#cb10-14"></a><span class="co">#&gt; 10 2Ge+her The Hardest Part Of ...     3    92 2000-09-16</span></span>
-<span id="cb10-15"><a href="#cb10-15"></a><span class="co">#&gt; # … with 5,297 more rows</span></span></code></pre></div>
+<div class="sourceCode" id="cb10"><html><body><pre class="r"><span class="no">billboard3</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span>(<span class="no">artist</span>, <span class="no">track</span>, <span class="no">week</span>)
+<span class="co">#&gt; # A tibble: 5,307 x 5</span>
+<span class="co">#&gt;    artist  track                    week  rank date      </span>
+<span class="co">#&gt;    &lt;chr&gt;   &lt;chr&gt;                   &lt;int&gt; &lt;dbl&gt; &lt;date&gt;    </span>
+<span class="co">#&gt;  1 2 Pac   Baby Don't Cry (Keep...     1    87 2000-02-26</span>
+<span class="co">#&gt;  2 2 Pac   Baby Don't Cry (Keep...     2    82 2000-03-04</span>
+<span class="co">#&gt;  3 2 Pac   Baby Don't Cry (Keep...     3    72 2000-03-11</span>
+<span class="co">#&gt;  4 2 Pac   Baby Don't Cry (Keep...     4    77 2000-03-18</span>
+<span class="co">#&gt;  5 2 Pac   Baby Don't Cry (Keep...     5    87 2000-03-25</span>
+<span class="co">#&gt;  6 2 Pac   Baby Don't Cry (Keep...     6    94 2000-04-01</span>
+<span class="co">#&gt;  7 2 Pac   Baby Don't Cry (Keep...     7    99 2000-04-08</span>
+<span class="co">#&gt;  8 2Ge+her The Hardest Part Of ...     1    91 2000-09-02</span>
+<span class="co">#&gt;  9 2Ge+her The Hardest Part Of ...     2    87 2000-09-09</span>
+<span class="co">#&gt; 10 2Ge+her The Hardest Part Of ...     3    92 2000-09-16</span>
+<span class="co">#&gt; # … with 5,297 more rows</span></pre></body></html></div>
 <p>Or by date and rank:</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>billboard3 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span>(date, rank)</span>
-<span id="cb11-2"><a href="#cb11-2"></a><span class="co">#&gt; # A tibble: 5,307 x 5</span></span>
-<span id="cb11-3"><a href="#cb11-3"></a><span class="co">#&gt;    artist   track   week  rank date      </span></span>
-<span id="cb11-4"><a href="#cb11-4"></a><span class="co">#&gt;    &lt;chr&gt;    &lt;chr&gt;  &lt;int&gt; &lt;dbl&gt; &lt;date&gt;    </span></span>
-<span id="cb11-5"><a href="#cb11-5"></a><span class="co">#&gt;  1 Lonestar Amazed     1    81 1999-06-05</span></span>
-<span id="cb11-6"><a href="#cb11-6"></a><span class="co">#&gt;  2 Lonestar Amazed     2    54 1999-06-12</span></span>
-<span id="cb11-7"><a href="#cb11-7"></a><span class="co">#&gt;  3 Lonestar Amazed     3    44 1999-06-19</span></span>
-<span id="cb11-8"><a href="#cb11-8"></a><span class="co">#&gt;  4 Lonestar Amazed     4    39 1999-06-26</span></span>
-<span id="cb11-9"><a href="#cb11-9"></a><span class="co">#&gt;  5 Lonestar Amazed     5    38 1999-07-03</span></span>
-<span id="cb11-10"><a href="#cb11-10"></a><span class="co">#&gt;  6 Lonestar Amazed     6    33 1999-07-10</span></span>
-<span id="cb11-11"><a href="#cb11-11"></a><span class="co">#&gt;  7 Lonestar Amazed     7    29 1999-07-17</span></span>
-<span id="cb11-12"><a href="#cb11-12"></a><span class="co">#&gt;  8 Amber    Sexual     1    99 1999-07-17</span></span>
-<span id="cb11-13"><a href="#cb11-13"></a><span class="co">#&gt;  9 Lonestar Amazed     8    29 1999-07-24</span></span>
-<span id="cb11-14"><a href="#cb11-14"></a><span class="co">#&gt; 10 Amber    Sexual     2    99 1999-07-24</span></span>
-<span id="cb11-15"><a href="#cb11-15"></a><span class="co">#&gt; # … with 5,297 more rows</span></span></code></pre></div>
+<div class="sourceCode" id="cb11"><html><body><pre class="r"><span class="no">billboard3</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span>(<span class="no">date</span>, <span class="no">rank</span>)
+<span class="co">#&gt; # A tibble: 5,307 x 5</span>
+<span class="co">#&gt;    artist   track   week  rank date      </span>
+<span class="co">#&gt;    &lt;chr&gt;    &lt;chr&gt;  &lt;int&gt; &lt;dbl&gt; &lt;date&gt;    </span>
+<span class="co">#&gt;  1 Lonestar Amazed     1    81 1999-06-05</span>
+<span class="co">#&gt;  2 Lonestar Amazed     2    54 1999-06-12</span>
+<span class="co">#&gt;  3 Lonestar Amazed     3    44 1999-06-19</span>
+<span class="co">#&gt;  4 Lonestar Amazed     4    39 1999-06-26</span>
+<span class="co">#&gt;  5 Lonestar Amazed     5    38 1999-07-03</span>
+<span class="co">#&gt;  6 Lonestar Amazed     6    33 1999-07-10</span>
+<span class="co">#&gt;  7 Lonestar Amazed     7    29 1999-07-17</span>
+<span class="co">#&gt;  8 Amber    Sexual     1    99 1999-07-17</span>
+<span class="co">#&gt;  9 Lonestar Amazed     8    29 1999-07-24</span>
+<span class="co">#&gt; 10 Amber    Sexual     2    99 1999-07-24</span>
+<span class="co">#&gt; # … with 5,297 more rows</span></pre></body></html></div>
 </div>
 <div id="multiple-variables-stored-in-one-column" class="section level2">
 <h2 class="hasAnchor">
 <a href="#multiple-variables-stored-in-one-column" class="anchor"></a>Multiple variables stored in one column</h2>
 <p>After pivoting columns, the key column is sometimes a combination of multiple underlying variable names. This happens in the <code>tb</code> (tuberculosis) dataset, shown below. This dataset comes from the World Health Organisation, and records the counts of confirmed tuberculosis cases by <code>country</code>, <code>year</code>, and demographic group. The demographic groups are broken down by <code>sex</code> (m, f) and <code>age</code> (0-14, 15-25, 25-34, 35-44, 45-54, 55-64, unknown).</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a>tb &lt;-<span class="st"> </span><span class="kw"><a href="https://tibble.tidyverse.org/reference/as_tibble.html">as_tibble</a></span>(<span class="kw"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span>(<span class="st">"tb.csv"</span>, <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>))</span>
-<span id="cb12-2"><a href="#cb12-2"></a>tb</span>
-<span id="cb12-3"><a href="#cb12-3"></a><span class="co">#&gt; # A tibble: 5,769 x 22</span></span>
-<span id="cb12-4"><a href="#cb12-4"></a><span class="co">#&gt;    iso2   year   m04  m514  m014 m1524 m2534 m3544 m4554 m5564   m65    mu   f04</span></span>
-<span id="cb12-5"><a href="#cb12-5"></a><span class="co">#&gt;    &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;</span></span>
-<span id="cb12-6"><a href="#cb12-6"></a><span class="co">#&gt;  1 AD     1989    NA    NA    NA    NA    NA    NA    NA    NA    NA    NA    NA</span></span>
-<span id="cb12-7"><a href="#cb12-7"></a><span class="co">#&gt;  2 AD     1990    NA    NA    NA    NA    NA    NA    NA    NA    NA    NA    NA</span></span>
-<span id="cb12-8"><a href="#cb12-8"></a><span class="co">#&gt;  3 AD     1991    NA    NA    NA    NA    NA    NA    NA    NA    NA    NA    NA</span></span>
-<span id="cb12-9"><a href="#cb12-9"></a><span class="co">#&gt;  4 AD     1992    NA    NA    NA    NA    NA    NA    NA    NA    NA    NA    NA</span></span>
-<span id="cb12-10"><a href="#cb12-10"></a><span class="co">#&gt;  5 AD     1993    NA    NA    NA    NA    NA    NA    NA    NA    NA    NA    NA</span></span>
-<span id="cb12-11"><a href="#cb12-11"></a><span class="co">#&gt;  6 AD     1994    NA    NA    NA    NA    NA    NA    NA    NA    NA    NA    NA</span></span>
-<span id="cb12-12"><a href="#cb12-12"></a><span class="co">#&gt;  7 AD     1996    NA    NA     0     0     0     4     1     0     0    NA    NA</span></span>
-<span id="cb12-13"><a href="#cb12-13"></a><span class="co">#&gt;  8 AD     1997    NA    NA     0     0     1     2     2     1     6    NA    NA</span></span>
-<span id="cb12-14"><a href="#cb12-14"></a><span class="co">#&gt;  9 AD     1998    NA    NA     0     0     0     1     0     0     0    NA    NA</span></span>
-<span id="cb12-15"><a href="#cb12-15"></a><span class="co">#&gt; 10 AD     1999    NA    NA     0     0     0     1     1     0     0    NA    NA</span></span>
-<span id="cb12-16"><a href="#cb12-16"></a><span class="co">#&gt; # … with 5,759 more rows, and 9 more variables: f514 &lt;int&gt;, f014 &lt;int&gt;,</span></span>
-<span id="cb12-17"><a href="#cb12-17"></a><span class="co">#&gt; #   f1524 &lt;int&gt;, f2534 &lt;int&gt;, f3544 &lt;int&gt;, f4554 &lt;int&gt;, f5564 &lt;int&gt;, f65 &lt;int&gt;,</span></span>
-<span id="cb12-18"><a href="#cb12-18"></a><span class="co">#&gt; #   fu &lt;int&gt;</span></span></code></pre></div>
+<div class="sourceCode" id="cb12"><html><body><pre class="r"><span class="no">tb</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html">as_tibble</a></span>(<span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span>(<span class="st">"tb.csv"</span>, <span class="kw">stringsAsFactors</span> <span class="kw">=</span> <span class="fl">FALSE</span>))
+<span class="no">tb</span>
+<span class="co">#&gt; # A tibble: 5,769 x 22</span>
+<span class="co">#&gt;    iso2   year   m04  m514  m014 m1524 m2534 m3544 m4554 m5564   m65    mu   f04</span>
+<span class="co">#&gt;    &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;</span>
+<span class="co">#&gt;  1 AD     1989    NA    NA    NA    NA    NA    NA    NA    NA    NA    NA    NA</span>
+<span class="co">#&gt;  2 AD     1990    NA    NA    NA    NA    NA    NA    NA    NA    NA    NA    NA</span>
+<span class="co">#&gt;  3 AD     1991    NA    NA    NA    NA    NA    NA    NA    NA    NA    NA    NA</span>
+<span class="co">#&gt;  4 AD     1992    NA    NA    NA    NA    NA    NA    NA    NA    NA    NA    NA</span>
+<span class="co">#&gt;  5 AD     1993    NA    NA    NA    NA    NA    NA    NA    NA    NA    NA    NA</span>
+<span class="co">#&gt;  6 AD     1994    NA    NA    NA    NA    NA    NA    NA    NA    NA    NA    NA</span>
+<span class="co">#&gt;  7 AD     1996    NA    NA     0     0     0     4     1     0     0    NA    NA</span>
+<span class="co">#&gt;  8 AD     1997    NA    NA     0     0     1     2     2     1     6    NA    NA</span>
+<span class="co">#&gt;  9 AD     1998    NA    NA     0     0     0     1     0     0     0    NA    NA</span>
+<span class="co">#&gt; 10 AD     1999    NA    NA     0     0     0     1     1     0     0    NA    NA</span>
+<span class="co">#&gt; # … with 5,759 more rows, and 9 more variables: f514 &lt;int&gt;, f014 &lt;int&gt;,</span>
+<span class="co">#&gt; #   f1524 &lt;int&gt;, f2534 &lt;int&gt;, f3544 &lt;int&gt;, f4554 &lt;int&gt;, f5564 &lt;int&gt;, f65 &lt;int&gt;,</span>
+<span class="co">#&gt; #   fu &lt;int&gt;</span></pre></body></html></div>
 <p>First we use <code><a href="../reference/pivot_longer.html">pivot_longer()</a></code> to gather up the non-variable columns:</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a>tb2 &lt;-<span class="st"> </span>tb <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb13-2"><a href="#cb13-2"></a><span class="st">  </span><span class="kw"><a href="../reference/pivot_longer.html">pivot_longer</a></span>(</span>
-<span id="cb13-3"><a href="#cb13-3"></a>    <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="op">-</span>iso2, <span class="op">-</span>year), </span>
-<span id="cb13-4"><a href="#cb13-4"></a>    <span class="dt">names_to =</span> <span class="st">"demo"</span>, </span>
-<span id="cb13-5"><a href="#cb13-5"></a>    <span class="dt">values_to =</span> <span class="st">"n"</span>, </span>
-<span id="cb13-6"><a href="#cb13-6"></a>    <span class="dt">values_drop_na =</span> <span class="ot">TRUE</span></span>
-<span id="cb13-7"><a href="#cb13-7"></a>  )</span>
-<span id="cb13-8"><a href="#cb13-8"></a>tb2</span>
-<span id="cb13-9"><a href="#cb13-9"></a><span class="co">#&gt; # A tibble: 35,750 x 4</span></span>
-<span id="cb13-10"><a href="#cb13-10"></a><span class="co">#&gt;    iso2   year demo      n</span></span>
-<span id="cb13-11"><a href="#cb13-11"></a><span class="co">#&gt;    &lt;chr&gt; &lt;int&gt; &lt;chr&gt; &lt;int&gt;</span></span>
-<span id="cb13-12"><a href="#cb13-12"></a><span class="co">#&gt;  1 AD     1996 m014      0</span></span>
-<span id="cb13-13"><a href="#cb13-13"></a><span class="co">#&gt;  2 AD     1996 m1524     0</span></span>
-<span id="cb13-14"><a href="#cb13-14"></a><span class="co">#&gt;  3 AD     1996 m2534     0</span></span>
-<span id="cb13-15"><a href="#cb13-15"></a><span class="co">#&gt;  4 AD     1996 m3544     4</span></span>
-<span id="cb13-16"><a href="#cb13-16"></a><span class="co">#&gt;  5 AD     1996 m4554     1</span></span>
-<span id="cb13-17"><a href="#cb13-17"></a><span class="co">#&gt;  6 AD     1996 m5564     0</span></span>
-<span id="cb13-18"><a href="#cb13-18"></a><span class="co">#&gt;  7 AD     1996 m65       0</span></span>
-<span id="cb13-19"><a href="#cb13-19"></a><span class="co">#&gt;  8 AD     1996 f014      0</span></span>
-<span id="cb13-20"><a href="#cb13-20"></a><span class="co">#&gt;  9 AD     1996 f1524     1</span></span>
-<span id="cb13-21"><a href="#cb13-21"></a><span class="co">#&gt; 10 AD     1996 f2534     1</span></span>
-<span id="cb13-22"><a href="#cb13-22"></a><span class="co">#&gt; # … with 35,740 more rows</span></span></code></pre></div>
+<div class="sourceCode" id="cb13"><html><body><pre class="r"><span class="no">tb2</span> <span class="kw">&lt;-</span> <span class="no">tb</span> <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="../reference/pivot_longer.html">pivot_longer</a></span>(
+    <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(-<span class="no">iso2</span>, -<span class="no">year</span>),
+    <span class="kw">names_to</span> <span class="kw">=</span> <span class="st">"demo"</span>,
+    <span class="kw">values_to</span> <span class="kw">=</span> <span class="st">"n"</span>,
+    <span class="kw">values_drop_na</span> <span class="kw">=</span> <span class="fl">TRUE</span>
+  )
+<span class="no">tb2</span>
+<span class="co">#&gt; # A tibble: 35,750 x 4</span>
+<span class="co">#&gt;    iso2   year demo      n</span>
+<span class="co">#&gt;    &lt;chr&gt; &lt;int&gt; &lt;chr&gt; &lt;int&gt;</span>
+<span class="co">#&gt;  1 AD     1996 m014      0</span>
+<span class="co">#&gt;  2 AD     1996 m1524     0</span>
+<span class="co">#&gt;  3 AD     1996 m2534     0</span>
+<span class="co">#&gt;  4 AD     1996 m3544     4</span>
+<span class="co">#&gt;  5 AD     1996 m4554     1</span>
+<span class="co">#&gt;  6 AD     1996 m5564     0</span>
+<span class="co">#&gt;  7 AD     1996 m65       0</span>
+<span class="co">#&gt;  8 AD     1996 f014      0</span>
+<span class="co">#&gt;  9 AD     1996 f1524     1</span>
+<span class="co">#&gt; 10 AD     1996 f2534     1</span>
+<span class="co">#&gt; # … with 35,740 more rows</span></pre></body></html></div>
 <p>Column headers in this format are often separated by a non-alphanumeric character (e.g. <code>.</code>, <code><a href="https://rdrr.io/r/base/Arithmetic.html">-</a></code>, <code>_</code>, <code>:</code>), or have a fixed width format, like in this dataset. <code><a href="../reference/separate.html">separate()</a></code> makes it easy to split a compound variables into individual variables. You can either pass it a regular expression to split on (the default is to split on non-alphanumeric columns), or a vector of character positions. In this case we want to split after the first character:</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a>tb3 &lt;-<span class="st"> </span>tb2 <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb14-2"><a href="#cb14-2"></a><span class="st">  </span><span class="kw"><a href="../reference/separate.html">separate</a></span>(demo, <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"sex"</span>, <span class="st">"age"</span>), <span class="dv">1</span>)</span>
-<span id="cb14-3"><a href="#cb14-3"></a>tb3</span>
-<span id="cb14-4"><a href="#cb14-4"></a><span class="co">#&gt; # A tibble: 35,750 x 5</span></span>
-<span id="cb14-5"><a href="#cb14-5"></a><span class="co">#&gt;    iso2   year sex   age       n</span></span>
-<span id="cb14-6"><a href="#cb14-6"></a><span class="co">#&gt;    &lt;chr&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt; &lt;int&gt;</span></span>
-<span id="cb14-7"><a href="#cb14-7"></a><span class="co">#&gt;  1 AD     1996 m     014       0</span></span>
-<span id="cb14-8"><a href="#cb14-8"></a><span class="co">#&gt;  2 AD     1996 m     1524      0</span></span>
-<span id="cb14-9"><a href="#cb14-9"></a><span class="co">#&gt;  3 AD     1996 m     2534      0</span></span>
-<span id="cb14-10"><a href="#cb14-10"></a><span class="co">#&gt;  4 AD     1996 m     3544      4</span></span>
-<span id="cb14-11"><a href="#cb14-11"></a><span class="co">#&gt;  5 AD     1996 m     4554      1</span></span>
-<span id="cb14-12"><a href="#cb14-12"></a><span class="co">#&gt;  6 AD     1996 m     5564      0</span></span>
-<span id="cb14-13"><a href="#cb14-13"></a><span class="co">#&gt;  7 AD     1996 m     65        0</span></span>
-<span id="cb14-14"><a href="#cb14-14"></a><span class="co">#&gt;  8 AD     1996 f     014       0</span></span>
-<span id="cb14-15"><a href="#cb14-15"></a><span class="co">#&gt;  9 AD     1996 f     1524      1</span></span>
-<span id="cb14-16"><a href="#cb14-16"></a><span class="co">#&gt; 10 AD     1996 f     2534      1</span></span>
-<span id="cb14-17"><a href="#cb14-17"></a><span class="co">#&gt; # … with 35,740 more rows</span></span></code></pre></div>
+<div class="sourceCode" id="cb14"><html><body><pre class="r"><span class="no">tb3</span> <span class="kw">&lt;-</span> <span class="no">tb2</span> <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="../reference/separate.html">separate</a></span>(<span class="no">demo</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"sex"</span>, <span class="st">"age"</span>), <span class="fl">1</span>)
+<span class="no">tb3</span>
+<span class="co">#&gt; # A tibble: 35,750 x 5</span>
+<span class="co">#&gt;    iso2   year sex   age       n</span>
+<span class="co">#&gt;    &lt;chr&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt; &lt;int&gt;</span>
+<span class="co">#&gt;  1 AD     1996 m     014       0</span>
+<span class="co">#&gt;  2 AD     1996 m     1524      0</span>
+<span class="co">#&gt;  3 AD     1996 m     2534      0</span>
+<span class="co">#&gt;  4 AD     1996 m     3544      4</span>
+<span class="co">#&gt;  5 AD     1996 m     4554      1</span>
+<span class="co">#&gt;  6 AD     1996 m     5564      0</span>
+<span class="co">#&gt;  7 AD     1996 m     65        0</span>
+<span class="co">#&gt;  8 AD     1996 f     014       0</span>
+<span class="co">#&gt;  9 AD     1996 f     1524      1</span>
+<span class="co">#&gt; 10 AD     1996 f     2534      1</span>
+<span class="co">#&gt; # … with 35,740 more rows</span></pre></body></html></div>
 <p>Storing the values in this form resolves a problem in the original data. We want to compare rates, not counts, which means we need to know the population. In the original format, there is no easy way to add a population variable. It has to be stored in a separate table, which makes it hard to correctly match populations to counts. In tidy form, adding variables for population and rate is easy because they’re just additional columns.</p>
 <p>In this case, we could also do the transformation in a single step by supplying multiple column names to <code>names_to</code> and also supplying a grouped regular expression to <code>names_pattern</code>:</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a>tb <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/pivot_longer.html">pivot_longer</a></span>(</span>
-<span id="cb15-2"><a href="#cb15-2"></a>  <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="op">-</span>iso2, <span class="op">-</span>year), </span>
-<span id="cb15-3"><a href="#cb15-3"></a>  <span class="dt">names_to =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"sex"</span>, <span class="st">"age"</span>), </span>
-<span id="cb15-4"><a href="#cb15-4"></a>  <span class="dt">names_pattern =</span> <span class="st">"(.)(.+)"</span>,</span>
-<span id="cb15-5"><a href="#cb15-5"></a>  <span class="dt">values_to =</span> <span class="st">"n"</span>, </span>
-<span id="cb15-6"><a href="#cb15-6"></a>  <span class="dt">values_drop_na =</span> <span class="ot">TRUE</span></span>
-<span id="cb15-7"><a href="#cb15-7"></a>)</span>
-<span id="cb15-8"><a href="#cb15-8"></a><span class="co">#&gt; # A tibble: 35,750 x 5</span></span>
-<span id="cb15-9"><a href="#cb15-9"></a><span class="co">#&gt;    iso2   year sex   age       n</span></span>
-<span id="cb15-10"><a href="#cb15-10"></a><span class="co">#&gt;    &lt;chr&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt; &lt;int&gt;</span></span>
-<span id="cb15-11"><a href="#cb15-11"></a><span class="co">#&gt;  1 AD     1996 m     014       0</span></span>
-<span id="cb15-12"><a href="#cb15-12"></a><span class="co">#&gt;  2 AD     1996 m     1524      0</span></span>
-<span id="cb15-13"><a href="#cb15-13"></a><span class="co">#&gt;  3 AD     1996 m     2534      0</span></span>
-<span id="cb15-14"><a href="#cb15-14"></a><span class="co">#&gt;  4 AD     1996 m     3544      4</span></span>
-<span id="cb15-15"><a href="#cb15-15"></a><span class="co">#&gt;  5 AD     1996 m     4554      1</span></span>
-<span id="cb15-16"><a href="#cb15-16"></a><span class="co">#&gt;  6 AD     1996 m     5564      0</span></span>
-<span id="cb15-17"><a href="#cb15-17"></a><span class="co">#&gt;  7 AD     1996 m     65        0</span></span>
-<span id="cb15-18"><a href="#cb15-18"></a><span class="co">#&gt;  8 AD     1996 f     014       0</span></span>
-<span id="cb15-19"><a href="#cb15-19"></a><span class="co">#&gt;  9 AD     1996 f     1524      1</span></span>
-<span id="cb15-20"><a href="#cb15-20"></a><span class="co">#&gt; 10 AD     1996 f     2534      1</span></span>
-<span id="cb15-21"><a href="#cb15-21"></a><span class="co">#&gt; # … with 35,740 more rows</span></span></code></pre></div>
+<div class="sourceCode" id="cb15"><html><body><pre class="r"><span class="no">tb</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/pivot_longer.html">pivot_longer</a></span>(
+  <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(-<span class="no">iso2</span>, -<span class="no">year</span>),
+  <span class="kw">names_to</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"sex"</span>, <span class="st">"age"</span>),
+  <span class="kw">names_pattern</span> <span class="kw">=</span> <span class="st">"(.)(.+)"</span>,
+  <span class="kw">values_to</span> <span class="kw">=</span> <span class="st">"n"</span>,
+  <span class="kw">values_drop_na</span> <span class="kw">=</span> <span class="fl">TRUE</span>
+)
+<span class="co">#&gt; # A tibble: 35,750 x 5</span>
+<span class="co">#&gt;    iso2   year sex   age       n</span>
+<span class="co">#&gt;    &lt;chr&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt; &lt;int&gt;</span>
+<span class="co">#&gt;  1 AD     1996 m     014       0</span>
+<span class="co">#&gt;  2 AD     1996 m     1524      0</span>
+<span class="co">#&gt;  3 AD     1996 m     2534      0</span>
+<span class="co">#&gt;  4 AD     1996 m     3544      4</span>
+<span class="co">#&gt;  5 AD     1996 m     4554      1</span>
+<span class="co">#&gt;  6 AD     1996 m     5564      0</span>
+<span class="co">#&gt;  7 AD     1996 m     65        0</span>
+<span class="co">#&gt;  8 AD     1996 f     014       0</span>
+<span class="co">#&gt;  9 AD     1996 f     1524      1</span>
+<span class="co">#&gt; 10 AD     1996 f     2534      1</span>
+<span class="co">#&gt; # … with 35,740 more rows</span></pre></body></html></div>
 </div>
 <div id="variables-are-stored-in-both-rows-and-columns" class="section level2">
 <h2 class="hasAnchor">
 <a href="#variables-are-stored-in-both-rows-and-columns" class="anchor"></a>Variables are stored in both rows and columns</h2>
 <p>The most complicated form of messy data occurs when variables are stored in both rows and columns. The code below loads daily weather data from the Global Historical Climatology Network for one weather station (MX17004) in Mexico for five months in 2010.</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a>weather &lt;-<span class="st"> </span><span class="kw"><a href="https://tibble.tidyverse.org/reference/as_tibble.html">as_tibble</a></span>(<span class="kw"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span>(<span class="st">"weather.csv"</span>, <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>))</span>
-<span id="cb16-2"><a href="#cb16-2"></a>weather</span>
-<span id="cb16-3"><a href="#cb16-3"></a><span class="co">#&gt; # A tibble: 22 x 35</span></span>
-<span id="cb16-4"><a href="#cb16-4"></a><span class="co">#&gt;    id     year month element    d1    d2    d3    d4    d5    d6    d7    d8</span></span>
-<span id="cb16-5"><a href="#cb16-5"></a><span class="co">#&gt;    &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span></span>
-<span id="cb16-6"><a href="#cb16-6"></a><span class="co">#&gt;  1 MX17…  2010     1 tmax       NA  NA    NA      NA  NA      NA    NA    NA</span></span>
-<span id="cb16-7"><a href="#cb16-7"></a><span class="co">#&gt;  2 MX17…  2010     1 tmin       NA  NA    NA      NA  NA      NA    NA    NA</span></span>
-<span id="cb16-8"><a href="#cb16-8"></a><span class="co">#&gt;  3 MX17…  2010     2 tmax       NA  27.3  24.1    NA  NA      NA    NA    NA</span></span>
-<span id="cb16-9"><a href="#cb16-9"></a><span class="co">#&gt;  4 MX17…  2010     2 tmin       NA  14.4  14.4    NA  NA      NA    NA    NA</span></span>
-<span id="cb16-10"><a href="#cb16-10"></a><span class="co">#&gt;  5 MX17…  2010     3 tmax       NA  NA    NA      NA  32.1    NA    NA    NA</span></span>
-<span id="cb16-11"><a href="#cb16-11"></a><span class="co">#&gt;  6 MX17…  2010     3 tmin       NA  NA    NA      NA  14.2    NA    NA    NA</span></span>
-<span id="cb16-12"><a href="#cb16-12"></a><span class="co">#&gt;  7 MX17…  2010     4 tmax       NA  NA    NA      NA  NA      NA    NA    NA</span></span>
-<span id="cb16-13"><a href="#cb16-13"></a><span class="co">#&gt;  8 MX17…  2010     4 tmin       NA  NA    NA      NA  NA      NA    NA    NA</span></span>
-<span id="cb16-14"><a href="#cb16-14"></a><span class="co">#&gt;  9 MX17…  2010     5 tmax       NA  NA    NA      NA  NA      NA    NA    NA</span></span>
-<span id="cb16-15"><a href="#cb16-15"></a><span class="co">#&gt; 10 MX17…  2010     5 tmin       NA  NA    NA      NA  NA      NA    NA    NA</span></span>
-<span id="cb16-16"><a href="#cb16-16"></a><span class="co">#&gt; # … with 12 more rows, and 23 more variables: d9 &lt;lgl&gt;, d10 &lt;dbl&gt;, d11 &lt;dbl&gt;,</span></span>
-<span id="cb16-17"><a href="#cb16-17"></a><span class="co">#&gt; #   d12 &lt;lgl&gt;, d13 &lt;dbl&gt;, d14 &lt;dbl&gt;, d15 &lt;dbl&gt;, d16 &lt;dbl&gt;, d17 &lt;dbl&gt;,</span></span>
-<span id="cb16-18"><a href="#cb16-18"></a><span class="co">#&gt; #   d18 &lt;lgl&gt;, d19 &lt;lgl&gt;, d20 &lt;lgl&gt;, d21 &lt;lgl&gt;, d22 &lt;lgl&gt;, d23 &lt;dbl&gt;,</span></span>
-<span id="cb16-19"><a href="#cb16-19"></a><span class="co">#&gt; #   d24 &lt;lgl&gt;, d25 &lt;dbl&gt;, d26 &lt;dbl&gt;, d27 &lt;dbl&gt;, d28 &lt;dbl&gt;, d29 &lt;dbl&gt;,</span></span>
-<span id="cb16-20"><a href="#cb16-20"></a><span class="co">#&gt; #   d30 &lt;dbl&gt;, d31 &lt;dbl&gt;</span></span></code></pre></div>
+<div class="sourceCode" id="cb16"><html><body><pre class="r"><span class="no">weather</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html">as_tibble</a></span>(<span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span>(<span class="st">"weather.csv"</span>, <span class="kw">stringsAsFactors</span> <span class="kw">=</span> <span class="fl">FALSE</span>))
+<span class="no">weather</span>
+<span class="co">#&gt; # A tibble: 22 x 35</span>
+<span class="co">#&gt;    id     year month element    d1    d2    d3    d4    d5    d6    d7    d8</span>
+<span class="co">#&gt;    &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span>
+<span class="co">#&gt;  1 MX17…  2010     1 tmax       NA  NA    NA      NA  NA      NA    NA    NA</span>
+<span class="co">#&gt;  2 MX17…  2010     1 tmin       NA  NA    NA      NA  NA      NA    NA    NA</span>
+<span class="co">#&gt;  3 MX17…  2010     2 tmax       NA  27.3  24.1    NA  NA      NA    NA    NA</span>
+<span class="co">#&gt;  4 MX17…  2010     2 tmin       NA  14.4  14.4    NA  NA      NA    NA    NA</span>
+<span class="co">#&gt;  5 MX17…  2010     3 tmax       NA  NA    NA      NA  32.1    NA    NA    NA</span>
+<span class="co">#&gt;  6 MX17…  2010     3 tmin       NA  NA    NA      NA  14.2    NA    NA    NA</span>
+<span class="co">#&gt;  7 MX17…  2010     4 tmax       NA  NA    NA      NA  NA      NA    NA    NA</span>
+<span class="co">#&gt;  8 MX17…  2010     4 tmin       NA  NA    NA      NA  NA      NA    NA    NA</span>
+<span class="co">#&gt;  9 MX17…  2010     5 tmax       NA  NA    NA      NA  NA      NA    NA    NA</span>
+<span class="co">#&gt; 10 MX17…  2010     5 tmin       NA  NA    NA      NA  NA      NA    NA    NA</span>
+<span class="co">#&gt; # … with 12 more rows, and 23 more variables: d9 &lt;lgl&gt;, d10 &lt;dbl&gt;, d11 &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   d12 &lt;lgl&gt;, d13 &lt;dbl&gt;, d14 &lt;dbl&gt;, d15 &lt;dbl&gt;, d16 &lt;dbl&gt;, d17 &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   d18 &lt;lgl&gt;, d19 &lt;lgl&gt;, d20 &lt;lgl&gt;, d21 &lt;lgl&gt;, d22 &lt;lgl&gt;, d23 &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   d24 &lt;lgl&gt;, d25 &lt;dbl&gt;, d26 &lt;dbl&gt;, d27 &lt;dbl&gt;, d28 &lt;dbl&gt;, d29 &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   d30 &lt;dbl&gt;, d31 &lt;dbl&gt;</span></pre></body></html></div>
 <p>It has variables in individual columns (<code>id</code>, <code>year</code>, <code>month</code>), spread across columns (<code>day</code>, d1-d31) and across rows (<code>tmin</code>, <code>tmax</code>) (minimum and maximum temperature). Months with fewer than 31 days have structural missing values for the last day(s) of the month.</p>
 <p>To tidy this dataset we first use pivot_longer to gather the day columns:</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a>weather2 &lt;-<span class="st"> </span>weather <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb17-2"><a href="#cb17-2"></a><span class="st">  </span><span class="kw"><a href="../reference/pivot_longer.html">pivot_longer</a></span>(</span>
-<span id="cb17-3"><a href="#cb17-3"></a>    d1<span class="op">:</span>d31, </span>
-<span id="cb17-4"><a href="#cb17-4"></a>    <span class="dt">names_to =</span> <span class="st">"day"</span>, </span>
-<span id="cb17-5"><a href="#cb17-5"></a>    <span class="dt">values_to =</span> <span class="st">"value"</span>, </span>
-<span id="cb17-6"><a href="#cb17-6"></a>    <span class="dt">values_drop_na =</span> <span class="ot">TRUE</span></span>
-<span id="cb17-7"><a href="#cb17-7"></a>  ) </span>
-<span id="cb17-8"><a href="#cb17-8"></a>weather2</span>
-<span id="cb17-9"><a href="#cb17-9"></a><span class="co">#&gt; # A tibble: 66 x 6</span></span>
-<span id="cb17-10"><a href="#cb17-10"></a><span class="co">#&gt;    id       year month element day   value</span></span>
-<span id="cb17-11"><a href="#cb17-11"></a><span class="co">#&gt;    &lt;chr&gt;   &lt;int&gt; &lt;int&gt; &lt;chr&gt;   &lt;chr&gt; &lt;dbl&gt;</span></span>
-<span id="cb17-12"><a href="#cb17-12"></a><span class="co">#&gt;  1 MX17004  2010     1 tmax    d30    27.8</span></span>
-<span id="cb17-13"><a href="#cb17-13"></a><span class="co">#&gt;  2 MX17004  2010     1 tmin    d30    14.5</span></span>
-<span id="cb17-14"><a href="#cb17-14"></a><span class="co">#&gt;  3 MX17004  2010     2 tmax    d2     27.3</span></span>
-<span id="cb17-15"><a href="#cb17-15"></a><span class="co">#&gt;  4 MX17004  2010     2 tmax    d3     24.1</span></span>
-<span id="cb17-16"><a href="#cb17-16"></a><span class="co">#&gt;  5 MX17004  2010     2 tmax    d11    29.7</span></span>
-<span id="cb17-17"><a href="#cb17-17"></a><span class="co">#&gt;  6 MX17004  2010     2 tmax    d23    29.9</span></span>
-<span id="cb17-18"><a href="#cb17-18"></a><span class="co">#&gt;  7 MX17004  2010     2 tmin    d2     14.4</span></span>
-<span id="cb17-19"><a href="#cb17-19"></a><span class="co">#&gt;  8 MX17004  2010     2 tmin    d3     14.4</span></span>
-<span id="cb17-20"><a href="#cb17-20"></a><span class="co">#&gt;  9 MX17004  2010     2 tmin    d11    13.4</span></span>
-<span id="cb17-21"><a href="#cb17-21"></a><span class="co">#&gt; 10 MX17004  2010     2 tmin    d23    10.7</span></span>
-<span id="cb17-22"><a href="#cb17-22"></a><span class="co">#&gt; # … with 56 more rows</span></span></code></pre></div>
+<div class="sourceCode" id="cb17"><html><body><pre class="r"><span class="no">weather2</span> <span class="kw">&lt;-</span> <span class="no">weather</span> <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="../reference/pivot_longer.html">pivot_longer</a></span>(
+    <span class="no">d1</span>:<span class="no">d31</span>,
+    <span class="kw">names_to</span> <span class="kw">=</span> <span class="st">"day"</span>,
+    <span class="kw">values_to</span> <span class="kw">=</span> <span class="st">"value"</span>,
+    <span class="kw">values_drop_na</span> <span class="kw">=</span> <span class="fl">TRUE</span>
+  )
+<span class="no">weather2</span>
+<span class="co">#&gt; # A tibble: 66 x 6</span>
+<span class="co">#&gt;    id       year month element day   value</span>
+<span class="co">#&gt;    &lt;chr&gt;   &lt;int&gt; &lt;int&gt; &lt;chr&gt;   &lt;chr&gt; &lt;dbl&gt;</span>
+<span class="co">#&gt;  1 MX17004  2010     1 tmax    d30    27.8</span>
+<span class="co">#&gt;  2 MX17004  2010     1 tmin    d30    14.5</span>
+<span class="co">#&gt;  3 MX17004  2010     2 tmax    d2     27.3</span>
+<span class="co">#&gt;  4 MX17004  2010     2 tmax    d3     24.1</span>
+<span class="co">#&gt;  5 MX17004  2010     2 tmax    d11    29.7</span>
+<span class="co">#&gt;  6 MX17004  2010     2 tmax    d23    29.9</span>
+<span class="co">#&gt;  7 MX17004  2010     2 tmin    d2     14.4</span>
+<span class="co">#&gt;  8 MX17004  2010     2 tmin    d3     14.4</span>
+<span class="co">#&gt;  9 MX17004  2010     2 tmin    d11    13.4</span>
+<span class="co">#&gt; 10 MX17004  2010     2 tmin    d23    10.7</span>
+<span class="co">#&gt; # … with 56 more rows</span></pre></body></html></div>
 <p>For presentation, I’ve dropped the missing values, making them implicit rather than explicit. This is ok because we know how many days are in each month and can easily reconstruct the explicit missing values.</p>
 <p>We’ll also do a little cleaning:</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a>weather3 &lt;-<span class="st"> </span>weather2 <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb18-2"><a href="#cb18-2"></a><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="dt">day =</span> <span class="kw"><a href="https://rdrr.io/r/base/integer.html">as.integer</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/grep.html">gsub</a></span>(<span class="st">"d"</span>, <span class="st">""</span>, day))) <span class="op">%&gt;%</span></span>
-<span id="cb18-3"><a href="#cb18-3"></a><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(id, year, month, day, element, value)</span>
-<span id="cb18-4"><a href="#cb18-4"></a>weather3</span>
-<span id="cb18-5"><a href="#cb18-5"></a><span class="co">#&gt; # A tibble: 66 x 6</span></span>
-<span id="cb18-6"><a href="#cb18-6"></a><span class="co">#&gt;    id       year month   day element value</span></span>
-<span id="cb18-7"><a href="#cb18-7"></a><span class="co">#&gt;    &lt;chr&gt;   &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt;   &lt;dbl&gt;</span></span>
-<span id="cb18-8"><a href="#cb18-8"></a><span class="co">#&gt;  1 MX17004  2010     1    30 tmax     27.8</span></span>
-<span id="cb18-9"><a href="#cb18-9"></a><span class="co">#&gt;  2 MX17004  2010     1    30 tmin     14.5</span></span>
-<span id="cb18-10"><a href="#cb18-10"></a><span class="co">#&gt;  3 MX17004  2010     2     2 tmax     27.3</span></span>
-<span id="cb18-11"><a href="#cb18-11"></a><span class="co">#&gt;  4 MX17004  2010     2     3 tmax     24.1</span></span>
-<span id="cb18-12"><a href="#cb18-12"></a><span class="co">#&gt;  5 MX17004  2010     2    11 tmax     29.7</span></span>
-<span id="cb18-13"><a href="#cb18-13"></a><span class="co">#&gt;  6 MX17004  2010     2    23 tmax     29.9</span></span>
-<span id="cb18-14"><a href="#cb18-14"></a><span class="co">#&gt;  7 MX17004  2010     2     2 tmin     14.4</span></span>
-<span id="cb18-15"><a href="#cb18-15"></a><span class="co">#&gt;  8 MX17004  2010     2     3 tmin     14.4</span></span>
-<span id="cb18-16"><a href="#cb18-16"></a><span class="co">#&gt;  9 MX17004  2010     2    11 tmin     13.4</span></span>
-<span id="cb18-17"><a href="#cb18-17"></a><span class="co">#&gt; 10 MX17004  2010     2    23 tmin     10.7</span></span>
-<span id="cb18-18"><a href="#cb18-18"></a><span class="co">#&gt; # … with 56 more rows</span></span></code></pre></div>
+<div class="sourceCode" id="cb18"><html><body><pre class="r"><span class="no">weather3</span> <span class="kw">&lt;-</span> <span class="no">weather2</span> <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="kw">day</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html">as.integer</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/grep.html">gsub</a></span>(<span class="st">"d"</span>, <span class="st">""</span>, <span class="no">day</span>))) <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(<span class="no">id</span>, <span class="no">year</span>, <span class="no">month</span>, <span class="no">day</span>, <span class="no">element</span>, <span class="no">value</span>)
+<span class="no">weather3</span>
+<span class="co">#&gt; # A tibble: 66 x 6</span>
+<span class="co">#&gt;    id       year month   day element value</span>
+<span class="co">#&gt;    &lt;chr&gt;   &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt;   &lt;dbl&gt;</span>
+<span class="co">#&gt;  1 MX17004  2010     1    30 tmax     27.8</span>
+<span class="co">#&gt;  2 MX17004  2010     1    30 tmin     14.5</span>
+<span class="co">#&gt;  3 MX17004  2010     2     2 tmax     27.3</span>
+<span class="co">#&gt;  4 MX17004  2010     2     3 tmax     24.1</span>
+<span class="co">#&gt;  5 MX17004  2010     2    11 tmax     29.7</span>
+<span class="co">#&gt;  6 MX17004  2010     2    23 tmax     29.9</span>
+<span class="co">#&gt;  7 MX17004  2010     2     2 tmin     14.4</span>
+<span class="co">#&gt;  8 MX17004  2010     2     3 tmin     14.4</span>
+<span class="co">#&gt;  9 MX17004  2010     2    11 tmin     13.4</span>
+<span class="co">#&gt; 10 MX17004  2010     2    23 tmin     10.7</span>
+<span class="co">#&gt; # … with 56 more rows</span></pre></body></html></div>
 <p>This dataset is mostly tidy, but the <code>element</code> column is not a variable; it stores the names of variables. (Not shown in this example are the other meteorological variables <code>prcp</code> (precipitation) and <code>snow</code> (snowfall)). Fixing this requires widening the data: <code><a href="../reference/pivot_wider.html">pivot_wider()</a></code> is inverse of <code><a href="../reference/pivot_longer.html">pivot_longer()</a></code>, pivoting <code>element</code> and <code>value</code> back out across multiple columns:</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a>weather3 <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb19-2"><a href="#cb19-2"></a><span class="st">  </span><span class="kw"><a href="../reference/pivot_wider.html">pivot_wider</a></span>(<span class="dt">names_from =</span> element, <span class="dt">values_from =</span> value)</span>
-<span id="cb19-3"><a href="#cb19-3"></a><span class="co">#&gt; # A tibble: 33 x 6</span></span>
-<span id="cb19-4"><a href="#cb19-4"></a><span class="co">#&gt;    id       year month   day  tmax  tmin</span></span>
-<span id="cb19-5"><a href="#cb19-5"></a><span class="co">#&gt;    &lt;chr&gt;   &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;</span></span>
-<span id="cb19-6"><a href="#cb19-6"></a><span class="co">#&gt;  1 MX17004  2010     1    30  27.8  14.5</span></span>
-<span id="cb19-7"><a href="#cb19-7"></a><span class="co">#&gt;  2 MX17004  2010     2     2  27.3  14.4</span></span>
-<span id="cb19-8"><a href="#cb19-8"></a><span class="co">#&gt;  3 MX17004  2010     2     3  24.1  14.4</span></span>
-<span id="cb19-9"><a href="#cb19-9"></a><span class="co">#&gt;  4 MX17004  2010     2    11  29.7  13.4</span></span>
-<span id="cb19-10"><a href="#cb19-10"></a><span class="co">#&gt;  5 MX17004  2010     2    23  29.9  10.7</span></span>
-<span id="cb19-11"><a href="#cb19-11"></a><span class="co">#&gt;  6 MX17004  2010     3     5  32.1  14.2</span></span>
-<span id="cb19-12"><a href="#cb19-12"></a><span class="co">#&gt;  7 MX17004  2010     3    10  34.5  16.8</span></span>
-<span id="cb19-13"><a href="#cb19-13"></a><span class="co">#&gt;  8 MX17004  2010     3    16  31.1  17.6</span></span>
-<span id="cb19-14"><a href="#cb19-14"></a><span class="co">#&gt;  9 MX17004  2010     4    27  36.3  16.7</span></span>
-<span id="cb19-15"><a href="#cb19-15"></a><span class="co">#&gt; 10 MX17004  2010     5    27  33.2  18.2</span></span>
-<span id="cb19-16"><a href="#cb19-16"></a><span class="co">#&gt; # … with 23 more rows</span></span></code></pre></div>
+<div class="sourceCode" id="cb19"><html><body><pre class="r"><span class="no">weather3</span> <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="../reference/pivot_wider.html">pivot_wider</a></span>(<span class="kw">names_from</span> <span class="kw">=</span> <span class="no">element</span>, <span class="kw">values_from</span> <span class="kw">=</span> <span class="no">value</span>)
+<span class="co">#&gt; # A tibble: 33 x 6</span>
+<span class="co">#&gt;    id       year month   day  tmax  tmin</span>
+<span class="co">#&gt;    &lt;chr&gt;   &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;</span>
+<span class="co">#&gt;  1 MX17004  2010     1    30  27.8  14.5</span>
+<span class="co">#&gt;  2 MX17004  2010     2     2  27.3  14.4</span>
+<span class="co">#&gt;  3 MX17004  2010     2     3  24.1  14.4</span>
+<span class="co">#&gt;  4 MX17004  2010     2    11  29.7  13.4</span>
+<span class="co">#&gt;  5 MX17004  2010     2    23  29.9  10.7</span>
+<span class="co">#&gt;  6 MX17004  2010     3     5  32.1  14.2</span>
+<span class="co">#&gt;  7 MX17004  2010     3    10  34.5  16.8</span>
+<span class="co">#&gt;  8 MX17004  2010     3    16  31.1  17.6</span>
+<span class="co">#&gt;  9 MX17004  2010     4    27  36.3  16.7</span>
+<span class="co">#&gt; 10 MX17004  2010     5    27  33.2  18.2</span>
+<span class="co">#&gt; # … with 23 more rows</span></pre></body></html></div>
 <p>This form is tidy: there’s one variable in each column, and each row represents one day.</p>
 </div>
 <div id="multiple-types" class="section level2">
@@ -576,43 +576,43 @@
 <p>Datasets often involve values collected at multiple levels, on different types of observational units. During tidying, each type of observational unit should be stored in its own table. This is closely related to the idea of database normalisation, where each fact is expressed in only one place. It’s important because otherwise inconsistencies can arise.</p>
 <p>The billboard dataset actually contains observations on two types of observational units: the song and its rank in each week. This manifests itself through the duplication of facts about the song: <code>artist</code> is repeated many times.</p>
 <p>This dataset needs to be broken down into two pieces: a song dataset which stores <code>artist</code> and <code>song name</code>, and a ranking dataset which gives the <code>rank</code> of the <code>song</code> in each <code>week</code>. We first extract a <code>song</code> dataset:</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a>song &lt;-<span class="st"> </span>billboard3 <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb20-2"><a href="#cb20-2"></a><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/distinct.html">distinct</a></span>(artist, track) <span class="op">%&gt;%</span></span>
-<span id="cb20-3"><a href="#cb20-3"></a><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="dt">song_id =</span> <span class="kw"><a href="https://dplyr.tidyverse.org/reference/ranking.html">row_number</a></span>())</span>
-<span id="cb20-4"><a href="#cb20-4"></a>song</span>
-<span id="cb20-5"><a href="#cb20-5"></a><span class="co">#&gt; # A tibble: 317 x 3</span></span>
-<span id="cb20-6"><a href="#cb20-6"></a><span class="co">#&gt;    artist         track                   song_id</span></span>
-<span id="cb20-7"><a href="#cb20-7"></a><span class="co">#&gt;    &lt;chr&gt;          &lt;chr&gt;                     &lt;int&gt;</span></span>
-<span id="cb20-8"><a href="#cb20-8"></a><span class="co">#&gt;  1 2 Pac          Baby Don't Cry (Keep...       1</span></span>
-<span id="cb20-9"><a href="#cb20-9"></a><span class="co">#&gt;  2 2Ge+her        The Hardest Part Of ...       2</span></span>
-<span id="cb20-10"><a href="#cb20-10"></a><span class="co">#&gt;  3 3 Doors Down   Kryptonite                    3</span></span>
-<span id="cb20-11"><a href="#cb20-11"></a><span class="co">#&gt;  4 3 Doors Down   Loser                         4</span></span>
-<span id="cb20-12"><a href="#cb20-12"></a><span class="co">#&gt;  5 504 Boyz       Wobble Wobble                 5</span></span>
-<span id="cb20-13"><a href="#cb20-13"></a><span class="co">#&gt;  6 98^0           Give Me Just One Nig...       6</span></span>
-<span id="cb20-14"><a href="#cb20-14"></a><span class="co">#&gt;  7 A*Teens        Dancing Queen                 7</span></span>
-<span id="cb20-15"><a href="#cb20-15"></a><span class="co">#&gt;  8 Aaliyah        I Don't Wanna                 8</span></span>
-<span id="cb20-16"><a href="#cb20-16"></a><span class="co">#&gt;  9 Aaliyah        Try Again                     9</span></span>
-<span id="cb20-17"><a href="#cb20-17"></a><span class="co">#&gt; 10 Adams, Yolanda Open My Heart                10</span></span>
-<span id="cb20-18"><a href="#cb20-18"></a><span class="co">#&gt; # … with 307 more rows</span></span></code></pre></div>
+<div class="sourceCode" id="cb20"><html><body><pre class="r"><span class="no">song</span> <span class="kw">&lt;-</span> <span class="no">billboard3</span> <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/distinct.html">distinct</a></span>(<span class="no">artist</span>, <span class="no">track</span>) <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="kw">song_id</span> <span class="kw">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/ranking.html">row_number</a></span>())
+<span class="no">song</span>
+<span class="co">#&gt; # A tibble: 317 x 3</span>
+<span class="co">#&gt;    artist         track                   song_id</span>
+<span class="co">#&gt;    &lt;chr&gt;          &lt;chr&gt;                     &lt;int&gt;</span>
+<span class="co">#&gt;  1 2 Pac          Baby Don't Cry (Keep...       1</span>
+<span class="co">#&gt;  2 2Ge+her        The Hardest Part Of ...       2</span>
+<span class="co">#&gt;  3 3 Doors Down   Kryptonite                    3</span>
+<span class="co">#&gt;  4 3 Doors Down   Loser                         4</span>
+<span class="co">#&gt;  5 504 Boyz       Wobble Wobble                 5</span>
+<span class="co">#&gt;  6 98^0           Give Me Just One Nig...       6</span>
+<span class="co">#&gt;  7 A*Teens        Dancing Queen                 7</span>
+<span class="co">#&gt;  8 Aaliyah        I Don't Wanna                 8</span>
+<span class="co">#&gt;  9 Aaliyah        Try Again                     9</span>
+<span class="co">#&gt; 10 Adams, Yolanda Open My Heart                10</span>
+<span class="co">#&gt; # … with 307 more rows</span></pre></body></html></div>
 <p>Then use that to make a <code>rank</code> dataset by replacing repeated song facts with a pointer to song details (a unique song id):</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a>rank &lt;-<span class="st"> </span>billboard3 <span class="op">%&gt;%</span></span>
-<span id="cb21-2"><a href="#cb21-2"></a><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/join.html">left_join</a></span>(song, <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"artist"</span>, <span class="st">"track"</span>)) <span class="op">%&gt;%</span></span>
-<span id="cb21-3"><a href="#cb21-3"></a><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(song_id, date, week, rank)</span>
-<span id="cb21-4"><a href="#cb21-4"></a>rank</span>
-<span id="cb21-5"><a href="#cb21-5"></a><span class="co">#&gt; # A tibble: 5,307 x 4</span></span>
-<span id="cb21-6"><a href="#cb21-6"></a><span class="co">#&gt;    song_id date        week  rank</span></span>
-<span id="cb21-7"><a href="#cb21-7"></a><span class="co">#&gt;      &lt;int&gt; &lt;date&gt;     &lt;int&gt; &lt;dbl&gt;</span></span>
-<span id="cb21-8"><a href="#cb21-8"></a><span class="co">#&gt;  1       1 2000-02-26     1    87</span></span>
-<span id="cb21-9"><a href="#cb21-9"></a><span class="co">#&gt;  2       1 2000-03-04     2    82</span></span>
-<span id="cb21-10"><a href="#cb21-10"></a><span class="co">#&gt;  3       1 2000-03-11     3    72</span></span>
-<span id="cb21-11"><a href="#cb21-11"></a><span class="co">#&gt;  4       1 2000-03-18     4    77</span></span>
-<span id="cb21-12"><a href="#cb21-12"></a><span class="co">#&gt;  5       1 2000-03-25     5    87</span></span>
-<span id="cb21-13"><a href="#cb21-13"></a><span class="co">#&gt;  6       1 2000-04-01     6    94</span></span>
-<span id="cb21-14"><a href="#cb21-14"></a><span class="co">#&gt;  7       1 2000-04-08     7    99</span></span>
-<span id="cb21-15"><a href="#cb21-15"></a><span class="co">#&gt;  8       2 2000-09-02     1    91</span></span>
-<span id="cb21-16"><a href="#cb21-16"></a><span class="co">#&gt;  9       2 2000-09-09     2    87</span></span>
-<span id="cb21-17"><a href="#cb21-17"></a><span class="co">#&gt; 10       2 2000-09-16     3    92</span></span>
-<span id="cb21-18"><a href="#cb21-18"></a><span class="co">#&gt; # … with 5,297 more rows</span></span></code></pre></div>
+<div class="sourceCode" id="cb21"><html><body><pre class="r"><span class="no">rank</span> <span class="kw">&lt;-</span> <span class="no">billboard3</span> <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/join.html">left_join</a></span>(<span class="no">song</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"artist"</span>, <span class="st">"track"</span>)) <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(<span class="no">song_id</span>, <span class="no">date</span>, <span class="no">week</span>, <span class="no">rank</span>)
+<span class="no">rank</span>
+<span class="co">#&gt; # A tibble: 5,307 x 4</span>
+<span class="co">#&gt;    song_id date        week  rank</span>
+<span class="co">#&gt;      &lt;int&gt; &lt;date&gt;     &lt;int&gt; &lt;dbl&gt;</span>
+<span class="co">#&gt;  1       1 2000-02-26     1    87</span>
+<span class="co">#&gt;  2       1 2000-03-04     2    82</span>
+<span class="co">#&gt;  3       1 2000-03-11     3    72</span>
+<span class="co">#&gt;  4       1 2000-03-18     4    77</span>
+<span class="co">#&gt;  5       1 2000-03-25     5    87</span>
+<span class="co">#&gt;  6       1 2000-04-01     6    94</span>
+<span class="co">#&gt;  7       1 2000-04-08     7    99</span>
+<span class="co">#&gt;  8       2 2000-09-02     1    91</span>
+<span class="co">#&gt;  9       2 2000-09-09     2    87</span>
+<span class="co">#&gt; 10       2 2000-09-16     3    92</span>
+<span class="co">#&gt; # … with 5,297 more rows</span></pre></body></html></div>
 <p>You could also imagine a <code>week</code> dataset which would record background information about the week, maybe the total number of songs sold or similar “demographic” information.</p>
 <p>Normalisation is useful for tidying and eliminating inconsistencies. However, there are few data analysis tools that work directly with relational data, so analysis usually also requires denormalisation or the merging the datasets back into one table.</p>
 </div>
@@ -626,10 +626,10 @@
 <li><p>Combine all tables into a single table.</p></li>
 </ol>
 <p>Purrr makes this straightforward in R. The following code generates a vector of file names in a directory (<code>data/</code>) which match a regular expression (ends in <code>.csv</code>). Next we name each element of the vector with the name of the file. We do this because will preserve the names in the following step, ensuring that each row in the final data frame is labeled with its source. Finally, <code><a href="https://purrr.tidyverse.org/reference/map.html">map_dfr()</a></code> loops over each path, reading in the csv file and combining the results into a single data frame.</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(purrr)</span>
-<span id="cb22-2"><a href="#cb22-2"></a>paths &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/list.files.html">dir</a></span>(<span class="st">"data"</span>, <span class="dt">pattern =</span> <span class="st">"</span><span class="ch">\\</span><span class="st">.csv$"</span>, <span class="dt">full.names =</span> <span class="ot">TRUE</span>)</span>
-<span id="cb22-3"><a href="#cb22-3"></a><span class="kw"><a href="https://rdrr.io/r/base/names.html">names</a></span>(paths) &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/basename.html">basename</a></span>(paths)</span>
-<span id="cb22-4"><a href="#cb22-4"></a><span class="kw"><a href="https://purrr.tidyverse.org/reference/map.html">map_dfr</a></span>(paths, read.csv, <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>, <span class="dt">.id =</span> <span class="st">"filename"</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb22"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">purrr</span>)
+<span class="no">paths</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.files.html">dir</a></span>(<span class="st">"data"</span>, <span class="kw">pattern</span> <span class="kw">=</span> <span class="st">"\\.csv$"</span>, <span class="kw">full.names</span> <span class="kw">=</span> <span class="fl">TRUE</span>)
+<span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span>(<span class="no">paths</span>) <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/basename.html">basename</a></span>(<span class="no">paths</span>)
+<span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map_dfr</a></span>(<span class="no">paths</span>, <span class="no">read.csv</span>, <span class="kw">stringsAsFactors</span> <span class="kw">=</span> <span class="fl">FALSE</span>, <span class="kw">.id</span> <span class="kw">=</span> <span class="st">"filename"</span>)</pre></body></html></div>
 <p>Once you have a single table, you can perform additional tidying as needed. An example of this type of cleaning can be found at <a href="https://github.com/hadley/data-baby-names" class="uri">https://github.com/hadley/data-baby-names</a> which takes 129 yearly baby name tables provided by the US Social Security Administration and combines them into a single file.</p>
 <p>A more complicated situation occurs when the dataset structure changes over time. For example, the datasets may contain different variables, the same variables with different names, different file formats, or different conventions for missing values. This may require you to tidy each file to individually (or, if you’re lucky, in small groups) and then combine them once tidied. An example of this type of tidying is illustrated in <a href="https://github.com/hadley/data-fuel-economy" class="uri">https://github.com/hadley/data-fuel-economy</a>, which shows the tidying of <span>epa</span> fuel economy data for over 50,000 cars from 1978 to 2008. The raw data is available online, but each year is stored in a separate file and there are four major formats with many minor variations, making tidying this dataset a considerable challenge.</p>
 </div>

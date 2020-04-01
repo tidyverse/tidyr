@@ -163,20 +163,20 @@
 <li>Every row is an observation.</li>
 <li>Every cell is a single value.</li>
 </ol>
-<p>Tidy data describes a standard way of storing data that is used wherever possible throughout the <a href="https://tidyverse.org">tidyverse</a>. If you ensure that your data is tidy, you’ll spend less time fighting with the tools and more time working on your analysis. Learn more about tidy data in <code><a href="articles/tidy-data.html">vignette("tidy-data")</a></code>.</p>
+<p>Tidy data describes a standard way of storing data that is used wherever possible throughout the <a href="https://tidyverse.org">tidyverse</a>. If you ensure that your data is tidy, youâll spend less time fighting with the tools and more time working on your analysis. Learn more about tidy data in <code><a href="articles/tidy-data.html">vignette("tidy-data")</a></code>.</p>
 </div>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="co"># The easiest way to get tidyr is to install the whole tidyverse:</span></span>
-<span id="cb1-2"><a href="#cb1-2"></a><span class="kw"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"tidyverse"</span>)</span>
-<span id="cb1-3"><a href="#cb1-3"></a></span>
-<span id="cb1-4"><a href="#cb1-4"></a><span class="co"># Alternatively, install just tidyr:</span></span>
-<span id="cb1-5"><a href="#cb1-5"></a><span class="kw"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"tidyr"</span>)</span>
-<span id="cb1-6"><a href="#cb1-6"></a></span>
-<span id="cb1-7"><a href="#cb1-7"></a><span class="co"># Or the development version from GitHub:</span></span>
-<span id="cb1-8"><a href="#cb1-8"></a><span class="co"># install.packages("devtools")</span></span>
-<span id="cb1-9"><a href="#cb1-9"></a>devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="st">"tidyverse/tidyr"</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="r"><span class="co"># The easiest way to get tidyr is to install the whole tidyverse:</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"tidyverse"</span>)
+
+<span class="co"># Alternatively, install just tidyr:</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"tidyr"</span>)
+
+<span class="co"># Or the development version from GitHub:</span>
+<span class="co"># install.packages("devtools")</span>
+<span class="kw pkg">devtools</span><span class="kw ns">::</span><span class="fu">install_github</span>(<span class="st">"tidyverse/tidyr"</span>)</pre></div>
 </div>
 <div id="cheatsheet" class="section level2">
 <h2 class="hasAnchor">
@@ -186,11 +186,11 @@
 <div id="getting-started" class="section level2">
 <h2 class="hasAnchor">
 <a href="#getting-started" class="anchor"></a>Getting started</h2>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(tidyr)</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">tidyr</span>)</pre></div>
 <p>tidyr functions fall into five main categories:</p>
 <ul>
-<li><p>“Pivotting” which converts between long and wide forms. tidyr 1.0.0 introduces <code><a href="reference/pivot_longer.html">pivot_longer()</a></code> and <code><a href="reference/pivot_wider.html">pivot_wider()</a></code>, replacing the older <code><a href="reference/spread.html">spread()</a></code> and <code><a href="reference/gather.html">gather()</a></code> functions. See <code><a href="articles/pivot.html">vignette("pivot")</a></code> for more details.</p></li>
-<li><p>“Rectangling”, which turns deeply nested lists (as from JSON) into tidy tibbles. See <code><a href="reference/hoist.html">unnest_longer()</a></code>, <code><a href="reference/hoist.html">unnest_wider()</a></code>, <code><a href="reference/hoist.html">hoist()</a></code>, and <code><a href="articles/rectangle.html">vignette("rectangle")</a></code> for more details.</p></li>
+<li><p>âPivottingâ which converts between long and wide forms. tidyr 1.0.0 introduces <code><a href="reference/pivot_longer.html">pivot_longer()</a></code> and <code><a href="reference/pivot_wider.html">pivot_wider()</a></code>, replacing the older <code><a href="reference/spread.html">spread()</a></code> and <code><a href="reference/gather.html">gather()</a></code> functions. See <code><a href="articles/pivot.html">vignette("pivot")</a></code> for more details.</p></li>
+<li><p>âRectanglingâ, which turns deeply nested lists (as from JSON) into tidy tibbles. See <code><a href="reference/hoist.html">unnest_longer()</a></code>, <code><a href="reference/hoist.html">unnest_wider()</a></code>, <code><a href="reference/hoist.html">hoist()</a></code>, and <code><a href="articles/rectangle.html">vignette("rectangle")</a></code> for more details.</p></li>
 <li><p>Nesting converts grouped data to a form where each group becomes a single row containing a nested data frame, and unnesting does the opposite. See <code><a href="reference/nest.html">nest()</a></code>, <code><a href="reference/nest.html">unnest()</a></code>, and <code><a href="articles/nest.html">vignette("nest")</a></code> for more details.</p></li>
 <li><p>Splitting and combining character columns. Use <code><a href="reference/separate.html">separate()</a></code> and <code><a href="reference/extract.html">extract()</a></code> to pull a single character column into multiple columns; use <code><a href="reference/unite.html">unite()</a></code> to combine multiple columns into a single character column.</p></li>
 <li><p>Make implicit missing values explicit with <code><a href="reference/complete.html">complete()</a></code>; make explicit missing values implicit with <code><a href="reference/drop_na.html">drop_na()</a></code>; replace missing values with next/previous value with <code><a href="reference/fill.html">fill()</a></code>, or a known value with <code><a href="reference/replace_na.html">replace_na()</a></code>.</p></li>
@@ -201,13 +201,13 @@
 <a href="#related-work" class="anchor"></a>Related work</h2>
 <p>tidyr replaces reshape2 (2010-2014) and reshape (2005-2010). Somewhat counterintuitively, each iteration of the package has done less. tidyr is designed specifically for tidying data, not general reshaping (reshape2), or the general aggregation (reshape).</p>
 <p><a href="http://r-datatable.com/">data.table</a> provides high-performance implementations of <code>melt()</code> and <code>dcast()</code></p>
-<p>If you’d like to read more about data reshaping from a CS perspective, I’d recommend the following three papers:</p>
+<p>If youâd like to read more about data reshaping from a CS perspective, Iâd recommend the following three papers:</p>
 <ul>
 <li><p><a href="http://vis.stanford.edu/papers/wrangler">Wrangler: Interactive visual specification of data transformation scripts</a></p></li>
-<li><p><a href="https://www.eecs.berkeley.edu/Pubs/TechRpts/2000/CSD-00-1110.pdf">An interactive framework for data cleaning</a> (Potter’s wheel)</p></li>
+<li><p><a href="https://www.eecs.berkeley.edu/Pubs/TechRpts/2000/CSD-00-1110.pdf">An interactive framework for data cleaning</a> (Potterâs wheel)</p></li>
 <li><p><a href="https://www.vldb.org/conf/1999/P45.pdf">On efficiently implementing SchemaSQL on a SQL database system</a></p></li>
 </ul>
-<p>To guide your reading, here’s a translation between the terminology used in different places:</p>
+<p>To guide your reading, hereâs a translation between the terminology used in different places:</p>
 <table class="table">
 <thead><tr class="header">
 <th>tidyr</th>
@@ -284,11 +284,9 @@
   <div class="dev-status">
 <h2>Dev status</h2>
 <ul class="list-unstyled">
-<li><a href="https:/tidyr.tidyverse.org"><img src="reference/figures/logo.png" align="right" height="139"></a></li>
 <li><a href="https://cran.r-project.org/package=tidyr"><img src="https://www.r-pkg.org/badges/version/tidyr" alt="CRAN status"></a></li>
 <li><a href="https://github.com/tidyverse/tidyr/actions"><img src="https://github.com/tidyverse/tidyr/workflows/R-CMD-check/badge.svg" alt="R build status"></a></li>
 <li><a href="https://codecov.io/gh/tidyverse/tidyr?branch=master"><img src="https://codecov.io/gh/tidyverse/tidyr/branch/master/graph/badge.svg" alt="Codecov test coverage"></a></li>
-<li><a href="https://github.com/rstudio/cheatsheets/blob/master/data-import.pdf"><img src="https://raw.githubusercontent.com/rstudio/cheatsheets/master/pngs/thumbnails/data-import-cheatsheet-thumbs.png" width="630" height="252"></a></li>
 </ul>
 </div>
 </div>
