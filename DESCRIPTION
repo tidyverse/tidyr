@@ -38,7 +38,8 @@ Imports:
     tidyselect (>= 0.2.5),
     utils,
     vctrs (>= 0.2.2),
-    lifecycle
+    lifecycle,
+    stringr
 Suggests: 
     covr,
     jsonlite,
