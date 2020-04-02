@@ -100,7 +100,7 @@ unchop <- function(data, cols, keep_empty = FALSE, ptype = NULL) {
   # in which case `[.grouped_df` will error
   cols <- new_data_frame(unclass(data)[cols])
 
-  res <- vec_lengthen(cols, ptype)
+  res <- df_unchop_info(cols, ptype)
   new_cols <- res$val
   slice_loc <- res$loc
 
@@ -112,18 +112,18 @@ unchop <- function(data, cols, keep_empty = FALSE, ptype = NULL) {
 
 # Helpers -----------------------------------------------------------------
 
-# `vec_lengthen()` takes a data frame of columns to "lengthen" by unchopping
-# any list columns. This preserves the width, but changes the size. Rows that
-# are made entirely of list column elements of `NULL` are dropped. If `x` has
-# any data frame columns, these will be improperly treated as lists until
-# `vec_slice2()` is implemented, but this should be extremely rare.
+# `df_unchop_info()` takes a data frame and unchops every column separately.
+# This preserves the width, but changes the size. Rows that are made entirely of
+# list column elements of `NULL` are dropped. If `x` has any data frame columns,
+# these will be improperly treated as lists until `vec_slice2()` is implemented,
+# but this should be extremely rare.
 
-# `vec_lengthen()` returns a data frame of two columns:
+# `df_unchop_info()` returns a data frame of two columns:
 # - `loc` locations that map each row to their original row in `x`. Generally
 #   used to slice the data frame `x` was subset from to align it with `val`.
-# - `val` the lengthened data frame.
+# - `val` the unchopped data frame.
 
-vec_lengthen <- function(x, ptype) {
+df_unchop_info <- function(x, ptype) {
   width <- length(x)
   size <- vec_size(x)
 
@@ -158,7 +158,7 @@ vec_lengthen <- function(x, ptype) {
   }
 
   # Initialize `cols` with ptypes to retain types when `x` has 0 size
-  cols <- map(x, vec_lengthen_ptype)
+  cols <- map(x, df_unchop_ptype)
   pieces <- vector("list", size)
 
   names <- names(x)
@@ -209,7 +209,7 @@ vec_lengthen <- function(x, ptype) {
   out
 }
 
-vec_lengthen_ptype <- function(x) {
+df_unchop_ptype <- function(x) {
   if (vec_is_list(x)) {
     attr(x, "ptype") %||% unspecified(0L)
   } else {
