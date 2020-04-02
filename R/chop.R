@@ -143,17 +143,16 @@ vec_lengthen <- function(x, ptype = NULL) {
 
   sizes <- map_int(sizes, tidyr_size_finalise)
 
-  names <- names(x)
-
   has_ptype <- !is.null(ptype)
   if (has_ptype && !is.data.frame(ptype)) {
     abort("`ptype` must be a data frame")
   }
 
   cols <- vector("list", n)
-  names(cols) <- names
-
   pieces <- vector("list", size)
+
+  names <- names(x)
+  names(cols) <- names
 
   for (i in seq_len_n) {
     col <- x[[i]]
