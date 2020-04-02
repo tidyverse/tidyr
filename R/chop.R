@@ -185,8 +185,7 @@ new_lengthen_df <- function(loc, cols, n, ptype) {
 }
 
 vec_lengthen_ptype <- function(x) {
-  # TODO: Update if `list_of()` ever explicitly inherits from `"list"`
-  if (inherits(x, "list") || inherits(x, "vctrs_list_of")) {
+  if (vec_is_list(x)) {
     attr(x, "ptype") %||% unspecified(0L)
   } else {
     vec_ptype(x)
