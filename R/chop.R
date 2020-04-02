@@ -112,7 +112,7 @@ unchop <- function(data, cols, keep_empty = FALSE, ptype = NULL) {
 
 # Helpers -----------------------------------------------------------------
 
-vec_lengthen <- function(x, ptype = NULL) {
+vec_lengthen <- function(x, ptype) {
   width <- length(x)
   size <- vec_size(x)
 
