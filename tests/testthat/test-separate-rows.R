@@ -38,7 +38,7 @@ test_that("drops grouping when needed", {
 test_that("drops grouping on zero row data frames when needed (#886)", {
   df <- tibble(x = numeric(), y = character()) %>% dplyr::group_by(y)
   out <- df %>% separate_rows(y)
-  expect_equal(dplyr::groups(out), NULL)
+  expect_equal(dplyr::group_vars(out), character())
 })
 
 test_that("convert produces integers etc", {
