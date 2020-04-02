@@ -10,6 +10,8 @@ test_that("hoist extracts named elements", {
 })
 
 test_that("can require specific type with ptype", {
+  skip("restricted vec_cast")
+
   df <- tibble(x = list(
     list(a = 1),
     list(a = "a")
@@ -126,6 +128,7 @@ test_that("simplifies length-1 lists", {
   expect_equal(out$c, list(c(1, 2), NULL))
 
   # Works when casting too
+  skip("restricted vec_cast")
   out <- df %>% unnest_wider(y,
     ptype = list(a = double(), b = double(), c = list())
   )
@@ -261,3 +264,4 @@ test_that("mix of named and unnamed becomes longer", {
   expect_message(out <- df %>% unnest_auto(y), "unnest_longer")
   expect_named(out, c("x", "y"))
 })
+

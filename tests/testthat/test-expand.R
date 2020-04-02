@@ -13,7 +13,7 @@ test_that("multiple variables in one arg doesn't expand", {
 })
 
 test_that("nesting doesn't expand values", {
-  df <- data.frame(x = 1:2, y = 1:2)
+  df <- tibble(x = 1:2, y = 1:2)
   expect_equal(expand(df, nesting(x, y)), df)
 })
 
@@ -27,7 +27,7 @@ test_that("unnamed data frames are flattened", {
 })
 
 test_that("named data frames are not flattened", {
-  df <- data.frame(x = 1:2, y = 1:2)
+  df <- tibble(x = 1:2, y = 1:2)
   out <- expand(df, x = nesting(x, y))
   expect_equal(out$x, df)
 

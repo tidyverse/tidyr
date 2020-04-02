@@ -30,6 +30,9 @@ pivots because it gives you greater control on how metadata stored in the
 columns become column names in the result.
 
 Must be a data frame containing character \code{.name} and \code{.value} columns.
+Additional columns in \code{spec} should be named to match columns in the
+long format of the dataset and contain values corresponding to columns
+pivoted from the wide format.
 The special \code{.seq} variable is used to disambiguate rows internally;
 it is automatically removed after pivotting.}
 
@@ -86,5 +89,32 @@ string to use as a column name.}
 \description{
 This is a low level interface to pivotting, inspired by the cdata package,
 that allows you to describe pivotting with a data frame.
+}
+\examples{
+# See vignette("pivot") for examples and explanation
+
+us_rent_income
+spec1 <- us_rent_income \%>\%
+  build_wider_spec(names_from = variable, values_from = c(estimate, moe))
+spec1
+
+us_rent_income \%>\%
+  pivot_wider_spec(spec1)
+
+# Is equivalent to
+us_rent_income \%>\%
+  pivot_wider(names_from = variable, values_from = c(estimate, moe))
+
+# `pivot-wider_spec()` provides more control over column names and output format
+# instead of creating columns with estimate_ and moe_ prefixes,
+# keep original variable name for estimates and attach _moe as suffix
+spec2 <- tibble(
+  .name = c("income", "rent", "income_moe", "rent_moe"),
+  .value = c("estimate", "estimate", "moe", "moe"),
+  variable = c("income", "rent", "income", "rent")
+)
+
+us_rent_income \%>\%
+  pivot_wider_spec(spec2)
 }
 \keyword{internal}

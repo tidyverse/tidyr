@@ -26,7 +26,7 @@ test_that("groups are preserved", {
 
   res <- tidyr::drop_na(gdf, y)
   expect_equal(res, gexp)
-  expect_equal(dplyr::groups(res), dplyr::groups(gexp))
+  expect_equal(dplyr::group_vars(res), dplyr::group_vars(gexp))
 })
 
 test_that("empty call drops every row", {

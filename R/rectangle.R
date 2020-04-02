@@ -347,7 +347,7 @@ simplify_col <- function(x, ptype, simplify = FALSE) {
   }
 
   # Ensure empty elements filled in with a single unspecified value
-  x[n == 0] <- list(unspecified(1))
+  x[n == 0] <- list(NA)
 
   tryCatch(
     vec_c(!!!x),
