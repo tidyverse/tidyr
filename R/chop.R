@@ -164,7 +164,7 @@ vec_lengthen <- function(x, ptype = NULL) {
       col_ptype <- NULL
     }
 
-    cols[[i]] <- vec_c(!!!pieces, .ptype = col_ptype)
+    cols[[i]] <- vec_unchop(pieces, ptype = col_ptype)
   }
 
   out_size <- sum(sizes)
