@@ -41,6 +41,13 @@ Generally, unchopping is more useful than chopping because it simplifies
 a complex data structure, and \code{\link[=nest]{nest()}}ing is usually more appropriate
 that \code{chop()}ing` since it better preserves the connections between
 observations.
+
+\code{chop()} creates list-columns of class \code{\link[vctrs:list_of]{vctrs::list_of()}} to ensure
+consistent behaviour when the chopped data frame is emptied. For
+instance this helps getting back the original column types after
+the roundtrip chop and unchop. Because \verb{<list_of>} keeps tracks of
+the type of its elements, \code{unchop()} is able to reconstitute the
+correct vector type even for empty list-columns.
 }
 \examples{
 # Chop ==============================================================
@@ -60,9 +67,6 @@ df \%>\% unchop(y, keep_empty = TRUE)
 # If the list-col contains types that can not be natively
 df <- tibble(x = 1:2, y = list("1", 1:3))
 try(df \%>\% unchop(y))
-df \%>\% unchop(y, ptype = tibble(y = integer()))
-df \%>\% unchop(y, ptype = tibble(y = character()))
-df \%>\% unchop(y, ptype = tibble(y = list()))
 
 # Unchopping data frames -----------------------------------------------------
 # Unchopping a list-col of data frames must generate a df-col because

@@ -105,7 +105,7 @@ billboard %>%
 
 It would be nice to easily determine how long each song stayed in the charts, but to do that, we'll need to convert the `week` variable to an integer. We can do that by using two additional arguments: `names_prefix` strips off the `wk` prefix, and `names_ptypes` specifies that `week` should be an integer:
 
-```{r}
+```{r, eval = FALSE}
 billboard %>% 
   pivot_longer(
     cols = starts_with("wk"), 
@@ -131,7 +131,7 @@ who
   dataset only contains new cases, so we'll ignore it here because it's 
   constant.
   
-* `sp`/`rel`/`sp`/`ep` describe how the case was diagnosed.
+* `sp`/`rel`/`ep` describe how the case was diagnosed.
 
 * `m`/`f` gives the gender.
 
@@ -489,11 +489,13 @@ pivot_longer_spec(relig_income, spec)
 
 (This gives the same result as before, just with more code. There's no need to use it here, it is presented as a simple example for using `spec`.)
 
-What does `spec` look like?  It's a data frame with one row for each column, and two special columns that start with `.`:
+What does `spec` look like?  It's a data frame with one row for each column in the wide format version of the data that is not present in the long format, and two special columns that start with `.`:
 
 * `.name` gives the name of the column.
 * `.value` gives the name of the column that the values in the cells will
   go into.
+
+There is also one column in `spec` for each column present in the long format of the data that is not present in the wide format of the data. This corresponds to the `names_to` argument in `pivot_longer()` and `build_longer_spec()` and the `names_from` argument in `pivot_wider()` and `build_wider_spec()`. In this example, the income column is a character vector of the names of columns being pivoted.
 
 ```{r}
 spec

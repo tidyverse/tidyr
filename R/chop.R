@@ -14,6 +14,13 @@
 #' that `chop()`ing` since it better preserves the connections between
 #' observations.
 #'
+#' `chop()` creates list-columns of class [vctrs::list_of()] to ensure
+#' consistent behaviour when the chopped data frame is emptied. For
+#' instance this helps getting back the original column types after
+#' the roundtrip chop and unchop. Because `<list_of>` keeps tracks of
+#' the type of its elements, `unchop()` is able to reconstitute the
+#' correct vector type even for empty list-columns.
+#'
 #' @param data A data frame.
 #' @param cols Column to chop or unchop (automatically quoted).
 #'
@@ -47,9 +54,6 @@
 #' # If the list-col contains types that can not be natively
 #' df <- tibble(x = 1:2, y = list("1", 1:3))
 #' try(df %>% unchop(y))
-#' df %>% unchop(y, ptype = tibble(y = integer()))
-#' df %>% unchop(y, ptype = tibble(y = character()))
-#' df %>% unchop(y, ptype = tibble(y = list()))
 #'
 #' # Unchopping data frames -----------------------------------------------------
 #' # Unchopping a list-col of data frames must generate a df-col because
@@ -68,9 +72,13 @@ chop <- function(data, cols) {
   keys <- data[setdiff(names(data), cols)]
   split <- vec_split(vals, keys)
 
-  vals <- map(split$val, ~ new_data_frame(map(.x, list), n = 1L))
+  if (length(split$val)) {
+    split_vals <- transpose(split$val)
+    vals <- map2(split_vals, vec_ptype(vals), new_list_of)
+    vals <- new_data_frame(vals)
+  }
 
-  out <- vec_cbind(split$key, vec_rbind(!!!vals))
+  out <- vec_cbind(split$key, vals)
   reconstruct_tibble(data, out)
 }
 
@@ -231,7 +239,7 @@ size2 <- function(nx, ny) {
 
 init_col <- function(x) {
   if (is_null(x)) {
-    unspecified(1)
+    NA
   } else if (vec_is_empty(x)) {
     vec_init(x, 1)
   } else {

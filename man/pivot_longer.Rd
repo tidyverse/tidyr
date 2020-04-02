@@ -116,7 +116,7 @@ billboard \%>\%
    values_drop_na = TRUE
  )
 
-# Multiple variables stored in colum names
+# Multiple variables stored in column names
 who \%>\% pivot_longer(
   cols = new_sp_m014:newrel_f65,
   names_to = c("diagnosis", "gender", "age"),

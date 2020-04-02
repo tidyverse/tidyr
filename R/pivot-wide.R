@@ -114,8 +114,38 @@ pivot_wider <- function(data,
 #'  columns become column names in the result.
 #'
 #'   Must be a data frame containing character `.name` and `.value` columns.
+#'   Additional columns in `spec` should be named to match columns in the
+#'   long format of the dataset and contain values corresponding to columns
+#'   pivoted from the wide format.
 #'   The special `.seq` variable is used to disambiguate rows internally;
 #'   it is automatically removed after pivotting.
+#'
+#' @examples
+#' # See vignette("pivot") for examples and explanation
+#'
+#' us_rent_income
+#' spec1 <- us_rent_income %>%
+#'   build_wider_spec(names_from = variable, values_from = c(estimate, moe))
+#' spec1
+#'
+#' us_rent_income %>%
+#'   pivot_wider_spec(spec1)
+#'
+#' # Is equivalent to
+#' us_rent_income %>%
+#'   pivot_wider(names_from = variable, values_from = c(estimate, moe))
+#'
+#' # `pivot-wider_spec()` provides more control over column names and output format
+#' # instead of creating columns with estimate_ and moe_ prefixes,
+#' # keep original variable name for estimates and attach _moe as suffix
+#' spec2 <- tibble(
+#'   .name = c("income", "rent", "income_moe", "rent_moe"),
+#'   .value = c("estimate", "estimate", "moe", "moe"),
+#'   variable = c("income", "rent", "income", "rent")
+#' )
+#'
+#' us_rent_income %>%
+#'   pivot_wider_spec(spec2)
 pivot_wider_spec <- function(data,
                                   spec,
                                   names_repair = "check_unique",
@@ -164,7 +194,7 @@ pivot_wider_spec <- function(data,
     val <- data[[value]]
 
     cols <- data[names(spec_i)[-(1:2)]]
-    col_id <- vec_match(cols, spec_i[-(1:2)])
+    col_id <- vec_match(as_tibble(cols), spec_i[-(1:2)])
     val_id <- data.frame(row = row_id, col = col_id)
 
     dedup <- vals_dedup(
@@ -191,7 +221,7 @@ pivot_wider_spec <- function(data,
     value_out[[i]] <- wrap_vec(out, spec_i$.name)
   }
 
-  out <- wrap_error_names(vec_cbind(rows, !!!value_out, .name_repair = names_repair))
+  out <- wrap_error_names(vec_cbind(as_tibble(rows), !!!value_out, .name_repair = names_repair))
 
   # recreate desired column order
   # https://github.com/r-lib/vctrs/issues/227
@@ -231,7 +261,7 @@ build_wider_spec <- function(data,
     row_ids <- vec_repeat(row_ids, times = vec_size(values_from))
   }
 
-  vec_cbind(out, row_ids, .name_repair = "minimal")
+  vec_cbind(out, as_tibble(row_ids), .name_repair = "minimal")
 }
 
 # quiet R CMD check
