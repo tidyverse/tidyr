@@ -160,7 +160,10 @@ vec_lengthen <- function(x, ptype = NULL) {
 
     for (j in seq_len_size) {
       # TODO: col[[j]] -> vec_slice2(col, j)
-      pieces[[j]] <- tidyr_recycle(col[[j]], sizes[[j]])
+      elt <- col[[j]]
+      size <- sizes[[j]]
+
+      pieces[[j]] <- tidyr_recycle(elt, size)
     }
 
     if (has_ptype) {
