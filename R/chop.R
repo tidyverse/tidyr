@@ -141,7 +141,7 @@ vec_lengthen <- function(x, ptype = NULL) {
     }
   }
 
-  sizes <- map_int(sizes, finalise_size)
+  sizes <- map_int(sizes, tidyr_size_finalise)
 
   names <- names(x)
 
@@ -197,7 +197,7 @@ vec_lengthen_ptype <- function(x) {
   }
 }
 
-finalise_size <- function(size) {
+tidyr_size_finalise <- function(size) {
   if (is.na(size)) {
     0L
   } else {
