@@ -180,15 +180,15 @@ vec_lengthen <- function(x, ptype = NULL) {
   new_lengthen_df(loc, cols, out_size, ptype)
 }
 
-new_lengthen_df <- function(loc, cols, n, ptype) {
-  val <- new_data_frame(cols, n = n)
+new_lengthen_df <- function(loc, cols, size, ptype) {
+  val <- new_data_frame(cols, n = size)
 
   if (!is.null(ptype)) {
     val <- vec_cast(val, ptype)
   }
 
   out <- list(loc = loc, val = val)
-  new_data_frame(out, n = n)
+  new_data_frame(out, n = size)
 }
 
 vec_lengthen_ptype <- function(x) {
