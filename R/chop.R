@@ -179,24 +179,16 @@ vec_lengthen <- function(x, ptype = NULL) {
   out_size <- sum(sizes)
 
   loc <- rep(seq_len_size, sizes)
-  val <- new_lengthen_df_val(cols, out_size, ptype)
 
-  new_lengthen_df(loc, val, out_size)
-}
-
-new_lengthen_df_val <- function(cols, size, ptype) {
-  out <- new_data_frame(cols, n = size)
-
+  val <- new_data_frame(cols, n = out_size)
   if (!is.null(ptype)) {
-    out <- vec_cast(out, ptype)
+    val <- vec_cast(val, ptype)
   }
 
-  out
-}
-
-new_lengthen_df <- function(loc, val, size) {
   out <- list(loc = loc, val = val)
-  new_data_frame(out, n = size)
+  out <- new_data_frame(out, n = out_size)
+
+  out
 }
 
 vec_lengthen_ptype <- function(x) {
