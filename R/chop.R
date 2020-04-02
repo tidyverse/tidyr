@@ -113,7 +113,7 @@ unchop <- function(data, cols, keep_empty = FALSE, ptype = NULL) {
 # Helpers -----------------------------------------------------------------
 
 vec_lengthen <- function(x, ptype = NULL) {
-  n <- length(x)
+  width <- length(x)
   size <- vec_size(x)
 
   if (size == 0L) {
@@ -122,12 +122,12 @@ vec_lengthen <- function(x, ptype = NULL) {
     return(out)
   }
 
-  seq_len_n <- seq_len(n)
+  seq_len_width <- seq_len(width)
   seq_len_size <- seq_len(size)
 
   sizes <- rep_len(NA_integer_, size)
 
-  for (i in seq_len_n) {
+  for (i in seq_len_width) {
     col <- x[[i]]
 
     for (j in seq_len_size) {
@@ -148,13 +148,13 @@ vec_lengthen <- function(x, ptype = NULL) {
     abort("`ptype` must be a data frame")
   }
 
-  cols <- vector("list", n)
+  cols <- vector("list", width)
   pieces <- vector("list", size)
 
   names <- names(x)
   names(cols) <- names
 
-  for (i in seq_len_n) {
+  for (i in seq_len_width) {
     col <- x[[i]]
 
     for (j in seq_len_size) {
