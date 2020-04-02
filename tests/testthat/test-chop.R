@@ -113,10 +113,8 @@ test_that("can specify a ptype with extra columns", {
 })
 
 test_that("can specify a ptype to force an output type", {
-  df <- tibble(x = list("1", 2))
+  df <- tibble(x = list(1L, 2L))
   ptype <- tibble(x = numeric())
-
-  expect_error(unchop(df, x), class = "vctrs_error_incompatible_type")
 
   expect_identical(unchop(df, x, ptype = ptype), tibble(x = c(1, 2)))
 })
