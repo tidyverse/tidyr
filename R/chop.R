@@ -117,8 +117,13 @@ vec_lengthen <- function(x, ptype = NULL) {
   size <- vec_size(x)
 
   if (size == 0L) {
+    out_size <- 0L
     cols <- map(x, vec_lengthen_ptype)
-    out <- new_lengthen_df(integer(), cols, 0L, ptype)
+
+    loc <- integer()
+    val <- new_lengthen_df_val(cols, out_size, ptype)
+
+    out <- new_lengthen_df(loc, val, out_size)
     return(out)
   }
 
@@ -175,18 +180,24 @@ vec_lengthen <- function(x, ptype = NULL) {
   }
 
   out_size <- sum(sizes)
-  loc <- rep(seq_len_size, sizes)
 
-  new_lengthen_df(loc, cols, out_size, ptype)
+  loc <- rep(seq_len_size, sizes)
+  val <- new_lengthen_df_val(cols, out_size, ptype)
+
+  new_lengthen_df(loc, val, out_size)
 }
 
-new_lengthen_df <- function(loc, cols, size, ptype) {
-  val <- new_data_frame(cols, n = size)
+new_lengthen_df_val <- function(cols, size, ptype) {
+  out <- new_data_frame(cols, n = size)
 
   if (!is.null(ptype)) {
-    val <- vec_cast(val, ptype)
+    out <- vec_cast(out, ptype)
   }
 
+  out
+}
+
+new_lengthen_df <- function(loc, val, size) {
   out <- list(loc = loc, val = val)
   new_data_frame(out, n = size)
 }
