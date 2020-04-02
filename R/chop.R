@@ -132,7 +132,12 @@ vec_lengthen <- function(x, ptype = NULL) {
 
     for (j in seq_len_size) {
       # TODO: col[[j]] -> vec_slice2(col, j)
-      sizes[[j]] <- update_size(sizes[[j]], col[[j]])
+      elt <- col[[j]]
+
+      old_size <- sizes[[j]]
+      new_size <- tidyr_size(elt)
+
+      sizes[[j]] <- tidyr_size2(old_size, new_size)
     }
   }
 
@@ -208,10 +213,6 @@ tidyr_recycle <- function(x, size) {
   }
 }
 
-update_size <- function(size, x) {
-  size2(size, tidyr_size(x))
-}
-
 tidyr_size <- function(x) {
   if (is.null(x)) {
     NA_integer_
@@ -220,19 +221,19 @@ tidyr_size <- function(x) {
   }
 }
 
-size2 <- function(nx, ny) {
-  if (is.na(nx)) {
-    ny
-  } else if (is.na(ny)) {
-    nx
-  } else if (nx == ny) {
-    nx
-  } else if (nx == 1L) {
-    ny
-  } else if (ny == 1L) {
-    nx
+tidyr_size2 <- function(x, y) {
+  if (is.na(x)) {
+    y
+  } else if (is.na(y)) {
+    x
+  } else if (x == y) {
+    x
+  } else if (x == 1L) {
+    y
+  } else if (y == 1L) {
+    x
   } else {
-    abort(paste0("Incompatible lengths: ", nx, ", ", ny, "."))
+    abort(paste0("Incompatible lengths: ", x, ", ", y, "."))
   }
 }
 
