@@ -116,17 +116,6 @@ vec_lengthen <- function(x, ptype = NULL) {
   width <- length(x)
   size <- vec_size(x)
 
-  if (size == 0L) {
-    out_size <- 0L
-    cols <- map(x, vec_lengthen_ptype)
-
-    loc <- integer()
-    val <- new_lengthen_df_val(cols, out_size, ptype)
-
-    out <- new_lengthen_df(loc, val, out_size)
-    return(out)
-  }
-
   seq_len_width <- seq_len(width)
   seq_len_size <- seq_len(size)
 
@@ -153,7 +142,8 @@ vec_lengthen <- function(x, ptype = NULL) {
     abort("`ptype` must be a data frame")
   }
 
-  cols <- vector("list", width)
+  # Initialize `cols` with ptypes to retain types when `x` has 0 size
+  cols <- map(x, vec_lengthen_ptype)
   pieces <- vector("list", size)
 
   names <- names(x)
@@ -176,7 +166,14 @@ vec_lengthen <- function(x, ptype = NULL) {
       col_ptype <- NULL
     }
 
-    cols[[i]] <- vec_unchop(pieces, ptype = col_ptype)
+    col <- vec_unchop(pieces, ptype = col_ptype)
+
+    # Avoid `NULL` assignment, which removes elements from the list
+    if (is.null(col)) {
+      next
+    }
+
+    cols[[i]] <- col
   }
 
   out_size <- sum(sizes)
