@@ -112,6 +112,17 @@ unchop <- function(data, cols, keep_empty = FALSE, ptype = NULL) {
 
 # Helpers -----------------------------------------------------------------
 
+# `vec_lengthen()` takes a data frame of columns to "lengthen" by unchopping
+# any list columns. This preserves the width, but changes the size. Rows that
+# are made entirely of list column elements of `NULL` are dropped. If `x` has
+# any data frame columns, these will be improperly treated as lists until
+# `vec_slice2()` is implemented, but this should be extremely rare.
+
+# `vec_lengthen()` returns a data frame of two columns:
+# - `loc` locations that map each row to their original row in `x`. Generally
+#   used to slice the data frame `x` was subset from to align it with `val`.
+# - `val` the lengthened data frame.
+
 vec_lengthen <- function(x, ptype) {
   width <- length(x)
   size <- vec_size(x)
@@ -121,6 +132,10 @@ vec_lengthen <- function(x, ptype) {
 
   sizes <- rep_len(NA_integer_, size)
 
+  # Gather the common size of each row.
+  # `NULL` elements are ignored in the size calculation by treating their
+  # size as `NA` and then deferring to the size of any other element in the row.
+  # If only `NULL` values are in the row, the `NA` size is finalised to `0`.
   for (i in seq_len_width) {
     col <- x[[i]]
 
@@ -157,6 +172,7 @@ vec_lengthen <- function(x, ptype) {
       elt <- col[[j]]
       size <- sizes[[j]]
 
+      # Recycle each row element to the common size of that row
       pieces[[j]] <- tidyr_recycle(elt, size)
     }
 
@@ -166,6 +182,8 @@ vec_lengthen <- function(x, ptype) {
       col_ptype <- NULL
     }
 
+    # After unchopping, all columns will have the same size
+    # thanks to recycling
     col <- vec_unchop(pieces, ptype = col_ptype)
 
     # Avoid `NULL` assignment, which removes elements from the list
