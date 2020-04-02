@@ -101,7 +101,7 @@ unchop <- function(data, cols, keep_empty = FALSE, ptype = NULL) {
   cols <- new_data_frame(unclass(data)[cols])
 
   res <- vec_lengthen(cols, ptype)
-  new_cols <- res$value
+  new_cols <- res$val
   slice_loc <- res$loc
 
   out <- vec_slice(data, slice_loc)
@@ -174,13 +174,13 @@ vec_lengthen <- function(x, ptype = NULL) {
 }
 
 new_lengthen_df <- function(loc, cols, n, ptype) {
-  value <- new_data_frame(cols, n = n)
+  val <- new_data_frame(cols, n = n)
 
   if (!is.null(ptype)) {
-    value <- vec_cast(value, ptype)
+    val <- vec_cast(val, ptype)
   }
 
-  out <- list(loc = loc, value = value)
+  out <- list(loc = loc, val = val)
   new_data_frame(out, n = n)
 }
 
