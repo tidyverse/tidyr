@@ -45,6 +45,7 @@ test_that("input validation catches problems", {
 
   expect_error(df %>% hoist(y), "list-column")
   expect_error(df %>% hoist(x, "a"), "named")
+  expect_error(df %>% hoist(x, a = "a", a = "b"), "unique")
 })
 
 # strike ------------------------------------------------------------------
