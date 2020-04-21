@@ -1,13 +1,13 @@
 pandoc: 2.7.3
-pkgdown: 1.5.0.9000
-pkgdown_sha: 0eb8b5107beccb57e21086748a44e4fafddbba8e
+pkgdown: 1.5.1.9000
+pkgdown_sha: aea6864792d681f64a9e1b8c52fe24668b2e4f55
 articles:
   in-packages: in-packages.html
   nest: nest.html
   pivot: pivot.html
   rectangle: rectangle.html
   tidy-data: tidy-data.html
-last_built: 2020-04-02T16:49Z
+last_built: 2020-04-21T21:39Z
 urls:
   reference: https://tidyr.tidyverse.org/reference
   article: https://tidyr.tidyverse.org/articles

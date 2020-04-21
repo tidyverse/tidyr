@@ -12,10 +12,11 @@
 <link rel="apple-touch-icon" type="image/png" sizes="120x120" href="apple-touch-icon-120x120.png">
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="apple-touch-icon-76x76.png">
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="apple-touch-icon-60x60.png">
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="tidyverse.css" rel="stylesheet">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
+<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="tidyverse.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="bootstrap-toc.css">
+<script src="bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
+<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
 <script src="pkgdown.js"></script><link href="tidyverse-2.css" rel="stylesheet">
 <meta property="og:title" content="Tidy Messy Data">
 <meta property="og:description" content="Tools to help to create tidy data, where each column is a 
@@ -53,7 +54,7 @@
 
       <div class="navbar-brand-container">
         <a class="navbar-brand" href="index.html">tidyr</a>
-        <div class="info">
+        <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
           <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.0.2.9000</span>
         </div>
@@ -163,7 +164,7 @@
 <li>Every row is an observation.</li>
 <li>Every cell is a single value.</li>
 </ol>
-<p>Tidy data describes a standard way of storing data that is used wherever possible throughout the <a href="https://tidyverse.org">tidyverse</a>. If you ensure that your data is tidy, youâll spend less time fighting with the tools and more time working on your analysis. Learn more about tidy data in <code><a href="articles/tidy-data.html">vignette("tidy-data")</a></code>.</p>
+<p>Tidy data describes a standard way of storing data that is used wherever possible throughout the <a href="https://tidyverse.org">tidyverse</a>. If you ensure that your data is tidy, you’ll spend less time fighting with the tools and more time working on your analysis. Learn more about tidy data in <code><a href="articles/tidy-data.html">vignette("tidy-data")</a></code>.</p>
 </div>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
@@ -189,8 +190,8 @@
 <div class="sourceCode" id="cb2"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">tidyr</span>)</pre></div>
 <p>tidyr functions fall into five main categories:</p>
 <ul>
-<li><p>âPivottingâ which converts between long and wide forms. tidyr 1.0.0 introduces <code><a href="reference/pivot_longer.html">pivot_longer()</a></code> and <code><a href="reference/pivot_wider.html">pivot_wider()</a></code>, replacing the older <code><a href="reference/spread.html">spread()</a></code> and <code><a href="reference/gather.html">gather()</a></code> functions. See <code><a href="articles/pivot.html">vignette("pivot")</a></code> for more details.</p></li>
-<li><p>âRectanglingâ, which turns deeply nested lists (as from JSON) into tidy tibbles. See <code><a href="reference/hoist.html">unnest_longer()</a></code>, <code><a href="reference/hoist.html">unnest_wider()</a></code>, <code><a href="reference/hoist.html">hoist()</a></code>, and <code><a href="articles/rectangle.html">vignette("rectangle")</a></code> for more details.</p></li>
+<li><p>“Pivotting” which converts between long and wide forms. tidyr 1.0.0 introduces <code><a href="reference/pivot_longer.html">pivot_longer()</a></code> and <code><a href="reference/pivot_wider.html">pivot_wider()</a></code>, replacing the older <code><a href="reference/spread.html">spread()</a></code> and <code><a href="reference/gather.html">gather()</a></code> functions. See <code><a href="articles/pivot.html">vignette("pivot")</a></code> for more details.</p></li>
+<li><p>“Rectangling”, which turns deeply nested lists (as from JSON) into tidy tibbles. See <code><a href="reference/hoist.html">unnest_longer()</a></code>, <code><a href="reference/hoist.html">unnest_wider()</a></code>, <code><a href="reference/hoist.html">hoist()</a></code>, and <code><a href="articles/rectangle.html">vignette("rectangle")</a></code> for more details.</p></li>
 <li><p>Nesting converts grouped data to a form where each group becomes a single row containing a nested data frame, and unnesting does the opposite. See <code><a href="reference/nest.html">nest()</a></code>, <code><a href="reference/nest.html">unnest()</a></code>, and <code><a href="articles/nest.html">vignette("nest")</a></code> for more details.</p></li>
 <li><p>Splitting and combining character columns. Use <code><a href="reference/separate.html">separate()</a></code> and <code><a href="reference/extract.html">extract()</a></code> to pull a single character column into multiple columns; use <code><a href="reference/unite.html">unite()</a></code> to combine multiple columns into a single character column.</p></li>
 <li><p>Make implicit missing values explicit with <code><a href="reference/complete.html">complete()</a></code>; make explicit missing values implicit with <code><a href="reference/drop_na.html">drop_na()</a></code>; replace missing values with next/previous value with <code><a href="reference/fill.html">fill()</a></code>, or a known value with <code><a href="reference/replace_na.html">replace_na()</a></code>.</p></li>
@@ -201,13 +202,13 @@
 <a href="#related-work" class="anchor"></a>Related work</h2>
 <p>tidyr replaces reshape2 (2010-2014) and reshape (2005-2010). Somewhat counterintuitively, each iteration of the package has done less. tidyr is designed specifically for tidying data, not general reshaping (reshape2), or the general aggregation (reshape).</p>
 <p><a href="http://r-datatable.com/">data.table</a> provides high-performance implementations of <code>melt()</code> and <code>dcast()</code></p>
-<p>If youâd like to read more about data reshaping from a CS perspective, Iâd recommend the following three papers:</p>
+<p>If you’d like to read more about data reshaping from a CS perspective, I’d recommend the following three papers:</p>
 <ul>
 <li><p><a href="http://vis.stanford.edu/papers/wrangler">Wrangler: Interactive visual specification of data transformation scripts</a></p></li>
-<li><p><a href="https://www.eecs.berkeley.edu/Pubs/TechRpts/2000/CSD-00-1110.pdf">An interactive framework for data cleaning</a> (Potterâs wheel)</p></li>
+<li><p><a href="https://www.eecs.berkeley.edu/Pubs/TechRpts/2000/CSD-00-1110.pdf">An interactive framework for data cleaning</a> (Potter’s wheel)</p></li>
 <li><p><a href="https://www.vldb.org/conf/1999/P45.pdf">On efficiently implementing SchemaSQL on a SQL database system</a></p></li>
 </ul>
-<p>To guide your reading, hereâs a translation between the terminology used in different places:</p>
+<p>To guide your reading, here’s a translation between the terminology used in different places:</p>
 <table class="table">
 <thead><tr class="header">
 <th>tidyr</th>

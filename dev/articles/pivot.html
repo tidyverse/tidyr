@@ -12,10 +12,11 @@
 <link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png">
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png">
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="../tidyverse.css" rel="stylesheet">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
+<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="../tidyverse.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
+<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
 <script src="../pkgdown.js"></script><link href="../tidyverse-2.css" rel="stylesheet">
 <meta property="og:title" content="Pivoting">
 <meta property="og:description" content="tidyr">
@@ -47,7 +48,7 @@
 
       <div class="navbar-brand-container">
         <a class="navbar-brand" href="../index.html">tidyr</a>
-        <div class="info">
+        <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
           <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.0.2.9000</span>
         </div>
@@ -483,16 +484,16 @@
     <span class="kw">names_pattern</span> <span class="kw">=</span> <span class="st">"(.)(.)"</span>
   )
 <span class="co">#&gt; # A tibble: 8 x 6</span>
-<span class="co">#&gt;       x     a     b time       y     z</span>
-<span class="co">#&gt;   &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;  &lt;dbl&gt; &lt;dbl&gt;</span>
-<span class="co">#&gt; 1     1     1     0 1     -0.184     3</span>
-<span class="co">#&gt; 2     1     1     0 2      1.05     -2</span>
-<span class="co">#&gt; 3     2     1     1 1      0.750     3</span>
-<span class="co">#&gt; 4     2     1     1 2      2.10     -2</span>
-<span class="co">#&gt; 5     3     0     1 1     -0.521     3</span>
-<span class="co">#&gt; 6     3     0     1 2     -1.68     -2</span>
-<span class="co">#&gt; 7     4     0     1 1      1.33      3</span>
-<span class="co">#&gt; 8     4     0     1 2      0.624    -2</span></pre></body></html></div>
+<span class="co">#&gt;       x     a     b time        y     z</span>
+<span class="co">#&gt;   &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt;</span>
+<span class="co">#&gt; 1     1     1     0 1     -0.972      3</span>
+<span class="co">#&gt; 2     1     1     0 2     -1.75      -2</span>
+<span class="co">#&gt; 3     2     1     1 1      0.281      3</span>
+<span class="co">#&gt; 4     2     1     1 2      0.644     -2</span>
+<span class="co">#&gt; 5     3     0     1 1     -0.361      3</span>
+<span class="co">#&gt; 6     3     0     1 2     -1.14      -2</span>
+<span class="co">#&gt; 7     4     0     1 1     -0.0241     3</span>
+<span class="co">#&gt; 8     4     0     1 2     -0.0158    -2</span></pre></body></html></div>
 </div>
 <div id="duplicated-column-names" class="section level2">
 <h2 class="hasAnchor">
@@ -667,16 +668,16 @@
 <span class="co">#&gt; # A tibble: 45 x 4</span>
 <span class="co">#&gt;    product country  year production</span>
 <span class="co">#&gt;    &lt;chr&gt;   &lt;chr&gt;   &lt;int&gt;      &lt;dbl&gt;</span>
-<span class="co">#&gt;  1 A       AI       2000      1.14 </span>
-<span class="co">#&gt;  2 A       AI       2001     -0.395</span>
-<span class="co">#&gt;  3 A       AI       2002     -0.986</span>
-<span class="co">#&gt;  4 A       AI       2003      0.618</span>
-<span class="co">#&gt;  5 A       AI       2004     -1.86 </span>
-<span class="co">#&gt;  6 A       AI       2005      1.87 </span>
-<span class="co">#&gt;  7 A       AI       2006      0.426</span>
-<span class="co">#&gt;  8 A       AI       2007      0.299</span>
-<span class="co">#&gt;  9 A       AI       2008     -1.25 </span>
-<span class="co">#&gt; 10 A       AI       2009     -0.460</span>
+<span class="co">#&gt;  1 A       AI       2000     0.428 </span>
+<span class="co">#&gt;  2 A       AI       2001    -1.07  </span>
+<span class="co">#&gt;  3 A       AI       2002     0.227 </span>
+<span class="co">#&gt;  4 A       AI       2003    -0.607 </span>
+<span class="co">#&gt;  5 A       AI       2004    -0.0142</span>
+<span class="co">#&gt;  6 A       AI       2005    -2.09  </span>
+<span class="co">#&gt;  7 A       AI       2006    -1.57  </span>
+<span class="co">#&gt;  8 A       AI       2007     0.365 </span>
+<span class="co">#&gt;  9 A       AI       2008     0.237 </span>
+<span class="co">#&gt; 10 A       AI       2009     1.50  </span>
 <span class="co">#&gt; # … with 35 more rows</span></pre></body></html></div>
 <p>We want to widen the data so we have one column for each combination of <code>product</code> and <code>country</code>. The key is to specify multiple variables for <code>names_from</code>:</p>
 <div class="sourceCode" id="cb26"><html><body><pre class="r"><span class="no">production</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/pivot_wider.html">pivot_wider</a></span>(
@@ -684,18 +685,18 @@
   <span class="kw">values_from</span> <span class="kw">=</span> <span class="no">production</span>
 )
 <span class="co">#&gt; # A tibble: 15 x 4</span>
-<span class="co">#&gt;     year   A_AI   B_AI    B_EI</span>
-<span class="co">#&gt;    &lt;int&gt;  &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;</span>
-<span class="co">#&gt;  1  2000  1.14  -0.154 -0.800 </span>
-<span class="co">#&gt;  2  2001 -0.395 -0.655  0.515 </span>
-<span class="co">#&gt;  3  2002 -0.986  0.516  1.08  </span>
-<span class="co">#&gt;  4  2003  0.618 -0.734 -1.53  </span>
-<span class="co">#&gt;  5  2004 -1.86   0.637  0.845 </span>
-<span class="co">#&gt;  6  2005  1.87  -1.62  -0.390 </span>
-<span class="co">#&gt;  7  2006  0.426 -0.122  1.10  </span>
-<span class="co">#&gt;  8  2007  0.299  0.176 -1.76  </span>
-<span class="co">#&gt;  9  2008 -1.25  -0.359 -0.661 </span>
-<span class="co">#&gt; 10  2009 -0.460  1.05  -0.0264</span>
+<span class="co">#&gt;     year    A_AI    B_AI   B_EI</span>
+<span class="co">#&gt;    &lt;int&gt;   &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;</span>
+<span class="co">#&gt;  1  2000  0.428  -0.935  -0.224</span>
+<span class="co">#&gt;  2  2001 -1.07    0.237  -0.660</span>
+<span class="co">#&gt;  3  2002  0.227   1.88    0.323</span>
+<span class="co">#&gt;  4  2003 -0.607   0.826   0.721</span>
+<span class="co">#&gt;  5  2004 -0.0142 -1.20   -0.132</span>
+<span class="co">#&gt;  6  2005 -2.09   -1.25   -0.665</span>
+<span class="co">#&gt;  7  2006 -1.57    1.20   -2.15 </span>
+<span class="co">#&gt;  8  2007  0.365  -1.94   -0.129</span>
+<span class="co">#&gt;  9  2008  0.237  -0.0638  0.400</span>
+<span class="co">#&gt; 10  2009  1.50    0.827  -1.56 </span>
 <span class="co">#&gt; # … with 5 more rows</span></pre></body></html></div>
 </div>
 <div id="tidy-census" class="section level2">
