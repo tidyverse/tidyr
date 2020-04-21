@@ -1,5 +1,8 @@
 # tidyr (development version)
 
+* `pivot_wider()` gains a `names_glue` argument that allows you to construct
+  output column names with a glue specification.
+
 * `pivot_wider()` can now pivot data frame columns (#926)
 
 * `chop()` now creates list-columns of class `vctrs::list_of()`. This

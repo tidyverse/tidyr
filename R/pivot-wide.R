@@ -38,6 +38,9 @@
 #' @param names_prefix String added to the start of every variable name. This is
 #'   particularly useful if `names_from` is a numeric vector and you want to
 #'   create syntactic variable names.
+#' @param names_glue Instead of `names_sep` and `names_prefix`, you can supply
+#'   a glue specification that uses the `names_from` columns (and special
+#'   `.value`) to create custom column names.
 #' @param values_fill Optionally, a value that specifies what each `value`
 #'   should be filled in with when missing.
 #'
@@ -65,6 +68,21 @@
 #' us_rent_income %>%
 #'   pivot_wider(names_from = variable, values_from = c(estimate, moe))
 #'
+#' # When there are multiple `names_from` or `values_from`, you can use
+#' # use `names_sep` or `names_glue` to control the output variable names
+#' us_rent_income %>%
+#'   pivot_wider(
+#'     names_from = variable,
+#'     names_sep = ".",
+#'     values_from = c(estimate, moe)
+#'   )
+#' us_rent_income %>%
+#'   pivot_wider(
+#'     names_from = variable,
+#'     names_glue = "{variable}_{.value}",
+#'     values_from = c(estimate, moe)
+#'   )
+#'
 #' # Can perform aggregation with values_fn
 #' warpbreaks <- as_tibble(warpbreaks[c("wool", "tension", "breaks")])
 #' warpbreaks
@@ -79,6 +97,7 @@ pivot_wider <- function(data,
                         names_from = name,
                         names_prefix = "",
                         names_sep = "_",
+                        names_glue = NULL,
                         names_repair = "check_unique",
                         values_from = value,
                         values_fill = NULL,
@@ -90,7 +109,8 @@ pivot_wider <- function(data,
     names_from = !!names_from,
     values_from = !!values_from,
     names_prefix = names_prefix,
-    names_sep = names_sep
+    names_sep = names_sep,
+    names_glue = names_glue
   )
 
   id_cols <- enquo(id_cols)
@@ -240,7 +260,8 @@ build_wider_spec <- function(data,
                              names_from = name,
                              values_from = value,
                              names_prefix = "",
-                             names_sep = "_") {
+                             names_sep = "_",
+                             names_glue = NULL) {
   names_from <- tidyselect::vars_select(tbl_vars(data), !!enquo(names_from))
   values_from <- tidyselect::vars_select(tbl_vars(data), !!enquo(values_from))
 
@@ -261,7 +282,12 @@ build_wider_spec <- function(data,
     row_ids <- vec_repeat(row_ids, times = vec_size(values_from))
   }
 
-  vec_cbind(out, as_tibble(row_ids), .name_repair = "minimal")
+  out <- vec_cbind(out, as_tibble(row_ids), .name_repair = "minimal")
+  if (!is.null(names_glue)) {
+    out$.name <- as.character(glue::glue_data(out, names_glue))
+  }
+
+  out
 }
 
 # quiet R CMD check

@@ -19,7 +19,8 @@ build_wider_spec(
   names_from = name,
   values_from = value,
   names_prefix = "",
-  names_sep = "_"
+  names_sep = "_",
+  names_glue = NULL
 )
 }
 \arguments{
@@ -85,6 +86,10 @@ create syntactic variable names.}
 \item{names_sep}{If \code{names_from} or \code{values_from} contains multiple
 variables, this will be used to join their values together into a single
 string to use as a column name.}
+
+\item{names_glue}{Instead of \code{names_sep} and \code{names_prefix}, you can supply
+a glue specification that uses the \code{names_from} columns (and special
+\code{.value}) to create custom column names.}
 }
 \description{
 This is a low level interface to pivotting, inspired by the cdata package,
