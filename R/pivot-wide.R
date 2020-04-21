@@ -299,7 +299,7 @@ vals_dedup <- function(key, val, value, summarize = NULL) {
 # Wrap a "rectangular" vector into a data frame
 wrap_vec <- function(vec, names) {
   ncol <- length(names)
-  nrow <- length(vec) / ncol
+  nrow <- vec_size(vec) / ncol
   out <- set_names(vec_init(list(), ncol), names)
   for (i in 1:ncol) {
     out[[i]] <- vec_slice(vec, ((i - 1) * nrow + 1):(i * nrow))

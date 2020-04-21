@@ -53,6 +53,18 @@ test_that("column with `...j` name can be used as `names_from`", {
   expect_equal(nrow(pv), 1)
 })
 
+test_that("data frame columns pivot correctly", {
+  df <- tibble(
+    i = c(1, 2, 1, 2),
+    g = c("a", "a", "b", "b"),
+    d = tibble(x = 1:4, y = 5:8)
+  )
+
+  out <- pivot_wider(df, names_from = g, values_from = d)
+  expect_equal(out$a$x, 1:2)
+  expect_equal(out$b$y, 7:8)
+})
+
 # keys ---------------------------------------------------------
 
 test_that("can override default keys", {

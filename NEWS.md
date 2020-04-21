@@ -1,5 +1,7 @@
 # tidyr (development version)
 
+* `pivot_wider()` can now pivot data frame columns (#926)
+
 * `chop()` now creates list-columns of class `vctrs::list_of()`. This
   helps keep track of the type in case the chopped data frame is
   empty. This allows `unchop()` to reconstitute a data frame with
