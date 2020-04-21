@@ -65,6 +65,21 @@ test_that("data frame columns pivot correctly", {
   expect_equal(out$b$y, 7:8)
 })
 
+
+# column names -------------------------------------------------------------
+
+test_that("names_glue affects output names", {
+  df <- tibble(
+    x = c("X", "Y"),
+    y = 1:2,
+    a = 1:2,
+    b = 1:2
+  )
+
+  spec <- build_wider_spec(df, x:y, a:b, names_glue = '{x}{y}_{.value}')
+  expect_equal(spec$.name, c("X1_a", "Y2_a", "X1_b", "Y2_b"))
+})
+
 # keys ---------------------------------------------------------
 
 test_that("can override default keys", {

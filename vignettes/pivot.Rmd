@@ -344,6 +344,24 @@ production %>% pivot_wider(
   values_from = production
 )
 ```
+
+When either `names_from` or `values_from` select multiple variables, you can control how the column names in the output constructed with `names_sep` and `names_prefix`, or the workhorse `names_glue`:
+
+```{r}
+production %>% pivot_wider(
+  names_from = c(product, country), 
+  values_from = production,
+  names_sep = ".",
+  names_prefix = "prod."
+)
+
+production %>% pivot_wider(
+  names_from = c(product, country), 
+  values_from = production,
+  names_glue = "prod_{product}_{country}"
+)
+```
+
 ## Tidy census
 
 The `us_rent_income` dataset contains information about median income and rent for each state in the US for 2017 (from the American Community Survey, retrieved with the [tidycensus][tidycensus] package).
