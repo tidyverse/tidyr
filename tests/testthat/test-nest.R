@@ -5,6 +5,7 @@ context("nest")
 test_that("nest turns grouped values into one list-df", {
   df <- tibble(x = c(1, 1, 1), y = 1:3)
   out <- nest(df, data = y)
+  expect_s3_class(out, "rowwise_df")
   expect_equal(out$x, 1)
   expect_equal(length(out$data), 1L)
   expect_equal(out$data[[1L]], tibble(y = 1:3))
@@ -13,14 +14,18 @@ test_that("nest turns grouped values into one list-df", {
 test_that("nest uses grouping vars if present", {
   df <- tibble(x = c(1, 1, 1), y = 1:3)
   out <- df %>% dplyr::group_by(x) %>% nest()
-  expect_s3_class(out, "grouped_df")
+  expect_s3_class(out, "rowwise_df")
+  if (packageVersion("dplyr") > "0.8.99") {
+    expect_equal(dplyr::group_vars(out), "x")
+  }
+
   expect_equal(out$data[[1]], tibble(y = 1:3))
 })
 
 test_that("provided grouping vars override grouped defaults", {
   df <- tibble(x = 1, y = 2, z = 3) %>% dplyr::group_by(x)
   out <- df %>% nest(data = y)
-  expect_s3_class(out, "grouped_df")
+  expect_s3_class(out, "rowwise_df")
   expect_named(out, c("x", "z", "data"))
   expect_named(out$data[[1]], "y")
 })

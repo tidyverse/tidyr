@@ -1,5 +1,8 @@
 # tidyr (development version)
 
+* `nest()` once again returns a `rowwise()` data frame, since dplyr 1.0.0
+  brings it back to life (#892).
+
 * `drop_na()` now preserves attributes of unclassed vectors (#905).
 
 * `pivot_wider()` gains a `names_glue` argument that allows you to construct

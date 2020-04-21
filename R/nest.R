@@ -90,7 +90,7 @@
 #' mtcars %>%
 #'   group_by(cyl) %>%
 #'   nest() %>%
-#'   mutate(models = lapply(data, function(df) lm(mpg ~ wt, data = df)))
+#'   mutate(model = list(lm(mpg ~ wt, data = data)))
 #'
 #' # unnest() is primarily designed to work with lists of data frames
 #' df <- tibble(
@@ -174,7 +174,8 @@ nest.tbl_df <- function(.data, ..., .names_sep = NULL, .key = deprecated()) {
   u_keys <- vec_unique(keys)
   out <- map(cols, ~ vec_split(set_names(.data[.x], names(.x)), keys)$val)
 
-  vec_cbind(u_keys, new_data_frame(out, n = nrow(u_keys)))
+  out <- vec_cbind(u_keys, new_data_frame(out, n = nrow(u_keys)))
+  dplyr::rowwise(out)
 }
 
 #' @export
@@ -188,7 +189,11 @@ nest.grouped_df <- function(.data, ..., .names_sep = NULL, .key = deprecated()) 
   }
   group_vars <- intersect(names(out), dplyr::group_vars(.data))
 
-  dplyr::grouped_df(out, group_vars)
+  if (packageVersion("dplyr") > "0.8.99") {
+    dplyr::rowwise(out, tidyselect::all_of(group_vars))
+  } else {
+    dplyr::rowwise(out)
+  }
 }
 
 check_key <- function(.key) {

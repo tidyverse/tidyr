@@ -311,58 +311,6 @@ if (tidyr_new_interface()) {
 }
 ```
 
-### `nest()` preserves groups
-
-What changed:
-
-* `nest()` now preserves the groups present in the input.
-
-Why it changed:
-
-* To reflect the growing support for grouped data frames, especially in recent
-  releases of dplyr. See, for example, `dplyr::group_modify()`, `group_map()`,
-  and friends.
-
-If the fact that `nest()` now preserves groups is problematic downstream, you have a few choices:
-
-* Apply `ungroup()` to the result. This level of pragmatism suggests, 
-  however, you should at least consider the next two options.
-  
-* You should never have grouped in the first place. Eliminate the 
-  `group_by()` call and specify which columns should be nested versus not 
-  nested directly in `nest()`.
-
-* Adjust the downstream code to accommodate grouping.
-
-Imagine we used `group_by()` then `nest()` on `mini_iris`, then we computed on the list-column *outside the data frame*.
-
-```{r}
-(df <- mini_iris %>% 
-   group_by(Species) %>% 
-   nest())
-(external_variable <- map_int(df$data, nrow))
-```
-
-And now we try to add that back to the data *post hoc*:
-
-```{r error = TRUE}
-df %>% 
-  mutate(n_rows = external_variable)
-```
-
-This fails because `df` is grouped and `mutate()` is group-aware, so it's hard to add a completely external variable. Other than pragmatically `ungroup()`ing, what can we do? One option is to work inside the data frame, i.e. bring the `map()` inside the `mutate()`, and design the problem away:
-
-```{r}
-df %>% 
-  mutate(n_rows = map_int(data, nrow))
-```
-
-If, somehow, the grouping seems appropriate AND working inside the data frame is not an option, `tibble::add_column()` is group-unaware. It lets you add external data to a grouped data frame.
-
-```{r}
-df %>% 
-  tibble::add_column(n_rows = external_variable)
-```
 
 ### `nest_()` and `unnest_()` are defunct
 

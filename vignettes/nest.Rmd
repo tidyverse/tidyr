@@ -82,7 +82,7 @@ Once you have a list of data frames, it's very natural to produce a list of mode
 
 ```{r}
 mtcars_nested <- mtcars_nested %>% 
-  mutate(model = map(data, function(df) lm(mpg ~ wt, data = df)))
+  mutate(model = list(lm(mpg ~ wt, data = data)))
 mtcars_nested
 ```
 
@@ -90,7 +90,7 @@ And then you could even produce a list of predictions:
 
 ```{r}
 mtcars_nested <- mtcars_nested %>% 
-  mutate(model = map(model, predict))
+  mutate(pred = list(predict(model, data)))
 mtcars_nested  
 ```
 

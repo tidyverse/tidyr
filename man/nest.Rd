@@ -157,7 +157,7 @@ fish_encounters \%>\%
 mtcars \%>\%
   group_by(cyl) \%>\%
   nest() \%>\%
-  mutate(models = lapply(data, function(df) lm(mpg ~ wt, data = df)))
+  mutate(model = list(lm(mpg ~ wt, data = data)))
 
 # unnest() is primarily designed to work with lists of data frames
 df <- tibble(
