@@ -212,7 +212,8 @@ that allows you to describe pivotting with a data frame.</p>
   <span class='kw'>names_from</span> <span class='kw'>=</span> <span class='no'>name</span>,
   <span class='kw'>values_from</span> <span class='kw'>=</span> <span class='no'>value</span>,
   <span class='kw'>names_prefix</span> <span class='kw'>=</span> <span class='st'>""</span>,
-  <span class='kw'>names_sep</span> <span class='kw'>=</span> <span class='st'>"_"</span>
+  <span class='kw'>names_sep</span> <span class='kw'>=</span> <span class='st'>"_"</span>,
+  <span class='kw'>names_glue</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -294,6 +295,12 @@ create syntactic variable names.</p></td>
       <td><p>If <code>names_from</code> or <code>values_from</code> contains multiple
 variables, this will be used to join their values together into a single
 string to use as a column name.</p></td>
+    </tr>
+    <tr>
+      <th>names_glue</th>
+      <td><p>Instead of <code>names_sep</code> and <code>names_prefix</code>, you can supply
+a glue specification that uses the <code>names_from</code> columns (and special
+<code>.value</code>) to create custom column names.</p></td>
     </tr>
     </table>
 

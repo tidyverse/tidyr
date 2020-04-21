@@ -195,6 +195,7 @@
 <a href="#tidyr-development-version" class="anchor"></a>tidyr (development version)<small> Unreleased </small>
 </h1>
 <ul>
+<li><p><code><a href="../reference/pivot_wider.html">pivot_wider()</a></code> gains a <code>names_glue</code> argument that allows you to construct output column names with a glue specification.</p></li>
 <li><p><code><a href="../reference/pivot_wider.html">pivot_wider()</a></code> can now pivot data frame columns (<a href='https://github.com/tidyverse/tidyr/issues/926'>#926</a>)</p></li>
 <li><p><code><a href="../reference/chop.html">chop()</a></code> now creates list-columns of class <code><a href="https://rdrr.io/pkg/vctrs/man/list_of.html">vctrs::list_of()</a></code>. This helps keep track of the type in case the chopped data frame is empty. This allows <code><a href="../reference/chop.html">unchop()</a></code> to reconstitute a data frame with the correct column types even when there are no observations.</p></li>
 <li><p><code><a href="../reference/chop.html">chop()</a></code> now preserves the width of the input data frame even when it has no observation.</p></li>

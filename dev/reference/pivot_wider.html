@@ -210,6 +210,7 @@ decreasing the number of rows. The inverse transformation is
   <span class='kw'>names_from</span> <span class='kw'>=</span> <span class='no'>name</span>,
   <span class='kw'>names_prefix</span> <span class='kw'>=</span> <span class='st'>""</span>,
   <span class='kw'>names_sep</span> <span class='kw'>=</span> <span class='st'>"_"</span>,
+  <span class='kw'>names_glue</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>names_repair</span> <span class='kw'>=</span> <span class='st'>"check_unique"</span>,
   <span class='kw'>values_from</span> <span class='kw'>=</span> <span class='no'>value</span>,
   <span class='kw'>values_fill</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
@@ -252,6 +253,12 @@ create syntactic variable names.</p></td>
       <td><p>If <code>names_from</code> or <code>values_from</code> contains multiple
 variables, this will be used to join their values together into a single
 string to use as a column name.</p></td>
+    </tr>
+    <tr>
+      <th>names_glue</th>
+      <td><p>Instead of <code>names_sep</code> and <code>names_prefix</code>, you can supply
+a glue specification that uses the <code>names_from</code> columns (and special
+<code>.value</code>) to create custom column names.</p></td>
     </tr>
     <tr>
       <th>names_repair</th>
@@ -368,6 +375,45 @@ defines a pivotting specification.</p></div>
 #&gt; </span><span style='color: #555555;'># … with 94 more rows</span><span></div><div class='input'><span class='no'>us_rent_income</span> <span class='kw'>%&gt;%</span>
   <span class='fu'>pivot_wider</span>(<span class='kw'>names_from</span> <span class='kw'>=</span> <span class='no'>variable</span>, <span class='kw'>values_from</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='no'>estimate</span>, <span class='no'>moe</span>))</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 52 x 6</span><span>
 #&gt;    GEOID NAME                 estimate_income estimate_rent moe_income moe_rent
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>                          </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>      </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'> 1</span><span> 01    Alabama                        </span><span style='text-decoration: underline;'>24</span><span>476           747        136        3
+#&gt; </span><span style='color: #555555;'> 2</span><span> 02    Alaska                         </span><span style='text-decoration: underline;'>32</span><span>940          </span><span style='text-decoration: underline;'>1</span><span>200        508       13
+#&gt; </span><span style='color: #555555;'> 3</span><span> 04    Arizona                        </span><span style='text-decoration: underline;'>27</span><span>517           972        148        4
+#&gt; </span><span style='color: #555555;'> 4</span><span> 05    Arkansas                       </span><span style='text-decoration: underline;'>23</span><span>789           709        165        5
+#&gt; </span><span style='color: #555555;'> 5</span><span> 06    California                     </span><span style='text-decoration: underline;'>29</span><span>454          </span><span style='text-decoration: underline;'>1</span><span>358        109        3
+#&gt; </span><span style='color: #555555;'> 6</span><span> 08    Colorado                       </span><span style='text-decoration: underline;'>32</span><span>401          </span><span style='text-decoration: underline;'>1</span><span>125        109        5
+#&gt; </span><span style='color: #555555;'> 7</span><span> 09    Connecticut                    </span><span style='text-decoration: underline;'>35</span><span>326          </span><span style='text-decoration: underline;'>1</span><span>123        195        5
+#&gt; </span><span style='color: #555555;'> 8</span><span> 10    Delaware                       </span><span style='text-decoration: underline;'>31</span><span>560          </span><span style='text-decoration: underline;'>1</span><span>076        247       10
+#&gt; </span><span style='color: #555555;'> 9</span><span> 11    District of Columbia           </span><span style='text-decoration: underline;'>43</span><span>198          </span><span style='text-decoration: underline;'>1</span><span>424        681       17
+#&gt; </span><span style='color: #555555;'>10</span><span> 12    Florida                        </span><span style='text-decoration: underline;'>25</span><span>952          </span><span style='text-decoration: underline;'>1</span><span>077         70        3
+#&gt; </span><span style='color: #555555;'># … with 42 more rows</span><span></div><div class='input'>
+<span class='co'># When there are multiple `names_from` or `values_from`, you can use</span>
+<span class='co'># use `names_sep` or `names_glue` to control the output variable names</span>
+<span class='no'>us_rent_income</span> <span class='kw'>%&gt;%</span>
+  <span class='fu'>pivot_wider</span>(
+    <span class='kw'>names_from</span> <span class='kw'>=</span> <span class='no'>variable</span>,
+    <span class='kw'>names_sep</span> <span class='kw'>=</span> <span class='st'>"."</span>,
+    <span class='kw'>values_from</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='no'>estimate</span>, <span class='no'>moe</span>)
+  )</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 52 x 6</span><span>
+#&gt;    GEOID NAME                 estimate.income estimate.rent moe.income moe.rent
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>                          </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>      </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'> 1</span><span> 01    Alabama                        </span><span style='text-decoration: underline;'>24</span><span>476           747        136        3
+#&gt; </span><span style='color: #555555;'> 2</span><span> 02    Alaska                         </span><span style='text-decoration: underline;'>32</span><span>940          </span><span style='text-decoration: underline;'>1</span><span>200        508       13
+#&gt; </span><span style='color: #555555;'> 3</span><span> 04    Arizona                        </span><span style='text-decoration: underline;'>27</span><span>517           972        148        4
+#&gt; </span><span style='color: #555555;'> 4</span><span> 05    Arkansas                       </span><span style='text-decoration: underline;'>23</span><span>789           709        165        5
+#&gt; </span><span style='color: #555555;'> 5</span><span> 06    California                     </span><span style='text-decoration: underline;'>29</span><span>454          </span><span style='text-decoration: underline;'>1</span><span>358        109        3
+#&gt; </span><span style='color: #555555;'> 6</span><span> 08    Colorado                       </span><span style='text-decoration: underline;'>32</span><span>401          </span><span style='text-decoration: underline;'>1</span><span>125        109        5
+#&gt; </span><span style='color: #555555;'> 7</span><span> 09    Connecticut                    </span><span style='text-decoration: underline;'>35</span><span>326          </span><span style='text-decoration: underline;'>1</span><span>123        195        5
+#&gt; </span><span style='color: #555555;'> 8</span><span> 10    Delaware                       </span><span style='text-decoration: underline;'>31</span><span>560          </span><span style='text-decoration: underline;'>1</span><span>076        247       10
+#&gt; </span><span style='color: #555555;'> 9</span><span> 11    District of Columbia           </span><span style='text-decoration: underline;'>43</span><span>198          </span><span style='text-decoration: underline;'>1</span><span>424        681       17
+#&gt; </span><span style='color: #555555;'>10</span><span> 12    Florida                        </span><span style='text-decoration: underline;'>25</span><span>952          </span><span style='text-decoration: underline;'>1</span><span>077         70        3
+#&gt; </span><span style='color: #555555;'># … with 42 more rows</span><span></div><div class='input'><span class='no'>us_rent_income</span> <span class='kw'>%&gt;%</span>
+  <span class='fu'>pivot_wider</span>(
+    <span class='kw'>names_from</span> <span class='kw'>=</span> <span class='no'>variable</span>,
+    <span class='kw'>names_glue</span> <span class='kw'>=</span> <span class='st'>"{variable}_{.value}"</span>,
+    <span class='kw'>values_from</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='no'>estimate</span>, <span class='no'>moe</span>)
+  )</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 52 x 6</span><span>
+#&gt;    GEOID NAME                 income_estimate rent_estimate income_moe rent_moe
 #&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>                          </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>      </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
 #&gt; </span><span style='color: #555555;'> 1</span><span> 01    Alabama                        </span><span style='text-decoration: underline;'>24</span><span>476           747        136        3
 #&gt; </span><span style='color: #555555;'> 2</span><span> 02    Alaska                         </span><span style='text-decoration: underline;'>32</span><span>940          </span><span style='text-decoration: underline;'>1</span><span>200        508       13
