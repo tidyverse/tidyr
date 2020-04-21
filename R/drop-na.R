@@ -25,7 +25,7 @@ drop_na.data.frame <- function(data, ...) {
   } else {
     f <- complete_cases(data[vars])
   }
-  out <- data[f, , drop = FALSE]
+  out <- vec_slice(data, f)
 
   reconstruct_tibble(data, out)
 }

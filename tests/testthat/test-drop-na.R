@@ -54,3 +54,10 @@ test_that("works with list-cols", {
 
   expect_identical(rs, tibble(x = list(1L), y = 1L))
 })
+
+test_that("preserves attributes", {
+  df <- tibble(x = structure(c(1, NA), attr = "!"))
+  rs <- drop_na(df)
+
+  expect_equal(rs$x, structure(1, attr = "!"))
+})

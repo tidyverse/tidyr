@@ -1,5 +1,7 @@
 # tidyr (development version)
 
+* `drop_na()` now preserves attributes of unclassed vectors (#905).
+
 * `pivot_wider()` gains a `names_glue` argument that allows you to construct
   output column names with a glue specification.
 
