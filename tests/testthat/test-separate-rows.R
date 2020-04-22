@@ -35,6 +35,12 @@ test_that("drops grouping when needed", {
   expect_equal(dplyr::group_vars(out), character())
 })
 
+test_that("drops grouping on zero row data frames when needed (#886)", {
+  df <- tibble(x = numeric(), y = character()) %>% dplyr::group_by(y)
+  out <- df %>% separate_rows(y)
+  expect_equal(dplyr::group_vars(out), character())
+})
+
 test_that("convert produces integers etc", {
   df <- tibble(x = "1,2,3", y = "T,F,T", z = "a,b,c")
 

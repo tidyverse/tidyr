@@ -96,26 +96,169 @@ unchop <- function(data, cols, keep_empty = FALSE, ptype = NULL) {
     }
   }
 
-  # If multiple columns, create one data frame for each row
-  # https://github.com/tidyverse/tibble/issues/580
-  x <- pmap(as.list(data)[cols], vec_recycle_common)
-  x <- map(x, ~ new_data_frame(drop_null(.x)))
+  # In case `x` is a grouped data frame and any `cols` are lists,
+  # in which case `[.grouped_df` will error
+  cols <- new_data_frame(unclass(data)[cols])
 
-  n <- map_int(x, vec_size)
-  out <- vec_slice(data, rep(vec_seq_along(data), n))
+  res <- df_unchop_info(cols, ptype)
+  new_cols <- res$val
+  slice_loc <- res$loc
 
-  if (nrow(data) == 0) {
-    new_cols <- map(data[cols], ~ attr(.x, "ptype") %||% unspecified(0))
-  } else {
-    new_cols <- vec_rbind(!!!x, .ptype = ptype)
-  }
+  out <- vec_slice(data, slice_loc)
 
   out <- update_cols(out, new_cols)
   reconstruct_tibble(data, out)
 }
 
-
 # Helpers -----------------------------------------------------------------
+
+# `df_unchop_info()` takes a data frame and unchops every column separately.
+# This preserves the width, but changes the size. Rows that are made entirely of
+# list column elements of `NULL` are dropped. If `x` has any data frame columns,
+# these will be improperly treated as lists until `vec_slice2()` is implemented,
+# but this should be extremely rare.
+
+# `df_unchop_info()` returns a data frame of two columns:
+# - `loc` locations that map each row to their original row in `x`. Generally
+#   used to slice the data frame `x` was subset from to align it with `val`.
+# - `val` the unchopped data frame.
+
+df_unchop_info <- function(x, ptype) {
+  width <- length(x)
+  size <- vec_size(x)
+
+  seq_len_width <- seq_len(width)
+  seq_len_size <- seq_len(size)
+
+  sizes <- rep_len(NA_integer_, size)
+
+  # Gather the common size of each row.
+  # Effectively equivalent to creating a `[vec_size(x), length(x)]` matrix,
+  # taking the size of each individual element of `x`, and then taking the
+  # common size of each row.
+  # `NULL` elements are ignored in the size calculation by treating their
+  # size as `NA` and then deferring to the size of any other element in the row.
+  # If only `NULL` values are in the row, the `NA` size is finalised to `0`.
+  for (i in seq_len_width) {
+    col <- x[[i]]
+
+    for (j in seq_len_size) {
+      # TODO: col[[j]] -> vec_slice2(col, j)
+      elt <- col[[j]]
+
+      old_size <- sizes[[j]]
+      new_size <- tidyr_size(elt)
+
+      sizes[[j]] <- tidyr_size2(old_size, new_size)
+    }
+  }
+
+  sizes <- map_int(sizes, tidyr_size_finalise)
+
+  has_ptype <- !is.null(ptype)
+  if (has_ptype && !is.data.frame(ptype)) {
+    abort("`ptype` must be a data frame")
+  }
+
+  # Initialize `cols` with ptypes to retain types when `x` has 0 size
+  cols <- map(x, df_unchop_ptype)
+  pieces <- vector("list", size)
+
+  names <- names(x)
+  names(cols) <- names
+
+  for (i in seq_len_width) {
+    col <- x[[i]]
+
+    for (j in seq_len_size) {
+      # TODO: col[[j]] -> vec_slice2(col, j)
+      elt <- col[[j]]
+      size <- sizes[[j]]
+
+      # Recycle each row element to the common size of that row
+      pieces[[j]] <- tidyr_recycle(elt, size)
+    }
+
+    if (has_ptype) {
+      col_ptype <- ptype[[names[[i]]]]
+    } else {
+      col_ptype <- NULL
+    }
+
+    # After unchopping, all columns will have the same size
+    # thanks to recycling
+    col <- vec_unchop(pieces, ptype = col_ptype)
+
+    # Avoid `NULL` assignment, which removes elements from the list
+    if (is.null(col)) {
+      next
+    }
+
+    cols[[i]] <- col
+  }
+
+  out_size <- sum(sizes)
+
+  loc <- rep(seq_len_size, sizes)
+
+  val <- new_data_frame(cols, n = out_size)
+  if (!is.null(ptype)) {
+    val <- vec_cast(val, ptype)
+  }
+
+  out <- list(loc = loc, val = val)
+  out <- new_data_frame(out, n = out_size)
+
+  out
+}
+
+df_unchop_ptype <- function(x) {
+  if (vec_is_list(x)) {
+    attr(x, "ptype") %||% unspecified(0L)
+  } else {
+    vec_ptype(x)
+  }
+}
+
+tidyr_size_finalise <- function(size) {
+  if (is.na(size)) {
+    0L
+  } else {
+    size
+  }
+}
+
+tidyr_recycle <- function(x, size) {
+  if (is.null(x)) {
+    unspecified(size)
+  } else {
+    vec_recycle(x, size)
+  }
+}
+
+tidyr_size <- function(x) {
+  if (is.null(x)) {
+    NA_integer_
+  } else {
+    vec_size(x)
+  }
+}
+
+tidyr_size2 <- function(x, y) {
+  if (is.na(x)) {
+    y
+  } else if (is.na(y)) {
+    x
+  } else if (x == y) {
+    x
+  } else if (x == 1L) {
+    y
+  } else if (y == 1L) {
+    x
+  } else {
+    abort(paste0("Incompatible lengths: ", x, ", ", y, "."))
+  }
+}
 
 init_col <- function(x) {
   if (is_null(x)) {

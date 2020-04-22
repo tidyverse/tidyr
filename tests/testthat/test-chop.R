@@ -53,11 +53,12 @@ test_that("unchopping nothing leaves input unchanged", {
 })
 
 test_that("NULL inputs are automatically dropped", {
-  df <- tibble(x = 1:2, y = list(NULL, 1:2))
-  out <- df %>% unchop(c(x, y))
+  df <- tibble(x = 1:4, y = list(NULL, 1:2, 4, NULL), z = list(NULL, 1:2, NULL, 5))
+  out <- df %>% unchop(c(y, z))
 
-  expect_equal(out$x, c(1, 2, 2))
-  expect_equal(out$y, c(NA, 1, 2))
+  expect_equal(out$x, c(2, 2, 3, 4))
+  expect_equal(out$y, c(1, 2, 4, NA))
+  expect_equal(out$z, c(1, 2, NA, 5))
 })
 
 test_that("optionally keep empty rows", {
@@ -86,6 +87,40 @@ test_that("grouping is preserved", {
   df <- tibble(g = 1, x = list(1, 2))
   out <- df %>% dplyr::group_by(g) %>% unchop(x)
   expect_equal(dplyr::group_vars(out), "g")
+})
+
+test_that("unchop() only creates unspecified vectors for empty lists", {
+  df <- data.frame(x = integer(), y = integer())
+  expect_identical(unchop(df, y)$y, integer())
+
+  df <- tibble(x = integer(), y = data.frame(z = integer()))
+  expect_identical(unchop(df, y)$y, data.frame(z = integer()))
+})
+
+test_that("correctly performs tidy recycling with size 1 inputs", {
+  df <- tibble(x = list(1, 2:3), y = list(2:3, 1))
+  expect <- tibble(x = c(1, 1, 2, 3), y = c(2, 3, 1, 1))
+  expect_identical(unchop(df, c(x, y)), expect)
+})
+
+test_that("can specify a ptype with extra columns", {
+  df <- tibble(x = 1, y = list(1, 2))
+  ptype <- tibble(y = numeric(), z = numeric())
+
+  expect <- tibble(x = c(1, 1), y = c(1, 2), z = c(NA_real_, NA_real_))
+
+  expect_identical(unchop(df, y, ptype = ptype), expect)
+})
+
+test_that("can specify a ptype to force an output type", {
+  df <- tibble(x = list(1L, 2L))
+  ptype <- tibble(x = numeric())
+
+  expect_identical(unchop(df, x, ptype = ptype), tibble(x = c(1, 2)))
+})
+
+test_that("the ptype must be a data frame", {
+  expect_error(unchop(mtcars, mpg, ptype = 1), "`ptype` must be a data frame")
 })
 
 test_that("can unchop empty data frame", {
