@@ -58,6 +58,7 @@ test_that("input validation catches problems", {
 
   expect_error(df %>% hoist(y), "list-column")
   expect_error(df %>% hoist(x, 1), "named")
+  expect_error(df %>% hoist(x, a = "a", a = "b"), "unique")
 })
 
 test_that("string pluckers are automatically named", {

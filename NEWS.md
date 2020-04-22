@@ -1,5 +1,7 @@
 # tidyr (development version)
 
+* `hoist()` errors if you use duplicated column names (@mgirlich, #834).
+
 * `hoist()` now automatically names pluckers that are a single string (#837).
 
 * `drop_na()` now preserves attributes of unclassed vectors (#905).

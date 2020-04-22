@@ -45,8 +45,10 @@
 #'   vector, by position with an integer vector, or with a combination of the
 #'   two with a list. See [purrr::pluck()] for details.
 #'
-#'   When plucking with a single string you can choose to omit the name;
-#'   `hoist(df, col, "x")` is short-hand for `hoist(df, col, x = "x")`.
+#'   The column names must be unique in a call to `hoist()`, although existing
+#'   columns with the same name will be overwritten. When plucking with a
+#'   single string you can choose to omit the name, i.e. `hoist(df, col, "x")`
+#'   is short-hand for `hoist(df, col, x = "x")`.
 #' @param .simplify If `TRUE`, will attempt to simplify lists of length-1
 #'   vectors to an atomic vector
 #' @param .ptype Optionally, a named list of prototypes declaring the desired
@@ -165,6 +167,10 @@ check_pluckers <- function(...) {
 
   if (!is_named(pluckers)) {
     stop("All elements of `...` must be named", call. = FALSE)
+  }
+
+  if (vec_duplicate_any(names(pluckers))) {
+    abort("The names of `...` must be unique")
   }
 
   pluckers
