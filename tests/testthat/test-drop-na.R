@@ -26,7 +26,7 @@ test_that("groups are preserved", {
 
   res <- tidyr::drop_na(gdf, y)
   expect_equal(res, gexp)
-  expect_equal(dplyr::groups(res), dplyr::groups(gexp))
+  expect_equal(dplyr::group_vars(res), dplyr::group_vars(gexp))
 })
 
 test_that("empty call drops every row", {
@@ -53,4 +53,11 @@ test_that("works with list-cols", {
   rs <- drop_na(df)
 
   expect_identical(rs, tibble(x = list(1L), y = 1L))
+})
+
+test_that("preserves attributes", {
+  df <- tibble(x = structure(c(1, NA), attr = "!"))
+  rs <- drop_na(df)
+
+  expect_equal(rs$x, structure(1, attr = "!"))
 })

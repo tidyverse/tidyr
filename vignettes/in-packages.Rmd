@@ -284,7 +284,7 @@ Why it changed:
   
 * The changes to details arguments relate to features rolling out
   across multiple packages in the tidyverse. For example, `ptype` exposes
-  protoype support from the new [vctrs package](https://vctrs.r-lib.org).
+  prototype support from the new [vctrs package](https://vctrs.r-lib.org).
   `names_repair` specifies what to do about duplicated or non-syntactic names,
   consistent with tibble and readxl.
 

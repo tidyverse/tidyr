@@ -68,7 +68,7 @@ users %>% hoist(user,
 
 `hoist()` removes the named components from the `user` list-column, so you can think of it as moving components out of the inner list into the top-level data frame. 
 
-## Github repos
+## GitHub repos
 
 We start off `gh_repos` similarly, by putting it in a tibble:
 

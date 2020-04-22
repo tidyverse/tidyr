@@ -71,7 +71,7 @@ test_that("group_vars are kept where possible", {
 
   # Can keep
   out <- df %>% dplyr::group_by(x) %>% gather(key, val, y:z)
-  expect_equal(dplyr::groups(out), list(quote(x)))
+  expect_equal(dplyr::group_vars(out), "x")
 })
 
 test_that("overwrites existing vars", {
@@ -136,9 +136,6 @@ test_that("gather throws error for weird objects", {
   df$x <- e
   expect_error(gather(df, key, val, -x), "atomic vectors or list")
   expect_error(gather(df, key, val, -y), "atomic vectors or list")
-
-  df <- tibble(tibble(x = 1))
-  expect_error(gather(df), "atomic vectors or lists")
 })
 
 

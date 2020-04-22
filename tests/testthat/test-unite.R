@@ -19,14 +19,14 @@ test_that("unite preserves grouping", {
   rs <- df %>% unite(x, x)
   expect_equal(df, rs)
   expect_equal(class(df), class(rs))
-  expect_equal(dplyr::groups(df), dplyr::groups(rs))
+  expect_equal(dplyr::group_vars(df), dplyr::group_vars(rs))
 })
 
 test_that("drops grouping when needed", {
   df <- tibble(g = 1, x = "a") %>% dplyr::group_by(g)
   rs <- df %>% unite(gx, g, x)
   expect_equal(rs$gx, "1_a")
-  expect_equal(dplyr::groups(rs), NULL)
+  expect_equal(dplyr::group_vars(rs), character())
 })
 
 test_that("empty var spec uses all vars", {

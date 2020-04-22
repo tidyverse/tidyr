@@ -46,7 +46,7 @@
 #'   If these arguments do not give you enough control, use
 #'   `pivot_longer_spec()` to create a spec object and process manually as
 #'   needed.
-#' @param names_repair What happen if the output has invalid column names?
+#' @param names_repair What happens if the output has invalid column names?
 #'   The default, `"check_unique"` is to error if the columns are duplicated.
 #'   Use `"minimal"` to allow duplicates in the output, or `"unique"` to
 #'   de-duplicated by adding numeric suffixes. See [vctrs::vec_as_names()]
@@ -88,7 +88,7 @@
 #'    values_drop_na = TRUE
 #'  )
 #'
-#' # Multiple variables stored in colum names
+#' # Multiple variables stored in column names
 #' who %>% pivot_longer(
 #'   cols = new_sp_m014:newrel_f65,
 #'   names_to = c("diagnosis", "gender", "age"),
@@ -147,8 +147,33 @@ pivot_longer <- function(data,
 #'  column names turns into columns in the result.
 #'
 #'   Must be a data frame containing character `.name` and `.value` columns.
+#'   Additional columns in `spec` should be named to match columns in the
+#'   long format of the dataset and contain values corresponding to columns
+#'   pivoted from the wide format.
 #'   The special `.seq` variable is used to disambiguate rows internally;
 #'   it is automatically removed after pivotting.
+#'
+#' @examples
+#' # See vignette("pivot") for examples and explanation
+#'
+#' # Use `build_longer_spec()` to build `spec` using similar syntax to `pivot_longer()`
+#' # and run `pivot_longer_spec()` based on `spec`.
+#' spec <- relig_income %>% build_longer_spec(
+#'   cols = -religion,
+#'   names_to = "income",
+#'   values_to = "count"
+#' )
+#'
+#' spec
+#'
+#' pivot_longer_spec(relig_income, spec)
+#'
+#' # Is equivalent to:
+#' relig_income %>% pivot_longer(
+#'   cols = -religion,
+#'   names_to = "income",
+#'   values_to = "count")
+#'
 pivot_longer_spec <- function(data,
                               spec,
                               names_repair = "check_unique",
@@ -195,7 +220,7 @@ pivot_longer_spec <- function(data,
   # Join together df, spec, and val to produce final tibble
   df_out <- drop_cols(data, spec$.name)
   out <- wrap_error_names(vec_cbind(
-    vec_slice(df_out, rows$df_id),
+    as_tibble(vec_slice(df_out, rows$df_id)),
     vec_slice(keys, rows$key_id),
     vec_slice(vals, rows$val_id),
     .name_repair = names_repair
@@ -214,7 +239,7 @@ build_longer_spec <- function(data, cols,
                               names_sep = NULL,
                               names_pattern = NULL,
                               names_ptypes = NULL) {
-  cols <- tidyselect::vars_select(unique(names(data)), !!enquo(cols))
+  cols <- unname(tidyselect::vars_select(unique(names(data)), !!enquo(cols)))
   if (length(cols) == 0) {
     abort(glue::glue("`cols` must select at least one column."))
   }
@@ -282,7 +307,7 @@ deduplicate_spec <- function(spec, df) {
   # Ensure each .name has a unique output identifier
   key <- spec[setdiff(names(spec), ".name")]
   if (vec_duplicate_any(key)) {
-    pos <- vec_group_pos(key)$pos
+    pos <- vec_group_loc(key)$loc
     seq <- vector("integer", length = nrow(spec))
     for (i in seq_along(pos)) {
       seq[pos[[i]]] <- seq_along(pos[[i]])

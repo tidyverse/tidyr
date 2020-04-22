@@ -3,7 +3,7 @@
 #' A subset of data from the World Health Organization Global Tuberculosis
 #' Report, and accompanying global populations.
 #'
-#' @format A dataset with the variables
+#' @format `who`: a data frame with 7,240 rows and the columns:
 #' \describe{
 #'   \item{country}{Country name}
 #'   \item{iso2, iso3}{2 & 3 letter ISO country codes}
@@ -26,6 +26,12 @@
 "who"
 
 #' @rdname who
+#' @format `population`: a data frame with 4,060 rows and three columns:
+#' \describe{
+#'   \item{country}{Country name}
+#'   \item{year}{Year}
+#'   \item{population}{Population}
+#' }
 "population"
 
 #' Example tabular representations
@@ -43,21 +49,27 @@
 #' Organization Global Tuberculosis Report
 #'
 #' @source <https://www.who.int/tb/country/data/download/en/>
+#' @format NULL
 "table1"
 
 #' @rdname table1
+#' @format NULL
 "table2"
 
 #' @rdname table1
+#' @format NULL
 "table3"
 
 #' @rdname table1
+#' @format NULL
 "table4a"
 
 #' @rdname table1
+#' @format NULL
 "table4b"
 
 #' @rdname table1
+#' @format NULL
 "table5"
 
 #' Some data about the Smith family

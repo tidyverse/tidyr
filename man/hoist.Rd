@@ -39,7 +39,10 @@ unnest_auto(data, col)
 \item{...}{Components of \code{.col} to turn into columns in the form
 \code{col_name = "pluck_specification"}. You can pluck by name with a character
 vector, by position with an integer vector, or with a combination of the
-two with a list. See \code{\link[purrr:pluck]{purrr::pluck()}} for details.}
+two with a list. See \code{\link[purrr:pluck]{purrr::pluck()}} for details.
+
+When plucking with a single string you can choose to omit the name;
+\code{hoist(df, col, "x")} is short-hand for \code{hoist(df, col, x = "x")}.}
 
 \item{.remove}{If \code{TRUE}, the default, will remove extracted components
 from \code{.col}. This ensures that each value lives only in one place.}
@@ -157,7 +160,7 @@ df \%>\% unnest_wider(metadata)
 
 # Extract only specified components
 df \%>\% hoist(metadata,
-  species = "species",
+  "species",
   first_film = list("films", 1L),
   third_film = list("films", 3L)
 )

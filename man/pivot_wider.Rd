@@ -10,6 +10,7 @@ pivot_wider(
   names_from = name,
   names_prefix = "",
   names_sep = "_",
+  names_glue = NULL,
   names_repair = "check_unique",
   values_from = value,
   values_fill = NULL,
@@ -43,7 +44,11 @@ create syntactic variable names.}
 variables, this will be used to join their values together into a single
 string to use as a column name.}
 
-\item{names_repair}{What happen if the output has invalid column names?
+\item{names_glue}{Instead of \code{names_sep} and \code{names_prefix}, you can supply
+a glue specification that uses the \code{names_from} columns (and special
+\code{.value}) to create custom column names.}
+
+\item{names_repair}{What happens if the output has invalid column names?
 The default, \code{"check_unique"} is to error if the columns are duplicated.
 Use \code{"minimal"} to allow duplicates in the output, or \code{"unique"} to
 de-duplicated by adding numeric suffixes. See \code{\link[vctrs:vec_as_names]{vctrs::vec_as_names()}}
@@ -91,6 +96,21 @@ fish_encounters \%>\%
 us_rent_income
 us_rent_income \%>\%
   pivot_wider(names_from = variable, values_from = c(estimate, moe))
+
+# When there are multiple `names_from` or `values_from`, you can use
+# use `names_sep` or `names_glue` to control the output variable names
+us_rent_income \%>\%
+  pivot_wider(
+    names_from = variable,
+    names_sep = ".",
+    values_from = c(estimate, moe)
+  )
+us_rent_income \%>\%
+  pivot_wider(
+    names_from = variable,
+    names_glue = "{variable}_{.value}",
+    values_from = c(estimate, moe)
+  )
 
 # Can perform aggregation with values_fn
 warpbreaks <- as_tibble(warpbreaks[c("wool", "tension", "breaks")])

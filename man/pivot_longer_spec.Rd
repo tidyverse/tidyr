@@ -32,10 +32,13 @@ pivots because it gives you greater control on how metadata stored in the
 column names turns into columns in the result.
 
 Must be a data frame containing character \code{.name} and \code{.value} columns.
+Additional columns in \code{spec} should be named to match columns in the
+long format of the dataset and contain values corresponding to columns
+pivoted from the wide format.
 The special \code{.seq} variable is used to disambiguate rows internally;
 it is automatically removed after pivotting.}
 
-\item{names_repair}{What happen if the output has invalid column names?
+\item{names_repair}{What happens if the output has invalid column names?
 The default, \code{"check_unique"} is to error if the columns are duplicated.
 Use \code{"minimal"} to allow duplicates in the output, or \code{"unique"} to
 de-duplicated by adding numeric suffixes. See \code{\link[vctrs:vec_as_names]{vctrs::vec_as_names()}}
@@ -120,5 +123,27 @@ will be the common type of the input columns used to generate them.}
 \description{
 This is a low level interface to pivotting, inspired by the cdata package,
 that allows you to describe pivotting with a data frame.
+}
+\examples{
+# See vignette("pivot") for examples and explanation
+
+# Use `build_longer_spec()` to build `spec` using similar syntax to `pivot_longer()`
+# and run `pivot_longer_spec()` based on `spec`.
+spec <- relig_income \%>\% build_longer_spec(
+  cols = -religion,
+  names_to = "income",
+  values_to = "count"
+)
+
+spec
+
+pivot_longer_spec(relig_income, spec)
+
+# Is equivalent to:
+relig_income \%>\% pivot_longer(
+  cols = -religion,
+  names_to = "income",
+  values_to = "count")
+
 }
 \keyword{internal}

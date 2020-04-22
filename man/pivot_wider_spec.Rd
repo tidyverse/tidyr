@@ -19,13 +19,25 @@ build_wider_spec(
   names_from = name,
   values_from = value,
   names_prefix = "",
-  names_sep = "_"
+  names_sep = "_",
+  names_glue = NULL
 )
 }
 \arguments{
 \item{data}{A data frame to pivot.}
 
-\item{names_repair}{What happen if the output has invalid column names?
+\item{spec}{A specification data frame. This is useful for more complex
+pivots because it gives you greater control on how metadata stored in the
+columns become column names in the result.
+
+Must be a data frame containing character \code{.name} and \code{.value} columns.
+Additional columns in \code{spec} should be named to match columns in the
+long format of the dataset and contain values corresponding to columns
+pivoted from the wide format.
+The special \code{.seq} variable is used to disambiguate rows internally;
+it is automatically removed after pivotting.}
+
+\item{names_repair}{What happens if the output has invalid column names?
 The default, \code{"check_unique"} is to error if the columns are duplicated.
 Use \code{"minimal"} to allow duplicates in the output, or \code{"unique"} to
 de-duplicated by adding numeric suffixes. See \code{\link[vctrs:vec_as_names]{vctrs::vec_as_names()}}
@@ -74,9 +86,40 @@ create syntactic variable names.}
 \item{names_sep}{If \code{names_from} or \code{values_from} contains multiple
 variables, this will be used to join their values together into a single
 string to use as a column name.}
+
+\item{names_glue}{Instead of \code{names_sep} and \code{names_prefix}, you can supply
+a glue specification that uses the \code{names_from} columns (and special
+\code{.value}) to create custom column names.}
 }
 \description{
 This is a low level interface to pivotting, inspired by the cdata package,
 that allows you to describe pivotting with a data frame.
+}
+\examples{
+# See vignette("pivot") for examples and explanation
+
+us_rent_income
+spec1 <- us_rent_income \%>\%
+  build_wider_spec(names_from = variable, values_from = c(estimate, moe))
+spec1
+
+us_rent_income \%>\%
+  pivot_wider_spec(spec1)
+
+# Is equivalent to
+us_rent_income \%>\%
+  pivot_wider(names_from = variable, values_from = c(estimate, moe))
+
+# `pivot-wider_spec()` provides more control over column names and output format
+# instead of creating columns with estimate_ and moe_ prefixes,
+# keep original variable name for estimates and attach _moe as suffix
+spec2 <- tibble(
+  .name = c("income", "rent", "income_moe", "rent_moe"),
+  .value = c("estimate", "estimate", "moe", "moe"),
+  variable = c("income", "rent", "income", "rent")
+)
+
+us_rent_income \%>\%
+  pivot_wider_spec(spec2)
 }
 \keyword{internal}
