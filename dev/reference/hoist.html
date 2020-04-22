@@ -254,7 +254,9 @@ based heuristics described below.</p>
       <td><p>Components of <code>.col</code> to turn into columns in the form
 <code>col_name = "pluck_specification"</code>. You can pluck by name with a character
 vector, by position with an integer vector, or with a combination of the
-two with a list. See <code><a href='https://purrr.tidyverse.org/reference/pluck.html'>purrr::pluck()</a></code> for details.</p></td>
+two with a list. See <code><a href='https://purrr.tidyverse.org/reference/pluck.html'>purrr::pluck()</a></code> for details.</p>
+<p>When plucking with a single string you can choose to omit the name;
+<code>hoist(df, col, "x")</code> is short-hand for <code>hoist(df, col, x = "x")</code>.</p></td>
     </tr>
     <tr>
       <th>.remove</th>
@@ -385,7 +387,7 @@ common acros all components, it uses <code>unnest_wider()</code></p></li>
 #&gt; </span><span style='color: #555555;'>2</span><span> Dory      blue tang blue  </span><span style='color: #555555;'>&lt;chr [2]&gt;</span><span></div><div class='input'>
 <span class='co'># Extract only specified components</span>
 <span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>hoist</span>(<span class='no'>metadata</span>,
-  <span class='kw'>species</span> <span class='kw'>=</span> <span class='st'>"species"</span>,
+  <span class='st'>"species"</span>,
   <span class='kw'>first_film</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='st'>"films"</span>, <span class='fl'>1L</span>),
   <span class='kw'>third_film</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='st'>"films"</span>, <span class='fl'>3L</span>)
 )</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 2 x 5</span><span>
