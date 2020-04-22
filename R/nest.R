@@ -172,7 +172,7 @@ nest.tbl_df <- function(.data, ..., .names_sep = NULL, .key = deprecated()) {
   asis <- setdiff(names(.data), unlist(cols))
 
   keys <- .data[asis]
-  if (has_length(asis) || vec_size(keys) != 0) {
+  if (length(keys) != 0 || vec_size(keys) != 0) {
     u_keys <- vec_unique(keys)
     out <- map(cols, ~ vec_split(set_names(.data[.x], names(.x)), keys)$val)
   } else {
