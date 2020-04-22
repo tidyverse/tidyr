@@ -44,6 +44,9 @@
 #'   `col_name = "pluck_specification"`. You can pluck by name with a character
 #'   vector, by position with an integer vector, or with a combination of the
 #'   two with a list. See [purrr::pluck()] for details.
+#'
+#'   When plucking with a single string you can choose to omit the name;
+#'   `hoist(df, col, "x")` is short-hand for `hoist(df, col, x = "x")`.
 #' @param .simplify If `TRUE`, will attempt to simplify lists of length-1
 #'   vectors to an atomic vector
 #' @param .ptype Optionally, a named list of prototypes declaring the desired
@@ -77,7 +80,7 @@
 #'
 #' # Extract only specified components
 #' df %>% hoist(metadata,
-#'   species = "species",
+#'   "species",
 #'   first_film = list("films", 1L),
 #'   third_film = list("films", 3L)
 #' )
@@ -115,10 +118,7 @@ hoist <- function(.data, .col, ..., .remove = TRUE, .simplify = TRUE, .ptype = l
     abort("`col` must be a list-column")
   }
 
-  pluckers <- list2(...)
-  if (!is_named(pluckers)) {
-    stop("All elements of `...` must be named", call. = FALSE)
-  }
+  pluckers <- check_pluckers(...)
 
   new_cols <- map(pluckers, function(idx) {
     map(x, ~ purrr::pluck(.x, !!!idx))
@@ -151,6 +151,23 @@ hoist <- function(.data, .col, ..., .remove = TRUE, .simplify = TRUE, .ptype = l
   out[[.col]] <- x
 
   out
+}
+
+check_pluckers <- function(...) {
+  pluckers <- list2(...)
+
+  is_string <- vapply(pluckers, function(x) is.character(x) && length(x) == 1, logical(1))
+  auto_name <- names2(pluckers) == "" & is_string
+
+  if (any(auto_name)) {
+    names(pluckers)[auto_name] <- unlist(pluckers[auto_name])
+  }
+
+  if (!is_named(pluckers)) {
+    stop("All elements of `...` must be named", call. = FALSE)
+  }
+
+  pluckers
 }
 
 #' @export

@@ -46,7 +46,12 @@ test_that("input validation catches problems", {
   df <- tibble(x = list(list(1, b = "b")), y = 1)
 
   expect_error(df %>% hoist(y), "list-column")
-  expect_error(df %>% hoist(x, "a"), "named")
+  expect_error(df %>% hoist(x, 1), "named")
+})
+
+test_that("string pluckers are automatically named", {
+  out <- check_pluckers("x", y = "x", z = 1)
+  expect_named(out, c("x", "y", "z"))
 })
 
 # strike ------------------------------------------------------------------

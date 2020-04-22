@@ -1,5 +1,7 @@
 # tidyr (development version)
 
+* `hoist()` now automatically names pluckers that are a single string (#837).
+
 * `drop_na()` now preserves attributes of unclassed vectors (#905).
 
 * `pivot_wider()` gains a `names_glue` argument that allows you to construct
