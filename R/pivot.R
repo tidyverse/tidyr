@@ -10,10 +10,6 @@ check_spec <- function(spec) {
     stop("`spec` must have `.name` and `.value` columns", call. = FALSE)
   }
 
-  if (ncol(spec) == 2) {
-    stop("`spec` must have at least 3 columns", call. = FALSE)
-  }
-
   # Ensure .name and .value come first
   vars <- union(c(".name", ".value"), names(spec))
   spec[vars]

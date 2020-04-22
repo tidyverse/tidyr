@@ -7,15 +7,27 @@
 \alias{unnest_auto}
 \title{Rectangle a nested list into a tidy tibble}
 \usage{
-hoist(.data, .col, ..., .remove = TRUE, .simplify = TRUE,
-  .ptype = list())
+hoist(.data, .col, ..., .remove = TRUE, .simplify = TRUE, .ptype = list())
 
-unnest_longer(data, col, values_to = NULL, indices_to = NULL,
-  indices_include = NULL, names_repair = "check_unique",
-  simplify = TRUE, ptype = list())
+unnest_longer(
+  data,
+  col,
+  values_to = NULL,
+  indices_to = NULL,
+  indices_include = NULL,
+  names_repair = "check_unique",
+  simplify = TRUE,
+  ptype = list()
+)
 
-unnest_wider(data, col, names_sep = NULL, simplify = TRUE,
-  names_repair = "check_unique", ptype = list())
+unnest_wider(
+  data,
+  col,
+  names_sep = NULL,
+  simplify = TRUE,
+  names_repair = "check_unique",
+  ptype = list()
+)
 
 unnest_auto(data, col)
 }
@@ -42,7 +54,7 @@ output type of each component.}
 
 \item{indices_to}{A string giving the name of column which will contain the
 inner names or position (if not named) of the values. Defaults to \code{col}
-with \code{_id} suffix}
+with \verb{_id} suffix}
 
 \item{indices_include}{Add an index column? Defaults to \code{TRUE} when \code{col}
 has inner names.}
@@ -69,12 +81,9 @@ vectors to an atomic vector}
 overriding the default that will be guessed from the combination of
 individual values.}
 
-\item{names_sep}{If \code{NULL}, the default, the names of new columns will
-come directly from the inner data frame.
-
-If a string, the names of the new columns will be formed by pasting
-together the outer column name with the inner names, separated by
-\code{names_sep}.}
+\item{names_sep}{If \code{NULL}, the default, the names will be left
+as is. If a string, the inner and outer names will be paste together using
+\code{names_sep} as a separator.}
 }
 \description{
 \Sexpr[results=rd, stage=render]{lifecycle::badge("maturing")}
@@ -135,7 +144,7 @@ df <- tibble(
        )
     ),
     list(
-      species = "clownfish",
+      species = "blue tang",
       color = "blue",
       films = c("Finding Nemo", "Finding Dory")
     )
@@ -156,6 +165,7 @@ df \%>\% hoist(metadata,
 df \%>\%
   unnest_wider(metadata) \%>\%
   unnest_longer(films)
+
 # unnest_longer() is useful when each component of the list should
 # form a row
 df <- tibble(
@@ -165,6 +175,8 @@ df <- tibble(
 df \%>\% unnest_longer(y)
 # Automatically creates names if widening
 df \%>\% unnest_wider(y)
+# But you'll usually want to provide names_sep:
+df \%>\% unnest_wider(y, names_sep = "_")
 
 # And similarly if the vectors are named
 df <- tibble(

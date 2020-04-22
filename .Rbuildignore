@@ -18,3 +18,5 @@
 ^\.github$
 ^vignettes/.*_cache
 ^pkgdown$
+^\.github/workflows/R\.yaml$
+^\.github/workflows/pr-commands\.yaml$

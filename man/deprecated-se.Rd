@@ -28,23 +28,53 @@ crossing_(x)
 
 nesting_(x)
 
-extract_(data, col, into, regex = "([[:alnum:]]+)", remove = TRUE,
-  convert = FALSE, ...)
+extract_(
+  data,
+  col,
+  into,
+  regex = "([[:alnum:]]+)",
+  remove = TRUE,
+  convert = FALSE,
+  ...
+)
 
 fill_(data, fill_cols, .direction = c("down", "up"))
 
-gather_(data, key_col, value_col, gather_cols, na.rm = FALSE,
-  convert = FALSE, factor_key = FALSE)
+gather_(
+  data,
+  key_col,
+  value_col,
+  gather_cols,
+  na.rm = FALSE,
+  convert = FALSE,
+  factor_key = FALSE
+)
 
 nest_(...)
 
 separate_rows_(data, cols, sep = "[^[:alnum:].]+", convert = FALSE)
 
-separate_(data, col, into, sep = "[^[:alnum:]]+", remove = TRUE,
-  convert = FALSE, extra = "warn", fill = "warn", ...)
+separate_(
+  data,
+  col,
+  into,
+  sep = "[^[:alnum:]]+",
+  remove = TRUE,
+  convert = FALSE,
+  extra = "warn",
+  fill = "warn",
+  ...
+)
 
-spread_(data, key_col, value_col, fill = NA, convert = FALSE,
-  drop = TRUE, sep = NULL)
+spread_(
+  data,
+  key_col,
+  value_col,
+  fill = NA,
+  convert = FALSE,
+  drop = TRUE,
+  sep = NULL
+)
 
 unite_(data, col, from, sep = "_", remove = TRUE)
 
@@ -58,22 +88,25 @@ use instead of \code{NA} for missing combinations.}
 
 \item{...}{Specification of columns to expand. Columns can be atomic vectors
 or lists.
-
-To find all unique combinations of x, y and z, including those not
-found in the data, supply each variable as a separate argument.
-To find only the combinations that occur in the data, use nest:
-\code{expand(df, nesting(x, y, z))}.
-
-You can combine the two forms. For example,
+\itemize{
+\item To find all unique combinations of \code{x}, \code{y} and \code{z}, including those not
+present in the data, supply each variable as a separate argument:
+\code{expand(df, x, y, z)}.
+\item To find only the combinations that occur in the
+data, use \code{nesting}: \code{expand(df, nesting(x, y, z))}.
+\item You can combine the two forms. For example,
 \code{expand(df, nesting(school_id, student_id), date)} would produce
-a row for every student for each date.
+a row for each present school-student combination for all possible
+dates.
+}
 
-For factors, the full set of levels (not just those that appear in the
-data) are used. For continuous variables, you may need to fill in values
-that don't appear in the data: to do so use expressions like
-\code{year = 2010:2020} or \code{year = \link{full_seq}(year,1)}.
+When used with factors, \code{expand()} uses the full set of levels, not just
+those that appear in the data. If you want to use only the values seen in
+the data, use \code{forcats::fct_drop()}.
 
-Length-zero (empty) elements are automatically dropped.}
+When used with continuous variables, you may need to fill in values
+that do not appear in the data: to do so use expressions like
+\code{year = 2010:2020} or \verb{year = \link{full_seq}(year,1)}.}
 
 \item{vars, cols, col}{Name of columns.}
 
@@ -83,7 +116,7 @@ Length-zero (empty) elements are automatically dropped.}
 Use \code{NA} to omit the variable in the output.}
 
 \item{regex}{a \link[stringi:stringi-search-regex]{regular expression} used to extract the desired values.
-There should be one group (defined by \code{()}) for each element of \code{into}.  This must be passed in as a string.}
+There should be one group (defined by \verb{()}) for each element of \code{into}.  This must be passed in as a string.}
 
 \item{remove}{If \code{TRUE}, remove input column from output data frame.}
 
@@ -99,8 +132,7 @@ NB: this will cause string \code{"NA"}s to be converted to \code{NA}s.}
 either "down" (the default), "up", "downup" (i.e. first down and then up)
 or "updown" (first up and then down).}
 
-\item{key_col, value_col}{Strings giving names of key and value columns to
-create.}
+\item{key_col, value_col}{Strings giving names of key and value cols.}
 
 \item{gather_cols}{Character vector giving column names to be gathered into
 pair of key-value columns.}
@@ -112,7 +144,8 @@ value column is \code{NA}.}
 stored as a character vector. If \code{TRUE}, will be stored as a factor,
 which preserves the original ordering of the columns.}
 
-\item{sep}{Separator delimiting collapsed values.}
+\item{sep}{\Sexpr[results=rd, stage=render]{lifecycle::badge("deprecated")}:
+use \code{names_sep} instead.}
 
 \item{extra}{If \code{sep} is a character vector, this controls what
 happens when there are too many pieces. There are three valid options:
@@ -122,14 +155,14 @@ happens when there are too many pieces. There are three valid options:
 \item "merge": only splits at most \code{length(into)} times
 }}
 
-\item{drop}{If \code{FALSE}, will keep factor levels that don't appear in the
-data, filling in missing combinations with \code{fill}.}
+\item{drop}{\Sexpr[results=rd, stage=render]{lifecycle::badge("deprecated")}:
+all list-columns are now preserved; If there are any that you
+don't want in the output use \code{select()} to remove them prior to
+unnesting.}
 
 \item{from}{Names of existing columns as character vector}
 
 \item{expand_cols}{Character vector of column names to be expanded.}
-
-\item{key_col, value_col}{Strings giving names of key and value cols.}
 }
 \description{
 \Sexpr[results=rd, stage=render]{lifecycle::badge("deprecated")}

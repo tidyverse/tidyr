@@ -13,6 +13,14 @@ test_that("can match multiple groups", {
   expect_equal(out$B, c("b", "d", "c"))
 })
 
+test_that("can drop groups", {
+  df <- data.frame(x = c("a.b.e", "a.d.f", "b.c.g"))
+  out <- df %>% extract(x, c("x", NA, "y"), "([a-z])\\.([a-z])\\.([a-z])")
+  expect_named(out, c("x", "y"))
+  expect_equal(out$y, c("e", "f", "g"))
+})
+
+
 test_that("match failures give NAs", {
   df <- data.frame(x = c("a.b", "a"))
   out <- df %>% extract(x, "a", "(b)")
@@ -36,7 +44,7 @@ test_that("groups are preserved", {
   df <- tibble(g = 1, x = "X1") %>% dplyr::group_by(g)
   rs <- df %>% extract(x, c("x", "y"), "(.)(.)")
   expect_equal(class(df), class(rs))
-  expect_equal(dplyr::groups(df), dplyr::groups(rs))
+  expect_equal(dplyr::group_vars(df), dplyr::group_vars(rs))
 })
 
 test_that("informative error message if wrong number of groups", {

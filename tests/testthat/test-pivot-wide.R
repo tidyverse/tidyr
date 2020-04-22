@@ -25,7 +25,7 @@ test_that("implicit missings turn into explicit missings", {
   expect_equal(pv$y, c(NA, 2))
 })
 
-test_that("warn when overwriting existing column", {
+test_that("error when overwriting existing column", {
   df <- tibble(
     a = c(1, 1),
     key = c("a", "b"),
@@ -43,6 +43,41 @@ test_that("grouping is preserved", {
     dplyr::group_by(g) %>%
     pivot_wider(names_from = k, values_from = v)
   expect_equal(dplyr::group_vars(out), "g")
+})
+
+# https://github.com/tidyverse/tidyr/issues/804
+test_that("column with `...j` name can be used as `names_from`", {
+  df <- tibble(...8 = c("x", "y", "z"), val = 1:3)
+  pv <- pivot_wider(df, names_from = ...8, values_from = val)
+  expect_named(pv, c("x", "y", "z"))
+  expect_equal(nrow(pv), 1)
+})
+
+test_that("data frame columns pivot correctly", {
+  df <- tibble(
+    i = c(1, 2, 1, 2),
+    g = c("a", "a", "b", "b"),
+    d = tibble(x = 1:4, y = 5:8)
+  )
+
+  out <- pivot_wider(df, names_from = g, values_from = d)
+  expect_equal(out$a$x, 1:2)
+  expect_equal(out$b$y, 7:8)
+})
+
+
+# column names -------------------------------------------------------------
+
+test_that("names_glue affects output names", {
+  df <- tibble(
+    x = c("X", "Y"),
+    y = 1:2,
+    a = 1:2,
+    b = 1:2
+  )
+
+  spec <- build_wider_spec(df, x:y, a:b, names_glue = '{x}{y}_{.value}')
+  expect_equal(spec$.name, c("X1_a", "Y2_a", "X1_b", "Y2_b"))
 })
 
 # keys ---------------------------------------------------------
@@ -70,7 +105,7 @@ test_that("duplicated keys produce list column with warning", {
   )
 
   expect_equal(pv$a, c(1, 2))
-  expect_equal(pv$x, list_of(c(1L, 2L), 3L))
+  expect_equal(as.list(pv$x), list(c(1L, 2L), 3L))
 })
 
 test_that("warning suppressed by supplying values_fn", {
@@ -84,7 +119,13 @@ test_that("warning suppressed by supplying values_fn", {
     NA
   )
   expect_equal(pv$a, c(1, 2))
-  expect_equal(pv$x, list_of(c(1L, 2L), 3L))
+  expect_equal(as.list(pv$x), list(c(1L, 2L), 3L))
+})
+
+test_that("values_fn can be a single function", {
+  df <- tibble(a = c(1, 1, 2), key = c("x", "x", "x"), val = c(1, 10, 100))
+  pv <- pivot_wider(df, names_from = key, values_from = val, values_fn = sum)
+  expect_equal(pv$x, c(11, 100))
 })
 
 test_that("values_summarize applied even when no-duplicates", {
@@ -96,7 +137,28 @@ test_that("values_summarize applied even when no-duplicates", {
   )
 
   expect_equal(pv$a, c(1, 2))
-  expect_equal(pv$x, list_of(1L, 2L))
+  expect_equal(as.list(pv$x), list(1L, 2L))
+})
+
+
+# can fill missing cells --------------------------------------------------
+
+test_that("can fill in missing cells", {
+  df <- tibble(g = c(1, 2), var = c("x", "y"), val = c(1, 2))
+
+  widen <- function(...) {
+    df %>% pivot_wider(names_from = var, values_from = val, ...)
+  }
+
+  expect_equal(widen()$x, c(1, NA))
+  expect_equal(widen(values_fill = 0)$x, c(1, 0))
+  expect_equal(widen(values_fill = list(val = 0))$x, c(1, 0))
+})
+
+test_that("values_fill only affects missing cells", {
+  df <- tibble(g = c(1, 2), names = c("x", "y"), value = c(1, NA))
+  out <- pivot_wider(df, names_from = names, values_from = value, values_fill = 0 )
+  expect_equal(out$y, c(0, NA))
 })
 
 # multiple values ----------------------------------------------------------

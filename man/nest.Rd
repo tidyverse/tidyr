@@ -5,12 +5,21 @@
 \alias{unnest}
 \title{Nest and unnest}
 \usage{
-nest(.data, ..., .key = deprecated())
+nest(.data, ..., .names_sep = NULL, .key = deprecated())
 
-unnest(data, cols, ..., keep_empty = FALSE, ptype = NULL,
-  names_sep = NULL, names_repair = "check_unique",
-  .drop = deprecated(), .id = deprecated(), .sep = deprecated(),
-  .preserve = deprecated())
+unnest(
+  data,
+  cols,
+  ...,
+  keep_empty = FALSE,
+  ptype = NULL,
+  names_sep = NULL,
+  names_repair = "check_unique",
+  .drop = deprecated(),
+  .id = deprecated(),
+  .sep = deprecated(),
+  .preserve = deprecated()
+)
 }
 \arguments{
 \item{.data}{A data frame.}
@@ -49,12 +58,16 @@ of missing values.}
 overriding the default that will be guessed from the combination of
 individual values.}
 
-\item{names_sep}{If \code{NULL}, the default, the names of new columns will
-come directly from the inner data frame.
+\item{names_sep, .names_sep}{If \code{NULL}, the default, the names will be left
+as is. In \code{nest()}, inner names will come from the former outer names;
+in \code{unnest()}, the new outer names will come from the inner names.
 
-If a string, the names of the new columns will be formed by pasting
-together the outer column name with the inner names, separated by
-\code{names_sep}.}
+If a string, the inner and outer names will be used together. In \code{nest()},
+the names of the new outer columns will be formed by pasting together the
+outer and the inner column names, separated by \code{names_sep}. In \code{unnest()},
+the new inner names will have the outer names (+ \code{names_sep}) automatically
+stripped. This makes \code{names_sep} roughly symmetric between nesting and
+unnesting.}
 
 \item{names_repair}{Used to check that output data frame has valid
 names. Must be one of the following options:
@@ -77,7 +90,7 @@ don't want in the output use \code{select()} to remove them prior to
 unnesting.}
 
 \item{.id}{\Sexpr[results=rd, stage=render]{lifecycle::badge("deprecated")}:
-convert \code{df \%>\% unnest(x, .id = "id")} to \code{df \%>\% mutate(id = names(x)) \%>\% unnest(x))}.}
+convert \code{df \%>\% unnest(x, .id = "id")} to \verb{df \%>\% mutate(id = names(x)) \%>\% unnest(x))}.}
 
 \item{.sep}{\Sexpr[results=rd, stage=render]{lifecycle::badge("deprecated")}:
 use \code{names_sep} instead.}

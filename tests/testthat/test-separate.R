@@ -82,14 +82,14 @@ test_that("preserves grouping", {
   df <- tibble(g = 1, x = "a:b") %>% dplyr::group_by(g)
   rs <- df %>% separate(x, c("a", "b"))
   expect_equal(class(df), class(rs))
-  expect_equal(dplyr::groups(df), dplyr::groups(rs))
+  expect_equal(dplyr::group_vars(df), dplyr::group_vars(rs))
 })
 
 test_that("drops grouping when needed", {
   df <- tibble(x = "a:b") %>% dplyr::group_by(x)
   rs <- df %>% separate(x, c("a", "b"))
   expect_equal(rs$a, "a")
-  expect_equal(dplyr::groups(rs), NULL)
+  expect_equal(dplyr::group_vars(rs), character())
 })
 
 test_that("overwrites existing columns", {
