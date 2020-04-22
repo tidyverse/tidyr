@@ -53,6 +53,33 @@ test_that("column with `...j` name can be used as `names_from`", {
   expect_equal(nrow(pv), 1)
 })
 
+test_that("data frame columns pivot correctly", {
+  df <- tibble(
+    i = c(1, 2, 1, 2),
+    g = c("a", "a", "b", "b"),
+    d = tibble(x = 1:4, y = 5:8)
+  )
+
+  out <- pivot_wider(df, names_from = g, values_from = d)
+  expect_equal(out$a$x, 1:2)
+  expect_equal(out$b$y, 7:8)
+})
+
+
+# column names -------------------------------------------------------------
+
+test_that("names_glue affects output names", {
+  df <- tibble(
+    x = c("X", "Y"),
+    y = 1:2,
+    a = 1:2,
+    b = 1:2
+  )
+
+  spec <- build_wider_spec(df, x:y, a:b, names_glue = '{x}{y}_{.value}')
+  expect_equal(spec$.name, c("X1_a", "Y2_a", "X1_b", "Y2_b"))
+})
+
 # keys ---------------------------------------------------------
 
 test_that("can override default keys", {
@@ -78,7 +105,7 @@ test_that("duplicated keys produce list column with warning", {
   )
 
   expect_equal(pv$a, c(1, 2))
-  expect_equal(pv$x, list_of(c(1L, 2L), 3L))
+  expect_equal(as.list(pv$x), list(c(1L, 2L), 3L))
 })
 
 test_that("warning suppressed by supplying values_fn", {
@@ -92,7 +119,7 @@ test_that("warning suppressed by supplying values_fn", {
     NA
   )
   expect_equal(pv$a, c(1, 2))
-  expect_equal(pv$x, list_of(c(1L, 2L), 3L))
+  expect_equal(as.list(pv$x), list(c(1L, 2L), 3L))
 })
 
 test_that("values_fn can be a single function", {
@@ -110,7 +137,7 @@ test_that("values_summarize applied even when no-duplicates", {
   )
 
   expect_equal(pv$a, c(1, 2))
-  expect_equal(pv$x, list_of(1L, 2L))
+  expect_equal(as.list(pv$x), list(1L, 2L))
 })
 
 

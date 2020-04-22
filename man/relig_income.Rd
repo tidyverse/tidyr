@@ -4,12 +4,14 @@
 \name{relig_income}
 \alias{relig_income}
 \title{Pew religion and income survey}
-\format{A dataset with variables:
+\format{
+A dataset with variables:
 \describe{
 \item{religion}{Name of religion}
 \item{\verb{<$10k}-\verb{Don\\'t know/refused}}{Number of respondees with
 income range in column name}
-}}
+}
+}
 \source{
 Downloaded from \url{https://www.pewforum.org/religious-landscape-study/}
 (downloaded November 2009)

@@ -4,13 +4,15 @@
 \name{billboard}
 \alias{billboard}
 \title{Song rankings for billboard top 100 in the year 2000}
-\format{A dataset with variables:
+\format{
+A dataset with variables:
 \describe{
 \item{artist}{Artist name}
 \item{track}{Song name},
 \item{date.enter}{Date the song entered the top 100}
 \item{wk1 -- wk76}{Rank of the song in each week after it entered}
-}}
+}
+}
 \source{
 The "Whitburn" project, \url{https://waxy.org/2008/05/the_whitburn_project/},
 (downloaded April 2008)

@@ -2,42 +2,47 @@
 % Please edit documentation in R/replace_na.R
 \name{replace_na}
 \alias{replace_na}
-\title{Replace missing values}
+\title{Replace NAs with specified values}
 \usage{
 replace_na(data, replace, ...)
 }
 \arguments{
 \item{data}{A data frame or vector.}
 
-\item{replace}{If \code{data} is a data frame, a named list giving the value to
-replace \code{NA} with for each column. If \code{data} is a vector, a single value
-used for replacement.}
+\item{replace}{If \code{data} is a data frame, \code{replace} takes a list of values,
+with one value for each column that has \code{NA} values to be replaced.
+
+If \code{data} is a vector, \code{replace} takes a single value. This single value
+replaces all of the \code{NA} values in the vector.}
 
 \item{...}{Additional arguments for methods. Currently unused.}
 }
 \value{
-If \code{data} is a data frame, returns a data frame. If \code{data} is a
-vector, returns a vector of class determined by the union of \code{data} and
-\code{replace}.
+\itemize{
+\item If \code{data} is a data frame, \code{replace_na()} returns a data frame.
+\item If \code{data} is a vector, \code{replace_na()} returns a vector, with class
+given by the union of \code{data} and \code{replace}.
+}
 }
 \description{
-Replace missing values
+Replace NAs with specified values
 }
 \examples{
-library(dplyr)
-df <- tibble(x = c(1, 2, NA), y = c("a", NA, "b"), z = list(1:5, NULL, 10:20))
+# Replace NAs in a data frame
+df <- tibble(x = c(1, 2, NA), y = c("a", NA, "b"))
 df \%>\% replace_na(list(x = 0, y = "unknown"))
-df \%>\% mutate(x = replace_na(x, 0))
 
-# NULL are the list-col equivalent of NAs
-df \%>\% replace_na(list(z = list(5)))
-
+# Replace NAs in a vector
+df \%>\% dplyr::mutate(x = replace_na(x, 0))
+# OR
 df$x \%>\% replace_na(0)
 df$y \%>\% replace_na("unknown")
+
+# Replace NULLs in a list: NULLs are the list-col equivalent of NAs
+df_list <- tibble(z = list(1:5, NULL, 10:20))
+df_list \%>\% replace_na(list(z = list(5)))
 }
 \seealso{
-\code{\link[dplyr]{na_if}} to replace specified values with a \code{NA}.
-\code{\link[dplyr]{coalesce}} to replace missing values with a specified
-value.
-\code{\link[dplyr]{recode}} to more generally replace values.
+\code{\link[dplyr:na_if]{dplyr::na_if()}} to replace specified values with \code{NA}s;
+\code{\link[dplyr:coalesce]{dplyr::coalesce()}} to replaces \code{NA}s with values from other vectors.
 }

@@ -5,7 +5,7 @@ test_that("nest turns grouped values into one list-df", {
   out <- nest_legacy(df, y)
   expect_equal(out$x, 1)
   expect_equal(length(out$data), 1L)
-  expect_equal(out$data[[1L]], data.frame(y = 1:3))
+  expect_equal(out$data[[1L]], tibble(y = 1:3))
 })
 
 test_that("nest works with data frames too", {
@@ -13,7 +13,7 @@ test_that("nest works with data frames too", {
   out <- nest_legacy(df, y)
   expect_equal(out$x, 1)
   expect_equal(length(out$data), 1L)
-  expect_equal(out$data[[1L]], data.frame(y = 1:3))
+  expect_equal(out$data[[1L]], tibble(y = 1:3))
 })
 
 test_that("can control output column name", {
@@ -27,7 +27,7 @@ test_that("can control output column name", {
 test_that("nest doesn't include grouping vars in nested data", {
   df <- tibble(x = c(1, 1, 1), y = 1:3)
   out <- df %>% dplyr::group_by(x) %>% nest_legacy()
-  expect_equal(out$data[[1]], data.frame(y = 1:3))
+  expect_equal(out$data[[1]], tibble(y = 1:3))
 })
 
 test_that("can restrict variables in grouped nest", {
@@ -136,10 +136,7 @@ test_that("can unnest mixture of name and unnamed lists of same length", {
 
 test_that("elements must all be of same type", {
   df <- tibble(x = list(1, "a"))
-  expect_error(
-    unnest_legacy(df),
-    "(incompatible type)|(numeric to character)|(character to numeric)"
-  )
+  expect_error(unnest_legacy(df), class = "vctrs_error_incompatible_type")
 })
 
 test_that("can't combine vectors and data frames", {
@@ -267,12 +264,12 @@ test_that("grouping is preserved", {
 
   expect_equal(rs$x, 1:3)
   expect_equal(class(df), class(rs))
-  expect_equal(dplyr::groups(df), dplyr::groups(rs))
+  expect_equal(dplyr::group_vars(df), dplyr::group_vars(rs))
 })
 
 test_that("unnesting zero row column preserves names", {
   df <- tibble(a = character(), b = character())
-  expect_equal(df %>% unnest_legacy(b), tibble(b = character(), a = character()))
+  expect_equal(df %>% unnest_legacy(b), tibble(a = character(), b = character()))
 })
 
 test_that("unnest_legacy() recognize ptype", {

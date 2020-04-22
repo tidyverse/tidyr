@@ -65,9 +65,9 @@ test_that("mixed columns are automatically coerced", {
 })
 
 test_that("can override default output column type", {
-  df <- tibble(x = "x", y = 1)
+  skip("restricted vec_cast")
+  df <- tibble(x = 1L, y = 1L)
   pv <- pivot_longer(df, x:y, values_ptypes = list(value = list()))
-
   expect_equal(pv$value, list("x", 1))
 })
 
@@ -212,6 +212,8 @@ test_that("names_prefix strips off from beginning", {
 })
 
 test_that("can cast to custom type", {
+  skip("restricted vec_cast")
+
   df <- tibble(w1 = 1)
   sp <- build_longer_spec(df, 1,
     names_prefix = "w",

@@ -64,7 +64,7 @@ If not specified, the type of the columns generated from \code{names_to} will
 be character, and the type of the variables generated from \code{values_to}
 will be the common type of the input columns used to generate them.}
 
-\item{names_repair}{What happen if the output has invalid column names?
+\item{names_repair}{What happens if the output has invalid column names?
 The default, \code{"check_unique"} is to error if the columns are duplicated.
 Use \code{"minimal"} to allow duplicates in the output, or \code{"unique"} to
 de-duplicated by adding numeric suffixes. See \code{\link[vctrs:vec_as_names]{vctrs::vec_as_names()}}
@@ -116,7 +116,7 @@ billboard \%>\%
    values_drop_na = TRUE
  )
 
-# Multiple variables stored in colum names
+# Multiple variables stored in column names
 who \%>\% pivot_longer(
   cols = new_sp_m014:newrel_f65,
   names_to = c("diagnosis", "gender", "age"),

@@ -4,7 +4,8 @@
 \name{us_rent_income}
 \alias{us_rent_income}
 \title{US rent and income data}
-\format{A dataset with variables:
+\format{
+A dataset with variables:
 \describe{
 \item{GEOID}{FIP state identifier}
 \item{NAME}{Name of state}
@@ -12,7 +13,8 @@
 rent = median monthly rent}
 \item{estimate}{Estimated value}
 \item{moe}{90\% margin of error}
-}}
+}
+}
 \usage{
 us_rent_income
 }
