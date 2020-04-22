@@ -255,8 +255,10 @@ based heuristics described below.</p>
 <code>col_name = "pluck_specification"</code>. You can pluck by name with a character
 vector, by position with an integer vector, or with a combination of the
 two with a list. See <code><a href='https://purrr.tidyverse.org/reference/pluck.html'>purrr::pluck()</a></code> for details.</p>
-<p>When plucking with a single string you can choose to omit the name;
-<code>hoist(df, col, "x")</code> is short-hand for <code>hoist(df, col, x = "x")</code>.</p></td>
+<p>The column names must be unique in a call to <code>hoist()</code>, although existing
+columns with the same name will be overwritten. When plucking with a
+single string you can choose to omit the name, i.e. <code>hoist(df, col, "x")</code>
+is short-hand for <code>hoist(df, col, x = "x")</code>.</p></td>
     </tr>
     <tr>
       <th>.remove</th>
