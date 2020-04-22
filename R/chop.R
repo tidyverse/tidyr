@@ -133,6 +133,9 @@ df_unchop_info <- function(x, ptype) {
   sizes <- rep_len(NA_integer_, size)
 
   # Gather the common size of each row.
+  # Effectively equivalent to creating a `[vec_size(x), length(x)]` matrix,
+  # taking the size of each individual element of `x`, and then taking the
+  # common size of each row.
   # `NULL` elements are ignored in the size calculation by treating their
   # size as `NA` and then deferring to the size of any other element in the row.
   # If only `NULL` values are in the row, the `NA` size is finalised to `0`.
