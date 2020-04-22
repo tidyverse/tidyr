@@ -39,11 +39,12 @@ unnest_auto(data, col)
 \item{...}{Components of \code{.col} to turn into columns in the form
 \code{col_name = "pluck_specification"}. You can pluck by name with a character
 vector, by position with an integer vector, or with a combination of the
-two with a list. See \code{\link[purrr:pluck]{purrr::pluck()}} for details. The column names must
-be unique. Existing columns with the same name are overwritten.
+two with a list. See \code{\link[purrr:pluck]{purrr::pluck()}} for details.
 
-When plucking with a single string you can choose to omit the name;
-\code{hoist(df, col, "x")} is short-hand for \code{hoist(df, col, x = "x")}.}
+The column names must be unique in a call to \code{hoist()}, although existing
+columns with the same name will be overwritten. When plucking with a
+single string you can choose to omit the name, i.e. \code{hoist(df, col, "x")}
+is short-hand for \code{hoist(df, col, x = "x")}.}
 
 \item{.remove}{If \code{TRUE}, the default, will remove extracted components
 from \code{.col}. This ensures that each value lives only in one place.}

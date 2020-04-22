@@ -43,11 +43,12 @@
 #' @param ... Components of `.col` to turn into columns in the form
 #'   `col_name = "pluck_specification"`. You can pluck by name with a character
 #'   vector, by position with an integer vector, or with a combination of the
-#'   two with a list. See [purrr::pluck()] for details. The column names must
-#'   be unique. Existing columns with the same name are overwritten.
+#'   two with a list. See [purrr::pluck()] for details.
 #'
-#'   When plucking with a single string you can choose to omit the name;
-#'   `hoist(df, col, "x")` is short-hand for `hoist(df, col, x = "x")`.
+#'   The column names must be unique in a call to `hoist()`, although existing
+#'   columns with the same name will be overwritten. When plucking with a
+#'   single string you can choose to omit the name, i.e. `hoist(df, col, "x")`
+#'   is short-hand for `hoist(df, col, x = "x")`.
 #' @param .simplify If `TRUE`, will attempt to simplify lists of length-1
 #'   vectors to an atomic vector
 #' @param .ptype Optionally, a named list of prototypes declaring the desired
