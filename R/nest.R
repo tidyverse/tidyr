@@ -23,14 +23,15 @@
 #' ```
 #'
 #' @section Grouped data frames:
-#' `df %>% nest(x, y)` specifies the columns to be nested; i.e. the columns that
-#' will appear in the inner data frame. Alternatively, you can `nest()` a
-#' grouped data frame created by [dplyr::group_by()]. The grouping variables
-#' remain in the outer data frame and the others are nested. The result
-#' preserves the grouping of the input.
+#' `df %>% nest(data = c(x, y))` specifies the columns to be nested; i.e. the
+#' columns that will appear in the inner data frame. Alternatively, you can
+#' `nest()` a grouped data frame created by [dplyr::group_by()]. The grouping
+#' variables remain in the outer data frame and the others are nested. The
+#' result preserves the grouping of the input.
 #'
 #' Variables supplied to `nest()` will override grouping variables so that
-#' `df %>% group_by(x, y) %>% nest(z)` will be equivalent to `df %>% nest(z)`.
+#' `df %>% group_by(x, y) %>% nest(data = -z)` will be equivalent to
+#' `df %>% nest(data = -z)`.
 #'
 #' @param .data A data frame.
 #' @param ... Name-variable pairs of the form `new_col = c(col1, col2, col3)`,
