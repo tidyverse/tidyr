@@ -41,6 +41,17 @@ test_that("doesn't simplify lists of lists", {
   expect_equal(out$a, list(list(1), list(2)))
 })
 
+test_that("can hoist out scalars", {
+  df <- tibble(
+    x = 1:2,
+    y = list(
+      list(mod = lm(mpg ~ wt, data = mtcars)),
+      list(mod = lm(mpg ~ wt, data = mtcars))
+    )
+  )
+  out <- hoist(df, y, "mod")
+  expect_equal(out$mod, list(df$y[[1]]$mod, df$y[[2]]$mod))
+})
 
 test_that("input validation catches problems", {
   df <- tibble(x = list(list(1, b = "b")), y = 1)
