@@ -121,10 +121,6 @@ hoist <- function(.data, .col, ..., .remove = TRUE, .simplify = TRUE, .ptype = l
 
   pluckers <- check_pluckers(...)
 
-  if (vec_duplicate_any(names(pluckers))) {
-    abort("The names of `...` must be unique")
-  }
-
   new_cols <- map(pluckers, function(idx) {
     map(x, ~ purrr::pluck(.x, !!!idx))
   })
@@ -170,6 +166,10 @@ check_pluckers <- function(...) {
 
   if (!is_named(pluckers)) {
     stop("All elements of `...` must be named", call. = FALSE)
+  }
+
+  if (vec_duplicate_any(names(pluckers))) {
+    abort("The names of `...` must be unique")
   }
 
   pluckers
