@@ -12,10 +12,12 @@ pivot_longer(
   names_sep = NULL,
   names_pattern = NULL,
   names_ptypes = list(),
+  names_transform = list(),
   names_repair = "check_unique",
   values_to = "value",
   values_drop_na = FALSE,
-  values_ptypes = list()
+  values_ptypes = list(),
+  values_transform = list()
 )
 }
 \arguments{
@@ -63,6 +65,11 @@ or \code{numeric()}) that defines the type, class, and attributes of a vector.
 If not specified, the type of the columns generated from \code{names_to} will
 be character, and the type of the variables generated from \code{values_to}
 will be the common type of the input columns used to generate them.}
+
+\item{names_transform, values_transform}{A list of column name-function pairs.
+Use these arguments if you need to change the type of specific columns.
+For example, \code{names_transform = list(week = as.integer)} would convert
+a character week variable to an integer.}
 
 \item{names_repair}{What happens if the output has invalid column names?
 The default, \code{"check_unique"} is to error if the columns are duplicated.
