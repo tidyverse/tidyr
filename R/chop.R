@@ -7,6 +7,9 @@
 #' length. `chop()` makes `df` shorter by converting rows within each group
 #' into list-columns. `unchop()` makes `df` longer by expanding list-columns
 #' so that each element of the list-column gets its own row in the output.
+#' `chop()` and `unchop()` are building blocks for more complicated functions
+#' (like [unnest()], [unnest_longer()], and [unnest_wider()]) and are generally
+#' more suitable for programming than interactive data analysis.
 #'
 #' @details
 #' Generally, unchopping is more useful than chopping because it simplifies

@@ -35,6 +35,9 @@ Chopping and unchopping preserve the width of a data frame, changing its
 length. \code{chop()} makes \code{df} shorter by converting rows within each group
 into list-columns. \code{unchop()} makes \code{df} longer by expanding list-columns
 so that each element of the list-column gets its own row in the output.
+\code{chop()} and \code{unchop()} are building blocks for more complicated functions
+(like \code{\link[=unnest]{unnest()}}, \code{\link[=unnest_longer]{unnest_longer()}}, and \code{\link[=unnest_wider]{unnest_wider()}}) and are generally
+more suitable for programming than interactive data analysis.
 }
 \details{
 Generally, unchopping is more useful than chopping because it simplifies
