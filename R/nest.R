@@ -341,6 +341,30 @@ unnest.data.frame <- function(
 }
 
 
+#' @export
+unnest.rowwise_df <- function(
+                              data,
+                              cols,
+                              ...,
+                              keep_empty = FALSE,
+                              ptype = NULL,
+                              names_sep = NULL,
+                              names_repair = "check_unique"
+                              ) {
+
+  out <- unnest.data.frame(as_tibble(data), {{ cols }},
+    keep_empty = keep_empty,
+    ptype = ptype,
+    names_sep = names_sep,
+    names_repair = names_repair
+  )
+  if (packageVersion("dplyr") > "0.8.99") {
+    out <- dplyr::grouped_df(out, dplyr::group_vars(data))
+  }
+
+  out
+}
+
 # helpers -----------------------------------------------------------------
 
 # n cols, n rows

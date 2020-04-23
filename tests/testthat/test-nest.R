@@ -206,6 +206,27 @@ test_that("can use non-syntactic names", {
   expect_named(out, "foo bar")
 })
 
+
+# other methods -----------------------------------------------------------------
+
+test_that("rowwise_df becomes grouped_df", {
+  skip_if_not_installed("dplyr", "0.8.99")
+
+  df <- tibble(g = 1, x = list(1:3)) %>% dplyr::rowwise(g)
+  rs <- df %>% unnest(x)
+
+  expect_s3_class(rs, "grouped_df")
+  expect_equal(dplyr::group_vars(rs), "g")
+})
+
+test_that("grouping is preserved", {
+  df <- tibble(g = 1, x = list(1:3)) %>% dplyr::group_by(g)
+  rs <- df %>% unnest(x)
+
+  expect_s3_class(rs, "grouped_df")
+  expect_equal(dplyr::group_vars(rs), "g")
+})
+
 # Empty inputs ------------------------------------------------------------
 
 test_that("can unnest empty data frame", {
@@ -293,13 +314,4 @@ test_that(".id creates vector of names for vector unnest", {
   out <- expect_warning(unnest(df, y, .id = "name"), "names")
 
   expect_equal(out$name, c("a", "b", "b"))
-})
-
-test_that("grouping is preserved", {
-  df <- tibble(g = 1, x = list(1:3)) %>% dplyr::group_by(g)
-  rs <- df %>% unnest(x)
-
-  expect_equal(rs$x, 1:3)
-  expect_equal(class(df), class(rs))
-  expect_equal(dplyr::group_vars(df), dplyr::group_vars(rs))
 })
