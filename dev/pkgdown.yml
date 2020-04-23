@@ -7,7 +7,7 @@ articles:
   pivot: pivot.html
   rectangle: rectangle.html
   tidy-data: tidy-data.html
-last_built: 2020-04-23T12:01Z
+last_built: 2020-04-23T17:50Z
 urls:
   reference: https://tidyr.tidyverse.org/reference
   article: https://tidyr.tidyverse.org/articles

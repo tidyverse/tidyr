@@ -50,7 +50,10 @@
 Chopping and unchopping preserve the width of a data frame, changing its
 length. chop() makes df shorter by converting rows within each group
 into list-columns. unchop() makes df longer by expanding list-columns
-so that each element of the list-column gets its own row in the output." />
+so that each element of the list-column gets its own row in the output.
+chop() and unchop() are building blocks for more complicated functions
+(like unnest(), unnest_longer(), and unnest_wider()) and are generally
+more suitable for programming than interactive data analysis." />
 <meta property="og:image" content="https://tidyr.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -201,7 +204,10 @@ so that each element of the list-column gets its own row in the output." />
 <p>Chopping and unchopping preserve the width of a data frame, changing its
 length. <code>chop()</code> makes <code>df</code> shorter by converting rows within each group
 into list-columns. <code>unchop()</code> makes <code>df</code> longer by expanding list-columns
-so that each element of the list-column gets its own row in the output.</p>
+so that each element of the list-column gets its own row in the output.
+<code>chop()</code> and <code>unchop()</code> are building blocks for more complicated functions
+(like <code><a href='nest.html'>unnest()</a></code>, <code><a href='hoist.html'>unnest_longer()</a></code>, and <code><a href='hoist.html'>unnest_wider()</a></code>) and are generally
+more suitable for programming than interactive data analysis.</p>
     </div>
 
     <pre class="usage"><span class='fu'>chop</span>(<span class='no'>data</span>, <span class='no'>cols</span>)
