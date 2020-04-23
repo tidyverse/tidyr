@@ -9,10 +9,7 @@ fill(data, ..., .direction = c("down", "up", "downup", "updown"))
 \arguments{
 \item{data}{A data frame.}
 
-\item{...}{A selection of columns. If empty, nothing happens. You can
-supply bare variable names, select all variables between \code{x} and \code{z}
-with \code{x:z}, exclude \code{y} with \code{-y}. For more selection options, see the
-\code{\link[dplyr:select]{dplyr::select()}} documentation.}
+\item{...}{<\code{\link[=tidyr_tidy_select]{tidy-select}}> Columns to fill.}
 
 \item{.direction}{Direction in which to fill missing values. Currently
 either "down" (the default), "up", "downup" (i.e. first down and then up)
