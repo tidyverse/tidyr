@@ -38,6 +38,9 @@
 #' @param names_prefix String added to the start of every variable name. This is
 #'   particularly useful if `names_from` is a numeric vector and you want to
 #'   create syntactic variable names.
+#' @param names_glue Instead of `names_sep` and `names_prefix`, you can supply
+#'   a glue specification that uses the `names_from` columns (and special
+#'   `.value`) to create custom column names.
 #' @param values_fill Optionally, a value that specifies what each `value`
 #'   should be filled in with when missing.
 #'
@@ -65,6 +68,21 @@
 #' us_rent_income %>%
 #'   pivot_wider(names_from = variable, values_from = c(estimate, moe))
 #'
+#' # When there are multiple `names_from` or `values_from`, you can use
+#' # use `names_sep` or `names_glue` to control the output variable names
+#' us_rent_income %>%
+#'   pivot_wider(
+#'     names_from = variable,
+#'     names_sep = ".",
+#'     values_from = c(estimate, moe)
+#'   )
+#' us_rent_income %>%
+#'   pivot_wider(
+#'     names_from = variable,
+#'     names_glue = "{variable}_{.value}",
+#'     values_from = c(estimate, moe)
+#'   )
+#'
 #' # Can perform aggregation with values_fn
 #' warpbreaks <- as_tibble(warpbreaks[c("wool", "tension", "breaks")])
 #' warpbreaks
@@ -79,6 +97,7 @@ pivot_wider <- function(data,
                         names_from = name,
                         names_prefix = "",
                         names_sep = "_",
+                        names_glue = NULL,
                         names_repair = "check_unique",
                         values_from = value,
                         values_fill = NULL,
@@ -90,7 +109,8 @@ pivot_wider <- function(data,
     names_from = !!names_from,
     values_from = !!values_from,
     names_prefix = names_prefix,
-    names_sep = names_sep
+    names_sep = names_sep,
+    names_glue = names_glue
   )
 
   id_cols <- enquo(id_cols)
@@ -114,8 +134,38 @@ pivot_wider <- function(data,
 #'  columns become column names in the result.
 #'
 #'   Must be a data frame containing character `.name` and `.value` columns.
+#'   Additional columns in `spec` should be named to match columns in the
+#'   long format of the dataset and contain values corresponding to columns
+#'   pivoted from the wide format.
 #'   The special `.seq` variable is used to disambiguate rows internally;
 #'   it is automatically removed after pivotting.
+#'
+#' @examples
+#' # See vignette("pivot") for examples and explanation
+#'
+#' us_rent_income
+#' spec1 <- us_rent_income %>%
+#'   build_wider_spec(names_from = variable, values_from = c(estimate, moe))
+#' spec1
+#'
+#' us_rent_income %>%
+#'   pivot_wider_spec(spec1)
+#'
+#' # Is equivalent to
+#' us_rent_income %>%
+#'   pivot_wider(names_from = variable, values_from = c(estimate, moe))
+#'
+#' # `pivot-wider_spec()` provides more control over column names and output format
+#' # instead of creating columns with estimate_ and moe_ prefixes,
+#' # keep original variable name for estimates and attach _moe as suffix
+#' spec2 <- tibble(
+#'   .name = c("income", "rent", "income_moe", "rent_moe"),
+#'   .value = c("estimate", "estimate", "moe", "moe"),
+#'   variable = c("income", "rent", "income", "rent")
+#' )
+#'
+#' us_rent_income %>%
+#'   pivot_wider_spec(spec2)
 pivot_wider_spec <- function(data,
                                   spec,
                                   names_repair = "check_unique",
@@ -164,7 +214,7 @@ pivot_wider_spec <- function(data,
     val <- data[[value]]
 
     cols <- data[names(spec_i)[-(1:2)]]
-    col_id <- vec_match(cols, spec_i[-(1:2)])
+    col_id <- vec_match(as_tibble(cols), spec_i[-(1:2)])
     val_id <- data.frame(row = row_id, col = col_id)
 
     dedup <- vals_dedup(
@@ -191,7 +241,7 @@ pivot_wider_spec <- function(data,
     value_out[[i]] <- wrap_vec(out, spec_i$.name)
   }
 
-  out <- wrap_error_names(vec_cbind(rows, !!!value_out, .name_repair = names_repair))
+  out <- wrap_error_names(vec_cbind(as_tibble(rows), !!!value_out, .name_repair = names_repair))
 
   # recreate desired column order
   # https://github.com/r-lib/vctrs/issues/227
@@ -210,7 +260,8 @@ build_wider_spec <- function(data,
                              names_from = name,
                              values_from = value,
                              names_prefix = "",
-                             names_sep = "_") {
+                             names_sep = "_",
+                             names_glue = NULL) {
   names_from <- tidyselect::vars_select(tbl_vars(data), !!enquo(names_from))
   values_from <- tidyselect::vars_select(tbl_vars(data), !!enquo(values_from))
 
@@ -231,7 +282,12 @@ build_wider_spec <- function(data,
     row_ids <- vec_repeat(row_ids, times = vec_size(values_from))
   }
 
-  vec_cbind(out, row_ids, .name_repair = "minimal")
+  out <- vec_cbind(out, as_tibble(row_ids), .name_repair = "minimal")
+  if (!is.null(names_glue)) {
+    out$.name <- as.character(glue::glue_data(out, names_glue))
+  }
+
+  out
 }
 
 # quiet R CMD check
@@ -269,7 +325,7 @@ vals_dedup <- function(key, val, value, summarize = NULL) {
 # Wrap a "rectangular" vector into a data frame
 wrap_vec <- function(vec, names) {
   ncol <- length(names)
-  nrow <- length(vec) / ncol
+  nrow <- vec_size(vec) / ncol
   out <- set_names(vec_init(list(), ncol), names)
   for (i in 1:ncol) {
     out[[i]] <- vec_slice(vec, ((i - 1) * nrow + 1):(i * nrow))

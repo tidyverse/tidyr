@@ -1,5 +1,24 @@
 # tidyr (development version)
 
+* `hoist()` errors if you use duplicated column names (@mgirlich, #834).
+
+* `hoist()` now automatically names pluckers that are a single string (#837).
+
+* `drop_na()` now preserves attributes of unclassed vectors (#905).
+
+* `pivot_wider()` gains a `names_glue` argument that allows you to construct
+  output column names with a glue specification.
+
+* `pivot_wider()` can now pivot data frame columns (#926)
+
+* `chop()` now creates list-columns of class `vctrs::list_of()`. This
+  helps keep track of the type in case the chopped data frame is
+  empty. This allows `unchop()` to reconstitute a data frame with
+  the correct column types even when there are no observations.
+
+* `chop()` now preserves the width of the input data frame even when
+  it has no observation.
+
 * `pivot_longer()` no longer creates a `.copy` variable in the presence of
   duplicate column names. This makes it more consistent with the handling
   of non-unique specs.

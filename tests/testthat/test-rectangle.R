@@ -10,6 +10,8 @@ test_that("hoist extracts named elements", {
 })
 
 test_that("can require specific type with ptype", {
+  skip("restricted vec_cast")
+
   df <- tibble(x = list(
     list(a = 1),
     list(a = "a")
@@ -39,12 +41,29 @@ test_that("doesn't simplify lists of lists", {
   expect_equal(out$a, list(list(1), list(2)))
 })
 
+test_that("can hoist out scalars", {
+  df <- tibble(
+    x = 1:2,
+    y = list(
+      list(mod = lm(mpg ~ wt, data = mtcars)),
+      list(mod = lm(mpg ~ wt, data = mtcars))
+    )
+  )
+  out <- hoist(df, y, "mod")
+  expect_equal(out$mod, list(df$y[[1]]$mod, df$y[[2]]$mod))
+})
 
 test_that("input validation catches problems", {
   df <- tibble(x = list(list(1, b = "b")), y = 1)
 
   expect_error(df %>% hoist(y), "list-column")
-  expect_error(df %>% hoist(x, "a"), "named")
+  expect_error(df %>% hoist(x, 1), "named")
+  expect_error(df %>% hoist(x, a = "a", a = "b"), "unique")
+})
+
+test_that("string pluckers are automatically named", {
+  out <- check_pluckers("x", y = "x", z = 1)
+  expect_named(out, c("x", "y", "z"))
 })
 
 # strike ------------------------------------------------------------------
@@ -126,6 +145,7 @@ test_that("simplifies length-1 lists", {
   expect_equal(out$c, list(c(1, 2), NULL))
 
   # Works when casting too
+  skip("restricted vec_cast")
   out <- df %>% unnest_wider(y,
     ptype = list(a = double(), b = double(), c = list())
   )
@@ -261,3 +281,4 @@ test_that("mix of named and unnamed becomes longer", {
   expect_message(out <- df %>% unnest_auto(y), "unnest_longer")
   expect_named(out, c("x", "y"))
 })
+

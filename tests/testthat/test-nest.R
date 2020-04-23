@@ -7,14 +7,14 @@ test_that("nest turns grouped values into one list-df", {
   out <- nest(df, data = y)
   expect_equal(out$x, 1)
   expect_equal(length(out$data), 1L)
-  expect_equal(out$data[[1L]], data.frame(y = 1:3))
+  expect_equal(out$data[[1L]], tibble(y = 1:3))
 })
 
 test_that("nest uses grouping vars if present", {
   df <- tibble(x = c(1, 1, 1), y = 1:3)
   out <- df %>% dplyr::group_by(x) %>% nest()
   expect_s3_class(out, "grouped_df")
-  expect_equal(out$data[[1]], data.frame(y = 1:3))
+  expect_equal(out$data[[1]], tibble(y = 1:3))
 })
 
 test_that("provided grouping vars override grouped defaults", {
@@ -195,10 +195,10 @@ test_that("vectors become columns", {
 
 test_that("multiple columns must be same length", {
   df <- tibble(x = list(1:2), y = list(1:3))
-  expect_error(unnest(df, c(x, y)), class = "vctrs_error_incompatible_size")
+  expect_error(unnest(df, c(x, y)), "Incompatible lengths: 2, 3")
 
   df <- tibble(x = list(1:2), y = list(tibble(y = 1:3)))
-  expect_error(unnest(df, c(x, y)), class = "vctrs_error_incompatible_size")
+  expect_error(unnest(df, c(x, y)), "Incompatible lengths: 2, 3")
 })
 
 test_that("can use non-syntactic names", {
@@ -301,5 +301,5 @@ test_that("grouping is preserved", {
 
   expect_equal(rs$x, 1:3)
   expect_equal(class(df), class(rs))
-  expect_equal(dplyr::groups(df), dplyr::groups(rs))
+  expect_equal(dplyr::group_vars(df), dplyr::group_vars(rs))
 })
