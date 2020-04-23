@@ -20,7 +20,6 @@ library(dplyr)
 df <- tibble(x = c(1, 2, NA), y = c("a", NA, "b"))
 df \%>\% drop_na()
 df \%>\% drop_na(x)
-df \%>\% drop_na(is.character(x))
 
 vars <- "y"
 df \%>\% drop_na(x, any_of(vars))
