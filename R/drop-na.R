@@ -3,7 +3,6 @@
 #' @param data A data frame.
 #' @param ... <[`tidy-select`][tidyr_tidy_select]> Columns to inspect for
 #'   missing values.
-#' @inheritParams gather
 #' @examples
 #' library(dplyr)
 #' df <- tibble(x = c(1, 2, NA), y = c("a", NA, "b"))
