@@ -43,14 +43,11 @@ Use \code{"minimal"} to allow duplicates in the output, or \code{"unique"} to
 de-duplicated by adding numeric suffixes. See \code{\link[vctrs:vec_as_names]{vctrs::vec_as_names()}}
 for more options.}
 
-\item{id_cols}{A set of columns that uniquely identifies each observation.
-Defaults to all columns in \code{data} except for the columns specified in
-\code{names_from} and \code{values_from}. Typically used when you have additional
-variables that is directly related.
-
-This takes a tidyselect specification, e.g. use \code{a:c} to select all
-columns from \code{a} to \code{c}, \code{starts_with("prefix")} to select all columns
-starting with "prefix", or \code{everything()} to select all columns.}
+\item{id_cols}{<\code{\link[=tidyr_tidy_select]{tidy-select}}> A set of columns that
+uniquely identifies each observation. Defaults to all columns in \code{data}
+except for the columns specified in \code{names_from} and \code{values_from}.
+Typically used when you have additional variables that are directly
+related.}
 
 \item{values_fill}{Optionally, a value that specifies what each \code{value}
 should be filled in with when missing.
@@ -65,16 +62,18 @@ in the output. You will typically use this when the combination of
 This can be a named list if you want to apply different aggregations
 to different value columns.}
 
-\item{names_from}{A pair of arguments describing which column
-(or columns) to get the name of the output column (\code{name_from}), and
-which column (or columns) to get the cell values from (\code{values_from}).
+\item{names_from}{<\code{\link[=tidyr_tidy_select]{tidy-select}}> A pair of
+arguments describing which column (or columns) to get the name of the
+output column (\code{name_from}), and which column (or columns) to get the
+cell values from (\code{values_from}).
 
 If \code{values_from} contains multiple values, the value will be added to the
 front of the output column.}
 
-\item{values_from}{A pair of arguments describing which column
-(or columns) to get the name of the output column (\code{name_from}), and
-which column (or columns) to get the cell values from (\code{values_from}).
+\item{values_from}{<\code{\link[=tidyr_tidy_select]{tidy-select}}> A pair of
+arguments describing which column (or columns) to get the name of the
+output column (\code{name_from}), and which column (or columns) to get the
+cell values from (\code{values_from}).
 
 If \code{values_from} contains multiple values, the value will be added to the
 front of the output column.}

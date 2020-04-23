@@ -160,12 +160,12 @@ test_that("grouping is preserved", {
 test_that("multiple names requires names_sep/names_pattern", {
   df <- tibble(x_y = 1)
   expect_error(
-    build_longer_spec(df, 1, names_to = c("a", "b")),
+    build_longer_spec(df, x_y, names_to = c("a", "b")),
     "multiple names"
   )
 
   expect_error(
-    build_longer_spec(df, 1,
+    build_longer_spec(df, x_y,
       names_to = c("a", "b"),
       names_sep = "x",
       names_pattern = "x"
@@ -176,7 +176,7 @@ test_that("multiple names requires names_sep/names_pattern", {
 
 test_that("names_sep generates correct spec", {
   df <- tibble(x_y = 1)
-  sp <- build_longer_spec(df, 1, names_to = c("a", "b"), names_sep = "_")
+  sp <- build_longer_spec(df, x_y, names_to = c("a", "b"), names_sep = "_")
 
   expect_equal(sp$a, "x")
   expect_equal(sp$b, "y")
@@ -184,29 +184,29 @@ test_that("names_sep generates correct spec", {
 
 test_that("names_sep fails with single name", {
   df <- tibble(x_y = 1)
-  expect_error(build_longer_spec(df, 1, names_to = "x", names_sep = "_"), "`names_sep`")
+  expect_error(build_longer_spec(df, x_y, names_to = "x", names_sep = "_"), "`names_sep`")
 })
 
 test_that("names_pattern generates correct spec", {
   df <- tibble(zx_y = 1)
-  sp <- build_longer_spec(df, 1, names_to = c("a", "b"), names_pattern = "z(.)_(.)")
+  sp <- build_longer_spec(df, zx_y, names_to = c("a", "b"), names_pattern = "z(.)_(.)")
   expect_equal(sp$a, "x")
   expect_equal(sp$b, "y")
 
-  sp <- build_longer_spec(df, 1, names_to = "a", names_pattern = "z(.)")
+  sp <- build_longer_spec(df, zx_y, names_to = "a", names_pattern = "z(.)")
   expect_equal(sp$a, "x")
 })
 
 test_that("names_to can override value_to", {
   df <- tibble(x_y = 1)
-  sp <- build_longer_spec(df, 1, names_to = c("a", ".value"), names_sep = "_")
+  sp <- build_longer_spec(df, x_y, names_to = c("a", ".value"), names_sep = "_")
 
   expect_equal(sp$.value, "y")
 })
 
 test_that("names_prefix strips off from beginning", {
   df <- tibble(zzyz = 1)
-  sp <- build_longer_spec(df, 1, names_prefix = "z")
+  sp <- build_longer_spec(df, zzyz, names_prefix = "z")
 
   expect_equal(sp$name, "zyz")
 })
