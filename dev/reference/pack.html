@@ -207,7 +207,7 @@ single df-column. <code>unpack()</code> makes <code>data</code> wider by expandi
 back out into individual columns.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>pack</span>(<span class='no'>data</span>, <span class='no'>...</span>, <span class='kw'>.names_sep</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
+    <pre class="usage"><span class='fu'>pack</span>(<span class='no'>.data</span>, <span class='no'>...</span>, <span class='kw'>.names_sep</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
 
 <span class='fu'>unpack</span>(<span class='no'>data</span>, <span class='no'>cols</span>, <span class='kw'>names_sep</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>names_repair</span> <span class='kw'>=</span> <span class='st'>"check_unique"</span>)</pre>
 
@@ -215,14 +215,14 @@ back out into individual columns.</p>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>data</th>
-      <td><p>A data frame.</p></td>
-    </tr>
-    <tr>
       <th>...</th>
       <td><p>&lt;<code><a href='tidyr_tidy_select.html'>tidy-select</a></code>&gt; Columns to pack, specified
 using name-variable pairs of the form <code>new_col = c(col1, col2, col3)</code>.
 The right hand side can be any valid tidy select expression.</p></td>
+    </tr>
+    <tr>
+      <th>data, .data</th>
+      <td><p>A data frame.</p></td>
     </tr>
     <tr>
       <th>cols</th>
