@@ -221,46 +221,53 @@
 <span class="co">#&gt; 1 setosa     &lt;tibble [2 × 2]&gt; &lt;tibble [2 × 2]&gt;</span>
 <span class="co">#&gt; 2 versicolor &lt;tibble [2 × 2]&gt; &lt;tibble [2 × 2]&gt;</span>
 <span class="co">#&gt; 3 virginica  &lt;tibble [2 × 2]&gt; &lt;tibble [2 × 2]&gt;</span></pre></body></html></div>
-<p>(Alternatively, you may want to use <code>any_of()</code> if you want the function to silently omit variables that are not present in the input data.)</p>
+<p>Alternatively, you may want to use <code>any_of()</code> if it is OK that some of the specified variables cannot be found in the input data.</p>
 <p>The <a href="https://tidyselect.r-lib.org">tidyselect</a> package offers an entire family of select helpers. You are probably already familiar with them from using <code><a href="https://dplyr.tidyverse.org/reference/select.html">dplyr::select()</a></code>.</p>
 </div>
 <div id="continuous-integration" class="section level3">
 <h3 class="hasAnchor">
 <a href="#continuous-integration" class="anchor"></a>Continuous integration</h3>
 <p>Hopefully you’ve already adopted continuous integration for your package, in which <code>R CMD check</code> (which includes your own tests) is run on a regular basis, e.g. every time you push changes to your package’s source on GitHub or similar. The tidyverse team currently relies most heavily on GitHub Actions, so that will be our example. <code>usethis::use_github_action()</code> can help you get started.</p>
-<p>We recommend adding a workflow that targets the devel version of tidyr:</p>
+<p>We recommend adding a workflow that targets the devel version of tidyr. When should you do this?</p>
 <ul>
-<li><p>Always? If your package is tightly coupled to tidyr, consider leaving this build in place all the time, so you know if changes in tidyr affect your package.</p></li>
-<li><p>Right before a tidyr release? For everyone else, you could just add a tidyr-devel workflow during the period preceding a major tidyr release that has the potential for breaking changes, especially if you’ve been contacted during our reverse dependency checks.</p></li>
+<li><p>Always? If your package is tightly coupled to tidyr, consider leaving this in place all the time, so you know if changes in tidyr affect your package.</p></li>
+<li><p>Right before a tidyr release? For everyone else, you could add (or re-activate an existing) tidyr-devel workflow during the period preceding a major tidyr release that has the potential for breaking changes, especially if you’ve been contacted during our reverse dependency checks.</p></li>
 </ul>
-<p>Example of <code>.travis.yml</code> config that tests against R devel, release, and oldrel, assesses test coverage, and includes a build against devel tidyr:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb4-1"><a href="#cb4-1"></a><span class="fu">on</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">push</span><span class="kw">,</span><span class="at"> pull_request</span><span class="kw">]</span></span>
-<span id="cb4-2"><a href="#cb4-2"></a></span>
-<span id="cb4-3"><a href="#cb4-3"></a><span class="fu">name</span><span class="kw">:</span><span class="at"> R-CMD-check-devel</span></span>
-<span id="cb4-4"><a href="#cb4-4"></a></span>
-<span id="cb4-5"><a href="#cb4-5"></a><span class="fu">jobs</span><span class="kw">:</span></span>
-<span id="cb4-6"><a href="#cb4-6"></a><span class="at">  </span><span class="fu">R-CMD-check</span><span class="kw">:</span></span>
-<span id="cb4-7"><a href="#cb4-7"></a><span class="at">    </span><span class="fu">runs-on</span><span class="kw">:</span><span class="at"> macOS-latest</span></span>
-<span id="cb4-8"><a href="#cb4-8"></a><span class="at">    </span><span class="fu">steps</span><span class="kw">:</span></span>
-<span id="cb4-9"><a href="#cb4-9"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">uses</span><span class="kw">:</span><span class="at"> actions/checkout@v2</span></span>
-<span id="cb4-10"><a href="#cb4-10"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">uses</span><span class="kw">:</span><span class="at"> r-lib/actions/setup-r@master</span></span>
-<span id="cb4-11"><a href="#cb4-11"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Install dependencies</span></span>
-<span id="cb4-12"><a href="#cb4-12"></a><span class="fu">        run</span><span class="kw">: </span><span class="ch">|</span></span>
-<span id="cb4-13"><a href="#cb4-13"></a>          install.packages(c("remotes", "rcmdcheck"))</span>
-<span id="cb4-14"><a href="#cb4-14"></a>          remotes::install_deps(dependencies = TRUE)</span>
-<span id="cb4-15"><a href="#cb4-15"></a>          remotes::install_github("tidyverse/tidyr")</span>
-<span id="cb4-16"><a href="#cb4-16"></a><span class="at">        </span><span class="fu">shell</span><span class="kw">:</span><span class="at"> Rscript {0}</span></span>
-<span id="cb4-17"><a href="#cb4-17"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Check</span></span>
-<span id="cb4-18"><a href="#cb4-18"></a><span class="at">        </span><span class="fu">run</span><span class="kw">:</span><span class="at"> rcmdcheck::rcmdcheck(args = "--no-manual", error_on = "error")</span></span>
-<span id="cb4-19"><a href="#cb4-19"></a><span class="at">        </span><span class="fu">shell</span><span class="kw">:</span><span class="at"> Rscript {0}</span></span></code></pre></div>
+<p>Example of a GitHub Actions workflow that tests your package against the development version of tidyr:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb4-1"><a href="#cb4-1"></a><span class="fu">on</span><span class="kw">:</span></span>
+<span id="cb4-2"><a href="#cb4-2"></a><span class="at">  </span><span class="fu">push</span><span class="kw">:</span></span>
+<span id="cb4-3"><a href="#cb4-3"></a><span class="at">    </span><span class="fu">branches</span><span class="kw">:</span></span>
+<span id="cb4-4"><a href="#cb4-4"></a><span class="at">      </span><span class="kw">-</span><span class="at"> master</span></span>
+<span id="cb4-5"><a href="#cb4-5"></a><span class="at">  </span><span class="fu">pull_request</span><span class="kw">:</span></span>
+<span id="cb4-6"><a href="#cb4-6"></a><span class="at">    </span><span class="fu">branches</span><span class="kw">:</span></span>
+<span id="cb4-7"><a href="#cb4-7"></a><span class="at">      </span><span class="kw">-</span><span class="at"> master</span></span>
+<span id="cb4-8"><a href="#cb4-8"></a></span>
+<span id="cb4-9"><a href="#cb4-9"></a><span class="fu">name</span><span class="kw">:</span><span class="at"> R-CMD-check-tidyr-devel</span></span>
+<span id="cb4-10"><a href="#cb4-10"></a></span>
+<span id="cb4-11"><a href="#cb4-11"></a><span class="fu">jobs</span><span class="kw">:</span></span>
+<span id="cb4-12"><a href="#cb4-12"></a><span class="at">  </span><span class="fu">R-CMD-check</span><span class="kw">:</span></span>
+<span id="cb4-13"><a href="#cb4-13"></a><span class="at">    </span><span class="fu">runs-on</span><span class="kw">:</span><span class="at"> macOS-latest</span></span>
+<span id="cb4-14"><a href="#cb4-14"></a><span class="at">    </span><span class="fu">steps</span><span class="kw">:</span></span>
+<span id="cb4-15"><a href="#cb4-15"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">uses</span><span class="kw">:</span><span class="at"> actions/checkout@v2</span></span>
+<span id="cb4-16"><a href="#cb4-16"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">uses</span><span class="kw">:</span><span class="at"> r-lib/actions/setup-r@master</span></span>
+<span id="cb4-17"><a href="#cb4-17"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Install dependencies</span></span>
+<span id="cb4-18"><a href="#cb4-18"></a><span class="fu">        run</span><span class="kw">: </span><span class="ch">|</span></span>
+<span id="cb4-19"><a href="#cb4-19"></a>          install.packages(c("remotes", "rcmdcheck"))</span>
+<span id="cb4-20"><a href="#cb4-20"></a>          remotes::install_deps(dependencies = TRUE)</span>
+<span id="cb4-21"><a href="#cb4-21"></a>          remotes::install_github("tidyverse/tidyr")</span>
+<span id="cb4-22"><a href="#cb4-22"></a><span class="at">        </span><span class="fu">shell</span><span class="kw">:</span><span class="at"> Rscript {0}</span></span>
+<span id="cb4-23"><a href="#cb4-23"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Check</span></span>
+<span id="cb4-24"><a href="#cb4-24"></a><span class="at">        </span><span class="fu">run</span><span class="kw">:</span><span class="at"> rcmdcheck::rcmdcheck(args = "--no-manual", error_on = "error")</span></span>
+<span id="cb4-25"><a href="#cb4-25"></a><span class="at">        </span><span class="fu">shell</span><span class="kw">:</span><span class="at"> Rscript {0}</span></span></code></pre></div>
+<p>GitHub Actions are an evolving landscape, so you can always mine the workflows for tidyr itself (<a href="https://github.com/tidyverse/tidyr/tree/master/.github/workflows">tidyverse/tidyr/.github/workflows</a>) or the main <a href="https://github.com/r-lib/actions">r-lib/actions</a> repo for ideas.</p>
 </div>
 </div>
 <div id="tidyr-v0-8-3---v1-0-0" class="section level2">
 <h2 class="hasAnchor">
 <a href="#tidyr-v0-8-3---v1-0-0" class="anchor"></a>tidyr v0.8.3 -&gt; v1.0.0</h2>
-<p>v1.0.0 (aka v0.8.99.9000) makes considerable changes to the interface of <code><a href="../reference/nest.html">nest()</a></code> and <code><a href="../reference/nest.html">unnest()</a></code> in order to bring them in line with newer tidyverse conventions. I have tried to make the functions as backward compatible as possible and to give informative warning messages, but I could not cover 100% of use cases, so you may need to change your package code. This guide will help you do so with a minimum of pain.</p>
+<p>v1.0.0 makes considerable changes to the interface of <code><a href="../reference/nest.html">nest()</a></code> and <code><a href="../reference/nest.html">unnest()</a></code> in order to bring them in line with newer tidyverse conventions. I have tried to make the functions as backward compatible as possible and to give informative warning messages, but I could not cover 100% of use cases, so you may need to change your package code. This guide will help you do so with a minimum of pain.</p>
 <p>Ideally, you’ll tweak your package so that it works with both tidyr 0.8.3 and tidyr 1.0.0. This makes life considerably easier because it means there’s no need to coordinate CRAN submissions - you can submit your package that works with both tidyr versions, before I submit tidyr to CRAN. This section describes our recommend practices for doing so, drawing from the general principles described in <a href="https://principles.tidyverse.org/changes-multivers.html" class="uri">https://principles.tidyverse.org/changes-multivers.html</a>.</p>
-<p>If you use Travis-CI already, we <strong>strongly</strong> recommend adding a build that tests with the development version of tidyr; see above for details.</p>
+<p>If you use continuous integration already, we <strong>strongly</strong> recommend adding a build that tests with the development version of tidyr; see above for details.</p>
 <p>This section briefly describes how to run different code for different versions of tidyr, then goes through the major changes that might require workarounds:</p>
 <ul>
 <li>
