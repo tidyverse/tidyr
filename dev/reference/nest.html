@@ -231,9 +231,9 @@ notably models.</p>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Name-variable pairs of the form <code>new_col = c(col1, col2, col3)</code>,
-that describe how you wish to nest existing columns into new columns.
-The right hand side can be any expression supported by tidyselect.</p>
+      <td><p>&lt;<code><a href='tidyr_tidy_select.html'>tidy-select</a></code>&gt; Columns to nest, specified
+using name-variable pairs of the form <code>new_col = c(col1, col2, col3)</code>.
+The right hand side can be any valid tidy select expression.</p>
 <p><img src='figures/lifecycle-deprecated.svg' alt='Deprecated lifecycle' />
 :
 previously you could write <code>df %&gt;% nest(x, y, z)</code> and <code>df %&gt;% unnest(x, y, z)</code>. Convert to <code>df %&gt;% nest(data = c(x, y, z))</code>.
@@ -254,7 +254,7 @@ No longer needed because of the new <code>new_col = c(col1, col2, col3)</code> s
     </tr>
     <tr>
       <th>cols</th>
-      <td><p>Names of columns to unnest.</p>
+      <td><p>&lt;<code><a href='tidyr_tidy_select.html'>tidy-select</a></code>&gt; Columns to unnest.</p>
 <p>If you <code>unnest()</code> multiple columns, parallel entries must be of
 compatible sizes, i.e. they're either equal or length 1 (following the
 standard tidyverse recycling rules).</p></td>

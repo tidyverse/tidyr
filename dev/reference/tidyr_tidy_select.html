@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Song rankings for billboard top 100 in the year 2000 — billboard • tidyr</title>
+<title>Argument type: tidy-select — tidyr_tidy_select • tidyr</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -45,8 +45,11 @@
 
 
 
-<meta property="og:title" content="Song rankings for billboard top 100 in the year 2000 — billboard" />
-<meta property="og:description" content="Song rankings for billboard top 100 in the year 2000" />
+<meta property="og:title" content="Argument type: tidy-select — tidyr_tidy_select" />
+<meta property="og:description" content="This page the describes the &amp;lt;tidy-select&amp;gt; argument modifier which indicates
+the argument uses tidy selection (a special type of tidy evaluation).
+Tidy selection provides a concise DSL for selecting variables based on their
+names." />
 <meta property="og:image" content="https://tidyr.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -187,32 +190,56 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Song rankings for billboard top 100 in the year 2000</h1>
-    <small class="dont-index">Source: <a href='https://github.com/tidyverse/tidyr/blob/master/R/data.R'><code>R/data.R</code></a></small>
-    <div class="hidden name"><code>billboard.Rd</code></div>
+    <h1>Argument type: tidy-select</h1>
+    <small class="dont-index">Source: <a href='https://github.com/tidyverse/tidyr/blob/master/R/doc-params.R'><code>R/doc-params.R</code></a></small>
+    <div class="hidden name"><code>tidyr_tidy_select.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Song rankings for billboard top 100 in the year 2000</p>
+    <p>This page the describes the <code>&lt;tidy-select&gt;</code> argument modifier which indicates
+the argument uses <strong>tidy selection</strong> (a special type of tidy evaluation).
+Tidy selection provides a concise DSL for selecting variables based on their
+names.</p>
     </div>
 
-    <pre class="usage"><span class='no'>billboard</span></pre>
 
 
-    <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
+    <h2 class="hasAnchor" id="general-usage"><a class="anchor" href="#general-usage"></a>General usage</h2>
 
-    <p>A dataset with variables:</p><dl>
-<dt>artist</dt><dd><p>Artist name</p></dd>
-<dt>track</dt><dd><p>Song name</p></dd>,
-<dt>date.enter</dt><dd><p>Date the song entered the top 100</p></dd>
-<dt>wk1 -- wk76</dt><dd><p>Rank of the song in each week after it entered</p></dd>
+    <p>If you have a data frame with variables <code>apple</code>, <code>banana</code>, <code>cantaloupe</code>,
+<code>date</code>, <code>eggplant</code>, <code>fig</code>, <code>grape</code> you can:</p><ul>
+<li><p>Select individual variables with their name: e.g. <code><a href='https://rdrr.io/r/base/c.html'>c(apple, fig, grape)</a></code>.</p></li>
+<li><p>Select data-variables stored in an env-variable with <code>all_of()</code> (which
+will error if a variable is not found) or <code>any_of()</code> (which is
+relaxed and will silently drop missing variables), e.g.
+if <code>vars &lt;- c("apple", "fig", "peach")</code>, then <code>all_of(vars)</code> will
+error; <code>any_of(vars)</code> will select <code>apple</code> and <code>fig</code>.</p></li>
+<li><p>Select contiguous variables with <code>:</code>, e.g. <code>apple:date</code>.</p></li>
+<li><p>Select variables with name-based helpers: e.g. <code><a href='https://tidyselect.r-lib.org/reference/select_helpers.html'>ends_with("a")</a></code>,
+<code><a href='https://tidyselect.r-lib.org/reference/select_helpers.html'>contains("g")</a></code>. See full list in <a href='https://tidyselect.r-lib.org/reference/select_helpers.html'>tidyselect::select_helpers</a>.</p></li>
+<li><p>Select variables of a given type with an <code>is</code> function: <code>is.numeric</code>,
+<code>is.factor</code>, <code>is.character</code>, etc.</p></li>
+<li><p>Invert a selection with <code>!</code>: <code>!is.numeric</code>, or <code>!contains("x")</code>.</p></li>
+<li><p>Create logical combination with <code>|</code> and <code>&amp;</code>:
+<code>starts_with("a") | starts_with("b")</code>, <code>contains("x") &amp; is.numeric</code></p></li>
+<li><p>Remove variables from a collection with <code>&amp;</code> and <code>!</code>:
+<code>is.numeric &amp; !starts_with("a")</code></p></li>
+</ul>
 
-</dl>
+    <h2 class="hasAnchor" id="indirection"><a class="anchor" href="#indirection"></a>Indirection</h2>
 
-    <h2 class="hasAnchor" id="source"><a class="anchor" href="#source"></a>Source</h2>
+    <p>There are two main cases:</p><ul>
+<li><p>If you have a character vector of column names, use <code>all_of()</code>
+or <code>any_of()</code>, depending on whether or not you want unknown variable
+names to cause an error, e.g <code><a href='nest.html'>unnest(df, all_of(vars))</a></code>,
+<code><a href='nest.html'>unnest(df, -any_of(vars))</a></code>.</p></li>
+<li><p>If you want the user to supply a tidyselect specification in a
+function argument, you need to tunnel the selection through the function
+argument. This is done by embracing the function argument <code>{{ }}</code>,
+e.g <code><a href='nest.html'>unnest(df, {{ vars }})</a></code>.</p></li>
+</ul>
 
-    <p>The "Whitburn" project, <a href='https://waxy.org/2008/05/the_whitburn_project/'>https://waxy.org/2008/05/the_whitburn_project/</a>,
-(downloaded April 2008)</p>
+<p>Learn more in <code>vignette("programming.Rmd")</code>.</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

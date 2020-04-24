@@ -262,10 +262,8 @@ will be the common type of the input columns used to generate them.</p></td>
     </tr>
     <tr>
       <th>cols</th>
-      <td><p>Columns to pivot into longer format.</p>
-<p>This takes a tidyselect specification, e.g. use <code>a:c</code> to select all
-columns from <code>a</code> to <code>c</code>, <code><a href='https://tidyselect.r-lib.org/reference/select_helpers.html'>starts_with("prefix")</a></code> to select all columns
-starting with "prefix", or <code><a href='https://tidyselect.r-lib.org/reference/select_helpers.html'>everything()</a></code> to select all columns.</p></td>
+      <td><p>&lt;<code><a href='tidyr_tidy_select.html'>tidy-select</a></code>&gt; Columns to pivot into
+longer format.</p></td>
     </tr>
     <tr>
       <th>names_to</th>
@@ -340,7 +338,6 @@ will be the common type of the input columns used to generate them.</p></td>
   <span class='kw'>names_to</span> <span class='kw'>=</span> <span class='st'>"income"</span>,
   <span class='kw'>values_to</span> <span class='kw'>=</span> <span class='st'>"count"</span>
 )
-
 <span class='no'>spec</span></div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 10 x 3</span><span>
 #&gt;    .name              .value income            
 #&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>              </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>             
