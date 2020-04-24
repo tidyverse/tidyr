@@ -9,10 +9,8 @@ separate_rows(data, ..., sep = "[^[:alnum:].]+", convert = FALSE)
 \arguments{
 \item{data}{A data frame.}
 
-\item{...}{A selection of columns. If empty, nothing happens. You can
-supply bare variable names, select all variables between \code{x} and \code{z}
-with \code{x:z}, exclude \code{y} with \code{-y}. For more selection options, see the
-\code{\link[dplyr:select]{dplyr::select()}} documentation.}
+\item{...}{<\code{\link[=tidyr_tidy_select]{tidy-select}}> Columns to separate across
+multiple rows}
 
 \item{sep}{Separator delimiting collapsed values.}
 
@@ -24,37 +22,11 @@ types are actually numeric, integer, or logical.}
 If a variable contains observations with multiple delimited values, this
 separates the values and places each one in its own row.
 }
-\section{Rules for selection}{
-
-
-Arguments for selecting columns are passed to \code{\link[tidyselect:vars_select]{tidyselect::vars_select()}}
-and are treated specially. Unlike other verbs, selecting functions make a
-strict distinction between data expressions and context expressions.
-\itemize{
-\item A data expression is either a bare name like \code{x} or an expression
-like \code{x:y} or \code{c(x, y)}. In a data expression, you can only refer
-to columns from the data frame.
-\item Everything else is a context expression in which you can only
-refer to objects that you have defined with \verb{<-}.
-}
-
-For instance, \code{col1:col3} is a data expression that refers to data
-columns, while \code{seq(start, end)} is a context expression that
-refers to objects from the contexts.
-
-If you need to refer to contextual objects from a data expression, you can
-use \code{all_of()} or \code{any_of()}. These functions are used to select
-data-variables whose names are stored in a env-variable. For instance,
-\code{all_of(a)} selects the variables listed in the character vector \code{a}.
-For more details, see the \code{\link[tidyselect:select_helpers]{tidyselect::select_helpers()}} documentation.
-}
-
 \examples{
-df <- data.frame(
+df <- tibble(
   x = 1:3,
   y = c("a", "d,e,f", "g,h"),
-  z = c("1", "2,3,4", "5,6"),
-  stringsAsFactors = FALSE
+  z = c("1", "2,3,4", "5,6")
 )
 separate_rows(df, y, z, convert = TRUE)
 }

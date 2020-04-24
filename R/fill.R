@@ -10,10 +10,7 @@ NULL
 #' Missing values are replaced in atomic vectors; `NULL`s are replaced in lists.
 #'
 #' @inheritParams gather
-#' @param ... A selection of columns. If empty, nothing happens. You can
-#'   supply bare variable names, select all variables between `x` and `z`
-#'   with `x:z`, exclude `y` with `-y`. For more selection options, see the
-#'   [dplyr::select()] documentation.
+#' @param ... <[`tidy-select`][tidyr_tidy_select]> Columns to fill.
 #' @param .direction Direction in which to fill missing values. Currently
 #'   either "down" (the default), "up", "downup" (i.e. first down and then up)
 #'   or "updown" (first up and then down).
@@ -96,8 +93,10 @@ fill <- function(data, ..., .direction = c("down", "up", "downup", "updown")) {
 }
 #' @export
 fill.data.frame <- function(data, ..., .direction = c("down", "up", "downup", "updown")) {
+  vars <- tidyselect::eval_select(expr(c(...)), data)
   vec_fill <- vec_fill_fun(.direction)
-  dplyr::mutate_at(data, dplyr::vars(...), vec_fill)
+
+  dplyr::mutate_at(data, dplyr::vars(any_of(vars)), vec_fill)
 }
 
 vec_fill_fun <- function(.direction = c("down", "up", "downup", "updown")) {

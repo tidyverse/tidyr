@@ -18,17 +18,15 @@
 #' @seealso [pivot_wider_spec()] to pivot "by hand" with a data frame that
 #'   defines a pivotting specification.
 #' @inheritParams pivot_longer
-#' @param id_cols A set of columns that uniquely identifies each observation.
-#'   Defaults to all columns in `data` except for the columns specified in
-#'   `names_from` and `values_from`. Typically used when you have additional
-#'   variables that is directly related.
-#'
-#'   This takes a tidyselect specification, e.g. use `a:c` to select all
-#'   columns from `a` to `c`, `starts_with("prefix")` to select all columns
-#'   starting with "prefix", or `everything()` to select all columns.
-#' @param names_from,values_from A pair of arguments describing which column
-#'   (or columns) to get the name of the output column (`name_from`), and
-#'   which column (or columns) to get the cell values from (`values_from`).
+#' @param id_cols <[`tidy-select`][tidyr_tidy_select]> A set of columns that
+#'   uniquely identifies each observation. Defaults to all columns in `data`
+#'   except for the columns specified in `names_from` and `values_from`.
+#'   Typically used when you have additional variables that are directly
+#'   related.
+#' @param names_from,values_from <[`tidy-select`][tidyr_tidy_select]> A pair of
+#'   arguments describing which column (or columns) to get the name of the
+#'   output column (`name_from`), and which column (or columns) to get the
+#'   cell values from (`values_from`).
 #'
 #'   If `values_from` contains multiple values, the value will be added to the
 #'   front of the output column.
@@ -187,7 +185,7 @@ pivot_wider_spec <- function(data,
 
   id_cols <- enquo(id_cols)
   if (!quo_is_null(id_cols)) {
-    key_vars <- tidyselect::vars_select(tbl_vars(data), !!id_cols)
+    key_vars <- names(tidyselect::eval_select(enquo(id_cols), data))
   } else {
     key_vars <- tbl_vars(data)
   }
@@ -262,8 +260,8 @@ build_wider_spec <- function(data,
                              names_prefix = "",
                              names_sep = "_",
                              names_glue = NULL) {
-  names_from <- tidyselect::vars_select(tbl_vars(data), !!enquo(names_from))
-  values_from <- tidyselect::vars_select(tbl_vars(data), !!enquo(values_from))
+  names_from <- tidyselect::eval_select(enquo(names_from), data)
+  values_from <- tidyselect::eval_select(enquo(values_from), data)
 
   row_ids <- vec_unique(data[names_from])
   row_names <- exec(paste, !!!row_ids, sep = names_sep)
@@ -273,10 +271,10 @@ build_wider_spec <- function(data,
   )
 
   if (length(values_from) == 1) {
-    out$.value <- values_from
+    out$.value <- names(values_from)
   } else {
     out <- vec_repeat(out, times = vec_size(values_from))
-    out$.value <- vec_repeat(values_from, each = vec_size(row_ids))
+    out$.value <- vec_repeat(names(values_from), each = vec_size(row_ids))
     out$.name <- paste0(out$.value, names_sep, out$.name)
 
     row_ids <- vec_repeat(row_ids, times = vec_size(values_from))

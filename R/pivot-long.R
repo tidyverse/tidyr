@@ -16,11 +16,8 @@
 #' under active development.
 #'
 #' @param data A data frame to pivot.
-#' @param cols Columns to pivot into longer format.
-#'
-#'   This takes a tidyselect specification, e.g. use `a:c` to select all
-#'   columns from `a` to `c`, `starts_with("prefix")` to select all columns
-#'   starting with "prefix", or `everything()` to select all columns.
+#' @param cols <[`tidy-select`][tidyr_tidy_select]> Columns to pivot into
+#'   longer format.
 #' @param names_to A string specifying the name of the column to create
 #'   from the data stored in the column names of `data`.
 #'
@@ -163,7 +160,6 @@ pivot_longer <- function(data,
 #'   names_to = "income",
 #'   values_to = "count"
 #' )
-#'
 #' spec
 #'
 #' pivot_longer_spec(relig_income, spec)
@@ -239,15 +235,16 @@ build_longer_spec <- function(data, cols,
                               names_sep = NULL,
                               names_pattern = NULL,
                               names_ptypes = NULL) {
-  cols <- unname(tidyselect::vars_select(unique(names(data)), !!enquo(cols)))
+
+  cols <- tidyselect::eval_select(enquo(cols), data[unique(names(data))])
   if (length(cols) == 0) {
     abort(glue::glue("`cols` must select at least one column."))
   }
 
   if (is.null(names_prefix)) {
-    names <- cols
+    names <- names(cols)
   } else {
-    names <- stringi::stri_replace_all_regex(cols, paste0("^", names_prefix), "")
+    names <- stringi::stri_replace_all_regex(names(cols), paste0("^", names_prefix), "")
   }
 
   if (length(names_to) > 1) {
@@ -284,7 +281,7 @@ build_longer_spec <- function(data, cols,
     names[[col]] <- vec_cast(names[[col]], names_ptypes[[col]])
   }
 
-  out <- tibble(.name = cols)
+  out <- tibble(.name = names(cols))
   out[[".value"]] <- values_to
   out <- vec_cbind(out, names)
   out

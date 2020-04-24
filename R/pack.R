@@ -15,7 +15,7 @@
 #' they mimic the nested column headers that are so popular in Excel.
 #'
 #' @inheritParams unchop
-#' @param cols Name of column that you wish to unpack.
+#' @param cols <[`tidy-select`][tidyr_tidy_select]> Column to unpack.
 #' @param names_sep,.names_sep If `NULL`, the default, the names will be left
 #'   as is. In `pack()`, inner names will come from the former outer names;
 #'   in `unpack()`, the new outer names will come from the inner names.
@@ -26,9 +26,9 @@
 #'   the new inner names will have the outer names (+ `names_sep`) automatically
 #'   stripped. This makes `names_sep` roughly symmetric between packing
 #'   and unpacking.
-#' @param ... Name-variable pairs of the form `new_col = c(col1, col2, col3)`,
-#'   that describe how you wish to pack existing columns into new columns.
-#'   The right hand side can be any expression supported by tidyselect.
+#' @param ... <[`tidy-select`][tidyr_tidy_select]> Columns to pack, specified
+#'   using name-variable pairs of the form `new_col = c(col1, col2, col3)`.
+#'   The right hand side can be any valid tidy select expression.
 #' @export
 #' @examples
 #' # Packing =============================================================
@@ -65,7 +65,7 @@ pack <- function(data, ..., .names_sep = NULL) {
     abort("All elements of `...` must be named")
   }
 
-  cols <- map(cols, ~ tidyselect::vars_select(tbl_vars(data), !!.x))
+  cols <- map(cols, ~ tidyselect::eval_select(.x, data))
   packed <- map(cols, ~ data[.x])
 
   if (!is.null(.names_sep)) {
@@ -73,7 +73,7 @@ pack <- function(data, ..., .names_sep = NULL) {
   }
 
   # TODO: find a different approach that preserves order
-  asis <- setdiff(names(data), unlist(cols))
+  asis <- setdiff(names(data), unlist(map(cols, names)))
   out <- vec_cbind(data[asis], new_data_frame(packed, n = nrow(data)))
 
   reconstruct_tibble(data, out)
@@ -96,11 +96,12 @@ pack <- function(data, ..., .names_sep = NULL) {
 #'   strategies used to enforce them.
 unpack <- function(data, cols, names_sep = NULL, names_repair = "check_unique") {
   check_present(cols)
-  cols <- tidyselect::vars_select(tbl_vars(data), !!enquo(cols))
+  cols <- tidyselect::eval_select(enquo(cols), data)
 
-  new_cols <- map2(data[cols], cols, check_unpack, names_sep = names_sep)
+  new_cols <- map2(data[cols], names(cols), check_unpack, names_sep = names_sep)
+
   data <- update_cols(data, new_cols)
-  out <- flatten_at(data, names(data) %in% cols)
+  out <- flatten_at(data, names(data) %in% names(cols))
 
   out <- as_tibble(out, .name_repair = names_repair)
   reconstruct_tibble(data, out)

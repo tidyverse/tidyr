@@ -1,5 +1,8 @@
 # tidyr (development version)
 
+* Arguments that use tidy selection syntax are now clearly documented and 
+  have been updated to use tidyselect 1.0.0 (#872).
+
 * `hoist()` errors if you use duplicated column names (@mgirlich, #834).
 
 * `hoist()` now automatically names pluckers that are a single string (#837).

@@ -21,11 +21,8 @@ pivot_longer(
 \arguments{
 \item{data}{A data frame to pivot.}
 
-\item{cols}{Columns to pivot into longer format.
-
-This takes a tidyselect specification, e.g. use \code{a:c} to select all
-columns from \code{a} to \code{c}, \code{starts_with("prefix")} to select all columns
-starting with "prefix", or \code{everything()} to select all columns.}
+\item{cols}{<\code{\link[=tidyr_tidy_select]{tidy-select}}> Columns to pivot into
+longer format.}
 
 \item{names_to}{A string specifying the name of the column to create
 from the data stored in the column names of \code{data}.

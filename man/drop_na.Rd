@@ -9,46 +9,18 @@ drop_na(data, ...)
 \arguments{
 \item{data}{A data frame.}
 
-\item{...}{A selection of columns. If empty, all variables are
-selected. You can supply bare variable names, select all
-variables between x and z with \code{x:z}, exclude y with \code{-y}. For
-more options, see the \code{\link[dplyr:select]{dplyr::select()}} documentation. See also
-the section on selection rules below.}
+\item{...}{<\code{\link[=tidyr_tidy_select]{tidy-select}}> Columns to inspect for
+missing values.}
 }
 \description{
 Drop rows containing missing values
 }
-\section{Rules for selection}{
-
-
-Arguments for selecting columns are passed to \code{\link[tidyselect:vars_select]{tidyselect::vars_select()}}
-and are treated specially. Unlike other verbs, selecting functions make a
-strict distinction between data expressions and context expressions.
-\itemize{
-\item A data expression is either a bare name like \code{x} or an expression
-like \code{x:y} or \code{c(x, y)}. In a data expression, you can only refer
-to columns from the data frame.
-\item Everything else is a context expression in which you can only
-refer to objects that you have defined with \verb{<-}.
-}
-
-For instance, \code{col1:col3} is a data expression that refers to data
-columns, while \code{seq(start, end)} is a context expression that
-refers to objects from the contexts.
-
-If you need to refer to contextual objects from a data expression, you can
-use \code{all_of()} or \code{any_of()}. These functions are used to select
-data-variables whose names are stored in a env-variable. For instance,
-\code{all_of(a)} selects the variables listed in the character vector \code{a}.
-For more details, see the \code{\link[tidyselect:select_helpers]{tidyselect::select_helpers()}} documentation.
-}
-
 \examples{
 library(dplyr)
 df <- tibble(x = c(1, 2, NA), y = c("a", NA, "b"))
 df \%>\% drop_na()
 df \%>\% drop_na(x)
-# using a contextual object with all_of()
-z <- 2
-df \%>\% drop_na(x, all_of(z))
+
+vars <- "y"
+df \%>\% drop_na(x, any_of(vars))
 }

@@ -9,6 +9,7 @@
 #' @importFrom dplyr tbl_vars
 #' @importFrom utils type.convert
 #' @importFrom lifecycle deprecated
+#' @importFrom tidyselect any_of
 #' @useDynLib tidyr, .registration = TRUE
 "_PACKAGE"
 
