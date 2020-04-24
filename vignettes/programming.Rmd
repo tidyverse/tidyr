@@ -8,8 +8,8 @@ vignette: >
 ---
 
 ```{r setup, echo = FALSE, message = FALSE}
-knitr::opts_chunk$set(collapse = T, comment = "#>")
-options(tibble.print_min = 4L, tibble.print_max = 4L)
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
+options(tibble.print_min = 6L, tibble.print_max = 6L)
 set.seed(1014)
 
 # Manually "import"; only needed for old dplyr which uses old tidyselect
@@ -19,26 +19,35 @@ all_of <- tidyselect::all_of
 
 ## Introduction
 
-Most tidyr verbs use **tidy evaluation** in some way. Tidy evaluation is a special type of non-standard evaluation used throughout the tidyverse. There are two basic forms found in tidyr:
+Most tidyr verbs use **tidy evaluation** to make interactive data exploration fast and fluid. Tidy evaluation is a special type of non-standard evaluation used throughout the tidyverse. Here's some typical tidyr code:
 
-* `drop_na()`, `fill()`, `pivot_longer()`/`pivot_wider()`, `nest()`/`unnest()`, 
-  `separate()`/`extract()`, and `unite()`, use **tidy selection** so you can 
-  easily choose variables based on their position, name, or type 
-  (e.g. `1:3`, `starts_with("x")` or `is.numeric`).
+```{r}
+library(tidyr)
 
-* `expand()`, `crossing()` and `nesting()` use **data masking** so that you can 
+iris %>%
+  nest(data = -Species)
+```
+
+Tidy evaluation is why we can use `-Species` to say "all the columns except `Species`", without having to quote the column name (`"Species"`) or refer to the enclosing data frame (`iris$Species`).
+
+Two basic forms of tidy evaluation are used in tidyr:
+
+* **Tidy selection**: `drop_na()`, `fill()`, `pivot_longer()`/`pivot_wider()`,
+  `nest()`/`unnest()`, `separate()`/`extract()`, and `unite()` let you select
+  variables based on position, name, or type (e.g. `1:3`, `starts_with("x")`, or `is.numeric`). Literally, you can use all the same techniques as with
+  `dplyr::select()`.
+
+* **Data masking**: `expand()`, `crossing()` and `nesting()` let you refer to
   use data variables as if they were variables in the environment (i.e. you 
   write `my_variable` not `df$myvariable`). 
   
-Since tidy selection is the most common, we'll focus on it in this vignette. You can learn more about data masking function in the equivalent vignette in dplyr: <https://dplyr.tidyverse.org/dev/articles/programming.html>. For other considerations when writing tidyr code in package, please see `vignette("in-packages")`.
+We focus on tidy selection here, since it's the most common. You can learn more about data masking in the equivalent vignette in dplyr: <https://dplyr.tidyverse.org/dev/articles/programming.html>. For other considerations when writing tidyr code in packages, please see `vignette("in-packages")`.
 
-Tidy selection and data masking make interactive data exploration fast and fluid, but they add some new challenges when you attempt to use them indirectly such as in a for loop or a function. This vignette shows you how to overcome those challenges. We'll first go over the basics of tidy selection and data masking, talk about how to use them indirectly, and then show you a number of recipes to solve common problems.
+We've pointed out that tidyr's tidy evaluation interface is optimized for interactive exploration. The flip side is that this adds some challenges to indirect use, i.e. when you're working inside a `for` loop or a function. This vignette shows you how to overcome those challenges. We'll first go over the basics of tidy selection and data masking, talk about how to use them indirectly, and then show you a number of recipes to solve common problems.
 
-Before we go on, we'll attach the packages we use, expose the version of tidyr, and make a small dataset to use in examples.
+Before we go on, we reveal the version of tidyr we're using and make a small dataset to use in examples.
 
-```{r, message = FALSE}
-library(tidyr)
-
+```{r}
 packageVersion("tidyr")
 
 mini_iris <- as_tibble(iris)[c(1, 2, 51, 52, 101, 102), ]
