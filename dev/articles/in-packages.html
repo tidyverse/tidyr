@@ -79,6 +79,9 @@
       <a href="../articles/pivot.html">Pivoting</a>
     </li>
     <li>
+      <a href="../articles/programming.html">Programming with tidyr</a>
+    </li>
+    <li>
       <a href="../articles/rectangle.html">Rectangling</a>
     </li>
     <li>
@@ -172,9 +175,8 @@
 <span class="fu"><a href="https://rdrr.io/r/utils/packageDescription.html">packageVersion</a></span>(<span class="st">"tidyr"</span>)
 <span class="co">#&gt; [1] '1.0.2.9000'</span>
 
-(<span class="no">mini_iris</span> <span class="kw">&lt;-</span> <span class="no">iris</span> <span class="kw">%&gt;%</span>
-    <span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html">as_tibble</a></span>() <span class="kw">%&gt;%</span>
-    <span class="no">.</span>[<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">51</span>, <span class="fl">52</span>, <span class="fl">101</span>, <span class="fl">102</span>), ])
+<span class="no">mini_iris</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html">as_tibble</a></span>(<span class="no">iris</span>)[<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">51</span>, <span class="fl">52</span>, <span class="fl">101</span>, <span class="fl">102</span>), ]
+<span class="no">mini_iris</span>
 <span class="co">#&gt; # A tibble: 6 x 5</span>
 <span class="co">#&gt;   Sepal.Length Sepal.Width Petal.Length Petal.Width Species   </span>
 <span class="co">#&gt;          &lt;dbl&gt;       &lt;dbl&gt;        &lt;dbl&gt;       &lt;dbl&gt; &lt;fct&gt;     </span>
@@ -188,17 +190,15 @@
 <div id="using-tidyr-in-packages" class="section level2">
 <h2 class="hasAnchor">
 <a href="#using-tidyr-in-packages" class="anchor"></a>Using tidyr in packages</h2>
-<p>Compared to dplyr and ggplot2, most tidyr functions have <strong>select semantics</strong> (like <code><a href="https://dplyr.tidyverse.org/reference/select.html">dplyr::select()</a></code>), not the more common action semantics (like <code><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate()</a></code>, <code><a href="https://dplyr.tidyverse.org/reference/filter.html">filter()</a></code>, <code><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange()</a></code>, <code><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by()</a></code>, …). This means that you typically provide tidyr functions with an expression that works with column names (like <code><a href="https://tidyselect.r-lib.org/reference/select_helpers.html">starts_with("x")</a></code> or <code>a:c</code>) not with column values (like <code>y = x * 2</code>). As a consequence, it’s worthwhile to clarify the best patterns for calling tidyr functions inside another package.</p>
-<p>There are three main cases that you’ll encounter:</p>
+<p>Here we assume that you’re already familiar with using tidyr in functions, as described in <code>vignette("programming.Rmd)</code>. There are two important considerations when using tidyr in a package:</p>
 <ul>
-<li><p>The column names are fixed: use <code><a href="https://tidyselect.r-lib.org/reference/one_of.html">one_of("col1", "col2", "col3")</a></code>.</p></li>
-<li><p>The column names are in a character vector: use <code><a href="https://tidyselect.r-lib.org/reference/one_of.html">one_of(cols)</a></code>.</p></li>
-<li><p>The column names are specified by the user, using select syntax: use <code>{{ cols }}</code>.</p></li>
+<li>How to avoid <code>R CMD CHECK</code> notes when using fixed variable names.</li>
+<li>How to alert yourself to upcoming changes in the development version of tidyr.</li>
 </ul>
 <div id="fixed-column-names" class="section level3">
 <h3 class="hasAnchor">
 <a href="#fixed-column-names" class="anchor"></a>Fixed column names</h3>
-<p>If you know the column names, this code works in the same way, in and out of a package:</p>
+<p>If you know the column names, this code works in the same way regardless of whether its inside or outside of a package:</p>
 <div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="no">mini_iris</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/nest.html">nest</a></span>(
   <span class="kw">petal</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="no">Petal.Length</span>, <span class="no">Petal.Width</span>),
   <span class="kw">sepal</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="no">Sepal.Length</span>, <span class="no">Sepal.Width</span>)
@@ -209,11 +209,11 @@
 <span class="co">#&gt; 1 setosa     &lt;tibble [2 × 2]&gt; &lt;tibble [2 × 2]&gt;</span>
 <span class="co">#&gt; 2 versicolor &lt;tibble [2 × 2]&gt; &lt;tibble [2 × 2]&gt;</span>
 <span class="co">#&gt; 3 virginica  &lt;tibble [2 × 2]&gt; &lt;tibble [2 × 2]&gt;</span></pre></body></html></div>
-<p>But <code>R CMD check</code> will warn about undefined global variables (<code>Petal.Length</code>, <code>Petal.Width</code>, <code>Sepal.Length</code>, and <code>Sepal.Width</code>), because it doesn’t know that <code><a href="../reference/nest.html">nest()</a></code> is looking for the variables inside of <code>mini_iris</code>.</p>
-<p>The easiest way to silence this note is to use <code><a href="https://tidyselect.r-lib.org/reference/one_of.html">one_of()</a></code>. <code><a href="https://tidyselect.r-lib.org/reference/one_of.html">one_of()</a></code> is a tidyselect helper (like <code><a href="https://tidyselect.r-lib.org/reference/select_helpers.html">starts_with()</a></code>, <code><a href="https://tidyselect.r-lib.org/reference/select_helpers.html">ends_with()</a></code>, etc.) that takes column names stored as strings:</p>
+<p>But <code>R CMD check</code> will warn about undefined global variables (<code>Petal.Length</code>, <code>Petal.Width</code>, <code>Sepal.Length</code>, and <code>Sepal.Width</code>), because it doesn’t know that <code><a href="../reference/nest.html">nest()</a></code> is looking for the variables inside of <code>mini_iris</code> (i.e. <code>Petal.Length</code> and friends are data-variables, not env-variables).</p>
+<p>The easiest way to silence this note is to use <code>all_of()</code>. <code>all_of()</code> is a tidyselect helper (like <code><a href="https://tidyselect.r-lib.org/reference/select_helpers.html">starts_with()</a></code>, <code><a href="https://tidyselect.r-lib.org/reference/select_helpers.html">ends_with()</a></code>, etc.) that takes column names stored as strings:</p>
 <div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="no">mini_iris</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/nest.html">nest</a></span>(
-  <span class="kw">petal</span> <span class="kw">=</span> <span class="fu"><a href="https://tidyselect.r-lib.org/reference/one_of.html">one_of</a></span>(<span class="st">"Petal.Length"</span>, <span class="st">"Petal.Width"</span>),
-  <span class="kw">sepal</span> <span class="kw">=</span> <span class="fu"><a href="https://tidyselect.r-lib.org/reference/one_of.html">one_of</a></span>(<span class="st">"Sepal.Length"</span>, <span class="st">"Sepal.Width"</span>)
+  <span class="kw">petal</span> <span class="kw">=</span> <span class="fu">all_of</span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Petal.Length"</span>, <span class="st">"Petal.Width"</span>)),
+  <span class="kw">sepal</span> <span class="kw">=</span> <span class="fu">all_of</span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Sepal.Length"</span>, <span class="st">"Sepal.Width"</span>))
 )
 <span class="co">#&gt; # A tibble: 3 x 3</span>
 <span class="co">#&gt;   Species    petal            sepal           </span>
@@ -221,76 +221,38 @@
 <span class="co">#&gt; 1 setosa     &lt;tibble [2 × 2]&gt; &lt;tibble [2 × 2]&gt;</span>
 <span class="co">#&gt; 2 versicolor &lt;tibble [2 × 2]&gt; &lt;tibble [2 × 2]&gt;</span>
 <span class="co">#&gt; 3 virginica  &lt;tibble [2 × 2]&gt; &lt;tibble [2 × 2]&gt;</span></pre></body></html></div>
+<p>(Alternatively, you may want to use <code>any_of()</code> if you want the function to silently omit variables that are not present in the input data.)</p>
 <p>The <a href="https://tidyselect.r-lib.org">tidyselect</a> package offers an entire family of select helpers. You are probably already familiar with them from using <code><a href="https://dplyr.tidyverse.org/reference/select.html">dplyr::select()</a></code>.</p>
 </div>
-<div id="column-names-in-a-character-vector" class="section level3">
+<div id="continuous-integration" class="section level3">
 <h3 class="hasAnchor">
-<a href="#column-names-in-a-character-vector" class="anchor"></a>Column names in a character vector</h3>
-<p>If the column names are in a character vector (possibly from a function call), you can provide that to <code><a href="https://tidyselect.r-lib.org/reference/one_of.html">one_of()</a></code>, as above:</p>
-<div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="no">nest_egg</span> <span class="kw">&lt;-</span> <span class="kw">function</span>(<span class="no">data</span>, <span class="no">cols</span>) {
-  <span class="fu"><a href="../reference/nest.html">nest</a></span>(<span class="no">data</span>, <span class="kw">egg</span> <span class="kw">=</span> <span class="fu"><a href="https://tidyselect.r-lib.org/reference/one_of.html">one_of</a></span>(<span class="no">cols</span>))
-}
-
-<span class="fu">nest_egg</span>(<span class="no">mini_iris</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Petal.Length"</span>, <span class="st">"Petal.Width"</span>, <span class="st">"Sepal.Length"</span>, <span class="st">"Sepal.Width"</span>))
-<span class="co">#&gt; # A tibble: 3 x 2</span>
-<span class="co">#&gt;   Species    egg             </span>
-<span class="co">#&gt;   &lt;fct&gt;      &lt;list&gt;          </span>
-<span class="co">#&gt; 1 setosa     &lt;tibble [2 × 4]&gt;</span>
-<span class="co">#&gt; 2 versicolor &lt;tibble [2 × 4]&gt;</span>
-<span class="co">#&gt; 3 virginica  &lt;tibble [2 × 4]&gt;</span></pre></body></html></div>
-<p>The use of <code><a href="https://tidyselect.r-lib.org/reference/one_of.html">one_of()</a></code> here is important; if you don’t use it, and <code>data</code> contains a column named <code>cols</code>, <code><a href="../reference/nest.html">nest()</a></code> will nest it instead of the columns named in <code>cols</code>.</p>
-</div>
-<div id="tidyselect-interface" class="section level3">
-<h3 class="hasAnchor">
-<a href="#tidyselect-interface" class="anchor"></a>tidyselect interface</h3>
-<p>To provide an interface that works like the tidyr function that you’re wrapping, you should pass the argument along using <code>{{ arg }}</code>. <code>{{ }}</code> is a special tidy eval operator that captures the expression supplied by the user and forwards it to another tidy eval-enabled function.</p>
-<div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="no">nest_egg</span> <span class="kw">&lt;-</span> <span class="kw">function</span>(<span class="no">df</span>, <span class="no">cols</span>) {
-  <span class="fu"><a href="../reference/nest.html">nest</a></span>(<span class="no">df</span>, <span class="kw">egg</span> <span class="kw">=</span> {{ <span class="no">cols</span> }})
-}
-
-<span class="fu">nest_egg</span>(<span class="no">mini_iris</span>, -<span class="no">Species</span>)
-<span class="co">#&gt; # A tibble: 3 x 2</span>
-<span class="co">#&gt;   Species    egg             </span>
-<span class="co">#&gt;   &lt;fct&gt;      &lt;list&gt;          </span>
-<span class="co">#&gt; 1 setosa     &lt;tibble [2 × 4]&gt;</span>
-<span class="co">#&gt; 2 versicolor &lt;tibble [2 × 4]&gt;</span>
-<span class="co">#&gt; 3 virginica  &lt;tibble [2 × 4]&gt;</span></pre></body></html></div>
-<p>For more complicated functions, you might want to use tidyselect directly:</p>
-<div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="no">sel_vars</span> <span class="kw">&lt;-</span> <span class="kw">function</span>(<span class="no">df</span>, <span class="no">cols</span>) {
-  <span class="kw pkg">tidyselect</span><span class="kw ns">::</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/vars_select.html">vars_select</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span>(<span class="no">df</span>), {{ <span class="no">cols</span> }})
-}
-
-<span class="fu">sel_vars</span>(<span class="no">mini_iris</span>, -<span class="no">Species</span>)
-<span class="co">#&gt;   Sepal.Length    Sepal.Width   Petal.Length    Petal.Width </span>
-<span class="co">#&gt; "Sepal.Length"  "Sepal.Width" "Petal.Length"  "Petal.Width"</span></pre></body></html></div>
-<p>(Many tidyr functions use <code>...</code> so you can easily select many variables, e.g. <code><a href="../reference/fill.html">fill(df, x, y, z)</a></code>. I now believe that the disadvantages of this approach outweigh the benefits, and that this interface would have been better as <code><a href="../reference/fill.html">fill(df, c(x, y, z))</a></code>. For new functions that select columns, please just use a single argument and not <code>...</code>.)</p>
-<p>If you decide to support tidyselect syntax, I recommend re-exporting the select helpers so that users can use (e.g.) <code><a href="https://tidyselect.r-lib.org/reference/select_helpers.html">starts_with()</a></code> without any extra work. There’s no helper to <a href="https://github.com/r-lib/usethis/issues/868">do this yet</a>, but you can copy-and-paste the code that <a href="https://github.com/tidyverse/tidyr/blob/00a66b44d2f304a73e953dd73139db61ed9cc289/R/tidyr.R#L29-L53">tidyr uses</a>.</p>
-</div>
-<div id="travis-ci" class="section level3">
-<h3 class="hasAnchor">
-<a href="#travis-ci" class="anchor"></a>Travis-CI</h3>
-<p>Hopefully you’ve already adopted continuous integration for your package, in which <code>R CMD check</code> (which includes your own tests) is run on a regular basis, e.g. every time you push changes to your package’s source on GitHub or similar. The tidyverse team currently relies most heavily on Travis-CI for this, so that will be our example. <code>usethis::use_travis()</code> can help you get started.</p>
-<p>We recommend adding a build to your matrix that targets the devel version of tidyr:</p>
+<a href="#continuous-integration" class="anchor"></a>Continuous integration</h3>
+<p>Hopefully you’ve already adopted continuous integration for your package, in which <code>R CMD check</code> (which includes your own tests) is run on a regular basis, e.g. every time you push changes to your package’s source on GitHub or similar. The tidyverse team currently relies most heavily on GitHub Actions, so that will be our example. <code>usethis::use_github_action()</code> can help you get started.</p>
+<p>We recommend adding a workflow that targets the devel version of tidyr:</p>
 <ul>
-<li><p>Always? If your package is tightly coupled to tidyr, consider leaving this build in place all the time, so you know if changes in tidyr affect your package. Modifiers like <code>allow_failures</code> and <code>fast_finish</code> may be useful. Read more about the <a href="https://docs.travis-ci.com/user/customizing-the-build/#build-matrix">Travis build matrix</a>.</p></li>
-<li><p>Right before a tidyr release? For everyone else, you could just add a tidyr-devel build during the period preceding a major tidyr release that has the potential for breaking changes, especially if you’ve been contacted during our reverse dependency checks.</p></li>
+<li><p>Always? If your package is tightly coupled to tidyr, consider leaving this build in place all the time, so you know if changes in tidyr affect your package.</p></li>
+<li><p>Right before a tidyr release? For everyone else, you could just add a tidyr-devel workflow during the period preceding a major tidyr release that has the potential for breaking changes, especially if you’ve been contacted during our reverse dependency checks.</p></li>
 </ul>
 <p>Example of <code>.travis.yml</code> config that tests against R devel, release, and oldrel, assesses test coverage, and includes a build against devel tidyr:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb7-1"><a href="#cb7-1"></a><span class="co"># R for travis: see documentation at https://docs.travis-ci.com/user/languages/r</span></span>
-<span id="cb7-2"><a href="#cb7-2"></a></span>
-<span id="cb7-3"><a href="#cb7-3"></a><span class="fu">language</span><span class="kw">:</span><span class="at"> R</span></span>
-<span id="cb7-4"><a href="#cb7-4"></a><span class="fu">cache</span><span class="kw">:</span><span class="at"> packages</span></span>
-<span id="cb7-5"><a href="#cb7-5"></a></span>
-<span id="cb7-6"><a href="#cb7-6"></a><span class="fu">matrix</span><span class="kw">:</span></span>
-<span id="cb7-7"><a href="#cb7-7"></a><span class="at">  </span><span class="fu">include</span><span class="kw">:</span></span>
-<span id="cb7-8"><a href="#cb7-8"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">r</span><span class="kw">:</span><span class="at"> devel</span></span>
-<span id="cb7-9"><a href="#cb7-9"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">r</span><span class="kw">:</span><span class="at"> release</span></span>
-<span id="cb7-10"><a href="#cb7-10"></a><span class="at">    </span><span class="fu">after_success</span><span class="kw">:</span></span>
-<span id="cb7-11"><a href="#cb7-11"></a><span class="at">    </span><span class="kw">-</span><span class="at"> Rscript -e 'covr::codecov()'</span></span>
-<span id="cb7-12"><a href="#cb7-12"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">r</span><span class="kw">:</span><span class="at"> release</span></span>
-<span id="cb7-13"><a href="#cb7-13"></a><span class="at">    </span><span class="fu">name</span><span class="kw">:</span><span class="at"> tidyr-devel</span></span>
-<span id="cb7-14"><a href="#cb7-14"></a><span class="at">    </span><span class="fu">before_script</span><span class="kw">:</span><span class="at"> Rscript -e "remotes::install_github('tidyverse/tidyr')"</span></span>
-<span id="cb7-15"><a href="#cb7-15"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">r</span><span class="kw">:</span><span class="at"> oldrel</span></span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb4-1"><a href="#cb4-1"></a><span class="fu">on</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">push</span><span class="kw">,</span><span class="at"> pull_request</span><span class="kw">]</span></span>
+<span id="cb4-2"><a href="#cb4-2"></a></span>
+<span id="cb4-3"><a href="#cb4-3"></a><span class="fu">name</span><span class="kw">:</span><span class="at"> R-CMD-check-devel</span></span>
+<span id="cb4-4"><a href="#cb4-4"></a></span>
+<span id="cb4-5"><a href="#cb4-5"></a><span class="fu">jobs</span><span class="kw">:</span></span>
+<span id="cb4-6"><a href="#cb4-6"></a><span class="at">  </span><span class="fu">R-CMD-check</span><span class="kw">:</span></span>
+<span id="cb4-7"><a href="#cb4-7"></a><span class="at">    </span><span class="fu">runs-on</span><span class="kw">:</span><span class="at"> macOS-latest</span></span>
+<span id="cb4-8"><a href="#cb4-8"></a><span class="at">    </span><span class="fu">steps</span><span class="kw">:</span></span>
+<span id="cb4-9"><a href="#cb4-9"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">uses</span><span class="kw">:</span><span class="at"> actions/checkout@v2</span></span>
+<span id="cb4-10"><a href="#cb4-10"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">uses</span><span class="kw">:</span><span class="at"> r-lib/actions/setup-r@master</span></span>
+<span id="cb4-11"><a href="#cb4-11"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Install dependencies</span></span>
+<span id="cb4-12"><a href="#cb4-12"></a><span class="fu">        run</span><span class="kw">: </span><span class="ch">|</span></span>
+<span id="cb4-13"><a href="#cb4-13"></a>          install.packages(c("remotes", "rcmdcheck"))</span>
+<span id="cb4-14"><a href="#cb4-14"></a>          remotes::install_deps(dependencies = TRUE)</span>
+<span id="cb4-15"><a href="#cb4-15"></a>          remotes::install_github("tidyverse/tidyr")</span>
+<span id="cb4-16"><a href="#cb4-16"></a><span class="at">        </span><span class="fu">shell</span><span class="kw">:</span><span class="at"> Rscript {0}</span></span>
+<span id="cb4-17"><a href="#cb4-17"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Check</span></span>
+<span id="cb4-18"><a href="#cb4-18"></a><span class="at">        </span><span class="fu">run</span><span class="kw">:</span><span class="at"> rcmdcheck::rcmdcheck(args = "--no-manual", error_on = "error")</span></span>
+<span id="cb4-19"><a href="#cb4-19"></a><span class="at">        </span><span class="fu">shell</span><span class="kw">:</span><span class="at"> Rscript {0}</span></span></code></pre></div>
 </div>
 </div>
 <div id="tidyr-v0-8-3---v1-0-0" class="section level2">
@@ -314,12 +276,12 @@
 <a href="#conditional-code" class="anchor"></a>Conditional code</h3>
 <p>Sometimes you’ll be able to write code that works with v0.8.3 <em>and</em> v1.0.0. But this often requires code that’s not particularly natural for either version and you’d be better off to (temporarily) have separate code paths, each containing non-contrived code. You get to re-use your existing code in the “old” branch, which will eventually be phased out, and write clean, forward-looking code in the “new” branch.</p>
 <p>The basic approach looks like this. First you define a function that returns <code>TRUE</code> for new versions of tidyr:</p>
-<div class="sourceCode" id="cb8"><html><body><pre class="r"><span class="no">tidyr_new_interface</span> <span class="kw">&lt;-</span> <span class="kw">function</span>() {
+<div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="no">tidyr_new_interface</span> <span class="kw">&lt;-</span> <span class="kw">function</span>() {
   <span class="fu"><a href="https://rdrr.io/r/utils/packageDescription.html">packageVersion</a></span>(<span class="st">"tidyr"</span>) <span class="kw">&gt;</span> <span class="st">"0.8.99"</span>
 }</pre></body></html></div>
 <p>We highly recommend keeping this as a function because it provides an obvious place to jot any transition notes for your package, and it makes it easier to remove transitional code later on. Another benefit is that the tidyr version is determined at <em>run time</em>, not at <em>build time</em>, and will therefore detect your user’s current tidyr version.</p>
 <p>Then in your functions, you use an <code>if</code> statement to call different code for different versions:</p>
-<div class="sourceCode" id="cb9"><html><body><pre class="r">my_function_inside_a_package &lt;- function(...)
+<div class="sourceCode" id="cb6"><html><body><pre class="r">my_function_inside_a_package &lt;- function(...)
   # my code here
 
   if (tidyr_new_interface()) {
@@ -349,7 +311,7 @@
 <li><p>The use of <code>...</code> for metadata is a problematic pattern we’re moving away from. <a href="https://principles.tidyverse.org/dots-data.html" class="uri">https://principles.tidyverse.org/dots-data.html</a></p></li>
 <li>
 <p>The <code>new_col = &lt;something about existing cols&gt;</code> construct lets us create multiple nested list-columns at once (“multi-nest”).</p>
-<div class="sourceCode" id="cb10"><html><body><pre class="r"><span class="no">mini_iris</span> <span class="kw">%&gt;%</span>
+<div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="no">mini_iris</span> <span class="kw">%&gt;%</span>
   <span class="fu"><a href="../reference/nest.html">nest</a></span>(<span class="kw">petal</span> <span class="kw">=</span> <span class="fu"><a href="https://tidyselect.r-lib.org/reference/select_helpers.html">matches</a></span>(<span class="st">"Petal"</span>), <span class="kw">sepal</span> <span class="kw">=</span> <span class="fu"><a href="https://tidyselect.r-lib.org/reference/select_helpers.html">matches</a></span>(<span class="st">"Sepal"</span>))
 <span class="co">#&gt; # A tibble: 3 x 3</span>
 <span class="co">#&gt;   Species    petal            sepal           </span>
@@ -360,7 +322,7 @@
 </li>
 </ul>
 <p>Before and after examples:</p>
-<div class="sourceCode" id="cb11"><html><body><pre class="r"><span class="co"># v0.8.3</span>
+<div class="sourceCode" id="cb8"><html><body><pre class="r"><span class="co"># v0.8.3</span>
 <span class="no">mini_iris</span> <span class="kw">%&gt;%</span>
   <span class="fu"><a href="../reference/nest.html">nest</a></span>(<span class="no">Sepal.Length</span>, <span class="no">Sepal.Width</span>, <span class="no">Petal.Length</span>, <span class="no">Petal.Width</span>, <span class="kw">.key</span> <span class="kw">=</span> <span class="st">"my_data"</span>)
 
@@ -376,7 +338,7 @@
 <span class="no">mini_iris</span> <span class="kw">%&gt;%</span>
   <span class="fu"><a href="../reference/nest.html">nest</a></span>(<span class="kw">my_data</span> <span class="kw">=</span> -<span class="fu"><a href="https://tidyselect.r-lib.org/reference/one_of.html">one_of</a></span>(<span class="st">"Species"</span>))</pre></body></html></div>
 <p>If you need a quick and dirty fix without having to think, just call <code><a href="../reference/nest_legacy.html">nest_legacy()</a></code> instead of <code><a href="../reference/nest.html">nest()</a></code>. It’s the same as <code><a href="../reference/nest.html">nest()</a></code> in v0.8.3:</p>
-<div class="sourceCode" id="cb12"><html><body><pre class="r"><span class="kw">if</span> (<span class="fu">tidyr_new_interface</span>()) {
+<div class="sourceCode" id="cb9"><html><body><pre class="r"><span class="kw">if</span> (<span class="fu">tidyr_new_interface</span>()) {
   <span class="no">out</span> <span class="kw">&lt;-</span> <span class="kw pkg">tidyr</span><span class="kw ns">::</span><span class="fu"><a href="../reference/nest_legacy.html">nest_legacy</a></span>(<span class="no">df</span>, <span class="no">x</span>, <span class="no">y</span>, <span class="no">z</span>)
 } <span class="kw">else</span> {
   <span class="no">out</span> <span class="kw">&lt;-</span> <span class="kw pkg">tidyr</span><span class="kw ns">::</span><span class="fu"><a href="../reference/nest.html">nest</a></span>(<span class="no">df</span>, <span class="no">x</span>, <span class="no">y</span>, <span class="no">z</span>)
@@ -393,7 +355,7 @@
 <li><p><code><a href="../reference/nest.html">unnest()</a></code> uses the <a href="https://www.tidyverse.org/articles/2019/01/tibble-2.0.1/#name-repair">emerging tidyverse standard</a> to disambiguate duplicated names. Use <code>names_repair = tidyr_legacy</code> to request the previous approach.</p></li>
 <li>
 <p><code>.id</code> has been deprecated because it can be easily replaced by creating the column of names prior to <code><a href="../reference/nest.html">unnest()</a></code>, e.g. with an upstream call to <code><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate()</a></code>.</p>
-<div class="sourceCode" id="cb13"><html><body><pre class="r"># v0.8.3
+<div class="sourceCode" id="cb10"><html><body><pre class="r"># v0.8.3
 df %&gt;% unnest(x, .id = "id")
 
 # v1.0.0
@@ -406,7 +368,7 @@ df %&gt;% mutate(id = names(x)) %&gt;% unnest(x))</pre></body></html></div>
 <li><p>The changes to details arguments relate to features rolling out across multiple packages in the tidyverse. For example, <code>ptype</code> exposes prototype support from the new <a href="https://vctrs.r-lib.org">vctrs package</a>. <code>names_repair</code> specifies what to do about duplicated or non-syntactic names, consistent with tibble and readxl.</p></li>
 </ul>
 <p>Before and after:</p>
-<div class="sourceCode" id="cb14"><html><body><pre class="r"><span class="no">nested</span> <span class="kw">&lt;-</span> <span class="no">mini_iris</span> <span class="kw">%&gt;%</span>
+<div class="sourceCode" id="cb11"><html><body><pre class="r"><span class="no">nested</span> <span class="kw">&lt;-</span> <span class="no">mini_iris</span> <span class="kw">%&gt;%</span>
   <span class="fu"><a href="../reference/nest.html">nest</a></span>(<span class="kw">my_data</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="no">Sepal.Length</span>, <span class="no">Sepal.Width</span>, <span class="no">Petal.Length</span>, <span class="no">Petal.Width</span>))
 
 <span class="co"># v0.8.3 automatically unnests list-cols</span>
@@ -415,7 +377,7 @@ df %&gt;% mutate(id = names(x)) %&gt;% unnest(x))</pre></body></html></div>
 <span class="co"># v1.0.0 must be told which columns to unnest</span>
 <span class="no">nested</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/nest.html">unnest</a></span>(<span class="fu"><a href="https://tidyselect.r-lib.org/reference/one_of.html">one_of</a></span>(<span class="st">"my_data"</span>))</pre></body></html></div>
 <p>If you need a quick and dirty fix without having to think, just call <code><a href="../reference/nest_legacy.html">unnest_legacy()</a></code> instead of <code><a href="../reference/nest.html">unnest()</a></code>. It’s the same as <code><a href="../reference/nest.html">unnest()</a></code> in v0.8.3:</p>
-<div class="sourceCode" id="cb15"><html><body><pre class="r"><span class="kw">if</span> (<span class="fu">tidyr_new_interface</span>()) {
+<div class="sourceCode" id="cb12"><html><body><pre class="r"><span class="kw">if</span> (<span class="fu">tidyr_new_interface</span>()) {
   <span class="no">out</span> <span class="kw">&lt;-</span> <span class="kw pkg">tidyr</span><span class="kw ns">::</span><span class="fu"><a href="../reference/nest_legacy.html">unnest_legacy</a></span>(<span class="no">df</span>)
 } <span class="kw">else</span> {
   <span class="no">out</span> <span class="kw">&lt;-</span> <span class="kw pkg">tidyr</span><span class="kw ns">::</span><span class="fu"><a href="../reference/nest.html">unnest</a></span>(<span class="no">df</span>)
@@ -440,7 +402,7 @@ df %&gt;% mutate(id = names(x)) %&gt;% unnest(x))</pre></body></html></div>
 <li><p>Adjust the downstream code to accommodate grouping.</p></li>
 </ul>
 <p>Imagine we used <code><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by()</a></code> then <code><a href="../reference/nest.html">nest()</a></code> on <code>mini_iris</code>, then we computed on the list-column <em>outside the data frame</em>.</p>
-<div class="sourceCode" id="cb16"><html><body><pre class="r">(<span class="no">df</span> <span class="kw">&lt;-</span> <span class="no">mini_iris</span> <span class="kw">%&gt;%</span>
+<div class="sourceCode" id="cb13"><html><body><pre class="r">(<span class="no">df</span> <span class="kw">&lt;-</span> <span class="no">mini_iris</span> <span class="kw">%&gt;%</span>
    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(<span class="no">Species</span>) <span class="kw">%&gt;%</span>
    <span class="fu"><a href="../reference/nest.html">nest</a></span>())
 <span class="co">#&gt; # A tibble: 3 x 2</span>
@@ -453,11 +415,11 @@ df %&gt;% mutate(id = names(x)) %&gt;% unnest(x))</pre></body></html></div>
 (<span class="no">external_variable</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map_int</a></span>(<span class="no">df</span>$<span class="no">data</span>, <span class="no">nrow</span>))
 <span class="co">#&gt; [1] 2 2 2</span></pre></body></html></div>
 <p>And now we try to add that back to the data <em>post hoc</em>:</p>
-<div class="sourceCode" id="cb17"><html><body><pre class="r"><span class="no">df</span> <span class="kw">%&gt;%</span>
+<div class="sourceCode" id="cb14"><html><body><pre class="r"><span class="no">df</span> <span class="kw">%&gt;%</span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="kw">n_rows</span> <span class="kw">=</span> <span class="no">external_variable</span>)
 <span class="co">#&gt; Error: Column `n_rows` must be length 1 (the group size), not 3</span></pre></body></html></div>
 <p>This fails because <code>df</code> is grouped and <code><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate()</a></code> is group-aware, so it’s hard to add a completely external variable. Other than pragmatically <code><a href="https://dplyr.tidyverse.org/reference/group_by.html">ungroup()</a></code>ing, what can we do? One option is to work inside the data frame, i.e. bring the <code><a href="https://purrr.tidyverse.org/reference/map.html">map()</a></code> inside the <code><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate()</a></code>, and design the problem away:</p>
-<div class="sourceCode" id="cb18"><html><body><pre class="r"><span class="no">df</span> <span class="kw">%&gt;%</span>
+<div class="sourceCode" id="cb15"><html><body><pre class="r"><span class="no">df</span> <span class="kw">%&gt;%</span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="kw">n_rows</span> <span class="kw">=</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map_int</a></span>(<span class="no">data</span>, <span class="no">nrow</span>))
 <span class="co">#&gt; # A tibble: 3 x 3</span>
 <span class="co">#&gt; # Groups:   Species [3]</span>
@@ -467,7 +429,7 @@ df %&gt;% mutate(id = names(x)) %&gt;% unnest(x))</pre></body></html></div>
 <span class="co">#&gt; 2 versicolor &lt;tibble [2 × 4]&gt;      2</span>
 <span class="co">#&gt; 3 virginica  &lt;tibble [2 × 4]&gt;      2</span></pre></body></html></div>
 <p>If, somehow, the grouping seems appropriate AND working inside the data frame is not an option, <code><a href="https://tibble.tidyverse.org/reference/add_column.html">tibble::add_column()</a></code> is group-unaware. It lets you add external data to a grouped data frame.</p>
-<div class="sourceCode" id="cb19"><html><body><pre class="r"><span class="no">df</span> <span class="kw">%&gt;%</span>
+<div class="sourceCode" id="cb16"><html><body><pre class="r"><span class="no">df</span> <span class="kw">%&gt;%</span>
   <span class="kw pkg">tibble</span><span class="kw ns">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/add_column.html">add_column</a></span>(<span class="kw">n_rows</span> <span class="kw">=</span> <span class="no">external_variable</span>)
 <span class="co">#&gt; # A tibble: 3 x 3</span>
 <span class="co">#&gt; # Groups:   Species [3]</span>
@@ -495,7 +457,7 @@ df %&gt;% mutate(id = names(x)) %&gt;% unnest(x))</pre></body></html></div>
 </li>
 </ul>
 <p>Before and after:</p>
-<div class="sourceCode" id="cb20"><html><body><pre class="r"><span class="co"># v0.8.3</span>
+<div class="sourceCode" id="cb17"><html><body><pre class="r"><span class="co"># v0.8.3</span>
 <span class="no">mini_iris</span> <span class="kw">%&gt;%</span>
   <span class="fu"><a href="../reference/deprecated-se.html">nest_</a></span>(
     <span class="kw">key_col</span> <span class="kw">=</span> <span class="st">"my_data"</span>,
