@@ -68,7 +68,7 @@ mini_iris %>% nest(
 )
 ```
 
-(Alternatively, you may want to use `any_of()` if you want the function to silently omit variables that are not present in the input data.)
+Alternatively, you may want to use `any_of()` if it is OK that some of the specified variables cannot be found in the input data.
 
 The [tidyselect](https://tidyselect.r-lib.org) package offers an entire family of select helpers. You are probably already familiar with them from using `dplyr::select()`.
 
@@ -76,23 +76,27 @@ The [tidyselect](https://tidyselect.r-lib.org) package offers an entire family o
 
 Hopefully you've already adopted continuous integration for your package, in which `R CMD check` (which includes your own tests) is run on a regular basis, e.g. every time you push changes to your package's source on GitHub or similar. The tidyverse team currently relies most heavily on GitHub Actions, so that will be our example. `usethis::use_github_action()` can help you get started.
 
-We recommend adding a workflow that targets the devel version of tidyr:
+We recommend adding a workflow that targets the devel version of tidyr. When should you do this?
 
 * Always? If your package is tightly coupled to tidyr, consider leaving this 
-  build in place all the time, so you know if changes in tidyr affect your 
-  package. 
+  in place all the time, so you know if changes in tidyr affect your package. 
   
-* Right before a tidyr release? For everyone else, you could just add a 
-  tidyr-devel workflow during the period preceding a major tidyr release that has 
-  the potential for breaking changes, especially if you've been contacted during
-  our reverse dependency checks.
+* Right before a tidyr release? For everyone else, you could add (or 
+  re-activate an existing) tidyr-devel workflow during the period preceding a
+  major tidyr release that has the potential for breaking changes, especially if you've been contacted during our reverse dependency checks.
 
-Example of `.travis.yml` config that tests against R devel, release, and oldrel, assesses test coverage, and includes a build against devel tidyr:
+Example of a GitHub Actions workflow that tests your package against the development version of tidyr:
 
 ``` yaml
-on: [push, pull_request]
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
 
-name: R-CMD-check-devel
+name: R-CMD-check-tidyr-devel
 
 jobs:
   R-CMD-check:
@@ -111,13 +115,15 @@ jobs:
         shell: Rscript {0}
 ```
 
+GitHub Actions are an evolving landscape, so you can always mine the workflows for tidyr itself ([tidyverse/tidyr/.github/workflows](https://github.com/tidyverse/tidyr/tree/master/.github/workflows)) or the main [r-lib/actions](https://github.com/r-lib/actions) repo for ideas.
+
 ## tidyr v0.8.3 -> v1.0.0
 
-v1.0.0 (aka v0.8.99.9000) makes considerable changes to the interface of `nest()` and `unnest()` in order to bring them in line with newer tidyverse conventions. I have tried to make the functions as backward compatible as possible and to give informative warning messages, but I could not cover 100% of use cases, so you may need to change your package code. This guide will help you do so with a minimum of pain.
+v1.0.0 makes considerable changes to the interface of `nest()` and `unnest()` in order to bring them in line with newer tidyverse conventions. I have tried to make the functions as backward compatible as possible and to give informative warning messages, but I could not cover 100% of use cases, so you may need to change your package code. This guide will help you do so with a minimum of pain.
 
 Ideally, you'll tweak your package so that it works with both tidyr 0.8.3 and tidyr 1.0.0. This makes life considerably easier because it means there's no need to coordinate CRAN submissions - you can submit your package that works with both tidyr versions, before I submit tidyr to CRAN. This section describes our recommend practices for doing so, drawing from the general principles described in <https://principles.tidyverse.org/changes-multivers.html>.
 
-If you use Travis-CI already, we **strongly** recommend adding a build that tests with the development version of tidyr; see above for details.
+If you use continuous integration already, we **strongly** recommend adding a build that tests with the development version of tidyr; see above for details.
 
 This section briefly describes how to run different code for different versions of tidyr, then goes through the major changes that might require workarounds: 
 
