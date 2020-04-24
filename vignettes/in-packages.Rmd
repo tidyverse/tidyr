@@ -74,7 +74,7 @@ The [tidyselect](https://tidyselect.r-lib.org) package offers an entire family o
 
 ### Continuous integration
 
-Hopefully you've already adopted continuous integration for your package, in which `R CMD check` (which includes your own tests) is run on a regular basis, e.g. every time you push changes to your package's source on GitHub or similar. The tidyverse team currently relies most heavily on GitHub actions, so that will be our example. `usethis::use_github_action()` can help you get started.
+Hopefully you've already adopted continuous integration for your package, in which `R CMD check` (which includes your own tests) is run on a regular basis, e.g. every time you push changes to your package's source on GitHub or similar. The tidyverse team currently relies most heavily on GitHub Actions, so that will be our example. `usethis::use_github_action()` can help you get started.
 
 We recommend adding a workflow that targets the devel version of tidyr:
 
