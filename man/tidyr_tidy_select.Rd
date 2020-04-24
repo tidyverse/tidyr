@@ -10,19 +10,19 @@ Tidy selection provides a concise DSL for selecting variables based on their
 names.
 }
 \section{General usage}{
-If you have a data frame with variables \code{apple}, \code{banana}, \code{cantelope},
+If you have a data frame with variables \code{apple}, \code{banana}, \code{cantaloupe},
 \code{date}, \code{eggplant}, \code{fig}, \code{grape} you can:
 \itemize{
 \item Select individual variables with their name: e.g. \code{c(apple, fig, grape)}.
-\item Select data-variables stored in a env-variable with \code{all_of()} (which
+\item Select data-variables stored in an env-variable with \code{all_of()} (which
 will error if a variable is not found) or \code{any_of()} (which is
 relaxed and will silently drop missing variables), e.g.
 if \code{vars <- c("apple", "fig", "peach")}, then \code{all_of(vars)} will
 error; \code{any_of(vars)} will select \code{apple} and \code{fig}.
 \item Select contiguous variables with \code{:}, e.g. \code{apple:date}.
-\item Select variables with named-based helpers: e.g. \code{ends_with("a")},
+\item Select variables with name-based helpers: e.g. \code{ends_with("a")},
 \code{contains("g")}. See full list in \link[tidyselect:select_helpers]{tidyselect::select_helpers}.
-\item Select variables of a given type with a \code{is} function: \code{is.numeric},
+\item Select variables of a given type with an \code{is} function: \code{is.numeric},
 \code{is.factor}, \code{is.character}, etc.
 \item Invert a selection with \code{!}: \code{!is.numeric}, or \code{!contains("x")}.
 \item Create logical combination with \code{|} and \code{&}:
@@ -39,7 +39,7 @@ There are two main cases:
 or \code{any_of()}, depending on whether or not you want unknown variable
 names to cause an error, e.g \code{unnest(df, all_of(vars))},
 \code{unnest(df, -any_of(vars))}.
-\item If you you want the user to supply a tidyselect specification in a
+\item If you want the user to supply a tidyselect specification in a
 function argument, you need to tunnel the selection through the function
 argument. This is done by embracing the function argument \code{{{ }}},
 e.g \code{unnest(df, {{ vars }})}.
