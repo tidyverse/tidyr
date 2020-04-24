@@ -9,12 +9,12 @@
 #'
 #' # General usage
 #'
-#' If you have a data frame with variables `apple`, `banana`, `cantelope`,
+#' If you have a data frame with variables `apple`, `banana`, `cantaloupe`,
 #' `date`, `eggplant`, `fig`, `grape` you can:
 #'
 #' * Select individual variables with their name: e.g. `c(apple, fig, grape)`.
 #'
-#' * Select data-variables stored in a env-variable with `all_of()` (which
+#' * Select data-variables stored in an env-variable with `all_of()` (which
 #'   will error if a variable is not found) or `any_of()` (which is
 #'   relaxed and will silently drop missing variables), e.g.
 #'   if `vars <- c("apple", "fig", "peach")`, then `all_of(vars)` will
@@ -22,10 +22,10 @@
 #'
 #' * Select contiguous variables with `:`, e.g. `apple:date`.
 #'
-#' * Select variables with named-based helpers: e.g. `ends_with("a")`,
+#' * Select variables with name-based helpers: e.g. `ends_with("a")`,
 #'   `contains("g")`. See full list in [tidyselect::select_helpers].
 #'
-#' * Select variables of a given type with a `is` function: `is.numeric`,
+#' * Select variables of a given type with an `is` function: `is.numeric`,
 #'   `is.factor`, `is.character`, etc.
 #'
 #' * Invert a selection with `!`: `!is.numeric`, or `!contains("x")`.
@@ -45,7 +45,7 @@
 #'     names to cause an error, e.g `unnest(df, all_of(vars))`,
 #'     `unnest(df, -any_of(vars))`.
 #'
-#' *   If you you want the user to supply a tidyselect specification in a
+#' *   If you want the user to supply a tidyselect specification in a
 #'     function argument, embrace the function argument, e.g
 #'     `unnest(df, {{ vars }})`.
 #'
