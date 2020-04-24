@@ -1,5 +1,7 @@
 # tidyr (development version)
 
+* `pack()`'s first argument is now `.data` instead of `data` (#759)
+
 * Arguments that use tidy selection syntax are now clearly documented and 
   have been updated to use tidyselect 1.0.0 (#872).
 

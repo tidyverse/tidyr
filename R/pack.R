@@ -14,7 +14,7 @@
 #' and they are mostly a curiosity, but seem worth exploring further because
 #' they mimic the nested column headers that are so popular in Excel.
 #'
-#' @inheritParams unchop
+#' @param data,.data A data frame.
 #' @param cols <[`tidy-select`][tidyr_tidy_select]> Column to unpack.
 #' @param names_sep,.names_sep If `NULL`, the default, the names will be left
 #'   as is. In `pack()`, inner names will come from the former outer names;
@@ -59,24 +59,24 @@
 #' df %>% unpack(y)
 #' df %>% unpack(c(y, z))
 #' df %>% unpack(c(y, z), names_sep = "_")
-pack <- function(data, ..., .names_sep = NULL) {
+pack <- function(.data, ..., .names_sep = NULL) {
   cols <- enquos(...)
   if (any(names2(cols) == "")) {
     abort("All elements of `...` must be named")
   }
 
-  cols <- map(cols, ~ tidyselect::eval_select(.x, data))
-  packed <- map(cols, ~ data[.x])
+  cols <- map(cols, ~ tidyselect::eval_select(.x, .data))
+  packed <- map(cols, ~ .data[.x])
 
   if (!is.null(.names_sep)) {
     packed <- imap(packed, strip_names, .names_sep)
   }
 
   # TODO: find a different approach that preserves order
-  asis <- setdiff(names(data), unlist(map(cols, names)))
-  out <- vec_cbind(data[asis], new_data_frame(packed, n = nrow(data)))
+  asis <- setdiff(names(.data), unlist(map(cols, names)))
+  out <- vec_cbind(.data[asis], new_data_frame(packed, n = nrow(.data)))
 
-  reconstruct_tibble(data, out)
+  reconstruct_tibble(.data, out)
 }
 
 #' @export

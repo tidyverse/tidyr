@@ -5,16 +5,16 @@
 \alias{unpack}
 \title{Pack and unpack}
 \usage{
-pack(data, ..., .names_sep = NULL)
+pack(.data, ..., .names_sep = NULL)
 
 unpack(data, cols, names_sep = NULL, names_repair = "check_unique")
 }
 \arguments{
-\item{data}{A data frame.}
-
 \item{...}{<\code{\link[=tidyr_tidy_select]{tidy-select}}> Columns to pack, specified
 using name-variable pairs of the form \code{new_col = c(col1, col2, col3)}.
 The right hand side can be any valid tidy select expression.}
+
+\item{data, .data}{A data frame.}
 
 \item{cols}{<\code{\link[=tidyr_tidy_select]{tidy-select}}> Column to unpack.}
 
