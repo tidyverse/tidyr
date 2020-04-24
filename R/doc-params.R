@@ -2,10 +2,9 @@
 #'
 #' @description
 #' This page the describes the `<tidy-select>` argument modifier which indicates
-#' the argument uses tidy evaluation with **tidy selection**. Tidy selection
-#' provides a concise DSL for selecting variables based on their names.
-#' If you've never head of tidy evaluation before, start with
-#' `vignette("programming")`.
+#' the argument uses **tidy selection** (a special type of tidy evaluation).
+#' Tidy selection provides a concise DSL for selecting variables based on their
+#' names.
 #'
 #' # General usage
 #'
@@ -46,8 +45,11 @@
 #'     `unnest(df, -any_of(vars))`.
 #'
 #' *   If you you want the user to supply a tidyselect specification in a
-#'     function argument, embrace the function argument, e.g
-#'     `unnest(df, {{ vars }})`.
+#'     function argument, you need to tunnel the selection through the function
+#'     argument. This is done by embracing the function argument `{{ }}`,
+#'     e.g `unnest(df, {{ vars }})`.
+#'
+#' Learn more in `vignette("programming.Rmd")`.
 #'
 #' @keywords internal
 #' @name tidyr_tidy_select

@@ -5,10 +5,9 @@
 \title{Argument type: tidy-select}
 \description{
 This page the describes the \verb{<tidy-select>} argument modifier which indicates
-the argument uses tidy evaluation with \strong{tidy selection}. Tidy selection
-provides a concise DSL for selecting variables based on their names.
-If you've never head of tidy evaluation before, start with
-\code{vignette("programming")}.
+the argument uses \strong{tidy selection} (a special type of tidy evaluation).
+Tidy selection provides a concise DSL for selecting variables based on their
+names.
 }
 \section{General usage}{
 If you have a data frame with variables \code{apple}, \code{banana}, \code{cantelope},
@@ -41,9 +40,12 @@ or \code{any_of()}, depending on whether or not you want unknown variable
 names to cause an error, e.g \code{unnest(df, all_of(vars))},
 \code{unnest(df, -any_of(vars))}.
 \item If you you want the user to supply a tidyselect specification in a
-function argument, embrace the function argument, e.g
-\code{unnest(df, {{ vars }})}.
+function argument, you need to tunnel the selection through the function
+argument. This is done by embracing the function argument \code{{{ }}},
+e.g \code{unnest(df, {{ vars }})}.
 }
+
+Learn more in \code{vignette("programming.Rmd")}.
 }
 
 \keyword{internal}
