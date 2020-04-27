@@ -269,33 +269,40 @@ build_wider_spec <- function(data,
   names_from <- tidyselect::eval_select(enquo(names_from), data)
   values_from <- tidyselect::eval_select(enquo(values_from), data)
 
-  row_ids <- vec_unique(data[names_from])
-  if (names_sort) {
-    row_ids <- vec_sort(row_ids)
-  }
+  # Generate unique identifiers for each column
+  col_ids <- vec_unique(as_tibble(data)[names_from])
+  single_value <- length(values_from) == 1
 
-  row_names <- exec(paste, !!!row_ids, sep = names_sep)
-
-  out <- tibble(
-    .name = paste0(names_prefix, row_names)
-  )
-
-  if (length(values_from) == 1) {
-    out$.value <- names(values_from)
+  if (single_value) {
+    col_ids$.value <- names(values_from)
   } else {
-    out <- vec_repeat(out, times = vec_size(values_from))
-    out$.value <- vec_repeat(names(values_from), each = vec_size(row_ids))
-    out$.name <- paste0(out$.value, names_sep, out$.name)
+    n <- vec_size(col_ids)
 
-    row_ids <- vec_repeat(row_ids, times = vec_size(values_from))
+    col_ids <- vec_repeat(col_ids, times = vec_size(values_from))
+    values <- tibble(.value = vec_repeat(names(values_from), each = n))
+
+    col_ids <- vec_cbind(values, col_ids)
   }
 
-  out <- vec_cbind(out, as_tibble(row_ids), .name_repair = "minimal")
-  if (!is.null(names_glue)) {
-    out$.name <- as.character(glue::glue_data(out, names_glue))
+  # Sort, if requested
+  if (names_sort) {
+    col_ids <- vec_sort(col_ids)
   }
 
-  out
+  # Generate column names
+  if (is.null(names_glue)) {
+    if (single_value) {
+      labels <- col_ids[setdiff(names(col_ids), ".value")]
+    } else {
+      labels <- col_ids
+    }
+
+    col_ids$.name <- paste0(names_prefix, exec(paste, !!!labels, sep = names_sep))
+  } else {
+    col_ids$.name <- as.character(glue::glue_data(col_ids, names_glue))
+  }
+
+  col_ids
 }
 
 # quiet R CMD check
