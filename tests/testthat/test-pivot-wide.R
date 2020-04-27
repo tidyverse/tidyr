@@ -80,6 +80,19 @@ test_that("names_glue affects output names", {
   expect_equal(spec$.name, c("X1_a", "Y2_a", "X1_b", "Y2_b"))
 })
 
+test_that("can sort column names", {
+  df <- tibble(
+    int = c(1, 3, 2),
+    fac = factor(int, levels = 1:3, labels = c("Mon", "Tue", "Wed")),
+  )
+  spec <- build_wider_spec(df,
+    names_from = fac,
+    values_from = int,
+    names_sort = TRUE
+  )
+  expect_equal(spec$.name, levels(df$fac))
+})
+
 # keys ---------------------------------------------------------
 
 test_that("can override default keys", {
