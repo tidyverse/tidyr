@@ -13,6 +13,7 @@ pivot_wider(
   names_glue = NULL,
   names_sort = FALSE,
   names_repair = "check_unique",
+  names_value_loc = c("first", "last"),
   values_from = value,
   values_fill = NULL,
   values_fn = NULL
@@ -55,6 +56,9 @@ The default, \code{"check_unique"} is to error if the columns are duplicated.
 Use \code{"minimal"} to allow duplicates in the output, or \code{"unique"} to
 de-duplicated by adding numeric suffixes. See \code{\link[vctrs:vec_as_names]{vctrs::vec_as_names()}}
 for more options.}
+
+\item{names_value_loc}{If there are multiple \code{values_from}, where should the
+value appear in the column names? Should it come first or last?}
 
 \item{values_fill}{Optionally, a value that specifies what each \code{value}
 should be filled in with when missing.

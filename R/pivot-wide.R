@@ -41,6 +41,8 @@
 #'   `.value`) to create custom column names.
 #' @param names_sort Should the column names be sorted? If `FALSE`, the default,
 #'   column names are ordered by first appearance.
+#' @param names_value_loc If there are multiple `values_from`, where should the
+#'   value appear in the column names? Should it come first or last?
 #' @param values_fill Optionally, a value that specifies what each `value`
 #'   should be filled in with when missing.
 #'
@@ -100,6 +102,7 @@ pivot_wider <- function(data,
                         names_glue = NULL,
                         names_sort = FALSE,
                         names_repair = "check_unique",
+                        names_value_loc = c("first", "last"),
                         values_from = value,
                         values_fill = NULL,
                         values_fn = NULL) {
@@ -112,7 +115,8 @@ pivot_wider <- function(data,
     names_prefix = names_prefix,
     names_sep = names_sep,
     names_glue = names_glue,
-    names_sort = names_sort
+    names_sort = names_sort,
+    names_value_loc = names_value_loc
   )
 
   id_cols <- enquo(id_cols)
@@ -264,8 +268,11 @@ build_wider_spec <- function(data,
                              names_prefix = "",
                              names_sep = "_",
                              names_glue = NULL,
-                             names_sort = FALSE
+                             names_sort = FALSE,
+                             names_value_loc = c("first", "last")
                              ) {
+  names_value_loc <- arg_match(names_value_loc)
+
   names_from <- tidyselect::eval_select(enquo(names_from), data)
   values_from <- tidyselect::eval_select(enquo(values_from), data)
 
@@ -278,10 +285,15 @@ build_wider_spec <- function(data,
   } else {
     n <- vec_size(col_ids)
 
-    col_ids <- vec_repeat(col_ids, times = vec_size(values_from))
-    values <- tibble(.value = vec_repeat(names(values_from), each = n))
-
-    col_ids <- vec_cbind(values, col_ids)
+    if (names_value_loc == "first") {
+      col_ids <- vec_repeat(col_ids, times = vec_size(values_from))
+      values <- tibble(.value = vec_repeat(names(values_from), each = n))
+      col_ids <- vec_cbind(values, col_ids)
+    } else {
+      col_ids <- vec_repeat(col_ids, each = vec_size(values_from))
+      values <- tibble(.value = vec_repeat(names(values_from), times = n))
+      col_ids <- vec_cbind(col_ids, values)
+    }
   }
 
   # Sort, if requested

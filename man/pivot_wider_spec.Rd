@@ -21,7 +21,8 @@ build_wider_spec(
   names_prefix = "",
   names_sep = "_",
   names_glue = NULL,
-  names_sort = FALSE
+  names_sort = FALSE,
+  names_value_loc = c("first", "last")
 )
 }
 \arguments{
@@ -93,6 +94,9 @@ a glue specification that uses the \code{names_from} columns (and special
 
 \item{names_sort}{Should the column names be sorted? If \code{FALSE}, the default,
 column names are ordered by first appearance.}
+
+\item{names_value_loc}{If there are multiple \code{values_from}, where should the
+value appear in the column names? Should it come first or last?}
 }
 \description{
 This is a low level interface to pivotting, inspired by the cdata package,

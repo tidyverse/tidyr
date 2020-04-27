@@ -186,6 +186,16 @@ test_that("can pivot from multiple measure cols", {
   expect_equal(pv$b_y, 4)
 })
 
+test_that("can pivot from multiple measure cols (value last)", {
+  df <- tibble(row = 1, var = c("x", "y"), a = 1:2, b = 3:4)
+  sp <- build_wider_spec(df, names_from = var, values_from = c(a, b), names_value_loc = "last")
+  pv <- pivot_wider_spec(df, sp)
+
+  expect_named(pv, c("row", "x_a", "x_b", "y_a", "y_b"))
+  expect_equal(pv$x_a, 1)
+  expect_equal(pv$y_b, 4)
+})
+
 test_that("can pivot from multiple measure cols using all keys", {
   df <- tibble(var = c("x", "y"), a = 1:2, b = 3:4)
   sp <- build_wider_spec(df, names_from = var, values_from = c(a, b))
