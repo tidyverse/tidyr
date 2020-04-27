@@ -103,7 +103,13 @@ unpack <- function(data, cols, names_sep = NULL, names_repair = "check_unique") 
   data <- update_cols(data, new_cols)
   out <- flatten_at(data, names(data) %in% names(cols))
 
-  out <- as_tibble(out, .name_repair = names_repair)
+  if (has_name(formals(vec_as_names), "repair_arg")) {
+    names(out) <- vec_as_names(names(out), repair = names_repair, repair_arg = "names_repair")
+  } else {
+    names(out) <- vec_as_names(names(out), repair = names_repair)
+  }
+
+  out <- as_tibble(out, .name_repair = "minimal")
   reconstruct_tibble(data, out)
 }
 
