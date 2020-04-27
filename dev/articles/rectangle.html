@@ -554,7 +554,7 @@
 <span class="co">#&gt; # … with 145 more rows</span></pre></body></html></div>
 <p>At this level, we see information about when each disc was added to Sharla’s discography, not any information about the disc itself. To do that we need to widen the <code>basic_information</code> column:</p>
 <div class="sourceCode" id="cb29"><html><body><pre class="r"><span class="no">discs</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/hoist.html">unnest_wider</a></span>(<span class="no">basic_information</span>)
-<span class="co">#&gt; Error: Column name `id` must not be duplicated.</span></pre></body></html></div>
+<span class="co">#&gt; Error: Names must be unique.</span></pre></body></html></div>
 <p>Unfortunately that fails because there’s an <code>id</code> column inside <code>basic_information</code>. We can quickly see what’s going on by setting <code>names_repair = "unique"</code>:</p>
 <div class="sourceCode" id="cb30"><html><body><pre class="r"><span class="no">discs</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/hoist.html">unnest_wider</a></span>(<span class="no">basic_information</span>, <span class="kw">names_repair</span> <span class="kw">=</span> <span class="st">"unique"</span>)
 <span class="co">#&gt; New names:</span>
