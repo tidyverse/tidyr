@@ -11,6 +11,7 @@ pivot_wider(
   names_prefix = "",
   names_sep = "_",
   names_glue = NULL,
+  names_sort = FALSE,
   names_repair = "check_unique",
   values_from = value,
   values_fill = NULL,
@@ -45,6 +46,9 @@ string to use as a column name.}
 \item{names_glue}{Instead of \code{names_sep} and \code{names_prefix}, you can supply
 a glue specification that uses the \code{names_from} columns (and special
 \code{.value}) to create custom column names.}
+
+\item{names_sort}{Should the column names be sorted? If \code{FALSE}, the default,
+column names are ordered by first appearance.}
 
 \item{names_repair}{What happens if the output has invalid column names?
 The default, \code{"check_unique"} is to error if the columns are duplicated.

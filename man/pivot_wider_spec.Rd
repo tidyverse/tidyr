@@ -20,7 +20,8 @@ build_wider_spec(
   values_from = value,
   names_prefix = "",
   names_sep = "_",
-  names_glue = NULL
+  names_glue = NULL,
+  names_sort = FALSE
 )
 }
 \arguments{
@@ -89,6 +90,9 @@ string to use as a column name.}
 \item{names_glue}{Instead of \code{names_sep} and \code{names_prefix}, you can supply
 a glue specification that uses the \code{names_from} columns (and special
 \code{.value}) to create custom column names.}
+
+\item{names_sort}{Should the column names be sorted? If \code{FALSE}, the default,
+column names are ordered by first appearance.}
 }
 \description{
 This is a low level interface to pivotting, inspired by the cdata package,
