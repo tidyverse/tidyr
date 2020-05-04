@@ -198,6 +198,8 @@
 <a href="#tidyr-development-version" class="anchor"></a>tidyr (development version)<small> Unreleased </small>
 </h1>
 <ul>
+<li><p><code><a href="../reference/pivot_longer.html">pivot_longer()</a></code> now errors if you <code>values_to</code> is not a length-1 character vector (<a href='https://github.com/tidyverse/tidyr/issues/949'>#949</a>).</p></li>
+<li><p><code><a href="../reference/pivot_wider.html">pivot_wider()</a></code> gains a <code>names_sort</code> argument which allows you to sort column names in order. The default, <code>FALSE</code>, orders columms by their first appearance (<a href='https://github.com/tidyverse/tidyr/issues/839'>#839</a>).</p></li>
 <li><p><code><a href="../reference/pack.html">pack()</a></code>’s first argument is now <code>.data</code> instead of <code>data</code> (<a href='https://github.com/tidyverse/tidyr/issues/759'>#759</a>)</p></li>
 <li><p>Arguments that use tidy selection syntax are now clearly documented and have been updated to use tidyselect 1.0.0 (<a href='https://github.com/tidyverse/tidyr/issues/872'>#872</a>).</p></li>
 <li><p><code><a href="../reference/hoist.html">hoist()</a></code> errors if you use duplicated column names (<a href='https://github.com/mgirlich'>@mgirlich</a>, <a href='https://github.com/tidyverse/tidyr/issues/834'>#834</a>).</p></li>

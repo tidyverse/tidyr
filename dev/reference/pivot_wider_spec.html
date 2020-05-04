@@ -216,7 +216,8 @@ that allows you to describe pivotting with a data frame.</p>
   <span class='kw'>values_from</span> <span class='kw'>=</span> <span class='no'>value</span>,
   <span class='kw'>names_prefix</span> <span class='kw'>=</span> <span class='st'>""</span>,
   <span class='kw'>names_sep</span> <span class='kw'>=</span> <span class='st'>"_"</span>,
-  <span class='kw'>names_glue</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
+  <span class='kw'>names_glue</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>names_sort</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -304,6 +305,11 @@ string to use as a column name.</p></td>
       <td><p>Instead of <code>names_sep</code> and <code>names_prefix</code>, you can supply
 a glue specification that uses the <code>names_from</code> columns (and special
 <code>.value</code>) to create custom column names.</p></td>
+    </tr>
+    <tr>
+      <th>names_sort</th>
+      <td><p>Should the column names be sorted? If <code>FALSE</code>, the default,
+column names are ordered by first appearance.</p></td>
     </tr>
     </table>
 
