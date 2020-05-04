@@ -15,7 +15,8 @@ pivot_wider(
   names_repair = "check_unique",
   values_from = value,
   values_fill = NULL,
-  values_fn = NULL
+  values_fn = NULL,
+  ...
 )
 }
 \arguments{
@@ -68,6 +69,8 @@ in the output. You will typically use this when the combination of
 
 This can be a named list if you want to apply different aggregations
 to different value columns.}
+
+\item{...}{Additional arguments passed on to methods.}
 }
 \description{
 \Sexpr[results=rd, stage=render]{lifecycle::badge("maturing")}

@@ -15,7 +15,8 @@ pivot_longer(
   names_repair = "check_unique",
   values_to = "value",
   values_drop_na = FALSE,
-  values_ptypes = list()
+  values_ptypes = list(),
+  ...
 )
 }
 \arguments{
@@ -77,6 +78,8 @@ existing column names.}
 in the \code{value_to} column. This effectively converts explicit missing values
 to implicit missing values, and should generally be used only when missing
 values in \code{data} were created by its structure.}
+
+\item{...}{Additional arguments passed on to methods.}
 }
 \description{
 \Sexpr[results=rd, stage=render]{lifecycle::badge("maturing")}
