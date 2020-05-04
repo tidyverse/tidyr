@@ -273,6 +273,8 @@ build_longer_spec <- function(data, cols,
 
   if (".value" %in% names_to) {
     values_to <- NULL
+  } else {
+    vec_assert(values_to, ptype = character(), size = 1)
   }
 
   # optionally, cast variables generated from columns

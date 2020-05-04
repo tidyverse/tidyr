@@ -157,6 +157,13 @@ test_that("grouping is preserved", {
 
 # spec --------------------------------------------------------------------
 
+test_that("validates inputs", {
+  df <- tibble(x = 1)
+  expect_error(build_longer_spec(df, x, values_to = letters[1:2]),
+    class = "vctrs_error_assert"
+  )
+})
+
 test_that("multiple names requires names_sep/names_pattern", {
   df <- tibble(x_y = 1)
   expect_error(

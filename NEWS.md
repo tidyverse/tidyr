@@ -1,5 +1,8 @@
 # tidyr (development version)
 
+* `pivot_longer()` now errors if you `values_to` is not a length-1 character
+  vector (#949).
+
 * `pack()`'s first argument is now `.data` instead of `data` (#759)
 
 * Arguments that use tidy selection syntax are now clearly documented and 
