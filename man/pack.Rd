@@ -5,18 +5,18 @@
 \alias{unpack}
 \title{Pack and unpack}
 \usage{
-pack(data, ..., .names_sep = NULL)
+pack(.data, ..., .names_sep = NULL)
 
 unpack(data, cols, names_sep = NULL, names_repair = "check_unique")
 }
 \arguments{
-\item{data}{A data frame.}
+\item{...}{<\code{\link[=tidyr_tidy_select]{tidy-select}}> Columns to pack, specified
+using name-variable pairs of the form \code{new_col = c(col1, col2, col3)}.
+The right hand side can be any valid tidy select expression.}
 
-\item{...}{Name-variable pairs of the form \code{new_col = c(col1, col2, col3)},
-that describe how you wish to pack existing columns into new columns.
-The right hand side can be any expression supported by tidyselect.}
+\item{data, .data}{A data frame.}
 
-\item{cols}{Name of column that you wish to unpack.}
+\item{cols}{<\code{\link[=tidyr_tidy_select]{tidy-select}}> Column to unpack.}
 
 \item{names_sep, .names_sep}{If \code{NULL}, the default, the names will be left
 as is. In \code{pack()}, inner names will come from the former outer names;

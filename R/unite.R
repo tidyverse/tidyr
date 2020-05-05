@@ -2,8 +2,6 @@
 #'
 #' Convenience function to paste together multiple columns into one.
 #'
-#' @inheritSection gather Rules for selection
-#' @inheritParams gather
 #' @param data A data frame.
 #' @param col The name of the new column, as a string or symbol.
 #'
@@ -13,6 +11,7 @@
 #'   [rlang::ensym()] (note that this kind of interface where
 #'   symbols do not represent actual objects is now discouraged in the
 #'   tidyverse; we support it here for backward compatibility).
+#' @param ... <[`tidy-select`][tidyr_tidy_select]> Columns to unite
 #' @param sep Separator to use between values.
 #' @param na.rm If `TRUE`, missing values will be remove prior to uniting
 #'   each value.
@@ -41,14 +40,14 @@ unite.data.frame <- function(data, col, ..., sep = "_", remove = TRUE, na.rm = F
   var <- as_string(ensym2(col))
 
   if (dots_n(...) == 0) {
-    from_vars <- colnames(data)
+    from_vars <- set_names(seq_along(data), names(data))
   } else {
-    from_vars <- tidyselect::vars_select(tbl_vars(data), ...)
+    from_vars <- tidyselect::eval_select(expr(c(...)), data)
   }
 
   out <- data
   if (remove) {
-    out <- out[setdiff(names(out), from_vars)]
+    out <- out[setdiff(names(out), names(from_vars))]
   }
 
   if (identical(na.rm, TRUE)) {
@@ -61,7 +60,7 @@ unite.data.frame <- function(data, col, ..., sep = "_", remove = TRUE, na.rm = F
     united <- exec(paste, !!!cols, sep = sep)
   }
 
-  first_pos <- which(names(data) %in% from_vars)[1]
+  first_pos <- which(names(data) %in% names(from_vars))[1]
   out <- append_col(out, united, var, after = first_pos - 1L)
-  reconstruct_tibble(data, out, if (remove) from_vars)
+  reconstruct_tibble(data, out, if (remove) names(from_vars))
 }

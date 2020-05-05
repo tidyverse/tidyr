@@ -64,11 +64,8 @@ Use these arguments if you need to change the type of specific columns.
 For example, \code{names_transform = list(week = as.integer)} would convert
 a character week variable to an integer.}
 
-\item{cols}{Columns to pivot into longer format.
-
-This takes a tidyselect specification, e.g. use \code{a:c} to select all
-columns from \code{a} to \code{c}, \code{starts_with("prefix")} to select all columns
-starting with "prefix", or \code{everything()} to select all columns.}
+\item{cols}{<\code{\link[=tidyr_tidy_select]{tidy-select}}> Columns to pivot into
+longer format.}
 
 \item{names_to}{A string specifying the name of the column to create
 from the data stored in the column names of \code{data}.
@@ -146,7 +143,6 @@ spec <- relig_income \%>\% build_longer_spec(
   names_to = "income",
   values_to = "count"
 )
-
 spec
 
 pivot_longer_spec(relig_income, spec)

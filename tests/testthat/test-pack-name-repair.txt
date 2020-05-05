@@ -1,0 +1,20 @@
+> df <- tibble(x = 1, y = tibble(a = 2), z = tibble(a = 3))
+> df %>% unpack(c(y, z))
+Error: Names must be unique.
+
+> df %>% unpack(c(y, z), names_repair = "unique")
+Message: New names:
+* a -> a...2
+* a -> a...3
+
+# A tibble: 1 x 3
+      x a...2 a...3
+  <dbl> <dbl> <dbl>
+1     1     2     3
+
+> df %>% unpack(c(y, z), names_repair = "minimal")
+# A tibble: 1 x 3
+      x     a     a
+  <dbl> <dbl> <dbl>
+1     1     2     3
+

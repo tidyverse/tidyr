@@ -24,9 +24,9 @@ unnest(
 \arguments{
 \item{.data}{A data frame.}
 
-\item{...}{Name-variable pairs of the form \code{new_col = c(col1, col2, col3)},
-that describe how you wish to nest existing columns into new columns.
-The right hand side can be any expression supported by tidyselect.
+\item{...}{<\code{\link[=tidyr_tidy_select]{tidy-select}}> Columns to nest, specified
+using name-variable pairs of the form \code{new_col = c(col1, col2, col3)}.
+The right hand side can be any valid tidy select expression.
 
 \Sexpr[results=rd, stage=render]{lifecycle::badge("deprecated")}:
 previously you could write \code{df \%>\% nest(x, y, z)} and \code{df \%>\% unnest(x, y, z)}. Convert to \code{df \%>\% nest(data = c(x, y, z))}.
@@ -41,7 +41,7 @@ No longer needed because of the new \code{new_col = c(col1, col2, col3)} syntax.
 
 \item{data}{A data frame.}
 
-\item{cols}{Names of columns to unnest.
+\item{cols}{<\code{\link[=tidyr_tidy_select]{tidy-select}}> Columns to unnest.
 
 If you \code{unnest()} multiple columns, parallel entries must be of
 compatible sizes, i.e. they're either equal or length 1 (following the

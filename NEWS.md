@@ -1,5 +1,17 @@
 # tidyr (development version)
 
+* `pivot_longer()` now errors if you `values_to` is not a length-1 character
+  vector (#949).
+
+* `pivot_wider()` gains a `names_sort` argument which allows you to sort
+  column names in order. The default, `FALSE`, orders columms by their 
+  first appearance (#839).
+
+* `pack()`'s first argument is now `.data` instead of `data` (#759)
+
+* Arguments that use tidy selection syntax are now clearly documented and 
+  have been updated to use tidyselect 1.0.0 (#872).
+
 * `hoist()` errors if you use duplicated column names (@mgirlich, #834).
 
 * `hoist()` now automatically names pluckers that are a single string (#837).

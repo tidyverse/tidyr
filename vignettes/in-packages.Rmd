@@ -35,26 +35,20 @@ library(purrr)
 
 packageVersion("tidyr")
 
-(mini_iris <- iris %>% 
-    as_tibble() %>% 
-    .[c(1, 2, 51, 52, 101, 102), ])
+mini_iris <- as_tibble(iris)[c(1, 2, 51, 52, 101, 102), ]
+mini_iris
 ```
 
 ## Using tidyr in packages
 
-Compared to dplyr and ggplot2, most tidyr functions have __select semantics__ (like `dplyr::select()`), not the more common action semantics (like `mutate()`, `filter()`, `arrange()`, `group_by()`, ...). This means that you typically provide tidyr functions with an expression that works with column names (like `starts_with("x")` or `a:c`) not with column values (like `y = x * 2`). As a consequence, it's worthwhile to clarify the best patterns for calling tidyr functions inside another package.
+Here we assume that you're already familiar with using tidyr in functions, as described in `vignette("programming.Rmd)`. There are two important considerations when using tidyr in a package:
 
-There are three main cases that you'll encounter:
-
-* The column names are fixed: use `one_of("col1", "col2", "col3")`.
-
-* The column names are in a character vector: use `one_of(cols)`.
-
-* The column names are specified by the user, using select syntax: use `{{ cols }}`.
+* How to avoid `R CMD CHECK` notes when using fixed variable names.
+* How to alert yourself to upcoming changes in the development version of tidyr.
 
 ### Fixed column names
 
-If you know the column names, this code works in the same way, in and out of a package:
+If you know the column names, this code works in the same way regardless of whether its inside or outside of a package:
 
 ```{r}
 mini_iris %>% nest(
@@ -63,102 +57,73 @@ mini_iris %>% nest(
 )
 ```
 
-But `R CMD check` will warn about undefined global variables (`Petal.Length`, `Petal.Width`, `Sepal.Length`, and `Sepal.Width`), because it doesn't know that `nest()` is looking for the variables inside of `mini_iris`.
+But `R CMD check` will warn about undefined global variables (`Petal.Length`, `Petal.Width`, `Sepal.Length`, and `Sepal.Width`), because it doesn't know that `nest()` is looking for the variables inside of `mini_iris` (i.e. `Petal.Length` and friends are data-variables, not env-variables).
 
-The easiest way to silence this note is to use `one_of()`. `one_of()` is a tidyselect helper (like `starts_with()`, `ends_with()`, etc.) that takes column names stored as strings:
+The easiest way to silence this note is to use `all_of()`. `all_of()` is a tidyselect helper (like `starts_with()`, `ends_with()`, etc.) that takes column names stored as strings:
 
 ```{r}
 mini_iris %>% nest(
-  petal = one_of("Petal.Length", "Petal.Width"), 
-  sepal = one_of("Sepal.Length", "Sepal.Width")
+  petal = all_of(c("Petal.Length", "Petal.Width")), 
+  sepal = all_of(c("Sepal.Length", "Sepal.Width"))
 )
 ```
 
+Alternatively, you may want to use `any_of()` if it is OK that some of the specified variables cannot be found in the input data.
+
 The [tidyselect](https://tidyselect.r-lib.org) package offers an entire family of select helpers. You are probably already familiar with them from using `dplyr::select()`.
 
-### Column names in a character vector
+### Continuous integration
 
-If the column names are in a character vector (possibly from a function call), you can provide that to `one_of()`, as above:
+Hopefully you've already adopted continuous integration for your package, in which `R CMD check` (which includes your own tests) is run on a regular basis, e.g. every time you push changes to your package's source on GitHub or similar. The tidyverse team currently relies most heavily on GitHub Actions, so that will be our example. `usethis::use_github_action()` can help you get started.
 
-```{r}
-nest_egg <- function(data, cols) {
-  nest(data, egg = one_of(cols))
-}
-
-nest_egg(mini_iris, c("Petal.Length", "Petal.Width", "Sepal.Length", "Sepal.Width"))
-```
-
-The use of `one_of()` here is important; if you don't use it, and `data` contains a column named `cols`, `nest()` will nest it instead of the columns named in `cols`.
-
-### tidyselect interface
-
-To provide an interface that works like the tidyr function that you're wrapping, you should pass the argument along using `{{ arg }}`. `{{ }}` is a special tidy eval operator that captures the expression supplied by the user and forwards it to another tidy eval-enabled function.
-
-```{r}
-nest_egg <- function(df, cols) {
-  nest(df, egg = {{ cols }})
-}
-
-nest_egg(mini_iris, -Species)
-```
-
-For more complicated functions, you might want to use tidyselect directly:
-
-```{r}
-sel_vars <- function(df, cols) {
-  tidyselect::vars_select(names(df), {{ cols }})
-}
-
-sel_vars(mini_iris, -Species)
-```
-
-(Many tidyr functions use `...` so you can easily select many variables, e.g. `fill(df, x, y, z)`. I now believe that the disadvantages of this approach outweigh the benefits, and that this interface would have been better as `fill(df, c(x, y, z))`. For new functions that select columns, please just use a single argument and not `...`.)
-
-If you decide to support tidyselect syntax, I recommend re-exporting the select helpers so that users can use (e.g.) `starts_with()` without any extra work. There's no helper to [do this yet](https://github.com/r-lib/usethis/issues/868), but you can copy-and-paste the code that [tidyr uses](https://github.com/tidyverse/tidyr/blob/00a66b44d2f304a73e953dd73139db61ed9cc289/R/tidyr.R#L29-L53).
-
-### Travis-CI
-
-Hopefully you've already adopted continuous integration for your package, in which `R CMD check` (which includes your own tests) is run on a regular basis, e.g. every time you push changes to your package's source on GitHub or similar. The tidyverse team currently relies most heavily on Travis-CI for this, so that will be our example. `usethis::use_travis()` can help you get started.
-
-We recommend adding a build to your matrix that targets the devel version of tidyr:
+We recommend adding a workflow that targets the devel version of tidyr. When should you do this?
 
 * Always? If your package is tightly coupled to tidyr, consider leaving this 
-  build in place all the time, so you know if changes in tidyr affect your 
-  package. Modifiers like `allow_failures` and `fast_finish` may be useful. 
-  Read more about the [Travis build matrix](https://docs.travis-ci.com/user/customizing-the-build/#build-matrix).
+  in place all the time, so you know if changes in tidyr affect your package. 
   
-* Right before a tidyr release? For everyone else, you could just add a 
-  tidyr-devel build during the period preceding a major tidyr release that has 
-  the potential for breaking changes, especially if you've been contacted during
-  our reverse dependency checks.
+* Right before a tidyr release? For everyone else, you could add (or 
+  re-activate an existing) tidyr-devel workflow during the period preceding a
+  major tidyr release that has the potential for breaking changes, especially if you've been contacted during our reverse dependency checks.
 
-Example of `.travis.yml` config that tests against R devel, release, and oldrel, assesses test coverage, and includes a build against devel tidyr:
+Example of a GitHub Actions workflow that tests your package against the development version of tidyr:
 
 ``` yaml
-# R for travis: see documentation at https://docs.travis-ci.com/user/languages/r
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
 
-language: R
-cache: packages
+name: R-CMD-check-tidyr-devel
 
-matrix:
-  include:
-  - r: devel
-  - r: release
-    after_success:
-    - Rscript -e 'covr::codecov()'
-  - r: release
-    name: tidyr-devel
-    before_script: Rscript -e "remotes::install_github('tidyverse/tidyr')"
-  - r: oldrel
+jobs:
+  R-CMD-check:
+    runs-on: macOS-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: r-lib/actions/setup-r@master
+      - name: Install dependencies
+        run: |
+          install.packages(c("remotes", "rcmdcheck"))
+          remotes::install_deps(dependencies = TRUE)
+          remotes::install_github("tidyverse/tidyr")
+        shell: Rscript {0}
+      - name: Check
+        run: rcmdcheck::rcmdcheck(args = "--no-manual", error_on = "error")
+        shell: Rscript {0}
 ```
+
+GitHub Actions are an evolving landscape, so you can always mine the workflows for tidyr itself ([tidyverse/tidyr/.github/workflows](https://github.com/tidyverse/tidyr/tree/master/.github/workflows)) or the main [r-lib/actions](https://github.com/r-lib/actions) repo for ideas.
 
 ## tidyr v0.8.3 -> v1.0.0
 
-v1.0.0 (aka v0.8.99.9000) makes considerable changes to the interface of `nest()` and `unnest()` in order to bring them in line with newer tidyverse conventions. I have tried to make the functions as backward compatible as possible and to give informative warning messages, but I could not cover 100% of use cases, so you may need to change your package code. This guide will help you do so with a minimum of pain.
+v1.0.0 makes considerable changes to the interface of `nest()` and `unnest()` in order to bring them in line with newer tidyverse conventions. I have tried to make the functions as backward compatible as possible and to give informative warning messages, but I could not cover 100% of use cases, so you may need to change your package code. This guide will help you do so with a minimum of pain.
 
 Ideally, you'll tweak your package so that it works with both tidyr 0.8.3 and tidyr 1.0.0. This makes life considerably easier because it means there's no need to coordinate CRAN submissions - you can submit your package that works with both tidyr versions, before I submit tidyr to CRAN. This section describes our recommend practices for doing so, drawing from the general principles described in <https://principles.tidyverse.org/changes-multivers.html>.
 
-If you use Travis-CI already, we **strongly** recommend adding a build that tests with the development version of tidyr; see above for details.
+If you use continuous integration already, we **strongly** recommend adding a build that tests with the development version of tidyr; see above for details.
 
 This section briefly describes how to run different code for different versions of tidyr, then goes through the major changes that might require workarounds: 
 

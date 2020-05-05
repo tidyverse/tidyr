@@ -35,7 +35,7 @@ Imports:
     rlang,
     stringi,
     tibble (>= 2.1.1),
-    tidyselect (>= 0.2.5),
+    tidyselect (>= 1.0.0),
     utils,
     vctrs (>= 0.2.2),
     lifecycle

@@ -25,10 +25,12 @@
 #' correct vector type even for empty list-columns.
 #'
 #' @param data A data frame.
-#' @param cols Column to chop or unchop (automatically quoted).
+#' @param cols <[`tidy-select`][tidyr_tidy_select]> Columns to chop or unchop
+#'   (automatically quoted).
 #'
-#'   This should be a list-column containing generalised vectors (e.g.
-#'   any mix of `NULL`s, atomic vector, S3 vectors, a lists, or data frames).
+#'   For `unchop()`, each column should be a list-column containing generalised
+#'   vectors (e.g. any mix of `NULL`s, atomic vector, S3 vectors, a lists,
+#'   or data frames).
 #' @param keep_empty By default, you get one row of output for each element
 #'   of the list your unchopping/unnesting. This means that if there's a
 #'   size-0 element (like `NULL` or an empty data frame), that entire row
@@ -69,10 +71,10 @@ chop <- function(data, cols) {
     return(data)
   }
 
-  cols <- tidyselect::vars_select(tbl_vars(data), !!enquo(cols))
+  cols <- tidyselect::eval_select(enquo(cols), data)
 
   vals <- data[cols]
-  keys <- data[setdiff(names(data), cols)]
+  keys <- data[setdiff(names(data), names(cols))]
   split <- vec_split(vals, keys)
 
   if (length(split$val)) {
@@ -88,7 +90,7 @@ chop <- function(data, cols) {
 #' @export
 #' @rdname chop
 unchop <- function(data, cols, keep_empty = FALSE, ptype = NULL) {
-  cols <- tidyselect::vars_select(tbl_vars(data), !!enquo(cols))
+  cols <- tidyselect::eval_select(enquo(cols), data)
   if (length(cols) == 0) {
     return(data)
   }

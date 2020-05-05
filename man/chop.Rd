@@ -12,10 +12,12 @@ unchop(data, cols, keep_empty = FALSE, ptype = NULL)
 \arguments{
 \item{data}{A data frame.}
 
-\item{cols}{Column to chop or unchop (automatically quoted).
+\item{cols}{<\code{\link[=tidyr_tidy_select]{tidy-select}}> Columns to chop or unchop
+(automatically quoted).
 
-This should be a list-column containing generalised vectors (e.g.
-any mix of \code{NULL}s, atomic vector, S3 vectors, a lists, or data frames).}
+For \code{unchop()}, each column should be a list-column containing generalised
+vectors (e.g. any mix of \code{NULL}s, atomic vector, S3 vectors, a lists,
+or data frames).}
 
 \item{keep_empty}{By default, you get one row of output for each element
 of the list your unchopping/unnesting. This means that if there's a

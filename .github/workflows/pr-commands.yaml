@@ -45,8 +45,3 @@ jobs:
       - uses: r-lib/actions/pr-push@master
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
-  # A mock job just to ensure we have a successful build status
-  finish:
-    runs-on: ubuntu-latest
-    steps:
-      - run: true

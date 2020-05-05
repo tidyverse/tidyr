@@ -12,7 +12,7 @@ test_that("nest turns grouped values into one list-df", {
 
 test_that("nest uses grouping vars if present", {
   df <- tibble(x = c(1, 1, 1), y = 1:3)
-  out <- df %>% dplyr::group_by(x) %>% nest()
+  out <- nest(dplyr::group_by(df, x))
   expect_s3_class(out, "grouped_df")
   expect_equal(out$data[[1]], tibble(y = 1:3))
 })

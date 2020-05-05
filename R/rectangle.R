@@ -220,7 +220,7 @@ unnest_longer <- function(data, col,
     indices_include = indices_include
   )
 
-  data <- unchop(data, !!col, keep_empty = TRUE)
+  data <- unchop(data, any_of(col), keep_empty = TRUE)
   inner_cols <- names(data[[col]])
 
   data[[col]][] <- map2(
@@ -232,7 +232,7 @@ unnest_longer <- function(data, col,
     transform = transform
   )
 
-  unpack(data, !!col, names_repair = names_repair)
+  unpack(data, any_of(col), names_repair = names_repair)
 }
 
 #' @export
@@ -253,7 +253,7 @@ unnest_wider <- function(data, col,
   col <- tidyselect::vars_pull(tbl_vars(data), !!enquo(col))
 
   data[[col]] <- map(data[[col]], vec_to_wide, col = col, names_sep = names_sep)
-  data <- unchop(data, !!col, keep_empty = TRUE)
+  data <- unchop(data, any_of(col), keep_empty = TRUE)
 
   data[[col]][] <- map2(
     data[[col]],
@@ -264,7 +264,7 @@ unnest_wider <- function(data, col,
     transform = transform
   )
 
-  unpack(data, !!col, names_repair = names_repair)
+  unpack(data, any_of(col), names_repair = names_repair)
 }
 
 #' @export
