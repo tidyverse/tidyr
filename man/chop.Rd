@@ -56,14 +56,6 @@ df <- tibble(x = 1:4, y = list(integer(), 1L, 1:2, 1:3))
 df \%>\% unchop(y)
 df \%>\% unchop(y, keep_empty = TRUE)
 
-# Incompatible types -------------------------------------------------
-# If the list-col contains types that can not be natively
-df <- tibble(x = 1:2, y = list("1", 1:3))
-try(df \%>\% unchop(y))
-df \%>\% unchop(y, ptype = tibble(y = integer()))
-df \%>\% unchop(y, ptype = tibble(y = character()))
-df \%>\% unchop(y, ptype = tibble(y = list()))
-
 # Unchopping data frames -----------------------------------------------------
 # Unchopping a list-col of data frames must generate a df-col because
 # unchop leaves the column names unchanged

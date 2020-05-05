@@ -1,6 +1,15 @@
+# tidyr 1.0.3
+
+* Compatibility with vctrs 0.3.0. Note that because of stricter
+  semantics in vctrs, the `names_ptypes` and `values_ptypes` arguments
+  have become less useful. We will fix this in the next version with
+  more general transformation arguments.
+
+
 # tidyr 1.0.1
 
 * Minor fixes for dev versions of rlang, tidyselect, and tibble.
+
 
 # tidyr 1.0.0
 
