@@ -1,5 +1,8 @@
 # tidyr (development version)
 
+* `pivot_longer()` and `pivot_wider()` are now generic so implementations
+  can be provided for objects other than data frames (#800).
+
 * `pivot_longer()` now errors if you `values_to` is not a length-1 character
   vector (#949).
 
