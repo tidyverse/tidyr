@@ -68,6 +68,8 @@ test_that("can unpack 0-row dataframe", {
 })
 
 test_that("can control name_repair", {
+  skip_if(packageVersion("vctrs") > "0.2.4")
+
   verify_output(test_path("test-pack-name-repair.txt"), {
     df <- tibble(x = 1, y = tibble(a = 2), z = tibble(a = 3))
 

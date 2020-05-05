@@ -1,9 +1,6 @@
 > df <- tibble(x = 1, y = tibble(a = 2), z = tibble(a = 3))
 > df %>% unpack(c(y, z))
 Error: Names must be unique.
-x These names are duplicated:
-  * "a" at locations 2 and 3.
-i Use argument `names_repair` to specify repair strategy.
 
 > df %>% unpack(c(y, z), names_repair = "unique")
 Message: New names:
