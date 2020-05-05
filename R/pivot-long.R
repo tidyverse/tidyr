@@ -70,6 +70,7 @@
 #'   If not specified, the type of the columns generated from `names_to` will
 #'   be character, and the type of the variables generated from `values_to`
 #'   will be the common type of the input columns used to generate them.
+#' @param ... Additional arguments passed on to methods.
 #' @export
 #' @examples
 #' # See vignette("pivot") for examples and explanation
@@ -118,9 +119,30 @@ pivot_longer <- function(data,
                          values_to = "value",
                          values_drop_na = FALSE,
                          values_ptypes = list(),
-                         values_transform = list()
+                         values_transform = list(),
+                         ...
                          ) {
 
+  ellipsis::check_dots_used()
+  UseMethod("pivot_longer")
+}
+
+#' @export
+pivot_longer.data.frame <- function(data,
+                                    cols,
+                                    names_to = "name",
+                                    names_prefix = NULL,
+                                    names_sep = NULL,
+                                    names_pattern = NULL,
+                                    names_ptypes = list(),
+                                    names_transform = list(),
+                                    names_repair = "check_unique",
+                                    values_to = "value",
+                                    values_drop_na = FALSE,
+                                    values_ptypes = list(),
+                                    values_transform = list(),
+                                    ...
+                                    ) {
   cols <- enquo(cols)
   spec <- build_longer_spec(data, !!cols,
     names_to = names_to,
@@ -228,9 +250,9 @@ pivot_longer_spec <- function(data,
   }
 
   # Join together df, spec, and val to produce final tibble
-  df_out <- drop_cols(data, spec$.name)
+  df_out <- drop_cols(as_tibble(data, .name_repair = "minimal"), spec$.name)
   out <- wrap_error_names(vec_cbind(
-    as_tibble(vec_slice(df_out, rows$df_id)),
+    vec_slice(df_out, rows$df_id),
     vec_slice(keys, rows$key_id),
     vec_slice(vals, rows$val_id),
     .name_repair = names_repair
