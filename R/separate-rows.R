@@ -32,7 +32,7 @@ separate_rows.data.frame <- function(data,
   vars <- tidyselect::eval_select(expr(c(...)), data)
 
   out <- purrr::modify_at(data, vars, stringi::stri_split_regex, pattern = sep)
-  out <- unchop(out, any_of(vars))
+  out <- unchop(as_tibble(out), any_of(vars))
   if (convert) {
     out[vars] <- map(out[vars], type.convert, as.is = TRUE)
   }

@@ -234,9 +234,9 @@ pivot_longer_spec <- function(data,
   }
 
   # Join together df, spec, and val to produce final tibble
-  df_out <- drop_cols(data, spec$.name)
+  df_out <- drop_cols(as_tibble(data, .name_repair = "minimal"), spec$.name)
   out <- wrap_error_names(vec_cbind(
-    as_tibble(vec_slice(df_out, rows$df_id)),
+    vec_slice(df_out, rows$df_id),
     vec_slice(keys, rows$key_id),
     vec_slice(vals, rows$val_id),
     .name_repair = names_repair
