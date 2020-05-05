@@ -4,9 +4,12 @@ context("test-hoist")
 
 test_that("hoist extracts named elements", {
   df <- tibble(x = list(list(1, b = "b")))
-  out <- df %>% hoist(x, a = 1, b = "b")
 
+  out <- df %>% hoist(x, a = 1, b = "b")
   expect_equal(out, tibble(a = 1, b = "b"))
+
+  out <- df %>% hoist(x, a = 1, b = "b", .simplify = FALSE)
+  expect_identical(out, tibble(a = list(1), b = list("b")))
 })
 
 test_that("can check check/transform values", {
@@ -24,6 +27,17 @@ test_that("can check check/transform values", {
 
   out <- df %>% hoist(x, a = "a", .transform = list(a = as.character))
   expect_equal(out, tibble(a = c("1", "a")))
+})
+
+test_that("supplying ptype increases stringency of simplify", {
+  df <- tibble(x = list(
+    list(a = 1:2, b = list(list())),
+    list(a = 1, b = list(list()))
+  ))
+
+  ptype <- list(a = integer(), b = integer())
+  expect_error(df %>% hoist(x, "a", .ptype = ptype), "length > 1")
+  expect_error(df %>% hoist(x, "b", .ptype = ptype), "nested list")
 })
 
 test_that("doesn't simplify uneven lengths", {

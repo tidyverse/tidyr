@@ -373,7 +373,7 @@ simplify_col <- function(x, nm, ptype = list(), transform = list(), simplify = F
   # Don't simplify lists of lists, because that typically indicates that
   # there might be multiple values.
   is_list <- map_lgl(x, is.list)
-  if (any(is_list) && is.null(ptype)) {
+  if (any(is_list)) {
     if (is.null(ptype)) {
       return(x)
     } else {
