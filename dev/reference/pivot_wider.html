@@ -218,7 +218,8 @@ decreasing the number of rows. The inverse transformation is
   <span class='kw'>names_repair</span> <span class='kw'>=</span> <span class='st'>"check_unique"</span>,
   <span class='kw'>values_from</span> <span class='kw'>=</span> <span class='no'>value</span>,
   <span class='kw'>values_fill</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>values_fn</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
+  <span class='kw'>values_fn</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='no'>...</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -290,6 +291,10 @@ in the output. You will typically use this when the combination of
 <code>id_cols</code> and <code>value</code> column does not uniquely identify an observation.</p>
 <p>This can be a named list if you want to apply different aggregations
 to different value columns.</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>Additional arguments passed on to methods.</p></td>
     </tr>
     </table>
 
