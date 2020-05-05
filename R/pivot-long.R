@@ -301,7 +301,8 @@ build_longer_spec <- function(data, cols,
   # transform cols
   coerce_cols <- intersect(names(names), names(names_transform))
   for (col in coerce_cols) {
-    names[[col]] <- names_transform[[col]](names[[col]])
+    f <- as_function(names_transform[[col]])
+    names[[col]] <- f(names[[col]])
   }
 
   out <- tibble(.name = names(cols))

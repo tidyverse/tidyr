@@ -363,7 +363,7 @@ simplify_col <- function(x, nm, ptype = list(), transform = list(), simplify = F
   ptype <- ptype[[nm]]
 
   if (!is.null(transform)) {
-    x <- map(x, transform)
+    x <- map(x, as_function(transform))
   }
 
   if (!simplify) {
