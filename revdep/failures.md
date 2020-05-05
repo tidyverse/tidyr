@@ -1,60 +1,24 @@
-# BgeeDB
+# bioRad
 
 <details>
 
-* Version: 2.10.0
-* Source code: https://github.com/cran/BgeeDB
-* URL: https://github.com/BgeeDB/BgeeDB_R
-* BugReports: https://github.com/BgeeDB/BgeeDB_R/issues
-* Date/Publication: 2019-05-02
-* Number of recursive dependencies: 74
+* Version: 0.5.1
+* Source code: https://github.com/cran/bioRad
+* URL: https://github.com/adokter/bioRad, https://adokter.github.io/bioRad
+* BugReports: https://github.com/adokter/bioRad/issues
+* Date/Publication: 2020-04-01 17:30:09 UTC
+* Number of recursive dependencies: 86
 
-Run `revdep_details(,"BgeeDB")` for more info
+Run `revdep_details(,"bioRad")` for more info
 
 </details>
 
 ## In both
 
-*   R CMD check timed out
-    
-
-*   checking whether package ‘BgeeDB’ can be installed ... WARNING
-    ```
-    Found the following significant warnings:
-      Warning: package ‘AnnotationDbi’ was built under R version 3.6.1
-      Warning: package ‘IRanges’ was built under R version 3.6.1
-      Warning: package ‘S4Vectors’ was built under R version 3.6.1
-    See ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/BgeeDB/new/BgeeDB.Rcheck/00install.out’ for details.
-    ```
-
-*   checking top-level files ... NOTE
-    ```
-    File
-      LICENSE
-    is not mentioned in the DESCRIPTION file.
-    ```
-
-# circumplex
-
-<details>
-
-* Version: 0.3.5
-* Source code: https://github.com/cran/circumplex
-* URL: https://github.com/jmgirard/circumplex
-* BugReports: https://github.com/jmgirard/circumplex/issues
-* Date/Publication: 2020-01-10 01:10:08 UTC
-* Number of recursive dependencies: 95
-
-Run `revdep_details(,"circumplex")` for more info
-
-</details>
-
-## In both
-
-*   checking whether package ‘circumplex’ can be installed ... ERROR
+*   checking whether package ‘bioRad’ can be installed ... ERROR
     ```
     Installation failed.
-    See ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/circumplex/new/circumplex.Rcheck/00install.out’ for details.
+    See ‘/tmp/workdir/bioRad/new/bioRad.Rcheck/00install.out’ for details.
     ```
 
 ## Installation
@@ -62,42 +26,53 @@ Run `revdep_details(,"circumplex")` for more info
 ### Devel
 
 ```
-* installing *source* package ‘circumplex’ ...
-** package ‘circumplex’ successfully unpacked and MD5 sums checked
+* installing *source* package ‘bioRad’ ...
+** package ‘bioRad’ successfully unpacked and MD5 sums checked
 ** using staged installation
-** libs
-clang++ -std=gnu++11 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/new/Rcpp/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/circumplex/RcppArmadillo/include" -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -I/usr/local/include -fopenmp  -fPIC  -Wall -g -O2  -c RcppExports.cpp -o RcppExports.o
-clang: error: unsupported option '-fopenmp'
-make: *** [RcppExports.o] Error 1
-ERROR: compilation failed for package ‘circumplex’
-* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/circumplex/new/circumplex.Rcheck/circumplex’
+** R
+** data
+*** moving datasets to lazyload DB
+** inst
+** byte-compile and prepare package for lazy loading
+Error in dyn.load(file, DLLpath = DLLpath, ...) : 
+  unable to load shared object '/opt/R/3.6.3/lib/R/library/rgdal/libs/rgdal.so':
+  libproj.so.12: cannot open shared object file: No such file or directory
+Calls: <Anonymous> ... namespaceImport -> loadNamespace -> library.dynam -> dyn.load
+Execution halted
+ERROR: lazy loading failed for package ‘bioRad’
+* removing ‘/tmp/workdir/bioRad/new/bioRad.Rcheck/bioRad’
 
 ```
 ### CRAN
 
 ```
-* installing *source* package ‘circumplex’ ...
-** package ‘circumplex’ successfully unpacked and MD5 sums checked
+* installing *source* package ‘bioRad’ ...
+** package ‘bioRad’ successfully unpacked and MD5 sums checked
 ** using staged installation
-** libs
-clang++ -std=gnu++11 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/old/Rcpp/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/circumplex/RcppArmadillo/include" -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -I/usr/local/include -fopenmp  -fPIC  -Wall -g -O2  -c RcppExports.cpp -o RcppExports.o
-clang: error: unsupported option '-fopenmp'
-make: *** [RcppExports.o] Error 1
-ERROR: compilation failed for package ‘circumplex’
-* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/circumplex/old/circumplex.Rcheck/circumplex’
+** R
+** data
+*** moving datasets to lazyload DB
+** inst
+** byte-compile and prepare package for lazy loading
+Error in dyn.load(file, DLLpath = DLLpath, ...) : 
+  unable to load shared object '/opt/R/3.6.3/lib/R/library/rgdal/libs/rgdal.so':
+  libproj.so.12: cannot open shared object file: No such file or directory
+Calls: <Anonymous> ... namespaceImport -> loadNamespace -> library.dynam -> dyn.load
+Execution halted
+ERROR: lazy loading failed for package ‘bioRad’
+* removing ‘/tmp/workdir/bioRad/old/bioRad.Rcheck/bioRad’
 
 ```
-# clusterProfiler
+# CB2
 
 <details>
 
-* Version: 
-* Source code: ???
-* URL: https://tidyr.tidyverse.org, https://github.com/tidyverse/tidyr
-* BugReports: https://github.com/tidyverse/tidyr/issues
-* Number of recursive dependencies: 0
+* Version: 1.3.1
+* Source code: https://github.com/cran/CB2
+* Date/Publication: 2020-04-15 06:00:02 UTC
+* Number of recursive dependencies: 96
 
-Run `revdep_details(,"")` for more info
+Run `revdep_details(,"CB2")` for more info
 
 </details>
 
@@ -106,10 +81,26 @@ Run `revdep_details(,"")` for more info
 ### Devel
 
 ```
+* using log directory ‘/tmp/workdir/CB2/new/CB2.Rcheck’
+* using R version 3.6.3 (2020-02-29)
+* using platform: x86_64-pc-linux-gnu (64-bit)
+* using session charset: UTF-8
+* using options ‘--no-manual --no-build-vignettes’
+* checking for file ‘CB2/DESCRIPTION’ ... OK
+* checking extension type ... Package
+* this is package ‘CB2’ version ‘1.3.1’
+* package encoding: UTF-8
+* checking package namespace information ... OK
+* checking package dependencies ... ERROR
+Package required but not available: ‘metap’
+
+See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
+manual.
+* DONE
+Status: 1 ERROR
 
 
 
-installing the source packages ‘KEGG.db’, ‘reactome.db’
 
 
 
@@ -117,496 +108,40 @@ installing the source packages ‘KEGG.db’, ‘reactome.db’
 ### CRAN
 
 ```
+* using log directory ‘/tmp/workdir/CB2/old/CB2.Rcheck’
+* using R version 3.6.3 (2020-02-29)
+* using platform: x86_64-pc-linux-gnu (64-bit)
+* using session charset: UTF-8
+* using options ‘--no-manual --no-build-vignettes’
+* checking for file ‘CB2/DESCRIPTION’ ... OK
+* checking extension type ... Package
+* this is package ‘CB2’ version ‘1.3.1’
+* package encoding: UTF-8
+* checking package namespace information ... OK
+* checking package dependencies ... ERROR
+Package required but not available: ‘metap’
+
+See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
+manual.
+* DONE
+Status: 1 ERROR
 
 
 
-installing the source packages ‘KEGG.db’, ‘reactome.db’
 
 
 
 ```
-# CNPBayes
+# crawl
 
 <details>
 
-* Version: 1.13.5
-* Source code: https://github.com/cran/CNPBayes
-* URL: https://github.com/scristia/CNPBayes
-* BugReports: https://github.com/scristia/CNPBayes/issues
-* Date/Publication: 2019-01-05
-* Number of recursive dependencies: 163
-
-Run `revdep_details(,"CNPBayes")` for more info
-
-</details>
-
-## In both
-
-*   checking examples ... ERROR
-    ```
-    ...
-    Running examples in ‘CNPBayes-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: ggChains
-    > ### Title: Trace plots of MCMC chains and mixture model densities
-    > ### Aliases: ggChains ggMixture ggMixture,MultiBatchCopyNumber-method
-    > ###   ggMixture,MultiBatchCopyNumberPooled-method
-    > ###   ggMixture,MultiBatchModel-method ggMixture,MultiBatch-method
-    > ###   ggMixture,MultiBatchPooled-method ggChains,MultiBatchModel-method
-    > ###   ggChains,MultiBatchPooled-method
-    > 
-    > ### ** Examples
-    > 
-    >   sb <- SingleBatchModelExample
-    >   iter(sb) <- 1000
-    >   burnin(sb) <- 100
-    >   sb <- posteriorSimulation(sb)
-    >   fig.chains <- ggChains(sb)
-    Error: 1 components of `...` had unexpected names.
-    
-    We detected these problematic arguments:
-    ```
-
-*   R CMD check timed out
-    
-
-*   checking whether package ‘CNPBayes’ can be installed ... WARNING
-    ```
-    Found the following significant warnings:
-      Warning: package ‘IRanges’ was built under R version 3.6.1
-      Warning: package ‘S4Vectors’ was built under R version 3.6.1
-      Warning: package ‘GenomicRanges’ was built under R version 3.6.1
-    See ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/CNPBayes/new/CNPBayes.Rcheck/00install.out’ for details.
-    ```
-
-*   checking for missing documentation entries ... WARNING
-    ```
-    ...
-      generic 'sigma' and siglist 'MultiBatchPooled'
-      generic 'sigma<-' and siglist 'MixtureModel'
-      generic 'sigma<-' and siglist 'MultiBatchPooled'
-      generic 'tau2' and siglist 'MultiBatch'
-      generic 'theta' and siglist 'MultiBatch'
-      generic 'theta<-' and siglist 'McmcChains,ANY'
-      generic 'theta<-' and siglist 'MixtureModel,ANY'
-      generic 'theta<-' and siglist 'MultiBatch,matrix'
-      generic 'theta<-' and siglist 'MultiBatchModel,ANY'
-      generic 'thin' and siglist 'MultiBatch'
-      generic 'thin' and siglist 'MultiBatchList'
-      generic 'thin<-' and siglist 'McmcParams,numeric'
-      generic 'thin<-' and siglist 'MultiBatch,numeric'
-      generic 'thin<-' and siglist 'MultiBatchList,numeric'
-      generic 'triodata_lrr' and siglist 'TrioBatchModel'
-      generic 'z' and siglist 'MultiBatch'
-      generic 'zFreq' and siglist 'MultiBatch'
-    All user-level objects in a package (including S4 classes and methods)
-    should have documentation entries.
-    See chapter ‘Writing R documentation files’ in the ‘Writing R
-    Extensions’ manual.
-    ```
-
-*   checking for code/documentation mismatches ... WARNING
-    ```
-    ...
-    Slots for class 'MultiBatch'
-      Code: chains current_values data down_sample flags parameters specs
-            summaries
-      Docs: chains current_values data down_sample flags parameters
-            summaries
-    
-    S4 class codoc mismatches from documentation object 'MultiBatchModel-class':
-    Slots for class 'MultiBatchModel'
-      Code: .internal.constraint .internal.counter batch batchElements data
-            data.mean data.prec hyperparams k label_switch loglik logprior
-            marginal_lik mcmc.chains mcmc.params modes mu nu.0 pi
-            predictive probz sigma2 sigma2.0 tau2 theta u z zfreq zstar
-      Inherited: k hyperparams theta sigma2 nu.0 sigma2.0 pi mu tau2
-            predictive zstar data data.mean data.prec z zfreq probz u
-            logprior loglik mcmc.chains batch batchElements modes
-            mcmc.params label_switch marginal_lik .internal.constraint
-            .internal.counter
-      Docs: .internal.constraint batch batchElements data data.mean
-            data.prec hyperparams is_mendelian k label_switch loglik
-            logprior mcmc.chains mcmc.params modes mu nu.0 pi probz sigma2
-            sigma2.0 tau2 theta z zfreq
-    ```
-
-*   checking Rd \usage sections ... WARNING
-    ```
-    ...
-    
-    Documented arguments not in \usage in documentation object 'iter<-':
-      ‘force’
-    
-    Documented arguments not in \usage in documentation object 'mcmcParams':
-      ‘force’
-    
-    Undocumented arguments in documentation object 'sigma<-'
-      ‘value’
-    
-    Undocumented arguments in documentation object 'singleBatchGuided,MultiBatchList,MultiBatch-method'
-      ‘x’ ‘guide’
-    
-    Undocumented arguments in documentation object 'theta'
-      ‘value’
-    
-    Functions with \usage entries need to have the appropriate \alias
-    entries, and all their arguments documented.
-    The \usage entries must correspond to syntactically valid R code.
-    See chapter ‘Writing R documentation files’ in the ‘Writing R
-    Extensions’ manual.
-    ```
-
-*   checking installed package size ... NOTE
-    ```
-      installed size is  8.1Mb
-      sub-directories of 1Mb or more:
-        R     3.1Mb
-        doc   3.0Mb
-    ```
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespace in Imports field not imported from: ‘RcppArmadillo’
-      All declared Imports should be used.
-    ```
-
-*   checking R code for possible problems ... NOTE
-    ```
-    ...
-    findSurrogates,MultiBatch: no visible binding for global variable ‘id’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/CNPBayes/new/CNPBayes.Rcheck/00_pkg_src/CNPBayes/R/methods-SummarizedExperiment.R:127-133)
-    findSurrogates,MultiBatch: no visible binding for global variable
-      ‘provisional_batch’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/CNPBayes/new/CNPBayes.Rcheck/00_pkg_src/CNPBayes/R/methods-SummarizedExperiment.R:127-133)
-    findSurrogates,MultiBatch: no visible binding for global variable
-      ‘batch_labels’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/CNPBayes/new/CNPBayes.Rcheck/00_pkg_src/CNPBayes/R/methods-SummarizedExperiment.R:127-133)
-    findSurrogates,MultiBatch: no visible binding for global variable ‘id’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/CNPBayes/new/CNPBayes.Rcheck/00_pkg_src/CNPBayes/R/methods-SummarizedExperiment.R:138-142)
-    sigma,MultiBatchCopyNumberPooled: no visible binding for global
-      variable ‘s2’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/CNPBayes/new/CNPBayes.Rcheck/00_pkg_src/CNPBayes/R/methods-MultiBatchPooled.R:161)
-    Undefined global functions or variables:
-      . .gibbs_trios_mcmc2 .gibbs_trios_mcmc3 := batch_index batch_labels
-      batches bk copy_number father id log_ratio maplabel medians model
-      mother mprob nhom parents prec provisional_batch s s2 snpdat spec
-      spec<- t.test value
-    Consider adding
-      importFrom("stats", "t.test")
-    to your NAMESPACE file.
-    ```
-
-# colorednoise
-
-<details>
-
-* Version: 1.0.5
-* Source code: https://github.com/cran/colorednoise
-* BugReports: http://github.com/japilo/colorednoise/issues
-* Date/Publication: 2019-09-27 13:10:02 UTC
-* Number of recursive dependencies: 83
-
-Run `revdep_details(,"colorednoise")` for more info
-
-</details>
-
-## In both
-
-*   checking whether package ‘colorednoise’ can be installed ... ERROR
-    ```
-    Installation failed.
-    See ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/colorednoise/new/colorednoise.Rcheck/00install.out’ for details.
-    ```
-
-## Installation
-
-### Devel
-
-```
-* installing *source* package ‘colorednoise’ ...
-** package ‘colorednoise’ successfully unpacked and MD5 sums checked
-** using staged installation
-** libs
-ccache clang++ -Qunused-arguments  -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/new/Rcpp/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/colorednoise/RcppArmadillo/include" -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -I/usr/local/include -fopenmp -fPIC  -Wall -g -O2  -c RcppExports.cpp -o RcppExports.o
-clang: error: unsupported option '-fopenmp'
-make: *** [RcppExports.o] Error 1
-ERROR: compilation failed for package ‘colorednoise’
-* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/colorednoise/new/colorednoise.Rcheck/colorednoise’
-
-```
-### CRAN
-
-```
-* installing *source* package ‘colorednoise’ ...
-** package ‘colorednoise’ successfully unpacked and MD5 sums checked
-** using staged installation
-** libs
-ccache clang++ -Qunused-arguments  -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/old/Rcpp/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/colorednoise/RcppArmadillo/include" -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -I/usr/local/include -fopenmp -fPIC  -Wall -g -O2  -c RcppExports.cpp -o RcppExports.o
-clang: error: unsupported option '-fopenmp'
-make: *** [RcppExports.o] Error 1
-ERROR: compilation failed for package ‘colorednoise’
-* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/colorednoise/old/colorednoise.Rcheck/colorednoise’
-
-```
-# dexter
-
-<details>
-
-* Version: 1.0.3
-* Source code: https://github.com/cran/dexter
-* URL: http://dexterities.netlify.com
-* BugReports: https://github.com/jessekps/dexter/issues
-* Date/Publication: 2020-01-14 13:50:03 UTC
-* Number of recursive dependencies: 79
-
-Run `revdep_details(,"dexter")` for more info
-
-</details>
-
-## In both
-
-*   checking whether package ‘dexter’ can be installed ... ERROR
-    ```
-    Installation failed.
-    See ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/dexter/new/dexter.Rcheck/00install.out’ for details.
-    ```
-
-## Installation
-
-### Devel
-
-```
-* installing *source* package ‘dexter’ ...
-** package ‘dexter’ successfully unpacked and MD5 sums checked
-** using staged installation
-** libs
-clang++ -std=gnu++11 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/new/Rcpp/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/dexter/RcppArmadillo/include" -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -I/usr/local/include -fopenmp  -fPIC  -Wall -g -O2  -c RcppExports.cpp -o RcppExports.o
-clang: error: unsupported option '-fopenmp'
-make: *** [RcppExports.o] Error 1
-ERROR: compilation failed for package ‘dexter’
-* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/dexter/new/dexter.Rcheck/dexter’
-
-```
-### CRAN
-
-```
-* installing *source* package ‘dexter’ ...
-** package ‘dexter’ successfully unpacked and MD5 sums checked
-** using staged installation
-** libs
-clang++ -std=gnu++11 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/old/Rcpp/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/dexter/RcppArmadillo/include" -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -I/usr/local/include -fopenmp  -fPIC  -Wall -g -O2  -c RcppExports.cpp -o RcppExports.o
-clang: error: unsupported option '-fopenmp'
-make: *** [RcppExports.o] Error 1
-ERROR: compilation failed for package ‘dexter’
-* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/dexter/old/dexter.Rcheck/dexter’
-
-```
-# dscore
-
-<details>
-
-* Version: 1.0.0
-* Source code: https://github.com/cran/dscore
-* URL: https://github.com/stefvanbuuren/dscore, https://stefvanbuuren.name/dscore/, https://stefvanbuuren.name/dbook1/
-* BugReports: https://github.com/stefvanbuuren/dscore/issues
-* Date/Publication: 2020-01-18 12:00:02 UTC
-* Number of recursive dependencies: 93
-
-Run `revdep_details(,"dscore")` for more info
-
-</details>
-
-## In both
-
-*   checking whether package ‘dscore’ can be installed ... ERROR
-    ```
-    Installation failed.
-    See ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/dscore/new/dscore.Rcheck/00install.out’ for details.
-    ```
-
-## Installation
-
-### Devel
-
-```
-* installing *source* package ‘dscore’ ...
-** package ‘dscore’ successfully unpacked and MD5 sums checked
-** using staged installation
-** libs
-clang++ -std=gnu++11 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/new/Rcpp/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/dscore/RcppArmadillo/include" -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -I/usr/local/include -fopenmp  -fPIC  -Wall -g -O2  -c RcppExports.cpp -o RcppExports.o
-clang: error: unsupported option '-fopenmp'
-make: *** [RcppExports.o] Error 1
-ERROR: compilation failed for package ‘dscore’
-* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/dscore/new/dscore.Rcheck/dscore’
-
-```
-### CRAN
-
-```
-* installing *source* package ‘dscore’ ...
-** package ‘dscore’ successfully unpacked and MD5 sums checked
-** using staged installation
-** libs
-clang++ -std=gnu++11 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/old/Rcpp/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/dscore/RcppArmadillo/include" -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -I/usr/local/include -fopenmp  -fPIC  -Wall -g -O2  -c RcppExports.cpp -o RcppExports.o
-clang: error: unsupported option '-fopenmp'
-make: *** [RcppExports.o] Error 1
-ERROR: compilation failed for package ‘dscore’
-* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/dscore/old/dscore.Rcheck/dscore’
-
-```
-# dynfrail
-
-<details>
-
-* Version: 0.5.2
-* Source code: https://github.com/cran/dynfrail
-* Date/Publication: 2017-10-30 10:11:49 UTC
-* Number of recursive dependencies: 64
-
-Run `revdep_details(,"dynfrail")` for more info
-
-</details>
-
-## In both
-
-*   checking whether package ‘dynfrail’ can be installed ... ERROR
-    ```
-    Installation failed.
-    See ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/dynfrail/new/dynfrail.Rcheck/00install.out’ for details.
-    ```
-
-## Installation
-
-### Devel
-
-```
-* installing *source* package ‘dynfrail’ ...
-** package ‘dynfrail’ successfully unpacked and MD5 sums checked
-** using staged installation
-** libs
-ccache clang++ -Qunused-arguments  -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/new/Rcpp/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/dynfrail/RcppArmadillo/include" -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -I/usr/local/include -fopenmp  -fPIC  -Wall -g -O2  -c RcppExports.cpp -o RcppExports.o
-clang: error: unsupported option '-fopenmp'
-make: *** [RcppExports.o] Error 1
-ERROR: compilation failed for package ‘dynfrail’
-* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/dynfrail/new/dynfrail.Rcheck/dynfrail’
-
-```
-### CRAN
-
-```
-* installing *source* package ‘dynfrail’ ...
-** package ‘dynfrail’ successfully unpacked and MD5 sums checked
-** using staged installation
-** libs
-ccache clang++ -Qunused-arguments  -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/old/Rcpp/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/dynfrail/RcppArmadillo/include" -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -I/usr/local/include -fopenmp  -fPIC  -Wall -g -O2  -c RcppExports.cpp -o RcppExports.o
-clang: error: unsupported option '-fopenmp'
-make: *** [RcppExports.o] Error 1
-ERROR: compilation failed for package ‘dynfrail’
-* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/dynfrail/old/dynfrail.Rcheck/dynfrail’
-
-```
-# ELMER
-
-<details>
-
-* Version: 2.8.3
-* Source code: https://github.com/cran/ELMER
-* Date/Publication: 2019-09-06
-* Number of recursive dependencies: 211
-
-Run `revdep_details(,"ELMER")` for more info
-
-</details>
-
-## In both
-
-*   checking examples ... ERROR
-    ```
-    ...
-    Identifying gene position for each probe
-    
-      |                                                                            
-      |                                                                      |   0%
-      |                                                                            
-      |======================================================================| 100%Saving as: .//cg19403323.schematic.byProbe
-    
-    > schematic.plot(data,
-    +                group.col = "definition",
-    +                group1 = "Primary solid Tumor",
-    +                group2 = "Solid Tissue Normal",
-    +                pair = pair,
-    +                byGeneID = "ENSG00000009790")
-    
-      |                                                                            
-      |                                                                      |   0%
-      |                                                                            
-      |======================================================================| 100%Error in if (chromosome != "" & !(chromosome %in% seqlevels(x))) { : 
-      the condition has length > 1
-    Calls: schematic.plot
-    Execution halted
-    ```
-
-*   R CMD check timed out
-    
-
-*   checking Rd \usage sections ... WARNING
-    ```
-    Undocumented arguments in documentation object 'heatmapGene'
-      ‘correlation.method’ ‘scatter.plot.width’ ‘scatter.plot.height’
-    
-    Functions with \usage entries need to have the appropriate \alias
-    entries, and all their arguments documented.
-    The \usage entries must correspond to syntactically valid R code.
-    See chapter ‘Writing R documentation files’ in the ‘Writing R
-    Extensions’ manual.
-    ```
-
-*   checking installed package size ... NOTE
-    ```
-      installed size is 75.8Mb
-      sub-directories of 1Mb or more:
-        doc  75.1Mb
-    ```
-
-*   checking R code for possible problems ... NOTE
-    ```
-    ...
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/ELMER/new/ELMER.Rcheck/00_pkg_src/ELMER/R/GetNearbyGenes.R:538-539)
-    getRegionNearGenes: no visible binding for global variable 'ID'
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/ELMER/new/ELMER.Rcheck/00_pkg_src/ELMER/R/GetNearbyGenes.R:551)
-    getTFtargets: no visible binding for global variable 'TF'
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/ELMER/new/ELMER.Rcheck/00_pkg_src/ELMER/R/Main_function.R:1620)
-    getTFtargets: no visible binding for global variable 'TF'
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/ELMER/new/ELMER.Rcheck/00_pkg_src/ELMER/R/Main_function.R:1622)
-    heatmapGene: no visible global function definition for 'melt'
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/ELMER/new/ELMER.Rcheck/00_pkg_src/ELMER/R/plots.R:590)
-    heatmapGene: no visible binding for global variable 'mae'
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/ELMER/new/ELMER.Rcheck/00_pkg_src/ELMER/R/plots.R:590)
-    heatmapGene: no visible binding for global variable 'mae'
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/ELMER/new/ELMER.Rcheck/00_pkg_src/ELMER/R/plots.R:592)
-    heatmapGene: no visible global function definition for 'melt'
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/ELMER/new/ELMER.Rcheck/00_pkg_src/ELMER/R/plots.R:593)
-    heatmapGene: no visible binding for global variable 'mae'
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/ELMER/new/ELMER.Rcheck/00_pkg_src/ELMER/R/plots.R:593)
-    heatmapGene: no visible global function definition for 'stat_cor'
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/ELMER/new/ELMER.Rcheck/00_pkg_src/ELMER/R/plots.R:597-613)
-    Undefined global functions or variables:
-      DistanceTSS Hugo_Symbol ID Side TF mae melt stat_cor
-    ```
-
-# maEndToEnd
-
-<details>
-
-* Version: 
-* Source code: ???
-* URL: https://tidyr.tidyverse.org, https://github.com/tidyverse/tidyr
-* BugReports: https://github.com/tidyverse/tidyr/issues
-* Number of recursive dependencies: 0
-
-Run `revdep_details(,"")` for more info
+* Version: 2.2.1
+* Source code: https://github.com/cran/crawl
+* Date/Publication: 2018-09-14 19:20:10 UTC
+* Number of recursive dependencies: 110
+
+Run `revdep_details(,"crawl")` for more info
 
 </details>
 
@@ -615,10 +150,25 @@ Run `revdep_details(,"")` for more info
 ### Devel
 
 ```
+* using log directory ‘/tmp/workdir/crawl/new/crawl.Rcheck’
+* using R version 3.6.3 (2020-02-29)
+* using platform: x86_64-pc-linux-gnu (64-bit)
+* using session charset: UTF-8
+* using options ‘--no-manual --no-build-vignettes’
+* checking for file ‘crawl/DESCRIPTION’ ... OK
+* checking extension type ... Package
+* this is package ‘crawl’ version ‘2.2.1’
+* checking package namespace information ... OK
+* checking package dependencies ... ERROR
+Package required but not available: ‘rmapshaper’
+
+See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
+manual.
+* DONE
+Status: 1 ERROR
 
 
 
-installing the source packages ‘hugene10sttranscriptcluster.db’, ‘pd.hugene.1.0.st.v1’, ‘reactome.db’
 
 
 
@@ -626,107 +176,260 @@ installing the source packages ‘hugene10sttranscriptcluster.db’, ‘pd.hugen
 ### CRAN
 
 ```
+* using log directory ‘/tmp/workdir/crawl/old/crawl.Rcheck’
+* using R version 3.6.3 (2020-02-29)
+* using platform: x86_64-pc-linux-gnu (64-bit)
+* using session charset: UTF-8
+* using options ‘--no-manual --no-build-vignettes’
+* checking for file ‘crawl/DESCRIPTION’ ... OK
+* checking extension type ... Package
+* this is package ‘crawl’ version ‘2.2.1’
+* checking package namespace information ... OK
+* checking package dependencies ... ERROR
+Package required but not available: ‘rmapshaper’
+
+See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
+manual.
+* DONE
+Status: 1 ERROR
 
 
 
-installing the source packages ‘hugene10sttranscriptcluster.db’, ‘pd.hugene.1.0.st.v1’, ‘reactome.db’
 
 
 
 ```
-# MSstats
+# dartR
 
 <details>
 
-* Version: 3.16.2
-* Source code: https://github.com/cran/MSstats
-* URL: http://msstats.org
-* BugReports: https://groups.google.com/forum/#!forum/msstats
-* Date/Publication: 2019-08-16
-* Number of recursive dependencies: 88
+* Version: 1.1.11
+* Source code: https://github.com/cran/dartR
+* Date/Publication: 2019-02-07 14:13:23 UTC
+* Number of recursive dependencies: 178
 
-Run `revdep_details(,"MSstats")` for more info
+Run `revdep_details(,"dartR")` for more info
 
 </details>
 
 ## In both
 
-*   R CMD check timed out
-    
-
-*   checking whether package ‘MSstats’ can be installed ... WARNING
+*   checking whether package ‘dartR’ can be installed ... ERROR
     ```
-    Found the following significant warnings:
-      Warning: replacing previous import ‘MASS::select’ by ‘dplyr::select’ when loading ‘MSstats’
-    See ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/MSstats/new/MSstats.Rcheck/00install.out’ for details.
+    Installation failed.
+    See ‘/tmp/workdir/dartR/new/dartR.Rcheck/00install.out’ for details.
     ```
 
-*   checking R code for possible problems ... NOTE
-    ```
-    ...
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/MSstats/new/MSstats.Rcheck/00_pkg_src/MSstats/R/plot_quantlim.R:218-221)
-    plot_quantlim: no visible binding for global variable ‘y’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/MSstats/new/MSstats.Rcheck/00_pkg_src/MSstats/R/plot_quantlim.R:218-221)
-    plot_quantlim: no visible binding for global variable ‘shape’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/MSstats/new/MSstats.Rcheck/00_pkg_src/MSstats/R/plot_quantlim.R:218-221)
-    plot_quantlim: no visible binding for global variable ‘x’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/MSstats/new/MSstats.Rcheck/00_pkg_src/MSstats/R/plot_quantlim.R:223-226)
-    plot_quantlim: no visible binding for global variable ‘y’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/MSstats/new/MSstats.Rcheck/00_pkg_src/MSstats/R/plot_quantlim.R:223-226)
-    plot_quantlim: no visible binding for global variable ‘shape’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/MSstats/new/MSstats.Rcheck/00_pkg_src/MSstats/R/plot_quantlim.R:223-226)
-    Undefined global functions or variables:
-      .resid ABUNDANCE FEATURE FRACTION INTENSITY Intensity LABEL Mean Name
-      PEPTIDE PROTEIN PeptideSequence Protein ProteinName Protein_number
-      RUN Selected_fragments Selected_peptides Train_size
-      aggr_Fragment_Annotation aggr_Peak_Area analysis censored ciw
-      cover_feature datafeature df_resid fea feature is_censored is_lowcvr
-      is_obs is_olr label log2inty logFC min_obs missing.col nb_feature
-      nb_full nb_obs nb_run ncount originalRUN ount peptide pi_obs protein
-      resid_null residual rlm_fit run s_resid s_resid_eb shape svar_feature
-      svar_ref var_feature var_resid_eb weight x y ymax ymin
-    ```
+## Installation
 
-# nationwider
+### Devel
+
+```
+* installing *source* package ‘dartR’ ...
+** package ‘dartR’ successfully unpacked and MD5 sums checked
+** using staged installation
+** R
+** data
+*** moving datasets to lazyload DB
+** inst
+** byte-compile and prepare package for lazy loading
+Error in dyn.load(file, DLLpath = DLLpath, ...) : 
+  unable to load shared object '/opt/R/3.6.3/lib/R/library/rgdal/libs/rgdal.so':
+  libproj.so.12: cannot open shared object file: No such file or directory
+Calls: <Anonymous> ... asNamespace -> loadNamespace -> library.dynam -> dyn.load
+Execution halted
+ERROR: lazy loading failed for package ‘dartR’
+* removing ‘/tmp/workdir/dartR/new/dartR.Rcheck/dartR’
+
+```
+### CRAN
+
+```
+* installing *source* package ‘dartR’ ...
+** package ‘dartR’ successfully unpacked and MD5 sums checked
+** using staged installation
+** R
+** data
+*** moving datasets to lazyload DB
+** inst
+** byte-compile and prepare package for lazy loading
+Error in dyn.load(file, DLLpath = DLLpath, ...) : 
+  unable to load shared object '/opt/R/3.6.3/lib/R/library/rgdal/libs/rgdal.so':
+  libproj.so.12: cannot open shared object file: No such file or directory
+Calls: <Anonymous> ... asNamespace -> loadNamespace -> library.dynam -> dyn.load
+Execution halted
+ERROR: lazy loading failed for package ‘dartR’
+* removing ‘/tmp/workdir/dartR/old/dartR.Rcheck/dartR’
+
+```
+# diceR
 
 <details>
 
-* Version: 1.1.0
-* Source code: https://github.com/cran/nationwider
-* URL: https://github.com/kvasilopoulos/nationwider
-* BugReports: https://github.com/kvasilopoulos/nationwider/issues
-* Date/Publication: 2020-01-12 05:50:02 UTC
-* Number of recursive dependencies: 84
-
-Run `revdep_details(,"nationwider")` for more info
-
-</details>
-
-## In both
-
-*   R CMD check timed out
-    
-
-# nlmixr
-
-<details>
-
-* Version: 1.1.1-3
-* Source code: https://github.com/cran/nlmixr
-* URL: https://github.com/nlmixrdevelopment/nlmixr
-* Date/Publication: 2019-11-13 13:20:02 UTC
+* Version: 0.6.0
+* Source code: https://github.com/cran/diceR
+* URL: https://github.com/AlineTalhouk/diceR, https://alinetalhouk.github.io/diceR
+* BugReports: https://github.com/AlineTalhouk/diceR/issues
+* Date/Publication: 2019-07-25 20:30:02 UTC
 * Number of recursive dependencies: 167
 
-Run `revdep_details(,"nlmixr")` for more info
+Run `revdep_details(,"diceR")` for more info
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+* using log directory ‘/tmp/workdir/diceR/new/diceR.Rcheck’
+* using R version 3.6.3 (2020-02-29)
+* using platform: x86_64-pc-linux-gnu (64-bit)
+* using session charset: UTF-8
+* using options ‘--no-manual --no-build-vignettes’
+* checking for file ‘diceR/DESCRIPTION’ ... OK
+* checking extension type ... Package
+* this is package ‘diceR’ version ‘0.6.0’
+* package encoding: UTF-8
+* checking package namespace information ... OK
+* checking package dependencies ... ERROR
+Package required but not available: ‘NMF’
+
+See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
+manual.
+* DONE
+Status: 1 ERROR
+
+
+
+
+
+
+```
+### CRAN
+
+```
+* using log directory ‘/tmp/workdir/diceR/old/diceR.Rcheck’
+* using R version 3.6.3 (2020-02-29)
+* using platform: x86_64-pc-linux-gnu (64-bit)
+* using session charset: UTF-8
+* using options ‘--no-manual --no-build-vignettes’
+* checking for file ‘diceR/DESCRIPTION’ ... OK
+* checking extension type ... Package
+* this is package ‘diceR’ version ‘0.6.0’
+* package encoding: UTF-8
+* checking package namespace information ... OK
+* checking package dependencies ... ERROR
+Package required but not available: ‘NMF’
+
+See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
+manual.
+* DONE
+Status: 1 ERROR
+
+
+
+
+
+
+```
+# dimRed
+
+<details>
+
+* Version: 0.2.3
+* Source code: https://github.com/cran/dimRed
+* URL: https://github.com/gdkrmr/dimRed
+* Date/Publication: 2019-05-08 08:10:07 UTC
+* Number of recursive dependencies: 136
+
+Run `revdep_details(,"dimRed")` for more info
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+* using log directory ‘/tmp/workdir/dimRed/new/dimRed.Rcheck’
+* using R version 3.6.3 (2020-02-29)
+* using platform: x86_64-pc-linux-gnu (64-bit)
+* using session charset: UTF-8
+* using options ‘--no-manual --no-build-vignettes’
+* checking for file ‘dimRed/DESCRIPTION’ ... OK
+* this is package ‘dimRed’ version ‘0.2.3’
+* package encoding: UTF-8
+* checking package namespace information ... OK
+* checking package dependencies ... ERROR
+Package suggested but not available: ‘NMF’
+
+The suggested packages are required for a complete check.
+Checking can be attempted without them by setting the environment
+variable _R_CHECK_FORCE_SUGGESTS_ to a false value.
+
+See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
+manual.
+* DONE
+Status: 1 ERROR
+
+
+
+
+
+
+```
+### CRAN
+
+```
+* using log directory ‘/tmp/workdir/dimRed/old/dimRed.Rcheck’
+* using R version 3.6.3 (2020-02-29)
+* using platform: x86_64-pc-linux-gnu (64-bit)
+* using session charset: UTF-8
+* using options ‘--no-manual --no-build-vignettes’
+* checking for file ‘dimRed/DESCRIPTION’ ... OK
+* this is package ‘dimRed’ version ‘0.2.3’
+* package encoding: UTF-8
+* checking package namespace information ... OK
+* checking package dependencies ... ERROR
+Package suggested but not available: ‘NMF’
+
+The suggested packages are required for a complete check.
+Checking can be attempted without them by setting the environment
+variable _R_CHECK_FORCE_SUGGESTS_ to a false value.
+
+See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
+manual.
+* DONE
+Status: 1 ERROR
+
+
+
+
+
+
+```
+# eechidna
+
+<details>
+
+* Version: 1.4.0
+* Source code: https://github.com/cran/eechidna
+* URL: https://github.com/ropenscilabs/eechidna
+* BugReports: https://github.com/ropenscilabs/eechidna/issues
+* Date/Publication: 2019-11-08 12:10:02 UTC
+* Number of recursive dependencies: 124
+
+Run `revdep_details(,"eechidna")` for more info
 
 </details>
 
 ## In both
 
-*   checking whether package ‘nlmixr’ can be installed ... ERROR
+*   checking whether package ‘eechidna’ can be installed ... ERROR
     ```
     Installation failed.
-    See ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/nlmixr/new/nlmixr.Rcheck/00install.out’ for details.
+    See ‘/tmp/workdir/eechidna/new/eechidna.Rcheck/00install.out’ for details.
     ```
 
 ## Installation
@@ -734,54 +437,133 @@ Run `revdep_details(,"nlmixr")` for more info
 ### Devel
 
 ```
-* installing *source* package ‘nlmixr’ ...
-** package ‘nlmixr’ successfully unpacked and MD5 sums checked
+* installing *source* package ‘eechidna’ ...
+** package ‘eechidna’ successfully unpacked and MD5 sums checked
 ** using staged installation
-checking for gcc... ccache /usr/local/opt/llvm/bin/clang -fopenmp -Qunused-arguments
-checking whether the C compiler works... no
-configure: error: in `/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/nlmixr/new/nlmixr.Rcheck/00_pkg_src/nlmixr':
-configure: error: C compiler cannot create executables
-See `config.log' for more details
-ERROR: configuration failed for package ‘nlmixr’
-* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/nlmixr/new/nlmixr.Rcheck/nlmixr’
+** R
+** data
+*** moving datasets to lazyload DB
+** inst
+** byte-compile and prepare package for lazy loading
+Error in dyn.load(file, DLLpath = DLLpath, ...) : 
+  unable to load shared object '/opt/R/3.6.3/lib/R/library/rgdal/libs/rgdal.so':
+  libproj.so.12: cannot open shared object file: No such file or directory
+Calls: <Anonymous> ... asNamespace -> loadNamespace -> library.dynam -> dyn.load
+Execution halted
+ERROR: lazy loading failed for package ‘eechidna’
+* removing ‘/tmp/workdir/eechidna/new/eechidna.Rcheck/eechidna’
 
 ```
 ### CRAN
 
 ```
-* installing *source* package ‘nlmixr’ ...
-** package ‘nlmixr’ successfully unpacked and MD5 sums checked
+* installing *source* package ‘eechidna’ ...
+** package ‘eechidna’ successfully unpacked and MD5 sums checked
 ** using staged installation
-checking for gcc... ccache /usr/local/opt/llvm/bin/clang -fopenmp -Qunused-arguments
-checking whether the C compiler works... no
-configure: error: in `/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/nlmixr/old/nlmixr.Rcheck/00_pkg_src/nlmixr':
-configure: error: C compiler cannot create executables
-See `config.log' for more details
-ERROR: configuration failed for package ‘nlmixr’
-* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/nlmixr/old/nlmixr.Rcheck/nlmixr’
+** R
+** data
+*** moving datasets to lazyload DB
+** inst
+** byte-compile and prepare package for lazy loading
+Error in dyn.load(file, DLLpath = DLLpath, ...) : 
+  unable to load shared object '/opt/R/3.6.3/lib/R/library/rgdal/libs/rgdal.so':
+  libproj.so.12: cannot open shared object file: No such file or directory
+Calls: <Anonymous> ... asNamespace -> loadNamespace -> library.dynam -> dyn.load
+Execution halted
+ERROR: lazy loading failed for package ‘eechidna’
+* removing ‘/tmp/workdir/eechidna/old/eechidna.Rcheck/eechidna’
 
 ```
-# phenofit
+# fingertipscharts
 
 <details>
 
-* Version: 0.2.5-2
-* Source code: https://github.com/cran/phenofit
-* URL: https://github.com/kongdd/phenofit
-* BugReports: https://github.com/kongdd/phenofit/issues
-* Date/Publication: 2019-06-07 08:00:08 UTC
-* Number of recursive dependencies: 88
+* Version: 0.0.10
+* Source code: https://github.com/cran/fingertipscharts
+* BugReports: https://github.com/PublicHealthEngland/fingertipscharts/issues
+* Date/Publication: 2019-10-07 15:00:03 UTC
+* Number of recursive dependencies: 142
 
-Run `revdep_details(,"phenofit")` for more info
+Run `revdep_details(,"fingertipscharts")` for more info
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+* using log directory ‘/tmp/workdir/fingertipscharts/new/fingertipscharts.Rcheck’
+* using R version 3.6.3 (2020-02-29)
+* using platform: x86_64-pc-linux-gnu (64-bit)
+* using session charset: UTF-8
+* using options ‘--no-manual --no-build-vignettes’
+* checking for file ‘fingertipscharts/DESCRIPTION’ ... OK
+* checking extension type ... Package
+* this is package ‘fingertipscharts’ version ‘0.0.10’
+* package encoding: UTF-8
+* checking package namespace information ... OK
+* checking package dependencies ... ERROR
+Package required but not available: ‘geojsonio’
+
+See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
+manual.
+* DONE
+Status: 1 ERROR
+
+
+
+
+
+
+```
+### CRAN
+
+```
+* using log directory ‘/tmp/workdir/fingertipscharts/old/fingertipscharts.Rcheck’
+* using R version 3.6.3 (2020-02-29)
+* using platform: x86_64-pc-linux-gnu (64-bit)
+* using session charset: UTF-8
+* using options ‘--no-manual --no-build-vignettes’
+* checking for file ‘fingertipscharts/DESCRIPTION’ ... OK
+* checking extension type ... Package
+* this is package ‘fingertipscharts’ version ‘0.0.10’
+* package encoding: UTF-8
+* checking package namespace information ... OK
+* checking package dependencies ... ERROR
+Package required but not available: ‘geojsonio’
+
+See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
+manual.
+* DONE
+Status: 1 ERROR
+
+
+
+
+
+
+```
+# GADMTools
+
+<details>
+
+* Version: 3.8-1
+* Source code: https://github.com/cran/GADMTools
+* URL: https://github.com/IamKDO/GADMTools
+* Date/Publication: 2020-03-05 12:30:08 UTC
+* Number of recursive dependencies: 106
+
+Run `revdep_details(,"GADMTools")` for more info
 
 </details>
 
 ## In both
 
-*   checking whether package ‘phenofit’ can be installed ... ERROR
+*   checking whether package ‘GADMTools’ can be installed ... ERROR
     ```
     Installation failed.
-    See ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/phenofit/new/phenofit.Rcheck/00install.out’ for details.
+    See ‘/tmp/workdir/GADMTools/new/GADMTools.Rcheck/00install.out’ for details.
     ```
 
 ## Installation
@@ -789,269 +571,140 @@ Run `revdep_details(,"phenofit")` for more info
 ### Devel
 
 ```
-* installing *source* package ‘phenofit’ ...
-** package ‘phenofit’ successfully unpacked and MD5 sums checked
+* installing *source* package ‘GADMTools’ ...
+** package ‘GADMTools’ successfully unpacked and MD5 sums checked
 ** using staged installation
-** libs
-clang++ -std=gnu++11 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/new/Rcpp/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/phenofit/RcppArmadillo/include" -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -I/usr/local/include -fopenmp  -fPIC  -Wall -g -O2  -c RcppExports.cpp -o RcppExports.o
-clang: error: unsupported option '-fopenmp'
-make: *** [RcppExports.o] Error 1
-ERROR: compilation failed for package ‘phenofit’
-* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/phenofit/new/phenofit.Rcheck/phenofit’
+** R
+** data
+** inst
+** byte-compile and prepare package for lazy loading
+Error: package or namespace load failed for ‘rgdal’ in dyn.load(file, DLLpath = DLLpath, ...):
+ unable to load shared object '/opt/R/3.6.3/lib/R/library/rgdal/libs/rgdal.so':
+  libproj.so.12: cannot open shared object file: No such file or directory
+Error: package ‘rgdal’ could not be loaded
+Execution halted
+ERROR: lazy loading failed for package ‘GADMTools’
+* removing ‘/tmp/workdir/GADMTools/new/GADMTools.Rcheck/GADMTools’
 
 ```
 ### CRAN
 
 ```
-* installing *source* package ‘phenofit’ ...
-** package ‘phenofit’ successfully unpacked and MD5 sums checked
+* installing *source* package ‘GADMTools’ ...
+** package ‘GADMTools’ successfully unpacked and MD5 sums checked
 ** using staged installation
-** libs
-clang++ -std=gnu++11 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/old/Rcpp/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/phenofit/RcppArmadillo/include" -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -I/usr/local/include -fopenmp  -fPIC  -Wall -g -O2  -c RcppExports.cpp -o RcppExports.o
-clang: error: unsupported option '-fopenmp'
-make: *** [RcppExports.o] Error 1
-ERROR: compilation failed for package ‘phenofit’
-* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/phenofit/old/phenofit.Rcheck/phenofit’
+** R
+** data
+** inst
+** byte-compile and prepare package for lazy loading
+Error: package or namespace load failed for ‘rgdal’ in dyn.load(file, DLLpath = DLLpath, ...):
+ unable to load shared object '/opt/R/3.6.3/lib/R/library/rgdal/libs/rgdal.so':
+  libproj.so.12: cannot open shared object file: No such file or directory
+Error: package ‘rgdal’ could not be loaded
+Execution halted
+ERROR: lazy loading failed for package ‘GADMTools’
+* removing ‘/tmp/workdir/GADMTools/old/GADMTools.Rcheck/GADMTools’
 
 ```
-# RxODE
+# ggmsa
 
 <details>
 
-* Version: 0.9.1-9
-* Source code: https://github.com/cran/RxODE
-* URL: https://nlmixrdevelopment.github.io/RxODE/
-* BugReports: https://github.com/nlmixrdevelopment/RxODE/issues
-* Date/Publication: 2020-01-10 23:20:06 UTC
-* Number of recursive dependencies: 122
+* Version: 0.0.2
+* Source code: https://github.com/cran/ggmsa
+* Date/Publication: 2020-01-08 15:20:02 UTC
+* Number of recursive dependencies: 82
 
-Run `revdep_details(,"RxODE")` for more info
+Run `revdep_details(,"ggmsa")` for more info
 
 </details>
 
-## In both
-
-*   checking whether package ‘RxODE’ can be installed ... ERROR
-    ```
-    Installation failed.
-    See ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/RxODE/new/RxODE.Rcheck/00install.out’ for details.
-    ```
-
-*   checking package dependencies ... NOTE
-    ```
-    Packages suggested but not available for checking:
-      'SnakeCharmR', 'installr'
-    ```
-
-## Installation
+## Error before installation
 
 ### Devel
 
 ```
-* installing *source* package ‘RxODE’ ...
-** package ‘RxODE’ successfully unpacked and MD5 sums checked
-** using staged installation
-checking for gcc... ccache /usr/local/opt/llvm/bin/clang -fopenmp -Qunused-arguments
-checking whether the C compiler works... no
-configure: error: in `/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/RxODE/new/RxODE.Rcheck/00_pkg_src/RxODE':
-configure: error: C compiler cannot create executables
-See `config.log' for more details
-ERROR: configuration failed for package ‘RxODE’
-* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/RxODE/new/RxODE.Rcheck/RxODE’
+* using log directory ‘/tmp/workdir/ggmsa/new/ggmsa.Rcheck’
+* using R version 3.6.3 (2020-02-29)
+* using platform: x86_64-pc-linux-gnu (64-bit)
+* using session charset: UTF-8
+* using options ‘--no-manual --no-build-vignettes’
+* checking for file ‘ggmsa/DESCRIPTION’ ... OK
+* this is package ‘ggmsa’ version ‘0.0.2’
+* package encoding: UTF-8
+* checking package namespace information ... OK
+* checking package dependencies ... ERROR
+Packages required but not available: 'Biostrings', 'treeio'
+
+Packages suggested but not available: 'ggtree', 'seqmagick'
+
+The suggested packages are required for a complete check.
+Checking can be attempted without them by setting the environment
+variable _R_CHECK_FORCE_SUGGESTS_ to a false value.
+
+See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
+manual.
+* DONE
+Status: 1 ERROR
+
+
+
+
+
 
 ```
 ### CRAN
 
 ```
-* installing *source* package ‘RxODE’ ...
-** package ‘RxODE’ successfully unpacked and MD5 sums checked
-** using staged installation
-checking for gcc... ccache /usr/local/opt/llvm/bin/clang -fopenmp -Qunused-arguments
-checking whether the C compiler works... no
-configure: error: in `/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/RxODE/old/RxODE.Rcheck/00_pkg_src/RxODE':
-configure: error: C compiler cannot create executables
-See `config.log' for more details
-ERROR: configuration failed for package ‘RxODE’
-* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/RxODE/old/RxODE.Rcheck/RxODE’
+* using log directory ‘/tmp/workdir/ggmsa/old/ggmsa.Rcheck’
+* using R version 3.6.3 (2020-02-29)
+* using platform: x86_64-pc-linux-gnu (64-bit)
+* using session charset: UTF-8
+* using options ‘--no-manual --no-build-vignettes’
+* checking for file ‘ggmsa/DESCRIPTION’ ... OK
+* this is package ‘ggmsa’ version ‘0.0.2’
+* package encoding: UTF-8
+* checking package namespace information ... OK
+* checking package dependencies ... ERROR
+Packages required but not available: 'Biostrings', 'treeio'
+
+Packages suggested but not available: 'ggtree', 'seqmagick'
+
+The suggested packages are required for a complete check.
+Checking can be attempted without them by setting the environment
+variable _R_CHECK_FORCE_SUGGESTS_ to a false value.
+
+See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
+manual.
+* DONE
+Status: 1 ERROR
+
+
+
+
+
 
 ```
-# sf
-
-<details>
-
-* Version: 0.8-0
-* Source code: https://github.com/cran/sf
-* URL: https://github.com/r-spatial/sf/, https://r-spatial.github.io/sf/
-* BugReports: https://github.com/r-spatial/sf/issues/
-* Date/Publication: 2019-09-17 04:40:03 UTC
-* Number of recursive dependencies: 140
-
-Run `revdep_details(,"sf")` for more info
-
-</details>
-
-## In both
-
-*   checking whether package ‘sf’ can be installed ... ERROR
-    ```
-    Installation failed.
-    See ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/sf/new/sf.Rcheck/00install.out’ for details.
-    ```
-
-## Installation
-
-### Devel
-
-```
-* installing *source* package ‘sf’ ...
-** package ‘sf’ successfully unpacked and MD5 sums checked
-** using staged installation
-configure: CC: ccache /usr/local/opt/llvm/bin/clang -fopenmp -Qunused-arguments
-configure: CXX: clang++ -std=gnu++11
-checking for gdal-config... /usr/local/bin/gdal-config
-checking gdal-config usability... yes
-configure: GDAL: 2.1.2
-checking GDAL version >= 2.0.1... yes
-checking for gcc... ccache /usr/local/opt/llvm/bin/clang -fopenmp -Qunused-arguments
-checking whether the C compiler works... no
-configure: error: in `/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/sf/new/sf.Rcheck/00_pkg_src/sf':
-configure: error: C compiler cannot create executables
-See `config.log' for more details
-ERROR: configuration failed for package ‘sf’
-* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/sf/new/sf.Rcheck/sf’
-
-```
-### CRAN
-
-```
-* installing *source* package ‘sf’ ...
-** package ‘sf’ successfully unpacked and MD5 sums checked
-** using staged installation
-configure: CC: ccache /usr/local/opt/llvm/bin/clang -fopenmp -Qunused-arguments
-configure: CXX: clang++ -std=gnu++11
-checking for gdal-config... /usr/local/bin/gdal-config
-checking gdal-config usability... yes
-configure: GDAL: 2.1.2
-checking GDAL version >= 2.0.1... yes
-checking for gcc... ccache /usr/local/opt/llvm/bin/clang -fopenmp -Qunused-arguments
-checking whether the C compiler works... no
-configure: error: in `/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/sf/old/sf.Rcheck/00_pkg_src/sf':
-configure: error: C compiler cannot create executables
-See `config.log' for more details
-ERROR: configuration failed for package ‘sf’
-* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/sf/old/sf.Rcheck/sf’
-
-```
-# TCGAbiolinks
-
-<details>
-
-* Version: 2.12.6
-* Source code: https://github.com/cran/TCGAbiolinks
-* URL: https://github.com/BioinformaticsFMRP/TCGAbiolinks
-* BugReports: https://github.com/BioinformaticsFMRP/TCGAbiolinks/issues
-* Date/Publication: 2019-09-05
-* Number of recursive dependencies: 266
-
-Run `revdep_details(,"TCGAbiolinks")` for more info
-
-</details>
-
-## In both
-
-*   R CMD check timed out
-    
-
-*   checking for missing documentation entries ... WARNING
-    ```
-    Warning: package ‘maftools’ was built under R version 3.6.1
-    All user-level objects in a package should have documentation entries.
-    See chapter ‘Writing R documentation files’ in the ‘Writing R
-    Extensions’ manual.
-    ```
-
-*   checking installed package size ... NOTE
-    ```
-      installed size is 97.3Mb
-      sub-directories of 1Mb or more:
-        R      2.7Mb
-        data   4.3Mb
-        doc   90.1Mb
-    ```
-
-*   checking dependencies in R code ... NOTE
-    ```
-    There are ::: calls to the package's namespace in its code. A package
-      almost never needs to use ::: for its own objects:
-      ‘move’
-    ```
-
-*   checking R code for possible problems ... NOTE
-    ```
-    ...
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/TCGAbiolinks/new/TCGAbiolinks.Rcheck/00_pkg_src/TCGAbiolinks/R/visualize.R:161-162)
-    TCGAvisualize_SurvivalCoxNET: no visible global function definition for
-      ‘dCommSignif’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/TCGAbiolinks/new/TCGAbiolinks.Rcheck/00_pkg_src/TCGAbiolinks/R/visualize.R:174)
-    TCGAvisualize_SurvivalCoxNET: no visible global function definition for
-      ‘visNet’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/TCGAbiolinks/new/TCGAbiolinks.Rcheck/00_pkg_src/TCGAbiolinks/R/visualize.R:184-189)
-    TCGAvisualize_oncoprint: no visible binding for global variable ‘value’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/TCGAbiolinks/new/TCGAbiolinks.Rcheck/00_pkg_src/TCGAbiolinks/R/visualize.R:932)
-    readExonQuantification: no visible binding for global variable ‘exon’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/TCGAbiolinks/new/TCGAbiolinks.Rcheck/00_pkg_src/TCGAbiolinks/R/prepare.R:246-247)
-    readExonQuantification: no visible binding for global variable
-      ‘coordinates’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/TCGAbiolinks/new/TCGAbiolinks.Rcheck/00_pkg_src/TCGAbiolinks/R/prepare.R:246-247)
-    readIDATDNAmethylation: no visible global function definition for
-      ‘openSesame’
-      (/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/TCGAbiolinks/new/TCGAbiolinks.Rcheck/00_pkg_src/TCGAbiolinks/R/prepare.R:537)
-    Undefined global functions or variables:
-      Tumor.purity barcode c3net clinical coordinates dCommSignif
-      dNetInduce dNetPipeline exon knnmi.cross limmacontrasts.fit
-      limmamakeContrasts minet openSesame portions rse_gene value visNet
-    ```
-
-# trialr
-
-<details>
-
-* Version: 0.1.3
-* Source code: https://github.com/cran/trialr
-* URL: https://github.com/brockk/trialr
-* BugReports: https://github.com/brockk/trialr/issues
-* Date/Publication: 2020-01-08 22:30:10 UTC
-* Number of recursive dependencies: 104
-
-Run `revdep_details(,"trialr")` for more info
-
-</details>
-
-## In both
-
-*   R CMD check timed out
-    
-
-# vlad
+# ppcSpatial
 
 <details>
 
 * Version: 0.2.0
-* Source code: https://github.com/cran/vlad
-* BugReports: https://github.com/wittenberg/vlad/issues
-* Date/Publication: 2018-12-06 08:50:03 UTC
-* Number of recursive dependencies: 70
+* Source code: https://github.com/cran/ppcSpatial
+* URL: https://github.com/MYaseen208/ppcSpatial
+* Date/Publication: 2018-03-07 15:54:23 UTC
+* Number of recursive dependencies: 104
 
-Run `revdep_details(,"vlad")` for more info
+Run `revdep_details(,"ppcSpatial")` for more info
 
 </details>
 
 ## In both
 
-*   checking whether package ‘vlad’ can be installed ... ERROR
+*   checking whether package ‘ppcSpatial’ can be installed ... ERROR
     ```
     Installation failed.
-    See ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/vlad/new/vlad.Rcheck/00install.out’ for details.
+    See ‘/tmp/workdir/ppcSpatial/new/ppcSpatial.Rcheck/00install.out’ for details.
     ```
 
 ## Installation
@@ -1059,28 +712,730 @@ Run `revdep_details(,"vlad")` for more info
 ### Devel
 
 ```
-* installing *source* package ‘vlad’ ...
-** package ‘vlad’ successfully unpacked and MD5 sums checked
+* installing *source* package ‘ppcSpatial’ ...
+** package ‘ppcSpatial’ successfully unpacked and MD5 sums checked
 ** using staged installation
-** libs
-clang++ -std=gnu++11 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG -I../inst/include/ -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/new/Rcpp/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/vlad/RcppArmadillo/include" -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -I/usr/local/include -fopenmp -fPIC  -Wall -g -O2  -c RcppExports.cpp -o RcppExports.o
-clang: error: unsupported option '-fopenmp'
-make: *** [RcppExports.o] Error 1
-ERROR: compilation failed for package ‘vlad’
-* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/vlad/new/vlad.Rcheck/vlad’
+** R
+** inst
+** byte-compile and prepare package for lazy loading
+Error in dyn.load(file, DLLpath = DLLpath, ...) : 
+  unable to load shared object '/opt/R/3.6.3/lib/R/library/rgdal/libs/rgdal.so':
+  libproj.so.12: cannot open shared object file: No such file or directory
+Calls: <Anonymous> ... namespaceImport -> loadNamespace -> library.dynam -> dyn.load
+Execution halted
+ERROR: lazy loading failed for package ‘ppcSpatial’
+* removing ‘/tmp/workdir/ppcSpatial/new/ppcSpatial.Rcheck/ppcSpatial’
 
 ```
 ### CRAN
 
 ```
-* installing *source* package ‘vlad’ ...
-** package ‘vlad’ successfully unpacked and MD5 sums checked
+* installing *source* package ‘ppcSpatial’ ...
+** package ‘ppcSpatial’ successfully unpacked and MD5 sums checked
 ** using staged installation
-** libs
-clang++ -std=gnu++11 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG -I../inst/include/ -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/tidyr/old/Rcpp/include" -I"/Users/hadley/Documents/tidy-data/tidyr/revdep/library.noindex/vlad/RcppArmadillo/include" -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -I/usr/local/include -fopenmp -fPIC  -Wall -g -O2  -c RcppExports.cpp -o RcppExports.o
-clang: error: unsupported option '-fopenmp'
-make: *** [RcppExports.o] Error 1
-ERROR: compilation failed for package ‘vlad’
-* removing ‘/Users/hadley/Documents/tidy-data/tidyr/revdep/checks.noindex/vlad/old/vlad.Rcheck/vlad’
+** R
+** inst
+** byte-compile and prepare package for lazy loading
+Error in dyn.load(file, DLLpath = DLLpath, ...) : 
+  unable to load shared object '/opt/R/3.6.3/lib/R/library/rgdal/libs/rgdal.so':
+  libproj.so.12: cannot open shared object file: No such file or directory
+Calls: <Anonymous> ... namespaceImport -> loadNamespace -> library.dynam -> dyn.load
+Execution halted
+ERROR: lazy loading failed for package ‘ppcSpatial’
+* removing ‘/tmp/workdir/ppcSpatial/old/ppcSpatial.Rcheck/ppcSpatial’
+
+```
+# PWFSLSmoke
+
+<details>
+
+* Version: 1.2.100
+* Source code: https://github.com/cran/PWFSLSmoke
+* URL: https://github.com/MazamaScience/PWFSLSmoke
+* BugReports: https://github.com/MazamaScience/PWFSLSmoke/issues
+* Date/Publication: 2019-07-18 23:10:02 UTC
+* Number of recursive dependencies: 167
+
+Run `revdep_details(,"PWFSLSmoke")` for more info
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+* using log directory ‘/tmp/workdir/PWFSLSmoke/new/PWFSLSmoke.Rcheck’
+* using R version 3.6.3 (2020-02-29)
+* using platform: x86_64-pc-linux-gnu (64-bit)
+* using session charset: UTF-8
+* using options ‘--no-manual --no-build-vignettes’
+* checking for file ‘PWFSLSmoke/DESCRIPTION’ ... OK
+* checking extension type ... Package
+* this is package ‘PWFSLSmoke’ version ‘1.2.100’
+* package encoding: UTF-8
+* checking package namespace information ... OK
+* checking package dependencies ... ERROR
+Package required but not available: ‘MazamaSpatialUtils’
+
+See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
+manual.
+* DONE
+Status: 1 ERROR
+
+
+
+
+
+
+```
+### CRAN
+
+```
+* using log directory ‘/tmp/workdir/PWFSLSmoke/old/PWFSLSmoke.Rcheck’
+* using R version 3.6.3 (2020-02-29)
+* using platform: x86_64-pc-linux-gnu (64-bit)
+* using session charset: UTF-8
+* using options ‘--no-manual --no-build-vignettes’
+* checking for file ‘PWFSLSmoke/DESCRIPTION’ ... OK
+* checking extension type ... Package
+* this is package ‘PWFSLSmoke’ version ‘1.2.100’
+* package encoding: UTF-8
+* checking package namespace information ... OK
+* checking package dependencies ... ERROR
+Package required but not available: ‘MazamaSpatialUtils’
+
+See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
+manual.
+* DONE
+Status: 1 ERROR
+
+
+
+
+
+
+```
+# rmapzen
+
+<details>
+
+* Version: 0.4.2
+* Source code: https://github.com/cran/rmapzen
+* URL: https://tarakc02.github.io/rmapzen/
+* BugReports: https://github.com/tarakc02/rmapzen/issues
+* Date/Publication: 2019-08-19 21:10:06 UTC
+* Number of recursive dependencies: 85
+
+Run `revdep_details(,"rmapzen")` for more info
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+* using log directory ‘/tmp/workdir/rmapzen/new/rmapzen.Rcheck’
+* using R version 3.6.3 (2020-02-29)
+* using platform: x86_64-pc-linux-gnu (64-bit)
+* using session charset: UTF-8
+* using options ‘--no-manual --no-build-vignettes’
+* checking for file ‘rmapzen/DESCRIPTION’ ... OK
+* checking extension type ... Package
+* this is package ‘rmapzen’ version ‘0.4.2’
+* checking package namespace information ... OK
+* checking package dependencies ... ERROR
+Package required but not available: ‘geojsonio’
+
+See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
+manual.
+* DONE
+Status: 1 ERROR
+
+
+
+
+
+
+```
+### CRAN
+
+```
+* using log directory ‘/tmp/workdir/rmapzen/old/rmapzen.Rcheck’
+* using R version 3.6.3 (2020-02-29)
+* using platform: x86_64-pc-linux-gnu (64-bit)
+* using session charset: UTF-8
+* using options ‘--no-manual --no-build-vignettes’
+* checking for file ‘rmapzen/DESCRIPTION’ ... OK
+* checking extension type ... Package
+* this is package ‘rmapzen’ version ‘0.4.2’
+* checking package namespace information ... OK
+* checking package dependencies ... ERROR
+Package required but not available: ‘geojsonio’
+
+See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
+manual.
+* DONE
+Status: 1 ERROR
+
+
+
+
+
+
+```
+# SimDesign
+
+<details>
+
+* Version: 2.0.1
+* Source code: https://github.com/cran/SimDesign
+* URL: https://github.com/philchalmers/SimDesign, https://github.com/philchalmers/SimDesign/wiki
+* Date/Publication: 2020-01-20 19:00:02 UTC
+* Number of recursive dependencies: 88
+
+Run `revdep_details(,"SimDesign")` for more info
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+* using log directory ‘/tmp/workdir/SimDesign/new/SimDesign.Rcheck’
+* using R version 3.6.3 (2020-02-29)
+* using platform: x86_64-pc-linux-gnu (64-bit)
+* using session charset: UTF-8
+* using options ‘--no-manual --no-build-vignettes’
+* checking for file ‘SimDesign/DESCRIPTION’ ... OK
+* this is package ‘SimDesign’ version ‘2.0.1’
+* checking package namespace information ... OK
+* checking package dependencies ... ERROR
+Package suggested but not available: ‘doMPI’
+
+The suggested packages are required for a complete check.
+Checking can be attempted without them by setting the environment
+variable _R_CHECK_FORCE_SUGGESTS_ to a false value.
+
+See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
+manual.
+* DONE
+Status: 1 ERROR
+
+
+
+
+
+
+```
+### CRAN
+
+```
+* using log directory ‘/tmp/workdir/SimDesign/old/SimDesign.Rcheck’
+* using R version 3.6.3 (2020-02-29)
+* using platform: x86_64-pc-linux-gnu (64-bit)
+* using session charset: UTF-8
+* using options ‘--no-manual --no-build-vignettes’
+* checking for file ‘SimDesign/DESCRIPTION’ ... OK
+* this is package ‘SimDesign’ version ‘2.0.1’
+* checking package namespace information ... OK
+* checking package dependencies ... ERROR
+Package suggested but not available: ‘doMPI’
+
+The suggested packages are required for a complete check.
+Checking can be attempted without them by setting the environment
+variable _R_CHECK_FORCE_SUGGESTS_ to a false value.
+
+See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
+manual.
+* DONE
+Status: 1 ERROR
+
+
+
+
+
+
+```
+# simplevis
+
+<details>
+
+* Version: 1.1.1
+* Source code: https://github.com/cran/simplevis
+* URL: https://StatisticsNZ.github.io/simplevis, https://github.com/StatisticsNZ/simplevis
+* BugReports: https://github.com/StatisticsNZ/simplevis/issues
+* Date/Publication: 2020-04-28 13:30:02 UTC
+* Number of recursive dependencies: 118
+
+Run `revdep_details(,"simplevis")` for more info
+
+</details>
+
+## In both
+
+*   checking whether package ‘simplevis’ can be installed ... ERROR
+    ```
+    Installation failed.
+    See ‘/tmp/workdir/simplevis/new/simplevis.Rcheck/00install.out’ for details.
+    ```
+
+## Installation
+
+### Devel
+
+```
+* installing *source* package ‘simplevis’ ...
+** package ‘simplevis’ successfully unpacked and MD5 sums checked
+** using staged installation
+** R
+** data
+*** moving datasets to lazyload DB
+** inst
+** byte-compile and prepare package for lazy loading
+Error in dyn.load(file, DLLpath = DLLpath, ...) : 
+  unable to load shared object '/opt/R/3.6.3/lib/R/library/rgdal/libs/rgdal.so':
+  libproj.so.12: cannot open shared object file: No such file or directory
+Calls: <Anonymous> ... namespaceImport -> loadNamespace -> library.dynam -> dyn.load
+Execution halted
+ERROR: lazy loading failed for package ‘simplevis’
+* removing ‘/tmp/workdir/simplevis/new/simplevis.Rcheck/simplevis’
+
+```
+### CRAN
+
+```
+* installing *source* package ‘simplevis’ ...
+** package ‘simplevis’ successfully unpacked and MD5 sums checked
+** using staged installation
+** R
+** data
+*** moving datasets to lazyload DB
+** inst
+** byte-compile and prepare package for lazy loading
+Error in dyn.load(file, DLLpath = DLLpath, ...) : 
+  unable to load shared object '/opt/R/3.6.3/lib/R/library/rgdal/libs/rgdal.so':
+  libproj.so.12: cannot open shared object file: No such file or directory
+Calls: <Anonymous> ... namespaceImport -> loadNamespace -> library.dynam -> dyn.load
+Execution halted
+ERROR: lazy loading failed for package ‘simplevis’
+* removing ‘/tmp/workdir/simplevis/old/simplevis.Rcheck/simplevis’
+
+```
+# sociome
+
+<details>
+
+* Version: 1.4.0
+* Source code: https://github.com/cran/sociome
+* BugReports: https://github.com/NikKrieger/sociome/issues
+* Date/Publication: 2020-03-19 12:10:05 UTC
+* Number of recursive dependencies: 90
+
+Run `revdep_details(,"sociome")` for more info
+
+</details>
+
+## In both
+
+*   checking whether package ‘sociome’ can be installed ... ERROR
+    ```
+    Installation failed.
+    See ‘/tmp/workdir/sociome/new/sociome.Rcheck/00install.out’ for details.
+    ```
+
+## Installation
+
+### Devel
+
+```
+* installing *source* package ‘sociome’ ...
+** package ‘sociome’ successfully unpacked and MD5 sums checked
+** using staged installation
+** R
+** data
+*** moving datasets to lazyload DB
+** inst
+** byte-compile and prepare package for lazy loading
+Error in dyn.load(file, DLLpath = DLLpath, ...) : 
+  unable to load shared object '/opt/R/3.6.3/lib/R/library/rgdal/libs/rgdal.so':
+  libproj.so.12: cannot open shared object file: No such file or directory
+Calls: <Anonymous> ... namespaceImport -> loadNamespace -> library.dynam -> dyn.load
+Execution halted
+ERROR: lazy loading failed for package ‘sociome’
+* removing ‘/tmp/workdir/sociome/new/sociome.Rcheck/sociome’
+
+```
+### CRAN
+
+```
+* installing *source* package ‘sociome’ ...
+** package ‘sociome’ successfully unpacked and MD5 sums checked
+** using staged installation
+** R
+** data
+*** moving datasets to lazyload DB
+** inst
+** byte-compile and prepare package for lazy loading
+Error in dyn.load(file, DLLpath = DLLpath, ...) : 
+  unable to load shared object '/opt/R/3.6.3/lib/R/library/rgdal/libs/rgdal.so':
+  libproj.so.12: cannot open shared object file: No such file or directory
+Calls: <Anonymous> ... namespaceImport -> loadNamespace -> library.dynam -> dyn.load
+Execution halted
+ERROR: lazy loading failed for package ‘sociome’
+* removing ‘/tmp/workdir/sociome/old/sociome.Rcheck/sociome’
+
+```
+# sugarbag
+
+<details>
+
+* Version: 0.1.2
+* Source code: https://github.com/cran/sugarbag
+* URL: https://srkobakian.github.io/sugarbag/, https://github.com/srkobakian/sugarbag
+* Date/Publication: 2020-01-08 20:40:02 UTC
+* Number of recursive dependencies: 108
+
+Run `revdep_details(,"sugarbag")` for more info
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+* using log directory ‘/tmp/workdir/sugarbag/new/sugarbag.Rcheck’
+* using R version 3.6.3 (2020-02-29)
+* using platform: x86_64-pc-linux-gnu (64-bit)
+* using session charset: UTF-8
+* using options ‘--no-manual --no-build-vignettes’
+* checking for file ‘sugarbag/DESCRIPTION’ ... OK
+* this is package ‘sugarbag’ version ‘0.1.2’
+* package encoding: UTF-8
+* checking package namespace information ... OK
+* checking package dependencies ... ERROR
+Package required but not available: ‘rmapshaper’
+
+See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
+manual.
+* DONE
+Status: 1 ERROR
+
+
+
+
+
+
+```
+### CRAN
+
+```
+* using log directory ‘/tmp/workdir/sugarbag/old/sugarbag.Rcheck’
+* using R version 3.6.3 (2020-02-29)
+* using platform: x86_64-pc-linux-gnu (64-bit)
+* using session charset: UTF-8
+* using options ‘--no-manual --no-build-vignettes’
+* checking for file ‘sugarbag/DESCRIPTION’ ... OK
+* this is package ‘sugarbag’ version ‘0.1.2’
+* package encoding: UTF-8
+* checking package namespace information ... OK
+* checking package dependencies ... ERROR
+Package required but not available: ‘rmapshaper’
+
+See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
+manual.
+* DONE
+Status: 1 ERROR
+
+
+
+
+
+
+```
+# SWMPrExtension
+
+<details>
+
+* Version: 1.1.4
+* Source code: https://github.com/cran/SWMPrExtension
+* BugReports: https://github.com/NOAA-OCM/SWMPrExtension/issues
+* Date/Publication: 2020-05-04 15:10:11 UTC
+* Number of recursive dependencies: 120
+
+Run `revdep_details(,"SWMPrExtension")` for more info
+
+</details>
+
+## In both
+
+*   checking whether package ‘SWMPrExtension’ can be installed ... ERROR
+    ```
+    Installation failed.
+    See ‘/tmp/workdir/SWMPrExtension/new/SWMPrExtension.Rcheck/00install.out’ for details.
+    ```
+
+## Installation
+
+### Devel
+
+```
+* installing *source* package ‘SWMPrExtension’ ...
+** package ‘SWMPrExtension’ successfully unpacked and MD5 sums checked
+** using staged installation
+** R
+** data
+*** moving datasets to lazyload DB
+** inst
+** byte-compile and prepare package for lazy loading
+Error in dyn.load(file, DLLpath = DLLpath, ...) : 
+  unable to load shared object '/opt/R/3.6.3/lib/R/library/rgdal/libs/rgdal.so':
+  libproj.so.12: cannot open shared object file: No such file or directory
+Calls: <Anonymous> ... asNamespace -> loadNamespace -> library.dynam -> dyn.load
+Execution halted
+ERROR: lazy loading failed for package ‘SWMPrExtension’
+* removing ‘/tmp/workdir/SWMPrExtension/new/SWMPrExtension.Rcheck/SWMPrExtension’
+
+```
+### CRAN
+
+```
+* installing *source* package ‘SWMPrExtension’ ...
+** package ‘SWMPrExtension’ successfully unpacked and MD5 sums checked
+** using staged installation
+** R
+** data
+*** moving datasets to lazyload DB
+** inst
+** byte-compile and prepare package for lazy loading
+Error in dyn.load(file, DLLpath = DLLpath, ...) : 
+  unable to load shared object '/opt/R/3.6.3/lib/R/library/rgdal/libs/rgdal.so':
+  libproj.so.12: cannot open shared object file: No such file or directory
+Calls: <Anonymous> ... asNamespace -> loadNamespace -> library.dynam -> dyn.load
+Execution halted
+ERROR: lazy loading failed for package ‘SWMPrExtension’
+* removing ‘/tmp/workdir/SWMPrExtension/old/SWMPrExtension.Rcheck/SWMPrExtension’
+
+```
+# tidycensus
+
+<details>
+
+* Version: 0.9.9.2
+* Source code: https://github.com/cran/tidycensus
+* URL: https://github.com/walkerke/tidycensus
+* BugReports: https://github.com/walkerke/tidycensus/issues
+* Date/Publication: 2020-04-03 16:00:03 UTC
+* Number of recursive dependencies: 81
+
+Run `revdep_details(,"tidycensus")` for more info
+
+</details>
+
+## In both
+
+*   checking whether package ‘tidycensus’ can be installed ... ERROR
+    ```
+    Installation failed.
+    See ‘/tmp/workdir/tidycensus/new/tidycensus.Rcheck/00install.out’ for details.
+    ```
+
+## Installation
+
+### Devel
+
+```
+* installing *source* package ‘tidycensus’ ...
+** package ‘tidycensus’ successfully unpacked and MD5 sums checked
+** using staged installation
+** R
+** data
+*** moving datasets to lazyload DB
+** byte-compile and prepare package for lazy loading
+Error in dyn.load(file, DLLpath = DLLpath, ...) : 
+  unable to load shared object '/opt/R/3.6.3/lib/R/library/rgdal/libs/rgdal.so':
+  libproj.so.12: cannot open shared object file: No such file or directory
+Calls: <Anonymous> ... namespaceImport -> loadNamespace -> library.dynam -> dyn.load
+Execution halted
+ERROR: lazy loading failed for package ‘tidycensus’
+* removing ‘/tmp/workdir/tidycensus/new/tidycensus.Rcheck/tidycensus’
+
+```
+### CRAN
+
+```
+* installing *source* package ‘tidycensus’ ...
+** package ‘tidycensus’ successfully unpacked and MD5 sums checked
+** using staged installation
+** R
+** data
+*** moving datasets to lazyload DB
+** byte-compile and prepare package for lazy loading
+Error in dyn.load(file, DLLpath = DLLpath, ...) : 
+  unable to load shared object '/opt/R/3.6.3/lib/R/library/rgdal/libs/rgdal.so':
+  libproj.so.12: cannot open shared object file: No such file or directory
+Calls: <Anonymous> ... namespaceImport -> loadNamespace -> library.dynam -> dyn.load
+Execution halted
+ERROR: lazy loading failed for package ‘tidycensus’
+* removing ‘/tmp/workdir/tidycensus/old/tidycensus.Rcheck/tidycensus’
+
+```
+# tmap
+
+<details>
+
+* Version: 3.0
+* Source code: https://github.com/cran/tmap
+* URL: https://github.com/mtennekes/tmap
+* BugReports: https://github.com/mtennekes/tmap/issues
+* Date/Publication: 2020-04-09 11:50:02 UTC
+* Number of recursive dependencies: 138
+
+Run `revdep_details(,"tmap")` for more info
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+* using log directory ‘/tmp/workdir/tmap/new/tmap.Rcheck’
+* using R version 3.6.3 (2020-02-29)
+* using platform: x86_64-pc-linux-gnu (64-bit)
+* using session charset: UTF-8
+* using options ‘--no-manual --no-build-vignettes’
+* checking for file ‘tmap/DESCRIPTION’ ... OK
+* checking extension type ... Package
+* this is package ‘tmap’ version ‘3.0’
+* checking package namespace information ... OK
+* checking package dependencies ... ERROR
+Package suggested but not available: ‘rmapshaper’
+
+The suggested packages are required for a complete check.
+Checking can be attempted without them by setting the environment
+variable _R_CHECK_FORCE_SUGGESTS_ to a false value.
+
+See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
+manual.
+* DONE
+Status: 1 ERROR
+
+
+
+
+
+
+```
+### CRAN
+
+```
+* using log directory ‘/tmp/workdir/tmap/old/tmap.Rcheck’
+* using R version 3.6.3 (2020-02-29)
+* using platform: x86_64-pc-linux-gnu (64-bit)
+* using session charset: UTF-8
+* using options ‘--no-manual --no-build-vignettes’
+* checking for file ‘tmap/DESCRIPTION’ ... OK
+* checking extension type ... Package
+* this is package ‘tmap’ version ‘3.0’
+* checking package namespace information ... OK
+* checking package dependencies ... ERROR
+Package suggested but not available: ‘rmapshaper’
+
+The suggested packages are required for a complete check.
+Checking can be attempted without them by setting the environment
+variable _R_CHECK_FORCE_SUGGESTS_ to a false value.
+
+See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
+manual.
+* DONE
+Status: 1 ERROR
+
+
+
+
+
+
+```
+# wrswoR
+
+<details>
+
+* Version: 1.1
+* Source code: https://github.com/cran/wrswoR
+* URL: http://krlmlr.github.io/wrswoR
+* BugReports: https://github.com/krlmlr/wrswoR/issues
+* Date/Publication: 2018-02-02 18:26:36 UTC
+* Number of recursive dependencies: 125
+
+Run `revdep_details(,"wrswoR")` for more info
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+* using log directory ‘/tmp/workdir/wrswoR/new/wrswoR.Rcheck’
+* using R version 3.6.3 (2020-02-29)
+* using platform: x86_64-pc-linux-gnu (64-bit)
+* using session charset: UTF-8
+* using options ‘--no-manual --no-build-vignettes’
+* checking for file ‘wrswoR/DESCRIPTION’ ... OK
+* checking extension type ... Package
+* this is package ‘wrswoR’ version ‘1.1’
+* package encoding: UTF-8
+* checking package namespace information ... OK
+* checking package dependencies ... ERROR
+Package suggested but not available: ‘metap’
+
+The suggested packages are required for a complete check.
+Checking can be attempted without them by setting the environment
+variable _R_CHECK_FORCE_SUGGESTS_ to a false value.
+
+See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
+manual.
+* DONE
+Status: 1 ERROR
+
+
+
+
+
+
+```
+### CRAN
+
+```
+* using log directory ‘/tmp/workdir/wrswoR/old/wrswoR.Rcheck’
+* using R version 3.6.3 (2020-02-29)
+* using platform: x86_64-pc-linux-gnu (64-bit)
+* using session charset: UTF-8
+* using options ‘--no-manual --no-build-vignettes’
+* checking for file ‘wrswoR/DESCRIPTION’ ... OK
+* checking extension type ... Package
+* this is package ‘wrswoR’ version ‘1.1’
+* package encoding: UTF-8
+* checking package namespace information ... OK
+* checking package dependencies ... ERROR
+Package suggested but not available: ‘metap’
+
+The suggested packages are required for a complete check.
+Checking can be attempted without them by setting the environment
+variable _R_CHECK_FORCE_SUGGESTS_ to a false value.
+
+See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
+manual.
+* DONE
+Status: 1 ERROR
+
+
+
+
+
 
 ```
