@@ -1,6 +1,6 @@
 Package: tidyr
 Title: Tidy Messy Data
-Version: 1.0.1
+Version: 1.0.3
 Authors@R: 
     c(person(given = "Hadley",
              family = "Wickham",
