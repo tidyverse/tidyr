@@ -170,6 +170,7 @@ nest.tbl_df <- function(.data, ..., .names_sep = NULL, .key = deprecated()) {
 
   asis <- setdiff(names(.data), unlist(cols))
 
+  .data <- as_tibble(.data)
   keys <- .data[asis]
   u_keys <- vec_unique(keys)
   out <- map(cols, ~ vec_split(set_names(.data[.x], names(.x)), keys)$val)
