@@ -206,7 +206,8 @@ that allows you to describe pivotting with a data frame.</p>
   <span class='no'>spec</span>,
   <span class='kw'>names_repair</span> <span class='kw'>=</span> <span class='st'>"check_unique"</span>,
   <span class='kw'>values_drop_na</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>values_ptypes</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>()
+  <span class='kw'>values_ptypes</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(),
+  <span class='kw'>values_transform</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>()
 )
 
 <span class='fu'>build_longer_spec</span>(
@@ -217,7 +218,8 @@ that allows you to describe pivotting with a data frame.</p>
   <span class='kw'>names_prefix</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>names_sep</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>names_pattern</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>names_ptypes</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
+  <span class='kw'>names_ptypes</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>names_transform</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -258,10 +260,19 @@ values in <code>data</code> were created by its structure.</p></td>
       <th>values_ptypes</th>
       <td><p>A list of column name-prototype pairs.
 A prototype (or ptype for short) is a zero-length vector (like <code><a href='https://rdrr.io/r/base/integer.html'>integer()</a></code>
-or <code><a href='https://rdrr.io/r/base/numeric.html'>numeric()</a></code>) that defines the type, class, and attributes of a vector.</p>
+or <code><a href='https://rdrr.io/r/base/numeric.html'>numeric()</a></code>) that defines the type, class, and attributes of a vector.
+Use these arguments to confirm that the created columns are the types that
+you expect.</p>
 <p>If not specified, the type of the columns generated from <code>names_to</code> will
 be character, and the type of the variables generated from <code>values_to</code>
 will be the common type of the input columns used to generate them.</p></td>
+    </tr>
+    <tr>
+      <th>values_transform</th>
+      <td><p>A list of column name-function pairs.
+Use these arguments if you need to change the type of specific columns.
+For example, <code>names_transform = list(week = as.integer)</code> would convert
+a character week variable to an integer.</p></td>
     </tr>
     <tr>
       <th>cols</th>
@@ -323,10 +334,19 @@ needed.</p></td>
       <th>names_ptypes</th>
       <td><p>A list of column name-prototype pairs.
 A prototype (or ptype for short) is a zero-length vector (like <code><a href='https://rdrr.io/r/base/integer.html'>integer()</a></code>
-or <code><a href='https://rdrr.io/r/base/numeric.html'>numeric()</a></code>) that defines the type, class, and attributes of a vector.</p>
+or <code><a href='https://rdrr.io/r/base/numeric.html'>numeric()</a></code>) that defines the type, class, and attributes of a vector.
+Use these arguments to confirm that the created columns are the types that
+you expect.</p>
 <p>If not specified, the type of the columns generated from <code>names_to</code> will
 be character, and the type of the variables generated from <code>values_to</code>
 will be the common type of the input columns used to generate them.</p></td>
+    </tr>
+    <tr>
+      <th>names_transform</th>
+      <td><p>A list of column name-function pairs.
+Use these arguments if you need to change the type of specific columns.
+For example, <code>names_transform = list(week = as.integer)</code> would convert
+a character week variable to an integer.</p></td>
     </tr>
     </table>
 

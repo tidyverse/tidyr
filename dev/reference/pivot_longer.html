@@ -215,10 +215,12 @@ decreasing the number of columns. The inverse transformation is
   <span class='kw'>names_sep</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>names_pattern</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>names_ptypes</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(),
+  <span class='kw'>names_transform</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(),
   <span class='kw'>names_repair</span> <span class='kw'>=</span> <span class='st'>"check_unique"</span>,
   <span class='kw'>values_to</span> <span class='kw'>=</span> <span class='st'>"value"</span>,
   <span class='kw'>values_drop_na</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>values_ptypes</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(),
+  <span class='kw'>values_transform</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(),
   <span class='no'>...</span>
 )</pre>
 
@@ -268,10 +270,19 @@ needed.</p></td>
       <th>names_ptypes, values_ptypes</th>
       <td><p>A list of column name-prototype pairs.
 A prototype (or ptype for short) is a zero-length vector (like <code><a href='https://rdrr.io/r/base/integer.html'>integer()</a></code>
-or <code><a href='https://rdrr.io/r/base/numeric.html'>numeric()</a></code>) that defines the type, class, and attributes of a vector.</p>
+or <code><a href='https://rdrr.io/r/base/numeric.html'>numeric()</a></code>) that defines the type, class, and attributes of a vector.
+Use these arguments to confirm that the created columns are the types that
+you expect.</p>
 <p>If not specified, the type of the columns generated from <code>names_to</code> will
 be character, and the type of the variables generated from <code>values_to</code>
 will be the common type of the input columns used to generate them.</p></td>
+    </tr>
+    <tr>
+      <th>names_transform, values_transform</th>
+      <td><p>A list of column name-function pairs.
+Use these arguments if you need to change the type of specific columns.
+For example, <code>names_transform = list(week = as.integer)</code> would convert
+a character week variable to an integer.</p></td>
     </tr>
     <tr>
       <th>names_repair</th>
@@ -336,7 +347,7 @@ under active development.</p>
 #&gt; </span><span style='color: #555555;'>18</span><span> Unaffil…     217       299       374       365       341       528        407
 #&gt; </span><span style='color: #555555;'># … with 3 more variables: `$100-150k` </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, `&gt;150k` </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, `Don't</span><span>
 #&gt; </span><span style='color: #555555;'>#   know/refused` </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span></div><div class='input'><span class='no'>relig_income</span> <span class='kw'>%&gt;%</span>
- <span class='fu'>pivot_longer</span>(-<span class='no'>religion</span>, <span class='kw'>names_to</span> <span class='kw'>=</span> <span class='st'>"income"</span>, <span class='kw'>values_to</span> <span class='kw'>=</span> <span class='st'>"count"</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 180 x 3</span><span>
+  <span class='fu'>pivot_longer</span>(-<span class='no'>religion</span>, <span class='kw'>names_to</span> <span class='kw'>=</span> <span class='st'>"income"</span>, <span class='kw'>values_to</span> <span class='kw'>=</span> <span class='st'>"count"</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 180 x 3</span><span>
 #&gt;    religion income             count
 #&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>              </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
 #&gt; </span><span style='color: #555555;'> 1</span><span> Agnostic &lt;$10k                 27

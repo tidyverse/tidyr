@@ -286,13 +286,22 @@
 <span class="co">#&gt;  9 2Ge+her The Hardest Part Of ... 2000-09-02   wk2      87</span>
 <span class="co">#&gt; 10 2Ge+her The Hardest Part Of ... 2000-09-02   wk3      92</span>
 <span class="co">#&gt; # … with 5,297 more rows</span></pre></body></html></div>
-<p>It would be nice to easily determine how long each song stayed in the charts, but to do that, we’ll need to convert the <code>week</code> variable to an integer. We can do that by using two additional arguments: <code>names_prefix</code> strips off the <code>wk</code> prefix, and <code>names_ptypes</code> specifies that <code>week</code> should be an integer:</p>
+<p>It would be nice to easily determine how long each song stayed in the charts, but to do that, we’ll need to convert the <code>week</code> variable to an integer. We can do that by using two additional arguments: <code>names_prefix</code> strips off the <code>wk</code> prefix, and <code>names_transform</code> converts <code>week</code> into an integer:</p>
 <div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="no">billboard</span> <span class="kw">%&gt;%</span>
   <span class="fu"><a href="../reference/pivot_longer.html">pivot_longer</a></span>(
     <span class="kw">cols</span> <span class="kw">=</span> <span class="fu"><a href="https://tidyselect.r-lib.org/reference/select_helpers.html">starts_with</a></span>(<span class="st">"wk"</span>),
     <span class="kw">names_to</span> <span class="kw">=</span> <span class="st">"week"</span>,
     <span class="kw">names_prefix</span> <span class="kw">=</span> <span class="st">"wk"</span>,
-    <span class="kw">names_ptypes</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="kw">week</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html">integer</a></span>()),
+    <span class="kw">names_transform</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="kw">week</span> <span class="kw">=</span> <span class="no">as.integer</span>),
+    <span class="kw">values_to</span> <span class="kw">=</span> <span class="st">"rank"</span>,
+    <span class="kw">values_drop_na</span> <span class="kw">=</span> <span class="fl">TRUE</span>,
+  )</pre></body></html></div>
+<p>Alternatively, you could do this with a single argument by using <code><a href="https://readr.tidyverse.org/reference/parse_number.html">readr::parse_number()</a></code> which automatically strips non-numeric components:</p>
+<div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="no">billboard</span> <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="../reference/pivot_longer.html">pivot_longer</a></span>(
+    <span class="kw">cols</span> <span class="kw">=</span> <span class="fu"><a href="https://tidyselect.r-lib.org/reference/select_helpers.html">starts_with</a></span>(<span class="st">"wk"</span>),
+    <span class="kw">names_to</span> <span class="kw">=</span> <span class="st">"week"</span>,
+    <span class="kw">names_transform</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="kw">week</span> <span class="kw">=</span> <span class="kw pkg">readr</span><span class="kw ns">::</span><span class="no"><a href="https://readr.tidyverse.org/reference/parse_number.html">parse_number</a></span>),
     <span class="kw">values_to</span> <span class="kw">=</span> <span class="st">"rank"</span>,
     <span class="kw">values_drop_na</span> <span class="kw">=</span> <span class="fl">TRUE</span>,
   )</pre></body></html></div>
@@ -301,7 +310,7 @@
 <h2 class="hasAnchor">
 <a href="#many-variables-in-column-names" class="anchor"></a>Many variables in column names</h2>
 <p>A more challenging situation occurs when you have multiple variables crammed into the column names. For example, take the <code>who</code> dataset:</p>
-<div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="no">who</span>
+<div class="sourceCode" id="cb8"><html><body><pre class="r"><span class="no">who</span>
 <span class="co">#&gt; # A tibble: 7,240 x 60</span>
 <span class="co">#&gt;    country iso2  iso3   year new_sp_m014 new_sp_m1524 new_sp_m2534 new_sp_m3544</span>
 <span class="co">#&gt;    &lt;chr&gt;   &lt;chr&gt; &lt;chr&gt; &lt;int&gt;       &lt;int&gt;        &lt;int&gt;        &lt;int&gt;        &lt;int&gt;</span>
@@ -341,7 +350,7 @@
 <li><p><code>014</code>/<code>1524</code>/<code>2535</code>/<code>3544</code>/<code>4554</code>/<code>65</code> supplies the age range.</p></li>
 </ul>
 <p>We can break these variables up by specifying multiple column names in <code>names_to</code>, and then either providing <code>names_sep</code> or <code>names_pattern</code>. Here <code>names_pattern</code> is the most natural fit. It has a similar interface to <code>extract</code>: you give it a regular expression containing groups (defined by <code>()</code>) and it puts each group in a column.</p>
-<div class="sourceCode" id="cb8"><html><body><pre class="r"><span class="no">who</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/pivot_longer.html">pivot_longer</a></span>(
+<div class="sourceCode" id="cb9"><html><body><pre class="r"><span class="no">who</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/pivot_longer.html">pivot_longer</a></span>(
   <span class="kw">cols</span> <span class="kw">=</span> <span class="no">new_sp_m014</span>:<span class="no">newrel_f65</span>,
   <span class="kw">names_to</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"diagnosis"</span>, <span class="st">"gender"</span>, <span class="st">"age"</span>),
   <span class="kw">names_pattern</span> <span class="kw">=</span> <span class="st">"new_?(.*)_(.)(.*)"</span>,
@@ -361,41 +370,28 @@
 <span class="co">#&gt;  9 Afghanistan AF    AFG    1980 sp        f      1524     NA</span>
 <span class="co">#&gt; 10 Afghanistan AF    AFG    1980 sp        f      2534     NA</span>
 <span class="co">#&gt; # … with 405,430 more rows</span></pre></body></html></div>
-<p>We could go one step further and specify the types of the <code>gender</code> and <code>age</code> columns. I think this is good practice when you have categorical variables with a known set of values.</p>
-<div class="sourceCode" id="cb9"><html><body><pre class="r"><span class="no">who</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/pivot_longer.html">pivot_longer</a></span>(
+<p>We could go one step further use readr functions to convert the gender and age to factors. I think this is good practice when you have categorical variables with a known set of values.</p>
+<div class="sourceCode" id="cb10"><html><body><pre class="r"><span class="no">who</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/pivot_longer.html">pivot_longer</a></span>(
   <span class="kw">cols</span> <span class="kw">=</span> <span class="no">new_sp_m014</span>:<span class="no">newrel_f65</span>,
   <span class="kw">names_to</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"diagnosis"</span>, <span class="st">"gender"</span>, <span class="st">"age"</span>),
   <span class="kw">names_pattern</span> <span class="kw">=</span> <span class="st">"new_?(.*)_(.)(.*)"</span>,
-  <span class="kw">names_ptypes</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(
-    <span class="kw">gender</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span>(<span class="kw">levels</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"f"</span>, <span class="st">"m"</span>)),
-    <span class="kw">age</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span>(
+  <span class="kw">names_transform</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(
+    <span class="kw">gender</span> <span class="kw">=</span> ~ <span class="kw pkg">readr</span><span class="kw ns">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/parse_factor.html">parse_factor</a></span>(<span class="no">.x</span>, <span class="kw">levels</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"f"</span>, <span class="st">"m"</span>)),
+    <span class="kw">age</span> <span class="kw">=</span> ~ <span class="kw pkg">readr</span><span class="kw ns">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/parse_factor.html">parse_factor</a></span>(
+      <span class="no">.x</span>,
       <span class="kw">levels</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"014"</span>, <span class="st">"1524"</span>, <span class="st">"2534"</span>, <span class="st">"3544"</span>, <span class="st">"4554"</span>, <span class="st">"5564"</span>, <span class="st">"65"</span>),
       <span class="kw">ordered</span> <span class="kw">=</span> <span class="fl">TRUE</span>
     )
   ),
   <span class="kw">values_to</span> <span class="kw">=</span> <span class="st">"count"</span>,
-)
-<span class="co">#&gt; # A tibble: 405,440 x 8</span>
-<span class="co">#&gt;    country     iso2  iso3   year diagnosis gender age   count</span>
-<span class="co">#&gt;    &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt; &lt;int&gt; &lt;chr&gt;     &lt;fct&gt;  &lt;ord&gt; &lt;int&gt;</span>
-<span class="co">#&gt;  1 Afghanistan AF    AFG    1980 sp        m      014      NA</span>
-<span class="co">#&gt;  2 Afghanistan AF    AFG    1980 sp        m      1524     NA</span>
-<span class="co">#&gt;  3 Afghanistan AF    AFG    1980 sp        m      2534     NA</span>
-<span class="co">#&gt;  4 Afghanistan AF    AFG    1980 sp        m      3544     NA</span>
-<span class="co">#&gt;  5 Afghanistan AF    AFG    1980 sp        m      4554     NA</span>
-<span class="co">#&gt;  6 Afghanistan AF    AFG    1980 sp        m      5564     NA</span>
-<span class="co">#&gt;  7 Afghanistan AF    AFG    1980 sp        m      65       NA</span>
-<span class="co">#&gt;  8 Afghanistan AF    AFG    1980 sp        f      014      NA</span>
-<span class="co">#&gt;  9 Afghanistan AF    AFG    1980 sp        f      1524     NA</span>
-<span class="co">#&gt; 10 Afghanistan AF    AFG    1980 sp        f      2534     NA</span>
-<span class="co">#&gt; # … with 405,430 more rows</span></pre></body></html></div>
+)</pre></body></html></div>
 </div>
 <div id="multiple-observations-per-row" class="section level2">
 <h2 class="hasAnchor">
 <a href="#multiple-observations-per-row" class="anchor"></a>Multiple observations per row</h2>
 <p>So far, we have been working with data frames that have one observation per row, but many important pivotting problems involve multiple observations per row. You can usually recognise this case because name of the column that you want to appear in the output is part of the column name in the input. In this section, you’ll learn how to pivot this sort of data.</p>
 <p>The following example is adapted from the <a href="https://CRAN.R-project.org/package=data.table/vignettes/datatable-reshape.html">data.table vignette</a>, as inspiration for tidyr’s solution to this problem.</p>
-<div class="sourceCode" id="cb10"><html><body><pre class="r"><span class="no">family</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html">tribble</a></span>(
+<div class="sourceCode" id="cb11"><html><body><pre class="r"><span class="no">family</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html">tribble</a></span>(
   ~<span class="no">family</span>,  ~<span class="no">dob_child1</span>,  ~<span class="no">dob_child2</span>, ~<span class="no">gender_child1</span>, ~<span class="no">gender_child2</span>,
        <span class="fl">1L</span>, <span class="st">"1998-11-26"</span>, <span class="st">"2000-01-29"</span>,             <span class="fl">1L</span>,             <span class="fl">2L</span>,
        <span class="fl">2L</span>, <span class="st">"1996-06-22"</span>,           <span class="fl">NA</span>,             <span class="fl">2L</span>,             <span class="fl">NA</span>,
@@ -414,7 +410,7 @@
 <span class="co">#&gt; 4      4 2004-10-10 2009-08-27             1             1</span>
 <span class="co">#&gt; 5      5 2000-12-05 2005-02-28             2             1</span></pre></body></html></div>
 <p>Note that we have two pieces of information (or values) for each child: their <code>gender</code> and their <code>dob</code> (date of birth). These need to go into separate columns in the result. Again we supply multiple variables to <code>names_to</code>, using <code>names_sep</code> to split up each variable name. Note the special name <code>.value</code>: this tells <code><a href="../reference/pivot_longer.html">pivot_longer()</a></code> that that part of the column name specifies the “value” being measured (which will become a variable in the output).</p>
-<div class="sourceCode" id="cb11"><html><body><pre class="r"><span class="no">family</span> <span class="kw">%&gt;%</span>
+<div class="sourceCode" id="cb12"><html><body><pre class="r"><span class="no">family</span> <span class="kw">%&gt;%</span>
   <span class="fu"><a href="../reference/pivot_longer.html">pivot_longer</a></span>(
     -<span class="no">family</span>,
     <span class="kw">names_to</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">".value"</span>, <span class="st">"child"</span>),
@@ -435,7 +431,7 @@
 <span class="co">#&gt; 9      5 child2 2005-02-28      1</span></pre></body></html></div>
 <p>Note the use of <code>values_drop_na = TRUE</code>: the input shape forces the creation of explicit missing variables for observations that don’t exist.</p>
 <p>This problem also exists in the <code>anscombe</code> dataset built in to base R:</p>
-<div class="sourceCode" id="cb12"><html><body><pre class="r"><span class="no">anscombe</span>
+<div class="sourceCode" id="cb13"><html><body><pre class="r"><span class="no">anscombe</span>
 <span class="co">#&gt;    x1 x2 x3 x4    y1   y2    y3    y4</span>
 <span class="co">#&gt; 1  10 10 10  8  8.04 9.14  7.46  6.58</span>
 <span class="co">#&gt; 2   8  8  8  8  6.95 8.14  6.77  5.76</span>
@@ -449,7 +445,7 @@
 <span class="co">#&gt; 10  7  7  7  8  4.82 7.26  6.42  7.91</span>
 <span class="co">#&gt; 11  5  5  5  8  5.68 4.74  5.73  6.89</span></pre></body></html></div>
 <p>This dataset contains four pairs of variables (<code>x1</code> and <code>y1</code>, <code>x2</code> and <code>y2</code>, etc) that underlie Anscombe’s quartet, a collection of four datasets that have the same summary statistics (mean, sd, correlation etc), but have quite different data. We want to produce a dataset with columns <code>set</code>, <code>x</code> and <code>y</code>.</p>
-<div class="sourceCode" id="cb13"><html><body><pre class="r"><span class="no">anscombe</span> <span class="kw">%&gt;%</span>
+<div class="sourceCode" id="cb14"><html><body><pre class="r"><span class="no">anscombe</span> <span class="kw">%&gt;%</span>
   <span class="fu"><a href="../reference/pivot_longer.html">pivot_longer</a></span>(<span class="fu"><a href="https://tidyselect.r-lib.org/reference/select_helpers.html">everything</a></span>(),
     <span class="kw">names_to</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">".value"</span>, <span class="st">"set"</span>),
     <span class="kw">names_pattern</span> <span class="kw">=</span> <span class="st">"(.)(.)"</span>
@@ -470,7 +466,7 @@
 <span class="co">#&gt; 10 1         7  4.82</span>
 <span class="co">#&gt; # … with 34 more rows</span></pre></body></html></div>
 <p>A similar situation can arise with panel data. For example, take this example dataset provided by <a href="http://github.com/leeper/rio/issues/193">Thomas Leeper</a>. We can tidy it using the same approach as for <code>anscombe</code>:</p>
-<div class="sourceCode" id="cb14"><html><body><pre class="r"><span class="no">pnl</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span>(
+<div class="sourceCode" id="cb15"><html><body><pre class="r"><span class="no">pnl</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span>(
   <span class="kw">x</span> <span class="kw">=</span> <span class="fl">1</span>:<span class="fl">4</span>,
   <span class="kw">a</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">1</span>, <span class="fl">1</span>,<span class="fl">0</span>, <span class="fl">0</span>),
   <span class="kw">b</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>),
@@ -489,20 +485,20 @@
 <span class="co">#&gt; # A tibble: 8 x 6</span>
 <span class="co">#&gt;       x     a     b time        y     z</span>
 <span class="co">#&gt;   &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt;</span>
-<span class="co">#&gt; 1     1     1     0 1      0.152      3</span>
-<span class="co">#&gt; 2     1     1     0 2      0.712     -2</span>
-<span class="co">#&gt; 3     2     1     1 1     -1.18       3</span>
-<span class="co">#&gt; 4     2     1     1 2     -0.0742    -2</span>
-<span class="co">#&gt; 5     3     0     1 1      0.333      3</span>
-<span class="co">#&gt; 6     3     0     1 2      1.06      -2</span>
-<span class="co">#&gt; 7     4     0     1 1     -1.35       3</span>
-<span class="co">#&gt; 8     4     0     1 2     -0.208     -2</span></pre></body></html></div>
+<span class="co">#&gt; 1     1     1     0 1      0.507      3</span>
+<span class="co">#&gt; 2     1     1     0 2     -0.287     -2</span>
+<span class="co">#&gt; 3     2     1     1 1      0.509      3</span>
+<span class="co">#&gt; 4     2     1     1 2     -0.0164    -2</span>
+<span class="co">#&gt; 5     3     0     1 1      0.650      3</span>
+<span class="co">#&gt; 6     3     0     1 2      1.09      -2</span>
+<span class="co">#&gt; 7     4     0     1 1     -0.0476     3</span>
+<span class="co">#&gt; 8     4     0     1 2     -1.68      -2</span></pre></body></html></div>
 </div>
 <div id="duplicated-column-names" class="section level2">
 <h2 class="hasAnchor">
 <a href="#duplicated-column-names" class="anchor"></a>Duplicated column names</h2>
 <p>Occassionally you will come across datasets that have duplicated column names. Generally, such datasets are hard to work with in R, because when you refer to a column by name it only finds the first match. To create a tibble with duplicated names, you have to explicitly opt out of the name repair that usually prevents you from creating such a dataset:</p>
-<div class="sourceCode" id="cb15"><html><body><pre class="r"><span class="no">df</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span>(<span class="kw">id</span> <span class="kw">=</span> <span class="fl">1</span>:<span class="fl">3</span>, <span class="kw">y</span> <span class="kw">=</span> <span class="fl">4</span>:<span class="fl">6</span>, <span class="kw">y</span> <span class="kw">=</span> <span class="fl">5</span>:<span class="fl">7</span>, <span class="kw">y</span> <span class="kw">=</span> <span class="fl">7</span>:<span class="fl">9</span>, <span class="kw">.name_repair</span> <span class="kw">=</span> <span class="st">"minimal"</span>)
+<div class="sourceCode" id="cb16"><html><body><pre class="r"><span class="no">df</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span>(<span class="kw">id</span> <span class="kw">=</span> <span class="fl">1</span>:<span class="fl">3</span>, <span class="kw">y</span> <span class="kw">=</span> <span class="fl">4</span>:<span class="fl">6</span>, <span class="kw">y</span> <span class="kw">=</span> <span class="fl">5</span>:<span class="fl">7</span>, <span class="kw">y</span> <span class="kw">=</span> <span class="fl">7</span>:<span class="fl">9</span>, <span class="kw">.name_repair</span> <span class="kw">=</span> <span class="st">"minimal"</span>)
 <span class="no">df</span>
 <span class="co">#&gt; # A tibble: 3 x 4</span>
 <span class="co">#&gt;      id     y     y     y</span>
@@ -511,7 +507,7 @@
 <span class="co">#&gt; 2     2     5     6     8</span>
 <span class="co">#&gt; 3     3     6     7     9</span></pre></body></html></div>
 <p>When <code><a href="../reference/pivot_longer.html">pivot_longer()</a></code> encounters such data, it automatically adds another column to the output:</p>
-<div class="sourceCode" id="cb16"><html><body><pre class="r"><span class="no">df</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/pivot_longer.html">pivot_longer</a></span>(-<span class="no">id</span>, <span class="kw">names_to</span> <span class="kw">=</span> <span class="st">"name"</span>, <span class="kw">values_to</span> <span class="kw">=</span> <span class="st">"value"</span>)
+<div class="sourceCode" id="cb17"><html><body><pre class="r"><span class="no">df</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/pivot_longer.html">pivot_longer</a></span>(-<span class="no">id</span>, <span class="kw">names_to</span> <span class="kw">=</span> <span class="st">"name"</span>, <span class="kw">values_to</span> <span class="kw">=</span> <span class="st">"value"</span>)
 <span class="co">#&gt; # A tibble: 9 x 3</span>
 <span class="co">#&gt;      id name  value</span>
 <span class="co">#&gt;   &lt;int&gt; &lt;chr&gt; &lt;int&gt;</span>
@@ -525,7 +521,7 @@
 <span class="co">#&gt; 8     3 y         7</span>
 <span class="co">#&gt; 9     3 y         9</span></pre></body></html></div>
 <p>A similar process is applied when multiple input columns are mapped to the same output column, as in the following example where we ignore the numeric suffix on each column name:</p>
-<div class="sourceCode" id="cb17"><html><body><pre class="r"><span class="no">df</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span>(<span class="kw">id</span> <span class="kw">=</span> <span class="fl">1</span>:<span class="fl">3</span>, <span class="kw">x1</span> <span class="kw">=</span> <span class="fl">4</span>:<span class="fl">6</span>, <span class="kw">x2</span> <span class="kw">=</span> <span class="fl">5</span>:<span class="fl">7</span>, <span class="kw">y1</span> <span class="kw">=</span> <span class="fl">7</span>:<span class="fl">9</span>, <span class="kw">y2</span> <span class="kw">=</span> <span class="fl">10</span>:<span class="fl">12</span>)
+<div class="sourceCode" id="cb18"><html><body><pre class="r"><span class="no">df</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span>(<span class="kw">id</span> <span class="kw">=</span> <span class="fl">1</span>:<span class="fl">3</span>, <span class="kw">x1</span> <span class="kw">=</span> <span class="fl">4</span>:<span class="fl">6</span>, <span class="kw">x2</span> <span class="kw">=</span> <span class="fl">5</span>:<span class="fl">7</span>, <span class="kw">y1</span> <span class="kw">=</span> <span class="fl">7</span>:<span class="fl">9</span>, <span class="kw">y2</span> <span class="kw">=</span> <span class="fl">10</span>:<span class="fl">12</span>)
 <span class="no">df</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/pivot_longer.html">pivot_longer</a></span>(-<span class="no">id</span>, <span class="kw">names_to</span> <span class="kw">=</span> <span class="st">".value"</span>, <span class="kw">names_pattern</span> <span class="kw">=</span> <span class="st">"(.)."</span>)
 <span class="co">#&gt; # A tibble: 6 x 3</span>
 <span class="co">#&gt;      id     x     y</span>
@@ -546,7 +542,7 @@
 <h2 class="hasAnchor">
 <a href="#capture-recapture-data" class="anchor"></a>Capture-recapture data</h2>
 <p>The <code>fish_encounters</code> dataset, contributed by <a href="https://fishsciences.github.io/post/visualizing-fish-encounter-histories/">Myfanwy Johnston</a>, describes when fish swimming down a river are detected by automatic monitoring stations:</p>
-<div class="sourceCode" id="cb18"><html><body><pre class="r"><span class="no">fish_encounters</span>
+<div class="sourceCode" id="cb19"><html><body><pre class="r"><span class="no">fish_encounters</span>
 <span class="co">#&gt; # A tibble: 114 x 3</span>
 <span class="co">#&gt;    fish  station  seen</span>
 <span class="co">#&gt;    &lt;fct&gt; &lt;fct&gt;   &lt;int&gt;</span>
@@ -562,7 +558,7 @@
 <span class="co">#&gt; 10 4842  MAE         1</span>
 <span class="co">#&gt; # … with 104 more rows</span></pre></body></html></div>
 <p>Many tools used to analyse this data need it in a form where each station is a column:</p>
-<div class="sourceCode" id="cb19"><html><body><pre class="r"><span class="no">fish_encounters</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/pivot_wider.html">pivot_wider</a></span>(<span class="kw">names_from</span> <span class="kw">=</span> <span class="no">station</span>, <span class="kw">values_from</span> <span class="kw">=</span> <span class="no">seen</span>)
+<div class="sourceCode" id="cb20"><html><body><pre class="r"><span class="no">fish_encounters</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/pivot_wider.html">pivot_wider</a></span>(<span class="kw">names_from</span> <span class="kw">=</span> <span class="no">station</span>, <span class="kw">values_from</span> <span class="kw">=</span> <span class="no">seen</span>)
 <span class="co">#&gt; # A tibble: 19 x 12</span>
 <span class="co">#&gt;    fish  Release I80_1 Lisbon  Rstr Base_TD   BCE   BCW  BCE2  BCW2   MAE   MAW</span>
 <span class="co">#&gt;    &lt;fct&gt;   &lt;int&gt; &lt;int&gt;  &lt;int&gt; &lt;int&gt;   &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;</span>
@@ -578,7 +574,7 @@
 <span class="co">#&gt; 10 4854        1     1     NA    NA      NA    NA    NA    NA    NA    NA    NA</span>
 <span class="co">#&gt; # … with 9 more rows</span></pre></body></html></div>
 <p>This dataset only records when a fish was detected by the station - it doesn’t record when it wasn’t detected (this is common with this type of data). That means the output data is filled with <code>NA</code>s. However, in this case we know that the absence of a record means that the fish was not <code>seen</code>, so we can ask <code><a href="../reference/pivot_wider.html">pivot_wider()</a></code> to fill these missing values in with zeros:</p>
-<div class="sourceCode" id="cb20"><html><body><pre class="r"><span class="no">fish_encounters</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/pivot_wider.html">pivot_wider</a></span>(
+<div class="sourceCode" id="cb21"><html><body><pre class="r"><span class="no">fish_encounters</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/pivot_wider.html">pivot_wider</a></span>(
   <span class="kw">names_from</span> <span class="kw">=</span> <span class="no">station</span>,
   <span class="kw">values_from</span> <span class="kw">=</span> <span class="no">seen</span>,
   <span class="kw">values_fill</span> <span class="kw">=</span> <span class="fl">0</span>
@@ -602,7 +598,7 @@
 <h2 class="hasAnchor">
 <a href="#aggregation" class="anchor"></a>Aggregation</h2>
 <p>You can also use <code><a href="../reference/pivot_wider.html">pivot_wider()</a></code> to perform simple aggregation. For example, take the <code>warpbreaks</code> dataset built in to base R (converted to a tibble for the better print method):</p>
-<div class="sourceCode" id="cb21"><html><body><pre class="r"><span class="no">warpbreaks</span> <span class="kw">&lt;-</span> <span class="no">warpbreaks</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html">as_tibble</a></span>() <span class="kw">%&gt;%</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(<span class="no">wool</span>, <span class="no">tension</span>, <span class="no">breaks</span>)
+<div class="sourceCode" id="cb22"><html><body><pre class="r"><span class="no">warpbreaks</span> <span class="kw">&lt;-</span> <span class="no">warpbreaks</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html">as_tibble</a></span>() <span class="kw">%&gt;%</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(<span class="no">wool</span>, <span class="no">tension</span>, <span class="no">breaks</span>)
 <span class="no">warpbreaks</span>
 <span class="co">#&gt; # A tibble: 54 x 3</span>
 <span class="co">#&gt;    wool  tension breaks</span>
@@ -619,7 +615,7 @@
 <span class="co">#&gt; 10 A     M           18</span>
 <span class="co">#&gt; # … with 44 more rows</span></pre></body></html></div>
 <p>This is a designed experiment with nine replicates for every combination of <code>wool</code> (<code>A</code> and <code>B</code>) and <code>tension</code> (<code>L</code>, <code>M</code>, <code>H</code>):</p>
-<div class="sourceCode" id="cb22"><html><body><pre class="r"><span class="no">warpbreaks</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/tally.html">count</a></span>(<span class="no">wool</span>, <span class="no">tension</span>)
+<div class="sourceCode" id="cb23"><html><body><pre class="r"><span class="no">warpbreaks</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/tally.html">count</a></span>(<span class="no">wool</span>, <span class="no">tension</span>)
 <span class="co">#&gt; # A tibble: 6 x 3</span>
 <span class="co">#&gt;   wool  tension     n</span>
 <span class="co">#&gt;   &lt;fct&gt; &lt;fct&gt;   &lt;int&gt;</span>
@@ -630,7 +626,7 @@
 <span class="co">#&gt; 5 B     M           9</span>
 <span class="co">#&gt; 6 B     H           9</span></pre></body></html></div>
 <p>What happens if we attempt to pivot the levels of <code>wool</code> into the columns?</p>
-<div class="sourceCode" id="cb23"><html><body><pre class="r"><span class="no">warpbreaks</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/pivot_wider.html">pivot_wider</a></span>(<span class="kw">names_from</span> <span class="kw">=</span> <span class="no">wool</span>, <span class="kw">values_from</span> <span class="kw">=</span> <span class="no">breaks</span>)
+<div class="sourceCode" id="cb24"><html><body><pre class="r"><span class="no">warpbreaks</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/pivot_wider.html">pivot_wider</a></span>(<span class="kw">names_from</span> <span class="kw">=</span> <span class="no">wool</span>, <span class="kw">values_from</span> <span class="kw">=</span> <span class="no">breaks</span>)
 <span class="co">#&gt; Warning: Values are not uniquely identified; output will contain list-cols.</span>
 <span class="co">#&gt; * Use `values_fn = list` to suppress this warning.</span>
 <span class="co">#&gt; * Use `values_fn = length` to identify where the duplicates arise</span>
@@ -642,7 +638,7 @@
 <span class="co">#&gt; 2 M       &lt;dbl [9]&gt; &lt;dbl [9]&gt;</span>
 <span class="co">#&gt; 3 H       &lt;dbl [9]&gt; &lt;dbl [9]&gt;</span></pre></body></html></div>
 <p>We get a warning that each cell in the output corresponds to multiple cells in the input. The default behaviour produces list-columns, which contain all the individual values. A more useful output would be summary statistics, e.g. <code>mean</code> breaks for each combination of wool and tension:</p>
-<div class="sourceCode" id="cb24"><html><body><pre class="r"><span class="no">warpbreaks</span> <span class="kw">%&gt;%</span>
+<div class="sourceCode" id="cb25"><html><body><pre class="r"><span class="no">warpbreaks</span> <span class="kw">%&gt;%</span>
   <span class="fu"><a href="../reference/pivot_wider.html">pivot_wider</a></span>(
     <span class="kw">names_from</span> <span class="kw">=</span> <span class="no">wool</span>,
     <span class="kw">values_from</span> <span class="kw">=</span> <span class="no">breaks</span>,
@@ -660,7 +656,7 @@
 <h2 class="hasAnchor">
 <a href="#generate-column-name-from-multiple-variables" class="anchor"></a>Generate column name from multiple variables</h2>
 <p>Imagine, as in <a href="https://stackoverflow.com/questions/24929954" class="uri">https://stackoverflow.com/questions/24929954</a>, that we have information containing the combination of product, country, and year. In tidy form it might look like this:</p>
-<div class="sourceCode" id="cb25"><html><body><pre class="r"><span class="no">production</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/expand_grid.html">expand_grid</a></span>(
+<div class="sourceCode" id="cb26"><html><body><pre class="r"><span class="no">production</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/expand_grid.html">expand_grid</a></span>(
     <span class="kw">product</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"A"</span>, <span class="st">"B"</span>),
     <span class="kw">country</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"AI"</span>, <span class="st">"EI"</span>),
     <span class="kw">year</span> <span class="kw">=</span> <span class="fl">2000</span>:<span class="fl">2014</span>
@@ -671,38 +667,38 @@
 <span class="co">#&gt; # A tibble: 45 x 4</span>
 <span class="co">#&gt;    product country  year production</span>
 <span class="co">#&gt;    &lt;chr&gt;   &lt;chr&gt;   &lt;int&gt;      &lt;dbl&gt;</span>
-<span class="co">#&gt;  1 A       AI       2000     0.677 </span>
-<span class="co">#&gt;  2 A       AI       2001    -3.52  </span>
-<span class="co">#&gt;  3 A       AI       2002    -0.266 </span>
-<span class="co">#&gt;  4 A       AI       2003     0.815 </span>
-<span class="co">#&gt;  5 A       AI       2004     2.29  </span>
-<span class="co">#&gt;  6 A       AI       2005     0.0565</span>
-<span class="co">#&gt;  7 A       AI       2006     0.638 </span>
-<span class="co">#&gt;  8 A       AI       2007    -0.570 </span>
-<span class="co">#&gt;  9 A       AI       2008    -0.373 </span>
-<span class="co">#&gt; 10 A       AI       2009     2.27  </span>
+<span class="co">#&gt;  1 A       AI       2000    1.53   </span>
+<span class="co">#&gt;  2 A       AI       2001    1.42   </span>
+<span class="co">#&gt;  3 A       AI       2002    1.56   </span>
+<span class="co">#&gt;  4 A       AI       2003   -0.111  </span>
+<span class="co">#&gt;  5 A       AI       2004   -0.315  </span>
+<span class="co">#&gt;  6 A       AI       2005    0.319  </span>
+<span class="co">#&gt;  7 A       AI       2006    1.09   </span>
+<span class="co">#&gt;  8 A       AI       2007    0.00201</span>
+<span class="co">#&gt;  9 A       AI       2008    1.27   </span>
+<span class="co">#&gt; 10 A       AI       2009    0.255  </span>
 <span class="co">#&gt; # … with 35 more rows</span></pre></body></html></div>
 <p>We want to widen the data so we have one column for each combination of <code>product</code> and <code>country</code>. The key is to specify multiple variables for <code>names_from</code>:</p>
-<div class="sourceCode" id="cb26"><html><body><pre class="r"><span class="no">production</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/pivot_wider.html">pivot_wider</a></span>(
+<div class="sourceCode" id="cb27"><html><body><pre class="r"><span class="no">production</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/pivot_wider.html">pivot_wider</a></span>(
   <span class="kw">names_from</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="no">product</span>, <span class="no">country</span>),
   <span class="kw">values_from</span> <span class="kw">=</span> <span class="no">production</span>
 )
 <span class="co">#&gt; # A tibble: 15 x 4</span>
-<span class="co">#&gt;     year    A_AI   B_AI    B_EI</span>
-<span class="co">#&gt;    &lt;int&gt;   &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;</span>
-<span class="co">#&gt;  1  2000  0.677   0.857 -0.939 </span>
-<span class="co">#&gt;  2  2001 -3.52   -0.944  0.460 </span>
-<span class="co">#&gt;  3  2002 -0.266   0.635  0.0728</span>
-<span class="co">#&gt;  4  2003  0.815   0.202  0.201 </span>
-<span class="co">#&gt;  5  2004  2.29    0.875 -1.45  </span>
-<span class="co">#&gt;  6  2005  0.0565  1.27   1.99  </span>
-<span class="co">#&gt;  7  2006  0.638   2.22   0.680 </span>
-<span class="co">#&gt;  8  2007 -0.570  -0.549 -0.634 </span>
-<span class="co">#&gt;  9  2008 -0.373  -0.670  0.901 </span>
-<span class="co">#&gt; 10  2009  2.27    0.204 -1.38  </span>
+<span class="co">#&gt;     year     A_AI   B_AI   B_EI</span>
+<span class="co">#&gt;    &lt;int&gt;    &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;</span>
+<span class="co">#&gt;  1  2000  1.53     1.71  -2.13 </span>
+<span class="co">#&gt;  2  2001  1.42     0.812  0.177</span>
+<span class="co">#&gt;  3  2002  1.56     0.156 -1.42 </span>
+<span class="co">#&gt;  4  2003 -0.111    0.704  1.34 </span>
+<span class="co">#&gt;  5  2004 -0.315   -0.496  0.546</span>
+<span class="co">#&gt;  6  2005  0.319    0.808 -0.435</span>
+<span class="co">#&gt;  7  2006  1.09     0.689 -1.73 </span>
+<span class="co">#&gt;  8  2007  0.00201  1.28  -0.172</span>
+<span class="co">#&gt;  9  2008  1.27    -2.20   0.744</span>
+<span class="co">#&gt; 10  2009  0.255   -1.54  -1.11 </span>
 <span class="co">#&gt; # … with 5 more rows</span></pre></body></html></div>
 <p>When either <code>names_from</code> or <code>values_from</code> select multiple variables, you can control how the column names in the output constructed with <code>names_sep</code> and <code>names_prefix</code>, or the workhorse <code>names_glue</code>:</p>
-<div class="sourceCode" id="cb27"><html><body><pre class="r"><span class="no">production</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/pivot_wider.html">pivot_wider</a></span>(
+<div class="sourceCode" id="cb28"><html><body><pre class="r"><span class="no">production</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/pivot_wider.html">pivot_wider</a></span>(
   <span class="kw">names_from</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="no">product</span>, <span class="no">country</span>),
   <span class="kw">values_from</span> <span class="kw">=</span> <span class="no">production</span>,
   <span class="kw">names_sep</span> <span class="kw">=</span> <span class="st">"."</span>,
@@ -711,16 +707,16 @@
 <span class="co">#&gt; # A tibble: 15 x 4</span>
 <span class="co">#&gt;     year prod.A.AI prod.B.AI prod.B.EI</span>
 <span class="co">#&gt;    &lt;int&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;</span>
-<span class="co">#&gt;  1  2000    0.677      0.857   -0.939 </span>
-<span class="co">#&gt;  2  2001   -3.52      -0.944    0.460 </span>
-<span class="co">#&gt;  3  2002   -0.266      0.635    0.0728</span>
-<span class="co">#&gt;  4  2003    0.815      0.202    0.201 </span>
-<span class="co">#&gt;  5  2004    2.29       0.875   -1.45  </span>
-<span class="co">#&gt;  6  2005    0.0565     1.27     1.99  </span>
-<span class="co">#&gt;  7  2006    0.638      2.22     0.680 </span>
-<span class="co">#&gt;  8  2007   -0.570     -0.549   -0.634 </span>
-<span class="co">#&gt;  9  2008   -0.373     -0.670    0.901 </span>
-<span class="co">#&gt; 10  2009    2.27       0.204   -1.38  </span>
+<span class="co">#&gt;  1  2000   1.53        1.71     -2.13 </span>
+<span class="co">#&gt;  2  2001   1.42        0.812     0.177</span>
+<span class="co">#&gt;  3  2002   1.56        0.156    -1.42 </span>
+<span class="co">#&gt;  4  2003  -0.111       0.704     1.34 </span>
+<span class="co">#&gt;  5  2004  -0.315      -0.496     0.546</span>
+<span class="co">#&gt;  6  2005   0.319       0.808    -0.435</span>
+<span class="co">#&gt;  7  2006   1.09        0.689    -1.73 </span>
+<span class="co">#&gt;  8  2007   0.00201     1.28     -0.172</span>
+<span class="co">#&gt;  9  2008   1.27       -2.20      0.744</span>
+<span class="co">#&gt; 10  2009   0.255      -1.54     -1.11 </span>
 <span class="co">#&gt; # … with 5 more rows</span>
 
 <span class="no">production</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/pivot_wider.html">pivot_wider</a></span>(
@@ -731,23 +727,23 @@
 <span class="co">#&gt; # A tibble: 15 x 4</span>
 <span class="co">#&gt;     year prod_A_AI prod_B_AI prod_B_EI</span>
 <span class="co">#&gt;    &lt;int&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;</span>
-<span class="co">#&gt;  1  2000    0.677      0.857   -0.939 </span>
-<span class="co">#&gt;  2  2001   -3.52      -0.944    0.460 </span>
-<span class="co">#&gt;  3  2002   -0.266      0.635    0.0728</span>
-<span class="co">#&gt;  4  2003    0.815      0.202    0.201 </span>
-<span class="co">#&gt;  5  2004    2.29       0.875   -1.45  </span>
-<span class="co">#&gt;  6  2005    0.0565     1.27     1.99  </span>
-<span class="co">#&gt;  7  2006    0.638      2.22     0.680 </span>
-<span class="co">#&gt;  8  2007   -0.570     -0.549   -0.634 </span>
-<span class="co">#&gt;  9  2008   -0.373     -0.670    0.901 </span>
-<span class="co">#&gt; 10  2009    2.27       0.204   -1.38  </span>
+<span class="co">#&gt;  1  2000   1.53        1.71     -2.13 </span>
+<span class="co">#&gt;  2  2001   1.42        0.812     0.177</span>
+<span class="co">#&gt;  3  2002   1.56        0.156    -1.42 </span>
+<span class="co">#&gt;  4  2003  -0.111       0.704     1.34 </span>
+<span class="co">#&gt;  5  2004  -0.315      -0.496     0.546</span>
+<span class="co">#&gt;  6  2005   0.319       0.808    -0.435</span>
+<span class="co">#&gt;  7  2006   1.09        0.689    -1.73 </span>
+<span class="co">#&gt;  8  2007   0.00201     1.28     -0.172</span>
+<span class="co">#&gt;  9  2008   1.27       -2.20      0.744</span>
+<span class="co">#&gt; 10  2009   0.255      -1.54     -1.11 </span>
 <span class="co">#&gt; # … with 5 more rows</span></pre></body></html></div>
 </div>
 <div id="tidy-census" class="section level2">
 <h2 class="hasAnchor">
 <a href="#tidy-census" class="anchor"></a>Tidy census</h2>
 <p>The <code>us_rent_income</code> dataset contains information about median income and rent for each state in the US for 2017 (from the American Community Survey, retrieved with the <a href="https://walkerke.github.io/tidycensus">tidycensus</a> package).</p>
-<div class="sourceCode" id="cb28"><html><body><pre class="r"><span class="no">us_rent_income</span>
+<div class="sourceCode" id="cb29"><html><body><pre class="r"><span class="no">us_rent_income</span>
 <span class="co">#&gt; # A tibble: 104 x 5</span>
 <span class="co">#&gt;    GEOID NAME       variable estimate   moe</span>
 <span class="co">#&gt;    &lt;chr&gt; &lt;chr&gt;      &lt;chr&gt;       &lt;dbl&gt; &lt;dbl&gt;</span>
@@ -763,7 +759,7 @@
 <span class="co">#&gt; 10 06    California rent         1358     3</span>
 <span class="co">#&gt; # … with 94 more rows</span></pre></body></html></div>
 <p>Here both <code>estimate</code> and <code>moe</code> are values columns, so we can supply them to <code>values_from</code>:</p>
-<div class="sourceCode" id="cb29"><html><body><pre class="r"><span class="no">us_rent_income</span> <span class="kw">%&gt;%</span>
+<div class="sourceCode" id="cb30"><html><body><pre class="r"><span class="no">us_rent_income</span> <span class="kw">%&gt;%</span>
   <span class="fu"><a href="../reference/pivot_wider.html">pivot_wider</a></span>(<span class="kw">names_from</span> <span class="kw">=</span> <span class="no">variable</span>, <span class="kw">values_from</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="no">estimate</span>, <span class="no">moe</span>))
 <span class="co">#&gt; # A tibble: 52 x 6</span>
 <span class="co">#&gt;    GEOID NAME                 estimate_income estimate_rent moe_income moe_rent</span>
@@ -785,7 +781,7 @@
 <h2 class="hasAnchor">
 <a href="#contact-list" class="anchor"></a>Contact list</h2>
 <p>A final challenge is inspired by <a href="https://github.com/jienagu/tidyverse_examples/blob/master/example_long_wide.R">Jiena Gu</a>. Imagine you have a contact list that you’ve copied and pasted from a website:</p>
-<div class="sourceCode" id="cb30"><html><body><pre class="r"><span class="no">contacts</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html">tribble</a></span>(
+<div class="sourceCode" id="cb31"><html><body><pre class="r"><span class="no">contacts</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html">tribble</a></span>(
   ~<span class="no">field</span>, ~<span class="no">value</span>,
   <span class="st">"name"</span>, <span class="st">"Jiena McLellan"</span>,
   <span class="st">"company"</span>, <span class="st">"Toyota"</span>,
@@ -795,7 +791,7 @@
   <span class="st">"name"</span>, <span class="st">"Huxley Ratcliffe"</span>
 )</pre></body></html></div>
 <p>This is challenging because there’s no variable that identifies which observations belong together. We can fix this by noting that every contact starts with a name, so we can create a unique id by counting every time we see “name” as the <code>field</code>:</p>
-<div class="sourceCode" id="cb31"><html><body><pre class="r"><span class="no">contacts</span> <span class="kw">&lt;-</span> <span class="no">contacts</span> <span class="kw">%&gt;%</span>
+<div class="sourceCode" id="cb32"><html><body><pre class="r"><span class="no">contacts</span> <span class="kw">&lt;-</span> <span class="no">contacts</span> <span class="kw">%&gt;%</span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(
     <span class="kw">person_id</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/cumsum.html">cumsum</a></span>(<span class="no">field</span> <span class="kw">==</span> <span class="st">"name"</span>)
   )
@@ -810,7 +806,7 @@
 <span class="co">#&gt; 5 email   john@google.com          2</span>
 <span class="co">#&gt; 6 name    Huxley Ratcliffe         3</span></pre></body></html></div>
 <p>Now that we have a unique identifier for each person, we can pivot <code>field</code> and <code>value</code> into the columns:</p>
-<div class="sourceCode" id="cb32"><html><body><pre class="r"><span class="no">contacts</span> <span class="kw">%&gt;%</span>
+<div class="sourceCode" id="cb33"><html><body><pre class="r"><span class="no">contacts</span> <span class="kw">%&gt;%</span>
   <span class="fu"><a href="../reference/pivot_wider.html">pivot_wider</a></span>(<span class="kw">names_from</span> <span class="kw">=</span> <span class="no">field</span>, <span class="kw">values_from</span> <span class="kw">=</span> <span class="no">value</span>)
 <span class="co">#&gt; # A tibble: 3 x 4</span>
 <span class="co">#&gt;   person_id name             company email          </span>
@@ -828,7 +824,7 @@
 <h2 class="hasAnchor">
 <a href="#world-bank" class="anchor"></a>World bank</h2>
 <p><code>world_bank_pop</code> contains data from the World Bank about population per country from 2000 to 2018.</p>
-<div class="sourceCode" id="cb33"><html><body><pre class="r"><span class="no">world_bank_pop</span>
+<div class="sourceCode" id="cb34"><html><body><pre class="r"><span class="no">world_bank_pop</span>
 <span class="co">#&gt; # A tibble: 1,056 x 20</span>
 <span class="co">#&gt;    country indicator `2000` `2001` `2002` `2003`  `2004`  `2005`   `2006`</span>
 <span class="co">#&gt;    &lt;chr&gt;   &lt;chr&gt;      &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;</span>
@@ -846,7 +842,7 @@
 <span class="co">#&gt; #   `2009` &lt;dbl&gt;, `2010` &lt;dbl&gt;, `2011` &lt;dbl&gt;, `2012` &lt;dbl&gt;, `2013` &lt;dbl&gt;,</span>
 <span class="co">#&gt; #   `2014` &lt;dbl&gt;, `2015` &lt;dbl&gt;, `2016` &lt;dbl&gt;, `2017` &lt;dbl&gt;</span></pre></body></html></div>
 <p>My goal is to produce a tidy dataset where each variable is in a column. It’s not obvious exactly what steps are needed yet, but I’ll start with the most obvious problem: year is spread across multiple columns.</p>
-<div class="sourceCode" id="cb34"><html><body><pre class="r"><span class="no">pop2</span> <span class="kw">&lt;-</span> <span class="no">world_bank_pop</span> <span class="kw">%&gt;%</span>
+<div class="sourceCode" id="cb35"><html><body><pre class="r"><span class="no">pop2</span> <span class="kw">&lt;-</span> <span class="no">world_bank_pop</span> <span class="kw">%&gt;%</span>
   <span class="fu"><a href="../reference/pivot_longer.html">pivot_longer</a></span>(<span class="no">`2000`</span>:<span class="no">`2017`</span>, <span class="kw">names_to</span> <span class="kw">=</span> <span class="st">"year"</span>, <span class="kw">values_to</span> <span class="kw">=</span> <span class="st">"value"</span>)
 <span class="no">pop2</span>
 <span class="co">#&gt; # A tibble: 19,008 x 4</span>
@@ -864,7 +860,7 @@
 <span class="co">#&gt; 10 ABW     SP.URB.TOTL 2009  44052</span>
 <span class="co">#&gt; # … with 18,998 more rows</span></pre></body></html></div>
 <p>Next we need to consider the <code>indicator</code> variable:</p>
-<div class="sourceCode" id="cb35"><html><body><pre class="r"><span class="no">pop2</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/tally.html">count</a></span>(<span class="no">indicator</span>)
+<div class="sourceCode" id="cb36"><html><body><pre class="r"><span class="no">pop2</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/tally.html">count</a></span>(<span class="no">indicator</span>)
 <span class="co">#&gt; # A tibble: 4 x 2</span>
 <span class="co">#&gt;   indicator       n</span>
 <span class="co">#&gt;   &lt;chr&gt;       &lt;int&gt;</span>
@@ -873,7 +869,7 @@
 <span class="co">#&gt; 3 SP.URB.GROW  4752</span>
 <span class="co">#&gt; 4 SP.URB.TOTL  4752</span></pre></body></html></div>
 <p>Here <code>SP.POP.GROW</code> is population growth, <code>SP.POP.TOTL</code> is total population, and <code>SP.URB.*</code> are the same but only for urban areas. Let’s split this up into two variables: <code>area</code> (total or urban) and the actual variable (population or growth):</p>
-<div class="sourceCode" id="cb36"><html><body><pre class="r"><span class="no">pop3</span> <span class="kw">&lt;-</span> <span class="no">pop2</span> <span class="kw">%&gt;%</span>
+<div class="sourceCode" id="cb37"><html><body><pre class="r"><span class="no">pop3</span> <span class="kw">&lt;-</span> <span class="no">pop2</span> <span class="kw">%&gt;%</span>
   <span class="fu"><a href="../reference/separate.html">separate</a></span>(<span class="no">indicator</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">NA</span>, <span class="st">"area"</span>, <span class="st">"variable"</span>))
 <span class="no">pop3</span>
 <span class="co">#&gt; # A tibble: 19,008 x 5</span>
@@ -891,7 +887,7 @@
 <span class="co">#&gt; 10 ABW     URB   TOTL     2009  44052</span>
 <span class="co">#&gt; # … with 18,998 more rows</span></pre></body></html></div>
 <p>Now we can complete the tidying by pivoting <code>variable</code> and <code>value</code> to make <code>TOTL</code> and <code>GROW</code> columns:</p>
-<div class="sourceCode" id="cb37"><html><body><pre class="r"><span class="no">pop3</span> <span class="kw">%&gt;%</span>
+<div class="sourceCode" id="cb38"><html><body><pre class="r"><span class="no">pop3</span> <span class="kw">%&gt;%</span>
   <span class="fu"><a href="../reference/pivot_wider.html">pivot_wider</a></span>(<span class="kw">names_from</span> <span class="kw">=</span> <span class="no">variable</span>, <span class="kw">values_from</span> <span class="kw">=</span> <span class="no">value</span>)
 <span class="co">#&gt; # A tibble: 9,504 x 5</span>
 <span class="co">#&gt;    country area  year   TOTL    GROW</span>
@@ -912,7 +908,7 @@
 <h2 class="hasAnchor">
 <a href="#multi-choice" class="anchor"></a>Multi-choice</h2>
 <p>Based on a suggestion by <a href="https://github.com/MaximeWack">Maxime Wack</a>, <a href="https://github.com/tidyverse/tidyr/issues/384" class="uri">https://github.com/tidyverse/tidyr/issues/384</a>), the final example shows how to deal with a common way of recording multiple choice data. Often you will get such data as follows:</p>
-<div class="sourceCode" id="cb38"><html><body><pre class="r"><span class="no">multi</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html">tribble</a></span>(
+<div class="sourceCode" id="cb39"><html><body><pre class="r"><span class="no">multi</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html">tribble</a></span>(
   ~<span class="no">id</span>, ~<span class="no">choice1</span>, ~<span class="no">choice2</span>, ~<span class="no">choice3</span>,
   <span class="fl">1</span>, <span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"C"</span>,
   <span class="fl">2</span>, <span class="st">"C"</span>, <span class="st">"B"</span>,  <span class="fl">NA</span>,
@@ -920,7 +916,7 @@
   <span class="fl">4</span>, <span class="st">"B"</span>, <span class="st">"D"</span>,  <span class="fl">NA</span>
 )</pre></body></html></div>
 <p>But the actual order isn’t important, and you’d prefer to have the individual questions in the columns. You can achieve the desired transformation in two steps. First, you make the data longer, eliminating the explcit <code>NA</code>s, and adding a column to indicate that this choice was chosen:</p>
-<div class="sourceCode" id="cb39"><html><body><pre class="r"><span class="no">multi2</span> <span class="kw">&lt;-</span> <span class="no">multi</span> <span class="kw">%&gt;%</span>
+<div class="sourceCode" id="cb40"><html><body><pre class="r"><span class="no">multi2</span> <span class="kw">&lt;-</span> <span class="no">multi</span> <span class="kw">%&gt;%</span>
   <span class="fu"><a href="../reference/pivot_longer.html">pivot_longer</a></span>(-<span class="no">id</span>, <span class="kw">values_drop_na</span> <span class="kw">=</span> <span class="fl">TRUE</span>) <span class="kw">%&gt;%</span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="kw">checked</span> <span class="kw">=</span> <span class="fl">TRUE</span>)
 <span class="no">multi2</span>
@@ -936,7 +932,7 @@
 <span class="co">#&gt; 7     4 choice1 B     TRUE   </span>
 <span class="co">#&gt; 8     4 choice2 D     TRUE</span></pre></body></html></div>
 <p>Then you make the data wider, filling in the missing observations with <code>FALSE</code>:</p>
-<div class="sourceCode" id="cb40"><html><body><pre class="r"><span class="no">multi2</span> <span class="kw">%&gt;%</span>
+<div class="sourceCode" id="cb41"><html><body><pre class="r"><span class="no">multi2</span> <span class="kw">%&gt;%</span>
   <span class="fu"><a href="../reference/pivot_wider.html">pivot_wider</a></span>(
     <span class="kw">id_cols</span> <span class="kw">=</span> <span class="no">id</span>,
     <span class="kw">names_from</span> <span class="kw">=</span> <span class="no">value</span>,
@@ -960,7 +956,7 @@
 <h2 class="hasAnchor">
 <a href="#longer-1" class="anchor"></a>Longer</h2>
 <p>To see how this works, lets return to the simplest case of pivotting applied to the <code>relig_income</code> dataset. Now pivotting happens in two steps: we first create a spec object (using <code><a href="../reference/pivot_longer_spec.html">build_longer_spec()</a></code>) then use that to describe the pivotting operation:</p>
-<div class="sourceCode" id="cb41"><html><body><pre class="r"><span class="no">spec</span> <span class="kw">&lt;-</span> <span class="no">relig_income</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/pivot_longer_spec.html">build_longer_spec</a></span>(
+<div class="sourceCode" id="cb42"><html><body><pre class="r"><span class="no">spec</span> <span class="kw">&lt;-</span> <span class="no">relig_income</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/pivot_longer_spec.html">build_longer_spec</a></span>(
   <span class="kw">cols</span> <span class="kw">=</span> -<span class="no">religion</span>,
   <span class="kw">names_to</span> <span class="kw">=</span> <span class="st">"income"</span>,
   <span class="kw">values_to</span> <span class="kw">=</span> <span class="st">"count"</span>
@@ -989,7 +985,7 @@
 <code>.value</code> gives the name of the column that the values in the cells will go into.</li>
 </ul>
 <p>There is also one column in <code>spec</code> for each column present in the long format of the data that is not present in the wide format of the data. This corresponds to the <code>names_to</code> argument in <code><a href="../reference/pivot_longer.html">pivot_longer()</a></code> and <code><a href="../reference/pivot_longer_spec.html">build_longer_spec()</a></code> and the <code>names_from</code> argument in <code><a href="../reference/pivot_wider.html">pivot_wider()</a></code> and <code><a href="../reference/pivot_wider_spec.html">build_wider_spec()</a></code>. In this example, the income column is a character vector of the names of columns being pivoted.</p>
-<div class="sourceCode" id="cb42"><html><body><pre class="r"><span class="no">spec</span>
+<div class="sourceCode" id="cb43"><html><body><pre class="r"><span class="no">spec</span>
 <span class="co">#&gt; # A tibble: 10 x 3</span>
 <span class="co">#&gt;    .name              .value income            </span>
 <span class="co">#&gt;    &lt;chr&gt;              &lt;chr&gt;  &lt;chr&gt;             </span>
@@ -1008,7 +1004,7 @@
 <h2 class="hasAnchor">
 <a href="#wider-1" class="anchor"></a>Wider</h2>
 <p>Below we widen <code>us_rent_income</code> with <code><a href="../reference/pivot_wider.html">pivot_wider()</a></code>. The result is ok, but I think it could be improved:</p>
-<div class="sourceCode" id="cb43"><html><body><pre class="r"><span class="no">us_rent_income</span> <span class="kw">%&gt;%</span>
+<div class="sourceCode" id="cb44"><html><body><pre class="r"><span class="no">us_rent_income</span> <span class="kw">%&gt;%</span>
   <span class="fu"><a href="../reference/pivot_wider.html">pivot_wider</a></span>(<span class="kw">names_from</span> <span class="kw">=</span> <span class="no">variable</span>, <span class="kw">values_from</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="no">estimate</span>, <span class="no">moe</span>))
 <span class="co">#&gt; # A tibble: 52 x 6</span>
 <span class="co">#&gt;    GEOID NAME                 estimate_income estimate_rent moe_income moe_rent</span>
@@ -1025,7 +1021,7 @@
 <span class="co">#&gt; 10 12    Florida                        25952          1077         70        3</span>
 <span class="co">#&gt; # … with 42 more rows</span></pre></body></html></div>
 <p>I think it would be better to have columns <code>income</code>, <code>rent</code>, <code>income_moe</code>, and <code>rent_moe</code>, which we can achieve with a manual spec. The current spec looks like this:</p>
-<div class="sourceCode" id="cb44"><html><body><pre class="r"><span class="no">spec1</span> <span class="kw">&lt;-</span> <span class="no">us_rent_income</span> <span class="kw">%&gt;%</span>
+<div class="sourceCode" id="cb45"><html><body><pre class="r"><span class="no">spec1</span> <span class="kw">&lt;-</span> <span class="no">us_rent_income</span> <span class="kw">%&gt;%</span>
   <span class="fu"><a href="../reference/pivot_wider_spec.html">build_wider_spec</a></span>(<span class="kw">names_from</span> <span class="kw">=</span> <span class="no">variable</span>, <span class="kw">values_from</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="no">estimate</span>, <span class="no">moe</span>))
 <span class="no">spec1</span>
 <span class="co">#&gt; # A tibble: 4 x 3</span>
@@ -1036,7 +1032,7 @@
 <span class="co">#&gt; 3 moe_income      moe      income  </span>
 <span class="co">#&gt; 4 moe_rent        moe      rent</span></pre></body></html></div>
 <p>For this case, we mutate <code>spec</code> to carefully construct the column names:</p>
-<div class="sourceCode" id="cb45"><html><body><pre class="r"><span class="no">spec2</span> <span class="kw">&lt;-</span> <span class="no">spec1</span> <span class="kw">%&gt;%</span>
+<div class="sourceCode" id="cb46"><html><body><pre class="r"><span class="no">spec2</span> <span class="kw">&lt;-</span> <span class="no">spec1</span> <span class="kw">%&gt;%</span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="kw">.name</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span>(<span class="no">variable</span>, <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span>(<span class="no">.value</span> <span class="kw">==</span> <span class="st">"moe"</span>, <span class="st">"_moe"</span>, <span class="st">""</span>)))
 <span class="no">spec2</span>
 <span class="co">#&gt; # A tibble: 4 x 3</span>
@@ -1047,7 +1043,7 @@
 <span class="co">#&gt; 3 income_moe moe      income  </span>
 <span class="co">#&gt; 4 rent_moe   moe      rent</span></pre></body></html></div>
 <p>Supplying this spec to <code><a href="../reference/pivot_wider.html">pivot_wider()</a></code> gives us the result we’re looking for:</p>
-<div class="sourceCode" id="cb46"><html><body><pre class="r"><span class="fu"><a href="../reference/pivot_wider_spec.html">pivot_wider_spec</a></span>(<span class="no">us_rent_income</span>, <span class="no">spec2</span>)
+<div class="sourceCode" id="cb47"><html><body><pre class="r"><span class="fu"><a href="../reference/pivot_wider_spec.html">pivot_wider_spec</a></span>(<span class="no">us_rent_income</span>, <span class="no">spec2</span>)
 <span class="co">#&gt; # A tibble: 52 x 6</span>
 <span class="co">#&gt;    GEOID NAME                 income  rent income_moe rent_moe</span>
 <span class="co">#&gt;    &lt;chr&gt; &lt;chr&gt;                 &lt;dbl&gt; &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt;</span>
@@ -1067,7 +1063,7 @@
 <h2 class="hasAnchor">
 <a href="#by-hand" class="anchor"></a>By hand</h2>
 <p>Sometimes it’s not possible (or not convenient) to compute the spec, and instead it’s more convenient to construct the spec “by hand”. For example, take this <code>construction</code> data, which is lightly modified from Table 5 “completions” found at <a href="https://www.census.gov/construction/nrc/index.html" class="uri">https://www.census.gov/construction/nrc/index.html</a>:</p>
-<div class="sourceCode" id="cb47"><html><body><pre class="r"><span class="no">construction</span>
+<div class="sourceCode" id="cb48"><html><body><pre class="r"><span class="no">construction</span>
 <span class="co">#&gt; # A tibble: 9 x 9</span>
 <span class="co">#&gt;    Year Month `1 unit` `2 to 4 units` `5 units or mor… Northeast Midwest South</span>
 <span class="co">#&gt;   &lt;dbl&gt; &lt;chr&gt;    &lt;dbl&gt; &lt;lgl&gt;                     &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;</span>
@@ -1082,7 +1078,7 @@
 <span class="co">#&gt; 9  2018 Sept…      835 NA                          304       117     175   560</span>
 <span class="co">#&gt; # … with 1 more variable: West &lt;dbl&gt;</span></pre></body></html></div>
 <p>This sort of data is not uncommon from government agencies: the column names actually belong to different variables, and here we have summaries for number of units (1, 2-4, 5+) and regions of the country (NE, NW, midwest, S, W). We can most easily describe that with a tibble:</p>
-<div class="sourceCode" id="cb48"><html><body><pre class="r"><span class="no">spec</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html">tribble</a></span>(
+<div class="sourceCode" id="cb49"><html><body><pre class="r"><span class="no">spec</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html">tribble</a></span>(
   ~<span class="no">.name</span>,            ~<span class="no">.value</span>, ~<span class="no">units</span>,  ~<span class="no">region</span>,
   <span class="st">"1 unit"</span>,          <span class="st">"n"</span>,     <span class="st">"1"</span>,     <span class="fl">NA</span>,
   <span class="st">"2 to 4 units"</span>,    <span class="st">"n"</span>,     <span class="st">"2-4"</span>,   <span class="fl">NA</span>,
@@ -1093,7 +1089,7 @@
   <span class="st">"West"</span>,            <span class="st">"n"</span>,     <span class="fl">NA</span>,      <span class="st">"West"</span>,
 )</pre></body></html></div>
 <p>Which yields the following longer form:</p>
-<div class="sourceCode" id="cb49"><html><body><pre class="r"><span class="fu"><a href="../reference/pivot_longer_spec.html">pivot_longer_spec</a></span>(<span class="no">construction</span>, <span class="no">spec</span>)
+<div class="sourceCode" id="cb50"><html><body><pre class="r"><span class="fu"><a href="../reference/pivot_longer_spec.html">pivot_longer_spec</a></span>(<span class="no">construction</span>, <span class="no">spec</span>)
 <span class="co">#&gt; # A tibble: 63 x 5</span>
 <span class="co">#&gt;     Year Month    units region        n</span>
 <span class="co">#&gt;    &lt;dbl&gt; &lt;chr&gt;    &lt;chr&gt; &lt;chr&gt;     &lt;dbl&gt;</span>
@@ -1114,7 +1110,7 @@
 <h2 class="hasAnchor">
 <a href="#theory" class="anchor"></a>Theory</h2>
 <p>One neat property of the <code>spec</code> is that you need the same spec for <code><a href="../reference/pivot_longer.html">pivot_longer()</a></code> and <code><a href="../reference/pivot_wider.html">pivot_wider()</a></code>. This makes it very clear that the two operations are symmetric:</p>
-<div class="sourceCode" id="cb50"><html><body><pre class="r"><span class="no">construction</span> <span class="kw">%&gt;%</span>
+<div class="sourceCode" id="cb51"><html><body><pre class="r"><span class="no">construction</span> <span class="kw">%&gt;%</span>
   <span class="fu"><a href="../reference/pivot_longer_spec.html">pivot_longer_spec</a></span>(<span class="no">spec</span>) <span class="kw">%&gt;%</span>
   <span class="fu"><a href="../reference/pivot_wider_spec.html">pivot_wider_spec</a></span>(<span class="no">spec</span>)
 <span class="co">#&gt; # A tibble: 9 x 9</span>
