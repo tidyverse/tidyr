@@ -57,9 +57,15 @@
 #'   in the `value_to` column. This effectively converts explicit missing values
 #'   to implicit missing values, and should generally be used only when missing
 #'   values in `data` were created by its structure.
+#' @param names_transform,values_transform A list of column name-function pairs.
+#'   Use these arguments if you need to change the type of specific columns.
+#'   For example, `names_transform = list(week = as.integer)` would convert
+#'   a character week variable to an integer.
 #' @param names_ptypes,values_ptypes A list of column name-prototype pairs.
 #'   A prototype (or ptype for short) is a zero-length vector (like `integer()`
 #'   or `numeric()`) that defines the type, class, and attributes of a vector.
+#'   Use these arguments to confirm that the created columns are the types that
+#'   you expect.
 #'
 #'   If not specified, the type of the columns generated from `names_to` will
 #'   be character, and the type of the variables generated from `values_to`
@@ -72,7 +78,7 @@
 #' # Simplest case where column names are character data
 #' relig_income
 #' relig_income %>%
-#'  pivot_longer(-religion, names_to = "income", values_to = "count")
+#'   pivot_longer(-religion, names_to = "income", values_to = "count")
 #'
 #' # Slightly more complex case where columns have common prefix,
 #' # and missing missings are structural so should be dropped.
@@ -108,10 +114,12 @@ pivot_longer <- function(data,
                          names_sep = NULL,
                          names_pattern = NULL,
                          names_ptypes = list(),
+                         names_transform = list(),
                          names_repair = "check_unique",
                          values_to = "value",
                          values_drop_na = FALSE,
                          values_ptypes = list(),
+                         values_transform = list(),
                          ...
                          ) {
 
@@ -127,10 +135,12 @@ pivot_longer.data.frame <- function(data,
                                     names_sep = NULL,
                                     names_pattern = NULL,
                                     names_ptypes = list(),
+                                    names_transform = list(),
                                     names_repair = "check_unique",
                                     values_to = "value",
                                     values_drop_na = FALSE,
                                     values_ptypes = list(),
+                                    values_transform = list(),
                                     ...
                                     ) {
   cols <- enquo(cols)
@@ -140,13 +150,15 @@ pivot_longer.data.frame <- function(data,
     names_prefix = names_prefix,
     names_sep = names_sep,
     names_pattern = names_pattern,
-    names_ptypes = names_ptypes
+    names_ptypes = names_ptypes,
+    names_transform = names_transform
   )
 
   pivot_longer_spec(data, spec,
     names_repair = names_repair,
     values_drop_na = values_drop_na,
-    values_ptypes = values_ptypes
+    values_ptypes = values_ptypes,
+    values_transform = values_transform
   )
 }
 
@@ -194,7 +206,8 @@ pivot_longer_spec <- function(data,
                               spec,
                               names_repair = "check_unique",
                               values_drop_na = FALSE,
-                              values_ptypes = list()
+                              values_ptypes = list(),
+                              values_transform = list()
                               ) {
   spec <- check_spec(spec)
   spec <- deduplicate_spec(spec, data)
@@ -214,6 +227,9 @@ pivot_longer_spec <- function(data,
     val_cols[col_id] <- unname(as.list(data[cols]))
     val_cols[-col_id] <- list(rep(NA, nrow(data)))
 
+    if (has_name(values_transform, value)) {
+      val_cols <- lapply(val_cols, values_transform[[value]])
+    }
     val_type <- vec_ptype_common(!!!set_names(val_cols[col_id], cols), .ptype = values_ptypes[[value]])
     out <- vec_c(!!!val_cols, .ptype = val_type)
     # Interleave into correct order
@@ -254,9 +270,10 @@ build_longer_spec <- function(data, cols,
                               names_prefix = NULL,
                               names_sep = NULL,
                               names_pattern = NULL,
-                              names_ptypes = NULL) {
-
+                              names_ptypes = NULL,
+                              names_transform = NULL) {
   cols <- tidyselect::eval_select(enquo(cols), data[unique(names(data))])
+
   if (length(cols) == 0) {
     abort(glue::glue("`cols` must select at least one column."))
   }
@@ -301,6 +318,13 @@ build_longer_spec <- function(data, cols,
   cast_cols <- intersect(names(names), names(names_ptypes))
   for (col in cast_cols) {
     names[[col]] <- vec_cast(names[[col]], names_ptypes[[col]])
+  }
+
+  # transform cols
+  coerce_cols <- intersect(names(names), names(names_transform))
+  for (col in coerce_cols) {
+    f <- as_function(names_transform[[col]])
+    names[[col]] <- f(names[[col]])
   }
 
   out <- tibble(.name = names(cols))

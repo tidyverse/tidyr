@@ -49,10 +49,14 @@
 #'   columns with the same name will be overwritten. When plucking with a
 #'   single string you can choose to omit the name, i.e. `hoist(df, col, "x")`
 #'   is short-hand for `hoist(df, col, x = "x")`.
-#' @param .simplify If `TRUE`, will attempt to simplify lists of length-1
-#'   vectors to an atomic vector
-#' @param .ptype Optionally, a named list of prototypes declaring the desired
-#'   output type of each component.
+#' @param .simplify,simplify If `TRUE`, will attempt to simplify lists of
+#'   length-1 vectors to an atomic vector
+#' @param .ptype,ptype Optionally, a named list of prototypes declaring the desired
+#'   output type of each component. Use this argument if you want to check each
+#'   element has the types you expect when simplifying.
+#' @param .transform,transform Optionally, a named list of transformation functions
+#'   applied to each component. Use this function if you want transform or
+#'   parse individual elements as they are hoisted.
 #' @param .remove If `TRUE`, the default, will remove extracted components
 #'   from `.col`. This ensures that each value lives only in one place.
 #' @examples
@@ -112,7 +116,7 @@
 #' df %>% unnest_longer(y)
 #'
 #' @export hoist
-hoist <- function(.data, .col, ..., .remove = TRUE, .simplify = TRUE, .ptype = list()) {
+hoist <- function(.data, .col, ..., .remove = TRUE, .simplify = TRUE, .ptype = list(), .transform = list()) {
   check_present(.col)
   .col <- tidyselect::vars_pull(names(.data), !!enquo(.col))
   x <- .data[[.col]]
@@ -126,9 +130,12 @@ hoist <- function(.data, .col, ..., .remove = TRUE, .simplify = TRUE, .ptype = l
     map(x, ~ purrr::pluck(.x, !!!idx))
   })
   new_cols <- map2(
-    new_cols, .ptype[names(new_cols)],
+    new_cols,
+    names(new_cols),
     simplify_col,
-    simplify = .simplify
+    simplify = .simplify,
+    ptype = .ptype,
+    transform = .transform
   )
 
   # Place new columns before old column
@@ -191,7 +198,8 @@ unnest_longer <- function(data, col,
                           indices_include = NULL,
                           names_repair = "check_unique",
                           simplify = TRUE,
-                          ptype = list()
+                          ptype = list(),
+                          transform = list()
                           ) {
 
   check_present(col)
@@ -214,10 +222,14 @@ unnest_longer <- function(data, col,
 
   data <- unchop(data, any_of(col), keep_empty = TRUE)
   inner_cols <- names(data[[col]])
+
   data[[col]][] <- map2(
-    data[[col]], ptype[inner_cols],
+    data[[col]],
+    names(data[[col]]),
     simplify_col,
-    simplify = simplify
+    simplify = simplify,
+    ptype = ptype,
+    transform = transform
   )
 
   unpack(data, any_of(col), names_repair = names_repair)
@@ -225,8 +237,6 @@ unnest_longer <- function(data, col,
 
 #' @export
 #' @rdname hoist
-#' @param simplify If `TRUE`, will attempt to simplify lists of length-1
-#'   vectors to an atomic vector
 #' @param names_sep If `NULL`, the default, the names will be left
 #'   as is. If a string, the inner and outer names will be paste together using
 #'   `names_sep` as a separator.
@@ -234,18 +244,22 @@ unnest_wider <- function(data, col,
                          names_sep = NULL,
                          simplify = TRUE,
                          names_repair = "check_unique",
-                         ptype = list()) {
+                         ptype = list(),
+                         transform = list()
+                         ) {
   check_present(col)
   col <- tidyselect::vars_pull(tbl_vars(data), !!enquo(col))
 
   data[[col]] <- map(data[[col]], vec_to_wide, col = col, names_sep = names_sep)
   data <- unchop(data, any_of(col), keep_empty = TRUE)
-  inner_cols <- names(data[[col]])
 
   data[[col]][] <- map2(
-    data[[col]], ptype[inner_cols],
+    data[[col]],
+    names(data[[col]]),
     simplify_col,
-    simplify = simplify
+    simplify = simplify,
+    ptype = ptype,
+    transform = transform
   )
 
   unpack(data, any_of(col), names_repair = names_repair)
@@ -344,13 +358,12 @@ strike <- function(x, idx) {
   }
 }
 
-simplify_col <- function(x, ptype, simplify = FALSE) {
-  if (!is.list(x) || is.data.frame(x)) {
-    return(x)
-  }
+simplify_col <- function(x, nm, ptype = list(), transform = list(), simplify = FALSE) {
+  transform <- transform[[nm]]
+  ptype <- ptype[[nm]]
 
-  if (!is.null(ptype)) {
-    return(vec_cast(x, ptype))
+  if (!is.null(transform)) {
+    x <- map(x, as_function(transform))
   }
 
   if (!simplify) {
@@ -361,23 +374,34 @@ simplify_col <- function(x, ptype, simplify = FALSE) {
   # there might be multiple values.
   is_list <- map_lgl(x, is.list)
   if (any(is_list)) {
-    return(x)
+    if (is.null(ptype)) {
+      return(x)
+    } else {
+      abort(glue("Can't simplfy '{nm}'; contains a nested list"))
+    }
   }
 
   n <- map_int(x, vec_size)
   if (!all(n %in% c(0, 1))) {
-    return(x)
+    if (is.null(ptype)) {
+      return(x)
+    } else {
+      abort(glue("Can't simplfy '{nm}'; elements have length > 1"))
+    }
   }
 
   # Ensure empty elements filled in with a single unspecified value
   x[n == 0] <- list(NA)
 
-  tryCatch(
-    vec_c(!!!x),
-    vctrs_error_incompatible_type = function(e) x
-  )
+  if (is.null(ptype)) {
+    tryCatch(
+      vec_c(!!!x),
+      vctrs_error_incompatible_type = function(e) x
+    )
+  } else {
+    vec_c(!!!x, .ptype = ptype)
+  }
 }
-
 
 # 1 row; n cols
 vec_to_wide <- function(x, col, names_sep = NULL) {

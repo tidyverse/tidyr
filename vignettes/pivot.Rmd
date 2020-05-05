@@ -103,7 +103,7 @@ billboard %>%
   )
 ```
 
-It would be nice to easily determine how long each song stayed in the charts, but to do that, we'll need to convert the `week` variable to an integer. We can do that by using two additional arguments: `names_prefix` strips off the `wk` prefix, and `names_ptypes` specifies that `week` should be an integer:
+It would be nice to easily determine how long each song stayed in the charts, but to do that, we'll need to convert the `week` variable to an integer. We can do that by using two additional arguments: `names_prefix` strips off the `wk` prefix, and `names_transform` converts `week` into an integer:
 
 ```{r, eval = FALSE}
 billboard %>% 
@@ -111,7 +111,20 @@ billboard %>%
     cols = starts_with("wk"), 
     names_to = "week", 
     names_prefix = "wk",
-    names_ptypes = list(week = integer()),
+    names_transform = list(week = as.integer),
+    values_to = "rank",
+    values_drop_na = TRUE,
+  )
+```
+
+Alternatively, you could do this with a single argument by using `readr::parse_number()` which automatically strips non-numeric components:
+
+```{r, eval = FALSE}
+billboard %>% 
+  pivot_longer(
+    cols = starts_with("wk"), 
+    names_to = "week", 
+    names_transform = list(week = readr::parse_number),
     values_to = "rank",
     values_drop_na = TRUE,
   )
@@ -148,16 +161,17 @@ who %>% pivot_longer(
 )
 ```
 
-We could go one step further and specify the types of the `gender` and `age` columns. I think this is good practice when you have categorical variables with a known set of values.
+We could go one step further use readr functions to convert the gender and age to factors. I think this is good practice when you have categorical variables with a known set of values.
 
-```{r}
+```{r, eval = FALSE}
 who %>% pivot_longer(
   cols = new_sp_m014:newrel_f65,
   names_to = c("diagnosis", "gender", "age"), 
   names_pattern = "new_?(.*)_(.)(.*)",
-  names_ptypes = list(
-    gender = factor(levels = c("f", "m")),
-    age = factor(
+  names_transform = list(
+    gender = ~ readr::parse_factor(.x, levels = c("f", "m")),
+    age = ~ readr::parse_factor(
+      .x,
       levels = c("014", "1524", "2534", "3544", "4554", "5564", "65"), 
       ordered = TRUE
     )

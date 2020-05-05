@@ -4,21 +4,40 @@ context("test-hoist")
 
 test_that("hoist extracts named elements", {
   df <- tibble(x = list(list(1, b = "b")))
-  out <- df %>% hoist(x, a = 1, b = "b")
 
+  out <- df %>% hoist(x, a = 1, b = "b")
   expect_equal(out, tibble(a = 1, b = "b"))
+
+  out <- df %>% hoist(x, a = 1, b = "b", .simplify = FALSE)
+  expect_identical(out, tibble(a = list(1), b = list("b")))
 })
 
-test_that("can require specific type with ptype", {
-  skip("restricted vec_cast")
-
+test_that("can check check/transform values", {
   df <- tibble(x = list(
     list(a = 1),
     list(a = "a")
   ))
 
-  out <- df %>% hoist(x, a = "a", .ptype = list(a = character()))
+  if (packageVersion("vctrs") > "0.2.4") {
+    expect_error(
+      df %>% hoist(x, a = "a", .ptype = list(a = character())),
+      class = "vctrs_error_incompatible_type"
+    )
+  }
+
+  out <- df %>% hoist(x, a = "a", .transform = list(a = as.character))
   expect_equal(out, tibble(a = c("1", "a")))
+})
+
+test_that("supplying ptype increases stringency of simplify", {
+  df <- tibble(x = list(
+    list(a = 1:2, b = list(list())),
+    list(a = 1, b = list(list()))
+  ))
+
+  ptype <- list(a = integer(), b = integer())
+  expect_error(df %>% hoist(x, "a", .ptype = ptype), "length > 1")
+  expect_error(df %>% hoist(x, "b", .ptype = ptype), "nested list")
 })
 
 test_that("doesn't simplify uneven lengths", {
@@ -145,9 +164,8 @@ test_that("simplifies length-1 lists", {
   expect_equal(out$c, list(c(1, 2), NULL))
 
   # Works when casting too
-  skip("restricted vec_cast")
   out <- df %>% unnest_wider(y,
-    ptype = list(a = double(), b = double(), c = list())
+    ptype = list(a = double(), b = double())
   )
   expect_equal(out$a, c(1, 3))
   expect_equal(out$b, c(2, NA))

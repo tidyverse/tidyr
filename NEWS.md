@@ -1,5 +1,10 @@
 # tidyr (development version)
 
+* `pivot_longer()`, `hoist()`, `unnest_wider()`, and `unnest_longer()` gain
+  new `transform` arguments; these allow you to transform values "in flight". 
+  They are partly needed because vctrs coercion rules have become stricter,
+  but they give you greater flexibility that was available previously (#921).
+
 * `pivot_longer()` and `pivot_wider()` are now generic so implementations
   can be provided for objects other than data frames (#800).
 

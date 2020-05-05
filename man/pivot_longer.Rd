@@ -12,10 +12,12 @@ pivot_longer(
   names_sep = NULL,
   names_pattern = NULL,
   names_ptypes = list(),
+  names_transform = list(),
   names_repair = "check_unique",
   values_to = "value",
   values_drop_na = FALSE,
   values_ptypes = list(),
+  values_transform = list(),
   ...
 )
 }
@@ -57,10 +59,17 @@ needed.}
 \item{names_ptypes, values_ptypes}{A list of column name-prototype pairs.
 A prototype (or ptype for short) is a zero-length vector (like \code{integer()}
 or \code{numeric()}) that defines the type, class, and attributes of a vector.
+Use these arguments to confirm that the created columns are the types that
+you expect.
 
 If not specified, the type of the columns generated from \code{names_to} will
 be character, and the type of the variables generated from \code{values_to}
 will be the common type of the input columns used to generate them.}
+
+\item{names_transform, values_transform}{A list of column name-function pairs.
+Use these arguments if you need to change the type of specific columns.
+For example, \code{names_transform = list(week = as.integer)} would convert
+a character week variable to an integer.}
 
 \item{names_repair}{What happens if the output has invalid column names?
 The default, \code{"check_unique"} is to error if the columns are duplicated.
@@ -102,7 +111,7 @@ under active development.
 # Simplest case where column names are character data
 relig_income
 relig_income \%>\%
- pivot_longer(-religion, names_to = "income", values_to = "count")
+  pivot_longer(-religion, names_to = "income", values_to = "count")
 
 # Slightly more complex case where columns have common prefix,
 # and missing missings are structural so should be dropped.
