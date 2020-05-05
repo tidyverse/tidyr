@@ -64,6 +64,7 @@
 #'   If not specified, the type of the columns generated from `names_to` will
 #'   be character, and the type of the variables generated from `values_to`
 #'   will be the common type of the input columns used to generate them.
+#' @param ... Additional arguments passed on to methods.
 #' @export
 #' @examples
 #' # See vignette("pivot") for examples and explanation
@@ -110,9 +111,28 @@ pivot_longer <- function(data,
                          names_repair = "check_unique",
                          values_to = "value",
                          values_drop_na = FALSE,
-                         values_ptypes = list()
+                         values_ptypes = list(),
+                         ...
                          ) {
 
+  ellipsis::check_dots_used()
+  UseMethod("pivot_longer")
+}
+
+#' @export
+pivot_longer.data.frame <- function(data,
+                                    cols,
+                                    names_to = "name",
+                                    names_prefix = NULL,
+                                    names_sep = NULL,
+                                    names_pattern = NULL,
+                                    names_ptypes = list(),
+                                    names_repair = "check_unique",
+                                    values_to = "value",
+                                    values_drop_na = FALSE,
+                                    values_ptypes = list(),
+                                    ...
+                                    ) {
   cols <- enquo(cols)
   spec <- build_longer_spec(data, !!cols,
     names_to = names_to,

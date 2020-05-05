@@ -52,6 +52,7 @@
 #'
 #'   This can be a named list if you want to apply different aggregations
 #'   to different value columns.
+#' @param ... Additional arguments passed on to methods.
 #' @export
 #' @examples
 #' # See vignette("pivot") for examples and explanation
@@ -102,8 +103,26 @@ pivot_wider <- function(data,
                         names_repair = "check_unique",
                         values_from = value,
                         values_fill = NULL,
-                        values_fn = NULL) {
+                        values_fn = NULL,
+                        ...) {
+  ellipsis::check_dots_used()
+  UseMethod("pivot_wider")
+}
 
+#' @export
+pivot_wider.data.frame <- function(data,
+                                   id_cols = NULL,
+                                   names_from = name,
+                                   names_prefix = "",
+                                   names_sep = "_",
+                                   names_glue = NULL,
+                                   names_sort = FALSE,
+                                   names_repair = "check_unique",
+                                   values_from = value,
+                                   values_fill = NULL,
+                                   values_fn = NULL,
+                                   ...
+                                   ) {
   names_from <- enquo(names_from)
   values_from <- enquo(values_from)
   spec <- build_wider_spec(data,
