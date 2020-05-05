@@ -1,9 +1,9 @@
 # tidyr (development version)
 
 * `pivot_longer()`, `hoist()`, `unnest_wider()`, and `unnest_longer()` gain
-  new `transform` arguments; these allow to transform values "in flight". 
+  new `transform` arguments; these allow you to transform values "in flight". 
   They are partly needed because vctrs coercion rules have become stricter,
-  but they give you greater flexibility than previously (#921).
+  but they give you greater flexibility that was available previously (#921).
 
 * `pivot_longer()` now errors if you `values_to` is not a length-1 character
   vector (#949).
