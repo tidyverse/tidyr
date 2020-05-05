@@ -120,7 +120,9 @@ pivot_wider.data.frame <- function(data,
                                    names_repair = "check_unique",
                                    values_from = value,
                                    values_fill = NULL,
-                                   values_fn = NULL) {
+                                   values_fn = NULL,
+                                   ...
+                                   ) {
   names_from <- enquo(names_from)
   values_from <- enquo(values_from)
   spec <- build_wider_spec(data,
