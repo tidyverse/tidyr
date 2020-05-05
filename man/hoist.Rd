@@ -59,14 +59,14 @@ is short-hand for \code{hoist(df, col, x = "x")}.}
 \item{.remove}{If \code{TRUE}, the default, will remove extracted components
 from \code{.col}. This ensures that each value lives only in one place.}
 
-\item{.simplify}{If \code{TRUE}, will attempt to simplify lists of length-1
-vectors to an atomic vector}
+\item{.simplify, simplify}{If \code{TRUE}, will attempt to simplify lists of
+length-1 vectors to an atomic vector}
 
-\item{.ptype}{Optionally, a named list of prototypes declaring the desired
+\item{.ptype, ptype}{Optionally, a named list of prototypes declaring the desired
 output type of each component. Use this argument if you want to check each
 element has the types you expect when simplifying.}
 
-\item{.transform}{Optionally, a named list of transformation functions
+\item{.transform, transform}{Optionally, a named list of transformation functions
 applied to each component. Use this function if you want transform or
 parse individual elements as they are hoisted.}
 
@@ -93,13 +93,6 @@ names. Must be one of the following options:
 
 See \code{\link[vctrs:vec_as_names]{vctrs::vec_as_names()}} for more details on these terms and the
 strategies used to enforce them.}
-
-\item{simplify}{If \code{TRUE}, will attempt to simplify lists of length-1
-vectors to an atomic vector}
-
-\item{ptype}{Optionally, supply a data frame prototype for the output \code{cols},
-overriding the default that will be guessed from the combination of
-individual values.}
 
 \item{names_sep}{If \code{NULL}, the default, the names will be left
 as is. If a string, the inner and outer names will be paste together using

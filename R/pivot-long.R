@@ -64,6 +64,8 @@
 #' @param names_ptypes,values_ptypes A list of column name-prototype pairs.
 #'   A prototype (or ptype for short) is a zero-length vector (like `integer()`
 #'   or `numeric()`) that defines the type, class, and attributes of a vector.
+#'   Use these arguments to confirm that the created columns are the types that
+#'   you expect.
 #'
 #'   If not specified, the type of the columns generated from `names_to` will
 #'   be character, and the type of the variables generated from `values_to`

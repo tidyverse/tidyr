@@ -54,6 +54,8 @@ values in \code{data} were created by its structure.}
 \item{values_ptypes}{A list of column name-prototype pairs.
 A prototype (or ptype for short) is a zero-length vector (like \code{integer()}
 or \code{numeric()}) that defines the type, class, and attributes of a vector.
+Use these arguments to confirm that the created columns are the types that
+you expect.
 
 If not specified, the type of the columns generated from \code{names_to} will
 be character, and the type of the variables generated from \code{values_to}
@@ -119,6 +121,8 @@ needed.}
 \item{names_ptypes}{A list of column name-prototype pairs.
 A prototype (or ptype for short) is a zero-length vector (like \code{integer()}
 or \code{numeric()}) that defines the type, class, and attributes of a vector.
+Use these arguments to confirm that the created columns are the types that
+you expect.
 
 If not specified, the type of the columns generated from \code{names_to} will
 be character, and the type of the variables generated from \code{values_to}

@@ -49,12 +49,12 @@
 #'   columns with the same name will be overwritten. When plucking with a
 #'   single string you can choose to omit the name, i.e. `hoist(df, col, "x")`
 #'   is short-hand for `hoist(df, col, x = "x")`.
-#' @param .simplify If `TRUE`, will attempt to simplify lists of length-1
-#'   vectors to an atomic vector
-#' @param .ptype Optionally, a named list of prototypes declaring the desired
+#' @param .simplify,simplify If `TRUE`, will attempt to simplify lists of
+#'   length-1 vectors to an atomic vector
+#' @param .ptype,ptype Optionally, a named list of prototypes declaring the desired
 #'   output type of each component. Use this argument if you want to check each
 #'   element has the types you expect when simplifying.
-#' @param .transform Optionally, a named list of transformation functions
+#' @param .transform,transform Optionally, a named list of transformation functions
 #'   applied to each component. Use this function if you want transform or
 #'   parse individual elements as they are hoisted.
 #' @param .remove If `TRUE`, the default, will remove extracted components
@@ -237,8 +237,6 @@ unnest_longer <- function(data, col,
 
 #' @export
 #' @rdname hoist
-#' @param simplify If `TRUE`, will attempt to simplify lists of length-1
-#'   vectors to an atomic vector
 #' @param names_sep If `NULL`, the default, the names will be left
 #'   as is. If a string, the inner and outer names will be paste together using
 #'   `names_sep` as a separator.
