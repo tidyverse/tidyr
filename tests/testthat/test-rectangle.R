@@ -15,10 +15,12 @@ test_that("can check check/transform values", {
     list(a = "a")
   ))
 
-  expect_error(
-    df %>% hoist(x, a = "a", .ptype = list(a = character())),
-    class = "vctrs_error_incompatible_type"
-  )
+  if (packageVersion("vctrs") > "0.2.4") {
+    expect_error(
+      df %>% hoist(x, a = "a", .ptype = list(a = character())),
+      class = "vctrs_error_incompatible_type"
+    )
+  }
 
   out <- df %>% hoist(x, a = "a", .transform = list(a = as.character))
   expect_equal(out, tibble(a = c("1", "a")))
