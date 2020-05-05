@@ -8,7 +8,7 @@ download.file(url, temp)
 out <- unzip(temp)
 
 # Pick a few indicators
-indicators <- read_csv(out[[1]], col_types = list())
+indicators <- as_tibble(read_csv(out[[1]], col_types = list()))
 
 indicators %>%
   filter(str_sub(INDICATOR_CODE, 1, 2) == "SP") %>%
@@ -17,7 +17,7 @@ indicators %>%
 # Urban and total population - total vs growth
 ind <- c("SP.URB.TOTL", "SP.URB.GROW", "SP.POP.TOTL", "SP.POP.GROW")
 
-wb <- read_csv(out[[2]], skip = 4)
+wb <- as_tibble(read_csv(out[[2]], skip = 4))
 world_bank_pop <- wb %>%
   select(country = `Country Code`, indicator = `Indicator Code`, `2000`:`2017`) %>%
   filter(indicator %in% ind)
