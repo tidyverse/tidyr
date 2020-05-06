@@ -4,12 +4,14 @@
 \name{fish_encounters}
 \alias{fish_encounters}
 \title{Fish encounters}
-\format{A dataset with variables:
+\format{
+A dataset with variables:
 \describe{
 \item{fish}{Fish identifier}
 \item{station}{Measurement station}
 \item{seen}{Was the fish seen? (1 if yes, and true for all rows)}
-}}
+}
+}
 \source{
 Dataset provided by Myfanwy Johnston; more details at
 \url{https://fishsciences.github.io/post/visualizing-fish-encounter-histories/}

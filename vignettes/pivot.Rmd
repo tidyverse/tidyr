@@ -103,19 +103,6 @@ billboard %>%
   )
 ```
 
-It would be nice to easily determine how long each song stayed in the charts, but to do that, we'll need to convert the `week` variable to an integer. We can do that by using two additional arguments: `names_prefix` strips off the `wk` prefix, and `names_ptypes` specifies that `week` should be an integer:
-
-```{r}
-billboard %>% 
-  pivot_longer(
-    cols = starts_with("wk"), 
-    names_to = "week", 
-    names_prefix = "wk",
-    names_ptypes = list(week = integer()),
-    values_to = "rank",
-    values_drop_na = TRUE,
-  )
-```
 
 ## Many variables in column names
 

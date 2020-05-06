@@ -29,6 +29,9 @@ separate_rows.data.frame <- function(data,
                                      ...,
                                      sep = "[^[:alnum:].]+",
                                      convert = FALSE) {
+  input <- data
+  data <- as.data.frame(data)
+
   vars <- tidyselect::vars_select(tbl_vars(data), ...)
 
   out <- purrr::modify_at(data, vars, stringi::stri_split_regex, pattern = sep)
@@ -37,5 +40,5 @@ separate_rows.data.frame <- function(data,
     out[vars] <- map(out[vars], type.convert, as.is = TRUE)
   }
 
-  reconstruct_tibble(data, out, vars)
+  reconstruct_tibble(input, out, vars)
 }
