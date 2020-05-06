@@ -2,7 +2,7 @@ library(tidyverse)
 
 url <- "https://github.com/Myfanwy/ReproducibleExamples/raw/master/encounterhistories/fishdata.csv"
 
-raw <- as_tibble(read_csv(url))
+raw <- read_csv(url)
 
 fish_encounters <- raw %>%
   transmute(

@@ -2,7 +2,7 @@ library(dplyr)
 library(tidyr)
 library(readr)
 
-who_raw <- as_tibble(read_csv("data-raw/TB_notifications_2014-11-13.csv"))
+who_raw <- read_csv("data-raw/TB_notifications_2014-11-13.csv")
 
 who <- who_raw %>%
   select(
@@ -13,4 +13,4 @@ who <- who_raw %>%
   mutate(country = stringi::stri_trans_general(country, "latin-ascii"))
 
 write_csv(who, "data-raw/who.csv")
-usethis::use_data(who, overwrite = TRUE)
+save(who, file = "data/who.rdata")
