@@ -66,6 +66,9 @@
   names from inner names, in symmetrical way to how the same argument to 
   `unpack()` and `unnest()` combines inner and outer names (#795, #797).
 
+* `unnest_auto()` works when the input data contains a column called `col` 
+  (#959).
+
 * `unnest_longer()`, `unnest_wider()`, and `hoist()` do a better job 
   simplifying list-cols. They no longer add uneeded `unspecified()` when
   the result is still a list (#806), and work when the list contains 
