@@ -25,7 +25,7 @@
 #'   related.
 #' @param names_from,values_from <[`tidy-select`][tidyr_tidy_select]> A pair of
 #'   arguments describing which column (or columns) to get the name of the
-#'   output column (`name_from`), and which column (or columns) to get the
+#'   output column (`names_from`), and which column (or columns) to get the
 #'   cell values from (`values_from`).
 #'
 #'   If `values_from` contains multiple values, the value will be added to the
