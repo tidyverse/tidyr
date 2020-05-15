@@ -300,3 +300,12 @@ test_that("mix of named and unnamed becomes longer", {
   expect_named(out, c("x", "y"))
 })
 
+# https://github.com/tidyverse/tidyr/issues/959
+test_that("works with an input that has column named `col`", {
+  df <- tibble(
+    col = 1L,
+    list_col = list(list(x = "a", y = "b"), list(x = "c", y = "d"))
+  )
+  expect_message(out <- df %>% unnest_auto(list_col), "unnest_wider")
+  expect_named(out, c("col", "x", "y"))
+})
