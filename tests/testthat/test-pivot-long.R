@@ -163,6 +163,14 @@ test_that("validates inputs", {
   )
 })
 
+test_that("no names doesn't generate names", {
+  df <- tibble(x = 1)
+  expect_equal(
+    colnames(build_longer_spec(df, x, names_to = character())),
+    c(".name", ".value")
+  )
+})
+
 test_that("multiple names requires names_sep/names_pattern", {
   df <- tibble(x_y = 1)
   expect_error(

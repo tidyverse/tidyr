@@ -1,5 +1,8 @@
 # tidyr (development version)
 
+* `pivot_longer()` now allows `names_to` to be length 0, which prevents name
+  columns from being created (#961).
+
 * `pivot_longer()`, `hoist()`, `unnest_wider()`, and `unnest_longer()` gain
   new `transform` arguments; these allow you to transform values "in flight". 
   They are partly needed because vctrs coercion rules have become stricter,
