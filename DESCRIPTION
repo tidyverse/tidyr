@@ -35,9 +35,9 @@ Imports:
     rlang,
     stringi,
     tibble (>= 2.1.1),
-    tidyselect (>= 1.0.0),
+    tidyselect (>= 1.1.0),
     utils,
-    vctrs (>= 0.2.2),
+    vctrs (>= 0.3.0),
     lifecycle
 Suggests: 
     covr,
