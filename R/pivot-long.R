@@ -297,6 +297,8 @@ build_longer_spec <- function(data, cols,
     } else {
       names <- str_extract(names, names_to, regex = names_pattern)
     }
+  } else if (length(names_to) == 0) {
+    names <- tibble::new_tibble(x = list(), nrow = length(names))
   } else {
     if (!is.null(names_sep)) {
       abort("`names_sep` can not be used with length-1 `names_to`")
