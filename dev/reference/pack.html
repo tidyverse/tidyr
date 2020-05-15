@@ -253,7 +253,7 @@ names. Must be one of the following options:</p><ul>
 <li><p>a formula: a purrr-style anonymous function (see <code><a href='https://rlang.r-lib.org/reference/as_function.html'>rlang::as_function()</a></code>)</p></li>
 </ul>
 
-<p>See <code><a href='https://rdrr.io/pkg/vctrs/man/vec_as_names.html'>vctrs::vec_as_names()</a></code> for more details on these terms and the
+<p>See <code><a href='https://vctrs.r-lib.org/reference/vec_as_names.html'>vctrs::vec_as_names()</a></code> for more details on these terms and the
 strategies used to enforce them.</p></td>
     </tr>
     </table>
@@ -275,7 +275,7 @@ they mimic the nested column headers that are so popular in Excel.</p>
 #&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
 #&gt; </span><span style='color: #555555;'>1</span><span>     1     4     7     1
 #&gt; </span><span style='color: #555555;'>2</span><span>     2     5     8     2
-#&gt; </span><span style='color: #555555;'>3</span><span>     3     6     9     3</div><div class='input'><span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>pack</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'><a href='https://tidyselect.r-lib.org/reference/select_helpers.html'>starts_with</a></span>(<span class='st'>"x"</span>))</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 3 x 2</span><span>
+#&gt; </span><span style='color: #555555;'>3</span><span>     3     6     9     3</div><div class='input'><span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>pack</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'><a href='https://tidyselect.r-lib.org/reference/starts_with.html'>starts_with</a></span>(<span class='st'>"x"</span>))</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 3 x 2</span><span>
 #&gt;       y  x$x1   $x2   $x3
 #&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
 #&gt; </span><span style='color: #555555;'>1</span><span>     1     1     4     7
@@ -291,8 +291,8 @@ they mimic the nested column headers that are so popular in Excel.</p>
 <span class='no'>iris</span> <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='https://tibble.tidyverse.org/reference/as_tibble.html'>as_tibble</a></span>() <span class='kw'>%&gt;%</span>
   <span class='fu'>pack</span>(
-    <span class='kw'>Sepal</span> <span class='kw'>=</span> <span class='fu'><a href='https://tidyselect.r-lib.org/reference/select_helpers.html'>starts_with</a></span>(<span class='st'>"Sepal"</span>),
-    <span class='kw'>Petal</span> <span class='kw'>=</span> <span class='fu'><a href='https://tidyselect.r-lib.org/reference/select_helpers.html'>starts_with</a></span>(<span class='st'>"Petal"</span>),
+    <span class='kw'>Sepal</span> <span class='kw'>=</span> <span class='fu'><a href='https://tidyselect.r-lib.org/reference/starts_with.html'>starts_with</a></span>(<span class='st'>"Sepal"</span>),
+    <span class='kw'>Petal</span> <span class='kw'>=</span> <span class='fu'><a href='https://tidyselect.r-lib.org/reference/starts_with.html'>starts_with</a></span>(<span class='st'>"Petal"</span>),
     <span class='kw'>.names_sep</span> <span class='kw'>=</span> <span class='st'>"."</span>
   )</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 150 x 3</span><span>
 #&gt;    Species Sepal$Length $Width Petal$Length $Width

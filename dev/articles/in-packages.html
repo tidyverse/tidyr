@@ -210,7 +210,7 @@
 <span class="co">#&gt; 2 versicolor &lt;tibble [2 × 2]&gt; &lt;tibble [2 × 2]&gt;</span>
 <span class="co">#&gt; 3 virginica  &lt;tibble [2 × 2]&gt; &lt;tibble [2 × 2]&gt;</span></pre></body></html></div>
 <p>But <code>R CMD check</code> will warn about undefined global variables (<code>Petal.Length</code>, <code>Petal.Width</code>, <code>Sepal.Length</code>, and <code>Sepal.Width</code>), because it doesn’t know that <code><a href="../reference/nest.html">nest()</a></code> is looking for the variables inside of <code>mini_iris</code> (i.e. <code>Petal.Length</code> and friends are data-variables, not env-variables).</p>
-<p>The easiest way to silence this note is to use <code>all_of()</code>. <code>all_of()</code> is a tidyselect helper (like <code><a href="https://tidyselect.r-lib.org/reference/select_helpers.html">starts_with()</a></code>, <code><a href="https://tidyselect.r-lib.org/reference/select_helpers.html">ends_with()</a></code>, etc.) that takes column names stored as strings:</p>
+<p>The easiest way to silence this note is to use <code>all_of()</code>. <code>all_of()</code> is a tidyselect helper (like <code><a href="https://tidyselect.r-lib.org/reference/starts_with.html">starts_with()</a></code>, <code><a href="https://tidyselect.r-lib.org/reference/starts_with.html">ends_with()</a></code>, etc.) that takes column names stored as strings:</p>
 <div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="no">mini_iris</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/nest.html">nest</a></span>(
   <span class="kw">petal</span> <span class="kw">=</span> <span class="fu">all_of</span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Petal.Length"</span>, <span class="st">"Petal.Width"</span>)),
   <span class="kw">sepal</span> <span class="kw">=</span> <span class="fu">all_of</span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Sepal.Length"</span>, <span class="st">"Sepal.Width"</span>))
@@ -319,7 +319,7 @@
 <li>
 <p>The <code>new_col = &lt;something about existing cols&gt;</code> construct lets us create multiple nested list-columns at once (“multi-nest”).</p>
 <div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="no">mini_iris</span> <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/nest.html">nest</a></span>(<span class="kw">petal</span> <span class="kw">=</span> <span class="fu"><a href="https://tidyselect.r-lib.org/reference/select_helpers.html">matches</a></span>(<span class="st">"Petal"</span>), <span class="kw">sepal</span> <span class="kw">=</span> <span class="fu"><a href="https://tidyselect.r-lib.org/reference/select_helpers.html">matches</a></span>(<span class="st">"Sepal"</span>))
+  <span class="fu"><a href="../reference/nest.html">nest</a></span>(<span class="kw">petal</span> <span class="kw">=</span> <span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html">matches</a></span>(<span class="st">"Petal"</span>), <span class="kw">sepal</span> <span class="kw">=</span> <span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html">matches</a></span>(<span class="st">"Sepal"</span>))
 <span class="co">#&gt; # A tibble: 3 x 3</span>
 <span class="co">#&gt;   Species    petal            sepal           </span>
 <span class="co">#&gt;   &lt;fct&gt;      &lt;list&gt;           &lt;list&gt;          </span>

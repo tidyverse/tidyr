@@ -289,7 +289,7 @@ a character week variable to an integer.</p></td>
       <td><p>What happens if the output has invalid column names?
 The default, <code>"check_unique"</code> is to error if the columns are duplicated.
 Use <code>"minimal"</code> to allow duplicates in the output, or <code>"unique"</code> to
-de-duplicated by adding numeric suffixes. See <code><a href='https://rdrr.io/pkg/vctrs/man/vec_as_names.html'>vctrs::vec_as_names()</a></code>
+de-duplicated by adding numeric suffixes. See <code><a href='https://vctrs.r-lib.org/reference/vec_as_names.html'>vctrs::vec_as_names()</a></code>
 for more options.</p></td>
     </tr>
     <tr>
@@ -389,7 +389,7 @@ under active development.</p>
 #&gt; </span><span style='color: #555555;'>#   wk65 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, wk66 </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #555555;'>, wk67 </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #555555;'>, wk68 </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #555555;'>, wk69 </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #555555;'>, wk70 </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #555555;'>,</span><span>
 #&gt; </span><span style='color: #555555;'>#   wk71 </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #555555;'>, wk72 </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #555555;'>, wk73 </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #555555;'>, wk74 </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #555555;'>, wk75 </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #555555;'>, wk76 </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span></div><div class='input'><span class='no'>billboard</span> <span class='kw'>%&gt;%</span>
  <span class='fu'>pivot_longer</span>(
-   <span class='kw'>cols</span> <span class='kw'>=</span> <span class='fu'><a href='https://tidyselect.r-lib.org/reference/select_helpers.html'>starts_with</a></span>(<span class='st'>"wk"</span>),
+   <span class='kw'>cols</span> <span class='kw'>=</span> <span class='fu'><a href='https://tidyselect.r-lib.org/reference/starts_with.html'>starts_with</a></span>(<span class='st'>"wk"</span>),
    <span class='kw'>names_to</span> <span class='kw'>=</span> <span class='st'>"week"</span>,
    <span class='kw'>names_prefix</span> <span class='kw'>=</span> <span class='st'>"wk"</span>,
    <span class='kw'>values_to</span> <span class='kw'>=</span> <span class='st'>"rank"</span>,
@@ -441,7 +441,7 @@ under active development.</p>
 #&gt; 9  12 12 12  8 10.84 9.13  8.15  5.56
 #&gt; 10  7  7  7  8  4.82 7.26  6.42  7.91
 #&gt; 11  5  5  5  8  5.68 4.74  5.73  6.89</div><div class='input'><span class='no'>anscombe</span> <span class='kw'>%&gt;%</span>
- <span class='fu'>pivot_longer</span>(<span class='fu'><a href='https://tidyselect.r-lib.org/reference/select_helpers.html'>everything</a></span>(),
+ <span class='fu'>pivot_longer</span>(<span class='fu'><a href='https://tidyselect.r-lib.org/reference/everything.html'>everything</a></span>(),
    <span class='kw'>names_to</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>".value"</span>, <span class='st'>"set"</span>),
    <span class='kw'>names_pattern</span> <span class='kw'>=</span> <span class='st'>"(.)(.)"</span>
  )</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 44 x 3</span><span>
