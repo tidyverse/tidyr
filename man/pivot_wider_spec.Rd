@@ -65,7 +65,7 @@ to different value columns.}
 
 \item{names_from}{<\code{\link[=tidyr_tidy_select]{tidy-select}}> A pair of
 arguments describing which column (or columns) to get the name of the
-output column (\code{name_from}), and which column (or columns) to get the
+output column (\code{names_from}), and which column (or columns) to get the
 cell values from (\code{values_from}).
 
 If \code{values_from} contains multiple values, the value will be added to the
@@ -73,7 +73,7 @@ front of the output column.}
 
 \item{values_from}{<\code{\link[=tidyr_tidy_select]{tidy-select}}> A pair of
 arguments describing which column (or columns) to get the name of the
-output column (\code{name_from}), and which column (or columns) to get the
+output column (\code{names_from}), and which column (or columns) to get the
 cell values from (\code{values_from}).
 
 If \code{values_from} contains multiple values, the value will be added to the
