@@ -1,4 +1,4 @@
-# tidyr (development version)
+# tidyr 1.1.0
 
 ## General features
 
