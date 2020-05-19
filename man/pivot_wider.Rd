@@ -25,8 +25,8 @@ pivot_wider(
 \item{id_cols}{<\code{\link[=tidyr_tidy_select]{tidy-select}}> A set of columns that
 uniquely identifies each observation. Defaults to all columns in \code{data}
 except for the columns specified in \code{names_from} and \code{values_from}.
-Typically used when you have additional variables that are directly
-related.}
+Typically used when you have redundant variables, i.e. variables whose
+values are perfectly correlated with existing variables.}
 
 \item{names_from, values_from}{<\code{\link[=tidyr_tidy_select]{tidy-select}}> A pair of
 arguments describing which column (or columns) to get the name of the

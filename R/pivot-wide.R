@@ -21,8 +21,8 @@
 #' @param id_cols <[`tidy-select`][tidyr_tidy_select]> A set of columns that
 #'   uniquely identifies each observation. Defaults to all columns in `data`
 #'   except for the columns specified in `names_from` and `values_from`.
-#'   Typically used when you have additional variables that are directly
-#'   related.
+#'   Typically used when you have redundant variables, i.e. variables whose
+#'   values are perfectly correlated with existing variables.
 #' @param names_from,values_from <[`tidy-select`][tidyr_tidy_select]> A pair of
 #'   arguments describing which column (or columns) to get the name of the
 #'   output column (`names_from`), and which column (or columns) to get the
