@@ -110,22 +110,17 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/in-packages.html">In packages</a>
-    </li>
-    <li>
-      <a href="../articles/nest.html">Nested data</a>
-    </li>
-    <li>
       <a href="../articles/pivot.html">Pivoting</a>
-    </li>
-    <li>
-      <a href="../articles/programming.html">Programming with tidyr</a>
     </li>
     <li>
       <a href="../articles/rectangle.html">Rectangling</a>
     </li>
     <li>
-      <a href="../articles/tidy-data.html">Tidy data</a>
+      <a href="../articles/nest.html">Nested data</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="../articles/index.html">More...</a>
     </li>
   </ul>
 </li>
@@ -136,7 +131,7 @@
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
-    <li class="dropdown-header">Release notes</li>
+    <li class="dropdown-header">Releases</li>
     <li>
       <a href="https://www.tidyverse.org/articles/2019/09/tidyr-1-0-0/">Version 1.0.0</a>
     </li>
@@ -166,7 +161,7 @@
     </li>
     <li class="divider"></li>
     <li>
-      <a href="../news/index.html">Change log</a>
+      <a href="../news/index.html">Changelog</a>
     </li>
   </ul>
 </li>
@@ -197,21 +192,24 @@
 <h1 class="page-header" data-toc-text="development version">
 <a href="#tidyr-development-version" class="anchor"></a>tidyr (development version)<small> Unreleased </small>
 </h1>
+<div id="general-features" class="section level2">
+<h2 class="hasAnchor">
+<a href="#general-features" class="anchor"></a>General features</h2>
 <ul>
-<li><p><code><a href="../reference/pivot_longer.html">pivot_longer()</a></code> now allows <code>names_to</code> to be length 0, which prevents name columns from being created (<a href='https://github.com/tidyverse/tidyr/issues/961'>#961</a>).</p></li>
-<li><p><code><a href="../reference/pivot_longer.html">pivot_longer()</a></code>, <code><a href="../reference/hoist.html">hoist()</a></code>, <code><a href="../reference/hoist.html">unnest_wider()</a></code>, and <code><a href="../reference/hoist.html">unnest_longer()</a></code> gain new <code>transform</code> arguments; these allow you to transform values “in flight”. They are partly needed because vctrs coercion rules have become stricter, but they give you greater flexibility that was available previously (<a href='https://github.com/tidyverse/tidyr/issues/921'>#921</a>).</p></li>
-<li><p><code><a href="../reference/pivot_longer.html">pivot_longer()</a></code> and <code><a href="../reference/pivot_wider.html">pivot_wider()</a></code> are now generic so implementations can be provided for objects other than data frames (<a href='https://github.com/tidyverse/tidyr/issues/800'>#800</a>).</p></li>
-<li><p><code><a href="../reference/pivot_longer.html">pivot_longer()</a></code> now errors if you <code>values_to</code> is not a length-1 character vector (<a href='https://github.com/tidyverse/tidyr/issues/949'>#949</a>).</p></li>
-<li><p><code><a href="../reference/pivot_wider.html">pivot_wider()</a></code> gains a <code>names_sort</code> argument which allows you to sort column names in order. The default, <code>FALSE</code>, orders columms by their first appearance (<a href='https://github.com/tidyverse/tidyr/issues/839'>#839</a>).</p></li>
-<li><p><code><a href="../reference/pack.html">pack()</a></code>’s first argument is now <code>.data</code> instead of <code>data</code> (<a href='https://github.com/tidyverse/tidyr/issues/759'>#759</a>)</p></li>
-<li><p>Arguments that use tidy selection syntax are now clearly documented and have been updated to use tidyselect 1.0.0 (<a href='https://github.com/tidyverse/tidyr/issues/872'>#872</a>).</p></li>
-<li><p><code><a href="../reference/hoist.html">hoist()</a></code> errors if you use duplicated column names (<a href='https://github.com/mgirlich'>@mgirlich</a>, <a href='https://github.com/tidyverse/tidyr/issues/834'>#834</a>).</p></li>
-<li><p><code><a href="../reference/hoist.html">hoist()</a></code> now automatically names pluckers that are a single string (<a href='https://github.com/tidyverse/tidyr/issues/837'>#837</a>).</p></li>
-<li><p><code><a href="../reference/drop_na.html">drop_na()</a></code> now preserves attributes of unclassed vectors (<a href='https://github.com/tidyverse/tidyr/issues/905'>#905</a>).</p></li>
-<li><p><code><a href="../reference/pivot_wider.html">pivot_wider()</a></code> gains a <code>names_glue</code> argument that allows you to construct output column names with a glue specification.</p></li>
-<li><p><code><a href="../reference/pivot_wider.html">pivot_wider()</a></code> can now pivot data frame columns (<a href='https://github.com/tidyverse/tidyr/issues/926'>#926</a>)</p></li>
-<li><p><code><a href="../reference/chop.html">chop()</a></code> now creates list-columns of class <code><a href="https://vctrs.r-lib.org/reference/list_of.html">vctrs::list_of()</a></code>. This helps keep track of the type in case the chopped data frame is empty. This allows <code><a href="../reference/chop.html">unchop()</a></code> to reconstitute a data frame with the correct column types even when there are no observations.</p></li>
-<li><p><code><a href="../reference/chop.html">chop()</a></code> now preserves the width of the input data frame even when it has no observation.</p></li>
+<li><p><code><a href="../reference/pivot_longer.html">pivot_longer()</a></code>, <code><a href="../reference/hoist.html">hoist()</a></code>, <code><a href="../reference/hoist.html">unnest_wider()</a></code>, and <code><a href="../reference/hoist.html">unnest_longer()</a></code> gain new <code>transform</code> arguments; these allow you to transform values “in flight”. They are partly needed because vctrs coercion rules have become stricter, but they give you greater flexibility than was available previously (<a href='https://github.com/tidyverse/tidyr/issues/921'>#921</a>).</p></li>
+<li><p>Arguments that use tidy selection syntax are now clearly documented and have been updated to use tidyselect 1.1.0 (<a href='https://github.com/tidyverse/tidyr/issues/872'>#872</a>).</p></li>
+</ul>
+</div>
+<div id="pivoting-improvements" class="section level2">
+<h2 class="hasAnchor">
+<a href="#pivoting-improvements" class="anchor"></a>Pivoting improvements</h2>
+<ul>
+<li><p>Both <code><a href="../reference/pivot_wider.html">pivot_wider()</a></code> and <code><a href="../reference/pivot_longer.html">pivot_longer()</a></code> are considerably more performant, thanks largely to improvements in the underlying vctrs code (<a href='https://github.com/tidyverse/tidyr/issues/790'>#790</a>, <a href='https://github.com/DavisVaughan'>@DavisVaughan</a>).</p></li>
+<li>
+<p><code><a href="../reference/pivot_longer.html">pivot_longer()</a></code> now supports <code>names_to = character()</code> which prevents the name column from being created (<a href='https://github.com/tidyverse/tidyr/issues/961'>#961</a>).</p>
+<pre class="{r}"><code>df &lt;- tibble(id = 1:3, x_1 = 1:3, x_2 = 4:6)  
+df %&gt;% pivot_longer(-id, names_to = character())</code></pre>
+</li>
 <li><p><code><a href="../reference/pivot_longer.html">pivot_longer()</a></code> no longer creates a <code>.copy</code> variable in the presence of duplicate column names. This makes it more consistent with the handling of non-unique specs.</p></li>
 <li>
 <p><code><a href="../reference/pivot_longer.html">pivot_longer()</a></code> automatically disambiguates non-unique ouputs, which can occur when the input variables include some additional component that you don’t care about and want to discard (<a href='https://github.com/tidyverse/tidyr/issues/792'>#792</a>, <a href='https://github.com/tidyverse/tidyr/issues/793'>#793</a>).</p>
@@ -220,21 +218,47 @@ df %&gt;% pivot_longer(-id, names_pattern = "(.)_.")
 df %&gt;% pivot_longer(-id, names_sep = "_", names_to = c("name", NA))
 df %&gt;% pivot_longer(-id, names_sep = "_", names_to = c(".value", NA))</code></pre>
 </li>
-<li><p><code><a href="../reference/expand.html">expand()</a></code>, <code><a href="../reference/expand_grid.html">expand_grid()</a></code>, <code><a href="../reference/expand.html">crossing()</a></code>, and <code><a href="../reference/expand.html">nesting()</a></code> once again evaluate their inputs iteratively, so you can refer to freshly created columns, e.g. <code><a href="../reference/expand.html">crossing(x = seq(-2, 2), y = x)</a></code> (<a href='https://github.com/tidyverse/tidyr/issues/820'>#820</a>).</p></li>
-<li><p><code><a href="../reference/expand.html">expand()</a></code>, <code><a href="../reference/expand_grid.html">expand_grid()</a></code>, <code><a href="../reference/expand.html">crossing()</a></code>, and <code><a href="../reference/expand.html">nesting()</a></code> gain a <code>.name_repair</code> argument allowing them to respect <code>.name_repair</code> if it is passed to them (<a href='https://github.com/jeffreypullin'>@jeffreypullin</a>, <a href='https://github.com/tidyverse/tidyr/issues/798'>#798</a>).</p></li>
-<li><p><code><a href="../reference/pack.html">pack()</a></code> and <code><a href="../reference/nest.html">nest()</a></code> gains a <code>.names_sep</code> argument allows you to strip outer names from inner names, in symmetrical way to how the same argument to <code><a href="../reference/pack.html">unpack()</a></code> and <code><a href="../reference/nest.html">unnest()</a></code> combines inner and outer names (<a href='https://github.com/tidyverse/tidyr/issues/795'>#795</a>, <a href='https://github.com/tidyverse/tidyr/issues/797'>#797</a>).</p></li>
-<li><p><code><a href="../reference/hoist.html">unnest_auto()</a></code> works when the input data contains a column called <code>col</code> (<a href='https://github.com/tidyverse/tidyr/issues/959'>#959</a>).</p></li>
-<li><p><code><a href="../reference/hoist.html">unnest_longer()</a></code>, <code><a href="../reference/hoist.html">unnest_wider()</a></code>, and <code><a href="../reference/hoist.html">hoist()</a></code> do a better job simplifying list-cols. They no longer add uneeded <code>unspecified()</code> when the result is still a list (<a href='https://github.com/tidyverse/tidyr/issues/806'>#806</a>), and work when the list contains non-vectors (<a href='https://github.com/tidyverse/tidyr/issues/810'>#810</a>, <a href='https://github.com/tidyverse/tidyr/issues/848'>#848</a>).</p></li>
-<li><p><code><a href="../reference/extract.html">extract()</a></code>, <code><a href="../reference/separate.html">separate()</a></code>, <code><a href="../reference/hoist.html">hoist()</a></code>, <code><a href="../reference/hoist.html">unnest_longer()</a></code>, and <code><a href="../reference/hoist.html">unnest_wider()</a></code> give a better error message if <code>col</code> is missing (<a href='https://github.com/tidyverse/tidyr/issues/805'>#805</a>).</p></li>
-<li><p>In <code><a href="../reference/pivot_wider.html">pivot_wider()</a></code>, <code>values_fn</code> and <code>values_fill</code> can now be single values; you now only need to use a named list if you want to use different values for different value columns (<a href='https://github.com/tidyverse/tidyr/issues/739'>#739</a>, <a href='https://github.com/tidyverse/tidyr/issues/746'>#746</a>). They also get improved errors if they’re not of the expected type.</p></li>
-<li><p><code><a href="../reference/hoist.html">unnest_wider()</a></code> gives a better error message if you attempt to unnest multiple columns (<a href='https://github.com/tidyverse/tidyr/issues/740'>#740</a>).</p></li>
-<li><p><code><a href="../reference/hoist.html">unnest_wider(names_sep = "")</a></code> now provides default names for unnamed inputs, suppressing the many previous name repair messages (<a href='https://github.com/tidyverse/tidyr/issues/742'>#742</a>).</p></li>
-<li><p><code><a href="../reference/unite.html">unite(na.rm = TRUE)</a></code> now works for all types of variable, not just character vectors (<a href='https://github.com/tidyverse/tidyr/issues/765'>#765</a>).</p></li>
-<li><p><code><a href="../reference/hoist.html">hoist()</a></code> now uses <code><a href="https://rlang.r-lib.org/reference/list2.html">rlang::list2()</a></code> which means that you can now use <code>!!!</code> and <code>:=</code> (<a href='https://github.com/tidyverse/tidyr/issues/801'>#801</a>).</p></li>
-<li><p>In <code><a href="../reference/extract.html">extract()</a></code>, you can now use <code>NA</code> in <code>into</code> as documented (<a href='https://github.com/tidyverse/tidyr/issues/793'>#793</a>).</p></li>
-<li><p><code><a href="../reference/pivot_wider.html">pivot_wider()</a></code> and <code><a href="../reference/pivot_longer.html">pivot_longer()</a></code> are considerably more performant, thanks largely to improvements in the underlying vctrs code (<a href='https://github.com/tidyverse/tidyr/issues/790'>#790</a>, <a href='https://github.com/DavisVaughan'>@DavisVaughan</a>)</p></li>
-<li><p><code><a href="../reference/hoist.html">unnest_wider()</a></code> and <code><a href="../reference/hoist.html">unnest_longer()</a></code> can now unnest <code>list_of</code> columns. This is important for unnesting columns created from <code><a href="../reference/nest.html">nest()</a></code>, which are always <code>list_of</code> columns, and for usage after <code><a href="../reference/pivot_wider.html">pivot_wider()</a></code>, which, by default, will create <code>list_of</code> columns when duplicates arise (<a href='https://github.com/tidyverse/tidyr/issues/741'>#741</a>).</p></li>
+<li><p><code><a href="../reference/pivot_wider.html">pivot_wider()</a></code> gains a <code>names_sort</code> argument which allows you to sort column names in order. The default, <code>FALSE</code>, orders columms by their first appearance (<a href='https://github.com/tidyverse/tidyr/issues/839'>#839</a>). In a future version, I’ll consider changing the default to <code>TRUE</code>.</p></li>
+<li><p><code><a href="../reference/pivot_wider.html">pivot_wider()</a></code> gains a <code>names_glue</code> argument that allows you to construct output column names with a glue specification.</p></li>
+<li><p><code><a href="../reference/pivot_wider.html">pivot_wider()</a></code> arguments <code>values_fn</code> and <code>values_fill</code> can now be single values; you now only need to use a named list if you want to use different values for different value columns (<a href='https://github.com/tidyverse/tidyr/issues/739'>#739</a>, <a href='https://github.com/tidyverse/tidyr/issues/746'>#746</a>). They also get improved errors if they’re not of the expected type.</p></li>
 </ul>
+</div>
+<div id="rectangling" class="section level2">
+<h2 class="hasAnchor">
+<a href="#rectangling" class="anchor"></a>Rectangling</h2>
+<ul>
+<li><p><code><a href="../reference/hoist.html">hoist()</a></code> now automatically names pluckers that are a single string (<a href='https://github.com/tidyverse/tidyr/issues/837'>#837</a>). It error if you use duplicated column names (<a href='https://github.com/mgirlich'>@mgirlich</a>, <a href='https://github.com/tidyverse/tidyr/issues/834'>#834</a>), and now uses <code><a href="https://rlang.r-lib.org/reference/list2.html">rlang::list2()</a></code> behind the scenes (which means that you can now use <code>!!!</code> and <code>:=</code>) (<a href='https://github.com/tidyverse/tidyr/issues/801'>#801</a>).</p></li>
+<li><p><code><a href="../reference/hoist.html">unnest_longer()</a></code>, <code><a href="../reference/hoist.html">unnest_wider()</a></code>, and <code><a href="../reference/hoist.html">hoist()</a></code> do a better job simplifying list-cols. They no longer add unneeded <code>unspecified()</code> when the result is still a list (<a href='https://github.com/tidyverse/tidyr/issues/806'>#806</a>), and work when the list contains non-vectors (<a href='https://github.com/tidyverse/tidyr/issues/810'>#810</a>, <a href='https://github.com/tidyverse/tidyr/issues/848'>#848</a>).</p></li>
+<li><p><code><a href="../reference/hoist.html">unnest_wider(names_sep = "")</a></code> now provides default names for unnamed inputs, suppressing the many previous name repair messages (<a href='https://github.com/tidyverse/tidyr/issues/742'>#742</a>).</p></li>
+</ul>
+</div>
+<div id="nesting" class="section level2">
+<h2 class="hasAnchor">
+<a href="#nesting" class="anchor"></a>Nesting</h2>
+<ul>
+<li><p><code><a href="../reference/pack.html">pack()</a></code> and <code><a href="../reference/nest.html">nest()</a></code> gains a <code>.names_sep</code> argument allows you to strip outer names from inner names, in symmetrical way to how the same argument to <code><a href="../reference/pack.html">unpack()</a></code> and <code><a href="../reference/nest.html">unnest()</a></code> combines inner and outer names (<a href='https://github.com/tidyverse/tidyr/issues/795'>#795</a>, <a href='https://github.com/tidyverse/tidyr/issues/797'>#797</a>).</p></li>
+<li><p><code><a href="../reference/hoist.html">unnest_wider()</a></code> and <code><a href="../reference/hoist.html">unnest_longer()</a></code> can now unnest <code>list_of</code> columns. This is important for unnesting columns created from <code><a href="../reference/nest.html">nest()</a></code> and with <code><a href="../reference/pivot_wider.html">pivot_wider()</a></code>, which will create <code>list_of</code> columns if the id columns are non-unique (<a href='https://github.com/tidyverse/tidyr/issues/741'>#741</a>).</p></li>
+</ul>
+</div>
+<div id="bug-fixes-and-minor-improvements" class="section level2">
+<h2 class="hasAnchor">
+<a href="#bug-fixes-and-minor-improvements" class="anchor"></a>Bug fixes and minor improvements</h2>
+<ul>
+<li><p><code><a href="../reference/chop.html">chop()</a></code> now creates list-columns of class <code><a href="https://vctrs.r-lib.org/reference/list_of.html">vctrs::list_of()</a></code>. This helps keep track of the type in case the chopped data frame is empty, allowing <code><a href="../reference/chop.html">unchop()</a></code> to reconstitute a data frame with the correct number and types of column even when there are no observations.</p></li>
+<li><p><code><a href="../reference/drop_na.html">drop_na()</a></code> now preserves attributes of unclassed vectors (<a href='https://github.com/tidyverse/tidyr/issues/905'>#905</a>).</p></li>
+<li><p><code><a href="../reference/expand.html">expand()</a></code>, <code><a href="../reference/expand_grid.html">expand_grid()</a></code>, <code><a href="../reference/expand.html">crossing()</a></code>, and <code><a href="../reference/expand.html">nesting()</a></code> once again evaluate their inputs iteratively, so you can refer to freshly created columns, e.g. <code><a href="../reference/expand.html">crossing(x = seq(-2, 2), y = x)</a></code> (<a href='https://github.com/tidyverse/tidyr/issues/820'>#820</a>).</p></li>
+<li><p><code><a href="../reference/expand.html">expand()</a></code>, <code><a href="../reference/expand_grid.html">expand_grid()</a></code>, <code><a href="../reference/expand.html">crossing()</a></code>, and <code><a href="../reference/expand.html">nesting()</a></code> gain a <code>.name_repair</code> giving you control over their name repair strategy (<a href='https://github.com/jeffreypullin'>@jeffreypullin</a>, <a href='https://github.com/tidyverse/tidyr/issues/798'>#798</a>).</p></li>
+<li><p><code><a href="../reference/extract.html">extract()</a></code> lets you use <code>NA</code> in <code>into</code>, as documented (<a href='https://github.com/tidyverse/tidyr/issues/793'>#793</a>).</p></li>
+<li><p><code><a href="../reference/extract.html">extract()</a></code>, <code><a href="../reference/separate.html">separate()</a></code>, <code><a href="../reference/hoist.html">hoist()</a></code>, <code><a href="../reference/hoist.html">unnest_longer()</a></code>, and <code><a href="../reference/hoist.html">unnest_wider()</a></code> give a better error message if <code>col</code> is missing (<a href='https://github.com/tidyverse/tidyr/issues/805'>#805</a>).</p></li>
+<li><p><code><a href="../reference/pack.html">pack()</a></code>’s first argument is now <code>.data</code> instead of <code>data</code> (<a href='https://github.com/tidyverse/tidyr/issues/759'>#759</a>).</p></li>
+<li><p><code><a href="../reference/pivot_longer.html">pivot_longer()</a></code> now errors if <code>values_to</code> is not a length-1 character vector (<a href='https://github.com/tidyverse/tidyr/issues/949'>#949</a>).</p></li>
+<li><p><code><a href="../reference/pivot_longer.html">pivot_longer()</a></code> and <code><a href="../reference/pivot_wider.html">pivot_wider()</a></code> are now generic so implementations can be provided for objects other than data frames (<a href='https://github.com/tidyverse/tidyr/issues/800'>#800</a>).</p></li>
+<li><p><code><a href="../reference/pivot_wider.html">pivot_wider()</a></code> can now pivot data frame columns (<a href='https://github.com/tidyverse/tidyr/issues/926'>#926</a>)</p></li>
+<li><p><code><a href="../reference/unite.html">unite(na.rm = TRUE)</a></code> now works for all types of variable, not just character vectors (<a href='https://github.com/tidyverse/tidyr/issues/765'>#765</a>).</p></li>
+<li><p><code><a href="../reference/hoist.html">unnest_wider()</a></code> gives a better error message if you attempt to unnest multiple columns (<a href='https://github.com/tidyverse/tidyr/issues/740'>#740</a>).</p></li>
+<li><p><code><a href="../reference/hoist.html">unnest_auto()</a></code> works when the input data contains a column called <code>col</code> (<a href='https://github.com/tidyverse/tidyr/issues/959'>#959</a>).</p></li>
+</ul>
+</div>
 </div>
     <div id="tidyr-102" class="section level1">
 <h1 class="page-header" data-toc-text="1.0.2">
@@ -263,7 +287,7 @@ df %&gt;% pivot_longer(-id, names_sep = "_", names_to = c(".value", NA))</code><
 <ul>
 <li>
 <p><code><a href="../reference/nest.html">nest()</a></code> and <code><a href="../reference/nest.html">unnest()</a></code> have new syntax. The majority of existing usage should be automatically translated to the new syntax with a warning. If that doesn’t work, put this in your script to use the old versions until you can take a closer look and update your code:</p>
-<div class="sourceCode" id="cb2"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">tidyr</span>)
+<div class="sourceCode" id="cb3"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">tidyr</span>)
 <span class="no">nest</span> <span class="kw">&lt;-</span> <span class="no">nest_legacy</span>
 <span class="no">unnest</span> <span class="kw">&lt;-</span> <span class="no">unnest_legacy</span></pre></div>
 </li>
@@ -285,9 +309,9 @@ df %&gt;% pivot_longer(-id, names_sep = "_", names_to = c(".value", NA))</code><
 <p>To demonstrate how these functions work in practice, tidyr has gained several new datasets: <code>relig_income</code>, <code>construction</code>, <code>billboard</code>, <code>us_rent_income</code>, <code>fish_encounters</code> and <code>world_bank_pop</code>.</p>
 <p>Finally, tidyr demos have been removed. They are dated, and have been superseded by <code><a href="../articles/pivot.html">vignette("pivot")</a></code>.</p>
 </div>
-<div id="rectangling" class="section level2">
+<div id="rectangling-1" class="section level2">
 <h2 class="hasAnchor">
-<a href="#rectangling" class="anchor"></a>Rectangling</h2>
+<a href="#rectangling-1" class="anchor"></a>Rectangling</h2>
 <p>tidyr contains four new functions to support <strong>rectangling</strong>, turning a deeply nested list into a tidy tibble: <code><a href="../reference/hoist.html">unnest_longer()</a></code>, <code><a href="../reference/hoist.html">unnest_wider()</a></code>, <code><a href="../reference/hoist.html">unnest_auto()</a></code>, and <code><a href="../reference/hoist.html">hoist()</a></code>. They are documented in a new vignette: <code><a href="../articles/rectangle.html">vignette("rectangle")</a></code>.</p>
 <p><code><a href="../reference/hoist.html">unnest_longer()</a></code> and <code><a href="../reference/hoist.html">unnest_wider()</a></code> make it easier to unnest list-columns of vectors into either rows or columns (<a href='https://github.com/tidyverse/tidyr/issues/418'>#418</a>). <code><a href="../reference/hoist.html">unnest_auto()</a></code> automatically picks between <code>_longer()</code> and <code>_wider()</code> using heuristics based on the presence of common names.</p>
 <p>New <code><a href="../reference/hoist.html">hoist()</a></code> provides a convenient way of plucking components of a list-column out into their own top-level columns (<a href='https://github.com/tidyverse/tidyr/issues/341'>#341</a>). This is particularly useful when you are working with deeply nested JSON, because it provides a convenient shortcut for the <code>mutate()</code> + <code>map()</code> pattern:</p>
@@ -295,9 +319,9 @@ df %&gt;% pivot_longer(-id, names_sep = "_", names_to = c(".value", NA))</code><
 # shortcut for
 df %&gt;% mutate(name = map_chr(metadata, "name"))</code></pre>
 </div>
-<div id="nesting" class="section level2">
+<div id="nesting-1" class="section level2">
 <h2 class="hasAnchor">
-<a href="#nesting" class="anchor"></a>Nesting</h2>
+<a href="#nesting-1" class="anchor"></a>Nesting</h2>
 <p><code><a href="../reference/nest.html">nest()</a></code> and <code><a href="../reference/nest.html">unnest()</a></code> have been updated with new interfaces that are more closely aligned to evolving tidyverse conventions. They use the theory developed in <a href="https://vctrs.r-lib.org">vctrs</a> to more consistently handle mixtures of input types, and their arguments have been overhauled based on the last few years of experience. They are supported by a new <code><a href="../articles/nest.html">vignette("nest")</a></code>, which outlines some of the main ideas of nested data (it’s still very rough, but will get better over time).</p>
 <p>The biggest change is to their operation with multiple columns: <code>df %&gt;% unnest(x, y, z)</code> becomes <code>df %&gt;% unnest(c(x, y, z))</code> and <code>df %&gt;% nest(x, y, z)</code> becomes <code>df %&gt;% nest(data = c(x, y, z))</code>.</p>
 <p>I have done my best to ensure that common uses of <code><a href="../reference/nest.html">nest()</a></code> and <code><a href="../reference/nest.html">unnest()</a></code> will continue to work, generating an informative warning telling you precisely how you need to update your code. Please <a href="https://github.com/tidyverse/tidyr/issues/new">file an issue</a> if I’ve missed an important use case.</p>
@@ -327,9 +351,9 @@ df %&gt;% mutate(name = map_chr(metadata, "name"))</code></pre>
 <li><p><code><a href="../reference/expand.html">crossing()</a></code>, <code><a href="../reference/expand.html">nesting()</a></code>, and <code><a href="../reference/expand.html">expand()</a></code> have been rewritten to use the vctrs package. This should not affect much existing code, but considerably simplies the implementation and ensures that these functions work consistently across all generalised vectors (<a href='https://github.com/tidyverse/tidyr/issues/557'>#557</a>). As part of this alignment, these functions now only drop <code>NULL</code> inputs, not any 0-length vector.</p></li>
 </ul>
 </div>
-<div id="bug-fixes-and-minor-improvements" class="section level2">
+<div id="bug-fixes-and-minor-improvements-1" class="section level2">
 <h2 class="hasAnchor">
-<a href="#bug-fixes-and-minor-improvements" class="anchor"></a>Bug fixes and minor improvements</h2>
+<a href="#bug-fixes-and-minor-improvements-1" class="anchor"></a>Bug fixes and minor improvements</h2>
 <ul>
 <li><p><code><a href="../reference/full_seq.html">full_seq()</a></code> now also works when gaps between observations are shorter than the given <code>period</code>, but are within the tolerance given by <code>tol</code>. Previously, gaps between consecutive observations had to be in the range [<code>period</code>, <code>period + tol</code>]; gaps can now be in the range [<code>period - tol</code>, <code>period + tol</code>] (<a href='https://github.com/ha0ye'>@ha0ye</a>, <a href='https://github.com/tidyverse/tidyr/issues/657'>#657</a>).</p></li>
 <li><p>tidyr now re-exports <code><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble()</a></code>, <code><a href="https://tibble.tidyverse.org/reference/as_tibble.html">as_tibble()</a></code>, and <code><a href="https://tibble.tidyverse.org/reference/tribble.html">tribble()</a></code>, as well as the tidyselect helpers (<code><a href="https://tidyselect.r-lib.org/reference/starts_with.html">starts_with()</a></code>, <code>ends_width()</code>, …). This makes generating documentation, reprexes, and tests easier, and makes tidyr easier to use without also attaching dplyr.</p></li>
@@ -394,9 +418,9 @@ df %&gt;% mutate(name = map_chr(metadata, "name"))</code></pre>
 <li><p><code><a href="../reference/uncount.html">uncount()</a></code> performs the inverse operation of <code><a href="https://dplyr.tidyverse.org/reference/tally.html">dplyr::count()</a></code> (<a href='https://github.com/tidyverse/tidyr/issues/279'>#279</a>)</p></li>
 </ul>
 </div>
-<div id="bug-fixes-and-minor-improvements-1" class="section level2">
+<div id="bug-fixes-and-minor-improvements-2" class="section level2">
 <h2 class="hasAnchor">
-<a href="#bug-fixes-and-minor-improvements-1" class="anchor"></a>Bug fixes and minor improvements</h2>
+<a href="#bug-fixes-and-minor-improvements-2" class="anchor"></a>Bug fixes and minor improvements</h2>
 <ul>
 <li><p><code><a href="../reference/complete.html">complete(data)</a></code> now returns <code>data</code> rather than throwing an error (<a href='https://github.com/tidyverse/tidyr/issues/390'>#390</a>). <code><a href="../reference/complete.html">complete()</a></code> with zero-length completions returns original input (<a href='https://github.com/tidyverse/tidyr/issues/331'>#331</a>).</p></li>
 <li><p><code><a href="../reference/expand.html">crossing()</a></code> preserves <code>NA</code>s (<a href='https://github.com/tidyverse/tidyr/issues/364'>#364</a>).</p></li>
@@ -494,7 +518,7 @@ integer column positions, not a double vector</code></pre>
 <li>
 <p>Multiple variables are now selected a bit differently. We now make a strict distinction between data and context expressions. A data expression is either a bare name of an expression like <code>x:y</code> or <code><a href="https://rdrr.io/r/base/c.html">c(x, y)</a></code>. In a data expression, you can only refer to columns from the data frame. Everything else is a context expression in which you can only refer to objects that you have defined with <code>&lt;-</code>.</p>
 <p>You can still refer to contextual objects in a data expression by being explicit. One way of being explicit is to unquote a variable from the environment with the tidy eval operator <code>!!</code>:</p>
-<div class="sourceCode" id="cb8"><pre class="r"><span class="no">x</span> <span class="kw">&lt;-</span> <span class="fl">2</span>
+<div class="sourceCode" id="cb9"><pre class="r"><span class="no">x</span> <span class="kw">&lt;-</span> <span class="fl">2</span>
 <span class="fu"><a href="../reference/drop_na.html">drop_na</a></span>(<span class="no">df</span>, <span class="fl">2</span>)     <span class="co"># Works fine</span>
 <span class="fu"><a href="../reference/drop_na.html">drop_na</a></span>(<span class="no">df</span>, <span class="no">x</span>)     <span class="co"># Object 'x' not found</span>
 <span class="fu"><a href="../reference/drop_na.html">drop_na</a></span>(<span class="no">df</span>, !! <span class="no">x</span>)  <span class="co"># Works as if you had supplied 2</span></pre></div>
@@ -546,9 +570,9 @@ drop_na(df, starts_with(x))</code></pre>
 <li><p>Renamed <code>table4</code> and <code>table5</code> to <code>table4a</code> and <code>table4b</code> to make their connection more clear. The <code>key</code> and <code>value</code> variables in <code>table2</code> have been renamed to <code>type</code> and <code>count</code>.</p></li>
 </ul>
 </div>
-<div id="bug-fixes-and-minor-improvements-2" class="section level2">
+<div id="bug-fixes-and-minor-improvements-3" class="section level2">
 <h2 class="hasAnchor">
-<a href="#bug-fixes-and-minor-improvements-2" class="anchor"></a>Bug fixes and minor improvements</h2>
+<a href="#bug-fixes-and-minor-improvements-3" class="anchor"></a>Bug fixes and minor improvements</h2>
 <ul>
 <li><p><code><a href="../reference/expand.html">expand()</a></code>, <code><a href="../reference/expand.html">crossing()</a></code>, and <code><a href="../reference/expand.html">nesting()</a></code> now silently drop zero-length inputs.</p></li>
 <li><p><code><a href="../reference/deprecated-se.html">crossing_()</a></code> and <code><a href="../reference/deprecated-se.html">nesting_()</a></code> are versions of <code><a href="../reference/expand.html">crossing()</a></code> and <code><a href="../reference/expand.html">nesting()</a></code> that take a list as input.</p></li>
@@ -576,9 +600,9 @@ drop_na(df, starts_with(x))</code></pre>
 <code><a href="../reference/separate_rows.html">separate_rows()</a></code> separates observations with multiple delimited values into separate rows (<a href='https://github.com/tidyverse/tidyr/issues/69'>#69</a>, <a href='https://github.com/aaronwolen'>@aaronwolen</a>).</li>
 </ul>
 </div>
-<div id="bug-fixes-and-minor-improvements-3" class="section level2">
+<div id="bug-fixes-and-minor-improvements-4" class="section level2">
 <h2 class="hasAnchor">
-<a href="#bug-fixes-and-minor-improvements-3" class="anchor"></a>Bug fixes and minor improvements</h2>
+<a href="#bug-fixes-and-minor-improvements-4" class="anchor"></a>Bug fixes and minor improvements</h2>
 <ul>
 <li><p><code><a href="../reference/complete.html">complete()</a></code> preserves grouping created by dplyr (<a href='https://github.com/tidyverse/tidyr/issues/168'>#168</a>).</p></li>
 <li><p><code><a href="../reference/expand.html">expand()</a></code> (and hence <code><a href="../reference/complete.html">complete()</a></code>) preserves the ordered attribute of factors (<a href='https://github.com/tidyverse/tidyr/issues/165'>#165</a>).</p></li>
@@ -667,9 +691,9 @@ drop_na(df, starts_with(x))</code></pre>
 <li><p><code><a href="../reference/nest.html">unnest()</a></code> can now work with multiple list-columns at the same time. If you don’t supply any columns names, it will unlist all list-columns (<a href='https://github.com/tidyverse/tidyr/issues/44'>#44</a>). <code><a href="../reference/nest.html">unnest()</a></code> can also handle columns that are lists of data frames (<a href='https://github.com/tidyverse/tidyr/issues/58'>#58</a>).</p></li>
 </ul>
 </div>
-<div id="bug-fixes-and-minor-improvements-4" class="section level2">
+<div id="bug-fixes-and-minor-improvements-5" class="section level2">
 <h2 class="hasAnchor">
-<a href="#bug-fixes-and-minor-improvements-4" class="anchor"></a>Bug fixes and minor improvements</h2>
+<a href="#bug-fixes-and-minor-improvements-5" class="anchor"></a>Bug fixes and minor improvements</h2>
 <ul>
 <li><p>tidyr no longer depends on reshape2. This should fix issues if you also try to load reshape (<a href='https://github.com/tidyverse/tidyr/issues/88'>#88</a>).</p></li>
 <li><p><code><a href="../reference/pipe.html">%&gt;%</a></code> is re-exported from magrittr.</p></li>
@@ -697,9 +721,9 @@ drop_na(df, starts_with(x))</code></pre>
 <li><p>Experiment <code><a href="../reference/nest.html">unnest()</a></code> function for converting named lists into data frames. (<a href='https://github.com/tidyverse/tidyr/issues/3'>#3</a>, <a href='https://github.com/tidyverse/tidyr/issues/22'>#22</a>)</p></li>
 </ul>
 </div>
-<div id="bug-fixes-and-minor-improvements-5" class="section level2">
+<div id="bug-fixes-and-minor-improvements-6" class="section level2">
 <h2 class="hasAnchor">
-<a href="#bug-fixes-and-minor-improvements-5" class="anchor"></a>Bug fixes and minor improvements</h2>
+<a href="#bug-fixes-and-minor-improvements-6" class="anchor"></a>Bug fixes and minor improvements</h2>
 <ul>
 <li><p><code><a href="../reference/extract_numeric.html">extract_numeric()</a></code> preserves negative signs (<a href='https://github.com/tidyverse/tidyr/issues/20'>#20</a>).</p></li>
 <li><p><code><a href="../reference/gather.html">gather()</a></code> has better defaults if <code>key</code> and <code>value</code> are not supplied. If <code>...</code> is ommitted, <code><a href="../reference/gather.html">gather()</a></code> selects all columns (<a href='https://github.com/tidyverse/tidyr/issues/28'>#28</a>). Performance is now comparable to <code>reshape2::melt()</code> (<a href='https://github.com/tidyverse/tidyr/issues/18'>#18</a>).</p></li>

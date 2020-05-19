@@ -110,22 +110,17 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/in-packages.html">In packages</a>
-    </li>
-    <li>
-      <a href="../articles/nest.html">Nested data</a>
-    </li>
-    <li>
       <a href="../articles/pivot.html">Pivoting</a>
-    </li>
-    <li>
-      <a href="../articles/programming.html">Programming with tidyr</a>
     </li>
     <li>
       <a href="../articles/rectangle.html">Rectangling</a>
     </li>
     <li>
-      <a href="../articles/tidy-data.html">Tidy data</a>
+      <a href="../articles/nest.html">Nested data</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="../articles/index.html">More...</a>
     </li>
   </ul>
 </li>
@@ -136,7 +131,7 @@
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
-    <li class="dropdown-header">Release notes</li>
+    <li class="dropdown-header">Releases</li>
     <li>
       <a href="https://www.tidyverse.org/articles/2019/09/tidyr-1-0-0/">Version 1.0.0</a>
     </li>
@@ -166,7 +161,7 @@
     </li>
     <li class="divider"></li>
     <li>
-      <a href="../news/index.html">Change log</a>
+      <a href="../news/index.html">Changelog</a>
     </li>
   </ul>
 </li>
@@ -193,22 +188,36 @@
     </div>
 
     <div class="section ">
-      <h3>All vignettes</h3>
+      <h3>Tidying tools</h3>
       <p class="section-desc"></p>
 
       <dl>
-        <dt><a href="in-packages.html">In packages</a></dt>
-        <dd></dt>
-        <dt><a href="nest.html">Nested data</a></dt>
-        <dd></dt>
         <dt><a href="pivot.html">Pivoting</a></dt>
-        <dd></dt>
-        <dt><a href="programming.html">Programming with tidyr</a></dt>
-        <dd></dt>
+        <dd><p>Learn how use the new <code><a href="../reference/pivot_longer.html">pivot_longer()</a></code> and <code><a href="../reference/pivot_wider.html">pivot_wider()</a></code> functions which change the representation of a dataset without changing the data it contains.</p></dt>
         <dt><a href="rectangle.html">Rectangling</a></dt>
-        <dd></dt>
+        <dd><p>Rectangling is the art and craft of taking a deeply nested list (often sourced from wild caught JSON or XML) and taming it into a tidy data set of rows and columns. This vignette introduces you to the main rectangling tools provided by tidyr: <code><a href="../reference/hoist.html">unnest_longer()</a></code>, <code><a href="../reference/hoist.html">unnest_wider()</a></code>, <code><a href="../reference/hoist.html">unnest_auto()</a></code>, and <code><a href="../reference/hoist.html">hoist()</a></code>.</p></dt>
+        <dt><a href="nest.html">Nested data</a></dt>
+        <dd><p>A nested data frame contains a list-column of data frames. It’s an alternative way of representing grouped data, that works particularly well when you’re modelling.</p></dt>
+      </dl>
+    </div>
+    <div class="section ">
+      <h3>Theory</h3>
+      <p class="section-desc"></p>
+
+      <dl>
         <dt><a href="tidy-data.html">Tidy data</a></dt>
-        <dd></dt>
+        <dd><p>A tidy dataset has variables in columns, observations in rows, and one value in each cell. This vignette introduces the theory of “tidy data” and shows you how it saves you time during data analysis.</p></dt>
+      </dl>
+    </div>
+    <div class="section ">
+      <h3>Developer</h3>
+      <p class="section-desc"></p>
+
+      <dl>
+        <dt><a href="programming.html">Programming with tidyr</a></dt>
+        <dd><p>Notes on programming with tidy evaluation as it relates to tidyr.</p></dt>
+        <dt><a href="in-packages.html">In packages</a></dt>
+        <dd><p>Things to bear in mind when using tidyr in a package.</p></dt>
       </dl>
     </div>
   </div>
