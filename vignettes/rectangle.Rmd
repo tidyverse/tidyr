@@ -1,6 +1,12 @@
 ---
 title: "Rectangling"
 output: rmarkdown::html_vignette
+description: |
+  Rectangling is the art and craft of taking a deeply nested list (often 
+  sourced from wild caught JSON or XML) and taming it into a tidy data set of 
+  rows and columns. This vignette introduces you to the main rectangling tools
+  provided by tidyr: `unnest_longer()`, `unnest_wider()`, `unnest_auto()`,
+  and `hoist()`.
 vignette: >
   %\VignetteIndexEntry{rectangling}
   %\VignetteEngine{knitr::rmarkdown}

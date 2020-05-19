@@ -1,6 +1,9 @@
 ---
 title: "Pivoting"
 output: rmarkdown::html_vignette
+description:
+  Learn how use the new `pivot_longer()` and `pivot_wider()` functions which
+  change the representation of a dataset without changing the data it contains.
 vignette: >
   %\VignetteIndexEntry{Pivoting}
   %\VignetteEngine{knitr::rmarkdown}

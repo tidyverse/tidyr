@@ -1,6 +1,8 @@
 ---
 title: "In packages"
 output: rmarkdown::html_vignette
+description: |
+  Things to bear in mind when using tidyr in a package.
 vignette: >
   %\VignetteIndexEntry{Usage and migration}
   %\VignetteEngine{knitr::rmarkdown}

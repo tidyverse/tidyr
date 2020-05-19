@@ -88,6 +88,23 @@ reference:
   - who
   - world_bank_pop
 
+articles:
+- title: Tidying tools
+  navbar: ~
+  contents:
+  - pivot
+  - rectangle
+  - nest
+
+- title: Theory
+  contents:
+  - tidy-data
+
+- title: Developer
+  contents:
+  - programming
+  - in-packages
+
 news:
   releases:
   - text: "Version 1.0.0"

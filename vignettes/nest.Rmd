@@ -1,6 +1,10 @@
 ---
 title: "Nested data"
 output: rmarkdown::html_vignette
+description: |
+  A nested data frame contains a list-column of data frames. It's an
+  alternative way of representing grouped data, that works particularly well
+  when you're modelling.
 vignette: >
   %\VignetteIndexEntry{nest}
   %\VignetteEngine{knitr::rmarkdown}

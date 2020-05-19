@@ -1,6 +1,8 @@
 ---
 title: "Programming with tidyr"
 output: rmarkdown::html_vignette
+description: |
+  Notes on programming with tidy evaluation as it relates to tidyr.
 vignette: >
   %\VignetteIndexEntry{Programming with tidyr}
   %\VignetteEngine{knitr::rmarkdown}

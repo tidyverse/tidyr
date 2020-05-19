@@ -1,6 +1,10 @@
 ---
 title: "Tidy data"
 output: rmarkdown::html_vignette
+description: |
+  A tidy dataset has variables in columns, observations in rows, and one
+  value in each cell. This vignette introduces the theory of "tidy data"
+  and shows you how it saves you time during data analysis.
 vignette: >
   %\VignetteIndexEntry{Tidy data}
   %\VignetteEngine{knitr::rmarkdown}
