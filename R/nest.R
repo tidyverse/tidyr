@@ -169,11 +169,17 @@ nest.tbl_df <- function(.data, ..., .names_sep = NULL, .key = deprecated()) {
   }
 
   asis <- setdiff(names(.data), unlist(cols))
-
-  .data <- as_tibble(.data)
   keys <- .data[asis]
   u_keys <- vec_unique(keys)
-  out <- map(cols, ~ vec_split(set_names(.data[.x], names(.x)), keys)$val)
+
+  # Only rename if needed: many packages implement "sticky" columns
+  # (e.g. https://github.com/jacob-long/panelr/issues/28) which causes
+  # set_names() to fail.
+  if (is.null(.names_sep)) {
+    out <- map(cols, ~ vec_split(.data[.x], keys)$val)
+  } else {
+    out <- map(cols, ~ vec_split(set_names(.data[.x], names(.x)), keys)$val)
+  }
 
   vec_cbind(u_keys, new_data_frame(out, n = nrow(u_keys)))
 }
