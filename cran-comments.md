@@ -10,9 +10,9 @@
 
 ## revdepcheck results
 
-We checked 996 reverse dependencies (874 from CRAN + 122 from BioConductor), comparing R CMD check results across CRAN and dev versions of this package.
+We checked 876 reverse dependencies, comparing R CMD check results across CRAN and dev versions of this package.
 
- * We saw 4 new problems
+ * We saw 2 new problems
  * We failed to check 17 packages
 
 Issues with CRAN packages are summarised below.
@@ -20,33 +20,24 @@ Issues with CRAN packages are summarised below.
 ### New problems
 (This reports the first line of each new failure)
 
-* amt
-  checking examples ... ERROR
+* dartR
+  checking whether package ‘dartR’ can be installed ... WARNING
+  False positive with rgl.
 
-* cutpointr
-  checking examples ... ERROR
+* jstor
   checking tests ... ERROR
-  Fixed in development version
-
-* processR
-  checking whether package ‘processR’ can be installed ... WARNING
-  False positive - related to RGL
-
-* SEERaBomb
-  checking whether package ‘SEERaBomb’ can be installed ... WARNING
-  False positive - related to RGL
-  
+  Timed out
 
 ### Failed to check
 
 * CB2              (NA)
 * crawl            (NA)
-* dartR            (NA)
 * diceR            (NA)
 * dimRed           (NA)
 * fingertipscharts (NA)
 * GADMTools        (NA)
 * ggmsa            (NA)
+* gtsummary        (NA)
 * PWFSLSmoke       (NA)
 * rmapzen          (NA)
 * SimDesign        (NA)
