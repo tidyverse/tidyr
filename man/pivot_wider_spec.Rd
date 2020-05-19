@@ -50,8 +50,8 @@ except for the columns specified in \code{names_from} and \code{values_from}.
 Typically used when you have redundant variables, i.e. variables whose
 values are perfectly correlated with existing variables.}
 
-\item{values_fill}{Optionally, a value that specifies what each \code{value}
-should be filled in with when missing.
+\item{values_fill}{Optionally, a (scalar) value that specifies what each
+\code{value} should be filled in with when missing.
 
 This can be a named list if you want to apply different aggregations
 to different value columns.}

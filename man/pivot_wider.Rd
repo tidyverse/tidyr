@@ -57,8 +57,8 @@ Use \code{"minimal"} to allow duplicates in the output, or \code{"unique"} to
 de-duplicated by adding numeric suffixes. See \code{\link[vctrs:vec_as_names]{vctrs::vec_as_names()}}
 for more options.}
 
-\item{values_fill}{Optionally, a value that specifies what each \code{value}
-should be filled in with when missing.
+\item{values_fill}{Optionally, a (scalar) value that specifies what each
+\code{value} should be filled in with when missing.
 
 This can be a named list if you want to apply different aggregations
 to different value columns.}

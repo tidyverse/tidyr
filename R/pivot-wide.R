@@ -41,8 +41,8 @@
 #'   `.value`) to create custom column names.
 #' @param names_sort Should the column names be sorted? If `FALSE`, the default,
 #'   column names are ordered by first appearance.
-#' @param values_fill Optionally, a value that specifies what each `value`
-#'   should be filled in with when missing.
+#' @param values_fill Optionally, a (scalar) value that specifies what each
+#'   `value` should be filled in with when missing.
 #'
 #'   This can be a named list if you want to apply different aggregations
 #'   to different value columns.
@@ -198,9 +198,15 @@ pivot_wider_spec <- function(data,
   if (is.function(values_fn)) {
     values_fn <- rep_named(unique(spec$.value), list(values_fn))
   }
+  if (!is.null(values_fn) && !is.list(values_fn)) {
+    abort("`values_fn` must be a NULL, a function, or a named list")
+  }
 
   if (is_scalar(values_fill)) {
     values_fill <- rep_named(unique(spec$.value), list(values_fill))
+  }
+  if (!is.null(values_fill) && !is.list(values_fill)) {
+    abort("`values_fill` must be NULL, a scalar, or a named list")
   }
 
   values <- vec_unique(spec$.value)
@@ -369,6 +375,6 @@ is_scalar <- function(x) {
   if (is.list(x)) {
     (length(x) == 1) && !have_name(x)
   } else {
-    TRUE
+    length(x) == 1
   }
 }
