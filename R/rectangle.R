@@ -381,6 +381,16 @@ simplify_col <- function(x, nm, ptype = list(), transform = list(), simplify = F
     }
   }
 
+  # Don't try and simplify non-vectors
+  is_vec <- map_lgl(x, ~ vec_is(.x) || is.null(.x))
+  if (any(!is_vec)) {
+    if (is.null(ptype)) {
+      return(x)
+    } else {
+      abort(glue("Can't simplfy '{nm}'; contains a non-vector"))
+    }
+  }
+
   n <- map_int(x, vec_size)
   if (!all(n %in% c(0, 1))) {
     if (is.null(ptype)) {
