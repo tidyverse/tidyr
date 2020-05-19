@@ -10,24 +10,49 @@
 
 ## revdepcheck results
 
-We checked 875 reverse dependencies (782 from CRAN + 93 from BioConductor), comparing R CMD check results across CRAN and dev versions of this package.
+We checked 996 reverse dependencies (874 from CRAN + 122 from BioConductor), comparing R CMD check results across CRAN and dev versions of this package.
 
- * We saw 0 new problems
- * We failed to check 12 packages
+ * We saw 4 new problems
+ * We failed to check 17 packages
 
 Issues with CRAN packages are summarised below.
 
+### New problems
+(This reports the first line of each new failure)
+
+* amt
+  checking examples ... ERROR
+
+* cutpointr
+  checking examples ... ERROR
+  checking tests ... ERROR
+  Fixed in development version
+
+* processR
+  checking whether package ‘processR’ can be installed ... WARNING
+  False positive - related to RGL
+
+* SEERaBomb
+  checking whether package ‘SEERaBomb’ can be installed ... WARNING
+  False positive - related to RGL
+  
+
 ### Failed to check
 
-* circumplex   (NA)
-* colorednoise (NA)
-* dexter       (NA)
-* dscore       (NA)
-* dynfrail     (NA)
-* nationwider  (NA)
-* nlmixr       (NA)
-* phenofit     (NA)
-* RxODE        (NA)
-* sf           (NA)
-* trialr       (NA)
-* vlad         (NA)
+* CB2              (NA)
+* crawl            (NA)
+* dartR            (NA)
+* diceR            (NA)
+* dimRed           (NA)
+* fingertipscharts (NA)
+* GADMTools        (NA)
+* ggmsa            (NA)
+* PWFSLSmoke       (NA)
+* rmapzen          (NA)
+* SimDesign        (NA)
+* simplevis        (NA)
+* stats19          (NA)
+* sugarbag         (NA)
+* tidygeocoder     (NA)
+* tmap             (NA)
+* wrswoR           (NA)
