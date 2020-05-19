@@ -12,32 +12,6 @@ navbar:
     intro:
       text: Tidy data
       href: articles/tidy-data.html
-    news:
-      text: News
-      menu:
-      - text: "Release notes"
-      - text: "Version 1.0.0"
-        href: https://www.tidyverse.org/articles/2019/09/tidyr-1-0-0/
-      - text: "Version 0.8.0"
-        href: https://www.tidyverse.org/articles/2018/02/tidyr-0-8-0/
-      - text: "Version 0.7.0"
-        href: https://www.tidyverse.org/articles/2017/08/tidyr-0.7.0/
-      - text: "Version 0.6.0"
-        href: https://blog.rstudio.com/2016/08/15/tidyr-0-6-0/
-      - text: "Version 0.5.0"
-        href: https://blog.rstudio.com/2016/06/13/tidyr-0-5-0/
-      - text: "Version 0.5.0"
-        href: https://blog.rstudio.com/2016/02/02/tidyr-0-4-0/
-      - text: "Version 0.4.0"
-        href: https://blog.rstudio.com/2015/09/13/tidyr-0-3-0/
-      - text: "Version 0.2.0"
-        href: https://blog.rstudio.com/2014/12/08/tidyr-0-2-0/
-      - text: "Version 0.1.0"
-        href: https://blog.rstudio.com/2014/07/22/introducing-tidyr/
-      - text: "------------------"
-      - text: "Change log"
-        href: news/index.html
-
 
 template:
   package: tidytemplate
@@ -113,3 +87,24 @@ reference:
   - us_rent_income
   - who
   - world_bank_pop
+
+news:
+  releases:
+  - text: "Version 1.0.0"
+    href: https://www.tidyverse.org/articles/2019/09/tidyr-1-0-0/
+  - text: "Version 0.8.0"
+    href: https://www.tidyverse.org/articles/2018/02/tidyr-0-8-0/
+  - text: "Version 0.7.0"
+    href: https://www.tidyverse.org/articles/2017/08/tidyr-0.7.0/
+  - text: "Version 0.6.0"
+    href: https://blog.rstudio.com/2016/08/15/tidyr-0-6-0/
+  - text: "Version 0.5.0"
+    href: https://blog.rstudio.com/2016/06/13/tidyr-0-5-0/
+  - text: "Version 0.5.0"
+    href: https://blog.rstudio.com/2016/02/02/tidyr-0-4-0/
+  - text: "Version 0.4.0"
+    href: https://blog.rstudio.com/2015/09/13/tidyr-0-3-0/
+  - text: "Version 0.2.0"
+    href: https://blog.rstudio.com/2014/12/08/tidyr-0-2-0/
+  - text: "Version 0.1.0"
+    href: https://blog.rstudio.com/2014/07/22/introducing-tidyr/
