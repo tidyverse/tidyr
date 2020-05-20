@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Replace missing values — replace_na • tidyr</title>
+<title>Replace NAs with specified values — replace_na • tidyr</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -15,23 +15,28 @@
 <link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
+
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 
 <!-- Bootstrap -->
 <link href="../tidyverse.css" rel="stylesheet">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
 
 <!-- headroom.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -40,12 +45,11 @@
 
 
 
-<meta property="og:title" content="Replace missing values — replace_na" />
-
-<meta property="og:description" content="Replace missing values" />
-
+<meta property="og:title" content="Replace NAs with specified values — replace_na" />
+<meta property="og:description" content="Replace NAs with specified values" />
 <meta property="og:image" content="https://tidyr.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
+
 
 
 
@@ -70,7 +74,7 @@
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -85,9 +89,9 @@
 
       <div class="navbar-brand-container">
         <a class="navbar-brand" href="../index.html">tidyr</a>
-        <div class="info">
+        <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.0</span>
         </div>
       </div>
     </div>
@@ -107,19 +111,17 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/in-packages.html">In packages</a>
-    </li>
-    <li>
-      <a href="../articles/nest.html">Nested data</a>
-    </li>
-    <li>
       <a href="../articles/pivot.html">Pivoting</a>
     </li>
     <li>
       <a href="../articles/rectangle.html">Rectangling</a>
     </li>
     <li>
-      <a href="../articles/tidy-data.html">Tidy data</a>
+      <a href="../articles/nest.html">Nested data</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="../articles/index.html">More...</a>
     </li>
   </ul>
 </li>
@@ -130,7 +132,7 @@
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
-    <li class="dropdown-header">Release notes</li>
+    <li class="dropdown-header">Releases</li>
     <li>
       <a href="https://www.tidyverse.org/articles/2019/09/tidyr-1-0-0/">Version 1.0.0</a>
     </li>
@@ -160,12 +162,12 @@
     </li>
     <li class="divider"></li>
     <li>
-      <a href="../news/index.html">Change log</a>
+      <a href="../news/index.html">Changelog</a>
     </li>
   </ul>
 </li>
         <li>
-  <a href="https://github.com/tidyverse/tidyr">
+  <a href="https://github.com/tidyverse/tidyr/">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -183,19 +185,17 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Replace missing values</h1>
+    <h1>Replace NAs with specified values</h1>
     <small class="dont-index">Source: <a href='https://github.com/tidyverse/tidyr/blob/master/R/replace_na.R'><code>R/replace_na.R</code></a></small>
     <div class="hidden name"><code>replace_na.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    
-    <p>Replace missing values</p>
-    
+    <p>Replace NAs with specified values</p>
     </div>
 
     <pre class="usage"><span class='fu'>replace_na</span>(<span class='no'>data</span>, <span class='no'>replace</span>, <span class='no'>...</span>)</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -205,65 +205,61 @@
     </tr>
     <tr>
       <th>replace</th>
-      <td><p>If <code>data</code> is a data frame, a named list giving the value to
-replace <code>NA</code> with for each column. If <code>data</code> is a vector, a single value
-used for replacement.</p></td>
+      <td><p>If <code>data</code> is a data frame, <code>replace</code> takes a list of values,
+with one value for each column that has <code>NA</code> values to be replaced.</p>
+<p>If <code>data</code> is a vector, <code>replace</code> takes a single value. This single value
+replaces all of the <code>NA</code> values in the vector.</p></td>
     </tr>
     <tr>
       <th>...</th>
       <td><p>Additional arguments for methods. Currently unused.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>If <code>data</code> is a data frame, returns a data frame. If <code>data</code> is a
-vector, returns a vector of class determined by the union of <code>data</code> and
-<code>replace</code>.</p>
     
+<ul>
+<li><p>If <code>data</code> is a data frame, <code>replace_na()</code> returns a data frame.</p></li>
+<li><p>If <code>data</code> is a vector, <code>replace_na()</code> returns a vector, with class
+given by the union of <code>data</code> and <code>replace</code>.</p></li>
+</ul>
+
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='https://dplyr.tidyverse.org/reference/na_if.html'>na_if</a></code> to replace specified values with a <code>NA</code>.
-<code><a href='https://dplyr.tidyverse.org/reference/coalesce.html'>coalesce</a></code> to replace missing values with a specified
-value.
-<code><a href='https://dplyr.tidyverse.org/reference/recode.html'>recode</a></code> to more generally replace values.</p></div>
-    
+    <div class='dont-index'><p><code><a href='https://dplyr.tidyverse.org/reference/na_if.html'>dplyr::na_if()</a></code> to replace specified values with <code>NA</code>s;
+<code><a href='https://dplyr.tidyverse.org/reference/coalesce.html'>dplyr::coalesce()</a></code> to replaces <code>NA</code>s with values from other vectors.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>dplyr</span>)
-<span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>NA</span>), <span class='kw'>y</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"a"</span>, <span class='fl'>NA</span>, <span class='st'>"b"</span>), <span class='kw'>z</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='fl'>1</span>:<span class='fl'>5</span>, <span class='kw'>NULL</span>, <span class='fl'>10</span>:<span class='fl'>20</span>))
-<span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>replace_na</span>(<span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='st'>"unknown"</span>))</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 3 x 3</span><span>
-#&gt;       x y       z         
-#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;list&gt;</span><span>    
-#&gt; </span><span style='color: #555555;'>1</span><span>     1 a       </span><span style='color: #555555;'>&lt;int [5]&gt;</span><span> 
-#&gt; </span><span style='color: #555555;'>2</span><span>     2 unknown </span><span style='color: #555555;'>&lt;NULL&gt;</span><span>    
-#&gt; </span><span style='color: #555555;'>3</span><span>     0 b       </span><span style='color: #555555;'>&lt;int [11]&gt;</span><span></div><div class='input'><span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'>replace_na</span>(<span class='no'>x</span>, <span class='fl'>0</span>))</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 3 x 3</span><span>
-#&gt;       x y     z         
-#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;list&gt;</span><span>    
-#&gt; </span><span style='color: #555555;'>1</span><span>     1 a     </span><span style='color: #555555;'>&lt;int [5]&gt;</span><span> 
-#&gt; </span><span style='color: #555555;'>2</span><span>     2 </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #555555;'>&lt;NULL&gt;</span><span>    
-#&gt; </span><span style='color: #555555;'>3</span><span>     0 b     </span><span style='color: #555555;'>&lt;int [11]&gt;</span><span></div><div class='input'>
-<span class='co'># NULL are the list-col equivalent of NAs</span>
-<span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>replace_na</span>(<span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>z</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='fl'>5</span>)))</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 3 x 3</span><span>
-#&gt;       x y     z         
-#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;list&gt;</span><span>    
-#&gt; </span><span style='color: #555555;'>1</span><span>     1 a     </span><span style='color: #555555;'>&lt;int [5]&gt;</span><span> 
-#&gt; </span><span style='color: #555555;'>2</span><span>     2 </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #555555;'>&lt;dbl [1]&gt;</span><span> 
-#&gt; </span><span style='color: #555555;'>3</span><span>    </span><span style='color: #BB0000;'>NA</span><span> b     </span><span style='color: #555555;'>&lt;int [11]&gt;</span><span></div><div class='input'>
-<span class='no'>df</span>$<span class='no'>x</span> <span class='kw'>%&gt;%</span> <span class='fu'>replace_na</span>(<span class='fl'>0</span>)</div><div class='output co'>#&gt; [1] 1 2 0</div><div class='input'><span class='no'>df</span>$<span class='no'>y</span> <span class='kw'>%&gt;%</span> <span class='fu'>replace_na</span>(<span class='st'>"unknown"</span>)</div><div class='output co'>#&gt; [1] "a"       "unknown" "b"      </div></span></pre>
+    <pre class="examples"><div class='input'><span class='co'># Replace NAs in a data frame</span>
+<span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>NA</span>), <span class='kw'>y</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"a"</span>, <span class='fl'>NA</span>, <span class='st'>"b"</span>))
+<span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>replace_na</span>(<span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='st'>"unknown"</span>))</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 3 x 2</span><span>
+#&gt;       x y      
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  
+#&gt; </span><span style='color: #555555;'>1</span><span>     1 a      
+#&gt; </span><span style='color: #555555;'>2</span><span>     2 unknown
+#&gt; </span><span style='color: #555555;'>3</span><span>     0 b      </div><div class='input'>
+<span class='co'># Replace NAs in a vector</span>
+<span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'>replace_na</span>(<span class='no'>x</span>, <span class='fl'>0</span>))</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 3 x 2</span><span>
+#&gt;       x y    
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>
+#&gt; </span><span style='color: #555555;'>1</span><span>     1 a    
+#&gt; </span><span style='color: #555555;'>2</span><span>     2 </span><span style='color: #BB0000;'>NA</span><span>   
+#&gt; </span><span style='color: #555555;'>3</span><span>     0 b    </div><div class='input'><span class='co'># OR</span>
+<span class='no'>df</span>$<span class='no'>x</span> <span class='kw'>%&gt;%</span> <span class='fu'>replace_na</span>(<span class='fl'>0</span>)</div><div class='output co'>#&gt; [1] 1 2 0</div><div class='input'><span class='no'>df</span>$<span class='no'>y</span> <span class='kw'>%&gt;%</span> <span class='fu'>replace_na</span>(<span class='st'>"unknown"</span>)</div><div class='output co'>#&gt; [1] "a"       "unknown" "b"      </div><div class='input'>
+<span class='co'># Replace NULLs in a list: NULLs are the list-col equivalent of NAs</span>
+<span class='no'>df_list</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(<span class='kw'>z</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='fl'>1</span>:<span class='fl'>5</span>, <span class='kw'>NULL</span>, <span class='fl'>10</span>:<span class='fl'>20</span>))
+<span class='no'>df_list</span> <span class='kw'>%&gt;%</span> <span class='fu'>replace_na</span>(<span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>z</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='fl'>5</span>)))</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 3 x 1</span><span>
+#&gt;   z         
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;list&gt;</span><span>    
+#&gt; </span><span style='color: #555555;'>1</span><span> </span><span style='color: #555555;'>&lt;int [5]&gt;</span><span> 
+#&gt; </span><span style='color: #555555;'>2</span><span> </span><span style='color: #555555;'>&lt;dbl [1]&gt;</span><span> 
+#&gt; </span><span style='color: #555555;'>3</span><span> </span><span style='color: #555555;'>&lt;int [11]&gt;</span><span></div></span></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#value">Value</a></li>
-
-      <li><a href="#see-also">See also</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 

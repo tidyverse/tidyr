@@ -6,8 +6,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Separate a character column into multiple columns using a regular
-expression separator — separate • tidyr</title>
+<title>Separate a character column into multiple columns with a regular
+expression or numeric locations — separate • tidyr</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -16,23 +16,28 @@ expression separator — separate • tidyr</title>
 <link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
+
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 
 <!-- Bootstrap -->
 <link href="../tidyverse.css" rel="stylesheet">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
 
 <!-- headroom.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -41,14 +46,13 @@ expression separator — separate • tidyr</title>
 
 
 
-<meta property="og:title" content="Separate a character column into multiple columns using a regular
-expression separator — separate" />
-
-<meta property="og:description" content="Given either regular expression or a vector of character positions,
+<meta property="og:title" content="Separate a character column into multiple columns with a regular
+expression or numeric locations — separate" />
+<meta property="og:description" content="Given either a regular expression or a vector of character positions,
 separate() turns a single character column into multiple columns." />
-
 <meta property="og:image" content="https://tidyr.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
+
 
 
 
@@ -73,7 +77,7 @@ separate() turns a single character column into multiple columns." />
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -88,9 +92,9 @@ separate() turns a single character column into multiple columns." />
 
       <div class="navbar-brand-container">
         <a class="navbar-brand" href="../index.html">tidyr</a>
-        <div class="info">
+        <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.0</span>
         </div>
       </div>
     </div>
@@ -110,19 +114,17 @@ separate() turns a single character column into multiple columns." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/in-packages.html">In packages</a>
-    </li>
-    <li>
-      <a href="../articles/nest.html">Nested data</a>
-    </li>
-    <li>
       <a href="../articles/pivot.html">Pivoting</a>
     </li>
     <li>
       <a href="../articles/rectangle.html">Rectangling</a>
     </li>
     <li>
-      <a href="../articles/tidy-data.html">Tidy data</a>
+      <a href="../articles/nest.html">Nested data</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="../articles/index.html">More...</a>
     </li>
   </ul>
 </li>
@@ -133,7 +135,7 @@ separate() turns a single character column into multiple columns." />
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
-    <li class="dropdown-header">Release notes</li>
+    <li class="dropdown-header">Releases</li>
     <li>
       <a href="https://www.tidyverse.org/articles/2019/09/tidyr-1-0-0/">Version 1.0.0</a>
     </li>
@@ -163,12 +165,12 @@ separate() turns a single character column into multiple columns." />
     </li>
     <li class="divider"></li>
     <li>
-      <a href="../news/index.html">Change log</a>
+      <a href="../news/index.html">Changelog</a>
     </li>
   </ul>
 </li>
         <li>
-  <a href="https://github.com/tidyverse/tidyr">
+  <a href="https://github.com/tidyverse/tidyr/">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -186,22 +188,29 @@ separate() turns a single character column into multiple columns." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Separate a character column into multiple columns using a regular
-expression separator</h1>
+    <h1>Separate a character column into multiple columns with a regular
+expression or numeric locations</h1>
     <small class="dont-index">Source: <a href='https://github.com/tidyverse/tidyr/blob/master/R/separate.R'><code>R/separate.R</code></a></small>
     <div class="hidden name"><code>separate.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    
-    <p>Given either regular expression or a vector of character positions,
+    <p>Given either a regular expression or a vector of character positions,
 <code>separate()</code> turns a single character column into multiple columns.</p>
-    
     </div>
 
-    <pre class="usage"><span class='fu'>separate</span>(<span class='no'>data</span>, <span class='no'>col</span>, <span class='no'>into</span>, <span class='kw'>sep</span> <span class='kw'>=</span> <span class='st'>"[^[:alnum:]]+"</span>, <span class='kw'>remove</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>convert</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>extra</span> <span class='kw'>=</span> <span class='st'>"warn"</span>, <span class='kw'>fill</span> <span class='kw'>=</span> <span class='st'>"warn"</span>, <span class='no'>...</span>)</pre>
-    
+    <pre class="usage"><span class='fu'>separate</span>(
+  <span class='no'>data</span>,
+  <span class='no'>col</span>,
+  <span class='no'>into</span>,
+  <span class='kw'>sep</span> <span class='kw'>=</span> <span class='st'>"[^[:alnum:]]+"</span>,
+  <span class='kw'>remove</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>convert</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>extra</span> <span class='kw'>=</span> <span class='st'>"warn"</span>,
+  <span class='kw'>fill</span> <span class='kw'>=</span> <span class='st'>"warn"</span>,
+  <span class='no'>...</span>
+)</pre>
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -212,9 +221,9 @@ expression separator</h1>
     <tr>
       <th>col</th>
       <td><p>Column name or position. This is passed to
-<code><a href='https://rdrr.io/pkg/tidyselect/man/vars_pull.html'>tidyselect::vars_pull()</a></code>.</p>
+<code><a href='https://tidyselect.r-lib.org/reference/vars_pull.html'>tidyselect::vars_pull()</a></code>.</p>
 <p>This argument is passed by expression and supports
-<a href='https://rlang.r-lib.org/reference/quasiquotation.html'>quasiquotation</a> (you can unquote column
+<a href='https://rlang.r-lib.org/reference/nse-force.html'>quasiquotation</a> (you can unquote column
 names or column positions).</p></td>
     </tr>
     <tr>
@@ -225,12 +234,12 @@ Use <code>NA</code> to omit the variable in the output.</p></td>
     <tr>
       <th>sep</th>
       <td><p>Separator between columns.</p>
-<p>If character, is interpreted as a regular expression. The default
+<p>If character, <code>sep</code> is interpreted as a regular expression. The default
 value is a regular expression that matches any sequence of
 non-alphanumeric values.</p>
-<p>If numeric, interpreted as positions to split at. Positive values start
-at 1 at the far-left of the string; negative value start at -1 at the
-far-right of the string. The length of <code>sep</code> should be one less than
+<p>If numeric, <code>sep</code> is interpreted as character positions to split at. Positive
+values start at 1 at the far-left of the string; negative value start at -1 at
+the far-right of the string. The length of <code>sep</code> should be one less than
 <code>into</code>.</p></td>
     </tr>
     <tr>
@@ -267,15 +276,15 @@ happens when there are not enough pieces. There are three valid options:</p><ul>
       <td><p>Additional arguments passed on to methods.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='unite.html'>unite()</a></code>, the complement, <code><a href='extract.html'>extract()</a></code> which uses regular
 expression capturing groups.</p></div>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>dplyr</span>)
+<span class='co'># If you want to split by any non-alphanumeric value (the default):</span>
 <span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>NA</span>, <span class='st'>"a.b"</span>, <span class='st'>"a.d"</span>, <span class='st'>"b.c"</span>))
 <span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>separate</span>(<span class='no'>x</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"A"</span>, <span class='st'>"B"</span>))</div><div class='output co'>#&gt;      A    B
 #&gt; 1 &lt;NA&gt; &lt;NA&gt;
@@ -289,66 +298,52 @@ expression capturing groups.</p></div>
 #&gt; 3    d
 #&gt; 4    c</div><div class='input'>
 <span class='co'># If every row doesn't split into the same number of pieces, use</span>
-<span class='co'># the extra and fill arguments to control what happens</span>
+<span class='co'># the extra and fill arguments to control what happens:</span>
 <span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"a"</span>, <span class='st'>"a b"</span>, <span class='st'>"a b c"</span>, <span class='fl'>NA</span>))
 <span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>separate</span>(<span class='no'>x</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"a"</span>, <span class='st'>"b"</span>))</div><div class='output co'>#&gt; <span class='warning'>Warning: Expected 2 pieces. Additional pieces discarded in 1 rows [3].</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Expected 2 pieces. Missing pieces filled with `NA` in 1 rows [1].</span></div><div class='output co'>#&gt;      a    b
 #&gt; 1    a &lt;NA&gt;
 #&gt; 2    a    b
 #&gt; 3    a    b
-#&gt; 4 &lt;NA&gt; &lt;NA&gt;</div><div class='input'><span class='co'># The same behaviour drops the c but no warnings</span>
+#&gt; 4 &lt;NA&gt; &lt;NA&gt;</div><div class='input'><span class='co'># The same behaviour as previous, but drops the c without warnings:</span>
 <span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>separate</span>(<span class='no'>x</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"a"</span>, <span class='st'>"b"</span>), <span class='kw'>extra</span> <span class='kw'>=</span> <span class='st'>"drop"</span>, <span class='kw'>fill</span> <span class='kw'>=</span> <span class='st'>"right"</span>)</div><div class='output co'>#&gt;      a    b
 #&gt; 1    a &lt;NA&gt;
 #&gt; 2    a    b
 #&gt; 3    a    b
-#&gt; 4 &lt;NA&gt; &lt;NA&gt;</div><div class='input'><span class='co'># Another option:</span>
+#&gt; 4 &lt;NA&gt; &lt;NA&gt;</div><div class='input'><span class='co'># Opposite of previous, keeping the c and filling left:</span>
 <span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>separate</span>(<span class='no'>x</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"a"</span>, <span class='st'>"b"</span>), <span class='kw'>extra</span> <span class='kw'>=</span> <span class='st'>"merge"</span>, <span class='kw'>fill</span> <span class='kw'>=</span> <span class='st'>"left"</span>)</div><div class='output co'>#&gt;      a    b
 #&gt; 1 &lt;NA&gt;    a
 #&gt; 2    a    b
 #&gt; 3    a  b c
-#&gt; 4 &lt;NA&gt; &lt;NA&gt;</div><div class='input'><span class='co'># Or you can keep all three</span>
+#&gt; 4 &lt;NA&gt; &lt;NA&gt;</div><div class='input'><span class='co'># Or you can keep all three:</span>
 <span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>separate</span>(<span class='no'>x</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"a"</span>, <span class='st'>"b"</span>, <span class='st'>"c"</span>))</div><div class='output co'>#&gt; <span class='warning'>Warning: Expected 3 pieces. Missing pieces filled with `NA` in 2 rows [1, 2].</span></div><div class='output co'>#&gt;      a    b    c
 #&gt; 1    a &lt;NA&gt; &lt;NA&gt;
 #&gt; 2    a    b &lt;NA&gt;
 #&gt; 3    a    b    c
 #&gt; 4 &lt;NA&gt; &lt;NA&gt; &lt;NA&gt;</div><div class='input'>
-<span class='co'># If only want to split specified number of times use extra = "merge"</span>
+<span class='co'># To only split a specified number of times use extra = "merge":</span>
 <span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"x: 123"</span>, <span class='st'>"y: error: 7"</span>))
 <span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>separate</span>(<span class='no'>x</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"key"</span>, <span class='st'>"value"</span>), <span class='st'>": "</span>, <span class='kw'>extra</span> <span class='kw'>=</span> <span class='st'>"merge"</span>)</div><div class='output co'>#&gt;   key    value
 #&gt; 1   x      123
 #&gt; 2   y error: 7</div><div class='input'>
 <span class='co'># Use regular expressions to separate on multiple characters:</span>
 <span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>NA</span>, <span class='st'>"a?b"</span>, <span class='st'>"a.d"</span>, <span class='st'>"b:c"</span>))
-<span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>separate</span>(<span class='no'>x</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"A"</span>,<span class='st'>"B"</span>), <span class='kw'>sep</span> <span class='kw'>=</span> <span class='st'>"([\\.\\?\\:])"</span>)</div><div class='output co'>#&gt;      A    B
+<span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>separate</span>(<span class='no'>x</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"A"</span>,<span class='st'>"B"</span>), <span class='kw'>sep</span> <span class='kw'>=</span> <span class='st'>"([.?:])"</span>)</div><div class='output co'>#&gt;      A    B
 #&gt; 1 &lt;NA&gt; &lt;NA&gt;
 #&gt; 2    a    b
 #&gt; 3    a    d
 #&gt; 4    b    c</div><div class='input'>
-<span class='co'># convert = TRUE detects column classes</span>
+<span class='co'># convert = TRUE detects column classes:</span>
 <span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"a:1"</span>, <span class='st'>"a:2"</span>, <span class='st'>"c:4"</span>, <span class='st'>"d"</span>, <span class='fl'>NA</span>))
 <span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>separate</span>(<span class='no'>x</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"key"</span>,<span class='st'>"value"</span>), <span class='st'>":"</span>) <span class='kw'>%&gt;%</span> <span class='no'>str</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Expected 2 pieces. Missing pieces filled with `NA` in 1 rows [4].</span></div><div class='output co'>#&gt; 'data.frame':	5 obs. of  2 variables:
 #&gt;  $ key  : chr  "a" "a" "c" "d" ...
 #&gt;  $ value: chr  "1" "2" "4" NA ...</div><div class='input'><span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>separate</span>(<span class='no'>x</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"key"</span>,<span class='st'>"value"</span>), <span class='st'>":"</span>, <span class='kw'>convert</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>) <span class='kw'>%&gt;%</span> <span class='no'>str</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Expected 2 pieces. Missing pieces filled with `NA` in 1 rows [4].</span></div><div class='output co'>#&gt; 'data.frame':	5 obs. of  2 variables:
 #&gt;  $ key  : chr  "a" "a" "c" "d" ...
-#&gt;  $ value: int  1 2 4 NA NA</div><div class='input'>
-<span class='co'># Argument col can take quasiquotation to work with strings</span>
-<span class='no'>var</span> <span class='kw'>&lt;-</span> <span class='st'>"x"</span>
-<span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>separate</span>(!!<span class='no'>var</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"key"</span>,<span class='st'>"value"</span>), <span class='st'>":"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Expected 2 pieces. Missing pieces filled with `NA` in 1 rows [4].</span></div><div class='output co'>#&gt;    key value
-#&gt; 1    a     1
-#&gt; 2    a     2
-#&gt; 3    c     4
-#&gt; 4    d  &lt;NA&gt;
-#&gt; 5 &lt;NA&gt;  &lt;NA&gt;</div></pre>
+#&gt;  $ value: int  1 2 4 NA NA</div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#see-also">See also</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 

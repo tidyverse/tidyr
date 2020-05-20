@@ -15,23 +15,28 @@
 <link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
+
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 
 <!-- Bootstrap -->
 <link href="../tidyverse.css" rel="stylesheet">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
 
 <!-- headroom.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -41,12 +46,11 @@
 
 
 <meta property="og:title" content="Pivot data from long to wide using a spec — pivot_wider_spec" />
-
 <meta property="og:description" content="This is a low level interface to pivotting, inspired by the cdata package,
 that allows you to describe pivotting with a data frame." />
-
 <meta property="og:image" content="https://tidyr.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
+
 
 
 
@@ -71,7 +75,7 @@ that allows you to describe pivotting with a data frame." />
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -86,9 +90,9 @@ that allows you to describe pivotting with a data frame." />
 
       <div class="navbar-brand-container">
         <a class="navbar-brand" href="../index.html">tidyr</a>
-        <div class="info">
+        <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.0</span>
         </div>
       </div>
     </div>
@@ -108,19 +112,17 @@ that allows you to describe pivotting with a data frame." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/in-packages.html">In packages</a>
-    </li>
-    <li>
-      <a href="../articles/nest.html">Nested data</a>
-    </li>
-    <li>
       <a href="../articles/pivot.html">Pivoting</a>
     </li>
     <li>
       <a href="../articles/rectangle.html">Rectangling</a>
     </li>
     <li>
-      <a href="../articles/tidy-data.html">Tidy data</a>
+      <a href="../articles/nest.html">Nested data</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="../articles/index.html">More...</a>
     </li>
   </ul>
 </li>
@@ -131,7 +133,7 @@ that allows you to describe pivotting with a data frame." />
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
-    <li class="dropdown-header">Release notes</li>
+    <li class="dropdown-header">Releases</li>
     <li>
       <a href="https://www.tidyverse.org/articles/2019/09/tidyr-1-0-0/">Version 1.0.0</a>
     </li>
@@ -161,12 +163,12 @@ that allows you to describe pivotting with a data frame." />
     </li>
     <li class="divider"></li>
     <li>
-      <a href="../news/index.html">Change log</a>
+      <a href="../news/index.html">Changelog</a>
     </li>
   </ul>
 </li>
         <li>
-  <a href="https://github.com/tidyverse/tidyr">
+  <a href="https://github.com/tidyverse/tidyr/">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -190,18 +192,29 @@ that allows you to describe pivotting with a data frame." />
     </div>
 
     <div class="ref-description">
-    
     <p>This is a low level interface to pivotting, inspired by the cdata package,
 that allows you to describe pivotting with a data frame.</p>
-    
     </div>
 
-    <pre class="usage"><span class='fu'>pivot_wider_spec</span>(<span class='no'>data</span>, <span class='no'>spec</span>, <span class='kw'>names_repair</span> <span class='kw'>=</span> <span class='st'>"check_unique"</span>,
-  <span class='kw'>id_cols</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>values_fill</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>values_fn</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
+    <pre class="usage"><span class='fu'>pivot_wider_spec</span>(
+  <span class='no'>data</span>,
+  <span class='no'>spec</span>,
+  <span class='kw'>names_repair</span> <span class='kw'>=</span> <span class='st'>"check_unique"</span>,
+  <span class='kw'>id_cols</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>values_fill</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>values_fn</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
+)
 
-<span class='fu'>build_wider_spec</span>(<span class='no'>data</span>, <span class='kw'>names_from</span> <span class='kw'>=</span> <span class='no'>name</span>, <span class='kw'>values_from</span> <span class='kw'>=</span> <span class='no'>value</span>,
-  <span class='kw'>names_prefix</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>names_sep</span> <span class='kw'>=</span> <span class='st'>"_"</span>)</pre>
-    
+<span class='fu'>build_wider_spec</span>(
+  <span class='no'>data</span>,
+  <span class='kw'>names_from</span> <span class='kw'>=</span> <span class='no'>name</span>,
+  <span class='kw'>values_from</span> <span class='kw'>=</span> <span class='no'>value</span>,
+  <span class='kw'>names_prefix</span> <span class='kw'>=</span> <span class='st'>""</span>,
+  <span class='kw'>names_sep</span> <span class='kw'>=</span> <span class='st'>"_"</span>,
+  <span class='kw'>names_glue</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>names_sort</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
+)</pre>
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -210,45 +223,63 @@ that allows you to describe pivotting with a data frame.</p>
       <td><p>A data frame to pivot.</p></td>
     </tr>
     <tr>
+      <th>spec</th>
+      <td><p>A specification data frame. This is useful for more complex
+pivots because it gives you greater control on how metadata stored in the
+columns become column names in the result.</p>
+<p>Must be a data frame containing character <code>.name</code> and <code>.value</code> columns.
+Additional columns in <code>spec</code> should be named to match columns in the
+long format of the dataset and contain values corresponding to columns
+pivoted from the wide format.
+The special <code>.seq</code> variable is used to disambiguate rows internally;
+it is automatically removed after pivotting.</p></td>
+    </tr>
+    <tr>
       <th>names_repair</th>
-      <td><p>What happen if the output has invalid column names?
+      <td><p>What happens if the output has invalid column names?
 The default, <code>"check_unique"</code> is to error if the columns are duplicated.
 Use <code>"minimal"</code> to allow duplicates in the output, or <code>"unique"</code> to
-de-duplicated by adding numeric suffixes. See <code><a href='https://rdrr.io/pkg/vctrs/man/vec_as_names.html'>vctrs::vec_as_names()</a></code>
+de-duplicated by adding numeric suffixes. See <code><a href='https://vctrs.r-lib.org/reference/vec_as_names.html'>vctrs::vec_as_names()</a></code>
 for more options.</p></td>
     </tr>
     <tr>
       <th>id_cols</th>
-      <td><p>A set of columns that uniquely identifies each observation.
-Defaults to all columns in <code>data</code> except for the columns specified in
-<code>names_from</code> and <code>values_from</code>. Typically used when you have additional
-variables that is directly related.</p></td>
+      <td><p>&lt;<code><a href='tidyr_tidy_select.html'>tidy-select</a></code>&gt; A set of columns that
+uniquely identifies each observation. Defaults to all columns in <code>data</code>
+except for the columns specified in <code>names_from</code> and <code>values_from</code>.
+Typically used when you have redundant variables, i.e. variables whose
+values are perfectly correlated with existing variables.</p></td>
     </tr>
     <tr>
       <th>values_fill</th>
-      <td><p>Optionally, a named list specifying what each <code>value</code>
-should be filled in with when missing.</p></td>
+      <td><p>Optionally, a (scalar) value that specifies what each
+<code>value</code> should be filled in with when missing.</p>
+<p>This can be a named list if you want to apply different aggregations
+to different value columns.</p></td>
     </tr>
     <tr>
       <th>values_fn</th>
-      <td><p>Optionally, a named list providing a function that will be
-applied to the <code>value</code> in each cell in the output. You will typically
-use this when the combination of <code>id_cols</code> and <code>value</code> column does not
-uniquely identify an observation.</p></td>
+      <td><p>Optionally, a function applied to the <code>value</code> in each cell
+in the output. You will typically use this when the combination of
+<code>id_cols</code> and <code>value</code> column does not uniquely identify an observation.</p>
+<p>This can be a named list if you want to apply different aggregations
+to different value columns.</p></td>
     </tr>
     <tr>
       <th>names_from</th>
-      <td><p>A pair of arguments describing which column
-(or columns) to get the name of the output column (<code>name_from</code>), and
-which column (or columns) to get the cell values from (<code>values_from</code>).</p>
+      <td><p>&lt;<code><a href='tidyr_tidy_select.html'>tidy-select</a></code>&gt; A pair of
+arguments describing which column (or columns) to get the name of the
+output column (<code>names_from</code>), and which column (or columns) to get the
+cell values from (<code>values_from</code>).</p>
 <p>If <code>values_from</code> contains multiple values, the value will be added to the
 front of the output column.</p></td>
     </tr>
     <tr>
       <th>values_from</th>
-      <td><p>A pair of arguments describing which column
-(or columns) to get the name of the output column (<code>name_from</code>), and
-which column (or columns) to get the cell values from (<code>values_from</code>).</p>
+      <td><p>&lt;<code><a href='tidyr_tidy_select.html'>tidy-select</a></code>&gt; A pair of
+arguments describing which column (or columns) to get the name of the
+output column (<code>names_from</code>), and which column (or columns) to get the
+cell values from (<code>values_from</code>).</p>
 <p>If <code>values_from</code> contains multiple values, the value will be added to the
 front of the output column.</p></td>
     </tr>
@@ -264,16 +295,105 @@ create syntactic variable names.</p></td>
 variables, this will be used to join their values together into a single
 string to use as a column name.</p></td>
     </tr>
+    <tr>
+      <th>names_glue</th>
+      <td><p>Instead of <code>names_sep</code> and <code>names_prefix</code>, you can supply
+a glue specification that uses the <code>names_from</code> columns (and special
+<code>.value</code>) to create custom column names.</p></td>
+    </tr>
+    <tr>
+      <th>names_sort</th>
+      <td><p>Should the column names be sorted? If <code>FALSE</code>, the default,
+column names are ordered by first appearance.</p></td>
+    </tr>
     </table>
-    
 
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='co'># See vignette("pivot") for examples and explanation</span>
+
+<span class='no'>us_rent_income</span></div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 104 x 5</span><span>
+#&gt;    GEOID NAME       variable estimate   moe
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>      </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>       </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'> 1</span><span> 01    Alabama    income      </span><span style='text-decoration: underline;'>24</span><span>476   136
+#&gt; </span><span style='color: #555555;'> 2</span><span> 01    Alabama    rent          747     3
+#&gt; </span><span style='color: #555555;'> 3</span><span> 02    Alaska     income      </span><span style='text-decoration: underline;'>32</span><span>940   508
+#&gt; </span><span style='color: #555555;'> 4</span><span> 02    Alaska     rent         </span><span style='text-decoration: underline;'>1</span><span>200    13
+#&gt; </span><span style='color: #555555;'> 5</span><span> 04    Arizona    income      </span><span style='text-decoration: underline;'>27</span><span>517   148
+#&gt; </span><span style='color: #555555;'> 6</span><span> 04    Arizona    rent          972     4
+#&gt; </span><span style='color: #555555;'> 7</span><span> 05    Arkansas   income      </span><span style='text-decoration: underline;'>23</span><span>789   165
+#&gt; </span><span style='color: #555555;'> 8</span><span> 05    Arkansas   rent          709     5
+#&gt; </span><span style='color: #555555;'> 9</span><span> 06    California income      </span><span style='text-decoration: underline;'>29</span><span>454   109
+#&gt; </span><span style='color: #555555;'>10</span><span> 06    California rent         </span><span style='text-decoration: underline;'>1</span><span>358     3
+#&gt; </span><span style='color: #555555;'># … with 94 more rows</span><span></div><div class='input'><span class='no'>spec1</span> <span class='kw'>&lt;-</span> <span class='no'>us_rent_income</span> <span class='kw'>%&gt;%</span>
+  <span class='fu'>build_wider_spec</span>(<span class='kw'>names_from</span> <span class='kw'>=</span> <span class='no'>variable</span>, <span class='kw'>values_from</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='no'>estimate</span>, <span class='no'>moe</span>))
+<span class='no'>spec1</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 4 x 3</span><span>
+#&gt;   .name           .value   variable
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>           </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>   
+#&gt; </span><span style='color: #555555;'>1</span><span> estimate_income estimate income  
+#&gt; </span><span style='color: #555555;'>2</span><span> estimate_rent   estimate rent    
+#&gt; </span><span style='color: #555555;'>3</span><span> moe_income      moe      income  
+#&gt; </span><span style='color: #555555;'>4</span><span> moe_rent        moe      rent    </div><div class='input'>
+<span class='no'>us_rent_income</span> <span class='kw'>%&gt;%</span>
+  <span class='fu'>pivot_wider_spec</span>(<span class='no'>spec1</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 52 x 6</span><span>
+#&gt;    GEOID NAME                 estimate_income estimate_rent moe_income moe_rent
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>                          </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>      </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'> 1</span><span> 01    Alabama                        </span><span style='text-decoration: underline;'>24</span><span>476           747        136        3
+#&gt; </span><span style='color: #555555;'> 2</span><span> 02    Alaska                         </span><span style='text-decoration: underline;'>32</span><span>940          </span><span style='text-decoration: underline;'>1</span><span>200        508       13
+#&gt; </span><span style='color: #555555;'> 3</span><span> 04    Arizona                        </span><span style='text-decoration: underline;'>27</span><span>517           972        148        4
+#&gt; </span><span style='color: #555555;'> 4</span><span> 05    Arkansas                       </span><span style='text-decoration: underline;'>23</span><span>789           709        165        5
+#&gt; </span><span style='color: #555555;'> 5</span><span> 06    California                     </span><span style='text-decoration: underline;'>29</span><span>454          </span><span style='text-decoration: underline;'>1</span><span>358        109        3
+#&gt; </span><span style='color: #555555;'> 6</span><span> 08    Colorado                       </span><span style='text-decoration: underline;'>32</span><span>401          </span><span style='text-decoration: underline;'>1</span><span>125        109        5
+#&gt; </span><span style='color: #555555;'> 7</span><span> 09    Connecticut                    </span><span style='text-decoration: underline;'>35</span><span>326          </span><span style='text-decoration: underline;'>1</span><span>123        195        5
+#&gt; </span><span style='color: #555555;'> 8</span><span> 10    Delaware                       </span><span style='text-decoration: underline;'>31</span><span>560          </span><span style='text-decoration: underline;'>1</span><span>076        247       10
+#&gt; </span><span style='color: #555555;'> 9</span><span> 11    District of Columbia           </span><span style='text-decoration: underline;'>43</span><span>198          </span><span style='text-decoration: underline;'>1</span><span>424        681       17
+#&gt; </span><span style='color: #555555;'>10</span><span> 12    Florida                        </span><span style='text-decoration: underline;'>25</span><span>952          </span><span style='text-decoration: underline;'>1</span><span>077         70        3
+#&gt; </span><span style='color: #555555;'># … with 42 more rows</span><span></div><div class='input'>
+<span class='co'># Is equivalent to</span>
+<span class='no'>us_rent_income</span> <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='pivot_wider.html'>pivot_wider</a></span>(<span class='kw'>names_from</span> <span class='kw'>=</span> <span class='no'>variable</span>, <span class='kw'>values_from</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='no'>estimate</span>, <span class='no'>moe</span>))</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 52 x 6</span><span>
+#&gt;    GEOID NAME                 estimate_income estimate_rent moe_income moe_rent
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>                          </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>      </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'> 1</span><span> 01    Alabama                        </span><span style='text-decoration: underline;'>24</span><span>476           747        136        3
+#&gt; </span><span style='color: #555555;'> 2</span><span> 02    Alaska                         </span><span style='text-decoration: underline;'>32</span><span>940          </span><span style='text-decoration: underline;'>1</span><span>200        508       13
+#&gt; </span><span style='color: #555555;'> 3</span><span> 04    Arizona                        </span><span style='text-decoration: underline;'>27</span><span>517           972        148        4
+#&gt; </span><span style='color: #555555;'> 4</span><span> 05    Arkansas                       </span><span style='text-decoration: underline;'>23</span><span>789           709        165        5
+#&gt; </span><span style='color: #555555;'> 5</span><span> 06    California                     </span><span style='text-decoration: underline;'>29</span><span>454          </span><span style='text-decoration: underline;'>1</span><span>358        109        3
+#&gt; </span><span style='color: #555555;'> 6</span><span> 08    Colorado                       </span><span style='text-decoration: underline;'>32</span><span>401          </span><span style='text-decoration: underline;'>1</span><span>125        109        5
+#&gt; </span><span style='color: #555555;'> 7</span><span> 09    Connecticut                    </span><span style='text-decoration: underline;'>35</span><span>326          </span><span style='text-decoration: underline;'>1</span><span>123        195        5
+#&gt; </span><span style='color: #555555;'> 8</span><span> 10    Delaware                       </span><span style='text-decoration: underline;'>31</span><span>560          </span><span style='text-decoration: underline;'>1</span><span>076        247       10
+#&gt; </span><span style='color: #555555;'> 9</span><span> 11    District of Columbia           </span><span style='text-decoration: underline;'>43</span><span>198          </span><span style='text-decoration: underline;'>1</span><span>424        681       17
+#&gt; </span><span style='color: #555555;'>10</span><span> 12    Florida                        </span><span style='text-decoration: underline;'>25</span><span>952          </span><span style='text-decoration: underline;'>1</span><span>077         70        3
+#&gt; </span><span style='color: #555555;'># … with 42 more rows</span><span></div><div class='input'>
+<span class='co'># `pivot-wider_spec()` provides more control over column names and output format</span>
+<span class='co'># instead of creating columns with estimate_ and moe_ prefixes,</span>
+<span class='co'># keep original variable name for estimates and attach _moe as suffix</span>
+<span class='no'>spec2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(
+  <span class='kw'>.name</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"income"</span>, <span class='st'>"rent"</span>, <span class='st'>"income_moe"</span>, <span class='st'>"rent_moe"</span>),
+  <span class='kw'>.value</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"estimate"</span>, <span class='st'>"estimate"</span>, <span class='st'>"moe"</span>, <span class='st'>"moe"</span>),
+  <span class='kw'>variable</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"income"</span>, <span class='st'>"rent"</span>, <span class='st'>"income"</span>, <span class='st'>"rent"</span>)
+)
+
+<span class='no'>us_rent_income</span> <span class='kw'>%&gt;%</span>
+  <span class='fu'>pivot_wider_spec</span>(<span class='no'>spec2</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 52 x 6</span><span>
+#&gt;    GEOID NAME                 income  rent income_moe rent_moe
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>                 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>      </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'> 1</span><span> 01    Alabama               </span><span style='text-decoration: underline;'>24</span><span>476   747        136        3
+#&gt; </span><span style='color: #555555;'> 2</span><span> 02    Alaska                </span><span style='text-decoration: underline;'>32</span><span>940  </span><span style='text-decoration: underline;'>1</span><span>200        508       13
+#&gt; </span><span style='color: #555555;'> 3</span><span> 04    Arizona               </span><span style='text-decoration: underline;'>27</span><span>517   972        148        4
+#&gt; </span><span style='color: #555555;'> 4</span><span> 05    Arkansas              </span><span style='text-decoration: underline;'>23</span><span>789   709        165        5
+#&gt; </span><span style='color: #555555;'> 5</span><span> 06    California            </span><span style='text-decoration: underline;'>29</span><span>454  </span><span style='text-decoration: underline;'>1</span><span>358        109        3
+#&gt; </span><span style='color: #555555;'> 6</span><span> 08    Colorado              </span><span style='text-decoration: underline;'>32</span><span>401  </span><span style='text-decoration: underline;'>1</span><span>125        109        5
+#&gt; </span><span style='color: #555555;'> 7</span><span> 09    Connecticut           </span><span style='text-decoration: underline;'>35</span><span>326  </span><span style='text-decoration: underline;'>1</span><span>123        195        5
+#&gt; </span><span style='color: #555555;'> 8</span><span> 10    Delaware              </span><span style='text-decoration: underline;'>31</span><span>560  </span><span style='text-decoration: underline;'>1</span><span>076        247       10
+#&gt; </span><span style='color: #555555;'> 9</span><span> 11    District of Columbia  </span><span style='text-decoration: underline;'>43</span><span>198  </span><span style='text-decoration: underline;'>1</span><span>424        681       17
+#&gt; </span><span style='color: #555555;'>10</span><span> 12    Florida               </span><span style='text-decoration: underline;'>25</span><span>952  </span><span style='text-decoration: underline;'>1</span><span>077         70        3
+#&gt; </span><span style='color: #555555;'># … with 42 more rows</span><span></div></span></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-                </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 

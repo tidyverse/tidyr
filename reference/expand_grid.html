@@ -15,23 +15,28 @@
 <link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
+
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 
 <!-- Bootstrap -->
 <link href="../tidyverse.css" rel="stylesheet">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
 
 <!-- headroom.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -41,11 +46,10 @@
 
 
 <meta property="og:title" content="Create a tibble from all combinations of inputs — expand_grid" />
-
 <meta property="og:description" content="Create a tibble from all combinations of inputs" />
-
 <meta property="og:image" content="https://tidyr.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
+
 
 
 
@@ -70,7 +74,7 @@
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -85,9 +89,9 @@
 
       <div class="navbar-brand-container">
         <a class="navbar-brand" href="../index.html">tidyr</a>
-        <div class="info">
+        <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.0</span>
         </div>
       </div>
     </div>
@@ -107,19 +111,17 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/in-packages.html">In packages</a>
-    </li>
-    <li>
-      <a href="../articles/nest.html">Nested data</a>
-    </li>
-    <li>
       <a href="../articles/pivot.html">Pivoting</a>
     </li>
     <li>
       <a href="../articles/rectangle.html">Rectangling</a>
     </li>
     <li>
-      <a href="../articles/tidy-data.html">Tidy data</a>
+      <a href="../articles/nest.html">Nested data</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="../articles/index.html">More...</a>
     </li>
   </ul>
 </li>
@@ -130,7 +132,7 @@
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
-    <li class="dropdown-header">Release notes</li>
+    <li class="dropdown-header">Releases</li>
     <li>
       <a href="https://www.tidyverse.org/articles/2019/09/tidyr-1-0-0/">Version 1.0.0</a>
     </li>
@@ -160,12 +162,12 @@
     </li>
     <li class="divider"></li>
     <li>
-      <a href="../news/index.html">Change log</a>
+      <a href="../news/index.html">Changelog</a>
     </li>
   </ul>
 </li>
         <li>
-  <a href="https://github.com/tidyverse/tidyr">
+  <a href="https://github.com/tidyverse/tidyr/">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -189,13 +191,11 @@
     </div>
 
     <div class="ref-description">
-    
     <p>Create a tibble from all combinations of inputs</p>
-    
     </div>
 
-    <pre class="usage"><span class='fu'>expand_grid</span>(<span class='no'>...</span>)</pre>
-    
+    <pre class="usage"><span class='fu'>expand_grid</span>(<span class='no'>...</span>, <span class='kw'>.name_repair</span> <span class='kw'>=</span> <span class='st'>"check_unique"</span>)</pre>
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -204,15 +204,31 @@
       <td><p>Name-value pairs. The name will become the column name in the
 output.</p></td>
     </tr>
+    <tr>
+      <th>.name_repair</th>
+      <td><p>Treatment of problematic column names:</p><ul>
+<li><p><code>"minimal"</code>: No name repair or checks, beyond basic existence,</p></li>
+<li><p><code>"unique"</code>: Make sure names are unique and not empty,</p></li>
+<li><p><code>"check_unique"</code>: (default value), no name repair, but check they are
+<code>unique</code>,</p></li>
+<li><p><code>"universal"</code>: Make the names <code>unique</code> and syntactic</p></li>
+<li><p>a function: apply custom name repair (e.g., <code>.name_repair = make.names</code>
+for names in the style of base R).</p></li>
+<li><p>A purrr-style anonymous function, see <code><a href='https://rlang.r-lib.org/reference/as_function.html'>rlang::as_function()</a></code></p></li>
+</ul>
+
+<p>This argument is passed on as <code>repair</code> to <code><a href='https://vctrs.r-lib.org/reference/vec_as_names.html'>vctrs::vec_as_names()</a></code>.
+See there for more details on these terms and the strategies used
+to enforce them.</p></td>
+    </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A tibble with one column for each input in <code>...</code>. The output
 will have one row for each combination of the inputs, i.e. the size
 be equal to the product of the sizes of the inputs. This implies
 that if any input has length 0, the output will have zero rows.</p>
-    
     <h2 class="hasAnchor" id="compared-to-expand-grid"><a class="anchor" href="#compared-to-expand-grid"></a>Compared to <a href='https://rdrr.io/r/base/expand.grid.html'>expand.grid</a></h2>
 
     
@@ -225,7 +241,6 @@ that if any input has length 0, the output will have zero rows.</p>
 <li><p>Can expand any generalised vector, including data frames.</p></li>
 </ul>
 
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>expand_grid</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>3</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>2</span>)</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 6 x 2</span><span>
@@ -268,18 +283,10 @@ that if any input has length 0, the output will have zero rows.</p>
 #&gt; </span><span style='color: #555555;'>3</span><span>      2     4      5     7
 #&gt; </span><span style='color: #555555;'>4</span><span>      2     4      6     8</div></span></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#value">Value</a></li>
-
-      <li><a href="#compared-to-expand-grid">Compared to <a href='https://rdrr.io/r/base/expand.grid.html'>expand.grid</a></a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 

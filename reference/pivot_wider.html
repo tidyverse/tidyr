@@ -15,23 +15,28 @@
 <link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
+
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 
 <!-- Bootstrap -->
 <link href="../tidyverse.css" rel="stylesheet">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
 
 <!-- headroom.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -41,15 +46,14 @@
 
 
 <meta property="og:title" content="Pivot data from long to wide — pivot_wider" />
-
 <meta property="og:description" content="
 pivot_wider() &quot;widens&quot; data, increasing the number of columns and
 decreasing the number of rows. The inverse transformation is
 pivot_longer().
 Learn more in vignette(&quot;pivot&quot;)." />
-
 <meta property="og:image" content="https://tidyr.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
+
 
 
 
@@ -74,7 +78,7 @@ Learn more in vignette(&quot;pivot&quot;)." />
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -89,9 +93,9 @@ Learn more in vignette(&quot;pivot&quot;)." />
 
       <div class="navbar-brand-container">
         <a class="navbar-brand" href="../index.html">tidyr</a>
-        <div class="info">
+        <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.0</span>
         </div>
       </div>
     </div>
@@ -111,19 +115,17 @@ Learn more in vignette(&quot;pivot&quot;)." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/in-packages.html">In packages</a>
-    </li>
-    <li>
-      <a href="../articles/nest.html">Nested data</a>
-    </li>
-    <li>
       <a href="../articles/pivot.html">Pivoting</a>
     </li>
     <li>
       <a href="../articles/rectangle.html">Rectangling</a>
     </li>
     <li>
-      <a href="../articles/tidy-data.html">Tidy data</a>
+      <a href="../articles/nest.html">Nested data</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="../articles/index.html">More...</a>
     </li>
   </ul>
 </li>
@@ -134,7 +136,7 @@ Learn more in vignette(&quot;pivot&quot;)." />
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
-    <li class="dropdown-header">Release notes</li>
+    <li class="dropdown-header">Releases</li>
     <li>
       <a href="https://www.tidyverse.org/articles/2019/09/tidyr-1-0-0/">Version 1.0.0</a>
     </li>
@@ -164,12 +166,12 @@ Learn more in vignette(&quot;pivot&quot;)." />
     </li>
     <li class="divider"></li>
     <li>
-      <a href="../news/index.html">Change log</a>
+      <a href="../news/index.html">Changelog</a>
     </li>
   </ul>
 </li>
         <li>
-  <a href="https://github.com/tidyverse/tidyr">
+  <a href="https://github.com/tidyverse/tidyr/">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -193,19 +195,28 @@ Learn more in vignette(&quot;pivot&quot;)." />
     </div>
 
     <div class="ref-description">
-    
     <p><a href='https://www.tidyverse.org/lifecycle/#maturing'><img src='figures/lifecycle-maturing.svg' alt='Maturing lifecycle'></a></p>
 <p><code>pivot_wider()</code> "widens" data, increasing the number of columns and
 decreasing the number of rows. The inverse transformation is
 <code><a href='pivot_longer.html'>pivot_longer()</a></code>.</p>
 <p>Learn more in <code><a href='../articles/pivot.html'>vignette("pivot")</a></code>.</p>
-    
     </div>
 
-    <pre class="usage"><span class='fu'>pivot_wider</span>(<span class='no'>data</span>, <span class='kw'>id_cols</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>names_from</span> <span class='kw'>=</span> <span class='no'>name</span>,
-  <span class='kw'>names_prefix</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>names_sep</span> <span class='kw'>=</span> <span class='st'>"_"</span>, <span class='kw'>names_repair</span> <span class='kw'>=</span> <span class='st'>"check_unique"</span>,
-  <span class='kw'>values_from</span> <span class='kw'>=</span> <span class='no'>value</span>, <span class='kw'>values_fill</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>values_fn</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
-    
+    <pre class="usage"><span class='fu'>pivot_wider</span>(
+  <span class='no'>data</span>,
+  <span class='kw'>id_cols</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>names_from</span> <span class='kw'>=</span> <span class='no'>name</span>,
+  <span class='kw'>names_prefix</span> <span class='kw'>=</span> <span class='st'>""</span>,
+  <span class='kw'>names_sep</span> <span class='kw'>=</span> <span class='st'>"_"</span>,
+  <span class='kw'>names_glue</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>names_sort</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>names_repair</span> <span class='kw'>=</span> <span class='st'>"check_unique"</span>,
+  <span class='kw'>values_from</span> <span class='kw'>=</span> <span class='no'>value</span>,
+  <span class='kw'>values_fill</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>values_fn</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='no'>...</span>
+)</pre>
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -215,16 +226,18 @@ decreasing the number of rows. The inverse transformation is
     </tr>
     <tr>
       <th>id_cols</th>
-      <td><p>A set of columns that uniquely identifies each observation.
-Defaults to all columns in <code>data</code> except for the columns specified in
-<code>names_from</code> and <code>values_from</code>. Typically used when you have additional
-variables that is directly related.</p></td>
+      <td><p>&lt;<code><a href='tidyr_tidy_select.html'>tidy-select</a></code>&gt; A set of columns that
+uniquely identifies each observation. Defaults to all columns in <code>data</code>
+except for the columns specified in <code>names_from</code> and <code>values_from</code>.
+Typically used when you have redundant variables, i.e. variables whose
+values are perfectly correlated with existing variables.</p></td>
     </tr>
     <tr>
       <th>names_from, values_from</th>
-      <td><p>A pair of arguments describing which column
-(or columns) to get the name of the output column (<code>name_from</code>), and
-which column (or columns) to get the cell values from (<code>values_from</code>).</p>
+      <td><p>&lt;<code><a href='tidyr_tidy_select.html'>tidy-select</a></code>&gt; A pair of
+arguments describing which column (or columns) to get the name of the
+output column (<code>names_from</code>), and which column (or columns) to get the
+cell values from (<code>values_from</code>).</p>
 <p>If <code>values_from</code> contains multiple values, the value will be added to the
 front of the output column.</p></td>
     </tr>
@@ -241,39 +254,55 @@ variables, this will be used to join their values together into a single
 string to use as a column name.</p></td>
     </tr>
     <tr>
+      <th>names_glue</th>
+      <td><p>Instead of <code>names_sep</code> and <code>names_prefix</code>, you can supply
+a glue specification that uses the <code>names_from</code> columns (and special
+<code>.value</code>) to create custom column names.</p></td>
+    </tr>
+    <tr>
+      <th>names_sort</th>
+      <td><p>Should the column names be sorted? If <code>FALSE</code>, the default,
+column names are ordered by first appearance.</p></td>
+    </tr>
+    <tr>
       <th>names_repair</th>
-      <td><p>What happen if the output has invalid column names?
+      <td><p>What happens if the output has invalid column names?
 The default, <code>"check_unique"</code> is to error if the columns are duplicated.
 Use <code>"minimal"</code> to allow duplicates in the output, or <code>"unique"</code> to
-de-duplicated by adding numeric suffixes. See <code><a href='https://rdrr.io/pkg/vctrs/man/vec_as_names.html'>vctrs::vec_as_names()</a></code>
+de-duplicated by adding numeric suffixes. See <code><a href='https://vctrs.r-lib.org/reference/vec_as_names.html'>vctrs::vec_as_names()</a></code>
 for more options.</p></td>
     </tr>
     <tr>
       <th>values_fill</th>
-      <td><p>Optionally, a named list specifying what each <code>value</code>
-should be filled in with when missing.</p></td>
+      <td><p>Optionally, a (scalar) value that specifies what each
+<code>value</code> should be filled in with when missing.</p>
+<p>This can be a named list if you want to apply different aggregations
+to different value columns.</p></td>
     </tr>
     <tr>
       <th>values_fn</th>
-      <td><p>Optionally, a named list providing a function that will be
-applied to the <code>value</code> in each cell in the output. You will typically
-use this when the combination of <code>id_cols</code> and <code>value</code> column does not
-uniquely identify an observation.</p></td>
+      <td><p>Optionally, a function applied to the <code>value</code> in each cell
+in the output. You will typically use this when the combination of
+<code>id_cols</code> and <code>value</code> column does not uniquely identify an observation.</p>
+<p>This can be a named list if you want to apply different aggregations
+to different value columns.</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>Additional arguments passed on to methods.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p><code>pivot_wider()</code> is an updated approach to <code><a href='spread.html'>spread()</a></code>, designed to be both
 simpler to use and to handle more use cases. We recommend you use
 <code>pivot_wider()</code> for new code; <code><a href='spread.html'>spread()</a></code> isn't going away but is no longer
 under active development.</p>
-    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='pivot_wider_spec.html'>pivot_wider_spec()</a></code> to pivot "by hand" with a data frame that
 defines a pivotting specification.</p></div>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># See vignette("pivot") for examples and explanation</span>
@@ -315,11 +344,7 @@ defines a pivotting specification.</p></div>
 #&gt; </span><span style='color: #555555;'>18</span><span> 4864        1     1     </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>      </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>
 #&gt; </span><span style='color: #555555;'>19</span><span> 4865        1     1      1    </span><span style='color: #BB0000;'>NA</span><span>      </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span></div><div class='input'><span class='co'># Fill in missing values</span>
 <span class='no'>fish_encounters</span> <span class='kw'>%&gt;%</span>
-  <span class='fu'>pivot_wider</span>(
-    <span class='kw'>names_from</span> <span class='kw'>=</span> <span class='no'>station</span>,
-    <span class='kw'>values_from</span> <span class='kw'>=</span> <span class='no'>seen</span>,
-    <span class='kw'>values_fill</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>seen</span> <span class='kw'>=</span> <span class='fl'>0</span>)
-  )</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 19 x 12</span><span>
+  <span class='fu'>pivot_wider</span>(<span class='kw'>names_from</span> <span class='kw'>=</span> <span class='no'>station</span>, <span class='kw'>values_from</span> <span class='kw'>=</span> <span class='no'>seen</span>, <span class='kw'>values_fill</span> <span class='kw'>=</span> <span class='fl'>0</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 19 x 12</span><span>
 #&gt;    fish  Release I80_1 Lisbon  Rstr Base_TD   BCE   BCW  BCE2  BCW2   MAE   MAW
 #&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
 #&gt; </span><span style='color: #555555;'> 1</span><span> 4842        1     1      1     1       1     1     1     1     1     1     1
@@ -370,6 +395,45 @@ defines a pivotting specification.</p></div>
 #&gt; </span><span style='color: #555555;'> 9</span><span> 11    District of Columbia           </span><span style='text-decoration: underline;'>43</span><span>198          </span><span style='text-decoration: underline;'>1</span><span>424        681       17
 #&gt; </span><span style='color: #555555;'>10</span><span> 12    Florida                        </span><span style='text-decoration: underline;'>25</span><span>952          </span><span style='text-decoration: underline;'>1</span><span>077         70        3
 #&gt; </span><span style='color: #555555;'># … with 42 more rows</span><span></div><div class='input'>
+<span class='co'># When there are multiple `names_from` or `values_from`, you can use</span>
+<span class='co'># use `names_sep` or `names_glue` to control the output variable names</span>
+<span class='no'>us_rent_income</span> <span class='kw'>%&gt;%</span>
+  <span class='fu'>pivot_wider</span>(
+    <span class='kw'>names_from</span> <span class='kw'>=</span> <span class='no'>variable</span>,
+    <span class='kw'>names_sep</span> <span class='kw'>=</span> <span class='st'>"."</span>,
+    <span class='kw'>values_from</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='no'>estimate</span>, <span class='no'>moe</span>)
+  )</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 52 x 6</span><span>
+#&gt;    GEOID NAME                 estimate.income estimate.rent moe.income moe.rent
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>                          </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>      </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'> 1</span><span> 01    Alabama                        </span><span style='text-decoration: underline;'>24</span><span>476           747        136        3
+#&gt; </span><span style='color: #555555;'> 2</span><span> 02    Alaska                         </span><span style='text-decoration: underline;'>32</span><span>940          </span><span style='text-decoration: underline;'>1</span><span>200        508       13
+#&gt; </span><span style='color: #555555;'> 3</span><span> 04    Arizona                        </span><span style='text-decoration: underline;'>27</span><span>517           972        148        4
+#&gt; </span><span style='color: #555555;'> 4</span><span> 05    Arkansas                       </span><span style='text-decoration: underline;'>23</span><span>789           709        165        5
+#&gt; </span><span style='color: #555555;'> 5</span><span> 06    California                     </span><span style='text-decoration: underline;'>29</span><span>454          </span><span style='text-decoration: underline;'>1</span><span>358        109        3
+#&gt; </span><span style='color: #555555;'> 6</span><span> 08    Colorado                       </span><span style='text-decoration: underline;'>32</span><span>401          </span><span style='text-decoration: underline;'>1</span><span>125        109        5
+#&gt; </span><span style='color: #555555;'> 7</span><span> 09    Connecticut                    </span><span style='text-decoration: underline;'>35</span><span>326          </span><span style='text-decoration: underline;'>1</span><span>123        195        5
+#&gt; </span><span style='color: #555555;'> 8</span><span> 10    Delaware                       </span><span style='text-decoration: underline;'>31</span><span>560          </span><span style='text-decoration: underline;'>1</span><span>076        247       10
+#&gt; </span><span style='color: #555555;'> 9</span><span> 11    District of Columbia           </span><span style='text-decoration: underline;'>43</span><span>198          </span><span style='text-decoration: underline;'>1</span><span>424        681       17
+#&gt; </span><span style='color: #555555;'>10</span><span> 12    Florida                        </span><span style='text-decoration: underline;'>25</span><span>952          </span><span style='text-decoration: underline;'>1</span><span>077         70        3
+#&gt; </span><span style='color: #555555;'># … with 42 more rows</span><span></div><div class='input'><span class='no'>us_rent_income</span> <span class='kw'>%&gt;%</span>
+  <span class='fu'>pivot_wider</span>(
+    <span class='kw'>names_from</span> <span class='kw'>=</span> <span class='no'>variable</span>,
+    <span class='kw'>names_glue</span> <span class='kw'>=</span> <span class='st'>"{variable}_{.value}"</span>,
+    <span class='kw'>values_from</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='no'>estimate</span>, <span class='no'>moe</span>)
+  )</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 52 x 6</span><span>
+#&gt;    GEOID NAME                 income_estimate rent_estimate income_moe rent_moe
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>                          </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>      </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'> 1</span><span> 01    Alabama                        </span><span style='text-decoration: underline;'>24</span><span>476           747        136        3
+#&gt; </span><span style='color: #555555;'> 2</span><span> 02    Alaska                         </span><span style='text-decoration: underline;'>32</span><span>940          </span><span style='text-decoration: underline;'>1</span><span>200        508       13
+#&gt; </span><span style='color: #555555;'> 3</span><span> 04    Arizona                        </span><span style='text-decoration: underline;'>27</span><span>517           972        148        4
+#&gt; </span><span style='color: #555555;'> 4</span><span> 05    Arkansas                       </span><span style='text-decoration: underline;'>23</span><span>789           709        165        5
+#&gt; </span><span style='color: #555555;'> 5</span><span> 06    California                     </span><span style='text-decoration: underline;'>29</span><span>454          </span><span style='text-decoration: underline;'>1</span><span>358        109        3
+#&gt; </span><span style='color: #555555;'> 6</span><span> 08    Colorado                       </span><span style='text-decoration: underline;'>32</span><span>401          </span><span style='text-decoration: underline;'>1</span><span>125        109        5
+#&gt; </span><span style='color: #555555;'> 7</span><span> 09    Connecticut                    </span><span style='text-decoration: underline;'>35</span><span>326          </span><span style='text-decoration: underline;'>1</span><span>123        195        5
+#&gt; </span><span style='color: #555555;'> 8</span><span> 10    Delaware                       </span><span style='text-decoration: underline;'>31</span><span>560          </span><span style='text-decoration: underline;'>1</span><span>076        247       10
+#&gt; </span><span style='color: #555555;'> 9</span><span> 11    District of Columbia           </span><span style='text-decoration: underline;'>43</span><span>198          </span><span style='text-decoration: underline;'>1</span><span>424        681       17
+#&gt; </span><span style='color: #555555;'>10</span><span> 12    Florida                        </span><span style='text-decoration: underline;'>25</span><span>952          </span><span style='text-decoration: underline;'>1</span><span>077         70        3
+#&gt; </span><span style='color: #555555;'># … with 42 more rows</span><span></div><div class='input'>
 <span class='co'># Can perform aggregation with values_fn</span>
 <span class='no'>warpbreaks</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/as_tibble.html'>as_tibble</a></span>(<span class='no'>warpbreaks</span>[<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"wool"</span>, <span class='st'>"tension"</span>, <span class='st'>"breaks"</span>)])
 <span class='no'>warpbreaks</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 54 x 3</span><span>
@@ -389,7 +453,7 @@ defines a pivotting specification.</p></div>
   <span class='fu'>pivot_wider</span>(
     <span class='kw'>names_from</span> <span class='kw'>=</span> <span class='no'>wool</span>,
     <span class='kw'>values_from</span> <span class='kw'>=</span> <span class='no'>breaks</span>,
-    <span class='kw'>values_fn</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>breaks</span> <span class='kw'>=</span> <span class='no'>mean</span>)
+    <span class='kw'>values_fn</span> <span class='kw'>=</span> <span class='no'>mean</span>
   )</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 3 x 3</span><span>
 #&gt;   tension     A     B
 #&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
@@ -397,18 +461,10 @@ defines a pivotting specification.</p></div>
 #&gt; </span><span style='color: #555555;'>2</span><span> M        24    28.8
 #&gt; </span><span style='color: #555555;'>3</span><span> H        24.6  18.8</div></span></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#details">Details</a></li>
-
-      <li><a href="#see-also">See also</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 

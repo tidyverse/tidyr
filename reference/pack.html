@@ -15,23 +15,28 @@
 <link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
+
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 
 <!-- Bootstrap -->
 <link href="../tidyverse.css" rel="stylesheet">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
 
 <!-- headroom.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -41,15 +46,14 @@
 
 
 <meta property="og:title" content="Pack and unpack — pack" />
-
 <meta property="og:description" content="
 Packing and unpacking preserve the length of a data frame, changing its
 width. pack() makes df narrow by collapsing a set of columns into a
 single df-column. unpack() makes data wider by expanding df-columns
 back out into individual columns." />
-
 <meta property="og:image" content="https://tidyr.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
+
 
 
 
@@ -74,7 +78,7 @@ back out into individual columns." />
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -89,9 +93,9 @@ back out into individual columns." />
 
       <div class="navbar-brand-container">
         <a class="navbar-brand" href="../index.html">tidyr</a>
-        <div class="info">
+        <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.0</span>
         </div>
       </div>
     </div>
@@ -111,19 +115,17 @@ back out into individual columns." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/in-packages.html">In packages</a>
-    </li>
-    <li>
-      <a href="../articles/nest.html">Nested data</a>
-    </li>
-    <li>
       <a href="../articles/pivot.html">Pivoting</a>
     </li>
     <li>
       <a href="../articles/rectangle.html">Rectangling</a>
     </li>
     <li>
-      <a href="../articles/tidy-data.html">Tidy data</a>
+      <a href="../articles/nest.html">Nested data</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="../articles/index.html">More...</a>
     </li>
   </ul>
 </li>
@@ -134,7 +136,7 @@ back out into individual columns." />
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
-    <li class="dropdown-header">Release notes</li>
+    <li class="dropdown-header">Releases</li>
     <li>
       <a href="https://www.tidyverse.org/articles/2019/09/tidyr-1-0-0/">Version 1.0.0</a>
     </li>
@@ -164,12 +166,12 @@ back out into individual columns." />
     </li>
     <li class="divider"></li>
     <li>
-      <a href="../news/index.html">Change log</a>
+      <a href="../news/index.html">Changelog</a>
     </li>
   </ul>
 </li>
         <li>
-  <a href="https://github.com/tidyverse/tidyr">
+  <a href="https://github.com/tidyverse/tidyr/">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -193,43 +195,45 @@ back out into individual columns." />
     </div>
 
     <div class="ref-description">
-    
     <p><a href='https://www.tidyverse.org/lifecycle/#maturing'><img src='figures/lifecycle-maturing.svg' alt='Maturing lifecycle'></a></p>
 <p>Packing and unpacking preserve the length of a data frame, changing its
 width. <code>pack()</code> makes <code>df</code> narrow by collapsing a set of columns into a
 single df-column. <code>unpack()</code> makes <code>data</code> wider by expanding df-columns
 back out into individual columns.</p>
-    
     </div>
 
-    <pre class="usage"><span class='fu'>pack</span>(<span class='no'>data</span>, <span class='no'>...</span>)
+    <pre class="usage"><span class='fu'>pack</span>(<span class='no'>.data</span>, <span class='no'>...</span>, <span class='kw'>.names_sep</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
 
 <span class='fu'>unpack</span>(<span class='no'>data</span>, <span class='no'>cols</span>, <span class='kw'>names_sep</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>names_repair</span> <span class='kw'>=</span> <span class='st'>"check_unique"</span>)</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>data</th>
+      <th>...</th>
+      <td><p>&lt;<code><a href='tidyr_tidy_select.html'>tidy-select</a></code>&gt; Columns to pack, specified
+using name-variable pairs of the form <code>new_col = c(col1, col2, col3)</code>.
+The right hand side can be any valid tidy select expression.</p></td>
+    </tr>
+    <tr>
+      <th>data, .data</th>
       <td><p>A data frame.</p></td>
     </tr>
     <tr>
-      <th>...</th>
-      <td><p>Name-variable pairs of the form <code>new_col = c(col1, col2, col3)</code>,
-that describe how you wish to pack existing columns into new columns.
-The right hand side can be any expression supported by tidyselect.</p></td>
-    </tr>
-    <tr>
       <th>cols</th>
-      <td><p>Name of column that you wish to unpack.</p></td>
+      <td><p>&lt;<code><a href='tidyr_tidy_select.html'>tidy-select</a></code>&gt; Column to unpack.</p></td>
     </tr>
     <tr>
-      <th>names_sep</th>
-      <td><p>If <code>NULL</code>, the default, the names of new columns will
-come directly from the inner data frame.</p>
-<p>If a string, the names of the new columns will be formed by pasting
-together the outer column name with the inner names, separated by
-<code>names_sep</code>.</p></td>
+      <th>names_sep, .names_sep</th>
+      <td><p>If <code>NULL</code>, the default, the names will be left
+as is. In <code>pack()</code>, inner names will come from the former outer names;
+in <code>unpack()</code>, the new outer names will come from the inner names.</p>
+<p>If a string, the inner and outer names will be used together. In <code>pack()</code>,
+the names of the new outer columns will be formed by pasting together the
+outer and the inner column names, separated by <code>names_sep</code>. In <code>unpack()</code>,
+the new inner names will have the outer names (+ <code>names_sep</code>) automatically
+stripped. This makes <code>names_sep</code> roughly symmetric between packing
+and unpacking.</p></td>
     </tr>
     <tr>
       <th>names_repair</th>
@@ -244,18 +248,17 @@ names. Must be one of the following options:</p><ul>
 <li><p>a formula: a purrr-style anonymous function (see <code><a href='https://rlang.r-lib.org/reference/as_function.html'>rlang::as_function()</a></code>)</p></li>
 </ul>
 
-<p>See <code><a href='https://rdrr.io/pkg/vctrs/man/vec_as_names.html'>vctrs::vec_as_names()</a></code> for more details on these terms and the
+<p>See <code><a href='https://vctrs.r-lib.org/reference/vec_as_names.html'>vctrs::vec_as_names()</a></code> for more details on these terms and the
 strategies used to enforce them.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>Generally, unpacking is more useful than packing because it simplifies
 a complex data structure. Currently, few functions work with df-cols,
 and they are mostly a curiosity, but seem worth exploring further because
 they mimic the nested column headers that are so popular in Excel.</p>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># Packing =============================================================</span>
@@ -267,7 +270,7 @@ they mimic the nested column headers that are so popular in Excel.</p>
 #&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
 #&gt; </span><span style='color: #555555;'>1</span><span>     1     4     7     1
 #&gt; </span><span style='color: #555555;'>2</span><span>     2     5     8     2
-#&gt; </span><span style='color: #555555;'>3</span><span>     3     6     9     3</div><div class='input'><span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>pack</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/pkg/tidyselect/man/select_helpers.html'>starts_with</a></span>(<span class='st'>"x"</span>))</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 3 x 2</span><span>
+#&gt; </span><span style='color: #555555;'>3</span><span>     3     6     9     3</div><div class='input'><span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>pack</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'><a href='https://tidyselect.r-lib.org/reference/starts_with.html'>starts_with</a></span>(<span class='st'>"x"</span>))</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 3 x 2</span><span>
 #&gt;       y  x$x1   $x2   $x3
 #&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
 #&gt; </span><span style='color: #555555;'>1</span><span>     1     1     4     7
@@ -278,6 +281,28 @@ they mimic the nested column headers that are so popular in Excel.</p>
 #&gt; </span><span style='color: #555555;'>1</span><span>     1     4     7     1
 #&gt; </span><span style='color: #555555;'>2</span><span>     2     5     8     2
 #&gt; </span><span style='color: #555555;'>3</span><span>     3     6     9     3</div><div class='input'>
+<span class='co'># .names_sep allows you to strip off common prefixes; this</span>
+<span class='co'># acts as a natural inverse to name_sep in unpack()</span>
+<span class='no'>iris</span> <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='https://tibble.tidyverse.org/reference/as_tibble.html'>as_tibble</a></span>() <span class='kw'>%&gt;%</span>
+  <span class='fu'>pack</span>(
+    <span class='kw'>Sepal</span> <span class='kw'>=</span> <span class='fu'><a href='https://tidyselect.r-lib.org/reference/starts_with.html'>starts_with</a></span>(<span class='st'>"Sepal"</span>),
+    <span class='kw'>Petal</span> <span class='kw'>=</span> <span class='fu'><a href='https://tidyselect.r-lib.org/reference/starts_with.html'>starts_with</a></span>(<span class='st'>"Petal"</span>),
+    <span class='kw'>.names_sep</span> <span class='kw'>=</span> <span class='st'>"."</span>
+  )</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 150 x 3</span><span>
+#&gt;    Species Sepal$Length $Width Petal$Length $Width
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>          </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>        </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'> 1</span><span> setosa           5.1    3.5          1.4    0.2
+#&gt; </span><span style='color: #555555;'> 2</span><span> setosa           4.9    3            1.4    0.2
+#&gt; </span><span style='color: #555555;'> 3</span><span> setosa           4.7    3.2          1.3    0.2
+#&gt; </span><span style='color: #555555;'> 4</span><span> setosa           4.6    3.1          1.5    0.2
+#&gt; </span><span style='color: #555555;'> 5</span><span> setosa           5      3.6          1.4    0.2
+#&gt; </span><span style='color: #555555;'> 6</span><span> setosa           5.4    3.9          1.7    0.4
+#&gt; </span><span style='color: #555555;'> 7</span><span> setosa           4.6    3.4          1.4    0.3
+#&gt; </span><span style='color: #555555;'> 8</span><span> setosa           5      3.4          1.5    0.2
+#&gt; </span><span style='color: #555555;'> 9</span><span> setosa           4.4    2.9          1.4    0.2
+#&gt; </span><span style='color: #555555;'>10</span><span> setosa           4.9    3.1          1.5    0.1
+#&gt; </span><span style='color: #555555;'># … with 140 more rows</span><span></div><div class='input'>
 <span class='co'># Unpacking ===========================================================</span>
 <span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(
   <span class='kw'>x</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>3</span>,
@@ -285,37 +310,31 @@ they mimic the nested column headers that are so popular in Excel.</p>
   <span class='kw'>z</span> <span class='kw'>=</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(<span class='kw'>X</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"a"</span>, <span class='st'>"b"</span>, <span class='st'>"c"</span>), <span class='kw'>Y</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span>(<span class='fl'>3</span>), <span class='kw'>Z</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>TRUE</span>, <span class='fl'>FALSE</span>, <span class='fl'>NA</span>))
 )
 <span class='no'>df</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 3 x 3</span><span>
-#&gt;       x   y$a    $b z$X      $Y $Z   
-#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'>1</span><span>     1     1     3 a     0.401 TRUE 
-#&gt; </span><span style='color: #555555;'>2</span><span>     2     2     2 b     0.213 FALSE
-#&gt; </span><span style='color: #555555;'>3</span><span>     3     3     1 c     0.672 </span><span style='color: #BB0000;'>NA</span><span>   </div><div class='input'><span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>unpack</span>(<span class='no'>y</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 3 x 4</span><span>
-#&gt;       x     a     b z$X      $Y $Z   
-#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'>1</span><span>     1     1     3 a     0.401 TRUE 
-#&gt; </span><span style='color: #555555;'>2</span><span>     2     2     2 b     0.213 FALSE
-#&gt; </span><span style='color: #555555;'>3</span><span>     3     3     1 c     0.672 </span><span style='color: #BB0000;'>NA</span><span>   </div><div class='input'><span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>unpack</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='no'>y</span>, <span class='no'>z</span>))</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 3 x 6</span><span>
-#&gt;       x     a     b X         Y Z    
-#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'>1</span><span>     1     1     3 a     0.401 TRUE 
-#&gt; </span><span style='color: #555555;'>2</span><span>     2     2     2 b     0.213 FALSE
-#&gt; </span><span style='color: #555555;'>3</span><span>     3     3     1 c     0.672 </span><span style='color: #BB0000;'>NA</span><span>   </div><div class='input'><span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>unpack</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='no'>y</span>, <span class='no'>z</span>), <span class='kw'>names_sep</span> <span class='kw'>=</span> <span class='st'>"_"</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 3 x 6</span><span>
-#&gt;       x   y_a   y_b z_X     z_Y z_Z  
-#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'>1</span><span>     1     1     3 a     0.401 TRUE 
-#&gt; </span><span style='color: #555555;'>2</span><span>     2     2     2 b     0.213 FALSE
-#&gt; </span><span style='color: #555555;'>3</span><span>     3     3     1 c     0.672 </span><span style='color: #BB0000;'>NA</span><span>   </div></span></pre>
+#&gt;       x   y$a    $b z$X       $Y $Z   
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'>1</span><span>     1     1     3 a     0.028</span><span style='text-decoration: underline;'>1</span><span> TRUE 
+#&gt; </span><span style='color: #555555;'>2</span><span>     2     2     2 b     0.466  FALSE
+#&gt; </span><span style='color: #555555;'>3</span><span>     3     3     1 c     0.390  </span><span style='color: #BB0000;'>NA</span><span>   </div><div class='input'><span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>unpack</span>(<span class='no'>y</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 3 x 4</span><span>
+#&gt;       x     a     b z$X       $Y $Z   
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'>1</span><span>     1     1     3 a     0.028</span><span style='text-decoration: underline;'>1</span><span> TRUE 
+#&gt; </span><span style='color: #555555;'>2</span><span>     2     2     2 b     0.466  FALSE
+#&gt; </span><span style='color: #555555;'>3</span><span>     3     3     1 c     0.390  </span><span style='color: #BB0000;'>NA</span><span>   </div><div class='input'><span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>unpack</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='no'>y</span>, <span class='no'>z</span>))</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 3 x 6</span><span>
+#&gt;       x     a     b X          Y Z    
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'>1</span><span>     1     1     3 a     0.028</span><span style='text-decoration: underline;'>1</span><span> TRUE 
+#&gt; </span><span style='color: #555555;'>2</span><span>     2     2     2 b     0.466  FALSE
+#&gt; </span><span style='color: #555555;'>3</span><span>     3     3     1 c     0.390  </span><span style='color: #BB0000;'>NA</span><span>   </div><div class='input'><span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>unpack</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='no'>y</span>, <span class='no'>z</span>), <span class='kw'>names_sep</span> <span class='kw'>=</span> <span class='st'>"_"</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 3 x 6</span><span>
+#&gt;       x   y_a   y_b z_X      z_Y z_Z  
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'>1</span><span>     1     1     3 a     0.028</span><span style='text-decoration: underline;'>1</span><span> TRUE 
+#&gt; </span><span style='color: #555555;'>2</span><span>     2     2     2 b     0.466  FALSE
+#&gt; </span><span style='color: #555555;'>3</span><span>     3     3     1 c     0.390  </span><span style='color: #BB0000;'>NA</span><span>   </div></span></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#details">Details</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 

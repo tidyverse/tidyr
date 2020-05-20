@@ -15,23 +15,28 @@
 <link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
+
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 
 <!-- Bootstrap -->
 <link href="../tidyverse.css" rel="stylesheet">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
 
 <!-- headroom.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -41,12 +46,11 @@
 
 
 <meta property="og:title" content="Pivot data from wide to long using a spec — pivot_longer_spec" />
-
 <meta property="og:description" content="This is a low level interface to pivotting, inspired by the cdata package,
 that allows you to describe pivotting with a data frame." />
-
 <meta property="og:image" content="https://tidyr.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
+
 
 
 
@@ -71,7 +75,7 @@ that allows you to describe pivotting with a data frame." />
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -86,9 +90,9 @@ that allows you to describe pivotting with a data frame." />
 
       <div class="navbar-brand-container">
         <a class="navbar-brand" href="../index.html">tidyr</a>
-        <div class="info">
+        <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.0</span>
         </div>
       </div>
     </div>
@@ -108,19 +112,17 @@ that allows you to describe pivotting with a data frame." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/in-packages.html">In packages</a>
-    </li>
-    <li>
-      <a href="../articles/nest.html">Nested data</a>
-    </li>
-    <li>
       <a href="../articles/pivot.html">Pivoting</a>
     </li>
     <li>
       <a href="../articles/rectangle.html">Rectangling</a>
     </li>
     <li>
-      <a href="../articles/tidy-data.html">Tidy data</a>
+      <a href="../articles/nest.html">Nested data</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="../articles/index.html">More...</a>
     </li>
   </ul>
 </li>
@@ -131,7 +133,7 @@ that allows you to describe pivotting with a data frame." />
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
-    <li class="dropdown-header">Release notes</li>
+    <li class="dropdown-header">Releases</li>
     <li>
       <a href="https://www.tidyverse.org/articles/2019/09/tidyr-1-0-0/">Version 1.0.0</a>
     </li>
@@ -161,12 +163,12 @@ that allows you to describe pivotting with a data frame." />
     </li>
     <li class="divider"></li>
     <li>
-      <a href="../news/index.html">Change log</a>
+      <a href="../news/index.html">Changelog</a>
     </li>
   </ul>
 </li>
         <li>
-  <a href="https://github.com/tidyverse/tidyr">
+  <a href="https://github.com/tidyverse/tidyr/">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -190,19 +192,31 @@ that allows you to describe pivotting with a data frame." />
     </div>
 
     <div class="ref-description">
-    
     <p>This is a low level interface to pivotting, inspired by the cdata package,
 that allows you to describe pivotting with a data frame.</p>
-    
     </div>
 
-    <pre class="usage"><span class='fu'>pivot_longer_spec</span>(<span class='no'>data</span>, <span class='no'>spec</span>, <span class='kw'>names_repair</span> <span class='kw'>=</span> <span class='st'>"check_unique"</span>,
-  <span class='kw'>values_drop_na</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>values_ptypes</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>())
+    <pre class="usage"><span class='fu'>pivot_longer_spec</span>(
+  <span class='no'>data</span>,
+  <span class='no'>spec</span>,
+  <span class='kw'>names_repair</span> <span class='kw'>=</span> <span class='st'>"check_unique"</span>,
+  <span class='kw'>values_drop_na</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>values_ptypes</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(),
+  <span class='kw'>values_transform</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>()
+)
 
-<span class='fu'>build_longer_spec</span>(<span class='no'>data</span>, <span class='no'>cols</span>, <span class='kw'>names_to</span> <span class='kw'>=</span> <span class='st'>"name"</span>, <span class='kw'>values_to</span> <span class='kw'>=</span> <span class='st'>"value"</span>,
-  <span class='kw'>names_prefix</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>names_sep</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>names_pattern</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>names_ptypes</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
-    
+<span class='fu'>build_longer_spec</span>(
+  <span class='no'>data</span>,
+  <span class='no'>cols</span>,
+  <span class='kw'>names_to</span> <span class='kw'>=</span> <span class='st'>"name"</span>,
+  <span class='kw'>values_to</span> <span class='kw'>=</span> <span class='st'>"value"</span>,
+  <span class='kw'>names_prefix</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>names_sep</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>names_pattern</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>names_ptypes</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>names_transform</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
+)</pre>
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -215,14 +229,19 @@ that allows you to describe pivotting with a data frame.</p>
       <td><p>A specification data frame. This is useful for more complex
 pivots because it gives you greater control on how metadata stored in the
 column names turns into columns in the result.</p>
-<p>Must be a data frame containing character <code>.name</code> and <code>.value</code> columns.</p></td>
+<p>Must be a data frame containing character <code>.name</code> and <code>.value</code> columns.
+Additional columns in <code>spec</code> should be named to match columns in the
+long format of the dataset and contain values corresponding to columns
+pivoted from the wide format.
+The special <code>.seq</code> variable is used to disambiguate rows internally;
+it is automatically removed after pivotting.</p></td>
     </tr>
     <tr>
       <th>names_repair</th>
-      <td><p>What happen if the output has invalid column names?
+      <td><p>What happens if the output has invalid column names?
 The default, <code>"check_unique"</code> is to error if the columns are duplicated.
 Use <code>"minimal"</code> to allow duplicates in the output, or <code>"unique"</code> to
-de-duplicated by adding numeric suffixes. See <code><a href='https://rdrr.io/pkg/vctrs/man/vec_as_names.html'>vctrs::vec_as_names()</a></code>
+de-duplicated by adding numeric suffixes. See <code><a href='https://vctrs.r-lib.org/reference/vec_as_names.html'>vctrs::vec_as_names()</a></code>
 for more options.</p></td>
     </tr>
     <tr>
@@ -236,22 +255,36 @@ values in <code>data</code> were created by its structure.</p></td>
       <th>values_ptypes</th>
       <td><p>A list of column name-prototype pairs.
 A prototype (or ptype for short) is a zero-length vector (like <code><a href='https://rdrr.io/r/base/integer.html'>integer()</a></code>
-or <code><a href='https://rdrr.io/r/base/numeric.html'>numeric()</a></code>) that defines the type, class, and attributes of a vector.</p>
+or <code><a href='https://rdrr.io/r/base/numeric.html'>numeric()</a></code>) that defines the type, class, and attributes of a vector.
+Use these arguments to confirm that the created columns are the types that
+you expect.</p>
 <p>If not specified, the type of the columns generated from <code>names_to</code> will
 be character, and the type of the variables generated from <code>values_to</code>
 will be the common type of the input columns used to generate them.</p></td>
     </tr>
     <tr>
+      <th>values_transform</th>
+      <td><p>A list of column name-function pairs.
+Use these arguments if you need to change the type of specific columns.
+For example, <code>names_transform = list(week = as.integer)</code> would convert
+a character week variable to an integer.</p></td>
+    </tr>
+    <tr>
       <th>cols</th>
-      <td><p>Columns to pivot into longer format. This takes a tidyselect
-specification.</p></td>
+      <td><p>&lt;<code><a href='tidyr_tidy_select.html'>tidy-select</a></code>&gt; Columns to pivot into
+longer format.</p></td>
     </tr>
     <tr>
       <th>names_to</th>
       <td><p>A string specifying the name of the column to create
 from the data stored in the column names of <code>data</code>.</p>
 <p>Can be a character vector, creating multiple columns, if <code>names_sep</code>
-or <code>names_pattern</code> is provided.</p></td>
+or <code>names_pattern</code> is provided. In this case, there are two special
+values you can take advantage of:</p><ul>
+<li><p><code>NA</code> will discard that component of the name.</p></li>
+<li><p><code>.value</code> indicates that component of the name defines the name of the
+column containing the cell values, overriding <code>values_to</code>.</p></li>
+</ul></td>
     </tr>
     <tr>
       <th>values_to</th>
@@ -296,21 +329,84 @@ needed.</p></td>
       <th>names_ptypes</th>
       <td><p>A list of column name-prototype pairs.
 A prototype (or ptype for short) is a zero-length vector (like <code><a href='https://rdrr.io/r/base/integer.html'>integer()</a></code>
-or <code><a href='https://rdrr.io/r/base/numeric.html'>numeric()</a></code>) that defines the type, class, and attributes of a vector.</p>
+or <code><a href='https://rdrr.io/r/base/numeric.html'>numeric()</a></code>) that defines the type, class, and attributes of a vector.
+Use these arguments to confirm that the created columns are the types that
+you expect.</p>
 <p>If not specified, the type of the columns generated from <code>names_to</code> will
 be character, and the type of the variables generated from <code>values_to</code>
 will be the common type of the input columns used to generate them.</p></td>
     </tr>
+    <tr>
+      <th>names_transform</th>
+      <td><p>A list of column name-function pairs.
+Use these arguments if you need to change the type of specific columns.
+For example, <code>names_transform = list(week = as.integer)</code> would convert
+a character week variable to an integer.</p></td>
+    </tr>
     </table>
-    
 
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='co'># See vignette("pivot") for examples and explanation</span>
+
+<span class='co'># Use `build_longer_spec()` to build `spec` using similar syntax to `pivot_longer()`</span>
+<span class='co'># and run `pivot_longer_spec()` based on `spec`.</span>
+<span class='no'>spec</span> <span class='kw'>&lt;-</span> <span class='no'>relig_income</span> <span class='kw'>%&gt;%</span> <span class='fu'>build_longer_spec</span>(
+  <span class='kw'>cols</span> <span class='kw'>=</span> -<span class='no'>religion</span>,
+  <span class='kw'>names_to</span> <span class='kw'>=</span> <span class='st'>"income"</span>,
+  <span class='kw'>values_to</span> <span class='kw'>=</span> <span class='st'>"count"</span>
+)
+<span class='no'>spec</span></div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 10 x 3</span><span>
+#&gt;    .name              .value income            
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>              </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>             
+#&gt; </span><span style='color: #555555;'> 1</span><span> &lt;$10k              count  &lt;$10k             
+#&gt; </span><span style='color: #555555;'> 2</span><span> $10-20k            count  $10-20k           
+#&gt; </span><span style='color: #555555;'> 3</span><span> $20-30k            count  $20-30k           
+#&gt; </span><span style='color: #555555;'> 4</span><span> $30-40k            count  $30-40k           
+#&gt; </span><span style='color: #555555;'> 5</span><span> $40-50k            count  $40-50k           
+#&gt; </span><span style='color: #555555;'> 6</span><span> $50-75k            count  $50-75k           
+#&gt; </span><span style='color: #555555;'> 7</span><span> $75-100k           count  $75-100k          
+#&gt; </span><span style='color: #555555;'> 8</span><span> $100-150k          count  $100-150k         
+#&gt; </span><span style='color: #555555;'> 9</span><span> &gt;150k              count  &gt;150k             
+#&gt; </span><span style='color: #555555;'>10</span><span> Don't know/refused count  Don't know/refused</div><div class='input'>
+<span class='fu'>pivot_longer_spec</span>(<span class='no'>relig_income</span>, <span class='no'>spec</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 180 x 3</span><span>
+#&gt;    religion income             count
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>              </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'> 1</span><span> Agnostic &lt;$10k                 27
+#&gt; </span><span style='color: #555555;'> 2</span><span> Agnostic $10-20k               34
+#&gt; </span><span style='color: #555555;'> 3</span><span> Agnostic $20-30k               60
+#&gt; </span><span style='color: #555555;'> 4</span><span> Agnostic $30-40k               81
+#&gt; </span><span style='color: #555555;'> 5</span><span> Agnostic $40-50k               76
+#&gt; </span><span style='color: #555555;'> 6</span><span> Agnostic $50-75k              137
+#&gt; </span><span style='color: #555555;'> 7</span><span> Agnostic $75-100k             122
+#&gt; </span><span style='color: #555555;'> 8</span><span> Agnostic $100-150k            109
+#&gt; </span><span style='color: #555555;'> 9</span><span> Agnostic &gt;150k                 84
+#&gt; </span><span style='color: #555555;'>10</span><span> Agnostic Don't know/refused    96
+#&gt; </span><span style='color: #555555;'># … with 170 more rows</span><span></div><div class='input'>
+<span class='co'># Is equivalent to:</span>
+<span class='no'>relig_income</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='pivot_longer.html'>pivot_longer</a></span>(
+  <span class='kw'>cols</span> <span class='kw'>=</span> -<span class='no'>religion</span>,
+  <span class='kw'>names_to</span> <span class='kw'>=</span> <span class='st'>"income"</span>,
+  <span class='kw'>values_to</span> <span class='kw'>=</span> <span class='st'>"count"</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 180 x 3</span><span>
+#&gt;    religion income             count
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>              </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'> 1</span><span> Agnostic &lt;$10k                 27
+#&gt; </span><span style='color: #555555;'> 2</span><span> Agnostic $10-20k               34
+#&gt; </span><span style='color: #555555;'> 3</span><span> Agnostic $20-30k               60
+#&gt; </span><span style='color: #555555;'> 4</span><span> Agnostic $30-40k               81
+#&gt; </span><span style='color: #555555;'> 5</span><span> Agnostic $40-50k               76
+#&gt; </span><span style='color: #555555;'> 6</span><span> Agnostic $50-75k              137
+#&gt; </span><span style='color: #555555;'> 7</span><span> Agnostic $75-100k             122
+#&gt; </span><span style='color: #555555;'> 8</span><span> Agnostic $100-150k            109
+#&gt; </span><span style='color: #555555;'> 9</span><span> Agnostic &gt;150k                 84
+#&gt; </span><span style='color: #555555;'>10</span><span> Agnostic Don't know/refused    96
+#&gt; </span><span style='color: #555555;'># … with 170 more rows</span><span></div><div class='input'>
+</div></span></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-                </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 

@@ -15,23 +15,28 @@
 <link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
+
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 
 <!-- Bootstrap -->
 <link href="../tidyverse.css" rel="stylesheet">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
 
 <!-- headroom.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -41,15 +46,14 @@
 
 
 <meta property="og:title" content="Pivot data from wide to long — pivot_longer" />
-
 <meta property="og:description" content="
 pivot_longer() &quot;lengthens&quot; data, increasing the number of rows and
 decreasing the number of columns. The inverse transformation is
 pivot_wider()
 Learn more in vignette(&quot;pivot&quot;)." />
-
 <meta property="og:image" content="https://tidyr.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
+
 
 
 
@@ -74,7 +78,7 @@ Learn more in vignette(&quot;pivot&quot;)." />
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -89,9 +93,9 @@ Learn more in vignette(&quot;pivot&quot;)." />
 
       <div class="navbar-brand-container">
         <a class="navbar-brand" href="../index.html">tidyr</a>
-        <div class="info">
+        <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.0</span>
         </div>
       </div>
     </div>
@@ -111,19 +115,17 @@ Learn more in vignette(&quot;pivot&quot;)." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/in-packages.html">In packages</a>
-    </li>
-    <li>
-      <a href="../articles/nest.html">Nested data</a>
-    </li>
-    <li>
       <a href="../articles/pivot.html">Pivoting</a>
     </li>
     <li>
       <a href="../articles/rectangle.html">Rectangling</a>
     </li>
     <li>
-      <a href="../articles/tidy-data.html">Tidy data</a>
+      <a href="../articles/nest.html">Nested data</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="../articles/index.html">More...</a>
     </li>
   </ul>
 </li>
@@ -134,7 +136,7 @@ Learn more in vignette(&quot;pivot&quot;)." />
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
-    <li class="dropdown-header">Release notes</li>
+    <li class="dropdown-header">Releases</li>
     <li>
       <a href="https://www.tidyverse.org/articles/2019/09/tidyr-1-0-0/">Version 1.0.0</a>
     </li>
@@ -164,12 +166,12 @@ Learn more in vignette(&quot;pivot&quot;)." />
     </li>
     <li class="divider"></li>
     <li>
-      <a href="../news/index.html">Change log</a>
+      <a href="../news/index.html">Changelog</a>
     </li>
   </ul>
 </li>
         <li>
-  <a href="https://github.com/tidyverse/tidyr">
+  <a href="https://github.com/tidyverse/tidyr/">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -193,20 +195,30 @@ Learn more in vignette(&quot;pivot&quot;)." />
     </div>
 
     <div class="ref-description">
-    
     <p><a href='https://www.tidyverse.org/lifecycle/#maturing'><img src='figures/lifecycle-maturing.svg' alt='Maturing lifecycle'></a></p>
 <p><code>pivot_longer()</code> "lengthens" data, increasing the number of rows and
 decreasing the number of columns. The inverse transformation is
 <code><a href='pivot_wider.html'>pivot_wider()</a></code></p>
 <p>Learn more in <code><a href='../articles/pivot.html'>vignette("pivot")</a></code>.</p>
-    
     </div>
 
-    <pre class="usage"><span class='fu'>pivot_longer</span>(<span class='no'>data</span>, <span class='no'>cols</span>, <span class='kw'>names_to</span> <span class='kw'>=</span> <span class='st'>"name"</span>, <span class='kw'>names_prefix</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>names_sep</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>names_pattern</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>names_ptypes</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(),
-  <span class='kw'>names_repair</span> <span class='kw'>=</span> <span class='st'>"check_unique"</span>, <span class='kw'>values_to</span> <span class='kw'>=</span> <span class='st'>"value"</span>,
-  <span class='kw'>values_drop_na</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>values_ptypes</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>())</pre>
-    
+    <pre class="usage"><span class='fu'>pivot_longer</span>(
+  <span class='no'>data</span>,
+  <span class='no'>cols</span>,
+  <span class='kw'>names_to</span> <span class='kw'>=</span> <span class='st'>"name"</span>,
+  <span class='kw'>names_prefix</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>names_sep</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>names_pattern</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>names_ptypes</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(),
+  <span class='kw'>names_transform</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(),
+  <span class='kw'>names_repair</span> <span class='kw'>=</span> <span class='st'>"check_unique"</span>,
+  <span class='kw'>values_to</span> <span class='kw'>=</span> <span class='st'>"value"</span>,
+  <span class='kw'>values_drop_na</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>values_ptypes</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(),
+  <span class='kw'>values_transform</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(),
+  <span class='no'>...</span>
+)</pre>
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -216,15 +228,20 @@ decreasing the number of columns. The inverse transformation is
     </tr>
     <tr>
       <th>cols</th>
-      <td><p>Columns to pivot into longer format. This takes a tidyselect
-specification.</p></td>
+      <td><p>&lt;<code><a href='tidyr_tidy_select.html'>tidy-select</a></code>&gt; Columns to pivot into
+longer format.</p></td>
     </tr>
     <tr>
       <th>names_to</th>
       <td><p>A string specifying the name of the column to create
 from the data stored in the column names of <code>data</code>.</p>
 <p>Can be a character vector, creating multiple columns, if <code>names_sep</code>
-or <code>names_pattern</code> is provided.</p></td>
+or <code>names_pattern</code> is provided. In this case, there are two special
+values you can take advantage of:</p><ul>
+<li><p><code>NA</code> will discard that component of the name.</p></li>
+<li><p><code>.value</code> indicates that component of the name defines the name of the
+column containing the cell values, overriding <code>values_to</code>.</p></li>
+</ul></td>
     </tr>
     <tr>
       <th>names_prefix</th>
@@ -248,17 +265,26 @@ needed.</p></td>
       <th>names_ptypes, values_ptypes</th>
       <td><p>A list of column name-prototype pairs.
 A prototype (or ptype for short) is a zero-length vector (like <code><a href='https://rdrr.io/r/base/integer.html'>integer()</a></code>
-or <code><a href='https://rdrr.io/r/base/numeric.html'>numeric()</a></code>) that defines the type, class, and attributes of a vector.</p>
+or <code><a href='https://rdrr.io/r/base/numeric.html'>numeric()</a></code>) that defines the type, class, and attributes of a vector.
+Use these arguments to confirm that the created columns are the types that
+you expect.</p>
 <p>If not specified, the type of the columns generated from <code>names_to</code> will
 be character, and the type of the variables generated from <code>values_to</code>
 will be the common type of the input columns used to generate them.</p></td>
     </tr>
     <tr>
+      <th>names_transform, values_transform</th>
+      <td><p>A list of column name-function pairs.
+Use these arguments if you need to change the type of specific columns.
+For example, <code>names_transform = list(week = as.integer)</code> would convert
+a character week variable to an integer.</p></td>
+    </tr>
+    <tr>
       <th>names_repair</th>
-      <td><p>What happen if the output has invalid column names?
+      <td><p>What happens if the output has invalid column names?
 The default, <code>"check_unique"</code> is to error if the columns are duplicated.
 Use <code>"minimal"</code> to allow duplicates in the output, or <code>"unique"</code> to
-de-duplicated by adding numeric suffixes. See <code><a href='https://rdrr.io/pkg/vctrs/man/vec_as_names.html'>vctrs::vec_as_names()</a></code>
+de-duplicated by adding numeric suffixes. See <code><a href='https://vctrs.r-lib.org/reference/vec_as_names.html'>vctrs::vec_as_names()</a></code>
 for more options.</p></td>
     </tr>
     <tr>
@@ -276,15 +302,18 @@ in the <code>value_to</code> column. This effectively converts explicit missing 
 to implicit missing values, and should generally be used only when missing
 values in <code>data</code> were created by its structure.</p></td>
     </tr>
+    <tr>
+      <th>...</th>
+      <td><p>Additional arguments passed on to methods.</p></td>
+    </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p><code>pivot_longer()</code> is an updated approach to <code><a href='gather.html'>gather()</a></code>, designed to be both
 simpler to use and to handle more use cases. We recommend you use
 <code>pivot_longer()</code> for new code; <code><a href='gather.html'>gather()</a></code> isn't going away but is no longer
 under active development.</p>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># See vignette("pivot") for examples and explanation</span>
@@ -311,9 +340,9 @@ under active development.</p>
 #&gt; </span><span style='color: #555555;'>16</span><span> Other F…      20        33        40        46        49        63         46
 #&gt; </span><span style='color: #555555;'>17</span><span> Other W…       5         2         3         4         2         7          3
 #&gt; </span><span style='color: #555555;'>18</span><span> Unaffil…     217       299       374       365       341       528        407
-#&gt; </span><span style='color: #555555;'># … with 3 more variables: `$100-150k` </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, `&gt;150k` </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, `Don't
-#&gt; #   know/refused` </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span></div><div class='input'><span class='no'>relig_income</span> <span class='kw'>%&gt;%</span>
- <span class='fu'>pivot_longer</span>(-<span class='no'>religion</span>, <span class='kw'>names_to</span> <span class='kw'>=</span> <span class='st'>"income"</span>, <span class='kw'>values_to</span> <span class='kw'>=</span> <span class='st'>"count"</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 180 x 3</span><span>
+#&gt; </span><span style='color: #555555;'># … with 3 more variables: `$100-150k` </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, `&gt;150k` </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, `Don't</span><span>
+#&gt; </span><span style='color: #555555;'>#   know/refused` </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span></div><div class='input'><span class='no'>relig_income</span> <span class='kw'>%&gt;%</span>
+  <span class='fu'>pivot_longer</span>(-<span class='no'>religion</span>, <span class='kw'>names_to</span> <span class='kw'>=</span> <span class='st'>"income"</span>, <span class='kw'>values_to</span> <span class='kw'>=</span> <span class='st'>"count"</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 180 x 3</span><span>
 #&gt;    religion income             count
 #&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>              </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
 #&gt; </span><span style='color: #555555;'> 1</span><span> Agnostic &lt;$10k                 27
@@ -342,20 +371,20 @@ under active development.</p>
 #&gt; </span><span style='color: #555555;'> 8</span><span> Aaliy… I Do… 2000-01-29      84    62    51    41    38    35    35    38
 #&gt; </span><span style='color: #555555;'> 9</span><span> Aaliy… Try … 2000-03-18      59    53    38    28    21    18    16    14
 #&gt; </span><span style='color: #555555;'>10</span><span> Adams… Open… 2000-08-26      76    76    74    69    68    67    61    58
-#&gt; </span><span style='color: #555555;'># … with 307 more rows, and 68 more variables: wk9 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, wk10 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,
-#&gt; #   wk11 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, wk12 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, wk13 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, wk14 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, wk15 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, wk16 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,
-#&gt; #   wk17 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, wk18 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, wk19 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, wk20 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, wk21 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, wk22 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,
-#&gt; #   wk23 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, wk24 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, wk25 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, wk26 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, wk27 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, wk28 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,
-#&gt; #   wk29 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, wk30 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, wk31 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, wk32 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, wk33 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, wk34 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,
-#&gt; #   wk35 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, wk36 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, wk37 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, wk38 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, wk39 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, wk40 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,
-#&gt; #   wk41 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, wk42 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, wk43 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, wk44 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, wk45 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, wk46 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,
-#&gt; #   wk47 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, wk48 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, wk49 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, wk50 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, wk51 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, wk52 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,
-#&gt; #   wk53 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, wk54 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, wk55 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, wk56 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, wk57 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, wk58 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,
-#&gt; #   wk59 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, wk60 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, wk61 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, wk62 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, wk63 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, wk64 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,
-#&gt; #   wk65 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, wk66 </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #555555;'>, wk67 </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #555555;'>, wk68 </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #555555;'>, wk69 </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #555555;'>, wk70 </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #555555;'>,
-#&gt; #   wk71 </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #555555;'>, wk72 </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #555555;'>, wk73 </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #555555;'>, wk74 </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #555555;'>, wk75 </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #555555;'>, wk76 </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span></div><div class='input'><span class='no'>billboard</span> <span class='kw'>%&gt;%</span>
+#&gt; </span><span style='color: #555555;'># … with 307 more rows, and 68 more variables: wk9 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, wk10 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
+#&gt; </span><span style='color: #555555;'>#   wk11 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, wk12 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, wk13 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, wk14 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, wk15 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, wk16 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
+#&gt; </span><span style='color: #555555;'>#   wk17 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, wk18 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, wk19 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, wk20 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, wk21 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, wk22 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
+#&gt; </span><span style='color: #555555;'>#   wk23 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, wk24 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, wk25 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, wk26 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, wk27 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, wk28 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
+#&gt; </span><span style='color: #555555;'>#   wk29 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, wk30 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, wk31 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, wk32 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, wk33 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, wk34 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
+#&gt; </span><span style='color: #555555;'>#   wk35 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, wk36 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, wk37 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, wk38 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, wk39 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, wk40 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
+#&gt; </span><span style='color: #555555;'>#   wk41 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, wk42 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, wk43 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, wk44 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, wk45 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, wk46 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
+#&gt; </span><span style='color: #555555;'>#   wk47 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, wk48 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, wk49 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, wk50 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, wk51 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, wk52 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
+#&gt; </span><span style='color: #555555;'>#   wk53 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, wk54 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, wk55 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, wk56 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, wk57 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, wk58 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
+#&gt; </span><span style='color: #555555;'>#   wk59 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, wk60 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, wk61 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, wk62 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, wk63 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, wk64 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
+#&gt; </span><span style='color: #555555;'>#   wk65 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, wk66 </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #555555;'>, wk67 </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #555555;'>, wk68 </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #555555;'>, wk69 </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #555555;'>, wk70 </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #555555;'>,</span><span>
+#&gt; </span><span style='color: #555555;'>#   wk71 </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #555555;'>, wk72 </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #555555;'>, wk73 </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #555555;'>, wk74 </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #555555;'>, wk75 </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #555555;'>, wk76 </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span></div><div class='input'><span class='no'>billboard</span> <span class='kw'>%&gt;%</span>
  <span class='fu'>pivot_longer</span>(
-   <span class='kw'>cols</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/pkg/tidyselect/man/select_helpers.html'>starts_with</a></span>(<span class='st'>"wk"</span>),
+   <span class='kw'>cols</span> <span class='kw'>=</span> <span class='fu'><a href='https://tidyselect.r-lib.org/reference/starts_with.html'>starts_with</a></span>(<span class='st'>"wk"</span>),
    <span class='kw'>names_to</span> <span class='kw'>=</span> <span class='st'>"week"</span>,
    <span class='kw'>names_prefix</span> <span class='kw'>=</span> <span class='st'>"wk"</span>,
    <span class='kw'>values_to</span> <span class='kw'>=</span> <span class='st'>"rank"</span>,
@@ -374,7 +403,7 @@ under active development.</p>
 #&gt; </span><span style='color: #555555;'> 9</span><span> 2Ge+her The Hardest Part Of ... 2000-09-02   2        87
 #&gt; </span><span style='color: #555555;'>10</span><span> 2Ge+her The Hardest Part Of ... 2000-09-02   3        92
 #&gt; </span><span style='color: #555555;'># … with 5,297 more rows</span><span></div><div class='input'>
-<span class='co'># Multiple variables stored in colum names</span>
+<span class='co'># Multiple variables stored in column names</span>
 <span class='no'>who</span> <span class='kw'>%&gt;%</span> <span class='fu'>pivot_longer</span>(
   <span class='kw'>cols</span> <span class='kw'>=</span> <span class='no'>new_sp_m014</span>:<span class='no'>newrel_f65</span>,
   <span class='kw'>names_to</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"diagnosis"</span>, <span class='st'>"gender"</span>, <span class='st'>"age"</span>),
@@ -407,7 +436,7 @@ under active development.</p>
 #&gt; 9  12 12 12  8 10.84 9.13  8.15  5.56
 #&gt; 10  7  7  7  8  4.82 7.26  6.42  7.91
 #&gt; 11  5  5  5  8  5.68 4.74  5.73  6.89</div><div class='input'><span class='no'>anscombe</span> <span class='kw'>%&gt;%</span>
- <span class='fu'>pivot_longer</span>(<span class='fu'><a href='https://rdrr.io/pkg/tidyselect/man/select_helpers.html'>everything</a></span>(),
+ <span class='fu'>pivot_longer</span>(<span class='fu'><a href='https://tidyselect.r-lib.org/reference/everything.html'>everything</a></span>(),
    <span class='kw'>names_to</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>".value"</span>, <span class='st'>"set"</span>),
    <span class='kw'>names_pattern</span> <span class='kw'>=</span> <span class='st'>"(.)(.)"</span>
  )</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 44 x 3</span><span>
@@ -425,16 +454,10 @@ under active development.</p>
 #&gt; </span><span style='color: #555555;'>10</span><span> 2        13  8.74
 #&gt; </span><span style='color: #555555;'># … with 34 more rows</span><span></div></span></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#details">Details</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 

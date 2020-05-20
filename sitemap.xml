@@ -103,6 +103,9 @@
     <loc>https://tidyr.tidyverse.org/reference/tidyr_legacy.html</loc>
   </url>
   <url>
+    <loc>https://tidyr.tidyverse.org/reference/tidyr_tidy_select.html</loc>
+  </url>
+  <url>
     <loc>https://tidyr.tidyverse.org/reference/uncount.html</loc>
   </url>
   <url>
@@ -125,6 +128,9 @@
   </url>
   <url>
     <loc>https://tidyr.tidyverse.org/articles/pivot.html</loc>
+  </url>
+  <url>
+    <loc>https://tidyr.tidyverse.org/articles/programming.html</loc>
   </url>
   <url>
     <loc>https://tidyr.tidyverse.org/articles/rectangle.html</loc>

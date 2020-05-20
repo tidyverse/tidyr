@@ -12,10 +12,11 @@
 <link rel="apple-touch-icon" type="image/png" sizes="120x120" href="apple-touch-icon-120x120.png">
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="apple-touch-icon-76x76.png">
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="apple-touch-icon-60x60.png">
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="tidyverse.css" rel="stylesheet">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
+<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="tidyverse.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="bootstrap-toc.css">
+<script src="bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
+<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
 <script src="pkgdown.js"></script><link href="tidyverse-2.css" rel="stylesheet">
 <meta property="og:title" content="Tidy Messy Data">
 <meta property="og:description" content="Tools to help to create tidy data, where each column is a 
@@ -38,7 +39,7 @@
   gtag('config', 'UA-115082821-1');
 </script>
 </head>
-<body>
+<body data-spy="scroll" data-target="#toc">
     <div class="container template-home">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -52,9 +53,9 @@
 
       <div class="navbar-brand-container">
         <a class="navbar-brand" href="index.html">tidyr</a>
-        <div class="info">
+        <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.0</span>
         </div>
       </div>
     </div>
@@ -74,19 +75,17 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="articles/in-packages.html">In packages</a>
-    </li>
-    <li>
-      <a href="articles/nest.html">Nested data</a>
-    </li>
-    <li>
       <a href="articles/pivot.html">Pivoting</a>
     </li>
     <li>
       <a href="articles/rectangle.html">Rectangling</a>
     </li>
     <li>
-      <a href="articles/tidy-data.html">Tidy data</a>
+      <a href="articles/nest.html">Nested data</a>
+    </li>
+    <li class="divider">
+    <li>
+      <a href="articles/index.html">More...</a>
     </li>
   </ul>
 </li>
@@ -97,7 +96,7 @@
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
-<li class="dropdown-header">Release notes</li>
+<li class="dropdown-header">Releases</li>
     <li>
       <a href="https://www.tidyverse.org/articles/2019/09/tidyr-1-0-0/">Version 1.0.0</a>
     </li>
@@ -127,12 +126,12 @@
     </li>
     <li class="divider">
     <li>
-      <a href="news/index.html">Change log</a>
+      <a href="news/index.html">Changelog</a>
     </li>
   </ul>
 </li>
         <li>
-  <a href="https://github.com/tidyverse/tidyr">
+  <a href="https://github.com/tidyverse/tidyr/">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -159,7 +158,7 @@
 <p>The goal of tidyr is to help you create <strong>tidy data</strong>. Tidy data is data where:</p>
 <ol>
 <li>Every column is variable.</li>
-<li>Every row is an observation..</li>
+<li>Every row is an observation.</li>
 <li>Every cell is a single value.</li>
 </ol>
 <p>Tidy data describes a standard way of storing data that is used wherever possible throughout the <a href="https://tidyverse.org">tidyverse</a>. If you ensure that your data is tidy, you’ll spend less time fighting with the tools and more time working on your analysis. Learn more about tidy data in <code><a href="articles/tidy-data.html">vignette("tidy-data")</a></code>.</p>
@@ -167,15 +166,15 @@
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="co"># The easiest way to get tidyr is to install the whole tidyverse:</span></span>
-<span id="cb1-2"><a href="#cb1-2"></a><span class="kw"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"tidyverse"</span>)</span>
-<span id="cb1-3"><a href="#cb1-3"></a></span>
-<span id="cb1-4"><a href="#cb1-4"></a><span class="co"># Alternatively, install just tidyr:</span></span>
-<span id="cb1-5"><a href="#cb1-5"></a><span class="kw"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"tidyr"</span>)</span>
-<span id="cb1-6"><a href="#cb1-6"></a></span>
-<span id="cb1-7"><a href="#cb1-7"></a><span class="co"># Or the development version from GitHub:</span></span>
-<span id="cb1-8"><a href="#cb1-8"></a><span class="co"># install.packages("devtools")</span></span>
-<span id="cb1-9"><a href="#cb1-9"></a>devtools<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/devtools/man/remote-reexports.html">install_github</a></span>(<span class="st">"tidyverse/tidyr"</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="r"><span class="co"># The easiest way to get tidyr is to install the whole tidyverse:</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"tidyverse"</span>)
+
+<span class="co"># Alternatively, install just tidyr:</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"tidyr"</span>)
+
+<span class="co"># Or the development version from GitHub:</span>
+<span class="co"># install.packages("devtools")</span>
+<span class="kw pkg">devtools</span><span class="kw ns">::</span><span class="fu">install_github</span>(<span class="st">"tidyverse/tidyr"</span>)</pre></div>
 </div>
 <div id="cheatsheet" class="section level2">
 <h2 class="hasAnchor">
@@ -185,7 +184,7 @@
 <div id="getting-started" class="section level2">
 <h2 class="hasAnchor">
 <a href="#getting-started" class="anchor"></a>Getting started</h2>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(tidyr)</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">tidyr</span>)</pre></div>
 <p>tidyr functions fall into five main categories:</p>
 <ul>
 <li><p>“Pivotting” which converts between long and wide forms. tidyr 1.0.0 introduces <code><a href="reference/pivot_longer.html">pivot_longer()</a></code> and <code><a href="reference/pivot_wider.html">pivot_wider()</a></code>, replacing the older <code><a href="reference/spread.html">spread()</a></code> and <code><a href="reference/gather.html">gather()</a></code> functions. See <code><a href="articles/pivot.html">vignette("pivot")</a></code> for more details.</p></li>
@@ -242,13 +241,13 @@
 </div>
   </div>
 
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <div class="links">
 <h2>Links</h2>
 <ul class="list-unstyled">
 <li>Download from CRAN at <br><a href="https://cloud.r-project.org/package=tidyr">https://​cloud.r-project.org/​package=tidyr</a>
 </li>
-<li>Browse source code at <br><a href="https://github.com/tidyverse/tidyr">https://​github.com/​tidyverse/​tidyr</a>
+<li>Browse source code at <br><a href="https://github.com/tidyverse/tidyr/">https://​github.com/​tidyverse/​tidyr/​</a>
 </li>
 <li>Report a bug at <br><a href="https://github.com/tidyverse/tidyr/issues">https://​github.com/​tidyverse/​tidyr/​issues</a>
 </li>
@@ -284,8 +283,7 @@
 <h2>Dev status</h2>
 <ul class="list-unstyled">
 <li><a href="https://cran.r-project.org/package=tidyr"><img src="https://www.r-pkg.org/badges/version/tidyr" alt="CRAN status"></a></li>
-<li><a href="https://travis-ci.org/tidyverse/tidyr"><img src="https://travis-ci.org/tidyverse/tidyr.svg?branch=master" alt="Travis build status"></a></li>
-<li><a href="https://ci.appveyor.com/project/tidyverse/tidyr"><img src="https://ci.appveyor.com/api/projects/status/github/tidyverse/tidyr?branch=master&amp;svg=true" alt="AppVeyor build status"></a></li>
+<li><a href="https://github.com/tidyverse/tidyr/actions"><img src="https://github.com/tidyverse/tidyr/workflows/R-CMD-check/badge.svg" alt="R build status"></a></li>
 <li><a href="https://codecov.io/gh/tidyverse/tidyr?branch=master"><img src="https://codecov.io/gh/tidyverse/tidyr/branch/master/graph/badge.svg" alt="Codecov test coverage"></a></li>
 </ul>
 </div>

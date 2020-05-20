@@ -15,23 +15,28 @@
 <link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
+
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 
 <!-- Bootstrap -->
 <link href="../tidyverse.css" rel="stylesheet">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
 
 <!-- headroom.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -41,14 +46,13 @@
 
 
 <meta property="og:title" content="Complete a data frame with missing combinations of data — complete" />
-
 <meta property="og:description" content="Turns implicit missing values into explicit missing values.
 This is a wrapper around expand(),
 dplyr::left_join() and replace_na() that's
 useful for completing missing combinations of data." />
-
 <meta property="og:image" content="https://tidyr.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
+
 
 
 
@@ -73,7 +77,7 @@ useful for completing missing combinations of data." />
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -88,9 +92,9 @@ useful for completing missing combinations of data." />
 
       <div class="navbar-brand-container">
         <a class="navbar-brand" href="../index.html">tidyr</a>
-        <div class="info">
+        <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.0</span>
         </div>
       </div>
     </div>
@@ -110,19 +114,17 @@ useful for completing missing combinations of data." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/in-packages.html">In packages</a>
-    </li>
-    <li>
-      <a href="../articles/nest.html">Nested data</a>
-    </li>
-    <li>
       <a href="../articles/pivot.html">Pivoting</a>
     </li>
     <li>
       <a href="../articles/rectangle.html">Rectangling</a>
     </li>
     <li>
-      <a href="../articles/tidy-data.html">Tidy data</a>
+      <a href="../articles/nest.html">Nested data</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="../articles/index.html">More...</a>
     </li>
   </ul>
 </li>
@@ -133,7 +135,7 @@ useful for completing missing combinations of data." />
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
-    <li class="dropdown-header">Release notes</li>
+    <li class="dropdown-header">Releases</li>
     <li>
       <a href="https://www.tidyverse.org/articles/2019/09/tidyr-1-0-0/">Version 1.0.0</a>
     </li>
@@ -163,12 +165,12 @@ useful for completing missing combinations of data." />
     </li>
     <li class="divider"></li>
     <li>
-      <a href="../news/index.html">Change log</a>
+      <a href="../news/index.html">Changelog</a>
     </li>
   </ul>
 </li>
         <li>
-  <a href="https://github.com/tidyverse/tidyr">
+  <a href="https://github.com/tidyverse/tidyr/">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -192,16 +194,14 @@ useful for completing missing combinations of data." />
     </div>
 
     <div class="ref-description">
-    
     <p>Turns implicit missing values into explicit missing values.
 This is a wrapper around <code><a href='expand.html'>expand()</a></code>,
 <code><a href='https://dplyr.tidyverse.org/reference/join.html'>dplyr::left_join()</a></code> and <code><a href='replace_na.html'>replace_na()</a></code> that's
 useful for completing missing combinations of data.</p>
-    
     </div>
 
     <pre class="usage"><span class='fu'>complete</span>(<span class='no'>data</span>, <span class='no'>...</span>, <span class='kw'>fill</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>())</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -212,19 +212,24 @@ useful for completing missing combinations of data.</p>
     <tr>
       <th>...</th>
       <td><p>Specification of columns to expand. Columns can be atomic vectors
-or lists.</p>
-<p>To find all unique combinations of x, y and z, including those not
-found in the data, supply each variable as a separate argument.
-To find only the combinations that occur in the data, use nest:
-<code><a href='expand.html'>expand(df, nesting(x, y, z))</a></code>.</p>
-<p>You can combine the two forms. For example,
+or lists.</p><ul>
+<li><p>To find all unique combinations of <code>x</code>, <code>y</code> and <code>z</code>, including those not
+present in the data, supply each variable as a separate argument:
+<code><a href='expand.html'>expand(df, x, y, z)</a></code>.</p></li>
+<li><p>To find only the combinations that occur in the
+data, use <code>nesting</code>: <code><a href='expand.html'>expand(df, nesting(x, y, z))</a></code>.</p></li>
+<li><p>You can combine the two forms. For example,
 <code><a href='expand.html'>expand(df, nesting(school_id, student_id), date)</a></code> would produce
-a row for every student for each date.</p>
-<p>For factors, the full set of levels (not just those that appear in the
-data) are used. For continuous variables, you may need to fill in values
-that don't appear in the data: to do so use expressions like
-<code>year = 2010:2020</code> or <code>year = <a href='full_seq.html'>full_seq</a>(year,1)</code>.</p>
-<p>Length-zero (empty) elements are automatically dropped.</p></td>
+a row for each present school-student combination for all possible
+dates.</p></li>
+</ul>
+
+<p>When used with factors, <code><a href='expand.html'>expand()</a></code> uses the full set of levels, not just
+those that appear in the data. If you want to use only the values seen in
+the data, use <code>forcats::fct_drop()</code>.</p>
+<p>When used with continuous variables, you may need to fill in values
+that do not appear in the data: to do so use expressions like
+<code>year = 2010:2020</code> or <code>year = \link{full_seq}(year,1)</code>.</p></td>
     </tr>
     <tr>
       <th>fill</th>
@@ -232,12 +237,11 @@ that don't appear in the data: to do so use expressions like
 use instead of <code>NA</code> for missing combinations.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>If you supply <code>fill</code>, these values will also replace existing
 explicit missing values in the data set.</p>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>dplyr</span>, <span class='kw'>warn.conflicts</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
@@ -264,16 +268,10 @@ explicit missing values in the data set.</p>
 #&gt; </span><span style='color: #555555;'>3</span><span>     2       1 a              0     </span><span style='color: #BB0000;'>NA</span><span>
 #&gt; </span><span style='color: #555555;'>4</span><span>     2       2 b              2      5</div></span></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#details">Details</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 
