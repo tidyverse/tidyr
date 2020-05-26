@@ -107,6 +107,8 @@ articles:
 
 news:
   releases:
+  - text: "Version 1.1.0"
+    href: https://www.tidyverse.org/blog/2020/05/tidyr-1.1.0/
   - text: "Version 1.0.0"
     href: https://www.tidyverse.org/articles/2019/09/tidyr-1-0-0/
   - text: "Version 0.8.0"
