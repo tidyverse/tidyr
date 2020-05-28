@@ -170,7 +170,7 @@ df \%>\% unnest_wider(metadata)
 
 # Extract only specified components
 df \%>\% hoist(metadata,
-  "species",
+  species = "species",
   first_film = list("films", 1L),
   third_film = list("films", 3L)
 )
