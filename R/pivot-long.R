@@ -25,7 +25,7 @@
 #'   or `names_pattern` is provided. In this case, there are two special
 #'   values you can take advantage of:
 #'
-#'   * `NA` will discard that component of the name.
+#'   * `NULL` will discard that component of the name.
 #'   * `.value` indicates that component of the name defines the name of the
 #'     column containing the cell values, overriding `values_to`.
 #' @param names_prefix A regular expression used to remove matching text
