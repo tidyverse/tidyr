@@ -3,6 +3,7 @@
 #include "tidycpp/integer.hpp"
 #include "tidycpp/character.hpp"
 #include "tidycpp/list.hpp"
+#include "tidycpp/data_frame.hpp"
 
 // A debug macro -- change to 'debug(x) x' for debug output
 #define debug(x)
@@ -112,9 +113,9 @@ tidycpp::character_vector make_variable_column_character(tidycpp::character_vect
     break;                                                   \
   }
 
-SEXP concatenate(const tidycpp::list& x, tidycpp::integer_vector ind, bool factorsAsStrings) {
+SEXP concatenate(const tidycpp::data_frame& x, tidycpp::integer_vector ind, bool factorsAsStrings) {
 
-  int nrow = Rf_xlength(x[0]);
+  int nrow = x.nrow();
   int n_ind = ind.size();
 
   // We coerce up to the 'max type' if necessary, using the fact
@@ -183,7 +184,7 @@ SEXP concatenate(const tidycpp::list& x, tidycpp::integer_vector ind, bool facto
 }
 
 [[tidycpp::export]]
-tidycpp::list melt_dataframe(tidycpp::list data,
+tidycpp::list melt_dataframe(tidycpp::data_frame data,
                     const tidycpp::integer_vector& id_ind,
                     const tidycpp::integer_vector& measure_ind,
                     tidycpp::character_vector variable_name,
@@ -193,7 +194,7 @@ tidycpp::list melt_dataframe(tidycpp::list data,
                     bool valueAsFactor,
                     bool variableAsFactor) {
 
-  int nrow = Rf_xlength(data[0]);
+  int nrow = data.nrow();
 
   tidycpp::character_vector data_names(data.attr("names"));
 
