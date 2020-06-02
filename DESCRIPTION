@@ -48,7 +48,7 @@ Suggests:
     readr,
     testthat (>= 2.1.0)
 LinkingTo: 
-    Rcpp, tidycpp
+    tidycpp
 VignetteBuilder: 
     knitr
 SystemRequirements: C++11

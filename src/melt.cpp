@@ -1,4 +1,3 @@
-#include <Rcpp.h>
 #include "tidycpp/protect.hpp"
 #include "tidycpp/sexp.hpp"
 #include "tidycpp/integer.hpp"
@@ -107,8 +106,8 @@ tidycpp::character_vector make_variable_column_character(tidycpp::character_vect
 // Concatenate vectors for the 'value' column
 #define DO_CONCATENATE(CTYPE)                                \
   {                                                          \
-    memcpy((char*)dataptr(output) + i* nrow * sizeof(CTYPE), \
-           (char*)dataptr(tmp),                              \
+    memcpy((char*)DATAPTR(output) + i* nrow * sizeof(CTYPE), \
+           (char*)DATAPTR(tmp),                              \
            nrow * sizeof(CTYPE));                            \
     break;                                                   \
   }
