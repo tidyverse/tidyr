@@ -20,11 +20,7 @@
 
 SEXP rep_(SEXP x, int n, std::string var_name) {
   if (!Rf_isVectorAtomic(x) && TYPEOF(x) != VECSXP) {
-    Rf_errorcall(
-      R_NilValue,
-      "All columns must be atomic vectors or lists. Problem with '%s'",
-      var_name.c_str()
-    );
+    tidycpp::stop("All columns must be atomic vectors or lists. Problem with '%s'", var_name.c_str());
   }
 
   if (Rf_inherits(x, "POSIXlt")) {
@@ -119,7 +115,7 @@ tidycpp::character_vector make_variable_column_character(tidycpp::character_vect
 
 SEXP concatenate(const tidycpp::list& x, tidycpp::integer_vector ind, bool factorsAsStrings) {
 
-  int nrow = Rf_length(x[0]);
+  int nrow = Rf_xlength(x[0]);
   int n_ind = ind.size();
 
   // We coerce up to the 'max type' if necessary, using the fact
@@ -180,32 +176,27 @@ SEXP concatenate(const tidycpp::list& x, tidycpp::integer_vector ind, bool facto
         break;
       }
     default:
-      Rf_errorcall(
-        R_NilValue,
-        "All columns be atomic vectors or lists (not %s)", Rf_type2char(max_type)
-      );
+                   tidycpp::stop("All columns be atomic vectors or lists (not %s)", Rf_type2char(max_type));
     }
   }
 
   return output;
 }
 
-using namespace Rcpp;
-
 [[tidycpp::export]]
-List melt_dataframe(const DataFrame& data,
-                    const IntegerVector& id_ind,
-                    const IntegerVector& measure_ind,
-                    String variable_name,
-                    String value_name,
-                    SEXP attrTemplate,
+tidycpp::list melt_dataframe(tidycpp::list data,
+                    const tidycpp::integer_vector& id_ind,
+                    const tidycpp::integer_vector& measure_ind,
+                    tidycpp::character_vector variable_name,
+                    tidycpp::character_vector value_name,
+                    tidycpp::sexp attrTemplate,
                     bool factorsAsStrings,
                     bool valueAsFactor,
                     bool variableAsFactor) {
 
-  int nrow = data.nrows();
+  int nrow = Rf_xlength(data[0]);
 
-  CharacterVector data_names = as<CharacterVector>(data.attr("names"));
+  tidycpp::character_vector data_names(data.attr("names"));
 
   int n_id = id_ind.size();
   debug(Rprintf("n_id == %i\n", n_id));
@@ -216,18 +207,14 @@ List melt_dataframe(const DataFrame& data,
   // Don't melt if the value variables are non-atomic
   for (int i = 0; i < n_measure; ++i) {
     if (!Rf_isVector(data[measure_ind[i]]) || Rf_inherits(data[measure_ind[i]], "data.frame")) {
-      Rf_errorcall(
-        R_NilValue,
-        "All columns must be atomic vectors or lists. Problem with column %i.",
-        measure_ind[i] + 1
-      );
+      tidycpp::stop("All columns must be atomic vectors or lists. Problem with column %i.", measure_ind[i] + 1);
     }
   }
 
   // The output should be a data.frame with:
   // number of columns == number of id vars + 'variable' + 'value',
   // with number of rows == data.nrow() * number of value vars
-  List output = no_init(n_id + 2);
+  tidycpp::writable::list output(n_id + 2);
 
   // First, allocate the ID variables
   // we repeat each ID vector n_measure times
@@ -241,7 +228,7 @@ List melt_dataframe(const DataFrame& data,
 
   // 'variable' is made up of repeating the names of the 'measure' variables,
   // each nrow times. We want this to be a factor as well.
-  CharacterVector id_names = no_init(n_measure);
+  tidycpp::writable::character_vector id_names(n_measure);
   for (int i = 0; i < n_measure; ++i) {
     id_names[i] = data_names[measure_ind[i]];
   }
@@ -260,16 +247,15 @@ List melt_dataframe(const DataFrame& data,
   // Make the List more data.frame like
 
   // Set the row names
-  output.attr("row.names") =
-      IntegerVector::create(IntegerVector::get_na(), -(nrow * n_measure));
+  output.attr("row.names") = {NA_INTEGER, -(nrow * n_measure)};
 
   // Set the names
-  CharacterVector out_names = no_init(n_id + 2);
+  tidycpp::writable::character_vector out_names(n_id + 2);
   for (int i = 0; i < n_id; ++i) {
     out_names[i] = data_names[id_ind[i]];
   }
-  out_names[n_id] = variable_name;
-  out_names[n_id + 1] = value_name;
+  out_names[n_id] = variable_name[0];
+  out_names[n_id + 1] = value_name[0];
   output.attr("names") = out_names;
 
   // Set the class

@@ -19,10 +19,10 @@ extern "C" SEXP _tidyr_fillUp(SEXP x) {
   END_TIDYCPP
 }
 // melt.cpp
-List melt_dataframe(const DataFrame& data, const IntegerVector& id_ind, const IntegerVector& measure_ind, String variable_name, String value_name, SEXP attrTemplate, bool factorsAsStrings, bool valueAsFactor, bool variableAsFactor);
+tidycpp::list melt_dataframe(tidycpp::list data, const tidycpp::integer_vector& id_ind, const tidycpp::integer_vector& measure_ind, tidycpp::character_vector variable_name, tidycpp::character_vector value_name, tidycpp::sexp attrTemplate, bool factorsAsStrings, bool valueAsFactor, bool variableAsFactor);
 extern "C" SEXP _tidyr_melt_dataframe(SEXP data, SEXP id_ind, SEXP measure_ind, SEXP variable_name, SEXP value_name, SEXP attrTemplate, SEXP factorsAsStrings, SEXP valueAsFactor, SEXP variableAsFactor) {
   BEGIN_TIDYCPP
-    return tidycpp::as_sexp(melt_dataframe(tidycpp::unmove(tidycpp::as_cpp<const DataFrame&>(data)), tidycpp::unmove(tidycpp::as_cpp<const IntegerVector&>(id_ind)), tidycpp::unmove(tidycpp::as_cpp<const IntegerVector&>(measure_ind)), tidycpp::unmove(tidycpp::as_cpp<String>(variable_name)), tidycpp::unmove(tidycpp::as_cpp<String>(value_name)), tidycpp::unmove(tidycpp::as_cpp<SEXP>(attrTemplate)), tidycpp::unmove(tidycpp::as_cpp<bool>(factorsAsStrings)), tidycpp::unmove(tidycpp::as_cpp<bool>(valueAsFactor)), tidycpp::unmove(tidycpp::as_cpp<bool>(variableAsFactor))));
+    return tidycpp::as_sexp(melt_dataframe(tidycpp::unmove(tidycpp::as_cpp<tidycpp::list>(data)), tidycpp::unmove(tidycpp::as_cpp<const tidycpp::integer_vector&>(id_ind)), tidycpp::unmove(tidycpp::as_cpp<const tidycpp::integer_vector&>(measure_ind)), tidycpp::unmove(tidycpp::as_cpp<tidycpp::character_vector>(variable_name)), tidycpp::unmove(tidycpp::as_cpp<tidycpp::character_vector>(value_name)), tidycpp::unmove(tidycpp::as_cpp<tidycpp::sexp>(attrTemplate)), tidycpp::unmove(tidycpp::as_cpp<bool>(factorsAsStrings)), tidycpp::unmove(tidycpp::as_cpp<bool>(valueAsFactor)), tidycpp::unmove(tidycpp::as_cpp<bool>(variableAsFactor))));
   END_TIDYCPP
 }
 // simplifyPieces.cpp
