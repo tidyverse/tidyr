@@ -1,7 +1,7 @@
 #include <Rcpp.h>
 using namespace Rcpp;
 
-// [[Rcpp::export]]
+[[tidycpp::export]]
 SEXP fillDown(SEXP x) {
   int n = Rf_length(x);
   SEXP out = Rf_allocVector(TYPEOF(x), n);
@@ -79,7 +79,7 @@ SEXP fillDown(SEXP x) {
 }
 
 
-// [[Rcpp::export]]
+[[tidycpp::export]]
 SEXP fillUp(SEXP x) {
   int n = Rf_length(x);
   SEXP out = Rf_allocVector(TYPEOF(x), n);

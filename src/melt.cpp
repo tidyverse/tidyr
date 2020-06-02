@@ -186,7 +186,7 @@ SEXP concatenate(const DataFrame& x, IntegerVector ind, bool factorsAsStrings) {
   return output;
 }
 
-// [[Rcpp::export]]
+[[tidycpp::export]]
 List melt_dataframe(const DataFrame& data,
                     const IntegerVector& id_ind,
                     const IntegerVector& measure_ind,
