@@ -1,6 +1,3 @@
-#' @importFrom Rcpp sourceCpp
-NULL
-
 #' Fill in missing values with previous or next value
 #'
 #' Fills missing values in selected columns using the next or previous entry.
