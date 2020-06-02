@@ -25,7 +25,7 @@ tidycpp::list simplifyPieces(tidycpp::list pieces, int p,
       tooBig.push_back(i + 1);
 
       for (int j = 0; j < p; ++j)
-        tidycpp::as_cpp<tidycpp::writable::character_vector>(out[j])[i] = x[j];
+        SET_STRING_ELT(out[j], i, x[j]);
     } else if (x.size() < p) { // too small
       tooSml.push_back(i + 1);
 
