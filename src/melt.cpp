@@ -1,5 +1,9 @@
 #include <Rcpp.h>
-using namespace Rcpp;
+#include "tidycpp/protect.hpp"
+#include "tidycpp/sexp.hpp"
+#include "tidycpp/integer.hpp"
+#include "tidycpp/character.hpp"
+#include "tidycpp/list.hpp"
 
 // A debug macro -- change to 'debug(x) x' for debug output
 #define debug(x)
@@ -24,13 +28,13 @@ SEXP rep_(SEXP x, int n, std::string var_name) {
   }
 
   if (Rf_inherits(x, "POSIXlt")) {
-    stop("'%s' is a POSIXlt. Please convert to POSIXct.", var_name);
+    tidycpp::stop("'%s' is a POSIXlt. Please convert to POSIXct.", var_name.c_str());
   }
 
   int xn = Rf_length(x);
   int nout = xn * n;
 
-  Shield<SEXP> output(Rf_allocVector(TYPEOF(x), nout));
+  tidycpp::sexp output(Rf_allocVector(TYPEOF(x), nout));
   switch (TYPEOF(x)) {
     case INTSXP:
       DO_REP(INTSXP, int, INTEGER);
@@ -68,7 +72,7 @@ SEXP rep_(SEXP x, int n, std::string var_name) {
       break;
     }
     default: {
-      stop("Unhandled RTYPE in '%s'", var_name);
+               tidycpp::stop("Unhandled RTYPE in '%s'", var_name.c_str());
       return R_NilValue;
     }
   }
@@ -80,8 +84,8 @@ SEXP rep_(SEXP x, int n, std::string var_name) {
 // Optimized factor routine for the case where we want to make
 // a factor from a vector of names -- used for generating the
 // 'variable' column in the melted data.frame
-IntegerVector make_variable_column_factor(CharacterVector x, int nrow) {
-  IntegerVector output = no_init(x.size() * nrow);
+tidycpp::integer_vector make_variable_column_factor(tidycpp::character_vector x, int nrow) {
+  tidycpp::writable::integer_vector output(x.size() * nrow);
 
   int idx = 0;
   for (int i = 0; i < x.size(); ++i)
@@ -93,8 +97,8 @@ IntegerVector make_variable_column_factor(CharacterVector x, int nrow) {
   return output;
 }
 
-CharacterVector make_variable_column_character(CharacterVector x, int nrow) {
-  CharacterVector output = no_init(x.size() * nrow);
+tidycpp::character_vector make_variable_column_character(tidycpp::character_vector x, int nrow) {
+  tidycpp::writable::character_vector output(x.size() * nrow);
 
   int idx = 0;
   for (int i = 0; i < x.size(); ++i)
@@ -113,9 +117,9 @@ CharacterVector make_variable_column_character(CharacterVector x, int nrow) {
     break;                                                   \
   }
 
-SEXP concatenate(const DataFrame& x, IntegerVector ind, bool factorsAsStrings) {
+SEXP concatenate(const tidycpp::list& x, tidycpp::integer_vector ind, bool factorsAsStrings) {
 
-  int nrow = x.nrows();
+  int nrow = Rf_length(x[0]);
   int n_ind = ind.size();
 
   // We coerce up to the 'max type' if necessary, using the fact
@@ -135,13 +139,13 @@ SEXP concatenate(const DataFrame& x, IntegerVector ind, bool factorsAsStrings) {
 
   debug(printf("Max type of value variables is %s\n", Rf_type2char(max_type)));
 
-  Armor<SEXP> tmp;
-  Shield<SEXP> output(Rf_allocVector(max_type, nrow * n_ind));
+  tidycpp::sexp tmp;
+  tidycpp::sexp output(Rf_allocVector(max_type, nrow * n_ind));
   for (int i = 0; i < n_ind; ++i) {
     SEXP col = x[ind[i]];
 
     if (Rf_inherits(col, "POSIXlt")) {
-      stop("Column %i is a POSIXlt. Please convert to POSIXct.", i + 1);
+      tidycpp::stop("Column %i is a POSIXlt. Please convert to POSIXct.", i + 1);
     }
 
     // a 'tmp' pointer to the current column being iterated over, or
@@ -185,6 +189,8 @@ SEXP concatenate(const DataFrame& x, IntegerVector ind, bool factorsAsStrings) {
 
   return output;
 }
+
+using namespace Rcpp;
 
 [[tidycpp::export]]
 List melt_dataframe(const DataFrame& data,
@@ -240,13 +246,13 @@ List melt_dataframe(const DataFrame& data,
     id_names[i] = data_names[measure_ind[i]];
   }
   if (variableAsFactor) {
-    output[n_id] = make_variable_column_factor(id_names, nrow);
+    output[n_id] = make_variable_column_factor(tidycpp::as_sexp(id_names), nrow);
   } else {
-    output[n_id] = make_variable_column_character(id_names, nrow);
+    output[n_id] = make_variable_column_character(tidycpp::as_sexp(id_names), nrow);
   }
 
   // 'value' is made by concatenating each of the 'value' variables
-  output[n_id + 1] = concatenate(data, measure_ind, factorsAsStrings);
+  output[n_id + 1] = concatenate(tidycpp::as_sexp(data), tidycpp::as_sexp(measure_ind), factorsAsStrings);
   if (!Rf_isNull(attrTemplate)) {
     Rf_copyMostAttrib(attrTemplate, output[n_id + 1]);
   }
