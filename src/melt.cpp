@@ -232,13 +232,13 @@ tidycpp::list melt_dataframe(tidycpp::list data,
     id_names[i] = data_names[measure_ind[i]];
   }
   if (variableAsFactor) {
-    output[n_id] = make_variable_column_factor(tidycpp::as_sexp(id_names), nrow);
+    output[n_id] = make_variable_column_factor(id_names, nrow);
   } else {
-    output[n_id] = make_variable_column_character(tidycpp::as_sexp(id_names), nrow);
+    output[n_id] = make_variable_column_character(id_names, nrow);
   }
 
   // 'value' is made by concatenating each of the 'value' variables
-  output[n_id + 1] = concatenate(tidycpp::as_sexp(data), tidycpp::as_sexp(measure_ind), factorsAsStrings);
+  output[n_id + 1] = concatenate(data, measure_ind, factorsAsStrings);
   if (!Rf_isNull(attrTemplate)) {
     Rf_copyMostAttrib(attrTemplate, output[n_id + 1]);
   }
