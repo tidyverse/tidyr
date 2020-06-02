@@ -1,7 +1,7 @@
 #include <Rcpp.h>
 using namespace Rcpp;
 
-// [[Rcpp::export]]
+[[tidycpp::export]]
 List simplifyPieces(ListOf<CharacterVector> pieces, int p,
                     bool fillLeft = true) {
 

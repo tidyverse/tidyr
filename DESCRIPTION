@@ -48,9 +48,10 @@ Suggests:
     readr,
     testthat (>= 2.1.0)
 LinkingTo: 
-    Rcpp
+    Rcpp, tidycpp
 VignetteBuilder: 
     knitr
+SystemRequirements: C++11
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
