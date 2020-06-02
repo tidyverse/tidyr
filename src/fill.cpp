@@ -1,5 +1,4 @@
-#include <Rcpp.h>
-using namespace Rcpp;
+#include "tidycpp/protect.hpp"
 
 [[tidycpp::export]]
 SEXP fillDown(SEXP x) {
@@ -71,7 +70,7 @@ SEXP fillDown(SEXP x) {
 
   }
   default:
-    stop("Don't know how to handle column of type", Rf_type2char(TYPEOF(x)));
+    tidycpp::stop("Don't know how to handle column of type", Rf_type2char(TYPEOF(x)));
   }
 
   Rf_copyMostAttrib(x, out);
@@ -149,7 +148,7 @@ SEXP fillUp(SEXP x) {
 
   }
   default:
-    stop("Don't know how to handle column of type", Rf_type2char(TYPEOF(x)));
+    tidycpp::stop("Don't know how to handle column of type", Rf_type2char(TYPEOF(x)));
   }
 
   Rf_copyMostAttrib(x, out);
