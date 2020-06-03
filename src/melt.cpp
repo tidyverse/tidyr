@@ -1,3 +1,4 @@
+#include <cstring>
 #include "tidycpp/protect.hpp"
 #include "tidycpp/sexp.hpp"
 #include "tidycpp/integer.hpp"
