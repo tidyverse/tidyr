@@ -1,10 +1,10 @@
 #include <cstring>
-#include "tidycpp/protect.hpp"
-#include "tidycpp/sexp.hpp"
-#include "tidycpp/integer.hpp"
-#include "tidycpp/character.hpp"
-#include "tidycpp/list.hpp"
-#include "tidycpp/data_frame.hpp"
+#include "cpp11/protect.hpp"
+#include "cpp11/sexp.hpp"
+#include "cpp11/integers.hpp"
+#include "cpp11/strings.hpp"
+#include "cpp11/list.hpp"
+#include "cpp11/data_frame.hpp"
 
 // A debug macro -- change to 'debug(x) x' for debug output
 #define debug(x)
@@ -21,17 +21,17 @@
 
 SEXP rep_(SEXP x, int n, std::string var_name) {
   if (!Rf_isVectorAtomic(x) && TYPEOF(x) != VECSXP) {
-    tidycpp::stop("All columns must be atomic vectors or lists. Problem with '%s'", var_name.c_str());
+    cpp11::stop("All columns must be atomic vectors or lists. Problem with '%s'", var_name.c_str());
   }
 
   if (Rf_inherits(x, "POSIXlt")) {
-    tidycpp::stop("'%s' is a POSIXlt. Please convert to POSIXct.", var_name.c_str());
+    cpp11::stop("'%s' is a POSIXlt. Please convert to POSIXct.", var_name.c_str());
   }
 
   int xn = Rf_length(x);
   int nout = xn * n;
 
-  tidycpp::sexp output(Rf_allocVector(TYPEOF(x), nout));
+  cpp11::sexp output(Rf_allocVector(TYPEOF(x), nout));
   switch (TYPEOF(x)) {
     case INTSXP:
       DO_REP(INTSXP, int, INTEGER);
@@ -69,7 +69,7 @@ SEXP rep_(SEXP x, int n, std::string var_name) {
       break;
     }
     default: {
-               tidycpp::stop("Unhandled RTYPE in '%s'", var_name.c_str());
+               cpp11::stop("Unhandled RTYPE in '%s'", var_name.c_str());
       return R_NilValue;
     }
   }
@@ -81,8 +81,8 @@ SEXP rep_(SEXP x, int n, std::string var_name) {
 // Optimized factor routine for the case where we want to make
 // a factor from a vector of names -- used for generating the
 // 'variable' column in the melted data.frame
-tidycpp::integer_vector make_variable_column_factor(tidycpp::character_vector x, int nrow) {
-  tidycpp::writable::integer_vector output(x.size() * nrow);
+cpp11::integers make_variable_column_factor(cpp11::strings x, int nrow) {
+  cpp11::writable::integers output(x.size() * nrow);
 
   int idx = 0;
   for (int i = 0; i < x.size(); ++i)
@@ -94,8 +94,8 @@ tidycpp::integer_vector make_variable_column_factor(tidycpp::character_vector x,
   return output;
 }
 
-tidycpp::character_vector make_variable_column_character(tidycpp::character_vector x, int nrow) {
-  tidycpp::writable::character_vector output(x.size() * nrow);
+cpp11::strings make_variable_column_character(cpp11::strings x, int nrow) {
+  cpp11::writable::strings output(x.size() * nrow);
 
   int idx = 0;
   for (int i = 0; i < x.size(); ++i)
@@ -114,7 +114,7 @@ tidycpp::character_vector make_variable_column_character(tidycpp::character_vect
     break;                                                   \
   }
 
-SEXP concatenate(const tidycpp::data_frame& x, tidycpp::integer_vector ind, bool factorsAsStrings) {
+SEXP concatenate(const cpp11::data_frame& x, cpp11::integers ind, bool factorsAsStrings) {
 
   int nrow = x.nrow();
   int n_ind = ind.size();
@@ -136,13 +136,13 @@ SEXP concatenate(const tidycpp::data_frame& x, tidycpp::integer_vector ind, bool
 
   debug(printf("Max type of value variables is %s\n", Rf_type2char(max_type)));
 
-  tidycpp::sexp tmp;
-  tidycpp::sexp output(Rf_allocVector(max_type, nrow * n_ind));
+  cpp11::sexp tmp;
+  cpp11::sexp output(Rf_allocVector(max_type, nrow * n_ind));
   for (int i = 0; i < n_ind; ++i) {
     SEXP col = x[ind[i]];
 
     if (Rf_inherits(col, "POSIXlt")) {
-      tidycpp::stop("Column %i is a POSIXlt. Please convert to POSIXct.", i + 1);
+      cpp11::stop("Column %i is a POSIXlt. Please convert to POSIXct.", i + 1);
     }
 
     // a 'tmp' pointer to the current column being iterated over, or
@@ -177,27 +177,27 @@ SEXP concatenate(const tidycpp::data_frame& x, tidycpp::integer_vector ind, bool
         break;
       }
     default:
-                   tidycpp::stop("All columns be atomic vectors or lists (not %s)", Rf_type2char(max_type));
+                   cpp11::stop("All columns be atomic vectors or lists (not %s)", Rf_type2char(max_type));
     }
   }
 
   return output;
 }
 
-[[tidycpp::export]]
-tidycpp::list melt_dataframe(tidycpp::data_frame data,
-                    const tidycpp::integer_vector& id_ind,
-                    const tidycpp::integer_vector& measure_ind,
-                    tidycpp::character_vector variable_name,
-                    tidycpp::character_vector value_name,
-                    tidycpp::sexp attrTemplate,
+[[cpp11::export]]
+cpp11::list melt_dataframe(cpp11::data_frame data,
+                    const cpp11::integers& id_ind,
+                    const cpp11::integers& measure_ind,
+                    cpp11::strings variable_name,
+                    cpp11::strings value_name,
+                    cpp11::sexp attrTemplate,
                     bool factorsAsStrings,
                     bool valueAsFactor,
                     bool variableAsFactor) {
 
   int nrow = data.nrow();
 
-  tidycpp::character_vector data_names(data.attr("names"));
+  cpp11::strings data_names(data.attr("names"));
 
   int n_id = id_ind.size();
   debug(Rprintf("n_id == %i\n", n_id));
@@ -208,14 +208,14 @@ tidycpp::list melt_dataframe(tidycpp::data_frame data,
   // Don't melt if the value variables are non-atomic
   for (int i = 0; i < n_measure; ++i) {
     if (!Rf_isVector(data[measure_ind[i]]) || Rf_inherits(data[measure_ind[i]], "data.frame")) {
-      tidycpp::stop("All columns must be atomic vectors or lists. Problem with column %i.", measure_ind[i] + 1);
+      cpp11::stop("All columns must be atomic vectors or lists. Problem with column %i.", measure_ind[i] + 1);
     }
   }
 
   // The output should be a data.frame with:
   // number of columns == number of id vars + 'variable' + 'value',
   // with number of rows == data.nrow() * number of value vars
-  tidycpp::writable::list output(n_id + 2);
+  cpp11::writable::list output(n_id + 2);
 
   // First, allocate the ID variables
   // we repeat each ID vector n_measure times
@@ -229,7 +229,7 @@ tidycpp::list melt_dataframe(tidycpp::data_frame data,
 
   // 'variable' is made up of repeating the names of the 'measure' variables,
   // each nrow times. We want this to be a factor as well.
-  tidycpp::writable::character_vector id_names(n_measure);
+  cpp11::writable::strings id_names(n_measure);
   for (int i = 0; i < n_measure; ++i) {
     id_names[i] = data_names[measure_ind[i]];
   }
@@ -251,7 +251,7 @@ tidycpp::list melt_dataframe(tidycpp::data_frame data,
   output.attr("row.names") = {NA_INTEGER, -(nrow * n_measure)};
 
   // Set the names
-  tidycpp::writable::character_vector out_names(n_id + 2);
+  cpp11::writable::strings out_names(n_id + 2);
   for (int i = 0; i < n_id; ++i) {
     out_names[i] = data_names[id_ind[i]];
   }

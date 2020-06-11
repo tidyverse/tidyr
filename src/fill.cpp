@@ -1,6 +1,6 @@
-#include "tidycpp/protect.hpp"
+#include "cpp11/protect.hpp"
 
-[[tidycpp::export]]
+[[cpp11::export]]
 SEXP fillDown(SEXP x) {
   int n = Rf_length(x);
   SEXP out = Rf_allocVector(TYPEOF(x), n);
@@ -70,7 +70,7 @@ SEXP fillDown(SEXP x) {
 
   }
   default:
-    tidycpp::stop("Don't know how to handle column of type", Rf_type2char(TYPEOF(x)));
+    cpp11::stop("Don't know how to handle column of type", Rf_type2char(TYPEOF(x)));
   }
 
   Rf_copyMostAttrib(x, out);
@@ -78,7 +78,7 @@ SEXP fillDown(SEXP x) {
 }
 
 
-[[tidycpp::export]]
+[[cpp11::export]]
 SEXP fillUp(SEXP x) {
   int n = Rf_length(x);
   SEXP out = Rf_allocVector(TYPEOF(x), n);
@@ -148,7 +148,7 @@ SEXP fillUp(SEXP x) {
 
   }
   default:
-    tidycpp::stop("Don't know how to handle column of type", Rf_type2char(TYPEOF(x)));
+    cpp11::stop("Don't know how to handle column of type", Rf_type2char(TYPEOF(x)));
   }
 
   Rf_copyMostAttrib(x, out);
