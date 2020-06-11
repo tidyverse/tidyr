@@ -1,22 +1,22 @@
-#include "tidycpp/list.hpp"
-#include "tidycpp/character.hpp"
-#include "tidycpp/as.hpp"
+#include "cpp11/list.hpp"
+#include "cpp11/strings.hpp"
+#include "cpp11/as.hpp"
 #include <vector>
 
-[[tidycpp::export]]
-tidycpp::list simplifyPieces(tidycpp::list pieces, int p,
+[[cpp11::export]]
+cpp11::list simplifyPieces(cpp11::list pieces, int p,
                     bool fillLeft = true) {
 
   std::vector<int> tooSml, tooBig;
   int n = pieces.size();
 
-  tidycpp::writable::list list(p);
+  cpp11::writable::list list(p);
   for (int j = 0; j < p; ++j)
-    list[j] = tidycpp::writable::character_vector(n);
-  tidycpp::writable::list out(list);
+    list[j] = cpp11::writable::strings(n);
+  cpp11::writable::list out(list);
 
   for (int i = 0; i < n; ++i) {
-    tidycpp::character_vector x(pieces[i]);
+    cpp11::strings x(pieces[i]);
 
     if (x.size() == 1 && x[0] == NA_STRING) {
       for (int j = 0; j < p; ++j)
@@ -44,9 +44,9 @@ tidycpp::list simplifyPieces(tidycpp::list pieces, int p,
     }
   }
 
-  using namespace tidycpp::literals;
+  using namespace cpp11::literals;
 
-  return tidycpp::writable::list({
+  return cpp11::writable::list({
     "strings"_nm = out,
     "too_big"_nm = tooBig,
     "too_sml"_nm = tooSml}

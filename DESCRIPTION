@@ -48,7 +48,7 @@ Suggests:
     readr,
     testthat (>= 2.1.0)
 LinkingTo: 
-    tidycpp
+    cpp11
 VignetteBuilder: 
     knitr
 SystemRequirements: C++11
@@ -56,3 +56,5 @@ Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.0
+Remotes:
+  r-lib/cpp11
