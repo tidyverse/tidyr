@@ -1,10 +1,38 @@
 #include <cstring>
+
+#include "cpp11/R.hpp"
+
 #include "cpp11/protect.hpp"
 #include "cpp11/sexp.hpp"
 #include "cpp11/integers.hpp"
 #include "cpp11/strings.hpp"
 #include "cpp11/list.hpp"
 #include "cpp11/data_frame.hpp"
+
+#if R_VERSION < R_Version(3, 5, 0)
+
+void* DATAPTR(SEXP x) {
+  switch(TYPEOF(x)) {
+    case STRSXP:
+      return (char*) CHAR(x);
+      break;
+    case LGLSXP:
+      return (char*) LOGICAL(x);
+    case INTSXP:
+      return (char*) INTEGER(x);
+    case RAWSXP:
+      return (char*) RAW(x);
+    case CPLXSXP:
+      return (char*) COMPLEX(x);
+    case REALSXP:
+      return (char*) REAL(x);
+    default:
+      cpp11::stop("Invalid type %s", Rf_type2char(TYPEOF(x)));
+  }
+  return nullptr;
+}
+
+#endif
 
 // A debug macro -- change to 'debug(x) x' for debug output
 #define debug(x)
