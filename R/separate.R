@@ -108,7 +108,7 @@ str_separate <- function(x, into, sep, convert = FALSE, extra = "warn", fill = "
 }
 
 strsep <- function(x, sep) {
-  nchar <- stringi::stri_length(x)
+  nchar <- nchar(x)
   pos <- map(sep, function(i) {
     if (i >= 0) return(i)
     pmax(0, nchar + i)
@@ -116,9 +116,10 @@ strsep <- function(x, sep) {
   pos <- c(list(0), pos, list(nchar))
 
   map(1:(length(pos) - 1), function(i) {
-    stringi::stri_sub(x, pos[[i]] + 1, pos[[i + 1]])
+    substr(x, pos[[i]] + 1, pos[[i + 1]])
   })
 }
+
 str_split_fixed <- function(value, sep, n, extra = "warn", fill = "warn") {
   if (extra == "error") {
     warn(glue(
@@ -131,8 +132,7 @@ str_split_fixed <- function(value, sep, n, extra = "warn", fill = "warn") {
   extra <- arg_match(extra, c("warn", "merge", "drop"))
   fill <- arg_match(fill, c("warn", "left", "right"))
 
-  n_max <- if (extra == "merge") n else -1L
-  pieces <- stringi::stri_split_regex(value, sep, n_max)
+  pieces <- lapply(value, function(x) strpieces(x, sep, n, extra))
 
   simp <- simplifyPieces(pieces, n, fill == "left")
 
@@ -157,4 +157,16 @@ list_indices <- function(x, max = 20) {
   }
 
   paste(x, collapse = ", ")
+}
+
+strpieces <- function(value, sep, n_max, extra) {
+  pieces <- strsplit(value, sep)[[1]]
+
+  if(extra != "merge") {
+    pieces
+  } else {
+    remainder <- substr(value, regexpr(pieces[n_max], value)[[1]][1], nchar(value))
+
+    c(pieces[1:n_max-1], remainder)
+  }
 }

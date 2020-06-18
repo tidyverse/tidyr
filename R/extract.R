@@ -55,7 +55,9 @@ str_extract <- function(x, into, regex, convert = FALSE) {
     is_character(into)
   )
 
-  matches <- stringi::stri_match_first_regex(x, regex)[, -1, drop = FALSE]
+  matches <- lapply(regmatches(x, regexec(regex, x)),
+                    function(x) if (length(x) == 0) NA else x)
+  matches <- do.call(rbind, matches)[, -1, drop = FALSE]
 
   if (ncol(matches) != length(into)) {
     stop(
