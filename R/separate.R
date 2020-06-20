@@ -162,7 +162,7 @@ list_indices <- function(x, max = 20) {
 strpieces <- function(value, sep, n_max, extra) {
   pieces <- strsplit(value, sep)[[1]]
 
-  if(extra != "merge") {
+  if(extra != "merge" || all(pieces == value) || anyNA(pieces)) {
     pieces
   } else {
     remainder <- substr(value, regexpr(pieces[n_max], value)[[1]][1], nchar(value))
