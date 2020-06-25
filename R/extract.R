@@ -89,10 +89,12 @@ str_extract <- function(x, into, regex, convert = FALSE) {
   out
 }
 
-str_match_first <- function(x, regex = regex) {
+str_match_first <- function(x, regex) {
+  if (length(x) == 0) {
+    # Can't determine number of matches
+  }
+
   matches <- regmatches(x, regexec(regex, x, perl = TRUE))
-
   matches <- lapply(matches, function(x) if (length(x) == 0) NA_character_ else x)
-
   do.call(rbind, matches)[, -1, drop = FALSE]
 }
