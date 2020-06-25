@@ -122,3 +122,12 @@ test_that("checks type of `into` and `sep`", {
 test_that("list_indices truncates long warnings", {
   expect_equal(list_indices(letters, max = 3), "a, b, c, ...")
 })
+
+test_that("strpieces is consistent and works with merge", {
+  expect_equal(strpieces("a-b-c", "-", 2, "warn"), c("a", "b", "c"))
+  # dropping happens later so is not managed here
+  expect_equal(strpieces("a-b-c", "-", 2, "drop"), c("a", "b", "c"))
+  expect_equal(strpieces("a-b-c", "-", 2, "merge"), c("a", "b-c"))
+
+  expect_equal(strpieces("a", "-", 1, "warn"), "a")
+})

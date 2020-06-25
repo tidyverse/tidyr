@@ -55,9 +55,7 @@ str_extract <- function(x, into, regex, convert = FALSE) {
     is_character(into)
   )
 
-  matches <- lapply(regmatches(x, regexec(regex, x)),
-                    function(x) if (length(x) == 0) NA else x)
-  matches <- do.call(rbind, matches)[, -1, drop = FALSE]
+  matches <- str_match_first(x, regex)
 
   if (ncol(matches) != length(into)) {
     stop(
@@ -89,4 +87,12 @@ str_extract <- function(x, into, regex, convert = FALSE) {
   }
 
   out
+}
+
+str_match_first <- function(x, regex = regex) {
+  matches <- regmatches(x, regexec(regex, x, perl = TRUE))
+
+  matches <- lapply(matches, function(x) if (length(x) == 0) NA_character_ else x)
+
+  do.call(rbind, matches)[, -1, drop = FALSE]
 }
