@@ -124,10 +124,10 @@ test_that("list_indices truncates long warnings", {
 })
 
 test_that("strpieces is consistent and works with merge", {
-  expect_equal(strpieces("a-b-c", "-", 2, "warn"), c("a", "b", "c"))
+  expect_equal(str_pieces("a-b-c", "-", 2, "warn"), c("a", "b", "c"))
   # dropping happens later so is not managed here
-  expect_equal(strpieces("a-b-c", "-", 2, "drop"), c("a", "b", "c"))
-  expect_equal(strpieces("a-b-c", "-", 2, "merge"), c("a", "b-c"))
+  expect_equal(str_pieces("a-b-c", "-", 2, "drop"), c("a", "b", "c"))
+  expect_equal(str_pieces("a-b-c", "-", 2, "merge"), c("a", "b-c"))
 
-  expect_equal(strpieces("a", "-", 1, "warn"), "a")
+  expect_equal(str_pieces("a", "-", 1, "warn"), "a")
 })
