@@ -169,6 +169,6 @@ strpieces <- function(value, sep, n_max, extra) {
                         regexpr(pieces[n_max], value, perl = TRUE)[[1]][1],
                         nchar(value))
 
-    c(pieces[1:n_max-1], remainder)
+    c(pieces[1:n_max - 1], remainder)
   }
 }
