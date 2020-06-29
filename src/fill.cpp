@@ -1,6 +1,6 @@
 #include "cpp11/protect.hpp"
 
-[[cpp11::export]]
+[[cpp11::register]]
 SEXP fillDown(SEXP x) {
   int n = Rf_length(x);
   SEXP out = Rf_allocVector(TYPEOF(x), n);
@@ -78,7 +78,7 @@ SEXP fillDown(SEXP x) {
 }
 
 
-[[cpp11::export]]
+[[cpp11::register]]
 SEXP fillUp(SEXP x) {
   int n = Rf_length(x);
   SEXP out = Rf_allocVector(TYPEOF(x), n);

@@ -212,7 +212,7 @@ SEXP concatenate(const cpp11::data_frame& x, cpp11::integers ind, bool factorsAs
   return output;
 }
 
-[[cpp11::export]]
+[[cpp11::register]]
 cpp11::list melt_dataframe(cpp11::data_frame data,
                     const cpp11::integers& id_ind,
                     const cpp11::integers& measure_ind,
