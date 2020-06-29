@@ -21,9 +21,9 @@ gather(
 symbols.
 
 This argument is passed by expression and supports
-\link[rlang:quasiquotation]{quasiquotation} (you can unquote strings
+\link[rlang:nse-force]{quasiquotation} (you can unquote strings
 and symbols). The name is captured from the expression with
-\code{\link[rlang:ensym]{rlang::ensym()}} (note that this kind of interface where
+\code{\link[rlang:nse-defuse]{rlang::ensym()}} (note that this kind of interface where
 symbols do not represent actual objects is now discouraged in the
 tidyverse; we support it here for backward compatibility).}
 
@@ -77,7 +77,7 @@ If you need to refer to contextual objects from a data expression, you can
 use \code{all_of()} or \code{any_of()}. These functions are used to select
 data-variables whose names are stored in a env-variable. For instance,
 \code{all_of(a)} selects the variables listed in the character vector \code{a}.
-For more details, see the \code{\link[tidyselect:select_helpers]{tidyselect::select_helpers()}} documentation.
+For more details, see the \code{\link[tidyselect:language]{tidyselect::select_helpers()}} documentation.
 }
 
 \examples{

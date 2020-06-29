@@ -37,7 +37,7 @@ use instead of \code{NA} for missing combinations.}
 \description{
 Turns implicit missing values into explicit missing values.
 This is a wrapper around \code{\link[=expand]{expand()}},
-\code{\link[dplyr:left_join]{dplyr::left_join()}} and \code{\link[=replace_na]{replace_na()}} that's
+\code{\link[dplyr:mutate-joins]{dplyr::left_join()}} and \code{\link[=replace_na]{replace_na()}} that's
 useful for completing missing combinations of data.
 }
 \details{
