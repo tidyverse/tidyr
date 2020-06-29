@@ -21,7 +21,7 @@ if \code{vars <- c("apple", "fig", "peach")}, then \code{all_of(vars)} will
 error; \code{any_of(vars)} will select \code{apple} and \code{fig}.
 \item Select contiguous variables with \code{:}, e.g. \code{apple:date}.
 \item Select variables with name-based helpers: e.g. \code{ends_with("a")},
-\code{contains("g")}. See full list in \link[tidyselect:select_helpers]{tidyselect::select_helpers}.
+\code{contains("g")}. See full list in \link[tidyselect:language]{tidyselect::select_helpers}.
 \item Select variables of a given type with an \code{is} function: \code{is.numeric},
 \code{is.factor}, \code{is.character}, etc.
 \item Invert a selection with \code{!}: \code{!is.numeric}, or \code{!contains("x")}.
