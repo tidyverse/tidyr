@@ -3,7 +3,7 @@
 #include "cpp11/as.hpp"
 #include <vector>
 
-[[cpp11::export]]
+[[cpp11::register]]
 cpp11::list simplifyPieces(cpp11::list pieces, int p,
                     bool fillLeft = true) {
 
