@@ -132,7 +132,7 @@ str_split_fixed <- function(value, sep, n, extra = "warn", fill = "warn") {
   extra <- arg_match(extra, c("warn", "merge", "drop"))
   fill <- arg_match(fill, c("warn", "left", "right"))
 
-  pieces <- lapply(value, str_pieces, sep = sep, n_max = n, extra = extra)
+  pieces <- str_pieces(value, sep, n, extra)
 
   simp <- simplifyPieces(pieces, n, fill == "left")
 
@@ -160,9 +160,17 @@ list_indices <- function(x, max = 20) {
 }
 
 str_pieces <- function(value, sep, n_max, extra) {
-  pieces <- sapply(value, strsplit, split = sep, perl = TRUE)[[1]]
+  if (extra != "merge") {
+    strsplit(value, split = sep, perl = TRUE)
+  } else {
+    lapply(value, str_pieces_merge, sep = sep, n_max = n_max)
+  }
+}
 
-  if (extra != "merge" || all(pieces == value) || anyNA(pieces)) {
+str_pieces_merge <- function(value, sep, n_max) {
+  pieces <- strsplit(value, split = sep)[[1]]
+
+  if (all(pieces == value) || anyNA(pieces)) {
     pieces
   } else {
     remainder <- substr(
@@ -170,6 +178,7 @@ str_pieces <- function(value, sep, n_max, extra) {
       regexpr(pieces[n_max], value, perl = TRUE)[[1]][1],
       nchar(value)
     )
+
     c(pieces[1:n_max - 1], remainder)
   }
 }

@@ -123,11 +123,27 @@ test_that("list_indices truncates long warnings", {
   expect_equal(list_indices(letters, max = 3), "a, b, c, ...")
 })
 
-test_that("strpieces is consistent and works with merge", {
-  expect_equal(str_pieces("a-b-c", "-", 2, "warn"), c("a", "b", "c"))
+test_that("str_pieces is consistent and works with merge", {
+  expect_equal(str_pieces("a-b-c", "-", 2, "warn"), list(c("a", "b", "c")))
   # dropping happens later so is not managed here
-  expect_equal(str_pieces("a-b-c", "-", 2, "drop"), c("a", "b", "c"))
-  expect_equal(str_pieces("a-b-c", "-", 2, "merge"), c("a", "b-c"))
+  expect_equal(str_pieces("a-b-c", "-", 2, "drop"), list(c("a", "b", "c")))
+  expect_equal(str_pieces("a-b-c", "-", 2, "merge"), list(c("a", "b-c")))
+  expect_equal(str_pieces("a-b-c-d", "-", 3, "merge"), list(c("a", "b", "c-d")))
 
-  expect_equal(str_pieces("a", "-", 1, "warn"), "a")
+  expect_equal(str_pieces("a", "-", 1, "warn"), list("a"))
+})
+
+test_that("str_pieces handles vectors", {
+  expect_equal(str_pieces(c("a-b-c", "d-e-f", NA, ""), "-", 2, "warn"),
+                list(
+                  c("a", "b", "c"),
+                  c("d", "e", "f"),
+                  NA_character_,
+                  character(0)))
+  expect_equal(str_pieces(c("a-b-c", "d-e-f", NA, ""), "-", 2, "merge"),
+               list(
+                 c("a", "b-c"),
+                 c("d", "e-f"),
+                 NA_character_,
+                 character(0)))
 })
