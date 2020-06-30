@@ -94,6 +94,9 @@ str_match_first <- function(x, regex) {
     # Can't determine number of matches
   }
 
+  # remove NA's as not supported in R 3.4 and early, changed back below
+  x <- replace_na(x, "")
+
   matches <- regmatches(x, regexec(regex, x, perl = TRUE))
   matches <- lapply(matches, function(x) if (length(x) == 0) NA_character_ else x)
   do.call(rbind, matches)[, -1, drop = FALSE]
