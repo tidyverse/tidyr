@@ -43,6 +43,10 @@
 <script src="../pkgdown.js"></script>
 <link href="../tidyverse-2.css" rel="stylesheet">
 
+<!--optional theme-->
+<link href="../.css" rel="stylesheet">
+
+
 
 
 <meta property="og:title" content="Separate a collapsed column into multiple rows — separate_rows" />
@@ -199,7 +203,7 @@ separates the values and places each one in its own row." />
 separates the values and places each one in its own row.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>separate_rows</span>(<span class='no'>data</span>, <span class='no'>...</span>, <span class='kw'>sep</span> <span class='kw'>=</span> <span class='st'>"[^[:alnum:].]+"</span>, <span class='kw'>convert</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'><a href='https://tidyr.tidyverse.org/reference/separate_rows.html'>separate_rows</a></span>(<span class='kw'>data</span>, <span class='kw'>...</span>, sep = <span class='st'>"[^[:alnum:].]+"</span>, convert = <span class='fl'>FALSE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -210,7 +214,7 @@ separates the values and places each one in its own row.</p>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>&lt;<code><a href='tidyr_tidy_select.html'>tidy-select</a></code>&gt; Columns to separate across
+      <td><p>&lt;<code><a href='https://tidyr.tidyverse.org/reference/tidyr_tidy_select.html'>tidy-select</a></code>&gt; Columns to separate across
 multiple rows</p></td>
     </tr>
     <tr>
@@ -227,12 +231,18 @@ types are actually numeric, integer, or logical.</p></td>
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(
-  <span class='kw'>x</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>3</span>,
-  <span class='kw'>y</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"a"</span>, <span class='st'>"d,e,f"</span>, <span class='st'>"g,h"</span>),
-  <span class='kw'>z</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"1"</span>, <span class='st'>"2,3,4"</span>, <span class='st'>"5,6"</span>)
+    <pre class="examples"><div class='input'><span class='kw'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(
+  x = <span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span>,
+  y = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"a"</span>, <span class='st'>"d,e,f"</span>, <span class='st'>"g,h"</span>),
+  z = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"1"</span>, <span class='st'>"2,3,4"</span>, <span class='st'>"5,6"</span>)
 )
-<span class='fu'>separate_rows</span>(<span class='no'>df</span>, <span class='no'>y</span>, <span class='no'>z</span>, <span class='kw'>convert</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 6 x 3</span><span>
+<span class='fu'><a href='https://tidyr.tidyverse.org/reference/separate_rows.html'>separate_rows</a></span>(<span class='kw'>df</span>, <span class='kw'>y</span>, <span class='kw'>z</span>, convert = <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: `...` is not empty.</span>
+#&gt; <span class='warning'></span>
+#&gt; <span class='warning'>We detected these problematic arguments:</span>
+#&gt; <span class='warning'>* `needs_dots`</span>
+#&gt; <span class='warning'></span>
+#&gt; <span class='warning'>These dots only exist to allow future extensions and should be empty.</span>
+#&gt; <span class='warning'>Did you misspecify an argument?</span></div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 6 x 3</span><span>
 #&gt;       x y         z
 #&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
 #&gt; </span><span style='color: #555555;'>1</span><span>     1 a         1

@@ -18,6 +18,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
 <script src="../pkgdown.js"></script><link href="../tidyverse-2.css" rel="stylesheet">
+<!--optional theme--><link href="../.css" rel="stylesheet">
 <meta property="og:title" content="Rectangling">
 <meta property="og:description" content="Rectangling is the art and craft of taking a deeply nested list (often 
 sourced from wild caught JSON or XML) and taming it into a tidy data set of 
@@ -149,7 +150,7 @@ and `hoist()`.
 
       
 
-      </header><div class="row">
+      </header><script src="rectangle_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Rectangling</h1>
@@ -178,18 +179,23 @@ and `hoist()`.
 </ul>
 <p>A very large number of data rectangling problems can be solved by combining these functions with a splash of dplyr (largely eliminating prior approaches that combined <code><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate()</a></code> with multiple <code><a href="https://purrr.tidyverse.org/reference/map.html">purrr::map()</a></code>s).</p>
 <p>To illustrate these techniques, we’ll use the repurrrsive package, which provides a number deeply nested lists originally mostly captured from web APIs.</p>
-<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">tidyr</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">dplyr</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">repurrrsive</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb1"><pre class="downlit">
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://tidyr.tidyverse.org">tidyr</a></span>)
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://dplyr.tidyverse.org">dplyr</a></span>)
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://github.com/jennybc/repurrrsive">repurrrsive</a></span>)
+</pre></div>
 </div>
 <div id="github-users" class="section level2">
 <h2 class="hasAnchor">
 <a href="#github-users" class="anchor"></a>GitHub users</h2>
 <p>We’ll start with <code>gh_users</code>, a list which contains information about six GitHub users. To begin, we put the <code>gh_users</code> list into a data frame:</p>
-<div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="no">users</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span>(<span class="kw">user</span> <span class="kw">=</span> <span class="no">gh_users</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb2"><pre class="downlit">
+<span class="kw">users</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span>(user = <span class="kw">gh_users</span>)
+</pre></div>
 <p>This seems a bit counter-intuitive: why is the first step in making a list simpler to make it more complicated? But a data frame has a big advantage: it bundles together multiple vectors so that everything is tracked together in a single object.</p>
 <p>Each <code>user</code> is a named list, where each element represents a column.</p>
-<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span>(<span class="no">users</span>$<span class="no">user</span><span class="kw">[[</span><span class="fl">1</span>]])
+<div class="sourceCode" id="cb3"><pre class="downlit">
+<span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span>(<span class="kw">users</span><span class="op">$</span><span class="kw">user</span>[[<span class="fl">1</span>]])
 <span class="co">#&gt;  [1] "login"               "id"                  "avatar_url"         </span>
 <span class="co">#&gt;  [4] "gravatar_id"         "url"                 "html_url"           </span>
 <span class="co">#&gt;  [7] "followers_url"       "following_url"       "gists_url"          </span>
@@ -199,9 +205,18 @@ and `hoist()`.
 <span class="co">#&gt; [19] "company"             "blog"                "location"           </span>
 <span class="co">#&gt; [22] "email"               "hireable"            "bio"                </span>
 <span class="co">#&gt; [25] "public_repos"        "public_gists"        "followers"          </span>
-<span class="co">#&gt; [28] "following"           "created_at"          "updated_at"</span></pre></body></html></div>
+<span class="co">#&gt; [28] "following"           "created_at"          "updated_at"</span>
+</pre></div>
 <p>There are two ways to turn the list components into columns. <code><a href="../reference/hoist.html">unnest_wider()</a></code> takes every component and makes a new column:</p>
-<div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="no">users</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/hoist.html">unnest_wider</a></span>(<span class="no">user</span>)
+<div class="sourceCode" id="cb4"><pre class="downlit">
+<span class="kw">users</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/hoist.html">unnest_wider</a></span>(<span class="kw">user</span>)
+<span class="co">#&gt; Warning: `...` is not empty.</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; We detected these problematic arguments:</span>
+<span class="co">#&gt; * `needs_dots`</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; These dots only exist to allow future extensions and should be empty.</span>
+<span class="co">#&gt; Did you misspecify an argument?</span>
 <span class="co">#&gt; # A tibble: 6 x 30</span>
 <span class="co">#&gt;   login     id avatar_url gravatar_id url   html_url followers_url following_url</span>
 <span class="co">#&gt;   &lt;chr&gt;  &lt;int&gt; &lt;chr&gt;      &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt;    &lt;chr&gt;         &lt;chr&gt;        </span>
@@ -216,13 +231,22 @@ and `hoist()`.
 <span class="co">#&gt; #   events_url &lt;chr&gt;, received_events_url &lt;chr&gt;, type &lt;chr&gt;, site_admin &lt;lgl&gt;,</span>
 <span class="co">#&gt; #   name &lt;chr&gt;, company &lt;chr&gt;, blog &lt;chr&gt;, location &lt;chr&gt;, email &lt;chr&gt;,</span>
 <span class="co">#&gt; #   public_repos &lt;int&gt;, public_gists &lt;int&gt;, followers &lt;int&gt;, following &lt;int&gt;,</span>
-<span class="co">#&gt; #   created_at &lt;chr&gt;, updated_at &lt;chr&gt;, bio &lt;chr&gt;, hireable &lt;lgl&gt;</span></pre></body></html></div>
+<span class="co">#&gt; #   created_at &lt;chr&gt;, updated_at &lt;chr&gt;, bio &lt;chr&gt;, hireable &lt;lgl&gt;</span>
+</pre></div>
 <p>But in this case, there are many components and we don’t need most of them so we can instead use <code><a href="../reference/hoist.html">hoist()</a></code>. <code><a href="../reference/hoist.html">hoist()</a></code> allows us to pull out selected components using the same syntax as <code><a href="https://purrr.tidyverse.org/reference/pluck.html">purrr::pluck()</a></code>:</p>
-<div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="no">users</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/hoist.html">hoist</a></span>(<span class="no">user</span>,
-  <span class="kw">followers</span> <span class="kw">=</span> <span class="st">"followers"</span>,
-  <span class="kw">login</span> <span class="kw">=</span> <span class="st">"login"</span>,
-  <span class="kw">url</span> <span class="kw">=</span> <span class="st">"html_url"</span>
+<div class="sourceCode" id="cb5"><pre class="downlit">
+<span class="kw">users</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/hoist.html">hoist</a></span>(<span class="kw">user</span>, 
+  followers = <span class="st">"followers"</span>, 
+  login = <span class="st">"login"</span>, 
+  url = <span class="st">"html_url"</span>
 )
+<span class="co">#&gt; Warning: `...` is not empty.</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; We detected these problematic arguments:</span>
+<span class="co">#&gt; * `needs_dots`</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; These dots only exist to allow future extensions and should be empty.</span>
+<span class="co">#&gt; Did you misspecify an argument?</span>
 <span class="co">#&gt; # A tibble: 6 x 4</span>
 <span class="co">#&gt;   followers login       url                            user             </span>
 <span class="co">#&gt;       &lt;int&gt; &lt;chr&gt;       &lt;chr&gt;                          &lt;list&gt;           </span>
@@ -231,15 +255,24 @@ and `hoist()`.
 <span class="co">#&gt; 3      3958 jtleek      https://github.com/jtleek      &lt;named list [27]&gt;</span>
 <span class="co">#&gt; 4       115 juliasilge  https://github.com/juliasilge  &lt;named list [27]&gt;</span>
 <span class="co">#&gt; 5       213 leeper      https://github.com/leeper      &lt;named list [27]&gt;</span>
-<span class="co">#&gt; 6        34 masalmon    https://github.com/masalmon    &lt;named list [27]&gt;</span></pre></body></html></div>
+<span class="co">#&gt; 6        34 masalmon    https://github.com/masalmon    &lt;named list [27]&gt;</span>
+</pre></div>
 <p><code><a href="../reference/hoist.html">hoist()</a></code> removes the named components from the <code>user</code> list-column, so you can think of it as moving components out of the inner list into the top-level data frame.</p>
 </div>
 <div id="github-repos" class="section level2">
 <h2 class="hasAnchor">
 <a href="#github-repos" class="anchor"></a>GitHub repos</h2>
 <p>We start off <code>gh_repos</code> similarly, by putting it in a tibble:</p>
-<div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="no">repos</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span>(<span class="kw">repo</span> <span class="kw">=</span> <span class="no">gh_repos</span>)
-<span class="no">repos</span>
+<div class="sourceCode" id="cb6"><pre class="downlit">
+<span class="kw">repos</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span>(repo = <span class="kw">gh_repos</span>)
+<span class="kw">repos</span>
+<span class="co">#&gt; Warning: `...` is not empty.</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; We detected these problematic arguments:</span>
+<span class="co">#&gt; * `needs_dots`</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; These dots only exist to allow future extensions and should be empty.</span>
+<span class="co">#&gt; Did you misspecify an argument?</span>
 <span class="co">#&gt; # A tibble: 6 x 1</span>
 <span class="co">#&gt;   repo       </span>
 <span class="co">#&gt;   &lt;list&gt;     </span>
@@ -248,10 +281,19 @@ and `hoist()`.
 <span class="co">#&gt; 3 &lt;list [30]&gt;</span>
 <span class="co">#&gt; 4 &lt;list [26]&gt;</span>
 <span class="co">#&gt; 5 &lt;list [30]&gt;</span>
-<span class="co">#&gt; 6 &lt;list [30]&gt;</span></pre></body></html></div>
+<span class="co">#&gt; 6 &lt;list [30]&gt;</span>
+</pre></div>
 <p>This time the elements of <code>user</code> are a list of repositories that belong to that user. These are observations, so should become new rows, so we use <code><a href="../reference/hoist.html">unnest_longer()</a></code> rather than <code><a href="../reference/hoist.html">unnest_wider()</a></code>:</p>
-<div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="no">repos</span> <span class="kw">&lt;-</span> <span class="no">repos</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/hoist.html">unnest_longer</a></span>(<span class="no">repo</span>)
-<span class="no">repos</span>
+<div class="sourceCode" id="cb7"><pre class="downlit">
+<span class="kw">repos</span> <span class="op">&lt;-</span> <span class="kw">repos</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/hoist.html">unnest_longer</a></span>(<span class="kw">repo</span>)
+<span class="kw">repos</span>
+<span class="co">#&gt; Warning: `...` is not empty.</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; We detected these problematic arguments:</span>
+<span class="co">#&gt; * `needs_dots`</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; These dots only exist to allow future extensions and should be empty.</span>
+<span class="co">#&gt; Did you misspecify an argument?</span>
 <span class="co">#&gt; # A tibble: 176 x 1</span>
 <span class="co">#&gt;    repo             </span>
 <span class="co">#&gt;    &lt;list&gt;           </span>
@@ -265,14 +307,23 @@ and `hoist()`.
 <span class="co">#&gt;  8 &lt;named list [68]&gt;</span>
 <span class="co">#&gt;  9 &lt;named list [68]&gt;</span>
 <span class="co">#&gt; 10 &lt;named list [68]&gt;</span>
-<span class="co">#&gt; # … with 166 more rows</span></pre></body></html></div>
+<span class="co">#&gt; # … with 166 more rows</span>
+</pre></div>
 <p>Then we can use <code><a href="../reference/hoist.html">unnest_wider()</a></code> or <code><a href="../reference/hoist.html">hoist()</a></code>:</p>
-<div class="sourceCode" id="cb8"><html><body><pre class="r"><span class="no">repos</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/hoist.html">hoist</a></span>(<span class="no">repo</span>,
-  <span class="kw">login</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"owner"</span>, <span class="st">"login"</span>),
-  <span class="kw">name</span> <span class="kw">=</span> <span class="st">"name"</span>,
-  <span class="kw">homepage</span> <span class="kw">=</span> <span class="st">"homepage"</span>,
-  <span class="kw">watchers</span> <span class="kw">=</span> <span class="st">"watchers_count"</span>
+<div class="sourceCode" id="cb8"><pre class="downlit">
+<span class="kw">repos</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/hoist.html">hoist</a></span>(<span class="kw">repo</span>, 
+  login = <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"owner"</span>, <span class="st">"login"</span>), 
+  name = <span class="st">"name"</span>,
+  homepage = <span class="st">"homepage"</span>,
+  watchers = <span class="st">"watchers_count"</span>
 )
+<span class="co">#&gt; Warning: `...` is not empty.</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; We detected these problematic arguments:</span>
+<span class="co">#&gt; * `needs_dots`</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; These dots only exist to allow future extensions and should be empty.</span>
+<span class="co">#&gt; Did you misspecify an argument?</span>
 <span class="co">#&gt; # A tibble: 176 x 5</span>
 <span class="co">#&gt;    login       name        homepage watchers repo             </span>
 <span class="co">#&gt;    &lt;chr&gt;       &lt;chr&gt;       &lt;chr&gt;       &lt;int&gt; &lt;list&gt;           </span>
@@ -286,11 +337,20 @@ and `hoist()`.
 <span class="co">#&gt;  8 gaborcsardi cmark        &lt;NA&gt;           0 &lt;named list [65]&gt;</span>
 <span class="co">#&gt;  9 gaborcsardi conditions   &lt;NA&gt;           0 &lt;named list [65]&gt;</span>
 <span class="co">#&gt; 10 gaborcsardi crayon       &lt;NA&gt;          52 &lt;named list [65]&gt;</span>
-<span class="co">#&gt; # … with 166 more rows</span></pre></body></html></div>
+<span class="co">#&gt; # … with 166 more rows</span>
+</pre></div>
 <p>Note the use of <code><a href="https://rdrr.io/r/base/c.html">c("owner", "login")</a></code>: this allows us to reach two levels deep inside of a list. An alternative approach would be to pull out just <code>owner</code> and then put each element of it in a column:</p>
-<div class="sourceCode" id="cb9"><html><body><pre class="r"><span class="no">repos</span> <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/hoist.html">hoist</a></span>(<span class="no">repo</span>, <span class="kw">owner</span> <span class="kw">=</span> <span class="st">"owner"</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/hoist.html">unnest_wider</a></span>(<span class="no">owner</span>)
+<div class="sourceCode" id="cb9"><pre class="downlit">
+<span class="kw">repos</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="../reference/hoist.html">hoist</a></span>(<span class="kw">repo</span>, owner = <span class="st">"owner"</span>) <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="../reference/hoist.html">unnest_wider</a></span>(<span class="kw">owner</span>)
+<span class="co">#&gt; Warning: `...` is not empty.</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; We detected these problematic arguments:</span>
+<span class="co">#&gt; * `needs_dots`</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; These dots only exist to allow future extensions and should be empty.</span>
+<span class="co">#&gt; Did you misspecify an argument?</span>
 <span class="co">#&gt; # A tibble: 176 x 18</span>
 <span class="co">#&gt;    login     id avatar_url gravatar_id url   html_url followers_url</span>
 <span class="co">#&gt;    &lt;chr&gt;  &lt;int&gt; &lt;chr&gt;      &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt;    &lt;chr&gt;        </span>
@@ -307,13 +367,22 @@ and `hoist()`.
 <span class="co">#&gt; # … with 166 more rows, and 11 more variables: following_url &lt;chr&gt;,</span>
 <span class="co">#&gt; #   gists_url &lt;chr&gt;, starred_url &lt;chr&gt;, subscriptions_url &lt;chr&gt;,</span>
 <span class="co">#&gt; #   organizations_url &lt;chr&gt;, repos_url &lt;chr&gt;, events_url &lt;chr&gt;,</span>
-<span class="co">#&gt; #   received_events_url &lt;chr&gt;, type &lt;chr&gt;, site_admin &lt;lgl&gt;, repo &lt;list&gt;</span></pre></body></html></div>
+<span class="co">#&gt; #   received_events_url &lt;chr&gt;, type &lt;chr&gt;, site_admin &lt;lgl&gt;, repo &lt;list&gt;</span>
+</pre></div>
 <p>Instead of looking at the list and carefully thinking about whether it needs to become rows or columns, you can use <code><a href="../reference/hoist.html">unnest_auto()</a></code>. It uses a handful of heuristics to figure out whether <code><a href="../reference/hoist.html">unnest_longer()</a></code> or <code><a href="../reference/hoist.html">unnest_wider()</a></code> is appropriate, and tells you about its reasoning.</p>
-<div class="sourceCode" id="cb10"><html><body><pre class="r"><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span>(<span class="kw">repo</span> <span class="kw">=</span> <span class="no">gh_repos</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/hoist.html">unnest_auto</a></span>(<span class="no">repo</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/hoist.html">unnest_auto</a></span>(<span class="no">repo</span>)
+<div class="sourceCode" id="cb10"><pre class="downlit">
+<span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span>(repo = <span class="kw">gh_repos</span>) <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="../reference/hoist.html">unnest_auto</a></span>(<span class="kw">repo</span>) <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="../reference/hoist.html">unnest_auto</a></span>(<span class="kw">repo</span>)
 <span class="co">#&gt; Using `unnest_longer(repo)`; no element has names</span>
 <span class="co">#&gt; Using `unnest_wider(repo)`; elements have 68 names in common</span>
+<span class="co">#&gt; Warning: `...` is not empty.</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; We detected these problematic arguments:</span>
+<span class="co">#&gt; * `needs_dots`</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; These dots only exist to allow future extensions and should be empty.</span>
+<span class="co">#&gt; Did you misspecify an argument?</span>
 <span class="co">#&gt; # A tibble: 176 x 67</span>
 <span class="co">#&gt;        id name  full_name owner private html_url description fork  url  </span>
 <span class="co">#&gt;     &lt;int&gt; &lt;chr&gt; &lt;chr&gt;     &lt;lis&gt; &lt;lgl&gt;   &lt;chr&gt;    &lt;chr&gt;       &lt;lgl&gt; &lt;chr&gt;</span>
@@ -344,14 +413,23 @@ and `hoist()`.
 <span class="co">#&gt; #   watchers_count &lt;int&gt;, language &lt;chr&gt;, has_issues &lt;lgl&gt;,</span>
 <span class="co">#&gt; #   has_downloads &lt;lgl&gt;, has_wiki &lt;lgl&gt;, has_pages &lt;lgl&gt;, forks_count &lt;int&gt;,</span>
 <span class="co">#&gt; #   open_issues_count &lt;int&gt;, forks &lt;int&gt;, open_issues &lt;int&gt;, watchers &lt;int&gt;,</span>
-<span class="co">#&gt; #   default_branch &lt;chr&gt;, homepage &lt;chr&gt;</span></pre></body></html></div>
+<span class="co">#&gt; #   default_branch &lt;chr&gt;, homepage &lt;chr&gt;</span>
+</pre></div>
 </div>
 <div id="game-of-thrones-characters" class="section level2">
 <h2 class="hasAnchor">
 <a href="#game-of-thrones-characters" class="anchor"></a>Game of Thrones characters</h2>
 <p><code>got_chars</code> has a similar structure to <code>gh_users</code>: it’s a list of named lists, where each element of the inner list describes some attribute of a GoT character. We start in the same way, first by creating a data frame and then by unnesting each component into a column:</p>
-<div class="sourceCode" id="cb11"><html><body><pre class="r"><span class="no">chars</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span>(<span class="kw">char</span> <span class="kw">=</span> <span class="no">got_chars</span>)
-<span class="no">chars</span>
+<div class="sourceCode" id="cb11"><pre class="downlit">
+<span class="kw">chars</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span>(char = <span class="kw">got_chars</span>)
+<span class="kw">chars</span>
+<span class="co">#&gt; Warning: `...` is not empty.</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; We detected these problematic arguments:</span>
+<span class="co">#&gt; * `needs_dots`</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; These dots only exist to allow future extensions and should be empty.</span>
+<span class="co">#&gt; Did you misspecify an argument?</span>
 <span class="co">#&gt; # A tibble: 30 x 1</span>
 <span class="co">#&gt;    char             </span>
 <span class="co">#&gt;    &lt;list&gt;           </span>
@@ -367,8 +445,15 @@ and `hoist()`.
 <span class="co">#&gt; 10 &lt;named list [18]&gt;</span>
 <span class="co">#&gt; # … with 20 more rows</span>
 
-<span class="no">chars2</span> <span class="kw">&lt;-</span> <span class="no">chars</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/hoist.html">unnest_wider</a></span>(<span class="no">char</span>)
-<span class="no">chars2</span>
+<span class="kw">chars2</span> <span class="op">&lt;-</span> <span class="kw">chars</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/hoist.html">unnest_wider</a></span>(<span class="kw">char</span>)
+<span class="kw">chars2</span>
+<span class="co">#&gt; Warning: `...` is not empty.</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; We detected these problematic arguments:</span>
+<span class="co">#&gt; * `needs_dots`</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; These dots only exist to allow future extensions and should be empty.</span>
+<span class="co">#&gt; Did you misspecify an argument?</span>
 <span class="co">#&gt; # A tibble: 30 x 18</span>
 <span class="co">#&gt;    url      id name  gender culture born  died  alive titles aliases father</span>
 <span class="co">#&gt;    &lt;chr&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;   &lt;chr&gt; &lt;chr&gt; &lt;lgl&gt; &lt;list&gt; &lt;list&gt;  &lt;chr&gt; </span>
@@ -384,9 +469,18 @@ and `hoist()`.
 <span class="co">#&gt; 10 http…  1319 Davo… Male   "Weste… "In … ""    TRUE  &lt;chr … &lt;chr [… ""    </span>
 <span class="co">#&gt; # … with 20 more rows, and 7 more variables: mother &lt;chr&gt;, spouse &lt;chr&gt;,</span>
 <span class="co">#&gt; #   allegiances &lt;list&gt;, books &lt;list&gt;, povBooks &lt;list&gt;, tvSeries &lt;list&gt;,</span>
-<span class="co">#&gt; #   playedBy &lt;list&gt;</span></pre></body></html></div>
+<span class="co">#&gt; #   playedBy &lt;list&gt;</span>
+</pre></div>
 <p>This is more complex than <code>gh_users</code> because some component of <code>char</code> are themselves a list, giving us a collection of list-columns:</p>
-<div class="sourceCode" id="cb12"><html><body><pre class="r"><span class="no">chars2</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select_all.html">select_if</a></span>(<span class="no">is.list</span>)
+<div class="sourceCode" id="cb12"><pre class="downlit">
+<span class="kw">chars2</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select_all.html">select_if</a></span>(<span class="kw">is.list</span>)
+<span class="co">#&gt; Warning: `...` is not empty.</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; We detected these problematic arguments:</span>
+<span class="co">#&gt; * `needs_dots`</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; These dots only exist to allow future extensions and should be empty.</span>
+<span class="co">#&gt; Did you misspecify an argument?</span>
 <span class="co">#&gt; # A tibble: 30 x 7</span>
 <span class="co">#&gt;    titles    aliases    allegiances books     povBooks  tvSeries  playedBy </span>
 <span class="co">#&gt;    &lt;list&gt;    &lt;list&gt;     &lt;list&gt;      &lt;list&gt;    &lt;list&gt;    &lt;list&gt;    &lt;list&gt;   </span>
@@ -400,12 +494,21 @@ and `hoist()`.
 <span class="co">#&gt;  8 &lt;chr [1]&gt; &lt;chr [1]&gt;  &lt;chr [1]&gt;   &lt;chr [4]&gt; &lt;chr [1]&gt; &lt;chr [1]&gt; &lt;chr [1]&gt;</span>
 <span class="co">#&gt;  9 &lt;chr [5]&gt; &lt;chr [11]&gt; &lt;chr [1]&gt;   &lt;chr [1]&gt; &lt;chr [4]&gt; &lt;chr [6]&gt; &lt;chr [1]&gt;</span>
 <span class="co">#&gt; 10 &lt;chr [4]&gt; &lt;chr [5]&gt;  &lt;chr [2]&gt;   &lt;chr [1]&gt; &lt;chr [3]&gt; &lt;chr [5]&gt; &lt;chr [1]&gt;</span>
-<span class="co">#&gt; # … with 20 more rows</span></pre></body></html></div>
+<span class="co">#&gt; # … with 20 more rows</span>
+</pre></div>
 <p>What you do next will depend on the purposes of the analysis. Maybe you want a row for every book and TV series that the character appears in:</p>
-<div class="sourceCode" id="cb13"><html><body><pre class="r"><span class="no">chars2</span> <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(<span class="no">name</span>, <span class="no">books</span>, <span class="no">tvSeries</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/pivot_longer.html">pivot_longer</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="no">books</span>, <span class="no">tvSeries</span>), <span class="kw">names_to</span> <span class="kw">=</span> <span class="st">"media"</span>, <span class="kw">values_to</span> <span class="kw">=</span> <span class="st">"value"</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/hoist.html">unnest_longer</a></span>(<span class="no">value</span>)
+<div class="sourceCode" id="cb13"><pre class="downlit">
+<span class="kw">chars2</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(<span class="kw">name</span>, <span class="kw">books</span>, <span class="kw">tvSeries</span>) <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="../reference/pivot_longer.html">pivot_longer</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="kw">books</span>, <span class="kw">tvSeries</span>), names_to = <span class="st">"media"</span>, values_to = <span class="st">"value"</span>) <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="../reference/hoist.html">unnest_longer</a></span>(<span class="kw">value</span>)
+<span class="co">#&gt; Warning: `...` is not empty.</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; We detected these problematic arguments:</span>
+<span class="co">#&gt; * `needs_dots`</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; These dots only exist to allow future extensions and should be empty.</span>
+<span class="co">#&gt; Did you misspecify an argument?</span>
 <span class="co">#&gt; # A tibble: 180 x 3</span>
 <span class="co">#&gt;    name             media    value            </span>
 <span class="co">#&gt;    &lt;chr&gt;            &lt;chr&gt;    &lt;chr&gt;            </span>
@@ -419,11 +522,20 @@ and `hoist()`.
 <span class="co">#&gt;  8 Theon Greyjoy    tvSeries Season 5         </span>
 <span class="co">#&gt;  9 Theon Greyjoy    tvSeries Season 6         </span>
 <span class="co">#&gt; 10 Tyrion Lannister books    A Feast for Crows</span>
-<span class="co">#&gt; # … with 170 more rows</span></pre></body></html></div>
+<span class="co">#&gt; # … with 170 more rows</span>
+</pre></div>
 <p>Or maybe you want to build a table that lets you match title to name:</p>
-<div class="sourceCode" id="cb14"><html><body><pre class="r"><span class="no">chars2</span> <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(<span class="no">name</span>, <span class="kw">title</span> <span class="kw">=</span> <span class="no">titles</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/hoist.html">unnest_longer</a></span>(<span class="no">title</span>)
+<div class="sourceCode" id="cb14"><pre class="downlit">
+<span class="kw">chars2</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(<span class="kw">name</span>, title = <span class="kw">titles</span>) <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="../reference/hoist.html">unnest_longer</a></span>(<span class="kw">title</span>)
+<span class="co">#&gt; Warning: `...` is not empty.</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; We detected these problematic arguments:</span>
+<span class="co">#&gt; * `needs_dots`</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; These dots only exist to allow future extensions and should be empty.</span>
+<span class="co">#&gt; Did you misspecify an argument?</span>
 <span class="co">#&gt; # A tibble: 60 x 2</span>
 <span class="co">#&gt;    name              title                                                 </span>
 <span class="co">#&gt;    &lt;chr&gt;             &lt;chr&gt;                                                 </span>
@@ -437,15 +549,24 @@ and `hoist()`.
 <span class="co">#&gt;  8 Will              ""                                                    </span>
 <span class="co">#&gt;  9 Areo Hotah        "Captain of the Guard at Sunspear"                    </span>
 <span class="co">#&gt; 10 Chett             ""                                                    </span>
-<span class="co">#&gt; # … with 50 more rows</span></pre></body></html></div>
+<span class="co">#&gt; # … with 50 more rows</span>
+</pre></div>
 <p>(Note that the empty titles (<code>""</code>) are due to an infelicity in the input <code>got_chars</code>: ideally people without titles would have a title vector of length 0, not a title vector of length 1 containing an empty string.)</p>
 <p>Again, we could rewrite using <code><a href="../reference/hoist.html">unnest_auto()</a></code>. This is convenient for exploration, but I wouldn’t rely on it in the long term - <code><a href="../reference/hoist.html">unnest_auto()</a></code> has the undesirable property that it will always succeed. That means if your data structure changes, <code><a href="../reference/hoist.html">unnest_auto()</a></code> will continue to work, but might give very different output that causes cryptic failures from downstream functions.</p>
-<div class="sourceCode" id="cb15"><html><body><pre class="r"><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span>(<span class="kw">char</span> <span class="kw">=</span> <span class="no">got_chars</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/hoist.html">unnest_auto</a></span>(<span class="no">char</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(<span class="no">name</span>, <span class="kw">title</span> <span class="kw">=</span> <span class="no">titles</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/hoist.html">unnest_auto</a></span>(<span class="no">title</span>)
+<div class="sourceCode" id="cb15"><pre class="downlit">
+<span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span>(char = <span class="kw">got_chars</span>) <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="../reference/hoist.html">unnest_auto</a></span>(<span class="kw">char</span>) <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(<span class="kw">name</span>, title = <span class="kw">titles</span>) <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="../reference/hoist.html">unnest_auto</a></span>(<span class="kw">title</span>)
 <span class="co">#&gt; Using `unnest_wider(char)`; elements have 18 names in common</span>
 <span class="co">#&gt; Using `unnest_longer(title)`; no element has names</span>
+<span class="co">#&gt; Warning: `...` is not empty.</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; We detected these problematic arguments:</span>
+<span class="co">#&gt; * `needs_dots`</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; These dots only exist to allow future extensions and should be empty.</span>
+<span class="co">#&gt; Did you misspecify an argument?</span>
 <span class="co">#&gt; # A tibble: 60 x 2</span>
 <span class="co">#&gt;    name              title                                                 </span>
 <span class="co">#&gt;    &lt;chr&gt;             &lt;chr&gt;                                                 </span>
@@ -459,88 +580,121 @@ and `hoist()`.
 <span class="co">#&gt;  8 Will              ""                                                    </span>
 <span class="co">#&gt;  9 Areo Hotah        "Captain of the Guard at Sunspear"                    </span>
 <span class="co">#&gt; 10 Chett             ""                                                    </span>
-<span class="co">#&gt; # … with 50 more rows</span></pre></body></html></div>
+<span class="co">#&gt; # … with 50 more rows</span>
+</pre></div>
 </div>
 <div id="geocoding-with-google" class="section level2">
 <h2 class="hasAnchor">
 <a href="#geocoding-with-google" class="anchor"></a>Geocoding with google</h2>
 <p>Next we’ll tackle a more complex form of data that comes from Google’s geocoding service. It’s against the terms of service to cache this data, so I first write a very simple wrapper around the API. This relies on having an Google maps API key stored in an environment; if that’s not available these code chunks won’t be run.</p>
-<div class="sourceCode" id="cb16"><html><body><pre class="r"><span class="no">has_key</span> <span class="kw">&lt;-</span> !<span class="fu"><a href="https://rdrr.io/r/base/identical.html">identical</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html">Sys.getenv</a></span>(<span class="st">"GOOGLE_MAPS_API_KEY"</span>), <span class="st">""</span>)
-<span class="kw">if</span> (!<span class="no">has_key</span>) {
+<div class="sourceCode" id="cb16"><pre class="downlit">
+<span class="kw">has_key</span> <span class="op">&lt;-</span> <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/identical.html">identical</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html">Sys.getenv</a></span>(<span class="st">"GOOGLE_MAPS_API_KEY"</span>), <span class="st">""</span>)
+<span class="co">if</span> (<span class="op">!</span><span class="kw">has_key</span>) {
   <span class="fu"><a href="https://rdrr.io/r/base/message.html">message</a></span>(<span class="st">"No Google Maps API key found; code chunks will not be run"</span>)
 }
 <span class="co">#&gt; No Google Maps API key found; code chunks will not be run</span>
 
 <span class="co"># https://developers.google.com/maps/documentation/geocoding</span>
-<span class="no">geocode</span> <span class="kw">&lt;-</span> <span class="kw">function</span>(<span class="no">address</span>, <span class="no">api_key</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html">Sys.getenv</a></span>(<span class="st">"GOOGLE_MAPS_API_KEY"</span>)) {
-  <span class="no">url</span> <span class="kw">&lt;-</span> <span class="st">"https://maps.googleapis.com/maps/api/geocode/json"</span>
-  <span class="no">url</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span>(<span class="no">url</span>, <span class="st">"?address="</span>, <span class="fu"><a href="https://rdrr.io/r/utils/URLencode.html">URLencode</a></span>(<span class="no">address</span>), <span class="st">"&amp;key="</span>, <span class="no">api_key</span>)
+<span class="kw">geocode</span> <span class="op">&lt;-</span> <span class="fu">function</span>(<span class="kw">address</span>, <span class="kw">api_key</span> = <span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html">Sys.getenv</a></span>(<span class="st">"GOOGLE_MAPS_API_KEY"</span>)) {
+  <span class="kw">url</span> <span class="op">&lt;-</span> <span class="st">"https://maps.googleapis.com/maps/api/geocode/json"</span>
+  <span class="kw">url</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span>(<span class="kw">url</span>, <span class="st">"?address="</span>, <span class="fu"><a href="https://rdrr.io/r/utils/URLencode.html">URLencode</a></span>(<span class="kw">address</span>), <span class="st">"&amp;key="</span>, <span class="kw">api_key</span>)
 
-  <span class="kw pkg">jsonlite</span><span class="kw ns">::</span><span class="fu"><a href="https://jeroen.cran.dev/jsonlite/reference/read_json.html">read_json</a></span>(<span class="no">url</span>)
-}</pre></body></html></div>
+  <span class="kw">jsonlite</span>::<span class="fu"><a href="https://jeroen.cran.dev/jsonlite/reference/read_json.html">read_json</a></span>(<span class="kw">url</span>)
+}
+</pre></div>
 <p>The list that this function returns is quite complex:</p>
-<div class="sourceCode" id="cb17"><html><body><pre class="r"><span class="no">houston</span> <span class="kw">&lt;-</span> <span class="fu">geocode</span>(<span class="st">"Houston TX"</span>)
-<span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span>(<span class="no">houston</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb17"><pre class="downlit">
+<span class="kw">houston</span> <span class="op">&lt;-</span> <span class="fu">geocode</span>(<span class="st">"Houston TX"</span>)
+<span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span>(<span class="kw">houston</span>)
+</pre></div>
 <p>Fortunately, we can attack the problem step by step with tidyr functions. To make the problem a bit harder (!) and more realistic, I’ll start by geocoding a few cities:</p>
-<div class="sourceCode" id="cb18"><html><body><pre class="r"><span class="no">city</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Houston"</span>, <span class="st">"LA"</span>, <span class="st">"New York"</span>, <span class="st">"Chicago"</span>, <span class="st">"Springfield"</span>)
-<span class="no">city_geo</span> <span class="kw">&lt;-</span> <span class="kw pkg">purrr</span><span class="kw ns">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span>(<span class="no">city</span>, <span class="no">geocode</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb18"><pre class="downlit">
+<span class="kw">city</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Houston"</span>, <span class="st">"LA"</span>, <span class="st">"New York"</span>, <span class="st">"Chicago"</span>, <span class="st">"Springfield"</span>)
+<span class="kw">city_geo</span> <span class="op">&lt;-</span> <span class="kw">purrr</span>::<span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span>(<span class="kw">city</span>, <span class="kw">geocode</span>)
+</pre></div>
 <p>I’ll put these results in a tibble, next to the original city name:</p>
-<div class="sourceCode" id="cb19"><html><body><pre class="r"><span class="no">loc</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span>(<span class="kw">city</span> <span class="kw">=</span> <span class="no">city</span>, <span class="kw">json</span> <span class="kw">=</span> <span class="no">city_geo</span>)
-<span class="no">loc</span></pre></body></html></div>
+<div class="sourceCode" id="cb19"><pre class="downlit">
+<span class="kw">loc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span>(city = <span class="kw">city</span>, json = <span class="kw">city_geo</span>)
+<span class="kw">loc</span>
+</pre></div>
 <p>The first level contains components <code>status</code> and <code>result</code>, which we can reveal with <code><a href="../reference/hoist.html">unnest_wider()</a></code>:</p>
-<div class="sourceCode" id="cb20"><html><body><pre class="r"><span class="no">loc</span> <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/hoist.html">unnest_wider</a></span>(<span class="no">json</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb20"><pre class="downlit">
+<span class="kw">loc</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../reference/hoist.html">unnest_wider</a></span>(<span class="kw">json</span>)
+</pre></div>
 <p>Notice that <code>results</code> is a list of lists. Most of the cities have 1 element (representing a unique match from the geocoding API), but Springfield has two. We can pull these out into separate rows with <code><a href="../reference/hoist.html">unnest_longer()</a></code>:</p>
-<div class="sourceCode" id="cb21"><html><body><pre class="r"><span class="no">loc</span> <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/hoist.html">unnest_wider</a></span>(<span class="no">json</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/hoist.html">unnest_longer</a></span>(<span class="no">results</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb21"><pre class="downlit">
+<span class="kw">loc</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../reference/hoist.html">unnest_wider</a></span>(<span class="kw">json</span>) <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="../reference/hoist.html">unnest_longer</a></span>(<span class="kw">results</span>)
+</pre></div>
 <p>Now these all have the same components, as revealed by <code><a href="../reference/hoist.html">unnest_wider()</a></code>:</p>
-<div class="sourceCode" id="cb22"><html><body><pre class="r"><span class="no">loc</span> <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/hoist.html">unnest_wider</a></span>(<span class="no">json</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/hoist.html">unnest_longer</a></span>(<span class="no">results</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/hoist.html">unnest_wider</a></span>(<span class="no">results</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb22"><pre class="downlit">
+<span class="kw">loc</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../reference/hoist.html">unnest_wider</a></span>(<span class="kw">json</span>) <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="../reference/hoist.html">unnest_longer</a></span>(<span class="kw">results</span>) <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="../reference/hoist.html">unnest_wider</a></span>(<span class="kw">results</span>)
+</pre></div>
 <p>We can find the lat and lon coordinates by unnesting <code>geometry</code>:</p>
-<div class="sourceCode" id="cb23"><html><body><pre class="r"><span class="no">loc</span> <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/hoist.html">unnest_wider</a></span>(<span class="no">json</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/hoist.html">unnest_longer</a></span>(<span class="no">results</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/hoist.html">unnest_wider</a></span>(<span class="no">results</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/hoist.html">unnest_wider</a></span>(<span class="no">geometry</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb23"><pre class="downlit">
+<span class="kw">loc</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../reference/hoist.html">unnest_wider</a></span>(<span class="kw">json</span>) <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="../reference/hoist.html">unnest_longer</a></span>(<span class="kw">results</span>) <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="../reference/hoist.html">unnest_wider</a></span>(<span class="kw">results</span>) <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="../reference/hoist.html">unnest_wider</a></span>(<span class="kw">geometry</span>)
+</pre></div>
 <p>And then location:</p>
-<div class="sourceCode" id="cb24"><html><body><pre class="r"><span class="no">loc</span> <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/hoist.html">unnest_wider</a></span>(<span class="no">json</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/hoist.html">unnest_longer</a></span>(<span class="no">results</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/hoist.html">unnest_wider</a></span>(<span class="no">results</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/hoist.html">unnest_wider</a></span>(<span class="no">geometry</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/hoist.html">unnest_wider</a></span>(<span class="no">location</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb24"><pre class="downlit">
+<span class="kw">loc</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../reference/hoist.html">unnest_wider</a></span>(<span class="kw">json</span>) <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../reference/hoist.html">unnest_longer</a></span>(<span class="kw">results</span>) <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../reference/hoist.html">unnest_wider</a></span>(<span class="kw">results</span>) <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../reference/hoist.html">unnest_wider</a></span>(<span class="kw">geometry</span>) <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../reference/hoist.html">unnest_wider</a></span>(<span class="kw">location</span>)
+</pre></div>
 <p>Again, <code><a href="../reference/hoist.html">unnest_auto()</a></code> makes this simpler with the small risk of failing in unexpected ways if the input structure changes:</p>
-<div class="sourceCode" id="cb25"><html><body><pre class="r"><span class="no">loc</span> <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/hoist.html">unnest_auto</a></span>(<span class="no">json</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/hoist.html">unnest_auto</a></span>(<span class="no">results</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/hoist.html">unnest_auto</a></span>(<span class="no">results</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/hoist.html">unnest_auto</a></span>(<span class="no">geometry</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/hoist.html">unnest_auto</a></span>(<span class="no">location</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb25"><pre class="downlit">
+<span class="kw">loc</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../reference/hoist.html">unnest_auto</a></span>(<span class="kw">json</span>) <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../reference/hoist.html">unnest_auto</a></span>(<span class="kw">results</span>) <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../reference/hoist.html">unnest_auto</a></span>(<span class="kw">results</span>) <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../reference/hoist.html">unnest_auto</a></span>(<span class="kw">geometry</span>) <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../reference/hoist.html">unnest_auto</a></span>(<span class="kw">location</span>)
+</pre></div>
 <p>We could also just look at the first address for each city:</p>
-<div class="sourceCode" id="cb26"><html><body><pre class="r"><span class="no">loc</span> <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/hoist.html">unnest_wider</a></span>(<span class="no">json</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/hoist.html">hoist</a></span>(<span class="no">results</span>, <span class="kw">first_result</span> <span class="kw">=</span> <span class="fl">1</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/hoist.html">unnest_wider</a></span>(<span class="no">first_result</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/hoist.html">unnest_wider</a></span>(<span class="no">geometry</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/hoist.html">unnest_wider</a></span>(<span class="no">location</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb26"><pre class="downlit">
+<span class="kw">loc</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../reference/hoist.html">unnest_wider</a></span>(<span class="kw">json</span>) <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../reference/hoist.html">hoist</a></span>(<span class="kw">results</span>, first_result = <span class="fl">1</span>) <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../reference/hoist.html">unnest_wider</a></span>(<span class="kw">first_result</span>) <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../reference/hoist.html">unnest_wider</a></span>(<span class="kw">geometry</span>) <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../reference/hoist.html">unnest_wider</a></span>(<span class="kw">location</span>)
+</pre></div>
 <p>Or use <code><a href="../reference/hoist.html">hoist()</a></code> to dive deeply to get directly to <code>lat</code> and <code>lng</code>:</p>
-<div class="sourceCode" id="cb27"><html><body><pre class="r"><span class="no">loc</span> <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/hoist.html">hoist</a></span>(<span class="no">json</span>,
-    <span class="kw">lat</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="st">"results"</span>, <span class="fl">1</span>, <span class="st">"geometry"</span>, <span class="st">"location"</span>, <span class="st">"lat"</span>),
-    <span class="kw">lng</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="st">"results"</span>, <span class="fl">1</span>, <span class="st">"geometry"</span>, <span class="st">"location"</span>, <span class="st">"lng"</span>)
-  )</pre></body></html></div>
+<div class="sourceCode" id="cb27"><pre class="downlit">
+<span class="kw">loc</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../reference/hoist.html">hoist</a></span>(<span class="kw">json</span>,
+    lat = <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="st">"results"</span>, <span class="fl">1</span>, <span class="st">"geometry"</span>, <span class="st">"location"</span>, <span class="st">"lat"</span>),
+    lng = <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="st">"results"</span>, <span class="fl">1</span>, <span class="st">"geometry"</span>, <span class="st">"location"</span>, <span class="st">"lng"</span>)
+  )
+</pre></div>
 </div>
 <div id="sharla-gelfands-discography" class="section level2">
 <h2 class="hasAnchor">
 <a href="#sharla-gelfands-discography" class="anchor"></a>Sharla Gelfand’s discography</h2>
 <p>We’ll finish off with the most complex list, from <a href="https://sharla.party/posts/discog-purrr/">Sharla Gelfand’s</a> discography. We’ll start the usual way: putting the list into a single column data frame, and then widening so each component is a column. I also parse the <code>date_added</code> column into a real date-time<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>.</p>
-<div class="sourceCode" id="cb28"><html><body><pre class="r"><span class="no">discs</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span>(<span class="kw">disc</span> <span class="kw">=</span> <span class="no">discog</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/hoist.html">unnest_wider</a></span>(<span class="no">disc</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="kw">date_added</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.POSIXlt.html">as.POSIXct</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/strptime.html">strptime</a></span>(<span class="no">date_added</span>, <span class="st">"%Y-%m-%dT%H:%M:%S"</span>)))
-<span class="no">discs</span>
+<div class="sourceCode" id="cb28"><pre class="downlit">
+<span class="kw">discs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span>(disc = <span class="kw">discog</span>) <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="../reference/hoist.html">unnest_wider</a></span>(<span class="kw">disc</span>) <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(date_added = <span class="fu"><a href="https://rdrr.io/r/base/as.POSIXlt.html">as.POSIXct</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/strptime.html">strptime</a></span>(<span class="kw">date_added</span>, <span class="st">"%Y-%m-%dT%H:%M:%S"</span>))) 
+<span class="kw">discs</span>
+<span class="co">#&gt; Warning: `...` is not empty.</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; We detected these problematic arguments:</span>
+<span class="co">#&gt; * `needs_dots`</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; These dots only exist to allow future extensions and should be empty.</span>
+<span class="co">#&gt; Did you misspecify an argument?</span>
 <span class="co">#&gt; # A tibble: 155 x 5</span>
 <span class="co">#&gt;    instance_id date_added          basic_information       id rating</span>
 <span class="co">#&gt;          &lt;int&gt; &lt;dttm&gt;              &lt;list&gt;               &lt;int&gt;  &lt;int&gt;</span>
@@ -554,18 +708,29 @@ and `hoist()`.
 <span class="co">#&gt;  8   350315103 2019-01-29 15:47:22 &lt;named list [11]&gt; 10540713      0</span>
 <span class="co">#&gt;  9   350314507 2019-01-29 15:44:08 &lt;named list [11]&gt; 11260950      0</span>
 <span class="co">#&gt; 10   350314047 2019-01-29 15:41:35 &lt;named list [11]&gt; 11726853      0</span>
-<span class="co">#&gt; # … with 145 more rows</span></pre></body></html></div>
+<span class="co">#&gt; # … with 145 more rows</span>
+</pre></div>
 <p>At this level, we see information about when each disc was added to Sharla’s discography, not any information about the disc itself. To do that we need to widen the <code>basic_information</code> column:</p>
-<div class="sourceCode" id="cb29"><html><body><pre class="r"><span class="no">discs</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/hoist.html">unnest_wider</a></span>(<span class="no">basic_information</span>)
+<div class="sourceCode" id="cb29"><pre class="downlit">
+<span class="kw">discs</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/hoist.html">unnest_wider</a></span>(<span class="kw">basic_information</span>)
 <span class="co">#&gt; Error: Names must be unique.</span>
 <span class="co">#&gt; ✖ These names are duplicated:</span>
 <span class="co">#&gt;   * "id" at locations 6 and 14.</span>
-<span class="co">#&gt; ℹ Use argument `names_repair` to specify repair strategy.</span></pre></body></html></div>
+<span class="co">#&gt; ℹ Use argument `names_repair` to specify repair strategy.</span>
+</pre></div>
 <p>Unfortunately that fails because there’s an <code>id</code> column inside <code>basic_information</code>. We can quickly see what’s going on by setting <code>names_repair = "unique"</code>:</p>
-<div class="sourceCode" id="cb30"><html><body><pre class="r"><span class="no">discs</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/hoist.html">unnest_wider</a></span>(<span class="no">basic_information</span>, <span class="kw">names_repair</span> <span class="kw">=</span> <span class="st">"unique"</span>)
+<div class="sourceCode" id="cb30"><pre class="downlit">
+<span class="kw">discs</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/hoist.html">unnest_wider</a></span>(<span class="kw">basic_information</span>, names_repair = <span class="st">"unique"</span>)
 <span class="co">#&gt; New names:</span>
 <span class="co">#&gt; * id -&gt; id...6</span>
 <span class="co">#&gt; * id -&gt; id...14</span>
+<span class="co">#&gt; Warning: `...` is not empty.</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; We detected these problematic arguments:</span>
+<span class="co">#&gt; * `needs_dots`</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; These dots only exist to allow future extensions and should be empty.</span>
+<span class="co">#&gt; Did you misspecify an argument?</span>
 <span class="co">#&gt; # A tibble: 155 x 15</span>
 <span class="co">#&gt;    instance_id date_added          labels  year artists id...6 thumb title</span>
 <span class="co">#&gt;          &lt;int&gt; &lt;dttm&gt;              &lt;list&gt; &lt;int&gt; &lt;list&gt;   &lt;int&gt; &lt;chr&gt; &lt;chr&gt;</span>
@@ -581,11 +746,20 @@ and `hoist()`.
 <span class="co">#&gt; 10   350314047 2019-01-29 15:41:35 &lt;list…  2017 &lt;list … 1.17e7 "htt… Demo </span>
 <span class="co">#&gt; # … with 145 more rows, and 7 more variables: formats &lt;list&gt;,</span>
 <span class="co">#&gt; #   cover_image &lt;chr&gt;, resource_url &lt;chr&gt;, master_id &lt;int&gt;, master_url &lt;chr&gt;,</span>
-<span class="co">#&gt; #   id...14 &lt;int&gt;, rating &lt;int&gt;</span></pre></body></html></div>
+<span class="co">#&gt; #   id...14 &lt;int&gt;, rating &lt;int&gt;</span>
+</pre></div>
 <p>The problem is that <code>basic_information</code> repeats the <code>id</code> column that’s also stored at the top-level, so we can just drop that:</p>
-<div class="sourceCode" id="cb31"><html><body><pre class="r"><span class="no">discs</span> <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(-<span class="no">id</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/hoist.html">unnest_wider</a></span>(<span class="no">basic_information</span>)
+<div class="sourceCode" id="cb31"><pre class="downlit">
+<span class="kw">discs</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(<span class="op">-</span><span class="kw">id</span>) <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="../reference/hoist.html">unnest_wider</a></span>(<span class="kw">basic_information</span>)
+<span class="co">#&gt; Warning: `...` is not empty.</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; We detected these problematic arguments:</span>
+<span class="co">#&gt; * `needs_dots`</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; These dots only exist to allow future extensions and should be empty.</span>
+<span class="co">#&gt; Did you misspecify an argument?</span>
 <span class="co">#&gt; # A tibble: 155 x 14</span>
 <span class="co">#&gt;    instance_id date_added          labels  year artists     id thumb title</span>
 <span class="co">#&gt;          &lt;int&gt; &lt;dttm&gt;              &lt;list&gt; &lt;int&gt; &lt;list&gt;   &lt;int&gt; &lt;chr&gt; &lt;chr&gt;</span>
@@ -601,15 +775,24 @@ and `hoist()`.
 <span class="co">#&gt; 10   350314047 2019-01-29 15:41:35 &lt;list…  2017 &lt;list … 1.17e7 "htt… Demo </span>
 <span class="co">#&gt; # … with 145 more rows, and 6 more variables: formats &lt;list&gt;,</span>
 <span class="co">#&gt; #   cover_image &lt;chr&gt;, resource_url &lt;chr&gt;, master_id &lt;int&gt;, master_url &lt;chr&gt;,</span>
-<span class="co">#&gt; #   rating &lt;int&gt;</span></pre></body></html></div>
+<span class="co">#&gt; #   rating &lt;int&gt;</span>
+</pre></div>
 <p>Alternatively, we could use <code><a href="../reference/hoist.html">hoist()</a></code>:</p>
-<div class="sourceCode" id="cb32"><html><body><pre class="r"><span class="no">discs</span> <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/hoist.html">hoist</a></span>(<span class="no">basic_information</span>,
-    <span class="kw">title</span> <span class="kw">=</span> <span class="st">"title"</span>,
-    <span class="kw">year</span> <span class="kw">=</span> <span class="st">"year"</span>,
-    <span class="kw">label</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="st">"labels"</span>, <span class="fl">1</span>, <span class="st">"name"</span>),
-    <span class="kw">artist</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="st">"artists"</span>, <span class="fl">1</span>, <span class="st">"name"</span>)
+<div class="sourceCode" id="cb32"><pre class="downlit">
+<span class="kw">discs</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="../reference/hoist.html">hoist</a></span>(<span class="kw">basic_information</span>,
+    title = <span class="st">"title"</span>,
+    year = <span class="st">"year"</span>,
+    label = <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="st">"labels"</span>, <span class="fl">1</span>, <span class="st">"name"</span>),
+    artist = <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="st">"artists"</span>, <span class="fl">1</span>, <span class="st">"name"</span>)
   )
+<span class="co">#&gt; Warning: `...` is not empty.</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; We detected these problematic arguments:</span>
+<span class="co">#&gt; * `needs_dots`</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; These dots only exist to allow future extensions and should be empty.</span>
+<span class="co">#&gt; Did you misspecify an argument?</span>
 <span class="co">#&gt; # A tibble: 155 x 9</span>
 <span class="co">#&gt;    instance_id date_added          title  year label artist basic_informati…</span>
 <span class="co">#&gt;          &lt;int&gt; &lt;dttm&gt;              &lt;chr&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt;  &lt;list&gt;          </span>
@@ -623,14 +806,23 @@ and `hoist()`.
 <span class="co">#&gt;  8   350315103 2019-01-29 15:47:22 Let …  2015 Not … Phant… &lt;named list [9]&gt;</span>
 <span class="co">#&gt;  9   350314507 2019-01-29 15:44:08 Sub …  2017 Not … Sub S… &lt;named list [9]&gt;</span>
 <span class="co">#&gt; 10   350314047 2019-01-29 15:41:35 Demo   2017 Pres… Small… &lt;named list [9]&gt;</span>
-<span class="co">#&gt; # … with 145 more rows, and 2 more variables: id &lt;int&gt;, rating &lt;int&gt;</span></pre></body></html></div>
+<span class="co">#&gt; # … with 145 more rows, and 2 more variables: id &lt;int&gt;, rating &lt;int&gt;</span>
+</pre></div>
 <p>Here I quickly extract the name of the first label and artist by indexing deeply into the nested list.</p>
 <p>A more systematic approach would be to create separate tables for artist and label:</p>
-<div class="sourceCode" id="cb33"><html><body><pre class="r"><span class="no">discs</span> <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/hoist.html">hoist</a></span>(<span class="no">basic_information</span>, <span class="kw">artist</span> <span class="kw">=</span> <span class="st">"artists"</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(<span class="kw">disc_id</span> <span class="kw">=</span> <span class="no">id</span>, <span class="no">artist</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/hoist.html">unnest_longer</a></span>(<span class="no">artist</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/hoist.html">unnest_wider</a></span>(<span class="no">artist</span>)
+<div class="sourceCode" id="cb33"><pre class="downlit">
+<span class="kw">discs</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="../reference/hoist.html">hoist</a></span>(<span class="kw">basic_information</span>, artist = <span class="st">"artists"</span>) <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(disc_id = <span class="kw">id</span>, <span class="kw">artist</span>) <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="../reference/hoist.html">unnest_longer</a></span>(<span class="kw">artist</span>) <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="../reference/hoist.html">unnest_wider</a></span>(<span class="kw">artist</span>)
+<span class="co">#&gt; Warning: `...` is not empty.</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; We detected these problematic arguments:</span>
+<span class="co">#&gt; * `needs_dots`</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; These dots only exist to allow future extensions and should be empty.</span>
+<span class="co">#&gt; Did you misspecify an argument?</span>
 <span class="co">#&gt; # A tibble: 167 x 8</span>
 <span class="co">#&gt;     disc_id join  name          anv   tracks role  resource_url               id</span>
 <span class="co">#&gt;       &lt;int&gt; &lt;chr&gt; &lt;chr&gt;         &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;                   &lt;int&gt;</span>
@@ -646,12 +838,19 @@ and `hoist()`.
 <span class="co">#&gt; 10 11726853 ""    Small Man (2) ""    ""     ""    https://api.discogs.c… 6.37e6</span>
 <span class="co">#&gt; # … with 157 more rows</span>
 
-<span class="no">discs</span> <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/hoist.html">hoist</a></span>(<span class="no">basic_information</span>, <span class="kw">format</span> <span class="kw">=</span> <span class="st">"formats"</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(<span class="kw">disc_id</span> <span class="kw">=</span> <span class="no">id</span>, <span class="no">format</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/hoist.html">unnest_longer</a></span>(<span class="no">format</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/hoist.html">unnest_wider</a></span>(<span class="no">format</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/hoist.html">unnest_longer</a></span>(<span class="no">descriptions</span>)
+<span class="kw">discs</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="../reference/hoist.html">hoist</a></span>(<span class="kw">basic_information</span>, format = <span class="st">"formats"</span>) <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(disc_id = <span class="kw">id</span>, <span class="kw">format</span>) <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="../reference/hoist.html">unnest_longer</a></span>(<span class="kw">format</span>) <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="../reference/hoist.html">unnest_wider</a></span>(<span class="kw">format</span>) <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="../reference/hoist.html">unnest_longer</a></span>(<span class="kw">descriptions</span>)
+<span class="co">#&gt; Warning: `...` is not empty.</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; We detected these problematic arguments:</span>
+<span class="co">#&gt; * `needs_dots`</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; These dots only exist to allow future extensions and should be empty.</span>
+<span class="co">#&gt; Did you misspecify an argument?</span>
 <span class="co">#&gt; # A tibble: 281 x 5</span>
 <span class="co">#&gt;     disc_id descriptions text  name     qty  </span>
 <span class="co">#&gt;       &lt;int&gt; &lt;chr&gt;        &lt;chr&gt; &lt;chr&gt;    &lt;chr&gt;</span>
@@ -665,7 +864,8 @@ and `hoist()`.
 <span class="co">#&gt;  8  7237138 "7\""        &lt;NA&gt;  Vinyl    1    </span>
 <span class="co">#&gt;  9  7237138 "45 RPM"     &lt;NA&gt;  Vinyl    1    </span>
 <span class="co">#&gt; 10 13117042 "7\""        &lt;NA&gt;  Vinyl    1    </span>
-<span class="co">#&gt; # … with 271 more rows</span></pre></body></html></div>
+<span class="co">#&gt; # … with 271 more rows</span>
+</pre></div>
 <p>Then you could join these back on to the original dataset as needed.</p>
 </div>
 <div class="footnotes">

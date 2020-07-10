@@ -44,6 +44,10 @@ expression groups — extract • tidyr</title>
 <script src="../pkgdown.js"></script>
 <link href="../tidyverse-2.css" rel="stylesheet">
 
+<!--optional theme-->
+<link href="../.css" rel="stylesheet">
+
+
 
 
 <meta property="og:title" content="Extract a character column into multiple columns using regular
@@ -199,19 +203,19 @@ expression groups</h1>
     </div>
 
     <div class="ref-description">
-    <p>Given a regular expression with capturing groups, <code>extract()</code> turns
+    <p>Given a regular expression with capturing groups, <code><a href='https://tidyr.tidyverse.org/reference/extract.html'>extract()</a></code> turns
 each group into a new column. If the groups don't match, or the input
 is NA, the output will be NA.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>extract</span>(
-  <span class='no'>data</span>,
-  <span class='no'>col</span>,
-  <span class='no'>into</span>,
-  <span class='kw'>regex</span> <span class='kw'>=</span> <span class='st'>"([[:alnum:]]+)"</span>,
-  <span class='kw'>remove</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>convert</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='no'>...</span>
+    <pre class="usage"><span class='fu'><a href='https://tidyr.tidyverse.org/reference/extract.html'>extract</a></span>(
+  <span class='kw'>data</span>,
+  <span class='kw'>col</span>,
+  <span class='kw'>into</span>,
+  regex = <span class='st'>"([[:alnum:]]+)"</span>,
+  remove = <span class='fl'>TRUE</span>,
+  convert = <span class='fl'>FALSE</span>,
+  <span class='kw'>...</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -258,23 +262,23 @@ columns are integer, numeric or logical.</p>
 
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='separate.html'>separate()</a></code> to split up by a separator.</p></div>
+    <div class='dont-index'><p><code><a href='https://tidyr.tidyverse.org/reference/separate.html'>separate()</a></code> to split up by a separator.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>NA</span>, <span class='st'>"a-b"</span>, <span class='st'>"a-d"</span>, <span class='st'>"b-c"</span>, <span class='st'>"d-e"</span>))
-<span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>extract</span>(<span class='no'>x</span>, <span class='st'>"A"</span>)</div><div class='output co'>#&gt;      A
+    <pre class="examples"><div class='input'><span class='kw'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(x = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>NA</span>, <span class='st'>"a-b"</span>, <span class='st'>"a-d"</span>, <span class='st'>"b-c"</span>, <span class='st'>"d-e"</span>))
+<span class='kw'>df</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://tidyr.tidyverse.org/reference/extract.html'>extract</a></span>(<span class='kw'>x</span>, <span class='st'>"A"</span>)</div><div class='output co'>#&gt;      A
 #&gt; 1 &lt;NA&gt;
 #&gt; 2    a
 #&gt; 3    a
 #&gt; 4    b
-#&gt; 5    d</div><div class='input'><span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>extract</span>(<span class='no'>x</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"A"</span>, <span class='st'>"B"</span>), <span class='st'>"([[:alnum:]]+)-([[:alnum:]]+)"</span>)</div><div class='output co'>#&gt;      A    B
+#&gt; 5    d</div><div class='input'><span class='kw'>df</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://tidyr.tidyverse.org/reference/extract.html'>extract</a></span>(<span class='kw'>x</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"A"</span>, <span class='st'>"B"</span>), <span class='st'>"([[:alnum:]]+)-([[:alnum:]]+)"</span>)</div><div class='output co'>#&gt;      A    B
 #&gt; 1 &lt;NA&gt; &lt;NA&gt;
 #&gt; 2    a    b
 #&gt; 3    a    d
 #&gt; 4    b    c
 #&gt; 5    d    e</div><div class='input'>
 <span class='co'># If no match, NA:</span>
-<span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>extract</span>(<span class='no'>x</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"A"</span>, <span class='st'>"B"</span>), <span class='st'>"([a-d]+)-([a-d]+)"</span>)</div><div class='output co'>#&gt;      A    B
+<span class='kw'>df</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://tidyr.tidyverse.org/reference/extract.html'>extract</a></span>(<span class='kw'>x</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"A"</span>, <span class='st'>"B"</span>), <span class='st'>"([a-d]+)-([a-d]+)"</span>)</div><div class='output co'>#&gt;      A    B
 #&gt; 1 &lt;NA&gt; &lt;NA&gt;
 #&gt; 2    a    b
 #&gt; 3    a    d

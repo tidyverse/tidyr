@@ -43,6 +43,10 @@
 <script src="../pkgdown.js"></script>
 <link href="../tidyverse-2.css" rel="stylesheet">
 
+<!--optional theme-->
+<link href="../.css" rel="stylesheet">
+
+
 
 
 <meta property="og:title" content="Spread a key-value pair across multiple columns — spread" />
@@ -201,15 +205,15 @@ See more details in vignette(&quot;pivot&quot;)." />
 
     <div class="ref-description">
     <p><a href='https://www.tidyverse.org/lifecycle/#retired'><img src='figures/lifecycle-retired.svg' alt='Retired lifecycle'></a></p>
-<p>Development on <code>spread()</code> is complete, and for new code we recommend
-switching to <code><a href='pivot_wider.html'>pivot_wider()</a></code>, which is easier to use, more featureful, and
+<p>Development on <code><a href='https://tidyr.tidyverse.org/reference/spread.html'>spread()</a></code> is complete, and for new code we recommend
+switching to <code><a href='https://tidyr.tidyverse.org/reference/pivot_wider.html'>pivot_wider()</a></code>, which is easier to use, more featureful, and
 still under active development.
 <code>df %&gt;% spread(key, value)</code> is equivalent to
 <code>df %&gt;% pivot_wider(names_from = key, values_from = value)</code></p>
-<p>See more details in <code><a href='../articles/pivot.html'>vignette("pivot")</a></code>.</p>
+<p>See more details in <code>vignette("pivot")</code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>spread</span>(<span class='no'>data</span>, <span class='no'>key</span>, <span class='no'>value</span>, <span class='kw'>fill</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>convert</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>drop</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>sep</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'><a href='https://tidyr.tidyverse.org/reference/spread.html'>spread</a></span>(<span class='kw'>data</span>, <span class='kw'>key</span>, <span class='kw'>value</span>, fill = <span class='fl'>NA</span>, convert = <span class='fl'>FALSE</span>, drop = <span class='fl'>TRUE</span>, sep = <span class='kw'>NULL</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -257,15 +261,15 @@ by <code>"&lt;key_name&gt;&lt;sep&gt;&lt;key_value&gt;"</code>.</p></td>
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>dplyr</span>)
-<span class='no'>stocks</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(
-  <span class='kw'>time</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span>(<span class='st'>'2009-01-01'</span>) + <span class='fl'>0</span>:<span class='fl'>9</span>,
-  <span class='kw'>X</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>10</span>, <span class='fl'>0</span>, <span class='fl'>1</span>),
-  <span class='kw'>Y</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>10</span>, <span class='fl'>0</span>, <span class='fl'>2</span>),
-  <span class='kw'>Z</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>10</span>, <span class='fl'>0</span>, <span class='fl'>4</span>)
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='kw'><a href='https://dplyr.tidyverse.org'>dplyr</a></span>)
+<span class='kw'>stocks</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(
+  time = <span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span>(<span class='st'>'2009-01-01'</span>) <span class='op'>+</span> <span class='fl'>0</span><span class='op'>:</span><span class='fl'>9</span>,
+  X = <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>10</span>, <span class='fl'>0</span>, <span class='fl'>1</span>),
+  Y = <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>10</span>, <span class='fl'>0</span>, <span class='fl'>2</span>),
+  Z = <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>10</span>, <span class='fl'>0</span>, <span class='fl'>4</span>)
 )
-<span class='no'>stocksm</span> <span class='kw'>&lt;-</span> <span class='no'>stocks</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='gather.html'>gather</a></span>(<span class='no'>stock</span>, <span class='no'>price</span>, -<span class='no'>time</span>)
-<span class='no'>stocksm</span> <span class='kw'>%&gt;%</span> <span class='fu'>spread</span>(<span class='no'>stock</span>, <span class='no'>price</span>)</div><div class='output co'>#&gt;          time          X          Y            Z
+<span class='kw'>stocksm</span> <span class='op'>&lt;-</span> <span class='kw'>stocks</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://tidyr.tidyverse.org/reference/gather.html'>gather</a></span>(<span class='kw'>stock</span>, <span class='kw'>price</span>, <span class='op'>-</span><span class='kw'>time</span>)
+<span class='kw'>stocksm</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://tidyr.tidyverse.org/reference/spread.html'>spread</a></span>(<span class='kw'>stock</span>, <span class='kw'>price</span>)</div><div class='output co'>#&gt;          time          X          Y            Z
 #&gt; 1  2009-01-01 -2.0524039 -1.4041640  0.001920052
 #&gt; 2  2009-01-02  0.1507482  1.9466316  3.020500225
 #&gt; 3  2009-01-03 -0.2928727 -0.1536353  1.369614042
@@ -275,7 +279,7 @@ by <code>"&lt;key_name&gt;&lt;sep&gt;&lt;key_value&gt;"</code>.</p></td>
 #&gt; 7  2009-01-07 -0.7954609  0.8268879  2.950517792
 #&gt; 8  2009-01-08 -1.5665145  1.9526835 -3.442897102
 #&gt; 9  2009-01-09 -1.0405791  2.2930010  1.684921683
-#&gt; 10 2009-01-10  1.0199337  2.4345434  5.802172853</div><div class='input'><span class='no'>stocksm</span> <span class='kw'>%&gt;%</span> <span class='fu'>spread</span>(<span class='no'>time</span>, <span class='no'>price</span>)</div><div class='output co'>#&gt;   stock   2009-01-01 2009-01-02 2009-01-03 2009-01-04 2009-01-05 2009-01-06
+#&gt; 10 2009-01-10  1.0199337  2.4345434  5.802172853</div><div class='input'><span class='kw'>stocksm</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://tidyr.tidyverse.org/reference/spread.html'>spread</a></span>(<span class='kw'>time</span>, <span class='kw'>price</span>)</div><div class='output co'>#&gt;   stock   2009-01-01 2009-01-02 2009-01-03 2009-01-04 2009-01-05 2009-01-06
 #&gt; 1     X -2.052403887  0.1507482 -0.2928727  0.2549976 -0.5532382  1.4051089
 #&gt; 2     Y -1.404163956  1.9466316 -0.1536353  1.7858498 -1.5550062  0.8735942
 #&gt; 3     Z  0.001920052  3.0205002  1.3696140  0.6738913  5.5882660 -2.7163817
@@ -284,19 +288,19 @@ by <code>"&lt;key_name&gt;&lt;sep&gt;&lt;key_value&gt;"</code>.</p></td>
 #&gt; 2  0.8268879   1.952684   2.293001   2.434543
 #&gt; 3  2.9505178  -3.442897   1.684922   5.802173</div><div class='input'>
 <span class='co'># Spread and gather are complements</span>
-<span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"a"</span>, <span class='st'>"b"</span>), <span class='kw'>y</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>3</span>, <span class='fl'>4</span>), <span class='kw'>z</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>5</span>, <span class='fl'>6</span>))
-<span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>spread</span>(<span class='no'>x</span>, <span class='no'>y</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='gather.html'>gather</a></span>(<span class='st'>"x"</span>, <span class='st'>"y"</span>, <span class='no'>a</span>:<span class='no'>b</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt;   z x y
+<span class='kw'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(x = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"a"</span>, <span class='st'>"b"</span>), y = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>3</span>, <span class='fl'>4</span>), z = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>5</span>, <span class='fl'>6</span>))
+<span class='kw'>df</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://tidyr.tidyverse.org/reference/spread.html'>spread</a></span>(<span class='kw'>x</span>, <span class='kw'>y</span>) <span class='op'>%&gt;%</span> <span class='fu'><a href='https://tidyr.tidyverse.org/reference/gather.html'>gather</a></span>(<span class='st'>"x"</span>, <span class='st'>"y"</span>, <span class='kw'>a</span><span class='op'>:</span><span class='kw'>b</span>, na.rm = <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt;   z x y
 #&gt; 1 5 a 3
 #&gt; 4 6 b 4</div><div class='input'>
 <span class='co'># Use 'convert = TRUE' to produce variables of mixed type</span>
-<span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>row</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>51</span>), <span class='kw'>each</span> <span class='kw'>=</span> <span class='fl'>3</span>),
-                 <span class='kw'>var</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Sepal.Length"</span>, <span class='st'>"Species"</span>, <span class='st'>"Species_num"</span>),
-                 <span class='kw'>value</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>5.1</span>, <span class='st'>"setosa"</span>, <span class='fl'>1</span>, <span class='fl'>7.0</span>, <span class='st'>"versicolor"</span>, <span class='fl'>2</span>))
-<span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>spread</span>(<span class='no'>var</span>, <span class='no'>value</span>) <span class='kw'>%&gt;%</span> <span class='no'>str</span></div><div class='output co'>#&gt; 'data.frame':	2 obs. of  4 variables:
+<span class='kw'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(row = <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>51</span>), each = <span class='fl'>3</span>),
+                 var = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Sepal.Length"</span>, <span class='st'>"Species"</span>, <span class='st'>"Species_num"</span>),
+                 value = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>5.1</span>, <span class='st'>"setosa"</span>, <span class='fl'>1</span>, <span class='fl'>7.0</span>, <span class='st'>"versicolor"</span>, <span class='fl'>2</span>))
+<span class='kw'>df</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://tidyr.tidyverse.org/reference/spread.html'>spread</a></span>(<span class='kw'>var</span>, <span class='kw'>value</span>) <span class='op'>%&gt;%</span> <span class='kw'>str</span></div><div class='output co'>#&gt; 'data.frame':	2 obs. of  4 variables:
 #&gt;  $ row         : num  1 51
 #&gt;  $ Sepal.Length: chr  "5.1" "7"
 #&gt;  $ Species     : chr  "setosa" "versicolor"
-#&gt;  $ Species_num : chr  "1" "2"</div><div class='input'><span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>spread</span>(<span class='no'>var</span>, <span class='no'>value</span>, <span class='kw'>convert</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>) <span class='kw'>%&gt;%</span> <span class='no'>str</span></div><div class='output co'>#&gt; 'data.frame':	2 obs. of  4 variables:
+#&gt;  $ Species_num : chr  "1" "2"</div><div class='input'><span class='kw'>df</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://tidyr.tidyverse.org/reference/spread.html'>spread</a></span>(<span class='kw'>var</span>, <span class='kw'>value</span>, convert = <span class='fl'>TRUE</span>) <span class='op'>%&gt;%</span> <span class='kw'>str</span></div><div class='output co'>#&gt; 'data.frame':	2 obs. of  4 variables:
 #&gt;  $ row         : num  1 51
 #&gt;  $ Sepal.Length: num  5.1 7
 #&gt;  $ Species     : chr  "setosa" "versicolor"

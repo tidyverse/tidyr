@@ -43,6 +43,10 @@
 <script src="../pkgdown.js"></script>
 <link href="../tidyverse-2.css" rel="stylesheet">
 
+<!--optional theme-->
+<link href="../.css" rel="stylesheet">
+
+
 
 
 <meta property="og:title" content="Nest and unnest — nest" />
@@ -204,23 +208,23 @@ into regular columns. Nesting is implicitly a summarising operation: you
 get one row for each group defined by the non-nested columns. This is useful
 in conjunction with other summaries that work with whole datasets, most
 notably models.</p>
-<p>Learn more in <code><a href='../articles/nest.html'>vignette("nest")</a></code>.</p>
+<p>Learn more in <code>vignette("nest")</code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>nest</span>(<span class='no'>.data</span>, <span class='no'>...</span>, <span class='kw'>.names_sep</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>.key</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Deprecated.html'>deprecated</a></span>())
+    <pre class="usage"><span class='fu'><a href='https://tidyr.tidyverse.org/reference/nest.html'>nest</a></span>(<span class='kw'>.data</span>, <span class='kw'>...</span>, .names_sep = <span class='kw'>NULL</span>, .key = <span class='fu'><a href='https://rdrr.io/r/base/Deprecated.html'>deprecated</a></span>())
 
-<span class='fu'>unnest</span>(
-  <span class='no'>data</span>,
-  <span class='no'>cols</span>,
-  <span class='no'>...</span>,
-  <span class='kw'>keep_empty</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>ptype</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>names_sep</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>names_repair</span> <span class='kw'>=</span> <span class='st'>"check_unique"</span>,
-  <span class='kw'>.drop</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Deprecated.html'>deprecated</a></span>(),
-  <span class='kw'>.id</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Deprecated.html'>deprecated</a></span>(),
-  <span class='kw'>.sep</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Deprecated.html'>deprecated</a></span>(),
-  <span class='kw'>.preserve</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Deprecated.html'>deprecated</a></span>()
+<span class='fu'><a href='https://tidyr.tidyverse.org/reference/nest.html'>unnest</a></span>(
+  <span class='kw'>data</span>,
+  <span class='kw'>cols</span>,
+  <span class='kw'>...</span>,
+  keep_empty = <span class='fl'>FALSE</span>,
+  ptype = <span class='kw'>NULL</span>,
+  names_sep = <span class='kw'>NULL</span>,
+  names_repair = <span class='st'>"check_unique"</span>,
+  .drop = <span class='fu'><a href='https://rdrr.io/r/base/Deprecated.html'>deprecated</a></span>(),
+  .id = <span class='fu'><a href='https://rdrr.io/r/base/Deprecated.html'>deprecated</a></span>(),
+  .sep = <span class='fu'><a href='https://rdrr.io/r/base/Deprecated.html'>deprecated</a></span>(),
+  .preserve = <span class='fu'><a href='https://rdrr.io/r/base/Deprecated.html'>deprecated</a></span>()
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -232,15 +236,15 @@ notably models.</p>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>&lt;<code><a href='tidyr_tidy_select.html'>tidy-select</a></code>&gt; Columns to nest, specified
+      <td><p>&lt;<code><a href='https://tidyr.tidyverse.org/reference/tidyr_tidy_select.html'>tidy-select</a></code>&gt; Columns to nest, specified
 using name-variable pairs of the form <code>new_col = c(col1, col2, col3)</code>.
 The right hand side can be any valid tidy select expression.</p>
 <p><img src='figures/lifecycle-deprecated.svg' alt='Deprecated lifecycle' />
 :
 previously you could write <code>df %&gt;% nest(x, y, z)</code> and <code>df %&gt;% unnest(x, y, z)</code>. Convert to <code>df %&gt;% nest(data = c(x, y, z))</code>.
 and <code>df %&gt;% unnest(c(x, y, z))</code>.</p>
-<p>If you previously created new variable in <code>unnest()</code> you'll now need to
-do it explicitly with <code>mutate()</code>. Convert <code>df %&gt;% unnest(y = fun(x, y, z))</code>
+<p>If you previously created new variable in <code><a href='https://tidyr.tidyverse.org/reference/nest.html'>unnest()</a></code> you'll now need to
+do it explicitly with <code><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate()</a></code>. Convert <code>df %&gt;% unnest(y = fun(x, y, z))</code>
 to <code>df %&gt;% mutate(y = fun(x, y, z)) %&gt;% unnest(y)</code>.</p></td>
     </tr>
     <tr>
@@ -255,8 +259,8 @@ No longer needed because of the new <code>new_col = c(col1, col2, col3)</code> s
     </tr>
     <tr>
       <th>cols</th>
-      <td><p>&lt;<code><a href='tidyr_tidy_select.html'>tidy-select</a></code>&gt; Columns to unnest.</p>
-<p>If you <code>unnest()</code> multiple columns, parallel entries must be of
+      <td><p>&lt;<code><a href='https://tidyr.tidyverse.org/reference/tidyr_tidy_select.html'>tidy-select</a></code>&gt; Columns to unnest.</p>
+<p>If you <code><a href='https://tidyr.tidyverse.org/reference/nest.html'>unnest()</a></code> multiple columns, parallel entries must be of
 compatible sizes, i.e. they're either equal or length 1 (following the
 standard tidyverse recycling rules).</p></td>
     </tr>
@@ -278,11 +282,11 @@ individual values.</p></td>
     <tr>
       <th>names_sep, .names_sep</th>
       <td><p>If <code>NULL</code>, the default, the names will be left
-as is. In <code>nest()</code>, inner names will come from the former outer names;
-in <code>unnest()</code>, the new outer names will come from the inner names.</p>
-<p>If a string, the inner and outer names will be used together. In <code>nest()</code>,
+as is. In <code><a href='https://tidyr.tidyverse.org/reference/nest.html'>nest()</a></code>, inner names will come from the former outer names;
+in <code><a href='https://tidyr.tidyverse.org/reference/nest.html'>unnest()</a></code>, the new outer names will come from the inner names.</p>
+<p>If a string, the inner and outer names will be used together. In <code><a href='https://tidyr.tidyverse.org/reference/nest.html'>nest()</a></code>,
 the names of the new outer columns will be formed by pasting together the
-outer and the inner column names, separated by <code>names_sep</code>. In <code>unnest()</code>,
+outer and the inner column names, separated by <code>names_sep</code>. In <code><a href='https://tidyr.tidyverse.org/reference/nest.html'>unnest()</a></code>,
 the new inner names will have the outer names (+ <code>names_sep</code>) automatically
 stripped. This makes <code>names_sep</code> roughly symmetric between nesting and
 unnesting.</p></td>
@@ -296,7 +300,7 @@ names. Must be one of the following options:</p><ul>
 <li><p>"check_unique": (the default), no name repair, but check they are unique,</p></li>
 <li><p>"universal": make the names unique and syntactic</p></li>
 <li><p>a function: apply custom name repair.</p></li>
-<li><p><a href='tidyr_legacy.html'>tidyr_legacy</a>: use the name repair from tidyr 0.8.</p></li>
+<li><p><a href='https://tidyr.tidyverse.org/reference/tidyr_legacy.html'>tidyr_legacy</a>: use the name repair from tidyr 0.8.</p></li>
 <li><p>a formula: a purrr-style anonymous function (see <code><a href='https://rlang.r-lib.org/reference/as_function.html'>rlang::as_function()</a></code>)</p></li>
 </ul>
 
@@ -308,7 +312,7 @@ strategies used to enforce them.</p></td>
       <td><p><img src='figures/lifecycle-deprecated.svg' alt='Deprecated lifecycle' />
 :
 all list-columns are now preserved; If there are any that you
-don't want in the output use <code>select()</code> to remove them prior to
+don't want in the output use <code><a href='https://dplyr.tidyverse.org/reference/select.html'>select()</a></code> to remove them prior to
 unnesting.</p></td>
     </tr>
     <tr>
@@ -329,13 +333,13 @@ use <code>names_sep</code> instead.</p></td>
 
     
 
-<p>tidyr 1.0.0 introduced a new syntax for <code>nest()</code> and <code>unnest()</code> that's
+<p>tidyr 1.0.0 introduced a new syntax for <code><a href='https://tidyr.tidyverse.org/reference/nest.html'>nest()</a></code> and <code><a href='https://tidyr.tidyverse.org/reference/nest.html'>unnest()</a></code> that's
 designed to be more similar to other functions. Converting to the new syntax
 should be straightforward (guided by the message you'll recieve) but if
 you just need to run an old analysis, you can easily revert to the previous
-behaviour using <code><a href='nest_legacy.html'>nest_legacy()</a></code> and <code><a href='nest_legacy.html'>unnest_legacy()</a></code> as follows:</p><pre><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>tidyr</span>)
-<span class='no'>nest</span> <span class='kw'>&lt;-</span> <span class='no'>nest_legacy</span>
-<span class='no'>unnest</span> <span class='kw'>&lt;-</span> <span class='no'>unnest_legacy</span></pre>
+behaviour using <code><a href='https://tidyr.tidyverse.org/reference/nest_legacy.html'>nest_legacy()</a></code> and <code><a href='https://tidyr.tidyverse.org/reference/nest_legacy.html'>unnest_legacy()</a></code> as follows:</p><pre><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='kw'><a href='https://tidyr.tidyverse.org'>tidyr</a></span>)
+<span class='kw'>nest</span> <span class='op'>&lt;-</span> <span class='kw'>nest_legacy</span>
+<span class='kw'>unnest</span> <span class='op'>&lt;-</span> <span class='kw'>unnest_legacy</span></pre>
 
     <h2 class="hasAnchor" id="grouped-data-frames"><a class="anchor" href="#grouped-data-frames"></a>Grouped data frames</h2>
 
@@ -343,65 +347,113 @@ behaviour using <code><a href='nest_legacy.html'>nest_legacy()</a></code> and <c
 
 <p><code>df %&gt;% nest(data = c(x, y))</code> specifies the columns to be nested; i.e. the
 columns that will appear in the inner data frame. Alternatively, you can
-<code>nest()</code> a grouped data frame created by <code><a href='https://dplyr.tidyverse.org/reference/group_by.html'>dplyr::group_by()</a></code>. The grouping
+<code><a href='https://tidyr.tidyverse.org/reference/nest.html'>nest()</a></code> a grouped data frame created by <code><a href='https://dplyr.tidyverse.org/reference/group_by.html'>dplyr::group_by()</a></code>. The grouping
 variables remain in the outer data frame and the others are nested. The
 result preserves the grouping of the input.</p>
-<p>Variables supplied to <code>nest()</code> will override grouping variables so that
+<p>Variables supplied to <code><a href='https://tidyr.tidyverse.org/reference/nest.html'>nest()</a></code> will override grouping variables so that
 <code>df %&gt;% group_by(x, y) %&gt;% nest(data = -z)</code> will be equivalent to
 <code>df %&gt;% nest(data = -z)</code>.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>2</span>, <span class='fl'>3</span>), <span class='kw'>y</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>6</span>, <span class='kw'>z</span> <span class='kw'>=</span> <span class='fl'>6</span>:<span class='fl'>1</span>)
+    <pre class="examples"><div class='input'><span class='kw'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(x = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>2</span>, <span class='fl'>3</span>), y = <span class='fl'>1</span><span class='op'>:</span><span class='fl'>6</span>, z = <span class='fl'>6</span><span class='op'>:</span><span class='fl'>1</span>)
 <span class='co'># Note that we get one row of output for each unique combination of</span>
 <span class='co'># non-nested variables</span>
-<span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>nest</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='no'>y</span>, <span class='no'>z</span>))</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 3 x 2</span><span>
+<span class='kw'>df</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://tidyr.tidyverse.org/reference/nest.html'>nest</a></span>(data = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='kw'>y</span>, <span class='kw'>z</span>))</div><div class='output co'>#&gt; <span class='warning'>Warning: `...` is not empty.</span>
+#&gt; <span class='warning'></span>
+#&gt; <span class='warning'>We detected these problematic arguments:</span>
+#&gt; <span class='warning'>* `needs_dots`</span>
+#&gt; <span class='warning'></span>
+#&gt; <span class='warning'>These dots only exist to allow future extensions and should be empty.</span>
+#&gt; <span class='warning'>Did you misspecify an argument?</span></div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 3 x 2</span><span>
 #&gt;       x data            
 #&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;list&gt;</span><span>          
 #&gt; </span><span style='color: #555555;'>1</span><span>     1 </span><span style='color: #555555;'>&lt;tibble [3 × 2]&gt;</span><span>
 #&gt; </span><span style='color: #555555;'>2</span><span>     2 </span><span style='color: #555555;'>&lt;tibble [2 × 2]&gt;</span><span>
 #&gt; </span><span style='color: #555555;'>3</span><span>     3 </span><span style='color: #555555;'>&lt;tibble [1 × 2]&gt;</span><span></div><div class='input'><span class='co'># chop does something similar, but retains individual columns</span>
-<span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='chop.html'>chop</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='no'>y</span>, <span class='no'>z</span>))</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 3 x 3</span><span>
+<span class='kw'>df</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://tidyr.tidyverse.org/reference/chop.html'>chop</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='kw'>y</span>, <span class='kw'>z</span>))</div><div class='output co'>#&gt; <span class='warning'>Warning: `...` is not empty.</span>
+#&gt; <span class='warning'></span>
+#&gt; <span class='warning'>We detected these problematic arguments:</span>
+#&gt; <span class='warning'>* `needs_dots`</span>
+#&gt; <span class='warning'></span>
+#&gt; <span class='warning'>These dots only exist to allow future extensions and should be empty.</span>
+#&gt; <span class='warning'>Did you misspecify an argument?</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 3 x 3</span><span>
 #&gt;       x           y           z
 #&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;list&lt;int&gt;&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;list&lt;int&gt;&gt;</span><span>
 #&gt; </span><span style='color: #555555;'>1</span><span>     1         </span><span style='color: #555555;'>[3]</span><span>         </span><span style='color: #555555;'>[3]</span><span>
 #&gt; </span><span style='color: #555555;'>2</span><span>     2         </span><span style='color: #555555;'>[2]</span><span>         </span><span style='color: #555555;'>[2]</span><span>
 #&gt; </span><span style='color: #555555;'>3</span><span>     3         </span><span style='color: #555555;'>[1]</span><span>         </span><span style='color: #555555;'>[1]</span><span></div><div class='input'>
 <span class='co'># use tidyselect syntax and helpers, just like in dplyr::select()</span>
-<span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>nest</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='fu'><a href='https://tidyselect.r-lib.org/reference/one_of.html'>one_of</a></span>(<span class='st'>"y"</span>, <span class='st'>"z"</span>))</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 3 x 2</span><span>
+<span class='kw'>df</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://tidyr.tidyverse.org/reference/nest.html'>nest</a></span>(data = <span class='fu'><a href='https://tidyselect.r-lib.org/reference/one_of.html'>one_of</a></span>(<span class='st'>"y"</span>, <span class='st'>"z"</span>))</div><div class='output co'>#&gt; <span class='warning'>Warning: `...` is not empty.</span>
+#&gt; <span class='warning'></span>
+#&gt; <span class='warning'>We detected these problematic arguments:</span>
+#&gt; <span class='warning'>* `needs_dots`</span>
+#&gt; <span class='warning'></span>
+#&gt; <span class='warning'>These dots only exist to allow future extensions and should be empty.</span>
+#&gt; <span class='warning'>Did you misspecify an argument?</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 3 x 2</span><span>
 #&gt;       x data            
 #&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;list&gt;</span><span>          
 #&gt; </span><span style='color: #555555;'>1</span><span>     1 </span><span style='color: #555555;'>&lt;tibble [3 × 2]&gt;</span><span>
 #&gt; </span><span style='color: #555555;'>2</span><span>     2 </span><span style='color: #555555;'>&lt;tibble [2 × 2]&gt;</span><span>
 #&gt; </span><span style='color: #555555;'>3</span><span>     3 </span><span style='color: #555555;'>&lt;tibble [1 × 2]&gt;</span><span></div><div class='input'>
-<span class='no'>iris</span> <span class='kw'>%&gt;%</span> <span class='fu'>nest</span>(<span class='kw'>data</span> <span class='kw'>=</span> -<span class='no'>Species</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 3 x 2</span><span>
+<span class='kw'>iris</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://tidyr.tidyverse.org/reference/nest.html'>nest</a></span>(data = <span class='op'>-</span><span class='kw'>Species</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: `...` is not empty.</span>
+#&gt; <span class='warning'></span>
+#&gt; <span class='warning'>We detected these problematic arguments:</span>
+#&gt; <span class='warning'>* `needs_dots`</span>
+#&gt; <span class='warning'></span>
+#&gt; <span class='warning'>These dots only exist to allow future extensions and should be empty.</span>
+#&gt; <span class='warning'>Did you misspecify an argument?</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 3 x 2</span><span>
 #&gt;   Species    data             
 #&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>      </span><span style='color: #555555;font-style: italic;'>&lt;list&gt;</span><span>           
 #&gt; </span><span style='color: #555555;'>1</span><span> setosa     </span><span style='color: #555555;'>&lt;tibble [50 × 4]&gt;</span><span>
 #&gt; </span><span style='color: #555555;'>2</span><span> versicolor </span><span style='color: #555555;'>&lt;tibble [50 × 4]&gt;</span><span>
-#&gt; </span><span style='color: #555555;'>3</span><span> virginica  </span><span style='color: #555555;'>&lt;tibble [50 × 4]&gt;</span><span></div><div class='input'><span class='no'>nest_vars</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span>(<span class='no'>iris</span>)[<span class='fl'>1</span>:<span class='fl'>4</span>]
-<span class='no'>iris</span> <span class='kw'>%&gt;%</span> <span class='fu'>nest</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='fu'><a href='https://tidyselect.r-lib.org/reference/one_of.html'>one_of</a></span>(<span class='no'>nest_vars</span>))</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 3 x 2</span><span>
+#&gt; </span><span style='color: #555555;'>3</span><span> virginica  </span><span style='color: #555555;'>&lt;tibble [50 × 4]&gt;</span><span></div><div class='input'><span class='kw'>nest_vars</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span>(<span class='kw'>iris</span>)[<span class='fl'>1</span><span class='op'>:</span><span class='fl'>4</span>]
+<span class='kw'>iris</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://tidyr.tidyverse.org/reference/nest.html'>nest</a></span>(data = <span class='fu'><a href='https://tidyselect.r-lib.org/reference/one_of.html'>one_of</a></span>(<span class='kw'>nest_vars</span>))</div><div class='output co'>#&gt; <span class='warning'>Warning: `...` is not empty.</span>
+#&gt; <span class='warning'></span>
+#&gt; <span class='warning'>We detected these problematic arguments:</span>
+#&gt; <span class='warning'>* `needs_dots`</span>
+#&gt; <span class='warning'></span>
+#&gt; <span class='warning'>These dots only exist to allow future extensions and should be empty.</span>
+#&gt; <span class='warning'>Did you misspecify an argument?</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 3 x 2</span><span>
 #&gt;   Species    data             
 #&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>      </span><span style='color: #555555;font-style: italic;'>&lt;list&gt;</span><span>           
 #&gt; </span><span style='color: #555555;'>1</span><span> setosa     </span><span style='color: #555555;'>&lt;tibble [50 × 4]&gt;</span><span>
 #&gt; </span><span style='color: #555555;'>2</span><span> versicolor </span><span style='color: #555555;'>&lt;tibble [50 × 4]&gt;</span><span>
-#&gt; </span><span style='color: #555555;'>3</span><span> virginica  </span><span style='color: #555555;'>&lt;tibble [50 × 4]&gt;</span><span></div><div class='input'><span class='no'>iris</span> <span class='kw'>%&gt;%</span>
-  <span class='fu'>nest</span>(<span class='kw'>petal</span> <span class='kw'>=</span> <span class='fu'><a href='https://tidyselect.r-lib.org/reference/starts_with.html'>starts_with</a></span>(<span class='st'>"Petal"</span>), <span class='kw'>sepal</span> <span class='kw'>=</span> <span class='fu'><a href='https://tidyselect.r-lib.org/reference/starts_with.html'>starts_with</a></span>(<span class='st'>"Sepal"</span>))</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 3 x 3</span><span>
+#&gt; </span><span style='color: #555555;'>3</span><span> virginica  </span><span style='color: #555555;'>&lt;tibble [50 × 4]&gt;</span><span></div><div class='input'><span class='kw'>iris</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='https://tidyr.tidyverse.org/reference/nest.html'>nest</a></span>(petal = <span class='fu'><a href='https://tidyselect.r-lib.org/reference/starts_with.html'>starts_with</a></span>(<span class='st'>"Petal"</span>), sepal = <span class='fu'><a href='https://tidyselect.r-lib.org/reference/starts_with.html'>starts_with</a></span>(<span class='st'>"Sepal"</span>))</div><div class='output co'>#&gt; <span class='warning'>Warning: `...` is not empty.</span>
+#&gt; <span class='warning'></span>
+#&gt; <span class='warning'>We detected these problematic arguments:</span>
+#&gt; <span class='warning'>* `needs_dots`</span>
+#&gt; <span class='warning'></span>
+#&gt; <span class='warning'>These dots only exist to allow future extensions and should be empty.</span>
+#&gt; <span class='warning'>Did you misspecify an argument?</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 3 x 3</span><span>
 #&gt;   Species    petal             sepal            
 #&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>      </span><span style='color: #555555;font-style: italic;'>&lt;list&gt;</span><span>            </span><span style='color: #555555;font-style: italic;'>&lt;list&gt;</span><span>           
 #&gt; </span><span style='color: #555555;'>1</span><span> setosa     </span><span style='color: #555555;'>&lt;tibble [50 × 2]&gt;</span><span> </span><span style='color: #555555;'>&lt;tibble [50 × 2]&gt;</span><span>
 #&gt; </span><span style='color: #555555;'>2</span><span> versicolor </span><span style='color: #555555;'>&lt;tibble [50 × 2]&gt;</span><span> </span><span style='color: #555555;'>&lt;tibble [50 × 2]&gt;</span><span>
-#&gt; </span><span style='color: #555555;'>3</span><span> virginica  </span><span style='color: #555555;'>&lt;tibble [50 × 2]&gt;</span><span> </span><span style='color: #555555;'>&lt;tibble [50 × 2]&gt;</span><span></div><div class='input'><span class='no'>iris</span> <span class='kw'>%&gt;%</span>
-  <span class='fu'>nest</span>(<span class='kw'>width</span> <span class='kw'>=</span> <span class='fu'><a href='https://tidyselect.r-lib.org/reference/starts_with.html'>contains</a></span>(<span class='st'>"Width"</span>), <span class='kw'>length</span> <span class='kw'>=</span> <span class='fu'><a href='https://tidyselect.r-lib.org/reference/starts_with.html'>contains</a></span>(<span class='st'>"Length"</span>))</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 3 x 3</span><span>
+#&gt; </span><span style='color: #555555;'>3</span><span> virginica  </span><span style='color: #555555;'>&lt;tibble [50 × 2]&gt;</span><span> </span><span style='color: #555555;'>&lt;tibble [50 × 2]&gt;</span><span></div><div class='input'><span class='kw'>iris</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='https://tidyr.tidyverse.org/reference/nest.html'>nest</a></span>(width = <span class='fu'><a href='https://tidyselect.r-lib.org/reference/starts_with.html'>contains</a></span>(<span class='st'>"Width"</span>), length = <span class='fu'><a href='https://tidyselect.r-lib.org/reference/starts_with.html'>contains</a></span>(<span class='st'>"Length"</span>))</div><div class='output co'>#&gt; <span class='warning'>Warning: `...` is not empty.</span>
+#&gt; <span class='warning'></span>
+#&gt; <span class='warning'>We detected these problematic arguments:</span>
+#&gt; <span class='warning'>* `needs_dots`</span>
+#&gt; <span class='warning'></span>
+#&gt; <span class='warning'>These dots only exist to allow future extensions and should be empty.</span>
+#&gt; <span class='warning'>Did you misspecify an argument?</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 3 x 3</span><span>
 #&gt;   Species    width             length           
 #&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>      </span><span style='color: #555555;font-style: italic;'>&lt;list&gt;</span><span>            </span><span style='color: #555555;font-style: italic;'>&lt;list&gt;</span><span>           
 #&gt; </span><span style='color: #555555;'>1</span><span> setosa     </span><span style='color: #555555;'>&lt;tibble [50 × 2]&gt;</span><span> </span><span style='color: #555555;'>&lt;tibble [50 × 2]&gt;</span><span>
 #&gt; </span><span style='color: #555555;'>2</span><span> versicolor </span><span style='color: #555555;'>&lt;tibble [50 × 2]&gt;</span><span> </span><span style='color: #555555;'>&lt;tibble [50 × 2]&gt;</span><span>
 #&gt; </span><span style='color: #555555;'>3</span><span> virginica  </span><span style='color: #555555;'>&lt;tibble [50 × 2]&gt;</span><span> </span><span style='color: #555555;'>&lt;tibble [50 × 2]&gt;</span><span></div><div class='input'>
 <span class='co'># Nesting a grouped data frame nests all variables apart from the group vars</span>
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>dplyr</span>)
-<span class='no'>fish_encounters</span> <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span>(<span class='no'>fish</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'>nest</span>()</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 19 x 2</span><span>
+<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='kw'><a href='https://dplyr.tidyverse.org'>dplyr</a></span>)
+<span class='kw'>fish_encounters</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span>(<span class='kw'>fish</span>) <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='https://tidyr.tidyverse.org/reference/nest.html'>nest</a></span>()</div><div class='output co'>#&gt; <span class='warning'>Warning: `...` is not empty.</span>
+#&gt; <span class='warning'></span>
+#&gt; <span class='warning'>We detected these problematic arguments:</span>
+#&gt; <span class='warning'>* `needs_dots`</span>
+#&gt; <span class='warning'></span>
+#&gt; <span class='warning'>These dots only exist to allow future extensions and should be empty.</span>
+#&gt; <span class='warning'>Did you misspecify an argument?</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 19 x 2</span><span>
 #&gt; </span><span style='color: #555555;'># Groups:   fish [19]</span><span>
 #&gt;    fish  data             
 #&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;list&gt;</span><span>           
@@ -425,10 +477,16 @@ result preserves the grouping of the input.</p>
 #&gt; </span><span style='color: #555555;'>18</span><span> 4864  </span><span style='color: #555555;'>&lt;tibble [2 × 2]&gt;</span><span> 
 #&gt; </span><span style='color: #555555;'>19</span><span> 4865  </span><span style='color: #555555;'>&lt;tibble [3 × 2]&gt;</span><span> </div><div class='input'>
 <span class='co'># Nesting is often useful for creating per group models</span>
-<span class='no'>mtcars</span> <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span>(<span class='no'>cyl</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'>nest</span>() <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span>(<span class='kw'>models</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span>(<span class='no'>data</span>, <span class='kw'>function</span>(<span class='no'>df</span>) <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span>(<span class='no'>mpg</span> ~ <span class='no'>wt</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>df</span>)))</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 3 x 3</span><span>
+<span class='kw'>mtcars</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span>(<span class='kw'>cyl</span>) <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='https://tidyr.tidyverse.org/reference/nest.html'>nest</a></span>() <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span>(models = <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span>(<span class='kw'>data</span>, <span class='fu'>function</span>(<span class='kw'>df</span>) <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span>(<span class='kw'>mpg</span> <span class='op'>~</span> <span class='kw'>wt</span>, data = <span class='kw'>df</span>)))</div><div class='output co'>#&gt; <span class='warning'>Warning: `...` is not empty.</span>
+#&gt; <span class='warning'></span>
+#&gt; <span class='warning'>We detected these problematic arguments:</span>
+#&gt; <span class='warning'>* `needs_dots`</span>
+#&gt; <span class='warning'></span>
+#&gt; <span class='warning'>These dots only exist to allow future extensions and should be empty.</span>
+#&gt; <span class='warning'>Did you misspecify an argument?</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 3 x 3</span><span>
 #&gt; </span><span style='color: #555555;'># Groups:   cyl [3]</span><span>
 #&gt;     cyl data               models
 #&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;list&gt;</span><span>             </span><span style='color: #555555;font-style: italic;'>&lt;list&gt;</span><span>
@@ -436,21 +494,33 @@ result preserves the grouping of the input.</p>
 #&gt; </span><span style='color: #555555;'>2</span><span>     4 </span><span style='color: #555555;'>&lt;tibble [11 × 10]&gt;</span><span> </span><span style='color: #555555;'>&lt;lm&gt;</span><span>  
 #&gt; </span><span style='color: #555555;'>3</span><span>     8 </span><span style='color: #555555;'>&lt;tibble [14 × 10]&gt;</span><span> </span><span style='color: #555555;'>&lt;lm&gt;</span><span>  </div><div class='input'>
 <span class='co'># unnest() is primarily designed to work with lists of data frames</span>
-<span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(
-  <span class='kw'>x</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>3</span>,
-  <span class='kw'>y</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(
+<span class='kw'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(
+  x = <span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span>,
+  y = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(
     <span class='kw'>NULL</span>,
-    <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(<span class='kw'>a</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>b</span> <span class='kw'>=</span> <span class='fl'>2</span>),
-    <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(<span class='kw'>a</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>3</span>, <span class='kw'>b</span> <span class='kw'>=</span> <span class='fl'>3</span>:<span class='fl'>1</span>)
+    <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(a = <span class='fl'>1</span>, b = <span class='fl'>2</span>),
+    <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(a = <span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span>, b = <span class='fl'>3</span><span class='op'>:</span><span class='fl'>1</span>)
   )
 )
-<span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>unnest</span>(<span class='no'>y</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 4 x 3</span><span>
+<span class='kw'>df</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://tidyr.tidyverse.org/reference/nest.html'>unnest</a></span>(<span class='kw'>y</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: `...` is not empty.</span>
+#&gt; <span class='warning'></span>
+#&gt; <span class='warning'>We detected these problematic arguments:</span>
+#&gt; <span class='warning'>* `needs_dots`</span>
+#&gt; <span class='warning'></span>
+#&gt; <span class='warning'>These dots only exist to allow future extensions and should be empty.</span>
+#&gt; <span class='warning'>Did you misspecify an argument?</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 4 x 3</span><span>
 #&gt;       x     a     b
 #&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
 #&gt; </span><span style='color: #555555;'>1</span><span>     2     1     2
 #&gt; </span><span style='color: #555555;'>2</span><span>     3     1     3
 #&gt; </span><span style='color: #555555;'>3</span><span>     3     2     2
-#&gt; </span><span style='color: #555555;'>4</span><span>     3     3     1</div><div class='input'><span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>unnest</span>(<span class='no'>y</span>, <span class='kw'>keep_empty</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 5 x 3</span><span>
+#&gt; </span><span style='color: #555555;'>4</span><span>     3     3     1</div><div class='input'><span class='kw'>df</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://tidyr.tidyverse.org/reference/nest.html'>unnest</a></span>(<span class='kw'>y</span>, keep_empty = <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: `...` is not empty.</span>
+#&gt; <span class='warning'></span>
+#&gt; <span class='warning'>We detected these problematic arguments:</span>
+#&gt; <span class='warning'>* `needs_dots`</span>
+#&gt; <span class='warning'></span>
+#&gt; <span class='warning'>These dots only exist to allow future extensions and should be empty.</span>
+#&gt; <span class='warning'>Did you misspecify an argument?</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 5 x 3</span><span>
 #&gt;       x     a     b
 #&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
 #&gt; </span><span style='color: #555555;'>1</span><span>     1    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>
@@ -462,12 +532,18 @@ result preserves the grouping of the input.</p>
 <span class='co'># see hoist(), unnest_wider(), and unnest_longer()</span>
 
 <span class='co'>#' # You can unnest multiple columns simultaneously</span>
-<span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(
- <span class='kw'>a</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"a"</span>, <span class='st'>"b"</span>), <span class='st'>"c"</span>),
- <span class='kw'>b</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='fl'>1</span>:<span class='fl'>2</span>, <span class='fl'>3</span>),
- <span class='kw'>c</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>11</span>, <span class='fl'>22</span>)
+<span class='kw'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(
+ a = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"a"</span>, <span class='st'>"b"</span>), <span class='st'>"c"</span>),
+ b = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span>, <span class='fl'>3</span>),
+ c = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>11</span>, <span class='fl'>22</span>)
 )
-<span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>unnest</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='no'>a</span>, <span class='no'>b</span>))</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 3 x 3</span><span>
+<span class='kw'>df</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://tidyr.tidyverse.org/reference/nest.html'>unnest</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='kw'>a</span>, <span class='kw'>b</span>))</div><div class='output co'>#&gt; <span class='warning'>Warning: `...` is not empty.</span>
+#&gt; <span class='warning'></span>
+#&gt; <span class='warning'>We detected these problematic arguments:</span>
+#&gt; <span class='warning'>* `needs_dots`</span>
+#&gt; <span class='warning'></span>
+#&gt; <span class='warning'>These dots only exist to allow future extensions and should be empty.</span>
+#&gt; <span class='warning'>Did you misspecify an argument?</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 3 x 3</span><span>
 #&gt;   a         b     c
 #&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
 #&gt; </span><span style='color: #555555;'>1</span><span> a         1    11
@@ -475,7 +551,13 @@ result preserves the grouping of the input.</p>
 #&gt; </span><span style='color: #555555;'>3</span><span> c         3    22</div><div class='input'>
 <span class='co'># Compare with unnesting one column at a time, which generates</span>
 <span class='co'># the Cartesian product</span>
-<span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>unnest</span>(<span class='no'>a</span>) <span class='kw'>%&gt;%</span> <span class='fu'>unnest</span>(<span class='no'>b</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 5 x 3</span><span>
+<span class='kw'>df</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://tidyr.tidyverse.org/reference/nest.html'>unnest</a></span>(<span class='kw'>a</span>) <span class='op'>%&gt;%</span> <span class='fu'><a href='https://tidyr.tidyverse.org/reference/nest.html'>unnest</a></span>(<span class='kw'>b</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: `...` is not empty.</span>
+#&gt; <span class='warning'></span>
+#&gt; <span class='warning'>We detected these problematic arguments:</span>
+#&gt; <span class='warning'>* `needs_dots`</span>
+#&gt; <span class='warning'></span>
+#&gt; <span class='warning'>These dots only exist to allow future extensions and should be empty.</span>
+#&gt; <span class='warning'>Did you misspecify an argument?</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 5 x 3</span><span>
 #&gt;   a         b     c
 #&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
 #&gt; </span><span style='color: #555555;'>1</span><span> a         1    11

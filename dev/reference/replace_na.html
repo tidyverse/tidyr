@@ -43,6 +43,10 @@
 <script src="../pkgdown.js"></script>
 <link href="../tidyverse-2.css" rel="stylesheet">
 
+<!--optional theme-->
+<link href="../.css" rel="stylesheet">
+
+
 
 
 <meta property="og:title" content="Replace NAs with specified values — replace_na" />
@@ -197,7 +201,7 @@
     <p>Replace NAs with specified values</p>
     </div>
 
-    <pre class="usage"><span class='fu'>replace_na</span>(<span class='no'>data</span>, <span class='no'>replace</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'><a href='https://tidyr.tidyverse.org/reference/replace_na.html'>replace_na</a></span>(<span class='kw'>data</span>, <span class='kw'>replace</span>, <span class='kw'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -223,8 +227,8 @@ replaces all of the <code>NA</code> values in the vector.</p></td>
 
     
 <ul>
-<li><p>If <code>data</code> is a data frame, <code>replace_na()</code> returns a data frame.</p></li>
-<li><p>If <code>data</code> is a vector, <code>replace_na()</code> returns a vector, with class
+<li><p>If <code>data</code> is a data frame, <code><a href='https://tidyr.tidyverse.org/reference/replace_na.html'>replace_na()</a></code> returns a data frame.</p></li>
+<li><p>If <code>data</code> is a vector, <code><a href='https://tidyr.tidyverse.org/reference/replace_na.html'>replace_na()</a></code> returns a vector, with class
 given by the union of <code>data</code> and <code>replace</code>.</p></li>
 </ul>
 
@@ -235,24 +239,42 @@ given by the union of <code>data</code> and <code>replace</code>.</p></li>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># Replace NAs in a data frame</span>
-<span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>NA</span>), <span class='kw'>y</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"a"</span>, <span class='fl'>NA</span>, <span class='st'>"b"</span>))
-<span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>replace_na</span>(<span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='st'>"unknown"</span>))</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 3 x 2</span><span>
+<span class='kw'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(x = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>NA</span>), y = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"a"</span>, <span class='fl'>NA</span>, <span class='st'>"b"</span>))
+<span class='kw'>df</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://tidyr.tidyverse.org/reference/replace_na.html'>replace_na</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(x = <span class='fl'>0</span>, y = <span class='st'>"unknown"</span>))</div><div class='output co'>#&gt; <span class='warning'>Warning: `...` is not empty.</span>
+#&gt; <span class='warning'></span>
+#&gt; <span class='warning'>We detected these problematic arguments:</span>
+#&gt; <span class='warning'>* `needs_dots`</span>
+#&gt; <span class='warning'></span>
+#&gt; <span class='warning'>These dots only exist to allow future extensions and should be empty.</span>
+#&gt; <span class='warning'>Did you misspecify an argument?</span></div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 3 x 2</span><span>
 #&gt;       x y      
 #&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  
 #&gt; </span><span style='color: #555555;'>1</span><span>     1 a      
 #&gt; </span><span style='color: #555555;'>2</span><span>     2 unknown
 #&gt; </span><span style='color: #555555;'>3</span><span>     0 b      </div><div class='input'>
 <span class='co'># Replace NAs in a vector</span>
-<span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'>replace_na</span>(<span class='no'>x</span>, <span class='fl'>0</span>))</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 3 x 2</span><span>
+<span class='kw'>df</span> <span class='op'>%&gt;%</span> <span class='kw'>dplyr</span>::<span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span>(x = <span class='fu'><a href='https://tidyr.tidyverse.org/reference/replace_na.html'>replace_na</a></span>(<span class='kw'>x</span>, <span class='fl'>0</span>))</div><div class='output co'>#&gt; <span class='warning'>Warning: `...` is not empty.</span>
+#&gt; <span class='warning'></span>
+#&gt; <span class='warning'>We detected these problematic arguments:</span>
+#&gt; <span class='warning'>* `needs_dots`</span>
+#&gt; <span class='warning'></span>
+#&gt; <span class='warning'>These dots only exist to allow future extensions and should be empty.</span>
+#&gt; <span class='warning'>Did you misspecify an argument?</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 3 x 2</span><span>
 #&gt;       x y    
 #&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>
 #&gt; </span><span style='color: #555555;'>1</span><span>     1 a    
 #&gt; </span><span style='color: #555555;'>2</span><span>     2 </span><span style='color: #BB0000;'>NA</span><span>   
 #&gt; </span><span style='color: #555555;'>3</span><span>     0 b    </div><div class='input'><span class='co'># OR</span>
-<span class='no'>df</span>$<span class='no'>x</span> <span class='kw'>%&gt;%</span> <span class='fu'>replace_na</span>(<span class='fl'>0</span>)</div><div class='output co'>#&gt; [1] 1 2 0</div><div class='input'><span class='no'>df</span>$<span class='no'>y</span> <span class='kw'>%&gt;%</span> <span class='fu'>replace_na</span>(<span class='st'>"unknown"</span>)</div><div class='output co'>#&gt; [1] "a"       "unknown" "b"      </div><div class='input'>
+<span class='kw'>df</span><span class='op'>$</span><span class='kw'>x</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://tidyr.tidyverse.org/reference/replace_na.html'>replace_na</a></span>(<span class='fl'>0</span>)</div><div class='output co'>#&gt; [1] 1 2 0</div><div class='input'><span class='kw'>df</span><span class='op'>$</span><span class='kw'>y</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://tidyr.tidyverse.org/reference/replace_na.html'>replace_na</a></span>(<span class='st'>"unknown"</span>)</div><div class='output co'>#&gt; [1] "a"       "unknown" "b"      </div><div class='input'>
 <span class='co'># Replace NULLs in a list: NULLs are the list-col equivalent of NAs</span>
-<span class='no'>df_list</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(<span class='kw'>z</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='fl'>1</span>:<span class='fl'>5</span>, <span class='kw'>NULL</span>, <span class='fl'>10</span>:<span class='fl'>20</span>))
-<span class='no'>df_list</span> <span class='kw'>%&gt;%</span> <span class='fu'>replace_na</span>(<span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>z</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='fl'>5</span>)))</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 3 x 1</span><span>
+<span class='kw'>df_list</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(z = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span>, <span class='kw'>NULL</span>, <span class='fl'>10</span><span class='op'>:</span><span class='fl'>20</span>))
+<span class='kw'>df_list</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://tidyr.tidyverse.org/reference/replace_na.html'>replace_na</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(z = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='fl'>5</span>)))</div><div class='output co'>#&gt; <span class='warning'>Warning: `...` is not empty.</span>
+#&gt; <span class='warning'></span>
+#&gt; <span class='warning'>We detected these problematic arguments:</span>
+#&gt; <span class='warning'>* `needs_dots`</span>
+#&gt; <span class='warning'></span>
+#&gt; <span class='warning'>These dots only exist to allow future extensions and should be empty.</span>
+#&gt; <span class='warning'>Did you misspecify an argument?</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 3 x 1</span><span>
 #&gt;   z         
 #&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;list&gt;</span><span>    
 #&gt; </span><span style='color: #555555;'>1</span><span> </span><span style='color: #555555;'>&lt;int [5]&gt;</span><span> 

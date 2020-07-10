@@ -43,6 +43,10 @@
 <script src="../pkgdown.js"></script>
 <link href="../tidyverse-2.css" rel="stylesheet">
 
+<!--optional theme-->
+<link href="../.css" rel="stylesheet">
+
+
 
 
 <meta property="og:title" content="Pivot data from long to wide using a spec — pivot_wider_spec" />
@@ -199,23 +203,23 @@ that allows you to describe pivotting with a data frame." />
 that allows you to describe pivotting with a data frame.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>pivot_wider_spec</span>(
-  <span class='no'>data</span>,
-  <span class='no'>spec</span>,
-  <span class='kw'>names_repair</span> <span class='kw'>=</span> <span class='st'>"check_unique"</span>,
-  <span class='kw'>id_cols</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>values_fill</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>values_fn</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
+    <pre class="usage"><span class='fu'><a href='https://tidyr.tidyverse.org/reference/pivot_wider_spec.html'>pivot_wider_spec</a></span>(
+  <span class='kw'>data</span>,
+  <span class='kw'>spec</span>,
+  names_repair = <span class='st'>"check_unique"</span>,
+  id_cols = <span class='kw'>NULL</span>,
+  values_fill = <span class='kw'>NULL</span>,
+  values_fn = <span class='kw'>NULL</span>
 )
 
-<span class='fu'>build_wider_spec</span>(
-  <span class='no'>data</span>,
-  <span class='kw'>names_from</span> <span class='kw'>=</span> <span class='no'>name</span>,
-  <span class='kw'>values_from</span> <span class='kw'>=</span> <span class='no'>value</span>,
-  <span class='kw'>names_prefix</span> <span class='kw'>=</span> <span class='st'>""</span>,
-  <span class='kw'>names_sep</span> <span class='kw'>=</span> <span class='st'>"_"</span>,
-  <span class='kw'>names_glue</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>names_sort</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
+<span class='fu'><a href='https://tidyr.tidyverse.org/reference/pivot_wider_spec.html'>build_wider_spec</a></span>(
+  <span class='kw'>data</span>,
+  names_from = <span class='kw'>name</span>,
+  values_from = <span class='kw'>value</span>,
+  names_prefix = <span class='st'>""</span>,
+  names_sep = <span class='st'>"_"</span>,
+  names_glue = <span class='kw'>NULL</span>,
+  names_sort = <span class='fl'>FALSE</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -247,7 +251,7 @@ for more options.</p></td>
     </tr>
     <tr>
       <th>id_cols</th>
-      <td><p>&lt;<code><a href='tidyr_tidy_select.html'>tidy-select</a></code>&gt; A set of columns that
+      <td><p>&lt;<code><a href='https://tidyr.tidyverse.org/reference/tidyr_tidy_select.html'>tidy-select</a></code>&gt; A set of columns that
 uniquely identifies each observation. Defaults to all columns in <code>data</code>
 except for the columns specified in <code>names_from</code> and <code>values_from</code>.
 Typically used when you have redundant variables, i.e. variables whose
@@ -270,7 +274,7 @@ to different value columns.</p></td>
     </tr>
     <tr>
       <th>names_from</th>
-      <td><p>&lt;<code><a href='tidyr_tidy_select.html'>tidy-select</a></code>&gt; A pair of
+      <td><p>&lt;<code><a href='https://tidyr.tidyverse.org/reference/tidyr_tidy_select.html'>tidy-select</a></code>&gt; A pair of
 arguments describing which column (or columns) to get the name of the
 output column (<code>names_from</code>), and which column (or columns) to get the
 cell values from (<code>values_from</code>).</p>
@@ -279,7 +283,7 @@ front of the output column.</p></td>
     </tr>
     <tr>
       <th>values_from</th>
-      <td><p>&lt;<code><a href='tidyr_tidy_select.html'>tidy-select</a></code>&gt; A pair of
+      <td><p>&lt;<code><a href='https://tidyr.tidyverse.org/reference/tidyr_tidy_select.html'>tidy-select</a></code>&gt; A pair of
 arguments describing which column (or columns) to get the name of the
 output column (<code>names_from</code>), and which column (or columns) to get the
 cell values from (<code>values_from</code>).</p>
@@ -315,7 +319,13 @@ column names are ordered by first appearance.</p></td>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># See vignette("pivot") for examples and explanation</span>
 
-<span class='no'>us_rent_income</span></div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 104 x 5</span><span>
+<span class='kw'>us_rent_income</span></div><div class='output co'>#&gt; <span class='warning'>Warning: `...` is not empty.</span>
+#&gt; <span class='warning'></span>
+#&gt; <span class='warning'>We detected these problematic arguments:</span>
+#&gt; <span class='warning'>* `needs_dots`</span>
+#&gt; <span class='warning'></span>
+#&gt; <span class='warning'>These dots only exist to allow future extensions and should be empty.</span>
+#&gt; <span class='warning'>Did you misspecify an argument?</span></div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 104 x 5</span><span>
 #&gt;    GEOID NAME       variable estimate   moe
 #&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>      </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>       </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
 #&gt; </span><span style='color: #555555;'> 1</span><span> 01    Alabama    income      </span><span style='text-decoration: underline;'>24</span><span>476   136
@@ -328,17 +338,29 @@ column names are ordered by first appearance.</p></td>
 #&gt; </span><span style='color: #555555;'> 8</span><span> 05    Arkansas   rent          709     5
 #&gt; </span><span style='color: #555555;'> 9</span><span> 06    California income      </span><span style='text-decoration: underline;'>29</span><span>454   109
 #&gt; </span><span style='color: #555555;'>10</span><span> 06    California rent         </span><span style='text-decoration: underline;'>1</span><span>358     3
-#&gt; </span><span style='color: #555555;'># … with 94 more rows</span><span></div><div class='input'><span class='no'>spec1</span> <span class='kw'>&lt;-</span> <span class='no'>us_rent_income</span> <span class='kw'>%&gt;%</span>
-  <span class='fu'>build_wider_spec</span>(<span class='kw'>names_from</span> <span class='kw'>=</span> <span class='no'>variable</span>, <span class='kw'>values_from</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='no'>estimate</span>, <span class='no'>moe</span>))
-<span class='no'>spec1</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 4 x 3</span><span>
+#&gt; </span><span style='color: #555555;'># … with 94 more rows</span><span></div><div class='input'><span class='kw'>spec1</span> <span class='op'>&lt;-</span> <span class='kw'>us_rent_income</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='https://tidyr.tidyverse.org/reference/pivot_wider_spec.html'>build_wider_spec</a></span>(names_from = <span class='kw'>variable</span>, values_from = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='kw'>estimate</span>, <span class='kw'>moe</span>))
+<span class='kw'>spec1</span></div><div class='output co'>#&gt; <span class='warning'>Warning: `...` is not empty.</span>
+#&gt; <span class='warning'></span>
+#&gt; <span class='warning'>We detected these problematic arguments:</span>
+#&gt; <span class='warning'>* `needs_dots`</span>
+#&gt; <span class='warning'></span>
+#&gt; <span class='warning'>These dots only exist to allow future extensions and should be empty.</span>
+#&gt; <span class='warning'>Did you misspecify an argument?</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 4 x 3</span><span>
 #&gt;   .name           .value   variable
 #&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>           </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>   
 #&gt; </span><span style='color: #555555;'>1</span><span> estimate_income estimate income  
 #&gt; </span><span style='color: #555555;'>2</span><span> estimate_rent   estimate rent    
 #&gt; </span><span style='color: #555555;'>3</span><span> moe_income      moe      income  
 #&gt; </span><span style='color: #555555;'>4</span><span> moe_rent        moe      rent    </div><div class='input'>
-<span class='no'>us_rent_income</span> <span class='kw'>%&gt;%</span>
-  <span class='fu'>pivot_wider_spec</span>(<span class='no'>spec1</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 52 x 6</span><span>
+<span class='kw'>us_rent_income</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='https://tidyr.tidyverse.org/reference/pivot_wider_spec.html'>pivot_wider_spec</a></span>(<span class='kw'>spec1</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: `...` is not empty.</span>
+#&gt; <span class='warning'></span>
+#&gt; <span class='warning'>We detected these problematic arguments:</span>
+#&gt; <span class='warning'>* `needs_dots`</span>
+#&gt; <span class='warning'></span>
+#&gt; <span class='warning'>These dots only exist to allow future extensions and should be empty.</span>
+#&gt; <span class='warning'>Did you misspecify an argument?</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 52 x 6</span><span>
 #&gt;    GEOID NAME                 estimate_income estimate_rent moe_income moe_rent
 #&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>                          </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>      </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
 #&gt; </span><span style='color: #555555;'> 1</span><span> 01    Alabama                        </span><span style='text-decoration: underline;'>24</span><span>476           747        136        3
@@ -353,8 +375,14 @@ column names are ordered by first appearance.</p></td>
 #&gt; </span><span style='color: #555555;'>10</span><span> 12    Florida                        </span><span style='text-decoration: underline;'>25</span><span>952          </span><span style='text-decoration: underline;'>1</span><span>077         70        3
 #&gt; </span><span style='color: #555555;'># … with 42 more rows</span><span></div><div class='input'>
 <span class='co'># Is equivalent to</span>
-<span class='no'>us_rent_income</span> <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='pivot_wider.html'>pivot_wider</a></span>(<span class='kw'>names_from</span> <span class='kw'>=</span> <span class='no'>variable</span>, <span class='kw'>values_from</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='no'>estimate</span>, <span class='no'>moe</span>))</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 52 x 6</span><span>
+<span class='kw'>us_rent_income</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='https://tidyr.tidyverse.org/reference/pivot_wider.html'>pivot_wider</a></span>(names_from = <span class='kw'>variable</span>, values_from = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='kw'>estimate</span>, <span class='kw'>moe</span>))</div><div class='output co'>#&gt; <span class='warning'>Warning: `...` is not empty.</span>
+#&gt; <span class='warning'></span>
+#&gt; <span class='warning'>We detected these problematic arguments:</span>
+#&gt; <span class='warning'>* `needs_dots`</span>
+#&gt; <span class='warning'></span>
+#&gt; <span class='warning'>These dots only exist to allow future extensions and should be empty.</span>
+#&gt; <span class='warning'>Did you misspecify an argument?</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 52 x 6</span><span>
 #&gt;    GEOID NAME                 estimate_income estimate_rent moe_income moe_rent
 #&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>                          </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>      </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
 #&gt; </span><span style='color: #555555;'> 1</span><span> 01    Alabama                        </span><span style='text-decoration: underline;'>24</span><span>476           747        136        3
@@ -371,14 +399,20 @@ column names are ordered by first appearance.</p></td>
 <span class='co'># `pivot-wider_spec()` provides more control over column names and output format</span>
 <span class='co'># instead of creating columns with estimate_ and moe_ prefixes,</span>
 <span class='co'># keep original variable name for estimates and attach _moe as suffix</span>
-<span class='no'>spec2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(
-  <span class='kw'>.name</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"income"</span>, <span class='st'>"rent"</span>, <span class='st'>"income_moe"</span>, <span class='st'>"rent_moe"</span>),
-  <span class='kw'>.value</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"estimate"</span>, <span class='st'>"estimate"</span>, <span class='st'>"moe"</span>, <span class='st'>"moe"</span>),
-  <span class='kw'>variable</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"income"</span>, <span class='st'>"rent"</span>, <span class='st'>"income"</span>, <span class='st'>"rent"</span>)
+<span class='kw'>spec2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(
+  .name = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"income"</span>, <span class='st'>"rent"</span>, <span class='st'>"income_moe"</span>, <span class='st'>"rent_moe"</span>),
+  .value = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"estimate"</span>, <span class='st'>"estimate"</span>, <span class='st'>"moe"</span>, <span class='st'>"moe"</span>),
+  variable = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"income"</span>, <span class='st'>"rent"</span>, <span class='st'>"income"</span>, <span class='st'>"rent"</span>)
 )
 
-<span class='no'>us_rent_income</span> <span class='kw'>%&gt;%</span>
-  <span class='fu'>pivot_wider_spec</span>(<span class='no'>spec2</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 52 x 6</span><span>
+<span class='kw'>us_rent_income</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='https://tidyr.tidyverse.org/reference/pivot_wider_spec.html'>pivot_wider_spec</a></span>(<span class='kw'>spec2</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: `...` is not empty.</span>
+#&gt; <span class='warning'></span>
+#&gt; <span class='warning'>We detected these problematic arguments:</span>
+#&gt; <span class='warning'>* `needs_dots`</span>
+#&gt; <span class='warning'></span>
+#&gt; <span class='warning'>These dots only exist to allow future extensions and should be empty.</span>
+#&gt; <span class='warning'>Did you misspecify an argument?</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 52 x 6</span><span>
 #&gt;    GEOID NAME                 income  rent income_moe rent_moe
 #&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>                 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>      </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
 #&gt; </span><span style='color: #555555;'> 1</span><span> 01    Alabama               </span><span style='text-decoration: underline;'>24</span><span>476   747        136        3

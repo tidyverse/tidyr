@@ -43,6 +43,10 @@
 <script src="../pkgdown.js"></script>
 <link href="../tidyverse-2.css" rel="stylesheet">
 
+<!--optional theme-->
+<link href="../.css" rel="stylesheet">
+
+
 
 
 <meta property="og:title" content="Deprecated SE versions of main verbs — deprecated-se" />
@@ -221,67 +225,67 @@ value or an expression to be evaluated later with the rest of the
 argument. See <code><a href='https://dplyr.tidyverse.org/articles/programming.html'>vignette("programming", "dplyr")</a></code> for more information.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>complete_</span>(<span class='no'>data</span>, <span class='no'>cols</span>, <span class='kw'>fill</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(), <span class='no'>...</span>)
+    <pre class="usage"><span class='fu'><a href='https://tidyr.tidyverse.org/reference/deprecated-se.html'>complete_</a></span>(<span class='kw'>data</span>, <span class='kw'>cols</span>, fill = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(), <span class='kw'>...</span>)
 
-<span class='fu'>drop_na_</span>(<span class='no'>data</span>, <span class='no'>vars</span>)
+<span class='fu'><a href='https://tidyr.tidyverse.org/reference/deprecated-se.html'>drop_na_</a></span>(<span class='kw'>data</span>, <span class='kw'>vars</span>)
 
-<span class='fu'>expand_</span>(<span class='no'>data</span>, <span class='no'>dots</span>, <span class='no'>...</span>)
+<span class='fu'><a href='https://tidyr.tidyverse.org/reference/deprecated-se.html'>expand_</a></span>(<span class='kw'>data</span>, <span class='kw'>dots</span>, <span class='kw'>...</span>)
 
-<span class='fu'>crossing_</span>(<span class='no'>x</span>)
+<span class='fu'><a href='https://tidyr.tidyverse.org/reference/deprecated-se.html'>crossing_</a></span>(<span class='kw'>x</span>)
 
-<span class='fu'>nesting_</span>(<span class='no'>x</span>)
+<span class='fu'><a href='https://tidyr.tidyverse.org/reference/deprecated-se.html'>nesting_</a></span>(<span class='kw'>x</span>)
 
-<span class='fu'>extract_</span>(
-  <span class='no'>data</span>,
-  <span class='no'>col</span>,
-  <span class='no'>into</span>,
-  <span class='kw'>regex</span> <span class='kw'>=</span> <span class='st'>"([[:alnum:]]+)"</span>,
-  <span class='kw'>remove</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>convert</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='no'>...</span>
+<span class='fu'><a href='https://tidyr.tidyverse.org/reference/deprecated-se.html'>extract_</a></span>(
+  <span class='kw'>data</span>,
+  <span class='kw'>col</span>,
+  <span class='kw'>into</span>,
+  regex = <span class='st'>"([[:alnum:]]+)"</span>,
+  remove = <span class='fl'>TRUE</span>,
+  convert = <span class='fl'>FALSE</span>,
+  <span class='kw'>...</span>
 )
 
-<span class='fu'>fill_</span>(<span class='no'>data</span>, <span class='no'>fill_cols</span>, <span class='kw'>.direction</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"down"</span>, <span class='st'>"up"</span>))
+<span class='fu'><a href='https://tidyr.tidyverse.org/reference/deprecated-se.html'>fill_</a></span>(<span class='kw'>data</span>, <span class='kw'>fill_cols</span>, .direction = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"down"</span>, <span class='st'>"up"</span>))
 
-<span class='fu'>gather_</span>(
-  <span class='no'>data</span>,
-  <span class='no'>key_col</span>,
-  <span class='no'>value_col</span>,
-  <span class='no'>gather_cols</span>,
-  <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>convert</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>factor_key</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
+<span class='fu'><a href='https://tidyr.tidyverse.org/reference/deprecated-se.html'>gather_</a></span>(
+  <span class='kw'>data</span>,
+  <span class='kw'>key_col</span>,
+  <span class='kw'>value_col</span>,
+  <span class='kw'>gather_cols</span>,
+  na.rm = <span class='fl'>FALSE</span>,
+  convert = <span class='fl'>FALSE</span>,
+  factor_key = <span class='fl'>FALSE</span>
 )
 
-<span class='fu'>nest_</span>(<span class='no'>...</span>)
+<span class='fu'><a href='https://tidyr.tidyverse.org/reference/deprecated-se.html'>nest_</a></span>(<span class='kw'>...</span>)
 
-<span class='fu'>separate_rows_</span>(<span class='no'>data</span>, <span class='no'>cols</span>, <span class='kw'>sep</span> <span class='kw'>=</span> <span class='st'>"[^[:alnum:].]+"</span>, <span class='kw'>convert</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+<span class='fu'><a href='https://tidyr.tidyverse.org/reference/deprecated-se.html'>separate_rows_</a></span>(<span class='kw'>data</span>, <span class='kw'>cols</span>, sep = <span class='st'>"[^[:alnum:].]+"</span>, convert = <span class='fl'>FALSE</span>)
 
-<span class='fu'>separate_</span>(
-  <span class='no'>data</span>,
-  <span class='no'>col</span>,
-  <span class='no'>into</span>,
-  <span class='kw'>sep</span> <span class='kw'>=</span> <span class='st'>"[^[:alnum:]]+"</span>,
-  <span class='kw'>remove</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>convert</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>extra</span> <span class='kw'>=</span> <span class='st'>"warn"</span>,
-  <span class='kw'>fill</span> <span class='kw'>=</span> <span class='st'>"warn"</span>,
-  <span class='no'>...</span>
+<span class='fu'><a href='https://tidyr.tidyverse.org/reference/deprecated-se.html'>separate_</a></span>(
+  <span class='kw'>data</span>,
+  <span class='kw'>col</span>,
+  <span class='kw'>into</span>,
+  sep = <span class='st'>"[^[:alnum:]]+"</span>,
+  remove = <span class='fl'>TRUE</span>,
+  convert = <span class='fl'>FALSE</span>,
+  extra = <span class='st'>"warn"</span>,
+  fill = <span class='st'>"warn"</span>,
+  <span class='kw'>...</span>
 )
 
-<span class='fu'>spread_</span>(
-  <span class='no'>data</span>,
-  <span class='no'>key_col</span>,
-  <span class='no'>value_col</span>,
-  <span class='kw'>fill</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>convert</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>drop</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>sep</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
+<span class='fu'><a href='https://tidyr.tidyverse.org/reference/deprecated-se.html'>spread_</a></span>(
+  <span class='kw'>data</span>,
+  <span class='kw'>key_col</span>,
+  <span class='kw'>value_col</span>,
+  fill = <span class='fl'>NA</span>,
+  convert = <span class='fl'>FALSE</span>,
+  drop = <span class='fl'>TRUE</span>,
+  sep = <span class='kw'>NULL</span>
 )
 
-<span class='fu'>unite_</span>(<span class='no'>data</span>, <span class='no'>col</span>, <span class='no'>from</span>, <span class='kw'>sep</span> <span class='kw'>=</span> <span class='st'>"_"</span>, <span class='kw'>remove</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='fu'><a href='https://tidyr.tidyverse.org/reference/deprecated-se.html'>unite_</a></span>(<span class='kw'>data</span>, <span class='kw'>col</span>, <span class='kw'>from</span>, sep = <span class='st'>"_"</span>, remove = <span class='fl'>TRUE</span>)
 
-<span class='fu'>unnest_</span>(<span class='no'>...</span>)</pre>
+<span class='fu'><a href='https://tidyr.tidyverse.org/reference/deprecated-se.html'>unnest_</a></span>(<span class='kw'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -301,16 +305,16 @@ use instead of <code>NA</code> for missing combinations.</p></td>
 or lists.</p><ul>
 <li><p>To find all unique combinations of <code>x</code>, <code>y</code> and <code>z</code>, including those not
 present in the data, supply each variable as a separate argument:
-<code><a href='expand.html'>expand(df, x, y, z)</a></code>.</p></li>
+<code><a href='https://tidyr.tidyverse.org/reference/expand.html'>expand(df, x, y, z)</a></code>.</p></li>
 <li><p>To find only the combinations that occur in the
-data, use <code>nesting</code>: <code><a href='expand.html'>expand(df, nesting(x, y, z))</a></code>.</p></li>
+data, use <code>nesting</code>: <code><a href='https://tidyr.tidyverse.org/reference/expand.html'>expand(df, nesting(x, y, z))</a></code>.</p></li>
 <li><p>You can combine the two forms. For example,
-<code><a href='expand.html'>expand(df, nesting(school_id, student_id), date)</a></code> would produce
+<code><a href='https://tidyr.tidyverse.org/reference/expand.html'>expand(df, nesting(school_id, student_id), date)</a></code> would produce
 a row for each present school-student combination for all possible
 dates.</p></li>
 </ul>
 
-<p>When used with factors, <code><a href='expand.html'>expand()</a></code> uses the full set of levels, not just
+<p>When used with factors, <code><a href='https://tidyr.tidyverse.org/reference/expand.html'>expand()</a></code> uses the full set of levels, not just
 those that appear in the data. If you want to use only the values seen in
 the data, use <code>forcats::fct_drop()</code>.</p>
 <p>When used with continuous variables, you may need to fill in values
@@ -396,7 +400,7 @@ happens when there are too many pieces. There are three valid options:</p><ul>
       <td><p><img src='figures/lifecycle-deprecated.svg' alt='Deprecated lifecycle' />
 :
 all list-columns are now preserved; If there are any that you
-don't want in the output use <code>select()</code> to remove them prior to
+don't want in the output use <code><a href='https://dplyr.tidyverse.org/reference/select.html'>select()</a></code> to remove them prior to
 unnesting.</p></td>
     </tr>
     <tr>
