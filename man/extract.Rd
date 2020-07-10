@@ -22,7 +22,7 @@ extract(
 \code{\link[tidyselect:vars_pull]{tidyselect::vars_pull()}}.
 
 This argument is passed by expression and supports
-\link[rlang:quasiquotation]{quasiquotation} (you can unquote column
+\link[rlang:nse-force]{quasiquotation} (you can unquote column
 names or column positions).}
 
 \item{into}{Names of new variables to create as character vector.

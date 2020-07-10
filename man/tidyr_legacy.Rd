@@ -15,7 +15,7 @@ tidyr_legacy(nms, prefix = "V", sep = "")
 }
 \description{
 Ensures all column names are unique using the approach found in
-tidyr 0.8.3 are earlier. Only use this function if you want to preserve
+tidyr 0.8.3 and earlier. Only use this function if you want to preserve
 the naming strategy, otherwise you're better off adopting the new
 tidyverse standard with \code{name_repair = "universal"}
 }
