@@ -126,8 +126,9 @@ hoist <- function(.data, .col, ..., .remove = TRUE, .simplify = TRUE, .ptype = l
 
   pluckers <- check_pluckers(...)
 
+  pluck <- purrr::pluck
   new_cols <- map(pluckers, function(idx) {
-    map(x, ~ purrr::pluck(.x, !!!idx))
+    map(x, ~ pluck(.x, !!!idx))
   })
   new_cols <- map2(
     new_cols,
