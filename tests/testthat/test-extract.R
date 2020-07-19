@@ -56,14 +56,22 @@ test_that("informative error message if wrong number of groups", {
 test_that("str_match_first handles edge cases", {
   expect_identical(
     str_match_first(c("r-2", "d-2-3-4"), "(.)-(.)"),
-    matrix(c("r", "d", "2", "2"), 2, 2)
+    list(c("r", "d"), c("2", "2"))
   )
   expect_identical(
     str_match_first(NA, "test"),
-    matrix(character(), 1, 0)
+    list()
   )
   expect_equivalent(
     str_match_first(c("", " "), "^(.*)$"),
-    matrix(c("", " "), 2, 1)
+    list(c("", " "))
+  )
+  expect_equivalent(
+    str_match_first("", "(.)-(.)"),
+    list(NA_character_, NA_character_)
+  )
+  expect_equivalent(
+    str_match_first(character(), "(.)-(.)"),
+    list(character(), character())
   )
 })

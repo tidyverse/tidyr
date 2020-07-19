@@ -55,17 +55,13 @@ str_extract <- function(x, into, regex, convert = FALSE) {
     is_character(into)
   )
 
-  matches <- str_match_first(x, regex)
-
-  if (ncol(matches) != length(into)) {
+  out <- str_match_first(x, regex)
+  if (length(out) != length(into)) {
     stop(
       "`regex` should define ", length(into), " groups; ", ncol(matches), " found.",
       call. = FALSE
     )
   }
-
-  out <- as_tibble(matches, .name_repair = "minimal")
-  out <- as.list(out)
 
   # Handle duplicated names
   if (anyDuplicated(into)) {
@@ -89,15 +85,26 @@ str_extract <- function(x, into, regex, convert = FALSE) {
   out
 }
 
-str_match_first <- function(x, regex) {
-  if (length(x) == 0) {
-    # Can't determine number of matches
-  }
+# Helpers -----------------------------------------------------------------
 
-  # remove NA's as not supported in R 3.4 and early, changed back below
-  x <- replace_na(x, "")
+str_match_first <- function(string, regex) {
+  loc <- regexpr(regex, string, perl = TRUE)
+  loc <- group_loc(loc)
 
-  matches <- regmatches(x, regexec(regex, x, perl = TRUE))
-  matches <- lapply(matches, function(x) if (length(x) == 0) NA_character_ else x)
-  do.call(rbind, matches)[, -1, drop = FALSE]
+  out <- lapply(
+    seq_len(loc$matches),
+    function(i) substr(string, loc$start[, i], loc$end[, i])
+  )
+  out[-1]
+}
+
+group_loc <- function(x) {
+  start <- cbind(as.vector(x), attr(x, "capture.start"))
+  end <- start + cbind(attr(x, "match.length"), attr(x, "capture.length")) - 1L
+
+  no_match <- start == -1L
+  start[no_match] <- NA
+  end[no_match] <- NA
+
+  list(matches = ncol(start), start = start, end = end)
 }
