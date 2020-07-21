@@ -10,40 +10,58 @@
 
 ## revdepcheck results
 
-We checked 876 reverse dependencies, comparing R CMD check results across CRAN and dev versions of this package.
+We checked 921 reverse dependencies, comparing R CMD check results across CRAN and dev versions of this package.
 
  * We saw 2 new problems
- * We failed to check 17 packages
+ * We failed to check 37 packages
 
 Issues with CRAN packages are summarised below.
 
 ### New problems
 (This reports the first line of each new failure)
 
-* dartR
-  checking whether package ‘dartR’ can be installed ... WARNING
-  False positive with rgl.
+* BAwiR
+  checking whether package ‘BAwiR’ can be installed ... WARNING
 
-* jstor
+* HURDAT
   checking tests ... ERROR
-  Timed out
 
 ### Failed to check
 
+* ALA4R            (NA)
+* bibliometrix     (NA)
+* bioOED           (NA)
+* bootnet          (NA)
 * CB2              (NA)
-* crawl            (NA)
+* clustermole      (NA)
+* CNVScope         (NA)
+* countyweather    (NA)
+* daqapo           (NA)
 * diceR            (NA)
 * dimRed           (NA)
 * fingertipscharts (NA)
-* GADMTools        (NA)
 * ggmsa            (NA)
-* gtsummary        (NA)
-* PWFSLSmoke       (NA)
-* rmapzen          (NA)
+* graph4lg         (NA)
+* idiogramFISH     (NA)
+* metagam          (NA)
+* nomisr           (NA)
+* omicwas          (NA)
+* phyr             (NA)
+* pmc              (NA)
+* processR         (NA)
+* psychonetrics    (NA)
+* quokar           (NA)
+* radiant.data     (NA)
+* rdflib           (NA)
+* RIdeogram        (NA)
+* RNeXML           (NA)
+* robmed           (NA)
+* ropercenter      (NA)
+* ShortForm        (NA)
+* sigminer         (NA)
 * SimDesign        (NA)
-* simplevis        (NA)
-* stats19          (NA)
-* sugarbag         (NA)
-* tidygeocoder     (NA)
+* SWMPrExtension   (NA)
+* thurstonianIRT   (NA)
 * tmap             (NA)
+* webr             (NA)
 * wrswoR           (NA)
