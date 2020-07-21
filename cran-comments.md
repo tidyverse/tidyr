@@ -22,9 +22,11 @@ Issues with CRAN packages are summarised below.
 
 * BAwiR
   checking whether package ‘BAwiR’ can be installed ... WARNING
+  False positive with RGL
 
 * HURDAT
   checking tests ... ERROR
+  Submitted fix to author: https://github.com/timtrice/HURDAT/pull/5
 
 ### Failed to check
 
