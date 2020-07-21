@@ -1,5 +1,38 @@
-#include <Rcpp.h>
-using namespace Rcpp;
+#include <cstring>
+
+#include "cpp11/R.hpp"
+
+#include "cpp11/protect.hpp"
+#include "cpp11/sexp.hpp"
+#include "cpp11/integers.hpp"
+#include "cpp11/strings.hpp"
+#include "cpp11/list.hpp"
+#include "cpp11/data_frame.hpp"
+
+#if R_VERSION < R_Version(3, 5, 0)
+
+void* DATAPTR(SEXP x) {
+  switch(TYPEOF(x)) {
+    case STRSXP:
+      return (char*) CHAR(x);
+      break;
+    case LGLSXP:
+      return (char*) LOGICAL(x);
+    case INTSXP:
+      return (char*) INTEGER(x);
+    case RAWSXP:
+      return (char*) RAW(x);
+    case CPLXSXP:
+      return (char*) COMPLEX(x);
+    case REALSXP:
+      return (char*) REAL(x);
+    default:
+      cpp11::stop("Invalid type %s", Rf_type2char(TYPEOF(x)));
+  }
+  return nullptr;
+}
+
+#endif
 
 // A debug macro -- change to 'debug(x) x' for debug output
 #define debug(x)
@@ -16,21 +49,17 @@ using namespace Rcpp;
 
 SEXP rep_(SEXP x, int n, std::string var_name) {
   if (!Rf_isVectorAtomic(x) && TYPEOF(x) != VECSXP) {
-    Rf_errorcall(
-      R_NilValue,
-      "All columns must be atomic vectors or lists. Problem with '%s'",
-      var_name.c_str()
-    );
+    cpp11::stop("All columns must be atomic vectors or lists. Problem with '%s'", var_name.c_str());
   }
 
   if (Rf_inherits(x, "POSIXlt")) {
-    stop("'%s' is a POSIXlt. Please convert to POSIXct.", var_name);
+    cpp11::stop("'%s' is a POSIXlt. Please convert to POSIXct.", var_name.c_str());
   }
 
   int xn = Rf_length(x);
   int nout = xn * n;
 
-  Shield<SEXP> output(Rf_allocVector(TYPEOF(x), nout));
+  cpp11::sexp output(Rf_allocVector(TYPEOF(x), nout));
   switch (TYPEOF(x)) {
     case INTSXP:
       DO_REP(INTSXP, int, INTEGER);
@@ -68,7 +97,7 @@ SEXP rep_(SEXP x, int n, std::string var_name) {
       break;
     }
     default: {
-      stop("Unhandled RTYPE in '%s'", var_name);
+               cpp11::stop("Unhandled RTYPE in '%s'", var_name.c_str());
       return R_NilValue;
     }
   }
@@ -80,8 +109,8 @@ SEXP rep_(SEXP x, int n, std::string var_name) {
 // Optimized factor routine for the case where we want to make
 // a factor from a vector of names -- used for generating the
 // 'variable' column in the melted data.frame
-IntegerVector make_variable_column_factor(CharacterVector x, int nrow) {
-  IntegerVector output = no_init(x.size() * nrow);
+cpp11::integers make_variable_column_factor(cpp11::strings x, int nrow) {
+  cpp11::writable::integers output(x.size() * nrow);
 
   int idx = 0;
   for (int i = 0; i < x.size(); ++i)
@@ -93,8 +122,8 @@ IntegerVector make_variable_column_factor(CharacterVector x, int nrow) {
   return output;
 }
 
-CharacterVector make_variable_column_character(CharacterVector x, int nrow) {
-  CharacterVector output = no_init(x.size() * nrow);
+cpp11::strings make_variable_column_character(cpp11::strings x, int nrow) {
+  cpp11::writable::strings output(x.size() * nrow);
 
   int idx = 0;
   for (int i = 0; i < x.size(); ++i)
@@ -107,15 +136,15 @@ CharacterVector make_variable_column_character(CharacterVector x, int nrow) {
 // Concatenate vectors for the 'value' column
 #define DO_CONCATENATE(CTYPE)                                \
   {                                                          \
-    memcpy((char*)dataptr(output) + i* nrow * sizeof(CTYPE), \
-           (char*)dataptr(tmp),                              \
+    memcpy((char*)DATAPTR(output) + i* nrow * sizeof(CTYPE), \
+           (char*)DATAPTR(tmp),                              \
            nrow * sizeof(CTYPE));                            \
     break;                                                   \
   }
 
-SEXP concatenate(const DataFrame& x, IntegerVector ind, bool factorsAsStrings) {
+SEXP concatenate(const cpp11::data_frame& x, cpp11::integers ind, bool factorsAsStrings) {
 
-  int nrow = x.nrows();
+  int nrow = x.nrow();
   int n_ind = ind.size();
 
   // We coerce up to the 'max type' if necessary, using the fact
@@ -135,13 +164,13 @@ SEXP concatenate(const DataFrame& x, IntegerVector ind, bool factorsAsStrings) {
 
   debug(printf("Max type of value variables is %s\n", Rf_type2char(max_type)));
 
-  Armor<SEXP> tmp;
-  Shield<SEXP> output(Rf_allocVector(max_type, nrow * n_ind));
+  cpp11::sexp tmp;
+  cpp11::sexp output(Rf_allocVector(max_type, nrow * n_ind));
   for (int i = 0; i < n_ind; ++i) {
     SEXP col = x[ind[i]];
 
     if (Rf_inherits(col, "POSIXlt")) {
-      stop("Column %i is a POSIXlt. Please convert to POSIXct.", i + 1);
+      cpp11::stop("Column %i is a POSIXlt. Please convert to POSIXct.", i + 1);
     }
 
     // a 'tmp' pointer to the current column being iterated over, or
@@ -176,30 +205,27 @@ SEXP concatenate(const DataFrame& x, IntegerVector ind, bool factorsAsStrings) {
         break;
       }
     default:
-      Rf_errorcall(
-        R_NilValue,
-        "All columns be atomic vectors or lists (not %s)", Rf_type2char(max_type)
-      );
+                   cpp11::stop("All columns be atomic vectors or lists (not %s)", Rf_type2char(max_type));
     }
   }
 
   return output;
 }
 
-// [[Rcpp::export]]
-List melt_dataframe(const DataFrame& data,
-                    const IntegerVector& id_ind,
-                    const IntegerVector& measure_ind,
-                    String variable_name,
-                    String value_name,
-                    SEXP attrTemplate,
+[[cpp11::register]]
+cpp11::list melt_dataframe(cpp11::data_frame data,
+                    const cpp11::integers& id_ind,
+                    const cpp11::integers& measure_ind,
+                    cpp11::strings variable_name,
+                    cpp11::strings value_name,
+                    cpp11::sexp attrTemplate,
                     bool factorsAsStrings,
                     bool valueAsFactor,
                     bool variableAsFactor) {
 
-  int nrow = data.nrows();
+  int nrow = data.nrow();
 
-  CharacterVector data_names = as<CharacterVector>(data.attr("names"));
+  cpp11::strings data_names(data.attr("names"));
 
   int n_id = id_ind.size();
   debug(Rprintf("n_id == %i\n", n_id));
@@ -210,18 +236,14 @@ List melt_dataframe(const DataFrame& data,
   // Don't melt if the value variables are non-atomic
   for (int i = 0; i < n_measure; ++i) {
     if (!Rf_isVector(data[measure_ind[i]]) || Rf_inherits(data[measure_ind[i]], "data.frame")) {
-      Rf_errorcall(
-        R_NilValue,
-        "All columns must be atomic vectors or lists. Problem with column %i.",
-        measure_ind[i] + 1
-      );
+      cpp11::stop("All columns must be atomic vectors or lists. Problem with column %i.", measure_ind[i] + 1);
     }
   }
 
   // The output should be a data.frame with:
   // number of columns == number of id vars + 'variable' + 'value',
   // with number of rows == data.nrow() * number of value vars
-  List output = no_init(n_id + 2);
+  cpp11::writable::list output(n_id + 2);
 
   // First, allocate the ID variables
   // we repeat each ID vector n_measure times
@@ -235,7 +257,7 @@ List melt_dataframe(const DataFrame& data,
 
   // 'variable' is made up of repeating the names of the 'measure' variables,
   // each nrow times. We want this to be a factor as well.
-  CharacterVector id_names = no_init(n_measure);
+  cpp11::writable::strings id_names(n_measure);
   for (int i = 0; i < n_measure; ++i) {
     id_names[i] = data_names[measure_ind[i]];
   }
@@ -254,16 +276,15 @@ List melt_dataframe(const DataFrame& data,
   // Make the List more data.frame like
 
   // Set the row names
-  output.attr("row.names") =
-      IntegerVector::create(IntegerVector::get_na(), -(nrow * n_measure));
+  output.attr("row.names") = {NA_INTEGER, -(nrow * n_measure)};
 
   // Set the names
-  CharacterVector out_names = no_init(n_id + 2);
+  cpp11::writable::strings out_names(n_id + 2);
   for (int i = 0; i < n_id; ++i) {
     out_names[i] = data_names[id_ind[i]];
   }
-  out_names[n_id] = variable_name;
-  out_names[n_id + 1] = value_name;
+  out_names[n_id] = variable_name[0];
+  out_names[n_id + 1] = value_name[0];
   output.attr("names") = out_names;
 
   // Set the class

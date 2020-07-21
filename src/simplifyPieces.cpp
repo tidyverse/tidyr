@@ -1,50 +1,54 @@
-#include <Rcpp.h>
-using namespace Rcpp;
+#include "cpp11/list.hpp"
+#include "cpp11/strings.hpp"
+#include "cpp11/as.hpp"
+#include <vector>
 
-// [[Rcpp::export]]
-List simplifyPieces(ListOf<CharacterVector> pieces, int p,
+[[cpp11::register]]
+cpp11::list simplifyPieces(cpp11::list pieces, int p,
                     bool fillLeft = true) {
 
   std::vector<int> tooSml, tooBig;
   int n = pieces.size();
 
-  List list(p);
+  cpp11::writable::list list(p);
   for (int j = 0; j < p; ++j)
-    list[j] = CharacterVector(n);
-  ListOf<CharacterVector> out(list);
+    list[j] = cpp11::writable::strings(n);
+  cpp11::writable::list out(list);
 
   for (int i = 0; i < n; ++i) {
-    CharacterVector x = pieces[i];
+    cpp11::strings x(pieces[i]);
 
     if (x.size() == 1 && x[0] == NA_STRING) {
       for (int j = 0; j < p; ++j)
-        out[j][i] = NA_STRING;
+        SET_STRING_ELT(out[j], i, NA_STRING);
     } else if (x.size() > p) { // too big
       tooBig.push_back(i + 1);
 
       for (int j = 0; j < p; ++j)
-        out[j][i] = x[j];
+        SET_STRING_ELT(out[j], i, x[j]);
     } else if (x.size() < p) { // too small
       tooSml.push_back(i + 1);
 
       int gap = p - x.size();
       for (int j = 0; j < p; ++j) {
         if (fillLeft) {
-          out[j][i] = (j >= gap) ? x[j - gap] : NA_STRING;
+          SET_STRING_ELT(out[j], i, (j >= gap) ? static_cast<SEXP>(x[j - gap]) : NA_STRING);
         } else {
-          out[j][i] = (j < x.size()) ? x[j] : NA_STRING;
+          SET_STRING_ELT(out[j], i, (j < x.size()) ? static_cast<SEXP>(x[j]) : NA_STRING);
         }
       }
 
     } else {
       for (int j = 0; j < p; ++j)
-        out[j][i] = x[j];
+        SET_STRING_ELT(out[j], i, x[j]);
     }
   }
 
-  return List::create(
-    _["strings"] = out,
-    _["too_big"] = wrap(tooBig),
-    _["too_sml"] = wrap(tooSml)
+  using namespace cpp11::literals;
+
+  return cpp11::writable::list({
+    "strings"_nm = out,
+    "too_big"_nm = tooBig,
+    "too_sml"_nm = tooSml}
   );
 }
