@@ -205,7 +205,7 @@ This is useful in the common output format where values are not repeated,
 and are only recorded when they change.</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://tidyr.tidyverse.org/reference/fill.html'>fill</a></span>(<span class='kw'>data</span>, <span class='kw'>...</span>, .direction = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"down"</span>, <span class='st'>"up"</span>, <span class='st'>"downup"</span>, <span class='st'>"updown"</span>))</pre>
+    <pre class="usage"><span class='fu'>fill</span>(<span class='no'>data</span>, <span class='no'>...</span>, <span class='kw'>.direction</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"down"</span>, <span class='st'>"up"</span>, <span class='st'>"downup"</span>, <span class='st'>"updown"</span>))</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -216,7 +216,7 @@ and are only recorded when they change.</p>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>&lt;<code><a href='https://tidyr.tidyverse.org/reference/tidyr_tidy_select.html'>tidy-select</a></code>&gt; Columns to fill.</p></td>
+      <td><p>&lt;<code><a href='tidyr_tidy_select.html'>tidy-select</a></code>&gt; Columns to fill.</p></td>
     </tr>
     <tr>
       <th>.direction</th>
@@ -232,8 +232,8 @@ or "updown" (first up and then down).</p></td>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># Value (year) is recorded only when it changes</span>
-<span class='kw'>sales</span> <span class='op'>&lt;-</span> <span class='kw'>tibble</span>::<span class='fu'><a href='https://tibble.tidyverse.org/reference/tribble.html'>tribble</a></span>(
-  <span class='op'>~</span><span class='kw'>quarter</span>, <span class='op'>~</span><span class='kw'>year</span>, <span class='op'>~</span><span class='kw'>sales</span>,
+<span class='no'>sales</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>tibble</span><span class='kw ns'>::</span><span class='fu'><a href='https://tibble.tidyverse.org/reference/tribble.html'>tribble</a></span>(
+  ~<span class='no'>quarter</span>, ~<span class='no'>year</span>, ~<span class='no'>sales</span>,
   <span class='st'>"Q1"</span>,    <span class='fl'>2000</span>,    <span class='fl'>66013</span>,
   <span class='st'>"Q2"</span>,      <span class='fl'>NA</span>,    <span class='fl'>69182</span>,
   <span class='st'>"Q3"</span>,      <span class='fl'>NA</span>,    <span class='fl'>53175</span>,
@@ -253,13 +253,7 @@ or "updown" (first up and then down).</p></td>
 )
 
 <span class='co'># `fill()` defaults to replacing missing data from top to bottom</span>
-<span class='kw'>sales</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://tidyr.tidyverse.org/reference/fill.html'>fill</a></span>(<span class='kw'>year</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: `...` is not empty.</span>
-#&gt; <span class='warning'></span>
-#&gt; <span class='warning'>We detected these problematic arguments:</span>
-#&gt; <span class='warning'>* `needs_dots`</span>
-#&gt; <span class='warning'></span>
-#&gt; <span class='warning'>These dots only exist to allow future extensions and should be empty.</span>
-#&gt; <span class='warning'>Did you misspecify an argument?</span></div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 16 x 3</span><span>
+<span class='no'>sales</span> <span class='kw'>%&gt;%</span> <span class='fu'>fill</span>(<span class='no'>year</span>)</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 16 x 3</span><span>
 #&gt;    quarter  year sales
 #&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
 #&gt; </span><span style='color: #555555;'> 1</span><span> Q1       </span><span style='text-decoration: underline;'>2</span><span>000 </span><span style='text-decoration: underline;'>66</span><span>013
@@ -279,8 +273,8 @@ or "updown" (first up and then down).</p></td>
 #&gt; </span><span style='color: #555555;'>15</span><span> Q3       </span><span style='text-decoration: underline;'>2</span><span>004 </span><span style='text-decoration: underline;'>31</span><span>768
 #&gt; </span><span style='color: #555555;'>16</span><span> Q4       </span><span style='text-decoration: underline;'>2</span><span>004 </span><span style='text-decoration: underline;'>49</span><span>094</div><div class='input'>
 <span class='co'># Value (pet_type) is missing above</span>
-<span class='kw'>tidy_pets</span> <span class='op'>&lt;-</span> <span class='kw'>tibble</span>::<span class='fu'><a href='https://tibble.tidyverse.org/reference/tribble.html'>tribble</a></span>(
-  <span class='op'>~</span><span class='kw'>rank</span>, <span class='op'>~</span><span class='kw'>pet_type</span>, <span class='op'>~</span><span class='kw'>breed</span>,
+<span class='no'>tidy_pets</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>tibble</span><span class='kw ns'>::</span><span class='fu'><a href='https://tibble.tidyverse.org/reference/tribble.html'>tribble</a></span>(
+  ~<span class='no'>rank</span>, ~<span class='no'>pet_type</span>, ~<span class='no'>breed</span>,
   <span class='fl'>1L</span>,        <span class='fl'>NA</span>,    <span class='st'>"Boston Terrier"</span>,
   <span class='fl'>2L</span>,        <span class='fl'>NA</span>,    <span class='st'>"Retrievers (Labrador)"</span>,
   <span class='fl'>3L</span>,        <span class='fl'>NA</span>,    <span class='st'>"Retrievers (Golden)"</span>,
@@ -296,14 +290,8 @@ or "updown" (first up and then down).</p></td>
 )
 
 <span class='co'># For values that are missing above you can use `.direction = "up"`</span>
-<span class='kw'>tidy_pets</span> <span class='op'>%&gt;%</span>
-  <span class='fu'><a href='https://tidyr.tidyverse.org/reference/fill.html'>fill</a></span>(<span class='kw'>pet_type</span>, .direction = <span class='st'>"up"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: `...` is not empty.</span>
-#&gt; <span class='warning'></span>
-#&gt; <span class='warning'>We detected these problematic arguments:</span>
-#&gt; <span class='warning'>* `needs_dots`</span>
-#&gt; <span class='warning'></span>
-#&gt; <span class='warning'>These dots only exist to allow future extensions and should be empty.</span>
-#&gt; <span class='warning'>Did you misspecify an argument?</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 12 x 3</span><span>
+<span class='no'>tidy_pets</span> <span class='kw'>%&gt;%</span>
+  <span class='fu'>fill</span>(<span class='no'>pet_type</span>, <span class='kw'>.direction</span> <span class='kw'>=</span> <span class='st'>"up"</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 12 x 3</span><span>
 #&gt;     rank pet_type breed                
 #&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>                
 #&gt; </span><span style='color: #555555;'> 1</span><span>     1 Dog      Boston Terrier       
@@ -319,8 +307,8 @@ or "updown" (first up and then down).</p></td>
 #&gt; </span><span style='color: #555555;'>11</span><span>     5 Cat      Siamese              
 #&gt; </span><span style='color: #555555;'>12</span><span>     6 Cat      American Short       </div><div class='input'>
 <span class='co'># Value (n_squirrels) is missing above and below within a group</span>
-<span class='kw'>squirrels</span> <span class='op'>&lt;-</span> <span class='kw'>tibble</span>::<span class='fu'><a href='https://tibble.tidyverse.org/reference/tribble.html'>tribble</a></span>(
-  <span class='op'>~</span><span class='kw'>group</span>,    <span class='op'>~</span><span class='kw'>name</span>,     <span class='op'>~</span><span class='kw'>role</span>,     <span class='op'>~</span><span class='kw'>n_squirrels</span>,
+<span class='no'>squirrels</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>tibble</span><span class='kw ns'>::</span><span class='fu'><a href='https://tibble.tidyverse.org/reference/tribble.html'>tribble</a></span>(
+  ~<span class='no'>group</span>,    ~<span class='no'>name</span>,     ~<span class='no'>role</span>,     ~<span class='no'>n_squirrels</span>,
   <span class='fl'>1</span>,      <span class='st'>"Sam"</span>,    <span class='st'>"Observer"</span>,   <span class='fl'>NA</span>,
   <span class='fl'>1</span>,     <span class='st'>"Mara"</span>, <span class='st'>"Scorekeeper"</span>,    <span class='fl'>8</span>,
   <span class='fl'>1</span>,    <span class='st'>"Jesse"</span>,    <span class='st'>"Observer"</span>,   <span class='fl'>NA</span>,
@@ -337,16 +325,10 @@ or "updown" (first up and then down).</p></td>
 
 <span class='co'># The values are inconsistently missing by position within the group</span>
 <span class='co'># Use .direction = "downup" to fill missing values in both directions</span>
-<span class='kw'>squirrels</span> <span class='op'>%&gt;%</span>
-  <span class='kw'>dplyr</span>::<span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span>(<span class='kw'>group</span>) <span class='op'>%&gt;%</span>
-  <span class='fu'><a href='https://tidyr.tidyverse.org/reference/fill.html'>fill</a></span>(<span class='kw'>n_squirrels</span>, .direction = <span class='st'>"downup"</span>) <span class='op'>%&gt;%</span>
-  <span class='kw'>dplyr</span>::<span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>ungroup</a></span>()</div><div class='output co'>#&gt; <span class='warning'>Warning: `...` is not empty.</span>
-#&gt; <span class='warning'></span>
-#&gt; <span class='warning'>We detected these problematic arguments:</span>
-#&gt; <span class='warning'>* `needs_dots`</span>
-#&gt; <span class='warning'></span>
-#&gt; <span class='warning'>These dots only exist to allow future extensions and should be empty.</span>
-#&gt; <span class='warning'>Did you misspecify an argument?</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 12 x 4</span><span>
+<span class='no'>squirrels</span> <span class='kw'>%&gt;%</span>
+  <span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span>(<span class='no'>group</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'>fill</span>(<span class='no'>n_squirrels</span>, <span class='kw'>.direction</span> <span class='kw'>=</span> <span class='st'>"downup"</span>) <span class='kw'>%&gt;%</span>
+  <span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>ungroup</a></span>()</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 12 x 4</span><span>
 #&gt;    group name     role        n_squirrels
 #&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>             </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
 #&gt; </span><span style='color: #555555;'> 1</span><span>     1 Sam      Observer              8
@@ -361,7 +343,8 @@ or "updown" (first up and then down).</p></td>
 #&gt; </span><span style='color: #555555;'>10</span><span>     3 Kara     Scorekeeper           9
 #&gt; </span><span style='color: #555555;'>11</span><span>     3 Emily    Observer              9
 #&gt; </span><span style='color: #555555;'>12</span><span>     3 Danielle Observer              9</div><div class='input'>
-<span class='co'># Using `.direction = "updown"` accomplishes the same goal in this example</span></div></span></pre>
+# Using `.direction = "updown"` accomplishes the same goal in this example
+</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

@@ -202,12 +202,12 @@ useful for completing missing combinations of data." />
 
     <div class="ref-description">
     <p>Turns implicit missing values into explicit missing values.
-This is a wrapper around <code><a href='https://tidyr.tidyverse.org/reference/expand.html'>expand()</a></code>,
-<code><a href='https://dplyr.tidyverse.org/reference/mutate-joins.html'>dplyr::left_join()</a></code> and <code><a href='https://tidyr.tidyverse.org/reference/replace_na.html'>replace_na()</a></code> that's
+This is a wrapper around <code><a href='expand.html'>expand()</a></code>,
+<code><a href='https://dplyr.tidyverse.org/reference/mutate-joins.html'>dplyr::left_join()</a></code> and <code><a href='replace_na.html'>replace_na()</a></code> that's
 useful for completing missing combinations of data.</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://tidyr.tidyverse.org/reference/complete.html'>complete</a></span>(<span class='kw'>data</span>, <span class='kw'>...</span>, fill = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>())</pre>
+    <pre class="usage"><span class='fu'>complete</span>(<span class='no'>data</span>, <span class='no'>...</span>, <span class='kw'>fill</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>())</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -222,16 +222,16 @@ useful for completing missing combinations of data.</p>
 or lists.</p><ul>
 <li><p>To find all unique combinations of <code>x</code>, <code>y</code> and <code>z</code>, including those not
 present in the data, supply each variable as a separate argument:
-<code><a href='https://tidyr.tidyverse.org/reference/expand.html'>expand(df, x, y, z)</a></code>.</p></li>
+<code><a href='expand.html'>expand(df, x, y, z)</a></code>.</p></li>
 <li><p>To find only the combinations that occur in the
-data, use <code>nesting</code>: <code><a href='https://tidyr.tidyverse.org/reference/expand.html'>expand(df, nesting(x, y, z))</a></code>.</p></li>
+data, use <code>nesting</code>: <code><a href='expand.html'>expand(df, nesting(x, y, z))</a></code>.</p></li>
 <li><p>You can combine the two forms. For example,
-<code><a href='https://tidyr.tidyverse.org/reference/expand.html'>expand(df, nesting(school_id, student_id), date)</a></code> would produce
+<code><a href='expand.html'>expand(df, nesting(school_id, student_id), date)</a></code> would produce
 a row for each present school-student combination for all possible
 dates.</p></li>
 </ul>
 
-<p>When used with factors, <code><a href='https://tidyr.tidyverse.org/reference/expand.html'>expand()</a></code> uses the full set of levels, not just
+<p>When used with factors, <code><a href='expand.html'>expand()</a></code> uses the full set of levels, not just
 those that appear in the data. If you want to use only the values seen in
 the data, use <code>forcats::fct_drop()</code>.</p>
 <p>When used with continuous variables, you may need to fill in values
@@ -251,21 +251,15 @@ use instead of <code>NA</code> for missing combinations.</p></td>
 explicit missing values in the data set.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='kw'><a href='https://dplyr.tidyverse.org'>dplyr</a></span>, warn.conflicts = <span class='fl'>FALSE</span>)
-<span class='kw'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(
-  group = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span>, <span class='fl'>1</span>),
-  item_id = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span>, <span class='fl'>2</span>),
-  item_name = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"a"</span>, <span class='st'>"b"</span>, <span class='st'>"b"</span>),
-  value1 = <span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span>,
-  value2 = <span class='fl'>4</span><span class='op'>:</span><span class='fl'>6</span>
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>dplyr</span>, <span class='kw'>warn.conflicts</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+<span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(
+  <span class='kw'>group</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>:<span class='fl'>2</span>, <span class='fl'>1</span>),
+  <span class='kw'>item_id</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>:<span class='fl'>2</span>, <span class='fl'>2</span>),
+  <span class='kw'>item_name</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"a"</span>, <span class='st'>"b"</span>, <span class='st'>"b"</span>),
+  <span class='kw'>value1</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>3</span>,
+  <span class='kw'>value2</span> <span class='kw'>=</span> <span class='fl'>4</span>:<span class='fl'>6</span>
 )
-<span class='kw'>df</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://tidyr.tidyverse.org/reference/complete.html'>complete</a></span>(<span class='kw'>group</span>, <span class='fu'><a href='https://tidyr.tidyverse.org/reference/expand.html'>nesting</a></span>(<span class='kw'>item_id</span>, <span class='kw'>item_name</span>))</div><div class='output co'>#&gt; <span class='warning'>Warning: `...` is not empty.</span>
-#&gt; <span class='warning'></span>
-#&gt; <span class='warning'>We detected these problematic arguments:</span>
-#&gt; <span class='warning'>* `needs_dots`</span>
-#&gt; <span class='warning'></span>
-#&gt; <span class='warning'>These dots only exist to allow future extensions and should be empty.</span>
-#&gt; <span class='warning'>Did you misspecify an argument?</span></div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 4 x 5</span><span>
+<span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>complete</span>(<span class='no'>group</span>, <span class='fu'><a href='expand.html'>nesting</a></span>(<span class='no'>item_id</span>, <span class='no'>item_name</span>))</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 4 x 5</span><span>
 #&gt;   group item_id item_name value1 value2
 #&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>      </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
 #&gt; </span><span style='color: #555555;'>1</span><span>     1       1 a              1      4
@@ -273,13 +267,7 @@ explicit missing values in the data set.</p>
 #&gt; </span><span style='color: #555555;'>3</span><span>     2       1 a             </span><span style='color: #BB0000;'>NA</span><span>     </span><span style='color: #BB0000;'>NA</span><span>
 #&gt; </span><span style='color: #555555;'>4</span><span>     2       2 b              2      5</div><div class='input'>
 <span class='co'># You can also choose to fill in missing values</span>
-<span class='kw'>df</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://tidyr.tidyverse.org/reference/complete.html'>complete</a></span>(<span class='kw'>group</span>, <span class='fu'><a href='https://tidyr.tidyverse.org/reference/expand.html'>nesting</a></span>(<span class='kw'>item_id</span>, <span class='kw'>item_name</span>), fill = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(value1 = <span class='fl'>0</span>))</div><div class='output co'>#&gt; <span class='warning'>Warning: `...` is not empty.</span>
-#&gt; <span class='warning'></span>
-#&gt; <span class='warning'>We detected these problematic arguments:</span>
-#&gt; <span class='warning'>* `needs_dots`</span>
-#&gt; <span class='warning'></span>
-#&gt; <span class='warning'>These dots only exist to allow future extensions and should be empty.</span>
-#&gt; <span class='warning'>Did you misspecify an argument?</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 4 x 5</span><span>
+<span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>complete</span>(<span class='no'>group</span>, <span class='fu'><a href='expand.html'>nesting</a></span>(<span class='no'>item_id</span>, <span class='no'>item_name</span>), <span class='kw'>fill</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>value1</span> <span class='kw'>=</span> <span class='fl'>0</span>))</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 4 x 5</span><span>
 #&gt;   group item_id item_name value1 value2
 #&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>      </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
 #&gt; </span><span style='color: #555555;'>1</span><span>     1       1 a              1      4

@@ -203,25 +203,25 @@ that allows you to describe pivotting with a data frame." />
 that allows you to describe pivotting with a data frame.</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://tidyr.tidyverse.org/reference/pivot_longer_spec.html'>pivot_longer_spec</a></span>(
-  <span class='kw'>data</span>,
-  <span class='kw'>spec</span>,
-  names_repair = <span class='st'>"check_unique"</span>,
-  values_drop_na = <span class='fl'>FALSE</span>,
-  values_ptypes = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(),
-  values_transform = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>()
+    <pre class="usage"><span class='fu'>pivot_longer_spec</span>(
+  <span class='no'>data</span>,
+  <span class='no'>spec</span>,
+  <span class='kw'>names_repair</span> <span class='kw'>=</span> <span class='st'>"check_unique"</span>,
+  <span class='kw'>values_drop_na</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>values_ptypes</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(),
+  <span class='kw'>values_transform</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>()
 )
 
-<span class='fu'><a href='https://tidyr.tidyverse.org/reference/pivot_longer_spec.html'>build_longer_spec</a></span>(
-  <span class='kw'>data</span>,
-  <span class='kw'>cols</span>,
-  names_to = <span class='st'>"name"</span>,
-  values_to = <span class='st'>"value"</span>,
-  names_prefix = <span class='kw'>NULL</span>,
-  names_sep = <span class='kw'>NULL</span>,
-  names_pattern = <span class='kw'>NULL</span>,
-  names_ptypes = <span class='kw'>NULL</span>,
-  names_transform = <span class='kw'>NULL</span>
+<span class='fu'>build_longer_spec</span>(
+  <span class='no'>data</span>,
+  <span class='no'>cols</span>,
+  <span class='kw'>names_to</span> <span class='kw'>=</span> <span class='st'>"name"</span>,
+  <span class='kw'>values_to</span> <span class='kw'>=</span> <span class='st'>"value"</span>,
+  <span class='kw'>names_prefix</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>names_sep</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>names_pattern</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>names_ptypes</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>names_transform</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -278,7 +278,7 @@ a character week variable to an integer.</p></td>
     </tr>
     <tr>
       <th>cols</th>
-      <td><p>&lt;<code><a href='https://tidyr.tidyverse.org/reference/tidyr_tidy_select.html'>tidy-select</a></code>&gt; Columns to pivot into
+      <td><p>&lt;<code><a href='tidyr_tidy_select.html'>tidy-select</a></code>&gt; Columns to pivot into
 longer format.</p></td>
     </tr>
     <tr>
@@ -310,26 +310,26 @@ from the start of each variable name.</p></td>
       <th>names_sep</th>
       <td><p>If <code>names_to</code> contains multiple values,
 these arguments control how the column name is broken up.</p>
-<p><code>names_sep</code> takes the same specification as <code><a href='https://tidyr.tidyverse.org/reference/separate.html'>separate()</a></code>, and can either
+<p><code>names_sep</code> takes the same specification as <code><a href='separate.html'>separate()</a></code>, and can either
 be a numeric vector (specifying positions to break on), or a single string
 (specifying a regular expression to split on).</p>
-<p><code>names_pattern</code> takes the same specification as <code><a href='https://tidyr.tidyverse.org/reference/extract.html'>extract()</a></code>, a regular
+<p><code>names_pattern</code> takes the same specification as <code><a href='extract.html'>extract()</a></code>, a regular
 expression containing matching groups (<code>()</code>).</p>
 <p>If these arguments do not give you enough control, use
-<code><a href='https://tidyr.tidyverse.org/reference/pivot_longer_spec.html'>pivot_longer_spec()</a></code> to create a spec object and process manually as
+<code>pivot_longer_spec()</code> to create a spec object and process manually as
 needed.</p></td>
     </tr>
     <tr>
       <th>names_pattern</th>
       <td><p>If <code>names_to</code> contains multiple values,
 these arguments control how the column name is broken up.</p>
-<p><code>names_sep</code> takes the same specification as <code><a href='https://tidyr.tidyverse.org/reference/separate.html'>separate()</a></code>, and can either
+<p><code>names_sep</code> takes the same specification as <code><a href='separate.html'>separate()</a></code>, and can either
 be a numeric vector (specifying positions to break on), or a single string
 (specifying a regular expression to split on).</p>
-<p><code>names_pattern</code> takes the same specification as <code><a href='https://tidyr.tidyverse.org/reference/extract.html'>extract()</a></code>, a regular
+<p><code>names_pattern</code> takes the same specification as <code><a href='extract.html'>extract()</a></code>, a regular
 expression containing matching groups (<code>()</code>).</p>
 <p>If these arguments do not give you enough control, use
-<code><a href='https://tidyr.tidyverse.org/reference/pivot_longer_spec.html'>pivot_longer_spec()</a></code> to create a spec object and process manually as
+<code>pivot_longer_spec()</code> to create a spec object and process manually as
 needed.</p></td>
     </tr>
     <tr>
@@ -358,18 +358,12 @@ a character week variable to an integer.</p></td>
 
 <span class='co'># Use `build_longer_spec()` to build `spec` using similar syntax to `pivot_longer()`</span>
 <span class='co'># and run `pivot_longer_spec()` based on `spec`.</span>
-<span class='kw'>spec</span> <span class='op'>&lt;-</span> <span class='kw'>relig_income</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://tidyr.tidyverse.org/reference/pivot_longer_spec.html'>build_longer_spec</a></span>(
-  cols = <span class='op'>-</span><span class='kw'>religion</span>,
-  names_to = <span class='st'>"income"</span>,
-  values_to = <span class='st'>"count"</span>
+<span class='no'>spec</span> <span class='kw'>&lt;-</span> <span class='no'>relig_income</span> <span class='kw'>%&gt;%</span> <span class='fu'>build_longer_spec</span>(
+  <span class='kw'>cols</span> <span class='kw'>=</span> -<span class='no'>religion</span>,
+  <span class='kw'>names_to</span> <span class='kw'>=</span> <span class='st'>"income"</span>,
+  <span class='kw'>values_to</span> <span class='kw'>=</span> <span class='st'>"count"</span>
 )
-<span class='kw'>spec</span></div><div class='output co'>#&gt; <span class='warning'>Warning: `...` is not empty.</span>
-#&gt; <span class='warning'></span>
-#&gt; <span class='warning'>We detected these problematic arguments:</span>
-#&gt; <span class='warning'>* `needs_dots`</span>
-#&gt; <span class='warning'></span>
-#&gt; <span class='warning'>These dots only exist to allow future extensions and should be empty.</span>
-#&gt; <span class='warning'>Did you misspecify an argument?</span></div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 10 x 3</span><span>
+<span class='no'>spec</span></div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 10 x 3</span><span>
 #&gt;    .name              .value income            
 #&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>              </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>             
 #&gt; </span><span style='color: #555555;'> 1</span><span> &lt;$10k              count  &lt;$10k             
@@ -382,13 +376,7 @@ a character week variable to an integer.</p></td>
 #&gt; </span><span style='color: #555555;'> 8</span><span> $100-150k          count  $100-150k         
 #&gt; </span><span style='color: #555555;'> 9</span><span> &gt;150k              count  &gt;150k             
 #&gt; </span><span style='color: #555555;'>10</span><span> Don't know/refused count  Don't know/refused</div><div class='input'>
-<span class='fu'><a href='https://tidyr.tidyverse.org/reference/pivot_longer_spec.html'>pivot_longer_spec</a></span>(<span class='kw'>relig_income</span>, <span class='kw'>spec</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: `...` is not empty.</span>
-#&gt; <span class='warning'></span>
-#&gt; <span class='warning'>We detected these problematic arguments:</span>
-#&gt; <span class='warning'>* `needs_dots`</span>
-#&gt; <span class='warning'></span>
-#&gt; <span class='warning'>These dots only exist to allow future extensions and should be empty.</span>
-#&gt; <span class='warning'>Did you misspecify an argument?</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 180 x 3</span><span>
+<span class='fu'>pivot_longer_spec</span>(<span class='no'>relig_income</span>, <span class='no'>spec</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 180 x 3</span><span>
 #&gt;    religion income             count
 #&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>              </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
 #&gt; </span><span style='color: #555555;'> 1</span><span> Agnostic &lt;$10k                 27
@@ -403,16 +391,10 @@ a character week variable to an integer.</p></td>
 #&gt; </span><span style='color: #555555;'>10</span><span> Agnostic Don't know/refused    96
 #&gt; </span><span style='color: #555555;'># … with 170 more rows</span><span></div><div class='input'>
 <span class='co'># Is equivalent to:</span>
-<span class='kw'>relig_income</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://tidyr.tidyverse.org/reference/pivot_longer.html'>pivot_longer</a></span>(
-  cols = <span class='op'>-</span><span class='kw'>religion</span>,
-  names_to = <span class='st'>"income"</span>,
-  values_to = <span class='st'>"count"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: `...` is not empty.</span>
-#&gt; <span class='warning'></span>
-#&gt; <span class='warning'>We detected these problematic arguments:</span>
-#&gt; <span class='warning'>* `needs_dots`</span>
-#&gt; <span class='warning'></span>
-#&gt; <span class='warning'>These dots only exist to allow future extensions and should be empty.</span>
-#&gt; <span class='warning'>Did you misspecify an argument?</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 180 x 3</span><span>
+<span class='no'>relig_income</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='pivot_longer.html'>pivot_longer</a></span>(
+  <span class='kw'>cols</span> <span class='kw'>=</span> -<span class='no'>religion</span>,
+  <span class='kw'>names_to</span> <span class='kw'>=</span> <span class='st'>"income"</span>,
+  <span class='kw'>values_to</span> <span class='kw'>=</span> <span class='st'>"count"</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 180 x 3</span><span>
 #&gt;    religion income             count
 #&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>              </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
 #&gt; </span><span style='color: #555555;'> 1</span><span> Agnostic &lt;$10k                 27
@@ -425,7 +407,8 @@ a character week variable to an integer.</p></td>
 #&gt; </span><span style='color: #555555;'> 8</span><span> Agnostic $100-150k            109
 #&gt; </span><span style='color: #555555;'> 9</span><span> Agnostic &gt;150k                 84
 #&gt; </span><span style='color: #555555;'>10</span><span> Agnostic Don't know/refused    96
-#&gt; </span><span style='color: #555555;'># … with 170 more rows</span><span></div><div class='input'></div></span></pre>
+#&gt; </span><span style='color: #555555;'># … with 170 more rows</span><span></div><div class='input'>
+</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

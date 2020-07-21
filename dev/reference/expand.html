@@ -209,25 +209,25 @@ use it with anti_join() to figure out which combinations are missing
     </div>
 
     <div class="ref-description">
-    <p><code><a href='https://tidyr.tidyverse.org/reference/expand.html'>expand()</a></code> generates all combination of variables found in a dataset.
-It is paired with <code><a href='https://tidyr.tidyverse.org/reference/expand.html'>nesting()</a></code> and <code><a href='https://tidyr.tidyverse.org/reference/expand.html'>crossing()</a></code> helpers. <code><a href='https://tidyr.tidyverse.org/reference/expand.html'>crossing()</a></code>
-is a wrapper around <code><a href='https://tidyr.tidyverse.org/reference/expand_grid.html'>expand_grid()</a></code> that de-duplicates and sorts its inputs;
-<code><a href='https://tidyr.tidyverse.org/reference/expand.html'>nesting()</a></code> is a helper that only finds combinations already present in the
+    <p><code>expand()</code> generates all combination of variables found in a dataset.
+It is paired with <code>nesting()</code> and <code>crossing()</code> helpers. <code>crossing()</code>
+is a wrapper around <code><a href='expand_grid.html'>expand_grid()</a></code> that de-duplicates and sorts its inputs;
+<code>nesting()</code> is a helper that only finds combinations already present in the
 data.</p>
-<p><code><a href='https://tidyr.tidyverse.org/reference/expand.html'>expand()</a></code> is often useful in conjunction with joins:</p><ul>
-<li><p>use it with <code><a href='https://dplyr.tidyverse.org/reference/mutate-joins.html'>right_join()</a></code> to convert implicit missing values to
+<p><code>expand()</code> is often useful in conjunction with joins:</p><ul>
+<li><p>use it with <code>right_join()</code> to convert implicit missing values to
 explicit missing values (e.g., fill in gaps in your data frame).</p></li>
-<li><p>use it with <code><a href='https://dplyr.tidyverse.org/reference/filter-joins.html'>anti_join()</a></code> to figure out which combinations are missing
+<li><p>use it with <code>anti_join()</code> to figure out which combinations are missing
 (e.g., identify gaps in your data frame).</p></li>
 </ul>
 
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://tidyr.tidyverse.org/reference/expand.html'>expand</a></span>(<span class='kw'>data</span>, <span class='kw'>...</span>, .name_repair = <span class='st'>"check_unique"</span>)
+    <pre class="usage"><span class='fu'>expand</span>(<span class='no'>data</span>, <span class='no'>...</span>, <span class='kw'>.name_repair</span> <span class='kw'>=</span> <span class='st'>"check_unique"</span>)
 
-<span class='fu'><a href='https://tidyr.tidyverse.org/reference/expand.html'>crossing</a></span>(<span class='kw'>...</span>, .name_repair = <span class='st'>"check_unique"</span>)
+<span class='fu'>crossing</span>(<span class='no'>...</span>, <span class='kw'>.name_repair</span> <span class='kw'>=</span> <span class='st'>"check_unique"</span>)
 
-<span class='fu'><a href='https://tidyr.tidyverse.org/reference/expand.html'>nesting</a></span>(<span class='kw'>...</span>, .name_repair = <span class='st'>"check_unique"</span>)</pre>
+<span class='fu'>nesting</span>(<span class='no'>...</span>, <span class='kw'>.name_repair</span> <span class='kw'>=</span> <span class='st'>"check_unique"</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -242,16 +242,16 @@ explicit missing values (e.g., fill in gaps in your data frame).</p></li>
 or lists.</p><ul>
 <li><p>To find all unique combinations of <code>x</code>, <code>y</code> and <code>z</code>, including those not
 present in the data, supply each variable as a separate argument:
-<code><a href='https://tidyr.tidyverse.org/reference/expand.html'>expand(df, x, y, z)</a></code>.</p></li>
+<code>expand(df, x, y, z)</code>.</p></li>
 <li><p>To find only the combinations that occur in the
-data, use <code>nesting</code>: <code><a href='https://tidyr.tidyverse.org/reference/expand.html'>expand(df, nesting(x, y, z))</a></code>.</p></li>
+data, use <code>nesting</code>: <code>expand(df, nesting(x, y, z))</code>.</p></li>
 <li><p>You can combine the two forms. For example,
-<code><a href='https://tidyr.tidyverse.org/reference/expand.html'>expand(df, nesting(school_id, student_id), date)</a></code> would produce
+<code>expand(df, nesting(school_id, student_id), date)</code> would produce
 a row for each present school-student combination for all possible
 dates.</p></li>
 </ul>
 
-<p>When used with factors, <code><a href='https://tidyr.tidyverse.org/reference/expand.html'>expand()</a></code> uses the full set of levels, not just
+<p>When used with factors, <code>expand()</code> uses the full set of levels, not just
 those that appear in the data. If you want to use only the values seen in
 the data, use <code>forcats::fct_drop()</code>.</p>
 <p>When used with continuous variables, you may need to fill in values
@@ -279,40 +279,28 @@ to enforce them.</p></td>
 
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='https://tidyr.tidyverse.org/reference/complete.html'>complete()</a></code> to expand list objects. <code><a href='https://tidyr.tidyverse.org/reference/expand_grid.html'>expand_grid()</a></code>
+    <div class='dont-index'><p><code><a href='complete.html'>complete()</a></code> to expand list objects. <code><a href='expand_grid.html'>expand_grid()</a></code>
 to input vectors rather than a data frame.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>fruits</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(
-  type   = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"apple"</span>, <span class='st'>"orange"</span>, <span class='st'>"apple"</span>, <span class='st'>"orange"</span>, <span class='st'>"orange"</span>, <span class='st'>"orange"</span>),
-  year   = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2010</span>, <span class='fl'>2010</span>, <span class='fl'>2012</span>, <span class='fl'>2010</span>, <span class='fl'>2010</span>, <span class='fl'>2012</span>),
-  size  =  <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(
+    <pre class="examples"><div class='input'><span class='no'>fruits</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(
+  <span class='kw'>type</span>   <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"apple"</span>, <span class='st'>"orange"</span>, <span class='st'>"apple"</span>, <span class='st'>"orange"</span>, <span class='st'>"orange"</span>, <span class='st'>"orange"</span>),
+  <span class='kw'>year</span>   <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2010</span>, <span class='fl'>2010</span>, <span class='fl'>2012</span>, <span class='fl'>2010</span>, <span class='fl'>2010</span>, <span class='fl'>2012</span>),
+  <span class='kw'>size</span>  <span class='kw'>=</span>  <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(
     <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"XS"</span>, <span class='st'>"S"</span>,  <span class='st'>"M"</span>, <span class='st'>"S"</span>, <span class='st'>"S"</span>, <span class='st'>"M"</span>),
-    levels = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"XS"</span>, <span class='st'>"S"</span>, <span class='st'>"M"</span>, <span class='st'>"L"</span>)
+    <span class='kw'>levels</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"XS"</span>, <span class='st'>"S"</span>, <span class='st'>"M"</span>, <span class='st'>"L"</span>)
   ),
-  weights = <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>6</span>, <span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span>(<span class='kw'>size</span>) <span class='op'>+</span> <span class='fl'>2</span>)
+  <span class='kw'>weights</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>6</span>, <span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span>(<span class='no'>size</span>) + <span class='fl'>2</span>)
 )
 
 <span class='co'># All possible combinations ---------------------------------------</span>
 <span class='co'># Note that all defined, but not necessarily present, levels of the</span>
 <span class='co'># factor variable `size` are retained.</span>
-<span class='kw'>fruits</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://tidyr.tidyverse.org/reference/expand.html'>expand</a></span>(<span class='kw'>type</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: `...` is not empty.</span>
-#&gt; <span class='warning'></span>
-#&gt; <span class='warning'>We detected these problematic arguments:</span>
-#&gt; <span class='warning'>* `needs_dots`</span>
-#&gt; <span class='warning'></span>
-#&gt; <span class='warning'>These dots only exist to allow future extensions and should be empty.</span>
-#&gt; <span class='warning'>Did you misspecify an argument?</span></div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 2 x 1</span><span>
+<span class='no'>fruits</span> <span class='kw'>%&gt;%</span> <span class='fu'>expand</span>(<span class='no'>type</span>)</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 2 x 1</span><span>
 #&gt;   type  
 #&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> 
 #&gt; </span><span style='color: #555555;'>1</span><span> apple 
-#&gt; </span><span style='color: #555555;'>2</span><span> orange</div><div class='input'><span class='kw'>fruits</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://tidyr.tidyverse.org/reference/expand.html'>expand</a></span>(<span class='kw'>type</span>, <span class='kw'>size</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: `...` is not empty.</span>
-#&gt; <span class='warning'></span>
-#&gt; <span class='warning'>We detected these problematic arguments:</span>
-#&gt; <span class='warning'>* `needs_dots`</span>
-#&gt; <span class='warning'></span>
-#&gt; <span class='warning'>These dots only exist to allow future extensions and should be empty.</span>
-#&gt; <span class='warning'>Did you misspecify an argument?</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 8 x 2</span><span>
+#&gt; </span><span style='color: #555555;'>2</span><span> orange</div><div class='input'><span class='no'>fruits</span> <span class='kw'>%&gt;%</span> <span class='fu'>expand</span>(<span class='no'>type</span>, <span class='no'>size</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 8 x 2</span><span>
 #&gt;   type   size 
 #&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>
 #&gt; </span><span style='color: #555555;'>1</span><span> apple  XS   
@@ -322,13 +310,7 @@ to input vectors rather than a data frame.</p></div>
 #&gt; </span><span style='color: #555555;'>5</span><span> orange XS   
 #&gt; </span><span style='color: #555555;'>6</span><span> orange S    
 #&gt; </span><span style='color: #555555;'>7</span><span> orange M    
-#&gt; </span><span style='color: #555555;'>8</span><span> orange L    </div><div class='input'><span class='kw'>fruits</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://tidyr.tidyverse.org/reference/expand.html'>expand</a></span>(<span class='kw'>type</span>, <span class='kw'>size</span>, <span class='kw'>year</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: `...` is not empty.</span>
-#&gt; <span class='warning'></span>
-#&gt; <span class='warning'>We detected these problematic arguments:</span>
-#&gt; <span class='warning'>* `needs_dots`</span>
-#&gt; <span class='warning'></span>
-#&gt; <span class='warning'>These dots only exist to allow future extensions and should be empty.</span>
-#&gt; <span class='warning'>Did you misspecify an argument?</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 16 x 3</span><span>
+#&gt; </span><span style='color: #555555;'>8</span><span> orange L    </div><div class='input'><span class='no'>fruits</span> <span class='kw'>%&gt;%</span> <span class='fu'>expand</span>(<span class='no'>type</span>, <span class='no'>size</span>, <span class='no'>year</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 16 x 3</span><span>
 #&gt;    type   size   year
 #&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
 #&gt; </span><span style='color: #555555;'> 1</span><span> apple  XS     </span><span style='text-decoration: underline;'>2</span><span>010
@@ -348,35 +330,17 @@ to input vectors rather than a data frame.</p></div>
 #&gt; </span><span style='color: #555555;'>15</span><span> orange L      </span><span style='text-decoration: underline;'>2</span><span>010
 #&gt; </span><span style='color: #555555;'>16</span><span> orange L      </span><span style='text-decoration: underline;'>2</span><span>012</div><div class='input'>
 <span class='co'># Only combinations that already appear in the data ---------------</span>
-<span class='kw'>fruits</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://tidyr.tidyverse.org/reference/expand.html'>expand</a></span>(<span class='fu'><a href='https://tidyr.tidyverse.org/reference/expand.html'>nesting</a></span>(<span class='kw'>type</span>))</div><div class='output co'>#&gt; <span class='warning'>Warning: `...` is not empty.</span>
-#&gt; <span class='warning'></span>
-#&gt; <span class='warning'>We detected these problematic arguments:</span>
-#&gt; <span class='warning'>* `needs_dots`</span>
-#&gt; <span class='warning'></span>
-#&gt; <span class='warning'>These dots only exist to allow future extensions and should be empty.</span>
-#&gt; <span class='warning'>Did you misspecify an argument?</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 2 x 1</span><span>
+<span class='no'>fruits</span> <span class='kw'>%&gt;%</span> <span class='fu'>expand</span>(<span class='fu'>nesting</span>(<span class='no'>type</span>))</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 2 x 1</span><span>
 #&gt;   type  
 #&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> 
 #&gt; </span><span style='color: #555555;'>1</span><span> apple 
-#&gt; </span><span style='color: #555555;'>2</span><span> orange</div><div class='input'><span class='kw'>fruits</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://tidyr.tidyverse.org/reference/expand.html'>expand</a></span>(<span class='fu'><a href='https://tidyr.tidyverse.org/reference/expand.html'>nesting</a></span>(<span class='kw'>type</span>, <span class='kw'>size</span>))</div><div class='output co'>#&gt; <span class='warning'>Warning: `...` is not empty.</span>
-#&gt; <span class='warning'></span>
-#&gt; <span class='warning'>We detected these problematic arguments:</span>
-#&gt; <span class='warning'>* `needs_dots`</span>
-#&gt; <span class='warning'></span>
-#&gt; <span class='warning'>These dots only exist to allow future extensions and should be empty.</span>
-#&gt; <span class='warning'>Did you misspecify an argument?</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 4 x 2</span><span>
+#&gt; </span><span style='color: #555555;'>2</span><span> orange</div><div class='input'><span class='no'>fruits</span> <span class='kw'>%&gt;%</span> <span class='fu'>expand</span>(<span class='fu'>nesting</span>(<span class='no'>type</span>, <span class='no'>size</span>))</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 4 x 2</span><span>
 #&gt;   type   size 
 #&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>
 #&gt; </span><span style='color: #555555;'>1</span><span> apple  XS   
 #&gt; </span><span style='color: #555555;'>2</span><span> apple  M    
 #&gt; </span><span style='color: #555555;'>3</span><span> orange S    
-#&gt; </span><span style='color: #555555;'>4</span><span> orange M    </div><div class='input'><span class='kw'>fruits</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://tidyr.tidyverse.org/reference/expand.html'>expand</a></span>(<span class='fu'><a href='https://tidyr.tidyverse.org/reference/expand.html'>nesting</a></span>(<span class='kw'>type</span>, <span class='kw'>size</span>, <span class='kw'>year</span>))</div><div class='output co'>#&gt; <span class='warning'>Warning: `...` is not empty.</span>
-#&gt; <span class='warning'></span>
-#&gt; <span class='warning'>We detected these problematic arguments:</span>
-#&gt; <span class='warning'>* `needs_dots`</span>
-#&gt; <span class='warning'></span>
-#&gt; <span class='warning'>These dots only exist to allow future extensions and should be empty.</span>
-#&gt; <span class='warning'>Did you misspecify an argument?</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 4 x 3</span><span>
+#&gt; </span><span style='color: #555555;'>4</span><span> orange M    </div><div class='input'><span class='no'>fruits</span> <span class='kw'>%&gt;%</span> <span class='fu'>expand</span>(<span class='fu'>nesting</span>(<span class='no'>type</span>, <span class='no'>size</span>, <span class='no'>year</span>))</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 4 x 3</span><span>
 #&gt;   type   size   year
 #&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
 #&gt; </span><span style='color: #555555;'>1</span><span> apple  XS     </span><span style='text-decoration: underline;'>2</span><span>010
@@ -385,13 +349,7 @@ to input vectors rather than a data frame.</p></div>
 #&gt; </span><span style='color: #555555;'>4</span><span> orange M      </span><span style='text-decoration: underline;'>2</span><span>012</div><div class='input'>
 <span class='co'># Other uses -------------------------------------------------------</span>
 <span class='co'># Use with `full_seq()` to fill in values of continuous variables</span>
-<span class='kw'>fruits</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://tidyr.tidyverse.org/reference/expand.html'>expand</a></span>(<span class='kw'>type</span>, <span class='kw'>size</span>, <span class='fu'><a href='https://tidyr.tidyverse.org/reference/full_seq.html'>full_seq</a></span>(<span class='kw'>year</span>, <span class='fl'>1</span>))</div><div class='output co'>#&gt; <span class='warning'>Warning: `...` is not empty.</span>
-#&gt; <span class='warning'></span>
-#&gt; <span class='warning'>We detected these problematic arguments:</span>
-#&gt; <span class='warning'>* `needs_dots`</span>
-#&gt; <span class='warning'></span>
-#&gt; <span class='warning'>These dots only exist to allow future extensions and should be empty.</span>
-#&gt; <span class='warning'>Did you misspecify an argument?</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 24 x 3</span><span>
+<span class='no'>fruits</span> <span class='kw'>%&gt;%</span> <span class='fu'>expand</span>(<span class='no'>type</span>, <span class='no'>size</span>, <span class='fu'><a href='full_seq.html'>full_seq</a></span>(<span class='no'>year</span>, <span class='fl'>1</span>))</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 24 x 3</span><span>
 #&gt;    type  size  `full_seq(year, 1)`
 #&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>               </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
 #&gt; </span><span style='color: #555555;'> 1</span><span> apple XS                   </span><span style='text-decoration: underline;'>2</span><span>010
@@ -404,13 +362,7 @@ to input vectors rather than a data frame.</p></div>
 #&gt; </span><span style='color: #555555;'> 8</span><span> apple M                    </span><span style='text-decoration: underline;'>2</span><span>011
 #&gt; </span><span style='color: #555555;'> 9</span><span> apple M                    </span><span style='text-decoration: underline;'>2</span><span>012
 #&gt; </span><span style='color: #555555;'>10</span><span> apple L                    </span><span style='text-decoration: underline;'>2</span><span>010
-#&gt; </span><span style='color: #555555;'># … with 14 more rows</span><span></div><div class='input'><span class='kw'>fruits</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://tidyr.tidyverse.org/reference/expand.html'>expand</a></span>(<span class='kw'>type</span>, <span class='kw'>size</span>, <span class='fl'>2010</span><span class='op'>:</span><span class='fl'>2012</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: `...` is not empty.</span>
-#&gt; <span class='warning'></span>
-#&gt; <span class='warning'>We detected these problematic arguments:</span>
-#&gt; <span class='warning'>* `needs_dots`</span>
-#&gt; <span class='warning'></span>
-#&gt; <span class='warning'>These dots only exist to allow future extensions and should be empty.</span>
-#&gt; <span class='warning'>Did you misspecify an argument?</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 24 x 3</span><span>
+#&gt; </span><span style='color: #555555;'># … with 14 more rows</span><span></div><div class='input'><span class='no'>fruits</span> <span class='kw'>%&gt;%</span> <span class='fu'>expand</span>(<span class='no'>type</span>, <span class='no'>size</span>, <span class='fl'>2010</span>:<span class='fl'>2012</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 24 x 3</span><span>
 #&gt;    type  size  `2010:2012`
 #&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>       </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
 #&gt; </span><span style='color: #555555;'> 1</span><span> apple XS           </span><span style='text-decoration: underline;'>2</span><span>010
@@ -425,14 +377,8 @@ to input vectors rather than a data frame.</p></div>
 #&gt; </span><span style='color: #555555;'>10</span><span> apple L            </span><span style='text-decoration: underline;'>2</span><span>010
 #&gt; </span><span style='color: #555555;'># … with 14 more rows</span><span></div><div class='input'>
 <span class='co'># Use `anti_join()` to determine which observations are missing</span>
-<span class='kw'>all</span> <span class='op'>&lt;-</span> <span class='kw'>fruits</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://tidyr.tidyverse.org/reference/expand.html'>expand</a></span>(<span class='kw'>type</span>, <span class='kw'>size</span>, <span class='kw'>year</span>)
-<span class='kw'>all</span></div><div class='output co'>#&gt; <span class='warning'>Warning: `...` is not empty.</span>
-#&gt; <span class='warning'></span>
-#&gt; <span class='warning'>We detected these problematic arguments:</span>
-#&gt; <span class='warning'>* `needs_dots`</span>
-#&gt; <span class='warning'></span>
-#&gt; <span class='warning'>These dots only exist to allow future extensions and should be empty.</span>
-#&gt; <span class='warning'>Did you misspecify an argument?</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 16 x 3</span><span>
+<span class='no'>all</span> <span class='kw'>&lt;-</span> <span class='no'>fruits</span> <span class='kw'>%&gt;%</span> <span class='fu'>expand</span>(<span class='no'>type</span>, <span class='no'>size</span>, <span class='no'>year</span>)
+<span class='no'>all</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 16 x 3</span><span>
 #&gt;    type   size   year
 #&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
 #&gt; </span><span style='color: #555555;'> 1</span><span> apple  XS     </span><span style='text-decoration: underline;'>2</span><span>010
@@ -450,13 +396,7 @@ to input vectors rather than a data frame.</p></div>
 #&gt; </span><span style='color: #555555;'>13</span><span> orange M      </span><span style='text-decoration: underline;'>2</span><span>010
 #&gt; </span><span style='color: #555555;'>14</span><span> orange M      </span><span style='text-decoration: underline;'>2</span><span>012
 #&gt; </span><span style='color: #555555;'>15</span><span> orange L      </span><span style='text-decoration: underline;'>2</span><span>010
-#&gt; </span><span style='color: #555555;'>16</span><span> orange L      </span><span style='text-decoration: underline;'>2</span><span>012</div><div class='input'><span class='kw'>all</span> <span class='op'>%&gt;%</span> <span class='kw'>dplyr</span>::<span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter-joins.html'>anti_join</a></span>(<span class='kw'>fruits</span>)</div><div class='output co'>#&gt; <span class='message'>Joining, by = c("type", "size", "year")</span></div><div class='output co'>#&gt; <span class='warning'>Warning: `...` is not empty.</span>
-#&gt; <span class='warning'></span>
-#&gt; <span class='warning'>We detected these problematic arguments:</span>
-#&gt; <span class='warning'>* `needs_dots`</span>
-#&gt; <span class='warning'></span>
-#&gt; <span class='warning'>These dots only exist to allow future extensions and should be empty.</span>
-#&gt; <span class='warning'>Did you misspecify an argument?</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 12 x 3</span><span>
+#&gt; </span><span style='color: #555555;'>16</span><span> orange L      </span><span style='text-decoration: underline;'>2</span><span>012</div><div class='input'><span class='no'>all</span> <span class='kw'>%&gt;%</span> <span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter-joins.html'>anti_join</a></span>(<span class='no'>fruits</span>)</div><div class='output co'>#&gt; <span class='message'>Joining, by = c("type", "size", "year")</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 12 x 3</span><span>
 #&gt;    type   size   year
 #&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
 #&gt; </span><span style='color: #555555;'> 1</span><span> apple  XS     </span><span style='text-decoration: underline;'>2</span><span>012
@@ -472,13 +412,7 @@ to input vectors rather than a data frame.</p></div>
 #&gt; </span><span style='color: #555555;'>11</span><span> orange L      </span><span style='text-decoration: underline;'>2</span><span>010
 #&gt; </span><span style='color: #555555;'>12</span><span> orange L      </span><span style='text-decoration: underline;'>2</span><span>012</div><div class='input'>
 <span class='co'># Use with `right_join()` to fill in missing rows</span>
-<span class='kw'>fruits</span> <span class='op'>%&gt;%</span> <span class='kw'>dplyr</span>::<span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate-joins.html'>right_join</a></span>(<span class='kw'>all</span>)</div><div class='output co'>#&gt; <span class='message'>Joining, by = c("type", "year", "size")</span></div><div class='output co'>#&gt; <span class='warning'>Warning: `...` is not empty.</span>
-#&gt; <span class='warning'></span>
-#&gt; <span class='warning'>We detected these problematic arguments:</span>
-#&gt; <span class='warning'>* `needs_dots`</span>
-#&gt; <span class='warning'></span>
-#&gt; <span class='warning'>These dots only exist to allow future extensions and should be empty.</span>
-#&gt; <span class='warning'>Did you misspecify an argument?</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 18 x 4</span><span>
+<span class='no'>fruits</span> <span class='kw'>%&gt;%</span> <span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate-joins.html'>right_join</a></span>(<span class='no'>all</span>)</div><div class='output co'>#&gt; <span class='message'>Joining, by = c("type", "year", "size")</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 18 x 4</span><span>
 #&gt;    type    year size  weights
 #&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
 #&gt; </span><span style='color: #555555;'> 1</span><span> apple   </span><span style='text-decoration: underline;'>2</span><span>010 XS       1.60

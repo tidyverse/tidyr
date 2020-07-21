@@ -207,17 +207,17 @@ more suitable for programming than interactive data analysis." />
     <div class="ref-description">
     <p><a href='https://www.tidyverse.org/lifecycle/#maturing'><img src='figures/lifecycle-maturing.svg' alt='Maturing lifecycle'></a></p>
 <p>Chopping and unchopping preserve the width of a data frame, changing its
-length. <code><a href='https://tidyr.tidyverse.org/reference/chop.html'>chop()</a></code> makes <code>df</code> shorter by converting rows within each group
-into list-columns. <code><a href='https://tidyr.tidyverse.org/reference/chop.html'>unchop()</a></code> makes <code>df</code> longer by expanding list-columns
+length. <code>chop()</code> makes <code>df</code> shorter by converting rows within each group
+into list-columns. <code>unchop()</code> makes <code>df</code> longer by expanding list-columns
 so that each element of the list-column gets its own row in the output.
-<code><a href='https://tidyr.tidyverse.org/reference/chop.html'>chop()</a></code> and <code><a href='https://tidyr.tidyverse.org/reference/chop.html'>unchop()</a></code> are building blocks for more complicated functions
-(like <code><a href='https://tidyr.tidyverse.org/reference/nest.html'>unnest()</a></code>, <code><a href='https://tidyr.tidyverse.org/reference/hoist.html'>unnest_longer()</a></code>, and <code><a href='https://tidyr.tidyverse.org/reference/hoist.html'>unnest_wider()</a></code>) and are generally
+<code>chop()</code> and <code>unchop()</code> are building blocks for more complicated functions
+(like <code><a href='nest.html'>unnest()</a></code>, <code><a href='hoist.html'>unnest_longer()</a></code>, and <code><a href='hoist.html'>unnest_wider()</a></code>) and are generally
 more suitable for programming than interactive data analysis.</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://tidyr.tidyverse.org/reference/chop.html'>chop</a></span>(<span class='kw'>data</span>, <span class='kw'>cols</span>)
+    <pre class="usage"><span class='fu'>chop</span>(<span class='no'>data</span>, <span class='no'>cols</span>)
 
-<span class='fu'><a href='https://tidyr.tidyverse.org/reference/chop.html'>unchop</a></span>(<span class='kw'>data</span>, <span class='kw'>cols</span>, keep_empty = <span class='fl'>FALSE</span>, ptype = <span class='kw'>NULL</span>)</pre>
+<span class='fu'>unchop</span>(<span class='no'>data</span>, <span class='no'>cols</span>, <span class='kw'>keep_empty</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>ptype</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -228,9 +228,9 @@ more suitable for programming than interactive data analysis.</p>
     </tr>
     <tr>
       <th>cols</th>
-      <td><p>&lt;<code><a href='https://tidyr.tidyverse.org/reference/tidyr_tidy_select.html'>tidy-select</a></code>&gt; Columns to chop or unchop
+      <td><p>&lt;<code><a href='tidyr_tidy_select.html'>tidy-select</a></code>&gt; Columns to chop or unchop
 (automatically quoted).</p>
-<p>For <code><a href='https://tidyr.tidyverse.org/reference/chop.html'>unchop()</a></code>, each column should be a list-column containing generalised
+<p>For <code>unchop()</code>, each column should be a list-column containing generalised
 vectors (e.g. any mix of <code>NULL</code>s, atomic vector, S3 vectors, a lists,
 or data frames).</p></td>
     </tr>
@@ -254,54 +254,36 @@ individual values.</p></td>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>Generally, unchopping is more useful than chopping because it simplifies
-a complex data structure, and <code><a href='https://tidyr.tidyverse.org/reference/nest.html'>nest()</a></code>ing is usually more appropriate
-that <code><a href='https://tidyr.tidyverse.org/reference/chop.html'>chop()</a></code>ing` since it better preserves the connections between
+a complex data structure, and <code><a href='nest.html'>nest()</a></code>ing is usually more appropriate
+that <code>chop()</code>ing` since it better preserves the connections between
 observations.</p>
-<p><code><a href='https://tidyr.tidyverse.org/reference/chop.html'>chop()</a></code> creates list-columns of class <code><a href='https://vctrs.r-lib.org/reference/list_of.html'>vctrs::list_of()</a></code> to ensure
+<p><code>chop()</code> creates list-columns of class <code><a href='https://vctrs.r-lib.org/reference/list_of.html'>vctrs::list_of()</a></code> to ensure
 consistent behaviour when the chopped data frame is emptied. For
 instance this helps getting back the original column types after
 the roundtrip chop and unchop. Because <code>&lt;list_of&gt;</code> keeps tracks of
-the type of its elements, <code><a href='https://tidyr.tidyverse.org/reference/chop.html'>unchop()</a></code> is able to reconstitute the
+the type of its elements, <code>unchop()</code> is able to reconstitute the
 correct vector type even for empty list-columns.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># Chop ==============================================================</span>
-<span class='kw'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(x = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>2</span>, <span class='fl'>3</span>), y = <span class='fl'>1</span><span class='op'>:</span><span class='fl'>6</span>, z = <span class='fl'>6</span><span class='op'>:</span><span class='fl'>1</span>)
+<span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>2</span>, <span class='fl'>3</span>), <span class='kw'>y</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>6</span>, <span class='kw'>z</span> <span class='kw'>=</span> <span class='fl'>6</span>:<span class='fl'>1</span>)
 <span class='co'># Note that we get one row of output for each unique combination of</span>
 <span class='co'># non-chopped variables</span>
-<span class='kw'>df</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://tidyr.tidyverse.org/reference/chop.html'>chop</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='kw'>y</span>, <span class='kw'>z</span>))</div><div class='output co'>#&gt; <span class='warning'>Warning: `...` is not empty.</span>
-#&gt; <span class='warning'></span>
-#&gt; <span class='warning'>We detected these problematic arguments:</span>
-#&gt; <span class='warning'>* `needs_dots`</span>
-#&gt; <span class='warning'></span>
-#&gt; <span class='warning'>These dots only exist to allow future extensions and should be empty.</span>
-#&gt; <span class='warning'>Did you misspecify an argument?</span></div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 3 x 3</span><span>
+<span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>chop</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='no'>y</span>, <span class='no'>z</span>))</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 3 x 3</span><span>
 #&gt;       x           y           z
 #&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;list&lt;int&gt;&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;list&lt;int&gt;&gt;</span><span>
 #&gt; </span><span style='color: #555555;'>1</span><span>     1         </span><span style='color: #555555;'>[3]</span><span>         </span><span style='color: #555555;'>[3]</span><span>
 #&gt; </span><span style='color: #555555;'>2</span><span>     2         </span><span style='color: #555555;'>[2]</span><span>         </span><span style='color: #555555;'>[2]</span><span>
 #&gt; </span><span style='color: #555555;'>3</span><span>     3         </span><span style='color: #555555;'>[1]</span><span>         </span><span style='color: #555555;'>[1]</span><span></div><div class='input'><span class='co'># cf nest</span>
-<span class='kw'>df</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://tidyr.tidyverse.org/reference/nest.html'>nest</a></span>(data = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='kw'>y</span>, <span class='kw'>z</span>))</div><div class='output co'>#&gt; <span class='warning'>Warning: `...` is not empty.</span>
-#&gt; <span class='warning'></span>
-#&gt; <span class='warning'>We detected these problematic arguments:</span>
-#&gt; <span class='warning'>* `needs_dots`</span>
-#&gt; <span class='warning'></span>
-#&gt; <span class='warning'>These dots only exist to allow future extensions and should be empty.</span>
-#&gt; <span class='warning'>Did you misspecify an argument?</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 3 x 2</span><span>
+<span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='nest.html'>nest</a></span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='no'>y</span>, <span class='no'>z</span>))</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 3 x 2</span><span>
 #&gt;       x data            
 #&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;list&gt;</span><span>          
 #&gt; </span><span style='color: #555555;'>1</span><span>     1 </span><span style='color: #555555;'>&lt;tibble [3 × 2]&gt;</span><span>
 #&gt; </span><span style='color: #555555;'>2</span><span>     2 </span><span style='color: #555555;'>&lt;tibble [2 × 2]&gt;</span><span>
 #&gt; </span><span style='color: #555555;'>3</span><span>     3 </span><span style='color: #555555;'>&lt;tibble [1 × 2]&gt;</span><span></div><div class='input'>
 <span class='co'># Unchop ============================================================</span>
-<span class='kw'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(x = <span class='fl'>1</span><span class='op'>:</span><span class='fl'>4</span>, y = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/integer.html'>integer</a></span>(), <span class='fl'>1L</span>, <span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span>, <span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span>))
-<span class='kw'>df</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://tidyr.tidyverse.org/reference/chop.html'>unchop</a></span>(<span class='kw'>y</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: `...` is not empty.</span>
-#&gt; <span class='warning'></span>
-#&gt; <span class='warning'>We detected these problematic arguments:</span>
-#&gt; <span class='warning'>* `needs_dots`</span>
-#&gt; <span class='warning'></span>
-#&gt; <span class='warning'>These dots only exist to allow future extensions and should be empty.</span>
-#&gt; <span class='warning'>Did you misspecify an argument?</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 6 x 2</span><span>
+<span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>4</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/integer.html'>integer</a></span>(), <span class='fl'>1L</span>, <span class='fl'>1</span>:<span class='fl'>2</span>, <span class='fl'>1</span>:<span class='fl'>3</span>))
+<span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>unchop</span>(<span class='no'>y</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 6 x 2</span><span>
 #&gt;       x     y
 #&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
 #&gt; </span><span style='color: #555555;'>1</span><span>     2     1
@@ -309,13 +291,7 @@ correct vector type even for empty list-columns.</p>
 #&gt; </span><span style='color: #555555;'>3</span><span>     3     2
 #&gt; </span><span style='color: #555555;'>4</span><span>     4     1
 #&gt; </span><span style='color: #555555;'>5</span><span>     4     2
-#&gt; </span><span style='color: #555555;'>6</span><span>     4     3</div><div class='input'><span class='kw'>df</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://tidyr.tidyverse.org/reference/chop.html'>unchop</a></span>(<span class='kw'>y</span>, keep_empty = <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: `...` is not empty.</span>
-#&gt; <span class='warning'></span>
-#&gt; <span class='warning'>We detected these problematic arguments:</span>
-#&gt; <span class='warning'>* `needs_dots`</span>
-#&gt; <span class='warning'></span>
-#&gt; <span class='warning'>These dots only exist to allow future extensions and should be empty.</span>
-#&gt; <span class='warning'>Did you misspecify an argument?</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 7 x 2</span><span>
+#&gt; </span><span style='color: #555555;'>6</span><span>     4     3</div><div class='input'><span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>unchop</span>(<span class='no'>y</span>, <span class='kw'>keep_empty</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 7 x 2</span><span>
 #&gt;       x     y
 #&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
 #&gt; </span><span style='color: #555555;'>1</span><span>     1    </span><span style='color: #BB0000;'>NA</span><span>
@@ -327,30 +303,18 @@ correct vector type even for empty list-columns.</p>
 #&gt; </span><span style='color: #555555;'>7</span><span>     4     3</div><div class='input'>
 <span class='co'># Incompatible types -------------------------------------------------</span>
 <span class='co'># If the list-col contains types that can not be natively</span>
-<span class='kw'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(x = <span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span>, y = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='st'>"1"</span>, <span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span>))
-<span class='fu'><a href='https://rdrr.io/r/base/try.html'>try</a></span>(<span class='kw'>df</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://tidyr.tidyverse.org/reference/chop.html'>unchop</a></span>(<span class='kw'>y</span>))</div><div class='output co'>#&gt; Error : Can't combine `..1` &lt;character&gt; and `..2` &lt;integer&gt;.</div><div class='input'>
+<span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>2</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='st'>"1"</span>, <span class='fl'>1</span>:<span class='fl'>3</span>))
+<span class='fu'><a href='https://rdrr.io/r/base/try.html'>try</a></span>(<span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>unchop</span>(<span class='no'>y</span>))</div><div class='output co'>#&gt; Error : Can't combine `..1` &lt;character&gt; and `..2` &lt;integer&gt;.</div><div class='input'>
 <span class='co'># Unchopping data frames -----------------------------------------------------</span>
 <span class='co'># Unchopping a list-col of data frames must generate a df-col because</span>
 <span class='co'># unchop leaves the column names unchanged</span>
-<span class='kw'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(x = <span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span>, y = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>NULL</span>, <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(x = <span class='fl'>1</span>), <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(y = <span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span>)))
-<span class='kw'>df</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://tidyr.tidyverse.org/reference/chop.html'>unchop</a></span>(<span class='kw'>y</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: `...` is not empty.</span>
-#&gt; <span class='warning'></span>
-#&gt; <span class='warning'>We detected these problematic arguments:</span>
-#&gt; <span class='warning'>* `needs_dots`</span>
-#&gt; <span class='warning'></span>
-#&gt; <span class='warning'>These dots only exist to allow future extensions and should be empty.</span>
-#&gt; <span class='warning'>Did you misspecify an argument?</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 3 x 2</span><span>
+<span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>3</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>NULL</span>, <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fl'>1</span>), <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(<span class='kw'>y</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>2</span>)))
+<span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>unchop</span>(<span class='no'>y</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 3 x 2</span><span>
 #&gt;       x   y$x    $y
 #&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
 #&gt; </span><span style='color: #555555;'>1</span><span>     2     1    </span><span style='color: #BB0000;'>NA</span><span>
 #&gt; </span><span style='color: #555555;'>2</span><span>     3    </span><span style='color: #BB0000;'>NA</span><span>     1
-#&gt; </span><span style='color: #555555;'>3</span><span>     3    </span><span style='color: #BB0000;'>NA</span><span>     2</div><div class='input'><span class='kw'>df</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://tidyr.tidyverse.org/reference/chop.html'>unchop</a></span>(<span class='kw'>y</span>, keep_empty = <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: `...` is not empty.</span>
-#&gt; <span class='warning'></span>
-#&gt; <span class='warning'>We detected these problematic arguments:</span>
-#&gt; <span class='warning'>* `needs_dots`</span>
-#&gt; <span class='warning'></span>
-#&gt; <span class='warning'>These dots only exist to allow future extensions and should be empty.</span>
-#&gt; <span class='warning'>Did you misspecify an argument?</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 4 x 2</span><span>
+#&gt; </span><span style='color: #555555;'>3</span><span>     3    </span><span style='color: #BB0000;'>NA</span><span>     2</div><div class='input'><span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>unchop</span>(<span class='no'>y</span>, <span class='kw'>keep_empty</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 4 x 2</span><span>
 #&gt;       x   y$x    $y
 #&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
 #&gt; </span><span style='color: #555555;'>1</span><span>     1    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>
