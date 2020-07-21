@@ -67,23 +67,8 @@ test_that("can unpack 0-row dataframe", {
   expect_named(out, c("x", "a"))
 })
 
-test_that("can control name_repair", {
-  skip_if(packageVersion("vctrs") > "0.2.4")
-
-  verify_output(test_path("test-pack-name-repair.txt"), {
-    df <- tibble(x = 1, y = tibble(a = 2), z = tibble(a = 3))
-
-    df %>% unpack(c(y, z))
-
-    df %>% unpack(c(y, z), names_repair = "unique")
-
-    df %>% unpack(c(y, z), names_repair = "minimal")
-  })
-})
-
 test_that("can choose to add separtor", {
   df <- tibble(x = 1, y = tibble(a = 2), z = tibble(a = 3))
   out <- df %>% unpack(c(y, z), names_sep = "_")
   expect_named(out, c("x", "y_a", "z_a"))
 })
-
