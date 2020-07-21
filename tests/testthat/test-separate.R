@@ -61,7 +61,9 @@ test_that("too many pieces dealt with as requested", {
   expect_equal(drop[[1]], c("a", "a"))
   expect_equal(drop[[2]], c("b", "b"))
 
-  expect_warning(separate(df, x, c("x", "y"), extra = "error"), "deprecated")
+  suppressWarnings(
+    expect_warning(separate(df, x, c("x", "y"), extra = "error"), "deprecated")
+  )
 })
 
 test_that("too few pieces dealt with as requested", {
