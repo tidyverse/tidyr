@@ -119,31 +119,19 @@ test_that("checks type of `into` and `sep`", {
   )
 })
 
+# helpers -----------------------------------------------------------------
+
+test_that("str_split_n can cap number of splits", {
+  expect_equal(str_split_n(c("x,x"), ",", 1), list("x,x"))
+  expect_equal(str_split_n(c("x,x"), ",", 2), list(c("x", "x")))
+  expect_equal(str_split_n(c("x,x"), ",", 3), list(c("x", "x")))
+})
+
+test_that("str_split_n handles edge cases", {
+  expect_equal(str_split_n(character(), ",", 1), list())
+  expect_equal(str_split_n(NA, ",", 1), list(NA_character_))
+})
+
 test_that("list_indices truncates long warnings", {
   expect_equal(list_indices(letters, max = 3), "a, b, c, ...")
-})
-
-test_that("str_pieces is consistent and works with merge", {
-  expect_equal(str_pieces("a-b-c", "-", 2, "warn"), list(c("a", "b", "c")))
-  # dropping happens later so is not managed here
-  expect_equal(str_pieces("a-b-c", "-", 2, "drop"), list(c("a", "b", "c")))
-  expect_equal(str_pieces("a-b-c", "-", 2, "merge"), list(c("a", "b-c")))
-  expect_equal(str_pieces("a-b-c-d", "-", 3, "merge"), list(c("a", "b", "c-d")))
-
-  expect_equal(str_pieces("a", "-", 1, "warn"), list("a"))
-})
-
-test_that("str_pieces handles vectors", {
-  expect_equal(str_pieces(c("a-b-c", "d-e-f", NA, ""), "-", 2, "warn"),
-                list(
-                  c("a", "b", "c"),
-                  c("d", "e", "f"),
-                  NA_character_,
-                  character(0)))
-  expect_equal(str_pieces(c("a-b-c", "d-e-f", NA, ""), "-", 2, "merge"),
-               list(
-                 c("a", "b-c"),
-                 c("d", "e-f"),
-                 NA_character_,
-                 character(0)))
 })

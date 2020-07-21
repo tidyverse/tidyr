@@ -132,7 +132,8 @@ str_split_fixed <- function(value, sep, n, extra = "warn", fill = "warn") {
   extra <- arg_match(extra, c("warn", "merge", "drop"))
   fill <- arg_match(fill, c("warn", "left", "right"))
 
-  pieces <- str_pieces(value, sep, n, extra)
+  n_max <- if (extra == "merge") n else -1L
+  pieces <- str_split_n(value, sep, n_max = n_max)
 
   simp <- simplifyPieces(pieces, n, fill == "left")
 
@@ -151,34 +152,28 @@ str_split_fixed <- function(value, sep, n, extra = "warn", fill = "warn") {
   simp$strings
 }
 
+str_split_n <- function(x, pattern, n_max = -1) {
+  m <- gregexpr(pattern, x, perl = TRUE)
+  if (n_max > 0) {
+    m <- lapply(m, function(x) slice_match(x, seq_along(x) < n_max))
+  }
+  regmatches(x, m, invert = TRUE)
+}
+
+slice_match <- function(x, i) {
+  structure(
+    x[i],
+    match.length = attr(x, "match.length")[i],
+    index.type = attr(x, "index.type"),
+    useBytes = attr(x, "useBytes")
+  )
+}
+
+
 list_indices <- function(x, max = 20) {
   if (length(x) > max) {
     x <- c(x[seq_len(max)], "...")
   }
 
   paste(x, collapse = ", ")
-}
-
-str_pieces <- function(value, sep, n_max, extra) {
-  if (extra != "merge") {
-    strsplit(value, split = sep, perl = TRUE)
-  } else {
-    lapply(value, str_pieces_merge, sep = sep, n_max = n_max)
-  }
-}
-
-str_pieces_merge <- function(value, sep, n_max) {
-  pieces <- strsplit(value, split = sep)[[1]]
-
-  if (all(pieces == value) || anyNA(pieces)) {
-    pieces
-  } else {
-    remainder <- substr(
-      value,
-      regexpr(pieces[n_max], value, perl = TRUE)[[1]][1],
-      nchar(value)
-    )
-
-    c(pieces[1:n_max - 1], remainder)
-  }
 }
