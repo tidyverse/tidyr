@@ -1,5 +1,9 @@
 # tidyr (development version)
 
+* stringi dependency has been removed; this was a substantial dependency that
+  make tidyr hard to compile in resource constrained environments 
+  (@rjpat, #936).
+
 # tidyr 1.1.0
 
 ## General features

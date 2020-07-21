@@ -52,3 +52,26 @@ test_that("informative error message if wrong number of groups", {
   expect_error(extract(df, x, "y", "."), "should define 1 groups")
   expect_error(extract(df, x, c("y", "z"), "."), "should define 2 groups")
 })
+
+test_that("str_match_first handles edge cases", {
+  expect_identical(
+    str_match_first(c("r-2", "d-2-3-4"), "(.)-(.)"),
+    list(c("r", "d"), c("2", "2"))
+  )
+  expect_identical(
+    str_match_first(NA, "test"),
+    list()
+  )
+  expect_equivalent(
+    str_match_first(c("", " "), "^(.*)$"),
+    list(c("", " "))
+  )
+  expect_equivalent(
+    str_match_first("", "(.)-(.)"),
+    list(NA_character_, NA_character_)
+  )
+  expect_equivalent(
+    str_match_first(character(), "(.)-(.)"),
+    list(character(), character())
+  )
+})

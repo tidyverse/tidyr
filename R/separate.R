@@ -108,7 +108,7 @@ str_separate <- function(x, into, sep, convert = FALSE, extra = "warn", fill = "
 }
 
 strsep <- function(x, sep) {
-  nchar <- stringi::stri_length(x)
+  nchar <- nchar(x)
   pos <- map(sep, function(i) {
     if (i >= 0) return(i)
     pmax(0, nchar + i)
@@ -116,9 +116,10 @@ strsep <- function(x, sep) {
   pos <- c(list(0), pos, list(nchar))
 
   map(1:(length(pos) - 1), function(i) {
-    stringi::stri_sub(x, pos[[i]] + 1, pos[[i + 1]])
+    substr(x, pos[[i]] + 1, pos[[i + 1]])
   })
 }
+
 str_split_fixed <- function(value, sep, n, extra = "warn", fill = "warn") {
   if (extra == "error") {
     warn(glue(
@@ -132,7 +133,7 @@ str_split_fixed <- function(value, sep, n, extra = "warn", fill = "warn") {
   fill <- arg_match(fill, c("warn", "left", "right"))
 
   n_max <- if (extra == "merge") n else -1L
-  pieces <- stringi::stri_split_regex(value, sep, n_max)
+  pieces <- str_split_n(value, sep, n_max = n_max)
 
   simp <- simplifyPieces(pieces, n, fill == "left")
 
@@ -150,6 +151,24 @@ str_split_fixed <- function(value, sep, n, extra = "warn", fill = "warn") {
 
   simp$strings
 }
+
+str_split_n <- function(x, pattern, n_max = -1) {
+  m <- gregexpr(pattern, x, perl = TRUE)
+  if (n_max > 0) {
+    m <- lapply(m, function(x) slice_match(x, seq_along(x) < n_max))
+  }
+  regmatches(x, m, invert = TRUE)
+}
+
+slice_match <- function(x, i) {
+  structure(
+    x[i],
+    match.length = attr(x, "match.length")[i],
+    index.type = attr(x, "index.type"),
+    useBytes = attr(x, "useBytes")
+  )
+}
+
 
 list_indices <- function(x, max = 20) {
   if (length(x) > max) {

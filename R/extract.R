@@ -55,17 +55,13 @@ str_extract <- function(x, into, regex, convert = FALSE) {
     is_character(into)
   )
 
-  matches <- stringi::stri_match_first_regex(x, regex)[, -1, drop = FALSE]
-
-  if (ncol(matches) != length(into)) {
+  out <- str_match_first(x, regex)
+  if (length(out) != length(into)) {
     stop(
       "`regex` should define ", length(into), " groups; ", ncol(matches), " found.",
       call. = FALSE
     )
   }
-
-  out <- as_tibble(matches, .name_repair = "minimal")
-  out <- as.list(out)
 
   # Handle duplicated names
   if (anyDuplicated(into)) {
@@ -87,4 +83,28 @@ str_extract <- function(x, into, regex, convert = FALSE) {
   }
 
   out
+}
+
+# Helpers -----------------------------------------------------------------
+
+str_match_first <- function(string, regex) {
+  loc <- regexpr(regex, string, perl = TRUE)
+  loc <- group_loc(loc)
+
+  out <- lapply(
+    seq_len(loc$matches),
+    function(i) substr(string, loc$start[, i], loc$end[, i])
+  )
+  out[-1]
+}
+
+group_loc <- function(x) {
+  start <- cbind(as.vector(x), attr(x, "capture.start"))
+  end <- start + cbind(attr(x, "match.length"), attr(x, "capture.length")) - 1L
+
+  no_match <- start == -1L
+  start[no_match] <- NA
+  end[no_match] <- NA
+
+  list(matches = ncol(start), start = start, end = end)
 }
