@@ -47,6 +47,8 @@ test_that("expand excepts expressions", {
 })
 
 test_that("expand respects groups", {
+  local_options(lifecycle_verbosity = "quiet")
+
   df <- tibble(
     a = c(1L, 1L, 2L),
     b = c(1L, 2L, 1L),
