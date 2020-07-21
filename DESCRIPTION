@@ -31,7 +31,6 @@ Imports:
     glue,
     magrittr,
     purrr,
-    Rcpp,
     rlang,
     tibble (>= 2.1.1),
     tidyselect (>= 1.1.0),
