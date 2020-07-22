@@ -12,7 +12,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-# tidyr <a href='https:/tidyr.tidyverse.org'><img src='man/figures/logo.png' align="right" height="139" /></a>
+# tidyr <a href='https://tidyr.tidyverse.org'><img src='man/figures/logo.png' align="right" height="139" /></a>
 
 <!-- badges: start -->
 [![CRAN status](https://www.r-pkg.org/badges/version/tidyr)](https://cran.r-project.org/package=tidyr)
