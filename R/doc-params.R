@@ -42,7 +42,7 @@
 #' *   If you have a character vector of column names, use `all_of()`
 #'     or `any_of()`, depending on whether or not you want unknown variable
 #'     names to cause an error, e.g `unnest(df, all_of(vars))`,
-#'     `unnest(df, -any_of(vars))`.
+#'     `unnest(df, !any_of(vars))`.
 #'
 #' *   If you want the user to supply a tidyselect specification in a
 #'     function argument, you need to tunnel the selection through the function
