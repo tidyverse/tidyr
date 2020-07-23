@@ -157,7 +157,7 @@ my_function_inside_a_package <- function(...)
 
   if (tidyr_new_interface()) {
     # Freshly written code for v1.0.0
-    out <- tidyr::nest(df, data = any_of("x", "y", "z"))
+    out <- tidyr::nest(df, data = any_of(c("x", "y", "z")))
   } else {
     # Existing code for v0.8.3
     out <- tidyr::nest(df, x, y, z)
@@ -359,7 +359,7 @@ nested %>% unnest_(~ my_data)
 
 # v1.0.0
 mini_iris %>% 
-  nest(my_data = any_of("Sepal.Length", "Sepal.Width", "Petal.Length", "Petal.Width"))
+  nest(my_data = any_of(c("Sepal.Length", "Sepal.Width", "Petal.Length", "Petal.Width")))
 
 nested %>% unnest(any_of("my_data"))
 ```

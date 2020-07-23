@@ -70,7 +70,7 @@
 #' df %>% chop(c(y, z))
 #'
 #' # use tidyselect syntax and helpers, just like in dplyr::select()
-#' df %>% nest(data = any_of("y", "z"))
+#' df %>% nest(data = any_of(c("y", "z")))
 #'
 #' iris %>% nest(data = !Species)
 #' nest_vars <- names(iris)[1:4]
