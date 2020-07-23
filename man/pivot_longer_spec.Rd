@@ -143,7 +143,7 @@ that allows you to describe pivotting with a data frame.
 # Use `build_longer_spec()` to build `spec` using similar syntax to `pivot_longer()`
 # and run `pivot_longer_spec()` based on `spec`.
 spec <- relig_income \%>\% build_longer_spec(
-  cols = -religion,
+  cols = !religion,
   names_to = "income",
   values_to = "count"
 )
@@ -153,7 +153,7 @@ pivot_longer_spec(relig_income, spec)
 
 # Is equivalent to:
 relig_income \%>\% pivot_longer(
-  cols = -religion,
+  cols = !religion,
   names_to = "income",
   values_to = "count")
 

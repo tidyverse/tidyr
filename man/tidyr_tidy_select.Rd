@@ -8,8 +8,8 @@ This page the describes the \verb{<tidy-select>} argument modifier which indicat
 the argument uses \strong{tidy selection} (a special type of tidy evaluation).
 Tidy selection provides a concise DSL for selecting variables based on their
 names.
-\subsection{Overview of selection features}{
-
+}
+\section{Overview of selection features}{
 Tidyverse selections implement a dialect of R where operators make
 it easy to select variables:
 \itemize{
@@ -51,7 +51,7 @@ This helper selects variables with a function:
 for which the function returns \code{TRUE}.
 }
 }
-}
+
 \section{Indirection}{
 There are two main cases:
 \itemize{

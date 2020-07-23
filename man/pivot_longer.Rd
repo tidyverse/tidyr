@@ -111,7 +111,7 @@ under active development.
 # Simplest case where column names are character data
 relig_income
 relig_income \%>\%
-  pivot_longer(-religion, names_to = "income", values_to = "count")
+  pivot_longer(!religion, names_to = "income", values_to = "count")
 
 # Slightly more complex case where columns have common prefix,
 # and missing missings are structural so should be dropped.
