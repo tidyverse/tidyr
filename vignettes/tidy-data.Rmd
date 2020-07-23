@@ -217,7 +217,7 @@ In this case, we could also do the transformation in a single step by supplying 
 
 ```{r}
 tb %>% pivot_longer(
-  !c(iso2, !year), 
+  !c(iso2, year), 
   names_to = c("sex", "age"), 
   names_pattern = "(.)(.+)",
   values_to = "n", 
