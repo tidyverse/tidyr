@@ -28,11 +28,6 @@ Useful links:
 \author{
 \strong{Maintainer}: Hadley Wickham \email{hadley@rstudio.com}
 
-Authors:
-\itemize{
-  \item Lionel Henry \email{lionel@rstudio.com}
-}
-
 Other contributors:
 \itemize{
   \item RStudio [copyright holder]
