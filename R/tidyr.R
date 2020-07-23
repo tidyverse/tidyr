@@ -53,9 +53,3 @@ tidyselect::starts_with
 #' @importFrom tidyselect last_col
 #' @export
 tidyselect::last_col
-#' @importFrom tidyselect any_of
-#' @export
-tidyselect::any_of
-#' @importFrom tidyselect all_of
-#' @export
-tidyselect::all_of
