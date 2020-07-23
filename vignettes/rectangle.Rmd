@@ -309,7 +309,7 @@ The problem is that `basic_information` repeats the `id` column that's also stor
 
 ```{r}
 discs %>% 
-  select(-id) %>% 
+  select(!id) %>% 
   unnest_wider(basic_information)
 ```
 

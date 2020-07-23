@@ -207,7 +207,7 @@ mini_iris %>%
 
 # or equivalently:
 mini_iris %>% 
-  nest(my_data = -one_of("Species"))
+  nest(my_data = !one_of("Species"))
 ```
 
 If you need a quick and dirty fix without having to think, just call `nest_legacy()` instead of `nest()`. It's the same as `nest()` in v0.8.3:

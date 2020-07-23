@@ -30,8 +30,8 @@
 #' result preserves the grouping of the input.
 #'
 #' Variables supplied to `nest()` will override grouping variables so that
-#' `df %>% group_by(x, y) %>% nest(data = -z)` will be equivalent to
-#' `df %>% nest(data = -z)`.
+#' `df %>% group_by(x, y) %>% nest(data = !z)` will be equivalent to
+#' `df %>% nest(data = !z)`.
 #'
 #' @param .data A data frame.
 #' @param ... <[`tidy-select`][tidyr_tidy_select]> Columns to nest, specified
@@ -72,7 +72,7 @@
 #' # use tidyselect syntax and helpers, just like in dplyr::select()
 #' df %>% nest(data = one_of("y", "z"))
 #'
-#' iris %>% nest(data = -Species)
+#' iris %>% nest(data = !Species)
 #' nest_vars <- names(iris)[1:4]
 #' iris %>% nest(data = one_of(nest_vars))
 #' iris %>%
