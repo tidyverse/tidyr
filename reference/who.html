@@ -43,6 +43,10 @@
 <script src="../pkgdown.js"></script>
 <link href="../tidyverse-2.css" rel="stylesheet">
 
+<!--optional theme-->
+<link href="../.css" rel="stylesheet">
+
+
 
 
 <meta property="og:title" content="World Health Organization TB data — who" />
@@ -92,7 +96,7 @@ Report, and accompanying global populations." />
         <a class="navbar-brand" href="../index.html">tidyr</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.0</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.1</span>
         </div>
       </div>
     </div>
@@ -134,6 +138,9 @@ Report, and accompanying global populations." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li class="dropdown-header">Releases</li>
+    <li>
+      <a href="https://www.tidyverse.org/blog/2020/05/tidyr-1.1.0/">Version 1.1.0</a>
+    </li>
     <li>
       <a href="https://www.tidyverse.org/articles/2019/09/tidyr-1-0-0/">Version 1.0.0</a>
     </li>
@@ -203,7 +210,7 @@ Report, and accompanying global populations.</p>
 
     <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
 
-    <p><code>who</code>: a data frame with 7,240 rows and the columns:</p><dl>
+    <p><code>who</code>: a data frame with 7,240 rows and the columns:</p><dl'>
 <dt>country</dt><dd><p>Country name</p></dd>
 <dt>iso2, iso3</dt><dd><p>2 &amp; 3 letter ISO country codes</p></dd>
 <dt>year</dt><dd><p>Year</p></dd>
@@ -212,7 +219,7 @@ Column names encode three variables that describe the group (see details).</p></
 
 </dl>
 
-<p><code>population</code>: a data frame with 4,060 rows and three columns:</p><dl>
+<p><code>population</code>: a data frame with 4,060 rows and three columns:</p><dl'>
 <dt>country</dt><dd><p>Country name</p></dd>
 <dt>year</dt><dd><p>Year</p></dd>
 <dt>population</dt><dd><p>Population</p></dd>
@@ -251,7 +258,7 @@ of age or older).</p>
 
 <div class="author">
   <p>
-    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, Lionel Henry.
+    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>.
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>

@@ -43,6 +43,10 @@
 <script src="../pkgdown.js"></script>
 <link href="../tidyverse-2.css" rel="stylesheet">
 
+<!--optional theme-->
+<link href="../.css" rel="stylesheet">
+
+
 
 
 <meta property="og:title" content="Drop rows containing missing values — drop_na" />
@@ -91,7 +95,7 @@
         <a class="navbar-brand" href="../index.html">tidyr</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.0</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.1</span>
         </div>
       </div>
     </div>
@@ -133,6 +137,9 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li class="dropdown-header">Releases</li>
+    <li>
+      <a href="https://www.tidyverse.org/blog/2020/05/tidyr-1.1.0/">Version 1.1.0</a>
+    </li>
     <li>
       <a href="https://www.tidyverse.org/articles/2019/09/tidyr-1-0-0/">Version 1.0.0</a>
     </li>
@@ -223,7 +230,7 @@ missing values.</p></td>
 #&gt; </span><span style='color: #555555;'>1</span><span>     1 a    
 #&gt; </span><span style='color: #555555;'>2</span><span>     2 </span><span style='color: #BB0000;'>NA</span><span>   </div><div class='input'>
 <span class='no'>vars</span> <span class='kw'>&lt;-</span> <span class='st'>"y"</span>
-<span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>drop_na</span>(<span class='no'>x</span>, <span class='fu'>any_of</span>(<span class='no'>vars</span>))</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 1 x 2</span><span>
+<span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>drop_na</span>(<span class='no'>x</span>, <span class='fu'><a href='https://dplyr.tidyverse.org/reference/reexports.html'>any_of</a></span>(<span class='no'>vars</span>))</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 1 x 2</span><span>
 #&gt;       x y    
 #&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>
 #&gt; </span><span style='color: #555555;'>1</span><span>     1 a    </div></span></pre>
@@ -243,7 +250,7 @@ missing values.</p></td>
 
 <div class="author">
   <p>
-    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, Lionel Henry.
+    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>.
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>

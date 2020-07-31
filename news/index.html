@@ -43,6 +43,10 @@
 <script src="../pkgdown.js"></script>
 <link href="../tidyverse-2.css" rel="stylesheet">
 
+<!--optional theme-->
+<link href="../.css" rel="stylesheet">
+
+
 
 
 <meta property="og:title" content="Changelog" />
@@ -90,7 +94,7 @@
         <a class="navbar-brand" href="../index.html">tidyr</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.0</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.1</span>
         </div>
       </div>
     </div>
@@ -132,6 +136,9 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li class="dropdown-header">Releases</li>
+    <li>
+      <a href="https://www.tidyverse.org/blog/2020/05/tidyr-1.1.0/">Version 1.1.0</a>
+    </li>
     <li>
       <a href="https://www.tidyverse.org/articles/2019/09/tidyr-1-0-0/">Version 1.0.0</a>
     </li>
@@ -188,9 +195,19 @@
       <small>Source: <a href='https://github.com/tidyverse/tidyr/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
+    <div id="tidyr-111" class="section level1">
+<h1 class="page-header" data-toc-text="1.1.1">
+<a href="#tidyr-111" class="anchor"></a>tidyr 1.1.1<small> 2020-07-31 </small>
+</h1>
+<ul>
+<li><p>New tidyr logo!</p></li>
+<li><p>stringi dependency has been removed; this was a substantial dependency that make tidyr hard to compile in resource constrained environments (<a href='https://github.com/rjpat'>@rjpat</a>, <a href='https://github.com/tidyverse/tidyr/issues/936'>#936</a>).</p></li>
+<li><p>Replace Rcpp with cpp11. See <a href="https://cpp11.r-lib.org/articles/motivations.html" class="uri">https://cpp11.r-lib.org/articles/motivations.html</a> for reasons why.</p></li>
+</ul>
+</div>
     <div id="tidyr-110" class="section level1">
 <h1 class="page-header" data-toc-text="1.1.0">
-<a href="#tidyr-110" class="anchor"></a>tidyr 1.1.0<small> Unreleased </small>
+<a href="#tidyr-110" class="anchor"></a>tidyr 1.1.0<small> 2020-05-20 </small>
 </h1>
 <div id="general-features" class="section level2">
 <h2 class="hasAnchor">
@@ -415,7 +432,7 @@ df %&gt;% mutate(name = map_chr(metadata, "name"))</code></pre>
 <a href="#new-features-1" class="anchor"></a>New features</h2>
 <ul>
 <li><p>Increased test coverage from 84% to 99%.</p></li>
-<li><p><code><a href="../reference/uncount.html">uncount()</a></code> performs the inverse operation of <code><a href="https://dplyr.tidyverse.org/reference/tally.html">dplyr::count()</a></code> (<a href='https://github.com/tidyverse/tidyr/issues/279'>#279</a>)</p></li>
+<li><p><code><a href="../reference/uncount.html">uncount()</a></code> performs the inverse operation of <code><a href="https://dplyr.tidyverse.org/reference/count.html">dplyr::count()</a></code> (<a href='https://github.com/tidyverse/tidyr/issues/279'>#279</a>)</p></li>
 </ul>
 </div>
 <div id="bug-fixes-and-minor-improvements-2" class="section level2">
@@ -750,7 +767,7 @@ drop_na(df, starts_with(x))</code></pre>
 
 <div class="author">
   <p>
-    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, Lionel Henry.
+    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>.
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>

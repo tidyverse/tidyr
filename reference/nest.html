@@ -43,6 +43,10 @@
 <script src="../pkgdown.js"></script>
 <link href="../tidyverse-2.css" rel="stylesheet">
 
+<!--optional theme-->
+<link href="../.css" rel="stylesheet">
+
+
 
 
 <meta property="og:title" content="Nest and unnest — nest" />
@@ -96,7 +100,7 @@ Learn more in vignette(&quot;nest&quot;)." />
         <a class="navbar-brand" href="../index.html">tidyr</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.0</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.1</span>
         </div>
       </div>
     </div>
@@ -138,6 +142,9 @@ Learn more in vignette(&quot;nest&quot;)." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li class="dropdown-header">Releases</li>
+    <li>
+      <a href="https://www.tidyverse.org/blog/2020/05/tidyr-1.1.0/">Version 1.1.0</a>
+    </li>
     <li>
       <a href="https://www.tidyverse.org/articles/2019/09/tidyr-1-0-0/">Version 1.0.0</a>
     </li>
@@ -331,8 +338,8 @@ designed to be more similar to other functions. Converting to the new syntax
 should be straightforward (guided by the message you'll recieve) but if
 you just need to run an old analysis, you can easily revert to the previous
 behaviour using <code><a href='nest_legacy.html'>nest_legacy()</a></code> and <code><a href='nest_legacy.html'>unnest_legacy()</a></code> as follows:</p><pre><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>tidyr</span>)
-<span class='no'>nest</span> <span class='kw'>&lt;-</span> <span class='no'>nest_legacy</span>
-<span class='no'>unnest</span> <span class='kw'>&lt;-</span> <span class='no'>unnest_legacy</span></pre>
+<span class='no'>nest</span> <span class='kw'>&amp;</span><span class='no'>lt</span>;- <span class='no'>nest_legacy</span>
+<span class='no'>unnest</span> <span class='kw'>&amp;</span><span class='no'>lt</span>;- <span class='no'>unnest_legacy</span></pre>
 
     <h2 class="hasAnchor" id="grouped-data-frames"><a class="anchor" href="#grouped-data-frames"></a>Grouped data frames</h2>
 
@@ -496,7 +503,7 @@ result preserves the grouping of the input.</p>
 
 <div class="author">
   <p>
-    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, Lionel Henry.
+    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>.
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>
