@@ -78,7 +78,7 @@
 #' # Simplest case where column names are character data
 #' relig_income
 #' relig_income %>%
-#'   pivot_longer(-religion, names_to = "income", values_to = "count")
+#'   pivot_longer(!religion, names_to = "income", values_to = "count")
 #'
 #' # Slightly more complex case where columns have common prefix,
 #' # and missing missings are structural so should be dropped.
@@ -188,7 +188,7 @@ pivot_longer.data.frame <- function(data,
 #' # Use `build_longer_spec()` to build `spec` using similar syntax to `pivot_longer()`
 #' # and run `pivot_longer_spec()` based on `spec`.
 #' spec <- relig_income %>% build_longer_spec(
-#'   cols = -religion,
+#'   cols = !religion,
 #'   names_to = "income",
 #'   values_to = "count"
 #' )
@@ -198,7 +198,7 @@ pivot_longer.data.frame <- function(data,
 #'
 #' # Is equivalent to:
 #' relig_income %>% pivot_longer(
-#'   cols = -religion,
+#'   cols = !religion,
 #'   names_to = "income",
 #'   values_to = "count")
 #'

@@ -125,8 +125,8 @@ variables remain in the outer data frame and the others are nested. The
 result preserves the grouping of the input.
 
 Variables supplied to \code{nest()} will override grouping variables so that
-\code{df \%>\% group_by(x, y) \%>\% nest(data = -z)} will be equivalent to
-\code{df \%>\% nest(data = -z)}.
+\code{df \%>\% group_by(x, y) \%>\% nest(data = !z)} will be equivalent to
+\code{df \%>\% nest(data = !z)}.
 }
 
 \examples{
@@ -138,11 +138,11 @@ df \%>\% nest(data = c(y, z))
 df \%>\% chop(c(y, z))
 
 # use tidyselect syntax and helpers, just like in dplyr::select()
-df \%>\% nest(data = one_of("y", "z"))
+df \%>\% nest(data = any_of(c("y", "z")))
 
-iris \%>\% nest(data = -Species)
+iris \%>\% nest(data = !Species)
 nest_vars <- names(iris)[1:4]
-iris \%>\% nest(data = one_of(nest_vars))
+iris \%>\% nest(data = any_of(nest_vars))
 iris \%>\%
   nest(petal = starts_with("Petal"), sepal = starts_with("Sepal"))
 iris \%>\%

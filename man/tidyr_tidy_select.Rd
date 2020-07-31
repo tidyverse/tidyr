@@ -9,26 +9,46 @@ the argument uses \strong{tidy selection} (a special type of tidy evaluation).
 Tidy selection provides a concise DSL for selecting variables based on their
 names.
 }
-\section{General usage}{
-If you have a data frame with variables \code{apple}, \code{banana}, \code{cantaloupe},
-\code{date}, \code{eggplant}, \code{fig}, \code{grape} you can:
+\section{Overview of selection features}{
+Tidyverse selections implement a dialect of R where operators make
+it easy to select variables:
 \itemize{
-\item Select individual variables with their name: e.g. \code{c(apple, fig, grape)}.
-\item Select data-variables stored in an env-variable with \code{all_of()} (which
-will error if a variable is not found) or \code{any_of()} (which is
-relaxed and will silently drop missing variables), e.g.
-if \code{vars <- c("apple", "fig", "peach")}, then \code{all_of(vars)} will
-error; \code{any_of(vars)} will select \code{apple} and \code{fig}.
-\item Select contiguous variables with \code{:}, e.g. \code{apple:date}.
-\item Select variables with name-based helpers: e.g. \code{ends_with("a")},
-\code{contains("g")}. See full list in \link[tidyselect:language]{tidyselect::select_helpers}.
-\item Select variables of a given type with an \code{is} function: \code{is.numeric},
-\code{is.factor}, \code{is.character}, etc.
-\item Invert a selection with \code{!}: \code{!is.numeric}, or \code{!contains("x")}.
-\item Create logical combination with \code{|} and \code{&}:
-\code{starts_with("a") | starts_with("b")}, \code{contains("x") & is.numeric}
-\item Remove variables from a collection with \code{&} and \code{!}:
-\code{is.numeric & !starts_with("a")}
+\item \code{:} for selecting a range of consecutive variables.
+\item \code{!} for taking the complement of a set of variables.
+\item \code{&} and \code{|} for selecting the intersection or the union of two
+sets of variables.
+\item \code{c()} for combining selections.
+}
+
+In addition, you can use \strong{selection helpers}. Some helpers select specific
+columns:
+\itemize{
+\item \code{\link[tidyselect:everything]{everything()}}: Matches all variables.
+\item \code{\link[tidyselect:everything]{last_col()}}: Select last variable, possibly with an offset.
+}
+
+These helpers select variables by matching patterns in their names:
+\itemize{
+\item \code{\link[tidyselect:starts_with]{starts_with()}}: Starts with a prefix.
+\item \code{\link[tidyselect:starts_with]{ends_with()}}: Ends with a suffix.
+\item \code{\link[tidyselect:starts_with]{contains()}}: Contains a literal string.
+\item \code{\link[tidyselect:starts_with]{matches()}}: Matches a regular expression.
+\item \code{\link[tidyselect:starts_with]{num_range()}}: Matches a numerical range like x01, x02, x03.
+}
+
+These helpers select variables from a character vector:
+\itemize{
+\item \code{\link[tidyselect:all_of]{all_of()}}: Matches variable names in a character vector. All
+names must be present, otherwise an out-of-bounds error is
+thrown.
+\item \code{\link[tidyselect:all_of]{any_of()}}: Same as \code{all_of()}, except that no error is thrown
+for names that don't exist.
+}
+
+This helper selects variables with a function:
+\itemize{
+\item \code{\link[tidyselect:where]{where()}}: Applies a function to all variables and selects those
+for which the function returns \code{TRUE}.
 }
 }
 
@@ -38,7 +58,7 @@ There are two main cases:
 \item If you have a character vector of column names, use \code{all_of()}
 or \code{any_of()}, depending on whether or not you want unknown variable
 names to cause an error, e.g \code{unnest(df, all_of(vars))},
-\code{unnest(df, -any_of(vars))}.
+\code{unnest(df, !any_of(vars))}.
 \item If you want the user to supply a tidyselect specification in a
 function argument, you need to tunnel the selection through the function
 argument. This is done by embracing the function argument \code{{{ }}},

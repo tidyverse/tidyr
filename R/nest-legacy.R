@@ -46,7 +46,7 @@
 #' df %>% nest_legacy(y) %>% unnest_legacy()
 #'
 #' # nesting -------------------------------------------------------------------
-#' as_tibble(iris) %>% nest_legacy(-Species)
+#' as_tibble(iris) %>% nest_legacy(!Species)
 #' as_tibble(chickwts) %>% nest_legacy(weight)
 #'
 #' # unnesting -----------------------------------------------------------------

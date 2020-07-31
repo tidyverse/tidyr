@@ -157,7 +157,7 @@ my_function_inside_a_package <- function(...)
 
   if (tidyr_new_interface()) {
     # Freshly written code for v1.0.0
-    out <- tidyr::nest(df, data = one_of("x", "y", "z"))
+    out <- tidyr::nest(df, data = any_of(c("x", "y", "z")))
   } else {
     # Existing code for v0.8.3
     out <- tidyr::nest(df, x, y, z)
@@ -203,11 +203,11 @@ mini_iris %>%
 
 # v1.0.0 avoiding R CMD check NOTE
 mini_iris %>% 
-  nest(my_data = one_of(c("Sepal.Length", "Sepal.Width", "Petal.Length", "Petal.Width")))
+  nest(my_data = any_of(c("Sepal.Length", "Sepal.Width", "Petal.Length", "Petal.Width")))
 
 # or equivalently:
 mini_iris %>% 
-  nest(my_data = -one_of("Species"))
+  nest(my_data = !any_of("Species"))
 ```
 
 If you need a quick and dirty fix without having to think, just call `nest_legacy()` instead of `nest()`. It's the same as `nest()` in v0.8.3:
@@ -265,7 +265,7 @@ nested <- mini_iris %>%
 nested %>% unnest()
 
 # v1.0.0 must be told which columns to unnest
-nested %>% unnest(one_of("my_data"))
+nested %>% unnest(any_of("my_data"))
 ```
 
 If you need a quick and dirty fix without having to think, just call `unnest_legacy()` instead of `unnest()`. It's the same as `unnest()` in v0.8.3:
@@ -359,9 +359,9 @@ nested %>% unnest_(~ my_data)
 
 # v1.0.0
 mini_iris %>% 
-  nest(my_data = one_of("Sepal.Length", "Sepal.Width", "Petal.Length", "Petal.Width"))
+  nest(my_data = any_of(c("Sepal.Length", "Sepal.Width", "Petal.Length", "Petal.Width")))
 
-nested %>% unnest(one_of("my_data"))
+nested %>% unnest(any_of("my_data"))
 ```
 
 [ggplot2-packages]: https://ggplot2.tidyverse.org/dev/articles/ggplot2-in-packages.html

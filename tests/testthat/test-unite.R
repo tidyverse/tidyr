@@ -43,7 +43,7 @@ test_that("can remove missing vars on request", {
 
 test_that("regardless of the type of the NA", {
   vec_unite <- function(df, vars) {
-    unite(df, "out", one_of(vars), na.rm = TRUE)$out
+    unite(df, "out", any_of(vars), na.rm = TRUE)$out
   }
 
   df <- tibble(

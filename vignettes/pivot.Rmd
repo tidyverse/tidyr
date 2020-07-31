@@ -70,7 +70,7 @@ To tidy it we use `pivot_longer()`:
 
 ```{r}
 relig_income %>% 
-  pivot_longer(-religion, names_to = "income", values_to = "count")
+  pivot_longer(!religion, names_to = "income", values_to = "count")
 ```
 
 * The first argument is the dataset to reshape, `relig_income`.
@@ -207,7 +207,7 @@ Note that we have two pieces of information (or values) for each child: their `g
 ```{r}
 family %>% 
   pivot_longer(
-    -family, 
+    !family, 
     names_to = c(".value", "child"), 
     names_sep = "_", 
     values_drop_na = TRUE
@@ -248,7 +248,7 @@ pnl <- tibble(
 
 pnl %>% 
   pivot_longer(
-    -c(x, a, b), 
+    !c(x, a, b), 
     names_to = c(".value", "time"), 
     names_pattern = "(.)(.)"
   )
@@ -266,14 +266,14 @@ df
 When `pivot_longer()` encounters such data, it automatically adds another column to the output:
 
 ```{r}
-df %>% pivot_longer(-id, names_to = "name", values_to = "value")
+df %>% pivot_longer(!id, names_to = "name", values_to = "value")
 ```
 
 A similar process is applied when multiple input columns are mapped to the same output column, as in the following example where we ignore the numeric suffix on each column name:
 
 ```{r}
 df <- tibble(id = 1:3, x1 = 4:6, x2 = 5:7, y1 = 7:9, y2 = 10:12)
-df %>% pivot_longer(-id, names_to = ".value", names_pattern = "(.).")
+df %>% pivot_longer(!id, names_to = ".value", names_pattern = "(.).")
 ```
 
 # Wider
@@ -488,7 +488,7 @@ But the actual order isn't important, and you'd prefer to have the individual qu
 
 ```{r}
 multi2 <- multi %>% 
-  pivot_longer(-id, values_drop_na = TRUE) %>% 
+  pivot_longer(!id, values_drop_na = TRUE) %>% 
   mutate(checked = TRUE)
 multi2
 ```
@@ -515,7 +515,7 @@ To see how this works, lets return to the simplest case of pivotting applied to 
 
 ```{r}
 spec <- relig_income %>% build_longer_spec(
-  cols = -religion, 
+  cols = !religion, 
   names_to = "income",
   values_to = "count"
 )

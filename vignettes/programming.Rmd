@@ -27,10 +27,10 @@ Most tidyr verbs use **tidy evaluation** to make interactive data exploration fa
 library(tidyr)
 
 iris %>%
-  nest(data = -Species)
+  nest(data = !Species)
 ```
 
-Tidy evaluation is why we can use `-Species` to say "all the columns except `Species`", without having to quote the column name (`"Species"`) or refer to the enclosing data frame (`iris$Species`).
+Tidy evaluation is why we can use `!Species` to say "all the columns except `Species`", without having to quote the column name (`"Species"`) or refer to the enclosing data frame (`iris$Species`).
 
 Two basic forms of tidy evaluation are used in tidyr:
 
@@ -68,7 +68,7 @@ Underneath all functions that use tidy selection is the [tidyselect](http://tidy
 * `select(df, starts_with("a"))` selects all columns whose name starts with "a";
   `select(df, ends_with("z"))` selects all columns whose name ends with "z".
   
-* `select(df, is.numeric)` selects all numeric columns.
+* `select(df, where(is.numeric))` selects all numeric columns.
 
 You can see more details in `?tidyr_tidy_select`.
 
@@ -84,7 +84,7 @@ Tidy selection makes a common task easier at the cost of making a less common ta
       nest(df, egg = {{ cols }})
     }
     
-    nest_egg(mini_iris, -Species)
+    nest_egg(mini_iris, !Species)
     ```
 
 *   When you have a character vector of variable names, you must use `all_of()` 
@@ -107,7 +107,7 @@ Tidy selection makes a common task easier at the cost of making a less common ta
     sel_vars <- function(df, cols) {
       tidyselect::eval_select(rlang::enquo(cols), df)
     }
-    sel_vars(mini_iris, -Species)
+    sel_vars(mini_iris, !Species)
     ```
     
     Learn more in `vignette("tidyselect")`.
