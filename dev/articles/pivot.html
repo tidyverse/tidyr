@@ -210,7 +210,7 @@
 </ul>
 <p>To tidy it we use <code><a href="../reference/pivot_longer.html">pivot_longer()</a></code>:</p>
 <div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="no">relig_income</span> <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/pivot_longer.html">pivot_longer</a></span>(-<span class="no">religion</span>, <span class="kw">names_to</span> <span class="kw">=</span> <span class="st">"income"</span>, <span class="kw">values_to</span> <span class="kw">=</span> <span class="st">"count"</span>)
+  <span class="fu"><a href="../reference/pivot_longer.html">pivot_longer</a></span>(!<span class="no">religion</span>, <span class="kw">names_to</span> <span class="kw">=</span> <span class="st">"income"</span>, <span class="kw">values_to</span> <span class="kw">=</span> <span class="st">"count"</span>)
 <span class="co">#&gt; # A tibble: 180 x 3</span>
 <span class="co">#&gt;    religion income             count</span>
 <span class="co">#&gt;    &lt;chr&gt;    &lt;chr&gt;              &lt;dbl&gt;</span>
@@ -411,7 +411,7 @@
 <p>Note that we have two pieces of information (or values) for each child: their <code>gender</code> and their <code>dob</code> (date of birth). These need to go into separate columns in the result. Again we supply multiple variables to <code>names_to</code>, using <code>names_sep</code> to split up each variable name. Note the special name <code>.value</code>: this tells <code><a href="../reference/pivot_longer.html">pivot_longer()</a></code> that that part of the column name specifies the “value” being measured (which will become a variable in the output).</p>
 <div class="sourceCode" id="cb12"><html><body><pre class="r"><span class="no">family</span> <span class="kw">%&gt;%</span>
   <span class="fu"><a href="../reference/pivot_longer.html">pivot_longer</a></span>(
-    -<span class="no">family</span>,
+    !<span class="no">family</span>,
     <span class="kw">names_to</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">".value"</span>, <span class="st">"child"</span>),
     <span class="kw">names_sep</span> <span class="kw">=</span> <span class="st">"_"</span>,
     <span class="kw">values_drop_na</span> <span class="kw">=</span> <span class="fl">TRUE</span>
@@ -477,21 +477,21 @@
 
 <span class="no">pnl</span> <span class="kw">%&gt;%</span>
   <span class="fu"><a href="../reference/pivot_longer.html">pivot_longer</a></span>(
-    -<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="no">x</span>, <span class="no">a</span>, <span class="no">b</span>),
+    !<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="no">x</span>, <span class="no">a</span>, <span class="no">b</span>),
     <span class="kw">names_to</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">".value"</span>, <span class="st">"time"</span>),
     <span class="kw">names_pattern</span> <span class="kw">=</span> <span class="st">"(.)(.)"</span>
   )
 <span class="co">#&gt; # A tibble: 8 x 6</span>
-<span class="co">#&gt;       x     a     b time       y     z</span>
-<span class="co">#&gt;   &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;  &lt;dbl&gt; &lt;dbl&gt;</span>
-<span class="co">#&gt; 1     1     1     0 1      2.22      3</span>
-<span class="co">#&gt; 2     1     1     0 2      0.888    -2</span>
-<span class="co">#&gt; 3     2     1     1 1      0.374     3</span>
-<span class="co">#&gt; 4     2     1     1 2     -0.832    -2</span>
-<span class="co">#&gt; 5     3     0     1 1     -0.265     3</span>
-<span class="co">#&gt; 6     3     0     1 2     -0.360    -2</span>
-<span class="co">#&gt; 7     4     0     1 1     -0.195     3</span>
-<span class="co">#&gt; 8     4     0     1 2     -2.18     -2</span></pre></body></html></div>
+<span class="co">#&gt;       x     a     b time        y     z</span>
+<span class="co">#&gt;   &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt;</span>
+<span class="co">#&gt; 1     1     1     0 1      0.401      3</span>
+<span class="co">#&gt; 2     1     1     0 2     -1.67      -2</span>
+<span class="co">#&gt; 3     2     1     1 1     -0.634      3</span>
+<span class="co">#&gt; 4     2     1     1 2     -0.550     -2</span>
+<span class="co">#&gt; 5     3     0     1 1      0.0720     3</span>
+<span class="co">#&gt; 6     3     0     1 2     -1.75      -2</span>
+<span class="co">#&gt; 7     4     0     1 1     -0.751      3</span>
+<span class="co">#&gt; 8     4     0     1 2      0.266     -2</span></pre></body></html></div>
 </div>
 <div id="duplicated-column-names" class="section level2">
 <h2 class="hasAnchor">
@@ -506,7 +506,7 @@
 <span class="co">#&gt; 2     2     5     6     8</span>
 <span class="co">#&gt; 3     3     6     7     9</span></pre></body></html></div>
 <p>When <code><a href="../reference/pivot_longer.html">pivot_longer()</a></code> encounters such data, it automatically adds another column to the output:</p>
-<div class="sourceCode" id="cb17"><html><body><pre class="r"><span class="no">df</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/pivot_longer.html">pivot_longer</a></span>(-<span class="no">id</span>, <span class="kw">names_to</span> <span class="kw">=</span> <span class="st">"name"</span>, <span class="kw">values_to</span> <span class="kw">=</span> <span class="st">"value"</span>)
+<div class="sourceCode" id="cb17"><html><body><pre class="r"><span class="no">df</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/pivot_longer.html">pivot_longer</a></span>(!<span class="no">id</span>, <span class="kw">names_to</span> <span class="kw">=</span> <span class="st">"name"</span>, <span class="kw">values_to</span> <span class="kw">=</span> <span class="st">"value"</span>)
 <span class="co">#&gt; # A tibble: 9 x 3</span>
 <span class="co">#&gt;      id name  value</span>
 <span class="co">#&gt;   &lt;int&gt; &lt;chr&gt; &lt;int&gt;</span>
@@ -521,7 +521,7 @@
 <span class="co">#&gt; 9     3 y         9</span></pre></body></html></div>
 <p>A similar process is applied when multiple input columns are mapped to the same output column, as in the following example where we ignore the numeric suffix on each column name:</p>
 <div class="sourceCode" id="cb18"><html><body><pre class="r"><span class="no">df</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span>(<span class="kw">id</span> <span class="kw">=</span> <span class="fl">1</span>:<span class="fl">3</span>, <span class="kw">x1</span> <span class="kw">=</span> <span class="fl">4</span>:<span class="fl">6</span>, <span class="kw">x2</span> <span class="kw">=</span> <span class="fl">5</span>:<span class="fl">7</span>, <span class="kw">y1</span> <span class="kw">=</span> <span class="fl">7</span>:<span class="fl">9</span>, <span class="kw">y2</span> <span class="kw">=</span> <span class="fl">10</span>:<span class="fl">12</span>)
-<span class="no">df</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/pivot_longer.html">pivot_longer</a></span>(-<span class="no">id</span>, <span class="kw">names_to</span> <span class="kw">=</span> <span class="st">".value"</span>, <span class="kw">names_pattern</span> <span class="kw">=</span> <span class="st">"(.)."</span>)
+<span class="no">df</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/pivot_longer.html">pivot_longer</a></span>(!<span class="no">id</span>, <span class="kw">names_to</span> <span class="kw">=</span> <span class="st">".value"</span>, <span class="kw">names_pattern</span> <span class="kw">=</span> <span class="st">"(.)."</span>)
 <span class="co">#&gt; # A tibble: 6 x 3</span>
 <span class="co">#&gt;      id     x     y</span>
 <span class="co">#&gt;   &lt;int&gt; &lt;int&gt; &lt;int&gt;</span>
@@ -666,16 +666,16 @@
 <span class="co">#&gt; # A tibble: 45 x 4</span>
 <span class="co">#&gt;    product country  year production</span>
 <span class="co">#&gt;    &lt;chr&gt;   &lt;chr&gt;   &lt;int&gt;      &lt;dbl&gt;</span>
-<span class="co">#&gt;  1 A       AI       2000     1.21  </span>
-<span class="co">#&gt;  2 A       AI       2001     1.68  </span>
-<span class="co">#&gt;  3 A       AI       2002    -2.08  </span>
-<span class="co">#&gt;  4 A       AI       2003    -0.0988</span>
-<span class="co">#&gt;  5 A       AI       2004     1.97  </span>
-<span class="co">#&gt;  6 A       AI       2005     0.315 </span>
-<span class="co">#&gt;  7 A       AI       2006    -0.324 </span>
-<span class="co">#&gt;  8 A       AI       2007    -1.35  </span>
-<span class="co">#&gt;  9 A       AI       2008    -0.981 </span>
-<span class="co">#&gt; 10 A       AI       2009     0.684 </span>
+<span class="co">#&gt;  1 A       AI       2000     0.0304</span>
+<span class="co">#&gt;  2 A       AI       2001    -2.06  </span>
+<span class="co">#&gt;  3 A       AI       2002     0.101 </span>
+<span class="co">#&gt;  4 A       AI       2003    -0.632 </span>
+<span class="co">#&gt;  5 A       AI       2004    -0.778 </span>
+<span class="co">#&gt;  6 A       AI       2005     0.0663</span>
+<span class="co">#&gt;  7 A       AI       2006    -0.788 </span>
+<span class="co">#&gt;  8 A       AI       2007    -0.425 </span>
+<span class="co">#&gt;  9 A       AI       2008    -0.991 </span>
+<span class="co">#&gt; 10 A       AI       2009     0.451 </span>
 <span class="co">#&gt; # … with 35 more rows</span></pre></body></html></div>
 <p>We want to widen the data so we have one column for each combination of <code>product</code> and <code>country</code>. The key is to specify multiple variables for <code>names_from</code>:</p>
 <div class="sourceCode" id="cb27"><html><body><pre class="r"><span class="no">production</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/pivot_wider.html">pivot_wider</a></span>(
@@ -683,18 +683,18 @@
   <span class="kw">values_from</span> <span class="kw">=</span> <span class="no">production</span>
 )
 <span class="co">#&gt; # A tibble: 15 x 4</span>
-<span class="co">#&gt;     year    A_AI   B_AI     B_EI</span>
-<span class="co">#&gt;    &lt;int&gt;   &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;</span>
-<span class="co">#&gt;  1  2000  1.21   -0.440  1.58   </span>
-<span class="co">#&gt;  2  2001  1.68    0.384 -0.227  </span>
-<span class="co">#&gt;  3  2002 -2.08    1.12  -1.43   </span>
-<span class="co">#&gt;  4  2003 -0.0988 -0.705  0.696  </span>
-<span class="co">#&gt;  5  2004  1.97   -0.408 -0.186  </span>
-<span class="co">#&gt;  6  2005  0.315   1.93  -0.00121</span>
-<span class="co">#&gt;  7  2006 -0.324  -0.438 -1.96   </span>
-<span class="co">#&gt;  8  2007 -1.35    0.589  0.807  </span>
-<span class="co">#&gt;  9  2008 -0.981  -1.04   1.91   </span>
-<span class="co">#&gt; 10  2009  0.684   1.04   1.11   </span>
+<span class="co">#&gt;     year    A_AI    B_AI     B_EI</span>
+<span class="co">#&gt;    &lt;int&gt;   &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;</span>
+<span class="co">#&gt;  1  2000  0.0304  0.0721 -0.477  </span>
+<span class="co">#&gt;  2  2001 -2.06    0.220   1.39   </span>
+<span class="co">#&gt;  3  2002  0.101  -1.21   -0.495  </span>
+<span class="co">#&gt;  4  2003 -0.632  -0.798   0.380  </span>
+<span class="co">#&gt;  5  2004 -0.778   0.714   1.43   </span>
+<span class="co">#&gt;  6  2005  0.0663  0.272  -0.00313</span>
+<span class="co">#&gt;  7  2006 -0.788   0.676   0.760  </span>
+<span class="co">#&gt;  8  2007 -0.425   0.565  -0.365  </span>
+<span class="co">#&gt;  9  2008 -0.991  -1.28   -0.301  </span>
+<span class="co">#&gt; 10  2009  0.451   0.546   0.142  </span>
 <span class="co">#&gt; # … with 5 more rows</span></pre></body></html></div>
 <p>When either <code>names_from</code> or <code>values_from</code> select multiple variables, you can control how the column names in the output constructed with <code>names_sep</code> and <code>names_prefix</code>, or the workhorse <code>names_glue</code>:</p>
 <div class="sourceCode" id="cb28"><html><body><pre class="r"><span class="no">production</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/pivot_wider.html">pivot_wider</a></span>(
@@ -706,16 +706,16 @@
 <span class="co">#&gt; # A tibble: 15 x 4</span>
 <span class="co">#&gt;     year prod.A.AI prod.B.AI prod.B.EI</span>
 <span class="co">#&gt;    &lt;int&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;</span>
-<span class="co">#&gt;  1  2000    1.21      -0.440   1.58   </span>
-<span class="co">#&gt;  2  2001    1.68       0.384  -0.227  </span>
-<span class="co">#&gt;  3  2002   -2.08       1.12   -1.43   </span>
-<span class="co">#&gt;  4  2003   -0.0988    -0.705   0.696  </span>
-<span class="co">#&gt;  5  2004    1.97      -0.408  -0.186  </span>
-<span class="co">#&gt;  6  2005    0.315      1.93   -0.00121</span>
-<span class="co">#&gt;  7  2006   -0.324     -0.438  -1.96   </span>
-<span class="co">#&gt;  8  2007   -1.35       0.589   0.807  </span>
-<span class="co">#&gt;  9  2008   -0.981     -1.04    1.91   </span>
-<span class="co">#&gt; 10  2009    0.684      1.04    1.11   </span>
+<span class="co">#&gt;  1  2000    0.0304    0.0721  -0.477  </span>
+<span class="co">#&gt;  2  2001   -2.06      0.220    1.39   </span>
+<span class="co">#&gt;  3  2002    0.101    -1.21    -0.495  </span>
+<span class="co">#&gt;  4  2003   -0.632    -0.798    0.380  </span>
+<span class="co">#&gt;  5  2004   -0.778     0.714    1.43   </span>
+<span class="co">#&gt;  6  2005    0.0663    0.272   -0.00313</span>
+<span class="co">#&gt;  7  2006   -0.788     0.676    0.760  </span>
+<span class="co">#&gt;  8  2007   -0.425     0.565   -0.365  </span>
+<span class="co">#&gt;  9  2008   -0.991    -1.28    -0.301  </span>
+<span class="co">#&gt; 10  2009    0.451     0.546    0.142  </span>
 <span class="co">#&gt; # … with 5 more rows</span>
 
 <span class="no">production</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/pivot_wider.html">pivot_wider</a></span>(
@@ -726,16 +726,16 @@
 <span class="co">#&gt; # A tibble: 15 x 4</span>
 <span class="co">#&gt;     year prod_A_AI prod_B_AI prod_B_EI</span>
 <span class="co">#&gt;    &lt;int&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;</span>
-<span class="co">#&gt;  1  2000    1.21      -0.440   1.58   </span>
-<span class="co">#&gt;  2  2001    1.68       0.384  -0.227  </span>
-<span class="co">#&gt;  3  2002   -2.08       1.12   -1.43   </span>
-<span class="co">#&gt;  4  2003   -0.0988    -0.705   0.696  </span>
-<span class="co">#&gt;  5  2004    1.97      -0.408  -0.186  </span>
-<span class="co">#&gt;  6  2005    0.315      1.93   -0.00121</span>
-<span class="co">#&gt;  7  2006   -0.324     -0.438  -1.96   </span>
-<span class="co">#&gt;  8  2007   -1.35       0.589   0.807  </span>
-<span class="co">#&gt;  9  2008   -0.981     -1.04    1.91   </span>
-<span class="co">#&gt; 10  2009    0.684      1.04    1.11   </span>
+<span class="co">#&gt;  1  2000    0.0304    0.0721  -0.477  </span>
+<span class="co">#&gt;  2  2001   -2.06      0.220    1.39   </span>
+<span class="co">#&gt;  3  2002    0.101    -1.21    -0.495  </span>
+<span class="co">#&gt;  4  2003   -0.632    -0.798    0.380  </span>
+<span class="co">#&gt;  5  2004   -0.778     0.714    1.43   </span>
+<span class="co">#&gt;  6  2005    0.0663    0.272   -0.00313</span>
+<span class="co">#&gt;  7  2006   -0.788     0.676    0.760  </span>
+<span class="co">#&gt;  8  2007   -0.425     0.565   -0.365  </span>
+<span class="co">#&gt;  9  2008   -0.991    -1.28    -0.301  </span>
+<span class="co">#&gt; 10  2009    0.451     0.546    0.142  </span>
 <span class="co">#&gt; # … with 5 more rows</span></pre></body></html></div>
 </div>
 <div id="tidy-census" class="section level2">
@@ -916,7 +916,7 @@
 )</pre></body></html></div>
 <p>But the actual order isn’t important, and you’d prefer to have the individual questions in the columns. You can achieve the desired transformation in two steps. First, you make the data longer, eliminating the explcit <code>NA</code>s, and adding a column to indicate that this choice was chosen:</p>
 <div class="sourceCode" id="cb40"><html><body><pre class="r"><span class="no">multi2</span> <span class="kw">&lt;-</span> <span class="no">multi</span> <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/pivot_longer.html">pivot_longer</a></span>(-<span class="no">id</span>, <span class="kw">values_drop_na</span> <span class="kw">=</span> <span class="fl">TRUE</span>) <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="../reference/pivot_longer.html">pivot_longer</a></span>(!<span class="no">id</span>, <span class="kw">values_drop_na</span> <span class="kw">=</span> <span class="fl">TRUE</span>) <span class="kw">%&gt;%</span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="kw">checked</span> <span class="kw">=</span> <span class="fl">TRUE</span>)
 <span class="no">multi2</span>
 <span class="co">#&gt; # A tibble: 8 x 4</span>
@@ -956,7 +956,7 @@
 <a href="#longer-1" class="anchor"></a>Longer</h2>
 <p>To see how this works, lets return to the simplest case of pivotting applied to the <code>relig_income</code> dataset. Now pivotting happens in two steps: we first create a spec object (using <code><a href="../reference/pivot_longer_spec.html">build_longer_spec()</a></code>) then use that to describe the pivotting operation:</p>
 <div class="sourceCode" id="cb42"><html><body><pre class="r"><span class="no">spec</span> <span class="kw">&lt;-</span> <span class="no">relig_income</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/pivot_longer_spec.html">build_longer_spec</a></span>(
-  <span class="kw">cols</span> <span class="kw">=</span> -<span class="no">religion</span>,
+  <span class="kw">cols</span> <span class="kw">=</span> !<span class="no">religion</span>,
   <span class="kw">names_to</span> <span class="kw">=</span> <span class="st">"income"</span>,
   <span class="kw">values_to</span> <span class="kw">=</span> <span class="st">"count"</span>
 )

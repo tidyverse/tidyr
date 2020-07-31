@@ -427,7 +427,7 @@ and shows you how it saves you time during data analysis.
 <p>First we use <code><a href="../reference/pivot_longer.html">pivot_longer()</a></code> to gather up the non-variable columns:</p>
 <div class="sourceCode" id="cb13"><html><body><pre class="r"><span class="no">tb2</span> <span class="kw">&lt;-</span> <span class="no">tb</span> <span class="kw">%&gt;%</span>
   <span class="fu"><a href="../reference/pivot_longer.html">pivot_longer</a></span>(
-    <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(-<span class="no">iso2</span>, -<span class="no">year</span>),
+    !<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="no">iso2</span>, <span class="no">year</span>),
     <span class="kw">names_to</span> <span class="kw">=</span> <span class="st">"demo"</span>,
     <span class="kw">values_to</span> <span class="kw">=</span> <span class="st">"n"</span>,
     <span class="kw">values_drop_na</span> <span class="kw">=</span> <span class="fl">TRUE</span>
@@ -468,7 +468,7 @@ and shows you how it saves you time during data analysis.
 <p>Storing the values in this form resolves a problem in the original data. We want to compare rates, not counts, which means we need to know the population. In the original format, there is no easy way to add a population variable. It has to be stored in a separate table, which makes it hard to correctly match populations to counts. In tidy form, adding variables for population and rate is easy because they’re just additional columns.</p>
 <p>In this case, we could also do the transformation in a single step by supplying multiple column names to <code>names_to</code> and also supplying a grouped regular expression to <code>names_pattern</code>:</p>
 <div class="sourceCode" id="cb15"><html><body><pre class="r"><span class="no">tb</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/pivot_longer.html">pivot_longer</a></span>(
-  <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(-<span class="no">iso2</span>, -<span class="no">year</span>),
+  !<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="no">iso2</span>, <span class="no">year</span>),
   <span class="kw">names_to</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"sex"</span>, <span class="st">"age"</span>),
   <span class="kw">names_pattern</span> <span class="kw">=</span> <span class="st">"(.)(.+)"</span>,
   <span class="kw">values_to</span> <span class="kw">=</span> <span class="st">"n"</span>,

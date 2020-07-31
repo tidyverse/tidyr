@@ -293,7 +293,7 @@
 
   if (tidyr_new_interface()) {
     # Freshly written code for v1.0.0
-    out &lt;- tidyr::nest(df, data = one_of("x", "y", "z"))
+    out &lt;- tidyr::nest(df, data = any_of(c("x", "y", "z")))
   } else {
     # Existing code for v0.8.3
     out &lt;- tidyr::nest(df, x, y, z)
@@ -339,11 +339,11 @@
 
 <span class="co"># v1.0.0 avoiding R CMD check NOTE</span>
 <span class="no">mini_iris</span> <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/nest.html">nest</a></span>(<span class="kw">my_data</span> <span class="kw">=</span> <span class="fu"><a href="https://tidyselect.r-lib.org/reference/one_of.html">one_of</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Sepal.Length"</span>, <span class="st">"Sepal.Width"</span>, <span class="st">"Petal.Length"</span>, <span class="st">"Petal.Width"</span>)))
+  <span class="fu"><a href="../reference/nest.html">nest</a></span>(<span class="kw">my_data</span> <span class="kw">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/reexports.html">any_of</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Sepal.Length"</span>, <span class="st">"Sepal.Width"</span>, <span class="st">"Petal.Length"</span>, <span class="st">"Petal.Width"</span>)))
 
 <span class="co"># or equivalently:</span>
 <span class="no">mini_iris</span> <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/nest.html">nest</a></span>(<span class="kw">my_data</span> <span class="kw">=</span> -<span class="fu"><a href="https://tidyselect.r-lib.org/reference/one_of.html">one_of</a></span>(<span class="st">"Species"</span>))</pre></body></html></div>
+  <span class="fu"><a href="../reference/nest.html">nest</a></span>(<span class="kw">my_data</span> <span class="kw">=</span> !<span class="fu"><a href="https://dplyr.tidyverse.org/reference/reexports.html">any_of</a></span>(<span class="st">"Species"</span>))</pre></body></html></div>
 <p>If you need a quick and dirty fix without having to think, just call <code><a href="../reference/nest_legacy.html">nest_legacy()</a></code> instead of <code><a href="../reference/nest.html">nest()</a></code>. It’s the same as <code><a href="../reference/nest.html">nest()</a></code> in v0.8.3:</p>
 <div class="sourceCode" id="cb9"><html><body><pre class="r"><span class="kw">if</span> (<span class="fu">tidyr_new_interface</span>()) {
   <span class="no">out</span> <span class="kw">&lt;-</span> <span class="kw pkg">tidyr</span><span class="kw ns">::</span><span class="fu"><a href="../reference/nest_legacy.html">nest_legacy</a></span>(<span class="no">df</span>, <span class="no">x</span>, <span class="no">y</span>, <span class="no">z</span>)
@@ -382,7 +382,7 @@ df %&gt;% mutate(id = names(x)) %&gt;% unnest(x))</pre></body></html></div>
 <span class="no">nested</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/nest.html">unnest</a></span>()
 
 <span class="co"># v1.0.0 must be told which columns to unnest</span>
-<span class="no">nested</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/nest.html">unnest</a></span>(<span class="fu"><a href="https://tidyselect.r-lib.org/reference/one_of.html">one_of</a></span>(<span class="st">"my_data"</span>))</pre></body></html></div>
+<span class="no">nested</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/nest.html">unnest</a></span>(<span class="fu"><a href="https://dplyr.tidyverse.org/reference/reexports.html">any_of</a></span>(<span class="st">"my_data"</span>))</pre></body></html></div>
 <p>If you need a quick and dirty fix without having to think, just call <code><a href="../reference/nest_legacy.html">unnest_legacy()</a></code> instead of <code><a href="../reference/nest.html">unnest()</a></code>. It’s the same as <code><a href="../reference/nest.html">unnest()</a></code> in v0.8.3:</p>
 <div class="sourceCode" id="cb12"><html><body><pre class="r"><span class="kw">if</span> (<span class="fu">tidyr_new_interface</span>()) {
   <span class="no">out</span> <span class="kw">&lt;-</span> <span class="kw pkg">tidyr</span><span class="kw ns">::</span><span class="fu"><a href="../reference/nest_legacy.html">unnest_legacy</a></span>(<span class="no">df</span>)
@@ -479,9 +479,9 @@ df %&gt;% mutate(id = names(x)) %&gt;% unnest(x))</pre></body></html></div>
 
 <span class="co"># v1.0.0</span>
 <span class="no">mini_iris</span> <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/nest.html">nest</a></span>(<span class="kw">my_data</span> <span class="kw">=</span> <span class="fu"><a href="https://tidyselect.r-lib.org/reference/one_of.html">one_of</a></span>(<span class="st">"Sepal.Length"</span>, <span class="st">"Sepal.Width"</span>, <span class="st">"Petal.Length"</span>, <span class="st">"Petal.Width"</span>))
+  <span class="fu"><a href="../reference/nest.html">nest</a></span>(<span class="kw">my_data</span> <span class="kw">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/reexports.html">any_of</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Sepal.Length"</span>, <span class="st">"Sepal.Width"</span>, <span class="st">"Petal.Length"</span>, <span class="st">"Petal.Width"</span>)))
 
-<span class="no">nested</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/nest.html">unnest</a></span>(<span class="fu"><a href="https://tidyselect.r-lib.org/reference/one_of.html">one_of</a></span>(<span class="st">"my_data"</span>))</pre></body></html></div>
+<span class="no">nested</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/nest.html">unnest</a></span>(<span class="fu"><a href="https://dplyr.tidyverse.org/reference/reexports.html">any_of</a></span>(<span class="st">"my_data"</span>))</pre></body></html></div>
 </div>
 </div>
   </div>

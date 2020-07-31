@@ -585,7 +585,7 @@ and `hoist()`.
 <span class="co">#&gt; #   id...14 &lt;int&gt;, rating &lt;int&gt;</span></pre></body></html></div>
 <p>The problem is that <code>basic_information</code> repeats the <code>id</code> column that’s also stored at the top-level, so we can just drop that:</p>
 <div class="sourceCode" id="cb31"><html><body><pre class="r"><span class="no">discs</span> <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(-<span class="no">id</span>) <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(!<span class="no">id</span>) <span class="kw">%&gt;%</span>
   <span class="fu"><a href="../reference/hoist.html">unnest_wider</a></span>(<span class="no">basic_information</span>)
 <span class="co">#&gt; # A tibble: 155 x 14</span>
 <span class="co">#&gt;    instance_id date_added          labels  year artists     id thumb title</span>
