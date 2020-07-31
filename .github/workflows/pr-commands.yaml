@@ -21,6 +21,8 @@ jobs:
         run: Rscript -e 'roxygen2::roxygenise()'
       - name: commit
         run: |
+          git config --local user.email "actions@github.com"
+          git config --local user.name "GitHub Actions"
           git add man/\* NAMESPACE
           git commit -m 'Document'
       - uses: r-lib/actions/pr-push@master
@@ -44,6 +46,8 @@ jobs:
         run: Rscript -e 'styler::style_pkg()'
       - name: commit
         run: |
+          git config --local user.email "actions@github.com"
+          git config --local user.name "GitHub Actions"
           git add \*.R
           git commit -m 'Style'
       - uses: r-lib/actions/pr-push@master
