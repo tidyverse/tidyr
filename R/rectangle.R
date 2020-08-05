@@ -401,7 +401,11 @@ simplify_col <- function(x, nm, ptype = list(), transform = list(), simplify = F
   }
 
   # Ensure empty elements filled in with a single unspecified value
-  x[n == 0] <- list(NA)
+  x[n == 0] <- if (is.list(x)) {
+    list(NA)
+  } else {
+    NA
+  }
 
   if (is.null(ptype)) {
     tryCatch(
