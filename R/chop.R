@@ -14,7 +14,7 @@
 #' @details
 #' Generally, unchopping is more useful than chopping because it simplifies
 #' a complex data structure, and [nest()]ing is usually more appropriate
-#' that `chop()`ing` since it better preserves the connections between
+#' than `chop()`ing` since it better preserves the connections between
 #' observations.
 #'
 #' `chop()` creates list-columns of class [vctrs::list_of()] to ensure
