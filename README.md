@@ -80,7 +80,8 @@ tidyr functions fall into five main categories:
 
 ## Related work
 
-tidyr replaces reshape2 (2010-2014) and reshape (2005-2010). Somewhat
+tidyr [supersedes](https://www.tidyverse.org/lifecycle/#superseded)
+reshape2 (2010-2014) and reshape (2005-2010). Somewhat
 counterintuitively, each iteration of the package has done less. tidyr
 is designed specifically for tidying data, not general reshaping
 (reshape2), or the general aggregation (reshape).
