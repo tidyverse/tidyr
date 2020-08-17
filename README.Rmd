@@ -93,11 +93,12 @@ If you'd like to read more about data reshaping from a CS perspective, I'd recom
 
 To guide your reading, here's a translation between the terminology used in different places:
 
-| tidyr        | gather  | spread |
-|--------------|---------|--------|
-| reshape(2)   | melt    | cast   |
-| spreadsheets | unpivot | pivot  | 
-| databases    | fold    | unfold |
+| tidyr 1.0.0       | pivot longer | pivot wider |
+|-------------------|--------------|-------------|
+| tidyr < 1.0.0     | gather       | spread      |
+| reshape(2)        | melt         | cast        |
+| spreadsheets      | unpivot      | pivot       | 
+| databases         | fold         | unfold      |
 
 ## Getting help
 
