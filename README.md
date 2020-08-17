@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# tidyr <a href='https:/tidyr.tidyverse.org'><img src='man/figures/logo.png' align="right" height="139" /></a>
+# tidyr <a href='https://tidyr.tidyverse.org'><img src='man/figures/logo.png' align="right" height="139" /></a>
 
 <!-- badges: start -->
 
@@ -104,11 +104,12 @@ I’d recommend the following three papers:
 To guide your reading, here’s a translation between the terminology used
 in different places:
 
-| tidyr        | gather  | spread |
-| ------------ | ------- | ------ |
-| reshape(2)   | melt    | cast   |
-| spreadsheets | unpivot | pivot  |
-| databases    | fold    | unfold |
+| tidyr 1.0.0    | pivot longer | pivot wider |
+| -------------- | ------------ | ----------- |
+| tidyr \< 1.0.0 | gather       | spread      |
+| reshape(2)     | melt         | cast        |
+| spreadsheets   | unpivot      | pivot       |
+| databases      | fold         | unfold      |
 
 ## Getting help
 
