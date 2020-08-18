@@ -10,11 +10,11 @@ id <- function(.variables, drop = FALSE) {
   }
 
   # Calculate individual ids
-  ids <- rev(map(.variables, id_var, drop = drop))
+  ids <- rev(lapply(.variables, id_var, drop = drop))
   p <- length(ids)
 
   # Calculate dimensions
-  ndistinct <- map_dbl(ids, attr, "n")
+  ndistinct <- vapply(ids, attr, "n", FUN.VALUE = double(1))
   n <- prod(ndistinct)
   if (n > 2 ^ 31) {
     # Too big for integers, have to use strings, which will be much slower :(

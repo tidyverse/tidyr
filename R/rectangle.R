@@ -117,6 +117,10 @@
 #'
 #' @export hoist
 hoist <- function(.data, .col, ..., .remove = TRUE, .simplify = TRUE, .ptype = list(), .transform = list()) {
+  if (!requireNamespace("purrr", quietly = TRUE)) {
+    stop("Package \"purrr\" needed for this function to work. Please install it.",
+         call. = FALSE)
+  }
   check_present(.col)
   .col <- tidyselect::vars_pull(names(.data), !!enquo(.col))
   x <- .data[[.col]]
@@ -126,10 +130,10 @@ hoist <- function(.data, .col, ..., .remove = TRUE, .simplify = TRUE, .ptype = l
 
   pluckers <- check_pluckers(...)
 
-  new_cols <- map(pluckers, function(idx) {
-    map(x, ~ purrr::pluck(.x, !!!idx))
+  new_cols <- lapply(pluckers, function(idx) {
+    purrr::map(x, ~ purrr::pluck(.x, !!!idx))
   })
-  new_cols <- map2(
+  new_cols <- purrr::map2(
     new_cols,
     names(new_cols),
     simplify_col,
@@ -145,7 +149,7 @@ hoist <- function(.data, .col, ..., .remove = TRUE, .simplify = TRUE, .ptype = l
     return(out)
   }
 
-  x <- map(x, function(x) {
+  x <- lapply(x, function(x) {
     # rev() is sneaky hack assuming that most people will remove in
     # numeric order, so this should avoid most order problems. A full
     # resolution will be considerably more work.
@@ -154,7 +158,7 @@ hoist <- function(.data, .col, ..., .remove = TRUE, .simplify = TRUE, .ptype = l
     }
     x
   })
-  if (every(x, is_empty)) {
+  if (purrr::every(x, is_empty)) {
     x <- NULL
   }
   out[[.col]] <- x
@@ -202,6 +206,11 @@ unnest_longer <- function(data, col,
                           transform = list()
                           ) {
 
+  if (!requireNamespace("purrr", quietly = TRUE)) {
+    stop("Package \"purrr\" needed for this function to work. Please install it.",
+         call. = FALSE)
+  }
+
   check_present(col)
   col <- tidyselect::vars_pull(names(data), !!enquo(col))
 
@@ -212,7 +221,7 @@ unnest_longer <- function(data, col,
     indices_to <- paste0(col, "_id")
   }
 
-  data[[col]] <- map(
+  data[[col]] <- lapply(
     data[[col]], vec_to_long,
     col = col,
     values_to = values_to,
@@ -223,7 +232,7 @@ unnest_longer <- function(data, col,
   data <- unchop(data, any_of(col), keep_empty = TRUE)
   inner_cols <- names(data[[col]])
 
-  data[[col]][] <- map2(
+  data[[col]][] <- purrr::map2(
     data[[col]],
     names(data[[col]]),
     simplify_col,
@@ -247,13 +256,19 @@ unnest_wider <- function(data, col,
                          ptype = list(),
                          transform = list()
                          ) {
+
+  if (!requireNamespace("purrr", quietly = TRUE)) {
+    stop("Package \"purrr\" needed for this function to work. Please install it.",
+         call. = FALSE)
+  }
+
   check_present(col)
   col <- tidyselect::vars_pull(tbl_vars(data), !!enquo(col))
 
-  data[[col]] <- map(data[[col]], vec_to_wide, col = col, names_sep = names_sep)
+  data[[col]] <- lapply(data[[col]], vec_to_wide, col = col, names_sep = names_sep)
   data <- unchop(data, any_of(col), keep_empty = TRUE)
 
-  data[[col]][] <- map2(
+  data[[col]][] <- purrr::map2(
     data[[col]],
     names(data[[col]]),
     simplify_col,
@@ -268,6 +283,12 @@ unnest_wider <- function(data, col,
 #' @export
 #' @rdname hoist
 unnest_auto <- function(data, col) {
+
+  if (!requireNamespace("purrr", quietly = TRUE)) {
+    stop("Package \"purrr\" needed for this function to work. Please install it.",
+         call. = FALSE)
+  }
+
   check_present(col)
   col <- tidyselect::vars_pull(tbl_vars(data), {{ col }})
 
@@ -282,8 +303,8 @@ unnest_auto <- function(data, col) {
 }
 
 guess_dir <- function(x, col) {
-  names <- map(x, names)
-  is_null <- unique(map_lgl(names, is.null))
+  names <- lapply(x, names)
+  is_null <- unique(vapply(names, is.null, FUN.VALUE = logical(1)))
 
   if (identical(is_null, TRUE)) {
     # all unnamed
@@ -292,7 +313,7 @@ guess_dir <- function(x, col) {
     out <- "longer"
   } else if (identical(is_null, FALSE)) {
     # all named
-    common <- reduce(names, intersect)
+    common <- purrr::reduce(names, intersect)
     n_common <- length(common)
     if (n_common == 0) {
       code <- glue::glue("unnest_longer({col}, indices_include = TRUE)")
@@ -363,7 +384,7 @@ simplify_col <- function(x, nm, ptype = list(), transform = list(), simplify = F
   ptype <- ptype[[nm]]
 
   if (!is.null(transform)) {
-    x <- map(x, as_function(transform))
+    x <- lapply(x, as_function(transform))
   }
 
   if (!simplify) {
@@ -372,7 +393,7 @@ simplify_col <- function(x, nm, ptype = list(), transform = list(), simplify = F
 
   # Don't simplify lists of lists, because that typically indicates that
   # there might be multiple values.
-  is_list <- map_lgl(x, is.list)
+  is_list <- vapply(x, is.list, FUN.VALUE = logical(1))
   if (any(is_list)) {
     if (is.null(ptype)) {
       return(x)
@@ -382,7 +403,7 @@ simplify_col <- function(x, nm, ptype = list(), transform = list(), simplify = F
   }
 
   # Don't try and simplify non-vectors
-  is_vec <- map_lgl(x, ~ vec_is(.x) || is.null(.x))
+  is_vec <- vapply(x, function(x) vec_is(x) || is.null(x), FUN.VALUE = logical(1))
   if (any(!is_vec)) {
     if (is.null(ptype)) {
       return(x)
@@ -391,7 +412,7 @@ simplify_col <- function(x, nm, ptype = list(), transform = list(), simplify = F
     }
   }
 
-  n <- map_int(x, vec_size)
+  n <- vapply(x, vec_size, FUN.VALUE = integer(1))
   if (!all(n %in% c(0, 1))) {
     if (is.null(ptype)) {
       return(x)
@@ -424,11 +445,11 @@ vec_to_wide <- function(x, col, names_sep = NULL) {
   }
 
   if (is.data.frame(x)) {
-    as_tibble(map(x, list))
+    as_tibble(lapply(x, list))
   } else if (vec_is(x)) {
     if (is.list(x)) {
       x <- purrr::compact(x)
-      x <- map(x, list)
+      x <- lapply(x, list)
     } else {
       x <- as.list(x)
     }

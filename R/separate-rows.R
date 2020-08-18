@@ -20,6 +20,12 @@ separate_rows <- function(data,
                           ...,
                           sep = "[^[:alnum:].]+",
                           convert = FALSE) {
+
+  if (!requireNamespace("purrr", quietly = TRUE)) {
+    stop("Package \"purrr\" needed for this function to work. Please install it.",
+         call. = FALSE)
+  }
+
   ellipsis::check_dots_unnamed()
   UseMethod("separate_rows")
 }
@@ -34,7 +40,7 @@ separate_rows.data.frame <- function(data,
   out <- purrr::modify_at(data, vars, strsplit, split = sep, perl = TRUE)
   out <- unchop(as_tibble(out), any_of(vars))
   if (convert) {
-    out[vars] <- map(out[vars], type.convert, as.is = TRUE)
+    out[vars] <- lapply(out[vars], type.convert, as.is = TRUE)
   }
 
   reconstruct_tibble(data, out, names(vars))

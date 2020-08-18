@@ -86,11 +86,13 @@ spread.data.frame <- function(data, key, value, fill = NA, convert = FALSE,
   # Check that each output value occurs in unique location
   if (anyDuplicated(overall)) {
     groups <- split(seq_along(overall), overall)
-    groups <- groups[map_int(groups, length) > 1]
+    groups <- groups[vapply(groups, length, FUN.VALUE = integer(1)) > 1]
 
-    shared <- sum(map_int(groups, length))
+    shared <- sum(vapply(groups, length, FUN.VALUE = integer(1)))
 
-    str <- map_chr(groups, function(x) paste0(x, collapse = ", "))
+    str <- vapply(groups,
+                  function(x) paste0(x, collapse = ", "),
+                  FUN.VALUE = character(1))
     rows <- paste0(paste0("* ", str, "\n"), collapse = "")
     abort(glue(
       "Each row of output must be identified by a unique combination of keys.",
@@ -121,7 +123,7 @@ spread.data.frame <- function(data, key, value, fill = NA, convert = FALSE,
   ordered <- as_tibble_matrix(ordered)
 
   if (convert) {
-    ordered[] <- map(ordered, type.convert, as.is = TRUE)
+    ordered[] <- lapply(ordered, type.convert, as.is = TRUE)
   }
 
   out <- append_df(row_labels, ordered)
@@ -157,7 +159,7 @@ split_labels <- function(df, id, drop = TRUE) {
     rownames(out) <- NULL
     out
   } else {
-    unique_values <- map(df, ulevels)
+    unique_values <- lapply(df, ulevels)
     rev(expand.grid(rev(unique_values), stringsAsFactors = FALSE))
   }
 }

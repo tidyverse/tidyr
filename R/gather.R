@@ -148,7 +148,7 @@ gather.data.frame <- function(data, key = "key", value = "value", ...,
 
 ## Get the attributes if common, NULL if not.
 normalize_melt_arguments <- function(data, measure.ind) {
-  measure.attributes <- map(measure.ind, function(i) {
+  measure.attributes <- lapply(measure.ind, function(i) {
     attributes(data[[i]])
   })
 
@@ -167,7 +167,9 @@ normalize_melt_arguments <- function(data, measure.ind) {
 
   ## If we are going to be coercing any factors to strings, we don't want to
   ## copy the attributes
-  any.factors <- any(map_lgl(measure.ind, function(i) is.factor(data[[i]])))
+  any.factors <- any(vapply(measure.ind,
+                            function(i) is.factor(data[[i]]),
+                            FUN.VALUE = logical(1)))
 
   if (any.factors) {
     attr_template <- NULL

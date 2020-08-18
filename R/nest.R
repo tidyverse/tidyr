@@ -160,10 +160,10 @@ nest.tbl_df <- function(.data, ..., .names_sep = NULL, .key = deprecated()) {
     cols <- list2(!!.key := names(.data))
   } else {
     cols <- enquos(...)
-    cols <- map(cols, ~ names(tidyselect::eval_select(.x, .data)))
+    cols <- lapply(cols, function(.x) names(tidyselect::eval_select(.x, .data)))
   }
 
-  cols <- map(cols, set_names)
+  cols <- lapply(cols, set_names)
   if (!is.null(.names_sep)) {
     cols <- imap(cols, strip_names, .names_sep)
   }
@@ -176,9 +176,9 @@ nest.tbl_df <- function(.data, ..., .names_sep = NULL, .key = deprecated()) {
   # (e.g. https://github.com/jacob-long/panelr/issues/28) which causes
   # set_names() to fail.
   if (is.null(.names_sep)) {
-    out <- map(cols, ~ vec_split(.data[.x], keys)$val)
+    out <- lapply(cols, function(.x) vec_split(.data[.x], keys)$val)
   } else {
-    out <- map(cols, ~ vec_split(set_names(.data[.x], names(.x)), keys)$val)
+    out <- lapply(cols, function(.x) vec_split(set_names(.data[.x], names(.x)), keys)$val)
   }
 
   vec_cbind(u_keys, new_data_frame(out, n = nrow(u_keys)))
@@ -254,7 +254,7 @@ unnest <- function(data,
   }
 
   if (missing(cols) && missing(...)) {
-    list_cols <- names(data)[map_lgl(data, is_list)]
+    list_cols <- names(data)[vapply(data, is_list, FUN.VALUE = logical(1))]
     cols <- expr(c(!!!syms(setdiff(list_cols, .preserve))))
     warn(paste0(
       "`cols` is now required when using unnest().\n",
@@ -338,7 +338,7 @@ unnest.data.frame <- function(
     }
   } else {
     for (col in names(cols)) {
-      data[[col]] <- map(data[[col]], as_df, col = col)
+      data[[col]] <- lapply(data[[col]], as_df, col = col)
     }
   }
 

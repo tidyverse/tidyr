@@ -65,15 +65,15 @@ pack <- function(.data, ..., .names_sep = NULL) {
     abort("All elements of `...` must be named")
   }
 
-  cols <- map(cols, ~ tidyselect::eval_select(.x, .data))
-  packed <- map(cols, ~ .data[.x])
+  cols <- lapply(cols, function(.x) tidyselect::eval_select(.x, .data))
+  packed <- lapply(cols, function(.x) .data[.x])
 
   if (!is.null(.names_sep)) {
     packed <- imap(packed, strip_names, .names_sep)
   }
 
   # TODO: find a different approach that preserves order
-  asis <- setdiff(names(.data), unlist(map(cols, names)))
+  asis <- setdiff(names(.data), unlist(lapply(cols, names)))
   out <- vec_cbind(.data[asis], new_data_frame(packed, n = nrow(.data)))
 
   reconstruct_tibble(.data, out)
@@ -98,7 +98,9 @@ unpack <- function(data, cols, names_sep = NULL, names_repair = "check_unique") 
   check_present(cols)
   cols <- tidyselect::eval_select(enquo(cols), data)
 
-  new_cols <- map2(data[cols], names(cols), check_unpack, names_sep = names_sep)
+  new_cols <- mapply(check_unpack, data[cols], names(cols),
+                     MoreArgs = list(names_sep = names_sep),
+                     SIMPLIFY = FALSE)
 
   data <- update_cols(data, new_cols)
   out <- flatten_at(data, names(data) %in% names(cols))

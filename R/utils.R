@@ -26,7 +26,8 @@ reconstruct_tibble <- function(input, output, ungrouped_vars = character()) {
 
 
 imap <- function(.x, .f, ...) {
-  map2(.x, names(.x) %||% character(0), .f, ...)
+  mapply(.f, .x, names(.x) %||% character(0),
+         SIMPLIFY = FALSE, MoreArgs = list(...))
 }
 
 seq_nrow <- function(x) seq_len(nrow(x))
@@ -110,4 +111,17 @@ check_present <- function(x) {
     abort(paste0("Argument `", arg, "` is missing with no default"))
   }
 
+}
+
+# light version of purrr transpose so we are not dependent
+transpose_light <- function(df) {
+  out <- lapply(1:length(df[[1]]), function(i, df) {
+    mapply(function(a,b, df) {df[[a]][b]},
+           1:length(df), i, MoreArgs = list(df = df), USE.NAMES = FALSE)}, df)
+
+  names(out) <- names(df[[1]])
+
+  lapply(1:length(out), function(i) {names(out[[i]]) <<- NULL})
+
+  out
 }

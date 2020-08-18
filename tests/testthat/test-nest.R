@@ -297,7 +297,7 @@ test_that("sep combines column names", {
 
 test_that("unnest has mutate semantics", {
   df <- tibble(x = 1:3, y = list(1, 2:3, 4))
-  out <- expect_warning(df %>% unnest(z = map(y, `+`, 1)), "mutate")
+  out <- expect_warning(df %>% unnest(z = lapply(y, `+`, 1)), "mutate")
   expect_equal(out$z, 2:5)
 })
 

@@ -136,7 +136,7 @@ unnest_legacy.data.frame <- function(data, ..., .drop = NA, .id = NULL,
   preserve <- tidyselect::vars_select(names(data), !!enquo(.preserve))
   quos <- quos(...)
   if (is_empty(quos)) {
-    list_cols <- names(data)[map_lgl(data, is_list)]
+    list_cols <- names(data)[vapply(data, is_list, logical(1))]
     list_cols <- setdiff(list_cols, preserve)
 
     quos <- syms(list_cols)
@@ -147,12 +147,13 @@ unnest_legacy.data.frame <- function(data, ..., .drop = NA, .id = NULL,
   }
 
   nested <- dplyr::transmute(dplyr::ungroup(data), !!! quos)
-  n <- map(nested, function(x) unname(map_int(x, NROW)))
+  n <- lapply(nested,
+              function(x) unname(vapply(x, NROW, FUN.VALUE = integer(1))))
   if (length(unique(n)) != 1) {
     abort("All nested columns must have the same number of elements.")
   }
 
-  types <- map_chr(nested, list_col_type)
+  types <- vapply(nested, list_col_type, FUN.VALUE = character(1))
   nest_types <- split.default(nested, types)
   if (length(nest_types$mixed) > 0) {
     probs <- paste(names(nest_types$mixed), collapse = ",")
@@ -167,7 +168,7 @@ unnest_legacy.data.frame <- function(data, ..., .drop = NA, .id = NULL,
     unnested_atomic <- dplyr::bind_cols(unnested_atomic)
   }
 
-  unnested_dataframe <- map(nest_types$dataframe %||% list(), function(.){
+  unnested_dataframe <- lapply(nest_types$dataframe %||% list(), function(.){
     if (length(.) == 0L) {
       attr(., "ptype") %||% data.frame()
     } else {
@@ -197,7 +198,7 @@ unnest_legacy.data.frame <- function(data, ..., .drop = NA, .id = NULL,
     .drop <- n_out != n_in
   }
   if (.drop) {
-    is_atomic <- map_lgl(data, is_atomic)
+    is_atomic <- vapply(data, is_atomic, logical(1))
     group_vars <- names(data)[is_atomic]
   } else {
     group_vars <- names(data)
@@ -214,8 +215,10 @@ unnest_legacy.data.frame <- function(data, ..., .drop = NA, .id = NULL,
 }
 
 list_col_type <- function(x) {
-  is_data_frame <- is.data.frame(attr(x, "ptype", exact = TRUE)) || (is.list(x) && all(map_lgl(x, is.data.frame)))
-  is_atomic <- all(map_lgl(x, function(x) is_atomic(x) || (is_list(x) && !is.object(x))))
+  is_data_frame <- is.data.frame(attr(x, "ptype", exact = TRUE)) ||
+    (is.list(x) && all(vapply(x, is.data.frame, logical(1))))
+  is_atomic <- all(vapply(x, function(x) is_atomic(x) ||
+        (is_list(x) && !is.object(x)), FUN.VALUE = logical(1)))
 
   if (is_data_frame) {
     "dataframe"
@@ -246,7 +249,7 @@ id_col <- function(x) {
   stopifnot(is_list(x))
 
   ids <- if (is_null(names(x))) seq_along(x) else names(x)
-  lengths <- map_int(x, length)
+  lengths <- vapply(x, length, FUN.VALUE = integer(1))
 
   ids[rep(seq_along(ids), lengths)]
 }

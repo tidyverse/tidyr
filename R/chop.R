@@ -78,8 +78,8 @@ chop <- function(data, cols) {
   split <- vec_split(vals, keys)
 
   if (length(split$val)) {
-    split_vals <- transpose(split$val)
-    vals <- map2(split_vals, vec_ptype(vals), new_list_of)
+    split_vals <- transpose_light(split$val)
+    vals <- mapply(new_list_of, split_vals, vec_ptype(vals), SIMPLIFY = FALSE)
     vals <- new_data_frame(vals)
   }
 
@@ -97,7 +97,7 @@ unchop <- function(data, cols, keep_empty = FALSE, ptype = NULL) {
 
   if (keep_empty) {
     for (col in cols) {
-      data[[col]][] <- map(data[[col]], init_col)
+      data[[col]][] <- lapply(data[[col]], init_col)
     }
   }
 
@@ -158,7 +158,7 @@ df_unchop_info <- function(x, ptype) {
     }
   }
 
-  sizes <- map_int(sizes, tidyr_size_finalise)
+  sizes <- vapply(sizes, tidyr_size_finalise, FUN.VALUE = integer(1))
 
   has_ptype <- !is.null(ptype)
   if (has_ptype && !is.data.frame(ptype)) {
@@ -166,7 +166,7 @@ df_unchop_info <- function(x, ptype) {
   }
 
   # Initialize `cols` with ptypes to retain types when `x` has 0 size
-  cols <- map(x, df_unchop_ptype)
+  cols <- lapply(x, df_unchop_ptype)
   pieces <- vector("list", size)
 
   names <- names(x)
