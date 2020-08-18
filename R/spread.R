@@ -121,7 +121,7 @@ spread.data.frame <- function(data, key, value, fill = NA, convert = FALSE,
   ordered <- as_tibble_matrix(ordered)
 
   if (convert) {
-    ordered[] <- map(ordered, type.convert, as.is = TRUE)
+    ordered[] <- lapply(ordered, type.convert, as.is = TRUE)
   }
 
   out <- append_df(row_labels, ordered)
@@ -157,7 +157,7 @@ split_labels <- function(df, id, drop = TRUE) {
     rownames(out) <- NULL
     out
   } else {
-    unique_values <- map(df, ulevels)
+    unique_values <- lapply(df, ulevels)
     rev(expand.grid(rev(unique_values), stringsAsFactors = FALSE))
   }
 }

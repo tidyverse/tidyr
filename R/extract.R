@@ -67,7 +67,9 @@ str_extract <- function(x, into, regex, convert = FALSE) {
   if (anyDuplicated(into)) {
     pieces <- split(out, into)
     into <- names(pieces)
-    out <- map(pieces, pmap_chr, paste0, sep = "")
+    # This works but don't know if it is scalable
+    out <- lapply(pieces,
+                  function(x) {mapply(paste0, x[1], x[2])})
   }
 
   into <- as_utf8_character(into)
@@ -79,7 +81,7 @@ str_extract <- function(x, into, regex, convert = FALSE) {
   out <- as_tibble(out)
 
   if (convert) {
-    out[] <- map(out, type.convert, as.is = TRUE)
+    out[] <- lapply(out, type.convert, as.is = TRUE)
   }
 
   out

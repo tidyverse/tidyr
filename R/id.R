@@ -10,7 +10,7 @@ id <- function(.variables, drop = FALSE) {
   }
 
   # Calculate individual ids
-  ids <- rev(map(.variables, id_var, drop = drop))
+  ids <- rev(lapply(.variables, id_var, drop = drop))
   p <- length(ids)
 
   # Calculate dimensions

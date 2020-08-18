@@ -147,7 +147,7 @@ unnest_legacy.data.frame <- function(data, ..., .drop = NA, .id = NULL,
   }
 
   nested <- dplyr::transmute(dplyr::ungroup(data), !!! quos)
-  n <- map(nested, function(x) unname(map_int(x, NROW)))
+  n <- lapply(nested, function(x) unname(map_int(x, NROW)))
   if (length(unique(n)) != 1) {
     abort("All nested columns must have the same number of elements.")
   }
@@ -167,7 +167,7 @@ unnest_legacy.data.frame <- function(data, ..., .drop = NA, .id = NULL,
     unnested_atomic <- dplyr::bind_cols(unnested_atomic)
   }
 
-  unnested_dataframe <- map(nest_types$dataframe %||% list(), function(.){
+  unnested_dataframe <- lapply(nest_types$dataframe %||% list(), function(.){
     if (length(.) == 0L) {
       attr(., "ptype") %||% data.frame()
     } else {

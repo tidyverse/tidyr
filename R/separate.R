@@ -102,20 +102,20 @@ str_separate <- function(x, into, sep, convert = FALSE, extra = "warn", fill = "
   names(out) <- as_utf8_character(into)
   out <- out[!is.na(names(out))]
   if (convert) {
-    out[] <- map(out, type.convert, as.is = TRUE)
+    out[] <- lapply(out, type.convert, as.is = TRUE)
   }
   as_tibble(out)
 }
 
 strsep <- function(x, sep) {
   nchar <- nchar(x)
-  pos <- map(sep, function(i) {
+  pos <- lapply(sep, function(i) {
     if (i >= 0) return(i)
     pmax(0, nchar + i)
   })
   pos <- c(list(0), pos, list(nchar))
 
-  map(1:(length(pos) - 1), function(i) {
+  lapply(1:(length(pos) - 1), function(i) {
     substr(x, pos[[i]] + 1, pos[[i + 1]])
   })
 }

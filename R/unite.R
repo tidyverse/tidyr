@@ -51,10 +51,12 @@ unite.data.frame <- function(data, col, ..., sep = "_", remove = TRUE, na.rm = F
   }
 
   if (identical(na.rm, TRUE)) {
-    cols <- unname(map(data[from_vars], as.character))
+    cols <- unname(lapply(data[from_vars], as.character))
     rows <- transpose(cols)
 
-    united <- map_chr(rows, function(x) paste0(x[!is.na(x)], collapse = sep))
+    united <- vapply(rows,
+                     function(x) paste0(x[!is.na(x)], collapse = sep),
+                     FUN.VALUE = character(1))
   } else {
     cols <- unname(as.list(data[from_vars]))
     united <- exec(paste, !!!cols, sep = sep)

@@ -26,7 +26,8 @@ reconstruct_tibble <- function(input, output, ungrouped_vars = character()) {
 
 
 imap <- function(.x, .f, ...) {
-  map2(.x, names(.x) %||% character(0), .f, ...)
+  mapply(.f, .x, names(.x) %||% character(0),
+         SIMPLIFY = FALSE, MoreArgs = list(...))
 }
 
 seq_nrow <- function(x) seq_len(nrow(x))

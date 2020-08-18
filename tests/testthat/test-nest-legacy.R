@@ -162,7 +162,7 @@ test_that("nested is split as a list (#84)", {
 
 test_that("unnest has mutate semantics", {
   df <- tibble(x = 1:3, y = list(1, 2:3, 4))
-  out <- df %>% unnest_legacy(z = map(y, `+`, 1))
+  out <- df %>% unnest_legacy(z = lapply(y, `+`, 1))
 
   expect_equal(out$z, 2:5)
 })

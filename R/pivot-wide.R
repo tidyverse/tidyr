@@ -349,7 +349,7 @@ vals_dedup <- function(key, val, value, summarize = NULL) {
     summarize <- as_function(summarize)
     # This is only correct if `values_fn` always returns a single value
     # Needs https://github.com/r-lib/vctrs/issues/183
-    out$val <- vec_c(!!!map(out$val, summarize))
+    out$val <- vec_c(!!!lapply(out$val, summarize))
   }
 
   out

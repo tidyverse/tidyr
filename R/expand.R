@@ -82,7 +82,7 @@ expand <- function(data, ..., .name_repair = "check_unique") {
 #' @export
 expand.data.frame <- function(data, ..., .name_repair = "check_unique") {
   cols <- dots_cols(..., `_data` = data)
-  cols[] <- map(cols, sorted_unique)
+  cols[] <- lapply(cols, sorted_unique)
 
   out <- expand_grid(!!!cols, .name_repair = .name_repair)
   out <- flatten_nested(out, attr(cols, "named"), .name_repair = .name_repair)
@@ -101,7 +101,7 @@ expand.grouped_df <- function(data, ..., .name_repair = "check_unique") {
 #' @export
 crossing <- function(..., .name_repair = "check_unique") {
   cols <- dots_cols(...)
-  cols[] <- map(cols, sorted_unique)
+  cols[] <- lapply(cols, sorted_unique)
 
   out <- expand_grid(!!!cols, .name_repair = .name_repair)
   flatten_nested(out, attr(cols, "named"), .name_repair)
@@ -156,16 +156,17 @@ expand_grid <- function(..., .name_repair = "check_unique") {
   dots <- dots_cols(...)
 
   # Generate sequence of indices
-  ns <- map_int(dots, vec_size)
+  ns <- vapply(dots, vec_size, FUN.VALUE = integer(1))
   n <- prod(ns)
 
   if (n == 0) {
-    out <- map(dots, vec_slice, integer())
+    out <- lapply(dots, vec_slice, integer())
   } else {
     each <- n / cumprod(ns)
     times <- n / each / ns
 
-    out <- pmap(list(x = dots, each = each, times = times), vec_repeat)
+    out <- mapply(vec_repeat,
+                  x = dots, each = each, times = times, SIMPLIFY = FALSE)
   }
   out <- as_tibble(out, .name_repair = .name_repair)
 
@@ -186,7 +187,7 @@ dots_cols <- function(..., `_data` = NULL) {
   }
   out <- out[names(dots)]
 
-  is_null <- map_lgl(out, is.null)
+  is_null <- vapply(out, is.null, FUN.VALUE = logical(1))
   if (any(is_null)) {
     out <- out[!is_null]
     named <- named[!is_null]

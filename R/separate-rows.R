@@ -34,7 +34,7 @@ separate_rows.data.frame <- function(data,
   out <- purrr::modify_at(data, vars, strsplit, split = sep, perl = TRUE)
   out <- unchop(as_tibble(out), any_of(vars))
   if (convert) {
-    out[vars] <- map(out[vars], type.convert, as.is = TRUE)
+    out[vars] <- lapply(out[vars], type.convert, as.is = TRUE)
   }
 
   reconstruct_tibble(data, out, names(vars))
