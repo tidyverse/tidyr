@@ -514,7 +514,7 @@ backend.
 ## Switch to tidy evaluation
 
 tidyr is now a tidy evaluation grammar. See the
-[programming vignette](http://dplyr.tidyverse.org/articles/programming.html)
+[programming vignette](https://dplyr.tidyverse.org/articles/programming.html)
 in dplyr for practical information about tidy evaluation.
 
 The tidyr port is a bit special. While the philosophy of tidy

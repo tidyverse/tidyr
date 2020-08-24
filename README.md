@@ -96,7 +96,7 @@ I’d recommend the following three papers:
     scripts](http://vis.stanford.edu/papers/wrangler)
 
   - [An interactive framework for data
-    cleaning](https://www.eecs.berkeley.edu/Pubs/TechRpts/2000/CSD-00-1110.pdf)
+    cleaning](https://www2.eecs.berkeley.edu/Pubs/TechRpts/2000/CSD-00-1110.pdf)
     (Potter’s wheel)
 
   - [On efficiently implementing SchemaSQL on a SQL database
