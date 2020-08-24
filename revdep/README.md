@@ -1,51 +1,77 @@
 # Revdeps
 
-## Failed to check (37)
+## Failed to check (70)
 
 |package          |version |error |warning |note |
 |:----------------|:-------|:-----|:-------|:----|
+|afex             |?       |      |        |     |
 |ALA4R            |?       |      |        |     |
+|apaTables        |?       |      |        |     |
+|ARTool           |?       |      |        |     |
 |bibliometrix     |?       |      |        |     |
 |bioOED           |?       |      |        |     |
 |bootnet          |?       |      |        |     |
+|broom            |?       |      |        |     |
 |CB2              |?       |      |        |     |
+|choroplethr      |3.7.0   |1     |        |     |
 |clustermole      |?       |      |        |     |
+|ClustImpute      |?       |      |        |     |
 |CNVScope         |?       |      |        |     |
+|codebook         |?       |      |        |     |
+|correlation      |?       |      |        |     |
 |countyweather    |?       |      |        |     |
+|cSEM             |?       |      |        |     |
+|DAISIE           |?       |      |        |     |
 |daqapo           |0.3.0   |1     |        |     |
+|dextergui        |?       |      |        |     |
 |diceR            |?       |      |        |     |
 |dimRed           |?       |      |        |     |
+|evaluator        |?       |      |        |     |
+|feasts           |?       |      |        |     |
 |fingertipscharts |0.0.11  |1     |        |     |
+|forwards         |?       |      |        |     |
 |ggmsa            |?       |      |        |     |
+|googleLanguageR  |0.3.0   |1     |        |     |
 |graph4lg         |?       |      |        |     |
+|hansard          |?       |      |        |     |
 |idiogramFISH     |?       |      |        |     |
+|jrt              |?       |      |        |     |
+|lcsm             |?       |      |        |     |
+|lmeInfo          |?       |      |        |     |
 |metagam          |?       |      |        |     |
+|mousetrap        |?       |      |        |     |
+|NetworkChange    |?       |      |        |     |
 |nomisr           |0.4.3   |1     |        |     |
 |omicwas          |?       |      |        |     |
 |phyr             |?       |      |        |     |
 |pmc              |?       |      |        |     |
-|processR         |0.2.3   |1     |        |     |
+|processR         |?       |      |        |     |
 |psychonetrics    |?       |      |        |     |
+|pwr2ppl          |?       |      |        |     |
 |quokar           |0.1.0   |1     |        |     |
-|radiant.data     |1.3.9   |1     |        |     |
+|radiant.basics   |?       |      |        |     |
+|radiant.data     |?       |      |        |     |
+|radiant.model    |?       |      |        |     |
+|rattle           |?       |      |        |     |
 |rdflib           |0.2.3   |1     |        |     |
 |RIdeogram        |0.2.2   |1     |        |     |
 |RNeXML           |?       |      |        |     |
 |robmed           |0.7.0   |1     |        |     |
-|ropercenter      |0.3.0   |1     |        |     |
-|ShortForm        |0.4.6   |1     |        |     |
+|ropercenter      |0.3.1   |1     |        |     |
+|see              |?       |      |        |     |
+|semtree          |?       |      |        |     |
+|ShortForm        |?       |      |        |     |
 |sigminer         |?       |      |        |     |
 |SimDesign        |?       |      |        |     |
+|simstandard      |?       |      |        |     |
+|sjPlot           |?       |      |        |     |
+|sociome          |?       |      |        |     |
+|suddengains      |?       |      |        |     |
 |SWMPrExtension   |1.1.5   |1     |        |     |
-|thurstonianIRT   |0.11.0  |1     |        |     |
+|thurstonianIRT   |?       |      |        |     |
+|tidycomm         |?       |      |        |     |
 |tmap             |3.1     |1     |        |     |
-|webr             |0.1.5   |1     |        |     |
+|visvow           |?       |      |        |     |
+|webr             |?       |      |        |     |
 |wrswoR           |?       |      |        |     |
-
-## New problems (2)
-
-|package                      |version |error  |warning |note |
-|:----------------------------|:-------|:------|:-------|:----|
-|[BAwiR](problems.md#bawir)   |1.2.4   |       |__+1__  |     |
-|[HURDAT](problems.md#hurdat) |0.2.3.1 |__+1__ |        |1    |
 
