@@ -1,4 +1,4 @@
-# tidyr (development version)
+# tidyr 1.1.2
 
 * `separate_rows()` returns to 1.1.0 behaviour for empty strings 
   (@rjpatm, #1014).
