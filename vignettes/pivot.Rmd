@@ -612,5 +612,5 @@ The pivotting spec allows us to be more precise about exactly how `pivot_longer(
 
 [cdata]: https://winvector.github.io/cdata/
 [data.table]: https://github.com/Rdatatable/data.table/wiki
-[tidycensus]: https://walkerke.github.io/tidycensus
+[tidycensus]: https://walker-data.com/tidycensus/
 
