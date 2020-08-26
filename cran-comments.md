@@ -1,3 +1,7 @@
+This is a resubmission with corrected links
+
+---
+
 ## Test environments
 
 * OS X install: R 3.5

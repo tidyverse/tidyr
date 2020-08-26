@@ -98,4 +98,4 @@ mtcars_nested <- mtcars_nested %>%
 mtcars_nested  
 ```
 
-This workflow works particularly well in conjunction with [broom](https://broom.tidyverse.org/), which makes it easy to turn models into tidy data frames which can then be `unnest()`ed to get back to flat data frames. You can see a bigger example in the [broom and dplyr vignette](https://broom.tidyverse.org/articles/broom_and_dplyr.html).
+This workflow works particularly well in conjunction with [broom](https://broom.tidymodels.org/), which makes it easy to turn models into tidy data frames which can then be `unnest()`ed to get back to flat data frames. You can see a bigger example in the [broom and dplyr vignette](https://broom.tidymodels.org/articles/broom_and_dplyr.html).

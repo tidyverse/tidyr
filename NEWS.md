@@ -165,7 +165,7 @@ See `vignette("in-packages")` for a detailed transition guide.
 
 * The first argument of `nest()` has changed from `data` to `.data`.
 
-* `unnest()` uses the [emerging tidyverse standard](https://www.tidyverse.org/articles/2019/01/tibble-2.0.1/#name-repair)
+* `unnest()` uses the [emerging tidyverse standard](https://www.tidyverse.org/blog/2019/01/tibble-2.0.1/#name-repair)
   to disambiguate unique names. Use `names_repair = tidyr_legacy` to 
   request the previous approach.
 

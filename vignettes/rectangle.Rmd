@@ -282,7 +282,7 @@ loc %>%
 
 ## Sharla Gelfand's discography
 
-We'll finish off with the most complex list, from [Sharla Gelfand's](https://sharla.party/posts/discog-purrr/) discography. We'll start the usual way: putting the list into a single column data frame, and then widening so each component is a column. I also parse the `date_added` column into a real date-time[^readr].
+We'll finish off with the most complex list, from [Sharla Gelfand's](https://sharla.party/post/discog-purrr/) discography. We'll start the usual way: putting the list into a single column data frame, and then widening so each component is a column. I also parse the `date_added` column into a real date-time[^readr].
 
 [^readr]: I'd normally use `readr::parse_datetime()` or `lubridate::ymd_hms()`, but I can't here because it's a vignette and I don't want to add a dependency to tidyr just to simplify one example.
 

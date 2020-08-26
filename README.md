@@ -23,7 +23,7 @@ where:
 3.  Every cell is a single value.
 
 Tidy data describes a standard way of storing data that is used wherever
-possible throughout the [tidyverse](https://tidyverse.org). If you
+possible throughout the [tidyverse](https://tidyverse.org/). If you
 ensure that your data is tidy, you’ll spend less time fighting with the
 tools and more time working on your analysis. Learn more about tidy data
 in `vignette("tidy-data")`.
@@ -86,8 +86,8 @@ counterintuitively, each iteration of the package has done less. tidyr
 is designed specifically for tidying data, not general reshaping
 (reshape2), or the general aggregation (reshape).
 
-[data.table](http://r-datatable.com/) provides high-performance
-implementations of `melt()` and `dcast()`
+[data.table](https://rdatatable.gitlab.io/data.table) provides
+high-performance implementations of `melt()` and `dcast()`
 
 If you’d like to read more about data reshaping from a CS perspective,
 I’d recommend the following three papers:

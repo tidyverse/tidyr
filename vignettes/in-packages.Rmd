@@ -365,4 +365,4 @@ nested %>% unnest(any_of("my_data"))
 ```
 
 [ggplot2-packages]: https://ggplot2.tidyverse.org/dev/articles/ggplot2-in-packages.html
-[name-repair]: https://www.tidyverse.org/articles/2019/01/tibble-2.0.1/#name-repair
+[name-repair]: https://www.tidyverse.org/blog/2019/01/tibble-2.0.1/#name-repair
