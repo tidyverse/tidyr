@@ -100,7 +100,7 @@ Learn more in vignette(&quot;nest&quot;)." />
         <a class="navbar-brand" href="../index.html">tidyr</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.1</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.2</span>
         </div>
       </div>
     </div>
@@ -351,8 +351,8 @@ columns that will appear in the inner data frame. Alternatively, you can
 variables remain in the outer data frame and the others are nested. The
 result preserves the grouping of the input.</p>
 <p>Variables supplied to <code>nest()</code> will override grouping variables so that
-<code>df %&gt;% group_by(x, y) %&gt;% nest(data = -z)</code> will be equivalent to
-<code>df %&gt;% nest(data = -z)</code>.</p>
+<code>df %&gt;% group_by(x, y) %&gt;% nest(data = !z)</code> will be equivalent to
+<code>df %&gt;% nest(data = !z)</code>.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>2</span>, <span class='fl'>3</span>), <span class='kw'>y</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>6</span>, <span class='kw'>z</span> <span class='kw'>=</span> <span class='fl'>6</span>:<span class='fl'>1</span>)
@@ -371,19 +371,19 @@ result preserves the grouping of the input.</p>
 #&gt; </span><span style='color: #555555;'>2</span><span>     2         </span><span style='color: #555555;'>[2]</span><span>         </span><span style='color: #555555;'>[2]</span><span>
 #&gt; </span><span style='color: #555555;'>3</span><span>     3         </span><span style='color: #555555;'>[1]</span><span>         </span><span style='color: #555555;'>[1]</span><span></div><div class='input'>
 <span class='co'># use tidyselect syntax and helpers, just like in dplyr::select()</span>
-<span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>nest</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='fu'><a href='https://tidyselect.r-lib.org/reference/one_of.html'>one_of</a></span>(<span class='st'>"y"</span>, <span class='st'>"z"</span>))</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 3 x 2</span><span>
+<span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>nest</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='fu'>any_of</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"y"</span>, <span class='st'>"z"</span>)))</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 3 x 2</span><span>
 #&gt;       x data            
 #&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;list&gt;</span><span>          
 #&gt; </span><span style='color: #555555;'>1</span><span>     1 </span><span style='color: #555555;'>&lt;tibble [3 × 2]&gt;</span><span>
 #&gt; </span><span style='color: #555555;'>2</span><span>     2 </span><span style='color: #555555;'>&lt;tibble [2 × 2]&gt;</span><span>
 #&gt; </span><span style='color: #555555;'>3</span><span>     3 </span><span style='color: #555555;'>&lt;tibble [1 × 2]&gt;</span><span></div><div class='input'>
-<span class='no'>iris</span> <span class='kw'>%&gt;%</span> <span class='fu'>nest</span>(<span class='kw'>data</span> <span class='kw'>=</span> -<span class='no'>Species</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 3 x 2</span><span>
+<span class='no'>iris</span> <span class='kw'>%&gt;%</span> <span class='fu'>nest</span>(<span class='kw'>data</span> <span class='kw'>=</span> !<span class='no'>Species</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 3 x 2</span><span>
 #&gt;   Species    data             
 #&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>      </span><span style='color: #555555;font-style: italic;'>&lt;list&gt;</span><span>           
 #&gt; </span><span style='color: #555555;'>1</span><span> setosa     </span><span style='color: #555555;'>&lt;tibble [50 × 4]&gt;</span><span>
 #&gt; </span><span style='color: #555555;'>2</span><span> versicolor </span><span style='color: #555555;'>&lt;tibble [50 × 4]&gt;</span><span>
 #&gt; </span><span style='color: #555555;'>3</span><span> virginica  </span><span style='color: #555555;'>&lt;tibble [50 × 4]&gt;</span><span></div><div class='input'><span class='no'>nest_vars</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span>(<span class='no'>iris</span>)[<span class='fl'>1</span>:<span class='fl'>4</span>]
-<span class='no'>iris</span> <span class='kw'>%&gt;%</span> <span class='fu'>nest</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='fu'><a href='https://tidyselect.r-lib.org/reference/one_of.html'>one_of</a></span>(<span class='no'>nest_vars</span>))</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 3 x 2</span><span>
+<span class='no'>iris</span> <span class='kw'>%&gt;%</span> <span class='fu'>nest</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='fu'>any_of</span>(<span class='no'>nest_vars</span>))</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 3 x 2</span><span>
 #&gt;   Species    data             
 #&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>      </span><span style='color: #555555;font-style: italic;'>&lt;list&gt;</span><span>           
 #&gt; </span><span style='color: #555555;'>1</span><span> setosa     </span><span style='color: #555555;'>&lt;tibble [50 × 4]&gt;</span><span>

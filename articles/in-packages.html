@@ -51,7 +51,7 @@
         <a class="navbar-brand" href="../index.html">tidyr</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.1</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.2</span>
         </div>
       </div>
     </div>
@@ -172,7 +172,7 @@
 <span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">purrr</span>)
 
 <span class="fu"><a href="https://rdrr.io/r/utils/packageDescription.html">packageVersion</a></span>(<span class="st">"tidyr"</span>)
-<span class="co">#&gt; [1] '1.1.1'</span>
+<span class="co">#&gt; [1] '1.1.2'</span>
 
 <span class="no">mini_iris</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html">as_tibble</a></span>(<span class="no">iris</span>)[<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">51</span>, <span class="fl">52</span>, <span class="fl">101</span>, <span class="fl">102</span>), ]
 <span class="no">mini_iris</span>
@@ -292,7 +292,7 @@
 
   if (tidyr_new_interface()) {
     # Freshly written code for v1.0.0
-    out &lt;- tidyr::nest(df, data = one_of("x", "y", "z"))
+    out &lt;- tidyr::nest(df, data = any_of(c("x", "y", "z")))
   } else {
     # Existing code for v0.8.3
     out &lt;- tidyr::nest(df, x, y, z)
@@ -338,11 +338,11 @@
 
 <span class="co"># v1.0.0 avoiding R CMD check NOTE</span>
 <span class="no">mini_iris</span> <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/nest.html">nest</a></span>(<span class="kw">my_data</span> <span class="kw">=</span> <span class="fu"><a href="https://tidyselect.r-lib.org/reference/one_of.html">one_of</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Sepal.Length"</span>, <span class="st">"Sepal.Width"</span>, <span class="st">"Petal.Length"</span>, <span class="st">"Petal.Width"</span>)))
+  <span class="fu"><a href="../reference/nest.html">nest</a></span>(<span class="kw">my_data</span> <span class="kw">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/reexports.html">any_of</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Sepal.Length"</span>, <span class="st">"Sepal.Width"</span>, <span class="st">"Petal.Length"</span>, <span class="st">"Petal.Width"</span>)))
 
 <span class="co"># or equivalently:</span>
 <span class="no">mini_iris</span> <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/nest.html">nest</a></span>(<span class="kw">my_data</span> <span class="kw">=</span> -<span class="fu"><a href="https://tidyselect.r-lib.org/reference/one_of.html">one_of</a></span>(<span class="st">"Species"</span>))</pre></body></html></div>
+  <span class="fu"><a href="../reference/nest.html">nest</a></span>(<span class="kw">my_data</span> <span class="kw">=</span> !<span class="fu"><a href="https://dplyr.tidyverse.org/reference/reexports.html">any_of</a></span>(<span class="st">"Species"</span>))</pre></body></html></div>
 <p>If you need a quick and dirty fix without having to think, just call <code><a href="../reference/nest_legacy.html">nest_legacy()</a></code> instead of <code><a href="../reference/nest.html">nest()</a></code>. It’s the same as <code><a href="../reference/nest.html">nest()</a></code> in v0.8.3:</p>
 <div class="sourceCode" id="cb9"><html><body><pre class="r"><span class="kw">if</span> (<span class="fu">tidyr_new_interface</span>()) {
   <span class="no">out</span> <span class="kw">&lt;-</span> <span class="kw pkg">tidyr</span><span class="kw ns">::</span><span class="fu"><a href="../reference/nest_legacy.html">nest_legacy</a></span>(<span class="no">df</span>, <span class="no">x</span>, <span class="no">y</span>, <span class="no">z</span>)
@@ -358,7 +358,7 @@
 <ul>
 <li><p>The to-be-unnested columns must now be specified explicitly, instead of defaulting to all list-columns. This also deprecates <code>.drop</code> and <code>.preserve</code>.</p></li>
 <li><p><code>.sep</code> has been deprecated and replaced with <code>names_sep</code>.</p></li>
-<li><p><code><a href="../reference/nest.html">unnest()</a></code> uses the <a href="https://www.tidyverse.org/articles/2019/01/tibble-2.0.1/#name-repair">emerging tidyverse standard</a> to disambiguate duplicated names. Use <code>names_repair = tidyr_legacy</code> to request the previous approach.</p></li>
+<li><p><code><a href="../reference/nest.html">unnest()</a></code> uses the <a href="https://www.tidyverse.org/blog/2019/01/tibble-2.0.1/#name-repair">emerging tidyverse standard</a> to disambiguate duplicated names. Use <code>names_repair = tidyr_legacy</code> to request the previous approach.</p></li>
 <li>
 <p><code>.id</code> has been deprecated because it can be easily replaced by creating the column of names prior to <code><a href="../reference/nest.html">unnest()</a></code>, e.g. with an upstream call to <code><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate()</a></code>.</p>
 <div class="sourceCode" id="cb10"><html><body><pre class="r"># v0.8.3
@@ -381,7 +381,7 @@ df %&gt;% mutate(id = names(x)) %&gt;% unnest(x))</pre></body></html></div>
 <span class="no">nested</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/nest.html">unnest</a></span>()
 
 <span class="co"># v1.0.0 must be told which columns to unnest</span>
-<span class="no">nested</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/nest.html">unnest</a></span>(<span class="fu"><a href="https://tidyselect.r-lib.org/reference/one_of.html">one_of</a></span>(<span class="st">"my_data"</span>))</pre></body></html></div>
+<span class="no">nested</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/nest.html">unnest</a></span>(<span class="fu"><a href="https://dplyr.tidyverse.org/reference/reexports.html">any_of</a></span>(<span class="st">"my_data"</span>))</pre></body></html></div>
 <p>If you need a quick and dirty fix without having to think, just call <code><a href="../reference/nest_legacy.html">unnest_legacy()</a></code> instead of <code><a href="../reference/nest.html">unnest()</a></code>. It’s the same as <code><a href="../reference/nest.html">unnest()</a></code> in v0.8.3:</p>
 <div class="sourceCode" id="cb12"><html><body><pre class="r"><span class="kw">if</span> (<span class="fu">tidyr_new_interface</span>()) {
   <span class="no">out</span> <span class="kw">&lt;-</span> <span class="kw pkg">tidyr</span><span class="kw ns">::</span><span class="fu"><a href="../reference/nest_legacy.html">unnest_legacy</a></span>(<span class="no">df</span>)
@@ -478,9 +478,9 @@ df %&gt;% mutate(id = names(x)) %&gt;% unnest(x))</pre></body></html></div>
 
 <span class="co"># v1.0.0</span>
 <span class="no">mini_iris</span> <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/nest.html">nest</a></span>(<span class="kw">my_data</span> <span class="kw">=</span> <span class="fu"><a href="https://tidyselect.r-lib.org/reference/one_of.html">one_of</a></span>(<span class="st">"Sepal.Length"</span>, <span class="st">"Sepal.Width"</span>, <span class="st">"Petal.Length"</span>, <span class="st">"Petal.Width"</span>))
+  <span class="fu"><a href="../reference/nest.html">nest</a></span>(<span class="kw">my_data</span> <span class="kw">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/reexports.html">any_of</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Sepal.Length"</span>, <span class="st">"Sepal.Width"</span>, <span class="st">"Petal.Length"</span>, <span class="st">"Petal.Width"</span>)))
 
-<span class="no">nested</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/nest.html">unnest</a></span>(<span class="fu"><a href="https://tidyselect.r-lib.org/reference/one_of.html">one_of</a></span>(<span class="st">"my_data"</span>))</pre></body></html></div>
+<span class="no">nested</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/nest.html">unnest</a></span>(<span class="fu"><a href="https://dplyr.tidyverse.org/reference/reexports.html">any_of</a></span>(<span class="st">"my_data"</span>))</pre></body></html></div>
 </div>
 </div>
   </div>

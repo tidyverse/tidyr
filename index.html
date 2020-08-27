@@ -56,7 +56,7 @@
         <a class="navbar-brand" href="index.html">tidyr</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.1</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.2</span>
         </div>
       </div>
     </div>
@@ -165,7 +165,7 @@
 <li>Every row is an observation.</li>
 <li>Every cell is a single value.</li>
 </ol>
-<p>Tidy data describes a standard way of storing data that is used wherever possible throughout the <a href="https://tidyverse.org">tidyverse</a>. If you ensure that your data is tidy, you’ll spend less time fighting with the tools and more time working on your analysis. Learn more about tidy data in <code><a href="articles/tidy-data.html">vignette("tidy-data")</a></code>.</p>
+<p>Tidy data describes a standard way of storing data that is used wherever possible throughout the <a href="https://tidyverse.org/">tidyverse</a>. If you ensure that your data is tidy, you’ll spend less time fighting with the tools and more time working on your analysis. Learn more about tidy data in <code><a href="articles/tidy-data.html">vignette("tidy-data")</a></code>.</p>
 </div>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
@@ -201,33 +201,38 @@
 <div id="related-work" class="section level2">
 <h2 class="hasAnchor">
 <a href="#related-work" class="anchor"></a>Related work</h2>
-<p>tidyr replaces reshape2 (2010-2014) and reshape (2005-2010). Somewhat counterintuitively, each iteration of the package has done less. tidyr is designed specifically for tidying data, not general reshaping (reshape2), or the general aggregation (reshape).</p>
-<p><a href="http://r-datatable.com/">data.table</a> provides high-performance implementations of <code>melt()</code> and <code>dcast()</code></p>
+<p>tidyr <a href="https://www.tidyverse.org/lifecycle/#superseded">supersedes</a> reshape2 (2010-2014) and reshape (2005-2010). Somewhat counterintuitively, each iteration of the package has done less. tidyr is designed specifically for tidying data, not general reshaping (reshape2), or the general aggregation (reshape).</p>
+<p><a href="https://rdatatable.gitlab.io/data.table">data.table</a> provides high-performance implementations of <code>melt()</code> and <code>dcast()</code></p>
 <p>If you’d like to read more about data reshaping from a CS perspective, I’d recommend the following three papers:</p>
 <ul>
 <li><p><a href="http://vis.stanford.edu/papers/wrangler">Wrangler: Interactive visual specification of data transformation scripts</a></p></li>
-<li><p><a href="https://www.eecs.berkeley.edu/Pubs/TechRpts/2000/CSD-00-1110.pdf">An interactive framework for data cleaning</a> (Potter’s wheel)</p></li>
+<li><p><a href="https://www2.eecs.berkeley.edu/Pubs/TechRpts/2000/CSD-00-1110.pdf">An interactive framework for data cleaning</a> (Potter’s wheel)</p></li>
 <li><p><a href="https://www.vldb.org/conf/1999/P45.pdf">On efficiently implementing SchemaSQL on a SQL database system</a></p></li>
 </ul>
 <p>To guide your reading, here’s a translation between the terminology used in different places:</p>
 <table class="table">
 <thead><tr class="header">
-<th>tidyr</th>
-<th>gather</th>
-<th>spread</th>
+<th>tidyr 1.0.0</th>
+<th>pivot longer</th>
+<th>pivot wider</th>
 </tr></thead>
 <tbody>
 <tr class="odd">
+<td>tidyr &lt; 1.0.0</td>
+<td>gather</td>
+<td>spread</td>
+</tr>
+<tr class="even">
 <td>reshape(2)</td>
 <td>melt</td>
 <td>cast</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>spreadsheets</td>
 <td>unpivot</td>
 <td>pivot</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>databases</td>
 <td>fold</td>
 <td>unfold</td>

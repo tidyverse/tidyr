@@ -55,7 +55,7 @@ and `hoist()`.
         <a class="navbar-brand" href="../index.html">tidyr</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.1</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.2</span>
         </div>
       </div>
     </div>
@@ -536,7 +536,7 @@ and `hoist()`.
 <div id="sharla-gelfands-discography" class="section level2">
 <h2 class="hasAnchor">
 <a href="#sharla-gelfands-discography" class="anchor"></a>Sharla Gelfand’s discography</h2>
-<p>We’ll finish off with the most complex list, from <a href="https://sharla.party/posts/discog-purrr/">Sharla Gelfand’s</a> discography. We’ll start the usual way: putting the list into a single column data frame, and then widening so each component is a column. I also parse the <code>date_added</code> column into a real date-time<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>.</p>
+<p>We’ll finish off with the most complex list, from <a href="https://sharla.party/post/discog-purrr/">Sharla Gelfand’s</a> discography. We’ll start the usual way: putting the list into a single column data frame, and then widening so each component is a column. I also parse the <code>date_added</code> column into a real date-time<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>.</p>
 <div class="sourceCode" id="cb28"><html><body><pre class="r"><span class="no">discs</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span>(<span class="kw">disc</span> <span class="kw">=</span> <span class="no">discog</span>) <span class="kw">%&gt;%</span>
   <span class="fu"><a href="../reference/hoist.html">unnest_wider</a></span>(<span class="no">disc</span>) <span class="kw">%&gt;%</span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="kw">date_added</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.POSIXlt.html">as.POSIXct</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/strptime.html">strptime</a></span>(<span class="no">date_added</span>, <span class="st">"%Y-%m-%dT%H:%M:%S"</span>)))
@@ -584,7 +584,7 @@ and `hoist()`.
 <span class="co">#&gt; #   id...14 &lt;int&gt;, rating &lt;int&gt;</span></pre></body></html></div>
 <p>The problem is that <code>basic_information</code> repeats the <code>id</code> column that’s also stored at the top-level, so we can just drop that:</p>
 <div class="sourceCode" id="cb31"><html><body><pre class="r"><span class="no">discs</span> <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(-<span class="no">id</span>) <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(!<span class="no">id</span>) <span class="kw">%&gt;%</span>
   <span class="fu"><a href="../reference/hoist.html">unnest_wider</a></span>(<span class="no">basic_information</span>)
 <span class="co">#&gt; # A tibble: 155 x 14</span>
 <span class="co">#&gt;    instance_id date_added          labels  year artists     id thumb title</span>

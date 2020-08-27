@@ -96,7 +96,7 @@ that allows you to describe pivotting with a data frame." />
         <a class="navbar-brand" href="../index.html">tidyr</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.1</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.2</span>
         </div>
       </div>
     </div>
@@ -359,7 +359,7 @@ a character week variable to an integer.</p></td>
 <span class='co'># Use `build_longer_spec()` to build `spec` using similar syntax to `pivot_longer()`</span>
 <span class='co'># and run `pivot_longer_spec()` based on `spec`.</span>
 <span class='no'>spec</span> <span class='kw'>&lt;-</span> <span class='no'>relig_income</span> <span class='kw'>%&gt;%</span> <span class='fu'>build_longer_spec</span>(
-  <span class='kw'>cols</span> <span class='kw'>=</span> -<span class='no'>religion</span>,
+  <span class='kw'>cols</span> <span class='kw'>=</span> !<span class='no'>religion</span>,
   <span class='kw'>names_to</span> <span class='kw'>=</span> <span class='st'>"income"</span>,
   <span class='kw'>values_to</span> <span class='kw'>=</span> <span class='st'>"count"</span>
 )
@@ -392,7 +392,7 @@ a character week variable to an integer.</p></td>
 #&gt; </span><span style='color: #555555;'># … with 170 more rows</span><span></div><div class='input'>
 <span class='co'># Is equivalent to:</span>
 <span class='no'>relig_income</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='pivot_longer.html'>pivot_longer</a></span>(
-  <span class='kw'>cols</span> <span class='kw'>=</span> -<span class='no'>religion</span>,
+  <span class='kw'>cols</span> <span class='kw'>=</span> !<span class='no'>religion</span>,
   <span class='kw'>names_to</span> <span class='kw'>=</span> <span class='st'>"income"</span>,
   <span class='kw'>values_to</span> <span class='kw'>=</span> <span class='st'>"count"</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 180 x 3</span><span>
 #&gt;    religion income             count
