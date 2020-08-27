@@ -94,7 +94,7 @@
         <a class="navbar-brand" href="../index.html">tidyr</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.1.1.9000</span>
+          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.1.2.9000</span>
         </div>
       </div>
     </div>
@@ -198,6 +198,11 @@
     <div id="tidyr-development-version" class="section level1">
 <h1 class="page-header" data-toc-text="development version">
 <a href="#tidyr-development-version" class="anchor"></a>tidyr (development version)<small> Unreleased </small>
+</h1>
+</div>
+    <div id="tidyr-112" class="section level1">
+<h1 class="page-header" data-toc-text="1.1.2">
+<a href="#tidyr-112" class="anchor"></a>tidyr 1.1.2<small> Unreleased </small>
 </h1>
 <ul>
 <li>
@@ -319,7 +324,7 @@ df %&gt;% pivot_longer(-id, names_sep = "_", names_to = c(".value", NA))</code><
 </li>
 <li><p><code><a href="../reference/nest.html">nest()</a></code> now preserves grouping, which has implications for downstream calls to group-aware functions, such as <code><a href="https://dplyr.tidyverse.org/reference/mutate.html">dplyr::mutate()</a></code> and <code><a href="https://rdrr.io/r/stats/filter.html">filter()</a></code>.</p></li>
 <li><p>The first argument of <code><a href="../reference/nest.html">nest()</a></code> has changed from <code>data</code> to <code>.data</code>.</p></li>
-<li><p><code><a href="../reference/nest.html">unnest()</a></code> uses the <a href="https://www.tidyverse.org/articles/2019/01/tibble-2.0.1/#name-repair">emerging tidyverse standard</a> to disambiguate unique names. Use <code>names_repair = tidyr_legacy</code> to request the previous approach.</p></li>
+<li><p><code><a href="../reference/nest.html">unnest()</a></code> uses the <a href="https://www.tidyverse.org/blog/2019/01/tibble-2.0.1/#name-repair">emerging tidyverse standard</a> to disambiguate unique names. Use <code>names_repair = tidyr_legacy</code> to request the previous approach.</p></li>
 <li>
 <p><code><a href="../reference/deprecated-se.html">unnest_()</a></code>/<code><a href="../reference/deprecated-se.html">nest_()</a></code> and the lazyeval methods for <code><a href="../reference/nest.html">unnest()</a></code>/<code><a href="../reference/nest.html">nest()</a></code> are now defunct. They have been deprecated for some time, and, since the interface has changed, package authors will need to update to avoid deprecation warnings. I think one clean break should be less work for everyone.</p>
 <p>All other lazyeval functions have been formally deprecated, and will be made defunct in the next major release. (See <a href="https://lifecycle.r-lib.org/articles/lifecycle.html">lifecycle vignette</a> for details on deprecation stages).</p>
@@ -531,7 +536,7 @@ integer column positions, not a double vector</code></pre>
 <div id="switch-to-tidy-evaluation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#switch-to-tidy-evaluation" class="anchor"></a>Switch to tidy evaluation</h2>
-<p>tidyr is now a tidy evaluation grammar. See the <a href="http://dplyr.tidyverse.org/articles/programming.html">programming vignette</a> in dplyr for practical information about tidy evaluation.</p>
+<p>tidyr is now a tidy evaluation grammar. See the <a href="https://dplyr.tidyverse.org/articles/programming.html">programming vignette</a> in dplyr for practical information about tidy evaluation.</p>
 <p>The tidyr port is a bit special. While the philosophy of tidy evaluation is that R code should refer to real objects (from the data frame or from the context), we had to make some exceptions to this rule for tidyr. The reason is that several functions accept bare symbols to specify the names of <em>new</em> columns to create (<code><a href="../reference/gather.html">gather()</a></code> being a prime example). This is not tidy because the symbol do not represent any actual object. Our workaround is to capture these arguments using <code><a href="https://rlang.r-lib.org/reference/quo_label.html">rlang::quo_name()</a></code> (so they still support quasiquotation and you can unquote symbols or strings). This type of NSE is now discouraged in the tidyverse: symbols in R code should represent real objects.</p>
 <p>Following the switch to tidy eval the underscored variants are softly deprecated. However they will remain around for some time and without warning for backward compatibility.</p>
 </div>
