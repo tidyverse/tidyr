@@ -235,9 +235,9 @@ and shows you how it saves you time during data analysis.
 <a href="#tidy-data" class="anchor"></a>Tidy data</h2>
 <p>Tidy data is a standard way of mapping the meaning of a dataset to its structure. A dataset is messy or tidy depending on how rows, columns and tables are matched up with observations, variables and types. In <strong>tidy data</strong>:</p>
 <ol style="list-style-type: decimal">
-<li><p>Each variable forms a column.</p></li>
-<li><p>Each observation forms a row.</p></li>
-<li><p>Each type of observational unit forms a table.</p></li>
+<li><p>Every column is a variable.</p></li>
+<li><p>Every row is an observation.</p></li>
+<li><p>Every cell is a single value.</p></li>
 </ol>
 <p>This is Codd’s 3rd normal form, but with the constraints framed in statistical language, and the focus put on a single dataset rather than the many connected datasets common in relational databases. <strong>Messy data</strong> is any other arrangement of the data.</p>
 <p>Tidy data makes it easy for an analyst or a computer to extract needed variables because it provides a standard way of structuring a dataset. Compare the different versions of the classroom data: in the messy version you need to use different strategies to extract different variables. This slows analysis and invites errors. If you consider how many data analysis operations involve all of the values in a variable (every aggregation function), you can see how important it is to extract these values in a simple, standard way. Tidy data is particularly well suited for vectorised programming languages like R, because the layout ensures that values of different variables from the same observation are always paired.</p>

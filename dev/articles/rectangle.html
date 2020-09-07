@@ -477,7 +477,7 @@ and `hoist()`.
   <span class="no">url</span> <span class="kw">&lt;-</span> <span class="st">"https://maps.googleapis.com/maps/api/geocode/json"</span>
   <span class="no">url</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span>(<span class="no">url</span>, <span class="st">"?address="</span>, <span class="fu"><a href="https://rdrr.io/r/utils/URLencode.html">URLencode</a></span>(<span class="no">address</span>), <span class="st">"&amp;key="</span>, <span class="no">api_key</span>)
 
-  <span class="kw pkg">jsonlite</span><span class="kw ns">::</span><span class="fu"><a href="https://jeroen.cran.dev/jsonlite/reference/read_json.html">read_json</a></span>(<span class="no">url</span>)
+  <span class="kw pkg">jsonlite</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/jsonlite/man/read_json.html">read_json</a></span>(<span class="no">url</span>)
 }</pre></body></html></div>
 <p>The list that this function returns is quite complex:</p>
 <div class="sourceCode" id="cb17"><html><body><pre class="r"><span class="no">houston</span> <span class="kw">&lt;-</span> <span class="fu">geocode</span>(<span class="st">"Houston TX"</span>)
