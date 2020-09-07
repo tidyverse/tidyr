@@ -87,11 +87,11 @@ Variables may change over the course of analysis. Often the variables in the raw
 
 Tidy data is a standard way of mapping the meaning of a dataset to its structure. A dataset is messy or tidy depending on how rows, columns and tables are matched up with observations, variables and types. In **tidy data**:
 
-1.  Each variable forms a column.
+1.  Every column is a variable.
 
-2.  Each observation forms a row.
+2.  Every row is an observation.
 
-3.  Each type of observational unit forms a table.
+3.  Every cell is a single value.
 
 This is Codd's 3rd normal form, but with the constraints framed in statistical language, and the focus put on a single dataset rather than the many connected datasets common in relational databases. **Messy data** is any other arrangement of the data.
 
