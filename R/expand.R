@@ -130,7 +130,7 @@ nesting <- function(..., .name_repair = "check_unique") {
 
 #' Create a tibble from all combinations of inputs
 #'
-#' @section Compared to [expand.grid] expand_grid:
+#' @section Compared to [expand.grid] , expand_grid:
 #' * Varies the first element slowest.
 #' * Never converts strings to factors.
 #' * Does not add any additional attributes.
