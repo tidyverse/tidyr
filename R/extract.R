@@ -67,7 +67,6 @@ str_extract <- function(x, into, regex, convert = FALSE) {
   if (anyDuplicated(into)) {
     pieces <- split(out, into)
     into <- names(pieces)
-    # This works but don't know if it is scalable
     out <- lapply(pieces,
                   function(x) {mapply(paste0, x[1], x[2])})
   }

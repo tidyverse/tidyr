@@ -115,13 +115,14 @@ check_present <- function(x) {
 
 # light version of purrr transpose so we are not dependent
 transpose_light <- function(df) {
-  out <- lapply(1:length(df[[1]]), function(i, df) {
+  transpose_out <- lapply(1:length(df[[1]]), function(i, df) {
     mapply(function(a,b, df) {df[[a]][b]},
            1:length(df), i, MoreArgs = list(df = df), USE.NAMES = FALSE)}, df)
 
-  names(out) <- names(df[[1]])
+  names(transpose_out) <- names(df[[1]])
 
-  lapply(1:length(out), function(i) {names(out[[i]]) <<- NULL})
+  lapply(1:length(transpose_out),
+         function(i) {names(transpose_out[[i]]) <<- NULL })
 
-  out
+  transpose_out
 }
