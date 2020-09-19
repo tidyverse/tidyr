@@ -1,6 +1,6 @@
 Package: tidyr
 Title: Tidy Messy Data
-Version: 1.1.1.9000
+Version: 1.1.2.9000
 Authors@R: 
     c(person(given = "Hadley",
              family = "Wickham",
@@ -42,7 +42,7 @@ Suggests:
     readr,
     testthat (>= 2.1.0)
 LinkingTo: 
-    cpp11
+    cpp11 (>= 0.2.1)
 VignetteBuilder: 
     knitr
 SystemRequirements: C++11

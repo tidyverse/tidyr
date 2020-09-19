@@ -37,7 +37,7 @@ separate_rows.data.frame <- function(data,
                                      convert = FALSE) {
   vars <- tidyselect::eval_select(expr(c(...)), data)
 
-  out <- purrr::modify_at(data, vars, strsplit, split = sep, perl = TRUE)
+  out <- purrr::modify_at(data, vars, str_split_n, pattern = sep)
   out <- unchop(as_tibble(out), any_of(vars))
   if (convert) {
     out[vars] <- lapply(out[vars], type.convert, as.is = TRUE)

@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# tidyr <a href='https:/tidyr.tidyverse.org'><img src='man/figures/logo.png' align="right" height="139" /></a>
+# tidyr <a href='https://tidyr.tidyverse.org'><img src='man/figures/logo.png' align="right" height="139" /></a>
 
 <!-- badges: start -->
 
@@ -23,7 +23,7 @@ where:
 3.  Every cell is a single value.
 
 Tidy data describes a standard way of storing data that is used wherever
-possible throughout the [tidyverse](https://tidyverse.org). If you
+possible throughout the [tidyverse](https://tidyverse.org/). If you
 ensure that your data is tidy, you’ll spend less time fighting with the
 tools and more time working on your analysis. Learn more about tidy data
 in `vignette("tidy-data")`.
@@ -80,13 +80,14 @@ tidyr functions fall into five main categories:
 
 ## Related work
 
-tidyr replaces reshape2 (2010-2014) and reshape (2005-2010). Somewhat
+tidyr [supersedes](https://www.tidyverse.org/lifecycle/#superseded)
+reshape2 (2010-2014) and reshape (2005-2010). Somewhat
 counterintuitively, each iteration of the package has done less. tidyr
 is designed specifically for tidying data, not general reshaping
 (reshape2), or the general aggregation (reshape).
 
-[data.table](http://r-datatable.com/) provides high-performance
-implementations of `melt()` and `dcast()`
+[data.table](https://rdatatable.gitlab.io/data.table) provides
+high-performance implementations of `melt()` and `dcast()`
 
 If you’d like to read more about data reshaping from a CS perspective,
 I’d recommend the following three papers:
@@ -95,7 +96,7 @@ I’d recommend the following three papers:
     scripts](http://vis.stanford.edu/papers/wrangler)
 
   - [An interactive framework for data
-    cleaning](https://www.eecs.berkeley.edu/Pubs/TechRpts/2000/CSD-00-1110.pdf)
+    cleaning](https://www2.eecs.berkeley.edu/Pubs/TechRpts/2000/CSD-00-1110.pdf)
     (Potter’s wheel)
 
   - [On efficiently implementing SchemaSQL on a SQL database
@@ -104,11 +105,12 @@ I’d recommend the following three papers:
 To guide your reading, here’s a translation between the terminology used
 in different places:
 
-| tidyr        | gather  | spread |
-| ------------ | ------- | ------ |
-| reshape(2)   | melt    | cast   |
-| spreadsheets | unpivot | pivot  |
-| databases    | fold    | unfold |
+| tidyr 1.0.0    | pivot longer | pivot wider |
+| -------------- | ------------ | ----------- |
+| tidyr \< 1.0.0 | gather       | spread      |
+| reshape(2)     | melt         | cast        |
+| spreadsheets   | unpivot      | pivot       |
+| databases      | fold         | unfold      |
 
 ## Getting help
 

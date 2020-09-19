@@ -233,7 +233,7 @@ anscombe %>%
   arrange(set)
 ```
 
-A similar situation can arise with panel data. For example, take this example dataset provided by [Thomas Leeper](http://github.com/leeper/rio/issues/193). We can tidy it using the same approach as for `anscombe`:
+A similar situation can arise with panel data. For example, take this example dataset provided by [Thomas Leeper](https://github.com/leeper/rio/issues/193). We can tidy it using the same approach as for `anscombe`:
 
 ```{r}
 pnl <- tibble(
@@ -612,5 +612,5 @@ The pivotting spec allows us to be more precise about exactly how `pivot_longer(
 
 [cdata]: https://winvector.github.io/cdata/
 [data.table]: https://github.com/Rdatatable/data.table/wiki
-[tidycensus]: https://walkerke.github.io/tidycensus
+[tidycensus]: https://walker-data.com/tidycensus/
 
