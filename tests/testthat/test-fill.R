@@ -81,3 +81,9 @@ test_that("fill respects grouping", {
   out <- df %>% dplyr::group_by(x) %>% fill(y)
   expect_equal(out$y, c(1, 1, NA))
 })
+
+test_that("missings filled up for NaN", {
+  df <- tibble(x = c(1, 2), y = c(1, NaN))
+  out <- fill(df, y)
+  expect_equal(out$y, c(1, 1))
+})

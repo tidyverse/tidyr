@@ -40,7 +40,7 @@ SEXP fillDown(SEXP x) {
     double lastVal = xin[0];
 
     for (int i = 0; i < n; ++i) {
-      if (!ISNA(xin[i]))
+      if (!ISNAN(xin[i]))
         lastVal = xin[i];
       xout[i] = lastVal;
     }
@@ -118,7 +118,7 @@ SEXP fillUp(SEXP x) {
     double lastVal = xin[n - 1];
 
     for (int i = n - 1; i >= 0; --i) {
-      if (!ISNA(xin[i]))
+      if (!ISNAN(xin[i]))
         lastVal = xin[i];
       xout[i] = lastVal;
     }
