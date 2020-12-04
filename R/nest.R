@@ -38,7 +38,7 @@
 #'   using name-variable pairs of the form `new_col = c(col1, col2, col3)`.
 #'   The right hand side can be any valid tidy select expression.
 #'
-#'   \Sexpr[results=rd, stage=render]{lifecycle::badge("deprecated")}:
+#'   `r lifecycle::badge("deprecated")`:
 #'   previously you could write `df %>% nest(x, y, z)` and `df %>%
 #'   unnest(x, y, z)`. Convert to `df %>% nest(data = c(x, y, z))`.
 #'   and `df %>% unnest(c(x, y, z))`.
@@ -57,7 +57,7 @@
 #'   stripped. This makes `names_sep` roughly symmetric between nesting and
 #'   unnesting.
 #' @param .key
-#'   \Sexpr[results=rd, stage=render]{lifecycle::badge("deprecated")}:
+#'   `r lifecycle::badge("deprecated")`:
 #'   No longer needed because of the new `new_col = c(col1, col2,
 #'   col3)` syntax.
 #' @export
@@ -217,16 +217,16 @@ check_key <- function(.key) {
 #'   compatible sizes, i.e. they're either equal or length 1 (following the
 #'   standard tidyverse recycling rules).
 #' @param .drop,.preserve
-#'   \Sexpr[results=rd, stage=render]{lifecycle::badge("deprecated")}:
+#'   `r lifecycle::badge("deprecated")`:
 #'   all list-columns are now preserved; If there are any that you
 #'   don't want in the output use `select()` to remove them prior to
 #'   unnesting.
 #' @param .id
-#'   \Sexpr[results=rd, stage=render]{lifecycle::badge("deprecated")}:
+#'   `r lifecycle::badge("deprecated")`:
 #'   convert `df %>% unnest(x, .id = "id")` to `df %>% mutate(id =
 #'   names(x)) %>% unnest(x))`.
 #' @param .sep
-#'   \Sexpr[results=rd, stage=render]{lifecycle::badge("deprecated")}:
+#'   `r lifecycle::badge("deprecated")`:
 #'   use `names_sep` instead.
 #' @export
 #' @rdname nest

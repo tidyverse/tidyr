@@ -99,7 +99,7 @@ as is. If a string, the inner and outer names will be paste together using
 \code{names_sep} as a separator.}
 }
 \description{
-\Sexpr[results=rd, stage=render]{lifecycle::badge("maturing")}
+\ifelse{html}{\out{<a href='https://www.tidyverse.org/lifecycle/#maturing'><img src='figures/lifecycle-maturing.svg' alt='Maturing lifecycle'></a>}}{\strong{Maturing}}
 
 \code{hoist()}, \code{unnest_longer()}, and \code{unnest_wider()} provide tools for
 rectangling, collapsing deeply nested lists into regular columns.

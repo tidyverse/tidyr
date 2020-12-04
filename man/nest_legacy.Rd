@@ -41,7 +41,7 @@ will be duplicated in the same way as atomic vectors. This has
 \code{.preserve = c(x, y)} or \code{.preserve = starts_with("list")}.}
 }
 \description{
-\Sexpr[results=rd, stage=render]{lifecycle::badge("retired")}
+\ifelse{html}{\out{<a href='https://www.tidyverse.org/lifecycle/#retired'><img src='figures/lifecycle-retired.svg' alt='Retired lifecycle'></a>}}{\strong{Retired}}
 
 tidyr 1.0.0 introduced a new syntax for \code{\link[=nest]{nest()}} and \code{\link[=unnest]{unnest()}}. The majority
 of existing usage should be automatically translated to the new syntax with a
