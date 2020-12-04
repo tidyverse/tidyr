@@ -144,7 +144,7 @@ value column is \code{NA}.}
 stored as a character vector. If \code{TRUE}, will be stored as a factor,
 which preserves the original ordering of the columns.}
 
-\item{sep}{\Sexpr[results=rd, stage=render]{lifecycle::badge("deprecated")}:
+\item{sep}{\ifelse{html}{\figure{lifecycle-deprecated.svg}{options: alt='Deprecated lifecycle'}}{\strong{Deprecated}}:
 use \code{names_sep} instead.}
 
 \item{extra}{If \code{sep} is a character vector, this controls what
@@ -155,7 +155,7 @@ happens when there are too many pieces. There are three valid options:
 \item "merge": only splits at most \code{length(into)} times
 }}
 
-\item{drop}{\Sexpr[results=rd, stage=render]{lifecycle::badge("deprecated")}:
+\item{drop}{\ifelse{html}{\figure{lifecycle-deprecated.svg}{options: alt='Deprecated lifecycle'}}{\strong{Deprecated}}:
 all list-columns are now preserved; If there are any that you
 don't want in the output use \code{select()} to remove them prior to
 unnesting.}
@@ -165,7 +165,7 @@ unnesting.}
 \item{expand_cols}{Character vector of column names to be expanded.}
 }
 \description{
-\Sexpr[results=rd, stage=render]{lifecycle::badge("deprecated")}
+\ifelse{html}{\figure{lifecycle-deprecated.svg}{options: alt='Deprecated lifecycle'}}{\strong{Deprecated}}
 
 tidyr used to offer twin versions of each verb suffixed with an
 underscore. These versions had standard evaluation (SE) semantics:

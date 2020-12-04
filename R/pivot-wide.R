@@ -1,7 +1,7 @@
 #' Pivot data from long to wide
 #
 #' @description
-#' \Sexpr[results=rd, stage=render]{lifecycle::badge("maturing")}
+#' `r lifecycle::badge("maturing")`
 #'
 #' `pivot_wider()` "widens" data, increasing the number of columns and
 #' decreasing the number of rows. The inverse transformation is

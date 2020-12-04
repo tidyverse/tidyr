@@ -3,7 +3,7 @@
 #' Deprecated SE versions of main verbs
 #'
 #' @description
-#' \Sexpr[results=rd, stage=render]{lifecycle::badge("deprecated")}
+#' `r lifecycle::badge("deprecated")`
 #'
 #' tidyr used to offer twin versions of each verb suffixed with an
 #' underscore. These versions had standard evaluation (SE) semantics:
