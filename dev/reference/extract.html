@@ -208,15 +208,15 @@ each group into a new column. If the groups don't match, or the input
 is NA, the output will be NA.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>extract</span>(
-  <span class='no'>data</span>,
-  <span class='no'>col</span>,
-  <span class='no'>into</span>,
-  <span class='kw'>regex</span> <span class='kw'>=</span> <span class='st'>"([[:alnum:]]+)"</span>,
-  <span class='kw'>remove</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>convert</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='no'>...</span>
-)</pre>
+    <pre class="usage"><span class='fu'>extract</span><span class='op'>(</span>
+  <span class='va'>data</span>,
+  <span class='va'>col</span>,
+  <span class='va'>into</span>,
+  regex <span class='op'>=</span> <span class='st'>"([[:alnum:]]+)"</span>,
+  remove <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  convert <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -265,20 +265,23 @@ columns are integer, numeric or logical.</p>
     <div class='dont-index'><p><code><a href='separate.html'>separate()</a></code> to split up by a separator.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>NA</span>, <span class='st'>"a-b"</span>, <span class='st'>"a-d"</span>, <span class='st'>"b-c"</span>, <span class='st'>"d-e"</span>))
-<span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>extract</span>(<span class='no'>x</span>, <span class='st'>"A"</span>)</div><div class='output co'>#&gt;      A
+    <pre class="examples"><div class='input'><span class='va'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='cn'>NA</span>, <span class='st'>"a-b"</span>, <span class='st'>"a-d"</span>, <span class='st'>"b-c"</span>, <span class='st'>"d-e"</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>df</span> <span class='op'>%&gt;%</span> <span class='fu'>extract</span><span class='op'>(</span><span class='va'>x</span>, <span class='st'>"A"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;      A
 #&gt; 1 &lt;NA&gt;
 #&gt; 2    a
 #&gt; 3    a
 #&gt; 4    b
-#&gt; 5    d</div><div class='input'><span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>extract</span>(<span class='no'>x</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"A"</span>, <span class='st'>"B"</span>), <span class='st'>"([[:alnum:]]+)-([[:alnum:]]+)"</span>)</div><div class='output co'>#&gt;      A    B
+#&gt; 5    d</div><div class='input'><span class='va'>df</span> <span class='op'>%&gt;%</span> <span class='fu'>extract</span><span class='op'>(</span><span class='va'>x</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"A"</span>, <span class='st'>"B"</span><span class='op'>)</span>, <span class='st'>"([[:alnum:]]+)-([[:alnum:]]+)"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;      A    B
 #&gt; 1 &lt;NA&gt; &lt;NA&gt;
 #&gt; 2    a    b
 #&gt; 3    a    d
 #&gt; 4    b    c
 #&gt; 5    d    e</div><div class='input'>
 <span class='co'># If no match, NA:</span>
-<span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>extract</span>(<span class='no'>x</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"A"</span>, <span class='st'>"B"</span>), <span class='st'>"([a-d]+)-([a-d]+)"</span>)</div><div class='output co'>#&gt;      A    B
+<span class='va'>df</span> <span class='op'>%&gt;%</span> <span class='fu'>extract</span><span class='op'>(</span><span class='va'>x</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"A"</span>, <span class='st'>"B"</span><span class='op'>)</span>, <span class='st'>"([a-d]+)-([a-d]+)"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;      A    B
 #&gt; 1 &lt;NA&gt; &lt;NA&gt;
 #&gt; 2    a    b
 #&gt; 3    a    d

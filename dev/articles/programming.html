@@ -146,7 +146,8 @@
 
       
 
-      </header><script src="programming_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+      </header><script src="programming_files/accessible-code-block-0.0.1/empty-anchor.js"></script><link href="programming_files/anchor-sections-1.0/anchor-sections.css" rel="stylesheet">
+<script src="programming_files/anchor-sections-1.0/anchor-sections.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Programming with tidyr</h1>
@@ -163,16 +164,17 @@
 <h2 class="hasAnchor">
 <a href="#introduction" class="anchor"></a>Introduction</h2>
 <p>Most tidyr verbs use <strong>tidy evaluation</strong> to make interactive data exploration fast and fluid. Tidy evaluation is a special type of non-standard evaluation used throughout the tidyverse. Here’s some typical tidyr code:</p>
-<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">tidyr</span>)
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyr.tidyverse.org">tidyr</a></span><span class="op">)</span>
 
-<span class="no">iris</span> <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/nest.html">nest</a></span>(<span class="kw">data</span> <span class="kw">=</span> !<span class="no">Species</span>)
+<span class="va">iris</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../reference/nest.html">nest</a></span><span class="op">(</span>data <span class="op">=</span> <span class="op">!</span><span class="va">Species</span><span class="op">)</span>
 <span class="co">#&gt; # A tibble: 3 x 2</span>
 <span class="co">#&gt;   Species    data             </span>
 <span class="co">#&gt;   &lt;fct&gt;      &lt;list&gt;           </span>
 <span class="co">#&gt; 1 setosa     &lt;tibble [50 × 4]&gt;</span>
 <span class="co">#&gt; 2 versicolor &lt;tibble [50 × 4]&gt;</span>
-<span class="co">#&gt; 3 virginica  &lt;tibble [50 × 4]&gt;</span></pre></body></html></div>
+<span class="co">#&gt; 3 virginica  &lt;tibble [50 × 4]&gt;</span></code></pre></div>
 <p>Tidy evaluation is why we can use <code>!Species</code> to say “all the columns except <code>Species</code>”, without having to quote the column name (<code>"Species"</code>) or refer to the enclosing data frame (<code>iris$Species</code>).</p>
 <p>Two basic forms of tidy evaluation are used in tidyr:</p>
 <ul>
@@ -182,11 +184,12 @@
 <p>We focus on tidy selection here, since it’s the most common. You can learn more about data masking in the equivalent vignette in dplyr: <a href="https://dplyr.tidyverse.org/dev/articles/programming.html" class="uri">https://dplyr.tidyverse.org/dev/articles/programming.html</a>. For other considerations when writing tidyr code in packages, please see <code><a href="../articles/in-packages.html">vignette("in-packages")</a></code>.</p>
 <p>We’ve pointed out that tidyr’s tidy evaluation interface is optimized for interactive exploration. The flip side is that this adds some challenges to indirect use, i.e. when you’re working inside a <code>for</code> loop or a function. This vignette shows you how to overcome those challenges. We’ll first go over the basics of tidy selection and data masking, talk about how to use them indirectly, and then show you a number of recipes to solve common problems.</p>
 <p>Before we go on, we reveal the version of tidyr we’re using and make a small dataset to use in examples.</p>
-<div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/packageDescription.html">packageVersion</a></span>(<span class="st">"tidyr"</span>)
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/packageDescription.html">packageVersion</a></span><span class="op">(</span><span class="st">"tidyr"</span><span class="op">)</span>
 <span class="co">#&gt; [1] '1.1.2.9000'</span>
 
-<span class="no">mini_iris</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html">as_tibble</a></span>(<span class="no">iris</span>)[<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">51</span>, <span class="fl">52</span>, <span class="fl">101</span>, <span class="fl">102</span>), ]
-<span class="no">mini_iris</span>
+<span class="va">mini_iris</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html">as_tibble</a></span><span class="op">(</span><span class="va">iris</span><span class="op">)</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">51</span>, <span class="fl">52</span>, <span class="fl">101</span>, <span class="fl">102</span><span class="op">)</span>, <span class="op">]</span>
+<span class="va">mini_iris</span>
 <span class="co">#&gt; # A tibble: 6 x 5</span>
 <span class="co">#&gt;   Sepal.Length Sepal.Width Petal.Length Petal.Width Species   </span>
 <span class="co">#&gt;          &lt;dbl&gt;       &lt;dbl&gt;        &lt;dbl&gt;       &lt;dbl&gt; &lt;fct&gt;     </span>
@@ -195,17 +198,17 @@
 <span class="co">#&gt; 3          7           3.2          4.7         1.4 versicolor</span>
 <span class="co">#&gt; 4          6.4         3.2          4.5         1.5 versicolor</span>
 <span class="co">#&gt; 5          6.3         3.3          6           2.5 virginica </span>
-<span class="co">#&gt; 6          5.8         2.7          5.1         1.9 virginica</span></pre></body></html></div>
+<span class="co">#&gt; 6          5.8         2.7          5.1         1.9 virginica</span></code></pre></div>
 </div>
 <div id="tidy-selection" class="section level2">
 <h2 class="hasAnchor">
 <a href="#tidy-selection" class="anchor"></a>Tidy selection</h2>
 <p>Underneath all functions that use tidy selection is the <a href="https://tidyselect.r-lib.org/">tidyselect</a> package. It provides a miniature domain specific language that makes it easy to select columns by name, position, or type. For example:</p>
 <ul>
-<li><p><code>select(df, 1)</code> selects the first column; <code>select(df, last_col())</code> selects the last column.</p></li>
-<li><p><code>select(df, c(a, b, c))</code> selects columns <code>a</code>, <code>b</code>, and <code>c</code>.</p></li>
-<li><p><code>select(df, starts_with("a"))</code> selects all columns whose name starts with “a”; <code>select(df, ends_with("z"))</code> selects all columns whose name ends with “z”.</p></li>
-<li><p><code>select(df, where(is.numeric))</code> selects all numeric columns.</p></li>
+<li><p><code><a href="https://dplyr.tidyverse.org/reference/select.html">select(df, 1)</a></code> selects the first column; <code><a href="https://dplyr.tidyverse.org/reference/select.html">select(df, last_col())</a></code> selects the last column.</p></li>
+<li><p><code><a href="https://dplyr.tidyverse.org/reference/select.html">select(df, c(a, b, c))</a></code> selects columns <code>a</code>, <code>b</code>, and <code>c</code>.</p></li>
+<li><p><code><a href="https://dplyr.tidyverse.org/reference/select.html">select(df, starts_with("a"))</a></code> selects all columns whose name starts with “a”; <code><a href="https://dplyr.tidyverse.org/reference/select.html">select(df, ends_with("z"))</a></code> selects all columns whose name ends with “z”.</p></li>
+<li><p><code><a href="https://dplyr.tidyverse.org/reference/select.html">select(df, where(is.numeric))</a></code> selects all numeric columns.</p></li>
 </ul>
 <p>You can see more details in <code><a href="../reference/tidyr_tidy_select.html">?tidyr_tidy_select</a></code>.</p>
 <div id="indirection" class="section level3">
@@ -215,41 +218,44 @@
 <ul>
 <li>
 <p>When you have the tidy-select specification in a function argument, you must <strong>embrace</strong> the argument by surrounding it in doubled braces.</p>
-<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="no">nest_egg</span> <span class="kw">&lt;-</span> <span class="kw">function</span>(<span class="no">df</span>, <span class="no">cols</span>) {
-  <span class="fu"><a href="../reference/nest.html">nest</a></span>(<span class="no">df</span>, <span class="kw">egg</span> <span class="kw">=</span> {{ <span class="no">cols</span> }})
-}
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">nest_egg</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">df</span>, <span class="va">cols</span><span class="op">)</span> <span class="op">{</span>
+  <span class="fu"><a href="../reference/nest.html">nest</a></span><span class="op">(</span><span class="va">df</span>, egg <span class="op">=</span> <span class="op">{</span><span class="op">{</span> <span class="va">cols</span> <span class="op">}</span><span class="op">}</span><span class="op">)</span>
+<span class="op">}</span>
 
-<span class="fu">nest_egg</span>(<span class="no">mini_iris</span>, !<span class="no">Species</span>)
+<span class="fu">nest_egg</span><span class="op">(</span><span class="va">mini_iris</span>, <span class="op">!</span><span class="va">Species</span><span class="op">)</span>
 <span class="co">#&gt; # A tibble: 3 x 2</span>
 <span class="co">#&gt;   Species    egg             </span>
 <span class="co">#&gt;   &lt;fct&gt;      &lt;list&gt;          </span>
 <span class="co">#&gt; 1 setosa     &lt;tibble [2 × 4]&gt;</span>
 <span class="co">#&gt; 2 versicolor &lt;tibble [2 × 4]&gt;</span>
-<span class="co">#&gt; 3 virginica  &lt;tibble [2 × 4]&gt;</span></pre></body></html></div>
+<span class="co">#&gt; 3 virginica  &lt;tibble [2 × 4]&gt;</span></code></pre></div>
 </li>
 <li>
-<p>When you have a character vector of variable names, you must use <code>all_of()</code> or <code>any_of()</code> depending on whether you want the function to error if a variable is not found. These functions allow you to write for loops or a function that takes variable names as a character vector.</p>
-<div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="no">nest_egg</span> <span class="kw">&lt;-</span> <span class="kw">function</span>(<span class="no">df</span>, <span class="no">cols</span>) {
-  <span class="fu"><a href="../reference/nest.html">nest</a></span>(<span class="no">df</span>, <span class="kw">egg</span> <span class="kw">=</span> <span class="fu">all_of</span>(<span class="no">cols</span>))
-}
+<p>When you have a character vector of variable names, you must use <code><a href="https://tidyselect.r-lib.org/reference/all_of.html">all_of()</a></code> or <code><a href="https://tidyselect.r-lib.org/reference/all_of.html">any_of()</a></code> depending on whether you want the function to error if a variable is not found. These functions allow you to write for loops or a function that takes variable names as a character vector.</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">nest_egg</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">df</span>, <span class="va">cols</span><span class="op">)</span> <span class="op">{</span>
+  <span class="fu"><a href="../reference/nest.html">nest</a></span><span class="op">(</span><span class="va">df</span>, egg <span class="op">=</span> <span class="fu"><a href="https://tidyselect.r-lib.org/reference/all_of.html">all_of</a></span><span class="op">(</span><span class="va">cols</span><span class="op">)</span><span class="op">)</span>
+<span class="op">}</span>
 
-<span class="no">vars</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Sepal.Length"</span>, <span class="st">"Sepal.Width"</span>, <span class="st">"Petal.Length"</span>, <span class="st">"Petal.Width"</span>)
-<span class="fu">nest_egg</span>(<span class="no">mini_iris</span>, <span class="no">vars</span>)
+<span class="va">vars</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Sepal.Length"</span>, <span class="st">"Sepal.Width"</span>, <span class="st">"Petal.Length"</span>, <span class="st">"Petal.Width"</span><span class="op">)</span>
+<span class="fu">nest_egg</span><span class="op">(</span><span class="va">mini_iris</span>, <span class="va">vars</span><span class="op">)</span>
 <span class="co">#&gt; # A tibble: 3 x 2</span>
 <span class="co">#&gt;   Species    egg             </span>
 <span class="co">#&gt;   &lt;fct&gt;      &lt;list&gt;          </span>
 <span class="co">#&gt; 1 setosa     &lt;tibble [2 × 4]&gt;</span>
 <span class="co">#&gt; 2 versicolor &lt;tibble [2 × 4]&gt;</span>
-<span class="co">#&gt; 3 virginica  &lt;tibble [2 × 4]&gt;</span></pre></body></html></div>
+<span class="co">#&gt; 3 virginica  &lt;tibble [2 × 4]&gt;</span></code></pre></div>
 </li>
 <li>
 <p>In more complicated cases, you might want to use tidyselect directly:</p>
-<div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="no">sel_vars</span> <span class="kw">&lt;-</span> <span class="kw">function</span>(<span class="no">df</span>, <span class="no">cols</span>) {
-  <span class="kw pkg">tidyselect</span><span class="kw ns">::</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/eval_select.html">eval_select</a></span>(<span class="kw pkg">rlang</span><span class="kw ns">::</span><span class="fu"><a href="https://rlang.r-lib.org/reference/nse-defuse.html">enquo</a></span>(<span class="no">cols</span>), <span class="no">df</span>)
-}
-<span class="fu">sel_vars</span>(<span class="no">mini_iris</span>, !<span class="no">Species</span>)
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">sel_vars</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">df</span>, <span class="va">cols</span><span class="op">)</span> <span class="op">{</span>
+  <span class="fu">tidyselect</span><span class="fu">::</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/eval_select.html">eval_select</a></span><span class="op">(</span><span class="fu">rlang</span><span class="fu">::</span><span class="fu"><a href="https://rlang.r-lib.org/reference/nse-defuse.html">enquo</a></span><span class="op">(</span><span class="va">cols</span><span class="op">)</span>, <span class="va">df</span><span class="op">)</span>
+<span class="op">}</span>
+<span class="fu">sel_vars</span><span class="op">(</span><span class="va">mini_iris</span>, <span class="op">!</span><span class="va">Species</span><span class="op">)</span>
 <span class="co">#&gt; Sepal.Length  Sepal.Width Petal.Length  Petal.Width </span>
-<span class="co">#&gt;            1            2            3            4</span></pre></body></html></div>
+<span class="co">#&gt;            1            2            3            4</span></code></pre></div>
 <p>Learn more in <code>vignette("tidyselect")</code>.</p>
 </li>
 </ul>

@@ -201,7 +201,7 @@
     <p>Convenience function to paste together multiple columns into one.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>unite</span>(<span class='no'>data</span>, <span class='no'>col</span>, <span class='no'>...</span>, <span class='kw'>sep</span> <span class='kw'>=</span> <span class='st'>"_"</span>, <span class='kw'>remove</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>unite</span><span class='op'>(</span><span class='va'>data</span>, <span class='va'>col</span>, <span class='va'>...</span>, sep <span class='op'>=</span> <span class='st'>"_"</span>, remove <span class='op'>=</span> <span class='cn'>TRUE</span>, na.rm <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -244,22 +244,25 @@ each value.</p></td>
     <div class='dont-index'><p><code><a href='separate.html'>separate()</a></code>, the complement.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='expand_grid.html'>expand_grid</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"a"</span>, <span class='fl'>NA</span>), <span class='kw'>y</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"b"</span>, <span class='fl'>NA</span>))
-<span class='no'>df</span></div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 4 x 2</span><span>
+    <pre class="examples"><div class='input'><span class='va'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='expand_grid.html'>expand_grid</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"a"</span>, <span class='cn'>NA</span><span class='op'>)</span>, y <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"b"</span>, <span class='cn'>NA</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>df</span>
+</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 4 x 2</span><span>
 #&gt;   x     y    
 #&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>
 #&gt; </span><span style='color: #555555;'>1</span><span> a     b    
 #&gt; </span><span style='color: #555555;'>2</span><span> a     </span><span style='color: #BB0000;'>NA</span><span>   
 #&gt; </span><span style='color: #555555;'>3</span><span> </span><span style='color: #BB0000;'>NA</span><span>    b    
 #&gt; </span><span style='color: #555555;'>4</span><span> </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>   </div><div class='input'>
-<span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>unite</span>(<span class='st'>"z"</span>, <span class='no'>x</span>:<span class='no'>y</span>, <span class='kw'>remove</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 4 x 3</span><span>
+<span class='va'>df</span> <span class='op'>%&gt;%</span> <span class='fu'>unite</span><span class='op'>(</span><span class='st'>"z"</span>, <span class='va'>x</span><span class='op'>:</span><span class='va'>y</span>, remove <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 4 x 3</span><span>
 #&gt;   z     x     y    
 #&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>
 #&gt; </span><span style='color: #555555;'>1</span><span> a_b   a     b    
 #&gt; </span><span style='color: #555555;'>2</span><span> a_NA  a     </span><span style='color: #BB0000;'>NA</span><span>   
 #&gt; </span><span style='color: #555555;'>3</span><span> NA_b  </span><span style='color: #BB0000;'>NA</span><span>    b    
 #&gt; </span><span style='color: #555555;'>4</span><span> NA_NA </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>   </div><div class='input'><span class='co'># To remove missing values:</span>
-<span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>unite</span>(<span class='st'>"z"</span>, <span class='no'>x</span>:<span class='no'>y</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>remove</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 4 x 3</span><span>
+<span class='va'>df</span> <span class='op'>%&gt;%</span> <span class='fu'>unite</span><span class='op'>(</span><span class='st'>"z"</span>, <span class='va'>x</span><span class='op'>:</span><span class='va'>y</span>, na.rm <span class='op'>=</span> <span class='cn'>TRUE</span>, remove <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 4 x 3</span><span>
 #&gt;   z     x     y    
 #&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>
 #&gt; </span><span style='color: #555555;'>1</span><span> </span><span style='color: #555555;'>"</span><span>a_b</span><span style='color: #555555;'>"</span><span> a     b    
@@ -267,15 +270,16 @@ each value.</p></td>
 #&gt; </span><span style='color: #555555;'>3</span><span> </span><span style='color: #555555;'>"</span><span>b</span><span style='color: #555555;'>"</span><span>   </span><span style='color: #BB0000;'>NA</span><span>    b    
 #&gt; </span><span style='color: #555555;'>4</span><span> </span><span style='color: #555555;'>""</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>   </div><div class='input'>
 <span class='co'># Separate is almost the complement of unite</span>
-<span class='no'>df</span> <span class='kw'>%&gt;%</span>
-  <span class='fu'>unite</span>(<span class='st'>"xy"</span>, <span class='no'>x</span>:<span class='no'>y</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='separate.html'>separate</a></span>(<span class='no'>xy</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"x"</span>, <span class='st'>"y"</span>))</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 4 x 2</span><span>
+<span class='va'>df</span> <span class='op'>%&gt;%</span>
+  <span class='fu'>unite</span><span class='op'>(</span><span class='st'>"xy"</span>, <span class='va'>x</span><span class='op'>:</span><span class='va'>y</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='separate.html'>separate</a></span><span class='op'>(</span><span class='va'>xy</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"x"</span>, <span class='st'>"y"</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 4 x 2</span><span>
 #&gt;   x     y    
 #&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>
 #&gt; </span><span style='color: #555555;'>1</span><span> a     b    
 #&gt; </span><span style='color: #555555;'>2</span><span> a     NA   
 #&gt; </span><span style='color: #555555;'>3</span><span> NA    b    
-#&gt; </span><span style='color: #555555;'>4</span><span> NA    NA   </div><div class='input'># (but note `x` and `y` contain now "NA" not NA)
+#&gt; </span><span style='color: #555555;'>4</span><span> NA    NA   </div><div class='input'><span class='co'># (but note `x` and `y` contain now "NA" not NA)</span>
 </div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

@@ -204,7 +204,7 @@ See more details in vignette(&quot;pivot&quot;)." />
     </div>
 
     <div class="ref-description">
-    <p><a href='https://www.tidyverse.org/lifecycle/#retired'><img src='figures/lifecycle-retired.svg' alt='Retired lifecycle'></a></p>
+    <p><a href='https://www.tidyverse.org/lifecycle/#superseded'><img src='figures/lifecycle-superseded.svg' alt='Superseded lifecycle'></a></p>
 <p>Development on <code>gather()</code> is complete, and for new code we recommend
 switching to <code><a href='pivot_longer.html'>pivot_longer()</a></code>, which is easier to use, more featureful, and
 still under active development.
@@ -213,15 +213,15 @@ still under active development.
 <p>See more details in <code><a href='../articles/pivot.html'>vignette("pivot")</a></code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>gather</span>(
-  <span class='no'>data</span>,
-  <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"key"</span>,
-  <span class='kw'>value</span> <span class='kw'>=</span> <span class='st'>"value"</span>,
-  <span class='no'>...</span>,
-  <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>convert</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>factor_key</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
-)</pre>
+    <pre class="usage"><span class='fu'>gather</span><span class='op'>(</span>
+  <span class='va'>data</span>,
+  key <span class='op'>=</span> <span class='st'>"key"</span>,
+  value <span class='op'>=</span> <span class='st'>"value"</span>,
+  <span class='va'>...</span>,
+  na.rm <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  convert <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  factor_key <span class='op'>=</span> <span class='cn'>FALSE</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -287,22 +287,23 @@ refer to objects that you have defined with <code>&lt;-</code>.</p></li>
 columns, while <code><a href='https://rdrr.io/r/base/seq.html'>seq(start, end)</a></code> is a context expression that
 refers to objects from the contexts.</p>
 <p>If you need to refer to contextual objects from a data expression, you can
-use <code><a href='https://dplyr.tidyverse.org/reference/reexports.html'>all_of()</a></code> or <code><a href='https://dplyr.tidyverse.org/reference/reexports.html'>any_of()</a></code>. These functions are used to select
+use <code><a href='https://tidyselect.r-lib.org/reference/all_of.html'>all_of()</a></code> or <code><a href='https://tidyselect.r-lib.org/reference/all_of.html'>any_of()</a></code>. These functions are used to select
 data-variables whose names are stored in a env-variable. For instance,
-<code><a href='https://dplyr.tidyverse.org/reference/reexports.html'>all_of(a)</a></code> selects the variables listed in the character vector <code>a</code>.
+<code><a href='https://tidyselect.r-lib.org/reference/all_of.html'>all_of(a)</a></code> selects the variables listed in the character vector <code>a</code>.
 For more details, see the <code><a href='https://tidyselect.r-lib.org/reference/language.html'>tidyselect::select_helpers()</a></code> documentation.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>dplyr</span>)
+    <pre class="examples"><div class='input'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://dplyr.tidyverse.org'>dplyr</a></span><span class='op'>)</span>
 <span class='co'># From https://stackoverflow.com/questions/1181060</span>
-<span class='no'>stocks</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(
-  <span class='kw'>time</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span>(<span class='st'>'2009-01-01'</span>) + <span class='fl'>0</span>:<span class='fl'>9</span>,
-  <span class='kw'>X</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>10</span>, <span class='fl'>0</span>, <span class='fl'>1</span>),
-  <span class='kw'>Y</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>10</span>, <span class='fl'>0</span>, <span class='fl'>2</span>),
-  <span class='kw'>Z</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>10</span>, <span class='fl'>0</span>, <span class='fl'>4</span>)
-)
+<span class='va'>stocks</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span><span class='op'>(</span>
+  time <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span><span class='op'>(</span><span class='st'>'2009-01-01'</span><span class='op'>)</span> <span class='op'>+</span> <span class='fl'>0</span><span class='op'>:</span><span class='fl'>9</span>,
+  X <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>10</span>, <span class='fl'>0</span>, <span class='fl'>1</span><span class='op'>)</span>,
+  Y <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>10</span>, <span class='fl'>0</span>, <span class='fl'>2</span><span class='op'>)</span>,
+  Z <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>10</span>, <span class='fl'>0</span>, <span class='fl'>4</span><span class='op'>)</span>
+<span class='op'>)</span>
 
-<span class='fu'>gather</span>(<span class='no'>stocks</span>, <span class='st'>"stock"</span>, <span class='st'>"price"</span>, -<span class='no'>time</span>)</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 30 x 3</span><span>
+<span class='fu'>gather</span><span class='op'>(</span><span class='va'>stocks</span>, <span class='st'>"stock"</span>, <span class='st'>"price"</span>, <span class='op'>-</span><span class='va'>time</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 30 x 3</span><span>
 #&gt;    time       stock  price
 #&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
 #&gt; </span><span style='color: #555555;'> 1</span><span> 2009-01-01 X     -</span><span style='color: #BB0000;'>1.82</span><span> 
@@ -315,7 +316,8 @@ For more details, see the <code><a href='https://tidyselect.r-lib.org/reference/
 #&gt; </span><span style='color: #555555;'> 8</span><span> 2009-01-08 X     -</span><span style='color: #BB0000;'>1.63</span><span> 
 #&gt; </span><span style='color: #555555;'> 9</span><span> 2009-01-09 X      0.512
 #&gt; </span><span style='color: #555555;'>10</span><span> 2009-01-10 X     -</span><span style='color: #BB0000;'>1.86</span><span> 
-#&gt; </span><span style='color: #555555;'># … with 20 more rows</span><span></div><div class='input'><span class='no'>stocks</span> <span class='kw'>%&gt;%</span> <span class='fu'>gather</span>(<span class='st'>"stock"</span>, <span class='st'>"price"</span>, -<span class='no'>time</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 30 x 3</span><span>
+#&gt; </span><span style='color: #555555;'># … with 20 more rows</span><span></div><div class='input'><span class='va'>stocks</span> <span class='op'>%&gt;%</span> <span class='fu'>gather</span><span class='op'>(</span><span class='st'>"stock"</span>, <span class='st'>"price"</span>, <span class='op'>-</span><span class='va'>time</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 30 x 3</span><span>
 #&gt;    time       stock  price
 #&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
 #&gt; </span><span style='color: #555555;'> 1</span><span> 2009-01-01 X     -</span><span style='color: #BB0000;'>1.82</span><span> 
@@ -330,10 +332,11 @@ For more details, see the <code><a href='https://tidyselect.r-lib.org/reference/
 #&gt; </span><span style='color: #555555;'>10</span><span> 2009-01-10 X     -</span><span style='color: #BB0000;'>1.86</span><span> 
 #&gt; </span><span style='color: #555555;'># … with 20 more rows</span><span></div><div class='input'>
 <span class='co'># get first observation for each Species in iris data -- base R</span>
-<span class='no'>mini_iris</span> <span class='kw'>&lt;-</span> <span class='no'>iris</span>[<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>51</span>, <span class='fl'>101</span>), ]
+<span class='va'>mini_iris</span> <span class='op'>&lt;-</span> <span class='va'>iris</span><span class='op'>[</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>51</span>, <span class='fl'>101</span><span class='op'>)</span>, <span class='op'>]</span>
 <span class='co'># gather Sepal.Length, Sepal.Width, Petal.Length, Petal.Width</span>
-<span class='fu'>gather</span>(<span class='no'>mini_iris</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"flower_att"</span>, <span class='kw'>value</span> <span class='kw'>=</span> <span class='st'>"measurement"</span>,
-       <span class='no'>Sepal.Length</span>, <span class='no'>Sepal.Width</span>, <span class='no'>Petal.Length</span>, <span class='no'>Petal.Width</span>)</div><div class='output co'>#&gt;       Species   flower_att measurement
+<span class='fu'>gather</span><span class='op'>(</span><span class='va'>mini_iris</span>, key <span class='op'>=</span> <span class='st'>"flower_att"</span>, value <span class='op'>=</span> <span class='st'>"measurement"</span>,
+       <span class='va'>Sepal.Length</span>, <span class='va'>Sepal.Width</span>, <span class='va'>Petal.Length</span>, <span class='va'>Petal.Width</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;       Species   flower_att measurement
 #&gt; 1      setosa Sepal.Length         5.1
 #&gt; 2  versicolor Sepal.Length         7.0
 #&gt; 3   virginica Sepal.Length         6.3
@@ -346,7 +349,8 @@ For more details, see the <code><a href='https://tidyselect.r-lib.org/reference/
 #&gt; 10     setosa  Petal.Width         0.2
 #&gt; 11 versicolor  Petal.Width         1.4
 #&gt; 12  virginica  Petal.Width         2.5</div><div class='input'><span class='co'># same result but less verbose</span>
-<span class='fu'>gather</span>(<span class='no'>mini_iris</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"flower_att"</span>, <span class='kw'>value</span> <span class='kw'>=</span> <span class='st'>"measurement"</span>, -<span class='no'>Species</span>)</div><div class='output co'>#&gt;       Species   flower_att measurement
+<span class='fu'>gather</span><span class='op'>(</span><span class='va'>mini_iris</span>, key <span class='op'>=</span> <span class='st'>"flower_att"</span>, value <span class='op'>=</span> <span class='st'>"measurement"</span>, <span class='op'>-</span><span class='va'>Species</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;       Species   flower_att measurement
 #&gt; 1      setosa Sepal.Length         5.1
 #&gt; 2  versicolor Sepal.Length         7.0
 #&gt; 3   virginica Sepal.Length         6.3
@@ -360,12 +364,13 @@ For more details, see the <code><a href='https://tidyselect.r-lib.org/reference/
 #&gt; 11 versicolor  Petal.Width         1.4
 #&gt; 12  virginica  Petal.Width         2.5</div><div class='input'>
 <span class='co'># repeat iris example using dplyr and the pipe operator</span>
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>dplyr</span>)
-<span class='no'>mini_iris</span> <span class='kw'>&lt;-</span>
-  <span class='no'>iris</span> <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span>(<span class='no'>Species</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/slice.html'>slice</a></span>(<span class='fl'>1</span>)
-<span class='no'>mini_iris</span> <span class='kw'>%&gt;%</span> <span class='fu'>gather</span>(<span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"flower_att"</span>, <span class='kw'>value</span> <span class='kw'>=</span> <span class='st'>"measurement"</span>, -<span class='no'>Species</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 12 x 3</span><span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://dplyr.tidyverse.org'>dplyr</a></span><span class='op'>)</span>
+<span class='va'>mini_iris</span> <span class='op'>&lt;-</span>
+  <span class='va'>iris</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>Species</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/slice.html'>slice</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>)</span>
+<span class='va'>mini_iris</span> <span class='op'>%&gt;%</span> <span class='fu'>gather</span><span class='op'>(</span>key <span class='op'>=</span> <span class='st'>"flower_att"</span>, value <span class='op'>=</span> <span class='st'>"measurement"</span>, <span class='op'>-</span><span class='va'>Species</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 12 x 3</span><span>
 #&gt; </span><span style='color: #555555;'># Groups:   Species [3]</span><span>
 #&gt;    Species    flower_att   measurement
 #&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>      </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>              </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
