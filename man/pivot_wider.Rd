@@ -73,8 +73,6 @@ to different value columns.}
 \item{...}{Additional arguments passed on to methods.}
 }
 \description{
-\ifelse{html}{\out{<a href='https://www.tidyverse.org/lifecycle/#maturing'><img src='figures/lifecycle-maturing.svg' alt='Maturing lifecycle'></a>}}{\strong{Maturing}}
-
 \code{pivot_wider()} "widens" data, increasing the number of columns and
 decreasing the number of rows. The inverse transformation is
 \code{\link[=pivot_longer]{pivot_longer()}}.

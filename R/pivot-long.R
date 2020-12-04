@@ -1,8 +1,6 @@
 #' Pivot data from wide to long
 #'
 #' @description
-#' `r lifecycle::badge("maturing")`
-#'
 #' `pivot_longer()` "lengthens" data, increasing the number of rows and
 #' decreasing the number of columns. The inverse transformation is
 #' [pivot_wider()]
