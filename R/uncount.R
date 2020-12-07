@@ -33,7 +33,7 @@ uncount <- function(data, weights, .remove = TRUE, .id = NULL) {
   out <- vec_slice(data, vec_rep_each(vec_seq_along(data), w))
 
   if (.remove && quo_is_symbol(weights_quo)) {
-    out[[as_string(get_expr(weights_quo))]] <- NULL
+    out <- dplyr::select(out, -!!as_name(weights_quo))
   }
 
   if (!is.null(.id)) {
