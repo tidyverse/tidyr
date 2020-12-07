@@ -1,5 +1,8 @@
 # tidyr (development version)
 
+* `uncount()` error for non-integer weights and gives a clearer error message
+  for negative weights (@mgirlich, #1069).
+
 # tidyr 1.1.2
 
 * `separate_rows()` returns to 1.1.0 behaviour for empty strings 
