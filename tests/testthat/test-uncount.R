@@ -22,9 +22,12 @@ test_that("expands constants and expressions", {
   expect_equal(uncount(df, 1 + 1), df[c(1, 1), ])
 })
 
-test_that("must evaluate to numeric", {
+test_that("must evaluate to integer", {
+  df <- tibble(x = 1, w = 1/2)
+  expect_error(uncount(df, w), class = "vctrs_error_cast_lossy")
+
   df <- tibble(x = 1)
-  expect_error(uncount(df, "W"), "must evaluate to a numeric vector")
+  expect_error(uncount(df, "W"), class = "vctrs_error_incompatible_type")
 })
 
 test_that("works with 0 weights", {
