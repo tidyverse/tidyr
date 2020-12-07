@@ -26,3 +26,13 @@ test_that("must evaluate to numeric", {
   df <- tibble(x = 1)
   expect_error(uncount(df, "W"), "must evaluate to a numeric vector")
 })
+
+test_that("works with 0 weights", {
+  df <- tibble(x = 1:2, w = c(0, 1))
+  expect_equal(uncount(df, w), tibble(x = 2))
+})
+
+test_that("errors on negative weights", {
+  df <- tibble(x = 1, w = -1)
+  expect_error(uncount(df, w), "all elements of `weights` must be >= 0")
+})
