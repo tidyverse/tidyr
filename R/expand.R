@@ -35,8 +35,7 @@
 #'
 #'   When used with continuous variables, you may need to fill in values
 #'   that do not appear in the data: to do so use expressions like
-
-#'   `year = 2010:2020` or `year = \link{full_seq}(year,1)`.
+#'   `year = 2010:2020` or [`year = full_seq(year, 1)`][full_seq].
 #' @seealso [complete()] to expand list objects. [expand_grid()]
 #'   to input vectors rather than a data frame.
 #' @export
