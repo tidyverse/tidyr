@@ -28,6 +28,10 @@ uncount <- function(data, weights, .remove = TRUE, .id = NULL) {
     stop("`weights` must evaluate to a numeric vector", call. = FALSE)
   }
 
+  if (any(w < 0)) {
+    abort("all elements of `weights` must be >= 0")
+  }
+
   out <- data[rep(seq_nrow(data), w), , drop = FALSE]
 
   if (.remove && quo_is_symbol(weights_quo)) {
