@@ -32,10 +32,8 @@ uncount <- function(data, weights, .remove = TRUE, .id = NULL) {
 
   out <- vec_slice(data, vec_rep_each(vec_seq_along(data), w))
 
-  weights_is_col <- quo_is_symbol(weights_quo) &&
-    quo_name(weights_quo) %in% colnames(data)
-  if (.remove && weights_is_col) {
-    out <- dplyr::select(out, -!!as_name(weights_quo))
+  if (.remove && quo_is_symbol(weights_quo)) {
+    out <- dplyr::select(out, -any_of(as_string(get_expr(weights_quo))))
   }
 
   if (!is.null(.id)) {
