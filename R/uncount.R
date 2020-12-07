@@ -8,7 +8,8 @@
 #'   supports quasiquotation.
 #' @param .id Supply a string to create a new variable which gives a unique
 #'   identifier for each created row.
-#' @param .remove If `TRUE`, and `weights` is a `single`
+#' @param .remove If `TRUE`, and `weights` is the name of a column in `data`,
+#'   then this column is removed.
 #' @export
 #' @examples
 #' df <- tibble(x = c("a", "b"), n = c(1, 2))
