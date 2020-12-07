@@ -30,7 +30,7 @@ uncount <- function(data, weights, .remove = TRUE, .id = NULL) {
     abort("all elements of `weights` must be >= 0")
   }
 
-  out <- vec_slice(data, vec_rep_each(vec_seq_along(data), w))
+  out <- vec_rep_each(data, w)
 
   if (.remove && quo_is_symbol(weights_quo)) {
     out <- dplyr::select(out, -any_of(as_string(get_expr(weights_quo))))
