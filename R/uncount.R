@@ -23,10 +23,7 @@
 uncount <- function(data, weights, .remove = TRUE, .id = NULL) {
   weights_quo <- enquo(weights)
   w <- dplyr::pull(dplyr::mutate(data, `_weight` = !! weights_quo))
-
-  if (!is.numeric(w)) {
-    stop("`weights` must evaluate to a numeric vector", call. = FALSE)
-  }
+  w <- vec_cast(w, integer(), x_arg = "weights")
 
   if (any(w < 0)) {
     abort("all elements of `weights` must be >= 0")
