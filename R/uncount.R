@@ -32,7 +32,7 @@ uncount <- function(data, weights, .remove = TRUE, .id = NULL) {
     abort("all elements of `weights` must be >= 0")
   }
 
-  out <- data[rep(seq_nrow(data), w), , drop = FALSE]
+  out <- vec_slice(data, vec_rep_each(vec_seq_along(data), w))
 
   if (.remove && quo_is_symbol(weights_quo)) {
     out[[as_string(get_expr(weights_quo))]] <- NULL
