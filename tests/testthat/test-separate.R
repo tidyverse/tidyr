@@ -134,6 +134,11 @@ test_that("str_split_n handles edge cases", {
   expect_equal(str_split_n(NA, ",", 1), list(NA_character_))
 })
 
+test_that("str_split_n handles factors", {
+  expect_equal(str_split_n(factor(), ",", 1), list())
+  expect_equal(str_split_n(factor("x,x"), ",", 2), list(c("x", "x")))
+})
+
 test_that("list_indices truncates long warnings", {
   expect_equal(list_indices(letters, max = 3), "a, b, c, ...")
 })
