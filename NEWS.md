@@ -1,5 +1,7 @@
 # tidyr (development version)
 
+* `separate_rows()` works for factor columns (@mgirlich, #1058).
+
 # tidyr 1.1.2
 
 * `separate_rows()` returns to 1.1.0 behaviour for empty strings 
