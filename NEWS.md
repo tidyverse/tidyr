@@ -1,5 +1,7 @@
 # tidyr (development version)
 
+* `pivot_wider()` works with data.table and empty key variables (@mgirlich, #1066).
+
 # tidyr 1.1.2
 
 * `separate_rows()` returns to 1.1.0 behaviour for empty strings 
