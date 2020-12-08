@@ -24,6 +24,9 @@
 uncount <- function(data, weights, .remove = TRUE, .id = NULL) {
   weights_quo <- enquo(weights)
   w <- dplyr::pull(dplyr::mutate(data, `_weight` = !! weights_quo))
+  # NOTE `vec_cast()` and check for positive weights can be removed
+  # if `vec_rep_each()` gets a `x_arg` argument
+  # https://github.com/r-lib/vctrs/issues/1303
   w <- vec_cast(w, integer(), x_arg = "weights")
 
   if (any(w < 0)) {
