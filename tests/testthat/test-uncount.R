@@ -28,13 +28,6 @@ test_that("works with groups", {
   expect_equal(uncount(df, w), df %>% dplyr::select(-w))
 })
 
-test_that("doesn't remove grouping variable", {
-  df <- tibble(g = 1, x = 1, w = 1) %>% dplyr::group_by(g)
-
-  expect_message(uncount(df, g)) %>%
-    expect_equal(df)
-})
-
 test_that("must evaluate to integer", {
   df <- tibble(x = 1, w = 1/2)
   expect_error(uncount(df, w), class = "vctrs_error_cast_lossy")

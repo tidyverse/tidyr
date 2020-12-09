@@ -9,7 +9,7 @@
 #' @param .id Supply a string to create a new variable which gives a unique
 #'   identifier for each created row.
 #' @param .remove If `TRUE`, and `weights` is the name of a column in `data`,
-#'   then this column is removed. Grouping variables are maintained.
+#'   then this column is removed.
 #' @export
 #' @examples
 #' df <- tibble(x = c("a", "b"), n = c(1, 2))
@@ -35,8 +35,10 @@ uncount <- function(data, weights, .remove = TRUE, .id = NULL) {
 
   out <- vec_rep_each(data, w)
 
+  # NOTE it was decided to also remove grouping variables as there is no clear
+  # best answer. See https://github.com/tidyverse/tidyr/pull/1070
   if (.remove && quo_is_symbol(weights_quo)) {
-    out <- dplyr::select(out, -any_of(as_string(get_expr(weights_quo))))
+    out[[as_string(get_expr(weights_quo))]] <- NULL
   }
 
   if (!is.null(.id)) {
