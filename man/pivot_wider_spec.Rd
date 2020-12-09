@@ -11,7 +11,8 @@ pivot_wider_spec(
   names_repair = "check_unique",
   id_cols = NULL,
   values_fill = NULL,
-  values_fn = NULL
+  values_fn = NULL,
+  others_fn = NULL
 )
 
 build_wider_spec(
@@ -59,6 +60,14 @@ to different value columns.}
 \item{values_fn}{Optionally, a function applied to the \code{value} in each cell
 in the output. You will typically use this when the combination of
 \code{id_cols} and \code{value} column does not uniquely identify an observation.
+
+This can be a named list if you want to apply different aggregations
+to different value columns.}
+
+\item{others_fn}{Optionally, a function applied to the columns not used in
+\code{id_cols}, \code{names_from}, and \code{values_from}. You will typically use this
+when the combination of \code{id_cols} and \code{value} column does not uniquely
+identify an observation.
 
 This can be a named list if you want to apply different aggregations
 to different value columns.}
