@@ -71,13 +71,12 @@ in the output. You will typically use this when the combination of
 This can be a named list if you want to apply different aggregations
 to different value columns.}
 
-\item{others_fn}{Optionally, a function applied to the columns not used in
-\code{id_cols}, \code{names_from}, and \code{values_from}. You will typically use this
-when the combination of \code{id_cols} and \code{value} column does not uniquely
-identify an observation.
+\item{others_fn}{By default columns not used in \code{id_cols}, \code{names_from}, and
+\code{values_from} are dropped. Optionally, you can specify a function to
+aggregate these columns.
 
 This can be a named list if you want to apply different aggregations
-to different value columns.}
+to different columns.}
 
 \item{...}{Additional arguments passed on to methods.}
 }

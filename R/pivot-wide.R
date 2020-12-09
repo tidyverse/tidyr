@@ -50,13 +50,12 @@
 #'
 #'   This can be a named list if you want to apply different aggregations
 #'   to different value columns.
-#' @param others_fn Optionally, a function applied to the columns not used in
-#'   `id_cols`, `names_from`, and `values_from`. You will typically use this
-#'   when the combination of `id_cols` and `value` column does not uniquely
-#'   identify an observation.
+#' @param others_fn By default columns not used in `id_cols`, `names_from`, and
+#'   `values_from` are dropped. Optionally, you can specify a function to
+#'   aggregate these columns.
 #'
 #'   This can be a named list if you want to apply different aggregations
-#'   to different value columns.
+#'   to different columns.
 #' @param ... Additional arguments passed on to methods.
 #' @export
 #' @examples
