@@ -1,6 +1,8 @@
 # tidyr (development version)
 
 * `separate_rows()` works for factor columns (@mgirlich, #1058).
+* `pivot_wider()` gets a `others_fn` argument to aggregate columns not used
+  in `id_cols`, `names_from`, and `values_from`.
 
 # tidyr 1.1.2
 
