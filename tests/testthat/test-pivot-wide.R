@@ -215,3 +215,34 @@ test_that("column order in output matches spec", {
   pv <- pivot_wider_spec(df, sp)
   expect_named(pv, c("name", sp$.name))
 })
+
+# aggregate other columns -------------------------------------------------
+
+test_that("can aggregate other columns with `others_fn`", {
+  df <- tibble(
+    a = c(1, 1, 2),
+    key = c("x", "x", "x"),
+    val = 1:3,
+    b = 2
+  )
+
+  pv <- pivot_wider(df,
+    id_cols = a,
+    names_from = key,
+    values_from = val,
+    values_fn = list(val = max),
+    others_fn = list(b = length)
+  )
+
+  expect_equal(pv$b, c(2, 1))
+
+  pv <- pivot_wider(df,
+    id_cols = a,
+    names_from = key,
+    values_from = val,
+    values_fn = list(val = max),
+    others_fn = length
+  )
+
+  expect_equal(pv$b, c(2, 1))
+})
