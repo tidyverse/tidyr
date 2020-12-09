@@ -160,7 +160,7 @@
 #' (downloaded March 2019)
 "construction"
 
-#' Song rankings for billboard top 100 in the year 2000
+#' Song rankings for Billboard top 100 in the year 2000
 #'
 #' @format A dataset with variables:
 #' \describe{

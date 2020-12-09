@@ -3,7 +3,7 @@
 \docType{data}
 \name{billboard}
 \alias{billboard}
-\title{Song rankings for billboard top 100 in the year 2000}
+\title{Song rankings for Billboard top 100 in the year 2000}
 \format{
 A dataset with variables:
 \describe{
@@ -21,6 +21,6 @@ The "Whitburn" project, \url{https://waxy.org/2008/05/the_whitburn_project/},
 billboard
 }
 \description{
-Song rankings for billboard top 100 in the year 2000
+Song rankings for Billboard top 100 in the year 2000
 }
 \keyword{datasets}
