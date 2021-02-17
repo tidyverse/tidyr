@@ -113,7 +113,7 @@ us_rent_income \%>\%
 us_rent_income \%>\%
   pivot_wider(names_from = variable, values_from = c(estimate, moe))
 
-# `pivot-wider_spec()` provides more control over column names and output format
+# `pivot_wider_spec()` provides more control over column names and output format
 # instead of creating columns with estimate_ and moe_ prefixes,
 # keep original variable name for estimates and attach _moe as suffix
 spec2 <- tibble(
