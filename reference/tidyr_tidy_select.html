@@ -178,7 +178,7 @@ names." />
 </li>
         <li>
   <a href="https://github.com/tidyverse/tidyr/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -213,9 +213,9 @@ names.</p>
 
     <p>Tidyverse selections implement a dialect of R where operators make
 it easy to select variables:</p><ul>
-<li><p><code>:</code> for selecting a range of consecutive variables.</p></li>
-<li><p><code>!</code> for taking the complement of a set of variables.</p></li>
-<li><p><code>&amp;</code> and <code>|</code> for selecting the intersection or the union of two
+<li><p><code><a href='https://rdrr.io/r/base/Colon.html'>:</a></code> for selecting a range of consecutive variables.</p></li>
+<li><p><code><a href='https://rdrr.io/r/base/Logic.html'>!</a></code> for taking the complement of a set of variables.</p></li>
+<li><p><code>&amp;</code> and <code><a href='https://rdrr.io/r/base/Logic.html'>|</a></code> for selecting the intersection or the union of two
 sets of variables.</p></li>
 <li><p><code><a href='https://rdrr.io/r/base/c.html'>c()</a></code> for combining selections.</p></li>
 </ul>
@@ -238,7 +238,7 @@ columns:</p><ul>
 <li><p><code><a href='https://tidyselect.r-lib.org/reference/all_of.html'>all_of()</a></code>: Matches variable names in a character vector. All
 names must be present, otherwise an out-of-bounds error is
 thrown.</p></li>
-<li><p><code><a href='https://tidyselect.r-lib.org/reference/all_of.html'>any_of()</a></code>: Same as <code>all_of()</code>, except that no error is thrown
+<li><p><code><a href='https://tidyselect.r-lib.org/reference/all_of.html'>any_of()</a></code>: Same as <code><a href='https://tidyselect.r-lib.org/reference/all_of.html'>all_of()</a></code>, except that no error is thrown
 for names that don't exist.</p></li>
 </ul>
 
@@ -250,8 +250,8 @@ for which the function returns <code>TRUE</code>.</p></li>
     <h2 class="hasAnchor" id="indirection"><a class="anchor" href="#indirection"></a>Indirection</h2>
 
     <p>There are two main cases:</p><ul>
-<li><p>If you have a character vector of column names, use <code>all_of()</code>
-or <code>any_of()</code>, depending on whether or not you want unknown variable
+<li><p>If you have a character vector of column names, use <code><a href='https://tidyselect.r-lib.org/reference/all_of.html'>all_of()</a></code>
+or <code><a href='https://tidyselect.r-lib.org/reference/all_of.html'>any_of()</a></code>, depending on whether or not you want unknown variable
 names to cause an error, e.g <code><a href='nest.html'>unnest(df, all_of(vars))</a></code>,
 <code><a href='nest.html'>unnest(df, !any_of(vars))</a></code>.</p></li>
 <li><p>If you want the user to supply a tidyselect specification in a

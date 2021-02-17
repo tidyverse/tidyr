@@ -178,7 +178,7 @@ separate() turns a single character column into multiple columns." />
 </li>
         <li>
   <a href="https://github.com/tidyverse/tidyr/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -206,17 +206,17 @@ expression or numeric locations</h1>
 <code>separate()</code> turns a single character column into multiple columns.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>separate</span>(
-  <span class='no'>data</span>,
-  <span class='no'>col</span>,
-  <span class='no'>into</span>,
-  <span class='kw'>sep</span> <span class='kw'>=</span> <span class='st'>"[^[:alnum:]]+"</span>,
-  <span class='kw'>remove</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>convert</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>extra</span> <span class='kw'>=</span> <span class='st'>"warn"</span>,
-  <span class='kw'>fill</span> <span class='kw'>=</span> <span class='st'>"warn"</span>,
-  <span class='no'>...</span>
-)</pre>
+    <pre class="usage"><span class='fu'>separate</span><span class='op'>(</span>
+  <span class='va'>data</span>,
+  <span class='va'>col</span>,
+  <span class='va'>into</span>,
+  sep <span class='op'>=</span> <span class='st'>"[^[:alnum:]]+"</span>,
+  remove <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  convert <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  extra <span class='op'>=</span> <span class='st'>"warn"</span>,
+  fill <span class='op'>=</span> <span class='st'>"warn"</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -290,60 +290,70 @@ happens when there are not enough pieces. There are three valid options:</p><ul>
 expression capturing groups.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>dplyr</span>)
+    <pre class="examples"><div class='input'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://dplyr.tidyverse.org'>dplyr</a></span><span class='op'>)</span>
 <span class='co'># If you want to split by any non-alphanumeric value (the default):</span>
-<span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>NA</span>, <span class='st'>"a.b"</span>, <span class='st'>"a.d"</span>, <span class='st'>"b.c"</span>))
-<span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>separate</span>(<span class='no'>x</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"A"</span>, <span class='st'>"B"</span>))</div><div class='output co'>#&gt;      A    B
+<span class='va'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='cn'>NA</span>, <span class='st'>"a.b"</span>, <span class='st'>"a.d"</span>, <span class='st'>"b.c"</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>df</span> <span class='op'>%&gt;%</span> <span class='fu'>separate</span><span class='op'>(</span><span class='va'>x</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"A"</span>, <span class='st'>"B"</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;      A    B
 #&gt; 1 &lt;NA&gt; &lt;NA&gt;
 #&gt; 2    a    b
 #&gt; 3    a    d
 #&gt; 4    b    c</div><div class='input'>
 <span class='co'># If you just want the second variable:</span>
-<span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>separate</span>(<span class='no'>x</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>NA</span>, <span class='st'>"B"</span>))</div><div class='output co'>#&gt;      B
+<span class='va'>df</span> <span class='op'>%&gt;%</span> <span class='fu'>separate</span><span class='op'>(</span><span class='va'>x</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='cn'>NA</span>, <span class='st'>"B"</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;      B
 #&gt; 1 &lt;NA&gt;
 #&gt; 2    b
 #&gt; 3    d
 #&gt; 4    c</div><div class='input'>
 <span class='co'># If every row doesn't split into the same number of pieces, use</span>
 <span class='co'># the extra and fill arguments to control what happens:</span>
-<span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"a"</span>, <span class='st'>"a b"</span>, <span class='st'>"a b c"</span>, <span class='fl'>NA</span>))
-<span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>separate</span>(<span class='no'>x</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"a"</span>, <span class='st'>"b"</span>))</div><div class='output co'>#&gt; <span class='warning'>Warning: Expected 2 pieces. Additional pieces discarded in 1 rows [3].</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Expected 2 pieces. Missing pieces filled with `NA` in 1 rows [1].</span></div><div class='output co'>#&gt;      a    b
+<span class='va'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"a"</span>, <span class='st'>"a b"</span>, <span class='st'>"a b c"</span>, <span class='cn'>NA</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>df</span> <span class='op'>%&gt;%</span> <span class='fu'>separate</span><span class='op'>(</span><span class='va'>x</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"a"</span>, <span class='st'>"b"</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: Expected 2 pieces. Additional pieces discarded in 1 rows [3].</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Expected 2 pieces. Missing pieces filled with `NA` in 1 rows [1].</span></div><div class='output co'>#&gt;      a    b
 #&gt; 1    a &lt;NA&gt;
 #&gt; 2    a    b
 #&gt; 3    a    b
 #&gt; 4 &lt;NA&gt; &lt;NA&gt;</div><div class='input'><span class='co'># The same behaviour as previous, but drops the c without warnings:</span>
-<span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>separate</span>(<span class='no'>x</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"a"</span>, <span class='st'>"b"</span>), <span class='kw'>extra</span> <span class='kw'>=</span> <span class='st'>"drop"</span>, <span class='kw'>fill</span> <span class='kw'>=</span> <span class='st'>"right"</span>)</div><div class='output co'>#&gt;      a    b
+<span class='va'>df</span> <span class='op'>%&gt;%</span> <span class='fu'>separate</span><span class='op'>(</span><span class='va'>x</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"a"</span>, <span class='st'>"b"</span><span class='op'>)</span>, extra <span class='op'>=</span> <span class='st'>"drop"</span>, fill <span class='op'>=</span> <span class='st'>"right"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;      a    b
 #&gt; 1    a &lt;NA&gt;
 #&gt; 2    a    b
 #&gt; 3    a    b
 #&gt; 4 &lt;NA&gt; &lt;NA&gt;</div><div class='input'><span class='co'># Opposite of previous, keeping the c and filling left:</span>
-<span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>separate</span>(<span class='no'>x</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"a"</span>, <span class='st'>"b"</span>), <span class='kw'>extra</span> <span class='kw'>=</span> <span class='st'>"merge"</span>, <span class='kw'>fill</span> <span class='kw'>=</span> <span class='st'>"left"</span>)</div><div class='output co'>#&gt;      a    b
+<span class='va'>df</span> <span class='op'>%&gt;%</span> <span class='fu'>separate</span><span class='op'>(</span><span class='va'>x</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"a"</span>, <span class='st'>"b"</span><span class='op'>)</span>, extra <span class='op'>=</span> <span class='st'>"merge"</span>, fill <span class='op'>=</span> <span class='st'>"left"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;      a    b
 #&gt; 1 &lt;NA&gt;    a
 #&gt; 2    a    b
 #&gt; 3    a  b c
 #&gt; 4 &lt;NA&gt; &lt;NA&gt;</div><div class='input'><span class='co'># Or you can keep all three:</span>
-<span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>separate</span>(<span class='no'>x</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"a"</span>, <span class='st'>"b"</span>, <span class='st'>"c"</span>))</div><div class='output co'>#&gt; <span class='warning'>Warning: Expected 3 pieces. Missing pieces filled with `NA` in 2 rows [1, 2].</span></div><div class='output co'>#&gt;      a    b    c
+<span class='va'>df</span> <span class='op'>%&gt;%</span> <span class='fu'>separate</span><span class='op'>(</span><span class='va'>x</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"a"</span>, <span class='st'>"b"</span>, <span class='st'>"c"</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: Expected 3 pieces. Missing pieces filled with `NA` in 2 rows [1, 2].</span></div><div class='output co'>#&gt;      a    b    c
 #&gt; 1    a &lt;NA&gt; &lt;NA&gt;
 #&gt; 2    a    b &lt;NA&gt;
 #&gt; 3    a    b    c
 #&gt; 4 &lt;NA&gt; &lt;NA&gt; &lt;NA&gt;</div><div class='input'>
 <span class='co'># To only split a specified number of times use extra = "merge":</span>
-<span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"x: 123"</span>, <span class='st'>"y: error: 7"</span>))
-<span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>separate</span>(<span class='no'>x</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"key"</span>, <span class='st'>"value"</span>), <span class='st'>": "</span>, <span class='kw'>extra</span> <span class='kw'>=</span> <span class='st'>"merge"</span>)</div><div class='output co'>#&gt;   key    value
+<span class='va'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"x: 123"</span>, <span class='st'>"y: error: 7"</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>df</span> <span class='op'>%&gt;%</span> <span class='fu'>separate</span><span class='op'>(</span><span class='va'>x</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"key"</span>, <span class='st'>"value"</span><span class='op'>)</span>, <span class='st'>": "</span>, extra <span class='op'>=</span> <span class='st'>"merge"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;   key    value
 #&gt; 1   x      123
 #&gt; 2   y error: 7</div><div class='input'>
 <span class='co'># Use regular expressions to separate on multiple characters:</span>
-<span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>NA</span>, <span class='st'>"a?b"</span>, <span class='st'>"a.d"</span>, <span class='st'>"b:c"</span>))
-<span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>separate</span>(<span class='no'>x</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"A"</span>,<span class='st'>"B"</span>), <span class='kw'>sep</span> <span class='kw'>=</span> <span class='st'>"([.?:])"</span>)</div><div class='output co'>#&gt;      A    B
+<span class='va'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='cn'>NA</span>, <span class='st'>"a?b"</span>, <span class='st'>"a.d"</span>, <span class='st'>"b:c"</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>df</span> <span class='op'>%&gt;%</span> <span class='fu'>separate</span><span class='op'>(</span><span class='va'>x</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"A"</span>,<span class='st'>"B"</span><span class='op'>)</span>, sep <span class='op'>=</span> <span class='st'>"([.?:])"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;      A    B
 #&gt; 1 &lt;NA&gt; &lt;NA&gt;
 #&gt; 2    a    b
 #&gt; 3    a    d
 #&gt; 4    b    c</div><div class='input'>
 <span class='co'># convert = TRUE detects column classes:</span>
-<span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"a:1"</span>, <span class='st'>"a:2"</span>, <span class='st'>"c:4"</span>, <span class='st'>"d"</span>, <span class='fl'>NA</span>))
-<span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>separate</span>(<span class='no'>x</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"key"</span>,<span class='st'>"value"</span>), <span class='st'>":"</span>) <span class='kw'>%&gt;%</span> <span class='no'>str</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Expected 2 pieces. Missing pieces filled with `NA` in 1 rows [4].</span></div><div class='output co'>#&gt; 'data.frame':	5 obs. of  2 variables:
+<span class='va'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"a:1"</span>, <span class='st'>"a:2"</span>, <span class='st'>"c:4"</span>, <span class='st'>"d"</span>, <span class='cn'>NA</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>df</span> <span class='op'>%&gt;%</span> <span class='fu'>separate</span><span class='op'>(</span><span class='va'>x</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"key"</span>,<span class='st'>"value"</span><span class='op'>)</span>, <span class='st'>":"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='va'>str</span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: Expected 2 pieces. Missing pieces filled with `NA` in 1 rows [4].</span></div><div class='output co'>#&gt; 'data.frame':	5 obs. of  2 variables:
 #&gt;  $ key  : chr  "a" "a" "c" "d" ...
-#&gt;  $ value: chr  "1" "2" "4" NA ...</div><div class='input'><span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>separate</span>(<span class='no'>x</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"key"</span>,<span class='st'>"value"</span>), <span class='st'>":"</span>, <span class='kw'>convert</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>) <span class='kw'>%&gt;%</span> <span class='no'>str</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Expected 2 pieces. Missing pieces filled with `NA` in 1 rows [4].</span></div><div class='output co'>#&gt; 'data.frame':	5 obs. of  2 variables:
+#&gt;  $ value: chr  "1" "2" "4" NA ...</div><div class='input'><span class='va'>df</span> <span class='op'>%&gt;%</span> <span class='fu'>separate</span><span class='op'>(</span><span class='va'>x</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"key"</span>,<span class='st'>"value"</span><span class='op'>)</span>, <span class='st'>":"</span>, convert <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='va'>str</span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: Expected 2 pieces. Missing pieces filled with `NA` in 1 rows [4].</span></div><div class='output co'>#&gt; 'data.frame':	5 obs. of  2 variables:
 #&gt;  $ key  : chr  "a" "a" "c" "d" ...
 #&gt;  $ value: int  1 2 4 NA NA</div></pre>
   </div>

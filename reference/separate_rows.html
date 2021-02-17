@@ -176,7 +176,7 @@ separates the values and places each one in its own row." />
 </li>
         <li>
   <a href="https://github.com/tidyverse/tidyr/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -203,7 +203,7 @@ separates the values and places each one in its own row." />
 separates the values and places each one in its own row.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>separate_rows</span>(<span class='no'>data</span>, <span class='no'>...</span>, <span class='kw'>sep</span> <span class='kw'>=</span> <span class='st'>"[^[:alnum:].]+"</span>, <span class='kw'>convert</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>separate_rows</span><span class='op'>(</span><span class='va'>data</span>, <span class='va'>...</span>, sep <span class='op'>=</span> <span class='st'>"[^[:alnum:].]+"</span>, convert <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -231,20 +231,21 @@ types are actually numeric, integer, or logical.</p></td>
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(
-  <span class='kw'>x</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>3</span>,
-  <span class='kw'>y</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"a"</span>, <span class='st'>"d,e,f"</span>, <span class='st'>"g,h"</span>),
-  <span class='kw'>z</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"1"</span>, <span class='st'>"2,3,4"</span>, <span class='st'>"5,6"</span>)
-)
-<span class='fu'>separate_rows</span>(<span class='no'>df</span>, <span class='no'>y</span>, <span class='no'>z</span>, <span class='kw'>convert</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 6 x 3</span><span>
+    <pre class="examples"><div class='input'><span class='va'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span><span class='op'>(</span>
+  x <span class='op'>=</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span>,
+  y <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"a"</span>, <span class='st'>"d,e,f"</span>, <span class='st'>"g,h"</span><span class='op'>)</span>,
+  z <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"1"</span>, <span class='st'>"2,3,4"</span>, <span class='st'>"5,6"</span><span class='op'>)</span>
+<span class='op'>)</span>
+<span class='fu'>separate_rows</span><span class='op'>(</span><span class='va'>df</span>, <span class='va'>y</span>, <span class='va'>z</span>, convert <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 6 x 3</span><span>
 #&gt;       x y         z
-#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
-#&gt; </span><span style='color: #555555;'>1</span><span>     1 a         1
-#&gt; </span><span style='color: #555555;'>2</span><span>     2 d         2
-#&gt; </span><span style='color: #555555;'>3</span><span>     2 e         3
-#&gt; </span><span style='color: #555555;'>4</span><span>     2 f         4
-#&gt; </span><span style='color: #555555;'>5</span><span>     3 g         5
-#&gt; </span><span style='color: #555555;'>6</span><span>     3 h         6</div></span></pre>
+#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'>1</span><span>     1 a         1
+#&gt; </span><span style='color: #BCBCBC;'>2</span><span>     2 d         2
+#&gt; </span><span style='color: #BCBCBC;'>3</span><span>     2 e         3
+#&gt; </span><span style='color: #BCBCBC;'>4</span><span>     2 f         4
+#&gt; </span><span style='color: #BCBCBC;'>5</span><span>     3 g         5
+#&gt; </span><span style='color: #BCBCBC;'>6</span><span>     3 h         6</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

@@ -136,7 +136,7 @@
 </li>
         <li>
   <a href="https://github.com/tidyverse/tidyr/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -170,15 +170,16 @@
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
-<div class="sourceCode" id="cb1"><pre class="r"><span class="co"># The easiest way to get tidyr is to install the whole tidyverse:</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"tidyverse"</span>)
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># The easiest way to get tidyr is to install the whole tidyverse:</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"tidyverse"</span><span class="op">)</span>
 
 <span class="co"># Alternatively, install just tidyr:</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"tidyr"</span>)
+<span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"tidyr"</span><span class="op">)</span>
 
 <span class="co"># Or the development version from GitHub:</span>
 <span class="co"># install.packages("devtools")</span>
-<span class="kw pkg">devtools</span><span class="kw ns">::</span><span class="fu">install_github</span>(<span class="st">"tidyverse/tidyr"</span>)</pre></div>
+<span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span><span class="op">(</span><span class="st">"tidyverse/tidyr"</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="cheatsheet" class="section level2">
 <h2 class="hasAnchor">
@@ -188,7 +189,8 @@
 <div id="getting-started" class="section level2">
 <h2 class="hasAnchor">
 <a href="#getting-started" class="anchor"></a>Getting started</h2>
-<div class="sourceCode" id="cb2"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">tidyr</span>)</pre></div>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyr.tidyverse.org">tidyr</a></span><span class="op">)</span></code></pre></div>
 <p>tidyr functions fall into five main categories:</p>
 <ul>
 <li><p>“Pivotting” which converts between long and wide forms. tidyr 1.0.0 introduces <code><a href="reference/pivot_longer.html">pivot_longer()</a></code> and <code><a href="reference/pivot_wider.html">pivot_wider()</a></code>, replacing the older <code><a href="reference/spread.html">spread()</a></code> and <code><a href="reference/gather.html">gather()</a></code> functions. See <code><a href="articles/pivot.html">vignette("pivot")</a></code> for more details.</p></li>

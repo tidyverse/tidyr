@@ -187,7 +187,7 @@ argument. See vignette(&quot;programming&quot;, &quot;dplyr&quot;) for more info
 </li>
         <li>
   <a href="https://github.com/tidyverse/tidyr/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -222,70 +222,70 @@ with NSE verbs. Thus, the underscored versions are now superfluous.</p>
 <p>Unquoting triggers immediate evaluation of its operand and inlines
 the result within the captured expression. This result can be a
 value or an expression to be evaluated later with the rest of the
-argument. See <code>vignette("programming", "dplyr")</code> for more information.</p>
+argument. See <code><a href='https://dplyr.tidyverse.org/articles/programming.html'>vignette("programming", "dplyr")</a></code> for more information.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>complete_</span>(<span class='no'>data</span>, <span class='no'>cols</span>, <span class='kw'>fill</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(), <span class='no'>...</span>)
+    <pre class="usage"><span class='fu'>complete_</span><span class='op'>(</span><span class='va'>data</span>, <span class='va'>cols</span>, fill <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='op'>)</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>drop_na_</span>(<span class='no'>data</span>, <span class='no'>vars</span>)
+<span class='fu'>drop_na_</span><span class='op'>(</span><span class='va'>data</span>, <span class='va'>vars</span><span class='op'>)</span>
 
-<span class='fu'>expand_</span>(<span class='no'>data</span>, <span class='no'>dots</span>, <span class='no'>...</span>)
+<span class='fu'>expand_</span><span class='op'>(</span><span class='va'>data</span>, <span class='va'>dots</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>crossing_</span>(<span class='no'>x</span>)
+<span class='fu'>crossing_</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
 
-<span class='fu'>nesting_</span>(<span class='no'>x</span>)
+<span class='fu'>nesting_</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
 
-<span class='fu'>extract_</span>(
-  <span class='no'>data</span>,
-  <span class='no'>col</span>,
-  <span class='no'>into</span>,
-  <span class='kw'>regex</span> <span class='kw'>=</span> <span class='st'>"([[:alnum:]]+)"</span>,
-  <span class='kw'>remove</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>convert</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='no'>...</span>
-)
+<span class='fu'>extract_</span><span class='op'>(</span>
+  <span class='va'>data</span>,
+  <span class='va'>col</span>,
+  <span class='va'>into</span>,
+  regex <span class='op'>=</span> <span class='st'>"([[:alnum:]]+)"</span>,
+  remove <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  convert <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span>
 
-<span class='fu'>fill_</span>(<span class='no'>data</span>, <span class='no'>fill_cols</span>, <span class='kw'>.direction</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"down"</span>, <span class='st'>"up"</span>))
+<span class='fu'>fill_</span><span class='op'>(</span><span class='va'>data</span>, <span class='va'>fill_cols</span>, .direction <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"down"</span>, <span class='st'>"up"</span><span class='op'>)</span><span class='op'>)</span>
 
-<span class='fu'>gather_</span>(
-  <span class='no'>data</span>,
-  <span class='no'>key_col</span>,
-  <span class='no'>value_col</span>,
-  <span class='no'>gather_cols</span>,
-  <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>convert</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>factor_key</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
-)
+<span class='fu'>gather_</span><span class='op'>(</span>
+  <span class='va'>data</span>,
+  <span class='va'>key_col</span>,
+  <span class='va'>value_col</span>,
+  <span class='va'>gather_cols</span>,
+  na.rm <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  convert <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  factor_key <span class='op'>=</span> <span class='cn'>FALSE</span>
+<span class='op'>)</span>
 
-<span class='fu'>nest_</span>(<span class='no'>...</span>)
+<span class='fu'>nest_</span><span class='op'>(</span><span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>separate_rows_</span>(<span class='no'>data</span>, <span class='no'>cols</span>, <span class='kw'>sep</span> <span class='kw'>=</span> <span class='st'>"[^[:alnum:].]+"</span>, <span class='kw'>convert</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+<span class='fu'>separate_rows_</span><span class='op'>(</span><span class='va'>data</span>, <span class='va'>cols</span>, sep <span class='op'>=</span> <span class='st'>"[^[:alnum:].]+"</span>, convert <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 
-<span class='fu'>separate_</span>(
-  <span class='no'>data</span>,
-  <span class='no'>col</span>,
-  <span class='no'>into</span>,
-  <span class='kw'>sep</span> <span class='kw'>=</span> <span class='st'>"[^[:alnum:]]+"</span>,
-  <span class='kw'>remove</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>convert</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>extra</span> <span class='kw'>=</span> <span class='st'>"warn"</span>,
-  <span class='kw'>fill</span> <span class='kw'>=</span> <span class='st'>"warn"</span>,
-  <span class='no'>...</span>
-)
+<span class='fu'>separate_</span><span class='op'>(</span>
+  <span class='va'>data</span>,
+  <span class='va'>col</span>,
+  <span class='va'>into</span>,
+  sep <span class='op'>=</span> <span class='st'>"[^[:alnum:]]+"</span>,
+  remove <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  convert <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  extra <span class='op'>=</span> <span class='st'>"warn"</span>,
+  fill <span class='op'>=</span> <span class='st'>"warn"</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span>
 
-<span class='fu'>spread_</span>(
-  <span class='no'>data</span>,
-  <span class='no'>key_col</span>,
-  <span class='no'>value_col</span>,
-  <span class='kw'>fill</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>convert</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>drop</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>sep</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
-)
+<span class='fu'>spread_</span><span class='op'>(</span>
+  <span class='va'>data</span>,
+  <span class='va'>key_col</span>,
+  <span class='va'>value_col</span>,
+  fill <span class='op'>=</span> <span class='cn'>NA</span>,
+  convert <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  drop <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  sep <span class='op'>=</span> <span class='cn'>NULL</span>
+<span class='op'>)</span>
 
-<span class='fu'>unite_</span>(<span class='no'>data</span>, <span class='no'>col</span>, <span class='no'>from</span>, <span class='kw'>sep</span> <span class='kw'>=</span> <span class='st'>"_"</span>, <span class='kw'>remove</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='fu'>unite_</span><span class='op'>(</span><span class='va'>data</span>, <span class='va'>col</span>, <span class='va'>from</span>, sep <span class='op'>=</span> <span class='st'>"_"</span>, remove <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 
-<span class='fu'>unnest_</span>(<span class='no'>...</span>)</pre>
+<span class='fu'>unnest_</span><span class='op'>(</span><span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -316,7 +316,7 @@ dates.</p></li>
 
 <p>When used with factors, <code><a href='expand.html'>expand()</a></code> uses the full set of levels, not just
 those that appear in the data. If you want to use only the values seen in
-the data, use <code>forcats::fct_drop()</code>.</p>
+the data, use <code><a href='https://forcats.tidyverse.org/reference/fct_drop.html'>forcats::fct_drop()</a></code>.</p>
 <p>When used with continuous variables, you may need to fill in values
 that do not appear in the data: to do so use expressions like
 <code>year = 2010:2020</code> or <code>year = \link{full_seq}(year,1)</code>.</p></td>
@@ -400,7 +400,7 @@ happens when there are too many pieces. There are three valid options:</p><ul>
       <td><p><img src='figures/lifecycle-deprecated.svg' alt='Deprecated lifecycle' />
 :
 all list-columns are now preserved; If there are any that you
-don't want in the output use <code>select()</code> to remove them prior to
+don't want in the output use <code><a href='https://dplyr.tidyverse.org/reference/select.html'>select()</a></code> to remove them prior to
 unnesting.</p></td>
     </tr>
     <tr>

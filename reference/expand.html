@@ -186,7 +186,7 @@ use it with anti_join() to figure out which combinations are missing
 </li>
         <li>
   <a href="https://github.com/tidyverse/tidyr/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -215,19 +215,19 @@ is a wrapper around <code><a href='expand_grid.html'>expand_grid()</a></code> th
 <code>nesting()</code> is a helper that only finds combinations already present in the
 data.</p>
 <p><code>expand()</code> is often useful in conjunction with joins:</p><ul>
-<li><p>use it with <code>right_join()</code> to convert implicit missing values to
+<li><p>use it with <code><a href='https://dplyr.tidyverse.org/reference/mutate-joins.html'>right_join()</a></code> to convert implicit missing values to
 explicit missing values (e.g., fill in gaps in your data frame).</p></li>
-<li><p>use it with <code>anti_join()</code> to figure out which combinations are missing
+<li><p>use it with <code><a href='https://dplyr.tidyverse.org/reference/filter-joins.html'>anti_join()</a></code> to figure out which combinations are missing
 (e.g., identify gaps in your data frame).</p></li>
 </ul>
 
     </div>
 
-    <pre class="usage"><span class='fu'>expand</span>(<span class='no'>data</span>, <span class='no'>...</span>, <span class='kw'>.name_repair</span> <span class='kw'>=</span> <span class='st'>"check_unique"</span>)
+    <pre class="usage"><span class='fu'>expand</span><span class='op'>(</span><span class='va'>data</span>, <span class='va'>...</span>, .name_repair <span class='op'>=</span> <span class='st'>"check_unique"</span><span class='op'>)</span>
 
-<span class='fu'>crossing</span>(<span class='no'>...</span>, <span class='kw'>.name_repair</span> <span class='kw'>=</span> <span class='st'>"check_unique"</span>)
+<span class='fu'>crossing</span><span class='op'>(</span><span class='va'>...</span>, .name_repair <span class='op'>=</span> <span class='st'>"check_unique"</span><span class='op'>)</span>
 
-<span class='fu'>nesting</span>(<span class='no'>...</span>, <span class='kw'>.name_repair</span> <span class='kw'>=</span> <span class='st'>"check_unique"</span>)</pre>
+<span class='fu'>nesting</span><span class='op'>(</span><span class='va'>...</span>, .name_repair <span class='op'>=</span> <span class='st'>"check_unique"</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -253,7 +253,7 @@ dates.</p></li>
 
 <p>When used with factors, <code>expand()</code> uses the full set of levels, not just
 those that appear in the data. If you want to use only the values seen in
-the data, use <code>forcats::fct_drop()</code>.</p>
+the data, use <code><a href='https://forcats.tidyverse.org/reference/fct_drop.html'>forcats::fct_drop()</a></code>.</p>
 <p>When used with continuous variables, you may need to fill in values
 that do not appear in the data: to do so use expressions like
 <code>year = 2010:2020</code> or <code>year = \link{full_seq}(year,1)</code>.</p></td>
@@ -283,156 +283,167 @@ to enforce them.</p></td>
 to input vectors rather than a data frame.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>fruits</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(
-  <span class='kw'>type</span>   <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"apple"</span>, <span class='st'>"orange"</span>, <span class='st'>"apple"</span>, <span class='st'>"orange"</span>, <span class='st'>"orange"</span>, <span class='st'>"orange"</span>),
-  <span class='kw'>year</span>   <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2010</span>, <span class='fl'>2010</span>, <span class='fl'>2012</span>, <span class='fl'>2010</span>, <span class='fl'>2010</span>, <span class='fl'>2012</span>),
-  <span class='kw'>size</span>  <span class='kw'>=</span>  <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(
-    <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"XS"</span>, <span class='st'>"S"</span>,  <span class='st'>"M"</span>, <span class='st'>"S"</span>, <span class='st'>"S"</span>, <span class='st'>"M"</span>),
-    <span class='kw'>levels</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"XS"</span>, <span class='st'>"S"</span>, <span class='st'>"M"</span>, <span class='st'>"L"</span>)
-  ),
-  <span class='kw'>weights</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>6</span>, <span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span>(<span class='no'>size</span>) + <span class='fl'>2</span>)
-)
+    <pre class="examples"><div class='input'><span class='va'>fruits</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span><span class='op'>(</span>
+  type   <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"apple"</span>, <span class='st'>"orange"</span>, <span class='st'>"apple"</span>, <span class='st'>"orange"</span>, <span class='st'>"orange"</span>, <span class='st'>"orange"</span><span class='op'>)</span>,
+  year   <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2010</span>, <span class='fl'>2010</span>, <span class='fl'>2012</span>, <span class='fl'>2010</span>, <span class='fl'>2010</span>, <span class='fl'>2012</span><span class='op'>)</span>,
+  size  <span class='op'>=</span>  <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span>
+    <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"XS"</span>, <span class='st'>"S"</span>,  <span class='st'>"M"</span>, <span class='st'>"S"</span>, <span class='st'>"S"</span>, <span class='st'>"M"</span><span class='op'>)</span>,
+    levels <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"XS"</span>, <span class='st'>"S"</span>, <span class='st'>"M"</span>, <span class='st'>"L"</span><span class='op'>)</span>
+  <span class='op'>)</span>,
+  weights <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>6</span>, <span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span><span class='op'>(</span><span class='va'>size</span><span class='op'>)</span> <span class='op'>+</span> <span class='fl'>2</span><span class='op'>)</span>
+<span class='op'>)</span>
 
 <span class='co'># All possible combinations ---------------------------------------</span>
 <span class='co'># Note that all defined, but not necessarily present, levels of the</span>
 <span class='co'># factor variable `size` are retained.</span>
-<span class='no'>fruits</span> <span class='kw'>%&gt;%</span> <span class='fu'>expand</span>(<span class='no'>type</span>)</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 2 x 1</span><span>
+<span class='va'>fruits</span> <span class='op'>%&gt;%</span> <span class='fu'>expand</span><span class='op'>(</span><span class='va'>type</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 2 x 1</span><span>
 #&gt;   type  
-#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> 
-#&gt; </span><span style='color: #555555;'>1</span><span> apple 
-#&gt; </span><span style='color: #555555;'>2</span><span> orange</div><div class='input'><span class='no'>fruits</span> <span class='kw'>%&gt;%</span> <span class='fu'>expand</span>(<span class='no'>type</span>, <span class='no'>size</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 8 x 2</span><span>
+#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> 
+#&gt; </span><span style='color: #BCBCBC;'>1</span><span> apple 
+#&gt; </span><span style='color: #BCBCBC;'>2</span><span> orange</div><div class='input'><span class='va'>fruits</span> <span class='op'>%&gt;%</span> <span class='fu'>expand</span><span class='op'>(</span><span class='va'>type</span>, <span class='va'>size</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 8 x 2</span><span>
 #&gt;   type   size 
-#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>
-#&gt; </span><span style='color: #555555;'>1</span><span> apple  XS   
-#&gt; </span><span style='color: #555555;'>2</span><span> apple  S    
-#&gt; </span><span style='color: #555555;'>3</span><span> apple  M    
-#&gt; </span><span style='color: #555555;'>4</span><span> apple  L    
-#&gt; </span><span style='color: #555555;'>5</span><span> orange XS   
-#&gt; </span><span style='color: #555555;'>6</span><span> orange S    
-#&gt; </span><span style='color: #555555;'>7</span><span> orange M    
-#&gt; </span><span style='color: #555555;'>8</span><span> orange L    </div><div class='input'><span class='no'>fruits</span> <span class='kw'>%&gt;%</span> <span class='fu'>expand</span>(<span class='no'>type</span>, <span class='no'>size</span>, <span class='no'>year</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 16 x 3</span><span>
+#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;fct&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'>1</span><span> apple  XS   
+#&gt; </span><span style='color: #BCBCBC;'>2</span><span> apple  S    
+#&gt; </span><span style='color: #BCBCBC;'>3</span><span> apple  M    
+#&gt; </span><span style='color: #BCBCBC;'>4</span><span> apple  L    
+#&gt; </span><span style='color: #BCBCBC;'>5</span><span> orange XS   
+#&gt; </span><span style='color: #BCBCBC;'>6</span><span> orange S    
+#&gt; </span><span style='color: #BCBCBC;'>7</span><span> orange M    
+#&gt; </span><span style='color: #BCBCBC;'>8</span><span> orange L    </div><div class='input'><span class='va'>fruits</span> <span class='op'>%&gt;%</span> <span class='fu'>expand</span><span class='op'>(</span><span class='va'>type</span>, <span class='va'>size</span>, <span class='va'>year</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 16 x 3</span><span>
 #&gt;    type   size   year
-#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'> 1</span><span> apple  XS     </span><span style='text-decoration: underline;'>2</span><span>010
-#&gt; </span><span style='color: #555555;'> 2</span><span> apple  XS     </span><span style='text-decoration: underline;'>2</span><span>012
-#&gt; </span><span style='color: #555555;'> 3</span><span> apple  S      </span><span style='text-decoration: underline;'>2</span><span>010
-#&gt; </span><span style='color: #555555;'> 4</span><span> apple  S      </span><span style='text-decoration: underline;'>2</span><span>012
-#&gt; </span><span style='color: #555555;'> 5</span><span> apple  M      </span><span style='text-decoration: underline;'>2</span><span>010
-#&gt; </span><span style='color: #555555;'> 6</span><span> apple  M      </span><span style='text-decoration: underline;'>2</span><span>012
-#&gt; </span><span style='color: #555555;'> 7</span><span> apple  L      </span><span style='text-decoration: underline;'>2</span><span>010
-#&gt; </span><span style='color: #555555;'> 8</span><span> apple  L      </span><span style='text-decoration: underline;'>2</span><span>012
-#&gt; </span><span style='color: #555555;'> 9</span><span> orange XS     </span><span style='text-decoration: underline;'>2</span><span>010
-#&gt; </span><span style='color: #555555;'>10</span><span> orange XS     </span><span style='text-decoration: underline;'>2</span><span>012
-#&gt; </span><span style='color: #555555;'>11</span><span> orange S      </span><span style='text-decoration: underline;'>2</span><span>010
-#&gt; </span><span style='color: #555555;'>12</span><span> orange S      </span><span style='text-decoration: underline;'>2</span><span>012
-#&gt; </span><span style='color: #555555;'>13</span><span> orange M      </span><span style='text-decoration: underline;'>2</span><span>010
-#&gt; </span><span style='color: #555555;'>14</span><span> orange M      </span><span style='text-decoration: underline;'>2</span><span>012
-#&gt; </span><span style='color: #555555;'>15</span><span> orange L      </span><span style='text-decoration: underline;'>2</span><span>010
-#&gt; </span><span style='color: #555555;'>16</span><span> orange L      </span><span style='text-decoration: underline;'>2</span><span>012</div><div class='input'>
+#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;fct&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'> 1</span><span> apple  XS     </span><span style='text-decoration: underline;'>2</span><span>010
+#&gt; </span><span style='color: #BCBCBC;'> 2</span><span> apple  XS     </span><span style='text-decoration: underline;'>2</span><span>012
+#&gt; </span><span style='color: #BCBCBC;'> 3</span><span> apple  S      </span><span style='text-decoration: underline;'>2</span><span>010
+#&gt; </span><span style='color: #BCBCBC;'> 4</span><span> apple  S      </span><span style='text-decoration: underline;'>2</span><span>012
+#&gt; </span><span style='color: #BCBCBC;'> 5</span><span> apple  M      </span><span style='text-decoration: underline;'>2</span><span>010
+#&gt; </span><span style='color: #BCBCBC;'> 6</span><span> apple  M      </span><span style='text-decoration: underline;'>2</span><span>012
+#&gt; </span><span style='color: #BCBCBC;'> 7</span><span> apple  L      </span><span style='text-decoration: underline;'>2</span><span>010
+#&gt; </span><span style='color: #BCBCBC;'> 8</span><span> apple  L      </span><span style='text-decoration: underline;'>2</span><span>012
+#&gt; </span><span style='color: #BCBCBC;'> 9</span><span> orange XS     </span><span style='text-decoration: underline;'>2</span><span>010
+#&gt; </span><span style='color: #BCBCBC;'>10</span><span> orange XS     </span><span style='text-decoration: underline;'>2</span><span>012
+#&gt; </span><span style='color: #BCBCBC;'>11</span><span> orange S      </span><span style='text-decoration: underline;'>2</span><span>010
+#&gt; </span><span style='color: #BCBCBC;'>12</span><span> orange S      </span><span style='text-decoration: underline;'>2</span><span>012
+#&gt; </span><span style='color: #BCBCBC;'>13</span><span> orange M      </span><span style='text-decoration: underline;'>2</span><span>010
+#&gt; </span><span style='color: #BCBCBC;'>14</span><span> orange M      </span><span style='text-decoration: underline;'>2</span><span>012
+#&gt; </span><span style='color: #BCBCBC;'>15</span><span> orange L      </span><span style='text-decoration: underline;'>2</span><span>010
+#&gt; </span><span style='color: #BCBCBC;'>16</span><span> orange L      </span><span style='text-decoration: underline;'>2</span><span>012</div><div class='input'>
 <span class='co'># Only combinations that already appear in the data ---------------</span>
-<span class='no'>fruits</span> <span class='kw'>%&gt;%</span> <span class='fu'>expand</span>(<span class='fu'>nesting</span>(<span class='no'>type</span>))</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 2 x 1</span><span>
+<span class='va'>fruits</span> <span class='op'>%&gt;%</span> <span class='fu'>expand</span><span class='op'>(</span><span class='fu'>nesting</span><span class='op'>(</span><span class='va'>type</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 2 x 1</span><span>
 #&gt;   type  
-#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> 
-#&gt; </span><span style='color: #555555;'>1</span><span> apple 
-#&gt; </span><span style='color: #555555;'>2</span><span> orange</div><div class='input'><span class='no'>fruits</span> <span class='kw'>%&gt;%</span> <span class='fu'>expand</span>(<span class='fu'>nesting</span>(<span class='no'>type</span>, <span class='no'>size</span>))</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 4 x 2</span><span>
+#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> 
+#&gt; </span><span style='color: #BCBCBC;'>1</span><span> apple 
+#&gt; </span><span style='color: #BCBCBC;'>2</span><span> orange</div><div class='input'><span class='va'>fruits</span> <span class='op'>%&gt;%</span> <span class='fu'>expand</span><span class='op'>(</span><span class='fu'>nesting</span><span class='op'>(</span><span class='va'>type</span>, <span class='va'>size</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 4 x 2</span><span>
 #&gt;   type   size 
-#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>
-#&gt; </span><span style='color: #555555;'>1</span><span> apple  XS   
-#&gt; </span><span style='color: #555555;'>2</span><span> apple  M    
-#&gt; </span><span style='color: #555555;'>3</span><span> orange S    
-#&gt; </span><span style='color: #555555;'>4</span><span> orange M    </div><div class='input'><span class='no'>fruits</span> <span class='kw'>%&gt;%</span> <span class='fu'>expand</span>(<span class='fu'>nesting</span>(<span class='no'>type</span>, <span class='no'>size</span>, <span class='no'>year</span>))</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 4 x 3</span><span>
+#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;fct&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'>1</span><span> apple  XS   
+#&gt; </span><span style='color: #BCBCBC;'>2</span><span> apple  M    
+#&gt; </span><span style='color: #BCBCBC;'>3</span><span> orange S    
+#&gt; </span><span style='color: #BCBCBC;'>4</span><span> orange M    </div><div class='input'><span class='va'>fruits</span> <span class='op'>%&gt;%</span> <span class='fu'>expand</span><span class='op'>(</span><span class='fu'>nesting</span><span class='op'>(</span><span class='va'>type</span>, <span class='va'>size</span>, <span class='va'>year</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 4 x 3</span><span>
 #&gt;   type   size   year
-#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'>1</span><span> apple  XS     </span><span style='text-decoration: underline;'>2</span><span>010
-#&gt; </span><span style='color: #555555;'>2</span><span> apple  M      </span><span style='text-decoration: underline;'>2</span><span>012
-#&gt; </span><span style='color: #555555;'>3</span><span> orange S      </span><span style='text-decoration: underline;'>2</span><span>010
-#&gt; </span><span style='color: #555555;'>4</span><span> orange M      </span><span style='text-decoration: underline;'>2</span><span>012</div><div class='input'>
+#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;fct&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'>1</span><span> apple  XS     </span><span style='text-decoration: underline;'>2</span><span>010
+#&gt; </span><span style='color: #BCBCBC;'>2</span><span> apple  M      </span><span style='text-decoration: underline;'>2</span><span>012
+#&gt; </span><span style='color: #BCBCBC;'>3</span><span> orange S      </span><span style='text-decoration: underline;'>2</span><span>010
+#&gt; </span><span style='color: #BCBCBC;'>4</span><span> orange M      </span><span style='text-decoration: underline;'>2</span><span>012</div><div class='input'>
 <span class='co'># Other uses -------------------------------------------------------</span>
 <span class='co'># Use with `full_seq()` to fill in values of continuous variables</span>
-<span class='no'>fruits</span> <span class='kw'>%&gt;%</span> <span class='fu'>expand</span>(<span class='no'>type</span>, <span class='no'>size</span>, <span class='fu'><a href='full_seq.html'>full_seq</a></span>(<span class='no'>year</span>, <span class='fl'>1</span>))</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 24 x 3</span><span>
+<span class='va'>fruits</span> <span class='op'>%&gt;%</span> <span class='fu'>expand</span><span class='op'>(</span><span class='va'>type</span>, <span class='va'>size</span>, <span class='fu'><a href='full_seq.html'>full_seq</a></span><span class='op'>(</span><span class='va'>year</span>, <span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 24 x 3</span><span>
 #&gt;    type  size  `full_seq(year, 1)`
-#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>               </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'> 1</span><span> apple XS                   </span><span style='text-decoration: underline;'>2</span><span>010
-#&gt; </span><span style='color: #555555;'> 2</span><span> apple XS                   </span><span style='text-decoration: underline;'>2</span><span>011
-#&gt; </span><span style='color: #555555;'> 3</span><span> apple XS                   </span><span style='text-decoration: underline;'>2</span><span>012
-#&gt; </span><span style='color: #555555;'> 4</span><span> apple S                    </span><span style='text-decoration: underline;'>2</span><span>010
-#&gt; </span><span style='color: #555555;'> 5</span><span> apple S                    </span><span style='text-decoration: underline;'>2</span><span>011
-#&gt; </span><span style='color: #555555;'> 6</span><span> apple S                    </span><span style='text-decoration: underline;'>2</span><span>012
-#&gt; </span><span style='color: #555555;'> 7</span><span> apple M                    </span><span style='text-decoration: underline;'>2</span><span>010
-#&gt; </span><span style='color: #555555;'> 8</span><span> apple M                    </span><span style='text-decoration: underline;'>2</span><span>011
-#&gt; </span><span style='color: #555555;'> 9</span><span> apple M                    </span><span style='text-decoration: underline;'>2</span><span>012
-#&gt; </span><span style='color: #555555;'>10</span><span> apple L                    </span><span style='text-decoration: underline;'>2</span><span>010
-#&gt; </span><span style='color: #555555;'># … with 14 more rows</span><span></div><div class='input'><span class='no'>fruits</span> <span class='kw'>%&gt;%</span> <span class='fu'>expand</span>(<span class='no'>type</span>, <span class='no'>size</span>, <span class='fl'>2010</span>:<span class='fl'>2012</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 24 x 3</span><span>
+#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;fct&gt;</span><span>               </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'> 1</span><span> apple XS                   </span><span style='text-decoration: underline;'>2</span><span>010
+#&gt; </span><span style='color: #BCBCBC;'> 2</span><span> apple XS                   </span><span style='text-decoration: underline;'>2</span><span>011
+#&gt; </span><span style='color: #BCBCBC;'> 3</span><span> apple XS                   </span><span style='text-decoration: underline;'>2</span><span>012
+#&gt; </span><span style='color: #BCBCBC;'> 4</span><span> apple S                    </span><span style='text-decoration: underline;'>2</span><span>010
+#&gt; </span><span style='color: #BCBCBC;'> 5</span><span> apple S                    </span><span style='text-decoration: underline;'>2</span><span>011
+#&gt; </span><span style='color: #BCBCBC;'> 6</span><span> apple S                    </span><span style='text-decoration: underline;'>2</span><span>012
+#&gt; </span><span style='color: #BCBCBC;'> 7</span><span> apple M                    </span><span style='text-decoration: underline;'>2</span><span>010
+#&gt; </span><span style='color: #BCBCBC;'> 8</span><span> apple M                    </span><span style='text-decoration: underline;'>2</span><span>011
+#&gt; </span><span style='color: #BCBCBC;'> 9</span><span> apple M                    </span><span style='text-decoration: underline;'>2</span><span>012
+#&gt; </span><span style='color: #BCBCBC;'>10</span><span> apple L                    </span><span style='text-decoration: underline;'>2</span><span>010
+#&gt; </span><span style='color: #949494;'># … with 14 more rows</span><span></div><div class='input'><span class='va'>fruits</span> <span class='op'>%&gt;%</span> <span class='fu'>expand</span><span class='op'>(</span><span class='va'>type</span>, <span class='va'>size</span>, <span class='fl'>2010</span><span class='op'>:</span><span class='fl'>2012</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 24 x 3</span><span>
 #&gt;    type  size  `2010:2012`
-#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>       </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
-#&gt; </span><span style='color: #555555;'> 1</span><span> apple XS           </span><span style='text-decoration: underline;'>2</span><span>010
-#&gt; </span><span style='color: #555555;'> 2</span><span> apple XS           </span><span style='text-decoration: underline;'>2</span><span>011
-#&gt; </span><span style='color: #555555;'> 3</span><span> apple XS           </span><span style='text-decoration: underline;'>2</span><span>012
-#&gt; </span><span style='color: #555555;'> 4</span><span> apple S            </span><span style='text-decoration: underline;'>2</span><span>010
-#&gt; </span><span style='color: #555555;'> 5</span><span> apple S            </span><span style='text-decoration: underline;'>2</span><span>011
-#&gt; </span><span style='color: #555555;'> 6</span><span> apple S            </span><span style='text-decoration: underline;'>2</span><span>012
-#&gt; </span><span style='color: #555555;'> 7</span><span> apple M            </span><span style='text-decoration: underline;'>2</span><span>010
-#&gt; </span><span style='color: #555555;'> 8</span><span> apple M            </span><span style='text-decoration: underline;'>2</span><span>011
-#&gt; </span><span style='color: #555555;'> 9</span><span> apple M            </span><span style='text-decoration: underline;'>2</span><span>012
-#&gt; </span><span style='color: #555555;'>10</span><span> apple L            </span><span style='text-decoration: underline;'>2</span><span>010
-#&gt; </span><span style='color: #555555;'># … with 14 more rows</span><span></div><div class='input'>
+#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;fct&gt;</span><span>       </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'> 1</span><span> apple XS           </span><span style='text-decoration: underline;'>2</span><span>010
+#&gt; </span><span style='color: #BCBCBC;'> 2</span><span> apple XS           </span><span style='text-decoration: underline;'>2</span><span>011
+#&gt; </span><span style='color: #BCBCBC;'> 3</span><span> apple XS           </span><span style='text-decoration: underline;'>2</span><span>012
+#&gt; </span><span style='color: #BCBCBC;'> 4</span><span> apple S            </span><span style='text-decoration: underline;'>2</span><span>010
+#&gt; </span><span style='color: #BCBCBC;'> 5</span><span> apple S            </span><span style='text-decoration: underline;'>2</span><span>011
+#&gt; </span><span style='color: #BCBCBC;'> 6</span><span> apple S            </span><span style='text-decoration: underline;'>2</span><span>012
+#&gt; </span><span style='color: #BCBCBC;'> 7</span><span> apple M            </span><span style='text-decoration: underline;'>2</span><span>010
+#&gt; </span><span style='color: #BCBCBC;'> 8</span><span> apple M            </span><span style='text-decoration: underline;'>2</span><span>011
+#&gt; </span><span style='color: #BCBCBC;'> 9</span><span> apple M            </span><span style='text-decoration: underline;'>2</span><span>012
+#&gt; </span><span style='color: #BCBCBC;'>10</span><span> apple L            </span><span style='text-decoration: underline;'>2</span><span>010
+#&gt; </span><span style='color: #949494;'># … with 14 more rows</span><span></div><div class='input'>
 <span class='co'># Use `anti_join()` to determine which observations are missing</span>
-<span class='no'>all</span> <span class='kw'>&lt;-</span> <span class='no'>fruits</span> <span class='kw'>%&gt;%</span> <span class='fu'>expand</span>(<span class='no'>type</span>, <span class='no'>size</span>, <span class='no'>year</span>)
-<span class='no'>all</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 16 x 3</span><span>
+<span class='va'>all</span> <span class='op'>&lt;-</span> <span class='va'>fruits</span> <span class='op'>%&gt;%</span> <span class='fu'>expand</span><span class='op'>(</span><span class='va'>type</span>, <span class='va'>size</span>, <span class='va'>year</span><span class='op'>)</span>
+<span class='va'>all</span>
+</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 16 x 3</span><span>
 #&gt;    type   size   year
-#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'> 1</span><span> apple  XS     </span><span style='text-decoration: underline;'>2</span><span>010
-#&gt; </span><span style='color: #555555;'> 2</span><span> apple  XS     </span><span style='text-decoration: underline;'>2</span><span>012
-#&gt; </span><span style='color: #555555;'> 3</span><span> apple  S      </span><span style='text-decoration: underline;'>2</span><span>010
-#&gt; </span><span style='color: #555555;'> 4</span><span> apple  S      </span><span style='text-decoration: underline;'>2</span><span>012
-#&gt; </span><span style='color: #555555;'> 5</span><span> apple  M      </span><span style='text-decoration: underline;'>2</span><span>010
-#&gt; </span><span style='color: #555555;'> 6</span><span> apple  M      </span><span style='text-decoration: underline;'>2</span><span>012
-#&gt; </span><span style='color: #555555;'> 7</span><span> apple  L      </span><span style='text-decoration: underline;'>2</span><span>010
-#&gt; </span><span style='color: #555555;'> 8</span><span> apple  L      </span><span style='text-decoration: underline;'>2</span><span>012
-#&gt; </span><span style='color: #555555;'> 9</span><span> orange XS     </span><span style='text-decoration: underline;'>2</span><span>010
-#&gt; </span><span style='color: #555555;'>10</span><span> orange XS     </span><span style='text-decoration: underline;'>2</span><span>012
-#&gt; </span><span style='color: #555555;'>11</span><span> orange S      </span><span style='text-decoration: underline;'>2</span><span>010
-#&gt; </span><span style='color: #555555;'>12</span><span> orange S      </span><span style='text-decoration: underline;'>2</span><span>012
-#&gt; </span><span style='color: #555555;'>13</span><span> orange M      </span><span style='text-decoration: underline;'>2</span><span>010
-#&gt; </span><span style='color: #555555;'>14</span><span> orange M      </span><span style='text-decoration: underline;'>2</span><span>012
-#&gt; </span><span style='color: #555555;'>15</span><span> orange L      </span><span style='text-decoration: underline;'>2</span><span>010
-#&gt; </span><span style='color: #555555;'>16</span><span> orange L      </span><span style='text-decoration: underline;'>2</span><span>012</div><div class='input'><span class='no'>all</span> <span class='kw'>%&gt;%</span> <span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter-joins.html'>anti_join</a></span>(<span class='no'>fruits</span>)</div><div class='output co'>#&gt; <span class='message'>Joining, by = c("type", "size", "year")</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 12 x 3</span><span>
+#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;fct&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'> 1</span><span> apple  XS     </span><span style='text-decoration: underline;'>2</span><span>010
+#&gt; </span><span style='color: #BCBCBC;'> 2</span><span> apple  XS     </span><span style='text-decoration: underline;'>2</span><span>012
+#&gt; </span><span style='color: #BCBCBC;'> 3</span><span> apple  S      </span><span style='text-decoration: underline;'>2</span><span>010
+#&gt; </span><span style='color: #BCBCBC;'> 4</span><span> apple  S      </span><span style='text-decoration: underline;'>2</span><span>012
+#&gt; </span><span style='color: #BCBCBC;'> 5</span><span> apple  M      </span><span style='text-decoration: underline;'>2</span><span>010
+#&gt; </span><span style='color: #BCBCBC;'> 6</span><span> apple  M      </span><span style='text-decoration: underline;'>2</span><span>012
+#&gt; </span><span style='color: #BCBCBC;'> 7</span><span> apple  L      </span><span style='text-decoration: underline;'>2</span><span>010
+#&gt; </span><span style='color: #BCBCBC;'> 8</span><span> apple  L      </span><span style='text-decoration: underline;'>2</span><span>012
+#&gt; </span><span style='color: #BCBCBC;'> 9</span><span> orange XS     </span><span style='text-decoration: underline;'>2</span><span>010
+#&gt; </span><span style='color: #BCBCBC;'>10</span><span> orange XS     </span><span style='text-decoration: underline;'>2</span><span>012
+#&gt; </span><span style='color: #BCBCBC;'>11</span><span> orange S      </span><span style='text-decoration: underline;'>2</span><span>010
+#&gt; </span><span style='color: #BCBCBC;'>12</span><span> orange S      </span><span style='text-decoration: underline;'>2</span><span>012
+#&gt; </span><span style='color: #BCBCBC;'>13</span><span> orange M      </span><span style='text-decoration: underline;'>2</span><span>010
+#&gt; </span><span style='color: #BCBCBC;'>14</span><span> orange M      </span><span style='text-decoration: underline;'>2</span><span>012
+#&gt; </span><span style='color: #BCBCBC;'>15</span><span> orange L      </span><span style='text-decoration: underline;'>2</span><span>010
+#&gt; </span><span style='color: #BCBCBC;'>16</span><span> orange L      </span><span style='text-decoration: underline;'>2</span><span>012</div><div class='input'><span class='va'>all</span> <span class='op'>%&gt;%</span> <span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter-joins.html'>anti_join</a></span><span class='op'>(</span><span class='va'>fruits</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>Joining, by = c("type", "size", "year")</span></div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 12 x 3</span><span>
 #&gt;    type   size   year
-#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'> 1</span><span> apple  XS     </span><span style='text-decoration: underline;'>2</span><span>012
-#&gt; </span><span style='color: #555555;'> 2</span><span> apple  S      </span><span style='text-decoration: underline;'>2</span><span>010
-#&gt; </span><span style='color: #555555;'> 3</span><span> apple  S      </span><span style='text-decoration: underline;'>2</span><span>012
-#&gt; </span><span style='color: #555555;'> 4</span><span> apple  M      </span><span style='text-decoration: underline;'>2</span><span>010
-#&gt; </span><span style='color: #555555;'> 5</span><span> apple  L      </span><span style='text-decoration: underline;'>2</span><span>010
-#&gt; </span><span style='color: #555555;'> 6</span><span> apple  L      </span><span style='text-decoration: underline;'>2</span><span>012
-#&gt; </span><span style='color: #555555;'> 7</span><span> orange XS     </span><span style='text-decoration: underline;'>2</span><span>010
-#&gt; </span><span style='color: #555555;'> 8</span><span> orange XS     </span><span style='text-decoration: underline;'>2</span><span>012
-#&gt; </span><span style='color: #555555;'> 9</span><span> orange S      </span><span style='text-decoration: underline;'>2</span><span>012
-#&gt; </span><span style='color: #555555;'>10</span><span> orange M      </span><span style='text-decoration: underline;'>2</span><span>010
-#&gt; </span><span style='color: #555555;'>11</span><span> orange L      </span><span style='text-decoration: underline;'>2</span><span>010
-#&gt; </span><span style='color: #555555;'>12</span><span> orange L      </span><span style='text-decoration: underline;'>2</span><span>012</div><div class='input'>
+#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;fct&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'> 1</span><span> apple  XS     </span><span style='text-decoration: underline;'>2</span><span>012
+#&gt; </span><span style='color: #BCBCBC;'> 2</span><span> apple  S      </span><span style='text-decoration: underline;'>2</span><span>010
+#&gt; </span><span style='color: #BCBCBC;'> 3</span><span> apple  S      </span><span style='text-decoration: underline;'>2</span><span>012
+#&gt; </span><span style='color: #BCBCBC;'> 4</span><span> apple  M      </span><span style='text-decoration: underline;'>2</span><span>010
+#&gt; </span><span style='color: #BCBCBC;'> 5</span><span> apple  L      </span><span style='text-decoration: underline;'>2</span><span>010
+#&gt; </span><span style='color: #BCBCBC;'> 6</span><span> apple  L      </span><span style='text-decoration: underline;'>2</span><span>012
+#&gt; </span><span style='color: #BCBCBC;'> 7</span><span> orange XS     </span><span style='text-decoration: underline;'>2</span><span>010
+#&gt; </span><span style='color: #BCBCBC;'> 8</span><span> orange XS     </span><span style='text-decoration: underline;'>2</span><span>012
+#&gt; </span><span style='color: #BCBCBC;'> 9</span><span> orange S      </span><span style='text-decoration: underline;'>2</span><span>012
+#&gt; </span><span style='color: #BCBCBC;'>10</span><span> orange M      </span><span style='text-decoration: underline;'>2</span><span>010
+#&gt; </span><span style='color: #BCBCBC;'>11</span><span> orange L      </span><span style='text-decoration: underline;'>2</span><span>010
+#&gt; </span><span style='color: #BCBCBC;'>12</span><span> orange L      </span><span style='text-decoration: underline;'>2</span><span>012</div><div class='input'>
 <span class='co'># Use with `right_join()` to fill in missing rows</span>
-<span class='no'>fruits</span> <span class='kw'>%&gt;%</span> <span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate-joins.html'>right_join</a></span>(<span class='no'>all</span>)</div><div class='output co'>#&gt; <span class='message'>Joining, by = c("type", "year", "size")</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 18 x 4</span><span>
+<span class='va'>fruits</span> <span class='op'>%&gt;%</span> <span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate-joins.html'>right_join</a></span><span class='op'>(</span><span class='va'>all</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>Joining, by = c("type", "year", "size")</span></div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 18 x 4</span><span>
 #&gt;    type    year size  weights
-#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'> 1</span><span> apple   </span><span style='text-decoration: underline;'>2</span><span>010 XS       1.60
-#&gt; </span><span style='color: #555555;'> 2</span><span> orange  </span><span style='text-decoration: underline;'>2</span><span>010 S        4.26
-#&gt; </span><span style='color: #555555;'> 3</span><span> apple   </span><span style='text-decoration: underline;'>2</span><span>012 M        2.56
-#&gt; </span><span style='color: #555555;'> 4</span><span> orange  </span><span style='text-decoration: underline;'>2</span><span>010 S        3.99
-#&gt; </span><span style='color: #555555;'> 5</span><span> orange  </span><span style='text-decoration: underline;'>2</span><span>010 S        4.62
-#&gt; </span><span style='color: #555555;'> 6</span><span> orange  </span><span style='text-decoration: underline;'>2</span><span>012 M        6.15
-#&gt; </span><span style='color: #555555;'> 7</span><span> apple   </span><span style='text-decoration: underline;'>2</span><span>012 XS      </span><span style='color: #BB0000;'>NA</span><span>   
-#&gt; </span><span style='color: #555555;'> 8</span><span> apple   </span><span style='text-decoration: underline;'>2</span><span>010 S       </span><span style='color: #BB0000;'>NA</span><span>   
-#&gt; </span><span style='color: #555555;'> 9</span><span> apple   </span><span style='text-decoration: underline;'>2</span><span>012 S       </span><span style='color: #BB0000;'>NA</span><span>   
-#&gt; </span><span style='color: #555555;'>10</span><span> apple   </span><span style='text-decoration: underline;'>2</span><span>010 M       </span><span style='color: #BB0000;'>NA</span><span>   
-#&gt; </span><span style='color: #555555;'>11</span><span> apple   </span><span style='text-decoration: underline;'>2</span><span>010 L       </span><span style='color: #BB0000;'>NA</span><span>   
-#&gt; </span><span style='color: #555555;'>12</span><span> apple   </span><span style='text-decoration: underline;'>2</span><span>012 L       </span><span style='color: #BB0000;'>NA</span><span>   
-#&gt; </span><span style='color: #555555;'>13</span><span> orange  </span><span style='text-decoration: underline;'>2</span><span>010 XS      </span><span style='color: #BB0000;'>NA</span><span>   
-#&gt; </span><span style='color: #555555;'>14</span><span> orange  </span><span style='text-decoration: underline;'>2</span><span>012 XS      </span><span style='color: #BB0000;'>NA</span><span>   
-#&gt; </span><span style='color: #555555;'>15</span><span> orange  </span><span style='text-decoration: underline;'>2</span><span>012 S       </span><span style='color: #BB0000;'>NA</span><span>   
-#&gt; </span><span style='color: #555555;'>16</span><span> orange  </span><span style='text-decoration: underline;'>2</span><span>010 M       </span><span style='color: #BB0000;'>NA</span><span>   
-#&gt; </span><span style='color: #555555;'>17</span><span> orange  </span><span style='text-decoration: underline;'>2</span><span>010 L       </span><span style='color: #BB0000;'>NA</span><span>   
-#&gt; </span><span style='color: #555555;'>18</span><span> orange  </span><span style='text-decoration: underline;'>2</span><span>012 L       </span><span style='color: #BB0000;'>NA</span><span>   </div></span></pre>
+#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;fct&gt;</span><span>   </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'> 1</span><span> apple   </span><span style='text-decoration: underline;'>2</span><span>010 XS       1.60
+#&gt; </span><span style='color: #BCBCBC;'> 2</span><span> orange  </span><span style='text-decoration: underline;'>2</span><span>010 S        4.26
+#&gt; </span><span style='color: #BCBCBC;'> 3</span><span> apple   </span><span style='text-decoration: underline;'>2</span><span>012 M        2.56
+#&gt; </span><span style='color: #BCBCBC;'> 4</span><span> orange  </span><span style='text-decoration: underline;'>2</span><span>010 S        3.99
+#&gt; </span><span style='color: #BCBCBC;'> 5</span><span> orange  </span><span style='text-decoration: underline;'>2</span><span>010 S        4.62
+#&gt; </span><span style='color: #BCBCBC;'> 6</span><span> orange  </span><span style='text-decoration: underline;'>2</span><span>012 M        6.15
+#&gt; </span><span style='color: #BCBCBC;'> 7</span><span> apple   </span><span style='text-decoration: underline;'>2</span><span>012 XS      </span><span style='color: #BB0000;'>NA</span><span>   
+#&gt; </span><span style='color: #BCBCBC;'> 8</span><span> apple   </span><span style='text-decoration: underline;'>2</span><span>010 S       </span><span style='color: #BB0000;'>NA</span><span>   
+#&gt; </span><span style='color: #BCBCBC;'> 9</span><span> apple   </span><span style='text-decoration: underline;'>2</span><span>012 S       </span><span style='color: #BB0000;'>NA</span><span>   
+#&gt; </span><span style='color: #BCBCBC;'>10</span><span> apple   </span><span style='text-decoration: underline;'>2</span><span>010 M       </span><span style='color: #BB0000;'>NA</span><span>   
+#&gt; </span><span style='color: #BCBCBC;'>11</span><span> apple   </span><span style='text-decoration: underline;'>2</span><span>010 L       </span><span style='color: #BB0000;'>NA</span><span>   
+#&gt; </span><span style='color: #BCBCBC;'>12</span><span> apple   </span><span style='text-decoration: underline;'>2</span><span>012 L       </span><span style='color: #BB0000;'>NA</span><span>   
+#&gt; </span><span style='color: #BCBCBC;'>13</span><span> orange  </span><span style='text-decoration: underline;'>2</span><span>010 XS      </span><span style='color: #BB0000;'>NA</span><span>   
+#&gt; </span><span style='color: #BCBCBC;'>14</span><span> orange  </span><span style='text-decoration: underline;'>2</span><span>012 XS      </span><span style='color: #BB0000;'>NA</span><span>   
+#&gt; </span><span style='color: #BCBCBC;'>15</span><span> orange  </span><span style='text-decoration: underline;'>2</span><span>012 S       </span><span style='color: #BB0000;'>NA</span><span>   
+#&gt; </span><span style='color: #BCBCBC;'>16</span><span> orange  </span><span style='text-decoration: underline;'>2</span><span>010 M       </span><span style='color: #BB0000;'>NA</span><span>   
+#&gt; </span><span style='color: #BCBCBC;'>17</span><span> orange  </span><span style='text-decoration: underline;'>2</span><span>010 L       </span><span style='color: #BB0000;'>NA</span><span>   
+#&gt; </span><span style='color: #BCBCBC;'>18</span><span> orange  </span><span style='text-decoration: underline;'>2</span><span>012 L       </span><span style='color: #BB0000;'>NA</span><span>   </div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

@@ -178,7 +178,7 @@ useful for completing missing combinations of data." />
 </li>
         <li>
   <a href="https://github.com/tidyverse/tidyr/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -207,7 +207,7 @@ This is a wrapper around <code><a href='expand.html'>expand()</a></code>,
 useful for completing missing combinations of data.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>complete</span>(<span class='no'>data</span>, <span class='no'>...</span>, <span class='kw'>fill</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>())</pre>
+    <pre class="usage"><span class='fu'>complete</span><span class='op'>(</span><span class='va'>data</span>, <span class='va'>...</span>, fill <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -233,7 +233,7 @@ dates.</p></li>
 
 <p>When used with factors, <code><a href='expand.html'>expand()</a></code> uses the full set of levels, not just
 those that appear in the data. If you want to use only the values seen in
-the data, use <code>forcats::fct_drop()</code>.</p>
+the data, use <code><a href='https://forcats.tidyverse.org/reference/fct_drop.html'>forcats::fct_drop()</a></code>.</p>
 <p>When used with continuous variables, you may need to fill in values
 that do not appear in the data: to do so use expressions like
 <code>year = 2010:2020</code> or <code>year = \link{full_seq}(year,1)</code>.</p></td>
@@ -251,29 +251,31 @@ use instead of <code>NA</code> for missing combinations.</p></td>
 explicit missing values in the data set.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>dplyr</span>, <span class='kw'>warn.conflicts</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
-<span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(
-  <span class='kw'>group</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>:<span class='fl'>2</span>, <span class='fl'>1</span>),
-  <span class='kw'>item_id</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>:<span class='fl'>2</span>, <span class='fl'>2</span>),
-  <span class='kw'>item_name</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"a"</span>, <span class='st'>"b"</span>, <span class='st'>"b"</span>),
-  <span class='kw'>value1</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>3</span>,
-  <span class='kw'>value2</span> <span class='kw'>=</span> <span class='fl'>4</span>:<span class='fl'>6</span>
-)
-<span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>complete</span>(<span class='no'>group</span>, <span class='fu'><a href='expand.html'>nesting</a></span>(<span class='no'>item_id</span>, <span class='no'>item_name</span>))</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 4 x 5</span><span>
+    <pre class="examples"><div class='input'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://dplyr.tidyverse.org'>dplyr</a></span>, warn.conflicts <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+<span class='va'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span><span class='op'>(</span>
+  group <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span>, <span class='fl'>1</span><span class='op'>)</span>,
+  item_id <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span>, <span class='fl'>2</span><span class='op'>)</span>,
+  item_name <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"a"</span>, <span class='st'>"b"</span>, <span class='st'>"b"</span><span class='op'>)</span>,
+  value1 <span class='op'>=</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span>,
+  value2 <span class='op'>=</span> <span class='fl'>4</span><span class='op'>:</span><span class='fl'>6</span>
+<span class='op'>)</span>
+<span class='va'>df</span> <span class='op'>%&gt;%</span> <span class='fu'>complete</span><span class='op'>(</span><span class='va'>group</span>, <span class='fu'><a href='expand.html'>nesting</a></span><span class='op'>(</span><span class='va'>item_id</span>, <span class='va'>item_name</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 4 x 5</span><span>
 #&gt;   group item_id item_name value1 value2
-#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>      </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
-#&gt; </span><span style='color: #555555;'>1</span><span>     1       1 a              1      4
-#&gt; </span><span style='color: #555555;'>2</span><span>     1       2 b              3      6
-#&gt; </span><span style='color: #555555;'>3</span><span>     2       1 a             </span><span style='color: #BB0000;'>NA</span><span>     </span><span style='color: #BB0000;'>NA</span><span>
-#&gt; </span><span style='color: #555555;'>4</span><span>     2       2 b              2      5</div><div class='input'>
+#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>   </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>      </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'>1</span><span>     1       1 a              1      4
+#&gt; </span><span style='color: #BCBCBC;'>2</span><span>     1       2 b              3      6
+#&gt; </span><span style='color: #BCBCBC;'>3</span><span>     2       1 a             </span><span style='color: #BB0000;'>NA</span><span>     </span><span style='color: #BB0000;'>NA</span><span>
+#&gt; </span><span style='color: #BCBCBC;'>4</span><span>     2       2 b              2      5</div><div class='input'>
 <span class='co'># You can also choose to fill in missing values</span>
-<span class='no'>df</span> <span class='kw'>%&gt;%</span> <span class='fu'>complete</span>(<span class='no'>group</span>, <span class='fu'><a href='expand.html'>nesting</a></span>(<span class='no'>item_id</span>, <span class='no'>item_name</span>), <span class='kw'>fill</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>value1</span> <span class='kw'>=</span> <span class='fl'>0</span>))</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 4 x 5</span><span>
+<span class='va'>df</span> <span class='op'>%&gt;%</span> <span class='fu'>complete</span><span class='op'>(</span><span class='va'>group</span>, <span class='fu'><a href='expand.html'>nesting</a></span><span class='op'>(</span><span class='va'>item_id</span>, <span class='va'>item_name</span><span class='op'>)</span>, fill <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>value1 <span class='op'>=</span> <span class='fl'>0</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 4 x 5</span><span>
 #&gt;   group item_id item_name value1 value2
-#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>      </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
-#&gt; </span><span style='color: #555555;'>1</span><span>     1       1 a              1      4
-#&gt; </span><span style='color: #555555;'>2</span><span>     1       2 b              3      6
-#&gt; </span><span style='color: #555555;'>3</span><span>     2       1 a              0     </span><span style='color: #BB0000;'>NA</span><span>
-#&gt; </span><span style='color: #555555;'>4</span><span>     2       2 b              2      5</div></span></pre>
+#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>   </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>      </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'>1</span><span>     1       1 a              1      4
+#&gt; </span><span style='color: #BCBCBC;'>2</span><span>     1       2 b              3      6
+#&gt; </span><span style='color: #BCBCBC;'>3</span><span>     2       1 a              0     </span><span style='color: #BB0000;'>NA</span><span>
+#&gt; </span><span style='color: #BCBCBC;'>4</span><span>     2       2 b              2      5</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
