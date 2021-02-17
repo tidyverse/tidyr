@@ -210,7 +210,7 @@ argument. See vignette(&quot;programming&quot;, &quot;dplyr&quot;) for more info
     </div>
 
     <div class="ref-description">
-    <p><img src='figures/lifecycle-deprecated.svg' alt='Deprecated lifecycle' /></p>
+    <p><a href='https://lifecycle.r-lib.org/articles/stages.html#deprecated'><img src='figures/lifecycle-deprecated.svg' alt='[Deprecated]' /></a></p>
 <p>tidyr used to offer twin versions of each verb suffixed with an
 underscore. These versions had standard evaluation (SE) semantics:
 rather than taking arguments by code, like NSE verbs, they took
@@ -319,7 +319,7 @@ those that appear in the data. If you want to use only the values seen in
 the data, use <code>forcats::fct_drop()</code>.</p>
 <p>When used with continuous variables, you may need to fill in values
 that do not appear in the data: to do so use expressions like
-<code>year = 2010:2020</code> or <code>year = \link{full_seq}(year,1)</code>.</p></td>
+<code>year = 2010:2020</code> or <code>year = full_seq(year,1)</code>.</p></td>
     </tr>
     <tr>
       <th>vars, cols, col</th>
@@ -382,7 +382,7 @@ which preserves the original ordering of the columns.</p></td>
     </tr>
     <tr>
       <th>sep</th>
-      <td><p><img src='figures/lifecycle-deprecated.svg' alt='Deprecated lifecycle' />:
+      <td><p><a href='https://lifecycle.r-lib.org/articles/stages.html#deprecated'><img src='figures/lifecycle-deprecated.svg' alt='[Deprecated]' /></a>:
 use <code>names_sep</code> instead.</p></td>
     </tr>
     <tr>
@@ -396,7 +396,7 @@ happens when there are too many pieces. There are three valid options:</p><ul>
     </tr>
     <tr>
       <th>drop</th>
-      <td><p><img src='figures/lifecycle-deprecated.svg' alt='Deprecated lifecycle' />:
+      <td><p><a href='https://lifecycle.r-lib.org/articles/stages.html#deprecated'><img src='figures/lifecycle-deprecated.svg' alt='[Deprecated]' /></a>:
 all list-columns are now preserved; If there are any that you
 don't want in the output use <code><a href='https://dplyr.tidyverse.org/reference/select.html'>select()</a></code> to remove them prior to
 unnesting.</p></td>
