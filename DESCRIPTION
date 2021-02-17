@@ -31,7 +31,7 @@ Imports:
     tibble (>= 2.1.1),
     tidyselect (>= 1.1.0),
     utils,
-    vctrs (>= 0.3.0),
+    vctrs (>= 0.3.6),
     lifecycle
 Suggests: 
     covr,
