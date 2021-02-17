@@ -36,7 +36,7 @@ data, filling in missing combinations with \code{fill}.}
 by \code{"<key_name><sep><key_value>"}.}
 }
 \description{
-\ifelse{html}{\out{<a href='https://www.tidyverse.org/lifecycle/#superseded'><img src='figures/lifecycle-superseded.svg' alt='Superseded lifecycle'></a>}}{\strong{Superseded}}
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#superseded}{\figure{lifecycle-superseded.svg}{options: alt='[Superseded]'}}}{\strong{[Superseded]}}
 
 Development on \code{spread()} is complete, and for new code we recommend
 switching to \code{pivot_wider()}, which is easier to use, more featureful, and

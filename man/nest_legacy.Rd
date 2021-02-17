@@ -41,7 +41,7 @@ will be duplicated in the same way as atomic vectors. This has
 \code{.preserve = c(x, y)} or \code{.preserve = starts_with("list")}.}
 }
 \description{
-\ifelse{html}{\out{<a href='https://www.tidyverse.org/lifecycle/#superseded'><img src='figures/lifecycle-superseded.svg' alt='Superseded lifecycle'></a>}}{\strong{Superseded}}
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#superseded}{\figure{lifecycle-superseded.svg}{options: alt='[Superseded]'}}}{\strong{[Superseded]}}
 
 tidyr 1.0.0 introduced a new syntax for \code{\link[=nest]{nest()}} and \code{\link[=unnest]{unnest()}}. The majority
 of existing usage should be automatically translated to the new syntax with a
