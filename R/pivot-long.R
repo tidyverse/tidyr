@@ -227,7 +227,9 @@ pivot_longer_spec <- function(data,
     val_cols[col_id] <- unname(as.list(data[cols]))
     val_cols[-col_id] <- list(rep(NA, nrow(data)))
 
-    if (has_name(values_transform, value)) {
+    if (is.function(values_transform)) {
+      val_cols <- lapply(val_cols, values_transform)
+    } else if (has_name(values_transform, value)) {
       val_cols <- lapply(val_cols, values_transform[[value]])
     }
     val_type <- vec_ptype_common(!!!set_names(val_cols[col_id], cols), .ptype = values_ptypes[[value]])

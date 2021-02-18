@@ -66,6 +66,9 @@ test_that("can override default output column type", {
   df <- tibble(x = "x", y = 1L)
   pv <- pivot_longer(df, x:y, values_transform = list(value = as.list))
   expect_equal(pv$value, list("x", 1))
+
+  pv2 <- pivot_longer(df, x:y, values_transform = as.list)
+  expect_equal(pv2$value, list("x", 1))
 })
 
 test_that("can pivot to multiple measure cols", {
