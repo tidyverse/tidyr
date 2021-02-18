@@ -130,12 +130,17 @@ nesting <- function(..., .name_repair = "check_unique") {
 
 #' Create a tibble from all combinations of inputs
 #'
-#' @section Compared to [expand.grid]:
-#' * Varies the first element fastest.
+#' @description
+#' `expand_grid()` is heavily motivated by [expand.grid()].
+#' Compared to `expand.grid()`, it:
+#'
+#' * Produces sorted output (by varying the first column the slowest, rather
+#'   than the fastest).
+#' * Returns a tibble, not a data frame.
 #' * Never converts strings to factors.
 #' * Does not add any additional attributes.
-#' * Returns a tibble, not a data frame.
 #' * Can expand any generalised vector, including data frames.
+#'
 #' @param ... Name-value pairs. The name will become the column name in the
 #'   output.
 #' @inheritParams tibble::as_tibble

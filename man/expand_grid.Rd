@@ -33,19 +33,17 @@ be equal to the product of the sizes of the inputs. This implies
 that if any input has length 0, the output will have zero rows.
 }
 \description{
-Create a tibble from all combinations of inputs
-}
-\section{Compared to \link{expand.grid}}{
-
+\code{expand_grid()} is heavily motivated by \code{\link[=expand.grid]{expand.grid()}}.
+Compared to \code{expand.grid()}, it:
 \itemize{
-\item Varies the first element fastest.
+\item Produces sorted output (by varying the first column the slowest, rather
+than the fastest).
+\item Returns a tibble, not a data frame.
 \item Never converts strings to factors.
 \item Does not add any additional attributes.
-\item Returns a tibble, not a data frame.
 \item Can expand any generalised vector, including data frames.
 }
 }
-
 \examples{
 expand_grid(x = 1:3, y = 1:2)
 expand_grid(l1 = letters, l2 = LETTERS)
