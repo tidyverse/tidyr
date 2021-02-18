@@ -1,5 +1,7 @@
 # tidyr (development version)
 
+* You can once again unnest dates (#1021, #1089).
+
 * `pivot_wider()` works with data.table and empty key variables (@mgirlich, #1066).
 
 * `separate_rows()` works for factor columns (@mgirlich, #1058).
