@@ -1,5 +1,3 @@
-context("test-pivot-wide")
-
 test_that("can pivot all cols to wide", {
   df <- tibble(key = c("x", "y", "z"), val = 1:3)
   pv <- pivot_wider(df, names_from = key, values_from = val)
@@ -63,6 +61,14 @@ test_that("data frame columns pivot correctly", {
   out <- pivot_wider(df, names_from = g, values_from = d)
   expect_equal(out$a$x, 1:2)
   expect_equal(out$b$y, 7:8)
+})
+
+test_that("works with data.table and empty key_vars", {
+  dt <- data.table::data.table(n = "a", v = 1)
+  expect_equal(
+    pivot_wider(dt, names_from = n, values_from = v),
+    tibble(a = 1)
+  )
 })
 
 

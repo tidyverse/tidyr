@@ -81,7 +81,7 @@ test_that("nesting works for empty data frames", {
 test_that("tibble conversion occurs in the `nest.data.frame()` method", {
   tbl <- mtcars %>% nest_legacy(-am, -cyl)
   expect_s3_class(tbl, "tbl_df")
-  expect_is(tbl$data[[1L]], "tbl_df")
+  expect_s3_class(tbl$data[[1L]], "tbl_df")
 })
 
 test_that("nest_legacy() does not preserve grouping", {

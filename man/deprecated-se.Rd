@@ -106,7 +106,7 @@ the data, use \code{forcats::fct_drop()}.
 
 When used with continuous variables, you may need to fill in values
 that do not appear in the data: to do so use expressions like
-\code{year = 2010:2020} or \verb{year = \link{full_seq}(year,1)}.}
+\code{year = 2010:2020} or \code{year = full_seq(year,1)}.}
 
 \item{vars, cols, col}{Name of columns.}
 
@@ -144,7 +144,7 @@ value column is \code{NA}.}
 stored as a character vector. If \code{TRUE}, will be stored as a factor,
 which preserves the original ordering of the columns.}
 
-\item{sep}{\ifelse{html}{\figure{lifecycle-deprecated.svg}{options: alt='Deprecated lifecycle'}}{\strong{Deprecated}}:
+\item{sep}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}:
 use \code{names_sep} instead.}
 
 \item{extra}{If \code{sep} is a character vector, this controls what
@@ -155,7 +155,7 @@ happens when there are too many pieces. There are three valid options:
 \item "merge": only splits at most \code{length(into)} times
 }}
 
-\item{drop}{\ifelse{html}{\figure{lifecycle-deprecated.svg}{options: alt='Deprecated lifecycle'}}{\strong{Deprecated}}:
+\item{drop}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}:
 all list-columns are now preserved; If there are any that you
 don't want in the output use \code{select()} to remove them prior to
 unnesting.}
@@ -165,7 +165,7 @@ unnesting.}
 \item{expand_cols}{Character vector of column names to be expanded.}
 }
 \description{
-\ifelse{html}{\figure{lifecycle-deprecated.svg}{options: alt='Deprecated lifecycle'}}{\strong{Deprecated}}
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
 
 tidyr used to offer twin versions of each verb suffixed with an
 underscore. These versions had standard evaluation (SE) semantics:

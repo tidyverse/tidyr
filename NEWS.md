@@ -3,6 +3,8 @@
 * `uncount()` error for non-integer weights and gives a clearer error message
   for negative weights (@mgirlich, #1069).
 
+* `pivot_wider()` works with data.table and empty key variables (@mgirlich, #1066).
+
 * `separate_rows()` works for factor columns (@mgirlich, #1058).
 
 # tidyr 1.1.2

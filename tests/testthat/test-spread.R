@@ -1,4 +1,3 @@
-context("Spread")
 library(dplyr, warn.conflicts = FALSE)
 
 test_that("order doesn't matter", {
@@ -18,7 +17,7 @@ test_that("order doesn't matter", {
 test_that("convert turns strings into integers", {
   df <- tibble(key = "a", value = "1")
   out <- spread(df, key, value, convert = TRUE)
-  expect_is(out$a, "integer")
+  expect_type(out$a, "integer")
 })
 
 test_that("duplicate values for one key is an error", {
@@ -87,7 +86,7 @@ test_that("spread preserves class of tibbles", {
     y = factor(c("c", "d", "c", "d")),
     z = factor(c("w", "x", "y", "z"))
   )
-  dat %>% spread(x, z) %>% expect_is("tbl_df")
+  dat %>% spread(x, z) %>% expect_s3_class("tbl_df")
 })
 
 test_that("dates are spread into columns (#62)", {
@@ -98,8 +97,8 @@ test_that("dates are spread into columns (#62)", {
   )
   out <- spread(df, key, date)
   expect_identical(names(out), c("id", "begin", "end"))
-  expect_is(out$begin, "Date")
-  expect_is(out$end, "Date")
+  expect_s3_class(out$begin, "Date")
+  expect_s3_class(out$end, "Date")
 })
 
 test_that("spread can produce mixed variable types (#118)", {
@@ -113,8 +112,8 @@ test_that("spread can produce mixed variable types (#118)", {
     ))
   )
   out <- spread(df, column, cell_contents, convert = TRUE)
-  expect_equivalent(
-    vapply(out, class, ""),
+  expect_equal(
+    unname(vapply(out, class, "")),
     c("integer", "character", "numeric", "integer")
   )
 })
@@ -126,9 +125,9 @@ test_that("factors can be used with convert = TRUE to produce mixed types", {
     contents = c("aa", "bb", "1", "2", "TRUE", "FALSE")
   )
   out <- df %>% spread(column, contents, convert = TRUE)
-  expect_is(out$f, "character")
-  expect_is(out$g, "integer")
-  expect_is(out$h, "logical")
+  expect_type(out$f, "character")
+  expect_type(out$g, "integer")
+  expect_type(out$h, "logical")
 })
 
 test_that("dates can be used with convert = TRUE", {
@@ -138,8 +137,8 @@ test_that("dates can be used with convert = TRUE", {
     date = Sys.Date() + 0:3
   )
   out <- spread(df, key, date, convert = TRUE)
-  expect_is(out$begin, "character")
-  expect_is(out$end, "character")
+  expect_type(out$begin, "character")
+  expect_type(out$end, "character")
 })
 
 test_that("vars that are all NA are logical if convert = TRUE (#118)", {
@@ -148,7 +147,7 @@ test_that("vars that are all NA are logical if convert = TRUE (#118)", {
     contents = c("aa", "bb", NA, NA)
   )
   out <- df %>% spread(column, contents, convert = TRUE)
-  expect_is(out$g, "logical")
+  expect_type(out$g, "logical")
 })
 
 test_that("complex values are preserved  (#134)", {

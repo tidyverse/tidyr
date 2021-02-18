@@ -1,6 +1,3 @@
-context("test-chop")
-
-
 # chop --------------------------------------------------------------------
 
 test_that("can chop multiple columns", {
