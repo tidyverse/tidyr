@@ -1,77 +1,41 @@
 # Revdeps
 
-## Failed to check (70)
+## Failed to check (27)
 
-|package          |version |error |warning |note |
-|:----------------|:-------|:-----|:-------|:----|
-|afex             |?       |      |        |     |
-|ALA4R            |?       |      |        |     |
-|apaTables        |?       |      |        |     |
-|ARTool           |?       |      |        |     |
-|bibliometrix     |?       |      |        |     |
-|bioOED           |?       |      |        |     |
-|bootnet          |?       |      |        |     |
-|broom            |?       |      |        |     |
-|CB2              |?       |      |        |     |
-|choroplethr      |3.7.0   |1     |        |     |
-|clustermole      |?       |      |        |     |
-|ClustImpute      |?       |      |        |     |
-|CNVScope         |?       |      |        |     |
-|codebook         |?       |      |        |     |
-|correlation      |?       |      |        |     |
-|countyweather    |?       |      |        |     |
-|cSEM             |?       |      |        |     |
-|DAISIE           |?       |      |        |     |
-|daqapo           |0.3.0   |1     |        |     |
-|dextergui        |?       |      |        |     |
-|diceR            |?       |      |        |     |
-|dimRed           |?       |      |        |     |
-|evaluator        |?       |      |        |     |
-|feasts           |?       |      |        |     |
-|fingertipscharts |0.0.11  |1     |        |     |
-|forwards         |?       |      |        |     |
-|ggmsa            |?       |      |        |     |
-|googleLanguageR  |0.3.0   |1     |        |     |
-|graph4lg         |?       |      |        |     |
-|hansard          |?       |      |        |     |
-|idiogramFISH     |?       |      |        |     |
-|jrt              |?       |      |        |     |
-|lcsm             |?       |      |        |     |
-|lmeInfo          |?       |      |        |     |
-|metagam          |?       |      |        |     |
-|mousetrap        |?       |      |        |     |
-|NetworkChange    |?       |      |        |     |
-|nomisr           |0.4.3   |1     |        |     |
-|omicwas          |?       |      |        |     |
-|phyr             |?       |      |        |     |
-|pmc              |?       |      |        |     |
-|processR         |?       |      |        |     |
-|psychonetrics    |?       |      |        |     |
-|pwr2ppl          |?       |      |        |     |
-|quokar           |0.1.0   |1     |        |     |
-|radiant.basics   |?       |      |        |     |
-|radiant.data     |?       |      |        |     |
-|radiant.model    |?       |      |        |     |
-|rattle           |?       |      |        |     |
-|rdflib           |0.2.3   |1     |        |     |
-|RIdeogram        |0.2.2   |1     |        |     |
-|RNeXML           |?       |      |        |     |
-|robmed           |0.7.0   |1     |        |     |
-|ropercenter      |0.3.1   |1     |        |     |
-|see              |?       |      |        |     |
-|semtree          |?       |      |        |     |
-|ShortForm        |?       |      |        |     |
-|sigminer         |?       |      |        |     |
-|SimDesign        |?       |      |        |     |
-|simstandard      |?       |      |        |     |
-|sjPlot           |?       |      |        |     |
-|sociome          |?       |      |        |     |
-|suddengains      |?       |      |        |     |
-|SWMPrExtension   |1.1.5   |1     |        |     |
-|thurstonianIRT   |?       |      |        |     |
-|tidycomm         |?       |      |        |     |
-|tmap             |3.1     |1     |        |     |
-|visvow           |?       |      |        |     |
-|webr             |?       |      |        |     |
-|wrswoR           |?       |      |        |     |
+|package           |version |error |warning |note |
+|:-----------------|:-------|:-----|:-------|:----|
+|analyzer          |1.0.1   |1     |        |     |
+|BAwiR             |1.2.5   |1     |        |     |
+|biscale           |0.2.0   |1     |        |     |
+|CB2               |?       |      |        |     |
+|cocktailApp       |0.2.1   |1     |        |     |
+|detrendr          |?       |      |        |     |
+|diceR             |?       |      |        |     |
+|dimRed            |?       |      |        |     |
+|dycdtools         |0.2.0   |1     |        |     |
+|edeaR             |0.8.6   |1     |        |1    |
+|ethnobotanyR      |0.1.8   |1     |        |     |
+|ezplot            |0.6.6   |1     |        |     |
+|ggedit            |0.3.1   |1     |        |     |
+|ggmsa             |?       |      |        |     |
+|gprofiler2        |0.2.0   |1     |        |     |
+|gtsummary         |1.3.6   |1     |        |     |
+|LAGOSNE           |2.0.2   |1     |        |     |
+|MarketMatching    |?       |      |        |     |
+|metagam           |?       |      |        |     |
+|multinma          |0.2.1   |1     |        |     |
+|NeuralNetTools    |?       |      |        |     |
+|OutliersO3        |?       |      |        |     |
+|PAMpal            |0.9.14  |1     |        |     |
+|rmdcev            |1.2.4   |1     |        |     |
+|ShinyItemAnalysis |1.3.5   |1     |        |     |
+|TCIU              |1.1.0   |1     |        |     |
+|wrswoR            |?       |      |        |     |
+
+## New problems (2)
+
+|package                                  |version |error  |warning |note   |
+|:----------------------------------------|:-------|:------|:-------|:------|
+|[EpiNow2](problems.md#epinow2)           |1.3.2   |-1     |        |__+1__ |
+|[rMorningStar](problems.md#rmorningstar) |1.0.7   |__+1__ |        |       |
 

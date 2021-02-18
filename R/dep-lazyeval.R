@@ -25,10 +25,6 @@
 #' @keywords internal
 NULL
 
-#' @export
-complete.default <- function(data, ..., fill = list()) {
-  complete_(data, .dots = compat_as_lazy_dots(...), fill = fill)
-}
 #' @rdname deprecated-se
 #' @inheritParams complete
 #' @export
@@ -42,10 +38,6 @@ complete_.data.frame <- function(data, cols, fill = list(), ...) {
   complete(data, !!! cols, fill = fill)
 }
 
-#' @export
-drop_na.default <- function(data, ...) {
-  drop_na_(data, vars = compat_as_lazy_dots(...))
-}
 #' @rdname deprecated-se
 #' @export
 drop_na_ <- function(data, vars) {
@@ -57,11 +49,6 @@ drop_na_.data.frame <- function(data, vars) {
   drop_na(data, !!! vars)
 }
 
-
-#' @export
-expand.default <- function(data, ...) {
-  expand_(data, .dots = compat_as_lazy_dots(...))
-}
 #' @rdname deprecated-se
 #' @param expand_cols Character vector of column names to be expanded.
 #' @export
@@ -89,18 +76,6 @@ nesting_ <- function(x) {
   nesting(!!! x)
 }
 
-#' @export
-extract.default <- function(data, col, into, regex = "([[:alnum:]]+)",
-                            remove = TRUE, convert = FALSE, ...) {
-  extract_(data,
-    col = compat_as_lazy(enquo(col)),
-    into = into,
-    regex = regex,
-    remove = remove,
-    convert = convert,
-    ...
-  )
-}
 #' @rdname deprecated-se
 #' @inheritParams extract
 #' @export
@@ -123,10 +98,6 @@ extract_.data.frame <- function(data, col, into, regex = "([[:alnum:]]+)",
   )
 }
 
-#' @export
-fill.default <- function(data, ..., .direction = c("down", "up", "downup", "updown")) {
-  fill_(data, fill_cols = compat_as_lazy_dots(...), .direction = .direction)
-}
 #' @rdname deprecated-se
 #' @inheritParams fill
 #' @param fill_cols Character vector of column names.
@@ -140,20 +111,6 @@ fill_.data.frame <- function(data, fill_cols, .direction = c("down", "up", "down
   fill(data, !!! vars, .direction = .direction)
 }
 
-
-#' @export
-gather.default <- function(data, key = "key", value = "value", ...,
-                           na.rm = FALSE, convert = FALSE,
-                           factor_key = FALSE) {
-  gather_(data,
-    key_col = compat_as_lazy(enquo(key)),
-    value_col = compat_as_lazy(enquo(value)),
-    ...,
-    na.rm = na.rm,
-    convert = convert,
-    factor_key = factor_key
-  )
-}
 #' @rdname deprecated-se
 #' @inheritParams gather
 #' @param key_col,value_col Strings giving names of key and value columns to
@@ -192,12 +149,6 @@ nest_ <- function(...) {
   lifecycle::deprecate_stop("1.0.0", "nest_()", "nest()")
 }
 
-#' @export
-separate_rows.default <- function(data, ..., sep = "[^[:alnum:].]+",
-                                  convert = FALSE) {
-  cols <- compat_as_lazy_dots(...)
-  separate_rows_(data, cols = cols, sep = sep)
-}
 #' @rdname deprecated-se
 #' @inheritParams separate_rows
 #' @export
@@ -212,22 +163,7 @@ separate_rows_.data.frame <- function(data, cols, sep = "[^[:alnum:].]+",
   separate_rows(data, !!! cols, sep = sep, convert = convert)
 }
 
-#' @export
-separate.default <- function(data, col, into, sep = "[^[:alnum:]]+",
-                             remove = TRUE, convert = FALSE,
-                             extra = "warn", fill = "warn", ...) {
-  col <- compat_as_lazy(enquo(col))
-  separate_(data,
-    col = col,
-    into = into,
-    sep = sep,
-    remove = remove,
-    convert = convert,
-    extra = extra,
-    fill = fill,
-    ...
-  )
-}#' @rdname deprecated-se
+#' @rdname deprecated-se
 #' @inheritParams separate
 #' @export
 separate_ <- function(data, col, into, sep = "[^[:alnum:]]+", remove = TRUE,
@@ -248,21 +184,6 @@ separate_.data.frame <- function(data, col, into, sep = "[^[:alnum:]]+",
     extra = extra,
     fill = fill,
     ...
-  )
-}
-
-#' @export
-spread.default <- function(data, key, value, fill = NA, convert = FALSE,
-                           drop = TRUE, sep = NULL) {
-  key <- compat_as_lazy(enquo(key))
-  value <- compat_as_lazy(enquo(value))
-  spread_(data,
-    key_col = key,
-    value_col = value,
-    fill = fill,
-    convert = convert,
-    drop = drop,
-    sep = sep
   )
 }
 #' @rdname deprecated-se
@@ -289,12 +210,6 @@ spread_.data.frame <- function(data, key_col, value_col, fill = NA,
   )
 }
 
-#' @export
-unite.default <- function(data, col, ..., sep = "_", remove = TRUE) {
-  col <- compat_as_lazy(enquo(col))
-  from <- compat_as_lazy_dots(...)
-  unite_(data, col, from, sep = sep, remove = remove)
-}
 #' @rdname deprecated-se
 #' @inheritParams unite
 #' @param from Names of existing columns as character vector
