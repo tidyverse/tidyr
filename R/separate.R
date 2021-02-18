@@ -33,7 +33,7 @@
 #' @examples
 #' library(dplyr)
 #' # If you want to split by any non-alphanumeric value (the default):
-#' df <- data.frame(x = c(NA, "a.b", "a.d", "b.c"))
+#' df <- data.frame(x = c(NA, "x.y", "x.z", "y.z"))
 #' df %>% separate(x, c("A", "B"))
 #'
 #' # If you just want the second variable:
@@ -41,7 +41,7 @@
 #'
 #' # If every row doesn't split into the same number of pieces, use
 #' # the extra and fill arguments to control what happens:
-#' df <- data.frame(x = c("a", "a b", "a b c", NA))
+#' df <- data.frame(x = c("x", "x y", "x y z", NA))
 #' df %>% separate(x, c("a", "b"))
 #' # The same behaviour as previous, but drops the c without warnings:
 #' df %>% separate(x, c("a", "b"), extra = "drop", fill = "right")
@@ -55,11 +55,11 @@
 #' df %>% separate(x, c("key", "value"), ": ", extra = "merge")
 #'
 #' # Use regular expressions to separate on multiple characters:
-#' df <- data.frame(x = c(NA, "a?b", "a.d", "b:c"))
+#' df <- data.frame(x = c(NA, "x?y", "x.z", "y:z"))
 #' df %>% separate(x, c("A","B"), sep = "([.?:])")
 #'
 #' # convert = TRUE detects column classes:
-#' df <- data.frame(x = c("a:1", "a:2", "c:4", "d", NA))
+#' df <- data.frame(x = c("x:1", "x:2", "y:4", "z", NA))
 #' df %>% separate(x, c("key","value"), ":") %>% str
 #' df %>% separate(x, c("key","value"), ":", convert = TRUE) %>% str
 separate <- function(data, col, into, sep = "[^[:alnum:]]+", remove = TRUE,
