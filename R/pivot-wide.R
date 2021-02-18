@@ -223,7 +223,9 @@ pivot_wider_spec <- function(data,
   if (ncol(df_rows) == 0) {
     rows <- tibble(.rows = 1)
     nrow <- 1L
-    row_id <- rep(1L, nrow(df_rows))
+    # use `nrow(data)` here because data.table returns zero rows if no
+    # column is selected
+    row_id <- rep(1L, nrow(data))
   } else {
     row_id <- vec_group_id(df_rows)
     nrow <- attr(row_id, "n")

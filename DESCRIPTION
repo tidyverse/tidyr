@@ -36,6 +36,7 @@ Imports:
     vctrs (>= 0.3.6)
 Suggests: 
     covr,
+    data.table,
     jsonlite,
     knitr,
     readr,
