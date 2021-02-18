@@ -364,7 +364,7 @@ simplify_col <- function(x, nm, ptype = list(), transform = list(), simplify = F
     x <- map(x, as_function(transform))
   }
 
-  if (!simplify) {
+  if (!simplify || !is.list(x)) {
     return(x)
   }
 

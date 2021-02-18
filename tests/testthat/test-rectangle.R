@@ -267,6 +267,13 @@ test_that("can handle data frames consistently with vectors" , {
   expect_equal(nrow(out), 4)
 })
 
+test_that("can unested dates", {
+  x <- as.Date(c("2019-08-01", "2019-12-01"))
+  df <- tibble(x = as.list(x))
+  out <- df %>% unnest_longer(x)
+  expect_equal(out$x, x)
+})
+
 test_that("bad inputs generate errors", {
   df <- tibble(x = 1, y = list(mean))
   expect_error(unnest_longer(df, y), "must be list of vectors")
