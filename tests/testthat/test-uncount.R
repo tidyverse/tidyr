@@ -20,7 +20,26 @@ test_that("expands constants and expressions", {
   expect_equal(uncount(df, 1 + 1), df[c(1, 1), ])
 })
 
-test_that("must evaluate to numeric", {
+
+test_that("works with groups", {
+  df <- tibble(g = 1, x = 1, w = 1) %>% dplyr::group_by(g)
+  expect_equal(uncount(df, w), df %>% dplyr::select(-w))
+})
+
+test_that("must evaluate to integer", {
+  df <- tibble(x = 1, w = 1/2)
+  expect_error(uncount(df, w), class = "vctrs_error_cast_lossy")
+
   df <- tibble(x = 1)
-  expect_error(uncount(df, "W"), "must evaluate to a numeric vector")
+  expect_error(uncount(df, "W"), class = "vctrs_error_incompatible_type")
+})
+
+test_that("works with 0 weights", {
+  df <- tibble(x = 1:2, w = c(0, 1))
+  expect_equal(uncount(df, w), tibble(x = 2))
+})
+
+test_that("errors on negative weights", {
+  df <- tibble(x = 1, w = -1)
+  expect_error(uncount(df, w), "all elements of `weights` must be >= 0")
 })

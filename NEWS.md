@@ -1,5 +1,8 @@
 # tidyr (development version)
 
+* `uncount()` error for non-integer weights and gives a clearer error message
+  for negative weights (@mgirlich, #1069).
+
 * You can once again unnest dates (#1021, #1089).
 
 * `pivot_wider()` works with data.table and empty key variables (@mgirlich, #1066).
