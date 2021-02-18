@@ -12,6 +12,11 @@
 
 * `separate_rows()` works for factor columns (@mgirlich, #1058).
 
+* `pivot_longer()` argument `values_transform` can now be a single 
+  function; you now only need to use a named list if you want to use different 
+  functions for different value columns (@smingerson, #1035). 
+
+
 # tidyr 1.1.2
 
 * `separate_rows()` returns to 1.1.0 behaviour for empty strings 
