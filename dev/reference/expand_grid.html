@@ -50,7 +50,16 @@
 
 
 <meta property="og:title" content="Create a tibble from all combinations of inputs — expand_grid" />
-<meta property="og:description" content="Create a tibble from all combinations of inputs" />
+<meta property="og:description" content="expand_grid() is heavily motivated by expand.grid().
+Compared to expand.grid(), it:
+Produces sorted output (by varying the first column the slowest, rather
+than the fastest).
+Returns a tibble, not a data frame.
+Never converts strings to factors.
+Does not add any additional attributes.
+Can expand any generalised vector, including data frames.
+
+" />
 <meta property="og:image" content="https://tidyr.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -198,7 +207,16 @@
     </div>
 
     <div class="ref-description">
-    <p>Create a tibble from all combinations of inputs</p>
+    <p><code>expand_grid()</code> is heavily motivated by <code><a href='https://rdrr.io/r/base/expand.grid.html'>expand.grid()</a></code>.
+Compared to <code><a href='https://rdrr.io/r/base/expand.grid.html'>expand.grid()</a></code>, it:</p><ul>
+<li><p>Produces sorted output (by varying the first column the slowest, rather
+than the fastest).</p></li>
+<li><p>Returns a tibble, not a data frame.</p></li>
+<li><p>Never converts strings to factors.</p></li>
+<li><p>Does not add any additional attributes.</p></li>
+<li><p>Can expand any generalised vector, including data frames.</p></li>
+</ul>
+
     </div>
 
     <pre class="usage"><span class='fu'>expand_grid</span><span class='op'>(</span><span class='va'>...</span>, .name_repair <span class='op'>=</span> <span class='st'>"check_unique"</span><span class='op'>)</span></pre>
@@ -236,18 +254,6 @@ to enforce them.</p></td>
 will have one row for each combination of the inputs, i.e. the size
 be equal to the product of the sizes of the inputs. This implies
 that if any input has length 0, the output will have zero rows.</p>
-    <h2 class="hasAnchor" id="compared-to-expand-grid"><a class="anchor" href="#compared-to-expand-grid"></a>Compared to <a href='https://rdrr.io/r/base/expand.grid.html'>expand.grid</a></h2>
-
-    
-
-<ul>
-<li><p>Varies the first element fastest.</p></li>
-<li><p>Never converts strings to factors.</p></li>
-<li><p>Does not add any additional attributes.</p></li>
-<li><p>Returns a tibble, not a data frame.</p></li>
-<li><p>Can expand any generalised vector, including data frames.</p></li>
-</ul>
-
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>expand_grid</span><span class='op'>(</span>x <span class='op'>=</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span>, y <span class='op'>=</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span><span class='op'>)</span>
