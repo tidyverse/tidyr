@@ -1,8 +1,6 @@
 #' Pivot data from wide to long
 #'
 #' @description
-#' \Sexpr[results=rd, stage=render]{lifecycle::badge("maturing")}
-#'
 #' `pivot_longer()` "lengthens" data, increasing the number of rows and
 #' decreasing the number of columns. The inverse transformation is
 #' [pivot_wider()]
@@ -58,18 +56,20 @@
 #'   to implicit missing values, and should generally be used only when missing
 #'   values in `data` were created by its structure.
 #' @param names_transform,values_transform A list of column name-function pairs.
-#'   Use these arguments if you need to change the type of specific columns.
+#'   Use these arguments if you need to change the types of specific columns.
 #'   For example, `names_transform = list(week = as.integer)` would convert
-#'   a character week variable to an integer.
-#' @param names_ptypes,values_ptypes A list of column name-prototype pairs.
-#'   A prototype (or ptype for short) is a zero-length vector (like `integer()`
-#'   or `numeric()`) that defines the type, class, and attributes of a vector.
-#'   Use these arguments to confirm that the created columns are the types that
-#'   you expect.
+#'   a character variable called `week` to an integer.
 #'
 #'   If not specified, the type of the columns generated from `names_to` will
 #'   be character, and the type of the variables generated from `values_to`
 #'   will be the common type of the input columns used to generate them.
+#' @param names_ptypes,values_ptypes A list of column name-prototype pairs.
+#'   A prototype (or ptype for short) is a zero-length vector (like `integer()`
+#'   or `numeric()`) that defines the type, class, and attributes of a vector.
+#'   Use these arguments if you want to confirm that the created columns are
+#'   the types that you expect. Note that if you want to change (instead of confirm)
+#'   the types of specific columns, you should use `names_transform` or
+#'   `values_transform` instead.
 #' @param ... Additional arguments passed on to methods.
 #' @export
 #' @examples

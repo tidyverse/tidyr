@@ -73,8 +73,6 @@ to different value columns.}
 \item{...}{Additional arguments passed on to methods.}
 }
 \description{
-\Sexpr[results=rd, stage=render]{lifecycle::badge("maturing")}
-
 \code{pivot_wider()} "widens" data, increasing the number of columns and
 decreasing the number of rows. The inverse transformation is
 \code{\link[=pivot_longer]{pivot_longer()}}.

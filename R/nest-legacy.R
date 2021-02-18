@@ -1,7 +1,7 @@
 #' Legacy versions of `nest()` and `unnest()`
 #'
 #' @description
-#' \Sexpr[results=rd, stage=render]{lifecycle::badge("retired")}
+#' `r lifecycle::badge("superseded")`
 #'
 #' tidyr 1.0.0 introduced a new syntax for [nest()] and [unnest()]. The majority
 #' of existing usage should be automatically translated to the new syntax with a

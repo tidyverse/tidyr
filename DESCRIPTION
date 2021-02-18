@@ -8,13 +8,14 @@ Authors@R:
              email = "hadley@rstudio.com"),
       person(given = "RStudio",
              role = "cph"))
-Description: Tools to help to create tidy data, where each column is a 
-    variable, each row is an observation, and each cell contains a single value.  
-    'tidyr' contains tools for changing the shape (pivoting) and hierarchy
-    (nesting and 'unnesting') of a dataset, turning deeply nested lists
-    into rectangular data frames ('rectangling'), and extracting values out 
-    of string columns. It also includes tools for working with missing values 
-    (both implicit and explicit).
+Description: Tools to help to create tidy data, where each
+    column is a variable, each row is an observation, and each cell
+    contains a single value.  'tidyr' contains tools for changing the
+    shape (pivoting) and hierarchy (nesting and 'unnesting') of a dataset,
+    turning deeply nested lists into rectangular data frames
+    ('rectangling'), and extracting values out of string columns. It also
+    includes tools for working with missing values (both implicit and
+    explicit).
 License: MIT + file LICENSE
 URL: https://tidyr.tidyverse.org,
     https://github.com/tidyverse/tidyr
@@ -25,28 +26,30 @@ Imports:
     dplyr (>= 0.8.2),
     ellipsis (>= 0.1.0),
     glue,
+    lifecycle,
     magrittr,
     purrr,
     rlang,
     tibble (>= 2.1.1),
     tidyselect (>= 1.1.0),
     utils,
-    vctrs (>= 0.3.0),
-    lifecycle
+    vctrs (>= 0.3.6)
 Suggests: 
     covr,
+    data.table,
     jsonlite,
     knitr,
+    readr,
     repurrrsive (>= 1.0.0),
     rmarkdown,
-    readr,
-    testthat (>= 2.1.0)
+    testthat (>= 3.0.0)
 LinkingTo: 
     cpp11 (>= 0.2.1)
 VignetteBuilder: 
     knitr
-SystemRequirements: C++11
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
+SystemRequirements: C++11
+Config/testthat/edition: 3

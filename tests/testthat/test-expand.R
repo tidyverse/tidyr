@@ -1,5 +1,3 @@
-context("expand")
-
 test_that("expand completes all values", {
   df <- data.frame(x = 1:2, y = 1:2)
   out <- expand(df, x, y)
@@ -107,8 +105,8 @@ test_that("expand & crossing expand missing factor leves; nesting does not", {
 })
 
 test_that("expand() reconstructs input dots is empty", {
-  expect_is(expand(mtcars), "data.frame")
-  expect_is(expand(as_tibble(mtcars)), "tbl_df")
+  expect_s3_class(expand(mtcars), "data.frame")
+  expect_s3_class(expand(as_tibble(mtcars)), "tbl_df")
 })
 
 test_that("crossing checks for bad inputs", {
@@ -148,12 +146,18 @@ test_that("expand_grid can control name_repair", {
 test_that("crossing/nesting/expand respect .name_repair", {
 
   x <- 1:2
-  expect_named(crossing(x, x, .name_repair = "unique"), c("x...1", "x...2"))
+  suppressMessages(
+    expect_named(crossing(x, x, .name_repair = "unique"), c("x...1", "x...2"))
+  )
 
-  expect_named(nesting(x, x, .name_repair = "unique"), c("x...1", "x...2"))
+  suppressMessages(
+    expect_named(nesting(x, x, .name_repair = "unique"), c("x...1", "x...2"))
+  )
 
   df <- tibble(x)
-  expect_named(df %>% expand(x, x, .name_repair = "unique"), c("x...1", "x...2"))
+  suppressMessages(
+    expect_named(df %>% expand(x, x, .name_repair = "unique"), c("x...1", "x...2"))
+  )
 })
 
 

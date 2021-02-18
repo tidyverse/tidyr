@@ -54,17 +54,19 @@ values in \code{data} were created by its structure.}
 \item{values_ptypes}{A list of column name-prototype pairs.
 A prototype (or ptype for short) is a zero-length vector (like \code{integer()}
 or \code{numeric()}) that defines the type, class, and attributes of a vector.
-Use these arguments to confirm that the created columns are the types that
-you expect.
+Use these arguments if you want to confirm that the created columns are
+the types that you expect. Note that if you want to change (instead of confirm)
+the types of specific columns, you should use \code{names_transform} or
+\code{values_transform} instead.}
+
+\item{values_transform}{A list of column name-function pairs.
+Use these arguments if you need to change the types of specific columns.
+For example, \code{names_transform = list(week = as.integer)} would convert
+a character variable called \code{week} to an integer.
 
 If not specified, the type of the columns generated from \code{names_to} will
 be character, and the type of the variables generated from \code{values_to}
 will be the common type of the input columns used to generate them.}
-
-\item{values_transform}{A list of column name-function pairs.
-Use these arguments if you need to change the type of specific columns.
-For example, \code{names_transform = list(week = as.integer)} would convert
-a character week variable to an integer.}
 
 \item{cols}{<\code{\link[=tidyr_tidy_select]{tidy-select}}> Columns to pivot into
 longer format.}
@@ -121,17 +123,19 @@ needed.}
 \item{names_ptypes}{A list of column name-prototype pairs.
 A prototype (or ptype for short) is a zero-length vector (like \code{integer()}
 or \code{numeric()}) that defines the type, class, and attributes of a vector.
-Use these arguments to confirm that the created columns are the types that
-you expect.
+Use these arguments if you want to confirm that the created columns are
+the types that you expect. Note that if you want to change (instead of confirm)
+the types of specific columns, you should use \code{names_transform} or
+\code{values_transform} instead.}
+
+\item{names_transform}{A list of column name-function pairs.
+Use these arguments if you need to change the types of specific columns.
+For example, \code{names_transform = list(week = as.integer)} would convert
+a character variable called \code{week} to an integer.
 
 If not specified, the type of the columns generated from \code{names_to} will
 be character, and the type of the variables generated from \code{values_to}
 will be the common type of the input columns used to generate them.}
-
-\item{names_transform}{A list of column name-function pairs.
-Use these arguments if you need to change the type of specific columns.
-For example, \code{names_transform = list(week = as.integer)} would convert
-a character week variable to an integer.}
 }
 \description{
 This is a low level interface to pivotting, inspired by the cdata package,

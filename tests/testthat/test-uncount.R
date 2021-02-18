@@ -1,5 +1,3 @@
-context("test-uncount.R")
-
 test_that("symbols weights are dropped in output", {
   df <- tibble(x = 1, w = 1)
   expect_equal(uncount(df, w), tibble(x = 1))

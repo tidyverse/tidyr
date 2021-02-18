@@ -1,5 +1,3 @@
-context("test-append.R")
-
 test_that("columns in y replace those in x", {
   df1 <- data.frame(x = 1)
   df2 <- data.frame(x = 2)

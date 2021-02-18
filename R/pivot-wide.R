@@ -1,8 +1,6 @@
 #' Pivot data from long to wide
 #
 #' @description
-#' \Sexpr[results=rd, stage=render]{lifecycle::badge("maturing")}
-#'
 #' `pivot_wider()` "widens" data, increasing the number of columns and
 #' decreasing the number of rows. The inverse transformation is
 #' [pivot_longer()].
@@ -176,7 +174,7 @@ pivot_wider.data.frame <- function(data,
 #' us_rent_income %>%
 #'   pivot_wider(names_from = variable, values_from = c(estimate, moe))
 #'
-#' # `pivot-wider_spec()` provides more control over column names and output format
+#' # `pivot_wider_spec()` provides more control over column names and output format
 #' # instead of creating columns with estimate_ and moe_ prefixes,
 #' # keep original variable name for estimates and attach _moe as suffix
 #' spec2 <- tibble(
@@ -225,7 +223,9 @@ pivot_wider_spec <- function(data,
   if (ncol(df_rows) == 0) {
     rows <- tibble(.rows = 1)
     nrow <- 1L
-    row_id <- rep(1L, nrow(df_rows))
+    # use `nrow(data)` here because data.table returns zero rows if no
+    # column is selected
+    row_id <- rep(1L, nrow(data))
   } else {
     row_id <- vec_group_id(df_rows)
     nrow <- attr(row_id, "n")

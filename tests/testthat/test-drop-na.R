@@ -1,5 +1,3 @@
-context("drop_na")
-
 test_that("empty call drops every row", {
   df <- tibble(x = c(1, 2, NA), y = c("a", NA, "b"))
   exp <- tibble(x = c(1), y = c("a"))

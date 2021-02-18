@@ -1,5 +1,3 @@
-context("test-hoist")
-
 # hoist -------------------------------------------------------------------
 
 test_that("hoist extracts named elements", {

@@ -1,5 +1,3 @@
-context("Extract")
-
 test_that("default returns first alpha group", {
   df <- data.frame(x = c("a.b", "a.d", "b.c"))
   out <- df %>% extract(x, "A")
@@ -62,15 +60,15 @@ test_that("str_match_first handles edge cases", {
     str_match_first(NA, "test"),
     list()
   )
-  expect_equivalent(
+  expect_equal(
     str_match_first(c("", " "), "^(.*)$"),
     list(c("", " "))
   )
-  expect_equivalent(
+  expect_equal(
     str_match_first("", "(.)-(.)"),
     list(NA_character_, NA_character_)
   )
-  expect_equivalent(
+  expect_equal(
     str_match_first(character(), "(.)-(.)"),
     list(character(), character())
   )

@@ -1,7 +1,7 @@
 #' Gather columns into key-value pairs
 #'
 #' @description
-#' \Sexpr[results=rd, stage=render]{lifecycle::badge("retired")}
+#' `r lifecycle::badge("superseded")`
 #'
 #' Development on `gather()` is complete, and for new code we recommend
 #' switching to `pivot_longer()`, which is easier to use, more featureful, and
