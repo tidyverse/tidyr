@@ -29,7 +29,7 @@ the data, use \code{forcats::fct_drop()}.
 
 When used with continuous variables, you may need to fill in values
 that do not appear in the data: to do so use expressions like
-\code{year = 2010:2020} or \verb{year = \link{full_seq}(year,1)}.}
+\code{year = 2010:2020} or \code{year = full_seq(year,1)}.}
 
 \item{fill}{A named list that for each variable supplies a single value to
 use instead of \code{NA} for missing combinations.}

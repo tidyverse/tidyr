@@ -153,6 +153,9 @@ str_split_fixed <- function(value, sep, n, extra = "warn", fill = "warn") {
 }
 
 str_split_n <- function(x, pattern, n_max = -1) {
+  if (is.factor(x)) {
+    x <- as.character(x)
+  }
   m <- gregexpr(pattern, x, perl = TRUE)
   if (n_max > 0) {
     m <- lapply(m, function(x) slice_match(x, seq_along(x) < n_max))
