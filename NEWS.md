@@ -1,5 +1,8 @@
 # tidyr (development version)
 
+* tidyr verbs no longer have "default" methods for lazyeval fallbacks. This
+  means that you'll get clearer error messages
+
 * `uncount()` error for non-integer weights and gives a clearer error message
   for negative weights (@mgirlich, #1069).
 
