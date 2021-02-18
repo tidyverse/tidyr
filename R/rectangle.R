@@ -124,8 +124,12 @@ hoist <- function(.data, .col, ..., .remove = TRUE, .simplify = TRUE, .ptype = l
 
   pluckers <- check_pluckers(...)
 
+  # In R <4.1, `::` is quite slow and this is a tight loop, so eliminating
+  # the lookup has a large performance impact:
+  # https://github.com/tidyverse/tidyr/issues/1001
+  pluck <- purrr::pluck
   new_cols <- map(pluckers, function(idx) {
-    map(x, ~ purrr::pluck(.x, !!!idx))
+    map(x, ~ pluck(.x, !!!idx))
   })
   new_cols <- map2(
     new_cols,
