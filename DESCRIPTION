@@ -36,14 +36,13 @@ Imports:
     vctrs (>= 0.3.6)
 Suggests: 
     covr,
+    data.table,
     jsonlite,
     knitr,
     readr,
     repurrrsive (>= 1.0.0),
     rmarkdown,
-    readr,
-    testthat (>= 2.1.0),
-    data.table
+    testthat (>= 2.1.0)
 LinkingTo: 
     cpp11 (>= 0.2.1)
 VignetteBuilder: 
