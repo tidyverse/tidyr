@@ -1,5 +1,3 @@
-context("Separate")
-
 test_that("missing values in input are missing in output", {
   df <- tibble(x = c(NA, "a b"))
   out <- separate(df, x, c("x", "y"))

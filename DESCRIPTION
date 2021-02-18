@@ -41,7 +41,7 @@ Suggests:
     readr,
     repurrrsive (>= 1.0.0),
     rmarkdown,
-    testthat (>= 2.1.0)
+    testthat (>= 3.0.0)
 LinkingTo: 
     cpp11 (>= 0.2.1)
 VignetteBuilder: 
@@ -51,3 +51,4 @@ LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
 SystemRequirements: C++11
+Config/testthat/edition: 3

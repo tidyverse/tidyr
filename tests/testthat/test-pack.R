@@ -1,6 +1,3 @@
-context("test-pack")
-
-
 # pack --------------------------------------------------------------------
 
 test_that("can pack multiple columns", {

@@ -1,5 +1,3 @@
-context("test-pivot-wide")
-
 test_that("can pivot all cols to wide", {
   df <- tibble(key = c("x", "y", "z"), val = 1:3)
   pv <- pivot_wider(df, names_from = key, values_from = val)

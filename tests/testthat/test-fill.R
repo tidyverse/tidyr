@@ -1,5 +1,3 @@
-context("fill")
-
 test_that("all missings left unchanged", {
   df <- tibble(
     lgl = c(NA, NA),

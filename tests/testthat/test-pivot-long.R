@@ -1,5 +1,3 @@
-context("test-pivot-long")
-
 test_that("can pivot all cols to long", {
   df <- tibble(x = 1:2, y = 3:4)
   pv <- pivot_longer(df, x:y)

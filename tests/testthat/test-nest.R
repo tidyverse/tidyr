@@ -1,5 +1,3 @@
-context("nest")
-
 # nest --------------------------------------------------------------------
 
 test_that("nest turns grouped values into one list-df", {

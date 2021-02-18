@@ -1,5 +1,3 @@
-context("test-separate-rows.R")
-
 test_that("can handle collapsed rows", {
   df <- tibble(x = 1:3, y = c("a", "d,e,f", "g,h"))
   expect_equal(separate_rows(df, y)$y, unlist(strsplit(df$y, "\\,")))

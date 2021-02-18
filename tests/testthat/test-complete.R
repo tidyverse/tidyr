@@ -1,5 +1,3 @@
-context("complete")
-
 test_that("complete with no variables returns data as is", {
   expect_equal(complete(mtcars), mtcars)
 })

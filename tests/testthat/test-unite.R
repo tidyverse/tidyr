@@ -1,5 +1,3 @@
-context("unite")
-
 test_that("unite pastes columns together & removes old col", {
   df <- tibble(x = "a", y = "b")
   out <- unite(df, z, x:y)

@@ -1,5 +1,3 @@
-context("replace_na")
-
 # vector ------------------------------------------------------------------
 
 test_that("empty call does nothing", {

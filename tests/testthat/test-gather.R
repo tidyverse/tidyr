@@ -1,5 +1,3 @@
-context("Gather")
-
 test_that("gather all columns when ... is empty", {
   df <- data.frame(
     x = 1:5,
@@ -52,7 +50,7 @@ test_that("key preserves column ordering when factor_key = TRUE", {
 
 test_that("preserve class of input", {
   dat <- data.frame(x = 1:2)
-  dat %>% as_tibble() %>% gather() %>% expect_is("tbl_df")
+  dat %>% as_tibble() %>% gather() %>% expect_s3_class("tbl_df")
 })
 
 test_that("additional inputs control which columns to gather", {
@@ -165,7 +163,7 @@ test_that("common attributes are preserved", {
   df <- data.frame(date1 = Sys.Date(), date2 = Sys.Date() + 10)
   out <- gather(df, k, v)
 
-  expect_is(out$v, "Date")
+  expect_s3_class(out$v, "Date")
 })
 
 test_that("varying attributes are dropped with a warning", {
