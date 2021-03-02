@@ -1,4 +1,4 @@
-# tidyr (development version)
+# tidyr 1.1.3
 
 * tidyr verbs no longer have "default" methods for lazyeval fallbacks. This
   means that you'll get clearer error messages (#1036).
