@@ -10,7 +10,7 @@
 \alias{table5}
 \title{Example tabular representations}
 \source{
-\url{https://www.who.int/tb/country/data/download/en/}
+\url{https://www.who.int/teams/global-tuberculosis-programme/data}
 }
 \usage{
 table1

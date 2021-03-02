@@ -22,7 +22,7 @@
 #'   54 years of age, `5564` = 55 to 64 years of age, `65` = 65 years
 #'   of age or older).
 #'
-#' @source <https://www.who.int/tb/country/data/download/en/>
+#' @source <https://www.who.int/teams/global-tuberculosis-programme/data>
 "who"
 
 #' @rdname who
@@ -48,7 +48,7 @@
 #' The data is a subset of the data contained in the World Health
 #' Organization Global Tuberculosis Report
 #'
-#' @source <https://www.who.int/tb/country/data/download/en/>
+#' @source <https://www.who.int/teams/global-tuberculosis-programme/data>
 #' @format NULL
 "table1"
 

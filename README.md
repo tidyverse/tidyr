@@ -23,7 +23,7 @@ where:
 3.  Every cell is a single value.
 
 Tidy data describes a standard way of storing data that is used wherever
-possible throughout the [tidyverse](https://tidyverse.org/). If you
+possible throughout the [tidyverse](https://www.tidyverse.org/). If you
 ensure that your data is tidy, you’ll spend less time fighting with the
 tools and more time working on your analysis. Learn more about tidy data
 in `vignette("tidy-data")`.
@@ -80,7 +80,8 @@ tidyr functions fall into five main categories:
 
 ## Related work
 
-tidyr [supersedes](https://www.tidyverse.org/lifecycle/#superseded)
+tidyr
+[supersedes](https://lifecycle.r-lib.org/articles/stages.html#superseded)
 reshape2 (2010-2014) and reshape (2005-2010). Somewhat
 counterintuitively, each iteration of the package has done less. tidyr
 is designed specifically for tidying data, not general reshaping

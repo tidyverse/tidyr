@@ -23,7 +23,7 @@ Column names encode three variables that describe the group (see details).}
 }
 }
 \source{
-\url{https://www.who.int/tb/country/data/download/en/}
+\url{https://www.who.int/teams/global-tuberculosis-programme/data}
 }
 \usage{
 who
