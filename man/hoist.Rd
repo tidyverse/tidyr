@@ -26,7 +26,8 @@ unnest_longer(
   names_repair = "check_unique",
   simplify = TRUE,
   ptype = list(),
-  transform = list()
+  transform = list(),
+  ...
 )
 
 unnest_wider(
@@ -36,7 +37,8 @@ unnest_wider(
   simplify = TRUE,
   names_repair = "check_unique",
   ptype = list(),
-  transform = list()
+  transform = list(),
+  ...
 )
 
 unnest_auto(data, col)

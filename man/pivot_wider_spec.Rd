@@ -11,7 +11,8 @@ pivot_wider_spec(
   names_repair = "check_unique",
   id_cols = NULL,
   values_fill = NULL,
-  values_fn = NULL
+  values_fn = NULL,
+  ...
 )
 
 build_wider_spec(
@@ -21,7 +22,8 @@ build_wider_spec(
   names_prefix = "",
   names_sep = "_",
   names_glue = NULL,
-  names_sort = FALSE
+  names_sort = FALSE,
+  ...
 )
 }
 \arguments{
@@ -62,6 +64,8 @@ in the output. You will typically use this when the combination of
 
 This can be a named list if you want to apply different aggregations
 to different value columns.}
+
+\item{...}{Additional arguments passed on to methods.}
 
 \item{names_from}{<\code{\link[=tidyr_tidy_select]{tidy-select}}> A pair of
 arguments describing which column (or columns) to get the name of the

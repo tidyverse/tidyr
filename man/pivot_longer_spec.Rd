@@ -11,7 +11,8 @@ pivot_longer_spec(
   names_repair = "check_unique",
   values_drop_na = FALSE,
   values_ptypes = list(),
-  values_transform = list()
+  values_transform = list(),
+  ...
 )
 
 build_longer_spec(
@@ -23,7 +24,8 @@ build_longer_spec(
   names_sep = NULL,
   names_pattern = NULL,
   names_ptypes = NULL,
-  names_transform = NULL
+  names_transform = NULL,
+  ...
 )
 }
 \arguments{
@@ -67,6 +69,8 @@ a character variable called \code{week} to an integer.
 If not specified, the type of the columns generated from \code{names_to} will
 be character, and the type of the variables generated from \code{values_to}
 will be the common type of the input columns used to generate them.}
+
+\item{...}{Additional arguments passed on to methods.}
 
 \item{cols}{<\code{\link[=tidyr_tidy_select]{tidy-select}}> Columns to pivot into
 longer format.}

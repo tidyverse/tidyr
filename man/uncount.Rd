@@ -4,7 +4,7 @@
 \alias{uncount}
 \title{"Uncount" a data frame}
 \usage{
-uncount(data, weights, .remove = TRUE, .id = NULL)
+uncount(data, weights, .remove = TRUE, .id = NULL, ...)
 }
 \arguments{
 \item{data}{A data frame, tibble, or grouped tibble.}
