@@ -316,7 +316,8 @@ build_wider_spec.data.frame <- function(data,
                                         names_prefix = "",
                                         names_sep = "_",
                                         names_glue = NULL,
-                                        names_sort = FALSE
+                                        names_sort = FALSE,
+                                        ...
                                         ) {
   names_from <- tidyselect::eval_select(enquo(names_from), data)
   values_from <- tidyselect::eval_select(enquo(values_from), data)

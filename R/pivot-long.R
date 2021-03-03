@@ -292,15 +292,15 @@ build_longer_spec <- function(data, cols,
 }
 
 #' @export
-build_longer_spec <- function(data, cols,
-                              names_to = "name",
-                              values_to = "value",
-                              names_prefix = NULL,
-                              names_sep = NULL,
-                              names_pattern = NULL,
-                              names_ptypes = NULL,
-                              names_transform = NULL,
-                              ...) {
+build_longer_spec.data.frame <- function(data, cols,
+                                         names_to = "name",
+                                         values_to = "value",
+                                         names_prefix = NULL,
+                                         names_sep = NULL,
+                                         names_pattern = NULL,
+                                         names_ptypes = NULL,
+                                         names_transform = NULL,
+                                         ...) {
   cols <- tidyselect::eval_select(enquo(cols), data[unique(names(data))])
 
   if (length(cols) == 0) {
