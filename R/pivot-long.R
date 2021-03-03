@@ -207,8 +207,22 @@ pivot_longer_spec <- function(data,
                               names_repair = "check_unique",
                               values_drop_na = FALSE,
                               values_ptypes = list(),
-                              values_transform = list()
+                              values_transform = list(),
+                              ...
                               ) {
+  ellipsis::check_dots_used()
+  UseMethod("pivot_longer_spec")
+}
+
+#' @export
+pivot_longer_spec.data.frame <- function(data,
+                                         spec,
+                                         names_repair = "check_unique",
+                                         values_drop_na = FALSE,
+                                         values_ptypes = list(),
+                                         values_transform = list(),
+                                         ...
+                                         ) {
   spec <- check_spec(spec)
   spec <- deduplicate_spec(spec, data)
 
@@ -271,7 +285,22 @@ build_longer_spec <- function(data, cols,
                               names_sep = NULL,
                               names_pattern = NULL,
                               names_ptypes = NULL,
-                              names_transform = NULL) {
+                              names_transform = NULL,
+                              ...) {
+  ellipsis::check_dots_used()
+  UseMethod("build_longer_spec")
+}
+
+#' @export
+build_longer_spec <- function(data, cols,
+                              names_to = "name",
+                              values_to = "value",
+                              names_prefix = NULL,
+                              names_sep = NULL,
+                              names_pattern = NULL,
+                              names_ptypes = NULL,
+                              names_transform = NULL,
+                              ...) {
   cols <- tidyselect::eval_select(enquo(cols), data[unique(names(data))])
 
   if (length(cols) == 0) {
