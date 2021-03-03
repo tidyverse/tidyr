@@ -96,7 +96,7 @@ that allows you to describe pivotting with a data frame." />
         <a class="navbar-brand" href="../index.html">tidyr</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.2</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.3</span>
         </div>
       </div>
     </div>
@@ -263,18 +263,20 @@ values in <code>data</code> were created by its structure.</p></td>
       <td><p>A list of column name-prototype pairs.
 A prototype (or ptype for short) is a zero-length vector (like <code><a href='https://rdrr.io/r/base/integer.html'>integer()</a></code>
 or <code><a href='https://rdrr.io/r/base/numeric.html'>numeric()</a></code>) that defines the type, class, and attributes of a vector.
-Use these arguments to confirm that the created columns are the types that
-you expect.</p>
-<p>If not specified, the type of the columns generated from <code>names_to</code> will
-be character, and the type of the variables generated from <code>values_to</code>
-will be the common type of the input columns used to generate them.</p></td>
+Use these arguments if you want to confirm that the created columns are
+the types that you expect. Note that if you want to change (instead of confirm)
+the types of specific columns, you should use <code>names_transform</code> or
+<code>values_transform</code> instead.</p></td>
     </tr>
     <tr>
       <th>values_transform</th>
       <td><p>A list of column name-function pairs.
-Use these arguments if you need to change the type of specific columns.
+Use these arguments if you need to change the types of specific columns.
 For example, <code>names_transform = list(week = as.integer)</code> would convert
-a character week variable to an integer.</p></td>
+a character variable called <code>week</code> to an integer.</p>
+<p>If not specified, the type of the columns generated from <code>names_to</code> will
+be character, and the type of the variables generated from <code>values_to</code>
+will be the common type of the input columns used to generate them.</p></td>
     </tr>
     <tr>
       <th>cols</th>
@@ -337,18 +339,20 @@ needed.</p></td>
       <td><p>A list of column name-prototype pairs.
 A prototype (or ptype for short) is a zero-length vector (like <code><a href='https://rdrr.io/r/base/integer.html'>integer()</a></code>
 or <code><a href='https://rdrr.io/r/base/numeric.html'>numeric()</a></code>) that defines the type, class, and attributes of a vector.
-Use these arguments to confirm that the created columns are the types that
-you expect.</p>
-<p>If not specified, the type of the columns generated from <code>names_to</code> will
-be character, and the type of the variables generated from <code>values_to</code>
-will be the common type of the input columns used to generate them.</p></td>
+Use these arguments if you want to confirm that the created columns are
+the types that you expect. Note that if you want to change (instead of confirm)
+the types of specific columns, you should use <code>names_transform</code> or
+<code>values_transform</code> instead.</p></td>
     </tr>
     <tr>
       <th>names_transform</th>
       <td><p>A list of column name-function pairs.
-Use these arguments if you need to change the type of specific columns.
+Use these arguments if you need to change the types of specific columns.
 For example, <code>names_transform = list(week = as.integer)</code> would convert
-a character week variable to an integer.</p></td>
+a character variable called <code>week</code> to an integer.</p>
+<p>If not specified, the type of the columns generated from <code>names_to</code> will
+be character, and the type of the variables generated from <code>values_to</code>
+will be the common type of the input columns used to generate them.</p></td>
     </tr>
     </table>
 

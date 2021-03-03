@@ -106,7 +106,7 @@ use it with anti_join() to figure out which combinations are missing
         <a class="navbar-brand" href="../index.html">tidyr</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.2</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.3</span>
         </div>
       </div>
     </div>
@@ -253,10 +253,10 @@ dates.</p></li>
 
 <p>When used with factors, <code>expand()</code> uses the full set of levels, not just
 those that appear in the data. If you want to use only the values seen in
-the data, use <code><a href='https://forcats.tidyverse.org/reference/fct_drop.html'>forcats::fct_drop()</a></code>.</p>
+the data, use <code>forcats::fct_drop()</code>.</p>
 <p>When used with continuous variables, you may need to fill in values
 that do not appear in the data: to do so use expressions like
-<code>year = 2010:2020</code> or <code>year = \link{full_seq}(year,1)</code>.</p></td>
+<code>year = 2010:2020</code> or <code>year = full_seq(year,1)</code>.</p></td>
     </tr>
     <tr>
       <th>.name_repair</th>

@@ -55,7 +55,7 @@ and `hoist()`.
         <a class="navbar-brand" href="../index.html">tidyr</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.2</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.3</span>
         </div>
       </div>
     </div>
@@ -149,7 +149,7 @@ and `hoist()`.
 
       
 
-      </header><script src="rectangle_files/header-attrs-2.6.6/header-attrs.js"></script><div class="row">
+      </header><script src="rectangle_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Rectangling</h1>
@@ -301,18 +301,18 @@ and `hoist()`.
   <span class="fu"><a href="../reference/hoist.html">hoist</a></span><span class="op">(</span><span class="va">repo</span>, owner <span class="op">=</span> <span class="st">"owner"</span><span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="../reference/hoist.html">unnest_wider</a></span><span class="op">(</span><span class="va">owner</span><span class="op">)</span>
 <span class="co">#&gt; # A tibble: 176 x 18</span>
-<span class="co">#&gt;    login     id avatar_url gravatar_id url   html_url followers_url</span>
-<span class="co">#&gt;    &lt;chr&gt;  &lt;int&gt; &lt;chr&gt;      &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt;    &lt;chr&gt;        </span>
-<span class="co">#&gt;  1 gabo… 660288 https://a… ""          http… https:/… https://api.…</span>
-<span class="co">#&gt;  2 gabo… 660288 https://a… ""          http… https:/… https://api.…</span>
-<span class="co">#&gt;  3 gabo… 660288 https://a… ""          http… https:/… https://api.…</span>
-<span class="co">#&gt;  4 gabo… 660288 https://a… ""          http… https:/… https://api.…</span>
-<span class="co">#&gt;  5 gabo… 660288 https://a… ""          http… https:/… https://api.…</span>
-<span class="co">#&gt;  6 gabo… 660288 https://a… ""          http… https:/… https://api.…</span>
-<span class="co">#&gt;  7 gabo… 660288 https://a… ""          http… https:/… https://api.…</span>
-<span class="co">#&gt;  8 gabo… 660288 https://a… ""          http… https:/… https://api.…</span>
-<span class="co">#&gt;  9 gabo… 660288 https://a… ""          http… https:/… https://api.…</span>
-<span class="co">#&gt; 10 gabo… 660288 https://a… ""          http… https:/… https://api.…</span>
+<span class="co">#&gt;    login      id avatar_url     gravatar_id url      html_url   followers_url   </span>
+<span class="co">#&gt;    &lt;chr&gt;   &lt;int&gt; &lt;chr&gt;          &lt;chr&gt;       &lt;chr&gt;    &lt;chr&gt;      &lt;chr&gt;           </span>
+<span class="co">#&gt;  1 gabor… 660288 https://avata… ""          https:/… https://g… https://api.git…</span>
+<span class="co">#&gt;  2 gabor… 660288 https://avata… ""          https:/… https://g… https://api.git…</span>
+<span class="co">#&gt;  3 gabor… 660288 https://avata… ""          https:/… https://g… https://api.git…</span>
+<span class="co">#&gt;  4 gabor… 660288 https://avata… ""          https:/… https://g… https://api.git…</span>
+<span class="co">#&gt;  5 gabor… 660288 https://avata… ""          https:/… https://g… https://api.git…</span>
+<span class="co">#&gt;  6 gabor… 660288 https://avata… ""          https:/… https://g… https://api.git…</span>
+<span class="co">#&gt;  7 gabor… 660288 https://avata… ""          https:/… https://g… https://api.git…</span>
+<span class="co">#&gt;  8 gabor… 660288 https://avata… ""          https:/… https://g… https://api.git…</span>
+<span class="co">#&gt;  9 gabor… 660288 https://avata… ""          https:/… https://g… https://api.git…</span>
+<span class="co">#&gt; 10 gabor… 660288 https://avata… ""          https:/… https://g… https://api.git…</span>
 <span class="co">#&gt; # … with 166 more rows, and 11 more variables: following_url &lt;chr&gt;,</span>
 <span class="co">#&gt; #   gists_url &lt;chr&gt;, starred_url &lt;chr&gt;, subscriptions_url &lt;chr&gt;,</span>
 <span class="co">#&gt; #   organizations_url &lt;chr&gt;, repos_url &lt;chr&gt;, events_url &lt;chr&gt;,</span>
@@ -325,18 +325,18 @@ and `hoist()`.
 <span class="co">#&gt; Using `unnest_longer(repo)`; no element has names</span>
 <span class="co">#&gt; Using `unnest_wider(repo)`; elements have 68 names in common</span>
 <span class="co">#&gt; # A tibble: 176 x 67</span>
-<span class="co">#&gt;        id name  full_name owner private html_url description fork  url  </span>
-<span class="co">#&gt;     &lt;int&gt; &lt;chr&gt; &lt;chr&gt;     &lt;lis&gt; &lt;lgl&gt;   &lt;chr&gt;    &lt;chr&gt;       &lt;lgl&gt; &lt;chr&gt;</span>
-<span class="co">#&gt;  1 6.12e7 after gaborcsa… &lt;nam… FALSE   https:/… Run Code i… FALSE http…</span>
-<span class="co">#&gt;  2 4.05e7 argu… gaborcsa… &lt;nam… FALSE   https:/… Declarativ… FALSE http…</span>
-<span class="co">#&gt;  3 3.64e7 ask   gaborcsa… &lt;nam… FALSE   https:/… Friendly C… FALSE http…</span>
-<span class="co">#&gt;  4 3.49e7 base… gaborcsa… &lt;nam… FALSE   https:/… Do we get … FALSE http…</span>
-<span class="co">#&gt;  5 6.16e7 cite… gaborcsa… &lt;nam… FALSE   https:/… Test R pac… TRUE  http…</span>
-<span class="co">#&gt;  6 3.39e7 clis… gaborcsa… &lt;nam… FALSE   https:/… Unicode sy… FALSE http…</span>
-<span class="co">#&gt;  7 3.72e7 cmak… gaborcsa… &lt;nam… FALSE   https:/… port of cm… TRUE  http…</span>
-<span class="co">#&gt;  8 6.80e7 cmark gaborcsa… &lt;nam… FALSE   https:/… CommonMark… TRUE  http…</span>
-<span class="co">#&gt;  9 6.32e7 cond… gaborcsa… &lt;nam… FALSE   https:/… &lt;NA&gt;        TRUE  http…</span>
-<span class="co">#&gt; 10 2.43e7 cray… gaborcsa… &lt;nam… FALSE   https:/… R package … FALSE http…</span>
+<span class="co">#&gt;         id name   full_name  owner private html_url  description   fork  url    </span>
+<span class="co">#&gt;      &lt;int&gt; &lt;chr&gt;  &lt;chr&gt;      &lt;lis&gt; &lt;lgl&gt;   &lt;chr&gt;     &lt;chr&gt;         &lt;lgl&gt; &lt;chr&gt;  </span>
+<span class="co">#&gt;  1  6.12e7 after  gaborcsar… &lt;nam… FALSE   https://… Run Code in … FALSE https:…</span>
+<span class="co">#&gt;  2  4.05e7 argufy gaborcsar… &lt;nam… FALSE   https://… Declarative … FALSE https:…</span>
+<span class="co">#&gt;  3  3.64e7 ask    gaborcsar… &lt;nam… FALSE   https://… Friendly CLI… FALSE https:…</span>
+<span class="co">#&gt;  4  3.49e7 basei… gaborcsar… &lt;nam… FALSE   https://… Do we get wa… FALSE https:…</span>
+<span class="co">#&gt;  5  6.16e7 citest gaborcsar… &lt;nam… FALSE   https://… Test R packa… TRUE  https:…</span>
+<span class="co">#&gt;  6  3.39e7 clisy… gaborcsar… &lt;nam… FALSE   https://… Unicode symb… FALSE https:…</span>
+<span class="co">#&gt;  7  3.72e7 cmaker gaborcsar… &lt;nam… FALSE   https://… port of cmak… TRUE  https:…</span>
+<span class="co">#&gt;  8  6.80e7 cmark  gaborcsar… &lt;nam… FALSE   https://… CommonMark p… TRUE  https:…</span>
+<span class="co">#&gt;  9  6.32e7 condi… gaborcsar… &lt;nam… FALSE   https://… &lt;NA&gt;          TRUE  https:…</span>
+<span class="co">#&gt; 10  2.43e7 crayon gaborcsar… &lt;nam… FALSE   https://… R package fo… FALSE https:…</span>
 <span class="co">#&gt; # … with 166 more rows, and 58 more variables: forks_url &lt;chr&gt;, keys_url &lt;chr&gt;,</span>
 <span class="co">#&gt; #   collaborators_url &lt;chr&gt;, teams_url &lt;chr&gt;, hooks_url &lt;chr&gt;,</span>
 <span class="co">#&gt; #   issue_events_url &lt;chr&gt;, events_url &lt;chr&gt;, assignees_url &lt;chr&gt;,</span>
@@ -381,18 +381,18 @@ and `hoist()`.
 <span class="va">chars2</span> <span class="op">&lt;-</span> <span class="va">chars</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/hoist.html">unnest_wider</a></span><span class="op">(</span><span class="va">char</span><span class="op">)</span>
 <span class="va">chars2</span>
 <span class="co">#&gt; # A tibble: 30 x 18</span>
-<span class="co">#&gt;    url      id name  gender culture born  died  alive titles aliases father</span>
-<span class="co">#&gt;    &lt;chr&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;   &lt;chr&gt; &lt;chr&gt; &lt;lgl&gt; &lt;list&gt; &lt;list&gt;  &lt;chr&gt; </span>
-<span class="co">#&gt;  1 http…  1022 Theo… Male   "Ironb… "In … ""    TRUE  &lt;chr … &lt;chr [… ""    </span>
-<span class="co">#&gt;  2 http…  1052 Tyri… Male   ""      "In … ""    TRUE  &lt;chr … &lt;chr [… ""    </span>
-<span class="co">#&gt;  3 http…  1074 Vict… Male   "Ironb… "In … ""    TRUE  &lt;chr … &lt;chr [… ""    </span>
-<span class="co">#&gt;  4 http…  1109 Will  Male   ""      ""    "In … FALSE &lt;chr … &lt;chr [… ""    </span>
-<span class="co">#&gt;  5 http…  1166 Areo… Male   "Norvo… "In … ""    TRUE  &lt;chr … &lt;chr [… ""    </span>
-<span class="co">#&gt;  6 http…  1267 Chett Male   ""      "At … "In … FALSE &lt;chr … &lt;chr [… ""    </span>
-<span class="co">#&gt;  7 http…  1295 Cres… Male   ""      "In … "In … FALSE &lt;chr … &lt;chr [… ""    </span>
-<span class="co">#&gt;  8 http…   130 Aria… Female "Dorni… "In … ""    TRUE  &lt;chr … &lt;chr [… ""    </span>
-<span class="co">#&gt;  9 http…  1303 Daen… Female "Valyr… "In … ""    TRUE  &lt;chr … &lt;chr [… ""    </span>
-<span class="co">#&gt; 10 http…  1319 Davo… Male   "Weste… "In … ""    TRUE  &lt;chr … &lt;chr [… ""    </span>
+<span class="co">#&gt;    url        id name   gender culture born   died   alive titles aliases father</span>
+<span class="co">#&gt;    &lt;chr&gt;   &lt;int&gt; &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt;   &lt;chr&gt;  &lt;chr&gt;  &lt;lgl&gt; &lt;list&gt; &lt;list&gt;  &lt;chr&gt; </span>
+<span class="co">#&gt;  1 https:…  1022 Theon… Male   "Ironb… "In 2… ""     TRUE  &lt;chr … &lt;chr [… ""    </span>
+<span class="co">#&gt;  2 https:…  1052 Tyrio… Male   ""      "In 2… ""     TRUE  &lt;chr … &lt;chr [… ""    </span>
+<span class="co">#&gt;  3 https:…  1074 Victa… Male   "Ironb… "In 2… ""     TRUE  &lt;chr … &lt;chr [… ""    </span>
+<span class="co">#&gt;  4 https:…  1109 Will   Male   ""      ""     "In 2… FALSE &lt;chr … &lt;chr [… ""    </span>
+<span class="co">#&gt;  5 https:…  1166 Areo … Male   "Norvo… "In 2… ""     TRUE  &lt;chr … &lt;chr [… ""    </span>
+<span class="co">#&gt;  6 https:…  1267 Chett  Male   ""      "At H… "In 2… FALSE &lt;chr … &lt;chr [… ""    </span>
+<span class="co">#&gt;  7 https:…  1295 Cress… Male   ""      "In 2… "In 2… FALSE &lt;chr … &lt;chr [… ""    </span>
+<span class="co">#&gt;  8 https:…   130 Arian… Female "Dorni… "In 2… ""     TRUE  &lt;chr … &lt;chr [… ""    </span>
+<span class="co">#&gt;  9 https:…  1303 Daene… Female "Valyr… "In 2… ""     TRUE  &lt;chr … &lt;chr [… ""    </span>
+<span class="co">#&gt; 10 https:…  1319 Davos… Male   "Weste… "In 2… ""     TRUE  &lt;chr … &lt;chr [… ""    </span>
 <span class="co">#&gt; # … with 20 more rows, and 7 more variables: mother &lt;chr&gt;, spouse &lt;chr&gt;,</span>
 <span class="co">#&gt; #   allegiances &lt;list&gt;, books &lt;list&gt;, povBooks &lt;list&gt;, tvSeries &lt;list&gt;,</span>
 <span class="co">#&gt; #   playedBy &lt;list&gt;</span></code></pre></div>
@@ -485,6 +485,7 @@ and `hoist()`.
 <span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="va">has_key</span><span class="op">)</span> <span class="op">{</span>
   <span class="fu"><a href="https://rdrr.io/r/base/message.html">message</a></span><span class="op">(</span><span class="st">"No Google Maps API key found; code chunks will not be run"</span><span class="op">)</span>
 <span class="op">}</span>
+<span class="co">#&gt; No Google Maps API key found; code chunks will not be run</span>
 
 <span class="co"># https://developers.google.com/maps/documentation/geocoding</span>
 <span class="va">geocode</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">address</span>, <span class="va">api_key</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html">Sys.getenv</a></span><span class="op">(</span><span class="st">"GOOGLE_MAPS_API_KEY"</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
@@ -496,60 +497,7 @@ and `hoist()`.
 <p>The list that this function returns is quite complex:</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">houston</span> <span class="op">&lt;-</span> <span class="fu">geocode</span><span class="op">(</span><span class="st">"Houston TX"</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">houston</span><span class="op">)</span>
-<span class="co">#&gt; List of 2</span>
-<span class="co">#&gt;  $ results:List of 1</span>
-<span class="co">#&gt;   ..$ :List of 5</span>
-<span class="co">#&gt;   .. ..$ address_components:List of 4</span>
-<span class="co">#&gt;   .. .. ..$ :List of 3</span>
-<span class="co">#&gt;   .. .. .. ..$ long_name : chr "Houston"</span>
-<span class="co">#&gt;   .. .. .. ..$ short_name: chr "Houston"</span>
-<span class="co">#&gt;   .. .. .. ..$ types     :List of 2</span>
-<span class="co">#&gt;   .. .. .. .. ..$ : chr "locality"</span>
-<span class="co">#&gt;   .. .. .. .. ..$ : chr "political"</span>
-<span class="co">#&gt;   .. .. ..$ :List of 3</span>
-<span class="co">#&gt;   .. .. .. ..$ long_name : chr "Harris County"</span>
-<span class="co">#&gt;   .. .. .. ..$ short_name: chr "Harris County"</span>
-<span class="co">#&gt;   .. .. .. ..$ types     :List of 2</span>
-<span class="co">#&gt;   .. .. .. .. ..$ : chr "administrative_area_level_2"</span>
-<span class="co">#&gt;   .. .. .. .. ..$ : chr "political"</span>
-<span class="co">#&gt;   .. .. ..$ :List of 3</span>
-<span class="co">#&gt;   .. .. .. ..$ long_name : chr "Texas"</span>
-<span class="co">#&gt;   .. .. .. ..$ short_name: chr "TX"</span>
-<span class="co">#&gt;   .. .. .. ..$ types     :List of 2</span>
-<span class="co">#&gt;   .. .. .. .. ..$ : chr "administrative_area_level_1"</span>
-<span class="co">#&gt;   .. .. .. .. ..$ : chr "political"</span>
-<span class="co">#&gt;   .. .. ..$ :List of 3</span>
-<span class="co">#&gt;   .. .. .. ..$ long_name : chr "United States"</span>
-<span class="co">#&gt;   .. .. .. ..$ short_name: chr "US"</span>
-<span class="co">#&gt;   .. .. .. ..$ types     :List of 2</span>
-<span class="co">#&gt;   .. .. .. .. ..$ : chr "country"</span>
-<span class="co">#&gt;   .. .. .. .. ..$ : chr "political"</span>
-<span class="co">#&gt;   .. ..$ formatted_address : chr "Houston, TX, USA"</span>
-<span class="co">#&gt;   .. ..$ geometry          :List of 4</span>
-<span class="co">#&gt;   .. .. ..$ bounds       :List of 2</span>
-<span class="co">#&gt;   .. .. .. ..$ northeast:List of 2</span>
-<span class="co">#&gt;   .. .. .. .. ..$ lat: num 30.1</span>
-<span class="co">#&gt;   .. .. .. .. ..$ lng: num -95</span>
-<span class="co">#&gt;   .. .. .. ..$ southwest:List of 2</span>
-<span class="co">#&gt;   .. .. .. .. ..$ lat: num 29.5</span>
-<span class="co">#&gt;   .. .. .. .. ..$ lng: num -95.8</span>
-<span class="co">#&gt;   .. .. ..$ location     :List of 2</span>
-<span class="co">#&gt;   .. .. .. ..$ lat: num 29.8</span>
-<span class="co">#&gt;   .. .. .. ..$ lng: num -95.4</span>
-<span class="co">#&gt;   .. .. ..$ location_type: chr "APPROXIMATE"</span>
-<span class="co">#&gt;   .. .. ..$ viewport     :List of 2</span>
-<span class="co">#&gt;   .. .. .. ..$ northeast:List of 2</span>
-<span class="co">#&gt;   .. .. .. .. ..$ lat: num 30.1</span>
-<span class="co">#&gt;   .. .. .. .. ..$ lng: num -95</span>
-<span class="co">#&gt;   .. .. .. ..$ southwest:List of 2</span>
-<span class="co">#&gt;   .. .. .. .. ..$ lat: num 29.5</span>
-<span class="co">#&gt;   .. .. .. .. ..$ lng: num -95.8</span>
-<span class="co">#&gt;   .. ..$ place_id          : chr "ChIJAYWNSLS4QIYROwVl894CDco"</span>
-<span class="co">#&gt;   .. ..$ types             :List of 2</span>
-<span class="co">#&gt;   .. .. ..$ : chr "locality"</span>
-<span class="co">#&gt;   .. .. ..$ : chr "political"</span>
-<span class="co">#&gt;  $ status : chr "OK"</span></code></pre></div>
+<span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">houston</span><span class="op">)</span></code></pre></div>
 <p>Fortunately, we can attack the problem step by step with tidyr functions. To make the problem a bit harder (!) and more realistic, I’ll start by geocoding a few cities:</p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">city</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Houston"</span>, <span class="st">"LA"</span>, <span class="st">"New York"</span>, <span class="st">"Chicago"</span>, <span class="st">"Springfield"</span><span class="op">)</span>
@@ -557,70 +505,29 @@ and `hoist()`.
 <p>I’ll put these results in a tibble, next to the original city name:</p>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">loc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>city <span class="op">=</span> <span class="va">city</span>, json <span class="op">=</span> <span class="va">city_geo</span><span class="op">)</span>
-<span class="va">loc</span>
-<span class="co">#&gt; # A tibble: 5 x 2</span>
-<span class="co">#&gt;   city        json            </span>
-<span class="co">#&gt;   &lt;chr&gt;       &lt;list&gt;          </span>
-<span class="co">#&gt; 1 Houston     &lt;named list [2]&gt;</span>
-<span class="co">#&gt; 2 LA          &lt;named list [2]&gt;</span>
-<span class="co">#&gt; 3 New York    &lt;named list [2]&gt;</span>
-<span class="co">#&gt; 4 Chicago     &lt;named list [2]&gt;</span>
-<span class="co">#&gt; 5 Springfield &lt;named list [2]&gt;</span></code></pre></div>
+<span class="va">loc</span></code></pre></div>
 <p>The first level contains components <code>status</code> and <code>result</code>, which we can reveal with <code><a href="../reference/hoist.html">unnest_wider()</a></code>:</p>
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">loc</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/hoist.html">unnest_wider</a></span><span class="op">(</span><span class="va">json</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 5 x 3</span>
-<span class="co">#&gt;   city        results    status</span>
-<span class="co">#&gt;   &lt;chr&gt;       &lt;list&gt;     &lt;chr&gt; </span>
-<span class="co">#&gt; 1 Houston     &lt;list [1]&gt; OK    </span>
-<span class="co">#&gt; 2 LA          &lt;list [1]&gt; OK    </span>
-<span class="co">#&gt; 3 New York    &lt;list [1]&gt; OK    </span>
-<span class="co">#&gt; 4 Chicago     &lt;list [1]&gt; OK    </span>
-<span class="co">#&gt; 5 Springfield &lt;list [1]&gt; OK</span></code></pre></div>
+  <span class="fu"><a href="../reference/hoist.html">unnest_wider</a></span><span class="op">(</span><span class="va">json</span><span class="op">)</span></code></pre></div>
 <p>Notice that <code>results</code> is a list of lists. Most of the cities have 1 element (representing a unique match from the geocoding API), but Springfield has two. We can pull these out into separate rows with <code><a href="../reference/hoist.html">unnest_longer()</a></code>:</p>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">loc</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="../reference/hoist.html">unnest_wider</a></span><span class="op">(</span><span class="va">json</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="../reference/hoist.html">unnest_longer</a></span><span class="op">(</span><span class="va">results</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 5 x 3</span>
-<span class="co">#&gt;   city        results          status</span>
-<span class="co">#&gt;   &lt;chr&gt;       &lt;list&gt;           &lt;chr&gt; </span>
-<span class="co">#&gt; 1 Houston     &lt;named list [5]&gt; OK    </span>
-<span class="co">#&gt; 2 LA          &lt;named list [5]&gt; OK    </span>
-<span class="co">#&gt; 3 New York    &lt;named list [5]&gt; OK    </span>
-<span class="co">#&gt; 4 Chicago     &lt;named list [5]&gt; OK    </span>
-<span class="co">#&gt; 5 Springfield &lt;named list [5]&gt; OK</span></code></pre></div>
+  <span class="fu"><a href="../reference/hoist.html">unnest_longer</a></span><span class="op">(</span><span class="va">results</span><span class="op">)</span></code></pre></div>
 <p>Now these all have the same components, as revealed by <code><a href="../reference/hoist.html">unnest_wider()</a></code>:</p>
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">loc</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="../reference/hoist.html">unnest_wider</a></span><span class="op">(</span><span class="va">json</span><span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="../reference/hoist.html">unnest_longer</a></span><span class="op">(</span><span class="va">results</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="../reference/hoist.html">unnest_wider</a></span><span class="op">(</span><span class="va">results</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 5 x 7</span>
-<span class="co">#&gt;   city    address_componen… formatted_address geometry  place_id    types status</span>
-<span class="co">#&gt;   &lt;chr&gt;   &lt;list&gt;            &lt;chr&gt;             &lt;list&gt;    &lt;chr&gt;       &lt;lis&gt; &lt;chr&gt; </span>
-<span class="co">#&gt; 1 Houston &lt;list [4]&gt;        Houston, TX, USA  &lt;named l… ChIJAYWNSL… &lt;lis… OK    </span>
-<span class="co">#&gt; 2 LA      &lt;list [4]&gt;        Los Angeles, CA,… &lt;named l… ChIJE9on3F… &lt;lis… OK    </span>
-<span class="co">#&gt; 3 New Yo… &lt;list [3]&gt;        New York, NY, USA &lt;named l… ChIJOwg_06… &lt;lis… OK    </span>
-<span class="co">#&gt; 4 Chicago &lt;list [4]&gt;        Chicago, IL, USA  &lt;named l… ChIJ7cv00D… &lt;lis… OK    </span>
-<span class="co">#&gt; 5 Spring… &lt;list [5]&gt;        Springfield, MO,… &lt;named l… ChIJP5jIRf… &lt;lis… OK</span></code></pre></div>
+  <span class="fu"><a href="../reference/hoist.html">unnest_wider</a></span><span class="op">(</span><span class="va">results</span><span class="op">)</span></code></pre></div>
 <p>We can find the lat and lon coordinates by unnesting <code>geometry</code>:</p>
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">loc</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="../reference/hoist.html">unnest_wider</a></span><span class="op">(</span><span class="va">json</span><span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="../reference/hoist.html">unnest_longer</a></span><span class="op">(</span><span class="va">results</span><span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="../reference/hoist.html">unnest_wider</a></span><span class="op">(</span><span class="va">results</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="../reference/hoist.html">unnest_wider</a></span><span class="op">(</span><span class="va">geometry</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 5 x 10</span>
-<span class="co">#&gt;   city  address_compone… formatted_addre… bounds location location_type viewport</span>
-<span class="co">#&gt;   &lt;chr&gt; &lt;list&gt;           &lt;chr&gt;            &lt;list&gt; &lt;list&gt;   &lt;chr&gt;         &lt;list&gt;  </span>
-<span class="co">#&gt; 1 Hous… &lt;list [4]&gt;       Houston, TX, USA &lt;name… &lt;named … APPROXIMATE   &lt;named …</span>
-<span class="co">#&gt; 2 LA    &lt;list [4]&gt;       Los Angeles, CA… &lt;name… &lt;named … APPROXIMATE   &lt;named …</span>
-<span class="co">#&gt; 3 New … &lt;list [3]&gt;       New York, NY, U… &lt;name… &lt;named … APPROXIMATE   &lt;named …</span>
-<span class="co">#&gt; 4 Chic… &lt;list [4]&gt;       Chicago, IL, USA &lt;name… &lt;named … APPROXIMATE   &lt;named …</span>
-<span class="co">#&gt; 5 Spri… &lt;list [5]&gt;       Springfield, MO… &lt;name… &lt;named … APPROXIMATE   &lt;named …</span>
-<span class="co">#&gt; # … with 3 more variables: place_id &lt;chr&gt;, types &lt;list&gt;, status &lt;chr&gt;</span></code></pre></div>
+  <span class="fu"><a href="../reference/hoist.html">unnest_wider</a></span><span class="op">(</span><span class="va">geometry</span><span class="op">)</span></code></pre></div>
 <p>And then location:</p>
 <div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">loc</span> <span class="op">%&gt;%</span>
@@ -628,17 +535,7 @@ and `hoist()`.
   <span class="fu"><a href="../reference/hoist.html">unnest_longer</a></span><span class="op">(</span><span class="va">results</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="../reference/hoist.html">unnest_wider</a></span><span class="op">(</span><span class="va">results</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="../reference/hoist.html">unnest_wider</a></span><span class="op">(</span><span class="va">geometry</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/hoist.html">unnest_wider</a></span><span class="op">(</span><span class="va">location</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 5 x 11</span>
-<span class="co">#&gt;   city  address_compone… formatted_addre… bounds   lat    lng location_type</span>
-<span class="co">#&gt;   &lt;chr&gt; &lt;list&gt;           &lt;chr&gt;            &lt;list&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt;        </span>
-<span class="co">#&gt; 1 Hous… &lt;list [4]&gt;       Houston, TX, USA &lt;name…  29.8  -95.4 APPROXIMATE  </span>
-<span class="co">#&gt; 2 LA    &lt;list [4]&gt;       Los Angeles, CA… &lt;name…  34.1 -118.  APPROXIMATE  </span>
-<span class="co">#&gt; 3 New … &lt;list [3]&gt;       New York, NY, U… &lt;name…  40.7  -74.0 APPROXIMATE  </span>
-<span class="co">#&gt; 4 Chic… &lt;list [4]&gt;       Chicago, IL, USA &lt;name…  41.9  -87.6 APPROXIMATE  </span>
-<span class="co">#&gt; 5 Spri… &lt;list [5]&gt;       Springfield, MO… &lt;name…  37.2  -93.3 APPROXIMATE  </span>
-<span class="co">#&gt; # … with 4 more variables: viewport &lt;list&gt;, place_id &lt;chr&gt;, types &lt;list&gt;,</span>
-<span class="co">#&gt; #   status &lt;chr&gt;</span></code></pre></div>
+  <span class="fu"><a href="../reference/hoist.html">unnest_wider</a></span><span class="op">(</span><span class="va">location</span><span class="op">)</span></code></pre></div>
 <p>Again, <code><a href="../reference/hoist.html">unnest_auto()</a></code> makes this simpler with the small risk of failing in unexpected ways if the input structure changes:</p>
 <div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">loc</span> <span class="op">%&gt;%</span>
@@ -646,22 +543,7 @@ and `hoist()`.
   <span class="fu"><a href="../reference/hoist.html">unnest_auto</a></span><span class="op">(</span><span class="va">results</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="../reference/hoist.html">unnest_auto</a></span><span class="op">(</span><span class="va">results</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="../reference/hoist.html">unnest_auto</a></span><span class="op">(</span><span class="va">geometry</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/hoist.html">unnest_auto</a></span><span class="op">(</span><span class="va">location</span><span class="op">)</span>
-<span class="co">#&gt; Using `unnest_wider(json)`; elements have 2 names in common</span>
-<span class="co">#&gt; Using `unnest_longer(results)`; no element has names</span>
-<span class="co">#&gt; Using `unnest_wider(results)`; elements have 5 names in common</span>
-<span class="co">#&gt; Using `unnest_wider(geometry)`; elements have 4 names in common</span>
-<span class="co">#&gt; Using `unnest_wider(location)`; elements have 2 names in common</span>
-<span class="co">#&gt; # A tibble: 5 x 11</span>
-<span class="co">#&gt;   city  address_compone… formatted_addre… bounds   lat    lng location_type</span>
-<span class="co">#&gt;   &lt;chr&gt; &lt;list&gt;           &lt;chr&gt;            &lt;list&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt;        </span>
-<span class="co">#&gt; 1 Hous… &lt;list [4]&gt;       Houston, TX, USA &lt;name…  29.8  -95.4 APPROXIMATE  </span>
-<span class="co">#&gt; 2 LA    &lt;list [4]&gt;       Los Angeles, CA… &lt;name…  34.1 -118.  APPROXIMATE  </span>
-<span class="co">#&gt; 3 New … &lt;list [3]&gt;       New York, NY, U… &lt;name…  40.7  -74.0 APPROXIMATE  </span>
-<span class="co">#&gt; 4 Chic… &lt;list [4]&gt;       Chicago, IL, USA &lt;name…  41.9  -87.6 APPROXIMATE  </span>
-<span class="co">#&gt; 5 Spri… &lt;list [5]&gt;       Springfield, MO… &lt;name…  37.2  -93.3 APPROXIMATE  </span>
-<span class="co">#&gt; # … with 4 more variables: viewport &lt;list&gt;, place_id &lt;chr&gt;, types &lt;list&gt;,</span>
-<span class="co">#&gt; #   status &lt;chr&gt;</span></code></pre></div>
+  <span class="fu"><a href="../reference/hoist.html">unnest_auto</a></span><span class="op">(</span><span class="va">location</span><span class="op">)</span></code></pre></div>
 <p>We could also just look at the first address for each city:</p>
 <div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">loc</span> <span class="op">%&gt;%</span>
@@ -669,32 +551,14 @@ and `hoist()`.
   <span class="fu"><a href="../reference/hoist.html">hoist</a></span><span class="op">(</span><span class="va">results</span>, first_result <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="../reference/hoist.html">unnest_wider</a></span><span class="op">(</span><span class="va">first_result</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="../reference/hoist.html">unnest_wider</a></span><span class="op">(</span><span class="va">geometry</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/hoist.html">unnest_wider</a></span><span class="op">(</span><span class="va">location</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 5 x 11</span>
-<span class="co">#&gt;   city  address_compone… formatted_addre… bounds   lat    lng location_type</span>
-<span class="co">#&gt;   &lt;chr&gt; &lt;list&gt;           &lt;chr&gt;            &lt;list&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt;        </span>
-<span class="co">#&gt; 1 Hous… &lt;list [4]&gt;       Houston, TX, USA &lt;name…  29.8  -95.4 APPROXIMATE  </span>
-<span class="co">#&gt; 2 LA    &lt;list [4]&gt;       Los Angeles, CA… &lt;name…  34.1 -118.  APPROXIMATE  </span>
-<span class="co">#&gt; 3 New … &lt;list [3]&gt;       New York, NY, U… &lt;name…  40.7  -74.0 APPROXIMATE  </span>
-<span class="co">#&gt; 4 Chic… &lt;list [4]&gt;       Chicago, IL, USA &lt;name…  41.9  -87.6 APPROXIMATE  </span>
-<span class="co">#&gt; 5 Spri… &lt;list [5]&gt;       Springfield, MO… &lt;name…  37.2  -93.3 APPROXIMATE  </span>
-<span class="co">#&gt; # … with 4 more variables: viewport &lt;list&gt;, place_id &lt;chr&gt;, types &lt;list&gt;,</span>
-<span class="co">#&gt; #   status &lt;chr&gt;</span></code></pre></div>
+  <span class="fu"><a href="../reference/hoist.html">unnest_wider</a></span><span class="op">(</span><span class="va">location</span><span class="op">)</span></code></pre></div>
 <p>Or use <code><a href="../reference/hoist.html">hoist()</a></code> to dive deeply to get directly to <code>lat</code> and <code>lng</code>:</p>
 <div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">loc</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="../reference/hoist.html">hoist</a></span><span class="op">(</span><span class="va">json</span>,
     lat <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="st">"results"</span>, <span class="fl">1</span>, <span class="st">"geometry"</span>, <span class="st">"location"</span>, <span class="st">"lat"</span><span class="op">)</span>,
     lng <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="st">"results"</span>, <span class="fl">1</span>, <span class="st">"geometry"</span>, <span class="st">"location"</span>, <span class="st">"lng"</span><span class="op">)</span>
-  <span class="op">)</span>
-<span class="co">#&gt; # A tibble: 5 x 4</span>
-<span class="co">#&gt;   city          lat    lng json            </span>
-<span class="co">#&gt;   &lt;chr&gt;       &lt;dbl&gt;  &lt;dbl&gt; &lt;list&gt;          </span>
-<span class="co">#&gt; 1 Houston      29.8  -95.4 &lt;named list [2]&gt;</span>
-<span class="co">#&gt; 2 LA           34.1 -118.  &lt;named list [2]&gt;</span>
-<span class="co">#&gt; 3 New York     40.7  -74.0 &lt;named list [2]&gt;</span>
-<span class="co">#&gt; 4 Chicago      41.9  -87.6 &lt;named list [2]&gt;</span>
-<span class="co">#&gt; 5 Springfield  37.2  -93.3 &lt;named list [2]&gt;</span></code></pre></div>
+  <span class="op">)</span></code></pre></div>
 </div>
 <div id="sharla-gelfands-discography" class="section level2">
 <h2 class="hasAnchor">
@@ -723,7 +587,7 @@ and `hoist()`.
 <div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">discs</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/hoist.html">unnest_wider</a></span><span class="op">(</span><span class="va">basic_information</span><span class="op">)</span>
 <span class="co">#&gt; Error: Names must be unique.</span>
-<span class="co">#&gt; x These names are duplicated:</span>
+<span class="co">#&gt; ✖ These names are duplicated:</span>
 <span class="co">#&gt;   * "id" at locations 6 and 14.</span>
 <span class="co">#&gt; ℹ Use argument `names_repair` to specify repair strategy.</span></code></pre></div>
 <p>Unfortunately that fails because there’s an <code>id</code> column inside <code>basic_information</code>. We can quickly see what’s going on by setting <code>names_repair = "unique"</code>:</p>
@@ -733,18 +597,18 @@ and `hoist()`.
 <span class="co">#&gt; * id -&gt; id...6</span>
 <span class="co">#&gt; * id -&gt; id...14</span>
 <span class="co">#&gt; # A tibble: 155 x 15</span>
-<span class="co">#&gt;    instance_id date_added          labels  year artists id...6 thumb title</span>
-<span class="co">#&gt;          &lt;int&gt; &lt;dttm&gt;              &lt;list&gt; &lt;int&gt; &lt;list&gt;   &lt;int&gt; &lt;chr&gt; &lt;chr&gt;</span>
-<span class="co">#&gt;  1   354823933 2019-02-16 17:48:59 &lt;list…  2015 &lt;list … 7.50e6 "htt… Demo </span>
-<span class="co">#&gt;  2   354092601 2019-02-13 14:13:11 &lt;list…  2013 &lt;list … 4.49e6 "htt… Obse…</span>
-<span class="co">#&gt;  3   354091476 2019-02-13 14:07:23 &lt;list…  2017 &lt;list … 9.83e6 "htt… I    </span>
-<span class="co">#&gt;  4   351244906 2019-02-02 11:39:58 &lt;list…  2017 &lt;list … 9.77e6 "htt… Oído…</span>
-<span class="co">#&gt;  5   351244801 2019-02-02 11:39:37 &lt;list…  2015 &lt;list … 7.24e6 "htt… A Ca…</span>
-<span class="co">#&gt;  6   351052065 2019-02-01 20:40:53 &lt;list…  2019 &lt;list … 1.31e7 "htt… Tash…</span>
-<span class="co">#&gt;  7   350315345 2019-01-29 15:48:37 &lt;list…  2014 &lt;list … 7.11e6 "htt… Demo </span>
-<span class="co">#&gt;  8   350315103 2019-01-29 15:47:22 &lt;list…  2015 &lt;list … 1.05e7 "htt… Let …</span>
-<span class="co">#&gt;  9   350314507 2019-01-29 15:44:08 &lt;list…  2017 &lt;list … 1.13e7 ""    Sub …</span>
-<span class="co">#&gt; 10   350314047 2019-01-29 15:41:35 &lt;list…  2017 &lt;list … 1.17e7 "htt… Demo </span>
+<span class="co">#&gt;    instance_id date_added          labels   year artists  id...6 thumb    title </span>
+<span class="co">#&gt;          &lt;int&gt; &lt;dttm&gt;              &lt;list&gt;  &lt;int&gt; &lt;list&gt;    &lt;int&gt; &lt;chr&gt;    &lt;chr&gt; </span>
+<span class="co">#&gt;  1   354823933 2019-02-16 17:48:59 &lt;list …  2015 &lt;list [… 7.50e6 "https:… Demo  </span>
+<span class="co">#&gt;  2   354092601 2019-02-13 14:13:11 &lt;list …  2013 &lt;list [… 4.49e6 "https:… Obser…</span>
+<span class="co">#&gt;  3   354091476 2019-02-13 14:07:23 &lt;list …  2017 &lt;list [… 9.83e6 "https:… I     </span>
+<span class="co">#&gt;  4   351244906 2019-02-02 11:39:58 &lt;list …  2017 &lt;list [… 9.77e6 "https:… Oído …</span>
+<span class="co">#&gt;  5   351244801 2019-02-02 11:39:37 &lt;list …  2015 &lt;list [… 7.24e6 "https:… A Cat…</span>
+<span class="co">#&gt;  6   351052065 2019-02-01 20:40:53 &lt;list …  2019 &lt;list [… 1.31e7 "https:… Tashme</span>
+<span class="co">#&gt;  7   350315345 2019-01-29 15:48:37 &lt;list …  2014 &lt;list [… 7.11e6 "https:… Demo  </span>
+<span class="co">#&gt;  8   350315103 2019-01-29 15:47:22 &lt;list …  2015 &lt;list [… 1.05e7 "https:… Let T…</span>
+<span class="co">#&gt;  9   350314507 2019-01-29 15:44:08 &lt;list …  2017 &lt;list [… 1.13e7 ""       Sub S…</span>
+<span class="co">#&gt; 10   350314047 2019-01-29 15:41:35 &lt;list …  2017 &lt;list [… 1.17e7 "https:… Demo  </span>
 <span class="co">#&gt; # … with 145 more rows, and 7 more variables: formats &lt;list&gt;,</span>
 <span class="co">#&gt; #   cover_image &lt;chr&gt;, resource_url &lt;chr&gt;, master_id &lt;int&gt;, master_url &lt;chr&gt;,</span>
 <span class="co">#&gt; #   id...14 &lt;int&gt;, rating &lt;int&gt;</span></code></pre></div>
@@ -754,18 +618,18 @@ and `hoist()`.
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="op">!</span><span class="va">id</span><span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="../reference/hoist.html">unnest_wider</a></span><span class="op">(</span><span class="va">basic_information</span><span class="op">)</span>
 <span class="co">#&gt; # A tibble: 155 x 14</span>
-<span class="co">#&gt;    instance_id date_added          labels  year artists     id thumb title</span>
-<span class="co">#&gt;          &lt;int&gt; &lt;dttm&gt;              &lt;list&gt; &lt;int&gt; &lt;list&gt;   &lt;int&gt; &lt;chr&gt; &lt;chr&gt;</span>
-<span class="co">#&gt;  1   354823933 2019-02-16 17:48:59 &lt;list…  2015 &lt;list … 7.50e6 "htt… Demo </span>
-<span class="co">#&gt;  2   354092601 2019-02-13 14:13:11 &lt;list…  2013 &lt;list … 4.49e6 "htt… Obse…</span>
-<span class="co">#&gt;  3   354091476 2019-02-13 14:07:23 &lt;list…  2017 &lt;list … 9.83e6 "htt… I    </span>
-<span class="co">#&gt;  4   351244906 2019-02-02 11:39:58 &lt;list…  2017 &lt;list … 9.77e6 "htt… Oído…</span>
-<span class="co">#&gt;  5   351244801 2019-02-02 11:39:37 &lt;list…  2015 &lt;list … 7.24e6 "htt… A Ca…</span>
-<span class="co">#&gt;  6   351052065 2019-02-01 20:40:53 &lt;list…  2019 &lt;list … 1.31e7 "htt… Tash…</span>
-<span class="co">#&gt;  7   350315345 2019-01-29 15:48:37 &lt;list…  2014 &lt;list … 7.11e6 "htt… Demo </span>
-<span class="co">#&gt;  8   350315103 2019-01-29 15:47:22 &lt;list…  2015 &lt;list … 1.05e7 "htt… Let …</span>
-<span class="co">#&gt;  9   350314507 2019-01-29 15:44:08 &lt;list…  2017 &lt;list … 1.13e7 ""    Sub …</span>
-<span class="co">#&gt; 10   350314047 2019-01-29 15:41:35 &lt;list…  2017 &lt;list … 1.17e7 "htt… Demo </span>
+<span class="co">#&gt;    instance_id date_added          labels   year artists      id thumb    title </span>
+<span class="co">#&gt;          &lt;int&gt; &lt;dttm&gt;              &lt;list&gt;  &lt;int&gt; &lt;list&gt;    &lt;int&gt; &lt;chr&gt;    &lt;chr&gt; </span>
+<span class="co">#&gt;  1   354823933 2019-02-16 17:48:59 &lt;list …  2015 &lt;list [… 7.50e6 "https:… Demo  </span>
+<span class="co">#&gt;  2   354092601 2019-02-13 14:13:11 &lt;list …  2013 &lt;list [… 4.49e6 "https:… Obser…</span>
+<span class="co">#&gt;  3   354091476 2019-02-13 14:07:23 &lt;list …  2017 &lt;list [… 9.83e6 "https:… I     </span>
+<span class="co">#&gt;  4   351244906 2019-02-02 11:39:58 &lt;list …  2017 &lt;list [… 9.77e6 "https:… Oído …</span>
+<span class="co">#&gt;  5   351244801 2019-02-02 11:39:37 &lt;list …  2015 &lt;list [… 7.24e6 "https:… A Cat…</span>
+<span class="co">#&gt;  6   351052065 2019-02-01 20:40:53 &lt;list …  2019 &lt;list [… 1.31e7 "https:… Tashme</span>
+<span class="co">#&gt;  7   350315345 2019-01-29 15:48:37 &lt;list …  2014 &lt;list [… 7.11e6 "https:… Demo  </span>
+<span class="co">#&gt;  8   350315103 2019-01-29 15:47:22 &lt;list …  2015 &lt;list [… 1.05e7 "https:… Let T…</span>
+<span class="co">#&gt;  9   350314507 2019-01-29 15:44:08 &lt;list …  2017 &lt;list [… 1.13e7 ""       Sub S…</span>
+<span class="co">#&gt; 10   350314047 2019-01-29 15:41:35 &lt;list …  2017 &lt;list [… 1.17e7 "https:… Demo  </span>
 <span class="co">#&gt; # … with 145 more rows, and 6 more variables: formats &lt;list&gt;,</span>
 <span class="co">#&gt; #   cover_image &lt;chr&gt;, resource_url &lt;chr&gt;, master_id &lt;int&gt;, master_url &lt;chr&gt;,</span>
 <span class="co">#&gt; #   rating &lt;int&gt;</span></code></pre></div>
@@ -779,18 +643,18 @@ and `hoist()`.
     artist <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="st">"artists"</span>, <span class="fl">1</span>, <span class="st">"name"</span><span class="op">)</span>
   <span class="op">)</span>
 <span class="co">#&gt; # A tibble: 155 x 9</span>
-<span class="co">#&gt;    instance_id date_added          title  year label artist basic_informati…</span>
-<span class="co">#&gt;          &lt;int&gt; &lt;dttm&gt;              &lt;chr&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt;  &lt;list&gt;          </span>
-<span class="co">#&gt;  1   354823933 2019-02-16 17:48:59 Demo   2015 Tobi… Mollot &lt;named list [9]&gt;</span>
-<span class="co">#&gt;  2   354092601 2019-02-13 14:13:11 Obse…  2013 La V… Una B… &lt;named list [9]&gt;</span>
-<span class="co">#&gt;  3   354091476 2019-02-13 14:07:23 I      2017 La V… S.H.I… &lt;named list [9]&gt;</span>
-<span class="co">#&gt;  4   351244906 2019-02-02 11:39:58 Oído…  2017 La V… Rata … &lt;named list [9]&gt;</span>
-<span class="co">#&gt;  5   351244801 2019-02-02 11:39:37 A Ca…  2015 Kato… Ivy (… &lt;named list [9]&gt;</span>
-<span class="co">#&gt;  6   351052065 2019-02-01 20:40:53 Tash…  2019 High… Tashme &lt;named list [9]&gt;</span>
-<span class="co">#&gt;  7   350315345 2019-01-29 15:48:37 Demo   2014 Mind… Desgr… &lt;named list [9]&gt;</span>
-<span class="co">#&gt;  8   350315103 2019-01-29 15:47:22 Let …  2015 Not … Phant… &lt;named list [9]&gt;</span>
-<span class="co">#&gt;  9   350314507 2019-01-29 15:44:08 Sub …  2017 Not … Sub S… &lt;named list [9]&gt;</span>
-<span class="co">#&gt; 10   350314047 2019-01-29 15:41:35 Demo   2017 Pres… Small… &lt;named list [9]&gt;</span>
+<span class="co">#&gt;    instance_id date_added          title    year label   artist basic_informati…</span>
+<span class="co">#&gt;          &lt;int&gt; &lt;dttm&gt;              &lt;chr&gt;   &lt;int&gt; &lt;chr&gt;   &lt;chr&gt;  &lt;list&gt;          </span>
+<span class="co">#&gt;  1   354823933 2019-02-16 17:48:59 Demo     2015 Tobi R… Mollot &lt;named list [9]&gt;</span>
+<span class="co">#&gt;  2   354092601 2019-02-13 14:13:11 Observ…  2013 La Vid… Una B… &lt;named list [9]&gt;</span>
+<span class="co">#&gt;  3   354091476 2019-02-13 14:07:23 I        2017 La Vid… S.H.I… &lt;named list [9]&gt;</span>
+<span class="co">#&gt;  4   351244906 2019-02-02 11:39:58 Oído A…  2017 La Vid… Rata … &lt;named list [9]&gt;</span>
+<span class="co">#&gt;  5   351244801 2019-02-02 11:39:37 A Cat'…  2015 Katorg… Ivy (… &lt;named list [9]&gt;</span>
+<span class="co">#&gt;  6   351052065 2019-02-01 20:40:53 Tashme   2019 High F… Tashme &lt;named list [9]&gt;</span>
+<span class="co">#&gt;  7   350315345 2019-01-29 15:48:37 Demo     2014 Mind C… Desgr… &lt;named list [9]&gt;</span>
+<span class="co">#&gt;  8   350315103 2019-01-29 15:47:22 Let Th…  2015 Not On… Phant… &lt;named list [9]&gt;</span>
+<span class="co">#&gt;  9   350314507 2019-01-29 15:44:08 Sub Sp…  2017 Not On… Sub S… &lt;named list [9]&gt;</span>
+<span class="co">#&gt; 10   350314047 2019-01-29 15:41:35 Demo     2017 Presci… Small… &lt;named list [9]&gt;</span>
 <span class="co">#&gt; # … with 145 more rows, and 2 more variables: id &lt;int&gt;, rating &lt;int&gt;</span></code></pre></div>
 <p>Here I quickly extract the name of the first label and artist by indexing deeply into the nested list.</p>
 <p>A more systematic approach would be to create separate tables for artist and label:</p>
@@ -840,7 +704,7 @@ and `hoist()`.
 <div class="footnotes">
 <hr>
 <ol>
-<li id="fn1"><p>I’d normally use <code><a href="https://readr.tidyverse.org/reference/parse_datetime.html">readr::parse_datetime()</a></code> or <code><a href="http://lubridate.tidyverse.org/reference/ymd_hms.html">lubridate::ymd_hms()</a></code>, but I can’t here because it’s a vignette and I don’t want to add a dependency to tidyr just to simplify one example.<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
+<li id="fn1"><p>I’d normally use <code><a href="https://readr.tidyverse.org/reference/parse_datetime.html">readr::parse_datetime()</a></code> or <code>lubridate::ymd_hms()</code>, but I can’t here because it’s a vignette and I don’t want to add a dependency to tidyr just to simplify one example.<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
   </div>

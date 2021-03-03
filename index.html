@@ -20,13 +20,14 @@
 <script src="pkgdown.js"></script><link href="tidyverse-2.css" rel="stylesheet">
 <!--optional theme--><link href=".css" rel="stylesheet">
 <meta property="og:title" content="Tidy Messy Data">
-<meta property="og:description" content="Tools to help to create tidy data, where each column is a 
-    variable, each row is an observation, and each cell contains a single value.  
-    tidyr contains tools for changing the shape (pivoting) and hierarchy
-    (nesting and unnesting) of a dataset, turning deeply nested lists
-    into rectangular data frames (rectangling), and extracting values out 
-    of string columns. It also includes tools for working with missing values 
-    (both implicit and explicit).">
+<meta property="og:description" content="Tools to help to create tidy data, where each
+    column is a variable, each row is an observation, and each cell
+    contains a single value.  tidyr contains tools for changing the
+    shape (pivoting) and hierarchy (nesting and unnesting) of a dataset,
+    turning deeply nested lists into rectangular data frames
+    (rectangling), and extracting values out of string columns. It also
+    includes tools for working with missing values (both implicit and
+    explicit).">
 <meta property="og:image" content="https://tidyr.tidyverse.org/logo.png">
 <meta name="twitter:card" content="summary">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
@@ -56,7 +57,7 @@
         <a class="navbar-brand" href="index.html">tidyr</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.2</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.3</span>
         </div>
       </div>
     </div>
@@ -165,7 +166,7 @@
 <li>Every row is an observation.</li>
 <li>Every cell is a single value.</li>
 </ol>
-<p>Tidy data describes a standard way of storing data that is used wherever possible throughout the <a href="https://tidyverse.org/">tidyverse</a>. If you ensure that your data is tidy, you’ll spend less time fighting with the tools and more time working on your analysis. Learn more about tidy data in <code><a href="articles/tidy-data.html">vignette("tidy-data")</a></code>.</p>
+<p>Tidy data describes a standard way of storing data that is used wherever possible throughout the <a href="https://www.tidyverse.org/">tidyverse</a>. If you ensure that your data is tidy, you’ll spend less time fighting with the tools and more time working on your analysis. Learn more about tidy data in <code><a href="articles/tidy-data.html">vignette("tidy-data")</a></code>.</p>
 </div>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
@@ -179,7 +180,7 @@
 
 <span class="co"># Or the development version from GitHub:</span>
 <span class="co"># install.packages("devtools")</span>
-<span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span><span class="op">(</span><span class="st">"tidyverse/tidyr"</span><span class="op">)</span></code></pre></div>
+<span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"tidyverse/tidyr"</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="cheatsheet" class="section level2">
 <h2 class="hasAnchor">
@@ -203,7 +204,7 @@
 <div id="related-work" class="section level2">
 <h2 class="hasAnchor">
 <a href="#related-work" class="anchor"></a>Related work</h2>
-<p>tidyr <a href="https://www.tidyverse.org/lifecycle/#superseded">supersedes</a> reshape2 (2010-2014) and reshape (2005-2010). Somewhat counterintuitively, each iteration of the package has done less. tidyr is designed specifically for tidying data, not general reshaping (reshape2), or the general aggregation (reshape).</p>
+<p>tidyr <a href="https://lifecycle.r-lib.org/articles/stages.html#superseded">supersedes</a> reshape2 (2010-2014) and reshape (2005-2010). Somewhat counterintuitively, each iteration of the package has done less. tidyr is designed specifically for tidying data, not general reshaping (reshape2), or the general aggregation (reshape).</p>
 <p><a href="https://rdatatable.gitlab.io/data.table">data.table</a> provides high-performance implementations of <code>melt()</code> and <code>dcast()</code></p>
 <p>If you’d like to read more about data reshaping from a CS perspective, I’d recommend the following three papers:</p>
 <ul>
