@@ -115,6 +115,11 @@
 #'
 #' @export hoist
 hoist <- function(.data, .col, ..., .remove = TRUE, .simplify = TRUE, .ptype = list(), .transform = list()) {
+  UseMethod("hoist")
+}
+
+#' @export
+hoist.data.frame <- function(.data, .col, ..., .remove = TRUE, .simplify = TRUE, .ptype = list(), .transform = list()) {
   check_present(.col)
   .col <- tidyselect::vars_pull(names(.data), !!enquo(.col))
   x <- .data[[.col]]
