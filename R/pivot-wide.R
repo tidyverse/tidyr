@@ -109,6 +109,7 @@ pivot_wider <- function(data,
 
 #' @export
 pivot_wider.data.frame <- function(data,
+                                   ...,
                                    id_cols = NULL,
                                    names_from = name,
                                    names_prefix = "",
@@ -118,8 +119,7 @@ pivot_wider.data.frame <- function(data,
                                    names_repair = "check_unique",
                                    values_from = value,
                                    values_fill = NULL,
-                                   values_fn = NULL,
-                                   ...
+                                   values_fn = NULL
                                    ) {
   names_from <- enquo(names_from)
   values_from <- enquo(values_from)
@@ -133,7 +133,8 @@ pivot_wider.data.frame <- function(data,
   )
 
   id_cols <- enquo(id_cols)
-  pivot_wider_spec(data, spec, !!id_cols,
+  pivot_wider_spec(data, spec,
+    id_cols = !!id_cols,
     names_repair = names_repair,
     values_fill = values_fill,
     values_fn = values_fn
@@ -187,11 +188,11 @@ pivot_wider.data.frame <- function(data,
 #'   pivot_wider_spec(spec2)
 pivot_wider_spec <- function(data,
                              spec,
+                             ...,
                              names_repair = "check_unique",
                              id_cols = NULL,
                              values_fill = NULL,
-                             values_fn = NULL,
-                             ...) {
+                             values_fn = NULL) {
   ellipsis::check_dots_used()
   UseMethod("pivot_wider_spec")
 }
@@ -199,11 +200,11 @@ pivot_wider_spec <- function(data,
 #' @export
 pivot_wider_spec.data.frame <- function(data,
                                         spec,
+                                        ...,
                                         names_repair = "check_unique",
                                         id_cols = NULL,
                                         values_fill = NULL,
-                                        values_fn = NULL,
-                                        ...) {
+                                        values_fn = NULL) {
   spec <- check_spec(spec)
 
   if (is.function(values_fn)) {
@@ -299,11 +300,11 @@ pivot_wider_spec.data.frame <- function(data,
 build_wider_spec <- function(data,
                              names_from = name,
                              values_from = value,
+                             ...,
                              names_prefix = "",
                              names_sep = "_",
                              names_glue = NULL,
-                             names_sort = FALSE,
-                             ...
+                             names_sort = FALSE
                              ) {
   ellipsis::check_dots_used()
   UseMethod("build_wider_spec")
@@ -313,11 +314,11 @@ build_wider_spec <- function(data,
 build_wider_spec.data.frame <- function(data,
                                         names_from = name,
                                         values_from = value,
+                                        ...,
                                         names_prefix = "",
                                         names_sep = "_",
                                         names_glue = NULL,
-                                        names_sort = FALSE,
-                                        ...
+                                        names_sort = FALSE
                                         ) {
   names_from <- tidyselect::eval_select(enquo(names_from), data)
   values_from <- tidyselect::eval_select(enquo(values_from), data)
