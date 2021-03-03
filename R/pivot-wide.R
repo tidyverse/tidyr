@@ -186,11 +186,24 @@ pivot_wider.data.frame <- function(data,
 #' us_rent_income %>%
 #'   pivot_wider_spec(spec2)
 pivot_wider_spec <- function(data,
-                                  spec,
-                                  names_repair = "check_unique",
-                                  id_cols = NULL,
-                                  values_fill = NULL,
-                                  values_fn = NULL) {
+                             spec,
+                             names_repair = "check_unique",
+                             id_cols = NULL,
+                             values_fill = NULL,
+                             values_fn = NULL,
+                             ...) {
+  ellipsis::check_dots_used()
+  UseMethod("pivot_wider_spec")
+}
+
+#' @export
+pivot_wider_spec.data.frame <- function(data,
+                                        spec,
+                                        names_repair = "check_unique",
+                                        id_cols = NULL,
+                                        values_fill = NULL,
+                                        values_fn = NULL,
+                                        ...) {
   spec <- check_spec(spec)
 
   if (is.function(values_fn)) {
@@ -289,8 +302,22 @@ build_wider_spec <- function(data,
                              names_prefix = "",
                              names_sep = "_",
                              names_glue = NULL,
-                             names_sort = FALSE
+                             names_sort = FALSE,
+                             ...
                              ) {
+  ellipsis::check_dots_used()
+  UseMethod("build_wider_spec")
+}
+
+#' @export
+build_wider_spec.data.frame <- function(data,
+                                        names_from = name,
+                                        values_from = value,
+                                        names_prefix = "",
+                                        names_sep = "_",
+                                        names_glue = NULL,
+                                        names_sort = FALSE
+                                        ) {
   names_from <- tidyselect::eval_select(enquo(names_from), data)
   values_from <- tidyselect::eval_select(enquo(values_from), data)
 
