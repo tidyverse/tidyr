@@ -10,6 +10,7 @@
 #'   identifier for each created row.
 #' @param .remove If `TRUE`, and `weights` is the name of a column in `data`,
 #'   then this column is removed.
+#' @param ... Additional arguments passed on to methods.
 #' @export
 #' @examples
 #' df <- tibble(x = c("a", "b"), n = c(1, 2))

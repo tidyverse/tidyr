@@ -40,6 +40,7 @@
 #' @param ptype Optionally, supply a data frame prototype for the output `cols`,
 #'   overriding the default that will be guessed from the combination of
 #'   individual values.
+#' @param ... Additional arguments passed on to methods.
 #' @export
 #' @examples
 #' # Chop ==============================================================

@@ -17,6 +17,8 @@ then this column is removed.}
 
 \item{.id}{Supply a string to create a new variable which gives a unique
 identifier for each created row.}
+
+\item{...}{Additional arguments passed on to methods.}
 }
 \description{
 Performs the opposite operation to \code{\link[dplyr:count]{dplyr::count()}}, duplicating rows

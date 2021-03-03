@@ -19,6 +19,8 @@ For \code{unchop()}, each column should be a list-column containing generalised
 vectors (e.g. any mix of \code{NULL}s, atomic vector, S3 vectors, a lists,
 or data frames).}
 
+\item{...}{Additional arguments passed on to methods.}
+
 \item{keep_empty}{By default, you get one row of output for each element
 of the list your unchopping/unnesting. This means that if there's a
 size-0 element (like \code{NULL} or an empty data frame), that entire row
