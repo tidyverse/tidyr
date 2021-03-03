@@ -60,6 +60,11 @@
 #' df %>% unpack(c(y, z))
 #' df %>% unpack(c(y, z), names_sep = "_")
 pack <- function(.data, ..., .names_sep = NULL) {
+  UseMethod("pack")
+}
+
+#' @export
+pack.data.frame <- function(.data, ..., .names_sep = NULL) {
   cols <- enquos(...)
   if (any(names2(cols) == "")) {
     abort("All elements of `...` must be named")
@@ -94,7 +99,13 @@ pack <- function(.data, ..., .names_sep = NULL) {
 #'
 #'   See [vctrs::vec_as_names()] for more details on these terms and the
 #'   strategies used to enforce them.
-unpack <- function(data, cols, names_sep = NULL, names_repair = "check_unique") {
+unpack <- function(data, cols, names_sep = NULL, names_repair = "check_unique", ...) {
+  ellipsis::check_dots_used()
+  UseMethod("unpack")
+}
+
+#' @export
+unpack.data.frame <- function(data, cols, names_sep = NULL, names_repair = "check_unique", ...) {
   check_present(cols)
   cols <- tidyselect::eval_select(enquo(cols), data)
 
