@@ -200,14 +200,14 @@ check_pluckers <- function(...) {
 #'   has inner names.
 #' @inheritParams unnest
 unnest_longer <- function(data, col,
+                          ...,
                           values_to = NULL,
                           indices_to = NULL,
                           indices_include = NULL,
                           names_repair = "check_unique",
                           simplify = TRUE,
                           ptype = list(),
-                          transform = list(),
-                          ...
+                          transform = list()
                           ) {
   ellipsis::check_dots_used()
   UseMethod("unnest_longer")
@@ -215,14 +215,14 @@ unnest_longer <- function(data, col,
 
 #' @export
 unnest_longer.data.frame <- function(data, col,
+                                     ...,
                                      values_to = NULL,
                                      indices_to = NULL,
                                      indices_include = NULL,
                                      names_repair = "check_unique",
                                      simplify = TRUE,
                                      ptype = list(),
-                                     transform = list(),
-                                     ...
+                                     transform = list()
                                      ) {
 
   check_present(col)
@@ -264,12 +264,12 @@ unnest_longer.data.frame <- function(data, col,
 #'   as is. If a string, the inner and outer names will be paste together using
 #'   `names_sep` as a separator.
 unnest_wider <- function(data, col,
+                         ...,
                          names_sep = NULL,
                          simplify = TRUE,
                          names_repair = "check_unique",
                          ptype = list(),
-                         transform = list(),
-                         ...
+                         transform = list()
                          ) {
   ellipsis::check_dots_used()
   UseMethod("unnest_wider")
@@ -277,12 +277,12 @@ unnest_wider <- function(data, col,
 
 #' @export
 unnest_wider.data.frame <- function(data, col,
+                                    ...,
                                     names_sep = NULL,
                                     simplify = TRUE,
                                     names_repair = "check_unique",
                                     ptype = list(),
-                                    transform = list(),
-                                    ...
+                                    transform = list()
                                     ) {
   check_present(col)
   col <- tidyselect::vars_pull(tbl_vars(data), !!enquo(col))

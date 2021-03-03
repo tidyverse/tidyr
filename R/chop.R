@@ -96,13 +96,13 @@ chop.data.frame <- function(data, cols, ...) {
 
 #' @export
 #' @rdname chop
-unchop <- function(data, cols, keep_empty = FALSE, ptype = NULL, ...) {
+unchop <- function(data, cols, ..., keep_empty = FALSE, ptype = NULL) {
   ellipsis::check_dots_used()
   UseMethod("unchop")
 }
 
 #' @export
-unchop.data.frame <- function(data, cols, keep_empty = FALSE, ptype = NULL, ...) {
+unchop.data.frame <- function(data, cols, ..., keep_empty = FALSE, ptype = NULL) {
   cols <- tidyselect::eval_select(enquo(cols), data)
   if (length(cols) == 0) {
     return(data)

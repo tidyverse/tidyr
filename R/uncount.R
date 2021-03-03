@@ -22,13 +22,13 @@
 #'
 #' # Or expressions
 #' uncount(df, 2 / n)
-uncount <- function(data, weights, .remove = TRUE, .id = NULL, ...) {
+uncount <- function(data, weights, ..., .remove = TRUE, .id = NULL) {
   ellipsis::check_dots_used()
   UseMethod("uncount")
 }
 
 #' @export
-uncount.data.frame <- function(data, weights, .remove = TRUE, .id = NULL, ...) {
+uncount.data.frame <- function(data, weights, ..., .remove = TRUE, .id = NULL) {
   weights_quo <- enquo(weights)
   w <- dplyr::pull(dplyr::mutate(data, `_weight` = !! weights_quo))
   # NOTE `vec_cast()` and check for positive weights can be removed
