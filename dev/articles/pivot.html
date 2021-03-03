@@ -51,7 +51,7 @@
         <a class="navbar-brand" href="../index.html">tidyr</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.1.2.9000</span>
+          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.1.3.9000</span>
         </div>
       </div>
     </div>
@@ -199,8 +199,8 @@
 <span class="co">#&gt;  8 Histori…     228       244       236       238       197       223        131</span>
 <span class="co">#&gt;  9 Jehovah…      20        27        24        24        21        30         15</span>
 <span class="co">#&gt; 10 Jewish        19        19        25        25        30        95         69</span>
-<span class="co">#&gt; # … with 8 more rows, and 3 more variables: `$100-150k` &lt;dbl&gt;, `&gt;150k` &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   `Don't know/refused` &lt;dbl&gt;</span></code></pre></div>
+<span class="co">#&gt; # … with 8 more rows, and 3 more variables: $100-150k &lt;dbl&gt;, &gt;150k &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   Don't know/refused &lt;dbl&gt;</span></code></pre></div>
 <p>This dataset contains three variables:</p>
 <ul>
 <li>
@@ -243,18 +243,18 @@
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">billboard</span>
 <span class="co">#&gt; # A tibble: 317 x 79</span>
-<span class="co">#&gt;    artist track date.entered   wk1   wk2   wk3   wk4   wk5   wk6   wk7   wk8</span>
-<span class="co">#&gt;    &lt;chr&gt;  &lt;chr&gt; &lt;date&gt;       &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span>
-<span class="co">#&gt;  1 2 Pac  Baby… 2000-02-26      87    82    72    77    87    94    99    NA</span>
-<span class="co">#&gt;  2 2Ge+h… The … 2000-09-02      91    87    92    NA    NA    NA    NA    NA</span>
-<span class="co">#&gt;  3 3 Doo… Kryp… 2000-04-08      81    70    68    67    66    57    54    53</span>
-<span class="co">#&gt;  4 3 Doo… Loser 2000-10-21      76    76    72    69    67    65    55    59</span>
-<span class="co">#&gt;  5 504 B… Wobb… 2000-04-15      57    34    25    17    17    31    36    49</span>
-<span class="co">#&gt;  6 98^0   Give… 2000-08-19      51    39    34    26    26    19     2     2</span>
-<span class="co">#&gt;  7 A*Tee… Danc… 2000-07-08      97    97    96    95   100    NA    NA    NA</span>
-<span class="co">#&gt;  8 Aaliy… I Do… 2000-01-29      84    62    51    41    38    35    35    38</span>
-<span class="co">#&gt;  9 Aaliy… Try … 2000-03-18      59    53    38    28    21    18    16    14</span>
-<span class="co">#&gt; 10 Adams… Open… 2000-08-26      76    76    74    69    68    67    61    58</span>
+<span class="co">#&gt;    artist   track   date.entered   wk1   wk2   wk3   wk4   wk5   wk6   wk7   wk8</span>
+<span class="co">#&gt;    &lt;chr&gt;    &lt;chr&gt;   &lt;date&gt;       &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span>
+<span class="co">#&gt;  1 2 Pac    Baby D… 2000-02-26      87    82    72    77    87    94    99    NA</span>
+<span class="co">#&gt;  2 2Ge+her  The Ha… 2000-09-02      91    87    92    NA    NA    NA    NA    NA</span>
+<span class="co">#&gt;  3 3 Doors… Krypto… 2000-04-08      81    70    68    67    66    57    54    53</span>
+<span class="co">#&gt;  4 3 Doors… Loser   2000-10-21      76    76    72    69    67    65    55    59</span>
+<span class="co">#&gt;  5 504 Boyz Wobble… 2000-04-15      57    34    25    17    17    31    36    49</span>
+<span class="co">#&gt;  6 98^0     Give M… 2000-08-19      51    39    34    26    26    19     2     2</span>
+<span class="co">#&gt;  7 A*Teens  Dancin… 2000-07-08      97    97    96    95   100    NA    NA    NA</span>
+<span class="co">#&gt;  8 Aaliyah  I Don'… 2000-01-29      84    62    51    41    38    35    35    38</span>
+<span class="co">#&gt;  9 Aaliyah  Try Ag… 2000-03-18      59    53    38    28    21    18    16    14</span>
+<span class="co">#&gt; 10 Adams, … Open M… 2000-08-26      76    76    74    69    68    67    61    58</span>
 <span class="co">#&gt; # … with 307 more rows, and 68 more variables: wk9 &lt;dbl&gt;, wk10 &lt;dbl&gt;,</span>
 <span class="co">#&gt; #   wk11 &lt;dbl&gt;, wk12 &lt;dbl&gt;, wk13 &lt;dbl&gt;, wk14 &lt;dbl&gt;, wk15 &lt;dbl&gt;, wk16 &lt;dbl&gt;,</span>
 <span class="co">#&gt; #   wk17 &lt;dbl&gt;, wk18 &lt;dbl&gt;, wk19 &lt;dbl&gt;, wk20 &lt;dbl&gt;, wk21 &lt;dbl&gt;, wk22 &lt;dbl&gt;,</span>
@@ -319,18 +319,18 @@
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">who</span>
 <span class="co">#&gt; # A tibble: 7,240 x 60</span>
-<span class="co">#&gt;    country iso2  iso3   year new_sp_m014 new_sp_m1524 new_sp_m2534 new_sp_m3544</span>
-<span class="co">#&gt;    &lt;chr&gt;   &lt;chr&gt; &lt;chr&gt; &lt;int&gt;       &lt;int&gt;        &lt;int&gt;        &lt;int&gt;        &lt;int&gt;</span>
-<span class="co">#&gt;  1 Afghan… AF    AFG    1980          NA           NA           NA           NA</span>
-<span class="co">#&gt;  2 Afghan… AF    AFG    1981          NA           NA           NA           NA</span>
-<span class="co">#&gt;  3 Afghan… AF    AFG    1982          NA           NA           NA           NA</span>
-<span class="co">#&gt;  4 Afghan… AF    AFG    1983          NA           NA           NA           NA</span>
-<span class="co">#&gt;  5 Afghan… AF    AFG    1984          NA           NA           NA           NA</span>
-<span class="co">#&gt;  6 Afghan… AF    AFG    1985          NA           NA           NA           NA</span>
-<span class="co">#&gt;  7 Afghan… AF    AFG    1986          NA           NA           NA           NA</span>
-<span class="co">#&gt;  8 Afghan… AF    AFG    1987          NA           NA           NA           NA</span>
-<span class="co">#&gt;  9 Afghan… AF    AFG    1988          NA           NA           NA           NA</span>
-<span class="co">#&gt; 10 Afghan… AF    AFG    1989          NA           NA           NA           NA</span>
+<span class="co">#&gt;    country  iso2  iso3   year new_sp_m014 new_sp_m1524 new_sp_m2534 new_sp_m3544</span>
+<span class="co">#&gt;    &lt;chr&gt;    &lt;chr&gt; &lt;chr&gt; &lt;int&gt;       &lt;int&gt;        &lt;int&gt;        &lt;int&gt;        &lt;int&gt;</span>
+<span class="co">#&gt;  1 Afghani… AF    AFG    1980          NA           NA           NA           NA</span>
+<span class="co">#&gt;  2 Afghani… AF    AFG    1981          NA           NA           NA           NA</span>
+<span class="co">#&gt;  3 Afghani… AF    AFG    1982          NA           NA           NA           NA</span>
+<span class="co">#&gt;  4 Afghani… AF    AFG    1983          NA           NA           NA           NA</span>
+<span class="co">#&gt;  5 Afghani… AF    AFG    1984          NA           NA           NA           NA</span>
+<span class="co">#&gt;  6 Afghani… AF    AFG    1985          NA           NA           NA           NA</span>
+<span class="co">#&gt;  7 Afghani… AF    AFG    1986          NA           NA           NA           NA</span>
+<span class="co">#&gt;  8 Afghani… AF    AFG    1987          NA           NA           NA           NA</span>
+<span class="co">#&gt;  9 Afghani… AF    AFG    1988          NA           NA           NA           NA</span>
+<span class="co">#&gt; 10 Afghani… AF    AFG    1989          NA           NA           NA           NA</span>
 <span class="co">#&gt; # … with 7,230 more rows, and 52 more variables: new_sp_m4554 &lt;int&gt;,</span>
 <span class="co">#&gt; #   new_sp_m5564 &lt;int&gt;, new_sp_m65 &lt;int&gt;, new_sp_f014 &lt;int&gt;,</span>
 <span class="co">#&gt; #   new_sp_f1524 &lt;int&gt;, new_sp_f2534 &lt;int&gt;, new_sp_f3544 &lt;int&gt;,</span>
@@ -497,16 +497,16 @@
     names_pattern <span class="op">=</span> <span class="st">"(.)(.)"</span>
   <span class="op">)</span>
 <span class="co">#&gt; # A tibble: 8 x 6</span>
-<span class="co">#&gt;       x     a     b time        y     z</span>
-<span class="co">#&gt;   &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt;</span>
-<span class="co">#&gt; 1     1     1     0 1      1.26       3</span>
-<span class="co">#&gt; 2     1     1     0 2      0.0418    -2</span>
-<span class="co">#&gt; 3     2     1     1 1     -1.11       3</span>
-<span class="co">#&gt; 4     2     1     1 2      0.157     -2</span>
-<span class="co">#&gt; 5     3     0     1 1      2.04       3</span>
-<span class="co">#&gt; 6     3     0     1 2      0.565     -2</span>
-<span class="co">#&gt; 7     4     0     1 1      0.753      3</span>
-<span class="co">#&gt; 8     4     0     1 2     -0.0123    -2</span></code></pre></div>
+<span class="co">#&gt;       x     a     b time       y     z</span>
+<span class="co">#&gt;   &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;  &lt;dbl&gt; &lt;dbl&gt;</span>
+<span class="co">#&gt; 1     1     1     0 1     -0.473     3</span>
+<span class="co">#&gt; 2     1     1     0 2      1.14     -2</span>
+<span class="co">#&gt; 3     2     1     1 1      0.873     3</span>
+<span class="co">#&gt; 4     2     1     1 2     -0.502    -2</span>
+<span class="co">#&gt; 5     3     0     1 1     -1.56      3</span>
+<span class="co">#&gt; 6     3     0     1 2     -0.134    -2</span>
+<span class="co">#&gt; 7     4     0     1 1      1.50      3</span>
+<span class="co">#&gt; 8     4     0     1 2      0.192    -2</span></code></pre></div>
 </div>
 <div id="duplicated-column-names" class="section level2">
 <h2 class="hasAnchor">
@@ -692,16 +692,16 @@
 <span class="co">#&gt; # A tibble: 45 x 4</span>
 <span class="co">#&gt;    product country  year production</span>
 <span class="co">#&gt;    &lt;chr&gt;   &lt;chr&gt;   &lt;int&gt;      &lt;dbl&gt;</span>
-<span class="co">#&gt;  1 A       AI       2000     -1.63 </span>
-<span class="co">#&gt;  2 A       AI       2001     -0.278</span>
-<span class="co">#&gt;  3 A       AI       2002     -0.653</span>
-<span class="co">#&gt;  4 A       AI       2003      0.404</span>
-<span class="co">#&gt;  5 A       AI       2004     -0.909</span>
-<span class="co">#&gt;  6 A       AI       2005      1.82 </span>
-<span class="co">#&gt;  7 A       AI       2006      1.51 </span>
-<span class="co">#&gt;  8 A       AI       2007      0.462</span>
-<span class="co">#&gt;  9 A       AI       2008     -0.368</span>
-<span class="co">#&gt; 10 A       AI       2009     -0.378</span>
+<span class="co">#&gt;  1 A       AI       2000    -1.82  </span>
+<span class="co">#&gt;  2 A       AI       2001    -0.0321</span>
+<span class="co">#&gt;  3 A       AI       2002    -1.13  </span>
+<span class="co">#&gt;  4 A       AI       2003    -1.78  </span>
+<span class="co">#&gt;  5 A       AI       2004     1.32  </span>
+<span class="co">#&gt;  6 A       AI       2005    -0.811 </span>
+<span class="co">#&gt;  7 A       AI       2006    -0.898 </span>
+<span class="co">#&gt;  8 A       AI       2007    -1.63  </span>
+<span class="co">#&gt;  9 A       AI       2008     1.19  </span>
+<span class="co">#&gt; 10 A       AI       2009     0.639 </span>
 <span class="co">#&gt; # … with 35 more rows</span></code></pre></div>
 <p>We want to widen the data so we have one column for each combination of <code>product</code> and <code>country</code>. The key is to specify multiple variables for <code>names_from</code>:</p>
 <div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
@@ -710,18 +710,18 @@
   values_from <span class="op">=</span> <span class="va">production</span>
 <span class="op">)</span>
 <span class="co">#&gt; # A tibble: 15 x 4</span>
-<span class="co">#&gt;     year   A_AI    B_AI      B_EI</span>
-<span class="co">#&gt;    &lt;int&gt;  &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt;</span>
-<span class="co">#&gt;  1  2000 -1.63   0.305  -0.818   </span>
-<span class="co">#&gt;  2  2001 -0.278  0.749   0.323   </span>
-<span class="co">#&gt;  3  2002 -0.653  0.160  -1.79    </span>
-<span class="co">#&gt;  4  2003  0.404  1.66   -0.211   </span>
-<span class="co">#&gt;  5  2004 -0.909 -0.0703  1.03    </span>
-<span class="co">#&gt;  6  2005  1.82  -0.153  -1.20    </span>
-<span class="co">#&gt;  7  2006  1.51  -0.140  -1.23    </span>
-<span class="co">#&gt;  8  2007  0.462 -1.45    0.196   </span>
-<span class="co">#&gt;  9  2008 -0.368 -0.254  -0.645   </span>
-<span class="co">#&gt; 10  2009 -0.378  0.412   0.000563</span>
+<span class="co">#&gt;     year    A_AI   B_AI    B_EI</span>
+<span class="co">#&gt;    &lt;int&gt;   &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;</span>
+<span class="co">#&gt;  1  2000 -1.82   -0.756 -0.0316</span>
+<span class="co">#&gt;  2  2001 -0.0321 -0.567 -0.961 </span>
+<span class="co">#&gt;  3  2002 -1.13    0.837 -0.282 </span>
+<span class="co">#&gt;  4  2003 -1.78   -0.198 -0.653 </span>
+<span class="co">#&gt;  5  2004  1.32    0.847  0.289 </span>
+<span class="co">#&gt;  6  2005 -0.811  -0.872 -0.0643</span>
+<span class="co">#&gt;  7  2006 -0.898  -0.928  1.06  </span>
+<span class="co">#&gt;  8  2007 -1.63   -0.547 -0.477 </span>
+<span class="co">#&gt;  9  2008  1.19    0.525  1.30  </span>
+<span class="co">#&gt; 10  2009  0.639   0.593 -0.698 </span>
 <span class="co">#&gt; # … with 5 more rows</span></code></pre></div>
 <p>When either <code>names_from</code> or <code>values_from</code> select multiple variables, you can control how the column names in the output constructed with <code>names_sep</code> and <code>names_prefix</code>, or the workhorse <code>names_glue</code>:</p>
 <div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
@@ -734,16 +734,16 @@
 <span class="co">#&gt; # A tibble: 15 x 4</span>
 <span class="co">#&gt;     year prod.A.AI prod.B.AI prod.B.EI</span>
 <span class="co">#&gt;    &lt;int&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;</span>
-<span class="co">#&gt;  1  2000    -1.63     0.305  -0.818   </span>
-<span class="co">#&gt;  2  2001    -0.278    0.749   0.323   </span>
-<span class="co">#&gt;  3  2002    -0.653    0.160  -1.79    </span>
-<span class="co">#&gt;  4  2003     0.404    1.66   -0.211   </span>
-<span class="co">#&gt;  5  2004    -0.909   -0.0703  1.03    </span>
-<span class="co">#&gt;  6  2005     1.82    -0.153  -1.20    </span>
-<span class="co">#&gt;  7  2006     1.51    -0.140  -1.23    </span>
-<span class="co">#&gt;  8  2007     0.462   -1.45    0.196   </span>
-<span class="co">#&gt;  9  2008    -0.368   -0.254  -0.645   </span>
-<span class="co">#&gt; 10  2009    -0.378    0.412   0.000563</span>
+<span class="co">#&gt;  1  2000   -1.82      -0.756   -0.0316</span>
+<span class="co">#&gt;  2  2001   -0.0321    -0.567   -0.961 </span>
+<span class="co">#&gt;  3  2002   -1.13       0.837   -0.282 </span>
+<span class="co">#&gt;  4  2003   -1.78      -0.198   -0.653 </span>
+<span class="co">#&gt;  5  2004    1.32       0.847    0.289 </span>
+<span class="co">#&gt;  6  2005   -0.811     -0.872   -0.0643</span>
+<span class="co">#&gt;  7  2006   -0.898     -0.928    1.06  </span>
+<span class="co">#&gt;  8  2007   -1.63      -0.547   -0.477 </span>
+<span class="co">#&gt;  9  2008    1.19       0.525    1.30  </span>
+<span class="co">#&gt; 10  2009    0.639      0.593   -0.698 </span>
 <span class="co">#&gt; # … with 5 more rows</span>
 
 <span class="va">production</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/pivot_wider.html">pivot_wider</a></span><span class="op">(</span>
@@ -754,16 +754,16 @@
 <span class="co">#&gt; # A tibble: 15 x 4</span>
 <span class="co">#&gt;     year prod_A_AI prod_B_AI prod_B_EI</span>
 <span class="co">#&gt;    &lt;int&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;</span>
-<span class="co">#&gt;  1  2000    -1.63     0.305  -0.818   </span>
-<span class="co">#&gt;  2  2001    -0.278    0.749   0.323   </span>
-<span class="co">#&gt;  3  2002    -0.653    0.160  -1.79    </span>
-<span class="co">#&gt;  4  2003     0.404    1.66   -0.211   </span>
-<span class="co">#&gt;  5  2004    -0.909   -0.0703  1.03    </span>
-<span class="co">#&gt;  6  2005     1.82    -0.153  -1.20    </span>
-<span class="co">#&gt;  7  2006     1.51    -0.140  -1.23    </span>
-<span class="co">#&gt;  8  2007     0.462   -1.45    0.196   </span>
-<span class="co">#&gt;  9  2008    -0.368   -0.254  -0.645   </span>
-<span class="co">#&gt; 10  2009    -0.378    0.412   0.000563</span>
+<span class="co">#&gt;  1  2000   -1.82      -0.756   -0.0316</span>
+<span class="co">#&gt;  2  2001   -0.0321    -0.567   -0.961 </span>
+<span class="co">#&gt;  3  2002   -1.13       0.837   -0.282 </span>
+<span class="co">#&gt;  4  2003   -1.78      -0.198   -0.653 </span>
+<span class="co">#&gt;  5  2004    1.32       0.847    0.289 </span>
+<span class="co">#&gt;  6  2005   -0.811     -0.872   -0.0643</span>
+<span class="co">#&gt;  7  2006   -0.898     -0.928    1.06  </span>
+<span class="co">#&gt;  8  2007   -1.63      -0.547   -0.477 </span>
+<span class="co">#&gt;  9  2008    1.19       0.525    1.30  </span>
+<span class="co">#&gt; 10  2009    0.639      0.593   -0.698 </span>
 <span class="co">#&gt; # … with 5 more rows</span></code></pre></div>
 </div>
 <div id="tidy-census" class="section level2">
@@ -859,21 +859,21 @@
 <div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">world_bank_pop</span>
 <span class="co">#&gt; # A tibble: 1,056 x 20</span>
-<span class="co">#&gt;    country indicator `2000` `2001` `2002` `2003`  `2004`  `2005`   `2006`</span>
-<span class="co">#&gt;    &lt;chr&gt;   &lt;chr&gt;      &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;</span>
-<span class="co">#&gt;  1 ABW     SP.URB.T… 4.24e4 4.30e4 4.37e4 4.42e4 4.47e+4 4.49e+4  4.49e+4</span>
-<span class="co">#&gt;  2 ABW     SP.URB.G… 1.18e0 1.41e0 1.43e0 1.31e0 9.51e-1 4.91e-1 -1.78e-2</span>
-<span class="co">#&gt;  3 ABW     SP.POP.T… 9.09e4 9.29e4 9.50e4 9.70e4 9.87e+4 1.00e+5  1.01e+5</span>
-<span class="co">#&gt;  4 ABW     SP.POP.G… 2.06e0 2.23e0 2.23e0 2.11e0 1.76e+0 1.30e+0  7.98e-1</span>
-<span class="co">#&gt;  5 AFG     SP.URB.T… 4.44e6 4.65e6 4.89e6 5.16e6 5.43e+6 5.69e+6  5.93e+6</span>
-<span class="co">#&gt;  6 AFG     SP.URB.G… 3.91e0 4.66e0 5.13e0 5.23e0 5.12e+0 4.77e+0  4.12e+0</span>
-<span class="co">#&gt;  7 AFG     SP.POP.T… 2.01e7 2.10e7 2.20e7 2.31e7 2.41e+7 2.51e+7  2.59e+7</span>
-<span class="co">#&gt;  8 AFG     SP.POP.G… 3.49e0 4.25e0 4.72e0 4.82e0 4.47e+0 3.87e+0  3.23e+0</span>
-<span class="co">#&gt;  9 AGO     SP.URB.T… 8.23e6 8.71e6 9.22e6 9.77e6 1.03e+7 1.09e+7  1.15e+7</span>
-<span class="co">#&gt; 10 AGO     SP.URB.G… 5.44e0 5.59e0 5.70e0 5.76e0 5.75e+0 5.69e+0  4.92e+0</span>
-<span class="co">#&gt; # … with 1,046 more rows, and 11 more variables: `2007` &lt;dbl&gt;, `2008` &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   `2009` &lt;dbl&gt;, `2010` &lt;dbl&gt;, `2011` &lt;dbl&gt;, `2012` &lt;dbl&gt;, `2013` &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   `2014` &lt;dbl&gt;, `2015` &lt;dbl&gt;, `2016` &lt;dbl&gt;, `2017` &lt;dbl&gt;</span></code></pre></div>
+<span class="co">#&gt;    country indicator   `2000`  `2001`  `2002`  `2003`   `2004`   `2005`   `2006`</span>
+<span class="co">#&gt;    &lt;chr&gt;   &lt;chr&gt;        &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;</span>
+<span class="co">#&gt;  1 ABW     SP.URB.TO…  4.24e4  4.30e4  4.37e4  4.42e4  4.47e+4  4.49e+4  4.49e+4</span>
+<span class="co">#&gt;  2 ABW     SP.URB.GR…  1.18e0  1.41e0  1.43e0  1.31e0  9.51e-1  4.91e-1 -1.78e-2</span>
+<span class="co">#&gt;  3 ABW     SP.POP.TO…  9.09e4  9.29e4  9.50e4  9.70e4  9.87e+4  1.00e+5  1.01e+5</span>
+<span class="co">#&gt;  4 ABW     SP.POP.GR…  2.06e0  2.23e0  2.23e0  2.11e0  1.76e+0  1.30e+0  7.98e-1</span>
+<span class="co">#&gt;  5 AFG     SP.URB.TO…  4.44e6  4.65e6  4.89e6  5.16e6  5.43e+6  5.69e+6  5.93e+6</span>
+<span class="co">#&gt;  6 AFG     SP.URB.GR…  3.91e0  4.66e0  5.13e0  5.23e0  5.12e+0  4.77e+0  4.12e+0</span>
+<span class="co">#&gt;  7 AFG     SP.POP.TO…  2.01e7  2.10e7  2.20e7  2.31e7  2.41e+7  2.51e+7  2.59e+7</span>
+<span class="co">#&gt;  8 AFG     SP.POP.GR…  3.49e0  4.25e0  4.72e0  4.82e0  4.47e+0  3.87e+0  3.23e+0</span>
+<span class="co">#&gt;  9 AGO     SP.URB.TO…  8.23e6  8.71e6  9.22e6  9.77e6  1.03e+7  1.09e+7  1.15e+7</span>
+<span class="co">#&gt; 10 AGO     SP.URB.GR…  5.44e0  5.59e0  5.70e0  5.76e0  5.75e+0  5.69e+0  4.92e+0</span>
+<span class="co">#&gt; # … with 1,046 more rows, and 11 more variables: 2007 &lt;dbl&gt;, 2008 &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   2009 &lt;dbl&gt;, 2010 &lt;dbl&gt;, 2011 &lt;dbl&gt;, 2012 &lt;dbl&gt;, 2013 &lt;dbl&gt;, 2014 &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   2015 &lt;dbl&gt;, 2016 &lt;dbl&gt;, 2017 &lt;dbl&gt;</span></code></pre></div>
 <p>My goal is to produce a tidy dataset where each variable is in a column. It’s not obvious exactly what steps are needed yet, but I’ll start with the most obvious problem: year is spread across multiple columns.</p>
 <div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">pop2</span> <span class="op">&lt;-</span> <span class="va">world_bank_pop</span> <span class="op">%&gt;%</span> 
@@ -1112,17 +1112,17 @@
 <div class="sourceCode" id="cb48"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">construction</span>
 <span class="co">#&gt; # A tibble: 9 x 9</span>
-<span class="co">#&gt;    Year Month `1 unit` `2 to 4 units` `5 units or mor… Northeast Midwest South</span>
-<span class="co">#&gt;   &lt;dbl&gt; &lt;chr&gt;    &lt;dbl&gt; &lt;lgl&gt;                     &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;</span>
-<span class="co">#&gt; 1  2018 Janu…      859 NA                          348       114     169   596</span>
-<span class="co">#&gt; 2  2018 Febr…      882 NA                          400       138     160   655</span>
-<span class="co">#&gt; 3  2018 March      862 NA                          356       150     154   595</span>
-<span class="co">#&gt; 4  2018 April      797 NA                          447       144     196   613</span>
-<span class="co">#&gt; 5  2018 May        875 NA                          364        90     169   673</span>
-<span class="co">#&gt; 6  2018 June       867 NA                          342        76     170   610</span>
-<span class="co">#&gt; 7  2018 July       829 NA                          360       108     183   594</span>
-<span class="co">#&gt; 8  2018 Augu…      939 NA                          286        90     205   649</span>
-<span class="co">#&gt; 9  2018 Sept…      835 NA                          304       117     175   560</span>
+<span class="co">#&gt;    Year Month   `1 unit` `2 to 4 units` `5 units or mor… Northeast Midwest South</span>
+<span class="co">#&gt;   &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt; &lt;lgl&gt;                     &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;</span>
+<span class="co">#&gt; 1  2018 January      859 NA                          348       114     169   596</span>
+<span class="co">#&gt; 2  2018 Februa…      882 NA                          400       138     160   655</span>
+<span class="co">#&gt; 3  2018 March        862 NA                          356       150     154   595</span>
+<span class="co">#&gt; 4  2018 April        797 NA                          447       144     196   613</span>
+<span class="co">#&gt; 5  2018 May          875 NA                          364        90     169   673</span>
+<span class="co">#&gt; 6  2018 June         867 NA                          342        76     170   610</span>
+<span class="co">#&gt; 7  2018 July         829 NA                          360       108     183   594</span>
+<span class="co">#&gt; 8  2018 August       939 NA                          286        90     205   649</span>
+<span class="co">#&gt; 9  2018 Septem…      835 NA                          304       117     175   560</span>
 <span class="co">#&gt; # … with 1 more variable: West &lt;dbl&gt;</span></code></pre></div>
 <p>This sort of data is not uncommon from government agencies: the column names actually belong to different variables, and here we have summaries for number of units (1, 2-4, 5+) and regions of the country (NE, NW, midwest, S, W). We can most easily describe that with a tibble:</p>
 <div class="sourceCode" id="cb49"><pre class="downlit sourceCode r">
@@ -1164,17 +1164,17 @@
   <span class="fu"><a href="../reference/pivot_longer_spec.html">pivot_longer_spec</a></span><span class="op">(</span><span class="va">spec</span><span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="../reference/pivot_wider_spec.html">pivot_wider_spec</a></span><span class="op">(</span><span class="va">spec</span><span class="op">)</span>
 <span class="co">#&gt; # A tibble: 9 x 9</span>
-<span class="co">#&gt;    Year Month `1 unit` `2 to 4 units` `5 units or mor… Northeast Midwest South</span>
-<span class="co">#&gt;   &lt;dbl&gt; &lt;chr&gt;    &lt;dbl&gt;          &lt;dbl&gt;            &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;</span>
-<span class="co">#&gt; 1  2018 Janu…      859             NA              348       114     169   596</span>
-<span class="co">#&gt; 2  2018 Febr…      882             NA              400       138     160   655</span>
-<span class="co">#&gt; 3  2018 March      862             NA              356       150     154   595</span>
-<span class="co">#&gt; 4  2018 April      797             NA              447       144     196   613</span>
-<span class="co">#&gt; 5  2018 May        875             NA              364        90     169   673</span>
-<span class="co">#&gt; 6  2018 June       867             NA              342        76     170   610</span>
-<span class="co">#&gt; 7  2018 July       829             NA              360       108     183   594</span>
-<span class="co">#&gt; 8  2018 Augu…      939             NA              286        90     205   649</span>
-<span class="co">#&gt; 9  2018 Sept…      835             NA              304       117     175   560</span>
+<span class="co">#&gt;    Year Month   `1 unit` `2 to 4 units` `5 units or mor… Northeast Midwest South</span>
+<span class="co">#&gt;   &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt;          &lt;dbl&gt;            &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;</span>
+<span class="co">#&gt; 1  2018 January      859             NA              348       114     169   596</span>
+<span class="co">#&gt; 2  2018 Februa…      882             NA              400       138     160   655</span>
+<span class="co">#&gt; 3  2018 March        862             NA              356       150     154   595</span>
+<span class="co">#&gt; 4  2018 April        797             NA              447       144     196   613</span>
+<span class="co">#&gt; 5  2018 May          875             NA              364        90     169   673</span>
+<span class="co">#&gt; 6  2018 June         867             NA              342        76     170   610</span>
+<span class="co">#&gt; 7  2018 July         829             NA              360       108     183   594</span>
+<span class="co">#&gt; 8  2018 August       939             NA              286        90     205   649</span>
+<span class="co">#&gt; 9  2018 Septem…      835             NA              304       117     175   560</span>
 <span class="co">#&gt; # … with 1 more variable: West &lt;dbl&gt;</span></code></pre></div>
 <p>The pivotting spec allows us to be more precise about exactly how <code><a href="../reference/pivot_longer.html">pivot_longer(df, spec = spec)</a></code> changes the shape of <code>df</code>: it will have <code>nrow(df) * nrow(spec)</code> rows, and <code>ncol(df) - nrow(spec) + ncol(spec) - 2</code> columns.</p>
 </div>

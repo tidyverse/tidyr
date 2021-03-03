@@ -98,7 +98,7 @@ Learn more in vignette(&quot;pivot&quot;)." />
         <a class="navbar-brand" href="../index.html">tidyr</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.1.2.9000</span>
+          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.1.3.9000</span>
         </div>
       </div>
     </div>
@@ -327,72 +327,72 @@ under active development.</p>
 
 <span class='co'># Simplest case where column names are character data</span>
 <span class='va'>relig_income</span>
-</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 18 x 11</span><span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 18 x 11</span><span>
 #&gt;    religion `&lt;$10k` `$10-20k` `$20-30k` `$30-40k` `$40-50k` `$50-75k` `$75-100k`
-#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>      </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>      </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'> 1</span><span> Agnostic      27        34        60        81        76       137        122
-#&gt; </span><span style='color: #555555;'> 2</span><span> Atheist       12        27        37        52        35        70         73
-#&gt; </span><span style='color: #555555;'> 3</span><span> Buddhist      27        21        30        34        33        58         62
-#&gt; </span><span style='color: #555555;'> 4</span><span> Catholic     418       617       732       670       638      </span><span style='text-decoration: underline;'>1</span><span>116        949
-#&gt; </span><span style='color: #555555;'> 5</span><span> Don’t k…      15        14        15        11        10        35         21
-#&gt; </span><span style='color: #555555;'> 6</span><span> Evangel…     575       869      </span><span style='text-decoration: underline;'>1</span><span>064       982       881      </span><span style='text-decoration: underline;'>1</span><span>486        949
-#&gt; </span><span style='color: #555555;'> 7</span><span> Hindu          1         9         7         9        11        34         47
-#&gt; </span><span style='color: #555555;'> 8</span><span> Histori…     228       244       236       238       197       223        131
-#&gt; </span><span style='color: #555555;'> 9</span><span> Jehovah…      20        27        24        24        21        30         15
-#&gt; </span><span style='color: #555555;'>10</span><span> Jewish        19        19        25        25        30        95         69
-#&gt; </span><span style='color: #555555;'>11</span><span> Mainlin…     289       495       619       655       651      </span><span style='text-decoration: underline;'>1</span><span>107        939
-#&gt; </span><span style='color: #555555;'>12</span><span> Mormon        29        40        48        51        56       112         85
-#&gt; </span><span style='color: #555555;'>13</span><span> Muslim         6         7         9        10         9        23         16
-#&gt; </span><span style='color: #555555;'>14</span><span> Orthodox      13        17        23        32        32        47         38
-#&gt; </span><span style='color: #555555;'>15</span><span> Other C…       9         7        11        13        13        14         18
-#&gt; </span><span style='color: #555555;'>16</span><span> Other F…      20        33        40        46        49        63         46
-#&gt; </span><span style='color: #555555;'>17</span><span> Other W…       5         2         3         4         2         7          3
-#&gt; </span><span style='color: #555555;'>18</span><span> Unaffil…     217       299       374       365       341       528        407
-#&gt; </span><span style='color: #555555;'># … with 3 more variables: `$100-150k` </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, `&gt;150k` </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, `Don't</span><span>
-#&gt; </span><span style='color: #555555;'>#   know/refused` </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span></div><div class='input'><span class='va'>relig_income</span> <span class='op'>%&gt;%</span>
+#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>      </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>      </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'> 1</span><span> Agnostic      27        34        60        81        76       137        122
+#&gt; </span><span style='color: #BCBCBC;'> 2</span><span> Atheist       12        27        37        52        35        70         73
+#&gt; </span><span style='color: #BCBCBC;'> 3</span><span> Buddhist      27        21        30        34        33        58         62
+#&gt; </span><span style='color: #BCBCBC;'> 4</span><span> Catholic     418       617       732       670       638      </span><span style='text-decoration: underline;'>1</span><span>116        949
+#&gt; </span><span style='color: #BCBCBC;'> 5</span><span> Don’t k…      15        14        15        11        10        35         21
+#&gt; </span><span style='color: #BCBCBC;'> 6</span><span> Evangel…     575       869      </span><span style='text-decoration: underline;'>1</span><span>064       982       881      </span><span style='text-decoration: underline;'>1</span><span>486        949
+#&gt; </span><span style='color: #BCBCBC;'> 7</span><span> Hindu          1         9         7         9        11        34         47
+#&gt; </span><span style='color: #BCBCBC;'> 8</span><span> Histori…     228       244       236       238       197       223        131
+#&gt; </span><span style='color: #BCBCBC;'> 9</span><span> Jehovah…      20        27        24        24        21        30         15
+#&gt; </span><span style='color: #BCBCBC;'>10</span><span> Jewish        19        19        25        25        30        95         69
+#&gt; </span><span style='color: #BCBCBC;'>11</span><span> Mainlin…     289       495       619       655       651      </span><span style='text-decoration: underline;'>1</span><span>107        939
+#&gt; </span><span style='color: #BCBCBC;'>12</span><span> Mormon        29        40        48        51        56       112         85
+#&gt; </span><span style='color: #BCBCBC;'>13</span><span> Muslim         6         7         9        10         9        23         16
+#&gt; </span><span style='color: #BCBCBC;'>14</span><span> Orthodox      13        17        23        32        32        47         38
+#&gt; </span><span style='color: #BCBCBC;'>15</span><span> Other C…       9         7        11        13        13        14         18
+#&gt; </span><span style='color: #BCBCBC;'>16</span><span> Other F…      20        33        40        46        49        63         46
+#&gt; </span><span style='color: #BCBCBC;'>17</span><span> Other W…       5         2         3         4         2         7          3
+#&gt; </span><span style='color: #BCBCBC;'>18</span><span> Unaffil…     217       299       374       365       341       528        407
+#&gt; </span><span style='color: #949494;'># … with 3 more variables: $100-150k &lt;dbl&gt;, &gt;150k &lt;dbl&gt;,</span><span>
+#&gt; </span><span style='color: #949494;'>#   Don't know/refused &lt;dbl&gt;</span><span></div><div class='input'><span class='va'>relig_income</span> <span class='op'>%&gt;%</span>
   <span class='fu'>pivot_longer</span><span class='op'>(</span><span class='op'>!</span><span class='va'>religion</span>, names_to <span class='op'>=</span> <span class='st'>"income"</span>, values_to <span class='op'>=</span> <span class='st'>"count"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 180 x 3</span><span>
+</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 180 x 3</span><span>
 #&gt;    religion income             count
-#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>              </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'> 1</span><span> Agnostic &lt;$10k                 27
-#&gt; </span><span style='color: #555555;'> 2</span><span> Agnostic $10-20k               34
-#&gt; </span><span style='color: #555555;'> 3</span><span> Agnostic $20-30k               60
-#&gt; </span><span style='color: #555555;'> 4</span><span> Agnostic $30-40k               81
-#&gt; </span><span style='color: #555555;'> 5</span><span> Agnostic $40-50k               76
-#&gt; </span><span style='color: #555555;'> 6</span><span> Agnostic $50-75k              137
-#&gt; </span><span style='color: #555555;'> 7</span><span> Agnostic $75-100k             122
-#&gt; </span><span style='color: #555555;'> 8</span><span> Agnostic $100-150k            109
-#&gt; </span><span style='color: #555555;'> 9</span><span> Agnostic &gt;150k                 84
-#&gt; </span><span style='color: #555555;'>10</span><span> Agnostic Don't know/refused    96
-#&gt; </span><span style='color: #555555;'># … with 170 more rows</span><span></div><div class='input'>
+#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>              </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'> 1</span><span> Agnostic &lt;$10k                 27
+#&gt; </span><span style='color: #BCBCBC;'> 2</span><span> Agnostic $10-20k               34
+#&gt; </span><span style='color: #BCBCBC;'> 3</span><span> Agnostic $20-30k               60
+#&gt; </span><span style='color: #BCBCBC;'> 4</span><span> Agnostic $30-40k               81
+#&gt; </span><span style='color: #BCBCBC;'> 5</span><span> Agnostic $40-50k               76
+#&gt; </span><span style='color: #BCBCBC;'> 6</span><span> Agnostic $50-75k              137
+#&gt; </span><span style='color: #BCBCBC;'> 7</span><span> Agnostic $75-100k             122
+#&gt; </span><span style='color: #BCBCBC;'> 8</span><span> Agnostic $100-150k            109
+#&gt; </span><span style='color: #BCBCBC;'> 9</span><span> Agnostic &gt;150k                 84
+#&gt; </span><span style='color: #BCBCBC;'>10</span><span> Agnostic Don't know/refused    96
+#&gt; </span><span style='color: #949494;'># … with 170 more rows</span><span></div><div class='input'>
 <span class='co'># Slightly more complex case where columns have common prefix,</span>
 <span class='co'># and missing missings are structural so should be dropped.</span>
 <span class='va'>billboard</span>
-</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 317 x 79</span><span>
-#&gt;    artist track date.entered   wk1   wk2   wk3   wk4   wk5   wk6   wk7   wk8
-#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>       </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'> 1</span><span> 2 Pac  Baby… 2000-02-26      87    82    72    77    87    94    99    </span><span style='color: #BB0000;'>NA</span><span>
-#&gt; </span><span style='color: #555555;'> 2</span><span> 2Ge+h… The … 2000-09-02      91    87    92    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>
-#&gt; </span><span style='color: #555555;'> 3</span><span> 3 Doo… Kryp… 2000-04-08      81    70    68    67    66    57    54    53
-#&gt; </span><span style='color: #555555;'> 4</span><span> 3 Doo… Loser 2000-10-21      76    76    72    69    67    65    55    59
-#&gt; </span><span style='color: #555555;'> 5</span><span> 504 B… Wobb… 2000-04-15      57    34    25    17    17    31    36    49
-#&gt; </span><span style='color: #555555;'> 6</span><span> 98^0   Give… 2000-08-19      51    39    34    26    26    19     2     2
-#&gt; </span><span style='color: #555555;'> 7</span><span> A*Tee… Danc… 2000-07-08      97    97    96    95   100    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>
-#&gt; </span><span style='color: #555555;'> 8</span><span> Aaliy… I Do… 2000-01-29      84    62    51    41    38    35    35    38
-#&gt; </span><span style='color: #555555;'> 9</span><span> Aaliy… Try … 2000-03-18      59    53    38    28    21    18    16    14
-#&gt; </span><span style='color: #555555;'>10</span><span> Adams… Open… 2000-08-26      76    76    74    69    68    67    61    58
-#&gt; </span><span style='color: #555555;'># … with 307 more rows, and 68 more variables: wk9 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, wk10 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
-#&gt; </span><span style='color: #555555;'>#   wk11 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, wk12 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, wk13 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, wk14 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, wk15 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, wk16 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
-#&gt; </span><span style='color: #555555;'>#   wk17 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, wk18 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, wk19 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, wk20 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, wk21 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, wk22 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
-#&gt; </span><span style='color: #555555;'>#   wk23 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, wk24 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, wk25 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, wk26 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, wk27 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, wk28 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
-#&gt; </span><span style='color: #555555;'>#   wk29 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, wk30 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, wk31 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, wk32 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, wk33 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, wk34 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
-#&gt; </span><span style='color: #555555;'>#   wk35 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, wk36 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, wk37 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, wk38 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, wk39 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, wk40 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
-#&gt; </span><span style='color: #555555;'>#   wk41 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, wk42 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, wk43 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, wk44 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, wk45 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, wk46 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
-#&gt; </span><span style='color: #555555;'>#   wk47 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, wk48 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, wk49 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, wk50 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, wk51 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, wk52 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
-#&gt; </span><span style='color: #555555;'>#   wk53 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, wk54 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, wk55 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, wk56 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, wk57 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, wk58 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
-#&gt; </span><span style='color: #555555;'>#   wk59 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, wk60 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, wk61 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, wk62 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, wk63 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, wk64 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
-#&gt; </span><span style='color: #555555;'>#   wk65 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, wk66 </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #555555;'>, wk67 </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #555555;'>, wk68 </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #555555;'>, wk69 </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #555555;'>, wk70 </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #555555;'>,</span><span>
-#&gt; </span><span style='color: #555555;'>#   wk71 </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #555555;'>, wk72 </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #555555;'>, wk73 </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #555555;'>, wk74 </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #555555;'>, wk75 </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #555555;'>, wk76 </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span></div><div class='input'><span class='va'>billboard</span> <span class='op'>%&gt;%</span>
+</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 317 x 79</span><span>
+#&gt;    artist   track   date.entered   wk1   wk2   wk3   wk4   wk5   wk6   wk7   wk8
+#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>   </span><span style='color: #949494;font-style: italic;'>&lt;date&gt;</span><span>       </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'> 1</span><span> 2 Pac    Baby D… 2000-02-26      87    82    72    77    87    94    99    </span><span style='color: #BB0000;'>NA</span><span>
+#&gt; </span><span style='color: #BCBCBC;'> 2</span><span> 2Ge+her  The Ha… 2000-09-02      91    87    92    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>
+#&gt; </span><span style='color: #BCBCBC;'> 3</span><span> 3 Doors… Krypto… 2000-04-08      81    70    68    67    66    57    54    53
+#&gt; </span><span style='color: #BCBCBC;'> 4</span><span> 3 Doors… Loser   2000-10-21      76    76    72    69    67    65    55    59
+#&gt; </span><span style='color: #BCBCBC;'> 5</span><span> 504 Boyz Wobble… 2000-04-15      57    34    25    17    17    31    36    49
+#&gt; </span><span style='color: #BCBCBC;'> 6</span><span> 98^0     Give M… 2000-08-19      51    39    34    26    26    19     2     2
+#&gt; </span><span style='color: #BCBCBC;'> 7</span><span> A*Teens  Dancin… 2000-07-08      97    97    96    95   100    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>
+#&gt; </span><span style='color: #BCBCBC;'> 8</span><span> Aaliyah  I Don'… 2000-01-29      84    62    51    41    38    35    35    38
+#&gt; </span><span style='color: #BCBCBC;'> 9</span><span> Aaliyah  Try Ag… 2000-03-18      59    53    38    28    21    18    16    14
+#&gt; </span><span style='color: #BCBCBC;'>10</span><span> Adams, … Open M… 2000-08-26      76    76    74    69    68    67    61    58
+#&gt; </span><span style='color: #949494;'># … with 307 more rows, and 68 more variables: wk9 &lt;dbl&gt;, wk10 &lt;dbl&gt;,</span><span>
+#&gt; </span><span style='color: #949494;'>#   wk11 &lt;dbl&gt;, wk12 &lt;dbl&gt;, wk13 &lt;dbl&gt;, wk14 &lt;dbl&gt;, wk15 &lt;dbl&gt;, wk16 &lt;dbl&gt;,</span><span>
+#&gt; </span><span style='color: #949494;'>#   wk17 &lt;dbl&gt;, wk18 &lt;dbl&gt;, wk19 &lt;dbl&gt;, wk20 &lt;dbl&gt;, wk21 &lt;dbl&gt;, wk22 &lt;dbl&gt;,</span><span>
+#&gt; </span><span style='color: #949494;'>#   wk23 &lt;dbl&gt;, wk24 &lt;dbl&gt;, wk25 &lt;dbl&gt;, wk26 &lt;dbl&gt;, wk27 &lt;dbl&gt;, wk28 &lt;dbl&gt;,</span><span>
+#&gt; </span><span style='color: #949494;'>#   wk29 &lt;dbl&gt;, wk30 &lt;dbl&gt;, wk31 &lt;dbl&gt;, wk32 &lt;dbl&gt;, wk33 &lt;dbl&gt;, wk34 &lt;dbl&gt;,</span><span>
+#&gt; </span><span style='color: #949494;'>#   wk35 &lt;dbl&gt;, wk36 &lt;dbl&gt;, wk37 &lt;dbl&gt;, wk38 &lt;dbl&gt;, wk39 &lt;dbl&gt;, wk40 &lt;dbl&gt;,</span><span>
+#&gt; </span><span style='color: #949494;'>#   wk41 &lt;dbl&gt;, wk42 &lt;dbl&gt;, wk43 &lt;dbl&gt;, wk44 &lt;dbl&gt;, wk45 &lt;dbl&gt;, wk46 &lt;dbl&gt;,</span><span>
+#&gt; </span><span style='color: #949494;'>#   wk47 &lt;dbl&gt;, wk48 &lt;dbl&gt;, wk49 &lt;dbl&gt;, wk50 &lt;dbl&gt;, wk51 &lt;dbl&gt;, wk52 &lt;dbl&gt;,</span><span>
+#&gt; </span><span style='color: #949494;'>#   wk53 &lt;dbl&gt;, wk54 &lt;dbl&gt;, wk55 &lt;dbl&gt;, wk56 &lt;dbl&gt;, wk57 &lt;dbl&gt;, wk58 &lt;dbl&gt;,</span><span>
+#&gt; </span><span style='color: #949494;'>#   wk59 &lt;dbl&gt;, wk60 &lt;dbl&gt;, wk61 &lt;dbl&gt;, wk62 &lt;dbl&gt;, wk63 &lt;dbl&gt;, wk64 &lt;dbl&gt;,</span><span>
+#&gt; </span><span style='color: #949494;'>#   wk65 &lt;dbl&gt;, wk66 &lt;lgl&gt;, wk67 &lt;lgl&gt;, wk68 &lt;lgl&gt;, wk69 &lt;lgl&gt;, wk70 &lt;lgl&gt;,</span><span>
+#&gt; </span><span style='color: #949494;'>#   wk71 &lt;lgl&gt;, wk72 &lt;lgl&gt;, wk73 &lt;lgl&gt;, wk74 &lt;lgl&gt;, wk75 &lt;lgl&gt;, wk76 &lt;lgl&gt;</span><span></div><div class='input'><span class='va'>billboard</span> <span class='op'>%&gt;%</span>
  <span class='fu'>pivot_longer</span><span class='op'>(</span>
    cols <span class='op'>=</span> <span class='fu'><a href='https://tidyselect.r-lib.org/reference/starts_with.html'>starts_with</a></span><span class='op'>(</span><span class='st'>"wk"</span><span class='op'>)</span>,
    names_to <span class='op'>=</span> <span class='st'>"week"</span>,
@@ -400,20 +400,20 @@ under active development.</p>
    values_to <span class='op'>=</span> <span class='st'>"rank"</span>,
    values_drop_na <span class='op'>=</span> <span class='cn'>TRUE</span>
  <span class='op'>)</span>
-</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 5,307 x 5</span><span>
+</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 5,307 x 5</span><span>
 #&gt;    artist  track                   date.entered week   rank
-#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>                   </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>       </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'> 1</span><span> 2 Pac   Baby Don't Cry (Keep... 2000-02-26   1        87
-#&gt; </span><span style='color: #555555;'> 2</span><span> 2 Pac   Baby Don't Cry (Keep... 2000-02-26   2        82
-#&gt; </span><span style='color: #555555;'> 3</span><span> 2 Pac   Baby Don't Cry (Keep... 2000-02-26   3        72
-#&gt; </span><span style='color: #555555;'> 4</span><span> 2 Pac   Baby Don't Cry (Keep... 2000-02-26   4        77
-#&gt; </span><span style='color: #555555;'> 5</span><span> 2 Pac   Baby Don't Cry (Keep... 2000-02-26   5        87
-#&gt; </span><span style='color: #555555;'> 6</span><span> 2 Pac   Baby Don't Cry (Keep... 2000-02-26   6        94
-#&gt; </span><span style='color: #555555;'> 7</span><span> 2 Pac   Baby Don't Cry (Keep... 2000-02-26   7        99
-#&gt; </span><span style='color: #555555;'> 8</span><span> 2Ge+her The Hardest Part Of ... 2000-09-02   1        91
-#&gt; </span><span style='color: #555555;'> 9</span><span> 2Ge+her The Hardest Part Of ... 2000-09-02   2        87
-#&gt; </span><span style='color: #555555;'>10</span><span> 2Ge+her The Hardest Part Of ... 2000-09-02   3        92
-#&gt; </span><span style='color: #555555;'># … with 5,297 more rows</span><span></div><div class='input'>
+#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>                   </span><span style='color: #949494;font-style: italic;'>&lt;date&gt;</span><span>       </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'> 1</span><span> 2 Pac   Baby Don't Cry (Keep... 2000-02-26   1        87
+#&gt; </span><span style='color: #BCBCBC;'> 2</span><span> 2 Pac   Baby Don't Cry (Keep... 2000-02-26   2        82
+#&gt; </span><span style='color: #BCBCBC;'> 3</span><span> 2 Pac   Baby Don't Cry (Keep... 2000-02-26   3        72
+#&gt; </span><span style='color: #BCBCBC;'> 4</span><span> 2 Pac   Baby Don't Cry (Keep... 2000-02-26   4        77
+#&gt; </span><span style='color: #BCBCBC;'> 5</span><span> 2 Pac   Baby Don't Cry (Keep... 2000-02-26   5        87
+#&gt; </span><span style='color: #BCBCBC;'> 6</span><span> 2 Pac   Baby Don't Cry (Keep... 2000-02-26   6        94
+#&gt; </span><span style='color: #BCBCBC;'> 7</span><span> 2 Pac   Baby Don't Cry (Keep... 2000-02-26   7        99
+#&gt; </span><span style='color: #BCBCBC;'> 8</span><span> 2Ge+her The Hardest Part Of ... 2000-09-02   1        91
+#&gt; </span><span style='color: #BCBCBC;'> 9</span><span> 2Ge+her The Hardest Part Of ... 2000-09-02   2        87
+#&gt; </span><span style='color: #BCBCBC;'>10</span><span> 2Ge+her The Hardest Part Of ... 2000-09-02   3        92
+#&gt; </span><span style='color: #949494;'># … with 5,297 more rows</span><span></div><div class='input'>
 <span class='co'># Multiple variables stored in column names</span>
 <span class='va'>who</span> <span class='op'>%&gt;%</span> <span class='fu'>pivot_longer</span><span class='op'>(</span>
   cols <span class='op'>=</span> <span class='va'>new_sp_m014</span><span class='op'>:</span><span class='va'>newrel_f65</span>,
@@ -421,20 +421,20 @@ under active development.</p>
   names_pattern <span class='op'>=</span> <span class='st'>"new_?(.*)_(.)(.*)"</span>,
   values_to <span class='op'>=</span> <span class='st'>"count"</span>
 <span class='op'>)</span>
-</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 405,440 x 8</span><span>
+</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 405,440 x 8</span><span>
 #&gt;    country     iso2  iso3   year diagnosis gender age   count
-#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>       </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
-#&gt; </span><span style='color: #555555;'> 1</span><span> Afghanistan AF    AFG    </span><span style='text-decoration: underline;'>1</span><span>980 sp        m      014      </span><span style='color: #BB0000;'>NA</span><span>
-#&gt; </span><span style='color: #555555;'> 2</span><span> Afghanistan AF    AFG    </span><span style='text-decoration: underline;'>1</span><span>980 sp        m      1524     </span><span style='color: #BB0000;'>NA</span><span>
-#&gt; </span><span style='color: #555555;'> 3</span><span> Afghanistan AF    AFG    </span><span style='text-decoration: underline;'>1</span><span>980 sp        m      2534     </span><span style='color: #BB0000;'>NA</span><span>
-#&gt; </span><span style='color: #555555;'> 4</span><span> Afghanistan AF    AFG    </span><span style='text-decoration: underline;'>1</span><span>980 sp        m      3544     </span><span style='color: #BB0000;'>NA</span><span>
-#&gt; </span><span style='color: #555555;'> 5</span><span> Afghanistan AF    AFG    </span><span style='text-decoration: underline;'>1</span><span>980 sp        m      4554     </span><span style='color: #BB0000;'>NA</span><span>
-#&gt; </span><span style='color: #555555;'> 6</span><span> Afghanistan AF    AFG    </span><span style='text-decoration: underline;'>1</span><span>980 sp        m      5564     </span><span style='color: #BB0000;'>NA</span><span>
-#&gt; </span><span style='color: #555555;'> 7</span><span> Afghanistan AF    AFG    </span><span style='text-decoration: underline;'>1</span><span>980 sp        m      65       </span><span style='color: #BB0000;'>NA</span><span>
-#&gt; </span><span style='color: #555555;'> 8</span><span> Afghanistan AF    AFG    </span><span style='text-decoration: underline;'>1</span><span>980 sp        f      014      </span><span style='color: #BB0000;'>NA</span><span>
-#&gt; </span><span style='color: #555555;'> 9</span><span> Afghanistan AF    AFG    </span><span style='text-decoration: underline;'>1</span><span>980 sp        f      1524     </span><span style='color: #BB0000;'>NA</span><span>
-#&gt; </span><span style='color: #555555;'>10</span><span> Afghanistan AF    AFG    </span><span style='text-decoration: underline;'>1</span><span>980 sp        f      2534     </span><span style='color: #BB0000;'>NA</span><span>
-#&gt; </span><span style='color: #555555;'># … with 405,430 more rows</span><span></div><div class='input'>
+#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>       </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'> 1</span><span> Afghanistan AF    AFG    </span><span style='text-decoration: underline;'>1</span><span>980 sp        m      014      </span><span style='color: #BB0000;'>NA</span><span>
+#&gt; </span><span style='color: #BCBCBC;'> 2</span><span> Afghanistan AF    AFG    </span><span style='text-decoration: underline;'>1</span><span>980 sp        m      1524     </span><span style='color: #BB0000;'>NA</span><span>
+#&gt; </span><span style='color: #BCBCBC;'> 3</span><span> Afghanistan AF    AFG    </span><span style='text-decoration: underline;'>1</span><span>980 sp        m      2534     </span><span style='color: #BB0000;'>NA</span><span>
+#&gt; </span><span style='color: #BCBCBC;'> 4</span><span> Afghanistan AF    AFG    </span><span style='text-decoration: underline;'>1</span><span>980 sp        m      3544     </span><span style='color: #BB0000;'>NA</span><span>
+#&gt; </span><span style='color: #BCBCBC;'> 5</span><span> Afghanistan AF    AFG    </span><span style='text-decoration: underline;'>1</span><span>980 sp        m      4554     </span><span style='color: #BB0000;'>NA</span><span>
+#&gt; </span><span style='color: #BCBCBC;'> 6</span><span> Afghanistan AF    AFG    </span><span style='text-decoration: underline;'>1</span><span>980 sp        m      5564     </span><span style='color: #BB0000;'>NA</span><span>
+#&gt; </span><span style='color: #BCBCBC;'> 7</span><span> Afghanistan AF    AFG    </span><span style='text-decoration: underline;'>1</span><span>980 sp        m      65       </span><span style='color: #BB0000;'>NA</span><span>
+#&gt; </span><span style='color: #BCBCBC;'> 8</span><span> Afghanistan AF    AFG    </span><span style='text-decoration: underline;'>1</span><span>980 sp        f      014      </span><span style='color: #BB0000;'>NA</span><span>
+#&gt; </span><span style='color: #BCBCBC;'> 9</span><span> Afghanistan AF    AFG    </span><span style='text-decoration: underline;'>1</span><span>980 sp        f      1524     </span><span style='color: #BB0000;'>NA</span><span>
+#&gt; </span><span style='color: #BCBCBC;'>10</span><span> Afghanistan AF    AFG    </span><span style='text-decoration: underline;'>1</span><span>980 sp        f      2534     </span><span style='color: #BB0000;'>NA</span><span>
+#&gt; </span><span style='color: #949494;'># … with 405,430 more rows</span><span></div><div class='input'>
 <span class='co'># Multiple observations per row</span>
 <span class='va'>anscombe</span>
 </div><div class='output co'>#&gt;    x1 x2 x3 x4    y1   y2    y3    y4
@@ -453,20 +453,20 @@ under active development.</p>
    names_to <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>".value"</span>, <span class='st'>"set"</span><span class='op'>)</span>,
    names_pattern <span class='op'>=</span> <span class='st'>"(.)(.)"</span>
  <span class='op'>)</span>
-</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 44 x 3</span><span>
+</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 44 x 3</span><span>
 #&gt;    set       x     y
-#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'> 1</span><span> 1        10  8.04
-#&gt; </span><span style='color: #555555;'> 2</span><span> 2        10  9.14
-#&gt; </span><span style='color: #555555;'> 3</span><span> 3        10  7.46
-#&gt; </span><span style='color: #555555;'> 4</span><span> 4         8  6.58
-#&gt; </span><span style='color: #555555;'> 5</span><span> 1         8  6.95
-#&gt; </span><span style='color: #555555;'> 6</span><span> 2         8  8.14
-#&gt; </span><span style='color: #555555;'> 7</span><span> 3         8  6.77
-#&gt; </span><span style='color: #555555;'> 8</span><span> 4         8  5.76
-#&gt; </span><span style='color: #555555;'> 9</span><span> 1        13  7.58
-#&gt; </span><span style='color: #555555;'>10</span><span> 2        13  8.74
-#&gt; </span><span style='color: #555555;'># … with 34 more rows</span><span></div></span></pre>
+#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'> 1</span><span> 1        10  8.04
+#&gt; </span><span style='color: #BCBCBC;'> 2</span><span> 2        10  9.14
+#&gt; </span><span style='color: #BCBCBC;'> 3</span><span> 3        10  7.46
+#&gt; </span><span style='color: #BCBCBC;'> 4</span><span> 4         8  6.58
+#&gt; </span><span style='color: #BCBCBC;'> 5</span><span> 1         8  6.95
+#&gt; </span><span style='color: #BCBCBC;'> 6</span><span> 2         8  8.14
+#&gt; </span><span style='color: #BCBCBC;'> 7</span><span> 3         8  6.77
+#&gt; </span><span style='color: #BCBCBC;'> 8</span><span> 4         8  5.76
+#&gt; </span><span style='color: #BCBCBC;'> 9</span><span> 1        13  7.58
+#&gt; </span><span style='color: #BCBCBC;'>10</span><span> 2        13  8.74
+#&gt; </span><span style='color: #949494;'># … with 34 more rows</span><span></div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

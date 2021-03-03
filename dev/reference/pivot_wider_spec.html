@@ -96,7 +96,7 @@ that allows you to describe pivotting with a data frame." />
         <a class="navbar-brand" href="../index.html">tidyr</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.1.2.9000</span>
+          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.1.3.9000</span>
         </div>
       </div>
     </div>
@@ -320,62 +320,62 @@ column names are ordered by first appearance.</p></td>
     <pre class="examples"><div class='input'><span class='co'># See vignette("pivot") for examples and explanation</span>
 
 <span class='va'>us_rent_income</span>
-</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 104 x 5</span><span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 104 x 5</span><span>
 #&gt;    GEOID NAME       variable estimate   moe
-#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>      </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>       </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'> 1</span><span> 01    Alabama    income      </span><span style='text-decoration: underline;'>24</span><span>476   136
-#&gt; </span><span style='color: #555555;'> 2</span><span> 01    Alabama    rent          747     3
-#&gt; </span><span style='color: #555555;'> 3</span><span> 02    Alaska     income      </span><span style='text-decoration: underline;'>32</span><span>940   508
-#&gt; </span><span style='color: #555555;'> 4</span><span> 02    Alaska     rent         </span><span style='text-decoration: underline;'>1</span><span>200    13
-#&gt; </span><span style='color: #555555;'> 5</span><span> 04    Arizona    income      </span><span style='text-decoration: underline;'>27</span><span>517   148
-#&gt; </span><span style='color: #555555;'> 6</span><span> 04    Arizona    rent          972     4
-#&gt; </span><span style='color: #555555;'> 7</span><span> 05    Arkansas   income      </span><span style='text-decoration: underline;'>23</span><span>789   165
-#&gt; </span><span style='color: #555555;'> 8</span><span> 05    Arkansas   rent          709     5
-#&gt; </span><span style='color: #555555;'> 9</span><span> 06    California income      </span><span style='text-decoration: underline;'>29</span><span>454   109
-#&gt; </span><span style='color: #555555;'>10</span><span> 06    California rent         </span><span style='text-decoration: underline;'>1</span><span>358     3
-#&gt; </span><span style='color: #555555;'># … with 94 more rows</span><span></div><div class='input'><span class='va'>spec1</span> <span class='op'>&lt;-</span> <span class='va'>us_rent_income</span> <span class='op'>%&gt;%</span>
+#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>      </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>       </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'> 1</span><span> 01    Alabama    income      </span><span style='text-decoration: underline;'>24</span><span>476   136
+#&gt; </span><span style='color: #BCBCBC;'> 2</span><span> 01    Alabama    rent          747     3
+#&gt; </span><span style='color: #BCBCBC;'> 3</span><span> 02    Alaska     income      </span><span style='text-decoration: underline;'>32</span><span>940   508
+#&gt; </span><span style='color: #BCBCBC;'> 4</span><span> 02    Alaska     rent         </span><span style='text-decoration: underline;'>1</span><span>200    13
+#&gt; </span><span style='color: #BCBCBC;'> 5</span><span> 04    Arizona    income      </span><span style='text-decoration: underline;'>27</span><span>517   148
+#&gt; </span><span style='color: #BCBCBC;'> 6</span><span> 04    Arizona    rent          972     4
+#&gt; </span><span style='color: #BCBCBC;'> 7</span><span> 05    Arkansas   income      </span><span style='text-decoration: underline;'>23</span><span>789   165
+#&gt; </span><span style='color: #BCBCBC;'> 8</span><span> 05    Arkansas   rent          709     5
+#&gt; </span><span style='color: #BCBCBC;'> 9</span><span> 06    California income      </span><span style='text-decoration: underline;'>29</span><span>454   109
+#&gt; </span><span style='color: #BCBCBC;'>10</span><span> 06    California rent         </span><span style='text-decoration: underline;'>1</span><span>358     3
+#&gt; </span><span style='color: #949494;'># … with 94 more rows</span><span></div><div class='input'><span class='va'>spec1</span> <span class='op'>&lt;-</span> <span class='va'>us_rent_income</span> <span class='op'>%&gt;%</span>
   <span class='fu'>build_wider_spec</span><span class='op'>(</span>names_from <span class='op'>=</span> <span class='va'>variable</span>, values_from <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>estimate</span>, <span class='va'>moe</span><span class='op'>)</span><span class='op'>)</span>
 <span class='va'>spec1</span>
-</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 4 x 3</span><span>
+</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 4 x 3</span><span>
 #&gt;   .name           .value   variable
-#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>           </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>   
-#&gt; </span><span style='color: #555555;'>1</span><span> estimate_income estimate income  
-#&gt; </span><span style='color: #555555;'>2</span><span> estimate_rent   estimate rent    
-#&gt; </span><span style='color: #555555;'>3</span><span> moe_income      moe      income  
-#&gt; </span><span style='color: #555555;'>4</span><span> moe_rent        moe      rent    </div><div class='input'>
+#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>           </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>   
+#&gt; </span><span style='color: #BCBCBC;'>1</span><span> estimate_income estimate income  
+#&gt; </span><span style='color: #BCBCBC;'>2</span><span> estimate_rent   estimate rent    
+#&gt; </span><span style='color: #BCBCBC;'>3</span><span> moe_income      moe      income  
+#&gt; </span><span style='color: #BCBCBC;'>4</span><span> moe_rent        moe      rent    </div><div class='input'>
 <span class='va'>us_rent_income</span> <span class='op'>%&gt;%</span>
   <span class='fu'>pivot_wider_spec</span><span class='op'>(</span><span class='va'>spec1</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 52 x 6</span><span>
+</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 52 x 6</span><span>
 #&gt;    GEOID NAME                 estimate_income estimate_rent moe_income moe_rent
-#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>                          </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>      </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'> 1</span><span> 01    Alabama                        </span><span style='text-decoration: underline;'>24</span><span>476           747        136        3
-#&gt; </span><span style='color: #555555;'> 2</span><span> 02    Alaska                         </span><span style='text-decoration: underline;'>32</span><span>940          </span><span style='text-decoration: underline;'>1</span><span>200        508       13
-#&gt; </span><span style='color: #555555;'> 3</span><span> 04    Arizona                        </span><span style='text-decoration: underline;'>27</span><span>517           972        148        4
-#&gt; </span><span style='color: #555555;'> 4</span><span> 05    Arkansas                       </span><span style='text-decoration: underline;'>23</span><span>789           709        165        5
-#&gt; </span><span style='color: #555555;'> 5</span><span> 06    California                     </span><span style='text-decoration: underline;'>29</span><span>454          </span><span style='text-decoration: underline;'>1</span><span>358        109        3
-#&gt; </span><span style='color: #555555;'> 6</span><span> 08    Colorado                       </span><span style='text-decoration: underline;'>32</span><span>401          </span><span style='text-decoration: underline;'>1</span><span>125        109        5
-#&gt; </span><span style='color: #555555;'> 7</span><span> 09    Connecticut                    </span><span style='text-decoration: underline;'>35</span><span>326          </span><span style='text-decoration: underline;'>1</span><span>123        195        5
-#&gt; </span><span style='color: #555555;'> 8</span><span> 10    Delaware                       </span><span style='text-decoration: underline;'>31</span><span>560          </span><span style='text-decoration: underline;'>1</span><span>076        247       10
-#&gt; </span><span style='color: #555555;'> 9</span><span> 11    District of Columbia           </span><span style='text-decoration: underline;'>43</span><span>198          </span><span style='text-decoration: underline;'>1</span><span>424        681       17
-#&gt; </span><span style='color: #555555;'>10</span><span> 12    Florida                        </span><span style='text-decoration: underline;'>25</span><span>952          </span><span style='text-decoration: underline;'>1</span><span>077         70        3
-#&gt; </span><span style='color: #555555;'># … with 42 more rows</span><span></div><div class='input'>
+#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>                          </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>         </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>      </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>    </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'> 1</span><span> 01    Alabama                        </span><span style='text-decoration: underline;'>24</span><span>476           747        136        3
+#&gt; </span><span style='color: #BCBCBC;'> 2</span><span> 02    Alaska                         </span><span style='text-decoration: underline;'>32</span><span>940          </span><span style='text-decoration: underline;'>1</span><span>200        508       13
+#&gt; </span><span style='color: #BCBCBC;'> 3</span><span> 04    Arizona                        </span><span style='text-decoration: underline;'>27</span><span>517           972        148        4
+#&gt; </span><span style='color: #BCBCBC;'> 4</span><span> 05    Arkansas                       </span><span style='text-decoration: underline;'>23</span><span>789           709        165        5
+#&gt; </span><span style='color: #BCBCBC;'> 5</span><span> 06    California                     </span><span style='text-decoration: underline;'>29</span><span>454          </span><span style='text-decoration: underline;'>1</span><span>358        109        3
+#&gt; </span><span style='color: #BCBCBC;'> 6</span><span> 08    Colorado                       </span><span style='text-decoration: underline;'>32</span><span>401          </span><span style='text-decoration: underline;'>1</span><span>125        109        5
+#&gt; </span><span style='color: #BCBCBC;'> 7</span><span> 09    Connecticut                    </span><span style='text-decoration: underline;'>35</span><span>326          </span><span style='text-decoration: underline;'>1</span><span>123        195        5
+#&gt; </span><span style='color: #BCBCBC;'> 8</span><span> 10    Delaware                       </span><span style='text-decoration: underline;'>31</span><span>560          </span><span style='text-decoration: underline;'>1</span><span>076        247       10
+#&gt; </span><span style='color: #BCBCBC;'> 9</span><span> 11    District of Columbia           </span><span style='text-decoration: underline;'>43</span><span>198          </span><span style='text-decoration: underline;'>1</span><span>424        681       17
+#&gt; </span><span style='color: #BCBCBC;'>10</span><span> 12    Florida                        </span><span style='text-decoration: underline;'>25</span><span>952          </span><span style='text-decoration: underline;'>1</span><span>077         70        3
+#&gt; </span><span style='color: #949494;'># … with 42 more rows</span><span></div><div class='input'>
 <span class='co'># Is equivalent to</span>
 <span class='va'>us_rent_income</span> <span class='op'>%&gt;%</span>
   <span class='fu'><a href='pivot_wider.html'>pivot_wider</a></span><span class='op'>(</span>names_from <span class='op'>=</span> <span class='va'>variable</span>, values_from <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>estimate</span>, <span class='va'>moe</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 52 x 6</span><span>
+</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 52 x 6</span><span>
 #&gt;    GEOID NAME                 estimate_income estimate_rent moe_income moe_rent
-#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>                          </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>      </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'> 1</span><span> 01    Alabama                        </span><span style='text-decoration: underline;'>24</span><span>476           747        136        3
-#&gt; </span><span style='color: #555555;'> 2</span><span> 02    Alaska                         </span><span style='text-decoration: underline;'>32</span><span>940          </span><span style='text-decoration: underline;'>1</span><span>200        508       13
-#&gt; </span><span style='color: #555555;'> 3</span><span> 04    Arizona                        </span><span style='text-decoration: underline;'>27</span><span>517           972        148        4
-#&gt; </span><span style='color: #555555;'> 4</span><span> 05    Arkansas                       </span><span style='text-decoration: underline;'>23</span><span>789           709        165        5
-#&gt; </span><span style='color: #555555;'> 5</span><span> 06    California                     </span><span style='text-decoration: underline;'>29</span><span>454          </span><span style='text-decoration: underline;'>1</span><span>358        109        3
-#&gt; </span><span style='color: #555555;'> 6</span><span> 08    Colorado                       </span><span style='text-decoration: underline;'>32</span><span>401          </span><span style='text-decoration: underline;'>1</span><span>125        109        5
-#&gt; </span><span style='color: #555555;'> 7</span><span> 09    Connecticut                    </span><span style='text-decoration: underline;'>35</span><span>326          </span><span style='text-decoration: underline;'>1</span><span>123        195        5
-#&gt; </span><span style='color: #555555;'> 8</span><span> 10    Delaware                       </span><span style='text-decoration: underline;'>31</span><span>560          </span><span style='text-decoration: underline;'>1</span><span>076        247       10
-#&gt; </span><span style='color: #555555;'> 9</span><span> 11    District of Columbia           </span><span style='text-decoration: underline;'>43</span><span>198          </span><span style='text-decoration: underline;'>1</span><span>424        681       17
-#&gt; </span><span style='color: #555555;'>10</span><span> 12    Florida                        </span><span style='text-decoration: underline;'>25</span><span>952          </span><span style='text-decoration: underline;'>1</span><span>077         70        3
-#&gt; </span><span style='color: #555555;'># … with 42 more rows</span><span></div><div class='input'>
+#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>                          </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>         </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>      </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>    </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'> 1</span><span> 01    Alabama                        </span><span style='text-decoration: underline;'>24</span><span>476           747        136        3
+#&gt; </span><span style='color: #BCBCBC;'> 2</span><span> 02    Alaska                         </span><span style='text-decoration: underline;'>32</span><span>940          </span><span style='text-decoration: underline;'>1</span><span>200        508       13
+#&gt; </span><span style='color: #BCBCBC;'> 3</span><span> 04    Arizona                        </span><span style='text-decoration: underline;'>27</span><span>517           972        148        4
+#&gt; </span><span style='color: #BCBCBC;'> 4</span><span> 05    Arkansas                       </span><span style='text-decoration: underline;'>23</span><span>789           709        165        5
+#&gt; </span><span style='color: #BCBCBC;'> 5</span><span> 06    California                     </span><span style='text-decoration: underline;'>29</span><span>454          </span><span style='text-decoration: underline;'>1</span><span>358        109        3
+#&gt; </span><span style='color: #BCBCBC;'> 6</span><span> 08    Colorado                       </span><span style='text-decoration: underline;'>32</span><span>401          </span><span style='text-decoration: underline;'>1</span><span>125        109        5
+#&gt; </span><span style='color: #BCBCBC;'> 7</span><span> 09    Connecticut                    </span><span style='text-decoration: underline;'>35</span><span>326          </span><span style='text-decoration: underline;'>1</span><span>123        195        5
+#&gt; </span><span style='color: #BCBCBC;'> 8</span><span> 10    Delaware                       </span><span style='text-decoration: underline;'>31</span><span>560          </span><span style='text-decoration: underline;'>1</span><span>076        247       10
+#&gt; </span><span style='color: #BCBCBC;'> 9</span><span> 11    District of Columbia           </span><span style='text-decoration: underline;'>43</span><span>198          </span><span style='text-decoration: underline;'>1</span><span>424        681       17
+#&gt; </span><span style='color: #BCBCBC;'>10</span><span> 12    Florida                        </span><span style='text-decoration: underline;'>25</span><span>952          </span><span style='text-decoration: underline;'>1</span><span>077         70        3
+#&gt; </span><span style='color: #949494;'># … with 42 more rows</span><span></div><div class='input'>
 <span class='co'># `pivot_wider_spec()` provides more control over column names and output format</span>
 <span class='co'># instead of creating columns with estimate_ and moe_ prefixes,</span>
 <span class='co'># keep original variable name for estimates and attach _moe as suffix</span>
@@ -387,20 +387,20 @@ column names are ordered by first appearance.</p></td>
 
 <span class='va'>us_rent_income</span> <span class='op'>%&gt;%</span>
   <span class='fu'>pivot_wider_spec</span><span class='op'>(</span><span class='va'>spec2</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 52 x 6</span><span>
+</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 52 x 6</span><span>
 #&gt;    GEOID NAME                 income  rent income_moe rent_moe
-#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>                 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>      </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'> 1</span><span> 01    Alabama               </span><span style='text-decoration: underline;'>24</span><span>476   747        136        3
-#&gt; </span><span style='color: #555555;'> 2</span><span> 02    Alaska                </span><span style='text-decoration: underline;'>32</span><span>940  </span><span style='text-decoration: underline;'>1</span><span>200        508       13
-#&gt; </span><span style='color: #555555;'> 3</span><span> 04    Arizona               </span><span style='text-decoration: underline;'>27</span><span>517   972        148        4
-#&gt; </span><span style='color: #555555;'> 4</span><span> 05    Arkansas              </span><span style='text-decoration: underline;'>23</span><span>789   709        165        5
-#&gt; </span><span style='color: #555555;'> 5</span><span> 06    California            </span><span style='text-decoration: underline;'>29</span><span>454  </span><span style='text-decoration: underline;'>1</span><span>358        109        3
-#&gt; </span><span style='color: #555555;'> 6</span><span> 08    Colorado              </span><span style='text-decoration: underline;'>32</span><span>401  </span><span style='text-decoration: underline;'>1</span><span>125        109        5
-#&gt; </span><span style='color: #555555;'> 7</span><span> 09    Connecticut           </span><span style='text-decoration: underline;'>35</span><span>326  </span><span style='text-decoration: underline;'>1</span><span>123        195        5
-#&gt; </span><span style='color: #555555;'> 8</span><span> 10    Delaware              </span><span style='text-decoration: underline;'>31</span><span>560  </span><span style='text-decoration: underline;'>1</span><span>076        247       10
-#&gt; </span><span style='color: #555555;'> 9</span><span> 11    District of Columbia  </span><span style='text-decoration: underline;'>43</span><span>198  </span><span style='text-decoration: underline;'>1</span><span>424        681       17
-#&gt; </span><span style='color: #555555;'>10</span><span> 12    Florida               </span><span style='text-decoration: underline;'>25</span><span>952  </span><span style='text-decoration: underline;'>1</span><span>077         70        3
-#&gt; </span><span style='color: #555555;'># … with 42 more rows</span><span></div></span></pre>
+#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>                 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>      </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>    </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'> 1</span><span> 01    Alabama               </span><span style='text-decoration: underline;'>24</span><span>476   747        136        3
+#&gt; </span><span style='color: #BCBCBC;'> 2</span><span> 02    Alaska                </span><span style='text-decoration: underline;'>32</span><span>940  </span><span style='text-decoration: underline;'>1</span><span>200        508       13
+#&gt; </span><span style='color: #BCBCBC;'> 3</span><span> 04    Arizona               </span><span style='text-decoration: underline;'>27</span><span>517   972        148        4
+#&gt; </span><span style='color: #BCBCBC;'> 4</span><span> 05    Arkansas              </span><span style='text-decoration: underline;'>23</span><span>789   709        165        5
+#&gt; </span><span style='color: #BCBCBC;'> 5</span><span> 06    California            </span><span style='text-decoration: underline;'>29</span><span>454  </span><span style='text-decoration: underline;'>1</span><span>358        109        3
+#&gt; </span><span style='color: #BCBCBC;'> 6</span><span> 08    Colorado              </span><span style='text-decoration: underline;'>32</span><span>401  </span><span style='text-decoration: underline;'>1</span><span>125        109        5
+#&gt; </span><span style='color: #BCBCBC;'> 7</span><span> 09    Connecticut           </span><span style='text-decoration: underline;'>35</span><span>326  </span><span style='text-decoration: underline;'>1</span><span>123        195        5
+#&gt; </span><span style='color: #BCBCBC;'> 8</span><span> 10    Delaware              </span><span style='text-decoration: underline;'>31</span><span>560  </span><span style='text-decoration: underline;'>1</span><span>076        247       10
+#&gt; </span><span style='color: #BCBCBC;'> 9</span><span> 11    District of Columbia  </span><span style='text-decoration: underline;'>43</span><span>198  </span><span style='text-decoration: underline;'>1</span><span>424        681       17
+#&gt; </span><span style='color: #BCBCBC;'>10</span><span> 12    Florida               </span><span style='text-decoration: underline;'>25</span><span>952  </span><span style='text-decoration: underline;'>1</span><span>077         70        3
+#&gt; </span><span style='color: #949494;'># … with 42 more rows</span><span></div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

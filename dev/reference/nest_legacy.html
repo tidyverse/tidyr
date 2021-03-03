@@ -104,7 +104,7 @@ unnest &amp;lt;- unnest_legacy
         <a class="navbar-brand" href="../index.html">tidyr</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.1.2.9000</span>
+          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.1.3.9000</span>
         </div>
       </div>
     </div>
@@ -277,34 +277,34 @@ will be duplicated in the same way as atomic vectors. This has
     <pre class="examples"><div class='input'><span class='co'># Nest and unnest are inverses</span>
 <span class='va'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>2</span><span class='op'>)</span>, y <span class='op'>=</span> <span class='fl'>3</span><span class='op'>:</span><span class='fl'>1</span><span class='op'>)</span>
 <span class='va'>df</span> <span class='op'>%&gt;%</span> <span class='fu'>nest_legacy</span><span class='op'>(</span><span class='va'>y</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 2 x 2</span><span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 2 x 2</span><span>
 #&gt;       x data            
-#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;list&gt;</span><span>          
-#&gt; </span><span style='color: #555555;'>1</span><span>     1 </span><span style='color: #555555;'>&lt;tibble [2 × 1]&gt;</span><span>
-#&gt; </span><span style='color: #555555;'>2</span><span>     2 </span><span style='color: #555555;'>&lt;tibble [1 × 1]&gt;</span><span></div><div class='input'><span class='va'>df</span> <span class='op'>%&gt;%</span> <span class='fu'>nest_legacy</span><span class='op'>(</span><span class='va'>y</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='fu'>unnest_legacy</span><span class='op'>(</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 3 x 2</span><span>
+#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;list&gt;</span><span>          
+#&gt; </span><span style='color: #BCBCBC;'>1</span><span>     1 </span><span style='color: #949494;'>&lt;tibble [2 × 1]&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'>2</span><span>     2 </span><span style='color: #949494;'>&lt;tibble [1 × 1]&gt;</span><span></div><div class='input'><span class='va'>df</span> <span class='op'>%&gt;%</span> <span class='fu'>nest_legacy</span><span class='op'>(</span><span class='va'>y</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='fu'>unnest_legacy</span><span class='op'>(</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 3 x 2</span><span>
 #&gt;       x     y
-#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
-#&gt; </span><span style='color: #555555;'>1</span><span>     1     3
-#&gt; </span><span style='color: #555555;'>2</span><span>     1     2
-#&gt; </span><span style='color: #555555;'>3</span><span>     2     1</div><div class='input'>
+#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'>1</span><span>     1     3
+#&gt; </span><span style='color: #BCBCBC;'>2</span><span>     1     2
+#&gt; </span><span style='color: #BCBCBC;'>3</span><span>     2     1</div><div class='input'>
 <span class='co'># nesting -------------------------------------------------------------------</span>
 <span class='fu'><a href='https://tibble.tidyverse.org/reference/as_tibble.html'>as_tibble</a></span><span class='op'>(</span><span class='va'>iris</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='fu'>nest_legacy</span><span class='op'>(</span><span class='op'>!</span><span class='va'>Species</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 3 x 2</span><span>
+</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 3 x 2</span><span>
 #&gt;   Species    data             
-#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>      </span><span style='color: #555555;font-style: italic;'>&lt;list&gt;</span><span>           
-#&gt; </span><span style='color: #555555;'>1</span><span> setosa     </span><span style='color: #555555;'>&lt;tibble [50 × 4]&gt;</span><span>
-#&gt; </span><span style='color: #555555;'>2</span><span> versicolor </span><span style='color: #555555;'>&lt;tibble [50 × 4]&gt;</span><span>
-#&gt; </span><span style='color: #555555;'>3</span><span> virginica  </span><span style='color: #555555;'>&lt;tibble [50 × 4]&gt;</span><span></div><div class='input'><span class='fu'><a href='https://tibble.tidyverse.org/reference/as_tibble.html'>as_tibble</a></span><span class='op'>(</span><span class='va'>chickwts</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='fu'>nest_legacy</span><span class='op'>(</span><span class='va'>weight</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 6 x 2</span><span>
+#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;fct&gt;</span><span>      </span><span style='color: #949494;font-style: italic;'>&lt;list&gt;</span><span>           
+#&gt; </span><span style='color: #BCBCBC;'>1</span><span> setosa     </span><span style='color: #949494;'>&lt;tibble [50 × 4]&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'>2</span><span> versicolor </span><span style='color: #949494;'>&lt;tibble [50 × 4]&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'>3</span><span> virginica  </span><span style='color: #949494;'>&lt;tibble [50 × 4]&gt;</span><span></div><div class='input'><span class='fu'><a href='https://tibble.tidyverse.org/reference/as_tibble.html'>as_tibble</a></span><span class='op'>(</span><span class='va'>chickwts</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='fu'>nest_legacy</span><span class='op'>(</span><span class='va'>weight</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 6 x 2</span><span>
 #&gt;   feed      data             
-#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;list&gt;</span><span>           
-#&gt; </span><span style='color: #555555;'>1</span><span> horsebean </span><span style='color: #555555;'>&lt;tibble [10 × 1]&gt;</span><span>
-#&gt; </span><span style='color: #555555;'>2</span><span> linseed   </span><span style='color: #555555;'>&lt;tibble [12 × 1]&gt;</span><span>
-#&gt; </span><span style='color: #555555;'>3</span><span> soybean   </span><span style='color: #555555;'>&lt;tibble [14 × 1]&gt;</span><span>
-#&gt; </span><span style='color: #555555;'>4</span><span> sunflower </span><span style='color: #555555;'>&lt;tibble [12 × 1]&gt;</span><span>
-#&gt; </span><span style='color: #555555;'>5</span><span> meatmeal  </span><span style='color: #555555;'>&lt;tibble [11 × 1]&gt;</span><span>
-#&gt; </span><span style='color: #555555;'>6</span><span> casein    </span><span style='color: #555555;'>&lt;tibble [12 × 1]&gt;</span><span></div><div class='input'>
+#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;fct&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;list&gt;</span><span>           
+#&gt; </span><span style='color: #BCBCBC;'>1</span><span> horsebean </span><span style='color: #949494;'>&lt;tibble [10 × 1]&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'>2</span><span> linseed   </span><span style='color: #949494;'>&lt;tibble [12 × 1]&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'>3</span><span> soybean   </span><span style='color: #949494;'>&lt;tibble [14 × 1]&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'>4</span><span> sunflower </span><span style='color: #949494;'>&lt;tibble [12 × 1]&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'>5</span><span> meatmeal  </span><span style='color: #949494;'>&lt;tibble [11 × 1]&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'>6</span><span> casein    </span><span style='color: #949494;'>&lt;tibble [12 × 1]&gt;</span><span></div><div class='input'>
 <span class='co'># unnesting -----------------------------------------------------------------</span>
 <span class='va'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span><span class='op'>(</span>
   x <span class='op'>=</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span>,
@@ -314,12 +314,12 @@ will be duplicated in the same way as atomic vectors. This has
   <span class='op'>)</span>
 <span class='op'>)</span>
 <span class='va'>df</span> <span class='op'>%&gt;%</span> <span class='fu'>unnest_legacy</span><span class='op'>(</span><span class='va'>y</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 3 x 2</span><span>
+</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 3 x 2</span><span>
 #&gt;       x     z
-#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'>1</span><span>     1     1
-#&gt; </span><span style='color: #555555;'>2</span><span>     2     3
-#&gt; </span><span style='color: #555555;'>3</span><span>     2     4</div><div class='input'>
+#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'>1</span><span>     1     1
+#&gt; </span><span style='color: #BCBCBC;'>2</span><span>     2     3
+#&gt; </span><span style='color: #BCBCBC;'>3</span><span>     2     4</div><div class='input'>
 <span class='co'># You can also unnest multiple columns simultaneously</span>
 <span class='va'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span><span class='op'>(</span>
   a <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"a"</span>, <span class='st'>"b"</span><span class='op'>)</span>, <span class='st'>"c"</span><span class='op'>)</span>,
@@ -327,19 +327,19 @@ will be duplicated in the same way as atomic vectors. This has
   c <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>11</span>, <span class='fl'>22</span><span class='op'>)</span>
 <span class='op'>)</span>
 <span class='va'>df</span> <span class='op'>%&gt;%</span> <span class='fu'>unnest_legacy</span><span class='op'>(</span><span class='va'>a</span>, <span class='va'>b</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 3 x 3</span><span>
+</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 3 x 3</span><span>
 #&gt;       c a         b
-#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'>1</span><span>    11 a         1
-#&gt; </span><span style='color: #555555;'>2</span><span>    11 b         2
-#&gt; </span><span style='color: #555555;'>3</span><span>    22 c         3</div><div class='input'><span class='co'># If you omit the column names, it'll unnest all list-cols</span>
+#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'>1</span><span>    11 a         1
+#&gt; </span><span style='color: #BCBCBC;'>2</span><span>    11 b         2
+#&gt; </span><span style='color: #BCBCBC;'>3</span><span>    22 c         3</div><div class='input'><span class='co'># If you omit the column names, it'll unnest all list-cols</span>
 <span class='va'>df</span> <span class='op'>%&gt;%</span> <span class='fu'>unnest_legacy</span><span class='op'>(</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 3 x 3</span><span>
+</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 3 x 3</span><span>
 #&gt;       c a         b
-#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'>1</span><span>    11 a         1
-#&gt; </span><span style='color: #555555;'>2</span><span>    11 b         2
-#&gt; </span><span style='color: #555555;'>3</span><span>    22 c         3</div></span></pre>
+#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'>1</span><span>    11 a         1
+#&gt; </span><span style='color: #BCBCBC;'>2</span><span>    11 b         2
+#&gt; </span><span style='color: #BCBCBC;'>3</span><span>    22 c         3</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
