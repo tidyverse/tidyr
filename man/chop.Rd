@@ -7,7 +7,7 @@
 \usage{
 chop(data, cols, ...)
 
-unchop(data, cols, keep_empty = FALSE, ptype = NULL, ...)
+unchop(data, cols, ..., keep_empty = FALSE, ptype = NULL)
 }
 \arguments{
 \item{data}{A data frame.}

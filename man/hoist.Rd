@@ -20,25 +20,25 @@ hoist(
 unnest_longer(
   data,
   col,
+  ...,
   values_to = NULL,
   indices_to = NULL,
   indices_include = NULL,
   names_repair = "check_unique",
   simplify = TRUE,
   ptype = list(),
-  transform = list(),
-  ...
+  transform = list()
 )
 
 unnest_wider(
   data,
   col,
+  ...,
   names_sep = NULL,
   simplify = TRUE,
   names_repair = "check_unique",
   ptype = list(),
-  transform = list(),
-  ...
+  transform = list()
 )
 
 unnest_auto(data, col)

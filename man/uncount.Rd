@@ -4,7 +4,7 @@
 \alias{uncount}
 \title{"Uncount" a data frame}
 \usage{
-uncount(data, weights, .remove = TRUE, .id = NULL, ...)
+uncount(data, weights, ..., .remove = TRUE, .id = NULL)
 }
 \arguments{
 \item{data}{A data frame, tibble, or grouped tibble.}
@@ -12,13 +12,13 @@ uncount(data, weights, .remove = TRUE, .id = NULL, ...)
 \item{weights}{A vector of weights. Evaluated in the context of \code{data};
 supports quasiquotation.}
 
+\item{...}{Additional arguments passed on to methods.}
+
 \item{.remove}{If \code{TRUE}, and \code{weights} is the name of a column in \code{data},
 then this column is removed.}
 
 \item{.id}{Supply a string to create a new variable which gives a unique
 identifier for each created row.}
-
-\item{...}{Additional arguments passed on to methods.}
 }
 \description{
 Performs the opposite operation to \code{\link[dplyr:count]{dplyr::count()}}, duplicating rows

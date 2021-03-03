@@ -18,14 +18,14 @@ pivot_longer_spec(
 build_longer_spec(
   data,
   cols,
+  ...,
   names_to = "name",
   values_to = "value",
   names_prefix = NULL,
   names_sep = NULL,
   names_pattern = NULL,
   names_ptypes = NULL,
-  names_transform = NULL,
-  ...
+  names_transform = NULL
 )
 }
 \arguments{

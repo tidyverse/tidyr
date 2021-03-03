@@ -8,22 +8,22 @@
 pivot_wider_spec(
   data,
   spec,
+  ...,
   names_repair = "check_unique",
   id_cols = NULL,
   values_fill = NULL,
-  values_fn = NULL,
-  ...
+  values_fn = NULL
 )
 
 build_wider_spec(
   data,
   names_from = name,
   values_from = value,
+  ...,
   names_prefix = "",
   names_sep = "_",
   names_glue = NULL,
-  names_sort = FALSE,
-  ...
+  names_sort = FALSE
 )
 }
 \arguments{
@@ -39,6 +39,8 @@ long format of the dataset and contain values corresponding to columns
 pivoted from the wide format.
 The special \code{.seq} variable is used to disambiguate rows internally;
 it is automatically removed after pivotting.}
+
+\item{...}{Additional arguments passed on to methods.}
 
 \item{names_repair}{What happens if the output has invalid column names?
 The default, \code{"check_unique"} is to error if the columns are duplicated.
@@ -64,8 +66,6 @@ in the output. You will typically use this when the combination of
 
 This can be a named list if you want to apply different aggregations
 to different value columns.}
-
-\item{...}{Additional arguments passed on to methods.}
 
 \item{names_from}{<\code{\link[=tidyr_tidy_select]{tidy-select}}> A pair of
 arguments describing which column (or columns) to get the name of the
