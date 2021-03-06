@@ -65,9 +65,9 @@ test_that("mixed columns are automatically coerced", {
 test_that("can override default output column type", {
   df <- tibble(x = "x", y = 1L)
   pv <- pivot_longer(df, x:y, values_transform = list(value = as.list))
-  expect_equal(pv$value, list("x", 1))
-
   pv2 <- pivot_longer(df, x:y, values_transform = as.list)
+
+  expect_equal(pv$value, list("x", 1))
   expect_equal(pv2$value, list("x", 1))
 })
 
@@ -232,8 +232,13 @@ test_that("can cast to custom type", {
     names_prefix = "w",
     names_transform = list(name = as.integer)
   )
+  sp2 <- build_longer_spec(df, w1,
+    names_prefix = "w",
+    names_transform = as.integer
+  )
 
   expect_equal(sp$name, 1L)
+  expect_equal(sp2$name, 1L)
 })
 
 test_that("Error if the `col` can't be selected.", {
