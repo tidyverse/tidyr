@@ -55,10 +55,13 @@
 #'   in the `value_to` column. This effectively converts explicit missing values
 #'   to implicit missing values, and should generally be used only when missing
 #'   values in `data` were created by its structure.
-#' @param names_transform,values_transform A list of column name-function pairs.
-#'   Use these arguments if you need to change the types of specific columns.
-#'   For example, `names_transform = list(week = as.integer)` would convert
-#'   a character variable called `week` to an integer.
+#' @param names_transform,values_transform A function or a list of column
+#'   name-function pairs. Use these arguments if you need to change the types of
+#'   columns. To change all column types, provide a function. To only
+#'   transform certain columns, provide a list of column-name function pairs.
+#'   For example, `names_transform = toupper` would convert all `names_to` columns to
+#'   upper-case, and `names_transform = list(week = as.integer)` would convert a
+#'   character variable called `week` to an integer.
 #'
 #'   If not specified, the type of the columns generated from `names_to` will
 #'   be character, and the type of the variables generated from `values_to`
@@ -324,11 +327,15 @@ build_longer_spec <- function(data, cols,
     names[[col]] <- vec_cast(names[[col]], names_ptypes[[col]])
   }
 
-  # transform cols
+  if (is.function(names_transform)) {
+    f <- as_function(names_transform)
+    names <- as_tibble(lapply(names, f))
+  } else {
   coerce_cols <- intersect(names(names), names(names_transform))
-  for (col in coerce_cols) {
-    f <- as_function(names_transform[[col]])
-    names[[col]] <- f(names[[col]])
+    for (col in coerce_cols) {
+      f <- as_function(names_transform[[col]])
+      names[[col]] <- f(names[[col]])
+    }
   }
 
   out <- tibble(.name = names(cols))
