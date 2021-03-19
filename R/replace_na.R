@@ -36,7 +36,8 @@ replace_na <- function(data, replace, ...) {
 #' @export
 replace_na.default <- function(data, replace = NA, ...) {
   check_replacement(replace, "data")
-  data[!is_complete(data)] <- replace
+  missing <- vec_equal_na(data)
+  data <- vec_assign(data, missing, replace, x_arg = "data", value_arg = "replace")
   data
 }
 
@@ -46,16 +47,32 @@ replace_na.data.frame <- function(data, replace = list(), ...) {
 
   replace_vars <- intersect(names(replace), names(data))
 
-  for (var in replace_vars) {
-    check_replacement(replace[[var]], var)
-    data[[var]][!is_complete(data[[var]])] <- replace[[var]]
+  data_args <- paste0("data$", replace_vars)
+  replace_args <- paste0("value$", replace_vars)
+
+  for (i in seq_along(replace_vars)) {
+    var <- replace_vars[[i]]
+    data_arg <- data_args[[i]]
+    replace_arg <- replace_args[[i]]
+
+    check_replacement(replace[[var]], data_arg)
+
+    missing <- vec_equal_na(data[[var]])
+
+    data[[var]] <- vec_assign(
+      data[[var]],
+      missing,
+      replace[[var]],
+      x_arg = data_arg,
+      value_arg = replace_arg
+    )
   }
 
   data
 }
 
 check_replacement <- function(x, var) {
-  n <- length(x)
+  n <- vec_size(x)
   if (n == 1) {
     return()
   }
