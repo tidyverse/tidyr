@@ -1,5 +1,9 @@
 # tidyr (development version)
 
+* `replace_na()` has been updated to use vctrs. Note that `replace_na()` is
+  considered to be superseded in favor of `dplyr::across()` +
+  `dplyr::coalesce()`.
+
 # tidyr 1.1.3
 
 * tidyr verbs no longer have "default" methods for lazyeval fallbacks. This
