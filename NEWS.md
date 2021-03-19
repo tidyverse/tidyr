@@ -1,6 +1,8 @@
 # tidyr (development version)
 
-* `replace_na()` has been updated to use vctrs. Note that `replace_na()` is
+* `replace_na()` has been updated to use vctrs. This is a breaking change, as
+  `data` can no longer be promoted to the type of `replace`. The returned value
+  now always has the same type as `data`. Note that `replace_na()` is generally
   considered to be superseded in favor of `dplyr::across()` +
   `dplyr::coalesce()`.
 
