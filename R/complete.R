@@ -1,12 +1,16 @@
 #' Complete a data frame with missing combinations of data
 #'
 #' Turns implicit missing values into explicit missing values.
+#'
+#' @details
 #' This is a wrapper around [expand()],
 #' [dplyr::left_join()] and [replace_na()] that's
 #' useful for completing missing combinations of data.
 #'
 #' If you supply `fill`, these values will also replace existing
 #' explicit missing values in the data set.
+#' 
+#' Grouping variables will not be expanded even if listed in complete
 #'
 #' @inheritParams expand
 #' @param fill A named list that for each variable supplies a single value to
@@ -22,6 +26,14 @@
 #'   value2 = 4:6
 #' )
 #' df %>% complete(group, nesting(item_id, item_name))
+#' Simple case to expand a few variables to all combinations
+#'   rest will be NA unless value supplied to fill
+#' df %>% complete(group, item_id, item_name)
+#'
+#' Grouped case will expand only combinations within groups
+#'    where they already exist, both give same result
+#' df %>% group_by(group) %>% complete(item_id, item_name)
+#' df %>% group_by(group) %>% complete(group, item_id, item_name)
 #'
 #' # You can also choose to fill in missing values
 #' df %>% complete(group, nesting(item_id, item_name), fill = list(value1 = 0))
