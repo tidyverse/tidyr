@@ -50,7 +50,10 @@ test_that("key preserves column ordering when factor_key = TRUE", {
 
 test_that("preserve class of input", {
   dat <- data.frame(x = 1:2)
-  dat %>% as_tibble() %>% gather() %>% expect_s3_class("tbl_df")
+  dat %>%
+    as_tibble() %>%
+    gather() %>%
+    expect_s3_class("tbl_df")
 })
 
 test_that("additional inputs control which columns to gather", {
@@ -64,11 +67,15 @@ test_that("group_vars are kept where possible", {
   df <- tibble(x = 1, y = 1, z = 1)
 
   # Can't keep
-  out <- df %>% dplyr::group_by(x) %>% gather(key, val, x:z)
+  out <- df %>%
+    dplyr::group_by(x) %>%
+    gather(key, val, x:z)
   expect_equal(out, tibble(key = c("x", "y", "z"), val = 1))
 
   # Can keep
-  out <- df %>% dplyr::group_by(x) %>% gather(key, val, y:z)
+  out <- df %>%
+    dplyr::group_by(x) %>%
+    gather(key, val, y:z)
   expect_equal(dplyr::group_vars(out), "x")
 })
 
@@ -111,7 +118,6 @@ test_that("can gather all atomic vectors", {
   expect_equal(gather(df3, key, val, -y), gathered_key(1))
   expect_equal(gather(df4, key, val, -y), gathered_key("a"))
   expect_equal(gather(df5, key, val, -y), gathered_key(1 + 1i))
-
 })
 
 test_that("gather throws error for POSIXlt", {

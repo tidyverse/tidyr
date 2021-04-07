@@ -52,7 +52,10 @@ test_that("expand respects groups", {
     b = c(1L, 2L, 1L),
     c = c(2L, 1L, 1L)
   )
-  out <- df %>% dplyr::group_by(a) %>% expand(b, c) %>% nest()
+  out <- df %>%
+    dplyr::group_by(a) %>%
+    expand(b, c) %>%
+    nest()
 
   expect_equal(out$data[[1]], crossing(b = 1:2, c = 1:2))
   expect_equal(out$data[[2]], tibble(b = 1L, c = 1L))
@@ -144,7 +147,6 @@ test_that("expand_grid can control name_repair", {
 })
 
 test_that("crossing/nesting/expand respect .name_repair", {
-
   x <- 1:2
   suppressMessages(
     expect_named(crossing(x, x, .name_repair = "unique"), c("x...1", "x...2"))

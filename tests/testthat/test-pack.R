@@ -28,7 +28,9 @@ test_that("all inputs must be named", {
 
 test_that("grouping is preserved", {
   df <- tibble(g1 = 1, g2 = 1, g3 = 1)
-  out <- df %>% dplyr::group_by(g1, g2) %>% pack(g = c(g2, g3))
+  out <- df %>%
+    dplyr::group_by(g1, g2) %>%
+    pack(g = c(g2, g3))
   expect_equal(dplyr::group_vars(out), "g1")
 })
 
@@ -36,7 +38,9 @@ test_that("grouping is preserved", {
 
 test_that("grouping is preserved", {
   df <- tibble(g = 1, x = tibble(y = 1))
-  out <- df %>% dplyr::group_by(g) %>% unpack(x)
+  out <- df %>%
+    dplyr::group_by(g) %>%
+    unpack(x)
   expect_equal(dplyr::group_vars(out), "g")
 })
 

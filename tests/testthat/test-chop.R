@@ -16,7 +16,9 @@ test_that("chopping no columns returns input", {
 
 test_that("grouping is preserved", {
   df <- tibble(g = c(1, 1), x = 1:2)
-  out <- df %>% dplyr::group_by(g) %>% chop(x)
+  out <- df %>%
+    dplyr::group_by(g) %>%
+    chop(x)
   expect_equal(dplyr::group_vars(out), "g")
 })
 
@@ -82,7 +84,9 @@ test_that("respects list_of types", {
 
 test_that("grouping is preserved", {
   df <- tibble(g = 1, x = list(1, 2))
-  out <- df %>% dplyr::group_by(g) %>% unchop(x)
+  out <- df %>%
+    dplyr::group_by(g) %>%
+    unchop(x)
   expect_equal(dplyr::group_vars(out), "g")
 })
 

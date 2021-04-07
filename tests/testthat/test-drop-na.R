@@ -35,7 +35,7 @@ test_that("empty call drops every row", {
 
 test_that("errors are raised", {
   df <- tibble(x = c(1, 2, NA), y = c("a", NA, "b"))
-  expect_error(tidyr::drop_na(df, !! list()))
+  expect_error(tidyr::drop_na(df, !!list()))
   expect_error(tidyr::drop_na(df, "z"))
 })
 

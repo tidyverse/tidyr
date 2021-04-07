@@ -158,7 +158,7 @@ test_that("can unnest mixture of name and unnamed lists of same length", {
   )
   expect_identical(
     unnest(df, c(y, z)),
-    tibble(x = c("a","a"), y = c(1:2), z = c(1:2))
+    tibble(x = c("a", "a"), y = c(1:2), z = c(1:2))
   )
 })
 

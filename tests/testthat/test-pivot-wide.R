@@ -82,7 +82,7 @@ test_that("names_glue affects output names", {
     b = 1:2
   )
 
-  spec <- build_wider_spec(df, x:y, a:b, names_glue = '{x}{y}_{.value}')
+  spec <- build_wider_spec(df, x:y, a:b, names_glue = "{x}{y}_{.value}")
   expect_equal(spec$.name, c("X1_a", "Y2_a", "X1_b", "Y2_b"))
 })
 
@@ -104,9 +104,9 @@ test_that("can sort column names", {
 test_that("can override default keys", {
   df <- tribble(
     ~row, ~name, ~var, ~value,
-    1,    "Sam", "age", 10,
-    2,    "Sam", "height", 1.5,
-    3,    "Bob", "age", 20,
+    1, "Sam", "age", 10,
+    2, "Sam", "height", 1.5,
+    3, "Bob", "age", 20,
   )
 
   pv <- df %>% pivot_wider(id_cols = name, names_from = var, values_from = value)
@@ -176,7 +176,7 @@ test_that("can fill in missing cells", {
 
 test_that("values_fill only affects missing cells", {
   df <- tibble(g = c(1, 2), names = c("x", "y"), value = c(1, NA))
-  out <- pivot_wider(df, names_from = names, values_from = value, values_fill = 0 )
+  out <- pivot_wider(df, names_from = names, values_from = value, values_fill = 0)
   expect_equal(out$y, c(0, NA))
 })
 
@@ -204,17 +204,17 @@ test_that("can pivot from multiple measure cols using all keys", {
 
 test_that("column order in output matches spec", {
   df <- tribble(
-    ~hw,   ~name,  ~mark,   ~pr,
-    "hw1", "anna",    95,  "ok",
-    "hw2", "anna",    70, "meh",
+    ~hw, ~name, ~mark, ~pr,
+    "hw1", "anna", 95, "ok",
+    "hw2", "anna", 70, "meh",
   )
 
   # deliberately create weird order
   sp <- tribble(
-    ~hw, ~.value,  ~.name,
+    ~hw, ~.value, ~.name,
     "hw1", "mark", "hw1_mark",
-    "hw1", "pr",   "hw1_pr",
-    "hw2", "pr",   "hw2_pr",
+    "hw1", "pr", "hw1_pr",
+    "hw2", "pr", "hw2_pr",
     "hw2", "mark", "hw2_mark",
   )
 

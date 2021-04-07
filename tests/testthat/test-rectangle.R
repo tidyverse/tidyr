@@ -182,7 +182,7 @@ test_that("simplifies length-1 lists", {
   expect_equal(out$c, list(c(1, 2), NULL))
 })
 
-test_that("can handle data frames consistently with vectors" , {
+test_that("can handle data frames consistently with vectors", {
   df <- tibble(x = 1:2, y = list(tibble(a = 1:2, b = 2:3)))
   out <- df %>% unnest_wider(y)
 
@@ -259,7 +259,7 @@ test_that("preserves empty rows", {
   expect_equal(nrow(out), 3)
 })
 
-test_that("can handle data frames consistently with vectors" , {
+test_that("can handle data frames consistently with vectors", {
   df <- tibble(x = 1:2, y = list(tibble(a = 1:2, b = 2:3)))
   out <- df %>% unnest_longer(y)
 

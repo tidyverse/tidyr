@@ -84,9 +84,9 @@ test_that("can pivot to multiple measure cols", {
 
 test_that("original col order is preserved", {
   df <- tribble(
-    ~id, ~z_1, ~y_1, ~x_1, ~z_2,  ~y_2, ~x_2,
-    "A",    1,    2,    3,     4,    5,    6,
-    "B",    7,    8,    9,    10,   11,   12,
+    ~id, ~z_1, ~y_1, ~x_1, ~z_2, ~y_2, ~x_2,
+    "A", 1, 2, 3, 4, 5, 6,
+    "B", 7, 8, 9, 10, 11, 12,
   )
   pv <- pivot_longer(df, -id, names_to = c(".value", "n"), names_sep = "_")
   expect_named(pv, c("id", "n", "z", "y", "x"))
@@ -123,15 +123,19 @@ test_that(".value can be at any position in `names_to`", {
   )
 
   value_first <- pivot_longer(samp, -i,
-                              names_to = c(".value", "time"), names_sep = "_")
+    names_to = c(".value", "time"), names_sep = "_"
+  )
 
-  samp2 <- dplyr::rename(samp, t1_y = y_t1,
-                               t2_y = y_t2,
-                               t1_z = z_t1,
-                               t2_z = z_t2)
+  samp2 <- dplyr::rename(samp,
+    t1_y = y_t1,
+    t2_y = y_t2,
+    t1_z = z_t1,
+    t2_z = z_t2
+  )
 
   value_second <- pivot_longer(samp2, -i,
-                               names_to = c("time", ".value"), names_sep = "_")
+    names_to = c("time", ".value"), names_sep = "_"
+  )
 
   expect_identical(value_first, value_second)
 })
