@@ -100,6 +100,17 @@ test_that("correctly performs tidy recycling with size 1 inputs", {
   expect_identical(unchop(df, c(x, y)), expect)
 })
 
+test_that("correctly performs tidy recycling with NULL inputs", {
+  df <- tibble(x = list(NULL, 2:3), y = list(2:3, 1))
+  expect <- tibble(x = c(NA_integer_, NA_integer_, 2L, 3L), y = c(2, 3, 1, 1))
+  expect_identical(unchop(df, c(x, y)), expect)
+})
+
+test_that("correctly performs tidy recycling with size 0 inputs", {
+  df <- tibble(x = list(integer(), 2:3), y = list(2:3, 1))
+  expect_error(unchop(df, c(x, y)), "Can't recycle input of size 0 to size 2.")
+})
+
 test_that("can specify a ptype with extra columns", {
   df <- tibble(x = 1, y = list(1, 2))
   ptype <- tibble(y = numeric(), z = numeric())
