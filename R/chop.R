@@ -95,23 +95,35 @@ unchop <- function(data, cols, keep_empty = FALSE, ptype = NULL) {
     return(data)
   }
 
+  col_sizes <- map(unclass(data)[cols], tidyr_sizes)
+
   if (keep_empty) {
-    for (col in cols) {
-      data[[col]][] <- map(data[[col]], init_col)
+    for (i in seq_along(cols)) {
+      col <- cols[[i]]
+
+      na_flag <- is.na(col_sizes[[i]])
+      data[[col]][na_flag] <- NA
+
+      empty_flag <- !na_flag & col_sizes[[i]] == 0
+      data[[col]][empty_flag] <- list(init_col(vec_c(!!!data[[col]][empty_flag])))
+
+      col_sizes[[i]][na_flag | empty_flag] <- 1L
     }
   }
 
   # In case `x` is a grouped data frame and any `cols` are lists,
   # in which case `[.grouped_df` will error
   cols <- new_data_frame(unclass(data)[cols])
+  out <- dplyr::select(data, -names(dplyr::all_of(cols)))
 
-  res <- df_unchop_info(cols, ptype)
+  res <- df_unchop_info(cols, ptype, col_sizes)
   new_cols <- res$val
   slice_loc <- res$loc
 
-  out <- vec_slice(data, slice_loc)
+  out <- vec_slice(out, slice_loc)
 
   out <- update_cols(out, new_cols)
+  out <- dplyr::relocate(out, colnames(data))
   reconstruct_tibble(data, out)
 }
 
@@ -128,37 +140,16 @@ unchop <- function(data, cols, keep_empty = FALSE, ptype = NULL) {
 #   used to slice the data frame `x` was subset from to align it with `val`.
 # - `val` the unchopped data frame.
 
-df_unchop_info <- function(x, ptype) {
+df_unchop_info <- function(x, ptype, col_sizes) {
   width <- length(x)
   size <- vec_size(x)
 
   seq_len_width <- seq_len(width)
   seq_len_size <- seq_len(size)
 
-  sizes <- rep_len(NA_integer_, size)
-
   # Gather the common size of each row.
-  # Effectively equivalent to creating a `[vec_size(x), length(x)]` matrix,
-  # taking the size of each individual element of `x`, and then taking the
-  # common size of each row.
-  # `NULL` elements are ignored in the size calculation by treating their
-  # size as `NA` and then deferring to the size of any other element in the row.
-  # If only `NULL` values are in the row, the `NA` size is finalised to `0`.
-  for (i in seq_len_width) {
-    col <- x[[i]]
-
-    for (j in seq_len_size) {
-      # TODO: col[[j]] -> vec_slice2(col, j)
-      elt <- col[[j]]
-
-      old_size <- sizes[[j]]
-      new_size <- tidyr_size(elt)
-
-      sizes[[j]] <- tidyr_size2(old_size, new_size)
-    }
-  }
-
-  sizes <- map_int(sizes, tidyr_size_finalise)
+  sizes <- reduce(col_sizes, tidyr_sizes2, .init = rep_len(NA_integer_, size))
+  sizes <- tidyr_sizes_finalise(sizes)
 
   has_ptype <- !is.null(ptype)
   if (has_ptype && !is.data.frame(ptype)) {
@@ -167,7 +158,6 @@ df_unchop_info <- function(x, ptype) {
 
   # Initialize `cols` with ptypes to retain types when `x` has 0 size
   cols <- map(x, df_unchop_ptype)
-  pieces <- vector("list", size)
 
   names <- names(x)
   names(cols) <- names
@@ -175,24 +165,19 @@ df_unchop_info <- function(x, ptype) {
   for (i in seq_len_width) {
     col <- x[[i]]
 
-    for (j in seq_len_size) {
-      # TODO: col[[j]] -> vec_slice2(col, j)
-      elt <- col[[j]]
-      size <- sizes[[j]]
-
-      # Recycle each row element to the common size of that row
-      pieces[[j]] <- tidyr_recycle(elt, size)
-    }
-
     if (has_ptype) {
       col_ptype <- ptype[[names[[i]]]]
     } else {
       col_ptype <- NULL
     }
 
-    # After unchopping, all columns will have the same size
-    # thanks to recycling
-    col <- vec_unchop(pieces, ptype = col_ptype)
+    if (vec_is_list(col)) {
+      col <- unchop_by_lengths(col, sizes, col_sizes[[i]], ptype = col_ptype)
+    } else {
+      indices <- vec_rep_each(vec_seq_along(sizes), sizes)
+      col <- vec_slice(col, indices)
+      # TODO ptype?
+    }
 
     # Avoid `NULL` assignment, which removes elements from the list
     if (is.null(col)) {
@@ -204,7 +189,7 @@ df_unchop_info <- function(x, ptype) {
 
   out_size <- sum(sizes)
 
-  loc <- rep(seq_len_size, sizes)
+  loc <- vec_rep_each(seq_len_size, sizes)
 
   val <- new_data_frame(cols, n = out_size)
   if (!is.null(ptype)) {
@@ -217,6 +202,23 @@ df_unchop_info <- function(x, ptype) {
   out
 }
 
+unchop_by_lengths <- function(x, lengths_out, x_sizes = list_sizes(x), ptype = NULL) {
+  # it might be faster to first use `x <- vec_c(!!!x)` then `vec_slice(x, i)`
+  # but calculating the necessary index for that is a bit tricky
+
+  na_indices <- vec_equal_na(x)
+  vec_slice(x, na_indices)[] <- list(unspecified(1))
+  x_sizes[na_indices] <- 1
+
+  needs_recycling <- lengths_out != x_sizes
+  x[needs_recycling] <- map2(
+    x[needs_recycling], lengths_out[needs_recycling],
+    vec_recycle
+  )
+
+  vec_c(!!!x, ptype)
+}
+
 df_unchop_ptype <- function(x) {
   if (vec_is_list(x)) {
     attr(x, "ptype") %||% unspecified(0L)
@@ -225,44 +227,52 @@ df_unchop_ptype <- function(x) {
   }
 }
 
-tidyr_size_finalise <- function(size) {
-  if (is.na(size)) {
-    0L
-  } else {
-    size
-  }
+tidyr_sizes_finalise <- function(sizes) {
+  sizes[is.na(sizes)] <- 0L
+  sizes
 }
 
-tidyr_recycle <- function(x, size) {
-  if (is.null(x)) {
-    unspecified(size)
+tidyr_sizes <- function(x) {
+  # `NULL` elements are ignored in the size calculation by treating their
+  # size as `NA` and then deferring to the size of any other element in the row.
+  # If only `NULL` values are in the row, the `NA` size is finalised to `0`.
+  if (vec_is_list(x)) {
+    col_sizes <- list_sizes(x)
+    empty_flag <- col_sizes == 0L
+    null_flag <- vec_equal_na(x[empty_flag])
+    col_sizes[empty_flag] <- ifelse(null_flag, NA, 0L)
   } else {
-    vec_recycle(x, size)
+    col_sizes <- vec_rep(1L, vec_size(x))
   }
+
+  col_sizes
 }
 
-tidyr_size <- function(x) {
-  if (is.null(x)) {
-    NA_integer_
-  } else {
-    vec_size(x)
-  }
-}
+tidyr_sizes2 <- function(x, y) {
+  # always overwrite NA
+  x_is_na <- is.na(x)
+  x[x_is_na] <- y[x_is_na]
 
-tidyr_size2 <- function(x, y) {
-  if (is.na(x)) {
-    y
-  } else if (is.na(y)) {
-    x
-  } else if (x == y) {
-    x
-  } else if (x == 1L) {
-    y
-  } else if (y == 1L) {
-    x
-  } else {
-    abort(paste0("Incompatible lengths: ", x, ", ", y, "."))
+  # recycle size 1
+  recyle_flag <- !is.na(y) & x == 1L
+  x[recyle_flag] <- y[recyle_flag]
+
+  # incompatible sizes
+  incompatible_sizes <- (x != y) & y > 1
+  if (any(incompatible_sizes, na.rm = TRUE)) {
+    incompatible_sizes <- na.omit(incompatible_sizes)
+    bad_x <- x[incompatible_sizes]
+    bad_y <- y[incompatible_sizes]
+
+    # TODO could use column names but how to track where the size comes from?
+    stop_incompatible_size(
+      bad_x, bad_y,
+      x_size = bad_x[[1]], y_size = bad_y[[1]],
+      x_arg = NULL, y_arg = NULL
+    )
   }
+
+  x
 }
 
 init_col <- function(x) {
@@ -274,4 +284,3 @@ init_col <- function(x) {
     x
   }
 }
-
