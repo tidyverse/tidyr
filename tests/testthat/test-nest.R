@@ -193,10 +193,10 @@ test_that("vectors become columns", {
 
 test_that("multiple columns must be same length", {
   df <- tibble(x = list(1:2), y = list(1:3))
-  expect_error(unnest(df, c(x, y)), "Incompatible lengths: 2, 3")
+  expect_error(unnest(df, c(x, y)), "Can't recycle input of size 2 to size 3.")
 
   df <- tibble(x = list(1:2), y = list(tibble(y = 1:3)))
-  expect_error(unnest(df, c(x, y)), "Incompatible lengths: 2, 3")
+  expect_error(unnest(df, c(x, y)), "Can't recycle input of size 2 to size 3.")
 })
 
 test_that("can use non-syntactic names", {
