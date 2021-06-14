@@ -141,3 +141,26 @@ test_that("unchop retrieves correct types with emptied chopped df", {
   empty <- vec_slice(chopped, 0L)
   expect_identical(unchop(empty, y), tibble(x = integer(), y = integer()))
 })
+
+test_that("unchop works with data frame columns", {
+  df <- tibble(x = tibble(a = 1:2, b = "a"), y = list(3:4))
+  expect_equal(
+    unchop(df, c(x, y)),
+    tibble(x = tibble(a = c(1L, 1L, 2L, 2L), b = "a"), y = c(3L, 4L, 3L, 4L))
+  )
+})
+
+test_that("unchop works with record columns", {
+  df <- tibble(
+    x = list(1:2, 1),
+    time = as.list(as.POSIXlt(ISOdatetime(2020, 1, 1, 0, 0, 1:2)))
+  )
+
+  expect_equal(
+    unchop(df, c(x, time)),
+    tibble(
+      x = c(1, 2, 1),
+      time = ISOdatetime(2020, 1, 1, 0, 0, c(1, 1, 2), tz = "UTC")
+    )
+  )
+})
