@@ -1,5 +1,9 @@
 # tidyr (development version)
 
+* `unnest()` and `unchop()` are now much faster (@mgirlich, #1127).
+
+* `unchop()` now works with data frame columns (@mgirlich, #1128).
+
 # tidyr 1.1.3
 
 * tidyr verbs no longer have "default" methods for lazyeval fallbacks. This
