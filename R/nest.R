@@ -332,18 +332,9 @@ unnest.data.frame <- function(
 
   cols <- tidyselect::eval_select(enquo(cols), data)
 
-  if (nrow(data) == 0) {
-    for (col in names(cols)) {
-      data[[col]] <- as_empty_df(data[[col]], col = col)
-    }
-  } else {
-    for (col in names(cols)) {
-      data[[col]] <- map(data[[col]], as_df, col = col)
-    }
-  }
-
   data <- unchop(data, any_of(cols), keep_empty = keep_empty, ptype = ptype)
-  unpack(data, any_of(cols), names_sep = names_sep, names_repair = names_repair)
+  df_cols <- keep(cols, ~ is.data.frame(data[[.x]]))
+  unpack(data, any_of(df_cols), names_sep = names_sep, names_repair = names_repair)
 }
 
 
