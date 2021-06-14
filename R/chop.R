@@ -206,9 +206,10 @@ unchop_by_lengths <- function(x, lengths_out, x_sizes = list_sizes(x), ptype = N
   # it might be faster to first use `x <- vec_c(!!!x)` then `vec_slice(x, i)`
   # but calculating the necessary index for that is a bit tricky
 
+  # replace `NULL` with `NA`
   na_indices <- vec_equal_na(x)
-  vec_slice(x, na_indices)[] <- list(unspecified(1))
-  x_sizes[na_indices] <- 1
+  vec_slice(x, na_indices)[] <- list(unspecified(1L))
+  x_sizes[na_indices] <- 1L
 
   needs_recycling <- lengths_out != x_sizes
   x[needs_recycling] <- map2(
