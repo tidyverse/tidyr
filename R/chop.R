@@ -216,7 +216,7 @@ unchop_by_lengths <- function(x, lengths_out, x_sizes = list_sizes(x), ptype = N
     vec_recycle
   )
 
-  vec_c(!!!x, ptype)
+  vec_c(!!!x, ptype, .name_spec = rlang::zap())
 }
 
 df_unchop_ptype <- function(x) {
