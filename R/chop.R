@@ -260,7 +260,7 @@ tidyr_sizes2 <- function(x, y) {
   # incompatible sizes
   incompatible_sizes <- (x != y) & y > 1
   if (any(incompatible_sizes, na.rm = TRUE)) {
-    incompatible_sizes <- na.omit(incompatible_sizes)
+    incompatible_sizes <- stats::na.omit(incompatible_sizes)
     bad_x <- x[incompatible_sizes]
     bad_y <- y[incompatible_sizes]
 
