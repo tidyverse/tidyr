@@ -98,12 +98,14 @@ unchop <- function(data, cols, keep_empty = FALSE, ptype = NULL) {
   # In case `x` is a grouped data frame and any `cols` are lists,
   # in which case `[.grouped_df` will error
   cols <- new_data_frame(unclass(data)[cols])
-  out <- dplyr::select(data, -names(dplyr::all_of(cols)))
 
   res <- df_unchop_info(cols, ptype, keep_empty = keep_empty)
   new_cols <- res$val
   slice_loc <- res$loc
 
+  # efficiency: `vec_slice()` only on the columns not in `cols`
+  # `ungroup()` so that select doesn't automatically add grouping columns
+  out <- dplyr::select(dplyr::ungroup(data), -names(dplyr::all_of(cols)))
   out <- vec_slice(out, slice_loc)
 
   out <- update_cols(out, new_cols)
