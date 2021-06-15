@@ -126,7 +126,7 @@ unchop <- function(data, cols, keep_empty = FALSE, ptype = NULL) {
 #   used to slice the data frame `x` was subset from to align it with `val`.
 # - `val` the unchopped data frame.
 
-df_unchop_info <- function(x, ptype, col_sizes, keep_empty = FALSE) {
+df_unchop_info <- function(x, ptype, keep_empty = FALSE) {
   width <- length(x)
   size <- vec_size(x)
 
@@ -141,6 +141,8 @@ df_unchop_info <- function(x, ptype, col_sizes, keep_empty = FALSE) {
   col_sizes <- map(x, tidyr_sizes, keep_empty = keep_empty)
   sizes <- reduce(col_sizes, tidyr_sizes2, keep_empty = keep_empty)
   sizes <- tidyr_sizes_finalise(sizes, keep_empty)
+
+  loc <- vec_rep_each(seq_len_size, sizes)
 
   has_ptype <- !is.null(ptype)
   if (has_ptype && !is.data.frame(ptype)) {
@@ -163,10 +165,15 @@ df_unchop_info <- function(x, ptype, col_sizes, keep_empty = FALSE) {
     }
 
     if (vec_is_list(col)) {
-      col <- unchop_by_lengths(col, sizes, col_sizes[[i]], keep_empty = keep_empty, ptype = col_ptype)
+      col <- unchop_by_lengths(
+        col,
+        sizes,
+        col_sizes[[i]],
+        keep_empty = keep_empty,
+        ptype = col_ptype
+      )
     } else {
-      indices <- vec_rep_each(vec_seq_along(sizes), sizes)
-      col <- vec_slice(col, indices)
+      col <- vec_slice(col, loc)
     }
 
     # Avoid `NULL` assignment, which removes elements from the list
@@ -179,17 +186,13 @@ df_unchop_info <- function(x, ptype, col_sizes, keep_empty = FALSE) {
 
   out_size <- sum(sizes)
 
-  loc <- vec_rep_each(seq_len_size, sizes)
-
   val <- new_data_frame(cols, n = out_size)
   if (!is.null(ptype)) {
     val <- vec_cast(val, ptype)
   }
 
   out <- list(loc = loc, val = val)
-  out <- new_data_frame(out, n = out_size)
-
-  out
+  new_data_frame(out, n = out_size)
 }
 
 unchop_by_lengths <- function(x, lengths_out, x_sizes = list_sizes(x), keep_empty = FALSE, ptype = NULL) {
