@@ -151,16 +151,20 @@ test_that("unchop works with data frame columns", {
 })
 
 test_that("unchop works with record columns", {
+  new_test_rcrd <- function(n = integer()) {
+    new_rcrd(list(n = n), class = "test_rcrd")
+  }
+
   df <- tibble(
     x = list(1:2, 1),
-    time = as.list(as.POSIXlt(ISOdatetime(2020, 1, 1, 0, 0, 1:2)))
+    rcrd = new_test_rcrd(c(1L, 2L))
   )
 
   expect_equal(
-    unchop(df, c(x, time)),
+    unchop(df, c(x, rcrd)),
     tibble(
       x = c(1, 2, 1),
-      time = ISOdatetime(2020, 1, 1, 0, 0, c(1, 1, 2), tz = "UTC")
+      rcrd = new_test_rcrd(c(1L, 1L, 2L))
     )
   )
 })
