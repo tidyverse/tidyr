@@ -252,6 +252,10 @@ tidyr_sizes <- function(x, keep_empty) {
 }
 
 tidyr_sizes2 <- function(x, y, keep_empty) {
+  if (length(y) == 1L) {
+    y <- vec_rep(y, length(x))
+  }
+
   # always overwrite NA
   if (keep_empty) {
     x_is_na <- x == 0L
