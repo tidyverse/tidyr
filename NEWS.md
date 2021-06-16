@@ -1,5 +1,8 @@
 # tidyr (development version)
 
+* Performance improvements of `expand_grid()`, `pivot_longer()`, and
+  `pivot_wider()` (@mgirlich, #1130).
+
 # tidyr 1.1.3
 
 * tidyr verbs no longer have "default" methods for lazyeval fallbacks. This

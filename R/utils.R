@@ -97,11 +97,23 @@ update_cols <- function(old, new) {
 # Own copy since it might disappear from vctrs since it
 # isn't well thought out
 vec_repeat <- function(x, each = 1L, times = 1L) {
-  vec_assert(each, size = 1L)
-  vec_assert(times, size = 1L)
+  # TODO can remove early return when fixed in vctrs
+  # https://github.com/r-lib/vctrs/issues/1392
+  # Then this function could be completely replaced by `vec_rep()` and
+  # `vec_rep_each()` directly
+  if (each == 0L || times == 0L) {
+    return(vec_ptype(x))
+  }
 
-  idx <- rep(vec_seq_along(x), times = times, each = each)
-  vec_slice(x, idx)
+  if (each > 1L) {
+    x <- vec_rep_each(x, each)
+  }
+
+  if (times != 1L) {
+    x <- vec_rep(x, times)
+  }
+
+  x
 }
 
 check_present <- function(x) {
