@@ -429,7 +429,7 @@ vec_to_wide <- function(x, col, names_sep = NULL) {
   }
 
   if (is.data.frame(x)) {
-    as_tibble(lapply(x, list))
+    new_data_frame(lapply(x, list))
   } else if (vec_is(x)) {
     if (is.list(x)) {
       x <- vec_slice(x, list_sizes(x) != 0)
