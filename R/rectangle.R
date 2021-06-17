@@ -396,7 +396,12 @@ simplify_col <- function(x, nm, ptype = list(), transform = list(), simplify = F
     }
   }
 
-  n <- map_int(x, vec_size)
+  if (vec_is_list(x)) {
+    n <- list_sizes(x)
+  } else {
+    n <- map_int(x, vec_size)
+  }
+
   if (!all(n %in% c(0, 1))) {
     if (is.null(ptype)) {
       return(x)
