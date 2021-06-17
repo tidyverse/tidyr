@@ -203,7 +203,6 @@ unnest_longer <- function(data, col,
                           ptype = list(),
                           transform = list()
                           ) {
-
   check_present(col)
   col <- tidyselect::vars_pull(names(data), !!enquo(col))
 
@@ -212,6 +211,10 @@ unnest_longer <- function(data, col,
     indices_include <- indices_include %||% TRUE
   } else {
     indices_to <- paste0(col, "_id")
+  }
+
+  if (!is.null(indices_include) || is_bool(indices_include)) {
+    abort("`indices_include` must be `NULL`, `TRUE`, or `FALSE`.")
   }
 
   data[[col]] <- map(
@@ -449,7 +452,7 @@ vec_to_long <- function(x, col, values_to, indices_to, indices_include = NULL) {
   } else if (vec_is(x)) {
     indices_include <- indices_include %||% !is.null(names(x))
 
-    if (isTRUE(indices_include)) {
+    if (indices_include) {
       new_data_frame(
         list2(
           !!values_to := x,
