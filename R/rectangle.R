@@ -426,11 +426,11 @@ vec_to_wide <- function(x, col, names_sep = NULL) {
   }
 
   if (is.data.frame(x)) {
-    as_tibble(map(x, list))
+    as_tibble(lapply(x, list))
   } else if (vec_is(x)) {
     if (is.list(x)) {
-      x <- purrr::compact(x)
-      x <- map(x, list)
+      x <- vec_slice(x, list_sizes(x) != 0)
+      x <- lapply(x, list)
     } else {
       x <- as.list(x)
     }
