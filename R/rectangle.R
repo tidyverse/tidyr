@@ -213,7 +213,7 @@ unnest_longer <- function(data, col,
     indices_to <- paste0(col, "_id")
   }
 
-  if (!is.null(indices_include) || is_bool(indices_include)) {
+  if (!is.null(indices_include) && !is_bool(indices_include)) {
     abort("`indices_include` must be `NULL`, `TRUE`, or `FALSE`.")
   }
 
