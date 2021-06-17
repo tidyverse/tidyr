@@ -434,7 +434,7 @@ vec_to_wide <- function(x, col, names_sep = NULL) {
     } else {
       x <- as.list(x)
     }
-    as_tibble(x, .name_repair = "unique", .rows = 1L)
+    data_frame(!!!x, .name_repair = "unique", .size = 1L)
   } else {
     stop("Input must be list of vectors", call. = FALSE)
   }
@@ -445,18 +445,19 @@ vec_to_long <- function(x, col, values_to, indices_to, indices_include = NULL) {
   if (is.null(x)) {
     NULL
   } else if (is.data.frame(x)) {
-    tibble(!!col := x)
+    new_data_frame(list2(!!col := x))
   } else if (vec_is(x)) {
-
     indices_include <- indices_include %||% !is.null(names(x))
 
     if (isTRUE(indices_include)) {
-      tibble(
-        !!values_to := x,
-        !!indices_to := index(x)
+      new_data_frame(
+        list2(
+          !!values_to := x,
+          !!indices_to := index(x)
+        )
       )
     } else {
-      tibble(!!values_to := x)
+      new_data_frame(list2(!!values_to := x))
     }
   } else {
     stop("Input must be list of vectors", call. = FALSE)
