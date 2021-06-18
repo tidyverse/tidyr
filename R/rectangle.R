@@ -387,7 +387,7 @@ simplify_col <- function(x, nm, ptype = list(), transform = list(), simplify = F
   }
 
   # Don't try and simplify non-vectors
-  is_vec <- vapply(x, function(.x) vec_is(.x), logical(1L))
+  is_vec <- vapply(x, function(.x) vec_is(.x) || is.null(.x), logical(1L))
   if (any(!is_vec)) {
     if (is.null(ptype)) {
       return(x)
