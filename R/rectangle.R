@@ -398,8 +398,10 @@ simplify_col <- function(x, nm, ptype = list(), transform = list(), simplify = F
 
   if (vec_is_list(x)) {
     n <- list_sizes(x)
+  } else if (is.data.frame(x)) {
+    n <- rep(vec_size(x), nrow(x))
   } else {
-    n <- map_int(x, vec_size)
+    n <- 1L
   }
 
   if (any(n > 1)) {
