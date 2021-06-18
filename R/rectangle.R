@@ -437,7 +437,7 @@ vec_to_wide <- function(x, col, names_sep = NULL) {
     new_data_frame(lapply(x, list))
   } else if (vec_is(x)) {
     if (is.list(x)) {
-      x <- vec_slice(x, list_sizes(x) != 0)
+      x <- tidyr_compact(x)
       x <- lapply(x, list)
     } else {
       x <- as.list(x)
@@ -474,4 +474,13 @@ vec_to_long <- function(x, col, values_to, indices_to, indices_include = NULL) {
 
 index <- function(x) {
   names(x) %||% seq_along(x)
+}
+
+# `purrr::compact()` is too slow in a tight loop because
+# * it always calls `as_mapper()`
+# * applies `is_empty()` to every element
+# might become a proper vctrs function
+# https://github.com/r-lib/vctrs/issues/1395
+tidyr_compact <- function(x) {
+  vec_slice(x, list_sizes(x) != 0)
 }
