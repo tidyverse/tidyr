@@ -170,7 +170,12 @@ expand_grid <- function(..., .name_repair = "check_unique") {
     each <- n / cumprod(ns)
     times <- n / each / ns
 
-    out <- pmap(list(x = dots, each = each, times = times), vec_repeat)
+    out <- pmap(
+      list(x = dots, each = each, times = times),
+      function(x, each, times) {
+        vec_rep(vec_rep_each(x, each), times)
+      }
+    )
   }
   out <- as_tibble(out, .name_repair = .name_repair)
 

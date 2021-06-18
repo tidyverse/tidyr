@@ -204,7 +204,7 @@ df_unchop_info <- function(x, ptype) {
 
   out_size <- sum(sizes)
 
-  loc <- rep(seq_len_size, sizes)
+  loc <- vec_rep_each(seq_len_size, sizes)
 
   val <- new_data_frame(cols, n = out_size)
   if (!is.null(ptype)) {
