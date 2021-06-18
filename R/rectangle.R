@@ -377,7 +377,7 @@ simplify_col <- function(x, nm, ptype = list(), transform = list(), simplify = F
 
   # Don't simplify lists of lists, because that typically indicates that
   # there might be multiple values.
-  is_list <- map_lgl(x, is.list)
+  is_list <- vapply(x, is.list, logical(1L))
   if (any(is_list)) {
     if (is.null(ptype)) {
       return(x)
@@ -387,7 +387,7 @@ simplify_col <- function(x, nm, ptype = list(), transform = list(), simplify = F
   }
 
   # Don't try and simplify non-vectors
-  is_vec <- map_lgl(x, ~ vec_is(.x) || is.null(.x))
+  is_vec <- vapply(x, function(.x) vec_is(.x), logical(1L))
   if (any(!is_vec)) {
     if (is.null(ptype)) {
       return(x)
