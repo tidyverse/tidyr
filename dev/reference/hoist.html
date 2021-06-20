@@ -386,40 +386,40 @@ common acros all components, it uses <code>unnest_wider()</code></p></li>
   <span class='op'>)</span>
 <span class='op'>)</span>
 <span class='va'>df</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 2 x 2</span><span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 2 x 2</span>
 #&gt;   character metadata        
-#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;list&gt;</span><span>          
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span> Toothless </span><span style='color: #949494;'>&lt;named list [3]&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'>2</span><span> Dory      </span><span style='color: #949494;'>&lt;named list [3]&gt;</span><span></div><div class='input'>
+#&gt;   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;list&gt;</span>          
+#&gt; <span style='color: #BCBCBC;'>1</span> Toothless <span style='color: #949494;'>&lt;named list [3]&gt;</span>
+#&gt; <span style='color: #BCBCBC;'>2</span> Dory      <span style='color: #949494;'>&lt;named list [3]&gt;</span></div><div class='input'>
 <span class='co'># Turn all components of metadata into columns</span>
 <span class='va'>df</span> <span class='op'>%&gt;%</span> <span class='fu'>unnest_wider</span><span class='op'>(</span><span class='va'>metadata</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 2 x 4</span><span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 2 x 4</span>
 #&gt;   character species   color films    
-#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;list&gt;</span><span>   
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span> Toothless dragon    black </span><span style='color: #949494;'>&lt;chr [3]&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'>2</span><span> Dory      blue tang blue  </span><span style='color: #949494;'>&lt;chr [2]&gt;</span><span></div><div class='input'>
+#&gt;   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;list&gt;</span>   
+#&gt; <span style='color: #BCBCBC;'>1</span> Toothless dragon    black <span style='color: #949494;'>&lt;chr [3]&gt;</span>
+#&gt; <span style='color: #BCBCBC;'>2</span> Dory      blue tang blue  <span style='color: #949494;'>&lt;chr [2]&gt;</span></div><div class='input'>
 <span class='co'># Extract only specified components</span>
 <span class='va'>df</span> <span class='op'>%&gt;%</span> <span class='fu'>hoist</span><span class='op'>(</span><span class='va'>metadata</span>,
   <span class='st'>"species"</span>,
   first_film <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='st'>"films"</span>, <span class='fl'>1L</span><span class='op'>)</span>,
   third_film <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='st'>"films"</span>, <span class='fl'>3L</span><span class='op'>)</span>
 <span class='op'>)</span>
-</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 2 x 5</span><span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 2 x 5</span>
 #&gt;   character species   first_film        third_film                  metadata    
-#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>             </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>                       </span><span style='color: #949494;font-style: italic;'>&lt;list&gt;</span><span>      
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span> Toothless dragon    How to Train You… How to Train Your Dragon: … </span><span style='color: #949494;'>&lt;named list</span><span>…
-#&gt; </span><span style='color: #BCBCBC;'>2</span><span> Dory      blue tang Finding Nemo      </span><span style='color: #BB0000;'>NA</span><span>                          </span><span style='color: #949494;'>&lt;named list</span><span>…</div><div class='input'>
+#&gt;   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>             <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>                       <span style='color: #949494; font-style: italic;'>&lt;list&gt;</span>      
+#&gt; <span style='color: #BCBCBC;'>1</span> Toothless dragon    How to Train You… How to Train Your Dragon: … <span style='color: #949494;'>&lt;named list</span>…
+#&gt; <span style='color: #BCBCBC;'>2</span> Dory      blue tang Finding Nemo      <span style='color: #BB0000;'>NA</span>                          <span style='color: #949494;'>&lt;named list</span>…</div><div class='input'>
 <span class='va'>df</span> <span class='op'>%&gt;%</span>
   <span class='fu'>unnest_wider</span><span class='op'>(</span><span class='va'>metadata</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
   <span class='fu'>unnest_longer</span><span class='op'>(</span><span class='va'>films</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 5 x 4</span><span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 5 x 4</span>
 #&gt;   character species   color films                                     
-#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>                                     
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span> Toothless dragon    black How to Train Your Dragon                  
-#&gt; </span><span style='color: #BCBCBC;'>2</span><span> Toothless dragon    black How to Train Your Dragon 2                
-#&gt; </span><span style='color: #BCBCBC;'>3</span><span> Toothless dragon    black How to Train Your Dragon: The Hidden World
-#&gt; </span><span style='color: #BCBCBC;'>4</span><span> Dory      blue tang blue  Finding Nemo                              
-#&gt; </span><span style='color: #BCBCBC;'>5</span><span> Dory      blue tang blue  Finding Dory                              </div><div class='input'>
+#&gt;   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>                                     
+#&gt; <span style='color: #BCBCBC;'>1</span> Toothless dragon    black How to Train Your Dragon                  
+#&gt; <span style='color: #BCBCBC;'>2</span> Toothless dragon    black How to Train Your Dragon 2                
+#&gt; <span style='color: #BCBCBC;'>3</span> Toothless dragon    black How to Train Your Dragon: The Hidden World
+#&gt; <span style='color: #BCBCBC;'>4</span> Dory      blue tang blue  Finding Nemo                              
+#&gt; <span style='color: #BCBCBC;'>5</span> Dory      blue tang blue  Finding Dory                              </div><div class='input'>
 <span class='co'># unnest_longer() is useful when each component of the list should</span>
 <span class='co'># form a row</span>
 <span class='va'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span><span class='op'>(</span>
@@ -427,54 +427,54 @@ common acros all components, it uses <code>unnest_wider()</code></p></li>
   y <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='cn'>NULL</span>, <span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span>, <span class='fl'>4</span><span class='op'>:</span><span class='fl'>5</span><span class='op'>)</span>
 <span class='op'>)</span>
 <span class='va'>df</span> <span class='op'>%&gt;%</span> <span class='fu'>unnest_longer</span><span class='op'>(</span><span class='va'>y</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 6 x 2</span><span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 6 x 2</span>
 #&gt;       x     y
-#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span>     1    </span><span style='color: #BB0000;'>NA</span><span>
-#&gt; </span><span style='color: #BCBCBC;'>2</span><span>     2     1
-#&gt; </span><span style='color: #BCBCBC;'>3</span><span>     2     2
-#&gt; </span><span style='color: #BCBCBC;'>4</span><span>     2     3
-#&gt; </span><span style='color: #BCBCBC;'>5</span><span>     3     4
-#&gt; </span><span style='color: #BCBCBC;'>6</span><span>     3     5</div><div class='input'><span class='co'># Automatically creates names if widening</span>
+#&gt;   <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span>
+#&gt; <span style='color: #BCBCBC;'>1</span>     1    <span style='color: #BB0000;'>NA</span>
+#&gt; <span style='color: #BCBCBC;'>2</span>     2     1
+#&gt; <span style='color: #BCBCBC;'>3</span>     2     2
+#&gt; <span style='color: #BCBCBC;'>4</span>     2     3
+#&gt; <span style='color: #BCBCBC;'>5</span>     3     4
+#&gt; <span style='color: #BCBCBC;'>6</span>     3     5</div><div class='input'><span class='co'># Automatically creates names if widening</span>
 <span class='va'>df</span> <span class='op'>%&gt;%</span> <span class='fu'>unnest_wider</span><span class='op'>(</span><span class='va'>y</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='message'>New names:</span>
 #&gt; <span class='message'>* `` -&gt; ...1</span>
 #&gt; <span class='message'>* `` -&gt; ...2</span>
 #&gt; <span class='message'>* `` -&gt; ...3</span></div><div class='output co'>#&gt; <span class='message'>New names:</span>
 #&gt; <span class='message'>* `` -&gt; ...1</span>
-#&gt; <span class='message'>* `` -&gt; ...2</span></div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 3 x 4</span><span>
+#&gt; <span class='message'>* `` -&gt; ...2</span></div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 3 x 4</span>
 #&gt;       x  ...1  ...2  ...3
-#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span>     1    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>
-#&gt; </span><span style='color: #BCBCBC;'>2</span><span>     2     1     2     3
-#&gt; </span><span style='color: #BCBCBC;'>3</span><span>     3     4     5    </span><span style='color: #BB0000;'>NA</span><span></div><div class='input'><span class='co'># But you'll usually want to provide names_sep:</span>
+#&gt;   <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span>
+#&gt; <span style='color: #BCBCBC;'>1</span>     1    <span style='color: #BB0000;'>NA</span>    <span style='color: #BB0000;'>NA</span>    <span style='color: #BB0000;'>NA</span>
+#&gt; <span style='color: #BCBCBC;'>2</span>     2     1     2     3
+#&gt; <span style='color: #BCBCBC;'>3</span>     3     4     5    <span style='color: #BB0000;'>NA</span></div><div class='input'><span class='co'># But you'll usually want to provide names_sep:</span>
 <span class='va'>df</span> <span class='op'>%&gt;%</span> <span class='fu'>unnest_wider</span><span class='op'>(</span><span class='va'>y</span>, names_sep <span class='op'>=</span> <span class='st'>"_"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 3 x 4</span><span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 3 x 4</span>
 #&gt;       x   y_1   y_2   y_3
-#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span>     1    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>
-#&gt; </span><span style='color: #BCBCBC;'>2</span><span>     2     1     2     3
-#&gt; </span><span style='color: #BCBCBC;'>3</span><span>     3     4     5    </span><span style='color: #BB0000;'>NA</span><span></div><div class='input'>
+#&gt;   <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span>
+#&gt; <span style='color: #BCBCBC;'>1</span>     1    <span style='color: #BB0000;'>NA</span>    <span style='color: #BB0000;'>NA</span>    <span style='color: #BB0000;'>NA</span>
+#&gt; <span style='color: #BCBCBC;'>2</span>     2     1     2     3
+#&gt; <span style='color: #BCBCBC;'>3</span>     3     4     5    <span style='color: #BB0000;'>NA</span></div><div class='input'>
 <span class='co'># And similarly if the vectors are named</span>
 <span class='va'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span><span class='op'>(</span>
   x <span class='op'>=</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span>,
   y <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>a <span class='op'>=</span> <span class='fl'>1</span>, b <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>a <span class='op'>=</span> <span class='fl'>10</span>, b <span class='op'>=</span> <span class='fl'>11</span>, c <span class='op'>=</span> <span class='fl'>12</span><span class='op'>)</span><span class='op'>)</span>
 <span class='op'>)</span>
 <span class='va'>df</span> <span class='op'>%&gt;%</span> <span class='fu'>unnest_wider</span><span class='op'>(</span><span class='va'>y</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 2 x 4</span><span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 2 x 4</span>
 #&gt;       x     a     b     c
-#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span>     1     1     2    </span><span style='color: #BB0000;'>NA</span><span>
-#&gt; </span><span style='color: #BCBCBC;'>2</span><span>     2    10    11    12</div><div class='input'><span class='va'>df</span> <span class='op'>%&gt;%</span> <span class='fu'>unnest_longer</span><span class='op'>(</span><span class='va'>y</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 5 x 3</span><span>
+#&gt;   <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
+#&gt; <span style='color: #BCBCBC;'>1</span>     1     1     2    <span style='color: #BB0000;'>NA</span>
+#&gt; <span style='color: #BCBCBC;'>2</span>     2    10    11    12</div><div class='input'><span class='va'>df</span> <span class='op'>%&gt;%</span> <span class='fu'>unnest_longer</span><span class='op'>(</span><span class='va'>y</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 5 x 3</span>
 #&gt;       x     y y_id 
-#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span>     1     1 a    
-#&gt; </span><span style='color: #BCBCBC;'>2</span><span>     1     2 b    
-#&gt; </span><span style='color: #BCBCBC;'>3</span><span>     2    10 a    
-#&gt; </span><span style='color: #BCBCBC;'>4</span><span>     2    11 b    
-#&gt; </span><span style='color: #BCBCBC;'>5</span><span>     2    12 c    </div><div class='input'>
-</div></span></pre>
+#&gt;   <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>
+#&gt; <span style='color: #BCBCBC;'>1</span>     1     1 a    
+#&gt; <span style='color: #BCBCBC;'>2</span>     1     2 b    
+#&gt; <span style='color: #BCBCBC;'>3</span>     2    10 a    
+#&gt; <span style='color: #BCBCBC;'>4</span>     2    11 b    
+#&gt; <span style='color: #BCBCBC;'>5</span>     2    12 c    </div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

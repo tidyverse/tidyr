@@ -368,54 +368,54 @@ will be the common type of the input columns used to generate them.</p></td>
   values_to <span class='op'>=</span> <span class='st'>"count"</span>
 <span class='op'>)</span>
 <span class='va'>spec</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 10 x 3</span><span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 10 x 3</span>
 #&gt;    .name              .value income            
-#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>              </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>             
-#&gt; </span><span style='color: #BCBCBC;'> 1</span><span> &lt;$10k              count  &lt;$10k             
-#&gt; </span><span style='color: #BCBCBC;'> 2</span><span> $10-20k            count  $10-20k           
-#&gt; </span><span style='color: #BCBCBC;'> 3</span><span> $20-30k            count  $20-30k           
-#&gt; </span><span style='color: #BCBCBC;'> 4</span><span> $30-40k            count  $30-40k           
-#&gt; </span><span style='color: #BCBCBC;'> 5</span><span> $40-50k            count  $40-50k           
-#&gt; </span><span style='color: #BCBCBC;'> 6</span><span> $50-75k            count  $50-75k           
-#&gt; </span><span style='color: #BCBCBC;'> 7</span><span> $75-100k           count  $75-100k          
-#&gt; </span><span style='color: #BCBCBC;'> 8</span><span> $100-150k          count  $100-150k         
-#&gt; </span><span style='color: #BCBCBC;'> 9</span><span> &gt;150k              count  &gt;150k             
-#&gt; </span><span style='color: #BCBCBC;'>10</span><span> Don't know/refused count  Don't know/refused</div><div class='input'>
+#&gt;    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>              <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>             
+#&gt; <span style='color: #BCBCBC;'> 1</span> &lt;$10k              count  &lt;$10k             
+#&gt; <span style='color: #BCBCBC;'> 2</span> $10-20k            count  $10-20k           
+#&gt; <span style='color: #BCBCBC;'> 3</span> $20-30k            count  $20-30k           
+#&gt; <span style='color: #BCBCBC;'> 4</span> $30-40k            count  $30-40k           
+#&gt; <span style='color: #BCBCBC;'> 5</span> $40-50k            count  $40-50k           
+#&gt; <span style='color: #BCBCBC;'> 6</span> $50-75k            count  $50-75k           
+#&gt; <span style='color: #BCBCBC;'> 7</span> $75-100k           count  $75-100k          
+#&gt; <span style='color: #BCBCBC;'> 8</span> $100-150k          count  $100-150k         
+#&gt; <span style='color: #BCBCBC;'> 9</span> &gt;150k              count  &gt;150k             
+#&gt; <span style='color: #BCBCBC;'>10</span> Don't know/refused count  Don't know/refused</div><div class='input'>
 <span class='fu'>pivot_longer_spec</span><span class='op'>(</span><span class='va'>relig_income</span>, <span class='va'>spec</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 180 x 3</span><span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 180 x 3</span>
 #&gt;    religion income             count
-#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>              </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'> 1</span><span> Agnostic &lt;$10k                 27
-#&gt; </span><span style='color: #BCBCBC;'> 2</span><span> Agnostic $10-20k               34
-#&gt; </span><span style='color: #BCBCBC;'> 3</span><span> Agnostic $20-30k               60
-#&gt; </span><span style='color: #BCBCBC;'> 4</span><span> Agnostic $30-40k               81
-#&gt; </span><span style='color: #BCBCBC;'> 5</span><span> Agnostic $40-50k               76
-#&gt; </span><span style='color: #BCBCBC;'> 6</span><span> Agnostic $50-75k              137
-#&gt; </span><span style='color: #BCBCBC;'> 7</span><span> Agnostic $75-100k             122
-#&gt; </span><span style='color: #BCBCBC;'> 8</span><span> Agnostic $100-150k            109
-#&gt; </span><span style='color: #BCBCBC;'> 9</span><span> Agnostic &gt;150k                 84
-#&gt; </span><span style='color: #BCBCBC;'>10</span><span> Agnostic Don't know/refused    96
-#&gt; </span><span style='color: #949494;'># … with 170 more rows</span><span></div><div class='input'>
+#&gt;    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>              <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
+#&gt; <span style='color: #BCBCBC;'> 1</span> Agnostic &lt;$10k                 27
+#&gt; <span style='color: #BCBCBC;'> 2</span> Agnostic $10-20k               34
+#&gt; <span style='color: #BCBCBC;'> 3</span> Agnostic $20-30k               60
+#&gt; <span style='color: #BCBCBC;'> 4</span> Agnostic $30-40k               81
+#&gt; <span style='color: #BCBCBC;'> 5</span> Agnostic $40-50k               76
+#&gt; <span style='color: #BCBCBC;'> 6</span> Agnostic $50-75k              137
+#&gt; <span style='color: #BCBCBC;'> 7</span> Agnostic $75-100k             122
+#&gt; <span style='color: #BCBCBC;'> 8</span> Agnostic $100-150k            109
+#&gt; <span style='color: #BCBCBC;'> 9</span> Agnostic &gt;150k                 84
+#&gt; <span style='color: #BCBCBC;'>10</span> Agnostic Don't know/refused    96
+#&gt; <span style='color: #949494;'># … with 170 more rows</span></div><div class='input'>
 <span class='co'># Is equivalent to:</span>
 <span class='va'>relig_income</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='pivot_longer.html'>pivot_longer</a></span><span class='op'>(</span>
   cols <span class='op'>=</span> <span class='op'>!</span><span class='va'>religion</span>,
   names_to <span class='op'>=</span> <span class='st'>"income"</span>,
   values_to <span class='op'>=</span> <span class='st'>"count"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 180 x 3</span><span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 180 x 3</span>
 #&gt;    religion income             count
-#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>              </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'> 1</span><span> Agnostic &lt;$10k                 27
-#&gt; </span><span style='color: #BCBCBC;'> 2</span><span> Agnostic $10-20k               34
-#&gt; </span><span style='color: #BCBCBC;'> 3</span><span> Agnostic $20-30k               60
-#&gt; </span><span style='color: #BCBCBC;'> 4</span><span> Agnostic $30-40k               81
-#&gt; </span><span style='color: #BCBCBC;'> 5</span><span> Agnostic $40-50k               76
-#&gt; </span><span style='color: #BCBCBC;'> 6</span><span> Agnostic $50-75k              137
-#&gt; </span><span style='color: #BCBCBC;'> 7</span><span> Agnostic $75-100k             122
-#&gt; </span><span style='color: #BCBCBC;'> 8</span><span> Agnostic $100-150k            109
-#&gt; </span><span style='color: #BCBCBC;'> 9</span><span> Agnostic &gt;150k                 84
-#&gt; </span><span style='color: #BCBCBC;'>10</span><span> Agnostic Don't know/refused    96
-#&gt; </span><span style='color: #949494;'># … with 170 more rows</span><span></div><div class='input'>
-</div></span></pre>
+#&gt;    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>              <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
+#&gt; <span style='color: #BCBCBC;'> 1</span> Agnostic &lt;$10k                 27
+#&gt; <span style='color: #BCBCBC;'> 2</span> Agnostic $10-20k               34
+#&gt; <span style='color: #BCBCBC;'> 3</span> Agnostic $20-30k               60
+#&gt; <span style='color: #BCBCBC;'> 4</span> Agnostic $30-40k               81
+#&gt; <span style='color: #BCBCBC;'> 5</span> Agnostic $40-50k               76
+#&gt; <span style='color: #BCBCBC;'> 6</span> Agnostic $50-75k              137
+#&gt; <span style='color: #BCBCBC;'> 7</span> Agnostic $75-100k             122
+#&gt; <span style='color: #BCBCBC;'> 8</span> Agnostic $100-150k            109
+#&gt; <span style='color: #BCBCBC;'> 9</span> Agnostic &gt;150k                 84
+#&gt; <span style='color: #BCBCBC;'>10</span> Agnostic Don't know/refused    96
+#&gt; <span style='color: #949494;'># … with 170 more rows</span></div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

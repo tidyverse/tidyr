@@ -270,41 +270,41 @@ correct vector type even for empty list-columns.</p>
 <span class='co'># Note that we get one row of output for each unique combination of</span>
 <span class='co'># non-chopped variables</span>
 <span class='va'>df</span> <span class='op'>%&gt;%</span> <span class='fu'>chop</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>y</span>, <span class='va'>z</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 3 x 3</span><span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 3 x 3</span>
 #&gt;       x           y           z
-#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;list&lt;int&gt;&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;list&lt;int&gt;&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span>     1         </span><span style='color: #949494;'>[3]</span><span>         </span><span style='color: #949494;'>[3]</span><span>
-#&gt; </span><span style='color: #BCBCBC;'>2</span><span>     2         </span><span style='color: #949494;'>[2]</span><span>         </span><span style='color: #949494;'>[2]</span><span>
-#&gt; </span><span style='color: #BCBCBC;'>3</span><span>     3         </span><span style='color: #949494;'>[1]</span><span>         </span><span style='color: #949494;'>[1]</span><span></div><div class='input'><span class='co'># cf nest</span>
+#&gt;   <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;list&lt;int&gt;&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;list&lt;int&gt;&gt;</span>
+#&gt; <span style='color: #BCBCBC;'>1</span>     1         <span style='color: #949494;'>[3]</span>         <span style='color: #949494;'>[3]</span>
+#&gt; <span style='color: #BCBCBC;'>2</span>     2         <span style='color: #949494;'>[2]</span>         <span style='color: #949494;'>[2]</span>
+#&gt; <span style='color: #BCBCBC;'>3</span>     3         <span style='color: #949494;'>[1]</span>         <span style='color: #949494;'>[1]</span></div><div class='input'><span class='co'># cf nest</span>
 <span class='va'>df</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='nest.html'>nest</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>y</span>, <span class='va'>z</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 3 x 2</span><span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 3 x 2</span>
 #&gt;       x data            
-#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;list&gt;</span><span>          
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span>     1 </span><span style='color: #949494;'>&lt;tibble [3 × 2]&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'>2</span><span>     2 </span><span style='color: #949494;'>&lt;tibble [2 × 2]&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'>3</span><span>     3 </span><span style='color: #949494;'>&lt;tibble [1 × 2]&gt;</span><span></div><div class='input'>
+#&gt;   <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;list&gt;</span>          
+#&gt; <span style='color: #BCBCBC;'>1</span>     1 <span style='color: #949494;'>&lt;tibble [3 × 2]&gt;</span>
+#&gt; <span style='color: #BCBCBC;'>2</span>     2 <span style='color: #949494;'>&lt;tibble [2 × 2]&gt;</span>
+#&gt; <span style='color: #BCBCBC;'>3</span>     3 <span style='color: #949494;'>&lt;tibble [1 × 2]&gt;</span></div><div class='input'>
 <span class='co'># Unchop ============================================================</span>
 <span class='va'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>4</span>, y <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/integer.html'>integer</a></span><span class='op'>(</span><span class='op'>)</span>, <span class='fl'>1L</span>, <span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span>, <span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span><span class='op'>)</span><span class='op'>)</span>
 <span class='va'>df</span> <span class='op'>%&gt;%</span> <span class='fu'>unchop</span><span class='op'>(</span><span class='va'>y</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 6 x 2</span><span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 6 x 2</span>
 #&gt;       x     y
-#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span>     2     1
-#&gt; </span><span style='color: #BCBCBC;'>2</span><span>     3     1
-#&gt; </span><span style='color: #BCBCBC;'>3</span><span>     3     2
-#&gt; </span><span style='color: #BCBCBC;'>4</span><span>     4     1
-#&gt; </span><span style='color: #BCBCBC;'>5</span><span>     4     2
-#&gt; </span><span style='color: #BCBCBC;'>6</span><span>     4     3</div><div class='input'><span class='va'>df</span> <span class='op'>%&gt;%</span> <span class='fu'>unchop</span><span class='op'>(</span><span class='va'>y</span>, keep_empty <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 7 x 2</span><span>
+#&gt;   <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span>
+#&gt; <span style='color: #BCBCBC;'>1</span>     2     1
+#&gt; <span style='color: #BCBCBC;'>2</span>     3     1
+#&gt; <span style='color: #BCBCBC;'>3</span>     3     2
+#&gt; <span style='color: #BCBCBC;'>4</span>     4     1
+#&gt; <span style='color: #BCBCBC;'>5</span>     4     2
+#&gt; <span style='color: #BCBCBC;'>6</span>     4     3</div><div class='input'><span class='va'>df</span> <span class='op'>%&gt;%</span> <span class='fu'>unchop</span><span class='op'>(</span><span class='va'>y</span>, keep_empty <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 7 x 2</span>
 #&gt;       x     y
-#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span>     1    </span><span style='color: #BB0000;'>NA</span><span>
-#&gt; </span><span style='color: #BCBCBC;'>2</span><span>     2     1
-#&gt; </span><span style='color: #BCBCBC;'>3</span><span>     3     1
-#&gt; </span><span style='color: #BCBCBC;'>4</span><span>     3     2
-#&gt; </span><span style='color: #BCBCBC;'>5</span><span>     4     1
-#&gt; </span><span style='color: #BCBCBC;'>6</span><span>     4     2
-#&gt; </span><span style='color: #BCBCBC;'>7</span><span>     4     3</div><div class='input'>
+#&gt;   <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span>
+#&gt; <span style='color: #BCBCBC;'>1</span>     1    <span style='color: #BB0000;'>NA</span>
+#&gt; <span style='color: #BCBCBC;'>2</span>     2     1
+#&gt; <span style='color: #BCBCBC;'>3</span>     3     1
+#&gt; <span style='color: #BCBCBC;'>4</span>     3     2
+#&gt; <span style='color: #BCBCBC;'>5</span>     4     1
+#&gt; <span style='color: #BCBCBC;'>6</span>     4     2
+#&gt; <span style='color: #BCBCBC;'>7</span>     4     3</div><div class='input'>
 <span class='co'># Incompatible types -------------------------------------------------</span>
 <span class='co'># If the list-col contains types that can not be natively</span>
 <span class='va'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span>, y <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='st'>"1"</span>, <span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span><span class='op'>)</span><span class='op'>)</span>
@@ -315,19 +315,19 @@ correct vector type even for empty list-columns.</p>
 <span class='co'># unchop leaves the column names unchanged</span>
 <span class='va'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span>, y <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='cn'>NULL</span>, <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>, <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span><span class='op'>(</span>y <span class='op'>=</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
 <span class='va'>df</span> <span class='op'>%&gt;%</span> <span class='fu'>unchop</span><span class='op'>(</span><span class='va'>y</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 3 x 2</span><span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 3 x 2</span>
 #&gt;       x   y$x    $y
-#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span>     2     1    </span><span style='color: #BB0000;'>NA</span><span>
-#&gt; </span><span style='color: #BCBCBC;'>2</span><span>     3    </span><span style='color: #BB0000;'>NA</span><span>     1
-#&gt; </span><span style='color: #BCBCBC;'>3</span><span>     3    </span><span style='color: #BB0000;'>NA</span><span>     2</div><div class='input'><span class='va'>df</span> <span class='op'>%&gt;%</span> <span class='fu'>unchop</span><span class='op'>(</span><span class='va'>y</span>, keep_empty <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 4 x 2</span><span>
+#&gt;   <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span>
+#&gt; <span style='color: #BCBCBC;'>1</span>     2     1    <span style='color: #BB0000;'>NA</span>
+#&gt; <span style='color: #BCBCBC;'>2</span>     3    <span style='color: #BB0000;'>NA</span>     1
+#&gt; <span style='color: #BCBCBC;'>3</span>     3    <span style='color: #BB0000;'>NA</span>     2</div><div class='input'><span class='va'>df</span> <span class='op'>%&gt;%</span> <span class='fu'>unchop</span><span class='op'>(</span><span class='va'>y</span>, keep_empty <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 4 x 2</span>
 #&gt;       x   y$x    $y
-#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span>     1    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>
-#&gt; </span><span style='color: #BCBCBC;'>2</span><span>     2     1    </span><span style='color: #BB0000;'>NA</span><span>
-#&gt; </span><span style='color: #BCBCBC;'>3</span><span>     3    </span><span style='color: #BB0000;'>NA</span><span>     1
-#&gt; </span><span style='color: #BCBCBC;'>4</span><span>     3    </span><span style='color: #BB0000;'>NA</span><span>     2</div></span></pre>
+#&gt;   <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span>
+#&gt; <span style='color: #BCBCBC;'>1</span>     1    <span style='color: #BB0000;'>NA</span>    <span style='color: #BB0000;'>NA</span>
+#&gt; <span style='color: #BCBCBC;'>2</span>     2     1    <span style='color: #BB0000;'>NA</span>
+#&gt; <span style='color: #BCBCBC;'>3</span>     3    <span style='color: #BB0000;'>NA</span>     1
+#&gt; <span style='color: #BCBCBC;'>4</span>     3    <span style='color: #BB0000;'>NA</span>     2</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
