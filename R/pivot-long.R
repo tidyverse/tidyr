@@ -233,30 +233,28 @@ pivot_longer_spec <- function(data,
     val_type <- vec_ptype_common(!!!set_names(val_cols[col_id], cols), .ptype = values_ptypes[[value]])
     out <- vec_c(!!!val_cols, .ptype = val_type)
     # Interleave into correct order
-    idx <- (matrix(seq_len(nrow(data) * length(val_cols)), ncol = nrow(data), byrow = TRUE))
+    # TODO somehow `t(matrix(x))` is _faster_ than `matrix(x, byrow = TRUE)`
+    # if this gets fixed in R this should use `byrow = TRUE` again
+    n_vals <- nrow(data) * length(val_cols)
+    idx <- t(matrix(seq_len(n_vals), ncol = n_vals / nrow(data)))
     vals[[value]] <- vec_slice(out, as.integer(idx))
   }
   vals <- as_tibble(vals)
 
-  # Line up output rows by combining spec and existing data frame
-  rows <- expand_grid(
-    df_id = vec_seq_along(data),
-    key_id = vec_seq_along(keys),
-  )
-  rows$val_id <- vec_seq_along(rows)
-
-  if (values_drop_na) {
-    rows <- vec_slice(rows, !vec_equal_na(vals))
-  }
-
   # Join together df, spec, and val to produce final tibble
   df_out <- drop_cols(as_tibble(data, .name_repair = "minimal"), spec$.name)
+
   out <- wrap_error_names(vec_cbind(
-    vec_slice(df_out, rows$df_id),
-    vec_slice(keys, rows$key_id),
-    vec_slice(vals, rows$val_id),
+    vec_rep_each(df_out, vec_size(keys)),
+    vec_rep(keys, vec_size(data)),
+    vals,
     .name_repair = names_repair
   ))
+
+  if (values_drop_na) {
+    out <- vec_slice(out, !vec_equal_na(vals))
+  }
+
   out$.seq <- NULL
 
   reconstruct_tibble(data, out)
