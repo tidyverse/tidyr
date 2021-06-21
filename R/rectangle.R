@@ -401,7 +401,7 @@ simplify_col <- function(x, nm, ptype = list(), transform = list(), simplify = F
   } else if (is.data.frame(x)) {
     n <- rep(vec_size(x), nrow(x))
   } else {
-    n <- 1L
+    n <- vec_size(x)
   }
 
   if (any(n > 1)) {
