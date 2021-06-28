@@ -5,9 +5,9 @@
 \alias{unchop}
 \title{Chop and unchop}
 \usage{
-chop(data, cols)
+chop(data, cols, ...)
 
-unchop(data, cols, keep_empty = FALSE, ptype = NULL)
+unchop(data, cols, ..., keep_empty = FALSE, ptype = NULL)
 }
 \arguments{
 \item{data}{A data frame.}
@@ -18,6 +18,8 @@ unchop(data, cols, keep_empty = FALSE, ptype = NULL)
 For \code{unchop()}, each column should be a list-column containing generalised
 vectors (e.g. any mix of \code{NULL}s, atomic vector, S3 vectors, a lists,
 or data frames).}
+
+\item{...}{Additional arguments passed on to methods.}
 
 \item{keep_empty}{By default, you get one row of output for each element
 of the list your unchopping/unnesting. This means that if there's a

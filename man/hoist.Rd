@@ -20,6 +20,7 @@ hoist(
 unnest_longer(
   data,
   col,
+  ...,
   values_to = NULL,
   indices_to = NULL,
   indices_include = NULL,
@@ -32,6 +33,7 @@ unnest_longer(
 unnest_wider(
   data,
   col,
+  ...,
   names_sep = NULL,
   simplify = TRUE,
   names_repair = "check_unique",

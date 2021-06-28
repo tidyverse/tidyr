@@ -40,6 +40,7 @@
 #' @param ptype Optionally, supply a data frame prototype for the output `cols`,
 #'   overriding the default that will be guessed from the combination of
 #'   individual values.
+#' @param ... Additional arguments passed on to methods.
 #' @export
 #' @examples
 #' # Chop ==============================================================
@@ -66,7 +67,13 @@
 #' df <- tibble(x = 1:3, y = list(NULL, tibble(x = 1), tibble(y = 1:2)))
 #' df %>% unchop(y)
 #' df %>% unchop(y, keep_empty = TRUE)
-chop <- function(data, cols) {
+chop <- function(data, cols, ...) {
+  ellipsis::check_dots_used()
+  UseMethod("chop")
+}
+
+#' @export
+chop.data.frame <- function(data, cols, ...) {
   if (missing(cols)) {
     return(data)
   }
@@ -89,7 +96,13 @@ chop <- function(data, cols) {
 
 #' @export
 #' @rdname chop
-unchop <- function(data, cols, keep_empty = FALSE, ptype = NULL) {
+unchop <- function(data, cols, ..., keep_empty = FALSE, ptype = NULL) {
+  ellipsis::check_dots_used()
+  UseMethod("unchop")
+}
+
+#' @export
+unchop.data.frame <- function(data, cols, ..., keep_empty = FALSE, ptype = NULL) {
   cols <- tidyselect::eval_select(enquo(cols), data)
   if (length(cols) == 0) {
     return(data)

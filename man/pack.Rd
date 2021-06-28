@@ -7,7 +7,7 @@
 \usage{
 pack(.data, ..., .names_sep = NULL)
 
-unpack(data, cols, names_sep = NULL, names_repair = "check_unique")
+unpack(data, cols, ..., names_sep = NULL, names_repair = "check_unique")
 }
 \arguments{
 \item{...}{<\code{\link[=tidyr_tidy_select]{tidy-select}}> Columns to pack, specified
