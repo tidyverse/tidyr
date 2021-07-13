@@ -452,8 +452,8 @@ vec_to_long <- function(x, col, values_to, indices_to, indices_include = NULL) {
 
     if (isTRUE(indices_include)) {
       tibble(
-        !!values_to := x,
-        !!indices_to := index(x)
+        !!indices_to := index(x),
+        !!values_to := x
       )
     } else {
       tibble(!!values_to := x)
