@@ -37,9 +37,9 @@
 #'   will be dropped from the output. If you want to preserve all rows,
 #'   use `keep_empty = TRUE` to replace size-0 elements with a single row
 #'   of missing values.
-#' @param ptype Optionally, supply a data frame prototype for the output `cols`,
-#'   overriding the default that will be guessed from the combination of
-#'   individual values.
+#' @param ptype Optionally, a named list of column name-prototype pairs to
+#'   coerce `cols` to, overriding the default that will be guessed from
+#'   combining the individual values.
 #' @export
 #' @examples
 #' # Chop ==============================================================
