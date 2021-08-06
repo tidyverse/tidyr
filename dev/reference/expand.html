@@ -297,12 +297,12 @@ to input vectors rather than a data frame.</p></div>
 <span class='co'># Note that all defined, but not necessarily present, levels of the</span>
 <span class='co'># factor variable `size` are retained.</span>
 <span class='va'>fruits</span> <span class='op'>%&gt;%</span> <span class='fu'>expand</span><span class='op'>(</span><span class='va'>type</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 2 x 1</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 2 × 1</span>
 #&gt;   type  
 #&gt;   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> 
 #&gt; <span style='color: #BCBCBC;'>1</span> apple 
 #&gt; <span style='color: #BCBCBC;'>2</span> orange</div><div class='input'><span class='va'>fruits</span> <span class='op'>%&gt;%</span> <span class='fu'>expand</span><span class='op'>(</span><span class='va'>type</span>, <span class='va'>size</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 8 x 2</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 8 × 2</span>
 #&gt;   type   size 
 #&gt;   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span>
 #&gt; <span style='color: #BCBCBC;'>1</span> apple  XS   
@@ -313,7 +313,7 @@ to input vectors rather than a data frame.</p></div>
 #&gt; <span style='color: #BCBCBC;'>6</span> orange S    
 #&gt; <span style='color: #BCBCBC;'>7</span> orange M    
 #&gt; <span style='color: #BCBCBC;'>8</span> orange L    </div><div class='input'><span class='va'>fruits</span> <span class='op'>%&gt;%</span> <span class='fu'>expand</span><span class='op'>(</span><span class='va'>type</span>, <span class='va'>size</span>, <span class='va'>year</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 16 x 3</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 16 × 3</span>
 #&gt;    type   size   year
 #&gt;    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
 #&gt; <span style='color: #BCBCBC;'> 1</span> apple  XS     <span style='text-decoration: underline;'>2</span>010
@@ -334,19 +334,19 @@ to input vectors rather than a data frame.</p></div>
 #&gt; <span style='color: #BCBCBC;'>16</span> orange L      <span style='text-decoration: underline;'>2</span>012</div><div class='input'>
 <span class='co'># Only combinations that already appear in the data ---------------</span>
 <span class='va'>fruits</span> <span class='op'>%&gt;%</span> <span class='fu'>expand</span><span class='op'>(</span><span class='fu'>nesting</span><span class='op'>(</span><span class='va'>type</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 2 x 1</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 2 × 1</span>
 #&gt;   type  
 #&gt;   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> 
 #&gt; <span style='color: #BCBCBC;'>1</span> apple 
 #&gt; <span style='color: #BCBCBC;'>2</span> orange</div><div class='input'><span class='va'>fruits</span> <span class='op'>%&gt;%</span> <span class='fu'>expand</span><span class='op'>(</span><span class='fu'>nesting</span><span class='op'>(</span><span class='va'>type</span>, <span class='va'>size</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 4 x 2</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 4 × 2</span>
 #&gt;   type   size 
 #&gt;   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span>
 #&gt; <span style='color: #BCBCBC;'>1</span> apple  XS   
 #&gt; <span style='color: #BCBCBC;'>2</span> apple  M    
 #&gt; <span style='color: #BCBCBC;'>3</span> orange S    
 #&gt; <span style='color: #BCBCBC;'>4</span> orange M    </div><div class='input'><span class='va'>fruits</span> <span class='op'>%&gt;%</span> <span class='fu'>expand</span><span class='op'>(</span><span class='fu'>nesting</span><span class='op'>(</span><span class='va'>type</span>, <span class='va'>size</span>, <span class='va'>year</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 4 x 3</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 4 × 3</span>
 #&gt;   type   size   year
 #&gt;   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
 #&gt; <span style='color: #BCBCBC;'>1</span> apple  XS     <span style='text-decoration: underline;'>2</span>010
@@ -356,7 +356,7 @@ to input vectors rather than a data frame.</p></div>
 <span class='co'># Other uses -------------------------------------------------------</span>
 <span class='co'># Use with `full_seq()` to fill in values of continuous variables</span>
 <span class='va'>fruits</span> <span class='op'>%&gt;%</span> <span class='fu'>expand</span><span class='op'>(</span><span class='va'>type</span>, <span class='va'>size</span>, <span class='fu'><a href='full_seq.html'>full_seq</a></span><span class='op'>(</span><span class='va'>year</span>, <span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 24 x 3</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 24 × 3</span>
 #&gt;    type  size  `full_seq(year, 1)`
 #&gt;    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span>               <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
 #&gt; <span style='color: #BCBCBC;'> 1</span> apple XS                   <span style='text-decoration: underline;'>2</span>010
@@ -370,7 +370,7 @@ to input vectors rather than a data frame.</p></div>
 #&gt; <span style='color: #BCBCBC;'> 9</span> apple M                    <span style='text-decoration: underline;'>2</span>012
 #&gt; <span style='color: #BCBCBC;'>10</span> apple L                    <span style='text-decoration: underline;'>2</span>010
 #&gt; <span style='color: #949494;'># … with 14 more rows</span></div><div class='input'><span class='va'>fruits</span> <span class='op'>%&gt;%</span> <span class='fu'>expand</span><span class='op'>(</span><span class='va'>type</span>, <span class='va'>size</span>, <span class='fl'>2010</span><span class='op'>:</span><span class='fl'>2012</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 24 x 3</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 24 × 3</span>
 #&gt;    type  size  `2010:2012`
 #&gt;    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span>       <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span>
 #&gt; <span style='color: #BCBCBC;'> 1</span> apple XS           <span style='text-decoration: underline;'>2</span>010
@@ -387,7 +387,7 @@ to input vectors rather than a data frame.</p></div>
 <span class='co'># Use `anti_join()` to determine which observations are missing</span>
 <span class='va'>all</span> <span class='op'>&lt;-</span> <span class='va'>fruits</span> <span class='op'>%&gt;%</span> <span class='fu'>expand</span><span class='op'>(</span><span class='va'>type</span>, <span class='va'>size</span>, <span class='va'>year</span><span class='op'>)</span>
 <span class='va'>all</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 16 x 3</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 16 × 3</span>
 #&gt;    type   size   year
 #&gt;    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
 #&gt; <span style='color: #BCBCBC;'> 1</span> apple  XS     <span style='text-decoration: underline;'>2</span>010
@@ -406,7 +406,7 @@ to input vectors rather than a data frame.</p></div>
 #&gt; <span style='color: #BCBCBC;'>14</span> orange M      <span style='text-decoration: underline;'>2</span>012
 #&gt; <span style='color: #BCBCBC;'>15</span> orange L      <span style='text-decoration: underline;'>2</span>010
 #&gt; <span style='color: #BCBCBC;'>16</span> orange L      <span style='text-decoration: underline;'>2</span>012</div><div class='input'><span class='va'>all</span> <span class='op'>%&gt;%</span> <span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter-joins.html'>anti_join</a></span><span class='op'>(</span><span class='va'>fruits</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>Joining, by = c("type", "size", "year")</span></div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 12 x 3</span>
+</div><div class='output co'>#&gt; <span class='message'>Joining, by = c("type", "size", "year")</span></div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 12 × 3</span>
 #&gt;    type   size   year
 #&gt;    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
 #&gt; <span style='color: #BCBCBC;'> 1</span> apple  XS     <span style='text-decoration: underline;'>2</span>012
@@ -423,7 +423,7 @@ to input vectors rather than a data frame.</p></div>
 #&gt; <span style='color: #BCBCBC;'>12</span> orange L      <span style='text-decoration: underline;'>2</span>012</div><div class='input'>
 <span class='co'># Use with `right_join()` to fill in missing rows</span>
 <span class='va'>fruits</span> <span class='op'>%&gt;%</span> <span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate-joins.html'>right_join</a></span><span class='op'>(</span><span class='va'>all</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>Joining, by = c("type", "year", "size")</span></div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 18 x 4</span>
+</div><div class='output co'>#&gt; <span class='message'>Joining, by = c("type", "year", "size")</span></div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 18 × 4</span>
 #&gt;    type    year size  weights
 #&gt;    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
 #&gt; <span style='color: #BCBCBC;'> 1</span> apple   <span style='text-decoration: underline;'>2</span>010 XS       1.60

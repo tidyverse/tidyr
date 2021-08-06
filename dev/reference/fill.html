@@ -254,7 +254,7 @@ or "updown" (first up and then down).</p></td>
 
 <span class='co'># `fill()` defaults to replacing missing data from top to bottom</span>
 <span class='va'>sales</span> <span class='op'>%&gt;%</span> <span class='fu'>fill</span><span class='op'>(</span><span class='va'>year</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 16 x 3</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 16 × 3</span>
 #&gt;    quarter  year sales
 #&gt;    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
 #&gt; <span style='color: #BCBCBC;'> 1</span> Q1       <span style='text-decoration: underline;'>2</span>000 <span style='text-decoration: underline;'>66</span>013
@@ -293,7 +293,7 @@ or "updown" (first up and then down).</p></td>
 <span class='co'># For values that are missing above you can use `.direction = "up"`</span>
 <span class='va'>tidy_pets</span> <span class='op'>%&gt;%</span>
   <span class='fu'>fill</span><span class='op'>(</span><span class='va'>pet_type</span>, .direction <span class='op'>=</span> <span class='st'>"up"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 12 x 3</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 12 × 3</span>
 #&gt;     rank pet_type breed                
 #&gt;    <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>                
 #&gt; <span style='color: #BCBCBC;'> 1</span>     1 Dog      Boston Terrier       
@@ -331,7 +331,7 @@ or "updown" (first up and then down).</p></td>
   <span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>group</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
   <span class='fu'>fill</span><span class='op'>(</span><span class='va'>n_squirrels</span>, .direction <span class='op'>=</span> <span class='st'>"downup"</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
   <span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>ungroup</a></span><span class='op'>(</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 12 x 4</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 12 × 4</span>
 #&gt;    group name     role        n_squirrels
 #&gt;    <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>             <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
 #&gt; <span style='color: #BCBCBC;'> 1</span>     1 Sam      Observer              8

@@ -277,12 +277,12 @@ will be duplicated in the same way as atomic vectors. This has
     <pre class="examples"><div class='input'><span class='co'># Nest and unnest are inverses</span>
 <span class='va'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>2</span><span class='op'>)</span>, y <span class='op'>=</span> <span class='fl'>3</span><span class='op'>:</span><span class='fl'>1</span><span class='op'>)</span>
 <span class='va'>df</span> <span class='op'>%&gt;%</span> <span class='fu'>nest_legacy</span><span class='op'>(</span><span class='va'>y</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 2 x 2</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 2 × 2</span>
 #&gt;       x data            
 #&gt;   <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;list&gt;</span>          
 #&gt; <span style='color: #BCBCBC;'>1</span>     1 <span style='color: #949494;'>&lt;tibble [2 × 1]&gt;</span>
 #&gt; <span style='color: #BCBCBC;'>2</span>     2 <span style='color: #949494;'>&lt;tibble [1 × 1]&gt;</span></div><div class='input'><span class='va'>df</span> <span class='op'>%&gt;%</span> <span class='fu'>nest_legacy</span><span class='op'>(</span><span class='va'>y</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='fu'>unnest_legacy</span><span class='op'>(</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 3 x 2</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 3 × 2</span>
 #&gt;       x     y
 #&gt;   <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span>
 #&gt; <span style='color: #BCBCBC;'>1</span>     1     3
@@ -290,13 +290,13 @@ will be duplicated in the same way as atomic vectors. This has
 #&gt; <span style='color: #BCBCBC;'>3</span>     2     1</div><div class='input'>
 <span class='co'># nesting -------------------------------------------------------------------</span>
 <span class='fu'><a href='https://tibble.tidyverse.org/reference/as_tibble.html'>as_tibble</a></span><span class='op'>(</span><span class='va'>iris</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='fu'>nest_legacy</span><span class='op'>(</span><span class='op'>!</span><span class='va'>Species</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 3 x 2</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 3 × 2</span>
 #&gt;   Species    data             
 #&gt;   <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span>      <span style='color: #949494; font-style: italic;'>&lt;list&gt;</span>           
 #&gt; <span style='color: #BCBCBC;'>1</span> setosa     <span style='color: #949494;'>&lt;tibble [50 × 4]&gt;</span>
 #&gt; <span style='color: #BCBCBC;'>2</span> versicolor <span style='color: #949494;'>&lt;tibble [50 × 4]&gt;</span>
 #&gt; <span style='color: #BCBCBC;'>3</span> virginica  <span style='color: #949494;'>&lt;tibble [50 × 4]&gt;</span></div><div class='input'><span class='fu'><a href='https://tibble.tidyverse.org/reference/as_tibble.html'>as_tibble</a></span><span class='op'>(</span><span class='va'>chickwts</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='fu'>nest_legacy</span><span class='op'>(</span><span class='va'>weight</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 6 x 2</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 6 × 2</span>
 #&gt;   feed      data             
 #&gt;   <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;list&gt;</span>           
 #&gt; <span style='color: #BCBCBC;'>1</span> horsebean <span style='color: #949494;'>&lt;tibble [10 × 1]&gt;</span>
@@ -314,7 +314,7 @@ will be duplicated in the same way as atomic vectors. This has
   <span class='op'>)</span>
 <span class='op'>)</span>
 <span class='va'>df</span> <span class='op'>%&gt;%</span> <span class='fu'>unnest_legacy</span><span class='op'>(</span><span class='va'>y</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 3 x 2</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 3 × 2</span>
 #&gt;       x     z
 #&gt;   <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
 #&gt; <span style='color: #BCBCBC;'>1</span>     1     1
@@ -327,14 +327,14 @@ will be duplicated in the same way as atomic vectors. This has
   c <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>11</span>, <span class='fl'>22</span><span class='op'>)</span>
 <span class='op'>)</span>
 <span class='va'>df</span> <span class='op'>%&gt;%</span> <span class='fu'>unnest_legacy</span><span class='op'>(</span><span class='va'>a</span>, <span class='va'>b</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 3 x 3</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 3 × 3</span>
 #&gt;       c a         b
 #&gt;   <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
 #&gt; <span style='color: #BCBCBC;'>1</span>    11 a         1
 #&gt; <span style='color: #BCBCBC;'>2</span>    11 b         2
 #&gt; <span style='color: #BCBCBC;'>3</span>    22 c         3</div><div class='input'><span class='co'># If you omit the column names, it'll unnest all list-cols</span>
 <span class='va'>df</span> <span class='op'>%&gt;%</span> <span class='fu'>unnest_legacy</span><span class='op'>(</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 3 x 3</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 3 × 3</span>
 #&gt;       c a         b
 #&gt;   <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
 #&gt; <span style='color: #BCBCBC;'>1</span>    11 a         1

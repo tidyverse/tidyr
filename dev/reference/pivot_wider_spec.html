@@ -320,7 +320,7 @@ column names are ordered by first appearance.</p></td>
     <pre class="examples"><div class='input'><span class='co'># See vignette("pivot") for examples and explanation</span>
 
 <span class='va'>us_rent_income</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 104 x 5</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 104 × 5</span>
 #&gt;    GEOID NAME       variable estimate   moe
 #&gt;    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>      <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>       <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
 #&gt; <span style='color: #BCBCBC;'> 1</span> 01    Alabama    income      <span style='text-decoration: underline;'>24</span>476   136
@@ -336,7 +336,7 @@ column names are ordered by first appearance.</p></td>
 #&gt; <span style='color: #949494;'># … with 94 more rows</span></div><div class='input'><span class='va'>spec1</span> <span class='op'>&lt;-</span> <span class='va'>us_rent_income</span> <span class='op'>%&gt;%</span>
   <span class='fu'>build_wider_spec</span><span class='op'>(</span>names_from <span class='op'>=</span> <span class='va'>variable</span>, values_from <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>estimate</span>, <span class='va'>moe</span><span class='op'>)</span><span class='op'>)</span>
 <span class='va'>spec1</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 4 x 3</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 4 × 3</span>
 #&gt;   .name           .value   variable
 #&gt;   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>           <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>   
 #&gt; <span style='color: #BCBCBC;'>1</span> estimate_income estimate income  
@@ -345,7 +345,7 @@ column names are ordered by first appearance.</p></td>
 #&gt; <span style='color: #BCBCBC;'>4</span> moe_rent        moe      rent    </div><div class='input'>
 <span class='va'>us_rent_income</span> <span class='op'>%&gt;%</span>
   <span class='fu'>pivot_wider_spec</span><span class='op'>(</span><span class='va'>spec1</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 52 x 6</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 52 × 6</span>
 #&gt;    GEOID NAME                 estimate_income estimate_rent moe_income moe_rent
 #&gt;    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>                          <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>         <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>      <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
 #&gt; <span style='color: #BCBCBC;'> 1</span> 01    Alabama                        <span style='text-decoration: underline;'>24</span>476           747        136        3
@@ -362,7 +362,7 @@ column names are ordered by first appearance.</p></td>
 <span class='co'># Is equivalent to</span>
 <span class='va'>us_rent_income</span> <span class='op'>%&gt;%</span>
   <span class='fu'><a href='pivot_wider.html'>pivot_wider</a></span><span class='op'>(</span>names_from <span class='op'>=</span> <span class='va'>variable</span>, values_from <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>estimate</span>, <span class='va'>moe</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 52 x 6</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 52 × 6</span>
 #&gt;    GEOID NAME                 estimate_income estimate_rent moe_income moe_rent
 #&gt;    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>                          <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>         <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>      <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
 #&gt; <span style='color: #BCBCBC;'> 1</span> 01    Alabama                        <span style='text-decoration: underline;'>24</span>476           747        136        3
@@ -387,7 +387,7 @@ column names are ordered by first appearance.</p></td>
 
 <span class='va'>us_rent_income</span> <span class='op'>%&gt;%</span>
   <span class='fu'>pivot_wider_spec</span><span class='op'>(</span><span class='va'>spec2</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 52 x 6</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 52 × 6</span>
 #&gt;    GEOID NAME                 income  rent income_moe rent_moe
 #&gt;    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>                 <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>      <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
 #&gt; <span style='color: #BCBCBC;'> 1</span> 01    Alabama               <span style='text-decoration: underline;'>24</span>476   747        136        3

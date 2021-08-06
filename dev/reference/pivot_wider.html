@@ -313,7 +313,7 @@ defines a pivotting specification.</p></div>
     <pre class="examples"><div class='input'><span class='co'># See vignette("pivot") for examples and explanation</span>
 
 <span class='va'>fish_encounters</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 114 x 3</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 114 × 3</span>
 #&gt;    fish  station  seen
 #&gt;    <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span>
 #&gt; <span style='color: #BCBCBC;'> 1</span> 4842  Release     1
@@ -328,7 +328,7 @@ defines a pivotting specification.</p></div>
 #&gt; <span style='color: #BCBCBC;'>10</span> 4842  MAE         1
 #&gt; <span style='color: #949494;'># … with 104 more rows</span></div><div class='input'><span class='va'>fish_encounters</span> <span class='op'>%&gt;%</span>
   <span class='fu'>pivot_wider</span><span class='op'>(</span>names_from <span class='op'>=</span> <span class='va'>station</span>, values_from <span class='op'>=</span> <span class='va'>seen</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 19 x 12</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 19 × 12</span>
 #&gt;    fish  Release I80_1 Lisbon  Rstr Base_TD   BCE   BCW  BCE2  BCW2   MAE   MAW
 #&gt;    <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span>
 #&gt; <span style='color: #BCBCBC;'> 1</span> 4842        1     1      1     1       1     1     1     1     1     1     1
@@ -352,7 +352,7 @@ defines a pivotting specification.</p></div>
 #&gt; <span style='color: #BCBCBC;'>19</span> 4865        1     1      1    <span style='color: #BB0000;'>NA</span>      <span style='color: #BB0000;'>NA</span>    <span style='color: #BB0000;'>NA</span>    <span style='color: #BB0000;'>NA</span>    <span style='color: #BB0000;'>NA</span>    <span style='color: #BB0000;'>NA</span>    <span style='color: #BB0000;'>NA</span>    <span style='color: #BB0000;'>NA</span></div><div class='input'><span class='co'># Fill in missing values</span>
 <span class='va'>fish_encounters</span> <span class='op'>%&gt;%</span>
   <span class='fu'>pivot_wider</span><span class='op'>(</span>names_from <span class='op'>=</span> <span class='va'>station</span>, values_from <span class='op'>=</span> <span class='va'>seen</span>, values_fill <span class='op'>=</span> <span class='fl'>0</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 19 x 12</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 19 × 12</span>
 #&gt;    fish  Release I80_1 Lisbon  Rstr Base_TD   BCE   BCW  BCE2  BCW2   MAE   MAW
 #&gt;    <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span>
 #&gt; <span style='color: #BCBCBC;'> 1</span> 4842        1     1      1     1       1     1     1     1     1     1     1
@@ -376,7 +376,7 @@ defines a pivotting specification.</p></div>
 #&gt; <span style='color: #BCBCBC;'>19</span> 4865        1     1      1     0       0     0     0     0     0     0     0</div><div class='input'>
 <span class='co'># Generate column names from multiple variables</span>
 <span class='va'>us_rent_income</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 104 x 5</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 104 × 5</span>
 #&gt;    GEOID NAME       variable estimate   moe
 #&gt;    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>      <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>       <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
 #&gt; <span style='color: #BCBCBC;'> 1</span> 01    Alabama    income      <span style='text-decoration: underline;'>24</span>476   136
@@ -391,7 +391,7 @@ defines a pivotting specification.</p></div>
 #&gt; <span style='color: #BCBCBC;'>10</span> 06    California rent         <span style='text-decoration: underline;'>1</span>358     3
 #&gt; <span style='color: #949494;'># … with 94 more rows</span></div><div class='input'><span class='va'>us_rent_income</span> <span class='op'>%&gt;%</span>
   <span class='fu'>pivot_wider</span><span class='op'>(</span>names_from <span class='op'>=</span> <span class='va'>variable</span>, values_from <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>estimate</span>, <span class='va'>moe</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 52 x 6</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 52 × 6</span>
 #&gt;    GEOID NAME                 estimate_income estimate_rent moe_income moe_rent
 #&gt;    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>                          <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>         <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>      <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
 #&gt; <span style='color: #BCBCBC;'> 1</span> 01    Alabama                        <span style='text-decoration: underline;'>24</span>476           747        136        3
@@ -413,7 +413,7 @@ defines a pivotting specification.</p></div>
     names_sep <span class='op'>=</span> <span class='st'>"."</span>,
     values_from <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>estimate</span>, <span class='va'>moe</span><span class='op'>)</span>
   <span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 52 x 6</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 52 × 6</span>
 #&gt;    GEOID NAME                 estimate.income estimate.rent moe.income moe.rent
 #&gt;    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>                          <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>         <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>      <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
 #&gt; <span style='color: #BCBCBC;'> 1</span> 01    Alabama                        <span style='text-decoration: underline;'>24</span>476           747        136        3
@@ -432,7 +432,7 @@ defines a pivotting specification.</p></div>
     names_glue <span class='op'>=</span> <span class='st'>"{variable}_{.value}"</span>,
     values_from <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>estimate</span>, <span class='va'>moe</span><span class='op'>)</span>
   <span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 52 x 6</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 52 × 6</span>
 #&gt;    GEOID NAME                 income_estimate rent_estimate income_moe rent_moe
 #&gt;    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>                          <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>         <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>      <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
 #&gt; <span style='color: #BCBCBC;'> 1</span> 01    Alabama                        <span style='text-decoration: underline;'>24</span>476           747        136        3
@@ -449,7 +449,7 @@ defines a pivotting specification.</p></div>
 <span class='co'># Can perform aggregation with values_fn</span>
 <span class='va'>warpbreaks</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/as_tibble.html'>as_tibble</a></span><span class='op'>(</span><span class='va'>warpbreaks</span><span class='op'>[</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"wool"</span>, <span class='st'>"tension"</span>, <span class='st'>"breaks"</span><span class='op'>)</span><span class='op'>]</span><span class='op'>)</span>
 <span class='va'>warpbreaks</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 54 x 3</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 54 × 3</span>
 #&gt;    wool  tension breaks
 #&gt;    <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
 #&gt; <span style='color: #BCBCBC;'> 1</span> A     L           26
@@ -468,7 +468,7 @@ defines a pivotting specification.</p></div>
     values_from <span class='op'>=</span> <span class='va'>breaks</span>,
     values_fn <span class='op'>=</span> <span class='va'>mean</span>
   <span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 3 x 3</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 3 × 3</span>
 #&gt;   tension     A     B
 #&gt;   <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
 #&gt; <span style='color: #BCBCBC;'>1</span> L        44.6  28.2

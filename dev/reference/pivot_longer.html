@@ -327,7 +327,7 @@ under active development.</p>
 
 <span class='co'># Simplest case where column names are character data</span>
 <span class='va'>relig_income</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 18 x 11</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 18 × 11</span>
 #&gt;    religion `&lt;$10k` `$10-20k` `$20-30k` `$30-40k` `$40-50k` `$50-75k` `$75-100k`
 #&gt;    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>      <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>      <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
 #&gt; <span style='color: #BCBCBC;'> 1</span> Agnostic      27        34        60        81        76       137        122
@@ -351,7 +351,7 @@ under active development.</p>
 #&gt; <span style='color: #949494;'># … with 3 more variables: $100-150k &lt;dbl&gt;, &gt;150k &lt;dbl&gt;,</span>
 #&gt; <span style='color: #949494;'>#   Don't know/refused &lt;dbl&gt;</span></div><div class='input'><span class='va'>relig_income</span> <span class='op'>%&gt;%</span>
   <span class='fu'>pivot_longer</span><span class='op'>(</span><span class='op'>!</span><span class='va'>religion</span>, names_to <span class='op'>=</span> <span class='st'>"income"</span>, values_to <span class='op'>=</span> <span class='st'>"count"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 180 x 3</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 180 × 3</span>
 #&gt;    religion income             count
 #&gt;    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>              <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
 #&gt; <span style='color: #BCBCBC;'> 1</span> Agnostic &lt;$10k                 27
@@ -368,7 +368,7 @@ under active development.</p>
 <span class='co'># Slightly more complex case where columns have common prefix,</span>
 <span class='co'># and missing missings are structural so should be dropped.</span>
 <span class='va'>billboard</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 317 x 79</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 317 × 79</span>
 #&gt;    artist   track   date.entered   wk1   wk2   wk3   wk4   wk5   wk6   wk7   wk8
 #&gt;    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;date&gt;</span>       <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
 #&gt; <span style='color: #BCBCBC;'> 1</span> 2 Pac    Baby D… 2000-02-26      87    82    72    77    87    94    99    <span style='color: #BB0000;'>NA</span>
@@ -387,12 +387,7 @@ under active development.</p>
 #&gt; <span style='color: #949494;'>#   wk23 &lt;dbl&gt;, wk24 &lt;dbl&gt;, wk25 &lt;dbl&gt;, wk26 &lt;dbl&gt;, wk27 &lt;dbl&gt;, wk28 &lt;dbl&gt;,</span>
 #&gt; <span style='color: #949494;'>#   wk29 &lt;dbl&gt;, wk30 &lt;dbl&gt;, wk31 &lt;dbl&gt;, wk32 &lt;dbl&gt;, wk33 &lt;dbl&gt;, wk34 &lt;dbl&gt;,</span>
 #&gt; <span style='color: #949494;'>#   wk35 &lt;dbl&gt;, wk36 &lt;dbl&gt;, wk37 &lt;dbl&gt;, wk38 &lt;dbl&gt;, wk39 &lt;dbl&gt;, wk40 &lt;dbl&gt;,</span>
-#&gt; <span style='color: #949494;'>#   wk41 &lt;dbl&gt;, wk42 &lt;dbl&gt;, wk43 &lt;dbl&gt;, wk44 &lt;dbl&gt;, wk45 &lt;dbl&gt;, wk46 &lt;dbl&gt;,</span>
-#&gt; <span style='color: #949494;'>#   wk47 &lt;dbl&gt;, wk48 &lt;dbl&gt;, wk49 &lt;dbl&gt;, wk50 &lt;dbl&gt;, wk51 &lt;dbl&gt;, wk52 &lt;dbl&gt;,</span>
-#&gt; <span style='color: #949494;'>#   wk53 &lt;dbl&gt;, wk54 &lt;dbl&gt;, wk55 &lt;dbl&gt;, wk56 &lt;dbl&gt;, wk57 &lt;dbl&gt;, wk58 &lt;dbl&gt;,</span>
-#&gt; <span style='color: #949494;'>#   wk59 &lt;dbl&gt;, wk60 &lt;dbl&gt;, wk61 &lt;dbl&gt;, wk62 &lt;dbl&gt;, wk63 &lt;dbl&gt;, wk64 &lt;dbl&gt;,</span>
-#&gt; <span style='color: #949494;'>#   wk65 &lt;dbl&gt;, wk66 &lt;lgl&gt;, wk67 &lt;lgl&gt;, wk68 &lt;lgl&gt;, wk69 &lt;lgl&gt;, wk70 &lt;lgl&gt;,</span>
-#&gt; <span style='color: #949494;'>#   wk71 &lt;lgl&gt;, wk72 &lt;lgl&gt;, wk73 &lt;lgl&gt;, wk74 &lt;lgl&gt;, wk75 &lt;lgl&gt;, wk76 &lt;lgl&gt;</span></div><div class='input'><span class='va'>billboard</span> <span class='op'>%&gt;%</span>
+#&gt; <span style='color: #949494;'>#   wk41 &lt;dbl&gt;, wk42 &lt;dbl&gt;, wk43 &lt;dbl&gt;, wk44 &lt;dbl&gt;, wk45 &lt;dbl&gt;, wk46 &lt;dbl&gt;, …</span></div><div class='input'><span class='va'>billboard</span> <span class='op'>%&gt;%</span>
  <span class='fu'>pivot_longer</span><span class='op'>(</span>
    cols <span class='op'>=</span> <span class='fu'><a href='https://tidyselect.r-lib.org/reference/starts_with.html'>starts_with</a></span><span class='op'>(</span><span class='st'>"wk"</span><span class='op'>)</span>,
    names_to <span class='op'>=</span> <span class='st'>"week"</span>,
@@ -400,7 +395,7 @@ under active development.</p>
    values_to <span class='op'>=</span> <span class='st'>"rank"</span>,
    values_drop_na <span class='op'>=</span> <span class='cn'>TRUE</span>
  <span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 5,307 x 5</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 5,307 × 5</span>
 #&gt;    artist  track                   date.entered week   rank
 #&gt;    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>                   <span style='color: #949494; font-style: italic;'>&lt;date&gt;</span>       <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
 #&gt; <span style='color: #BCBCBC;'> 1</span> 2 Pac   Baby Don't Cry (Keep... 2000-02-26   1        87
@@ -421,7 +416,7 @@ under active development.</p>
   names_pattern <span class='op'>=</span> <span class='st'>"new_?(.*)_(.)(.*)"</span>,
   values_to <span class='op'>=</span> <span class='st'>"count"</span>
 <span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 405,440 x 8</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 405,440 × 8</span>
 #&gt;    country     iso2  iso3   year diagnosis gender age   count
 #&gt;    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>       <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span>
 #&gt; <span style='color: #BCBCBC;'> 1</span> Afghanistan AF    AFG    <span style='text-decoration: underline;'>1</span>980 sp        m      014      <span style='color: #BB0000;'>NA</span>
@@ -453,7 +448,7 @@ under active development.</p>
    names_to <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>".value"</span>, <span class='st'>"set"</span><span class='op'>)</span>,
    names_pattern <span class='op'>=</span> <span class='st'>"(.)(.)"</span>
  <span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 44 x 3</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 44 × 3</span>
 #&gt;    set       x     y
 #&gt;    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
 #&gt; <span style='color: #BCBCBC;'> 1</span> 1        10  8.04

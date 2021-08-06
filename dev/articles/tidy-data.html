@@ -209,7 +209,7 @@ and shows you how it saves you time during data analysis.
   <span class="fu"><a href="../reference/pivot_longer.html">pivot_longer</a></span><span class="op">(</span><span class="va">quiz1</span><span class="op">:</span><span class="va">test1</span>, names_to <span class="op">=</span> <span class="st">"assessment"</span>, values_to <span class="op">=</span> <span class="st">"grade"</span><span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="va">name</span>, <span class="va">assessment</span><span class="op">)</span>
 <span class="va">classroom2</span>
-<span class="co">#&gt; # A tibble: 12 x 3</span>
+<span class="co">#&gt; # A tibble: 12 × 3</span>
 <span class="co">#&gt;    name   assessment grade</span>
 <span class="co">#&gt;    &lt;chr&gt;  &lt;chr&gt;      &lt;chr&gt;</span>
 <span class="co">#&gt;  1 Billy  quiz1      &lt;NA&gt; </span>
@@ -267,7 +267,7 @@ and shows you how it saves you time during data analysis.
 <p>The following code shows a subset of a typical dataset of this form. This dataset explores the relationship between income and religion in the US. It comes from a report produced by the Pew Research Center, an American think-tank that collects data on attitudes to topics ranging from religion to the internet, and produces many reports that contain datasets in this format.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">relig_income</span>
-<span class="co">#&gt; # A tibble: 18 x 11</span>
+<span class="co">#&gt; # A tibble: 18 × 11</span>
 <span class="co">#&gt;    religion `&lt;$10k` `$10-20k` `$20-30k` `$30-40k` `$40-50k` `$50-75k` `$75-100k`</span>
 <span class="co">#&gt;    &lt;chr&gt;      &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;      &lt;dbl&gt;</span>
 <span class="co">#&gt;  1 Agnostic      27        34        60        81        76       137        122</span>
@@ -287,7 +287,7 @@ and shows you how it saves you time during data analysis.
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">relig_income</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="../reference/pivot_longer.html">pivot_longer</a></span><span class="op">(</span><span class="op">-</span><span class="va">religion</span>, names_to <span class="op">=</span> <span class="st">"income"</span>, values_to <span class="op">=</span> <span class="st">"frequency"</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 180 x 3</span>
+<span class="co">#&gt; # A tibble: 180 × 3</span>
 <span class="co">#&gt;    religion income             frequency</span>
 <span class="co">#&gt;    &lt;chr&gt;    &lt;chr&gt;                  &lt;dbl&gt;</span>
 <span class="co">#&gt;  1 Agnostic &lt;$10k                     27</span>
@@ -305,7 +305,7 @@ and shows you how it saves you time during data analysis.
 <p>This format is also used to record regularly spaced observations over time. For example, the Billboard dataset shown below records the date a song first entered the billboard top 100. It has variables for <code>artist</code>, <code>track</code>, <code>date.entered</code>, <code>rank</code> and <code>week</code>. The rank in each week after it enters the top 100 is recorded in 75 columns, <code>wk1</code> to <code>wk75</code>. This form of storage is not tidy, but it is useful for data entry. It reduces duplication since otherwise each song in each week would need its own row, and song metadata like title and artist would need to be repeated. This will be discussed in more depth in <a href="#multiple-types">multiple types</a>.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">billboard</span>
-<span class="co">#&gt; # A tibble: 317 x 79</span>
+<span class="co">#&gt; # A tibble: 317 × 79</span>
 <span class="co">#&gt;    artist   track   date.entered   wk1   wk2   wk3   wk4   wk5   wk6   wk7   wk8</span>
 <span class="co">#&gt;    &lt;chr&gt;    &lt;chr&gt;   &lt;date&gt;       &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span>
 <span class="co">#&gt;  1 2 Pac    Baby D… 2000-02-26      87    82    72    77    87    94    99    NA</span>
@@ -324,12 +324,7 @@ and shows you how it saves you time during data analysis.
 <span class="co">#&gt; #   wk23 &lt;dbl&gt;, wk24 &lt;dbl&gt;, wk25 &lt;dbl&gt;, wk26 &lt;dbl&gt;, wk27 &lt;dbl&gt;, wk28 &lt;dbl&gt;,</span>
 <span class="co">#&gt; #   wk29 &lt;dbl&gt;, wk30 &lt;dbl&gt;, wk31 &lt;dbl&gt;, wk32 &lt;dbl&gt;, wk33 &lt;dbl&gt;, wk34 &lt;dbl&gt;,</span>
 <span class="co">#&gt; #   wk35 &lt;dbl&gt;, wk36 &lt;dbl&gt;, wk37 &lt;dbl&gt;, wk38 &lt;dbl&gt;, wk39 &lt;dbl&gt;, wk40 &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   wk41 &lt;dbl&gt;, wk42 &lt;dbl&gt;, wk43 &lt;dbl&gt;, wk44 &lt;dbl&gt;, wk45 &lt;dbl&gt;, wk46 &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   wk47 &lt;dbl&gt;, wk48 &lt;dbl&gt;, wk49 &lt;dbl&gt;, wk50 &lt;dbl&gt;, wk51 &lt;dbl&gt;, wk52 &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   wk53 &lt;dbl&gt;, wk54 &lt;dbl&gt;, wk55 &lt;dbl&gt;, wk56 &lt;dbl&gt;, wk57 &lt;dbl&gt;, wk58 &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   wk59 &lt;dbl&gt;, wk60 &lt;dbl&gt;, wk61 &lt;dbl&gt;, wk62 &lt;dbl&gt;, wk63 &lt;dbl&gt;, wk64 &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   wk65 &lt;dbl&gt;, wk66 &lt;lgl&gt;, wk67 &lt;lgl&gt;, wk68 &lt;lgl&gt;, wk69 &lt;lgl&gt;, wk70 &lt;lgl&gt;,</span>
-<span class="co">#&gt; #   wk71 &lt;lgl&gt;, wk72 &lt;lgl&gt;, wk73 &lt;lgl&gt;, wk74 &lt;lgl&gt;, wk75 &lt;lgl&gt;, wk76 &lt;lgl&gt;</span></code></pre></div>
+<span class="co">#&gt; #   wk41 &lt;dbl&gt;, wk42 &lt;dbl&gt;, wk43 &lt;dbl&gt;, wk44 &lt;dbl&gt;, wk45 &lt;dbl&gt;, wk46 &lt;dbl&gt;, …</span></code></pre></div>
 <p>To tidy this dataset, we first use <code><a href="../reference/pivot_longer.html">pivot_longer()</a></code> to make the dataset longer. We transform the columns from <code>wk1</code> to <code>wk76</code>, making a new column for their names, <code>week</code>, and a new value for their values, <code>rank</code>:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">billboard2</span> <span class="op">&lt;-</span> <span class="va">billboard</span> <span class="op">%&gt;%</span> 
@@ -340,7 +335,7 @@ and shows you how it saves you time during data analysis.
     values_drop_na <span class="op">=</span> <span class="cn">TRUE</span>
   <span class="op">)</span>
 <span class="va">billboard2</span>
-<span class="co">#&gt; # A tibble: 5,307 x 5</span>
+<span class="co">#&gt; # A tibble: 5,307 × 5</span>
 <span class="co">#&gt;    artist  track                   date.entered week   rank</span>
 <span class="co">#&gt;    &lt;chr&gt;   &lt;chr&gt;                   &lt;date&gt;       &lt;chr&gt; &lt;dbl&gt;</span>
 <span class="co">#&gt;  1 2 Pac   Baby Don't Cry (Keep... 2000-02-26   wk1      87</span>
@@ -364,7 +359,7 @@ and shows you how it saves you time during data analysis.
     date.entered <span class="op">=</span> <span class="cn">NULL</span>
   <span class="op">)</span>
 <span class="va">billboard3</span>
-<span class="co">#&gt; # A tibble: 5,307 x 5</span>
+<span class="co">#&gt; # A tibble: 5,307 × 5</span>
 <span class="co">#&gt;    artist  track                    week  rank date      </span>
 <span class="co">#&gt;    &lt;chr&gt;   &lt;chr&gt;                   &lt;int&gt; &lt;dbl&gt; &lt;date&gt;    </span>
 <span class="co">#&gt;  1 2 Pac   Baby Don't Cry (Keep...     1    87 2000-02-26</span>
@@ -381,7 +376,7 @@ and shows you how it saves you time during data analysis.
 <p>Finally, it’s always a good idea to sort the data. We could do it by artist, track and week:</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">billboard3</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="va">artist</span>, <span class="va">track</span>, <span class="va">week</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 5,307 x 5</span>
+<span class="co">#&gt; # A tibble: 5,307 × 5</span>
 <span class="co">#&gt;    artist  track                    week  rank date      </span>
 <span class="co">#&gt;    &lt;chr&gt;   &lt;chr&gt;                   &lt;int&gt; &lt;dbl&gt; &lt;date&gt;    </span>
 <span class="co">#&gt;  1 2 Pac   Baby Don't Cry (Keep...     1    87 2000-02-26</span>
@@ -398,7 +393,7 @@ and shows you how it saves you time during data analysis.
 <p>Or by date and rank:</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">billboard3</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="va">date</span>, <span class="va">rank</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 5,307 x 5</span>
+<span class="co">#&gt; # A tibble: 5,307 × 5</span>
 <span class="co">#&gt;    artist   track   week  rank date      </span>
 <span class="co">#&gt;    &lt;chr&gt;    &lt;chr&gt;  &lt;int&gt; &lt;dbl&gt; &lt;date&gt;    </span>
 <span class="co">#&gt;  1 Lonestar Amazed     1    81 1999-06-05</span>
@@ -420,7 +415,7 @@ and shows you how it saves you time during data analysis.
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">tb</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html">as_tibble</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span><span class="st">"tb.csv"</span>, stringsAsFactors <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span>
 <span class="va">tb</span>
-<span class="co">#&gt; # A tibble: 5,769 x 22</span>
+<span class="co">#&gt; # A tibble: 5,769 × 22</span>
 <span class="co">#&gt;    iso2   year   m04  m514  m014 m1524 m2534 m3544 m4554 m5564   m65    mu   f04</span>
 <span class="co">#&gt;    &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;</span>
 <span class="co">#&gt;  1 AD     1989    NA    NA    NA    NA    NA    NA    NA    NA    NA    NA    NA</span>
@@ -446,7 +441,7 @@ and shows you how it saves you time during data analysis.
     values_drop_na <span class="op">=</span> <span class="cn">TRUE</span>
   <span class="op">)</span>
 <span class="va">tb2</span>
-<span class="co">#&gt; # A tibble: 35,750 x 4</span>
+<span class="co">#&gt; # A tibble: 35,750 × 4</span>
 <span class="co">#&gt;    iso2   year demo      n</span>
 <span class="co">#&gt;    &lt;chr&gt; &lt;int&gt; &lt;chr&gt; &lt;int&gt;</span>
 <span class="co">#&gt;  1 AD     1996 m014      0</span>
@@ -465,7 +460,7 @@ and shows you how it saves you time during data analysis.
 <code class="sourceCode R"><span class="va">tb3</span> <span class="op">&lt;-</span> <span class="va">tb2</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="../reference/separate.html">separate</a></span><span class="op">(</span><span class="va">demo</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"sex"</span>, <span class="st">"age"</span><span class="op">)</span>, <span class="fl">1</span><span class="op">)</span>
 <span class="va">tb3</span>
-<span class="co">#&gt; # A tibble: 35,750 x 5</span>
+<span class="co">#&gt; # A tibble: 35,750 × 5</span>
 <span class="co">#&gt;    iso2   year sex   age       n</span>
 <span class="co">#&gt;    &lt;chr&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt; &lt;int&gt;</span>
 <span class="co">#&gt;  1 AD     1996 m     014       0</span>
@@ -489,7 +484,7 @@ and shows you how it saves you time during data analysis.
   values_to <span class="op">=</span> <span class="st">"n"</span>, 
   values_drop_na <span class="op">=</span> <span class="cn">TRUE</span>
 <span class="op">)</span>
-<span class="co">#&gt; # A tibble: 35,750 x 5</span>
+<span class="co">#&gt; # A tibble: 35,750 × 5</span>
 <span class="co">#&gt;    iso2   year sex   age       n</span>
 <span class="co">#&gt;    &lt;chr&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt; &lt;int&gt;</span>
 <span class="co">#&gt;  1 AD     1996 m     014       0</span>
@@ -511,7 +506,7 @@ and shows you how it saves you time during data analysis.
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">weather</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html">as_tibble</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span><span class="st">"weather.csv"</span>, stringsAsFactors <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span>
 <span class="va">weather</span>
-<span class="co">#&gt; # A tibble: 22 x 35</span>
+<span class="co">#&gt; # A tibble: 22 × 35</span>
 <span class="co">#&gt;    id       year month element    d1    d2    d3    d4    d5    d6    d7    d8</span>
 <span class="co">#&gt;    &lt;chr&gt;   &lt;int&gt; &lt;int&gt; &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span>
 <span class="co">#&gt;  1 MX17004  2010     1 tmax       NA  NA    NA      NA  NA      NA    NA    NA</span>
@@ -540,7 +535,7 @@ and shows you how it saves you time during data analysis.
     values_drop_na <span class="op">=</span> <span class="cn">TRUE</span>
   <span class="op">)</span> 
 <span class="va">weather2</span>
-<span class="co">#&gt; # A tibble: 66 x 6</span>
+<span class="co">#&gt; # A tibble: 66 × 6</span>
 <span class="co">#&gt;    id       year month element day   value</span>
 <span class="co">#&gt;    &lt;chr&gt;   &lt;int&gt; &lt;int&gt; &lt;chr&gt;   &lt;chr&gt; &lt;dbl&gt;</span>
 <span class="co">#&gt;  1 MX17004  2010     1 tmax    d30    27.8</span>
@@ -561,7 +556,7 @@ and shows you how it saves you time during data analysis.
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>day <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html">as.integer</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html">gsub</a></span><span class="op">(</span><span class="st">"d"</span>, <span class="st">""</span>, <span class="va">day</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">id</span>, <span class="va">year</span>, <span class="va">month</span>, <span class="va">day</span>, <span class="va">element</span>, <span class="va">value</span><span class="op">)</span>
 <span class="va">weather3</span>
-<span class="co">#&gt; # A tibble: 66 x 6</span>
+<span class="co">#&gt; # A tibble: 66 × 6</span>
 <span class="co">#&gt;    id       year month   day element value</span>
 <span class="co">#&gt;    &lt;chr&gt;   &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt;   &lt;dbl&gt;</span>
 <span class="co">#&gt;  1 MX17004  2010     1    30 tmax     27.8</span>
@@ -579,7 +574,7 @@ and shows you how it saves you time during data analysis.
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">weather3</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="../reference/pivot_wider.html">pivot_wider</a></span><span class="op">(</span>names_from <span class="op">=</span> <span class="va">element</span>, values_from <span class="op">=</span> <span class="va">value</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 33 x 6</span>
+<span class="co">#&gt; # A tibble: 33 × 6</span>
 <span class="co">#&gt;    id       year month   day  tmax  tmin</span>
 <span class="co">#&gt;    &lt;chr&gt;   &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;</span>
 <span class="co">#&gt;  1 MX17004  2010     1    30  27.8  14.5</span>
@@ -606,7 +601,7 @@ and shows you how it saves you time during data analysis.
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/distinct.html">distinct</a></span><span class="op">(</span><span class="va">artist</span>, <span class="va">track</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>song_id <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/ranking.html">row_number</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
 <span class="va">song</span>
-<span class="co">#&gt; # A tibble: 317 x 3</span>
+<span class="co">#&gt; # A tibble: 317 × 3</span>
 <span class="co">#&gt;    artist         track                   song_id</span>
 <span class="co">#&gt;    &lt;chr&gt;          &lt;chr&gt;                     &lt;int&gt;</span>
 <span class="co">#&gt;  1 2 Pac          Baby Don't Cry (Keep...       1</span>
@@ -626,7 +621,7 @@ and shows you how it saves you time during data analysis.
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">song</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"artist"</span>, <span class="st">"track"</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">song_id</span>, <span class="va">date</span>, <span class="va">week</span>, <span class="va">rank</span><span class="op">)</span>
 <span class="va">rank</span>
-<span class="co">#&gt; # A tibble: 5,307 x 4</span>
+<span class="co">#&gt; # A tibble: 5,307 × 4</span>
 <span class="co">#&gt;    song_id date        week  rank</span>
 <span class="co">#&gt;      &lt;int&gt; &lt;date&gt;     &lt;int&gt; &lt;dbl&gt;</span>
 <span class="co">#&gt;  1       1 2000-02-26     1    87</span>

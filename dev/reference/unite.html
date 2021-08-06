@@ -246,7 +246,7 @@ each value.</p></td>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='va'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='expand_grid.html'>expand_grid</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"a"</span>, <span class='cn'>NA</span><span class='op'>)</span>, y <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"b"</span>, <span class='cn'>NA</span><span class='op'>)</span><span class='op'>)</span>
 <span class='va'>df</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 4 x 2</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 4 × 2</span>
 #&gt;   x     y    
 #&gt;   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>
 #&gt; <span style='color: #BCBCBC;'>1</span> a     b    
@@ -254,7 +254,7 @@ each value.</p></td>
 #&gt; <span style='color: #BCBCBC;'>3</span> <span style='color: #BB0000;'>NA</span>    b    
 #&gt; <span style='color: #BCBCBC;'>4</span> <span style='color: #BB0000;'>NA</span>    <span style='color: #BB0000;'>NA</span>   </div><div class='input'>
 <span class='va'>df</span> <span class='op'>%&gt;%</span> <span class='fu'>unite</span><span class='op'>(</span><span class='st'>"z"</span>, <span class='va'>x</span><span class='op'>:</span><span class='va'>y</span>, remove <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 4 x 3</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 4 × 3</span>
 #&gt;   z     x     y    
 #&gt;   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>
 #&gt; <span style='color: #BCBCBC;'>1</span> a_b   a     b    
@@ -262,7 +262,7 @@ each value.</p></td>
 #&gt; <span style='color: #BCBCBC;'>3</span> NA_b  <span style='color: #BB0000;'>NA</span>    b    
 #&gt; <span style='color: #BCBCBC;'>4</span> NA_NA <span style='color: #BB0000;'>NA</span>    <span style='color: #BB0000;'>NA</span>   </div><div class='input'><span class='co'># To remove missing values:</span>
 <span class='va'>df</span> <span class='op'>%&gt;%</span> <span class='fu'>unite</span><span class='op'>(</span><span class='st'>"z"</span>, <span class='va'>x</span><span class='op'>:</span><span class='va'>y</span>, na.rm <span class='op'>=</span> <span class='cn'>TRUE</span>, remove <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 4 x 3</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 4 × 3</span>
 #&gt;   z     x     y    
 #&gt;   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>
 #&gt; <span style='color: #BCBCBC;'>1</span> <span style='color: #949494;'>"</span>a_b<span style='color: #949494;'>"</span> a     b    
@@ -273,7 +273,7 @@ each value.</p></td>
 <span class='va'>df</span> <span class='op'>%&gt;%</span>
   <span class='fu'>unite</span><span class='op'>(</span><span class='st'>"xy"</span>, <span class='va'>x</span><span class='op'>:</span><span class='va'>y</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
   <span class='fu'><a href='separate.html'>separate</a></span><span class='op'>(</span><span class='va'>xy</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"x"</span>, <span class='st'>"y"</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 4 x 2</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 4 × 2</span>
 #&gt;   x     y    
 #&gt;   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>
 #&gt; <span style='color: #BCBCBC;'>1</span> a     b    
