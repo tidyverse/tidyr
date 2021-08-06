@@ -185,7 +185,7 @@ df_unchop <- function(x, ..., ptype = list(), keep_empty = FALSE) {
       next
     }
 
-    info <- unchop_col_info(col, size, keep_empty)
+    info <- unchop_col_info(col, keep_empty)
 
     x[[i]] <- info$col
     x_sizes[[i]] <- info$sizes
@@ -247,7 +247,7 @@ df_unchop <- function(x, ..., ptype = list(), keep_empty = FALSE) {
   out
 }
 
-unchop_col_info <- function(col, size, keep_empty) {
+unchop_col_info <- function(col, keep_empty) {
   sizes <- list_sizes(col)
   null <- vec_equal_na(col)
 
