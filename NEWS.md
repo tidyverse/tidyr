@@ -2,6 +2,10 @@
 
 * `unnest()` is now much faster (@mgirlich, @DavisVaughan, #1127).
 
+* `unnest()` no longer allows unnesting a list-col containing a mix of vector
+  and data frame elements. Previously, this only worked by accident, and is
+  considered an off-label usage of `unnest()` that has now become an error.
+
 * `unchop()` is now much faster, which propagates through to various functions,
   such as `unnest()`, `unnest_longer()`, `unnest_wider()`, and
   `separate_rows()` (@mgirlich, @DavisVaughan, #1127).

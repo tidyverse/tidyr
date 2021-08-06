@@ -211,6 +211,11 @@ test_that("unpacks df-cols (#1112)", {
   expect_identical(unnest(df, y), tibble(x = 1, a = 1, b = 2))
 })
 
+test_that("unnesting column of mixed vector / data frame input is an error", {
+  df <- tibble(x = list(1, tibble(a = 1)))
+  expect_snapshot(error = TRUE, unnest(df, x))
+})
+
 # other methods -----------------------------------------------------------------
 
 test_that("rowwise_df becomes grouped_df", {
