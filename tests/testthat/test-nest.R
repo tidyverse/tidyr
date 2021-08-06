@@ -205,6 +205,11 @@ test_that("can use non-syntactic names", {
   expect_named(out, "foo bar")
 })
 
+test_that("unpacks df-cols (#1112)", {
+  skip("until rebased on #1140, which fixes `unchop()` with df-cols")
+  df <- tibble(x = 1, y = tibble(a = 1, b = 2))
+  expect_identical(unnest(df, y), tibble(x = 1, a = 1, b = 2))
+})
 
 # other methods -----------------------------------------------------------------
 
