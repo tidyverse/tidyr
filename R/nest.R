@@ -329,20 +329,9 @@ unnest.data.frame <- function(
                               .id = "DEPRECATED",
                               .sep = "DEPRECATED",
                               .preserve = "DEPRECATED") {
-
   cols <- tidyselect::eval_select(enquo(cols), data)
-
-  if (nrow(data) == 0) {
-    for (col in names(cols)) {
-      data[[col]] <- as_empty_df(data[[col]], col = col)
-    }
-  } else {
-    for (col in names(cols)) {
-      data[[col]] <- map(data[[col]], as_df, col = col)
-    }
-  }
-
   data <- unchop(data, any_of(cols), keep_empty = keep_empty, ptype = ptype)
+  cols <- cols[map_lgl(unclass(data)[cols], is.data.frame)]
   unpack(data, any_of(cols), names_sep = names_sep, names_repair = names_repair)
 }
 
@@ -370,30 +359,3 @@ unnest.rowwise_df <- function(
 
   out
 }
-
-# helpers -----------------------------------------------------------------
-
-# n cols, n rows
-as_df <- function(x, col) {
-  if (is.null(x)) {
-    x
-  } else if (is.data.frame(x)) {
-    x
-  } else if (vec_is(x)) {
-    # Preserves vec_size() invariant
-    new_data_frame(list(x), names = col)
-  } else {
-    stop("Input must be list of vectors", call. = FALSE)
-  }
-}
-
-as_empty_df <- function(x, col) {
-  if (is_list_of(x)) {
-    x
-  } else if (is.list(x)) {
-    list_of(.ptype = tibble(!!col := unspecified()))
-  } else {
-    stop("Input must be list of vectors", call. = FALSE)
-  }
-}
-

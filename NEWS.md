@@ -1,5 +1,7 @@
 # tidyr (development version)
 
+* `unnest()` is now much faster (@mgirlich, @DavisVaughan, #1127).
+
 * `unchop()` is now much faster, which propagates through to various functions,
   such as `unnest()`, `unnest_longer()`, `unnest_wider()`, and
   `separate_rows()` (@mgirlich, @DavisVaughan, #1127).

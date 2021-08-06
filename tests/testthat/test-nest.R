@@ -118,6 +118,7 @@ test_that("empty rows still affect output type", {
 })
 
 test_that("bad inputs generate errors", {
+  skip("until rebased on #1140, which forces `unchop()` to error on these inputs")
   df <- tibble(x = 1, y = list(mean))
   expect_error(unnest(df, y), "must be list of vectors")
 })
@@ -239,9 +240,9 @@ test_that("unnest() preserves ptype", {
   expect_equal(res, tibble(x = integer(), a = integer()))
 })
 
-test_that("errors on bad inputs", {
+test_that("skips over vector columns", {
   df <- tibble(x = integer(), y = list())
-  expect_error(unnest(df, x), "list of vectors")
+  expect_identical(unnest(df, x), df)
 })
 
 test_that("unnest keeps list cols", {
