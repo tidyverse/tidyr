@@ -239,10 +239,24 @@ test_that("can unnest empty data frame", {
   expect_equal(out, tibble(x = integer(), y = unspecified()))
 })
 
+test_that("unnesting bare lists of NULLs is equivalent to unnesting empty lists", {
+  skip("until rebased on #1140, which fixes `unchop()` with `list(NULL)` cols")
+  df <- tibble(x = 1L, y = list(NULL))
+  out <- unnest(df, y)
+  expect_identical(out, tibble(x = integer(), y = unspecified()))
+})
+
 test_that("unnest() preserves ptype", {
   tbl <- tibble(x = integer(), y = list_of(ptype = tibble(a = integer())))
   res <- unnest(tbl, y)
   expect_equal(res, tibble(x = integer(), a = integer()))
+})
+
+test_that("unnesting typed lists of NULLs retains ptype", {
+  skip("until rebased on #1140, which fixes `unchop()` with `list_of(NULL)` cols")
+  df <- tibble(x = 1L, y = list_of(NULL, .ptype = tibble(a = integer())))
+  out <- unnest(df, y)
+  expect_identical(out, tibble(x = integer(), a = integer()))
 })
 
 test_that("skips over vector columns", {
