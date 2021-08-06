@@ -240,3 +240,9 @@ test_that("empty typed inputs are considered in common size, but NULLs aren't", 
   df <- tibble(x = list(integer()), y = list(1:2))
   expect_snapshot(error = TRUE, unchop(df, c(x, y)))
 })
+
+test_that("unchopping retains inner names", {
+  df <- tibble(x = list(tibble(col = list(NAMED = "x"))))
+  out <- unchop(df, x)
+  expect_named(out$x$col, "NAMED")
+})
