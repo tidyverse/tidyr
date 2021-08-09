@@ -152,6 +152,15 @@ test_that("grouping is preserved", {
   expect_equal(dplyr::group_vars(out), "g")
 })
 
+test_that("zero row data frame works", {
+  df <- tibble(x = integer(), y = integer())
+  pv <- pivot_longer(df, x:y)
+
+  expect_named(pv, c("name", "value"))
+  expect_equal(pv$name, character())
+  expect_equal(pv$value, integer())
+})
+
 # spec --------------------------------------------------------------------
 
 test_that("validates inputs", {
