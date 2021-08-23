@@ -236,7 +236,7 @@ pivot_longer_spec <- function(data,
     # TODO somehow `t(matrix(x))` is _faster_ than `matrix(x, byrow = TRUE)`
     # if this gets fixed in R this should use `byrow = TRUE` again
     n_vals <- nrow(data) * length(val_cols)
-    idx <- t(matrix(seq_len(n_vals), ncol = n_vals / nrow(data)))
+    idx <- t(matrix(seq_len(n_vals), ncol = length(val_cols)))
     vals[[value]] <- vec_slice(out, as.integer(idx))
   }
   vals <- as_tibble(vals)
