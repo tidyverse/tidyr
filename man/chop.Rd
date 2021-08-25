@@ -26,9 +26,9 @@ will be dropped from the output. If you want to preserve all rows,
 use \code{keep_empty = TRUE} to replace size-0 elements with a single row
 of missing values.}
 
-\item{ptype}{Optionally, supply a data frame prototype for the output \code{cols},
-overriding the default that will be guessed from the combination of
-individual values.}
+\item{ptype}{Optionally, a named list of column name-prototype pairs to
+coerce \code{cols} to, overriding the default that will be guessed from
+combining the individual values.}
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#maturing}{\figure{lifecycle-maturing.svg}{options: alt='[Maturing]'}}}{\strong{[Maturing]}}

@@ -1,5 +1,9 @@
 # tidyr (development version)
 
+* `unchop()` is now much faster, which propagates through to various functions,
+  such as `unnest()`, `unnest_longer()`, `unnest_wider()`, and
+  `separate_rows()` (@mgirlich, @DavisVaughan, #1127).
+
 # tidyr 1.1.3
 
 * tidyr verbs no longer have "default" methods for lazyeval fallbacks. This

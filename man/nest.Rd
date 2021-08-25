@@ -54,9 +54,9 @@ will be dropped from the output. If you want to preserve all rows,
 use \code{keep_empty = TRUE} to replace size-0 elements with a single row
 of missing values.}
 
-\item{ptype}{Optionally, supply a data frame prototype for the output \code{cols},
-overriding the default that will be guessed from the combination of
-individual values.}
+\item{ptype}{Optionally, a named list of column name-prototype pairs to
+coerce \code{cols} to, overriding the default that will be guessed from
+combining the individual values.}
 
 \item{names_sep, .names_sep}{If \code{NULL}, the default, the names will be left
 as is. In \code{nest()}, inner names will come from the former outer names;
