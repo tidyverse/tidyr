@@ -1,3 +1,10 @@
+# bad inputs generate errors
+
+    Code
+      unnest(df, y)
+    Error <vctrs_error_scalar_type>
+      Input must be a vector, not a function.
+
 # multiple columns must be same length
 
     Code

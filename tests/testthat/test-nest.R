@@ -118,9 +118,8 @@ test_that("empty rows still affect output type", {
 })
 
 test_that("bad inputs generate errors", {
-  skip("until rebased on #1140, which forces `unchop()` to error on these inputs")
   df <- tibble(x = 1, y = list(mean))
-  expect_error(unnest(df, y), "must be list of vectors")
+  expect_snapshot(error = TRUE, unnest(df, y))
 })
 
 test_that("unesting combines augmented vectors", {
@@ -206,7 +205,6 @@ test_that("can use non-syntactic names", {
 })
 
 test_that("unpacks df-cols (#1112)", {
-  skip("until rebased on #1140, which fixes `unchop()` with df-cols")
   df <- tibble(x = 1, y = tibble(a = 1, b = 2))
   expect_identical(unnest(df, y), tibble(x = 1, a = 1, b = 2))
 })
@@ -245,7 +243,6 @@ test_that("can unnest empty data frame", {
 })
 
 test_that("unnesting bare lists of NULLs is equivalent to unnesting empty lists", {
-  skip("until rebased on #1140, which fixes `unchop()` with `list(NULL)` cols")
   df <- tibble(x = 1L, y = list(NULL))
   out <- unnest(df, y)
   expect_identical(out, tibble(x = integer(), y = unspecified()))
@@ -258,7 +255,6 @@ test_that("unnest() preserves ptype", {
 })
 
 test_that("unnesting typed lists of NULLs retains ptype", {
-  skip("until rebased on #1140, which fixes `unchop()` with `list_of(NULL)` cols")
   df <- tibble(x = 1L, y = list_of(NULL, .ptype = tibble(a = integer())))
   out <- unnest(df, y)
   expect_identical(out, tibble(x = integer(), a = integer()))
