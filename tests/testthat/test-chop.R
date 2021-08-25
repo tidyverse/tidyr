@@ -246,3 +246,9 @@ test_that("unchopping retains inner names", {
   out <- unchop(df, x)
   expect_named(out$x$col, "NAMED")
 })
+
+test_that("unchopping drops outer names", {
+  df <- tibble(col = list(a = 1, b = 2:3))
+  out <- unchop(df, col)
+  expect_named(out$col, NULL)
+})

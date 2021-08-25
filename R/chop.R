@@ -218,6 +218,9 @@ df_unchop <- function(x, ..., ptype = list(), keep_empty = FALSE) {
     # Drop to a bare list to avoid dispatch
     col <- unclass(col)
 
+    # Drop outer names because inner elements have varying size
+    col <- unname(col)
+
     col_sizes <- x_sizes[[i]]
     row_recycle <- col_sizes != sizes
     col[row_recycle] <- map2(col[row_recycle], sizes[row_recycle], vec_recycle)
