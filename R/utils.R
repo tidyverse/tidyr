@@ -94,6 +94,35 @@ update_cols <- function(old, new) {
   old
 }
 
+tidyr_col_modify <- function(data, cols) {
+  # Implement from first principles to avoid edge cases in
+  # data frame methods for `[<-` and `[[<-`.
+  # Assume each element of `cols` has the correct size.
+
+  if (!is.data.frame(data)) {
+    abort("Internal error: `data` must be a data frame.")
+  }
+  if (!is_list(cols)) {
+    abort("Internal error: `cols` must be a list.")
+  }
+
+  size <- vec_size(data)
+  attributes(data) <- list(names = names(data))
+
+  names <- names(cols)
+
+  for (i in seq_along(cols)) {
+    name <- names[[i]]
+    data[[name]] <- cols[[i]]
+  }
+
+  # Assume that we can return a bare data frame that will up restored to
+  # a tibble / grouped df as needed elsewhere
+  data <- new_data_frame(data, n = size)
+
+  data
+}
+
 # Own copy since it might disappear from vctrs since it
 # isn't well thought out
 vec_repeat <- function(x, each = 1L, times = 1L) {
