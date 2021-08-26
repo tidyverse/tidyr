@@ -85,15 +85,6 @@ tidyr_legacy <- function(nms, prefix = "V", sep = "") {
 }
 
 
-# Work around bug in base R where data[x] <- data[x] turns a 0-col data frame-col
-# into a list of NULLs
-update_cols <- function(old, new) {
-  for (col in names(new)) {
-    old[[col]] <- new[[col]]
-  }
-  old
-}
-
 tidyr_col_modify <- function(data, cols) {
   # Implement from first principles to avoid edge cases in
   # data frame methods for `[<-` and `[[<-`.
