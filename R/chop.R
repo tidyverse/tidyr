@@ -100,8 +100,7 @@ unchop <- function(data, cols, keep_empty = FALSE, ptype = NULL) {
   size <- vec_size(data)
   names <- names(data)
 
-  # In case `data` is a grouped data frame and any `cols` are lists,
-  # in which case `[.grouped_df` will error
+  # Start from first principles to avoid issues in any subclass methods
   out <- new_data_frame(data, n = size)
   cols <- out[sel]
 
@@ -115,7 +114,7 @@ unchop <- function(data, cols, keep_empty = FALSE, ptype = NULL) {
   out <- vec_slice(out, loc)
 
   # Add unchopped columns back on then preserve original ordering
-  out <- update_cols(out, cols)
+  out <- tidyr_col_modify(out, cols)
   out <- out[names]
 
   reconstruct_tibble(data, out)

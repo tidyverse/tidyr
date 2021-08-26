@@ -241,10 +241,16 @@ test_that("empty typed inputs are considered in common size, but NULLs aren't", 
   expect_snapshot(error = TRUE, unchop(df, c(x, y)))
 })
 
-test_that("unchopping retains inner names", {
+test_that("unchopping retains inner names from tibble elements", {
   df <- tibble(x = list(tibble(col = list(NAMED = "x"))))
   out <- unchop(df, x)
   expect_named(out$x$col, "NAMED")
+})
+
+test_that("unchopping retains inner names from atomic elements (#1154)", {
+  df <- tibble(x = list(c(a = 1), c(b = 2)))
+  out <- unchop(df, x)
+  expect_named(out$x, c("a", "b"))
 })
 
 test_that("unchopping drops outer names", {

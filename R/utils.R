@@ -85,13 +85,33 @@ tidyr_legacy <- function(nms, prefix = "V", sep = "") {
 }
 
 
-# Work around bug in base R where data[x] <- data[x] turns a 0-col data frame-col
-# into a list of NULLs
-update_cols <- function(old, new) {
-  for (col in names(new)) {
-    old[[col]] <- new[[col]]
+tidyr_col_modify <- function(data, cols) {
+  # Implement from first principles to avoid edge cases in
+  # data frame methods for `[<-` and `[[<-`.
+  # Assume each element of `cols` has the correct size.
+
+  if (!is.data.frame(data)) {
+    abort("Internal error: `data` must be a data frame.")
   }
-  old
+  if (!is_list(cols)) {
+    abort("Internal error: `cols` must be a list.")
+  }
+
+  size <- vec_size(data)
+  attributes(data) <- list(names = names(data))
+
+  names <- names(cols)
+
+  for (i in seq_along(cols)) {
+    name <- names[[i]]
+    data[[name]] <- cols[[i]]
+  }
+
+  # Assume that we can return a bare data frame that will up restored to
+  # a tibble / grouped df as needed elsewhere
+  data <- new_data_frame(data, n = size)
+
+  data
 }
 
 # Own copy since it might disappear from vctrs since it
