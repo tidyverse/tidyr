@@ -167,10 +167,10 @@ expand_grid <- function(..., .name_repair = "check_unique") {
   if (n == 0) {
     out <- map(dots, vec_slice, integer())
   } else {
-    each <- n / cumprod(ns)
-    times <- n / each / ns
-
-    out <- pmap(list(x = dots, each = each, times = times), vec_repeat)
+    times <- n / cumprod(ns)
+    out <- map2(dots, times, vec_rep_each)
+    times <- n / times / ns
+    out <- map2(out, times, vec_rep)
   }
   out <- as_tibble(out, .name_repair = .name_repair)
 

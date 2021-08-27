@@ -261,7 +261,7 @@ pivot_wider_spec <- function(data,
     } else {
       stopifnot(vec_size(fill) == 1)
       fill <- vec_cast(fill, val)
-      out <- vec_repeat(fill, nrow * ncol)
+      out <- vec_rep_each(fill, nrow * ncol)
     }
     vec_slice(out, val_id$row + nrow * (val_id$col - 1L)) <- val
 
@@ -308,11 +308,11 @@ build_wider_spec <- function(data,
   if (length(values_from) == 1) {
     out$.value <- names(values_from)
   } else {
-    out <- vec_repeat(out, times = vec_size(values_from))
-    out$.value <- vec_repeat(names(values_from), each = vec_size(row_ids))
+    out <- vec_rep(out, vec_size(values_from))
+    out$.value <- vec_rep_each(names(values_from), vec_size(row_ids))
     out$.name <- paste0(out$.value, names_sep, out$.name)
 
-    row_ids <- vec_repeat(row_ids, times = vec_size(values_from))
+    row_ids <- vec_rep(row_ids, vec_size(values_from))
   }
 
   out <- vec_cbind(out, as_tibble(row_ids), .name_repair = "minimal")

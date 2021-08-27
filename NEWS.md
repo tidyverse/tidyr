@@ -1,5 +1,8 @@
 # tidyr (development version)
 
+* `expand_grid()` is now about twice as fast and `pivot_wider()` is a bit faster
+  (@mgirlich, #1130).
+
 * `unnest()` is now much faster (@mgirlich, @DavisVaughan, #1127).
 
 * `unnest()` no longer allows unnesting a list-col containing a mix of vector

@@ -114,16 +114,6 @@ tidyr_col_modify <- function(data, cols) {
   data
 }
 
-# Own copy since it might disappear from vctrs since it
-# isn't well thought out
-vec_repeat <- function(x, each = 1L, times = 1L) {
-  vec_assert(each, size = 1L)
-  vec_assert(times, size = 1L)
-
-  idx <- rep(vec_seq_along(x), times = times, each = each)
-  vec_slice(x, idx)
-}
-
 check_present <- function(x) {
   arg <- ensym(x)
   if (missing(x)) {
