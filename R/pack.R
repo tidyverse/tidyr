@@ -98,10 +98,13 @@ unpack <- function(data, cols, names_sep = NULL, names_repair = "check_unique") 
   check_present(cols)
   cols <- tidyselect::eval_select(enquo(cols), data)
 
-  new_cols <- map2(data[cols], names(cols), check_unpack, names_sep = names_sep)
+  # Start from first principles to avoid issues in any subclass methods
+  out <- new_data_frame(data, n = vec_size(data))
 
-  data <- update_cols(data, new_cols)
-  out <- flatten_at(data, names(data) %in% names(cols))
+  cols <- map2(out[cols], names(cols), check_unpack, names_sep = names_sep)
+
+  out <- tidyr_col_modify(out, cols)
+  out <- flatten_at(out, names(out) %in% names(cols))
 
   if (has_name(formals(vec_as_names), "repair_arg")) {
     names(out) <- vec_as_names(names(out), repair = names_repair, repair_arg = "names_repair")

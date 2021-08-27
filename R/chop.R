@@ -37,9 +37,9 @@
 #'   will be dropped from the output. If you want to preserve all rows,
 #'   use `keep_empty = TRUE` to replace size-0 elements with a single row
 #'   of missing values.
-#' @param ptype Optionally, supply a data frame prototype for the output `cols`,
-#'   overriding the default that will be guessed from the combination of
-#'   individual values.
+#' @param ptype Optionally, a named list of column name-prototype pairs to
+#'   coerce `cols` to, overriding the default that will be guessed from
+#'   combining the individual values.
 #' @export
 #' @examples
 #' # Chop ==============================================================
@@ -90,188 +90,255 @@ chop <- function(data, cols) {
 #' @export
 #' @rdname chop
 unchop <- function(data, cols, keep_empty = FALSE, ptype = NULL) {
-  cols <- tidyselect::eval_select(enquo(cols), data)
-  if (length(cols) == 0) {
-    return(data)
+  sel <- tidyselect::eval_select(enquo(cols), data)
+
+  if (is_null(ptype)) {
+    # Convert to form that `df_unchop()` requires
+    ptype <- list()
   }
 
-  if (keep_empty) {
-    for (col in cols) {
-      data[[col]][] <- map(data[[col]], init_col)
-    }
-  }
+  size <- vec_size(data)
+  names <- names(data)
 
-  # In case `x` is a grouped data frame and any `cols` are lists,
-  # in which case `[.grouped_df` will error
-  cols <- new_data_frame(unclass(data)[cols])
+  # Start from first principles to avoid issues in any subclass methods
+  out <- new_data_frame(data, n = size)
+  cols <- out[sel]
 
-  res <- df_unchop_info(cols, ptype)
-  new_cols <- res$val
-  slice_loc <- res$loc
+  # Remove unchopped columns to avoid slicing them needlessly later
+  out[sel] <- NULL
 
-  out <- vec_slice(data, slice_loc)
+  result <- df_unchop(cols, ptype = ptype, keep_empty = keep_empty)
+  cols <- result$val
+  loc <- result$loc
 
-  out <- update_cols(out, new_cols)
+  out <- vec_slice(out, loc)
+
+  # Add unchopped columns back on then preserve original ordering
+  out <- tidyr_col_modify(out, cols)
+  out <- out[names]
+
   reconstruct_tibble(data, out)
 }
 
 # Helpers -----------------------------------------------------------------
 
-# `df_unchop_info()` takes a data frame and unchops every column separately.
-# This preserves the width, but changes the size. Rows that are made entirely of
-# list column elements of `NULL` are dropped. If `x` has any data frame columns,
-# these will be improperly treated as lists until `vec_slice2()` is implemented,
-# but this should be extremely rare.
-
-# `df_unchop_info()` returns a data frame of two columns:
+# `df_unchop()` takes a data frame and unchops every column. This preserves the
+# width, but changes the size.
+#
+# - If `keep_empty = TRUE`, empty elements (`NULL` and empty typed elements)
+#   are retained as their size 1 missing equivalents.
+# - If `keep_empty = FALSE`, rows of entirely empty elements are dropped.
+# - In the `keep_empty = FALSE` case, when determining the common size of the
+#   row, `NULL`s are not included in the computation, but empty typed elements
+#   are (i.e. you can't recycle integer() and 1:2).
+#
+# `df_unchop()` returns a data frame of two columns:
 # - `loc` locations that map each row to their original row in `x`. Generally
 #   used to slice the data frame `x` was subset from to align it with `val`.
 # - `val` the unchopped data frame.
 
-df_unchop_info <- function(x, ptype) {
-  width <- length(x)
+df_unchop <- function(x, ..., ptype = list(), keep_empty = FALSE) {
+  ellipsis::check_dots_empty()
+
+  if (!is.data.frame(x)) {
+    abort("`x` must be a data frame.")
+  }
+  if (!is_list(ptype)) {
+    abort("`ptype` must be a list.")
+  }
+  if (!is_bool(keep_empty)) {
+    abort("`keep_empty` must be a single `TRUE` or `FALSE`.")
+  }
+
   size <- vec_size(x)
+
+  # Avoid any data frame subclass method dispatch
+  x <- new_data_frame(x, n = size)
+
+  width <- length(x)
+  names <- names(x)
 
   seq_len_width <- seq_len(width)
   seq_len_size <- seq_len(size)
 
-  sizes <- rep_len(NA_integer_, size)
-
-  # Gather the common size of each row.
-  # Effectively equivalent to creating a `[vec_size(x), length(x)]` matrix,
-  # taking the size of each individual element of `x`, and then taking the
-  # common size of each row.
-  # `NULL` elements are ignored in the size calculation by treating their
-  # size as `NA` and then deferring to the size of any other element in the row.
-  # If only `NULL` values are in the row, the `NA` size is finalised to `0`.
-  for (i in seq_len_width) {
-    col <- x[[i]]
-
-    for (j in seq_len_size) {
-      # TODO: col[[j]] -> vec_slice2(col, j)
-      elt <- col[[j]]
-
-      old_size <- sizes[[j]]
-      new_size <- tidyr_size(elt)
-
-      sizes[[j]] <- tidyr_size2(old_size, new_size)
-    }
+  if (width == 0L) {
+    # Algorithm requires >=1 columns
+    out <- list(loc = seq_len_size, val = x)
+    out <- new_data_frame(out, n = size)
+    return(out)
   }
 
-  sizes <- map_int(sizes, tidyr_size_finalise)
+  x_is_list <- map_lgl(x, vec_is_list)
 
-  has_ptype <- !is.null(ptype)
-  if (has_ptype && !is.data.frame(ptype)) {
-    abort("`ptype` must be a data frame")
-  }
-
-  # Initialize `cols` with ptypes to retain types when `x` has 0 size
-  cols <- map(x, df_unchop_ptype)
-  pieces <- vector("list", size)
-
-  names <- names(x)
-  names(cols) <- names
+  x_sizes <- vector("list", length = width)
+  x_nulls <- vector("list", length = width)
 
   for (i in seq_len_width) {
     col <- x[[i]]
+    col_is_list <- x_is_list[[i]]
 
-    for (j in seq_len_size) {
-      # TODO: col[[j]] -> vec_slice2(col, j)
-      elt <- col[[j]]
-      size <- sizes[[j]]
-
-      # Recycle each row element to the common size of that row
-      pieces[[j]] <- tidyr_recycle(elt, size)
-    }
-
-    if (has_ptype) {
-      col_ptype <- ptype[[names[[i]]]]
-    } else {
-      col_ptype <- NULL
-    }
-
-    # After unchopping, all columns will have the same size
-    # thanks to recycling
-    col <- vec_unchop(pieces, ptype = col_ptype)
-
-    # Avoid `NULL` assignment, which removes elements from the list
-    if (is.null(col)) {
+    if (!col_is_list) {
+      # Optimize rare non list-cols
+      x_sizes[[i]] <- vec_rep(1L, size)
+      x_nulls[[i]] <- vec_rep(FALSE, size)
       next
     }
 
-    cols[[i]] <- col
+    info <- unchop_col_info(col, keep_empty)
+
+    x[[i]] <- info$col
+    x_sizes[[i]] <- info$sizes
+    x_nulls[[i]] <- info$null
   }
+
+  sizes <- reduce(x_sizes, unchop_sizes2)
+
+  info <- unchop_finalize(x, sizes, x_nulls, keep_empty)
+  x <- info$x
+  sizes <- info$sizes
+
+  out_loc <- vec_rep_each(seq_len_size, sizes)
 
   out_size <- sum(sizes)
+  out_cols <- vector("list", length = width)
 
-  loc <- vec_rep_each(seq_len_size, sizes)
+  for (i in seq_len_width) {
+    col <- x[[i]]
+    col_is_list <- x_is_list[[i]]
 
-  val <- new_data_frame(cols, n = out_size)
-  if (!is.null(ptype)) {
-    val <- vec_cast(val, ptype)
+    if (!col_is_list) {
+      out_cols[[i]] <- vec_slice(col, out_loc)
+      next
+    }
+
+    col_name <- names[[i]]
+    col_ptype <- ptype[[col_name]] %||% attr(col, "ptype", exact = TRUE)
+
+    # Drop to a bare list to avoid dispatch
+    col <- unclass(col)
+
+    # Drop outer names because inner elements have varying size
+    col <- unname(col)
+
+    col_sizes <- x_sizes[[i]]
+    row_recycle <- col_sizes != sizes
+    col[row_recycle] <- map2(col[row_recycle], sizes[row_recycle], vec_recycle)
+
+    col <- vec_unchop(col, ptype = col_ptype)
+
+    if (is_null(col)) {
+      # This can happen when both of these are true:
+      # - `col` was an empty list(), or a list of all `NULL`s.
+      # - No ptype was specified for `col`, either by the user or by a list-of.
+      if (out_size != 0L) {
+        abort("Internal error: `NULL` column generated, but output size is not `0`.")
+      }
+
+      col <- unspecified(0L)
+    }
+
+    out_cols[[i]] <- col
   }
 
-  out <- list(loc = loc, val = val)
+  names(out_cols) <- names
+  out_val <- new_data_frame(out_cols, n = out_size)
+
+  out <- list(loc = out_loc, val = out_val)
   out <- new_data_frame(out, n = out_size)
 
   out
 }
 
-df_unchop_ptype <- function(x) {
-  if (vec_is_list(x)) {
-    attr(x, "ptype") %||% unspecified(0L)
-  } else {
-    vec_ptype(x)
+unchop_col_info <- function(col, keep_empty) {
+  sizes <- list_sizes(col)
+  null <- vec_equal_na(col)
+
+  ptype <- attr(col, "ptype", exact = TRUE)
+
+  if (any(null)) {
+    # Always replace `NULL` elements with size 1 missing equivalent for recycling.
+    # These will be reset to `NULL` in `unchop_finalize()` if the
+    # entire row was missing and `keep_empty = FALSE`.
+
+    if (is_null(ptype)) {
+      replacement <- list(unspecified(1L))
+    } else {
+      replacement <- list(vec_init(ptype, n = 1L))
+      replacement <- new_list_of(replacement, ptype = ptype)
+    }
+
+    col <- vec_assign(col, null, replacement)
+    sizes[null] <- 1L
   }
+
+  if (keep_empty) {
+    # Remember, `NULL` elements are already handled above, so `sizes == 0L`
+    # will now only happen with typed empty elements.
+    empty_typed <- sizes == 0L
+
+    if (any(empty_typed)) {
+      # Replace empty typed elements with their size 1 equivalent
+
+      if (is_null(ptype)) {
+        # `vec_init()` is slow, see r-lib/vctrs#1423, so use `vec_slice()` equivalent
+        replacement <- map(vec_slice(col, empty_typed), vec_slice, i = NA_integer_)
+      } else {
+        # For list-of, all size elements are the same type
+        replacement <- list(vec_init(ptype, n = 1L))
+        replacement <- new_list_of(replacement, ptype = ptype)
+      }
+
+      col <- vec_assign(col, empty_typed, replacement)
+      sizes[empty_typed] <- 1L
+    }
+  }
+
+  list(col = col, sizes = sizes, null = null)
 }
 
-tidyr_size_finalise <- function(size) {
-  if (is.na(size)) {
-    0L
-  } else {
-    size
+unchop_sizes2 <- function(x, y) {
+  # Standard tidyverse recycling rules, just vectorized.
+
+  # Recycle `x` values with `y`
+  x_one <- x == 1L
+  if (any(x_one)) {
+    x[x_one] <- y[x_one]
   }
+
+  # Recycle `y` values with `x`.
+  # Only necessary to be able to check for incompatibilities.
+  y_one <- y == 1L
+  if (any(y_one)) {
+    y[y_one] <- x[y_one]
+  }
+
+  # Check for incompatibilities
+  incompatible <- x != y
+  if (any(incompatible)) {
+    row <- which(incompatible)[[1]]
+    x <- x[[row]]
+    y <- y[[row]]
+    abort(glue("In row {row}, can't recycle input of size {x} to size {y}."))
+  }
+
+  x
 }
 
-tidyr_recycle <- function(x, size) {
-  if (is.null(x)) {
-    unspecified(size)
-  } else {
-    vec_recycle(x, size)
+unchop_finalize <- function(x, sizes, x_nulls, keep_empty) {
+  if (keep_empty) {
+    return(list(x = x, sizes = sizes))
   }
-}
 
-tidyr_size <- function(x) {
-  if (is.null(x)) {
-    NA_integer_
-  } else {
-    vec_size(x)
+  # If !keep_empty, `NULL` elements were temporarily given size 1L and
+  # converted to a size 1 missing equivalent for recycling. However, if the
+  # entire row was made up of `NULL`s, then we need to adjust the size back to
+  # 0L and convert back to `NULL`s since that row should be dropped.
+  null_row <- reduce(x_nulls, `&`)
+
+  if (any(null_row)) {
+    sizes[null_row] <- 0L
+    x <- vec_assign(x, null_row, vec_init(x, n = 1L))
   }
-}
 
-tidyr_size2 <- function(x, y) {
-  if (is.na(x)) {
-    y
-  } else if (is.na(y)) {
-    x
-  } else if (x == y) {
-    x
-  } else if (x == 1L) {
-    y
-  } else if (y == 1L) {
-    x
-  } else {
-    abort(paste0("Incompatible lengths: ", x, ", ", y, "."))
-  }
+  list(x = x, sizes = sizes)
 }
-
-init_col <- function(x) {
-  if (is_null(x)) {
-    NA
-  } else if (vec_is_empty(x)) {
-    vec_init(x, 1)
-  } else {
-    x
-  }
-}
-

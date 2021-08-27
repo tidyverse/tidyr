@@ -119,7 +119,7 @@ test_that("empty rows still affect output type", {
 
 test_that("bad inputs generate errors", {
   df <- tibble(x = 1, y = list(mean))
-  expect_error(unnest(df, y), "must be list of vectors")
+  expect_snapshot(error = TRUE, unnest(df, y))
 })
 
 test_that("unesting combines augmented vectors", {
@@ -193,10 +193,10 @@ test_that("vectors become columns", {
 
 test_that("multiple columns must be same length", {
   df <- tibble(x = list(1:2), y = list(1:3))
-  expect_error(unnest(df, c(x, y)), "Incompatible lengths: 2, 3")
+  expect_snapshot(error = TRUE, unnest(df, c(x, y)))
 
   df <- tibble(x = list(1:2), y = list(tibble(y = 1:3)))
-  expect_error(unnest(df, c(x, y)), "Incompatible lengths: 2, 3")
+  expect_snapshot(error = TRUE, unnest(df, c(x, y)))
 })
 
 test_that("can use non-syntactic names", {
@@ -204,6 +204,15 @@ test_that("can use non-syntactic names", {
   expect_named(out, "foo bar")
 })
 
+test_that("unpacks df-cols (#1112)", {
+  df <- tibble(x = 1, y = tibble(a = 1, b = 2))
+  expect_identical(unnest(df, y), tibble(x = 1, a = 1, b = 2))
+})
+
+test_that("unnesting column of mixed vector / data frame input is an error", {
+  df <- tibble(x = list(1, tibble(a = 1)))
+  expect_snapshot(error = TRUE, unnest(df, x))
+})
 
 # other methods -----------------------------------------------------------------
 
@@ -233,15 +242,27 @@ test_that("can unnest empty data frame", {
   expect_equal(out, tibble(x = integer(), y = unspecified()))
 })
 
+test_that("unnesting bare lists of NULLs is equivalent to unnesting empty lists", {
+  df <- tibble(x = 1L, y = list(NULL))
+  out <- unnest(df, y)
+  expect_identical(out, tibble(x = integer(), y = unspecified()))
+})
+
 test_that("unnest() preserves ptype", {
   tbl <- tibble(x = integer(), y = list_of(ptype = tibble(a = integer())))
   res <- unnest(tbl, y)
   expect_equal(res, tibble(x = integer(), a = integer()))
 })
 
-test_that("errors on bad inputs", {
+test_that("unnesting typed lists of NULLs retains ptype", {
+  df <- tibble(x = 1L, y = list_of(NULL, .ptype = tibble(a = integer())))
+  out <- unnest(df, y)
+  expect_identical(out, tibble(x = integer(), a = integer()))
+})
+
+test_that("skips over vector columns", {
   df <- tibble(x = integer(), y = list())
-  expect_error(unnest(df, x), "list of vectors")
+  expect_identical(unnest(df, x), df)
 })
 
 test_that("unnest keeps list cols", {

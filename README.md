@@ -44,7 +44,7 @@ devtools::install_github("tidyverse/tidyr")
 
 ## Cheatsheet
 
-<a href="https://github.com/rstudio/cheatsheets/blob/master/data-import.pdf"><img src="https://raw.githubusercontent.com/rstudio/cheatsheets/master/pngs/thumbnails/data-import-cheatsheet-thumbs.png" width="630" height="252"/></a>
+<a href="https://github.com/rstudio/cheatsheets/blob/master/tidyr.pdf"><img src="https://raw.githubusercontent.com/rstudio/cheatsheets/master/pngs/thumbnails/tidyr-thumbs.png" width="630" height="252"/></a>
 
 ## Getting started
 
@@ -106,12 +106,12 @@ I’d recommend the following three papers:
 To guide your reading, here’s a translation between the terminology used
 in different places:
 
-| tidyr 1.0.0      | pivot longer | pivot wider |
-|------------------|--------------|-------------|
-| tidyr &lt; 1.0.0 | gather       | spread      |
-| reshape(2)       | melt         | cast        |
-| spreadsheets     | unpivot      | pivot       |
-| databases        | fold         | unfold      |
+| tidyr 1.0.0    | pivot longer | pivot wider |
+|----------------|--------------|-------------|
+| tidyr \< 1.0.0 | gather       | spread      |
+| reshape(2)     | melt         | cast        |
+| spreadsheets   | unpivot      | pivot       |
+| databases      | fold         | unfold      |
 
 ## Getting help
 
