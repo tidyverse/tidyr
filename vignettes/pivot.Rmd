@@ -567,6 +567,54 @@ Supplying this spec to `pivot_wider()` gives us the result we're looking for:
 pivot_wider_spec(us_rent_income, spec2)
 ```
 
+## Longer and Wider
+
+Some data come in a format that needs to be made both longer and wider.  An example is medical laboratory data where a row may represent all measures and units for those measurements for an individual person at a time in the source data.  In this example, the tidy version has one row per measurement, and the units need to be carried with the measurement.
+
+```{r}
+laboratory_results <-
+  tibble(
+    Person = c("A", "B"),
+    LDL_value = c(100, 105),
+    LDL_unit = "mg/dL",
+    Hemoglobin_value = c(14, 15),
+    Hemoglobin_unit = "g/dL"
+  )
+laboratory_results
+```
+
+In this case, the pivoting would need to occur for both LDL (a type of cholesterol) and hemoglobin (a blood measurement) separately and the results would need to come together into a single spec.
+
+```{r}
+value_pattern <- "^(.*)_value$"
+unit_pattern <- "^(.*)_unit$"
+spec_value <-
+  build_longer_spec(
+    laboratory_results,
+    cols = matches(value_pattern),
+    names_pattern = value_pattern,
+    names_to = "measure",
+    values_to = "value"
+  )
+spec_unit <-
+  build_longer_spec(
+    laboratory_results,
+    cols = matches(unit_pattern),
+    names_pattern = unit_pattern,
+    names_to = "measure",
+    values_to = "unit"
+  )
+
+spec_value
+spec_unit
+```
+
+After manually generating these specs, they are then combined (with `bind_rows()`) into a single spec and the pivoting is done.
+
+```{r}
+pivot_longer_spec(laboratory_results, spec=bind_rows(spec_value, spec_unit))
+```
+
 ## By hand
 
 Sometimes it's not possible (or not convenient) to compute the spec, and instead it's more convenient to construct the spec "by hand". For example, take this `construction` data, which is lightly modified from Table 5 "completions" found at <https://www.census.gov/construction/nrc/index.html>:
