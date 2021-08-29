@@ -612,7 +612,7 @@ spec_unit
 After manually generating these specs, they are then combined (with `bind_rows()`) into a single spec and the pivoting is done.
 
 ```{r}
-pivot_longer_spec(laboratory_results, spec=bind_rows(spec_value, spec_unit))
+pivot_longer_spec(laboratory_results, spec = bind_rows(spec_value, spec_unit))
 ```
 
 ## By hand
