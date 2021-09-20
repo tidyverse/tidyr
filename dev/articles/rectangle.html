@@ -367,7 +367,6 @@ and `hoist()`.
 <span class="co">#&gt;  9 &lt;named list [18]&gt;</span>
 <span class="co">#&gt; 10 &lt;named list [18]&gt;</span>
 <span class="co">#&gt; # … with 20 more rows</span>
-
 <span class="va">chars2</span> <span class="op">&lt;-</span> <span class="va">chars</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/hoist.html">unnest_wider</a></span><span class="op">(</span><span class="va">char</span><span class="op">)</span>
 <span class="va">chars2</span>
 <span class="co">#&gt; # A tibble: 30 × 18</span>
@@ -476,7 +475,6 @@ and `hoist()`.
   <span class="fu"><a href="https://rdrr.io/r/base/message.html">message</a></span><span class="op">(</span><span class="st">"No Google Maps API key found; code chunks will not be run"</span><span class="op">)</span>
 <span class="op">}</span>
 <span class="co">#&gt; No Google Maps API key found; code chunks will not be run</span>
-
 <span class="co"># https://developers.google.com/maps/documentation/geocoding</span>
 <span class="va">geocode</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">address</span>, <span class="va">api_key</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html">Sys.getenv</a></span><span class="op">(</span><span class="st">"GOOGLE_MAPS_API_KEY"</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
   <span class="va">url</span> <span class="op">&lt;-</span> <span class="st">"https://maps.googleapis.com/maps/api/geocode/json"</span>
@@ -668,7 +666,6 @@ and `hoist()`.
 <span class="co">#&gt;  9 11260950 ""    Sub Space (2)            ""    ""     ""    https://api… 5.69e6</span>
 <span class="co">#&gt; 10 11726853 ""    Small Man (2)            ""    ""     ""    https://api… 6.37e6</span>
 <span class="co">#&gt; # … with 157 more rows</span>
-
 <span class="va">discs</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="../reference/hoist.html">hoist</a></span><span class="op">(</span><span class="va">basic_information</span>, format <span class="op">=</span> <span class="st">"formats"</span><span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span>disc_id <span class="op">=</span> <span class="va">id</span>, <span class="va">format</span><span class="op">)</span> <span class="op">%&gt;%</span> 
