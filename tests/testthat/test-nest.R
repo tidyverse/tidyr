@@ -310,13 +310,13 @@ test_that("need supply column names", {
 
 test_that("sep combines column names", {
   df <- tibble(x = list(tibble(x = 1)), y = list(tibble(x = 1)))
-  out <- expect_warning(df %>% unnest(c(x, y), .sep = "_"), "names_sep")
+  expect_warning(out <- df %>% unnest(c(x, y), .sep = "_"), "names_sep")
   expect_named(out, c("x_x", "y_x"))
 })
 
 test_that("unnest has mutate semantics", {
   df <- tibble(x = 1:3, y = list(1, 2:3, 4))
-  out <- expect_warning(df %>% unnest(z = map(y, `+`, 1)), "mutate")
+  expect_warning(out <- df %>% unnest(z = map(y, `+`, 1)), "mutate")
   expect_equal(out$z, 2:5)
 })
 
@@ -330,7 +330,7 @@ test_that(".drop and .preserve are deprecated", {
 
 test_that(".id creates vector of names for vector unnest", {
   df <- tibble(x = 1:2, y = list(a = 1, b = 1:2))
-  out <- expect_warning(unnest(df, y, .id = "name"), "names")
+  expect_warning(out <- unnest(df, y, .id = "name"), "names")
 
   expect_equal(out$name, c("a", "b", "b"))
 })
