@@ -50,7 +50,7 @@
         <a class="navbar-brand" href="../index.html">tidyr</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.3</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.4</span>
         </div>
       </div>
     </div>
@@ -185,7 +185,7 @@
 <p>The <code>relig_income</code> dataset stores counts based on a survey which (among other things) asked people about their religion and annual income:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">relig_income</span>
-<span class="co">#&gt; # A tibble: 18 x 11</span>
+<span class="co">#&gt; # A tibble: 18 × 11</span>
 <span class="co">#&gt;    religion `&lt;$10k` `$10-20k` `$20-30k` `$30-40k` `$40-50k` `$50-75k` `$75-100k`</span>
 <span class="co">#&gt;    &lt;chr&gt;      &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;      &lt;dbl&gt;</span>
 <span class="co">#&gt;  1 Agnostic      27        34        60        81        76       137        122</span>
@@ -213,7 +213,7 @@
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">relig_income</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="../reference/pivot_longer.html">pivot_longer</a></span><span class="op">(</span><span class="op">!</span><span class="va">religion</span>, names_to <span class="op">=</span> <span class="st">"income"</span>, values_to <span class="op">=</span> <span class="st">"count"</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 180 x 3</span>
+<span class="co">#&gt; # A tibble: 180 × 3</span>
 <span class="co">#&gt;    religion income             count</span>
 <span class="co">#&gt;    &lt;chr&gt;    &lt;chr&gt;              &lt;dbl&gt;</span>
 <span class="co">#&gt;  1 Agnostic &lt;$10k                 27</span>
@@ -241,7 +241,7 @@
 <p>The <code>billboard</code> dataset records the billboard rank of songs in the year 2000. It has a form similar to the <code>relig_income</code> data, but the data encoded in the column names is really a number, not a string.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">billboard</span>
-<span class="co">#&gt; # A tibble: 317 x 79</span>
+<span class="co">#&gt; # A tibble: 317 × 79</span>
 <span class="co">#&gt;    artist   track   date.entered   wk1   wk2   wk3   wk4   wk5   wk6   wk7   wk8</span>
 <span class="co">#&gt;    &lt;chr&gt;    &lt;chr&gt;   &lt;date&gt;       &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span>
 <span class="co">#&gt;  1 2 Pac    Baby D… 2000-02-26      87    82    72    77    87    94    99    NA</span>
@@ -260,12 +260,7 @@
 <span class="co">#&gt; #   wk23 &lt;dbl&gt;, wk24 &lt;dbl&gt;, wk25 &lt;dbl&gt;, wk26 &lt;dbl&gt;, wk27 &lt;dbl&gt;, wk28 &lt;dbl&gt;,</span>
 <span class="co">#&gt; #   wk29 &lt;dbl&gt;, wk30 &lt;dbl&gt;, wk31 &lt;dbl&gt;, wk32 &lt;dbl&gt;, wk33 &lt;dbl&gt;, wk34 &lt;dbl&gt;,</span>
 <span class="co">#&gt; #   wk35 &lt;dbl&gt;, wk36 &lt;dbl&gt;, wk37 &lt;dbl&gt;, wk38 &lt;dbl&gt;, wk39 &lt;dbl&gt;, wk40 &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   wk41 &lt;dbl&gt;, wk42 &lt;dbl&gt;, wk43 &lt;dbl&gt;, wk44 &lt;dbl&gt;, wk45 &lt;dbl&gt;, wk46 &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   wk47 &lt;dbl&gt;, wk48 &lt;dbl&gt;, wk49 &lt;dbl&gt;, wk50 &lt;dbl&gt;, wk51 &lt;dbl&gt;, wk52 &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   wk53 &lt;dbl&gt;, wk54 &lt;dbl&gt;, wk55 &lt;dbl&gt;, wk56 &lt;dbl&gt;, wk57 &lt;dbl&gt;, wk58 &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   wk59 &lt;dbl&gt;, wk60 &lt;dbl&gt;, wk61 &lt;dbl&gt;, wk62 &lt;dbl&gt;, wk63 &lt;dbl&gt;, wk64 &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   wk65 &lt;dbl&gt;, wk66 &lt;lgl&gt;, wk67 &lt;lgl&gt;, wk68 &lt;lgl&gt;, wk69 &lt;lgl&gt;, wk70 &lt;lgl&gt;,</span>
-<span class="co">#&gt; #   wk71 &lt;lgl&gt;, wk72 &lt;lgl&gt;, wk73 &lt;lgl&gt;, wk74 &lt;lgl&gt;, wk75 &lt;lgl&gt;, wk76 &lt;lgl&gt;</span></code></pre></div>
+<span class="co">#&gt; #   wk41 &lt;dbl&gt;, wk42 &lt;dbl&gt;, wk43 &lt;dbl&gt;, wk44 &lt;dbl&gt;, wk45 &lt;dbl&gt;, wk46 &lt;dbl&gt;, …</span></code></pre></div>
 <p>We can start with the same basic specification as for the <code>relig_income</code> dataset. Here we want the names to become a variable called <code>week</code>, and the values to become a variable called <code>rank</code>. I also use <code>values_drop_na</code> to drop rows that correspond to missing values. Not every song stays in the charts for all 76 weeks, so the structure of the input data force the creation of unnessary explicit <code>NA</code>s.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">billboard</span> <span class="op">%&gt;%</span> 
@@ -275,7 +270,7 @@
     values_to <span class="op">=</span> <span class="st">"rank"</span>,
     values_drop_na <span class="op">=</span> <span class="cn">TRUE</span>
   <span class="op">)</span>
-<span class="co">#&gt; # A tibble: 5,307 x 5</span>
+<span class="co">#&gt; # A tibble: 5,307 × 5</span>
 <span class="co">#&gt;    artist  track                   date.entered week   rank</span>
 <span class="co">#&gt;    &lt;chr&gt;   &lt;chr&gt;                   &lt;date&gt;       &lt;chr&gt; &lt;dbl&gt;</span>
 <span class="co">#&gt;  1 2 Pac   Baby Don't Cry (Keep... 2000-02-26   wk1      87</span>
@@ -317,7 +312,7 @@
 <p>A more challenging situation occurs when you have multiple variables crammed into the column names. For example, take the <code>who</code> dataset:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">who</span>
-<span class="co">#&gt; # A tibble: 7,240 x 60</span>
+<span class="co">#&gt; # A tibble: 7,240 × 60</span>
 <span class="co">#&gt;    country  iso2  iso3   year new_sp_m014 new_sp_m1524 new_sp_m2534 new_sp_m3544</span>
 <span class="co">#&gt;    &lt;chr&gt;    &lt;chr&gt; &lt;chr&gt; &lt;int&gt;       &lt;int&gt;        &lt;int&gt;        &lt;int&gt;        &lt;int&gt;</span>
 <span class="co">#&gt;  1 Afghani… AF    AFG    1980          NA           NA           NA           NA</span>
@@ -336,18 +331,7 @@
 <span class="co">#&gt; #   new_sp_f4554 &lt;int&gt;, new_sp_f5564 &lt;int&gt;, new_sp_f65 &lt;int&gt;,</span>
 <span class="co">#&gt; #   new_sn_m014 &lt;int&gt;, new_sn_m1524 &lt;int&gt;, new_sn_m2534 &lt;int&gt;,</span>
 <span class="co">#&gt; #   new_sn_m3544 &lt;int&gt;, new_sn_m4554 &lt;int&gt;, new_sn_m5564 &lt;int&gt;,</span>
-<span class="co">#&gt; #   new_sn_m65 &lt;int&gt;, new_sn_f014 &lt;int&gt;, new_sn_f1524 &lt;int&gt;,</span>
-<span class="co">#&gt; #   new_sn_f2534 &lt;int&gt;, new_sn_f3544 &lt;int&gt;, new_sn_f4554 &lt;int&gt;,</span>
-<span class="co">#&gt; #   new_sn_f5564 &lt;int&gt;, new_sn_f65 &lt;int&gt;, new_ep_m014 &lt;int&gt;,</span>
-<span class="co">#&gt; #   new_ep_m1524 &lt;int&gt;, new_ep_m2534 &lt;int&gt;, new_ep_m3544 &lt;int&gt;,</span>
-<span class="co">#&gt; #   new_ep_m4554 &lt;int&gt;, new_ep_m5564 &lt;int&gt;, new_ep_m65 &lt;int&gt;,</span>
-<span class="co">#&gt; #   new_ep_f014 &lt;int&gt;, new_ep_f1524 &lt;int&gt;, new_ep_f2534 &lt;int&gt;,</span>
-<span class="co">#&gt; #   new_ep_f3544 &lt;int&gt;, new_ep_f4554 &lt;int&gt;, new_ep_f5564 &lt;int&gt;,</span>
-<span class="co">#&gt; #   new_ep_f65 &lt;int&gt;, newrel_m014 &lt;int&gt;, newrel_m1524 &lt;int&gt;,</span>
-<span class="co">#&gt; #   newrel_m2534 &lt;int&gt;, newrel_m3544 &lt;int&gt;, newrel_m4554 &lt;int&gt;,</span>
-<span class="co">#&gt; #   newrel_m5564 &lt;int&gt;, newrel_m65 &lt;int&gt;, newrel_f014 &lt;int&gt;,</span>
-<span class="co">#&gt; #   newrel_f1524 &lt;int&gt;, newrel_f2534 &lt;int&gt;, newrel_f3544 &lt;int&gt;,</span>
-<span class="co">#&gt; #   newrel_f4554 &lt;int&gt;, newrel_f5564 &lt;int&gt;, newrel_f65 &lt;int&gt;</span></code></pre></div>
+<span class="co">#&gt; #   new_sn_m65 &lt;int&gt;, new_sn_f014 &lt;int&gt;, new_sn_f1524 &lt;int&gt;, …</span></code></pre></div>
 <p><code>country</code>, <code>iso2</code>, <code>iso3</code>, and <code>year</code> are already variables, so they can be left as is. But the columns from <code>new_sp_m014</code> to <code>newrel_f65</code> encode four variables in their names:</p>
 <ul>
 <li><p>The <code>new_</code>/<code>new</code> prefix indicates these are counts of new cases. This dataset only contains new cases, so we’ll ignore it here because it’s constant.</p></li>
@@ -363,7 +347,7 @@
   names_pattern <span class="op">=</span> <span class="st">"new_?(.*)_(.)(.*)"</span>,
   values_to <span class="op">=</span> <span class="st">"count"</span>
 <span class="op">)</span>
-<span class="co">#&gt; # A tibble: 405,440 x 8</span>
+<span class="co">#&gt; # A tibble: 405,440 × 8</span>
 <span class="co">#&gt;    country     iso2  iso3   year diagnosis gender age   count</span>
 <span class="co">#&gt;    &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt; &lt;int&gt; &lt;chr&gt;     &lt;chr&gt;  &lt;chr&gt; &lt;int&gt;</span>
 <span class="co">#&gt;  1 Afghanistan AF    AFG    1980 sp        m      014      NA</span>
@@ -410,7 +394,7 @@
 <span class="op">)</span>
 <span class="va">family</span> <span class="op">&lt;-</span> <span class="va">family</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate_all.html">mutate_at</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/vars.html">vars</a></span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html">starts_with</a></span><span class="op">(</span><span class="st">"dob"</span><span class="op">)</span><span class="op">)</span>, <span class="va">parse_date</span><span class="op">)</span>
 <span class="va">family</span>
-<span class="co">#&gt; # A tibble: 5 x 5</span>
+<span class="co">#&gt; # A tibble: 5 × 5</span>
 <span class="co">#&gt;   family dob_child1 dob_child2 gender_child1 gender_child2</span>
 <span class="co">#&gt;    &lt;int&gt; &lt;date&gt;     &lt;date&gt;             &lt;int&gt;         &lt;int&gt;</span>
 <span class="co">#&gt; 1      1 1998-11-26 2000-01-29             1             2</span>
@@ -427,7 +411,7 @@
     names_sep <span class="op">=</span> <span class="st">"_"</span>, 
     values_drop_na <span class="op">=</span> <span class="cn">TRUE</span>
   <span class="op">)</span>
-<span class="co">#&gt; # A tibble: 9 x 4</span>
+<span class="co">#&gt; # A tibble: 9 × 4</span>
 <span class="co">#&gt;   family child  dob        gender</span>
 <span class="co">#&gt;    &lt;int&gt; &lt;chr&gt;  &lt;date&gt;      &lt;int&gt;</span>
 <span class="co">#&gt; 1      1 child1 1998-11-26      1</span>
@@ -463,7 +447,7 @@
     names_pattern <span class="op">=</span> <span class="st">"(.)(.)"</span>
   <span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="va">set</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 44 x 3</span>
+<span class="co">#&gt; # A tibble: 44 × 3</span>
 <span class="co">#&gt;    set       x     y</span>
 <span class="co">#&gt;    &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;</span>
 <span class="co">#&gt;  1 1        10  8.04</span>
@@ -495,17 +479,17 @@
     names_to <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">".value"</span>, <span class="st">"time"</span><span class="op">)</span>, 
     names_pattern <span class="op">=</span> <span class="st">"(.)(.)"</span>
   <span class="op">)</span>
-<span class="co">#&gt; # A tibble: 8 x 6</span>
-<span class="co">#&gt;       x     a     b time       y     z</span>
-<span class="co">#&gt;   &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;  &lt;dbl&gt; &lt;dbl&gt;</span>
-<span class="co">#&gt; 1     1     1     0 1      1.07      3</span>
-<span class="co">#&gt; 2     1     1     0 2     -0.372    -2</span>
-<span class="co">#&gt; 3     2     1     1 1      0.866     3</span>
-<span class="co">#&gt; 4     2     1     1 2      0.464    -2</span>
-<span class="co">#&gt; 5     3     0     1 1     -0.829     3</span>
-<span class="co">#&gt; 6     3     0     1 2     -0.604    -2</span>
-<span class="co">#&gt; 7     4     0     1 1      0.997     3</span>
-<span class="co">#&gt; 8     4     0     1 2      2.41     -2</span></code></pre></div>
+<span class="co">#&gt; # A tibble: 8 × 6</span>
+<span class="co">#&gt;       x     a     b time        y     z</span>
+<span class="co">#&gt;   &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt;</span>
+<span class="co">#&gt; 1     1     1     0 1     -0.0732     3</span>
+<span class="co">#&gt; 2     1     1     0 2     -0.779     -2</span>
+<span class="co">#&gt; 3     2     1     1 1     -0.409      3</span>
+<span class="co">#&gt; 4     2     1     1 2      0.146     -2</span>
+<span class="co">#&gt; 5     3     0     1 1      1.19       3</span>
+<span class="co">#&gt; 6     3     0     1 2     -0.138     -2</span>
+<span class="co">#&gt; 7     4     0     1 1      0.600      3</span>
+<span class="co">#&gt; 8     4     0     1 2     -0.657     -2</span></code></pre></div>
 </div>
 <div id="duplicated-column-names" class="section level2">
 <h2 class="hasAnchor">
@@ -514,7 +498,7 @@
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>id <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, y <span class="op">=</span> <span class="fl">4</span><span class="op">:</span><span class="fl">6</span>, y <span class="op">=</span> <span class="fl">5</span><span class="op">:</span><span class="fl">7</span>, y <span class="op">=</span> <span class="fl">7</span><span class="op">:</span><span class="fl">9</span>, .name_repair <span class="op">=</span> <span class="st">"minimal"</span><span class="op">)</span>
 <span class="va">df</span>
-<span class="co">#&gt; # A tibble: 3 x 4</span>
+<span class="co">#&gt; # A tibble: 3 × 4</span>
 <span class="co">#&gt;      id     y     y     y</span>
 <span class="co">#&gt;   &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;</span>
 <span class="co">#&gt; 1     1     4     5     7</span>
@@ -523,7 +507,7 @@
 <p>When <code><a href="../reference/pivot_longer.html">pivot_longer()</a></code> encounters such data, it automatically adds another column to the output:</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">df</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/pivot_longer.html">pivot_longer</a></span><span class="op">(</span><span class="op">!</span><span class="va">id</span>, names_to <span class="op">=</span> <span class="st">"name"</span>, values_to <span class="op">=</span> <span class="st">"value"</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 9 x 3</span>
+<span class="co">#&gt; # A tibble: 9 × 3</span>
 <span class="co">#&gt;      id name  value</span>
 <span class="co">#&gt;   &lt;int&gt; &lt;chr&gt; &lt;int&gt;</span>
 <span class="co">#&gt; 1     1 y         4</span>
@@ -539,7 +523,7 @@
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>id <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, x1 <span class="op">=</span> <span class="fl">4</span><span class="op">:</span><span class="fl">6</span>, x2 <span class="op">=</span> <span class="fl">5</span><span class="op">:</span><span class="fl">7</span>, y1 <span class="op">=</span> <span class="fl">7</span><span class="op">:</span><span class="fl">9</span>, y2 <span class="op">=</span> <span class="fl">10</span><span class="op">:</span><span class="fl">12</span><span class="op">)</span>
 <span class="va">df</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/pivot_longer.html">pivot_longer</a></span><span class="op">(</span><span class="op">!</span><span class="va">id</span>, names_to <span class="op">=</span> <span class="st">".value"</span>, names_pattern <span class="op">=</span> <span class="st">"(.)."</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 6 x 3</span>
+<span class="co">#&gt; # A tibble: 6 × 3</span>
 <span class="co">#&gt;      id     x     y</span>
 <span class="co">#&gt;   &lt;int&gt; &lt;int&gt; &lt;int&gt;</span>
 <span class="co">#&gt; 1     1     4     7</span>
@@ -560,7 +544,7 @@
 <p>The <code>fish_encounters</code> dataset, contributed by <a href="https://fishsciences.github.io/post/visualizing-fish-encounter-histories/">Myfanwy Johnston</a>, describes when fish swimming down a river are detected by automatic monitoring stations:</p>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">fish_encounters</span>
-<span class="co">#&gt; # A tibble: 114 x 3</span>
+<span class="co">#&gt; # A tibble: 114 × 3</span>
 <span class="co">#&gt;    fish  station  seen</span>
 <span class="co">#&gt;    &lt;fct&gt; &lt;fct&gt;   &lt;int&gt;</span>
 <span class="co">#&gt;  1 4842  Release     1</span>
@@ -577,7 +561,7 @@
 <p>Many tools used to analyse this data need it in a form where each station is a column:</p>
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">fish_encounters</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/pivot_wider.html">pivot_wider</a></span><span class="op">(</span>names_from <span class="op">=</span> <span class="va">station</span>, values_from <span class="op">=</span> <span class="va">seen</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 19 x 12</span>
+<span class="co">#&gt; # A tibble: 19 × 12</span>
 <span class="co">#&gt;    fish  Release I80_1 Lisbon  Rstr Base_TD   BCE   BCW  BCE2  BCW2   MAE   MAW</span>
 <span class="co">#&gt;    &lt;fct&gt;   &lt;int&gt; &lt;int&gt;  &lt;int&gt; &lt;int&gt;   &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;</span>
 <span class="co">#&gt;  1 4842        1     1      1     1       1     1     1     1     1     1     1</span>
@@ -598,7 +582,7 @@
   values_from <span class="op">=</span> <span class="va">seen</span>,
   values_fill <span class="op">=</span> <span class="fl">0</span>
 <span class="op">)</span>
-<span class="co">#&gt; # A tibble: 19 x 12</span>
+<span class="co">#&gt; # A tibble: 19 × 12</span>
 <span class="co">#&gt;    fish  Release I80_1 Lisbon  Rstr Base_TD   BCE   BCW  BCE2  BCW2   MAE   MAW</span>
 <span class="co">#&gt;    &lt;fct&gt;   &lt;int&gt; &lt;int&gt;  &lt;int&gt; &lt;int&gt;   &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;</span>
 <span class="co">#&gt;  1 4842        1     1      1     1       1     1     1     1     1     1     1</span>
@@ -620,7 +604,7 @@
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">warpbreaks</span> <span class="op">&lt;-</span> <span class="va">warpbreaks</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html">as_tibble</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">wool</span>, <span class="va">tension</span>, <span class="va">breaks</span><span class="op">)</span>
 <span class="va">warpbreaks</span>
-<span class="co">#&gt; # A tibble: 54 x 3</span>
+<span class="co">#&gt; # A tibble: 54 × 3</span>
 <span class="co">#&gt;    wool  tension breaks</span>
 <span class="co">#&gt;    &lt;fct&gt; &lt;fct&gt;    &lt;dbl&gt;</span>
 <span class="co">#&gt;  1 A     L           26</span>
@@ -637,7 +621,7 @@
 <p>This is a designed experiment with nine replicates for every combination of <code>wool</code> (<code>A</code> and <code>B</code>) and <code>tension</code> (<code>L</code>, <code>M</code>, <code>H</code>):</p>
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">warpbreaks</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="va">wool</span>, <span class="va">tension</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 6 x 3</span>
+<span class="co">#&gt; # A tibble: 6 × 3</span>
 <span class="co">#&gt;   wool  tension     n</span>
 <span class="co">#&gt;   &lt;fct&gt; &lt;fct&gt;   &lt;int&gt;</span>
 <span class="co">#&gt; 1 A     L           9</span>
@@ -653,7 +637,7 @@
 <span class="co">#&gt; * Use `values_fn = list` to suppress this warning.</span>
 <span class="co">#&gt; * Use `values_fn = length` to identify where the duplicates arise</span>
 <span class="co">#&gt; * Use `values_fn = {summary_fun}` to summarise duplicates</span>
-<span class="co">#&gt; # A tibble: 3 x 3</span>
+<span class="co">#&gt; # A tibble: 3 × 3</span>
 <span class="co">#&gt;   tension A         B        </span>
 <span class="co">#&gt;   &lt;fct&gt;   &lt;list&gt;    &lt;list&gt;   </span>
 <span class="co">#&gt; 1 L       &lt;dbl [9]&gt; &lt;dbl [9]&gt;</span>
@@ -667,7 +651,7 @@
     values_from <span class="op">=</span> <span class="va">breaks</span>,
     values_fn <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>breaks <span class="op">=</span> <span class="va">mean</span><span class="op">)</span>
   <span class="op">)</span>
-<span class="co">#&gt; # A tibble: 3 x 3</span>
+<span class="co">#&gt; # A tibble: 3 × 3</span>
 <span class="co">#&gt;   tension     A     B</span>
 <span class="co">#&gt;   &lt;fct&gt;   &lt;dbl&gt; &lt;dbl&gt;</span>
 <span class="co">#&gt; 1 L        44.6  28.2</span>
@@ -688,19 +672,19 @@
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="op">(</span><span class="va">product</span> <span class="op">==</span> <span class="st">"A"</span> <span class="op">&amp;</span> <span class="va">country</span> <span class="op">==</span> <span class="st">"AI"</span><span class="op">)</span> <span class="op">|</span> <span class="va">product</span> <span class="op">==</span> <span class="st">"B"</span><span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>production <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">.</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
 <span class="va">production</span>
-<span class="co">#&gt; # A tibble: 45 x 4</span>
+<span class="co">#&gt; # A tibble: 45 × 4</span>
 <span class="co">#&gt;    product country  year production</span>
 <span class="co">#&gt;    &lt;chr&gt;   &lt;chr&gt;   &lt;int&gt;      &lt;dbl&gt;</span>
-<span class="co">#&gt;  1 A       AI       2000     -0.957</span>
-<span class="co">#&gt;  2 A       AI       2001      0.444</span>
-<span class="co">#&gt;  3 A       AI       2002     -0.535</span>
-<span class="co">#&gt;  4 A       AI       2003      1.19 </span>
-<span class="co">#&gt;  5 A       AI       2004     -1.55 </span>
-<span class="co">#&gt;  6 A       AI       2005      0.702</span>
-<span class="co">#&gt;  7 A       AI       2006     -0.812</span>
-<span class="co">#&gt;  8 A       AI       2007      0.937</span>
-<span class="co">#&gt;  9 A       AI       2008      1.12 </span>
-<span class="co">#&gt; 10 A       AI       2009      0.459</span>
+<span class="co">#&gt;  1 A       AI       2000     -0.732</span>
+<span class="co">#&gt;  2 A       AI       2001      0.191</span>
+<span class="co">#&gt;  3 A       AI       2002      0.431</span>
+<span class="co">#&gt;  4 A       AI       2003     -0.459</span>
+<span class="co">#&gt;  5 A       AI       2004      2.03 </span>
+<span class="co">#&gt;  6 A       AI       2005     -0.300</span>
+<span class="co">#&gt;  7 A       AI       2006     -1.23 </span>
+<span class="co">#&gt;  8 A       AI       2007     -1.63 </span>
+<span class="co">#&gt;  9 A       AI       2008      0.579</span>
+<span class="co">#&gt; 10 A       AI       2009      0.700</span>
 <span class="co">#&gt; # … with 35 more rows</span></code></pre></div>
 <p>We want to widen the data so we have one column for each combination of <code>product</code> and <code>country</code>. The key is to specify multiple variables for <code>names_from</code>:</p>
 <div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
@@ -708,19 +692,19 @@
   names_from <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">product</span>, <span class="va">country</span><span class="op">)</span>, 
   values_from <span class="op">=</span> <span class="va">production</span>
 <span class="op">)</span>
-<span class="co">#&gt; # A tibble: 15 x 4</span>
-<span class="co">#&gt;     year   A_AI    B_AI   B_EI</span>
-<span class="co">#&gt;    &lt;int&gt;  &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;</span>
-<span class="co">#&gt;  1  2000 -0.957 -1.08    0.277</span>
-<span class="co">#&gt;  2  2001  0.444 -0.924   0.468</span>
-<span class="co">#&gt;  3  2002 -0.535 -0.404   1.22 </span>
-<span class="co">#&gt;  4  2003  1.19   0.677  -1.73 </span>
-<span class="co">#&gt;  5  2004 -1.55  -1.45    0.893</span>
-<span class="co">#&gt;  6  2005  0.702 -0.0953 -0.792</span>
-<span class="co">#&gt;  7  2006 -0.812 -0.186   0.829</span>
-<span class="co">#&gt;  8  2007  0.937  0.690  -0.409</span>
-<span class="co">#&gt;  9  2008  1.12   1.30   -0.530</span>
-<span class="co">#&gt; 10  2009  0.459 -0.880   0.193</span>
+<span class="co">#&gt; # A tibble: 15 × 4</span>
+<span class="co">#&gt;     year   A_AI    B_AI    B_EI</span>
+<span class="co">#&gt;    &lt;int&gt;  &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;</span>
+<span class="co">#&gt;  1  2000 -0.732 -0.0706  0.983 </span>
+<span class="co">#&gt;  2  2001  0.191  0.207   0.632 </span>
+<span class="co">#&gt;  3  2002  0.431  1.29    0.0258</span>
+<span class="co">#&gt;  4  2003 -0.459 -1.14    1.41  </span>
+<span class="co">#&gt;  5  2004  2.03   0.895  -1.30  </span>
+<span class="co">#&gt;  6  2005 -0.300 -1.43   -1.53  </span>
+<span class="co">#&gt;  7  2006 -1.23  -0.0677  1.33  </span>
+<span class="co">#&gt;  8  2007 -1.63   1.57    0.719 </span>
+<span class="co">#&gt;  9  2008  0.579 -0.809  -0.272 </span>
+<span class="co">#&gt; 10  2009  0.700  2.03   -0.831 </span>
 <span class="co">#&gt; # … with 5 more rows</span></code></pre></div>
 <p>When either <code>names_from</code> or <code>values_from</code> select multiple variables, you can control how the column names in the output constructed with <code>names_sep</code> and <code>names_prefix</code>, or the workhorse <code>names_glue</code>:</p>
 <div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
@@ -730,19 +714,19 @@
   names_sep <span class="op">=</span> <span class="st">"."</span>,
   names_prefix <span class="op">=</span> <span class="st">"prod."</span>
 <span class="op">)</span>
-<span class="co">#&gt; # A tibble: 15 x 4</span>
+<span class="co">#&gt; # A tibble: 15 × 4</span>
 <span class="co">#&gt;     year prod.A.AI prod.B.AI prod.B.EI</span>
 <span class="co">#&gt;    &lt;int&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;</span>
-<span class="co">#&gt;  1  2000    -0.957   -1.08       0.277</span>
-<span class="co">#&gt;  2  2001     0.444   -0.924      0.468</span>
-<span class="co">#&gt;  3  2002    -0.535   -0.404      1.22 </span>
-<span class="co">#&gt;  4  2003     1.19     0.677     -1.73 </span>
-<span class="co">#&gt;  5  2004    -1.55    -1.45       0.893</span>
-<span class="co">#&gt;  6  2005     0.702   -0.0953    -0.792</span>
-<span class="co">#&gt;  7  2006    -0.812   -0.186      0.829</span>
-<span class="co">#&gt;  8  2007     0.937    0.690     -0.409</span>
-<span class="co">#&gt;  9  2008     1.12     1.30      -0.530</span>
-<span class="co">#&gt; 10  2009     0.459   -0.880      0.193</span>
+<span class="co">#&gt;  1  2000    -0.732   -0.0706    0.983 </span>
+<span class="co">#&gt;  2  2001     0.191    0.207     0.632 </span>
+<span class="co">#&gt;  3  2002     0.431    1.29      0.0258</span>
+<span class="co">#&gt;  4  2003    -0.459   -1.14      1.41  </span>
+<span class="co">#&gt;  5  2004     2.03     0.895    -1.30  </span>
+<span class="co">#&gt;  6  2005    -0.300   -1.43     -1.53  </span>
+<span class="co">#&gt;  7  2006    -1.23    -0.0677    1.33  </span>
+<span class="co">#&gt;  8  2007    -1.63     1.57      0.719 </span>
+<span class="co">#&gt;  9  2008     0.579   -0.809    -0.272 </span>
+<span class="co">#&gt; 10  2009     0.700    2.03     -0.831 </span>
 <span class="co">#&gt; # … with 5 more rows</span>
 
 <span class="va">production</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/pivot_wider.html">pivot_wider</a></span><span class="op">(</span>
@@ -750,19 +734,19 @@
   values_from <span class="op">=</span> <span class="va">production</span>,
   names_glue <span class="op">=</span> <span class="st">"prod_{product}_{country}"</span>
 <span class="op">)</span>
-<span class="co">#&gt; # A tibble: 15 x 4</span>
+<span class="co">#&gt; # A tibble: 15 × 4</span>
 <span class="co">#&gt;     year prod_A_AI prod_B_AI prod_B_EI</span>
 <span class="co">#&gt;    &lt;int&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;</span>
-<span class="co">#&gt;  1  2000    -0.957   -1.08       0.277</span>
-<span class="co">#&gt;  2  2001     0.444   -0.924      0.468</span>
-<span class="co">#&gt;  3  2002    -0.535   -0.404      1.22 </span>
-<span class="co">#&gt;  4  2003     1.19     0.677     -1.73 </span>
-<span class="co">#&gt;  5  2004    -1.55    -1.45       0.893</span>
-<span class="co">#&gt;  6  2005     0.702   -0.0953    -0.792</span>
-<span class="co">#&gt;  7  2006    -0.812   -0.186      0.829</span>
-<span class="co">#&gt;  8  2007     0.937    0.690     -0.409</span>
-<span class="co">#&gt;  9  2008     1.12     1.30      -0.530</span>
-<span class="co">#&gt; 10  2009     0.459   -0.880      0.193</span>
+<span class="co">#&gt;  1  2000    -0.732   -0.0706    0.983 </span>
+<span class="co">#&gt;  2  2001     0.191    0.207     0.632 </span>
+<span class="co">#&gt;  3  2002     0.431    1.29      0.0258</span>
+<span class="co">#&gt;  4  2003    -0.459   -1.14      1.41  </span>
+<span class="co">#&gt;  5  2004     2.03     0.895    -1.30  </span>
+<span class="co">#&gt;  6  2005    -0.300   -1.43     -1.53  </span>
+<span class="co">#&gt;  7  2006    -1.23    -0.0677    1.33  </span>
+<span class="co">#&gt;  8  2007    -1.63     1.57      0.719 </span>
+<span class="co">#&gt;  9  2008     0.579   -0.809    -0.272 </span>
+<span class="co">#&gt; 10  2009     0.700    2.03     -0.831 </span>
 <span class="co">#&gt; # … with 5 more rows</span></code></pre></div>
 </div>
 <div id="tidy-census" class="section level2">
@@ -771,7 +755,7 @@
 <p>The <code>us_rent_income</code> dataset contains information about median income and rent for each state in the US for 2017 (from the American Community Survey, retrieved with the <a href="https://walker-data.com/tidycensus/">tidycensus</a> package).</p>
 <div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">us_rent_income</span>
-<span class="co">#&gt; # A tibble: 104 x 5</span>
+<span class="co">#&gt; # A tibble: 104 × 5</span>
 <span class="co">#&gt;    GEOID NAME       variable estimate   moe</span>
 <span class="co">#&gt;    &lt;chr&gt; &lt;chr&gt;      &lt;chr&gt;       &lt;dbl&gt; &lt;dbl&gt;</span>
 <span class="co">#&gt;  1 01    Alabama    income      24476   136</span>
@@ -789,7 +773,7 @@
 <div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">us_rent_income</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="../reference/pivot_wider.html">pivot_wider</a></span><span class="op">(</span>names_from <span class="op">=</span> <span class="va">variable</span>, values_from <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">estimate</span>, <span class="va">moe</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 52 x 6</span>
+<span class="co">#&gt; # A tibble: 52 × 6</span>
 <span class="co">#&gt;    GEOID NAME                 estimate_income estimate_rent moe_income moe_rent</span>
 <span class="co">#&gt;    &lt;chr&gt; &lt;chr&gt;                          &lt;dbl&gt;         &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt;</span>
 <span class="co">#&gt;  1 01    Alabama                        24476           747        136        3</span>
@@ -826,7 +810,7 @@
     person_id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/cumsum.html">cumsum</a></span><span class="op">(</span><span class="va">field</span> <span class="op">==</span> <span class="st">"name"</span><span class="op">)</span>
   <span class="op">)</span>
 <span class="va">contacts</span>
-<span class="co">#&gt; # A tibble: 6 x 3</span>
+<span class="co">#&gt; # A tibble: 6 × 3</span>
 <span class="co">#&gt;   field   value            person_id</span>
 <span class="co">#&gt;   &lt;chr&gt;   &lt;chr&gt;                &lt;int&gt;</span>
 <span class="co">#&gt; 1 name    Jiena McLellan           1</span>
@@ -839,7 +823,7 @@
 <div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">contacts</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="../reference/pivot_wider.html">pivot_wider</a></span><span class="op">(</span>names_from <span class="op">=</span> <span class="va">field</span>, values_from <span class="op">=</span> <span class="va">value</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 3 x 4</span>
+<span class="co">#&gt; # A tibble: 3 × 4</span>
 <span class="co">#&gt;   person_id name             company email          </span>
 <span class="co">#&gt;       &lt;int&gt; &lt;chr&gt;            &lt;chr&gt;   &lt;chr&gt;          </span>
 <span class="co">#&gt; 1         1 Jiena McLellan   Toyota  &lt;NA&gt;           </span>
@@ -857,19 +841,19 @@
 <p><code>world_bank_pop</code> contains data from the World Bank about population per country from 2000 to 2018.</p>
 <div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">world_bank_pop</span>
-<span class="co">#&gt; # A tibble: 1,056 x 20</span>
-<span class="co">#&gt;    country indicator   `2000`  `2001`  `2002`  `2003`   `2004`   `2005`   `2006`</span>
-<span class="co">#&gt;    &lt;chr&gt;   &lt;chr&gt;        &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;</span>
-<span class="co">#&gt;  1 ABW     SP.URB.TO…  4.24e4  4.30e4  4.37e4  4.42e4  4.47e+4  4.49e+4  4.49e+4</span>
-<span class="co">#&gt;  2 ABW     SP.URB.GR…  1.18e0  1.41e0  1.43e0  1.31e0  9.51e-1  4.91e-1 -1.78e-2</span>
-<span class="co">#&gt;  3 ABW     SP.POP.TO…  9.09e4  9.29e4  9.50e4  9.70e4  9.87e+4  1.00e+5  1.01e+5</span>
-<span class="co">#&gt;  4 ABW     SP.POP.GR…  2.06e0  2.23e0  2.23e0  2.11e0  1.76e+0  1.30e+0  7.98e-1</span>
-<span class="co">#&gt;  5 AFG     SP.URB.TO…  4.44e6  4.65e6  4.89e6  5.16e6  5.43e+6  5.69e+6  5.93e+6</span>
-<span class="co">#&gt;  6 AFG     SP.URB.GR…  3.91e0  4.66e0  5.13e0  5.23e0  5.12e+0  4.77e+0  4.12e+0</span>
-<span class="co">#&gt;  7 AFG     SP.POP.TO…  2.01e7  2.10e7  2.20e7  2.31e7  2.41e+7  2.51e+7  2.59e+7</span>
-<span class="co">#&gt;  8 AFG     SP.POP.GR…  3.49e0  4.25e0  4.72e0  4.82e0  4.47e+0  3.87e+0  3.23e+0</span>
-<span class="co">#&gt;  9 AGO     SP.URB.TO…  8.23e6  8.71e6  9.22e6  9.77e6  1.03e+7  1.09e+7  1.15e+7</span>
-<span class="co">#&gt; 10 AGO     SP.URB.GR…  5.44e0  5.59e0  5.70e0  5.76e0  5.75e+0  5.69e+0  4.92e+0</span>
+<span class="co">#&gt; # A tibble: 1,056 × 20</span>
+<span class="co">#&gt;    country indicator        `2000` `2001` `2002` `2003`  `2004`  `2005`   `2006`</span>
+<span class="co">#&gt;    &lt;chr&gt;   &lt;chr&gt;             &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;</span>
+<span class="co">#&gt;  1 ABW     SP.URB.TOTL    42444    4.30e4 4.37e4 4.42e4 4.47e+4 4.49e+4  4.49e+4</span>
+<span class="co">#&gt;  2 ABW     SP.URB.GROW        1.18 1.41e0 1.43e0 1.31e0 9.51e-1 4.91e-1 -1.78e-2</span>
+<span class="co">#&gt;  3 ABW     SP.POP.TOTL    90853    9.29e4 9.50e4 9.70e4 9.87e+4 1.00e+5  1.01e+5</span>
+<span class="co">#&gt;  4 ABW     SP.POP.GROW        2.06 2.23e0 2.23e0 2.11e0 1.76e+0 1.30e+0  7.98e-1</span>
+<span class="co">#&gt;  5 AFG     SP.URB.TOTL  4436299    4.65e6 4.89e6 5.16e6 5.43e+6 5.69e+6  5.93e+6</span>
+<span class="co">#&gt;  6 AFG     SP.URB.GROW        3.91 4.66e0 5.13e0 5.23e0 5.12e+0 4.77e+0  4.12e+0</span>
+<span class="co">#&gt;  7 AFG     SP.POP.TOTL 20093756    2.10e7 2.20e7 2.31e7 2.41e+7 2.51e+7  2.59e+7</span>
+<span class="co">#&gt;  8 AFG     SP.POP.GROW        3.49 4.25e0 4.72e0 4.82e0 4.47e+0 3.87e+0  3.23e+0</span>
+<span class="co">#&gt;  9 AGO     SP.URB.TOTL  8234766    8.71e6 9.22e6 9.77e6 1.03e+7 1.09e+7  1.15e+7</span>
+<span class="co">#&gt; 10 AGO     SP.URB.GROW        5.44 5.59e0 5.70e0 5.76e0 5.75e+0 5.69e+0  4.92e+0</span>
 <span class="co">#&gt; # … with 1,046 more rows, and 11 more variables: 2007 &lt;dbl&gt;, 2008 &lt;dbl&gt;,</span>
 <span class="co">#&gt; #   2009 &lt;dbl&gt;, 2010 &lt;dbl&gt;, 2011 &lt;dbl&gt;, 2012 &lt;dbl&gt;, 2013 &lt;dbl&gt;, 2014 &lt;dbl&gt;,</span>
 <span class="co">#&gt; #   2015 &lt;dbl&gt;, 2016 &lt;dbl&gt;, 2017 &lt;dbl&gt;</span></code></pre></div>
@@ -878,7 +862,7 @@
 <code class="sourceCode R"><span class="va">pop2</span> <span class="op">&lt;-</span> <span class="va">world_bank_pop</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="../reference/pivot_longer.html">pivot_longer</a></span><span class="op">(</span><span class="va">`2000`</span><span class="op">:</span><span class="va">`2017`</span>, names_to <span class="op">=</span> <span class="st">"year"</span>, values_to <span class="op">=</span> <span class="st">"value"</span><span class="op">)</span>
 <span class="va">pop2</span>
-<span class="co">#&gt; # A tibble: 19,008 x 4</span>
+<span class="co">#&gt; # A tibble: 19,008 × 4</span>
 <span class="co">#&gt;    country indicator   year  value</span>
 <span class="co">#&gt;    &lt;chr&gt;   &lt;chr&gt;       &lt;chr&gt; &lt;dbl&gt;</span>
 <span class="co">#&gt;  1 ABW     SP.URB.TOTL 2000  42444</span>
@@ -895,9 +879,9 @@
 <p>Next we need to consider the <code>indicator</code> variable:</p>
 <div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">pop2</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="va">indicator</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 4 x 2</span>
+<span class="co">#&gt; # A tibble: 4 × 2</span>
 <span class="co">#&gt;   indicator       n</span>
-<span class="co">#&gt; * &lt;chr&gt;       &lt;int&gt;</span>
+<span class="co">#&gt;   &lt;chr&gt;       &lt;int&gt;</span>
 <span class="co">#&gt; 1 SP.POP.GROW  4752</span>
 <span class="co">#&gt; 2 SP.POP.TOTL  4752</span>
 <span class="co">#&gt; 3 SP.URB.GROW  4752</span>
@@ -907,7 +891,7 @@
 <code class="sourceCode R"><span class="va">pop3</span> <span class="op">&lt;-</span> <span class="va">pop2</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="../reference/separate.html">separate</a></span><span class="op">(</span><span class="va">indicator</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="cn">NA</span>, <span class="st">"area"</span>, <span class="st">"variable"</span><span class="op">)</span><span class="op">)</span>
 <span class="va">pop3</span>
-<span class="co">#&gt; # A tibble: 19,008 x 5</span>
+<span class="co">#&gt; # A tibble: 19,008 × 5</span>
 <span class="co">#&gt;    country area  variable year  value</span>
 <span class="co">#&gt;    &lt;chr&gt;   &lt;chr&gt; &lt;chr&gt;    &lt;chr&gt; &lt;dbl&gt;</span>
 <span class="co">#&gt;  1 ABW     URB   TOTL     2000  42444</span>
@@ -925,7 +909,7 @@
 <div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">pop3</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="../reference/pivot_wider.html">pivot_wider</a></span><span class="op">(</span>names_from <span class="op">=</span> <span class="va">variable</span>, values_from <span class="op">=</span> <span class="va">value</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 9,504 x 5</span>
+<span class="co">#&gt; # A tibble: 9,504 × 5</span>
 <span class="co">#&gt;    country area  year   TOTL    GROW</span>
 <span class="co">#&gt;    &lt;chr&gt;   &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt;   &lt;dbl&gt;</span>
 <span class="co">#&gt;  1 ABW     URB   2000  42444  1.18  </span>
@@ -958,7 +942,7 @@
   <span class="fu"><a href="../reference/pivot_longer.html">pivot_longer</a></span><span class="op">(</span><span class="op">!</span><span class="va">id</span>, values_drop_na <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>checked <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 <span class="va">multi2</span>
-<span class="co">#&gt; # A tibble: 8 x 4</span>
+<span class="co">#&gt; # A tibble: 8 × 4</span>
 <span class="co">#&gt;      id name    value checked</span>
 <span class="co">#&gt;   &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt; &lt;lgl&gt;  </span>
 <span class="co">#&gt; 1     1 choice1 A     TRUE   </span>
@@ -978,7 +962,7 @@
     values_from <span class="op">=</span> <span class="va">checked</span>, 
     values_fill <span class="op">=</span> <span class="cn">FALSE</span>
   <span class="op">)</span>
-<span class="co">#&gt; # A tibble: 4 x 5</span>
+<span class="co">#&gt; # A tibble: 4 × 5</span>
 <span class="co">#&gt;      id A     B     C     D    </span>
 <span class="co">#&gt;   &lt;dbl&gt; &lt;lgl&gt; &lt;lgl&gt; &lt;lgl&gt; &lt;lgl&gt;</span>
 <span class="co">#&gt; 1     1 TRUE  TRUE  TRUE  FALSE</span>
@@ -1002,7 +986,7 @@
   values_to <span class="op">=</span> <span class="st">"count"</span>
 <span class="op">)</span>
 <span class="fu"><a href="../reference/pivot_longer_spec.html">pivot_longer_spec</a></span><span class="op">(</span><span class="va">relig_income</span>, <span class="va">spec</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 180 x 3</span>
+<span class="co">#&gt; # A tibble: 180 × 3</span>
 <span class="co">#&gt;    religion income             count</span>
 <span class="co">#&gt;    &lt;chr&gt;    &lt;chr&gt;              &lt;dbl&gt;</span>
 <span class="co">#&gt;  1 Agnostic &lt;$10k                 27</span>
@@ -1027,7 +1011,7 @@
 <p>There is also one column in <code>spec</code> for each column present in the long format of the data that is not present in the wide format of the data. This corresponds to the <code>names_to</code> argument in <code><a href="../reference/pivot_longer.html">pivot_longer()</a></code> and <code><a href="../reference/pivot_longer_spec.html">build_longer_spec()</a></code> and the <code>names_from</code> argument in <code><a href="../reference/pivot_wider.html">pivot_wider()</a></code> and <code><a href="../reference/pivot_wider_spec.html">build_wider_spec()</a></code>. In this example, the income column is a character vector of the names of columns being pivoted.</p>
 <div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">spec</span>
-<span class="co">#&gt; # A tibble: 10 x 3</span>
+<span class="co">#&gt; # A tibble: 10 × 3</span>
 <span class="co">#&gt;    .name              .value income            </span>
 <span class="co">#&gt;    &lt;chr&gt;              &lt;chr&gt;  &lt;chr&gt;             </span>
 <span class="co">#&gt;  1 &lt;$10k              count  &lt;$10k             </span>
@@ -1048,7 +1032,7 @@
 <div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">us_rent_income</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="../reference/pivot_wider.html">pivot_wider</a></span><span class="op">(</span>names_from <span class="op">=</span> <span class="va">variable</span>, values_from <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">estimate</span>, <span class="va">moe</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 52 x 6</span>
+<span class="co">#&gt; # A tibble: 52 × 6</span>
 <span class="co">#&gt;    GEOID NAME                 estimate_income estimate_rent moe_income moe_rent</span>
 <span class="co">#&gt;    &lt;chr&gt; &lt;chr&gt;                          &lt;dbl&gt;         &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt;</span>
 <span class="co">#&gt;  1 01    Alabama                        24476           747        136        3</span>
@@ -1067,7 +1051,7 @@
 <code class="sourceCode R"><span class="va">spec1</span> <span class="op">&lt;-</span> <span class="va">us_rent_income</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="../reference/pivot_wider_spec.html">build_wider_spec</a></span><span class="op">(</span>names_from <span class="op">=</span> <span class="va">variable</span>, values_from <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">estimate</span>, <span class="va">moe</span><span class="op">)</span><span class="op">)</span>
 <span class="va">spec1</span>
-<span class="co">#&gt; # A tibble: 4 x 3</span>
+<span class="co">#&gt; # A tibble: 4 × 3</span>
 <span class="co">#&gt;   .name           .value   variable</span>
 <span class="co">#&gt;   &lt;chr&gt;           &lt;chr&gt;    &lt;chr&gt;   </span>
 <span class="co">#&gt; 1 estimate_income estimate income  </span>
@@ -1079,7 +1063,7 @@
 <code class="sourceCode R"><span class="va">spec2</span> <span class="op">&lt;-</span> <span class="va">spec1</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>.name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="va">variable</span>, <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">.value</span> <span class="op">==</span> <span class="st">"moe"</span>, <span class="st">"_moe"</span>, <span class="st">""</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
 <span class="va">spec2</span>
-<span class="co">#&gt; # A tibble: 4 x 3</span>
+<span class="co">#&gt; # A tibble: 4 × 3</span>
 <span class="co">#&gt;   .name      .value   variable</span>
 <span class="co">#&gt;   &lt;chr&gt;      &lt;chr&gt;    &lt;chr&gt;   </span>
 <span class="co">#&gt; 1 income     estimate income  </span>
@@ -1089,7 +1073,7 @@
 <p>Supplying this spec to <code><a href="../reference/pivot_wider.html">pivot_wider()</a></code> gives us the result we’re looking for:</p>
 <div class="sourceCode" id="cb47"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/pivot_wider_spec.html">pivot_wider_spec</a></span><span class="op">(</span><span class="va">us_rent_income</span>, <span class="va">spec2</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 52 x 6</span>
+<span class="co">#&gt; # A tibble: 52 × 6</span>
 <span class="co">#&gt;    GEOID NAME                 income  rent income_moe rent_moe</span>
 <span class="co">#&gt;    &lt;chr&gt; &lt;chr&gt;                 &lt;dbl&gt; &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt;</span>
 <span class="co">#&gt;  1 01    Alabama               24476   747        136        3</span>
@@ -1110,7 +1094,7 @@
 <p>Sometimes it’s not possible (or not convenient) to compute the spec, and instead it’s more convenient to construct the spec “by hand”. For example, take this <code>construction</code> data, which is lightly modified from Table 5 “completions” found at <a href="https://www.census.gov/construction/nrc/index.html" class="uri">https://www.census.gov/construction/nrc/index.html</a>:</p>
 <div class="sourceCode" id="cb48"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">construction</span>
-<span class="co">#&gt; # A tibble: 9 x 9</span>
+<span class="co">#&gt; # A tibble: 9 × 9</span>
 <span class="co">#&gt;    Year Month   `1 unit` `2 to 4 units` `5 units or mor… Northeast Midwest South</span>
 <span class="co">#&gt;   &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt; &lt;lgl&gt;                     &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;</span>
 <span class="co">#&gt; 1  2018 January      859 NA                          348       114     169   596</span>
@@ -1138,7 +1122,7 @@
 <p>Which yields the following longer form:</p>
 <div class="sourceCode" id="cb50"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/pivot_longer_spec.html">pivot_longer_spec</a></span><span class="op">(</span><span class="va">construction</span>, <span class="va">spec</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 63 x 5</span>
+<span class="co">#&gt; # A tibble: 63 × 5</span>
 <span class="co">#&gt;     Year Month    units region        n</span>
 <span class="co">#&gt;    &lt;dbl&gt; &lt;chr&gt;    &lt;chr&gt; &lt;chr&gt;     &lt;dbl&gt;</span>
 <span class="co">#&gt;  1  2018 January  1     &lt;NA&gt;        859</span>
@@ -1162,7 +1146,7 @@
 <code class="sourceCode R"><span class="va">construction</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="../reference/pivot_longer_spec.html">pivot_longer_spec</a></span><span class="op">(</span><span class="va">spec</span><span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="../reference/pivot_wider_spec.html">pivot_wider_spec</a></span><span class="op">(</span><span class="va">spec</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 9 x 9</span>
+<span class="co">#&gt; # A tibble: 9 × 9</span>
 <span class="co">#&gt;    Year Month   `1 unit` `2 to 4 units` `5 units or mor… Northeast Midwest South</span>
 <span class="co">#&gt;   &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt;          &lt;dbl&gt;            &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;</span>
 <span class="co">#&gt; 1  2018 January      859             NA              348       114     169   596</span>

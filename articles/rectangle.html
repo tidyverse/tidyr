@@ -55,7 +55,7 @@ and `hoist()`.
         <a class="navbar-brand" href="../index.html">tidyr</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.3</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.4</span>
         </div>
       </div>
     </div>
@@ -206,7 +206,7 @@ and `hoist()`.
 <p>There are two ways to turn the list components into columns. <code><a href="../reference/hoist.html">unnest_wider()</a></code> takes every component and makes a new column:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">users</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/hoist.html">unnest_wider</a></span><span class="op">(</span><span class="va">user</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 6 x 30</span>
+<span class="co">#&gt; # A tibble: 6 × 30</span>
 <span class="co">#&gt;   login     id avatar_url gravatar_id url   html_url followers_url following_url</span>
 <span class="co">#&gt;   &lt;chr&gt;  &lt;int&gt; &lt;chr&gt;      &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt;    &lt;chr&gt;         &lt;chr&gt;        </span>
 <span class="co">#&gt; 1 gabo… 6.60e5 https://a… ""          http… https:/… https://api.… https://api.…</span>
@@ -228,7 +228,7 @@ and `hoist()`.
   login <span class="op">=</span> <span class="st">"login"</span>, 
   url <span class="op">=</span> <span class="st">"html_url"</span>
 <span class="op">)</span>
-<span class="co">#&gt; # A tibble: 6 x 4</span>
+<span class="co">#&gt; # A tibble: 6 × 4</span>
 <span class="co">#&gt;   followers login       url                            user             </span>
 <span class="co">#&gt;       &lt;int&gt; &lt;chr&gt;       &lt;chr&gt;                          &lt;list&gt;           </span>
 <span class="co">#&gt; 1       303 gaborcsardi https://github.com/gaborcsardi &lt;named list [27]&gt;</span>
@@ -246,7 +246,7 @@ and `hoist()`.
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">repos</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>repo <span class="op">=</span> <span class="va">gh_repos</span><span class="op">)</span>
 <span class="va">repos</span>
-<span class="co">#&gt; # A tibble: 6 x 1</span>
+<span class="co">#&gt; # A tibble: 6 × 1</span>
 <span class="co">#&gt;   repo       </span>
 <span class="co">#&gt;   &lt;list&gt;     </span>
 <span class="co">#&gt; 1 &lt;list [30]&gt;</span>
@@ -259,7 +259,7 @@ and `hoist()`.
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">repos</span> <span class="op">&lt;-</span> <span class="va">repos</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/hoist.html">unnest_longer</a></span><span class="op">(</span><span class="va">repo</span><span class="op">)</span>
 <span class="va">repos</span>
-<span class="co">#&gt; # A tibble: 176 x 1</span>
+<span class="co">#&gt; # A tibble: 176 × 1</span>
 <span class="co">#&gt;    repo             </span>
 <span class="co">#&gt;    &lt;list&gt;           </span>
 <span class="co">#&gt;  1 &lt;named list [68]&gt;</span>
@@ -281,7 +281,7 @@ and `hoist()`.
   homepage <span class="op">=</span> <span class="st">"homepage"</span>,
   watchers <span class="op">=</span> <span class="st">"watchers_count"</span>
 <span class="op">)</span>
-<span class="co">#&gt; # A tibble: 176 x 5</span>
+<span class="co">#&gt; # A tibble: 176 × 5</span>
 <span class="co">#&gt;    login       name        homepage watchers repo             </span>
 <span class="co">#&gt;    &lt;chr&gt;       &lt;chr&gt;       &lt;chr&gt;       &lt;int&gt; &lt;list&gt;           </span>
 <span class="co">#&gt;  1 gaborcsardi after        &lt;NA&gt;           5 &lt;named list [65]&gt;</span>
@@ -300,19 +300,19 @@ and `hoist()`.
 <code class="sourceCode R"><span class="va">repos</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="../reference/hoist.html">hoist</a></span><span class="op">(</span><span class="va">repo</span>, owner <span class="op">=</span> <span class="st">"owner"</span><span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="../reference/hoist.html">unnest_wider</a></span><span class="op">(</span><span class="va">owner</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 176 x 18</span>
-<span class="co">#&gt;    login      id avatar_url     gravatar_id url      html_url   followers_url   </span>
-<span class="co">#&gt;    &lt;chr&gt;   &lt;int&gt; &lt;chr&gt;          &lt;chr&gt;       &lt;chr&gt;    &lt;chr&gt;      &lt;chr&gt;           </span>
-<span class="co">#&gt;  1 gabor… 660288 https://avata… ""          https:/… https://g… https://api.git…</span>
-<span class="co">#&gt;  2 gabor… 660288 https://avata… ""          https:/… https://g… https://api.git…</span>
-<span class="co">#&gt;  3 gabor… 660288 https://avata… ""          https:/… https://g… https://api.git…</span>
-<span class="co">#&gt;  4 gabor… 660288 https://avata… ""          https:/… https://g… https://api.git…</span>
-<span class="co">#&gt;  5 gabor… 660288 https://avata… ""          https:/… https://g… https://api.git…</span>
-<span class="co">#&gt;  6 gabor… 660288 https://avata… ""          https:/… https://g… https://api.git…</span>
-<span class="co">#&gt;  7 gabor… 660288 https://avata… ""          https:/… https://g… https://api.git…</span>
-<span class="co">#&gt;  8 gabor… 660288 https://avata… ""          https:/… https://g… https://api.git…</span>
-<span class="co">#&gt;  9 gabor… 660288 https://avata… ""          https:/… https://g… https://api.git…</span>
-<span class="co">#&gt; 10 gabor… 660288 https://avata… ""          https:/… https://g… https://api.git…</span>
+<span class="co">#&gt; # A tibble: 176 × 18</span>
+<span class="co">#&gt;    login           id avatar_url    gravatar_id url     html_url  followers_url </span>
+<span class="co">#&gt;    &lt;chr&gt;        &lt;int&gt; &lt;chr&gt;         &lt;chr&gt;       &lt;chr&gt;   &lt;chr&gt;     &lt;chr&gt;         </span>
+<span class="co">#&gt;  1 gaborcsardi 660288 https://avat… ""          https:… https://… https://api.g…</span>
+<span class="co">#&gt;  2 gaborcsardi 660288 https://avat… ""          https:… https://… https://api.g…</span>
+<span class="co">#&gt;  3 gaborcsardi 660288 https://avat… ""          https:… https://… https://api.g…</span>
+<span class="co">#&gt;  4 gaborcsardi 660288 https://avat… ""          https:… https://… https://api.g…</span>
+<span class="co">#&gt;  5 gaborcsardi 660288 https://avat… ""          https:… https://… https://api.g…</span>
+<span class="co">#&gt;  6 gaborcsardi 660288 https://avat… ""          https:… https://… https://api.g…</span>
+<span class="co">#&gt;  7 gaborcsardi 660288 https://avat… ""          https:… https://… https://api.g…</span>
+<span class="co">#&gt;  8 gaborcsardi 660288 https://avat… ""          https:… https://… https://api.g…</span>
+<span class="co">#&gt;  9 gaborcsardi 660288 https://avat… ""          https:… https://… https://api.g…</span>
+<span class="co">#&gt; 10 gaborcsardi 660288 https://avat… ""          https:… https://… https://api.g…</span>
 <span class="co">#&gt; # … with 166 more rows, and 11 more variables: following_url &lt;chr&gt;,</span>
 <span class="co">#&gt; #   gists_url &lt;chr&gt;, starred_url &lt;chr&gt;, subscriptions_url &lt;chr&gt;,</span>
 <span class="co">#&gt; #   organizations_url &lt;chr&gt;, repos_url &lt;chr&gt;, events_url &lt;chr&gt;,</span>
@@ -324,37 +324,26 @@ and `hoist()`.
   <span class="fu"><a href="../reference/hoist.html">unnest_auto</a></span><span class="op">(</span><span class="va">repo</span><span class="op">)</span>
 <span class="co">#&gt; Using `unnest_longer(repo)`; no element has names</span>
 <span class="co">#&gt; Using `unnest_wider(repo)`; elements have 68 names in common</span>
-<span class="co">#&gt; # A tibble: 176 x 67</span>
-<span class="co">#&gt;         id name   full_name  owner private html_url  description   fork  url    </span>
-<span class="co">#&gt;      &lt;int&gt; &lt;chr&gt;  &lt;chr&gt;      &lt;lis&gt; &lt;lgl&gt;   &lt;chr&gt;     &lt;chr&gt;         &lt;lgl&gt; &lt;chr&gt;  </span>
-<span class="co">#&gt;  1  6.12e7 after  gaborcsar… &lt;nam… FALSE   https://… Run Code in … FALSE https:…</span>
-<span class="co">#&gt;  2  4.05e7 argufy gaborcsar… &lt;nam… FALSE   https://… Declarative … FALSE https:…</span>
-<span class="co">#&gt;  3  3.64e7 ask    gaborcsar… &lt;nam… FALSE   https://… Friendly CLI… FALSE https:…</span>
-<span class="co">#&gt;  4  3.49e7 basei… gaborcsar… &lt;nam… FALSE   https://… Do we get wa… FALSE https:…</span>
-<span class="co">#&gt;  5  6.16e7 citest gaborcsar… &lt;nam… FALSE   https://… Test R packa… TRUE  https:…</span>
-<span class="co">#&gt;  6  3.39e7 clisy… gaborcsar… &lt;nam… FALSE   https://… Unicode symb… FALSE https:…</span>
-<span class="co">#&gt;  7  3.72e7 cmaker gaborcsar… &lt;nam… FALSE   https://… port of cmak… TRUE  https:…</span>
-<span class="co">#&gt;  8  6.80e7 cmark  gaborcsar… &lt;nam… FALSE   https://… CommonMark p… TRUE  https:…</span>
-<span class="co">#&gt;  9  6.32e7 condi… gaborcsar… &lt;nam… FALSE   https://… &lt;NA&gt;          TRUE  https:…</span>
-<span class="co">#&gt; 10  2.43e7 crayon gaborcsar… &lt;nam… FALSE   https://… R package fo… FALSE https:…</span>
+<span class="co">#&gt; # A tibble: 176 × 67</span>
+<span class="co">#&gt;          id name        full_name owner private html_url description fork  url  </span>
+<span class="co">#&gt;       &lt;int&gt; &lt;chr&gt;       &lt;chr&gt;     &lt;lis&gt; &lt;lgl&gt;   &lt;chr&gt;    &lt;chr&gt;       &lt;lgl&gt; &lt;chr&gt;</span>
+<span class="co">#&gt;  1 61160198 after       gaborcsa… &lt;nam… FALSE   https:/… Run Code i… FALSE http…</span>
+<span class="co">#&gt;  2 40500181 argufy      gaborcsa… &lt;nam… FALSE   https:/… Declarativ… FALSE http…</span>
+<span class="co">#&gt;  3 36442442 ask         gaborcsa… &lt;nam… FALSE   https:/… Friendly C… FALSE http…</span>
+<span class="co">#&gt;  4 34924886 baseimports gaborcsa… &lt;nam… FALSE   https:/… Do we get … FALSE http…</span>
+<span class="co">#&gt;  5 61620661 citest      gaborcsa… &lt;nam… FALSE   https:/… Test R pac… TRUE  http…</span>
+<span class="co">#&gt;  6 33907457 clisymbols  gaborcsa… &lt;nam… FALSE   https:/… Unicode sy… FALSE http…</span>
+<span class="co">#&gt;  7 37236467 cmaker      gaborcsa… &lt;nam… FALSE   https:/… port of cm… TRUE  http…</span>
+<span class="co">#&gt;  8 67959624 cmark       gaborcsa… &lt;nam… FALSE   https:/… CommonMark… TRUE  http…</span>
+<span class="co">#&gt;  9 63152619 conditions  gaborcsa… &lt;nam… FALSE   https:/… &lt;NA&gt;        TRUE  http…</span>
+<span class="co">#&gt; 10 24343686 crayon      gaborcsa… &lt;nam… FALSE   https:/… R package … FALSE http…</span>
 <span class="co">#&gt; # … with 166 more rows, and 58 more variables: forks_url &lt;chr&gt;, keys_url &lt;chr&gt;,</span>
 <span class="co">#&gt; #   collaborators_url &lt;chr&gt;, teams_url &lt;chr&gt;, hooks_url &lt;chr&gt;,</span>
 <span class="co">#&gt; #   issue_events_url &lt;chr&gt;, events_url &lt;chr&gt;, assignees_url &lt;chr&gt;,</span>
 <span class="co">#&gt; #   branches_url &lt;chr&gt;, tags_url &lt;chr&gt;, blobs_url &lt;chr&gt;, git_tags_url &lt;chr&gt;,</span>
 <span class="co">#&gt; #   git_refs_url &lt;chr&gt;, trees_url &lt;chr&gt;, statuses_url &lt;chr&gt;,</span>
 <span class="co">#&gt; #   languages_url &lt;chr&gt;, stargazers_url &lt;chr&gt;, contributors_url &lt;chr&gt;,</span>
-<span class="co">#&gt; #   subscribers_url &lt;chr&gt;, subscription_url &lt;chr&gt;, commits_url &lt;chr&gt;,</span>
-<span class="co">#&gt; #   git_commits_url &lt;chr&gt;, comments_url &lt;chr&gt;, issue_comment_url &lt;chr&gt;,</span>
-<span class="co">#&gt; #   contents_url &lt;chr&gt;, compare_url &lt;chr&gt;, merges_url &lt;chr&gt;, archive_url &lt;chr&gt;,</span>
-<span class="co">#&gt; #   downloads_url &lt;chr&gt;, issues_url &lt;chr&gt;, pulls_url &lt;chr&gt;,</span>
-<span class="co">#&gt; #   milestones_url &lt;chr&gt;, notifications_url &lt;chr&gt;, labels_url &lt;chr&gt;,</span>
-<span class="co">#&gt; #   releases_url &lt;chr&gt;, deployments_url &lt;chr&gt;, created_at &lt;chr&gt;,</span>
-<span class="co">#&gt; #   updated_at &lt;chr&gt;, pushed_at &lt;chr&gt;, git_url &lt;chr&gt;, ssh_url &lt;chr&gt;,</span>
-<span class="co">#&gt; #   clone_url &lt;chr&gt;, svn_url &lt;chr&gt;, size &lt;int&gt;, stargazers_count &lt;int&gt;,</span>
-<span class="co">#&gt; #   watchers_count &lt;int&gt;, language &lt;chr&gt;, has_issues &lt;lgl&gt;,</span>
-<span class="co">#&gt; #   has_downloads &lt;lgl&gt;, has_wiki &lt;lgl&gt;, has_pages &lt;lgl&gt;, forks_count &lt;int&gt;,</span>
-<span class="co">#&gt; #   open_issues_count &lt;int&gt;, forks &lt;int&gt;, open_issues &lt;int&gt;, watchers &lt;int&gt;,</span>
-<span class="co">#&gt; #   default_branch &lt;chr&gt;, homepage &lt;chr&gt;</span></code></pre></div>
+<span class="co">#&gt; #   subscribers_url &lt;chr&gt;, subscription_url &lt;chr&gt;, commits_url &lt;chr&gt;, …</span></code></pre></div>
 </div>
 <div id="game-of-thrones-characters" class="section level2">
 <h2 class="hasAnchor">
@@ -363,7 +352,7 @@ and `hoist()`.
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">chars</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>char <span class="op">=</span> <span class="va">got_chars</span><span class="op">)</span>
 <span class="va">chars</span>
-<span class="co">#&gt; # A tibble: 30 x 1</span>
+<span class="co">#&gt; # A tibble: 30 × 1</span>
 <span class="co">#&gt;    char             </span>
 <span class="co">#&gt;    &lt;list&gt;           </span>
 <span class="co">#&gt;  1 &lt;named list [18]&gt;</span>
@@ -380,7 +369,7 @@ and `hoist()`.
 
 <span class="va">chars2</span> <span class="op">&lt;-</span> <span class="va">chars</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/hoist.html">unnest_wider</a></span><span class="op">(</span><span class="va">char</span><span class="op">)</span>
 <span class="va">chars2</span>
-<span class="co">#&gt; # A tibble: 30 x 18</span>
+<span class="co">#&gt; # A tibble: 30 × 18</span>
 <span class="co">#&gt;    url        id name   gender culture born   died   alive titles aliases father</span>
 <span class="co">#&gt;    &lt;chr&gt;   &lt;int&gt; &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt;   &lt;chr&gt;  &lt;chr&gt;  &lt;lgl&gt; &lt;list&gt; &lt;list&gt;  &lt;chr&gt; </span>
 <span class="co">#&gt;  1 https:…  1022 Theon… Male   "Ironb… "In 2… ""     TRUE  &lt;chr … &lt;chr [… ""    </span>
@@ -399,7 +388,7 @@ and `hoist()`.
 <p>This is more complex than <code>gh_users</code> because some component of <code>char</code> are themselves a list, giving us a collection of list-columns:</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">chars2</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select_all.html">select_if</a></span><span class="op">(</span><span class="va">is.list</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 30 x 7</span>
+<span class="co">#&gt; # A tibble: 30 × 7</span>
 <span class="co">#&gt;    titles    aliases    allegiances books     povBooks  tvSeries  playedBy </span>
 <span class="co">#&gt;    &lt;list&gt;    &lt;list&gt;     &lt;list&gt;      &lt;list&gt;    &lt;list&gt;    &lt;list&gt;    &lt;list&gt;   </span>
 <span class="co">#&gt;  1 &lt;chr [3]&gt; &lt;chr [4]&gt;  &lt;chr [1]&gt;   &lt;chr [3]&gt; &lt;chr [2]&gt; &lt;chr [6]&gt; &lt;chr [1]&gt;</span>
@@ -419,7 +408,7 @@ and `hoist()`.
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">name</span>, <span class="va">books</span>, <span class="va">tvSeries</span><span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="../reference/pivot_longer.html">pivot_longer</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">books</span>, <span class="va">tvSeries</span><span class="op">)</span>, names_to <span class="op">=</span> <span class="st">"media"</span>, values_to <span class="op">=</span> <span class="st">"value"</span><span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="../reference/hoist.html">unnest_longer</a></span><span class="op">(</span><span class="va">value</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 180 x 3</span>
+<span class="co">#&gt; # A tibble: 180 × 3</span>
 <span class="co">#&gt;    name             media    value            </span>
 <span class="co">#&gt;    &lt;chr&gt;            &lt;chr&gt;    &lt;chr&gt;            </span>
 <span class="co">#&gt;  1 Theon Greyjoy    books    A Game of Thrones</span>
@@ -438,7 +427,7 @@ and `hoist()`.
 <code class="sourceCode R"><span class="va">chars2</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">name</span>, title <span class="op">=</span> <span class="va">titles</span><span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="../reference/hoist.html">unnest_longer</a></span><span class="op">(</span><span class="va">title</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 60 x 2</span>
+<span class="co">#&gt; # A tibble: 60 × 2</span>
 <span class="co">#&gt;    name              title                                                 </span>
 <span class="co">#&gt;    &lt;chr&gt;             &lt;chr&gt;                                                 </span>
 <span class="co">#&gt;  1 Theon Greyjoy     "Prince of Winterfell"                                </span>
@@ -461,7 +450,7 @@ and `hoist()`.
   <span class="fu"><a href="../reference/hoist.html">unnest_auto</a></span><span class="op">(</span><span class="va">title</span><span class="op">)</span>
 <span class="co">#&gt; Using `unnest_wider(char)`; elements have 18 names in common</span>
 <span class="co">#&gt; Using `unnest_longer(title)`; no element has names</span>
-<span class="co">#&gt; # A tibble: 60 x 2</span>
+<span class="co">#&gt; # A tibble: 60 × 2</span>
 <span class="co">#&gt;    name              title                                                 </span>
 <span class="co">#&gt;    &lt;chr&gt;             &lt;chr&gt;                                                 </span>
 <span class="co">#&gt;  1 Theon Greyjoy     "Prince of Winterfell"                                </span>
@@ -569,7 +558,7 @@ and `hoist()`.
   <span class="fu"><a href="../reference/hoist.html">unnest_wider</a></span><span class="op">(</span><span class="va">disc</span><span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>date_added <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.POSIXlt.html">as.POSIXct</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/strptime.html">strptime</a></span><span class="op">(</span><span class="va">date_added</span>, <span class="st">"%Y-%m-%dT%H:%M:%S"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> 
 <span class="va">discs</span>
-<span class="co">#&gt; # A tibble: 155 x 5</span>
+<span class="co">#&gt; # A tibble: 155 × 5</span>
 <span class="co">#&gt;    instance_id date_added          basic_information       id rating</span>
 <span class="co">#&gt;          &lt;int&gt; &lt;dttm&gt;              &lt;list&gt;               &lt;int&gt;  &lt;int&gt;</span>
 <span class="co">#&gt;  1   354823933 2019-02-16 17:48:59 &lt;named list [11]&gt;  7496378      0</span>
@@ -596,19 +585,19 @@ and `hoist()`.
 <span class="co">#&gt; New names:</span>
 <span class="co">#&gt; * id -&gt; id...6</span>
 <span class="co">#&gt; * id -&gt; id...14</span>
-<span class="co">#&gt; # A tibble: 155 x 15</span>
-<span class="co">#&gt;    instance_id date_added          labels   year artists  id...6 thumb    title </span>
-<span class="co">#&gt;          &lt;int&gt; &lt;dttm&gt;              &lt;list&gt;  &lt;int&gt; &lt;list&gt;    &lt;int&gt; &lt;chr&gt;    &lt;chr&gt; </span>
-<span class="co">#&gt;  1   354823933 2019-02-16 17:48:59 &lt;list …  2015 &lt;list [… 7.50e6 "https:… Demo  </span>
-<span class="co">#&gt;  2   354092601 2019-02-13 14:13:11 &lt;list …  2013 &lt;list [… 4.49e6 "https:… Obser…</span>
-<span class="co">#&gt;  3   354091476 2019-02-13 14:07:23 &lt;list …  2017 &lt;list [… 9.83e6 "https:… I     </span>
-<span class="co">#&gt;  4   351244906 2019-02-02 11:39:58 &lt;list …  2017 &lt;list [… 9.77e6 "https:… Oído …</span>
-<span class="co">#&gt;  5   351244801 2019-02-02 11:39:37 &lt;list …  2015 &lt;list [… 7.24e6 "https:… A Cat…</span>
-<span class="co">#&gt;  6   351052065 2019-02-01 20:40:53 &lt;list …  2019 &lt;list [… 1.31e7 "https:… Tashme</span>
-<span class="co">#&gt;  7   350315345 2019-01-29 15:48:37 &lt;list …  2014 &lt;list [… 7.11e6 "https:… Demo  </span>
-<span class="co">#&gt;  8   350315103 2019-01-29 15:47:22 &lt;list …  2015 &lt;list [… 1.05e7 "https:… Let T…</span>
-<span class="co">#&gt;  9   350314507 2019-01-29 15:44:08 &lt;list …  2017 &lt;list [… 1.13e7 ""       Sub S…</span>
-<span class="co">#&gt; 10   350314047 2019-01-29 15:41:35 &lt;list …  2017 &lt;list [… 1.17e7 "https:… Demo  </span>
+<span class="co">#&gt; # A tibble: 155 × 15</span>
+<span class="co">#&gt;    instance_id date_added          labels      year artists  id...6 thumb  title</span>
+<span class="co">#&gt;          &lt;int&gt; &lt;dttm&gt;              &lt;list&gt;     &lt;int&gt; &lt;list&gt;    &lt;int&gt; &lt;chr&gt;  &lt;chr&gt;</span>
+<span class="co">#&gt;  1   354823933 2019-02-16 17:48:59 &lt;list [1]&gt;  2015 &lt;list [… 7.50e6 "http… Demo </span>
+<span class="co">#&gt;  2   354092601 2019-02-13 14:13:11 &lt;list [1]&gt;  2013 &lt;list [… 4.49e6 "http… Obse…</span>
+<span class="co">#&gt;  3   354091476 2019-02-13 14:07:23 &lt;list [1]&gt;  2017 &lt;list [… 9.83e6 "http… I    </span>
+<span class="co">#&gt;  4   351244906 2019-02-02 11:39:58 &lt;list [3]&gt;  2017 &lt;list [… 9.77e6 "http… Oído…</span>
+<span class="co">#&gt;  5   351244801 2019-02-02 11:39:37 &lt;list [1]&gt;  2015 &lt;list [… 7.24e6 "http… A Ca…</span>
+<span class="co">#&gt;  6   351052065 2019-02-01 20:40:53 &lt;list [1]&gt;  2019 &lt;list [… 1.31e7 "http… Tash…</span>
+<span class="co">#&gt;  7   350315345 2019-01-29 15:48:37 &lt;list [1]&gt;  2014 &lt;list [… 7.11e6 "http… Demo </span>
+<span class="co">#&gt;  8   350315103 2019-01-29 15:47:22 &lt;list [1]&gt;  2015 &lt;list [… 1.05e7 "http… Let …</span>
+<span class="co">#&gt;  9   350314507 2019-01-29 15:44:08 &lt;list [1]&gt;  2017 &lt;list [… 1.13e7 ""     Sub …</span>
+<span class="co">#&gt; 10   350314047 2019-01-29 15:41:35 &lt;list [1]&gt;  2017 &lt;list [… 1.17e7 "http… Demo </span>
 <span class="co">#&gt; # … with 145 more rows, and 7 more variables: formats &lt;list&gt;,</span>
 <span class="co">#&gt; #   cover_image &lt;chr&gt;, resource_url &lt;chr&gt;, master_id &lt;int&gt;, master_url &lt;chr&gt;,</span>
 <span class="co">#&gt; #   id...14 &lt;int&gt;, rating &lt;int&gt;</span></code></pre></div>
@@ -617,19 +606,19 @@ and `hoist()`.
 <code class="sourceCode R"><span class="va">discs</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="op">!</span><span class="va">id</span><span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="../reference/hoist.html">unnest_wider</a></span><span class="op">(</span><span class="va">basic_information</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 155 x 14</span>
-<span class="co">#&gt;    instance_id date_added          labels   year artists      id thumb    title </span>
-<span class="co">#&gt;          &lt;int&gt; &lt;dttm&gt;              &lt;list&gt;  &lt;int&gt; &lt;list&gt;    &lt;int&gt; &lt;chr&gt;    &lt;chr&gt; </span>
-<span class="co">#&gt;  1   354823933 2019-02-16 17:48:59 &lt;list …  2015 &lt;list [… 7.50e6 "https:… Demo  </span>
-<span class="co">#&gt;  2   354092601 2019-02-13 14:13:11 &lt;list …  2013 &lt;list [… 4.49e6 "https:… Obser…</span>
-<span class="co">#&gt;  3   354091476 2019-02-13 14:07:23 &lt;list …  2017 &lt;list [… 9.83e6 "https:… I     </span>
-<span class="co">#&gt;  4   351244906 2019-02-02 11:39:58 &lt;list …  2017 &lt;list [… 9.77e6 "https:… Oído …</span>
-<span class="co">#&gt;  5   351244801 2019-02-02 11:39:37 &lt;list …  2015 &lt;list [… 7.24e6 "https:… A Cat…</span>
-<span class="co">#&gt;  6   351052065 2019-02-01 20:40:53 &lt;list …  2019 &lt;list [… 1.31e7 "https:… Tashme</span>
-<span class="co">#&gt;  7   350315345 2019-01-29 15:48:37 &lt;list …  2014 &lt;list [… 7.11e6 "https:… Demo  </span>
-<span class="co">#&gt;  8   350315103 2019-01-29 15:47:22 &lt;list …  2015 &lt;list [… 1.05e7 "https:… Let T…</span>
-<span class="co">#&gt;  9   350314507 2019-01-29 15:44:08 &lt;list …  2017 &lt;list [… 1.13e7 ""       Sub S…</span>
-<span class="co">#&gt; 10   350314047 2019-01-29 15:41:35 &lt;list …  2017 &lt;list [… 1.17e7 "https:… Demo  </span>
+<span class="co">#&gt; # A tibble: 155 × 14</span>
+<span class="co">#&gt;    instance_id date_added          labels      year artists      id thumb  title</span>
+<span class="co">#&gt;          &lt;int&gt; &lt;dttm&gt;              &lt;list&gt;     &lt;int&gt; &lt;list&gt;    &lt;int&gt; &lt;chr&gt;  &lt;chr&gt;</span>
+<span class="co">#&gt;  1   354823933 2019-02-16 17:48:59 &lt;list [1]&gt;  2015 &lt;list [… 7.50e6 "http… Demo </span>
+<span class="co">#&gt;  2   354092601 2019-02-13 14:13:11 &lt;list [1]&gt;  2013 &lt;list [… 4.49e6 "http… Obse…</span>
+<span class="co">#&gt;  3   354091476 2019-02-13 14:07:23 &lt;list [1]&gt;  2017 &lt;list [… 9.83e6 "http… I    </span>
+<span class="co">#&gt;  4   351244906 2019-02-02 11:39:58 &lt;list [3]&gt;  2017 &lt;list [… 9.77e6 "http… Oído…</span>
+<span class="co">#&gt;  5   351244801 2019-02-02 11:39:37 &lt;list [1]&gt;  2015 &lt;list [… 7.24e6 "http… A Ca…</span>
+<span class="co">#&gt;  6   351052065 2019-02-01 20:40:53 &lt;list [1]&gt;  2019 &lt;list [… 1.31e7 "http… Tash…</span>
+<span class="co">#&gt;  7   350315345 2019-01-29 15:48:37 &lt;list [1]&gt;  2014 &lt;list [… 7.11e6 "http… Demo </span>
+<span class="co">#&gt;  8   350315103 2019-01-29 15:47:22 &lt;list [1]&gt;  2015 &lt;list [… 1.05e7 "http… Let …</span>
+<span class="co">#&gt;  9   350314507 2019-01-29 15:44:08 &lt;list [1]&gt;  2017 &lt;list [… 1.13e7 ""     Sub …</span>
+<span class="co">#&gt; 10   350314047 2019-01-29 15:41:35 &lt;list [1]&gt;  2017 &lt;list [… 1.17e7 "http… Demo </span>
 <span class="co">#&gt; # … with 145 more rows, and 6 more variables: formats &lt;list&gt;,</span>
 <span class="co">#&gt; #   cover_image &lt;chr&gt;, resource_url &lt;chr&gt;, master_id &lt;int&gt;, master_url &lt;chr&gt;,</span>
 <span class="co">#&gt; #   rating &lt;int&gt;</span></code></pre></div>
@@ -642,7 +631,7 @@ and `hoist()`.
     label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="st">"labels"</span>, <span class="fl">1</span>, <span class="st">"name"</span><span class="op">)</span>,
     artist <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="st">"artists"</span>, <span class="fl">1</span>, <span class="st">"name"</span><span class="op">)</span>
   <span class="op">)</span>
-<span class="co">#&gt; # A tibble: 155 x 9</span>
+<span class="co">#&gt; # A tibble: 155 × 9</span>
 <span class="co">#&gt;    instance_id date_added          title    year label   artist basic_informati…</span>
 <span class="co">#&gt;          &lt;int&gt; &lt;dttm&gt;              &lt;chr&gt;   &lt;int&gt; &lt;chr&gt;   &lt;chr&gt;  &lt;list&gt;          </span>
 <span class="co">#&gt;  1   354823933 2019-02-16 17:48:59 Demo     2015 Tobi R… Mollot &lt;named list [9]&gt;</span>
@@ -664,7 +653,7 @@ and `hoist()`.
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span>disc_id <span class="op">=</span> <span class="va">id</span>, <span class="va">artist</span><span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="../reference/hoist.html">unnest_longer</a></span><span class="op">(</span><span class="va">artist</span><span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="../reference/hoist.html">unnest_wider</a></span><span class="op">(</span><span class="va">artist</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 167 x 8</span>
+<span class="co">#&gt; # A tibble: 167 × 8</span>
 <span class="co">#&gt;     disc_id join  name          anv   tracks role  resource_url               id</span>
 <span class="co">#&gt;       &lt;int&gt; &lt;chr&gt; &lt;chr&gt;         &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;                   &lt;int&gt;</span>
 <span class="co">#&gt;  1  7496378 ""    Mollot        ""    ""     ""    https://api.discogs.c… 4.62e6</span>
@@ -685,7 +674,7 @@ and `hoist()`.
   <span class="fu"><a href="../reference/hoist.html">unnest_longer</a></span><span class="op">(</span><span class="va">format</span><span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="../reference/hoist.html">unnest_wider</a></span><span class="op">(</span><span class="va">format</span><span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="../reference/hoist.html">unnest_longer</a></span><span class="op">(</span><span class="va">descriptions</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 281 x 5</span>
+<span class="co">#&gt; # A tibble: 281 × 5</span>
 <span class="co">#&gt;     disc_id descriptions text  name     qty  </span>
 <span class="co">#&gt;       &lt;int&gt; &lt;chr&gt;        &lt;chr&gt; &lt;chr&gt;    &lt;chr&gt;</span>
 <span class="co">#&gt;  1  7496378 "Numbered"   Black Cassette 1    </span>
