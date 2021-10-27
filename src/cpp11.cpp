@@ -3,6 +3,7 @@
 
 
 #include "cpp11/declarations.hpp"
+#include <R_ext/Visibility.h>
 
 // fill.cpp
 SEXP fillDown(SEXP x);
@@ -34,12 +35,6 @@ extern "C" SEXP _tidyr_simplifyPieces(SEXP pieces, SEXP p, SEXP fillLeft) {
 }
 
 extern "C" {
-/* .Call calls */
-extern SEXP _tidyr_fillDown(SEXP);
-extern SEXP _tidyr_fillUp(SEXP);
-extern SEXP _tidyr_melt_dataframe(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
-extern SEXP _tidyr_simplifyPieces(SEXP, SEXP, SEXP);
-
 static const R_CallMethodDef CallEntries[] = {
     {"_tidyr_fillDown",       (DL_FUNC) &_tidyr_fillDown,       1},
     {"_tidyr_fillUp",         (DL_FUNC) &_tidyr_fillUp,         1},
@@ -49,7 +44,7 @@ static const R_CallMethodDef CallEntries[] = {
 };
 }
 
-extern "C" void R_init_tidyr(DllInfo* dll){
+extern "C" attribute_visible void R_init_tidyr(DllInfo* dll){
   R_registerRoutines(dll, NULL, CallEntries, NULL, NULL);
   R_useDynamicSymbols(dll, FALSE);
   R_forceSymbols(dll, TRUE);

@@ -44,7 +44,7 @@ Suggests:
     rmarkdown,
     testthat (>= 3.0.0)
 LinkingTo: 
-    cpp11 (>= 0.2.6)
+    cpp11 (>= 0.4.0)
 VignetteBuilder: 
     knitr
 Encoding: UTF-8
