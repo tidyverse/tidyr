@@ -6,7 +6,7 @@ description: |
   alternative way of representing grouped data, that works particularly well
   when you're modelling.
 vignette: >
-  %\VignetteIndexEntry{nest}
+  %\VignetteIndexEntry{Nested data}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

@@ -8,7 +8,7 @@ description: |
   provided by tidyr: `unnest_longer()`, `unnest_wider()`, `unnest_auto()`,
   and `hoist()`.
 vignette: >
-  %\VignetteIndexEntry{rectangling}
+  %\VignetteIndexEntry{Rectangling}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
