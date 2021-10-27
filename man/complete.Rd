@@ -36,13 +36,16 @@ use instead of \code{NA} for missing combinations.}
 }
 \description{
 Turns implicit missing values into explicit missing values.
+}
+\details{
 This is a wrapper around \code{\link[=expand]{expand()}},
 \code{\link[dplyr:mutate-joins]{dplyr::left_join()}} and \code{\link[=replace_na]{replace_na()}} that's
 useful for completing missing combinations of data.
-}
-\details{
+
 If you supply \code{fill}, these values will also replace existing
 explicit missing values in the data set.
+
+Grouping variables will not be expanded even if listed in complete
 }
 \examples{
 library(dplyr, warn.conflicts = FALSE)
@@ -54,6 +57,14 @@ df <- tibble(
   value2 = 4:6
 )
 df \%>\% complete(group, nesting(item_id, item_name))
+Simple case to expand a few variables to all combinations
+  rest will be NA unless value supplied to fill
+df \%>\% complete(group, item_id, item_name)
+
+Grouped case will expand only combinations within groups
+   where they already exist, both give same result
+df \%>\% group_by(group) \%>\% complete(item_id, item_name)
+df \%>\% group_by(group) \%>\% complete(group, item_id, item_name)
 
 # You can also choose to fill in missing values
 df \%>\% complete(group, nesting(item_id, item_name), fill = list(value1 = 0))
