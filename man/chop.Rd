@@ -44,7 +44,7 @@ more suitable for programming than interactive data analysis.
 \details{
 Generally, unchopping is more useful than chopping because it simplifies
 a complex data structure, and \code{\link[=nest]{nest()}}ing is usually more appropriate
-that \code{chop()}ing` since it better preserves the connections between
+than \code{chop()}ing` since it better preserves the connections between
 observations.
 
 \code{chop()} creates list-columns of class \code{\link[vctrs:list_of]{vctrs::list_of()}} to ensure
