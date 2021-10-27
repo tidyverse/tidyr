@@ -114,7 +114,7 @@ test_that("can override default keys", {
 })
 
 
-# non-unqiue keys ---------------------------------------------------------
+# non-unique keys ---------------------------------------------------------
 
 test_that("duplicated keys produce list column with warning", {
   df <- tibble(a = c(1, 1, 2), key = c("x", "x", "x"), val = 1:3)
@@ -147,7 +147,7 @@ test_that("values_fn can be a single function", {
   expect_equal(pv$x, c(11, 100))
 })
 
-test_that("values_summarize applied even when no-duplicates", {
+test_that("values_fn applied even when no-duplicates", {
   df <- tibble(a = c(1, 2), key = c("x", "x"), val = 1:2)
   pv <- pivot_wider(df,
     names_from = key,
