@@ -106,7 +106,7 @@ in to their own top-level columns, using the same syntax as \code{\link[purrr:pl
 \code{unnest_wider()} turns each element of a list-column into a column, and
 \code{unnest_longer()} turns each element of a list-column into a row.
 \code{unnest_auto()} picks between \code{unnest_wider()} or \code{unnest_longer()}
-based heuristics described below.
+based on heuristics described below.
 
 Learn more in \code{vignette("rectangle")}.
 }
