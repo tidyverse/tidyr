@@ -106,11 +106,7 @@ unpack <- function(data, cols, names_sep = NULL, names_repair = "check_unique") 
   out <- tidyr_col_modify(out, cols)
   out <- flatten_at(out, names(out) %in% names(cols))
 
-  if (has_name(formals(vec_as_names), "repair_arg")) {
-    names(out) <- vec_as_names(names(out), repair = names_repair, repair_arg = "names_repair")
-  } else {
-    names(out) <- vec_as_names(names(out), repair = names_repair)
-  }
+  names(out) <- vec_as_names(names(out), repair = names_repair, repair_arg = "names_repair")
 
   out <- as_tibble(out, .name_repair = "minimal")
   reconstruct_tibble(data, out)
