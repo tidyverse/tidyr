@@ -240,10 +240,10 @@
 <div class="sourceCode" id="cb4"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb4-1"><a href="#cb4-1"></a><span class="fu">on</span><span class="kw">:</span></span>
 <span id="cb4-2"><a href="#cb4-2"></a><span class="at">  </span><span class="fu">push</span><span class="kw">:</span></span>
 <span id="cb4-3"><a href="#cb4-3"></a><span class="at">    </span><span class="fu">branches</span><span class="kw">:</span></span>
-<span id="cb4-4"><a href="#cb4-4"></a><span class="at">      </span><span class="kw">-</span><span class="at"> master</span></span>
+<span id="cb4-4"><a href="#cb4-4"></a><span class="at">      </span><span class="kw">-</span><span class="at"> main</span></span>
 <span id="cb4-5"><a href="#cb4-5"></a><span class="at">  </span><span class="fu">pull_request</span><span class="kw">:</span></span>
 <span id="cb4-6"><a href="#cb4-6"></a><span class="at">    </span><span class="fu">branches</span><span class="kw">:</span></span>
-<span id="cb4-7"><a href="#cb4-7"></a><span class="at">      </span><span class="kw">-</span><span class="at"> master</span></span>
+<span id="cb4-7"><a href="#cb4-7"></a><span class="at">      </span><span class="kw">-</span><span class="at"> main</span></span>
 <span id="cb4-8"><a href="#cb4-8"></a></span>
 <span id="cb4-9"><a href="#cb4-9"></a><span class="fu">name</span><span class="kw">:</span><span class="at"> R-CMD-check-tidyr-devel</span></span>
 <span id="cb4-10"><a href="#cb4-10"></a></span>
@@ -252,7 +252,7 @@
 <span id="cb4-13"><a href="#cb4-13"></a><span class="at">    </span><span class="fu">runs-on</span><span class="kw">:</span><span class="at"> macOS-latest</span></span>
 <span id="cb4-14"><a href="#cb4-14"></a><span class="at">    </span><span class="fu">steps</span><span class="kw">:</span></span>
 <span id="cb4-15"><a href="#cb4-15"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">uses</span><span class="kw">:</span><span class="at"> actions/checkout@v2</span></span>
-<span id="cb4-16"><a href="#cb4-16"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">uses</span><span class="kw">:</span><span class="at"> r-lib/actions/setup-r@master</span></span>
+<span id="cb4-16"><a href="#cb4-16"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">uses</span><span class="kw">:</span><span class="at"> r-lib/actions/setup-r@v1</span></span>
 <span id="cb4-17"><a href="#cb4-17"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Install dependencies</span></span>
 <span id="cb4-18"><a href="#cb4-18"></a><span class="fu">        run</span><span class="kw">: </span><span class="ch">|</span></span>
 <span id="cb4-19"><a href="#cb4-19"></a>          install.packages(c("remotes", "rcmdcheck"))</span>
@@ -262,7 +262,7 @@
 <span id="cb4-23"><a href="#cb4-23"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Check</span></span>
 <span id="cb4-24"><a href="#cb4-24"></a><span class="at">        </span><span class="fu">run</span><span class="kw">:</span><span class="at"> rcmdcheck::rcmdcheck(args = "--no-manual", error_on = "error")</span></span>
 <span id="cb4-25"><a href="#cb4-25"></a><span class="at">        </span><span class="fu">shell</span><span class="kw">:</span><span class="at"> Rscript {0}</span></span></code></pre></div>
-<p>GitHub Actions are an evolving landscape, so you can always mine the workflows for tidyr itself (<a href="https://github.com/tidyverse/tidyr/tree/master/.github/workflows">tidyverse/tidyr/.github/workflows</a>) or the main <a href="https://github.com/r-lib/actions">r-lib/actions</a> repo for ideas.</p>
+<p>GitHub Actions are an evolving landscape, so you can always mine the workflows for tidyr itself (<a href="https://github.com/tidyverse/tidyr/tree/main/.github/workflows">tidyverse/tidyr/.github/workflows</a>) or the main <a href="https://github.com/r-lib/actions">r-lib/actions</a> repo for ideas.</p>
 </div>
 </div>
 <div id="tidyr-v0-8-3---v1-0-0" class="section level2">
