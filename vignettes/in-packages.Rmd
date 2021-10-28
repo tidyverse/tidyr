@@ -93,10 +93,10 @@ Example of a GitHub Actions workflow that tests your package against the develop
 on:
   push:
     branches:
-      - master
+      - main
   pull_request:
     branches:
-      - master
+      - main
 
 name: R-CMD-check-tidyr-devel
 
@@ -105,7 +105,7 @@ jobs:
     runs-on: macOS-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: r-lib/actions/setup-r@master
+      - uses: r-lib/actions/setup-r@v1
       - name: Install dependencies
         run: |
           install.packages(c("remotes", "rcmdcheck"))
@@ -117,7 +117,7 @@ jobs:
         shell: Rscript {0}
 ```
 
-GitHub Actions are an evolving landscape, so you can always mine the workflows for tidyr itself ([tidyverse/tidyr/.github/workflows](https://github.com/tidyverse/tidyr/tree/master/.github/workflows)) or the main [r-lib/actions](https://github.com/r-lib/actions) repo for ideas.
+GitHub Actions are an evolving landscape, so you can always mine the workflows for tidyr itself ([tidyverse/tidyr/.github/workflows](https://github.com/tidyverse/tidyr/tree/main/.github/workflows)) or the main [r-lib/actions](https://github.com/r-lib/actions) repo for ideas.
 
 ## tidyr v0.8.3 -> v1.0.0
 

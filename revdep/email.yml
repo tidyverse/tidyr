@@ -1,7 +1,7 @@
 release_date: 2019-09-09
 release_version: 1.0.0
 rel_release_date: day
-my_news_url: https://github.com/tidyverse/tidyr/blob/master/NEWS.md
+my_news_url: https://github.com/tidyverse/tidyr/blob/main/NEWS.md
 release_details: >
   This release includes breaking changes to nest() and unnest() in order
   to increase consistency across existing functions. This unfortunately
