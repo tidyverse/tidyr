@@ -235,12 +235,12 @@ The right hand side can be any valid tidy select expression.</p></td>
       <td><p>If <code>NULL</code>, the default, the names will be left
 as is. In <code>pack()</code>, inner names will come from the former outer names;
 in <code>unpack()</code>, the new outer names will come from the inner names.</p>
-<p>If a string, the inner and outer names will be used together. In <code>pack()</code>,
-the names of the new outer columns will be formed by pasting together the
-outer and the inner column names, separated by <code>names_sep</code>. In <code>unpack()</code>,
-the new inner names will have the outer names (+ <code>names_sep</code>) automatically
-stripped. This makes <code>names_sep</code> roughly symmetric between packing
-and unpacking.</p></td>
+<p>If a string, the inner and outer names will be used together. In
+<code>unpack()</code>, the names of the new outer columns will be formed by pasting
+together the outer and the inner column names, separated by <code>names_sep</code>. In
+<code>pack()</code>, the new inner names will have the outer names + <code>names_sep</code>
+automatically stripped. This makes <code>names_sep</code> roughly symmetric between
+packing and unpacking.</p></td>
     </tr>
     <tr>
       <th>names_repair</th>

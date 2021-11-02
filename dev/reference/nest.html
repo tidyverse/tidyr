@@ -282,12 +282,12 @@ combining the individual values.</p></td>
       <td><p>If <code>NULL</code>, the default, the names will be left
 as is. In <code>nest()</code>, inner names will come from the former outer names;
 in <code>unnest()</code>, the new outer names will come from the inner names.</p>
-<p>If a string, the inner and outer names will be used together. In <code>nest()</code>,
-the names of the new outer columns will be formed by pasting together the
-outer and the inner column names, separated by <code>names_sep</code>. In <code>unnest()</code>,
-the new inner names will have the outer names (+ <code>names_sep</code>) automatically
-stripped. This makes <code>names_sep</code> roughly symmetric between nesting and
-unnesting.</p></td>
+<p>If a string, the inner and outer names will be used together. In
+<code>unnest()</code>, the names of the new outer columns will be formed by pasting
+together the outer and the inner column names, separated by <code>names_sep</code>. In
+<code>nest()</code>, the new inner names will have the outer names + <code>names_sep</code>
+automatically stripped. This makes <code>names_sep</code> roughly symmetric between
+nesting and unnesting.</p></td>
     </tr>
     <tr>
       <th>names_repair</th>
