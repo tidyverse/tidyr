@@ -175,7 +175,11 @@ test_that("ptype overrides list-of ptype", {
 })
 
 test_that("the ptype must be a list", {
-  expect_error(unchop(mtcars, mpg, ptype = 1), "`ptype` must be a list")
+  expect_snapshot(error = TRUE, unchop(mtcars, mpg, ptype = 1))
+})
+
+test_that("ptype is allowed to be a data frame", {
+  expect_error(unchop(mtcars, mpg, ptype = data.frame()), NA)
 })
 
 test_that("unchopping a bare empty list results in unspecified()", {

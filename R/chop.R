@@ -89,13 +89,8 @@ chop <- function(data, cols) {
 
 #' @export
 #' @rdname chop
-unchop <- function(data, cols, keep_empty = FALSE, ptype = NULL) {
+unchop <- function(data, cols, keep_empty = FALSE, ptype = list()) {
   sel <- tidyselect::eval_select(enquo(cols), data)
-
-  if (is_null(ptype)) {
-    # Convert to form that `df_unchop()` requires
-    ptype <- list()
-  }
 
   size <- vec_size(data)
   names <- names(data)
@@ -144,7 +139,7 @@ df_unchop <- function(x, ..., ptype = list(), keep_empty = FALSE) {
     abort("`x` must be a data frame.")
   }
   if (!is_list(ptype)) {
-    abort("`ptype` must be a list.")
+    abort("`ptype` must be a named list.")
   }
   if (!is_bool(keep_empty)) {
     abort("`keep_empty` must be a single `TRUE` or `FALSE`.")
