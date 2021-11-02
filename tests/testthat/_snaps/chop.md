@@ -1,3 +1,10 @@
+# the ptype must be a list
+
+    Code
+      unchop(mtcars, mpg, ptype = 1)
+    Error <rlang_error>
+      `ptype` must be a named list.
+
 # incompatible sizes are caught
 
     Code
