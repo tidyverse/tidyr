@@ -1,5 +1,7 @@
 # tidyr (development version)
 
+* The `ptype` argument of `unnest()` now works as expected (#1158). 
+
 * The `.names_sep` argument of the data.frame method for `nest()` is now
   actually used (#1174).
   

@@ -266,6 +266,35 @@ test_that("unnesting typed lists of NULLs retains ptype", {
   expect_identical(out, tibble(x = integer(), a = integer()))
 })
 
+test_that("ptype can be overriden manually (#1158)", {
+  df <- tibble(
+    a = list("a", c("b", "c")),
+    b = list(1, c(2, 3)),
+  )
+
+  ptype <- list(b = integer())
+
+  out <- unnest(df, c(a, b), ptype = ptype)
+
+  expect_type(out$b, "integer")
+  expect_identical(out$b, c(1L, 2L, 3L))
+})
+
+test_that("ptype works with nested data frames", {
+  df <- tibble(
+    a = list("a", "b"),
+    b = list(tibble(x = 1, y = 2L), tibble(x = 2, y = 3L)),
+  )
+
+  # x: double -> integer
+  ptype <- list(b = tibble(x = integer(), y = integer()))
+
+  out <- unnest(df, c(a, b), ptype = ptype)
+
+  expect_identical(out$x, c(1L, 2L))
+  expect_identical(out$y, c(2L, 3L))
+})
+
 test_that("skips over vector columns", {
   df <- tibble(x = integer(), y = list())
   expect_identical(unnest(df, x), df)
