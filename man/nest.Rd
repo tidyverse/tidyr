@@ -62,12 +62,12 @@ combining the individual values.}
 as is. In \code{nest()}, inner names will come from the former outer names;
 in \code{unnest()}, the new outer names will come from the inner names.
 
-If a string, the inner and outer names will be used together. In \code{nest()},
-the names of the new outer columns will be formed by pasting together the
-outer and the inner column names, separated by \code{names_sep}. In \code{unnest()},
-the new inner names will have the outer names (+ \code{names_sep}) automatically
-stripped. This makes \code{names_sep} roughly symmetric between nesting and
-unnesting.}
+If a string, the inner and outer names will be used together. In
+\code{unnest()}, the names of the new outer columns will be formed by pasting
+together the outer and the inner column names, separated by \code{names_sep}. In
+\code{nest()}, the new inner names will have the outer names + \code{names_sep}
+automatically stripped. This makes \code{names_sep} roughly symmetric between
+nesting and unnesting.}
 
 \item{names_repair}{Used to check that output data frame has valid
 names. Must be one of the following options:
