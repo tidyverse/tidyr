@@ -205,8 +205,8 @@ and shows you how it saves you time during data analysis.
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyr.tidyverse.org">tidyr</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span></code></pre></div>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">classroom2</span> <span class="op">&lt;-</span> <span class="va">classroom</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="../reference/pivot_longer.html">pivot_longer</a></span><span class="op">(</span><span class="va">quiz1</span><span class="op">:</span><span class="va">test1</span>, names_to <span class="op">=</span> <span class="st">"assessment"</span>, values_to <span class="op">=</span> <span class="st">"grade"</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+<code class="sourceCode R"><span class="va">classroom2</span> <span class="op">&lt;-</span> <span class="va">classroom</span> <span class="op"><a href="../reference/%&gt;%.html">%&gt;%</a></span> 
+  <span class="fu"><a href="../reference/pivot_longer.html">pivot_longer</a></span><span class="op">(</span><span class="va">quiz1</span><span class="op">:</span><span class="va">test1</span>, names_to <span class="op">=</span> <span class="st">"assessment"</span>, values_to <span class="op">=</span> <span class="st">"grade"</span><span class="op">)</span> <span class="op"><a href="../reference/%&gt;%.html">%&gt;%</a></span> 
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="va">name</span>, <span class="va">assessment</span><span class="op">)</span>
 <span class="va">classroom2</span>
 <span class="co">#&gt; # A tibble: 12 × 3</span>
@@ -285,7 +285,7 @@ and shows you how it saves you time during data analysis.
 <p>This dataset has three variables, <code>religion</code>, <code>income</code> and <code>frequency</code>. To tidy it, we need to <strong>pivot</strong> the non-variable columns into a two-column key-value pair. This action is often described as making a wide dataset longer (or taller).</p>
 <p>When pivoting variables, we need to provide the name of the new key-value columns to create. After defining the colums to pivot (every column except for religion), you will need the name of the key column, which is the name of the variable defined by the values of the column headings. In this case, it’s <code>income</code>. The second argument is the name of the value column, <code>frequency</code>.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">relig_income</span> <span class="op">%&gt;%</span> 
+<code class="sourceCode R"><span class="va">relig_income</span> <span class="op"><a href="../reference/%&gt;%.html">%&gt;%</a></span> 
   <span class="fu"><a href="../reference/pivot_longer.html">pivot_longer</a></span><span class="op">(</span><span class="op">-</span><span class="va">religion</span>, names_to <span class="op">=</span> <span class="st">"income"</span>, values_to <span class="op">=</span> <span class="st">"frequency"</span><span class="op">)</span>
 <span class="co">#&gt; # A tibble: 180 × 3</span>
 <span class="co">#&gt;    religion income             frequency</span>
@@ -327,7 +327,7 @@ and shows you how it saves you time during data analysis.
 <span class="co">#&gt; #   wk41 &lt;dbl&gt;, wk42 &lt;dbl&gt;, wk43 &lt;dbl&gt;, wk44 &lt;dbl&gt;, wk45 &lt;dbl&gt;, wk46 &lt;dbl&gt;, …</span></code></pre></div>
 <p>To tidy this dataset, we first use <code><a href="../reference/pivot_longer.html">pivot_longer()</a></code> to make the dataset longer. We transform the columns from <code>wk1</code> to <code>wk76</code>, making a new column for their names, <code>week</code>, and a new value for their values, <code>rank</code>:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">billboard2</span> <span class="op">&lt;-</span> <span class="va">billboard</span> <span class="op">%&gt;%</span> 
+<code class="sourceCode R"><span class="va">billboard2</span> <span class="op">&lt;-</span> <span class="va">billboard</span> <span class="op"><a href="../reference/%&gt;%.html">%&gt;%</a></span> 
   <span class="fu"><a href="../reference/pivot_longer.html">pivot_longer</a></span><span class="op">(</span>
     <span class="va">wk1</span><span class="op">:</span><span class="va">wk76</span>, 
     names_to <span class="op">=</span> <span class="st">"week"</span>, 
@@ -352,7 +352,7 @@ and shows you how it saves you time during data analysis.
 <p>Here we use <code>values_drop_na = TRUE</code> to drop any missing values from the rank column. In this data, missing values represent weeks that the song wasn’t in the charts, so can be safely dropped.</p>
 <p>In this case it’s also nice to do a little cleaning, converting the week variable to a number, and figuring out the date corresponding to each week on the charts:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">billboard3</span> <span class="op">&lt;-</span> <span class="va">billboard2</span> <span class="op">%&gt;%</span>
+<code class="sourceCode R"><span class="va">billboard3</span> <span class="op">&lt;-</span> <span class="va">billboard2</span> <span class="op"><a href="../reference/%&gt;%.html">%&gt;%</a></span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>
     week <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html">as.integer</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html">gsub</a></span><span class="op">(</span><span class="st">"wk"</span>, <span class="st">""</span>, <span class="va">week</span><span class="op">)</span><span class="op">)</span>,
     date <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html">as.Date</a></span><span class="op">(</span><span class="va">date.entered</span><span class="op">)</span> <span class="op">+</span> <span class="fl">7</span> <span class="op">*</span> <span class="op">(</span><span class="va">week</span> <span class="op">-</span> <span class="fl">1</span><span class="op">)</span>,
@@ -375,7 +375,7 @@ and shows you how it saves you time during data analysis.
 <span class="co">#&gt; # … with 5,297 more rows</span></code></pre></div>
 <p>Finally, it’s always a good idea to sort the data. We could do it by artist, track and week:</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">billboard3</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="va">artist</span>, <span class="va">track</span>, <span class="va">week</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">billboard3</span> <span class="op"><a href="../reference/%&gt;%.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="va">artist</span>, <span class="va">track</span>, <span class="va">week</span><span class="op">)</span>
 <span class="co">#&gt; # A tibble: 5,307 × 5</span>
 <span class="co">#&gt;    artist  track                    week  rank date      </span>
 <span class="co">#&gt;    &lt;chr&gt;   &lt;chr&gt;                   &lt;int&gt; &lt;dbl&gt; &lt;date&gt;    </span>
@@ -392,7 +392,7 @@ and shows you how it saves you time during data analysis.
 <span class="co">#&gt; # … with 5,297 more rows</span></code></pre></div>
 <p>Or by date and rank:</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">billboard3</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="va">date</span>, <span class="va">rank</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">billboard3</span> <span class="op"><a href="../reference/%&gt;%.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="va">date</span>, <span class="va">rank</span><span class="op">)</span>
 <span class="co">#&gt; # A tibble: 5,307 × 5</span>
 <span class="co">#&gt;    artist   track   week  rank date      </span>
 <span class="co">#&gt;    &lt;chr&gt;    &lt;chr&gt;  &lt;int&gt; &lt;dbl&gt; &lt;date&gt;    </span>
@@ -433,7 +433,7 @@ and shows you how it saves you time during data analysis.
 <span class="co">#&gt; #   fu &lt;int&gt;</span></code></pre></div>
 <p>First we use <code><a href="../reference/pivot_longer.html">pivot_longer()</a></code> to gather up the non-variable columns:</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">tb2</span> <span class="op">&lt;-</span> <span class="va">tb</span> <span class="op">%&gt;%</span> 
+<code class="sourceCode R"><span class="va">tb2</span> <span class="op">&lt;-</span> <span class="va">tb</span> <span class="op"><a href="../reference/%&gt;%.html">%&gt;%</a></span> 
   <span class="fu"><a href="../reference/pivot_longer.html">pivot_longer</a></span><span class="op">(</span>
     <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">iso2</span>, <span class="va">year</span><span class="op">)</span>, 
     names_to <span class="op">=</span> <span class="st">"demo"</span>, 
@@ -455,9 +455,9 @@ and shows you how it saves you time during data analysis.
 <span class="co">#&gt;  9 AD     1996 f1524     1</span>
 <span class="co">#&gt; 10 AD     1996 f2534     1</span>
 <span class="co">#&gt; # … with 35,740 more rows</span></code></pre></div>
-<p>Column headers in this format are often separated by a non-alphanumeric character (e.g. <code>.</code>, <code><a href="https://rdrr.io/r/base/Arithmetic.html">-</a></code>, <code>_</code>, <code><a href="https://rdrr.io/r/base/Colon.html">:</a></code>), or have a fixed width format, like in this dataset. <code><a href="../reference/separate.html">separate()</a></code> makes it easy to split a compound variables into individual variables. You can either pass it a regular expression to split on (the default is to split on non-alphanumeric columns), or a vector of character positions. In this case we want to split after the first character:</p>
+<p>Column headers in this format are often separated by a non-alphanumeric character (e.g. <code>.</code>, <code>-</code>, <code>_</code>, <code>:</code>), or have a fixed width format, like in this dataset. <code><a href="../reference/separate.html">separate()</a></code> makes it easy to split a compound variables into individual variables. You can either pass it a regular expression to split on (the default is to split on non-alphanumeric columns), or a vector of character positions. In this case we want to split after the first character:</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">tb3</span> <span class="op">&lt;-</span> <span class="va">tb2</span> <span class="op">%&gt;%</span> 
+<code class="sourceCode R"><span class="va">tb3</span> <span class="op">&lt;-</span> <span class="va">tb2</span> <span class="op"><a href="../reference/%&gt;%.html">%&gt;%</a></span> 
   <span class="fu"><a href="../reference/separate.html">separate</a></span><span class="op">(</span><span class="va">demo</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"sex"</span>, <span class="st">"age"</span><span class="op">)</span>, <span class="fl">1</span><span class="op">)</span>
 <span class="va">tb3</span>
 <span class="co">#&gt; # A tibble: 35,750 × 5</span>
@@ -477,7 +477,7 @@ and shows you how it saves you time during data analysis.
 <p>Storing the values in this form resolves a problem in the original data. We want to compare rates, not counts, which means we need to know the population. In the original format, there is no easy way to add a population variable. It has to be stored in a separate table, which makes it hard to correctly match populations to counts. In tidy form, adding variables for population and rate is easy because they’re just additional columns.</p>
 <p>In this case, we could also do the transformation in a single step by supplying multiple column names to <code>names_to</code> and also supplying a grouped regular expression to <code>names_pattern</code>:</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">tb</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/pivot_longer.html">pivot_longer</a></span><span class="op">(</span>
+<code class="sourceCode R"><span class="va">tb</span> <span class="op"><a href="../reference/%&gt;%.html">%&gt;%</a></span> <span class="fu"><a href="../reference/pivot_longer.html">pivot_longer</a></span><span class="op">(</span>
   <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">iso2</span>, <span class="va">year</span><span class="op">)</span>, 
   names_to <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"sex"</span>, <span class="st">"age"</span><span class="op">)</span>, 
   names_pattern <span class="op">=</span> <span class="st">"(.)(.+)"</span>,
@@ -527,7 +527,7 @@ and shows you how it saves you time during data analysis.
 <p>It has variables in individual columns (<code>id</code>, <code>year</code>, <code>month</code>), spread across columns (<code>day</code>, d1-d31) and across rows (<code>tmin</code>, <code>tmax</code>) (minimum and maximum temperature). Months with fewer than 31 days have structural missing values for the last day(s) of the month.</p>
 <p>To tidy this dataset we first use pivot_longer to gather the day columns:</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">weather2</span> <span class="op">&lt;-</span> <span class="va">weather</span> <span class="op">%&gt;%</span> 
+<code class="sourceCode R"><span class="va">weather2</span> <span class="op">&lt;-</span> <span class="va">weather</span> <span class="op"><a href="../reference/%&gt;%.html">%&gt;%</a></span> 
   <span class="fu"><a href="../reference/pivot_longer.html">pivot_longer</a></span><span class="op">(</span>
     <span class="va">d1</span><span class="op">:</span><span class="va">d31</span>, 
     names_to <span class="op">=</span> <span class="st">"day"</span>, 
@@ -552,8 +552,8 @@ and shows you how it saves you time during data analysis.
 <p>For presentation, I’ve dropped the missing values, making them implicit rather than explicit. This is ok because we know how many days are in each month and can easily reconstruct the explicit missing values.</p>
 <p>We’ll also do a little cleaning:</p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">weather3</span> <span class="op">&lt;-</span> <span class="va">weather2</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>day <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html">as.integer</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html">gsub</a></span><span class="op">(</span><span class="st">"d"</span>, <span class="st">""</span>, <span class="va">day</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
+<code class="sourceCode R"><span class="va">weather3</span> <span class="op">&lt;-</span> <span class="va">weather2</span> <span class="op"><a href="../reference/%&gt;%.html">%&gt;%</a></span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>day <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html">as.integer</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html">gsub</a></span><span class="op">(</span><span class="st">"d"</span>, <span class="st">""</span>, <span class="va">day</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/%&gt;%.html">%&gt;%</a></span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">id</span>, <span class="va">year</span>, <span class="va">month</span>, <span class="va">day</span>, <span class="va">element</span>, <span class="va">value</span><span class="op">)</span>
 <span class="va">weather3</span>
 <span class="co">#&gt; # A tibble: 66 × 6</span>
@@ -572,7 +572,7 @@ and shows you how it saves you time during data analysis.
 <span class="co">#&gt; # … with 56 more rows</span></code></pre></div>
 <p>This dataset is mostly tidy, but the <code>element</code> column is not a variable; it stores the names of variables. (Not shown in this example are the other meteorological variables <code>prcp</code> (precipitation) and <code>snow</code> (snowfall)). Fixing this requires widening the data: <code><a href="../reference/pivot_wider.html">pivot_wider()</a></code> is inverse of <code><a href="../reference/pivot_longer.html">pivot_longer()</a></code>, pivoting <code>element</code> and <code>value</code> back out across multiple columns:</p>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">weather3</span> <span class="op">%&gt;%</span> 
+<code class="sourceCode R"><span class="va">weather3</span> <span class="op"><a href="../reference/%&gt;%.html">%&gt;%</a></span> 
   <span class="fu"><a href="../reference/pivot_wider.html">pivot_wider</a></span><span class="op">(</span>names_from <span class="op">=</span> <span class="va">element</span>, values_from <span class="op">=</span> <span class="va">value</span><span class="op">)</span>
 <span class="co">#&gt; # A tibble: 33 × 6</span>
 <span class="co">#&gt;    id       year month   day  tmax  tmin</span>
@@ -597,8 +597,8 @@ and shows you how it saves you time during data analysis.
 <p>The billboard dataset actually contains observations on two types of observational units: the song and its rank in each week. This manifests itself through the duplication of facts about the song: <code>artist</code> is repeated many times.</p>
 <p>This dataset needs to be broken down into two pieces: a song dataset which stores <code>artist</code> and <code>song name</code>, and a ranking dataset which gives the <code>rank</code> of the <code>song</code> in each <code>week</code>. We first extract a <code>song</code> dataset:</p>
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">song</span> <span class="op">&lt;-</span> <span class="va">billboard3</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/distinct.html">distinct</a></span><span class="op">(</span><span class="va">artist</span>, <span class="va">track</span><span class="op">)</span> <span class="op">%&gt;%</span>
+<code class="sourceCode R"><span class="va">song</span> <span class="op">&lt;-</span> <span class="va">billboard3</span> <span class="op"><a href="../reference/%&gt;%.html">%&gt;%</a></span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/distinct.html">distinct</a></span><span class="op">(</span><span class="va">artist</span>, <span class="va">track</span><span class="op">)</span> <span class="op"><a href="../reference/%&gt;%.html">%&gt;%</a></span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>song_id <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/ranking.html">row_number</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
 <span class="va">song</span>
 <span class="co">#&gt; # A tibble: 317 × 3</span>
@@ -617,8 +617,8 @@ and shows you how it saves you time during data analysis.
 <span class="co">#&gt; # … with 307 more rows</span></code></pre></div>
 <p>Then use that to make a <code>rank</code> dataset by replacing repeated song facts with a pointer to song details (a unique song id):</p>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">rank</span> <span class="op">&lt;-</span> <span class="va">billboard3</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">song</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"artist"</span>, <span class="st">"track"</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
+<code class="sourceCode R"><span class="va">rank</span> <span class="op">&lt;-</span> <span class="va">billboard3</span> <span class="op"><a href="../reference/%&gt;%.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">song</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"artist"</span>, <span class="st">"track"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/%&gt;%.html">%&gt;%</a></span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">song_id</span>, <span class="va">date</span>, <span class="va">week</span>, <span class="va">rank</span><span class="op">)</span>
 <span class="va">rank</span>
 <span class="co">#&gt; # A tibble: 5,307 × 4</span>

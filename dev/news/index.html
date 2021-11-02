@@ -283,7 +283,7 @@ df %&gt;% pivot_longer(-id, names_sep = "_", names_to = c(".value", NA))</code><
 <ul>
 <li><p><code><a href="../reference/hoist.html">hoist()</a></code> now automatically names pluckers that are a single string (<a href='https://github.com/tidyverse/tidyr/issues/837'>#837</a>). It error if you use duplicated column names (<a href='https://github.com/mgirlich'>@mgirlich</a>, <a href='https://github.com/tidyverse/tidyr/issues/834'>#834</a>), and now uses <code><a href="https://rlang.r-lib.org/reference/list2.html">rlang::list2()</a></code> behind the scenes (which means that you can now use <code>!!!</code> and <code>:=</code>) (<a href='https://github.com/tidyverse/tidyr/issues/801'>#801</a>).</p></li>
 <li><p><code><a href="../reference/hoist.html">unnest_longer()</a></code>, <code><a href="../reference/hoist.html">unnest_wider()</a></code>, and <code><a href="../reference/hoist.html">hoist()</a></code> do a better job simplifying list-cols. They no longer add unneeded <code>unspecified()</code> when the result is still a list (<a href='https://github.com/tidyverse/tidyr/issues/806'>#806</a>), and work when the list contains non-vectors (<a href='https://github.com/tidyverse/tidyr/issues/810'>#810</a>, <a href='https://github.com/tidyverse/tidyr/issues/848'>#848</a>).</p></li>
-<li><p><code><a href="../reference/hoist.html">unnest_wider(names_sep = "")</a></code> now provides default names for unnamed inputs, suppressing the many previous name repair messages (<a href='https://github.com/tidyverse/tidyr/issues/742'>#742</a>).</p></li>
+<li><p><code>unnest_wider(names_sep = "")</code> now provides default names for unnamed inputs, suppressing the many previous name repair messages (<a href='https://github.com/tidyverse/tidyr/issues/742'>#742</a>).</p></li>
 </ul>
 </div>
 <div id="nesting" class="section level2">
@@ -300,7 +300,7 @@ df %&gt;% pivot_longer(-id, names_sep = "_", names_to = c(".value", NA))</code><
 <ul>
 <li><p><code><a href="../reference/chop.html">chop()</a></code> now creates list-columns of class <code><a href="https://vctrs.r-lib.org/reference/list_of.html">vctrs::list_of()</a></code>. This helps keep track of the type in case the chopped data frame is empty, allowing <code><a href="../reference/chop.html">unchop()</a></code> to reconstitute a data frame with the correct number and types of column even when there are no observations.</p></li>
 <li><p><code><a href="../reference/drop_na.html">drop_na()</a></code> now preserves attributes of unclassed vectors (<a href='https://github.com/tidyverse/tidyr/issues/905'>#905</a>).</p></li>
-<li><p><code><a href="../reference/expand.html">expand()</a></code>, <code><a href="../reference/expand_grid.html">expand_grid()</a></code>, <code><a href="../reference/expand.html">crossing()</a></code>, and <code><a href="../reference/expand.html">nesting()</a></code> once again evaluate their inputs iteratively, so you can refer to freshly created columns, e.g. <code><a href="../reference/expand.html">crossing(x = seq(-2, 2), y = x)</a></code> (<a href='https://github.com/tidyverse/tidyr/issues/820'>#820</a>).</p></li>
+<li><p><code><a href="../reference/expand.html">expand()</a></code>, <code><a href="../reference/expand_grid.html">expand_grid()</a></code>, <code><a href="../reference/expand.html">crossing()</a></code>, and <code><a href="../reference/expand.html">nesting()</a></code> once again evaluate their inputs iteratively, so you can refer to freshly created columns, e.g. <code>crossing(x = seq(-2, 2), y = x)</code> (<a href='https://github.com/tidyverse/tidyr/issues/820'>#820</a>).</p></li>
 <li><p><code><a href="../reference/expand.html">expand()</a></code>, <code><a href="../reference/expand_grid.html">expand_grid()</a></code>, <code><a href="../reference/expand.html">crossing()</a></code>, and <code><a href="../reference/expand.html">nesting()</a></code> gain a <code>.name_repair</code> giving you control over their name repair strategy (<a href='https://github.com/jeffreypullin'>@jeffreypullin</a>, <a href='https://github.com/tidyverse/tidyr/issues/798'>#798</a>).</p></li>
 <li><p><code><a href="../reference/extract.html">extract()</a></code> lets you use <code>NA</code> in <code>into</code>, as documented (<a href='https://github.com/tidyverse/tidyr/issues/793'>#793</a>).</p></li>
 <li><p><code><a href="../reference/extract.html">extract()</a></code>, <code><a href="../reference/separate.html">separate()</a></code>, <code><a href="../reference/hoist.html">hoist()</a></code>, <code><a href="../reference/hoist.html">unnest_longer()</a></code>, and <code><a href="../reference/hoist.html">unnest_wider()</a></code> give a better error message if <code>col</code> is missing (<a href='https://github.com/tidyverse/tidyr/issues/805'>#805</a>).</p></li>
@@ -308,7 +308,7 @@ df %&gt;% pivot_longer(-id, names_sep = "_", names_to = c(".value", NA))</code><
 <li><p><code><a href="../reference/pivot_longer.html">pivot_longer()</a></code> now errors if <code>values_to</code> is not a length-1 character vector (<a href='https://github.com/tidyverse/tidyr/issues/949'>#949</a>).</p></li>
 <li><p><code><a href="../reference/pivot_longer.html">pivot_longer()</a></code> and <code><a href="../reference/pivot_wider.html">pivot_wider()</a></code> are now generic so implementations can be provided for objects other than data frames (<a href='https://github.com/tidyverse/tidyr/issues/800'>#800</a>).</p></li>
 <li><p><code><a href="../reference/pivot_wider.html">pivot_wider()</a></code> can now pivot data frame columns (<a href='https://github.com/tidyverse/tidyr/issues/926'>#926</a>)</p></li>
-<li><p><code><a href="../reference/unite.html">unite(na.rm = TRUE)</a></code> now works for all types of variable, not just character vectors (<a href='https://github.com/tidyverse/tidyr/issues/765'>#765</a>).</p></li>
+<li><p><code>unite(na.rm = TRUE)</code> now works for all types of variable, not just character vectors (<a href='https://github.com/tidyverse/tidyr/issues/765'>#765</a>).</p></li>
 <li><p><code><a href="../reference/hoist.html">unnest_wider()</a></code> gives a better error message if you attempt to unnest multiple columns (<a href='https://github.com/tidyverse/tidyr/issues/740'>#740</a>).</p></li>
 <li><p><code><a href="../reference/hoist.html">unnest_auto()</a></code> works when the input data contains a column called <code>col</code> (<a href='https://github.com/tidyverse/tidyr/issues/959'>#959</a>).</p></li>
 </ul>
@@ -478,7 +478,7 @@ df %&gt;% mutate(name = map_chr(metadata, "name"))</code></pre>
 <h2 class="hasAnchor">
 <a href="#bug-fixes-and-minor-improvements-2" class="anchor"></a>Bug fixes and minor improvements</h2>
 <ul>
-<li><p><code><a href="../reference/complete.html">complete(data)</a></code> now returns <code>data</code> rather than throwing an error (<a href='https://github.com/tidyverse/tidyr/issues/390'>#390</a>). <code><a href="../reference/complete.html">complete()</a></code> with zero-length completions returns original input (<a href='https://github.com/tidyverse/tidyr/issues/331'>#331</a>).</p></li>
+<li><p><code>complete(data)</code> now returns <code>data</code> rather than throwing an error (<a href='https://github.com/tidyverse/tidyr/issues/390'>#390</a>). <code><a href="../reference/complete.html">complete()</a></code> with zero-length completions returns original input (<a href='https://github.com/tidyverse/tidyr/issues/331'>#331</a>).</p></li>
 <li><p><code><a href="../reference/expand.html">crossing()</a></code> preserves <code>NA</code>s (<a href='https://github.com/tidyverse/tidyr/issues/364'>#364</a>).</p></li>
 <li><p><code><a href="../reference/expand.html">expand()</a></code> with empty input gives empty data frame instead of <code>NULL</code> (<a href='https://github.com/tidyverse/tidyr/issues/331'>#331</a>).</p></li>
 <li><p><code><a href="../reference/expand.html">expand()</a></code>, <code><a href="../reference/expand.html">crossing()</a></code>, and <code><a href="../reference/complete.html">complete()</a></code> now complete empty factors instead of dropping them (<a href='https://github.com/tidyverse/tidyr/issues/270'>#270</a>, <a href='https://github.com/tidyverse/tidyr/issues/285'>#285</a>)</p></li>
@@ -500,7 +500,7 @@ df %&gt;% mutate(name = map_chr(metadata, "name"))</code></pre>
 <li><p><code><a href="../reference/unite.html">unite()</a></code> now works (as documented) if you don’t supply any variables (<a href='https://github.com/tidyverse/tidyr/issues/355'>#355</a>).</p></li>
 <li><p><code><a href="../reference/nest.html">unnest()</a></code> gains <code>preserve</code> argument which allows you to preserve list columns without unnesting them (<a href='https://github.com/tidyverse/tidyr/issues/328'>#328</a>).</p></li>
 <li><p><code><a href="../reference/nest.html">unnest()</a></code> can unnested list-columns contains lists of lists (<a href='https://github.com/tidyverse/tidyr/issues/278'>#278</a>).</p></li>
-<li><p><code><a href="../reference/nest.html">unnest(df)</a></code> now works if <code>df</code> contains no list-cols (<a href='https://github.com/tidyverse/tidyr/issues/344'>#344</a>)</p></li>
+<li><p><code>unnest(df)</code> now works if <code>df</code> contains no list-cols (<a href='https://github.com/tidyverse/tidyr/issues/344'>#344</a>)</p></li>
 </ul>
 </div>
 </div>
@@ -518,8 +518,8 @@ df %&gt;% mutate(name = map_chr(metadata, "name"))</code></pre>
 <a href="#tidyr-071" class="anchor"></a>tidyr 0.7.1<small> 2017-09-01 </small>
 </h1>
 <p>This is a hotfix release to account for some tidyselect changes in the unit tests.</p>
-<p>Note that the upcoming version of tidyselect backtracks on some of the changes announced for 0.7.0. The special evaluation semantics for selection have been changed back to the old behaviour because the new rules were causing too much trouble and confusion. From now on data expressions (symbols and calls to <code><a href="https://rdrr.io/r/base/Colon.html">:</a></code> and <code><a href="https://rdrr.io/r/base/c.html">c()</a></code>) can refer to both registered variables and to objects from the context.</p>
-<p>However the semantics for context expressions (any calls other than to <code><a href="https://rdrr.io/r/base/Colon.html">:</a></code> and <code><a href="https://rdrr.io/r/base/c.html">c()</a></code>) remain the same. Those expressions are evaluated in the context only and cannot refer to registered variables. If you’re writing functions and refer to contextual objects, it is still a good idea to avoid data expressions by following the advice of the 0.7.0 release notes.</p>
+<p>Note that the upcoming version of tidyselect backtracks on some of the changes announced for 0.7.0. The special evaluation semantics for selection have been changed back to the old behaviour because the new rules were causing too much trouble and confusion. From now on data expressions (symbols and calls to <code>:</code> and <code><a href="https://rdrr.io/r/base/c.html">c()</a></code>) can refer to both registered variables and to objects from the context.</p>
+<p>However the semantics for context expressions (any calls other than to <code>:</code> and <code><a href="https://rdrr.io/r/base/c.html">c()</a></code>) remain the same. Those expressions are evaluated in the context only and cannot refer to registered variables. If you’re writing functions and refer to contextual objects, it is still a good idea to avoid data expressions by following the advice of the 0.7.0 release notes.</p>
 </div>
     <div id="tidyr-070" class="section level1">
 <h1 class="page-header" data-toc-text="0.7.0">
@@ -536,7 +536,7 @@ df %&gt;% mutate(name = map_chr(metadata, "name"))</code></pre>
 df &lt;- tibble(w = 1, x = 2, y = 3)
 gather(df, "variable", "value", 1:x)</code></pre>
 <p>Does it select the first three columns (using the <code>x</code> defined in the global environment), or does it select the first two columns (using the column named <code>x</code>)?</p>
-<p>To solve this ambiguity, we now make a strict distinction between data and context expressions. A data expression is either a bare name or an expression like <code>x:y</code> or <code><a href="https://rdrr.io/r/base/c.html">c(x, y)</a></code>. In a data expression, you can only refer to columns from the data frame. Everything else is a context expression in which you can only refer to objects that you have defined with <code><a href="https://rdrr.io/r/base/assignOps.html">&lt;-</a></code>.</p>
+<p>To solve this ambiguity, we now make a strict distinction between data and context expressions. A data expression is either a bare name or an expression like <code>x:y</code> or <code>c(x, y)</code>. In a data expression, you can only refer to columns from the data frame. Everything else is a context expression in which you can only refer to objects that you have defined with <code>&lt;-</code>.</p>
 <p>In practice this means that you can no longer refer to contextual objects like this:</p>
 <pre><code>mtcars %&gt;% gather(var, value, 1:ncol(mtcars))
 
@@ -547,9 +547,9 @@ mtcars %&gt;% gather(var, value, -(1:x))</code></pre>
 <pre class="{r}"><code>mtcars %&gt;% gather(var, value, !! 1:ncol(mtcars))
 mtcars %&gt;% gather(var, value, !! 1:x)
 mtcars %&gt;% gather(var, value, !! -(1:x))</code></pre>
-<p>An alternative is to turn your data expression into a context expression by using <code><a href="https://rdrr.io/r/base/seq.html">seq()</a></code> or <code><a href="https://rdrr.io/r/base/seq.html">seq_len()</a></code> instead of <code><a href="https://rdrr.io/r/base/Colon.html">:</a></code>. See the section on tidyselect for more information about these semantics.</p>
+<p>An alternative is to turn your data expression into a context expression by using <code><a href="https://rdrr.io/r/base/seq.html">seq()</a></code> or <code><a href="https://rdrr.io/r/base/seq.html">seq_len()</a></code> instead of <code>:</code>. See the section on tidyselect for more information about these semantics.</p>
 </li>
-<li><p>Following the switch to tidy evaluation, you might see warnings about the “variable context not set”. This is most likely caused by supplyng helpers like <code><a href="https://tidyselect.r-lib.org/reference/everything.html">everything()</a></code> to underscored versions of tidyr verbs. Helpers should be always be evaluated lazily. To fix this, just quote the helper with a formula: <code><a href="../reference/drop_na.html">drop_na(df, ~everything())</a></code>.</p></li>
+<li><p>Following the switch to tidy evaluation, you might see warnings about the “variable context not set”. This is most likely caused by supplyng helpers like <code><a href="https://tidyselect.r-lib.org/reference/everything.html">everything()</a></code> to underscored versions of tidyr verbs. Helpers should be always be evaluated lazily. To fix this, just quote the helper with a formula: <code>drop_na(df, ~everything())</code>.</p></li>
 <li>
 <p>The selecting functions are now stricter when you supply integer positions. If you see an error along the lines of</p>
 <pre><code>`-0.949999999999999`, `-0.940000000000001`, ... must resolve to
@@ -572,7 +572,7 @@ integer column positions, not a double vector</code></pre>
 <ul>
 <li><p>The arguments for selecting a single variable now support all features from <code><a href="https://dplyr.tidyverse.org/reference/pull.html">dplyr::pull()</a></code>. You can supply a name or a position, including negative positions.</p></li>
 <li>
-<p>Multiple variables are now selected a bit differently. We now make a strict distinction between data and context expressions. A data expression is either a bare name of an expression like <code>x:y</code> or <code><a href="https://rdrr.io/r/base/c.html">c(x, y)</a></code>. In a data expression, you can only refer to columns from the data frame. Everything else is a context expression in which you can only refer to objects that you have defined with <code><a href="https://rdrr.io/r/base/assignOps.html">&lt;-</a></code>.</p>
+<p>Multiple variables are now selected a bit differently. We now make a strict distinction between data and context expressions. A data expression is either a bare name of an expression like <code>x:y</code> or <code>c(x, y)</code>. In a data expression, you can only refer to columns from the data frame. Everything else is a context expression in which you can only refer to objects that you have defined with <code>&lt;-</code>.</p>
 <p>You can still refer to contextual objects in a data expression by being explicit. One way of being explicit is to unquote a variable from the environment with the tidy eval operator <code>!!</code>:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R">
@@ -643,7 +643,7 @@ drop_na(df, starts_with(x))</code></pre>
 <a href="#tidyr-051" class="anchor"></a>tidyr 0.5.1<small> 2016-06-14 </small>
 </h1>
 <ul>
-<li>Restored compatibility with R &lt; 3.3.0 by avoiding <code><a href="https://rdrr.io/r/utils/getS3method.html">getS3method(envir = )</a></code> (<a href='https://github.com/tidyverse/tidyr/issues/205'>#205</a>, <a href='https://github.com/krlmlr'>@krlmlr</a>).</li>
+<li>Restored compatibility with R &lt; 3.3.0 by avoiding <code>getS3method(envir = )</code> (<a href='https://github.com/tidyverse/tidyr/issues/205'>#205</a>, <a href='https://github.com/krlmlr'>@krlmlr</a>).</li>
 </ul>
 </div>
     <div id="tidyr-050" class="section level1">
@@ -706,9 +706,9 @@ drop_na(df, starts_with(x))</code></pre>
 <h2 class="hasAnchor">
 <a href="#expanding" class="anchor"></a>Expanding</h2>
 <ul>
-<li><p><code><a href="../reference/expand.html">expand()</a></code> once again allows you to evaluate arbitrary expressions like <code><a href="../reference/full_seq.html">full_seq(year)</a></code>. If you were previously using <code><a href="https://rdrr.io/r/base/c.html">c()</a></code> to created nested combinations, you’ll now need to use <code><a href="../reference/expand.html">nesting()</a></code> (<a href='https://github.com/tidyverse/tidyr/issues/85'>#85</a>, <a href='https://github.com/tidyverse/tidyr/issues/121'>#121</a>).</p></li>
+<li><p><code><a href="../reference/expand.html">expand()</a></code> once again allows you to evaluate arbitrary expressions like <code>full_seq(year)</code>. If you were previously using <code><a href="https://rdrr.io/r/base/c.html">c()</a></code> to created nested combinations, you’ll now need to use <code><a href="../reference/expand.html">nesting()</a></code> (<a href='https://github.com/tidyverse/tidyr/issues/85'>#85</a>, <a href='https://github.com/tidyverse/tidyr/issues/121'>#121</a>).</p></li>
 <li><p><code><a href="../reference/expand.html">nesting()</a></code> and <code><a href="../reference/expand.html">crossing()</a></code> allow you to create nested and crossed data frames from individual vectors. <code><a href="../reference/expand.html">crossing()</a></code> is similar to <code><a href="https://rdrr.io/r/base/expand.grid.html">base::expand.grid()</a></code></p></li>
-<li><p><code><a href="../reference/full_seq.html">full_seq(x, period)</a></code> creates the full sequence of values from <code><a href="https://rdrr.io/r/base/Extremes.html">min(x)</a></code> to <code><a href="https://rdrr.io/r/base/Extremes.html">max(x)</a></code> every <code>period</code> values.</p></li>
+<li><p><code>full_seq(x, period)</code> creates the full sequence of values from <code>min(x)</code> to <code>max(x)</code> every <code>period</code> values.</p></li>
 </ul>
 </div>
 <div id="minor-bug-fixes-and-improvements" class="section level2">
@@ -754,7 +754,7 @@ drop_na(df, starts_with(x))</code></pre>
 <a href="#bug-fixes-and-minor-improvements-5" class="anchor"></a>Bug fixes and minor improvements</h2>
 <ul>
 <li><p>tidyr no longer depends on reshape2. This should fix issues if you also try to load reshape (<a href='https://github.com/tidyverse/tidyr/issues/88'>#88</a>).</p></li>
-<li><p><code><a href="../reference/%&gt;%.html">%&gt;%</a></code> is re-exported from magrittr.</p></li>
+<li><p><code>%&gt;%</code> is re-exported from magrittr.</p></li>
 <li><p><code><a href="../reference/expand.html">expand()</a></code> now supports nesting and crossing (see examples for details). This comes at the expense of creating new variables inline (<a href='https://github.com/tidyverse/tidyr/issues/46'>#46</a>).</p></li>
 <li><p><code>expand_</code> does SE evaluation correctly so you can pass it a character vector of columns names (or list of formulas etc) (<a href='https://github.com/tidyverse/tidyr/issues/70'>#70</a>).</p></li>
 <li><p><code><a href="../reference/extract.html">extract()</a></code> is 10x faster because it now uses stringi instead of base R regular expressions. It also returns NA instead of throwing an error if the regular expression doesn’t match (<a href='https://github.com/tidyverse/tidyr/issues/72'>#72</a>).</p></li>

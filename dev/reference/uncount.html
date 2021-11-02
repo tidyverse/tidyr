@@ -231,37 +231,41 @@ identifier for each created row.</p></td>
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"a"</span>, <span class='st'>"b"</span><span class='op'>)</span>, n <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span>
-<span class='fu'>uncount</span><span class='op'>(</span><span class='va'>df</span>, <span class='va'>n</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 3 × 1</span>
-#&gt;   x    
-#&gt;   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>
-#&gt; <span style='color: #BCBCBC;'>1</span> a    
-#&gt; <span style='color: #BCBCBC;'>2</span> b    
-#&gt; <span style='color: #BCBCBC;'>3</span> b    </div><div class='input'><span class='fu'>uncount</span><span class='op'>(</span><span class='va'>df</span>, <span class='va'>n</span>, .id <span class='op'>=</span> <span class='st'>"id"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 3 × 2</span>
-#&gt;   x        id
-#&gt;   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span>
-#&gt; <span style='color: #BCBCBC;'>1</span> a         1
-#&gt; <span style='color: #BCBCBC;'>2</span> b         1
-#&gt; <span style='color: #BCBCBC;'>3</span> b         2</div><div class='input'>
-<span class='co'># You can also use constants</span>
-<span class='fu'>uncount</span><span class='op'>(</span><span class='va'>df</span>, <span class='fl'>2</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 4 × 2</span>
-#&gt;   x         n
-#&gt;   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
-#&gt; <span style='color: #BCBCBC;'>1</span> a         1
-#&gt; <span style='color: #BCBCBC;'>2</span> a         1
-#&gt; <span style='color: #BCBCBC;'>3</span> b         2
-#&gt; <span style='color: #BCBCBC;'>4</span> b         2</div><div class='input'>
-<span class='co'># Or expressions</span>
-<span class='fu'>uncount</span><span class='op'>(</span><span class='va'>df</span>, <span class='fl'>2</span> <span class='op'>/</span> <span class='va'>n</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 3 × 2</span>
-#&gt;   x         n
-#&gt;   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
-#&gt; <span style='color: #BCBCBC;'>1</span> a         1
-#&gt; <span style='color: #BCBCBC;'>2</span> a         1
-#&gt; <span style='color: #BCBCBC;'>3</span> b         2</div></pre>
+    <pre class="examples"><span class='r-in'><span class='va'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"a"</span>, <span class='st'>"b"</span><span class='op'>)</span>, n <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'>uncount</span><span class='op'>(</span><span class='va'>df</span>, <span class='va'>n</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># A tibble: 3 × 1</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   x    </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>1</span> a    </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>2</span> b    </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>3</span> b    </span>
+<span class='r-in'><span class='fu'>uncount</span><span class='op'>(</span><span class='va'>df</span>, <span class='va'>n</span>, .id <span class='op'>=</span> <span class='st'>"id"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># A tibble: 3 × 2</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   x        id</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>1</span> a         1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>2</span> b         1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>3</span> b         2</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># You can also use constants</span></span>
+<span class='r-in'><span class='fu'>uncount</span><span class='op'>(</span><span class='va'>df</span>, <span class='fl'>2</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># A tibble: 4 × 2</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   x         n</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>1</span> a         1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>2</span> a         1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>3</span> b         2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>4</span> b         2</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Or expressions</span></span>
+<span class='r-in'><span class='fu'>uncount</span><span class='op'>(</span><span class='va'>df</span>, <span class='fl'>2</span> <span class='op'>/</span> <span class='va'>n</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># A tibble: 3 × 2</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   x         n</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>1</span> a         1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>2</span> a         1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>3</span> b         2</span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

@@ -305,11 +305,11 @@ use instead of <code>NA</code> for missing combinations.</p></td>
 or lists.</p><ul>
 <li><p>To find all unique combinations of <code>x</code>, <code>y</code> and <code>z</code>, including those not
 present in the data, supply each variable as a separate argument:
-<code><a href='expand.html'>expand(df, x, y, z)</a></code>.</p></li>
+<code>expand(df, x, y, z)</code>.</p></li>
 <li><p>To find only the combinations that occur in the
-data, use <code>nesting</code>: <code><a href='expand.html'>expand(df, nesting(x, y, z))</a></code>.</p></li>
+data, use <code>nesting</code>: <code>expand(df, nesting(x, y, z))</code>.</p></li>
 <li><p>You can combine the two forms. For example,
-<code><a href='expand.html'>expand(df, nesting(school_id, student_id), date)</a></code> would produce
+<code>expand(df, nesting(school_id, student_id), date)</code> would produce
 a row for each present school-student combination for all possible
 dates.</p></li>
 </ul>
@@ -391,7 +391,7 @@ use <code>names_sep</code> instead.</p></td>
 happens when there are too many pieces. There are three valid options:</p><ul>
 <li><p>"warn" (the default): emit a warning and drop extra values.</p></li>
 <li><p>"drop": drop any extra values without a warning.</p></li>
-<li><p>"merge": only splits at most <code><a href='https://rdrr.io/r/base/length.html'>length(into)</a></code> times</p></li>
+<li><p>"merge": only splits at most <code>length(into)</code> times</p></li>
 </ul></td>
     </tr>
     <tr>
