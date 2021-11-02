@@ -48,6 +48,12 @@ test_that("can strip names", {
   expect_named(out$y[[1]], c("a", "b"))
 })
 
+test_that("`.names_sep` is passed through with bare data.frames (#1174)", {
+  df <- data.frame(x = c(1, 1, 1), ya = 1:3, yb = 4:6)
+  out <- nest(df, y = starts_with("y"), .names_sep = "")
+  expect_named(out$y[[1]], c("a", "b"))
+})
+
 test_that("empty factor levels don't affect nest", {
   df <- tibble(
     x = factor(c("z", "a"), levels = letters),

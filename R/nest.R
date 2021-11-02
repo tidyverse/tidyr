@@ -146,7 +146,7 @@ nest.data.frame <- function(.data, ..., .names_sep = NULL, .key = deprecated()) 
     .data <- as_tibble(.data)
   }
 
-  nest.tbl_df(.data, ..., .key = .key)
+  nest.tbl_df(.data, ..., .names_sep = .names_sep, .key = .key)
 }
 
 #' @export
