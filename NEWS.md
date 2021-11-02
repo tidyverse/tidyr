@@ -1,5 +1,9 @@
 # tidyr (development version)
 
+* The default value for the `ptype` arguments of `unnest()` and `unchop()`
+  has been changed from `NULL` to `list()` to better match `pivot_longer()`,
+  `unnest_longer()`, and `unnest_wider()` (#1152).
+
 # tidyr 1.1.4
 
 * `expand_grid()` is now about twice as fast and `pivot_wider()` is a bit faster
