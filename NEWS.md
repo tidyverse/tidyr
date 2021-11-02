@@ -1,5 +1,8 @@
 # tidyr (development version)
 
+* The `.names_sep` argument of the data.frame method for `nest()` is now
+  actually used (#1174).
+  
 * The default value for the `ptype` arguments of `unnest()` and `unchop()`
   has been changed from `NULL` to `list()` to better match `pivot_longer()`,
   `unnest_longer()`, and `unnest_wider()` (#1152).
