@@ -20,12 +20,12 @@
 #'   as is. In `pack()`, inner names will come from the former outer names;
 #'   in `unpack()`, the new outer names will come from the inner names.
 #'
-#'   If a string, the inner and outer names will be used together. In `unpack()`,
-#'   the names of the new outer columns will be formed by pasting together the
-#'   outer and the inner column names, separated by `names_sep`. In `pack()`,
-#'   the new inner names will have the outer names + `names_sep` automatically
-#'   stripped. This makes `names_sep` roughly symmetric between packing
-#'   and unpacking.
+#'   If a string, the inner and outer names will be used together. In
+#'   `unpack()`, the names of the new outer columns will be formed by pasting
+#'   together the outer and the inner column names, separated by `names_sep`. In
+#'   `pack()`, the new inner names will have the outer names + `names_sep`
+#'   automatically stripped. This makes `names_sep` roughly symmetric between
+#'   packing and unpacking.
 #' @param ... <[`tidy-select`][tidyr_tidy_select]> Columns to pack, specified
 #'   using name-variable pairs of the form `new_col = c(col1, col2, col3)`.
 #'   The right hand side can be any valid tidy select expression.

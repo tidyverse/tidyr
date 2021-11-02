@@ -22,12 +22,12 @@ The right hand side can be any valid tidy select expression.}
 as is. In \code{pack()}, inner names will come from the former outer names;
 in \code{unpack()}, the new outer names will come from the inner names.
 
-If a string, the inner and outer names will be used together. In \code{unpack()},
-the names of the new outer columns will be formed by pasting together the
-outer and the inner column names, separated by \code{names_sep}. In \code{pack()},
-the new inner names will have the outer names + \code{names_sep} automatically
-stripped. This makes \code{names_sep} roughly symmetric between packing
-and unpacking.}
+If a string, the inner and outer names will be used together. In
+\code{unpack()}, the names of the new outer columns will be formed by pasting
+together the outer and the inner column names, separated by \code{names_sep}. In
+\code{pack()}, the new inner names will have the outer names + \code{names_sep}
+automatically stripped. This makes \code{names_sep} roughly symmetric between
+packing and unpacking.}
 
 \item{names_repair}{Used to check that output data frame has valid
 names. Must be one of the following options:
