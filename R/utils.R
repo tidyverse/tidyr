@@ -130,6 +130,10 @@ tidyr_new_list <- function(x) {
   x
 }
 
+apply_names_sep <- function(outer, inner, names_sep) {
+  as.character(glue("{outer}{names_sep}{inner}"))
+}
+
 check_present <- function(x) {
   arg <- ensym(x)
   if (missing(x)) {
