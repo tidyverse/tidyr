@@ -481,16 +481,16 @@
     names_pattern <span class="op">=</span> <span class="st">"(.)(.)"</span>
   <span class="op">)</span>
 <span class="co">#&gt; # A tibble: 8 × 6</span>
-<span class="co">#&gt;       x     a     b time       y     z</span>
-<span class="co">#&gt;   &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;  &lt;dbl&gt; &lt;dbl&gt;</span>
-<span class="co">#&gt; 1     1     1     0 1      2.53      3</span>
-<span class="co">#&gt; 2     1     1     0 2      0.854    -2</span>
-<span class="co">#&gt; 3     2     1     1 1      1.17      3</span>
-<span class="co">#&gt; 4     2     1     1 2     -0.295    -2</span>
-<span class="co">#&gt; 5     3     0     1 1      1.95      3</span>
-<span class="co">#&gt; 6     3     0     1 2      0.451    -2</span>
-<span class="co">#&gt; 7     4     0     1 1     -1.90      3</span>
-<span class="co">#&gt; 8     4     0     1 2      0.133    -2</span></code></pre></div>
+<span class="co">#&gt;       x     a     b time        y     z</span>
+<span class="co">#&gt;   &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt;</span>
+<span class="co">#&gt; 1     1     1     0 1      0.130      3</span>
+<span class="co">#&gt; 2     1     1     0 2     -0.0246    -2</span>
+<span class="co">#&gt; 3     2     1     1 1     -1.92       3</span>
+<span class="co">#&gt; 4     2     1     1 2      1.27      -2</span>
+<span class="co">#&gt; 5     3     0     1 1      1.54       3</span>
+<span class="co">#&gt; 6     3     0     1 2     -0.114     -2</span>
+<span class="co">#&gt; 7     4     0     1 1     -0.657      3</span>
+<span class="co">#&gt; 8     4     0     1 2     -1.08      -2</span></code></pre></div>
 </div>
 <div id="duplicated-column-names" class="section level2">
 <h2 class="hasAnchor">
@@ -676,16 +676,16 @@
 <span class="co">#&gt; # A tibble: 45 × 4</span>
 <span class="co">#&gt;    product country  year production</span>
 <span class="co">#&gt;    &lt;chr&gt;   &lt;chr&gt;   &lt;int&gt;      &lt;dbl&gt;</span>
-<span class="co">#&gt;  1 A       AI       2000      0.971</span>
-<span class="co">#&gt;  2 A       AI       2001      0.873</span>
-<span class="co">#&gt;  3 A       AI       2002     -0.400</span>
-<span class="co">#&gt;  4 A       AI       2003      0.573</span>
-<span class="co">#&gt;  5 A       AI       2004     -1.78 </span>
-<span class="co">#&gt;  6 A       AI       2005     -0.260</span>
-<span class="co">#&gt;  7 A       AI       2006      0.239</span>
-<span class="co">#&gt;  8 A       AI       2007     -0.572</span>
-<span class="co">#&gt;  9 A       AI       2008      2.14 </span>
-<span class="co">#&gt; 10 A       AI       2009     -1.01 </span>
+<span class="co">#&gt;  1 A       AI       2000      0.877</span>
+<span class="co">#&gt;  2 A       AI       2001     -0.717</span>
+<span class="co">#&gt;  3 A       AI       2002      0.912</span>
+<span class="co">#&gt;  4 A       AI       2003      0.541</span>
+<span class="co">#&gt;  5 A       AI       2004     -1.01 </span>
+<span class="co">#&gt;  6 A       AI       2005      0.789</span>
+<span class="co">#&gt;  7 A       AI       2006      1.21 </span>
+<span class="co">#&gt;  8 A       AI       2007     -0.121</span>
+<span class="co">#&gt;  9 A       AI       2008      1.03 </span>
+<span class="co">#&gt; 10 A       AI       2009      1.79 </span>
 <span class="co">#&gt; # … with 35 more rows</span></code></pre></div>
 <p>We want to widen the data so we have one column for each combination of <code>product</code> and <code>country</code>. The key is to specify multiple variables for <code>names_from</code>:</p>
 <div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
@@ -694,18 +694,18 @@
   values_from <span class="op">=</span> <span class="va">production</span>
 <span class="op">)</span>
 <span class="co">#&gt; # A tibble: 15 × 4</span>
-<span class="co">#&gt;     year   A_AI   B_AI    B_EI</span>
-<span class="co">#&gt;    &lt;int&gt;  &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;</span>
-<span class="co">#&gt;  1  2000  0.971  1.86   0.375 </span>
-<span class="co">#&gt;  2  2001  0.873 -2.79   0.943 </span>
-<span class="co">#&gt;  3  2002 -0.400  0.141  1.27  </span>
-<span class="co">#&gt;  4  2003  0.573 -0.472 -1.24  </span>
-<span class="co">#&gt;  5  2004 -1.78   1.67   0.0347</span>
-<span class="co">#&gt;  6  2005 -0.260 -1.79  -0.460 </span>
-<span class="co">#&gt;  7  2006  0.239  1.11   0.0527</span>
-<span class="co">#&gt;  8  2007 -0.572  0.839 -0.816 </span>
-<span class="co">#&gt;  9  2008  2.14   0.343  1.32  </span>
-<span class="co">#&gt; 10  2009 -1.01  -0.814 -0.554 </span>
+<span class="co">#&gt;     year   A_AI    B_AI    B_EI</span>
+<span class="co">#&gt;    &lt;int&gt;  &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;</span>
+<span class="co">#&gt;  1  2000  0.877 -0.356   0.177 </span>
+<span class="co">#&gt;  2  2001 -0.717 -0.832  -0.646 </span>
+<span class="co">#&gt;  3  2002  0.912  1.09    0.0329</span>
+<span class="co">#&gt;  4  2003  0.541 -0.0706 -0.0402</span>
+<span class="co">#&gt;  5  2004 -1.01  -0.345  -0.0692</span>
+<span class="co">#&gt;  6  2005  0.789 -0.168   0.606 </span>
+<span class="co">#&gt;  7  2006  1.21   0.943   0.719 </span>
+<span class="co">#&gt;  8  2007 -0.121 -0.0371 -0.953 </span>
+<span class="co">#&gt;  9  2008  1.03   0.282  -0.208 </span>
+<span class="co">#&gt; 10  2009  1.79  -0.559  -0.679 </span>
 <span class="co">#&gt; # … with 5 more rows</span></code></pre></div>
 <p>When either <code>names_from</code> or <code>values_from</code> select multiple variables, you can control how the column names in the output constructed with <code>names_sep</code> and <code>names_prefix</code>, or the workhorse <code>names_glue</code>:</p>
 <div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
@@ -718,16 +718,16 @@
 <span class="co">#&gt; # A tibble: 15 × 4</span>
 <span class="co">#&gt;     year prod.A.AI prod.B.AI prod.B.EI</span>
 <span class="co">#&gt;    &lt;int&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;</span>
-<span class="co">#&gt;  1  2000     0.971     1.86     0.375 </span>
-<span class="co">#&gt;  2  2001     0.873    -2.79     0.943 </span>
-<span class="co">#&gt;  3  2002    -0.400     0.141    1.27  </span>
-<span class="co">#&gt;  4  2003     0.573    -0.472   -1.24  </span>
-<span class="co">#&gt;  5  2004    -1.78      1.67     0.0347</span>
-<span class="co">#&gt;  6  2005    -0.260    -1.79    -0.460 </span>
-<span class="co">#&gt;  7  2006     0.239     1.11     0.0527</span>
-<span class="co">#&gt;  8  2007    -0.572     0.839   -0.816 </span>
-<span class="co">#&gt;  9  2008     2.14      0.343    1.32  </span>
-<span class="co">#&gt; 10  2009    -1.01     -0.814   -0.554 </span>
+<span class="co">#&gt;  1  2000     0.877   -0.356     0.177 </span>
+<span class="co">#&gt;  2  2001    -0.717   -0.832    -0.646 </span>
+<span class="co">#&gt;  3  2002     0.912    1.09      0.0329</span>
+<span class="co">#&gt;  4  2003     0.541   -0.0706   -0.0402</span>
+<span class="co">#&gt;  5  2004    -1.01    -0.345    -0.0692</span>
+<span class="co">#&gt;  6  2005     0.789   -0.168     0.606 </span>
+<span class="co">#&gt;  7  2006     1.21     0.943     0.719 </span>
+<span class="co">#&gt;  8  2007    -0.121   -0.0371   -0.953 </span>
+<span class="co">#&gt;  9  2008     1.03     0.282    -0.208 </span>
+<span class="co">#&gt; 10  2009     1.79    -0.559    -0.679 </span>
 <span class="co">#&gt; # … with 5 more rows</span>
 
 <span class="va">production</span> <span class="op"><a href="../reference/%&gt;%.html">%&gt;%</a></span> <span class="fu"><a href="../reference/pivot_wider.html">pivot_wider</a></span><span class="op">(</span>
@@ -738,16 +738,16 @@
 <span class="co">#&gt; # A tibble: 15 × 4</span>
 <span class="co">#&gt;     year prod_A_AI prod_B_AI prod_B_EI</span>
 <span class="co">#&gt;    &lt;int&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;</span>
-<span class="co">#&gt;  1  2000     0.971     1.86     0.375 </span>
-<span class="co">#&gt;  2  2001     0.873    -2.79     0.943 </span>
-<span class="co">#&gt;  3  2002    -0.400     0.141    1.27  </span>
-<span class="co">#&gt;  4  2003     0.573    -0.472   -1.24  </span>
-<span class="co">#&gt;  5  2004    -1.78      1.67     0.0347</span>
-<span class="co">#&gt;  6  2005    -0.260    -1.79    -0.460 </span>
-<span class="co">#&gt;  7  2006     0.239     1.11     0.0527</span>
-<span class="co">#&gt;  8  2007    -0.572     0.839   -0.816 </span>
-<span class="co">#&gt;  9  2008     2.14      0.343    1.32  </span>
-<span class="co">#&gt; 10  2009    -1.01     -0.814   -0.554 </span>
+<span class="co">#&gt;  1  2000     0.877   -0.356     0.177 </span>
+<span class="co">#&gt;  2  2001    -0.717   -0.832    -0.646 </span>
+<span class="co">#&gt;  3  2002     0.912    1.09      0.0329</span>
+<span class="co">#&gt;  4  2003     0.541   -0.0706   -0.0402</span>
+<span class="co">#&gt;  5  2004    -1.01    -0.345    -0.0692</span>
+<span class="co">#&gt;  6  2005     0.789   -0.168     0.606 </span>
+<span class="co">#&gt;  7  2006     1.21     0.943     0.719 </span>
+<span class="co">#&gt;  8  2007    -0.121   -0.0371   -0.953 </span>
+<span class="co">#&gt;  9  2008     1.03     0.282    -0.208 </span>
+<span class="co">#&gt; 10  2009     1.79    -0.559    -0.679 </span>
 <span class="co">#&gt; # … with 5 more rows</span></code></pre></div>
 </div>
 <div id="tidy-census" class="section level2">
