@@ -338,7 +338,6 @@ unnest.data.frame <- function(
                               .preserve = "DEPRECATED") {
   cols <- tidyselect::eval_select(enquo(cols), data)
   data <- unchop(data, any_of(cols), keep_empty = keep_empty, ptype = ptype)
-  cols <- cols[map_lgl(unclass(data)[cols], is.data.frame)]
   unpack(data, any_of(cols), names_sep = names_sep, names_repair = names_repair)
 }
 

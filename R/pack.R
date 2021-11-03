@@ -107,10 +107,18 @@ unpack <- function(data, cols, names_sep = NULL, names_repair = "check_unique") 
   # Start from first principles to avoid issues in any subclass methods
   out <- new_data_frame(data, n = size)
 
-  cols <- map2(out[cols], names(cols), check_unpack, names_sep = names_sep)
+  cols <- out[cols]
+  cols <- cols[map_lgl(cols, is.data.frame)]
+  cols <- tidyr_new_list(cols)
+
+  cols_names <- names(cols)
+
+  if (!is.null(names_sep)) {
+    cols <- map2(cols, cols_names, rename_with_names_sep, names_sep = names_sep)
+  }
 
   out <- tidyr_col_modify(out, cols)
-  out <- flatten_at(out, names(out) %in% names(cols))
+  out <- flatten_at(out, names(out) %in% cols_names)
 
   names(out) <- vec_as_names(names(out), repair = names_repair, repair_arg = "names_repair")
 
@@ -119,15 +127,10 @@ unpack <- function(data, cols, names_sep = NULL, names_repair = "check_unique") 
   reconstruct_tibble(data, out)
 }
 
-check_unpack <- function(x, col, names_sep = NULL) {
-  if (!is.data.frame(x) && !is_empty(x)) {
-    abort(glue("`{col}` must be a data frame column"))
-  }
-
-  if (!is.null(names_sep)) {
-    names(x) <- paste0(col, names_sep, names(x))
-  }
-  x
+rename_with_names_sep <- function(x, outer, names_sep) {
+  inner <- names(x)
+  names <- apply_names_sep(outer, inner, names_sep)
+  set_names(x, names)
 }
 
 strip_names <- function(df, base, names_sep) {
