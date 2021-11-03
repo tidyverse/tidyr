@@ -1,4 +1,7 @@
 # tidyr (development version)
+  
+* `unpack()` now works correctly with data frame columns containing 1 row but
+  0 columns (#1189).
 
 * The `ptype` argument of `unnest()` now works as expected (#1158). 
 

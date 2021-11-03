@@ -69,3 +69,8 @@ test_that("can choose to add separtor", {
   out <- df %>% unpack(c(y, z), names_sep = "_")
   expect_named(out, c("x", "y_a", "z_a"))
 })
+
+test_that("can unpack 1-row but 0-col dataframe (#1189)", {
+  df <- tibble(x = tibble(.rows = 1))
+  expect_identical(unpack(df, x), tibble::new_tibble(list(), nrow = 1L))
+})

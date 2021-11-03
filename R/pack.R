@@ -98,8 +98,10 @@ unpack <- function(data, cols, names_sep = NULL, names_repair = "check_unique") 
   check_present(cols)
   cols <- tidyselect::eval_select(enquo(cols), data)
 
+  size <- vec_size(data)
+
   # Start from first principles to avoid issues in any subclass methods
-  out <- new_data_frame(data, n = vec_size(data))
+  out <- new_data_frame(data, n = size)
 
   cols <- map2(out[cols], names(cols), check_unpack, names_sep = names_sep)
 
@@ -108,7 +110,8 @@ unpack <- function(data, cols, names_sep = NULL, names_repair = "check_unique") 
 
   names(out) <- vec_as_names(names(out), repair = names_repair, repair_arg = "names_repair")
 
-  out <- as_tibble(out, .name_repair = "minimal")
+  out <- tibble::new_tibble(out, nrow = size)
+
   reconstruct_tibble(data, out)
 }
 
