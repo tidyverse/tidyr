@@ -98,7 +98,7 @@ tidyr_col_modify <- function(data, cols) {
   }
 
   size <- vec_size(data)
-  attributes(data) <- list(names = names(data))
+  data <- tidyr_new_list(data)
 
   names <- names(cols)
 
@@ -112,6 +112,22 @@ tidyr_col_modify <- function(data, cols) {
   data <- new_data_frame(data, n = size)
 
   data
+}
+
+tidyr_new_list <- function(x) {
+  if (!is_list(x)) {
+    abort("Internal error: `x` must be a VECSXP.")
+  }
+
+  names <- names(x)
+
+  if (is.null(names)) {
+    attributes(x) <- NULL
+  } else {
+    attributes(x) <- list(names = names)
+  }
+
+  x
 }
 
 check_present <- function(x) {
