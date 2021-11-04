@@ -130,6 +130,24 @@ tidyr_new_list <- function(x) {
   x
 }
 
+# What `vec_chop2()` would be.
+# Equivalent to `vec_chop(x)`, but moves names of `x` to the result.
+tidyr_chop2 <- function(x) {
+  names <- vec_names(x)
+
+  if (!is.null(names)) {
+    x <- vec_set_names(x, NULL)
+  }
+
+  out <- vec_chop(x)
+
+  if (!is.null(names)) {
+    out <- vec_set_names(out, names)
+  }
+
+  out
+}
+
 apply_names_sep <- function(outer, inner, names_sep) {
   as.character(glue("{outer}{names_sep}{inner}"))
 }
