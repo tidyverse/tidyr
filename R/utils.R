@@ -148,6 +148,16 @@ tidyr_chop2 <- function(x) {
   out
 }
 
+list_of_ptype <- function(x) {
+  ptype <- attr(x, "ptype", exact = TRUE)
+
+  # ptypes should always be unnamed, but this isn't guaranteed right now.
+  # See https://github.com/r-lib/vctrs/pull/1020#discussion_r411327472
+  ptype <- vec_set_names(ptype, NULL)
+
+  ptype
+}
+
 apply_names_sep <- function(outer, inner, names_sep) {
   as.character(glue("{outer}{names_sep}{inner}"))
 }
