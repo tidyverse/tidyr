@@ -189,9 +189,16 @@ df_unchop <- function(x, ..., ptype = list(), keep_empty = FALSE) {
       next
     }
 
-    info <- unchop_col_info(col, keep_empty)
+    # Always replace `NULL` elements with size 1 missing equivalent for recycling.
+    # These will be reset to `NULL` in `unchop_finalize()` if the
+    # entire row was missing and `keep_empty = FALSE`.
+    info <- list_init_empty(
+      x = col,
+      null = TRUE,
+      typed = keep_empty
+    )
 
-    x[[i]] <- info$col
+    x[[i]] <- info$x
     x_sizes[[i]] <- info$sizes
     x_nulls[[i]] <- info$null
   }
@@ -257,53 +264,6 @@ df_unchop <- function(x, ..., ptype = list(), keep_empty = FALSE) {
   out <- new_data_frame(out, n = out_size)
 
   out
-}
-
-unchop_col_info <- function(col, keep_empty) {
-  sizes <- list_sizes(col)
-  null <- vec_equal_na(col)
-
-  ptype <- attr(col, "ptype", exact = TRUE)
-
-  if (any(null)) {
-    # Always replace `NULL` elements with size 1 missing equivalent for recycling.
-    # These will be reset to `NULL` in `unchop_finalize()` if the
-    # entire row was missing and `keep_empty = FALSE`.
-
-    if (is_null(ptype)) {
-      replacement <- list(unspecified(1L))
-    } else {
-      replacement <- list(vec_init(ptype, n = 1L))
-      replacement <- new_list_of(replacement, ptype = ptype)
-    }
-
-    col <- vec_assign(col, null, replacement)
-    sizes[null] <- 1L
-  }
-
-  if (keep_empty) {
-    # Remember, `NULL` elements are already handled above, so `sizes == 0L`
-    # will now only happen with typed empty elements.
-    empty_typed <- sizes == 0L
-
-    if (any(empty_typed)) {
-      # Replace empty typed elements with their size 1 equivalent
-
-      if (is_null(ptype)) {
-        # `vec_init()` is slow, see r-lib/vctrs#1423, so use `vec_slice()` equivalent
-        replacement <- map(vec_slice(col, empty_typed), vec_slice, i = NA_integer_)
-      } else {
-        # For list-of, all size elements are the same type
-        replacement <- list(vec_init(ptype, n = 1L))
-        replacement <- new_list_of(replacement, ptype = ptype)
-      }
-
-      col <- vec_assign(col, empty_typed, replacement)
-      sizes[empty_typed] <- 1L
-    }
-  }
-
-  list(col = col, sizes = sizes, null = null)
 }
 
 unchop_sizes2 <- function(x, y) {
