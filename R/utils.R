@@ -130,9 +130,11 @@ tidyr_new_list <- function(x) {
   x
 }
 
-# What `vec_chop2()` would be.
-# Equivalent to `vec_chop(x)`, but moves names of `x` to the result.
-tidyr_chop2 <- function(x) {
+# Version of `vec_chop()` that is always called without `indices`.
+# We move the names of `x` onto the result.
+# Not that same as a hypothetical `vec_chop2()`, because that would index into
+# lists with `vec_slice2()` rather than `vec_slice()`.
+tidyr_chop <- function(x) {
   names <- vec_names(x)
 
   if (!is.null(names)) {
