@@ -34,6 +34,7 @@ unnest_wider(
   col,
   names_sep = NULL,
   simplify = TRUE,
+  strict = FALSE,
   names_repair = "check_unique",
   ptype = list(),
   transform = list()
@@ -44,7 +45,12 @@ unnest_auto(data, col)
 \arguments{
 \item{.data, data}{A data frame.}
 
-\item{.col, col}{List-column to extract components from.}
+\item{.col, col}{List-column to extract components from.
+
+For \code{hoist()} and \code{unnest_auto()}, this must identify a single column.
+
+For \code{unnest_wider()} and \code{unnest_longer()}, you can use tidyselect to
+select multiple columns to unnest simultaneously.}
 
 \item{...}{Components of \code{.col} to turn into columns in the form
 \code{col_name = "pluck_specification"}. You can pluck by name with a character
@@ -57,27 +63,43 @@ single string you can choose to omit the name, i.e. \code{hoist(df, col, "x")}
 is short-hand for \code{hoist(df, col, x = "x")}.}
 
 \item{.remove}{If \code{TRUE}, the default, will remove extracted components
-from \code{.col}. This ensures that each value lives only in one place.}
+from \code{.col}. This ensures that each value lives only in one place. If all
+components are removed from \code{.col}, then \code{.col} will be removed from the
+result entirely.}
 
 \item{.simplify, simplify}{If \code{TRUE}, will attempt to simplify lists of
-length-1 vectors to an atomic vector}
+length-1 vectors to an atomic vector.}
 
-\item{.ptype, ptype}{Optionally, a named list of prototypes declaring the desired
-output type of each component. Use this argument if you want to check each
-element has the types you expect when simplifying.}
+\item{.ptype, ptype}{Optionally, a named list of prototypes declaring the
+desired output type of each component. Use this argument if you want to
+check that each element has the type you expect when simplifying.
 
-\item{.transform, transform}{Optionally, a named list of transformation functions
-applied to each component. Use this function if you want transform or
-parse individual elements as they are hoisted.}
+If a \code{ptype} has been specified, but \code{simplify = FALSE} or simplification
+isn't possible, then a list-of column will be returned and each element
+will have type \code{ptype}.}
 
-\item{values_to}{Name of column to store vector values. Defaults to \code{col}.}
+\item{.transform, transform}{Optionally, a named list of transformation
+functions applied to each component. Use this function if you want
+to transform or parse individual elements as they are extracted.}
 
-\item{indices_to}{A string giving the name of column which will contain the
-inner names or position (if not named) of the values. Defaults to \code{col}
-with \verb{_id} suffix}
+\item{values_to}{A single string representing the column name to store the
+unnested values in. If multiple columns are specified in \code{col}, this can
+also be a glue string containing \code{"{col}"} to provide a template for the
+column names. If \code{NULL}, defaults to \code{"{col}"}.}
 
-\item{indices_include}{Add an index column? Defaults to \code{TRUE} when \code{col}
-has inner names.}
+\item{indices_to}{A string giving the name of the column which will contain
+the inner names or positions (if not named) of the values. If multiple
+columns are specified in \code{col}, this can also be a glue string containing
+\code{"{col}"} to provide a template for the column names. If \code{NULL}, defaults
+to \code{values_to} suffixed with \code{"_id"}.}
+
+\item{indices_include}{A single logical value specifying whether or not to
+add an index column. If any value has inner names, the index column will be
+a character vector of those names, otherwise it will be an integer vector
+of positions. If \code{NULL}, defaults to \code{TRUE} if any value has inner names
+or if \code{indices_to} is provided.
+
+If \code{indices_to} is provided, then \code{indices_include} can't be \code{FALSE}.}
 
 \item{names_repair}{Used to check that output data frame has valid
 names. Must be one of the following options:
@@ -95,8 +117,19 @@ See \code{\link[vctrs:vec_as_names]{vctrs::vec_as_names()}} for more details on 
 strategies used to enforce them.}
 
 \item{names_sep}{If \code{NULL}, the default, the names will be left
-as is. If a string, the inner and outer names will be paste together using
-\code{names_sep} as a separator.}
+as is. If a string, the outer and inner names will be pasted together using
+\code{names_sep} as a separator.
+
+If the values being unnested are unnamed and \code{names_sep} is supplied, the
+inner names will be automatically generated as an increasing sequence of
+integers.}
+
+\item{strict}{A single logical specifying whether or not to apply strict
+vctrs typing rules. If \code{FALSE}, typed empty values (like \code{list()} or
+\code{integer()}) nested within list-columns will be treated like \code{NULL} and
+will not contribute to the type of the unnested column. This is useful
+when working with JSON, where empty values tend to lose their type
+information and show up as \code{list()}.}
 }
 \description{
 \code{hoist()}, \code{unnest_longer()}, and \code{unnest_wider()} provide tools for
@@ -110,6 +143,10 @@ based on heuristics described below.
 
 Learn more in \code{vignette("rectangle")}.
 }
+\details{
+When both \code{ptype} and \code{transform} are supplied, the \code{transform} is applied
+before the \code{ptype}.
+}
 \section{Unnest variants}{
 
 
@@ -118,14 +155,14 @@ output data frame:
 \itemize{
 \item \code{unnest_wider()} preserves the rows, but changes the columns.
 \item \code{unnest_longer()} preserves the columns, but changes the rows
-\item \code{unnest()} can change both rows and columns.
+\item \code{\link[=unnest]{unnest()}} can change both rows and columns.
 }
 
 These principles guide their behaviour when they are called with a
 non-primary data type. For example, if you \code{unnest_wider()} a list of data
 frames, the number of rows must be preserved, so each column is turned into
 a list column of length one. Or if you \code{unnest_longer()} a list of data
-frame, the number of columns must be preserved so it creates a packed
+frames, the number of columns must be preserved so it creates a packed
 column. I'm not sure how if these behaviours are useful in practice, but
 they are theoretically pleasing.
 }
@@ -134,9 +171,10 @@ they are theoretically pleasing.
 
 \code{unnest_auto()} inspects the inner names of the list-col:
 \itemize{
-\item If all elements are unnamed, it uses \code{unnest_longer()}
+\item If all elements are unnamed, it uses
+\code{unnest_longer(indices_include = FALSE)}.
 \item If all elements are named, and there's at least one name in
-common acros all components, it uses \code{unnest_wider()}
+common across all components, it uses \code{unnest_wider()}.
 \item Otherwise, it falls back to \code{unnest_longer(indices_include = TRUE)}.
 }
 }
@@ -197,4 +235,36 @@ df <- tibble(
 df \%>\% unnest_wider(y)
 df \%>\% unnest_longer(y)
 
+# Both unnest_wider() and unnest_longer() allow you to unnest multiple
+# columns at once. This is particularly useful with unnest_longer(), where
+# unnesting sequentially would generate a cartesian product of the rows.
+df <- tibble(
+  x = 1:2,
+  y = list(1:2, 3:4),
+  z = list(5:6, 7:8)
+)
+unnest_longer(df, c(y, z))
+unnest_longer(unnest_longer(df, y), z)
+
+# With JSON, it is common for empty elements to be represented by `list()`
+# rather then their typed equivalent, like `integer()`
+json <- list(
+  list(x = 1:2, y = 1:2),
+  list(x = list(), y = 3:4),
+  list(x = 3L, y = list())
+)
+df <- tibble(json = json)
+
+# The defaults of `unnest_wider()` treat empty types (like `list()`) as `NULL`.
+# This chains nicely into `unnest_longer()`.
+wide <- unnest_wider(df, json)
+wide
+
+unnest_longer(wide, c(x, y))
+
+# To instead enforce strict vctrs typing rules, use `strict`
+wide_strict <- unnest_wider(df, json, strict = TRUE)
+wide_strict
+
+try(unnest_longer(wide_strict, c(x, y)))
 }

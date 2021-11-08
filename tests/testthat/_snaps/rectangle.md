@@ -1,0 +1,131 @@
+# nested lists generate a cast error if they can't be cast to the ptype
+
+    Code
+      hoist(df, x, "b", .ptype = list(b = double()))
+    Error <vctrs_error_incompatible_type>
+      Can't convert <list> to <double>.
+
+# non-vectors generate a cast error if a ptype is supplied
+
+    Code
+      hoist(df, x, "b", .ptype = list(b = integer()))
+    Error <vctrs_error_scalar_type>
+      Input must be a vector, not a symbol.
+
+# input validation catches problems
+
+    Code
+      (expect_error(df %>% hoist(y)))
+    Output
+      <error/rlang_error>
+      `.col` must identify a list-column.
+    Code
+      (expect_error(df %>% hoist(x, 1)))
+    Output
+      <error/rlang_error>
+      All elements of `...` must be named.
+    Code
+      (expect_error(df %>% hoist(x, a = "a", a = "b")))
+    Output
+      <error/rlang_error>
+      The names of `...` must be unique.
+
+# can't hoist() from a data frame column
+
+    Code
+      hoist(df, a, xx = 1)
+    Error <rlang_error>
+      `.col` must identify a list-column.
+
+# unnest_wider - bad inputs generate errors
+
+    Code
+      unnest_wider(df, y)
+    Error <rlang_error>
+      Column `y` must contain a list of vectors.
+
+# can't currently combine compatible `<list> + <list_of<ptype>>`
+
+    Code
+      unnest_wider(df, col)
+    Error <vctrs_error_incompatible_type>
+      Can't combine `..1$a` <list> and `..3$a` <list_of<integer>>.
+
+# unnest_longer - bad inputs generate errors
+
+    Code
+      unnest_longer(df, y)
+    Error <rlang_error>
+      Column `y` must contain a list of vectors.
+
+# can't mix `indices_to` with `indices_include = FALSE`
+
+    Code
+      unnest_longer(mtcars, mpg, indices_to = "x", indices_include = FALSE)
+    Error <rlang_error>
+      Can't set `indices_include` to `FALSE` when `indices_to` is supplied.
+
+# `values_to` and `indices_to` glue can't reach into surrounding env
+
+    Code
+      unnest_longer(mtcars, mpg, indices_to = "{x}")
+    Error <simpleError>
+      object 'x' not found
+
+---
+
+    Code
+      unnest_longer(mtcars, mpg, values_to = "{x}")
+    Error <simpleError>
+      object 'x' not found
+
+# `values_to` is validated
+
+    Code
+      unnest_longer(mtcars, mpg, values_to = 1)
+    Error <rlang_error>
+      `values_to` must be a single string or `NULL`.
+
+---
+
+    Code
+      unnest_longer(mtcars, mpg, values_to = c("x", "y"))
+    Error <rlang_error>
+      `values_to` must be a single string or `NULL`.
+
+# `indices_to` is validated
+
+    Code
+      unnest_longer(mtcars, mpg, indices_to = 1)
+    Error <rlang_error>
+      `indices_to` must be a single string or `NULL`.
+
+---
+
+    Code
+      unnest_longer(mtcars, mpg, indices_to = c("x", "y"))
+    Error <rlang_error>
+      `indices_to` must be a single string or `NULL`.
+
+# `indices_include` is validated
+
+    Code
+      unnest_longer(mtcars, mpg, indices_include = 1)
+    Error <rlang_error>
+      `indices_include` must be `NULL` or a single `TRUE` or `FALSE`.
+
+---
+
+    Code
+      unnest_longer(mtcars, mpg, indices_include = c(TRUE, FALSE))
+    Error <rlang_error>
+      `indices_include` must be `NULL` or a single `TRUE` or `FALSE`.
+
+# ptype is applied after transform
+
+    Code
+      col_simplify(list(1, 2, 3), ptype = integer(), transform = ~.x + 1.5)
+    Error <vctrs_error_cast_lossy>
+      Can't convert from <double> to <integer> due to loss of precision.
+      * Locations: 1
+
