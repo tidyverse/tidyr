@@ -200,6 +200,8 @@
 <a href="#tidyr-development-version" class="anchor"></a>tidyr (development version)<small> Unreleased </small>
 </h1>
 <ul>
+<li><p><code><a href="../reference/chop.html">chop()</a></code> now works correctly with data frames with 0 rows (<a href='https://github.com/tidyverse/tidyr/issues/1206'>#1206</a>).</p></li>
+<li><p>The <code>cols</code> argument of <code><a href="../reference/chop.html">chop()</a></code> is no longer optional. This matches the behavior of <code>cols</code> seen elsewhere in tidyr (<a href='https://github.com/tidyverse/tidyr/issues/1205'>#1205</a>).</p></li>
 <li><p><code><a href="../reference/pack.html">unpack()</a></code> now works correctly with data frame columns containing 1 row but 0 columns (<a href='https://github.com/tidyverse/tidyr/issues/1189'>#1189</a>).</p></li>
 <li><p>The <code>ptype</code> argument of <code><a href="../reference/nest.html">unnest()</a></code> now works as expected (<a href='https://github.com/tidyverse/tidyr/issues/1158'>#1158</a>).</p></li>
 <li><p>The <code>.names_sep</code> argument of the data.frame method for <code><a href="../reference/nest.html">nest()</a></code> is now actually used (<a href='https://github.com/tidyverse/tidyr/issues/1174'>#1174</a>).</p></li>
