@@ -1,3 +1,11 @@
+# `cols` is required (#1205)
+
+    Code
+      (expect_error(chop(df)))
+    Output
+      <error/rlang_error>
+      Argument `cols` is missing with no default
+
 # the ptype must be a list
 
     Code
