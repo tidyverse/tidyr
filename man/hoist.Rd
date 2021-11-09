@@ -80,7 +80,10 @@ will have type \code{ptype}.}
 
 \item{.transform, transform}{Optionally, a named list of transformation
 functions applied to each component. Use this function if you want
-to transform or parse individual elements as they are extracted.}
+to transform or parse individual elements as they are extracted.
+
+When both \code{ptype} and \code{transform} are supplied, the \code{transform} is applied
+before the \code{ptype}.}
 
 \item{values_to}{A single string representing the column name to store the
 unnested values in. If multiple columns are specified in \code{col}, this can
@@ -142,10 +145,6 @@ in to their own top-level columns, using the same syntax as \code{\link[purrr:pl
 based on heuristics described below.
 
 Learn more in \code{vignette("rectangle")}.
-}
-\details{
-When both \code{ptype} and \code{transform} are supplied, the \code{transform} is applied
-before the \code{ptype}.
 }
 \section{Unnest variants}{
 

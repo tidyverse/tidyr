@@ -12,10 +12,6 @@
 #'
 #' Learn more in `vignette("rectangle")`.
 #'
-#' @details
-#' When both `ptype` and `transform` are supplied, the `transform` is applied
-#' before the `ptype`.
-#'
 #' @section Unnest variants:
 #'
 #' The three `unnest()` functions differ in how they change the shape of the
@@ -69,6 +65,9 @@
 #' @param .transform,transform Optionally, a named list of transformation
 #'   functions applied to each component. Use this function if you want
 #'   to transform or parse individual elements as they are extracted.
+#'
+#'   When both `ptype` and `transform` are supplied, the `transform` is applied
+#'   before the `ptype`.
 #' @param .remove If `TRUE`, the default, will remove extracted components
 #'   from `.col`. This ensures that each value lives only in one place. If all
 #'   components are removed from `.col`, then `.col` will be removed from the
