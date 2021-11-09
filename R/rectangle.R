@@ -306,7 +306,7 @@ strike <- function(x, indices) {
 #'   of positions. If `NULL`, defaults to `TRUE` if any value has inner names
 #'   or if `indices_to` is provided.
 #'
-#'   If `indices_to` is provided, then `indices_include` can't be `FALSE`.
+#'   If `indices_to` is provided, then `indices_include` must not be `FALSE`.
 #' @inheritParams unnest
 unnest_longer <- function(data,
                           col,

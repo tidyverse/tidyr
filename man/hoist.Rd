@@ -106,7 +106,7 @@ a character vector of those names, otherwise it will be an integer vector
 of positions. If \code{NULL}, defaults to \code{TRUE} if any value has inner names
 or if \code{indices_to} is provided.
 
-If \code{indices_to} is provided, then \code{indices_include} can't be \code{FALSE}.}
+If \code{indices_to} is provided, then \code{indices_include} must not be \code{FALSE}.}
 
 \item{names_repair}{Used to check that output data frame has valid
 names. Must be one of the following options:
