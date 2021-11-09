@@ -87,16 +87,18 @@ to transform or parse individual elements as they are extracted.
 When both \code{ptype} and \code{transform} are supplied, the \code{transform} is applied
 before the \code{ptype}.}
 
-\item{values_to}{A single string representing the column name to store the
+\item{values_to}{A string giving the column name (or names) to store the
 unnested values in. If multiple columns are specified in \code{col}, this can
 also be a glue string containing \code{"{col}"} to provide a template for the
-column names. If \code{NULL}, defaults to \code{"{col}"}.}
+column names. The default, \code{NULL}, gives the output columns the same names
+as the input columns.}
 
-\item{indices_to}{A string giving the name of the column which will contain
+\item{indices_to}{A string giving the column name (or names) to store the
 the inner names or positions (if not named) of the values. If multiple
 columns are specified in \code{col}, this can also be a glue string containing
-\code{"{col}"} to provide a template for the column names. If \code{NULL}, defaults
-to \code{values_to} suffixed with \code{"_id"}.}
+\code{"{col}"} to provide a template for the column names. The default, \code{NULL},
+gives the output columns the same names as \code{values_to}, but suffixed with
+\code{"_id"}.}
 
 \item{indices_include}{A single logical value specifying whether or not to
 add an index column. If any value has inner names, the index column will be

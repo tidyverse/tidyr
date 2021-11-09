@@ -289,15 +289,17 @@ strike <- function(x, indices) {
 
 #' @export
 #' @rdname hoist
-#' @param values_to A single string representing the column name to store the
+#' @param values_to A string giving the column name (or names) to store the
 #'   unnested values in. If multiple columns are specified in `col`, this can
 #'   also be a glue string containing `"{col}"` to provide a template for the
-#'   column names. If `NULL`, defaults to `"{col}"`.
-#' @param indices_to A string giving the name of the column which will contain
+#'   column names. The default, `NULL`, gives the output columns the same names
+#'   as the input columns.
+#' @param indices_to A string giving the column name (or names) to store the
 #'   the inner names or positions (if not named) of the values. If multiple
 #'   columns are specified in `col`, this can also be a glue string containing
-#'   `"{col}"` to provide a template for the column names. If `NULL`, defaults
-#'   to `values_to` suffixed with `"_id"`.
+#'   `"{col}"` to provide a template for the column names. The default, `NULL`,
+#'   gives the output columns the same names as `values_to`, but suffixed with
+#'   `"_id"`.
 #' @param indices_include A single logical value specifying whether or not to
 #'   add an index column. If any value has inner names, the index column will be
 #'   a character vector of those names, otherwise it will be an integer vector
