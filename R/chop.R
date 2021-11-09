@@ -67,24 +67,34 @@
 #' df %>% unchop(y)
 #' df %>% unchop(y, keep_empty = TRUE)
 chop <- function(data, cols) {
-  if (missing(cols)) {
-    return(data)
-  }
-
+  check_present(cols)
+  # TODO: `allow_rename = FALSE`
   cols <- tidyselect::eval_select(enquo(cols), data)
 
-  vals <- data[cols]
+  cols <- tidyr_new_list(data[cols])
   keys <- data[setdiff(names(data), names(cols))]
-  split <- vec_split(vals, keys)
 
-  if (length(split$val)) {
-    split_vals <- transpose(split$val)
-    vals <- map2(split_vals, vec_ptype(vals), new_list_of)
-    vals <- new_data_frame(vals)
-  }
+  info <- vec_group_loc(keys)
+  keys <- info$key
+  indices <- info$loc
 
-  out <- vec_cbind(split$key, vals)
+  size <- vec_size(keys)
+
+  cols <- map(cols, col_chop, indices = indices)
+  cols <- new_data_frame(cols, n = size)
+
+  out <- vec_cbind(keys, cols)
+
   reconstruct_tibble(data, out)
+}
+
+col_chop <- function(x, indices) {
+  ptype <- vec_ptype(x)
+
+  out <- vec_chop(x, indices)
+  out <- new_list_of(out, ptype)
+
+  out
 }
 
 #' @export

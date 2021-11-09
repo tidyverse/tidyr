@@ -11,7 +11,7 @@ test_that("can chop multiple columns", {
 
 test_that("chopping no columns returns input", {
   df <- tibble(a1 = 1, a2 = 2, b1 = 1, b2 = 2)
-  expect_equal(chop(df), df)
+  expect_equal(chop(df, c()), df)
 })
 
 test_that("grouping is preserved", {
@@ -20,12 +20,27 @@ test_that("grouping is preserved", {
   expect_equal(dplyr::group_vars(out), "g")
 })
 
-test_that("can chop empty data frame", {
-  df <- tibble(x = integer(), y = integer())
-  expect_identical(chop(df, y), df)
-  expect_identical(chop(df, x), df[2:1])
+test_that("`cols` is required (#1205)", {
+  df <- tibble(x = 1:2)
+  expect_snapshot((expect_error(chop(df))))
 })
 
+test_that("can chop empty data frame (#1206)", {
+  df <- tibble(x = integer(), y = integer())
+
+  expect_identical(
+    chop(df, y),
+    tibble(x = integer(), y = list_of(.ptype = integer()))
+  )
+  expect_identical(
+    chop(df, x),
+    tibble(y = integer(), x = list_of(.ptype = integer()))
+  )
+  expect_identical(
+    chop(df, c(x, y)),
+    tibble(x = list_of(.ptype = integer()), y = list_of(.ptype = integer()))
+  )
+})
 
 # unchop ------------------------------------------------------------------
 
