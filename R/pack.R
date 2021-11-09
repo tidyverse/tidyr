@@ -66,15 +66,19 @@ pack <- function(.data, ..., .names_sep = NULL) {
   }
 
   cols <- map(cols, ~ tidyselect::eval_select(.x, .data))
+
+  unpacked <- setdiff(names(.data), unlist(map(cols, names)))
+  unpacked <- .data[unpacked]
+
   packed <- map(cols, ~ .data[.x])
 
   if (!is.null(.names_sep)) {
-    packed <- imap(packed, strip_names, .names_sep)
+    packed <- imap(packed, strip_names, names_sep = .names_sep)
   }
 
-  # TODO: find a different approach that preserves order
-  asis <- setdiff(names(.data), unlist(map(cols, names)))
-  out <- vec_cbind(.data[asis], new_data_frame(packed, n = nrow(.data)))
+  packed <- new_data_frame(packed, n = vec_size(.data))
+
+  out <- vec_cbind(unpacked, packed)
 
   reconstruct_tibble(.data, out)
 }
