@@ -315,6 +315,18 @@ test_that("warn about old style interface", {
   expect_named(out, c("x", "data"))
 })
 
+test_that("only warn about unnamed inputs (#1175)", {
+  df <- tibble(x = 1:3, y = 1:3, z = 1:3)
+  expect_warning(out <- nest(df, x, y, foo = z), "data = c(x, y)", fixed = TRUE)
+  expect_named(out, c("foo", "data"))
+})
+
+test_that("unnamed expressions are kept in the warning", {
+  df <- tibble(x = 1:3, z = 1:3)
+  expect_warning(out <- nest(df, x, starts_with("z")), 'data = c(x, starts_with("z"))', fixed = TRUE)
+  expect_named(out, "data")
+})
+
 test_that("can control output column name", {
   df <- tibble(x = c(1, 1, 1), y = 1:3)
   expect_warning(out <- nest(df, y, .key = "y"), "y = c(y)", fixed = TRUE)
