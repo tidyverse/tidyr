@@ -1,4 +1,9 @@
 # tidyr (development version)
+
+* `chop()` now works correctly with data frames with 0 rows (#1206).
+
+* The `cols` argument of `chop()` is no longer optional. This matches the
+  behavior of `cols` seen elsewhere in tidyr (#1205).
   
 * `unpack()` now works correctly with data frame columns containing 1 row but
   0 columns (#1189).
