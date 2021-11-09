@@ -43,7 +43,9 @@
 #'   For `hoist()` and `unnest_auto()`, this must identify a single column.
 #'
 #'   For `unnest_wider()` and `unnest_longer()`, you can use tidyselect to
-#'   select multiple columns to unnest simultaneously.
+#'   select multiple columns to unnest simultaneously. When using
+#'   `unnest_longer()` with multiple columns, values across columns that
+#'   originated from the same row are recycled to a common size.
 #' @param ... Components of `.col` to turn into columns in the form
 #'   `col_name = "pluck_specification"`. You can pluck by name with a character
 #'   vector, by position with an integer vector, or with a combination of the

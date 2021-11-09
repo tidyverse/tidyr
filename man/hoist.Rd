@@ -50,7 +50,9 @@ unnest_auto(data, col)
 For \code{hoist()} and \code{unnest_auto()}, this must identify a single column.
 
 For \code{unnest_wider()} and \code{unnest_longer()}, you can use tidyselect to
-select multiple columns to unnest simultaneously.}
+select multiple columns to unnest simultaneously. When using
+\code{unnest_longer()} with multiple columns, values across columns that
+originated from the same row are recycled to a common size.}
 
 \item{...}{Components of \code{.col} to turn into columns in the form
 \code{col_name = "pluck_specification"}. You can pluck by name with a character
