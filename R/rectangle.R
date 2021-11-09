@@ -60,8 +60,8 @@
 #'   check that each element has the type you expect when simplifying.
 #'
 #'   If a `ptype` has been specified, but `simplify = FALSE` or simplification
-#'   isn't possible, then a list-of column will be returned and each element
-#'   will have type `ptype`.
+#'   isn't possible, then a [list-of][vctrs::list_of()] column will be returned
+#'   and each element will have type `ptype`.
 #' @param .transform,transform Optionally, a named list of transformation
 #'   functions applied to each component. Use this function if you want
 #'   to transform or parse individual elements as they are extracted.

@@ -75,8 +75,8 @@ desired output type of each component. Use this argument if you want to
 check that each element has the type you expect when simplifying.
 
 If a \code{ptype} has been specified, but \code{simplify = FALSE} or simplification
-isn't possible, then a list-of column will be returned and each element
-will have type \code{ptype}.}
+isn't possible, then a \link[vctrs:list_of]{list-of} column will be returned
+and each element will have type \code{ptype}.}
 
 \item{.transform, transform}{Optionally, a named list of transformation
 functions applied to each component. Use this function if you want
