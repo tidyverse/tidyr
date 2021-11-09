@@ -181,6 +181,9 @@ nest.tbl_df <- function(.data, ..., .names_sep = NULL, .key = deprecated()) {
     out <- map(cols, ~ vec_split(set_names(.data[.x], names(.x)), keys)$val)
   }
 
+  ptypes <- map(cols, ~ vec_ptype(.data[.x]))
+  out <- map2(out, ptypes, new_list_of)
+
   vec_cbind(u_keys, new_data_frame(out, n = nrow(u_keys)))
 }
 

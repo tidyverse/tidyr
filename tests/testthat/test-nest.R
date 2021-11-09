@@ -5,14 +5,14 @@ test_that("nest turns grouped values into one list-df", {
   out <- nest(df, data = y)
   expect_equal(out$x, 1)
   expect_equal(length(out$data), 1L)
-  expect_equal(out$data[[1L]], tibble(y = 1:3))
+  expect_equal(out$data, list_of(tibble(y = 1:3)))
 })
 
 test_that("nest uses grouping vars if present", {
   df <- tibble(x = c(1, 1, 1), y = 1:3)
   out <- nest(dplyr::group_by(df, x))
   expect_s3_class(out, "grouped_df")
-  expect_equal(out$data[[1]], tibble(y = 1:3))
+  expect_equal(out$data, list_of(tibble(y = 1:3)))
 })
 
 test_that("provided grouping vars override grouped defaults", {
@@ -69,10 +69,18 @@ test_that("nesting works for empty data frames", {
   out <- nest(df, data = x)
   expect_named(out, c("y", "data"))
   expect_equal(nrow(out), 0L)
+  expect_identical(out$data, list_of(.ptype = tibble(x = integer())))
 
   out <- nest(df, data = c(x, y))
   expect_named(out, "data")
   expect_equal(nrow(out), 0L)
+  expect_identical(out$data, list_of(.ptype = df))
+})
+
+test_that("can roundtrip empty data frames through nest/unnest", {
+  df <- tibble(x = integer(), y = character())
+  out <- unnest(nest(df, data = y), data)
+  expect_identical(out, df)
 })
 
 test_that("tibble conversion occurs in the `nest.data.frame()` method", {
@@ -87,8 +95,8 @@ test_that("can nest multiple columns", {
   out <- df %>% nest(a = c(a1, a2), b = c(b1, b2))
 
   expect_named(out, c("x", "a", "b"))
-  expect_equal(as.list(out$a), list(df[c("a1", "a2")]))
-  expect_equal(as.list(out$b), list(df[c("b1", "b2")]))
+  expect_equal(out$a, list_of(df[c("a1", "a2")]))
+  expect_equal(out$b, list_of(df[c("b1", "b2")]))
 })
 
 test_that("nesting no columns nests all inputs", {
