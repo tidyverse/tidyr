@@ -121,15 +121,22 @@
 nest <- function(.data, ..., .names_sep = NULL, .key = deprecated()) {
   cols <- enquos(...)
 
-  if (any(names2(cols) == "")) {
-    col_names <- names(tidyselect::eval_select(expr(c(...)), .data))
-    cols_expr <- expr(c(!!!syms(col_names)))
+  empty <- names2(cols) == ""
+  if (any(empty)) {
+    cols_good <- cols[!empty]
+    cols_bad <- cols[empty]
+
     .key <- if (missing(.key)) "data" else as.character(ensym(.key))
-    cols <- quos(!!.key := !!cols_expr)
+
+    cols_fixed_expr <- expr(c(!!!cols_bad))
+    cols_fixed_label <- as_label(cols_fixed_expr)
+    cols_fixed <- quos(!!.key := !!cols_fixed_expr)
+
+    cols <- c(cols_good, cols_fixed)
 
     warn(paste0(
       "All elements of `...` must be named.\n",
-      "Did you want `", .key, " = ", expr_text(cols_expr), "`?"
+      "Did you want `", .key, " = ", cols_fixed_label, "`?"
     ))
 
     return(nest(.data, !!!cols))

@@ -1,5 +1,8 @@
 # tidyr (development version)
 
+* The `nest()` generic now avoids computing on `.data`, making it more
+  compatible with lazy tibbles (#1134).
+  
 * `chop()` now works correctly with data frames with 0 rows (#1206).
 
 * The `cols` argument of `chop()` is no longer optional. This matches the
