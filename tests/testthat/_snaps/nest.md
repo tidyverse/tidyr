@@ -1,10 +1,10 @@
 # nesting no columns nests all inputs
 
     Code
-      (expect_warning(out <- nest(df)))
-    Output
-      <warning: `...` must not be empty for ungrouped data frames.
-      Did you want `data = everything()`?>
+      out <- nest(df)
+    Warning <warning>
+      `...` must not be empty for ungrouped data frames.
+      Did you want `data = everything()`?
 
 # bad inputs generate errors
 
@@ -37,118 +37,126 @@
 # warn about old style interface
 
     Code
-      (expect_warning(out <- nest(df, y)))
-    Output
-      <warning: All elements of `...` must be named.
-      Did you want `data = c(y)`?>
+      out <- nest(df, y)
+    Warning <warning>
+      All elements of `...` must be named.
+      Did you want `data = c(y)`?
 
 # only warn about unnamed inputs (#1175)
 
     Code
-      (expect_warning(out <- nest(df, x, y, foo = z)))
-    Output
-      <warning: All elements of `...` must be named.
-      Did you want `data = c(x, y)`?>
+      out <- nest(df, x, y, foo = z)
+    Warning <warning>
+      All elements of `...` must be named.
+      Did you want `data = c(x, y)`?
 
 # unnamed expressions are kept in the warning
 
     Code
-      (expect_warning(out <- nest(df, x, starts_with("z"))))
-    Output
-      <warning: All elements of `...` must be named.
-      Did you want `data = c(x, starts_with("z"))`?>
+      out <- nest(df, x, starts_with("z"))
+    Warning <warning>
+      All elements of `...` must be named.
+      Did you want `data = c(x, starts_with("z"))`?
 
 # can control output column name
 
     Code
-      (expect_warning(out <- nest(df, y, .key = "y")))
-    Output
-      <warning: All elements of `...` must be named.
-      Did you want `y = c(y)`?>
+      out <- nest(df, y, .key = "y")
+    Warning <warning>
+      All elements of `...` must be named.
+      Did you want `y = c(y)`?
 
 # can control output column name when nested
 
     Code
-      (expect_warning(out <- nest(df, .key = "y")))
-    Output
-      <warning: `.key` is deprecated>
+      out <- nest(df, .key = "y")
+    Warning <warning>
+      `.key` is deprecated
 
 # .key gets warning with new interface
 
     Code
-      (expect_warning(out <- nest(df, y = y, .key = "y")))
-    Output
-      <warning: `.key` is deprecated>
+      out <- nest(df, y = y, .key = "y")
+    Warning <warning>
+      `.key` is deprecated
 
 # cols must go in cols
 
     Code
-      (expect_warning(unnest(df, x, y)))
+      unnest(df, x, y)
+    Warning <warning>
+      unnest() has a new interface. See ?unnest for details.
+      Try `df %>% unnest(c(x, y))`, with `mutate()` if needed
     Output
-      <warning: unnest() has a new interface. See ?unnest for details.
-      Try `df %>% unnest(c(x, y))`, with `mutate()` if needed>
+      # A tibble: 2 x 2
+            x y    
+        <dbl> <chr>
+      1     3 a    
+      2     4 b    
 
 # need supply column names
 
     Code
-      (expect_warning(unnest(df)))
+      unnest(df)
+    Warning <warning>
+      `cols` is now required when using unnest().
+      Please use `cols = c(y)`
     Output
-      <warning: `cols` is now required when using unnest().
-      Please use `cols = c(y)`>
+      # A tibble: 2 x 2
+            x y    
+        <int> <chr>
+      1     1 a    
+      2     2 b    
 
 # sep combines column names
 
     Code
-      (expect_warning(out <- df %>% unnest(c(x, y), .sep = "_")))
-    Output
-      <deprecated>
-      message: The `.sep` argument of `unnest()` is deprecated as of tidyr 1.0.0.
+      out <- df %>% unnest(c(x, y), .sep = "_")
+    Warning <lifecycle_warning_deprecated>
+      The `.sep` argument of `unnest()` is deprecated as of tidyr 1.0.0.
       Use `names_sep = '_'` instead.
-      Backtrace:
-       1. testthat::expect_warning(out <- df %>% unnest(c(x, y), .sep = "_"))
-       8. tidyr::unnest(., c(x, y), .sep = "_")
 
 # unnest has mutate semantics
 
     Code
-      (expect_warning(out <- df %>% unnest(z = map(y, `+`, 1))))
-    Output
-      <warning: unnest() has a new interface. See ?unnest for details.
-      Try `df %>% unnest(c(z))`, with `mutate()` if needed>
+      out <- df %>% unnest(z = map(y, `+`, 1))
+    Warning <warning>
+      unnest() has a new interface. See ?unnest for details.
+      Try `df %>% unnest(c(z))`, with `mutate()` if needed
 
 # .drop and .preserve are deprecated
 
     Code
-      (expect_warning(df %>% unnest(x, .preserve = y)))
-    Output
-      <deprecated>
-      message: The `.preserve` argument of `unnest()` is deprecated as of tidyr 1.0.0.
+      df %>% unnest(x, .preserve = y)
+    Warning <lifecycle_warning_deprecated>
+      The `.preserve` argument of `unnest()` is deprecated as of tidyr 1.0.0.
       All list-columns are now preserved
-      Backtrace:
-       1. testthat::expect_warning(df %>% unnest(x, .preserve = y))
-       8. tidyr::unnest(., x, .preserve = y)
+    Output
+      # A tibble: 2 x 2
+            x y        
+        <dbl> <list>   
+      1     3 <chr [1]>
+      2     4 <chr [1]>
 
 ---
 
     Code
-      (expect_warning(df %>% unnest(x, .drop = FALSE)))
-    Output
-      <deprecated>
-      message: The `.drop` argument of `unnest()` is deprecated as of tidyr 1.0.0.
+      df %>% unnest(x, .drop = FALSE)
+    Warning <lifecycle_warning_deprecated>
+      The `.drop` argument of `unnest()` is deprecated as of tidyr 1.0.0.
       All list-columns are now preserved.
-      Backtrace:
-       1. testthat::expect_warning(df %>% unnest(x, .drop = FALSE))
-       8. tidyr::unnest(., x, .drop = FALSE)
+    Output
+      # A tibble: 2 x 2
+            x y        
+        <dbl> <list>   
+      1     3 <chr [1]>
+      2     4 <chr [1]>
 
 # .id creates vector of names for vector unnest
 
     Code
-      (expect_warning(out <- unnest(df, y, .id = "name")))
-    Output
-      <deprecated>
-      message: The `.id` argument of `unnest()` is deprecated as of tidyr 1.0.0.
+      out <- unnest(df, y, .id = "name")
+    Warning <lifecycle_warning_deprecated>
+      The `.id` argument of `unnest()` is deprecated as of tidyr 1.0.0.
       Manually create column of names instead.
-      Backtrace:
-       1. testthat::expect_warning(out <- unnest(df, y, .id = "name"))
-       7. tidyr::unnest(df, y, .id = "name")
 
