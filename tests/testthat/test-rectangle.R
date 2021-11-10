@@ -350,6 +350,19 @@ test_that("can unnest multiple columns wider at once (#740)", {
   )
 })
 
+test_that("can unnest a vector with a mix of named/unnamed elements (#1200 comment)", {
+  df <- tibble(x = c(a = 1L, 2L))
+  out <- unnest_wider(df, x, names_sep = "_")
+  expect_identical(out$x_1, 1:2)
+})
+
+test_that("can unnest a list with a mix of named/unnamed elements (#1200 comment)", {
+  df <- tibble(x = list(a = 1:2, 3:4))
+  out <- unnest_wider(df, x, names_sep = "_")
+  expect_identical(out$x_1, c(1L, 3L))
+  expect_identical(out$x_2, c(2L, 4L))
+})
+
 test_that("can't currently combine compatible `<list> + <list_of<ptype>>`", {
   # Turn this into a working test after this issue is resolved
   # https://github.com/r-lib/vctrs/pull/1231
@@ -616,6 +629,48 @@ test_that("default `indices_to` is based on `values_to` (#1201)", {
     unnest_longer(df, a, values_to = "aa"),
     c("aa", "aa_id")
   )
+})
+
+test_that("can unnest a vector with a mix of named/unnamed elements (#1200 comment)", {
+  df <- tibble(x = c(a = 1L, 2L))
+  out <- unnest_longer(df, x)
+  expect_identical(out$x, 1:2)
+})
+
+test_that("can unnest a list with a mix of named/unnamed elements (#1200 comment)", {
+  df <- tibble(x = list(a = 1:2, 3:4))
+  out <- unnest_longer(df, x)
+  expect_identical(out$x, 1:4)
+})
+
+test_that("names are preserved when simplification isn't done and a ptype is supplied", {
+  df <- tibble(x = list(list(a = 1L), list(b = 1L)))
+  ptype <- list(x = integer())
+
+  # Explicit request not to simplify
+  out <- unnest_longer(df, x, indices_include = TRUE, ptype = ptype, simplify = FALSE)
+  expect_named(out$x, c("a", "b"))
+  expect_identical(out$x_id, c("a", "b"))
+
+  df <- tibble(x = list(list(a = 1:2), list(b = 1L)))
+  ptype <- list(x = integer())
+
+  # Automatically can't simplify
+  out <- unnest_longer(df, x, indices_include = TRUE, ptype = ptype)
+  expect_named(out$x, c("a", "b"))
+  expect_identical(out$x_id, c("a", "b"))
+})
+
+test_that("can't currently retain names when simplification isn't done and a ptype is supplied if there is a mix of named/unnamed elements (#1212)", {
+  df <- tibble(x = list(list(a = 1L), list(1L)))
+  ptype <- list(x = integer())
+
+  out <- unnest_longer(df, x, indices_include = TRUE, ptype = ptype, simplify = FALSE)
+
+  # Ideally should be `c("a", "")`, but the call to
+  # `tidyr_temporary_new_list_of()` in `col_simplify()` prevents this
+  expect_named(out$x, NULL)
+  expect_identical(out$x_id, c("a", NA))
 })
 
 test_that("can't mix `indices_to` with `indices_include = FALSE`", {

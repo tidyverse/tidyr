@@ -397,7 +397,7 @@ col_to_long <- function(col,
   if (!vec_is_list(col)) {
     ptype <- vec_ptype(col)
     col <- tidyr_chop(col)
-    col <- new_list_of(col, ptype = ptype)
+    col <- tidyr_temporary_new_list_of(col, ptype = ptype)
   }
 
   info <- collect_indices_info(col, indices_include)
@@ -435,7 +435,7 @@ col_to_long <- function(col,
   ptype <- vec_ptype_common(elt_ptype, !!!col)
   col <- vec_cast_common(!!!col, .to = ptype)
 
-  col <- new_list_of(col, ptype = ptype)
+  col <- tidyr_temporary_new_list_of(col, ptype = ptype)
 
   col
 }
@@ -597,7 +597,7 @@ col_to_wide <- function(col, name, strict, names_sep) {
   if (!vec_is_list(col)) {
     ptype <- vec_ptype(col)
     col <- tidyr_chop(col)
-    col <- new_list_of(col, ptype = ptype)
+    col <- tidyr_temporary_new_list_of(col, ptype = ptype)
   }
 
   # If we don't have a list_of, then a `NULL` `col_ptype` will get converted to
@@ -625,7 +625,7 @@ col_to_wide <- function(col, name, strict, names_sep) {
     out <- vec_cast_common(!!!out, .to = ptype)
   }
 
-  out <- new_list_of(out, ptype = ptype)
+  out <- tidyr_temporary_new_list_of(out, ptype = ptype)
 
   out
 }
@@ -803,7 +803,7 @@ col_simplify <- function(x,
   if (!is.null(ptype)) {
     x <- tidyr_new_list(x)
     x <- vec_cast_common(!!!x, .to = ptype)
-    x <- new_list_of(x, ptype = ptype)
+    x <- tidyr_temporary_new_list_of(x, ptype = ptype)
   }
 
   if (!simplify) {
@@ -851,4 +851,23 @@ col_simplify <- function(x,
     vec_unchop(x_scalars, ptype = x_ptype),
     vctrs_error_incompatible_type = function(e) x
   )
+}
+
+tidyr_temporary_new_list_of <- function(x, ptype) {
+  # TODO: Remove me and replace with `new_list_of()` when
+  # https://github.com/r-lib/vctrs/pull/784 is merged / fixed.
+
+  # This is an unfortunate hack required because vctr types currently
+  # can't have `""` names, and that can easily come up when unnesting a
+  # mix of named and unnamed elements.
+
+  # Most of the time, in the places we use this helper the names
+  # weren't needed at all, so it is safe to remove them. Any place
+  # where this isn't the case has a test and a linked open issue.
+  names <- names(x)
+  if (!is.null(names) && any(names == "")) {
+    x <- unname(x)
+  }
+
+  new_list_of(x, ptype = ptype)
 }
