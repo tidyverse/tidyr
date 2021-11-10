@@ -301,10 +301,11 @@ test_that("`names_sep` works with data frame columns", {
   expect_named(out, c("x_a", "x_b"))
 })
 
-test_that("`names_sep` works with non-list atomic vectors", {
+test_that("`names_sep` works with named non-list atomic vectors", {
+  # Equivalent to `df <- tibble(x = list_of(c(a = 1), c(b = 2)))`
   df <- tibble(x = c(a = 1, b = 2))
   out <- unnest_wider(df, x, names_sep = "_")
-  expect_named(out, "x_1")
+  expect_named(out, c("x_a", "x_b"))
 })
 
 test_that("df-cols can be unnested (#1188)", {
@@ -365,7 +366,8 @@ test_that("can unnest multiple columns wider at once (#740)", {
 test_that("can unnest a vector with a mix of named/unnamed elements (#1200 comment)", {
   df <- tibble(x = c(a = 1L, 2L))
   out <- unnest_wider(df, x, names_sep = "_")
-  expect_identical(out$x_1, 1:2)
+  expect_identical(out$x_a, c(1L, NA))
+  expect_identical(out$x_, c(NA, 2L))
 })
 
 test_that("can unnest a list with a mix of named/unnamed elements (#1200 comment)", {
@@ -579,16 +581,14 @@ test_that("can unnest one row data frames (#1034)", {
   )
 })
 
-test_that("unnesting named vector results in unnamed column", {
+test_that("named vectors are converted to lists with `vec_chop()`", {
+  # Equivalent to `df <- tibble(x = list_of(c(a = 1), c(b = 2)))`
   df <- tibble(x = c(a = 1, b = 2))
 
-  # `x` converted to list with `tidyr_chop()` and names are moved to outer list.
-  # No index column is added.
-  expect_identical(unnest_longer(df, x), tibble(x = c(1, 2)))
+  out <- unnest_longer(df, x)
 
-  # Conversion to list makes `x = list(1, 2)`, so indices are returned as `c(1L, 1L)`.
-  out <- unnest_longer(df, x, indices_include = TRUE)
-  expect_identical(out$x_id, c(1L, 1L))
+  expect_identical(out$x, c(a = 1, b = 2))
+  expect_identical(out$x_id, c("a", "b"))
 })
 
 test_that("can unnest multiple columns (#740)", {
@@ -646,7 +646,8 @@ test_that("default `indices_to` is based on `values_to` (#1201)", {
 test_that("can unnest a vector with a mix of named/unnamed elements (#1200 comment)", {
   df <- tibble(x = c(a = 1L, 2L))
   out <- unnest_longer(df, x)
-  expect_identical(out$x, 1:2)
+  expect_identical(out$x, df$x)
+  expect_identical(out$x_id, c("a", ""))
 })
 
 test_that("can unnest a list with a mix of named/unnamed elements (#1200 comment)", {

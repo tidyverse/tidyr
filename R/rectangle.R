@@ -396,8 +396,8 @@ col_to_long <- function(col,
 
   if (!vec_is_list(col)) {
     ptype <- vec_ptype(col)
-    col <- tidyr_chop(col)
-    col <- tidyr_temporary_new_list_of(col, ptype = ptype)
+    col <- vec_chop(col)
+    col <- new_list_of(col, ptype = ptype)
   }
 
   info <- collect_indices_info(col, indices_include)
@@ -596,8 +596,8 @@ col_to_wide <- function(col, name, strict, names_sep) {
 
   if (!vec_is_list(col)) {
     ptype <- vec_ptype(col)
-    col <- tidyr_chop(col)
-    col <- tidyr_temporary_new_list_of(col, ptype = ptype)
+    col <- vec_chop(col)
+    col <- new_list_of(col, ptype = ptype)
   }
 
   # If we don't have a list_of, then a `NULL` `col_ptype` will get converted to
@@ -655,18 +655,26 @@ elt_to_wide <- function(x, name, strict, names_sep) {
     # Extremely special case for data.frames,
     # which we want to treat like lists where we know the type of each element
     x <- tidyr_new_list(x)
-    ptypes <- map(x, vec_ptype)
-    x <- tidyr_chop(x)
-    x <- map2(x, ptypes, new_list_of)
-  } else if (!strict && vec_is_list(x)) {
-    empty <- list_sizes(x) == 0L
-    if (any(empty)) {
-      # Can't use vec_assign(), see https://github.com/r-lib/vctrs/issues/1424
-      x[empty] <- list(NULL)
-    }
-    x <- tidyr_chop(x)
+    x <- map(x, list_of)
   } else {
-    x <- tidyr_chop(x)
+    if (!strict && vec_is_list(x)) {
+      empty <- list_sizes(x) == 0L
+      if (any(empty)) {
+        # Can't use vec_assign(), see https://github.com/r-lib/vctrs/issues/1424
+        x[empty] <- list(NULL)
+      }
+    }
+
+    names <- vec_names(x)
+
+    if (is.null(names)) {
+      x <- vec_chop(x)
+    } else {
+      # Promote names to column names
+      x <- vec_set_names(x, NULL)
+      x <- vec_chop(x)
+      x <- vec_set_names(x, names)
+    }
   }
 
   if (!is.null(names_sep)) {

@@ -130,26 +130,6 @@ tidyr_new_list <- function(x) {
   x
 }
 
-# Version of `vec_chop()` that is always called without `indices`.
-# We move the names of `x` onto the result.
-# Not that same as a hypothetical `vec_chop2()`, because that would index into
-# lists with `vec_slice2()` rather than `vec_slice()`.
-tidyr_chop <- function(x) {
-  names <- vec_names(x)
-
-  if (!is.null(names)) {
-    x <- vec_set_names(x, NULL)
-  }
-
-  out <- vec_chop(x)
-
-  if (!is.null(names)) {
-    out <- vec_set_names(out, names)
-  }
-
-  out
-}
-
 # "Initializes" empty values to their size 1 equivalent
 # - Can initialize `NULL` to either `unspecified(1)` or a list-of ptype
 # - Can initialize typed empty elements to `vec_init(x, 1L)` or a list-of ptype
