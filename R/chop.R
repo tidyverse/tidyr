@@ -209,15 +209,20 @@ df_unchop <- function(x, ..., ptype = list(), keep_empty = FALSE) {
 
   for (i in seq_len_width) {
     col <- x[[i]]
+    col_name <- names[[i]]
     col_is_list <- x_is_list[[i]]
 
+    col_ptype <- ptype[[col_name]]
+
     if (!col_is_list) {
+      if (!is_null(col_ptype)) {
+        col <- vec_cast(col, col_ptype, x_arg = col_name)
+      }
       out_cols[[i]] <- vec_slice(col, out_loc)
       next
     }
 
-    col_name <- names[[i]]
-    col_ptype <- ptype[[col_name]] %||% attr(col, "ptype", exact = TRUE)
+    col_ptype <- col_ptype %||% attr(col, "ptype", exact = TRUE)
 
     # Drop to a bare list to avoid dispatch
     col <- unclass(col)
