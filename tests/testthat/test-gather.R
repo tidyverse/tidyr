@@ -143,10 +143,7 @@ test_that("factors coerced to characters, not integers", {
     v2 = factor(letters[1:3])
   )
 
-  expect_warning(
-    out <- gather(df, k, v),
-    "attributes are not identical across measure variables"
-  )
+  expect_snapshot(out <- gather(df, k, v))
 
   expect_equal(out$v, c(1:3, letters[1:3]))
 })
@@ -171,10 +168,7 @@ test_that("varying attributes are dropped with a warning", {
     date1 = as.POSIXct(Sys.Date()),
     date2 = Sys.Date() + 10
   )
-  expect_warning(
-    gather(df, k, v),
-    "attributes are not identical across measure variables"
-  )
+  expect_snapshot(gather(df, k, v))
 })
 
 test_that("gather preserves OBJECT bit on e.g. POSIXct", {

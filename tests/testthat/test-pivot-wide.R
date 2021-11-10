@@ -119,9 +119,7 @@ test_that("can override default keys", {
 test_that("duplicated keys produce list column with warning", {
   df <- tibble(a = c(1, 1, 2), key = c("x", "x", "x"), val = 1:3)
 
-  expect_snapshot((expect_warning(
-    pv <- pivot_wider(df, names_from = key, values_from = val)
-  )))
+  expect_snapshot(pv <- pivot_wider(df, names_from = key, values_from = val))
 
   expect_equal(pv$a, c(1, 2))
   expect_equal(as.list(pv$x), list(c(1L, 2L), 3L))
