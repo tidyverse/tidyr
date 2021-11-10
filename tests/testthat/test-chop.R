@@ -189,6 +189,15 @@ test_that("ptype overrides list-of ptype", {
   )
 })
 
+test_that("ptype is utilized on non-list columns (#1211)", {
+  df <- tibble(x = 1)
+
+  expect_identical(
+    unchop(df, x, ptype = list(x = integer())),
+    tibble(x = 1L)
+  )
+})
+
 test_that("the ptype must be a list", {
   expect_snapshot(error = TRUE, unchop(mtcars, mpg, ptype = 1))
 })
