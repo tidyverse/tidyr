@@ -295,6 +295,18 @@ test_that("`names_sep` works with empty elements (#1185)", {
   expect_identical(out, tibble(x_a = c(1L, NA)))
 })
 
+test_that("`names_sep` works with data frame columns", {
+  df <- tibble(x = tibble(a = 1, b = 2))
+  out <- unnest_wider(df, x, names_sep = "_")
+  expect_named(out, c("x_a", "x_b"))
+})
+
+test_that("`names_sep` works with non-list atomic vectors", {
+  df <- tibble(x = c(a = 1, b = 2))
+  out <- unnest_wider(df, x, names_sep = "_")
+  expect_named(out, "x_1")
+})
+
 test_that("df-cols can be unnested (#1188)", {
   df <- tibble(a = 1:3, b = tibble(x = 1:3, y = 1:3))
   out <- unnest_wider(df, b)
