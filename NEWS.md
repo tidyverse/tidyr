@@ -1,5 +1,15 @@
 # tidyr (development version)
 
+* `fill()` is now backed by `vctrs::vec_fill_missing()`, which provides a more
+  comprehensive method for filling different types of missing values. This
+  results in the following improvements:
+  
+  * `fill()` can now handle lubridate's Period types (#1094).
+  
+  * `fill()` can now handle data frame columns and the rcrd type from vctrs.
+  
+  * `fill()` now treats `NaN` like any other missing value (#982).
+
 * `unpack()` now silently skips over any non-data frame columns specified by
   `cols`. This matches the existing behavior of `unchop()` and `unnest()`
   (#1153).
