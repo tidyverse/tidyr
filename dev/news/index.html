@@ -200,6 +200,7 @@
 <a href="#tidyr-development-version" class="anchor"></a>tidyr (development version)<small> Unreleased </small>
 </h1>
 <ul>
+<li><p><code><a href="../reference/chop.html">unchop()</a></code> now respects <code>ptype</code> when unnesting a non-list column (<a href='https://github.com/tidyverse/tidyr/issues/1211'>#1211</a>).</p></li>
 <li><p>The <code><a href="../reference/nest.html">nest()</a></code> generic now avoids computing on <code>.data</code>, making it more compatible with lazy tibbles (<a href='https://github.com/tidyverse/tidyr/issues/1134'>#1134</a>).</p></li>
 <li><p><code><a href="../reference/chop.html">chop()</a></code> now works correctly with data frames with 0 rows (<a href='https://github.com/tidyverse/tidyr/issues/1206'>#1206</a>).</p></li>
 <li><p>The <code>cols</code> argument of <code><a href="../reference/chop.html">chop()</a></code> is no longer optional. This matches the behavior of <code>cols</code> seen elsewhere in tidyr (<a href='https://github.com/tidyverse/tidyr/issues/1205'>#1205</a>).</p></li>
