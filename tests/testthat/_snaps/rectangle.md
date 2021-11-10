@@ -121,6 +121,60 @@
     Error <rlang_error>
       `indices_include` must be `NULL` or a single `TRUE` or `FALSE`.
 
+# `simplify` is validated
+
+    Code
+      (expect_error(df_simplify(data.frame(), simplify = 1)))
+    Output
+      <error/rlang_error>
+      `simplify` must be a single `TRUE` or `FALSE`.
+    Code
+      (expect_error(df_simplify(data.frame(), simplify = NA)))
+    Output
+      <error/rlang_error>
+      `simplify` must be a single `TRUE` or `FALSE`.
+    Code
+      (expect_error(df_simplify(data.frame(), simplify = c(TRUE, FALSE))))
+    Output
+      <error/rlang_error>
+      `simplify` must be a single `TRUE` or `FALSE`.
+
+# `ptype` is validated
+
+    Code
+      (expect_error(df_simplify(data.frame(), ptype = 1)))
+    Output
+      <error/rlang_error>
+      `ptype` must be a list.
+    Code
+      (expect_error(df_simplify(data.frame(), ptype = list(1))))
+    Output
+      <error/rlang_error>
+      All elements of `ptype` must be named.
+    Code
+      (expect_error(df_simplify(data.frame(), ptype = list(x = 1, x = 1))))
+    Output
+      <error/rlang_error>
+      The names of `ptype` must be unique.
+
+# `transform` is validated
+
+    Code
+      (expect_error(df_simplify(data.frame(), transform = 1)))
+    Output
+      <error/rlang_error>
+      `transform` must be a list.
+    Code
+      (expect_error(df_simplify(data.frame(), transform = list(1))))
+    Output
+      <error/rlang_error>
+      All elements of `transform` must be named.
+    Code
+      (expect_error(df_simplify(data.frame(), transform = list(x = 1, x = 1))))
+    Output
+      <error/rlang_error>
+      The names of `transform` must be unique.
+
 # ptype is applied after transform
 
     Code

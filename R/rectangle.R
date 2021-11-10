@@ -742,9 +742,23 @@ df_simplify <- function(x,
   if (!vec_is_list(ptype)) {
     abort("`ptype` must be a list.")
   }
-  if (!vec_is_list(ptype)) {
+  if (length(ptype) > 0L && !is_named(ptype)) {
+    abort("All elements of `ptype` must be named.")
+  }
+  if (vec_duplicate_any(names(ptype))) {
+    abort("The names of `ptype` must be unique.")
+  }
+
+  if (!vec_is_list(transform)) {
     abort("`transform` must be a list.")
   }
+  if (length(transform) > 0L && !is_named(transform)) {
+    abort("All elements of `transform` must be named.")
+  }
+  if (vec_duplicate_any(names(transform))) {
+    abort("The names of `transform` must be unique.")
+  }
+
   if (!is_bool(simplify)) {
     abort("`simplify` must be a single `TRUE` or `FALSE`.")
   }

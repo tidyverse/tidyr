@@ -736,6 +736,32 @@ test_that("works with an input that has column named `col`", {
   expect_named(out, c("col", "x", "y"))
 })
 
+# df_simplify ------------------------------------------------------------
+
+test_that("`simplify` is validated", {
+  expect_snapshot({
+    (expect_error(df_simplify(data.frame(), simplify = 1)))
+    (expect_error(df_simplify(data.frame(), simplify = NA)))
+    (expect_error(df_simplify(data.frame(), simplify = c(TRUE, FALSE))))
+  })
+})
+
+test_that("`ptype` is validated", {
+  expect_snapshot({
+    (expect_error(df_simplify(data.frame(), ptype = 1)))
+    (expect_error(df_simplify(data.frame(), ptype = list(1))))
+    (expect_error(df_simplify(data.frame(), ptype = list(x = 1, x = 1))))
+  })
+})
+
+test_that("`transform` is validated", {
+  expect_snapshot({
+    (expect_error(df_simplify(data.frame(), transform = 1)))
+    (expect_error(df_simplify(data.frame(), transform = list(1))))
+    (expect_error(df_simplify(data.frame(), transform = list(x = 1, x = 1))))
+  })
+})
+
 # col_simplify -----------------------------------------------------------
 
 test_that("non-list isn't simplified", {
