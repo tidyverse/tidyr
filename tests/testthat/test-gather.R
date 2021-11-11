@@ -165,8 +165,8 @@ test_that("common attributes are preserved", {
 
 test_that("varying attributes are dropped with a warning", {
   df <- data.frame(
-    date1 = as.POSIXct(Sys.Date()),
-    date2 = Sys.Date() + 10
+    date1 = as.POSIXct("2019-01-01", tz = "UTC"),
+    date2 = as.Date("2019-01-01")
   )
   expect_snapshot(gather(df, k, v))
 })

@@ -15,6 +15,6 @@
       they will be dropped
     Output
             k          v
-      1 date1 1636502400
-      2 date2      18951
+      1 date1 1546300800
+      2 date2      17897
 
