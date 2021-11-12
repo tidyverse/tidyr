@@ -6,15 +6,17 @@
 \alias{tribble}
 \alias{tibble}
 \alias{as_tibble}
-\alias{contains}
+\alias{all_of}
 \alias{select_helpers}
+\alias{any_of}
+\alias{contains}
 \alias{ends_with}
 \alias{everything}
+\alias{last_col}
 \alias{matches}
 \alias{num_range}
 \alias{one_of}
 \alias{starts_with}
-\alias{last_col}
 \title{Objects exported from other packages}
 \keyword{internal}
 \description{
@@ -24,6 +26,6 @@ below to see their documentation.
 \describe{
   \item{tibble}{\code{\link[tibble]{as_tibble}}, \code{\link[tibble]{tibble}}, \code{\link[tibble]{tribble}}}
 
-  \item{tidyselect}{\code{\link[tidyselect:starts_with]{contains}}, \code{\link[tidyselect:starts_with]{ends_with}}, \code{\link[tidyselect]{everything}}, \code{\link[tidyselect:everything]{last_col}}, \code{\link[tidyselect:starts_with]{matches}}, \code{\link[tidyselect:starts_with]{num_range}}, \code{\link[tidyselect]{one_of}}, \code{\link[tidyselect]{starts_with}}}
+  \item{tidyselect}{\code{\link[tidyselect]{all_of}}, \code{\link[tidyselect:all_of]{any_of}}, \code{\link[tidyselect:starts_with]{contains}}, \code{\link[tidyselect:starts_with]{ends_with}}, \code{\link[tidyselect]{everything}}, \code{\link[tidyselect:everything]{last_col}}, \code{\link[tidyselect:starts_with]{matches}}, \code{\link[tidyselect:starts_with]{num_range}}, \code{\link[tidyselect]{one_of}}, \code{\link[tidyselect]{starts_with}}}
 }}
 
