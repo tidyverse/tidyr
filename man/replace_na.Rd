@@ -20,8 +20,7 @@ replaces all of the \code{NA} values in the vector.}
 \value{
 \itemize{
 \item If \code{data} is a data frame, \code{replace_na()} returns a data frame.
-\item If \code{data} is a vector, \code{replace_na()} returns a vector, with class
-given by the union of \code{data} and \code{replace}.
+\item If \code{data} is a vector, \code{replace_na()} returns a vector of the same type.
 }
 }
 \description{
