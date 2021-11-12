@@ -164,45 +164,31 @@ nest.tbl_df <- function(.data, ..., .names_sep = NULL, .key = deprecated()) {
       "`...` must not be empty for ungrouped data frames.\n",
       "Did you want `", .key, " = everything()`?"
     ))
-    cols <- list2(!!.key := names(.data))
+    cols <- quos(!!.key := everything())
   } else {
     cols <- enquos(...)
-    cols <- map(cols, ~ names(tidyselect::eval_select(.x, .data)))
   }
 
-  cols <- map(cols, set_names)
-  if (!is.null(.names_sep)) {
-    cols <- imap(cols, strip_names, .names_sep)
+  out <- pack(.data, !!!cols, .names_sep = .names_sep)
+  out <- chop(out, cols = all_of(names(cols)))
+
+  # `nest()` currently doesn't return list-of columns
+  for (name in names(cols)) {
+    out[[name]] <- tidyr_new_list(out[[name]])
   }
 
-  asis <- setdiff(names(.data), unlist(cols))
-  keys <- .data[asis]
-  u_keys <- vec_unique(keys)
-
-  # Only rename if needed: many packages implement "sticky" columns
-  # (e.g. https://github.com/jacob-long/panelr/issues/28) which causes
-  # set_names() to fail.
-  if (is.null(.names_sep)) {
-    out <- map(cols, ~ vec_split(.data[.x], keys)$val)
-  } else {
-    out <- map(cols, ~ vec_split(set_names(.data[.x], names(.x)), keys)$val)
-  }
-
-  vec_cbind(u_keys, new_data_frame(out, n = nrow(u_keys)))
+  out
 }
 
 #' @export
 nest.grouped_df <- function(.data, ..., .names_sep = NULL, .key = deprecated()) {
   if (missing(...)) {
     .key <- check_key(.key)
-    nest_vars <- setdiff(names(.data), dplyr::group_vars(.data))
-    out <- nest.tbl_df(.data, !!.key := any_of(nest_vars), .names_sep = .names_sep)
+    cols <- setdiff(names(.data), dplyr::group_vars(.data))
+    nest.tbl_df(.data, !!.key := all_of(cols), .names_sep = .names_sep)
   } else {
-    out <- NextMethod()
+    NextMethod()
   }
-  group_vars <- intersect(names(out), dplyr::group_vars(.data))
-
-  dplyr::grouped_df(out, group_vars)
 }
 
 check_key <- function(.key) {
