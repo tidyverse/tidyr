@@ -1,5 +1,7 @@
 # tidyr (development version)
 
+* `any_of()` and `all_of()` from tidyselect are now re-exported (#1217).
+
 * `unchop()` now respects `ptype` when unnesting a non-list column (#1211).
 
 * The `nest()` generic now avoids computing on `.data`, making it more
