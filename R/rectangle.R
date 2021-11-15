@@ -677,13 +677,20 @@ elt_to_wide <- function(x, name, strict, names_sep) {
     }
   }
 
-  if (!is.null(names_sep)) {
+  if (is.null(names_sep)) {
+    names(x) <- vec_as_names(names2(x), repair = "unique")
+  } else {
     outer <- name
-    inner <- vec_names(x) %||% vec_seq_along(x)
+
+    inner <- names(x)
+    if (is.null(inner)) {
+      inner <- as.character(seq_along(x))
+    } else {
+      inner <- vec_as_names(inner, repair = "unique")
+    }
+
     names(x) <- apply_names_sep(outer, inner, names_sep)
   }
-
-  names(x) <- vec_as_names(names2(x), repair = "unique")
 
   x <- new_data_frame(x, n = 1L)
 

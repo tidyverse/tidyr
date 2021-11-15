@@ -371,9 +371,9 @@ test_that("can unnest multiple columns wider at once (#740)", {
 
 test_that("can unnest a vector with a mix of named/unnamed elements (#1200 comment)", {
   df <- tibble(x = c(a = 1L, 2L))
-  out <- unnest_wider(df, x, names_sep = "_")
+  expect_snapshot(out <- unnest_wider(df, x, names_sep = "_"))
   expect_identical(out$x_a, c(1L, NA))
-  expect_identical(out$x_, c(NA, 2L))
+  expect_identical(out$x_...1, c(NA, 2L))
 })
 
 test_that("can unnest a list with a mix of named/unnamed elements (#1200 comment)", {
@@ -381,6 +381,36 @@ test_that("can unnest a list with a mix of named/unnamed elements (#1200 comment
   out <- unnest_wider(df, x, names_sep = "_")
   expect_identical(out$x_1, c(1L, 3L))
   expect_identical(out$x_2, c(2L, 4L))
+})
+
+test_that("unique name repair is done on the elements before applying `names_sep` (#1200 comment)", {
+  df <- tibble(col = list(set_names(1, "")))
+  expect_snapshot(out <- unnest_wider(df, col, names_sep = "_"))
+  expect_named(out, "col_...1")
+
+  df <- tibble(col = list(set_names(1:2, c("", ""))))
+  expect_snapshot(out <- unnest_wider(df, col, names_sep = "_"))
+  expect_named(out, c("col_...1", "col_...2"))
+})
+
+test_that("output structure is the same whether or not `names_sep` is applied (#1200 comment)", {
+  col <- list(
+    set_names(1, "a"),
+    set_names(1, NA_character_),
+    set_names(1, "")
+  )
+  df <- tibble(col = col)
+
+  # Column structure between these two must be the same,
+  # we consider an `NA_character_` name as identical to `""`.
+  expect_snapshot(out1 <- unnest_wider(df, col))
+  expect_snapshot(out2 <- unnest_wider(df, col, names_sep = "_"))
+
+  expect_identical(out1$a, c(1, NA, NA))
+  expect_identical(out1$...1, c(NA, 1, 1))
+
+  expect_identical(out2$col_a, c(1, NA, NA))
+  expect_identical(out2$col_...1, c(NA, 1, 1))
 })
 
 test_that("can't currently combine compatible `<list> + <list_of<ptype>>`", {
