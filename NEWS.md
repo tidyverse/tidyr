@@ -1,5 +1,11 @@
 # tidyr (development version)
 
+* `unpack()` now silently skips over any non-data frame columns specified by
+  `cols`. This matches the existing behavior of `unchop()` and `unnest()`
+  (#1153).
+  
+* `unpack()` no longer drops empty columns specified through `cols` (#1191).
+
 * The rectangling tools, `hoist()`, `unnest_wider()`, and `unnest_longer()`,
   have undergone a complete rewrite. This has fixed many edge case bugs, and
   has added the following new features:

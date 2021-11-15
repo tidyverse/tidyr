@@ -40,9 +40,16 @@ test_that("grouping is preserved", {
   expect_equal(dplyr::group_vars(out), "g")
 })
 
-test_that("can't unpack atomic vectors", {
-  df <- tibble(x = 1:2)
-  expect_error(df %>% unpack(x), "must be a data frame column")
+test_that("non-df-cols are skipped (#1153)", {
+  df <- tibble(x = 1:2, y = tibble(a = 1:2, b = 1:2))
+
+  expect_identical(unpack(df, x), df)
+  expect_identical(unpack(df, everything()), unpack(df, y))
+})
+
+test_that("empty columns that aren't data frames aren't unpacked (#1191)", {
+  df <- tibble(x = integer())
+  expect_identical(unpack(df, x), df)
 })
 
 test_that("df-cols are directly unpacked", {
