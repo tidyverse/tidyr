@@ -314,6 +314,12 @@ test_that("df-cols can be unnested (#1188)", {
   expect_identical(out, unpack(df, b))
 })
 
+test_that("df-cols result in list-ofs when `simplify = FALSE`", {
+  df <- tibble(a = 1:3, b = tibble(x = 1:3, y = 1:3))
+  out <- unnest_wider(df, b, simplify = FALSE)
+  expect_identical(out, tibble(a = 1:3, x = list_of(1L, 2L, 3L), y = list_of(1L, 2L, 3L)))
+})
+
 test_that("unnesting mixed empty types retains the column (#1125)", {
   df <- tibble(col = list(list(a = list()), list(a = integer())))
   expect_identical(unnest_wider(df, col), tibble(a = c(NA, NA)))
