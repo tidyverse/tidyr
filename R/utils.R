@@ -130,6 +130,72 @@ tidyr_new_list <- function(x) {
   x
 }
 
+# "Initializes" empty values to their size 1 equivalent
+# - Can initialize `NULL` to either `unspecified(1)` or a list-of ptype
+# - Can initialize typed empty elements to `vec_init(x, 1L)` or a list-of ptype
+# Returns a list containing:
+# - Updated `x`
+# - `sizes`, an integer vector containing updated sizes for the elements of `x`
+# - `null`, a logical vector indicating the original `NULL` values
+# - `typed`, a logical vector indicating the original empty typed values
+list_init_empty <- function(x,
+                            ...,
+                            null = TRUE,
+                            typed = TRUE) {
+  ellipsis::check_dots_empty()
+
+  if (!vec_is_list(x)) {
+    abort("Internal error: `x` must be a list.")
+  }
+
+  sizes <- list_sizes(x)
+  empty_null <- vec_equal_na(x)
+  empty_typed <- (sizes == 0L) & !empty_null
+
+  if (null && any(empty_null)) {
+    # Replace `NULL` elements with their size 1 equivalent
+
+    if (is_list_of(x)) {
+      ptype <- list_of_ptype(x)
+      replacement <- list(vec_init(ptype, n = 1L))
+      replacement <- new_list_of(replacement, ptype = ptype)
+    } else {
+      replacement <- list(unspecified(1L))
+    }
+
+    x <- vec_assign(x, empty_null, replacement)
+    sizes[empty_null] <- 1L
+  }
+
+  if (typed && any(empty_typed)) {
+    # Replace empty typed elements with their size 1 equivalent
+
+    if (is_list_of(x)) {
+      ptype <- list_of_ptype(x)
+      replacement <- list(vec_init(ptype, n = 1L))
+      replacement <- new_list_of(replacement, ptype = ptype)
+    } else {
+      # `vec_init()` is slow, see r-lib/vctrs#1423, so use `vec_slice()` equivalent
+      replacement <- map(vec_slice(x, empty_typed), vec_slice, i = NA_integer_)
+    }
+
+    x <- vec_assign(x, empty_typed, replacement)
+    sizes[empty_typed] <- 1L
+  }
+
+  list(x = x, sizes = sizes, null = empty_null, typed = empty_typed)
+}
+
+list_of_ptype <- function(x) {
+  ptype <- attr(x, "ptype", exact = TRUE)
+
+  # ptypes should always be unnamed, but this isn't guaranteed right now.
+  # See https://github.com/r-lib/vctrs/pull/1020#discussion_r411327472
+  ptype <- vec_set_names(ptype, NULL)
+
+  ptype
+}
+
 apply_names_sep <- function(outer, inner, names_sep) {
   as.character(glue("{outer}{names_sep}{inner}"))
 }

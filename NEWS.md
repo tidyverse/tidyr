@@ -1,5 +1,24 @@
 # tidyr (development version)
 
+* The rectangling tools, `hoist()`, `unnest_wider()`, and `unnest_longer()`,
+  have undergone a complete rewrite. This has fixed many edge case bugs, and
+  has added the following new features:
+  
+  * `unnest_wider()` and `unnest_longer()` can now unnest multiple columns at
+    once (#740).
+    
+  * The `indices_to` and `values_to` arguments to `unnest_longer()` now accept
+    a glue specification, which is useful when unnesting multiple columns.
+    
+  * If a `ptype` is supplied, but that column can't be simplified, the result
+    will be a list-of column where each element has type `ptype` (#998).
+    
+  * `unnest_wider()` has a new `strict` argument which controls whether or not
+    strict vctrs typing rules should be applied. It defaults to `FALSE` for
+    backwards compatibility, and because it is often more useful to be lax
+    when unnesting JSON, which doesn't always map one-to-one with R's types
+    (#1125).
+
 * `any_of()` and `all_of()` from tidyselect are now re-exported (#1217).
 
 * `unchop()` now respects `ptype` when unnesting a non-list column (#1211).
