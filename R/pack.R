@@ -134,7 +134,7 @@ rename_with_names_sep <- function(x, outer, names_sep) {
 }
 
 strip_names <- function(df, base, names_sep) {
-  base <- paste0(base, names_sep)
+  base <- vec_paste0(base, names_sep)
   names <- names(df)
 
   has_prefix <- regexpr(base, names, fixed = TRUE) == 1L

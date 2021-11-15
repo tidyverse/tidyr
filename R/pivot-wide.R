@@ -302,7 +302,7 @@ build_wider_spec <- function(data,
   row_names <- exec(paste, !!!row_ids, sep = names_sep)
 
   out <- tibble(
-    .name = paste0(names_prefix, row_names)
+    .name = vec_paste0(names_prefix, row_names)
   )
 
   if (length(values_from) == 1) {
@@ -310,7 +310,7 @@ build_wider_spec <- function(data,
   } else {
     out <- vec_rep(out, vec_size(values_from))
     out$.value <- vec_rep_each(names(values_from), vec_size(row_ids))
-    out$.name <- paste0(out$.value, names_sep, out$.name)
+    out$.name <- vec_paste0(out$.value, names_sep, out$.name)
 
     row_ids <- vec_rep(row_ids, vec_size(values_from))
   }
