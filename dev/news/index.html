@@ -200,6 +200,15 @@
 <a href="#tidyr-development-version" class="anchor"></a>tidyr (development version)<small> Unreleased </small>
 </h1>
 <ul>
+<li>
+<p>The rectangling tools, <code><a href="../reference/hoist.html">hoist()</a></code>, <code><a href="../reference/hoist.html">unnest_wider()</a></code>, and <code><a href="../reference/hoist.html">unnest_longer()</a></code>, have undergone a complete rewrite. This has fixed many edge case bugs, and has added the following new features:</p>
+<ul>
+<li><p><code><a href="../reference/hoist.html">unnest_wider()</a></code> and <code><a href="../reference/hoist.html">unnest_longer()</a></code> can now unnest multiple columns at once (<a href='https://github.com/tidyverse/tidyr/issues/740'>#740</a>).</p></li>
+<li><p>The <code>indices_to</code> and <code>values_to</code> arguments to <code><a href="../reference/hoist.html">unnest_longer()</a></code> now accept a glue specification, which is useful when unnesting multiple columns.</p></li>
+<li><p>If a <code>ptype</code> is supplied, but that column can’t be simplified, the result will be a list-of column where each element has type <code>ptype</code> (<a href='https://github.com/tidyverse/tidyr/issues/998'>#998</a>).</p></li>
+<li><p><code><a href="../reference/hoist.html">unnest_wider()</a></code> has a new <code>strict</code> argument which controls whether or not strict vctrs typing rules should be applied. It defaults to <code>FALSE</code> for backwards compatibility, and because it is often more useful to be lax when unnesting JSON, which doesn’t always map one-to-one with R’s types (<a href='https://github.com/tidyverse/tidyr/issues/1125'>#1125</a>).</p></li>
+</ul>
+</li>
 <li><p><code><a href="https://tidyselect.r-lib.org/reference/all_of.html">any_of()</a></code> and <code><a href="https://tidyselect.r-lib.org/reference/all_of.html">all_of()</a></code> from tidyselect are now re-exported (<a href='https://github.com/tidyverse/tidyr/issues/1217'>#1217</a>).</p></li>
 <li><p><code><a href="../reference/chop.html">unchop()</a></code> now respects <code>ptype</code> when unnesting a non-list column (<a href='https://github.com/tidyverse/tidyr/issues/1211'>#1211</a>).</p></li>
 <li><p>The <code><a href="../reference/nest.html">nest()</a></code> generic now avoids computing on <code>.data</code>, making it more compatible with lazy tibbles (<a href='https://github.com/tidyverse/tidyr/issues/1134'>#1134</a>).</p></li>

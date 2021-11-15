@@ -244,6 +244,7 @@ based on heuristics described below.</p>
   <span class='va'>col</span>,
   names_sep <span class='op'>=</span> <span class='cn'>NULL</span>,
   simplify <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  strict <span class='op'>=</span> <span class='cn'>FALSE</span>,
   names_repair <span class='op'>=</span> <span class='st'>"check_unique"</span>,
   ptype <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='op'>)</span>,
   transform <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='op'>)</span>
@@ -260,7 +261,12 @@ based on heuristics described below.</p>
     </tr>
     <tr>
       <th>.col, col</th>
-      <td><p>List-column to extract components from.</p></td>
+      <td><p>List-column to extract components from.</p>
+<p>For <code>hoist()</code> and <code>unnest_auto()</code>, this must identify a single column.</p>
+<p>For <code>unnest_wider()</code> and <code>unnest_longer()</code>, you can use tidyselect to
+select multiple columns to unnest simultaneously. When using
+<code>unnest_longer()</code> with multiple columns, values across columns that
+originated from the same row are recycled to a common size.</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -276,39 +282,57 @@ is short-hand for <code>hoist(df, col, x = "x")</code>.</p></td>
     <tr>
       <th>.remove</th>
       <td><p>If <code>TRUE</code>, the default, will remove extracted components
-from <code>.col</code>. This ensures that each value lives only in one place.</p></td>
+from <code>.col</code>. This ensures that each value lives only in one place. If all
+components are removed from <code>.col</code>, then <code>.col</code> will be removed from the
+result entirely.</p></td>
     </tr>
     <tr>
       <th>.simplify, simplify</th>
       <td><p>If <code>TRUE</code>, will attempt to simplify lists of
-length-1 vectors to an atomic vector</p></td>
+length-1 vectors to an atomic vector.</p></td>
     </tr>
     <tr>
       <th>.ptype, ptype</th>
-      <td><p>Optionally, a named list of prototypes declaring the desired
-output type of each component. Use this argument if you want to check each
-element has the types you expect when simplifying.</p></td>
+      <td><p>Optionally, a named list of prototypes declaring the
+desired output type of each component. Use this argument if you want to
+check that each element has the type you expect when simplifying.</p>
+<p>If a <code>ptype</code> has been specified, but <code>simplify = FALSE</code> or simplification
+isn't possible, then a <a href='https://vctrs.r-lib.org/reference/list_of.html'>list-of</a> column will be returned
+and each element will have type <code>ptype</code>.</p></td>
     </tr>
     <tr>
       <th>.transform, transform</th>
-      <td><p>Optionally, a named list of transformation functions
-applied to each component. Use this function if you want transform or
-parse individual elements as they are hoisted.</p></td>
+      <td><p>Optionally, a named list of transformation
+functions applied to each component. Use this function if you want
+to transform or parse individual elements as they are extracted.</p>
+<p>When both <code>ptype</code> and <code>transform</code> are supplied, the <code>transform</code> is applied
+before the <code>ptype</code>.</p></td>
     </tr>
     <tr>
       <th>values_to</th>
-      <td><p>Name of column to store vector values. Defaults to <code>col</code>.</p></td>
+      <td><p>A string giving the column name (or names) to store the
+unnested values in. If multiple columns are specified in <code>col</code>, this can
+also be a glue string containing <code>"{col}"</code> to provide a template for the
+column names. The default, <code>NULL</code>, gives the output columns the same names
+as the input columns.</p></td>
     </tr>
     <tr>
       <th>indices_to</th>
-      <td><p>A string giving the name of column which will contain the
-inner names or position (if not named) of the values. Defaults to <code>col</code>
-with <code>_id</code> suffix</p></td>
+      <td><p>A string giving the column name (or names) to store the
+the inner names or positions (if not named) of the values. If multiple
+columns are specified in <code>col</code>, this can also be a glue string containing
+<code>"{col}"</code> to provide a template for the column names. The default, <code>NULL</code>,
+gives the output columns the same names as <code>values_to</code>, but suffixed with
+<code>"_id"</code>.</p></td>
     </tr>
     <tr>
       <th>indices_include</th>
-      <td><p>Add an index column? Defaults to <code>TRUE</code> when <code>col</code>
-has inner names.</p></td>
+      <td><p>A single logical value specifying whether or not to
+add an index column. If any value has inner names, the index column will be
+a character vector of those names, otherwise it will be an integer vector
+of positions. If <code>NULL</code>, defaults to <code>TRUE</code> if any value has inner names
+or if <code>indices_to</code> is provided.</p>
+<p>If <code>indices_to</code> is provided, then <code>indices_include</code> must not be <code>FALSE</code>.</p></td>
     </tr>
     <tr>
       <th>names_repair</th>
@@ -329,8 +353,20 @@ strategies used to enforce them.</p></td>
     <tr>
       <th>names_sep</th>
       <td><p>If <code>NULL</code>, the default, the names will be left
-as is. If a string, the inner and outer names will be paste together using
-<code>names_sep</code> as a separator.</p></td>
+as is. If a string, the outer and inner names will be pasted together using
+<code>names_sep</code> as a separator.</p>
+<p>If the values being unnested are unnamed and <code>names_sep</code> is supplied, the
+inner names will be automatically generated as an increasing sequence of
+integers.</p></td>
+    </tr>
+    <tr>
+      <th>strict</th>
+      <td><p>A single logical specifying whether or not to apply strict
+vctrs typing rules. If <code>FALSE</code>, typed empty values (like <code><a href='https://rdrr.io/r/base/list.html'>list()</a></code> or
+<code><a href='https://rdrr.io/r/base/integer.html'>integer()</a></code>) nested within list-columns will be treated like <code>NULL</code> and
+will not contribute to the type of the unnested column. This is useful
+when working with JSON, where empty values tend to lose their type
+information and show up as <code><a href='https://rdrr.io/r/base/list.html'>list()</a></code>.</p></td>
     </tr>
     </table>
 
@@ -350,7 +386,7 @@ output data frame:</p><ul>
 non-primary data type. For example, if you <code>unnest_wider()</code> a list of data
 frames, the number of rows must be preserved, so each column is turned into
 a list column of length one. Or if you <code>unnest_longer()</code> a list of data
-frame, the number of columns must be preserved so it creates a packed
+frames, the number of columns must be preserved so it creates a packed
 column. I'm not sure how if these behaviours are useful in practice, but
 they are theoretically pleasing.</p>
     <h2 class="hasAnchor" id="unnest-auto-heuristics"><a class="anchor" href="#unnest-auto-heuristics"></a><code>unnest_auto()</code> heuristics</h2>
@@ -358,9 +394,10 @@ they are theoretically pleasing.</p>
     
 
 <p><code>unnest_auto()</code> inspects the inner names of the list-col:</p><ul>
-<li><p>If all elements are unnamed, it uses <code>unnest_longer()</code></p></li>
+<li><p>If all elements are unnamed, it uses
+<code>unnest_longer(indices_include = FALSE)</code>.</p></li>
 <li><p>If all elements are named, and there's at least one name in
-common acros all components, it uses <code>unnest_wider()</code></p></li>
+common across all components, it uses <code>unnest_wider()</code>.</p></li>
 <li><p>Otherwise, it falls back to <code>unnest_longer(indices_include = TRUE)</code>.</p></li>
 </ul>
 
@@ -485,6 +522,77 @@ common acros all components, it uses <code>unnest_wider()</code></p></li>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>4</span>     2    11 b    </span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>5</span>     2    12 c    </span>
 <span class='r-in'></span>
+<span class='r-in'><span class='co'># Both unnest_wider() and unnest_longer() allow you to unnest multiple</span></span>
+<span class='r-in'><span class='co'># columns at once. This is particularly useful with unnest_longer(), where</span></span>
+<span class='r-in'><span class='co'># unnesting sequentially would generate a cartesian product of the rows.</span></span>
+<span class='r-in'><span class='va'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span><span class='op'>(</span></span>
+<span class='r-in'>  x <span class='op'>=</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span>,</span>
+<span class='r-in'>  y <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span>, <span class='fl'>3</span><span class='op'>:</span><span class='fl'>4</span><span class='op'>)</span>,</span>
+<span class='r-in'>  z <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='fl'>5</span><span class='op'>:</span><span class='fl'>6</span>, <span class='fl'>7</span><span class='op'>:</span><span class='fl'>8</span><span class='op'>)</span></span>
+<span class='r-in'><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'>unnest_longer</span><span class='op'>(</span><span class='va'>df</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>y</span>, <span class='va'>z</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># A tibble: 4 × 3</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       x     y     z</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>1</span>     1     1     5</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>2</span>     1     2     6</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>3</span>     2     3     7</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>4</span>     2     4     8</span>
+<span class='r-in'><span class='fu'>unnest_longer</span><span class='op'>(</span><span class='fu'>unnest_longer</span><span class='op'>(</span><span class='va'>df</span>, <span class='va'>y</span><span class='op'>)</span>, <span class='va'>z</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># A tibble: 8 × 3</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       x     y     z</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>1</span>     1     1     5</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>2</span>     1     1     6</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>3</span>     1     2     5</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>4</span>     1     2     6</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>5</span>     2     3     7</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>6</span>     2     3     8</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>7</span>     2     4     7</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>8</span>     2     4     8</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># With JSON, it is common for empty elements to be represented by `list()`</span></span>
+<span class='r-in'><span class='co'># rather then their typed equivalent, like `integer()`</span></span>
+<span class='r-in'><span class='va'>json</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span></span>
+<span class='r-in'>  <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span>, y <span class='op'>=</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span><span class='op'>)</span>,</span>
+<span class='r-in'>  <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='op'>)</span>, y <span class='op'>=</span> <span class='fl'>3</span><span class='op'>:</span><span class='fl'>4</span><span class='op'>)</span>,</span>
+<span class='r-in'>  <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='fl'>3L</span>, y <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span><span class='op'>(</span>json <span class='op'>=</span> <span class='va'>json</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># The defaults of `unnest_wider()` treat empty types (like `list()`) as `NULL`.</span></span>
+<span class='r-in'><span class='co'># This chains nicely into `unnest_longer()`.</span></span>
+<span class='r-in'><span class='va'>wide</span> <span class='op'>&lt;-</span> <span class='fu'>unnest_wider</span><span class='op'>(</span><span class='va'>df</span>, <span class='va'>json</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>wide</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># A tibble: 3 × 2</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   x         y        </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;list&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;list&gt;</span>   </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>1</span> <span style='color: #949494;'>&lt;int [2]&gt;</span> <span style='color: #949494;'>&lt;int [2]&gt;</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>2</span> <span style='color: #949494;'>&lt;NULL&gt;</span>    <span style='color: #949494;'>&lt;int [2]&gt;</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>3</span> <span style='color: #949494;'>&lt;int [1]&gt;</span> <span style='color: #949494;'>&lt;NULL&gt;</span>   </span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'>unnest_longer</span><span class='op'>(</span><span class='va'>wide</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># A tibble: 5 × 2</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       x     y</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>1</span>     1     1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>2</span>     2     2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>3</span>    <span style='color: #BB0000;'>NA</span>     3</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>4</span>    <span style='color: #BB0000;'>NA</span>     4</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>5</span>     3    <span style='color: #BB0000;'>NA</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># To instead enforce strict vctrs typing rules, use `strict`</span></span>
+<span class='r-in'><span class='va'>wide_strict</span> <span class='op'>&lt;-</span> <span class='fu'>unnest_wider</span><span class='op'>(</span><span class='va'>df</span>, <span class='va'>json</span>, strict <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>wide_strict</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># A tibble: 3 × 2</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   x          y         </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;list&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;list&gt;</span>    </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>1</span> <span style='color: #949494;'>&lt;int [2]&gt;</span>  <span style='color: #949494;'>&lt;int [2]&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>2</span> <span style='color: #949494;'>&lt;list [0]&gt;</span> <span style='color: #949494;'>&lt;int [2]&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>3</span> <span style='color: #949494;'>&lt;int [1]&gt;</span>  <span style='color: #949494;'>&lt;list [0]&gt;</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='kw'><a href='https://rdrr.io/r/base/try.html'>try</a></span><span class='op'>(</span><span class='fu'>unnest_longer</span><span class='op'>(</span><span class='va'>wide_strict</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Error : Can't combine `..1$x` &lt;integer&gt; and `..3$x` &lt;list&gt;.</span>
 </pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

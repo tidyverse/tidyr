@@ -220,8 +220,8 @@ and `hoist()`.
 <span class="co">#&gt; #   subscriptions_url &lt;chr&gt;, organizations_url &lt;chr&gt;, repos_url &lt;chr&gt;,</span>
 <span class="co">#&gt; #   events_url &lt;chr&gt;, received_events_url &lt;chr&gt;, type &lt;chr&gt;, site_admin &lt;lgl&gt;,</span>
 <span class="co">#&gt; #   name &lt;chr&gt;, company &lt;chr&gt;, blog &lt;chr&gt;, location &lt;chr&gt;, email &lt;chr&gt;,</span>
-<span class="co">#&gt; #   public_repos &lt;int&gt;, public_gists &lt;int&gt;, followers &lt;int&gt;, following &lt;int&gt;,</span>
-<span class="co">#&gt; #   created_at &lt;chr&gt;, updated_at &lt;chr&gt;, bio &lt;chr&gt;, hireable &lt;lgl&gt;</span></code></pre></div>
+<span class="co">#&gt; #   hireable &lt;lgl&gt;, bio &lt;chr&gt;, public_repos &lt;int&gt;, public_gists &lt;int&gt;,</span>
+<span class="co">#&gt; #   followers &lt;int&gt;, following &lt;int&gt;, created_at &lt;chr&gt;, updated_at &lt;chr&gt;</span></code></pre></div>
 <p>But in this case, there are many components and we don’t need most of them so we can instead use <code><a href="../reference/hoist.html">hoist()</a></code>. <code><a href="../reference/hoist.html">hoist()</a></code> allows us to pull out selected components using the same syntax as <code><a href="https://purrr.tidyverse.org/reference/pluck.html">purrr::pluck()</a></code>:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">users</span> <span class="op"><a href="../reference/%&gt;%.html">%&gt;%</a></span> <span class="fu"><a href="../reference/hoist.html">hoist</a></span><span class="op">(</span><span class="va">user</span>, 
@@ -323,9 +323,9 @@ and `hoist()`.
 <code class="sourceCode R"><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>repo <span class="op">=</span> <span class="va">gh_repos</span><span class="op">)</span> <span class="op"><a href="../reference/%&gt;%.html">%&gt;%</a></span> 
   <span class="fu"><a href="../reference/hoist.html">unnest_auto</a></span><span class="op">(</span><span class="va">repo</span><span class="op">)</span> <span class="op"><a href="../reference/%&gt;%.html">%&gt;%</a></span> 
   <span class="fu"><a href="../reference/hoist.html">unnest_auto</a></span><span class="op">(</span><span class="va">repo</span><span class="op">)</span>
-<span class="co">#&gt; Using `unnest_longer(repo)`; no element has names</span>
+<span class="co">#&gt; Using `unnest_longer(repo, indices_include = FALSE)`; no element has names</span>
 <span class="co">#&gt; Using `unnest_wider(repo)`; elements have 68 names in common</span>
-<span class="co">#&gt; # A tibble: 176 × 67</span>
+<span class="co">#&gt; # A tibble: 176 × 68</span>
 <span class="co">#&gt;          id name        full_name owner private html_url description fork  url  </span>
 <span class="co">#&gt;       &lt;int&gt; &lt;chr&gt;       &lt;chr&gt;     &lt;lis&gt; &lt;lgl&gt;   &lt;chr&gt;    &lt;chr&gt;       &lt;lgl&gt; &lt;chr&gt;</span>
 <span class="co">#&gt;  1 61160198 after       gaborcsa… &lt;nam… FALSE   https:/… Run Code i… FALSE http…</span>
@@ -338,7 +338,7 @@ and `hoist()`.
 <span class="co">#&gt;  8 67959624 cmark       gaborcsa… &lt;nam… FALSE   https:/… CommonMark… TRUE  http…</span>
 <span class="co">#&gt;  9 63152619 conditions  gaborcsa… &lt;nam… FALSE   https:/… &lt;NA&gt;        TRUE  http…</span>
 <span class="co">#&gt; 10 24343686 crayon      gaborcsa… &lt;nam… FALSE   https:/… R package … FALSE http…</span>
-<span class="co">#&gt; # … with 166 more rows, and 58 more variables: forks_url &lt;chr&gt;, keys_url &lt;chr&gt;,</span>
+<span class="co">#&gt; # … with 166 more rows, and 59 more variables: forks_url &lt;chr&gt;, keys_url &lt;chr&gt;,</span>
 <span class="co">#&gt; #   collaborators_url &lt;chr&gt;, teams_url &lt;chr&gt;, hooks_url &lt;chr&gt;,</span>
 <span class="co">#&gt; #   issue_events_url &lt;chr&gt;, events_url &lt;chr&gt;, assignees_url &lt;chr&gt;,</span>
 <span class="co">#&gt; #   branches_url &lt;chr&gt;, tags_url &lt;chr&gt;, blobs_url &lt;chr&gt;, git_tags_url &lt;chr&gt;,</span>
@@ -450,7 +450,7 @@ and `hoist()`.
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">name</span>, title <span class="op">=</span> <span class="va">titles</span><span class="op">)</span> <span class="op"><a href="../reference/%&gt;%.html">%&gt;%</a></span> 
   <span class="fu"><a href="../reference/hoist.html">unnest_auto</a></span><span class="op">(</span><span class="va">title</span><span class="op">)</span>
 <span class="co">#&gt; Using `unnest_wider(char)`; elements have 18 names in common</span>
-<span class="co">#&gt; Using `unnest_longer(title)`; no element has names</span>
+<span class="co">#&gt; Using `unnest_longer(title, indices_include = FALSE)`; no element has names</span>
 <span class="co">#&gt; # A tibble: 60 × 2</span>
 <span class="co">#&gt;    name              title                                                 </span>
 <span class="co">#&gt;    &lt;chr&gt;             &lt;chr&gt;                                                 </span>
@@ -578,51 +578,50 @@ and `hoist()`.
 <code class="sourceCode R"><span class="va">discs</span> <span class="op"><a href="../reference/%&gt;%.html">%&gt;%</a></span> <span class="fu"><a href="../reference/hoist.html">unnest_wider</a></span><span class="op">(</span><span class="va">basic_information</span><span class="op">)</span>
 <span class="co">#&gt; Error: Names must be unique.</span>
 <span class="co">#&gt; ✖ These names are duplicated:</span>
-<span class="co">#&gt;   * "id" at locations 6 and 14.</span>
+<span class="co">#&gt;   * "id" at locations 7 and 14.</span>
 <span class="co">#&gt; ℹ Use argument `names_repair` to specify repair strategy.</span></code></pre></div>
 <p>Unfortunately that fails because there’s an <code>id</code> column inside <code>basic_information</code>. We can quickly see what’s going on by setting <code>names_repair = "unique"</code>:</p>
 <div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">discs</span> <span class="op"><a href="../reference/%&gt;%.html">%&gt;%</a></span> <span class="fu"><a href="../reference/hoist.html">unnest_wider</a></span><span class="op">(</span><span class="va">basic_information</span>, names_repair <span class="op">=</span> <span class="st">"unique"</span><span class="op">)</span>
 <span class="co">#&gt; New names:</span>
-<span class="co">#&gt; * id -&gt; id...6</span>
+<span class="co">#&gt; * id -&gt; id...7</span>
 <span class="co">#&gt; * id -&gt; id...14</span>
 <span class="co">#&gt; # A tibble: 155 × 15</span>
-<span class="co">#&gt;    instance_id date_added          labels      year artists  id...6 thumb  title</span>
-<span class="co">#&gt;          &lt;int&gt; &lt;dttm&gt;              &lt;list&gt;     &lt;int&gt; &lt;list&gt;    &lt;int&gt; &lt;chr&gt;  &lt;chr&gt;</span>
-<span class="co">#&gt;  1   354823933 2019-02-16 17:48:59 &lt;list [1]&gt;  2015 &lt;list [… 7.50e6 "http… Demo </span>
-<span class="co">#&gt;  2   354092601 2019-02-13 14:13:11 &lt;list [1]&gt;  2013 &lt;list [… 4.49e6 "http… Obse…</span>
-<span class="co">#&gt;  3   354091476 2019-02-13 14:07:23 &lt;list [1]&gt;  2017 &lt;list [… 9.83e6 "http… I    </span>
-<span class="co">#&gt;  4   351244906 2019-02-02 11:39:58 &lt;list [3]&gt;  2017 &lt;list [… 9.77e6 "http… Oído…</span>
-<span class="co">#&gt;  5   351244801 2019-02-02 11:39:37 &lt;list [1]&gt;  2015 &lt;list [… 7.24e6 "http… A Ca…</span>
-<span class="co">#&gt;  6   351052065 2019-02-01 20:40:53 &lt;list [1]&gt;  2019 &lt;list [… 1.31e7 "http… Tash…</span>
-<span class="co">#&gt;  7   350315345 2019-01-29 15:48:37 &lt;list [1]&gt;  2014 &lt;list [… 7.11e6 "http… Demo </span>
-<span class="co">#&gt;  8   350315103 2019-01-29 15:47:22 &lt;list [1]&gt;  2015 &lt;list [… 1.05e7 "http… Let …</span>
-<span class="co">#&gt;  9   350314507 2019-01-29 15:44:08 &lt;list [1]&gt;  2017 &lt;list [… 1.13e7 ""     Sub …</span>
-<span class="co">#&gt; 10   350314047 2019-01-29 15:41:35 &lt;list [1]&gt;  2017 &lt;list [… 1.17e7 "http… Demo </span>
-<span class="co">#&gt; # … with 145 more rows, and 7 more variables: formats &lt;list&gt;,</span>
-<span class="co">#&gt; #   cover_image &lt;chr&gt;, resource_url &lt;chr&gt;, master_id &lt;int&gt;, master_url &lt;chr&gt;,</span>
-<span class="co">#&gt; #   id...14 &lt;int&gt;, rating &lt;int&gt;</span></code></pre></div>
+<span class="co">#&gt;    instance_id date_added          labels   year master_url artists id...7 thumb</span>
+<span class="co">#&gt;          &lt;int&gt; &lt;dttm&gt;              &lt;list&gt;  &lt;int&gt; &lt;chr&gt;      &lt;list&gt;   &lt;int&gt; &lt;chr&gt;</span>
+<span class="co">#&gt;  1   354823933 2019-02-16 17:48:59 &lt;list …  2015 &lt;NA&gt;       &lt;list … 7.50e6 "htt…</span>
+<span class="co">#&gt;  2   354092601 2019-02-13 14:13:11 &lt;list …  2013 https://a… &lt;list … 4.49e6 "htt…</span>
+<span class="co">#&gt;  3   354091476 2019-02-13 14:07:23 &lt;list …  2017 https://a… &lt;list … 9.83e6 "htt…</span>
+<span class="co">#&gt;  4   351244906 2019-02-02 11:39:58 &lt;list …  2017 https://a… &lt;list … 9.77e6 "htt…</span>
+<span class="co">#&gt;  5   351244801 2019-02-02 11:39:37 &lt;list …  2015 https://a… &lt;list … 7.24e6 "htt…</span>
+<span class="co">#&gt;  6   351052065 2019-02-01 20:40:53 &lt;list …  2019 https://a… &lt;list … 1.31e7 "htt…</span>
+<span class="co">#&gt;  7   350315345 2019-01-29 15:48:37 &lt;list …  2014 https://a… &lt;list … 7.11e6 "htt…</span>
+<span class="co">#&gt;  8   350315103 2019-01-29 15:47:22 &lt;list …  2015 https://a… &lt;list … 1.05e7 "htt…</span>
+<span class="co">#&gt;  9   350314507 2019-01-29 15:44:08 &lt;list …  2017 https://a… &lt;list … 1.13e7 ""   </span>
+<span class="co">#&gt; 10   350314047 2019-01-29 15:41:35 &lt;list …  2017 &lt;NA&gt;       &lt;list … 1.17e7 "htt…</span>
+<span class="co">#&gt; # … with 145 more rows, and 7 more variables: title &lt;chr&gt;, formats &lt;list&gt;,</span>
+<span class="co">#&gt; #   cover_image &lt;chr&gt;, resource_url &lt;chr&gt;, master_id &lt;int&gt;, id...14 &lt;int&gt;,</span>
+<span class="co">#&gt; #   rating &lt;int&gt;</span></code></pre></div>
 <p>The problem is that <code>basic_information</code> repeats the <code>id</code> column that’s also stored at the top-level, so we can just drop that:</p>
 <div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">discs</span> <span class="op"><a href="../reference/%&gt;%.html">%&gt;%</a></span> 
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="op">!</span><span class="va">id</span><span class="op">)</span> <span class="op"><a href="../reference/%&gt;%.html">%&gt;%</a></span> 
   <span class="fu"><a href="../reference/hoist.html">unnest_wider</a></span><span class="op">(</span><span class="va">basic_information</span><span class="op">)</span>
 <span class="co">#&gt; # A tibble: 155 × 14</span>
-<span class="co">#&gt;    instance_id date_added          labels      year artists      id thumb  title</span>
-<span class="co">#&gt;          &lt;int&gt; &lt;dttm&gt;              &lt;list&gt;     &lt;int&gt; &lt;list&gt;    &lt;int&gt; &lt;chr&gt;  &lt;chr&gt;</span>
-<span class="co">#&gt;  1   354823933 2019-02-16 17:48:59 &lt;list [1]&gt;  2015 &lt;list [… 7.50e6 "http… Demo </span>
-<span class="co">#&gt;  2   354092601 2019-02-13 14:13:11 &lt;list [1]&gt;  2013 &lt;list [… 4.49e6 "http… Obse…</span>
-<span class="co">#&gt;  3   354091476 2019-02-13 14:07:23 &lt;list [1]&gt;  2017 &lt;list [… 9.83e6 "http… I    </span>
-<span class="co">#&gt;  4   351244906 2019-02-02 11:39:58 &lt;list [3]&gt;  2017 &lt;list [… 9.77e6 "http… Oído…</span>
-<span class="co">#&gt;  5   351244801 2019-02-02 11:39:37 &lt;list [1]&gt;  2015 &lt;list [… 7.24e6 "http… A Ca…</span>
-<span class="co">#&gt;  6   351052065 2019-02-01 20:40:53 &lt;list [1]&gt;  2019 &lt;list [… 1.31e7 "http… Tash…</span>
-<span class="co">#&gt;  7   350315345 2019-01-29 15:48:37 &lt;list [1]&gt;  2014 &lt;list [… 7.11e6 "http… Demo </span>
-<span class="co">#&gt;  8   350315103 2019-01-29 15:47:22 &lt;list [1]&gt;  2015 &lt;list [… 1.05e7 "http… Let …</span>
-<span class="co">#&gt;  9   350314507 2019-01-29 15:44:08 &lt;list [1]&gt;  2017 &lt;list [… 1.13e7 ""     Sub …</span>
-<span class="co">#&gt; 10   350314047 2019-01-29 15:41:35 &lt;list [1]&gt;  2017 &lt;list [… 1.17e7 "http… Demo </span>
-<span class="co">#&gt; # … with 145 more rows, and 6 more variables: formats &lt;list&gt;,</span>
-<span class="co">#&gt; #   cover_image &lt;chr&gt;, resource_url &lt;chr&gt;, master_id &lt;int&gt;, master_url &lt;chr&gt;,</span>
-<span class="co">#&gt; #   rating &lt;int&gt;</span></code></pre></div>
+<span class="co">#&gt;    instance_id date_added          labels   year master_url artists     id thumb</span>
+<span class="co">#&gt;          &lt;int&gt; &lt;dttm&gt;              &lt;list&gt;  &lt;int&gt; &lt;chr&gt;      &lt;list&gt;   &lt;int&gt; &lt;chr&gt;</span>
+<span class="co">#&gt;  1   354823933 2019-02-16 17:48:59 &lt;list …  2015 &lt;NA&gt;       &lt;list … 7.50e6 "htt…</span>
+<span class="co">#&gt;  2   354092601 2019-02-13 14:13:11 &lt;list …  2013 https://a… &lt;list … 4.49e6 "htt…</span>
+<span class="co">#&gt;  3   354091476 2019-02-13 14:07:23 &lt;list …  2017 https://a… &lt;list … 9.83e6 "htt…</span>
+<span class="co">#&gt;  4   351244906 2019-02-02 11:39:58 &lt;list …  2017 https://a… &lt;list … 9.77e6 "htt…</span>
+<span class="co">#&gt;  5   351244801 2019-02-02 11:39:37 &lt;list …  2015 https://a… &lt;list … 7.24e6 "htt…</span>
+<span class="co">#&gt;  6   351052065 2019-02-01 20:40:53 &lt;list …  2019 https://a… &lt;list … 1.31e7 "htt…</span>
+<span class="co">#&gt;  7   350315345 2019-01-29 15:48:37 &lt;list …  2014 https://a… &lt;list … 7.11e6 "htt…</span>
+<span class="co">#&gt;  8   350315103 2019-01-29 15:47:22 &lt;list …  2015 https://a… &lt;list … 1.05e7 "htt…</span>
+<span class="co">#&gt;  9   350314507 2019-01-29 15:44:08 &lt;list …  2017 https://a… &lt;list … 1.13e7 ""   </span>
+<span class="co">#&gt; 10   350314047 2019-01-29 15:41:35 &lt;list …  2017 &lt;NA&gt;       &lt;list … 1.17e7 "htt…</span>
+<span class="co">#&gt; # … with 145 more rows, and 6 more variables: title &lt;chr&gt;, formats &lt;list&gt;,</span>
+<span class="co">#&gt; #   cover_image &lt;chr&gt;, resource_url &lt;chr&gt;, master_id &lt;int&gt;, rating &lt;int&gt;</span></code></pre></div>
 <p>Alternatively, we could use <code><a href="../reference/hoist.html">hoist()</a></code>:</p>
 <div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">discs</span> <span class="op"><a href="../reference/%&gt;%.html">%&gt;%</a></span> 
