@@ -200,6 +200,14 @@
 <a href="#tidyr-development-version" class="anchor"></a>tidyr (development version)<small> Unreleased </small>
 </h1>
 <ul>
+<li>
+<p><code><a href="../reference/fill.html">fill()</a></code> is now backed by <code><a href="https://vctrs.r-lib.org/reference/vec_fill_missing.html">vctrs::vec_fill_missing()</a></code>, which provides a more comprehensive method for filling different types of missing values. This results in the following improvements:</p>
+<ul>
+<li><p><code><a href="../reference/fill.html">fill()</a></code> can now handle lubridate’s Period types (<a href='https://github.com/tidyverse/tidyr/issues/1094'>#1094</a>).</p></li>
+<li><p><code><a href="../reference/fill.html">fill()</a></code> can now handle data frame columns and the rcrd type from vctrs.</p></li>
+<li><p><code><a href="../reference/fill.html">fill()</a></code> now treats <code>NaN</code> like any other missing value (<a href='https://github.com/tidyverse/tidyr/issues/982'>#982</a>).</p></li>
+</ul>
+</li>
 <li><p><code><a href="../reference/pack.html">unpack()</a></code> now silently skips over any non-data frame columns specified by <code>cols</code>. This matches the existing behavior of <code><a href="../reference/chop.html">unchop()</a></code> and <code><a href="../reference/nest.html">unnest()</a></code> (<a href='https://github.com/tidyverse/tidyr/issues/1153'>#1153</a>).</p></li>
 <li><p><code><a href="../reference/pack.html">unpack()</a></code> no longer drops empty columns specified through <code>cols</code> (<a href='https://github.com/tidyverse/tidyr/issues/1191'>#1191</a>).</p></li>
 <li>
