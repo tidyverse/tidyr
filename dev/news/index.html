@@ -200,6 +200,8 @@
 <a href="#tidyr-development-version" class="anchor"></a>tidyr (development version)<small> Unreleased </small>
 </h1>
 <ul>
+<li><p><code><a href="../reference/pack.html">unpack()</a></code> now silently skips over any non-data frame columns specified by <code>cols</code>. This matches the existing behavior of <code><a href="../reference/chop.html">unchop()</a></code> and <code><a href="../reference/nest.html">unnest()</a></code> (<a href='https://github.com/tidyverse/tidyr/issues/1153'>#1153</a>).</p></li>
+<li><p><code><a href="../reference/pack.html">unpack()</a></code> no longer drops empty columns specified through <code>cols</code> (<a href='https://github.com/tidyverse/tidyr/issues/1191'>#1191</a>).</p></li>
 <li>
 <p>The rectangling tools, <code><a href="../reference/hoist.html">hoist()</a></code>, <code><a href="../reference/hoist.html">unnest_wider()</a></code>, and <code><a href="../reference/hoist.html">unnest_longer()</a></code>, have undergone a complete rewrite. This has fixed many edge case bugs, and has added the following new features:</p>
 <ul>
