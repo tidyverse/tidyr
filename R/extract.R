@@ -67,7 +67,7 @@ str_extract <- function(x, into, regex, convert = FALSE) {
   if (anyDuplicated(into)) {
     pieces <- split(out, into)
     into <- names(pieces)
-    out <- map(pieces, pmap_chr, paste0, sep = "")
+    out <- map(pieces, pmap_chr, vec_paste0)
   }
 
   into <- as_utf8_character(into)

@@ -336,7 +336,7 @@ unnest_longer <- function(data,
   }
 
   if (is.null(indices_to)) {
-    indices_to <- paste0(values_to, "_id")
+    indices_to <- vec_paste0(values_to, "_id")
   } else {
     if (is_false(indices_include)) {
       abort("Can't set `indices_include` to `FALSE` when `indices_to` is supplied.")

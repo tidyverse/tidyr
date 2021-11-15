@@ -279,7 +279,7 @@ build_longer_spec <- function(data, cols,
   if (is.null(names_prefix)) {
     names <- names(cols)
   } else {
-    names <- gsub(paste0("^", names_prefix), "", names(cols))
+    names <- gsub(vec_paste0("^", names_prefix), "", names(cols))
   }
 
   if (length(names_to) > 1) {

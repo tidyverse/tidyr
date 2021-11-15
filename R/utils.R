@@ -207,3 +207,9 @@ check_present <- function(x) {
   }
 
 }
+
+vec_paste0 <- function(...) {
+  # Use tidyverse recycling rules to avoid size zero recycling bugs
+  args <- vec_recycle_common(...)
+  exec(paste0, !!!args)
+}
