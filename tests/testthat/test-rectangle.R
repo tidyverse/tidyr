@@ -155,6 +155,10 @@ test_that("can hoist out a rcrd style column (#999)", {
   expect_identical(out$x, vec_c(x, x))
 })
 
+test_that("hoist() input must be a data frame (#1224)", {
+  expect_snapshot((expect_error(hoist(1))))
+})
+
 # strike ------------------------------------------------------------------
 
 test_that("strike can remove using a list", {
@@ -421,6 +425,10 @@ test_that("can't currently combine compatible `<list> + <list_of<ptype>>`", {
   df <- tibble(col = list(list(a = 1:2), list_of(a = 1L)))
 
   expect_snapshot(error = TRUE, unnest_wider(df, col))
+})
+
+test_that("unnest_wider() input must be a data frame (#1224)", {
+  expect_snapshot((expect_error(unnest_wider(1))))
 })
 
 test_that("invariant - final number of columns depends on element sizes", {
@@ -726,6 +734,10 @@ test_that("can't mix `indices_to` with `indices_include = FALSE`", {
   expect_snapshot(error = TRUE,
     unnest_longer(mtcars, mpg, indices_to = "x", indices_include = FALSE)
   )
+})
+
+test_that("unnest_longer() input must be a data frame (#1224)", {
+  expect_snapshot((expect_error(unnest_longer(1))))
 })
 
 test_that("`values_to` and `indices_to` glue can't reach into surrounding env", {
