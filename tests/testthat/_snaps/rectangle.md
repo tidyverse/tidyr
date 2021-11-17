@@ -37,6 +37,14 @@
     Error <rlang_error>
       `.col` must identify a list-column.
 
+# hoist() input must be a data frame (#1224)
+
+    Code
+      (expect_error(hoist(1)))
+    Output
+      <error/rlang_error>
+      `.data` must be a data frame.
+
 # unnest_wider - bad inputs generate errors
 
     Code
@@ -96,6 +104,14 @@
     Error <vctrs_error_incompatible_type>
       Can't combine `..1$a` <list> and `..3$a` <list_of<integer>>.
 
+# unnest_wider() input must be a data frame (#1224)
+
+    Code
+      (expect_error(unnest_wider(1)))
+    Output
+      <error/rlang_error>
+      `data` must be a data frame.
+
 # unnest_longer - bad inputs generate errors
 
     Code
@@ -109,6 +125,14 @@
       unnest_longer(mtcars, mpg, indices_to = "x", indices_include = FALSE)
     Error <rlang_error>
       Can't set `indices_include` to `FALSE` when `indices_to` is supplied.
+
+# unnest_longer() input must be a data frame (#1224)
+
+    Code
+      (expect_error(unnest_longer(1)))
+    Output
+      <error/rlang_error>
+      `data` must be a data frame.
 
 # `values_to` and `indices_to` glue can't reach into surrounding env
 

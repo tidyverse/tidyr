@@ -170,6 +170,10 @@ hoist <- function(.data,
                   .simplify = TRUE,
                   .ptype = list(),
                   .transform = list()) {
+  if (!is.data.frame(.data)) {
+    abort("`.data` must be a data frame.")
+  }
+
   check_present(.col)
   .col <- tidyselect::vars_pull(names(.data), {{.col}})
 
@@ -317,6 +321,10 @@ unnest_longer <- function(data,
                           simplify = TRUE,
                           ptype = list(),
                           transform = list()) {
+  if (!is.data.frame(data)) {
+    abort("`data` must be a data frame.")
+  }
+
   check_present(col)
   # TODO: Use `allow_rename = FALSE`.
   # Requires https://github.com/r-lib/tidyselect/issues/225.
@@ -547,6 +555,10 @@ unnest_wider <- function(data,
                          names_repair = "check_unique",
                          ptype = list(),
                          transform = list()) {
+  if (!is.data.frame(data)) {
+    abort("`data` must be a data frame.")
+  }
+
   check_present(col)
   # TODO: Use `allow_rename = FALSE`.
   # Requires https://github.com/r-lib/tidyselect/issues/225.
