@@ -8,8 +8,7 @@
 #'   replaces all of the `NA` values in the vector.
 #' @param ... Additional arguments for methods. Currently unused.
 #' @return
-#' * If `data` is a data frame, `replace_na()` returns a data frame.
-#' * If `data` is a vector, `replace_na()` returns a vector of the same type.
+#' `replace_na()` returns an object with the same type as `data`.
 #' @seealso [dplyr::na_if()] to replace specified values with `NA`s;
 #'   [dplyr::coalesce()] to replaces `NA`s with values from other vectors.
 #' @export
