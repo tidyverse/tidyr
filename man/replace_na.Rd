@@ -18,11 +18,7 @@ replaces all of the \code{NA} values in the vector.}
 \item{...}{Additional arguments for methods. Currently unused.}
 }
 \value{
-\itemize{
-\item If \code{data} is a data frame, \code{replace_na()} returns a data frame.
-\item If \code{data} is a vector, \code{replace_na()} returns a vector, with class
-given by the union of \code{data} and \code{replace}.
-}
+\code{replace_na()} returns an object with the same type as \code{data}.
 }
 \description{
 Replace NAs with specified values

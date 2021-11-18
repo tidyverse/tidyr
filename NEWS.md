@@ -1,5 +1,26 @@
 # tidyr (development version)
 
+* `replace_na()` has been updated to utilize vctrs. This has resulted in the
+  following changes:
+  
+  * The type of `data` can no longer change when the replacement is applied.
+    `replace` will now always be cast to the type of `data` before the
+    replacement is made. For example, this means that using a replacement value
+    of `1.5` on an integer column is no longer allowed. Similarly, replacing
+    missing values in a list-column must now be done with `list("foo")` rather
+    than just `"foo"`.
+    
+  * For list-columns, empty atomic elements like `integer(0)` are no longer
+    replaced. The only value that is replaced in a list-column is `NULL`
+    (#1168).
+    
+  * Replacements can now be done on a much larger variety of types and columns,
+    including data frame columns and the rcrd type from vctrs.
+  
+  Note that in general `replace_na()` is considered to be superseded in favor
+  of a combination of `dplyr::across()` and `dplyr::coalesce()`, which also
+  allows you to utilize tidyselect.
+  
 * `fill()` is now backed by `vctrs::vec_fill_missing()`, which provides a more
   comprehensive method for filling different types of missing values. This
   results in the following improvements:

@@ -8,9 +8,7 @@
 #'   replaces all of the `NA` values in the vector.
 #' @param ... Additional arguments for methods. Currently unused.
 #' @return
-#' * If `data` is a data frame, `replace_na()` returns a data frame.
-#' * If `data` is a vector, `replace_na()` returns a vector, with class
-#'   given by the union of `data` and `replace`.
+#' `replace_na()` returns an object with the same type as `data`.
 #' @seealso [dplyr::na_if()] to replace specified values with `NA`s;
 #'   [dplyr::coalesce()] to replaces `NA`s with values from other vectors.
 #' @export
@@ -36,29 +34,50 @@ replace_na <- function(data, replace, ...) {
 #' @export
 replace_na.default <- function(data, replace = NA, ...) {
   check_replacement(replace, "data")
-  data[!is_complete(data)] <- replace
-  data
+  missing <- vec_equal_na(data)
+  vec_assign(data, missing, replace, x_arg = "data", value_arg = "replace")
 }
 
 #' @export
 replace_na.data.frame <- function(data, replace = list(), ...) {
-  stopifnot(is_list(replace))
+  if (!vec_is_list(replace)) {
+    abort("`replace` must be a list.")
+  }
 
-  replace_vars <- intersect(names(replace), names(data))
+  names <- intersect(names(replace), names(data))
 
-  for (var in replace_vars) {
-    check_replacement(replace[[var]], var)
-    data[[var]][!is_complete(data[[var]])] <- replace[[var]]
+  col_args <- as.character(glue("data${names}"))
+  value_args <- as.character(glue("replace${names}"))
+
+  for (i in seq_along(names)) {
+    name <- names[[i]]
+
+    col <- data[[name]]
+    value <- replace[[name]]
+
+    col_arg <- col_args[[i]]
+    value_arg <- value_args[[i]]
+
+    check_replacement(value, col_arg)
+
+    missing <- vec_equal_na(col)
+
+    data[[name]] <- vec_assign(
+      x = col,
+      i = missing,
+      value = value,
+      x_arg = col_arg,
+      value_arg = value_arg
+    )
   }
 
   data
 }
 
 check_replacement <- function(x, var) {
-  n <- length(x)
-  if (n == 1) {
-    return()
-  }
+  n <- vec_size(x)
 
-  abort(glue("Replacement for `{var}` is length {n}, not length 1"))
+  if (n != 1) {
+    abort(glue("Replacement for `{var}` is length {n}, not length 1."))
+  }
 }
