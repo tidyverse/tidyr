@@ -201,6 +201,15 @@
 </h1>
 <ul>
 <li>
+<p><code><a href="../reference/replace_na.html">replace_na()</a></code> has been updated to utilize vctrs. This has resulted in the following changes:</p>
+<ul>
+<li><p>The type of <code>data</code> can no longer change when the replacement is applied. <code>replace</code> will now always be cast to the type of <code>data</code> before the replacement is made. For example, this means that using a replacement value of <code>1.5</code> on an integer column is no longer allowed. Similarly, replacing missing values in a list-column must now be done with <code>list("foo")</code> rather than just <code>"foo"</code>.</p></li>
+<li><p>For list-columns, empty atomic elements like <code>integer(0)</code> are no longer replaced. The only value that is replaced in a list-column is <code>NULL</code> (<a href='https://github.com/tidyverse/tidyr/issues/1168'>#1168</a>).</p></li>
+<li><p>Replacements can now be done on a much larger variety of types and columns, including data frame columns and the rcrd type from vctrs.</p></li>
+</ul>
+<p>Note that in general <code><a href="../reference/replace_na.html">replace_na()</a></code> is considered to be superseded in favor of a combination of <code><a href="https://dplyr.tidyverse.org/reference/across.html">dplyr::across()</a></code> and <code><a href="https://dplyr.tidyverse.org/reference/coalesce.html">dplyr::coalesce()</a></code>, which also allows you to utilize tidyselect.</p>
+</li>
+<li>
 <p><code><a href="../reference/fill.html">fill()</a></code> is now backed by <code><a href="https://vctrs.r-lib.org/reference/vec_fill_missing.html">vctrs::vec_fill_missing()</a></code>, which provides a more comprehensive method for filling different types of missing values. This results in the following improvements:</p>
 <ul>
 <li><p><code><a href="../reference/fill.html">fill()</a></code> can now handle lubridate’s Period types (<a href='https://github.com/tidyverse/tidyr/issues/1094'>#1094</a>).</p></li>
