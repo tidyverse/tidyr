@@ -85,12 +85,12 @@ test_that("NULL inputs", {
 test_that("zero length input gives zero length output", {
   tb <- tibble(x = character())
   expect_equal(expand(tb, x), tb)
-  expect_equal(expand(tb, y = NULL), tibble())
+})
 
-  expect_equal(
-    expand_grid(x = integer(), y = 1:3),
-    tibble(x = integer(), y = integer())
-  )
+test_that("no input results in 1 row data frame", {
+  tb <- tibble(x = "a")
+  expect_identical(expand(tb), tibble(.rows = 1L))
+  expect_identical(expand(tb, y = NULL), tibble(.rows = 1L))
 })
 
 test_that("expand & crossing expand missing factor leves; nesting does not", {
@@ -127,22 +127,6 @@ test_that("crossing handles list columns", {
   expect_equal(out$y, rep(y, 2))
 })
 
-test_that("expand_grid can control name_repair", {
-  x <- 1:2
-
-  if (packageVersion("tibble") > "2.99") {
-    expect_error(expand_grid(x, x), class = "rlang_error")
-  } else {
-    expect_error(expand_grid(x, x), "must not be duplicated")
-  }
-
-  expect_message(out <- expand_grid(x, x, .name_repair = "unique"), "New names:")
-  expect_named(out, c("x...1", "x...2"))
-
-  out <- expand_grid(x, x, .name_repair = "minimal")
-  expect_named(out, c("x", "x"))
-})
-
 test_that("crossing/nesting/expand respect .name_repair", {
 
   x <- 1:2
@@ -166,4 +150,125 @@ test_that("crossing/nesting/expand respect .name_repair", {
 test_that("dots_cols evaluates each expression in turn", {
   out <- dots_cols(x = seq(-2, 2), y = x)
   expect_equal(out$x, out$y)
+})
+
+# ------------------------------------------------------------------------------
+
+test_that("expand_grid() can control name_repair", {
+  x <- 1:2
+
+  expect_snapshot((expect_error(expand_grid(x = x, x = x))))
+
+  expect_snapshot(
+    out <- expand_grid(x = x, x = x, .name_repair = "unique")
+  )
+  expect_named(out, c("x...1", "x...2"))
+
+  out <- expand_grid(x = x, x = x, .name_repair = "minimal")
+  expect_named(out, c("x", "x"))
+})
+
+test_that("zero length input gives zero length output", {
+  expect_equal(
+    expand_grid(x = integer(), y = 1:3),
+    tibble(x = integer(), y = integer())
+  )
+})
+
+test_that("no input results in 1 row data frame", {
+  # Because `prod() == 1L` by definition
+  expect_identical(expand_grid(), tibble(.rows = 1L))
+  expect_identical(expand_grid(NULL), tibble(.rows = 1L))
+})
+
+test_that("unnamed data frames are flattened", {
+  df <- tibble(x = 1:2, y = 1:2)
+  col <- 3:4
+
+  expect_identical(
+    expand_grid(df, col),
+    tibble(x = c(1L, 1L, 2L, 2L), y = c(1L, 1L, 2L, 2L), col = c(3L, 4L, 3L, 4L))
+  )
+})
+
+test_that("packed and unpacked data frames are expanded identically", {
+  df <- tibble(x = 1:2, y = 1:2)
+  col <- 3:4
+
+  expect_identical(
+    expand_grid(df, col),
+    unpack(expand_grid(df = df, col), df)
+  )
+})
+
+test_that("expand_grid() works with unnamed inlined tibbles with long expressions (#1116)", {
+  df <- expand_grid(
+    dplyr::tibble(fruit = c("Apple", "Banana"), fruit_id = c("a", "b")),
+    dplyr::tibble(status_id = c("c", "d"), status = c("cut_neatly", "devoured"))
+  )
+
+  expect <- vec_cbind(
+    vec_slice(tibble(fruit = c("Apple", "Banana"), fruit_id = c("a", "b")), c(1, 1, 2, 2)),
+    vec_slice(tibble(status_id = c("c", "d"), status = c("cut_neatly", "devoured")), c(1, 2, 1, 2))
+  )
+
+  expect_identical(df, expect)
+})
+
+test_that("expand_grid() works with 0 col tibbles (#1189)", {
+  df <- tibble(.rows = 1)
+  expect_identical(expand_grid(df), df)
+  expect_identical(expand_grid(df, x = 1:2), tibble(x = 1:2))
+})
+
+test_that("expand_grid() works with 0 row tibbles", {
+  df <- tibble(.rows = 0)
+  expect_identical(expand_grid(df), df)
+  expect_identical(expand_grid(df, x = 1:2), tibble(x = integer()))
+})
+
+# ------------------------------------------------------------------------------
+
+test_that("grid_dots() silently repairs auto-names", {
+  x <- 1
+  expect_named(grid_dots(x, x), c("x...1", "x...2"))
+
+  expect_named(grid_dots(1, 1), c("1...1", "1...2"))
+})
+
+test_that("grid_dots() doesn't repair duplicate supplied names", {
+  expect_named(grid_dots(x = 1, x = 1), c("x", "x"))
+})
+
+test_that("grid_dots() evaluates each expression in turn", {
+  out <- grid_dots(x = seq(-2, 2), y = x)
+  expect_equal(out$x, out$y)
+})
+
+test_that("grid_dots() uses most recent override of column in iterative expressions", {
+  out <- grid_dots(x = 1:2, x = 3:4, y = x)
+  expect_identical(out, list(x = 1:2, x = 3:4, y = 3:4))
+})
+
+test_that("grid_dots() adds unnamed data frame columns into the mask", {
+  out <- grid_dots(x = 1:2, data.frame(x = 3:4, y = 5:6), a = x, b = y)
+
+  expect_identical(out$x, 1:2)
+  expect_identical(out$a, 3:4)
+  expect_identical(out$b, 5:6)
+
+  expect_identical(out[[2]], data.frame(x = 3:4, y = 5:6))
+
+  expect_named(out, c("x", "", "a", "b"))
+})
+
+test_that("grid_dots() drops `NULL`s", {
+  expect_identical(
+    grid_dots(NULL, x = 1L, y = NULL, y = 1:2),
+    list(x = 1L, y = 1:2)
+  )
+})
+
+test_that("grid_dots() reject non-vector input", {
+  expect_snapshot((expect_error(grid_dots(lm(1~1)))))
 })

@@ -158,26 +158,99 @@ nesting <- function(..., .name_repair = "check_unique") {
 #' # And matrices
 #' expand_grid(x1 = matrix(1:4, nrow = 2), x2 = matrix(5:8, nrow = 2))
 expand_grid <- function(..., .name_repair = "check_unique") {
-  dots <- dots_cols(...)
+  out <- grid_dots(...)
 
-  # Generate sequence of indices
-  ns <- map_int(dots, vec_size)
-  n <- prod(ns)
+  sizes <- list_sizes(out)
+  size <- prod(sizes)
 
-  if (n == 0) {
-    out <- map(dots, vec_slice, integer())
+  if (size == 0) {
+    out <- map(out, vec_slice, integer())
   } else {
-    times <- n / cumprod(ns)
-    out <- map2(dots, times, vec_rep_each)
-    times <- n / times / ns
+    times <- size / cumprod(sizes)
+    out <- map2(out, times, vec_rep_each)
+    times <- size / times / sizes
     out <- map2(out, times, vec_rep)
   }
-  out <- as_tibble(out, .name_repair = .name_repair)
 
-  flatten_nested(out, attr(dots, "named"), .name_repair)
+  # Flattens unnamed data frames after grid expansion
+  out <- df_list(!!!out, .name_repair = .name_repair)
+  out <- tibble::new_tibble(out, nrow = size)
+
+  out
 }
 
 # Helpers -----------------------------------------------------------------
+
+grid_dots <- function(...) {
+  dots <- enquos(...)
+  n_dots <- length(dots)
+
+  names <- names(dots)
+  needs_auto_name <- names == ""
+
+  # Silently uniquely repair "auto-names" to avoid collisions
+  # from truncated long names. Probably not a perfect system, but solves
+  # most of the reported issues.
+  # TODO: Directly use rlang 1.0.0's:
+  # `rlang::quos_auto_name(repair_auto = "unique", repair_quiet = TRUE)`
+  auto_names <- names(quos_auto_name(dots[needs_auto_name]))
+  auto_names <- vec_as_names(auto_names, repair = "unique", quiet = TRUE)
+
+  names[needs_auto_name] <- auto_names
+
+  # Set up a mask for repeated `eval_tidy()` calls that support iterative
+  # expressions
+  env <- new_environment()
+  mask <- new_data_mask(env)
+  mask$.data <- as_data_pronoun(env)
+
+  out <- vector("list", length = n_dots)
+  null <- vector("logical", length = n_dots)
+
+  for (i in seq_len(n_dots)) {
+    dot <- dots[[i]]
+    dot <- eval_tidy(dot, data = mask)
+
+    if (is.null(dot)) {
+      null[[i]] <- TRUE
+      next
+    }
+
+    arg <- paste0("..", i)
+    vec_assert(dot, arg = arg)
+
+    out[[i]] <- dot
+
+    is_unnamed_data_frame <- is.data.frame(dot) && needs_auto_name[[i]]
+
+    if (is_unnamed_data_frame) {
+      # Signal that unnamed data frame should be spliced by setting its name
+      # to `""`. Then add its individual columns into the mask.
+      names[[i]] <- ""
+
+      dot_names <- names(dot)
+
+      for (i in seq_along(dot)) {
+        dot_col <- dot[[i]]
+        dot_name <- dot_names[[i]]
+        env[[dot_name]] <- dot_col
+      }
+    } else {
+      # Install `dot` in the mask for iterative evaluations
+      name <- names[[i]]
+      env[[name]] <- dot
+    }
+  }
+
+  if (any(null)) {
+    out <- out[!null]
+    names <- names[!null]
+  }
+
+  names(out) <- names
+
+  out
+}
 
 dots_cols <- function(..., `_data` = NULL) {
   dots <- enquos(...)
