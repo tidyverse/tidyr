@@ -66,3 +66,25 @@ test_that("preserves attributes", {
 
   expect_identical(rs$x, structure(1, attr = "!"))
 })
+
+test_that("works with df-cols", {
+  # if any packed row contains a missing value, it is incomplete
+  df <- tibble(a = tibble(x = c(1, 1, NA, NA), y = c(1, NA, 1, NA)))
+  expect_identical(drop_na(df, a), tibble(a = tibble(x = 1, y = 1)))
+})
+
+test_that("works with rcrd cols", {
+  skip_if(
+    packageVersion("vctrs") <= "0.3.8",
+    "vec_detect_complete() treated rcrds differently"
+  )
+
+  # if any rcrd field contains a missing value, it is incomplete
+  col <- new_rcrd(list(x = c(1, 1, NA, NA), y = c(1, NA, 1, NA)))
+  df <- tibble(col = col)
+
+  expect_identical(
+    drop_na(df, col),
+    tibble(col = new_rcrd(list(x = 1, y = 1)))
+  )
+})
