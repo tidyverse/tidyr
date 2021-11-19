@@ -110,10 +110,7 @@ test_that("expand() reconstructs input dots is empty", {
 })
 
 test_that("crossing checks for bad inputs", {
-  expect_error(
-    crossing(x = 1:10, y = quote(a)),
-    class = "vctrs_error_scalar_type"
-  )
+  expect_snapshot((expect_error(crossing(x = 1:10, y = quote(a)))))
 })
 
 test_that("crossing handles list columns", {
@@ -127,23 +124,97 @@ test_that("crossing handles list columns", {
   expect_equal(out$y, rep(y, 2))
 })
 
-test_that("crossing/nesting/expand respect .name_repair", {
-
+test_that("expand() respects `.name_repair`", {
   x <- 1:2
-  suppressMessages(
-    expect_named(crossing(x, x, .name_repair = "unique"), c("x...1", "x...2"))
-  )
-
-  suppressMessages(
-    expect_named(nesting(x, x, .name_repair = "unique"), c("x...1", "x...2"))
-  )
-
   df <- tibble(x)
+
   suppressMessages(
     expect_named(df %>% expand(x, x, .name_repair = "unique"), c("x...1", "x...2"))
   )
 })
 
+test_that("crossing() / nesting() respect `.name_repair`", {
+  x <- 1:2
+
+  expect_snapshot(
+    out <- crossing(x = x, x = x, .name_repair = "unique")
+  )
+  expect_named(out, c("x...1", "x...2"))
+
+  expect_snapshot(
+    out <- nesting(x = x, x = x, .name_repair = "unique")
+  )
+  expect_named(out, c("x...1", "x...2"))
+})
+
+test_that("crossing() / nesting() silently uniquely repairs names of unnamed inputs", {
+  x <- 1:2
+
+  expect_silent(out <- crossing(x, x))
+  expect_named(out, c("x...1", "x...2"))
+
+  expect_silent(out <- nesting(x, x))
+  expect_named(out, c("x...1", "x...2"))
+})
+
+test_that("crossing() / nesting() works with very long inlined unnamed inputs (#1037)", {
+  df1 <- tibble(a = c("a", "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"), b = c(1, 2))
+  df2 <- tibble(c = c("b", "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"), d = c(3, 4))
+
+  out <- crossing(
+    tibble(a = c("a", "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"), b = c(1, 2)),
+    tibble(c = c("b", "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"), d = c(3, 4))
+  )
+  expect_identical(out$a, vec_rep_each(df1$a, 2))
+  expect_identical(out$b, vec_rep_each(df1$b, 2))
+  expect_identical(out$c, vec_rep(df2$c, 2))
+  expect_identical(out$d, vec_rep(df2$d, 2))
+
+  out <- nesting(
+    tibble(a = c("a", "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"), b = c(1, 2)),
+    tibble(c = c("b", "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"), d = c(3, 4))
+  )
+  expect_identical(out$a, df1$a)
+  expect_identical(out$b, df1$b)
+  expect_identical(out$c, df2$c)
+  expect_identical(out$d, df2$d)
+})
+
+test_that("crossing() / nesting() doesn't overwrite after auto naming (#1092)", {
+  x <- list(0:1, 2:3)
+
+  expect_silent(out <- crossing(!!!x))
+  expect_identical(out[[1]], c(0L, 0L, 1L, 1L))
+  expect_identical(out[[2]], c(2L, 3L, 2L, 3L))
+
+  expect_silent(out <- nesting(!!!x))
+  expect_identical(out[[1]], c(0L, 1L))
+  expect_identical(out[[2]], c(2L, 3L))
+})
+
+test_that("crossing() with no inputs returns a 1 row data frame", {
+  # Because it uses expand_grid(), which respects `prod() == 1L`
+  expect_identical(crossing(), tibble(.rows = 1L))
+})
+
+test_that("nesting() with no inputs returns a 0 row data frame", {
+  # Because it only finds combinations already in the data
+  expect_identical(nesting(), tibble())
+})
+
+test_that("can use `do.call()` or `reduce()` with `crossing()` (#992)", {
+  x <- list(tibble(a = 1:2), tibble(b = 2:4), tibble(c = 5:6))
+
+  expect_identical(
+    crossing(x[[1]], x[[2]], x[[3]]),
+    do.call(crossing, x)
+  )
+
+  expect_identical(
+    crossing(crossing(x[[1]], x[[2]]), x[[3]]),
+    purrr::reduce(x, crossing)
+  )
+})
 
 # dots_cols supports lazy evaluation --------------------------------------
 

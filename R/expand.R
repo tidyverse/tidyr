@@ -100,11 +100,25 @@ expand.grouped_df <- function(data, ..., .name_repair = "check_unique") {
 #' @rdname expand
 #' @export
 crossing <- function(..., .name_repair = "check_unique") {
-  cols <- dots_cols(...)
-  cols[] <- map(cols, sorted_unique)
+  out <- grid_dots(...)
+  out <- map(out, sorted_unique)
 
-  out <- expand_grid(!!!cols, .name_repair = .name_repair)
-  flatten_nested(out, attr(cols, "named"), .name_repair)
+  # Flattens unnamed data frames returned from `grid_dots()`
+  expand_grid(!!!out, .name_repair = .name_repair)
+}
+
+#' @rdname expand
+#' @export
+nesting <- function(..., .name_repair = "check_unique") {
+  out <- grid_dots(...)
+
+  # Flattens unnamed data frames
+  out <- data_frame(!!!out, .name_repair = .name_repair)
+  out <- tibble::new_tibble(out, nrow = vec_size(out))
+
+  out <- sorted_unique(out)
+
+  out
 }
 
 sorted_unique <- function(x) {
@@ -116,14 +130,6 @@ sorted_unique <- function(x) {
   } else {
     vec_sort(vec_unique(x))
   }
-}
-
-#' @rdname expand
-#' @export
-nesting <- function(..., .name_repair = "check_unique") {
-  cols <- dots_cols(...)
-  out <- sorted_unique(tibble(!!!cols, .name_repair = .name_repair))
-  flatten_nested(out, attr(cols, "named"), .name_repair)
 }
 
 # expand_grid -------------------------------------------------------------

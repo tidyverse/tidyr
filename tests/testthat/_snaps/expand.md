@@ -1,3 +1,29 @@
+# crossing checks for bad inputs
+
+    Code
+      (expect_error(crossing(x = 1:10, y = quote(a))))
+    Output
+      <error/vctrs_error_scalar_type>
+      `..2` must be a vector, not a symbol.
+
+# crossing() / nesting() respect `.name_repair`
+
+    Code
+      out <- crossing(x = x, x = x, .name_repair = "unique")
+    Message <simpleMessage>
+      New names:
+      * x -> x...1
+      * x -> x...2
+
+---
+
+    Code
+      out <- nesting(x = x, x = x, .name_repair = "unique")
+    Message <simpleMessage>
+      New names:
+      * x -> x...1
+      * x -> x...2
+
 # expand_grid() can control name_repair
 
     Code
