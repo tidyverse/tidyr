@@ -63,6 +63,9 @@
   * If a `ptype` is supplied, but that column can't be simplified, the result
     will be a list-of column where each element has type `ptype` (#998).
     
+  * `simplify` now accepts a named list of `TRUE` or `FALSE` to control
+    simplification on a per column basis (#995).
+    
   * `unnest_wider()` has a new `strict` argument which controls whether or not
     strict vctrs typing rules should be applied. It defaults to `FALSE` for
     backwards compatibility, and because it is often more useful to be lax
