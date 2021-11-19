@@ -159,6 +159,20 @@ test_that("hoist() input must be a data frame (#1224)", {
   expect_snapshot((expect_error(hoist(1))))
 })
 
+test_that("hoist() can simplify on a per column basis (#995)", {
+  df <- tibble(
+    x = list(
+      list(a = 1, b = 1),
+      list(a = 2, b = 2)
+    )
+  )
+
+  expect_identical(
+    hoist(df, x, a = "a", b = "b", .simplify = list(a = FALSE)),
+    tibble(a = list(1, 2), b = c(1, 2))
+  )
+})
+
 # strike ------------------------------------------------------------------
 
 test_that("strike can remove using a list", {
@@ -804,6 +818,8 @@ test_that("`simplify` is validated", {
     (expect_error(df_simplify(data.frame(), simplify = 1)))
     (expect_error(df_simplify(data.frame(), simplify = NA)))
     (expect_error(df_simplify(data.frame(), simplify = c(TRUE, FALSE))))
+    (expect_error(df_simplify(data.frame(), simplify = list(1))))
+    (expect_error(df_simplify(data.frame(), simplify = list(x = 1, x = 1))))
   })
 })
 
@@ -821,6 +837,29 @@ test_that("`transform` is validated", {
     (expect_error(df_simplify(data.frame(), transform = list(1))))
     (expect_error(df_simplify(data.frame(), transform = list(x = 1, x = 1))))
   })
+})
+
+test_that("`simplify` can be a named list (#995)", {
+  df <- tibble(x = list(1), y = list("a"))
+
+  expect_identical(
+    df_simplify(df, simplify = list(x = FALSE)),
+    data_frame(x = list(1), y = "a")
+  )
+
+  expect_identical(
+    df_simplify(df, simplify = list(x = TRUE, y = FALSE)),
+    data_frame(x = 1, y = list("a"))
+  )
+})
+
+test_that("`simplify` elements are ignored if they don't correspond to a column", {
+  df <- tibble(x = list(1), y = list("a"))
+
+  expect_identical(
+    df_simplify(df, simplify = list(z = FALSE)),
+    data_frame(x = 1, y = "a")
+  )
 })
 
 # col_simplify -----------------------------------------------------------
