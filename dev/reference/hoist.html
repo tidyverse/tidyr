@@ -289,7 +289,10 @@ result entirely.</p></td>
     <tr>
       <th>.simplify, simplify</th>
       <td><p>If <code>TRUE</code>, will attempt to simplify lists of
-length-1 vectors to an atomic vector.</p></td>
+length-1 vectors to an atomic vector. Can also be a named list containing
+<code>TRUE</code> or <code>FALSE</code> declaring whether or not to attempt to simplify a
+particular column. If a named list is provided, the default for any
+unspecified columns is <code>TRUE</code>.</p></td>
     </tr>
     <tr>
       <th>.ptype, ptype</th>
@@ -436,6 +439,20 @@ common across all components, it uses <code>unnest_wider()</code>.</p></li>
 <span class='r-out co'><span class='r-pr'>#&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;list&gt;</span>   </span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>1</span> Toothless dragon    black <span style='color: #949494;'>&lt;chr [3]&gt;</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>2</span> Dory      blue tang blue  <span style='color: #949494;'>&lt;chr [2]&gt;</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Choose not to simplify list-cols of length-1 elements</span></span>
+<span class='r-in'><span class='va'>df</span> <span class='op'><a href='%>%.html'>%&gt;%</a></span> <span class='fu'>unnest_wider</span><span class='op'>(</span><span class='va'>metadata</span>, simplify <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># A tibble: 2 × 4</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   character species   color     films    </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;list&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;list&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;list&gt;</span>   </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>1</span> Toothless <span style='color: #949494;'>&lt;chr [1]&gt;</span> <span style='color: #949494;'>&lt;chr [1]&gt;</span> <span style='color: #949494;'>&lt;chr [3]&gt;</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>2</span> Dory      <span style='color: #949494;'>&lt;chr [1]&gt;</span> <span style='color: #949494;'>&lt;chr [1]&gt;</span> <span style='color: #949494;'>&lt;chr [2]&gt;</span></span>
+<span class='r-in'><span class='va'>df</span> <span class='op'><a href='%>%.html'>%&gt;%</a></span> <span class='fu'>unnest_wider</span><span class='op'>(</span><span class='va'>metadata</span>, simplify <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>color <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># A tibble: 2 × 4</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   character species   color     films    </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;list&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;list&gt;</span>   </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>1</span> Toothless dragon    <span style='color: #949494;'>&lt;chr [1]&gt;</span> <span style='color: #949494;'>&lt;chr [3]&gt;</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>2</span> Dory      blue tang <span style='color: #949494;'>&lt;chr [1]&gt;</span> <span style='color: #949494;'>&lt;chr [2]&gt;</span></span>
 <span class='r-in'></span>
 <span class='r-in'><span class='co'># Extract only specified components</span></span>
 <span class='r-in'><span class='va'>df</span> <span class='op'><a href='%>%.html'>%&gt;%</a></span> <span class='fu'>hoist</span><span class='op'>(</span><span class='va'>metadata</span>,</span>
