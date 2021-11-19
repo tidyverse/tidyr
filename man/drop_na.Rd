@@ -10,10 +10,16 @@ drop_na(data, ...)
 \item{data}{A data frame.}
 
 \item{...}{<\code{\link[=tidyr_tidy_select]{tidy-select}}> Columns to inspect for
-missing values.}
+missing values. If empty, all columns are used.}
 }
 \description{
-Drop rows containing missing values
+\code{drop_na()} drops rows where any column specified by \code{...} contains a
+missing value.
+}
+\details{
+Another way to interpret \code{drop_na()} is that it only keeps the "complete"
+rows (where no rows contain missing values). Internally, this completeness is
+computed through \code{\link[vctrs:vec_detect_complete]{vctrs::vec_detect_complete()}}.
 }
 \examples{
 library(dplyr)
