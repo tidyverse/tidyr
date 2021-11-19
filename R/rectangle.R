@@ -56,7 +56,10 @@
 #'   single string you can choose to omit the name, i.e. `hoist(df, col, "x")`
 #'   is short-hand for `hoist(df, col, x = "x")`.
 #' @param .simplify,simplify If `TRUE`, will attempt to simplify lists of
-#'   length-1 vectors to an atomic vector.
+#'   length-1 vectors to an atomic vector. Can also be a named list containing
+#'   `TRUE` or `FALSE` declaring whether or not to attempt to simplify a
+#'   particular column. If a named list is provided, the default for any
+#'   unspecified columns is `TRUE`.
 #' @param .ptype,ptype Optionally, a named list of prototypes declaring the
 #'   desired output type of each component. Use this argument if you want to
 #'   check that each element has the type you expect when simplifying.
@@ -98,6 +101,10 @@
 #'
 #' # Turn all components of metadata into columns
 #' df %>% unnest_wider(metadata)
+#'
+#' # Choose not to simplify list-cols of length-1 elements
+#' df %>% unnest_wider(metadata, simplify = FALSE)
+#' df %>% unnest_wider(metadata, simplify = list(color = FALSE))
 #'
 #' # Extract only specified components
 #' df %>% hoist(metadata,
@@ -786,8 +793,21 @@ df_simplify <- function(x,
     abort("The names of `transform` must be unique.")
   }
 
-  if (!is_bool(simplify)) {
-    abort("`simplify` must be a single `TRUE` or `FALSE`.")
+  if (is_bool(simplify)) {
+    simplify_default <- simplify
+    simplify <- list()
+  } else {
+    simplify_default <- TRUE
+  }
+
+  if (!vec_is_list(simplify)) {
+    abort("`simplify` must be a list or a single `TRUE` or `FALSE`.")
+  }
+  if (length(simplify) > 0L && !is_named(simplify)) {
+    abort("All elements of `simplify` must be named.")
+  }
+  if (vec_duplicate_any(names(simplify))) {
+    abort("The names of `simplify` must be unique.")
   }
 
   x_n <- length(x)
@@ -803,12 +823,13 @@ df_simplify <- function(x,
 
     col_ptype <- ptype[[col_name]]
     col_transform <- transform[[col_name]]
+    col_simplify <- simplify[[col_name]] %||% simplify_default
 
     out[[i]] <- col_simplify(
       x = col,
       ptype = col_ptype,
       transform = col_transform,
-      simplify = simplify
+      simplify = col_simplify
     )
   }
 
