@@ -1,5 +1,18 @@
 # tidyr (development version)
 
+* `drop_na()` has been updated to utilize `vctrs::vec_detect_complete()`. This
+  has resulted in the following changes:
+  
+  * Using a tidyselect expression that results in 0 columns being selected no
+    longer drops missing values from all columns (#1227).
+  
+  * For list-columns, empty atomic elements like `integer(0)` are no longer
+    dropped. The only value that is dropped in a list-column is `NULL`
+    (#1228).
+    
+  * Missing values can now be detected in a wider variety of column types,
+    including data frame columns and the rcrd type from vctrs.
+
 * `replace_na()` has been updated to utilize vctrs. This has resulted in the
   following changes:
   
