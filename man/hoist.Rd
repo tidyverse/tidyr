@@ -70,7 +70,10 @@ components are removed from \code{.col}, then \code{.col} will be removed from t
 result entirely.}
 
 \item{.simplify, simplify}{If \code{TRUE}, will attempt to simplify lists of
-length-1 vectors to an atomic vector.}
+length-1 vectors to an atomic vector. Can also be a named list containing
+\code{TRUE} or \code{FALSE} declaring whether or not to attempt to simplify a
+particular column. If a named list is provided, the default for any
+unspecified columns is \code{TRUE}.}
 
 \item{.ptype, ptype}{Optionally, a named list of prototypes declaring the
 desired output type of each component. Use this argument if you want to
@@ -206,6 +209,10 @@ df
 
 # Turn all components of metadata into columns
 df \%>\% unnest_wider(metadata)
+
+# Choose not to simplify list-cols of length-1 elements
+df \%>\% unnest_wider(metadata, simplify = FALSE)
+df \%>\% unnest_wider(metadata, simplify = list(color = FALSE))
 
 # Extract only specified components
 df \%>\% hoist(metadata,
