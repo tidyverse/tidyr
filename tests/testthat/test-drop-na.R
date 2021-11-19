@@ -5,6 +5,11 @@ test_that("empty call drops every row", {
   expect_identical(res, exp)
 })
 
+test_that("tidyselection that selects no columns doesn't drop any rows (#1227)", {
+  df <- tibble(x = c(1, 2, NA), y = c("a", NA, "b"))
+  expect_identical(drop_na(df, starts_with("foo")), df)
+})
+
 test_that("specifying (a) variables considers only that variable(s)", {
   df <- tibble(x = c(1, 2, NA), y = c("a", NA, "b"))
 
@@ -48,6 +53,11 @@ test_that("works with list-cols", {
   rs <- drop_na(df)
 
   expect_identical(rs, tibble(x = list(1L), y = 1L))
+})
+
+test_that("doesn't drop empty atomic elements of list-cols (#1228)", {
+  df <- tibble(x = list(1L, NULL, integer()))
+  expect_identical(drop_na(df), df[c(1, 3),])
 })
 
 test_that("preserves attributes", {
