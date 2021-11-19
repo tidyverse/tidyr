@@ -10,7 +10,7 @@ test_that("multiple variables in one arg doesn't expand", {
   expect_equal(nrow(out), 2)
 })
 
-test_that("nesting doesn't expand values", {
+test_that("expand with nesting doesn't expand values", {
   df <- tibble(x = 1:2, y = 1:2)
   expect_equal(expand(df, nesting(x, y)), df)
 })
@@ -39,7 +39,7 @@ test_that("expand works with non-standard col names", {
   expect_equal(nrow(out), 4)
 })
 
-test_that("expand excepts expressions", {
+test_that("expand accepts expressions", {
   df <- expand(data.frame(), x = 1:3, y = 3:1)
   expect_equal(df, crossing(x = 1:3, y = 3:1))
 })
@@ -64,22 +64,9 @@ test_that("preserves ordered factors", {
   expect_equal(df$a, ordered("a"))
 })
 
-test_that("preserves NAs", {
-  x <- c("A", "B", NA)
-  expect_equal(crossing(x)$x, x)
-  expect_equal(nesting(x)$x, x)
-})
-
-test_that("crossing preserves factor levels", {
-  x_na_lev_extra <- factor(c("a", NA), levels = c("a", "b", NA), exclude = NULL)
-  expect_equal(levels(crossing(x = x_na_lev_extra)$x), c("a", "b", NA))
-})
-
 test_that("NULL inputs", {
   tb <- tibble(x = 1:5)
   expect_equal(expand(tb, x, y = NULL), tb)
-  expect_equal(nesting(x = tb$x, y = NULL), tb)
-  expect_equal(crossing(x = tb$x, y = NULL), tb)
 })
 
 test_that("zero length input gives zero length output", {
@@ -109,8 +96,31 @@ test_that("expand() reconstructs input dots is empty", {
   expect_s3_class(expand(as_tibble(mtcars)), "tbl_df")
 })
 
+test_that("expand() with no inputs returns 1 row", {
+  expect_identical(expand(tibble()), tibble(.rows = 1L))
+})
+
+# ------------------------------------------------------------------------------
+
 test_that("crossing checks for bad inputs", {
   expect_snapshot((expect_error(crossing(x = 1:10, y = quote(a)))))
+})
+
+test_that("preserves NAs", {
+  x <- c("A", "B", NA)
+  expect_equal(crossing(x)$x, x)
+  expect_equal(nesting(x)$x, x)
+})
+
+test_that("crossing() preserves factor levels", {
+  x_na_lev_extra <- factor(c("a", NA), levels = c("a", "b", NA), exclude = NULL)
+  expect_equal(levels(crossing(x = x_na_lev_extra)$x), c("a", "b", NA))
+})
+
+test_that("NULL inputs", {
+  tb <- tibble(x = 1:5)
+  expect_equal(nesting(x = tb$x, y = NULL), tb)
+  expect_equal(crossing(x = tb$x, y = NULL), tb)
 })
 
 test_that("crossing handles list columns", {
@@ -214,13 +224,6 @@ test_that("can use `do.call()` or `reduce()` with `crossing()` (#992)", {
     crossing(crossing(x[[1]], x[[2]]), x[[3]]),
     purrr::reduce(x, crossing)
   )
-})
-
-# dots_cols supports lazy evaluation --------------------------------------
-
-test_that("dots_cols evaluates each expression in turn", {
-  out <- dots_cols(x = seq(-2, 2), y = x)
-  expect_equal(out$x, out$y)
 })
 
 # ------------------------------------------------------------------------------

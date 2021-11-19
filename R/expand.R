@@ -81,11 +81,11 @@ expand <- function(data, ..., .name_repair = "check_unique") {
 
 #' @export
 expand.data.frame <- function(data, ..., .name_repair = "check_unique") {
-  cols <- dots_cols(..., `_data` = data)
-  cols[] <- map(cols, sorted_unique)
+  out <- grid_dots(..., `_data` = data)
+  out <- map(out, sorted_unique)
 
-  out <- expand_grid(!!!cols, .name_repair = .name_repair)
-  out <- flatten_nested(out, attr(cols, "named"), .name_repair = .name_repair)
+  # Flattens unnamed data frames returned from `grid_dots()`
+  out <- expand_grid(!!!out, .name_repair = .name_repair)
 
   reconstruct_tibble(data, out)
 }
@@ -119,17 +119,6 @@ nesting <- function(..., .name_repair = "check_unique") {
   out <- sorted_unique(out)
 
   out
-}
-
-sorted_unique <- function(x) {
-  if (is.factor(x)) {
-    # forcats::fct_unique
-    factor(levels(x), levels(x), exclude = NULL, ordered = is.ordered(x))
-  } else if (is_bare_list(x)) {
-    vec_unique(x)
-  } else {
-    vec_sort(vec_unique(x))
-  }
 }
 
 # expand_grid -------------------------------------------------------------
@@ -187,7 +176,18 @@ expand_grid <- function(..., .name_repair = "check_unique") {
 
 # Helpers -----------------------------------------------------------------
 
-grid_dots <- function(...) {
+sorted_unique <- function(x) {
+  if (is.factor(x)) {
+    # forcats::fct_unique
+    factor(levels(x), levels(x), exclude = NULL, ordered = is.ordered(x))
+  } else if (is_bare_list(x)) {
+    vec_unique(x)
+  } else {
+    vec_sort(vec_unique(x))
+  }
+}
+
+grid_dots <- function(..., `_data` = NULL) {
   dots <- enquos(...)
   n_dots <- length(dots)
 
@@ -209,6 +209,18 @@ grid_dots <- function(...) {
   env <- new_environment()
   mask <- new_data_mask(env)
   mask$.data <- as_data_pronoun(env)
+
+  if (!is.null(`_data`)) {
+    # Pre-load the data mask with `_data`
+    cols <- tidyr_new_list(`_data`)
+    col_names <- names(cols)
+
+    for (i in seq_along(cols)) {
+      col <- cols[[i]]
+      col_name <- col_names[[i]]
+      env[[col_name]] <- col
+    }
+  }
 
   out <- vector("list", length = n_dots)
   null <- vector("logical", length = n_dots)
@@ -257,61 +269,3 @@ grid_dots <- function(...) {
 
   out
 }
-
-dots_cols <- function(..., `_data` = NULL) {
-  dots <- enquos(...)
-  named <- names(dots) != ""
-
-  dots <- quos_auto_name(dots)
-
-  out <- as.list(`_data`)
-  for (i in seq_along(dots)) {
-    out[[names(dots)[[i]]]] <- eval_tidy(dots[[i]], data = out)
-  }
-  out <- out[names(dots)]
-
-  is_null <- map_lgl(out, is.null)
-  if (any(is_null)) {
-    out <- out[!is_null]
-    named <- named[!is_null]
-  }
-
-  structure(out, named = named)
-}
-
-# flatten unnamed nested data frames to preserve existing behaviour
-flatten_nested <- function(x, named, .name_repair) {
-  to_flatten <- !named & unname(map_lgl(x, is.data.frame))
-  out <- flatten_at(x, to_flatten)
-  as_tibble(out, .name_repair = .name_repair)
-}
-
-flatten_at <- function(x, to_flatten) {
-  if (!any(to_flatten)) {
-    return(x)
-  }
-
-  cols <- rep(1L, length(x))
-  cols[to_flatten] <- map_int(x[to_flatten], length)
-
-  out <- vector("list", sum(cols))
-  names <- vector("character", sum(cols))
-  j <- 1
-  for (i in seq_along(x)) {
-    if (cols[[i]] == 0) {
-      next
-    }
-
-    if (to_flatten[[i]]) {
-      out[j:(j + cols[[i]] - 1)] <- x[[i]]
-      names[j:(j + cols[[i]] - 1)] <- names(x[[i]])
-    } else {
-      out[[j]] <- x[[i]]
-      names[[j]] <- names(x)[[i]]
-    }
-    j <- j + cols[[i]]
-  }
-  names(out) <- names
-  out
-}
-
