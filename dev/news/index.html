@@ -201,6 +201,14 @@
 </h1>
 <ul>
 <li>
+<p><code><a href="../reference/drop_na.html">drop_na()</a></code> has been updated to utilize <code><a href="https://vctrs.r-lib.org/reference/vec_detect_complete.html">vctrs::vec_detect_complete()</a></code>. This has resulted in the following changes:</p>
+<ul>
+<li><p>Using a tidyselect expression that results in 0 columns being selected no longer drops missing values from all columns (<a href='https://github.com/tidyverse/tidyr/issues/1227'>#1227</a>).</p></li>
+<li><p>For list-columns, empty atomic elements like <code>integer(0)</code> are no longer dropped. The only value that is dropped in a list-column is <code>NULL</code> (<a href='https://github.com/tidyverse/tidyr/issues/1228'>#1228</a>).</p></li>
+<li><p>Missing values can now be detected in a wider variety of column types, including data frame columns and the rcrd type from vctrs.</p></li>
+</ul>
+</li>
+<li>
 <p><code><a href="../reference/replace_na.html">replace_na()</a></code> has been updated to utilize vctrs. This has resulted in the following changes:</p>
 <ul>
 <li><p>The type of <code>data</code> can no longer change when the replacement is applied. <code>replace</code> will now always be cast to the type of <code>data</code> before the replacement is made. For example, this means that using a replacement value of <code>1.5</code> on an integer column is no longer allowed. Similarly, replacing missing values in a list-column must now be done with <code>list("foo")</code> rather than just <code>"foo"</code>.</p></li>
