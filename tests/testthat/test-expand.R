@@ -138,9 +138,10 @@ test_that("expand() respects `.name_repair`", {
   x <- 1:2
   df <- tibble(x)
 
-  suppressMessages(
-    expect_named(df %>% expand(x, x, .name_repair = "unique"), c("x...1", "x...2"))
+  expect_snapshot(
+    out <- df %>% expand(x = x, x = x, .name_repair = "unique")
   )
+  expect_named(out, c("x...1", "x...2"))
 })
 
 test_that("crossing() / nesting() respect `.name_repair`", {

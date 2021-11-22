@@ -6,6 +6,15 @@
       <error/vctrs_error_scalar_type>
       `..2` must be a vector, not a symbol.
 
+# expand() respects `.name_repair`
+
+    Code
+      out <- df %>% expand(x = x, x = x, .name_repair = "unique")
+    Message <simpleMessage>
+      New names:
+      * x -> x...1
+      * x -> x...2
+
 # crossing() / nesting() respect `.name_repair`
 
     Code
