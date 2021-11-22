@@ -82,7 +82,7 @@
 #'     values_from = c(estimate, moe)
 #'   )
 #'
-#' # Can perform aggregation with values_fn
+#' # Can perform aggregation with `values_fn`
 #' warpbreaks <- as_tibble(warpbreaks[c("wool", "tension", "breaks")])
 #' warpbreaks
 #' warpbreaks %>%
@@ -90,6 +90,16 @@
 #'     names_from = wool,
 #'     values_from = breaks,
 #'     values_fn = mean
+#'   )
+#'
+#' # Can pass an anonymous function to `values_fn` when you
+#' # need to supply additional arguments
+#' warpbreaks$breaks[1] <- NA
+#' warpbreaks %>%
+#'   pivot_wider(
+#'     names_from = wool,
+#'     values_from = breaks,
+#'     values_fn = ~mean(.x, na.rm = TRUE)
 #'   )
 pivot_wider <- function(data,
                         id_cols = NULL,
@@ -193,12 +203,13 @@ pivot_wider_spec <- function(data,
                              values_fn = NULL) {
   spec <- check_spec(spec)
 
-  if (is.function(values_fn)) {
+  if (is.null(values_fn)) {
+    values_fn <- list()
+  }
+  if (!vec_is_list(values_fn)) {
     values_fn <- rep_named(unique(spec$.value), list(values_fn))
   }
-  if (!is.null(values_fn) && !is.list(values_fn)) {
-    abort("`values_fn` must be a NULL, a function, or a named list")
-  }
+  values_fn <- map(values_fn, as_function)
 
   if (is_scalar(values_fill)) {
     values_fill <- rep_named(unique(spec$.value), list(values_fill))
@@ -248,7 +259,7 @@ pivot_wider_spec <- function(data,
       key = val_id,
       val = val,
       value = value,
-      summarize = values_fn[[value]]
+      values_fn = values_fn[[value]]
     )
     val_id <- dedup$key
     val <- dedup$val
@@ -329,9 +340,8 @@ name <- value <- NULL
 # Helpers -----------------------------------------------------------------
 
 # Not a great name as it now also casts
-vals_dedup <- function(key, val, value, summarize = NULL) {
-
-  if (is.null(summarize)) {
+vals_dedup <- function(key, val, value, values_fn = NULL) {
+  if (is.null(values_fn)) {
     if (!vec_duplicate_any(key)) {
       return(list(key = key, val = val))
     }
@@ -345,11 +355,10 @@ vals_dedup <- function(key, val, value, summarize = NULL) {
   }
 
   out <- vec_split(val, key)
-  if (!is.null(summarize) && !identical(summarize, list)) {
-    summarize <- as_function(summarize)
+  if (!is.null(values_fn) && !identical(values_fn, list)) {
     # This is only correct if `values_fn` always returns a single value
     # Needs https://github.com/r-lib/vctrs/issues/183
-    out$val <- vec_c(!!!map(out$val, summarize))
+    out$val <- vec_c(!!!map(out$val, values_fn))
   }
 
   out
