@@ -82,7 +82,7 @@
 #'     values_from = c(estimate, moe)
 #'   )
 #'
-#' # Can perform aggregation with values_fn
+#' # Can perform aggregation with `values_fn`
 #' warpbreaks <- as_tibble(warpbreaks[c("wool", "tension", "breaks")])
 #' warpbreaks
 #' warpbreaks %>%
@@ -90,6 +90,16 @@
 #'     names_from = wool,
 #'     values_from = breaks,
 #'     values_fn = mean
+#'   )
+#'
+#' # Can pass an anonymous function to `values_fn` when you
+#' # need to supply additional arguments
+#' warpbreaks$breaks[1] <- NA
+#' warpbreaks %>%
+#'   pivot_wider(
+#'     names_from = wool,
+#'     values_from = breaks,
+#'     values_fn = ~mean(.x, na.rm = TRUE)
 #'   )
 pivot_wider <- function(data,
                         id_cols = NULL,
