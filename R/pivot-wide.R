@@ -186,11 +186,11 @@ pivot_wider.data.frame <- function(data,
 #' us_rent_income %>%
 #'   pivot_wider_spec(spec2)
 pivot_wider_spec <- function(data,
-                                  spec,
-                                  names_repair = "check_unique",
-                                  id_cols = NULL,
-                                  values_fill = NULL,
-                                  values_fn = NULL) {
+                             spec,
+                             names_repair = "check_unique",
+                             id_cols = NULL,
+                             values_fill = NULL,
+                             values_fn = NULL) {
   spec <- check_spec(spec)
 
   if (is.function(values_fn)) {
