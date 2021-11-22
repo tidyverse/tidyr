@@ -142,3 +142,32 @@ strip_names <- function(df, base, names_sep) {
 
   set_names(df, names)
 }
+
+flatten_at <- function(x, to_flatten) {
+  if (!any(to_flatten)) {
+    return(x)
+  }
+
+  cols <- rep(1L, length(x))
+  cols[to_flatten] <- map_int(x[to_flatten], length)
+
+  out <- vector("list", sum(cols))
+  names <- vector("character", sum(cols))
+  j <- 1
+  for (i in seq_along(x)) {
+    if (cols[[i]] == 0) {
+      next
+    }
+
+    if (to_flatten[[i]]) {
+      out[j:(j + cols[[i]] - 1)] <- x[[i]]
+      names[j:(j + cols[[i]] - 1)] <- names(x[[i]])
+    } else {
+      out[[j]] <- x[[i]]
+      names[[j]] <- names(x)[[i]]
+    }
+    j <- j + cols[[i]]
+  }
+  names(out) <- names
+  out
+}

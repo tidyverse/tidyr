@@ -81,11 +81,11 @@ expand <- function(data, ..., .name_repair = "check_unique") {
 
 #' @export
 expand.data.frame <- function(data, ..., .name_repair = "check_unique") {
-  cols <- dots_cols(..., `_data` = data)
-  cols[] <- map(cols, sorted_unique)
+  out <- grid_dots(..., `_data` = data)
+  out <- map(out, sorted_unique)
 
-  out <- expand_grid(!!!cols, .name_repair = .name_repair)
-  out <- flatten_nested(out, attr(cols, "named"), .name_repair = .name_repair)
+  # Flattens unnamed data frames returned from `grid_dots()`
+  out <- expand_grid(!!!out, .name_repair = .name_repair)
 
   reconstruct_tibble(data, out)
 }
@@ -100,30 +100,25 @@ expand.grouped_df <- function(data, ..., .name_repair = "check_unique") {
 #' @rdname expand
 #' @export
 crossing <- function(..., .name_repair = "check_unique") {
-  cols <- dots_cols(...)
-  cols[] <- map(cols, sorted_unique)
+  out <- grid_dots(...)
+  out <- map(out, sorted_unique)
 
-  out <- expand_grid(!!!cols, .name_repair = .name_repair)
-  flatten_nested(out, attr(cols, "named"), .name_repair)
-}
-
-sorted_unique <- function(x) {
-  if (is.factor(x)) {
-    # forcats::fct_unique
-    factor(levels(x), levels(x), exclude = NULL, ordered = is.ordered(x))
-  } else if (is_bare_list(x)) {
-    vec_unique(x)
-  } else {
-    vec_sort(vec_unique(x))
-  }
+  # Flattens unnamed data frames returned from `grid_dots()`
+  expand_grid(!!!out, .name_repair = .name_repair)
 }
 
 #' @rdname expand
 #' @export
 nesting <- function(..., .name_repair = "check_unique") {
-  cols <- dots_cols(...)
-  out <- sorted_unique(tibble(!!!cols, .name_repair = .name_repair))
-  flatten_nested(out, attr(cols, "named"), .name_repair)
+  out <- grid_dots(...)
+
+  # Flattens unnamed data frames
+  out <- data_frame(!!!out, .name_repair = .name_repair)
+  out <- tibble::new_tibble(out, nrow = vec_size(out))
+
+  out <- sorted_unique(out)
+
+  out
 }
 
 # expand_grid -------------------------------------------------------------
@@ -158,81 +153,119 @@ nesting <- function(..., .name_repair = "check_unique") {
 #' # And matrices
 #' expand_grid(x1 = matrix(1:4, nrow = 2), x2 = matrix(5:8, nrow = 2))
 expand_grid <- function(..., .name_repair = "check_unique") {
-  dots <- dots_cols(...)
+  out <- grid_dots(...)
 
-  # Generate sequence of indices
-  ns <- map_int(dots, vec_size)
-  n <- prod(ns)
+  sizes <- list_sizes(out)
+  size <- prod(sizes)
 
-  if (n == 0) {
-    out <- map(dots, vec_slice, integer())
+  if (size == 0) {
+    out <- map(out, vec_slice, integer())
   } else {
-    times <- n / cumprod(ns)
-    out <- map2(dots, times, vec_rep_each)
-    times <- n / times / ns
+    times <- size / cumprod(sizes)
+    out <- map2(out, times, vec_rep_each)
+    times <- size / times / sizes
     out <- map2(out, times, vec_rep)
   }
-  out <- as_tibble(out, .name_repair = .name_repair)
 
-  flatten_nested(out, attr(dots, "named"), .name_repair)
+  # Flattens unnamed data frames after grid expansion
+  out <- df_list(!!!out, .name_repair = .name_repair)
+  out <- tibble::new_tibble(out, nrow = size)
+
+  out
 }
 
 # Helpers -----------------------------------------------------------------
 
-dots_cols <- function(..., `_data` = NULL) {
+sorted_unique <- function(x) {
+  if (is.factor(x)) {
+    # forcats::fct_unique
+    factor(levels(x), levels(x), exclude = NULL, ordered = is.ordered(x))
+  } else if (is_bare_list(x)) {
+    vec_unique(x)
+  } else {
+    vec_sort(vec_unique(x))
+  }
+}
+
+grid_dots <- function(..., `_data` = NULL) {
   dots <- enquos(...)
-  named <- names(dots) != ""
+  n_dots <- length(dots)
 
-  dots <- quos_auto_name(dots)
+  names <- names(dots)
+  needs_auto_name <- names == ""
 
-  out <- as.list(`_data`)
-  for (i in seq_along(dots)) {
-    out[[names(dots)[[i]]]] <- eval_tidy(dots[[i]], data = out)
+  # Silently uniquely repair "auto-names" to avoid collisions
+  # from truncated long names. Probably not a perfect system, but solves
+  # most of the reported issues.
+  # TODO: Directly use rlang 1.0.0's:
+  # `rlang::quos_auto_name(repair_auto = "unique", repair_quiet = TRUE)`
+  auto_names <- names(quos_auto_name(dots[needs_auto_name]))
+  auto_names <- vec_as_names(auto_names, repair = "unique", quiet = TRUE)
+
+  names[needs_auto_name] <- auto_names
+
+  # Set up a mask for repeated `eval_tidy()` calls that support iterative
+  # expressions
+  env <- new_environment()
+  mask <- new_data_mask(env)
+  mask$.data <- as_data_pronoun(env)
+
+  if (!is.null(`_data`)) {
+    # Pre-load the data mask with `_data`
+    cols <- tidyr_new_list(`_data`)
+    col_names <- names(cols)
+
+    for (i in seq_along(cols)) {
+      col <- cols[[i]]
+      col_name <- col_names[[i]]
+      env[[col_name]] <- col
+    }
   }
-  out <- out[names(dots)]
 
-  is_null <- map_lgl(out, is.null)
-  if (any(is_null)) {
-    out <- out[!is_null]
-    named <- named[!is_null]
-  }
+  out <- vector("list", length = n_dots)
+  null <- vector("logical", length = n_dots)
 
-  structure(out, named = named)
-}
+  for (i in seq_len(n_dots)) {
+    dot <- dots[[i]]
+    dot <- eval_tidy(dot, data = mask)
 
-# flatten unnamed nested data frames to preserve existing behaviour
-flatten_nested <- function(x, named, .name_repair) {
-  to_flatten <- !named & unname(map_lgl(x, is.data.frame))
-  out <- flatten_at(x, to_flatten)
-  as_tibble(out, .name_repair = .name_repair)
-}
-
-flatten_at <- function(x, to_flatten) {
-  if (!any(to_flatten)) {
-    return(x)
-  }
-
-  cols <- rep(1L, length(x))
-  cols[to_flatten] <- map_int(x[to_flatten], length)
-
-  out <- vector("list", sum(cols))
-  names <- vector("character", sum(cols))
-  j <- 1
-  for (i in seq_along(x)) {
-    if (cols[[i]] == 0) {
+    if (is.null(dot)) {
+      null[[i]] <- TRUE
       next
     }
 
-    if (to_flatten[[i]]) {
-      out[j:(j + cols[[i]] - 1)] <- x[[i]]
-      names[j:(j + cols[[i]] - 1)] <- names(x[[i]])
+    arg <- paste0("..", i)
+    vec_assert(dot, arg = arg)
+
+    out[[i]] <- dot
+
+    is_unnamed_data_frame <- is.data.frame(dot) && needs_auto_name[[i]]
+
+    if (is_unnamed_data_frame) {
+      # Signal that unnamed data frame should be spliced by setting its name
+      # to `""`. Then add its individual columns into the mask.
+      names[[i]] <- ""
+
+      dot_names <- names(dot)
+
+      for (i in seq_along(dot)) {
+        dot_col <- dot[[i]]
+        dot_name <- dot_names[[i]]
+        env[[dot_name]] <- dot_col
+      }
     } else {
-      out[[j]] <- x[[i]]
-      names[[j]] <- names(x)[[i]]
+      # Install `dot` in the mask for iterative evaluations
+      name <- names[[i]]
+      env[[name]] <- dot
     }
-    j <- j + cols[[i]]
   }
+
+  if (any(null)) {
+    out <- out[!null]
+    names <- names[!null]
+  }
+
   names(out) <- names
+
   out
 }
-

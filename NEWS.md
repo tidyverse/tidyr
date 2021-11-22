@@ -1,5 +1,22 @@
 # tidyr (development version)
 
+* A number of bugs have been fixed for the grid functions, `expand_grid()`,
+  `nesting()`, `crossing()`, and `expand()`:
+  
+  * Automatically named input now has unique name repair applied to it silently.
+    This avoids a number of issues resulting from duplicate truncated names
+    (#1116, #1221, #1092, #1037, #992).
+    
+  * Columns from unnamed data frames can now be used in expressions after that
+    data frame was specified, like `expand_grid(tibble(x = 1), y = x)`. This
+    is more consistent with how `tibble()` behaves.
+    
+  * Supplying data frames with 0 columns but >0 rows now works correctly
+    (#1189).
+  
+  * `expand_grid()`, `expand()`, and `crossing()` now return a 1 row data frame
+    when no inputs are supplied, which is more consistent with `prod() == 1L`.
+
 * `drop_na()` has been updated to utilize `vctrs::vec_detect_complete()`. This
   has resulted in the following changes:
   
