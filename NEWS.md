@@ -1,5 +1,8 @@
 # tidyr (development version)
 
+* The `values_fn` argument of `pivot_wider()` now correctly allows anonymous
+  functions (#1114).
+
 * A number of bugs have been fixed for the grid functions, `expand_grid()`,
   `nesting()`, `crossing()`, and `expand()`:
   
