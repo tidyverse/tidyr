@@ -145,6 +145,12 @@ test_that("values_fn can be a single function", {
   expect_equal(pv$x, c(11, 100))
 })
 
+test_that("values_fn can be an anonymous function (#1114)", {
+  df <- tibble(a = c(1, 1, 2), key = c("x", "x", "x"), val = c(1, 10, 100))
+  pv <- pivot_wider(df, names_from = key, values_from = val, values_fn = ~sum(.x))
+  expect_equal(pv$x, c(11, 100))
+})
+
 test_that("values_fn applied even when no-duplicates", {
   df <- tibble(a = c(1, 2), key = c("x", "x"), val = 1:2)
   pv <- pivot_wider(df,
@@ -157,6 +163,12 @@ test_that("values_fn applied even when no-duplicates", {
   expect_equal(as.list(pv$x), list(1L, 2L))
 })
 
+test_that("values_fn is validated", {
+  df <- tibble(name = "x", value = 1L)
+  expect_snapshot(
+    (expect_error(pivot_wider(df, values_fn = 1)))
+  )
+})
 
 # can fill missing cells --------------------------------------------------
 

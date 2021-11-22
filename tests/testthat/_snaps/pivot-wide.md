@@ -8,3 +8,11 @@
       * Use `values_fn = length` to identify where the duplicates arise.
       * Use `values_fn = {summary_fun}` to summarise duplicates.
 
+# values_fn is validated
+
+    Code
+      (expect_error(pivot_wider(df, values_fn = 1)))
+    Output
+      <error/rlang_error>
+      Can't convert a double vector to function
+
