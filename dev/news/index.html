@@ -201,6 +201,15 @@
 </h1>
 <ul>
 <li>
+<p>A number of bugs have been fixed for the grid functions, <code><a href="../reference/expand_grid.html">expand_grid()</a></code>, <code><a href="../reference/expand.html">nesting()</a></code>, <code><a href="../reference/expand.html">crossing()</a></code>, and <code><a href="../reference/expand.html">expand()</a></code>:</p>
+<ul>
+<li><p>Automatically named input now has unique name repair applied to it silently. This avoids a number of issues resulting from duplicate truncated names (<a href='https://github.com/tidyverse/tidyr/issues/1116'>#1116</a>, <a href='https://github.com/tidyverse/tidyr/issues/1221'>#1221</a>, <a href='https://github.com/tidyverse/tidyr/issues/1092'>#1092</a>, <a href='https://github.com/tidyverse/tidyr/issues/1037'>#1037</a>, <a href='https://github.com/tidyverse/tidyr/issues/992'>#992</a>).</p></li>
+<li><p>Columns from unnamed data frames can now be used in expressions after that data frame was specified, like <code>expand_grid(tibble(x = 1), y = x)</code>. This is more consistent with how <code><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble()</a></code> behaves.</p></li>
+<li><p>Supplying data frames with 0 columns but &gt;0 rows now works correctly (<a href='https://github.com/tidyverse/tidyr/issues/1189'>#1189</a>).</p></li>
+<li><p><code><a href="../reference/expand_grid.html">expand_grid()</a></code>, <code><a href="../reference/expand.html">expand()</a></code>, and <code><a href="../reference/expand.html">crossing()</a></code> now return a 1 row data frame when no inputs are supplied, which is more consistent with <code>prod() == 1L</code>.</p></li>
+</ul>
+</li>
+<li>
 <p><code><a href="../reference/drop_na.html">drop_na()</a></code> has been updated to utilize <code><a href="https://vctrs.r-lib.org/reference/vec_detect_complete.html">vctrs::vec_detect_complete()</a></code>. This has resulted in the following changes:</p>
 <ul>
 <li><p>Using a tidyselect expression that results in 0 columns being selected no longer drops missing values from all columns (<a href='https://github.com/tidyverse/tidyr/issues/1227'>#1227</a>).</p></li>
