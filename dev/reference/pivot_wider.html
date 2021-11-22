@@ -453,7 +453,7 @@ defines a pivotting specification.</p></div>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>10</span> 12    Florida                        <span style='text-decoration: underline;'>25</span>952          <span style='text-decoration: underline;'>1</span>077         70        3</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># … with 42 more rows</span></span>
 <span class='r-in'></span>
-<span class='r-in'><span class='co'># Can perform aggregation with values_fn</span></span>
+<span class='r-in'><span class='co'># Can perform aggregation with `values_fn`</span></span>
 <span class='r-in'><span class='va'>warpbreaks</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/as_tibble.html'>as_tibble</a></span><span class='op'>(</span><span class='va'>warpbreaks</span><span class='op'>[</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"wool"</span>, <span class='st'>"tension"</span>, <span class='st'>"breaks"</span><span class='op'>)</span><span class='op'>]</span><span class='op'>)</span></span>
 <span class='r-in'><span class='va'>warpbreaks</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># A tibble: 54 × 3</span></span>
@@ -480,6 +480,22 @@ defines a pivotting specification.</p></div>
 <span class='r-out co'><span class='r-pr'>#&gt;</span>   tension     A     B</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>1</span> L        44.6  28.2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>2</span> M        24    28.8</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>3</span> H        24.6  18.8</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Can pass an anonymous function to `values_fn` when you</span></span>
+<span class='r-in'><span class='co'># need to supply additional arguments</span></span>
+<span class='r-in'><span class='va'>warpbreaks</span><span class='op'>$</span><span class='va'>breaks</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='cn'>NA</span></span>
+<span class='r-in'><span class='va'>warpbreaks</span> <span class='op'><a href='%>%.html'>%&gt;%</a></span></span>
+<span class='r-in'>  <span class='fu'>pivot_wider</span><span class='op'>(</span></span>
+<span class='r-in'>    names_from <span class='op'>=</span> <span class='va'>wool</span>,</span>
+<span class='r-in'>    values_from <span class='op'>=</span> <span class='va'>breaks</span>,</span>
+<span class='r-in'>    values_fn <span class='op'>=</span> <span class='op'>~</span><span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>.x</span>, na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></span>
+<span class='r-in'>  <span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># A tibble: 3 × 3</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   tension     A     B</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>1</span> L        46.9  28.2</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>2</span> M        24    28.8</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>3</span> H        24.6  18.8</span>
 </pre>
