@@ -279,16 +279,19 @@ pivot_wider_spec <- function(data,
     value_out[[i]] <- wrap_vec(out, spec_i$.name)
   }
 
-  out <- wrap_error_names(vec_cbind(as_tibble(rows), !!!value_out, .name_repair = names_repair))
+  # `check_spec()` ensures `.name` is unique. Name repair shouldn't be needed.
+  values <- vec_cbind(!!!value_out, .name_repair = "minimal")
 
-  # recreate desired column order
-  # https://github.com/r-lib/vctrs/issues/227
-  if (all(spec$.name %in% names(out))) {
-    out <- out[c(names(rows), spec$.name)]
-  }
+  # Recreate desired column order of the new spec columns (#569)
+  values <- values[spec$.name]
+
+  out <- wrap_error_names(vec_cbind(
+    as_tibble(rows),
+    values,
+    .name_repair = names_repair
+  ))
 
   reconstruct_tibble(data, out)
-
 }
 
 #' @export
