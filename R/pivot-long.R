@@ -16,16 +16,25 @@
 #' @param data A data frame to pivot.
 #' @param cols <[`tidy-select`][tidyr_tidy_select]> Columns to pivot into
 #'   longer format.
-#' @param names_to A string specifying the name of the column to create
-#'   from the data stored in the column names of `data`.
+#' @param names_to A character vector specifying the new column or columns to
+#'   create from the information stored in the column names of `data` specified
+#'   by `cols`.
 #'
-#'   Can be a character vector, creating multiple columns, if `names_sep`
-#'   or `names_pattern` is provided. In this case, there are two special
-#'   values you can take advantage of:
+#'   * If length 0, or if `NULL` is supplied, no columns will be created.
 #'
-#'   * `NA` will discard that component of the name.
-#'   * `.value` indicates that component of the name defines the name of the
-#'     column containing the cell values, overriding `values_to`.
+#'   * If length 1, a single column will be created which will contain the
+#'     column names specified by `cols`.
+#'
+#'   * If length >1, multiple columns will be created. In this case, one of
+#'     `names_sep` or `names_pattern` must be supplied to specify how the
+#'     column names should be split. There are also two additional character
+#'     values you can take advantage of:
+#'
+#'     * `NA` will discard the corresponding component of the column name.
+#'
+#'     * `".value"` indicates that the corresponding component of the column
+#'       name defines the name of the output column containing the cell values,
+#'       overriding `values_to` entirely.
 #' @param names_prefix A regular expression used to remove matching text
 #'   from the start of each variable name.
 #' @param names_sep,names_pattern If `names_to` contains multiple values,
