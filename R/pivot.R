@@ -10,6 +10,17 @@ check_spec <- function(spec) {
     stop("`spec` must have `.name` and `.value` columns", call. = FALSE)
   }
 
+  if (!is.character(spec$.name)) {
+    abort("The `.name` column must be a character vector.")
+  }
+  if (vec_duplicate_any(spec$.name)) {
+    abort("The `.name` column must be unique.")
+  }
+
+  if (!is.character(spec$.value)) {
+    abort("The `.value` column must be a character vector.")
+  }
+
   # Ensure .name and .value come first
   vars <- union(c(".name", ".value"), names(spec))
   spec[vars]
