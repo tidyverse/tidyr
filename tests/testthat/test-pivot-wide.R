@@ -86,6 +86,20 @@ test_that("`values_from` must be supplied if `value` isn't in `data` (#1240)", {
   expect_snapshot((expect_error(pivot_wider(df, names_from = key))))
 })
 
+test_that("`names_from` must identify at least 1 column (#1240)", {
+  df <- tibble(key = "x", val = 1)
+  expect_snapshot(
+    (expect_error(pivot_wider(df, names_from = starts_with("foo"), values_from = val)))
+  )
+})
+
+test_that("`values_from` must identify at least 1 column (#1240)", {
+  df <- tibble(key = "x", val = 1)
+  expect_snapshot(
+    (expect_error(pivot_wider(df, names_from = key, values_from = starts_with("foo"))))
+  )
+})
+
 # column names -------------------------------------------------------------
 
 test_that("names_glue affects output names", {

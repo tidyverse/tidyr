@@ -36,6 +36,24 @@
       Can't subset columns that don't exist.
       x Column `value` doesn't exist.
 
+# `names_from` must identify at least 1 column (#1240)
+
+    Code
+      (expect_error(pivot_wider(df, names_from = starts_with("foo"), values_from = val))
+      )
+    Output
+      <error/rlang_error>
+      `names_from` must select at least one column.
+
+# `values_from` must identify at least 1 column (#1240)
+
+    Code
+      (expect_error(pivot_wider(df, names_from = key, values_from = starts_with("foo")))
+      )
+    Output
+      <error/rlang_error>
+      `values_from` must select at least one column.
+
 # duplicated keys produce list column with warning
 
     Code

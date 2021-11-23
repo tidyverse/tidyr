@@ -305,6 +305,13 @@ build_wider_spec <- function(data,
   names_from <- tidyselect::eval_select(enquo(names_from), data)
   values_from <- tidyselect::eval_select(enquo(values_from), data)
 
+  if (is_empty(names_from)) {
+    abort("`names_from` must select at least one column.")
+  }
+  if (is_empty(values_from)) {
+    abort("`values_from` must select at least one column.")
+  }
+
   row_ids <- vec_unique(data[names_from])
   if (names_sort) {
     row_ids <- vec_sort(row_ids)
