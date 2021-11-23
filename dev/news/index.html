@@ -200,6 +200,7 @@
 <a href="#tidyr-development-version" class="anchor"></a>tidyr (development version)<small> Unreleased </small>
 </h1>
 <ul>
+<li><p>The <code>names_from</code> and <code>values_from</code> arguments to <code><a href="../reference/pivot_wider.html">pivot_wider()</a></code> are now required if their default values of <code>name</code> and <code>value</code> don’t correspond to columns in <code>data</code>. Additionally, they must identify at least 1 column in <code>data</code> (<a href='https://github.com/tidyverse/tidyr/issues/1240'>#1240</a>).</p></li>
 <li><p>The <code>names_ptypes</code> argument of <code><a href="../reference/pivot_longer.html">pivot_longer()</a></code> is now applied after <code>names_transform</code> for consistency with the rectangling functions (i.e. <code><a href="../reference/hoist.html">hoist()</a></code>) (<a href='https://github.com/tidyverse/tidyr/issues/1233'>#1233</a>).</p></li>
 <li><p><code><a href="../reference/pivot_wider.html">pivot_wider()</a></code> and <code><a href="../reference/pivot_longer.html">pivot_longer()</a></code> now generate more informative errors related to name repair (<a href='https://github.com/tidyverse/tidyr/issues/987'>#987</a>).</p></li>
 <li><p>The <code>values_fn</code> argument of <code><a href="../reference/pivot_wider.html">pivot_wider()</a></code> now correctly allows anonymous functions (<a href='https://github.com/tidyverse/tidyr/issues/1114'>#1114</a>).</p></li>
