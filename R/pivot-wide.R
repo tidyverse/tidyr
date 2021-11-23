@@ -347,7 +347,7 @@ vals_dedup <- function(key, val, value, values_fn = NULL) {
     }
 
     warn(glue::glue(
-      "Values are not uniquely identified; output will contain list-cols.\n",
+      "Values from `{value}` are not uniquely identified; output will contain list-cols.\n",
       "* Use `values_fn = list` to suppress this warning.\n",
       "* Use `values_fn = length` to identify where the duplicates arise.\n",
       "* Use `values_fn = {{summary_fun}}` to summarise duplicates."
