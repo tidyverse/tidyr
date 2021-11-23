@@ -12,7 +12,7 @@
 #' @useDynLib tidyr, .registration = TRUE
 "_PACKAGE"
 
-globalVariables(".")
+globalVariables(c(".", "name", "value"))
 
 #' @importFrom tibble tribble
 #' @export

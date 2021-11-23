@@ -76,6 +76,15 @@ test_that("works with data.table and empty key_vars", {
   )
 })
 
+test_that("`names_from` must be supplied if `name` isn't in `data` (#1240)", {
+  df <- tibble(key = "x", val = 1)
+  expect_snapshot((expect_error(pivot_wider(df, values_from = val))))
+})
+
+test_that("`values_from` must be supplied if `value` isn't in `data` (#1240)", {
+  df <- tibble(key = "x", val = 1)
+  expect_snapshot((expect_error(pivot_wider(df, names_from = key))))
+})
 
 # column names -------------------------------------------------------------
 

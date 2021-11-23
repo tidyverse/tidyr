@@ -334,9 +334,6 @@ build_wider_spec <- function(data,
   out
 }
 
-# quiet R CMD check
-name <- value <- NULL
-
 # Helpers -----------------------------------------------------------------
 
 # Not a great name as it now also casts

@@ -18,6 +18,24 @@
       * a -> a...1
       * a -> a...2
 
+# `names_from` must be supplied if `name` isn't in `data` (#1240)
+
+    Code
+      (expect_error(pivot_wider(df, values_from = val)))
+    Output
+      <error/vctrs_error_subscript_oob>
+      Can't subset columns that don't exist.
+      x Column `name` doesn't exist.
+
+# `values_from` must be supplied if `value` isn't in `data` (#1240)
+
+    Code
+      (expect_error(pivot_wider(df, names_from = key)))
+    Output
+      <error/vctrs_error_subscript_oob>
+      Can't subset columns that don't exist.
+      x Column `value` doesn't exist.
+
 # duplicated keys produce list column with warning
 
     Code
