@@ -1,5 +1,10 @@
 # tidyr (development version)
 
+* The `names_from` and `values_from` arguments to `pivot_wider()` are now
+  required if their default values of `name` and `value` don't correspond to
+  columns in `data`. Additionally, they must identify at least 1 column
+  in `data` (#1240).
+
 * The `names_ptypes` argument of `pivot_longer()` is now applied after
   `names_transform` for consistency with the rectangling functions
   (i.e. `hoist()`) (#1233).
