@@ -1,5 +1,12 @@
 # tidyr (development version)
 
+* `pivot_wider()` now correctly handles the case where an id column name
+  collides with a value from `names_from` (#1107).
+
+* `pivot_wider()` and `pivot_longer()` now both check that the spec columns
+  `.name` and `.value` are character vectors. Additionally, the `.name`
+  column must be unique (#1107).
+  
 * The `names_from` and `values_from` arguments to `pivot_wider()` are now
   required if their default values of `name` and `value` don't correspond to
   columns in `data`. Additionally, they must identify at least 1 column
