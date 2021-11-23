@@ -1,5 +1,8 @@
 # tidyr (development version)
 
+* `pivot_wider()` and `pivot_longer()` now generate more informative
+  errors related to name repair (#987).
+
 * The `values_fn` argument of `pivot_wider()` now correctly allows anonymous
   functions (#1114).
 
