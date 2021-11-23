@@ -29,10 +29,15 @@ test_that("error when overwriting existing column", {
     key = c("a", "b"),
     val = c(1, 2)
   )
-  expect_error(
-    pivot_wider(df, names_from = key, values_from = val),
-    "bad names"
+
+  expect_snapshot(
+    (expect_error(pivot_wider(df, names_from = key, values_from = val)))
   )
+
+  expect_snapshot(
+    out <- pivot_wider(df, names_from = key, values_from = val, names_repair = "unique")
+  )
+  expect_named(out, c("a...1", "a...2", "b"))
 })
 
 test_that("grouping is preserved", {

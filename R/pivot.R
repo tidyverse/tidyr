@@ -16,16 +16,11 @@ check_spec <- function(spec) {
 }
 
 wrap_error_names <- function(code) {
-  tryCatch(
+  withCallingHandlers(
     code,
     vctrs_error_names = function(cnd) {
-      abort(
-        c(
-          "Failed to create output due to bad names.",
-          "Choose another strategy with `names_repair`"
-        ),
-        parent = cnd
-      )
+      cnd$arg <- "names_repair"
+      cnd_signal(cnd)
     }
   )
 }

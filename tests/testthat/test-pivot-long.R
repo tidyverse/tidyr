@@ -144,6 +144,19 @@ test_that("type error message use variable names", {
   expect_equal(err$y_arg, "xyz")
 })
 
+test_that("error when overwriting existing column", {
+  df <- tibble(x = 1, y = 2)
+
+  expect_snapshot(
+    (expect_error(pivot_longer(df, y, names_to = "x")))
+  )
+
+  expect_snapshot(
+    out <- pivot_longer(df, y, names_to = "x", names_repair = "unique")
+  )
+  expect_named(out, c("x...1", "x...2", "value"))
+})
+
 test_that("grouping is preserved", {
   df <- tibble(g = 1, x1 = 1, x2 = 2)
   out <- df %>%
