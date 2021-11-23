@@ -238,14 +238,21 @@ longer format.</p></td>
     </tr>
     <tr>
       <th>names_to</th>
-      <td><p>A string specifying the name of the column to create
-from the data stored in the column names of <code>data</code>.</p>
-<p>Can be a character vector, creating multiple columns, if <code>names_sep</code>
-or <code>names_pattern</code> is provided. In this case, there are two special
+      <td><p>A character vector specifying the new column or columns to
+create from the information stored in the column names of <code>data</code> specified
+by <code>cols</code>.</p><ul>
+<li><p>If length 0, or if <code>NULL</code> is supplied, no columns will be created.</p></li>
+<li><p>If length 1, a single column will be created which will contain the
+column names specified by <code>cols</code>.</p></li>
+<li><p>If length &gt;1, multiple columns will be created. In this case, one of
+<code>names_sep</code> or <code>names_pattern</code> must be supplied to specify how the
+column names should be split. There are also two additional character
 values you can take advantage of:</p><ul>
-<li><p><code>NA</code> will discard that component of the name.</p></li>
-<li><p><code>.value</code> indicates that component of the name defines the name of the
-column containing the cell values, overriding <code>values_to</code>.</p></li>
+<li><p><code>NA</code> will discard the corresponding component of the column name.</p></li>
+<li><p><code>".value"</code> indicates that the corresponding component of the column
+name defines the name of the output column containing the cell values,
+overriding <code>values_to</code> entirely.</p></li>
+</ul></li>
 </ul></td>
     </tr>
     <tr>
