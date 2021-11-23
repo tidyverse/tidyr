@@ -262,7 +262,8 @@ pivot_longer_spec <- function(data,
 
 #' @rdname pivot_longer_spec
 #' @export
-build_longer_spec <- function(data, cols,
+build_longer_spec <- function(data,
+                              cols,
                               names_to = "name",
                               values_to = "value",
                               names_prefix = NULL,
@@ -282,30 +283,41 @@ build_longer_spec <- function(data, cols,
     names <- gsub(vec_paste0("^", names_prefix), "", names(cols))
   }
 
-  if (length(names_to) > 1) {
-    if (!xor(is.null(names_sep), is.null(names_pattern))) {
+  if (is.null(names_to)) {
+    names_to <- character(0L)
+  }
+  if (!is.character(names_to)) {
+    abort("`names_to` must be a character vector or `NULL`.")
+  }
+
+  n_names_to <- length(names_to)
+  has_names_sep <- !is.null(names_sep)
+  has_names_pattern <- !is.null(names_pattern)
+
+  if (n_names_to == 0L) {
+    names <- tibble::new_tibble(x = list(), nrow = length(names))
+  } else if (n_names_to == 1L) {
+    if (has_names_sep) {
+      abort("`names_sep` can't be used with a length 1 `names_to`.")
+    }
+    if (has_names_pattern) {
+      names <- str_extract(names, names_to, regex = names_pattern)[[1]]
+    }
+
+    names <- tibble(!!names_to := names)
+  } else {
+    if (!xor(has_names_sep, has_names_pattern)) {
       abort(glue::glue(
         "If you supply multiple names in `names_to` you must also supply one",
         " of `names_sep` or `names_pattern`."
       ))
     }
 
-    if (!is.null(names_sep)) {
+    if (has_names_sep) {
       names <- str_separate(names, names_to, sep = names_sep)
     } else {
       names <- str_extract(names, names_to, regex = names_pattern)
     }
-  } else if (length(names_to) == 0) {
-    names <- tibble::new_tibble(x = list(), nrow = length(names))
-  } else {
-    if (!is.null(names_sep)) {
-      abort("`names_sep` can not be used with length-1 `names_to`")
-    }
-    if (!is.null(names_pattern)) {
-      names <- str_extract(names, names_to, regex = names_pattern)[[1]]
-    }
-
-    names <- tibble(!!names_to := names)
   }
 
   if (".value" %in% names_to) {
