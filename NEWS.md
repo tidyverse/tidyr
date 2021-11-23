@@ -1,5 +1,9 @@
 # tidyr (development version)
 
+* The `names_ptypes` argument of `pivot_longer()` is now applied after
+  `names_transform` for consistency with the rectangling functions
+  (i.e. `hoist()`) (#1233).
+
 * `pivot_wider()` and `pivot_longer()` now generate more informative
   errors related to name repair (#987).
 
