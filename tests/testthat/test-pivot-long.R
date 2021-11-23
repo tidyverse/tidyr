@@ -261,6 +261,20 @@ test_that("can cast to custom type", {
   expect_equal(sp$name, 1L)
 })
 
+test_that("transform is applied before cast (#1233)", {
+  df <- tibble(w1 = 1)
+
+  sp <- build_longer_spec(
+    df,
+    w1,
+    names_prefix = "w",
+    names_ptypes = list(name = integer()),
+    names_transform = list(name = as.numeric)
+  )
+
+  expect_identical(sp$name, 1L)
+})
+
 test_that("Error if the `col` can't be selected.", {
   expect_error(pivot_longer(iris, matches("foo")), "select at least one")
 })

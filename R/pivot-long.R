@@ -335,17 +335,17 @@ build_longer_spec <- function(data,
     vec_assert(values_to, ptype = character(), size = 1)
   }
 
-  # optionally, cast variables generated from columns
-  cast_cols <- intersect(names(names), names(names_ptypes))
-  for (col in cast_cols) {
-    names[[col]] <- vec_cast(names[[col]], names_ptypes[[col]])
-  }
-
-  # transform cols
+  # optionally, transform cols
   coerce_cols <- intersect(names(names), names(names_transform))
   for (col in coerce_cols) {
     f <- as_function(names_transform[[col]])
     names[[col]] <- f(names[[col]])
+  }
+
+  # optionally, cast variables generated from columns
+  cast_cols <- intersect(names(names), names(names_ptypes))
+  for (col in cast_cols) {
+    names[[col]] <- vec_cast(names[[col]], names_ptypes[[col]])
   }
 
   out <- tibble(.name = names(cols))
