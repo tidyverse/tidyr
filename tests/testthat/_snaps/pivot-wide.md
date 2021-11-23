@@ -54,6 +54,15 @@
       <error/rlang_error>
       `values_from` must select at least one column.
 
+# `values_fn` emits an informative error when it doesn't result in unique values (#1238)
+
+    Code
+      (expect_error(pivot_wider(df, values_fn = list(value = ~.x))))
+    Output
+      <error/rlang_error>
+      Applying `values_fn` to `value` must result in a single summary value per key.
+      x Applying `values_fn` resulted in a value with length 2.
+
 # duplicated keys produce list column with warning
 
     Code
