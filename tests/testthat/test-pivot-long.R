@@ -170,10 +170,16 @@ test_that("validates inputs", {
   )
 })
 
-test_that("no names doesn't generate names", {
+test_that("no names doesn't generate names (#1120)", {
   df <- tibble(x = 1)
-  expect_equal(
+
+  expect_identical(
     colnames(build_longer_spec(df, x, names_to = character())),
+    c(".name", ".value")
+  )
+
+  expect_identical(
+    colnames(build_longer_spec(df, x, names_to = NULL)),
     c(".name", ".value")
   )
 })
@@ -244,4 +250,14 @@ test_that("can cast to custom type", {
 
 test_that("Error if the `col` can't be selected.", {
   expect_error(pivot_longer(iris, matches("foo")), "select at least one")
+})
+
+test_that("`names_to` is validated", {
+  df <- tibble(x = 1)
+
+  expect_snapshot({
+    (expect_error(build_longer_spec(df, x, names_to = 1)))
+    (expect_error(build_longer_spec(df, x, names_to = c("x", "y"))))
+    (expect_error(build_longer_spec(df, x, names_to = c("x", "y"), names_sep = "_", names_pattern = "x")))
+  })
 })
