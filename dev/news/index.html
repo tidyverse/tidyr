@@ -200,6 +200,7 @@
 <a href="#tidyr-development-version" class="anchor"></a>tidyr (development version)<small> Unreleased </small>
 </h1>
 <ul>
+<li><p><code><a href="../reference/pivot_wider.html">pivot_wider()</a></code> now throws a more informative error when <code>values_fn</code> doesn’t result in a single summary value (<a href='https://github.com/tidyverse/tidyr/issues/1238'>#1238</a>).</p></li>
 <li><p><code><a href="../reference/pivot_wider.html">pivot_wider()</a></code> now correctly handles the case where an id column name collides with a value from <code>names_from</code> (<a href='https://github.com/tidyverse/tidyr/issues/1107'>#1107</a>).</p></li>
 <li><p><code><a href="../reference/pivot_wider.html">pivot_wider()</a></code> and <code><a href="../reference/pivot_longer.html">pivot_longer()</a></code> now both check that the spec columns <code>.name</code> and <code>.value</code> are character vectors. Additionally, the <code>.name</code> column must be unique (<a href='https://github.com/tidyverse/tidyr/issues/1107'>#1107</a>).</p></li>
 <li><p>The <code>names_from</code> and <code>values_from</code> arguments to <code><a href="../reference/pivot_wider.html">pivot_wider()</a></code> are now required if their default values of <code>name</code> and <code>value</code> don’t correspond to columns in <code>data</code>. Additionally, they must identify at least 1 column in <code>data</code> (<a href='https://github.com/tidyverse/tidyr/issues/1240'>#1240</a>).</p></li>
