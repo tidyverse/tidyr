@@ -105,24 +105,35 @@ unpack <- function(data, cols, names_sep = NULL, names_repair = "check_unique") 
   size <- vec_size(data)
 
   # Start from first principles to avoid issues in any subclass methods
-  out <- new_data_frame(data, n = size)
+  out <- tidyr_new_list(data)
 
   cols <- out[cols]
   cols <- cols[map_lgl(cols, is.data.frame)]
-  cols <- tidyr_new_list(cols)
 
   cols_names <- names(cols)
 
   if (!is.null(names_sep)) {
-    cols <- map2(cols, cols_names, rename_with_names_sep, names_sep = names_sep)
+    out[cols_names] <- map2(
+      cols,
+      cols_names,
+      rename_with_names_sep,
+      names_sep = names_sep
+    )
   }
 
-  out <- tidyr_col_modify(out, cols)
-  out <- flatten_at(out, names(out) %in% cols_names)
+  # Signal to tell `df_list()` to unpack
+  names <- names(out)
+  names[names %in% cols_names] <- ""
+  names(out) <- names
 
-  names(out) <- vec_as_names(names(out), repair = names_repair, repair_arg = "names_repair")
-
+  out <- df_list(!!!out, .size = size, .name_repair = "minimal")
   out <- tibble::new_tibble(out, nrow = size)
+
+  names(out) <- vec_as_names(
+    names = names(out),
+    repair = names_repair,
+    repair_arg = "names_repair"
+  )
 
   reconstruct_tibble(data, out)
 }
@@ -141,33 +152,4 @@ strip_names <- function(df, base, names_sep) {
   names[has_prefix] <- substr(names[has_prefix], nchar(base) + 1, nchar(names[has_prefix]))
 
   set_names(df, names)
-}
-
-flatten_at <- function(x, to_flatten) {
-  if (!any(to_flatten)) {
-    return(x)
-  }
-
-  cols <- rep(1L, length(x))
-  cols[to_flatten] <- map_int(x[to_flatten], length)
-
-  out <- vector("list", sum(cols))
-  names <- vector("character", sum(cols))
-  j <- 1
-  for (i in seq_along(x)) {
-    if (cols[[i]] == 0) {
-      next
-    }
-
-    if (to_flatten[[i]]) {
-      out[j:(j + cols[[i]] - 1)] <- x[[i]]
-      names[j:(j + cols[[i]] - 1)] <- names(x[[i]])
-    } else {
-      out[[j]] <- x[[i]]
-      names[[j]] <- names(x)[[i]]
-    }
-    j <- j + cols[[i]]
-  }
-  names(out) <- names
-  out
 }
