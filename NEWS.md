@@ -1,5 +1,8 @@
 # tidyr (development version)
 
+* `pivot_wider()` now throws a more informative error when `values_fn` doesn't
+  result in a single summary value (#1238).
+
 * `pivot_wider()` now correctly handles the case where an id column name
   collides with a value from `names_from` (#1107).
 

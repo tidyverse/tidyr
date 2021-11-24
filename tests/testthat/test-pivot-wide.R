@@ -128,6 +128,13 @@ test_that("`values_from` must identify at least 1 column (#1240)", {
   )
 })
 
+test_that("`values_fn` emits an informative error when it doesn't result in unique values (#1238)", {
+  df <- tibble(name = c("a", "a"), value = c(1, 2))
+  expect_snapshot(
+    (expect_error(pivot_wider(df, values_fn = list(value = ~.x))))
+  )
+})
+
 # column names -------------------------------------------------------------
 
 test_that("names_glue affects output names", {
