@@ -1,3 +1,11 @@
+# can only be length 0
+
+    Code
+      (expect_error(replace_na(1, 1:10)))
+    Output
+      <error/rlang_error>
+      Replacement for `data` is length 10, not length 1.
+
 # replacement must be castable to `data`
 
     Code

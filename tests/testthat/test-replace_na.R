@@ -11,7 +11,7 @@ test_that("missing values are replaced", {
 })
 
 test_that("can only be length 0", {
-  expect_error(replace_na(1, 1:10), "length 10, not length 1")
+  expect_snapshot((expect_error(replace_na(1, 1:10))))
 })
 
 test_that("can replace missing rows in arrays", {
