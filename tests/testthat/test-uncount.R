@@ -41,5 +41,5 @@ test_that("works with 0 weights", {
 
 test_that("errors on negative weights", {
   df <- tibble(x = 1, w = -1)
-  expect_error(uncount(df, w), "all elements of `weights` must be >= 0")
+  expect_snapshot((expect_error(uncount(df, w))))
 })
