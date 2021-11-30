@@ -47,8 +47,10 @@ test_that("groups are preserved", {
 
 test_that("informative error message if wrong number of groups", {
   df <- tibble(x = "a")
-  expect_error(extract(df, x, "y", "."), "should define 1 groups")
-  expect_error(extract(df, x, c("y", "z"), "."), "should define 2 groups")
+  expect_snapshot({
+    (expect_error(extract(df, x, "y", ".")))
+    (expect_error(extract(df, x, c("y", "z"), ".")))
+  })
 })
 
 test_that("str_match_first handles edge cases", {
