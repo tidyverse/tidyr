@@ -33,12 +33,18 @@ test_that("can check check/transform values", {
 
 test_that("nested lists generate a cast error if they can't be cast to the ptype", {
   df <- tibble(x = list(list(b = list(1))))
-  expect_snapshot(error = TRUE, hoist(df, x, "b", .ptype = list(b = double())))
+
+  expect_snapshot((expect_error(
+    hoist(df, x, "b", .ptype = list(b = double()))
+  )))
 })
 
 test_that("non-vectors generate a cast error if a ptype is supplied", {
   df <- tibble(x = list(list(b = quote(a))))
-  expect_snapshot(error = TRUE, hoist(df, x, "b", .ptype = list(b = integer())))
+
+  expect_snapshot((expect_error(
+    hoist(df, x, "b", .ptype = list(b = integer()))
+  )))
 })
 
 test_that("a ptype generates a list-of<ptype> if the col can't be simplified (#998)", {
@@ -108,7 +114,10 @@ test_that("string pluckers are automatically named", {
 
 test_that("can't hoist() from a data frame column", {
   df <- tibble(a = tibble(x = 1))
-  expect_snapshot(error = TRUE, hoist(df, a, xx = 1))
+
+  expect_snapshot((expect_error(
+    hoist(df, a, xx = 1)
+  )))
 })
 
 test_that("can hoist() without any pluckers", {
@@ -260,7 +269,10 @@ test_that("treats data frames like lists where we have type info about each elem
 
 test_that("unnest_wider - bad inputs generate errors", {
   df <- tibble(x = 1, y = list(mean))
-  expect_snapshot(error = TRUE, unnest_wider(df, y))
+
+  expect_snapshot((expect_error(
+    unnest_wider(df, y)
+  )))
 })
 
 test_that("list of 0-length vectors yields no new columns", {
@@ -438,7 +450,9 @@ test_that("can't currently combine compatible `<list> + <list_of<ptype>>`", {
 
   df <- tibble(col = list(list(a = 1:2), list_of(a = 1L)))
 
-  expect_snapshot(error = TRUE, unnest_wider(df, col))
+  expect_snapshot((expect_error(
+    unnest_wider(df, col)
+  )))
 })
 
 test_that("unnest_wider() input must be a data frame (#1224)", {
@@ -540,7 +554,10 @@ test_that("can unested dates", {
 
 test_that("unnest_longer - bad inputs generate errors", {
   df <- tibble(x = 1, y = list(mean))
-  expect_snapshot(error = TRUE, unnest_longer(df, y))
+
+  expect_snapshot((expect_error(
+    unnest_longer(df, y)
+  )))
 })
 
 test_that("list_of columns can be unnested", {
@@ -745,9 +762,9 @@ test_that("can't currently retain names when simplification isn't done and a pty
 })
 
 test_that("can't mix `indices_to` with `indices_include = FALSE`", {
-  expect_snapshot(error = TRUE,
+  expect_snapshot((expect_error(
     unnest_longer(mtcars, mpg, indices_to = "x", indices_include = FALSE)
-  )
+  )))
 })
 
 test_that("unnest_longer() input must be a data frame (#1224)", {
@@ -756,23 +773,30 @@ test_that("unnest_longer() input must be a data frame (#1224)", {
 
 test_that("`values_to` and `indices_to` glue can't reach into surrounding env", {
   x <- "foo"
-  expect_snapshot(error = TRUE, unnest_longer(mtcars, mpg, indices_to = "{x}"))
-  expect_snapshot(error = TRUE, unnest_longer(mtcars, mpg, values_to = "{x}"))
+
+  expect_error(unnest_longer(mtcars, mpg, indices_to = "{x}"))
+  expect_error(unnest_longer(mtcars, mpg, values_to = "{x}"))
 })
 
 test_that("`values_to` is validated", {
-  expect_snapshot(error = TRUE, unnest_longer(mtcars, mpg, values_to = 1))
-  expect_snapshot(error = TRUE, unnest_longer(mtcars, mpg, values_to = c("x", "y")))
+  expect_snapshot({
+    (expect_error(unnest_longer(mtcars, mpg, values_to = 1)))
+    (expect_error(unnest_longer(mtcars, mpg, values_to = c("x", "y"))))
+  })
 })
 
 test_that("`indices_to` is validated", {
-  expect_snapshot(error = TRUE, unnest_longer(mtcars, mpg, indices_to = 1))
-  expect_snapshot(error = TRUE, unnest_longer(mtcars, mpg, indices_to = c("x", "y")))
+  expect_snapshot({
+    (expect_error(unnest_longer(mtcars, mpg, indices_to = 1)))
+    (expect_error(unnest_longer(mtcars, mpg, indices_to = c("x", "y"))))
+  })
 })
 
 test_that("`indices_include` is validated", {
-  expect_snapshot(error = TRUE, unnest_longer(mtcars, mpg, indices_include = 1))
-  expect_snapshot(error = TRUE, unnest_longer(mtcars, mpg, indices_include = c(TRUE, FALSE)))
+  expect_snapshot({
+    (expect_error(unnest_longer(mtcars, mpg, indices_include = 1)))
+    (expect_error(unnest_longer(mtcars, mpg, indices_include = c(TRUE, FALSE))))
+  })
 })
 
 # unnest_auto -------------------------------------------------------------
@@ -934,9 +958,9 @@ test_that("ptype is applied after transform", {
     c(2L, 3L, 4L)
   )
 
-  expect_snapshot(error = TRUE, {
+  expect_snapshot((expect_error(
     col_simplify(list(1, 2, 3), ptype = integer(), transform = ~.x + 1.5)
-  })
+  )))
 })
 
 test_that("lists of lists aren't simplified", {
