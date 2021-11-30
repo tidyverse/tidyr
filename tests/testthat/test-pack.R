@@ -22,8 +22,11 @@ test_that("can strip outer names from inner names", {
 
 test_that("all inputs must be named", {
   df <- tibble(a1 = 1, a2 = 2, b1 = 1, b2 = 2)
-  expect_error(pack(df, a = c(a1, a2), c(b1, b2)), "must be named")
-  expect_error(pack(df, c(a1, a2), c(b1, b2)), "must be named")
+
+  expect_snapshot({
+    (expect_error(pack(df, a = c(a1, a2), c(b1, b2))))
+    (expect_error(pack(df, c(a1, a2), c(b1, b2))))
+  })
 })
 
 test_that("grouping is preserved", {
