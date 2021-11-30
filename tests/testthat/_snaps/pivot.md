@@ -15,7 +15,7 @@
       (expect_error(check_spec(df)))
     Output
       <error/rlang_error>
-      The `.name` column must be a character vector.
+      Error in `check_spec()`: The `.name` column must be a character vector.
 
 # `.value` column must be a character vector
 
@@ -23,7 +23,7 @@
       (expect_error(check_spec(df)))
     Output
       <error/rlang_error>
-      The `.value` column must be a character vector.
+      Error in `check_spec()`: The `.value` column must be a character vector.
 
 # `.name` column must be unique
 
@@ -31,5 +31,5 @@
       (expect_error(check_spec(df)))
     Output
       <error/rlang_error>
-      The `.name` column must be unique.
+      Error in `check_spec()`: The `.name` column must be unique.
 

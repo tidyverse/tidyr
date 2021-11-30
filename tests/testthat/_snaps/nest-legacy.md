@@ -4,7 +4,7 @@
       (expect_error(unnest_legacy(df)))
     Output
       <error/rlang_error>
-      Each column must either be a list of vectors or a list of data frames [x]
+      Error in `unnest_legacy()`: Each column must either be a list of vectors or a list of data frames [x]
 
 # multiple columns must be same length
 
@@ -12,7 +12,7 @@
       (expect_error(unnest_legacy(df)))
     Output
       <error/rlang_error>
-      All nested columns must have the same number of elements.
+      Error in `unnest_legacy()`: All nested columns must have the same number of elements.
 
 ---
 
@@ -20,5 +20,5 @@
       (expect_error(unnest_legacy(df)))
     Output
       <error/rlang_error>
-      All nested columns must have the same number of elements.
+      Error in `unnest_legacy()`: All nested columns must have the same number of elements.
 

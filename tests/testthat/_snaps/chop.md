@@ -4,7 +4,7 @@
       (expect_error(chop(df)))
     Output
       <error/rlang_error>
-      Argument `cols` is missing with no default
+      Error in `check_present()`: Argument `cols` is missing with no default
 
 # the ptype must be a list
 
@@ -12,7 +12,7 @@
       (expect_error(unchop(mtcars, mpg, ptype = 1)))
     Output
       <error/rlang_error>
-      `ptype` must be a named list.
+      Error in `df_unchop()`: `ptype` must be a named list.
 
 # incompatible sizes are caught
 
@@ -20,7 +20,7 @@
       (expect_error(unchop(df, c(x, y))))
     Output
       <error/rlang_error>
-      In row 1, can't recycle input of size 2 to size 3.
+      Error in `fn()`: In row 1, can't recycle input of size 2 to size 3.
 
 # empty typed inputs are considered in common size, but NULLs aren't
 
@@ -28,5 +28,5 @@
       (expect_error(unchop(df, c(x, y))))
     Output
       <error/rlang_error>
-      In row 1, can't recycle input of size 0 to size 2.
+      Error in `fn()`: In row 1, can't recycle input of size 0 to size 2.
 

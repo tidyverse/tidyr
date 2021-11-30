@@ -2,7 +2,7 @@
 
     Code
       separate(df, x, c("x", "y"))
-    Warning <warning>
+    Warning <rlang_warning>
       Expected 2 pieces. Additional pieces discarded in 1 rows [2].
     Output
       # A tibble: 2 x 2
@@ -15,7 +15,7 @@
 
     Code
       separate(df, x, c("x", "y"), extra = "error")
-    Warning <warning>
+    Warning <rlang_warning>
       `extra = "error"` is deprecated. Please use `extra = "warn"` instead
       Expected 2 pieces. Additional pieces discarded in 1 rows [2].
     Output
@@ -29,7 +29,7 @@
 
     Code
       separate(df, x, c("x", "y", "z"))
-    Warning <warning>
+    Warning <rlang_warning>
       Expected 3 pieces. Missing pieces filled with `NA` in 1 rows [1].
     Output
       # A tibble: 2 x 3
@@ -44,10 +44,10 @@
       (expect_error(separate(df, x, "x", FALSE)))
     Output
       <error/rlang_error>
-      `sep` must be either numeric or character
+      Error in `str_separate()`: `sep` must be either numeric or character
     Code
       (expect_error(separate(df, x, FALSE)))
     Output
       <error/rlang_error>
-      `into` must be a character vector
+      Error in `str_separate()`: `into` must be a character vector
 

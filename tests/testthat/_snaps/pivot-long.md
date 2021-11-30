@@ -4,7 +4,7 @@
       (expect_error(pivot_longer(df, y, names_to = "x")))
     Output
       <error/vctrs_error_names_must_be_unique>
-      Names must be unique.
+      Error in `stop_vctrs()`: Names must be unique.
       x These names are duplicated:
         * "x" at locations 1 and 2.
       i Use argument `names_repair` to specify repair strategy.
@@ -24,13 +24,13 @@
       (expect_error(build_longer_spec(df, x_y, names_to = c("a", "b"))))
     Output
       <error/rlang_error>
-      If you supply multiple names in `names_to` you must also supply one of `names_sep` or `names_pattern`.
+      Error in `build_longer_spec()`: If you supply multiple names in `names_to` you must also supply one of `names_sep` or `names_pattern`.
     Code
       (expect_error(build_longer_spec(df, x_y, names_to = c("a", "b"), names_sep = "x",
       names_pattern = "x")))
     Output
       <error/rlang_error>
-      If you supply multiple names in `names_to` you must also supply one of `names_sep` or `names_pattern`.
+      Error in `build_longer_spec()`: If you supply multiple names in `names_to` you must also supply one of `names_sep` or `names_pattern`.
 
 # names_sep fails with single name
 
@@ -38,7 +38,7 @@
       (expect_error(build_longer_spec(df, x_y, names_to = "x", names_sep = "_")))
     Output
       <error/rlang_error>
-      `names_sep` can't be used with a length 1 `names_to`.
+      Error in `build_longer_spec()`: `names_sep` can't be used with a length 1 `names_to`.
 
 # Error if the `col` can't be selected.
 
@@ -46,7 +46,7 @@
       (expect_error(pivot_longer(iris, matches("foo"))))
     Output
       <error/rlang_error>
-      `cols` must select at least one column.
+      Error in `build_longer_spec()`: `cols` must select at least one column.
 
 # `names_to` is validated
 
@@ -54,16 +54,16 @@
       (expect_error(build_longer_spec(df, x, names_to = 1)))
     Output
       <error/rlang_error>
-      `names_to` must be a character vector or `NULL`.
+      Error in `build_longer_spec()`: `names_to` must be a character vector or `NULL`.
     Code
       (expect_error(build_longer_spec(df, x, names_to = c("x", "y"))))
     Output
       <error/rlang_error>
-      If you supply multiple names in `names_to` you must also supply one of `names_sep` or `names_pattern`.
+      Error in `build_longer_spec()`: If you supply multiple names in `names_to` you must also supply one of `names_sep` or `names_pattern`.
     Code
       (expect_error(build_longer_spec(df, x, names_to = c("x", "y"), names_sep = "_",
       names_pattern = "x")))
     Output
       <error/rlang_error>
-      If you supply multiple names in `names_to` you must also supply one of `names_sep` or `names_pattern`.
+      Error in `build_longer_spec()`: If you supply multiple names in `names_to` you must also supply one of `names_sep` or `names_pattern`.
 
