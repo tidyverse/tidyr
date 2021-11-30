@@ -58,7 +58,7 @@ str_extract <- function(x, into, regex, convert = FALSE) {
   out <- str_match_first(x, regex)
   if (length(out) != length(into)) {
     stop(
-      "`regex` should define ", length(into), " groups; ", ncol(matches), " found.",
+      "`regex` should define ", length(into), " groups; ", length(out), " found.",
       call. = FALSE
     )
   }
