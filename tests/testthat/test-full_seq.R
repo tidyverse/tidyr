@@ -1,6 +1,8 @@
 test_that("full_seq errors if sequence isn't regular", {
-  expect_error(full_seq(c(1, 3, 4), 2), "not a regular sequence")
-  expect_error(full_seq(c(0, 10, 20), 11, tol = 1.8), "not a regular sequence")
+  expect_snapshot({
+    (expect_error(full_seq(c(1, 3, 4), 2)))
+    (expect_error(full_seq(c(0, 10, 20), 11, tol = 1.8)))
+  })
 })
 
 test_that("full_seq with tol > 0 allows sequences to fall short of period", {
