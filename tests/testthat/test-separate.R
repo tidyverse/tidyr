@@ -107,14 +107,11 @@ test_that("drops NA columns", {
 
 test_that("checks type of `into` and `sep`", {
   df <- tibble(x = "a:b")
-  expect_error(
-    separate(df, x, "x", FALSE),
-    "must be either numeric or character"
-  )
-  expect_error(
-    separate(df, x, FALSE),
-    "must be a character vector"
-  )
+
+  expect_snapshot({
+    (expect_error(separate(df, x, "x", FALSE)))
+    (expect_error(separate(df, x, FALSE)))
+  })
 })
 
 # helpers -----------------------------------------------------------------

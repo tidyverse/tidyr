@@ -199,19 +199,20 @@ test_that("no names doesn't generate names (#1120)", {
 
 test_that("multiple names requires names_sep/names_pattern", {
   df <- tibble(x_y = 1)
-  expect_error(
-    build_longer_spec(df, x_y, names_to = c("a", "b")),
-    "multiple names"
-  )
 
-  expect_error(
-    build_longer_spec(df, x_y,
-      names_to = c("a", "b"),
-      names_sep = "x",
-      names_pattern = "x"
-    ),
-    "one of `names_sep` or `names_pattern"
-  )
+  expect_snapshot({
+    (expect_error(build_longer_spec(df, x_y, names_to = c("a", "b"))))
+
+    (expect_error(
+      build_longer_spec(
+        df,
+        x_y,
+        names_to = c("a", "b"),
+        names_sep = "x",
+        names_pattern = "x"
+      )
+    ))
+  })
 })
 
 test_that("names_sep generates correct spec", {
@@ -224,7 +225,10 @@ test_that("names_sep generates correct spec", {
 
 test_that("names_sep fails with single name", {
   df <- tibble(x_y = 1)
-  expect_error(build_longer_spec(df, x_y, names_to = "x", names_sep = "_"), "`names_sep`")
+
+  expect_snapshot({
+    (expect_error(build_longer_spec(df, x_y, names_to = "x", names_sep = "_")))
+  })
 })
 
 test_that("names_pattern generates correct spec", {
@@ -276,7 +280,9 @@ test_that("transform is applied before cast (#1233)", {
 })
 
 test_that("Error if the `col` can't be selected.", {
-  expect_error(pivot_longer(iris, matches("foo")), "select at least one")
+  expect_snapshot({
+    (expect_error(pivot_longer(iris, matches("foo"))))
+  })
 })
 
 test_that("`names_to` is validated", {

@@ -1,6 +1,8 @@
 test_that("basic sanity checks for spec occur", {
-  expect_error(check_spec(1), "data.frame")
-  expect_error(check_spec(mtcars), ".name")
+  expect_snapshot({
+    (expect_error(check_spec(1)))
+    (expect_error(check_spec(mtcars)))
+  })
 })
 
 test_that("`.name` column must be a character vector", {

@@ -18,6 +18,36 @@
       * x -> x...1
       * x -> x...2
 
+# multiple names requires names_sep/names_pattern
+
+    Code
+      (expect_error(build_longer_spec(df, x_y, names_to = c("a", "b"))))
+    Output
+      <error/rlang_error>
+      If you supply multiple names in `names_to` you must also supply one of `names_sep` or `names_pattern`.
+    Code
+      (expect_error(build_longer_spec(df, x_y, names_to = c("a", "b"), names_sep = "x",
+      names_pattern = "x")))
+    Output
+      <error/rlang_error>
+      If you supply multiple names in `names_to` you must also supply one of `names_sep` or `names_pattern`.
+
+# names_sep fails with single name
+
+    Code
+      (expect_error(build_longer_spec(df, x_y, names_to = "x", names_sep = "_")))
+    Output
+      <error/rlang_error>
+      `names_sep` can't be used with a length 1 `names_to`.
+
+# Error if the `col` can't be selected.
+
+    Code
+      (expect_error(pivot_longer(iris, matches("foo"))))
+    Output
+      <error/rlang_error>
+      `cols` must select at least one column.
+
 # `names_to` is validated
 
     Code

@@ -38,3 +38,16 @@
       1 a     b     <NA> 
       2 a     b     c    
 
+# checks type of `into` and `sep`
+
+    Code
+      (expect_error(separate(df, x, "x", FALSE)))
+    Output
+      <error/rlang_error>
+      `sep` must be either numeric or character
+    Code
+      (expect_error(separate(df, x, FALSE)))
+    Output
+      <error/rlang_error>
+      `into` must be a character vector
+
