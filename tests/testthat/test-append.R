@@ -9,7 +9,7 @@ test_that("after must be integer or character", {
   df1 <- data.frame(x = 1)
   df2 <- data.frame(x = 2)
 
-  expect_error(append_df(df1, df2, after = 1), "must be character or integer")
+  expect_snapshot((expect_error(append_df(df1, df2, after = 1))))
 })
 
 
