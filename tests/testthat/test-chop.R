@@ -199,7 +199,7 @@ test_that("ptype is utilized on non-list columns (#1211)", {
 })
 
 test_that("the ptype must be a list", {
-  expect_snapshot(error = TRUE, unchop(mtcars, mpg, ptype = 1))
+  expect_snapshot((expect_error(unchop(mtcars, mpg, ptype = 1))))
 })
 
 test_that("ptype is allowed to be a data frame", {
@@ -258,7 +258,7 @@ test_that("unchop works with record columns (treating them like vectors)", {
 
 test_that("incompatible sizes are caught", {
   df <- tibble(x = list(1:2), y = list(1:3))
-  expect_snapshot(error = TRUE, unchop(df, c(x, y)))
+  expect_snapshot((expect_error(unchop(df, c(x, y)))))
 })
 
 test_that("empty typed inputs are considered in common size, but NULLs aren't", {
@@ -266,7 +266,7 @@ test_that("empty typed inputs are considered in common size, but NULLs aren't", 
   expect_error(unchop(df, c(x, y)), NA)
 
   df <- tibble(x = list(integer()), y = list(1:2))
-  expect_snapshot(error = TRUE, unchop(df, c(x, y)))
+  expect_snapshot((expect_error(unchop(df, c(x, y)))))
 })
 
 test_that("unchopping retains inner names from tibble elements", {
