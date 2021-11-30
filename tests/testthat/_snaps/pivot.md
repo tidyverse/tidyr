@@ -1,3 +1,14 @@
+# basic sanity checks for spec occur
+
+    Code
+      (expect_error(check_spec(1)))
+    Output
+      <simpleError: `spec` must be a data frame>
+    Code
+      (expect_error(check_spec(mtcars)))
+    Output
+      <simpleError: `spec` must have `.name` and `.value` columns>
+
 # `.name` column must be a character vector
 
     Code
