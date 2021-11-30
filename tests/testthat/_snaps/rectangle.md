@@ -60,7 +60,7 @@
 
     Code
       out <- unnest_wider(df, x, names_sep = "_")
-    Message <simpleMessage>
+    Message
       New names:
       * `` -> ...1
 
@@ -68,7 +68,7 @@
 
     Code
       out <- unnest_wider(df, col, names_sep = "_")
-    Message <simpleMessage>
+    Message
       New names:
       * `` -> ...1
 
@@ -76,7 +76,7 @@
 
     Code
       out <- unnest_wider(df, col, names_sep = "_")
-    Message <simpleMessage>
+    Message
       New names:
       * `` -> ...1
       * `` -> ...2
@@ -85,7 +85,7 @@
 
     Code
       out1 <- unnest_wider(df, col)
-    Message <simpleMessage>
+    Message
       New names:
       * `` -> ...1
       New names:
@@ -95,7 +95,7 @@
 
     Code
       out2 <- unnest_wider(df, col, names_sep = "_")
-    Message <simpleMessage>
+    Message
       New names:
       * NA -> ...1
       New names:

@@ -13,7 +13,7 @@
 
     Code
       out <- pivot_wider(df, names_from = key, values_from = val, names_repair = "unique")
-    Message <simpleMessage>
+    Message
       New names:
       * a -> a...1
       * a -> a...2
@@ -67,8 +67,8 @@
 
     Code
       pv <- pivot_wider(df, names_from = key, values_from = val)
-    Warning <rlang_warning>
-      Values from `val` are not uniquely identified; output will contain list-cols.
+    Condition
+      Warning: Values from `val` are not uniquely identified; output will contain list-cols.
       * Use `values_fn = list` to suppress this warning.
       * Use `values_fn = length` to identify where the duplicates arise.
       * Use `values_fn = {summary_fun}` to summarise duplicates.
@@ -77,12 +77,12 @@
 
     Code
       pivot_wider(df, names_from = key, values_from = c(a, b, c), values_fn = list(b = sum))
-    Warning <rlang_warning>
-      Values from `a` are not uniquely identified; output will contain list-cols.
+    Condition
+      Warning: Values from `a` are not uniquely identified; output will contain list-cols.
       * Use `values_fn = list` to suppress this warning.
       * Use `values_fn = length` to identify where the duplicates arise.
       * Use `values_fn = {summary_fun}` to summarise duplicates.
-      Values from `c` are not uniquely identified; output will contain list-cols.
+      Warning: Values from `c` are not uniquely identified; output will contain list-cols.
       * Use `values_fn = list` to suppress this warning.
       * Use `values_fn = length` to identify where the duplicates arise.
       * Use `values_fn = {summary_fun}` to summarise duplicates.

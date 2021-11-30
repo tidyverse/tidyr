@@ -13,7 +13,7 @@
 
     Code
       out <- pivot_longer(df, y, names_to = "x", names_repair = "unique")
-    Message <simpleMessage>
+    Message
       New names:
       * x -> x...1
       * x -> x...2

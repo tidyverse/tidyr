@@ -2,8 +2,8 @@
 
     Code
       out <- nest(df)
-    Warning <rlang_warning>
-      `...` must not be empty for ungrouped data frames.
+    Condition
+      Warning: `...` must not be empty for ungrouped data frames.
       Did you want `data = everything()`?
 
 # bad inputs generate errors
@@ -42,54 +42,54 @@
 
     Code
       out <- nest(df, y)
-    Warning <rlang_warning>
-      All elements of `...` must be named.
+    Condition
+      Warning: All elements of `...` must be named.
       Did you want `data = c(y)`?
 
 # only warn about unnamed inputs (#1175)
 
     Code
       out <- nest(df, x, y, foo = z)
-    Warning <rlang_warning>
-      All elements of `...` must be named.
+    Condition
+      Warning: All elements of `...` must be named.
       Did you want `data = c(x, y)`?
 
 # unnamed expressions are kept in the warning
 
     Code
       out <- nest(df, x, starts_with("z"))
-    Warning <rlang_warning>
-      All elements of `...` must be named.
+    Condition
+      Warning: All elements of `...` must be named.
       Did you want `data = c(x, starts_with("z"))`?
 
 # can control output column name
 
     Code
       out <- nest(df, y, .key = "y")
-    Warning <rlang_warning>
-      All elements of `...` must be named.
+    Condition
+      Warning: All elements of `...` must be named.
       Did you want `y = c(y)`?
 
 # can control output column name when nested
 
     Code
       out <- nest(df, .key = "y")
-    Warning <rlang_warning>
-      `.key` is deprecated
+    Condition
+      Warning: `.key` is deprecated
 
 # .key gets warning with new interface
 
     Code
       out <- nest(df, y = y, .key = "y")
-    Warning <rlang_warning>
-      `.key` is deprecated
+    Condition
+      Warning: `.key` is deprecated
 
 # cols must go in cols
 
     Code
       unnest(df, x, y)
-    Warning <rlang_warning>
-      unnest() has a new interface. See ?unnest for details.
+    Condition
+      Warning: unnest() has a new interface. See ?unnest for details.
       Try `df %>% unnest(c(x, y))`, with `mutate()` if needed
     Output
       # A tibble: 2 x 2
@@ -102,8 +102,8 @@
 
     Code
       unnest(df)
-    Warning <rlang_warning>
-      `cols` is now required when using unnest().
+    Condition
+      Warning: `cols` is now required when using unnest().
       Please use `cols = c(y)`
     Output
       # A tibble: 2 x 2
@@ -116,24 +116,24 @@
 
     Code
       out <- df %>% unnest(c(x, y), .sep = "_")
-    Warning <lifecycle_warning_deprecated>
-      The `.sep` argument of `unnest()` is deprecated as of tidyr 1.0.0.
+    Condition
+      Warning: The `.sep` argument of `unnest()` is deprecated as of tidyr 1.0.0.
       Use `names_sep = '_'` instead.
 
 # unnest has mutate semantics
 
     Code
       out <- df %>% unnest(z = map(y, `+`, 1))
-    Warning <rlang_warning>
-      unnest() has a new interface. See ?unnest for details.
+    Condition
+      Warning: unnest() has a new interface. See ?unnest for details.
       Try `df %>% unnest(c(z))`, with `mutate()` if needed
 
 # .drop and .preserve are deprecated
 
     Code
       df %>% unnest(x, .preserve = y)
-    Warning <lifecycle_warning_deprecated>
-      The `.preserve` argument of `unnest()` is deprecated as of tidyr 1.0.0.
+    Condition
+      Warning: The `.preserve` argument of `unnest()` is deprecated as of tidyr 1.0.0.
       All list-columns are now preserved
     Output
       # A tibble: 2 x 2
@@ -146,8 +146,8 @@
 
     Code
       df %>% unnest(x, .drop = FALSE)
-    Warning <lifecycle_warning_deprecated>
-      The `.drop` argument of `unnest()` is deprecated as of tidyr 1.0.0.
+    Condition
+      Warning: The `.drop` argument of `unnest()` is deprecated as of tidyr 1.0.0.
       All list-columns are now preserved.
     Output
       # A tibble: 2 x 2
@@ -160,7 +160,7 @@
 
     Code
       out <- unnest(df, y, .id = "name")
-    Warning <lifecycle_warning_deprecated>
-      The `.id` argument of `unnest()` is deprecated as of tidyr 1.0.0.
+    Condition
+      Warning: The `.id` argument of `unnest()` is deprecated as of tidyr 1.0.0.
       Manually create column of names instead.
 

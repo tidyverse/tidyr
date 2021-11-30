@@ -2,8 +2,8 @@
 
     Code
       separate(df, x, c("x", "y"))
-    Warning <rlang_warning>
-      Expected 2 pieces. Additional pieces discarded in 1 rows [2].
+    Condition
+      Warning: Expected 2 pieces. Additional pieces discarded in 1 rows [2].
     Output
       # A tibble: 2 x 2
         x     y    
@@ -15,9 +15,9 @@
 
     Code
       separate(df, x, c("x", "y"), extra = "error")
-    Warning <rlang_warning>
-      `extra = "error"` is deprecated. Please use `extra = "warn"` instead
-      Expected 2 pieces. Additional pieces discarded in 1 rows [2].
+    Condition
+      Warning: `extra = "error"` is deprecated. Please use `extra = "warn"` instead
+      Warning: Expected 2 pieces. Additional pieces discarded in 1 rows [2].
     Output
       # A tibble: 2 x 2
         x     y    
@@ -29,8 +29,8 @@
 
     Code
       separate(df, x, c("x", "y", "z"))
-    Warning <rlang_warning>
-      Expected 3 pieces. Missing pieces filled with `NA` in 1 rows [1].
+    Condition
+      Warning: Expected 3 pieces. Missing pieces filled with `NA` in 1 rows [1].
     Output
       # A tibble: 2 x 3
         x     y     z    

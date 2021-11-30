@@ -10,7 +10,7 @@
 
     Code
       out <- df %>% expand(x = x, x = x, .name_repair = "unique")
-    Message <simpleMessage>
+    Message
       New names:
       * x -> x...1
       * x -> x...2
@@ -19,7 +19,7 @@
 
     Code
       out <- crossing(x = x, x = x, .name_repair = "unique")
-    Message <simpleMessage>
+    Message
       New names:
       * x -> x...1
       * x -> x...2
@@ -28,7 +28,7 @@
 
     Code
       out <- nesting(x = x, x = x, .name_repair = "unique")
-    Message <simpleMessage>
+    Message
       New names:
       * x -> x...1
       * x -> x...2
@@ -47,7 +47,7 @@
 
     Code
       out <- expand_grid(x = x, x = x, .name_repair = "unique")
-    Message <simpleMessage>
+    Message
       New names:
       * x -> x...1
       * x -> x...2

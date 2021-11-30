@@ -42,7 +42,7 @@ Suggests:
     readr,
     repurrrsive (>= 1.0.0),
     rmarkdown,
-    testthat (>= 3.0.0)
+    testthat (>= 3.1.0.9000)
 LinkingTo: 
     cpp11 (>= 0.4.0)
 VignetteBuilder: 
@@ -56,4 +56,5 @@ Config/testthat/edition: 3
 Config/Needs/website:
     tidyverse/tidytemplate
 Remotes:
-    r-lib/rlang
+    r-lib/rlang,
+    r-lib/testthat
