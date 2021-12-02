@@ -1,7 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://tidyr.tidyverse.org/CODE_OF_CONDUCT.html</loc>
+  </url>
+  <url>
+    <loc>https://tidyr.tidyverse.org/CONTRIBUTING.html</loc>
+  </url>
+  <url>
+    <loc>https://tidyr.tidyverse.org/ISSUE_TEMPLATE.html</loc>
+  </url>
+  <url>
+    <loc>https://tidyr.tidyverse.org/LICENSE-text.html</loc>
+  </url>
+  <url>
+    <loc>https://tidyr.tidyverse.org/LICENSE.html</loc>
+  </url>
+  <url>
+    <loc>https://tidyr.tidyverse.org/SUPPORT.html</loc>
+  </url>
+  <url>
+    <loc>https://tidyr.tidyverse.org/articles/in-packages.html</loc>
+  </url>
+  <url>
+    <loc>https://tidyr.tidyverse.org/articles/index.html</loc>
+  </url>
+  <url>
+    <loc>https://tidyr.tidyverse.org/articles/nest.html</loc>
+  </url>
+  <url>
+    <loc>https://tidyr.tidyverse.org/articles/pivot.html</loc>
+  </url>
+  <url>
+    <loc>https://tidyr.tidyverse.org/articles/programming.html</loc>
+  </url>
+  <url>
+    <loc>https://tidyr.tidyverse.org/articles/rectangle.html</loc>
+  </url>
+  <url>
+    <loc>https://tidyr.tidyverse.org/articles/tidy-data.html</loc>
+  </url>
+  <url>
+    <loc>https://tidyr.tidyverse.org/authors.html</loc>
+  </url>
+  <url>
     <loc>https://tidyr.tidyverse.org/index.html</loc>
+  </url>
+  <url>
+    <loc>https://tidyr.tidyverse.org/news/index.html</loc>
   </url>
   <url>
     <loc>https://tidyr.tidyverse.org/reference/billboard.html</loc>
@@ -47,6 +92,9 @@
   </url>
   <url>
     <loc>https://tidyr.tidyverse.org/reference/hoist.html</loc>
+  </url>
+  <url>
+    <loc>https://tidyr.tidyverse.org/reference/index.html</loc>
   </url>
   <url>
     <loc>https://tidyr.tidyverse.org/reference/nest.html</loc>
@@ -119,23 +167,5 @@
   </url>
   <url>
     <loc>https://tidyr.tidyverse.org/reference/world_bank_pop.html</loc>
-  </url>
-  <url>
-    <loc>https://tidyr.tidyverse.org/articles/in-packages.html</loc>
-  </url>
-  <url>
-    <loc>https://tidyr.tidyverse.org/articles/nest.html</loc>
-  </url>
-  <url>
-    <loc>https://tidyr.tidyverse.org/articles/pivot.html</loc>
-  </url>
-  <url>
-    <loc>https://tidyr.tidyverse.org/articles/programming.html</loc>
-  </url>
-  <url>
-    <loc>https://tidyr.tidyverse.org/articles/rectangle.html</loc>
-  </url>
-  <url>
-    <loc>https://tidyr.tidyverse.org/articles/tidy-data.html</loc>
   </url>
 </urlset>
