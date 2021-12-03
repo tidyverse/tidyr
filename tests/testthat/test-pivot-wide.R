@@ -154,6 +154,13 @@ test_that("can pivot a manual spec with spec columns that don't identify any row
   )
 })
 
+test_that("pivoting with a manual spec and zero rows results in zero rows (#1252)", {
+  spec <- tibble(.name = "name", .value = "value", x = 1L)
+
+  df <- tibble(value = integer(), x = integer())
+  expect_identical(pivot_wider_spec(df, spec), tibble(name = integer()))
+})
+
 # column names -------------------------------------------------------------
 
 test_that("names_glue affects output names", {

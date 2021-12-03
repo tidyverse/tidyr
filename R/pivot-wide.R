@@ -229,19 +229,14 @@ pivot_wider_spec <- function(data,
   }
   key_vars <- setdiff(key_vars, spec_cols)
 
-  # Figure out rows in output
-  df_rows <- data[key_vars]
-  if (ncol(df_rows) == 0) {
-    rows <- tibble(.rows = 1)
-    nrow <- 1L
-    # use `nrow(data)` here because data.table returns zero rows if no
-    # column is selected
-    row_id <- rep(1L, nrow(data))
-  } else {
-    row_id <- vec_group_id(df_rows)
-    nrow <- attr(row_id, "n")
-    rows <- vec_slice(df_rows, vec_unique_loc(row_id))
-  }
+  # Figure out rows in output.
+  # Early conversion to tibble because data.table returns zero rows if
+  # zero cols are selected.
+  rows <- as_tibble(data)
+  rows <- rows[key_vars]
+  row_id <- vec_group_id(rows)
+  nrow <- attr(row_id, "n")
+  rows <- vec_slice(rows, vec_unique_loc(row_id))
 
   value_specs <- unname(split(spec, spec$.value))
   value_out <- vec_init(list(), length(value_specs))
@@ -286,7 +281,7 @@ pivot_wider_spec <- function(data,
   values <- values[spec$.name]
 
   out <- wrap_error_names(vec_cbind(
-    as_tibble(rows),
+    rows,
     values,
     .name_repair = names_repair
   ))
