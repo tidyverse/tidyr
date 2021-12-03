@@ -46,9 +46,10 @@ for more options.}
 
 \item{id_cols}{<\code{\link[=tidyr_tidy_select]{tidy-select}}> A set of columns that
 uniquely identifies each observation. Defaults to all columns in \code{data}
-except for the columns specified in \code{names_from} and \code{values_from}.
-Typically used when you have redundant variables, i.e. variables whose
-values are perfectly correlated with existing variables.}
+except for the columns specified in \code{spec$.value} and the columns of the
+\code{spec} that aren't named \code{.name} or \code{.value}. Typically used when you have
+redundant variables, i.e. variables whose values are perfectly correlated
+with existing variables.}
 
 \item{values_fill}{Optionally, a (scalar) value that specifies what each
 \code{value} should be filled in with when missing.

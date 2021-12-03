@@ -179,6 +179,12 @@ pivot_wider.data.frame <- function(data,
 #'   pivoted from the wide format.
 #'   The special `.seq` variable is used to disambiguate rows internally;
 #'   it is automatically removed after pivotting.
+#' @param id_cols <[`tidy-select`][tidyr_tidy_select]> A set of columns that
+#'   uniquely identifies each observation. Defaults to all columns in `data`
+#'   except for the columns specified in `spec$.value` and the columns of the
+#'   `spec` that aren't named `.name` or `.value`. Typically used when you have
+#'   redundant variables, i.e. variables whose values are perfectly correlated
+#'   with existing variables.
 #'
 #' @examples
 #' # See vignette("pivot") for examples and explanation
