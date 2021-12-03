@@ -276,7 +276,7 @@ pivot_wider_spec <- function(data,
     }
     vec_slice(out, val_id$row + nrow * (val_id$col - 1L)) <- val
 
-    value_out[[i]] <- wrap_vec(out, spec_i$.name)
+    value_out[[i]] <- chop_rectangular_df(out, spec_i$.name)
   }
 
   # `check_spec()` ensures `.name` is unique. Name repair shouldn't be needed.
@@ -389,15 +389,24 @@ vals_dedup <- function(key, val, value, values_fn = NULL) {
 }
 
 # Wrap a "rectangular" vector into a data frame
-wrap_vec <- function(vec, names) {
-  ncol <- length(names)
-  nrow <- vec_size(vec) / ncol
-  out <- set_names(vec_init(list(), ncol), names)
-  for (i in 1:ncol) {
-    out[[i]] <- vec_slice(vec, ((i - 1) * nrow + 1):(i * nrow))
+chop_rectangular_df <- function(x, names) {
+  n_col <- vec_size(names)
+  n_row <- vec_size(x) / n_col
+
+  indices <- vector("list", n_col)
+
+  start <- 1L
+  stop <- n_row
+
+  for (i in seq_len(n_col)) {
+    indices[[i]] <- seq2(start, stop)
+    start <- start + n_row
+    stop <- stop + n_row
   }
 
-  as_tibble(out)
+  out <- vec_chop(x, indices)
+  names(out) <- names
+  tibble::new_tibble(out, nrow = n_row)
 }
 
 is_scalar <- function(x) {
