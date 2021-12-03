@@ -6,6 +6,9 @@ Authors@R:
              family = "Wickham",
              role = c("aut", "cre"),
              email = "hadley@rstudio.com"),
+      person(given = "Maximilian",
+             family = "Girlich",
+             role = "aut"),
       person(given = "RStudio",
              role = "cph"))
 Description: Tools to help to create tidy data, where each
