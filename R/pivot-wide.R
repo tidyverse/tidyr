@@ -133,7 +133,9 @@ pivot_wider.data.frame <- function(data,
                                    ) {
   names_from <- enquo(names_from)
   values_from <- enquo(values_from)
-  spec <- build_wider_spec(data,
+
+  spec <- build_wider_spec(
+    data = data,
     names_from = !!names_from,
     values_from = !!values_from,
     names_prefix = names_prefix,
@@ -142,8 +144,17 @@ pivot_wider.data.frame <- function(data,
     names_sort = names_sort
   )
 
-  id_cols <- enquo(id_cols)
-  pivot_wider_spec(data, spec, !!id_cols,
+  id_cols <- build_wider_id_cols_expr(
+    data = data,
+    id_cols = {{id_cols}},
+    names_from = !!names_from,
+    values_from = !!values_from
+  )
+
+  pivot_wider_spec(
+    data = data,
+    spec = spec,
+    id_cols = !!id_cols,
     names_repair = names_repair,
     values_fill = values_fill,
     values_fn = values_fn
@@ -218,22 +229,20 @@ pivot_wider_spec <- function(data,
     abort("`values_fill` must be NULL, a scalar, or a named list")
   }
 
-  values <- vec_unique(spec$.value)
-  spec_cols <- c(names(spec)[-(1:2)], values)
+  non_id_cols <- vec_unique(spec$.value)
+  non_id_cols <- c(names(spec)[-(1:2)], non_id_cols)
 
-  id_cols <- enquo(id_cols)
-  if (!quo_is_null(id_cols)) {
-    key_vars <- names(tidyselect::eval_select(enquo(id_cols), data))
-  } else {
-    key_vars <- tbl_vars(data)
-  }
-  key_vars <- setdiff(key_vars, spec_cols)
+  id_cols <- select_wider_id_cols(
+    data = data,
+    id_cols = {{id_cols}},
+    non_id_cols = non_id_cols
+  )
 
   # Figure out rows in output.
   # Early conversion to tibble because data.table returns zero rows if
   # zero cols are selected.
   rows <- as_tibble(data)
-  rows <- rows[key_vars]
+  rows <- rows[id_cols]
   row_id <- vec_group_id(rows)
   nrow <- attr(row_id, "n")
   rows <- vec_slice(rows, vec_unique_loc(row_id))
@@ -337,6 +346,42 @@ build_wider_spec <- function(data,
   }
 
   out
+}
+
+build_wider_id_cols_expr <- function(data,
+                                     id_cols = NULL,
+                                     names_from = name,
+                                     values_from = value) {
+  # TODO: Use `allow_rename = FALSE`.
+  # Requires https://github.com/r-lib/tidyselect/issues/225.
+  names_from <- names(tidyselect::eval_select(enquo(names_from), data))
+  values_from <- names(tidyselect::eval_select(enquo(values_from), data))
+  non_id_cols <- c(names_from, values_from)
+
+  out <- select_wider_id_cols(
+    data = data,
+    id_cols = {{id_cols}},
+    non_id_cols = non_id_cols
+  )
+
+  expr(c(!!!out))
+}
+
+select_wider_id_cols <- function(data,
+                                 id_cols = NULL,
+                                 non_id_cols = character()) {
+  id_cols <- enquo(id_cols)
+
+  # Remove known non-id-cols so they are never selected
+  data <- data[setdiff(names(data), non_id_cols)]
+
+  if (quo_is_null(id_cols)) {
+    as.character(names(data))
+  } else {
+    # TODO: Use `allow_rename = FALSE`.
+    # Requires https://github.com/r-lib/tidyselect/issues/225.
+    names(tidyselect::eval_select(enquo(id_cols), data))
+  }
 }
 
 # Helpers -----------------------------------------------------------------
