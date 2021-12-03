@@ -135,6 +135,25 @@ test_that("`values_fn` emits an informative error when it doesn't result in uniq
   )
 })
 
+test_that("can pivot a manual spec with spec columns that don't identify any rows (#1250)", {
+  # Looking for `x = 1L`
+  spec <- tibble(.name = "name", .value = "value", x = 1L)
+
+  # But that doesn't exist here...
+  df <- tibble(key = "a", value = 1L, x = 2L)
+  expect_identical(
+    pivot_wider_spec(df, spec, id_cols = key),
+    tibble(key = "a", name = NA_integer_)
+  )
+
+  # ...or here
+  df <- tibble(key = character(), value = integer(), x = integer())
+  expect_identical(
+    pivot_wider_spec(df, spec, id_cols = key),
+    tibble(key = character(), name = integer())
+  )
+})
+
 # column names -------------------------------------------------------------
 
 test_that("names_glue affects output names", {
