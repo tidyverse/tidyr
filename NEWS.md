@@ -1,5 +1,8 @@
 # tidyr (development version)
 
+* `pivot_wider_spec()` now works with a 0-row data frame and a `spec` that
+  doesn't identify any rows (#1250).
+
 * `pivot_wider()` now throws a more informative error when `values_fn` doesn't
   result in a single summary value (#1238).
 
