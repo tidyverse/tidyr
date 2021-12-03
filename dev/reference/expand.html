@@ -142,11 +142,13 @@ explicit missing values (e.g., fill in gaps in your data frame).</p></li>
 (e.g., identify gaps in your data frame).</p></li>
 </ul></div>
 
-    <div id="ref-usage">Usage,<div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">expand</span><span class="op">(</span><span class="va">data</span>, <span class="va">...</span>, .name_repair <span class="op">=</span> <span class="st">"check_unique"</span><span class="op">)</span>
+    <div id="ref-usage">
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">expand</span><span class="op">(</span><span class="va">data</span>, <span class="va">...</span>, .name_repair <span class="op">=</span> <span class="st">"check_unique"</span><span class="op">)</span>
 
 <span class="fu">crossing</span><span class="op">(</span><span class="va">...</span>, .name_repair <span class="op">=</span> <span class="st">"check_unique"</span><span class="op">)</span>
 
-<span class="fu">nesting</span><span class="op">(</span><span class="va">...</span>, .name_repair <span class="op">=</span> <span class="st">"check_unique"</span><span class="op">)</span></code></pre></div></div>
+<span class="fu">nesting</span><span class="op">(</span><span class="va">...</span>, .name_repair <span class="op">=</span> <span class="st">"check_unique"</span><span class="op">)</span></code></pre></div>
+    </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
@@ -345,12 +347,12 @@ to input vectors rather than a data frame.</p></div>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 18 × 4</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    type    year size  weights</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> apple   <span style="text-decoration: underline;">2</span>010 XS       1.78</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> orange  <span style="text-decoration: underline;">2</span>010 S        3.40</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> apple   <span style="text-decoration: underline;">2</span>012 M        3.72</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> orange  <span style="text-decoration: underline;">2</span>010 S        3.73</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> orange  <span style="text-decoration: underline;">2</span>010 S        4.26</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> orange  <span style="text-decoration: underline;">2</span>012 M        4.79</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> apple   <span style="text-decoration: underline;">2</span>010 XS       3.76</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> orange  <span style="text-decoration: underline;">2</span>010 S        1.46</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> apple   <span style="text-decoration: underline;">2</span>012 M        4.39</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> orange  <span style="text-decoration: underline;">2</span>010 S        5.85</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> orange  <span style="text-decoration: underline;">2</span>010 S        4.13</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> orange  <span style="text-decoration: underline;">2</span>012 M        4.97</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> apple   <span style="text-decoration: underline;">2</span>012 XS      <span style="color: #BB0000;">NA</span>   </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> apple   <span style="text-decoration: underline;">2</span>010 S       <span style="color: #BB0000;">NA</span>   </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> apple   <span style="text-decoration: underline;">2</span>012 S       <span style="color: #BB0000;">NA</span>   </span>
