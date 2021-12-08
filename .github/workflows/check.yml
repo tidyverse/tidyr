@@ -1,0 +1,25 @@
+on: [push, pull_request]
+
+name: R-CMD-Check
+
+jobs:
+  R-CMD-check:
+    runs-on: ${{ matrix.os }}
+
+    name: ${{ matrix.os }} check
+
+    strategy:
+      fail-fast: false
+      matrix:
+        os: ['windows-2022']
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: kalibera/ucrt3/actions/r-install@main
+      - uses: kalibera/ucrt3/actions/toolchain-install@main
+        with:
+          # base ... toolchain has the compilers and libraries to build R and recommended packages
+          # full ... additional libraries to build CRAN packages
+          # none ... no toolchain is needed (no native code) 
+          toolchain-type: full
+      - uses: kalibera/R-actions/pkg-check@master
