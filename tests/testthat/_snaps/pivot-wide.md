@@ -70,22 +70,26 @@
     Warning <warning>
       Values from `val` are not uniquely identified; output will contain list-cols.
       * Use `values_fn = list` to suppress this warning.
-      * Use `values_fn = length` to identify where the duplicates arise.
-      * Use `values_fn = {summary_fun}` to summarise duplicates.
+      * Use `values_fn = {summary_fn}` to summarise duplicates.
+      * Use the following to identify duplicates.
+        {data} %>%
+          dplyr::group_by(a, key) %>%
+          dplyr::summarise(n = n(), .groups = "drop") %>%
+          dplyr::filter(n > 1L)
 
 # duplicated key warning occurs for each applicable column
 
     Code
       pivot_wider(df, names_from = key, values_from = c(a, b, c), values_fn = list(b = sum))
     Warning <warning>
-      Values from `a` are not uniquely identified; output will contain list-cols.
+      Values from `a` and `c` are not uniquely identified; output will contain list-cols.
       * Use `values_fn = list` to suppress this warning.
-      * Use `values_fn = length` to identify where the duplicates arise.
-      * Use `values_fn = {summary_fun}` to summarise duplicates.
-      Values from `c` are not uniquely identified; output will contain list-cols.
-      * Use `values_fn = list` to suppress this warning.
-      * Use `values_fn = length` to identify where the duplicates arise.
-      * Use `values_fn = {summary_fun}` to summarise duplicates.
+      * Use `values_fn = {summary_fn}` to summarise duplicates.
+      * Use the following to identify duplicates.
+        {data} %>%
+          dplyr::group_by(key) %>%
+          dplyr::summarise(n = n(), .groups = "drop") %>%
+          dplyr::filter(n > 1L)
     Output
       # A tibble: 1 x 3
         a_x         b_x c_x      

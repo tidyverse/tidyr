@@ -218,8 +218,9 @@ pivot_wider_spec <- function(data,
     abort("`values_fill` must be NULL, a scalar, or a named list")
   }
 
-  values <- vec_unique(spec$.value)
-  spec_cols <- c(names(spec)[-(1:2)], values)
+  values_from_vars <- vec_unique(spec$.value)
+  names_from_vars <- names(spec)[-(1:2)]
+  spec_vars <- c(names_from_vars, values_from_vars)
 
   id_cols <- enquo(id_cols)
   if (!quo_is_null(id_cols)) {
@@ -227,7 +228,7 @@ pivot_wider_spec <- function(data,
   } else {
     key_vars <- tbl_vars(data)
   }
-  key_vars <- setdiff(key_vars, spec_cols)
+  key_vars <- setdiff(key_vars, spec_vars)
 
   # Figure out rows in output.
   # Early conversion to tibble because data.table returns zero rows if
@@ -237,6 +238,8 @@ pivot_wider_spec <- function(data,
   row_id <- vec_group_id(rows)
   nrow <- attr(row_id, "n")
   rows <- vec_slice(rows, vec_unique_loc(row_id))
+
+  value_duplicated_vars <- character(0L)
 
   value_specs <- unname(split(spec, spec$.value))
   value_out <- vec_init(list(), length(value_specs))
@@ -250,14 +253,23 @@ pivot_wider_spec <- function(data,
     col_id <- vec_match(as_tibble(cols), spec_i[-(1:2)])
     val_id <- data.frame(row = row_id, col = col_id)
 
-    dedup <- vals_dedup(
-      key = val_id,
-      val = val,
-      value = value,
-      values_fn = values_fn[[value]]
-    )
-    val_id <- dedup$key
-    val <- dedup$val
+    value_fn <- values_fn[[value]]
+
+    if (is.null(value_fn) && vec_duplicate_any(val_id)) {
+      value_fn <- list
+      value_duplicated_vars <- c(value_duplicated_vars, value)
+    }
+
+    if (!is.null(value_fn)) {
+      dedup <- vals_summarize(
+        key = val_id,
+        val = val,
+        value = value,
+        value_fn = value_fn
+      )
+      val_id <- dedup$key
+      val <- dedup$val
+    }
 
     ncol <- nrow(spec_i)
 
@@ -272,6 +284,29 @@ pivot_wider_spec <- function(data,
     vec_slice(out, val_id$row + nrow * (val_id$col - 1L)) <- val
 
     value_out[[i]] <- chop_rectangular_df(out, spec_i$.name)
+  }
+
+  if (length(value_duplicated_vars) > 0L) {
+    value_duplicated_vars <- glue::backtick(value_duplicated_vars)
+    value_duplicated_vars <- glue::glue_collapse(
+      value_duplicated_vars,
+      sep = ", ",
+      last = " and "
+    )
+
+    dedup_vars <- c(key_vars, names_from_vars)
+    dedup_vars <- glue::glue_collapse(dedup_vars, sep = ", ")
+
+    warn(glue::glue(
+      "Values from {value_duplicated_vars} are not uniquely identified; output will contain list-cols.\n",
+      "* Use `values_fn = list` to suppress this warning.\n",
+      "* Use `values_fn = {{summary_fn}}` to summarise duplicates.\n",
+      "* Use the following to identify duplicates.\n",
+      "  {{data}} %>%\n",
+      "    dplyr::group_by({dedup_vars}) %>%\n",
+      "    dplyr::summarise(n = n(), .groups = \"drop\") %>%\n",
+      "    dplyr::filter(n > 1L)"
+    ))
   }
 
   # `check_spec()` ensures `.name` is unique. Name repair shouldn't be needed.
@@ -341,44 +376,33 @@ build_wider_spec <- function(data,
 
 # Helpers -----------------------------------------------------------------
 
-# Not a great name as it now also casts
-vals_dedup <- function(key, val, value, values_fn = NULL) {
-  if (is.null(values_fn)) {
-    if (!vec_duplicate_any(key)) {
-      return(list(key = key, val = val))
-    }
-
-    warn(glue::glue(
-      "Values from `{value}` are not uniquely identified; output will contain list-cols.\n",
-      "* Use `values_fn = list` to suppress this warning.\n",
-      "* Use `values_fn = length` to identify where the duplicates arise.\n",
-      "* Use `values_fn = {{summary_fun}}` to summarise duplicates."
-    ))
-  }
-
+vals_summarize <- function(key, val, value, value_fn) {
   out <- vec_split(val, key)
-  if (!is.null(values_fn) && !identical(values_fn, list)) {
-    val <- map(out$val, values_fn)
 
-    sizes <- list_sizes(val)
-    invalid_sizes <- sizes != 1L
-
-    if (any(invalid_sizes)) {
-      size <- sizes[invalid_sizes][[1]]
-
-      header <- glue(
-        "Applying `values_fn` to `{value}` must result in ",
-        "a single summary value per key."
-      )
-      bullet <- c(
-        x = glue("Applying `values_fn` resulted in a value with length {size}.")
-      )
-
-      abort(c(header, bullet))
-    }
-
-    out$val <- vec_c(!!!val)
+  if (identical(value_fn, list)) {
+    return(out)
   }
+
+  val <- map(out$val, value_fn)
+
+  sizes <- list_sizes(val)
+  invalid_sizes <- sizes != 1L
+
+  if (any(invalid_sizes)) {
+    size <- sizes[invalid_sizes][[1]]
+
+    header <- glue(
+      "Applying `values_fn` to `{value}` must result in ",
+      "a single summary value per key."
+    )
+    bullet <- c(
+      x = glue("Applying `values_fn` resulted in a value with length {size}.")
+    )
+
+    abort(c(header, bullet))
+  }
+
+  out$val <- vec_c(!!!val)
 
   out
 }
