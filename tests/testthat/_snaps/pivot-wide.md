@@ -104,3 +104,13 @@
       <error/rlang_error>
       Can't convert a double vector to function
 
+# values_fn must result in a single summary value
+
+    Code
+      (expect_error(pivot_wider(df, names_from = key, values_from = val, values_fn = identity))
+      )
+    Output
+      <error/rlang_error>
+      Applying `values_fn` to `val` must result in a single summary value per key.
+      x Applying `values_fn` resulted in a value with length 2.
+

@@ -277,6 +277,14 @@ test_that("values_fn is validated", {
   )
 })
 
+test_that("values_fn must result in a single summary value", {
+  df <- tibble(a = c(1, 1, 2), key = c("x", "x", "x"), val = 1:3)
+
+  expect_snapshot((expect_error(
+    pivot_wider(df, names_from = key, values_from = val, values_fn = identity)
+  )))
+})
+
 # can fill missing cells --------------------------------------------------
 
 test_that("can fill in missing cells", {
