@@ -22,6 +22,11 @@ Useful links:
 \author{
 \strong{Maintainer}: Hadley Wickham \email{hadley@rstudio.com}
 
+Authors:
+\itemize{
+  \item Maximilian Girlich
+}
+
 Other contributors:
 \itemize{
   \item RStudio [copyright holder]

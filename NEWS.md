@@ -1,5 +1,8 @@
 # tidyr (development version)
 
+* @mgirlich is now a tidyr author in recognition of his significant and
+  sustained contributions.
+  
 * `hoist()` no longer accidentally removes elements that have duplicated names
   (#1259).
 
