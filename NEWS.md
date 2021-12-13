@@ -45,8 +45,10 @@
   * Supplying data frames with 0 columns but >0 rows now works correctly
     (#1189).
   
-  * `expand_grid()`, `expand()`, and `crossing()` now return a 1 row data frame
-    when no inputs are supplied, which is more consistent with `prod() == 1L`.
+  * `expand_grid()`, `expand()`, `nesting()`, and `crossing()` now return a 1
+    row data frame when no inputs are supplied, which is more consistent with
+    `prod() == 1L` and the idea that computations involving the number of
+    combinations computed from an empty set should return 1 (#1258).
 
 * `drop_na()` has been updated to utilize `vctrs::vec_detect_complete()`. This
   has resulted in the following changes:
