@@ -112,8 +112,17 @@ crossing <- function(..., .name_repair = "check_unique") {
 nesting <- function(..., .name_repair = "check_unique") {
   out <- grid_dots(...)
 
+  if (length(out) == 0L) {
+    # This matches `crossing()`, `expand_grid()`, and `expand()`, which return
+    # a 1 row / 0 col tibble. Computations involving the number of combinations
+    # of an empty set should return 1.
+    size <- 1L
+  } else {
+    size <- NULL
+  }
+
   # Flattens unnamed data frames
-  out <- data_frame(!!!out, .name_repair = .name_repair)
+  out <- data_frame(!!!out, .size = size, .name_repair = .name_repair)
   out <- tibble::new_tibble(out, nrow = vec_size(out))
 
   out <- sorted_unique(out)

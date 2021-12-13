@@ -206,11 +206,14 @@ test_that("crossing() / nesting() doesn't overwrite after auto naming (#1092)", 
 test_that("crossing() with no inputs returns a 1 row data frame", {
   # Because it uses expand_grid(), which respects `prod() == 1L`
   expect_identical(crossing(), tibble(.rows = 1L))
+  expect_identical(crossing(NULL), tibble(.rows = 1L))
 })
 
-test_that("nesting() with no inputs returns a 0 row data frame", {
-  # Because it only finds combinations already in the data
-  expect_identical(nesting(), tibble())
+test_that("nesting() with no inputs returns a 1 row data frame", {
+  # Because computations involving the "number of combinations" of an empty
+  # set return 1
+  expect_identical(nesting(), tibble(.rows = 1L))
+  expect_identical(nesting(NULL), tibble(.rows = 1L))
 })
 
 test_that("can use `do.call()` or `reduce()` with `crossing()` (#992)", {
