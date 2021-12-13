@@ -1,5 +1,8 @@
 # tidyr (development version)
 
+* `pivot_wider()` no longer accidentally retains `values_from` when pivoting
+  a zero row data frame (#1249).
+
 * `pivot_wider_spec()` now works correctly with a 0-row data frame and a `spec`
   that doesn't identify any rows (#1250, #1252).
 

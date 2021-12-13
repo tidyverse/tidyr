@@ -202,6 +202,60 @@ test_that("can override default keys", {
   expect_equal(nrow(pv), 2)
 })
 
+test_that("`id_cols = everything()` excludes `names_from` and `values_from`", {
+  df <- tibble(key = "x", name = "a", value = 1L)
+
+  expect_identical(
+    pivot_wider(df, id_cols = everything()),
+    tibble(key = "x", a = 1L)
+  )
+
+  spec <- build_wider_spec(df)
+
+  expect_identical(
+    pivot_wider_spec(df, spec, id_cols = everything()),
+    tibble(key = "x", a = 1L)
+  )
+})
+
+test_that("pivoting a zero row data frame drops `names_from` and `values_from` (#1249)", {
+  df <- tibble(key = character(), name = character(), value = integer())
+
+  expect_identical(
+    pivot_wider(df, names_from = name, values_from = value),
+    tibble(key = character())
+  )
+})
+
+test_that("known bug - building a wider spec with a zero row data frame loses `values_from` info (#1249)", {
+  # We can't currently change this behavior in `pivot_wider_spec()`,
+  # for fear of breaking backwards compatibility
+
+  df <- tibble(key = character(), name = character(), value = integer())
+
+  # Building the spec loses the fact that `value` was specified as `values_from`,
+  # which would normally be in the `spec$.value` column
+  spec <- build_wider_spec(df, names_from = name, values_from = value)
+
+  # So pivoting with this spec accidentally keeps `value` around
+  expect_identical(
+    pivot_wider_spec(df, spec),
+    tibble(key = character(), value = integer())
+  )
+
+  # If you specify `id_cols` to be the `key` column, it works right
+  expect_identical(
+    pivot_wider_spec(df, spec, id_cols = key),
+    tibble(key = character())
+  )
+
+  # But `id_cols = everything()` won't work as intended, because we can't know
+  # to remove `value` from `names(data)` before computing the tidy-selection
+  expect_identical(
+    pivot_wider_spec(df, spec, id_cols = everything()),
+    tibble(key = character(), value = integer())
+  )
+})
 
 # non-unique keys ---------------------------------------------------------
 
