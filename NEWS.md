@@ -1,5 +1,8 @@
 # tidyr (development version)
 
+* `hoist()` no longer accidentally removes elements that have duplicated names
+  (#1259).
+
 * `pivot_wider()` no longer accidentally retains `values_from` when pivoting
   a zero row data frame (#1249).
 
