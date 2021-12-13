@@ -42,3 +42,13 @@ test_that("not drop unspecified levels in complete", {
   expect <- df[c("z", "x", "y")]
   expect_equal(df2, expect)
 })
+
+test_that("complete() with empty nesting() / crossing() calls 'ignores' them (#1258)", {
+  df <- tibble(x = factor(c("a", "c"), letters[1:3]))
+
+  expect_identical(complete(df, x), complete(df, x, nesting()))
+  expect_identical(complete(df, x), complete(df, x, crossing()))
+
+  expect_identical(complete(df, x), complete(df, x, nesting(NULL)))
+  expect_identical(complete(df, x), complete(df, x, crossing(NULL)))
+})

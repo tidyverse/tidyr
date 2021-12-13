@@ -100,6 +100,19 @@ test_that("expand() with no inputs returns 1 row", {
   expect_identical(expand(tibble()), tibble(.rows = 1L))
 })
 
+test_that("expand() with empty nesting() / crossing() calls 'ignores' them (#1258)", {
+  df <- tibble(x = factor(c("a", "c"), letters[1:3]))
+
+  expect_identical(expand(df), expand(df, nesting()))
+  expect_identical(expand(df), expand(df, crossing()))
+
+  expect_identical(expand(df, x), expand(df, x, nesting()))
+  expect_identical(expand(df, x), expand(df, x, crossing()))
+
+  expect_identical(expand(df, x), expand(df, x, nesting(NULL)))
+  expect_identical(expand(df, x), expand(df, x, crossing(NULL)))
+})
+
 # ------------------------------------------------------------------------------
 
 test_that("crossing checks for bad inputs", {
