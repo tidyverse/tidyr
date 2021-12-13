@@ -177,6 +177,12 @@ expand_grid <- function(..., .name_repair = "check_unique") {
 # Helpers -----------------------------------------------------------------
 
 sorted_unique <- function(x) {
+  if (is.data.frame(x) && ncol(x) == 0L) {
+    # vec_sort() bug with 0 column data frames:
+    # https://github.com/r-lib/vctrs/issues/1499
+    return(x)
+  }
+
   if (is.factor(x)) {
     # forcats::fct_unique
     factor(levels(x), levels(x), exclude = NULL, ordered = is.ordered(x))
