@@ -169,9 +169,10 @@ for more options.</p></dd>
 <dt>id_cols</dt>
 <dd><p>&lt;<code><a href="tidyr_tidy_select.html">tidy-select</a></code>&gt; A set of columns that
 uniquely identifies each observation. Defaults to all columns in <code>data</code>
-except for the columns specified in <code>names_from</code> and <code>values_from</code>.
-Typically used when you have redundant variables, i.e. variables whose
-values are perfectly correlated with existing variables.</p></dd>
+except for the columns specified in <code>spec$.value</code> and the columns of the
+<code>spec</code> that aren't named <code>.name</code> or <code>.value</code>. Typically used when you have
+redundant variables, i.e. variables whose values are perfectly correlated
+with existing variables.</p></dd>
 <dt>values_fill</dt>
 <dd><p>Optionally, a (scalar) value that specifies what each
 <code>value</code> should be filled in with when missing.</p>
