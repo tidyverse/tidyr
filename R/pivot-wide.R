@@ -382,7 +382,7 @@ select_wider_id_cols <- function(data,
   data <- data[setdiff(names(data), non_id_cols)]
 
   if (quo_is_null(id_cols)) {
-    as.character(names(data))
+    names(data)
   } else {
     # TODO: Use `allow_rename = FALSE`.
     # Requires https://github.com/r-lib/tidyselect/issues/225.
