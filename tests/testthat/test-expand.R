@@ -100,6 +100,19 @@ test_that("expand() with no inputs returns 1 row", {
   expect_identical(expand(tibble()), tibble(.rows = 1L))
 })
 
+test_that("expand() with empty nesting() / crossing() calls 'ignores' them (#1258)", {
+  df <- tibble(x = factor(c("a", "c"), letters[1:3]))
+
+  expect_identical(expand(df), expand(df, nesting()))
+  expect_identical(expand(df), expand(df, crossing()))
+
+  expect_identical(expand(df, x), expand(df, x, nesting()))
+  expect_identical(expand(df, x), expand(df, x, crossing()))
+
+  expect_identical(expand(df, x), expand(df, x, nesting(NULL)))
+  expect_identical(expand(df, x), expand(df, x, crossing(NULL)))
+})
+
 # ------------------------------------------------------------------------------
 
 test_that("crossing checks for bad inputs", {
@@ -206,11 +219,14 @@ test_that("crossing() / nesting() doesn't overwrite after auto naming (#1092)", 
 test_that("crossing() with no inputs returns a 1 row data frame", {
   # Because it uses expand_grid(), which respects `prod() == 1L`
   expect_identical(crossing(), tibble(.rows = 1L))
+  expect_identical(crossing(NULL), tibble(.rows = 1L))
 })
 
-test_that("nesting() with no inputs returns a 0 row data frame", {
-  # Because it only finds combinations already in the data
-  expect_identical(nesting(), tibble())
+test_that("nesting() with no inputs returns a 1 row data frame", {
+  # Because computations involving the "number of combinations" of an empty
+  # set return 1
+  expect_identical(nesting(), tibble(.rows = 1L))
+  expect_identical(nesting(NULL), tibble(.rows = 1L))
 })
 
 test_that("can use `do.call()` or `reduce()` with `crossing()` (#992)", {
