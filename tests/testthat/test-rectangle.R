@@ -182,6 +182,38 @@ test_that("hoist() can simplify on a per column basis (#995)", {
   )
 })
 
+test_that("hoist() retrieves first of duplicated names and leaves the rest alone (#1259)", {
+  elt <- list(x = 1, y = 2, x = 3, z = 2)
+  df <- tibble(col = list(elt))
+
+  expect_identical(
+    hoist(df, col, "x"),
+    tibble(x = 1, col = list(list(y = 2, x = 3, z = 2)))
+  )
+
+  expect_identical(
+    hoist(df, col, "y"),
+    tibble(y = 2, col = list(list(x = 1, x = 3, z = 2)))
+  )
+})
+
+test_that("known bug - hoist() doesn't strike after each pluck (related to #1259)", {
+  # All pluckers operate on the same initial list-col.
+  # We don't currently strike after each pluck, so the repeated plucks pull the
+  # first of the duplicated `x` names each time. But then the strike() loop
+  # removes both of them, because it strikes with `"x"` twice in a row.
+  # Fixing this probably requires significant work and likely isn't worth it.
+
+  elt <- list(x = 1, x = 3, z = 2)
+  df <- tibble(col = list(elt))
+
+  # Ideally we'd get `x1 = 1, x2 = 3` and no mention of `x` in `col`
+  expect_identical(
+    hoist(df, col, x1 = "x", x2 = "x"),
+    tibble(x1 = 1, x2 = 1, col = list(list(z = 2)))
+  )
+})
+
 # strike ------------------------------------------------------------------
 
 test_that("strike can remove using a list", {

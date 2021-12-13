@@ -272,8 +272,10 @@ strike <- function(x, indices) {
   index <- indices[[1L]]
   indices <- indices[-1L]
 
+  size <- vec_size(x)
+
   is_valid_index <-
-    (is.numeric(index) && (index <= vec_size(x))) ||
+    (is.numeric(index) && (index <= size)) ||
     (is.character(index) && has_name(x, index))
 
   if (!is_valid_index) {
@@ -281,15 +283,11 @@ strike <- function(x, indices) {
     return(x)
   }
 
+  index <- vec_as_location(index, n = size, names = names(x))
+
   if (n_indices == 1L) {
     # At base index, remove it
-    if (is.numeric(index)) {
-      x <- x[-index]
-    } else if (is.character(index)) {
-      x <- x[setdiff(names(x), index)]
-    } else {
-      abort("Internal error: Only character and numeric values are valid indices.")
-    }
+    x <- x[-index]
   } else {
     # Not at base index yet, continue recursion
     x[[index]] <- strike(x[[index]], indices)
