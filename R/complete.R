@@ -2,7 +2,7 @@
 #'
 #' Turns implicit missing values into explicit missing values.
 #' This is a wrapper around [expand()],
-#' [dplyr::left_join()] and [replace_na()] that's
+#' [dplyr::full_join()] and [replace_na()] that's
 #' useful for completing missing combinations of data.
 #'
 #' If you supply `fill`, these values will also replace existing
