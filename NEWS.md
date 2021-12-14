@@ -1,5 +1,8 @@
 # tidyr (development version)
 
+* `pivot_wider()` now gives better advice about how to identify duplicates when
+  values are not uniquely identified (#1113).
+
 * New developer facing `check_pivot_spec()` for validating a pivot `spec`
   argument. This is only useful if you are extending `pivot_longer()` or
   `pivot_wider()` with new S3 methods (#1087).
