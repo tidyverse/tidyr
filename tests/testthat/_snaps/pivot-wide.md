@@ -73,16 +73,27 @@
       * Use `values_fn = length` to identify where the duplicates arise.
       * Use `values_fn = {summary_fun}` to summarise duplicates.
 
-# duplicated key warning occurs for each applicable column
+# duplicated key warning mentions every applicable column
+
+    Code
+      pivot_wider(df, names_from = key, values_from = c(a, b, c))
+    Warning <warning>
+      Values from `a`, `b` and `c` are not uniquely identified; output will contain list-cols.
+      * Use `values_fn = list` to suppress this warning.
+      * Use `values_fn = length` to identify where the duplicates arise.
+      * Use `values_fn = {summary_fun}` to summarise duplicates.
+    Output
+      # A tibble: 1 x 3
+        a_x       b_x       c_x      
+        <list>    <list>    <list>   
+      1 <dbl [2]> <dbl [2]> <dbl [2]>
+
+---
 
     Code
       pivot_wider(df, names_from = key, values_from = c(a, b, c), values_fn = list(b = sum))
     Warning <warning>
-      Values from `a` are not uniquely identified; output will contain list-cols.
-      * Use `values_fn = list` to suppress this warning.
-      * Use `values_fn = length` to identify where the duplicates arise.
-      * Use `values_fn = {summary_fun}` to summarise duplicates.
-      Values from `c` are not uniquely identified; output will contain list-cols.
+      Values from `a` and `c` are not uniquely identified; output will contain list-cols.
       * Use `values_fn = list` to suppress this warning.
       * Use `values_fn = length` to identify where the duplicates arise.
       * Use `values_fn = {summary_fun}` to summarise duplicates.

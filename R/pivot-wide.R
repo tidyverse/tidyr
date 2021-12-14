@@ -253,6 +253,8 @@ pivot_wider_spec <- function(data,
   nrow <- attr(row_id, "n")
   rows <- vec_slice(rows, vec_unique_loc(row_id))
 
+  duplicate_names <- character(0L)
+
   value_specs <- unname(split(spec, spec$.value))
   value_out <- vec_init(list(), length(value_specs))
 
@@ -265,14 +267,24 @@ pivot_wider_spec <- function(data,
     col_id <- vec_match(as_tibble(cols), value_spec[-(1:2)])
     value_id <- data.frame(row = row_id, col = col_id)
 
-    summary <- value_summarize(
-      value = value,
-      value_id = value_id,
-      value_name = value_name,
-      value_fn = values_fn[[value_name]]
-    )
-    value <- summary$value
-    value_id <- summary$value_id
+    value_fn <- values_fn[[value_name]]
+
+    if (is.null(value_fn) && vec_duplicate_any(value_id)) {
+      # There are unhandled duplicates. Handle them with `list()` and warn.
+      value_fn <- list
+      duplicate_names <- c(duplicate_names, value_name)
+    }
+
+    if (!is.null(value_fn)) {
+      summary <- value_summarize(
+        value = value,
+        value_id = value_id,
+        value_name = value_name,
+        value_fn = value_fn
+      )
+      value <- summary$value
+      value_id <- summary$value_id
+    }
 
     ncol <- nrow(value_spec)
 
@@ -287,6 +299,18 @@ pivot_wider_spec <- function(data,
     vec_slice(out, value_id$row + nrow * (value_id$col - 1L)) <- value
 
     value_out[[i]] <- chop_rectangular_df(out, value_spec$.name)
+  }
+
+  if (length(duplicate_names) > 0L) {
+    duplicate_names <- glue::backtick(duplicate_names)
+    duplicate_names <- glue::glue_collapse(duplicate_names, sep = ", ", last = " and ")
+
+    warn(glue::glue(
+      "Values from {duplicate_names} are not uniquely identified; output will contain list-cols.\n",
+      "* Use `values_fn = list` to suppress this warning.\n",
+      "* Use `values_fn = length` to identify where the duplicates arise.\n",
+      "* Use `values_fn = {{summary_fun}}` to summarise duplicates."
+    ))
   }
 
   # `check_spec()` ensures `.name` is unique. Name repair shouldn't be needed.
@@ -392,44 +416,34 @@ select_wider_id_cols <- function(data,
 # Helpers -----------------------------------------------------------------
 
 value_summarize <- function(value, value_id, value_name, value_fn) {
-  if (is.null(value_fn)) {
-    if (!vec_duplicate_any(value_id)) {
-      return(list(value_id = value_id, value = value))
-    }
-
-    warn(glue::glue(
-      "Values from `{value_name}` are not uniquely identified; output will contain list-cols.\n",
-      "* Use `values_fn = list` to suppress this warning.\n",
-      "* Use `values_fn = length` to identify where the duplicates arise.\n",
-      "* Use `values_fn = {{summary_fun}}` to summarise duplicates."
-    ))
-  }
-
   out <- vec_split(value, value_id)
   out <- list(value_id = out$key, value = out$val)
 
-  if (!is.null(value_fn) && !identical(value_fn, list)) {
-    value <- map(out$value, value_fn)
-
-    sizes <- list_sizes(value)
-    invalid_sizes <- sizes != 1L
-
-    if (any(invalid_sizes)) {
-      size <- sizes[invalid_sizes][[1]]
-
-      header <- glue(
-        "Applying `values_fn` to `{value_name}` must result in ",
-        "a single summary value per key."
-      )
-      bullet <- c(
-        x = glue("Applying `values_fn` resulted in a value with length {size}.")
-      )
-
-      abort(c(header, bullet))
-    }
-
-    out$value <- vec_c(!!!value)
+  if (identical(value_fn, list)) {
+    # The no-op case, for performance
+    return(out)
   }
+
+  value <- map(out$value, value_fn)
+
+  sizes <- list_sizes(value)
+  invalid_sizes <- sizes != 1L
+
+  if (any(invalid_sizes)) {
+    size <- sizes[invalid_sizes][[1]]
+
+    header <- glue(
+      "Applying `values_fn` to `{value_name}` must result in ",
+      "a single summary value per key."
+    )
+    bullet <- c(
+      x = glue("Applying `values_fn` resulted in a value with length {size}.")
+    )
+
+    abort(c(header, bullet))
+  }
+
+  out$value <- vec_c(!!!value)
 
   out
 }
