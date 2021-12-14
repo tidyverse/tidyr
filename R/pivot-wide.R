@@ -257,36 +257,36 @@ pivot_wider_spec <- function(data,
   value_out <- vec_init(list(), length(value_specs))
 
   for (i in seq_along(value_out)) {
-    spec_i <- value_specs[[i]]
-    value <- spec_i$.value[[1]]
-    val <- data[[value]]
+    value_spec <- value_specs[[i]]
+    value_name <- value_spec$.value[[1]]
+    value <- data[[value_name]]
 
-    cols <- data[names(spec_i)[-(1:2)]]
-    col_id <- vec_match(as_tibble(cols), spec_i[-(1:2)])
-    val_id <- data.frame(row = row_id, col = col_id)
+    cols <- data[names(value_spec)[-(1:2)]]
+    col_id <- vec_match(as_tibble(cols), value_spec[-(1:2)])
+    value_id <- data.frame(row = row_id, col = col_id)
 
-    dedup <- vals_dedup(
-      key = val_id,
-      val = val,
+    summary <- value_summarize(
       value = value,
-      values_fn = values_fn[[value]]
+      value_id = value_id,
+      value_name = value_name,
+      value_fn = values_fn[[value_name]]
     )
-    val_id <- dedup$key
-    val <- dedup$val
+    value <- summary$value
+    value_id <- summary$value_id
 
-    ncol <- nrow(spec_i)
+    ncol <- nrow(value_spec)
 
-    fill <- values_fill[[value]]
+    fill <- values_fill[[value_name]]
     if (is.null(fill)) {
-      out <- vec_init(val, nrow * ncol)
+      out <- vec_init(value, nrow * ncol)
     } else {
       stopifnot(vec_size(fill) == 1)
-      fill <- vec_cast(fill, val)
+      fill <- vec_cast(fill, value)
       out <- vec_rep_each(fill, nrow * ncol)
     }
-    vec_slice(out, val_id$row + nrow * (val_id$col - 1L)) <- val
+    vec_slice(out, value_id$row + nrow * (value_id$col - 1L)) <- value
 
-    value_out[[i]] <- chop_rectangular_df(out, spec_i$.name)
+    value_out[[i]] <- chop_rectangular_df(out, value_spec$.name)
   }
 
   # `check_spec()` ensures `.name` is unique. Name repair shouldn't be needed.
@@ -313,8 +313,7 @@ build_wider_spec <- function(data,
                              names_prefix = "",
                              names_sep = "_",
                              names_glue = NULL,
-                             names_sort = FALSE
-                             ) {
+                             names_sort = FALSE) {
   names_from <- tidyselect::eval_select(enquo(names_from), data)
   values_from <- tidyselect::eval_select(enquo(values_from), data)
 
@@ -392,33 +391,34 @@ select_wider_id_cols <- function(data,
 
 # Helpers -----------------------------------------------------------------
 
-# Not a great name as it now also casts
-vals_dedup <- function(key, val, value, values_fn = NULL) {
-  if (is.null(values_fn)) {
-    if (!vec_duplicate_any(key)) {
-      return(list(key = key, val = val))
+value_summarize <- function(value, value_id, value_name, value_fn) {
+  if (is.null(value_fn)) {
+    if (!vec_duplicate_any(value_id)) {
+      return(list(value_id = value_id, value = value))
     }
 
     warn(glue::glue(
-      "Values from `{value}` are not uniquely identified; output will contain list-cols.\n",
+      "Values from `{value_name}` are not uniquely identified; output will contain list-cols.\n",
       "* Use `values_fn = list` to suppress this warning.\n",
       "* Use `values_fn = length` to identify where the duplicates arise.\n",
       "* Use `values_fn = {{summary_fun}}` to summarise duplicates."
     ))
   }
 
-  out <- vec_split(val, key)
-  if (!is.null(values_fn) && !identical(values_fn, list)) {
-    val <- map(out$val, values_fn)
+  out <- vec_split(value, value_id)
+  out <- list(value_id = out$key, value = out$val)
 
-    sizes <- list_sizes(val)
+  if (!is.null(value_fn) && !identical(value_fn, list)) {
+    value <- map(out$value, value_fn)
+
+    sizes <- list_sizes(value)
     invalid_sizes <- sizes != 1L
 
     if (any(invalid_sizes)) {
       size <- sizes[invalid_sizes][[1]]
 
       header <- glue(
-        "Applying `values_fn` to `{value}` must result in ",
+        "Applying `values_fn` to `{value_name}` must result in ",
         "a single summary value per key."
       )
       bullet <- c(
@@ -428,7 +428,7 @@ vals_dedup <- function(key, val, value, values_fn = NULL) {
       abort(c(header, bullet))
     }
 
-    out$val <- vec_c(!!!val)
+    out$value <- vec_c(!!!value)
   }
 
   out
