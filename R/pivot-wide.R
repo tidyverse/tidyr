@@ -39,6 +39,17 @@
 #'   `.value`) to create custom column names.
 #' @param names_sort Should the column names be sorted? If `FALSE`, the default,
 #'   column names are ordered by first appearance.
+#' @param names_vary When `names_from` identifies a column (or columns) with
+#'   multiple unique values, and multiple `values_from` columns are provided,
+#'   in what order should the resulting column names be combined?
+#'
+#'   - `"fastest"` varies `names_from` values fastest, resulting in a column
+#'     naming scheme of the form: `value1_name1, value1_name2, value2_name1,
+#'     value2_name2`. This is the default.
+#'
+#'   - `"slowest"` varies `names_from` values slowest, resulting in a column
+#'     naming scheme of the form: `value1_name1, value2_name1, value1_name2,
+#'     value2_name2`.
 #' @param values_fill Optionally, a (scalar) value that specifies what each
 #'   `value` should be filled in with when missing.
 #'
@@ -66,7 +77,19 @@
 #' # Generate column names from multiple variables
 #' us_rent_income
 #' us_rent_income %>%
-#'   pivot_wider(names_from = variable, values_from = c(estimate, moe))
+#'   pivot_wider(
+#'     names_from = variable,
+#'     values_from = c(estimate, moe)
+#'   )
+#'
+#' # You can control whether `names_from` values vary fastest or slowest
+#' # relative to the `values_from` column names using `names_vary`.
+#' us_rent_income %>%
+#'   pivot_wider(
+#'     names_from = variable,
+#'     values_from = c(estimate, moe),
+#'     names_vary = "slowest"
+#'   )
 #'
 #' # When there are multiple `names_from` or `values_from`, you can use
 #' # use `names_sep` or `names_glue` to control the output variable names
@@ -109,6 +132,7 @@ pivot_wider <- function(data,
                         names_sep = "_",
                         names_glue = NULL,
                         names_sort = FALSE,
+                        names_vary = "fastest",
                         names_repair = "check_unique",
                         values_from = value,
                         values_fill = NULL,
@@ -126,12 +150,12 @@ pivot_wider.data.frame <- function(data,
                                    names_sep = "_",
                                    names_glue = NULL,
                                    names_sort = FALSE,
+                                   names_vary = "fastest",
                                    names_repair = "check_unique",
                                    values_from = value,
                                    values_fill = NULL,
                                    values_fn = NULL,
-                                   ...
-                                   ) {
+                                   ...) {
   names_from <- enquo(names_from)
   values_from <- enquo(values_from)
 
@@ -142,7 +166,8 @@ pivot_wider.data.frame <- function(data,
     names_prefix = names_prefix,
     names_sep = names_sep,
     names_glue = names_glue,
-    names_sort = names_sort
+    names_sort = names_sort,
+    names_vary = names_vary
   )
 
   id_cols <- build_wider_id_cols_expr(
@@ -347,7 +372,8 @@ build_wider_spec <- function(data,
                              names_prefix = "",
                              names_sep = "_",
                              names_glue = NULL,
-                             names_sort = FALSE) {
+                             names_sort = FALSE,
+                             names_vary = "fastest") {
   names_from <- tidyselect::eval_select(enquo(names_from), data)
   values_from <- tidyselect::eval_select(enquo(values_from), data)
 
@@ -357,6 +383,8 @@ build_wider_spec <- function(data,
   if (is_empty(values_from)) {
     abort("`values_from` must select at least one column.")
   }
+
+  names_vary <- arg_match0(names_vary, c("fastest", "slowest"), arg_nm = "names_vary")
 
   row_ids <- vec_unique(data[names_from])
   if (names_sort) {
@@ -372,11 +400,17 @@ build_wider_spec <- function(data,
   if (length(values_from) == 1) {
     out$.value <- names(values_from)
   } else {
-    out <- vec_rep(out, vec_size(values_from))
-    out$.value <- vec_rep_each(names(values_from), vec_size(row_ids))
-    out$.name <- vec_paste0(out$.value, names_sep, out$.name)
+    if (names_vary == "fastest") {
+      out <- vec_rep(out, vec_size(values_from))
+      out$.value <- vec_rep_each(names(values_from), vec_size(row_ids))
+      row_ids <- vec_rep(row_ids, vec_size(values_from))
+    } else {
+      out <- vec_rep_each(out, vec_size(values_from))
+      out$.value <- vec_rep(names(values_from), vec_size(row_ids))
+      row_ids <- vec_rep_each(row_ids, vec_size(values_from))
+    }
 
-    row_ids <- vec_rep(row_ids, vec_size(values_from))
+    out$.name <- vec_paste0(out$.value, names_sep, out$.name)
   }
 
   out <- vec_cbind(out, as_tibble(row_ids), .name_repair = "minimal")

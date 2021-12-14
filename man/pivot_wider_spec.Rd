@@ -21,7 +21,8 @@ build_wider_spec(
   names_prefix = "",
   names_sep = "_",
   names_glue = NULL,
-  names_sort = FALSE
+  names_sort = FALSE,
+  names_vary = "fastest"
 )
 }
 \arguments{
@@ -95,6 +96,16 @@ a glue specification that uses the \code{names_from} columns (and special
 
 \item{names_sort}{Should the column names be sorted? If \code{FALSE}, the default,
 column names are ordered by first appearance.}
+
+\item{names_vary}{When \code{names_from} identifies a column (or columns) with
+multiple unique values, and multiple \code{values_from} columns are provided,
+in what order should the resulting column names be combined?
+\itemize{
+\item \code{"fastest"} varies \code{names_from} values fastest, resulting in a column
+naming scheme of the form: \verb{value1_name1, value1_name2, value2_name1, value2_name2}. This is the default.
+\item \code{"slowest"} varies \code{names_from} values slowest, resulting in a column
+naming scheme of the form: \verb{value1_name1, value2_name1, value1_name2, value2_name2}.
+}}
 }
 \description{
 This is a low level interface to pivotting, inspired by the cdata package,

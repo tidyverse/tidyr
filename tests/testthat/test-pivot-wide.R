@@ -188,6 +188,28 @@ test_that("can sort column names", {
   expect_equal(spec$.name, levels(df$fac))
 })
 
+test_that("can vary `names_from` values slowest (#839)", {
+  df <- tibble(
+    name = c("name1", "name2"),
+    value1 = c(1, 2),
+    value2 = c(4, 5)
+  )
+
+  spec <- build_wider_spec(df, names_from = name, values_from = c(value1, value2))
+
+  expect_identical(
+    spec$.name,
+    c("value1_name1", "value1_name2", "value2_name1", "value2_name2")
+  )
+
+  spec <- build_wider_spec(df, names_from = name, values_from = c(value1, value2), names_vary = "slowest")
+
+  expect_identical(
+    spec$.name,
+    c("value1_name1", "value2_name1", "value1_name2", "value2_name2")
+  )
+})
+
 # keys ---------------------------------------------------------
 
 test_that("can override default keys", {
