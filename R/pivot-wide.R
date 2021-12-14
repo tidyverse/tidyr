@@ -236,8 +236,9 @@ pivot_wider_spec <- function(data,
     abort("`values_fill` must be NULL, a scalar, or a named list")
   }
 
-  non_id_cols <- vec_unique(spec$.value)
-  non_id_cols <- c(names(spec)[-(1:2)], non_id_cols)
+  names_from_cols <- names(spec)[-(1:2)]
+  values_from_cols <- vec_unique(spec$.value)
+  non_id_cols <- c(names_from_cols, values_from_cols)
 
   id_cols <- select_wider_id_cols(
     data = data,
@@ -306,11 +307,18 @@ pivot_wider_spec <- function(data,
     duplicate_names <- glue::backtick(duplicate_names)
     duplicate_names <- glue::glue_collapse(duplicate_names, sep = ", ", last = " and ")
 
+    group_cols <- c(id_cols, names_from_cols)
+    group_cols <- glue::glue_collapse(group_cols, sep = ", ")
+
     warn(glue::glue(
       "Values from {duplicate_names} are not uniquely identified; output will contain list-cols.\n",
       "* Use `values_fn = list` to suppress this warning.\n",
-      "* Use `values_fn = length` to identify where the duplicates arise.\n",
-      "* Use `values_fn = {{summary_fun}}` to summarise duplicates."
+      "* Use `values_fn = {{summary_fun}}` to summarise duplicates.\n",
+      "* Use the following to identify duplicates.\n",
+      "  {{data}} %>%\n",
+      "    dplyr::group_by({group_cols}) %>%\n",
+      "    dplyr::summarise(n = dplyr::n(), .groups = \"drop\") %>%\n",
+      "    dplyr::filter(n > 1L)"
     ))
   }
 
