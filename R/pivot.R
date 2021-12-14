@@ -1,29 +1,28 @@
-check_spec <- function(spec) {
-  # Eventually should just be vec_assert() on partial_frame()
-  # Waiting for https://github.com/r-lib/vctrs/issues/198
-
+check_pivot_spec <- function(spec) {
   if (!is.data.frame(spec)) {
-    stop("`spec` must be a data frame", call. = FALSE)
+    abort("`spec` must be a data frame.")
   }
 
   if (!has_name(spec, ".name") || !has_name(spec, ".value")) {
-    stop("`spec` must have `.name` and `.value` columns", call. = FALSE)
+    abort("`spec` must have `.name` and `.value` columns.")
   }
 
   if (!is.character(spec$.name)) {
-    abort("The `.name` column must be a character vector.")
+    abort("The `.name` column of `spec` must be a character vector.")
   }
   if (vec_duplicate_any(spec$.name)) {
-    abort("The `.name` column must be unique.")
+    abort("The `.name` column of `spec` must be unique.")
   }
 
   if (!is.character(spec$.value)) {
-    abort("The `.value` column must be a character vector.")
+    abort("The `.value` column of `spec` must be a character vector.")
   }
 
-  # Ensure .name and .value come first
+  # Ensure `.name` and `.value` come first, in that order
   vars <- union(c(".name", ".value"), names(spec))
-  spec[vars]
+  spec <- spec[vars]
+
+  spec
 }
 
 wrap_error_names <- function(code) {

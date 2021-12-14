@@ -218,7 +218,7 @@ pivot_wider_spec <- function(data,
                              id_cols = NULL,
                              values_fill = NULL,
                              values_fn = NULL) {
-  spec <- check_spec(spec)
+  spec <- check_pivot_spec(spec)
 
   if (is.null(values_fn)) {
     values_fn <- list()
@@ -313,7 +313,7 @@ pivot_wider_spec <- function(data,
     ))
   }
 
-  # `check_spec()` ensures `.name` is unique. Name repair shouldn't be needed.
+  # `check_pivot_spec()` ensures `.name` is unique. Name repair shouldn't be needed.
   values <- vec_cbind(!!!value_out, .name_repair = "minimal")
 
   # Recreate desired column order of the new spec columns (#569)

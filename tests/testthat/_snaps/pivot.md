@@ -1,35 +1,37 @@
 # basic sanity checks for spec occur
 
     Code
-      (expect_error(check_spec(1)))
+      (expect_error(check_pivot_spec(1)))
     Output
-      <simpleError: `spec` must be a data frame>
+      <error/rlang_error>
+      `spec` must be a data frame.
     Code
-      (expect_error(check_spec(mtcars)))
+      (expect_error(check_pivot_spec(mtcars)))
     Output
-      <simpleError: `spec` must have `.name` and `.value` columns>
+      <error/rlang_error>
+      `spec` must have `.name` and `.value` columns.
 
 # `.name` column must be a character vector
 
     Code
-      (expect_error(check_spec(df)))
+      (expect_error(check_pivot_spec(df)))
     Output
       <error/rlang_error>
-      The `.name` column must be a character vector.
+      The `.name` column of `spec` must be a character vector.
 
 # `.value` column must be a character vector
 
     Code
-      (expect_error(check_spec(df)))
+      (expect_error(check_pivot_spec(df)))
     Output
       <error/rlang_error>
-      The `.value` column must be a character vector.
+      The `.value` column of `spec` must be a character vector.
 
 # `.name` column must be unique
 
     Code
-      (expect_error(check_spec(df)))
+      (expect_error(check_pivot_spec(df)))
     Output
       <error/rlang_error>
-      The `.name` column must be unique.
+      The `.name` column of `spec` must be unique.
 

@@ -218,7 +218,7 @@ pivot_longer_spec <- function(data,
                               values_ptypes = list(),
                               values_transform = list()
                               ) {
-  spec <- check_spec(spec)
+  spec <- check_pivot_spec(spec)
   spec <- deduplicate_spec(spec, data)
 
   # Quick hack to ensure that split() preserves order
