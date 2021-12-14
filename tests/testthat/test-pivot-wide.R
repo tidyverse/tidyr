@@ -268,12 +268,20 @@ test_that("duplicated keys produce list column with warning", {
   expect_equal(as.list(pv$x), list(c(1L, 2L), 3L))
 })
 
-test_that("duplicated key warning occurs for each applicable column", {
+test_that("duplicated key warning mentions every applicable column", {
   df <- tibble(
     key = c("x", "x"),
     a = c(1, 2),
     b = c(3, 4),
     c = c(5, 6)
+  )
+
+  expect_snapshot(
+    pivot_wider(
+      df,
+      names_from = key,
+      values_from = c(a, b, c)
+    )
   )
 
   expect_snapshot(
