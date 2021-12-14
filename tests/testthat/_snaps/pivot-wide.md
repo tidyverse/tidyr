@@ -71,7 +71,7 @@
       Values from `val` are not uniquely identified; output will contain list-cols.
       * Use `values_fn = list` to suppress this warning.
       * Use `values_fn = {summary_fun}` to summarise duplicates.
-      * Use the following to identify duplicates.
+      * Use the following dplyr code to identify duplicates.
         {data} %>%
           dplyr::group_by(a, key) %>%
           dplyr::summarise(n = dplyr::n(), .groups = "drop") %>%
@@ -85,7 +85,7 @@
       Values from `a`, `b` and `c` are not uniquely identified; output will contain list-cols.
       * Use `values_fn = list` to suppress this warning.
       * Use `values_fn = {summary_fun}` to summarise duplicates.
-      * Use the following to identify duplicates.
+      * Use the following dplyr code to identify duplicates.
         {data} %>%
           dplyr::group_by(key) %>%
           dplyr::summarise(n = dplyr::n(), .groups = "drop") %>%
@@ -104,7 +104,7 @@
       Values from `a` and `c` are not uniquely identified; output will contain list-cols.
       * Use `values_fn = list` to suppress this warning.
       * Use `values_fn = {summary_fun}` to summarise duplicates.
-      * Use the following to identify duplicates.
+      * Use the following dplyr code to identify duplicates.
         {data} %>%
           dplyr::group_by(key) %>%
           dplyr::summarise(n = dplyr::n(), .groups = "drop") %>%
@@ -123,7 +123,7 @@
       Values from `val` are not uniquely identified; output will contain list-cols.
       * Use `values_fn = list` to suppress this warning.
       * Use `values_fn = {summary_fun}` to summarise duplicates.
-      * Use the following to identify duplicates.
+      * Use the following dplyr code to identify duplicates.
         {data} %>%
           dplyr::group_by(`a 1`, a2, `the-key`) %>%
           dplyr::summarise(n = dplyr::n(), .groups = "drop") %>%
