@@ -231,7 +231,7 @@ pivot_wider_spec <- function(data,
   if (is_scalar(values_fill)) {
     values_fill <- rep_named(unique(spec$.value), list(values_fill))
   }
-  if (!is.null(values_fill) && !is.list(values_fill)) {
+  if (!is.null(values_fill) && !vec_is_list(values_fill)) {
     abort("`values_fill` must be NULL, a scalar, or a named list")
   }
 
@@ -474,9 +474,9 @@ is_scalar <- function(x) {
     return(FALSE)
   }
 
-  if (is.list(x)) {
-    (length(x) == 1) && !have_name(x)
+  if (vec_is_list(x)) {
+    (vec_size(x) == 1) && !have_name(x)
   } else {
-    length(x) == 1
+    vec_size(x) == 1
   }
 }

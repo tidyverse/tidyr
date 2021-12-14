@@ -1,5 +1,7 @@
 # tidyr (development version)
 
+* `pivot_wider()` now works with correctly when `values_fill` is a data frame.
+
 * @mgirlich is now a tidyr author in recognition of his significant and
   sustained contributions.
   
