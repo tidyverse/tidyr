@@ -1,5 +1,9 @@
 # tidyr (development version)
 
+* New developer facing `check_pivot_spec()` for validating a pivot `spec`
+  argument. This is only useful if you are extending `pivot_longer()` or
+  `pivot_wider()` with new S3 methods (#1087).
+
 * `pivot_wider()` now works with correctly when `values_fill` is a data frame.
 
 * @mgirlich is now a tidyr author in recognition of his significant and
