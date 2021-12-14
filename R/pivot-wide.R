@@ -308,6 +308,7 @@ pivot_wider_spec <- function(data,
     duplicate_names <- glue::glue_collapse(duplicate_names, sep = ", ", last = " and ")
 
     group_cols <- c(id_cols, names_from_cols)
+    group_cols <- backtick_if_not_syntactic(group_cols)
     group_cols <- glue::glue_collapse(group_cols, sep = ", ")
 
     warn(glue::glue(
@@ -488,4 +489,13 @@ is_scalar <- function(x) {
   } else {
     vec_size(x) == 1
   }
+}
+
+backtick_if_not_syntactic <- function(x) {
+  ok <- make.names(x) == x
+  ok[is.na(x)] <- FALSE
+
+  x[!ok] <- glue::backtick(x[!ok])
+
+  x
 }

@@ -294,6 +294,17 @@ test_that("duplicated key warning mentions every applicable column", {
   )
 })
 
+test_that("duplicated key warning backticks non-syntactic names", {
+  df <- tibble(
+    `a 1` = c(1, 1, 2),
+    a2 = c(1, 1, 2),
+    `the-key` = c("x", "x", "x"),
+    val = 1:3
+  )
+
+  expect_snapshot(pv <- pivot_wider(df, names_from = `the-key`, values_from = val))
+})
+
 test_that("warning suppressed by supplying values_fn", {
   df <- tibble(a = c(1, 1, 2), key = c("x", "x", "x"), val = 1:3)
   expect_warning(

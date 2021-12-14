@@ -115,6 +115,20 @@
         <list>    <dbl> <list>   
       1 <dbl [2]>     7 <dbl [2]>
 
+# duplicated key warning backticks non-syntactic names
+
+    Code
+      pv <- pivot_wider(df, names_from = `the-key`, values_from = val)
+    Warning <warning>
+      Values from `val` are not uniquely identified; output will contain list-cols.
+      * Use `values_fn = list` to suppress this warning.
+      * Use `values_fn = {summary_fun}` to summarise duplicates.
+      * Use the following to identify duplicates.
+        {data} %>%
+          dplyr::group_by(`a 1`, a2, `the-key`) %>%
+          dplyr::summarise(n = dplyr::n(), .groups = "drop") %>%
+          dplyr::filter(n > 1L)
+
 # values_fn is validated
 
     Code
