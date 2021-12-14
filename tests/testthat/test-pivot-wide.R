@@ -359,6 +359,19 @@ test_that("values_fill only affects missing cells", {
   expect_equal(out$y, c(0, NA))
 })
 
+test_that("values_fill works with data frame fill values", {
+  df <- tibble(
+    id = c(1L, 2L),
+    name = c("x", "y"),
+    value = tibble(a = 1:2, b = 2:3)
+  )
+
+  out <- pivot_wider(df, values_fill = tibble(a = 0L, b = 0L))
+
+  expect_identical(out$x, tibble(a = c(1L, 0L), b = c(2L, 0L)))
+  expect_identical(out$y, tibble(a = c(0L, 2L), b = c(0L, 3L)))
+})
+
 # multiple values ----------------------------------------------------------
 
 test_that("can pivot from multiple measure cols", {
