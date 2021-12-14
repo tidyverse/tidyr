@@ -179,11 +179,12 @@ with existing variables.</p></dd>
 <p>This can be a named list if you want to apply different fill values to
 different value columns.</p></dd>
 <dt>values_fn</dt>
-<dd><p>Optionally, a function applied to the <code>value</code> in each cell
+<dd><p>Optionally, a function applied to the value in each cell
 in the output. You will typically use this when the combination of
-<code>id_cols</code> and <code>value</code> column does not uniquely identify an observation.</p>
+<code>id_cols</code> and <code>names_from</code> columns does not uniquely identify an
+observation.</p>
 <p>This can be a named list if you want to apply different aggregations
-to different value columns.</p></dd>
+to different <code>values_from</code> columns.</p></dd>
 <dt>names_from</dt>
 <dd><p>&lt;<code><a href="tidyr_tidy_select.html">tidy-select</a></code>&gt; A pair of
 arguments describing which column (or columns) to get the name of the
