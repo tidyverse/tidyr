@@ -210,6 +210,15 @@ test_that("can vary `names_from` values slowest (#839)", {
   )
 })
 
+test_that("`names_vary` is validated", {
+  df <- tibble(name = c("a", "b"), value = c(1, 2))
+
+  expect_snapshot({
+    (expect_error(build_wider_spec(df, names_vary = 1)))
+    (expect_error(build_wider_spec(df, names_vary = "x")))
+  })
+})
+
 # keys ---------------------------------------------------------
 
 test_that("can override default keys", {

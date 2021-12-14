@@ -63,6 +63,19 @@
       Applying `values_fn` to `value` must result in a single summary value per key.
       x Applying `values_fn` resulted in a value with length 2.
 
+# `names_vary` is validated
+
+    Code
+      (expect_error(build_wider_spec(df, names_vary = 1)))
+    Output
+      <error/rlang_error>
+      `names_vary` must be a character vector.
+    Code
+      (expect_error(build_wider_spec(df, names_vary = "x")))
+    Output
+      <error/rlang_error>
+      `names_vary` must be one of "fastest" or "slowest".
+
 # duplicated keys produce list column with warning
 
     Code
