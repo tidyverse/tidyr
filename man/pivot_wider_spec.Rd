@@ -57,12 +57,13 @@ with existing variables.}
 This can be a named list if you want to apply different fill values to
 different value columns.}
 
-\item{values_fn}{Optionally, a function applied to the \code{value} in each cell
+\item{values_fn}{Optionally, a function applied to the value in each cell
 in the output. You will typically use this when the combination of
-\code{id_cols} and \code{value} column does not uniquely identify an observation.
+\code{id_cols} and \code{names_from} columns does not uniquely identify an
+observation.
 
 This can be a named list if you want to apply different aggregations
-to different value columns.}
+to different \code{values_from} columns.}
 
 \item{names_from}{<\code{\link[=tidyr_tidy_select]{tidy-select}}> A pair of
 arguments describing which column (or columns) to get the name of the

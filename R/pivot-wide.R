@@ -44,12 +44,13 @@
 #'
 #'   This can be a named list if you want to apply different fill values to
 #'   different value columns.
-#' @param values_fn Optionally, a function applied to the `value` in each cell
+#' @param values_fn Optionally, a function applied to the value in each cell
 #'   in the output. You will typically use this when the combination of
-#'   `id_cols` and `value` column does not uniquely identify an observation.
+#'   `id_cols` and `names_from` columns does not uniquely identify an
+#'   observation.
 #'
 #'   This can be a named list if you want to apply different aggregations
-#'   to different value columns.
+#'   to different `values_from` columns.
 #' @param ... Additional arguments passed on to methods.
 #' @export
 #' @examples
