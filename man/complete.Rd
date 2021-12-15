@@ -4,7 +4,7 @@
 \alias{complete}
 \title{Complete a data frame with missing combinations of data}
 \usage{
-complete(data, ..., fill = list())
+complete(data, ..., fill = list(), explicit = TRUE)
 }
 \arguments{
 \item{data}{A data frame.}
@@ -33,6 +33,11 @@ that do not appear in the data: to do so use expressions like
 
 \item{fill}{A named list that for each variable supplies a single value to
 use instead of \code{NA} for missing combinations.}
+
+\item{explicit}{Should both implicit (newly created) and explicit
+(pre-existing) missing values be filled by \code{fill}? By default, this is
+\code{TRUE}, but if set to \code{FALSE} this will limit the fill to only implicit
+missing values.}
 }
 \description{
 Turns implicit missing values into explicit missing values.
@@ -40,21 +45,33 @@ This is a wrapper around \code{\link[=expand]{expand()}},
 \code{\link[dplyr:mutate-joins]{dplyr::full_join()}} and \code{\link[=replace_na]{replace_na()}} that's
 useful for completing missing combinations of data.
 }
-\details{
-If you supply \code{fill}, these values will also replace existing
-explicit missing values in the data set.
-}
 \examples{
 library(dplyr, warn.conflicts = FALSE)
 df <- tibble(
   group = c(1:2, 1),
   item_id = c(1:2, 2),
   item_name = c("a", "b", "b"),
-  value1 = 1:3,
+  value1 = c(1, NA, 3),
   value2 = 4:6
 )
 df \%>\% complete(group, nesting(item_id, item_name))
 
-# You can also choose to fill in missing values
-df \%>\% complete(group, nesting(item_id, item_name), fill = list(value1 = 0))
+# You can also choose to fill in missing values. By default, both implicit
+# (new) and explicit (pre-existing) missing values are filled.
+complete(
+  df,
+  group,
+  nesting(item_id, item_name),
+  fill = list(value1 = 0, value2 = 99)
+)
+
+# You can limit the fill to only implicit missing values by setting
+# `explicit` to `FALSE`
+complete(
+  df,
+  group,
+  nesting(item_id, item_name),
+  fill = list(value1 = 0, value2 = 99),
+  explicit = FALSE
+)
 }

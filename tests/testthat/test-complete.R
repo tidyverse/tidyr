@@ -61,3 +61,50 @@ test_that("complete() fills missing values even when there are no `...` (#1272)"
     tibble(a = c(1, 0, 3))
   )
 })
+
+test_that("both implicit and explicit missing values are filled by default", {
+  df <- tibble(
+    x = factor(1:2, levels = 1:3),
+    a = c(1, NA)
+  )
+
+  expect_identical(
+    complete(df, x, fill = list(a = 0)),
+    tibble(x = factor(1:3), a = c(1, 0, 0))
+  )
+})
+
+test_that("can limit the fill to only implicit missing values with `explicit` (#1270)", {
+  df <- tibble(
+    x = factor(1:2, levels = 1:3),
+    a = c(1, NA)
+  )
+
+  expect_identical(
+    complete(df, x, fill = list(a = 0), explicit = FALSE),
+    tibble(x = factor(1:3), a = c(1, NA, 0))
+  )
+})
+
+test_that("if the completing variables have missings, `fill` will fill them after expansion", {
+  # This behavior is admittedly a little weird, but should not be common
+  # because you rarely specify a completing variable in `fill`
+
+  df <- tibble(
+    x = c(1, NA),
+    y = c(NA, 1)
+  )
+
+  # Expanded combinations that involved missings get filled
+  expect_identical(
+    complete(df, x, y, fill = list(x = 0, y = 0)),
+    tibble(x = c(1, 1, 0, 0), y = c(1, 0, 1, 0))
+  )
+
+  # Can limit the fill to only the "new" combinations that weren't in the
+  # original data. Here, the `x = NA, y = NA` combination that gets created.
+  expect_identical(
+    complete(df, x, y, fill = list(x = 0, y = 0), explicit = FALSE),
+    tibble(x = c(1, 1, NA, 0), y = c(1, NA, 1, 0))
+  )
+})
