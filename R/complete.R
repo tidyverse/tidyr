@@ -30,12 +30,18 @@ complete <- function(data, ..., fill = list()) {
 }
 #' @export
 complete.data.frame <- function(data, ..., fill = list()) {
-  full <- expand(data, ...)
-  if (is_empty(full)) {
-    return(data)
-  }
-  full <- dplyr::full_join(full, data, by = names(full))
-  full <- replace_na(full, replace = fill)
+  out <- expand(data, ...)
+  names <- names(out)
 
-  reconstruct_tibble(data, full)
+  if (length(names) > 0L) {
+    out <- dplyr::full_join(out, data, by = names)
+  } else {
+    # Avoid joining the 1x0 result from `expand()` with `data`.
+    # That causes issues when `data` has zero rows.
+    out <- data
+  }
+
+  out <- replace_na(out, replace = fill)
+
+  reconstruct_tibble(data, out)
 }

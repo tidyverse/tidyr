@@ -52,3 +52,12 @@ test_that("complete() with empty nesting() / crossing() calls 'ignores' them (#1
   expect_identical(complete(df, x), complete(df, x, nesting(NULL)))
   expect_identical(complete(df, x), complete(df, x, crossing(NULL)))
 })
+
+test_that("complete() fills missing values even when there are no `...` (#1272)", {
+  df <- tibble(a = c(1, NA, 3))
+
+  expect_identical(
+    complete(df, fill = list(a = 0)),
+    tibble(a = c(1, 0, 3))
+  )
+})
