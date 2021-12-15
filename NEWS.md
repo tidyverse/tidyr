@@ -1,5 +1,9 @@
 # tidyr (development version)
 
+* `complete()` gains a new `explicit` argument for limiting `fill` to only
+  implicit missing values. This is useful if you don't want to fill in
+  pre-existing missing values (#1270).
+
 * `complete()` now applies `fill` even when no columns to complete are
   specified (#1272).
 
