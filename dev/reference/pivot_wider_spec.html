@@ -142,7 +142,8 @@ that allows you to describe pivotting with a data frame.</p>
   names_prefix <span class="op">=</span> <span class="st">""</span>,
   names_sep <span class="op">=</span> <span class="st">"_"</span>,
   names_glue <span class="op">=</span> <span class="cn">NULL</span>,
-  names_sort <span class="op">=</span> <span class="cn">FALSE</span>
+  names_sort <span class="op">=</span> <span class="cn">FALSE</span>,
+  names_vary <span class="op">=</span> <span class="st">"fastest"</span>
 <span class="op">)</span></code></pre></div>
     </div>
 
@@ -214,6 +215,14 @@ a glue specification that uses the <code>names_from</code> columns (and special
 <dt>names_sort</dt>
 <dd><p>Should the column names be sorted? If <code>FALSE</code>, the default,
 column names are ordered by first appearance.</p></dd>
+<dt>names_vary</dt>
+<dd><p>When <code>names_from</code> identifies a column (or columns) with
+multiple unique values, and multiple <code>values_from</code> columns are provided,
+in what order should the resulting column names be combined?</p><ul><li><p><code>"fastest"</code> varies <code>names_from</code> values fastest, resulting in a column
+naming scheme of the form: <code>value1_name1, value1_name2, value2_name1, value2_name2</code>. This is the default.</p></li>
+<li><p><code>"slowest"</code> varies <code>names_from</code> values slowest, resulting in a column
+naming scheme of the form: <code>value1_name1, value2_name1, value1_name2, value2_name2</code>.</p></li>
+</ul></dd>
 </dl></div>
 
     <div id="ref-examples">
