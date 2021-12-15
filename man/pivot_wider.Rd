@@ -12,6 +12,7 @@ pivot_wider(
   names_sep = "_",
   names_glue = NULL,
   names_sort = FALSE,
+  names_vary = "fastest",
   names_repair = "check_unique",
   values_from = value,
   values_fill = NULL,
@@ -50,6 +51,16 @@ a glue specification that uses the \code{names_from} columns (and special
 
 \item{names_sort}{Should the column names be sorted? If \code{FALSE}, the default,
 column names are ordered by first appearance.}
+
+\item{names_vary}{When \code{names_from} identifies a column (or columns) with
+multiple unique values, and multiple \code{values_from} columns are provided,
+in what order should the resulting column names be combined?
+\itemize{
+\item \code{"fastest"} varies \code{names_from} values fastest, resulting in a column
+naming scheme of the form: \verb{value1_name1, value1_name2, value2_name1, value2_name2}. This is the default.
+\item \code{"slowest"} varies \code{names_from} values slowest, resulting in a column
+naming scheme of the form: \verb{value1_name1, value2_name1, value1_name2, value2_name2}.
+}}
 
 \item{names_repair}{What happens if the output has invalid column names?
 The default, \code{"check_unique"} is to error if the columns are duplicated.
@@ -99,7 +110,19 @@ fish_encounters \%>\%
 # Generate column names from multiple variables
 us_rent_income
 us_rent_income \%>\%
-  pivot_wider(names_from = variable, values_from = c(estimate, moe))
+  pivot_wider(
+    names_from = variable,
+    values_from = c(estimate, moe)
+  )
+
+# You can control whether `names_from` values vary fastest or slowest
+# relative to the `values_from` column names using `names_vary`.
+us_rent_income \%>\%
+  pivot_wider(
+    names_from = variable,
+    values_from = c(estimate, moe),
+    names_vary = "slowest"
+  )
 
 # When there are multiple `names_from` or `values_from`, you can use
 # use `names_sep` or `names_glue` to control the output variable names

@@ -1,5 +1,9 @@
 # tidyr (development version)
 
+* `pivot_wider()` gains a new `names_vary` argument for controlling the
+  ordering when combining `names_from` values with `values_from` column names
+  (#839).
+
 * `pivot_wider()` now gives better advice about how to identify duplicates when
   values are not uniquely identified (#1113).
 
