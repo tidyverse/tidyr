@@ -1,5 +1,8 @@
 # tidyr (development version)
 
+* `complete()` now applies `fill` even when no columns to complete are
+  specified (#1272).
+
 * `pivot_wider()` gains a new `names_vary` argument for controlling the
   ordering when combining `names_from` values with `values_from` column names
   (#839).
