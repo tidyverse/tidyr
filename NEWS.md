@@ -1,5 +1,9 @@
 # tidyr (development version)
 
+* `pivot_wider()` gains a new `unused_fn` argument for controlling how to
+  summarize unused columns that aren't involved in the pivoting process (#990,
+  thanks to @mgirlich for an initial implementation).
+  
 * `pivot_wider()` gains new `names_expand` and `id_expand` arguments for turning
   implicit missing factor levels and variable combinations into explicit ones.
   This is similar to the `drop` argument from `spread()` (#770).
