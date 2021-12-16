@@ -5,12 +5,13 @@
 #' [dplyr::full_join()] and [replace_na()] that's
 #' useful for completing missing combinations of data.
 #'
-#' If you supply `fill`, these values will also replace existing
-#' explicit missing values in the data set.
-#'
 #' @inheritParams expand
 #' @param fill A named list that for each variable supplies a single value to
 #'   use instead of `NA` for missing combinations.
+#' @param explicit Should both implicit (newly created) and explicit
+#'   (pre-existing) missing values be filled by `fill`? By default, this is
+#'   `TRUE`, but if set to `FALSE` this will limit the fill to only implicit
+#'   missing values.
 #' @export
 #' @examples
 #' library(dplyr, warn.conflicts = FALSE)
@@ -18,18 +19,45 @@
 #'   group = c(1:2, 1),
 #'   item_id = c(1:2, 2),
 #'   item_name = c("a", "b", "b"),
-#'   value1 = 1:3,
+#'   value1 = c(1, NA, 3),
 #'   value2 = 4:6
 #' )
 #' df %>% complete(group, nesting(item_id, item_name))
 #'
-#' # You can also choose to fill in missing values
-#' df %>% complete(group, nesting(item_id, item_name), fill = list(value1 = 0))
-complete <- function(data, ..., fill = list()) {
+#' # You can also choose to fill in missing values. By default, both implicit
+#' # (new) and explicit (pre-existing) missing values are filled.
+#' complete(
+#'   df,
+#'   group,
+#'   nesting(item_id, item_name),
+#'   fill = list(value1 = 0, value2 = 99)
+#' )
+#'
+#' # You can limit the fill to only implicit missing values by setting
+#' # `explicit` to `FALSE`
+#' complete(
+#'   df,
+#'   group,
+#'   nesting(item_id, item_name),
+#'   fill = list(value1 = 0, value2 = 99),
+#'   explicit = FALSE
+#' )
+complete <- function(data,
+                     ...,
+                     fill = list(),
+                     explicit = TRUE) {
   UseMethod("complete")
 }
+
 #' @export
-complete.data.frame <- function(data, ..., fill = list()) {
+complete.data.frame <- function(data,
+                                ...,
+                                fill = list(),
+                                explicit = TRUE) {
+  if (!is_bool(explicit)) {
+    abort("`explicit` must be a single `TRUE` or `FALSE`.")
+  }
+
   out <- expand(data, ...)
   names <- names(out)
 
@@ -41,7 +69,14 @@ complete.data.frame <- function(data, ..., fill = list()) {
     out <- data
   }
 
-  out <- replace_na(out, replace = fill)
+  if (explicit) {
+    out <- replace_na(out, replace = fill)
+  } else {
+    new <- !vec_in(out[names], data[names])
+    slice <- vec_slice(out, new)
+    slice <- replace_na(slice, replace = fill)
+    out <- vec_assign(out, new, slice)
+  }
 
   reconstruct_tibble(data, out)
 }
