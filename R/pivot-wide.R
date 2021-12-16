@@ -51,11 +51,11 @@
 #'     naming scheme of the form: `value1_name1, value2_name1, value1_name2,
 #'     value2_name2`.
 #' @param names_expand Should the values in the `names_from` columns be expanded
-#'   by [expand()] before pivoting? This results in column names corresponding
-#'   to a complete expansion of all possible values in the `names_from` columns.
-#'   Implicit factor levels that aren't represented in the data will become
-#'   explicit. Additionally, the column names will be sorted, identical
-#'   to what `names_sort` would produce.
+#'   by [expand()] before pivoting? This results in more columns, the output
+#'   will contain column names corresponding to a complete expansion of all
+#'   possible values in `names_from`. Implicit factor levels that aren't
+#'   represented in the data will become explicit. Additionally, the column
+#'   names will be sorted, identical to what `names_sort` would produce.
 #' @param values_fill Optionally, a (scalar) value that specifies what each
 #'   `value` should be filled in with when missing.
 #'

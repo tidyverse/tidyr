@@ -109,11 +109,11 @@ naming scheme of the form: \verb{value1_name1, value2_name1, value1_name2, value
 }}
 
 \item{names_expand}{Should the values in the \code{names_from} columns be expanded
-by \code{\link[=expand]{expand()}} before pivoting? This results in column names corresponding
-to a complete expansion of all possible values in the \code{names_from} columns.
-Implicit factor levels that aren't represented in the data will become
-explicit. Additionally, the column names will be sorted, identical
-to what \code{names_sort} would produce.}
+by \code{\link[=expand]{expand()}} before pivoting? This results in more columns, the output
+will contain column names corresponding to a complete expansion of all
+possible values in \code{names_from}. Implicit factor levels that aren't
+represented in the data will become explicit. Additionally, the column
+names will be sorted, identical to what \code{names_sort} would produce.}
 }
 \description{
 This is a low level interface to pivotting, inspired by the cdata package,
