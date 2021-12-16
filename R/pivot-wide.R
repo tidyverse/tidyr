@@ -340,14 +340,17 @@ pivot_wider_spec <- function(data,
     }
 
     if (!is.null(value_fn)) {
-      summary <- value_summarize(
+      result <- vec_group_loc(value_id)
+      value_id <- result$key
+      value_locs <- result$loc
+
+      value <- value_summarize(
         value = value,
-        value_id = value_id,
+        value_locs = value_locs,
         value_name = value_name,
-        value_fn = value_fn
+        fn = value_fn,
+        fn_name = "values_fn"
       )
-      value <- summary$value
-      value_id <- summary$value_id
     }
 
     ncol <- nrow(value_spec)
@@ -510,16 +513,15 @@ select_wider_id_cols <- function(data,
 
 # Helpers -----------------------------------------------------------------
 
-value_summarize <- function(value, value_id, value_name, value_fn) {
-  out <- vec_split(value, value_id)
-  out <- list(value_id = out$key, value = out$val)
+value_summarize <- function(value, value_locs, value_name, fn, fn_name) {
+  value <- vec_chop(value, value_locs)
 
-  if (identical(value_fn, list)) {
+  if (identical(fn, list)) {
     # The no-op case, for performance
-    return(out)
+    return(value)
   }
 
-  value <- map(out$value, value_fn)
+  value <- map(value, fn)
 
   sizes <- list_sizes(value)
   invalid_sizes <- sizes != 1L
@@ -528,19 +530,19 @@ value_summarize <- function(value, value_id, value_name, value_fn) {
     size <- sizes[invalid_sizes][[1]]
 
     header <- glue(
-      "Applying `values_fn` to `{value_name}` must result in ",
+      "Applying `{fn_name}` to `{value_name}` must result in ",
       "a single summary value per key."
     )
     bullet <- c(
-      x = glue("Applying `values_fn` resulted in a value with length {size}.")
+      x = glue("Applying `{fn_name}` resulted in a value with length {size}.")
     )
 
     abort(c(header, bullet))
   }
 
-  out$value <- vec_c(!!!value)
+  value <- vec_c(!!!value)
 
-  out
+  value
 }
 
 # Wrap a "rectangular" vector into a data frame
