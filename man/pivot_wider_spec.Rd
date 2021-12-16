@@ -22,7 +22,8 @@ build_wider_spec(
   names_sep = "_",
   names_glue = NULL,
   names_sort = FALSE,
-  names_vary = "fastest"
+  names_vary = "fastest",
+  names_expand = FALSE
 )
 }
 \arguments{
@@ -106,6 +107,13 @@ naming scheme of the form: \verb{value1_name1, value1_name2, value2_name1, value
 \item \code{"slowest"} varies \code{names_from} values slowest, resulting in a column
 naming scheme of the form: \verb{value1_name1, value2_name1, value1_name2, value2_name2}.
 }}
+
+\item{names_expand}{Should the values in the \code{names_from} columns be expanded
+by \code{\link[=expand]{expand()}} before pivoting? This results in column names corresponding
+to a complete expansion of all possible values in the \code{names_from} columns.
+Implicit factor levels that aren't represented in the data will become
+explicit. Additionally, the column names will be sorted, identical
+to what \code{names_sort} would produce.}
 }
 \description{
 This is a low level interface to pivotting, inspired by the cdata package,

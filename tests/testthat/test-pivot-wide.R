@@ -161,6 +161,36 @@ test_that("pivoting with a manual spec and zero rows results in zero rows (#1252
   expect_identical(pivot_wider_spec(df, spec), tibble(name = integer()))
 })
 
+test_that("can use `names_expand` to get sorted and expanded column names (#770)", {
+  name1 <- factor(c(NA, "x"), levels = c("x", "y"))
+  df <- tibble(name1 = name1, name2 = c("c", "d"), value = c(1, 2))
+
+  na <- NA_real_
+
+  expect_identical(
+    pivot_wider(df, names_from = c(name1, name2), names_expand = TRUE),
+    tibble(x_c = na, x_d = 2, y_c = na, y_d = na, NA_c = 1, NA_d = na)
+  )
+})
+
+test_that("can fill only implicit missings from `names_expand`", {
+  name1 <- factor(c(NA, "x"), levels = c("x", "y"))
+  df <- tibble(name1 = name1, name2 = c("c", "d"), value = c(1, NA))
+
+  res <- pivot_wider(
+    data = df,
+    names_from = c(name1, name2),
+    names_expand = TRUE,
+    values_fill = list(value = 0)
+  )
+
+  # But not the explicit missing!
+  expect_identical(
+    res,
+    tibble(x_c = 0, x_d = NA_real_, y_c = 0, y_d = 0, NA_c = 1, NA_d = 0)
+  )
+})
+
 # column names -------------------------------------------------------------
 
 test_that("names_glue affects output names", {
@@ -216,6 +246,34 @@ test_that("`names_vary` is validated", {
   expect_snapshot({
     (expect_error(build_wider_spec(df, names_vary = 1)))
     (expect_error(build_wider_spec(df, names_vary = "x")))
+  })
+})
+
+test_that("`names_expand` generates sorted column names even if no expansion is done", {
+  df <- tibble(name = c(2, 1), value = c(1, 2))
+  spec <- build_wider_spec(df, names_expand = TRUE)
+  expect_identical(spec$.name, c("1", "2"))
+})
+
+test_that("`names_expand` does a cartesian expansion of `names_from` columns (#770)", {
+  df <- tibble(name1 = c("a", "b"), name2 = c("c", "d"), value = c(1, 2))
+  spec <- build_wider_spec(df, names_from = c(name1, name2), names_expand = TRUE)
+  expect_identical(spec$.name, c("a_c", "a_d", "b_c", "b_d"))
+})
+
+test_that("`names_expand` expands all levels of a factor `names_from` column (#770)", {
+  name1 <- factor(c(NA, "x"), levels = c("x", "y"))
+  df <- tibble(name1 = name1, name2 = c("c", "d"), value = c(1, 2))
+  spec <- build_wider_spec(df, names_from = c(name1, name2), names_expand = TRUE)
+  expect_identical(spec$.name, c("x_c", "x_d", "y_c", "y_d", "NA_c", "NA_d"))
+})
+
+test_that("`names_expand` is validated", {
+  df <- tibble(name = c("a", "b"), value = c(1, 2))
+
+  expect_snapshot({
+    (expect_error(build_wider_spec(df, names_expand = 1)))
+    (expect_error(build_wider_spec(df, names_expand = "x")))
   })
 })
 

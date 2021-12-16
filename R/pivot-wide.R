@@ -50,6 +50,12 @@
 #'   - `"slowest"` varies `names_from` values slowest, resulting in a column
 #'     naming scheme of the form: `value1_name1, value2_name1, value1_name2,
 #'     value2_name2`.
+#' @param names_expand Should the values in the `names_from` columns be expanded
+#'   by [expand()] before pivoting? This results in column names corresponding
+#'   to a complete expansion of all possible values in the `names_from` columns.
+#'   Implicit factor levels that aren't represented in the data will become
+#'   explicit. Additionally, the column names will be sorted, identical
+#'   to what `names_sort` would produce.
 #' @param values_fill Optionally, a (scalar) value that specifies what each
 #'   `value` should be filled in with when missing.
 #'
@@ -133,6 +139,7 @@ pivot_wider <- function(data,
                         names_glue = NULL,
                         names_sort = FALSE,
                         names_vary = "fastest",
+                        names_expand = FALSE,
                         names_repair = "check_unique",
                         values_from = value,
                         values_fill = NULL,
@@ -151,6 +158,7 @@ pivot_wider.data.frame <- function(data,
                                    names_glue = NULL,
                                    names_sort = FALSE,
                                    names_vary = "fastest",
+                                   names_expand = FALSE,
                                    names_repair = "check_unique",
                                    values_from = value,
                                    values_fill = NULL,
@@ -167,7 +175,8 @@ pivot_wider.data.frame <- function(data,
     names_sep = names_sep,
     names_glue = names_glue,
     names_sort = names_sort,
-    names_vary = names_vary
+    names_vary = names_vary,
+    names_expand = names_expand
   )
 
   id_cols <- build_wider_id_cols_expr(
@@ -378,7 +387,8 @@ build_wider_spec <- function(data,
                              names_sep = "_",
                              names_glue = NULL,
                              names_sort = FALSE,
-                             names_vary = "fastest") {
+                             names_vary = "fastest",
+                             names_expand = FALSE) {
   names_from <- tidyselect::eval_select(enquo(names_from), data)
   values_from <- tidyselect::eval_select(enquo(values_from), data)
 
@@ -391,9 +401,22 @@ build_wider_spec <- function(data,
 
   names_vary <- arg_match0(names_vary, c("fastest", "slowest"), arg_nm = "names_vary")
 
-  row_ids <- vec_unique(data[names_from])
-  if (names_sort) {
-    row_ids <- vec_sort(row_ids)
+  if (!is_bool(names_expand)) {
+    abort("`names_expand` must be a single `TRUE` or `FALSE`.")
+  }
+
+  data <- as_tibble(data)
+  data <- data[names_from]
+
+  if (names_expand) {
+    # `expand()` always does sort + unique
+    row_ids <- expand(data, !!!syms(names(data)))
+  } else {
+    row_ids <- vec_unique(data)
+
+    if (names_sort) {
+      row_ids <- vec_sort(row_ids)
+    }
   }
 
   row_names <- exec(paste, !!!row_ids, sep = names_sep)
