@@ -1,5 +1,8 @@
 # tidyr (development version)
 
+* `expand()`, `crossing()`, and `nesting()` now correctly retain `NA` values of
+  factors (#1275).
+
 * `complete()` gains a new `explicit` argument for limiting `fill` to only
   implicit missing values. This is useful if you don't want to fill in
   pre-existing missing values (#1270).
