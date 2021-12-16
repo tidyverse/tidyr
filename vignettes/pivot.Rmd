@@ -396,6 +396,83 @@ us_rent_income %>%
 
 Note that the name of the variable is automatically appended to the output columns.
 
+## Implicit missing values
+
+Occasionally, you'll come across data where your names variable is encoded as a factor, but not all of the data will be represented.
+
+```{r}
+weekdays <- c("Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun")
+
+daily <- tibble(
+  day = factor(c("Tue", "Thu", "Fri", "Mon"), levels = weekdays),
+  value = c(2, 3, 1, 5)
+)
+
+daily
+```
+
+`pivot_wider()` defaults to generating columns from the values that are actually represented in the data, but you might want to include a column for each possible level in case the data changes in the future.
+
+```{r}
+pivot_wider(daily, names_from = day, values_from = value)
+```
+
+The `names_expand` argument will turn implicit factor levels into explicit ones, forcing them to be represented in the result. It also sorts the column names using the level order, which produces more intuitive results in this case.
+
+```{r}
+pivot_wider(daily, names_from = day, values_from = value, names_expand = TRUE)
+```
+
+If multiple `names_from` columns are provided, `names_expand` will generate a Cartesian product of all possible combinations of the `names_from` values. Notice that the following data has omitted some rows where the percentage value would be `0`. `names_expand` allows us to make those explicit during the pivot.
+
+```{r}
+percentages <- tibble(
+  year = c(2018, 2019, 2020, 2020),
+  type = factor(c("A", "B", "A", "B"), levels = c("A", "B")),
+  percentage = c(100, 100, 40, 60)
+)
+
+percentages
+
+pivot_wider(
+  percentages,
+  names_from = c(year, type),
+  values_from = percentage,
+  names_expand = TRUE,
+  values_fill = 0
+)
+```
+
+A related problem can occur when there are implicit missing factor levels or combinations in the `id_cols`. In this case, there are missing rows (rather than columns) that you'd like to explicitly represent. For this example, we'll modify our `daily` data with a `type` column, and pivot on that instead, keeping `day` as an id column.
+
+```{r}
+daily <- mutate(daily, type = factor(c("A", "B", "B", "A")))
+daily
+```
+
+All of our `type` levels are represented in the columns, but we are missing some rows related to the unrepresented `day` factor levels.
+
+```{r}
+pivot_wider(
+  daily, 
+  names_from = type, 
+  values_from = value,
+  values_fill = 0
+)
+```
+
+We can use `id_expand` in the same way that we used `names_expand`, which will expand out (and sort) the implicit missing rows in the `id_cols`.
+
+```{r}
+pivot_wider(
+  daily, 
+  names_from = type, 
+  values_from = value,
+  values_fill = 0,
+  id_expand = TRUE
+)
+```
+
 ## Contact list
 
 A final challenge is inspired by [Jiena Gu](https://github.com/jienagu/tidyverse_examples/blob/master/example_long_wide.R). Imagine you have a contact list that you've copied and pasted from a website:
