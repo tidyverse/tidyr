@@ -19,6 +19,7 @@ pivot_wider(
   values_from = value,
   values_fill = NULL,
   values_fn = NULL,
+  unused_fn = NULL,
   ...
 )
 }
@@ -98,6 +99,21 @@ observation.
 This can be a named list if you want to apply different aggregations
 to different \code{values_from} columns.}
 
+\item{unused_fn}{Optionally, a function applied to summarize the values from
+the unused columns (i.e. columns not identified by \code{id_cols},
+\code{names_from}, or \code{values_from}).
+
+The default drops all unused columns from the result.
+
+This can be a named list if you want to apply different aggregations
+to different unused columns.
+
+\code{id_cols} must be supplied for \code{unused_fn} to be useful, since otherwise
+all unspecified columns will be considered \code{id_cols}.
+
+This is similar to grouping by the \code{id_cols} then summarizing the
+unused columns using \code{unused_fn}.}
+
 \item{...}{Additional arguments passed on to methods.}
 }
 \description{
@@ -174,6 +190,38 @@ warpbreaks \%>\%
     values_from = breaks,
     values_fn = ~mean(.x, na.rm = TRUE)
   )
+
+# Unused columns that aren't involved in the pivoting process are dropped
+# from the result by default. If you want to keep them, you can summarize
+# them with `unused_fn`. In this case, we'd like to retain the most recent
+# `update` date while pivoting on `name`.
+df <- tibble(
+  id = rep(1:5, each = 3),
+  update = as.Date("2020-07-01") + 1:15,
+  name = rep(c("a", "b", "c"), times = 5),
+  value = 1:15
+)
+df
+
+# You have to explicitly specify `id_cols` here, which allows `update` to
+# be recognized as an unused column
+pivot_wider(
+  data = df,
+  id_cols = id,
+  names_from = name,
+  values_from = value,
+  unused_fn = max
+)
+
+# Alternatively, you can keep all of the data and opt out of
+# immediately summarizing by converting to a list
+pivot_wider(
+  data = df,
+  id_cols = id,
+  names_from = name,
+  values_from = value,
+  unused_fn = list
+)
 }
 \seealso{
 \code{\link[=pivot_wider_spec]{pivot_wider_spec()}} to pivot "by hand" with a data frame that

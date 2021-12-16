@@ -176,3 +176,20 @@
       <error/rlang_error>
       Can't convert a double vector to function
 
+# `unused_fn` must result in single summary values
+
+    Code
+      (expect_error(pivot_wider(df, id_cols = id, unused_fn = identity)))
+    Output
+      <error/rlang_error>
+      Applying `unused_fn` to `unused` must result in a single summary value per key.
+      x Applying `unused_fn` resulted in a value with length 2.
+
+# `unused_fn` is validated
+
+    Code
+      (expect_error(pivot_wider(df, id_cols = id, unused_fn = 1)))
+    Output
+      <error/rlang_error>
+      Can't convert a double vector to function
+

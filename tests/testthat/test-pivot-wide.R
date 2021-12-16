@@ -586,3 +586,109 @@ test_that("column order in output matches spec", {
   pv <- pivot_wider_spec(df, sp)
   expect_named(pv, c("name", sp$.name))
 })
+
+# unused -------------------------------------------------------------------
+
+test_that("`unused_fn` can summarize unused columns (#990)", {
+  df <- tibble(
+    id = c(1, 1, 2, 2),
+    unused1 = c(1, 2, 4, 3),
+    unused2 = c(1, 2, 4, 3),
+    name = c("a", "b", "a", "b"),
+    value = c(1, 2, 3, 4)
+  )
+
+  # By name
+  res <- pivot_wider(df, id_cols = id, unused_fn = list(unused1 = max))
+  expect_named(res, c("id", "a", "b", "unused1"))
+  expect_identical(res$unused1, c(2, 4))
+
+  # Globally
+  res <- pivot_wider(df, id_cols = id, unused_fn = list)
+  expect_named(res, c("id", "a", "b", "unused1", "unused2"))
+  expect_identical(res$unused1, list(c(1, 2), c(4, 3)))
+  expect_identical(res$unused2, list(c(1, 2), c(4, 3)))
+})
+
+test_that("`unused_fn` works with anonymous functions", {
+  df <- tibble(
+    id = c(1, 1, 2, 2),
+    unused = c(1, NA, 4, 3),
+    name = c("a", "b", "a", "b"),
+    value = c(1, 2, 3, 4)
+  )
+
+  res <- pivot_wider(df, id_cols = id, unused_fn = ~mean(.x, na.rm = TRUE))
+  expect_identical(res$unused, c(1, 3.5))
+})
+
+test_that("`unused_fn` must result in single summary values", {
+  df <- tibble(
+    id = c(1, 1, 2, 2),
+    unused = c(1, 2, 4, 3),
+    name = c("a", "b", "a", "b"),
+    value = c(1, 2, 3, 4)
+  )
+
+  expect_snapshot(
+    (expect_error(pivot_wider(df, id_cols = id, unused_fn = identity)))
+  )
+})
+
+test_that("`unused_fn` works with expanded key from `id_expand`", {
+  df <- tibble(
+    id = factor(c(1, 1, 2, 2), levels = 1:3),
+    unused = c(1, 2, 4, 3),
+    name = c("a", "b", "a", "b"),
+    value = c(1, 2, 3, 4)
+  )
+
+  res <- pivot_wider(df, id_cols = id, id_expand = TRUE, unused_fn = max)
+  expect_identical(res$id, factor(1:3))
+  expect_identical(res$unused, c(2, 4, NA))
+
+  res <- pivot_wider(df, id_cols = id, id_expand = TRUE, unused_fn = ~sum(is.na(.x)))
+  expect_identical(res$unused, c(0L, 0L, 1L))
+})
+
+test_that("can't fill implicit missings in unused column with `values_fill`", {
+  # (in theory this would need `unused_fill`, but it would only be used when
+  # `id_expand = TRUE`, which doesn't feel that useful)
+
+  df <- tibble(
+    id = factor(c(1, 1, 2, 2), levels = 1:3),
+    unused = c(1, 2, 4, 3),
+    name = c("a", "b", "a", "b"),
+    value = c(1, 2, 3, 4)
+  )
+
+  res <- pivot_wider(
+    data = df,
+    id_cols = id,
+    id_expand = TRUE,
+    unused_fn = list,
+    values_fill = 0
+  )
+
+  expect_identical(res$a, c(1, 3, 0))
+  expect_identical(res$b, c(2, 4, 0))
+  expect_identical(res$unused, list(c(1, 2), c(4, 3), NA_real_))
+
+  res <- pivot_wider(
+    data = df,
+    id_cols = id,
+    id_expand = TRUE,
+    unused_fn = list,
+    values_fill = list(unused = 0)
+  )
+
+  expect_identical(res$unused, list(c(1, 2), c(4, 3), NA_real_))
+})
+
+test_that("`unused_fn` is validated", {
+  df <- tibble(id = 1, unused = 1, name = "a", value = 1)
+
+  expect_snapshot(
+    (expect_error(pivot_wider(df, id_cols = id, unused_fn = 1)))
+  )
+})

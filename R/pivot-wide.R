@@ -74,6 +74,20 @@
 #'
 #'   This can be a named list if you want to apply different aggregations
 #'   to different `values_from` columns.
+#' @param unused_fn Optionally, a function applied to summarize the values from
+#'   the unused columns (i.e. columns not identified by `id_cols`,
+#'   `names_from`, or `values_from`).
+#'
+#'   The default drops all unused columns from the result.
+#'
+#'   This can be a named list if you want to apply different aggregations
+#'   to different unused columns.
+#'
+#'   `id_cols` must be supplied for `unused_fn` to be useful, since otherwise
+#'   all unspecified columns will be considered `id_cols`.
+#'
+#'   This is similar to grouping by the `id_cols` then summarizing the
+#'   unused columns using `unused_fn`.
 #' @param ... Additional arguments passed on to methods.
 #' @export
 #' @examples
@@ -137,6 +151,38 @@
 #'     values_from = breaks,
 #'     values_fn = ~mean(.x, na.rm = TRUE)
 #'   )
+#'
+#' # Unused columns that aren't involved in the pivoting process are dropped
+#' # from the result by default. If you want to keep them, you can summarize
+#' # them with `unused_fn`. In this case, we'd like to retain the most recent
+#' # `update` date while pivoting on `name`.
+#' df <- tibble(
+#'   id = rep(1:5, each = 3),
+#'   update = as.Date("2020-07-01") + 1:15,
+#'   name = rep(c("a", "b", "c"), times = 5),
+#'   value = 1:15
+#' )
+#' df
+#'
+#' # You have to explicitly specify `id_cols` here, which allows `update` to
+#' # be recognized as an unused column
+#' pivot_wider(
+#'   data = df,
+#'   id_cols = id,
+#'   names_from = name,
+#'   values_from = value,
+#'   unused_fn = max
+#' )
+#'
+#' # Alternatively, you can keep all of the data and opt out of
+#' # immediately summarizing by converting to a list
+#' pivot_wider(
+#'   data = df,
+#'   id_cols = id,
+#'   names_from = name,
+#'   values_from = value,
+#'   unused_fn = list
+#' )
 pivot_wider <- function(data,
                         id_cols = NULL,
                         id_expand = FALSE,
@@ -151,6 +197,7 @@ pivot_wider <- function(data,
                         values_from = value,
                         values_fill = NULL,
                         values_fn = NULL,
+                        unused_fn = NULL,
                         ...) {
   ellipsis::check_dots_used()
   UseMethod("pivot_wider")
@@ -171,6 +218,7 @@ pivot_wider.data.frame <- function(data,
                                    values_from = value,
                                    values_fill = NULL,
                                    values_fn = NULL,
+                                   unused_fn = NULL,
                                    ...) {
   names_from <- enquo(names_from)
   values_from <- enquo(values_from)
@@ -201,7 +249,8 @@ pivot_wider.data.frame <- function(data,
     id_expand = id_expand,
     names_repair = names_repair,
     values_fill = values_fill,
-    values_fn = values_fn
+    values_fn = values_fn,
+    unused_fn = unused_fn
   )
 }
 
@@ -262,7 +311,8 @@ pivot_wider_spec <- function(data,
                              id_cols = NULL,
                              id_expand = FALSE,
                              values_fill = NULL,
-                             values_fn = NULL) {
+                             values_fn = NULL,
+                             unused_fn = NULL) {
   input <- data
 
   spec <- check_pivot_spec(spec)
@@ -276,6 +326,8 @@ pivot_wider_spec <- function(data,
     id_cols = {{id_cols}},
     non_id_cols = non_id_cols
   )
+
+  unused_cols <- setdiff(names(data), c(id_cols, non_id_cols))
 
   if (is.null(values_fn)) {
     values_fn <- list()
@@ -297,6 +349,16 @@ pivot_wider_spec <- function(data,
   }
   values_fill <- values_fill[intersect(names(values_fill), values_from_cols)]
 
+  if (is.null(unused_fn)) {
+    unused_fn <- list()
+  }
+  if (!vec_is_list(unused_fn)) {
+    unused_fn <- rep_named(unused_cols, list(unused_fn))
+  }
+  unused_fn <- map(unused_fn, as_function)
+  unused_fn <- unused_fn[intersect(names(unused_fn), unused_cols)]
+  unused_cols <- names(unused_fn)
+
   if (!is_bool(id_expand)) {
     abort("`id_expand` must be a single `TRUE` or `FALSE`.")
   }
@@ -305,7 +367,7 @@ pivot_wider_spec <- function(data,
   # zero cols are selected. Also want to avoid the grouped-df behavior
   # of `complete()`.
   data <- as_tibble(data)
-  data <- data[vec_unique(c(id_cols, names_from_cols, values_from_cols))]
+  data <- data[vec_unique(c(id_cols, names_from_cols, values_from_cols, unused_cols))]
 
   if (id_expand) {
     data <- complete(data, !!!syms(id_cols), fill = values_fill, explicit = FALSE)
@@ -316,6 +378,33 @@ pivot_wider_spec <- function(data,
   row_id <- vec_group_id(rows)
   nrow <- attr(row_id, "n")
   rows <- vec_slice(rows, vec_unique_loc(row_id))
+
+  n_unused_fn <- length(unused_fn)
+
+  unused <- vector("list", length = n_unused_fn)
+  names(unused) <- unused_cols
+
+  if (n_unused_fn > 0L) {
+    # This can be expensive, only compute if we are using `unused_fn`
+    unused_locs <- vec_group_loc(row_id)$loc
+  }
+
+  for (i in seq_len(n_unused_fn)) {
+    unused_col <- unused_cols[[i]]
+    unused_fn_i <- unused_fn[[i]]
+
+    unused_value <- data[[unused_col]]
+
+    unused[[i]] <- value_summarize(
+      value = unused_value,
+      value_locs = unused_locs,
+      value_name = unused_col,
+      fn = unused_fn_i,
+      fn_name = "unused_fn"
+    )
+  }
+
+  unused <- tibble::new_tibble(unused, nrow = nrow)
 
   duplicate_names <- character(0L)
 
@@ -397,6 +486,7 @@ pivot_wider_spec <- function(data,
   out <- wrap_error_names(vec_cbind(
     rows,
     values,
+    unused,
     .name_repair = names_repair
   ))
 
