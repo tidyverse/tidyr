@@ -191,6 +191,20 @@ test_that("can fill only implicit missings from `names_expand`", {
   )
 })
 
+test_that("expansion with `id_expand` and `names_expand` works with zero row data frames", {
+  df <- tibble(
+    id = factor(levels = c("b", "a")),
+    name = factor(levels = c("a", "b")),
+    value = integer()
+  )
+
+  res <- pivot_wider(df, names_expand = TRUE, id_expand = TRUE)
+
+  expect_identical(res$id, factor(c("b", "a"), levels = c("b", "a")))
+  expect_identical(res$a, c(NA_integer_, NA_integer_))
+  expect_identical(res$b, c(NA_integer_, NA_integer_))
+})
+
 # column names -------------------------------------------------------------
 
 test_that("names_glue affects output names", {
