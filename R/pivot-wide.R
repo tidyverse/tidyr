@@ -246,21 +246,6 @@ pivot_wider_spec <- function(data,
                              values_fn = NULL) {
   spec <- check_pivot_spec(spec)
 
-  if (is.null(values_fn)) {
-    values_fn <- list()
-  }
-  if (!vec_is_list(values_fn)) {
-    values_fn <- rep_named(unique(spec$.value), list(values_fn))
-  }
-  values_fn <- map(values_fn, as_function)
-
-  if (is_scalar(values_fill)) {
-    values_fill <- rep_named(unique(spec$.value), list(values_fill))
-  }
-  if (!is.null(values_fill) && !vec_is_list(values_fill)) {
-    abort("`values_fill` must be NULL, a scalar, or a named list")
-  }
-
   names_from_cols <- names(spec)[-(1:2)]
   values_from_cols <- vec_unique(spec$.value)
   non_id_cols <- c(names_from_cols, values_from_cols)
@@ -270,6 +255,26 @@ pivot_wider_spec <- function(data,
     id_cols = {{id_cols}},
     non_id_cols = non_id_cols
   )
+
+  if (is.null(values_fn)) {
+    values_fn <- list()
+  }
+  if (!vec_is_list(values_fn)) {
+    values_fn <- rep_named(values_from_cols, list(values_fn))
+  }
+  values_fn <- map(values_fn, as_function)
+  values_fn <- values_fn[intersect(names(values_fn), values_from_cols)]
+
+  if (is.null(values_fill)) {
+    values_fill <- list()
+  }
+  if (is_scalar(values_fill)) {
+    values_fill <- rep_named(values_from_cols, list(values_fill))
+  }
+  if (!vec_is_list(values_fill)) {
+    abort("`values_fill` must be NULL, a scalar, or a named list")
+  }
+  values_fill <- values_fill[intersect(names(values_fill), values_from_cols)]
 
   # Figure out rows in output.
   # Early conversion to tibble because data.table returns zero rows if
