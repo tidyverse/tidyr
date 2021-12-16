@@ -113,6 +113,15 @@ test_that("expand() with empty nesting() / crossing() calls 'ignores' them (#125
   expect_identical(expand(df, x), expand(df, x, crossing(NULL)))
 })
 
+test_that("expand() retains `NA` data in factors (#1275)", {
+  df <- tibble(x = factor(c(NA, "x"), levels = "x"))
+
+  expect_identical(
+    expand(df, x),
+    tibble(x = factor(c("x", NA), levels = "x"))
+  )
+})
+
 # ------------------------------------------------------------------------------
 
 test_that("crossing checks for bad inputs", {
@@ -243,6 +252,20 @@ test_that("can use `do.call()` or `reduce()` with `crossing()` (#992)", {
   )
 })
 
+test_that("crossing() / nesting() retain `NA` data in factors (#1275)", {
+  x <- factor(c(NA, "x"), levels = "x")
+
+  expect_identical(
+    crossing(x),
+    tibble(x = factor(c("x", NA), levels = "x"))
+  )
+
+  expect_identical(
+    nesting(x),
+    tibble(x = factor(c("x", NA), levels = "x"))
+  )
+})
+
 # ------------------------------------------------------------------------------
 
 test_that("expand_grid() can control name_repair", {
@@ -319,6 +342,7 @@ test_that("expand_grid() works with 0 row tibbles", {
 })
 
 # ------------------------------------------------------------------------------
+# grid_dots()
 
 test_that("grid_dots() silently repairs auto-names", {
   x <- 1
@@ -362,4 +386,19 @@ test_that("grid_dots() drops `NULL`s", {
 
 test_that("grid_dots() reject non-vector input", {
   expect_snapshot((expect_error(grid_dots(lm(1~1)))))
+})
+
+# ------------------------------------------------------------------------------
+# fct_unique()
+
+test_that("fct_unique() retains `NA` at the end even if it isn't a level", {
+  x <- factor(c(NA, "x"))
+  expect_identical(fct_unique(x), factor(c("x", NA)))
+  expect_identical(levels(fct_unique(x)), "x")
+})
+
+test_that("fct_unique() doesn't alter level order if `NA` is an existing level", {
+  x <- factor(c(NA, "x"), levels = c(NA, "x"), exclude = NULL)
+  expect_identical(fct_unique(x), x)
+  expect_identical(levels(fct_unique(x)), c(NA, "x"))
 })

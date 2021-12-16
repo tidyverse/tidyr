@@ -193,13 +193,28 @@ sorted_unique <- function(x) {
   }
 
   if (is.factor(x)) {
-    # forcats::fct_unique
-    factor(levels(x), levels(x), exclude = NULL, ordered = is.ordered(x))
+    fct_unique(x)
   } else if (is_bare_list(x)) {
     vec_unique(x)
   } else {
     vec_sort(vec_unique(x))
   }
+}
+
+# forcats::fct_unique
+fct_unique <- function(x) {
+  if (!is.factor(x)) {
+    abort("`x` must be a factor.")
+  }
+
+  levels <- levels(x)
+  out <- levels
+
+  if (!anyNA(levels) && anyNA(x)) {
+    out <- c(out, NA_character_)
+  }
+
+  factor(out, levels = levels, exclude = NULL, ordered = is.ordered(x))
 }
 
 grid_dots <- function(..., `_data` = NULL) {
