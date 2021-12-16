@@ -1,8 +1,6 @@
 #' Chop and unchop
 #'
 #' @description
-#' `r lifecycle::badge("maturing")`
-#'
 #' Chopping and unchopping preserve the width of a data frame, changing its
 #' length. `chop()` makes `df` shorter by converting rows within each group
 #' into list-columns. `unchop()` makes `df` longer by expanding list-columns
