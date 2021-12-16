@@ -1,5 +1,9 @@
 # tidyr (development version)
 
+* `pivot_wider()` gains new `names_expand` and `id_expand` arguments for turning
+  implicit missing factor levels and variable combinations into explicit ones.
+  This is similar to the `drop` argument from `spread()` (#770).
+
 * `expand()`, `crossing()`, and `nesting()` now correctly retain `NA` values of
   factors (#1275).
 
