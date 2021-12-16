@@ -346,6 +346,65 @@ test_that("known bug - building a wider spec with a zero row data frame loses `v
   )
 })
 
+test_that("`id_expand` generates sorted rows even if no expansion is done", {
+  df <- tibble(id = c(2, 1), name = c("a", "b"), value = c(1, 2))
+  res <- pivot_wider(df, id_expand = TRUE)
+  expect_identical(res$id, c(1, 2))
+})
+
+test_that("`id_expand` does a cartesian expansion of `id_cols` columns (#770)", {
+  df <- tibble(id1 = c(1, 2), id2 = c(3, 4), name = c("a", "b"), value = c(1, 2))
+
+  expect_identical(
+    pivot_wider(df, id_expand = TRUE),
+    tibble(
+      id1 = c(1, 1, 2, 2),
+      id2 = c(3, 4, 3, 4),
+      a = c(1, NA, NA, NA),
+      b = c(NA, NA, NA, 2),
+    )
+  )
+})
+
+test_that("`id_expand` expands all levels of a factor `id_cols` column (#770)", {
+  id1 <- factor(c(NA, "x"), levels = c("x", "y"))
+  df <- tibble(id1 = id1, id2 = c(1, 2), name = c("a", "b"), value = c(1, 2))
+
+  res <- pivot_wider(df, id_expand = TRUE)
+
+  expect_identical(res$id1, factor(c("x", "x", "y", "y", NA, NA)))
+  expect_identical(res$id2, c(1, 2, 1, 2, 1, 2))
+})
+
+test_that("`id_expand` with `values_fill` only fills implicit missings", {
+  id1 <- factor(c("x", "x"), levels = c("x", "y"))
+  df <- tibble(id1 = id1, id2 = c(1, 2), name = c("a", "b"), value = c(1, NA))
+
+  res <- pivot_wider(df, id_expand = TRUE, values_fill = 0)
+
+  expect_identical(res$a, c(1, 0, 0, 0))
+  expect_identical(res$b, c(0, NA, 0, 0))
+})
+
+test_that("`id_expand` with `values_fill` can't accidentally fill missings in `id_cols`", {
+  id1 <- factor(c(NA, "x"), levels = c("x", "y"))
+  df <- tibble(id1 = id1, id2 = c(1, 2), name = c("a", "b"), value = c(1, 2))
+
+  res <- pivot_wider(df, id_expand = TRUE, values_fill = list(id1 = 0))
+
+  # Still has NAs! Both implicit (new combination) and explicit (pre-existing combination)
+  expect_identical(res$id1, factor(c("x", "x", "y", "y", NA, NA)))
+})
+
+test_that("`id_expand` is validated", {
+  df <- tibble(name = c("a", "b"), value = c(1, 2))
+
+  expect_snapshot({
+    (expect_error(pivot_wider(df, id_expand = 1)))
+    (expect_error(pivot_wider(df, id_expand = "x")))
+  })
+})
+
 # non-unique keys ---------------------------------------------------------
 
 test_that("duplicated keys produce list column with warning", {

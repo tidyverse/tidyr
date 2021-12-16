@@ -10,6 +10,7 @@ pivot_wider_spec(
   spec,
   names_repair = "check_unique",
   id_cols = NULL,
+  id_expand = FALSE,
   values_fill = NULL,
   values_fn = NULL
 )
@@ -52,6 +53,13 @@ except for the columns specified in \code{spec$.value} and the columns of the
 \code{spec} that aren't named \code{.name} or \code{.value}. Typically used when you have
 redundant variables, i.e. variables whose values are perfectly correlated
 with existing variables.}
+
+\item{id_expand}{Should the values in the \code{id_cols} columns be expanded by
+\code{\link[=expand]{expand()}} before pivoting? This results in more rows, the output will
+contain a complete expansion of all possible values in \code{id_cols}. Implicit
+factor levels that aren't represented in the data will become explicit.
+Additionally, the row values corresponding to the expanded \code{id_cols} will
+be sorted.}
 
 \item{values_fill}{Optionally, a (scalar) value that specifies what each
 \code{value} should be filled in with when missing.

@@ -7,6 +7,7 @@
 pivot_wider(
   data,
   id_cols = NULL,
+  id_expand = FALSE,
   names_from = name,
   names_prefix = "",
   names_sep = "_",
@@ -29,6 +30,13 @@ uniquely identifies each observation. Defaults to all columns in \code{data}
 except for the columns specified in \code{names_from} and \code{values_from}.
 Typically used when you have redundant variables, i.e. variables whose
 values are perfectly correlated with existing variables.}
+
+\item{id_expand}{Should the values in the \code{id_cols} columns be expanded by
+\code{\link[=expand]{expand()}} before pivoting? This results in more rows, the output will
+contain a complete expansion of all possible values in \code{id_cols}. Implicit
+factor levels that aren't represented in the data will become explicit.
+Additionally, the row values corresponding to the expanded \code{id_cols} will
+be sorted.}
 
 \item{names_from, values_from}{<\code{\link[=tidyr_tidy_select]{tidy-select}}> A pair of
 arguments describing which column (or columns) to get the name of the
