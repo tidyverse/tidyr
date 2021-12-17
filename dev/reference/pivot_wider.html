@@ -133,16 +133,19 @@ decreasing the number of rows. The inverse transformation is
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">pivot_wider</span><span class="op">(</span>
   <span class="va">data</span>,
   id_cols <span class="op">=</span> <span class="cn">NULL</span>,
+  id_expand <span class="op">=</span> <span class="cn">FALSE</span>,
   names_from <span class="op">=</span> <span class="va">name</span>,
   names_prefix <span class="op">=</span> <span class="st">""</span>,
   names_sep <span class="op">=</span> <span class="st">"_"</span>,
   names_glue <span class="op">=</span> <span class="cn">NULL</span>,
   names_sort <span class="op">=</span> <span class="cn">FALSE</span>,
   names_vary <span class="op">=</span> <span class="st">"fastest"</span>,
+  names_expand <span class="op">=</span> <span class="cn">FALSE</span>,
   names_repair <span class="op">=</span> <span class="st">"check_unique"</span>,
   values_from <span class="op">=</span> <span class="va">value</span>,
   values_fill <span class="op">=</span> <span class="cn">NULL</span>,
   values_fn <span class="op">=</span> <span class="cn">NULL</span>,
+  unused_fn <span class="op">=</span> <span class="cn">NULL</span>,
   <span class="va">...</span>
 <span class="op">)</span></code></pre></div>
     </div>
@@ -157,6 +160,13 @@ uniquely identifies each observation. Defaults to all columns in <code>data</cod
 except for the columns specified in <code>names_from</code> and <code>values_from</code>.
 Typically used when you have redundant variables, i.e. variables whose
 values are perfectly correlated with existing variables.</p></dd>
+<dt>id_expand</dt>
+<dd><p>Should the values in the <code>id_cols</code> columns be expanded by
+<code><a href="expand.html">expand()</a></code> before pivoting? This results in more rows, the output will
+contain a complete expansion of all possible values in <code>id_cols</code>. Implicit
+factor levels that aren't represented in the data will become explicit.
+Additionally, the row values corresponding to the expanded <code>id_cols</code> will
+be sorted.</p></dd>
 <dt>names_from, values_from</dt>
 <dd><p>&lt;<code><a href="tidyr_tidy_select.html">tidy-select</a></code>&gt; A pair of
 arguments describing which column (or columns) to get the name of the
@@ -187,6 +197,13 @@ naming scheme of the form: <code>value1_name1, value1_name2, value2_name1, value
 <li><p><code>"slowest"</code> varies <code>names_from</code> values slowest, resulting in a column
 naming scheme of the form: <code>value1_name1, value2_name1, value1_name2, value2_name2</code>.</p></li>
 </ul></dd>
+<dt>names_expand</dt>
+<dd><p>Should the values in the <code>names_from</code> columns be expanded
+by <code><a href="expand.html">expand()</a></code> before pivoting? This results in more columns, the output
+will contain column names corresponding to a complete expansion of all
+possible values in <code>names_from</code>. Implicit factor levels that aren't
+represented in the data will become explicit. Additionally, the column
+names will be sorted, identical to what <code>names_sort</code> would produce.</p></dd>
 <dt>names_repair</dt>
 <dd><p>What happens if the output has invalid column names?
 The default, <code>"check_unique"</code> is to error if the columns are duplicated.
@@ -205,6 +222,17 @@ in the output. You will typically use this when the combination of
 observation.</p>
 <p>This can be a named list if you want to apply different aggregations
 to different <code>values_from</code> columns.</p></dd>
+<dt>unused_fn</dt>
+<dd><p>Optionally, a function applied to summarize the values from
+the unused columns (i.e. columns not identified by <code>id_cols</code>,
+<code>names_from</code>, or <code>values_from</code>).</p>
+<p>The default drops all unused columns from the result.</p>
+<p>This can be a named list if you want to apply different aggregations
+to different unused columns.</p>
+<p><code>id_cols</code> must be supplied for <code>unused_fn</code> to be useful, since otherwise
+all unspecified columns will be considered <code>id_cols</code>.</p>
+<p>This is similar to grouping by the <code>id_cols</code> then summarizing the
+unused columns using <code>unused_fn</code>.</p></dd>
 <dt>...</dt>
 <dd><p>Additional arguments passed on to methods.</p></dd>
 </dl></div>
