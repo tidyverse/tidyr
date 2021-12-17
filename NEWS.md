@@ -1,5 +1,10 @@
 # tidyr (development version)
 
+* All lazyeval functions are now defunct. They have been deprecated for awhile
+  now and will be completely removed in the next minor release of tidyr. (See
+  [lifecycle](https://lifecycle.r-lib.org/articles/lifecycle.html) for
+  details on deprecation stages).
+
 * `expand()`, `crossing()`, and `nesting()` now correctly retain `NA` values of
   factors (#1275).
 
