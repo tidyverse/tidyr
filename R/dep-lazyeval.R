@@ -1,9 +1,9 @@
 # nocov start
 
-#' Deprecated SE versions of main verbs
+#' Defunct SE versions of main verbs
 #'
 #' @description
-#' `r lifecycle::badge("deprecated")`
+#' `r lifecycle::badge("defunct")`
 #'
 #' tidyr used to offer twin versions of each verb suffixed with an
 #' underscore. These versions had standard evaluation (SE) semantics:
@@ -29,51 +29,33 @@ NULL
 #' @inheritParams complete
 #' @export
 complete_ <- function(data, cols, fill = list(), ...) {
-  lifecycle::deprecate_warn("1.0.0", "complete_()", "complete()")
-  UseMethod("complete_")
-}
-#' @export
-complete_.data.frame <- function(data, cols, fill = list(), ...) {
-  cols <- compat_lazy_dots(cols, caller_env())
-  complete(data, !!! cols, fill = fill)
+  lifecycle::deprecate_stop("1.2.0", "complete_()", "complete()")
 }
 
 #' @rdname deprecated-se
 #' @export
 drop_na_ <- function(data, vars) {
-  lifecycle::deprecate_warn("1.0.0", "drop_na_()", "drop_na()")
-  UseMethod("drop_na_")
-}
-#' @export
-drop_na_.data.frame <- function(data, vars) {
-  drop_na(data, !!! vars)
+  lifecycle::deprecate_stop("1.2.0", "drop_na_()", "drop_na()")
 }
 
 #' @rdname deprecated-se
 #' @param expand_cols Character vector of column names to be expanded.
 #' @export
 expand_ <- function(data, dots, ...) {
-  lifecycle::deprecate_warn("1.0.0", "expand_()", "expand()")
-  UseMethod("expand_")
+  lifecycle::deprecate_stop("1.2.0", "expand_()", "expand()")
 }
-#' @export
-expand_.data.frame <- function(data, dots, ...) {
-  dots <- compat_lazy_dots(dots, caller_env())
-  expand(data, !!! dots)
-}
+
 #' @rdname deprecated-se
 #' @param x For `nesting_` and `crossing_` a list of variables.
 #' @export
 crossing_ <- function(x) {
-  lifecycle::deprecate_warn("1.0.0", "crossing_()", "crossing()")
-  x <- compat_lazy_dots(x, caller_env())
-  crossing(!!! x)
+  lifecycle::deprecate_stop("1.2.0", "crossing_()", "crossing()")
 }
+
 #' @rdname deprecated-se
 #' @export
 nesting_ <- function(x) {
-  x <- compat_lazy_dots(x, caller_env())
-  nesting(!!! x)
+  lifecycle::deprecate_stop("1.2.0", "nesting_()", "nesting()")
 }
 
 #' @rdname deprecated-se
@@ -81,21 +63,7 @@ nesting_ <- function(x) {
 #' @export
 extract_ <- function(data, col, into, regex = "([[:alnum:]]+)", remove = TRUE,
                       convert = FALSE, ...) {
-  lifecycle::deprecate_warn("1.0.0", "extract_()", "extract()")
-  UseMethod("extract_")
-}
-#' @export
-extract_.data.frame <- function(data, col, into, regex = "([[:alnum:]]+)",
-                                remove = TRUE, convert = FALSE, ...) {
-  col <- compat_lazy(col, caller_env())
-  extract(data,
-    col = !! col,
-    into = into,
-    regex = regex,
-    remove = remove,
-    convert = convert,
-    ...
-  )
+  lifecycle::deprecate_stop("1.2.0", "extract_()", "extract()")
 }
 
 #' @rdname deprecated-se
@@ -103,12 +71,7 @@ extract_.data.frame <- function(data, col, into, regex = "([[:alnum:]]+)",
 #' @param fill_cols Character vector of column names.
 #' @export
 fill_ <- function(data, fill_cols, .direction = c("down", "up")) {
-  UseMethod("fill_")
-}
-#' @export
-fill_.data.frame <- function(data, fill_cols, .direction = c("down", "up", "downup", "updown")) {
-  vars <- syms(fill_cols)
-  fill(data, !!! vars, .direction = .direction)
+  lifecycle::deprecate_stop("1.2.0", "fill_()", "fill()")
 }
 
 #' @rdname deprecated-se
@@ -121,24 +84,7 @@ fill_.data.frame <- function(data, fill_cols, .direction = c("down", "up", "down
 #' @export
 gather_ <- function(data, key_col, value_col, gather_cols, na.rm = FALSE,
                     convert = FALSE, factor_key = FALSE) {
-  UseMethod("gather_")
-}
-#' @export
-gather_.data.frame <- function(data, key_col, value_col, gather_cols,
-                               na.rm = FALSE, convert = FALSE,
-                               factor_key = FALSE) {
-  key_col <- sym(key_col)
-  value_col <- sym(value_col)
-  gather_cols <- syms(gather_cols)
-
-  gather(data,
-    key = !! key_col,
-    value = !! value_col,
-    !!! gather_cols,
-    na.rm = na.rm,
-    convert = convert,
-    factor_key = factor_key
-  )
+  lifecycle::deprecate_stop("1.2.0", "gather_()", "gather()")
 }
 
 #' @rdname deprecated-se
@@ -154,13 +100,7 @@ nest_ <- function(...) {
 #' @export
 separate_rows_ <- function(data, cols, sep = "[^[:alnum:].]+",
                            convert = FALSE) {
-  UseMethod("separate_rows_")
-}
-#' @export
-separate_rows_.data.frame <- function(data, cols, sep = "[^[:alnum:].]+",
-                                      convert = FALSE) {
-  cols <- syms(cols)
-  separate_rows(data, !!! cols, sep = sep, convert = convert)
+  lifecycle::deprecate_stop("1.2.0", "separate_rows_()", "separate_rows()")
 }
 
 #' @rdname deprecated-se
@@ -168,46 +108,16 @@ separate_rows_.data.frame <- function(data, cols, sep = "[^[:alnum:].]+",
 #' @export
 separate_ <- function(data, col, into, sep = "[^[:alnum:]]+", remove = TRUE,
                       convert = FALSE, extra = "warn", fill = "warn", ...) {
-  UseMethod("separate_")
+  lifecycle::deprecate_stop("1.2.0", "separate_()", "separate()")
 }
-#' @export
-separate_.data.frame <- function(data, col, into, sep = "[^[:alnum:]]+",
-                                 remove = TRUE, convert = FALSE,
-                                 extra = "warn", fill = "warn", ...) {
-  col <- sym(col)
-  separate(data,
-    col = !! col,
-    into = into,
-    sep = sep,
-    remove = remove,
-    convert = convert,
-    extra = extra,
-    fill = fill,
-    ...
-  )
-}
+
 #' @rdname deprecated-se
 #' @inheritParams spread
 #' @param key_col,value_col Strings giving names of key and value cols.
 #' @export
 spread_ <- function(data, key_col, value_col, fill = NA, convert = FALSE,
                     drop = TRUE, sep = NULL) {
-  UseMethod("spread_")
-}
-#' @export
-spread_.data.frame <- function(data, key_col, value_col, fill = NA,
-                               convert = FALSE, drop = TRUE, sep = NULL) {
-  key_col <- sym(key_col)
-  value_col <- sym(value_col)
-
-  spread(data,
-    key = !! key_col,
-    value = !! value_col,
-    fill = fill,
-    convert = convert,
-    drop = drop,
-    sep = sep
-  )
+  lifecycle::deprecate_stop("1.2.0", "spread_()", "spread()")
 }
 
 #' @rdname deprecated-se
@@ -215,13 +125,7 @@ spread_.data.frame <- function(data, key_col, value_col, fill = NA,
 #' @param from Names of existing columns as character vector
 #' @export
 unite_ <- function(data, col, from, sep = "_", remove = TRUE) {
-  UseMethod("unite_")
-}
-#' @export
-unite_.data.frame <- function(data, col, from, sep = "_", remove = TRUE) {
-  col <- quo_get_expr(compat_lazy(col, caller_env()))
-  from <- syms(from)
-  unite(data, !! col, !!! from, sep = sep, remove = remove)
+  lifecycle::deprecate_stop("1.2.0", "unite_()", "unite()")
 }
 
 #' @rdname deprecated-se

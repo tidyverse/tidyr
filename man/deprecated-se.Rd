@@ -16,7 +16,7 @@
 \alias{spread_}
 \alias{unite_}
 \alias{unnest_}
-\title{Deprecated SE versions of main verbs}
+\title{Defunct SE versions of main verbs}
 \usage{
 complete_(data, cols, fill = list(), ...)
 
@@ -165,7 +165,7 @@ unnesting.}
 \item{expand_cols}{Character vector of column names to be expanded.}
 }
 \description{
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#defunct}{\figure{lifecycle-defunct.svg}{options: alt='[Defunct]'}}}{\strong{[Defunct]}}
 
 tidyr used to offer twin versions of each verb suffixed with an
 underscore. These versions had standard evaluation (SE) semantics:
