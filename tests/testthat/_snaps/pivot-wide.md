@@ -76,6 +76,32 @@
       <error/rlang_error>
       `names_vary` must be one of "fastest" or "slowest".
 
+# `names_expand` is validated
+
+    Code
+      (expect_error(build_wider_spec(df, names_expand = 1)))
+    Output
+      <error/rlang_error>
+      `names_expand` must be a single `TRUE` or `FALSE`.
+    Code
+      (expect_error(build_wider_spec(df, names_expand = "x")))
+    Output
+      <error/rlang_error>
+      `names_expand` must be a single `TRUE` or `FALSE`.
+
+# `id_expand` is validated
+
+    Code
+      (expect_error(pivot_wider(df, id_expand = 1)))
+    Output
+      <error/rlang_error>
+      `id_expand` must be a single `TRUE` or `FALSE`.
+    Code
+      (expect_error(pivot_wider(df, id_expand = "x")))
+    Output
+      <error/rlang_error>
+      `id_expand` must be a single `TRUE` or `FALSE`.
+
 # duplicated keys produce list column with warning
 
     Code

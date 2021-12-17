@@ -21,6 +21,12 @@
 #'   except for the columns specified in `names_from` and `values_from`.
 #'   Typically used when you have redundant variables, i.e. variables whose
 #'   values are perfectly correlated with existing variables.
+#' @param id_expand Should the values in the `id_cols` columns be expanded by
+#'   [expand()] before pivoting? This results in more rows, the output will
+#'   contain a complete expansion of all possible values in `id_cols`. Implicit
+#'   factor levels that aren't represented in the data will become explicit.
+#'   Additionally, the row values corresponding to the expanded `id_cols` will
+#'   be sorted.
 #' @param names_from,values_from <[`tidy-select`][tidyr_tidy_select]> A pair of
 #'   arguments describing which column (or columns) to get the name of the
 #'   output column (`names_from`), and which column (or columns) to get the
@@ -50,6 +56,12 @@
 #'   - `"slowest"` varies `names_from` values slowest, resulting in a column
 #'     naming scheme of the form: `value1_name1, value2_name1, value1_name2,
 #'     value2_name2`.
+#' @param names_expand Should the values in the `names_from` columns be expanded
+#'   by [expand()] before pivoting? This results in more columns, the output
+#'   will contain column names corresponding to a complete expansion of all
+#'   possible values in `names_from`. Implicit factor levels that aren't
+#'   represented in the data will become explicit. Additionally, the column
+#'   names will be sorted, identical to what `names_sort` would produce.
 #' @param values_fill Optionally, a (scalar) value that specifies what each
 #'   `value` should be filled in with when missing.
 #'
@@ -127,12 +139,14 @@
 #'   )
 pivot_wider <- function(data,
                         id_cols = NULL,
+                        id_expand = FALSE,
                         names_from = name,
                         names_prefix = "",
                         names_sep = "_",
                         names_glue = NULL,
                         names_sort = FALSE,
                         names_vary = "fastest",
+                        names_expand = FALSE,
                         names_repair = "check_unique",
                         values_from = value,
                         values_fill = NULL,
@@ -145,12 +159,14 @@ pivot_wider <- function(data,
 #' @export
 pivot_wider.data.frame <- function(data,
                                    id_cols = NULL,
+                                   id_expand = FALSE,
                                    names_from = name,
                                    names_prefix = "",
                                    names_sep = "_",
                                    names_glue = NULL,
                                    names_sort = FALSE,
                                    names_vary = "fastest",
+                                   names_expand = FALSE,
                                    names_repair = "check_unique",
                                    values_from = value,
                                    values_fill = NULL,
@@ -167,7 +183,8 @@ pivot_wider.data.frame <- function(data,
     names_sep = names_sep,
     names_glue = names_glue,
     names_sort = names_sort,
-    names_vary = names_vary
+    names_vary = names_vary,
+    names_expand = names_expand
   )
 
   id_cols <- build_wider_id_cols_expr(
@@ -181,6 +198,7 @@ pivot_wider.data.frame <- function(data,
     data = data,
     spec = spec,
     id_cols = !!id_cols,
+    id_expand = id_expand,
     names_repair = names_repair,
     values_fill = values_fill,
     values_fn = values_fn
@@ -242,8 +260,11 @@ pivot_wider_spec <- function(data,
                              spec,
                              names_repair = "check_unique",
                              id_cols = NULL,
+                             id_expand = FALSE,
                              values_fill = NULL,
                              values_fn = NULL) {
+  input <- data
+
   spec <- check_pivot_spec(spec)
 
   names_from_cols <- names(spec)[-(1:2)]
@@ -276,11 +297,22 @@ pivot_wider_spec <- function(data,
   }
   values_fill <- values_fill[intersect(names(values_fill), values_from_cols)]
 
-  # Figure out rows in output.
+  if (!is_bool(id_expand)) {
+    abort("`id_expand` must be a single `TRUE` or `FALSE`.")
+  }
+
   # Early conversion to tibble because data.table returns zero rows if
-  # zero cols are selected.
-  rows <- as_tibble(data)
-  rows <- rows[id_cols]
+  # zero cols are selected. Also want to avoid the grouped-df behavior
+  # of `complete()`.
+  data <- as_tibble(data)
+  data <- data[vec_unique(c(id_cols, names_from_cols, values_from_cols))]
+
+  if (id_expand) {
+    data <- complete(data, !!!syms(id_cols), fill = values_fill, explicit = FALSE)
+  }
+
+  # Figure out rows in output
+  rows <- data[id_cols]
   row_id <- vec_group_id(rows)
   nrow <- attr(row_id, "n")
   rows <- vec_slice(rows, vec_unique_loc(row_id))
@@ -365,7 +397,7 @@ pivot_wider_spec <- function(data,
     .name_repair = names_repair
   ))
 
-  reconstruct_tibble(data, out)
+  reconstruct_tibble(input, out)
 }
 
 #' @export
@@ -378,7 +410,8 @@ build_wider_spec <- function(data,
                              names_sep = "_",
                              names_glue = NULL,
                              names_sort = FALSE,
-                             names_vary = "fastest") {
+                             names_vary = "fastest",
+                             names_expand = FALSE) {
   names_from <- tidyselect::eval_select(enquo(names_from), data)
   values_from <- tidyselect::eval_select(enquo(values_from), data)
 
@@ -391,9 +424,22 @@ build_wider_spec <- function(data,
 
   names_vary <- arg_match0(names_vary, c("fastest", "slowest"), arg_nm = "names_vary")
 
-  row_ids <- vec_unique(data[names_from])
-  if (names_sort) {
-    row_ids <- vec_sort(row_ids)
+  if (!is_bool(names_expand)) {
+    abort("`names_expand` must be a single `TRUE` or `FALSE`.")
+  }
+
+  data <- as_tibble(data)
+  data <- data[names_from]
+
+  if (names_expand) {
+    # `expand()` always does sort + unique
+    row_ids <- expand(data, !!!syms(names(data)))
+  } else {
+    row_ids <- vec_unique(data)
+
+    if (names_sort) {
+      row_ids <- vec_sort(row_ids)
+    }
   }
 
   row_names <- exec(paste, !!!row_ids, sep = names_sep)

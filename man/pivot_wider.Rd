@@ -7,12 +7,14 @@
 pivot_wider(
   data,
   id_cols = NULL,
+  id_expand = FALSE,
   names_from = name,
   names_prefix = "",
   names_sep = "_",
   names_glue = NULL,
   names_sort = FALSE,
   names_vary = "fastest",
+  names_expand = FALSE,
   names_repair = "check_unique",
   values_from = value,
   values_fill = NULL,
@@ -28,6 +30,13 @@ uniquely identifies each observation. Defaults to all columns in \code{data}
 except for the columns specified in \code{names_from} and \code{values_from}.
 Typically used when you have redundant variables, i.e. variables whose
 values are perfectly correlated with existing variables.}
+
+\item{id_expand}{Should the values in the \code{id_cols} columns be expanded by
+\code{\link[=expand]{expand()}} before pivoting? This results in more rows, the output will
+contain a complete expansion of all possible values in \code{id_cols}. Implicit
+factor levels that aren't represented in the data will become explicit.
+Additionally, the row values corresponding to the expanded \code{id_cols} will
+be sorted.}
 
 \item{names_from, values_from}{<\code{\link[=tidyr_tidy_select]{tidy-select}}> A pair of
 arguments describing which column (or columns) to get the name of the
@@ -61,6 +70,13 @@ naming scheme of the form: \verb{value1_name1, value1_name2, value2_name1, value
 \item \code{"slowest"} varies \code{names_from} values slowest, resulting in a column
 naming scheme of the form: \verb{value1_name1, value2_name1, value1_name2, value2_name2}.
 }}
+
+\item{names_expand}{Should the values in the \code{names_from} columns be expanded
+by \code{\link[=expand]{expand()}} before pivoting? This results in more columns, the output
+will contain column names corresponding to a complete expansion of all
+possible values in \code{names_from}. Implicit factor levels that aren't
+represented in the data will become explicit. Additionally, the column
+names will be sorted, identical to what \code{names_sort} would produce.}
 
 \item{names_repair}{What happens if the output has invalid column names?
 The default, \code{"check_unique"} is to error if the columns are duplicated.
