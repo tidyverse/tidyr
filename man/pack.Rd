@@ -45,8 +45,6 @@ See \code{\link[vctrs:vec_as_names]{vctrs::vec_as_names()}} for more details on 
 strategies used to enforce them.}
 }
 \description{
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#maturing}{\figure{lifecycle-maturing.svg}{options: alt='[Maturing]'}}}{\strong{[Maturing]}}
-
 Packing and unpacking preserve the length of a data frame, changing its
 width. \code{pack()} makes \code{df} narrow by collapsing a set of columns into a
 single df-column. \code{unpack()} makes \code{data} wider by expanding df-columns

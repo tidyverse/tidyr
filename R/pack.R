@@ -1,8 +1,6 @@
 #' Pack and unpack
 #'
 #' @description
-#' `r lifecycle::badge("maturing")`
-#'
 #' Packing and unpacking preserve the length of a data frame, changing its
 #' width. `pack()` makes `df` narrow by collapsing a set of columns into a
 #' single df-column. `unpack()` makes `data` wider by expanding df-columns
