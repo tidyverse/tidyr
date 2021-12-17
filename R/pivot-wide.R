@@ -151,38 +151,6 @@
 #'     values_from = breaks,
 #'     values_fn = ~mean(.x, na.rm = TRUE)
 #'   )
-#'
-#' # Unused columns that aren't involved in the pivoting process are dropped
-#' # from the result by default. If you want to keep them, you can summarize
-#' # them with `unused_fn`. In this case, we'd like to retain the most recent
-#' # `update` date while pivoting on `name`.
-#' df <- tibble(
-#'   id = rep(1:5, each = 3),
-#'   update = as.Date("2020-07-01") + 1:15,
-#'   name = rep(c("a", "b", "c"), times = 5),
-#'   value = 1:15
-#' )
-#' df
-#'
-#' # You have to explicitly specify `id_cols` here, which allows `update` to
-#' # be recognized as an unused column
-#' pivot_wider(
-#'   data = df,
-#'   id_cols = id,
-#'   names_from = name,
-#'   values_from = value,
-#'   unused_fn = max
-#' )
-#'
-#' # Alternatively, you can keep all of the data and opt out of
-#' # immediately summarizing by converting to a list
-#' pivot_wider(
-#'   data = df,
-#'   id_cols = id,
-#'   names_from = name,
-#'   values_from = value,
-#'   unused_fn = list
-#' )
 pivot_wider <- function(data,
                         id_cols = NULL,
                         id_expand = FALSE,

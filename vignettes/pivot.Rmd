@@ -473,6 +473,56 @@ pivot_wider(
 )
 ```
 
+## Unused columns
+
+Imagine you've found yourself in a situation where you have columns in your data that are completely unrelated to the pivoting process, but you'd still like to retain their information somehow. For example, in `updates` we'd like to pivot on the `system` column to create one row summaries of each county's system updates.
+
+```{r}
+updates <- tibble(
+  county = c("Wake", "Wake", "Wake", "Guilford", "Guilford"),
+  date = c(as.Date("2020-01-01") + 0:2, as.Date("2020-01-03") + 0:1),
+  system = c("A", "B", "C", "A", "C"),
+  value = c(3.2, 4, 5.5, 2, 1.2)
+)
+
+updates
+```
+
+We could do that with a typical `pivot_wider()` call, but we completely lose all information about the `date` column.
+
+```{r}
+pivot_wider(
+  updates, 
+  id_cols = county, 
+  names_from = system, 
+  values_from = value
+)
+```
+
+For this example, we'd like to retain the most recent update date across all systems in a particular county. To accomplish that we can use the `unused_fn` argument, which allows us to summarize values from the columns not utilized in the pivoting process.
+
+```{r}
+pivot_wider(
+  updates, 
+  id_cols = county, 
+  names_from = system, 
+  values_from = value,
+  unused_fn = list(date = max)
+)
+```
+
+You can also retain the data but delay the aggregation entirely by using `list()` as the summary function.
+
+```{r}
+pivot_wider(
+  updates, 
+  id_cols = county, 
+  names_from = system, 
+  values_from = value,
+  unused_fn = list(date = list)
+)
+```
+
 ## Contact list
 
 A final challenge is inspired by [Jiena Gu](https://github.com/jienagu/tidyverse_examples/blob/master/example_long_wide.R). Imagine you have a contact list that you've copied and pasted from a website:
