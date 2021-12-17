@@ -19,6 +19,7 @@ pivot_wider(
   values_from = value,
   values_fill = NULL,
   values_fn = NULL,
+  unused_fn = NULL,
   ...
 )
 }
@@ -97,6 +98,21 @@ observation.
 
 This can be a named list if you want to apply different aggregations
 to different \code{values_from} columns.}
+
+\item{unused_fn}{Optionally, a function applied to summarize the values from
+the unused columns (i.e. columns not identified by \code{id_cols},
+\code{names_from}, or \code{values_from}).
+
+The default drops all unused columns from the result.
+
+This can be a named list if you want to apply different aggregations
+to different unused columns.
+
+\code{id_cols} must be supplied for \code{unused_fn} to be useful, since otherwise
+all unspecified columns will be considered \code{id_cols}.
+
+This is similar to grouping by the \code{id_cols} then summarizing the
+unused columns using \code{unused_fn}.}
 
 \item{...}{Additional arguments passed on to methods.}
 }

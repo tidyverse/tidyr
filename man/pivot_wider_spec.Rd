@@ -12,7 +12,8 @@ pivot_wider_spec(
   id_cols = NULL,
   id_expand = FALSE,
   values_fill = NULL,
-  values_fn = NULL
+  values_fn = NULL,
+  unused_fn = NULL
 )
 
 build_wider_spec(
@@ -74,6 +75,21 @@ observation.
 
 This can be a named list if you want to apply different aggregations
 to different \code{values_from} columns.}
+
+\item{unused_fn}{Optionally, a function applied to summarize the values from
+the unused columns (i.e. columns not identified by \code{id_cols},
+\code{names_from}, or \code{values_from}).
+
+The default drops all unused columns from the result.
+
+This can be a named list if you want to apply different aggregations
+to different unused columns.
+
+\code{id_cols} must be supplied for \code{unused_fn} to be useful, since otherwise
+all unspecified columns will be considered \code{id_cols}.
+
+This is similar to grouping by the \code{id_cols} then summarizing the
+unused columns using \code{unused_fn}.}
 
 \item{names_from}{<\code{\link[=tidyr_tidy_select]{tidy-select}}> A pair of
 arguments describing which column (or columns) to get the name of the
