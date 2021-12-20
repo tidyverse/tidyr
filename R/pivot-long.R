@@ -64,21 +64,24 @@
 #'   in the `value_to` column. This effectively converts explicit missing values
 #'   to implicit missing values, and should generally be used only when missing
 #'   values in `data` were created by its structure.
-#' @param names_transform,values_transform A list of column name-function pairs.
-#'   Use these arguments if you need to change the types of specific columns.
-#'   For example, `names_transform = list(week = as.integer)` would convert
-#'   a character variable called `week` to an integer.
+#' @param names_transform,values_transform Optionally, a list of column
+#'   name-function pairs. Alternatively, a single function can be supplied,
+#'   which will be applied to all columns. Use these arguments if you need to
+#'   change the types of specific columns. For example, `names_transform =
+#'   list(week = as.integer)` would convert a character variable called `week`
+#'   to an integer.
 #'
 #'   If not specified, the type of the columns generated from `names_to` will
 #'   be character, and the type of the variables generated from `values_to`
 #'   will be the common type of the input columns used to generate them.
-#' @param names_ptypes,values_ptypes A list of column name-prototype pairs.
-#'   A prototype (or ptype for short) is a zero-length vector (like `integer()`
-#'   or `numeric()`) that defines the type, class, and attributes of a vector.
-#'   Use these arguments if you want to confirm that the created columns are
-#'   the types that you expect. Note that if you want to change (instead of confirm)
-#'   the types of specific columns, you should use `names_transform` or
-#'   `values_transform` instead.
+#' @param names_ptypes,values_ptypes Optionally, a list of column name-prototype
+#'   pairs. Alternatively, a single empty prototype can be supplied, which will
+#'   be applied to all columns. A prototype (or ptype for short) is a
+#'   zero-length vector (like `integer()` or `numeric()`) that defines the type,
+#'   class, and attributes of a vector. Use these arguments if you want to
+#'   confirm that the created columns are the types that you expect. Note that
+#'   if you want to change (instead of confirm) the types of specific columns,
+#'   you should use `names_transform` or `values_transform` instead.
 #' @param ... Additional arguments passed on to methods.
 #' @export
 #' @examples
