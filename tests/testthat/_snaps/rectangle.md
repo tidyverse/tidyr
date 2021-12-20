@@ -215,7 +215,7 @@
       (expect_error(df_simplify(data.frame(), ptype = 1)))
     Output
       <error/rlang_error>
-      `ptype` must be a list.
+      `ptype` must be `NULL`, an empty ptype, or a named list of ptypes.
     Code
       (expect_error(df_simplify(data.frame(), ptype = list(1))))
     Output

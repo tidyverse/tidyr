@@ -918,6 +918,15 @@ test_that("`simplify` elements are ignored if they don't correspond to a column"
   )
 })
 
+test_that("`ptype` is allowed to be a single empty ptype (#1284)", {
+  df <- tibble(x = list(1), y = list(1))
+
+  expect_identical(
+    df_simplify(df, ptype = integer()),
+    data_frame(x = 1L, y = 1L)
+  )
+})
+
 # col_simplify -----------------------------------------------------------
 
 test_that("non-list isn't simplified", {

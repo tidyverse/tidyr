@@ -13,7 +13,7 @@ hoist(
   ...,
   .remove = TRUE,
   .simplify = TRUE,
-  .ptype = list(),
+  .ptype = NULL,
   .transform = list()
 )
 
@@ -25,7 +25,7 @@ unnest_longer(
   indices_include = NULL,
   names_repair = "check_unique",
   simplify = TRUE,
-  ptype = list(),
+  ptype = NULL,
   transform = list()
 )
 
@@ -36,7 +36,7 @@ unnest_wider(
   simplify = TRUE,
   strict = FALSE,
   names_repair = "check_unique",
-  ptype = list(),
+  ptype = NULL,
   transform = list()
 )
 
@@ -76,8 +76,10 @@ particular column. If a named list is provided, the default for any
 unspecified columns is \code{TRUE}.}
 
 \item{.ptype, ptype}{Optionally, a named list of prototypes declaring the
-desired output type of each component. Use this argument if you want to
-check that each element has the type you expect when simplifying.
+desired output type of each component. Alternatively, a single empty
+prototype can be supplied, which will be applied to all components. Use
+this argument if you want to check that each element has the type you
+expect when simplifying.
 
 If a \code{ptype} has been specified, but \code{simplify = FALSE} or simplification
 isn't possible, then a \link[vctrs:list_of]{list-of} column will be returned

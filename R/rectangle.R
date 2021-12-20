@@ -61,8 +61,10 @@
 #'   particular column. If a named list is provided, the default for any
 #'   unspecified columns is `TRUE`.
 #' @param .ptype,ptype Optionally, a named list of prototypes declaring the
-#'   desired output type of each component. Use this argument if you want to
-#'   check that each element has the type you expect when simplifying.
+#'   desired output type of each component. Alternatively, a single empty
+#'   prototype can be supplied, which will be applied to all components. Use
+#'   this argument if you want to check that each element has the type you
+#'   expect when simplifying.
 #'
 #'   If a `ptype` has been specified, but `simplify = FALSE` or simplification
 #'   isn't possible, then a [list-of][vctrs::list_of()] column will be returned
@@ -175,7 +177,7 @@ hoist <- function(.data,
                   ...,
                   .remove = TRUE,
                   .simplify = TRUE,
-                  .ptype = list(),
+                  .ptype = NULL,
                   .transform = list()) {
   if (!is.data.frame(.data)) {
     abort("`.data` must be a data frame.")
@@ -324,7 +326,7 @@ unnest_longer <- function(data,
                           indices_include = NULL,
                           names_repair = "check_unique",
                           simplify = TRUE,
-                          ptype = list(),
+                          ptype = NULL,
                           transform = list()) {
   if (!is.data.frame(data)) {
     abort("`data` must be a data frame.")
@@ -558,7 +560,7 @@ unnest_wider <- function(data,
                          simplify = TRUE,
                          strict = FALSE,
                          names_repair = "check_unique",
-                         ptype = list(),
+                         ptype = NULL,
                          transform = list()) {
   if (!is.data.frame(data)) {
     abort("`data` must be a data frame.")
@@ -766,20 +768,12 @@ guess_dir <- function(x, col) {
 
 df_simplify <- function(x,
                         ...,
-                        ptype = list(),
+                        ptype = NULL,
                         transform = list(),
                         simplify = TRUE) {
   ellipsis::check_dots_empty()
 
-  if (!vec_is_list(ptype)) {
-    abort("`ptype` must be a list.")
-  }
-  if (length(ptype) > 0L && !is_named(ptype)) {
-    abort("All elements of `ptype` must be named.")
-  }
-  if (vec_duplicate_any(names(ptype))) {
-    abort("The names of `ptype` must be unique.")
-  }
+  ptype <- check_tidyr_ptype(ptype, names(x), "ptype")
 
   if (!vec_is_list(transform)) {
     abort("`transform` must be a list.")
