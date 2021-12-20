@@ -1,5 +1,9 @@
 # tidyr (development version)
 
+* The `transform` arguments of `hoist()`, `unnest_longer()`, and
+  `unnest_wider()` now accept a single function which will be applied to all
+  components (#1284).
+
 * The `ptype` arguments of `hoist()`, `unnest_longer()`, and `unnest_wider()`
   now accept a single empty ptype which will be applied to all components
   (#1284).
