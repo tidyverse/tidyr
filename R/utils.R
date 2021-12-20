@@ -214,31 +214,31 @@ vec_paste0 <- function(...) {
   exec(paste0, !!!args)
 }
 
-check_tidyr_ptype <- function(ptype, names, arg) {
-  if (vec_is(ptype) && vec_is_empty(ptype)) {
-    ptype <- rep_named(names, list(ptype))
+check_list_of_ptypes <- function(x, names, arg) {
+  if (vec_is(x) && vec_is_empty(x)) {
+    x <- rep_named(names, list(x))
   }
 
-  if (is.null(ptype)) {
-    ptype <- set_names(list(), character())
+  if (is.null(x)) {
+    x <- set_names(list(), character())
   }
 
-  if (!vec_is_list(ptype)) {
+  if (!vec_is_list(x)) {
     abort(glue("`{arg}` must be `NULL`, an empty ptype, or a named list of ptypes."))
   }
 
-  if (length(ptype) > 0L && !is_named(ptype)) {
+  if (length(x) > 0L && !is_named(x)) {
     abort(glue("All elements of `{arg}` must be named."))
   }
 
-  if (vec_duplicate_any(names(ptype))) {
+  if (vec_duplicate_any(names(x))) {
     abort(glue("The names of `{arg}` must be unique."))
   }
 
   # Silently drop user supplied names not found in the data
-  ptype <- ptype[intersect(names(ptype), names)]
+  x <- x[intersect(names(x), names)]
 
-  ptype
+  x
 }
 
 check_tidyr_function <- function(fn, names, arg) {
