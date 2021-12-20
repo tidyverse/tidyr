@@ -114,7 +114,7 @@ test_that("checks type of `into` and `sep`", {
   })
 })
 
-test_that("informative error if using stringr modifier functions", {
+test_that("informative error if using stringr modifier functions (#693)", {
   df <- tibble(x = "a")
   sep <- structure("a", class = "pattern")
 

@@ -9,7 +9,7 @@
     Output
       <simpleError: `regex` should define 2 groups; 0 found.>
 
-# informative error if using stringr modifier functions
+# informative error if using stringr modifier functions (#693)
 
     Code
       (expect_error(extract(df, x, "x", regex = regex)))

@@ -53,7 +53,7 @@ test_that("informative error message if wrong number of groups", {
   })
 })
 
-test_that("informative error if using stringr modifier functions", {
+test_that("informative error if using stringr modifier functions (#693)", {
   df <- tibble(x = "a")
   regex <- structure("a", class = "pattern")
 
