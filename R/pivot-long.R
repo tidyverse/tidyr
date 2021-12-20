@@ -64,21 +64,24 @@
 #'   in the `value_to` column. This effectively converts explicit missing values
 #'   to implicit missing values, and should generally be used only when missing
 #'   values in `data` were created by its structure.
-#' @param names_transform,values_transform A list of column name-function pairs.
-#'   Use these arguments if you need to change the types of specific columns.
-#'   For example, `names_transform = list(week = as.integer)` would convert
-#'   a character variable called `week` to an integer.
+#' @param names_transform,values_transform Optionally, a list of column
+#'   name-function pairs. Alternatively, a single function can be supplied,
+#'   which will be applied to all columns. Use these arguments if you need to
+#'   change the types of specific columns. For example, `names_transform =
+#'   list(week = as.integer)` would convert a character variable called `week`
+#'   to an integer.
 #'
 #'   If not specified, the type of the columns generated from `names_to` will
 #'   be character, and the type of the variables generated from `values_to`
 #'   will be the common type of the input columns used to generate them.
-#' @param names_ptypes,values_ptypes A list of column name-prototype pairs.
-#'   A prototype (or ptype for short) is a zero-length vector (like `integer()`
-#'   or `numeric()`) that defines the type, class, and attributes of a vector.
-#'   Use these arguments if you want to confirm that the created columns are
-#'   the types that you expect. Note that if you want to change (instead of confirm)
-#'   the types of specific columns, you should use `names_transform` or
-#'   `values_transform` instead.
+#' @param names_ptypes,values_ptypes Optionally, a list of column name-prototype
+#'   pairs. Alternatively, a single empty prototype can be supplied, which will
+#'   be applied to all columns. A prototype (or ptype for short) is a
+#'   zero-length vector (like `integer()` or `numeric()`) that defines the type,
+#'   class, and attributes of a vector. Use these arguments if you want to
+#'   confirm that the created columns are the types that you expect. Note that
+#'   if you want to change (instead of confirm) the types of specific columns,
+#'   you should use `names_transform` or `values_transform` instead.
 #' @param ... Additional arguments passed on to methods.
 #' @export
 #' @examples
@@ -122,13 +125,13 @@ pivot_longer <- function(data,
                          names_prefix = NULL,
                          names_sep = NULL,
                          names_pattern = NULL,
-                         names_ptypes = list(),
-                         names_transform = list(),
+                         names_ptypes = NULL,
+                         names_transform = NULL,
                          names_repair = "check_unique",
                          values_to = "value",
                          values_drop_na = FALSE,
-                         values_ptypes = list(),
-                         values_transform = list(),
+                         values_ptypes = NULL,
+                         values_transform = NULL,
                          ...
                          ) {
 
@@ -143,13 +146,13 @@ pivot_longer.data.frame <- function(data,
                                     names_prefix = NULL,
                                     names_sep = NULL,
                                     names_pattern = NULL,
-                                    names_ptypes = list(),
-                                    names_transform = list(),
+                                    names_ptypes = NULL,
+                                    names_transform = NULL,
                                     names_repair = "check_unique",
                                     values_to = "value",
                                     values_drop_na = FALSE,
-                                    values_ptypes = list(),
-                                    values_transform = list(),
+                                    values_ptypes = NULL,
+                                    values_transform = NULL,
                                     ...
                                     ) {
   cols <- enquo(cols)
@@ -215,8 +218,8 @@ pivot_longer_spec <- function(data,
                               spec,
                               names_repair = "check_unique",
                               values_drop_na = FALSE,
-                              values_ptypes = list(),
-                              values_transform = list()
+                              values_ptypes = NULL,
+                              values_transform = NULL
                               ) {
   spec <- check_pivot_spec(spec)
   spec <- deduplicate_spec(spec, data)
@@ -224,11 +227,15 @@ pivot_longer_spec <- function(data,
   # Quick hack to ensure that split() preserves order
   v_fct <- factor(spec$.value, levels = unique(spec$.value))
   values <- split(spec$.name, v_fct)
+  value_names <- names(values)
   value_keys <- split(spec[-(1:2)], v_fct)
   keys <- vec_unique(spec[-(1:2)])
 
-  vals <- set_names(vec_init(list(), length(values)), names(values))
-  for (value in names(values)) {
+  values_ptypes <- check_list_of_ptypes(values_ptypes, value_names, "values_ptypes")
+  values_transform <- check_list_of_functions(values_transform, value_names, "values_transform")
+
+  vals <- set_names(vec_init(list(), length(values)), value_names)
+  for (value in value_names) {
     cols <- values[[value]]
     col_id <- vec_match(value_keys[[value]], keys)
 
@@ -281,15 +288,16 @@ build_longer_spec <- function(data,
                               names_ptypes = NULL,
                               names_transform = NULL) {
   cols <- tidyselect::eval_select(enquo(cols), data[unique(names(data))])
+  cols <- names(cols)
 
   if (length(cols) == 0) {
     abort(glue::glue("`cols` must select at least one column."))
   }
 
   if (is.null(names_prefix)) {
-    names <- names(cols)
+    names <- cols
   } else {
-    names <- gsub(vec_paste0("^", names_prefix), "", names(cols))
+    names <- gsub(vec_paste0("^", names_prefix), "", cols)
   }
 
   if (is.null(names_to)) {
@@ -335,20 +343,22 @@ build_longer_spec <- function(data,
     vec_assert(values_to, ptype = character(), size = 1)
   }
 
-  # optionally, transform cols
-  coerce_cols <- intersect(names(names), names(names_transform))
-  for (col in coerce_cols) {
-    f <- as_function(names_transform[[col]])
+  names_ptypes <- check_list_of_ptypes(names_ptypes, names(names), "names_ptypes")
+  names_transform <- check_list_of_functions(names_transform, names(names), "names_transform")
+
+  # Optionally, transform cols
+  for (col in names(names_transform)) {
+    f <- names_transform[[col]]
     names[[col]] <- f(names[[col]])
   }
 
-  # optionally, cast variables generated from columns
-  cast_cols <- intersect(names(names), names(names_ptypes))
-  for (col in cast_cols) {
-    names[[col]] <- vec_cast(names[[col]], names_ptypes[[col]])
+  # Optionally, cast variables generated from columns
+  for (col in names(names_ptypes)) {
+    ptype <- names_ptypes[[col]]
+    names[[col]] <- vec_cast(names[[col]], ptype)
   }
 
-  out <- tibble(.name = names(cols))
+  out <- tibble(.name = cols)
   out[[".value"]] <- values_to
   out <- vec_cbind(out, names)
   out

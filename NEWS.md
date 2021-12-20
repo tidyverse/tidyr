@@ -1,5 +1,13 @@
 # tidyr (development version)
 
+* The `names_transform` and `values_transform` arguments of `pivot_longer()` now
+  accept a single function which will be applied to all of the columns
+  (#1284).
+
+* The `names_ptypes` and `values_ptypes` arguments of `pivot_longer()` now
+  accept a single empty ptype which will be applied to all of the columns
+  (#1284).
+
 * The `transform` arguments of `hoist()`, `unnest_longer()`, and
   `unnest_wider()` now accept a single function which will be applied to all
   components (#1284).

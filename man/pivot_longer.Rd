@@ -11,13 +11,13 @@ pivot_longer(
   names_prefix = NULL,
   names_sep = NULL,
   names_pattern = NULL,
-  names_ptypes = list(),
-  names_transform = list(),
+  names_ptypes = NULL,
+  names_transform = NULL,
   names_repair = "check_unique",
   values_to = "value",
   values_drop_na = FALSE,
-  values_ptypes = list(),
-  values_transform = list(),
+  values_ptypes = NULL,
+  values_transform = NULL,
   ...
 )
 }
@@ -63,18 +63,20 @@ If these arguments do not give you enough control, use
 \code{pivot_longer_spec()} to create a spec object and process manually as
 needed.}
 
-\item{names_ptypes, values_ptypes}{A list of column name-prototype pairs.
-A prototype (or ptype for short) is a zero-length vector (like \code{integer()}
-or \code{numeric()}) that defines the type, class, and attributes of a vector.
-Use these arguments if you want to confirm that the created columns are
-the types that you expect. Note that if you want to change (instead of confirm)
-the types of specific columns, you should use \code{names_transform} or
-\code{values_transform} instead.}
+\item{names_ptypes, values_ptypes}{Optionally, a list of column name-prototype
+pairs. Alternatively, a single empty prototype can be supplied, which will
+be applied to all columns. A prototype (or ptype for short) is a
+zero-length vector (like \code{integer()} or \code{numeric()}) that defines the type,
+class, and attributes of a vector. Use these arguments if you want to
+confirm that the created columns are the types that you expect. Note that
+if you want to change (instead of confirm) the types of specific columns,
+you should use \code{names_transform} or \code{values_transform} instead.}
 
-\item{names_transform, values_transform}{A list of column name-function pairs.
-Use these arguments if you need to change the types of specific columns.
-For example, \code{names_transform = list(week = as.integer)} would convert
-a character variable called \code{week} to an integer.
+\item{names_transform, values_transform}{Optionally, a list of column
+name-function pairs. Alternatively, a single function can be supplied,
+which will be applied to all columns. Use these arguments if you need to
+change the types of specific columns. For example, \code{names_transform = list(week = as.integer)} would convert a character variable called \code{week}
+to an integer.
 
 If not specified, the type of the columns generated from \code{names_to} will
 be character, and the type of the variables generated from \code{values_to}
