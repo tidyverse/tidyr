@@ -12,7 +12,7 @@ unnest(
   cols,
   ...,
   keep_empty = FALSE,
-  ptype = list(),
+  ptype = NULL,
   names_sep = NULL,
   names_repair = "check_unique",
   .drop = deprecated(),
