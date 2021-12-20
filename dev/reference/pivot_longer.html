@@ -137,13 +137,13 @@ decreasing the number of columns. The inverse transformation is
   names_prefix <span class="op">=</span> <span class="cn">NULL</span>,
   names_sep <span class="op">=</span> <span class="cn">NULL</span>,
   names_pattern <span class="op">=</span> <span class="cn">NULL</span>,
-  names_ptypes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,
-  names_transform <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,
+  names_ptypes <span class="op">=</span> <span class="cn">NULL</span>,
+  names_transform <span class="op">=</span> <span class="cn">NULL</span>,
   names_repair <span class="op">=</span> <span class="st">"check_unique"</span>,
   values_to <span class="op">=</span> <span class="st">"value"</span>,
   values_drop_na <span class="op">=</span> <span class="cn">FALSE</span>,
-  values_ptypes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,
-  values_transform <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,
+  values_ptypes <span class="op">=</span> <span class="cn">NULL</span>,
+  values_transform <span class="op">=</span> <span class="cn">NULL</span>,
   <span class="va">...</span>
 <span class="op">)</span></code></pre></div>
     </div>
@@ -185,18 +185,20 @@ expression containing matching groups (<code>()</code>).</p>
 <code><a href="pivot_longer_spec.html">pivot_longer_spec()</a></code> to create a spec object and process manually as
 needed.</p></dd>
 <dt>names_ptypes, values_ptypes</dt>
-<dd><p>A list of column name-prototype pairs.
-A prototype (or ptype for short) is a zero-length vector (like <code><a href="https://rdrr.io/r/base/integer.html" class="external-link">integer()</a></code>
-or <code><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric()</a></code>) that defines the type, class, and attributes of a vector.
-Use these arguments if you want to confirm that the created columns are
-the types that you expect. Note that if you want to change (instead of confirm)
-the types of specific columns, you should use <code>names_transform</code> or
-<code>values_transform</code> instead.</p></dd>
+<dd><p>Optionally, a list of column name-prototype
+pairs. Alternatively, a single empty prototype can be supplied, which will
+be applied to all columns. A prototype (or ptype for short) is a
+zero-length vector (like <code><a href="https://rdrr.io/r/base/integer.html" class="external-link">integer()</a></code> or <code><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric()</a></code>) that defines the type,
+class, and attributes of a vector. Use these arguments if you want to
+confirm that the created columns are the types that you expect. Note that
+if you want to change (instead of confirm) the types of specific columns,
+you should use <code>names_transform</code> or <code>values_transform</code> instead.</p></dd>
 <dt>names_transform, values_transform</dt>
-<dd><p>A list of column name-function pairs.
-Use these arguments if you need to change the types of specific columns.
-For example, <code>names_transform = list(week = as.integer)</code> would convert
-a character variable called <code>week</code> to an integer.</p>
+<dd><p>Optionally, a list of column
+name-function pairs. Alternatively, a single function can be supplied,
+which will be applied to all columns. Use these arguments if you need to
+change the types of specific columns. For example, <code>names_transform = list(week = as.integer)</code> would convert a character variable called <code>week</code>
+to an integer.</p>
 <p>If not specified, the type of the columns generated from <code>names_to</code> will
 be character, and the type of the variables generated from <code>values_to</code>
 will be the common type of the input columns used to generate them.</p></dd>
