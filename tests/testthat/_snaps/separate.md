@@ -51,3 +51,11 @@
       <error/rlang_error>
       `into` must be a character vector
 
+# informative error if using stringr modifier functions (#693)
+
+    Code
+      (expect_error(separate(df, x, sep = sep)))
+    Output
+      <error/rlang_error>
+      `sep` can't use modifiers from stringr.
+

@@ -14,8 +14,9 @@
 #'   names or column positions).
 #' @param into Names of new variables to create as character vector.
 #'    Use `NA` to omit the variable in the output.
-#' @param regex a regular expression used to extract the desired values.
-#'   There should be one group (defined by `()`) for each element of `into`.
+#' @param regex A string representing a regular expression used to extract the
+#'   desired values. There should be one group (defined by `()`) for each
+#'   element of `into`.
 #' @param remove If `TRUE`, remove input column from output data frame.
 #' @param convert If `TRUE`, will run [type.convert()] with
 #'   `as.is = TRUE` on new columns. This is useful if the component
@@ -50,6 +51,8 @@ extract.data.frame <- function(data, col, into, regex = "([[:alnum:]]+)",
 }
 
 str_extract <- function(x, into, regex, convert = FALSE) {
+  check_not_stringr_pattern(regex, "regex")
+
   stopifnot(
     is_string(regex),
     is_character(into)

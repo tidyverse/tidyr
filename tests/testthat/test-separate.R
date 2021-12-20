@@ -114,6 +114,13 @@ test_that("checks type of `into` and `sep`", {
   })
 })
 
+test_that("informative error if using stringr modifier functions (#693)", {
+  df <- tibble(x = "a")
+  sep <- structure("a", class = "pattern")
+
+  expect_snapshot((expect_error(separate(df, x, sep = sep))))
+})
+
 # helpers -----------------------------------------------------------------
 
 test_that("str_split_n can cap number of splits", {
