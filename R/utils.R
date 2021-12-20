@@ -228,11 +228,11 @@ check_tidyr_ptype <- function(ptype, names, arg) {
   }
 
   if (length(ptype) > 0L && !is_named(ptype)) {
-    abort("All elements of `ptype` must be named.")
+    abort(glue("All elements of `{arg}` must be named."))
   }
 
   if (vec_duplicate_any(names(ptype))) {
-    abort("The names of `ptype` must be unique.")
+    abort(glue("The names of `{arg}` must be unique."))
   }
 
   # Silently drop user supplied names not found in the data
