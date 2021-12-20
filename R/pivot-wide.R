@@ -295,16 +295,11 @@ pivot_wider_spec <- function(data,
     non_id_cols = non_id_cols
   )
 
-  unused_cols <- setdiff(names(data), c(id_cols, non_id_cols))
+  values_fn <- check_list_of_functions(values_fn, values_from_cols, "values_fn")
 
-  if (is.null(values_fn)) {
-    values_fn <- list()
-  }
-  if (!vec_is_list(values_fn)) {
-    values_fn <- rep_named(values_from_cols, list(values_fn))
-  }
-  values_fn <- map(values_fn, as_function)
-  values_fn <- values_fn[intersect(names(values_fn), values_from_cols)]
+  unused_cols <- setdiff(names(data), c(id_cols, non_id_cols))
+  unused_fn <- check_list_of_functions(unused_fn, unused_cols, "unused_fn")
+  unused_cols <- names(unused_fn)
 
   if (is.null(values_fill)) {
     values_fill <- list()
@@ -316,16 +311,6 @@ pivot_wider_spec <- function(data,
     abort("`values_fill` must be NULL, a scalar, or a named list")
   }
   values_fill <- values_fill[intersect(names(values_fill), values_from_cols)]
-
-  if (is.null(unused_fn)) {
-    unused_fn <- list()
-  }
-  if (!vec_is_list(unused_fn)) {
-    unused_fn <- rep_named(unused_cols, list(unused_fn))
-  }
-  unused_fn <- map(unused_fn, as_function)
-  unused_fn <- unused_fn[intersect(names(unused_fn), unused_cols)]
-  unused_cols <- names(unused_fn)
 
   if (!is_bool(id_expand)) {
     abort("`id_expand` must be a single `TRUE` or `FALSE`.")
