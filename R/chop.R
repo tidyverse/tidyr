@@ -37,7 +37,8 @@
 #'   of missing values.
 #' @param ptype Optionally, a named list of column name-prototype pairs to
 #'   coerce `cols` to, overriding the default that will be guessed from
-#'   combining the individual values.
+#'   combining the individual values. Alternatively, a single empty ptype
+#'   can be supplied, which will be applied to all `cols`.
 #' @export
 #' @examples
 #' # Chop ==============================================================
@@ -97,7 +98,7 @@ col_chop <- function(x, indices) {
 
 #' @export
 #' @rdname chop
-unchop <- function(data, cols, keep_empty = FALSE, ptype = list()) {
+unchop <- function(data, cols, keep_empty = FALSE, ptype = NULL) {
   sel <- tidyselect::eval_select(enquo(cols), data)
 
   size <- vec_size(data)
@@ -140,18 +141,17 @@ unchop <- function(data, cols, keep_empty = FALSE, ptype = list()) {
 #   used to slice the data frame `x` was subset from to align it with `val`.
 # - `val` the unchopped data frame.
 
-df_unchop <- function(x, ..., ptype = list(), keep_empty = FALSE) {
+df_unchop <- function(x, ..., ptype = NULL, keep_empty = FALSE) {
   ellipsis::check_dots_empty()
 
   if (!is.data.frame(x)) {
     abort("`x` must be a data frame.")
   }
-  if (!is_list(ptype)) {
-    abort("`ptype` must be a named list.")
-  }
   if (!is_bool(keep_empty)) {
     abort("`keep_empty` must be a single `TRUE` or `FALSE`.")
   }
+
+  ptype <- check_tidyr_ptype(ptype, names = names(x), arg = "ptype")
 
   size <- vec_size(x)
 

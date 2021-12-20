@@ -198,12 +198,31 @@ test_that("ptype is utilized on non-list columns (#1211)", {
   )
 })
 
-test_that("the ptype must be a list", {
-  expect_snapshot((expect_error(unchop(mtcars, mpg, ptype = 1))))
+test_that("`ptype` is allowed to be an empty ptype (#1284)", {
+  df <- tibble(x = list(1), y = list(1))
+
+  expect_identical(
+    unchop(df, c(x, y), ptype = integer()),
+    tibble(x = 1L, y = 1L)
+  )
 })
 
-test_that("ptype is allowed to be a data frame", {
-  expect_error(unchop(mtcars, mpg, ptype = data.frame()), NA)
+test_that("data frame ptype works", {
+  df <- tibble(x = tibble(a = 1))
+
+  expect_identical(
+    unchop(df, x, ptype = tibble(a = integer())),
+    tibble(x = tibble(a = 1L))
+  )
+})
+
+test_that("`ptype = list()` uses list ptype", {
+  df <- tibble(x = list(list(1)))
+
+  expect_identical(
+    unchop(df, x, ptype = list()),
+    tibble(x = list(1))
+  )
 })
 
 test_that("unchopping a bare empty list results in unspecified()", {

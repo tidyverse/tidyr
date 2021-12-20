@@ -6,14 +6,6 @@
       <error/rlang_error>
       Argument `cols` is missing with no default
 
-# the ptype must be a list
-
-    Code
-      (expect_error(unchop(mtcars, mpg, ptype = 1)))
-    Output
-      <error/rlang_error>
-      `ptype` must be a named list.
-
 # incompatible sizes are caught
 
     Code

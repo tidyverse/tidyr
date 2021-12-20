@@ -1,5 +1,8 @@
 # tidyr (development version)
 
+* The `ptype` arguments of `unnest()` and `unchop()` now accept a single empty
+  ptype which will be applied to all `cols` (#1284).
+
 * `pivot_wider()` gains a new `unused_fn` argument for controlling how to
   summarize unused columns that aren't involved in the pivoting process (#990,
   thanks to @mgirlich for an initial implementation).
@@ -178,10 +181,6 @@
 
 * The `.names_sep` argument of the data.frame method for `nest()` is now
   actually used (#1174).
-  
-* The default value for the `ptype` arguments of `unnest()` and `unchop()`
-  has been changed from `NULL` to `list()` to better match `pivot_longer()`,
-  `unnest_longer()`, and `unnest_wider()` (#1152).
 
 # tidyr 1.1.4
 
