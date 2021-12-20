@@ -240,3 +240,28 @@ check_tidyr_ptype <- function(ptype, names, arg) {
 
   ptype
 }
+
+check_tidyr_function <- function(fn, names, arg) {
+  if (is.null(fn)) {
+    fn <- set_names(list(), character())
+  }
+
+  if (!vec_is_list(fn)) {
+    fn <- rep_named(names, list(fn))
+  }
+
+  if (length(fn) > 0L && !is_named(fn)) {
+    abort(glue("All elements of `{arg}` must be named."))
+  }
+
+  if (vec_duplicate_any(names(fn))) {
+    abort(glue("The names of `{arg}` must be unique."))
+  }
+
+  fn <- map(fn, as_function)
+
+  # Silently drop user supplied names not found in the data
+  fn <- fn[intersect(names(fn), names)]
+
+  fn
+}
