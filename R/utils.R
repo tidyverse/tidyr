@@ -227,6 +227,14 @@ check_tidyr_ptype <- function(ptype, names, arg) {
     abort(glue("`{arg}` must be `NULL`, an empty ptype, or a named list of ptypes."))
   }
 
+  if (length(ptype) > 0L && !is_named(ptype)) {
+    abort("All elements of `ptype` must be named.")
+  }
+
+  if (vec_duplicate_any(names(ptype))) {
+    abort("The names of `ptype` must be unique.")
+  }
+
   # Silently drop user supplied names not found in the data
   ptype <- ptype[intersect(names(ptype), names)]
 
