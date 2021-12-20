@@ -241,27 +241,27 @@ check_list_of_ptypes <- function(x, names, arg) {
   x
 }
 
-check_tidyr_function <- function(fn, names, arg) {
-  if (is.null(fn)) {
-    fn <- set_names(list(), character())
+check_list_of_functions <- function(x, names, arg) {
+  if (is.null(x)) {
+    x <- set_names(list(), character())
   }
 
-  if (!vec_is_list(fn)) {
-    fn <- rep_named(names, list(fn))
+  if (!vec_is_list(x)) {
+    x <- rep_named(names, list(x))
   }
 
-  if (length(fn) > 0L && !is_named(fn)) {
+  if (length(x) > 0L && !is_named(x)) {
     abort(glue("All elements of `{arg}` must be named."))
   }
 
-  if (vec_duplicate_any(names(fn))) {
+  if (vec_duplicate_any(names(x))) {
     abort(glue("The names of `{arg}` must be unique."))
   }
 
-  fn <- map(fn, as_function)
+  x <- map(x, as_function)
 
   # Silently drop user supplied names not found in the data
-  fn <- fn[intersect(names(fn), names)]
+  x <- x[intersect(names(x), names)]
 
-  fn
+  x
 }

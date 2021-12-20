@@ -775,7 +775,7 @@ df_simplify <- function(x,
   ellipsis::check_dots_empty()
 
   ptype <- check_list_of_ptypes(ptype, names(x), "ptype")
-  transform <- check_tidyr_function(transform, names(x), "transform")
+  transform <- check_list_of_functions(transform, names(x), "transform")
 
   if (is_bool(simplify)) {
     simplify_default <- simplify
