@@ -44,18 +44,50 @@ test_that("expand accepts expressions", {
   expect_equal(df, crossing(x = 1:3, y = 3:1))
 })
 
-test_that("expand respects groups", {
-  local_options(lifecycle_verbosity = "quiet")
+test_that("expand always returns a bare tibble (#396)", {
+  df <- data.frame(a = c(1, 2), b = c(1, 2))
+  expect_s3_class(expand(df, a, b), "tbl_df")
 
+  gdf <- dplyr::group_by(df, a)
+  expect_s3_class(expand(gdf, a, b), "tbl_df")
+  expect_false("grouped_df" %in% class(expand(gdf, a, b)))
+})
+
+test_that("expand ignores groups (#396)", {
   df <- tibble(
     a = c(1L, 1L, 2L),
     b = c(1L, 2L, 1L),
     c = c(2L, 1L, 1L)
   )
-  out <- df %>% dplyr::group_by(a) %>% expand(b, c) %>% nest()
+  gdf <- dplyr::group_by(df, a)
 
-  expect_equal(out$data[[1]], crossing(b = 1:2, c = 1:2))
-  expect_equal(out$data[[2]], tibble(b = 1L, c = 1L))
+  expect_identical(
+    expand(gdf, b, c),
+    expand(df, b, c)
+  )
+  expect_identical(
+    expand(gdf, a, c),
+    expand(df, a, c)
+  )
+  expect_identical(
+    expand(gdf, b, c),
+    tibble(b = c(1L, 1L, 2L, 2L), c = c(1L, 2L, 1L, 2L))
+  )
+
+  # In particular, this should always return a distinct set of rows (#396)
+  df <- tibble(
+    x = factor(c("A", "B", "B")),
+    y = factor(c("C", "D", "D"))
+  )
+  gdf <- dplyr::group_by(df, x)
+
+  expect_identical(
+    expand(gdf, x, y),
+    tibble(
+      x = factor(c("A", "A", "B", "B")),
+      y = factor(c("C", "D", "C", "D"))
+    )
+  )
 })
 
 test_that("preserves ordered factors", {

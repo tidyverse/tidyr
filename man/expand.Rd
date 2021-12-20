@@ -53,6 +53,9 @@ This argument is passed on as \code{repair} to \code{\link[vctrs:vec_as_names]{v
 See there for more details on these terms and the strategies used
 to enforce them.}
 }
+\value{
+A tibble containing the combinations of the supplied variables.
+}
 \description{
 \code{expand()} generates all combination of variables found in a dataset.
 It is paired with \code{nesting()} and \code{crossing()} helpers. \code{crossing()}
@@ -69,6 +72,8 @@ explicit missing values (e.g., fill in gaps in your data frame).
 }
 }
 \examples{
+library(dplyr, warn.conflicts = FALSE)
+
 fruits <- tibble(
   type   = c("apple", "orange", "apple", "orange", "orange", "orange"),
   year   = c(2010, 2010, 2012, 2010, 2010, 2012),
@@ -99,10 +104,16 @@ fruits \%>\% expand(type, size, 2010:2012)
 # Use `anti_join()` to determine which observations are missing
 all <- fruits \%>\% expand(type, size, year)
 all
-all \%>\% dplyr::anti_join(fruits)
+all \%>\% anti_join(fruits)
 
 # Use with `right_join()` to fill in missing rows
-fruits \%>\% dplyr::right_join(all)
+fruits \%>\% right_join(all)
+
+# Use with `summarize()` on a grouped data frame to expand within groups
+expand(fruits, type, nesting(size))
+
+fruits_by_type <- group_by(fruits, type)
+summarize(fruits_by_type, expand(cur_data(), nesting(size)))
 }
 \seealso{
 \code{\link[=complete]{complete()}} to expand list objects. \code{\link[=expand_grid]{expand_grid()}}

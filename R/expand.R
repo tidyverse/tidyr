@@ -37,10 +37,13 @@
 #'   that do not appear in the data: to do so use expressions like
 
 #'   `year = 2010:2020` or `year = full_seq(year,1)`.
+#' @return A tibble containing the combinations of the supplied variables.
 #' @seealso [complete()] to expand list objects. [expand_grid()]
 #'   to input vectors rather than a data frame.
 #' @export
 #' @examples
+#' library(dplyr, warn.conflicts = FALSE)
+#'
 #' fruits <- tibble(
 #'   type   = c("apple", "orange", "apple", "orange", "orange", "orange"),
 #'   year   = c(2010, 2010, 2012, 2010, 2010, 2012),
@@ -71,10 +74,16 @@
 #' # Use `anti_join()` to determine which observations are missing
 #' all <- fruits %>% expand(type, size, year)
 #' all
-#' all %>% dplyr::anti_join(fruits)
+#' all %>% anti_join(fruits)
 #'
 #' # Use with `right_join()` to fill in missing rows
-#' fruits %>% dplyr::right_join(all)
+#' fruits %>% right_join(all)
+#'
+#' # Use with `summarize()` on a grouped data frame to expand within groups
+#' expand(fruits, type, nesting(size))
+#'
+#' fruits_by_type <- group_by(fruits, type)
+#' summarize(fruits_by_type, expand(cur_data(), nesting(size)))
 expand <- function(data, ..., .name_repair = "check_unique") {
   UseMethod("expand")
 }
@@ -87,12 +96,9 @@ expand.data.frame <- function(data, ..., .name_repair = "check_unique") {
   # Flattens unnamed data frames returned from `grid_dots()`
   out <- expand_grid(!!!out, .name_repair = .name_repair)
 
-  reconstruct_tibble(data, out)
-}
-
-#' @export
-expand.grouped_df <- function(data, ..., .name_repair = "check_unique") {
-  dplyr::do(data, expand(., ..., .name_repair = .name_repair))
+  # Doesn't reconstruct to type of `data`,
+  # as this fundamentally creates a new data frame (#396)
+  out
 }
 
 # Nesting & crossing ------------------------------------------------------
