@@ -7,7 +7,7 @@
 \usage{
 chop(data, cols)
 
-unchop(data, cols, keep_empty = FALSE, ptype = list())
+unchop(data, cols, keep_empty = FALSE, ptype = NULL)
 }
 \arguments{
 \item{data}{A data frame.}
@@ -28,7 +28,8 @@ of missing values.}
 
 \item{ptype}{Optionally, a named list of column name-prototype pairs to
 coerce \code{cols} to, overriding the default that will be guessed from
-combining the individual values.}
+combining the individual values. Alternatively, a single empty ptype
+can be supplied, which will be applied to all \code{cols}.}
 }
 \description{
 Chopping and unchopping preserve the width of a data frame, changing its

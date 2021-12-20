@@ -56,7 +56,8 @@ of missing values.}
 
 \item{ptype}{Optionally, a named list of column name-prototype pairs to
 coerce \code{cols} to, overriding the default that will be guessed from
-combining the individual values.}
+combining the individual values. Alternatively, a single empty ptype
+can be supplied, which will be applied to all \code{cols}.}
 
 \item{names_sep, .names_sep}{If \code{NULL}, the default, the names will be left
 as is. In \code{nest()}, inner names will come from the former outer names;
