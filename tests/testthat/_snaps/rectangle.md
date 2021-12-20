@@ -230,15 +230,20 @@
 # `transform` is validated
 
     Code
-      (expect_error(df_simplify(data.frame(), transform = 1)))
-    Output
-      <error/rlang_error>
-      `transform` must be a list.
-    Code
-      (expect_error(df_simplify(data.frame(), transform = list(1))))
+      (expect_error(df_simplify(data.frame(), transform = list(~.x))))
     Output
       <error/rlang_error>
       All elements of `transform` must be named.
+    Code
+      (expect_error(df_simplify(data.frame(x = 1), transform = 1)))
+    Output
+      <error/rlang_error>
+      Can't convert a double vector to function
+    Code
+      (expect_error(df_simplify(data.frame(), transform = list(x = 1))))
+    Output
+      <error/rlang_error>
+      Can't convert a double vector to function
     Code
       (expect_error(df_simplify(data.frame(), transform = list(x = 1, x = 1))))
     Output

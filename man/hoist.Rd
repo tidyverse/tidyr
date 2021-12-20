@@ -14,7 +14,7 @@ hoist(
   .remove = TRUE,
   .simplify = TRUE,
   .ptype = NULL,
-  .transform = list()
+  .transform = NULL
 )
 
 unnest_longer(
@@ -26,7 +26,7 @@ unnest_longer(
   names_repair = "check_unique",
   simplify = TRUE,
   ptype = NULL,
-  transform = list()
+  transform = NULL
 )
 
 unnest_wider(
@@ -37,7 +37,7 @@ unnest_wider(
   strict = FALSE,
   names_repair = "check_unique",
   ptype = NULL,
-  transform = list()
+  transform = NULL
 )
 
 unnest_auto(data, col)
@@ -86,8 +86,9 @@ isn't possible, then a \link[vctrs:list_of]{list-of} column will be returned
 and each element will have type \code{ptype}.}
 
 \item{.transform, transform}{Optionally, a named list of transformation
-functions applied to each component. Use this function if you want
-to transform or parse individual elements as they are extracted.
+functions applied to each component. Alternatively, a single function can
+be supplied, which will be applied to all components. Use this argument if
+you want to transform or parse individual elements as they are extracted.
 
 When both \code{ptype} and \code{transform} are supplied, the \code{transform} is applied
 before the \code{ptype}.}
