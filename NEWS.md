@@ -61,6 +61,19 @@
 
 ## Grids
 
+* `expand()` and `complete()` no longer have special behavior with grouped data
+  frames. This makes them easier to reason about and gives them more predictable
+  output (#396, #966). If you need to expand or complete _within_ groups, you
+  can combine `expand()` or `complete()` with `group_by()` and `summarize()`,
+  which should produce a more correct completed result than the previous special
+  behavior.
+  
+  ```{r}
+  df %>%
+    group_by(g) %>%
+    summarize(complete(cur_data(), x, y))
+  ```
+
 * `complete()` gains a new `explicit` argument for limiting `fill` to only
   implicit missing values. This is useful if you don't want to fill in
   pre-existing missing values (#1270).
