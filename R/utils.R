@@ -227,5 +227,8 @@ check_tidyr_ptype <- function(ptype, names, arg) {
     abort(glue("`{arg}` must be `NULL`, an empty ptype, or a named list of ptypes."))
   }
 
+  # Silently drop user supplied names not found in the data
+  ptype <- ptype[intersect(names(ptype), names)]
+
   ptype
 }
