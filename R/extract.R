@@ -50,6 +50,8 @@ extract.data.frame <- function(data, col, into, regex = "([[:alnum:]]+)",
 }
 
 str_extract <- function(x, into, regex, convert = FALSE) {
+  check_not_stringr_pattern(regex, "regex")
+
   stopifnot(
     is_string(regex),
     is_character(into)

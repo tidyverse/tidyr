@@ -9,3 +9,11 @@
     Output
       <simpleError: `regex` should define 2 groups; 0 found.>
 
+# informative error if using stringr modifier functions
+
+    Code
+      (expect_error(extract(df, x, "x", regex = regex)))
+    Output
+      <error/rlang_error>
+      `regex` can't use modifiers from stringr.
+

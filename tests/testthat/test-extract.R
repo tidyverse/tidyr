@@ -53,6 +53,13 @@ test_that("informative error message if wrong number of groups", {
   })
 })
 
+test_that("informative error if using stringr modifier functions", {
+  df <- tibble(x = "a")
+  regex <- structure("a", class = "pattern")
+
+  expect_snapshot((expect_error(extract(df, x, "x", regex = regex))))
+})
+
 test_that("str_match_first handles edge cases", {
   expect_identical(
     str_match_first(c("r-2", "d-2-3-4"), "(.)-(.)"),
