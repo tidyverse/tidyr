@@ -90,14 +90,9 @@ expand <- function(data, ..., .name_repair = "check_unique") {
 
 #' @export
 expand.data.frame <- function(data, ..., .name_repair = "check_unique") {
-  out <- grid_dots(..., `_data` = data)
-  out <- map(out, sorted_unique)
+  out <- crossing_impl(..., .name_repair = .name_repair, `_data` = data)
 
-  # Flattens unnamed data frames returned from `grid_dots()`
-  out <- expand_grid(!!!out, .name_repair = .name_repair)
-
-  # Doesn't reconstruct to type of `data`,
-  # as this fundamentally creates a new data frame (#396)
+  # Don't reconstruct to `data`. This creates a completely new data frame (#396).
   out
 }
 
@@ -106,7 +101,11 @@ expand.data.frame <- function(data, ..., .name_repair = "check_unique") {
 #' @rdname expand
 #' @export
 crossing <- function(..., .name_repair = "check_unique") {
-  out <- grid_dots(...)
+  crossing_impl(..., .name_repair = .name_repair)
+}
+
+crossing_impl <- function(..., .name_repair = "check_unique", `_data` = NULL) {
+  out <- grid_dots(..., `_data` = `_data`)
   out <- map(out, sorted_unique)
 
   # Flattens unnamed data frames returned from `grid_dots()`
