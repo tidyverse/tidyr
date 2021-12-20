@@ -1,5 +1,9 @@
 # tidyr (development version)
 
+* The `ptype` arguments of `hoist()`, `unnest_longer()`, and `unnest_wider()`
+  now accept a single empty ptype which will be applied to all components
+  (#1284).
+
 * The `ptype` arguments of `unnest()` and `unchop()` now accept a single empty
   ptype which will be applied to all `cols` (#1284).
 
