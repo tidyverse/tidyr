@@ -18,6 +18,25 @@ test_that("preserves grouping", {
   expect_equal(dplyr::group_vars(out), dplyr::group_vars(df))
 })
 
+test_that("ignores grouping variables when completing (#396)", {
+  df <- tibble(
+    x = factor(c("A", "B", "B")),
+    y = factor(c("C", "D", "D")),
+    z = c(1, 2, 3)
+  )
+  gdf <- dplyr::group_by(df, x)
+
+  expect_identical(
+    complete(gdf, y),
+    gdf[c("y", "x", "z")]
+  )
+
+  expect_identical(
+    complete(gdf, x, y),
+    dplyr::group_by(complete(df, x, y), x)
+  )
+})
+
 test_that("expands empty factors", {
   f <- factor(levels = c("a", "b", "c"))
   df <- tibble(one = f, two = f)
