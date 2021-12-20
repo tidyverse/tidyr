@@ -138,7 +138,7 @@ more suitable for programming than interactive data analysis.</p>
     <div id="ref-usage">
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">chop</span><span class="op">(</span><span class="va">data</span>, <span class="va">cols</span><span class="op">)</span>
 
-<span class="fu">unchop</span><span class="op">(</span><span class="va">data</span>, <span class="va">cols</span>, keep_empty <span class="op">=</span> <span class="cn">FALSE</span>, ptype <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<span class="fu">unchop</span><span class="op">(</span><span class="va">data</span>, <span class="va">cols</span>, keep_empty <span class="op">=</span> <span class="cn">FALSE</span>, ptype <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -161,7 +161,8 @@ of missing values.</p></dd>
 <dt>ptype</dt>
 <dd><p>Optionally, a named list of column name-prototype pairs to
 coerce <code>cols</code> to, overriding the default that will be guessed from
-combining the individual values.</p></dd>
+combining the individual values. Alternatively, a single empty ptype
+can be supplied, which will be applied to all <code>cols</code>.</p></dd>
 </dl></div>
     <div id="details">
     <h2>Details</h2>
