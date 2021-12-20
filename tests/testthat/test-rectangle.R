@@ -889,8 +889,9 @@ test_that("`ptype` is validated", {
 
 test_that("`transform` is validated", {
   expect_snapshot({
-    (expect_error(df_simplify(data.frame(), transform = 1)))
-    (expect_error(df_simplify(data.frame(), transform = list(1))))
+    (expect_error(df_simplify(data.frame(), transform = list(~.x))))
+    (expect_error(df_simplify(data.frame(x = 1), transform = 1)))
+    (expect_error(df_simplify(data.frame(), transform = list(x = 1))))
     (expect_error(df_simplify(data.frame(), transform = list(x = 1, x = 1))))
   })
 })
@@ -915,6 +916,24 @@ test_that("`simplify` elements are ignored if they don't correspond to a column"
   expect_identical(
     df_simplify(df, simplify = list(z = FALSE)),
     data_frame(x = 1, y = "a")
+  )
+})
+
+test_that("`ptype` is allowed to be a single empty ptype (#1284)", {
+  df <- tibble(x = list(1), y = list(1))
+
+  expect_identical(
+    df_simplify(df, ptype = integer()),
+    data_frame(x = 1L, y = 1L)
+  )
+})
+
+test_that("`transform` is allowed to be a single function (#1284)", {
+  df <- tibble(x = list("1"), y = list("1"))
+
+  expect_identical(
+    df_simplify(df, transform = ~as.integer(.x)),
+    data_frame(x = 1L, y = 1L)
   )
 })
 
