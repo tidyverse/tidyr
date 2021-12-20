@@ -146,8 +146,8 @@ based on heuristics described below.</p>
   <span class="va">...</span>,
   .remove <span class="op">=</span> <span class="cn">TRUE</span>,
   .simplify <span class="op">=</span> <span class="cn">TRUE</span>,
-  .ptype <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,
-  .transform <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>
+  .ptype <span class="op">=</span> <span class="cn">NULL</span>,
+  .transform <span class="op">=</span> <span class="cn">NULL</span>
 <span class="op">)</span>
 
 <span class="fu">unnest_longer</span><span class="op">(</span>
@@ -158,8 +158,8 @@ based on heuristics described below.</p>
   indices_include <span class="op">=</span> <span class="cn">NULL</span>,
   names_repair <span class="op">=</span> <span class="st">"check_unique"</span>,
   simplify <span class="op">=</span> <span class="cn">TRUE</span>,
-  ptype <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,
-  transform <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>
+  ptype <span class="op">=</span> <span class="cn">NULL</span>,
+  transform <span class="op">=</span> <span class="cn">NULL</span>
 <span class="op">)</span>
 
 <span class="fu">unnest_wider</span><span class="op">(</span>
@@ -169,8 +169,8 @@ based on heuristics described below.</p>
   simplify <span class="op">=</span> <span class="cn">TRUE</span>,
   strict <span class="op">=</span> <span class="cn">FALSE</span>,
   names_repair <span class="op">=</span> <span class="st">"check_unique"</span>,
-  ptype <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,
-  transform <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>
+  ptype <span class="op">=</span> <span class="cn">NULL</span>,
+  transform <span class="op">=</span> <span class="cn">NULL</span>
 <span class="op">)</span>
 
 <span class="fu">unnest_auto</span><span class="op">(</span><span class="va">data</span>, <span class="va">col</span><span class="op">)</span></code></pre></div>
@@ -209,15 +209,18 @@ particular column. If a named list is provided, the default for any
 unspecified columns is <code>TRUE</code>.</p></dd>
 <dt>.ptype, ptype</dt>
 <dd><p>Optionally, a named list of prototypes declaring the
-desired output type of each component. Use this argument if you want to
-check that each element has the type you expect when simplifying.</p>
+desired output type of each component. Alternatively, a single empty
+prototype can be supplied, which will be applied to all components. Use
+this argument if you want to check that each element has the type you
+expect when simplifying.</p>
 <p>If a <code>ptype</code> has been specified, but <code>simplify = FALSE</code> or simplification
 isn't possible, then a <a href="https://vctrs.r-lib.org/reference/list_of.html" class="external-link">list-of</a> column will be returned
 and each element will have type <code>ptype</code>.</p></dd>
 <dt>.transform, transform</dt>
 <dd><p>Optionally, a named list of transformation
-functions applied to each component. Use this function if you want
-to transform or parse individual elements as they are extracted.</p>
+functions applied to each component. Alternatively, a single function can
+be supplied, which will be applied to all components. Use this argument if
+you want to transform or parse individual elements as they are extracted.</p>
 <p>When both <code>ptype</code> and <code>transform</code> are supplied, the <code>transform</code> is applied
 before the <code>ptype</code>.</p></dd>
 <dt>values_to</dt>
