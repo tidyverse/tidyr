@@ -122,8 +122,8 @@ pivot_longer <- function(data,
                          names_prefix = NULL,
                          names_sep = NULL,
                          names_pattern = NULL,
-                         names_ptypes = list(),
-                         names_transform = list(),
+                         names_ptypes = NULL,
+                         names_transform = NULL,
                          names_repair = "check_unique",
                          values_to = "value",
                          values_drop_na = FALSE,
@@ -143,8 +143,8 @@ pivot_longer.data.frame <- function(data,
                                     names_prefix = NULL,
                                     names_sep = NULL,
                                     names_pattern = NULL,
-                                    names_ptypes = list(),
-                                    names_transform = list(),
+                                    names_ptypes = NULL,
+                                    names_transform = NULL,
                                     names_repair = "check_unique",
                                     values_to = "value",
                                     values_drop_na = FALSE,
@@ -281,15 +281,16 @@ build_longer_spec <- function(data,
                               names_ptypes = NULL,
                               names_transform = NULL) {
   cols <- tidyselect::eval_select(enquo(cols), data[unique(names(data))])
+  cols <- names(cols)
 
   if (length(cols) == 0) {
     abort(glue::glue("`cols` must select at least one column."))
   }
 
   if (is.null(names_prefix)) {
-    names <- names(cols)
+    names <- cols
   } else {
-    names <- gsub(vec_paste0("^", names_prefix), "", names(cols))
+    names <- gsub(vec_paste0("^", names_prefix), "", cols)
   }
 
   if (is.null(names_to)) {
@@ -335,20 +336,22 @@ build_longer_spec <- function(data,
     vec_assert(values_to, ptype = character(), size = 1)
   }
 
-  # optionally, transform cols
-  coerce_cols <- intersect(names(names), names(names_transform))
-  for (col in coerce_cols) {
-    f <- as_function(names_transform[[col]])
+  names_ptypes <- check_list_of_ptypes(names_ptypes, names(names), "names_ptypes")
+  names_transform <- check_list_of_functions(names_transform, names(names), "names_transform")
+
+  # Optionally, transform cols
+  for (col in names(names_transform)) {
+    f <- names_transform[[col]]
     names[[col]] <- f(names[[col]])
   }
 
-  # optionally, cast variables generated from columns
-  cast_cols <- intersect(names(names), names(names_ptypes))
-  for (col in cast_cols) {
-    names[[col]] <- vec_cast(names[[col]], names_ptypes[[col]])
+  # Optionally, cast variables generated from columns
+  for (col in names(names_ptypes)) {
+    ptype <- names_ptypes[[col]]
+    names[[col]] <- vec_cast(names[[col]], ptype)
   }
 
-  out <- tibble(.name = names(cols))
+  out <- tibble(.name = cols)
   out[[".value"]] <- values_to
   out <- vec_cbind(out, names)
   out
