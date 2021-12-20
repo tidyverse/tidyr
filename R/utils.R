@@ -213,3 +213,19 @@ vec_paste0 <- function(...) {
   args <- vec_recycle_common(...)
   exec(paste0, !!!args)
 }
+
+check_tidyr_ptype <- function(ptype, names, arg) {
+  if (vec_is(ptype) && vec_is_empty(ptype)) {
+    ptype <- rep_named(names, list(ptype))
+  }
+
+  if (is.null(ptype)) {
+    ptype <- set_names(list(), character())
+  }
+
+  if (!vec_is_list(ptype)) {
+    abort(glue("`{arg}` must be `NULL`, an empty ptype, or a named list of ptypes."))
+  }
+
+  ptype
+}
