@@ -127,8 +127,8 @@ pivot_longer <- function(data,
                          names_repair = "check_unique",
                          values_to = "value",
                          values_drop_na = FALSE,
-                         values_ptypes = list(),
-                         values_transform = list(),
+                         values_ptypes = NULL,
+                         values_transform = NULL,
                          ...
                          ) {
 
@@ -148,8 +148,8 @@ pivot_longer.data.frame <- function(data,
                                     names_repair = "check_unique",
                                     values_to = "value",
                                     values_drop_na = FALSE,
-                                    values_ptypes = list(),
-                                    values_transform = list(),
+                                    values_ptypes = NULL,
+                                    values_transform = NULL,
                                     ...
                                     ) {
   cols <- enquo(cols)
@@ -215,8 +215,8 @@ pivot_longer_spec <- function(data,
                               spec,
                               names_repair = "check_unique",
                               values_drop_na = FALSE,
-                              values_ptypes = list(),
-                              values_transform = list()
+                              values_ptypes = NULL,
+                              values_transform = NULL
                               ) {
   spec <- check_pivot_spec(spec)
   spec <- deduplicate_spec(spec, data)
@@ -224,11 +224,15 @@ pivot_longer_spec <- function(data,
   # Quick hack to ensure that split() preserves order
   v_fct <- factor(spec$.value, levels = unique(spec$.value))
   values <- split(spec$.name, v_fct)
+  value_names <- names(values)
   value_keys <- split(spec[-(1:2)], v_fct)
   keys <- vec_unique(spec[-(1:2)])
 
-  vals <- set_names(vec_init(list(), length(values)), names(values))
-  for (value in names(values)) {
+  values_ptypes <- check_list_of_ptypes(values_ptypes, value_names, "values_ptypes")
+  values_transform <- check_list_of_functions(values_transform, value_names, "values_transform")
+
+  vals <- set_names(vec_init(list(), length(values)), value_names)
+  for (value in value_names) {
     cols <- values[[value]]
     col_id <- vec_match(value_keys[[value]], keys)
 

@@ -279,7 +279,7 @@ test_that("transform is applied before cast (#1233)", {
   expect_identical(sp$name, 1L)
 })
 
-test_that("`names_ptypes` and `names_transform` work with single empty ptypes (#1284)", {
+test_that("`names_ptypes` and `names_transform` work with single values (#1284)", {
   df <- tibble(`1x2` = 1)
 
   res <- build_longer_spec(
@@ -304,6 +304,36 @@ test_that("`names_ptypes` and `names_transform` work with single empty ptypes (#
 
   expect_identical(res$one, 1L)
   expect_identical(res$two, 2L)
+})
+
+test_that("`values_ptypes` works with single empty ptypes (#1284)", {
+  df <- tibble(x_1 = 1, y_1 = 2)
+
+  res <- pivot_longer(
+    data = df,
+    cols = everything(),
+    names_to = c(".value", "set"),
+    names_sep = "_",
+    values_ptypes = integer()
+  )
+
+  expect_identical(res$x, 1L)
+  expect_identical(res$y, 2L)
+})
+
+test_that("`values_transform` works with single functions (#1284)", {
+  df <- tibble(x_1 = 1, y_1 = 2)
+
+  res <- pivot_longer(
+    data = df,
+    cols = everything(),
+    names_to = c(".value", "set"),
+    names_sep = "_",
+    values_transform = as.character
+  )
+
+  expect_identical(res$x, "1")
+  expect_identical(res$y, "2")
 })
 
 test_that("Error if the `col` can't be selected.", {
@@ -337,5 +367,23 @@ test_that("`names_transform` is validated", {
   expect_snapshot({
     (expect_error(build_longer_spec(df, x, names_transform = 1)))
     (expect_error(build_longer_spec(df, x, names_transform = list(~.x))))
+  })
+})
+
+test_that("`values_ptypes` is validated", {
+  df <- tibble(x = 1)
+
+  expect_snapshot({
+    (expect_error(pivot_longer(df, x, values_ptypes = 1)))
+    (expect_error(pivot_longer(df, x, values_ptypes = list(integer()))))
+  })
+})
+
+test_that("`values_transform` is validated", {
+  df <- tibble(x = 1)
+
+  expect_snapshot({
+    (expect_error(pivot_longer(df, x, values_transform = 1)))
+    (expect_error(pivot_longer(df, x, values_transform = list(~.x))))
   })
 })

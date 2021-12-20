@@ -93,3 +93,29 @@
       <error/rlang_error>
       All elements of `names_transform` must be named.
 
+# `values_ptypes` is validated
+
+    Code
+      (expect_error(pivot_longer(df, x, values_ptypes = 1)))
+    Output
+      <error/rlang_error>
+      `values_ptypes` must be `NULL`, an empty ptype, or a named list of ptypes.
+    Code
+      (expect_error(pivot_longer(df, x, values_ptypes = list(integer()))))
+    Output
+      <error/rlang_error>
+      All elements of `values_ptypes` must be named.
+
+# `values_transform` is validated
+
+    Code
+      (expect_error(pivot_longer(df, x, values_transform = 1)))
+    Output
+      <error/rlang_error>
+      Can't convert a double vector to function
+    Code
+      (expect_error(pivot_longer(df, x, values_transform = list(~.x))))
+    Output
+      <error/rlang_error>
+      All elements of `values_transform` must be named.
+
