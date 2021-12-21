@@ -96,13 +96,13 @@
 #' # and missing missings are structural so should be dropped.
 #' billboard
 #' billboard %>%
-#'  pivot_longer(
-#'    cols = starts_with("wk"),
-#'    names_to = "week",
-#'    names_prefix = "wk",
-#'    values_to = "rank",
-#'    values_drop_na = TRUE
-#'  )
+#'   pivot_longer(
+#'     cols = starts_with("wk"),
+#'     names_to = "week",
+#'     names_prefix = "wk",
+#'     values_to = "rank",
+#'     values_drop_na = TRUE
+#'   )
 #'
 #' # Multiple variables stored in column names
 #' who %>% pivot_longer(
@@ -115,10 +115,11 @@
 #' # Multiple observations per row
 #' anscombe
 #' anscombe %>%
-#'  pivot_longer(everything(),
-#'    names_to = c(".value", "set"),
-#'    names_pattern = "(.)(.)"
-#'  )
+#'   pivot_longer(
+#'     everything(),
+#'     names_to = c(".value", "set"),
+#'     names_pattern = "(.)(.)"
+#'   )
 pivot_longer <- function(data,
                          cols,
                          names_to = "name",
