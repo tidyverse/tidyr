@@ -97,6 +97,9 @@
 * @mgirlich is now a tidyr author in recognition of his significant and
   sustained contributions.
   
+* All lazyeval variants of tidyr verbs have been soft-deprecated. Expect them
+  to move to the defunct stage in the next minor release of tidyr (#1294).
+  
 * `any_of()` and `all_of()` from tidyselect are now re-exported (#1217).
 
 * dplyr >= 1.0.0 is now required.
