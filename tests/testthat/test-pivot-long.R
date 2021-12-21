@@ -336,6 +336,21 @@ test_that("`values_transform` works with single functions (#1284)", {
   expect_identical(res$y, "2")
 })
 
+test_that("`names/values_ptypes = list()` is currently the same as `NULL` (#1296)", {
+  # Because of some backwards compatibility support
+
+  df <- tibble(x = 1)
+
+  expect_identical(
+    pivot_longer(df, x, names_ptypes = list()),
+    pivot_longer(df, x, names_ptypes = NULL)
+  )
+  expect_identical(
+    pivot_longer(df, x, values_ptypes = list()),
+    pivot_longer(df, x, values_ptypes = NULL)
+  )
+})
+
 test_that("Error if the `col` can't be selected.", {
   expect_snapshot({
     (expect_error(pivot_longer(iris, matches("foo"))))
