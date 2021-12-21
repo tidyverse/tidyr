@@ -4,17 +4,17 @@
 
 |package        |version |error |warning |note |
 |:--------------|:-------|:-----|:-------|:----|
-|NA             |?       |      |        |     |
-|NA             |?       |      |        |     |
-|NA             |?       |      |        |     |
-|NA             |?       |      |        |     |
-|NA             |?       |      |        |     |
-|NA             |?       |      |        |     |
-|NA             |?       |      |        |     |
-|NA             |?       |      |        |     |
-|NA             |?       |      |        |     |
+|brendaDb       |?       |      |        |     |
+|BUSpaRse       |?       |      |        |     |
+|ceRNAnetsim    |?       |      |        |     |
+|COMPASS        |?       |      |        |     |
+|ctDNAtools     |?       |      |        |     |
+|destiny        |?       |      |        |     |
+|dynfrail       |?       |      |        |     |
+|evaluator      |?       |      |        |     |
+|expstudies     |?       |      |        |     |
 |loon.ggplot    |?       |      |        |     |
-|NA             |?       |      |        |     |
+|mafs           |?       |      |        |     |
 |MarketMatching |?       |      |        |     |
 |vivid          |?       |      |        |     |
 
