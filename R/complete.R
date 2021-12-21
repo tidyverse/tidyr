@@ -80,3 +80,20 @@ complete.data.frame <- function(data,
 
   reconstruct_tibble(data, out)
 }
+
+#' @export
+complete.grouped_df <- function(data,
+                                ...,
+                                fill = list(),
+                                explicit = TRUE) {
+  dplyr::summarise(
+    data,
+    complete(
+      data = dplyr::cur_data_all(),
+      ...,
+      fill = fill,
+      explicit = explicit
+    ),
+    .groups = "keep"
+  )
+}
