@@ -95,6 +95,8 @@
   sustained contributions.
   
 * `any_of()` and `all_of()` from tidyselect are now re-exported (#1217).
+
+* dplyr >= 1.0.0 is now required.
   
 ### Pivoting
   
