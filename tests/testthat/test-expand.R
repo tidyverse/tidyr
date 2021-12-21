@@ -58,6 +58,27 @@ test_that("expand respects groups", {
   expect_equal(out$data[[2]], tibble(b = 1L, c = 1L))
 })
 
+test_that("expand allows expanding on grouping variable (#396)", {
+  df <- tibble(
+    g = factor(c("a", "b", "b")),
+    a = c(1, 1, 3)
+  )
+  gdf <- dplyr::group_by(df, g)
+
+  out <- expand(gdf, g, a)
+
+  # Same as split by group, expand, combine.
+  # Note that this produces duplicate rows in the result. Not ideal, but
+  # would probably break revdeps if we removed this grouped-df method.
+  expect <- vec_rbind(
+    expand(df[1,], g, a),
+    expand(df[2:3,], g, a)
+  )
+  expect <- dplyr::group_by(expect, g)
+
+  expect_identical(out, expect)
+})
+
 test_that("preserves ordered factors", {
   df <- tibble(a = ordered("a"))
   out <- expand(df, a)
