@@ -181,26 +181,26 @@ by <code>"&lt;key_name&gt;&lt;sep&gt;&lt;key_value&gt;"</code>.</p></dd>
 <span class="r-in"><span class="op">)</span></span>
 <span class="r-in"><span class="va">stocksm</span> <span class="op">&lt;-</span> <span class="va">stocks</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu"><a href="gather.html">gather</a></span><span class="op">(</span><span class="va">stock</span>, <span class="va">price</span>, <span class="op">-</span><span class="va">time</span><span class="op">)</span></span>
 <span class="r-in"><span class="va">stocksm</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu">spread</span><span class="op">(</span><span class="va">stock</span>, <span class="va">price</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          time          X          Y         Z</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1  2009-01-01  1.0807687 -3.5826289 -2.168815</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2  2009-01-02 -0.4694307  3.5542510  5.247496</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3  2009-01-03 -0.1110718  2.1811746  2.810365</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4  2009-01-04 -0.8655207  0.5013924 -2.550528</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5  2009-01-05  0.3583556  2.7441634  4.140146</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6  2009-01-06  1.4444693 -0.9427065 -3.101916</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7  2009-01-07  0.1335054  4.2440711 -1.930388</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8  2009-01-08  0.6646423  0.9034083  8.524975</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9  2009-01-09 -1.4213136 -0.8679043 -1.015700</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10 2009-01-10 -0.8881836 -2.0126798  7.432737</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          time           X          Y          Z</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  2009-01-01  2.26308968  5.3923035 -3.2368421</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2  2009-01-02  0.14845646 -0.7299632  4.0541702</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3  2009-01-03 -0.04936317  3.6667621  3.6255652</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4  2009-01-04 -0.63409979  0.7387818 -1.1307020</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5  2009-01-05  0.47856862  1.8358394 -0.2430242</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6  2009-01-06 -0.56714334 -1.1978865  5.5295084</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7  2009-01-07 -0.45038577  1.6997519  2.9393345</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8  2009-01-08  0.54905437 -0.8367347  2.9940981</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9  2009-01-09 -1.28376877 -0.2355997  2.1306032</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10 2009-01-10 -0.33159325 -0.8802220 -0.9838234</span>
 <span class="r-in"><span class="va">stocksm</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu">spread</span><span class="op">(</span><span class="va">time</span>, <span class="va">price</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   stock 2009-01-01 2009-01-02 2009-01-03 2009-01-04 2009-01-05 2009-01-06</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1     X   1.080769 -0.4694307 -0.1110718 -0.8655207  0.3583556  1.4444693</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2     Y  -3.582629  3.5542510  2.1811746  0.5013924  2.7441634 -0.9427065</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3     Z  -2.168815  5.2474960  2.8103646 -2.5505283  4.1401463 -3.1019157</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   stock 2009-01-01 2009-01-02  2009-01-03 2009-01-04 2009-01-05 2009-01-06</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1     X   2.263090  0.1484565 -0.04936317 -0.6340998  0.4785686 -0.5671433</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2     Y   5.392304 -0.7299632  3.66676205  0.7387818  1.8358394 -1.1978865</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3     Z  -3.236842  4.0541702  3.62556516 -1.1307020 -0.2430242  5.5295084</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   2009-01-07 2009-01-08 2009-01-09 2009-01-10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1  0.1335054  0.6646423 -1.4213136 -0.8881836</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2  4.2440711  0.9034083 -0.8679043 -2.0126798</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 -1.9303876  8.5249754 -1.0157004  7.4327367</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 -0.4503858  0.5490544 -1.2837688 -0.3315933</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2  1.6997519 -0.8367347 -0.2355997 -0.8802220</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3  2.9393345  2.9940981  2.1306032 -0.9838234</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># Spread and gather are complements</span></span>
 <span class="r-in"><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="st">"b"</span><span class="op">)</span>, y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">4</span><span class="op">)</span>, z <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">5</span>, <span class="fl">6</span><span class="op">)</span><span class="op">)</span></span>
