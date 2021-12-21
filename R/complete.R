@@ -1,9 +1,11 @@
 #' Complete a data frame with missing combinations of data
 #'
-#' Turns implicit missing values into explicit missing values.
-#' This is a wrapper around [expand()],
-#' [dplyr::full_join()] and [replace_na()] that's
-#' useful for completing missing combinations of data.
+#' Turns implicit missing values into explicit missing values. This is a wrapper
+#' around [expand()], [dplyr::full_join()] and [replace_na()] that's useful for
+#' completing missing combinations of data.
+#'
+#' @details
+#' With grouped data frames, `complete()` operates _within_ each group.
 #'
 #' @inheritParams expand
 #' @param fill A named list that for each variable supplies a single value to
