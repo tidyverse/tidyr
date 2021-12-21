@@ -300,13 +300,13 @@ under active development.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   wk35 &lt;dbl&gt;, wk36 &lt;dbl&gt;, wk37 &lt;dbl&gt;, wk38 &lt;dbl&gt;, wk39 &lt;dbl&gt;, wk40 &lt;dbl&gt;,</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   wk41 &lt;dbl&gt;, wk42 &lt;dbl&gt;, wk43 &lt;dbl&gt;, wk44 &lt;dbl&gt;, wk45 &lt;dbl&gt;, wk46 &lt;dbl&gt;, …</span></span>
 <span class="r-in"><span class="va">billboard</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
-<span class="r-in"> <span class="fu">pivot_longer</span><span class="op">(</span></span>
-<span class="r-in">   cols <span class="op">=</span> <span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html" class="external-link">starts_with</a></span><span class="op">(</span><span class="st">"wk"</span><span class="op">)</span>,</span>
-<span class="r-in">   names_to <span class="op">=</span> <span class="st">"week"</span>,</span>
-<span class="r-in">   names_prefix <span class="op">=</span> <span class="st">"wk"</span>,</span>
-<span class="r-in">   values_to <span class="op">=</span> <span class="st">"rank"</span>,</span>
-<span class="r-in">   values_drop_na <span class="op">=</span> <span class="cn">TRUE</span></span>
-<span class="r-in"> <span class="op">)</span></span>
+<span class="r-in">  <span class="fu">pivot_longer</span><span class="op">(</span></span>
+<span class="r-in">    cols <span class="op">=</span> <span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html" class="external-link">starts_with</a></span><span class="op">(</span><span class="st">"wk"</span><span class="op">)</span>,</span>
+<span class="r-in">    names_to <span class="op">=</span> <span class="st">"week"</span>,</span>
+<span class="r-in">    names_prefix <span class="op">=</span> <span class="st">"wk"</span>,</span>
+<span class="r-in">    values_to <span class="op">=</span> <span class="st">"rank"</span>,</span>
+<span class="r-in">    values_drop_na <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span class="r-in">  <span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 5,307 × 5</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    artist  track                   date.entered week   rank</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                   <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
@@ -359,10 +359,11 @@ under active development.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 10  7  7  7  8  4.82 7.26  6.42  7.91</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 11  5  5  5  8  5.68 4.74  5.73  6.89</span>
 <span class="r-in"><span class="va">anscombe</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
-<span class="r-in"> <span class="fu">pivot_longer</span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/everything.html" class="external-link">everything</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span class="r-in">   names_to <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">".value"</span>, <span class="st">"set"</span><span class="op">)</span>,</span>
-<span class="r-in">   names_pattern <span class="op">=</span> <span class="st">"(.)(.)"</span></span>
-<span class="r-in"> <span class="op">)</span></span>
+<span class="r-in">  <span class="fu">pivot_longer</span><span class="op">(</span></span>
+<span class="r-in">    <span class="fu"><a href="https://tidyselect.r-lib.org/reference/everything.html" class="external-link">everything</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span class="r-in">    names_to <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">".value"</span>, <span class="st">"set"</span><span class="op">)</span>,</span>
+<span class="r-in">    names_pattern <span class="op">=</span> <span class="st">"(.)(.)"</span></span>
+<span class="r-in">  <span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 44 × 3</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    set       x     y</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
