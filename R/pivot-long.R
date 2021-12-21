@@ -82,6 +82,10 @@
 #'   confirm that the created columns are the types that you expect. Note that
 #'   if you want to change (instead of confirm) the types of specific columns,
 #'   you should use `names_transform` or `values_transform` instead.
+#'
+#'   For backwards compatibility reasons, supplying `list()` is interpreted as
+#'   being identical to `NULL` rather than as using a list prototype on all
+#'   columns. Expect this to change in the future.
 #' @param ... Additional arguments passed on to methods.
 #' @export
 #' @examples
@@ -232,6 +236,10 @@ pivot_longer_spec <- function(data,
   value_keys <- split(spec[-(1:2)], v_fct)
   keys <- vec_unique(spec[-(1:2)])
 
+  if (identical(values_ptypes, list())) {
+    # TODO: Remove me after https://github.com/tidyverse/tidyr/issues/1296
+    values_ptypes <- NULL
+  }
   values_ptypes <- check_list_of_ptypes(values_ptypes, value_names, "values_ptypes")
   values_transform <- check_list_of_functions(values_transform, value_names, "values_transform")
 
@@ -344,6 +352,10 @@ build_longer_spec <- function(data,
     vec_assert(values_to, ptype = character(), size = 1)
   }
 
+  if (identical(names_ptypes, list())) {
+    # TODO: Remove me after https://github.com/tidyverse/tidyr/issues/1296
+    names_ptypes <- NULL
+  }
   names_ptypes <- check_list_of_ptypes(names_ptypes, names(names), "names_ptypes")
   names_transform <- check_list_of_functions(names_transform, names(names), "names_transform")
 
