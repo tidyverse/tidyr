@@ -34,7 +34,14 @@ replace_na <- function(data, replace, ...) {
 #' @export
 replace_na.default <- function(data, replace = NA, ...) {
   check_replacement(replace, "data")
-  missing <- vec_equal_na(data)
+
+  if (is.null(data)) {
+    # TODO: Remove branch when https://github.com/r-lib/vctrs/pull/1497 is fixed
+    missing <- logical(0L)
+  } else {
+    missing <- vec_equal_na(data)
+  }
+
   vec_assign(data, missing, replace, x_arg = "data", value_arg = "replace")
 }
 

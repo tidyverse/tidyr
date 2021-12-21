@@ -46,6 +46,11 @@ test_that("empty atomic elements are not replaced in lists (#1168)", {
   )
 })
 
+test_that("can replace value in `NULL` (#1292)", {
+  expect_identical(replace_na(NULL, replace = "NA"), NULL)
+  expect_identical(replace_na(NULL, replace = 1L), NULL)
+})
+
 # data frame -------------------------------------------------------------
 
 test_that("empty call does nothing", {
