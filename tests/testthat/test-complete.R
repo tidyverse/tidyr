@@ -18,6 +18,26 @@ test_that("preserves grouping", {
   expect_equal(dplyr::group_vars(out), dplyr::group_vars(df))
 })
 
+test_that("complete allows expanding on grouping variable (#396)", {
+  df <- tibble(
+    g = factor(c("a", "b", "b")),
+    a = c(1, 1, 3),
+    x = c(1, 2, 3)
+  )
+  gdf <- dplyr::group_by(df, g)
+
+  out <- complete(gdf, g, a)
+
+  # Same as split by group, complete, combine
+  expect <- vec_rbind(
+    complete(df[1,], g, a),
+    complete(df[2:3,], g, a)
+  )
+  expect <- dplyr::group_by(expect, g)
+
+  expect_identical(out, expect)
+})
+
 test_that("expands empty factors", {
   f <- factor(levels = c("a", "b", "c"))
   df <- tibble(one = f, two = f)

@@ -1,9 +1,11 @@
 #' Complete a data frame with missing combinations of data
 #'
-#' Turns implicit missing values into explicit missing values.
-#' This is a wrapper around [expand()],
-#' [dplyr::full_join()] and [replace_na()] that's
-#' useful for completing missing combinations of data.
+#' Turns implicit missing values into explicit missing values. This is a wrapper
+#' around [expand()], [dplyr::full_join()] and [replace_na()] that's useful for
+#' completing missing combinations of data.
+#'
+#' @details
+#' With grouped data frames, `complete()` operates _within_ each group.
 #'
 #' @inheritParams expand
 #' @param fill A named list that for each variable supplies a single value to
@@ -16,13 +18,14 @@
 #' @examples
 #' library(dplyr, warn.conflicts = FALSE)
 #' df <- tibble(
-#'   group = c(1:2, 1),
-#'   item_id = c(1:2, 2),
-#'   item_name = c("a", "b", "b"),
-#'   value1 = c(1, NA, 3),
-#'   value2 = 4:6
+#'   group = c(1:2, 1, 2),
+#'   item_id = c(1:2, 2, 3),
+#'   item_name = c("a", "a", "b", "b"),
+#'   value1 = c(1, NA, 3, 4),
+#'   value2 = 4:7
 #' )
-#' df %>% complete(group, nesting(item_id, item_name))
+#'
+#' complete(df, group, nesting(item_id, item_name))
 #'
 #' # You can also choose to fill in missing values. By default, both implicit
 #' # (new) and explicit (pre-existing) missing values are filled.
@@ -42,6 +45,13 @@
 #'   fill = list(value1 = 0, value2 = 99),
 #'   explicit = FALSE
 #' )
+#'
+#' # You can complete within a group by calling `complete()`
+#' # on a grouped data frame
+#' gdf <- group_by(df, group)
+#'
+#' complete(df, item_id, item_name)
+#' complete(gdf, item_id, item_name)
 complete <- function(data,
                      ...,
                      fill = list(),
@@ -79,4 +89,21 @@ complete.data.frame <- function(data,
   }
 
   reconstruct_tibble(data, out)
+}
+
+#' @export
+complete.grouped_df <- function(data,
+                                ...,
+                                fill = list(),
+                                explicit = TRUE) {
+  dplyr::summarise(
+    data,
+    complete(
+      data = dplyr::cur_data_all(),
+      ...,
+      fill = fill,
+      explicit = explicit
+    ),
+    .groups = "keep"
+  )
 }

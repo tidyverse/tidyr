@@ -92,7 +92,15 @@ expand.data.frame <- function(data, ..., .name_repair = "check_unique") {
 
 #' @export
 expand.grouped_df <- function(data, ..., .name_repair = "check_unique") {
-  dplyr::do(data, expand(., ..., .name_repair = .name_repair))
+  dplyr::summarise(
+    data,
+    expand(
+      data = dplyr::cur_data_all(),
+      ...,
+      .name_repair = .name_repair
+    ),
+    .groups = "keep"
+  )
 }
 
 # Nesting & crossing ------------------------------------------------------

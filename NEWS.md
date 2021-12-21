@@ -65,6 +65,9 @@
   implicit missing values. This is useful if you don't want to fill in
   pre-existing missing values (#1270).
 
+* `complete()` gains a grouped data frame method. This generates a more correct
+  completed data frame when groups are involved (#396, #966).
+
 ## Missing values
 
 * `drop_na()`, `replace_na()`, and `fill()` have been updated to utilize vctrs.
@@ -95,6 +98,8 @@
   sustained contributions.
   
 * `any_of()` and `all_of()` from tidyselect are now re-exported (#1217).
+
+* dplyr >= 1.0.0 is now required.
   
 ### Pivoting
   

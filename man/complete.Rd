@@ -40,21 +40,24 @@ use instead of \code{NA} for missing combinations.}
 missing values.}
 }
 \description{
-Turns implicit missing values into explicit missing values.
-This is a wrapper around \code{\link[=expand]{expand()}},
-\code{\link[dplyr:mutate-joins]{dplyr::full_join()}} and \code{\link[=replace_na]{replace_na()}} that's
-useful for completing missing combinations of data.
+Turns implicit missing values into explicit missing values. This is a wrapper
+around \code{\link[=expand]{expand()}}, \code{\link[dplyr:mutate-joins]{dplyr::full_join()}} and \code{\link[=replace_na]{replace_na()}} that's useful for
+completing missing combinations of data.
+}
+\details{
+With grouped data frames, \code{complete()} operates \emph{within} each group.
 }
 \examples{
 library(dplyr, warn.conflicts = FALSE)
 df <- tibble(
-  group = c(1:2, 1),
-  item_id = c(1:2, 2),
-  item_name = c("a", "b", "b"),
-  value1 = c(1, NA, 3),
-  value2 = 4:6
+  group = c(1:2, 1, 2),
+  item_id = c(1:2, 2, 3),
+  item_name = c("a", "a", "b", "b"),
+  value1 = c(1, NA, 3, 4),
+  value2 = 4:7
 )
-df \%>\% complete(group, nesting(item_id, item_name))
+
+complete(df, group, nesting(item_id, item_name))
 
 # You can also choose to fill in missing values. By default, both implicit
 # (new) and explicit (pre-existing) missing values are filled.
@@ -74,4 +77,11 @@ complete(
   fill = list(value1 = 0, value2 = 99),
   explicit = FALSE
 )
+
+# You can complete within a group by calling `complete()`
+# on a grouped data frame
+gdf <- group_by(df, group)
+
+complete(df, item_id, item_name)
+complete(gdf, item_id, item_name)
 }
