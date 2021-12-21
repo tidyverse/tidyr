@@ -28,8 +28,6 @@ reference:
   contents:
   - pivot_longer
   - pivot_wider
-  - spread
-  - gather
 
 - title: Rectangling
   description: |
@@ -45,7 +43,6 @@ reference:
     See `vignette("nest")` for more details and examples.
   contents:
   - nest
-  - nest_legacy
 
 - title: Character vectors
   description: |
@@ -87,6 +84,15 @@ reference:
   - us_rent_income
   - who
   - world_bank_pop
+
+- title: Superseded
+  description: |
+    Functions that are still supported but no longer receive active
+    development, as better solutions now exist.
+  contents:
+  - spread
+  - gather
+  - nest_legacy
 
 articles:
 - title: Tidying tools
