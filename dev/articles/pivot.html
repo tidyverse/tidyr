@@ -162,9 +162,9 @@
 
     
     
-<div class="section level1">
-<h1 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
-</h1>
+<div class="section level2">
+<h2 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
+</h2>
 <p>This vignette describes the use of the new <code><a href="../reference/pivot_longer.html">pivot_longer()</a></code> and <code><a href="../reference/pivot_wider.html">pivot_wider()</a></code> functions. Their goal is to improve the usability of <code><a href="../reference/gather.html">gather()</a></code> and <code><a href="../reference/spread.html">spread()</a></code>, and incorporate state-of-the-art features found in other packages.</p>
 <p>For some time, it’s been obvious that there is something fundamentally wrong with the design of <code><a href="../reference/spread.html">spread()</a></code> and <code><a href="../reference/gather.html">gather()</a></code>. Many people don’t find the names intuitive and find it hard to remember which direction corresponds to spreading and which to gathering. It also seems surprisingly hard to remember the arguments to these functions, meaning that many people (including me!) have to consult the documentation every time.</p>
 <p>There are two important new features inspired by other R packages that have been advancing reshaping in R:</p>
@@ -179,14 +179,14 @@
 <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://readr.tidyverse.org" class="external-link">readr</a></span><span class="op">)</span></code></pre></div>
 </div>
-<div class="section level1">
-<h1 id="longer">Longer<a class="anchor" aria-label="anchor" href="#longer"></a>
-</h1>
+<div class="section level2">
+<h2 id="longer">Longer<a class="anchor" aria-label="anchor" href="#longer"></a>
+</h2>
 <p><code><a href="../reference/pivot_longer.html">pivot_longer()</a></code> makes datasets <strong>longer</strong> by increasing the number of rows and decreasing the number of columns. I don’t believe it makes sense to describe a dataset as being in “long form”. Length is a relative term, and you can only say (e.g.) that dataset A is longer than dataset B.</p>
 <p><code><a href="../reference/pivot_longer.html">pivot_longer()</a></code> is commonly needed to tidy wild-caught datasets as they often optimise for ease of data entry or ease of comparison rather than ease of analysis. The following sections show how to use <code><a href="../reference/pivot_longer.html">pivot_longer()</a></code> for a wide range of realistic datasets.</p>
-<div class="section level2">
-<h2 id="pew">String data in column names<a class="anchor" aria-label="anchor" href="#pew"></a>
-</h2>
+<div class="section level3">
+<h3 id="pew">String data in column names<a class="anchor" aria-label="anchor" href="#pew"></a>
+</h3>
 <p>The <code>relig_income</code> dataset stores counts based on a survey which (among other things) asked people about their religion and annual income:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">relig_income</span>
@@ -240,9 +240,9 @@
 </ul>
 <p>Neither the <code>names_to</code> nor the <code>values_to</code> column exists in <code>relig_income</code>, so we provide them as character strings surrounded in quotes.</p>
 </div>
-<div class="section level2">
-<h2 id="billboard">Numeric data in column names<a class="anchor" aria-label="anchor" href="#billboard"></a>
-</h2>
+<div class="section level3">
+<h3 id="billboard">Numeric data in column names<a class="anchor" aria-label="anchor" href="#billboard"></a>
+</h3>
 <p>The <code>billboard</code> dataset records the billboard rank of songs in the year 2000. It has a form similar to the <code>relig_income</code> data, but the data encoded in the column names is really a number, not a string.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">billboard</span>
@@ -311,9 +311,9 @@
     values_drop_na <span class="op">=</span> <span class="cn">TRUE</span>,
   <span class="op">)</span></code></pre></div>
 </div>
-<div class="section level2">
-<h2 id="many-variables-in-column-names">Many variables in column names<a class="anchor" aria-label="anchor" href="#many-variables-in-column-names"></a>
-</h2>
+<div class="section level3">
+<h3 id="many-variables-in-column-names">Many variables in column names<a class="anchor" aria-label="anchor" href="#many-variables-in-column-names"></a>
+</h3>
 <p>A more challenging situation occurs when you have multiple variables crammed into the column names. For example, take the <code>who</code> dataset:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">who</span>
@@ -383,9 +383,9 @@
   values_to <span class="op">=</span> <span class="st">"count"</span>,
 <span class="op">)</span></code></pre></div>
 </div>
-<div class="section level2">
-<h2 id="multiple-observations-per-row">Multiple observations per row<a class="anchor" aria-label="anchor" href="#multiple-observations-per-row"></a>
-</h2>
+<div class="section level3">
+<h3 id="multiple-observations-per-row">Multiple observations per row<a class="anchor" aria-label="anchor" href="#multiple-observations-per-row"></a>
+</h3>
 <p>So far, we have been working with data frames that have one observation per row, but many important pivotting problems involve multiple observations per row. You can usually recognise this case because name of the column that you want to appear in the output is part of the column name in the input. In this section, you’ll learn how to pivot this sort of data.</p>
 <p>The following example is adapted from the <a href="https://CRAN.R-project.org/package=data.table/vignettes/datatable-reshape.html" class="external-link">data.table vignette</a>, as inspiration for tidyr’s solution to this problem.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
@@ -485,20 +485,20 @@
     names_pattern <span class="op">=</span> <span class="st">"(.)(.)"</span>
   <span class="op">)</span>
 <span class="co">#&gt; <span style="color: #949494;"># A tibble: 8 × 6</span></span>
-<span class="co">#&gt;       x     a     b time       y     z</span>
-<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">1</span>     1     1     0 1      0.352     3</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">2</span>     1     1     0 2      0.601    -<span style="color: #BB0000;">2</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">3</span>     2     1     1 1     -<span style="color: #BB0000;">1.31</span>      3</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">4</span>     2     1     1 2     -<span style="color: #BB0000;">0.154</span>    -<span style="color: #BB0000;">2</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">5</span>     3     0     1 1     -<span style="color: #BB0000;">0.648</span>     3</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">6</span>     3     0     1 2      0.467    -<span style="color: #BB0000;">2</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">7</span>     4     0     1 1      0.411     3</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">8</span>     4     0     1 2     -<span style="color: #BB0000;">1.81</span>     -<span style="color: #BB0000;">2</span></span></code></pre></div>
+<span class="co">#&gt;       x     a     b time        y     z</span>
+<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span>     1     1     0 1     -<span style="color: #BB0000;">0.195</span>      3</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span>     1     1     0 2      1.60      -<span style="color: #BB0000;">2</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">3</span>     2     1     1 1      0.297      3</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">4</span>     2     1     1 2      0.028<span style="text-decoration: underline;">6</span>    -<span style="color: #BB0000;">2</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">5</span>     3     0     1 1      1.10       3</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">6</span>     3     0     1 2      0.406     -<span style="color: #BB0000;">2</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">7</span>     4     0     1 1     -<span style="color: #BB0000;">0.095</span><span style="color: #BB0000; text-decoration: underline;">7</span>     3</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">8</span>     4     0     1 2      0.768     -<span style="color: #BB0000;">2</span></span></code></pre></div>
 </div>
-<div class="section level2">
-<h2 id="duplicated-column-names">Duplicated column names<a class="anchor" aria-label="anchor" href="#duplicated-column-names"></a>
-</h2>
+<div class="section level3">
+<h3 id="duplicated-column-names">Duplicated column names<a class="anchor" aria-label="anchor" href="#duplicated-column-names"></a>
+</h3>
 <p>Occassionally you will come across datasets that have duplicated column names. Generally, such datasets are hard to work with in R, because when you refer to a column by name it only finds the first match. To create a tibble with duplicated names, you have to explicitly opt out of the name repair that usually prevents you from creating such a dataset:</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span>id <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, y <span class="op">=</span> <span class="fl">4</span><span class="op">:</span><span class="fl">6</span>, y <span class="op">=</span> <span class="fl">5</span><span class="op">:</span><span class="fl">7</span>, y <span class="op">=</span> <span class="fl">7</span><span class="op">:</span><span class="fl">9</span>, .name_repair <span class="op">=</span> <span class="st">"minimal"</span><span class="op">)</span>
@@ -539,13 +539,13 @@
 <span class="co">#&gt; <span style="color: #BCBCBC;">6</span>     3     7    12</span></code></pre></div>
 </div>
 </div>
-<div class="section level1">
-<h1 id="wider">Wider<a class="anchor" aria-label="anchor" href="#wider"></a>
-</h1>
-<p><code><a href="../reference/pivot_wider.html">pivot_wider()</a></code> is the opposite of <code><a href="../reference/pivot_longer.html">pivot_longer()</a></code>: it makes a dataset <strong>wider</strong> by increasing the number of columns and decreasing the number of rows. It’s relatively rare to need <code><a href="../reference/pivot_wider.html">pivot_wider()</a></code> to make tidy data, but it’s often useful for creating summary tables for presentation, or data in a format needed by other tools.</p>
 <div class="section level2">
-<h2 id="capture-recapture-data">Capture-recapture data<a class="anchor" aria-label="anchor" href="#capture-recapture-data"></a>
+<h2 id="wider">Wider<a class="anchor" aria-label="anchor" href="#wider"></a>
 </h2>
+<p><code><a href="../reference/pivot_wider.html">pivot_wider()</a></code> is the opposite of <code><a href="../reference/pivot_longer.html">pivot_longer()</a></code>: it makes a dataset <strong>wider</strong> by increasing the number of columns and decreasing the number of rows. It’s relatively rare to need <code><a href="../reference/pivot_wider.html">pivot_wider()</a></code> to make tidy data, but it’s often useful for creating summary tables for presentation, or data in a format needed by other tools.</p>
+<div class="section level3">
+<h3 id="capture-recapture-data">Capture-recapture data<a class="anchor" aria-label="anchor" href="#capture-recapture-data"></a>
+</h3>
 <p>The <code>fish_encounters</code> dataset, contributed by <a href="https://fishsciences.github.io/post/visualizing-fish-encounter-histories/" class="external-link">Myfanwy Johnston</a>, describes when fish swimming down a river are detected by automatic monitoring stations:</p>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">fish_encounters</span>
@@ -602,9 +602,9 @@
 <span class="co">#&gt; <span style="color: #BCBCBC;">10</span> 4854        1     1      0     0       0     0     0     0     0     0     0</span>
 <span class="co">#&gt; <span style="color: #949494;"># … with 9 more rows</span></span></code></pre></div>
 </div>
-<div class="section level2">
-<h2 id="aggregation">Aggregation<a class="anchor" aria-label="anchor" href="#aggregation"></a>
-</h2>
+<div class="section level3">
+<h3 id="aggregation">Aggregation<a class="anchor" aria-label="anchor" href="#aggregation"></a>
+</h3>
 <p>You can also use <code><a href="../reference/pivot_wider.html">pivot_wider()</a></code> to perform simple aggregation. For example, take the <code>warpbreaks</code> dataset built in to base R (converted to a tibble for the better print method):</p>
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">warpbreaks</span> <span class="op">&lt;-</span> <span class="va">warpbreaks</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html" class="external-link">as_tibble</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">wool</span>, <span class="va">tension</span>, <span class="va">breaks</span><span class="op">)</span>
@@ -668,9 +668,9 @@
 <span class="co">#&gt; <span style="color: #BCBCBC;">3</span> H        24.6  18.8</span></code></pre></div>
 <p>For more complex summary operations, I recommend summarising before reshaping, but for simple cases it’s often convenient to summarise within <code><a href="../reference/pivot_wider.html">pivot_wider()</a></code>.</p>
 </div>
-<div class="section level2">
-<h2 id="generate-column-name-from-multiple-variables">Generate column name from multiple variables<a class="anchor" aria-label="anchor" href="#generate-column-name-from-multiple-variables"></a>
-</h2>
+<div class="section level3">
+<h3 id="generate-column-name-from-multiple-variables">Generate column name from multiple variables<a class="anchor" aria-label="anchor" href="#generate-column-name-from-multiple-variables"></a>
+</h3>
 <p>Imagine, as in <a href="https://stackoverflow.com/questions/24929954" class="external-link uri">https://stackoverflow.com/questions/24929954</a>, that we have information containing the combination of product, country, and year. In tidy form it might look like this:</p>
 <div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">production</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/expand_grid.html">expand_grid</a></span><span class="op">(</span>
@@ -684,16 +684,16 @@
 <span class="co">#&gt; <span style="color: #949494;"># A tibble: 45 × 4</span></span>
 <span class="co">#&gt;    product country  year production</span>
 <span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> A       AI       <span style="text-decoration: underline;">2</span>000     -<span style="color: #BB0000;">1.40</span> </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> A       AI       <span style="text-decoration: underline;">2</span>001     -<span style="color: #BB0000;">0.545</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> A       AI       <span style="text-decoration: underline;">2</span>002     -<span style="color: #BB0000;">0.879</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> A       AI       <span style="text-decoration: underline;">2</span>003      0.924</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> A       AI       <span style="text-decoration: underline;">2</span>004     -<span style="color: #BB0000;">0.426</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> A       AI       <span style="text-decoration: underline;">2</span>005     -<span style="color: #BB0000;">0.277</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> A       AI       <span style="text-decoration: underline;">2</span>006      0.636</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> A       AI       <span style="text-decoration: underline;">2</span>007     -<span style="color: #BB0000;">0.799</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> A       AI       <span style="text-decoration: underline;">2</span>008     -<span style="color: #BB0000;">0.121</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">10</span> A       AI       <span style="text-decoration: underline;">2</span>009     -<span style="color: #BB0000;">0.882</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> A       AI       <span style="text-decoration: underline;">2</span>000      0.560</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> A       AI       <span style="text-decoration: underline;">2</span>001      0.959</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> A       AI       <span style="text-decoration: underline;">2</span>002     -<span style="color: #BB0000;">1.02</span> </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> A       AI       <span style="text-decoration: underline;">2</span>003      0.636</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> A       AI       <span style="text-decoration: underline;">2</span>004     -<span style="color: #BB0000;">0.588</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> A       AI       <span style="text-decoration: underline;">2</span>005     -<span style="color: #BB0000;">2.32</span> </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> A       AI       <span style="text-decoration: underline;">2</span>006     -<span style="color: #BB0000;">0.844</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> A       AI       <span style="text-decoration: underline;">2</span>007      1.37 </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> A       AI       <span style="text-decoration: underline;">2</span>008     -<span style="color: #BB0000;">0.932</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">10</span> A       AI       <span style="text-decoration: underline;">2</span>009      0.494</span>
 <span class="co">#&gt; <span style="color: #949494;"># … with 35 more rows</span></span></code></pre></div>
 <p>We want to widen the data so we have one column for each combination of <code>product</code> and <code>country</code>. The key is to specify multiple variables for <code>names_from</code>:</p>
 <div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
@@ -702,18 +702,18 @@
   values_from <span class="op">=</span> <span class="va">production</span>
 <span class="op">)</span>
 <span class="co">#&gt; <span style="color: #949494;"># A tibble: 15 × 4</span></span>
-<span class="co">#&gt;     year   A_AI   B_AI    B_EI</span>
-<span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span>  <span style="text-decoration: underline;">2</span>000 -<span style="color: #BB0000;">1.40</span>  -<span style="color: #BB0000;">1.46</span>   0.277 </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span>  <span style="text-decoration: underline;">2</span>001 -<span style="color: #BB0000;">0.545</span> -<span style="color: #BB0000;">0.355</span> -<span style="color: #BB0000;">0.230</span> </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span>  <span style="text-decoration: underline;">2</span>002 -<span style="color: #BB0000;">0.879</span>  1.09  -<span style="color: #BB0000;">1.30</span>  </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span>  <span style="text-decoration: underline;">2</span>003  0.924 -<span style="color: #BB0000;">0.967</span>  1.27  </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span>  <span style="text-decoration: underline;">2</span>004 -<span style="color: #BB0000;">0.426</span>  1.92  -<span style="color: #BB0000;">1.23</span>  </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span>  <span style="text-decoration: underline;">2</span>005 -<span style="color: #BB0000;">0.277</span>  0.247  1.14  </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span>  <span style="text-decoration: underline;">2</span>006  0.636 -<span style="color: #BB0000;">1.35</span>  -<span style="color: #BB0000;">0.283</span> </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span>  <span style="text-decoration: underline;">2</span>007 -<span style="color: #BB0000;">0.799</span> -<span style="color: #BB0000;">0.811</span>  0.014<span style="text-decoration: underline;">7</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span>  <span style="text-decoration: underline;">2</span>008 -<span style="color: #BB0000;">0.121</span>  0.235  1.91  </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">10</span>  <span style="text-decoration: underline;">2</span>009 -<span style="color: #BB0000;">0.882</span>  0.773 -<span style="color: #BB0000;">1.42</span>  </span>
+<span class="co">#&gt;     year   A_AI     B_AI   B_EI</span>
+<span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span>  <span style="text-decoration: underline;">2</span>000  0.560  0.770   -<span style="color: #BB0000;">0.377</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span>  <span style="text-decoration: underline;">2</span>001  0.959  0.001<span style="text-decoration: underline;">84</span> -<span style="color: #BB0000;">1.61</span> </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span>  <span style="text-decoration: underline;">2</span>002 -<span style="color: #BB0000;">1.02</span>  -<span style="color: #BB0000;">1.52</span>     0.321</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span>  <span style="text-decoration: underline;">2</span>003  0.636  0.588    0.643</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span>  <span style="text-decoration: underline;">2</span>004 -<span style="color: #BB0000;">0.588</span>  0.274    0.467</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span>  <span style="text-decoration: underline;">2</span>005 -<span style="color: #BB0000;">2.32</span>   1.53    -<span style="color: #BB0000;">1.33</span> </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span>  <span style="text-decoration: underline;">2</span>006 -<span style="color: #BB0000;">0.844</span>  0.836   -<span style="color: #BB0000;">0.210</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span>  <span style="text-decoration: underline;">2</span>007  1.37  -<span style="color: #BB0000;">1.05</span>     0.962</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span>  <span style="text-decoration: underline;">2</span>008 -<span style="color: #BB0000;">0.932</span>  0.602   -<span style="color: #BB0000;">1.43</span> </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">10</span>  <span style="text-decoration: underline;">2</span>009  0.494 -<span style="color: #BB0000;">1.12</span>     2.47 </span>
 <span class="co">#&gt; <span style="color: #949494;"># … with 5 more rows</span></span></code></pre></div>
 <p>When either <code>names_from</code> or <code>values_from</code> select multiple variables, you can control how the column names in the output constructed with <code>names_sep</code> and <code>names_prefix</code>, or the workhorse <code>names_glue</code>:</p>
 <div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
@@ -726,16 +726,16 @@
 <span class="co">#&gt; <span style="color: #949494;"># A tibble: 15 × 4</span></span>
 <span class="co">#&gt;     year prod.A.AI prod.B.AI prod.B.EI</span>
 <span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span>  <span style="text-decoration: underline;">2</span>000    -<span style="color: #BB0000;">1.40</span>     -<span style="color: #BB0000;">1.46</span>     0.277 </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span>  <span style="text-decoration: underline;">2</span>001    -<span style="color: #BB0000;">0.545</span>    -<span style="color: #BB0000;">0.355</span>   -<span style="color: #BB0000;">0.230</span> </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span>  <span style="text-decoration: underline;">2</span>002    -<span style="color: #BB0000;">0.879</span>     1.09    -<span style="color: #BB0000;">1.30</span>  </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span>  <span style="text-decoration: underline;">2</span>003     0.924    -<span style="color: #BB0000;">0.967</span>    1.27  </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span>  <span style="text-decoration: underline;">2</span>004    -<span style="color: #BB0000;">0.426</span>     1.92    -<span style="color: #BB0000;">1.23</span>  </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span>  <span style="text-decoration: underline;">2</span>005    -<span style="color: #BB0000;">0.277</span>     0.247    1.14  </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span>  <span style="text-decoration: underline;">2</span>006     0.636    -<span style="color: #BB0000;">1.35</span>    -<span style="color: #BB0000;">0.283</span> </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span>  <span style="text-decoration: underline;">2</span>007    -<span style="color: #BB0000;">0.799</span>    -<span style="color: #BB0000;">0.811</span>    0.014<span style="text-decoration: underline;">7</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span>  <span style="text-decoration: underline;">2</span>008    -<span style="color: #BB0000;">0.121</span>     0.235    1.91  </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">10</span>  <span style="text-decoration: underline;">2</span>009    -<span style="color: #BB0000;">0.882</span>     0.773   -<span style="color: #BB0000;">1.42</span>  </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span>  <span style="text-decoration: underline;">2</span>000     0.560   0.770      -<span style="color: #BB0000;">0.377</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span>  <span style="text-decoration: underline;">2</span>001     0.959   0.001<span style="text-decoration: underline;">84</span>    -<span style="color: #BB0000;">1.61</span> </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span>  <span style="text-decoration: underline;">2</span>002    -<span style="color: #BB0000;">1.02</span>   -<span style="color: #BB0000;">1.52</span>        0.321</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span>  <span style="text-decoration: underline;">2</span>003     0.636   0.588       0.643</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span>  <span style="text-decoration: underline;">2</span>004    -<span style="color: #BB0000;">0.588</span>   0.274       0.467</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span>  <span style="text-decoration: underline;">2</span>005    -<span style="color: #BB0000;">2.32</span>    1.53       -<span style="color: #BB0000;">1.33</span> </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span>  <span style="text-decoration: underline;">2</span>006    -<span style="color: #BB0000;">0.844</span>   0.836      -<span style="color: #BB0000;">0.210</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span>  <span style="text-decoration: underline;">2</span>007     1.37   -<span style="color: #BB0000;">1.05</span>        0.962</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span>  <span style="text-decoration: underline;">2</span>008    -<span style="color: #BB0000;">0.932</span>   0.602      -<span style="color: #BB0000;">1.43</span> </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">10</span>  <span style="text-decoration: underline;">2</span>009     0.494  -<span style="color: #BB0000;">1.12</span>        2.47 </span>
 <span class="co">#&gt; <span style="color: #949494;"># … with 5 more rows</span></span>
 
 <span class="va">production</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="../reference/pivot_wider.html">pivot_wider</a></span><span class="op">(</span>
@@ -746,21 +746,21 @@
 <span class="co">#&gt; <span style="color: #949494;"># A tibble: 15 × 4</span></span>
 <span class="co">#&gt;     year prod_A_AI prod_B_AI prod_B_EI</span>
 <span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span>  <span style="text-decoration: underline;">2</span>000    -<span style="color: #BB0000;">1.40</span>     -<span style="color: #BB0000;">1.46</span>     0.277 </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span>  <span style="text-decoration: underline;">2</span>001    -<span style="color: #BB0000;">0.545</span>    -<span style="color: #BB0000;">0.355</span>   -<span style="color: #BB0000;">0.230</span> </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span>  <span style="text-decoration: underline;">2</span>002    -<span style="color: #BB0000;">0.879</span>     1.09    -<span style="color: #BB0000;">1.30</span>  </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span>  <span style="text-decoration: underline;">2</span>003     0.924    -<span style="color: #BB0000;">0.967</span>    1.27  </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span>  <span style="text-decoration: underline;">2</span>004    -<span style="color: #BB0000;">0.426</span>     1.92    -<span style="color: #BB0000;">1.23</span>  </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span>  <span style="text-decoration: underline;">2</span>005    -<span style="color: #BB0000;">0.277</span>     0.247    1.14  </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span>  <span style="text-decoration: underline;">2</span>006     0.636    -<span style="color: #BB0000;">1.35</span>    -<span style="color: #BB0000;">0.283</span> </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span>  <span style="text-decoration: underline;">2</span>007    -<span style="color: #BB0000;">0.799</span>    -<span style="color: #BB0000;">0.811</span>    0.014<span style="text-decoration: underline;">7</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span>  <span style="text-decoration: underline;">2</span>008    -<span style="color: #BB0000;">0.121</span>     0.235    1.91  </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">10</span>  <span style="text-decoration: underline;">2</span>009    -<span style="color: #BB0000;">0.882</span>     0.773   -<span style="color: #BB0000;">1.42</span>  </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span>  <span style="text-decoration: underline;">2</span>000     0.560   0.770      -<span style="color: #BB0000;">0.377</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span>  <span style="text-decoration: underline;">2</span>001     0.959   0.001<span style="text-decoration: underline;">84</span>    -<span style="color: #BB0000;">1.61</span> </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span>  <span style="text-decoration: underline;">2</span>002    -<span style="color: #BB0000;">1.02</span>   -<span style="color: #BB0000;">1.52</span>        0.321</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span>  <span style="text-decoration: underline;">2</span>003     0.636   0.588       0.643</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span>  <span style="text-decoration: underline;">2</span>004    -<span style="color: #BB0000;">0.588</span>   0.274       0.467</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span>  <span style="text-decoration: underline;">2</span>005    -<span style="color: #BB0000;">2.32</span>    1.53       -<span style="color: #BB0000;">1.33</span> </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span>  <span style="text-decoration: underline;">2</span>006    -<span style="color: #BB0000;">0.844</span>   0.836      -<span style="color: #BB0000;">0.210</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span>  <span style="text-decoration: underline;">2</span>007     1.37   -<span style="color: #BB0000;">1.05</span>        0.962</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span>  <span style="text-decoration: underline;">2</span>008    -<span style="color: #BB0000;">0.932</span>   0.602      -<span style="color: #BB0000;">1.43</span> </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">10</span>  <span style="text-decoration: underline;">2</span>009     0.494  -<span style="color: #BB0000;">1.12</span>        2.47 </span>
 <span class="co">#&gt; <span style="color: #949494;"># … with 5 more rows</span></span></code></pre></div>
 </div>
-<div class="section level2">
-<h2 id="tidy-census">Tidy census<a class="anchor" aria-label="anchor" href="#tidy-census"></a>
-</h2>
+<div class="section level3">
+<h3 id="tidy-census">Tidy census<a class="anchor" aria-label="anchor" href="#tidy-census"></a>
+</h3>
 <p>The <code>us_rent_income</code> dataset contains information about median income and rent for each state in the US for 2017 (from the American Community Survey, retrieved with the <a href="https://walker-data.com/tidycensus/" class="external-link">tidycensus</a> package).</p>
 <div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">us_rent_income</span>
@@ -798,9 +798,9 @@
 <span class="co">#&gt; <span style="color: #949494;"># … with 42 more rows</span></span></code></pre></div>
 <p>Note that the name of the variable is automatically appended to the output columns.</p>
 </div>
-<div class="section level2">
-<h2 id="implicit-missing-values">Implicit missing values<a class="anchor" aria-label="anchor" href="#implicit-missing-values"></a>
-</h2>
+<div class="section level3">
+<h3 id="implicit-missing-values">Implicit missing values<a class="anchor" aria-label="anchor" href="#implicit-missing-values"></a>
+</h3>
 <p>Occasionally, you’ll come across data where your names variable is encoded as a factor, but not all of the data will be represented.</p>
 <div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">weekdays</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Mon"</span>, <span class="st">"Tue"</span>, <span class="st">"Wed"</span>, <span class="st">"Thu"</span>, <span class="st">"Fri"</span>, <span class="st">"Sat"</span>, <span class="st">"Sun"</span><span class="op">)</span>
@@ -906,9 +906,9 @@
 <span class="co">#&gt; <span style="color: #BCBCBC;">6</span> Sat       0     0</span>
 <span class="co">#&gt; <span style="color: #BCBCBC;">7</span> Sun       0     0</span></code></pre></div>
 </div>
-<div class="section level2">
-<h2 id="unused-columns">Unused columns<a class="anchor" aria-label="anchor" href="#unused-columns"></a>
-</h2>
+<div class="section level3">
+<h3 id="unused-columns">Unused columns<a class="anchor" aria-label="anchor" href="#unused-columns"></a>
+</h3>
 <p>Imagine you’ve found yourself in a situation where you have columns in your data that are completely unrelated to the pivoting process, but you’d still like to retain their information somehow. For example, in <code>updates</code> we’d like to pivot on the <code>system</code> column to create one row summaries of each county’s system updates.</p>
 <div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">updates</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span>
@@ -969,9 +969,9 @@
 <span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Wake       3.2     4   5.5 <span style="color: #949494;">&lt;date [3]&gt;</span></span>
 <span class="co">#&gt; <span style="color: #BCBCBC;">2</span> Guilford   2      <span style="color: #BB0000;">NA</span>   1.2 <span style="color: #949494;">&lt;date [2]&gt;</span></span></code></pre></div>
 </div>
-<div class="section level2">
-<h2 id="contact-list">Contact list<a class="anchor" aria-label="anchor" href="#contact-list"></a>
-</h2>
+<div class="section level3">
+<h3 id="contact-list">Contact list<a class="anchor" aria-label="anchor" href="#contact-list"></a>
+</h3>
 <p>A final challenge is inspired by <a href="https://github.com/jienagu/tidyverse_examples/blob/master/example_long_wide.R" class="external-link">Jiena Gu</a>. Imagine you have a contact list that you’ve copied and pasted from a website:</p>
 <div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">contacts</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html" class="external-link">tribble</a></span><span class="op">(</span>
@@ -1011,13 +1011,13 @@
 <span class="co">#&gt; <span style="color: #BCBCBC;">3</span>         3 Huxley Ratcliffe <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span></span></code></pre></div>
 </div>
 </div>
-<div class="section level1">
-<h1 id="longer-then-wider">Longer, then wider<a class="anchor" aria-label="anchor" href="#longer-then-wider"></a>
-</h1>
-<p>Some problems can’t be solved by pivotting in a single direction. The examples in this section show how you might combine <code><a href="../reference/pivot_longer.html">pivot_longer()</a></code> and <code><a href="../reference/pivot_wider.html">pivot_wider()</a></code> to solve more complex problems.</p>
 <div class="section level2">
-<h2 id="world-bank">World bank<a class="anchor" aria-label="anchor" href="#world-bank"></a>
+<h2 id="longer-then-wider">Longer, then wider<a class="anchor" aria-label="anchor" href="#longer-then-wider"></a>
 </h2>
+<p>Some problems can’t be solved by pivotting in a single direction. The examples in this section show how you might combine <code><a href="../reference/pivot_longer.html">pivot_longer()</a></code> and <code><a href="../reference/pivot_wider.html">pivot_wider()</a></code> to solve more complex problems.</p>
+<div class="section level3">
+<h3 id="world-bank">World bank<a class="anchor" aria-label="anchor" href="#world-bank"></a>
+</h3>
 <p><code>world_bank_pop</code> contains data from the World Bank about population per country from 2000 to 2018.</p>
 <div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">world_bank_pop</span>
@@ -1104,9 +1104,9 @@
 <span class="co">#&gt; <span style="color: #BCBCBC;">10</span> ABW     URB   2009  <span style="text-decoration: underline;">44</span>052 -<span style="color: #BB0000;">0.731</span> </span>
 <span class="co">#&gt; <span style="color: #949494;"># … with 9,494 more rows</span></span></code></pre></div>
 </div>
-<div class="section level2">
-<h2 id="multi-choice">Multi-choice<a class="anchor" aria-label="anchor" href="#multi-choice"></a>
-</h2>
+<div class="section level3">
+<h3 id="multi-choice">Multi-choice<a class="anchor" aria-label="anchor" href="#multi-choice"></a>
+</h3>
 <p>Based on a suggestion by <a href="https://github.com/MaximeWack" class="external-link">Maxime Wack</a>, <a href="https://github.com/tidyverse/tidyr/issues/384" class="external-link uri">https://github.com/tidyverse/tidyr/issues/384</a>), the final example shows how to deal with a common way of recording multiple choice data. Often you will get such data as follows:</p>
 <div class="sourceCode" id="cb50"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">multi</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html" class="external-link">tribble</a></span><span class="op">(</span>
@@ -1151,13 +1151,13 @@
 <span class="co">#&gt; <span style="color: #BCBCBC;">4</span>     4 FALSE TRUE  FALSE TRUE</span></code></pre></div>
 </div>
 </div>
-<div class="section level1">
-<h1 id="manual-specs">Manual specs<a class="anchor" aria-label="anchor" href="#manual-specs"></a>
-</h1>
-<p>The arguments to <code><a href="../reference/pivot_longer.html">pivot_longer()</a></code> and <code><a href="../reference/pivot_wider.html">pivot_wider()</a></code> allow you to pivot a wide range of datasets. But the creativity that people apply to their data structures is seemingly endless, so it’s quite possible that you will encounter a dataset that you can’t immediately see how to reshape with <code><a href="../reference/pivot_longer.html">pivot_longer()</a></code> and <code><a href="../reference/pivot_wider.html">pivot_wider()</a></code>. To gain more control over pivotting, you can instead create a “spec” data frame that describes exactly how data stored in the column names becomes variables (and vice versa). This section introduces you to the spec data structure, and show you how to use it when <code><a href="../reference/pivot_longer.html">pivot_longer()</a></code> and <code><a href="../reference/pivot_wider.html">pivot_wider()</a></code> are insufficient.</p>
 <div class="section level2">
-<h2 id="longer-1">Longer<a class="anchor" aria-label="anchor" href="#longer-1"></a>
+<h2 id="manual-specs">Manual specs<a class="anchor" aria-label="anchor" href="#manual-specs"></a>
 </h2>
+<p>The arguments to <code><a href="../reference/pivot_longer.html">pivot_longer()</a></code> and <code><a href="../reference/pivot_wider.html">pivot_wider()</a></code> allow you to pivot a wide range of datasets. But the creativity that people apply to their data structures is seemingly endless, so it’s quite possible that you will encounter a dataset that you can’t immediately see how to reshape with <code><a href="../reference/pivot_longer.html">pivot_longer()</a></code> and <code><a href="../reference/pivot_wider.html">pivot_wider()</a></code>. To gain more control over pivotting, you can instead create a “spec” data frame that describes exactly how data stored in the column names becomes variables (and vice versa). This section introduces you to the spec data structure, and show you how to use it when <code><a href="../reference/pivot_longer.html">pivot_longer()</a></code> and <code><a href="../reference/pivot_wider.html">pivot_wider()</a></code> are insufficient.</p>
+<div class="section level3">
+<h3 id="longer-1">Longer<a class="anchor" aria-label="anchor" href="#longer-1"></a>
+</h3>
 <p>To see how this works, lets return to the simplest case of pivotting applied to the <code>relig_income</code> dataset. Now pivotting happens in two steps: we first create a spec object (using <code><a href="../reference/pivot_longer_spec.html">build_longer_spec()</a></code>) then use that to describe the pivotting operation:</p>
 <div class="sourceCode" id="cb53"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">spec</span> <span class="op">&lt;-</span> <span class="va">relig_income</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="../reference/pivot_longer_spec.html">build_longer_spec</a></span><span class="op">(</span>
@@ -1205,9 +1205,9 @@
 <span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> &gt;150k              count  &gt;150k             </span>
 <span class="co">#&gt; <span style="color: #BCBCBC;">10</span> Don't know/refused count  Don't know/refused</span></code></pre></div>
 </div>
-<div class="section level2">
-<h2 id="wider-1">Wider<a class="anchor" aria-label="anchor" href="#wider-1"></a>
-</h2>
+<div class="section level3">
+<h3 id="wider-1">Wider<a class="anchor" aria-label="anchor" href="#wider-1"></a>
+</h3>
 <p>Below we widen <code>us_rent_income</code> with <code><a href="../reference/pivot_wider.html">pivot_wider()</a></code>. The result is ok, but I think it could be improved:</p>
 <div class="sourceCode" id="cb55"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">us_rent_income</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
@@ -1268,9 +1268,9 @@
 <span class="co">#&gt; <span style="color: #BCBCBC;">10</span> 12    Florida               <span style="text-decoration: underline;">25</span>952  <span style="text-decoration: underline;">1</span>077         70        3</span>
 <span class="co">#&gt; <span style="color: #949494;"># … with 42 more rows</span></span></code></pre></div>
 </div>
-<div class="section level2">
-<h2 id="by-hand">By hand<a class="anchor" aria-label="anchor" href="#by-hand"></a>
-</h2>
+<div class="section level3">
+<h3 id="by-hand">By hand<a class="anchor" aria-label="anchor" href="#by-hand"></a>
+</h3>
 <p>Sometimes it’s not possible (or not convenient) to compute the spec, and instead it’s more convenient to construct the spec “by hand”. For example, take this <code>construction</code> data, which is lightly modified from Table 5 “completions” found at <a href="https://www.census.gov/construction/nrc/index.html" class="external-link uri">https://www.census.gov/construction/nrc/index.html</a>:</p>
 <div class="sourceCode" id="cb59"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">construction</span>
@@ -1318,9 +1318,9 @@
 <span class="co">#&gt; <span style="color: #949494;"># … with 53 more rows</span></span></code></pre></div>
 <p>Note that there is no overlap between the <code>units</code> and <code>region</code> variables; here the data would really be most naturally described in two independent tables.</p>
 </div>
-<div class="section level2">
-<h2 id="theory">Theory<a class="anchor" aria-label="anchor" href="#theory"></a>
-</h2>
+<div class="section level3">
+<h3 id="theory">Theory<a class="anchor" aria-label="anchor" href="#theory"></a>
+</h3>
 <p>One neat property of the <code>spec</code> is that you need the same spec for <code><a href="../reference/pivot_longer.html">pivot_longer()</a></code> and <code><a href="../reference/pivot_wider.html">pivot_wider()</a></code>. This makes it very clear that the two operations are symmetric:</p>
 <div class="sourceCode" id="cb62"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">construction</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
