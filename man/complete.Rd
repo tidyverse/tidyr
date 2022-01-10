@@ -45,7 +45,8 @@ around \code{\link[=expand]{expand()}}, \code{\link[dplyr:mutate-joins]{dplyr::f
 completing missing combinations of data.
 }
 \details{
-With grouped data frames, \code{complete()} operates \emph{within} each group.
+With grouped data frames, \code{complete()} operates \emph{within} each group. Because
+of this, you cannot complete a grouping column.
 }
 \examples{
 library(dplyr, warn.conflicts = FALSE)
