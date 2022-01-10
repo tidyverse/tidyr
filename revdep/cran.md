@@ -1,8 +1,8 @@
 ## revdepcheck results
 
-We checked 1438 reverse dependencies (1428 from CRAN + 10 from Bioconductor), comparing R CMD check results across CRAN and dev versions of this package.
+We checked 1434 reverse dependencies (1424 from CRAN + 10 from Bioconductor), comparing R CMD check results across CRAN and dev versions of this package.
 
- * We saw 20 new problems
+ * We saw 19 new problems
  * We failed to check 3 packages
 
 Issues with CRAN packages are summarised below.
@@ -10,23 +10,16 @@ Issues with CRAN packages are summarised below.
 ### New problems
 (This reports the first line of each new failure)
 
+* archiveRetriever
+  checking tests ... ERROR
+
 * causact
   checking examples ... ERROR
 
-* cogmapr
-  checking examples ... ERROR
+* covidregionaldata
   checking tests ... ERROR
-
-* covid19br
-  checking re-building of vignette outputs ... WARNING
 
 * crosstable
-  checking examples ... ERROR
-  checking tests ... ERROR
-  checking re-building of vignette outputs ... WARNING
-
-* dbplyr
-  checking examples ... ERROR
   checking tests ... ERROR
 
 * DiagrammeR
@@ -39,20 +32,21 @@ Issues with CRAN packages are summarised below.
   checking examples ... ERROR
   checking tests ... ERROR
 
-* ftExtra
-  checking examples ... ERROR
-  checking tests ... ERROR
-  checking re-building of vignette outputs ... WARNING
-
 * heuristicsmineR
   checking examples ... ERROR
 
-* lcsm
+* iotables
   checking re-building of vignette outputs ... WARNING
+
+* PheVis
+  checking tests ... ERROR
 
 * processanimateR
   checking examples ... ERROR
   checking re-building of vignette outputs ... WARNING
+
+* r2dii.analysis
+  checking tests ... ERROR
 
 * RavenR
   checking examples ... ERROR
@@ -70,11 +64,6 @@ Issues with CRAN packages are summarised below.
 
 * tidygate
   checking examples ... ERROR
-
-* tidyseurat
-  checking examples ... ERROR
-  checking tests ... ERROR
-  checking re-building of vignette outputs ... WARNING
 
 * tidytidbits
   checking examples ... ERROR

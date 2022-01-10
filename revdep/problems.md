@@ -1,3 +1,41 @@
+# archiveRetriever
+
+<details>
+
+* Version: 0.1.0
+* GitHub: https://github.com/liserman/archiveRetriever
+* Source code: https://github.com/cran/archiveRetriever
+* Date/Publication: 2021-05-27 10:40:02 UTC
+* Number of recursive dependencies: 76
+
+Run `cloud_details(, "archiveRetriever")` for more info
+
+</details>
+
+## Newly broken
+
+*   checking tests ... ERROR
+    ```
+      Running ‘testthat.R’
+    Running the tests in ‘tests/testthat.R’ failed.
+    Last 13 lines of output:
+      `retrieve_urls(...)` threw an error with unexpected message.
+      Expected match: "Homepage has never been saved in the Internet Archive"
+      Actual message: "Homepage could not be loaded. Please check whether the page exists or try again."
+      Backtrace:
+          █
+       1. ├─testthat::expect_error(...) test_retrieve_urls.R:62:12
+       2. │ └─testthat:::quasi_capture(...)
+       3. │   ├─testthat:::.capture(...)
+       4. │   │ └─base::withCallingHandlers(...)
+       5. │   └─rlang::eval_bare(quo_get_expr(.quo), quo_get_env(.quo))
+       6. └─archiveRetriever::retrieve_urls(...)
+      
+      [ FAIL 1 | WARN 0 | SKIP 16 | PASS 37 ]
+      Error: Test failures
+      Execution halted
+    ```
+
 # causact
 
 <details>
@@ -39,122 +77,50 @@ Run `cloud_details(, "causact")` for more info
     Execution halted
     ```
 
-# cogmapr
+# covidregionaldata
 
 <details>
 
 * Version: 0.9.2
-* GitHub: NA
-* Source code: https://github.com/cran/cogmapr
-* Date/Publication: 2021-11-20 16:20:02 UTC
-* Number of recursive dependencies: 113
+* GitHub: https://github.com/epiforecasts/covidregionaldata
+* Source code: https://github.com/cran/covidregionaldata
+* Date/Publication: 2021-07-05 11:20:06 UTC
+* Number of recursive dependencies: 139
 
-Run `cloud_details(, "cogmapr")` for more info
+Run `cloud_details(, "covidregionaldata")` for more info
 
 </details>
 
 ## Newly broken
 
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘cogmapr-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: RelationshipTest
-    > ### Title: Compare relationships weight between maps
-    > ### Aliases: RelationshipTest
-    > 
-    > ### ** Examples
-    > 
-    > project_name <- "a_new_project"
-    ...
-      3. ├─tidyr::replace_na(., list(p.value = "NR"))
-      4. └─tidyr:::replace_na.data.frame(., list(p.value = "NR"))
-      5.   └─vctrs::vec_assign(...)
-      6.     └─(function () ...
-      7.       └─vctrs::vec_default_cast(...)
-      8.         └─vctrs::stop_incompatible_cast(...)
-      9.           └─vctrs::stop_incompatible_type(...)
-     10.             └─vctrs:::stop_incompatible(...)
-     11.               └─vctrs:::stop_vctrs(...)
-    Execution halted
-    ```
-
 *   checking tests ... ERROR
     ```
+      Running ‘spelling.R’
       Running ‘testthat.R’
     Running the tests in ‘tests/testthat.R’ failed.
     Last 13 lines of output:
-        4. ├─cogmapr::RelationshipTest(project, units = c("Belgium", "Québec"))
-        5. │ └─`%>%`(...)
-        6. ├─tidyr::replace_na(., list(p.value = "NR"))
-        7. └─tidyr:::replace_na.data.frame(., list(p.value = "NR"))
-        8.   └─vctrs::vec_assign(...)
-        9.     └─(function () ...
-       10.       └─vctrs::vec_default_cast(...)
-       11.         └─vctrs::stop_incompatible_cast(...)
-       12.           └─vctrs::stop_incompatible_type(...)
-       13.             └─vctrs:::stop_incompatible(...)
-       14.               └─vctrs:::stop_vctrs(...)
+      > test_check("covidregionaldata")
+      ══ Failed tests ════════════════════════════════════════════════════════════════
+      ── Failure (test-processing.R:102:3): complete_cumulative_columns works ────────
+      colnames(actual_data) (`actual`) not equal to colnames(expected_data) (`expected`).
       
-      [ FAIL 1 | WARN 0 | SKIP 0 | PASS 17 ]
+          actual                | expected                 
+      [1] "level_1_region"      - "date"                [1]
+      [2] "date"                - "level_1_region"      [2]
+      [3] "level_1_region_code" | "level_1_region_code" [3]
+      [4] "cases"               | "cases"               [4]
+      [5] "cases_total"         | "cases_total"         [5]
+      
+      [ FAIL 1 | WARN 3 | SKIP 0 | PASS 269 ]
       Error: Test failures
       Execution halted
     ```
 
-# covid19br
-
-<details>
-
-* Version: 0.1.3
-* GitHub: https://github.com/fndemarqui/covid19br
-* Source code: https://github.com/cran/covid19br
-* Date/Publication: 2021-10-17 17:50:02 UTC
-* Number of recursive dependencies: 137
-
-Run `cloud_details(, "covid19br")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    Error(s) in re-building vignettes:
-    --- re-building ‘covid19br.Rmd’ using rmarkdown
-    ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.1 ──
-    ✔ ggplot2 3.3.5          ✔ purrr   0.3.4     
-    ✔ tibble  3.1.6          ✔ dplyr   1.0.7     
-    ✔ tidyr   1.1.4.9000     ✔ stringr 1.4.0     
-    ✔ readr   2.1.1          ✔ forcats 0.5.1     
-    ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
-    ✖ dplyr::filter() masks stats::filter()
-    ✖ dplyr::lag()    masks stats::lag()
-    ...
-    Please, be patient...
-     Done!
-    Joining, by = c("region", "state", "pop", "state_code")
-    --- finished re-building ‘maps.Rmd’
-    
-    SUMMARY: processing the following file failed:
-      ‘election2018.Rmd’
-    
-    Error: Vignette re-building failed.
-    Execution halted
-    ```
-
 ## In both
-
-*   checking installed package size ... NOTE
-    ```
-      installed size is  7.8Mb
-      sub-directories of 1Mb or more:
-        doc   7.5Mb
-    ```
 
 *   checking data for non-ASCII characters ... NOTE
     ```
-      Note: found 2385 marked UTF-8 strings
+      Note: found 200 marked UTF-8 strings
     ```
 
 # crosstable
@@ -165,7 +131,7 @@ Run `cloud_details(, "covid19br")` for more info
 * GitHub: https://github.com/DanChaltiel/crosstable
 * Source code: https://github.com/cran/crosstable
 * Date/Publication: 2021-11-27 20:00:02 UTC
-* Number of recursive dependencies: 113
+* Number of recursive dependencies: 114
 
 Run `cloud_details(, "crosstable")` for more info
 
@@ -173,130 +139,24 @@ Run `cloud_details(, "crosstable")` for more info
 
 ## Newly broken
 
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘crosstable-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: as_gt.crosstable
-    > ### Title: Converts a 'crosstable' object into a formatted 'gt' table.
-    > ### Aliases: as_gt.crosstable as_gt as_gt.default
-    > 
-    > ### ** Examples
-    > 
-    > xx = mtcars2 %>% dplyr::select(1:9)
-    > crosstable(xx) %>% as_gt
-    Error in vec_equal_na(data) : Unimplemented type in `vctrs_equal_na()`.
-    Calls: %>% ... %>% -> replace_na -> replace_na.default -> vec_equal_na
-    Execution halted
-    ```
-
 *   checking tests ... ERROR
     ```
       Running ‘testthat.R’
     Running the tests in ‘tests/testthat.R’ failed.
     Last 13 lines of output:
-       7.   └─vctrs::vec_equal_na(data)
-      ── Error (test-officer.R:304:5): gt is working ─────────────────────────────────
-      Error in `vec_equal_na(data)`: Unimplemented type in `vctrs_equal_na()`.
-      Backtrace:
-          █
-       1. ├─crosstable::as_gt(x1)
-       2. ├─crosstable:::as_gt.crosstable(x1)
-       3. │ └─attr(x, "by_levels") %>% unlist() %>% unname() %>% replace_na("NA")
-       4. ├─tidyr::replace_na(., "NA")
-       5. └─tidyr:::replace_na.default(., "NA")
-       6.   └─vctrs::vec_equal_na(data)
+        3. │   └─attr(ct, "by_levels") %>% replace_na("NA") %>% unlist()
+        4. ├─base::unlist(.)
+        5. ├─tidyr::replace_na(., "NA")
+        6. └─tidyr:::replace_na.default(., "NA")
+        7.   └─vctrs::vec_assign(data, missing, replace, x_arg = "data", value_arg = "replace")
+        8.     └─(function () ...
+        9.       └─vctrs::vec_default_cast(...)
+       10.         └─vctrs::stop_incompatible_cast(...)
+       11.           └─vctrs::stop_incompatible_type(...)
+       12.             └─vctrs:::stop_incompatible(...)
+       13.               └─vctrs:::stop_vctrs(...)
       
-      [ FAIL 2 | WARN 0 | SKIP 20 | PASS 323 ]
-      Error: Test failures
-      Execution halted
-    ```
-
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    Error(s) in re-building vignettes:
-    --- re-building ‘crosstable-install.Rmd’ using rmarkdown
-    --- finished re-building ‘crosstable-install.Rmd’
-    
-    --- re-building ‘crosstable-report.Rmd’ using rmarkdown
-    --- finished re-building ‘crosstable-report.Rmd’
-    
-    --- re-building ‘crosstable-selection.Rmd’ using rmarkdown
-    --- finished re-building ‘crosstable-selection.Rmd’
-    
-    ...
-    Quitting from lines 172-175 (crosstable.Rmd) 
-    Error: processing vignette 'crosstable.Rmd' failed with diagnostics:
-    Unimplemented type in `vctrs_equal_na()`.
-    --- failed re-building ‘crosstable.Rmd’
-    
-    SUMMARY: processing the following file failed:
-      ‘crosstable.Rmd’
-    
-    Error: Vignette re-building failed.
-    Execution halted
-    ```
-
-# dbplyr
-
-<details>
-
-* Version: 2.1.1
-* GitHub: https://github.com/tidyverse/dbplyr
-* Source code: https://github.com/cran/dbplyr
-* Date/Publication: 2021-04-06 12:50:02 UTC
-* Number of recursive dependencies: 76
-
-Run `cloud_details(, "dbplyr")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘dbplyr-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: pivot_longer.tbl_lazy
-    > ### Title: Pivot data from wide to long
-    > ### Aliases: pivot_longer.tbl_lazy
-    > 
-    > ### ** Examples
-    > 
-    > # See vignette("pivot") for examples and explanation
-    ...
-      3. └─dbplyr:::pivot_longer.tbl_lazy(., -id)
-      4.   └─tidyr::build_longer_spec(...)
-      5.     └─vctrs::vec_cast(names[[col]], ptype)
-      6.       └─(function () ...
-      7.         └─vctrs::vec_default_cast(...)
-      8.           └─vctrs::stop_incompatible_cast(...)
-      9.             └─vctrs::stop_incompatible_type(...)
-     10.               └─vctrs:::stop_incompatible(...)
-     11.                 └─vctrs:::stop_vctrs(...)
-    Execution halted
-    ```
-
-*   checking tests ... ERROR
-    ```
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-        1. ├─`%>%`(...) test-verb-pivot-longer.R:151:2
-        2. ├─tidyr::pivot_longer(., x1:x2, names_to = "x", values_to = "v")
-        3. └─dbplyr:::pivot_longer.tbl_lazy(., x1:x2, names_to = "x", values_to = "v")
-        4.   └─tidyr::build_longer_spec(...)
-        5.     └─vctrs::vec_cast(names[[col]], ptype)
-        6.       └─(function () ...
-        7.         └─vctrs::vec_default_cast(...)
-        8.           └─vctrs::stop_incompatible_cast(...)
-        9.             └─vctrs::stop_incompatible_type(...)
-       10.               └─vctrs:::stop_incompatible(...)
-       11.                 └─vctrs:::stop_vctrs(...)
-      
-      [ FAIL 8 | WARN 0 | SKIP 111 | PASS 728 ]
+      [ FAIL 1 | WARN 0 | SKIP 20 | PASS 326 ]
       Error: Test failures
       Execution halted
     ```
@@ -361,10 +221,10 @@ Run `cloud_details(, "DiagrammeR")` for more info
 
 <details>
 
-* Version: 0.0.4
+* Version: 0.0.5
 * GitHub: https://github.com/palderman/DSSAT
 * Source code: https://github.com/cran/DSSAT
-* Date/Publication: 2021-09-02 16:20:06 UTC
+* Date/Publication: 2021-12-21 16:32:02 UTC
 * Number of recursive dependencies: 46
 
 Run `cloud_details(, "DSSAT")` for more info
@@ -461,92 +321,6 @@ Run `cloud_details(, "emayili")` for more info
       Execution halted
     ```
 
-# ftExtra
-
-<details>
-
-* Version: 0.2.0
-* GitHub: https://github.com/atusy/ftExtra
-* Source code: https://github.com/cran/ftExtra
-* Date/Publication: 2021-03-28 12:40:02 UTC
-* Number of recursive dependencies: 62
-
-Run `cloud_details(, "ftExtra")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘ftExtra-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: span_header
-    > ### Title: Span the header based on delimiters
-    > ### Aliases: span_header
-    > 
-    > ### ** Examples
-    > 
-    > iris %>%
-    ...
-     10. └─tidyr:::pivot_longer.data.frame(...)
-     11.   └─tidyr::build_longer_spec(...)
-     12.     └─vctrs::vec_cast(names[[col]], ptype)
-     13.       └─(function () ...
-     14.         └─vctrs::vec_default_cast(...)
-     15.           └─vctrs::stop_incompatible_cast(...)
-     16.             └─vctrs::stop_incompatible_type(...)
-     17.               └─vctrs:::stop_incompatible(...)
-     18.                 └─vctrs:::stop_vctrs(...)
-    Execution halted
-    ```
-
-*   checking tests ... ERROR
-    ```
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-       11. ├─tidyr::fill(., "val")
-       12. ├─tidyr::pivot_longer(...)
-       13. └─tidyr:::pivot_longer.data.frame(...)
-       14.   └─tidyr::build_longer_spec(...)
-       15.     └─vctrs::vec_cast(names[[col]], ptype)
-       16.       └─(function () ...
-       17.         └─vctrs::vec_default_cast(...)
-       18.           └─vctrs::stop_incompatible_cast(...)
-       19.             └─vctrs::stop_incompatible_type(...)
-       20.               └─vctrs:::stop_incompatible(...)
-       21.                 └─vctrs:::stop_vctrs(...)
-      
-      [ FAIL 2 | WARN 0 | SKIP 0 | PASS 40 ]
-      Error: Test failures
-      Execution halted
-    ```
-
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    Error(s) in re-building vignettes:
-      ...
-    --- re-building ‘format_columns.Rmd’ using rmarkdown
-    --- finished re-building ‘format_columns.Rmd’
-    
-    --- re-building ‘group-rows.Rmd’ using rmarkdown
-    --- finished re-building ‘group-rows.Rmd’
-    
-    --- re-building ‘transform-headers.Rmd’ using rmarkdown
-    Quitting from lines 53-54 (transform-headers.Rmd) 
-    Error: processing vignette 'transform-headers.Rmd' failed with diagnostics:
-    Can't convert <character> to <integer>.
-    --- failed re-building ‘transform-headers.Rmd’
-    
-    SUMMARY: processing the following file failed:
-      ‘transform-headers.Rmd’
-    
-    Error: Vignette re-building failed.
-    Execution halted
-    ```
-
 # heuristicsmineR
 
 <details>
@@ -597,17 +371,17 @@ Run `cloud_details(, "heuristicsmineR")` for more info
         libs   4.4Mb
     ```
 
-# lcsm
+# iotables
 
 <details>
 
-* Version: 0.1.2
-* GitHub: https://github.com/milanwiedemann/lcsm
-* Source code: https://github.com/cran/lcsm
-* Date/Publication: 2020-07-24 18:00:02 UTC
-* Number of recursive dependencies: 141
+* Version: 0.4.7
+* GitHub: https://github.com/rOpenGov/iotables
+* Source code: https://github.com/cran/iotables
+* Date/Publication: 2021-12-22 17:30:02 UTC
+* Number of recursive dependencies: 115
 
-Run `cloud_details(, "lcsm")` for more info
+Run `cloud_details(, "iotables")` for more info
 
 </details>
 
@@ -616,7 +390,7 @@ Run `cloud_details(, "lcsm")` for more info
 *   checking re-building of vignette outputs ... WARNING
     ```
     Error(s) in re-building vignettes:
-    --- re-building ‘v0-longitudinal-plots.Rmd’ using rmarkdown
+    --- re-building ‘environmental_impact.Rmd’ using rmarkdown
     
     Attaching package: 'dplyr'
     
@@ -626,25 +400,54 @@ Run `cloud_details(, "lcsm")` for more info
     
     The following objects are masked from 'package:base':
     ...
-    --- failed re-building ‘v3-extract-tutorial.Rmd’
-    
-    --- re-building ‘v4-simulate-data.Rmd’ using rmarkdown
-    --- finished re-building ‘v4-simulate-data.Rmd’
+    Columns and rows of CPA_L68A, CPA_T, CPA_U are all zeros and will be removed.
+    Joining, by = c("prod_na", "CPA_A01", "CPA_A02", "CPA_A03", "CPA_B", "CPA_C10-12", "CPA_C13-15", "CPA_C16", "CPA_C17", "CPA_C18", "CPA_C19", "CPA_C20", "CPA_C21", "CPA_C22", "CPA_C23", "CPA_C24", "CPA_C25", "CPA_C26", "CPA_C27", "CPA_C28", "CPA_C29", "CPA_C30", "CPA_C31_32", "CPA_C33", "CPA_D", "CPA_E36", "CPA_E37-39", "CPA_F", "CPA_G45", "CPA_G46", "CPA_H49", "CPA_H50", "CPA_H51", "CPA_H52", "CPA_H53", "CPA_I", "CPA_J58", "CPA_J59_60", "CPA_J61", "CPA_J62_63", "CPA_K64", "CPA_K65", "CPA_K66", "CPA_L68B", "CPA_M69_70", "CPA_M71", "CPA_M72", "CPA_M73", "CPA_M74_75", "CPA_N77", "CPA_N78", "CPA_N79", "CPA_N80-82", "CPA_O", "CPA_P", "CPA_Q86", "CPA_Q87_88", "CPA_R90-92", "CPA_R93", "CPA_S94", "CPA_S95", "CPA_S96")
+    Columns and rows of CPA_L68A are all zeros and will be removed.
+    --- finished re-building ‘working_with_eurostat.Rmd’
     
     SUMMARY: processing the following file failed:
-      ‘v3-extract-tutorial.Rmd’
+      ‘environmental_impact.Rmd’
     
     Error: Vignette re-building failed.
     Execution halted
     ```
 
-## In both
+# PheVis
 
-*   checking dependencies in R code ... NOTE
+<details>
+
+* Version: 1.0.2
+* GitHub: NA
+* Source code: https://github.com/cran/PheVis
+* Date/Publication: 2021-02-23 09:40:21 UTC
+* Number of recursive dependencies: 81
+
+Run `cloud_details(, "PheVis")` for more info
+
+</details>
+
+## Newly broken
+
+*   checking tests ... ERROR
     ```
-    Namespaces in Imports field not imported from:
-      ‘data.table’ ‘utf8’
-      All declared Imports should be used.
+      Running ‘testthat.R’
+    Running the tests in ‘tests/testthat.R’ failed.
+    Last 13 lines of output:
+      sum((result$cum_month - expected_vec1)^2) not equal to 0.
+      1/1 mismatches
+      [1] 9 - 0 == 9
+      ── Failure (test-traintest_phevis.R:54:9): test all pipeline is working ────────
+      check_value[1] not equal to 0.
+      1/1 mismatches
+      [1] -0.000951 - 0 == -0.000951
+      ── Failure (test-traintest_phevis.R:55:9): test all pipeline is working ────────
+      check_value[2] not equal to 0.
+      1/1 mismatches
+      [1] -0.00151 - 0 == -0.00151
+      
+      [ FAIL 3 | WARN 0 | SKIP 0 | PASS 1 ]
+      Error: Test failures
+      Execution halted
     ```
 
 # processanimateR
@@ -721,6 +524,45 @@ Run `cloud_details(, "processanimateR")` for more info
       sub-directories of 1Mb or more:
         doc          11.1Mb
         htmlwidgets   2.6Mb
+    ```
+
+# r2dii.analysis
+
+<details>
+
+* Version: 0.1.12
+* GitHub: https://github.com/2DegreesInvesting/r2dii.analysis
+* Source code: https://github.com/cran/r2dii.analysis
+* Date/Publication: 2021-08-18 07:30:02 UTC
+* Number of recursive dependencies: 71
+
+Run `cloud_details(, "r2dii.analysis")` for more info
+
+</details>
+
+## Newly broken
+
+*   checking tests ... ERROR
+    ```
+      Running ‘spelling.R’
+      Running ‘testthat.R’
+    Running the tests in ‘tests/testthat.R’ failed.
+    Last 13 lines of output:
+      round(out$adjusted_scenario_b2ds$emission_factor_value, 2) not equal to c(6.45, 5.42, 4.39, 3.35, 2.32, 1.29).
+      Lengths differ: 2 is not 6
+      ── Failure (test-target_sda.R:225:3): with known input outputs as expected ─────
+      round(out$adjusted_scenario_sds$emission_factor_value, 2) not equal to c(6.45, 6.19, 5.93, 5.68, 5.42, 5.16).
+      Lengths differ: 2 is not 6
+      ── Failure (test-target_sda.R:229:3): with known input outputs as expected ─────
+      round(out$target_b2ds$emission_factor_value, 2) not equal to c(0.9, 0.98, 1.06, 1.13, 1.21, 1.29).
+      Lengths differ: 2 is not 6
+      ── Failure (test-target_sda.R:233:3): with known input outputs as expected ─────
+      round(out$target_sds$emission_factor_value, 2) not equal to c(0.9, 1.75, 2.6, 3.46, 4.31, 5.16).
+      Lengths differ: 2 is not 6
+      
+      [ FAIL 6 | WARN 0 | SKIP 0 | PASS 208 ]
+      Error: Test failures
+      Execution halted
     ```
 
 # RavenR
@@ -814,10 +656,10 @@ Run `cloud_details(, "skater")` for more info
 
 <details>
 
-* Version: 1.7.3
+* Version: 1.7.4
 * GitHub: https://github.com/sparklyr/sparklyr
 * Source code: https://github.com/cran/sparklyr
-* Date/Publication: 2021-11-30 12:30:02 UTC
+* Date/Publication: 2022-01-08 11:20:02 UTC
 * Number of recursive dependencies: 107
 
 Run `cloud_details(, "sparklyr")` for more info
@@ -943,10 +785,10 @@ Run `cloud_details(, "tabshiftr")` for more info
 
 <details>
 
-* Version: 0.4.7
+* Version: 0.4.8
 * GitHub: https://github.com/stemangiola/tidygate
 * Source code: https://github.com/cran/tidygate
-* Date/Publication: 2021-05-03 09:10:02 UTC
+* Date/Publication: 2022-01-03 23:20:02 UTC
 * Number of recursive dependencies: 62
 
 Run `cloud_details(, "tidygate")` for more info
@@ -977,94 +819,6 @@ Run `cloud_details(, "tidygate")` for more info
      23.           └─vctrs::stop_incompatible_type(...)
      24.             └─vctrs:::stop_incompatible(...)
      25.               └─vctrs:::stop_vctrs(...)
-    Execution halted
-    ```
-
-# tidyseurat
-
-<details>
-
-* Version: 0.3.0
-* GitHub: https://github.com/stemangiola/tidyseurat
-* Source code: https://github.com/cran/tidyseurat
-* Date/Publication: 2021-10-19 04:50:02 UTC
-* Number of recursive dependencies: 183
-
-Run `cloud_details(, "tidyseurat")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘tidyseurat-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: pivot_longer
-    > ### Title: Pivot data from wide to long
-    > ### Aliases: pivot_longer
-    > 
-    > ### ** Examples
-    > 
-    > # See vignette("pivot") for examples and explanation
-    ...
-      6. └─tidyr:::pivot_longer.data.frame(...)
-      7.   └─tidyr::build_longer_spec(...)
-      8.     └─vctrs::vec_cast(names[[col]], ptype)
-      9.       └─(function () ...
-     10.         └─vctrs::vec_default_cast(...)
-     11.           └─vctrs::stop_incompatible_cast(...)
-     12.             └─vctrs::stop_incompatible_type(...)
-     13.               └─vctrs:::stop_incompatible(...)
-     14.                 └─vctrs:::stop_vctrs(...)
-    Execution halted
-    ```
-
-*   checking tests ... ERROR
-    ```
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-        7. │ └─`%>%`(...)
-        8. ├─tidyr::pivot_longer(...)
-        9. └─tidyr:::pivot_longer.data.frame(...)
-       10.   └─tidyr::build_longer_spec(...)
-       11.     └─vctrs::vec_cast(names[[col]], ptype)
-       12.       └─(function () ...
-       13.         └─vctrs::vec_default_cast(...)
-       14.           └─vctrs::stop_incompatible_cast(...)
-       15.             └─vctrs::stop_incompatible_type(...)
-       16.               └─vctrs:::stop_incompatible(...)
-       17.                 └─vctrs:::stop_vctrs(...)
-      
-      [ FAIL 1 | WARN 3 | SKIP 1 | PASS 25 ]
-      Error: Test failures
-      Execution halted
-    ```
-
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    Error(s) in re-building vignettes:
-    --- re-building ‘figures_article.Rmd’ using knitr
-    --- finished re-building ‘figures_article.Rmd’
-    
-    --- re-building ‘introduction.Rmd’ using knitr
-    
-    Attaching package: 'dplyr'
-    
-    The following objects are masked from 'package:stats':
-    
-    ...
-    Quitting from lines 52-53 (./../man/fragments/intro.Rmd) 
-    Error: processing vignette 'introduction.Rmd' failed with diagnostics:
-    Can't convert <character> to <list>.
-    --- failed re-building ‘introduction.Rmd’
-    
-    SUMMARY: processing the following file failed:
-      ‘introduction.Rmd’
-    
-    Error: Vignette re-building failed.
     Execution halted
     ```
 
