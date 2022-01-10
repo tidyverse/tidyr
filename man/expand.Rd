@@ -68,10 +68,14 @@ explicit missing values (e.g., fill in gaps in your data frame).
 (e.g., identify gaps in your data frame).
 }
 }
+\details{
+With grouped data frames, \code{expand()} operates \emph{within} each group. Because of
+this, you cannot expand on a grouping column.
+}
 \examples{
 fruits <- tibble(
   type   = c("apple", "orange", "apple", "orange", "orange", "orange"),
-  year   = c(2010, 2010, 2012, 2010, 2010, 2012),
+  year   = c(2010, 2010, 2012, 2010, 2011, 2012),
   size  =  factor(
     c("XS", "S",  "M", "S", "S", "M"),
     levels = c("XS", "S", "M", "L")
@@ -94,7 +98,7 @@ fruits \%>\% expand(nesting(type, size, year))
 # Other uses -------------------------------------------------------
 # Use with `full_seq()` to fill in values of continuous variables
 fruits \%>\% expand(type, size, full_seq(year, 1))
-fruits \%>\% expand(type, size, 2010:2012)
+fruits \%>\% expand(type, size, 2010:2013)
 
 # Use `anti_join()` to determine which observations are missing
 all <- fruits \%>\% expand(type, size, year)
@@ -103,6 +107,9 @@ all \%>\% dplyr::anti_join(fruits)
 
 # Use with `right_join()` to fill in missing rows
 fruits \%>\% dplyr::right_join(all)
+
+# Use with `group_by()` to expand within each group
+fruits \%>\% dplyr::group_by(type) \%>\% expand(year, size)
 }
 \seealso{
 \code{\link[=complete]{complete()}} to expand list objects. \code{\link[=expand_grid]{expand_grid()}}

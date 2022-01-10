@@ -14,6 +14,10 @@
 #'  * use it with `anti_join()` to figure out which combinations are missing
 #'    (e.g., identify gaps in your data frame).
 #'
+#' @details
+#' With grouped data frames, `expand()` operates _within_ each group. Because of
+#' this, you cannot expand on a grouping column.
+#'
 #' @inheritParams expand_grid
 #' @param data A data frame.
 #' @param ... Specification of columns to expand. Columns can be atomic vectors
@@ -43,7 +47,7 @@
 #' @examples
 #' fruits <- tibble(
 #'   type   = c("apple", "orange", "apple", "orange", "orange", "orange"),
-#'   year   = c(2010, 2010, 2012, 2010, 2010, 2012),
+#'   year   = c(2010, 2010, 2012, 2010, 2011, 2012),
 #'   size  =  factor(
 #'     c("XS", "S",  "M", "S", "S", "M"),
 #'     levels = c("XS", "S", "M", "L")
@@ -66,7 +70,7 @@
 #' # Other uses -------------------------------------------------------
 #' # Use with `full_seq()` to fill in values of continuous variables
 #' fruits %>% expand(type, size, full_seq(year, 1))
-#' fruits %>% expand(type, size, 2010:2012)
+#' fruits %>% expand(type, size, 2010:2013)
 #'
 #' # Use `anti_join()` to determine which observations are missing
 #' all <- fruits %>% expand(type, size, year)
@@ -75,6 +79,9 @@
 #'
 #' # Use with `right_join()` to fill in missing rows
 #' fruits %>% dplyr::right_join(all)
+#'
+#' # Use with `group_by()` to expand within each group
+#' fruits %>% dplyr::group_by(type) %>% expand(year, size)
 expand <- function(data, ..., .name_repair = "check_unique") {
   UseMethod("expand")
 }
@@ -95,7 +102,7 @@ expand.grouped_df <- function(data, ..., .name_repair = "check_unique") {
   dplyr::summarise(
     data,
     expand(
-      data = dplyr::cur_data_all(),
+      data = dplyr::cur_data(),
       ...,
       .name_repair = .name_repair
     ),
