@@ -67,6 +67,11 @@
 
 * `complete()` gains a grouped data frame method. This generates a more correct
   completed data frame when groups are involved (#396, #966).
+  
+* `complete()` and `expand()` no longer allow you to complete or expand on a
+  grouping column. This was never well-defined since completion/expansion on a
+  grouped data frame happens "within" each group and otherwise has the
+  potential to produce erroneous results (#1299).
 
 ## Missing values
 
