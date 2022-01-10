@@ -176,9 +176,10 @@
 ### Grids
 
 * The grouped data frame methods for `complete()` and `expand()` now move the
-  group columns to the front of the result. This is a result of an internal
-  switch from using the long superseded `dplyr::do()` in favor of an
-  implementation that uses `dplyr::summarize()` (#1289).
+  group columns to the front of the result (in addition to the columns you
+  completed on or expanded, which were already moved to the front). This should
+  make more intuitive sense, as you are completing or expanding "within" each
+  group, so the group columns should be the first thing you see (#1289).
 
 * `complete()` now applies `fill` even when no columns to complete are
   specified (#1272).
