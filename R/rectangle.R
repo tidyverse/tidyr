@@ -12,6 +12,11 @@
 #'
 #' Learn more in `vignette("rectangle")`.
 #'
+#' @seealso
+#' For complex inputs where you need to rectangle a nested list according
+#' to a specification, see the
+#' [tibblify](https://CRAN.R-project.org/package=tibblify) package.
+#'
 #' @section Unnest variants:
 #'
 #' The three `unnest()` functions differ in how they change the shape of the

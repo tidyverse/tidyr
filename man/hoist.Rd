@@ -281,3 +281,8 @@ wide_strict
 
 try(unnest_longer(wide_strict, c(x, y)))
 }
+\seealso{
+For complex inputs where you need to rectangle a nested list according
+to a specification, see the
+\href{https://CRAN.R-project.org/package=tibblify}{tibblify} package.
+}
