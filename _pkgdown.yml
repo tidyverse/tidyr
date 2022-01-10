@@ -1,7 +1,6 @@
 url: https://tidyr.tidyverse.org
 
 home:
-  strip_header: true
   links:
     - text: Learn more
       href: https://r4ds.had.co.nz/tidy-data.html
@@ -14,6 +13,7 @@ navbar:
       href: articles/tidy-data.html
 
 template:
+  bootstrap: 5
   package: tidytemplate
 
 development:
