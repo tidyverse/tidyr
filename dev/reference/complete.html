@@ -120,8 +120,7 @@ missing values.</p></dd>
 </dl></div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>With grouped data frames, <code>complete()</code> operates <em>within</em> each group. Because
-of this, you cannot complete a grouping column.</p>
+    <p>With grouped data frames, <code>complete()</code> operates <em>within</em> each group.</p>
     </div>
 
     <div class="section level2">
@@ -205,16 +204,16 @@ of this, you cannot complete a grouping column.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span>       3 b             2      4      7</span>
 <span class="r-in"><span class="fu">complete</span><span class="op">(</span><span class="va">gdf</span>, <span class="va">item_id</span>, <span class="va">item_name</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 8 × 5</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># Groups:   group [2]</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># Groups:   group [3]</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   group item_id item_name value1 value2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>     1       1 a              1      4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span>     1       1 b             <span style="color: #BB0000;">NA</span>     <span style="color: #BB0000;">NA</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span>     1       2 a             <span style="color: #BB0000;">NA</span>     <span style="color: #BB0000;">NA</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span>    <span style="color: #BB0000;">NA</span>       1 b             <span style="color: #BB0000;">NA</span>     <span style="color: #BB0000;">NA</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span>    <span style="color: #BB0000;">NA</span>       2 a             <span style="color: #BB0000;">NA</span>     <span style="color: #BB0000;">NA</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span>     1       2 b              3      6</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span>     2       2 a             <span style="color: #BB0000;">NA</span>      5</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span>     2       2 b             <span style="color: #BB0000;">NA</span>     <span style="color: #BB0000;">NA</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">7</span>     2       3 a             <span style="color: #BB0000;">NA</span>     <span style="color: #BB0000;">NA</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span>    <span style="color: #BB0000;">NA</span>       2 b             <span style="color: #BB0000;">NA</span>     <span style="color: #BB0000;">NA</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">7</span>    <span style="color: #BB0000;">NA</span>       3 a             <span style="color: #BB0000;">NA</span>     <span style="color: #BB0000;">NA</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">8</span>     2       3 b              4      7</span>
 </code></pre></div>
     </div>
