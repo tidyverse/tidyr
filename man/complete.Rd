@@ -50,6 +50,7 @@ of this, you cannot complete a grouping column.
 }
 \examples{
 library(dplyr, warn.conflicts = FALSE)
+
 df <- tibble(
   group = c(1:2, 1, 2),
   item_id = c(1:2, 2, 3),
@@ -57,8 +58,23 @@ df <- tibble(
   value1 = c(1, NA, 3, 4),
   value2 = 4:7
 )
+df
 
+# Ensure that all possible combinations of `item_id` and `item_name`
+# are represented
+complete(df, item_id, item_name)
+
+# Within each `group`, explicitly represent every possible combination
+# of `item_id` and `item_name` across the entire data set
+# (Notice that {item_id = 3, item_name = b} shows up in `group` 1 even though
+# that group didn't have `item_id` 3 originally)
 complete(df, group, nesting(item_id, item_name))
+
+# Within each `group`, explicitly represent every possible combination
+# of `item_id` and `item_name` that occurs in that group
+# (Notice here that we don't see `item_id` 3 in `group` 1)
+gdf <- group_by(df, group)
+complete(gdf, item_id, item_name)
 
 # You can also choose to fill in missing values. By default, both implicit
 # (new) and explicit (pre-existing) missing values are filled.
@@ -78,11 +94,4 @@ complete(
   fill = list(value1 = 0, value2 = 99),
   explicit = FALSE
 )
-
-# You can complete within a group by calling `complete()`
-# on a grouped data frame
-gdf <- group_by(df, group)
-
-complete(df, item_id, item_name)
-complete(gdf, item_id, item_name)
 }
