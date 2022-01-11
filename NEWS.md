@@ -120,7 +120,7 @@
 * `pivot_wider()` and `pivot_longer()` now generate more informative
   errors related to name repair (#987).
 
-* `pivot_wider()` now works with correctly when `values_fill` is a data frame.
+* `pivot_wider()` now works correctly when `values_fill` is a data frame.
 
 * `pivot_wider()` no longer accidentally retains `values_from` when pivoting
   a zero row data frame (#1249).
