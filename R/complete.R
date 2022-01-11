@@ -5,7 +5,8 @@
 #' completing missing combinations of data.
 #'
 #' @details
-#' With grouped data frames, `complete()` operates _within_ each group.
+#' With grouped data frames, `complete()` operates _within_ each group. Because
+#' of this, you cannot complete a grouping column.
 #'
 #' @inheritParams expand
 #' @param fill A named list that for each variable supplies a single value to
@@ -99,7 +100,7 @@ complete.grouped_df <- function(data,
   dplyr::summarise(
     data,
     complete(
-      data = dplyr::cur_data_all(),
+      data = dplyr::cur_data(),
       ...,
       fill = fill,
       explicit = explicit

@@ -44,39 +44,67 @@ test_that("expand accepts expressions", {
   expect_equal(df, crossing(x = 1:3, y = 3:1))
 })
 
-test_that("expand respects groups", {
-  local_options(lifecycle_verbosity = "quiet")
-
+test_that("expand will expand within each group (#396)", {
   df <- tibble(
+    g = c("a", "b", "a"),
     a = c(1L, 1L, 2L),
-    b = c(1L, 2L, 1L),
-    c = c(2L, 1L, 1L)
-  )
-  out <- df %>% dplyr::group_by(a) %>% expand(b, c) %>% nest()
-
-  expect_equal(out$data[[1]], crossing(b = 1:2, c = 1:2))
-  expect_equal(out$data[[2]], tibble(b = 1L, c = 1L))
-})
-
-test_that("expand allows expanding on grouping variable (#396)", {
-  df <- tibble(
-    g = factor(c("a", "b", "b")),
-    a = c(1, 1, 3)
+    b = factor(c("a", "a", "b"), levels = c("a", "b", "c"))
   )
   gdf <- dplyr::group_by(df, g)
 
-  out <- expand(gdf, g, a)
+  out <- expand(gdf, a, b)
 
-  # Same as split by group, expand, combine.
-  # Note that this produces duplicate rows in the result. Not ideal, but
-  # would probably break revdeps if we removed this grouped-df method.
-  expect <- vec_rbind(
-    expand(df[1,], g, a),
-    expand(df[2:3,], g, a)
+  # Still grouped
+  expect_identical(dplyr::group_vars(out), "g")
+
+  out <- nest(out, data = -g)
+
+  expect_identical(out$data[[1]], crossing(a = 1:2, b = factor(levels = c("a", "b", "c"))))
+  expect_identical(out$data[[2]], crossing(a = 1L, b = factor(levels = c("a", "b", "c"))))
+})
+
+test_that("expand does not allow expansion on grouping variable (#1299)", {
+  df <- tibble(
+    g = "x",
+    a = 1L
   )
-  expect <- dplyr::group_by(expect, g)
+  gdf <- dplyr::group_by(df, g)
 
-  expect_identical(out, expect)
+  # This is a dplyr error that we don't own
+  expect_error(expand(gdf, g))
+})
+
+test_that("can use `.drop = FALSE` with expand (#1299)", {
+  levels <- c("a", "b", "c")
+
+  df <- tibble(
+    g = factor(c("a", "b", "a"), levels = levels),
+    a = c(1L, 1L, 2L),
+    b = factor(c("a", "a", "b"), levels = levels)
+  )
+  gdf <- dplyr::group_by(df, g, .drop = FALSE)
+
+  # No data in group "c" for `a`, so we don't get that in the result
+  expect_identical(
+    expand(gdf, a),
+    vec_sort(gdf[c("g", "a")])
+  )
+
+  expect <- crossing(g = factor(levels = levels), b = factor(levels = levels))
+  expect <- dplyr::group_by(expect, g, .drop = FALSE)
+
+  # Levels of empty vector in `b` are expanded for group "c"
+  expect_identical(expand(gdf, b), expect)
+})
+
+test_that("expand moves the grouping variables to the front", {
+  df <- tibble(
+    a = 1L,
+    g = "x"
+  )
+  gdf <- dplyr::group_by(df, g)
+
+  expect_named(expand(gdf, a), c("g", "a"))
 })
 
 test_that("preserves ordered factors", {
