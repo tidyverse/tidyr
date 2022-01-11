@@ -60,21 +60,19 @@ df <- tibble(
 )
 df
 
-# Ensure that all possible combinations of `item_id` and `item_name`
-# are represented
-complete(df, item_id, item_name)
+# Generate all possible combinations of `group`, `item_id`, and `item_name`
+# (whether or not they appear in the data)
+complete(df, group, item_id, item_name)
 
-# Within each `group`, explicitly represent every possible combination
-# of `item_id` and `item_name` across the entire data set
-# (Notice that {item_id = 3, item_name = b} shows up in `group` 1 even though
-# that group didn't have `item_id` 3 originally)
+# Cross all possible `group` values with the unique pairs of
+# `(item_id, item_name)` that already exist in the data
 complete(df, group, nesting(item_id, item_name))
 
-# Within each `group`, explicitly represent every possible combination
-# of `item_id` and `item_name` that occurs in that group
-# (Notice here that we don't see `item_id` 3 in `group` 1)
-gdf <- group_by(df, group)
-complete(gdf, item_id, item_name)
+# Within each `group`, generate all possible combinations of
+# `item_id` and `item_name` that occur in that group
+df \%>\%
+  group_by(group) \%>\%
+  complete(item_id, item_name)
 
 # You can also choose to fill in missing values. By default, both implicit
 # (new) and explicit (pre-existing) missing values are filled.
