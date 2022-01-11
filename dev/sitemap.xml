@@ -1,174 +1,174 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://tidyr.tidyverse.org/dev/CODE_OF_CONDUCT.html</loc>
+    <loc>https://tidyr.tidyverse.org/CODE_OF_CONDUCT.html</loc>
   </url>
   <url>
-    <loc>https://tidyr.tidyverse.org/dev/CONTRIBUTING.html</loc>
+    <loc>https://tidyr.tidyverse.org/CONTRIBUTING.html</loc>
   </url>
   <url>
-    <loc>https://tidyr.tidyverse.org/dev/ISSUE_TEMPLATE.html</loc>
+    <loc>https://tidyr.tidyverse.org/ISSUE_TEMPLATE.html</loc>
   </url>
   <url>
-    <loc>https://tidyr.tidyverse.org/dev/LICENSE-text.html</loc>
+    <loc>https://tidyr.tidyverse.org/LICENSE-text.html</loc>
   </url>
   <url>
-    <loc>https://tidyr.tidyverse.org/dev/LICENSE.html</loc>
+    <loc>https://tidyr.tidyverse.org/LICENSE.html</loc>
   </url>
   <url>
-    <loc>https://tidyr.tidyverse.org/dev/SUPPORT.html</loc>
+    <loc>https://tidyr.tidyverse.org/SUPPORT.html</loc>
   </url>
   <url>
-    <loc>https://tidyr.tidyverse.org/dev/articles/in-packages.html</loc>
+    <loc>https://tidyr.tidyverse.org/articles/in-packages.html</loc>
   </url>
   <url>
-    <loc>https://tidyr.tidyverse.org/dev/articles/index.html</loc>
+    <loc>https://tidyr.tidyverse.org/articles/index.html</loc>
   </url>
   <url>
-    <loc>https://tidyr.tidyverse.org/dev/articles/nest.html</loc>
+    <loc>https://tidyr.tidyverse.org/articles/nest.html</loc>
   </url>
   <url>
-    <loc>https://tidyr.tidyverse.org/dev/articles/pivot.html</loc>
+    <loc>https://tidyr.tidyverse.org/articles/pivot.html</loc>
   </url>
   <url>
-    <loc>https://tidyr.tidyverse.org/dev/articles/programming.html</loc>
+    <loc>https://tidyr.tidyverse.org/articles/programming.html</loc>
   </url>
   <url>
-    <loc>https://tidyr.tidyverse.org/dev/articles/rectangle.html</loc>
+    <loc>https://tidyr.tidyverse.org/articles/rectangle.html</loc>
   </url>
   <url>
-    <loc>https://tidyr.tidyverse.org/dev/articles/tidy-data.html</loc>
+    <loc>https://tidyr.tidyverse.org/articles/tidy-data.html</loc>
   </url>
   <url>
-    <loc>https://tidyr.tidyverse.org/dev/authors.html</loc>
+    <loc>https://tidyr.tidyverse.org/authors.html</loc>
   </url>
   <url>
-    <loc>https://tidyr.tidyverse.org/dev/index.html</loc>
+    <loc>https://tidyr.tidyverse.org/index.html</loc>
   </url>
   <url>
-    <loc>https://tidyr.tidyverse.org/dev/news/index.html</loc>
+    <loc>https://tidyr.tidyverse.org/news/index.html</loc>
   </url>
   <url>
-    <loc>https://tidyr.tidyverse.org/dev/reference/billboard.html</loc>
+    <loc>https://tidyr.tidyverse.org/reference/billboard.html</loc>
   </url>
   <url>
-    <loc>https://tidyr.tidyverse.org/dev/reference/check_pivot_spec.html</loc>
+    <loc>https://tidyr.tidyverse.org/reference/check_pivot_spec.html</loc>
   </url>
   <url>
-    <loc>https://tidyr.tidyverse.org/dev/reference/chop.html</loc>
+    <loc>https://tidyr.tidyverse.org/reference/chop.html</loc>
   </url>
   <url>
-    <loc>https://tidyr.tidyverse.org/dev/reference/complete.html</loc>
+    <loc>https://tidyr.tidyverse.org/reference/complete.html</loc>
   </url>
   <url>
-    <loc>https://tidyr.tidyverse.org/dev/reference/construction.html</loc>
+    <loc>https://tidyr.tidyverse.org/reference/construction.html</loc>
   </url>
   <url>
-    <loc>https://tidyr.tidyverse.org/dev/reference/deprecated-se.html</loc>
+    <loc>https://tidyr.tidyverse.org/reference/deprecated-se.html</loc>
   </url>
   <url>
-    <loc>https://tidyr.tidyverse.org/dev/reference/drop_na.html</loc>
+    <loc>https://tidyr.tidyverse.org/reference/drop_na.html</loc>
   </url>
   <url>
-    <loc>https://tidyr.tidyverse.org/dev/reference/expand.html</loc>
+    <loc>https://tidyr.tidyverse.org/reference/expand.html</loc>
   </url>
   <url>
-    <loc>https://tidyr.tidyverse.org/dev/reference/expand_grid.html</loc>
+    <loc>https://tidyr.tidyverse.org/reference/expand_grid.html</loc>
   </url>
   <url>
-    <loc>https://tidyr.tidyverse.org/dev/reference/extract.html</loc>
+    <loc>https://tidyr.tidyverse.org/reference/extract.html</loc>
   </url>
   <url>
-    <loc>https://tidyr.tidyverse.org/dev/reference/extract_numeric.html</loc>
+    <loc>https://tidyr.tidyverse.org/reference/extract_numeric.html</loc>
   </url>
   <url>
-    <loc>https://tidyr.tidyverse.org/dev/reference/fill.html</loc>
+    <loc>https://tidyr.tidyverse.org/reference/fill.html</loc>
   </url>
   <url>
-    <loc>https://tidyr.tidyverse.org/dev/reference/fish_encounters.html</loc>
+    <loc>https://tidyr.tidyverse.org/reference/fish_encounters.html</loc>
   </url>
   <url>
-    <loc>https://tidyr.tidyverse.org/dev/reference/full_seq.html</loc>
+    <loc>https://tidyr.tidyverse.org/reference/full_seq.html</loc>
   </url>
   <url>
-    <loc>https://tidyr.tidyverse.org/dev/reference/gather.html</loc>
+    <loc>https://tidyr.tidyverse.org/reference/gather.html</loc>
   </url>
   <url>
-    <loc>https://tidyr.tidyverse.org/dev/reference/hoist.html</loc>
+    <loc>https://tidyr.tidyverse.org/reference/hoist.html</loc>
   </url>
   <url>
-    <loc>https://tidyr.tidyverse.org/dev/reference/index.html</loc>
+    <loc>https://tidyr.tidyverse.org/reference/index.html</loc>
   </url>
   <url>
-    <loc>https://tidyr.tidyverse.org/dev/reference/nest.html</loc>
+    <loc>https://tidyr.tidyverse.org/reference/nest.html</loc>
   </url>
   <url>
-    <loc>https://tidyr.tidyverse.org/dev/reference/nest_legacy.html</loc>
+    <loc>https://tidyr.tidyverse.org/reference/nest_legacy.html</loc>
   </url>
   <url>
-    <loc>https://tidyr.tidyverse.org/dev/reference/pack.html</loc>
+    <loc>https://tidyr.tidyverse.org/reference/pack.html</loc>
   </url>
   <url>
-    <loc>https://tidyr.tidyverse.org/dev/reference/pipe.html</loc>
+    <loc>https://tidyr.tidyverse.org/reference/pipe.html</loc>
   </url>
   <url>
-    <loc>https://tidyr.tidyverse.org/dev/reference/pivot_longer.html</loc>
+    <loc>https://tidyr.tidyverse.org/reference/pivot_longer.html</loc>
   </url>
   <url>
-    <loc>https://tidyr.tidyverse.org/dev/reference/pivot_longer_spec.html</loc>
+    <loc>https://tidyr.tidyverse.org/reference/pivot_longer_spec.html</loc>
   </url>
   <url>
-    <loc>https://tidyr.tidyverse.org/dev/reference/pivot_wider.html</loc>
+    <loc>https://tidyr.tidyverse.org/reference/pivot_wider.html</loc>
   </url>
   <url>
-    <loc>https://tidyr.tidyverse.org/dev/reference/pivot_wider_spec.html</loc>
+    <loc>https://tidyr.tidyverse.org/reference/pivot_wider_spec.html</loc>
   </url>
   <url>
-    <loc>https://tidyr.tidyverse.org/dev/reference/reexports.html</loc>
+    <loc>https://tidyr.tidyverse.org/reference/reexports.html</loc>
   </url>
   <url>
-    <loc>https://tidyr.tidyverse.org/dev/reference/relig_income.html</loc>
+    <loc>https://tidyr.tidyverse.org/reference/relig_income.html</loc>
   </url>
   <url>
-    <loc>https://tidyr.tidyverse.org/dev/reference/replace_na.html</loc>
+    <loc>https://tidyr.tidyverse.org/reference/replace_na.html</loc>
   </url>
   <url>
-    <loc>https://tidyr.tidyverse.org/dev/reference/separate.html</loc>
+    <loc>https://tidyr.tidyverse.org/reference/separate.html</loc>
   </url>
   <url>
-    <loc>https://tidyr.tidyverse.org/dev/reference/separate_rows.html</loc>
+    <loc>https://tidyr.tidyverse.org/reference/separate_rows.html</loc>
   </url>
   <url>
-    <loc>https://tidyr.tidyverse.org/dev/reference/smiths.html</loc>
+    <loc>https://tidyr.tidyverse.org/reference/smiths.html</loc>
   </url>
   <url>
-    <loc>https://tidyr.tidyverse.org/dev/reference/spread.html</loc>
+    <loc>https://tidyr.tidyverse.org/reference/spread.html</loc>
   </url>
   <url>
-    <loc>https://tidyr.tidyverse.org/dev/reference/table1.html</loc>
+    <loc>https://tidyr.tidyverse.org/reference/table1.html</loc>
   </url>
   <url>
-    <loc>https://tidyr.tidyverse.org/dev/reference/tidyr-package.html</loc>
+    <loc>https://tidyr.tidyverse.org/reference/tidyr-package.html</loc>
   </url>
   <url>
-    <loc>https://tidyr.tidyverse.org/dev/reference/tidyr_legacy.html</loc>
+    <loc>https://tidyr.tidyverse.org/reference/tidyr_legacy.html</loc>
   </url>
   <url>
-    <loc>https://tidyr.tidyverse.org/dev/reference/tidyr_tidy_select.html</loc>
+    <loc>https://tidyr.tidyverse.org/reference/tidyr_tidy_select.html</loc>
   </url>
   <url>
-    <loc>https://tidyr.tidyverse.org/dev/reference/uncount.html</loc>
+    <loc>https://tidyr.tidyverse.org/reference/uncount.html</loc>
   </url>
   <url>
-    <loc>https://tidyr.tidyverse.org/dev/reference/unite.html</loc>
+    <loc>https://tidyr.tidyverse.org/reference/unite.html</loc>
   </url>
   <url>
-    <loc>https://tidyr.tidyverse.org/dev/reference/us_rent_income.html</loc>
+    <loc>https://tidyr.tidyverse.org/reference/us_rent_income.html</loc>
   </url>
   <url>
-    <loc>https://tidyr.tidyverse.org/dev/reference/who.html</loc>
+    <loc>https://tidyr.tidyverse.org/reference/who.html</loc>
   </url>
   <url>
-    <loc>https://tidyr.tidyverse.org/dev/reference/world_bank_pop.html</loc>
+    <loc>https://tidyr.tidyverse.org/reference/world_bank_pop.html</loc>
   </url>
 </urlset>
