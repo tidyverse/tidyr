@@ -1,8 +1,8 @@
 ## revdepcheck results
 
-We checked 1434 reverse dependencies (1424 from CRAN + 10 from Bioconductor), comparing R CMD check results across CRAN and dev versions of this package.
+We checked 1437 reverse dependencies (1427 from CRAN + 10 from Bioconductor), comparing R CMD check results across CRAN and dev versions of this package.
 
- * We saw 19 new problems
+ * We saw 21 new problems
  * We failed to check 3 packages
 
 Issues with CRAN packages are summarised below.
@@ -10,14 +10,12 @@ Issues with CRAN packages are summarised below.
 ### New problems
 (This reports the first line of each new failure)
 
-* archiveRetriever
-  checking tests ... ERROR
-
 * causact
   checking examples ... ERROR
 
 * covidregionaldata
   checking tests ... ERROR
+  checking re-building of vignette outputs ... WARNING
 
 * crosstable
   checking tests ... ERROR
@@ -32,21 +30,17 @@ Issues with CRAN packages are summarised below.
   checking examples ... ERROR
   checking tests ... ERROR
 
-* heuristicsmineR
+* eudract
   checking examples ... ERROR
-
-* iotables
+  checking tests ... ERROR
   checking re-building of vignette outputs ... WARNING
 
-* PheVis
-  checking tests ... ERROR
+* heuristicsmineR
+  checking examples ... ERROR
 
 * processanimateR
   checking examples ... ERROR
   checking re-building of vignette outputs ... WARNING
-
-* r2dii.analysis
-  checking tests ... ERROR
 
 * RavenR
   checking examples ... ERROR
@@ -57,6 +51,15 @@ Issues with CRAN packages are summarised below.
 * sparklyr
   checking S3 generic/method consistency ... WARNING
 
+* ssimparser
+  checking examples ... ERROR
+
+* swissdd
+  checking examples ... ERROR
+
+* SWMPrExtension
+  checking examples ... ERROR
+
 * tabshiftr
   checking examples ... ERROR
   checking tests ... ERROR
@@ -66,6 +69,14 @@ Issues with CRAN packages are summarised below.
   checking examples ... ERROR
 
 * tidytidbits
+  checking examples ... ERROR
+
+* Tplyr
+  checking examples ... ERROR
+  checking tests ... ERROR
+  checking re-building of vignette outputs ... WARNING
+
+* wpa
   checking examples ... ERROR
 
 * xml2relational

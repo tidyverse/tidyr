@@ -1,41 +1,3 @@
-# archiveRetriever
-
-<details>
-
-* Version: 0.1.0
-* GitHub: https://github.com/liserman/archiveRetriever
-* Source code: https://github.com/cran/archiveRetriever
-* Date/Publication: 2021-05-27 10:40:02 UTC
-* Number of recursive dependencies: 76
-
-Run `cloud_details(, "archiveRetriever")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking tests ... ERROR
-    ```
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-      `retrieve_urls(...)` threw an error with unexpected message.
-      Expected match: "Homepage has never been saved in the Internet Archive"
-      Actual message: "Homepage could not be loaded. Please check whether the page exists or try again."
-      Backtrace:
-          █
-       1. ├─testthat::expect_error(...) test_retrieve_urls.R:62:12
-       2. │ └─testthat:::quasi_capture(...)
-       3. │   ├─testthat:::.capture(...)
-       4. │   │ └─base::withCallingHandlers(...)
-       5. │   └─rlang::eval_bare(quo_get_expr(.quo), quo_get_env(.quo))
-       6. └─archiveRetriever::retrieve_urls(...)
-      
-      [ FAIL 1 | WARN 0 | SKIP 16 | PASS 37 ]
-      Error: Test failures
-      Execution halted
-    ```
-
 # causact
 
 <details>
@@ -99,21 +61,46 @@ Run `cloud_details(, "covidregionaldata")` for more info
       Running ‘testthat.R’
     Running the tests in ‘tests/testthat.R’ failed.
     Last 13 lines of output:
-      > test_check("covidregionaldata")
-      ══ Failed tests ════════════════════════════════════════════════════════════════
-      ── Failure (test-processing.R:102:3): complete_cumulative_columns works ────────
-      colnames(actual_data) (`actual`) not equal to colnames(expected_data) (`expected`).
+       19. ├─tidyr::complete(data = dplyr::cur_data(), ..., fill = fill, explicit = explicit)
+       20. ├─tidyr:::complete.data.frame(...)
+       21. │ ├─tidyr::expand(data, ...)
+       22. │ └─tidyr:::expand.data.frame(data, ...)
+       23. │   └─tidyr:::grid_dots(..., `_data` = data)
+       24. │     └─rlang::eval_tidy(dot, data = mask)
+       25. ├─tidyr::nesting(...)
+       26. │ └─tidyr:::grid_dots(...)
+       27. │   └─rlang::eval_tidy(dot, data = mask)
+       28. └─base::.handleSimpleError(...)
+       29.   └─dplyr:::h(simpleError(msg, call))
       
-          actual                | expected                 
-      [1] "level_1_region"      - "date"                [1]
-      [2] "date"                - "level_1_region"      [2]
-      [3] "level_1_region_code" | "level_1_region_code" [3]
-      [4] "cases"               | "cases"               [4]
-      [5] "cases_total"         | "cases_total"         [5]
-      
-      [ FAIL 1 | WARN 3 | SKIP 0 | PASS 269 ]
+      [ FAIL 12 | WARN 0 | SKIP 0 | PASS 203 ]
       Error: Test failures
       Execution halted
+    ```
+
+*   checking re-building of vignette outputs ... WARNING
+    ```
+    Error(s) in re-building vignettes:
+    --- re-building ‘quickstart.Rmd’ using rmarkdown
+    Quitting from lines 36-38 (quickstart.Rmd) 
+    Error: processing vignette 'quickstart.Rmd' failed with diagnostics:
+    Problem with `summarise()` input `..1`.
+    ℹ `..1 = complete(data = dplyr::cur_data(), ..., fill = fill, explicit = explicit)`.
+    ✖ object 'level_1_region_code' not found
+    ℹ The error occurred in group 1: level_1_region = "Afghanistan", level_1_region_code = "AF".
+    --- failed re-building ‘quickstart.Rmd’
+    
+    ...
+    Quitting from lines 30-34 (testing.Rmd) 
+    Error: processing vignette 'testing.Rmd' failed with diagnostics:
+    Test failed
+    --- failed re-building ‘testing.Rmd’
+    
+    SUMMARY: processing the following files failed:
+      ‘quickstart.Rmd’ ‘slowstart.Rmd’ ‘testing.Rmd’
+    
+    Error: Vignette re-building failed.
+    Execution halted
     ```
 
 ## In both
@@ -321,6 +308,89 @@ Run `cloud_details(, "emayili")` for more info
       Execution halted
     ```
 
+# eudract
+
+<details>
+
+* Version: 0.9.3
+* GitHub: https://github.com/shug0131/eudraCT
+* Source code: https://github.com/cran/eudract
+* Date/Publication: 2021-02-24 15:10:06 UTC
+* Number of recursive dependencies: 52
+
+Run `cloud_details(, "eudract")` for more info
+
+</details>
+
+## Newly broken
+
+*   checking examples ... ERROR
+    ```
+    Running examples in ‘eudract-Ex.R’ failed
+    The error most likely occurred in:
+    
+    > ### Name: eudract_convert
+    > ### Title: applies a conversion using xslt from a simple xml file to a
+    > ###   eudract compatible file, and checks against the schema
+    > ### Aliases: eudract_convert
+    > 
+    > ### ** Examples
+    > 
+    ...
+     16. │ ├─tidyr::expand(data, ...)
+     17. │ └─tidyr:::expand.data.frame(data, ...)
+     18. │   └─tidyr:::grid_dots(..., `_data` = data)
+     19. │     └─rlang::eval_tidy(dot, data = mask)
+     20. ├─tidyr::nesting(term, soc)
+     21. │ └─tidyr:::grid_dots(...)
+     22. │   └─rlang::eval_tidy(dot, data = mask)
+     23. └─base::.handleSimpleError(...)
+     24.   └─dplyr:::h(simpleError(msg, call))
+    Execution halted
+    ```
+
+*   checking tests ... ERROR
+    ```
+      Running ‘testthat.R’
+    Running the tests in ‘tests/testthat.R’ failed.
+    Last 13 lines of output:
+       14. ├─tidyr::complete(data = dplyr::cur_data(), ..., fill = fill, explicit = explicit)
+       15. ├─tidyr:::complete.data.frame(...)
+       16. │ ├─tidyr::expand(data, ...)
+       17. │ └─tidyr:::expand.data.frame(data, ...)
+       18. │   └─tidyr:::grid_dots(..., `_data` = data)
+       19. │     └─rlang::eval_tidy(dot, data = mask)
+       20. ├─tidyr::nesting(term, soc)
+       21. │ └─tidyr:::grid_dots(...)
+       22. │   └─rlang::eval_tidy(dot, data = mask)
+       23. └─base::.handleSimpleError(...)
+       24.   └─dplyr:::h(simpleError(msg, call))
+      
+      [ FAIL 10 | WARN 2 | SKIP 0 | PASS 12 ]
+      Error: Test failures
+      Execution halted
+    ```
+
+*   checking re-building of vignette outputs ... WARNING
+    ```
+    Error(s) in re-building vignettes:
+      ...
+    --- re-building ‘eudract.Rmd’ using rmarkdown
+    Quitting from lines 52-58 (eudract.Rmd) 
+    Error: processing vignette 'eudract.Rmd' failed with diagnostics:
+    Problem with `summarise()` input `..1`.
+    ℹ `..1 = complete(data = dplyr::cur_data(), ..., fill = fill, explicit = explicit)`.
+    ✖ object 'term' not found
+    ℹ The error occurred in group 1: term = "Abdominal pain", soc = 10017947.
+    --- failed re-building ‘eudract.Rmd’
+    
+    SUMMARY: processing the following file failed:
+      ‘eudract.Rmd’
+    
+    Error: Vignette re-building failed.
+    Execution halted
+    ```
+
 # heuristicsmineR
 
 <details>
@@ -369,85 +439,6 @@ Run `cloud_details(, "heuristicsmineR")` for more info
       installed size is  5.5Mb
       sub-directories of 1Mb or more:
         libs   4.4Mb
-    ```
-
-# iotables
-
-<details>
-
-* Version: 0.4.7
-* GitHub: https://github.com/rOpenGov/iotables
-* Source code: https://github.com/cran/iotables
-* Date/Publication: 2021-12-22 17:30:02 UTC
-* Number of recursive dependencies: 115
-
-Run `cloud_details(, "iotables")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    Error(s) in re-building vignettes:
-    --- re-building ‘environmental_impact.Rmd’ using rmarkdown
-    
-    Attaching package: 'dplyr'
-    
-    The following objects are masked from 'package:stats':
-    
-        filter, lag
-    
-    The following objects are masked from 'package:base':
-    ...
-    Columns and rows of CPA_L68A, CPA_T, CPA_U are all zeros and will be removed.
-    Joining, by = c("prod_na", "CPA_A01", "CPA_A02", "CPA_A03", "CPA_B", "CPA_C10-12", "CPA_C13-15", "CPA_C16", "CPA_C17", "CPA_C18", "CPA_C19", "CPA_C20", "CPA_C21", "CPA_C22", "CPA_C23", "CPA_C24", "CPA_C25", "CPA_C26", "CPA_C27", "CPA_C28", "CPA_C29", "CPA_C30", "CPA_C31_32", "CPA_C33", "CPA_D", "CPA_E36", "CPA_E37-39", "CPA_F", "CPA_G45", "CPA_G46", "CPA_H49", "CPA_H50", "CPA_H51", "CPA_H52", "CPA_H53", "CPA_I", "CPA_J58", "CPA_J59_60", "CPA_J61", "CPA_J62_63", "CPA_K64", "CPA_K65", "CPA_K66", "CPA_L68B", "CPA_M69_70", "CPA_M71", "CPA_M72", "CPA_M73", "CPA_M74_75", "CPA_N77", "CPA_N78", "CPA_N79", "CPA_N80-82", "CPA_O", "CPA_P", "CPA_Q86", "CPA_Q87_88", "CPA_R90-92", "CPA_R93", "CPA_S94", "CPA_S95", "CPA_S96")
-    Columns and rows of CPA_L68A are all zeros and will be removed.
-    --- finished re-building ‘working_with_eurostat.Rmd’
-    
-    SUMMARY: processing the following file failed:
-      ‘environmental_impact.Rmd’
-    
-    Error: Vignette re-building failed.
-    Execution halted
-    ```
-
-# PheVis
-
-<details>
-
-* Version: 1.0.2
-* GitHub: NA
-* Source code: https://github.com/cran/PheVis
-* Date/Publication: 2021-02-23 09:40:21 UTC
-* Number of recursive dependencies: 81
-
-Run `cloud_details(, "PheVis")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking tests ... ERROR
-    ```
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-      sum((result$cum_month - expected_vec1)^2) not equal to 0.
-      1/1 mismatches
-      [1] 9 - 0 == 9
-      ── Failure (test-traintest_phevis.R:54:9): test all pipeline is working ────────
-      check_value[1] not equal to 0.
-      1/1 mismatches
-      [1] -0.000951 - 0 == -0.000951
-      ── Failure (test-traintest_phevis.R:55:9): test all pipeline is working ────────
-      check_value[2] not equal to 0.
-      1/1 mismatches
-      [1] -0.00151 - 0 == -0.00151
-      
-      [ FAIL 3 | WARN 0 | SKIP 0 | PASS 1 ]
-      Error: Test failures
-      Execution halted
     ```
 
 # processanimateR
@@ -524,45 +515,6 @@ Run `cloud_details(, "processanimateR")` for more info
       sub-directories of 1Mb or more:
         doc          11.1Mb
         htmlwidgets   2.6Mb
-    ```
-
-# r2dii.analysis
-
-<details>
-
-* Version: 0.1.12
-* GitHub: https://github.com/2DegreesInvesting/r2dii.analysis
-* Source code: https://github.com/cran/r2dii.analysis
-* Date/Publication: 2021-08-18 07:30:02 UTC
-* Number of recursive dependencies: 71
-
-Run `cloud_details(, "r2dii.analysis")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking tests ... ERROR
-    ```
-      Running ‘spelling.R’
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-      round(out$adjusted_scenario_b2ds$emission_factor_value, 2) not equal to c(6.45, 5.42, 4.39, 3.35, 2.32, 1.29).
-      Lengths differ: 2 is not 6
-      ── Failure (test-target_sda.R:225:3): with known input outputs as expected ─────
-      round(out$adjusted_scenario_sds$emission_factor_value, 2) not equal to c(6.45, 6.19, 5.93, 5.68, 5.42, 5.16).
-      Lengths differ: 2 is not 6
-      ── Failure (test-target_sda.R:229:3): with known input outputs as expected ─────
-      round(out$target_b2ds$emission_factor_value, 2) not equal to c(0.9, 0.98, 1.06, 1.13, 1.21, 1.29).
-      Lengths differ: 2 is not 6
-      ── Failure (test-target_sda.R:233:3): with known input outputs as expected ─────
-      round(out$target_sds$emission_factor_value, 2) not equal to c(0.9, 1.75, 2.6, 3.46, 4.31, 5.16).
-      Lengths differ: 2 is not 6
-      
-      [ FAIL 6 | WARN 0 | SKIP 0 | PASS 208 ]
-      Error: Test failures
-      Execution halted
     ```
 
 # RavenR
@@ -698,6 +650,125 @@ Run `cloud_details(, "sparklyr")` for more info
     ```
     Namespace in Imports field not imported from: ‘lifecycle’
       All declared Imports should be used.
+    ```
+
+# ssimparser
+
+<details>
+
+* Version: 0.1.0
+* GitHub: NA
+* Source code: https://github.com/cran/ssimparser
+* Date/Publication: 2021-05-11 09:10:02 UTC
+* Number of recursive dependencies: 23
+
+Run `cloud_details(, "ssimparser")` for more info
+
+</details>
+
+## Newly broken
+
+*   checking examples ... ERROR
+    ```
+    Running examples in ‘ssimparser-Ex.R’ failed
+    The error most likely occurred in:
+    
+    > ### Name: load_ssim
+    > ### Title: load_ssim
+    > ### Aliases: load_ssim
+    > 
+    > ### ** Examples
+    > 
+    > # Get a sample as a character vector
+    ...
+     18. │     ├─base::withCallingHandlers(...)
+     19. │     └─mask$eval_all_summarise(quo)
+     20. ├─tidyr::expand(data = dplyr::cur_data(), ..., .name_repair = .name_repair)
+     21. ├─tidyr:::expand.data.frame(data = dplyr::cur_data(), ..., .name_repair = .name_repair)
+     22. │ └─tidyr:::grid_dots(..., `_data` = data)
+     23. │   └─rlang::eval_tidy(dot, data = mask)
+     24. ├─base::seq(1:(diff_days + 1))
+     25. └─base::.handleSimpleError(...)
+     26.   └─dplyr:::h(simpleError(msg, call))
+    Execution halted
+    ```
+
+# swissdd
+
+<details>
+
+* Version: 1.1.4
+* GitHub: https://github.com/politanch/swissdd
+* Source code: https://github.com/cran/swissdd
+* Date/Publication: 2021-07-17 05:40:02 UTC
+* Number of recursive dependencies: 60
+
+Run `cloud_details(, "swissdd")` for more info
+
+</details>
+
+## Newly broken
+
+*   checking examples ... ERROR
+    ```
+    Running examples in ‘swissdd-Ex.R’ failed
+    The error most likely occurred in:
+    
+    > ### Name: available_votedates
+    > ### Title: Get a vector of available vote dates via 'get_nationalvotes' and
+    > ###   'get_cantonalvotes"
+    > ### Aliases: available_votedates
+    > 
+    > ### ** Examples
+    > 
+    > 
+    > # Get vector of all available dates
+    > federal_votedates <- available_votedates()
+    Error in curl::curl_fetch_memory(url, handle = handle) : 
+      transfer closed with 122250 bytes remaining to read
+    Calls: available_votedates ... request_fetch -> request_fetch.write_memory -> <Anonymous>
+    Execution halted
+    ```
+
+# SWMPrExtension
+
+<details>
+
+* Version: 2.1.0
+* GitHub: https://github.com/NOAA-OCM/SWMPrExtension
+* Source code: https://github.com/cran/SWMPrExtension
+* Date/Publication: 2021-10-13 17:12:03 UTC
+* Number of recursive dependencies: 115
+
+Run `cloud_details(, "SWMPrExtension")` for more info
+
+</details>
+
+## Newly broken
+
+*   checking examples ... ERROR
+    ```
+    Running examples in ‘SWMPrExtension-Ex.R’ failed
+    The error most likely occurred in:
+    
+    > ### Name: seasonal_boxplot
+    > ### Title: Seasonal boxplots
+    > ### Aliases: seasonal_boxplot seasonal_boxplot.swmpr
+    > 
+    > ### ** Examples
+    > 
+    > ## Don't show: 
+    ...
+      9. │       └─mask$eval_all_summarise(quo)
+     10. ├─tidyr::complete(data = dplyr::cur_data(), ..., fill = fill, explicit = explicit)
+     11. ├─tidyr:::complete.data.frame(...)
+     12. │ ├─tidyr::expand(data, ...)
+     13. │ └─tidyr:::expand.data.frame(data, ...)
+     14. │   └─tidyr:::grid_dots(..., `_data` = data)
+     15. │     └─rlang::eval_tidy(dot, data = mask)
+     16. └─base::.handleSimpleError(...)
+     17.   └─dplyr:::h(simpleError(msg, call))
+    Execution halted
     ```
 
 # tabshiftr
@@ -868,6 +939,135 @@ Run `cloud_details(, "tidytidbits")` for more info
 *   checking LazyData ... NOTE
     ```
       'LazyData' is specified without a 'data' directory
+    ```
+
+# Tplyr
+
+<details>
+
+* Version: 0.4.3
+* GitHub: https://github.com/atorus-research/Tplyr
+* Source code: https://github.com/cran/Tplyr
+* Date/Publication: 2021-12-06 17:50:02 UTC
+* Number of recursive dependencies: 116
+
+Run `cloud_details(, "Tplyr")` for more info
+
+</details>
+
+## Newly broken
+
+*   checking examples ... ERROR
+    ```
+    Running examples in ‘Tplyr-Ex.R’ failed
+    The error most likely occurred in:
+    
+    > ### Name: Tplyr
+    > ### Title: A grammar of summary data for clinical reports
+    > ### Aliases: Tplyr Tplyr-package
+    > 
+    > ### ** Examples
+    > 
+    > # Load in pipe
+    ...
+     21. │     └─mask$eval_all_summarise(quo)
+     22. ├─tidyr::complete(data = dplyr::cur_data(), ..., fill = fill, explicit = explicit)
+     23. ├─tidyr:::complete.data.frame(...)
+     24. │ ├─tidyr::expand(data, ...)
+     25. │ └─tidyr:::expand.data.frame(data, ...)
+     26. │   └─tidyr:::grid_dots(..., `_data` = data)
+     27. │     └─rlang::eval_tidy(dot, data = mask)
+     28. └─base::.handleSimpleError(...)
+     29.   └─dplyr:::h(simpleError(msg, call))
+    Execution halted
+    ```
+
+*   checking tests ... ERROR
+    ```
+      Running ‘testthat.R’
+    Running the tests in ‘tests/testthat.R’ failed.
+    Last 13 lines of output:
+      dim(s1$formatted_data) not equal to c(3, 11).
+      target is NULL, current is numeric
+      ── Failure (test-shift.R:71:3): group_shift outputs the expected formatted data ──
+      dim(s2$formatted_data) not equal to c(3, 11).
+      target is NULL, current is numeric
+      ── Failure (test-shift.R:72:3): group_shift outputs the expected formatted data ──
+      dim(s3$formatted_data) not equal to c(3, 11).
+      target is NULL, current is numeric
+      ── Failure (test-shift.R:75:3): group_shift outputs the expected formatted data ──
+      t4$layers[[1]]$formatted_data$row_label1 not equal to c("6", "8", "4").
+      target is NULL, current is character
+      
+      [ FAIL 15 | WARN 0 | SKIP 0 | PASS 668 ]
+      Error: Test failures
+      Execution halted
+    ```
+
+*   checking re-building of vignette outputs ... WARNING
+    ```
+    Error(s) in re-building vignettes:
+    --- re-building ‘Tplyr.Rmd’ using rmarkdown
+    Quitting from lines 333-345 (Tplyr.Rmd) 
+    Error: processing vignette 'Tplyr.Rmd' failed with diagnostics:
+    Problem with `summarise()` input `..1`.
+    ℹ `..1 = complete(data = dplyr::cur_data(), ..., fill = fill, explicit = explicit)`.
+    ✖ object 'BNRIND' not found
+    ℹ The error occurred in group 1: BNRIND = N, ANRIND = N, TRTA = Placebo.
+    --- failed re-building ‘Tplyr.Rmd’
+    
+    ...
+    --- failed re-building ‘shift.Rmd’
+    
+    --- re-building ‘table.Rmd’ using rmarkdown
+    --- finished re-building ‘table.Rmd’
+    
+    SUMMARY: processing the following files failed:
+      ‘Tplyr.Rmd’ ‘denom.Rmd’ ‘shift.Rmd’
+    
+    Error: Vignette re-building failed.
+    Execution halted
+    ```
+
+# wpa
+
+<details>
+
+* Version: 1.6.3
+* GitHub: https://github.com/microsoft/wpa
+* Source code: https://github.com/cran/wpa
+* Date/Publication: 2021-11-21 05:30:02 UTC
+* Number of recursive dependencies: 119
+
+Run `cloud_details(, "wpa")` for more info
+
+</details>
+
+## Newly broken
+
+*   checking examples ... ERROR
+    ```
+    Running examples in ‘wpa-Ex.R’ failed
+    The error most likely occurred in:
+    
+    > ### Name: workpatterns_classify
+    > ### Title: Classify working pattern personas using a rule based algorithm
+    > ### Aliases: workpatterns_classify
+    > 
+    > ### ** Examples
+    > 
+    > 
+    ...
+     14. │     └─mask$eval_all_summarise(quo)
+     15. ├─tidyr::complete(data = dplyr::cur_data(), ..., fill = fill, explicit = explicit)
+     16. ├─tidyr:::complete.data.frame(...)
+     17. │ ├─tidyr::expand(data, ...)
+     18. │ └─tidyr:::expand.data.frame(data, ...)
+     19. │   └─tidyr:::grid_dots(..., `_data` = data)
+     20. │     └─rlang::eval_tidy(dot, data = mask)
+     21. └─base::.handleSimpleError(...)
+     22.   └─dplyr:::h(simpleError(msg, call))
+    Execution halted
     ```
 
 # xml2relational
