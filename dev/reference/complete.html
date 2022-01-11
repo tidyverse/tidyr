@@ -144,23 +144,27 @@ of this, you cannot complete a grouping column.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span>     1       2 b              3      6</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span>     2       3 b              4      7</span>
 <span class="r-in"></span>
-<span class="r-in"><span class="co"># Ensure that all possible combinations of `item_id` and `item_name`</span></span>
-<span class="r-in"><span class="co"># are represented</span></span>
-<span class="r-in"><span class="fu">complete</span><span class="op">(</span><span class="va">df</span>, <span class="va">item_id</span>, <span class="va">item_name</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 6 × 5</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   item_id item_name group value1 value2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>       1 a             1      1      4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span>       1 b            <span style="color: #BB0000;">NA</span>     <span style="color: #BB0000;">NA</span>     <span style="color: #BB0000;">NA</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span>       2 a             2     <span style="color: #BB0000;">NA</span>      5</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span>       2 b             1      3      6</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span>       3 a            <span style="color: #BB0000;">NA</span>     <span style="color: #BB0000;">NA</span>     <span style="color: #BB0000;">NA</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span>       3 b             2      4      7</span>
+<span class="r-in"><span class="co"># Generate all possible combinations of `group`, `item_id`, and `item_name`</span></span>
+<span class="r-in"><span class="co"># (whether or not they appear in the data)</span></span>
+<span class="r-in"><span class="fu">complete</span><span class="op">(</span><span class="va">df</span>, <span class="va">group</span>, <span class="va">item_id</span>, <span class="va">item_name</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 12 × 5</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    group item_id item_name value1 value2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span>     1       1 a              1      4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span>     1       1 b             <span style="color: #BB0000;">NA</span>     <span style="color: #BB0000;">NA</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span>     1       2 a             <span style="color: #BB0000;">NA</span>     <span style="color: #BB0000;">NA</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span>     1       2 b              3      6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span>     1       3 a             <span style="color: #BB0000;">NA</span>     <span style="color: #BB0000;">NA</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span>     1       3 b             <span style="color: #BB0000;">NA</span>     <span style="color: #BB0000;">NA</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span>     2       1 a             <span style="color: #BB0000;">NA</span>     <span style="color: #BB0000;">NA</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span>     2       1 b             <span style="color: #BB0000;">NA</span>     <span style="color: #BB0000;">NA</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span>     2       2 a             <span style="color: #BB0000;">NA</span>      5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span>     2       2 b             <span style="color: #BB0000;">NA</span>     <span style="color: #BB0000;">NA</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">11</span>     2       3 a             <span style="color: #BB0000;">NA</span>     <span style="color: #BB0000;">NA</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">12</span>     2       3 b              4      7</span>
 <span class="r-in"></span>
-<span class="r-in"><span class="co"># Within each `group`, explicitly represent every possible combination</span></span>
-<span class="r-in"><span class="co"># of `item_id` and `item_name` across the entire data set</span></span>
-<span class="r-in"><span class="co"># (Notice that {item_id = 3, item_name = b} shows up in `group` 1 even though</span></span>
-<span class="r-in"><span class="co"># that group didn't have `item_id` 3 originally)</span></span>
+<span class="r-in"><span class="co"># Cross all possible `group` values with the unique pairs of</span></span>
+<span class="r-in"><span class="co"># `(item_id, item_name)` that already exist in the data</span></span>
 <span class="r-in"><span class="fu">complete</span><span class="op">(</span><span class="va">df</span>, <span class="va">group</span>, <span class="fu"><a href="expand.html">nesting</a></span><span class="op">(</span><span class="va">item_id</span>, <span class="va">item_name</span><span class="op">)</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 8 × 5</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   group item_id item_name value1 value2</span>
@@ -174,11 +178,11 @@ of this, you cannot complete a grouping column.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">7</span>     2       2 b             <span style="color: #BB0000;">NA</span>     <span style="color: #BB0000;">NA</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">8</span>     2       3 b              4      7</span>
 <span class="r-in"></span>
-<span class="r-in"><span class="co"># Within each `group`, explicitly represent every possible combination</span></span>
-<span class="r-in"><span class="co"># of `item_id` and `item_name` that occurs in that group</span></span>
-<span class="r-in"><span class="co"># (Notice here that we don't see `item_id` 3 in `group` 1)</span></span>
-<span class="r-in"><span class="va">gdf</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">df</span>, <span class="va">group</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">complete</span><span class="op">(</span><span class="va">gdf</span>, <span class="va">item_id</span>, <span class="va">item_name</span><span class="op">)</span></span>
+<span class="r-in"><span class="co"># Within each `group`, generate all possible combinations of</span></span>
+<span class="r-in"><span class="co"># `item_id` and `item_name` that occur in that group</span></span>
+<span class="r-in"><span class="va">df</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
+<span class="r-in">  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">group</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
+<span class="r-in">  <span class="fu">complete</span><span class="op">(</span><span class="va">item_id</span>, <span class="va">item_name</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 8 × 5</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># Groups:   group [2]</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   group item_id item_name value1 value2</span>
