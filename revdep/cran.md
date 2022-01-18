@@ -1,8 +1,8 @@
 ## revdepcheck results
 
-We checked 1437 reverse dependencies (1427 from CRAN + 10 from Bioconductor), comparing R CMD check results across CRAN and dev versions of this package.
+We checked 1447 reverse dependencies (1437 from CRAN + 10 from Bioconductor), comparing R CMD check results across CRAN and dev versions of this package.
 
- * We saw 21 new problems
+ * We saw 14 new problems
  * We failed to check 3 packages
 
 Issues with CRAN packages are summarised below.
@@ -20,9 +20,6 @@ Issues with CRAN packages are summarised below.
 * crosstable
   checking tests ... ERROR
 
-* DiagrammeR
-  checking re-building of vignette outputs ... WARNING
-
 * DSSAT
   checking examples ... ERROR
 
@@ -30,20 +27,11 @@ Issues with CRAN packages are summarised below.
   checking examples ... ERROR
   checking tests ... ERROR
 
-* eudract
-  checking examples ... ERROR
-  checking tests ... ERROR
+* iotables
   checking re-building of vignette outputs ... WARNING
 
-* heuristicsmineR
-  checking examples ... ERROR
-
-* processanimateR
-  checking examples ... ERROR
-  checking re-building of vignette outputs ... WARNING
-
-* RavenR
-  checking examples ... ERROR
+* simpr
+  checking S3 generic/method consistency ... WARNING
 
 * skater
   checking re-building of vignette outputs ... WARNING
@@ -51,24 +39,10 @@ Issues with CRAN packages are summarised below.
 * sparklyr
   checking S3 generic/method consistency ... WARNING
 
-* ssimparser
-  checking examples ... ERROR
-
-* swissdd
-  checking examples ... ERROR
-
 * SWMPrExtension
   checking examples ... ERROR
 
-* tabshiftr
-  checking examples ... ERROR
-  checking tests ... ERROR
-  checking re-building of vignette outputs ... WARNING
-
 * tidygate
-  checking examples ... ERROR
-
-* tidytidbits
   checking examples ... ERROR
 
 * Tplyr
