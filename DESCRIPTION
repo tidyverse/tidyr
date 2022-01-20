@@ -57,5 +57,4 @@ RoxygenNote: 7.1.2
 SystemRequirements: C++11
 Config/testthat/edition: 3
 Config/Needs/website:
-    r-lib/pkgdown,
     tidyverse/tidytemplate
