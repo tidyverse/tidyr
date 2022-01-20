@@ -1,44 +1,3 @@
-# causact
-
-<details>
-
-* Version: 0.4.0
-* GitHub: https://github.com/flyaflya/causact
-* Source code: https://github.com/cran/causact
-* Date/Publication: 2021-01-25 17:00:11 UTC
-* Number of recursive dependencies: 86
-
-Run `cloud_details(, "causact")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘causact-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: dag_edge
-    > ### Title: Add an edge (or edges) between nodes in a graph object.
-    > ### Aliases: dag_edge
-    > 
-    > ### ** Examples
-    > 
-    > # Create a graph with 2 connected nodes
-    ...
-      7. ├─tidyr::replace_na(., "solid")
-      8. └─tidyr:::replace_na.default(., "solid")
-      9.   └─vctrs::vec_assign(data, missing, replace, x_arg = "data", value_arg = "replace")
-     10.     └─(function () ...
-     11.       └─vctrs::vec_default_cast(...)
-     12.         └─vctrs::stop_incompatible_cast(...)
-     13.           └─vctrs::stop_incompatible_type(...)
-     14.             └─vctrs:::stop_incompatible(...)
-     15.               └─vctrs:::stop_vctrs(...)
-    Execution halted
-    ```
-
 # covidregionaldata
 
 <details>
@@ -146,47 +105,6 @@ Run `cloud_details(, "crosstable")` for more info
       [ FAIL 1 | WARN 0 | SKIP 20 | PASS 326 ]
       Error: Test failures
       Execution halted
-    ```
-
-# DSSAT
-
-<details>
-
-* Version: 0.0.5
-* GitHub: https://github.com/palderman/DSSAT
-* Source code: https://github.com/cran/DSSAT
-* Date/Publication: 2021-12-21 16:32:02 UTC
-* Number of recursive dependencies: 46
-
-Run `cloud_details(, "DSSAT")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘DSSAT-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: add_v_fmt
-    > ### Title: Adds variable format information to a tibble
-    > ### Aliases: add_v_fmt
-    > 
-    > ### ** Examples
-    > 
-    > 
-    ...
-     19. ├─tidyr::replace_na(.data$width, "")
-     20. └─tidyr:::replace_na.default(.data$width, "")
-     21.   └─vctrs::vec_assign(data, missing, replace, x_arg = "data", value_arg = "replace")
-     22.     └─(function () ...
-     23.       └─vctrs::vec_default_cast(...)
-     24.         └─vctrs::stop_incompatible_cast(...)
-     25.           └─vctrs::stop_incompatible_type(...)
-     26.             └─vctrs:::stop_incompatible(...)
-     27.               └─vctrs:::stop_vctrs(...)
-    Execution halted
     ```
 
 # emayili
@@ -584,47 +502,6 @@ Run `cloud_details(, "Tplyr")` for more info
       ‘Tplyr.Rmd’ ‘denom.Rmd’ ‘shift.Rmd’
     
     Error: Vignette re-building failed.
-    Execution halted
-    ```
-
-# wpa
-
-<details>
-
-* Version: 1.6.3
-* GitHub: https://github.com/microsoft/wpa
-* Source code: https://github.com/cran/wpa
-* Date/Publication: 2021-11-21 05:30:02 UTC
-* Number of recursive dependencies: 120
-
-Run `cloud_details(, "wpa")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘wpa-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: workpatterns_classify
-    > ### Title: Classify working pattern personas using a rule based algorithm
-    > ### Aliases: workpatterns_classify
-    > 
-    > ### ** Examples
-    > 
-    > 
-    ...
-     14. │     └─mask$eval_all_summarise(quo)
-     15. ├─tidyr::complete(data = dplyr::cur_data(), ..., fill = fill, explicit = explicit)
-     16. ├─tidyr:::complete.data.frame(...)
-     17. │ ├─tidyr::expand(data, ...)
-     18. │ └─tidyr:::expand.data.frame(data, ...)
-     19. │   └─tidyr:::grid_dots(..., `_data` = data)
-     20. │     └─rlang::eval_tidy(dot, data = mask)
-     21. └─base::.handleSimpleError(...)
-     22.   └─dplyr:::h(simpleError(msg, call))
     Execution halted
     ```
 
