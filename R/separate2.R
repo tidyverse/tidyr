@@ -1,7 +1,8 @@
-#' Separate a character column with a delimiter
+#' Split a string into columns
 #'
-#' `separate_delim_wider()` produces a fixed number of new columns defined by
-#' `into`. `separate_delim_longer()` produces a variable number of rows.
+#' * `separate_wider_delim()` splits with a delimiter.
+#' * `separate_wider_fixed()` splits using fixed widths.
+#' * `separate_wider_regex()` splits using regular expression matches.
 #'
 #' @inheritParams unnest_longer
 #' @inheritParams separate
@@ -12,17 +13,17 @@
 #' @examples
 #' # If the number of components varies, it's most natural to split into rows
 #' df <- tibble(id = 1:4, x = c("x", "x y", "x y z", NA))
-#' df %>% separate_delim_longer(x, pattern = " ")
-#'
-#' # But it's still possible to split into rows
-#' df %>% separate_delim_wider(x, c("a", "b"), delim = " ")
+#' # But it's still possible to split into columns
+#' df %>% separate_wider_delim(x, c("a", "b"), delim = " ")
 #' # You can suppress the warnings by setting extra and fill
-#' df %>% separate_delim_wider(x, c("a", "b"), delim = " ", extra = "drop", fill = "right")
+#' df %>% separate_wider_delim(x, c("a", "b"), delim = " ", extra = "drop", fill = "right")
 #'
-#' # You can separate multiple columns at a time
-#' df <- tibble(id = 1:3, x = c("x", "x y", "x y z"), y = c("a", "a b", "a b c"))
-#' df %>% separate_delim_longer(c(x, y), " ")
-separate_delim_wider <- function(
+#' df <- tibble(id = 1:2, x = c("m-123", "f-455"))
+#' df %>% separate_wider_fixed(x, c(gender = 1, 1, unit = 3, test = 2))
+#'
+#' df <- tibble(id = 1:2, x = c("m-123", "f_4559"))
+#' df %>% separate_wider_regex(x, c(gender = ".", ".", unit = "\\d+"))
+separate_wider_delim <- function(
     data,
     cols,
     into,
@@ -51,41 +52,12 @@ separate_delim_wider <- function(
   unpack(data, all_of(col_names), names_sep = names_sep)
 }
 
-#' @export
-#' @rdname separate_delim_wider
-separate_delim_longer <- function(
-    data,
-    cols,
-    delim
-) {
-  check_installed("stringr")
-  check_present(cols)
-
-  # TODO: Use `allow_rename = FALSE` (https://github.com/r-lib/tidyselect/issues/225)
-  cols <- tidyselect::eval_select(enquo(cols), data)
-  col_names <- names(cols)
-
-  for (col in col_names) {
-    data[[col]] <- stringr::str_split(data[[col]], delim)
-  }
-  unchop(data, all_of(col_names))
-}
-
-#' Separate a character column by widths
-#'
-#' @inheritParams separate_delim_wider
+#' @rdname separate_wider_delim
 #' @param widths A named numeric vector where the names become column names,
 #'   and the values specify the column width. Omit the name to leave those
 #'   values out of the final output.
 #' @export
-#' @examples
-#' df <- tibble(id = 1:2, x = c("m-123", "f-455"))
-#' df %>% separate_width_wider(x, c(gender = 1, 1, unit = 3, test = 2))
-#'
-#' df <- tibble(id = 1:3, x = c("ab", "def", ""))
-#' df %>% separate_width_longer(x, 1)
-#' df %>% separate_width_longer(x, 2)
-separate_width_wider <- function(
+separate_wider_fixed <- function(
     data,
     cols,
     widths,
@@ -104,44 +76,14 @@ separate_width_wider <- function(
   unpack(data, all_of(col_names), names_sep = names_sep)
 }
 
-#' @export
-#' @param width Number of characters to split by.
-#' @param keep_empty By default, you'll get `nchar(x) / width` rows for
-#'   each observation. If `nchar(x)` is zero, this means the entire input
-#'   row will be dropped from the output. If you want to preserve all rows,
-#'   use `keep_empty = TRUE` to replace size-0 elements with a missing value.
-#' @rdname separate_width_wider
-separate_width_longer <- function(
-    data,
-    cols,
-    width,
-    keep_empty = FALSE
-) {
-  check_installed("stringr")
-  check_present(cols)
 
-  # TODO: Use `allow_rename = FALSE` (https://github.com/r-lib/tidyselect/issues/225)
-  cols <- tidyselect::eval_select(enquo(cols), data)
-  col_names <- names(cols)
-
-  for (col in col_names) {
-    data[[col]] <- str_split_length(data[[col]], width)
-  }
-  unchop(data, all_of(col_names), keep_empty = keep_empty)
-}
-
-#' Separate a character column by matching patterns
-#'
-#' @inheritParams separate_delim_wider
+#' @rdname separate_wider_delim
 #' @param patterns A named character vector where the names given names of
 #'   new columns in the output, and the values are regular expressions.
 #'   Unnamed components will match, but not be included in the output.
 #' @param match_complete Is the pattern required to match the entire string?
 #' @export
-#' @examples
-#' df <- tibble(id = 1:2, x = c("m-123", "f_4559"))
-#' df %>% separate_match(x, c(gender = ".", ".", unit = "\\d+"))
-separate_match <- function(
+separate_wider_regex <- function(
     data,
     cols,
     patterns,
@@ -169,6 +111,69 @@ separate_match <- function(
     data[[col]] <- as.data.frame(stringr::str_match(data[[col]], pattern)[, into])
   }
   unpack(data, all_of(col_names), names_sep = names_sep)
+}
+
+#' Split a string into rows
+#'
+#' * `separate_longer_delim()` splits by a delimiter.
+#' * `separate_longer_fixed()` splits by a fixed width.
+#'
+#' @export
+#' @inheritParams separate_wider_delim
+#' @examples
+#' df <- tibble(id = 1:4, x = c("x", "x y", "x y z", NA))
+#' df %>% separate_longer_delim(x, delim = " ")
+#'
+#' # You can separate multiple columns at a time
+#' df <- tibble(id = 1:3, x = c("x", "x y", "x y z"), y = c("a", "a b", "a b c"))
+#' df %>% separate_longer_delim(c(x, y), delim = " ")
+#'
+#' df <- tibble(id = 1:3, x = c("ab", "def", ""))
+#' df %>% separate_longer_fixed(x, 1)
+#' df %>% separate_longer_fixed(x, 2)
+#' df %>% separate_longer_fixed(x, 2, keep_empty = TRUE)
+separate_longer_delim <- function(
+    data,
+    cols,
+    delim
+) {
+  check_installed("stringr")
+  check_present(cols)
+
+  # TODO: Use `allow_rename = FALSE` (https://github.com/r-lib/tidyselect/issues/225)
+  cols <- tidyselect::eval_select(enquo(cols), data)
+  col_names <- names(cols)
+
+  for (col in col_names) {
+    data[[col]] <- stringr::str_split(data[[col]], delim)
+  }
+  unchop(data, all_of(col_names))
+}
+
+#' @param width Number of characters to split by.
+#' @param keep_empty By default, you'll get `nchar(x) / width` rows for
+#'   each observation. If `nchar(x)` is zero, this means the entire input
+#'   row will be dropped from the output. If you want to preserve all rows,
+#'   use `keep_empty = TRUE` to replace size-0 elements with a missing value.
+#' @rdname separate_longer_delim
+#' @export
+separate_longer_fixed <- function(
+    data,
+    cols,
+    width,
+    keep_empty = FALSE
+) {
+  check_installed("stringr")
+  check_present(cols)
+
+  # TODO: Use `allow_rename = FALSE` (https://github.com/r-lib/tidyselect/issues/225)
+  cols <- tidyselect::eval_select(enquo(cols), data)
+  col_names <- names(cols)
+
+  for (col in col_names) {
+    data[[col]] <- str_split_length(data[[col]], width)
+  }
+  unchop(data, all_of(col_names), keep_empty = keep_empty)
 }
 
 # helpers -----------------------------------------------------------------
@@ -212,14 +217,14 @@ list2df <- function(
   fill <- arg_match(fill)
 
   simp <- simplifyPieces(x, length(col_names), fill == "left")
-  list2df_warn(warn_fill, warn_drop, simp$too_sml, simp$too_big)
+  list2df_warn(warn_fill, warn_drop, simp$too_sml, simp$too_big, length(col_names))
 
   out <- simp$strings[!is.na(col_names)]
   names(out) <- col_names[!is.na(col_names)]
   tibble::as_tibble(out)
 }
 
-list2df_warn <- function(warn_fill, warn_drop, too_sml, too_big) {
+list2df_warn <- function(warn_fill, warn_drop, too_sml, too_big, p) {
   warnings <- character()
 
   n_big <- length(too_big)
@@ -235,6 +240,6 @@ list2df_warn <- function(warn_fill, warn_drop, too_sml, too_big) {
   }
 
   if (length(warnings) > 0) {
-    warn(c(glue("Expected {n} pieces in each row."), warnings))
+    warn(c(glue("Expected {p} pieces in each row."), warnings))
   }
 }
