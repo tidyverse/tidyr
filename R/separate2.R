@@ -193,7 +193,7 @@ str_at_wide <- function(x, widths) {
   breaks <- cumsum(c(1, unname(widths)))[-(length(widths) + 1)]
   from <- cbind(breaks, length = widths)[!skip, ]
 
-  pieces <- stringi::stri_sub_all(x, from)
+  pieces <- stringr::str_sub_all(x, from)
   pieces <- lapply(pieces, function(x) x[x != ""])
   list2df(pieces, names(widths)[!skip], warn_fill = FALSE)
 }
@@ -202,7 +202,7 @@ str_split_length <- function(x, n = 1) {
   max_length <- max(stringr::str_length(x))
   idx <- seq(1, max_length, by = n)
 
-  pieces <- stringi::stri_sub_all(x, cbind(idx, length = n))
+  pieces <- stringr::str_sub_all(x, cbind(idx, length = n))
   pieces <- lapply(pieces, function(x) x[x != ""])
   pieces
 }
