@@ -59,14 +59,14 @@ integers.}
 \examples{
 # If the number of components varies, it's most natural to split into rows
 df <- tibble(id = 1:4, x = c("x", "x y", "x y z", NA))
-df \%>\% separate_by_longer(x, pattern = " ")
+df \%>\% separate_delim_longer(x, pattern = " ")
 
 # But it's still possible to split into rows
-df \%>\% separate_by_wider(x, c("a", "b"), pattern = " ")
+df \%>\% separate_delim_wider(x, c("a", "b"), delim = " ")
 # You can suppress the warnings by setting extra and fill
-df \%>\% separate(x, c("a", "b"), extra = "drop", fill = "right")
+df \%>\% separate_delim_wider(x, c("a", "b"), delim = " ", extra = "drop", fill = "right")
 
 # You can separate multiple columns at a time
 df <- tibble(id = 1:3, x = c("x", "x y", "x y z"), y = c("a", "a b", "a b c"))
-df \%>\% separate_by_longer(c(x, y), " ")
+df \%>\% separate_delim_longer(c(x, y), " ")
 }

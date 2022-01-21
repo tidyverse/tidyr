@@ -12,16 +12,16 @@
 #' @examples
 #' # If the number of components varies, it's most natural to split into rows
 #' df <- tibble(id = 1:4, x = c("x", "x y", "x y z", NA))
-#' df %>% separate_by_longer(x, pattern = " ")
+#' df %>% separate_delim_longer(x, pattern = " ")
 #'
 #' # But it's still possible to split into rows
-#' df %>% separate_by_wider(x, c("a", "b"), pattern = " ")
+#' df %>% separate_delim_wider(x, c("a", "b"), delim = " ")
 #' # You can suppress the warnings by setting extra and fill
-#' df %>% separate(x, c("a", "b"), extra = "drop", fill = "right")
+#' df %>% separate_delim_wider(x, c("a", "b"), delim = " ", extra = "drop", fill = "right")
 #'
 #' # You can separate multiple columns at a time
 #' df <- tibble(id = 1:3, x = c("x", "x y", "x y z"), y = c("a", "a b", "a b c"))
-#' df %>% separate_by_longer(c(x, y), " ")
+#' df %>% separate_delim_longer(c(x, y), " ")
 separate_delim_wider <- function(
     data,
     cols,
@@ -43,7 +43,7 @@ separate_delim_wider <- function(
   for (col in col_names) {
     data[[col]] <- str_split_wider(data[[col]],
       into = into,
-      delim = delim,
+      pattern = delim,
       fill = fill,
       extra = extra
     )
@@ -194,10 +194,10 @@ str_at_wide <- function(x, widths) {
 }
 
 str_split_length <- function(x, n = 1) {
-  max_length <- max(stri_length(x))
+  max_length <- max(stringr::str_length(x))
   idx <- seq(1, max_length, by = n)
 
-  pieces <- stri_sub_all(x, cbind(idx, length = n))
+  pieces <- stringi::stri_sub_all(x, cbind(idx, length = n))
   pieces <- lapply(pieces, function(x) x[x != ""])
   pieces
 }
