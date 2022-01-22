@@ -117,6 +117,13 @@ df \%>\% separate_wider_fixed(x, c(gender = 1, 1, unit = 3))
 # * defining each component with a regular expression
 df \%>\% separate_wider_regex(x, c(gender = ".", ".", unit = "\\\\d+"))
 
+# Sometimes you split on the "last" delimiter:
+df <- data.frame(var = c("race_1", "race_2", "age_bucket_1", "age_bucket_2"))
+# _delim won't help because it always splits on the first delimiter
+df \%>\% separate_wider_delim(var, "_", names = c("var1", "var2"), extra = "merge")
+# Instead, you can use _regex:
+df \%>\% separate_wider_regex(var, c(var1 = ".*", "_", var2 = ".*"))
+
 # If the number of components varies, it's most natural to split into rows
 df <- tibble(id = 1:4, x = c("x", "x y", "x y z", NA))
 df \%>\% separate_longer_delim(x, delim = " ")
