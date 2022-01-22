@@ -19,6 +19,9 @@
 #' @inheritParams separate
 #' @param cols String columns to separate into pieces. If needed, you can use
 #'   tidyselect to multiple columns.
+#' @param names,names_sep Specify either either a fixed number of column
+#'   `names` or use `names_sep` to generate new names from the source column
+#'   name and a numeric suffix.
 #' @param delim Delimiter between columns, a stringr pattern.
 #'
 #'   Note that the default is a regular expression so that `delim = "."` will
@@ -29,7 +32,7 @@
 #' df <- tibble(id = 1:2, x = c("m-123", "f-455"))
 #' # There are three basic ways to split up a string into pieces.
 #' # * with a delimiter
-#' df %>% separate_wider_delim(x, c("gender", "unit"), delim = "-")
+#' df %>% separate_wider_delim(x, delim = "-", c("gender", "unit"))
 #' # * by length
 #' df %>% separate_wider_fixed(x, c(gender = 1, 1, unit = 3))
 #' # * defining each component with a regular expression
@@ -40,28 +43,34 @@
 #' df %>% separate_longer_delim(x, delim = " ")
 #' # But separate_wider_delim() provides some tools to deal with the problem
 #' # The default behaviour tells you where the problems lie:
-#' df %>% separate_wider_delim(x, c("a", "b"), delim = " ")
+#' df %>% separate_wider_delim(x, delim = " ", names = c("a", "b"))
 #' # You can suppress the warnings by setting extra and fill
 #' df %>% separate_wider_delim(x, c("a", "b"), delim = " ", extra = "drop", fill = "right")
 #' # Or choose to handle differently
 #' df %>% separate_wider_delim(x, c("a", "b"), delim = " ", extra = "merge", fill = "left")
+#' # Or automatically name the columns
+#' #' df %>% separate_wider_delim(x, delim = " ", names_sep = "", fill = "right")
 separate_wider_delim <- function(
     data,
     cols,
-    into,
     delim,
+    names = NULL,
+    names_sep = NULL,
     extra = c("warn", "drop", "merge"),
     fill = c("warn", "right", "left"),
-    names_sep = NULL,
     names_repair = "check_unique"
 ) {
   check_installed("stringr")
   check_present(cols)
 
+  if (!xor(is.null(names), is.null(names_sep))) {
+    abort("Must specify one of `names` or `names_sep`")
+  }
+
   map_unpack(
     data, {{ cols }},
     str_separate_wider_delim,
-    into = into,
+    names = names,
     delim = delim,
     extra = extra,
     fill = fill,
@@ -139,14 +148,14 @@ map_unpack <- function(data, cols, fun, ..., .names_sep, .names_repair) {
 
 str_separate_wider_delim <- function(
     x,
-    into,
+    names,
     delim,
     extra = c("warn", "drop", "merge"),
     fill = c("warn", "right", "left")
 ) {
 
-  if (!is.character(into) || is_named(into) || length(into) == 0) {
-    abort("`into` must be an unnamed character vector")
+  if (!is.null(names) && (!is.character(names) || is_named(names) || length(names) == 0)) {
+    abort("`names` must be an unnamed character vector")
   }
   if (!is_string(delim)) {
     abort("`delim` must be a string")
@@ -154,9 +163,14 @@ str_separate_wider_delim <- function(
   extra <- arg_match(extra)
   fill <- arg_match(fill)
 
-  n <- if (extra == "merge") length(into) else Inf
+  n <- if (extra == "merge") length(names) else Inf
   pieces <- stringr::str_split(x, delim, n = n)
-  list2df(pieces, into,
+
+  if (is.null(names)) {
+    names <- seq_len(max(lengths(pieces)))
+  }
+
+  list2df(pieces, names,
     fill = if (fill == "left") "left" else "right",
     warn_drop = extra == "warn",
     warn_fill = fill == "warn"

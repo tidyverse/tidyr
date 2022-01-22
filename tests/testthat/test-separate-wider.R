@@ -1,7 +1,14 @@
+test_that("separate_wider_delim() can create column names", {
+  df <- data.frame(x = c("a b", "x y"))
+  out <- df %>% separate_wider_delim(x, " ", names_sep = "")
+  expect_equal(out$x1, c("a", "x"))
+  expect_equal(out$x2, c("b", "y"))
+})
+
 test_that("separate_wider_delim() warns about too few/too many values", {
   df <- data.frame(x = c("x", "x y", "x y z"))
   expect_snapshot_warning(
-    out <- df %>% separate_wider_delim(x, c("a", "b"), delim = " ")
+    out <- df %>% separate_wider_delim(x, " ", names = c("a", "b"))
   )
   expect_equal(out[1, ], tibble(a = "x", b = NA_character_))
   expect_equal(out[3, ], tibble(a = "x", b = "y"))
@@ -9,16 +16,16 @@ test_that("separate_wider_delim() warns about too few/too many values", {
 
 test_that("separate_wider_delim() can control too few/too many values", {
   df <- data.frame(x = c("x", "x y", "x y z"))
-  out <- df %>% separate_wider_delim(x, c("a", "b"),
-    delim = " ",
+  out <- df %>% separate_wider_delim(x, " ",
+    names = c("a", "b"),
     extra = "merge",
     fill = "left"
   )
   expect_equal(out[1, ], tibble(a = NA_character_, b = "x"))
   expect_equal(out[3, ], tibble(a = "x", b = "y z"))
 
-  out <- df %>% separate_wider_delim(x, c("a", "b"),
-    delim = " ",
+  out <- df %>% separate_wider_delim(x,  " ",
+    names = c("a", "b"),
     extra = "drop",
     fill = "left"
   )
@@ -29,9 +36,12 @@ test_that("separate_wider_delim() validates its inputs", {
   df <- data.frame(x = "x")
   expect_snapshot(error = TRUE, {
     df %>% separate_wider_delim()
-    df %>% separate_wider_delim(x, into = 1)
-    df %>% separate_wider_delim(x, into = c(x = "x"))
-    df %>% separate_wider_delim(x, into = "y", delim = 1)
+    df %>% separate_wider_delim(x, names = 1)
+    df %>% separate_wider_delim(x, names = c(x = "x"))
+    df %>% separate_wider_delim(x, names = "y", delim = 1)
+
+    df %>% separate_wider_delim(x, delim = "")
+    df %>% separate_wider_delim(x, names = "y", names_sep = "")
   })
 })
 

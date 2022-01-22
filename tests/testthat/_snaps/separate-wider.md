@@ -11,17 +11,25 @@
     Error <rlang_error>
       Argument `cols` is missing with no default
     Code
-      df %>% separate_wider_delim(x, into = 1)
+      df %>% separate_wider_delim(x, names = 1)
     Error <rlang_error>
-      `into` must be an unnamed character vector
+      `names` must be an unnamed character vector
     Code
-      df %>% separate_wider_delim(x, into = c(x = "x"))
+      df %>% separate_wider_delim(x, names = c(x = "x"))
     Error <rlang_error>
-      `into` must be an unnamed character vector
+      `names` must be an unnamed character vector
     Code
-      df %>% separate_wider_delim(x, into = "y", delim = 1)
+      df %>% separate_wider_delim(x, names = "y", delim = 1)
     Error <rlang_error>
       `delim` must be a string
+    Code
+      df %>% separate_wider_delim(x, delim = "")
+    Error <rlang_error>
+      Must specify one of `names` or `names_sep`
+    Code
+      df %>% separate_wider_delim(x, names = "y", names_sep = "")
+    Error <rlang_error>
+      Must specify one of `names` or `names_sep`
 
 # separate_wider_fixed() validates its inputs
 

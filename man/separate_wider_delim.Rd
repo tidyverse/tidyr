@@ -9,11 +9,11 @@
 separate_wider_delim(
   data,
   cols,
-  into,
   delim,
+  names = NULL,
+  names_sep = NULL,
   extra = c("warn", "drop", "merge"),
   fill = c("warn", "right", "left"),
-  names_sep = NULL,
   names_repair = "check_unique"
 )
 
@@ -40,14 +40,15 @@ separate_wider_regex(
 \item{cols}{String columns to separate into pieces. If needed, you can use
 tidyselect to multiple columns.}
 
-\item{into}{Names of new variables to create as character vector.
-Use \code{NA} to omit the variable in the output.}
-
 \item{delim}{Delimiter between columns, a stringr pattern.
 
 Note that the default is a regular expression so that \code{delim = "."} will
 split on every character. If you need to split by a special character, you
 can use \code{delim = stringr::fixed(".")}.}
+
+\item{names, names_sep}{Specify either either a fixed number of column
+\code{names} or use \code{names_sep} to generate new names from the source column
+name and a numeric suffix.}
 
 \item{extra}{If \code{sep} is a character vector, this controls what
 happens when there are too many pieces. There are three valid options:
@@ -64,14 +65,6 @@ happens when there are not enough pieces. There are three valid options:
 \item "right": fill with missing values on the right
 \item "left": fill with missing values on the left
 }}
-
-\item{names_sep}{If \code{NULL}, the default, the names will be left
-as is. If a string, the outer and inner names will be pasted together using
-\code{names_sep} as a separator.
-
-If the values being unnested are unnamed and \code{names_sep} is supplied, the
-inner names will be automatically generated as an increasing sequence of
-integers.}
 
 \item{names_repair}{Used to check that output data frame has valid
 names. Must be one of the following options:
@@ -118,7 +111,7 @@ manipulation engine, and their interfaces reflect what we've learned from
 df <- tibble(id = 1:2, x = c("m-123", "f-455"))
 # There are three basic ways to split up a string into pieces.
 # * with a delimiter
-df \%>\% separate_wider_delim(x, c("gender", "unit"), delim = "-")
+df \%>\% separate_wider_delim(x, delim = "-", c("gender", "unit"))
 # * by length
 df \%>\% separate_wider_fixed(x, c(gender = 1, 1, unit = 3))
 # * defining each component with a regular expression
@@ -129,9 +122,11 @@ df <- tibble(id = 1:4, x = c("x", "x y", "x y z", NA))
 df \%>\% separate_longer_delim(x, delim = " ")
 # But separate_wider_delim() provides some tools to deal with the problem
 # The default behaviour tells you where the problems lie:
-df \%>\% separate_wider_delim(x, c("a", "b"), delim = " ")
+df \%>\% separate_wider_delim(x, delim = " ", names = c("a", "b"))
 # You can suppress the warnings by setting extra and fill
 df \%>\% separate_wider_delim(x, c("a", "b"), delim = " ", extra = "drop", fill = "right")
 # Or choose to handle differently
 df \%>\% separate_wider_delim(x, c("a", "b"), delim = " ", extra = "merge", fill = "left")
+# Or automatically name the columns
+#' df \%>\% separate_wider_delim(x, delim = " ", names_sep = "", fill = "right")
 }
