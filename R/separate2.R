@@ -71,7 +71,7 @@ separate_wider_delim <- function(
   col_names <- names(cols)
 
   for (col in col_names) {
-    data[[col]] <- str_split_wider(data[[col]],
+    data[[col]] <- str_separate_wider_delim(data[[col]],
       into = into,
       pattern = delim,
       fill = fill,
@@ -234,7 +234,7 @@ str_separate_wider_delim <- function(x, into, pattern, fill = "warn", extra = "w
   n <- if (extra == "merge") length(into) else Inf
   pieces <- stringr::str_split(x, pattern, n = n)
   list2df(pieces, into,
-    fill = if (fill == "right") "right" else "left",
+    fill = if (fill == "left") "left" else "right",
     warn_drop = extra == "warn",
     warn_fill = fill == "warn"
   )

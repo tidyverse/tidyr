@@ -1,6 +1,33 @@
 
 # wider -------------------------------------------------------------------
 
+test_that("separate_wider_delim() warns about too few/too many values", {
+  df <- data.frame(x = c("x", "x y", "x y z"))
+  expect_snapshot_warning(
+    out <- df %>% separate_wider_delim(x, c("a", "b"), delim = " ")
+  )
+  expect_equal(out[1, ], tibble(a = "x", b = NA_character_))
+  expect_equal(out[3, ], tibble(a = "x", b = "y"))
+})
+
+test_that("separate_wider_delim() can control too few/too many values", {
+  df <- data.frame(x = c("x", "x y", "x y z"))
+  out <- df %>% separate_wider_delim(x, c("a", "b"),
+    delim = " ",
+    extra = "merge",
+    fill = "left"
+  )
+  expect_equal(out[1, ], tibble(a = NA_character_, b = "x"))
+  expect_equal(out[3, ], tibble(a = "x", b = "y z"))
+
+  out <- df %>% separate_wider_delim(x, c("a", "b"),
+    delim = " ",
+    extra = "drop",
+    fill = "left"
+  )
+  expect_equal(out[3, ], tibble(a = "x", b = "y"))
+})
+
 test_that("separate_wider_delim() validates its inputs", {
   df <- data.frame(x = "x")
   expect_snapshot(error = TRUE, {

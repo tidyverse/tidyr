@@ -1,3 +1,9 @@
+# separate_wider_delim() warns about too few/too many values
+
+    Expected 2 pieces in each row.
+    * Dropped extra pieces in 1 rows: 3.
+    * Filled in missing pieces in 1 rows: 1.
+
 # separate_wider_delim() validates its inputs
 
     Code
