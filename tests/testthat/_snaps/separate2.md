@@ -60,9 +60,9 @@
     Error <rlang_error>
       Argument `cols` is missing with no default
     Code
-      df %>% separate_longer_delim(delim = 1)
+      df %>% separate_longer_delim(x, delim = 1)
     Error <rlang_error>
-      Argument `cols` is missing with no default
+      `delim` must be a string
 
 # separate_longer_fixed() validates its inputs
 
