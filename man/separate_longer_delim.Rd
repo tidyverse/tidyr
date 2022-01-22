@@ -12,10 +12,14 @@ separate_longer_fixed(data, cols, width, keep_empty = FALSE)
 \arguments{
 \item{data}{A data frame.}
 
-\item{cols}{String columns to separate into pieces. If neeeded, you can use
+\item{cols}{String columns to separate into pieces. If needed, you can use
 tidyselect to multiple columns.}
 
-\item{delim}{Delimer between columns, a stringr regular expression.}
+\item{delim}{Delimiter between columns, a stringr pattern.
+
+Note that the default is a regular expression so that \code{delim = "."} will
+split on every character. If you need to split by a special character, you
+can use \code{delim = stringr::fixed(".")}.}
 
 \item{width}{Number of characters to split by.}
 
@@ -25,6 +29,9 @@ row will be dropped from the output. If you want to preserve all rows,
 use \code{keep_empty = TRUE} to replace size-0 elements with a missing value.}
 }
 \description{
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
+
+Each of these functions takes a string and splits it into multiple rows:
 \itemize{
 \item \code{separate_longer_delim()} splits by a delimiter.
 \item \code{separate_longer_fixed()} splits by a fixed width.
@@ -38,6 +45,7 @@ df \%>\% separate_longer_delim(x, delim = " ")
 df <- tibble(id = 1:3, x = c("x", "x y", "x y z"), y = c("a", "a b", "a b c"))
 df \%>\% separate_longer_delim(c(x, y), delim = " ")
 
+# Or instead split by a fixed length
 df <- tibble(id = 1:3, x = c("ab", "def", ""))
 df \%>\% separate_longer_fixed(x, 1)
 df \%>\% separate_longer_fixed(x, 2)

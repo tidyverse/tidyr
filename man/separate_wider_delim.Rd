@@ -29,13 +29,17 @@ separate_wider_regex(
 \arguments{
 \item{data}{A data frame.}
 
-\item{cols}{String columns to separate into pieces. If neeeded, you can use
+\item{cols}{String columns to separate into pieces. If needed, you can use
 tidyselect to multiple columns.}
 
 \item{into}{Names of new variables to create as character vector.
 Use \code{NA} to omit the variable in the output.}
 
-\item{delim}{Delimer between columns, a stringr regular expression.}
+\item{delim}{Delimiter between columns, a stringr pattern.
+
+Note that the default is a regular expression so that \code{delim = "."} will
+split on every character. If you need to split by a special character, you
+can use \code{delim = stringr::fixed(".")}.}
 
 \item{extra}{If \code{sep} is a character vector, this controls what
 happens when there are too many pieces. There are three valid options:
@@ -72,23 +76,39 @@ Unnamed components will match, but not be included in the output.}
 \item{match_complete}{Is the pattern required to match the entire string?}
 }
 \description{
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
+
+Each of these functions takes a string column and splits it into multiple
+new columns:
 \itemize{
 \item \code{separate_wider_delim()} splits with a delimiter.
 \item \code{separate_wider_fixed()} splits using fixed widths.
 \item \code{separate_wider_regex()} splits using regular expression matches.
 }
+
+These functions are equivalent to \code{\link[=separate]{separate()}} and \code{\link[=extract]{extract()}}.  but use
+\href{http://stringr.tidyverse.org/}{stringr} as the underlying string
+manipulation engine, and their interfaces reflect what we've learned from
+\code{\link[=unnest_wider]{unnest_wider()}} and \code{\link[=unnest_longer]{unnest_longer()}}.
 }
 \examples{
+df <- tibble(id = 1:2, x = c("m-123", "f-455"))
+# There are three basic ways to split up a string into pieces.
+# * with a delimiter
+df \%>\% separate_wider_delim(x, c("gender", "unit"), delim = "-")
+# * by length
+df \%>\% separate_wider_fixed(x, c(gender = 1, 1, unit = 3))
+# * defining each component with a regular expression
+df \%>\% separate_wider_regex(x, c(gender = ".", ".", unit = "\\\\d+"))
+
 # If the number of components varies, it's most natural to split into rows
 df <- tibble(id = 1:4, x = c("x", "x y", "x y z", NA))
-# But it's still possible to split into columns
+df \%>\% separate_longer_delim(x, delim = " ")
+# But separate_wider_delim() provides some tools to deal with the problem
+# The default behaviour tells you where the problems lie:
 df \%>\% separate_wider_delim(x, c("a", "b"), delim = " ")
 # You can suppress the warnings by setting extra and fill
 df \%>\% separate_wider_delim(x, c("a", "b"), delim = " ", extra = "drop", fill = "right")
-
-df <- tibble(id = 1:2, x = c("m-123", "f-455"))
-df \%>\% separate_wider_fixed(x, c(gender = 1, 1, unit = 3, test = 2))
-
-df <- tibble(id = 1:2, x = c("m-123", "f_4559"))
-df \%>\% separate_wider_regex(x, c(gender = ".", ".", unit = "\\\\d+"))
+# Or choose to handle differently
+df \%>\% separate_wider_delim(x, c("a", "b"), delim = " ", extra = "merge", fill = "left")
 }
