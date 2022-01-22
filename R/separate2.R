@@ -104,7 +104,7 @@ separate_wider_fixed <- function(
   col_names <- names(cols)
 
   for (col in col_names) {
-    data[[col]] <- str_at_wide(data[[col]], widths)
+    data[[col]] <- str_separate_wider_fixed(data[[col]], widths)
   }
   unpack(data, all_of(col_names), names_sep = names_sep)
 }

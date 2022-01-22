@@ -38,6 +38,21 @@ test_that("separate_wider_delim() validates its inputs", {
   })
 })
 
+test_that("separate_wider_fixed() fills too short with NA", {
+  # TODO: should these warn?
+  df <- data.frame(x = c("ab", "abc", "abcd"))
+  out <- df %>% separate_wider_fixed(x, widths = c("a" = 2, "b" = 1))
+  expect_equal(out[1, ], tibble(a = "ab", b = NA_character_))
+  expect_equal(out[2, ], tibble(a = "ab", b = "c"))
+  expect_equal(out[3, ], tibble(a = "ab", b = "c"))
+})
+
+test_that("separate_wider_fixed() can drop values", {
+  df <- data.frame(x = "a-b")
+  out <- df %>% separate_wider_fixed(x, widths = c("a" = 1, 1, "b" = 1))
+  expect_equal(out, tibble(a = "a", b = "b"))
+})
+
 test_that("separate_wider_fixed() validates its inputs", {
   df <- data.frame(x = "x")
   expect_snapshot(error = TRUE, {
