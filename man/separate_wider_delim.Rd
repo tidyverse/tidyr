@@ -13,17 +13,25 @@ separate_wider_delim(
   delim,
   extra = c("warn", "drop", "merge"),
   fill = c("warn", "right", "left"),
-  names_sep = NULL
+  names_sep = NULL,
+  names_repair = "check_unique"
 )
 
-separate_wider_fixed(data, cols, widths, names_sep = NULL)
+separate_wider_fixed(
+  data,
+  cols,
+  widths,
+  names_sep = NULL,
+  names_repair = "check_unique"
+)
 
 separate_wider_regex(
   data,
   cols,
   patterns,
   match_complete = TRUE,
-  names_sep = NULL
+  names_sep = NULL,
+  names_repair = "check_unique"
 )
 }
 \arguments{
@@ -64,6 +72,21 @@ as is. If a string, the outer and inner names will be pasted together using
 If the values being unnested are unnamed and \code{names_sep} is supplied, the
 inner names will be automatically generated as an increasing sequence of
 integers.}
+
+\item{names_repair}{Used to check that output data frame has valid
+names. Must be one of the following options:
+\itemize{
+\item "minimal": no name repair or checks, beyond basic existence,
+\item "unique": make sure names are unique and not empty,
+\item "check_unique": (the default), no name repair, but check they are unique,
+\item "universal": make the names unique and syntactic
+\item a function: apply custom name repair.
+\item \link{tidyr_legacy}: use the name repair from tidyr 0.8.
+\item a formula: a purrr-style anonymous function (see \code{\link[rlang:as_function]{rlang::as_function()}})
+}
+
+See \code{\link[vctrs:vec_as_names]{vctrs::vec_as_names()}} for more details on these terms and the
+strategies used to enforce them.}
 
 \item{widths}{A named numeric vector where the names become column names,
 and the values specify the column width. Omit the name to leave those

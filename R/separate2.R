@@ -52,7 +52,8 @@ separate_wider_delim <- function(
     delim,
     extra = c("warn", "drop", "merge"),
     fill = c("warn", "right", "left"),
-    names_sep = NULL
+    names_sep = NULL,
+    names_repair = "check_unique"
 ) {
   check_installed("stringr")
 
@@ -78,7 +79,7 @@ separate_wider_delim <- function(
       extra = extra
     )
   }
-  unpack(data, all_of(col_names), names_sep = names_sep)
+  unpack(data, all_of(col_names), names_sep = names_sep, names_repair = names_repair)
 }
 
 #' @rdname separate_wider_delim
@@ -90,7 +91,8 @@ separate_wider_fixed <- function(
     data,
     cols,
     widths,
-    names_sep = NULL
+    names_sep = NULL,
+    names_repair = "check_unique"
 ) {
   check_installed("stringr")
 
@@ -106,7 +108,7 @@ separate_wider_fixed <- function(
   for (col in col_names) {
     data[[col]] <- str_separate_wider_fixed(data[[col]], widths)
   }
-  unpack(data, all_of(col_names), names_sep = names_sep)
+  unpack(data, all_of(col_names), names_sep = names_sep, names_repair = names_repair)
 }
 
 #' @rdname separate_wider_delim
@@ -120,7 +122,8 @@ separate_wider_regex <- function(
     cols,
     patterns,
     match_complete = TRUE,
-    names_sep = NULL
+    names_sep = NULL,
+    names_repair = "check_unique"
 ) {
   check_installed("stringr")
   check_present(cols)
@@ -149,7 +152,7 @@ separate_wider_regex <- function(
   for (col in col_names) {
     data[[col]] <- as_tibble(stringr::str_match(data[[col]], pattern)[, into, drop = FALSE])
   }
-  unpack(data, all_of(col_names), names_sep = names_sep)
+  unpack(data, all_of(col_names), names_sep = names_sep, names_repair = names_repair)
 }
 
 #' Split a string into rows
