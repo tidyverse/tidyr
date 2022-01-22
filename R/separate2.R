@@ -147,7 +147,7 @@ separate_wider_regex <- function(
   }
 
   for (col in col_names) {
-    data[[col]] <- as_tibble(stringr::str_match(data[[col]], pattern)[, into])
+    data[[col]] <- as_tibble(stringr::str_match(data[[col]], pattern)[, into, drop = FALSE])
   }
   unpack(data, all_of(col_names), names_sep = names_sep)
 }

@@ -62,6 +62,30 @@ test_that("separate_wider_fixed() validates its inputs", {
   })
 })
 
+test_that("separate_wider_regex() can extract columns", {
+  df <- data.frame(x = "a123")
+  out <- df %>% separate_wider_regex(x, c("a" = ".", "b" = "\\d+"))
+  expect_equal(out, tibble(a = "a", b = "123"))
+})
+
+test_that("separate_wider_regex() can drop values", {
+  df <- data.frame(x = "ab123")
+  out <- df %>% separate_wider_regex(x, c("a" = ".", ".", "b" = "\\d+"))
+  expect_equal(out, tibble(a = "a", b = "123"))
+})
+
+test_that("separate_wider_regexp() requires complete match by default", {
+  df <- data.frame(x = " a123 ")
+  out <- df %>% separate_wider_regex(x, c("a" = ".", "b" = "\\d+"))
+  expect_equal(out, tibble(a = NA_character_, b = NA_character_))
+
+  out <- df %>% separate_wider_regex(
+    x, c("a" = ".", "b" = "\\d+"),
+    match_complete = FALSE
+  )
+  expect_equal(out, tibble(a = "a", b = "123"))
+})
+
 test_that("separate_wider_regex() validates its inputs", {
   df <- data.frame(x = "x")
   expect_snapshot(error = TRUE, {
