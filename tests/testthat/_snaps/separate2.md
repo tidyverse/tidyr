@@ -32,11 +32,11 @@
     Code
       df %>% separate_wider_fixed(x, widths = 1.5)
     Error <rlang_error>
-      `col` must be a named integer vector
+      `widths` must be a named integer vector
     Code
       df %>% separate_wider_fixed(x, widths = 1L)
     Error <rlang_error>
-      `col` must be a named integer vector
+      `widths` must be a named integer vector
 
 # separate_wider_regex() validates its inputs
 

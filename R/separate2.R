@@ -56,30 +56,18 @@ separate_wider_delim <- function(
     names_repair = "check_unique"
 ) {
   check_installed("stringr")
-
   check_present(cols)
-  if (!is.character(into) || is_named(into) || length(into) == 0) {
-    abort("`into` must be an unnamed character vector")
-  }
-  if (!is_string(delim)) {
-    abort("`delim` must be a string")
-  }
-  extra <- arg_match(extra)
-  fill <- arg_match(fill)
 
-  # TODO: Use `allow_rename = FALSE` (https://github.com/r-lib/tidyselect/issues/225)
-  cols <- tidyselect::eval_select(enquo(cols), data)
-  col_names <- names(cols)
-
-  for (col in col_names) {
-    data[[col]] <- str_separate_wider_delim(data[[col]],
-      into = into,
-      pattern = delim,
-      fill = fill,
-      extra = extra
-    )
-  }
-  unpack(data, all_of(col_names), names_sep = names_sep, names_repair = names_repair)
+  map_unpack(
+    data, {{ cols }},
+    str_separate_wider_delim,
+    into = into,
+    delim = delim,
+    extra = extra,
+    fill = fill,
+    .names_sep = names_sep,
+    .names_repair = names_repair
+  )
 }
 
 #' @rdname separate_wider_delim
@@ -95,20 +83,15 @@ separate_wider_fixed <- function(
     names_repair = "check_unique"
 ) {
   check_installed("stringr")
-
   check_present(cols)
-  if (!is_integerish(widths) || all(!have_name(widths))) {
-    abort("`col` must be a named integer vector")
-  }
 
-  # TODO: Use `allow_rename = FALSE` (https://github.com/r-lib/tidyselect/issues/225)
-  cols <- tidyselect::eval_select(enquo(cols), data)
-  col_names <- names(cols)
-
-  for (col in col_names) {
-    data[[col]] <- str_separate_wider_fixed(data[[col]], widths)
-  }
-  unpack(data, all_of(col_names), names_sep = names_sep, names_repair = names_repair)
+  map_unpack(
+    data, {{ cols }},
+    str_separate_wider_fixed,
+    widths = widths,
+    .names_sep = names_sep,
+    .names_repair = names_repair
+  )
 }
 
 #' @rdname separate_wider_delim
@@ -128,31 +111,14 @@ separate_wider_regex <- function(
   check_installed("stringr")
   check_present(cols)
 
-  if (!is.character(patterns) || all(!have_name(patterns))) {
-    abort("`patterns` must be a named character vector")
-  }
-  if (!is_bool(match_complete)) {
-    abort("`match_complete` must be TRUE or FALSE")
-  }
-
-  # TODO: Use `allow_rename = FALSE` (https://github.com/r-lib/tidyselect/issues/225)
-  cols <- tidyselect::eval_select(enquo(cols), data)
-  col_names <- names(cols)
-
-  has_name <- names2(patterns) != ""
-  into <- names2(patterns)[has_name]
-  patterns[has_name] <- paste0("(?<", into, ">", patterns[has_name], ")")
-  patterns[!has_name] <- paste0("(?:", patterns[!has_name], ")")
-  pattern <- paste(patterns, collapse = "")
-
-  if (match_complete) {
-    pattern <- paste0("^", pattern, "$")
-  }
-
-  for (col in col_names) {
-    data[[col]] <- as_tibble(stringr::str_match(data[[col]], pattern)[, into, drop = FALSE])
-  }
-  unpack(data, all_of(col_names), names_sep = names_sep, names_repair = names_repair)
+  map_unpack(
+    data, {{ cols }},
+    str_separate_wider_regex,
+    patterns = patterns,
+    match_complete = match_complete,
+    .names_sep = names_sep,
+    .names_repair = names_repair
+  )
 }
 
 #' Split a string into rows
@@ -233,9 +199,36 @@ separate_longer_fixed <- function(
 
 # helpers -----------------------------------------------------------------
 
-str_separate_wider_delim <- function(x, into, pattern, fill = "warn", extra = "warn") {
+map_unpack <- function(data, cols, fun, ..., .names_sep, .names_repair) {
+  # TODO: Use `allow_rename = FALSE` (https://github.com/r-lib/tidyselect/issues/225)
+  cols <- tidyselect::eval_select(enquo(cols), data)
+  col_names <- names(cols)
+
+  for (col in col_names) {
+    data[[col]] <- fun(data[[col]], ...)
+  }
+  unpack(data, all_of(col_names), names_sep = .names_sep, names_repair = .names_repair)
+}
+
+str_separate_wider_delim <- function(
+    x,
+    into,
+    delim,
+    extra = c("warn", "drop", "merge"),
+    fill = c("warn", "right", "left")
+) {
+
+  if (!is.character(into) || is_named(into) || length(into) == 0) {
+    abort("`into` must be an unnamed character vector")
+  }
+  if (!is_string(delim)) {
+    abort("`delim` must be a string")
+  }
+  extra <- arg_match(extra)
+  fill <- arg_match(fill)
+
   n <- if (extra == "merge") length(into) else Inf
-  pieces <- stringr::str_split(x, pattern, n = n)
+  pieces <- stringr::str_split(x, delim, n = n)
   list2df(pieces, into,
     fill = if (fill == "left") "left" else "right",
     warn_drop = extra == "warn",
@@ -244,6 +237,10 @@ str_separate_wider_delim <- function(x, into, pattern, fill = "warn", extra = "w
 }
 
 str_separate_wider_fixed <- function(x, widths) {
+  if (!is_integerish(widths) || all(!have_name(widths))) {
+    abort("`widths` must be a named integer vector")
+  }
+
   skip <- names(widths) == ""
   breaks <- cumsum(c(1, unname(widths)))[-(length(widths) + 1)]
   from <- cbind(breaks, length = widths)[!skip, ]
@@ -251,6 +248,27 @@ str_separate_wider_fixed <- function(x, widths) {
   pieces <- stringr::str_sub_all(x, from)
   pieces <- lapply(pieces, function(x) x[x != ""])
   list2df(pieces, names(widths)[!skip], warn_fill = FALSE)
+}
+
+str_separate_wider_regex <- function(x, patterns, match_complete = TRUE) {
+  if (!is.character(patterns) || all(!have_name(patterns))) {
+    abort("`patterns` must be a named character vector")
+  }
+  if (!is_bool(match_complete)) {
+    abort("`match_complete` must be TRUE or FALSE")
+  }
+
+  has_name <- names2(patterns) != ""
+  into <- names2(patterns)[has_name]
+  patterns[has_name] <- paste0("(?<", into, ">", patterns[has_name], ")")
+  patterns[!has_name] <- paste0("(?:", patterns[!has_name], ")")
+  pattern <- paste(patterns, collapse = "")
+
+  if (match_complete) {
+    pattern <- paste0("^", pattern, "$")
+  }
+
+  as_tibble(stringr::str_match(x, pattern)[, into, drop = FALSE])
 }
 
 str_split_length <- function(x, n = 1) {
