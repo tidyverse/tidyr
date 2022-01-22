@@ -36,14 +36,7 @@ separate_longer_delim <- function(
     abort("`delim` must be a string")
   }
 
-  # TODO: Use `allow_rename = FALSE` (https://github.com/r-lib/tidyselect/issues/225)
-  cols <- tidyselect::eval_select(enquo(cols), data)
-  col_names <- names(cols)
-
-  for (col in col_names) {
-    data[[col]] <- stringr::str_split(data[[col]], delim)
-  }
-  unchop(data, all_of(col_names))
+  map_unchop(data, {{ cols }}, stringr::str_split, pattern = delim)
 }
 
 #' @param width Number of characters to split by.
@@ -65,12 +58,16 @@ separate_longer_fixed <- function(
     abort("`width` must be an integer")
   }
 
+  map_unchop(data, {{ cols }}, str_split_length, width = width, .keep_empty = keep_empty)
+}
+
+map_unchop <- function(data, cols, fun, ..., .keep_empty = FALSE) {
   # TODO: Use `allow_rename = FALSE` (https://github.com/r-lib/tidyselect/issues/225)
   cols <- tidyselect::eval_select(enquo(cols), data)
   col_names <- names(cols)
 
   for (col in col_names) {
-    data[[col]] <- str_split_length(data[[col]], width)
+    data[[col]] <- fun(data[[col]], ...)
   }
-  unchop(data, all_of(col_names), keep_empty = keep_empty)
+  unchop(data, all_of(col_names), keep_empty = .keep_empty)
 }

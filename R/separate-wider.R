@@ -198,11 +198,11 @@ str_separate_wider_regex <- function(x, patterns, match_complete = TRUE) {
   as_tibble(stringr::str_match(x, pattern)[, into, drop = FALSE])
 }
 
-str_split_length <- function(x, n = 1) {
+str_split_length <- function(x, width = 1) {
   max_length <- max(stringr::str_length(x))
-  idx <- seq(1, max_length, by = n)
+  idx <- seq(1, max_length, by = width)
 
-  pieces <- stringr::str_sub_all(x, cbind(idx, length = n))
+  pieces <- stringr::str_sub_all(x, cbind(idx, length = width))
   pieces <- lapply(pieces, function(x) x[x != ""])
   pieces
 }
