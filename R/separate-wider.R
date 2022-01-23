@@ -86,73 +86,6 @@ separate_wider_delim <- function(
   )
 }
 
-#' @rdname separate_wider_delim
-#' @param widths A named numeric vector where the names become column names,
-#'   and the values specify the column width. Omit the name to leave those
-#'   values out of the final output.
-#' @export
-separate_wider_fixed <- function(
-    data,
-    cols,
-    widths,
-    names_sep = NULL,
-    names_repair = "check_unique"
-) {
-  check_installed("stringr")
-  check_present(cols)
-
-  map_unpack(
-    data, {{ cols }},
-    str_separate_wider_fixed,
-    widths = widths,
-    .names_sep = names_sep,
-    .names_repair = names_repair
-  )
-}
-
-#' @rdname separate_wider_delim
-#' @param patterns A named character vector where the names given names of
-#'   new columns in the output, and the values are regular expressions.
-#'   Unnamed components will match, but not be included in the output.
-#' @param match_complete Is the pattern required to match the entire string?
-#' @export
-separate_wider_regex <- function(
-    data,
-    cols,
-    patterns,
-    match_complete = TRUE,
-    names_sep = NULL,
-    names_repair = "check_unique"
-) {
-  check_installed("stringr")
-  check_present(cols)
-
-  map_unpack(
-    data, {{ cols }},
-    str_separate_wider_regex,
-    patterns = patterns,
-    match_complete = match_complete,
-    .names_sep = names_sep,
-    .names_repair = names_repair
-  )
-}
-
-
-# helpers -----------------------------------------------------------------
-
-map_unpack <- function(data, cols, fun, ..., .names_sep, .names_repair) {
-  # TODO: Use `allow_rename = FALSE` (https://github.com/r-lib/tidyselect/issues/225)
-  cols <- tidyselect::eval_select(enquo(cols), data)
-  col_names <- names(cols)
-
-  for (col in col_names) {
-    data[[col]] <- fun(data[[col]], ...)
-  }
-  unpack(data, all_of(col_names), names_sep = .names_sep, names_repair = .names_repair)
-}
-
-# stringr functions ----------------------------------------------------------
-
 str_separate_wider_delim <- function(
     x,
     names,
@@ -184,6 +117,30 @@ str_separate_wider_delim <- function(
   )
 }
 
+#' @rdname separate_wider_delim
+#' @param widths A named numeric vector where the names become column names,
+#'   and the values specify the column width. Omit the name to leave those
+#'   values out of the final output.
+#' @export
+separate_wider_fixed <- function(
+    data,
+    cols,
+    widths,
+    names_sep = NULL,
+    names_repair = "check_unique"
+) {
+  check_installed("stringr")
+  check_present(cols)
+
+  map_unpack(
+    data, {{ cols }},
+    str_separate_wider_fixed,
+    widths = widths,
+    .names_sep = names_sep,
+    .names_repair = names_repair
+  )
+}
+
 str_separate_wider_fixed <- function(x, widths) {
   if (!is_integerish(widths) || all(!have_name(widths))) {
     abort("`widths` must be a named integer vector")
@@ -196,6 +153,33 @@ str_separate_wider_fixed <- function(x, widths) {
   pieces <- stringr::str_sub_all(x, from)
   pieces <- lapply(pieces, function(x) x[x != ""])
   list2df(pieces, names(widths)[!skip], warn_fill = FALSE)
+}
+
+#' @rdname separate_wider_delim
+#' @param patterns A named character vector where the names given names of
+#'   new columns in the output, and the values are regular expressions.
+#'   Unnamed components will match, but not be included in the output.
+#' @param match_complete Is the pattern required to match the entire string?
+#' @export
+separate_wider_regex <- function(
+    data,
+    cols,
+    patterns,
+    match_complete = TRUE,
+    names_sep = NULL,
+    names_repair = "check_unique"
+) {
+  check_installed("stringr")
+  check_present(cols)
+
+  map_unpack(
+    data, {{ cols }},
+    str_separate_wider_regex,
+    patterns = patterns,
+    match_complete = match_complete,
+    .names_sep = names_sep,
+    .names_repair = names_repair
+  )
 }
 
 str_separate_wider_regex <- function(x, patterns, match_complete = TRUE) {
@@ -219,13 +203,17 @@ str_separate_wider_regex <- function(x, patterns, match_complete = TRUE) {
   as_tibble(stringr::str_match(x, pattern)[, into, drop = FALSE])
 }
 
-str_split_length <- function(x, width = 1) {
-  max_length <- max(stringr::str_length(x))
-  idx <- seq(1, max_length, by = width)
+# helpers -----------------------------------------------------------------
 
-  pieces <- stringr::str_sub_all(x, cbind(idx, length = width))
-  pieces <- lapply(pieces, function(x) x[x != ""])
-  pieces
+map_unpack <- function(data, cols, fun, ..., .names_sep, .names_repair) {
+  # TODO: Use `allow_rename = FALSE` (https://github.com/r-lib/tidyselect/issues/225)
+  cols <- tidyselect::eval_select(enquo(cols), data)
+  col_names <- names(cols)
+
+  for (col in col_names) {
+    data[[col]] <- fun(data[[col]], ...)
+  }
+  unpack(data, all_of(col_names), names_sep = .names_sep, names_repair = .names_repair)
 }
 
 list2df <- function(

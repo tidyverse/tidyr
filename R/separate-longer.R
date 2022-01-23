@@ -61,6 +61,15 @@ separate_longer_fixed <- function(
   map_unchop(data, {{ cols }}, str_split_length, width = width, .keep_empty = keep_empty)
 }
 
+str_split_length <- function(x, width = 1) {
+  max_length <- max(stringr::str_length(x))
+  idx <- seq(1, max_length, by = width)
+
+  pieces <- stringr::str_sub_all(x, cbind(idx, length = width))
+  pieces <- lapply(pieces, function(x) x[x != ""])
+  pieces
+}
+
 map_unchop <- function(data, cols, fun, ..., .keep_empty = FALSE) {
   # TODO: Use `allow_rename = FALSE` (https://github.com/r-lib/tidyselect/issues/225)
   cols <- tidyselect::eval_select(enquo(cols), data)
@@ -71,3 +80,4 @@ map_unchop <- function(data, cols, fun, ..., .keep_empty = FALSE) {
   }
   unchop(data, all_of(col_names), keep_empty = .keep_empty)
 }
+
