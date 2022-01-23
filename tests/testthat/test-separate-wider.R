@@ -81,6 +81,12 @@ test_that("separate_wider_regex() can drop values", {
   expect_equal(out, tibble(a = "a", b = "123"))
 })
 
+test_that("separate_wider_regex() can use odd names", {
+  df <- data.frame(x = "ab123")
+  out <- df %>% separate_wider_regex(x, c("_" = ".", ".", "." = "\\d+"))
+  expect_equal(out, tibble(`_` = "a", `.` = "123"))
+})
+
 test_that("separate_wider_regexp() requires complete match by default", {
   df <- data.frame(x = " a123 ")
   out <- df %>% separate_wider_regex(x, c("a" = ".", "b" = "\\d+"))

@@ -192,7 +192,7 @@ str_separate_wider_regex <- function(x, patterns, match_complete = TRUE) {
 
   has_name <- names2(patterns) != ""
   into <- names2(patterns)[has_name]
-  patterns[has_name] <- paste0("(?<", into, ">", patterns[has_name], ")")
+  patterns[has_name] <- paste0("(", patterns[has_name], ")")
   patterns[!has_name] <- paste0("(?:", patterns[!has_name], ")")
   pattern <- paste(patterns, collapse = "")
 
@@ -200,7 +200,9 @@ str_separate_wider_regex <- function(x, patterns, match_complete = TRUE) {
     pattern <- paste0("^", pattern, "$")
   }
 
-  as_tibble(stringr::str_match(x, pattern)[, into, drop = FALSE])
+  out <- stringr::str_match(x, pattern)[, -1, drop = FALSE]
+  colnames(out) <- into
+  as_tibble(out)
 }
 
 # helpers -----------------------------------------------------------------
