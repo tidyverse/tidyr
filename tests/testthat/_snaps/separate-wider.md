@@ -31,6 +31,11 @@
     Error <rlang_error>
       Must specify one of `names` or `names_sep`
 
+# separate_wider_fixed() fills too short with NA
+
+    Expected 2 pieces in each row.
+    * Filled in missing pieces in 1 rows: 1.
+
 # separate_wider_fixed() validates its inputs
 
     Code
@@ -45,6 +50,10 @@
       df %>% separate_wider_fixed(x, widths = 1L)
     Error <rlang_error>
       `widths` must be a named integer vector
+
+# separate_wider_regexp() requires complete match by default
+
+    Failed to match 1 rows: 1
 
 # separate_wider_regex() validates its inputs
 

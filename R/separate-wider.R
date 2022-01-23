@@ -126,22 +126,25 @@ separate_wider_fixed <- function(
     data,
     cols,
     widths,
+    fill = c("warn", "right", "left"),
     names_sep = NULL,
     names_repair = "check_unique"
 ) {
   check_installed("stringr")
   check_present(cols)
+  fill <- arg_match(fill)
 
   map_unpack(
     data, {{ cols }},
     str_separate_wider_fixed,
     widths = widths,
+    fill = fill,
     .names_sep = names_sep,
     .names_repair = names_repair
   )
 }
 
-str_separate_wider_fixed <- function(x, widths) {
+str_separate_wider_fixed <- function(x, widths, fill = "warn") {
   if (!is_integerish(widths) || all(!have_name(widths))) {
     abort("`widths` must be a named integer vector")
   }
@@ -152,7 +155,10 @@ str_separate_wider_fixed <- function(x, widths) {
 
   pieces <- stringr::str_sub_all(x, from)
   pieces <- lapply(pieces, function(x) x[x != ""])
-  list2df(pieces, names(widths)[!skip], warn_fill = FALSE)
+  list2df(pieces, names(widths)[!skip],
+    fill = if (fill == "left") "left" else "right",
+    warn_fill = fill == "warn"
+  )
 }
 
 #' @rdname separate_wider_delim
@@ -200,9 +206,18 @@ str_separate_wider_regex <- function(x, patterns, match_complete = TRUE) {
     pattern <- paste0("^", pattern, "$")
   }
 
-  out <- stringr::str_match(x, pattern)[, -1, drop = FALSE]
+  match <- stringr::str_match(x, pattern)
+  no_match <- is.na(match[, 1]) & !is.na(x)
+  if (any(no_match)) {
+    n <- sum(no_match)
+    idx <- list_indices(which(no_match))
+
+    warn(glue("Failed to match {n} rows: {idx}"))
+  }
+
+  out <- as_tibble(match[, -1, drop = FALSE], .name_repair = "none")
   colnames(out) <- into
-  as_tibble(out)
+  out
 }
 
 # helpers -----------------------------------------------------------------

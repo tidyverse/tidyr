@@ -46,12 +46,17 @@ test_that("separate_wider_delim() validates its inputs", {
 })
 
 test_that("separate_wider_fixed() fills too short with NA", {
-  # TODO: should these warn?
   df <- data.frame(x = c("ab", "abc", "abcd"))
-  out <- df %>% separate_wider_fixed(x, widths = c("a" = 2, "b" = 1))
+  expect_snapshot_warning(
+    out <- df %>% separate_wider_fixed(x, widths = c("a" = 2, "b" = 1))
+  )
   expect_equal(out[1, ], tibble(a = "ab", b = NA_character_))
   expect_equal(out[2, ], tibble(a = "ab", b = "c"))
   expect_equal(out[3, ], tibble(a = "ab", b = "c"))
+
+  # And can override default
+  out <- df %>% separate_wider_fixed(x, widths = c("a" = 2, "b" = 1), fill = "left")
+  expect_equal(out[1, ], tibble(a = NA_character_, b = "ab"))
 })
 
 test_that("separate_wider_fixed() can drop values", {
@@ -89,7 +94,9 @@ test_that("separate_wider_regex() can use odd names", {
 
 test_that("separate_wider_regexp() requires complete match by default", {
   df <- data.frame(x = " a123 ")
-  out <- df %>% separate_wider_regex(x, c("a" = ".", "b" = "\\d+"))
+  expect_snapshot_warning(
+    out <- df %>% separate_wider_regex(x, c("a" = ".", "b" = "\\d+"))
+  )
   expect_equal(out, tibble(a = NA_character_, b = NA_character_))
 
   out <- df %>% separate_wider_regex(
