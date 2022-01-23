@@ -16,7 +16,7 @@
     Error <rlang_error>
       Argument `cols` is missing with no default
     Code
-      df %>% separate_longer_fixed(y, width = 1.5)
+      df %>% separate_longer_fixed(x, width = 1.5)
     Error <rlang_error>
       `width` must be an integer
 

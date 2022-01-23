@@ -32,10 +32,10 @@ separate_longer_delim <- function(
   check_installed("stringr")
   check_present(cols)
 
+  # Needs to be here because argument name is different in str_split
   if (!is_string(delim)) {
     abort("`delim` must be a string")
   }
-
   map_unchop(data, {{ cols }}, stringr::str_split, pattern = delim)
 }
 
@@ -54,14 +54,15 @@ separate_longer_fixed <- function(
 ) {
   check_installed("stringr")
   check_present(cols)
-  if (!is_integerish(width) || length(width) != 1 || is.na(width)) {
-    abort("`width` must be an integer")
-  }
 
   map_unchop(data, {{ cols }}, str_split_length, width = width, .keep_empty = keep_empty)
 }
 
 str_split_length <- function(x, width = 1) {
+  if (!is_integerish(width) || length(width) != 1 || is.na(width)) {
+    abort("`width` must be an integer")
+  }
+
   max_length <- max(stringr::str_length(x))
   idx <- seq(1, max_length, by = width)
 
@@ -69,6 +70,8 @@ str_split_length <- function(x, width = 1) {
   pieces <- lapply(pieces, function(x) x[x != ""])
   pieces
 }
+
+# helpers -----------------------------------------------------------------
 
 map_unchop <- function(data, cols, fun, ..., .keep_empty = FALSE) {
   # TODO: Use `allow_rename = FALSE` (https://github.com/r-lib/tidyselect/issues/225)

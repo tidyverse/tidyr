@@ -35,6 +35,6 @@ test_that("separate_longer_fixed() validates its inputs", {
   df <- data.frame(x = "x")
   expect_snapshot(error = TRUE, {
     df %>% separate_longer_fixed()
-    df %>% separate_longer_fixed(y, width = 1.5)
+    df %>% separate_longer_fixed(x, width = 1.5)
   })
 })
