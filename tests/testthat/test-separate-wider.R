@@ -92,6 +92,13 @@ test_that("separate_wider_regex() can use odd names", {
   expect_equal(out, tibble(`_` = "a", `.` = "123"))
 })
 
+test_that("separate_wider_regex() gives informative error if () used", {
+  df <- data.frame(x = "x")
+  expect_snapshot(error = TRUE, {
+    df %>% separate_wider_regex(x, c("_" = "(.)"))
+  })
+})
+
 test_that("separate_wider_regexp() requires complete match by default", {
   df <- data.frame(x = " a123 ")
   expect_snapshot_warning(

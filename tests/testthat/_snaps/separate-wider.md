@@ -51,6 +51,14 @@
     Error <rlang_error>
       `widths` must be a named integer vector
 
+# separate_wider_regex() gives informative error if () used
+
+    Code
+      df %>% separate_wider_regex(x, c(`_` = "(.)"))
+    Error <rlang_error>
+      Invalid number of groups
+      i Did you use () instead of (?:) inside a pattern?
+
 # separate_wider_regexp() requires complete match by default
 
     Failed to match 1 rows: 1

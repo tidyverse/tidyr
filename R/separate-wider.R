@@ -214,8 +214,15 @@ str_separate_wider_regex <- function(x, patterns, match_complete = TRUE) {
 
     warn(glue("Failed to match {n} rows: {idx}"))
   }
+  matches <- match[, -1, drop = FALSE]
+  if (ncol(matches) != length(into)) {
+    abort(c(
+      "Invalid number of groups",
+      i = "Did you use () instead of (?:) inside a pattern?"
+    ))
+  }
 
-  out <- as_tibble(match[, -1, drop = FALSE], .name_repair = "none")
+  out <- as_tibble(matches, .name_repair = "none")
   colnames(out) <- into
   out
 }
