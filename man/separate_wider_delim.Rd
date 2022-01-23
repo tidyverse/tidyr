@@ -21,6 +21,7 @@ separate_wider_fixed(
   data,
   cols,
   widths,
+  fill = c("warn", "right", "left"),
   names_sep = NULL,
   names_repair = "check_unique"
 )

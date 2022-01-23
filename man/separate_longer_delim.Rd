@@ -3,11 +3,14 @@
 \name{separate_longer_delim}
 \alias{separate_longer_delim}
 \alias{separate_longer_fixed}
+\alias{separate_longer_group}
 \title{Split a string into rows}
 \usage{
 separate_longer_delim(data, cols, delim)
 
 separate_longer_fixed(data, cols, width, keep_empty = FALSE)
+
+separate_longer_group(data, cols, pattern, keep_empty = FALSE)
 }
 \arguments{
 \item{data}{A data frame.}
@@ -35,11 +38,15 @@ Each of these functions takes a string and splits it into multiple rows:
 \itemize{
 \item \code{separate_longer_delim()} splits by a delimiter.
 \item \code{separate_longer_fixed()} splits by a fixed width.
+\item \code{separate_longer_group()} extracts the first group from a repeated match.
 }
 }
 \examples{
 df <- tibble(id = 1:4, x = c("x", "x y", "x y z", NA))
 df \%>\% separate_longer_delim(x, delim = " ")
+
+df <- tibble(id = 1:3, x = c("x1", "x2 x3 y1 x4", "y2"))
+df \%>\% separate_longer_group(x, "x(.)")
 
 # You can separate multiple columns at a time
 df <- tibble(id = 1:3, x = c("x", "x y", "x y z"), y = c("a", "a b", "a b c"))
