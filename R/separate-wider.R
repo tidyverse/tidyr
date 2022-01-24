@@ -70,8 +70,8 @@ separate_wider_delim <- function(
   check_installed("stringr")
   check_present(cols)
 
-  if (!xor(is.null(names), is.null(names_sep))) {
-    abort("Must specify one of `names` or `names_sep`")
+  if (is.null(names) && is.null(names_sep)) {
+    abort("Must specify at least one of `names` or `names_sep`")
   }
 
   map_unpack(

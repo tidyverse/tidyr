@@ -25,11 +25,7 @@
     Code
       df %>% separate_wider_delim(x, delim = "")
     Error <rlang_error>
-      Must specify one of `names` or `names_sep`
-    Code
-      df %>% separate_wider_delim(x, names = "y", names_sep = "")
-    Error <rlang_error>
-      Must specify one of `names` or `names_sep`
+      Must specify at least one of `names` or `names_sep`
 
 # separate_wider_fixed() fills too short with NA
 

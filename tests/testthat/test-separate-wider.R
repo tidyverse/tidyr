@@ -39,9 +39,7 @@ test_that("separate_wider_delim() validates its inputs", {
     df %>% separate_wider_delim(x, names = 1)
     df %>% separate_wider_delim(x, names = c(x = "x"))
     df %>% separate_wider_delim(x, names = "y", delim = 1)
-
     df %>% separate_wider_delim(x, delim = "")
-    df %>% separate_wider_delim(x, names = "y", names_sep = "")
   })
 })
 
