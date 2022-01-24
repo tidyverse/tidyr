@@ -30,6 +30,8 @@ can use \code{delim = stringr::fixed(".")}.}
 each observation. If \code{nchar(x)} is zero, this means the entire input
 row will be dropped from the output. If you want to preserve all rows,
 use \code{keep_empty = TRUE} to replace size-0 elements with a missing value.}
+
+\item{pattern}{Regular expression containing a capturing group, i.e. \verb{()}.}
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}

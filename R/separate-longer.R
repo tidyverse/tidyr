@@ -76,6 +76,7 @@ str_split_length <- function(x, width = 1) {
 }
 
 #' @rdname separate_longer_delim
+#' @param pattern Regular expression containing a capturing group, i.e. `()`.
 #' @export
 separate_longer_group <- function(
     data,
