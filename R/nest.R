@@ -128,7 +128,13 @@ nest <- function(.data, ..., .names_sep = NULL, .key = deprecated()) {
 
     .key <- if (missing(.key)) "data" else as.character(ensym(.key))
 
-    cols_fixed_expr <- expr(c(!!!cols_bad))
+    if (length(cols_bad) == 1L) {
+      cols_bad <- cols_bad[[1]]
+      cols_fixed_expr <- expr(!!cols_bad)
+    } else {
+      cols_fixed_expr <- expr(c(!!!cols_bad))
+    }
+
     cols_fixed_label <- as_label(cols_fixed_expr)
     cols_fixed <- quos(!!.key := !!cols_fixed_expr)
 

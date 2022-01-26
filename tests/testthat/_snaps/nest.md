@@ -44,7 +44,15 @@
       out <- nest(df, y)
     Warning <warning>
       All elements of `...` must be named.
-      Did you want `data = c(y)`?
+      Did you want `data = y`?
+
+---
+
+    Code
+      out <- nest(df, -y)
+    Warning <warning>
+      All elements of `...` must be named.
+      Did you want `data = -y`?
 
 # only warn about unnamed inputs (#1175)
 
@@ -68,7 +76,7 @@
       out <- nest(df, y, .key = "y")
     Warning <warning>
       All elements of `...` must be named.
-      Did you want `y = c(y)`?
+      Did you want `y = y`?
 
 # can control output column name when nested
 

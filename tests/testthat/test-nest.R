@@ -311,8 +311,12 @@ test_that("unnest keeps list cols", {
 
 test_that("warn about old style interface", {
   df <- tibble(x = c(1, 1, 1), y = 1:3)
+
   expect_snapshot(out <- nest(df, y))
   expect_named(out, c("x", "data"))
+
+  expect_snapshot(out <- nest(df, -y))
+  expect_named(out, c("y", "data"))
 })
 
 test_that("only warn about unnamed inputs (#1175)", {
