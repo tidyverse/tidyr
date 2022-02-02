@@ -1,6 +1,6 @@
 Package: tidyr
 Title: Tidy Messy Data
-Version: 1.2.0
+Version: 1.2.0.9000
 Authors@R: c(
     person("Hadley", "Wickham", , "hadley@rstudio.com", role = c("aut", "cre")),
     person("Maximilian", "Girlich", role = "aut"),
