@@ -22,7 +22,7 @@ more suitable for programming than interactive data analysis."><meta property="o
     
     <a class="navbar-brand me-2" href="../index.html">tidyr</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">1.1.4.9000</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">1.2.0.9000</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -50,6 +50,7 @@ more suitable for programming than interactive data analysis."><meta property="o
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-news">News</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-news">
     <h6 class="dropdown-header" data-toc-skip>Releases</h6>
+    <a class="external-link dropdown-item" href="https://www.tidyverse.org/blog/2022/02/tidyr-1-2-0/">Version 1.2.0</a>
     <a class="external-link dropdown-item" href="https://www.tidyverse.org/blog/2020/05/tidyr-1.1.0/">Version 1.1.0</a>
     <a class="external-link dropdown-item" href="https://www.tidyverse.org/articles/2019/09/tidyr-1-0-0/">Version 1.0.0</a>
     <a class="external-link dropdown-item" href="https://www.tidyverse.org/articles/2018/02/tidyr-0-8-0/">Version 0.8.0</a>
@@ -189,7 +190,8 @@ correct vector type even for empty list-columns.</p>
 <span class="r-in"><span class="co"># If the list-col contains types that can not be natively</span></span>
 <span class="r-in"><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>, y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"1"</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">)</span><span class="op">)</span></span>
 <span class="r-in"><span class="kw"><a href="https://rdrr.io/r/base/try.html" class="external-link">try</a></span><span class="op">(</span><span class="va">df</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu">unchop</span><span class="op">(</span><span class="va">y</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Error : Can't combine `..1` &lt;character&gt; and `..2` &lt;integer&gt;.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Error in stop_vctrs(message, class = c(class, "vctrs_error_incompatible"),  : </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Can't combine `..1` &lt;character&gt; and `..2` &lt;integer&gt;.</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># Unchopping data frames -----------------------------------------------------</span></span>
 <span class="r-in"><span class="co"># Unchopping a list-col of data frames must generate a df-col because</span></span>

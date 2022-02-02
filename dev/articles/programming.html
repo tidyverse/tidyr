@@ -38,7 +38,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">tidyr</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">1.1.4.9000</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">1.2.0.9000</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -67,6 +67,7 @@
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-news">News</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-news">
     <h6 class="dropdown-header" data-toc-skip>Releases</h6>
+    <a class="external-link dropdown-item" href="https://www.tidyverse.org/blog/2022/02/tidyr-1-2-0/">Version 1.2.0</a>
     <a class="external-link dropdown-item" href="https://www.tidyverse.org/blog/2020/05/tidyr-1.1.0/">Version 1.1.0</a>
     <a class="external-link dropdown-item" href="https://www.tidyverse.org/articles/2019/09/tidyr-1-0-0/">Version 1.0.0</a>
     <a class="external-link dropdown-item" href="https://www.tidyverse.org/articles/2018/02/tidyr-0-8-0/">Version 0.8.0</a>
@@ -140,7 +141,7 @@
 <p>Before we go on, we reveal the version of tidyr we’re using and make a small dataset to use in examples.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/packageDescription.html" class="external-link">packageVersion</a></span><span class="op">(</span><span class="st">"tidyr"</span><span class="op">)</span>
-<span class="co">#&gt; [1] '1.1.4.9000'</span>
+<span class="co">#&gt; [1] '1.2.0.9000'</span>
 
 <span class="va">mini_iris</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html" class="external-link">as_tibble</a></span><span class="op">(</span><span class="va">iris</span><span class="op">)</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">51</span>, <span class="fl">52</span>, <span class="fl">101</span>, <span class="fl">102</span><span class="op">)</span>, <span class="op">]</span>
 <span class="va">mini_iris</span>
@@ -205,7 +206,7 @@
 <p>In more complicated cases, you might want to use tidyselect directly:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">sel_vars</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">df</span>, <span class="va">cols</span><span class="op">)</span> <span class="op">{</span>
-  <span class="fu">tidyselect</span><span class="fu">::</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/eval_select.html" class="external-link">eval_select</a></span><span class="op">(</span><span class="fu">rlang</span><span class="fu">::</span><span class="fu"><a href="https://rlang.r-lib.org/reference/nse-defuse.html" class="external-link">enquo</a></span><span class="op">(</span><span class="va">cols</span><span class="op">)</span>, <span class="va">df</span><span class="op">)</span>
+  <span class="fu">tidyselect</span><span class="fu">::</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/eval_select.html" class="external-link">eval_select</a></span><span class="op">(</span><span class="fu">rlang</span><span class="fu">::</span><span class="fu"><a href="https://rlang.r-lib.org/reference/enquo.html" class="external-link">enquo</a></span><span class="op">(</span><span class="va">cols</span><span class="op">)</span>, <span class="va">df</span><span class="op">)</span>
 <span class="op">}</span>
 <span class="fu">sel_vars</span><span class="op">(</span><span class="va">mini_iris</span>, <span class="op">!</span><span class="va">Species</span><span class="op">)</span>
 <span class="co">#&gt; Sepal.Length  Sepal.Width Petal.Length  Petal.Width </span>

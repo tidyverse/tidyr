@@ -16,7 +16,7 @@ Learn more in vignette("pivot").'><meta property="og:image" content="https://tid
     
     <a class="navbar-brand me-2" href="../index.html">tidyr</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">1.1.4.9000</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">1.2.0.9000</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -44,6 +44,7 @@ Learn more in vignette("pivot").'><meta property="og:image" content="https://tid
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-news">News</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-news">
     <h6 class="dropdown-header" data-toc-skip>Releases</h6>
+    <a class="external-link dropdown-item" href="https://www.tidyverse.org/blog/2022/02/tidyr-1-2-0/">Version 1.2.0</a>
     <a class="external-link dropdown-item" href="https://www.tidyverse.org/blog/2020/05/tidyr-1.1.0/">Version 1.1.0</a>
     <a class="external-link dropdown-item" href="https://www.tidyverse.org/articles/2019/09/tidyr-1-0-0/">Version 1.0.0</a>
     <a class="external-link dropdown-item" href="https://www.tidyverse.org/articles/2018/02/tidyr-0-8-0/">Version 0.8.0</a>
@@ -218,8 +219,8 @@ under active development.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">16</span> Other Faiths       20        33        40        46        49        63</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">17</span> Other World …       5         2         3         4         2         7</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">18</span> Unaffiliated      217       299       374       365       341       528</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 4 more variables: $75-100k &lt;dbl&gt;, $100-150k &lt;dbl&gt;, &gt;150k &lt;dbl&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   Don't know/refused &lt;dbl&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 4 more variables: `$75-100k` &lt;dbl&gt;, `$100-150k` &lt;dbl&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   `&gt;150k` &lt;dbl&gt;, `Don't know/refused` &lt;dbl&gt;</span></span>
 <span class="r-in"><span class="va">relig_income</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
 <span class="r-in">  <span class="fu">pivot_longer</span><span class="op">(</span><span class="op">!</span><span class="va">religion</span>, names_to <span class="op">=</span> <span class="st">"income"</span>, values_to <span class="op">=</span> <span class="st">"count"</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 180 × 3</span></span>
@@ -241,18 +242,18 @@ under active development.</p>
 <span class="r-in"><span class="co"># and missing missings are structural so should be dropped.</span></span>
 <span class="r-in"><span class="va">billboard</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 317 × 79</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    artist   track   date.entered   wk1   wk2   wk3   wk4   wk5   wk6   wk7</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> 2 Pac    Baby D… 2000-02-26      87    82    72    77    87    94    99</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> 2Ge+her  The Ha… 2000-09-02      91    87    92    <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> 3 Doors… Krypto… 2000-04-08      81    70    68    67    66    57    54</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> 3 Doors… Loser   2000-10-21      76    76    72    69    67    65    55</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> 504 Boyz Wobble… 2000-04-15      57    34    25    17    17    31    36</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> 98^0     Give M… 2000-08-19      51    39    34    26    26    19     2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> A*Teens  Dancin… 2000-07-08      97    97    96    95   100    <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> Aaliyah  I Don'… 2000-01-29      84    62    51    41    38    35    35</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> Aaliyah  Try Ag… 2000-03-18      59    53    38    28    21    18    16</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> Adams, … Open M… 2000-08-26      76    76    74    69    68    67    61</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    artist     track date.entered   wk1   wk2   wk3   wk4   wk5   wk6   wk7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> 2 Pac      Baby… 2000-02-26      87    82    72    77    87    94    99</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> 2Ge+her    The … 2000-09-02      91    87    92    <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> 3 Doors D… Kryp… 2000-04-08      81    70    68    67    66    57    54</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> 3 Doors D… Loser 2000-10-21      76    76    72    69    67    65    55</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> 504 Boyz   Wobb… 2000-04-15      57    34    25    17    17    31    36</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> 98^0       Give… 2000-08-19      51    39    34    26    26    19     2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> A*Teens    Danc… 2000-07-08      97    97    96    95   100    <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> Aaliyah    I Do… 2000-01-29      84    62    51    41    38    35    35</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> Aaliyah    Try … 2000-03-18      59    53    38    28    21    18    16</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> Adams, Yo… Open… 2000-08-26      76    76    74    69    68    67    61</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 307 more rows, and 69 more variables: wk8 &lt;dbl&gt;, wk9 &lt;dbl&gt;,</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   wk10 &lt;dbl&gt;, wk11 &lt;dbl&gt;, wk12 &lt;dbl&gt;, wk13 &lt;dbl&gt;, wk14 &lt;dbl&gt;,</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   wk15 &lt;dbl&gt;, wk16 &lt;dbl&gt;, wk17 &lt;dbl&gt;, wk18 &lt;dbl&gt;, wk19 &lt;dbl&gt;,</span></span>
