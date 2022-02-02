@@ -25,7 +25,7 @@ Imports:
     lifecycle,
     magrittr,
     purrr,
-    rlang,
+    rlang (>= 1.0.0),
     tibble (>= 2.1.1),
     tidyselect (>= 1.1.0),
     utils,
