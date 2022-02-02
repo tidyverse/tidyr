@@ -20,7 +20,6 @@ Run `cloud_details(, "covidregionaldata")` for more info
       Running ‘testthat.R’
     Running the tests in ‘tests/testthat.R’ failed.
     Last 13 lines of output:
-       19. ├─tidyr::complete(data = dplyr::cur_data(), ..., fill = fill, explicit = explicit)
        20. ├─tidyr:::complete.data.frame(...)
        21. │ ├─tidyr::expand(data, ...)
        22. │ └─tidyr:::expand.data.frame(data, ...)
@@ -30,7 +29,8 @@ Run `cloud_details(, "covidregionaldata")` for more info
        26. │ └─tidyr:::grid_dots(...)
        27. │   └─rlang::eval_tidy(dot, data = mask)
        28. └─base::.handleSimpleError(...)
-       29.   └─dplyr:::h(simpleError(msg, call))
+       29.   └─dplyr h(simpleError(msg, call))
+       30.     └─rlang::abort(bullets, class = "dplyr_error")
       
       [ FAIL 12 | WARN 0 | SKIP 0 | PASS 203 ]
       Error: Test failures
@@ -69,44 +69,6 @@ Run `cloud_details(, "covidregionaldata")` for more info
       Note: found 200 marked UTF-8 strings
     ```
 
-# crosstable
-
-<details>
-
-* Version: 0.3.2
-* GitHub: https://github.com/DanChaltiel/crosstable
-* Source code: https://github.com/cran/crosstable
-* Date/Publication: 2021-11-27 20:00:02 UTC
-* Number of recursive dependencies: 114
-
-Run `cloud_details(, "crosstable")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking tests ... ERROR
-    ```
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-        3. │   └─attr(ct, "by_levels") %>% replace_na("NA") %>% unlist()
-        4. ├─base::unlist(.)
-        5. ├─tidyr::replace_na(., "NA")
-        6. └─tidyr:::replace_na.default(., "NA")
-        7.   └─vctrs::vec_assign(data, missing, replace, x_arg = "data", value_arg = "replace")
-        8.     └─(function () ...
-        9.       └─vctrs::vec_default_cast(...)
-       10.         └─vctrs::stop_incompatible_cast(...)
-       11.           └─vctrs::stop_incompatible_type(...)
-       12.             └─vctrs:::stop_incompatible(...)
-       13.               └─vctrs:::stop_vctrs(...)
-      
-      [ FAIL 1 | WARN 0 | SKIP 20 | PASS 326 ]
-      Error: Test failures
-      Execution halted
-    ```
-
 # emayili
 
 <details>
@@ -136,15 +98,15 @@ Run `cloud_details(, "emayili")` for more info
     > 
     > email <- envelope() %>%
     ...
-      5. ├─dplyr::select(., -address)
       6. ├─tidyr::unnest(., values)
       7. ├─tidyr::hoist(., address, "values")
       8. │ └─purrr::map(...)
-      9. │   └─tidyr:::.f(.x[[i]], ...)
+      9. │   └─tidyr .f(.x[[i]], ...)
      10. │     └─tidyr:::strike(x, plucker)
      11. │       └─vctrs::vec_size(x)
-     12. └─vctrs:::stop_scalar_type(...)
+     12. └─vctrs:::stop_scalar_type(`<fn>`(`<header>`), "")
      13.   └─vctrs:::stop_vctrs(msg, "vctrs_error_scalar_type", actual = x)
+     14.     └─rlang::abort(message, class = c(class, "vctrs_error"), ...)
     Execution halted
     ```
 
@@ -153,62 +115,21 @@ Run `cloud_details(, "emayili")` for more info
       Running ‘testthat.R’
     Running the tests in ‘tests/testthat.R’ failed.
     Last 13 lines of output:
-        3. ├─dplyr::mutate(...)
         4. ├─dplyr::rename(., address = values)
         5. ├─dplyr::select(., -address)
         6. ├─tidyr::unnest(., values)
         7. ├─tidyr::hoist(., address, "values")
         8. │ └─purrr::map(...)
-        9. │   └─tidyr:::.f(.x[[i]], ...)
+        9. │   └─tidyr .f(.x[[i]], ...)
        10. │     └─tidyr:::strike(x, plucker)
        11. │       └─vctrs::vec_size(x)
-       12. └─vctrs:::stop_scalar_type(...)
+       12. └─vctrs:::stop_scalar_type(`<fn>`(`<header>`), "")
        13.   └─vctrs:::stop_vctrs(msg, "vctrs_error_scalar_type", actual = x)
+       14.     └─rlang::abort(message, class = c(class, "vctrs_error"), ...)
       
       [ FAIL 12 | WARN 4 | SKIP 12 | PASS 188 ]
       Error: Test failures
       Execution halted
-    ```
-
-# iotables
-
-<details>
-
-* Version: 0.4.7
-* GitHub: https://github.com/rOpenGov/iotables
-* Source code: https://github.com/cran/iotables
-* Date/Publication: 2021-12-22 17:30:02 UTC
-* Number of recursive dependencies: 115
-
-Run `cloud_details(, "iotables")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    Error(s) in re-building vignettes:
-    --- re-building ‘environmental_impact.Rmd’ using rmarkdown
-    
-    Attaching package: 'dplyr'
-    
-    The following objects are masked from 'package:stats':
-    
-        filter, lag
-    
-    The following objects are masked from 'package:base':
-    ...
-    Columns and rows of CPA_L68A, CPA_T, CPA_U are all zeros and will be removed.
-    Joining, by = c("prod_na", "CPA_A01", "CPA_A02", "CPA_A03", "CPA_B", "CPA_C10-12", "CPA_C13-15", "CPA_C16", "CPA_C17", "CPA_C18", "CPA_C19", "CPA_C20", "CPA_C21", "CPA_C22", "CPA_C23", "CPA_C24", "CPA_C25", "CPA_C26", "CPA_C27", "CPA_C28", "CPA_C29", "CPA_C30", "CPA_C31_32", "CPA_C33", "CPA_D", "CPA_E36", "CPA_E37-39", "CPA_F", "CPA_G45", "CPA_G46", "CPA_H49", "CPA_H50", "CPA_H51", "CPA_H52", "CPA_H53", "CPA_I", "CPA_J58", "CPA_J59_60", "CPA_J61", "CPA_J62_63", "CPA_K64", "CPA_K65", "CPA_K66", "CPA_L68B", "CPA_M69_70", "CPA_M71", "CPA_M72", "CPA_M73", "CPA_M74_75", "CPA_N77", "CPA_N78", "CPA_N79", "CPA_N80-82", "CPA_O", "CPA_P", "CPA_Q86", "CPA_Q87_88", "CPA_R90-92", "CPA_R93", "CPA_S94", "CPA_S95", "CPA_S96")
-    Columns and rows of CPA_L68A are all zeros and will be removed.
-    --- finished re-building ‘working_with_eurostat.Rmd’
-    
-    SUMMARY: processing the following file failed:
-      ‘environmental_impact.Rmd’
-    
-    Error: Vignette re-building failed.
-    Execution halted
     ```
 
 # simpr
@@ -278,6 +199,8 @@ Run `cloud_details(, "skater")` for more info
     Problem with `mutate()` column `degree_truth`.
     ℹ `degree_truth = tidyr::replace_na(degree_truth, "unrelated")`.
     ✖ Can't convert `replace` <character> to match type of `data` <integer>.
+    Caused by error in `stop_vctrs()`:
+    ! Can't convert `replace` <character> to match type of `data` <integer>.
     --- failed re-building ‘basic_usage.Rmd’
     
     SUMMARY: processing the following file failed:
@@ -321,18 +244,19 @@ Run `cloud_details(, "sparklyr")` for more info
 
 ## In both
 
+*   checking dependencies in R code ... WARNING
+    ```
+    Namespace in Imports field not imported from: ‘lifecycle’
+      All declared Imports should be used.
+    Missing or unexported object: ‘rlang::is_env’
+    ```
+
 *   checking installed package size ... NOTE
     ```
       installed size is  6.3Mb
       sub-directories of 1Mb or more:
         R      1.5Mb
         java   3.4Mb
-    ```
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespace in Imports field not imported from: ‘lifecycle’
-      All declared Imports should be used.
     ```
 
 # SWMPrExtension
@@ -364,7 +288,6 @@ Run `cloud_details(, "SWMPrExtension")` for more info
     > 
     > ## Don't show: 
     ...
-      9. │       └─mask$eval_all_summarise(quo)
      10. ├─tidyr::complete(data = dplyr::cur_data(), ..., fill = fill, explicit = explicit)
      11. ├─tidyr:::complete.data.frame(...)
      12. │ ├─tidyr::expand(data, ...)
@@ -372,136 +295,8 @@ Run `cloud_details(, "SWMPrExtension")` for more info
      14. │   └─tidyr:::grid_dots(..., `_data` = data)
      15. │     └─rlang::eval_tidy(dot, data = mask)
      16. └─base::.handleSimpleError(...)
-     17.   └─dplyr:::h(simpleError(msg, call))
-    Execution halted
-    ```
-
-# tidygate
-
-<details>
-
-* Version: 0.4.8
-* GitHub: https://github.com/stemangiola/tidygate
-* Source code: https://github.com/cran/tidygate
-* Date/Publication: 2022-01-03 23:20:02 UTC
-* Number of recursive dependencies: 62
-
-Run `cloud_details(, "tidygate")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘tidygate-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: gate
-    > ### Title: DEPRECATED - use gate_chr, gate_int instead inside a
-    > ###   dplyr::mutate() statement
-    > ### Aliases: gate gate.spec_tbl_df gate.tbl_df
-    > ### Keywords: internal
-    > 
-    > ### ** Examples
-    ...
-     17. ├─tidyr::replace_na(gate, 0)
-     18. └─tidyr:::replace_na.default(gate, 0)
-     19.   └─vctrs::vec_assign(data, missing, replace, x_arg = "data", value_arg = "replace")
-     20.     └─(function () ...
-     21.       └─vctrs::vec_default_cast(...)
-     22.         └─vctrs::stop_incompatible_cast(...)
-     23.           └─vctrs::stop_incompatible_type(...)
-     24.             └─vctrs:::stop_incompatible(...)
-     25.               └─vctrs:::stop_vctrs(...)
-    Execution halted
-    ```
-
-# Tplyr
-
-<details>
-
-* Version: 0.4.3
-* GitHub: https://github.com/atorus-research/Tplyr
-* Source code: https://github.com/cran/Tplyr
-* Date/Publication: 2021-12-06 17:50:02 UTC
-* Number of recursive dependencies: 116
-
-Run `cloud_details(, "Tplyr")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘Tplyr-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: Tplyr
-    > ### Title: A grammar of summary data for clinical reports
-    > ### Aliases: Tplyr Tplyr-package
-    > 
-    > ### ** Examples
-    > 
-    > # Load in pipe
-    ...
-     21. │     └─mask$eval_all_summarise(quo)
-     22. ├─tidyr::complete(data = dplyr::cur_data(), ..., fill = fill, explicit = explicit)
-     23. ├─tidyr:::complete.data.frame(...)
-     24. │ ├─tidyr::expand(data, ...)
-     25. │ └─tidyr:::expand.data.frame(data, ...)
-     26. │   └─tidyr:::grid_dots(..., `_data` = data)
-     27. │     └─rlang::eval_tidy(dot, data = mask)
-     28. └─base::.handleSimpleError(...)
-     29.   └─dplyr:::h(simpleError(msg, call))
-    Execution halted
-    ```
-
-*   checking tests ... ERROR
-    ```
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-      dim(s1$formatted_data) not equal to c(3, 11).
-      target is NULL, current is numeric
-      ── Failure (test-shift.R:71:3): group_shift outputs the expected formatted data ──
-      dim(s2$formatted_data) not equal to c(3, 11).
-      target is NULL, current is numeric
-      ── Failure (test-shift.R:72:3): group_shift outputs the expected formatted data ──
-      dim(s3$formatted_data) not equal to c(3, 11).
-      target is NULL, current is numeric
-      ── Failure (test-shift.R:75:3): group_shift outputs the expected formatted data ──
-      t4$layers[[1]]$formatted_data$row_label1 not equal to c("6", "8", "4").
-      target is NULL, current is character
-      
-      [ FAIL 15 | WARN 0 | SKIP 0 | PASS 668 ]
-      Error: Test failures
-      Execution halted
-    ```
-
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    Error(s) in re-building vignettes:
-    --- re-building ‘Tplyr.Rmd’ using rmarkdown
-    Quitting from lines 333-345 (Tplyr.Rmd) 
-    Error: processing vignette 'Tplyr.Rmd' failed with diagnostics:
-    Problem with `summarise()` input `..1`.
-    ℹ `..1 = complete(data = dplyr::cur_data(), ..., fill = fill, explicit = explicit)`.
-    ✖ object 'BNRIND' not found
-    ℹ The error occurred in group 1: BNRIND = N, ANRIND = N, TRTA = Placebo.
-    --- failed re-building ‘Tplyr.Rmd’
-    
-    ...
-    --- failed re-building ‘shift.Rmd’
-    
-    --- re-building ‘table.Rmd’ using rmarkdown
-    --- finished re-building ‘table.Rmd’
-    
-    SUMMARY: processing the following files failed:
-      ‘Tplyr.Rmd’ ‘denom.Rmd’ ‘shift.Rmd’
-    
-    Error: Vignette re-building failed.
+     17.   └─dplyr h(simpleError(msg, call))
+     18.     └─rlang::abort(bullets, class = "dplyr_error")
     Execution halted
     ```
 
@@ -534,15 +329,15 @@ Run `cloud_details(, "xml2relational")` for more info
     > 
     > # Find path to custmers.xml example file in package directory
     ...
-      8.             ├─tidyr::replace_na(elem.df[record, i], 0)
       9.             └─tidyr:::replace_na.default(elem.df[record, i], 0)
      10.               └─vctrs::vec_assign(data, missing, replace, x_arg = "data", value_arg = "replace")
-     11.                 └─(function () ...
+     11.                 └─vctrs `<fn>`()
      12.                   └─vctrs::vec_default_cast(...)
      13.                     └─vctrs::stop_incompatible_cast(...)
      14.                       └─vctrs::stop_incompatible_type(...)
      15.                         └─vctrs:::stop_incompatible(...)
      16.                           └─vctrs:::stop_vctrs(...)
+     17.                             └─rlang::abort(message, class = c(class, "vctrs_error"), ...)
     Execution halted
     ```
 

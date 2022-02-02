@@ -180,7 +180,7 @@ Run `cloud_details(, "ctDNAtools")` for more info
 * Version: NA
 * GitHub: NA
 * Source code: https://github.com/cran/destiny
-* Number of recursive dependencies: 149
+* Number of recursive dependencies: 122
 
 Run `cloud_details(, "destiny")` for more info
 
@@ -215,7 +215,7 @@ Run `cloud_details(, "destiny")` for more info
 * Version: NA
 * GitHub: NA
 * Source code: https://github.com/cran/dynfrail
-* Number of recursive dependencies: 92
+* Number of recursive dependencies: 61
 
 Run `cloud_details(, "dynfrail")` for more info
 
@@ -420,69 +420,81 @@ Run `cloud_details(, "mafs")` for more info
 
 
 ```
-# MarketMatching
+# PLNmodels
 
 <details>
 
-* Version: 1.2.0
-* GitHub: NA
-* Source code: https://github.com/cran/MarketMatching
-* Date/Publication: 2021-01-08 20:10:02 UTC
-* Number of recursive dependencies: 67
+* Version: 0.11.5
+* GitHub: https://github.com/pln-team/PLNmodels
+* Source code: https://github.com/cran/PLNmodels
+* Date/Publication: 2022-01-20 22:42:49 UTC
+* Number of recursive dependencies: 173
 
-Run `cloud_details(, "MarketMatching")` for more info
+Run `cloud_details(, "PLNmodels")` for more info
 
 </details>
 
-## Error before installation
+## In both
+
+*   checking whether package ‘PLNmodels’ can be installed ... ERROR
+    ```
+    Installation failed.
+    See ‘/tmp/workdir/PLNmodels/new/PLNmodels.Rcheck/00install.out’ for details.
+    ```
+
+## Installation
 
 ### Devel
 
 ```
-* using log directory ‘/tmp/workdir/MarketMatching/new/MarketMatching.Rcheck’
-* using R version 4.1.1 (2021-08-10)
-* using platform: x86_64-pc-linux-gnu (64-bit)
-* using session charset: UTF-8
-* using option ‘--no-manual’
-* checking for file ‘MarketMatching/DESCRIPTION’ ... OK
-* checking extension type ... Package
-* this is package ‘MarketMatching’ version ‘1.2.0’
-* checking package namespace information ... OK
-* checking package dependencies ... ERROR
-Packages required but not available: 'CausalImpact', 'bsts', 'Boom'
-
-See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-manual.
-* DONE
-Status: 1 ERROR
-
-
-
+* installing *source* package ‘PLNmodels’ ...
+** package ‘PLNmodels’ successfully unpacked and MD5 sums checked
+** using staged installation
+** libs
+g++ -std=gnu++11 -I"/opt/R/4.1.1/lib/R/include" -DNDEBUG  -I'/opt/R/4.1.1/lib/R/site-library/Rcpp/include' -I'/opt/R/4.1.1/lib/R/site-library/RcppArmadillo/include' -I'/opt/R/4.1.1/lib/R/site-library/nloptr/include' -I/usr/local/include   -fpic  -g -O2  -c RcppExports.cpp -o RcppExports.o
+g++ -std=gnu++11 -I"/opt/R/4.1.1/lib/R/include" -DNDEBUG  -I'/opt/R/4.1.1/lib/R/site-library/Rcpp/include' -I'/opt/R/4.1.1/lib/R/site-library/RcppArmadillo/include' -I'/opt/R/4.1.1/lib/R/site-library/nloptr/include' -I/usr/local/include   -fpic  -g -O2  -c nlopt_wrapper.cpp -o nlopt_wrapper.o
+g++ -std=gnu++11 -I"/opt/R/4.1.1/lib/R/include" -DNDEBUG  -I'/opt/R/4.1.1/lib/R/site-library/Rcpp/include' -I'/opt/R/4.1.1/lib/R/site-library/RcppArmadillo/include' -I'/opt/R/4.1.1/lib/R/site-library/nloptr/include' -I/usr/local/include   -fpic  -g -O2  -c optim_diag_cov.cpp -o optim_diag_cov.o
+g++ -std=gnu++11 -I"/opt/R/4.1.1/lib/R/include" -DNDEBUG  -I'/opt/R/4.1.1/lib/R/site-library/Rcpp/include' -I'/opt/R/4.1.1/lib/R/site-library/RcppArmadillo/include' -I'/opt/R/4.1.1/lib/R/site-library/nloptr/include' -I/usr/local/include   -fpic  -g -O2  -c optim_full_cov.cpp -o optim_full_cov.o
+g++ -std=gnu++11 -I"/opt/R/4.1.1/lib/R/include" -DNDEBUG  -I'/opt/R/4.1.1/lib/R/site-library/Rcpp/include' -I'/opt/R/4.1.1/lib/R/site-library/RcppArmadillo/include' -I'/opt/R/4.1.1/lib/R/site-library/nloptr/include' -I/usr/local/include   -fpic  -g -O2  -c optim_genet_cov.cpp -o optim_genet_cov.o
+g++ -std=gnu++11 -I"/opt/R/4.1.1/lib/R/include" -DNDEBUG  -I'/opt/R/4.1.1/lib/R/site-library/Rcpp/include' -I'/opt/R/4.1.1/lib/R/site-library/RcppArmadillo/include' -I'/opt/R/4.1.1/lib/R/site-library/nloptr/include' -I/usr/local/include   -fpic  -g -O2  -c optim_rank_cov.cpp -o optim_rank_cov.o
+...
+** building package indices
+** installing vignettes
+** testing if installed package can be loaded from temporary location
+Error: package or namespace load failed for ‘PLNmodels’ in dyn.load(file, DLLpath = DLLpath, ...):
+ unable to load shared object '/tmp/workdir/PLNmodels/new/PLNmodels.Rcheck/00LOCK-PLNmodels/00new/PLNmodels/libs/PLNmodels.so':
+  /tmp/workdir/PLNmodels/new/PLNmodels.Rcheck/00LOCK-PLNmodels/00new/PLNmodels/libs/PLNmodels.so: undefined symbol: nlopt_set_min_objective
+Error: loading failed
+Execution halted
+ERROR: loading failed
+* removing ‘/tmp/workdir/PLNmodels/new/PLNmodels.Rcheck/PLNmodels’
 
 
 ```
 ### CRAN
 
 ```
-* using log directory ‘/tmp/workdir/MarketMatching/old/MarketMatching.Rcheck’
-* using R version 4.1.1 (2021-08-10)
-* using platform: x86_64-pc-linux-gnu (64-bit)
-* using session charset: UTF-8
-* using option ‘--no-manual’
-* checking for file ‘MarketMatching/DESCRIPTION’ ... OK
-* checking extension type ... Package
-* this is package ‘MarketMatching’ version ‘1.2.0’
-* checking package namespace information ... OK
-* checking package dependencies ... ERROR
-Packages required but not available: 'CausalImpact', 'bsts', 'Boom'
-
-See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-manual.
-* DONE
-Status: 1 ERROR
-
-
-
+* installing *source* package ‘PLNmodels’ ...
+** package ‘PLNmodels’ successfully unpacked and MD5 sums checked
+** using staged installation
+** libs
+g++ -std=gnu++11 -I"/opt/R/4.1.1/lib/R/include" -DNDEBUG  -I'/opt/R/4.1.1/lib/R/site-library/Rcpp/include' -I'/opt/R/4.1.1/lib/R/site-library/RcppArmadillo/include' -I'/opt/R/4.1.1/lib/R/site-library/nloptr/include' -I/usr/local/include   -fpic  -g -O2  -c RcppExports.cpp -o RcppExports.o
+g++ -std=gnu++11 -I"/opt/R/4.1.1/lib/R/include" -DNDEBUG  -I'/opt/R/4.1.1/lib/R/site-library/Rcpp/include' -I'/opt/R/4.1.1/lib/R/site-library/RcppArmadillo/include' -I'/opt/R/4.1.1/lib/R/site-library/nloptr/include' -I/usr/local/include   -fpic  -g -O2  -c nlopt_wrapper.cpp -o nlopt_wrapper.o
+g++ -std=gnu++11 -I"/opt/R/4.1.1/lib/R/include" -DNDEBUG  -I'/opt/R/4.1.1/lib/R/site-library/Rcpp/include' -I'/opt/R/4.1.1/lib/R/site-library/RcppArmadillo/include' -I'/opt/R/4.1.1/lib/R/site-library/nloptr/include' -I/usr/local/include   -fpic  -g -O2  -c optim_diag_cov.cpp -o optim_diag_cov.o
+g++ -std=gnu++11 -I"/opt/R/4.1.1/lib/R/include" -DNDEBUG  -I'/opt/R/4.1.1/lib/R/site-library/Rcpp/include' -I'/opt/R/4.1.1/lib/R/site-library/RcppArmadillo/include' -I'/opt/R/4.1.1/lib/R/site-library/nloptr/include' -I/usr/local/include   -fpic  -g -O2  -c optim_full_cov.cpp -o optim_full_cov.o
+g++ -std=gnu++11 -I"/opt/R/4.1.1/lib/R/include" -DNDEBUG  -I'/opt/R/4.1.1/lib/R/site-library/Rcpp/include' -I'/opt/R/4.1.1/lib/R/site-library/RcppArmadillo/include' -I'/opt/R/4.1.1/lib/R/site-library/nloptr/include' -I/usr/local/include   -fpic  -g -O2  -c optim_genet_cov.cpp -o optim_genet_cov.o
+g++ -std=gnu++11 -I"/opt/R/4.1.1/lib/R/include" -DNDEBUG  -I'/opt/R/4.1.1/lib/R/site-library/Rcpp/include' -I'/opt/R/4.1.1/lib/R/site-library/RcppArmadillo/include' -I'/opt/R/4.1.1/lib/R/site-library/nloptr/include' -I/usr/local/include   -fpic  -g -O2  -c optim_rank_cov.cpp -o optim_rank_cov.o
+...
+** building package indices
+** installing vignettes
+** testing if installed package can be loaded from temporary location
+Error: package or namespace load failed for ‘PLNmodels’ in dyn.load(file, DLLpath = DLLpath, ...):
+ unable to load shared object '/tmp/workdir/PLNmodels/old/PLNmodels.Rcheck/00LOCK-PLNmodels/00new/PLNmodels/libs/PLNmodels.so':
+  /tmp/workdir/PLNmodels/old/PLNmodels.Rcheck/00LOCK-PLNmodels/00new/PLNmodels/libs/PLNmodels.so: undefined symbol: nlopt_set_min_objective
+Error: loading failed
+Execution halted
+ERROR: loading failed
+* removing ‘/tmp/workdir/PLNmodels/old/PLNmodels.Rcheck/PLNmodels’
 
 
 ```
