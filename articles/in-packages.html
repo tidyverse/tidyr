@@ -4,7 +4,9 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="Things to bear in mind when using tidyr in a package.
+">
 <title>In packages • tidyr</title>
 <!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
@@ -12,223 +14,177 @@
 <link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png">
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png">
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="../tidyverse.css" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="../bootstrap-toc.css">
-<script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
+<script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="../deps/bootstrap-5.1.0/bootstrap.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.1.0/bootstrap.bundle.min.js"></script><link href="../deps/_Source%20Sans%20Pro-0.4.0/font.css" rel="stylesheet">
+<link href="../deps/_Source%20Code%20Pro-0.4.0/font.css" rel="stylesheet">
+<!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
-<script src="../pkgdown.js"></script><link href="../tidyverse-2.css" rel="stylesheet">
-<!--optional theme--><link href="../.css" rel="stylesheet">
-<meta property="og:title" content="In packages">
+<!-- bootstrap-toc --><script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="In packages">
 <meta property="og:description" content="Things to bear in mind when using tidyr in a package.
 ">
 <meta property="og:image" content="https://tidyr.tidyverse.org/logo.png">
-<meta name="twitter:card" content="summary">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-<![endif]--><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-115082821-1"></script><script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'UA-115082821-1');
-</script>
+<![endif]--><script defer data-domain="tidyr.tidyverse.org,all.tidyverse.org" src="https://plausible.io/js/plausible.js"></script>
 </head>
-<body data-spy="scroll" data-target="#toc">
-    <div class="container template-article">
-      <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
-  <div class="container">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
+<body>
+    <a href="#container" class="visually-hidden-focusable">Skip to content</a>
+    
 
-      <div class="navbar-brand-container">
-        <a class="navbar-brand" href="../index.html">tidyr</a>
-        <div class="info hidden-xs hidden-sm">
-          <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.4</span>
-        </div>
-      </div>
-    </div>
-    <div id="navbar" class="navbar-collapse collapse">
-      <ul class="nav navbar-nav navbar-right">
-<li>
-  <a href="../articles/tidy-data.html">Tidy data</a>
+    <nav class="navbar fixed-top navbar-light navbar-expand-lg bg-none"><div class="container">
+    
+    <a class="navbar-brand me-2" href="../index.html">tidyr</a>
+
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.2.0</small>
+
+    
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div id="navbar" class="collapse navbar-collapse ms-3">
+      <ul class="navbar-nav me-auto">
+<li class="nav-item">
+  <a class="nav-link" href="../articles/tidy-data.html">Tidy data</a>
 </li>
-<li>
-  <a href="../reference/index.html">Reference</a>
+<li class="nav-item">
+  <a class="nav-link" href="../reference/index.html">Reference</a>
 </li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Articles
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-<li>
-      <a href="../articles/pivot.html">Pivoting</a>
-    </li>
-    <li>
-      <a href="../articles/rectangle.html">Rectangling</a>
-    </li>
-    <li>
-      <a href="../articles/nest.html">Nested data</a>
-    </li>
-    <li class="divider">
-    <li>
-      <a href="../articles/index.html">More...</a>
-    </li>
-  </ul>
+<li class="active nav-item dropdown">
+  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
+  <div class="dropdown-menu" aria-labelledby="dropdown-articles">
+    <a class="dropdown-item" href="../articles/pivot.html">Pivoting</a>
+    <a class="dropdown-item" href="../articles/rectangle.html">Rectangling</a>
+    <a class="dropdown-item" href="../articles/nest.html">Nested data</a>
+    <div class="dropdown-divider"></div>
+    <a class="dropdown-item" href="../articles/index.html">More articles...</a>
+  </div>
 </li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    News
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-<li class="dropdown-header">Releases</li>
-    <li>
-      <a href="https://www.tidyverse.org/blog/2020/05/tidyr-1.1.0/">Version 1.1.0</a>
-    </li>
-    <li>
-      <a href="https://www.tidyverse.org/articles/2019/09/tidyr-1-0-0/">Version 1.0.0</a>
-    </li>
-    <li>
-      <a href="https://www.tidyverse.org/articles/2018/02/tidyr-0-8-0/">Version 0.8.0</a>
-    </li>
-    <li>
-      <a href="https://www.tidyverse.org/articles/2017/08/tidyr-0.7.0/">Version 0.7.0</a>
-    </li>
-    <li>
-      <a href="https://blog.rstudio.com/2016/08/15/tidyr-0-6-0/">Version 0.6.0</a>
-    </li>
-    <li>
-      <a href="https://blog.rstudio.com/2016/06/13/tidyr-0-5-0/">Version 0.5.0</a>
-    </li>
-    <li>
-      <a href="https://blog.rstudio.com/2016/02/02/tidyr-0-4-0/">Version 0.5.0</a>
-    </li>
-    <li>
-      <a href="https://blog.rstudio.com/2015/09/13/tidyr-0-3-0/">Version 0.4.0</a>
-    </li>
-    <li>
-      <a href="https://blog.rstudio.com/2014/12/08/tidyr-0-2-0/">Version 0.2.0</a>
-    </li>
-    <li>
-      <a href="https://blog.rstudio.com/2014/07/22/introducing-tidyr/">Version 0.1.0</a>
-    </li>
-    <li class="divider">
-    <li>
-      <a href="../news/index.html">Changelog</a>
-    </li>
-  </ul>
+<li class="nav-item dropdown">
+  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-news">News</a>
+  <div class="dropdown-menu" aria-labelledby="dropdown-news">
+    <h6 class="dropdown-header" data-toc-skip>Releases</h6>
+    <a class="external-link dropdown-item" href="https://www.tidyverse.org/blog/2022/02/tidyr-1-2-0/">Version 1.2.0</a>
+    <a class="external-link dropdown-item" href="https://www.tidyverse.org/blog/2020/05/tidyr-1.1.0/">Version 1.1.0</a>
+    <a class="external-link dropdown-item" href="https://www.tidyverse.org/articles/2019/09/tidyr-1-0-0/">Version 1.0.0</a>
+    <a class="external-link dropdown-item" href="https://www.tidyverse.org/articles/2018/02/tidyr-0-8-0/">Version 0.8.0</a>
+    <a class="external-link dropdown-item" href="https://www.tidyverse.org/articles/2017/08/tidyr-0.7.0/">Version 0.7.0</a>
+    <a class="external-link dropdown-item" href="https://blog.rstudio.com/2016/08/15/tidyr-0-6-0/">Version 0.6.0</a>
+    <a class="external-link dropdown-item" href="https://blog.rstudio.com/2016/06/13/tidyr-0-5-0/">Version 0.5.0</a>
+    <a class="external-link dropdown-item" href="https://blog.rstudio.com/2016/02/02/tidyr-0-4-0/">Version 0.5.0</a>
+    <a class="external-link dropdown-item" href="https://blog.rstudio.com/2015/09/13/tidyr-0-3-0/">Version 0.4.0</a>
+    <a class="external-link dropdown-item" href="https://blog.rstudio.com/2014/12/08/tidyr-0-2-0/">Version 0.2.0</a>
+    <a class="external-link dropdown-item" href="https://blog.rstudio.com/2014/07/22/introducing-tidyr/">Version 0.1.0</a>
+    <div class="dropdown-divider"></div>
+    <a class="dropdown-item" href="../news/index.html">Changelog</a>
+  </div>
 </li>
-        <li>
-  <a href="https://github.com/tidyverse/tidyr/">
-    <span class="fab fa-github fa-lg"></span>
+      </ul>
+<form class="form-inline my-2 my-lg-0" role="search">
+        <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off">
+</form>
+
+      <ul class="navbar-nav">
+<li class="nav-item">
+  <a class="external-link nav-link" href="https://github.com/tidyverse/tidyr/" aria-label="github">
+    <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
 </li>
       </ul>
 </div>
-<!--/.nav-collapse -->
+
+    
   </div>
-<!--/.container -->
-</div>
-<!--/.navbar -->
+</nav><div class="container template-article" id="container">
 
-      
 
-      </header><script src="in-packages_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
-  <div class="col-md-9 contents">
-    <div class="page-header toc-ignore">
-      <h1 data-toc-skip>In packages</h1>
+
+
+<div class="row">
+  <main id="main"><div class="page-header">
+      <img src="../logo.png" class="logo" alt=""><h1>In packages</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/tidyverse/tidyr/blob/master/vignettes/in-packages.Rmd"><code>vignettes/in-packages.Rmd</code></a></small>
-      <div class="hidden name"><code>in-packages.Rmd</code></div>
-
+      <small class="dont-index">Source: <a href="https://github.com/tidyverse/tidyr/blob/HEAD/vignettes/in-packages.Rmd" class="external-link"><code>vignettes/in-packages.Rmd</code></a></small>
+      <div class="d-none name"><code>in-packages.Rmd</code></div>
     </div>
 
     
     
-<div id="introduction" class="section level2">
-<h2 class="hasAnchor">
-<a href="#introduction" class="anchor"></a>Introduction</h2>
+<div class="section level2">
+<h2 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
+</h2>
 <p>This vignette serves two distinct, but related, purposes:</p>
 <ul>
-<li><p>It documents general best practices for using tidyr in a package, inspired by <a href="https://ggplot2.tidyverse.org/dev/articles/ggplot2-in-packages.html">using ggplot2 in packages</a>.</p></li>
+<li><p>It documents general best practices for using tidyr in a package, inspired by <a href="https://ggplot2.tidyverse.org/dev/articles/ggplot2-in-packages.html" class="external-link">using ggplot2 in packages</a>.</p></li>
 <li><p>It describes migration patterns for the transition from tidyr v0.8.3 to v1.0.0. This release includes breaking changes to <code><a href="../reference/nest.html">nest()</a></code> and <code><a href="../reference/nest.html">unnest()</a></code> in order to increase consistency within tidyr and with the rest of the tidyverse.</p></li>
 </ul>
 <p>Before we go on, we’ll attach the packages we use, expose the version of tidyr, and make a small dataset to use in examples.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyr.tidyverse.org">tidyr</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span>, warn.conflicts <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://purrr.tidyverse.org">purrr</a></span><span class="op">)</span>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyr.tidyverse.org">tidyr</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span>, warn.conflicts <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="http://purrr.tidyverse.org" class="external-link">purrr</a></span><span class="op">)</span>
 
-<span class="fu"><a href="https://rdrr.io/r/utils/packageDescription.html">packageVersion</a></span><span class="op">(</span><span class="st">"tidyr"</span><span class="op">)</span>
-<span class="co">#&gt; [1] '1.1.4'</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/packageDescription.html" class="external-link">packageVersion</a></span><span class="op">(</span><span class="st">"tidyr"</span><span class="op">)</span>
+<span class="co">#&gt; [1] '1.2.0'</span>
 
-<span class="va">mini_iris</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html">as_tibble</a></span><span class="op">(</span><span class="va">iris</span><span class="op">)</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">51</span>, <span class="fl">52</span>, <span class="fl">101</span>, <span class="fl">102</span><span class="op">)</span>, <span class="op">]</span>
+<span class="va">mini_iris</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html" class="external-link">as_tibble</a></span><span class="op">(</span><span class="va">iris</span><span class="op">)</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">51</span>, <span class="fl">52</span>, <span class="fl">101</span>, <span class="fl">102</span><span class="op">)</span>, <span class="op">]</span>
 <span class="va">mini_iris</span>
-<span class="co">#&gt; # A tibble: 6 × 5</span>
+<span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 5</span></span>
 <span class="co">#&gt;   Sepal.Length Sepal.Width Petal.Length Petal.Width Species   </span>
-<span class="co">#&gt;          &lt;dbl&gt;       &lt;dbl&gt;        &lt;dbl&gt;       &lt;dbl&gt; &lt;fct&gt;     </span>
-<span class="co">#&gt; 1          5.1         3.5          1.4         0.2 setosa    </span>
-<span class="co">#&gt; 2          4.9         3            1.4         0.2 setosa    </span>
-<span class="co">#&gt; 3          7           3.2          4.7         1.4 versicolor</span>
-<span class="co">#&gt; 4          6.4         3.2          4.5         1.5 versicolor</span>
-<span class="co">#&gt; 5          6.3         3.3          6           2.5 virginica </span>
-<span class="co">#&gt; 6          5.8         2.7          5.1         1.9 virginica</span></code></pre></div>
+<span class="co">#&gt;          <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>     </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span>          5.1         3.5          1.4         0.2 setosa    </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span>          4.9         3            1.4         0.2 setosa    </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">3</span>          7           3.2          4.7         1.4 versicolor</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">4</span>          6.4         3.2          4.5         1.5 versicolor</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">5</span>          6.3         3.3          6           2.5 virginica </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">6</span>          5.8         2.7          5.1         1.9 virginica</span></code></pre></div>
 </div>
-<div id="using-tidyr-in-packages" class="section level2">
-<h2 class="hasAnchor">
-<a href="#using-tidyr-in-packages" class="anchor"></a>Using tidyr in packages</h2>
+<div class="section level2">
+<h2 id="using-tidyr-in-packages">Using tidyr in packages<a class="anchor" aria-label="anchor" href="#using-tidyr-in-packages"></a>
+</h2>
 <p>Here we assume that you’re already familiar with using tidyr in functions, as described in <code>vignette("programming.Rmd)</code>. There are two important considerations when using tidyr in a package:</p>
 <ul>
 <li>How to avoid <code>R CMD CHECK</code> notes when using fixed variable names.</li>
 <li>How to alert yourself to upcoming changes in the development version of tidyr.</li>
 </ul>
-<div id="fixed-column-names" class="section level3">
-<h3 class="hasAnchor">
-<a href="#fixed-column-names" class="anchor"></a>Fixed column names</h3>
+<div class="section level3">
+<h3 id="fixed-column-names">Fixed column names<a class="anchor" aria-label="anchor" href="#fixed-column-names"></a>
+</h3>
 <p>If you know the column names, this code works in the same way regardless of whether its inside or outside of a package:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">mini_iris</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/nest.html">nest</a></span><span class="op">(</span>
-  petal <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">Petal.Length</span>, <span class="va">Petal.Width</span><span class="op">)</span>, 
-  sepal <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">Sepal.Length</span>, <span class="va">Sepal.Width</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">mini_iris</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="../reference/nest.html">nest</a></span><span class="op">(</span>
+  petal <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">Petal.Length</span>, <span class="va">Petal.Width</span><span class="op">)</span>, 
+  sepal <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">Sepal.Length</span>, <span class="va">Sepal.Width</span><span class="op">)</span>
 <span class="op">)</span>
-<span class="co">#&gt; # A tibble: 3 × 3</span>
+<span class="co">#&gt; <span style="color: #949494;"># A tibble: 3 × 3</span></span>
 <span class="co">#&gt;   Species    petal            sepal           </span>
-<span class="co">#&gt;   &lt;fct&gt;      &lt;list&gt;           &lt;list&gt;          </span>
-<span class="co">#&gt; 1 setosa     &lt;tibble [2 × 2]&gt; &lt;tibble [2 × 2]&gt;</span>
-<span class="co">#&gt; 2 versicolor &lt;tibble [2 × 2]&gt; &lt;tibble [2 × 2]&gt;</span>
-<span class="co">#&gt; 3 virginica  &lt;tibble [2 × 2]&gt; &lt;tibble [2 × 2]&gt;</span></code></pre></div>
+<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>          </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> setosa     <span style="color: #949494;">&lt;tibble [2 × 2]&gt;</span> <span style="color: #949494;">&lt;tibble [2 × 2]&gt;</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> versicolor <span style="color: #949494;">&lt;tibble [2 × 2]&gt;</span> <span style="color: #949494;">&lt;tibble [2 × 2]&gt;</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> virginica  <span style="color: #949494;">&lt;tibble [2 × 2]&gt;</span> <span style="color: #949494;">&lt;tibble [2 × 2]&gt;</span></span></code></pre></div>
 <p>But <code>R CMD check</code> will warn about undefined global variables (<code>Petal.Length</code>, <code>Petal.Width</code>, <code>Sepal.Length</code>, and <code>Sepal.Width</code>), because it doesn’t know that <code><a href="../reference/nest.html">nest()</a></code> is looking for the variables inside of <code>mini_iris</code> (i.e. <code>Petal.Length</code> and friends are data-variables, not env-variables).</p>
-<p>The easiest way to silence this note is to use <code><a href="https://tidyselect.r-lib.org/reference/all_of.html">all_of()</a></code>. <code><a href="https://tidyselect.r-lib.org/reference/all_of.html">all_of()</a></code> is a tidyselect helper (like <code><a href="https://tidyselect.r-lib.org/reference/starts_with.html">starts_with()</a></code>, <code><a href="https://tidyselect.r-lib.org/reference/starts_with.html">ends_with()</a></code>, etc.) that takes column names stored as strings:</p>
+<p>The easiest way to silence this note is to use <code><a href="https://tidyselect.r-lib.org/reference/all_of.html" class="external-link">all_of()</a></code>. <code><a href="https://tidyselect.r-lib.org/reference/all_of.html" class="external-link">all_of()</a></code> is a tidyselect helper (like <code><a href="https://tidyselect.r-lib.org/reference/starts_with.html" class="external-link">starts_with()</a></code>, <code><a href="https://tidyselect.r-lib.org/reference/starts_with.html" class="external-link">ends_with()</a></code>, etc.) that takes column names stored as strings:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">mini_iris</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/nest.html">nest</a></span><span class="op">(</span>
-  petal <span class="op">=</span> <span class="fu"><a href="https://tidyselect.r-lib.org/reference/all_of.html">all_of</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Petal.Length"</span>, <span class="st">"Petal.Width"</span><span class="op">)</span><span class="op">)</span>, 
-  sepal <span class="op">=</span> <span class="fu"><a href="https://tidyselect.r-lib.org/reference/all_of.html">all_of</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Sepal.Length"</span>, <span class="st">"Sepal.Width"</span><span class="op">)</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">mini_iris</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="../reference/nest.html">nest</a></span><span class="op">(</span>
+  petal <span class="op">=</span> <span class="fu"><a href="https://tidyselect.r-lib.org/reference/all_of.html" class="external-link">all_of</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Petal.Length"</span>, <span class="st">"Petal.Width"</span><span class="op">)</span><span class="op">)</span>, 
+  sepal <span class="op">=</span> <span class="fu"><a href="https://tidyselect.r-lib.org/reference/all_of.html" class="external-link">all_of</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Sepal.Length"</span>, <span class="st">"Sepal.Width"</span><span class="op">)</span><span class="op">)</span>
 <span class="op">)</span>
-<span class="co">#&gt; # A tibble: 3 × 3</span>
+<span class="co">#&gt; <span style="color: #949494;"># A tibble: 3 × 3</span></span>
 <span class="co">#&gt;   Species    petal            sepal           </span>
-<span class="co">#&gt;   &lt;fct&gt;      &lt;list&gt;           &lt;list&gt;          </span>
-<span class="co">#&gt; 1 setosa     &lt;tibble [2 × 2]&gt; &lt;tibble [2 × 2]&gt;</span>
-<span class="co">#&gt; 2 versicolor &lt;tibble [2 × 2]&gt; &lt;tibble [2 × 2]&gt;</span>
-<span class="co">#&gt; 3 virginica  &lt;tibble [2 × 2]&gt; &lt;tibble [2 × 2]&gt;</span></code></pre></div>
-<p>Alternatively, you may want to use <code><a href="https://tidyselect.r-lib.org/reference/all_of.html">any_of()</a></code> if it is OK that some of the specified variables cannot be found in the input data.</p>
-<p>The <a href="https://tidyselect.r-lib.org">tidyselect</a> package offers an entire family of select helpers. You are probably already familiar with them from using <code><a href="https://dplyr.tidyverse.org/reference/select.html">dplyr::select()</a></code>.</p>
+<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>          </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> setosa     <span style="color: #949494;">&lt;tibble [2 × 2]&gt;</span> <span style="color: #949494;">&lt;tibble [2 × 2]&gt;</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> versicolor <span style="color: #949494;">&lt;tibble [2 × 2]&gt;</span> <span style="color: #949494;">&lt;tibble [2 × 2]&gt;</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> virginica  <span style="color: #949494;">&lt;tibble [2 × 2]&gt;</span> <span style="color: #949494;">&lt;tibble [2 × 2]&gt;</span></span></code></pre></div>
+<p>Alternatively, you may want to use <code><a href="https://tidyselect.r-lib.org/reference/all_of.html" class="external-link">any_of()</a></code> if it is OK that some of the specified variables cannot be found in the input data.</p>
+<p>The <a href="https://tidyselect.r-lib.org" class="external-link">tidyselect</a> package offers an entire family of select helpers. You are probably already familiar with them from using <code><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">dplyr::select()</a></code>.</p>
 </div>
-<div id="continuous-integration" class="section level3">
-<h3 class="hasAnchor">
-<a href="#continuous-integration" class="anchor"></a>Continuous integration</h3>
+<div class="section level3">
+<h3 id="continuous-integration">Continuous integration<a class="anchor" aria-label="anchor" href="#continuous-integration"></a>
+</h3>
 <p>Hopefully you’ve already adopted continuous integration for your package, in which <code>R CMD check</code> (which includes your own tests) is run on a regular basis, e.g. every time you push changes to your package’s source on GitHub or similar. The tidyverse team currently relies most heavily on GitHub Actions, so that will be our example. <code>usethis::use_github_action()</code> can help you get started.</p>
 <p>We recommend adding a workflow that targets the devel version of tidyr. When should you do this?</p>
 <ul>
@@ -236,39 +192,39 @@
 <li><p>Right before a tidyr release? For everyone else, you could add (or re-activate an existing) tidyr-devel workflow during the period preceding a major tidyr release that has the potential for breaking changes, especially if you’ve been contacted during our reverse dependency checks.</p></li>
 </ul>
 <p>Example of a GitHub Actions workflow that tests your package against the development version of tidyr:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb4-1"><a href="#cb4-1"></a><span class="fu">on</span><span class="kw">:</span></span>
-<span id="cb4-2"><a href="#cb4-2"></a><span class="at">  </span><span class="fu">push</span><span class="kw">:</span></span>
-<span id="cb4-3"><a href="#cb4-3"></a><span class="at">    </span><span class="fu">branches</span><span class="kw">:</span></span>
-<span id="cb4-4"><a href="#cb4-4"></a><span class="at">      </span><span class="kw">-</span><span class="at"> master</span></span>
-<span id="cb4-5"><a href="#cb4-5"></a><span class="at">  </span><span class="fu">pull_request</span><span class="kw">:</span></span>
-<span id="cb4-6"><a href="#cb4-6"></a><span class="at">    </span><span class="fu">branches</span><span class="kw">:</span></span>
-<span id="cb4-7"><a href="#cb4-7"></a><span class="at">      </span><span class="kw">-</span><span class="at"> master</span></span>
-<span id="cb4-8"><a href="#cb4-8"></a></span>
-<span id="cb4-9"><a href="#cb4-9"></a><span class="fu">name</span><span class="kw">:</span><span class="at"> R-CMD-check-tidyr-devel</span></span>
-<span id="cb4-10"><a href="#cb4-10"></a></span>
-<span id="cb4-11"><a href="#cb4-11"></a><span class="fu">jobs</span><span class="kw">:</span></span>
-<span id="cb4-12"><a href="#cb4-12"></a><span class="at">  </span><span class="fu">R-CMD-check</span><span class="kw">:</span></span>
-<span id="cb4-13"><a href="#cb4-13"></a><span class="at">    </span><span class="fu">runs-on</span><span class="kw">:</span><span class="at"> macOS-latest</span></span>
-<span id="cb4-14"><a href="#cb4-14"></a><span class="at">    </span><span class="fu">steps</span><span class="kw">:</span></span>
-<span id="cb4-15"><a href="#cb4-15"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">uses</span><span class="kw">:</span><span class="at"> actions/checkout@v2</span></span>
-<span id="cb4-16"><a href="#cb4-16"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">uses</span><span class="kw">:</span><span class="at"> r-lib/actions/setup-r@master</span></span>
-<span id="cb4-17"><a href="#cb4-17"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Install dependencies</span></span>
-<span id="cb4-18"><a href="#cb4-18"></a><span class="fu">        run</span><span class="kw">: </span><span class="ch">|</span></span>
-<span id="cb4-19"><a href="#cb4-19"></a>          install.packages(c("remotes", "rcmdcheck"))</span>
-<span id="cb4-20"><a href="#cb4-20"></a>          remotes::install_deps(dependencies = TRUE)</span>
-<span id="cb4-21"><a href="#cb4-21"></a>          remotes::install_github("tidyverse/tidyr")</span>
-<span id="cb4-22"><a href="#cb4-22"></a><span class="at">        </span><span class="fu">shell</span><span class="kw">:</span><span class="at"> Rscript {0}</span></span>
-<span id="cb4-23"><a href="#cb4-23"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Check</span></span>
-<span id="cb4-24"><a href="#cb4-24"></a><span class="at">        </span><span class="fu">run</span><span class="kw">:</span><span class="at"> rcmdcheck::rcmdcheck(args = "--no-manual", error_on = "error")</span></span>
-<span id="cb4-25"><a href="#cb4-25"></a><span class="at">        </span><span class="fu">shell</span><span class="kw">:</span><span class="at"> Rscript {0}</span></span></code></pre></div>
-<p>GitHub Actions are an evolving landscape, so you can always mine the workflows for tidyr itself (<a href="https://github.com/tidyverse/tidyr/tree/master/.github/workflows">tidyverse/tidyr/.github/workflows</a>) or the main <a href="https://github.com/r-lib/actions">r-lib/actions</a> repo for ideas.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">on</span><span class="kw">:</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">push</span><span class="kw">:</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">branches</span><span class="kw">:</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> main</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">pull_request</span><span class="kw">:</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">branches</span><span class="kw">:</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> main</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="fu">name</span><span class="kw">:</span><span class="at"> R-CMD-check-tidyr-devel</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="fu">jobs</span><span class="kw">:</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">R-CMD-check</span><span class="kw">:</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">runs-on</span><span class="kw">:</span><span class="at"> macOS-latest</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">steps</span><span class="kw">:</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">uses</span><span class="kw">:</span><span class="at"> actions/checkout@v2</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">uses</span><span class="kw">:</span><span class="at"> r-lib/actions/setup-r@v1</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Install dependencies</span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a><span class="fu">        run</span><span class="kw">: </span><span class="ch">|</span></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>          install.packages(c("remotes", "rcmdcheck"))</span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>          remotes::install_deps(dependencies = TRUE)</span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>          remotes::install_github("tidyverse/tidyr")</span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">shell</span><span class="kw">:</span><span class="at"> Rscript {0}</span></span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Check</span></span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">run</span><span class="kw">:</span><span class="at"> rcmdcheck::rcmdcheck(args = "--no-manual", error_on = "error")</span></span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">shell</span><span class="kw">:</span><span class="at"> Rscript {0}</span></span></code></pre></div>
+<p>GitHub Actions are an evolving landscape, so you can always mine the workflows for tidyr itself (<a href="https://github.com/tidyverse/tidyr/tree/main/.github/workflows" class="external-link">tidyverse/tidyr/.github/workflows</a>) or the main <a href="https://github.com/r-lib/actions" class="external-link">r-lib/actions</a> repo for ideas.</p>
 </div>
 </div>
-<div id="tidyr-v0-8-3---v1-0-0" class="section level2">
-<h2 class="hasAnchor">
-<a href="#tidyr-v0-8-3---v1-0-0" class="anchor"></a>tidyr v0.8.3 -&gt; v1.0.0</h2>
+<div class="section level2">
+<h2 id="tidyr-v0-8-3---v1-0-0">tidyr v0.8.3 -&gt; v1.0.0<a class="anchor" aria-label="anchor" href="#tidyr-v0-8-3---v1-0-0"></a>
+</h2>
 <p>v1.0.0 makes considerable changes to the interface of <code><a href="../reference/nest.html">nest()</a></code> and <code><a href="../reference/nest.html">unnest()</a></code> in order to bring them in line with newer tidyverse conventions. I have tried to make the functions as backward compatible as possible and to give informative warning messages, but I could not cover 100% of use cases, so you may need to change your package code. This guide will help you do so with a minimum of pain.</p>
-<p>Ideally, you’ll tweak your package so that it works with both tidyr 0.8.3 and tidyr 1.0.0. This makes life considerably easier because it means there’s no need to coordinate CRAN submissions - you can submit your package that works with both tidyr versions, before I submit tidyr to CRAN. This section describes our recommend practices for doing so, drawing from the general principles described in <a href="https://principles.tidyverse.org/changes-multivers.html" class="uri">https://principles.tidyverse.org/changes-multivers.html</a>.</p>
+<p>Ideally, you’ll tweak your package so that it works with both tidyr 0.8.3 and tidyr 1.0.0. This makes life considerably easier because it means there’s no need to coordinate CRAN submissions - you can submit your package that works with both tidyr versions, before I submit tidyr to CRAN. This section describes our recommend practices for doing so, drawing from the general principles described in <a href="https://principles.tidyverse.org/changes-multivers.html" class="external-link uri">https://principles.tidyverse.org/changes-multivers.html</a>.</p>
 <p>If you use continuous integration already, we <strong>strongly</strong> recommend adding a build that tests with the development version of tidyr; see above for details.</p>
 <p>This section briefly describes how to run different code for different versions of tidyr, then goes through the major changes that might require workarounds:</p>
 <ul>
@@ -279,36 +235,35 @@
 <li>
 <code><a href="../reference/deprecated-se.html">nest_()</a></code> and <code><a href="../reference/deprecated-se.html">unnest_()</a></code> are defunct.</li>
 </ul>
-<p>If you’re struggling with a problem that’s not described here, please reach out via <a href="https://github.com/tidyverse/tidyr/issues/new">github</a> or <a href="mailto:hadley@rstudio.com">email</a> so we can help out.</p>
-<div id="conditional-code" class="section level3">
-<h3 class="hasAnchor">
-<a href="#conditional-code" class="anchor"></a>Conditional code</h3>
+<p>If you’re struggling with a problem that’s not described here, please reach out via <a href="https://github.com/tidyverse/tidyr/issues/new" class="external-link">github</a> or <a href="mailto:hadley@rstudio.com">email</a> so we can help out.</p>
+<div class="section level3">
+<h3 id="conditional-code">Conditional code<a class="anchor" aria-label="anchor" href="#conditional-code"></a>
+</h3>
 <p>Sometimes you’ll be able to write code that works with v0.8.3 <em>and</em> v1.0.0. But this often requires code that’s not particularly natural for either version and you’d be better off to (temporarily) have separate code paths, each containing non-contrived code. You get to re-use your existing code in the “old” branch, which will eventually be phased out, and write clean, forward-looking code in the “new” branch.</p>
 <p>The basic approach looks like this. First you define a function that returns <code>TRUE</code> for new versions of tidyr:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">tidyr_new_interface</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="op">{</span>
-  <span class="fu"><a href="https://rdrr.io/r/utils/packageDescription.html">packageVersion</a></span><span class="op">(</span><span class="st">"tidyr"</span><span class="op">)</span> <span class="op">&gt;</span> <span class="st">"0.8.99"</span>
+  <span class="fu"><a href="https://rdrr.io/r/utils/packageDescription.html" class="external-link">packageVersion</a></span><span class="op">(</span><span class="st">"tidyr"</span><span class="op">)</span> <span class="op">&gt;</span> <span class="st">"0.8.99"</span>
 <span class="op">}</span></code></pre></div>
 <p>We highly recommend keeping this as a function because it provides an obvious place to jot any transition notes for your package, and it makes it easier to remove transitional code later on. Another benefit is that the tidyr version is determined at <em>run time</em>, not at <em>build time</em>, and will therefore detect your user’s current tidyr version.</p>
 <p>Then in your functions, you use an <code>if</code> statement to call different code for different versions:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>my_function_inside_a_package &lt;-<span class="st"> </span><span class="cf">function</span>(...)</span>
-<span id="cb6-2"><a href="#cb6-2"></a>  <span class="co"># my code here</span></span>
-<span id="cb6-3"><a href="#cb6-3"></a></span>
-<span id="cb6-4"><a href="#cb6-4"></a>  <span class="cf">if</span> (<span class="kw">tidyr_new_interface</span>()) {</span>
-<span id="cb6-5"><a href="#cb6-5"></a>    <span class="co"># Freshly written code for v1.0.0</span></span>
-<span id="cb6-6"><a href="#cb6-6"></a>    out &lt;-<span class="st"> </span>tidyr<span class="op">::</span><span class="kw">nest</span>(df, <span class="dt">data =</span> <span class="kw">any_of</span>(<span class="kw">c</span>(<span class="st">"x"</span>, <span class="st">"y"</span>, <span class="st">"z"</span>)))</span>
-<span id="cb6-7"><a href="#cb6-7"></a>  } <span class="cf">else</span> {</span>
-<span id="cb6-8"><a href="#cb6-8"></a>    <span class="co"># Existing code for v0.8.3</span></span>
-<span id="cb6-9"><a href="#cb6-9"></a>    out &lt;-<span class="st"> </span>tidyr<span class="op">::</span><span class="kw">nest</span>(df, x, y, z)</span>
-<span id="cb6-10"><a href="#cb6-10"></a>  }</span>
-<span id="cb6-11"><a href="#cb6-11"></a></span>
-<span id="cb6-12"><a href="#cb6-12"></a>  <span class="co"># more code here</span></span>
-<span id="cb6-13"><a href="#cb6-13"></a><span class="er">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>my_function_inside_a_package <span class="ot">&lt;-</span> <span class="cf">function</span>(...)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># my code here</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">tidyr_new_interface</span>()) {</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Freshly written code for v1.0.0</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    out <span class="ot">&lt;-</span> tidyr<span class="sc">::</span><span class="fu">nest</span>(df, <span class="at">data =</span> <span class="fu">any_of</span>(<span class="fu">c</span>(<span class="st">"x"</span>, <span class="st">"y"</span>, <span class="st">"z"</span>)))</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Existing code for v0.8.3</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>    out <span class="ot">&lt;-</span> tidyr<span class="sc">::</span><span class="fu">nest</span>(df, x, y, z)</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>  <span class="co"># more code here</span></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="er">}</span></span></code></pre></div>
 <p>If your new code uses a function that only exists in tidyr 1.0.0, you will get a <code>NOTE</code> from <code>R CMD check</code>: this is one of the few notes that you can explain in your CRAN submission comments. Just mention that it’s for forward compatibility with tidyr 1.0.0, and CRAN will let your package through.</p>
 </div>
-<div id="new-syntax-for-nest" class="section level3">
-<h3 class="hasAnchor">
-<a href="#new-syntax-for-nest" class="anchor"></a>New syntax for <code>nest()</code>
+<div class="section level3">
+<h3 id="new-syntax-for-nest">New syntax for <code>nest()</code><a class="anchor" aria-label="anchor" href="#new-syntax-for-nest"></a>
 </h3>
 <p>What changed:</p>
 <ul>
@@ -318,37 +273,37 @@
 </ul>
 <p>Why it changed:</p>
 <ul>
-<li><p>The use of <code>...</code> for metadata is a problematic pattern we’re moving away from. <a href="https://principles.tidyverse.org/dots-data.html" class="uri">https://principles.tidyverse.org/dots-data.html</a></p></li>
+<li><p>The use of <code>...</code> for metadata is a problematic pattern we’re moving away from. <a href="https://principles.tidyverse.org/dots-data.html" class="external-link uri">https://principles.tidyverse.org/dots-data.html</a></p></li>
 <li>
 <p>The <code>new_col = &lt;something about existing cols&gt;</code> construct lets us create multiple nested list-columns at once (“multi-nest”).</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">mini_iris</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="../reference/nest.html">nest</a></span><span class="op">(</span>petal <span class="op">=</span> <span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html">matches</a></span><span class="op">(</span><span class="st">"Petal"</span><span class="op">)</span>, sepal <span class="op">=</span> <span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html">matches</a></span><span class="op">(</span><span class="st">"Sepal"</span><span class="op">)</span><span class="op">)</span> 
-<span class="co">#&gt; # A tibble: 3 × 3</span>
+<code class="sourceCode R"><span class="va">mini_iris</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
+  <span class="fu"><a href="../reference/nest.html">nest</a></span><span class="op">(</span>petal <span class="op">=</span> <span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html" class="external-link">matches</a></span><span class="op">(</span><span class="st">"Petal"</span><span class="op">)</span>, sepal <span class="op">=</span> <span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html" class="external-link">matches</a></span><span class="op">(</span><span class="st">"Sepal"</span><span class="op">)</span><span class="op">)</span> 
+<span class="co">#&gt; <span style="color: #949494;"># A tibble: 3 × 3</span></span>
 <span class="co">#&gt;   Species    petal            sepal           </span>
-<span class="co">#&gt;   &lt;fct&gt;      &lt;list&gt;           &lt;list&gt;          </span>
-<span class="co">#&gt; 1 setosa     &lt;tibble [2 × 2]&gt; &lt;tibble [2 × 2]&gt;</span>
-<span class="co">#&gt; 2 versicolor &lt;tibble [2 × 2]&gt; &lt;tibble [2 × 2]&gt;</span>
-<span class="co">#&gt; 3 virginica  &lt;tibble [2 × 2]&gt; &lt;tibble [2 × 2]&gt;</span></code></pre></div>
+<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>          </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> setosa     <span style="color: #949494;">&lt;tibble [2 × 2]&gt;</span> <span style="color: #949494;">&lt;tibble [2 × 2]&gt;</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> versicolor <span style="color: #949494;">&lt;tibble [2 × 2]&gt;</span> <span style="color: #949494;">&lt;tibble [2 × 2]&gt;</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> virginica  <span style="color: #949494;">&lt;tibble [2 × 2]&gt;</span> <span style="color: #949494;">&lt;tibble [2 × 2]&gt;</span></span></code></pre></div>
 </li>
 </ul>
 <p>Before and after examples:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># v0.8.3</span>
-<span class="va">mini_iris</span> <span class="op">%&gt;%</span> 
+<span class="va">mini_iris</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
   <span class="fu"><a href="../reference/nest.html">nest</a></span><span class="op">(</span><span class="va">Sepal.Length</span>, <span class="va">Sepal.Width</span>, <span class="va">Petal.Length</span>, <span class="va">Petal.Width</span>, .key <span class="op">=</span> <span class="st">"my_data"</span><span class="op">)</span>
 
 <span class="co"># v1.0.0</span>
-<span class="va">mini_iris</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="../reference/nest.html">nest</a></span><span class="op">(</span>my_data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">Sepal.Length</span>, <span class="va">Sepal.Width</span>, <span class="va">Petal.Length</span>, <span class="va">Petal.Width</span><span class="op">)</span><span class="op">)</span>
+<span class="va">mini_iris</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
+  <span class="fu"><a href="../reference/nest.html">nest</a></span><span class="op">(</span>my_data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">Sepal.Length</span>, <span class="va">Sepal.Width</span>, <span class="va">Petal.Length</span>, <span class="va">Petal.Width</span><span class="op">)</span><span class="op">)</span>
 
 <span class="co"># v1.0.0 avoiding R CMD check NOTE</span>
-<span class="va">mini_iris</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="../reference/nest.html">nest</a></span><span class="op">(</span>my_data <span class="op">=</span> <span class="fu"><a href="https://tidyselect.r-lib.org/reference/all_of.html">any_of</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Sepal.Length"</span>, <span class="st">"Sepal.Width"</span>, <span class="st">"Petal.Length"</span>, <span class="st">"Petal.Width"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
+<span class="va">mini_iris</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
+  <span class="fu"><a href="../reference/nest.html">nest</a></span><span class="op">(</span>my_data <span class="op">=</span> <span class="fu"><a href="https://tidyselect.r-lib.org/reference/all_of.html" class="external-link">any_of</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Sepal.Length"</span>, <span class="st">"Sepal.Width"</span>, <span class="st">"Petal.Length"</span>, <span class="st">"Petal.Width"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
 
 <span class="co"># or equivalently:</span>
-<span class="va">mini_iris</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="../reference/nest.html">nest</a></span><span class="op">(</span>my_data <span class="op">=</span> <span class="op">!</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/all_of.html">any_of</a></span><span class="op">(</span><span class="st">"Species"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<span class="va">mini_iris</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
+  <span class="fu"><a href="../reference/nest.html">nest</a></span><span class="op">(</span>my_data <span class="op">=</span> <span class="op">!</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/all_of.html" class="external-link">any_of</a></span><span class="op">(</span><span class="st">"Species"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p>If you need a quick and dirty fix without having to think, just call <code><a href="../reference/nest_legacy.html">nest_legacy()</a></code> instead of <code><a href="../reference/nest.html">nest()</a></code>. It’s the same as <code><a href="../reference/nest.html">nest()</a></code> in v0.8.3:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw">if</span> <span class="op">(</span><span class="fu">tidyr_new_interface</span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
@@ -357,39 +312,38 @@
   <span class="va">out</span> <span class="op">&lt;-</span> <span class="fu">tidyr</span><span class="fu">::</span><span class="fu"><a href="../reference/nest.html">nest</a></span><span class="op">(</span><span class="va">df</span>, <span class="va">x</span>, <span class="va">y</span>, <span class="va">z</span><span class="op">)</span>
 <span class="op">}</span></code></pre></div>
 </div>
-<div id="new-syntax-for-unnest" class="section level3">
-<h3 class="hasAnchor">
-<a href="#new-syntax-for-unnest" class="anchor"></a>New syntax for <code>unnest()</code>
+<div class="section level3">
+<h3 id="new-syntax-for-unnest">New syntax for <code>unnest()</code><a class="anchor" aria-label="anchor" href="#new-syntax-for-unnest"></a>
 </h3>
 <p>What changed:</p>
 <ul>
 <li><p>The to-be-unnested columns must now be specified explicitly, instead of defaulting to all list-columns. This also deprecates <code>.drop</code> and <code>.preserve</code>.</p></li>
 <li><p><code>.sep</code> has been deprecated and replaced with <code>names_sep</code>.</p></li>
-<li><p><code><a href="../reference/nest.html">unnest()</a></code> uses the <a href="https://www.tidyverse.org/blog/2019/01/tibble-2.0.1/#name-repair">emerging tidyverse standard</a> to disambiguate duplicated names. Use <code>names_repair = tidyr_legacy</code> to request the previous approach.</p></li>
+<li><p><code><a href="../reference/nest.html">unnest()</a></code> uses the <a href="https://www.tidyverse.org/blog/2019/01/tibble-2.0.1/#name-repair" class="external-link">emerging tidyverse standard</a> to disambiguate duplicated names. Use <code>names_repair = tidyr_legacy</code> to request the previous approach.</p></li>
 <li>
-<p><code>.id</code> has been deprecated because it can be easily replaced by creating the column of names prior to <code><a href="../reference/nest.html">unnest()</a></code>, e.g. with an upstream call to <code><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate()</a></code>.</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="co"># v0.8.3</span></span>
-<span id="cb10-2"><a href="#cb10-2"></a>df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">unnest</span>(x, <span class="dt">.id =</span> <span class="st">"id"</span>)</span>
-<span id="cb10-3"><a href="#cb10-3"></a></span>
-<span id="cb10-4"><a href="#cb10-4"></a><span class="co"># v1.0.0</span></span>
-<span id="cb10-5"><a href="#cb10-5"></a>df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">id =</span> <span class="kw">names</span>(x)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">unnest</span>(x)<span class="er">)</span></span></code></pre></div>
+<p><code>.id</code> has been deprecated because it can be easily replaced by creating the column of names prior to <code><a href="../reference/nest.html">unnest()</a></code>, e.g. with an upstream call to <code><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate()</a></code>.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># v0.8.3</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span> <span class="fu">unnest</span>(x, <span class="at">.id =</span> <span class="st">"id"</span>)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co"># v1.0.0</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">id =</span> <span class="fu">names</span>(x)) <span class="sc">%&gt;%</span> <span class="fu">unnest</span>(x)<span class="er">)</span></span></code></pre></div>
 </li>
 </ul>
 <p>Why it changed:</p>
 <ul>
-<li><p>The use of <code>...</code> for metadata is a problematic pattern we’re moving away from. <a href="https://principles.tidyverse.org/dots-data.html" class="uri">https://principles.tidyverse.org/dots-data.html</a></p></li>
-<li><p>The changes to details arguments relate to features rolling out across multiple packages in the tidyverse. For example, <code>ptype</code> exposes prototype support from the new <a href="https://vctrs.r-lib.org">vctrs package</a>. <code>names_repair</code> specifies what to do about duplicated or non-syntactic names, consistent with tibble and readxl.</p></li>
+<li><p>The use of <code>...</code> for metadata is a problematic pattern we’re moving away from. <a href="https://principles.tidyverse.org/dots-data.html" class="external-link uri">https://principles.tidyverse.org/dots-data.html</a></p></li>
+<li><p>The changes to details arguments relate to features rolling out across multiple packages in the tidyverse. For example, <code>ptype</code> exposes prototype support from the new <a href="https://vctrs.r-lib.org" class="external-link">vctrs package</a>. <code>names_repair</code> specifies what to do about duplicated or non-syntactic names, consistent with tibble and readxl.</p></li>
 </ul>
 <p>Before and after:</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">nested</span> <span class="op">&lt;-</span> <span class="va">mini_iris</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="../reference/nest.html">nest</a></span><span class="op">(</span>my_data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">Sepal.Length</span>, <span class="va">Sepal.Width</span>, <span class="va">Petal.Length</span>, <span class="va">Petal.Width</span><span class="op">)</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">nested</span> <span class="op">&lt;-</span> <span class="va">mini_iris</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
+  <span class="fu"><a href="../reference/nest.html">nest</a></span><span class="op">(</span>my_data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">Sepal.Length</span>, <span class="va">Sepal.Width</span>, <span class="va">Petal.Length</span>, <span class="va">Petal.Width</span><span class="op">)</span><span class="op">)</span>
 
 <span class="co"># v0.8.3 automatically unnests list-cols</span>
-<span class="va">nested</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/nest.html">unnest</a></span><span class="op">(</span><span class="op">)</span>
+<span class="va">nested</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="../reference/nest.html">unnest</a></span><span class="op">(</span><span class="op">)</span>
 
 <span class="co"># v1.0.0 must be told which columns to unnest</span>
-<span class="va">nested</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/nest.html">unnest</a></span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/all_of.html">any_of</a></span><span class="op">(</span><span class="st">"my_data"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<span class="va">nested</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="../reference/nest.html">unnest</a></span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/all_of.html" class="external-link">any_of</a></span><span class="op">(</span><span class="st">"my_data"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p>If you need a quick and dirty fix without having to think, just call <code><a href="../reference/nest_legacy.html">unnest_legacy()</a></code> instead of <code><a href="../reference/nest.html">unnest()</a></code>. It’s the same as <code><a href="../reference/nest.html">unnest()</a></code> in v0.8.3:</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw">if</span> <span class="op">(</span><span class="fu">tidyr_new_interface</span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
@@ -398,9 +352,10 @@
   <span class="va">out</span> <span class="op">&lt;-</span> <span class="fu">tidyr</span><span class="fu">::</span><span class="fu"><a href="../reference/nest.html">unnest</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span>
 <span class="op">}</span></code></pre></div>
 </div>
-<div id="nest-preserves-groups" class="section level3">
-<h3 class="hasAnchor">
-<a href="#nest-preserves-groups" class="anchor"></a><code>nest()</code> preserves groups</h3>
+<div class="section level3">
+<h3 id="nest-preserves-groups">
+<code>nest()</code> preserves groups<a class="anchor" aria-label="anchor" href="#nest-preserves-groups"></a>
+</h3>
 <p>What changed:</p>
 <ul>
 <li>
@@ -408,62 +363,64 @@
 </ul>
 <p>Why it changed:</p>
 <ul>
-<li>To reflect the growing support for grouped data frames, especially in recent releases of dplyr. See, for example, <code><a href="https://dplyr.tidyverse.org/reference/group_map.html">dplyr::group_modify()</a></code>, <code><a href="https://dplyr.tidyverse.org/reference/group_map.html">group_map()</a></code>, and friends.</li>
+<li>To reflect the growing support for grouped data frames, especially in recent releases of dplyr. See, for example, <code><a href="https://dplyr.tidyverse.org/reference/group_map.html" class="external-link">dplyr::group_modify()</a></code>, <code><a href="https://dplyr.tidyverse.org/reference/group_map.html" class="external-link">group_map()</a></code>, and friends.</li>
 </ul>
 <p>If the fact that <code><a href="../reference/nest.html">nest()</a></code> now preserves groups is problematic downstream, you have a few choices:</p>
 <ul>
-<li><p>Apply <code><a href="https://dplyr.tidyverse.org/reference/group_by.html">ungroup()</a></code> to the result. This level of pragmatism suggests, however, you should at least consider the next two options.</p></li>
-<li><p>You should never have grouped in the first place. Eliminate the <code><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by()</a></code> call and specify which columns should be nested versus not nested directly in <code><a href="../reference/nest.html">nest()</a></code>.</p></li>
+<li><p>Apply <code><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">ungroup()</a></code> to the result. This level of pragmatism suggests, however, you should at least consider the next two options.</p></li>
+<li><p>You should never have grouped in the first place. Eliminate the <code><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by()</a></code> call and specify which columns should be nested versus not nested directly in <code><a href="../reference/nest.html">nest()</a></code>.</p></li>
 <li><p>Adjust the downstream code to accommodate grouping.</p></li>
 </ul>
-<p>Imagine we used <code><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by()</a></code> then <code><a href="../reference/nest.html">nest()</a></code> on <code>mini_iris</code>, then we computed on the list-column <em>outside the data frame</em>.</p>
+<p>Imagine we used <code><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by()</a></code> then <code><a href="../reference/nest.html">nest()</a></code> on <code>mini_iris</code>, then we computed on the list-column <em>outside the data frame</em>.</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="op">(</span><span class="va">df</span> <span class="op">&lt;-</span> <span class="va">mini_iris</span> <span class="op">%&gt;%</span> 
-   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">Species</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+<code class="sourceCode R"><span class="op">(</span><span class="va">df</span> <span class="op">&lt;-</span> <span class="va">mini_iris</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
+   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">Species</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
    <span class="fu"><a href="../reference/nest.html">nest</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 3 × 2</span>
-<span class="co">#&gt; # Groups:   Species [3]</span>
+<span class="co">#&gt; <span style="color: #949494;"># A tibble: 3 × 2</span></span>
+<span class="co">#&gt; <span style="color: #949494;"># Groups:   Species [3]</span></span>
 <span class="co">#&gt;   Species    data            </span>
-<span class="co">#&gt;   &lt;fct&gt;      &lt;list&gt;          </span>
-<span class="co">#&gt; 1 setosa     &lt;tibble [2 × 4]&gt;</span>
-<span class="co">#&gt; 2 versicolor &lt;tibble [2 × 4]&gt;</span>
-<span class="co">#&gt; 3 virginica  &lt;tibble [2 × 4]&gt;</span>
-<span class="op">(</span><span class="va">external_variable</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map_int</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">data</span>, <span class="va">nrow</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>          </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> setosa     <span style="color: #949494;">&lt;tibble [2 × 4]&gt;</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> versicolor <span style="color: #949494;">&lt;tibble [2 × 4]&gt;</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> virginica  <span style="color: #949494;">&lt;tibble [2 × 4]&gt;</span></span>
+<span class="op">(</span><span class="va">external_variable</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html" class="external-link">map_int</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">data</span>, <span class="va">nrow</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; [1] 2 2 2</span></code></pre></div>
 <p>And now we try to add that back to the data <em>post hoc</em>:</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">df</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>n_rows <span class="op">=</span> <span class="va">external_variable</span><span class="op">)</span>
-<span class="co">#&gt; Error: Problem with `mutate()` column `n_rows`.</span>
-<span class="co">#&gt; ℹ `n_rows = external_variable`.</span>
-<span class="co">#&gt; ℹ `n_rows` must be size 1, not 3.</span>
-<span class="co">#&gt; ℹ The error occurred in group 1: Species = setosa.</span></code></pre></div>
-<p>This fails because <code>df</code> is grouped and <code><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate()</a></code> is group-aware, so it’s hard to add a completely external variable. Other than pragmatically <code><a href="https://dplyr.tidyverse.org/reference/group_by.html">ungroup()</a></code>ing, what can we do? One option is to work inside the data frame, i.e. bring the <code><a href="https://purrr.tidyverse.org/reference/map.html">map()</a></code> inside the <code><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate()</a></code>, and design the problem away:</p>
+<code class="sourceCode R"><span class="va">df</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>n_rows <span class="op">=</span> <span class="va">external_variable</span><span class="op">)</span>
+<span class="co">#&gt; <span style="color: #BBBB00; font-weight: bold;">Error</span><span style="font-weight: bold;"> in </span><span style="color: #262626; background-color: #DADADA; font-weight: bold;">`mutate_cols()`</span><span style="font-weight: bold;">:</span></span>
+<span class="co">#&gt; <span style="color: #BBBB00;">!</span> Problem with `mutate()` column `n_rows`.</span>
+<span class="co">#&gt; <span style="color: #0000BB;">ℹ</span> `n_rows = external_variable`.</span>
+<span class="co">#&gt; <span style="color: #0000BB;">ℹ</span> `n_rows` must be size 1, not 3.</span>
+<span class="co">#&gt; <span style="color: #0000BB;">ℹ</span> The error occurred in group 1: Species = setosa.</span></code></pre></div>
+<p>This fails because <code>df</code> is grouped and <code><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate()</a></code> is group-aware, so it’s hard to add a completely external variable. Other than pragmatically <code><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">ungroup()</a></code>ing, what can we do? One option is to work inside the data frame, i.e. bring the <code><a href="https://purrr.tidyverse.org/reference/map.html" class="external-link">map()</a></code> inside the <code><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate()</a></code>, and design the problem away:</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">df</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>n_rows <span class="op">=</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map_int</a></span><span class="op">(</span><span class="va">data</span>, <span class="va">nrow</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 3 × 3</span>
-<span class="co">#&gt; # Groups:   Species [3]</span>
+<code class="sourceCode R"><span class="va">df</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>n_rows <span class="op">=</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html" class="external-link">map_int</a></span><span class="op">(</span><span class="va">data</span>, <span class="va">nrow</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; <span style="color: #949494;"># A tibble: 3 × 3</span></span>
+<span class="co">#&gt; <span style="color: #949494;"># Groups:   Species [3]</span></span>
 <span class="co">#&gt;   Species    data             n_rows</span>
-<span class="co">#&gt;   &lt;fct&gt;      &lt;list&gt;            &lt;int&gt;</span>
-<span class="co">#&gt; 1 setosa     &lt;tibble [2 × 4]&gt;      2</span>
-<span class="co">#&gt; 2 versicolor &lt;tibble [2 × 4]&gt;      2</span>
-<span class="co">#&gt; 3 virginica  &lt;tibble [2 × 4]&gt;      2</span></code></pre></div>
-<p>If, somehow, the grouping seems appropriate AND working inside the data frame is not an option, <code><a href="https://tibble.tidyverse.org/reference/add_column.html">tibble::add_column()</a></code> is group-unaware. It lets you add external data to a grouped data frame.</p>
+<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> setosa     <span style="color: #949494;">&lt;tibble [2 × 4]&gt;</span>      2</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> versicolor <span style="color: #949494;">&lt;tibble [2 × 4]&gt;</span>      2</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> virginica  <span style="color: #949494;">&lt;tibble [2 × 4]&gt;</span>      2</span></code></pre></div>
+<p>If, somehow, the grouping seems appropriate AND working inside the data frame is not an option, <code><a href="https://tibble.tidyverse.org/reference/add_column.html" class="external-link">tibble::add_column()</a></code> is group-unaware. It lets you add external data to a grouped data frame.</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">df</span> <span class="op">%&gt;%</span> 
-  <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/add_column.html">add_column</a></span><span class="op">(</span>n_rows <span class="op">=</span> <span class="va">external_variable</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 3 × 3</span>
-<span class="co">#&gt; # Groups:   Species [3]</span>
+<code class="sourceCode R"><span class="va">df</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
+  <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/add_column.html" class="external-link">add_column</a></span><span class="op">(</span>n_rows <span class="op">=</span> <span class="va">external_variable</span><span class="op">)</span>
+<span class="co">#&gt; <span style="color: #949494;"># A tibble: 3 × 3</span></span>
+<span class="co">#&gt; <span style="color: #949494;"># Groups:   Species [3]</span></span>
 <span class="co">#&gt;   Species    data             n_rows</span>
-<span class="co">#&gt;   &lt;fct&gt;      &lt;list&gt;            &lt;int&gt;</span>
-<span class="co">#&gt; 1 setosa     &lt;tibble [2 × 4]&gt;      2</span>
-<span class="co">#&gt; 2 versicolor &lt;tibble [2 × 4]&gt;      2</span>
-<span class="co">#&gt; 3 virginica  &lt;tibble [2 × 4]&gt;      2</span></code></pre></div>
+<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> setosa     <span style="color: #949494;">&lt;tibble [2 × 4]&gt;</span>      2</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> versicolor <span style="color: #949494;">&lt;tibble [2 × 4]&gt;</span>      2</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> virginica  <span style="color: #949494;">&lt;tibble [2 × 4]&gt;</span>      2</span></code></pre></div>
 </div>
-<div id="nest_-and-unnest_-are-defunct" class="section level3">
-<h3 class="hasAnchor">
-<a href="#nest_-and-unnest_-are-defunct" class="anchor"></a><code>nest_()</code> and <code>unnest_()</code> are defunct</h3>
+<div class="section level3">
+<h3 id="nest_-and-unnest_-are-defunct">
+<code>nest_()</code> and <code>unnest_()</code> are defunct<a class="anchor" aria-label="anchor" href="#nest_-and-unnest_-are-defunct"></a>
+</h3>
 <p>What changed:</p>
 <ul>
 <li>
@@ -481,49 +438,39 @@
 <p>Before and after:</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># v0.8.3</span>
-<span class="va">mini_iris</span> <span class="op">%&gt;%</span> 
+<span class="va">mini_iris</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
   <span class="fu"><a href="../reference/deprecated-se.html">nest_</a></span><span class="op">(</span>
     key_col <span class="op">=</span> <span class="st">"my_data"</span>,
-    nest_cols <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Sepal.Length"</span>, <span class="st">"Sepal.Width"</span>, <span class="st">"Petal.Length"</span>, <span class="st">"Petal.Width"</span><span class="op">)</span>
+    nest_cols <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Sepal.Length"</span>, <span class="st">"Sepal.Width"</span>, <span class="st">"Petal.Length"</span>, <span class="st">"Petal.Width"</span><span class="op">)</span>
   <span class="op">)</span>
 
-<span class="va">nested</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/deprecated-se.html">unnest_</a></span><span class="op">(</span><span class="op">~</span> <span class="va">my_data</span><span class="op">)</span>
+<span class="va">nested</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="../reference/deprecated-se.html">unnest_</a></span><span class="op">(</span><span class="op">~</span> <span class="va">my_data</span><span class="op">)</span>
 
 <span class="co"># v1.0.0</span>
-<span class="va">mini_iris</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="../reference/nest.html">nest</a></span><span class="op">(</span>my_data <span class="op">=</span> <span class="fu"><a href="https://tidyselect.r-lib.org/reference/all_of.html">any_of</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Sepal.Length"</span>, <span class="st">"Sepal.Width"</span>, <span class="st">"Petal.Length"</span>, <span class="st">"Petal.Width"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
+<span class="va">mini_iris</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
+  <span class="fu"><a href="../reference/nest.html">nest</a></span><span class="op">(</span>my_data <span class="op">=</span> <span class="fu"><a href="https://tidyselect.r-lib.org/reference/all_of.html" class="external-link">any_of</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Sepal.Length"</span>, <span class="st">"Sepal.Width"</span>, <span class="st">"Petal.Length"</span>, <span class="st">"Petal.Width"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
 
-<span class="va">nested</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/nest.html">unnest</a></span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/all_of.html">any_of</a></span><span class="op">(</span><span class="st">"my_data"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<span class="va">nested</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="../reference/nest.html">unnest</a></span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/all_of.html" class="external-link">any_of</a></span><span class="op">(</span><span class="st">"my_data"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 </div>
 </div>
-  </div>
-
-  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
-
-        <nav id="toc" data-toggle="toc"><h2 data-toc-skip>Contents</h2>
-    </nav>
-</div>
-
+  </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
+    </nav></aside>
 </div>
 
 
 
-      <footer><div class="tidyverse">
-  <p>tidyr is a part of the <strong>tidyverse</strong>, an ecosystem of packages designed with common APIs and a shared philosophy. Learn more at <a href="https://tidyverse.org">tidyverse.org</a>.</p>
+   </div>
+  <footer><div class="container">
+  <div class="pkgdown-footer-left">
+  <p></p>
+<p>Developed by <a href="http://hadley.nz" class="external-link">Hadley Wickham</a>, Maximilian Girlich.</p>
 </div>
 
-<div class="author">
-  <p>
-    Developed by <a href="http://hadley.nz">Hadley Wickham</a>.
-    Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
-  </p>
+<div class="pkgdown-footer-right">
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
 </div>
 
-      </footer>
-</div>
-
-  
-
-
-  </body>
+  </div></footer>
+</body>
 </html>
