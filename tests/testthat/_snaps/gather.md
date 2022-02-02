@@ -35,7 +35,8 @@
 
     Code
       out <- gather(df, k, v)
-    Warning <warning>
+    Condition
+      Warning:
       attributes are not identical across measure variables;
       they will be dropped
 
@@ -43,7 +44,8 @@
 
     Code
       gather(df, k, v)
-    Warning <warning>
+    Condition
+      Warning:
       attributes are not identical across measure variables;
       they will be dropped
     Output

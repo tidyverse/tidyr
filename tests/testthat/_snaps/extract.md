@@ -15,5 +15,6 @@
       (expect_error(extract(df, x, "x", regex = regex)))
     Output
       <error/rlang_error>
-      `regex` can't use modifiers from stringr.
+      Error in `check_not_stringr_pattern()`:
+      ! `regex` can't use modifiers from stringr.
 
