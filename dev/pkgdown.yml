@@ -8,7 +8,7 @@ articles:
   programming: programming.html
   rectangle: rectangle.html
   tidy-data: tidy-data.html
-last_built: 2022-02-02T01:47Z
+last_built: 2022-02-02T02:25Z
 urls:
   reference: https://tidyr.tidyverse.org/reference
   article: https://tidyr.tidyverse.org/articles
