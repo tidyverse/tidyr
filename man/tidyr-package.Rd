@@ -24,6 +24,7 @@ Useful links:
 
 Authors:
 \itemize{
+  \item Davis Vaughan \email{davis@rstudio.com}
   \item Maximilian Girlich
 }
 

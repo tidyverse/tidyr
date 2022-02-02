@@ -3,6 +3,7 @@ Title: Tidy Messy Data
 Version: 1.2.0.9000
 Authors@R: c(
     person("Hadley", "Wickham", , "hadley@rstudio.com", role = c("aut", "cre")),
+    person("Davis", "Vaughan", , "davis@rstudio.com", role = "aut"),
     person("Maximilian", "Girlich", role = "aut"),
     person("RStudio", role = "cph")
   )
