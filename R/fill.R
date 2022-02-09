@@ -92,5 +92,5 @@ fill <- function(data, ..., .direction = c("down", "up", "downup", "updown")) {
 fill.data.frame <- function(data, ..., .direction = c("down", "up", "downup", "updown")) {
   vars <- tidyselect::eval_select(expr(c(...)), data)
   .direction <- arg_match0(.direction, values = c("down", "up", "downup", "updown"), arg_nm = ".direction")
-  dplyr::mutate_at(data, dplyr::vars(any_of(vars)), ~ vec_fill_missing(.x, direction = !! .direction))
+  dplyr::mutate_at(data, dplyr::vars(any_of(vars)), ~ vec_fill_missing(.x, direction = .env$.direction))
 }
