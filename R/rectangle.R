@@ -189,7 +189,7 @@ hoist <- function(.data,
     abort("`.data` must be a data frame.")
   }
 
-  check_present(.col)
+  check_required(.col)
   .col <- tidyselect::vars_pull(names(.data), {{.col}})
 
   x <- .data[[.col]]
@@ -338,7 +338,7 @@ unnest_longer <- function(data,
     abort("`data` must be a data frame.")
   }
 
-  check_present(col)
+  check_required(col)
   # TODO: Use `allow_rename = FALSE`.
   # Requires https://github.com/r-lib/tidyselect/issues/225.
   cols <- tidyselect::eval_select(enquo(col), data)
@@ -572,7 +572,7 @@ unnest_wider <- function(data,
     abort("`data` must be a data frame.")
   }
 
-  check_present(col)
+  check_required(col)
   # TODO: Use `allow_rename = FALSE`.
   # Requires https://github.com/r-lib/tidyselect/issues/225.
   cols <- tidyselect::eval_select(enquo(col), data)
@@ -725,7 +725,7 @@ elt_to_wide <- function(x, name, strict, names_sep) {
 #' @export
 #' @rdname hoist
 unnest_auto <- function(data, col) {
-  check_present(col)
+  check_required(col)
   col <- tidyselect::vars_pull(tbl_vars(data), {{ col }})
 
   x <- data[[col]]
