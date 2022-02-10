@@ -4,8 +4,8 @@
       (expect_error(chop(df)))
     Output
       <error/rlang_error>
-      Error in `check_present()`:
-      ! Argument `cols` is missing with no default
+      Error in `chop()`:
+      ! `cols` is absent but must be supplied.
 
 # incompatible sizes are caught
 

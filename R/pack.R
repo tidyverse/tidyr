@@ -97,7 +97,7 @@ pack <- function(.data, ..., .names_sep = NULL) {
 #'   See [vctrs::vec_as_names()] for more details on these terms and the
 #'   strategies used to enforce them.
 unpack <- function(data, cols, names_sep = NULL, names_repair = "check_unique") {
-  check_present(cols)
+  check_required(cols)
   cols <- tidyselect::eval_select(enquo(cols), data)
 
   size <- vec_size(data)

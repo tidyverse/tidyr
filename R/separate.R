@@ -71,7 +71,7 @@ separate <- function(data, col, into, sep = "[^[:alnum:]]+", remove = TRUE,
 separate.data.frame <- function(data, col, into, sep = "[^[:alnum:]]+",
                                 remove = TRUE, convert = FALSE,
                                 extra = "warn", fill = "warn", ...) {
-  check_present(col)
+  check_required(col)
   var <- tidyselect::vars_pull(names(data), !! enquo(col))
   value <- as.character(data[[var]])
 

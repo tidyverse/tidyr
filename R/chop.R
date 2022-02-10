@@ -66,7 +66,7 @@
 #' df %>% unchop(y)
 #' df %>% unchop(y, keep_empty = TRUE)
 chop <- function(data, cols) {
-  check_present(cols)
+  check_required(cols)
   # TODO: `allow_rename = FALSE`
   cols <- tidyselect::eval_select(enquo(cols), data)
 

@@ -200,14 +200,6 @@ apply_names_sep <- function(outer, inner, names_sep) {
   as.character(glue("{outer}{names_sep}{inner}"))
 }
 
-check_present <- function(x) {
-  arg <- ensym(x)
-  if (missing(x)) {
-    abort(paste0("Argument `", arg, "` is missing with no default"))
-  }
-
-}
-
 vec_paste0 <- function(...) {
   # Use tidyverse recycling rules to avoid size zero recycling bugs
   args <- vec_recycle_common(...)
