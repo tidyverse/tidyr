@@ -17,10 +17,14 @@
 #'   defines a pivotting specification.
 #' @inheritParams pivot_longer
 #' @param id_cols <[`tidy-select`][tidyr_tidy_select]> A set of columns that
-#'   uniquely identifies each observation. Defaults to all columns in `data`
-#'   except for the columns specified in `names_from` and `values_from`.
-#'   Typically used when you have redundant variables, i.e. variables whose
-#'   values are perfectly correlated with existing variables.
+#'   uniquely identify each observation. Typically used when you have
+#'   redundant variables, i.e. variables whose values are perfectly correlated
+#'   with existing variables.
+#'
+#'   Defaults to all columns in `data` except for the columns specified through
+#'   `names_from` and `values_from`. If a tidyselect expression is supplied, it
+#'   will be evaluated on `data` after removing the columns specified through
+#'   `names_from` and `values_from`.
 #' @param id_expand Should the values in the `id_cols` columns be expanded by
 #'   [expand()] before pivoting? This results in more rows, the output will
 #'   contain a complete expansion of all possible values in `id_cols`. Implicit
