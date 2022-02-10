@@ -546,16 +546,44 @@ select_wider_id_cols <- function(data,
                                  non_id_cols = character()) {
   id_cols <- enquo(id_cols)
 
-  # Remove known non-id-cols so they are never selected
+  # Remove known `non_id_cols` so they are never selected
   data <- data[setdiff(names(data), non_id_cols)]
 
   if (quo_is_null(id_cols)) {
-    names(data)
-  } else {
+    # Default selects everything in `data` after `non_id_cols` have been removed
+    return(names(data))
+  }
+
+  try_fetch(
     # TODO: Use `allow_rename = FALSE`.
     # Requires https://github.com/r-lib/tidyselect/issues/225.
-    names(tidyselect::eval_select(enquo(id_cols), data))
+    id_cols <- tidyselect::eval_select(enquo(id_cols), data),
+    vctrs_error_subscript_oob = function(cnd) rethrow_id_cols_oob(cnd, non_id_cols)
+  )
+
+  names(id_cols)
+}
+
+rethrow_id_cols_oob <- function(cnd, non_id_cols) {
+  i <- cnd[["i"]]
+
+  if (!is_string(i)) {
+    abort("`i` is expected to be a string.", .internal = TRUE)
   }
+
+  if (i %in% non_id_cols) {
+    stop_id_cols_oob(i)
+  } else {
+    cnd_signal(cnd)
+  }
+}
+
+stop_id_cols_oob <- function(i) {
+  message <- c(
+    "`id_cols` can't select a column already selected by `names_from` or `values_from`.",
+    x = glue("Column `{i}` has already been selected.")
+  )
+  abort(message, parent = NA)
 }
 
 # Helpers -----------------------------------------------------------------
