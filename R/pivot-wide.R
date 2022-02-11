@@ -574,7 +574,8 @@ rethrow_id_cols_oob <- function(cnd, non_id_cols) {
   if (i %in% non_id_cols) {
     stop_id_cols_oob(i)
   } else {
-    cnd_signal(cnd)
+    # Zap this special handler, throw the normal condition
+    zap()
   }
 }
 
