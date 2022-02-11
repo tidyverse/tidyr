@@ -1,7 +1,7 @@
 # tidyr (development version)
 
-* Improved the error message returned when a column selected by `names_from` or
-  `values_from` is also selected by `id_cols` (#1318).
+* Improved the error message returned by `pivot_wider()` when a column selected
+  by `names_from` or `values_from` is also selected by `id_cols` (#1318).
 
 # tidyr 1.2.0
 
