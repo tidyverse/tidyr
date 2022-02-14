@@ -17,10 +17,14 @@
 #'   defines a pivotting specification.
 #' @inheritParams pivot_longer
 #' @param id_cols <[`tidy-select`][tidyr_tidy_select]> A set of columns that
-#'   uniquely identifies each observation. Defaults to all columns in `data`
-#'   except for the columns specified in `names_from` and `values_from`.
-#'   Typically used when you have redundant variables, i.e. variables whose
-#'   values are perfectly correlated with existing variables.
+#'   uniquely identify each observation. Typically used when you have
+#'   redundant variables, i.e. variables whose values are perfectly correlated
+#'   with existing variables.
+#'
+#'   Defaults to all columns in `data` except for the columns specified through
+#'   `names_from` and `values_from`. If a tidyselect expression is supplied, it
+#'   will be evaluated on `data` after removing the columns specified through
+#'   `names_from` and `values_from`.
 #' @param id_expand Should the values in the `id_cols` columns be expanded by
 #'   [expand()] before pivoting? This results in more rows, the output will
 #'   contain a complete expansion of all possible values in `id_cols`. Implicit
@@ -287,17 +291,17 @@ pivot_wider_spec <- function(data,
 
   names_from_cols <- names(spec)[-(1:2)]
   values_from_cols <- vec_unique(spec$.value)
-  non_id_cols <- c(names_from_cols, values_from_cols)
 
   id_cols <- select_wider_id_cols(
     data = data,
     id_cols = {{id_cols}},
-    non_id_cols = non_id_cols
+    names_from_cols = names_from_cols,
+    values_from_cols = values_from_cols
   )
 
   values_fn <- check_list_of_functions(values_fn, values_from_cols, "values_fn")
 
-  unused_cols <- setdiff(names(data), c(id_cols, non_id_cols))
+  unused_cols <- setdiff(names(data), c(id_cols, names_from_cols, values_from_cols))
   unused_fn <- check_list_of_functions(unused_fn, unused_cols, "unused_fn")
   unused_cols <- names(unused_fn)
 
@@ -524,14 +528,14 @@ build_wider_id_cols_expr <- function(data,
                                      values_from = value) {
   # TODO: Use `allow_rename = FALSE`.
   # Requires https://github.com/r-lib/tidyselect/issues/225.
-  names_from <- names(tidyselect::eval_select(enquo(names_from), data))
-  values_from <- names(tidyselect::eval_select(enquo(values_from), data))
-  non_id_cols <- c(names_from, values_from)
+  names_from_cols <- names(tidyselect::eval_select(enquo(names_from), data))
+  values_from_cols <- names(tidyselect::eval_select(enquo(values_from), data))
 
   out <- select_wider_id_cols(
     data = data,
     id_cols = {{id_cols}},
-    non_id_cols = non_id_cols
+    names_from_cols = names_from_cols,
+    values_from_cols = values_from_cols
   )
 
   expr(c(!!!out))
@@ -539,19 +543,53 @@ build_wider_id_cols_expr <- function(data,
 
 select_wider_id_cols <- function(data,
                                  id_cols = NULL,
-                                 non_id_cols = character()) {
+                                 names_from_cols = character(),
+                                 values_from_cols = character()) {
   id_cols <- enquo(id_cols)
 
   # Remove known non-id-cols so they are never selected
-  data <- data[setdiff(names(data), non_id_cols)]
+  data <- data[setdiff(names(data), c(names_from_cols, values_from_cols))]
 
   if (quo_is_null(id_cols)) {
-    names(data)
-  } else {
+    # Default selects everything in `data` after non-id-cols have been removed
+    return(names(data))
+  }
+
+  try_fetch(
     # TODO: Use `allow_rename = FALSE`.
     # Requires https://github.com/r-lib/tidyselect/issues/225.
-    names(tidyselect::eval_select(enquo(id_cols), data))
+    id_cols <- tidyselect::eval_select(enquo(id_cols), data),
+    vctrs_error_subscript_oob = function(cnd) {
+      rethrow_id_cols_oob(cnd, names_from_cols, values_from_cols)
+    }
+  )
+
+  names(id_cols)
+}
+
+rethrow_id_cols_oob <- function(cnd, names_from_cols, values_from_cols) {
+  i <- cnd[["i"]]
+
+  if (!is_string(i)) {
+    abort("`i` is expected to be a string.", .internal = TRUE)
   }
+
+  if (i %in% names_from_cols) {
+    stop_id_cols_oob(i, "names_from")
+  } else if (i %in% values_from_cols) {
+    stop_id_cols_oob(i, "values_from")
+  } else {
+    # Zap this special handler, throw the normal condition
+    zap()
+  }
+}
+
+stop_id_cols_oob <- function(i, arg) {
+  message <- c(
+    glue("`id_cols` can't select a column already selected by `{arg}`."),
+    i = glue("Column `{i}` has already been selected.")
+  )
+  abort(message, parent = NA)
 }
 
 # Helpers -----------------------------------------------------------------

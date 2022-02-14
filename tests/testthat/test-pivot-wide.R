@@ -321,6 +321,24 @@ test_that("`id_cols = everything()` excludes `names_from` and `values_from`", {
   )
 })
 
+test_that("`id_cols` can't select columns from `names_from` or `values_from` (#1318)", {
+  df <- tibble(name = c("x", "y"), value = c(1, 2))
+
+  # And gives a nice error message!
+  expect_snapshot({
+    (expect_error(pivot_wider(df, id_cols = name, names_from = name, values_from = value)))
+    (expect_error(pivot_wider(df, id_cols = value, names_from = name, values_from = value)))
+  })
+})
+
+test_that("`id_cols` returns a tidyselect error if a column selection is OOB (#1318)", {
+  df <- tibble(name = c("x", "y"), value = c(1, 2))
+
+  expect_snapshot(
+    (expect_error(pivot_wider(df, id_cols = foo)))
+  )
+})
+
 test_that("pivoting a zero row data frame drops `names_from` and `values_from` (#1249)", {
   df <- tibble(key = character(), name = character(), value = integer())
 
