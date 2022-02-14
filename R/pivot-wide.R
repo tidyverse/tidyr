@@ -582,7 +582,7 @@ rethrow_id_cols_oob <- function(cnd, non_id_cols) {
 stop_id_cols_oob <- function(i) {
   message <- c(
     "`id_cols` can't select a column already selected by `names_from` or `values_from`.",
-    x = glue("Column `{i}` has already been selected.")
+    i = glue("Column `{i}` has already been selected.")
   )
   abort(message, parent = NA)
 }
