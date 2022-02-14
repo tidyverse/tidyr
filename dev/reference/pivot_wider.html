@@ -115,10 +115,13 @@ decreasing the number of rows. The inverse transformation is
 <dd><p>A data frame to pivot.</p></dd>
 <dt>id_cols</dt>
 <dd><p>&lt;<code><a href="tidyr_tidy_select.html">tidy-select</a></code>&gt; A set of columns that
-uniquely identifies each observation. Defaults to all columns in <code>data</code>
-except for the columns specified in <code>names_from</code> and <code>values_from</code>.
-Typically used when you have redundant variables, i.e. variables whose
-values are perfectly correlated with existing variables.</p></dd>
+uniquely identify each observation. Typically used when you have
+redundant variables, i.e. variables whose values are perfectly correlated
+with existing variables.</p>
+<p>Defaults to all columns in <code>data</code> except for the columns specified through
+<code>names_from</code> and <code>values_from</code>. If a tidyselect expression is supplied, it
+will be evaluated on <code>data</code> after removing the columns specified through
+<code>names_from</code> and <code>values_from</code>.</p></dd>
 <dt>id_expand</dt>
 <dd><p>Should the values in the <code>id_cols</code> columns be expanded by
 <code><a href="expand.html">expand()</a></code> before pivoting? This results in more rows, the output will
