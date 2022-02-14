@@ -1,5 +1,8 @@
 # tidyr (development version)
 
+* Added documentation to the `replace` argument of `replace_na()` to mention
+  that it is always cast to the type of `data` (#1317).
+
 * Improved the error message returned by `pivot_wider()` when a column selected
   by `names_from` or `values_from` is also selected by `id_cols` (#1318).
 

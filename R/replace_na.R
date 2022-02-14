@@ -1,11 +1,14 @@
 #' Replace NAs with specified values
 #'
 #' @param data A data frame or vector.
-#' @param replace If `data` is a data frame, `replace` takes a list of values,
-#'   with one value for each column that has `NA` values to be replaced.
+#' @param replace If `data` is a data frame, `replace` takes a named list of
+#'   values, with one value for each column that has missing values to be
+#'   replaced. Each value in `replace` will be cast to the type of the column
+#'   in `data` that it being used as a replacement in.
 #'
 #'   If `data` is a vector, `replace` takes a single value. This single value
-#'   replaces all of the `NA` values in the vector.
+#'   replaces all of the missing values in the vector. `replace` will be cast
+#'   to the type of `data`.
 #' @param ... Additional arguments for methods. Currently unused.
 #' @return
 #' `replace_na()` returns an object with the same type as `data`.
