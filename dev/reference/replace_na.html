@@ -88,10 +88,13 @@
     <dl><dt>data</dt>
 <dd><p>A data frame or vector.</p></dd>
 <dt>replace</dt>
-<dd><p>If <code>data</code> is a data frame, <code>replace</code> takes a list of values,
-with one value for each column that has <code>NA</code> values to be replaced.</p>
+<dd><p>If <code>data</code> is a data frame, <code>replace</code> takes a named list of
+values, with one value for each column that has missing values to be
+replaced. Each value in <code>replace</code> will be cast to the type of the column
+in <code>data</code> that it being used as a replacement in.</p>
 <p>If <code>data</code> is a vector, <code>replace</code> takes a single value. This single value
-replaces all of the <code>NA</code> values in the vector.</p></dd>
+replaces all of the missing values in the vector. <code>replace</code> will be cast
+to the type of <code>data</code>.</p></dd>
 <dt>...</dt>
 <dd><p>Additional arguments for methods. Currently unused.</p></dd>
 </dl></div>
