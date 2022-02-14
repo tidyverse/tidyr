@@ -107,7 +107,7 @@
     Output
       <error/rlang_error>
       Error in `select_wider_id_cols()`:
-      ! `id_cols` can't select a column already selected by `names_from` or `values_from`.
+      ! `id_cols` can't select a column already selected by `names_from`.
       i Column `name` has already been selected.
     Code
       (expect_error(pivot_wider(df, id_cols = value, names_from = name, values_from = value))
@@ -115,7 +115,7 @@
     Output
       <error/rlang_error>
       Error in `select_wider_id_cols()`:
-      ! `id_cols` can't select a column already selected by `names_from` or `values_from`.
+      ! `id_cols` can't select a column already selected by `values_from`.
       i Column `value` has already been selected.
 
 # `id_cols` returns a tidyselect error if a column selection is OOB (#1318)
