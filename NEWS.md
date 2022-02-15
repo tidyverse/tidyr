@@ -1,5 +1,8 @@
 # tidyr (development version)
 
+* `fill()` now works correctly when there is a column named `.direction` in
+  `data` (#1319, @tjmahr).
+
 * Added documentation to the `replace` argument of `replace_na()` to mention
   that it is always cast to the type of `data` (#1317).
 
