@@ -75,7 +75,8 @@
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="development version" id="tidyr-development-version">tidyr (development version)<a class="anchor" aria-label="anchor" href="#tidyr-development-version"></a></h2>
-<ul><li><p>Added documentation to the <code>replace</code> argument of <code><a href="../reference/replace_na.html">replace_na()</a></code> to mention that it is always cast to the type of <code>data</code> (<a href="https://github.com/tidyverse/tidyr/issues/1317" class="external-link">#1317</a>).</p></li>
+<ul><li><p><code><a href="../reference/fill.html">fill()</a></code> now works correctly when there is a column named <code>.direction</code> in <code>data</code> (<a href="https://github.com/tidyverse/tidyr/issues/1319" class="external-link">#1319</a>, <a href="https://github.com/tjmahr" class="external-link">@tjmahr</a>).</p></li>
+<li><p>Added documentation to the <code>replace</code> argument of <code><a href="../reference/replace_na.html">replace_na()</a></code> to mention that it is always cast to the type of <code>data</code> (<a href="https://github.com/tidyverse/tidyr/issues/1317" class="external-link">#1317</a>).</p></li>
 <li><p>Improved the error message returned by <code><a href="../reference/pivot_wider.html">pivot_wider()</a></code> when a column selected by <code>names_from</code> or <code>values_from</code> is also selected by <code>id_cols</code> (<a href="https://github.com/tidyverse/tidyr/issues/1318" class="external-link">#1318</a>).</p></li>
 </ul></div>
     <div class="section level2">
