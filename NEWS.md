@@ -1,5 +1,8 @@
 # tidyr (development version)
 
+* Removed dependency on ellipsis in favor of equivalent functions in rlang
+  (#1314).
+
 * `fill()` now works correctly when there is a column named `.direction` in
   `data` (#1319, @tjmahr).
 
