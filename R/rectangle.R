@@ -777,7 +777,7 @@ df_simplify <- function(x,
                         ptype = NULL,
                         transform = NULL,
                         simplify = TRUE) {
-  ellipsis::check_dots_empty()
+  check_dots_empty()
 
   ptype <- check_list_of_ptypes(ptype, names(x), "ptype")
   transform <- check_list_of_functions(transform, names(x), "transform")
@@ -830,7 +830,7 @@ col_simplify <- function(x,
                          ptype = NULL,
                          transform = NULL,
                          simplify = TRUE) {
-  ellipsis::check_dots_empty()
+  check_dots_empty()
 
   if (!is.null(transform)) {
     transform <- as_function(transform)

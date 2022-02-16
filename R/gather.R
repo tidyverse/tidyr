@@ -89,7 +89,7 @@
 #' mini_iris %>% gather(key = "flower_att", value = "measurement", -Species)
 gather <- function(data, key = "key", value = "value", ...,
                    na.rm = FALSE, convert = FALSE, factor_key = FALSE) {
-  ellipsis::check_dots_unnamed()
+  check_dots_unnamed()
   UseMethod("gather")
 }
 #' @export

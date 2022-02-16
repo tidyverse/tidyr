@@ -30,7 +30,7 @@
 #' df_list <- tibble(z = list(1:5, NULL, 10:20))
 #' df_list %>% replace_na(list(z = list(5)))
 replace_na <- function(data, replace, ...) {
-  ellipsis::check_dots_used()
+  check_dots_used()
   UseMethod("replace_na")
 }
 

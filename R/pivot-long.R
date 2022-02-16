@@ -140,7 +140,7 @@ pivot_longer <- function(data,
                          ...
                          ) {
 
-  ellipsis::check_dots_used()
+  check_dots_used()
   UseMethod("pivot_longer")
 }
 
