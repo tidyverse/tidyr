@@ -20,7 +20,7 @@ separate_rows <- function(data,
                           ...,
                           sep = "[^[:alnum:].]+",
                           convert = FALSE) {
-  ellipsis::check_dots_unnamed()
+  check_dots_unnamed()
   UseMethod("separate_rows")
 }
 

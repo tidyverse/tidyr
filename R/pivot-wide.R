@@ -171,7 +171,7 @@ pivot_wider <- function(data,
                         values_fn = NULL,
                         unused_fn = NULL,
                         ...) {
-  ellipsis::check_dots_used()
+  check_dots_used()
   UseMethod("pivot_wider")
 }
 

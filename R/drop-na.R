@@ -21,7 +21,7 @@
 #' df %>% drop_na(x, any_of(vars))
 #' @export
 drop_na <- function(data, ...) {
-  ellipsis::check_dots_unnamed()
+  check_dots_unnamed()
   UseMethod("drop_na")
 }
 

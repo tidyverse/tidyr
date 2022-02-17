@@ -84,7 +84,7 @@
 #'
 #' # Using `.direction = "updown"` accomplishes the same goal in this example
 fill <- function(data, ..., .direction = c("down", "up", "downup", "updown")) {
-  ellipsis::check_dots_unnamed()
+  check_dots_unnamed()
   UseMethod("fill")
 }
 

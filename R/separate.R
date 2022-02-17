@@ -64,7 +64,7 @@
 #' df %>% separate(x, c("key","value"), ":", convert = TRUE) %>% str
 separate <- function(data, col, into, sep = "[^[:alnum:]]+", remove = TRUE,
                      convert = FALSE, extra = "warn", fill = "warn", ...) {
-  ellipsis::check_dots_used()
+  check_dots_used()
   UseMethod("separate")
 }
 #' @export

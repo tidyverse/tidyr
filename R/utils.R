@@ -142,7 +142,7 @@ list_init_empty <- function(x,
                             ...,
                             null = TRUE,
                             typed = TRUE) {
-  ellipsis::check_dots_empty()
+  check_dots_empty()
 
   if (!vec_is_list(x)) {
     abort("Internal error: `x` must be a list.")
