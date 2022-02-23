@@ -63,8 +63,9 @@ separate_wider_delim <- function(
     delim,
     names = NULL,
     names_sep = NULL,
-    extra = c("warn", "drop", "merge"),
-    fill = c("warn", "right", "left"),
+    align_length = NULL,
+    align_direction = c("start", "end", "merge"),
+    align_warn = c("both", "short", "long", "none"),
     names_repair = "check_unique"
 ) {
   check_installed("stringr")
@@ -79,8 +80,9 @@ separate_wider_delim <- function(
     str_separate_wider_delim,
     names = names,
     delim = delim,
-    extra = extra,
-    fill = fill,
+    align_length = align_length,
+    align_direction = align_direction,
+    align_warn = align_warn,
     .names_sep = names_sep,
     .names_repair = names_repair
   )
@@ -90,8 +92,9 @@ str_separate_wider_delim <- function(
     x,
     names,
     delim,
-    extra = c("warn", "drop", "merge"),
-    fill = c("warn", "right", "left")
+    align_length = NULL,
+    align_direction = c("start", "end", "merge"),
+    align_warn = c("both", "short", "long", "none")
 ) {
 
   if (!is.null(names) && (!is.character(names) || is_named(names) || length(names) == 0)) {
@@ -99,21 +102,20 @@ str_separate_wider_delim <- function(
   }
   if (!is_string(delim)) {
     abort("`delim` must be a string")
-  }
-  extra <- arg_match(extra)
-  fill <- arg_match(fill)
+  }.
+  align_direction <- arg_match(align_direction)
+  align_warn <- arg_match(align_warn)
 
   n <- if (extra == "merge") length(names) else Inf
   pieces <- stringr::str_split(x, delim, n = n)
 
   if (is.null(names)) {
-    names <- seq_len(max(lengths(pieces)))
+    names <- seq_len(align_length %||% max(lengths(pieces)))
   }
 
   list2df(pieces, names,
-    fill = if (fill == "left") "left" else "right",
-    warn_drop = extra == "warn",
-    warn_fill = fill == "warn"
+    align_direction = align_direction,
+    align_warn = align_warn
   )
 }
 
@@ -242,34 +244,115 @@ map_unpack <- function(data, cols, fun, ..., .names_sep, .names_repair) {
 
 list2df <- function(
     x,
-    col_names,
-    fill = c("right", "left"),
-    warn_fill = TRUE,
-    warn_drop = TRUE
+    names,
+    align_direction = c("short", "long", "merge"),
+    align_warn = c("both", "short", "long", "none")
 ) {
   fill <- arg_match(fill)
 
-  simp <- simplifyPieces(x, length(col_names), fill == "left")
-  list2df_warn(warn_fill, warn_drop, simp$too_sml, simp$too_big, length(col_names))
+  simp <- standardise_list_lengths(x, length(names), align_direction)
+  list2df_warn(align_warn, simp$too_sml, simp$too_big, length(names))
 
-  out <- simp$strings[!is.na(col_names)]
-  names(out) <- col_names[!is.na(col_names)]
+  out <- simp$strings[!is.na(names)]
+  names(out) <- names[!is.na(names)]
   tibble::as_tibble(out)
 }
 
-list2df_warn <- function(warn_fill, warn_drop, too_sml, too_big, p) {
-  warnings <- character()
-
-  n_big <- length(too_big)
-  if (warn_drop && n_big > 0) {
-    idx <- list_indices(too_big)
-    warnings <- c(warnings, glue("Dropped extra pieces in {n_big} rows: {idx}."))
+standardise_list_lengths <- function(x, n, direction) {
+  if (!vec_is_list(x)) {
+    abort("`x` must be a list.")
+  }
+  if (!(is_integer(n, 1L) && !is.na(n) && n >= 0L)) {
+    abort("`n` must be a single non-negative integer.")
   }
 
-  n_sml <- length(too_sml)
-  if (warn_fill && n_sml > 0) {
-    idx <- list_indices(too_sml)
-    warnings <- c(warnings, glue("Filled in missing pieces in {n_sml} rows: {idx}."))
+  direction <- arg_match0(direction, values = c("start", "end"), arg_nm = "direction")
+
+  sizes <- list_sizes(x)
+
+  # Find the start location of each piece
+  starts <- cumsum(c(1L, sizes))
+  starts <- starts[-length(starts)]
+
+  ptype <- vec_ptype_common(!!!x) %||% attr(x, "ptype", exact = TRUE)
+
+  # Combine all pieces sequentially.
+  # Zapping names for performance.
+  x <- vec_unchop(x, ptype = ptype, name_spec = zap())
+
+  # Look for size 1 missing values,
+  # which we ignore when generating warnings
+  one <- sizes == 1L
+  if (any(one)) {
+    x_starts <- vec_slice(x, starts)
+    na <- vec_equal_na(x_starts) & one
+    not_na <- !na
+  } else {
+    not_na <- TRUE
+  }
+
+  indices <- vector("list", n)
+
+  # General idea is to use the `starts` to slice with, replacing them with
+  # `NA` when we are too short, and then advancing the `starts` by 1 at each
+  # iteration. `"left"` is a little tricky because we have to hold the start
+  # location constant if we couldn't use it because the piece was too small.
+  # Pieces that are too large are automatically ignored.
+  if (direction == "end") {
+    for (i in seq_len(n)) {
+      small <- sizes < i
+
+      index <- starts
+      index[small] <- NA_integer_
+      indices[[i]] <- index
+
+      starts <- starts + 1L
+    }
+  } else {
+    gap <- sizes - n
+
+    for (i in seq_len(n)) {
+      small <- gap < 0
+      not_small <- !small
+
+      index <- starts
+      index[small] <- NA_integer_
+      indices[[i]] <- index
+
+      starts[not_small] <- starts[not_small] + 1L
+      gap <- gap + 1L
+    }
+  }
+
+  x <- vec_chop(x, indices)
+
+  too_big <- which(sizes > n & not_na)
+  too_sml <- which(sizes < n & not_na)
+
+  list(
+    strings = x,
+    too_big = too_big,
+    too_sml = too_sml
+  )
+}
+
+
+list2df_warn <- function(align_warn, too_short, too_long, p) {
+  warnings <- character()
+
+  warn_short <- align_warn %in% c("both", "short")
+  warn_long <- align_warn %in% c("both", "long")
+
+  n_long <- length(too_long)
+  if (warn_long && n_long > 0) {
+    idx <- list_indices(too_long)
+    warnings <- c(warnings, glue("{n_long} rows were too long: {idx}."))
+  }
+
+  n_short <- length(too_short)
+  if (warn_fill && n_short > 0) {
+    idx <- list_indices(too_short)
+    warnings <- c(warnings, glue("{n_short} rows were too short: {idx}."))
   }
 
   if (length(warnings) > 0) {
