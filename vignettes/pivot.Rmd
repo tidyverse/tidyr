@@ -71,7 +71,7 @@ To tidy it we use `pivot_longer()`:
 ```{r}
 relig_income %>% 
   pivot_longer(
-    cols = religion, 
+    cols = !religion, 
     names_to = "income", 
     values_to = "count"
   )
@@ -79,16 +79,16 @@ relig_income %>%
 
 * The first argument is the dataset to reshape, `relig_income`.
 
-* The second argument describes which columns need to be reshaped. In this 
+* `cols` describes which columns need to be reshaped. In this 
   case, it's every column apart from `religion`.
 
-* The `names_to` gives the name of the variable that will be created from
+* `names_to` gives the name of the variable that will be created from
   the data stored in the column names, i.e. `income`.
   
-* The `values_to` gives the name of the variable that will be created from
+* `values_to` gives the name of the variable that will be created from
   the data stored in the cell value, i.e. `count`.
   
-Neither the `names_to` nor the `values_to` column exists in `relig_income`, so we provide them as character strings surrounded in quotes.
+Neither the `names_to` nor the `values_to` column exists in `relig_income`, so we provide them as strings surrounded by quotes.
 
 ### Numeric data in column names {#billboard}
 
@@ -118,7 +118,7 @@ billboard %>%
     cols = starts_with("wk"), 
     names_to = "week", 
     names_prefix = "wk",
-    names_transform = list(week = as.integer),
+    names_transform = as.integer,
     values_to = "rank",
     values_drop_na = TRUE,
   )
@@ -131,7 +131,7 @@ billboard %>%
   pivot_longer(
     cols = starts_with("wk"), 
     names_to = "week", 
-    names_transform = list(week = readr::parse_number),
+    names_transform = readr::parse_number,
     values_to = "rank",
     values_drop_na = TRUE,
   )
@@ -189,6 +189,8 @@ who %>%
 )
 ```
 
+Doing it this way is a little more efficient than doing a mutate after the fact, `pivot_longer()` only has to transform one occurence of each name where a `mutate()` would need to transform many repetitions.
+
 ### Multiple observations per row
 
 So far, we have been working with data frames that have one observation per row, but many important pivotting problems involve multiple observations per row. You can usually recognise this case because name of the column that you want to appear in the output is part of the column name in the input. In this section, you'll learn how to pivot this sort of data. 
@@ -204,7 +206,8 @@ family <- tribble(
        4L, "2004-10-10", "2009-08-27",             1L,             1L,
        5L, "2000-12-05", "2005-02-28",             2L,             1L,
 )
-family <- family %>% mutate(across(starts_with("dob"), parse_date))
+family <- family %>% 
+  mutate(across(starts_with("dob"), parse_date))
 family
 ```
 
@@ -222,7 +225,7 @@ family %>%
 
 Note the use of `values_drop_na = TRUE`: the input shape forces the creation of explicit missing variables for observations that don't exist.
 
-This problem also exists in the `anscombe` dataset built in to base R:
+A similar problem problem also exists in the `anscombe` dataset built in to base R:
 
 ```{r}
 anscombe
@@ -263,7 +266,7 @@ pnl %>%
 
 ### Duplicated column names
 
-Occassionally you will come across datasets that have duplicated column names. Generally, such datasets are hard to work with in R, because when you refer to a column by name it only finds the first match. To create a tibble with duplicated names, you have to explicitly opt out of the name repair that usually prevents you from creating such a dataset:
+Occasionally you will come across datasets that have duplicated column names. Generally, such datasets are hard to work with in R, because when you refer to a column by name it only finds the first match. To create a tibble with duplicated names, you have to explicitly opt out of the name repair that usually prevents you from creating such a dataset:
 
 ```{r}
 df <- tibble(id = 1:3, y = 4:6, y = 5:7, y = 7:9, .name_repair = "minimal")
