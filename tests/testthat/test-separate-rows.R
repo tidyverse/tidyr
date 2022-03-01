@@ -29,7 +29,9 @@ test_that("drops grouping when needed", {
   expect_equal(out$y, c("a", "b"))
   expect_equal(dplyr::group_vars(out), "x")
 
-  out <- df %>% dplyr::group_by(y) %>% separate_rows(y)
+  out <- df %>%
+    dplyr::group_by(y) %>%
+    separate_rows(y)
   expect_equal(dplyr::group_vars(out), character())
 })
 
@@ -62,6 +64,8 @@ test_that("does not silently drop blank values (#1014)", {
   df <- tibble(x = 1:3, y = c("a", "d,e,f", ""))
 
   out <- separate_rows(df, y)
-  expect_equal(out, tibble(x = c(1, 2, 2, 2, 3),
-                           y = c("a", "d", "e", "f", "")))
+  expect_equal(
+    out,
+    tibble(x = c(1, 2, 2, 2, 3), y = c("a", "d", "e", "f", ""))
+  )
 })

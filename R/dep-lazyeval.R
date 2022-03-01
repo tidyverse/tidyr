@@ -35,7 +35,7 @@ complete_ <- function(data, cols, fill = list(), ...) {
 #' @export
 complete_.data.frame <- function(data, cols, fill = list(), ...) {
   cols <- compat_lazy_dots(cols, caller_env())
-  complete(data, !!! cols, fill = fill)
+  complete(data, !!!cols, fill = fill)
 }
 
 #' @rdname deprecated-se
@@ -46,7 +46,7 @@ drop_na_ <- function(data, vars) {
 }
 #' @export
 drop_na_.data.frame <- function(data, vars) {
-  drop_na(data, !!! vars)
+  drop_na(data, !!!vars)
 }
 
 #' @rdname deprecated-se
@@ -59,7 +59,7 @@ expand_ <- function(data, dots, ...) {
 #' @export
 expand_.data.frame <- function(data, dots, ...) {
   dots <- compat_lazy_dots(dots, caller_env())
-  expand(data, !!! dots)
+  expand(data, !!!dots)
 }
 #' @rdname deprecated-se
 #' @param x For `nesting_` and `crossing_` a list of variables.
@@ -67,21 +67,21 @@ expand_.data.frame <- function(data, dots, ...) {
 crossing_ <- function(x) {
   lifecycle::deprecate_warn("1.0.0", "crossing_()", "crossing()")
   x <- compat_lazy_dots(x, caller_env())
-  crossing(!!! x)
+  crossing(!!!x)
 }
 #' @rdname deprecated-se
 #' @export
 nesting_ <- function(x) {
   lifecycle::deprecate_warn("1.2.0", "nesting_()", "nesting()")
   x <- compat_lazy_dots(x, caller_env())
-  nesting(!!! x)
+  nesting(!!!x)
 }
 
 #' @rdname deprecated-se
 #' @inheritParams extract
 #' @export
 extract_ <- function(data, col, into, regex = "([[:alnum:]]+)", remove = TRUE,
-                      convert = FALSE, ...) {
+                     convert = FALSE, ...) {
   lifecycle::deprecate_warn("1.0.0", "extract_()", "extract()")
   UseMethod("extract_")
 }
@@ -90,7 +90,7 @@ extract_.data.frame <- function(data, col, into, regex = "([[:alnum:]]+)",
                                 remove = TRUE, convert = FALSE, ...) {
   col <- compat_lazy(col, caller_env())
   extract(data,
-    col = !! col,
+    col = !!col,
     into = into,
     regex = regex,
     remove = remove,
@@ -110,7 +110,7 @@ fill_ <- function(data, fill_cols, .direction = c("down", "up")) {
 #' @export
 fill_.data.frame <- function(data, fill_cols, .direction = c("down", "up", "downup", "updown")) {
   vars <- syms(fill_cols)
-  fill(data, !!! vars, .direction = .direction)
+  fill(data, !!!vars, .direction = .direction)
 }
 
 #' @rdname deprecated-se
@@ -135,9 +135,9 @@ gather_.data.frame <- function(data, key_col, value_col, gather_cols,
   gather_cols <- syms(gather_cols)
 
   gather(data,
-    key = !! key_col,
-    value = !! value_col,
-    !!! gather_cols,
+    key = !!key_col,
+    value = !!value_col,
+    !!!gather_cols,
     na.rm = na.rm,
     convert = convert,
     factor_key = factor_key
@@ -164,7 +164,7 @@ separate_rows_ <- function(data, cols, sep = "[^[:alnum:].]+",
 separate_rows_.data.frame <- function(data, cols, sep = "[^[:alnum:].]+",
                                       convert = FALSE) {
   cols <- syms(cols)
-  separate_rows(data, !!! cols, sep = sep, convert = convert)
+  separate_rows(data, !!!cols, sep = sep, convert = convert)
 }
 
 #' @rdname deprecated-se
@@ -181,7 +181,7 @@ separate_.data.frame <- function(data, col, into, sep = "[^[:alnum:]]+",
                                  extra = "warn", fill = "warn", ...) {
   col <- sym(col)
   separate(data,
-    col = !! col,
+    col = !!col,
     into = into,
     sep = sep,
     remove = remove,
@@ -207,8 +207,8 @@ spread_.data.frame <- function(data, key_col, value_col, fill = NA,
   value_col <- sym(value_col)
 
   spread(data,
-    key = !! key_col,
-    value = !! value_col,
+    key = !!key_col,
+    value = !!value_col,
     fill = fill,
     convert = convert,
     drop = drop,
@@ -228,7 +228,7 @@ unite_ <- function(data, col, from, sep = "_", remove = TRUE) {
 unite_.data.frame <- function(data, col, from, sep = "_", remove = TRUE) {
   col <- quo_get_expr(compat_lazy(col, caller_env()))
   from <- syms(from)
-  unite(data, !! col, !!! from, sep = sep, remove = remove)
+  unite(data, !!col, !!!from, sep = sep, remove = remove)
 }
 
 #' @rdname deprecated-se

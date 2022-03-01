@@ -6,7 +6,7 @@ test_that("drop preserves count of factor levels", {
 
 test_that("id works with dimensions beyond integer range", {
   df <- data.frame(matrix(c(1, 2), nrow = 2, ncol = 32))
-  expect_equal(id(df), structure(c(1, 2), n = 2 ^ 32))
+  expect_equal(id(df), structure(c(1, 2), n = 2^32))
 })
 
 test_that("id_var() handles named vectors (#525)", {

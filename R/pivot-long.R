@@ -137,9 +137,7 @@ pivot_longer <- function(data,
                          values_drop_na = FALSE,
                          values_ptypes = NULL,
                          values_transform = NULL,
-                         ...
-                         ) {
-
+                         ...) {
   check_dots_used()
   UseMethod("pivot_longer")
 }
@@ -158,8 +156,7 @@ pivot_longer.data.frame <- function(data,
                                     values_drop_na = FALSE,
                                     values_ptypes = NULL,
                                     values_transform = NULL,
-                                    ...
-                                    ) {
+                                    ...) {
   cols <- enquo(cols)
   spec <- build_longer_spec(data, !!cols,
     names_to = names_to,
@@ -217,15 +214,14 @@ pivot_longer.data.frame <- function(data,
 #' relig_income %>% pivot_longer(
 #'   cols = !religion,
 #'   names_to = "income",
-#'   values_to = "count")
-#'
+#'   values_to = "count"
+#' )
 pivot_longer_spec <- function(data,
                               spec,
                               names_repair = "check_unique",
                               values_drop_na = FALSE,
                               values_ptypes = NULL,
-                              values_transform = NULL
-                              ) {
+                              values_transform = NULL) {
   spec <- check_pivot_spec(spec)
   spec <- deduplicate_spec(spec, data)
 

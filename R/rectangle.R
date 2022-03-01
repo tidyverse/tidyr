@@ -96,7 +96,7 @@
 #'         "How to Train Your Dragon",
 #'         "How to Train Your Dragon 2",
 #'         "How to Train Your Dragon: The Hidden World"
-#'        )
+#'       )
 #'     ),
 #'     list(
 #'       species = "blue tang",
@@ -190,7 +190,7 @@ hoist <- function(.data,
   }
 
   check_required(.col)
-  .col <- tidyselect::vars_pull(names(.data), {{.col}})
+  .col <- tidyselect::vars_pull(names(.data), {{ .col }})
 
   x <- .data[[.col]]
   if (!vec_is_list(x)) {
@@ -242,7 +242,7 @@ hoist <- function(.data,
 check_pluckers <- function(...) {
   pluckers <- list2(...)
 
-  is_string <- map_lgl(pluckers, ~is.character(.x) && length(.x) == 1)
+  is_string <- map_lgl(pluckers, ~ is.character(.x) && length(.x) == 1)
   auto_name <- names2(pluckers) == "" & is_string
 
   if (any(auto_name)) {

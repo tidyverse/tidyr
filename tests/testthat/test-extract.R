@@ -34,7 +34,7 @@ test_that("extract keeps characters as character", {
 
 test_that("can combine into multiple columns", {
   df <- tibble(x = "abcd")
-  out <- extract(df, x, c("a", "b", "a" , "b"), "(.)(.)(.)(.)", convert = TRUE)
+  out <- extract(df, x, c("a", "b", "a", "b"), "(.)(.)(.)(.)", convert = TRUE)
   expect_equal(out, tibble(a = "ac", b = "bd"))
 })
 

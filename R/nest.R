@@ -109,9 +109,9 @@
 #'
 #' #' # You can unnest multiple columns simultaneously
 #' df <- tibble(
-#'  a = list(c("a", "b"), "c"),
-#'  b = list(1:2, 3),
-#'  c = c(11, 22)
+#'   a = list(c("a", "b"), "c"),
+#'   b = list(1:2, 3),
+#'   c = c(11, 22)
 #' )
 #' df %>% unnest(c(a, b))
 #'
@@ -240,7 +240,6 @@ unnest <- function(data,
                    .id = deprecated(),
                    .sep = deprecated(),
                    .preserve = deprecated()) {
-
   deprecated <- FALSE
   if (!missing(.preserve)) {
     lifecycle::deprecate_warn("1.0.0", "unnest(.preserve = )",
@@ -316,8 +315,7 @@ unnest <- function(data,
 }
 
 #' @export
-unnest.data.frame <- function(
-                              data,
+unnest.data.frame <- function(data,
                               cols,
                               ...,
                               keep_empty = FALSE,
@@ -335,16 +333,13 @@ unnest.data.frame <- function(
 
 
 #' @export
-unnest.rowwise_df <- function(
-                              data,
+unnest.rowwise_df <- function(data,
                               cols,
                               ...,
                               keep_empty = FALSE,
                               ptype = NULL,
                               names_sep = NULL,
-                              names_repair = "check_unique"
-                              ) {
-
+                              names_repair = "check_unique") {
   out <- unnest.data.frame(as_tibble(data), {{ cols }},
     keep_empty = keep_empty,
     ptype = ptype,
