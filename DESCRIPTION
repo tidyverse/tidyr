@@ -5,7 +5,7 @@ Authors@R: c(
     person("Hadley", "Wickham", , "hadley@rstudio.com", role = c("aut", "cre")),
     person("Davis", "Vaughan", , "davis@rstudio.com", role = "aut"),
     person("Maximilian", "Girlich", role = "aut"),
-    person("RStudio", role = "cph")
+    person("RStudio", role = c("cph", "fnd"))
   )
 Description: Tools to help to create tidy data, where each column is a
     variable, each row is an observation, and each cell contains a single
