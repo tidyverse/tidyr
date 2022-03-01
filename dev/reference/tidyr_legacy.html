@@ -108,7 +108,9 @@ tidyverse standard with <code>name_repair = "universal"</code></p>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># Doesn't work because it would produce a data frame with two</span></span>
 <span class="r-in"><span class="co"># columns called x</span></span>
-<span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="fu"><a href="nest.html">unnest</a></span><span class="op">(</span><span class="va">df</span>, <span class="va">y</span><span class="op">)</span></span>
+<span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
+<span class="r-in"><span class="fu"><a href="nest.html">unnest</a></span><span class="op">(</span><span class="va">df</span>, <span class="va">y</span><span class="op">)</span></span>
+<span class="r-in"><span class="op">}</span></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># The new tidyverse standard:</span></span>
 <span class="r-in"><span class="fu"><a href="nest.html">unnest</a></span><span class="op">(</span><span class="va">df</span>, <span class="va">y</span>, names_repair <span class="op">=</span> <span class="st">"universal"</span><span class="op">)</span></span>

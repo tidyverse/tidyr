@@ -136,52 +136,56 @@ by <code>"&lt;key_name&gt;&lt;sep&gt;&lt;key_value&gt;"</code>.</p></dd>
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
 <span class="r-in"><span class="va">stocks</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
-<span class="r-in">  time <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">'2009-01-01'</span><span class="op">)</span> <span class="op">+</span> <span class="fl">0</span><span class="op">:</span><span class="fl">9</span>,</span>
+<span class="r-in">  time <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"2009-01-01"</span><span class="op">)</span> <span class="op">+</span> <span class="fl">0</span><span class="op">:</span><span class="fl">9</span>,</span>
 <span class="r-in">  X <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span>,</span>
 <span class="r-in">  Y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">0</span>, <span class="fl">2</span><span class="op">)</span>,</span>
 <span class="r-in">  Z <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">0</span>, <span class="fl">4</span><span class="op">)</span></span>
 <span class="r-in"><span class="op">)</span></span>
 <span class="r-in"><span class="va">stocksm</span> <span class="op">&lt;-</span> <span class="va">stocks</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu"><a href="gather.html">gather</a></span><span class="op">(</span><span class="va">stock</span>, <span class="va">price</span>, <span class="op">-</span><span class="va">time</span><span class="op">)</span></span>
 <span class="r-in"><span class="va">stocksm</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu">spread</span><span class="op">(</span><span class="va">stock</span>, <span class="va">price</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          time           X           Y            Z</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1  2009-01-01  1.14490537 -1.00398926 -1.741227531</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2  2009-01-02 -0.89335670  2.57434693  5.026414349</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3  2009-01-03 -1.37651040 -2.59600771 -2.447379640</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4  2009-01-04 -1.18778571  0.91693752  3.990354564</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5  2009-01-05 -0.59765437  0.04147103 -0.062219335</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6  2009-01-06  0.08837897  0.42929523  2.228194199</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7  2009-01-07  0.73642787  1.65149379  0.008846876</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8  2009-01-08  0.25530669  0.10601674 -2.518576717</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9  2009-01-09  1.22573893  1.40515030  0.106424122</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10 2009-01-10  0.16333691  4.34281291  0.108826870</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          time          X          Y           Z</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  2009-01-01  1.5753429 -3.4868299  0.05184319</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2  2009-01-02  1.2446386  1.1169580  5.50144000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3  2009-01-03  0.9349903 -0.5492986 -5.72630366</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4  2009-01-04 -0.1949417 -0.1959393 -0.04706329</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5  2009-01-05 -0.7243089  2.0437269  1.73716960</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6  2009-01-06  0.4254904  0.7807727  0.69116478</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7  2009-01-07 -0.3534019 -0.7875262 -1.51710417</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8  2009-01-08 -0.4655754  1.0659389 -2.25531285</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9  2009-01-09  0.2384574 -0.6457269 -0.20859369</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10 2009-01-10 -1.4197058  0.6011453 -6.09391783</span>
 <span class="r-in"><span class="va">stocksm</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu">spread</span><span class="op">(</span><span class="va">time</span>, <span class="va">price</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   stock 2009-01-01 2009-01-02 2009-01-03 2009-01-04  2009-01-05</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1     X   1.144905 -0.8933567  -1.376510 -1.1877857 -0.59765437</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2     Y  -1.003989  2.5743469  -2.596008  0.9169375  0.04147103</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3     Z  -1.741228  5.0264143  -2.447380  3.9903546 -0.06221933</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   2009-01-06  2009-01-07 2009-01-08 2009-01-09 2009-01-10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 0.08837897 0.736427874  0.2553067  1.2257389  0.1633369</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 0.42929523 1.651493791  0.1060167  1.4051503  4.3428129</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 2.22819420 0.008846876 -2.5185767  0.1064241  0.1088269</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   stock  2009-01-01 2009-01-02 2009-01-03  2009-01-04 2009-01-05</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1     X  1.57534289   1.244639  0.9349903 -0.19494171 -0.7243089</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2     Y -3.48682995   1.116958 -0.5492986 -0.19593929  2.0437269</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3     Z  0.05184319   5.501440 -5.7263037 -0.04706329  1.7371696</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   2009-01-06 2009-01-07 2009-01-08 2009-01-09 2009-01-10</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  0.4254904 -0.3534019 -0.4655754  0.2384574 -1.4197058</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2  0.7807727 -0.7875262  1.0659389 -0.6457269  0.6011453</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3  0.6911648 -1.5171042 -2.2553129 -0.2085937 -6.0939178</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># Spread and gather are complements</span></span>
 <span class="r-in"><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="st">"b"</span><span class="op">)</span>, y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">4</span><span class="op">)</span>, z <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">5</span>, <span class="fl">6</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">df</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu">spread</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu"><a href="gather.html">gather</a></span><span class="op">(</span><span class="st">"x"</span>, <span class="st">"y"</span>, <span class="va">a</span><span class="op">:</span><span class="va">b</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span class="r-in"><span class="va">df</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
+<span class="r-in">  <span class="fu">spread</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
+<span class="r-in">  <span class="fu"><a href="gather.html">gather</a></span><span class="op">(</span><span class="st">"x"</span>, <span class="st">"y"</span>, <span class="va">a</span><span class="op">:</span><span class="va">b</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   z x y</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 5 a 3</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4 6 b 4</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># Use 'convert = TRUE' to produce variables of mixed type</span></span>
-<span class="r-in"><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>row <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">51</span><span class="op">)</span>, each <span class="op">=</span> <span class="fl">3</span><span class="op">)</span>,</span>
-<span class="r-in">                 var <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Sepal.Length"</span>, <span class="st">"Species"</span>, <span class="st">"Species_num"</span><span class="op">)</span>,</span>
-<span class="r-in">                 value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">5.1</span>, <span class="st">"setosa"</span>, <span class="fl">1</span>, <span class="fl">7.0</span>, <span class="st">"versicolor"</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">df</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu">spread</span><span class="op">(</span><span class="va">var</span>, <span class="va">value</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="va">str</span></span>
+<span class="r-in"><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
+<span class="r-in">  row <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">51</span><span class="op">)</span>, each <span class="op">=</span> <span class="fl">3</span><span class="op">)</span>,</span>
+<span class="r-in">  var <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Sepal.Length"</span>, <span class="st">"Species"</span>, <span class="st">"Species_num"</span><span class="op">)</span>,</span>
+<span class="r-in">  value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">5.1</span>, <span class="st">"setosa"</span>, <span class="fl">1</span>, <span class="fl">7.0</span>, <span class="st">"versicolor"</span>, <span class="fl">2</span><span class="op">)</span></span>
+<span class="r-in"><span class="op">)</span></span>
+<span class="r-in"><span class="va">df</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu">spread</span><span class="op">(</span><span class="va">var</span>, <span class="va">value</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 'data.frame':	2 obs. of  4 variables:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ row         : num  1 51</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ Sepal.Length: chr  "5.1" "7"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ Species     : chr  "setosa" "versicolor"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ Species_num : chr  "1" "2"</span>
-<span class="r-in"><span class="va">df</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu">spread</span><span class="op">(</span><span class="va">var</span>, <span class="va">value</span>, convert <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="va">str</span></span>
+<span class="r-in"><span class="va">df</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu">spread</span><span class="op">(</span><span class="va">var</span>, <span class="va">value</span>, convert <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 'data.frame':	2 obs. of  4 variables:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ row         : num  1 51</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ Sepal.Length: num  5.1 7</span>
