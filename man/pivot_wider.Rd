@@ -192,7 +192,7 @@ warpbreaks \%>\%
   pivot_wider(
     names_from = wool,
     values_from = breaks,
-    values_fn = ~mean(.x, na.rm = TRUE)
+    values_fn = ~ mean(.x, na.rm = TRUE)
   )
 }
 \seealso{

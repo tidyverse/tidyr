@@ -178,7 +178,7 @@ pivot_longer_spec(relig_income, spec)
 relig_income \%>\% pivot_longer(
   cols = !religion,
   names_to = "income",
-  values_to = "count")
-
+  values_to = "count"
+)
 }
 \keyword{internal}

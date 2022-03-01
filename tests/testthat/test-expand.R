@@ -434,7 +434,7 @@ test_that("grid_dots() drops `NULL`s", {
 })
 
 test_that("grid_dots() reject non-vector input", {
-  expect_snapshot((expect_error(grid_dots(lm(1~1)))))
+  expect_snapshot((expect_error(grid_dots(lm(1 ~ 1)))))
 })
 
 # ------------------------------------------------------------------------------

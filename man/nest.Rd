@@ -178,9 +178,9 @@ df \%>\% unnest(y, keep_empty = TRUE)
 
 #' # You can unnest multiple columns simultaneously
 df <- tibble(
- a = list(c("a", "b"), "c"),
- b = list(1:2, 3),
- c = c(11, 22)
+  a = list(c("a", "b"), "c"),
+  b = list(1:2, 3),
+  c = c(11, 22)
 )
 df \%>\% unnest(c(a, b))
 

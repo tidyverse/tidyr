@@ -199,7 +199,7 @@ df <- tibble(
         "How to Train Your Dragon",
         "How to Train Your Dragon 2",
         "How to Train Your Dragon: The Hidden World"
-       )
+      )
     ),
     list(
       species = "blue tang",

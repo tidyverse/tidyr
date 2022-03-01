@@ -153,7 +153,7 @@
 #'   pivot_wider(
 #'     names_from = wool,
 #'     values_from = breaks,
-#'     values_fn = ~mean(.x, na.rm = TRUE)
+#'     values_fn = ~ mean(.x, na.rm = TRUE)
 #'   )
 pivot_wider <- function(data,
                         id_cols = NULL,
@@ -209,7 +209,7 @@ pivot_wider.data.frame <- function(data,
 
   id_cols <- build_wider_id_cols_expr(
     data = data,
-    id_cols = {{id_cols}},
+    id_cols = {{ id_cols }},
     names_from = !!names_from,
     values_from = !!values_from
   )
@@ -294,7 +294,7 @@ pivot_wider_spec <- function(data,
 
   id_cols <- select_wider_id_cols(
     data = data,
-    id_cols = {{id_cols}},
+    id_cols = {{ id_cols }},
     names_from_cols = names_from_cols,
     values_from_cols = values_from_cols
   )
@@ -533,7 +533,7 @@ build_wider_id_cols_expr <- function(data,
 
   out <- select_wider_id_cols(
     data = data,
-    id_cols = {{id_cols}},
+    id_cols = {{ id_cols }},
     names_from_cols = names_from_cols,
     values_from_cols = values_from_cols
   )

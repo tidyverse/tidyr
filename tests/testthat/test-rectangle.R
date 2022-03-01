@@ -49,7 +49,7 @@ test_that("non-vectors generate a cast error if a ptype is supplied", {
 
 test_that("a ptype generates a list-of<ptype> if the col can't be simplified (#998)", {
   df <- tibble(x = list(list(a = 1:2), list(a = 1), list(a = 1)))
-  ptype = list(a = integer())
+  ptype <- list(a = integer())
 
   out <- hoist(df, x, "a", .ptype = ptype)
   expect_identical(out$a, list_of(1:2, 1L, 1L, .ptype = integer()))
@@ -279,7 +279,7 @@ test_that("simplifies length-1 lists", {
   expect_equal(out$c, list(c(1, 2), NULL))
 })
 
-test_that("treats data frames like lists where we have type info about each element" , {
+test_that("treats data frames like lists where we have type info about each element", {
   df <- tibble(x = 1:2, y = list(tibble(a = 1:2)))
   out <- df %>% unnest_wider(y)
 
@@ -569,7 +569,7 @@ test_that("preserves empty rows", {
   expect_equal(nrow(out), 3)
 })
 
-test_that("can handle data frames consistently with vectors" , {
+test_that("can handle data frames consistently with vectors", {
   df <- tibble(x = 1:2, y = list(tibble(a = 1:2, b = 2:3)))
   out <- df %>% unnest_longer(y)
 
@@ -932,7 +932,7 @@ test_that("`transform` is allowed to be a single function (#1284)", {
   df <- tibble(x = list("1"), y = list("1"))
 
   expect_identical(
-    df_simplify(df, transform = ~as.integer(.x)),
+    df_simplify(df, transform = ~ as.integer(.x)),
     data_frame(x = 1L, y = 1L)
   )
 })
@@ -956,7 +956,7 @@ test_that("transform is applied to list elements individually", {
 
 test_that("transform is applied even if you can't simplify", {
   expect_identical(
-    col_simplify(list(1:2, 2L), transform = ~.x + 1L),
+    col_simplify(list(1:2, 2L), transform = ~ .x + 1L),
     list(2:3, 3L)
   )
 })
@@ -972,7 +972,7 @@ test_that("lose list-of status after applying transform", {
   x <- list_of(1L, 1:2)
 
   expect_identical(
-    col_simplify(x, transform = ~.x + 1),
+    col_simplify(x, transform = ~ .x + 1),
     list(2, c(2, 3))
   )
 
@@ -1005,12 +1005,12 @@ test_that("ptype is applied even if you can't simplify - and results in a list-o
 
 test_that("ptype is applied after transform", {
   expect_identical(
-    col_simplify(list(1, 2, 3), ptype = integer(), transform = ~.x + 1),
+    col_simplify(list(1, 2, 3), ptype = integer(), transform = ~ .x + 1),
     c(2L, 3L, 4L)
   )
 
   expect_snapshot((expect_error(
-    col_simplify(list(1, 2, 3), ptype = integer(), transform = ~.x + 1.5)
+    col_simplify(list(1, 2, 3), ptype = integer(), transform = ~ .x + 1.5)
   )))
 })
 

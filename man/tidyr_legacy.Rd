@@ -24,7 +24,9 @@ df <- tibble(x = 1:2, y = list(tibble(x = 3:5), tibble(x = 4:7)))
 
 # Doesn't work because it would produce a data frame with two
 # columns called x
-\dontrun{unnest(df, y)}
+\dontrun{
+unnest(df, y)
+}
 
 # The new tidyverse standard:
 unnest(df, y, names_repair = "universal")

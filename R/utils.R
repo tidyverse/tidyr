@@ -68,7 +68,9 @@ last <- function(x) x[[length(x)]]
 #'
 #' # Doesn't work because it would produce a data frame with two
 #' # columns called x
-#' \dontrun{unnest(df, y)}
+#' \dontrun{
+#' unnest(df, y)
+#' }
 #'
 #' # The new tidyverse standard:
 #' unnest(df, y, names_repair = "universal")
@@ -76,7 +78,9 @@ last <- function(x) x[[length(x)]]
 #' # The old tidyr approach
 #' unnest(df, y, names_repair = tidyr_legacy)
 tidyr_legacy <- function(nms, prefix = "V", sep = "") {
-  if (length(nms) == 0) return(character())
+  if (length(nms) == 0) {
+    return(character())
+  }
   blank <- nms == ""
   nms[!blank] <- make.unique(nms[!blank], sep = sep)
   new_nms <- setdiff(paste(prefix, seq_along(nms), sep = sep), nms)

@@ -16,7 +16,7 @@ id <- function(.variables, drop = FALSE) {
   # Calculate dimensions
   ndistinct <- map_dbl(ids, attr, "n")
   n <- prod(ndistinct)
-  if (n > 2 ^ 31) {
+  if (n > 2^31) {
     # Too big for integers, have to use strings, which will be much slower :(
 
     char_id <- do.call("paste", c(ids, sep = "\r"))
@@ -38,7 +38,9 @@ id <- function(.variables, drop = FALSE) {
 }
 
 id_var <- function(x, drop = FALSE) {
-  if (!is_null(attr(x, "n", exact = TRUE)) && !drop) return(x)
+  if (!is_null(attr(x, "n", exact = TRUE)) && !drop) {
+    return(x)
+  }
 
   if (is.factor(x) && !drop) {
     x_na <- addNA(x, ifany = TRUE)

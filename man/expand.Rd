@@ -74,10 +74,10 @@ this, you cannot expand on a grouping column.
 }
 \examples{
 fruits <- tibble(
-  type   = c("apple", "orange", "apple", "orange", "orange", "orange"),
-  year   = c(2010, 2010, 2012, 2010, 2011, 2012),
-  size  =  factor(
-    c("XS", "S",  "M", "S", "S", "M"),
+  type = c("apple", "orange", "apple", "orange", "orange", "orange"),
+  year = c(2010, 2010, 2012, 2010, 2011, 2012),
+  size = factor(
+    c("XS", "S", "M", "S", "S", "M"),
     levels = c("XS", "S", "M", "L")
   ),
   weights = rnorm(6, as.numeric(size) + 2)
@@ -109,7 +109,9 @@ all \%>\% dplyr::anti_join(fruits)
 fruits \%>\% dplyr::right_join(all)
 
 # Use with `group_by()` to expand within each group
-fruits \%>\% dplyr::group_by(type) \%>\% expand(year, size)
+fruits \%>\%
+  dplyr::group_by(type) \%>\%
+  expand(year, size)
 }
 \seealso{
 \code{\link[=complete]{complete()}} to expand list objects. \code{\link[=expand_grid]{expand_grid()}}
