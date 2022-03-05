@@ -1,6 +1,7 @@
 library(dplyr)
 library(tidyr)
 library(readr)
+library(stringr)
 
 who_raw <- read_csv("data-raw/TB_notifications_2014-11-13.csv")
 
@@ -14,3 +15,10 @@ who <- who_raw %>%
 
 write_csv(who, "data-raw/who.csv")
 save(who, file = "data/who.rdata")
+
+who2 <- who |>
+  rename_with(~ str_remove(.x, "new_?")) |>
+  rename_with(~ str_replace(.x, "([mf])", "\\1_")) |>
+  select(!starts_with("iso"))
+
+save(who2, file = "data/who2.rdata")
