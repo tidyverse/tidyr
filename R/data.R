@@ -184,3 +184,19 @@
 #' The "Whitburn" project, <https://waxy.org/2008/05/the_whitburn_project/>,
 #' (downloaded April 2008)
 "billboard"
+
+
+#' Family
+#'
+#' This dataset is based on an example in
+#' `vignette("datatable-reshape", package = "data.table")`
+#'
+#' @format A data frame with 5 rows and 5 columns:
+#' \describe{
+#'   \item{family}{Family identifier}
+#'   \item{dob_child1}{Date of birth of first child}
+#'   \item{dob_child2}{Date of birth of second child}
+#'   \item{name_child1}{Name of first child}?
+#'   \item{name_child2}{Name of second child}
+#' }
+"family"
