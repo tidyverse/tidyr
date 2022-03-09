@@ -12,4 +12,4 @@ family <- family |>
   mutate(across(starts_with("dob"), parse_date))
 family
 
-save(family, file = "data/family.rdata")
+usethis::use_data(family, overwrite = TRUE)
