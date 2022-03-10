@@ -2,14 +2,14 @@
 #'
 #' @description
 #' A subset of data from the World Health Organization Global Tuberculosis
-#' Report, and accompanying global populations. `who` uses uses the original
+#' Report, and accompanying global populations. `who` uses the original
 #' codes from the World Health Organization. The column names for columns
-#' five through 60 are made by combining `new_` with:
+#' 5 through 60 are made by combining `new_` with:
 #'
 #' * the method of diagnosis (`rel` = relapse, `sn` = negative pulmonary
 #'   smear, `sp` = positive pulmonary smear, `ep` = extrapulmonary),
 #' * gender (`f` = female, `m` = male), and
-#' * age group (`014` = 0-14 yrs of age, `1524` = 15-24,  `2534` = 25-34,
+#' * age group (`014` = 0-14 yrs of age, `1524` = 15-24, `2534` = 25-34,
 #'   `3544` = 35-44 years of age, `4554` = 45-54, `5564` = 55-64,
 #'   `65` = 65 years or older).
 #'
