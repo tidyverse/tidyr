@@ -21,6 +21,13 @@
   grouped data frame happens "within" each group and otherwise has the
   potential to produce erroneous results (#1299).
 
+* `replace_na()` no longer allows the type of `data` to change when the
+  replacement is applied. `replace` will now always be cast to the type of
+  `data` before the replacement is made. For example, this means that using a
+  replacement value of `1.5` on an integer column is no longer allowed.
+  Similarly, replacing missing values in a list-column must now be done with
+  `list("foo")` rather than just `"foo"`.
+
 ## Pivoting
 
 * `pivot_wider()` gains new `names_expand` and `id_expand` arguments for turning
@@ -95,13 +102,6 @@
   This means that you can use these functions on a wider variety of column
   types, including lubridate's Period types (#1094), data frame columns, and
   the [rcrd](https://vctrs.r-lib.org/reference/new_rcrd.html) type from vctrs.
-
-* `replace_na()` no longer allows the type of `data` to change when the
-  replacement is applied. `replace` will now always be cast to the type of
-  `data` before the replacement is made. For example, this means that using a
-  replacement value of `1.5` on an integer column is no longer allowed.
-  Similarly, replacing missing values in a list-column must now be done with
-  `list("foo")` rather than just `"foo"`.
 
 * `replace_na()` no longer replaces empty atomic elements in list-columns
   (like `integer(0)`). The only value that is replaced in a list-column is
