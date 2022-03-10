@@ -46,14 +46,14 @@ population
 }
 \description{
 A subset of data from the World Health Organization Global Tuberculosis
-Report, and accompanying global populations. \code{who} uses uses the original
+Report, and accompanying global populations. \code{who} uses the original
 codes from the World Health Organization. The column names for columns
-five through 60 are made by combining \code{new_} with:
+5 through 60 are made by combining \code{new_} with:
 \itemize{
 \item the method of diagnosis (\code{rel} = relapse, \code{sn} = negative pulmonary
 smear, \code{sp} = positive pulmonary smear, \code{ep} = extrapulmonary),
 \item gender (\code{f} = female, \code{m} = male), and
-\item age group (\code{014} = 0-14 yrs of age, \code{1524} = 15-24,  \code{2534} = 25-34,
+\item age group (\code{014} = 0-14 yrs of age, \code{1524} = 15-24, \code{2534} = 25-34,
 \code{3544} = 35-44 years of age, \code{4554} = 45-54, \code{5564} = 55-64,
 \code{65} = 65 years or older).
 }
