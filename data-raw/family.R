@@ -9,7 +9,11 @@ family <- tribble(
         5, "2000-12-05", "2005-02-28",     "Parker",     "Gracie",
 )
 family <- family |>
-  mutate(across(starts_with("dob"), parse_date))
+  mutate(
+    family = as.integer(family),
+    across(starts_with("dob"), parse_date)
+  )
+
 family
 
 usethis::use_data(family, overwrite = TRUE)
