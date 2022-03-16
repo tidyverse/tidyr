@@ -84,6 +84,16 @@ replace_na.data.frame <- function(data, replace = list(), ...) {
   data
 }
 
+#' @export
+replace_na.matrix <- function(data, replace, ...) {
+  matrix(
+    replace_na.default(as.vector(data), replace, ...),
+    ncol = ncol(data),
+    nrow = nrow(data),
+    dimnames = dimnames(data)
+  )
+}
+
 check_replacement <- function(x, var) {
   n <- vec_size(x)
 
