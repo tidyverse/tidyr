@@ -198,13 +198,13 @@ So far, we have been working with data frames that have one observation per row,
 The following example is adapted from the [data.table vignette](https://CRAN.R-project.org/package=data.table/vignettes/datatable-reshape.html), as inspiration for tidyr's solution to this problem.
 
 ```{r}
-family
+household
 ```
 
 Note that we have two pieces of information (or values) for each child: their `name` and their `dob` (date of birth). These need to go into separate columns in the result. Again we supply multiple variables to `names_to`, using `names_sep` to split up each variable name. Note the special name `.value`: this tells `pivot_longer()` that that part of the column name specifies the "value" being measured (which will become a variable in the output).
 
 ```{r}
-family %>% 
+household %>% 
   pivot_longer(
     cols = !family, 
     names_to = c(".value", "child"), 

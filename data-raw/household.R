@@ -1,6 +1,6 @@
 library(tidyverse)
 
-family <- tribble(
+household <- tribble(
   ~family,  ~dob_child1,  ~dob_child2, ~name_child1, ~name_child2,
         1, "1998-11-26", "2000-01-29",      "Susan",       "Jose",
         2, "1996-06-22",           NA,       "Mark",           NA,
@@ -8,12 +8,12 @@ family <- tribble(
         4, "2004-10-10", "2009-08-27",      "Craig",       "Khai",
         5, "2000-12-05", "2005-02-28",     "Parker",     "Gracie",
 )
-family <- family |>
+household <- household |>
   mutate(
     family = as.integer(family),
     across(starts_with("dob"), parse_date)
   )
 
-family
+household
 
-usethis::use_data(family, overwrite = TRUE)
+usethis::use_data(household, overwrite = TRUE)

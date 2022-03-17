@@ -16,7 +16,7 @@ who <- who_raw %>%
     country = gsub("^o", "o", country, fixed = TRUE)
   )
 
-write_csv(who, "data-raw/who.csv")
+write_csv(who, "data-raw/who.csv", quote = "needed")
 usethis::use_data(who, overwrite = TRUE)
 
 who2 <- who |>

@@ -186,7 +186,7 @@
 "billboard"
 
 
-#' Family
+#' Household data
 #'
 #' This dataset is based on an example in
 #' `vignette("datatable-reshape", package = "data.table")`
@@ -199,7 +199,7 @@
 #'   \item{name_child1}{Name of first child}?
 #'   \item{name_child2}{Name of second child}
 #' }
-"family"
+"household"
 
 #' Data from the Centers for Medicare & Medicaid Services
 #'
