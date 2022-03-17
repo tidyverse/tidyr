@@ -274,7 +274,7 @@
 <code class="sourceCode R"><span class="va">who</span>
 <span class="co">#&gt; <span style="color: #949494;"># A tibble: 7,240 × 60</span></span>
 <span class="co">#&gt;    country     iso2  iso3   year new_sp_m014 new_sp_m1524 new_sp_m2534</span>
-<span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span>
+<span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
 <span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> Afghanistan AF    AFG    <span style="text-decoration: underline;">1</span>980          <span style="color: #BB0000;">NA</span>           <span style="color: #BB0000;">NA</span>           <span style="color: #BB0000;">NA</span></span>
 <span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> Afghanistan AF    AFG    <span style="text-decoration: underline;">1</span>981          <span style="color: #BB0000;">NA</span>           <span style="color: #BB0000;">NA</span>           <span style="color: #BB0000;">NA</span></span>
 <span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> Afghanistan AF    AFG    <span style="text-decoration: underline;">1</span>982          <span style="color: #BB0000;">NA</span>           <span style="color: #BB0000;">NA</span>           <span style="color: #BB0000;">NA</span></span>
@@ -285,13 +285,13 @@
 <span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> Afghanistan AF    AFG    <span style="text-decoration: underline;">1</span>987          <span style="color: #BB0000;">NA</span>           <span style="color: #BB0000;">NA</span>           <span style="color: #BB0000;">NA</span></span>
 <span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> Afghanistan AF    AFG    <span style="text-decoration: underline;">1</span>988          <span style="color: #BB0000;">NA</span>           <span style="color: #BB0000;">NA</span>           <span style="color: #BB0000;">NA</span></span>
 <span class="co">#&gt; <span style="color: #BCBCBC;">10</span> Afghanistan AF    AFG    <span style="text-decoration: underline;">1</span>989          <span style="color: #BB0000;">NA</span>           <span style="color: #BB0000;">NA</span>           <span style="color: #BB0000;">NA</span></span>
-<span class="co">#&gt; <span style="color: #949494;"># … with 7,230 more rows, and 53 more variables: new_sp_m3544 &lt;int&gt;,</span></span>
-<span class="co">#&gt; <span style="color: #949494;">#   new_sp_m4554 &lt;int&gt;, new_sp_m5564 &lt;int&gt;, new_sp_m65 &lt;int&gt;,</span></span>
-<span class="co">#&gt; <span style="color: #949494;">#   new_sp_f014 &lt;int&gt;, new_sp_f1524 &lt;int&gt;, new_sp_f2534 &lt;int&gt;,</span></span>
-<span class="co">#&gt; <span style="color: #949494;">#   new_sp_f3544 &lt;int&gt;, new_sp_f4554 &lt;int&gt;, new_sp_f5564 &lt;int&gt;,</span></span>
-<span class="co">#&gt; <span style="color: #949494;">#   new_sp_f65 &lt;int&gt;, new_sn_m014 &lt;int&gt;, new_sn_m1524 &lt;int&gt;,</span></span>
-<span class="co">#&gt; <span style="color: #949494;">#   new_sn_m2534 &lt;int&gt;, new_sn_m3544 &lt;int&gt;, new_sn_m4554 &lt;int&gt;,</span></span>
-<span class="co">#&gt; <span style="color: #949494;">#   new_sn_m5564 &lt;int&gt;, new_sn_m65 &lt;int&gt;, new_sn_f014 &lt;int&gt;, …</span></span></code></pre></div>
+<span class="co">#&gt; <span style="color: #949494;"># … with 7,230 more rows, and 53 more variables: new_sp_m3544 &lt;dbl&gt;,</span></span>
+<span class="co">#&gt; <span style="color: #949494;">#   new_sp_m4554 &lt;dbl&gt;, new_sp_m5564 &lt;dbl&gt;, new_sp_m65 &lt;dbl&gt;,</span></span>
+<span class="co">#&gt; <span style="color: #949494;">#   new_sp_f014 &lt;dbl&gt;, new_sp_f1524 &lt;dbl&gt;, new_sp_f2534 &lt;dbl&gt;,</span></span>
+<span class="co">#&gt; <span style="color: #949494;">#   new_sp_f3544 &lt;dbl&gt;, new_sp_f4554 &lt;dbl&gt;, new_sp_f5564 &lt;dbl&gt;,</span></span>
+<span class="co">#&gt; <span style="color: #949494;">#   new_sp_f65 &lt;dbl&gt;, new_sn_m014 &lt;dbl&gt;, new_sn_m1524 &lt;dbl&gt;,</span></span>
+<span class="co">#&gt; <span style="color: #949494;">#   new_sn_m2534 &lt;dbl&gt;, new_sn_m3544 &lt;dbl&gt;, new_sn_m4554 &lt;dbl&gt;,</span></span>
+<span class="co">#&gt; <span style="color: #949494;">#   new_sn_m5564 &lt;dbl&gt;, new_sn_m65 &lt;dbl&gt;, new_sn_f014 &lt;dbl&gt;, …</span></span></code></pre></div>
 <p><code>country</code>, <code>iso2</code>, <code>iso3</code>, and <code>year</code> are already variables, so they can be left as is. But the columns from <code>new_sp_m014</code> to <code>newrel_f65</code> encode four variables in their names:</p>
 <ul>
 <li><p>The <code>new_</code>/<code>new</code> prefix indicates these are counts of new cases. This dataset only contains new cases, so we’ll ignore it here because it’s constant.</p></li>
@@ -310,7 +310,7 @@
   <span class="op">)</span>
 <span class="co">#&gt; <span style="color: #949494;"># A tibble: 405,440 × 8</span></span>
 <span class="co">#&gt;    country     iso2  iso3   year diagnosis gender age   count</span>
-<span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span>
+<span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
 <span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> Afghanistan AF    AFG    <span style="text-decoration: underline;">1</span>980 sp        m      014      <span style="color: #BB0000;">NA</span></span>
 <span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> Afghanistan AF    AFG    <span style="text-decoration: underline;">1</span>980 sp        m      1524     <span style="color: #BB0000;">NA</span></span>
 <span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> Afghanistan AF    AFG    <span style="text-decoration: underline;">1</span>980 sp        m      2534     <span style="color: #BB0000;">NA</span></span>
@@ -347,28 +347,18 @@
 <p>So far, we have been working with data frames that have one observation per row, but many important pivotting problems involve multiple observations per row. You can usually recognise this case because name of the column that you want to appear in the output is part of the column name in the input. In this section, you’ll learn how to pivot this sort of data.</p>
 <p>The following example is adapted from the <a href="https://CRAN.R-project.org/package=data.table/vignettes/datatable-reshape.html" class="external-link">data.table vignette</a>, as inspiration for tidyr’s solution to this problem.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">family</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html" class="external-link">tribble</a></span><span class="op">(</span>
-  <span class="op">~</span><span class="va">family</span>,  <span class="op">~</span><span class="va">dob_child1</span>,  <span class="op">~</span><span class="va">dob_child2</span>, <span class="op">~</span><span class="va">gender_child1</span>, <span class="op">~</span><span class="va">gender_child2</span>,
-       <span class="fl">1L</span>, <span class="st">"1998-11-26"</span>, <span class="st">"2000-01-29"</span>,             <span class="fl">1L</span>,             <span class="fl">2L</span>,
-       <span class="fl">2L</span>, <span class="st">"1996-06-22"</span>,           <span class="cn">NA</span>,             <span class="fl">2L</span>,             <span class="cn">NA</span>,
-       <span class="fl">3L</span>, <span class="st">"2002-07-11"</span>, <span class="st">"2004-04-05"</span>,             <span class="fl">2L</span>,             <span class="fl">2L</span>,
-       <span class="fl">4L</span>, <span class="st">"2004-10-10"</span>, <span class="st">"2009-08-27"</span>,             <span class="fl">1L</span>,             <span class="fl">1L</span>,
-       <span class="fl">5L</span>, <span class="st">"2000-12-05"</span>, <span class="st">"2005-02-28"</span>,             <span class="fl">2L</span>,             <span class="fl">1L</span>,
-<span class="op">)</span>
-<span class="va">family</span> <span class="op">&lt;-</span> <span class="va">family</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html" class="external-link">across</a></span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html" class="external-link">starts_with</a></span><span class="op">(</span><span class="st">"dob"</span><span class="op">)</span>, <span class="va">parse_date</span><span class="op">)</span><span class="op">)</span>
-<span class="va">family</span>
+<code class="sourceCode R"><span class="va">household</span>
 <span class="co">#&gt; <span style="color: #949494;"># A tibble: 5 × 5</span></span>
-<span class="co">#&gt;   family dob_child1 dob_child2 gender_child1 gender_child2</span>
-<span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>             <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">1</span>      1 1998-11-26 2000-01-29             1             2</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">2</span>      2 1996-06-22 <span style="color: #BB0000;">NA</span>                     2            <span style="color: #BB0000;">NA</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">3</span>      3 2002-07-11 2004-04-05             2             2</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">4</span>      4 2004-10-10 2009-08-27             1             1</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">5</span>      5 2000-12-05 2005-02-28             2             1</span></code></pre></div>
-<p>Note that we have two pieces of information (or values) for each child: their <code>gender</code> and their <code>dob</code> (date of birth). These need to go into separate columns in the result. Again we supply multiple variables to <code>names_to</code>, using <code>names_sep</code> to split up each variable name. Note the special name <code>.value</code>: this tells <code><a href="../reference/pivot_longer.html">pivot_longer()</a></code> that that part of the column name specifies the “value” being measured (which will become a variable in the output).</p>
+<span class="co">#&gt;   family dob_child1 dob_child2 name_child1 name_child2</span>
+<span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span>      1 1998-11-26 2000-01-29 Susan       Jose       </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span>      2 1996-06-22 <span style="color: #BB0000;">NA</span>         Mark        <span style="color: #BB0000;">NA</span>         </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">3</span>      3 2002-07-11 2004-04-05 Sam         Seth       </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">4</span>      4 2004-10-10 2009-08-27 Craig       Khai       </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">5</span>      5 2000-12-05 2005-02-28 Parker      Gracie</span></code></pre></div>
+<p>Note that we have two pieces of information (or values) for each child: their <code>name</code> and their <code>dob</code> (date of birth). These need to go into separate columns in the result. Again we supply multiple variables to <code>names_to</code>, using <code>names_sep</code> to split up each variable name. Note the special name <code>.value</code>: this tells <code><a href="../reference/pivot_longer.html">pivot_longer()</a></code> that that part of the column name specifies the “value” being measured (which will become a variable in the output).</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">family</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
+<code class="sourceCode R"><span class="va">household</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
   <span class="fu"><a href="../reference/pivot_longer.html">pivot_longer</a></span><span class="op">(</span>
     cols <span class="op">=</span> <span class="op">!</span><span class="va">family</span>, 
     names_to <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">".value"</span>, <span class="st">"child"</span><span class="op">)</span>, 
@@ -376,17 +366,17 @@
     values_drop_na <span class="op">=</span> <span class="cn">TRUE</span>
   <span class="op">)</span>
 <span class="co">#&gt; <span style="color: #949494;"># A tibble: 9 × 4</span></span>
-<span class="co">#&gt;   family child  dob        gender</span>
-<span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">1</span>      1 child1 1998-11-26      1</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">2</span>      1 child2 2000-01-29      2</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">3</span>      2 child1 1996-06-22      2</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">4</span>      3 child1 2002-07-11      2</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">5</span>      3 child2 2004-04-05      2</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">6</span>      4 child1 2004-10-10      1</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">7</span>      4 child2 2009-08-27      1</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">8</span>      5 child1 2000-12-05      2</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">9</span>      5 child2 2005-02-28      1</span></code></pre></div>
+<span class="co">#&gt;   family child  dob        name  </span>
+<span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span>      1 child1 1998-11-26 Susan </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span>      1 child2 2000-01-29 Jose  </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">3</span>      2 child1 1996-06-22 Mark  </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">4</span>      3 child1 2002-07-11 Sam   </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">5</span>      3 child2 2004-04-05 Seth  </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">6</span>      4 child1 2004-10-10 Craig </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">7</span>      4 child2 2009-08-27 Khai  </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">8</span>      5 child1 2000-12-05 Parker</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">9</span>      5 child2 2005-02-28 Gracie</span></code></pre></div>
 <p>Note the use of <code>values_drop_na = TRUE</code>: the input shape forces the creation of explicit missing variables for observations that don’t exist.</p>
 <p>A similar problem problem also exists in the <code>anscombe</code> dataset built in to base R:</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
@@ -447,14 +437,14 @@
 <span class="co">#&gt; <span style="color: #949494;"># A tibble: 8 × 6</span></span>
 <span class="co">#&gt;       x     a     b time       y     z</span>
 <span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">1</span>     1     1     0 1     -<span style="color: #BB0000;">1.05</span>      3</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">2</span>     1     1     0 2     -<span style="color: #BB0000;">0.430</span>    -<span style="color: #BB0000;">2</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">3</span>     2     1     1 1     -<span style="color: #BB0000;">1.17</span>      3</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">4</span>     2     1     1 2     -<span style="color: #BB0000;">0.148</span>    -<span style="color: #BB0000;">2</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">5</span>     3     0     1 1      0.191     3</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">6</span>     3     0     1 2     -<span style="color: #BB0000;">0.696</span>    -<span style="color: #BB0000;">2</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">7</span>     4     0     1 1      1.69      3</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">8</span>     4     0     1 2      0.779    -<span style="color: #BB0000;">2</span></span></code></pre></div>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span>     1     1     0 1     -<span style="color: #BB0000;">0.716</span>     3</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span>     1     1     0 2     -<span style="color: #BB0000;">0.116</span>    -<span style="color: #BB0000;">2</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">3</span>     2     1     1 1     -<span style="color: #BB0000;">0.469</span>     3</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">4</span>     2     1     1 2     -<span style="color: #BB0000;">0.910</span>    -<span style="color: #BB0000;">2</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">5</span>     3     0     1 1      0.345     3</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">6</span>     3     0     1 2     -<span style="color: #BB0000;">0.405</span>    -<span style="color: #BB0000;">2</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">7</span>     4     0     1 1     -<span style="color: #BB0000;">0.113</span>     3</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">8</span>     4     0     1 2     -<span style="color: #BB0000;">1.31</span>     -<span style="color: #BB0000;">2</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level2">
@@ -615,16 +605,16 @@
 <span class="co">#&gt; <span style="color: #949494;"># A tibble: 45 × 4</span></span>
 <span class="co">#&gt;    product country  year production</span>
 <span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> A       AI       <span style="text-decoration: underline;">2</span>000    -<span style="color: #BB0000;">1.84</span>  </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> A       AI       <span style="text-decoration: underline;">2</span>001    -<span style="color: #BB0000;">0.059</span><span style="color: #BB0000; text-decoration: underline;">3</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> A       AI       <span style="text-decoration: underline;">2</span>002    -<span style="color: #BB0000;">0.453</span> </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> A       AI       <span style="text-decoration: underline;">2</span>003     0.340 </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> A       AI       <span style="text-decoration: underline;">2</span>004     0.458 </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> A       AI       <span style="text-decoration: underline;">2</span>005     0.584 </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> A       AI       <span style="text-decoration: underline;">2</span>006     1.05  </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> A       AI       <span style="text-decoration: underline;">2</span>007    -<span style="color: #BB0000;">1.15</span>  </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> A       AI       <span style="text-decoration: underline;">2</span>008    -<span style="color: #BB0000;">0.055</span><span style="color: #BB0000; text-decoration: underline;">3</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">10</span> A       AI       <span style="text-decoration: underline;">2</span>009     1.36  </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> A       AI       <span style="text-decoration: underline;">2</span>000    -<span style="color: #BB0000;">0.871</span> </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> A       AI       <span style="text-decoration: underline;">2</span>001     1.37  </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> A       AI       <span style="text-decoration: underline;">2</span>002    -<span style="color: #BB0000;">1.06</span>  </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> A       AI       <span style="text-decoration: underline;">2</span>003     1.72  </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> A       AI       <span style="text-decoration: underline;">2</span>004    -<span style="color: #BB0000;">0.250</span> </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> A       AI       <span style="text-decoration: underline;">2</span>005     0.755 </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> A       AI       <span style="text-decoration: underline;">2</span>006    -<span style="color: #BB0000;">0.052</span><span style="color: #BB0000; text-decoration: underline;">8</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> A       AI       <span style="text-decoration: underline;">2</span>007     0.411 </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> A       AI       <span style="text-decoration: underline;">2</span>008    -<span style="color: #BB0000;">0.034</span><span style="color: #BB0000; text-decoration: underline;">6</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">10</span> A       AI       <span style="text-decoration: underline;">2</span>009    -<span style="color: #BB0000;">0.786</span> </span>
 <span class="co">#&gt; <span style="color: #949494;"># … with 35 more rows</span></span></code></pre></div>
 <p>We want to widen the data so we have one column for each combination of <code>product</code> and <code>country</code>. The key is to specify multiple variables for <code>names_from</code>:</p>
 <div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
@@ -634,18 +624,18 @@
     values_from <span class="op">=</span> <span class="va">production</span>
   <span class="op">)</span>
 <span class="co">#&gt; <span style="color: #949494;"># A tibble: 15 × 4</span></span>
-<span class="co">#&gt;     year    A_AI    B_AI    B_EI</span>
-<span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span>  <span style="text-decoration: underline;">2</span>000 -<span style="color: #BB0000;">1.84</span>   -<span style="color: #BB0000;">1.19</span>   -<span style="color: #BB0000;">0.718</span> </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span>  <span style="text-decoration: underline;">2</span>001 -<span style="color: #BB0000;">0.059</span><span style="color: #BB0000; text-decoration: underline;">3</span> -<span style="color: #BB0000;">0.194</span>   0.083<span style="text-decoration: underline;">0</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span>  <span style="text-decoration: underline;">2</span>002 -<span style="color: #BB0000;">0.453</span>   0.348  -<span style="color: #BB0000;">0.593</span> </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span>  <span style="text-decoration: underline;">2</span>003  0.340  -<span style="color: #BB0000;">0.893</span>  -<span style="color: #BB0000;">0.565</span> </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span>  <span style="text-decoration: underline;">2</span>004  0.458  -<span style="color: #BB0000;">1.44</span>    1.44  </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span>  <span style="text-decoration: underline;">2</span>005  0.584   0.977  -<span style="color: #BB0000;">0.841</span> </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span>  <span style="text-decoration: underline;">2</span>006  1.05   -<span style="color: #BB0000;">0.069</span><span style="color: #BB0000; text-decoration: underline;">0</span> -<span style="color: #BB0000;">1.16</span>  </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span>  <span style="text-decoration: underline;">2</span>007 -<span style="color: #BB0000;">1.15</span>    0.941  -<span style="color: #BB0000;">0.010</span><span style="color: #BB0000; text-decoration: underline;">1</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span>  <span style="text-decoration: underline;">2</span>008 -<span style="color: #BB0000;">0.055</span><span style="color: #BB0000; text-decoration: underline;">3</span>  0.340   0.201 </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">10</span>  <span style="text-decoration: underline;">2</span>009  1.36   -<span style="color: #BB0000;">0.736</span>   0.013<span style="text-decoration: underline;">8</span></span>
+<span class="co">#&gt;     year    A_AI   B_AI    B_EI</span>
+<span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span>  <span style="text-decoration: underline;">2</span>000 -<span style="color: #BB0000;">0.871</span>   0.172 -<span style="color: #BB0000;">0.325</span> </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span>  <span style="text-decoration: underline;">2</span>001  1.37   -<span style="color: #BB0000;">0.649</span> -<span style="color: #BB0000;">1.10</span>  </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span>  <span style="text-decoration: underline;">2</span>002 -<span style="color: #BB0000;">1.06</span>   -<span style="color: #BB0000;">1.71</span>   1.31  </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span>  <span style="text-decoration: underline;">2</span>003  1.72   -<span style="color: #BB0000;">0.406</span> -<span style="color: #BB0000;">0.627</span> </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span>  <span style="text-decoration: underline;">2</span>004 -<span style="color: #BB0000;">0.250</span>   0.947 -<span style="color: #BB0000;">0.061</span><span style="color: #BB0000; text-decoration: underline;">5</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span>  <span style="text-decoration: underline;">2</span>005  0.755  -<span style="color: #BB0000;">0.997</span>  0.749 </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span>  <span style="text-decoration: underline;">2</span>006 -<span style="color: #BB0000;">0.052</span><span style="color: #BB0000; text-decoration: underline;">8</span> -<span style="color: #BB0000;">1.20</span>  -<span style="color: #BB0000;">0.886</span> </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span>  <span style="text-decoration: underline;">2</span>007  0.411   1.44   0.621 </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span>  <span style="text-decoration: underline;">2</span>008 -<span style="color: #BB0000;">0.034</span><span style="color: #BB0000; text-decoration: underline;">6</span> -<span style="color: #BB0000;">0.853</span> -<span style="color: #BB0000;">0.962</span> </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">10</span>  <span style="text-decoration: underline;">2</span>009 -<span style="color: #BB0000;">0.786</span>  -<span style="color: #BB0000;">0.245</span> -<span style="color: #BB0000;">0.396</span> </span>
 <span class="co">#&gt; <span style="color: #949494;"># … with 5 more rows</span></span></code></pre></div>
 <p>When either <code>names_from</code> or <code>values_from</code> select multiple variables, you can control how the column names in the output constructed with <code>names_sep</code> and <code>names_prefix</code>, or the workhorse <code>names_glue</code>:</p>
 <div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
@@ -659,16 +649,16 @@
 <span class="co">#&gt; <span style="color: #949494;"># A tibble: 15 × 4</span></span>
 <span class="co">#&gt;     year prod.A.AI prod.B.AI prod.B.EI</span>
 <span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span>  <span style="text-decoration: underline;">2</span>000   -<span style="color: #BB0000;">1.84</span>     -<span style="color: #BB0000;">1.19</span>     -<span style="color: #BB0000;">0.718</span> </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span>  <span style="text-decoration: underline;">2</span>001   -<span style="color: #BB0000;">0.059</span><span style="color: #BB0000; text-decoration: underline;">3</span>   -<span style="color: #BB0000;">0.194</span>     0.083<span style="text-decoration: underline;">0</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span>  <span style="text-decoration: underline;">2</span>002   -<span style="color: #BB0000;">0.453</span>     0.348    -<span style="color: #BB0000;">0.593</span> </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span>  <span style="text-decoration: underline;">2</span>003    0.340    -<span style="color: #BB0000;">0.893</span>    -<span style="color: #BB0000;">0.565</span> </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span>  <span style="text-decoration: underline;">2</span>004    0.458    -<span style="color: #BB0000;">1.44</span>      1.44  </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span>  <span style="text-decoration: underline;">2</span>005    0.584     0.977    -<span style="color: #BB0000;">0.841</span> </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span>  <span style="text-decoration: underline;">2</span>006    1.05     -<span style="color: #BB0000;">0.069</span><span style="color: #BB0000; text-decoration: underline;">0</span>   -<span style="color: #BB0000;">1.16</span>  </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span>  <span style="text-decoration: underline;">2</span>007   -<span style="color: #BB0000;">1.15</span>      0.941    -<span style="color: #BB0000;">0.010</span><span style="color: #BB0000; text-decoration: underline;">1</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span>  <span style="text-decoration: underline;">2</span>008   -<span style="color: #BB0000;">0.055</span><span style="color: #BB0000; text-decoration: underline;">3</span>    0.340     0.201 </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">10</span>  <span style="text-decoration: underline;">2</span>009    1.36     -<span style="color: #BB0000;">0.736</span>     0.013<span style="text-decoration: underline;">8</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span>  <span style="text-decoration: underline;">2</span>000   -<span style="color: #BB0000;">0.871</span>      0.172   -<span style="color: #BB0000;">0.325</span> </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span>  <span style="text-decoration: underline;">2</span>001    1.37      -<span style="color: #BB0000;">0.649</span>   -<span style="color: #BB0000;">1.10</span>  </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span>  <span style="text-decoration: underline;">2</span>002   -<span style="color: #BB0000;">1.06</span>      -<span style="color: #BB0000;">1.71</span>     1.31  </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span>  <span style="text-decoration: underline;">2</span>003    1.72      -<span style="color: #BB0000;">0.406</span>   -<span style="color: #BB0000;">0.627</span> </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span>  <span style="text-decoration: underline;">2</span>004   -<span style="color: #BB0000;">0.250</span>      0.947   -<span style="color: #BB0000;">0.061</span><span style="color: #BB0000; text-decoration: underline;">5</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span>  <span style="text-decoration: underline;">2</span>005    0.755     -<span style="color: #BB0000;">0.997</span>    0.749 </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span>  <span style="text-decoration: underline;">2</span>006   -<span style="color: #BB0000;">0.052</span><span style="color: #BB0000; text-decoration: underline;">8</span>    -<span style="color: #BB0000;">1.20</span>    -<span style="color: #BB0000;">0.886</span> </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span>  <span style="text-decoration: underline;">2</span>007    0.411      1.44     0.621 </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span>  <span style="text-decoration: underline;">2</span>008   -<span style="color: #BB0000;">0.034</span><span style="color: #BB0000; text-decoration: underline;">6</span>    -<span style="color: #BB0000;">0.853</span>   -<span style="color: #BB0000;">0.962</span> </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">10</span>  <span style="text-decoration: underline;">2</span>009   -<span style="color: #BB0000;">0.786</span>     -<span style="color: #BB0000;">0.245</span>   -<span style="color: #BB0000;">0.396</span> </span>
 <span class="co">#&gt; <span style="color: #949494;"># … with 5 more rows</span></span>
 
 <span class="va">production</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
@@ -680,16 +670,16 @@
 <span class="co">#&gt; <span style="color: #949494;"># A tibble: 15 × 4</span></span>
 <span class="co">#&gt;     year prod_A_AI prod_B_AI prod_B_EI</span>
 <span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span>  <span style="text-decoration: underline;">2</span>000   -<span style="color: #BB0000;">1.84</span>     -<span style="color: #BB0000;">1.19</span>     -<span style="color: #BB0000;">0.718</span> </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span>  <span style="text-decoration: underline;">2</span>001   -<span style="color: #BB0000;">0.059</span><span style="color: #BB0000; text-decoration: underline;">3</span>   -<span style="color: #BB0000;">0.194</span>     0.083<span style="text-decoration: underline;">0</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span>  <span style="text-decoration: underline;">2</span>002   -<span style="color: #BB0000;">0.453</span>     0.348    -<span style="color: #BB0000;">0.593</span> </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span>  <span style="text-decoration: underline;">2</span>003    0.340    -<span style="color: #BB0000;">0.893</span>    -<span style="color: #BB0000;">0.565</span> </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span>  <span style="text-decoration: underline;">2</span>004    0.458    -<span style="color: #BB0000;">1.44</span>      1.44  </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span>  <span style="text-decoration: underline;">2</span>005    0.584     0.977    -<span style="color: #BB0000;">0.841</span> </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span>  <span style="text-decoration: underline;">2</span>006    1.05     -<span style="color: #BB0000;">0.069</span><span style="color: #BB0000; text-decoration: underline;">0</span>   -<span style="color: #BB0000;">1.16</span>  </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span>  <span style="text-decoration: underline;">2</span>007   -<span style="color: #BB0000;">1.15</span>      0.941    -<span style="color: #BB0000;">0.010</span><span style="color: #BB0000; text-decoration: underline;">1</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span>  <span style="text-decoration: underline;">2</span>008   -<span style="color: #BB0000;">0.055</span><span style="color: #BB0000; text-decoration: underline;">3</span>    0.340     0.201 </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">10</span>  <span style="text-decoration: underline;">2</span>009    1.36     -<span style="color: #BB0000;">0.736</span>     0.013<span style="text-decoration: underline;">8</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span>  <span style="text-decoration: underline;">2</span>000   -<span style="color: #BB0000;">0.871</span>      0.172   -<span style="color: #BB0000;">0.325</span> </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span>  <span style="text-decoration: underline;">2</span>001    1.37      -<span style="color: #BB0000;">0.649</span>   -<span style="color: #BB0000;">1.10</span>  </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span>  <span style="text-decoration: underline;">2</span>002   -<span style="color: #BB0000;">1.06</span>      -<span style="color: #BB0000;">1.71</span>     1.31  </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span>  <span style="text-decoration: underline;">2</span>003    1.72      -<span style="color: #BB0000;">0.406</span>   -<span style="color: #BB0000;">0.627</span> </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span>  <span style="text-decoration: underline;">2</span>004   -<span style="color: #BB0000;">0.250</span>      0.947   -<span style="color: #BB0000;">0.061</span><span style="color: #BB0000; text-decoration: underline;">5</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span>  <span style="text-decoration: underline;">2</span>005    0.755     -<span style="color: #BB0000;">0.997</span>    0.749 </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span>  <span style="text-decoration: underline;">2</span>006   -<span style="color: #BB0000;">0.052</span><span style="color: #BB0000; text-decoration: underline;">8</span>    -<span style="color: #BB0000;">1.20</span>    -<span style="color: #BB0000;">0.886</span> </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span>  <span style="text-decoration: underline;">2</span>007    0.411      1.44     0.621 </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span>  <span style="text-decoration: underline;">2</span>008   -<span style="color: #BB0000;">0.034</span><span style="color: #BB0000; text-decoration: underline;">6</span>    -<span style="color: #BB0000;">0.853</span>   -<span style="color: #BB0000;">0.962</span> </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">10</span>  <span style="text-decoration: underline;">2</span>009   -<span style="color: #BB0000;">0.786</span>     -<span style="color: #BB0000;">0.245</span>   -<span style="color: #BB0000;">0.396</span> </span>
 <span class="co">#&gt; <span style="color: #949494;"># … with 5 more rows</span></span></code></pre></div>
 </div>
 <div class="section level3">
