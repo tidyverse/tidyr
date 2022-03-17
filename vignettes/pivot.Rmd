@@ -198,23 +198,13 @@ So far, we have been working with data frames that have one observation per row,
 The following example is adapted from the [data.table vignette](https://CRAN.R-project.org/package=data.table/vignettes/datatable-reshape.html), as inspiration for tidyr's solution to this problem.
 
 ```{r}
-family <- tribble(
-  ~family,  ~dob_child1,  ~dob_child2, ~gender_child1, ~gender_child2,
-       1L, "1998-11-26", "2000-01-29",             1L,             2L,
-       2L, "1996-06-22",           NA,             2L,             NA,
-       3L, "2002-07-11", "2004-04-05",             2L,             2L,
-       4L, "2004-10-10", "2009-08-27",             1L,             1L,
-       5L, "2000-12-05", "2005-02-28",             2L,             1L,
-)
-family <- family %>% 
-  mutate(across(starts_with("dob"), parse_date))
-family
+household
 ```
 
-Note that we have two pieces of information (or values) for each child: their `gender` and their `dob` (date of birth). These need to go into separate columns in the result. Again we supply multiple variables to `names_to`, using `names_sep` to split up each variable name. Note the special name `.value`: this tells `pivot_longer()` that that part of the column name specifies the "value" being measured (which will become a variable in the output).
+Note that we have two pieces of information (or values) for each child: their `name` and their `dob` (date of birth). These need to go into separate columns in the result. Again we supply multiple variables to `names_to`, using `names_sep` to split up each variable name. Note the special name `.value`: this tells `pivot_longer()` that that part of the column name specifies the "value" being measured (which will become a variable in the output).
 
 ```{r}
-family %>% 
+household %>% 
   pivot_longer(
     cols = !family, 
     names_to = c(".value", "child"), 
