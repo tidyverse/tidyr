@@ -4,7 +4,7 @@
       (expect_error(hoist(df, x, "b", .ptype = list(b = double()))))
     Output
       <error/vctrs_error_incompatible_type>
-      Error in `col_simplify()`:
+      Error in `hoist()`:
       ! Can't convert `..1` <list> to <double>.
 
 # non-vectors generate a cast error if a ptype is supplied
@@ -13,7 +13,7 @@
       (expect_error(hoist(df, x, "b", .ptype = list(b = integer()))))
     Output
       <error/vctrs_error_scalar_type>
-      Error in `col_simplify()`:
+      Error in `hoist()`:
       ! `..1` must be a vector, not a symbol.
 
 # input validation catches problems
@@ -288,7 +288,7 @@
         1.5)))
     Output
       <error/vctrs_error_cast_lossy>
-      Error in `col_simplify()`:
+      Error:
       ! Can't convert from `..1` <double> to <integer> due to loss of precision.
       * Locations: 1
 

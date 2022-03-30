@@ -818,7 +818,8 @@ df_simplify <- function(x,
       x = col,
       ptype = col_ptype,
       transform = col_transform,
-      simplify = col_simplify
+      simplify = col_simplify,
+      call = caller_env()
     )
   }
 
@@ -829,7 +830,8 @@ col_simplify <- function(x,
                          ...,
                          ptype = NULL,
                          transform = NULL,
-                         simplify = TRUE) {
+                         simplify = TRUE,
+                         call = caller_env()) {
   check_dots_empty()
 
   if (!is.null(transform)) {
@@ -853,7 +855,7 @@ col_simplify <- function(x,
   }
   if (!is.null(ptype)) {
     x <- tidyr_new_list(x)
-    x <- vec_cast_common(!!!x, .to = ptype)
+    x <- vec_cast_common(!!!x, .to = ptype, .call = call)
     x <- tidyr_temporary_new_list_of(x, ptype = ptype)
   }
 
