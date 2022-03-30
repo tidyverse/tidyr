@@ -616,7 +616,7 @@ unnest_wider <- function(data,
 # Converts a column of any type to a `list_of<tbl>`
 col_to_wide <- function(col, name, strict, names_sep) {
   if (is.null(col)) {
-    abort(glue("Invalid `NULL` column detected for column `{name}`."))
+    abort(glue("Invalid `NULL` column detected for column `{name}`."), call = caller_env())
   }
 
   if (!vec_is_list(col)) {
@@ -628,12 +628,12 @@ col_to_wide <- function(col, name, strict, names_sep) {
   # If we don't have a list_of, then a `NULL` `col_ptype` will get converted to
   # a 1 row, 0 col tibble for `elt_ptype`
   col_ptype <- list_of_ptype(col)
-  elt_ptype <- elt_to_wide(col_ptype, name = name, strict = strict, names_sep = names_sep)
+  elt_ptype <- elt_to_wide(col_ptype, name = name, strict = strict, names_sep = names_sep, call = caller_env())
   elt_ptype <- vec_ptype(elt_ptype)
 
   # Avoid expensive dispatch from `[[.list_of`
   out <- tidyr_new_list(col)
-  out <- map(out, elt_to_wide, name = name, strict = strict, names_sep = names_sep)
+  out <- map(out, elt_to_wide, name = name, strict = strict, names_sep = names_sep, call = caller_env())
 
   # In the sole case of a list_of<data_frame>, we can be sure that the
   # elements of `out` will all be of the same type. Otherwise,
@@ -646,7 +646,7 @@ col_to_wide <- function(col, name, strict, names_sep) {
   if (has_identical_elements) {
     ptype <- elt_ptype
   } else {
-    ptype <- vec_ptype_common(elt_ptype, !!!out)
+    ptype <- vec_ptype_common(elt_ptype, !!!out, .call = caller_env())
     out <- vec_cast_common(!!!out, .to = ptype)
   }
 
@@ -667,13 +667,13 @@ col_to_wide <- function(col, name, strict, names_sep) {
 #   where round tripping a typed empty cell results in an empty `list()` that
 #   won't be able to combine with other typed non-empty cells. However, it
 #   can create inconsistencies with vctrs typing rules.
-elt_to_wide <- function(x, name, strict, names_sep) {
+elt_to_wide <- function(x, name, strict, names_sep, call) {
   if (is.null(x)) {
     x <- list()
   }
 
   if (!vec_is(x)) {
-    abort(glue("Column `{name}` must contain a list of vectors."))
+    abort(glue("Column `{name}` must contain a list of vectors."), call = call)
   }
 
   if (is.data.frame(x)) {

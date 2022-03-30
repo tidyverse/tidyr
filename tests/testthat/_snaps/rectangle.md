@@ -61,7 +61,7 @@
       (expect_error(unnest_wider(df, y)))
     Output
       <error/rlang_error>
-      Error in `.f()`:
+      Error in `unnest_wider()`:
       ! Column `y` must contain a list of vectors.
 
 # can unnest a vector with a mix of named/unnamed elements (#1200 comment)
@@ -115,7 +115,7 @@
       (expect_error(unnest_wider(df, col)))
     Output
       <error/vctrs_error_incompatible_type>
-      Error in `col_to_wide()`:
+      Error in `unnest_wider()`:
       ! Can't combine `..1$a` <list> and `..3$a` <list_of<integer>>.
 
 # unnest_wider() input must be a data frame (#1224)
