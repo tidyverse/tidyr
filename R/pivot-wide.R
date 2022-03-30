@@ -535,7 +535,8 @@ build_wider_id_cols_expr <- function(data,
     data = data,
     id_cols = {{ id_cols }},
     names_from_cols = names_from_cols,
-    values_from_cols = values_from_cols
+    values_from_cols = values_from_cols,
+    call = caller_env()
   )
 
   expr(c(!!!out))
@@ -544,7 +545,8 @@ build_wider_id_cols_expr <- function(data,
 select_wider_id_cols <- function(data,
                                  id_cols = NULL,
                                  names_from_cols = character(),
-                                 values_from_cols = character()) {
+                                 values_from_cols = character(),
+                                 call = caller_env()) {
   id_cols <- enquo(id_cols)
 
   # Remove known non-id-cols so they are never selected
@@ -560,14 +562,14 @@ select_wider_id_cols <- function(data,
     # Requires https://github.com/r-lib/tidyselect/issues/225.
     id_cols <- tidyselect::eval_select(enquo(id_cols), data),
     vctrs_error_subscript_oob = function(cnd) {
-      rethrow_id_cols_oob(cnd, names_from_cols, values_from_cols)
+      rethrow_id_cols_oob(cnd, names_from_cols, values_from_cols, call)
     }
   )
 
   names(id_cols)
 }
 
-rethrow_id_cols_oob <- function(cnd, names_from_cols, values_from_cols) {
+rethrow_id_cols_oob <- function(cnd, names_from_cols, values_from_cols, call) {
   i <- cnd[["i"]]
 
   if (!is_string(i)) {
@@ -575,21 +577,21 @@ rethrow_id_cols_oob <- function(cnd, names_from_cols, values_from_cols) {
   }
 
   if (i %in% names_from_cols) {
-    stop_id_cols_oob(i, "names_from")
+    stop_id_cols_oob(i, "names_from", call = call)
   } else if (i %in% values_from_cols) {
-    stop_id_cols_oob(i, "values_from")
+    stop_id_cols_oob(i, "values_from", call = call)
   } else {
     # Zap this special handler, throw the normal condition
     zap()
   }
 }
 
-stop_id_cols_oob <- function(i, arg) {
+stop_id_cols_oob <- function(i, arg, call) {
   message <- c(
     glue("`id_cols` can't select a column already selected by `{arg}`."),
     i = glue("Column `{i}` has already been selected.")
   )
-  abort(message, parent = NA)
+  abort(message, parent = NA, call = call)
 }
 
 # Helpers -----------------------------------------------------------------
@@ -618,7 +620,7 @@ value_summarize <- function(value, value_locs, value_name, fn, fn_name) {
       x = glue("Applying `{fn_name}` resulted in a value with length {size}.")
     )
 
-    abort(c(header, bullet))
+    abort(c(header, bullet), call = caller_env())
   }
 
   value <- vec_c(!!!value)
