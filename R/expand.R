@@ -282,7 +282,7 @@ grid_dots <- function(..., `_data` = NULL) {
     }
 
     arg <- paste0("..", i)
-    vec_assert(dot, arg = arg)
+    vec_assert(dot, arg = arg, call = caller_env())
 
     out[[i]] <- dot
 
