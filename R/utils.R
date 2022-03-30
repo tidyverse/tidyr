@@ -237,7 +237,7 @@ check_list_of_ptypes <- function(x, names, arg) {
   x
 }
 
-check_list_of_functions <- function(x, names, arg) {
+check_list_of_functions <- function(x, names, arg, call = caller_env()) {
   if (is.null(x)) {
     x <- set_names(list(), character())
   }
@@ -247,14 +247,14 @@ check_list_of_functions <- function(x, names, arg) {
   }
 
   if (length(x) > 0L && !is_named(x)) {
-    abort(glue("All elements of `{arg}` must be named."))
+    abort(glue("All elements of `{arg}` must be named."), call = call)
   }
 
   if (vec_duplicate_any(names(x))) {
-    abort(glue("The names of `{arg}` must be unique."))
+    abort(glue("The names of `{arg}` must be unique."), call = call)
   }
 
-  x <- map(x, as_function)
+  x <- map(x, as_function, arg = arg, call = call)
 
   # Silently drop user supplied names not found in the data
   x <- x[intersect(names(x), names)]

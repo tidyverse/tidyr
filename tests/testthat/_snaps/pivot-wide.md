@@ -219,8 +219,8 @@
       (expect_error(pivot_wider(df, values_fn = 1)))
     Output
       <error/rlang_error>
-      Error in `map()`:
-      ! Can't convert `.x[[i]]`, a number, to a function.
+      Error in `pivot_wider_spec()`:
+      ! Can't convert `values_fn`, a number, to a function.
 
 # `unused_fn` must result in single summary values
 
@@ -238,6 +238,6 @@
       (expect_error(pivot_wider(df, id_cols = id, unused_fn = 1)))
     Output
       <error/rlang_error>
-      Error in `map()`:
-      ! Can't convert `.x[[i]]`, a number, to a function.
+      Error in `pivot_wider_spec()`:
+      ! Can't convert `unused_fn`, a number, to a function.
 

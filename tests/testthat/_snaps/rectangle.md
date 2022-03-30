@@ -260,25 +260,25 @@
       (expect_error(df_simplify(data.frame(), transform = list(~.x))))
     Output
       <error/rlang_error>
-      Error in `check_list_of_functions()`:
+      Error:
       ! All elements of `transform` must be named.
     Code
       (expect_error(df_simplify(data.frame(x = 1), transform = 1)))
     Output
       <error/rlang_error>
-      Error in `map()`:
-      ! Can't convert `.x[[i]]`, a number, to a function.
+      Error:
+      ! Can't convert `transform`, a number, to a function.
     Code
       (expect_error(df_simplify(data.frame(), transform = list(x = 1))))
     Output
       <error/rlang_error>
-      Error in `map()`:
-      ! Can't convert `.x[[i]]`, a number, to a function.
+      Error:
+      ! Can't convert `transform`, a number, to a function.
     Code
       (expect_error(df_simplify(data.frame(), transform = list(x = 1, x = 1))))
     Output
       <error/rlang_error>
-      Error in `check_list_of_functions()`:
+      Error:
       ! The names of `transform` must be unique.
 
 # ptype is applied after transform

@@ -96,13 +96,13 @@
       (expect_error(build_longer_spec(df, x, names_transform = 1)))
     Output
       <error/rlang_error>
-      Error in `map()`:
-      ! Can't convert `.x[[i]]`, a number, to a function.
+      Error in `build_longer_spec()`:
+      ! Can't convert `names_transform`, a number, to a function.
     Code
       (expect_error(build_longer_spec(df, x, names_transform = list(~.x))))
     Output
       <error/rlang_error>
-      Error in `check_list_of_functions()`:
+      Error in `build_longer_spec()`:
       ! All elements of `names_transform` must be named.
 
 # `values_ptypes` is validated
@@ -126,12 +126,12 @@
       (expect_error(pivot_longer(df, x, values_transform = 1)))
     Output
       <error/rlang_error>
-      Error in `map()`:
-      ! Can't convert `.x[[i]]`, a number, to a function.
+      Error in `pivot_longer_spec()`:
+      ! Can't convert `values_transform`, a number, to a function.
     Code
       (expect_error(pivot_longer(df, x, values_transform = list(~.x))))
     Output
       <error/rlang_error>
-      Error in `check_list_of_functions()`:
+      Error in `pivot_longer_spec()`:
       ! All elements of `values_transform` must be named.
 
