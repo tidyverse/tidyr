@@ -779,7 +779,7 @@ df_simplify <- function(x,
                         simplify = TRUE) {
   check_dots_empty()
 
-  ptype <- check_list_of_ptypes(ptype, names(x), "ptype")
+  ptype <- check_list_of_ptypes(ptype, names(x), "ptype", caller_env())
   transform <- check_list_of_functions(transform, names(x), "transform", caller_env())
 
   if (is_bool(simplify)) {

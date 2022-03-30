@@ -151,7 +151,7 @@ df_unchop <- function(x, ..., ptype = NULL, keep_empty = FALSE) {
     abort("`keep_empty` must be a single `TRUE` or `FALSE`.")
   }
 
-  ptype <- check_list_of_ptypes(ptype, names = names(x), arg = "ptype")
+  ptype <- check_list_of_ptypes(ptype, names = names(x), arg = "ptype", call = caller_env())
 
   size <- vec_size(x)
 

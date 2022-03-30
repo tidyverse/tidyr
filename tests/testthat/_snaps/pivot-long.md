@@ -81,13 +81,13 @@
       (expect_error(build_longer_spec(df, x, names_ptypes = 1)))
     Output
       <error/rlang_error>
-      Error in `check_list_of_ptypes()`:
+      Error in `build_longer_spec()`:
       ! `names_ptypes` must be `NULL`, an empty ptype, or a named list of ptypes.
     Code
       (expect_error(build_longer_spec(df, x, names_ptypes = list(integer()))))
     Output
       <error/rlang_error>
-      Error in `check_list_of_ptypes()`:
+      Error in `build_longer_spec()`:
       ! All elements of `names_ptypes` must be named.
 
 # `names_transform` is validated
@@ -111,13 +111,13 @@
       (expect_error(pivot_longer(df, x, values_ptypes = 1)))
     Output
       <error/rlang_error>
-      Error in `check_list_of_ptypes()`:
+      Error in `pivot_longer_spec()`:
       ! `values_ptypes` must be `NULL`, an empty ptype, or a named list of ptypes.
     Code
       (expect_error(pivot_longer(df, x, values_ptypes = list(integer()))))
     Output
       <error/rlang_error>
-      Error in `check_list_of_ptypes()`:
+      Error in `pivot_longer_spec()`:
       ! All elements of `values_ptypes` must be named.
 
 # `values_transform` is validated

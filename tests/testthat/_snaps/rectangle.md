@@ -239,19 +239,19 @@
       (expect_error(df_simplify(data.frame(), ptype = 1)))
     Output
       <error/rlang_error>
-      Error in `check_list_of_ptypes()`:
+      Error:
       ! `ptype` must be `NULL`, an empty ptype, or a named list of ptypes.
     Code
       (expect_error(df_simplify(data.frame(), ptype = list(1))))
     Output
       <error/rlang_error>
-      Error in `check_list_of_ptypes()`:
+      Error:
       ! All elements of `ptype` must be named.
     Code
       (expect_error(df_simplify(data.frame(), ptype = list(x = 1, x = 1))))
     Output
       <error/rlang_error>
-      Error in `check_list_of_ptypes()`:
+      Error:
       ! The names of `ptype` must be unique.
 
 # `transform` is validated
