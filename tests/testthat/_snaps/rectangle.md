@@ -28,13 +28,13 @@
       (expect_error(df %>% hoist(x, 1)))
     Output
       <error/rlang_error>
-      Error in `check_pluckers()`:
+      Error in `hoist()`:
       ! All elements of `...` must be named.
     Code
       (expect_error(df %>% hoist(x, a = "a", a = "b")))
     Output
       <error/rlang_error>
-      Error in `check_pluckers()`:
+      Error in `hoist()`:
       ! The names of `...` must be unique.
 
 # can't hoist() from a data frame column
