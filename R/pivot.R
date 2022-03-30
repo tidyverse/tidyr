@@ -31,22 +31,22 @@
 #' check_pivot_spec(spec)
 check_pivot_spec <- function(spec) {
   if (!is.data.frame(spec)) {
-    abort("`spec` must be a data frame.")
+    abort("`spec` must be a data frame.", call = caller_env())
   }
 
   if (!has_name(spec, ".name") || !has_name(spec, ".value")) {
-    abort("`spec` must have `.name` and `.value` columns.")
+    abort("`spec` must have `.name` and `.value` columns.", call = caller_env())
   }
 
   if (!is.character(spec$.name)) {
-    abort("The `.name` column of `spec` must be a character vector.")
+    abort("The `.name` column of `spec` must be a character vector.", call = caller_env())
   }
   if (vec_duplicate_any(spec$.name)) {
-    abort("The `.name` column of `spec` must be unique.")
+    abort("The `.name` column of `spec` must be unique.", call = caller_env())
   }
 
   if (!is.character(spec$.value)) {
-    abort("The `.value` column of `spec` must be a character vector.")
+    abort("The `.value` column of `spec` must be a character vector.", call = caller_env())
   }
 
   # Ensure `.name` and `.value` come first, in that order
