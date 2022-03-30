@@ -88,6 +88,6 @@ check_replacement <- function(x, var) {
   n <- vec_size(x)
 
   if (n != 1) {
-    abort(glue("Replacement for `{var}` is length {n}, not length 1."))
+    abort(glue("Replacement for `{var}` is length {n}, not length 1."), call = caller_env())
   }
 }

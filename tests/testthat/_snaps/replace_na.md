@@ -4,7 +4,7 @@
       (expect_error(replace_na(1, 1:10)))
     Output
       <error/rlang_error>
-      Error in `check_replacement()`:
+      Error in `replace_na()`:
       ! Replacement for `data` is length 10, not length 1.
 
 # replacement must be castable to `data`
