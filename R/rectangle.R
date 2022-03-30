@@ -412,7 +412,7 @@ col_to_long <- function(col,
                         indices_to,
                         indices_include) {
   if (is.null(col)) {
-    abort(glue("Invalid `NULL` column detected for column `{name}`."))
+    abort(glue("Invalid `NULL` column detected for column `{name}`."), call = caller_env())
   }
 
   if (!vec_is_list(col)) {
@@ -435,7 +435,8 @@ col_to_long <- function(col,
     name = name,
     values_to = values_to,
     indices_to = indices_to,
-    indices_include = indices_include
+    indices_include = indices_include,
+    call = caller_env()
   )
   elt_ptype <- vec_ptype(elt_ptype)
 
@@ -449,11 +450,12 @@ col_to_long <- function(col,
       name = name,
       values_to = values_to,
       indices_to = indices_to,
-      indices_include = indices_include
+      indices_include = indices_include,
+      call = caller_env()
     )
   }
 
-  ptype <- vec_ptype_common(elt_ptype, !!!col)
+  ptype <- vec_ptype_common(elt_ptype, !!!col, .call = caller_env())
   col <- vec_cast_common(!!!col, .to = ptype)
 
   col <- tidyr_temporary_new_list_of(col, ptype = ptype)
@@ -469,7 +471,8 @@ elt_to_long <- function(x,
                         name,
                         values_to,
                         indices_to,
-                        indices_include) {
+                        indices_include,
+                        call) {
   if (is.null(x)) {
     x <- unspecified(1L)
 
@@ -483,7 +486,7 @@ elt_to_long <- function(x,
   }
 
   if (!vec_is(x)) {
-    abort(glue("Column `{name}` must contain a list of vectors."))
+    abort(glue("Column `{name}` must contain a list of vectors."), call = call)
   }
 
   if (indices_include) {

@@ -133,7 +133,7 @@
       (expect_error(unnest_longer(df, y)))
     Output
       <error/rlang_error>
-      Error in `elt_to_long()`:
+      Error in `unnest_longer()`:
       ! Column `y` must contain a list of vectors.
 
 # can't mix `indices_to` with `indices_include = FALSE`
