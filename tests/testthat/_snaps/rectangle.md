@@ -4,8 +4,8 @@
       (expect_error(hoist(df, x, "b", .ptype = list(b = double()))))
     Output
       <error/vctrs_error_incompatible_type>
-      Error in `stop_vctrs()`:
-      ! Can't convert <list> to <double>.
+      Error in `col_simplify()`:
+      ! Can't convert `..1` <list> to <double>.
 
 # non-vectors generate a cast error if a ptype is supplied
 
@@ -13,8 +13,8 @@
       (expect_error(hoist(df, x, "b", .ptype = list(b = integer()))))
     Output
       <error/vctrs_error_scalar_type>
-      Error in `stop_vctrs()`:
-      ! Input must be a vector, not a symbol.
+      Error in `col_simplify()`:
+      ! `..1` must be a vector, not a symbol.
 
 # input validation catches problems
 
@@ -70,7 +70,7 @@
       out <- unnest_wider(df, x, names_sep = "_")
     Message
       New names:
-      * `` -> ...1
+      * `` -> `...1`
 
 # unique name repair is done on the elements before applying `names_sep` (#1200 comment)
 
@@ -78,7 +78,7 @@
       out <- unnest_wider(df, col, names_sep = "_")
     Message
       New names:
-      * `` -> ...1
+      * `` -> `...1`
 
 ---
 
@@ -86,8 +86,8 @@
       out <- unnest_wider(df, col, names_sep = "_")
     Message
       New names:
-      * `` -> ...1
-      * `` -> ...2
+      * `` -> `...1`
+      * `` -> `...2`
 
 # output structure is the same whether or not `names_sep` is applied (#1200 comment)
 
@@ -95,9 +95,9 @@
       out1 <- unnest_wider(df, col)
     Message
       New names:
-      * `` -> ...1
+      * `` -> `...1`
       New names:
-      * `` -> ...1
+      * `` -> `...1`
 
 ---
 
@@ -105,9 +105,9 @@
       out2 <- unnest_wider(df, col, names_sep = "_")
     Message
       New names:
-      * NA -> ...1
+      * `` -> `...1`
       New names:
-      * `` -> ...1
+      * `` -> `...1`
 
 # can't currently combine compatible `<list> + <list_of<ptype>>`
 
@@ -115,7 +115,7 @@
       (expect_error(unnest_wider(df, col)))
     Output
       <error/vctrs_error_incompatible_type>
-      Error in `stop_vctrs()`:
+      Error in `col_to_wide()`:
       ! Can't combine `..1$a` <list> and `..3$a` <list_of<integer>>.
 
 # unnest_wider() input must be a data frame (#1224)
@@ -288,7 +288,7 @@
         1.5)))
     Output
       <error/vctrs_error_cast_lossy>
-      Error in `stop_vctrs()`:
-      ! Can't convert from <double> to <integer> due to loss of precision.
+      Error in `col_simplify()`:
+      ! Can't convert from `..1` <double> to <integer> due to loss of precision.
       * Locations: 1
 

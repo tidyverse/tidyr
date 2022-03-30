@@ -4,7 +4,7 @@
       (expect_error(pivot_longer(df, y, names_to = "x")))
     Output
       <error/vctrs_error_names_must_be_unique>
-      Error in `stop_vctrs()`:
+      Error in `vec_cbind()`:
       ! Names must be unique.
       x These names are duplicated:
         * "x" at locations 1 and 2.
@@ -16,8 +16,8 @@
       out <- pivot_longer(df, y, names_to = "x", names_repair = "unique")
     Message
       New names:
-      * x -> x...1
-      * x -> x...2
+      * `x` -> `x...1`
+      * `x` -> `x...2`
 
 # multiple names requires names_sep/names_pattern
 
