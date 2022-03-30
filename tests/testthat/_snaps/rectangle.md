@@ -206,31 +206,31 @@
       (expect_error(df_simplify(data.frame(), simplify = 1)))
     Output
       <error/rlang_error>
-      Error in `df_simplify()`:
+      Error:
       ! `simplify` must be a list or a single `TRUE` or `FALSE`.
     Code
       (expect_error(df_simplify(data.frame(), simplify = NA)))
     Output
       <error/rlang_error>
-      Error in `df_simplify()`:
+      Error:
       ! `simplify` must be a list or a single `TRUE` or `FALSE`.
     Code
       (expect_error(df_simplify(data.frame(), simplify = c(TRUE, FALSE))))
     Output
       <error/rlang_error>
-      Error in `df_simplify()`:
+      Error:
       ! `simplify` must be a list or a single `TRUE` or `FALSE`.
     Code
       (expect_error(df_simplify(data.frame(), simplify = list(1))))
     Output
       <error/rlang_error>
-      Error in `df_simplify()`:
+      Error:
       ! All elements of `simplify` must be named.
     Code
       (expect_error(df_simplify(data.frame(), simplify = list(x = 1, x = 1))))
     Output
       <error/rlang_error>
-      Error in `df_simplify()`:
+      Error:
       ! The names of `simplify` must be unique.
 
 # `ptype` is validated

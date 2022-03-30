@@ -780,7 +780,7 @@ df_simplify <- function(x,
                         ptype = NULL,
                         transform = NULL,
                         simplify = TRUE) {
-  check_dots_empty()
+  check_dots_empty(call = caller_env())
 
   ptype <- check_list_of_ptypes(ptype, names(x), "ptype", caller_env())
   transform <- check_list_of_functions(transform, names(x), "transform", caller_env())
@@ -793,13 +793,13 @@ df_simplify <- function(x,
   }
 
   if (!vec_is_list(simplify)) {
-    abort("`simplify` must be a list or a single `TRUE` or `FALSE`.")
+    abort("`simplify` must be a list or a single `TRUE` or `FALSE`.", call = caller_env())
   }
   if (length(simplify) > 0L && !is_named(simplify)) {
-    abort("All elements of `simplify` must be named.")
+    abort("All elements of `simplify` must be named.", call = caller_env())
   }
   if (vec_duplicate_any(names(simplify))) {
-    abort("The names of `simplify` must be unique.")
+    abort("The names of `simplify` must be unique.", call = caller_env())
   }
 
   x_n <- length(x)
