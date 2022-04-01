@@ -787,9 +787,7 @@ test_that("can't currently retain names when simplification isn't done and a pty
 
   out <- unnest_longer(df, x, indices_include = TRUE, ptype = ptype, simplify = FALSE)
 
-  # Ideally should be `c("a", "")`, but the call to
-  # `tidyr_temporary_new_list_of()` in `col_simplify()` prevents this
-  expect_named(out$x, NULL)
+  expect_named(out$x, c("a", ""))
   expect_identical(out$x_id, c("a", NA))
 })
 
