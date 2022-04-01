@@ -13,7 +13,7 @@
       (expect_error(replace_na(x, 1.5)))
     Output
       <error/vctrs_error_cast_lossy>
-      Error in `stop_vctrs()`:
+      Error in `vec_assign()`:
       ! Can't convert from `replace` <double> to `data` <integer> due to loss of precision.
       * Locations: 1
 
@@ -23,7 +23,7 @@
       (expect_error(replace_na(df, list(a = 1.5))))
     Output
       <error/vctrs_error_cast_lossy>
-      Error in `stop_vctrs()`:
+      Error in `vec_assign()`:
       ! Can't convert from `replace$a` <double> to `data$a` <integer> due to loss of precision.
       * Locations: 1
 
