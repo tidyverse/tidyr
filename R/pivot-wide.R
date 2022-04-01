@@ -525,11 +525,12 @@ build_wider_spec <- function(data,
 build_wider_id_cols_expr <- function(data,
                                      id_cols = NULL,
                                      names_from = name,
-                                     values_from = value) {
+                                     values_from = value,
+                                     call = caller_env()) {
   # TODO: Use `allow_rename = FALSE`.
   # Requires https://github.com/r-lib/tidyselect/issues/225.
-  names_from_cols <- names(tidyselect::eval_select(enquo(names_from), data))
-  values_from_cols <- names(tidyselect::eval_select(enquo(values_from), data))
+  names_from_cols <- names(tidyselect::eval_select(enquo(names_from), data, error_call = call))
+  values_from_cols <- names(tidyselect::eval_select(enquo(values_from), data, error_call = call))
 
   out <- select_wider_id_cols(
     data = data,
@@ -560,7 +561,7 @@ select_wider_id_cols <- function(data,
   try_fetch(
     # TODO: Use `allow_rename = FALSE`.
     # Requires https://github.com/r-lib/tidyselect/issues/225.
-    id_cols <- tidyselect::eval_select(enquo(id_cols), data),
+    id_cols <- tidyselect::eval_select(enquo(id_cols), data, error_call = call),
     vctrs_error_subscript_oob = function(cnd) {
       rethrow_id_cols_oob(cnd, names_from_cols, values_from_cols, call)
     }
