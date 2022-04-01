@@ -29,7 +29,7 @@ Imports:
     tibble (>= 2.1.1),
     tidyselect (>= 1.1.0),
     utils,
-    vctrs (>= 0.3.7)
+    vctrs (>= 0.4.0)
 Suggests: 
     covr,
     data.table,
