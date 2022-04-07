@@ -252,13 +252,7 @@ pivot_longer_spec <- function(data,
       val_cols <- lapply(val_cols, values_transform[[value]])
     }
     val_type <- vec_ptype_common(!!!set_names(val_cols[col_id], cols), .ptype = values_ptypes[[value]])
-    out <- vec_c(!!!val_cols, .ptype = val_type)
-    # Interleave into correct order
-    # TODO somehow `t(matrix(x))` is _faster_ than `matrix(x, byrow = TRUE)`
-    # if this gets fixed in R this should use `byrow = TRUE` again
-    n_vals <- nrow(data) * length(val_cols)
-    idx <- t(matrix(seq_len(n_vals), ncol = length(val_cols)))
-    vals[[value]] <- vec_slice(out, as.integer(idx))
+    vals[[value]] <- vec_interleave(!!!val_cols, .ptype = val_type)
   }
   vals <- as_tibble(vals)
 
