@@ -1,5 +1,7 @@
 # tidyr (development version)
 
+* rlang >=1.0.2 and vctrs >=0.4.0 are now required (#1344).
+
 * Removed dependency on ellipsis in favor of equivalent functions in rlang
   (#1314).
 
