@@ -13,8 +13,8 @@
       (expect_error(unnest(df, y)))
     Output
       <error/vctrs_error_scalar_type>
-      Error in `stop_vctrs()`:
-      ! Input must be a vector, not a function.
+      Error in `list_sizes()`:
+      ! `x[[1]]` must be a vector, not a function.
 
 # multiple columns must be same length
 
@@ -40,7 +40,7 @@
       (expect_error(unnest(df, x)))
     Output
       <error/vctrs_error_incompatible_type>
-      Error in `stop_vctrs()`:
+      Error:
       ! Can't combine `..1` <double> and `..2` <tbl_df>.
 
 # warn about old style interface
