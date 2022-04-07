@@ -4,7 +4,7 @@
       (expect_error(pivot_wider(df, names_from = key, values_from = val)))
     Output
       <error/vctrs_error_names_must_be_unique>
-      Error in `stop_vctrs()`:
+      Error in `vec_cbind()`:
       ! Names must be unique.
       x These names are duplicated:
         * "a" at locations 1 and 2.
@@ -16,8 +16,8 @@
       out <- pivot_wider(df, names_from = key, values_from = val, names_repair = "unique")
     Message
       New names:
-      * a -> a...1
-      * a -> a...2
+      * `a` -> `a...1`
+      * `a` -> `a...2`
 
 # `names_from` must be supplied if `name` isn't in `data` (#1240)
 
@@ -25,8 +25,8 @@
       (expect_error(pivot_wider(df, values_from = val)))
     Output
       <error/vctrs_error_subscript_oob>
-      Error in `stop_subscript()`:
-      ! Can't subset columns that don't exist.
+      Error in `chr_as_locations()`:
+      ! Can't subset columns past the end.
       x Column `name` doesn't exist.
 
 # `values_from` must be supplied if `value` isn't in `data` (#1240)
@@ -35,8 +35,8 @@
       (expect_error(pivot_wider(df, names_from = key)))
     Output
       <error/vctrs_error_subscript_oob>
-      Error in `stop_subscript()`:
-      ! Can't subset columns that don't exist.
+      Error in `chr_as_locations()`:
+      ! Can't subset columns past the end.
       x Column `value` doesn't exist.
 
 # `names_from` must identify at least 1 column (#1240)
@@ -124,8 +124,8 @@
       (expect_error(pivot_wider(df, id_cols = foo)))
     Output
       <error/vctrs_error_subscript_oob>
-      Error in `stop_subscript()`:
-      ! Can't subset columns that don't exist.
+      Error in `chr_as_locations()`:
+      ! Can't subset columns past the end.
       x Column `foo` doesn't exist.
 
 # `id_expand` is validated
