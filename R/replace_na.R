@@ -37,7 +37,6 @@ replace_na <- function(data, replace, ...) {
 #' @export
 replace_na.default <- function(data, replace = NA, ...) {
   check_replacement(replace, "data")
-
   missing <- vec_equal_na(data)
   vec_assign(data, missing, replace, x_arg = "data", value_arg = "replace")
 }
