@@ -203,12 +203,6 @@ expand_grid <- function(..., .name_repair = "check_unique") {
 # Helpers -----------------------------------------------------------------
 
 sorted_unique <- function(x) {
-  if (is.data.frame(x) && ncol(x) == 0L) {
-    # vec_sort() bug with 0 column data frames:
-    # https://github.com/r-lib/vctrs/issues/1499
-    return(x)
-  }
-
   if (is.factor(x)) {
     fct_unique(x)
   } else if (is_bare_list(x)) {
@@ -244,10 +238,11 @@ grid_dots <- function(..., `_data` = NULL) {
   # Silently uniquely repair "auto-names" to avoid collisions
   # from truncated long names. Probably not a perfect system, but solves
   # most of the reported issues.
-  # TODO: Directly use rlang 1.0.0's:
-  # `rlang::quos_auto_name(repair_auto = "unique", repair_quiet = TRUE)`
-  auto_names <- names(quos_auto_name(dots[needs_auto_name]))
-  auto_names <- vec_as_names(auto_names, repair = "unique", quiet = TRUE)
+  auto_names <- names(exprs_auto_name(
+    exprs = dots[needs_auto_name],
+    repair_auto = "unique",
+    repair_quiet = TRUE
+  ))
 
   names[needs_auto_name] <- auto_names
 

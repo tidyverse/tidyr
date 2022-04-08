@@ -75,7 +75,7 @@ nest_legacy <- function(data, ..., .key = "data") {
 #' @importFrom utils packageVersion
 #' @export
 nest_legacy.tbl_df <- function(data, ..., .key = "data") {
-  key_var <- as_string(ensym2(.key))
+  key_var <- as_string(ensym(.key))
   nest_vars <- unname(tidyselect::vars_select(names(data), ...))
 
   if (is_empty(nest_vars)) {
