@@ -8,6 +8,7 @@
 pivot_longer_spec(
   data,
   spec,
+  cols_vary = "fastest",
   names_repair = "check_unique",
   values_drop_na = FALSE,
   values_ptypes = NULL,
@@ -39,6 +40,18 @@ long format of the dataset and contain values corresponding to columns
 pivoted from the wide format.
 The special \code{.seq} variable is used to disambiguate rows internally;
 it is automatically removed after pivotting.}
+
+\item{cols_vary}{When pivoting \code{cols} into longer format, how should the
+output rows be arranged relative to their original row number?
+\itemize{
+\item \code{"fastest"}, the default, keeps individual rows from \code{cols} close
+together in the output. This often produces intuitively ordered output
+when you have at least one key column from \code{data} that is not involved in
+the pivoting process.
+\item \code{"slowest"} keeps individual columns from \code{cols} close together in the
+output. This often produces intuitively ordered output when you utilize
+all of the columns from \code{data} in the pivoting process.
+}}
 
 \item{names_repair}{What happens if the output has invalid column names?
 The default, \code{"check_unique"} is to error if the columns are duplicated.
