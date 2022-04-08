@@ -409,7 +409,7 @@ pivot_wider_spec <- function(data,
       fill <- vec_cast(fill, value)
       out <- vec_rep_each(fill, nrow * ncol)
     }
-    vec_slice(out, value_id$row + nrow * (value_id$col - 1L)) <- value
+    out <- vec_assign(out, value_id$row + nrow * (value_id$col - 1L), value)
 
     value_out[[i]] <- chop_rectangular_df(out, value_spec$.name)
   }
