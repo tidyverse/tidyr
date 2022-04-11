@@ -1,8 +1,8 @@
 ## revdepcheck results
 
-We checked 1451 reverse dependencies (1441 from CRAN + 10 from Bioconductor), comparing R CMD check results across CRAN and dev versions of this package.
+We checked 1509 reverse dependencies (1497 from CRAN + 12 from Bioconductor), comparing R CMD check results across CRAN and dev versions of this package.
 
- * We saw 7 new problems
+ * We saw 6 new problems
  * We failed to check 3 packages
 
 Issues with CRAN packages are summarised below.
@@ -10,31 +10,27 @@ Issues with CRAN packages are summarised below.
 ### New problems
 (This reports the first line of each new failure)
 
-* covidregionaldata
-  checking tests ... ERROR
+* batchtma
+  checking examples ... ERROR
   checking re-building of vignette outputs ... WARNING
 
-* emayili
+* dartR
   checking examples ... ERROR
-  checking tests ... ERROR
+
+* faux
+  checking re-building of vignette outputs ... WARNING
 
 * simpr
   checking S3 generic/method consistency ... WARNING
 
-* skater
-  checking re-building of vignette outputs ... WARNING
-
 * sparklyr
   checking S3 generic/method consistency ... WARNING
 
-* SWMPrExtension
-  checking examples ... ERROR
-
-* xml2relational
-  checking examples ... ERROR
+* tidyseurat
+  checking S3 generic/method consistency ... WARNING
 
 ### Failed to check
 
-* loon.ggplot (NA)
-* PLNmodels   (NA)
-* vivid       (NA)
+* loon.ggplot    (NA)
+* MarketMatching (NA)
+* vivid          (NA)
