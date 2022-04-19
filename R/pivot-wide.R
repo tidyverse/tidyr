@@ -156,6 +156,7 @@
 #'     values_fn = ~ mean(.x, na.rm = TRUE)
 #'   )
 pivot_wider <- function(data,
+                        ...,
                         id_cols = NULL,
                         id_expand = FALSE,
                         names_from = name,
@@ -169,14 +170,14 @@ pivot_wider <- function(data,
                         values_from = value,
                         values_fill = NULL,
                         values_fn = NULL,
-                        unused_fn = NULL,
-                        ...) {
+                        unused_fn = NULL) {
   check_dots_used()
   UseMethod("pivot_wider")
 }
 
 #' @export
 pivot_wider.data.frame <- function(data,
+                                   ...,
                                    id_cols = NULL,
                                    id_expand = FALSE,
                                    names_from = name,
@@ -190,8 +191,7 @@ pivot_wider.data.frame <- function(data,
                                    values_from = value,
                                    values_fill = NULL,
                                    values_fn = NULL,
-                                   unused_fn = NULL,
-                                   ...) {
+                                   unused_fn = NULL) {
   names_from <- enquo(names_from)
   values_from <- enquo(values_from)
 
@@ -233,6 +233,7 @@ pivot_wider.data.frame <- function(data,
 #'
 #' @keywords internal
 #' @export
+#' @inheritParams rlang::args_dots_empty
 #' @inheritParams pivot_wider
 #' @param spec A specification data frame. This is useful for more complex
 #'  pivots because it gives you greater control on how metadata stored in the
@@ -279,12 +280,14 @@ pivot_wider.data.frame <- function(data,
 #'   pivot_wider_spec(spec2)
 pivot_wider_spec <- function(data,
                              spec,
+                             ...,
                              names_repair = "check_unique",
                              id_cols = NULL,
                              id_expand = FALSE,
                              values_fill = NULL,
                              values_fn = NULL,
                              unused_fn = NULL) {
+  check_dots_empty0(...)
 
   spec <- check_pivot_spec(spec)
   check_bool(id_expand)
@@ -450,6 +453,7 @@ pivot_wider_spec <- function(data,
 #' @rdname pivot_wider_spec
 #' @inheritParams pivot_wider
 build_wider_spec <- function(data,
+                             ...,
                              names_from = name,
                              values_from = value,
                              names_prefix = "",
@@ -458,6 +462,8 @@ build_wider_spec <- function(data,
                              names_sort = FALSE,
                              names_vary = "fastest",
                              names_expand = FALSE) {
+  check_dots_empty0(...)
+
   names_from <- tidyselect::eval_select(
     enquo(names_from),
     data,

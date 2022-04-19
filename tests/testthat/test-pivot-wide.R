@@ -205,6 +205,34 @@ test_that("expansion with `id_expand` and `names_expand` works with zero row dat
   expect_identical(res$b, c(NA_integer_, NA_integer_))
 })
 
+test_that("`pivot_wider()` catches unused input passed through the dots", {
+  df <- tibble(name = c("x", "y", "z"), value = 1:3)
+
+  expect_snapshot({
+    (expect_error(pivot_wider(df, 1)))
+    (expect_error(pivot_wider(df, name_prefix = "")))
+  })
+})
+
+test_that("`build_wider_spec()` requires empty dots", {
+  df <- tibble(name = c("x", "y", "z"), value = 1:3)
+
+  expect_snapshot({
+    (expect_error(build_wider_spec(df, 1)))
+    (expect_error(build_wider_spec(df, name_prefix = "")))
+  })
+})
+
+test_that("`pivot_wider_spec()` requires empty dots", {
+  df <- tibble(name = c("x", "y", "z"), value = 1:3)
+  spec <- build_wider_spec(df)
+
+  expect_snapshot({
+    (expect_error(pivot_wider_spec(df, spec, 1)))
+    (expect_error(pivot_wider_spec(df, spec, name_repair = "check_unique")))
+  })
+})
+
 # column names -------------------------------------------------------------
 
 test_that("names_glue affects output names", {
@@ -215,7 +243,12 @@ test_that("names_glue affects output names", {
     b = 1:2
   )
 
-  spec <- build_wider_spec(df, x:y, a:b, names_glue = "{x}{y}_{.value}")
+  spec <- build_wider_spec(
+    df,
+    names_from = x:y,
+    values_from = a:b,
+    names_glue = "{x}{y}_{.value}"
+  )
   expect_equal(spec$.name, c("X1_a", "Y2_a", "X1_b", "Y2_b"))
 })
 

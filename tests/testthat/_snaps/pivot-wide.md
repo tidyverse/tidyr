@@ -69,6 +69,65 @@
       ! Applying `values_fn` to `value` must result in a single summary value per key.
       i Applying `values_fn` resulted in a vector of length 2.
 
+# `pivot_wider()` catches unused input passed through the dots
+
+    Code
+      (expect_error(pivot_wider(df, 1)))
+    Output
+      <error/rlib_error_dots_unused>
+      Error:
+      ! Arguments in `...` must be used.
+      x Problematic argument:
+      * ..1 = 1
+    Code
+      (expect_error(pivot_wider(df, name_prefix = "")))
+    Output
+      <error/rlib_error_dots_unused>
+      Error:
+      ! Arguments in `...` must be used.
+      x Problematic argument:
+      * name_prefix = ""
+
+# `build_wider_spec()` requires empty dots
+
+    Code
+      (expect_error(build_wider_spec(df, 1)))
+    Output
+      <error/rlib_error_dots_nonempty>
+      Error in `build_wider_spec()`:
+      ! `...` must be empty.
+      x Problematic argument:
+      * ..1 = 1
+      i Did you forget to name an argument?
+    Code
+      (expect_error(build_wider_spec(df, name_prefix = "")))
+    Output
+      <error/rlib_error_dots_nonempty>
+      Error in `build_wider_spec()`:
+      ! `...` must be empty.
+      x Problematic argument:
+      * name_prefix = ""
+
+# `pivot_wider_spec()` requires empty dots
+
+    Code
+      (expect_error(pivot_wider_spec(df, spec, 1)))
+    Output
+      <error/rlib_error_dots_nonempty>
+      Error in `pivot_wider_spec()`:
+      ! `...` must be empty.
+      x Problematic argument:
+      * ..1 = 1
+      i Did you forget to name an argument?
+    Code
+      (expect_error(pivot_wider_spec(df, spec, name_repair = "check_unique")))
+    Output
+      <error/rlib_error_dots_nonempty>
+      Error in `pivot_wider_spec()`:
+      ! `...` must be empty.
+      x Problematic argument:
+      * name_repair = "check_unique"
+
 # `names_vary` is validated
 
     Code
