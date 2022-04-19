@@ -6,7 +6,7 @@
 * `pivot_longer()` is now more memory efficient due to the usage of
   `vctrs::vec_interleave()` (#1310, @mgirlich).
 
-* rlang >=1.0.2 and vctrs >=0.4.0 are now required (#1344).
+* rlang >=1.0.2 and vctrs >=0.4.1 are now required (#1344).
 
 * Removed dependency on ellipsis in favor of equivalent functions in rlang
   (#1314).

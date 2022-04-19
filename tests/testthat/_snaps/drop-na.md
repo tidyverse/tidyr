@@ -16,6 +16,6 @@
     Output
       <error/vctrs_error_subscript_oob>
       Error in `chr_as_locations()`:
-      ! Can't subset columns past the end.
+      ! Can't subset columns that don't exist.
       x Column `z` doesn't exist.
 
