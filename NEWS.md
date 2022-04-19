@@ -1,5 +1,8 @@
 # tidyr (development version)
 
+* `pivot_longer()` gained a new `cols_vary` argument for controlling the
+  ordering of the output rows relative to their original row number (#1312).
+
 * `pivot_longer()` is now more memory efficient due to the usage of
   `vctrs::vec_interleave()` (#1310, @mgirlich).
 

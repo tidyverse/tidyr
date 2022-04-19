@@ -135,3 +135,19 @@
       Error in `check_list_of_functions()`:
       ! All elements of `values_transform` must be named.
 
+# `cols_vary` is validated
+
+    Code
+      (expect_error(pivot_longer(df, x, cols_vary = "fast")))
+    Output
+      <error/rlang_error>
+      Error in `pivot_longer_spec()`:
+      ! `cols_vary` must be one of "fastest" or "slowest", not "fast".
+      i Did you mean "fastest"?
+    Code
+      (expect_error(pivot_longer(df, x, cols_vary = 1)))
+    Output
+      <error/rlang_error>
+      Error in `arg_match0()`:
+      ! `cols_vary` must be a string or character vector.
+

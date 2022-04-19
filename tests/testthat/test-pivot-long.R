@@ -174,6 +174,50 @@ test_that("zero row data frame works", {
   expect_equal(pv$value, integer())
 })
 
+test_that("`cols_vary` can adjust the resulting row ordering (#1312)", {
+  df <- tibble(x = c(1, 2), y = c(3, 4))
+
+  expect_identical(
+    pivot_longer(df, c(x, y), cols_vary = "fastest"),
+    tibble(name = c("x", "y", "x", "y"), value = c(1, 3, 2, 4))
+  )
+  expect_identical(
+    pivot_longer(df, c(x, y), cols_vary = "slowest"),
+    tibble(name = c("x", "x", "y", "y"), value = c(1, 2, 3, 4))
+  )
+})
+
+test_that("`cols_vary` works with id columns not part of the pivoting process", {
+  df <- tibble(id = c("a", "b"), x = c(1, 2), y = c(3, 4))
+
+  out <- pivot_longer(df, c(x, y), cols_vary = "fastest")
+  expect_identical(out$id, c("a", "a", "b", "b"))
+  expect_identical(
+    out[c("name", "value")],
+    pivot_longer(df[c("x", "y")], c(x, y), cols_vary = "fastest")
+  )
+
+  out <- pivot_longer(df, c(x, y), cols_vary = "slowest")
+  expect_identical(out$id, c("a", "b", "a", "b"))
+  expect_identical(
+    out[c("name", "value")],
+    pivot_longer(df[c("x", "y")], c(x, y), cols_vary = "slowest")
+  )
+})
+
+test_that("adjusting `cols_vary` works fine with `values_drop_na`", {
+  df <- tibble(id = c("a", "b"), x = c(1, NA), y = c(3, 4))
+
+  expect_identical(
+    pivot_longer(df, c(x, y), cols_vary = "slowest", values_drop_na = TRUE),
+    tibble(
+      id = c("a", "a", "b"),
+      name = c("x", "y", "y"),
+      value = c(1, 3, 4)
+    )
+  )
+})
+
 # spec --------------------------------------------------------------------
 
 test_that("validates inputs", {
@@ -400,5 +444,14 @@ test_that("`values_transform` is validated", {
   expect_snapshot({
     (expect_error(pivot_longer(df, x, values_transform = 1)))
     (expect_error(pivot_longer(df, x, values_transform = list(~.x))))
+  })
+})
+
+test_that("`cols_vary` is validated", {
+  df <- tibble(x = 1)
+
+  expect_snapshot({
+    (expect_error(pivot_longer(df, x, cols_vary = "fast")))
+    (expect_error(pivot_longer(df, x, cols_vary = 1)))
   })
 })

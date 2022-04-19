@@ -7,6 +7,7 @@
 pivot_longer(
   data,
   cols,
+  cols_vary = "fastest",
   names_to = "name",
   names_prefix = NULL,
   names_sep = NULL,
@@ -26,6 +27,18 @@ pivot_longer(
 
 \item{cols}{<\code{\link[=tidyr_tidy_select]{tidy-select}}> Columns to pivot into
 longer format.}
+
+\item{cols_vary}{When pivoting \code{cols} into longer format, how should the
+output rows be arranged relative to their original row number?
+\itemize{
+\item \code{"fastest"}, the default, keeps individual rows from \code{cols} close
+together in the output. This often produces intuitively ordered output
+when you have at least one key column from \code{data} that is not involved in
+the pivoting process.
+\item \code{"slowest"} keeps individual columns from \code{cols} close together in the
+output. This often produces intuitively ordered output when you utilize
+all of the columns from \code{data} in the pivoting process.
+}}
 
 \item{names_to}{A character vector specifying the new column or columns to
 create from the information stored in the column names of \code{data} specified
@@ -146,11 +159,14 @@ who \%>\% pivot_longer(
   values_to = "count"
 )
 
-# Multiple observations per row
+# Multiple observations per row. Since all columns are used in the pivoting
+# process, we'll use `cols_vary` to keep values from the original columns
+# close together in the output.
 anscombe
 anscombe \%>\%
   pivot_longer(
     everything(),
+    cols_vary = "slowest",
     names_to = c(".value", "set"),
     names_pattern = "(.)(.)"
   )
