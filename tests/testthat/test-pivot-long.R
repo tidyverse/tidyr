@@ -483,3 +483,31 @@ test_that("`cols_vary` is validated", {
     (expect_error(pivot_longer(df, x, cols_vary = 1)))
   })
 })
+
+test_that("`pivot_longer()` catches unused input passed through the dots", {
+  df <- tibble(id = c("a", "b"), x = c(1, 2), y = c(3, 4))
+
+  expect_snapshot({
+    (expect_error(pivot_longer(df, c(x, y), 1)))
+    (expect_error(pivot_longer(df, c(x, y), col_vary = "slowest")))
+  })
+})
+
+test_that("`build_longer_spec()` requires empty dots", {
+  df <- tibble(id = c("a", "b"), x = c(1, 2), y = c(3, 4))
+
+  expect_snapshot({
+    (expect_error(build_longer_spec(df, c(x, y), 1)))
+    (expect_error(build_longer_spec(df, c(x, y), name_to = "name")))
+  })
+})
+
+test_that("`pivot_longer_spec()` requires empty dots", {
+  df <- tibble(id = c("a", "b"), x = c(1, 2), y = c(3, 4))
+  spec <- build_longer_spec(df, c(x, y))
+
+  expect_snapshot({
+    (expect_error(pivot_longer_spec(df, spec, 1)))
+    (expect_error(pivot_longer_spec(df, spec, col_vary = "slowest")))
+  })
+})

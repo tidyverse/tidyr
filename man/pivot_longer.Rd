@@ -7,6 +7,7 @@
 pivot_longer(
   data,
   cols,
+  ...,
   cols_vary = "fastest",
   names_to = "name",
   names_prefix = NULL,
@@ -18,8 +19,7 @@ pivot_longer(
   values_to = "value",
   values_drop_na = FALSE,
   values_ptypes = NULL,
-  values_transform = NULL,
-  ...
+  values_transform = NULL
 )
 }
 \arguments{
@@ -27,6 +27,8 @@ pivot_longer(
 
 \item{cols}{<\code{\link[=tidyr_tidy_select]{tidy-select}}> Columns to pivot into
 longer format.}
+
+\item{...}{Additional arguments passed on to methods.}
 
 \item{cols_vary}{When pivoting \code{cols} into longer format, how should the
 output rows be arranged relative to their original row number?
@@ -115,8 +117,6 @@ existing column names.}
 in the \code{value_to} column. This effectively converts explicit missing values
 to implicit missing values, and should generally be used only when missing
 values in \code{data} were created by its structure.}
-
-\item{...}{Additional arguments passed on to methods.}
 }
 \description{
 \code{pivot_longer()} "lengthens" data, increasing the number of rows and

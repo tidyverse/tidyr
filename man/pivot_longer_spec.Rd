@@ -8,6 +8,7 @@
 pivot_longer_spec(
   data,
   spec,
+  ...,
   cols_vary = "fastest",
   names_repair = "check_unique",
   values_drop_na = FALSE,
@@ -18,6 +19,7 @@ pivot_longer_spec(
 build_longer_spec(
   data,
   cols,
+  ...,
   names_to = "name",
   values_to = "value",
   names_prefix = NULL,
@@ -40,6 +42,8 @@ long format of the dataset and contain values corresponding to columns
 pivoted from the wide format.
 The special \code{.seq} variable is used to disambiguate rows internally;
 it is automatically removed after pivotting.}
+
+\item{...}{These dots are for future extensions and must be empty.}
 
 \item{cols_vary}{When pivoting \code{cols} into longer format, how should the
 output rows be arranged relative to their original row number?
