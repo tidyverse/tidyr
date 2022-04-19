@@ -1,8 +1,8 @@
 ## revdepcheck results
 
-We checked 1509 reverse dependencies (1497 from CRAN + 12 from Bioconductor), comparing R CMD check results across CRAN and dev versions of this package.
+We checked 1515 reverse dependencies (1503 from CRAN + 12 from Bioconductor), comparing R CMD check results across CRAN and dev versions of this package.
 
- * We saw 6 new problems
+ * We saw 11 new problems
  * We failed to check 3 packages
 
 Issues with CRAN packages are summarised below.
@@ -10,24 +10,45 @@ Issues with CRAN packages are summarised below.
 ### New problems
 (This reports the first line of each new failure)
 
-* batchtma
+* broom
   checking examples ... ERROR
-  checking re-building of vignette outputs ... WARNING
 
 * dartR
   checking examples ... ERROR
 
+* egor
+  checking examples ... ERROR
+  checking tests ... ERROR
+  checking re-building of vignette outputs ... WARNING
+
 * faux
   checking re-building of vignette outputs ... WARNING
 
-* simpr
-  checking S3 generic/method consistency ... WARNING
+* ftExtra
+  checking examples ... ERROR
+  checking tests ... ERROR
+  checking re-building of vignette outputs ... WARNING
 
-* sparklyr
-  checking S3 generic/method consistency ... WARNING
+* hacksig
+  checking examples ... ERROR
+  checking re-building of vignette outputs ... WARNING
 
-* tidyseurat
-  checking S3 generic/method consistency ... WARNING
+* psfmi
+  checking re-building of vignette outputs ... WARNING
+
+* rmdcev
+  checking tests ... ERROR
+
+* simITS
+  checking examples ... ERROR
+  checking tests ... ERROR
+
+* surveil
+  checking tests ... ERROR
+  checking re-building of vignette outputs ... WARNING
+
+* tsibble
+  checking tests ... ERROR
 
 ### Failed to check
 
