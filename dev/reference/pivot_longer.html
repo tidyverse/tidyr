@@ -92,6 +92,7 @@ decreasing the number of columns. The inverse transformation is
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">pivot_longer</span><span class="op">(</span>
   <span class="va">data</span>,
   <span class="va">cols</span>,
+  cols_vary <span class="op">=</span> <span class="st">"fastest"</span>,
   names_to <span class="op">=</span> <span class="st">"name"</span>,
   names_prefix <span class="op">=</span> <span class="cn">NULL</span>,
   names_sep <span class="op">=</span> <span class="cn">NULL</span>,
@@ -114,6 +115,16 @@ decreasing the number of columns. The inverse transformation is
 <dt>cols</dt>
 <dd><p>&lt;<code><a href="tidyr_tidy_select.html">tidy-select</a></code>&gt; Columns to pivot into
 longer format.</p></dd>
+<dt>cols_vary</dt>
+<dd><p>When pivoting <code>cols</code> into longer format, how should the
+output rows be arranged relative to their original row number?</p><ul><li><p><code>"fastest"</code>, the default, keeps individual rows from <code>cols</code> close
+together in the output. This often produces intuitively ordered output
+when you have at least one key column from <code>data</code> that is not involved in
+the pivoting process.</p></li>
+<li><p><code>"slowest"</code> keeps individual columns from <code>cols</code> close together in the
+output. This often produces intuitively ordered output when you utilize
+all of the columns from <code>data</code> in the pivoting process.</p></li>
+</ul></dd>
 <dt>names_to</dt>
 <dd><p>A character vector specifying the new column or columns to
 create from the information stored in the column names of <code>data</code> specified
@@ -306,7 +317,9 @@ under active development.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> Afghanistan AF    AFG    <span style="text-decoration: underline;">1</span>980 sp        f      2534     <span style="color: #BB0000;">NA</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 405,430 more rows</span></span>
 <span class="r-in"></span>
-<span class="r-in"><span class="co"># Multiple observations per row</span></span>
+<span class="r-in"><span class="co"># Multiple observations per row. Since all columns are used in the pivoting</span></span>
+<span class="r-in"><span class="co"># process, we'll use `cols_vary` to keep values from the original columns</span></span>
+<span class="r-in"><span class="co"># close together in the output.</span></span>
 <span class="r-in"><span class="va">anscombe</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    x1 x2 x3 x4    y1   y2    y3    y4</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1  10 10 10  8  8.04 9.14  7.46  6.58</span>
@@ -323,6 +336,7 @@ under active development.</p>
 <span class="r-in"><span class="va">anscombe</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
 <span class="r-in">  <span class="fu">pivot_longer</span><span class="op">(</span></span>
 <span class="r-in">    <span class="fu"><a href="https://tidyselect.r-lib.org/reference/everything.html" class="external-link">everything</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span class="r-in">    cols_vary <span class="op">=</span> <span class="st">"slowest"</span>,</span>
 <span class="r-in">    names_to <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">".value"</span>, <span class="st">"set"</span><span class="op">)</span>,</span>
 <span class="r-in">    names_pattern <span class="op">=</span> <span class="st">"(.)(.)"</span></span>
 <span class="r-in">  <span class="op">)</span></span>
@@ -330,15 +344,15 @@ under active development.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    set       x     y</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> 1        10  8.04</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> 2        10  9.14</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> 3        10  7.46</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> 4         8  6.58</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> 1         8  6.95</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> 2         8  8.14</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> 3         8  6.77</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> 4         8  5.76</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> 1        13  7.58</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> 2        13  8.74</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> 1         8  6.95</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> 1        13  7.58</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> 1         9  8.81</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> 1        11  8.33</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> 1        14  9.96</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> 1         6  7.24</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> 1         4  4.26</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> 1        12 10.8 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> 1         7  4.82</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 34 more rows</span></span>
 </code></pre></div>
     </div>

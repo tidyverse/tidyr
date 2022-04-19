@@ -86,6 +86,7 @@ that allows you to describe pivotting with a data frame.</p>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">pivot_longer_spec</span><span class="op">(</span>
   <span class="va">data</span>,
   <span class="va">spec</span>,
+  cols_vary <span class="op">=</span> <span class="st">"fastest"</span>,
   names_repair <span class="op">=</span> <span class="st">"check_unique"</span>,
   values_drop_na <span class="op">=</span> <span class="cn">FALSE</span>,
   values_ptypes <span class="op">=</span> <span class="cn">NULL</span>,
@@ -119,6 +120,16 @@ long format of the dataset and contain values corresponding to columns
 pivoted from the wide format.
 The special <code>.seq</code> variable is used to disambiguate rows internally;
 it is automatically removed after pivotting.</p></dd>
+<dt>cols_vary</dt>
+<dd><p>When pivoting <code>cols</code> into longer format, how should the
+output rows be arranged relative to their original row number?</p><ul><li><p><code>"fastest"</code>, the default, keeps individual rows from <code>cols</code> close
+together in the output. This often produces intuitively ordered output
+when you have at least one key column from <code>data</code> that is not involved in
+the pivoting process.</p></li>
+<li><p><code>"slowest"</code> keeps individual columns from <code>cols</code> close together in the
+output. This often produces intuitively ordered output when you utilize
+all of the columns from <code>data</code> in the pivoting process.</p></li>
+</ul></dd>
 <dt>names_repair</dt>
 <dd><p>What happens if the output has invalid column names?
 The default, <code>"check_unique"</code> is to error if the columns are duplicated.
