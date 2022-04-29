@@ -6,6 +6,7 @@
 #' @param data A data frame, tibble, or grouped tibble.
 #' @param weights A vector of weights. Evaluated in the context of `data`;
 #'   supports quasiquotation.
+#' @param ... Additional arguments passed on to methods.
 #' @param .id Supply a string to create a new variable which gives a unique
 #'   identifier for each created row.
 #' @param .remove If `TRUE`, and `weights` is the name of a column in `data`,

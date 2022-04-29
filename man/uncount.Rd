@@ -12,6 +12,8 @@ uncount(data, weights, ..., .remove = TRUE, .id = NULL)
 \item{weights}{A vector of weights. Evaluated in the context of \code{data};
 supports quasiquotation.}
 
+\item{...}{Additional arguments passed on to methods.}
+
 \item{.remove}{If \code{TRUE}, and \code{weights} is the name of a column in \code{data},
 then this column is removed.}
 
