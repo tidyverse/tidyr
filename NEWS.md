@@ -1,5 +1,11 @@
 # tidyr (development version)
 
+* `uncount()` is now generic so implementations can be provided for objects
+  other than data frames (@mgirlich, #1358).
+
+* `uncount()` gained the `...` argument. It comes between the required and the
+  optional arguments (@mgirlich, #1358).
+
 * `pivot_longer()` gained a new `cols_vary` argument for controlling the
   ordering of the output rows relative to their original row number (#1312).
 
