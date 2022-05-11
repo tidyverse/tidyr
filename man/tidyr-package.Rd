@@ -30,6 +30,7 @@ Authors:
 
 Other contributors:
 \itemize{
+  \item Kevin Ushey \email{kevin@rstudio.com} [contributor]
   \item RStudio [copyright holder, funder]
 }
 
