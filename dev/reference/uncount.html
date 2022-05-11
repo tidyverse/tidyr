@@ -83,7 +83,7 @@ according to a weighting variable (or expression).</p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">uncount</span><span class="op">(</span><span class="va">data</span>, <span class="va">weights</span>, .remove <span class="op">=</span> <span class="cn">TRUE</span>, .id <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">uncount</span><span class="op">(</span><span class="va">data</span>, <span class="va">weights</span>, <span class="va">...</span>, .remove <span class="op">=</span> <span class="cn">TRUE</span>, .id <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -93,6 +93,8 @@ according to a weighting variable (or expression).</p>
 <dt>weights</dt>
 <dd><p>A vector of weights. Evaluated in the context of <code>data</code>;
 supports quasiquotation.</p></dd>
+<dt>...</dt>
+<dd><p>Additional arguments passed on to methods.</p></dd>
 <dt>.remove</dt>
 <dd><p>If <code>TRUE</code>, and <code>weights</code> is the name of a column in <code>data</code>,
 then this column is removed.</p></dd>
