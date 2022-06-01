@@ -24,7 +24,7 @@ tidyverse; we support it here for backward compatibility).}
 
 \item{remove}{If \code{TRUE}, remove input columns from output data frame.}
 
-\item{na.rm}{If \code{TRUE}, missing values will be remove prior to uniting
+\item{na.rm}{If \code{TRUE}, missing values will be removed prior to uniting
 each value.}
 }
 \description{
