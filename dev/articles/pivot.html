@@ -436,16 +436,16 @@
     names_pattern <span class="op">=</span> <span class="st">"(.)(.)"</span>
   <span class="op">)</span>
 <span class="co">#&gt; <span style="color: #949494;"># A tibble: 8 × 6</span></span>
-<span class="co">#&gt;       x     a     b time        y     z</span>
-<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">1</span>     1     1     0 1     -<span style="color: #BB0000;">0.343</span>      3</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">2</span>     1     1     0 2     -<span style="color: #BB0000;">1.29</span>      -<span style="color: #BB0000;">2</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">3</span>     2     1     1 1      0.659      3</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">4</span>     2     1     1 2     -<span style="color: #BB0000;">0.058</span><span style="color: #BB0000; text-decoration: underline;">8</span>    -<span style="color: #BB0000;">2</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">5</span>     3     0     1 1      0.775      3</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">6</span>     3     0     1 2      0.271     -<span style="color: #BB0000;">2</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">7</span>     4     0     1 1     -<span style="color: #BB0000;">0.885</span>      3</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">8</span>     4     0     1 2      0.573     -<span style="color: #BB0000;">2</span></span></code></pre></div>
+<span class="co">#&gt;       x     a     b time       y     z</span>
+<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span>     1     1     0 1      1.00      3</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span>     1     1     0 2     -<span style="color: #BB0000;">0.596</span>    -<span style="color: #BB0000;">2</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">3</span>     2     1     1 1      0.707     3</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">4</span>     2     1     1 2     -<span style="color: #BB0000;">0.532</span>    -<span style="color: #BB0000;">2</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">5</span>     3     0     1 1     -<span style="color: #BB0000;">1.28</span>      3</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">6</span>     3     0     1 2     -<span style="color: #BB0000;">1.18</span>     -<span style="color: #BB0000;">2</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">7</span>     4     0     1 1     -<span style="color: #BB0000;">1.60</span>      3</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">8</span>     4     0     1 2      0.793    -<span style="color: #BB0000;">2</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level2">
@@ -606,16 +606,16 @@
 <span class="co">#&gt; <span style="color: #949494;"># A tibble: 45 × 4</span></span>
 <span class="co">#&gt;    product country  year production</span>
 <span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> A       AI       <span style="text-decoration: underline;">2</span>000    -<span style="color: #BB0000;">1.33</span>  </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> A       AI       <span style="text-decoration: underline;">2</span>001     2.01  </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> A       AI       <span style="text-decoration: underline;">2</span>002     0.076<span style="text-decoration: underline;">9</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> A       AI       <span style="text-decoration: underline;">2</span>003    -<span style="color: #BB0000;">0.805</span> </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> A       AI       <span style="text-decoration: underline;">2</span>004    -<span style="color: #BB0000;">0.209</span> </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> A       AI       <span style="text-decoration: underline;">2</span>005    -<span style="color: #BB0000;">0.292</span> </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> A       AI       <span style="text-decoration: underline;">2</span>006    -<span style="color: #BB0000;">0.937</span> </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> A       AI       <span style="text-decoration: underline;">2</span>007    -<span style="color: #BB0000;">1.05</span>  </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> A       AI       <span style="text-decoration: underline;">2</span>008    -<span style="color: #BB0000;">0.322</span> </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">10</span> A       AI       <span style="text-decoration: underline;">2</span>009     0.170 </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> A       AI       <span style="text-decoration: underline;">2</span>000     -<span style="color: #BB0000;">1.59</span> </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> A       AI       <span style="text-decoration: underline;">2</span>001      0.223</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> A       AI       <span style="text-decoration: underline;">2</span>002     -<span style="color: #BB0000;">0.309</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> A       AI       <span style="text-decoration: underline;">2</span>003     -<span style="color: #BB0000;">0.393</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> A       AI       <span style="text-decoration: underline;">2</span>004      1.05 </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> A       AI       <span style="text-decoration: underline;">2</span>005     -<span style="color: #BB0000;">1.22</span> </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> A       AI       <span style="text-decoration: underline;">2</span>006      0.292</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> A       AI       <span style="text-decoration: underline;">2</span>007     -<span style="color: #BB0000;">0.687</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> A       AI       <span style="text-decoration: underline;">2</span>008      1.35 </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">10</span> A       AI       <span style="text-decoration: underline;">2</span>009      0.798</span>
 <span class="co">#&gt; <span style="color: #949494;"># … with 35 more rows</span></span></code></pre></div>
 <p>We want to widen the data so we have one column for each combination of <code>product</code> and <code>country</code>. The key is to specify multiple variables for <code>names_from</code>:</p>
 <div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
@@ -625,18 +625,18 @@
     values_from <span class="op">=</span> <span class="va">production</span>
   <span class="op">)</span>
 <span class="co">#&gt; <span style="color: #949494;"># A tibble: 15 × 4</span></span>
-<span class="co">#&gt;     year    A_AI    B_AI    B_EI</span>
-<span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span>  <span style="text-decoration: underline;">2</span>000 -<span style="color: #BB0000;">1.33</span>    0.145  -<span style="color: #BB0000;">1.46</span>  </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span>  <span style="text-decoration: underline;">2</span>001  2.01   -<span style="color: #BB0000;">0.025</span><span style="color: #BB0000; text-decoration: underline;">7</span> -<span style="color: #BB0000;">0.805</span> </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span>  <span style="text-decoration: underline;">2</span>002  0.076<span style="text-decoration: underline;">9</span> -<span style="color: #BB0000;">1.48</span>    1.31  </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span>  <span style="text-decoration: underline;">2</span>003 -<span style="color: #BB0000;">0.805</span>  -<span style="color: #BB0000;">0.064</span><span style="color: #BB0000; text-decoration: underline;">3</span>  0.055<span style="text-decoration: underline;">2</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span>  <span style="text-decoration: underline;">2</span>004 -<span style="color: #BB0000;">0.209</span>   0.588   1.62  </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span>  <span style="text-decoration: underline;">2</span>005 -<span style="color: #BB0000;">0.292</span>  -<span style="color: #BB0000;">0.049</span><span style="color: #BB0000; text-decoration: underline;">2</span>  0.899 </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span>  <span style="text-decoration: underline;">2</span>006 -<span style="color: #BB0000;">0.937</span>  -<span style="color: #BB0000;">0.206</span>   0.599 </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span>  <span style="text-decoration: underline;">2</span>007 -<span style="color: #BB0000;">1.05</span>    0.087<span style="text-decoration: underline;">7</span>  2.23  </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span>  <span style="text-decoration: underline;">2</span>008 -<span style="color: #BB0000;">0.322</span>   2.66   -<span style="color: #BB0000;">0.115</span> </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">10</span>  <span style="text-decoration: underline;">2</span>009  0.170  -<span style="color: #BB0000;">1.19</span>   -<span style="color: #BB0000;">1.95</span>  </span>
+<span class="co">#&gt;     year   A_AI   B_AI   B_EI</span>
+<span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span>  <span style="text-decoration: underline;">2</span>000 -<span style="color: #BB0000;">1.59</span>   0.574 -<span style="color: #BB0000;">0.217</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span>  <span style="text-decoration: underline;">2</span>001  0.223 -<span style="color: #BB0000;">0.450</span>  1.37 </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span>  <span style="text-decoration: underline;">2</span>002 -<span style="color: #BB0000;">0.309</span> -<span style="color: #BB0000;">0.866</span>  0.132</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span>  <span style="text-decoration: underline;">2</span>003 -<span style="color: #BB0000;">0.393</span>  0.376 -<span style="color: #BB0000;">0.557</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span>  <span style="text-decoration: underline;">2</span>004  1.05  -<span style="color: #BB0000;">1.15</span>  -<span style="color: #BB0000;">0.571</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span>  <span style="text-decoration: underline;">2</span>005 -<span style="color: #BB0000;">1.22</span>   0.362 -<span style="color: #BB0000;">0.295</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span>  <span style="text-decoration: underline;">2</span>006  0.292  1.64  -<span style="color: #BB0000;">0.272</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span>  <span style="text-decoration: underline;">2</span>007 -<span style="color: #BB0000;">0.687</span> -<span style="color: #BB0000;">0.719</span>  1.40 </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span>  <span style="text-decoration: underline;">2</span>008  1.35  -<span style="color: #BB0000;">0.321</span> -<span style="color: #BB0000;">2.08</span> </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">10</span>  <span style="text-decoration: underline;">2</span>009  0.798 -<span style="color: #BB0000;">0.788</span> -<span style="color: #BB0000;">1.68</span> </span>
 <span class="co">#&gt; <span style="color: #949494;"># … with 5 more rows</span></span></code></pre></div>
 <p>When either <code>names_from</code> or <code>values_from</code> select multiple variables, you can control how the column names in the output constructed with <code>names_sep</code> and <code>names_prefix</code>, or the workhorse <code>names_glue</code>:</p>
 <div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
@@ -650,16 +650,16 @@
 <span class="co">#&gt; <span style="color: #949494;"># A tibble: 15 × 4</span></span>
 <span class="co">#&gt;     year prod.A.AI prod.B.AI prod.B.EI</span>
 <span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span>  <span style="text-decoration: underline;">2</span>000   -<span style="color: #BB0000;">1.33</span>      0.145    -<span style="color: #BB0000;">1.46</span>  </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span>  <span style="text-decoration: underline;">2</span>001    2.01     -<span style="color: #BB0000;">0.025</span><span style="color: #BB0000; text-decoration: underline;">7</span>   -<span style="color: #BB0000;">0.805</span> </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span>  <span style="text-decoration: underline;">2</span>002    0.076<span style="text-decoration: underline;">9</span>   -<span style="color: #BB0000;">1.48</span>      1.31  </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span>  <span style="text-decoration: underline;">2</span>003   -<span style="color: #BB0000;">0.805</span>    -<span style="color: #BB0000;">0.064</span><span style="color: #BB0000; text-decoration: underline;">3</span>    0.055<span style="text-decoration: underline;">2</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span>  <span style="text-decoration: underline;">2</span>004   -<span style="color: #BB0000;">0.209</span>     0.588     1.62  </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span>  <span style="text-decoration: underline;">2</span>005   -<span style="color: #BB0000;">0.292</span>    -<span style="color: #BB0000;">0.049</span><span style="color: #BB0000; text-decoration: underline;">2</span>    0.899 </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span>  <span style="text-decoration: underline;">2</span>006   -<span style="color: #BB0000;">0.937</span>    -<span style="color: #BB0000;">0.206</span>     0.599 </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span>  <span style="text-decoration: underline;">2</span>007   -<span style="color: #BB0000;">1.05</span>      0.087<span style="text-decoration: underline;">7</span>    2.23  </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span>  <span style="text-decoration: underline;">2</span>008   -<span style="color: #BB0000;">0.322</span>     2.66     -<span style="color: #BB0000;">0.115</span> </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">10</span>  <span style="text-decoration: underline;">2</span>009    0.170    -<span style="color: #BB0000;">1.19</span>     -<span style="color: #BB0000;">1.95</span>  </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span>  <span style="text-decoration: underline;">2</span>000    -<span style="color: #BB0000;">1.59</span>      0.574    -<span style="color: #BB0000;">0.217</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span>  <span style="text-decoration: underline;">2</span>001     0.223    -<span style="color: #BB0000;">0.450</span>     1.37 </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span>  <span style="text-decoration: underline;">2</span>002    -<span style="color: #BB0000;">0.309</span>    -<span style="color: #BB0000;">0.866</span>     0.132</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span>  <span style="text-decoration: underline;">2</span>003    -<span style="color: #BB0000;">0.393</span>     0.376    -<span style="color: #BB0000;">0.557</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span>  <span style="text-decoration: underline;">2</span>004     1.05     -<span style="color: #BB0000;">1.15</span>     -<span style="color: #BB0000;">0.571</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span>  <span style="text-decoration: underline;">2</span>005    -<span style="color: #BB0000;">1.22</span>      0.362    -<span style="color: #BB0000;">0.295</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span>  <span style="text-decoration: underline;">2</span>006     0.292     1.64     -<span style="color: #BB0000;">0.272</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span>  <span style="text-decoration: underline;">2</span>007    -<span style="color: #BB0000;">0.687</span>    -<span style="color: #BB0000;">0.719</span>     1.40 </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span>  <span style="text-decoration: underline;">2</span>008     1.35     -<span style="color: #BB0000;">0.321</span>    -<span style="color: #BB0000;">2.08</span> </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">10</span>  <span style="text-decoration: underline;">2</span>009     0.798    -<span style="color: #BB0000;">0.788</span>    -<span style="color: #BB0000;">1.68</span> </span>
 <span class="co">#&gt; <span style="color: #949494;"># … with 5 more rows</span></span>
 
 <span class="va">production</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
@@ -671,16 +671,16 @@
 <span class="co">#&gt; <span style="color: #949494;"># A tibble: 15 × 4</span></span>
 <span class="co">#&gt;     year prod_A_AI prod_B_AI prod_B_EI</span>
 <span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span>  <span style="text-decoration: underline;">2</span>000   -<span style="color: #BB0000;">1.33</span>      0.145    -<span style="color: #BB0000;">1.46</span>  </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span>  <span style="text-decoration: underline;">2</span>001    2.01     -<span style="color: #BB0000;">0.025</span><span style="color: #BB0000; text-decoration: underline;">7</span>   -<span style="color: #BB0000;">0.805</span> </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span>  <span style="text-decoration: underline;">2</span>002    0.076<span style="text-decoration: underline;">9</span>   -<span style="color: #BB0000;">1.48</span>      1.31  </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span>  <span style="text-decoration: underline;">2</span>003   -<span style="color: #BB0000;">0.805</span>    -<span style="color: #BB0000;">0.064</span><span style="color: #BB0000; text-decoration: underline;">3</span>    0.055<span style="text-decoration: underline;">2</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span>  <span style="text-decoration: underline;">2</span>004   -<span style="color: #BB0000;">0.209</span>     0.588     1.62  </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span>  <span style="text-decoration: underline;">2</span>005   -<span style="color: #BB0000;">0.292</span>    -<span style="color: #BB0000;">0.049</span><span style="color: #BB0000; text-decoration: underline;">2</span>    0.899 </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span>  <span style="text-decoration: underline;">2</span>006   -<span style="color: #BB0000;">0.937</span>    -<span style="color: #BB0000;">0.206</span>     0.599 </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span>  <span style="text-decoration: underline;">2</span>007   -<span style="color: #BB0000;">1.05</span>      0.087<span style="text-decoration: underline;">7</span>    2.23  </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span>  <span style="text-decoration: underline;">2</span>008   -<span style="color: #BB0000;">0.322</span>     2.66     -<span style="color: #BB0000;">0.115</span> </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">10</span>  <span style="text-decoration: underline;">2</span>009    0.170    -<span style="color: #BB0000;">1.19</span>     -<span style="color: #BB0000;">1.95</span>  </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span>  <span style="text-decoration: underline;">2</span>000    -<span style="color: #BB0000;">1.59</span>      0.574    -<span style="color: #BB0000;">0.217</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span>  <span style="text-decoration: underline;">2</span>001     0.223    -<span style="color: #BB0000;">0.450</span>     1.37 </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span>  <span style="text-decoration: underline;">2</span>002    -<span style="color: #BB0000;">0.309</span>    -<span style="color: #BB0000;">0.866</span>     0.132</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span>  <span style="text-decoration: underline;">2</span>003    -<span style="color: #BB0000;">0.393</span>     0.376    -<span style="color: #BB0000;">0.557</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span>  <span style="text-decoration: underline;">2</span>004     1.05     -<span style="color: #BB0000;">1.15</span>     -<span style="color: #BB0000;">0.571</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span>  <span style="text-decoration: underline;">2</span>005    -<span style="color: #BB0000;">1.22</span>      0.362    -<span style="color: #BB0000;">0.295</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span>  <span style="text-decoration: underline;">2</span>006     0.292     1.64     -<span style="color: #BB0000;">0.272</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span>  <span style="text-decoration: underline;">2</span>007    -<span style="color: #BB0000;">0.687</span>    -<span style="color: #BB0000;">0.719</span>     1.40 </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span>  <span style="text-decoration: underline;">2</span>008     1.35     -<span style="color: #BB0000;">0.321</span>    -<span style="color: #BB0000;">2.08</span> </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">10</span>  <span style="text-decoration: underline;">2</span>009     0.798    -<span style="color: #BB0000;">0.788</span>    -<span style="color: #BB0000;">1.68</span> </span>
 <span class="co">#&gt; <span style="color: #949494;"># … with 5 more rows</span></span></code></pre></div>
 </div>
 <div class="section level3">
