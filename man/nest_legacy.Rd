@@ -47,10 +47,12 @@ tidyr 1.0.0 introduced a new syntax for \code{\link[=nest]{nest()}} and \code{\l
 of existing usage should be automatically translated to the new syntax with a
 warning. However, if you need to quickly roll back to the previous behaviour,
 these functions provide the previous interface. To make old code work as is,
-add the following code to the top of your script:\preformatted{library(tidyr)
+add the following code to the top of your script:
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{library(tidyr)
 nest <- nest_legacy
 unnest <- unnest_legacy
-}
+}\if{html}{\out{</div>}}
 }
 \examples{
 # Nest and unnest are inverses
