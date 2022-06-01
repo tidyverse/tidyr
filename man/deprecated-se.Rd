@@ -156,10 +156,8 @@ happens when there are too many pieces. There are three valid options:
 \item "merge": only splits at most \code{length(into)} times
 }}
 
-\item{drop}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}:
-all list-columns are now preserved; If there are any that you
-don't want in the output use \code{select()} to remove them prior to
-unnesting.}
+\item{drop}{If \code{FALSE}, will keep factor levels that don't appear in the
+data, filling in missing combinations with \code{fill}.}
 
 \item{from}{Names of existing columns as character vector}
 
