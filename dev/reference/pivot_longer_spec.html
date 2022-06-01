@@ -141,27 +141,6 @@ for more options.</p></dd>
 in the <code>value_to</code> column. This effectively converts explicit missing values
 to implicit missing values, and should generally be used only when missing
 values in <code>data</code> were created by its structure.</p></dd>
-<dt>values_ptypes</dt>
-<dd><p>Optionally, a list of column name-prototype
-pairs. Alternatively, a single empty prototype can be supplied, which will
-be applied to all columns. A prototype (or ptype for short) is a
-zero-length vector (like <code><a href="https://rdrr.io/r/base/integer.html" class="external-link">integer()</a></code> or <code><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric()</a></code>) that defines the type,
-class, and attributes of a vector. Use these arguments if you want to
-confirm that the created columns are the types that you expect. Note that
-if you want to change (instead of confirm) the types of specific columns,
-you should use <code>names_transform</code> or <code>values_transform</code> instead.</p>
-<p>For backwards compatibility reasons, supplying <code><a href="https://rdrr.io/r/base/list.html" class="external-link">list()</a></code> is interpreted as
-being identical to <code>NULL</code> rather than as using a list prototype on all
-columns. Expect this to change in the future.</p></dd>
-<dt>values_transform</dt>
-<dd><p>Optionally, a list of column
-name-function pairs. Alternatively, a single function can be supplied,
-which will be applied to all columns. Use these arguments if you need to
-change the types of specific columns. For example, <code>names_transform = list(week = as.integer)</code> would convert a character variable called <code>week</code>
-to an integer.</p>
-<p>If not specified, the type of the columns generated from <code>names_to</code> will
-be character, and the type of the variables generated from <code>values_to</code>
-will be the common type of the input columns used to generate them.</p></dd>
 <dt>cols</dt>
 <dd><p>&lt;<code><a href="tidyr_tidy_select.html">tidy-select</a></code>&gt; Columns to pivot into
 longer format.</p></dd>
@@ -189,7 +168,7 @@ existing column names.</p></dd>
 <dt>names_prefix</dt>
 <dd><p>A regular expression used to remove matching text
 from the start of each variable name.</p></dd>
-<dt>names_sep</dt>
+<dt>names_sep, names_pattern</dt>
 <dd><p>If <code>names_to</code> contains multiple values,
 these arguments control how the column name is broken up.</p>
 <p><code>names_sep</code> takes the same specification as <code><a href="separate.html">separate()</a></code>, and can either
@@ -200,18 +179,7 @@ expression containing matching groups (<code>()</code>).</p>
 <p>If these arguments do not give you enough control, use
 <code>pivot_longer_spec()</code> to create a spec object and process manually as
 needed.</p></dd>
-<dt>names_pattern</dt>
-<dd><p>If <code>names_to</code> contains multiple values,
-these arguments control how the column name is broken up.</p>
-<p><code>names_sep</code> takes the same specification as <code><a href="separate.html">separate()</a></code>, and can either
-be a numeric vector (specifying positions to break on), or a single string
-(specifying a regular expression to split on).</p>
-<p><code>names_pattern</code> takes the same specification as <code><a href="extract.html">extract()</a></code>, a regular
-expression containing matching groups (<code>()</code>).</p>
-<p>If these arguments do not give you enough control, use
-<code>pivot_longer_spec()</code> to create a spec object and process manually as
-needed.</p></dd>
-<dt>names_ptypes</dt>
+<dt>names_ptypes, values_ptypes</dt>
 <dd><p>Optionally, a list of column name-prototype
 pairs. Alternatively, a single empty prototype can be supplied, which will
 be applied to all columns. A prototype (or ptype for short) is a
@@ -223,7 +191,7 @@ you should use <code>names_transform</code> or <code>values_transform</code> ins
 <p>For backwards compatibility reasons, supplying <code><a href="https://rdrr.io/r/base/list.html" class="external-link">list()</a></code> is interpreted as
 being identical to <code>NULL</code> rather than as using a list prototype on all
 columns. Expect this to change in the future.</p></dd>
-<dt>names_transform</dt>
+<dt>names_transform, values_transform</dt>
 <dd><p>Optionally, a list of column
 name-function pairs. Alternatively, a single function can be supplied,
 which will be applied to all columns. Use these arguments if you need to

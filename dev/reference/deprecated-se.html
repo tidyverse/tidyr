@@ -249,10 +249,8 @@ happens when there are too many pieces. There are three valid options:</p><ul><l
 <li><p>"merge": only splits at most <code>length(into)</code> times</p></li>
 </ul></dd>
 <dt>drop</dt>
-<dd><p><a href="https://lifecycle.r-lib.org/articles/stages.html#deprecated" class="external-link"><img src="figures/lifecycle-deprecated.svg" alt="[Deprecated]"></a>:
-all list-columns are now preserved; If there are any that you
-don't want in the output use <code><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select()</a></code> to remove them prior to
-unnesting.</p></dd>
+<dd><p>If <code>FALSE</code>, will keep factor levels that don't appear in the
+data, filling in missing combinations with <code>fill</code>.</p></dd>
 <dt>from</dt>
 <dd><p>Names of existing columns as character vector</p></dd>
 <dt>expand_cols</dt>
