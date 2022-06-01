@@ -13,7 +13,7 @@
 #'   tidyverse; we support it here for backward compatibility).
 #' @param ... <[`tidy-select`][tidyr_tidy_select]> Columns to unite
 #' @param sep Separator to use between values.
-#' @param na.rm If `TRUE`, missing values will be remove prior to uniting
+#' @param na.rm If `TRUE`, missing values will be removed prior to uniting
 #'   each value.
 #' @param remove If `TRUE`, remove input columns from output data frame.
 #' @seealso [separate()], the complement.
