@@ -416,7 +416,7 @@ build_longer_spec <- function(data,
   # Optionally, cast variables generated from columns
   for (col in names(names_ptypes)) {
     ptype <- names_ptypes[[col]]
-    names[[col]] <- vec_cast(names[[col]], ptype)
+    names[[col]] <- vec_cast(names[[col]], ptype, x_arg = col)
   }
 
   out <- tibble(.name = cols)
