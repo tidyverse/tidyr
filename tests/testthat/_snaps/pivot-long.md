@@ -1,3 +1,12 @@
+# when `values_ptypes` is provided, the type error uses variable names (#1364)
+
+    Code
+      (expect_error(pivot_longer(df, x, values_ptypes = character())))
+    Output
+      <error/vctrs_error_incompatible_type>
+      Error in `pivot_longer_spec()`:
+      ! Can't convert `x` <double> to <character>.
+
 # error when overwriting existing column
 
     Code
