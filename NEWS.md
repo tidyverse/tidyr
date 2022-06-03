@@ -1,5 +1,9 @@
 # tidyr (development version)
 
+* `pivot_longer()` now throws a slightly better error message when
+  `values_ptypes` or `names_ptypes` is provided and the coercion can't be made
+  (#1364).
+
 * `uncount()` is now generic so implementations can be provided for objects
   other than data frames (@mgirlich, #1358).
 

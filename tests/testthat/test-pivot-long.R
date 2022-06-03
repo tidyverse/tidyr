@@ -144,6 +144,29 @@ test_that("type error message use variable names", {
   expect_equal(err$y_arg, "xyz")
 })
 
+test_that("when `values_ptypes` is provided, the type error uses variable names (#1364)", {
+  df <- tibble(x = 1)
+
+  expect_snapshot({
+    (expect_error(pivot_longer(df, x, values_ptypes = character())))
+  })
+})
+
+test_that("when `names_ptypes` is provided, the type error uses `names_to` names (#1364)", {
+  df <- tibble(x = 1)
+
+  expect_snapshot({
+    (expect_error({
+      pivot_longer(
+        df,
+        cols = x,
+        names_to = "name",
+        names_ptypes = double()
+      )
+    }))
+  })
+})
+
 test_that("error when overwriting existing column", {
   df <- tibble(x = 1, y = 2)
 

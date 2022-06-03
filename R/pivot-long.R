@@ -271,14 +271,25 @@ pivot_longer_spec <- function(data,
     cols <- values[[value]]
     col_id <- vec_match(value_keys[[value]], keys)
 
-    val_cols <- vec_init(list(), nrow(keys))
+    n_val_cols <- nrow(keys)
+
+    val_cols <- vec_init(list(), n_val_cols)
     val_cols[col_id] <- unname(as.list(data[cols]))
     val_cols[-col_id] <- list(rep(NA, nrow(data)))
 
     if (has_name(values_transform, value)) {
       val_cols <- lapply(val_cols, values_transform[[value]])
     }
-    val_type <- vec_ptype_common(!!!set_names(val_cols[col_id], cols), .ptype = values_ptypes[[value]])
+
+    # Name inputs that came from `data`, just for good error messages when
+    # taking the common type and casting
+    names <- vec_rep("", times = n_val_cols)
+    names[col_id] <- cols
+
+    names(val_cols) <- names
+    val_type <- vec_ptype_common(!!!val_cols[col_id], .ptype = values_ptypes[[value]])
+    val_cols <- vec_cast_common(!!!val_cols, .to = val_type)
+    val_cols <- unname(val_cols)
 
     if (cols_vary == "slowest") {
       vals[[value]] <- vec_c(!!!val_cols, .ptype = val_type)
@@ -405,7 +416,7 @@ build_longer_spec <- function(data,
   # Optionally, cast variables generated from columns
   for (col in names(names_ptypes)) {
     ptype <- names_ptypes[[col]]
-    names[[col]] <- vec_cast(names[[col]], ptype)
+    names[[col]] <- vec_cast(names[[col]], ptype, x_arg = col)
   }
 
   out <- tibble(.name = cols)
