@@ -229,6 +229,7 @@ check_key <- function(.key) {
 #'   use `names_sep` instead.
 #' @export
 #' @rdname nest
+#' @family rectangling
 unnest <- function(data,
                    cols,
                    ...,
