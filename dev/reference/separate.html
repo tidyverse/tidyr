@@ -103,15 +103,21 @@ expression or numeric locations</h1>
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>data</dt>
 <dd><p>A data frame.</p></dd>
+
+
 <dt>col</dt>
 <dd><p>Column name or position. This is passed to
 <code><a href="https://tidyselect.r-lib.org/reference/vars_pull.html" class="external-link">tidyselect::vars_pull()</a></code>.</p>
 <p>This argument is passed by expression and supports
 <a href="https://rlang.r-lib.org/reference/topic-inject.html" class="external-link">quasiquotation</a> (you can unquote column
 names or column positions).</p></dd>
+
+
 <dt>into</dt>
 <dd><p>Names of new variables to create as character vector.
 Use <code>NA</code> to omit the variable in the output.</p></dd>
+
+
 <dt>sep</dt>
 <dd><p>Separator between columns.</p>
 <p>If character, <code>sep</code> is interpreted as a regular expression. The default
@@ -121,27 +127,38 @@ non-alphanumeric values.</p>
 values start at 1 at the far-left of the string; negative value start at -1 at
 the far-right of the string. The length of <code>sep</code> should be one less than
 <code>into</code>.</p></dd>
+
+
 <dt>remove</dt>
 <dd><p>If <code>TRUE</code>, remove input column from output data frame.</p></dd>
+
+
 <dt>convert</dt>
 <dd><p>If <code>TRUE</code>, will run <code><a href="https://rdrr.io/r/utils/type.convert.html" class="external-link">type.convert()</a></code> with
 <code>as.is = TRUE</code> on new columns. This is useful if the component
 columns are integer, numeric or logical.</p>
 <p>NB: this will cause string <code>"NA"</code>s to be converted to <code>NA</code>s.</p></dd>
+
+
 <dt>extra</dt>
 <dd><p>If <code>sep</code> is a character vector, this controls what
 happens when there are too many pieces. There are three valid options:</p><ul><li><p>"warn" (the default): emit a warning and drop extra values.</p></li>
 <li><p>"drop": drop any extra values without a warning.</p></li>
 <li><p>"merge": only splits at most <code>length(into)</code> times</p></li>
 </ul></dd>
+
+
 <dt>fill</dt>
 <dd><p>If <code>sep</code> is a character vector, this controls what
 happens when there are not enough pieces. There are three valid options:</p><ul><li><p>"warn" (the default): emit a warning and fill from the right</p></li>
 <li><p>"right": fill with missing values on the right</p></li>
 <li><p>"left": fill with missing values on the left</p></li>
 </ul></dd>
+
+
 <dt>...</dt>
 <dd><p>Additional arguments passed on to methods.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
@@ -244,7 +261,7 @@ expression capturing groups.</p></div>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
   </div></footer></body></html>

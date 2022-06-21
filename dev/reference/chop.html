@@ -92,7 +92,7 @@ length. <code>chop()</code> makes <code>df</code> shorter by converting rows wit
 into list-columns. <code>unchop()</code> makes <code>df</code> longer by expanding list-columns
 so that each element of the list-column gets its own row in the output.
 <code>chop()</code> and <code>unchop()</code> are building blocks for more complicated functions
-(like <code><a href="nest.html">unnest()</a></code>, <code><a href="hoist.html">unnest_longer()</a></code>, and <code><a href="hoist.html">unnest_wider()</a></code>) and are generally
+(like <code><a href="nest.html">unnest()</a></code>, <code><a href="unnest_longer.html">unnest_longer()</a></code>, and <code><a href="unnest_longer.html">unnest_wider()</a></code>) and are generally
 more suitable for programming than interactive data analysis.</p>
     </div>
 
@@ -107,12 +107,16 @@ more suitable for programming than interactive data analysis.</p>
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>data</dt>
 <dd><p>A data frame.</p></dd>
+
+
 <dt>cols</dt>
 <dd><p>&lt;<code><a href="tidyr_tidy_select.html">tidy-select</a></code>&gt; Columns to chop or unchop
 (automatically quoted).</p>
 <p>For <code>unchop()</code>, each column should be a list-column containing generalised
 vectors (e.g. any mix of <code>NULL</code>s, atomic vector, S3 vectors, a lists,
 or data frames).</p></dd>
+
+
 <dt>keep_empty</dt>
 <dd><p>By default, you get one row of output for each element
 of the list your unchopping/unnesting. This means that if there's a
@@ -120,11 +124,14 @@ size-0 element (like <code>NULL</code> or an empty data frame), that entire row
 will be dropped from the output. If you want to preserve all rows,
 use <code>keep_empty = TRUE</code> to replace size-0 elements with a single row
 of missing values.</p></dd>
+
+
 <dt>ptype</dt>
 <dd><p>Optionally, a named list of column name-prototype pairs to
 coerce <code>cols</code> to, overriding the default that will be guessed from
 combining the individual values. Alternatively, a single empty ptype
 can be supplied, which will be applied to all <code>cols</code>.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
@@ -224,7 +231,7 @@ correct vector type even for empty list-columns.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
   </div></footer></body></html>

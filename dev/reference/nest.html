@@ -116,6 +116,8 @@ notably models.</p>
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>.data</dt>
 <dd><p>A data frame.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>&lt;<code><a href="tidyr_tidy_select.html">tidy-select</a></code>&gt; Columns to nest, specified
 using name-variable pairs of the form <code>new_col = c(col1, col2, col3)</code>.
@@ -126,16 +128,24 @@ and <code>df %&gt;% unnest(c(x, y, z))</code>.</p>
 <p>If you previously created new variable in <code>unnest()</code> you'll now need to
 do it explicitly with <code><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate()</a></code>. Convert <code>df %&gt;% unnest(y = fun(x, y, z))</code>
 to <code>df %&gt;% mutate(y = fun(x, y, z)) %&gt;% unnest(y)</code>.</p></dd>
+
+
 <dt>.key</dt>
 <dd><p><a href="https://lifecycle.r-lib.org/articles/stages.html#deprecated" class="external-link"><img src="figures/lifecycle-deprecated.svg" alt="[Deprecated]"></a>:
 No longer needed because of the new <code>new_col = c(col1, col2, col3)</code> syntax.</p></dd>
+
+
 <dt>data</dt>
 <dd><p>A data frame.</p></dd>
+
+
 <dt>cols</dt>
 <dd><p>&lt;<code><a href="tidyr_tidy_select.html">tidy-select</a></code>&gt; Columns to unnest.</p>
 <p>If you <code>unnest()</code> multiple columns, parallel entries must be of
 compatible sizes, i.e. they're either equal or length 1 (following the
 standard tidyverse recycling rules).</p></dd>
+
+
 <dt>keep_empty</dt>
 <dd><p>By default, you get one row of output for each element
 of the list your unchopping/unnesting. This means that if there's a
@@ -143,11 +153,15 @@ size-0 element (like <code>NULL</code> or an empty data frame), that entire row
 will be dropped from the output. If you want to preserve all rows,
 use <code>keep_empty = TRUE</code> to replace size-0 elements with a single row
 of missing values.</p></dd>
+
+
 <dt>ptype</dt>
 <dd><p>Optionally, a named list of column name-prototype pairs to
 coerce <code>cols</code> to, overriding the default that will be guessed from
 combining the individual values. Alternatively, a single empty ptype
 can be supplied, which will be applied to all <code>cols</code>.</p></dd>
+
+
 <dt>names_sep, .names_sep</dt>
 <dd><p>If <code>NULL</code>, the default, the names will be left
 as is. In <code>nest()</code>, inner names will come from the former outer names;
@@ -158,6 +172,8 @@ together the outer and the inner column names, separated by <code>names_sep</cod
 <code>nest()</code>, the new inner names will have the outer names + <code>names_sep</code>
 automatically stripped. This makes <code>names_sep</code> roughly symmetric between
 nesting and unnesting.</p></dd>
+
+
 <dt>names_repair</dt>
 <dd><p>Used to check that output data frame has valid
 names. Must be one of the following options:</p><ul><li><p>"minimal": no name repair or checks, beyond basic existence,</p></li>
@@ -169,17 +185,24 @@ names. Must be one of the following options:</p><ul><li><p>"minimal": no name re
 <li><p>a formula: a purrr-style anonymous function (see <code><a href="https://rlang.r-lib.org/reference/as_function.html" class="external-link">rlang::as_function()</a></code>)</p></li>
 </ul><p>See <code><a href="https://vctrs.r-lib.org/reference/vec_as_names.html" class="external-link">vctrs::vec_as_names()</a></code> for more details on these terms and the
 strategies used to enforce them.</p></dd>
+
+
 <dt>.drop, .preserve</dt>
 <dd><p><a href="https://lifecycle.r-lib.org/articles/stages.html#deprecated" class="external-link"><img src="figures/lifecycle-deprecated.svg" alt="[Deprecated]"></a>:
 all list-columns are now preserved; If there are any that you
 don't want in the output use <code><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select()</a></code> to remove them prior to
 unnesting.</p></dd>
+
+
 <dt>.id</dt>
 <dd><p><a href="https://lifecycle.r-lib.org/articles/stages.html#deprecated" class="external-link"><img src="figures/lifecycle-deprecated.svg" alt="[Deprecated]"></a>:
 convert <code>df %&gt;% unnest(x, .id = "id")</code> to <code>df %&gt;% mutate(id = names(x)) %&gt;% unnest(x))</code>.</p></dd>
+
+
 <dt>.sep</dt>
 <dd><p><a href="https://lifecycle.r-lib.org/articles/stages.html#deprecated" class="external-link"><img src="figures/lifecycle-deprecated.svg" alt="[Deprecated]"></a>:
 use <code>names_sep</code> instead.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="new-syntax">New syntax<a class="anchor" aria-label="anchor" href="#new-syntax"></a></h2>
@@ -190,7 +213,9 @@ designed to be more similar to other functions. Converting to the new syntax
 should be straightforward (guided by the message you'll recieve) but if
 you just need to run an old analysis, you can easily revert to the previous
 behaviour using <code><a href="nest_legacy.html">nest_legacy()</a></code> and <code><a href="nest_legacy.html">unnest_legacy()</a></code> as follows:</p>
-<p></p><div class="sourceCode"><pre><code></code></pre><p></p></div>
+<p></p><div class="sourceCode"><pre><code><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>nest <span class="ot">&lt;-</span> nest_legacy</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>unnest <span class="ot">&lt;-</span> unnest_legacy</span></code></pre><p></p></div>
     </div>
     <div class="section level2">
     <h2 id="grouped-data-frames">Grouped data frames<a class="anchor" aria-label="anchor" href="#grouped-data-frames"></a></h2>
@@ -204,6 +229,12 @@ result preserves the grouping of the input.</p>
 <p>Variables supplied to <code>nest()</code> will override grouping variables so that
 <code>df %&gt;% group_by(x, y) %&gt;% nest(data = !z)</code> will be equivalent to
 <code>df %&gt;% nest(data = !z)</code>.</p>
+    </div>
+    <div class="section level2">
+    <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
+    <div class="dont-index"><p>Other rectangling: 
+<code><a href="hoist.html">hoist</a>()</code>,
+<code><a href="unnest_longer.html">unnest_longer</a>()</code></p></div>
     </div>
 
     <div class="section level2">
@@ -378,7 +409,7 @@ result preserves the grouping of the input.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
   </div></footer></body></html>

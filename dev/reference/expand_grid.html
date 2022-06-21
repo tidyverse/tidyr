@@ -112,6 +112,8 @@ than the fastest).</p></li>
     <dl><dt>...</dt>
 <dd><p>Name-value pairs. The name will become the column name in the
 output.</p></dd>
+
+
 <dt>.name_repair</dt>
 <dd><p>Treatment of problematic column names:</p><ul><li><p><code>"minimal"</code>: No name repair or checks, beyond basic existence,</p></li>
 <li><p><code>"unique"</code>: Make sure names are unique and not empty,</p></li>
@@ -124,10 +126,13 @@ for names in the style of base R).</p></li>
 </ul><p>This argument is passed on as <code>repair</code> to <code><a href="https://vctrs.r-lib.org/reference/vec_as_names.html" class="external-link">vctrs::vec_as_names()</a></code>.
 See there for more details on these terms and the strategies used
 to enforce them.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>A tibble with one column for each input in <code>...</code>. The output
+    
+
+<p>A tibble with one column for each input in <code>...</code>. The output
 will have one row for each combination of the inputs, i.e. the size
 be equal to the product of the sizes of the inputs. This implies
 that if any input has length 0, the output will have zero rows.</p>
@@ -194,7 +199,7 @@ that if any input has length 0, the output will have zero rows.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
   </div></footer></body></html>

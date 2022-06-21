@@ -100,10 +100,16 @@ back out into individual columns.</p>
 <dd><p>&lt;<code><a href="tidyr_tidy_select.html">tidy-select</a></code>&gt; Columns to pack, specified
 using name-variable pairs of the form <code>new_col = c(col1, col2, col3)</code>.
 The right hand side can be any valid tidy select expression.</p></dd>
+
+
 <dt>data, .data</dt>
 <dd><p>A data frame.</p></dd>
+
+
 <dt>cols</dt>
 <dd><p>&lt;<code><a href="tidyr_tidy_select.html">tidy-select</a></code>&gt; Column to unpack.</p></dd>
+
+
 <dt>names_sep, .names_sep</dt>
 <dd><p>If <code>NULL</code>, the default, the names will be left
 as is. In <code>pack()</code>, inner names will come from the former outer names;
@@ -114,6 +120,8 @@ together the outer and the inner column names, separated by <code>names_sep</cod
 <code>pack()</code>, the new inner names will have the outer names + <code>names_sep</code>
 automatically stripped. This makes <code>names_sep</code> roughly symmetric between
 packing and unpacking.</p></dd>
+
+
 <dt>names_repair</dt>
 <dd><p>Used to check that output data frame has valid
 names. Must be one of the following options:</p><ul><li><p>"minimal": no name repair or checks, beyond basic existence,</p></li>
@@ -125,6 +133,7 @@ names. Must be one of the following options:</p><ul><li><p>"minimal": no name re
 <li><p>a formula: a purrr-style anonymous function (see <code><a href="https://rlang.r-lib.org/reference/as_function.html" class="external-link">rlang::as_function()</a></code>)</p></li>
 </ul><p>See <code><a href="https://vctrs.r-lib.org/reference/vec_as_names.html" class="external-link">vctrs::vec_as_names()</a></code> for more details on these terms and the
 strategies used to enforce them.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
@@ -196,30 +205,30 @@ they mimic the nested column headers that are so popular in Excel.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 3 × 3</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       x   y$a    $b z$X      $Y $Z   </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>     1     1     3 a     0.999 TRUE </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span>     2     2     2 b     0.514 FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span>     3     3     1 c     0.814 <span style="color: #BB0000;">NA</span>   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>     1     1     3 a     0.657 TRUE </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span>     2     2     2 b     0.892 FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span>     3     3     1 c     0.144 <span style="color: #BB0000;">NA</span>   </span>
 <span class="r-in"><span class="va">df</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu">unpack</span><span class="op">(</span><span class="va">y</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 3 × 4</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       x     a     b z$X      $Y $Z   </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>     1     1     3 a     0.999 TRUE </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span>     2     2     2 b     0.514 FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span>     3     3     1 c     0.814 <span style="color: #BB0000;">NA</span>   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>     1     1     3 a     0.657 TRUE </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span>     2     2     2 b     0.892 FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span>     3     3     1 c     0.144 <span style="color: #BB0000;">NA</span>   </span>
 <span class="r-in"><span class="va">df</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu">unpack</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">y</span>, <span class="va">z</span><span class="op">)</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 3 × 6</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       x     a     b X         Y Z    </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>     1     1     3 a     0.999 TRUE </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span>     2     2     2 b     0.514 FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span>     3     3     1 c     0.814 <span style="color: #BB0000;">NA</span>   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>     1     1     3 a     0.657 TRUE </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span>     2     2     2 b     0.892 FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span>     3     3     1 c     0.144 <span style="color: #BB0000;">NA</span>   </span>
 <span class="r-in"><span class="va">df</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu">unpack</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">y</span>, <span class="va">z</span><span class="op">)</span>, names_sep <span class="op">=</span> <span class="st">"_"</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 3 × 6</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       x   y_a   y_b z_X     z_Y z_Z  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>     1     1     3 a     0.999 TRUE </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span>     2     2     2 b     0.514 FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span>     3     3     1 c     0.814 <span style="color: #BB0000;">NA</span>   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>     1     1     3 a     0.657 TRUE </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span>     2     2     2 b     0.892 FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span>     3     3     1 c     0.144 <span style="color: #BB0000;">NA</span>   </span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
@@ -233,7 +242,7 @@ they mimic the nested column headers that are so popular in Excel.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
   </div></footer></body></html>

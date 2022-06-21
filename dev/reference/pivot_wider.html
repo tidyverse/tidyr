@@ -113,6 +113,8 @@ decreasing the number of rows. The inverse transformation is
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>data</dt>
 <dd><p>A data frame to pivot.</p></dd>
+
+
 <dt>id_cols</dt>
 <dd><p>&lt;<code><a href="tidyr_tidy_select.html">tidy-select</a></code>&gt; A set of columns that
 uniquely identify each observation. Typically used when you have
@@ -122,6 +124,8 @@ with existing variables.</p>
 <code>names_from</code> and <code>values_from</code>. If a tidyselect expression is supplied, it
 will be evaluated on <code>data</code> after removing the columns specified through
 <code>names_from</code> and <code>values_from</code>.</p></dd>
+
+
 <dt>id_expand</dt>
 <dd><p>Should the values in the <code>id_cols</code> columns be expanded by
 <code><a href="expand.html">expand()</a></code> before pivoting? This results in more rows, the output will
@@ -129,6 +133,8 @@ contain a complete expansion of all possible values in <code>id_cols</code>. Imp
 factor levels that aren't represented in the data will become explicit.
 Additionally, the row values corresponding to the expanded <code>id_cols</code> will
 be sorted.</p></dd>
+
+
 <dt>names_from, values_from</dt>
 <dd><p>&lt;<code><a href="tidyr_tidy_select.html">tidy-select</a></code>&gt; A pair of
 arguments describing which column (or columns) to get the name of the
@@ -136,21 +142,31 @@ output column (<code>names_from</code>), and which column (or columns) to get th
 cell values from (<code>values_from</code>).</p>
 <p>If <code>values_from</code> contains multiple values, the value will be added to the
 front of the output column.</p></dd>
+
+
 <dt>names_prefix</dt>
 <dd><p>String added to the start of every variable name. This is
 particularly useful if <code>names_from</code> is a numeric vector and you want to
 create syntactic variable names.</p></dd>
+
+
 <dt>names_sep</dt>
 <dd><p>If <code>names_from</code> or <code>values_from</code> contains multiple
 variables, this will be used to join their values together into a single
 string to use as a column name.</p></dd>
+
+
 <dt>names_glue</dt>
 <dd><p>Instead of <code>names_sep</code> and <code>names_prefix</code>, you can supply
 a glue specification that uses the <code>names_from</code> columns (and special
 <code>.value</code>) to create custom column names.</p></dd>
+
+
 <dt>names_sort</dt>
 <dd><p>Should the column names be sorted? If <code>FALSE</code>, the default,
 column names are ordered by first appearance.</p></dd>
+
+
 <dt>names_vary</dt>
 <dd><p>When <code>names_from</code> identifies a column (or columns) with
 multiple unique values, and multiple <code>values_from</code> columns are provided,
@@ -159,6 +175,8 @@ naming scheme of the form: <code>value1_name1, value1_name2, value2_name1, value
 <li><p><code>"slowest"</code> varies <code>names_from</code> values slowest, resulting in a column
 naming scheme of the form: <code>value1_name1, value2_name1, value1_name2, value2_name2</code>.</p></li>
 </ul></dd>
+
+
 <dt>names_expand</dt>
 <dd><p>Should the values in the <code>names_from</code> columns be expanded
 by <code><a href="expand.html">expand()</a></code> before pivoting? This results in more columns, the output
@@ -166,17 +184,23 @@ will contain column names corresponding to a complete expansion of all
 possible values in <code>names_from</code>. Implicit factor levels that aren't
 represented in the data will become explicit. Additionally, the column
 names will be sorted, identical to what <code>names_sort</code> would produce.</p></dd>
+
+
 <dt>names_repair</dt>
 <dd><p>What happens if the output has invalid column names?
 The default, <code>"check_unique"</code> is to error if the columns are duplicated.
 Use <code>"minimal"</code> to allow duplicates in the output, or <code>"unique"</code> to
 de-duplicated by adding numeric suffixes. See <code><a href="https://vctrs.r-lib.org/reference/vec_as_names.html" class="external-link">vctrs::vec_as_names()</a></code>
 for more options.</p></dd>
+
+
 <dt>values_fill</dt>
 <dd><p>Optionally, a (scalar) value that specifies what each
 <code>value</code> should be filled in with when missing.</p>
 <p>This can be a named list if you want to apply different fill values to
 different value columns.</p></dd>
+
+
 <dt>values_fn</dt>
 <dd><p>Optionally, a function applied to the value in each cell
 in the output. You will typically use this when the combination of
@@ -184,6 +208,8 @@ in the output. You will typically use this when the combination of
 observation.</p>
 <p>This can be a named list if you want to apply different aggregations
 to different <code>values_from</code> columns.</p></dd>
+
+
 <dt>unused_fn</dt>
 <dd><p>Optionally, a function applied to summarize the values from
 the unused columns (i.e. columns not identified by <code>id_cols</code>,
@@ -195,8 +221,11 @@ to different unused columns.</p>
 all unspecified columns will be considered <code>id_cols</code>.</p>
 <p>This is similar to grouping by the <code>id_cols</code> then summarizing the
 unused columns using <code>unused_fn</code>.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>Additional arguments passed on to methods.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
@@ -442,7 +471,7 @@ defines a pivotting specification.</p></div>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
   </div></footer></body></html>
