@@ -226,6 +226,6 @@ to a specification, see the
 
 Other rectangling: 
 \code{\link{hoist}()},
-\code{\link{nest}()}
+\code{\link{unnest}()}
 }
 \concept{rectangling}

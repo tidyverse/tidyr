@@ -145,8 +145,7 @@ value column is \code{NA}.}
 stored as a character vector. If \code{TRUE}, will be stored as a factor,
 which preserves the original ordering of the columns.}
 
-\item{sep}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}:
-use \code{names_sep} instead.}
+\item{sep}{Separator delimiting collapsed values.}
 
 \item{extra}{If \code{sep} is a character vector, this controls what
 happens when there are too many pieces. There are three valid options:

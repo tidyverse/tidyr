@@ -36,16 +36,9 @@ reference:
     **Rectangling** turns deeply nested lists into tidy tibbles.
     See `vignette("rectangle")` for more details and examples.
   contents:
+  - unnest
   - unnest_longer
   - hoist
-
-- title: Nesting
-  description: |
-    **Nesting** uses alternative representation of grouped data where a
-    group becomes a single row containing a nested data frame.
-    See `vignette("nest")` for more details and examples.
-  contents:
-  - nest
 
 - title: Character vectors
   description: |
@@ -75,6 +68,7 @@ reference:
   - chop
   - pack
   - uncount
+  - nest
 
 - title: Data
   contents:
