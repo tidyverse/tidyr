@@ -26,3 +26,4 @@ It's handy for very rapid interactive exploration but I don't recommend
 using it in scripts, because it will succeed even if the underlying data
 radically changes.
 }
+\keyword{internal}

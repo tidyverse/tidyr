@@ -751,6 +751,7 @@ elt_to_wide <- function(x, name, strict, names_sep) {
 #' @inheritParams unnest_longer
 #' @export
 #' @param col List-column to extract components from.
+#' @keywords internal
 unnest_auto <- function(data, col) {
   check_required(col)
   col <- tidyselect::vars_pull(tbl_vars(data), {{ col }})
