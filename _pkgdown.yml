@@ -37,6 +37,7 @@ reference:
     See `vignette("rectangle")` for more details and examples.
   contents:
   - unnest_longer
+  - hoist
 
 - title: Nesting
   description: |

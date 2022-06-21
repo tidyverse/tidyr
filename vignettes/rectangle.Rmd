@@ -5,8 +5,7 @@ description: |
   Rectangling is the art and craft of taking a deeply nested list (often 
   sourced from wild caught JSON or XML) and taming it into a tidy data set of 
   rows and columns. This vignette introduces you to the main rectangling tools
-  provided by tidyr: `unnest_longer()`, `unnest_wider()`, `unnest_auto()`,
-  and `hoist()`.
+  provided by tidyr: `unnest_longer()`, `unnest_wider()`, and `hoist()`.
 vignette: >
   %\VignetteIndexEntry{Rectangling}
   %\VignetteEngine{knitr::rmarkdown}
@@ -26,7 +25,6 @@ Rectangling is the art and craft of taking a deeply nested list (often sourced f
 
 * `unnest_longer()` takes each element of a list-column and makes a new row.
 * `unnest_wider()` takes each element of a list-column and makes a new column.
-* `unnest_auto()` guesses whether you want `unnest_longer()` or `unnest_wider()`.
 * `hoist()` is similar to `unnest_wider()` but only plucks out selected
   components, and can reach down multiple levels.
   
@@ -109,14 +107,6 @@ repos %>%
   unnest_wider(owner)
 ```
 
-Instead of looking at the list and carefully thinking about whether it needs to become rows or columns, you can use `unnest_auto()`. It uses a handful of heuristics to figure out whether `unnest_longer()` or `unnest_wider()` is appropriate, and tells you about its reasoning.
-
-```{r}
-tibble(repo = gh_repos) %>% 
-  unnest_auto(repo) %>% 
-  unnest_auto(repo)
-```
-
 ## Game of Thrones characters
 
 `got_chars` has a similar structure to `gh_users`: it's a list of named lists, where each element of the inner list describes some attribute of a GoT character. We start in the same way, first by creating a data frame and then by unnesting each component into a column:
@@ -153,15 +143,6 @@ chars2 %>%
 ```
 
 (Note that the empty titles (`""`) are due to an infelicity in the input `got_chars`: ideally people without titles would have a title vector of length 0, not a title vector of length 1 containing an empty string.)
-
-Again, we could rewrite using `unnest_auto()`. This is convenient for exploration, but I wouldn't rely on it in the long term - `unnest_auto()` has the undesirable property that it will always succeed. That means if your data structure changes, `unnest_auto()` will continue to work, but might give very different output that causes cryptic failures from downstream functions.
-
-```{r}
-tibble(char = got_chars) %>% 
-  unnest_auto(char) %>% 
-  select(name, title = titles) %>% 
-  unnest_auto(title)
-```
 
 ## Geocoding with google
 

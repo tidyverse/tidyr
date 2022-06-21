@@ -1,56 +1,13 @@
-#' Rectangle a nested list into a tidy tibble
+#' Hoist values out of list-columns
 #'
 #' @description
-#' `hoist()`, `unnest_longer()`, and `unnest_wider()` provide tools for
-#' rectangling, collapsing deeply nested lists into regular columns.
-#' `hoist()` allows you to selectively pull components of a list-column out
-#' in to their own top-level columns, using the same syntax as [purrr::pluck()].
-#' `unnest_wider()` turns each element of a list-column into a column, and
-#' `unnest_longer()` turns each element of a list-column into a row.
-#' `unnest_auto()` picks between `unnest_wider()` or `unnest_longer()`
-#' based on heuristics described below.
+#' `hoist()` allows you to selectively pull components of a list-column
+#' into their own top-level columns, using the same syntax as [purrr::pluck()].
 #'
 #' Learn more in `vignette("rectangle")`.
 #'
-#' @seealso
-#' For complex inputs where you need to rectangle a nested list according
-#' to a specification, see the
-#' [tibblify](https://CRAN.R-project.org/package=tibblify) package.
-#'
-#' @section Unnest variants:
-#'
-#' The three `unnest()` functions differ in how they change the shape of the
-#' output data frame:
-#'
-#' * `unnest_wider()` preserves the rows, but changes the columns.
-#' * `unnest_longer()` preserves the columns, but changes the rows
-#' * [unnest()] can change both rows and columns.
-#'
-#' These principles guide their behaviour when they are called with a
-#' non-primary data type. For example, if you `unnest_wider()` a list of data
-#' frames, the number of rows must be preserved, so each column is turned into
-#' a list column of length one. Or if you `unnest_longer()` a list of data
-#' frames, the number of columns must be preserved so it creates a packed
-#' column. I'm not sure how if these behaviours are useful in practice, but
-#' they are theoretically pleasing.
-#'
-#' @section `unnest_auto()` heuristics:
-#' `unnest_auto()` inspects the inner names of the list-col:
-#' * If all elements are unnamed, it uses
-#'   `unnest_longer(indices_include = FALSE)`.
-#' * If all elements are named, and there's at least one name in
-#'   common across all components, it uses `unnest_wider()`.
-#' * Otherwise, it falls back to `unnest_longer(indices_include = TRUE)`.
-#'
-#' @param .data,data A data frame.
-#' @param .col,col List-column to extract components from.
-#'
-#'   For `hoist()` and `unnest_auto()`, this must identify a single column.
-#'
-#'   For `unnest_wider()` and `unnest_longer()`, you can use tidyselect to
-#'   select multiple columns to unnest simultaneously. When using
-#'   `unnest_longer()` with multiple columns, values across columns that
-#'   originated from the same row are recycled to a common size.
+#' @param .data A data frame.
+#' @param .col List-column to extract components from.
 #' @param ... Components of `.col` to turn into columns in the form
 #'   `col_name = "pluck_specification"`. You can pluck by name with a character
 #'   vector, by position with an integer vector, or with a combination of the
@@ -107,77 +64,14 @@
 #' )
 #' df
 #'
-#' # Turn all components of metadata into columns
-#' df %>% unnest_wider(metadata)
-#'
-#' # Choose not to simplify list-cols of length-1 elements
-#' df %>% unnest_wider(metadata, simplify = FALSE)
-#' df %>% unnest_wider(metadata, simplify = list(color = FALSE))
-#'
 #' # Extract only specified components
 #' df %>% hoist(metadata,
 #'   "species",
 #'   first_film = list("films", 1L),
 #'   third_film = list("films", 3L)
 #' )
-#'
-#' df %>%
-#'   unnest_wider(metadata) %>%
-#'   unnest_longer(films)
-#'
-#' # unnest_longer() is useful when each component of the list should
-#' # form a row
-#' df <- tibble(
-#'   x = 1:3,
-#'   y = list(NULL, 1:3, 4:5)
-#' )
-#' df %>% unnest_longer(y)
-#' # Automatically creates names if widening
-#' df %>% unnest_wider(y)
-#' # But you'll usually want to provide names_sep:
-#' df %>% unnest_wider(y, names_sep = "_")
-#'
-#' # And similarly if the vectors are named
-#' df <- tibble(
-#'   x = 1:2,
-#'   y = list(c(a = 1, b = 2), c(a = 10, b = 11, c = 12))
-#' )
-#' df %>% unnest_wider(y)
-#' df %>% unnest_longer(y)
-#'
-#' # Both unnest_wider() and unnest_longer() allow you to unnest multiple
-#' # columns at once. This is particularly useful with unnest_longer(), where
-#' # unnesting sequentially would generate a cartesian product of the rows.
-#' df <- tibble(
-#'   x = 1:2,
-#'   y = list(1:2, 3:4),
-#'   z = list(5:6, 7:8)
-#' )
-#' unnest_longer(df, c(y, z))
-#' unnest_longer(unnest_longer(df, y), z)
-#'
-#' # With JSON, it is common for empty elements to be represented by `list()`
-#' # rather then their typed equivalent, like `integer()`
-#' json <- list(
-#'   list(x = 1:2, y = 1:2),
-#'   list(x = list(), y = 3:4),
-#'   list(x = 3L, y = list())
-#' )
-#' df <- tibble(json = json)
-#'
-#' # The defaults of `unnest_wider()` treat empty types (like `list()`) as `NULL`.
-#' # This chains nicely into `unnest_longer()`.
-#' wide <- unnest_wider(df, json)
-#' wide
-#'
-#' unnest_longer(wide, c(x, y))
-#'
-#' # To instead enforce strict vctrs typing rules, use `strict`
-#' wide_strict <- unnest_wider(df, json, strict = TRUE)
-#' wide_strict
-#'
-#' try(unnest_longer(wide_strict, c(x, y)))
 #' @export hoist
+#' @family rectangling
 hoist <- function(.data,
                   .col,
                   ...,
@@ -304,8 +198,40 @@ strike <- function(x, indices) {
   x
 }
 
-#' @export
-#' @rdname hoist
+#' Unnest a list-column into rows or columns
+#'
+#' @description
+#' `unnest_wider()` turns each element of a list-column into a column;
+#' `unnest_longer()` turns each element of a list-column into a row.
+#'
+#' Learn more in `vignette("rectangle")`.
+#'
+#' @section Unnest variants:
+#'
+#' The three `unnest()` functions differ in how they change the shape of the
+#' output data frame:
+#'
+#' * `unnest_wider()` preserves the rows, but changes the columns.
+#' * `unnest_longer()` preserves the columns, but changes the rows
+#' * [unnest()] can change both rows and columns.
+#'
+#' These principles guide their behaviour when they are called with a
+#' more exotic inpiuts. For example, if you `unnest_wider()` a list of data
+#' frames, the number of rows must be preserved, so each column is turned into
+#' a list column of length one. Or if you `unnest_longer()` a list of data
+#' frames, the number of columns must be preserved so it creates a packed
+#' column. I'm not sure how if these behaviours are useful in practice, but
+#' they are theoretically pleasing.
+#'
+#' @seealso
+#' For complex inputs where you need to rectangle a nested list according
+#' to a specification, see the
+#' [tibblify](https://CRAN.R-project.org/package=tibblify) package.
+#'
+#' @param col List-column(s) to extract components from.
+#'   You can use tidyselect to select multiple columns to unnest simultaneously.
+#'   When using `unnest_longer()` with multiple columns, values across columns
+#'   that originated from the same row are recycled to a common size.
 #' @param values_to A string giving the column name (or names) to store the
 #'   unnested values in. If multiple columns are specified in `col`, this can
 #'   also be a glue string containing `"{col}"` to provide a template for the
@@ -324,7 +250,91 @@ strike <- function(x, indices) {
 #'   or if `indices_to` is provided.
 #'
 #'   If `indices_to` is provided, then `indices_include` must not be `FALSE`.
+#' @inheritParams hoist
 #' @inheritParams unnest
+#' @examples
+#' df <- tibble(
+#'   character = c("Toothless", "Dory"),
+#'   metadata = list(
+#'     list(
+#'       species = "dragon",
+#'       color = "black",
+#'       films = c(
+#'         "How to Train Your Dragon",
+#'         "How to Train Your Dragon 2",
+#'         "How to Train Your Dragon: The Hidden World"
+#'       )
+#'     ),
+#'     list(
+#'       species = "blue tang",
+#'       color = "blue",
+#'       films = c("Finding Nemo", "Finding Dory")
+#'     )
+#'   )
+#' )
+#' df
+#'
+#' # Turn all components of metadata into columns
+#' df %>% unnest_wider(metadata)
+#'
+#' # Choose not to simplify list-cols of length-1 elements
+#' df %>% unnest_wider(metadata, simplify = FALSE)
+#' df %>% unnest_wider(metadata, simplify = list(color = FALSE))
+#'
+#' # unnest_longer() is useful when each component of the list should
+#' # form a row
+#' df <- tibble(
+#'   x = 1:3,
+#'   y = list(NULL, 1:3, 4:5)
+#' )
+#' df %>% unnest_longer(y)
+#' # Automatically creates names if widening
+#' df %>% unnest_wider(y)
+#' # But you'll usually want to provide names_sep:
+#' df %>% unnest_wider(y, names_sep = "_")
+#'
+#' # And similarly if the vectors are named
+#' df <- tibble(
+#'   x = 1:2,
+#'   y = list(c(a = 1, b = 2), c(a = 10, b = 11, c = 12))
+#' )
+#' df %>% unnest_wider(y)
+#' df %>% unnest_longer(y)
+#'
+#' # Both unnest_wider() and unnest_longer() allow you to unnest multiple
+#' # columns at once. This is particularly useful with unnest_longer(), where
+#' # unnesting sequentially would generate a cartesian product of the rows.
+#' df <- tibble(
+#'   x = 1:2,
+#'   y = list(1:2, 3:4),
+#'   z = list(5:6, 7:8)
+#' )
+#' unnest_longer(df, c(y, z))
+#' unnest_longer(unnest_longer(df, y), z)
+#'
+#' # With JSON, it is common for empty elements to be represented by `list()`
+#' # rather then their typed equivalent, like `integer()`
+#' json <- list(
+#'   list(x = 1:2, y = 1:2),
+#'   list(x = list(), y = 3:4),
+#'   list(x = 3L, y = list())
+#' )
+#' df <- tibble(json = json)
+#'
+#' # The defaults of `unnest_wider()` treat empty types (like `list()`) as `NULL`.
+#' # This chains nicely into `unnest_longer()`.
+#' wide <- unnest_wider(df, json)
+#' wide
+#'
+#' unnest_longer(wide, c(x, y))
+#'
+#' # To instead enforce strict vctrs typing rules, use `strict`
+#' wide_strict <- unnest_wider(df, json, strict = TRUE)
+#' wide_strict
+#'
+#' try(unnest_longer(wide_strict, c(x, y)))
+#' @export
+#' @family rectangling
 unnest_longer <- function(data,
                           col,
                           values_to = NULL,
@@ -546,7 +556,6 @@ glue_col_names <- function(string, col_names) {
 }
 
 #' @export
-#' @rdname hoist
 #' @param names_sep If `NULL`, the default, the names will be left
 #'   as is. If a string, the outer and inner names will be pasted together using
 #'   `names_sep` as a separator.
@@ -560,6 +569,7 @@ glue_col_names <- function(string, col_names) {
 #'   will not contribute to the type of the unnested column. This is useful
 #'   when working with JSON, where empty values tend to lose their type
 #'   information and show up as `list()`.
+#' @rdname unnest_longer
 unnest_wider <- function(data,
                          col,
                          names_sep = NULL,
@@ -722,8 +732,26 @@ elt_to_wide <- function(x, name, strict, names_sep) {
   x
 }
 
+#' Automatically call `unnest_wider()` or `unnest_longer()`
+#'
+#' @description
+#' `unnest_auto()` picks between `unnest_wider()` or `unnest_longer()`
+#' by inspecting the inner names of the list-col:
+#'
+#' * If all elements are unnamed, it uses
+#'   `unnest_longer(indices_include = FALSE)`.
+#' * If all elements are named, and there's at least one name in
+#'   common across all components, it uses `unnest_wider()`.
+#' * Otherwise, it falls back to `unnest_longer(indices_include = TRUE)`.
+#'
+#' It's handy for very rapid interactive exploration but I don't recommend
+#' using it in scripts, because it will succeed even if the underlying data
+#' radically changes.
+#'
+#' @inheritParams unnest_longer
 #' @export
-#' @rdname hoist
+#' @param col List-column to extract components from.
+#' @keywords internal
 unnest_auto <- function(data, col) {
   check_required(col)
   col <- tidyselect::vars_pull(tbl_vars(data), {{ col }})

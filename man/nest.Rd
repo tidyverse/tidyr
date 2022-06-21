@@ -190,3 +190,9 @@ df \%>\% unnest(c(a, b))
 # the Cartesian product
 df \%>\% unnest(a) \%>\% unnest(b)
 }
+\seealso{
+Other rectangling: 
+\code{\link{hoist}()},
+\code{\link{unnest_longer}()}
+}
+\concept{rectangling}
