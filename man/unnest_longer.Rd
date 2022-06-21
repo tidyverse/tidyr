@@ -108,38 +108,20 @@ df <- tibble(
 )
 df \%>\% unnest_longer(y)
 
-# Both unnest_wider() and unnest_longer() allow you to unnest multiple
-# columns at once. This is particularly useful with unnest_longer(), where
-# unnesting sequentially would generate a cartesian product of the rows.
+# If columns are aligned, you can unnest simultaneously.
 df <- tibble(
   x = 1:2,
   y = list(1:2, 3:4),
   z = list(5:6, 7:8)
 )
-unnest_longer(df, c(y, z))
-unnest_longer(unnest_longer(df, y), z)
+df \%>\%
+  unnest_longer(c(y, z))
 
-# With JSON, it is common for empty elements to be represented by `list()`
-# rather then their typed equivalent, like `integer()`
-json <- list(
-  list(x = 1:2, y = 1:2),
-  list(x = list(), y = 3:4),
-  list(x = 3L, y = list())
-)
-df <- tibble(json = json)
-
-# The defaults of `unnest_wider()` treat empty types (like `list()`) as `NULL`.
-# This chains nicely into `unnest_longer()`.
-wide <- unnest_wider(df, json)
-wide
-
-unnest_longer(wide, c(x, y))
-
-# To instead enforce strict vctrs typing rules, use `strict`
-wide_strict <- unnest_wider(df, json, strict = TRUE)
-wide_strict
-
-try(unnest_longer(wide_strict, c(x, y)))
+# This is important because sequential unnesting would generate the
+# Cartesian product of the rows.
+df \%>\%
+  unnest_longer(y) \%>\%
+  unnest_longer(z)
 }
 \seealso{
 Other rectangling: 

@@ -60,6 +60,21 @@
 #' )
 #' # where you'll usually want to provide names_sep:
 #' df %>% unnest_wider(y, names_sep = "_")
+#'
+#' #' # The defaults of `unnest_wider()` treat empty types (like `list()`) as `NULL`.
+#' json <- list(
+#'   list(x = 1:2, y = 1:2),
+#'   list(x = list(), y = 3:4),
+#'   list(x = 3L, y = list())
+#' )
+#'
+#' df <- tibble(json = json)
+#' df %>%
+#'   unnest_wider(json)
+#'
+#' # To instead enforce strict vctrs typing rules, use `strict`
+#' df %>%
+#'   unnest_wider(json, strict = TRUE)
 unnest_wider <- function(data,
                          col,
                          names_sep = NULL,
