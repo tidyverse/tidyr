@@ -59,8 +59,8 @@ When both \code{ptype} and \code{transform} are supplied, the \code{transform} i
 before the \code{ptype}.}
 }
 \description{
-\code{hoist()} allows you to selectively pull components of a list-column out
-in to their own top-level columns, using the same syntax as \code{\link[purrr:pluck]{purrr::pluck()}}.
+\code{hoist()} allows you to selectively pull components of a list-column
+into their own top-level columns, using the same syntax as \code{\link[purrr:pluck]{purrr::pluck()}}.
 
 Learn more in \code{vignette("rectangle")}.
 }

@@ -21,4 +21,8 @@ by inspecting the inner names of the list-col:
 common across all components, it uses \code{unnest_wider()}.
 \item Otherwise, it falls back to \code{unnest_longer(indices_include = TRUE)}.
 }
+
+It's handy for very rapid interactive exploration but I don't recommend
+using it in scripts, because it will succeed even if the underlying data
+radically changes.
 }
