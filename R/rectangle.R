@@ -1,8 +1,8 @@
 #' Hoist values out of list-columns
 #'
 #' @description
-#' `hoist()` allows you to selectively pull components of a list-column out
-#' in to their own top-level columns, using the same syntax as [purrr::pluck()].
+#' `hoist()` allows you to selectively pull components of a list-column
+#' into their own top-level columns, using the same syntax as [purrr::pluck()].
 #'
 #' Learn more in `vignette("rectangle")`.
 #'
