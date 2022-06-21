@@ -36,8 +36,9 @@ reference:
     **Rectangling** turns deeply nested lists into tidy tibbles.
     See `vignette("rectangle")` for more details and examples.
   contents:
-  - unnest
   - unnest_longer
+  - unnest_wider
+  - unnest
   - hoist
 
 - title: Character vectors

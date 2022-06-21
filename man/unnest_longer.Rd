@@ -2,8 +2,7 @@
 % Please edit documentation in R/rectangle.R
 \name{unnest_longer}
 \alias{unnest_longer}
-\alias{unnest_wider}
-\title{Unnest a list-column into rows or columns}
+\title{Unnest a list-column into rows}
 \usage{
 unnest_longer(
   data,
@@ -13,17 +12,6 @@ unnest_longer(
   indices_include = NULL,
   names_repair = "check_unique",
   simplify = TRUE,
-  ptype = NULL,
-  transform = NULL
-)
-
-unnest_wider(
-  data,
-  col,
-  names_sep = NULL,
-  simplify = TRUE,
-  strict = FALSE,
-  names_repair = "check_unique",
   ptype = NULL,
   transform = NULL
 )
@@ -95,77 +83,16 @@ you want to transform or parse individual elements as they are extracted.
 
 When both \code{ptype} and \code{transform} are supplied, the \code{transform} is applied
 before the \code{ptype}.}
-
-\item{names_sep}{If \code{NULL}, the default, the names will be left
-as is. If a string, the outer and inner names will be pasted together using
-\code{names_sep} as a separator.
-
-If the values being unnested are unnamed and \code{names_sep} is supplied, the
-inner names will be automatically generated as an increasing sequence of
-integers.}
-
-\item{strict}{A single logical specifying whether or not to apply strict
-vctrs typing rules. If \code{FALSE}, typed empty values (like \code{list()} or
-\code{integer()}) nested within list-columns will be treated like \code{NULL} and
-will not contribute to the type of the unnested column. This is useful
-when working with JSON, where empty values tend to lose their type
-information and show up as \code{list()}.}
 }
 \description{
-\code{unnest_wider()} turns each element of a list-column into a column;
-\code{unnest_longer()} turns each element of a list-column into a row.
+\code{unnest_longer()} turns each element of a list-column into a row. It
+is most naturally suited to list-columns where the elements are unnamed
+and the length varies from row-to-row.
+\code{unnest_longer()} preserves the columns of \code{x} while modifying the rows.
 
 Learn more in \code{vignette("rectangle")}.
 }
-\section{Unnest variants}{
-
-
-The three \code{unnest()} functions differ in how they change the shape of the
-output data frame:
-\itemize{
-\item \code{unnest_wider()} preserves the rows, but changes the columns.
-\item \code{unnest_longer()} preserves the columns, but changes the rows
-\item \code{\link[=unnest]{unnest()}} can change both rows and columns.
-}
-
-These principles guide their behaviour when they are called with a
-more exotic inpiuts. For example, if you \code{unnest_wider()} a list of data
-frames, the number of rows must be preserved, so each column is turned into
-a list column of length one. Or if you \code{unnest_longer()} a list of data
-frames, the number of columns must be preserved so it creates a packed
-column. I'm not sure how if these behaviours are useful in practice, but
-they are theoretically pleasing.
-}
-
 \examples{
-df <- tibble(
-  character = c("Toothless", "Dory"),
-  metadata = list(
-    list(
-      species = "dragon",
-      color = "black",
-      films = c(
-        "How to Train Your Dragon",
-        "How to Train Your Dragon 2",
-        "How to Train Your Dragon: The Hidden World"
-      )
-    ),
-    list(
-      species = "blue tang",
-      color = "blue",
-      films = c("Finding Nemo", "Finding Dory")
-    )
-  )
-)
-df
-
-# Turn all components of metadata into columns
-df \%>\% unnest_wider(metadata)
-
-# Choose not to simplify list-cols of length-1 elements
-df \%>\% unnest_wider(metadata, simplify = FALSE)
-df \%>\% unnest_wider(metadata, simplify = list(color = FALSE))
-
 # unnest_longer() is useful when each component of the list should
 # form a row
 df <- tibble(
@@ -173,17 +100,12 @@ df <- tibble(
   y = list(NULL, 1:3, 4:5)
 )
 df \%>\% unnest_longer(y)
-# Automatically creates names if widening
-df \%>\% unnest_wider(y)
-# But you'll usually want to provide names_sep:
-df \%>\% unnest_wider(y, names_sep = "_")
 
 # And similarly if the vectors are named
 df <- tibble(
   x = 1:2,
   y = list(c(a = 1, b = 2), c(a = 10, b = 11, c = 12))
 )
-df \%>\% unnest_wider(y)
 df \%>\% unnest_longer(y)
 
 # Both unnest_wider() and unnest_longer() allow you to unnest multiple
@@ -220,10 +142,6 @@ wide_strict
 try(unnest_longer(wide_strict, c(x, y)))
 }
 \seealso{
-For complex inputs where you need to rectangle a nested list according
-to a specification, see the
-\href{https://CRAN.R-project.org/package=tibblify}{tibblify} package.
-
 Other rectangling: 
 \code{\link{hoist}()},
 \code{\link{unnest}()}

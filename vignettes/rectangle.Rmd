@@ -28,6 +28,8 @@ Rectangling is the art and craft of taking a deeply nested list (often sourced f
 * `hoist()` is similar to `unnest_wider()` but only plucks out selected
   components, and can reach down multiple levels.
   
+(Alternative, for complex inputs where you need to rectangle a nested list according to a specification, see the [tibblify](https://github.com/mgirlich/tibblify) package.)
+  
 A very large number of data rectangling problems can be solved by combining these functions with a splash of dplyr (largely eliminating prior approaches that combined `mutate()` with multiple `purrr::map()`s). 
 
 To illustrate these techniques, we'll use the repurrrsive package, which provides a number deeply nested lists originally mostly captured from web APIs.
