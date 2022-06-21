@@ -125,6 +125,7 @@ df \%>\%
 \seealso{
 Other rectangling: 
 \code{\link{hoist}()},
-\code{\link{unnest_longer}()}
+\code{\link{unnest_longer}()},
+\code{\link{unnest_wider}()}
 }
 \concept{rectangling}

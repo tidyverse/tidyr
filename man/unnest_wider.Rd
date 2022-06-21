@@ -122,3 +122,10 @@ df <- tibble(
 # where you'll usually want to provide names_sep:
 df \%>\% unnest_wider(y, names_sep = "_")
 }
+\seealso{
+Other rectangling: 
+\code{\link{hoist}()},
+\code{\link{unnest_longer}()},
+\code{\link{unnest}()}
+}
+\concept{rectangling}

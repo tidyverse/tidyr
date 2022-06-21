@@ -22,6 +22,7 @@
 #'   will not contribute to the type of the unnested column. This is useful
 #'   when working with JSON, where empty values tend to lose their type
 #'   information and show up as `list()`.
+#' @family rectangling
 #' @inheritParams unnest_longer
 #' @examples
 #' df <- tibble(
@@ -59,7 +60,6 @@
 #' )
 #' # where you'll usually want to provide names_sep:
 #' df %>% unnest_wider(y, names_sep = "_")
-
 unnest_wider <- function(data,
                          col,
                          names_sep = NULL,

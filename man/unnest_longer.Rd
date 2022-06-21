@@ -144,6 +144,7 @@ try(unnest_longer(wide_strict, c(x, y)))
 \seealso{
 Other rectangling: 
 \code{\link{hoist}()},
+\code{\link{unnest_wider}()},
 \code{\link{unnest}()}
 }
 \concept{rectangling}
