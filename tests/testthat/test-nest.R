@@ -96,3 +96,46 @@ test_that("nesting no columns nests all inputs", {
   expect_named(out, "data")
   expect_equal(out$data[[1]], df)
 })
+
+# Deprecated behaviours ---------------------------------------------------
+
+
+test_that("warn about old style interface", {
+  df <- tibble(x = c(1, 1, 1), y = 1:3)
+
+  expect_snapshot(out <- nest(df, y))
+  expect_named(out, c("x", "data"))
+
+  expect_snapshot(out <- nest(df, -y))
+  expect_named(out, c("y", "data"))
+})
+
+test_that("only warn about unnamed inputs (#1175)", {
+  df <- tibble(x = 1:3, y = 1:3, z = 1:3)
+  expect_snapshot(out <- nest(df, x, y, foo = z))
+  expect_named(out, c("foo", "data"))
+})
+
+test_that("unnamed expressions are kept in the warning", {
+  df <- tibble(x = 1:3, z = 1:3)
+  expect_snapshot(out <- nest(df, x, starts_with("z")))
+  expect_named(out, "data")
+})
+
+test_that("can control output column name", {
+  df <- tibble(x = c(1, 1, 1), y = 1:3)
+  expect_snapshot(out <- nest(df, y, .key = "y"))
+  expect_named(out, c("x", "y"))
+})
+
+test_that("can control output column name when nested", {
+  df <- dplyr::group_by(tibble(x = c(1, 1, 1), y = 1:3), x)
+  expect_snapshot(out <- nest(df, .key = "y"))
+  expect_named(out, c("x", "y"))
+})
+
+test_that(".key gets warning with new interface", {
+  df <- tibble(x = c(1, 1, 1), y = 1:3)
+  expect_snapshot(out <- nest(df, y = y, .key = "y"))
+  expect_named(df, c("x", "y"))
+})
