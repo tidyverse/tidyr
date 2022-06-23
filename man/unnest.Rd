@@ -2,7 +2,7 @@
 % Please edit documentation in R/unnest.R
 \name{unnest}
 \alias{unnest}
-\title{Unnest a 2d list-column into rows and columns}
+\title{Unnest a list-column of data frames into rows and columns}
 \usage{
 unnest(
   data,
@@ -27,9 +27,7 @@ If you \code{unnest()} multiple columns, parallel entries must be of
 compatible sizes, i.e. they're either equal or length 1 (following the
 standard tidyverse recycling rules).}
 
-\item{...}{<\code{\link[=tidyr_tidy_select]{tidy-select}}> Columns to unnest
-
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}:
+\item{...}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}:
 previously you could write \code{df \%>\% unnest(x, y, z)}.
 Convert to \code{df \%>\% unnest(c(x, y, z))}. If you previously created a new
 variable in \code{unnest()} you'll now need to do it explicitly with \code{mutate()}.
@@ -79,8 +77,7 @@ convert \code{df \%>\% unnest(x, .id = "id")} to \verb{df \%>\% mutate(id = name
 use \code{names_sep} instead.}
 }
 \description{
-Unnest expands a list-column containing 2d data structures (e.g. data frames)
-into rows and columns.
+Unnest expands a list-column containing data frames into rows and columns.
 }
 \section{New syntax}{
 
@@ -111,7 +108,7 @@ df <- tibble(
 df \%>\% unnest(y)
 
 # input rows with 0 rows in the list-column will usually disappear,
-# but you keep (generating NAs) with keep_empty = TRUE:
+# but you can keep them (generating NAs) with keep_empty = TRUE:
 df \%>\% unnest(y, keep_empty = TRUE)
 
 # You can unnest multiple columns simultaneously

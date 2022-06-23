@@ -1,7 +1,6 @@
-#' Unnest a 2d list-column into rows and columns
+#' Unnest a list-column of data frames into rows and columns
 #'
-#' Unnest expands a list-column containing 2d data structures (e.g. data frames)
-#' into rows and columns.
+#' Unnest expands a list-column containing data frames into rows and columns.
 #'
 #' @inheritSection nest New syntax
 #' @inheritParams unchop
@@ -11,9 +10,7 @@
 #'   If you `unnest()` multiple columns, parallel entries must be of
 #'   compatible sizes, i.e. they're either equal or length 1 (following the
 #'   standard tidyverse recycling rules).
-#' @param ... <[`tidy-select`][tidyr_tidy_select]> Columns to unnest
-#'
-#'   `r lifecycle::badge("deprecated")`:
+#' @param ... `r lifecycle::badge("deprecated")`:
 #'   previously you could write `df %>% unnest(x, y, z)`.
 #'   Convert to `df %>% unnest(c(x, y, z))`. If you previously created a new
 #'   variable in `unnest()` you'll now need to do it explicitly with `mutate()`.
@@ -51,7 +48,7 @@
 #' df %>% unnest(y)
 #'
 #' # input rows with 0 rows in the list-column will usually disappear,
-#' # but you keep (generating NAs) with keep_empty = TRUE:
+#' # but you can keep them (generating NAs) with keep_empty = TRUE:
 #' df %>% unnest(y, keep_empty = TRUE)
 #'
 #' # You can unnest multiple columns simultaneously
