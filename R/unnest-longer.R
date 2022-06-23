@@ -32,6 +32,8 @@
 #'   or if `indices_to` is provided.
 #'
 #'   If `indices_to` is provided, then `indices_include` must not be `FALSE`.
+#' @family rectangling
+#' @export
 #' @examples
 #' # unnest_longer() is useful when each component of the list should
 #' # form a row
@@ -62,8 +64,6 @@
 #' df %>%
 #'   unnest_longer(y) %>%
 #'   unnest_longer(z)
-#' @export
-#' @family rectangling
 unnest_longer <- function(data,
                           col,
                           values_to = NULL,

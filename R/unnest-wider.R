@@ -8,7 +8,7 @@
 #'
 #' Learn more in `vignette("rectangle")`.
 #'
-#' @export
+#' @inheritParams unnest_longer
 #' @param names_sep If `NULL`, the default, the names will be left
 #'   as is. If a string, the outer and inner names will be pasted together using
 #'   `names_sep` as a separator.
@@ -23,7 +23,7 @@
 #'   when working with JSON, where empty values tend to lose their type
 #'   information and show up as `list()`.
 #' @family rectangling
-#' @inheritParams unnest_longer
+#' @export
 #' @examples
 #' df <- tibble(
 #'   character = c("Toothless", "Dory"),
