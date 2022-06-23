@@ -92,16 +92,16 @@ radically changes."><meta property="og:image" content="https://tidyr.tidyverse.o
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Automatically call <code>unnest_wider()</code> or <code>unnest_longer()</code></h1>
-      <small class="dont-index">Source: <a href="https://github.com/tidyverse/tidyr/blob/HEAD/R/rectangle.R" class="external-link"><code>R/rectangle.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/tidyverse/tidyr/blob/HEAD/R/unnest-auto.R" class="external-link"><code>R/unnest-auto.R</code></a></small>
       <div class="d-none name"><code>unnest_auto.Rd</code></div>
     </div>
 
     <div class="ref-description section level2">
-    <p><code>unnest_auto()</code> picks between <code><a href="unnest_longer.html">unnest_wider()</a></code> or <code><a href="unnest_longer.html">unnest_longer()</a></code>
+    <p><code>unnest_auto()</code> picks between <code><a href="unnest_wider.html">unnest_wider()</a></code> or <code><a href="unnest_longer.html">unnest_longer()</a></code>
 by inspecting the inner names of the list-col:</p><ul><li><p>If all elements are unnamed, it uses
 <code>unnest_longer(indices_include = FALSE)</code>.</p></li>
 <li><p>If all elements are named, and there's at least one name in
-common across all components, it uses <code><a href="unnest_longer.html">unnest_wider()</a></code>.</p></li>
+common across all components, it uses <code><a href="unnest_wider.html">unnest_wider()</a></code>.</p></li>
 <li><p>Otherwise, it falls back to <code>unnest_longer(indices_include = TRUE)</code>.</p></li>
 </ul><p>It's handy for very rapid interactive exploration but I don't recommend
 using it in scripts, because it will succeed even if the underlying data

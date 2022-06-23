@@ -172,9 +172,9 @@ when you're modelling.
 <span class="co">#&gt; <span style="color: #BCBCBC;">2</span>     2 <span style="color: #949494;">&lt;tibble [2 × 2]&gt;</span></span>
 <span class="co">#&gt; <span style="color: #BCBCBC;">3</span>     3 <span style="color: #949494;">&lt;tibble [1 × 2]&gt;</span></span></code></pre></div>
 <p>I think nesting is easiest to understand in connection to grouped data: each row in the output corresponds to one <em>group</em> in the input. We’ll see shortly this is particularly convenient when you have other per-group objects.</p>
-<p>The opposite of <code><a href="../reference/nest.html">nest()</a></code> is <code><a href="../reference/nest.html">unnest()</a></code>. You give it the name of a list-column containing data frames, and it row-binds the data frames together, repeating the outer columns the right number of times to line up.</p>
+<p>The opposite of <code><a href="../reference/nest.html">nest()</a></code> is <code><a href="../reference/unnest.html">unnest()</a></code>. You give it the name of a list-column containing data frames, and it row-binds the data frames together, repeating the outer columns the right number of times to line up.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">df1</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="../reference/nest.html">unnest</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">df1</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="../reference/unnest.html">unnest</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span>
 <span class="co">#&gt; <span style="color: #949494;"># A tibble: 4 × 3</span></span>
 <span class="co">#&gt;       g     x     y</span>
 <span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
@@ -224,7 +224,7 @@ when you're modelling.
 <span class="co">#&gt; <span style="color: #BCBCBC;">1</span>     6 <span style="color: #949494;">&lt;tibble [7 × 10]&gt;</span>  <span style="color: #949494;">&lt;dbl [7]&gt;</span> </span>
 <span class="co">#&gt; <span style="color: #BCBCBC;">2</span>     4 <span style="color: #949494;">&lt;tibble [11 × 10]&gt;</span> <span style="color: #949494;">&lt;dbl [11]&gt;</span></span>
 <span class="co">#&gt; <span style="color: #BCBCBC;">3</span>     8 <span style="color: #949494;">&lt;tibble [14 × 10]&gt;</span> <span style="color: #949494;">&lt;dbl [14]&gt;</span></span></code></pre></div>
-<p>This workflow works particularly well in conjunction with <a href="https://broom.tidymodels.org/" class="external-link">broom</a>, which makes it easy to turn models into tidy data frames which can then be <code><a href="../reference/nest.html">unnest()</a></code>ed to get back to flat data frames. You can see a bigger example in the <a href="https://broom.tidymodels.org/articles/broom_and_dplyr.html" class="external-link">broom and dplyr vignette</a>.</p>
+<p>This workflow works particularly well in conjunction with <a href="https://broom.tidymodels.org/" class="external-link">broom</a>, which makes it easy to turn models into tidy data frames which can then be <code><a href="../reference/unnest.html">unnest()</a></code>ed to get back to flat data frames. You can see a bigger example in the <a href="https://broom.tidymodels.org/articles/broom_and_dplyr.html" class="external-link">broom and dplyr vignette</a>.</p>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside>

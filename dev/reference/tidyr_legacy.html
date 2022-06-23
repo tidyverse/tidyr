@@ -114,11 +114,11 @@ tidyverse standard with <code>name_repair = "universal"</code></p>
 <span class="r-in"><span class="co"># Doesn't work because it would produce a data frame with two</span></span>
 <span class="r-in"><span class="co"># columns called x</span></span>
 <span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in"><span class="fu"><a href="nest.html">unnest</a></span><span class="op">(</span><span class="va">df</span>, <span class="va">y</span><span class="op">)</span></span>
+<span class="r-in"><span class="fu"><a href="unnest.html">unnest</a></span><span class="op">(</span><span class="va">df</span>, <span class="va">y</span><span class="op">)</span></span>
 <span class="r-in"><span class="op">}</span></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># The new tidyverse standard:</span></span>
-<span class="r-in"><span class="fu"><a href="nest.html">unnest</a></span><span class="op">(</span><span class="va">df</span>, <span class="va">y</span>, names_repair <span class="op">=</span> <span class="st">"universal"</span><span class="op">)</span></span>
+<span class="r-in"><span class="fu"><a href="unnest.html">unnest</a></span><span class="op">(</span><span class="va">df</span>, <span class="va">y</span>, names_repair <span class="op">=</span> <span class="st">"universal"</span><span class="op">)</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> New names:</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> `x` -&gt; `x...1`</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> `x` -&gt; `x...2`</span>
@@ -134,7 +134,7 @@ tidyverse standard with <code>name_repair = "universal"</code></p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">7</span>     2     7</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># The old tidyr approach</span></span>
-<span class="r-in"><span class="fu"><a href="nest.html">unnest</a></span><span class="op">(</span><span class="va">df</span>, <span class="va">y</span>, names_repair <span class="op">=</span> <span class="va">tidyr_legacy</span><span class="op">)</span></span>
+<span class="r-in"><span class="fu"><a href="unnest.html">unnest</a></span><span class="op">(</span><span class="va">df</span>, <span class="va">y</span>, names_repair <span class="op">=</span> <span class="va">tidyr_legacy</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 7 × 2</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       x    x1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span>

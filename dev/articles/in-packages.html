@@ -121,7 +121,7 @@
 <p>This vignette serves two distinct, but related, purposes:</p>
 <ul>
 <li><p>It documents general best practices for using tidyr in a package, inspired by <a href="https://ggplot2.tidyverse.org/dev/articles/ggplot2-in-packages.html" class="external-link">using ggplot2 in packages</a>.</p></li>
-<li><p>It describes migration patterns for the transition from tidyr v0.8.3 to v1.0.0. This release includes breaking changes to <code><a href="../reference/nest.html">nest()</a></code> and <code><a href="../reference/nest.html">unnest()</a></code> in order to increase consistency within tidyr and with the rest of the tidyverse.</p></li>
+<li><p>It describes migration patterns for the transition from tidyr v0.8.3 to v1.0.0. This release includes breaking changes to <code><a href="../reference/nest.html">nest()</a></code> and <code><a href="../reference/unnest.html">unnest()</a></code> in order to increase consistency within tidyr and with the rest of the tidyverse.</p></li>
 </ul>
 <p>Before we go on, we’ll attach the packages we use, expose the version of tidyr, and make a small dataset to use in examples.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
@@ -224,13 +224,13 @@
 <div class="section level2">
 <h2 id="tidyr-v0-8-3---v1-0-0">tidyr v0.8.3 -&gt; v1.0.0<a class="anchor" aria-label="anchor" href="#tidyr-v0-8-3---v1-0-0"></a>
 </h2>
-<p>v1.0.0 makes considerable changes to the interface of <code><a href="../reference/nest.html">nest()</a></code> and <code><a href="../reference/nest.html">unnest()</a></code> in order to bring them in line with newer tidyverse conventions. I have tried to make the functions as backward compatible as possible and to give informative warning messages, but I could not cover 100% of use cases, so you may need to change your package code. This guide will help you do so with a minimum of pain.</p>
+<p>v1.0.0 makes considerable changes to the interface of <code><a href="../reference/nest.html">nest()</a></code> and <code><a href="../reference/unnest.html">unnest()</a></code> in order to bring them in line with newer tidyverse conventions. I have tried to make the functions as backward compatible as possible and to give informative warning messages, but I could not cover 100% of use cases, so you may need to change your package code. This guide will help you do so with a minimum of pain.</p>
 <p>Ideally, you’ll tweak your package so that it works with both tidyr 0.8.3 and tidyr 1.0.0. This makes life considerably easier because it means there’s no need to coordinate CRAN submissions - you can submit your package that works with both tidyr versions, before I submit tidyr to CRAN. This section describes our recommend practices for doing so, drawing from the general principles described in <a href="https://principles.tidyverse.org/changes-multivers.html" class="external-link uri">https://principles.tidyverse.org/changes-multivers.html</a>.</p>
 <p>If you use continuous integration already, we <strong>strongly</strong> recommend adding a build that tests with the development version of tidyr; see above for details.</p>
 <p>This section briefly describes how to run different code for different versions of tidyr, then goes through the major changes that might require workarounds:</p>
 <ul>
 <li>
-<code><a href="../reference/nest.html">nest()</a></code> and <code><a href="../reference/nest.html">unnest()</a></code> get new interfaces.</li>
+<code><a href="../reference/nest.html">nest()</a></code> and <code><a href="../reference/unnest.html">unnest()</a></code> get new interfaces.</li>
 <li>
 <code><a href="../reference/nest.html">nest()</a></code> preserves groups.</li>
 <li>
@@ -320,9 +320,9 @@
 <ul>
 <li><p>The to-be-unnested columns must now be specified explicitly, instead of defaulting to all list-columns. This also deprecates <code>.drop</code> and <code>.preserve</code>.</p></li>
 <li><p><code>.sep</code> has been deprecated and replaced with <code>names_sep</code>.</p></li>
-<li><p><code><a href="../reference/nest.html">unnest()</a></code> uses the <a href="https://www.tidyverse.org/blog/2019/01/tibble-2.0.1/#name-repair" class="external-link">emerging tidyverse standard</a> to disambiguate duplicated names. Use <code>names_repair = tidyr_legacy</code> to request the previous approach.</p></li>
+<li><p><code><a href="../reference/unnest.html">unnest()</a></code> uses the <a href="https://www.tidyverse.org/blog/2019/01/tibble-2.0.1/#name-repair" class="external-link">emerging tidyverse standard</a> to disambiguate duplicated names. Use <code>names_repair = tidyr_legacy</code> to request the previous approach.</p></li>
 <li>
-<p><code>.id</code> has been deprecated because it can be easily replaced by creating the column of names prior to <code><a href="../reference/nest.html">unnest()</a></code>, e.g. with an upstream call to <code><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate()</a></code>.</p>
+<p><code>.id</code> has been deprecated because it can be easily replaced by creating the column of names prior to <code><a href="../reference/unnest.html">unnest()</a></code>, e.g. with an upstream call to <code><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate()</a></code>.</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># v0.8.3</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span> <span class="fu">unnest</span>(x, <span class="at">.id =</span> <span class="st">"id"</span>)</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -341,16 +341,16 @@
   <span class="fu"><a href="../reference/nest.html">nest</a></span><span class="op">(</span>my_data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">Sepal.Length</span>, <span class="va">Sepal.Width</span>, <span class="va">Petal.Length</span>, <span class="va">Petal.Width</span><span class="op">)</span><span class="op">)</span>
 
 <span class="co"># v0.8.3 automatically unnests list-cols</span>
-<span class="va">nested</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="../reference/nest.html">unnest</a></span><span class="op">(</span><span class="op">)</span>
+<span class="va">nested</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="../reference/unnest.html">unnest</a></span><span class="op">(</span><span class="op">)</span>
 
 <span class="co"># v1.0.0 must be told which columns to unnest</span>
-<span class="va">nested</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="../reference/nest.html">unnest</a></span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/all_of.html" class="external-link">any_of</a></span><span class="op">(</span><span class="st">"my_data"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<p>If you need a quick and dirty fix without having to think, just call <code><a href="../reference/nest_legacy.html">unnest_legacy()</a></code> instead of <code><a href="../reference/nest.html">unnest()</a></code>. It’s the same as <code><a href="../reference/nest.html">unnest()</a></code> in v0.8.3:</p>
+<span class="va">nested</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="../reference/unnest.html">unnest</a></span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/all_of.html" class="external-link">any_of</a></span><span class="op">(</span><span class="st">"my_data"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<p>If you need a quick and dirty fix without having to think, just call <code><a href="../reference/nest_legacy.html">unnest_legacy()</a></code> instead of <code><a href="../reference/unnest.html">unnest()</a></code>. It’s the same as <code><a href="../reference/unnest.html">unnest()</a></code> in v0.8.3:</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw">if</span> <span class="op">(</span><span class="fu">tidyr_new_interface</span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
   <span class="va">out</span> <span class="op">&lt;-</span> <span class="fu">tidyr</span><span class="fu">::</span><span class="fu"><a href="../reference/nest_legacy.html">unnest_legacy</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span>
 <span class="op">}</span> <span class="kw">else</span> <span class="op">{</span>
-  <span class="va">out</span> <span class="op">&lt;-</span> <span class="fu">tidyr</span><span class="fu">::</span><span class="fu"><a href="../reference/nest.html">unnest</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span>
+  <span class="va">out</span> <span class="op">&lt;-</span> <span class="fu">tidyr</span><span class="fu">::</span><span class="fu"><a href="../reference/unnest.html">unnest</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span>
 <span class="op">}</span></code></pre></div>
 </div>
 <div class="section level3">
@@ -450,7 +450,7 @@
 <span class="va">mini_iris</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
   <span class="fu"><a href="../reference/nest.html">nest</a></span><span class="op">(</span>my_data <span class="op">=</span> <span class="fu"><a href="https://tidyselect.r-lib.org/reference/all_of.html" class="external-link">any_of</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Sepal.Length"</span>, <span class="st">"Sepal.Width"</span>, <span class="st">"Petal.Length"</span>, <span class="st">"Petal.Width"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
 
-<span class="va">nested</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="../reference/nest.html">unnest</a></span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/all_of.html" class="external-link">any_of</a></span><span class="op">(</span><span class="st">"my_data"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<span class="va">nested</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="../reference/unnest.html">unnest</a></span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/all_of.html" class="external-link">any_of</a></span><span class="op">(</span><span class="st">"my_data"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 </div>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

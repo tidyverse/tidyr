@@ -74,7 +74,7 @@ Learn more in vignette("rectangle").'><meta property="og:image" content="https:/
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Hoist values out of list-columns</h1>
-      <small class="dont-index">Source: <a href="https://github.com/tidyverse/tidyr/blob/HEAD/R/rectangle.R" class="external-link"><code>R/rectangle.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/tidyverse/tidyr/blob/HEAD/R/hoist.R" class="external-link"><code>R/hoist.R</code></a></small>
       <div class="d-none name"><code>hoist.Rd</code></div>
     </div>
 
@@ -125,7 +125,7 @@ components are removed from <code>.col</code>, then <code>.col</code> will be re
 result entirely.</p></dd>
 
 
-<dt>.simplify, simplify</dt>
+<dt>.simplify</dt>
 <dd><p>If <code>TRUE</code>, will attempt to simplify lists of
 length-1 vectors to an atomic vector. Can also be a named list containing
 <code>TRUE</code> or <code>FALSE</code> declaring whether or not to attempt to simplify a
@@ -133,7 +133,7 @@ particular column. If a named list is provided, the default for any
 unspecified columns is <code>TRUE</code>.</p></dd>
 
 
-<dt>.ptype, ptype</dt>
+<dt>.ptype</dt>
 <dd><p>Optionally, a named list of prototypes declaring the
 desired output type of each component. Alternatively, a single empty
 prototype can be supplied, which will be applied to all components. Use
@@ -144,7 +144,7 @@ isn't possible, then a <a href="https://vctrs.r-lib.org/reference/list_of.html" 
 and each element will have type <code>ptype</code>.</p></dd>
 
 
-<dt>.transform, transform</dt>
+<dt>.transform</dt>
 <dd><p>Optionally, a named list of transformation
 functions applied to each component. Alternatively, a single function can
 be supplied, which will be applied to all components. Use this argument if
@@ -156,8 +156,9 @@ before the <code>ptype</code>.</p></dd>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
     <div class="dont-index"><p>Other rectangling: 
-<code><a href="nest.html">nest</a>()</code>,
-<code><a href="unnest_longer.html">unnest_longer</a>()</code></p></div>
+<code><a href="unnest_longer.html">unnest_longer</a>()</code>,
+<code><a href="unnest_wider.html">unnest_wider</a>()</code>,
+<code><a href="unnest.html">unnest</a>()</code></p></div>
     </div>
 
     <div class="section level2">
