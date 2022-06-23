@@ -17,12 +17,12 @@
 #'   columns with the same name will be overwritten. When plucking with a
 #'   single string you can choose to omit the name, i.e. `hoist(df, col, "x")`
 #'   is short-hand for `hoist(df, col, x = "x")`.
-#' @param .simplify,simplify If `TRUE`, will attempt to simplify lists of
+#' @param .simplify If `TRUE`, will attempt to simplify lists of
 #'   length-1 vectors to an atomic vector. Can also be a named list containing
 #'   `TRUE` or `FALSE` declaring whether or not to attempt to simplify a
 #'   particular column. If a named list is provided, the default for any
 #'   unspecified columns is `TRUE`.
-#' @param .ptype,ptype Optionally, a named list of prototypes declaring the
+#' @param .ptype Optionally, a named list of prototypes declaring the
 #'   desired output type of each component. Alternatively, a single empty
 #'   prototype can be supplied, which will be applied to all components. Use
 #'   this argument if you want to check that each element has the type you
@@ -31,7 +31,7 @@
 #'   If a `ptype` has been specified, but `simplify = FALSE` or simplification
 #'   isn't possible, then a [list-of][vctrs::list_of()] column will be returned
 #'   and each element will have type `ptype`.
-#' @param .transform,transform Optionally, a named list of transformation
+#' @param .transform Optionally, a named list of transformation
 #'   functions applied to each component. Alternatively, a single function can
 #'   be supplied, which will be applied to all components. Use this argument if
 #'   you want to transform or parse individual elements as they are extracted.
