@@ -87,7 +87,7 @@ before the \code{ptype}.}
 \description{
 \code{unnest_longer()} turns each element of a list-column into a row. It
 is most naturally suited to list-columns where the elements are unnamed
-and the length varies from row-to-row.
+and the length of each element varies row-to-row.
 \code{unnest_longer()} preserves the columns of \code{x} while modifying the rows.
 
 Learn more in \code{vignette("rectangle")}.

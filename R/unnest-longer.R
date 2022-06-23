@@ -3,11 +3,13 @@
 #' @description
 #' `unnest_longer()` turns each element of a list-column into a row. It
 #' is most naturally suited to list-columns where the elements are unnamed
-#' and the length varies from row-to-row.
+#' and the length of each element varies row-to-row.
 #' `unnest_longer()` preserves the columns of `x` while modifying the rows.
 #'
 #' Learn more in `vignette("rectangle")`.
 #'
+#' @inheritParams hoist
+#' @inheritParams unnest
 #' @param col List-column(s) to extract components from.
 #'   You can use tidyselect to select multiple columns to unnest simultaneously.
 #'   When using `unnest_longer()` with multiple columns, values across columns
@@ -30,8 +32,6 @@
 #'   or if `indices_to` is provided.
 #'
 #'   If `indices_to` is provided, then `indices_include` must not be `FALSE`.
-#' @inheritParams hoist
-#' @inheritParams unnest
 #' @examples
 #' # unnest_longer() is useful when each component of the list should
 #' # form a row
