@@ -27,9 +27,14 @@ If you \code{unnest()} multiple columns, parallel entries must be of
 compatible sizes, i.e. they're either equal or length 1 (following the
 standard tidyverse recycling rules).}
 
-\item{...}{<\code{\link[=tidyr_tidy_select]{tidy-select}}> Columns to pack, specified
-using name-variable pairs of the form \code{new_col = c(col1, col2, col3)}.
-The right hand side can be any valid tidy select expression.}
+\item{...}{<\code{\link[=tidyr_tidy_select]{tidy-select}}> Columns to unnest
+
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}:
+previously you could write \code{df \%>\% unnest(x, y, z)}.
+Convert to \code{df \%>\% unnest(c(x, y, z))}. If you previously created a new
+variable in \code{unnest()} you'll now need to do it explicitly with \code{mutate()}.
+Convert \code{df \%>\% unnest(y = fun(x, y, z))}
+to \code{df \%>\% mutate(y = fun(x, y, z)) \%>\% unnest(y)}.}
 
 \item{keep_empty}{By default, you get one row of output for each element
 of the list your unchopping/unnesting. This means that if there's a
@@ -43,16 +48,9 @@ coerce \code{cols} to, overriding the default that will be guessed from
 combining the individual values. Alternatively, a single empty ptype
 can be supplied, which will be applied to all \code{cols}.}
 
-\item{names_sep}{If \code{NULL}, the default, the names will be left
-as is. In \code{pack()}, inner names will come from the former outer names;
-in \code{unpack()}, the new outer names will come from the inner names.
-
-If a string, the inner and outer names will be used together. In
-\code{unpack()}, the names of the new outer columns will be formed by pasting
-together the outer and the inner column names, separated by \code{names_sep}. In
-\code{pack()}, the new inner names will have the outer names + \code{names_sep}
-automatically stripped. This makes \code{names_sep} roughly symmetric between
-packing and unpacking.}
+\item{names_sep}{If \code{NULL}, the default, the outer names will come from the
+inner names. If a string, the outer names will be formed by pasting
+together the outer and the inner column names, separated by \code{names_sep}.}
 
 \item{names_repair}{Used to check that output data frame has valid
 names. Must be one of the following options:
@@ -84,6 +82,20 @@ use \code{names_sep} instead.}
 Unnest expands a list-column containing 2d data structures (e.g. data frames)
 into rows and columns.
 }
+\section{New syntax}{
+
+tidyr 1.0.0 introduced a new syntax for \code{nest()} and \code{unnest()} that's
+designed to be more similar to other functions. Converting to the new syntax
+should be straightforward (guided by the message you'll recieve) but if
+you just need to run an old analysis, you can easily revert to the previous
+behaviour using \code{\link[=nest_legacy]{nest_legacy()}} and \code{\link[=unnest_legacy]{unnest_legacy()}} as follows:
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{library(tidyr)
+nest <- nest_legacy
+unnest <- unnest_legacy
+}\if{html}{\out{</div>}}
+}
+
 \examples{
 # unnest() is designed to work with lists of data frames
 df <- tibble(
