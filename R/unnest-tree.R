@@ -113,7 +113,7 @@ unnest_tree <- function(data,
     }
 
     # unclass `list_of` to avoid performance hit
-    children <- purrr::map(children, ~ unclass_list_of(.x, call = call))
+    children <- purrr::map(children, ~ unclass_list_of(.x, child_col, call = call))
     data <- vctrs::vec_unchop(children)
 
     level <- level + 1L
