@@ -75,7 +75,7 @@
       (expect_error(build_wider_spec(df, names_vary = 1)))
     Output
       <error/rlang_error>
-      Error in `arg_match0()`:
+      Error in `build_wider_spec()`:
       ! `names_vary` must be a string or character vector.
     Code
       (expect_error(build_wider_spec(df, names_vary = "x")))
