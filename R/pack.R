@@ -27,6 +27,7 @@
 #' @param ... <[`tidy-select`][tidyr_tidy_select]> Columns to pack, specified
 #'   using name-variable pairs of the form `new_col = c(col1, col2, col3)`.
 #'   The right hand side can be any valid tidy select expression.
+#'   Must be empty for `unpack()`, reserved for future extensions.
 #' @export
 #' @examples
 #' # Packing =============================================================
@@ -58,6 +59,22 @@
 #' df %>% unpack(c(y, z))
 #' df %>% unpack(c(y, z), names_sep = "_")
 pack <- function(.data, ..., .names_sep = NULL) {
+  UseMethod("pack")
+}
+
+#' @export
+pack.data.frame <- function(.data, ..., .names_sep = NULL) {
+  # The data frame print handles packed data frames poorly, so we want to
+  # convert data frames (but not subclasses) to tibbles
+  if (identical(class(.data), "data.frame")) {
+    .data <- as_tibble(.data)
+  }
+
+  pack.tbl_df(.data, ..., .names_sep = .names_sep)
+}
+
+#' @export
+pack.tbl_df <- function(.data, ..., .names_sep = NULL) {
   cols <- enquos(...)
   if (any(names2(cols) == "")) {
     abort("All elements of `...` must be named")
@@ -96,7 +113,24 @@ pack <- function(.data, ..., .names_sep = NULL) {
 #'
 #'   See [vctrs::vec_as_names()] for more details on these terms and the
 #'   strategies used to enforce them.
-unpack <- function(data, cols, names_sep = NULL, names_repair = "check_unique") {
+unpack <- function(data, cols, ..., names_sep = NULL, names_repair = "check_unique") {
+  check_dots_empty()
+  UseMethod("unpack")
+}
+
+#' @export
+unpack.data.frame <- function(data, cols, ..., names_sep = NULL, names_repair = "check_unique") {
+  # The data frame print handles packed data frames poorly, so we want to
+  # convert data frames (but not subclasses) to tibbles
+  if (identical(class(.data), "data.frame")) {
+    .data <- as_tibble(.data)
+  }
+
+  unpack.tbl_df(data, cols, ..., names_sep = names_sep, names_repair = names_repair)
+}
+
+#' @export
+unpack.tbl_df <- function(data, cols, ..., names_sep = NULL, names_repair = "check_unique") {
   check_required(cols)
   cols <- tidyselect::eval_select(enquo(cols), data)
 

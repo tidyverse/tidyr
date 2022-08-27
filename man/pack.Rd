@@ -7,12 +7,13 @@
 \usage{
 pack(.data, ..., .names_sep = NULL)
 
-unpack(data, cols, names_sep = NULL, names_repair = "check_unique")
+unpack(data, cols, ..., names_sep = NULL, names_repair = "check_unique")
 }
 \arguments{
 \item{...}{<\code{\link[=tidyr_tidy_select]{tidy-select}}> Columns to pack, specified
 using name-variable pairs of the form \code{new_col = c(col1, col2, col3)}.
-The right hand side can be any valid tidy select expression.}
+The right hand side can be any valid tidy select expression.
+Must be empty for \code{unpack()}, reserved for future extensions.}
 
 \item{data, .data}{A data frame.}
 
