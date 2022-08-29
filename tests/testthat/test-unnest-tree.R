@@ -156,6 +156,54 @@ test_that("can unnest", {
   )
 })
 
+test_that("can handle children of differen types", {
+  df <- tibble::tibble(
+    id = 1:2,
+    x = c("a", "b"),
+    children = list(
+      tibble::tibble(id = 3L, x = "c", children = list(NULL)),
+      tibble::tibble(id = 4.0, x = "d", children = list(NULL))
+    )
+  )
+
+  result <- unnest_tree(df, id, children)
+  expect_identical(
+    result,
+    tibble(
+      id = c(1, 2, 3, 4),
+      x = c("a", "b", "c", "d"),
+      level = c(1L, 1L, 2L, 2L),
+      parent = c(NA, NA, 1, 2)
+    )
+  )
+  expect_type(result$id, "double")
+
+  df <- tibble::tibble(
+    id = 1L,
+    x = "a",
+    children = list(
+      tibble::tibble(id = "a", x = "c", children = list(NULL))
+    )
+  )
+
+  # TODO produce a nicer error message here giving the path of the child?
+  expect_snapshot({
+    (expect_error(unnest_tree(df, id, children)))
+  })
+})
+
+test_that("can handle if all childre have no children column", {
+  df <- tibble::tibble(
+    id = 1,
+    x = "a",
+    children = list(NULL)
+  )
+  expect_equal(
+    unnest_tree(df, id, children),
+    tibble(id = 1, x = "a", level = 1L, parent = NA_real_)
+  )
+})
+
 test_that("can handle 0 row data", {
   df <- tibble::tibble(
     id = integer(),

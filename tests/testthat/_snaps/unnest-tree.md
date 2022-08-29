@@ -119,6 +119,15 @@
       Error in `unnest_tree()`:
       ! Each child must be NULL or a data frame.
 
+# can handle children of differen types
+
+    Code
+      (expect_error(unnest_tree(df, id, children)))
+    Output
+      <error/vctrs_error_incompatible_type>
+      Error in `unnest_tree()`:
+      ! Can't combine `out_ptype$id` <integer> and `data$id` <character>.
+
 # checks ids
 
     Code
