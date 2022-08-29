@@ -74,6 +74,7 @@ unnest_tree <- function(data,
   level_sizes <- list()
   level_parent_ids <- list()
   level_data <- list()
+  out_ptype <- vctrs::vec_ptype(dplyr::select(data, -any_of(child_col)))
 
   level <- 1L
   parent_ids <- vctrs::vec_init(data[[id_col]])
@@ -82,9 +83,12 @@ unnest_tree <- function(data,
   while (!is.null(data)) {
     children <- data[[child_col]] %||% list()
     # TODO this could mention the path?
+    # -> this would require tracking the current ancestors. Worth it?
     vctrs::vec_check_list(children, arg = child_col)
 
-    data[[child_col]] <- NULL
+    data <- dplyr::select(data, -any_of(child_col))
+    # keep track of the out ptype to error earlier and better error messages (in the future...)
+    out_ptype <- vctrs::vec_ptype2(out_ptype, data)
     level_data[[level]] <- data
     if (need_parents) {
       level_sizes[[level]] <- ns
@@ -105,7 +109,7 @@ unnest_tree <- function(data,
     level <- level + 1L
   }
 
-  out <- vctrs::vec_rbind(!!!level_data)
+  out <- vctrs::vec_rbind(!!!level_data, .ptype = out_ptype)
 
   if (!is_null(level_to)) {
     times <- list_sizes(level_data)
@@ -114,8 +118,8 @@ unnest_tree <- function(data,
   }
 
   if (!is_null(parent_to)) {
-    parent_ids <- vctrs::vec_c(!!!level_parent_ids)
-    times <- vctrs::vec_c(!!!level_sizes)
+    parent_ids <- vctrs::vec_c(!!!level_parent_ids, .ptype = out[[id_col]])
+    times <- vctrs::vec_c(!!!level_sizes, .ptype = integer())
     out[[parent_to]] <- vctrs::vec_rep_each(parent_ids, times)
   }
 
