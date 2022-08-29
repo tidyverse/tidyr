@@ -64,19 +64,9 @@ unnest_tree <- function(data,
     level_to <- vctrs::vec_cast(level_to, character())
     vctrs::vec_assert(level_to, size = 1L)
   }
+  parent_to <- check_unnest_parent_to(parent_to, data, level_to)
+  ancestors_to <- check_unnest_ancestors_to(ancestors_to, data, level_to, parent_to)
 
-  if (!is_null(parent_to)) {
-    parent_to <- vctrs::vec_cast(parent_to, character())
-    vctrs::vec_assert(parent_to, size = 1L)
-    check_arg_different(parent_to, level_to)
-    check_col_new(data, parent_to)
-  }
-  if (!is_null(ancestors_to)) {
-    ancestors_to <- vctrs::vec_cast(ancestors_to, character())
-    vctrs::vec_assert(ancestors_to, size = 1L)
-    check_arg_different(ancestors_to, level_to, parent_to)
-    check_col_new(data, ancestors_to)
-  }
   need_parents <- !is_null(parent_to) || !is_null(ancestors_to)
 
   call <- current_env()
@@ -90,10 +80,6 @@ unnest_tree <- function(data,
   ns <- vctrs::vec_size(data)
 
   while (!is.null(data)) {
-    # TODO check that `data` is a dataframe
-    # TODO check that `data` has the `id_col`
-    # TODO check type of `child_col`
-
     children <- data[[child_col]] %||% list()
     # TODO this could mention the path?
     vctrs::vec_check_list(children, arg = child_col)
@@ -181,6 +167,32 @@ eval_pull <- function(data, col, col_arg) {
 
   nm <- colnames(data)[[col]]
   set_names(col, nm)
+}
+
+check_unnest_parent_to <- function(parent_to, data, level_to, call = caller_env()) {
+  if (!is_null(parent_to)) {
+    parent_to <- vctrs::vec_cast(parent_to, character(), call = call)
+    vctrs::vec_assert(parent_to, size = 1L, call = call)
+    check_arg_different(parent_to, level_to, call = call)
+    check_col_new(data, parent_to, call = call)
+  }
+
+  parent_to
+}
+
+check_unnest_ancestors_to <- function(ancestors_to,
+                                      data,
+                                      level_to,
+                                      parent_to,
+                                      call = caller_env()) {
+  if (!is_null(ancestors_to)) {
+    ancestors_to <- vctrs::vec_cast(ancestors_to, character(), call = call)
+    vctrs::vec_assert(ancestors_to, size = 1L, call = call)
+    check_arg_different(ancestors_to, level_to, parent_to, call = call)
+    check_col_new(data, ancestors_to, call = call)
+  }
+
+  ancestors_to
 }
 
 check_col_new <- function(data,
