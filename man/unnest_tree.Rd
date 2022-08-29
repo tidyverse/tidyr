@@ -64,7 +64,7 @@ unnest_tree(
   df,
   id_col = "id",
   child_col = "children",
-  level_to = "level"
+  level_to = "level",
   parent_to = "parent",
   ancestors_to = "ancestors"
 )
