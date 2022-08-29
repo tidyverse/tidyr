@@ -67,18 +67,18 @@ unnest_tree <- function(data,
   parent_to <- check_unnest_parent_to(parent_to, data, level_to)
   ancestors_to <- check_unnest_ancestors_to(ancestors_to, data, level_to, parent_to)
 
-  need_parents <- !is_null(parent_to) || !is_null(ancestors_to)
-
   call <- current_env()
 
   level_sizes <- list()
   level_parent_ids <- list()
+  level_ancestors <- list()
   level_data <- list()
   out_ptype <- vctrs::vec_ptype(dplyr::select(data, -any_of(child_col)))
 
   level <- 1L
   parent_ids <- vctrs::vec_init(data[[id_col]])
   ns <- vctrs::vec_size(data)
+  cur_ancestors <- vctrs::vec_rep_each(list(NULL), ns)
 
   while (!is.null(data)) {
     children <- data[[child_col]] %||% list()
@@ -90,18 +90,28 @@ unnest_tree <- function(data,
     # keep track of the out ptype to error earlier and better error messages (in the future...)
     out_ptype <- vctrs::vec_ptype2(out_ptype, data)
     level_data[[level]] <- data
-    if (need_parents) {
+    # we could also directly repeat the parent ids but it is a bit more efficient
+    # to store the parent ids and level sizes in a list and expand + repeat them
+    # in the end
+    if (!is_null(parent_to)) {
       level_sizes[[level]] <- ns
       level_parent_ids[[level]] <- parent_ids
     }
 
-    ns <- vctrs::list_sizes(children)
-    parent_ids <- data[[id_col]]
+    if (!is_null(ancestors_to)) {
+      if (level > 1L) {
+        ancestors_simple <- purrr::map2(cur_ancestors, vctrs::vec_chop(parent_ids), c)
+        cur_ancestors <- vctrs::vec_rep_each(ancestors_simple, ns)
+      }
+      level_ancestors[[level]] <- cur_ancestors
+    }
 
+    ns <- vctrs::list_sizes(children)
     if (all(ns == 0)) {
       break
     }
 
+    parent_ids <- data[[id_col]]
     # unclass `list_of` to avoid performance hit
     children <- purrr::map(children, ~ unclass_list_of(.x, child_col, call = call))
     data <- vctrs::vec_unchop(children)
@@ -124,15 +134,7 @@ unnest_tree <- function(data,
   }
 
   if (!is_null(ancestors_to)) {
-    ancestors <- list()
-    ancestors[[1]] <- vctrs::vec_rep_each(list(NULL), level_sizes[[1]])
-
-    for (i in seq2(2L, length(level_parent_ids))) {
-      ancestors_simple <- purrr::map2(ancestors[[i - 1L]], vctrs::vec_chop(level_parent_ids[[i]]), c)
-      ancestors[[i]] <- vctrs::vec_rep_each(ancestors_simple, level_sizes[[i]])
-    }
-
-    out[[ancestors_to]] <- vctrs::vec_unchop(ancestors)
+    out[[ancestors_to]] <- vctrs::vec_unchop(level_ancestors)
   }
 
   check_id(out[[id_col]], id_col)
