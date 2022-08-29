@@ -168,6 +168,6 @@
       (expect_error(pivot_longer(df, x, cols_vary = 1)))
     Output
       <error/rlang_error>
-      Error in `arg_match0()`:
+      Error in `pivot_longer_spec()`:
       ! `cols_vary` must be a string or character vector.
 
