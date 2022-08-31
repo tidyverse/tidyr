@@ -51,29 +51,6 @@ in the \code{value_to} column. This effectively converts explicit missing values
 to implicit missing values, and should generally be used only when missing
 values in \code{data} were created by its structure.}
 
-\item{values_ptypes}{Optionally, a list of column name-prototype
-pairs. Alternatively, a single empty prototype can be supplied, which will
-be applied to all columns. A prototype (or ptype for short) is a
-zero-length vector (like \code{integer()} or \code{numeric()}) that defines the type,
-class, and attributes of a vector. Use these arguments if you want to
-confirm that the created columns are the types that you expect. Note that
-if you want to change (instead of confirm) the types of specific columns,
-you should use \code{names_transform} or \code{values_transform} instead.
-
-For backwards compatibility reasons, supplying \code{list()} is interpreted as
-being identical to \code{NULL} rather than as using a list prototype on all
-columns. Expect this to change in the future.}
-
-\item{values_transform}{Optionally, a list of column
-name-function pairs. Alternatively, a single function can be supplied,
-which will be applied to all columns. Use these arguments if you need to
-change the types of specific columns. For example, \code{names_transform = list(week = as.integer)} would convert a character variable called \code{week}
-to an integer.
-
-If not specified, the type of the columns generated from \code{names_to} will
-be character, and the type of the variables generated from \code{values_to}
-will be the common type of the input columns used to generate them.}
-
 \item{cols}{<\code{\link[=tidyr_tidy_select]{tidy-select}}> Columns to pivot into
 longer format.}
 
@@ -105,7 +82,7 @@ existing column names.}
 \item{names_prefix}{A regular expression used to remove matching text
 from the start of each variable name.}
 
-\item{names_sep}{If \code{names_to} contains multiple values,
+\item{names_sep, names_pattern}{If \code{names_to} contains multiple values,
 these arguments control how the column name is broken up.
 
 \code{names_sep} takes the same specification as \code{\link[=separate]{separate()}}, and can either
@@ -119,21 +96,7 @@ If these arguments do not give you enough control, use
 \code{pivot_longer_spec()} to create a spec object and process manually as
 needed.}
 
-\item{names_pattern}{If \code{names_to} contains multiple values,
-these arguments control how the column name is broken up.
-
-\code{names_sep} takes the same specification as \code{\link[=separate]{separate()}}, and can either
-be a numeric vector (specifying positions to break on), or a single string
-(specifying a regular expression to split on).
-
-\code{names_pattern} takes the same specification as \code{\link[=extract]{extract()}}, a regular
-expression containing matching groups (\verb{()}).
-
-If these arguments do not give you enough control, use
-\code{pivot_longer_spec()} to create a spec object and process manually as
-needed.}
-
-\item{names_ptypes}{Optionally, a list of column name-prototype
+\item{names_ptypes, values_ptypes}{Optionally, a list of column name-prototype
 pairs. Alternatively, a single empty prototype can be supplied, which will
 be applied to all columns. A prototype (or ptype for short) is a
 zero-length vector (like \code{integer()} or \code{numeric()}) that defines the type,
@@ -146,7 +109,7 @@ For backwards compatibility reasons, supplying \code{list()} is interpreted as
 being identical to \code{NULL} rather than as using a list prototype on all
 columns. Expect this to change in the future.}
 
-\item{names_transform}{Optionally, a list of column
+\item{names_transform, values_transform}{Optionally, a list of column
 name-function pairs. Alternatively, a single function can be supplied,
 which will be applied to all columns. Use these arguments if you need to
 change the types of specific columns. For example, \code{names_transform = list(week = as.integer)} would convert a character variable called \code{week}

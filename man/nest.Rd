@@ -111,10 +111,12 @@ tidyr 1.0.0 introduced a new syntax for \code{nest()} and \code{unnest()} that's
 designed to be more similar to other functions. Converting to the new syntax
 should be straightforward (guided by the message you'll recieve) but if
 you just need to run an old analysis, you can easily revert to the previous
-behaviour using \code{\link[=nest_legacy]{nest_legacy()}} and \code{\link[=unnest_legacy]{unnest_legacy()}} as follows:\preformatted{library(tidyr)
+behaviour using \code{\link[=nest_legacy]{nest_legacy()}} and \code{\link[=unnest_legacy]{unnest_legacy()}} as follows:
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{library(tidyr)
 nest <- nest_legacy
 unnest <- unnest_legacy
-}
+}\if{html}{\out{</div>}}
 }
 
 \section{Grouped data frames}{

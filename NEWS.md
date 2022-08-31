@@ -1,3 +1,7 @@
+# tidyr 1.2.1
+
+* Hot patch release to resolve R CMD check failures.
+
 # tidyr 1.2.0
 
 ## Pivoting

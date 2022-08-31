@@ -13,7 +13,7 @@ spread(data, key, value, fill = NA, convert = FALSE, drop = TRUE, sep = NULL)
 \code{\link[tidyselect:vars_pull]{tidyselect::vars_pull()}}.
 
 These arguments are passed by expression and support
-\link[rlang:nse-force]{quasiquotation} (you can unquote column
+\link[rlang:topic-inject]{quasiquotation} (you can unquote column
 names or column positions).}
 
 \item{fill}{If set, missing values will be replaced with this value. Note
