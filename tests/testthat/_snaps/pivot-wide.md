@@ -4,7 +4,8 @@
       (expect_error(pivot_wider(df, names_from = key, values_from = val)))
     Output
       <error/vctrs_error_names_must_be_unique>
-      Names must be unique.
+      Error in `vec_cbind()`:
+      ! Names must be unique.
       x These names are duplicated:
         * "a" at locations 1 and 2.
       i Use argument `names_repair` to specify repair strategy.
@@ -13,10 +14,10 @@
 
     Code
       out <- pivot_wider(df, names_from = key, values_from = val, names_repair = "unique")
-    Message <simpleMessage>
+    Message <rlib_message_name_repair>
       New names:
-      * a -> a...1
-      * a -> a...2
+      * `a` -> `a...1`
+      * `a` -> `a...2`
 
 # `names_from` must be supplied if `name` isn't in `data` (#1240)
 
@@ -24,7 +25,8 @@
       (expect_error(pivot_wider(df, values_from = val)))
     Output
       <error/vctrs_error_subscript_oob>
-      Can't subset columns that don't exist.
+      Error in `build_wider_spec()`:
+      ! Can't select columns that don't exist.
       x Column `name` doesn't exist.
 
 # `values_from` must be supplied if `value` isn't in `data` (#1240)
@@ -33,7 +35,8 @@
       (expect_error(pivot_wider(df, names_from = key)))
     Output
       <error/vctrs_error_subscript_oob>
-      Can't subset columns that don't exist.
+      Error in `build_wider_spec()`:
+      ! Can't select columns that don't exist.
       x Column `value` doesn't exist.
 
 # `names_from` must identify at least 1 column (#1240)
@@ -43,7 +46,8 @@
       )
     Output
       <error/rlang_error>
-      `names_from` must select at least one column.
+      Error in `build_wider_spec()`:
+      ! `names_from` must select at least one column.
 
 # `values_from` must identify at least 1 column (#1240)
 
@@ -52,7 +56,8 @@
       )
     Output
       <error/rlang_error>
-      `values_from` must select at least one column.
+      Error in `build_wider_spec()`:
+      ! `values_from` must select at least one column.
 
 # `values_fn` emits an informative error when it doesn't result in unique values (#1238)
 
@@ -60,7 +65,8 @@
       (expect_error(pivot_wider(df, values_fn = list(value = ~.x))))
     Output
       <error/rlang_error>
-      Applying `values_fn` to `value` must result in a single summary value per key.
+      Error in `value_summarize()`:
+      ! Applying `values_fn` to `value` must result in a single summary value per key.
       x Applying `values_fn` resulted in a value with length 2.
 
 # `names_vary` is validated
@@ -69,12 +75,14 @@
       (expect_error(build_wider_spec(df, names_vary = 1)))
     Output
       <error/rlang_error>
-      `names_vary` must be a character vector.
+      Error in `build_wider_spec()`:
+      ! `names_vary` must be a string or character vector.
     Code
       (expect_error(build_wider_spec(df, names_vary = "x")))
     Output
       <error/rlang_error>
-      `names_vary` must be one of "fastest" or "slowest".
+      Error in `build_wider_spec()`:
+      ! `names_vary` must be one of "fastest" or "slowest", not "x".
 
 # `names_expand` is validated
 
@@ -82,12 +90,14 @@
       (expect_error(build_wider_spec(df, names_expand = 1)))
     Output
       <error/rlang_error>
-      `names_expand` must be a single `TRUE` or `FALSE`.
+      Error in `build_wider_spec()`:
+      ! `names_expand` must be a single `TRUE` or `FALSE`.
     Code
       (expect_error(build_wider_spec(df, names_expand = "x")))
     Output
       <error/rlang_error>
-      `names_expand` must be a single `TRUE` or `FALSE`.
+      Error in `build_wider_spec()`:
+      ! `names_expand` must be a single `TRUE` or `FALSE`.
 
 # `id_expand` is validated
 
@@ -95,18 +105,20 @@
       (expect_error(pivot_wider(df, id_expand = 1)))
     Output
       <error/rlang_error>
-      `id_expand` must be a single `TRUE` or `FALSE`.
+      Error in `pivot_wider_spec()`:
+      ! `id_expand` must be a single `TRUE` or `FALSE`.
     Code
       (expect_error(pivot_wider(df, id_expand = "x")))
     Output
       <error/rlang_error>
-      `id_expand` must be a single `TRUE` or `FALSE`.
+      Error in `pivot_wider_spec()`:
+      ! `id_expand` must be a single `TRUE` or `FALSE`.
 
 # duplicated keys produce list column with warning
 
     Code
       pv <- pivot_wider(df, names_from = key, values_from = val)
-    Warning <warning>
+    Warning <rlang_warning>
       Values from `val` are not uniquely identified; output will contain list-cols.
       * Use `values_fn = list` to suppress this warning.
       * Use `values_fn = {summary_fun}` to summarise duplicates.
@@ -120,7 +132,7 @@
 
     Code
       pivot_wider(df, names_from = key, values_from = c(a, b, c))
-    Warning <warning>
+    Warning <rlang_warning>
       Values from `a`, `b` and `c` are not uniquely identified; output will contain list-cols.
       * Use `values_fn = list` to suppress this warning.
       * Use `values_fn = {summary_fun}` to summarise duplicates.
@@ -139,7 +151,7 @@
 
     Code
       pivot_wider(df, names_from = key, values_from = c(a, b, c), values_fn = list(b = sum))
-    Warning <warning>
+    Warning <rlang_warning>
       Values from `a` and `c` are not uniquely identified; output will contain list-cols.
       * Use `values_fn = list` to suppress this warning.
       * Use `values_fn = {summary_fun}` to summarise duplicates.
@@ -158,7 +170,7 @@
 
     Code
       pv <- pivot_wider(df, names_from = `the-key`, values_from = val)
-    Warning <warning>
+    Warning <rlang_warning>
       Values from `val` are not uniquely identified; output will contain list-cols.
       * Use `values_fn = list` to suppress this warning.
       * Use `values_fn = {summary_fun}` to summarise duplicates.
@@ -174,7 +186,8 @@
       (expect_error(pivot_wider(df, values_fn = 1)))
     Output
       <error/rlang_error>
-      Can't convert a double vector to function
+      Error in `map()`:
+      ! Can't convert `.x[[i]]`, a number, to a function.
 
 # `unused_fn` must result in single summary values
 
@@ -182,7 +195,8 @@
       (expect_error(pivot_wider(df, id_cols = id, unused_fn = identity)))
     Output
       <error/rlang_error>
-      Applying `unused_fn` to `unused` must result in a single summary value per key.
+      Error in `value_summarize()`:
+      ! Applying `unused_fn` to `unused` must result in a single summary value per key.
       x Applying `unused_fn` resulted in a value with length 2.
 
 # `unused_fn` is validated
@@ -191,5 +205,6 @@
       (expect_error(pivot_wider(df, id_cols = id, unused_fn = 1)))
     Output
       <error/rlang_error>
-      Can't convert a double vector to function
+      Error in `map()`:
+      ! Can't convert `.x[[i]]`, a number, to a function.
 

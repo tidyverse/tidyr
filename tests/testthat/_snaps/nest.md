@@ -2,7 +2,7 @@
 
     Code
       out <- nest(df)
-    Warning <warning>
+    Warning <rlang_warning>
       `...` must not be empty for ungrouped data frames.
       Did you want `data = everything()`?
 
@@ -12,7 +12,8 @@
       (expect_error(unnest(df, y)))
     Output
       <error/vctrs_error_scalar_type>
-      Input must be a vector, not a function.
+      Error in `list_sizes()`:
+      ! `x[[1]]` must be a vector, not a function.
 
 # multiple columns must be same length
 
@@ -20,7 +21,8 @@
       (expect_error(unnest(df, c(x, y))))
     Output
       <error/rlang_error>
-      In row 1, can't recycle input of size 2 to size 3.
+      Error in `fn()`:
+      ! In row 1, can't recycle input of size 2 to size 3.
 
 ---
 
@@ -28,7 +30,8 @@
       (expect_error(unnest(df, c(x, y))))
     Output
       <error/rlang_error>
-      In row 1, can't recycle input of size 2 to size 3.
+      Error in `fn()`:
+      ! In row 1, can't recycle input of size 2 to size 3.
 
 # unnesting column of mixed vector / data frame input is an error
 
@@ -36,13 +39,14 @@
       (expect_error(unnest(df, x)))
     Output
       <error/vctrs_error_incompatible_type>
-      Can't combine `..1` <double> and `..2` <tbl_df>.
+      Error:
+      ! Can't combine `..1` <double> and `..2` <tbl_df>.
 
 # warn about old style interface
 
     Code
       out <- nest(df, y)
-    Warning <warning>
+    Warning <rlang_warning>
       All elements of `...` must be named.
       Did you want `data = y`?
 
@@ -50,7 +54,7 @@
 
     Code
       out <- nest(df, -y)
-    Warning <warning>
+    Warning <rlang_warning>
       All elements of `...` must be named.
       Did you want `data = -y`?
 
@@ -58,7 +62,7 @@
 
     Code
       out <- nest(df, x, y, foo = z)
-    Warning <warning>
+    Warning <rlang_warning>
       All elements of `...` must be named.
       Did you want `data = c(x, y)`?
 
@@ -66,7 +70,7 @@
 
     Code
       out <- nest(df, x, starts_with("z"))
-    Warning <warning>
+    Warning <rlang_warning>
       All elements of `...` must be named.
       Did you want `data = c(x, starts_with("z"))`?
 
@@ -74,7 +78,7 @@
 
     Code
       out <- nest(df, y, .key = "y")
-    Warning <warning>
+    Warning <rlang_warning>
       All elements of `...` must be named.
       Did you want `y = y`?
 
@@ -82,21 +86,21 @@
 
     Code
       out <- nest(df, .key = "y")
-    Warning <warning>
+    Warning <rlang_warning>
       `.key` is deprecated
 
 # .key gets warning with new interface
 
     Code
       out <- nest(df, y = y, .key = "y")
-    Warning <warning>
+    Warning <rlang_warning>
       `.key` is deprecated
 
 # cols must go in cols
 
     Code
       unnest(df, x, y)
-    Warning <warning>
+    Warning <rlang_warning>
       unnest() has a new interface. See ?unnest for details.
       Try `df %>% unnest(c(x, y))`, with `mutate()` if needed
     Output
@@ -110,7 +114,7 @@
 
     Code
       unnest(df)
-    Warning <warning>
+    Warning <rlang_warning>
       `cols` is now required when using unnest().
       Please use `cols = c(y)`
     Output
@@ -132,7 +136,7 @@
 
     Code
       out <- df %>% unnest(z = map(y, `+`, 1))
-    Warning <warning>
+    Warning <rlang_warning>
       unnest() has a new interface. See ?unnest for details.
       Try `df %>% unnest(c(z))`, with `mutate()` if needed
 

@@ -35,7 +35,7 @@
 
     Code
       out <- gather(df, k, v)
-    Warning <warning>
+    Warning <rlang_warning>
       attributes are not identical across measure variables;
       they will be dropped
 
@@ -43,7 +43,7 @@
 
     Code
       gather(df, k, v)
-    Warning <warning>
+    Warning <rlang_warning>
       attributes are not identical across measure variables;
       they will be dropped
     Output
