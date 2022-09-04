@@ -137,6 +137,7 @@ list_init_empty <- function(x,
   }
 
   sizes <- list_sizes(x)
+  # FIXME use `vec_any_missing()`?
   empty_null <- vec_equal_na(x)
   empty_typed <- (sizes == 0L) & !empty_null
 

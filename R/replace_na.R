@@ -37,8 +37,13 @@ replace_na <- function(data, replace, ...) {
 #' @export
 replace_na.default <- function(data, replace = NA, ...) {
   check_replacement(replace, "data")
+  # FIXME use `vec_any_missing()` when exported
   missing <- vec_equal_na(data)
-  vec_assign(data, missing, replace, x_arg = "data", value_arg = "replace")
+  if (any(missing)) {
+    data <- vec_assign(data, missing, replace, x_arg = "data", value_arg = "replace")
+  }
+
+  data
 }
 
 #' @export
@@ -63,15 +68,17 @@ replace_na.data.frame <- function(data, replace = list(), ...) {
 
     check_replacement(value, col_arg)
 
+    # FIXME use `vec_any_missing()` when exported
     missing <- vec_equal_na(col)
-
-    data[[name]] <- vec_assign(
-      x = col,
-      i = missing,
-      value = value,
-      x_arg = col_arg,
-      value_arg = value_arg
-    )
+    if (any(missing)) {
+      data[[name]] <- vec_assign(
+        x = col,
+        i = missing,
+        value = value,
+        x_arg = col_arg,
+        value_arg = value_arg
+      )
+    }
   }
 
   data
