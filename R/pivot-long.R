@@ -325,7 +325,13 @@ pivot_longer_spec <- function(data,
   ))
 
   if (values_drop_na) {
-    out <- vec_slice(out, !vec_equal_na(vals))
+    # FIXME use `vec_any_missing()` when exported
+    # or `vec_drop_missing()`/`vec_slice_complete()`
+    # https://github.com/r-lib/vctrs/issues/1449
+    missing_vals <- vec_equal_na(vals)
+    if (any(missing_vals)) {
+      out <- vec_slice(out, !missing_vals)
+    }
   }
 
   out$.seq <- NULL
