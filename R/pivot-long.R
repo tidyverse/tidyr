@@ -292,7 +292,7 @@ pivot_longer_spec <- function(data,
     val_cols <- unname(val_cols)
 
     if (cols_vary == "slowest") {
-      vals[[value]] <- vec_c(!!!val_cols, .ptype = val_type)
+      vals[[value]] <- vec_unchop(val_cols, ptype = val_type)
     } else if (cols_vary == "fastest") {
       vals[[value]] <- vec_interleave(!!!val_cols, .ptype = val_type)
     } else {

@@ -621,7 +621,7 @@ value_summarize <- function(value, value_locs, value_name, fn, fn_name) {
     abort(c(header, bullet))
   }
 
-  value <- vec_c(!!!value)
+  value <- vec_unchop(value)
 
   value
 }
