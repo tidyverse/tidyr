@@ -69,7 +69,7 @@ separate_wider_delim <- function(
     names_repair = "check_unique"
 ) {
   check_installed("stringr")
-  check_present(cols)
+  check_required(cols)
 
   if (is.null(names) && is.null(names_sep)) {
     abort("Must specify at least one of `names` or `names_sep`")
@@ -133,7 +133,7 @@ separate_wider_fixed <- function(
     names_repair = "check_unique"
 ) {
   check_installed("stringr")
-  check_present(cols)
+  check_required(cols)
   fill <- arg_match(fill)
 
   map_unpack(
@@ -178,7 +178,7 @@ separate_wider_regex <- function(
     names_repair = "check_unique"
 ) {
   check_installed("stringr")
-  check_present(cols)
+  check_required(cols)
 
   map_unpack(
     data, {{ cols }},

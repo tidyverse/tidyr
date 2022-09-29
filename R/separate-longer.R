@@ -34,7 +34,7 @@ separate_longer_delim <- function(
     delim
 ) {
   check_installed("stringr")
-  check_present(cols)
+  check_required(cols)
 
   # Needs to be here because argument name is different in str_split
   if (!is_string(delim)) {
@@ -57,7 +57,7 @@ separate_longer_fixed <- function(
     keep_empty = FALSE
 ) {
   check_installed("stringr")
-  check_present(cols)
+  check_required(cols)
 
   map_unchop(data, {{ cols }}, str_split_length, width = width, .keep_empty = keep_empty)
 }
@@ -85,7 +85,7 @@ separate_longer_group <- function(
     keep_empty = FALSE
 ) {
   check_installed("stringr")
-  check_present(cols)
+  check_required(cols)
 
   map_unchop(
     data, {{ cols }},
