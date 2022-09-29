@@ -24,11 +24,7 @@
 #' df %>% separate_at_longer(x, 1)
 #' df %>% separate_at_longer(x, 2)
 #' df %>% separate_at_longer(x, 2, keep_empty = TRUE)
-separate_by_longer <- function(
-    data,
-    cols,
-    delim
-) {
+separate_by_longer <- function(data, cols, delim) {
   check_installed("stringr")
   check_required(cols)
 
@@ -46,16 +42,16 @@ separate_by_longer <- function(
 #'   use `keep_empty = TRUE` to replace size-0 elements with a missing value.
 #' @rdname separate_by_longer
 #' @export
-separate_at_longer <- function(
-    data,
-    cols,
-    width,
-    keep_empty = FALSE
-) {
+separate_at_longer <- function(data, cols, width, keep_empty = FALSE) {
   check_installed("stringr")
   check_required(cols)
 
-  map_unchop(data, {{ cols }}, str_split_length, width = width, .keep_empty = keep_empty)
+  map_unchop(
+    data, {{ cols }},
+    str_split_length,
+    width = width,
+    .keep_empty = keep_empty
+  )
 }
 
 str_split_length <- function(x, width = 1) {
@@ -83,4 +79,3 @@ map_unchop <- function(data, cols, fun, ..., .keep_empty = FALSE) {
   }
   unchop(data, all_of(col_names), keep_empty = .keep_empty)
 }
-

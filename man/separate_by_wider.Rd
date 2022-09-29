@@ -39,8 +39,8 @@ separate_group_wider(
 \arguments{
 \item{data}{A data frame.}
 
-\item{cols}{String columns to separate into pieces. If needed, you can use
-tidyselect to multiple columns.}
+\item{cols}{<\code{\link[=tidyr_tidy_select]{tidy-select}}> String columns to separate
+into pieces.}
 
 \item{delim}{Delimiter between columns, a stringr pattern.
 
@@ -96,7 +96,7 @@ new columns:
 \item \code{separate_group_wider()} splits using regular expression matches.
 }
 
-These functions are equivalent to \code{\link[=separate]{separate()}} and \code{\link[=extract]{extract()}}.  but use
+These functions are equivalent to \code{\link[=separate]{separate()}} and \code{\link[=extract]{extract()}}, but use
 \href{http://stringr.tidyverse.org/}{stringr} as the underlying string
 manipulation engine, and their interfaces reflect what we've learned from
 \code{\link[=unnest_wider]{unnest_wider()}} and \code{\link[=unnest_longer]{unnest_longer()}}.

@@ -12,8 +12,8 @@ separate_at_longer(data, cols, width, keep_empty = FALSE)
 \arguments{
 \item{data}{A data frame.}
 
-\item{cols}{String columns to separate into pieces. If needed, you can use
-tidyselect to multiple columns.}
+\item{cols}{<\code{\link[=tidyr_tidy_select]{tidy-select}}> String columns to separate
+into pieces.}
 
 \item{delim}{Delimiter between columns, a stringr pattern.
 

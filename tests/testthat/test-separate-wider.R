@@ -6,8 +6,6 @@ test_that("separate_by_wider() can create column names", {
 })
 
 test_that("separate_by_wider() warns about too few/too many values", {
-  skip("alignment not complete")
-
   df <- data.frame(x = c("x", "x y", "x y z"))
   expect_snapshot_warning(
     out <- df %>% separate_by_wider(x, " ", names = c("a", "b"))
@@ -17,19 +15,19 @@ test_that("separate_by_wider() warns about too few/too many values", {
 })
 
 test_that("separate_by_wider() can control too few/too many values", {
-  skip("alignment not complete")
-
   df <- data.frame(x = c("x", "x y", "x y z"))
   out <- df %>% separate_by_wider(x, " ",
     names = c("a", "b"),
-    align_direction = "merge"
+    align_direction = "merge",
+    align_warn = "none"
   )
-  expect_equal(out[1, ], tibble(a = NA_character_, b = "x"))
+  expect_equal(out[1, ], tibble(a = "x", b = NA_character_))
   expect_equal(out[3, ], tibble(a = "x", b = "y z"))
 
   out <- df %>% separate_by_wider(x,  " ",
     names = c("a", "b"),
     align_direction = "start",
+    align_warn = "none"
   )
   expect_equal(out[3, ], tibble(a = "x", b = "y"))
 })
@@ -46,8 +44,6 @@ test_that("separate_by_wider() validates its inputs", {
 })
 
 test_that("separate_at_wider() fills too short with NA", {
-  skip("alignment not complete")
-
   df <- data.frame(x = c("ab", "abc", "abcd"))
   expect_snapshot_warning(
     out <- df %>% separate_at_wider(x, widths = c("a" = 2, "b" = 1))
@@ -57,13 +53,15 @@ test_that("separate_at_wider() fills too short with NA", {
   expect_equal(out[3, ], tibble(a = "ab", b = "c"))
 
   # And can override default
-  out <- df %>% separate_at_wider(x, widths = c("a" = 2, "b" = 1), fill = "left")
+  out <- df %>% separate_at_wider(x,
+    widths = c("a" = 2, "b" = 1),
+    align_direction = "end",
+    align_warn = "none"
+  )
   expect_equal(out[1, ], tibble(a = NA_character_, b = "ab"))
 })
 
 test_that("separate_at_wider() can drop values", {
-  skip("alignment not complete")
-
   df <- data.frame(x = "a-b")
   out <- df %>% separate_at_wider(x, widths = c("a" = 1, 1, "b" = 1))
   expect_equal(out, tibble(a = "a", b = "b"))

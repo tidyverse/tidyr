@@ -10,23 +10,23 @@
 #' * `separate_at_wider()` splits using fixed widths.
 #' * `separate_group_wider()` splits using regular expression matches.
 #'
-#' These functions are equivalent to [separate()] and [extract()].  but use
+#' These functions are equivalent to [separate()] and [extract()], but use
 #' [stringr](http://stringr.tidyverse.org/) as the underlying string
 #' manipulation engine, and their interfaces reflect what we've learned from
 #' [unnest_wider()] and [unnest_longer()].
 #'
 #' @inheritParams unnest_longer
 #' @inheritParams separate
-#' @param cols String columns to separate into pieces. If needed, you can use
-#'   tidyselect to multiple columns.
-#' @param names,names_sep Specify either either a fixed number of column
-#'   `names` or use `names_sep` to generate new names from the source column
-#'   name and a numeric suffix.
+#' @param cols <[`tidy-select`][tidyr_tidy_select]> Columns to separate into
+#'   pieces.
+#' @param names,names_sep Specify either a fixed number of column `names` or
+#'   use `names_sep` to generate new names from the source column name and
+#'   a numeric suffix.
 #' @param delim Delimiter between columns, a stringr pattern.
 #'
 #'   Note that the default is a regular expression so that `delim = "."` will
-#'   split on every character. If you need to split by a special character, you
-#'   can use `delim = stringr::fixed(".")`.
+#'   split on every character. If you need to split by a special character, use
+#'   `delim = stringr::fixed(".")`.
 #' @export
 #' @examples
 #' df <- tibble(id = 1:2, x = c("m-123", "f-455"))
@@ -80,7 +80,6 @@ separate_by_wider <- function(
     str_separate_by_wider,
     names = names,
     delim = delim,
-    align_length = align_length,
     align_direction = align_direction,
     align_warn = align_warn,
     .names_sep = names_sep,
@@ -106,7 +105,12 @@ str_separate_by_wider <- function(
   align_direction <- arg_match(align_direction)
   align_warn <- arg_match(align_warn)
 
-  n <- if (align_direction == "merge") length(names) else Inf
+  if (align_direction == "merge") {
+    n <- length(names)
+    align_direction <- "start"
+  } else {
+    n <- Inf
+  }
   pieces <- stringr::str_split(x, delim, n = n)
 
   if (is.null(names)) {
@@ -130,28 +134,35 @@ separate_at_wider <- function(
     data,
     cols,
     widths,
-    fill = c("warn", "right", "left"),
+    align_direction = c("start", "end", "merge"),
+    align_warn = c("both", "short", "long", "none"),
     names_sep = NULL,
     names_repair = "check_unique"
 ) {
   check_installed("stringr")
   check_required(cols)
-  fill <- arg_match(fill)
 
   map_unpack(
     data, {{ cols }},
     str_separate_at_wider,
     widths = widths,
-    fill = fill,
+    align_direction = align_direction,
+    align_warn = align_warn,
     .names_sep = names_sep,
     .names_repair = names_repair
   )
 }
 
-str_separate_at_wider <- function(x, widths, fill = "warn") {
+str_separate_at_wider <- function(x,
+                                  widths,
+                                  align_direction = c("start", "end", "merge"),
+                                  align_warn = c("both", "short", "long", "none")
+                                  ) {
   if (!is_integerish(widths) || all(!have_name(widths))) {
     abort("`widths` must be a named integer vector")
   }
+  align_direction <- arg_match(align_direction)
+  align_warn <- arg_match(align_warn)
 
   skip <- names(widths) == ""
   breaks <- cumsum(c(1, unname(widths)))[-(length(widths) + 1)]
@@ -160,8 +171,8 @@ str_separate_at_wider <- function(x, widths, fill = "warn") {
   pieces <- stringr::str_sub_all(x, from)
   pieces <- lapply(pieces, function(x) x[x != ""])
   list2df(pieces, names(widths)[!skip],
-    align_direction = if (fill == "left") "start" else "end",
-    align_warn = if (fill == "warn") "both" else "none"
+    align_direction = align_direction,
+    align_warn = align_warn
   )
 }
 
@@ -247,7 +258,7 @@ map_unpack <- function(data, cols, fun, ..., .names_sep, .names_repair) {
 list2df <- function(
     x,
     names,
-    align_direction = c("start", "end", "merge"),
+    align_direction = c("start", "end"),
     align_warn = c("both", "short", "long", "none")
 ) {
   align_direction <- arg_match(align_direction)
@@ -268,8 +279,6 @@ standardise_list_lengths <- function(x, n, direction) {
   if (!(is_integer(n, 1L) && !is.na(n) && n >= 0L)) {
     abort("`n` must be a single non-negative integer.")
   }
-
-  direction <- arg_match0(direction, values = c("start", "end"), arg_nm = "direction")
 
   sizes <- list_sizes(x)
 
@@ -301,7 +310,7 @@ standardise_list_lengths <- function(x, n, direction) {
   # iteration. `"left"` is a little tricky because we have to hold the start
   # location constant if we couldn't use it because the piece was too small.
   # Pieces that are too large are automatically ignored.
-  if (direction == "end") {
+  if (direction == "start") {
     for (i in seq_len(n)) {
       small <- sizes < i
 
