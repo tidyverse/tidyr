@@ -106,14 +106,16 @@ str_separate_wider_delim <- function(
   align_direction <- arg_match(align_direction)
   align_warn <- arg_match(align_warn)
 
-  n <- if (extra == "merge") length(names) else Inf
+  n <- if (align_direction == "merge") length(names) else Inf
   pieces <- stringr::str_split(x, delim, n = n)
 
   if (is.null(names)) {
     names <- seq_len(align_length %||% max(lengths(pieces)))
   }
 
-  list2df(pieces, names,
+  list2df(
+    pieces,
+    names = names,
     align_direction = align_direction,
     align_warn = align_warn
   )
@@ -158,8 +160,8 @@ str_separate_wider_fixed <- function(x, widths, fill = "warn") {
   pieces <- stringr::str_sub_all(x, from)
   pieces <- lapply(pieces, function(x) x[x != ""])
   list2df(pieces, names(widths)[!skip],
-    fill = if (fill == "left") "left" else "right",
-    warn_fill = fill == "warn"
+    align_direction = if (fill == "left") "start" else "end",
+    align_warn = if (fill == "warn") "both" else "none"
   )
 }
 
@@ -245,10 +247,11 @@ map_unpack <- function(data, cols, fun, ..., .names_sep, .names_repair) {
 list2df <- function(
     x,
     names,
-    align_direction = c("short", "long", "merge"),
+    align_direction = c("start", "end", "merge"),
     align_warn = c("both", "short", "long", "none")
 ) {
-  fill <- arg_match(fill)
+  align_direction <- arg_match(align_direction)
+  align_warn <- arg_match(align_warn)
 
   simp <- standardise_list_lengths(x, length(names), align_direction)
   list2df_warn(align_warn, simp$too_sml, simp$too_big, length(names))
@@ -350,7 +353,7 @@ list2df_warn <- function(align_warn, too_short, too_long, p) {
   }
 
   n_short <- length(too_short)
-  if (warn_fill && n_short > 0) {
+  if (warn_short && n_short > 0) {
     idx <- list_indices(too_short)
     warnings <- c(warnings, glue("{n_short} rows were too short: {idx}."))
   }

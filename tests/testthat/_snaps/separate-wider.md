@@ -1,3 +1,9 @@
+# separate_wider_delim() warns about too few/too many values
+
+    Expected 2 pieces in each row.
+    * 1 rows were too long: 3.
+    * 1 rows were too short: 1.
+
 # separate_wider_delim() validates its inputs
 
     Code
@@ -25,6 +31,11 @@
     Condition
       Error in `separate_wider_delim()`:
       ! Must specify at least one of `names` or `names_sep`
+
+# separate_wider_fixed() fills too short with NA
+
+    Expected 2 pieces in each row.
+    * 1 rows were too short: 1.
 
 # separate_wider_fixed() validates its inputs
 
