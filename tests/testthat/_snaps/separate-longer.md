@@ -1,44 +1,26 @@
-# separate_longer_delim() validates its inputs
+# separate_by_longer() validates its inputs
 
     Code
-      df %>% separate_longer_delim()
+      df %>% separate_by_longer()
     Condition
-      Error in `separate_longer_delim()`:
+      Error in `separate_by_longer()`:
       ! `cols` is absent but must be supplied.
     Code
-      df %>% separate_longer_delim(x, delim = 1)
+      df %>% separate_by_longer(x, delim = 1)
     Condition
-      Error in `separate_longer_delim()`:
+      Error in `separate_by_longer()`:
       ! `delim` must be a string
 
-# separate_longer_fixed() validates its inputs
+# separate_at_longer() validates its inputs
 
     Code
-      df %>% separate_longer_fixed()
+      df %>% separate_at_longer()
     Condition
-      Error in `separate_longer_fixed()`:
+      Error in `separate_at_longer()`:
       ! `cols` is absent but must be supplied.
     Code
-      df %>% separate_longer_fixed(x, width = 1.5)
+      df %>% separate_at_longer(x, width = 1.5)
     Condition
       Error in `fun()`:
       ! `width` must be an integer
-
-# separate_longer_group() validates its inputs
-
-    Code
-      df %>% separate_longer_group()
-    Condition
-      Error in `separate_longer_group()`:
-      ! `cols` is absent but must be supplied.
-    Code
-      df %>% separate_longer_group(x, 1)
-    Condition
-      Error in `fun()`:
-      ! `pattern` must be a string
-    Code
-      df %>% separate_longer_group(x, "x")
-    Condition
-      Error in `fun()`:
-      ! `pattern` must contain at least one () capturing group
 

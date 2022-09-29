@@ -6,29 +6,25 @@
 #'
 #' Each of these functions takes a string and splits it into multiple rows:
 #'
-#' * `separate_longer_delim()` splits by a delimiter.
-#' * `separate_longer_fixed()` splits by a fixed width.
-#' * `separate_longer_group()` extracts the first group from a repeated match.
+#' * `separate_by_longer()` splits by a delimiter.
+#' * `separate_at_longer()` splits by a fixed width.
 #'
 #' @export
-#' @inheritParams separate_wider_delim
+#' @inheritParams separate_by_wider
 #' @examples
 #' df <- tibble(id = 1:4, x = c("x", "x y", "x y z", NA))
-#' df %>% separate_longer_delim(x, delim = " ")
-#'
-#' df <- tibble(id = 1:3, x = c("x1", "x2 x3 y1 x4", "y2"))
-#' df %>% separate_longer_group(x, "x(.)")
+#' df %>% separate_by_longer(x, delim = " ")
 #'
 #' # You can separate multiple columns at a time
 #' df <- tibble(id = 1:3, x = c("x", "x y", "x y z"), y = c("a", "a b", "a b c"))
-#' df %>% separate_longer_delim(c(x, y), delim = " ")
+#' df %>% separate_by_longer(c(x, y), delim = " ")
 #'
 #' # Or instead split by a fixed length
 #' df <- tibble(id = 1:3, x = c("ab", "def", ""))
-#' df %>% separate_longer_fixed(x, 1)
-#' df %>% separate_longer_fixed(x, 2)
-#' df %>% separate_longer_fixed(x, 2, keep_empty = TRUE)
-separate_longer_delim <- function(
+#' df %>% separate_at_longer(x, 1)
+#' df %>% separate_at_longer(x, 2)
+#' df %>% separate_at_longer(x, 2, keep_empty = TRUE)
+separate_by_longer <- function(
     data,
     cols,
     delim
@@ -48,9 +44,9 @@ separate_longer_delim <- function(
 #'   each observation. If `nchar(x)` is zero, this means the entire input
 #'   row will be dropped from the output. If you want to preserve all rows,
 #'   use `keep_empty = TRUE` to replace size-0 elements with a missing value.
-#' @rdname separate_longer_delim
+#' @rdname separate_by_longer
 #' @export
-separate_longer_fixed <- function(
+separate_at_longer <- function(
     data,
     cols,
     width,
@@ -73,39 +69,6 @@ str_split_length <- function(x, width = 1) {
   pieces <- stringr::str_sub_all(x, cbind(idx, length = width))
   pieces <- lapply(pieces, function(x) x[x != ""])
   pieces
-}
-
-#' @rdname separate_longer_delim
-#' @param pattern Regular expression containing a capturing group, i.e. `()`.
-#' @export
-separate_longer_group <- function(
-    data,
-    cols,
-    pattern,
-    keep_empty = FALSE
-) {
-  check_installed("stringr")
-  check_required(cols)
-
-  map_unchop(
-    data, {{ cols }},
-    str_split_group,
-    pattern = pattern,
-    .keep_empty = keep_empty
-  )
-}
-
-str_split_group <- function(x, pattern) {
-  if (!is_string(pattern)) {
-    abort("`pattern` must be a string")
-  }
-
-  out <- stringr::str_match_all(x, pattern)
-  if (length(out) && ncol(out[[1]]) < 2) {
-    abort("`pattern` must contain at least one () capturing group")
-  }
-
-  lapply(out, `[`, , 2L)
 }
 
 # helpers -----------------------------------------------------------------

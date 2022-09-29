@@ -6,9 +6,9 @@
 #' Each of these functions takes a string column and splits it into multiple
 #' new columns:
 #'
-#' * `separate_wider_delim()` splits with a delimiter.
-#' * `separate_wider_fixed()` splits using fixed widths.
-#' * `separate_wider_regex()` splits using regular expression matches.
+#' * `separate_by_wider()` splits with a delimiter.
+#' * `separate_at_wider()` splits using fixed widths.
+#' * `separate_group_wider()` splits using regular expression matches.
 #'
 #' These functions are equivalent to [separate()] and [extract()].  but use
 #' [stringr](http://stringr.tidyverse.org/) as the underlying string
@@ -32,32 +32,32 @@
 #' df <- tibble(id = 1:2, x = c("m-123", "f-455"))
 #' # There are three basic ways to split up a string into pieces.
 #' # * with a delimiter
-#' df %>% separate_wider_delim(x, delim = "-", c("gender", "unit"))
+#' df %>% separate_by_wider(x, delim = "-", c("gender", "unit"))
 #' # * by length
-#' df %>% separate_wider_fixed(x, c(gender = 1, 1, unit = 3))
+#' df %>% separate_at_wider(x, c(gender = 1, 1, unit = 3))
 #' # * defining each component with a regular expression
-#' df %>% separate_wider_regex(x, c(gender = ".", ".", unit = "\\d+"))
+#' df %>% separate_group_wider(x, c(gender = ".", ".", unit = "\\d+"))
 #'
 #' # Sometimes you split on the "last" delimiter:
 #' df <- data.frame(var = c("race_1", "race_2", "age_bucket_1", "age_bucket_2"))
 #' # _delim won't help because it always splits on the first delimiter
-#' df %>% separate_wider_delim(var, "_", names = c("var1", "var2"), extra = "merge")
+#' df %>% separate_by_wider(var, "_", names = c("var1", "var2"), extra = "merge")
 #' # Instead, you can use _regex:
-#' df %>% separate_wider_regex(var, c(var1 = ".*", "_", var2 = ".*"))
+#' df %>% separate_group_wider(var, c(var1 = ".*", "_", var2 = ".*"))
 #'
 #' # If the number of components varies, it's most natural to split into rows
 #' df <- tibble(id = 1:4, x = c("x", "x y", "x y z", NA))
-#' df %>% separate_longer_delim(x, delim = " ")
-#' # But separate_wider_delim() provides some tools to deal with the problem
+#' df %>% separate_by_longer(x, delim = " ")
+#' # But separate_by_wider() provides some tools to deal with the problem
 #' # The default behaviour tells you where the problems lie:
-#' df %>% separate_wider_delim(x, delim = " ", names = c("a", "b"))
+#' df %>% separate_by_wider(x, delim = " ", names = c("a", "b"))
 #' # You can suppress the warnings by setting extra and fill
-#' df %>% separate_wider_delim(x, c("a", "b"), delim = " ", extra = "drop", fill = "right")
+#' df %>% separate_by_wider(x, c("a", "b"), delim = " ", extra = "drop", fill = "right")
 #' # Or choose to handle differently
-#' df %>% separate_wider_delim(x, c("a", "b"), delim = " ", extra = "merge", fill = "left")
+#' df %>% separate_by_wider(x, c("a", "b"), delim = " ", extra = "merge", fill = "left")
 #' # Or automatically name the columns
-#' #' df %>% separate_wider_delim(x, delim = " ", names_sep = "", fill = "right")
-separate_wider_delim <- function(
+#' #' df %>% separate_by_wider(x, delim = " ", names_sep = "", fill = "right")
+separate_by_wider <- function(
     data,
     cols,
     delim,
@@ -77,7 +77,7 @@ separate_wider_delim <- function(
 
   map_unpack(
     data, {{ cols }},
-    str_separate_wider_delim,
+    str_separate_by_wider,
     names = names,
     delim = delim,
     align_length = align_length,
@@ -88,7 +88,7 @@ separate_wider_delim <- function(
   )
 }
 
-str_separate_wider_delim <- function(
+str_separate_by_wider <- function(
     x,
     names,
     delim,
@@ -121,12 +121,12 @@ str_separate_wider_delim <- function(
   )
 }
 
-#' @rdname separate_wider_delim
+#' @rdname separate_by_wider
 #' @param widths A named numeric vector where the names become column names,
 #'   and the values specify the column width. Omit the name to leave those
 #'   values out of the final output.
 #' @export
-separate_wider_fixed <- function(
+separate_at_wider <- function(
     data,
     cols,
     widths,
@@ -140,7 +140,7 @@ separate_wider_fixed <- function(
 
   map_unpack(
     data, {{ cols }},
-    str_separate_wider_fixed,
+    str_separate_at_wider,
     widths = widths,
     fill = fill,
     .names_sep = names_sep,
@@ -148,7 +148,7 @@ separate_wider_fixed <- function(
   )
 }
 
-str_separate_wider_fixed <- function(x, widths, fill = "warn") {
+str_separate_at_wider <- function(x, widths, fill = "warn") {
   if (!is_integerish(widths) || all(!have_name(widths))) {
     abort("`widths` must be a named integer vector")
   }
@@ -165,13 +165,13 @@ str_separate_wider_fixed <- function(x, widths, fill = "warn") {
   )
 }
 
-#' @rdname separate_wider_delim
+#' @rdname separate_by_wider
 #' @param patterns A named character vector where the names given names of
 #'   new columns in the output, and the values are regular expressions.
 #'   Unnamed components will match, but not be included in the output.
 #' @param match_complete Is the pattern required to match the entire string?
 #' @export
-separate_wider_regex <- function(
+separate_group_wider <- function(
     data,
     cols,
     patterns,
@@ -184,7 +184,7 @@ separate_wider_regex <- function(
 
   map_unpack(
     data, {{ cols }},
-    str_separate_wider_regex,
+    str_separate_group_wider,
     patterns = patterns,
     match_complete = match_complete,
     .names_sep = names_sep,
@@ -192,7 +192,7 @@ separate_wider_regex <- function(
   )
 }
 
-str_separate_wider_regex <- function(x, patterns, match_complete = TRUE) {
+str_separate_group_wider <- function(x, patterns, match_complete = TRUE) {
   if (!is.character(patterns) || all(!have_name(patterns))) {
     abort("`patterns` must be a named character vector")
   }
