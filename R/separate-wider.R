@@ -102,7 +102,7 @@ str_separate_wider_delim <- function(
   }
   if (!is_string(delim)) {
     abort("`delim` must be a string")
-  }.
+  }
   align_direction <- arg_match(align_direction)
   align_warn <- arg_match(align_warn)
 
