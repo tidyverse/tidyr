@@ -1,13 +1,13 @@
-# brendaDb
+# NA
 
 <details>
 
 * Version: NA
 * GitHub: NA
-* Source code: https://github.com/cran/brendaDb
-* Number of recursive dependencies: 101
+* Source code: https://github.com/cran/NA
+* Number of recursive dependencies: 0
 
-Run `cloud_details(, "brendaDb")` for more info
+Run `cloud_details(, "NA")` for more info
 
 </details>
 
@@ -33,16 +33,16 @@ Run `cloud_details(, "brendaDb")` for more info
 
 
 ```
-# BUSpaRse
+# NA
 
 <details>
 
 * Version: NA
 * GitHub: NA
-* Source code: https://github.com/cran/BUSpaRse
-* Number of recursive dependencies: 158
+* Source code: https://github.com/cran/NA
+* Number of recursive dependencies: 0
 
-Run `cloud_details(, "BUSpaRse")` for more info
+Run `cloud_details(, "NA")` for more info
 
 </details>
 
@@ -68,16 +68,16 @@ Run `cloud_details(, "BUSpaRse")` for more info
 
 
 ```
-# ceRNAnetsim
+# NA
 
 <details>
 
 * Version: NA
 * GitHub: NA
-* Source code: https://github.com/cran/ceRNAnetsim
-* Number of recursive dependencies: 93
+* Source code: https://github.com/cran/NA
+* Number of recursive dependencies: 0
 
-Run `cloud_details(, "ceRNAnetsim")` for more info
+Run `cloud_details(, "NA")` for more info
 
 </details>
 
@@ -103,16 +103,16 @@ Run `cloud_details(, "ceRNAnetsim")` for more info
 
 
 ```
-# COMPASS
+# NA
 
 <details>
 
 * Version: NA
 * GitHub: NA
-* Source code: https://github.com/cran/COMPASS
-* Number of recursive dependencies: 148
+* Source code: https://github.com/cran/NA
+* Number of recursive dependencies: 0
 
-Run `cloud_details(, "COMPASS")` for more info
+Run `cloud_details(, "NA")` for more info
 
 </details>
 
@@ -138,16 +138,16 @@ Run `cloud_details(, "COMPASS")` for more info
 
 
 ```
-# ctDNAtools
+# NA
 
 <details>
 
 * Version: NA
 * GitHub: NA
-* Source code: https://github.com/cran/ctDNAtools
-* Number of recursive dependencies: 145
+* Source code: https://github.com/cran/NA
+* Number of recursive dependencies: 0
 
-Run `cloud_details(, "ctDNAtools")` for more info
+Run `cloud_details(, "NA")` for more info
 
 </details>
 
@@ -173,16 +173,16 @@ Run `cloud_details(, "ctDNAtools")` for more info
 
 
 ```
-# destiny
+# NA
 
 <details>
 
 * Version: NA
 * GitHub: NA
-* Source code: https://github.com/cran/destiny
-* Number of recursive dependencies: 149
+* Source code: https://github.com/cran/NA
+* Number of recursive dependencies: 0
 
-Run `cloud_details(, "destiny")` for more info
+Run `cloud_details(, "NA")` for more info
 
 </details>
 
@@ -208,16 +208,16 @@ Run `cloud_details(, "destiny")` for more info
 
 
 ```
-# dynfrail
+# NA
 
 <details>
 
 * Version: NA
 * GitHub: NA
-* Source code: https://github.com/cran/dynfrail
-* Number of recursive dependencies: 92
+* Source code: https://github.com/cran/NA
+* Number of recursive dependencies: 0
 
-Run `cloud_details(, "dynfrail")` for more info
+Run `cloud_details(, "NA")` for more info
 
 </details>
 
@@ -243,16 +243,16 @@ Run `cloud_details(, "dynfrail")` for more info
 
 
 ```
-# evaluator
+# NA
 
 <details>
 
 * Version: NA
 * GitHub: NA
-* Source code: https://github.com/cran/evaluator
-* Number of recursive dependencies: 146
+* Source code: https://github.com/cran/NA
+* Number of recursive dependencies: 0
 
-Run `cloud_details(, "evaluator")` for more info
+Run `cloud_details(, "NA")` for more info
 
 </details>
 
@@ -278,16 +278,51 @@ Run `cloud_details(, "evaluator")` for more info
 
 
 ```
-# expstudies
+# NA
 
 <details>
 
 * Version: NA
 * GitHub: NA
-* Source code: https://github.com/cran/expstudies
-* Number of recursive dependencies: 52
+* Source code: https://github.com/cran/NA
+* Number of recursive dependencies: 0
 
-Run `cloud_details(, "expstudies")` for more info
+Run `cloud_details(, "NA")` for more info
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
+# NA
+
+<details>
+
+* Version: NA
+* GitHub: NA
+* Source code: https://github.com/cran/NA
+* Number of recursive dependencies: 0
+
+Run `cloud_details(, "NA")` for more info
 
 </details>
 
@@ -317,11 +352,11 @@ Run `cloud_details(, "expstudies")` for more info
 
 <details>
 
-* Version: 1.3.0
+* Version: 1.3.1
 * GitHub: https://github.com/great-northern-diver/loon.ggplot
 * Source code: https://github.com/cran/loon.ggplot
-* Date/Publication: 2021-09-28 14:00:05 UTC
-* Number of recursive dependencies: 99
+* Date/Publication: 2022-02-07 21:50:06 UTC
+* Number of recursive dependencies: 103
 
 Run `cloud_details(, "loon.ggplot")` for more info
 
@@ -339,7 +374,7 @@ Run `cloud_details(, "loon.ggplot")` for more info
 * using option ‘--no-manual’
 * checking for file ‘loon.ggplot/DESCRIPTION’ ... OK
 * checking extension type ... Package
-* this is package ‘loon.ggplot’ version ‘1.3.0’
+* this is package ‘loon.ggplot’ version ‘1.3.1’
 * package encoding: UTF-8
 * checking package namespace information ... OK
 * checking package dependencies ... ERROR
@@ -367,7 +402,7 @@ Status: 1 ERROR
 * using option ‘--no-manual’
 * checking for file ‘loon.ggplot/DESCRIPTION’ ... OK
 * checking extension type ... Package
-* this is package ‘loon.ggplot’ version ‘1.3.0’
+* this is package ‘loon.ggplot’ version ‘1.3.1’
 * package encoding: UTF-8
 * checking package namespace information ... OK
 * checking package dependencies ... ERROR
@@ -385,16 +420,16 @@ Status: 1 ERROR
 
 
 ```
-# mafs
+# NA
 
 <details>
 
 * Version: NA
 * GitHub: NA
-* Source code: https://github.com/cran/mafs
-* Number of recursive dependencies: 88
+* Source code: https://github.com/cran/NA
+* Number of recursive dependencies: 0
 
-Run `cloud_details(, "mafs")` for more info
+Run `cloud_details(, "NA")` for more info
 
 </details>
 
@@ -428,7 +463,7 @@ Run `cloud_details(, "mafs")` for more info
 * GitHub: NA
 * Source code: https://github.com/cran/MarketMatching
 * Date/Publication: 2021-01-08 20:10:02 UTC
-* Number of recursive dependencies: 67
+* Number of recursive dependencies: 71
 
 Run `cloud_details(, "MarketMatching")` for more info
 
@@ -480,6 +515,41 @@ See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
 manual.
 * DONE
 Status: 1 ERROR
+
+
+
+
+
+```
+# NA
+
+<details>
+
+* Version: NA
+* GitHub: NA
+* Source code: https://github.com/cran/NA
+* Number of recursive dependencies: 0
+
+Run `cloud_details(, "NA")` for more info
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
 
 
 

@@ -1,10 +1,12 @@
 Package: tidyr
 Title: Tidy Messy Data
-Version: 1.1.4.9000
+Version: 1.2.1.9000
 Authors@R: c(
     person("Hadley", "Wickham", , "hadley@rstudio.com", role = c("aut", "cre")),
+    person("Davis", "Vaughan", , "davis@rstudio.com", role = "aut"),
     person("Maximilian", "Girlich", role = "aut"),
-    person("RStudio", role = "cph")
+    person("Kevin", "Ushey", , "kevin@rstudio.com", role = "ctb"),
+    person("RStudio", role = c("cph", "fnd"))
   )
 Description: Tools to help to create tidy data, where each column is a
     variable, each row is an observation, and each cell contains a single
@@ -20,17 +22,16 @@ Depends:
     R (>= 3.1)
 Imports: 
     dplyr (>= 1.0.0),
-    ellipsis (>= 0.1.0),
     glue,
     lifecycle,
     magrittr,
     purrr,
+    rlang (>= 1.0.4),
     stringr (>= 1.4.0.9000),
-    rlang,
     tibble (>= 2.1.1),
     tidyselect (>= 1.1.0),
     utils,
-    vctrs (>= 0.3.7)
+    vctrs (>= 0.4.1)
 Suggests: 
     covr,
     data.table,
@@ -49,7 +50,7 @@ Config/testthat/edition: 3
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.2
+RoxygenNote: 7.2.1
 SystemRequirements: C++11
 Remotes:  
     tidyverse/stringr

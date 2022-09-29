@@ -1,15 +1,15 @@
-library(dplyr, warn.conflicts = FALSE)
-
 test_that("order doesn't matter", {
   df1 <- tibble(x = factor(c("a", "b")), y = 1:2)
   df2 <- tibble(x = factor(c("b", "a")), y = 2:1)
   one <- spread(df1, x, y)
-  two <- spread(df2, x, y) %>% select(a, b) %>% arrange(a, b)
+  two <- spread(df2, x, y) %>%
+    dplyr::select(a, b) %>%
+    dplyr::arrange(a, b)
   expect_identical(one, two)
 
   df1 <- tibble(z = factor(c("b", "a")), x = factor(c("a", "b")), y = 1:2)
   df2 <- tibble(z = factor(c("a", "b")), x = factor(c("b", "a")), y = 2:1)
-  one <- spread(df1, x, y) %>% arrange(z)
+  one <- spread(df1, x, y) %>% dplyr::arrange(z)
   two <- spread(df2, x, y)
   expect_identical(one, two)
 })
@@ -85,7 +85,9 @@ test_that("spread preserves class of tibbles", {
     y = factor(c("c", "d", "c", "d")),
     z = factor(c("w", "x", "y", "z"))
   )
-  dat %>% spread(x, z) %>% expect_s3_class("tbl_df")
+  dat %>%
+    spread(x, z) %>%
+    expect_s3_class("tbl_df")
 })
 
 test_that("dates are spread into columns (#62)", {
@@ -151,7 +153,7 @@ test_that("vars that are all NA are logical if convert = TRUE (#118)", {
 
 test_that("complex values are preserved  (#134)", {
   df <- expand.grid(id = 1:2, key = letters[1:2], stringsAsFactors = TRUE) %>%
-    mutate(value = 1:4 + 1i)
+    dplyr::mutate(value = 1:4 + 1i)
 
   out1 <- spread(df, key, value, convert = FALSE)
   out2 <- spread(df, key, value, convert = TRUE)
@@ -194,12 +196,16 @@ test_that("spread gives one column when no existing non-spread vars", {
 test_that("grouping vars are kept where possible", {
   # Can keep
   df <- tibble(x = 1:2, key = factor(c("a", "b")), value = 1:2)
-  out <- df %>% group_by(x) %>% spread(key, value)
-  expect_equal(groups(out), list(quote(x)))
+  out <- df %>%
+    dplyr::group_by(x) %>%
+    spread(key, value)
+  expect_equal(dplyr::groups(out), list(quote(x)))
 
   # Can't keep
   df <- tibble(key = factor(c("a", "b")), value = 1:2)
-  out <- df %>% group_by(key) %>% spread(key, value)
+  out <- df %>%
+    dplyr::group_by(key) %>%
+    spread(key, value)
   expect_equal(out, tibble(a = 1L, b = 2L))
 })
 
@@ -286,4 +292,3 @@ test_that("spread works when id column has names (#525)", {
   res <- spread(df, key, out, drop = FALSE)
   expect_equal(names(res), c("id", letters[1:5]))
 })
-

@@ -57,7 +57,7 @@ test_that("works with list-cols", {
 
 test_that("doesn't drop empty atomic elements of list-cols (#1228)", {
   df <- tibble(x = list(1L, NULL, integer()))
-  expect_identical(drop_na(df), df[c(1, 3),])
+  expect_identical(drop_na(df), df[c(1, 3), ])
 })
 
 test_that("preserves attributes", {

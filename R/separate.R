@@ -56,23 +56,23 @@
 #'
 #' # Use regular expressions to separate on multiple characters:
 #' df <- data.frame(x = c(NA, "a1b", "c4d", "e9g"))
-#' df %>% separate(x, c("A","B"), sep = "[0-9]")
+#' df %>% separate(x, c("A", "B"), sep = "[0-9]")
 #'
 #' # convert = TRUE detects column classes:
 #' df <- data.frame(x = c("x:1", "x:2", "y:4", "z", NA))
-#' df %>% separate(x, c("key","value"), ":") %>% str
-#' df %>% separate(x, c("key","value"), ":", convert = TRUE) %>% str
+#' df %>% separate(x, c("key", "value"), ":") %>% str()
+#' df %>% separate(x, c("key", "value"), ":", convert = TRUE) %>% str()
 separate <- function(data, col, into, sep = "[^[:alnum:]]+", remove = TRUE,
                      convert = FALSE, extra = "warn", fill = "warn", ...) {
-  ellipsis::check_dots_used()
+  check_dots_used()
   UseMethod("separate")
 }
 #' @export
 separate.data.frame <- function(data, col, into, sep = "[^[:alnum:]]+",
                                 remove = TRUE, convert = FALSE,
                                 extra = "warn", fill = "warn", ...) {
-  check_present(col)
-  var <- tidyselect::vars_pull(names(data), !! enquo(col))
+  check_required(col)
+  var <- tidyselect::vars_pull(names(data), !!enquo(col))
   value <- as.character(data[[var]])
 
   new_cols <- str_separate(value,
@@ -112,8 +112,11 @@ str_separate <- function(x, into, sep, convert = FALSE, extra = "warn", fill = "
 strsep <- function(x, sep) {
   nchar <- nchar(x)
   pos <- map(sep, function(i) {
-    if (i >= 0) return(i)
-    pmax(0, nchar + i)
+    if (i >= 0) {
+      i
+    } else {
+      pmax(0, nchar + i)
+    }
   })
   pos <- c(list(0), pos, list(nchar))
 

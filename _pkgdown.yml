@@ -17,7 +17,7 @@ template:
   package: tidytemplate
   includes:
       in_header: |
-        <script defer data-domain="tidyr.tidyverse.org,all.tidymodels.org" src="https://plausible.io/js/plausible.js"></script>
+        <script defer data-domain="tidyr.tidyverse.org,all.tidyverse.org" src="https://plausible.io/js/plausible.js"></script>
 development:
   mode: auto
 
@@ -37,14 +37,9 @@ reference:
     See `vignette("rectangle")` for more details and examples.
   contents:
   - unnest_longer
-
-- title: Nesting
-  description: |
-    **Nesting** uses alternative representation of grouped data where a
-    group becomes a single row containing a nested data frame.
-    See `vignette("nest")` for more details and examples.
-  contents:
-  - nest
+  - unnest_wider
+  - unnest
+  - hoist
 
 - title: Character vectors
   description: |
@@ -74,12 +69,15 @@ reference:
   - chop
   - pack
   - uncount
+  - nest
 
 - title: Data
   contents:
   - billboard
+  - cms_patient_experience
   - construction
   - fish_encounters
+  - household
   - relig_income
   - smiths
   - table1
@@ -115,6 +113,8 @@ articles:
 
 news:
   releases:
+  - text: "Version 1.2.0"
+    href: https://www.tidyverse.org/blog/2022/02/tidyr-1-2-0/
   - text: "Version 1.1.0"
     href: https://www.tidyverse.org/blog/2020/05/tidyr-1.1.0/
   - text: "Version 1.0.0"

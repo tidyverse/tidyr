@@ -12,9 +12,9 @@ unite(data, col, ..., sep = "_", remove = TRUE, na.rm = FALSE)
 \item{col}{The name of the new column, as a string or symbol.
 
 This argument is passed by expression and supports
-\link[rlang:nse-force]{quasiquotation} (you can unquote strings
+\link[rlang:topic-inject]{quasiquotation} (you can unquote strings
 and symbols). The name is captured from the expression with
-\code{\link[rlang:nse-defuse]{rlang::ensym()}} (note that this kind of interface where
+\code{\link[rlang:defusing-advanced]{rlang::ensym()}} (note that this kind of interface where
 symbols do not represent actual objects is now discouraged in the
 tidyverse; we support it here for backward compatibility).}
 
@@ -24,7 +24,7 @@ tidyverse; we support it here for backward compatibility).}
 
 \item{remove}{If \code{TRUE}, remove input columns from output data frame.}
 
-\item{na.rm}{If \code{TRUE}, missing values will be remove prior to uniting
+\item{na.rm}{If \code{TRUE}, missing values will be removed prior to uniting
 each value.}
 }
 \description{

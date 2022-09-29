@@ -16,6 +16,17 @@
 #' @param data A data frame to pivot.
 #' @param cols <[`tidy-select`][tidyr_tidy_select]> Columns to pivot into
 #'   longer format.
+#' @param cols_vary When pivoting `cols` into longer format, how should the
+#'   output rows be arranged relative to their original row number?
+#'
+#'   * `"fastest"`, the default, keeps individual rows from `cols` close
+#'     together in the output. This often produces intuitively ordered output
+#'     when you have at least one key column from `data` that is not involved in
+#'     the pivoting process.
+#'
+#'   * `"slowest"` keeps individual columns from `cols` close together in the
+#'     output. This often produces intuitively ordered output when you utilize
+#'     all of the columns from `data` in the pivoting process.
 #' @param names_to A character vector specifying the new column or columns to
 #'   create from the information stored in the column names of `data` specified
 #'   by `cols`.
@@ -116,16 +127,20 @@
 #'   values_to = "count"
 #' )
 #'
-#' # Multiple observations per row
+#' # Multiple observations per row. Since all columns are used in the pivoting
+#' # process, we'll use `cols_vary` to keep values from the original columns
+#' # close together in the output.
 #' anscombe
 #' anscombe %>%
 #'   pivot_longer(
 #'     everything(),
+#'     cols_vary = "slowest",
 #'     names_to = c(".value", "set"),
 #'     names_pattern = "(.)(.)"
 #'   )
 pivot_longer <- function(data,
                          cols,
+                         cols_vary = "fastest",
                          names_to = "name",
                          names_prefix = NULL,
                          names_sep = NULL,
@@ -137,16 +152,15 @@ pivot_longer <- function(data,
                          values_drop_na = FALSE,
                          values_ptypes = NULL,
                          values_transform = NULL,
-                         ...
-                         ) {
-
-  ellipsis::check_dots_used()
+                         ...) {
+  check_dots_used()
   UseMethod("pivot_longer")
 }
 
 #' @export
 pivot_longer.data.frame <- function(data,
                                     cols,
+                                    cols_vary = "fastest",
                                     names_to = "name",
                                     names_prefix = NULL,
                                     names_sep = NULL,
@@ -158,10 +172,10 @@ pivot_longer.data.frame <- function(data,
                                     values_drop_na = FALSE,
                                     values_ptypes = NULL,
                                     values_transform = NULL,
-                                    ...
-                                    ) {
-  cols <- enquo(cols)
-  spec <- build_longer_spec(data, !!cols,
+                                    ...) {
+  spec <- build_longer_spec(
+    data = data,
+    cols = {{ cols }},
     names_to = names_to,
     values_to = values_to,
     names_prefix = names_prefix,
@@ -171,7 +185,10 @@ pivot_longer.data.frame <- function(data,
     names_transform = names_transform
   )
 
-  pivot_longer_spec(data, spec,
+  pivot_longer_spec(
+    data = data,
+    spec = spec,
+    cols_vary = cols_vary,
     names_repair = names_repair,
     values_drop_na = values_drop_na,
     values_ptypes = values_ptypes,
@@ -217,17 +234,23 @@ pivot_longer.data.frame <- function(data,
 #' relig_income %>% pivot_longer(
 #'   cols = !religion,
 #'   names_to = "income",
-#'   values_to = "count")
-#'
+#'   values_to = "count"
+#' )
 pivot_longer_spec <- function(data,
                               spec,
+                              cols_vary = "fastest",
                               names_repair = "check_unique",
                               values_drop_na = FALSE,
                               values_ptypes = NULL,
-                              values_transform = NULL
-                              ) {
+                              values_transform = NULL) {
   spec <- check_pivot_spec(spec)
   spec <- deduplicate_spec(spec, data)
+
+  cols_vary <- arg_match0(
+    arg = cols_vary,
+    values = c("fastest", "slowest"),
+    arg_nm = "cols_vary"
+  )
 
   # Quick hack to ensure that split() preserves order
   v_fct <- factor(spec$.value, levels = unique(spec$.value))
@@ -248,30 +271,55 @@ pivot_longer_spec <- function(data,
     cols <- values[[value]]
     col_id <- vec_match(value_keys[[value]], keys)
 
-    val_cols <- vec_init(list(), nrow(keys))
+    n_val_cols <- nrow(keys)
+
+    val_cols <- vec_init(list(), n_val_cols)
     val_cols[col_id] <- unname(as.list(data[cols]))
     val_cols[-col_id] <- list(rep(NA, nrow(data)))
 
     if (has_name(values_transform, value)) {
       val_cols <- lapply(val_cols, values_transform[[value]])
     }
-    val_type <- vec_ptype_common(!!!set_names(val_cols[col_id], cols), .ptype = values_ptypes[[value]])
-    out <- vec_c(!!!val_cols, .ptype = val_type)
-    # Interleave into correct order
-    # TODO somehow `t(matrix(x))` is _faster_ than `matrix(x, byrow = TRUE)`
-    # if this gets fixed in R this should use `byrow = TRUE` again
-    n_vals <- nrow(data) * length(val_cols)
-    idx <- t(matrix(seq_len(n_vals), ncol = length(val_cols)))
-    vals[[value]] <- vec_slice(out, as.integer(idx))
+
+    # Name inputs that came from `data`, just for good error messages when
+    # taking the common type and casting
+    names <- vec_rep("", times = n_val_cols)
+    names[col_id] <- cols
+
+    names(val_cols) <- names
+    val_type <- vec_ptype_common(!!!val_cols[col_id], .ptype = values_ptypes[[value]])
+    val_cols <- vec_cast_common(!!!val_cols, .to = val_type)
+    val_cols <- unname(val_cols)
+
+    if (cols_vary == "slowest") {
+      vals[[value]] <- vec_c(!!!val_cols, .ptype = val_type)
+    } else if (cols_vary == "fastest") {
+      vals[[value]] <- vec_interleave(!!!val_cols, .ptype = val_type)
+    } else {
+      abort("Unknown `cols_vary` value.", .internal = TRUE)
+    }
   }
   vals <- as_tibble(vals)
 
-  # Join together df, spec, and val to produce final tibble
-  df_out <- drop_cols(as_tibble(data, .name_repair = "minimal"), spec$.name)
+  # Join together data, keys, and vals to produce final tibble
+  data_cols <- drop_cols(as_tibble(data, .name_repair = "minimal"), spec$.name)
+
+  times_keys <- vec_size(data_cols)
+  times_data_cols <- vec_size(keys)
+
+  if (cols_vary == "slowest") {
+    data_cols <- vec_rep(data_cols, times_data_cols)
+    keys <- vec_rep_each(keys, times_keys)
+  } else if (cols_vary == "fastest") {
+    data_cols <- vec_rep_each(data_cols, times_data_cols)
+    keys <- vec_rep(keys, times_keys)
+  } else {
+    abort("Unknown `cols_vary` value.", .internal = TRUE)
+  }
 
   out <- wrap_error_names(vec_cbind(
-    vec_rep_each(df_out, vec_size(keys)),
-    vec_rep(keys, vec_size(data)),
+    data_cols,
+    keys,
     vals,
     .name_repair = names_repair
   ))
@@ -368,7 +416,7 @@ build_longer_spec <- function(data,
   # Optionally, cast variables generated from columns
   for (col in names(names_ptypes)) {
     ptype <- names_ptypes[[col]]
-    names[[col]] <- vec_cast(names[[col]], ptype)
+    names[[col]] <- vec_cast(names[[col]], ptype, x_arg = col)
   }
 
   out <- tibble(.name = cols)

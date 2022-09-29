@@ -1,32 +1,43 @@
 #' World Health Organization TB data
 #'
+#' @description
 #' A subset of data from the World Health Organization Global Tuberculosis
-#' Report, and accompanying global populations.
+#' Report, and accompanying global populations. `who` uses the original
+#' codes from the World Health Organization. The column names for columns
+#' 5 through 60 are made by combining `new_` with:
 #'
-#' @format `who`: a data frame with 7,240 rows and the columns:
+#' * the method of diagnosis (`rel` = relapse, `sn` = negative pulmonary
+#'   smear, `sp` = positive pulmonary smear, `ep` = extrapulmonary),
+#' * gender (`f` = female, `m` = male), and
+#' * age group (`014` = 0-14 yrs of age, `1524` = 15-24, `2534` = 25-34,
+#'   `3544` = 35-44 years of age, `4554` = 45-54, `5564` = 55-64,
+#'   `65` = 65 years or older).
+#'
+#' `who2` is a lightly modified version that makes teaching the basics
+#' easier by tweaking the variables to be slightly more consistent and
+#' dropping `iso2` and `iso3`. `newrel` is replaced by `new_rel`, and a
+#' `_` is added after the gender.
+#'
+#' @format ## `who`
+#' A data frame with 7,240 rows and 60 columns:
 #' \describe{
 #'   \item{country}{Country name}
 #'   \item{iso2, iso3}{2 & 3 letter ISO country codes}
 #'   \item{year}{Year}
 #'   \item{new_sp_m014 - new_rel_f65}{Counts of new TB cases recorded by group.
-#'    Column names encode three variables that describe the group (see details).}
+#'    Column names encode three variables that describe the group.}
 #' }
-#' @details The data uses the original codes given by the World Health
-#'   Organization. The column names for columns five through 60 are made by
-#'   combining `new_` to a code for method of diagnosis (`rel` =
-#'   relapse, `sn` = negative pulmonary smear, `sp` = positive
-#'   pulmonary smear, `ep` = extrapulmonary) to a code for gender
-#'   (`f` = female, `m` = male) to a code for age group (`014` =
-#'   0-14 yrs of age, `1524` = 15-24 years of age, `2534` = 25 to
-#'   34 years of age, `3544` = 35 to 44 years of age, `4554` = 45 to
-#'   54 years of age, `5564` = 55 to 64 years of age, `65` = 65 years
-#'   of age or older).
-#'
 #' @source <https://www.who.int/teams/global-tuberculosis-programme/data>
 "who"
 
 #' @rdname who
-#' @format `population`: a data frame with 4,060 rows and three columns:
+#' @format ## `who2`
+#' A data frame with 7,240 rows and 58 columns.
+"who2"
+
+#' @rdname who
+#' @format ## `population`
+#' A data frame with 4,060 rows and three columns:
 #' \describe{
 #'   \item{country}{Country name}
 #'   \item{year}{Year}
@@ -173,3 +184,83 @@
 #' The "Whitburn" project, <https://waxy.org/2008/05/the_whitburn_project/>,
 #' (downloaded April 2008)
 "billboard"
+
+
+#' Household data
+#'
+#' This dataset is based on an example in
+#' `vignette("datatable-reshape", package = "data.table")`
+#'
+#' @format A data frame with 5 rows and 5 columns:
+#' \describe{
+#'   \item{family}{Family identifier}
+#'   \item{dob_child1}{Date of birth of first child}
+#'   \item{dob_child2}{Date of birth of second child}
+#'   \item{name_child1}{Name of first child}?
+#'   \item{name_child2}{Name of second child}
+#' }
+"household"
+
+#' Data from the Centers for Medicare & Medicaid Services
+#'
+#' @description
+#' Two datasets from public data provided the Centers for Medicare & Medicaid
+#' Services, <https://data.cms.gov>.
+#'
+#' *  `cms_patient_experience` contains some lightly cleaned data from
+#'    "Hospice - Provider Data", which provides a list of hospice agencies
+#'    along with some data on quality of patient care,
+#'    <https://data.cms.gov/provider-data/dataset/252m-zfp9>.
+#'
+#' * `cms_patient_care` "Doctors and Clinicians Quality Payment Program PY 2020
+#'   Virtual Group Public Reporting",
+#'   <https://data.cms.gov/provider-data/dataset/8c70-d353>
+#'
+#' @examples
+#' cms_patient_experience %>%
+#'   dplyr::distinct(measure_cd, measure_title)
+#'
+#' cms_patient_experience %>%
+#'   pivot_wider(
+#'     id_cols = starts_with("org"),
+#'     names_from = measure_cd,
+#'     values_from = prf_rate
+#'  )
+#'
+#' cms_patient_care %>%
+#'   pivot_wider(
+#'     names_from = type,
+#'     values_from = score
+#'   )
+#'
+#' cms_patient_care %>%
+#'   pivot_wider(
+#'     names_from = measure_abbr,
+#'     values_from = score
+#'   )
+#'
+#' cms_patient_care %>%
+#'   pivot_wider(
+#'     names_from = c(measure_abbr, type),
+#'     values_from = score
+#'   )
+#' @format `cms_patient_experience` is a data frame with 500 observations and
+#'    five variables:
+#' \describe{
+#' \item{org_pac_id,org_nm}{Organisation ID and name}
+#' \item{measure_cd,measure_title}{Measure code and title}
+#' \item{prf_rate}{Measure performance rate}
+#' }
+"cms_patient_experience"
+
+#' @format `cms_patient_care` is a data frame with 252 observations and
+#'    five variables:
+#' \describe{
+#' \item{ccn,facility_name}{Facility ID and name}
+#' \item{measure_abbr}{Abbreviated measurement title, suitable for use as variable name}
+#' \item{score}{Measure score}
+#' \item{type}{Whether score refers to the rating out of 100 ("observed"), or
+#'   the maximum possible value of the raw score ("denominator")}
+#' }
+#' @rdname cms_patient_experience
+"cms_patient_care"

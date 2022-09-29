@@ -17,8 +17,8 @@ functions of variables. If omitted, defaults to all list-cols.}
 
 \item{.key}{The name of the new column, as a string or symbol. This argument
 is passed by expression and supports
-\link[rlang:nse-force]{quasiquotation} (you can unquote strings and
-symbols). The name is captured from the expression with \code{\link[rlang:nse-defuse]{rlang::ensym()}}
+\link[rlang:topic-inject]{quasiquotation} (you can unquote strings and
+symbols). The name is captured from the expression with \code{\link[rlang:defusing-advanced]{rlang::ensym()}}
 (note that this kind of interface where symbols do not represent actual
 objects is now discouraged in the tidyverse; we support it here for
 backward compatibility).}
@@ -47,10 +47,12 @@ tidyr 1.0.0 introduced a new syntax for \code{\link[=nest]{nest()}} and \code{\l
 of existing usage should be automatically translated to the new syntax with a
 warning. However, if you need to quickly roll back to the previous behaviour,
 these functions provide the previous interface. To make old code work as is,
-add the following code to the top of your script:\preformatted{library(tidyr)
+add the following code to the top of your script:
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{library(tidyr)
 nest <- nest_legacy
 unnest <- unnest_legacy
-}
+}\if{html}{\out{</div>}}
 }
 \examples{
 # Nest and unnest are inverses

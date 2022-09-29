@@ -13,7 +13,7 @@
 #'   tidyverse; we support it here for backward compatibility).
 #' @param ... <[`tidy-select`][tidyr_tidy_select]> Columns to unite
 #' @param sep Separator to use between values.
-#' @param na.rm If `TRUE`, missing values will be remove prior to uniting
+#' @param na.rm If `TRUE`, missing values will be removed prior to uniting
 #'   each value.
 #' @param remove If `TRUE`, remove input columns from output data frame.
 #' @seealso [separate()], the complement.
@@ -32,12 +32,12 @@
 #'   separate(xy, c("x", "y"))
 #' # (but note `x` and `y` contain now "NA" not NA)
 unite <- function(data, col, ..., sep = "_", remove = TRUE, na.rm = FALSE) {
-  ellipsis::check_dots_unnamed()
+  check_dots_unnamed()
   UseMethod("unite")
 }
 #' @export
 unite.data.frame <- function(data, col, ..., sep = "_", remove = TRUE, na.rm = FALSE) {
-  var <- as_string(ensym2(col))
+  var <- as_string(ensym(col))
 
   if (dots_n(...) == 0) {
     from_vars <- set_names(seq_along(data), names(data))

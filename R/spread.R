@@ -37,7 +37,7 @@
 #' @examples
 #' library(dplyr)
 #' stocks <- data.frame(
-#'   time = as.Date('2009-01-01') + 0:9,
+#'   time = as.Date("2009-01-01") + 0:9,
 #'   X = rnorm(10, 0, 1),
 #'   Y = rnorm(10, 0, 2),
 #'   Z = rnorm(10, 0, 4)
@@ -48,14 +48,18 @@
 #'
 #' # Spread and gather are complements
 #' df <- data.frame(x = c("a", "b"), y = c(3, 4), z = c(5, 6))
-#' df %>% spread(x, y) %>% gather("x", "y", a:b, na.rm = TRUE)
+#' df %>%
+#'   spread(x, y) %>%
+#'   gather("x", "y", a:b, na.rm = TRUE)
 #'
 #' # Use 'convert = TRUE' to produce variables of mixed type
-#' df <- data.frame(row = rep(c(1, 51), each = 3),
-#'                  var = c("Sepal.Length", "Species", "Species_num"),
-#'                  value = c(5.1, "setosa", 1, 7.0, "versicolor", 2))
-#' df %>% spread(var, value) %>% str
-#' df %>% spread(var, value, convert = TRUE) %>% str
+#' df <- data.frame(
+#'   row = rep(c(1, 51), each = 3),
+#'   var = c("Sepal.Length", "Species", "Species_num"),
+#'   value = c(5.1, "setosa", 1, 7.0, "versicolor", 2)
+#' )
+#' df %>% spread(var, value) %>% str()
+#' df %>% spread(var, value, convert = TRUE) %>% str()
 spread <- function(data, key, value, fill = NA, convert = FALSE,
                    drop = TRUE, sep = NULL) {
   UseMethod("spread")
@@ -63,8 +67,8 @@ spread <- function(data, key, value, fill = NA, convert = FALSE,
 #' @export
 spread.data.frame <- function(data, key, value, fill = NA, convert = FALSE,
                               drop = TRUE, sep = NULL) {
-  key_var <- tidyselect::vars_pull(names(data), !! enquo(key))
-  value_var <- tidyselect::vars_pull(names(data), !! enquo(value))
+  key_var <- tidyselect::vars_pull(names(data), !!enquo(key))
+  value_var <- tidyselect::vars_pull(names(data), !!enquo(value))
 
   col <- data[key_var]
   col_id <- id(col, drop = drop)

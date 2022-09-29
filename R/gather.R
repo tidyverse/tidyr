@@ -63,7 +63,7 @@
 #' library(dplyr)
 #' # From https://stackoverflow.com/questions/1181060
 #' stocks <- tibble(
-#'   time = as.Date('2009-01-01') + 0:9,
+#'   time = as.Date("2009-01-01") + 0:9,
 #'   X = rnorm(10, 0, 1),
 #'   Y = rnorm(10, 0, 2),
 #'   Z = rnorm(10, 0, 4)
@@ -89,21 +89,21 @@
 #' mini_iris %>% gather(key = "flower_att", value = "measurement", -Species)
 gather <- function(data, key = "key", value = "value", ...,
                    na.rm = FALSE, convert = FALSE, factor_key = FALSE) {
-  ellipsis::check_dots_unnamed()
+  check_dots_unnamed()
   UseMethod("gather")
 }
 #' @export
 gather.data.frame <- function(data, key = "key", value = "value", ...,
                               na.rm = FALSE, convert = FALSE,
                               factor_key = FALSE) {
-  key_var <- as_string(ensym2(key))
-  value_var <- as_string(ensym2(value))
+  key_var <- as_string(ensym(key))
+  value_var <- as_string(ensym(value))
 
   quos <- quos(...)
   if (is_empty(quos)) {
     gather_vars <- setdiff(names(data), c(key_var, value_var))
   } else {
-    gather_vars <- unname(tidyselect::vars_select(tbl_vars(data), !!! quos))
+    gather_vars <- unname(tidyselect::vars_select(tbl_vars(data), !!!quos))
   }
 
   if (is_empty(gather_vars)) {
@@ -180,9 +180,13 @@ normalize_melt_arguments <- function(data, measure.ind) {
 }
 
 all_identical <- function(xs) {
-  if (length(xs) <= 1) return(TRUE)
+  if (length(xs) <= 1) {
+    return(TRUE)
+  }
   for (i in seq(2, length(xs))) {
-    if (!identical(xs[[1]], xs[[i]])) return(FALSE)
+    if (!identical(xs[[1]], xs[[i]])) {
+      return(FALSE)
+    }
   }
   TRUE
 }

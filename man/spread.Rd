@@ -13,7 +13,7 @@ spread(data, key, value, fill = NA, convert = FALSE, drop = TRUE, sep = NULL)
 \code{\link[tidyselect:vars_pull]{tidyselect::vars_pull()}}.
 
 These arguments are passed by expression and support
-\link[rlang:nse-force]{quasiquotation} (you can unquote column
+\link[rlang:topic-inject]{quasiquotation} (you can unquote column
 names or column positions).}
 
 \item{fill}{If set, missing values will be replaced with this value. Note
@@ -49,7 +49,7 @@ See more details in \code{vignette("pivot")}.
 \examples{
 library(dplyr)
 stocks <- data.frame(
-  time = as.Date('2009-01-01') + 0:9,
+  time = as.Date("2009-01-01") + 0:9,
   X = rnorm(10, 0, 1),
   Y = rnorm(10, 0, 2),
   Z = rnorm(10, 0, 4)
@@ -60,12 +60,16 @@ stocksm \%>\% spread(time, price)
 
 # Spread and gather are complements
 df <- data.frame(x = c("a", "b"), y = c(3, 4), z = c(5, 6))
-df \%>\% spread(x, y) \%>\% gather("x", "y", a:b, na.rm = TRUE)
+df \%>\%
+  spread(x, y) \%>\%
+  gather("x", "y", a:b, na.rm = TRUE)
 
 # Use 'convert = TRUE' to produce variables of mixed type
-df <- data.frame(row = rep(c(1, 51), each = 3),
-                 var = c("Sepal.Length", "Species", "Species_num"),
-                 value = c(5.1, "setosa", 1, 7.0, "versicolor", 2))
-df \%>\% spread(var, value) \%>\% str
-df \%>\% spread(var, value, convert = TRUE) \%>\% str
+df <- data.frame(
+  row = rep(c(1, 51), each = 3),
+  var = c("Sepal.Length", "Species", "Species_num"),
+  value = c(5.1, "setosa", 1, 7.0, "versicolor", 2)
+)
+df \%>\% spread(var, value) \%>\% str()
+df \%>\% spread(var, value, convert = TRUE) \%>\% str()
 }

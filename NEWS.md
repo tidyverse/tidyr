@@ -1,5 +1,55 @@
 # tidyr (development version)
 
+* `pivot_longer()` now throws a slightly better error message when
+  `values_ptypes` or `names_ptypes` is provided and the coercion can't be made
+  (#1364).
+
+* `uncount()` is now generic so implementations can be provided for objects
+  other than data frames (@mgirlich, #1358).
+
+* `uncount()` gained the `...` argument. It comes between the required and the
+  optional arguments (@mgirlich, #1358).
+
+* `pivot_longer()` gained a new `cols_vary` argument for controlling the
+  ordering of the output rows relative to their original row number (#1312).
+
+* `pivot_longer()` is now more memory efficient due to the usage of
+  `vctrs::vec_interleave()` (#1310, @mgirlich).
+
+* rlang >=1.0.2 and vctrs >=0.4.1 are now required (#1344).
+
+* Removed dependency on ellipsis in favor of equivalent functions in rlang
+  (#1314).
+
+* `fill()` now works correctly when there is a column named `.direction` in
+  `data` (#1319, @tjmahr).
+
+* Added documentation to the `replace` argument of `replace_na()` to mention
+  that it is always cast to the type of `data` (#1317).
+
+* Improved the error message returned by `pivot_wider()` when a column selected
+  by `names_from` or `values_from` is also selected by `id_cols` (#1318).
+
+# tidyr 1.2.1
+
+* Hot patch release to resolve R CMD check failures.
+
+# tidyr 1.2.0
+
+## Breaking changes
+
+* `complete()` and `expand()` no longer allow you to complete or expand on a
+  grouping column. This was never well-defined since completion/expansion on a
+  grouped data frame happens "within" each group and otherwise has the
+  potential to produce erroneous results (#1299).
+
+* `replace_na()` no longer allows the type of `data` to change when the
+  replacement is applied. `replace` will now always be cast to the type of
+  `data` before the replacement is made. For example, this means that using a
+  replacement value of `1.5` on an integer column is no longer allowed.
+  Similarly, replacing missing values in a list-column must now be done with
+  `list("foo")` rather than just `"foo"`.
+
 ## Pivoting
 
 * `pivot_wider()` gains new `names_expand` and `id_expand` arguments for turning
@@ -67,11 +117,6 @@
 
 * `complete()` gains a grouped data frame method. This generates a more correct
   completed data frame when groups are involved (#396, #966).
-  
-* `complete()` and `expand()` no longer allow you to complete or expand on a
-  grouping column. This was never well-defined since completion/expansion on a
-  grouped data frame happens "within" each group and otherwise has the
-  potential to produce erroneous results (#1299).
 
 ## Missing values
 
@@ -79,13 +124,6 @@
   This means that you can use these functions on a wider variety of column
   types, including lubridate's Period types (#1094), data frame columns, and
   the [rcrd](https://vctrs.r-lib.org/reference/new_rcrd.html) type from vctrs.
-
-* `replace_na()` no longer allows the type of `data` to change when the
-  replacement is applied. `replace` will now always be cast to the type of
-  `data` before the replacement is made. For example, this means that using a
-  replacement value of `1.5` on an integer column is no longer allowed.
-  Similarly, replacing missing values in a list-column must now be done with
-  `list("foo")` rather than just `"foo"`.
 
 * `replace_na()` no longer replaces empty atomic elements in list-columns
   (like `integer(0)`). The only value that is replaced in a list-column is
@@ -423,7 +461,7 @@ See `vignette("in-packages")` for a detailed transition guide.
   warnings. I think one clean break should be less work for everyone.
   
     All other lazyeval functions have been formally deprecated, and will be
-    made defunct in the next major release. (See [lifecycle vignette](https://lifecycle.r-lib.org/articles/lifecycle.html) for 
+    made defunct in the next major release. (See [lifecycle vignette](https://lifecycle.r-lib.org/articles/stages.html) for 
     details on deprecation stages).
 
 * `crossing()` and `nesting()` now return 0-row outputs if any input is a 

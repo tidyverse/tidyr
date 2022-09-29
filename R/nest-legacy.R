@@ -75,8 +75,7 @@ nest_legacy <- function(data, ..., .key = "data") {
 #' @importFrom utils packageVersion
 #' @export
 nest_legacy.tbl_df <- function(data, ..., .key = "data") {
-
-  key_var   <- as_string(ensym2(.key))
+  key_var <- as_string(ensym(.key))
   nest_vars <- unname(tidyselect::vars_select(names(data), ...))
 
   if (is_empty(nest_vars)) {
@@ -92,15 +91,15 @@ nest_legacy.tbl_df <- function(data, ..., .key = "data") {
 
   data <- dplyr::ungroup(data)
   if (is_empty(group_vars)) {
-    return(tibble(!! key_var := list(data)))
+    return(tibble(!!key_var := list(data)))
   }
 
-  out <- dplyr::select(data, !!! syms(group_vars))
+  out <- dplyr::select(data, !!!syms(group_vars))
 
   if (packageVersion("dplyr") < "0.8.0") {
-    idx <- dplyr::group_indices(data, !!! syms(group_vars))
+    idx <- dplyr::group_indices(data, !!!syms(group_vars))
   } else {
-    grouped_data <- dplyr::group_by(data, !!! syms(group_vars), .drop = TRUE)
+    grouped_data <- dplyr::group_by(data, !!!syms(group_vars), .drop = TRUE)
     idx <- dplyr::group_indices(grouped_data)
   }
 
@@ -120,7 +119,7 @@ nest_legacy.data.frame <- function(data, ..., .key = "data") {
     data <- tibble::as_tibble(data)
   }
 
-  nest_legacy.tbl_df(data, ..., .key = !! .key)
+  nest_legacy.tbl_df(data, ..., .key = !!.key)
 }
 
 
@@ -132,7 +131,6 @@ unnest_legacy <- function(data, ..., .drop = NA, .id = NULL, .sep = NULL, .prese
 #' @export
 unnest_legacy.data.frame <- function(data, ..., .drop = NA, .id = NULL,
                                      .sep = NULL, .preserve = NULL) {
-
   preserve <- tidyselect::vars_select(names(data), !!enquo(.preserve))
   quos <- quos(...)
   if (is_empty(quos)) {
@@ -146,7 +144,7 @@ unnest_legacy.data.frame <- function(data, ..., .drop = NA, .id = NULL,
     return(data)
   }
 
-  nested <- dplyr::transmute(dplyr::ungroup(data), !!! quos)
+  nested <- dplyr::transmute(dplyr::ungroup(data), !!!quos)
   n <- map(nested, function(x) unname(map_int(x, NROW)))
   if (length(unique(n)) != 1) {
     abort("All nested columns must have the same number of elements.")
@@ -167,7 +165,7 @@ unnest_legacy.data.frame <- function(data, ..., .drop = NA, .id = NULL,
     unnested_atomic <- dplyr::bind_cols(unnested_atomic)
   }
 
-  unnested_dataframe <- map(nest_types$dataframe %||% list(), function(.){
+  unnested_dataframe <- map(nest_types$dataframe %||% list(), function(.) {
     if (length(.) == 0L) {
       attr(., "ptype") %||% data.frame()
     } else {

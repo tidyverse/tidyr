@@ -70,21 +70,25 @@ To tidy it we use `pivot_longer()`:
 
 ```{r}
 relig_income %>% 
-  pivot_longer(!religion, names_to = "income", values_to = "count")
+  pivot_longer(
+    cols = !religion, 
+    names_to = "income", 
+    values_to = "count"
+  )
 ```
 
 * The first argument is the dataset to reshape, `relig_income`.
 
-* The second argument describes which columns need to be reshaped. In this 
+* `cols` describes which columns need to be reshaped. In this 
   case, it's every column apart from `religion`.
 
-* The `names_to` gives the name of the variable that will be created from
+* `names_to` gives the name of the variable that will be created from
   the data stored in the column names, i.e. `income`.
   
-* The `values_to` gives the name of the variable that will be created from
+* `values_to` gives the name of the variable that will be created from
   the data stored in the cell value, i.e. `count`.
   
-Neither the `names_to` nor the `values_to` column exists in `relig_income`, so we provide them as character strings surrounded in quotes.
+Neither the `names_to` nor the `values_to` column exists in `relig_income`, so we provide them as strings surrounded by quotes.
 
 ### Numeric data in column names {#billboard}
 
@@ -114,7 +118,7 @@ billboard %>%
     cols = starts_with("wk"), 
     names_to = "week", 
     names_prefix = "wk",
-    names_transform = list(week = as.integer),
+    names_transform = as.integer,
     values_to = "rank",
     values_drop_na = TRUE,
   )
@@ -127,7 +131,7 @@ billboard %>%
   pivot_longer(
     cols = starts_with("wk"), 
     names_to = "week", 
-    names_transform = list(week = readr::parse_number),
+    names_transform = readr::parse_number,
     values_to = "rank",
     values_drop_na = TRUE,
   )
@@ -156,32 +160,36 @@ who
 We can break these variables up by specifying multiple column names in `names_to`, and then either providing `names_sep` or `names_pattern`. Here `names_pattern` is the most natural fit. It has a similar interface to `extract`: you give it a regular expression containing groups (defined by `()`) and it puts each group in a column.
 
 ```{r}
-who %>% pivot_longer(
-  cols = new_sp_m014:newrel_f65,
-  names_to = c("diagnosis", "gender", "age"), 
-  names_pattern = "new_?(.*)_(.)(.*)",
-  values_to = "count"
-)
+who %>% 
+  pivot_longer(
+    cols = new_sp_m014:newrel_f65,
+    names_to = c("diagnosis", "gender", "age"), 
+    names_pattern = "new_?(.*)_(.)(.*)",
+    values_to = "count"
+  )
 ```
 
 We could go one step further use readr functions to convert the gender and age to factors. I think this is good practice when you have categorical variables with a known set of values.
 
 ```{r, eval = FALSE}
-who %>% pivot_longer(
-  cols = new_sp_m014:newrel_f65,
-  names_to = c("diagnosis", "gender", "age"), 
-  names_pattern = "new_?(.*)_(.)(.*)",
-  names_transform = list(
-    gender = ~ readr::parse_factor(.x, levels = c("f", "m")),
-    age = ~ readr::parse_factor(
-      .x,
-      levels = c("014", "1524", "2534", "3544", "4554", "5564", "65"), 
-      ordered = TRUE
-    )
-  ),
-  values_to = "count",
+who %>% 
+  pivot_longer(
+    cols = new_sp_m014:newrel_f65,
+    names_to = c("diagnosis", "gender", "age"), 
+    names_pattern = "new_?(.*)_(.)(.*)",
+    names_transform = list(
+      gender = ~ readr::parse_factor(.x, levels = c("f", "m")),
+      age = ~ readr::parse_factor(
+        .x,
+        levels = c("014", "1524", "2534", "3544", "4554", "5564", "65"), 
+        ordered = TRUE
+      )
+    ),
+    values_to = "count",
 )
 ```
+
+Doing it this way is a little more efficient than doing a mutate after the fact, `pivot_longer()` only has to transform one occurence of each name where a `mutate()` would need to transform many repetitions.
 
 ### Multiple observations per row
 
@@ -190,24 +198,15 @@ So far, we have been working with data frames that have one observation per row,
 The following example is adapted from the [data.table vignette](https://CRAN.R-project.org/package=data.table/vignettes/datatable-reshape.html), as inspiration for tidyr's solution to this problem.
 
 ```{r}
-family <- tribble(
-  ~family,  ~dob_child1,  ~dob_child2, ~gender_child1, ~gender_child2,
-       1L, "1998-11-26", "2000-01-29",             1L,             2L,
-       2L, "1996-06-22",           NA,             2L,             NA,
-       3L, "2002-07-11", "2004-04-05",             2L,             2L,
-       4L, "2004-10-10", "2009-08-27",             1L,             1L,
-       5L, "2000-12-05", "2005-02-28",             2L,             1L,
-)
-family <- family %>% mutate_at(vars(starts_with("dob")), parse_date)
-family
+household
 ```
 
-Note that we have two pieces of information (or values) for each child: their `gender` and their `dob` (date of birth). These need to go into separate columns in the result. Again we supply multiple variables to `names_to`, using `names_sep` to split up each variable name. Note the special name `.value`: this tells `pivot_longer()` that that part of the column name specifies the "value" being measured (which will become a variable in the output).
+Note that we have two pieces of information (or values) for each child: their `name` and their `dob` (date of birth). These need to go into separate columns in the result. Again we supply multiple variables to `names_to`, using `names_sep` to split up each variable name. Note the special name `.value`: this tells `pivot_longer()` that that part of the column name specifies the "value" being measured (which will become a variable in the output).
 
 ```{r}
-family %>% 
+household %>% 
   pivot_longer(
-    !family, 
+    cols = !family, 
     names_to = c(".value", "child"), 
     names_sep = "_", 
     values_drop_na = TRUE
@@ -216,7 +215,7 @@ family %>%
 
 Note the use of `values_drop_na = TRUE`: the input shape forces the creation of explicit missing variables for observations that don't exist.
 
-This problem also exists in the `anscombe` dataset built in to base R:
+A similar problem problem also exists in the `anscombe` dataset built in to base R:
 
 ```{r}
 anscombe
@@ -226,12 +225,15 @@ This dataset contains four pairs of variables (`x1` and `y1`, `x2` and `y2`, etc
 
 ```{r}
 anscombe %>% 
-  pivot_longer(everything(), 
+  pivot_longer(
+    cols = everything(), 
+    cols_vary = "slowest",
     names_to = c(".value", "set"), 
     names_pattern = "(.)(.)"
-  ) %>% 
-  arrange(set)
+  )
 ```
+
+Setting `cols_vary` to `"slowest"` groups the values from columns `x1` and `y1` together in the rows of the output before moving on to `x2` and `y2`. This argument often produces more intuitively ordered output when you are pivoting every column in your dataset.
 
 A similar situation can arise with panel data. For example, take this example dataset provided by [Thomas Leeper](https://github.com/leeper/rio/issues/193). We can tidy it using the same approach as for `anscombe`:
 
@@ -248,32 +250,10 @@ pnl <- tibble(
 
 pnl %>% 
   pivot_longer(
-    !c(x, a, b), 
+    cols = !c(x, a, b), 
     names_to = c(".value", "time"), 
     names_pattern = "(.)(.)"
   )
-```
-
-### Duplicated column names
-
-Occassionally you will come across datasets that have duplicated column names. Generally, such datasets are hard to work with in R, because when you refer to a column by name it only finds the first match. To create a tibble with duplicated names, you have to explicitly opt out of the name repair that usually prevents you from creating such a dataset:
-
-```{r}
-df <- tibble(id = 1:3, y = 4:6, y = 5:7, y = 7:9, .name_repair = "minimal")
-df
-```
-
-When `pivot_longer()` encounters such data, it automatically adds another column to the output:
-
-```{r}
-df %>% pivot_longer(!id, names_to = "name", values_to = "value")
-```
-
-A similar process is applied when multiple input columns are mapped to the same output column, as in the following example where we ignore the numeric suffix on each column name:
-
-```{r}
-df <- tibble(id = 1:3, x1 = 4:6, x2 = 5:7, y1 = 7:9, y2 = 10:12)
-df %>% pivot_longer(!id, names_to = ".value", names_pattern = "(.).")
 ```
 
 ## Wider
@@ -291,17 +271,22 @@ fish_encounters
 Many tools used to analyse this data need it in a form where each station is a column:
 
 ```{r}
-fish_encounters %>% pivot_wider(names_from = station, values_from = seen)
+fish_encounters %>% 
+  pivot_wider(
+    names_from = station, 
+    values_from = seen
+  )
 ```
 
 This dataset only records when a fish was detected by the station - it doesn't record when it wasn't detected (this is common with this type of data). That means the output data is filled with `NA`s. However, in this case we know that the absence of a record means that the fish was not `seen`, so we can ask `pivot_wider()` to fill these missing values in with zeros:
 
 ```{r}
-fish_encounters %>% pivot_wider(
-  names_from = station, 
-  values_from = seen,
-  values_fill = 0
-)
+fish_encounters %>% 
+  pivot_wider(
+    names_from = station, 
+    values_from = seen,
+    values_fill = 0
+  )
 ```
 
 ### Aggregation
@@ -309,20 +294,27 @@ fish_encounters %>% pivot_wider(
 You can also use `pivot_wider()` to perform simple aggregation. For example, take the `warpbreaks` dataset built in to base R (converted to a tibble for the better print method):
 
 ```{r}
-warpbreaks <- warpbreaks %>% as_tibble() %>% select(wool, tension, breaks)
+warpbreaks <- warpbreaks %>% 
+  as_tibble() %>% 
+  select(wool, tension, breaks)
 warpbreaks
 ```
 
 This is a designed experiment with nine replicates for every combination of `wool` (`A` and `B`) and `tension` (`L`, `M`, `H`):
 
 ```{r}
-warpbreaks %>% count(wool, tension)
+warpbreaks %>% 
+  count(wool, tension)
 ```
 
 What happens if we attempt to pivot the levels of `wool` into the columns?
 
 ```{r}
-warpbreaks %>% pivot_wider(names_from = wool, values_from = breaks)
+warpbreaks %>% 
+  pivot_wider(
+    names_from = wool, 
+    values_from = breaks
+  )
 ```
 
 We get a warning that each cell in the output corresponds to multiple cells in the input. The default behaviour produces list-columns, which contain all the individual values. A more useful output would be summary statistics, e.g. `mean` breaks for each combination of wool and tension:
@@ -332,7 +324,7 @@ warpbreaks %>%
   pivot_wider(
     names_from = wool, 
     values_from = breaks,
-    values_fn = list(breaks = mean)
+    values_fn = mean
   )
 ```
 
@@ -343,7 +335,8 @@ For more complex summary operations, I recommend summarising before reshaping, b
 Imagine, as in <https://stackoverflow.com/questions/24929954>, that we have information containing the combination of product, country, and year. In tidy form it might look like this:
 
 ```{r}
-production <- expand_grid(
+production <- 
+  expand_grid(
     product = c("A", "B"), 
     country = c("AI", "EI"), 
     year = 2000:2014
@@ -356,27 +349,30 @@ production
 We want to widen the data so we have one column for each combination of `product` and `country`. The key is to specify multiple variables for `names_from`:
 
 ```{r}
-production %>% pivot_wider(
-  names_from = c(product, country), 
-  values_from = production
-)
+production %>% 
+  pivot_wider(
+    names_from = c(product, country), 
+    values_from = production
+  )
 ```
 
 When either `names_from` or `values_from` select multiple variables, you can control how the column names in the output constructed with `names_sep` and `names_prefix`, or the workhorse `names_glue`:
 
 ```{r}
-production %>% pivot_wider(
-  names_from = c(product, country), 
-  values_from = production,
-  names_sep = ".",
-  names_prefix = "prod."
-)
+production %>% 
+  pivot_wider(
+    names_from = c(product, country), 
+    values_from = production,
+    names_sep = ".",
+    names_prefix = "prod."
+  )
 
-production %>% pivot_wider(
-  names_from = c(product, country), 
-  values_from = production,
-  names_glue = "prod_{product}_{country}"
-)
+production %>% 
+  pivot_wider(
+    names_from = c(product, country), 
+    values_from = production,
+    names_glue = "prod_{product}_{country}"
+  )
 ```
 
 ### Tidy census
@@ -391,7 +387,10 @@ Here both `estimate` and `moe` are values columns, so we can supply them to `val
 
 ```{r}
 us_rent_income %>% 
-  pivot_wider(names_from = variable, values_from = c(estimate, moe))
+  pivot_wider(
+    names_from = variable, 
+    values_from = c(estimate, moe)
+  )
 ```
 
 Note that the name of the variable is automatically appended to the output columns.
@@ -414,13 +413,22 @@ daily
 `pivot_wider()` defaults to generating columns from the values that are actually represented in the data, but you might want to include a column for each possible level in case the data changes in the future.
 
 ```{r}
-pivot_wider(daily, names_from = day, values_from = value)
+daily %>%
+  pivot_wider(
+    names_from = day, 
+    values_from = value
+  )
 ```
 
 The `names_expand` argument will turn implicit factor levels into explicit ones, forcing them to be represented in the result. It also sorts the column names using the level order, which produces more intuitive results in this case.
 
 ```{r}
-pivot_wider(daily, names_from = day, values_from = value, names_expand = TRUE)
+daily %>% 
+  pivot_wider(
+    names_from = day, 
+    values_from = value, 
+    names_expand = TRUE
+  )
 ```
 
 If multiple `names_from` columns are provided, `names_expand` will generate a Cartesian product of all possible combinations of the `names_from` values. Notice that the following data has omitted some rows where the percentage value would be `0`. `names_expand` allows us to make those explicit during the pivot.
@@ -434,13 +442,13 @@ percentages <- tibble(
 
 percentages
 
-pivot_wider(
-  percentages,
-  names_from = c(year, type),
-  values_from = percentage,
-  names_expand = TRUE,
-  values_fill = 0
-)
+percentages %>% 
+  pivot_wider(
+    names_from = c(year, type),
+    values_from = percentage,
+    names_expand = TRUE,
+    values_fill = 0
+  )
 ```
 
 A related problem can occur when there are implicit missing factor levels or combinations in the `id_cols`. In this case, there are missing rows (rather than columns) that you'd like to explicitly represent. For this example, we'll modify our `daily` data with a `type` column, and pivot on that instead, keeping `day` as an id column.
@@ -453,24 +461,24 @@ daily
 All of our `type` levels are represented in the columns, but we are missing some rows related to the unrepresented `day` factor levels.
 
 ```{r}
-pivot_wider(
-  daily, 
-  names_from = type, 
-  values_from = value,
-  values_fill = 0
-)
+daily %>%
+  pivot_wider(
+    names_from = type, 
+    values_from = value,
+    values_fill = 0
+  )
 ```
 
 We can use `id_expand` in the same way that we used `names_expand`, which will expand out (and sort) the implicit missing rows in the `id_cols`.
 
 ```{r}
-pivot_wider(
-  daily, 
-  names_from = type, 
-  values_from = value,
-  values_fill = 0,
-  id_expand = TRUE
-)
+daily %>% 
+  pivot_wider(
+    names_from = type, 
+    values_from = value,
+    values_fill = 0,
+    id_expand = TRUE
+  )
 ```
 
 ### Unused columns
@@ -491,36 +499,36 @@ updates
 We could do that with a typical `pivot_wider()` call, but we completely lose all information about the `date` column.
 
 ```{r}
-pivot_wider(
-  updates, 
-  id_cols = county, 
-  names_from = system, 
-  values_from = value
-)
+updates %>% 
+  pivot_wider(
+    id_cols = county, 
+    names_from = system, 
+    values_from = value
+  )
 ```
 
 For this example, we'd like to retain the most recent update date across all systems in a particular county. To accomplish that we can use the `unused_fn` argument, which allows us to summarize values from the columns not utilized in the pivoting process.
 
 ```{r}
-pivot_wider(
-  updates, 
-  id_cols = county, 
-  names_from = system, 
-  values_from = value,
-  unused_fn = list(date = max)
-)
+updates %>% 
+  pivot_wider(
+    id_cols = county, 
+    names_from = system, 
+    values_from = value,
+    unused_fn = list(date = max)
+  )
 ```
 
 You can also retain the data but delay the aggregation entirely by using `list()` as the summary function.
 
 ```{r}
-pivot_wider(
-  updates, 
-  id_cols = county, 
-  names_from = system, 
-  values_from = value,
-  unused_fn = list(date = list)
-)
+updates %>% 
+  pivot_wider(
+    id_cols = county, 
+    names_from = system, 
+    values_from = value,
+    unused_fn = list(date = list)
+  )
 ```
 
 ### Contact list
@@ -553,7 +561,10 @@ Now that we have a unique identifier for each person, we can pivot `field` and `
 
 ```{r}
 contacts %>% 
-  pivot_wider(names_from = field, values_from = value)
+  pivot_wider(
+    names_from = field, 
+    values_from = value
+  )
 ```
 
 ## Longer, then wider
@@ -572,14 +583,19 @@ My goal is to produce a tidy dataset where each variable is in a column. It's no
 
 ```{r}
 pop2 <- world_bank_pop %>% 
-  pivot_longer(`2000`:`2017`, names_to = "year", values_to = "value")
+  pivot_longer(
+    cols = `2000`:`2017`, 
+    names_to = "year", 
+    values_to = "value"
+  )
 pop2
 ```
 
 Next we need to consider the `indicator` variable:
 
 ```{r}
-pop2 %>% count(indicator)
+pop2 %>% 
+  count(indicator)
 ```
 
 Here `SP.POP.GROW` is population growth, `SP.POP.TOTL` is total population, and `SP.URB.*` are the same but only for urban areas. Let's split this up into two variables: `area` (total or urban) and the actual variable (population or growth): 
@@ -594,7 +610,10 @@ Now we can complete the tidying by pivoting `variable` and `value` to make `TOTL
 
 ```{r}
 pop3 %>% 
-  pivot_wider(names_from = variable, values_from = value)
+  pivot_wider(
+    names_from = variable, 
+    values_from = value
+  )
 ```
 
 ### Multi-choice
@@ -615,7 +634,10 @@ But the actual order isn't important, and you'd prefer to have the individual qu
 
 ```{r}
 multi2 <- multi %>% 
-  pivot_longer(!id, values_drop_na = TRUE) %>% 
+  pivot_longer(
+    cols = !id, 
+    values_drop_na = TRUE
+  ) %>% 
   mutate(checked = TRUE)
 multi2
 ```
@@ -641,11 +663,12 @@ The arguments to `pivot_longer()` and `pivot_wider()` allow you to pivot a wide 
 To see how this works, lets return to the simplest case of pivotting applied to the `relig_income` dataset. Now pivotting happens in two steps: we first create a spec object (using `build_longer_spec()`) then use that to describe the pivotting operation:
 
 ```{r}
-spec <- relig_income %>% build_longer_spec(
-  cols = !religion, 
-  names_to = "income",
-  values_to = "count"
-)
+spec <- relig_income %>% 
+  build_longer_spec(
+    cols = !religion, 
+    names_to = "income",
+    values_to = "count"
+  )
 pivot_longer_spec(relig_income, spec)
 ```
 
@@ -669,14 +692,20 @@ Below we widen `us_rent_income` with `pivot_wider()`. The result is ok, but I th
 
 ```{r}
 us_rent_income %>% 
-  pivot_wider(names_from = variable, values_from = c(estimate, moe))
+  pivot_wider(
+    names_from = variable, 
+    values_from = c(estimate, moe)
+  )
 ```
 
 I think it would be better to have columns `income`, `rent`, `income_moe`, and `rent_moe`, which we can achieve with a manual spec. The current spec looks like this:
 
 ```{r}
 spec1 <- us_rent_income %>% 
-  build_wider_spec(names_from = variable, values_from = c(estimate, moe))
+  build_wider_spec(
+    names_from = variable, 
+    values_from = c(estimate, moe)
+  )
 spec1
 ```
 
@@ -684,14 +713,17 @@ For this case, we mutate `spec` to carefully construct the column names:
 
 ```{r}
 spec2 <- spec1 %>%
-  mutate(.name = paste0(variable, ifelse(.value == "moe", "_moe", "")))
+  mutate(
+    .name = paste0(variable, ifelse(.value == "moe", "_moe", ""))
+  )
 spec2
 ```
 
 Supplying this spec to `pivot_wider()` gives us the result we're looking for:
 
 ```{r}
-pivot_wider_spec(us_rent_income, spec2)
+us_rent_income %>% 
+  pivot_wider_spec(spec2)
 ```
 
 ### By hand
@@ -720,7 +752,7 @@ spec <- tribble(
 Which yields the following longer form:
 
 ```{r}
-pivot_longer_spec(construction, spec)
+construction %>% pivot_longer_spec(spec)
 ```
 
 Note that there is no overlap between the `units` and `region` variables; here the data would really be most naturally described in two independent tables.

@@ -21,9 +21,9 @@ gather(
 symbols.
 
 This argument is passed by expression and supports
-\link[rlang:nse-force]{quasiquotation} (you can unquote strings
+\link[rlang:topic-inject]{quasiquotation} (you can unquote strings
 and symbols). The name is captured from the expression with
-\code{\link[rlang:nse-defuse]{rlang::ensym()}} (note that this kind of interface where
+\code{\link[rlang:defusing-advanced]{rlang::ensym()}} (note that this kind of interface where
 symbols do not represent actual objects is now discouraged in the
 tidyverse; we support it here for backward compatibility).}
 
@@ -84,7 +84,7 @@ For more details, see the \code{\link[tidyselect:language]{tidyselect::select_he
 library(dplyr)
 # From https://stackoverflow.com/questions/1181060
 stocks <- tibble(
-  time = as.Date('2009-01-01') + 0:9,
+  time = as.Date("2009-01-01") + 0:9,
   X = rnorm(10, 0, 1),
   Y = rnorm(10, 0, 2),
   Z = rnorm(10, 0, 4)

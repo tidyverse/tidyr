@@ -35,14 +35,14 @@
 #' df %>% extract(x, c("A", "B"), "([a-d]+)-([a-d]+)")
 extract <- function(data, col, into, regex = "([[:alnum:]]+)",
                     remove = TRUE, convert = FALSE, ...) {
-  ellipsis::check_dots_used()
+  check_dots_used()
   UseMethod("extract")
 }
 #' @export
 extract.data.frame <- function(data, col, into, regex = "([[:alnum:]]+)",
                                remove = TRUE, convert = FALSE, ...) {
-  check_present(col)
-  var <- tidyselect::vars_pull(names(data), !! enquo(col))
+  check_required(col)
+  var <- tidyselect::vars_pull(names(data), !!enquo(col))
   value <- as.character(data[[var]])
 
   new_cols <- str_extract(value, into = into, regex = regex, convert = convert)

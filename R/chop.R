@@ -66,7 +66,7 @@
 #' df %>% unchop(y)
 #' df %>% unchop(y, keep_empty = TRUE)
 chop <- function(data, cols) {
-  check_present(cols)
+  check_required(cols)
   # TODO: `allow_rename = FALSE`
   cols <- tidyselect::eval_select(enquo(cols), data)
 
@@ -142,7 +142,7 @@ unchop <- function(data, cols, keep_empty = FALSE, ptype = NULL) {
 # - `val` the unchopped data frame.
 
 df_unchop <- function(x, ..., ptype = NULL, keep_empty = FALSE) {
-  ellipsis::check_dots_empty()
+  check_dots_empty()
 
   if (!is.data.frame(x)) {
     abort("`x` must be a data frame.")
