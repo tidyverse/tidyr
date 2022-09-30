@@ -21,6 +21,6 @@
     Code
       df %>% separate_at_longer(x, width = 1.5)
     Condition
-      Error in `fun()`:
+      Error in `separate_at_longer()`:
       ! `width` must be an integer
 

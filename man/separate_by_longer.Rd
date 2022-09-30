@@ -5,9 +5,9 @@
 \alias{separate_at_longer}
 \title{Split a string into rows}
 \usage{
-separate_by_longer(data, cols, delim)
+separate_by_longer(data, cols, delim, ...)
 
-separate_at_longer(data, cols, width, keep_empty = FALSE)
+separate_at_longer(data, cols, width, ..., keep_empty = FALSE)
 }
 \arguments{
 \item{data}{A data frame.}
@@ -20,6 +20,8 @@ pieces.}
 Note that the default is a regular expression so that \code{delim = "."} will
 split on every character. If you need to split by a special character, use
 \code{delim = stringr::fixed(".")}.}
+
+\item{...}{Additional arguments passed on to methods.}
 
 \item{width}{Number of characters to split by.}
 

@@ -10,27 +10,30 @@ separate_by_wider(
   data,
   cols,
   delim,
+  ...,
   names = NULL,
   names_sep = NULL,
+  names_repair = "check_unique",
   align_direction = c("start", "end"),
-  align_warn = c("both", "short", "long", "none"),
-  names_repair = "check_unique"
+  align_warn = c("both", "short", "long", "none")
 )
 
 separate_at_wider(
   data,
   cols,
   widths,
-  align_direction = c("start", "end"),
-  align_warn = c("both", "short", "long", "none"),
+  ...,
   names_sep = NULL,
-  names_repair = "check_unique"
+  names_repair = "check_unique",
+  align_direction = c("start", "end"),
+  align_warn = c("both", "short", "long", "none")
 )
 
 separate_group_wider(
   data,
   cols,
   patterns,
+  ...,
   match_complete = TRUE,
   names_sep = NULL,
   names_repair = "check_unique"
@@ -48,23 +51,14 @@ Note that the default is a regular expression so that \code{delim = "."} will
 split on every character. If you need to split by a special character, use
 \code{delim = stringr::fixed(".")}.}
 
+\item{...}{Additional arguments passed on to methods.}
+
 \item{names, names_sep}{If you are separating a single column, specify either
 a fixed number of column \code{names} or use \code{names_sep} to generate new names
 from the source column name and a numeric suffix.
 
 If you are separating multiple columns, you must to supply \code{names_sep},
 to avoid creating duplicated column names.}
-
-\item{align_direction}{If different rows have different numbers of
-observations should the \code{start}s or the \code{ends}s be aligned?}
-
-\item{align_warn}{When do you want to be informed about unexpected lengths?
-\itemize{
-\item \code{"both"}, the default, when there are too few or too many.
-\item \code{"short"}, only when there are too few.
-\item \code{"long"}, only where there are too many.
-\item \code{"none"}, never warn.
-}}
 
 \item{names_repair}{Used to check that output data frame has valid
 names. Must be one of the following options:
@@ -80,6 +74,17 @@ names. Must be one of the following options:
 
 See \code{\link[vctrs:vec_as_names]{vctrs::vec_as_names()}} for more details on these terms and the
 strategies used to enforce them.}
+
+\item{align_direction}{If different rows have different numbers of
+observations should the \code{start}s or the \code{ends}s be aligned?}
+
+\item{align_warn}{When do you want to be informed about unexpected lengths?
+\itemize{
+\item \code{"both"}, the default, when there are too few or too many.
+\item \code{"short"}, only when there are too few.
+\item \code{"long"}, only where there are too many.
+\item \code{"none"}, never warn.
+}}
 
 \item{widths}{A named numeric vector where the names become column names,
 and the values specify the column width. Omit the name to leave those
@@ -108,7 +113,7 @@ manipulation engine, and their interfaces reflect what we've learned from
 \code{\link[=unnest_wider]{unnest_wider()}} and \code{\link[=unnest_longer]{unnest_longer()}}.
 }
 \examples{
-df <- tibble(id = 1:2, x = c("m-123", "f-455"))
+df <- tibble(id = 1:3, x = c("m-123", "f-455", "f-123"))
 # There are three basic ways to split up a string into pieces.
 # * with a delimiter
 df \%>\% separate_by_wider(x, delim = "-", c("gender", "unit"))

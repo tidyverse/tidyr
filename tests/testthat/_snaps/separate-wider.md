@@ -1,8 +1,8 @@
 # separate_by_wider() warns about too few/too many values
 
     Expected 2 pieces in each row.
-    * 1 rows were too long: 3.
     * 1 rows were too short: 1.
+    * 1 rows were too long: 3.
 
 # separate_by_wider() validates its inputs
 
@@ -12,25 +12,30 @@
       Error in `separate_by_wider()`:
       ! `cols` is absent but must be supplied.
     Code
-      df %>% separate_by_wider(x, names = 1)
+      df %>% separate_by_wider(x)
     Condition
-      Error in `fun()`:
-      ! `names` must be an unnamed character vector
+      Error in `is_string()`:
+      ! argument "delim" is missing, with no default
     Code
-      df %>% separate_by_wider(x, names = c(x = "x"))
+      df %>% separate_by_wider(x, 1)
     Condition
-      Error in `fun()`:
-      ! `names` must be an unnamed character vector
-    Code
-      df %>% separate_by_wider(x, names = "y", delim = 1)
-    Condition
-      Error in `fun()`:
+      Error in `separate_by_wider()`:
       ! `delim` must be a string
     Code
-      df %>% separate_by_wider(x, delim = "")
+      df %>% separate_by_wider(x, "")
     Condition
       Error in `separate_by_wider()`:
       ! Must specify at least one of `names` or `names_sep`
+    Code
+      df %>% separate_by_wider(x, "", names = 1)
+    Condition
+      Error in `separate_by_wider()`:
+      ! `names` must be an unnamed character vector
+    Code
+      df %>% separate_by_wider(x, "", names = c(x = "x"))
+    Condition
+      Error in `separate_by_wider()`:
+      ! `names` must be an unnamed character vector
 
 # separate_at_wider() fills too short with NA
 
@@ -45,14 +50,19 @@
       Error in `separate_at_wider()`:
       ! `cols` is absent but must be supplied.
     Code
+      df %>% separate_at_wider(x)
+    Condition
+      Error in `is_integerish()`:
+      ! argument "widths" is missing, with no default
+    Code
       df %>% separate_at_wider(x, widths = 1.5)
     Condition
-      Error in `fun()`:
+      Error in `separate_at_wider()`:
       ! `widths` must be a named integer vector
     Code
       df %>% separate_at_wider(x, widths = 1L)
     Condition
-      Error in `fun()`:
+      Error in `separate_at_wider()`:
       ! `widths` must be a named integer vector
 
 # separate_group_wider() gives informative error if () used
@@ -76,13 +86,18 @@
       Error in `separate_group_wider()`:
       ! `cols` is absent but must be supplied.
     Code
+      df %>% separate_group_wider(x)
+    Condition
+      Error in `separate_group_wider()`:
+      ! argument "patterns" is missing, with no default
+    Code
       df %>% separate_group_wider(x, patterns = ".")
     Condition
-      Error in `fun()`:
+      Error in `separate_group_wider()`:
       ! `patterns` must be a named character vector
     Code
       df %>% separate_group_wider(x, patterns = c(y = "."), match_complete = NA)
     Condition
-      Error in `fun()`:
+      Error in `separate_group_wider()`:
       ! `match_complete` must be TRUE or FALSE
 

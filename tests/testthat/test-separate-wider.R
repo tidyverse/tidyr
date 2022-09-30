@@ -36,10 +36,11 @@ test_that("separate_by_wider() validates its inputs", {
   df <- data.frame(x = "x")
   expect_snapshot(error = TRUE, {
     df %>% separate_by_wider()
-    df %>% separate_by_wider(x, names = 1)
-    df %>% separate_by_wider(x, names = c(x = "x"))
-    df %>% separate_by_wider(x, names = "y", delim = 1)
-    df %>% separate_by_wider(x, delim = "")
+    df %>% separate_by_wider(x)
+    df %>% separate_by_wider(x, 1)
+    df %>% separate_by_wider(x, "")
+    df %>% separate_by_wider(x, "", names = 1)
+    df %>% separate_by_wider(x, "", names = c(x = "x"))
   })
 })
 
@@ -71,6 +72,7 @@ test_that("separate_at_wider() validates its inputs", {
   df <- data.frame(x = "x")
   expect_snapshot(error = TRUE, {
     df %>% separate_at_wider()
+    df %>% separate_at_wider(x)
     df %>% separate_at_wider(x, widths = 1.5)
     df %>% separate_at_wider(x, widths = 1L)
   })
@@ -119,6 +121,7 @@ test_that("separate_group_wider() validates its inputs", {
   df <- data.frame(x = "x")
   expect_snapshot(error = TRUE, {
     df %>% separate_group_wider()
+    df %>% separate_group_wider(x)
     df %>% separate_group_wider(x, patterns = ".")
     df %>% separate_group_wider(x, patterns = c(y = "."), match_complete = NA)
   })

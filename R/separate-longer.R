@@ -24,14 +24,14 @@
 #' df %>% separate_at_longer(x, 1)
 #' df %>% separate_at_longer(x, 2)
 #' df %>% separate_at_longer(x, 2, keep_empty = TRUE)
-separate_by_longer <- function(data, cols, delim) {
+separate_by_longer <- function(data, cols, delim, ...) {
   check_installed("stringr")
   check_required(cols)
-
-  # Needs to be here because argument name is different in str_split
   if (!is_string(delim)) {
     abort("`delim` must be a string")
   }
+  check_dots_empty()
+
   map_unchop(data, {{ cols }}, stringr::str_split, pattern = delim)
 }
 
@@ -42,9 +42,13 @@ separate_by_longer <- function(data, cols, delim) {
 #'   use `keep_empty = TRUE` to replace size-0 elements with a missing value.
 #' @rdname separate_by_longer
 #' @export
-separate_at_longer <- function(data, cols, width, keep_empty = FALSE) {
+separate_at_longer <- function(data, cols, width, ..., keep_empty = FALSE) {
   check_installed("stringr")
   check_required(cols)
+  if (!is_integerish(width) || length(width) != 1 || is.na(width)) {
+    abort("`width` must be an integer")
+  }
+  check_dots_empty()
 
   map_unchop(
     data, {{ cols }},
@@ -55,10 +59,6 @@ separate_at_longer <- function(data, cols, width, keep_empty = FALSE) {
 }
 
 str_split_length <- function(x, width = 1) {
-  if (!is_integerish(width) || length(width) != 1 || is.na(width)) {
-    abort("`width` must be an integer")
-  }
-
   max_length <- max(stringr::str_length(x))
   idx <- seq(1, max_length, by = width)
 

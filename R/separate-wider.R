@@ -30,6 +30,7 @@
 #'   Note that the default is a regular expression so that `delim = "."` will
 #'   split on every character. If you need to split by a special character, use
 #'   `delim = stringr::fixed(".")`.
+#' @inheritParams rlang::args_dots_empty
 #' @param align_direction If different rows have different numbers of
 #'   observations should the `start`s or the `ends`s be aligned?
 #' @param align_warn When do you want to be informed about unexpected lengths?
@@ -40,7 +41,7 @@
 #'   * `"none"`, never warn.
 #' @export
 #' @examples
-#' df <- tibble(id = 1:2, x = c("m-123", "f-455"))
+#' df <- tibble(id = 1:3, x = c("m-123", "f-455", "f-123"))
 #' # There are three basic ways to split up a string into pieces.
 #' # * with a delimiter
 #' df %>% separate_by_wider(x, delim = "-", c("gender", "unit"))
@@ -72,18 +73,28 @@ separate_by_wider <- function(
     data,
     cols,
     delim,
+    ...,
     names = NULL,
     names_sep = NULL,
+    names_repair = "check_unique",
     align_direction = c("start", "end"),
-    align_warn = c("both", "short", "long", "none"),
-    names_repair = "check_unique"
+    align_warn = c("both", "short", "long", "none")
 ) {
   check_installed("stringr")
   check_required(cols)
+  check_dots_empty()
+  if (!is_string(delim)) {
+    abort("`delim` must be a string")
+  }
 
   if (is.null(names) && is.null(names_sep)) {
     abort("Must specify at least one of `names` or `names_sep`")
   }
+  if (!is.null(names) && (!is.character(names) || is_named(names) || length(names) == 0)) {
+    abort("`names` must be an unnamed character vector")
+  }
+  align_direction <- arg_match(align_direction)
+  align_warn <- arg_match(align_warn)
 
   map_unpack(
     data, {{ cols }},
@@ -105,23 +116,11 @@ str_separate_by_wider <- function(
     align_warn = c("both", "short", "long", "none")
 ) {
 
-  if (!is.null(names) && (!is.character(names) || is_named(names) || length(names) == 0)) {
-    abort("`names` must be an unnamed character vector")
-  }
-  if (!is_string(delim)) {
-    abort("`delim` must be a string")
-  }
-  align_direction <- arg_match(align_direction)
-  align_warn <- arg_match(align_warn)
-
   pieces <- stringr::str_split(x, delim, n = Inf)
+  names <- names %||% as.character(seq_len(max(lengths(pieces))))
 
-  if (is.null(names)) {
-    names <- seq_len(max(lengths(pieces)))
-  }
-
-  list2df(
-    pieces,
+  df_align(
+    x = pieces,
     names = names,
     align_direction = align_direction,
     align_warn = align_warn
@@ -137,13 +136,20 @@ separate_at_wider <- function(
     data,
     cols,
     widths,
-    align_direction = c("start", "end"),
-    align_warn = c("both", "short", "long", "none"),
+    ...,
     names_sep = NULL,
-    names_repair = "check_unique"
+    names_repair = "check_unique",
+    align_direction = c("start", "end"),
+    align_warn = c("both", "short", "long", "none")
 ) {
   check_installed("stringr")
   check_required(cols)
+  if (!is_integerish(widths) || !any(have_name(widths))) {
+    abort("`widths` must be a named integer vector")
+  }
+  check_dots_empty()
+  align_direction <- arg_match(align_direction)
+  align_warn <- arg_match(align_warn)
 
   map_unpack(
     data, {{ cols }},
@@ -161,19 +167,19 @@ str_separate_at_wider <- function(x,
                                   align_direction = c("start", "end"),
                                   align_warn = c("both", "short", "long", "none")
                                   ) {
-  if (!is_integerish(widths) || all(!have_name(widths))) {
-    abort("`widths` must be a named integer vector")
-  }
-  align_direction <- arg_match(align_direction)
-  align_warn <- arg_match(align_warn)
 
   skip <- names(widths) == ""
+
   breaks <- cumsum(c(1, unname(widths)))[-(length(widths) + 1)]
-  from <- cbind(breaks, length = widths)[!skip, ]
+  from <- cbind(start = breaks, length = widths)[!skip, ]
+  names <- names(widths)[!skip]
 
   pieces <- stringr::str_sub_all(x, from)
   pieces <- lapply(pieces, function(x) x[x != ""])
-  list2df(pieces, names(widths)[!skip],
+
+  df_align(
+    x = pieces,
+    names = names,
     align_direction = align_direction,
     align_warn = align_warn
   )
@@ -189,12 +195,20 @@ separate_group_wider <- function(
     data,
     cols,
     patterns,
+    ...,
     match_complete = TRUE,
     names_sep = NULL,
     names_repair = "check_unique"
 ) {
   check_installed("stringr")
   check_required(cols)
+  if (!is.character(patterns) || all(!have_name(patterns))) {
+    abort("`patterns` must be a named character vector")
+  }
+  check_dots_empty()
+  if (!is_bool(match_complete)) {
+    abort("`match_complete` must be TRUE or FALSE")
+  }
 
   map_unpack(
     data, {{ cols }},
@@ -207,13 +221,6 @@ separate_group_wider <- function(
 }
 
 str_separate_group_wider <- function(x, patterns, match_complete = TRUE) {
-  if (!is.character(patterns) || all(!have_name(patterns))) {
-    abort("`patterns` must be a named character vector")
-  }
-  if (!is_bool(match_complete)) {
-    abort("`match_complete` must be TRUE or FALSE")
-  }
-
   has_name <- names2(patterns) != ""
   into <- names2(patterns)[has_name]
   patterns[has_name] <- paste0("(", patterns[has_name], ")")
@@ -255,66 +262,52 @@ map_unpack <- function(data, cols, fun, ..., .names_sep, .names_repair) {
   for (col in col_names) {
     data[[col]] <- fun(data[[col]], ...)
   }
-  unpack(data, all_of(col_names), names_sep = .names_sep, names_repair = .names_repair)
+
+  unpack(
+    data,
+    all_of(col_names),
+    names_sep = .names_sep,
+    names_repair = .names_repair
+  )
 }
 
-list2df <- function(
+# cf. df_simplify
+df_align <- function(
     x,
     names,
     align_direction = c("start", "end"),
     align_warn = c("both", "short", "long", "none")
 ) {
+  vec_check_list(x)
   align_direction <- arg_match(align_direction)
   align_warn <- arg_match(align_warn)
 
-  simp <- standardise_list_lengths(x, length(names), align_direction)
-  list2df_warn(align_warn, simp$too_sml, simp$too_big, length(names))
-
-  out <- simp$strings[!is.na(names)]
-  names(out) <- names[!is.na(names)]
-  tibble::as_tibble(out)
-}
-
-standardise_list_lengths <- function(x, n, direction) {
-  if (!vec_is_list(x)) {
-    abort("`x` must be a list.")
-  }
-  if (!(is_integer(n, 1L) && !is.na(n) && n >= 0L)) {
-    abort("`n` must be a single non-negative integer.")
-  }
-
+  n <- length(x)
+  p <- length(names)
   sizes <- list_sizes(x)
 
+  df_align_warn(p, sizes, align_warn = align_warn)
+
+  out <- df_align_transpose(x, p, sizes, align_direction = align_direction)
+  out <- out[!is.na(names)]
+  names(out) <- names[!is.na(names)]
+
+  new_data_frame(out, size = n)
+}
+
+df_align_transpose <- function(x, p, sizes, align_direction = "start") {
   # Find the start location of each piece
-  starts <- cumsum(c(1L, sizes))
-  starts <- starts[-length(starts)]
+  starts <- cumsum(c(1L, sizes[-length(sizes)]))
 
-  ptype <- vec_ptype_common(!!!x) %||% attr(x, "ptype", exact = TRUE)
+  # Combine all pieces sequentially, zapping names for performance.
+  x <- vec_unchop(x, ptype = character(), name_spec = zap())
 
-  # Combine all pieces sequentially.
-  # Zapping names for performance.
-  x <- vec_unchop(x, ptype = ptype, name_spec = zap())
-
-  # Look for size 1 missing values,
-  # which we ignore when generating warnings
-  one <- sizes == 1L
-  if (any(one)) {
-    x_starts <- vec_slice(x, starts)
-    na <- vec_equal_na(x_starts) & one
-    not_na <- !na
-  } else {
-    not_na <- TRUE
-  }
-
-  indices <- vector("list", n)
-
-  # General idea is to use the `starts` to slice with, replacing them with
-  # `NA` when we are too short, and then advancing the `starts` by 1 at each
-  # iteration. `"left"` is a little tricky because we have to hold the start
-  # location constant if we couldn't use it because the piece was too small.
-  # Pieces that are too large are automatically ignored.
-  if (direction == "start") {
-    for (i in seq_len(n)) {
+  indices <- vector("list", p)
+  if (align_direction == "start") {
+    # General idea is to use the `starts` to slice with, replacing them with
+    # `NA` when we are too short, and then advancing the `starts` by 1 at each
+    # iteration.
+    for (i in seq_len(p)) {
       small <- sizes < i
 
       index <- starts
@@ -324,9 +317,12 @@ standardise_list_lengths <- function(x, n, direction) {
       starts <- starts + 1L
     }
   } else {
-    gap <- sizes - n
+    # `"end"` is a little tricky because we have to hold the start
+    # location constant if we couldn't use it because the piece was too small.
+    # Pieces that are too large are automatically ignored.
+    gap <- sizes - p
 
-    for (i in seq_len(n)) {
+    for (i in seq_len(p)) {
       small <- gap < 0
       not_small <- !small
 
@@ -339,35 +335,32 @@ standardise_list_lengths <- function(x, n, direction) {
     }
   }
 
-  x <- vec_chop(x, indices)
-
-  too_big <- which(sizes > n & not_na)
-  too_sml <- which(sizes < n & not_na)
-
-  list(
-    strings = x,
-    too_big = too_big,
-    too_sml = too_sml
-  )
+  vec_chop(x, indices)
 }
 
-
-list2df_warn <- function(align_warn, too_short, too_long, p) {
+df_align_warn <- function(p, sizes, align_warn = "both") {
   warnings <- character()
 
   warn_short <- align_warn %in% c("both", "short")
-  warn_long <- align_warn %in% c("both", "long")
+  if (warn_short) {
+    too_short <- which(sizes < p)
+    n_short <- length(too_short)
 
-  n_long <- length(too_long)
-  if (warn_long && n_long > 0) {
-    idx <- list_indices(too_long)
-    warnings <- c(warnings, glue("{n_long} rows were too long: {idx}."))
+    if (n_short > 0) {
+      idx <- list_indices(too_short)
+      warnings <- c(warnings, glue("{n_short} rows were too short: {idx}."))
+    }
   }
 
-  n_short <- length(too_short)
-  if (warn_short && n_short > 0) {
-    idx <- list_indices(too_short)
-    warnings <- c(warnings, glue("{n_short} rows were too short: {idx}."))
+  warn_long <- align_warn %in% c("both", "long")
+  if (warn_long) {
+    too_long <- which(sizes > p)
+    n_long <- length(too_long)
+
+    if (n_long > 0) {
+      idx <- list_indices(too_long)
+      warnings <- c(warnings, glue("{n_long} rows were too long: {idx}."))
+    }
   }
 
   if (length(warnings) > 0) {
