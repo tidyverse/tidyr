@@ -48,6 +48,8 @@ reference:
   contents:
   - extract
   - separate
+  - separate_by_longer
+  - separate_by_wider
   - separate_rows
   - unite
 
