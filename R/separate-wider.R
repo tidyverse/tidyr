@@ -33,7 +33,8 @@
 #' @inheritParams rlang::args_dots_empty
 #' @param align_direction If different rows have different numbers of
 #'   observations should the `start`s or the `ends`s be aligned?
-#' @param align_warn When do you want to be informed about unexpected lengths?
+#' @param align_warn When do you want to be informed about strings that have
+#'   too many or too few pieces?
 #'
 #'   * `"both"`, the default, when there are too few or too many.
 #'   * `"short"`, only when there are too few.

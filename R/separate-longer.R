@@ -1,4 +1,3 @@
-
 #' Split a string into rows
 #'
 #' @description

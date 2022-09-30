@@ -78,7 +78,8 @@ strategies used to enforce them.}
 \item{align_direction}{If different rows have different numbers of
 observations should the \code{start}s or the \code{ends}s be aligned?}
 
-\item{align_warn}{When do you want to be informed about unexpected lengths?
+\item{align_warn}{When do you want to be informed about strings that have
+too many or too few pieces?
 \itemize{
 \item \code{"both"}, the default, when there are too few or too many.
 \item \code{"short"}, only when there are too few.
