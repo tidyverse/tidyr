@@ -117,7 +117,7 @@ manipulation engine, and their interfaces reflect what we've learned from
 df <- tibble(id = 1:3, x = c("m-123", "f-455", "f-123"))
 # There are three basic ways to split up a string into pieces.
 # * with a delimiter
-df \%>\% separate_by_wider(x, delim = "-", c("gender", "unit"))
+df \%>\% separate_by_wider(x, delim = "-", names = c("gender", "unit"))
 # * by length
 df \%>\% separate_at_wider(x, c(gender = 1, 1, unit = 3))
 # * defining each component with a regular expression
@@ -139,7 +139,7 @@ df \%>\% separate_by_longer(x, delim = " ")
 # The default behaviour tells you where the problems lie:
 df \%>\% separate_by_wider(x, delim = " ", names = c("a", "b"))
 # But you can can suppress the warnings:
-df \%>\% separate_by_wider(x, c("a", "b"), delim = " ", align_warn = "none")
+df \%>\% separate_by_wider(x, delim = " ", names = c("a", "b"), align_warn = "none")
 # Or choose to automatically name the columns
 df \%>\% separate_by_wider(x, delim = " ", names_sep = "", align_warn = "none")
 }
