@@ -65,39 +65,39 @@
       Error in `separate_at_wider()`:
       ! `widths` must be a named integer vector
 
-# separate_group_wider() gives informative error if () used
+# separate_regex_wider() gives informative error if () used
 
     Code
-      df %>% separate_group_wider(x, c(`_` = "(.)"))
+      df %>% separate_regex_wider(x, c(`_` = "(.)"))
     Condition
       Error in `fun()`:
       ! Invalid number of groups
       i Did you use () instead of (?:) inside a pattern?
 
-# separate_group_widerp() requires complete match by default
+# separate_regex_widerp() requires complete match by default
 
     Failed to match 1 rows: 1
 
-# separate_group_wider() validates its inputs
+# separate_regex_wider() validates its inputs
 
     Code
-      df %>% separate_group_wider()
+      df %>% separate_regex_wider()
     Condition
-      Error in `separate_group_wider()`:
+      Error in `separate_regex_wider()`:
       ! `cols` is absent but must be supplied.
     Code
-      df %>% separate_group_wider(x)
+      df %>% separate_regex_wider(x)
     Condition
-      Error in `separate_group_wider()`:
+      Error in `separate_regex_wider()`:
       ! argument "patterns" is missing, with no default
     Code
-      df %>% separate_group_wider(x, patterns = ".")
+      df %>% separate_regex_wider(x, patterns = ".")
     Condition
-      Error in `separate_group_wider()`:
+      Error in `separate_regex_wider()`:
       ! `patterns` must be a named character vector
     Code
-      df %>% separate_group_wider(x, patterns = c(y = "."), match_complete = NA)
+      df %>% separate_regex_wider(x, patterns = c(y = "."), match_complete = NA)
     Condition
-      Error in `separate_group_wider()`:
+      Error in `separate_regex_wider()`:
       ! `match_complete` must be TRUE or FALSE
 

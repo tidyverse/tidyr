@@ -78,51 +78,51 @@ test_that("separate_at_wider() validates its inputs", {
   })
 })
 
-test_that("separate_group_wider() can extract columns", {
+test_that("separate_regex_wider() can extract columns", {
   df <- data.frame(x = "a123")
-  out <- df %>% separate_group_wider(x, c("a" = ".", "b" = "\\d+"))
+  out <- df %>% separate_regex_wider(x, c("a" = ".", "b" = "\\d+"))
   expect_equal(out, tibble(a = "a", b = "123"))
 })
 
-test_that("separate_group_wider() can drop values", {
+test_that("separate_regex_wider() can drop values", {
   df <- data.frame(x = "ab123")
-  out <- df %>% separate_group_wider(x, c("a" = ".", ".", "b" = "\\d+"))
+  out <- df %>% separate_regex_wider(x, c("a" = ".", ".", "b" = "\\d+"))
   expect_equal(out, tibble(a = "a", b = "123"))
 })
 
-test_that("separate_group_wider() can use odd names", {
+test_that("separate_regex_wider() can use odd names", {
   df <- data.frame(x = "ab123")
-  out <- df %>% separate_group_wider(x, c("_" = ".", ".", "." = "\\d+"))
+  out <- df %>% separate_regex_wider(x, c("_" = ".", ".", "." = "\\d+"))
   expect_equal(out, tibble(`_` = "a", `.` = "123"))
 })
 
-test_that("separate_group_wider() gives informative error if () used", {
+test_that("separate_regex_wider() gives informative error if () used", {
   df <- data.frame(x = "x")
   expect_snapshot(error = TRUE, {
-    df %>% separate_group_wider(x, c("_" = "(.)"))
+    df %>% separate_regex_wider(x, c("_" = "(.)"))
   })
 })
 
-test_that("separate_group_widerp() requires complete match by default", {
+test_that("separate_regex_widerp() requires complete match by default", {
   df <- data.frame(x = " a123 ")
   expect_snapshot_warning(
-    out <- df %>% separate_group_wider(x, c("a" = ".", "b" = "\\d+"))
+    out <- df %>% separate_regex_wider(x, c("a" = ".", "b" = "\\d+"))
   )
   expect_equal(out, tibble(a = NA_character_, b = NA_character_))
 
-  out <- df %>% separate_group_wider(
+  out <- df %>% separate_regex_wider(
     x, c("a" = ".", "b" = "\\d+"),
     match_complete = FALSE
   )
   expect_equal(out, tibble(a = "a", b = "123"))
 })
 
-test_that("separate_group_wider() validates its inputs", {
+test_that("separate_regex_wider() validates its inputs", {
   df <- data.frame(x = "x")
   expect_snapshot(error = TRUE, {
-    df %>% separate_group_wider()
-    df %>% separate_group_wider(x)
-    df %>% separate_group_wider(x, patterns = ".")
-    df %>% separate_group_wider(x, patterns = c(y = "."), match_complete = NA)
+    df %>% separate_regex_wider()
+    df %>% separate_regex_wider(x)
+    df %>% separate_regex_wider(x, patterns = ".")
+    df %>% separate_regex_wider(x, patterns = c(y = "."), match_complete = NA)
   })
 })

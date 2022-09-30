@@ -3,7 +3,7 @@
 \name{separate_by_wider}
 \alias{separate_by_wider}
 \alias{separate_at_wider}
-\alias{separate_group_wider}
+\alias{separate_regex_wider}
 \title{Split a string into columns}
 \usage{
 separate_by_wider(
@@ -29,7 +29,7 @@ separate_at_wider(
   align_warn = c("both", "short", "long", "none")
 )
 
-separate_group_wider(
+separate_regex_wider(
   data,
   cols,
   patterns,
@@ -105,7 +105,7 @@ new columns:
 \itemize{
 \item \code{separate_by_wider()} splits with a delimiter.
 \item \code{separate_at_wider()} splits using fixed widths.
-\item \code{separate_group_wider()} splits using regular expression matches.
+\item \code{separate_regex_wider()} splits using regular expression matches.
 }
 
 These functions are equivalent to \code{\link[=separate]{separate()}} and \code{\link[=extract]{extract()}}, but use
@@ -121,16 +121,16 @@ df \%>\% separate_by_wider(x, delim = "-", names = c("gender", "unit"))
 # * by length
 df \%>\% separate_at_wider(x, c(gender = 1, 1, unit = 3))
 # * defining each component with a regular expression
-df \%>\% separate_group_wider(x, c(gender = ".", ".", unit = "\\\\d+"))
+df \%>\% separate_regex_wider(x, c(gender = ".", ".", unit = "\\\\d+"))
 
 # Sometimes you split on the "last" delimiter:
 df <- data.frame(var = c("race_1", "race_2", "age_bucket_1", "age_bucket_2"))
 # _delim won't help because it always splits on the first delimiter
 df \%>\% separate_by_wider(var, "_", names = c("var1", "var2"))
 # Instead, you can use _group:
-df \%>\% separate_group_wider(var, c(var1 = ".*", "_", var2 = ".*"))
+df \%>\% separate_regex_wider(var, c(var1 = ".*", "_", var2 = ".*"))
 # this works because * is greedy; you can mimic the _by behaviour with .*?
-df \%>\% separate_group_wider(var, c(var1 = ".*?", "_", var2 = ".*"))
+df \%>\% separate_regex_wider(var, c(var1 = ".*?", "_", var2 = ".*"))
 
 # If the number of components varies, it's most natural to split into rows
 df <- tibble(id = 1:4, x = c("x", "x y", "x y z", NA))
