@@ -19,14 +19,25 @@
 #' @inheritParams separate
 #' @param cols <[`tidy-select`][tidyr_tidy_select]> Columns to separate into
 #'   pieces.
-#' @param names,names_sep Specify either a fixed number of column `names` or
-#'   use `names_sep` to generate new names from the source column name and
-#'   a numeric suffix.
+#' @param names,names_sep If you are separating a single column, specify either
+#'   a fixed number of column `names` or use `names_sep` to generate new names
+#'   from the source column name and a numeric suffix.
+#'
+#'   If you are separating multiple columns, you must to supply `names_sep`,
+#'   to avoid creating duplicated column names.
 #' @param delim Delimiter between columns, a stringr pattern.
 #'
 #'   Note that the default is a regular expression so that `delim = "."` will
 #'   split on every character. If you need to split by a special character, use
 #'   `delim = stringr::fixed(".")`.
+#' @param align_direction If different rows have different numbers of
+#'   observations should the `start`s or the `ends`s be aligned?
+#' @param align_warn When do you want to be informed about unexpected lengths?
+#'
+#'   * `"both"`, the default, when there are too few or too many.
+#'   * `"short"`, only when there are too few.
+#'   * `"long"`, only where there are too many.
+#'   * `"none"`, never warn.
 #' @export
 #' @examples
 #' df <- tibble(id = 1:2, x = c("m-123", "f-455"))
@@ -41,9 +52,11 @@
 #' # Sometimes you split on the "last" delimiter:
 #' df <- data.frame(var = c("race_1", "race_2", "age_bucket_1", "age_bucket_2"))
 #' # _delim won't help because it always splits on the first delimiter
-#' df %>% separate_by_wider(var, "_", names = c("var1", "var2"), extra = "merge")
-#' # Instead, you can use _regex:
+#' df %>% separate_by_wider(var, "_", names = c("var1", "var2"))
+#' # Instead, you can use _group:
 #' df %>% separate_group_wider(var, c(var1 = ".*", "_", var2 = ".*"))
+#' # this works because * is greedy; you can mimic the _by behaviour with .*?
+#' df %>% separate_group_wider(var, c(var1 = ".*?", "_", var2 = ".*"))
 #'
 #' # If the number of components varies, it's most natural to split into rows
 #' df <- tibble(id = 1:4, x = c("x", "x y", "x y z", NA))
@@ -51,20 +64,17 @@
 #' # But separate_by_wider() provides some tools to deal with the problem
 #' # The default behaviour tells you where the problems lie:
 #' df %>% separate_by_wider(x, delim = " ", names = c("a", "b"))
-#' # You can suppress the warnings by setting extra and fill
-#' df %>% separate_by_wider(x, c("a", "b"), delim = " ", extra = "drop", fill = "right")
-#' # Or choose to handle differently
-#' df %>% separate_by_wider(x, c("a", "b"), delim = " ", extra = "merge", fill = "left")
-#' # Or automatically name the columns
-#' #' df %>% separate_by_wider(x, delim = " ", names_sep = "", fill = "right")
+#' # But you can can suppress the warnings:
+#' df %>% separate_by_wider(x, c("a", "b"), delim = " ", align_warn = "none")
+#' # Or choose to automatically name the columns
+#' df %>% separate_by_wider(x, delim = " ", names_sep = "", align_warn = "none")
 separate_by_wider <- function(
     data,
     cols,
     delim,
     names = NULL,
     names_sep = NULL,
-    align_length = NULL,
-    align_direction = c("start", "end", "merge"),
+    align_direction = c("start", "end"),
     align_warn = c("both", "short", "long", "none"),
     names_repair = "check_unique"
 ) {
@@ -91,8 +101,7 @@ str_separate_by_wider <- function(
     x,
     names,
     delim,
-    align_length = NULL,
-    align_direction = c("start", "end", "merge"),
+    align_direction = c("start", "end"),
     align_warn = c("both", "short", "long", "none")
 ) {
 
@@ -105,16 +114,10 @@ str_separate_by_wider <- function(
   align_direction <- arg_match(align_direction)
   align_warn <- arg_match(align_warn)
 
-  if (align_direction == "merge") {
-    n <- length(names)
-    align_direction <- "start"
-  } else {
-    n <- Inf
-  }
-  pieces <- stringr::str_split(x, delim, n = n)
+  pieces <- stringr::str_split(x, delim, n = Inf)
 
   if (is.null(names)) {
-    names <- seq_len(align_length %||% max(lengths(pieces)))
+    names <- seq_len(max(lengths(pieces)))
   }
 
   list2df(
@@ -134,7 +137,7 @@ separate_at_wider <- function(
     data,
     cols,
     widths,
-    align_direction = c("start", "end", "merge"),
+    align_direction = c("start", "end"),
     align_warn = c("both", "short", "long", "none"),
     names_sep = NULL,
     names_repair = "check_unique"
@@ -155,7 +158,7 @@ separate_at_wider <- function(
 
 str_separate_at_wider <- function(x,
                                   widths,
-                                  align_direction = c("start", "end", "merge"),
+                                  align_direction = c("start", "end"),
                                   align_warn = c("both", "short", "long", "none")
                                   ) {
   if (!is_integerish(widths) || all(!have_name(widths))) {

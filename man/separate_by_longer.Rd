@@ -12,14 +12,14 @@ separate_at_longer(data, cols, width, keep_empty = FALSE)
 \arguments{
 \item{data}{A data frame.}
 
-\item{cols}{<\code{\link[=tidyr_tidy_select]{tidy-select}}> String columns to separate
-into pieces.}
+\item{cols}{<\code{\link[=tidyr_tidy_select]{tidy-select}}> Columns to separate into
+pieces.}
 
 \item{delim}{Delimiter between columns, a stringr pattern.
 
 Note that the default is a regular expression so that \code{delim = "."} will
-split on every character. If you need to split by a special character, you
-can use \code{delim = stringr::fixed(".")}.}
+split on every character. If you need to split by a special character, use
+\code{delim = stringr::fixed(".")}.}
 
 \item{width}{Number of characters to split by.}
 

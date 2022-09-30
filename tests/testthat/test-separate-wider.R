@@ -18,17 +18,17 @@ test_that("separate_by_wider() can control too few/too many values", {
   df <- data.frame(x = c("x", "x y", "x y z"))
   out <- df %>% separate_by_wider(x, " ",
     names = c("a", "b"),
-    align_direction = "merge",
     align_warn = "none"
   )
   expect_equal(out[1, ], tibble(a = "x", b = NA_character_))
-  expect_equal(out[3, ], tibble(a = "x", b = "y z"))
+  expect_equal(out[3, ], tibble(a = "x", b = "y"))
 
   out <- df %>% separate_by_wider(x,  " ",
     names = c("a", "b"),
-    align_direction = "start",
+    align_direction = "end",
     align_warn = "none"
   )
+  expect_equal(out[1, ], tibble(a = NA_character_, b = "x"))
   expect_equal(out[3, ], tibble(a = "x", b = "y"))
 })
 

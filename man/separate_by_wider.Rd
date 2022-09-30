@@ -12,8 +12,7 @@ separate_by_wider(
   delim,
   names = NULL,
   names_sep = NULL,
-  align_length = NULL,
-  align_direction = c("start", "end", "merge"),
+  align_direction = c("start", "end"),
   align_warn = c("both", "short", "long", "none"),
   names_repair = "check_unique"
 )
@@ -22,7 +21,8 @@ separate_at_wider(
   data,
   cols,
   widths,
-  fill = c("warn", "right", "left"),
+  align_direction = c("start", "end"),
+  align_warn = c("both", "short", "long", "none"),
   names_sep = NULL,
   names_repair = "check_unique"
 )
@@ -39,18 +39,32 @@ separate_group_wider(
 \arguments{
 \item{data}{A data frame.}
 
-\item{cols}{<\code{\link[=tidyr_tidy_select]{tidy-select}}> String columns to separate
-into pieces.}
+\item{cols}{<\code{\link[=tidyr_tidy_select]{tidy-select}}> Columns to separate into
+pieces.}
 
 \item{delim}{Delimiter between columns, a stringr pattern.
 
 Note that the default is a regular expression so that \code{delim = "."} will
-split on every character. If you need to split by a special character, you
-can use \code{delim = stringr::fixed(".")}.}
+split on every character. If you need to split by a special character, use
+\code{delim = stringr::fixed(".")}.}
 
-\item{names, names_sep}{Specify either either a fixed number of column
-\code{names} or use \code{names_sep} to generate new names from the source column
-name and a numeric suffix.}
+\item{names, names_sep}{If you are separating a single column, specify either
+a fixed number of column \code{names} or use \code{names_sep} to generate new names
+from the source column name and a numeric suffix.
+
+If you are separating multiple columns, you must to supply \code{names_sep},
+to avoid creating duplicated column names.}
+
+\item{align_direction}{If different rows have different numbers of
+observations should the \code{start}s or the \code{ends}s be aligned?}
+
+\item{align_warn}{When do you want to be informed about unexpected lengths?
+\itemize{
+\item \code{"both"}, the default, when there are too few or too many.
+\item \code{"short"}, only when there are too few.
+\item \code{"long"}, only where there are too many.
+\item \code{"none"}, never warn.
+}}
 
 \item{names_repair}{Used to check that output data frame has valid
 names. Must be one of the following options:
@@ -70,14 +84,6 @@ strategies used to enforce them.}
 \item{widths}{A named numeric vector where the names become column names,
 and the values specify the column width. Omit the name to leave those
 values out of the final output.}
-
-\item{fill}{If \code{sep} is a character vector, this controls what
-happens when there are not enough pieces. There are three valid options:
-\itemize{
-\item "warn" (the default): emit a warning and fill from the right
-\item "right": fill with missing values on the right
-\item "left": fill with missing values on the left
-}}
 
 \item{patterns}{A named character vector where the names given names of
 new columns in the output, and the values are regular expressions.
@@ -114,9 +120,11 @@ df \%>\% separate_group_wider(x, c(gender = ".", ".", unit = "\\\\d+"))
 # Sometimes you split on the "last" delimiter:
 df <- data.frame(var = c("race_1", "race_2", "age_bucket_1", "age_bucket_2"))
 # _delim won't help because it always splits on the first delimiter
-df \%>\% separate_by_wider(var, "_", names = c("var1", "var2"), extra = "merge")
-# Instead, you can use _regex:
+df \%>\% separate_by_wider(var, "_", names = c("var1", "var2"))
+# Instead, you can use _group:
 df \%>\% separate_group_wider(var, c(var1 = ".*", "_", var2 = ".*"))
+# this works because * is greedy; you can mimic the _by behaviour with .*?
+df \%>\% separate_group_wider(var, c(var1 = ".*?", "_", var2 = ".*"))
 
 # If the number of components varies, it's most natural to split into rows
 df <- tibble(id = 1:4, x = c("x", "x y", "x y z", NA))
@@ -124,10 +132,8 @@ df \%>\% separate_by_longer(x, delim = " ")
 # But separate_by_wider() provides some tools to deal with the problem
 # The default behaviour tells you where the problems lie:
 df \%>\% separate_by_wider(x, delim = " ", names = c("a", "b"))
-# You can suppress the warnings by setting extra and fill
-df \%>\% separate_by_wider(x, c("a", "b"), delim = " ", extra = "drop", fill = "right")
-# Or choose to handle differently
-df \%>\% separate_by_wider(x, c("a", "b"), delim = " ", extra = "merge", fill = "left")
-# Or automatically name the columns
-#' df \%>\% separate_by_wider(x, delim = " ", names_sep = "", fill = "right")
+# But you can can suppress the warnings:
+df \%>\% separate_by_wider(x, c("a", "b"), delim = " ", align_warn = "none")
+# Or choose to automatically name the columns
+df \%>\% separate_by_wider(x, delim = " ", names_sep = "", align_warn = "none")
 }
