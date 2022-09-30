@@ -31,7 +31,7 @@ separate_by_longer <- function(data, cols, delim, ...) {
   }
   check_dots_empty()
 
-  map_unchop(data, {{ cols }}, stringr::str_split, pattern = delim)
+  map_unchop(data, {{ cols }}, stringr::str_split, pattern = stringr::fixed(delim))
 }
 
 #' @param width Number of characters to split by.

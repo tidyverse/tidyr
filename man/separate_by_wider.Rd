@@ -45,11 +45,7 @@ separate_regex_wider(
 \item{cols}{<\code{\link[=tidyr_tidy_select]{tidy-select}}> Columns to separate into
 pieces.}
 
-\item{delim}{Delimiter between columns, a stringr pattern.
-
-Note that the default is a regular expression so that \code{delim = "."} will
-split on every character. If you need to split by a special character, use
-\code{delim = stringr::fixed(".")}.}
+\item{delim}{Delimiter between columns, a fixed string.}
 
 \item{...}{Additional arguments passed on to methods.}
 

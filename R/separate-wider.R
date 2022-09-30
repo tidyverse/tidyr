@@ -25,11 +25,7 @@
 #'
 #'   If you are separating multiple columns, you must to supply `names_sep`,
 #'   to avoid creating duplicated column names.
-#' @param delim Delimiter between columns, a stringr pattern.
-#'
-#'   Note that the default is a regular expression so that `delim = "."` will
-#'   split on every character. If you need to split by a special character, use
-#'   `delim = stringr::fixed(".")`.
+#' @param delim Delimiter between columns, a fixed string.
 #' @inheritParams rlang::args_dots_empty
 #' @param align_direction If different rows have different numbers of
 #'   observations should the `start`s or the `ends`s be aligned?
@@ -116,7 +112,7 @@ str_separate_by_wider <- function(
     align_warn = c("both", "short", "long", "none")
 ) {
 
-  pieces <- stringr::str_split(x, delim, n = Inf)
+  pieces <- stringr::str_split(x, stringr::fixed(delim), n = Inf)
   names <- names %||% as.character(seq_len(max(lengths(pieces))))
 
   df_align(
