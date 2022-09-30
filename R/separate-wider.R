@@ -86,7 +86,6 @@ separate_by_wider <- function(
   if (!is_string(delim)) {
     abort("`delim` must be a string")
   }
-
   if (is.null(names) && is.null(names_sep)) {
     abort("Must specify at least one of `names` or `names_sep`")
   }
