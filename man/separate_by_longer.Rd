@@ -5,17 +5,16 @@
 \alias{separate_at_longer}
 \title{Split a string into rows}
 \usage{
-separate_by_longer(data, cols, delim, ...)
+separate_by_longer(data, cols, sep, ...)
 
 separate_at_longer(data, cols, width, ..., keep_empty = FALSE)
 }
 \arguments{
 \item{data}{A data frame.}
 
-\item{cols}{<\code{\link[=tidyr_tidy_select]{tidy-select}}> Columns to separate into
-pieces.}
+\item{cols}{<\code{\link[=tidyr_tidy_select]{tidy-select}}> Columns to separate.}
 
-\item{delim}{Delimiter between columns, a fixed string.}
+\item{sep}{Separator between columns, a fixed string.}
 
 \item{...}{Additional arguments passed on to methods.}
 
@@ -37,11 +36,11 @@ Each of these functions takes a string and splits it into multiple rows:
 }
 \examples{
 df <- tibble(id = 1:4, x = c("x", "x y", "x y z", NA))
-df \%>\% separate_by_longer(x, delim = " ")
+df \%>\% separate_by_longer(x, sep = " ")
 
 # You can separate multiple columns at a time
 df <- tibble(id = 1:3, x = c("x", "x y", "x y z"), y = c("a", "a b", "a b c"))
-df \%>\% separate_by_longer(c(x, y), delim = " ")
+df \%>\% separate_by_longer(c(x, y), sep = " ")
 
 # Or instead split by a fixed length
 df <- tibble(id = 1:3, x = c("ab", "def", ""))

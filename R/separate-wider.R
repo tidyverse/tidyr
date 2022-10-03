@@ -17,15 +17,14 @@
 #'
 #' @inheritParams unnest_longer
 #' @inheritParams separate
-#' @param cols <[`tidy-select`][tidyr_tidy_select]> Columns to separate into
-#'   pieces.
+#' @param cols <[`tidy-select`][tidyr_tidy_select]> Columns to separate.
 #' @param names,names_sep If you are separating a single column, specify either
 #'   a fixed number of column `names` or use `names_sep` to generate new names
-#'   from the source column name and a numeric suffix.
+#'   from the source column name, `names_sep`, and a numeric suffix.
 #'
 #'   If you are separating multiple columns, you must to supply `names_sep`,
 #'   to avoid creating duplicated column names.
-#' @param delim Delimiter between columns, a fixed string.
+#' @param sep Separator between columns, a fixed string.
 #' @inheritParams rlang::args_dots_empty
 #' @param align_direction If different rows have different numbers of
 #'   observations should the `start`s or the `ends`s be aligned?
@@ -41,7 +40,7 @@
 #' df <- tibble(id = 1:3, x = c("m-123", "f-455", "f-123"))
 #' # There are three basic ways to split up a string into pieces.
 #' # * with a delimiter
-#' df %>% separate_by_wider(x, delim = "-", names = c("gender", "unit"))
+#' df %>% separate_by_wider(x, sep = "-", names = c("gender", "unit"))
 #' # * by length
 #' df %>% separate_at_wider(x, c(gender = 1, 1, unit = 3))
 #' # * defining each component with a regular expression
@@ -58,18 +57,18 @@
 #'
 #' # If the number of components varies, it's most natural to split into rows
 #' df <- tibble(id = 1:4, x = c("x", "x y", "x y z", NA))
-#' df %>% separate_by_longer(x, delim = " ")
+#' df %>% separate_by_longer(x, sep = " ")
 #' # But separate_by_wider() provides some tools to deal with the problem
 #' # The default behaviour tells you where the problems lie:
-#' df %>% separate_by_wider(x, delim = " ", names = c("a", "b"))
+#' df %>% separate_by_wider(x, sep = " ", names = c("a", "b"))
 #' # But you can can suppress the warnings:
-#' df %>% separate_by_wider(x, delim = " ", names = c("a", "b"), align_warn = "none")
+#' df %>% separate_by_wider(x, sep = " ", names = c("a", "b"), align_warn = "none")
 #' # Or choose to automatically name the columns
-#' df %>% separate_by_wider(x, delim = " ", names_sep = "", align_warn = "none")
+#' df %>% separate_by_wider(x, sep = " ", names_sep = "", align_warn = "none")
 separate_by_wider <- function(
     data,
     cols,
-    delim,
+    sep,
     ...,
     names = NULL,
     names_sep = NULL,
@@ -80,8 +79,8 @@ separate_by_wider <- function(
   check_installed("stringr")
   check_required(cols)
   check_dots_empty()
-  if (!is_string(delim)) {
-    abort("`delim` must be a string")
+  if (!is_string(sep)) {
+    abort("`sep` must be a string")
   }
   if (is.null(names) && is.null(names_sep)) {
     abort("Must specify at least one of `names` or `names_sep`")
@@ -96,7 +95,7 @@ separate_by_wider <- function(
     data, {{ cols }},
     str_separate_by_wider,
     names = names,
-    delim = delim,
+    sep = sep,
     align_direction = align_direction,
     align_warn = align_warn,
     .names_sep = names_sep,
@@ -107,12 +106,12 @@ separate_by_wider <- function(
 str_separate_by_wider <- function(
     x,
     names,
-    delim,
+    sep,
     align_direction = c("start", "end"),
     align_warn = c("both", "short", "long", "none")
 ) {
 
-  pieces <- stringr::str_split(x, stringr::fixed(delim), n = Inf)
+  pieces <- stringr::str_split(x, stringr::fixed(sep), n = Inf)
   names <- names %||% as.character(seq_len(max(lengths(pieces))))
 
   df_align(
@@ -125,8 +124,8 @@ str_separate_by_wider <- function(
 
 #' @rdname separate_by_wider
 #' @param widths A named numeric vector where the names become column names,
-#'   and the values specify the column width. Omit the name to leave those
-#'   values out of the final output.
+#'   and the values specify the column width. Unnamed components will match,
+#'   but not be included in the output.
 #' @export
 separate_at_wider <- function(
     data,
@@ -164,10 +163,10 @@ str_separate_at_wider <- function(x,
                                   align_warn = c("both", "short", "long", "none")
                                   ) {
 
-  skip <- names(widths) == ""
-
   breaks <- cumsum(c(1, unname(widths)))[-(length(widths) + 1)]
-  from <- cbind(start = breaks, length = widths)[!skip, ]
+
+  skip <- names(widths) == ""
+  from <- cbind(start = breaks[!skip], length = widths[!skip])
   names <- names(widths)[!skip]
 
   pieces <- stringr::str_sub_all(x, from)
@@ -182,9 +181,9 @@ str_separate_at_wider <- function(x,
 }
 
 #' @rdname separate_by_wider
-#' @param patterns A named character vector where the names given names of
-#'   new columns in the output, and the values are regular expressions.
-#'   Unnamed components will match, but not be included in the output.
+#' @param patterns A named character vector where the names become column names
+#'   and the values are regular expressions that match the contents of the
+#'   vector. Unnamed components will match, but not be included in the output.
 #' @param match_complete Is the pattern required to match the entire string?
 #' @export
 separate_regex_wider <- function(

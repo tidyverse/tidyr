@@ -9,7 +9,7 @@
 separate_by_wider(
   data,
   cols,
-  delim,
+  sep,
   ...,
   names = NULL,
   names_sep = NULL,
@@ -42,16 +42,15 @@ separate_regex_wider(
 \arguments{
 \item{data}{A data frame.}
 
-\item{cols}{<\code{\link[=tidyr_tidy_select]{tidy-select}}> Columns to separate into
-pieces.}
+\item{cols}{<\code{\link[=tidyr_tidy_select]{tidy-select}}> Columns to separate.}
 
-\item{delim}{Delimiter between columns, a fixed string.}
+\item{sep}{Separator between columns, a fixed string.}
 
 \item{...}{Additional arguments passed on to methods.}
 
 \item{names, names_sep}{If you are separating a single column, specify either
 a fixed number of column \code{names} or use \code{names_sep} to generate new names
-from the source column name and a numeric suffix.
+from the source column name, \code{names_sep}, and a numeric suffix.
 
 If you are separating multiple columns, you must to supply \code{names_sep},
 to avoid creating duplicated column names.}
@@ -84,12 +83,12 @@ too many or too few pieces?
 }}
 
 \item{widths}{A named numeric vector where the names become column names,
-and the values specify the column width. Omit the name to leave those
-values out of the final output.}
+and the values specify the column width. Unnamed components will match,
+but not be included in the output.}
 
-\item{patterns}{A named character vector where the names given names of
-new columns in the output, and the values are regular expressions.
-Unnamed components will match, but not be included in the output.}
+\item{patterns}{A named character vector where the names become column names
+and the values are regular expressions that match the contents of the
+vector. Unnamed components will match, but not be included in the output.}
 
 \item{match_complete}{Is the pattern required to match the entire string?}
 }
@@ -113,7 +112,7 @@ manipulation engine, and their interfaces reflect what we've learned from
 df <- tibble(id = 1:3, x = c("m-123", "f-455", "f-123"))
 # There are three basic ways to split up a string into pieces.
 # * with a delimiter
-df \%>\% separate_by_wider(x, delim = "-", names = c("gender", "unit"))
+df \%>\% separate_by_wider(x, sep = "-", names = c("gender", "unit"))
 # * by length
 df \%>\% separate_at_wider(x, c(gender = 1, 1, unit = 3))
 # * defining each component with a regular expression
@@ -130,12 +129,12 @@ df \%>\% separate_regex_wider(var, c(var1 = ".*?", "_", var2 = ".*"))
 
 # If the number of components varies, it's most natural to split into rows
 df <- tibble(id = 1:4, x = c("x", "x y", "x y z", NA))
-df \%>\% separate_by_longer(x, delim = " ")
+df \%>\% separate_by_longer(x, sep = " ")
 # But separate_by_wider() provides some tools to deal with the problem
 # The default behaviour tells you where the problems lie:
-df \%>\% separate_by_wider(x, delim = " ", names = c("a", "b"))
+df \%>\% separate_by_wider(x, sep = " ", names = c("a", "b"))
 # But you can can suppress the warnings:
-df \%>\% separate_by_wider(x, delim = " ", names = c("a", "b"), align_warn = "none")
+df \%>\% separate_by_wider(x, sep = " ", names = c("a", "b"), align_warn = "none")
 # Or choose to automatically name the columns
-df \%>\% separate_by_wider(x, delim = " ", names_sep = "", align_warn = "none")
+df \%>\% separate_by_wider(x, sep = " ", names_sep = "", align_warn = "none")
 }

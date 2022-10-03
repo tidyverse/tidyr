@@ -12,26 +12,26 @@
 #' @inheritParams separate_by_wider
 #' @examples
 #' df <- tibble(id = 1:4, x = c("x", "x y", "x y z", NA))
-#' df %>% separate_by_longer(x, delim = " ")
+#' df %>% separate_by_longer(x, sep = " ")
 #'
 #' # You can separate multiple columns at a time
 #' df <- tibble(id = 1:3, x = c("x", "x y", "x y z"), y = c("a", "a b", "a b c"))
-#' df %>% separate_by_longer(c(x, y), delim = " ")
+#' df %>% separate_by_longer(c(x, y), sep = " ")
 #'
 #' # Or instead split by a fixed length
 #' df <- tibble(id = 1:3, x = c("ab", "def", ""))
 #' df %>% separate_at_longer(x, 1)
 #' df %>% separate_at_longer(x, 2)
 #' df %>% separate_at_longer(x, 2, keep_empty = TRUE)
-separate_by_longer <- function(data, cols, delim, ...) {
+separate_by_longer <- function(data, cols, sep, ...) {
   check_installed("stringr")
   check_required(cols)
-  if (!is_string(delim)) {
-    abort("`delim` must be a string")
+  if (!is_string(sep)) {
+    abort("`sep` must be a string")
   }
   check_dots_empty()
 
-  map_unchop(data, {{ cols }}, stringr::str_split, pattern = stringr::fixed(delim))
+  map_unchop(data, {{ cols }}, stringr::str_split, pattern = stringr::fixed(sep))
 }
 
 #' @param width Number of characters to split by.

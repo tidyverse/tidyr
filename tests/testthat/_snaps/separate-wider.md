@@ -15,12 +15,12 @@
       df %>% separate_by_wider(x)
     Condition
       Error in `is_string()`:
-      ! argument "delim" is missing, with no default
+      ! argument "sep" is missing, with no default
     Code
       df %>% separate_by_wider(x, 1)
     Condition
       Error in `separate_by_wider()`:
-      ! `delim` must be a string
+      ! `sep` must be a string
     Code
       df %>% separate_by_wider(x, "")
     Condition

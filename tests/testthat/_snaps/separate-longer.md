@@ -6,10 +6,10 @@
       Error in `separate_by_longer()`:
       ! `cols` is absent but must be supplied.
     Code
-      df %>% separate_by_longer(x, delim = 1)
+      df %>% separate_by_longer(x, sep = 1)
     Condition
       Error in `separate_by_longer()`:
-      ! `delim` must be a string
+      ! `sep` must be a string
 
 # separate_at_longer() validates its inputs
 

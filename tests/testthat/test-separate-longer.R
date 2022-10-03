@@ -1,6 +1,6 @@
 test_that("separate_by_longer() creates rows", {
   df <- data.frame(id = 1:2, x = c("x", "y,z"))
-  out <- separate_by_longer(df, x, delim = ",")
+  out <- separate_by_longer(df, x, sep = ",")
   expect_equal(out$id, c(1, 2, 2))
   expect_equal(out$x, c("x", "y", "z"))
 })
@@ -9,7 +9,7 @@ test_that("separate_by_longer() validates its inputs", {
   df <- data.frame(x = "x")
   expect_snapshot(error = TRUE, {
     df %>% separate_by_longer()
-    df %>% separate_by_longer(x, delim = 1)
+    df %>% separate_by_longer(x, sep = 1)
   })
 })
 
