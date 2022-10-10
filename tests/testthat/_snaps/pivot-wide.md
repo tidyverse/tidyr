@@ -25,7 +25,7 @@
       (expect_error(pivot_wider(df, values_from = val)))
     Output
       <error/vctrs_error_subscript_oob>
-      Error in `chr_as_locations()`:
+      Error in `build_wider_spec()`:
       ! Can't subset columns that don't exist.
       x Column `name` doesn't exist.
 
@@ -35,7 +35,7 @@
       (expect_error(pivot_wider(df, names_from = key)))
     Output
       <error/vctrs_error_subscript_oob>
-      Error in `chr_as_locations()`:
+      Error in `build_wider_spec()`:
       ! Can't subset columns that don't exist.
       x Column `value` doesn't exist.
 
@@ -124,7 +124,7 @@
       (expect_error(pivot_wider(df, id_cols = foo)))
     Output
       <error/vctrs_error_subscript_oob>
-      Error in `chr_as_locations()`:
+      Error in `select_wider_id_cols()`:
       ! Can't subset columns that don't exist.
       x Column `foo` doesn't exist.
 

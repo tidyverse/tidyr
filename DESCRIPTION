@@ -28,7 +28,7 @@ Imports:
     purrr,
     rlang (>= 1.0.4),
     tibble (>= 2.1.1),
-    tidyselect (>= 1.1.0),
+    tidyselect (>= 1.1.2.9000),
     utils,
     vctrs (>= 0.4.1)
 Suggests: 
@@ -51,3 +51,5 @@ LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.1
 SystemRequirements: C++11
+Remotes:  
+    r-lib/tidyselect
