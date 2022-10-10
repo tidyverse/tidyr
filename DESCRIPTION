@@ -23,7 +23,7 @@ Depends:
 Imports: 
     dplyr (>= 1.0.0),
     glue,
-    lifecycle,
+    lifecycle (>= 1.0.3),
     magrittr,
     purrr,
     rlang (>= 1.0.4),
