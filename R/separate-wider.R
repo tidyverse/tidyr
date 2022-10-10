@@ -24,7 +24,8 @@
 #'
 #'   If you are separating multiple columns, you must to supply `names_sep`,
 #'   to avoid creating duplicated column names.
-#' @param sep Separator between columns, a fixed string.
+#' @param sep Separator between columns, by default, a fixed string.
+#'   Use `stringr::regexp()` and friends to split in other ways.
 #' @inheritParams rlang::args_dots_empty
 #' @param align_direction If different rows have different numbers of
 #'   observations should the `start`s or the `ends`s be aligned?
@@ -74,7 +75,8 @@ separate_by_wider <- function(
     names_sep = NULL,
     names_repair = "check_unique",
     align_direction = c("start", "end"),
-    align_warn = c("both", "short", "long", "none")
+    align_warn = c("both", "short", "long", "none"),
+    debug = FALSE
 ) {
   check_installed("stringr")
   check_required(cols)
@@ -98,6 +100,7 @@ separate_by_wider <- function(
     sep = sep,
     align_direction = align_direction,
     align_warn = align_warn,
+    debug = debug,
     .names_sep = names_sep,
     .names_repair = names_repair
   )
@@ -105,21 +108,42 @@ separate_by_wider <- function(
 
 str_separate_by_wider <- function(
     x,
+    col,
     names,
     sep,
+    names_sep = NULL,
     align_direction = c("start", "end"),
-    align_warn = c("both", "short", "long", "none")
+    align_warn = c("both", "short", "long", "none"),
+    debug = FALSE
 ) {
 
-  pieces <- stringr::str_split(x, stringr::fixed(sep), n = Inf)
+  if (is_bare_string(sep)) {
+    sep <- stringr::fixed(sep)
+  }
+
+  pieces <- stringr::str_split(x, sep, n = Inf)
   names <- names %||% as.character(seq_len(max(lengths(pieces))))
 
-  df_align(
+  out <- df_align(
     x = pieces,
     names = names,
     align_direction = align_direction,
-    align_warn = align_warn
+    align_warn = if (debug) "none" else align_warn
   )
+
+  # TODO: uses names_prefix instead
+  if (debug) {
+    names_sep <- names_sep %||% "_"
+
+    p <- length(names)
+    out[[paste0(col, names_sep, "pieces")]] <- lengths(pieces)
+
+    sep_loc <- str_locate_all(x, sep)
+    sep_last <- lapply(sep_loc, function(x) if (nrow(x) < p) NA else x[p, "start"])
+    out[[paste0(col, names_sep, "extra")]] <- str_sub(x, sep_last)
+  }
+
+  out
 }
 
 #' @rdname separate_by_wider
@@ -255,7 +279,7 @@ map_unpack <- function(data, cols, fun, ..., .names_sep, .names_repair) {
   col_names <- names(cols)
 
   for (col in col_names) {
-    data[[col]] <- fun(data[[col]], ...)
+    data[[col]] <- fun(data[[col]], col, ..., names_sep = .names_sep)
   }
 
   unpack(

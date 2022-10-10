@@ -31,7 +31,11 @@ separate_by_longer <- function(data, cols, sep, ...) {
   }
   check_dots_empty()
 
-  map_unchop(data, {{ cols }}, stringr::str_split, pattern = stringr::fixed(sep))
+  if (is_bare_string(sep)) {
+    sep <- stringr::fixed(sep)
+  }
+
+  map_unchop(data, {{ cols }}, stringr::str_split, pattern = sep)
 }
 
 #' @param width Number of characters to split by.
