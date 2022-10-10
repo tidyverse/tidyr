@@ -214,7 +214,7 @@ provided by tidyr: `unnest_longer()`, `unnest_wider()`, and `hoist()`.
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> <span style="color: #949494;">&lt;list [26]&gt;</span></span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> <span style="color: #949494;">&lt;list [30]&gt;</span></span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> <span style="color: #949494;">&lt;list [30]&gt;</span></span></span></code></pre></div>
-<p>This time the elements of <code>user</code> are a list of repositories that belong to that user. These are observations, so should become new rows, so we use <code><a href="../reference/unnest_longer.html">unnest_longer()</a></code> rather than <code><a href="../reference/unnest_wider.html">unnest_wider()</a></code>:</p>
+<p>This time the elements of <code>repos</code> are a list of repositories that belong to that user. These are observations, so should become new rows, so we use <code><a href="../reference/unnest_longer.html">unnest_longer()</a></code> rather than <code><a href="../reference/unnest_wider.html">unnest_wider()</a></code>:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">repos</span> <span class="op">&lt;-</span> <span class="va">repos</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="../reference/unnest_longer.html">unnest_longer</a></span><span class="op">(</span><span class="va">repo</span><span class="op">)</span></span>
 <span><span class="va">repos</span></span>
