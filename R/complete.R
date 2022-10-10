@@ -80,7 +80,7 @@ complete.data.frame <- function(data,
   names <- names(out)
 
   if (length(names) > 0L) {
-    out <- dplyr::full_join(out, data, by = names)
+    out <- dplyr::full_join(out, data, by = names, multiple = "all")
   } else {
     # Avoid joining the 1x0 result from `expand()` with `data`.
     # That causes issues when `data` has zero rows.
