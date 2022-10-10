@@ -128,7 +128,7 @@ col_simplify <- function(x,
   # after the `ptype` and `transform` have been applied, but before the
   # empty element filling was applied
   tryCatch(
-    vec_unchop(x_scalars, ptype = x_ptype),
+    list_unchop(x_scalars, ptype = x_ptype),
     vctrs_error_incompatible_type = function(e) x
   )
 }

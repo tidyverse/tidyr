@@ -52,15 +52,6 @@
       New names:
       * `` -> `...1`
 
-# can't currently combine compatible `<list> + <list_of<ptype>>`
-
-    Code
-      (expect_error(unnest_wider(df, col)))
-    Output
-      <error/vctrs_error_incompatible_type>
-      Error in `col_to_wide()`:
-      ! Can't combine `..1$a` <list> and `..3$a` <list_of<integer>>.
-
 # unnest_wider() input must be a data frame (#1224)
 
     Code

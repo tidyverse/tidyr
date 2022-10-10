@@ -248,7 +248,7 @@ collect_indices_info <- function(col, indices_include) {
   }
 
   indices <- map(col, vec_names)
-  unnamed <- vec_equal_na(indices)
+  unnamed <- vec_detect_missing(indices)
   all_unnamed <- all(unnamed)
 
   if (is.null(indices_include) && all_unnamed) {
