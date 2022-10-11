@@ -4,7 +4,7 @@
       (expect_error(hoist(df, x, "b", .ptype = list(b = double()))))
     Output
       <error/vctrs_error_cast>
-      Error in `col_simplify()`:
+      Error in `hoist()`:
       ! Can't convert `..1` <list> to <double>.
 
 # non-vectors generate a cast error if a ptype is supplied
@@ -13,7 +13,7 @@
       (expect_error(hoist(df, x, "b", .ptype = list(b = integer()))))
     Output
       <error/vctrs_error_scalar_type>
-      Error in `col_simplify()`:
+      Error in `hoist()`:
       ! `..1` must be a vector, not a symbol.
 
 # input validation catches problems
@@ -28,13 +28,13 @@
       (expect_error(df %>% hoist(x, 1)))
     Output
       <error/rlang_error>
-      Error in `check_pluckers()`:
+      Error in `hoist()`:
       ! All elements of `...` must be named.
     Code
       (expect_error(df %>% hoist(x, a = "a", a = "b")))
     Output
       <error/rlang_error>
-      Error in `check_pluckers()`:
+      Error in `hoist()`:
       ! The names of `...` must be unique.
 
 # can't hoist() from a data frame column

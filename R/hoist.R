@@ -133,7 +133,7 @@ hoist <- function(.data,
   out
 }
 
-check_pluckers <- function(...) {
+check_pluckers <- function(..., .call = caller_env()) {
   pluckers <- list2(...)
 
   is_string <- map_lgl(pluckers, ~ is.character(.x) && length(.x) == 1)
@@ -144,11 +144,11 @@ check_pluckers <- function(...) {
   }
 
   if (length(pluckers) > 0 && !is_named(pluckers)) {
-    abort("All elements of `...` must be named.")
+    abort("All elements of `...` must be named.", call = .call)
   }
 
   if (vec_duplicate_any(names(pluckers))) {
-    abort("The names of `...` must be unique.")
+    abort("The names of `...` must be unique.", call = .call)
   }
 
   # Standardize all pluckers to lists for splicing into `pluck()`

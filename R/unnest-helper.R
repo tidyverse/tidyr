@@ -5,11 +5,12 @@ df_simplify <- function(x,
                         ...,
                         ptype = NULL,
                         transform = NULL,
-                        simplify = TRUE) {
+                        simplify = TRUE,
+                        call = caller_env()) {
   check_dots_empty()
 
-  ptype <- check_list_of_ptypes(ptype, names(x), "ptype")
-  transform <- check_list_of_functions(transform, names(x), "transform")
+  ptype <- check_list_of_ptypes(ptype, names(x), "ptype", call = call)
+  transform <- check_list_of_functions(transform, names(x), "transform", call = call)
 
   if (is_bool(simplify)) {
     simplify_default <- simplify
@@ -19,13 +20,13 @@ df_simplify <- function(x,
   }
 
   if (!vec_is_list(simplify)) {
-    abort("`simplify` must be a list or a single `TRUE` or `FALSE`.")
+    abort("`simplify` must be a list or a single `TRUE` or `FALSE`.", call = call)
   }
   if (length(simplify) > 0L && !is_named(simplify)) {
-    abort("All elements of `simplify` must be named.")
+    abort("All elements of `simplify` must be named.", call = call)
   }
   if (vec_duplicate_any(names(simplify))) {
-    abort("The names of `simplify` must be unique.")
+    abort("The names of `simplify` must be unique.", call = call)
   }
 
   x_n <- length(x)
@@ -47,7 +48,8 @@ df_simplify <- function(x,
       x = col,
       ptype = col_ptype,
       transform = col_transform,
-      simplify = col_simplify
+      simplify = col_simplify,
+      call = call
     )
   }
 
@@ -58,7 +60,8 @@ col_simplify <- function(x,
                          ...,
                          ptype = NULL,
                          transform = NULL,
-                         simplify = TRUE) {
+                         simplify = TRUE,
+                         call = caller_env()) {
   check_dots_empty()
 
   if (!is.null(transform)) {
@@ -70,7 +73,7 @@ col_simplify <- function(x,
       x <- transform(x)
     }
     if (!is.null(ptype)) {
-      x <- vec_cast(x, ptype)
+      x <- vec_cast(x, ptype, call = call)
     }
     return(x)
   }
@@ -82,7 +85,7 @@ col_simplify <- function(x,
   }
   if (!is.null(ptype)) {
     x <- tidyr_new_list(x)
-    x <- vec_cast_common(!!!x, .to = ptype)
+    x <- vec_cast_common(!!!x, .to = ptype, .call = call)
     x <- new_list_of(x, ptype = ptype)
   }
 
