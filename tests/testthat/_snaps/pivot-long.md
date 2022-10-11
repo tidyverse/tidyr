@@ -1,3 +1,23 @@
+# when `values_ptypes` is provided, the type error uses variable names (#1364)
+
+    Code
+      (expect_error(pivot_longer(df, x, values_ptypes = character())))
+    Output
+      <error/vctrs_error_cast>
+      Error in `pivot_longer_spec()`:
+      ! Can't convert `x` <double> to <character>.
+
+# when `names_ptypes` is provided, the type error uses `names_to` names (#1364)
+
+    Code
+      (expect_error({
+        pivot_longer(df, cols = x, names_to = "name", names_ptypes = double())
+      }))
+    Output
+      <error/vctrs_error_cast>
+      Error in `build_longer_spec()`:
+      ! Can't convert `name` <character> to <double>.
+
 # error when overwriting existing column
 
     Code
@@ -134,4 +154,20 @@
       <error/rlang_error>
       Error in `pivot_longer_spec()`:
       ! All elements of `values_transform` must be named.
+
+# `cols_vary` is validated
+
+    Code
+      (expect_error(pivot_longer(df, x, cols_vary = "fast")))
+    Output
+      <error/rlang_error>
+      Error in `pivot_longer_spec()`:
+      ! `cols_vary` must be one of "fastest" or "slowest", not "fast".
+      i Did you mean "fastest"?
+    Code
+      (expect_error(pivot_longer(df, x, cols_vary = 1)))
+    Output
+      <error/rlang_error>
+      Error in `pivot_longer_spec()`:
+      ! `cols_vary` must be a string or character vector.
 

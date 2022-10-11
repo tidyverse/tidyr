@@ -137,7 +137,7 @@ list_init_empty <- function(x,
   }
 
   sizes <- list_sizes(x)
-  empty_null <- vec_equal_na(x)
+  empty_null <- vec_detect_missing(x)
   empty_typed <- (sizes == 0L) & !empty_null
 
   if (null && any(empty_null)) {
@@ -163,8 +163,7 @@ list_init_empty <- function(x,
       replacement <- list(vec_init(ptype, n = 1L))
       replacement <- new_list_of(replacement, ptype = ptype)
     } else {
-      # `vec_init()` is slow, see r-lib/vctrs#1423, so use `vec_slice()` equivalent
-      replacement <- map(vec_slice(x, empty_typed), vec_slice, i = NA_integer_)
+      replacement <- map(vec_slice(x, empty_typed), vec_init)
     }
 
     x <- vec_assign(x, empty_typed, replacement)

@@ -1,9 +1,22 @@
 # tidyr (development version)
 
+* `pivot_longer()` now throws a slightly better error message when
+  `values_ptypes` or `names_ptypes` is provided and the coercion can't be made
+  (#1364).
+
+* `uncount()` is now generic so implementations can be provided for objects
+  other than data frames (@mgirlich, #1358).
+
+* `uncount()` gained the `...` argument. It comes between the required and the
+  optional arguments (@mgirlich, #1358).
+
+* `pivot_longer()` gained a new `cols_vary` argument for controlling the
+  ordering of the output rows relative to their original row number (#1312).
+
 * `pivot_longer()` is now more memory efficient due to the usage of
   `vctrs::vec_interleave()` (#1310, @mgirlich).
 
-* rlang >=1.0.2 and vctrs >=0.4.0 are now required (#1344).
+* rlang >=1.0.2 and vctrs >=0.4.1 are now required (#1344).
 
 * Removed dependency on ellipsis in favor of equivalent functions in rlang
   (#1314).
@@ -16,6 +29,10 @@
 
 * Improved the error message returned by `pivot_wider()` when a column selected
   by `names_from` or `values_from` is also selected by `id_cols` (#1318).
+
+# tidyr 1.2.1
+
+* Hot patch release to resolve R CMD check failures.
 
 # tidyr 1.2.0
 

@@ -25,8 +25,8 @@
       (expect_error(pivot_wider(df, values_from = val)))
     Output
       <error/vctrs_error_subscript_oob>
-      Error in `chr_as_locations()`:
-      ! Can't subset columns past the end.
+      Error in `build_wider_spec()`:
+      ! Can't subset columns that don't exist.
       x Column `name` doesn't exist.
 
 # `values_from` must be supplied if `value` isn't in `data` (#1240)
@@ -35,8 +35,8 @@
       (expect_error(pivot_wider(df, names_from = key)))
     Output
       <error/vctrs_error_subscript_oob>
-      Error in `chr_as_locations()`:
-      ! Can't subset columns past the end.
+      Error in `build_wider_spec()`:
+      ! Can't subset columns that don't exist.
       x Column `value` doesn't exist.
 
 # `names_from` must identify at least 1 column (#1240)
@@ -75,7 +75,7 @@
       (expect_error(build_wider_spec(df, names_vary = 1)))
     Output
       <error/rlang_error>
-      Error in `arg_match0()`:
+      Error in `build_wider_spec()`:
       ! `names_vary` must be a string or character vector.
     Code
       (expect_error(build_wider_spec(df, names_vary = "x")))
@@ -124,8 +124,8 @@
       (expect_error(pivot_wider(df, id_cols = foo)))
     Output
       <error/vctrs_error_subscript_oob>
-      Error in `chr_as_locations()`:
-      ! Can't subset columns past the end.
+      Error in `pivot_wider()`:
+      ! Can't subset columns that don't exist.
       x Column `foo` doesn't exist.
 
 # `id_expand` is validated
