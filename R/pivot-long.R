@@ -325,7 +325,7 @@ pivot_longer_spec <- function(data,
   ))
 
   if (values_drop_na) {
-    out <- vec_slice(out, !vec_equal_na(vals))
+    out <- vec_slice(out, !vec_detect_missing(vals))
   }
 
   out$.seq <- NULL

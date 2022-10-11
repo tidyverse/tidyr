@@ -3,7 +3,7 @@
     Code
       (expect_error(hoist(df, x, "b", .ptype = list(b = double()))))
     Output
-      <error/vctrs_error_incompatible_type>
+      <error/vctrs_error_cast>
       Error in `col_simplify()`:
       ! Can't convert `..1` <list> to <double>.
 

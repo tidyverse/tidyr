@@ -12,6 +12,8 @@
 #' @useDynLib tidyr, .registration = TRUE
 "_PACKAGE"
 
+the <- new_environment()
+
 globalVariables(c(".", "name", "value"))
 
 #' @importFrom tibble tribble

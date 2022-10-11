@@ -30,9 +30,9 @@
     Code
       (expect_error(unnest(df, x)))
     Output
-      <error/vctrs_error_incompatible_type>
-      Error:
-      ! Can't combine `..1` <double> and `..2` <tbl_df>.
+      <error/vctrs_error_ptype2>
+      Error in `list_unchop()`:
+      ! Can't combine `x[[1]]` <double> and `x[[2]]` <tbl_df>.
 
 # cols must go in cols
 
@@ -71,7 +71,7 @@
     Condition
       Warning:
       The `.sep` argument of `unnest()` is deprecated as of tidyr 1.0.0.
-      Use `names_sep = '_'` instead.
+      i Use `names_sep = '_'` instead.
 
 # unnest has mutate semantics
 
@@ -89,7 +89,7 @@
     Condition
       Warning:
       The `.preserve` argument of `unnest()` is deprecated as of tidyr 1.0.0.
-      All list-columns are now preserved
+      i All list-columns are now preserved
     Output
       # A tibble: 2 x 2
             x y        
@@ -104,7 +104,7 @@
     Condition
       Warning:
       The `.drop` argument of `unnest()` is deprecated as of tidyr 1.0.0.
-      All list-columns are now preserved.
+      i All list-columns are now preserved.
     Output
       # A tibble: 2 x 2
             x y        
@@ -119,5 +119,5 @@
     Condition
       Warning:
       The `.id` argument of `unnest()` is deprecated as of tidyr 1.0.0.
-      Manually create column of names instead.
+      i Manually create column of names instead.
 

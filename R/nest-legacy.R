@@ -229,7 +229,7 @@ enframe <- function(x, col_name, .id = NULL) {
   }
 
   col <- unname(x)
-  col <- vec_unchop(col)
+  col <- list_unchop(col)
 
   out <- set_names(list(col), col_name)
   out <- as_tibble(out)

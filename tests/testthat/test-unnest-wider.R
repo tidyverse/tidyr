@@ -226,16 +226,10 @@ test_that("output structure is the same whether or not `names_sep` is applied (#
   expect_identical(out2$col_...1, c(NA, 1, 1))
 })
 
-test_that("can't currently combine compatible `<list> + <list_of<ptype>>`", {
-  # Turn this into a working test after this issue is resolved
-  # https://github.com/r-lib/vctrs/pull/1231
-  skip_on_cran()
-
+test_that("can combine `<list> + <list_of<ptype>>`", {
   df <- tibble(col = list(list(a = 1:2), list_of(a = 1L)))
-
-  expect_snapshot((expect_error(
-    unnest_wider(df, col)
-  )))
+  out <- unnest_wider(df, col)
+  expect_identical(out$a, list(1:2, 1L))
 })
 
 test_that("unnest_wider() input must be a data frame (#1224)", {

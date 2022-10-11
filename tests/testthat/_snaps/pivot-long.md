@@ -3,7 +3,7 @@
     Code
       (expect_error(pivot_longer(df, x, values_ptypes = character())))
     Output
-      <error/vctrs_error_incompatible_type>
+      <error/vctrs_error_cast>
       Error in `pivot_longer_spec()`:
       ! Can't convert `x` <double> to <character>.
 
@@ -14,7 +14,7 @@
         pivot_longer(df, cols = x, names_to = "name", names_ptypes = double())
       }))
     Output
-      <error/vctrs_error_incompatible_type>
+      <error/vctrs_error_cast>
       Error in `build_longer_spec()`:
       ! Can't convert `name` <character> to <double>.
 
