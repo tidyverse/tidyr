@@ -226,10 +226,10 @@ test_that("output structure is the same whether or not `names_sep` is applied (#
   expect_identical(out2$col_...1, c(NA, 1, 1))
 })
 
-test_that("can combine compatible `<list> + <list_of<ptype>>`", {
+test_that("can combine `<list> + <list_of<ptype>>`", {
   df <- tibble(col = list(list(a = 1:2), list_of(a = 1L)))
   out <- unnest_wider(df, col)
-  expect_equal(out$a, list(1:2, 1))
+  expect_identical(out$a, list(1:2, 1L))
 })
 
 test_that("unnest_wider() input must be a data frame (#1224)", {
