@@ -12,7 +12,7 @@
 #' @useDynLib tidyr, .registration = TRUE
 "_PACKAGE"
 
-the <- env()
+the <- new_environment()
 
 globalVariables(c(".", "name", "value"))
 
