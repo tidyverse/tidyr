@@ -48,14 +48,14 @@
       (expect_error(separate(df, x, "x", FALSE)))
     Output
       <error/rlang_error>
-      Error in `str_separate()`:
-      ! `sep` must be either numeric or character
+      Error in `separate()`:
+      ! `sep` must be either numeric or character.
     Code
       (expect_error(separate(df, x, FALSE)))
     Output
       <error/rlang_error>
-      Error in `str_separate()`:
-      ! `into` must be a character vector
+      Error in `separate()`:
+      ! `into` must be a character vector.
 
 # informative error if using stringr modifier functions (#693)
 
@@ -63,6 +63,6 @@
       (expect_error(separate(df, x, sep = sep)))
     Output
       <error/rlang_error>
-      Error in `check_not_stringr_pattern()`:
+      Error in `separate()`:
       ! `sep` can't use modifiers from stringr.
 

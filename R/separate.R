@@ -86,11 +86,11 @@ separate.data.frame <- function(data, col, into, sep = "[^[:alnum:]]+",
   reconstruct_tibble(data, out, if (remove) var else NULL)
 }
 
-str_separate <- function(x, into, sep, convert = FALSE, extra = "warn", fill = "warn") {
-  check_not_stringr_pattern(sep, "sep")
+str_separate <- function(x, into, sep, convert = FALSE, extra = "warn", fill = "warn", call = caller_env()) {
+  check_not_stringr_pattern(sep, "sep", call = call)
 
   if (!is.character(into)) {
-    abort("`into` must be a character vector")
+    abort("`into` must be a character vector.", call = call)
   }
 
   if (is.numeric(sep)) {
@@ -98,7 +98,7 @@ str_separate <- function(x, into, sep, convert = FALSE, extra = "warn", fill = "
   } else if (is_character(sep)) {
     out <- str_split_fixed(x, sep, length(into), extra = extra, fill = fill)
   } else {
-    abort("`sep` must be either numeric or character")
+    abort("`sep` must be either numeric or character.", call = call)
   }
 
   names(out) <- as_utf8_character(into)
@@ -186,9 +186,9 @@ list_indices <- function(x, max = 20) {
   paste(x, collapse = ", ")
 }
 
-check_not_stringr_pattern <- function(x, arg) {
+check_not_stringr_pattern <- function(x, arg, call = caller_env()) {
   if (inherits_any(x, c("pattern", "stringr_pattern"))) {
-    abort(glue("`{arg}` can't use modifiers from stringr."))
+    abort(glue("`{arg}` can't use modifiers from stringr."), call = call)
   }
 
   invisible(x)
