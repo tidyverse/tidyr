@@ -321,7 +321,8 @@ pivot_longer_spec <- function(data,
     data_cols,
     keys,
     vals,
-    .name_repair = names_repair
+    .name_repair = names_repair,
+    .error_call = current_env()
   ))
 
   if (values_drop_na) {

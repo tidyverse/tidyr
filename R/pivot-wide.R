@@ -444,7 +444,8 @@ pivot_wider_spec <- function(data,
     rows,
     values,
     unused,
-    .name_repair = names_repair
+    .name_repair = names_repair,
+    .error_call = current_env()
   ))
 
   reconstruct_tibble(input, out)

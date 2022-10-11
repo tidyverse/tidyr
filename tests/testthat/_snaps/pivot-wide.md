@@ -4,7 +4,7 @@
       (expect_error(pivot_wider(df, names_from = key, values_from = val)))
     Output
       <error/vctrs_error_names_must_be_unique>
-      Error in `vec_cbind()`:
+      Error in `pivot_wider_spec()`:
       ! Names must be unique.
       x These names are duplicated:
         * "a" at locations 1 and 2.
