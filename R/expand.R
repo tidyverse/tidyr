@@ -194,7 +194,7 @@ expand_grid <- function(..., .name_repair = "check_unique") {
   }
 
   # Flattens unnamed data frames after grid expansion
-  out <- df_list(!!!out, .name_repair = .name_repair)
+  out <- df_list(!!!out, .name_repair = .name_repair, .error_call = current_env())
   out <- tibble::new_tibble(out, nrow = size)
 
   out

@@ -40,7 +40,7 @@
       (expect_error(expand_grid(x = x, x = x)))
     Output
       <error/vctrs_error_names_must_be_unique>
-      Error in `df_list()`:
+      Error in `expand_grid()`:
       ! Names must be unique.
       x These names are duplicated:
         * "x" at locations 1 and 2.
