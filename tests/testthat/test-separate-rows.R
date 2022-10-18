@@ -69,3 +69,12 @@ test_that("does not silently drop blank values (#1014)", {
     tibble(x = c(1, 2, 2, 2, 3), y = c("a", "d", "e", "f", ""))
   )
 })
+
+test_that("it validates its inputs", {
+  df <- tibble(x = 1:3, y = c("a", "d,e,f", ""))
+
+  expect_snapshot(error = TRUE, {
+    separate_rows(df, x, sep = 1)
+    separate_rows(df, x, convert = 1)
+  })
+})
