@@ -194,7 +194,7 @@ expand_grid <- function(..., .name_repair = "check_unique") {
   }
 
   # Flattens unnamed data frames after grid expansion
-  out <- df_list(!!!out, .name_repair = .name_repair)
+  out <- df_list(!!!out, .name_repair = .name_repair, .error_call = current_env())
   out <- tibble::new_tibble(out, nrow = size)
 
   out
@@ -214,10 +214,6 @@ sorted_unique <- function(x) {
 
 # forcats::fct_unique
 fct_unique <- function(x) {
-  if (!is.factor(x)) {
-    abort("`x` must be a factor.")
-  }
-
   levels <- levels(x)
   out <- levels
 
@@ -228,7 +224,7 @@ fct_unique <- function(x) {
   factor(out, levels = levels, exclude = NULL, ordered = is.ordered(x))
 }
 
-grid_dots <- function(..., `_data` = NULL) {
+grid_dots <- function(..., `_data` = NULL, .error_call = caller_env()) {
   dots <- enquos(...)
   n_dots <- length(dots)
 
@@ -277,7 +273,7 @@ grid_dots <- function(..., `_data` = NULL) {
     }
 
     arg <- paste0("..", i)
-    vec_assert(dot, arg = arg)
+    vec_assert(dot, arg = arg, call = .error_call)
 
     out[[i]] <- dot
 

@@ -195,3 +195,10 @@ test_that("if the completing variables have missings, `fill` will fill them afte
     tibble(x = c(1, 1, NA, 0), y = c(1, NA, 1, 0))
   )
 })
+
+
+test_that("validates its inputs", {
+  expect_snapshot(error = TRUE, {
+    complete(mtcars, explicit = 1)
+  })
+})

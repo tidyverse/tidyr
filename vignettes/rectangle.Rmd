@@ -83,7 +83,7 @@ repos <- tibble(repo = gh_repos)
 repos
 ```
 
-This time the elements of `user` are a list of repositories that belong to that user. These are observations, so should become new rows, so we use `unnest_longer()` rather than `unnest_wider()`:
+This time the elements of `repos` are a list of repositories that belong to that user. These are observations, so should become new rows, so we use `unnest_longer()` rather than `unnest_wider()`:
 
 ```{r}
 repos <- repos %>% unnest_longer(repo)

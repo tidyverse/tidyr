@@ -4,7 +4,7 @@
 \alias{check_pivot_spec}
 \title{Check assumptions about a pivot \code{spec}}
 \usage{
-check_pivot_spec(spec)
+check_pivot_spec(spec, call = caller_env())
 }
 \arguments{
 \item{spec}{A specification data frame. This is useful for more complex

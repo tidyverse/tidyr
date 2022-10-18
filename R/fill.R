@@ -90,12 +90,11 @@ fill <- function(data, ..., .direction = c("down", "up", "downup", "updown")) {
 
 #' @export
 fill.data.frame <- function(data, ..., .direction = c("down", "up", "downup", "updown")) {
-  vars <- tidyselect::eval_select(expr(c(...)), data)
+  vars <- tidyselect::eval_select(expr(c(...)), data, allow_rename = FALSE)
 
   .direction <- arg_match0(
     arg = .direction,
     values = c("down", "up", "downup", "updown"),
-    arg_nm = ".direction"
   )
 
   fn <- function(col) {

@@ -64,23 +64,30 @@ complete <- function(data,
                      ...,
                      fill = list(),
                      explicit = TRUE) {
+
   UseMethod("complete")
 }
+
+on_load({
+  the$dplyr_needs_multiple <- packageVersion("dplyr") >= "1.0.99"
+})
 
 #' @export
 complete.data.frame <- function(data,
                                 ...,
                                 fill = list(),
                                 explicit = TRUE) {
-  if (!is_bool(explicit)) {
-    abort("`explicit` must be a single `TRUE` or `FALSE`.")
-  }
+  check_bool(explicit)
 
   out <- expand(data, ...)
   names <- names(out)
 
   if (length(names) > 0L) {
-    out <- dplyr::full_join(out, data, by = names)
+    if (the$dplyr_needs_multiple) {
+      out <- dplyr::full_join(out, data, by = names, multiple = "all")
+    } else {
+      out <- dplyr::full_join(out, data, by = names)
+    }
   } else {
     # Avoid joining the 1x0 result from `expand()` with `data`.
     # That causes issues when `data` has zero rows.

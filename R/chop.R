@@ -66,9 +66,9 @@
 #' df %>% unchop(y)
 #' df %>% unchop(y, keep_empty = TRUE)
 chop <- function(data, cols) {
+  check_data_frame(data)
   check_required(cols)
-  # TODO: `allow_rename = FALSE`
-  cols <- tidyselect::eval_select(enquo(cols), data)
+  cols <- tidyselect::eval_select(enquo(cols), data, allow_rename = FALSE)
 
   cols <- tidyr_new_list(data[cols])
   keys <- data[setdiff(names(data), names(cols))]
@@ -99,6 +99,10 @@ col_chop <- function(x, indices) {
 #' @export
 #' @rdname chop
 unchop <- function(data, cols, keep_empty = FALSE, ptype = NULL) {
+  check_data_frame(data)
+  check_required(cols)
+  check_bool(keep_empty)
+
   sel <- tidyselect::eval_select(enquo(cols), data)
 
   size <- vec_size(data)
@@ -141,17 +145,10 @@ unchop <- function(data, cols, keep_empty = FALSE, ptype = NULL) {
 #   used to slice the data frame `x` was subset from to align it with `val`.
 # - `val` the unchopped data frame.
 
-df_unchop <- function(x, ..., ptype = NULL, keep_empty = FALSE) {
+df_unchop <- function(x, ..., ptype = NULL, keep_empty = FALSE, error_call = caller_env()) {
   check_dots_empty()
 
-  if (!is.data.frame(x)) {
-    abort("`x` must be a data frame.")
-  }
-  if (!is_bool(keep_empty)) {
-    abort("`keep_empty` must be a single `TRUE` or `FALSE`.")
-  }
-
-  ptype <- check_list_of_ptypes(ptype, names = names(x), arg = "ptype")
+  ptype <- check_list_of_ptypes(ptype, names = names(x), call = error_call)
 
   size <- vec_size(x)
 
@@ -201,7 +198,7 @@ df_unchop <- function(x, ..., ptype = NULL, keep_empty = FALSE) {
     x_nulls[[i]] <- info$null
   }
 
-  sizes <- reduce(x_sizes, unchop_sizes2)
+  sizes <- reduce(x_sizes, unchop_sizes2, error_call = error_call)
 
   info <- unchop_finalize(x, sizes, x_nulls, keep_empty)
   x <- info$x
@@ -221,7 +218,7 @@ df_unchop <- function(x, ..., ptype = NULL, keep_empty = FALSE) {
 
     if (!col_is_list) {
       if (!is_null(col_ptype)) {
-        col <- vec_cast(col, col_ptype, x_arg = col_name)
+        col <- vec_cast(col, col_ptype, x_arg = col_name, call = error_call)
       }
       out_cols[[i]] <- vec_slice(col, out_loc)
       next
@@ -237,16 +234,19 @@ df_unchop <- function(x, ..., ptype = NULL, keep_empty = FALSE) {
 
     col_sizes <- x_sizes[[i]]
     row_recycle <- col_sizes != sizes
-    col[row_recycle] <- map2(col[row_recycle], sizes[row_recycle], vec_recycle)
+    col[row_recycle] <- map2(col[row_recycle], sizes[row_recycle], vec_recycle, call = error_call)
 
-    col <- vec_unchop(col, ptype = col_ptype)
+    col <- list_unchop(col, ptype = col_ptype)
 
     if (is_null(col)) {
       # This can happen when both of these are true:
       # - `col` was an empty list(), or a list of all `NULL`s.
       # - No ptype was specified for `col`, either by the user or by a list-of.
       if (out_size != 0L) {
-        abort("Internal error: `NULL` column generated, but output size is not `0`.")
+        cli::cli_abort(
+          "`NULL` column generated, but output size is not `0`.",
+          .internal = TRUE
+        )
       }
 
       col <- unspecified(0L)
@@ -264,7 +264,7 @@ df_unchop <- function(x, ..., ptype = NULL, keep_empty = FALSE) {
   out
 }
 
-unchop_sizes2 <- function(x, y) {
+unchop_sizes2 <- function(x, y, error_call) {
   # Standard tidyverse recycling rules, just vectorized.
 
   # Recycle `x` values with `y`
@@ -286,7 +286,10 @@ unchop_sizes2 <- function(x, y) {
     row <- which(incompatible)[[1]]
     x <- x[[row]]
     y <- y[[row]]
-    abort(glue("In row {row}, can't recycle input of size {x} to size {y}."))
+    cli::cli_abort(
+      "In row {row}, can't recycle input of size {x} to size {y}.",
+      call = error_call
+    )
   }
 
   x

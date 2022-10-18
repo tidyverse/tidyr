@@ -37,14 +37,14 @@ replace_na <- function(data, replace, ...) {
 #' @export
 replace_na.default <- function(data, replace = NA, ...) {
   check_replacement(replace, "data")
-  missing <- vec_equal_na(data)
+  missing <- vec_detect_missing(data)
   vec_assign(data, missing, replace, x_arg = "data", value_arg = "replace")
 }
 
 #' @export
 replace_na.data.frame <- function(data, replace = list(), ...) {
   if (!vec_is_list(replace)) {
-    abort("`replace` must be a list.")
+    cli::cli_abort("{.arg replace} must be a list, not {.obj_type_friendly {replace}}.")
   }
 
   names <- intersect(names(replace), names(data))
@@ -63,7 +63,7 @@ replace_na.data.frame <- function(data, replace = list(), ...) {
 
     check_replacement(value, col_arg)
 
-    missing <- vec_equal_na(col)
+    missing <- vec_detect_missing(col)
 
     data[[name]] <- vec_assign(
       x = col,
@@ -77,10 +77,13 @@ replace_na.data.frame <- function(data, replace = list(), ...) {
   data
 }
 
-check_replacement <- function(x, var) {
+check_replacement <- function(x, var, call = caller_env()) {
   n <- vec_size(x)
 
   if (n != 1) {
-    abort(glue("Replacement for `{var}` is length {n}, not length 1."))
+    cli::cli_abort(
+      "Replacement for `{var}` must be length 1, not length {n}.",
+      call = call
+    )
   }
 }
