@@ -88,9 +88,7 @@ unnest_wider <- function(data,
   }
 
   check_required(col)
-  # TODO: Use `allow_rename = FALSE`.
-  # Requires https://github.com/r-lib/tidyselect/issues/225.
-  cols <- tidyselect::eval_select(enquo(col), data)
+  cols <- tidyselect::eval_select(enquo(col), data, allow_rename = FALSE)
   col_names <- names(cols)
 
   if (!is.null(names_sep) && !is_string(names_sep)) {

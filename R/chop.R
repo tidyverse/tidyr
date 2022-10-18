@@ -67,8 +67,7 @@
 #' df %>% unchop(y, keep_empty = TRUE)
 chop <- function(data, cols) {
   check_required(cols)
-  # TODO: `allow_rename = FALSE`
-  cols <- tidyselect::eval_select(enquo(cols), data)
+  cols <- tidyselect::eval_select(enquo(cols), data, allow_rename = FALSE)
 
   cols <- tidyr_new_list(data[cols])
   keys <- data[setdiff(names(data), names(cols))]

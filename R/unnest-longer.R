@@ -78,9 +78,7 @@ unnest_longer <- function(data,
   }
 
   check_required(col)
-  # TODO: Use `allow_rename = FALSE`.
-  # Requires https://github.com/r-lib/tidyselect/issues/225.
-  cols <- tidyselect::eval_select(enquo(col), data)
+  cols <- tidyselect::eval_select(enquo(col), data, allow_rename = FALSE)
   col_names <- names(cols)
   n_col_names <- length(col_names)
 
