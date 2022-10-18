@@ -32,7 +32,7 @@ df_simplify <- function(x,
       x = col,
       ptype = col_ptype,
       transform = col_transform,
-      simplify = col_simplify %||% TRUE,
+      simplify = col_simplify,
       error_call = error_call
     )
   }

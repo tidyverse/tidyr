@@ -91,7 +91,7 @@ unnest_longer <- function(data,
   } else {
     if (is_false(indices_include)) {
       cli::cli_abort(
-        "Can't set {.arg indices_include} to {.code FALSE} when {.arg indices_to} is supplied."
+        "Can't use {.code indices_include = FALSE} when {.arg indices_to} is supplied."
       )
     }
     indices_include <- TRUE
@@ -214,7 +214,7 @@ elt_to_long <- function(x,
 
   if (!vec_is(x)) {
     cli::cli_abort(
-      "Column {.var {name}} must contain a list of vectors.",
+      "List-column {.var {name}} must contain only vectors.",
       call = error_call
     )
   }

@@ -89,10 +89,11 @@ hoist <- function(.data,
   x <- .data[[.col]]
   vec_check_list(x, arg = ".data[[.col]]")
 
-  # Check these here to generate error message with correct variable name
+  # These are also checked in df_simplify(), but we check here to generate
+  # errors with argument names
   check_list_of_ptypes(.ptype, names(x))
-  check_list_of_functions(.transform, names(x))
   check_list_of_bool(.simplify, names(x))
+  check_list_of_functions(.transform, names(x))
 
   # In R <4.1, `::` is quite slow and this is a tight loop, so eliminating
   # the lookup has a large performance impact:

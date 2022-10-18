@@ -5,7 +5,7 @@
     Output
       <error/rlang_error>
       Error in `unnest_longer()`:
-      ! Column `y` must contain a list of vectors.
+      ! List-column `y` must contain only vectors.
 
 # can't mix `indices_to` with `indices_include = FALSE`
 
@@ -15,7 +15,7 @@
     Output
       <error/rlang_error>
       Error in `unnest_longer()`:
-      ! Can't set `indices_include` to `FALSE` when `indices_to` is supplied.
+      ! Can't use `indices_include = FALSE` when `indices_to` is supplied.
 
 # unnest_longer() validates its inputs
 
