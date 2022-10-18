@@ -1,5 +1,9 @@
 # tidyr (development version)
 
+* tidyr errors (including input validation) have been thorougly reviewed
+  and should generally be more likely to point you in the right direction 
+  (#1313, #1400).
+
 * `chop()`, `drop_na()`, `fill()`, `pivot_longer()`, `pivot_wider()`, 
   `separate_rows()`, `unite()`, `unnest_longer()`, and `unnest_wider()` now
   error if you supply named selection (#1104).
