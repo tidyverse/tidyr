@@ -37,6 +37,11 @@ unite <- function(data, col, ..., sep = "_", remove = TRUE, na.rm = FALSE) {
 }
 #' @export
 unite.data.frame <- function(data, col, ..., sep = "_", remove = TRUE, na.rm = FALSE) {
+  check_required(col)
+  check_string(sep)
+  check_bool(remove)
+  check_bool(na.rm)
+
   if (dots_n(...) == 0) {
     from_vars <- set_names(seq_along(data), names(data))
   } else {
