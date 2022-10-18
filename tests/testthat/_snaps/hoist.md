@@ -52,7 +52,7 @@
       hoist(1)
     Condition
       Error in `hoist()`:
-      ! `.data` must be a data frame, not a string.
+      ! `.data` must be a data frame, not a number.
     Code
       hoist(df)
     Condition

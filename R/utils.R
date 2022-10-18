@@ -195,7 +195,7 @@ vec_paste0 <- function(...) {
 
 check_data_frame <- function(x, arg = caller_arg(x), call = caller_env()) {
   if (!is.data.frame(x)) {
-    cli::cli_abort("{.arg {arg}} must be a data frame, not {.obj_type_friendly x}.", call = call)
+    cli::cli_abort("{.arg {arg}} must be a data frame, not {.obj_type_friendly {x}}.", call = call)
   }
 }
 

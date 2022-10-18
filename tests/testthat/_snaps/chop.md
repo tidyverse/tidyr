@@ -4,7 +4,7 @@
       chop(df$x)
     Condition
       Error in `chop()`:
-      ! `data` must be a data frame, not a string.
+      ! `data` must be a data frame, not an integer vector.
     Code
       chop(df)
     Condition
@@ -35,7 +35,7 @@
       unchop(1:10)
     Condition
       Error in `unchop()`:
-      ! `data` must be a data frame, not a string.
+      ! `data` must be a data frame, not an integer vector.
     Code
       unchop(df)
     Condition
