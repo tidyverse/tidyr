@@ -347,7 +347,6 @@ str_separate_at_wider <- function(x,
 #' @param patterns A named character vector where the names become column names
 #'   and the values are regular expressions that match the contents of the
 #'   vector. Unnamed components will match, but not be included in the output.
-#' @param match_complete Is the pattern required to match the entire string?
 #' @export
 separate_regex_wider <- function(
     data,

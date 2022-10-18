@@ -107,8 +107,6 @@ but not be included in the output.}
 \item{patterns}{A named character vector where the names become column names
 and the values are regular expressions that match the contents of the
 vector. Unnamed components will match, but not be included in the output.}
-
-\item{match_complete}{Is the pattern required to match the entire string?}
 }
 \value{
 A data frame, with the same number of rows as \code{df} but different
