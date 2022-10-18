@@ -105,12 +105,15 @@ test_that("drops NA columns", {
   expect_equal(out$y, c(NA, "b", "d"))
 })
 
-test_that("checks type of `into` and `sep`", {
+test_that("validates inputs", {
   df <- tibble(x = "a:b")
 
-  expect_snapshot({
-    (expect_error(separate(df, x, "x", FALSE)))
-    (expect_error(separate(df, x, FALSE)))
+  expect_snapshot(error = TRUE, {
+    separate(df)
+    separate(df, x, into = 1)
+    separate(df, x, into = "x", sep = c("a", "b"))
+    separate(df, x, into = "x", remove = 1)
+    separate(df, x, into = "x", convert = 1)
   })
 })
 
@@ -118,7 +121,7 @@ test_that("informative error if using stringr modifier functions (#693)", {
   df <- tibble(x = "a")
   sep <- structure("a", class = "pattern")
 
-  expect_snapshot((expect_error(separate(df, x, sep = sep))))
+  expect_snapshot((expect_error(separate(df, x, "x", sep = sep))))
 })
 
 # helpers -----------------------------------------------------------------
