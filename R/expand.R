@@ -228,7 +228,7 @@ fct_unique <- function(x) {
   factor(out, levels = levels, exclude = NULL, ordered = is.ordered(x))
 }
 
-grid_dots <- function(..., `_data` = NULL) {
+grid_dots <- function(..., `_data` = NULL, .error_call = caller_env()) {
   dots <- enquos(...)
   n_dots <- length(dots)
 
@@ -277,7 +277,7 @@ grid_dots <- function(..., `_data` = NULL) {
     }
 
     arg <- paste0("..", i)
-    vec_assert(dot, arg = arg, call = caller_env())
+    vec_assert(dot, arg = arg, call = .error_call)
 
     out[[i]] <- dot
 
