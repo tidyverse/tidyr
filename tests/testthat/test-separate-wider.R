@@ -1,21 +1,21 @@
 # separate_by_wider --------------------------------------------------------
 
 test_that("separate_by_wider() can create column names", {
-  df <- data.frame(x = c("a b", "x y"))
+  df <- tibble(x = c("a b", "x y"))
   out <- df %>% separate_by_wider(x, " ", names_sep = "")
   expect_equal(out$x1, c("a", "x"))
   expect_equal(out$x2, c("b", "y"))
 })
 
 test_that("separate_by_wider() errors about too few/too many values", {
-  df <- data.frame(x = c("x", "x y", "x y z"))
+  df <- tibble(x = c("x", "x y", "x y z"))
   expect_snapshot(error = TRUE,
     df %>% separate_by_wider(x, " ", names = c("a", "b"))
   )
 })
 
 test_that("separate_by_wider() can ignore problems", {
-  df <- data.frame(x = c("x", "x y", "x y z"))
+  df <- tibble(x = c("x", "x y", "x y z"))
   out <- df %>% separate_by_wider(x, " ",
     names = c("a", "b"),
     align_short = "start",
@@ -34,7 +34,7 @@ test_that("separate_by_wider() can ignore problems", {
 })
 
 test_that("separate_by_wider() can diagnose problems", {
-  df <- data.frame(x = c("x", "x y", "x y z"))
+  df <- tibble(x = c("x", "x y", "x y z"))
   out <- df %>% separate_by_wider(x, " ",
     names = c("a", "b"),
     align_short = "debug",
@@ -55,7 +55,7 @@ test_that("separate_by_wider() can diagnose problems", {
 })
 
 test_that("separate_by_wider() validates its inputs", {
-  df <- data.frame(x = "x")
+  df <- tibble(x = "x")
   expect_snapshot(error = TRUE, {
     df %>% separate_by_wider()
     df %>% separate_by_wider(x)
@@ -70,14 +70,14 @@ test_that("separate_by_wider() validates its inputs", {
 # separate_at_wider -------------------------------------------------------
 
 test_that("separate_at_wider() errors if lengths are inconsistent", {
-  df <- data.frame(x = c("ab", "abc", "abcd"))
+  df <- tibble(x = c("ab", "abc", "abcd"))
   expect_snapshot(error = TRUE,
     df %>% separate_at_wider(x, widths = c("a" = 2, "b" = 1))
   )
 })
 
 test_that("separate_at_wider() can ignore problems", {
-  df <- data.frame(x = c("ab", "abc", "abcd"))
+  df <- tibble(x = c("ab", "abc", "abcd"))
 
   out <- df %>% separate_at_wider(
     x,
@@ -91,7 +91,7 @@ test_that("separate_at_wider() can ignore problems", {
 })
 
 test_that("separate_at_wider() can diagnose problems", {
-  df <- data.frame(x = c("ab", "abc", "abcd"))
+  df <- tibble(x = c("ab", "abc", "abcd"))
 
   out <- df %>% separate_at_wider(
     x,
@@ -106,13 +106,13 @@ test_that("separate_at_wider() can diagnose problems", {
 })
 
 test_that("separate_at_wider() can drop values", {
-  df <- data.frame(x = "a-b")
+  df <- tibble(x = "a-b")
   out <- df %>% separate_at_wider(x, widths = c("a" = 1, 1, "b" = 1))
   expect_equal(out, tibble(a = "a", b = "b"))
 })
 
 test_that("separate_at_wider() validates its inputs", {
-  df <- data.frame(x = "x")
+  df <- tibble(x = "x")
   expect_snapshot(error = TRUE, {
     df %>% separate_at_wider()
     df %>% separate_at_wider(x)
@@ -124,20 +124,20 @@ test_that("separate_at_wider() validates its inputs", {
 # separate_regex_wider ----------------------------------------------------
 
 test_that("separate_regex_wider() can extract columns", {
-  df <- data.frame(x = "a123")
+  df <- tibble(x = "a123")
   out <- df %>% separate_regex_wider(x, c("a" = ".", "b" = "\\d+"))
   expect_equal(out, tibble(a = "a", b = "123"))
 })
 
 test_that("separate_regex_wider() errors if match fails", {
-  df <- data.frame(x = c("a-123", "b_123"))
+  df <- tibble(x = c("a-123", "b_123"))
   expect_snapshot(error = TRUE, {
     df %>% separate_regex_wider(x, c("a" = ".", "-", "b" = "\\d+"))
   })
 })
 
 test_that("separate_regex_wider() can silence errors", {
-  df <- data.frame(x = c("a-123", "b_123"))
+  df <- tibble(x = c("a-123", "b_123"))
   out <- df %>% separate_regex_wider(
     x,
     c("a" = ".", "-", "b" = "\\d+"),
@@ -148,7 +148,7 @@ test_that("separate_regex_wider() can silence errors", {
 })
 
 test_that("separate_regex_wider() can diangose errors", {
-  df <- data.frame(x = c("a-123", "b_123", "c-123x", "XXXX"))
+  df <- tibble(x = c("a-123", "b_123", "c-123x", "XXXX"))
   out <- df %>% separate_regex_wider(
     x,
     c("a" = "[a-z]", "-", "b" = "\\d+"),
@@ -161,26 +161,26 @@ test_that("separate_regex_wider() can diangose errors", {
 })
 
 test_that("separate_regex_wider() can drop values", {
-  df <- data.frame(x = "ab123")
+  df <- tibble(x = "ab123")
   out <- df %>% separate_regex_wider(x, c("a" = ".", ".", "b" = "\\d+"))
   expect_equal(out, tibble(a = "a", b = "123"))
 })
 
 test_that("separate_regex_wider() can use odd names", {
-  df <- data.frame(x = "ab123")
+  df <- tibble(x = "ab123")
   out <- df %>% separate_regex_wider(x, c("_" = ".", ".", "." = "\\d+"))
   expect_equal(out, tibble(`_` = "a", `.` = "123"))
 })
 
 test_that("separate_regex_wider() gives informative error if () used", {
-  df <- data.frame(x = "x")
+  df <- tibble(x = "x")
   expect_snapshot(error = TRUE, {
     df %>% separate_regex_wider(x, c("_" = "(.)"))
   })
 })
 
 test_that("separate_regex_wider() validates its inputs", {
-  df <- data.frame(x = "x")
+  df <- tibble(x = "x")
   expect_snapshot(error = TRUE, {
     df %>% separate_regex_wider()
     df %>% separate_regex_wider(x)

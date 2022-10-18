@@ -298,7 +298,7 @@ str_separate_at_wider <- function(x,
   breaks <- cumsum(c(1, unname(widths)))[-(length(widths) + 1)]
   expected_width <- sum(widths)
 
-  width <- nchar(x)
+  width <- stringr::str_length(x)
   check_df_alignment(col, expected_width, "characters", width,
     align_short = align_short,
     align_long = align_long,
