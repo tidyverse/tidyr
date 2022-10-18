@@ -424,6 +424,11 @@ test_that("Error if the `col` can't be selected.", {
   })
 })
 
+test_that("named `cols` gives clear error (#1104)", {
+  df <- data.frame(x = 1, y = 2)
+  expect_snapshot(pivot_longer(df, c(z = y)), error = TRUE)
+})
+
 test_that("`names_to` is validated", {
   df <- tibble(x = 1)
 

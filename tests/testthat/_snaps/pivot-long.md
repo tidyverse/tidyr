@@ -73,6 +73,14 @@
       Error in `build_longer_spec()`:
       ! `cols` must select at least one column.
 
+# named `cols` gives clear error (#1104)
+
+    Code
+      pivot_longer(df, c(z = y))
+    Condition
+      Error in `build_longer_spec()`:
+      ! Can't rename variables in this context.
+
 # `names_to` is validated
 
     Code

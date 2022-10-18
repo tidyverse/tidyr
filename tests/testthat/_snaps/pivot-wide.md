@@ -128,6 +128,14 @@
       ! Can't subset columns that don't exist.
       x Column `foo` doesn't exist.
 
+# named `id_cols` gives clear error (#1104)
+
+    Code
+      pivot_wider(df, id_cols = c(z = x))
+    Condition
+      Error in `pivot_wider()`:
+      ! Can't rename variables in this context.
+
 # `id_expand` is validated
 
     Code

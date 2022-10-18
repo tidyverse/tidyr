@@ -1,5 +1,9 @@
 # tidyr (development version)
 
+* `chop()`, `drop_na()`, `fill()`, `pivot_longer()`, `pivot_wider()`, 
+  `separate_rows()`, `unite()`, `unnest_longer()`, and `unnest_wider()` now
+  error if you supply named selection (#1104).
+
 * Add new datasets `who2`, `household`, `cms_patient_experience` and 
   `cms_patient_care` to demonstrate various tidying challenges (#1333).
 

@@ -345,7 +345,7 @@ build_longer_spec <- function(data,
                               names_pattern = NULL,
                               names_ptypes = NULL,
                               names_transform = NULL) {
-  cols <- tidyselect::eval_select(enquo(cols), data[unique(names(data))])
+  cols <- tidyselect::eval_select(enquo(cols), data[unique(names(data))], allow_rename = FALSE)
   cols <- names(cols)
 
   if (length(cols) == 0) {
