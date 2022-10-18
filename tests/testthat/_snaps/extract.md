@@ -39,4 +39,9 @@
     Condition
       Error in `extract()`:
       ! `into` must be a character vector, not an integer vector.
+    Code
+      df %>% extract(x, into = "x", convert = 1)
+    Condition
+      Error in `extract()`:
+      ! `convert` must be `TRUE` or `FALSE`, not the number 1.
 
