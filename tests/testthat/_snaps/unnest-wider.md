@@ -4,7 +4,7 @@
       (expect_error(unnest_wider(df, y)))
     Output
       <error/rlang_error>
-      Error in `.f()`:
+      Error in `unnest_wider()`:
       ! Column `y` must contain a list of vectors.
 
 # can unnest a vector with a mix of named/unnamed elements (#1200 comment)

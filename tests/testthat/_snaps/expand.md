@@ -4,7 +4,7 @@
       (expect_error(crossing(x = 1:10, y = quote(a))))
     Output
       <error/vctrs_error_scalar_type>
-      Error in `grid_dots()`:
+      Error in `crossing()`:
       ! `..2` must be a vector, not a symbol.
 
 # expand() respects `.name_repair`
@@ -40,7 +40,7 @@
       (expect_error(expand_grid(x = x, x = x)))
     Output
       <error/vctrs_error_names_must_be_unique>
-      Error in `df_list()`:
+      Error in `expand_grid()`:
       ! Names must be unique.
       x These names are duplicated:
         * "x" at locations 1 and 2.
@@ -61,6 +61,6 @@
       (expect_error(grid_dots(lm(1 ~ 1))))
     Output
       <error/vctrs_error_scalar_type>
-      Error in `grid_dots()`:
+      Error:
       ! `..1` must be a vector, not a <lm> object.
 

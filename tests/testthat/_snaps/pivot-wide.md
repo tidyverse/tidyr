@@ -4,7 +4,7 @@
       (expect_error(pivot_wider(df, names_from = key, values_from = val)))
     Output
       <error/vctrs_error_names_must_be_unique>
-      Error in `vec_cbind()`:
+      Error in `pivot_wider_spec()`:
       ! Names must be unique.
       x These names are duplicated:
         * "a" at locations 1 and 2.
@@ -65,7 +65,7 @@
       (expect_error(pivot_wider(df, values_fn = list(value = ~.x))))
     Output
       <error/rlang_error>
-      Error in `value_summarize()`:
+      Error in `pivot_wider_spec()`:
       ! Applying `values_fn` to `value` must result in a single summary value per key.
       x Applying `values_fn` resulted in a value with length 2.
 
@@ -106,7 +106,7 @@
       )
     Output
       <error/rlang_error>
-      Error in `select_wider_id_cols()`:
+      Error in `pivot_wider()`:
       ! `id_cols` can't select a column already selected by `names_from`.
       i Column `name` has already been selected.
     Code
@@ -114,7 +114,7 @@
       )
     Output
       <error/rlang_error>
-      Error in `select_wider_id_cols()`:
+      Error in `pivot_wider()`:
       ! `id_cols` can't select a column already selected by `values_from`.
       i Column `value` has already been selected.
 
@@ -124,7 +124,7 @@
       (expect_error(pivot_wider(df, id_cols = foo)))
     Output
       <error/vctrs_error_subscript_oob>
-      Error in `select_wider_id_cols()`:
+      Error in `pivot_wider()`:
       ! Can't subset columns that don't exist.
       x Column `foo` doesn't exist.
 
@@ -219,8 +219,8 @@
       (expect_error(pivot_wider(df, values_fn = 1)))
     Output
       <error/rlang_error>
-      Error in `map()`:
-      ! Can't convert `.x[[i]]`, a number, to a function.
+      Error in `pivot_wider_spec()`:
+      ! Can't convert `values_fn`, a number, to a function.
 
 # `unused_fn` must result in single summary values
 
@@ -228,7 +228,7 @@
       (expect_error(pivot_wider(df, id_cols = id, unused_fn = identity)))
     Output
       <error/rlang_error>
-      Error in `value_summarize()`:
+      Error in `pivot_wider_spec()`:
       ! Applying `unused_fn` to `unused` must result in a single summary value per key.
       x Applying `unused_fn` resulted in a value with length 2.
 
@@ -238,6 +238,6 @@
       (expect_error(pivot_wider(df, id_cols = id, unused_fn = 1)))
     Output
       <error/rlang_error>
-      Error in `map()`:
-      ! Can't convert `.x[[i]]`, a number, to a function.
+      Error in `pivot_wider_spec()`:
+      ! Can't convert `unused_fn`, a number, to a function.
 

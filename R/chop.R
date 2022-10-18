@@ -141,17 +141,17 @@ unchop <- function(data, cols, keep_empty = FALSE, ptype = NULL) {
 #   used to slice the data frame `x` was subset from to align it with `val`.
 # - `val` the unchopped data frame.
 
-df_unchop <- function(x, ..., ptype = NULL, keep_empty = FALSE) {
+df_unchop <- function(x, ..., ptype = NULL, keep_empty = FALSE, error_call = caller_env()) {
   check_dots_empty()
 
   if (!is.data.frame(x)) {
-    abort("`x` must be a data frame.")
+    abort("`x` must be a data frame.", call = error_call)
   }
   if (!is_bool(keep_empty)) {
-    abort("`keep_empty` must be a single `TRUE` or `FALSE`.")
+    abort("`keep_empty` must be a single `TRUE` or `FALSE`.", call = error_call)
   }
 
-  ptype <- check_list_of_ptypes(ptype, names = names(x), arg = "ptype")
+  ptype <- check_list_of_ptypes(ptype, names = names(x), arg = "ptype", call = error_call)
 
   size <- vec_size(x)
 
@@ -201,7 +201,7 @@ df_unchop <- function(x, ..., ptype = NULL, keep_empty = FALSE) {
     x_nulls[[i]] <- info$null
   }
 
-  sizes <- reduce(x_sizes, unchop_sizes2)
+  sizes <- reduce(x_sizes, unchop_sizes2, error_call = error_call)
 
   info <- unchop_finalize(x, sizes, x_nulls, keep_empty)
   x <- info$x
@@ -221,7 +221,7 @@ df_unchop <- function(x, ..., ptype = NULL, keep_empty = FALSE) {
 
     if (!col_is_list) {
       if (!is_null(col_ptype)) {
-        col <- vec_cast(col, col_ptype, x_arg = col_name)
+        col <- vec_cast(col, col_ptype, x_arg = col_name, call = error_call)
       }
       out_cols[[i]] <- vec_slice(col, out_loc)
       next
@@ -237,7 +237,7 @@ df_unchop <- function(x, ..., ptype = NULL, keep_empty = FALSE) {
 
     col_sizes <- x_sizes[[i]]
     row_recycle <- col_sizes != sizes
-    col[row_recycle] <- map2(col[row_recycle], sizes[row_recycle], vec_recycle)
+    col[row_recycle] <- map2(col[row_recycle], sizes[row_recycle], vec_recycle, call = error_call)
 
     col <- list_unchop(col, ptype = col_ptype)
 
@@ -264,7 +264,7 @@ df_unchop <- function(x, ..., ptype = NULL, keep_empty = FALSE) {
   out
 }
 
-unchop_sizes2 <- function(x, y) {
+unchop_sizes2 <- function(x, y, error_call) {
   # Standard tidyverse recycling rules, just vectorized.
 
   # Recycle `x` values with `y`
@@ -286,7 +286,7 @@ unchop_sizes2 <- function(x, y) {
     row <- which(incompatible)[[1]]
     x <- x[[row]]
     y <- y[[row]]
-    abort(glue("In row {row}, can't recycle input of size {x} to size {y}."))
+    abort(glue("In row {row}, can't recycle input of size {x} to size {y}."), call = error_call)
   }
 
   x

@@ -50,8 +50,8 @@ extract.data.frame <- function(data, col, into, regex = "([[:alnum:]]+)",
   reconstruct_tibble(data, out, if (remove) var else chr())
 }
 
-str_extract <- function(x, into, regex, convert = FALSE) {
-  check_not_stringr_pattern(regex, "regex")
+str_extract <- function(x, into, regex, convert = FALSE, error_call = caller_env()) {
+  check_not_stringr_pattern(regex, "regex", call = error_call)
 
   stopifnot(
     is_string(regex),
@@ -60,9 +60,9 @@ str_extract <- function(x, into, regex, convert = FALSE) {
 
   out <- str_match_first(x, regex)
   if (length(out) != length(into)) {
-    stop(
-      "`regex` should define ", length(into), " groups; ", length(out), " found.",
-      call. = FALSE
+    abort(
+      glue("`regex` should define {length(into)} groups; {length(out)} found."),
+      call = error_call
     )
   }
 

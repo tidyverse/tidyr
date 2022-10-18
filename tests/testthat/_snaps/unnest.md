@@ -13,7 +13,7 @@
       (expect_error(unnest(df, c(x, y))))
     Output
       <error/rlang_error>
-      Error in `fn()`:
+      Error in `unchop()`:
       ! In row 1, can't recycle input of size 2 to size 3.
 
 ---
@@ -22,7 +22,7 @@
       (expect_error(unnest(df, c(x, y))))
     Output
       <error/rlang_error>
-      Error in `fn()`:
+      Error in `unchop()`:
       ! In row 1, can't recycle input of size 2 to size 3.
 
 # unnesting column of mixed vector / data frame input is an error

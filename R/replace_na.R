@@ -77,10 +77,10 @@ replace_na.data.frame <- function(data, replace = list(), ...) {
   data
 }
 
-check_replacement <- function(x, var) {
+check_replacement <- function(x, var, call = caller_env()) {
   n <- vec_size(x)
 
   if (n != 1) {
-    abort(glue("Replacement for `{var}` is length {n}, not length 1."))
+    abort(glue("Replacement for `{var}` is length {n}, not length 1."), call = call)
   }
 }

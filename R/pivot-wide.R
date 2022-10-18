@@ -444,7 +444,8 @@ pivot_wider_spec <- function(data,
     rows,
     values,
     unused,
-    .name_repair = names_repair
+    .name_repair = names_repair,
+    .error_call = current_env()
   ))
 
   reconstruct_tibble(input, out)
@@ -525,17 +526,19 @@ build_wider_spec <- function(data,
 build_wider_id_cols_expr <- function(data,
                                      id_cols = NULL,
                                      names_from = name,
-                                     values_from = value) {
+                                     values_from = value,
+                                     error_call = caller_env()) {
   # TODO: Use `allow_rename = FALSE`.
   # Requires https://github.com/r-lib/tidyselect/issues/225.
-  names_from_cols <- names(tidyselect::eval_select(enquo(names_from), data))
-  values_from_cols <- names(tidyselect::eval_select(enquo(values_from), data))
+  names_from_cols <- names(tidyselect::eval_select(enquo(names_from), data, error_call = error_call))
+  values_from_cols <- names(tidyselect::eval_select(enquo(values_from), data, error_call = error_call))
 
   out <- select_wider_id_cols(
     data = data,
     id_cols = {{ id_cols }},
     names_from_cols = names_from_cols,
-    values_from_cols = values_from_cols
+    values_from_cols = values_from_cols,
+    error_call = error_call
   )
 
   expr(c(!!!out))
@@ -544,7 +547,8 @@ build_wider_id_cols_expr <- function(data,
 select_wider_id_cols <- function(data,
                                  id_cols = NULL,
                                  names_from_cols = character(),
-                                 values_from_cols = character()) {
+                                 values_from_cols = character(),
+                                 error_call = caller_env()) {
   id_cols <- enquo(id_cols)
 
   # Remove known non-id-cols so they are never selected
@@ -558,16 +562,16 @@ select_wider_id_cols <- function(data,
   try_fetch(
     # TODO: Use `allow_rename = FALSE`.
     # Requires https://github.com/r-lib/tidyselect/issues/225.
-    id_cols <- tidyselect::eval_select(enquo(id_cols), data),
+    id_cols <- tidyselect::eval_select(enquo(id_cols), data, error_call = error_call),
     vctrs_error_subscript_oob = function(cnd) {
-      rethrow_id_cols_oob(cnd, names_from_cols, values_from_cols)
+      rethrow_id_cols_oob(cnd, names_from_cols, values_from_cols, error_call)
     }
   )
 
   names(id_cols)
 }
 
-rethrow_id_cols_oob <- function(cnd, names_from_cols, values_from_cols) {
+rethrow_id_cols_oob <- function(cnd, names_from_cols, values_from_cols, call) {
   i <- cnd[["i"]]
 
   if (!is_string(i)) {
@@ -575,26 +579,26 @@ rethrow_id_cols_oob <- function(cnd, names_from_cols, values_from_cols) {
   }
 
   if (i %in% names_from_cols) {
-    stop_id_cols_oob(i, "names_from")
+    stop_id_cols_oob(i, "names_from", call = call)
   } else if (i %in% values_from_cols) {
-    stop_id_cols_oob(i, "values_from")
+    stop_id_cols_oob(i, "values_from", call = call)
   } else {
     # Zap this special handler, throw the normal condition
     zap()
   }
 }
 
-stop_id_cols_oob <- function(i, arg) {
+stop_id_cols_oob <- function(i, arg, call) {
   message <- c(
     glue("`id_cols` can't select a column already selected by `{arg}`."),
     i = glue("Column `{i}` has already been selected.")
   )
-  abort(message, parent = NA)
+  abort(message, parent = NA, call = call)
 }
 
 # Helpers -----------------------------------------------------------------
 
-value_summarize <- function(value, value_locs, value_name, fn, fn_name) {
+value_summarize <- function(value, value_locs, value_name, fn, fn_name, error_call = caller_env()) {
   value <- vec_chop(value, value_locs)
 
   if (identical(fn, list)) {
@@ -618,7 +622,7 @@ value_summarize <- function(value, value_locs, value_name, fn, fn_name) {
       x = glue("Applying `{fn_name}` resulted in a value with length {size}.")
     )
 
-    abort(c(header, bullet))
+    abort(c(header, bullet), call = error_call)
   }
 
   value <- vec_c(!!!value)

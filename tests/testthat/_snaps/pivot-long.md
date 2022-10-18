@@ -24,7 +24,7 @@
       (expect_error(pivot_longer(df, y, names_to = "x")))
     Output
       <error/vctrs_error_names_must_be_unique>
-      Error in `vec_cbind()`:
+      Error in `pivot_longer_spec()`:
       ! Names must be unique.
       x These names are duplicated:
         * "x" at locations 1 and 2.
@@ -101,13 +101,13 @@
       (expect_error(build_longer_spec(df, x, names_ptypes = 1)))
     Output
       <error/rlang_error>
-      Error in `check_list_of_ptypes()`:
+      Error in `build_longer_spec()`:
       ! `names_ptypes` must be `NULL`, an empty ptype, or a named list of ptypes.
     Code
       (expect_error(build_longer_spec(df, x, names_ptypes = list(integer()))))
     Output
       <error/rlang_error>
-      Error in `check_list_of_ptypes()`:
+      Error in `build_longer_spec()`:
       ! All elements of `names_ptypes` must be named.
 
 # `names_transform` is validated
@@ -116,13 +116,13 @@
       (expect_error(build_longer_spec(df, x, names_transform = 1)))
     Output
       <error/rlang_error>
-      Error in `map()`:
-      ! Can't convert `.x[[i]]`, a number, to a function.
+      Error in `build_longer_spec()`:
+      ! Can't convert `names_transform`, a number, to a function.
     Code
       (expect_error(build_longer_spec(df, x, names_transform = list(~.x))))
     Output
       <error/rlang_error>
-      Error in `check_list_of_functions()`:
+      Error in `build_longer_spec()`:
       ! All elements of `names_transform` must be named.
 
 # `values_ptypes` is validated
@@ -131,13 +131,13 @@
       (expect_error(pivot_longer(df, x, values_ptypes = 1)))
     Output
       <error/rlang_error>
-      Error in `check_list_of_ptypes()`:
+      Error in `pivot_longer_spec()`:
       ! `values_ptypes` must be `NULL`, an empty ptype, or a named list of ptypes.
     Code
       (expect_error(pivot_longer(df, x, values_ptypes = list(integer()))))
     Output
       <error/rlang_error>
-      Error in `check_list_of_ptypes()`:
+      Error in `pivot_longer_spec()`:
       ! All elements of `values_ptypes` must be named.
 
 # `values_transform` is validated
@@ -146,13 +146,13 @@
       (expect_error(pivot_longer(df, x, values_transform = 1)))
     Output
       <error/rlang_error>
-      Error in `map()`:
-      ! Can't convert `.x[[i]]`, a number, to a function.
+      Error in `pivot_longer_spec()`:
+      ! Can't convert `values_transform`, a number, to a function.
     Code
       (expect_error(pivot_longer(df, x, values_transform = list(~.x))))
     Output
       <error/rlang_error>
-      Error in `check_list_of_functions()`:
+      Error in `pivot_longer_spec()`:
       ! All elements of `values_transform` must be named.
 
 # `cols_vary` is validated
