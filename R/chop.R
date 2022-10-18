@@ -66,6 +66,7 @@
 #' df %>% unchop(y)
 #' df %>% unchop(y, keep_empty = TRUE)
 chop <- function(data, cols) {
+  check_data_frame(data)
   check_required(cols)
   cols <- tidyselect::eval_select(enquo(cols), data, allow_rename = FALSE)
 
@@ -98,6 +99,10 @@ col_chop <- function(x, indices) {
 #' @export
 #' @rdname chop
 unchop <- function(data, cols, keep_empty = FALSE, ptype = NULL) {
+  check_data_frame(data)
+  check_required(cols)
+  check_bool(keep_empty)
+
   sel <- tidyselect::eval_select(enquo(cols), data)
 
   size <- vec_size(data)
@@ -143,14 +148,7 @@ unchop <- function(data, cols, keep_empty = FALSE, ptype = NULL) {
 df_unchop <- function(x, ..., ptype = NULL, keep_empty = FALSE, error_call = caller_env()) {
   check_dots_empty()
 
-  if (!is.data.frame(x)) {
-    abort("`x` must be a data frame.", call = error_call)
-  }
-  if (!is_bool(keep_empty)) {
-    abort("`keep_empty` must be a single `TRUE` or `FALSE`.", call = error_call)
-  }
-
-  ptype <- check_list_of_ptypes(ptype, names = names(x), arg = "ptype", call = error_call)
+  ptype <- check_list_of_ptypes(ptype, names = names(x), call = error_call)
 
   size <- vec_size(x)
 
@@ -245,7 +243,10 @@ df_unchop <- function(x, ..., ptype = NULL, keep_empty = FALSE, error_call = cal
       # - `col` was an empty list(), or a list of all `NULL`s.
       # - No ptype was specified for `col`, either by the user or by a list-of.
       if (out_size != 0L) {
-        abort("Internal error: `NULL` column generated, but output size is not `0`.")
+        cli::cli_abort(
+          "`NULL` column generated, but output size is not `0`.",
+          .internal = TRUE
+        )
       }
 
       col <- unspecified(0L)
@@ -285,7 +286,10 @@ unchop_sizes2 <- function(x, y, error_call) {
     row <- which(incompatible)[[1]]
     x <- x[[row]]
     y <- y[[row]]
-    abort(glue("In row {row}, can't recycle input of size {x} to size {y}."), call = error_call)
+    cli::cli_abort(
+      "In row {row}, can't recycle input of size {x} to size {y}.",
+      call = error_call
+    )
   }
 
   x

@@ -88,7 +88,7 @@
     Output
       <error/rlang_error>
       Error in `build_longer_spec()`:
-      ! `names_to` must be a character vector or `NULL`.
+      ! `names_to` must be a character vector or `NULL`, not the number 1.
     Code
       (expect_error(build_longer_spec(df, x, names_to = c("x", "y"))))
     Output
@@ -125,7 +125,7 @@
     Output
       <error/rlang_error>
       Error in `build_longer_spec()`:
-      ! Can't convert `names_transform`, a number, to a function.
+      ! `names_transform` must be `NULL`, a function, or a named list of functions.
     Code
       (expect_error(build_longer_spec(df, x, names_transform = list(~.x))))
     Output
@@ -155,7 +155,7 @@
     Output
       <error/rlang_error>
       Error in `pivot_longer_spec()`:
-      ! Can't convert `values_transform`, a number, to a function.
+      ! `values_transform` must be `NULL`, a function, or a named list of functions.
     Code
       (expect_error(pivot_longer(df, x, values_transform = list(~.x))))
     Output

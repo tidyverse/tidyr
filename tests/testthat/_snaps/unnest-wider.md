@@ -5,7 +5,7 @@
     Output
       <error/rlang_error>
       Error in `unnest_wider()`:
-      ! Column `y` must contain a list of vectors.
+      ! List-column `y` must contain only vectors.
 
 # can unnest a vector with a mix of named/unnamed elements (#1200 comment)
 
@@ -52,12 +52,26 @@
       New names:
       * `` -> `...1`
 
-# unnest_wider() input must be a data frame (#1224)
+# unnest_wider() validates its inputs
 
     Code
-      (expect_error(unnest_wider(1)))
-    Output
-      <error/rlang_error>
+      unnest_wider(1)
+    Condition
       Error in `unnest_wider()`:
-      ! `data` must be a data frame.
+      ! `data` must be a data frame, not a number.
+    Code
+      unnest_wider(df)
+    Condition
+      Error in `unnest_wider()`:
+      ! `col` is absent but must be supplied.
+    Code
+      unnest_wider(df, x, names_sep = 1)
+    Condition
+      Error in `unnest_wider()`:
+      ! `names_sep` must be a single string or `NULL`, not the number 1.
+    Code
+      unnest_wider(df, x, strict = 1)
+    Condition
+      Error in `unnest_wider()`:
+      ! `strict` must be `TRUE` or `FALSE`, not the number 1.
 

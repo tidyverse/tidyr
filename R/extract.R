@@ -42,6 +42,7 @@ extract <- function(data, col, into, regex = "([[:alnum:]]+)",
 extract.data.frame <- function(data, col, into, regex = "([[:alnum:]]+)",
                                remove = TRUE, convert = FALSE, ...) {
   check_required(col)
+
   var <- tidyselect::vars_pull(names(data), !!enquo(col))
   value <- as.character(data[[var]])
 
@@ -51,17 +52,15 @@ extract.data.frame <- function(data, col, into, regex = "([[:alnum:]]+)",
 }
 
 str_extract <- function(x, into, regex, convert = FALSE, error_call = caller_env()) {
-  check_not_stringr_pattern(regex, "regex", call = error_call)
-
-  stopifnot(
-    is_string(regex),
-    is_character(into)
-  )
+  check_string(regex, call = error_call)
+  check_not_stringr_pattern(regex, call = error_call)
+  check_character(into, call = error_call)
+  check_bool(convert, call = error_call)
 
   out <- str_match_first(x, regex)
   if (length(out) != length(into)) {
-    abort(
-      glue("`regex` should define {length(into)} groups; {length(out)} found."),
+    cli::cli_abort(
+      "{.arg regex} should define {length(into)} groups; {length(out)} found.",
       call = error_call
     )
   }

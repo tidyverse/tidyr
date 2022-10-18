@@ -95,11 +95,10 @@ spread.data.frame <- function(data, key, value, fill = NA, convert = FALSE,
     shared <- sum(map_int(groups, length))
 
     str <- map_chr(groups, function(x) paste0(x, collapse = ", "))
-    rows <- paste0(vec_paste0("* ", str, "\n"), collapse = "")
-    abort(glue(
+    cli::cli_abort(c(
       "Each row of output must be identified by a unique combination of keys.",
-      "\nKeys are shared for {shared} rows:",
-      "\n{rows}"
+      i = "Keys are shared for {shared} rows",
+      set_names(str, "*")
     ))
   }
 

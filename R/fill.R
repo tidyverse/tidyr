@@ -95,7 +95,6 @@ fill.data.frame <- function(data, ..., .direction = c("down", "up", "downup", "u
   .direction <- arg_match0(
     arg = .direction,
     values = c("down", "up", "downup", "updown"),
-    arg_nm = ".direction"
   )
 
   fn <- function(col) {

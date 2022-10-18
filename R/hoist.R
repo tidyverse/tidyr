@@ -79,19 +79,21 @@ hoist <- function(.data,
                   .simplify = TRUE,
                   .ptype = NULL,
                   .transform = NULL) {
-  if (!is.data.frame(.data)) {
-    abort("`.data` must be a data frame.")
-  }
 
+  check_data_frame(.data)
   check_required(.col)
-  .col <- tidyselect::vars_pull(names(.data), {{ .col }})
-
-  x <- .data[[.col]]
-  if (!vec_is_list(x)) {
-    abort("`.col` must identify a list-column.")
-  }
-
   pluckers <- check_pluckers(...)
+  check_bool(.remove)
+
+  .col <- tidyselect::vars_pull(names(.data), {{ .col }})
+  x <- .data[[.col]]
+  vec_check_list(x, arg = ".data[[.col]]")
+
+  # These are also checked in df_simplify(), but we check here to generate
+  # errors with argument names
+  check_list_of_ptypes(.ptype, names(x))
+  check_list_of_bool(.simplify, names(x))
+  check_list_of_functions(.transform, names(x))
 
   # In R <4.1, `::` is quite slow and this is a tight loop, so eliminating
   # the lookup has a large performance impact:
@@ -143,13 +145,7 @@ check_pluckers <- function(..., .call = caller_env()) {
     names(pluckers)[auto_name] <- unlist(pluckers[auto_name])
   }
 
-  if (length(pluckers) > 0 && !is_named(pluckers)) {
-    abort("All elements of `...` must be named.", call = .call)
-  }
-
-  if (vec_duplicate_any(names(pluckers))) {
-    abort("The names of `...` must be unique.", call = .call)
-  }
+  check_unique_names(pluckers, arg = "...", call = .call)
 
   # Standardize all pluckers to lists for splicing into `pluck()`
   # and for easier handling in `strike()`
@@ -161,7 +157,7 @@ check_pluckers <- function(..., .call = caller_env()) {
 
 strike <- function(x, indices) {
   if (!vec_is_list(indices)) {
-    abort("Internal error: `indices` must be a list.")
+    cli::cli_abort("{.arg indices} must be a list.", .internal = TRUE)
   }
 
   n_indices <- vec_size(indices)

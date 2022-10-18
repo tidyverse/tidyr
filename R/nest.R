@@ -126,6 +126,7 @@ nest.data.frame <- function(.data, ..., .names_sep = NULL, .key = deprecated()) 
 
 #' @export
 nest.tbl_df <- function(.data, ..., .names_sep = NULL, .key = deprecated()) {
+  check_string(.names_sep, allow_null = TRUE)
   .key <- check_key(.key)
   if (missing(...)) {
     warn(paste0(

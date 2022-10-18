@@ -83,20 +83,14 @@ unnest_wider <- function(data,
                          names_repair = "check_unique",
                          ptype = NULL,
                          transform = NULL) {
-  if (!is.data.frame(data)) {
-    abort("`data` must be a data frame.")
-  }
 
+  check_data_frame(data)
   check_required(col)
+  check_string(names_sep, allow_null = TRUE)
+  check_bool(strict)
+
   cols <- tidyselect::eval_select(enquo(col), data, allow_rename = FALSE)
   col_names <- names(cols)
-
-  if (!is.null(names_sep) && !is_string(names_sep)) {
-    abort("`names_sep` must be a single string or `NULL`.")
-  }
-  if (!is_bool(strict)) {
-    abort("`strict` must be a single `TRUE` or `FALSE`.")
-  }
 
   for (i in seq_along(cols)) {
     col <- cols[[i]]
@@ -128,10 +122,6 @@ unnest_wider <- function(data,
 
 # Converts a column of any type to a `list_of<tbl>`
 col_to_wide <- function(col, name, strict, names_sep, error_call = caller_env()) {
-  if (is.null(col)) {
-    abort(glue("Invalid `NULL` column detected for column `{name}`."), call = error_call)
-  }
-
   if (!vec_is_list(col)) {
     ptype <- vec_ptype(col)
     col <- vec_chop(col)
@@ -186,7 +176,10 @@ elt_to_wide <- function(x, name, strict, names_sep, error_call = caller_env()) {
   }
 
   if (!vec_is(x)) {
-    abort(glue("Column `{name}` must contain a list of vectors."), call = error_call)
+    cli::cli_abort(
+      "List-column {.var {name}} must contain only vectors.",
+      call = error_call
+    )
   }
 
   if (is.data.frame(x)) {

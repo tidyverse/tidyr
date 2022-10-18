@@ -285,9 +285,9 @@ pivot_wider_spec <- function(data,
                              values_fill = NULL,
                              values_fn = NULL,
                              unused_fn = NULL) {
-  input <- data
 
   spec <- check_pivot_spec(spec)
+  check_bool(id_expand)
 
   names_from_cols <- names(spec)[-(1:2)]
   values_from_cols <- vec_unique(spec$.value)
@@ -299,27 +299,22 @@ pivot_wider_spec <- function(data,
     values_from_cols = values_from_cols
   )
 
-  values_fn <- check_list_of_functions(values_fn, values_from_cols, "values_fn")
+  values_fn <- check_list_of_functions(values_fn, values_from_cols)
 
   unused_cols <- setdiff(names(data), c(id_cols, names_from_cols, values_from_cols))
-  unused_fn <- check_list_of_functions(unused_fn, unused_cols, "unused_fn")
+  unused_fn <- check_list_of_functions(unused_fn, unused_cols)
   unused_cols <- names(unused_fn)
 
   if (is.null(values_fill)) {
     values_fill <- list()
-  }
-  if (is_scalar(values_fill)) {
+  } else if (is_scalar(values_fill)) {
     values_fill <- rep_named(values_from_cols, list(values_fill))
-  }
-  if (!vec_is_list(values_fill)) {
-    abort("`values_fill` must be NULL, a scalar, or a named list")
+  } else if (!vec_is_list(values_fill)) {
+    cli::cli_abort("{arg values_fill} must be NULL, a scalar, or a named list, not a {.obj_type_friendly {values_fill}")
   }
   values_fill <- values_fill[intersect(names(values_fill), values_from_cols)]
 
-  if (!is_bool(id_expand)) {
-    abort("`id_expand` must be a single `TRUE` or `FALSE`.")
-  }
-
+  input <- data
   # Early conversion to tibble because data.table returns zero rows if
   # zero cols are selected. Also want to avoid the grouped-df behavior
   # of `complete()`.
@@ -422,15 +417,15 @@ pivot_wider_spec <- function(data,
     group_cols <- backtick_if_not_syntactic(group_cols)
     group_cols <- glue::glue_collapse(group_cols, sep = ", ")
 
-    warn(glue::glue(
-      "Values from {duplicate_names} are not uniquely identified; output will contain list-cols.\n",
-      "* Use `values_fn = list` to suppress this warning.\n",
-      "* Use `values_fn = {{summary_fun}}` to summarise duplicates.\n",
-      "* Use the following dplyr code to identify duplicates.\n",
-      "  {{data}} %>%\n",
-      "    dplyr::group_by({group_cols}) %>%\n",
-      "    dplyr::summarise(n = dplyr::n(), .groups = \"drop\") %>%\n",
-      "    dplyr::filter(n > 1L)"
+    cli::cli_warn(c(
+      "Values from {duplicate_names} are not uniquely identified; output will contain list-cols.",
+      "*" = "Use `values_fn = list` to suppress this warning.",
+      "*" = "Use `values_fn = {{summary_fun}}` to summarise duplicates.",
+      "*" = "Use the following dplyr code to identify duplicates.",
+      " " = "  {{data}} %>%",
+      " " = "    dplyr::group_by({group_cols}) %>%",
+      " " = "    dplyr::summarise(n = dplyr::n(), .groups = \"drop\") %>%",
+      " " = "    dplyr::filter(n > 1L)"
     ))
   }
 
@@ -463,21 +458,25 @@ build_wider_spec <- function(data,
                              names_sort = FALSE,
                              names_vary = "fastest",
                              names_expand = FALSE) {
-  names_from <- tidyselect::eval_select(enquo(names_from), data, allow_rename = FALSE)
-  values_from <- tidyselect::eval_select(enquo(values_from), data, allow_rename = FALSE)
+  names_from <- tidyselect::eval_select(
+    enquo(names_from),
+    data,
+    allow_rename = FALSE,
+    allow_empty = FALSE
+  )
+  values_from <- tidyselect::eval_select(
+    enquo(values_from),
+    data,
+    allow_rename = FALSE,
+    allow_empty = FALSE
+  )
 
-  if (is_empty(names_from)) {
-    abort("`names_from` must select at least one column.")
-  }
-  if (is_empty(values_from)) {
-    abort("`values_from` must select at least one column.")
-  }
-
+  check_string(names_prefix)
+  check_string(names_sep)
+  check_string(names_glue, allow_null = TRUE)
+  check_bool(names_sort)
   names_vary <- arg_match0(names_vary, c("fastest", "slowest"), arg_nm = "names_vary")
-
-  if (!is_bool(names_expand)) {
-    abort("`names_expand` must be a single `TRUE` or `FALSE`.")
-  }
+  check_bool(names_expand)
 
   data <- as_tibble(data)
   data <- data[names_from]
@@ -528,8 +527,6 @@ build_wider_id_cols_expr <- function(data,
                                      names_from = name,
                                      values_from = value,
                                      error_call = caller_env()) {
-  # TODO: Use `allow_rename = FALSE`.
-  # Requires https://github.com/r-lib/tidyselect/issues/225.
   names_from <- tidyselect::eval_select(
     enquo(names_from),
     data,
@@ -588,9 +585,7 @@ select_wider_id_cols <- function(data,
 rethrow_id_cols_oob <- function(cnd, names_from_cols, values_from_cols, call) {
   i <- cnd[["i"]]
 
-  if (!is_string(i)) {
-    abort("`i` is expected to be a string.", .internal = TRUE)
-  }
+  check_string(i, .internal = TRUE)
 
   if (i %in% names_from_cols) {
     stop_id_cols_oob(i, "names_from", call = call)
@@ -603,11 +598,14 @@ rethrow_id_cols_oob <- function(cnd, names_from_cols, values_from_cols, call) {
 }
 
 stop_id_cols_oob <- function(i, arg, call) {
-  message <- c(
-    glue("`id_cols` can't select a column already selected by `{arg}`."),
-    i = glue("Column `{i}` has already been selected.")
+  cli::cli_abort(
+    c(
+      "`id_cols` can't select a column already selected by `{arg}`.",
+      i = "Column `{i}` has already been selected."
+    ),
+    parent = NA,
+    call = call
   )
-  abort(message, parent = NA, call = call)
 }
 
 # Helpers -----------------------------------------------------------------
@@ -628,15 +626,13 @@ value_summarize <- function(value, value_locs, value_name, fn, fn_name, error_ca
   if (any(invalid_sizes)) {
     size <- sizes[invalid_sizes][[1]]
 
-    header <- glue(
-      "Applying `{fn_name}` to `{value_name}` must result in ",
-      "a single summary value per key."
+    cli::cli_abort(
+      c(
+        "Applying {.arg {fn_name}} to {.var {value_name}} must result in a single summary value per key.",
+        i = "Applying {.arg {fn_name}} resulted in a vector of length {size}."
+      ),
+      call = error_call
     )
-    bullet <- c(
-      x = glue("Applying `{fn_name}` resulted in a value with length {size}.")
-    )
-
-    abort(c(header, bullet), call = error_call)
   }
 
   value <- vec_c(!!!value)

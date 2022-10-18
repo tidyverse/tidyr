@@ -21,6 +21,7 @@ BugReports: https://github.com/tidyverse/tidyr/issues
 Depends: 
     R (>= 3.1)
 Imports: 
+    cli (>= 3.4.1),
     dplyr (>= 1.0.10),
     glue,
     lifecycle (>= 1.0.3),
@@ -51,5 +52,5 @@ LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.1
 SystemRequirements: C++11
-Remotes:  
+Remotes: 
     r-lib/vctrs

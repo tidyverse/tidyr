@@ -2,7 +2,7 @@ append_df <- function(x, y, after = length(x), remove = FALSE) {
   if (is.character(after)) {
     after <- match(after, dplyr::tbl_vars(x))
   } else if (!is.integer(after)) {
-    stop("`after` must be character or integer", call. = FALSE)
+    cli::cli_abort("{.arg after} must be character or integer", .internal = TRUE)
   }
 
   # Replace duplicated variables

@@ -29,18 +29,13 @@ uncount <- function(data, weights, ..., .remove = TRUE, .id = NULL) {
 
 #' @export
 uncount.data.frame <- function(data, weights, ..., .remove = TRUE, .id = NULL) {
+  check_bool(.remove)
+  check_name(.id, allow_null = TRUE)
+
   weights_quo <- enquo(weights)
   w <- dplyr::pull(dplyr::mutate(data, `_weight` = !!weights_quo))
-  # NOTE `vec_cast()` and check for positive weights can be removed
-  # if `vec_rep_each()` gets a `x_arg` argument
-  # https://github.com/r-lib/vctrs/issues/1303
-  w <- vec_cast(w, integer(), x_arg = "weights")
 
-  if (any(w < 0)) {
-    abort("all elements of `weights` must be >= 0")
-  }
-
-  out <- vec_rep_each(data, w)
+  out <- vec_rep_each(data, w, error_call = current_env(), times_arg = "weights")
 
   # NOTE it was decided to also remove grouping variables as there is no clear
   # best answer. See https://github.com/tidyverse/tidyr/pull/1070

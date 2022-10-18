@@ -47,7 +47,7 @@
     Output
       <error/rlang_error>
       Error in `build_wider_spec()`:
-      ! `names_from` must select at least one column.
+      ! Must select at least one item.
 
 # `values_from` must identify at least 1 column (#1240)
 
@@ -57,7 +57,7 @@
     Output
       <error/rlang_error>
       Error in `build_wider_spec()`:
-      ! `values_from` must select at least one column.
+      ! Must select at least one item.
 
 # `values_fn` emits an informative error when it doesn't result in unique values (#1238)
 
@@ -67,7 +67,7 @@
       <error/rlang_error>
       Error in `pivot_wider_spec()`:
       ! Applying `values_fn` to `value` must result in a single summary value per key.
-      x Applying `values_fn` resulted in a value with length 2.
+      i Applying `values_fn` resulted in a vector of length 2.
 
 # `names_vary` is validated
 
@@ -91,13 +91,13 @@
     Output
       <error/rlang_error>
       Error in `build_wider_spec()`:
-      ! `names_expand` must be a single `TRUE` or `FALSE`.
+      ! `names_expand` must be `TRUE` or `FALSE`, not the number 1.
     Code
       (expect_error(build_wider_spec(df, names_expand = "x")))
     Output
       <error/rlang_error>
       Error in `build_wider_spec()`:
-      ! `names_expand` must be a single `TRUE` or `FALSE`.
+      ! `names_expand` must be `TRUE` or `FALSE`, not the string "x".
 
 # `id_cols` can't select columns from `names_from` or `values_from` (#1318)
 
@@ -143,13 +143,13 @@
     Output
       <error/rlang_error>
       Error in `pivot_wider_spec()`:
-      ! `id_expand` must be a single `TRUE` or `FALSE`.
+      ! `id_expand` must be `TRUE` or `FALSE`, not the number 1.
     Code
       (expect_error(pivot_wider(df, id_expand = "x")))
     Output
       <error/rlang_error>
       Error in `pivot_wider_spec()`:
-      ! `id_expand` must be a single `TRUE` or `FALSE`.
+      ! `id_expand` must be `TRUE` or `FALSE`, not the string "x".
 
 # duplicated keys produce list column with warning
 
@@ -162,9 +162,9 @@
       * Use `values_fn = {summary_fun}` to summarise duplicates.
       * Use the following dplyr code to identify duplicates.
         {data} %>%
-          dplyr::group_by(a, key) %>%
-          dplyr::summarise(n = dplyr::n(), .groups = "drop") %>%
-          dplyr::filter(n > 1L)
+        dplyr::group_by(a, key) %>%
+        dplyr::summarise(n = dplyr::n(), .groups = "drop") %>%
+        dplyr::filter(n > 1L)
 
 # duplicated key warning mentions every applicable column
 
@@ -177,9 +177,9 @@
       * Use `values_fn = {summary_fun}` to summarise duplicates.
       * Use the following dplyr code to identify duplicates.
         {data} %>%
-          dplyr::group_by(key) %>%
-          dplyr::summarise(n = dplyr::n(), .groups = "drop") %>%
-          dplyr::filter(n > 1L)
+        dplyr::group_by(key) %>%
+        dplyr::summarise(n = dplyr::n(), .groups = "drop") %>%
+        dplyr::filter(n > 1L)
     Output
       # A tibble: 1 x 3
         a_x       b_x       c_x      
@@ -197,9 +197,9 @@
       * Use `values_fn = {summary_fun}` to summarise duplicates.
       * Use the following dplyr code to identify duplicates.
         {data} %>%
-          dplyr::group_by(key) %>%
-          dplyr::summarise(n = dplyr::n(), .groups = "drop") %>%
-          dplyr::filter(n > 1L)
+        dplyr::group_by(key) %>%
+        dplyr::summarise(n = dplyr::n(), .groups = "drop") %>%
+        dplyr::filter(n > 1L)
     Output
       # A tibble: 1 x 3
         a_x         b_x c_x      
@@ -217,9 +217,9 @@
       * Use `values_fn = {summary_fun}` to summarise duplicates.
       * Use the following dplyr code to identify duplicates.
         {data} %>%
-          dplyr::group_by(`a 1`, a2, `the-key`) %>%
-          dplyr::summarise(n = dplyr::n(), .groups = "drop") %>%
-          dplyr::filter(n > 1L)
+        dplyr::group_by(`a 1`, a2, `the-key`) %>%
+        dplyr::summarise(n = dplyr::n(), .groups = "drop") %>%
+        dplyr::filter(n > 1L)
 
 # values_fn is validated
 
@@ -228,7 +228,7 @@
     Output
       <error/rlang_error>
       Error in `pivot_wider_spec()`:
-      ! Can't convert `values_fn`, a number, to a function.
+      ! `values_fn` must be `NULL`, a function, or a named list of functions.
 
 # `unused_fn` must result in single summary values
 
@@ -238,7 +238,7 @@
       <error/rlang_error>
       Error in `pivot_wider_spec()`:
       ! Applying `unused_fn` to `unused` must result in a single summary value per key.
-      x Applying `unused_fn` resulted in a value with length 2.
+      i Applying `unused_fn` resulted in a vector of length 2.
 
 # `unused_fn` is validated
 
@@ -247,5 +247,5 @@
     Output
       <error/rlang_error>
       Error in `pivot_wider_spec()`:
-      ! Can't convert `unused_fn`, a number, to a function.
+      ! `unused_fn` must be `NULL`, a function, or a named list of functions.
 

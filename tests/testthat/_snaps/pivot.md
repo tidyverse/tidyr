@@ -5,7 +5,7 @@
     Output
       <error/rlang_error>
       Error:
-      ! `spec` must be a data frame.
+      ! `spec` must be a data frame, not a number.
     Code
       (expect_error(check_pivot_spec(mtcars)))
     Output
@@ -20,7 +20,7 @@
     Output
       <error/rlang_error>
       Error:
-      ! The `.name` column of `spec` must be a character vector.
+      ! `spec$.name` must be a character vector, not an integer vector.
 
 # `.value` column must be a character vector
 
@@ -29,7 +29,7 @@
     Output
       <error/rlang_error>
       Error:
-      ! The `.value` column of `spec` must be a character vector.
+      ! `spec$.value` must be a character vector, not an integer vector.
 
 # `.name` column must be unique
 
@@ -38,5 +38,5 @@
     Output
       <error/rlang_error>
       Error:
-      ! The `.name` column of `spec` must be unique.
+      ! `spec$.name` must be unique.
 

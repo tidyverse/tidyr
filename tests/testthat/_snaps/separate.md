@@ -42,25 +42,38 @@
       1 a     b     <NA> 
       2 a     b     c    
 
-# checks type of `into` and `sep`
+# validates inputs
 
     Code
-      (expect_error(separate(df, x, "x", FALSE)))
-    Output
-      <error/rlang_error>
+      separate(df)
+    Condition
       Error in `separate()`:
-      ! `sep` must be either numeric or character.
+      ! `col` is absent but must be supplied.
     Code
-      (expect_error(separate(df, x, FALSE)))
-    Output
-      <error/rlang_error>
+      separate(df, x, into = 1)
+    Condition
       Error in `separate()`:
-      ! `into` must be a character vector.
+      ! `into` must be a character vector, not the number 1.
+    Code
+      separate(df, x, into = "x", sep = c("a", "b"))
+    Condition
+      Error in `separate()`:
+      ! `sep` must be a string or numeric vector, not a character vector
+    Code
+      separate(df, x, into = "x", remove = 1)
+    Condition
+      Error in `separate()`:
+      ! `remove` must be `TRUE` or `FALSE`, not the number 1.
+    Code
+      separate(df, x, into = "x", convert = 1)
+    Condition
+      Error in `separate()`:
+      ! `convert` must be `TRUE` or `FALSE`, not the number 1.
 
 # informative error if using stringr modifier functions (#693)
 
     Code
-      (expect_error(separate(df, x, sep = sep)))
+      (expect_error(separate(df, x, "x", sep = sep)))
     Output
       <error/rlang_error>
       Error in `separate()`:

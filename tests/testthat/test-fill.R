@@ -119,3 +119,10 @@ test_that("works when there is a column named `.direction` in the data (#1319)",
   expect_error(out <- fill(df, x), NA)
   expect_identical(out$x, c(1, 1, 2))
 })
+
+test_that("validates its inputs", {
+  df <- tibble(x = c(1, NA, 2))
+  expect_snapshot(error = TRUE, {
+    df %>% fill(x, .direction = "foo")
+  })
+})

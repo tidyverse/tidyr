@@ -39,7 +39,13 @@ test_that("works with 0 weights", {
   expect_equal(uncount(df, w), tibble(x = 2))
 })
 
-test_that("errors on negative weights", {
-  df <- tibble(x = 1, w = -1)
-  expect_snapshot((expect_error(uncount(df, w))))
+test_that("validates inputs", {
+  df <- tibble(x = 1, y = "a", w = -1)
+
+  expect_snapshot(error = TRUE, {
+    uncount(df, y)
+    uncount(df, w)
+    uncount(df, x, .remove = 1)
+    uncount(df, x, .id = "")
+  })
 })

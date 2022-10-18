@@ -82,3 +82,14 @@ test_that("str_match_first handles edge cases", {
     list(character(), character())
   )
 })
+
+test_that("validates its inputs", {
+  df <- data.frame(x = letters)
+
+  expect_snapshot(error = TRUE, {
+    df %>% extract()
+    df %>% extract(x, regex = 1)
+    df %>% extract(x, into = 1:3)
+    df %>% extract(x, into = "x", convert = 1)
+  })
+})

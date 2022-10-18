@@ -232,8 +232,14 @@ test_that("can combine `<list> + <list_of<ptype>>`", {
   expect_identical(out$a, list(1:2, 1L))
 })
 
-test_that("unnest_wider() input must be a data frame (#1224)", {
-  expect_snapshot((expect_error(unnest_wider(1))))
+test_that("unnest_wider() validates its inputs", {
+  df <- tibble(x = list(a = 1:2, b = 3:4))
+  expect_snapshot(error = TRUE, {
+    unnest_wider(1)
+    unnest_wider(df)
+    unnest_wider(df, x, names_sep = 1)
+    unnest_wider(df, x, strict = 1)
+  })
 })
 
 test_that("invariant - final number of columns depends on element sizes", {

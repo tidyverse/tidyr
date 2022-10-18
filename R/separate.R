@@ -72,6 +72,8 @@ separate.data.frame <- function(data, col, into, sep = "[^[:alnum:]]+",
                                 remove = TRUE, convert = FALSE,
                                 extra = "warn", fill = "warn", ...) {
   check_required(col)
+  check_bool(remove)
+
   var <- tidyselect::vars_pull(names(data), !!enquo(col))
   value <- as.character(data[[var]])
 
@@ -87,18 +89,19 @@ separate.data.frame <- function(data, col, into, sep = "[^[:alnum:]]+",
 }
 
 str_separate <- function(x, into, sep, convert = FALSE, extra = "warn", fill = "warn", error_call = caller_env()) {
-  check_not_stringr_pattern(sep, "sep", call = error_call)
-
-  if (!is.character(into)) {
-    abort("`into` must be a character vector.", call = error_call)
-  }
+  check_character(into, call = error_call)
+  check_bool(convert, call = error_call)
 
   if (is.numeric(sep)) {
     out <- strsep(x, sep)
-  } else if (is_character(sep)) {
+  } else if (is_string(sep)) {
+    check_not_stringr_pattern(sep, call = error_call)
     out <- str_split_fixed(x, sep, length(into), extra = extra, fill = fill)
   } else {
-    abort("`sep` must be either numeric or character.", call = error_call)
+    cli::cli_abort(
+      "{.arg sep} must be a string or numeric vector, not {.obj_type_friendly {sep}}",
+      call = error_call
+    )
   }
 
   names(out) <- as_utf8_character(into)
@@ -186,10 +189,8 @@ list_indices <- function(x, max = 20) {
   paste(x, collapse = ", ")
 }
 
-check_not_stringr_pattern <- function(x, arg, call = caller_env()) {
+check_not_stringr_pattern <- function(x, arg = caller_arg(x), call = caller_env()) {
   if (inherits_any(x, c("pattern", "stringr_pattern"))) {
-    abort(glue("`{arg}` can't use modifiers from stringr."), call = call)
+    cli::cli_abort("{.arg {arg}} can't use modifiers from stringr.", call = call)
   }
-
-  invisible(x)
 }

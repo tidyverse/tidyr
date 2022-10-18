@@ -58,10 +58,12 @@
 #' df %>% unpack(c(y, z))
 #' df %>% unpack(c(y, z), names_sep = "_")
 pack <- function(.data, ..., .names_sep = NULL) {
+  check_data_frame(.data)
   cols <- enquos(...)
   if (any(names2(cols) == "")) {
-    abort("All elements of `...` must be named")
+    cli::cli_abort("All elements of `...` must be named")
   }
+  check_string(.names_sep, allow_null = TRUE)
 
   cols <- map(cols, ~ tidyselect::eval_select(.x, .data))
 
@@ -97,14 +99,14 @@ pack <- function(.data, ..., .names_sep = NULL) {
 #'   See [vctrs::vec_as_names()] for more details on these terms and the
 #'   strategies used to enforce them.
 unpack <- function(data, cols, names_sep = NULL, names_repair = "check_unique") {
+  check_data_frame(data)
   check_required(cols)
-  cols <- tidyselect::eval_select(enquo(cols), data)
-
-  size <- vec_size(data)
+  check_string(names_sep, allow_null = TRUE)
 
   # Start from first principles to avoid issues in any subclass methods
   out <- tidyr_new_list(data)
 
+  cols <- tidyselect::eval_select(enquo(cols), data)
   cols <- out[cols]
   cols <- cols[map_lgl(cols, is.data.frame)]
 
@@ -124,6 +126,7 @@ unpack <- function(data, cols, names_sep = NULL, names_repair = "check_unique") 
   names[names %in% cols_names] <- ""
   names(out) <- names
 
+  size <- vec_size(data)
   out <- df_list(!!!out, .size = size, .name_repair = "minimal")
   out <- tibble::new_tibble(out, nrow = size)
 

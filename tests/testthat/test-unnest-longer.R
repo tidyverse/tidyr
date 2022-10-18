@@ -265,8 +265,15 @@ test_that("can't mix `indices_to` with `indices_include = FALSE`", {
   )))
 })
 
-test_that("unnest_longer() input must be a data frame (#1224)", {
-  expect_snapshot((expect_error(unnest_longer(1))))
+test_that("unnest_longer() validates its inputs", {
+  df <- tibble(x = list(list(a = 1L), list(b = 1L)))
+  expect_snapshot(error = TRUE, {
+    unnest_longer(1)
+    unnest_longer(df)
+    unnest_longer(df, x, indices_to = "")
+    unnest_longer(df, x, indices_include = 1)
+    unnest_longer(df, x, values_to = "")
+  })
 })
 
 test_that("`values_to` and `indices_to` glue can't reach into surrounding env", {
