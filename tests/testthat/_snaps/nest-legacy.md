@@ -5,7 +5,8 @@
     Output
       <error/rlang_error>
       Error in `unnest_legacy()`:
-      ! Each column must either be a list of vectors or a list of data frames [x]
+      ! Each column must either be a list of vectors or a list of data frames.
+      i Problems in: `probs`
 
 # multiple columns must be same length
 

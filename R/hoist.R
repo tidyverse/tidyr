@@ -157,7 +157,7 @@ check_pluckers <- function(..., .call = caller_env()) {
 
 strike <- function(x, indices) {
   if (!vec_is_list(indices)) {
-    abort("`indices` must be a list.", .internal = TRUE)
+    cli::cli_abort("{.arg indices} must be a list.", .internal = TRUE)
   }
 
   n_indices <- vec_size(indices)

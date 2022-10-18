@@ -243,7 +243,10 @@ df_unchop <- function(x, ..., ptype = NULL, keep_empty = FALSE, error_call = cal
       # - `col` was an empty list(), or a list of all `NULL`s.
       # - No ptype was specified for `col`, either by the user or by a list-of.
       if (out_size != 0L) {
-        abort("`NULL` column generated, but output size is not `0`.", .internal = TRUE)
+        cli::cli_abort(
+          "`NULL` column generated, but output size is not `0`.",
+          .internal = TRUE
+        )
       }
 
       col <- unspecified(0L)

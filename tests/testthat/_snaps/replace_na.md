@@ -5,7 +5,7 @@
     Output
       <error/rlang_error>
       Error in `replace_na()`:
-      ! Replacement for `data` is length 10, not length 1.
+      ! Replacement for `data` must be length 1, not length 10.
 
 # replacement must be castable to `data`
 

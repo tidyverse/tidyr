@@ -5,7 +5,7 @@
     Output
       <error/rlang_error>
       Error in `unnest_wider()`:
-      ! Column `y` must contain a list of vectors.
+      ! List-column `y` must contain only vectors.
 
 # can unnest a vector with a mix of named/unnamed elements (#1200 comment)
 

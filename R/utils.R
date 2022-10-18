@@ -78,12 +78,11 @@ tidyr_col_modify <- function(data, cols) {
   # data frame methods for `[<-` and `[[<-`.
   # Assume each element of `cols` has the correct size.
 
-  if (!is.data.frame(data)) {
-    abort("Internal error: `data` must be a data frame.")
-  }
+  check_data_frame(data, .internal = TRUE)
   if (!is_list(cols)) {
-    abort("Internal error: `cols` must be a list.")
+    cli::cli_abort("`cols` must be a list.", .internal = TRUE)
   }
+
 
   size <- vec_size(data)
   data <- tidyr_new_list(data)
@@ -104,7 +103,7 @@ tidyr_col_modify <- function(data, cols) {
 
 tidyr_new_list <- function(x) {
   if (!is_list(x)) {
-    abort("Internal error: `x` must be a VECSXP.")
+    cli::cli_abort("`x` must be a list.", .internal = TRUE)
   }
 
   names <- names(x)
@@ -131,9 +130,8 @@ list_init_empty <- function(x,
                             null = TRUE,
                             typed = TRUE) {
   check_dots_empty()
-
-  if (!vec_is_list(x)) {
-    abort("Internal error: `x` must be a list.")
+  if (!is_list(x)) {
+    cli::cli_abort("`x` must be a list.", .internal = TRUE)
   }
 
   sizes <- list_sizes(x)
@@ -193,9 +191,9 @@ vec_paste0 <- function(...) {
   exec(paste0, !!!args)
 }
 
-check_data_frame <- function(x, arg = caller_arg(x), call = caller_env()) {
+check_data_frame <- function(x, ..., arg = caller_arg(x), call = caller_env()) {
   if (!is.data.frame(x)) {
-    cli::cli_abort("{.arg {arg}} must be a data frame, not {.obj_type_friendly {x}}.", call = call)
+    cli::cli_abort("{.arg {arg}} must be a data frame, not {.obj_type_friendly {x}}.", ..., call = call)
   }
 }
 

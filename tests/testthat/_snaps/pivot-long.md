@@ -88,7 +88,7 @@
     Output
       <error/rlang_error>
       Error in `build_longer_spec()`:
-      ! `names_to` must be a character vector or `NULL`.
+      ! `names_to` must be a character vector or `NULL`, not the number 1.
     Code
       (expect_error(build_longer_spec(df, x, names_to = c("x", "y"))))
     Output

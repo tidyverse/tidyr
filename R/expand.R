@@ -214,10 +214,6 @@ sorted_unique <- function(x) {
 
 # forcats::fct_unique
 fct_unique <- function(x) {
-  if (!is.factor(x)) {
-    abort("`x` must be a factor.")
-  }
-
   levels <- levels(x)
   out <- levels
 

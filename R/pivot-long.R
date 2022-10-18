@@ -248,8 +248,7 @@ pivot_longer_spec <- function(data,
 
   cols_vary <- arg_match0(
     arg = cols_vary,
-    values = c("fastest", "slowest"),
-    arg_nm = "cols_vary"
+    values = c("fastest", "slowest")
   )
 
   # Quick hack to ensure that split() preserves order
@@ -296,7 +295,7 @@ pivot_longer_spec <- function(data,
     } else if (cols_vary == "fastest") {
       vals[[value]] <- vec_interleave(!!!val_cols, .ptype = val_type)
     } else {
-      abort("Unknown `cols_vary` value.", .internal = TRUE)
+      cli::cli_abort("Unknown {arg cols_vary} value.", .internal = TRUE)
     }
   }
   vals <- as_tibble(vals)
@@ -314,7 +313,7 @@ pivot_longer_spec <- function(data,
     data_cols <- vec_rep_each(data_cols, times_data_cols)
     keys <- vec_rep(keys, times_keys)
   } else {
-    abort("Unknown `cols_vary` value.", .internal = TRUE)
+    cli::cli_abort("Unknown {arg cols_vary} value.", .internal = TRUE)
   }
 
   out <- wrap_error_names(vec_cbind(
@@ -345,11 +344,16 @@ build_longer_spec <- function(data,
                               names_pattern = NULL,
                               names_ptypes = NULL,
                               names_transform = NULL) {
+
+  check_data_frame(data)
+  check_required(cols)
+  check_character(names_to, allow_null = TRUE)
+
   cols <- tidyselect::eval_select(enquo(cols), data[unique(names(data))], allow_rename = FALSE)
   cols <- names(cols)
 
   if (length(cols) == 0) {
-    abort(glue::glue("`cols` must select at least one column."))
+    cli::cli_abort("{.arg cols} must select at least one column.")
   }
 
   if (is.null(names_prefix)) {
@@ -361,9 +365,6 @@ build_longer_spec <- function(data,
   if (is.null(names_to)) {
     names_to <- character(0L)
   }
-  if (!is.character(names_to)) {
-    abort("`names_to` must be a character vector or `NULL`.")
-  }
 
   n_names_to <- length(names_to)
   has_names_sep <- !is.null(names_sep)
@@ -373,7 +374,7 @@ build_longer_spec <- function(data,
     names <- tibble::new_tibble(x = list(), nrow = length(names))
   } else if (n_names_to == 1L) {
     if (has_names_sep) {
-      abort("`names_sep` can't be used with a length 1 `names_to`.")
+      cli::cli_abort("{.arg names_sep} can't be used with a length 1 {.arg names_to}.")
     }
     if (has_names_pattern) {
       names <- str_extract(names, names_to, regex = names_pattern)[[1]]
@@ -382,9 +383,9 @@ build_longer_spec <- function(data,
     names <- tibble(!!names_to := names)
   } else {
     if (!xor(has_names_sep, has_names_pattern)) {
-      abort(glue::glue(
-        "If you supply multiple names in `names_to` you must also supply one",
-        " of `names_sep` or `names_pattern`."
+      cli::cli_abort(paste0(
+        "If you supply multiple names in {.arg names_to} you must also supply one",
+        " of {.arg names_sep} or {.arg names_pattern}."
       ))
     }
 
@@ -432,7 +433,7 @@ drop_cols <- function(df, cols) {
   } else if (is.integer(cols)) {
     df[-cols]
   } else {
-    abort("Invalid input")
+    cli::cli_abort("Invalid input", .internal = TRUE)
   }
 }
 

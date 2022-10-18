@@ -176,7 +176,10 @@ elt_to_wide <- function(x, name, strict, names_sep, error_call = caller_env()) {
   }
 
   if (!vec_is(x)) {
-    abort(glue("Column `{name}` must contain a list of vectors."), call = error_call)
+    cli::cli_abort(
+      "List-column {.var {name}} must contain only vectors.",
+      call = error_call
+    )
   }
 
   if (is.data.frame(x)) {
