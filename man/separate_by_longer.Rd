@@ -14,7 +14,8 @@ separate_at_longer(data, cols, width, ..., keep_empty = FALSE)
 
 \item{cols}{<\code{\link[=tidyr_tidy_select]{tidy-select}}> Columns to separate.}
 
-\item{sep}{Separator between columns, a fixed string.}
+\item{sep}{Separator between columns, by default, a fixed string.
+Use \code{stringr::regexp()} and friends to split in other ways.}
 
 \item{...}{Additional arguments passed on to methods.}
 

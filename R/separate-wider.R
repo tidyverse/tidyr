@@ -27,15 +27,49 @@
 #' @param sep Separator between columns, by default, a fixed string.
 #'   Use `stringr::regexp()` and friends to split in other ways.
 #' @inheritParams rlang::args_dots_empty
-#' @param align_direction If different rows have different numbers of
-#'   observations should the `start`s or the `ends`s be aligned?
-#' @param align_warn When do you want to be informed about strings that have
-#'   too many or too few pieces?
+#' @param align_short What should happen if a value separates into too few
+#'   pieces?
 #'
-#'   * `"both"`, the default, when there are too few or too many.
-#'   * `"short"`, only when there are too few.
-#'   * `"long"`, only where there are too many.
-#'   * `"none"`, never warn.
+#'   * `"error"`, the default, will throw an error.
+#'   * `"debug"` will add additional columns to the output to help you
+#'     locate and resolve the underlying problem.
+#'   * `"start"` will the align starts of short matches, adding `NA` on the end
+#'     to pad to the correct length.
+#'   * `"end"` (`separate_by_wider()` only) will align the ends of short
+#'     matches, adding `NA` at the start to pad to the correct length.
+#' @param align_long What should happen if a value separates into too many
+#'   pieces?
+#'
+#'   * `"error"`, the default, will throw an error.
+#'   * `"debug"` will add additional columns to the output to help you
+#'     locate and resolve the underlying problem.
+#'   * `"drop"` will silently drop any extra pieces.
+#'   * `"merge"` (`separate_by_wider()` only) will merge together any
+#'     additional pieces.
+#' @param col_remove Should the input `cols` be removed from the output?
+#'   Always preserved if `align_short` or `align_long` is set to `"debug`.
+#' @return A data frame, with the same number of rows as `df` but different
+#'   columns:
+#'
+#' * For `separate_by_wider()` the names of new columns come from `names`.
+#'   For `separate_at_wider()` the names come from the names of `widths`.
+#'   For `separate_regex_wider()` the names come from the names of
+#'   `patterns`. If `names_sep` is set, the output names will be created by
+#'   combining the original col name, with the names described above.
+#'
+#' * If `align_short` or `align_long` is `"debug"`, the ouput will additional
+#'   columns useful for debugging:
+#'
+#'   * `{col}_ok`: a logical vector which tells you if the input was ok or
+#'     not. Use to quickly find the problematic rows.
+#'   * `{col}_remainder`: any text remaining after separation.
+#'   * `{col}_pieces`, `{col}_width`, `{col}_matches`: number of pieces,
+#'     number of characters, and number of matches for `separate_by_wider()`,
+#'     `separate_at_wider()` and `separate_regexp_wider()` respectively.
+#'
+#' * If `col_remove = TRUE` (the default), the input `cols` will be removed
+#'   from the output.
+#'
 #' @export
 #' @examples
 #' df <- tibble(id = 1:3, x = c("m-123", "f-455", "f-123"))
@@ -50,7 +84,8 @@
 #' # Sometimes you split on the "last" delimiter:
 #' df <- data.frame(var = c("race_1", "race_2", "age_bucket_1", "age_bucket_2"))
 #' # _delim won't help because it always splits on the first delimiter
-#' df %>% separate_by_wider(var, "_", names = c("var1", "var2"))
+#' try(df %>% separate_by_wider(var, "_", names = c("var1", "var2")))
+#' df %>% separate_by_wider(var, "_", names = c("var1", "var2"), align_long = "merge")
 #' # Instead, you can use _group:
 #' df %>% separate_regex_wider(var, c(var1 = ".*", "_", var2 = ".*"))
 #' # this works because * is greedy; you can mimic the _by behaviour with .*?
@@ -60,12 +95,30 @@
 #' df <- tibble(id = 1:4, x = c("x", "x y", "x y z", NA))
 #' df %>% separate_by_longer(x, sep = " ")
 #' # But separate_by_wider() provides some tools to deal with the problem
-#' # The default behaviour tells you where the problems lie:
-#' df %>% separate_by_wider(x, sep = " ", names = c("a", "b"))
+#' # The default behaviour tells you that there's a problem
+#' try(df %>% separate_by_wider(x, sep = " ", names = c("a", "b")))
+#' # You can get additional insight by using the debug options:
+#' df %>%
+#'   separate_by_wider(
+#'     x,
+#'     sep = " ",
+#'     names = c("a", "b"),
+#'     align_short = "debug",
+#'     align_long = "debug"
+#'   )
+#'
 #' # But you can can suppress the warnings:
-#' df %>% separate_by_wider(x, sep = " ", names = c("a", "b"), align_warn = "none")
-#' # Or choose to automatically name the columns
-#' df %>% separate_by_wider(x, sep = " ", names_sep = "", align_warn = "none")
+#' df %>%
+#'   separate_by_wider(
+#'     x,
+#'     sep = " ",
+#'     names = c("a", "b"),
+#'     align_short = "start",
+#'     align_long = "merge"
+#'   )
+#'
+#' # Or choose to automatically name the columns, producing as many as needed
+#' df %>% separate_by_wider(x, sep = " ", names_sep = "", align_short = "start")
 separate_by_wider <- function(
     data,
     cols,
@@ -74,35 +127,40 @@ separate_by_wider <- function(
     names = NULL,
     names_sep = NULL,
     names_repair = "check_unique",
-    align_direction = c("start", "end"),
-    align_warn = c("both", "short", "long", "none"),
-    debug = FALSE
+    align_short = c("error", "debug", "start", "end"),
+    align_long = c("error", "debug", "drop", "merge"),
+    col_remove = TRUE
 ) {
   check_installed("stringr")
   check_required(cols)
   check_dots_empty()
   if (!is_string(sep)) {
-    abort("`sep` must be a string")
+    abort("`sep` must be a string.")
   }
   if (is.null(names) && is.null(names_sep)) {
-    abort("Must specify at least one of `names` or `names_sep`")
+    abort("Must specify at least one of `names` or `names_sep`.")
   }
   if (!is.null(names) && (!is.character(names) || is_named(names) || length(names) == 0)) {
-    abort("`names` must be an unnamed character vector")
+    abort("`names` must be an unnamed character vector.")
   }
-  align_direction <- arg_match(align_direction)
-  align_warn <- arg_match(align_warn)
+  align_short <- arg_match(align_short)
+  align_long <- arg_match(align_long)
+
+  error_call <- current_env()
 
   map_unpack(
     data, {{ cols }},
-    str_separate_by_wider,
-    names = names,
-    sep = sep,
-    align_direction = align_direction,
-    align_warn = align_warn,
-    debug = debug,
-    .names_sep = names_sep,
-    .names_repair = names_repair
+    function(x, col) str_separate_by_wider(x, col,
+      names = names,
+      sep = sep,
+      names_sep = names_sep,
+      align_short = align_short,
+      align_long = align_long,
+      col_remove = col_remove,
+      error_call = error_call
+    ),
+    names_sep = names_sep,
+    names_repair = names_repair
   )
 }
 
@@ -112,38 +170,76 @@ str_separate_by_wider <- function(
     names,
     sep,
     names_sep = NULL,
-    align_direction = c("start", "end"),
-    align_warn = c("both", "short", "long", "none"),
-    debug = FALSE
+    align_short = "error",
+    align_long = "error",
+    col_remove = TRUE,
+    error_call = caller_env()
 ) {
 
   if (is_bare_string(sep)) {
     sep <- stringr::fixed(sep)
   }
+  if (align_long == "merge") {
+    if (is.null(names)) {
+      cli::cli_abort(
+        'Must provide {.arg names} when {.code align_long = "merge"}.',
+        call = error_call
+      )
+    }
+    n <- length(names)
+  } else {
+    n <- Inf
+  }
 
-  pieces <- stringr::str_split(x, sep, n = Inf)
+  pieces <- stringr::str_split(x, sep, n = n)
+  n_pieces <- lengths(pieces)
+
   names <- names %||% as.character(seq_len(max(lengths(pieces))))
+  p <- length(names)
+
+  check_df_alignment(col, p, "pieces", n_pieces,
+    align_short = align_short,
+    align_long = align_long,
+    advice_short = c(
+      i = 'Use `align_short = "debug"` to diagnose the problem.',
+      i = 'Use `align_short = "start"/"end"` to silence this message.'
+    ),
+    advice_long = c(
+      i = 'Use `align_long = "debug"` to diagnose the problem.',
+      i = 'Use `align_long = "drop"/"merge"` to silence this message.'
+    ),
+    call = error_call
+  )
 
   out <- df_align(
     x = pieces,
     names = names,
-    align_direction = align_direction,
-    align_warn = if (debug) "none" else align_warn
+    align_direction = if (align_short == "end") "end" else "start"
   )
 
-  # TODO: uses names_prefix instead
-  if (debug) {
-    names_sep <- names_sep %||% "_"
+  if (!col_remove || align_short == "debug" || align_long == "debug") {
+    out[[col]] <- x
+  }
 
-    p <- length(names)
-    out[[paste0(col, names_sep, "pieces")]] <- lengths(pieces)
-
-    sep_loc <- str_locate_all(x, sep)
+  if (align_short == "debug" || align_long == "debug") {
+    sep_loc <- stringr::str_locate_all(x, sep)
     sep_last <- lapply(sep_loc, function(x) if (nrow(x) < p) NA else x[p, "start"])
-    out[[paste0(col, names_sep, "extra")]] <- str_sub(x, sep_last)
+    remainder <- stringr::str_sub(x, sep_last)
+    remainder[is.na(remainder)] <- ""
+
+    problem <- (align_short == "debug" & n_pieces < p) |
+      (align_long == "debug" & n_pieces > p)
+
+    out[[debug_name(col, names_sep, "ok")]] <- !problem
+    out[[debug_name(col, names_sep, "pieces")]] <- n_pieces
+    out[[debug_name(col, names_sep, "remainder")]] <- remainder
   }
 
   out
+}
+
+debug_name <- function(col, names_sep, var) {
+  paste0(col, names_sep %||% "_", var)
 }
 
 #' @rdname separate_by_wider
@@ -158,36 +254,63 @@ separate_at_wider <- function(
     ...,
     names_sep = NULL,
     names_repair = "check_unique",
-    align_direction = c("start", "end"),
-    align_warn = c("both", "short", "long", "none")
+    align_short = c("error", "debug", "start"),
+    align_long = c("error", "debug", "drop"),
+    col_remove = TRUE
 ) {
   check_installed("stringr")
   check_required(cols)
   if (!is_integerish(widths) || !any(have_name(widths))) {
-    abort("`widths` must be a named integer vector")
+    abort("`widths` must be a named integer vector.")
   }
   check_dots_empty()
-  align_direction <- arg_match(align_direction)
-  align_warn <- arg_match(align_warn)
+  align_short <- arg_match(align_short)
+  align_long <- arg_match(align_long)
+
+  error_call <- current_env()
 
   map_unpack(
     data, {{ cols }},
-    str_separate_at_wider,
-    widths = widths,
-    align_direction = align_direction,
-    align_warn = align_warn,
-    .names_sep = names_sep,
-    .names_repair = names_repair
+    function(x, col) str_separate_at_wider(x, col,
+      widths = widths,
+      names_sep = names_sep,
+      align_short = align_short,
+      align_long = align_long,
+      col_remove = col_remove,
+      error_call = error_call
+    ),
+    names_sep = names_sep,
+    names_repair = names_repair
   )
 }
 
 str_separate_at_wider <- function(x,
+                                  col,
                                   widths,
-                                  align_direction = c("start", "end"),
-                                  align_warn = c("both", "short", "long", "none")
+                                  names_sep = NULL,
+                                  align_short = "error",
+                                  align_long = "error",
+                                  col_remove = TRUE,
+                                  error_call = caller_env()
                                   ) {
 
   breaks <- cumsum(c(1, unname(widths)))[-(length(widths) + 1)]
+  expected_width <- sum(widths)
+
+  width <- nchar(x)
+  check_df_alignment(col, expected_width, "characters", width,
+    align_short = align_short,
+    align_long = align_long,
+    advice_short = c(
+      i = 'Use `align_short = "debug"` to diagnose the problem.',
+      i = 'Use `align_short = "start"` to silence this message.'
+    ),
+    advice_long = c(
+      i = 'Use `align_long = "debug"` to diagnose the problem.',
+      i = 'Use `align_long = "drop"` to silence this message.'
+    ),
+    call = error_call
+  )
 
   skip <- names(widths) == ""
   from <- cbind(start = breaks[!skip], length = widths[!skip])
@@ -196,12 +319,27 @@ str_separate_at_wider <- function(x,
   pieces <- stringr::str_sub_all(x, from)
   pieces <- lapply(pieces, function(x) x[x != ""])
 
-  df_align(
+  out <- df_align(
     x = pieces,
     names = names,
-    align_direction = align_direction,
-    align_warn = align_warn
+    align_direction = if (align_short == "end") "end" else "start"
   )
+
+  if (!col_remove || align_short == "debug" || align_long == "debug") {
+    out[[col]] <- x
+  }
+
+  if (align_short == "debug" || align_long == "debug") {
+    problem <- (align_short == "debug" & width < expected_width) |
+      (align_long == "debug" & width > expected_width)
+
+    out[[debug_name(col, names_sep, "width")]] <- width
+    out[[debug_name(col, names_sep, "remainder")]] <- stringr::str_sub(x, expected_width + 1, width)
+    out[[debug_name(col, names_sep, "ok")]] <- !problem
+  }
+
+
+  out
 }
 
 #' @rdname separate_by_wider
@@ -215,78 +353,131 @@ separate_regex_wider <- function(
     cols,
     patterns,
     ...,
-    match_complete = TRUE,
     names_sep = NULL,
-    names_repair = "check_unique"
+    names_repair = "check_unique",
+    align_short = c("error", "debug", "start"),
+    col_remove = TRUE
 ) {
   check_installed("stringr")
   check_required(cols)
   if (!is.character(patterns) || all(!have_name(patterns))) {
-    abort("`patterns` must be a named character vector")
+    abort("`patterns` must be a named character vector.")
   }
   check_dots_empty()
-  if (!is_bool(match_complete)) {
-    abort("`match_complete` must be TRUE or FALSE")
-  }
+  align_short <- arg_match(align_short)
+
+  error_call <- current_env()
 
   map_unpack(
     data, {{ cols }},
-    str_separate_regex_wider,
-    patterns = patterns,
-    match_complete = match_complete,
-    .names_sep = names_sep,
-    .names_repair = names_repair
+    function(x, col) str_separate_regex_wider(x, col,
+      patterns = patterns,
+      names_sep = names_sep,
+      align_short = align_short,
+      col_remove = col_remove,
+      error_call = error_call
+    ),
+    names_sep = names_sep,
+    names_repair = names_repair
   )
 }
 
-str_separate_regex_wider <- function(x, patterns, match_complete = TRUE) {
+str_separate_regex_wider <- function(x,
+                                     col,
+                                     patterns,
+                                     names_sep = NULL,
+                                     align_short = "error",
+                                     col_remove = TRUE,
+                                     error_call = caller_env()) {
   has_name <- names2(patterns) != ""
-  into <- names2(patterns)[has_name]
-  patterns[has_name] <- paste0("(", patterns[has_name], ")")
-  patterns[!has_name] <- paste0("(?:", patterns[!has_name], ")")
-  pattern <- paste(patterns, collapse = "")
+  groups <- paste0("(", ifelse(has_name, "", "?:"), patterns, ")")
+  full_match <- paste0("^", paste(groups, collapse = ""), "$")
 
-  if (match_complete) {
-    pattern <- paste0("^", pattern, "$")
+  match <- stringr::str_match(x, full_match)
+  if (ncol(match) != sum(has_name) + 1L) {
+    cli::cli_abort(c(
+      "Invalid number of groups.",
+      i = "Did you use () instead of (?:) inside {.arg patterns}?"
+    ), call = error_call)
   }
 
-  match <- stringr::str_match(x, pattern)
-  no_match <- is.na(match[, 1]) & !is.na(x)
-  if (any(no_match)) {
-    n <- sum(no_match)
-    idx <- list_indices(which(no_match))
-
-    warn(glue("Failed to match {n} rows: {idx}"))
-  }
   matches <- match[, -1, drop = FALSE]
-  if (ncol(matches) != length(into)) {
-    abort(c(
-      "Invalid number of groups",
-      i = "Did you use () instead of (?:) inside a pattern?"
-    ))
+  out <- as_tibble(matches, .name_repair = "none")
+  colnames(out) <- names2(patterns)[has_name]
+
+  if (!col_remove || align_short == "debug") {
+    out[[col]] <- x
   }
 
-  out <- as_tibble(matches, .name_repair = "none")
-  colnames(out) <- into
+  no_match <- which(is.na(match[, 1]))
+
+  if (length(no_match) > 0) {
+    match_count <- rep(length(patterns), length(x))
+    remainder <- rep("", length(x))
+    problems <- is.na(match[, 1])
+
+    if (align_short == "error") {
+      cli::cli_abort(c(
+        "Expected each value of {.var {col}} to match the pattern, the whole pattern, and nothing but the pattern.",
+        "!" = "{length(no_match)} value{?s} {?has/had} problem{?s}.",
+        i = 'Use {.code align_short = "debug"} to diagnose the problem.',
+        i = 'Use {.code align_short = "start"} to silence this message.'
+      ), call = error_call)
+    }
+
+    # Progressively relax the matches
+    for (i in rev(seq_along(groups))) {
+      partial <- paste0("^", paste(groups[1:i], collapse = ""), "(.*)$")
+      match <- stringr::str_match(x[no_match], partial)
+      has_match <- !is.na(match[, 1])
+      match_idx <- no_match[has_match]
+      if (length(match_idx) == 0) {
+        next
+      }
+
+      matches <- as_tibble(match[has_match, -1, drop = FALSE], .name_repair = "none")
+      cols <- names2(patterns)[has_name][1:(ncol(matches) - 1)]
+      out[match_idx, cols] <- matches[1:(ncol(matches) - 1)]
+      remainder[match_idx] <- matches[[ncol(matches)]]
+      match_count[match_idx] <- i
+
+      no_match <- no_match[!has_match]
+      if (length(no_match) == 0) {
+        break
+      }
+    }
+
+    if (length(no_match) > 0) {
+      match_count[no_match] <- 0L
+      remainder[no_match] <- x[no_match]
+    }
+
+    if (align_short == "debug") {
+      out[debug_name(col, names_sep, "ok")] <- !problems
+      out[debug_name(col, names_sep, "matches")] <- match_count
+      out[debug_name(col, names_sep, "remainder")] <- remainder
+    }
+  }
+
   out
 }
 
 # helpers -----------------------------------------------------------------
 
-map_unpack <- function(data, cols, fun, ..., .names_sep, .names_repair) {
+map_unpack <- function(data, cols, fun, names_sep, names_repair, call = caller_env()) {
   # TODO: Use `allow_rename = FALSE` (https://github.com/r-lib/tidyselect/issues/225)
   cols <- tidyselect::eval_select(enquo(cols), data)
   col_names <- names(cols)
 
   for (col in col_names) {
-    data[[col]] <- fun(data[[col]], col, ..., names_sep = .names_sep)
+    data[[col]] <- fun(data[[col]], col)
   }
 
   unpack(
     data,
     all_of(col_names),
-    names_sep = .names_sep,
-    names_repair = .names_repair
+    names_sep = names_sep,
+    names_repair = names_repair
   )
 }
 
@@ -294,27 +485,23 @@ map_unpack <- function(data, cols, fun, ..., .names_sep, .names_repair) {
 df_align <- function(
     x,
     names,
-    align_direction = c("start", "end"),
-    align_warn = c("both", "short", "long", "none")
+    align_direction = c("start", "end")
 ) {
   vec_check_list(x)
   align_direction <- arg_match(align_direction)
-  align_warn <- arg_match(align_warn)
 
   n <- length(x)
   p <- length(names)
-  sizes <- list_sizes(x)
 
-  df_align_warn(p, sizes, align_warn = align_warn)
-
-  out <- df_align_transpose(x, p, sizes, align_direction = align_direction)
+  out <- df_align_transpose(x, p, align_direction = align_direction)
   out <- out[!is.na(names)]
   names(out) <- names[!is.na(names)]
 
   new_data_frame(out, size = n)
 }
 
-df_align_transpose <- function(x, p, sizes, align_direction = "start") {
+df_align_transpose <- function(x, p, align_direction = "start") {
+  sizes <- list_sizes(x)
   # Find the start location of each piece
   starts <- cumsum(c(1L, sizes[-length(sizes)]))
 
@@ -357,32 +544,31 @@ df_align_transpose <- function(x, p, sizes, align_direction = "start") {
   vec_chop(x, indices)
 }
 
-df_align_warn <- function(p, sizes, align_warn = "both") {
-  warnings <- character()
+check_df_alignment <- function(
+                          col,
+                          p,
+                          type,
+                          sizes,
+                          align_short,
+                          align_long,
+                          advice_short = NULL,
+                          advice_long = NULL,
+                          call = caller_env()) {
+  n_short <- sum(sizes < p)
+  n_long <- sum(sizes > p)
 
-  warn_short <- align_warn %in% c("both", "short")
-  if (warn_short) {
-    too_short <- which(sizes < p)
-    n_short <- length(too_short)
+  error_short <- align_short == "error" && n_short > 0
+  error_long <- align_long == "error" && n_long > 0
 
-    if (n_short > 0) {
-      idx <- list_indices(too_short)
-      warnings <- c(warnings, glue("{n_short} rows were too short: {idx}."))
-    }
+  if (!error_short && !error_long) {
+    return()
   }
 
-  warn_long <- align_warn %in% c("both", "long")
-  if (warn_long) {
-    too_long <- which(sizes > p)
-    n_long <- length(too_long)
-
-    if (n_long > 0) {
-      idx <- list_indices(too_long)
-      warnings <- c(warnings, glue("{n_long} rows were too long: {idx}."))
-    }
-  }
-
-  if (length(warnings) > 0) {
-    warn(c(glue("Expected {p} pieces in each row."), warnings))
-  }
+  cli::cli_abort(c(
+    "Expected {p} {type} in each element of {.var {col}}.",
+    "!" = if (error_short) "{n_short} value{?s} {?was/were} too short.",
+    if (error_short) advice_short,
+    "!" = if (error_long) "{n_long} value{?s} {?was/were} too long.",
+    if (error_long) advice_long
+  ), call = call)
 }

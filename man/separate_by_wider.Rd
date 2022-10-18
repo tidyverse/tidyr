@@ -14,8 +14,9 @@ separate_by_wider(
   names = NULL,
   names_sep = NULL,
   names_repair = "check_unique",
-  align_direction = c("start", "end"),
-  align_warn = c("both", "short", "long", "none")
+  align_short = c("error", "debug", "start", "end"),
+  align_long = c("error", "debug", "drop", "merge"),
+  col_remove = TRUE
 )
 
 separate_at_wider(
@@ -25,8 +26,9 @@ separate_at_wider(
   ...,
   names_sep = NULL,
   names_repair = "check_unique",
-  align_direction = c("start", "end"),
-  align_warn = c("both", "short", "long", "none")
+  align_short = c("error", "debug", "start"),
+  align_long = c("error", "debug", "drop"),
+  col_remove = TRUE
 )
 
 separate_regex_wider(
@@ -34,9 +36,10 @@ separate_regex_wider(
   cols,
   patterns,
   ...,
-  match_complete = TRUE,
   names_sep = NULL,
-  names_repair = "check_unique"
+  names_repair = "check_unique",
+  align_short = c("error", "debug", "start"),
+  col_remove = TRUE
 )
 }
 \arguments{
@@ -44,7 +47,8 @@ separate_regex_wider(
 
 \item{cols}{<\code{\link[=tidyr_tidy_select]{tidy-select}}> Columns to separate.}
 
-\item{sep}{Separator between columns, a fixed string.}
+\item{sep}{Separator between columns, by default, a fixed string.
+Use \code{stringr::regexp()} and friends to split in other ways.}
 
 \item{...}{Additional arguments passed on to methods.}
 
@@ -70,17 +74,31 @@ names. Must be one of the following options:
 See \code{\link[vctrs:vec_as_names]{vctrs::vec_as_names()}} for more details on these terms and the
 strategies used to enforce them.}
 
-\item{align_direction}{If different rows have different numbers of
-observations should the \code{start}s or the \code{ends}s be aligned?}
-
-\item{align_warn}{When do you want to be informed about strings that have
-too many or too few pieces?
+\item{align_short}{What should happen if a value separates into too few
+pieces?
 \itemize{
-\item \code{"both"}, the default, when there are too few or too many.
-\item \code{"short"}, only when there are too few.
-\item \code{"long"}, only where there are too many.
-\item \code{"none"}, never warn.
+\item \code{"error"}, the default, will throw an error.
+\item \code{"debug"} will add additional columns to the output to help you
+locate and resolve the underlying problem.
+\item \code{"start"} will the align starts of short matches, adding \code{NA} on the end
+to pad to the correct length.
+\item \code{"end"} (\code{separate_by_wider()} only) will align the ends of short
+matches, adding \code{NA} at the start to pad to the correct length.
 }}
+
+\item{align_long}{What should happen if a value separates into too many
+pieces?
+\itemize{
+\item \code{"error"}, the default, will throw an error.
+\item \code{"debug"} will add additional columns to the output to help you
+locate and resolve the underlying problem.
+\item \code{"drop"} will silently drop any extra pieces.
+\item \code{"merge"} (\code{separate_by_wider()} only) will merge together any
+additional pieces.
+}}
+
+\item{col_remove}{Should the input \code{cols} be removed from the output?
+Always preserved if \code{align_short} or \code{align_long} is set to \verb{"debug}.}
 
 \item{widths}{A named numeric vector where the names become column names,
 and the values specify the column width. Unnamed components will match,
@@ -91,6 +109,29 @@ and the values are regular expressions that match the contents of the
 vector. Unnamed components will match, but not be included in the output.}
 
 \item{match_complete}{Is the pattern required to match the entire string?}
+}
+\value{
+A data frame, with the same number of rows as \code{df} but different
+columns:
+\itemize{
+\item For \code{separate_by_wider()} the names of new columns come from \code{names}.
+For \code{separate_at_wider()} the names come from the names of \code{widths}.
+For \code{separate_regex_wider()} the names come from the names of
+\code{patterns}. If \code{names_sep} is set, the output names will be created by
+combining the original col name, with the names described above.
+\item If \code{align_short} or \code{align_long} is \code{"debug"}, the ouput will additional
+columns useful for debugging:
+\itemize{
+\item \verb{\{col\}_ok}: a logical vector which tells you if the input was ok or
+not. Use to quickly find the problematic rows.
+\item \verb{\{col\}_remainder}: any text remaining after separation.
+\item \verb{\{col\}_pieces}, \verb{\{col\}_width}, \verb{\{col\}_matches}: number of pieces,
+number of characters, and number of matches for \code{separate_by_wider()},
+\code{separate_at_wider()} and \code{separate_regexp_wider()} respectively.
+}
+\item If \code{col_remove = TRUE} (the default), the input \code{cols} will be removed
+from the output.
+}
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
@@ -121,7 +162,8 @@ df \%>\% separate_regex_wider(x, c(gender = ".", ".", unit = "\\\\d+"))
 # Sometimes you split on the "last" delimiter:
 df <- data.frame(var = c("race_1", "race_2", "age_bucket_1", "age_bucket_2"))
 # _delim won't help because it always splits on the first delimiter
-df \%>\% separate_by_wider(var, "_", names = c("var1", "var2"))
+try(df \%>\% separate_by_wider(var, "_", names = c("var1", "var2")))
+df \%>\% separate_by_wider(var, "_", names = c("var1", "var2"), align_long = "merge")
 # Instead, you can use _group:
 df \%>\% separate_regex_wider(var, c(var1 = ".*", "_", var2 = ".*"))
 # this works because * is greedy; you can mimic the _by behaviour with .*?
@@ -131,10 +173,28 @@ df \%>\% separate_regex_wider(var, c(var1 = ".*?", "_", var2 = ".*"))
 df <- tibble(id = 1:4, x = c("x", "x y", "x y z", NA))
 df \%>\% separate_by_longer(x, sep = " ")
 # But separate_by_wider() provides some tools to deal with the problem
-# The default behaviour tells you where the problems lie:
-df \%>\% separate_by_wider(x, sep = " ", names = c("a", "b"))
+# The default behaviour tells you that there's a problem
+try(df \%>\% separate_by_wider(x, sep = " ", names = c("a", "b")))
+# You can get additional insight by using the debug options:
+df \%>\%
+  separate_by_wider(
+    x,
+    sep = " ",
+    names = c("a", "b"),
+    align_short = "debug",
+    align_long = "debug"
+  )
+
 # But you can can suppress the warnings:
-df \%>\% separate_by_wider(x, sep = " ", names = c("a", "b"), align_warn = "none")
-# Or choose to automatically name the columns
-df \%>\% separate_by_wider(x, sep = " ", names_sep = "", align_warn = "none")
+df \%>\%
+  separate_by_wider(
+    x,
+    sep = " ",
+    names = c("a", "b"),
+    align_short = "start",
+    align_long = "merge"
+  )
+
+# Or choose to automatically name the columns, producing as many as needed
+df \%>\% separate_by_wider(x, sep = " ", names_sep = "", align_short = "start")
 }
