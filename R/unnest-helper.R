@@ -26,7 +26,7 @@ df_simplify <- function(x,
 
     col_ptype <- ptype[[col_name]]
     col_transform <- transform[[col_name]]
-    col_simplify <- simplify[[col_name]]
+    col_simplify <- simplify[[col_name]] %||% TRUE
 
     out[[i]] <- col_simplify(
       x = col,
