@@ -193,6 +193,12 @@ vec_paste0 <- function(...) {
   exec(paste0, !!!args)
 }
 
+check_data_frame <- function(x, arg = caller_arg(x), call = caller_env()) {
+  if (!is.data.frame(x)) {
+    cli::cli_abort("{.arg {arg}} must be a data frame, not {.obj_type_friendly x}.", call = call)
+  }
+}
+
 check_list_of_ptypes <- function(x, names, arg, call = caller_env()) {
   if (vec_is(x) && vec_is_empty(x)) {
     x <- rep_named(names, list(x))

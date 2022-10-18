@@ -66,6 +66,7 @@
 #' df %>% unchop(y)
 #' df %>% unchop(y, keep_empty = TRUE)
 chop <- function(data, cols) {
+  check_data_frame(data)
   check_required(cols)
   cols <- tidyselect::eval_select(enquo(cols), data, allow_rename = FALSE)
 
@@ -98,6 +99,10 @@ col_chop <- function(x, indices) {
 #' @export
 #' @rdname chop
 unchop <- function(data, cols, keep_empty = FALSE, ptype = NULL) {
+  check_data_frame(data)
+  check_required(cols)
+  check_bool(keep_empty)
+
   sel <- tidyselect::eval_select(enquo(cols), data)
 
   size <- vec_size(data)
@@ -142,13 +147,6 @@ unchop <- function(data, cols, keep_empty = FALSE, ptype = NULL) {
 
 df_unchop <- function(x, ..., ptype = NULL, keep_empty = FALSE, error_call = caller_env()) {
   check_dots_empty()
-
-  if (!is.data.frame(x)) {
-    abort("`x` must be a data frame.", call = error_call)
-  }
-  if (!is_bool(keep_empty)) {
-    abort("`keep_empty` must be a single `TRUE` or `FALSE`.", call = error_call)
-  }
 
   ptype <- check_list_of_ptypes(ptype, names = names(x), arg = "ptype", call = error_call)
 
