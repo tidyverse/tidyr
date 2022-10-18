@@ -97,3 +97,10 @@ test_that("replacement must be castable to corresponding column", {
   df <- tibble(a = c(1L, NA))
   expect_snapshot((expect_error(replace_na(df, list(a = 1.5)))))
 })
+
+test_that("validates its inputs", {
+  df <- tibble(a = c(1L, NA))
+  expect_snapshot(error = TRUE, {
+    replace_na(df, replace = 1)
+  })
+})

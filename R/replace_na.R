@@ -44,7 +44,7 @@ replace_na.default <- function(data, replace = NA, ...) {
 #' @export
 replace_na.data.frame <- function(data, replace = list(), ...) {
   if (!vec_is_list(replace)) {
-    abort("`replace` must be a list.")
+    cli::cli_abort("{.arg replace} must be a list, not {.obj_type_friendly {replace}}.")
   }
 
   names <- intersect(names(replace), names(data))
