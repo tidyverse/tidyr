@@ -65,8 +65,6 @@ complete <- function(data,
                      fill = list(),
                      explicit = TRUE) {
 
-  check_bool(explicit)
-
   UseMethod("complete")
 }
 
@@ -79,6 +77,8 @@ complete.data.frame <- function(data,
                                 ...,
                                 fill = list(),
                                 explicit = TRUE) {
+  check_bool(explicit)
+
   out <- expand(data, ...)
   names <- names(out)
 
