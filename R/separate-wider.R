@@ -134,17 +134,17 @@ separate_by_wider <- function(
   check_installed("stringr")
   check_required(cols)
   check_dots_empty()
-  if (!is_string(sep)) {
-    abort("`sep` must be a string.")
-  }
+  check_string(sep)
   if (is.null(names) && is.null(names_sep)) {
-    abort("Must specify at least one of `names` or `names_sep`.")
+    cli::cli_abort("Must specify at least one of {.arg names} or {.arg names_sep}.")
   }
-  if (!is.null(names) && (!is.character(names) || is_named(names) || length(names) == 0)) {
-    abort("`names` must be an unnamed character vector.")
+  check_character(names, allow_null = TRUE)
+  if (length(names) > 0 && is_named(names)) {
+    cli::cli_abort("{.arg names} must be an unnamed character vector.")
   }
   align_short <- arg_match(align_short)
   align_long <- arg_match(align_long)
+  check_bool(col_remove)
 
   error_call <- current_env()
 
@@ -261,11 +261,12 @@ separate_at_wider <- function(
   check_installed("stringr")
   check_required(cols)
   if (!is_integerish(widths) || !any(have_name(widths))) {
-    abort("`widths` must be a named integer vector.")
+    cli::cli_abort("{.arg widths} must be a named integer vector.")
   }
   check_dots_empty()
   align_short <- arg_match(align_short)
   align_long <- arg_match(align_long)
+  check_bool(col_remove)
 
   error_call <- current_env()
 
@@ -360,11 +361,14 @@ separate_regex_wider <- function(
 ) {
   check_installed("stringr")
   check_required(cols)
-  if (!is.character(patterns) || all(!have_name(patterns))) {
-    abort("`patterns` must be a named character vector.")
+  check_character(patterns)
+  if (all(!have_name(patterns))) {
+    cli::cli_abort("{.arg patterns} must be a named character vector.")
   }
   check_dots_empty()
+  check_string(names_sep, allow_null = TRUE)
   align_short <- arg_match(align_short)
+  check_bool(col_remove)
 
   error_call <- current_env()
 
@@ -506,7 +510,7 @@ df_align_transpose <- function(x, p, align_direction = "start") {
   starts <- cumsum(c(1L, sizes[-length(sizes)]))
 
   # Combine all pieces sequentially, zapping names for performance.
-  x <- vec_unchop(x, ptype = character(), name_spec = zap())
+  x <- list_unchop(x, ptype = character(), name_spec = zap())
 
   indices <- vector("list", p)
   if (align_direction == "start") {

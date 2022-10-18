@@ -22,13 +22,13 @@
     Code
       df %>% separate_by_wider(x)
     Condition
-      Error in `is_string()`:
-      ! argument "sep" is missing, with no default
+      Error in `separate_by_wider()`:
+      ! `sep` must be a single string, not absent.
     Code
       df %>% separate_by_wider(x, 1)
     Condition
       Error in `separate_by_wider()`:
-      ! `sep` must be a string.
+      ! `sep` must be a single string, not the number 1.
     Code
       df %>% separate_by_wider(x, "")
     Condition
@@ -38,7 +38,7 @@
       df %>% separate_by_wider(x, "", names = 1)
     Condition
       Error in `separate_by_wider()`:
-      ! `names` must be an unnamed character vector.
+      ! `names` must be a character vector or `NULL`, not the number 1.
     Code
       df %>% separate_by_wider(x, "", names = c(x = "x"))
     Condition
@@ -118,7 +118,7 @@
       df %>% separate_regex_wider(x)
     Condition
       Error in `separate_regex_wider()`:
-      ! argument "patterns" is missing, with no default
+      ! `patterns` must be a character vector, not absent.
     Code
       df %>% separate_regex_wider(x, patterns = ".")
     Condition
