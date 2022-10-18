@@ -163,8 +163,17 @@ test_that("can hoist out a rcrd style column (#999)", {
   expect_identical(out$x, vec_c(x, x))
 })
 
-test_that("hoist() input must be a data frame (#1224)", {
-  expect_snapshot((expect_error(hoist(1))))
+test_that("hoist() validates its inputs (#1224)", {
+  df <- tibble(a = list(1))
+
+  expect_snapshot(error = TRUE, {
+    hoist(1)
+    hoist(df)
+    hoist(df, a, .remove = 1)
+    hoist(df, a, .ptype = 1)
+    hoist(df, a, .transform = 1)
+    hoist(df, a, .simplify = 1)
+  })
 })
 
 test_that("hoist() can simplify on a per column basis (#995)", {

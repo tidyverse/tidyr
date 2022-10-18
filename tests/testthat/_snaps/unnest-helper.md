@@ -65,7 +65,7 @@
     Output
       <error/rlang_error>
       Error:
-      ! Can't convert `transform`, a number, to a function.
+      ! `transform` must be `NULL`, a function, or a named list of functions.
     Code
       (expect_error(df_simplify(data.frame(), transform = list(x = 1))))
     Output

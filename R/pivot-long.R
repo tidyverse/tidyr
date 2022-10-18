@@ -263,8 +263,8 @@ pivot_longer_spec <- function(data,
     # TODO: Remove me after https://github.com/tidyverse/tidyr/issues/1296
     values_ptypes <- NULL
   }
-  values_ptypes <- check_list_of_ptypes(values_ptypes, value_names, "values_ptypes")
-  values_transform <- check_list_of_functions(values_transform, value_names, "values_transform")
+  values_ptypes <- check_list_of_ptypes(values_ptypes, value_names)
+  values_transform <- check_list_of_functions(values_transform, value_names)
 
   vals <- set_names(vec_init(list(), length(values)), value_names)
   for (value in value_names) {

@@ -299,10 +299,10 @@ pivot_wider_spec <- function(data,
     values_from_cols = values_from_cols
   )
 
-  values_fn <- check_list_of_functions(values_fn, values_from_cols, "values_fn")
+  values_fn <- check_list_of_functions(values_fn, values_from_cols)
 
   unused_cols <- setdiff(names(data), c(id_cols, names_from_cols, values_from_cols))
-  unused_fn <- check_list_of_functions(unused_fn, unused_cols, "unused_fn")
+  unused_fn <- check_list_of_functions(unused_fn, unused_cols)
   unused_cols <- names(unused_fn)
 
   if (is.null(values_fill)) {

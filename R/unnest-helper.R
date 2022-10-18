@@ -9,25 +9,9 @@ df_simplify <- function(x,
                         error_call = caller_env()) {
   check_dots_empty()
 
-  ptype <- check_list_of_ptypes(ptype, names(x), "ptype", call = error_call)
-  transform <- check_list_of_functions(transform, names(x), "transform", call = error_call)
-
-  if (is_bool(simplify)) {
-    simplify_default <- simplify
-    simplify <- list()
-  } else {
-    simplify_default <- TRUE
-  }
-
-  if (!vec_is_list(simplify)) {
-    abort("`simplify` must be a list or a single `TRUE` or `FALSE`.", call = error_call)
-  }
-  if (length(simplify) > 0L && !is_named(simplify)) {
-    abort("All elements of `simplify` must be named.", call = error_call)
-  }
-  if (vec_duplicate_any(names(simplify))) {
-    abort("The names of `simplify` must be unique.", call = error_call)
-  }
+  ptype <- check_list_of_ptypes(ptype, names(x), call = error_call)
+  transform <- check_list_of_functions(transform, names(x), call = error_call)
+  simplify <- check_list_of_bool(simplify, names(x), call = error_call)
 
   x_n <- length(x)
   x_size <- vec_size(x)
@@ -42,13 +26,13 @@ df_simplify <- function(x,
 
     col_ptype <- ptype[[col_name]]
     col_transform <- transform[[col_name]]
-    col_simplify <- simplify[[col_name]] %||% simplify_default
+    col_simplify <- simplify[[col_name]]
 
     out[[i]] <- col_simplify(
       x = col,
       ptype = col_ptype,
       transform = col_transform,
-      simplify = col_simplify,
+      simplify = col_simplify %||% TRUE,
       error_call = error_call
     )
   }

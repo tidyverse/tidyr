@@ -199,57 +199,64 @@ check_data_frame <- function(x, arg = caller_arg(x), call = caller_env()) {
   }
 }
 
-check_list_of_ptypes <- function(x, names, arg, call = caller_env()) {
-  if (vec_is(x) && vec_is_empty(x)) {
-    x <- rep_named(names, list(x))
+check_unique_names <- function(x, arg = caller_arg(x), call = caller_env()) {
+  if (length(x) > 0L && !is_named(x)) {
+    cli::cli_abort("All elements of {.arg {arg}} must be named.", call = call)
   }
+  if (vec_duplicate_any(names(x))) {
+    cli::cli_abort("The names of {.arg {arg}} must be unique.", call = call)
+  }
+}
 
+check_list_of_ptypes <- function(x, names, arg = caller_arg(x), call = caller_env()) {
+  if (is.null(x)) {
+    set_names(list(), character())
+  } else if (vec_is(x) && vec_is_empty(x)) {
+    rep_named(names, list(x))
+  } else if (vec_is_list(x)) {
+    check_unique_names(x, arg = arg, call = call)
+
+    # Silently drop user supplied names not found in the data
+    x[intersect(names(x), names)]
+  } else {
+    cli::cli_abort(
+      "{.arg {arg}} must be `NULL`, an empty ptype, or a named list of ptypes.",
+      call = call
+    )
+  }
+}
+
+check_list_of_functions <- function(x, names, arg = caller_arg(x), call = caller_env()) {
   if (is.null(x)) {
     x <- set_names(list(), character())
-  }
-
-  if (!vec_is_list(x)) {
-    abort(
-      glue("`{arg}` must be `NULL`, an empty ptype, or a named list of ptypes."),
+  } else if (is.function(x) || is_formula(x)) {
+    x <- rep_named(names, list(x))
+  } else if (!vec_is_list(x)) {
+    cli::cli_abort(
+      "{.arg {arg}} must be `NULL`, a function, or a named list of functions.",
       call = call
     )
   }
 
-  if (length(x) > 0L && !is_named(x)) {
-    abort(glue("All elements of `{arg}` must be named."), call = call)
-  }
+  check_unique_names(x, arg = arg, call = call)
 
-  if (vec_duplicate_any(names(x))) {
-    abort(glue("The names of `{arg}` must be unique."), call = call)
-  }
-
+  x <- map(x, as_function, arg = arg, call = call)
   # Silently drop user supplied names not found in the data
   x <- x[intersect(names(x), names)]
 
   x
 }
 
-check_list_of_functions <- function(x, names, arg, call = caller_env()) {
-  if (is.null(x)) {
-    x <- set_names(list(), character())
+check_list_of_bool <- function(x, names, arg = caller_arg(x), call = caller_env()) {
+  if (is_bool(x)) {
+    rep_named(names, x)
+  } else if (vec_is_list(x)) {
+    check_unique_names(x, arg = arg, call = call)
+    x[intersect(names(x), names)]
+  } else  {
+    cli::cli_abort(
+      "{.arg {arg}} must be a list or a single `TRUE` or `FALSE`.",
+      call = call
+    )
   }
-
-  if (!vec_is_list(x)) {
-    x <- rep_named(names, list(x))
-  }
-
-  if (length(x) > 0L && !is_named(x)) {
-    abort(glue("All elements of `{arg}` must be named."), call = call)
-  }
-
-  if (vec_duplicate_any(names(x))) {
-    abort(glue("The names of `{arg}` must be unique."), call = call)
-  }
-
-  x <- map(x, as_function, arg = arg, call = call)
-
-  # Silently drop user supplied names not found in the data
-  x <- x[intersect(names(x), names)]
-
-  x
 }

@@ -23,7 +23,7 @@
     Output
       <error/rlang_error>
       Error in `hoist()`:
-      ! `.col` must identify a list-column.
+      ! `.data[[.col]]` must be a list, not a number.
     Code
       (expect_error(df %>% hoist(x, 1)))
     Output
@@ -44,14 +44,38 @@
     Output
       <error/rlang_error>
       Error in `hoist()`:
-      ! `.col` must identify a list-column.
+      ! `.data[[.col]]` must be a list, not a <tbl_df/tbl/data.frame> object.
 
-# hoist() input must be a data frame (#1224)
+# hoist() validates its inputs (#1224)
 
     Code
-      (expect_error(hoist(1)))
-    Output
-      <error/rlang_error>
+      hoist(1)
+    Condition
       Error in `hoist()`:
-      ! `.data` must be a data frame.
+      ! `.data` must be a data frame, not a string.
+    Code
+      hoist(df)
+    Condition
+      Error in `hoist()`:
+      ! `.col` is absent but must be supplied.
+    Code
+      hoist(df, a, .remove = 1)
+    Condition
+      Error in `hoist()`:
+      ! `.remove` must be `TRUE` or `FALSE`, not the number 1.
+    Code
+      hoist(df, a, .ptype = 1)
+    Condition
+      Error in `hoist()`:
+      ! `.ptype` must be `NULL`, an empty ptype, or a named list of ptypes.
+    Code
+      hoist(df, a, .transform = 1)
+    Condition
+      Error in `hoist()`:
+      ! `.transform` must be `NULL`, a function, or a named list of functions.
+    Code
+      hoist(df, a, .simplify = 1)
+    Condition
+      Error in `hoist()`:
+      ! `.simplify` must be a list or a single `TRUE` or `FALSE`.
 

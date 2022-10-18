@@ -228,7 +228,7 @@
     Output
       <error/rlang_error>
       Error in `pivot_wider_spec()`:
-      ! Can't convert `values_fn`, a number, to a function.
+      ! `values_fn` must be `NULL`, a function, or a named list of functions.
 
 # `unused_fn` must result in single summary values
 
@@ -247,5 +247,5 @@
     Output
       <error/rlang_error>
       Error in `pivot_wider_spec()`:
-      ! Can't convert `unused_fn`, a number, to a function.
+      ! `unused_fn` must be `NULL`, a function, or a named list of functions.
 
