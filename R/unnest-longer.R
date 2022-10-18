@@ -150,9 +150,9 @@ col_to_long <- function(col,
                         values_to,
                         indices_to,
                         indices_include,
-                        call = caller_env()) {
+                        error_call = caller_env()) {
   if (is.null(col)) {
-    abort(glue("Invalid `NULL` column detected for column `{name}`."), call = call)
+    abort(glue("Invalid `NULL` column detected for column `{name}`."), call = error_call)
   }
 
   if (!vec_is_list(col)) {
@@ -176,7 +176,7 @@ col_to_long <- function(col,
     values_to = values_to,
     indices_to = indices_to,
     indices_include = indices_include,
-    call = call
+    error_call = error_call
   )
   elt_ptype <- vec_ptype(elt_ptype)
 
@@ -191,7 +191,7 @@ col_to_long <- function(col,
       values_to = values_to,
       indices_to = indices_to,
       indices_include = indices_include,
-      call = call
+      error_call = error_call
     )
   }
 
@@ -212,7 +212,7 @@ elt_to_long <- function(x,
                         values_to,
                         indices_to,
                         indices_include,
-                        call = caller_env()) {
+                        error_call = caller_env()) {
   if (is.null(x)) {
     x <- unspecified(1L)
 
@@ -226,7 +226,7 @@ elt_to_long <- function(x,
   }
 
   if (!vec_is(x)) {
-    abort(glue("Column `{name}` must contain a list of vectors."), call = call)
+    abort(glue("Column `{name}` must contain a list of vectors."), call = error_call)
   }
 
   if (indices_include) {

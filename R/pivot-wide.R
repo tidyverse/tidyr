@@ -527,18 +527,18 @@ build_wider_id_cols_expr <- function(data,
                                      id_cols = NULL,
                                      names_from = name,
                                      values_from = value,
-                                     call = caller_env()) {
+                                     error_call = caller_env()) {
   # TODO: Use `allow_rename = FALSE`.
   # Requires https://github.com/r-lib/tidyselect/issues/225.
-  names_from_cols <- names(tidyselect::eval_select(enquo(names_from), data, error_call = call))
-  values_from_cols <- names(tidyselect::eval_select(enquo(values_from), data, error_call = call))
+  names_from_cols <- names(tidyselect::eval_select(enquo(names_from), data, error_call = error_call))
+  values_from_cols <- names(tidyselect::eval_select(enquo(values_from), data, error_call = error_call))
 
   out <- select_wider_id_cols(
     data = data,
     id_cols = {{ id_cols }},
     names_from_cols = names_from_cols,
     values_from_cols = values_from_cols,
-    call = caller_env()
+    error_call = error_call
   )
 
   expr(c(!!!out))
@@ -548,7 +548,7 @@ select_wider_id_cols <- function(data,
                                  id_cols = NULL,
                                  names_from_cols = character(),
                                  values_from_cols = character(),
-                                 call = caller_env()) {
+                                 error_call = caller_env()) {
   id_cols <- enquo(id_cols)
 
   # Remove known non-id-cols so they are never selected
@@ -562,9 +562,9 @@ select_wider_id_cols <- function(data,
   try_fetch(
     # TODO: Use `allow_rename = FALSE`.
     # Requires https://github.com/r-lib/tidyselect/issues/225.
-    id_cols <- tidyselect::eval_select(enquo(id_cols), data, error_call = call),
+    id_cols <- tidyselect::eval_select(enquo(id_cols), data, error_call = error_call),
     vctrs_error_subscript_oob = function(cnd) {
-      rethrow_id_cols_oob(cnd, names_from_cols, values_from_cols, call)
+      rethrow_id_cols_oob(cnd, names_from_cols, values_from_cols, error_call)
     }
   )
 
@@ -598,7 +598,7 @@ stop_id_cols_oob <- function(i, arg, call) {
 
 # Helpers -----------------------------------------------------------------
 
-value_summarize <- function(value, value_locs, value_name, fn, fn_name) {
+value_summarize <- function(value, value_locs, value_name, fn, fn_name, error_call = caller_env()) {
   value <- vec_chop(value, value_locs)
 
   if (identical(fn, list)) {
@@ -622,7 +622,7 @@ value_summarize <- function(value, value_locs, value_name, fn, fn_name) {
       x = glue("Applying `{fn_name}` resulted in a value with length {size}.")
     )
 
-    abort(c(header, bullet), call = caller_env())
+    abort(c(header, bullet), call = error_call)
   }
 
   value <- vec_c(!!!value)

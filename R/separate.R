@@ -86,11 +86,11 @@ separate.data.frame <- function(data, col, into, sep = "[^[:alnum:]]+",
   reconstruct_tibble(data, out, if (remove) var else NULL)
 }
 
-str_separate <- function(x, into, sep, convert = FALSE, extra = "warn", fill = "warn", call = caller_env()) {
-  check_not_stringr_pattern(sep, "sep", call = call)
+str_separate <- function(x, into, sep, convert = FALSE, extra = "warn", fill = "warn", error_call = caller_env()) {
+  check_not_stringr_pattern(sep, "sep", call = error_call)
 
   if (!is.character(into)) {
-    abort("`into` must be a character vector.", call = call)
+    abort("`into` must be a character vector.", call = error_call)
   }
 
   if (is.numeric(sep)) {
@@ -98,7 +98,7 @@ str_separate <- function(x, into, sep, convert = FALSE, extra = "warn", fill = "
   } else if (is_character(sep)) {
     out <- str_split_fixed(x, sep, length(into), extra = extra, fill = fill)
   } else {
-    abort("`sep` must be either numeric or character.", call = call)
+    abort("`sep` must be either numeric or character.", call = error_call)
   }
 
   names(out) <- as_utf8_character(into)
