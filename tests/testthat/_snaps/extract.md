@@ -22,3 +22,21 @@
       Error in `extract()`:
       ! `regex` can't use modifiers from stringr.
 
+# validates its inputs
+
+    Code
+      df %>% extract()
+    Condition
+      Error in `extract()`:
+      ! `col` is absent but must be supplied.
+    Code
+      df %>% extract(x, regex = 1)
+    Condition
+      Error in `extract()`:
+      ! `regex` must be a single string, not the number 1.
+    Code
+      df %>% extract(x, into = 1:3)
+    Condition
+      Error in `extract()`:
+      ! `into` must be a character vector, not an integer vector.
+

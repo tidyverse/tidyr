@@ -87,7 +87,7 @@ separate.data.frame <- function(data, col, into, sep = "[^[:alnum:]]+",
 }
 
 str_separate <- function(x, into, sep, convert = FALSE, extra = "warn", fill = "warn", error_call = caller_env()) {
-  check_not_stringr_pattern(sep, "sep", call = error_call)
+  check_not_stringr_pattern(sep, call = error_call)
 
   if (!is.character(into)) {
     abort("`into` must be a character vector.", call = error_call)
@@ -186,10 +186,8 @@ list_indices <- function(x, max = 20) {
   paste(x, collapse = ", ")
 }
 
-check_not_stringr_pattern <- function(x, arg, call = caller_env()) {
+check_not_stringr_pattern <- function(x, arg = caller_arg(x), call = caller_env()) {
   if (inherits_any(x, c("pattern", "stringr_pattern"))) {
-    abort(glue("`{arg}` can't use modifiers from stringr."), call = call)
+    cli::cli_abort("{.arg {arg}} can't use modifiers from stringr.", call = call)
   }
-
-  invisible(x)
 }
