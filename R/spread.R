@@ -12,12 +12,8 @@
 #' See more details in `vignette("pivot")`.
 #'
 #' @param data A data frame.
-#' @param key,value Column names or positions. This is passed to
-#'   [tidyselect::vars_pull()].
-#'
-#'   These arguments are passed by expression and support
-#'   [quasiquotation][rlang::quasiquotation] (you can unquote column
-#'   names or column positions).
+#' @param key,value <[`tidy-select`][tidyr_tidy_select]> Columns to use
+#'   for `key` and `value`.
 #' @param fill If set, missing values will be replaced with this value. Note
 #'   that there are two types of missingness in the input: explicit missing
 #'   values (i.e. `NA`), and implicit missings, rows that simply aren't

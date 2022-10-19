@@ -7,11 +7,13 @@
 #' Learn more in `vignette("rectangle")`.
 #'
 #' @param .data A data frame.
-#' @param .col List-column to extract components from.
-#' @param ... Components of `.col` to turn into columns in the form
-#'   `col_name = "pluck_specification"`. You can pluck by name with a character
-#'   vector, by position with an integer vector, or with a combination of the
-#'   two with a list. See [purrr::pluck()] for details.
+#' @param .col <[`tidy-select`][tidyr_tidy_select]> List-column to extract
+#'   components from.
+#' @param ... <[`dynamic-dots`][rlang::dyn-dots]> Components of `.col` to turn
+#'   into columns in the form `col_name = "pluck_specification"`. You can pluck
+#'   by name with a character vector, by position with an integer vector, or
+#'   with a combination of the two with a list. See [purrr::pluck()] for
+#'   details.
 #'
 #'   The column names must be unique in a call to `hoist()`, although existing
 #'   columns with the same name will be overwritten. When plucking with a

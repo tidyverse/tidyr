@@ -15,8 +15,8 @@ nesting(..., .name_repair = "check_unique")
 \arguments{
 \item{data}{A data frame.}
 
-\item{...}{Specification of columns to expand. Columns can be atomic vectors
-or lists.
+\item{...}{<\code{\link[=tidyr_data_masking]{data-masking}}> Specification of columns
+to expand. Columns can be atomic vectors or lists.
 \itemize{
 \item To find all unique combinations of \code{x}, \code{y} and \code{z}, including those not
 present in the data, supply each variable as a separate argument:

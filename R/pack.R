@@ -13,7 +13,7 @@
 #' they mimic the nested column headers that are so popular in Excel.
 #'
 #' @param data,.data A data frame.
-#' @param cols <[`tidy-select`][tidyr_tidy_select]> Column to unpack.
+#' @param cols <[`tidy-select`][tidyr_tidy_select]> Columns to unpack.
 #' @param names_sep,.names_sep If `NULL`, the default, the names will be left
 #'   as is. In `pack()`, inner names will come from the former outer names;
 #'   in `unpack()`, the new outer names will come from the inner names.

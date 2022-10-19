@@ -4,10 +4,11 @@
 \alias{tidyr_tidy_select}
 \title{Argument type: tidy-select}
 \description{
-This page the describes the \verb{<tidy-select>} argument modifier which indicates
-the argument uses \strong{tidy selection} (a special type of tidy evaluation).
-Tidy selection provides a concise DSL for selecting variables based on their
-names.
+This page describes the \verb{<tidy-select>} argument modifier which
+indicates that the argument uses \strong{tidy selection}, a sub-type of
+tidy evaluation. If you've never heard of tidy evaluation before,
+start by reading \code{vignette("programming")} and
+\url{https://r4ds.hadley.nz/functions.html#data-frame-functions}.
 }
 \section{Overview of selection features}{
 Tidyverse selections implement a dialect of R where operators make
@@ -52,20 +53,25 @@ for which the function returns \code{TRUE}.
 }
 }
 
-\section{Indirection}{
-There are two main cases:
+\section{Key techniques}{
 \itemize{
-\item If you have a character vector of column names, use \code{all_of()}
-or \code{any_of()}, depending on whether or not you want unknown variable
-names to cause an error, e.g \code{unnest(df, all_of(vars))},
-\code{unnest(df, !any_of(vars))}.
 \item If you want the user to supply a tidyselect specification in a
 function argument, you need to tunnel the selection through the function
 argument. This is done by embracing the function argument \code{{{ }}},
 e.g \code{unnest(df, {{ vars }})}.
+\item If you have a character vector of column names, use \code{all_of()}
+or \code{any_of()}, depending on whether or not you want unknown variable
+names to cause an error, e.g \code{unnest(df, all_of(vars))},
+\code{unnest(df, !any_of(vars))}.
+\item To suppress \verb{R CMD check} \code{NOTE}s use \code{"var"} instead of \code{var}:
 }
 
-Learn more in \code{vignette("programming.Rmd")}.
+\if{html}{\out{<div class="sourceCode R">}}\preformatted{# has NOTE
+df \%>\% select(x, y, z)
+
+# no NOTE
+df \%>\% select("x", "y", "z")
+}\if{html}{\out{</div>}}
 }
 
 \keyword{internal}

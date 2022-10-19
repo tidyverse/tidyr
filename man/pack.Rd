@@ -16,7 +16,7 @@ The right hand side can be any valid tidy select expression.}
 
 \item{data, .data}{A data frame.}
 
-\item{cols}{<\code{\link[=tidyr_tidy_select]{tidy-select}}> Column to unpack.}
+\item{cols}{<\code{\link[=tidyr_tidy_select]{tidy-select}}> Columns to unpack.}
 
 \item{names_sep, .names_sep}{If \code{NULL}, the default, the names will be left
 as is. In \code{pack()}, inner names will come from the former outer names;

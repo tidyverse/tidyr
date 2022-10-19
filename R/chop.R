@@ -23,8 +23,7 @@
 #' correct vector type even for empty list-columns.
 #'
 #' @param data A data frame.
-#' @param cols <[`tidy-select`][tidyr_tidy_select]> Columns to chop or unchop
-#'   (automatically quoted).
+#' @param cols <[`tidy-select`][tidyr_tidy_select]> Columns to chop or unchop.
 #'
 #'   For `unchop()`, each column should be a list-column containing generalised
 #'   vectors (e.g. any mix of `NULL`s, atomic vector, S3 vectors, a lists,

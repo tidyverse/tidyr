@@ -16,7 +16,7 @@
 #'
 #' @inheritParams unnest_longer
 #' @export
-#' @param col List-column to extract components from.
+#' @param col <[`tidy-select`][tidyr_tidy_select]> List-column to unnest.
 #' @keywords internal
 unnest_auto <- function(data, col) {
   check_required(col)
