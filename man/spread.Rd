@@ -47,7 +47,6 @@ still under active development.
 See more details in \code{vignette("pivot")}.
 }
 \examples{
-library(dplyr)
 stocks <- data.frame(
   time = as.Date("2009-01-01") + 0:9,
   X = rnorm(10, 0, 1),

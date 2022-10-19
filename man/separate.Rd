@@ -72,7 +72,6 @@ Given either a regular expression or a vector of character positions,
 \code{separate()} turns a single character column into multiple columns.
 }
 \examples{
-library(dplyr)
 # If you want to split by any non-alphanumeric value (the default):
 df <- data.frame(x = c(NA, "x.y", "x.z", "y.z"))
 df \%>\% separate(x, c("A", "B"))

@@ -22,7 +22,6 @@ rows (where no rows contain missing values). Internally, this completeness is
 computed through \code{\link[vctrs:vec_detect_complete]{vctrs::vec_detect_complete()}}.
 }
 \examples{
-library(dplyr)
 df <- tibble(x = c(1, 2, NA), y = c("a", NA, "b"))
 df \%>\% drop_na()
 df \%>\% drop_na(x)

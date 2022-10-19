@@ -39,7 +39,7 @@
 #' # Within each `group`, generate all possible combinations of
 #' # `item_id` and `item_name` that occur in that group
 #' df %>%
-#'   group_by(group) %>%
+#'   dplyr::group_by(group) %>%
 #'   complete(item_id, item_name)
 #'
 #' # You can also choose to fill in missing values. By default, both implicit
