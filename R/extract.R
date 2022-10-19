@@ -27,7 +27,7 @@
 #' @seealso [separate()] to split up by a separator.
 #' @export
 #' @examples
-#' df <- data.frame(x = c(NA, "a-b", "a-d", "b-c", "d-e"))
+#' df <- tibble(x = c(NA, "a-b", "a-d", "b-c", "d-e"))
 #' df %>% extract(x, "A")
 #' df %>% extract(x, c("A", "B"), "([[:alnum:]]+)-([[:alnum:]]+)")
 #'

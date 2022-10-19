@@ -49,7 +49,7 @@ expand_grid(x = 1:3, y = 1:2)
 expand_grid(l1 = letters, l2 = LETTERS)
 
 # Can also expand data frames
-expand_grid(df = data.frame(x = 1:2, y = c(2, 1)), z = 1:3)
+expand_grid(df = tibble(x = 1:2, y = c(2, 1)), z = 1:3)
 # And matrices
 expand_grid(x1 = matrix(1:4, nrow = 2), x2 = matrix(5:8, nrow = 2))
 }

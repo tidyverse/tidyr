@@ -73,7 +73,7 @@ Given either a regular expression or a vector of character positions,
 }
 \examples{
 # If you want to split by any non-alphanumeric value (the default):
-df <- data.frame(x = c(NA, "x.y", "x.z", "y.z"))
+df <- tibble(x = c(NA, "x.y", "x.z", "y.z"))
 df \%>\% separate(x, c("A", "B"))
 
 # If you just want the second variable:
@@ -81,7 +81,7 @@ df \%>\% separate(x, c(NA, "B"))
 
 # If every row doesn't split into the same number of pieces, use
 # the extra and fill arguments to control what happens:
-df <- data.frame(x = c("x", "x y", "x y z", NA))
+df <- tibble(x = c("x", "x y", "x y z", NA))
 df \%>\% separate(x, c("a", "b"))
 # The same behaviour as previous, but drops the c without warnings:
 df \%>\% separate(x, c("a", "b"), extra = "drop", fill = "right")
@@ -91,15 +91,15 @@ df \%>\% separate(x, c("a", "b"), extra = "merge", fill = "left")
 df \%>\% separate(x, c("a", "b", "c"))
 
 # To only split a specified number of times use extra = "merge":
-df <- data.frame(x = c("x: 123", "y: error: 7"))
+df <- tibble(x = c("x: 123", "y: error: 7"))
 df \%>\% separate(x, c("key", "value"), ": ", extra = "merge")
 
 # Use regular expressions to separate on multiple characters:
-df <- data.frame(x = c(NA, "a1b", "c4d", "e9g"))
+df <- tibble(x = c(NA, "a1b", "c4d", "e9g"))
 df \%>\% separate(x, c("A", "B"), sep = "[0-9]")
 
 # convert = TRUE detects column classes:
-df <- data.frame(x = c("x:1", "x:2", "y:4", "z", NA))
+df <- tibble(x = c("x:1", "x:2", "y:4", "z", NA))
 df \%>\% separate(x, c("key", "value"), ":") \%>\% str()
 df \%>\% separate(x, c("key", "value"), ":", convert = TRUE) \%>\% str()
 }

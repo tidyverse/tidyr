@@ -35,7 +35,7 @@
 #'   by `"<key_name><sep><key_value>"`.
 #' @export
 #' @examples
-#' stocks <- data.frame(
+#' stocks <- tibble(
 #'   time = as.Date("2009-01-01") + 0:9,
 #'   X = rnorm(10, 0, 1),
 #'   Y = rnorm(10, 0, 2),
@@ -46,15 +46,15 @@
 #' stocksm %>% spread(time, price)
 #'
 #' # Spread and gather are complements
-#' df <- data.frame(x = c("a", "b"), y = c(3, 4), z = c(5, 6))
+#' df <- tibble(x = c("a", "b"), y = c(3, 4), z = c(5, 6))
 #' df %>%
 #'   spread(x, y) %>%
 #'   gather("x", "y", a:b, na.rm = TRUE)
 #'
 #' # Use 'convert = TRUE' to produce variables of mixed type
-#' df <- data.frame(
+#' df <- tibble(
 #'   row = rep(c(1, 51), each = 3),
-#'   var = c("Sepal.Length", "Species", "Species_num"),
+#'   var = rep(c("Sepal.Length", "Species", "Species_num"), 2),
 #'   value = c(5.1, "setosa", 1, 7.0, "versicolor", 2)
 #' )
 #' df %>% spread(var, value) %>% str()

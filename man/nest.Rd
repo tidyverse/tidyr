@@ -82,7 +82,7 @@ iris \%>\%
 
 # Nesting a grouped data frame nests all variables apart from the group vars
 fish_encounters \%>\%
-  dplyr:: group_by(fish) \%>\%
+  dplyr::group_by(fish) \%>\%
   nest()
 
 # Nesting is often useful for creating per group models
