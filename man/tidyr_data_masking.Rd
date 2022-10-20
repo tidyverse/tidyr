@@ -7,13 +7,15 @@
 This page describes the \verb{<data-masking>} argument modifier which
 indicates that the argument uses \strong{data masking}, a sub-type of
 tidy evaluation. If you've never heard of tidy evaluation before,
-start by reading \code{vignette("programming")} and
-\url{https://r4ds.hadley.nz/functions.html#data-frame-functions}.
+start with the practical introduction in
+\url{https://r4ds.hadley.nz/functions.html#data-frame-functions} then
+then read more about the underlying theory in
+\url{https://rlang.r-lib.org/reference/topic-data-mask.html}.
 }
 \section{Key techniques}{
 \itemize{
-\item If you want the user to supply the variable (or function of variables)
-in a function argument, embrace the argument, e.g. \code{filter(df, {{ var }})}.
+\item To allow the user to supply the column name in a function argument,
+embrace the argument, e.g. \code{filter(df, {{ var }})}.
 
 \if{html}{\out{<div class="sourceCode R">}}\preformatted{dist_summary <- function(df, var) \{
   df \%>\%
@@ -22,7 +24,7 @@ in a function argument, embrace the argument, e.g. \code{filter(df, {{ var }})}.
 mtcars \%>\% dist_summary(mpg)
 mtcars \%>\% group_by(cyl) \%>\% dist_summary(mpg)
 }\if{html}{\out{</div>}}
-\item If you have the column name as a character vector, use the \code{.data}
+\item To work with a column name recorded as a string, use the \code{.data}
 pronoun, e.g. \code{summarise(df, mean = mean(.data[[var]]))}.
 
 \if{html}{\out{<div class="sourceCode R">}}\preformatted{for (var in names(mtcars)) \{
@@ -31,11 +33,8 @@ pronoun, e.g. \code{summarise(df, mean = mean(.data[[var]]))}.
 
 lapply(names(mtcars), function(var) mtcars \%>\% count(.data[[var]]))
 }\if{html}{\out{</div>}}
-
-(Note that the contents of \code{[[}, e.g. \code{var} above, is never evaluated
-in the data environment so you don't need to worry about a data-variable
-called \code{var} causing problems.)
-\item To suppress \verb{R CMD check} \code{NOTE}s use \code{.data$var} instead of \code{var}:
+\item To suppress \verb{R CMD check} \code{NOTE}s about unknown variables
+use \code{.data$var} instead of \code{var}:
 
 \if{html}{\out{<div class="sourceCode R">}}\preformatted{# has NOTE
 df \%>\% mutate(z = x + y)
@@ -50,15 +49,7 @@ You'll also need to import \code{.data} from rlang with (e.g.)
 }
 
 \section{Dot-dot-dot (...)}{
-When this modifier is applied to \code{...}, there is one other useful technique
-which solves the problem of creating a new variable with a name supplied by
-the user. Use the interpolation syntax from the glue package: \code{"{var}" := expression}. (Note the use of \verb{:=} instead of \code{=} to enable this syntax).
-
-\if{html}{\out{<div class="sourceCode">}}\preformatted{var_name <- "l100km"
-mtcars \%>\% mutate("\{var_name\}" := 235 / mpg)
-}\if{html}{\out{</div>}}
-
-Note that \code{...} automatically provides indirection, so you can use it as is
+\code{...} automatically provides indirection, so you can use it as is
 (i.e. without embracing) inside a function:
 
 \if{html}{\out{<div class="sourceCode">}}\preformatted{grouped_mean <- function(df, var, ...) \{
@@ -67,6 +58,21 @@ Note that \code{...} automatically provides indirection, so you can use it as is
     summarise(mean = mean(\{\{ var \}\}))
 \}
 }\if{html}{\out{</div>}}
+
+You can also use \verb{:=} instead of \code{=} to enable a glue-like syntax for
+creating variables from user supplied data:
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{var_name <- "l100km"
+mtcars \%>\% mutate("\{var_name\}" := 235 / mpg)
+
+summarise_mean <- function(df, var) \{
+  df \%>\%
+    summarise("mean_of_\{\{var\}\}" := mean(\{\{ var \}\}))
+\}
+mtcars \%>\% group_by(cyl) \%>\% summarise_mean(mpg)
+}\if{html}{\out{</div>}}
+
+Learn more in \url{https://rlang.r-lib.org/reference/topic-data-mask-programming.html}.
 }
 
 \keyword{internal}

@@ -4,13 +4,15 @@
 #' This page describes the `<data-masking>` argument modifier which
 #' indicates that the argument uses **data masking**, a sub-type of
 #' tidy evaluation. If you've never heard of tidy evaluation before,
-#' start by reading `vignette("programming")` and
-#' <https://r4ds.hadley.nz/functions.html#data-frame-functions>.
+#' start with the practical introduction in
+#' <https://r4ds.hadley.nz/functions.html#data-frame-functions> then
+#' then read more about the underlying theory in
+#' <https://rlang.r-lib.org/reference/topic-data-mask.html>.
 #'
 #' # Key techniques
 #'
-#' *  If you want the user to supply the variable (or function of variables)
-#'    in a function argument, embrace the argument, e.g. `filter(df, {{ var }})`.
+#' *  To allow the user to supply the column name in a function argument,
+#'    embrace the argument, e.g. `filter(df, {{ var }})`.
 #'
 #'    ```R
 #'    dist_summary <- function(df, var) {
@@ -21,7 +23,7 @@
 #'    mtcars %>% group_by(cyl) %>% dist_summary(mpg)
 #'    ```
 #'
-#' *  If you have the column name as a character vector, use the `.data`
+#' *  To work with a column name recorded as a string, use the `.data`
 #'    pronoun, e.g. `summarise(df, mean = mean(.data[[var]]))`.
 #'
 #'    ```R
@@ -32,11 +34,8 @@
 #'    lapply(names(mtcars), function(var) mtcars %>% count(.data[[var]]))
 #'    ```
 #'
-#'    (Note that the contents of `[[`, e.g. `var` above, is never evaluated
-#'    in the data environment so you don't need to worry about a data-variable
-#'    called `var` causing problems.)
-#'
-#' *  To suppress `R CMD check` `NOTE`s use `.data$var` instead of `var`:
+#' *  To suppress `R CMD check` `NOTE`s about unknown variables
+#'    use `.data$var` instead of `var`:
 #'
 #'    ```R
 #'    # has NOTE
@@ -51,17 +50,7 @@
 #'
 #' # Dot-dot-dot (...)
 #'
-#' When this modifier is applied to `...`, there is one other useful technique
-#' which solves the problem of creating a new variable with a name supplied by
-#' the user. Use the interpolation syntax from the glue package: `"{var}" :=
-#' expression`. (Note the use of `:=` instead of `=` to enable this syntax).
-#'
-#' ```
-#' var_name <- "l100km"
-#' mtcars %>% mutate("{var_name}" := 235 / mpg)
-#' ```
-#'
-#' Note that `...` automatically provides indirection, so you can use it as is
+#' `...` automatically provides indirection, so you can use it as is
 #' (i.e. without embracing) inside a function:
 #'
 #' ```
@@ -71,6 +60,22 @@
 #'     summarise(mean = mean({{ var }}))
 #' }
 #' ```
+#'
+#' You can also use `:=` instead of `=` to enable a glue-like syntax for
+#' creating variables from user supplied data:
+#'
+#' ```
+#' var_name <- "l100km"
+#' mtcars %>% mutate("{var_name}" := 235 / mpg)
+#'
+#' summarise_mean <- function(df, var) {
+#'   df %>%
+#'     summarise("mean_of_{{var}}" := mean({{ var }}))
+#' }
+#' mtcars %>% group_by(cyl) %>% summarise_mean(mpg)
+#' ```
+#'
+#' Learn more in <https://rlang.r-lib.org/reference/topic-data-mask-programming.html>.
 #'
 #' @keywords internal
 #' @name tidyr_data_masking
@@ -83,8 +88,10 @@ NULL
 #' This page describes the `<tidy-select>` argument modifier which
 #' indicates that the argument uses **tidy selection**, a sub-type of
 #' tidy evaluation. If you've never heard of tidy evaluation before,
-#' start by reading `vignette("programming")` and
-#' <https://r4ds.hadley.nz/functions.html#data-frame-functions>.
+#' start with the practical introduction in
+#' <https://r4ds.hadley.nz/functions.html#data-frame-functions> then
+#' then read more about the underlying theory in
+#' <https://rlang.r-lib.org/reference/topic-data-mask.html>.
 #'
 #' # Overview of selection features
 #'
@@ -103,7 +110,8 @@ NULL
 #'     names to cause an error, e.g `unnest(df, all_of(vars))`,
 #'     `unnest(df, !any_of(vars))`.
 #'
-#' *   To suppress `R CMD check` `NOTE`s use `"var"` instead of `var`:
+#' *   To suppress `R CMD check` `NOTE`s about unknown variables use `"var"`
+#'     instead of `var`:
 #'
 #'    ```R
 #'    # has NOTE

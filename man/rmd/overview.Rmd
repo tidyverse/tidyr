@@ -1,32 +1,24 @@
 
-Tidyverse selections implement a dialect of R where operators make
-it easy to select variables:
+tidyselect implements a DSL for selecting variables. It provides helpers
+for selecting variables:
 
-- `:` for selecting a range of consecutive variables.
-- `!` for taking the complement of a set of variables.
-- `&` and `|` for selecting the intersection or the union of two
-  sets of variables.
-- `c()` for combining selections.
+- `var1:var10`: variables lying between `var1` on the left and `var10` on the right.
+* [`starts_with("a")`][tidyselect::starts_with]: names that start with `"a"`.
+* [`ends_with("z")`][tidyselect::ends_with]: names that end with `"z"`.
+* [`contains("b")`][tidyselect::contains]: names that contain `"b"`.
+* [`matches("x.y")`][tidyselect::matches]: names that match regular expression `x.y`.
+* [`num_range(x, 1:4)`][tidyselect::num_range]: names following the pattern, `x1`, `x2`, ..., `x4`.
+* [`all_of(vars)`][tidyselect::all_of]/[`any_of(vars)`][tidyselect::any_of()]: 
+  matches names stored in the character vector `vars`. `all_of(vars)` will
+  error if the variables aren't present; `any_of(var)` will match just the
+  variables that exist.
+* [`everything()`][tidyselect::everything]: all variables.
+* [`last_col()`][tidyselect::last_col]: furthest column on the right.
+* [`where(is.numeric)`][tidyselect::where]: all variables where
+  `is.numeric()` returns `TRUE`.
 
-In addition, you can use __selection helpers__. Some helpers select specific
-columns:
-* [`everything()`][tidyselect::everything]: Matches all variables.
-* [`last_col()`][tidyselect::last_col]: Select last variable, possibly with an offset.
+As well as operators for combining those selections:
 
-These helpers select variables by matching patterns in their names:
-* [`starts_with()`][tidyselect::starts_with]: Starts with a prefix.
-* [`ends_with()`][tidyselect::ends_with()]: Ends with a suffix.
-* [`contains()`][tidyselect::contains()]: Contains a literal string.
-* [`matches()`][tidyselect::matches()]: Matches a regular expression.
-* [`num_range()`][tidyselect::num_range()]: Matches a numerical range like x01, x02, x03.
-
-These helpers select variables from a character vector:
-* [`all_of()`][tidyselect::all_of()]: Matches variable names in a character vector. All
-  names must be present, otherwise an out-of-bounds error is
-  thrown.
-* [`any_of()`][tidyselect::any_of()]: Same as `all_of()`, except that no error is thrown
-  for names that don't exist.
-
-This helper selects variables with a function:
-* [`where()`][tidyselect::where()]: Applies a function to all variables and selects those
-  for which the function returns `TRUE`.
+- `!selection`: only variables that don't match `selection`.
+- `selection1 & selection2`: only variables included in both `selection1` and `selection2`.
+- `selection1 | selection2`: all variables that match either `selection1` or `selection2`.
