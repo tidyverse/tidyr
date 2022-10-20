@@ -66,12 +66,12 @@ df <- tibble(x = 1:4, y = list(integer(), 1L, 1:2, 1:3))
 df \%>\% unchop(y)
 df \%>\% unchop(y, keep_empty = TRUE)
 
-# Incompatible types -------------------------------------------------
+# Incompatible types ================================================
 # If the list-col contains types that can not be natively
 df <- tibble(x = 1:2, y = list("1", 1:3))
 try(df \%>\% unchop(y))
 
-# Unchopping data frames -----------------------------------------------------
+# Unchopping data frames ============================================
 # Unchopping a list-col of data frames must generate a df-col because
 # unchop leaves the column names unchanged
 df <- tibble(x = 1:3, y = list(NULL, tibble(x = 1), tibble(y = 1:2)))
