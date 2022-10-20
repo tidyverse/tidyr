@@ -102,10 +102,9 @@
 
 
 <dt>cols</dt>
-<dd><p>&lt;<code><a href="tidyr_tidy_select.html">tidy-select</a></code>&gt; Columns to unnest.</p>
-<p>If you <code>unnest()</code> multiple columns, parallel entries must be of
-compatible sizes, i.e. they're either equal or length 1 (following the
-standard tidyverse recycling rules).</p></dd>
+<dd><p>&lt;<code><a href="tidyr_tidy_select.html">tidy-select</a></code>&gt; List-columns to unnest.</p>
+<p>When selecting multiple columns, values from the same row will be recycled
+to their common size.</p></dd>
 
 
 <dt>...</dt>

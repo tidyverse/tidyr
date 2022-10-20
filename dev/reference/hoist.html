@@ -104,14 +104,16 @@ into their own top-level columns, using the same syntax as <code><a href="https:
 
 
 <dt>.col</dt>
-<dd><p>List-column to extract components from.</p></dd>
+<dd><p>&lt;<code><a href="tidyr_tidy_select.html">tidy-select</a></code>&gt; List-column to extract
+components from.</p></dd>
 
 
 <dt>...</dt>
-<dd><p>Components of <code>.col</code> to turn into columns in the form
-<code>col_name = "pluck_specification"</code>. You can pluck by name with a character
-vector, by position with an integer vector, or with a combination of the
-two with a list. See <code><a href="https://purrr.tidyverse.org/reference/pluck.html" class="external-link">purrr::pluck()</a></code> for details.</p>
+<dd><p>&lt;<code><a href="https://rlang.r-lib.org/reference/dyn-dots.html" class="external-link">dynamic-dots</a></code>&gt; Components of <code>.col</code> to turn
+into columns in the form <code>col_name = "pluck_specification"</code>. You can pluck
+by name with a character vector, by position with an integer vector, or
+with a combination of the two with a list. See <code><a href="https://purrr.tidyverse.org/reference/pluck.html" class="external-link">purrr::pluck()</a></code> for
+details.</p>
 <p>The column names must be unique in a call to <code>hoist()</code>, although existing
 columns with the same name will be overwritten. When plucking with a
 single string you can choose to omit the name, i.e. <code>hoist(df, col, "x")</code>

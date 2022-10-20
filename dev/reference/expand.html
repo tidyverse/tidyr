@@ -124,8 +124,8 @@ explicit missing values (e.g., fill in gaps in your data frame).</p></li>
 
 
 <dt>...</dt>
-<dd><p>Specification of columns to expand. Columns can be atomic vectors
-or lists.</p><ul><li><p>To find all unique combinations of <code>x</code>, <code>y</code> and <code>z</code>, including those not
+<dd><p>&lt;<code><a href="tidyr_data_masking.html">data-masking</a></code>&gt; Specification of columns
+to expand. Columns can be atomic vectors or lists.</p><ul><li><p>To find all unique combinations of <code>x</code>, <code>y</code> and <code>z</code>, including those not
 present in the data, supply each variable as a separate argument:
 <code>expand(df, x, y, z)</code>.</p></li>
 <li><p>To find only the combinations that occur in the
@@ -322,12 +322,12 @@ to input vectors rather than a data frame.</p></div>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 25 × 4</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    type    year size  weights</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> apple   <span style="text-decoration: underline;">2</span>010 XS       3.01</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> orange  <span style="text-decoration: underline;">2</span>010 S        4.22</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> apple   <span style="text-decoration: underline;">2</span>012 M        5.64</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> orange  <span style="text-decoration: underline;">2</span>010 S        3.59</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> orange  <span style="text-decoration: underline;">2</span>011 S        3.09</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> orange  <span style="text-decoration: underline;">2</span>012 M        5.53</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> apple   <span style="text-decoration: underline;">2</span>010 XS       4.12</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> orange  <span style="text-decoration: underline;">2</span>010 S        5.13</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> apple   <span style="text-decoration: underline;">2</span>012 M        5.51</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> orange  <span style="text-decoration: underline;">2</span>010 S        3.08</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> orange  <span style="text-decoration: underline;">2</span>011 S        5.31</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> orange  <span style="text-decoration: underline;">2</span>012 M        3.27</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> apple   <span style="text-decoration: underline;">2</span>011 XS      <span style="color: #BB0000;">NA</span>   </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> apple   <span style="text-decoration: underline;">2</span>012 XS      <span style="color: #BB0000;">NA</span>   </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> apple   <span style="text-decoration: underline;">2</span>010 S       <span style="color: #BB0000;">NA</span>   </span>

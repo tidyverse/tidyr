@@ -112,10 +112,9 @@ and the length of each element varies row-to-row.
 
 
 <dt>col</dt>
-<dd><p>List-column(s) to extract components from.
-You can use tidyselect to select multiple columns to unnest simultaneously.
-When using <code>unnest_longer()</code> with multiple columns, values across columns
-that originated from the same row are recycled to a common size.</p></dd>
+<dd><p>&lt;<code><a href="tidyr_tidy_select.html">tidy-select</a></code>&gt; List-column(s) to unnest.</p>
+<p>When selecting multiple columns, values from the same row will be recycled
+to their common size.</p></dd>
 
 
 <dt>values_to</dt>
