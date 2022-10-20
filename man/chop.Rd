@@ -12,8 +12,7 @@ unchop(data, cols, keep_empty = FALSE, ptype = NULL)
 \arguments{
 \item{data}{A data frame.}
 
-\item{cols}{<\code{\link[=tidyr_tidy_select]{tidy-select}}> Columns to chop or unchop
-(automatically quoted).
+\item{cols}{<\code{\link[=tidyr_tidy_select]{tidy-select}}> Columns to chop or unchop.
 
 For \code{unchop()}, each column should be a list-column containing generalised
 vectors (e.g. any mix of \code{NULL}s, atomic vector, S3 vectors, a lists,

@@ -20,8 +20,8 @@
 #'
 #' @inheritParams expand_grid
 #' @param data A data frame.
-#' @param ... Specification of columns to expand. Columns can be atomic vectors
-#'   or lists.
+#' @param ... <[`data-masking`][tidyr_data_masking]> Specification of columns
+#'   to expand. Columns can be atomic vectors or lists.
 #'
 #'   * To find all unique combinations of `x`, `y` and `z`, including those not
 #'     present in the data, supply each variable as a separate argument:
@@ -39,7 +39,6 @@
 #'
 #'   When used with continuous variables, you may need to fill in values
 #'   that do not appear in the data: to do so use expressions like
-
 #'   `year = 2010:2020` or `year = full_seq(year,1)`.
 #' @seealso [complete()] to expand list objects. [expand_grid()]
 #'   to input vectors rather than a data frame.

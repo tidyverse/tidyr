@@ -6,12 +6,7 @@
 #' is NA, the output will be NA.
 #'
 #' @inheritParams expand
-#' @param col Column name or position. This is passed to
-#'   [tidyselect::vars_pull()].
-#'
-#'   This argument is passed by expression and supports
-#'   [quasiquotation][rlang::quasiquotation] (you can unquote column
-#'   names or column positions).
+#' @param col <[`tidy-select`][tidyr_tidy_select]> Column to expand.
 #' @param into Names of new variables to create as character vector.
 #'    Use `NA` to omit the variable in the output.
 #' @param regex A string representing a regular expression used to extract the

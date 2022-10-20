@@ -17,12 +17,14 @@ hoist(
 \arguments{
 \item{.data}{A data frame.}
 
-\item{.col}{List-column to extract components from.}
+\item{.col}{<\code{\link[=tidyr_tidy_select]{tidy-select}}> List-column to extract
+components from.}
 
-\item{...}{Components of \code{.col} to turn into columns in the form
-\code{col_name = "pluck_specification"}. You can pluck by name with a character
-vector, by position with an integer vector, or with a combination of the
-two with a list. See \code{\link[purrr:pluck]{purrr::pluck()}} for details.
+\item{...}{<\code{\link[rlang:dyn-dots]{dynamic-dots}}> Components of \code{.col} to turn
+into columns in the form \code{col_name = "pluck_specification"}. You can pluck
+by name with a character vector, by position with an integer vector, or
+with a combination of the two with a list. See \code{\link[purrr:pluck]{purrr::pluck()}} for
+details.
 
 The column names must be unique in a call to \code{hoist()}, although existing
 columns with the same name will be overwritten. When plucking with a
