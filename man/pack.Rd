@@ -57,7 +57,7 @@ and they are mostly a curiosity, but seem worth exploring further because
 they mimic the nested column headers that are so popular in Excel.
 }
 \examples{
-# Packing =============================================================
+# Packing -------------------------------------------------------------------
 # It's not currently clear why you would ever want to pack columns
 # since few functions work with this sort of data.
 df <- tibble(x1 = 1:3, x2 = 4:6, x3 = 7:9, y = 1:3)
@@ -75,7 +75,7 @@ iris \%>\%
     .names_sep = "."
   )
 
-# Unpacking ===========================================================
+# Unpacking -----------------------------------------------------------------
 df <- tibble(
   x = 1:3,
   y = tibble(a = 1:3, b = 3:1),

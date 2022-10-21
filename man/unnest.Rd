@@ -110,6 +110,7 @@ df \%>\% unnest(y)
 # but you can keep them (generating NAs) with keep_empty = TRUE:
 df \%>\% unnest(y, keep_empty = TRUE)
 
+# Multiple columns ----------------------------------------------------------
 # You can unnest multiple columns simultaneously
 df <- tibble(
   x = 1:2,

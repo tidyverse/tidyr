@@ -29,7 +29,7 @@
 #'   The right hand side can be any valid tidy select expression.
 #' @export
 #' @examples
-#' # Packing =============================================================
+#' # Packing -------------------------------------------------------------------
 #' # It's not currently clear why you would ever want to pack columns
 #' # since few functions work with this sort of data.
 #' df <- tibble(x1 = 1:3, x2 = 4:6, x3 = 7:9, y = 1:3)
@@ -47,7 +47,7 @@
 #'     .names_sep = "."
 #'   )
 #'
-#' # Unpacking ===========================================================
+#' # Unpacking -----------------------------------------------------------------
 #' df <- tibble(
 #'   x = 1:3,
 #'   y = tibble(a = 1:3, b = 3:1),
