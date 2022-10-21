@@ -108,6 +108,7 @@ df <- tibble(
 )
 df \%>\% unnest_longer(y)
 
+# Multiple columns ----------------------------------------------------------
 # If columns are aligned, you can unnest simultaneously.
 df <- tibble(
   x = 1:2,

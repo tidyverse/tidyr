@@ -61,6 +61,7 @@
 #' # where you'll usually want to provide names_sep:
 #' df %>% unnest_wider(y, names_sep = "_")
 #'
+#' # 0-length elements ---------------------------------------------------------
 #' # The defaults of `unnest_wider()` treat empty types (like `list()`) as `NULL`.
 #' json <- list(
 #'   list(x = 1:2, y = 1:2),
