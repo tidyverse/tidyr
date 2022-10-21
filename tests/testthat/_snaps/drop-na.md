@@ -5,7 +5,7 @@
     Output
       <error/vctrs_error_subscript_type>
       Error in `drop_na()`:
-      ! Must subset columns with a valid subscript vector.
+      ! Can't subset columns with `list()`.
       x `list()` must be numeric or character, not an empty list.
 
 ---
