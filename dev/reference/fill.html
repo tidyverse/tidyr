@@ -112,7 +112,8 @@ or "updown" (first up and then down).</p></dd>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Value (year) is recorded only when it changes</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># direction = "down" --------------------------------------------------------</span></span></span>
+<span class="r-in"><span><span class="co"># Value (year) is recorded only when it changes</span></span></span>
 <span class="r-in"><span><span class="va">sales</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html" class="external-link">tribble</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>  <span class="op">~</span><span class="va">quarter</span>, <span class="op">~</span><span class="va">year</span>, <span class="op">~</span><span class="va">sales</span>,</span></span>
 <span class="r-in"><span>  <span class="st">"Q1"</span>,    <span class="fl">2000</span>,    <span class="fl">66013</span>,</span></span>
@@ -132,7 +133,6 @@ or "updown" (first up and then down).</p></dd>
 <span class="r-in"><span>  <span class="st">"Q3"</span>,      <span class="cn">NA</span>,    <span class="fl">31768</span>,</span></span>
 <span class="r-in"><span>  <span class="st">"Q4"</span>,      <span class="cn">NA</span>,    <span class="fl">49094</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># `fill()` defaults to replacing missing data from top to bottom</span></span></span>
 <span class="r-in"><span><span class="va">sales</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu">fill</span><span class="op">(</span><span class="va">year</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 16 × 3</span></span>
@@ -155,6 +155,7 @@ or "updown" (first up and then down).</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">15</span> Q3       <span style="text-decoration: underline;">2</span>004 <span style="text-decoration: underline;">31</span>768</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">16</span> Q4       <span style="text-decoration: underline;">2</span>004 <span style="text-decoration: underline;">49</span>094</span>
 <span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># direction = "up" ----------------------------------------------------------</span></span></span>
 <span class="r-in"><span><span class="co"># Value (pet_type) is missing above</span></span></span>
 <span class="r-in"><span><span class="va">tidy_pets</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html" class="external-link">tribble</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>  <span class="op">~</span><span class="va">rank</span>, <span class="op">~</span><span class="va">pet_type</span>, <span class="op">~</span><span class="va">breed</span>,</span></span>
@@ -191,6 +192,7 @@ or "updown" (first up and then down).</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">11</span>     5 Cat      Siamese              </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">12</span>     6 Cat      American Short       </span>
 <span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># direction = "downup" ------------------------------------------------------</span></span></span>
 <span class="r-in"><span><span class="co"># Value (n_squirrels) is missing above and below within a group</span></span></span>
 <span class="r-in"><span><span class="va">squirrels</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html" class="external-link">tribble</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>  <span class="op">~</span><span class="va">group</span>,    <span class="op">~</span><span class="va">name</span>,     <span class="op">~</span><span class="va">role</span>,     <span class="op">~</span><span class="va">n_squirrels</span>,</span></span>

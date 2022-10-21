@@ -134,9 +134,7 @@ of this, you cannot complete a grouping column.</p>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span>, warn.conflicts <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>  group <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span>, <span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>  item_id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">3</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>  item_name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"b"</span><span class="op">)</span>,</span></span>
@@ -152,9 +150,10 @@ of this, you cannot complete a grouping column.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span>     1       2 b              3      6</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span>     2       3 b              4      7</span>
 <span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Combinations --------------------------------------------------------------</span></span></span>
 <span class="r-in"><span><span class="co"># Generate all possible combinations of `group`, `item_id`, and `item_name`</span></span></span>
 <span class="r-in"><span><span class="co"># (whether or not they appear in the data)</span></span></span>
-<span class="r-in"><span><span class="fu">complete</span><span class="op">(</span><span class="va">df</span>, <span class="va">group</span>, <span class="va">item_id</span>, <span class="va">item_name</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">df</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu">complete</span><span class="op">(</span><span class="va">group</span>, <span class="va">item_id</span>, <span class="va">item_name</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 12 × 5</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    group item_id item_name value1 value2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span>
@@ -173,7 +172,7 @@ of this, you cannot complete a grouping column.</p>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Cross all possible `group` values with the unique pairs of</span></span></span>
 <span class="r-in"><span><span class="co"># `(item_id, item_name)` that already exist in the data</span></span></span>
-<span class="r-in"><span><span class="fu">complete</span><span class="op">(</span><span class="va">df</span>, <span class="va">group</span>, <span class="fu"><a href="expand.html">nesting</a></span><span class="op">(</span><span class="va">item_id</span>, <span class="va">item_name</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">df</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu">complete</span><span class="op">(</span><span class="va">group</span>, <span class="fu"><a href="expand.html">nesting</a></span><span class="op">(</span><span class="va">item_id</span>, <span class="va">item_name</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 8 × 5</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   group item_id item_name value1 value2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span>
@@ -204,14 +203,15 @@ of this, you cannot complete a grouping column.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">7</span>     2       3 a             <span style="color: #BB0000;">NA</span>     <span style="color: #BB0000;">NA</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">8</span>     2       3 b              4      7</span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># You can also choose to fill in missing values. By default, both implicit</span></span></span>
-<span class="r-in"><span><span class="co"># (new) and explicit (pre-existing) missing values are filled.</span></span></span>
-<span class="r-in"><span><span class="fu">complete</span><span class="op">(</span></span></span>
-<span class="r-in"><span>  <span class="va">df</span>,</span></span>
-<span class="r-in"><span>  <span class="va">group</span>,</span></span>
-<span class="r-in"><span>  <span class="fu"><a href="expand.html">nesting</a></span><span class="op">(</span><span class="va">item_id</span>, <span class="va">item_name</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>  fill <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value1 <span class="op">=</span> <span class="fl">0</span>, value2 <span class="op">=</span> <span class="fl">99</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># Supplying values for new rows ---------------------------------------------</span></span></span>
+<span class="r-in"><span><span class="co"># Use `fill` to replace NAs with some value. By default, affects both new</span></span></span>
+<span class="r-in"><span><span class="co"># (implicit) and pre-existing (explicit) missing values.</span></span></span>
+<span class="r-in"><span><span class="va">df</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="fu">complete</span><span class="op">(</span></span></span>
+<span class="r-in"><span>    <span class="va">group</span>,</span></span>
+<span class="r-in"><span>    <span class="fu"><a href="expand.html">nesting</a></span><span class="op">(</span><span class="va">item_id</span>, <span class="va">item_name</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>    fill <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value1 <span class="op">=</span> <span class="fl">0</span>, value2 <span class="op">=</span> <span class="fl">99</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 8 × 5</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   group item_id item_name value1 value2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span>
@@ -224,15 +224,15 @@ of this, you cannot complete a grouping column.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">7</span>     2       2 b              0     99</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">8</span>     2       3 b              4      7</span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># You can limit the fill to only implicit missing values by setting</span></span></span>
-<span class="r-in"><span><span class="co"># `explicit` to `FALSE`</span></span></span>
-<span class="r-in"><span><span class="fu">complete</span><span class="op">(</span></span></span>
-<span class="r-in"><span>  <span class="va">df</span>,</span></span>
-<span class="r-in"><span>  <span class="va">group</span>,</span></span>
-<span class="r-in"><span>  <span class="fu"><a href="expand.html">nesting</a></span><span class="op">(</span><span class="va">item_id</span>, <span class="va">item_name</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>  fill <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value1 <span class="op">=</span> <span class="fl">0</span>, value2 <span class="op">=</span> <span class="fl">99</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>  explicit <span class="op">=</span> <span class="cn">FALSE</span></span></span>
-<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># Limit the fill to only the newly created (i.e. previously implicit)</span></span></span>
+<span class="r-in"><span><span class="co"># missing values with `explicit = FALSE`</span></span></span>
+<span class="r-in"><span><span class="va">df</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="fu">complete</span><span class="op">(</span></span></span>
+<span class="r-in"><span>    <span class="va">group</span>,</span></span>
+<span class="r-in"><span>    <span class="fu"><a href="expand.html">nesting</a></span><span class="op">(</span><span class="va">item_id</span>, <span class="va">item_name</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>    fill <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value1 <span class="op">=</span> <span class="fl">0</span>, value2 <span class="op">=</span> <span class="fl">99</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>    explicit <span class="op">=</span> <span class="cn">FALSE</span></span></span>
+<span class="r-in"><span>  <span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 8 × 5</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   group item_id item_name value1 value2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span>

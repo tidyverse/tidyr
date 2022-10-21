@@ -111,7 +111,7 @@ to their common size.</p></dd>
 <dd><p><a href="https://lifecycle.r-lib.org/articles/stages.html#deprecated" class="external-link"><img src="figures/lifecycle-deprecated.svg" alt="[Deprecated]"></a>:
 previously you could write <code>df %&gt;% unnest(x, y, z)</code>.
 Convert to <code>df %&gt;% unnest(c(x, y, z))</code>. If you previously created a new
-variable in <code>unnest()</code> you'll now need to do it explicitly with <code><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate()</a></code>.
+variable in <code>unnest()</code> you'll now need to do it explicitly with <code>mutate()</code>.
 Convert <code>df %&gt;% unnest(y = fun(x, y, z))</code>
 to <code>df %&gt;% mutate(y = fun(x, y, z)) %&gt;% unnest(y)</code>.</p></dd>
 
@@ -154,7 +154,7 @@ strategies used to enforce them.</p></dd>
 <dt>.drop, .preserve</dt>
 <dd><p><a href="https://lifecycle.r-lib.org/articles/stages.html#deprecated" class="external-link"><img src="figures/lifecycle-deprecated.svg" alt="[Deprecated]"></a>:
 all list-columns are now preserved; If there are any that you
-don't want in the output use <code><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select()</a></code> to remove them prior to
+don't want in the output use <code>select()</code> to remove them prior to
 unnesting.</p></dd>
 
 
@@ -223,6 +223,7 @@ behaviour using <code><a href="nest_legacy.html">nest_legacy()</a></code> and <c
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span>     3     2     2     4</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span>     3     3     1     4</span>
 <span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Multiple columns ----------------------------------------------------------</span></span></span>
 <span class="r-in"><span><span class="co"># You can unnest multiple columns simultaneously</span></span></span>
 <span class="r-in"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>  x <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>,</span></span>
