@@ -414,10 +414,11 @@ str_separate_regex_wider <- function(x,
 
   no_match <- which(is.na(match[, 1]))
 
+  match_count <- rep(length(patterns), length(x))
+  remainder <- rep("", length(x))
+  problems <- is.na(match[, 1])
+
   if (length(no_match) > 0) {
-    match_count <- rep(length(patterns), length(x))
-    remainder <- rep("", length(x))
-    problems <- is.na(match[, 1])
 
     if (align_short == "error") {
       cli::cli_abort(c(
@@ -454,12 +455,13 @@ str_separate_regex_wider <- function(x,
       match_count[no_match] <- 0L
       remainder[no_match] <- x[no_match]
     }
+  }
 
-    if (align_short == "debug") {
-      out[debug_name(col, names_sep, "ok")] <- !problems
-      out[debug_name(col, names_sep, "matches")] <- match_count
-      out[debug_name(col, names_sep, "remainder")] <- remainder
-    }
+
+  if (align_short == "debug") {
+    out[debug_name(col, names_sep, "ok")] <- !problems
+    out[debug_name(col, names_sep, "matches")] <- match_count
+    out[debug_name(col, names_sep, "remainder")] <- remainder
   }
 
   out
