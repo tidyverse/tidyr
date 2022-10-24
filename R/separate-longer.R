@@ -5,25 +5,25 @@
 #'
 #' Each of these functions takes a string and splits it into multiple rows:
 #'
-#' * `separate_by_longer()` splits by a delimiter.
-#' * `separate_at_longer()` splits by a fixed width.
+#' * `separate_longer_delim()` splits by a delimiter.
+#' * `separate_longer_position()` splits by a fixed width.
 #'
 #' @export
-#' @inheritParams separate_by_wider
+#' @inheritParams separate_wider_delim
 #' @examples
 #' df <- tibble(id = 1:4, x = c("x", "x y", "x y z", NA))
-#' df %>% separate_by_longer(x, sep = " ")
+#' df %>% separate_longer_delim(x, sep = " ")
 #'
 #' # You can separate multiple columns at a time
 #' df <- tibble(id = 1:3, x = c("x", "x y", "x y z"), y = c("a", "a b", "a b c"))
-#' df %>% separate_by_longer(c(x, y), sep = " ")
+#' df %>% separate_longer_delim(c(x, y), sep = " ")
 #'
 #' # Or instead split by a fixed length
 #' df <- tibble(id = 1:3, x = c("ab", "def", ""))
-#' df %>% separate_at_longer(x, 1)
-#' df %>% separate_at_longer(x, 2)
-#' df %>% separate_at_longer(x, 2, keep_empty = TRUE)
-separate_by_longer <- function(data, cols, sep, ...) {
+#' df %>% separate_longer_position(x, 1)
+#' df %>% separate_longer_position(x, 2)
+#' df %>% separate_longer_position(x, 2, keep_empty = TRUE)
+separate_longer_delim <- function(data, cols, sep, ...) {
   check_installed("stringr")
   check_required(cols)
   if (!is_string(sep)) {
@@ -43,9 +43,9 @@ separate_by_longer <- function(data, cols, sep, ...) {
 #'   each observation. If `nchar(x)` is zero, this means the entire input
 #'   row will be dropped from the output. If you want to preserve all rows,
 #'   use `keep_empty = TRUE` to replace size-0 elements with a missing value.
-#' @rdname separate_by_longer
+#' @rdname separate_longer_delim
 #' @export
-separate_at_longer <- function(data, cols, width, ..., keep_empty = FALSE) {
+separate_longer_position <- function(data, cols, width, ..., keep_empty = FALSE) {
   check_installed("stringr")
   check_required(cols)
   if (!is_integerish(width) || length(width) != 1 || is.na(width)) {

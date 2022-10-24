@@ -1,26 +1,26 @@
-# separate_by_longer() validates its inputs
+# separate_longer_delim() validates its inputs
 
     Code
-      df %>% separate_by_longer()
+      df %>% separate_longer_delim()
     Condition
-      Error in `separate_by_longer()`:
+      Error in `separate_longer_delim()`:
       ! `cols` is absent but must be supplied.
     Code
-      df %>% separate_by_longer(x, sep = 1)
+      df %>% separate_longer_delim(x, sep = 1)
     Condition
-      Error in `separate_by_longer()`:
+      Error in `separate_longer_delim()`:
       ! `sep` must be a string
 
-# separate_at_longer() validates its inputs
+# separate_longer_position() validates its inputs
 
     Code
-      df %>% separate_at_longer()
+      df %>% separate_longer_position()
     Condition
-      Error in `separate_at_longer()`:
+      Error in `separate_longer_position()`:
       ! `cols` is absent but must be supplied.
     Code
-      df %>% separate_at_longer(x, width = 1.5)
+      df %>% separate_longer_position(x, width = 1.5)
     Condition
-      Error in `separate_at_longer()`:
+      Error in `separate_longer_position()`:
       ! `width` must be an integer
 
