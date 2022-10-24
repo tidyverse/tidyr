@@ -14,8 +14,8 @@ separate_wider_delim(
   names = NULL,
   names_sep = NULL,
   names_repair = "check_unique",
-  align_short = c("error", "debug", "start", "end"),
-  align_long = c("error", "debug", "drop", "merge"),
+  too_few = c("error", "debug", "align_start", "align_end"),
+  too_many = c("error", "debug", "drop", "merge"),
   col_remove = TRUE
 )
 
@@ -26,8 +26,8 @@ separate_wider_position(
   ...,
   names_sep = NULL,
   names_repair = "check_unique",
-  align_short = c("error", "debug", "start"),
-  align_long = c("error", "debug", "drop"),
+  too_few = c("error", "debug", "start"),
+  too_many = c("error", "debug", "drop"),
   col_remove = TRUE
 )
 
@@ -38,7 +38,7 @@ separate_wider_regex(
   ...,
   names_sep = NULL,
   names_repair = "check_unique",
-  align_short = c("error", "debug", "start"),
+  too_few = c("error", "debug", "start"),
   col_remove = TRUE
 )
 }
@@ -79,19 +79,19 @@ names. Must be one of the following options:
 See \code{\link[vctrs:vec_as_names]{vctrs::vec_as_names()}} for more details on these terms and the
 strategies used to enforce them.}
 
-\item{align_short}{What should happen if a value separates into too few
+\item{too_few}{What should happen if a value separates into too few
 pieces?
 \itemize{
 \item \code{"error"}, the default, will throw an error.
 \item \code{"debug"} will add additional columns to the output to help you
 locate and resolve the underlying problem.
-\item \code{"start"} will the align starts of short matches, adding \code{NA} on the end
+\item \code{"align_start"} will the align starts of short matches, adding \code{NA} on the end
 to pad to the correct length.
-\item \code{"end"} (\code{separate_wider_delim()} only) will align the ends of short
+\item \code{"align_end"} (\code{separate_wider_delim()} only) will align the ends of short
 matches, adding \code{NA} at the start to pad to the correct length.
 }}
 
-\item{align_long}{What should happen if a value separates into too many
+\item{too_many}{What should happen if a value separates into too many
 pieces?
 \itemize{
 \item \code{"error"}, the default, will throw an error.
@@ -103,7 +103,7 @@ additional pieces.
 }}
 
 \item{col_remove}{Should the input \code{cols} be removed from the output?
-Always preserved if \code{align_short} or \code{align_long} is set to \verb{"debug}.}
+Always preserved if \code{too_few} or \code{too_many} is set to \verb{"debug}.}
 
 \item{widths}{A named numeric vector where the names become column names,
 and the values specify the column width. Unnamed components will match,
@@ -123,7 +123,7 @@ For \code{separate_wider_delim()} the names of new columns come from \code{names
 For \code{separate_wider_position()} the names come from the names of \code{widths}.
 For \code{separate_wider_regex()} the names come from the names of
 \code{patterns}.
-\item If \code{align_short} or \code{align_long} is \code{"debug"}, the output will additional
+\item If \code{too_few} or \code{too_many} is \code{"debug"}, the output will additional
 columns useful for debugging:
 \itemize{
 \item \verb{\{col\}_ok}: a logical vector which tells you if the input was ok or
@@ -167,7 +167,7 @@ df \%>\% separate_wider_regex(x, c(gender = ".", ".", unit = "\\\\d+"))
 df <- data.frame(var = c("race_1", "race_2", "age_bucket_1", "age_bucket_2"))
 # _delim won't help because it always splits on the first delimiter
 try(df \%>\% separate_wider_delim(var, "_", names = c("var1", "var2")))
-df \%>\% separate_wider_delim(var, "_", names = c("var1", "var2"), align_long = "merge")
+df \%>\% separate_wider_delim(var, "_", names = c("var1", "var2"), too_many = "merge")
 # Instead, you can use _group:
 df \%>\% separate_wider_regex(var, c(var1 = ".*", "_", var2 = ".*"))
 # this works because * is greedy; you can mimic the _by behaviour with .*?
@@ -185,8 +185,8 @@ df \%>\%
     x,
     delim = " ",
     names = c("a", "b"),
-    align_short = "debug",
-    align_long = "debug"
+    too_few = "debug",
+    too_many = "debug"
   )
 
 # But you can can suppress the warnings:
@@ -195,10 +195,10 @@ df \%>\%
     x,
     delim = " ",
     names = c("a", "b"),
-    align_short = "start",
-    align_long = "merge"
+    too_few = "start",
+    too_many = "merge"
   )
 
 # Or choose to automatically name the columns, producing as many as needed
-df \%>\% separate_wider_delim(x, sep = " ", names_sep = "", align_short = "start")
+df \%>\% separate_wider_delim(x, sep = " ", names_sep = "", too_few = "start")
 }

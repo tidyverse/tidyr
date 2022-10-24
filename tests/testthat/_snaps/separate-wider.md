@@ -6,11 +6,11 @@
       Error in `separate_wider_delim()`:
       ! Expected 2 pieces in each element of `x`.
       ! 1 value was too short.
-      i Use `align_short = "debug"` to diagnose the problem.
-      i Use `align_short = "start"/"end"` to silence this message.
+      i Use `too_few = "debug"` to diagnose the problem.
+      i Use `too_few = "align_start"/"align_end"` to silence this message.
       ! 1 value was too long.
-      i Use `align_long = "debug"` to diagnose the problem.
-      i Use `align_long = "drop"/"merge"` to silence this message.
+      i Use `too_many = "debug"` to diagnose the problem.
+      i Use `too_many = "drop"/"merge"` to silence this message.
 
 # separate_wider_delim() validates its inputs
 
@@ -45,10 +45,10 @@
       Error in `separate_wider_delim()`:
       ! `names` must be an unnamed character vector.
     Code
-      df %>% separate_wider_delim(x, "", names_sep = "_", align_long = "merge")
+      df %>% separate_wider_delim(x, "", names_sep = "_", too_many = "merge")
     Condition
       Error in `separate_wider_delim()`:
-      ! Must provide `names` when `align_long = "merge"`.
+      ! Must provide `names` when `too_many = "merge"`.
 
 # separate_wider_position() errors if lengths are inconsistent
 
@@ -58,11 +58,11 @@
       Error in `separate_wider_position()`:
       ! Expected 3 characters in each element of `x`.
       ! 1 value was too short.
-      i Use `align_short = "debug"` to diagnose the problem.
-      i Use `align_short = "start"` to silence this message.
+      i Use `too_few = "debug"` to diagnose the problem.
+      i Use `too_few = "start"` to silence this message.
       ! 1 value was too long.
-      i Use `align_long = "debug"` to diagnose the problem.
-      i Use `align_long = "drop"` to silence this message.
+      i Use `too_many = "debug"` to diagnose the problem.
+      i Use `too_many = "drop"` to silence this message.
 
 # separate_wider_position() validates its inputs
 
@@ -95,8 +95,8 @@
       Error in `separate_wider_regex()`:
       ! Expected each value of `x` to match the pattern, the whole pattern, and nothing but the pattern.
       ! 1 value has problem.
-      i Use `align_short = "debug"` to diagnose the problem.
-      i Use `align_short = "start"` to silence this message.
+      i Use `too_few = "debug"` to diagnose the problem.
+      i Use `too_few = "start"` to silence this message.
 
 # separate_wider_regex() gives informative error if () used
 

@@ -31,17 +31,17 @@
 #'   between values. By default, is interpreted as a fixed string; use
 #'   `stringr::regexp()` and friends to split in other ways.
 #' @inheritParams rlang::args_dots_empty
-#' @param align_short What should happen if a value separates into too few
+#' @param too_few What should happen if a value separates into too few
 #'   pieces?
 #'
 #'   * `"error"`, the default, will throw an error.
 #'   * `"debug"` will add additional columns to the output to help you
 #'     locate and resolve the underlying problem.
-#'   * `"start"` will the align starts of short matches, adding `NA` on the end
+#'   * `"align_start"` will the align starts of short matches, adding `NA` on the end
 #'     to pad to the correct length.
-#'   * `"end"` (`separate_wider_delim()` only) will align the ends of short
+#'   * `"align_end"` (`separate_wider_delim()` only) will align the ends of short
 #'     matches, adding `NA` at the start to pad to the correct length.
-#' @param align_long What should happen if a value separates into too many
+#' @param too_many What should happen if a value separates into too many
 #'   pieces?
 #'
 #'   * `"error"`, the default, will throw an error.
@@ -51,7 +51,7 @@
 #'   * `"merge"` (`separate_wider_delim()` only) will merge together any
 #'     additional pieces.
 #' @param col_remove Should the input `cols` be removed from the output?
-#'   Always preserved if `align_short` or `align_long` is set to `"debug`.
+#'   Always preserved if `too_few` or `too_many` is set to `"debug`.
 #' @return A data frame based on `df`. It has the same rows, but different
 #'   columns:
 #'
@@ -62,7 +62,7 @@
 #'   For `separate_wider_regex()` the names come from the names of
 #'   `patterns`.
 #'
-#' * If `align_short` or `align_long` is `"debug"`, the output will additional
+#' * If `too_few` or `too_many` is `"debug"`, the output will additional
 #'   columns useful for debugging:
 #'
 #'   * `{col}_ok`: a logical vector which tells you if the input was ok or
@@ -90,7 +90,7 @@
 #' df <- data.frame(var = c("race_1", "race_2", "age_bucket_1", "age_bucket_2"))
 #' # _delim won't help because it always splits on the first delimiter
 #' try(df %>% separate_wider_delim(var, "_", names = c("var1", "var2")))
-#' df %>% separate_wider_delim(var, "_", names = c("var1", "var2"), align_long = "merge")
+#' df %>% separate_wider_delim(var, "_", names = c("var1", "var2"), too_many = "merge")
 #' # Instead, you can use _group:
 #' df %>% separate_wider_regex(var, c(var1 = ".*", "_", var2 = ".*"))
 #' # this works because * is greedy; you can mimic the _by behaviour with .*?
@@ -108,8 +108,8 @@
 #'     x,
 #'     delim = " ",
 #'     names = c("a", "b"),
-#'     align_short = "debug",
-#'     align_long = "debug"
+#'     too_few = "debug",
+#'     too_many = "debug"
 #'   )
 #'
 #' # But you can can suppress the warnings:
@@ -118,12 +118,12 @@
 #'     x,
 #'     delim = " ",
 #'     names = c("a", "b"),
-#'     align_short = "start",
-#'     align_long = "merge"
+#'     too_few = "start",
+#'     too_many = "merge"
 #'   )
 #'
 #' # Or choose to automatically name the columns, producing as many as needed
-#' df %>% separate_wider_delim(x, sep = " ", names_sep = "", align_short = "start")
+#' df %>% separate_wider_delim(x, sep = " ", names_sep = "", too_few = "start")
 separate_wider_delim <- function(
     data,
     cols,
@@ -132,8 +132,8 @@ separate_wider_delim <- function(
     names = NULL,
     names_sep = NULL,
     names_repair = "check_unique",
-    align_short = c("error", "debug", "start", "end"),
-    align_long = c("error", "debug", "drop", "merge"),
+    too_few = c("error", "debug", "align_start", "align_end"),
+    too_many = c("error", "debug", "drop", "merge"),
     col_remove = TRUE
 ) {
   check_installed("stringr")
@@ -147,8 +147,8 @@ separate_wider_delim <- function(
   if (length(names) > 0 && is_named(names)) {
     cli::cli_abort("{.arg names} must be an unnamed character vector.")
   }
-  align_short <- arg_match(align_short)
-  align_long <- arg_match(align_long)
+  too_few <- arg_match(too_few)
+  too_many <- arg_match(too_many)
   check_bool(col_remove)
 
   error_call %<~% current_env()
@@ -159,8 +159,8 @@ separate_wider_delim <- function(
       names = names,
       delim = delim,
       names_sep = names_sep,
-      align_short = align_short,
-      align_long = align_long,
+      too_few = too_few,
+      too_many = too_many,
       col_remove = col_remove,
       error_call = error_call
     ),
@@ -175,8 +175,8 @@ str_separate_wider_delim <- function(
     names,
     delim,
     names_sep = NULL,
-    align_short = "error",
-    align_long = "error",
+    too_few = "error",
+    too_many = "error",
     col_remove = TRUE,
     error_call = caller_env()
 ) {
@@ -184,10 +184,10 @@ str_separate_wider_delim <- function(
   if (is_bare_string(delim)) {
     delim <- stringr::fixed(delim)
   }
-  if (align_long == "merge") {
+  if (too_many == "merge") {
     if (is.null(names)) {
       cli::cli_abort(
-        'Must provide {.arg names} when {.code align_long = "merge"}.',
+        'Must provide {.arg names} when {.code too_many = "merge"}.',
         call = error_call
       )
     }
@@ -203,15 +203,15 @@ str_separate_wider_delim <- function(
   p <- length(names)
 
   check_df_alignment(col, p, "pieces", n_pieces,
-    align_short = align_short,
-    align_long = align_long,
+    too_few = too_few,
+    too_many = too_many,
     advice_short = c(
-      i = 'Use `align_short = "debug"` to diagnose the problem.',
-      i = 'Use `align_short = "start"/"end"` to silence this message.'
+      i = 'Use `too_few = "debug"` to diagnose the problem.',
+      i = 'Use `too_few = "align_start"/"align_end"` to silence this message.'
     ),
     advice_long = c(
-      i = 'Use `align_long = "debug"` to diagnose the problem.',
-      i = 'Use `align_long = "drop"/"merge"` to silence this message.'
+      i = 'Use `too_many = "debug"` to diagnose the problem.',
+      i = 'Use `too_many = "drop"/"merge"` to silence this message.'
     ),
     call = error_call
   )
@@ -219,21 +219,21 @@ str_separate_wider_delim <- function(
   out <- df_align(
     x = pieces,
     names = names,
-    align_direction = if (align_short == "end") "end" else "start"
+    align_direction = if (too_few == "align_end") "end" else "start"
   )
 
-  if (!col_remove || align_short == "debug" || align_long == "debug") {
+  if (!col_remove || too_few == "debug" || too_many == "debug") {
     out[[col]] <- x
   }
 
-  if (align_short == "debug" || align_long == "debug") {
+  if (too_few == "debug" || too_many == "debug") {
     sep_loc <- stringr::str_locate_all(x, delim)
     sep_last <- lapply(sep_loc, function(x) if (nrow(x) < p) NA else x[p, "start"])
     remainder <- stringr::str_sub(x, sep_last)
     remainder[is.na(remainder)] <- ""
 
-    problem <- (align_short == "debug" & n_pieces < p) |
-      (align_long == "debug" & n_pieces > p)
+    problem <- (too_few == "debug" & n_pieces < p) |
+      (too_many == "debug" & n_pieces > p)
 
     out[[debug_name(col, names_sep, "ok")]] <- !problem
     out[[debug_name(col, names_sep, "pieces")]] <- n_pieces
@@ -259,8 +259,8 @@ separate_wider_position <- function(
     ...,
     names_sep = NULL,
     names_repair = "check_unique",
-    align_short = c("error", "debug", "start"),
-    align_long = c("error", "debug", "drop"),
+    too_few = c("error", "debug", "start"),
+    too_many = c("error", "debug", "drop"),
     col_remove = TRUE
 ) {
   check_installed("stringr")
@@ -269,8 +269,8 @@ separate_wider_position <- function(
     cli::cli_abort("{.arg widths} must be a named integer vector.")
   }
   check_dots_empty()
-  align_short <- arg_match(align_short)
-  align_long <- arg_match(align_long)
+  too_few <- arg_match(too_few)
+  too_many <- arg_match(too_many)
   check_bool(col_remove)
 
   error_call <- current_env()
@@ -280,8 +280,8 @@ separate_wider_position <- function(
     function(x, col) str_separate_wider_position(x, col,
       widths = widths,
       names_sep = names_sep,
-      align_short = align_short,
-      align_long = align_long,
+      too_few = too_few,
+      too_many = too_many,
       col_remove = col_remove,
       error_call = error_call
     ),
@@ -294,8 +294,8 @@ str_separate_wider_position <- function(x,
                                   col,
                                   widths,
                                   names_sep = NULL,
-                                  align_short = "error",
-                                  align_long = "error",
+                                  too_few = "error",
+                                  too_many = "error",
                                   col_remove = TRUE,
                                   error_call = caller_env()
                                   ) {
@@ -305,15 +305,15 @@ str_separate_wider_position <- function(x,
 
   width <- stringr::str_length(x)
   check_df_alignment(col, expected_width, "characters", width,
-    align_short = align_short,
-    align_long = align_long,
+    too_few = too_few,
+    too_many = too_many,
     advice_short = c(
-      i = 'Use `align_short = "debug"` to diagnose the problem.',
-      i = 'Use `align_short = "start"` to silence this message.'
+      i = 'Use `too_few = "debug"` to diagnose the problem.',
+      i = 'Use `too_few = "start"` to silence this message.'
     ),
     advice_long = c(
-      i = 'Use `align_long = "debug"` to diagnose the problem.',
-      i = 'Use `align_long = "drop"` to silence this message.'
+      i = 'Use `too_many = "debug"` to diagnose the problem.',
+      i = 'Use `too_many = "drop"` to silence this message.'
     ),
     call = error_call
   )
@@ -328,16 +328,16 @@ str_separate_wider_position <- function(x,
   out <- df_align(
     x = pieces,
     names = names,
-    align_direction = if (align_short == "end") "end" else "start"
+    align_direction = if (too_few == "end") "end" else "start"
   )
 
-  if (!col_remove || align_short == "debug" || align_long == "debug") {
+  if (!col_remove || too_few == "debug" || too_many == "debug") {
     out[[col]] <- x
   }
 
-  if (align_short == "debug" || align_long == "debug") {
-    problem <- (align_short == "debug" & width < expected_width) |
-      (align_long == "debug" & width > expected_width)
+  if (too_few == "debug" || too_many == "debug") {
+    problem <- (too_few == "debug" & width < expected_width) |
+      (too_many == "debug" & width > expected_width)
 
     out[[debug_name(col, names_sep, "width")]] <- width
     out[[debug_name(col, names_sep, "remainder")]] <- stringr::str_sub(x, expected_width + 1, width)
@@ -360,7 +360,7 @@ separate_wider_regex <- function(
     ...,
     names_sep = NULL,
     names_repair = "check_unique",
-    align_short = c("error", "debug", "start"),
+    too_few = c("error", "debug", "start"),
     col_remove = TRUE
 ) {
   check_installed("stringr")
@@ -371,7 +371,7 @@ separate_wider_regex <- function(
   }
   check_dots_empty()
   check_string(names_sep, allow_null = TRUE)
-  align_short <- arg_match(align_short)
+  too_few <- arg_match(too_few)
   check_bool(col_remove)
 
   error_call <- current_env()
@@ -381,7 +381,7 @@ separate_wider_regex <- function(
     function(x, col) str_separate_wider_regex(x, col,
       patterns = patterns,
       names_sep = names_sep,
-      align_short = align_short,
+      too_few = too_few,
       col_remove = col_remove,
       error_call = error_call
     ),
@@ -394,7 +394,7 @@ str_separate_wider_regex <- function(x,
                                      col,
                                      patterns,
                                      names_sep = NULL,
-                                     align_short = "error",
+                                     too_few = "error",
                                      col_remove = TRUE,
                                      error_call = caller_env()) {
   has_name <- names2(patterns) != ""
@@ -413,7 +413,7 @@ str_separate_wider_regex <- function(x,
   out <- as_tibble(matches, .name_repair = "none")
   colnames(out) <- names2(patterns)[has_name]
 
-  if (!col_remove || align_short == "debug") {
+  if (!col_remove || too_few == "debug") {
     out[[col]] <- x
   }
 
@@ -425,12 +425,12 @@ str_separate_wider_regex <- function(x,
 
   if (length(no_match) > 0) {
 
-    if (align_short == "error") {
+    if (too_few == "error") {
       cli::cli_abort(c(
         "Expected each value of {.var {col}} to match the pattern, the whole pattern, and nothing but the pattern.",
         "!" = "{length(no_match)} value{?s} {?has/had} problem{?s}.",
-        i = 'Use {.code align_short = "debug"} to diagnose the problem.',
-        i = 'Use {.code align_short = "start"} to silence this message.'
+        i = 'Use {.code too_few = "debug"} to diagnose the problem.',
+        i = 'Use {.code too_few = "start"} to silence this message.'
       ), call = error_call)
     }
 
@@ -463,7 +463,7 @@ str_separate_wider_regex <- function(x,
   }
 
 
-  if (align_short == "debug") {
+  if (too_few == "debug") {
     out[debug_name(col, names_sep, "ok")] <- !problems
     out[debug_name(col, names_sep, "matches")] <- match_count
     out[debug_name(col, names_sep, "remainder")] <- remainder
@@ -559,16 +559,16 @@ check_df_alignment <- function(
                           p,
                           type,
                           sizes,
-                          align_short,
-                          align_long,
+                          too_few,
+                          too_many,
                           advice_short = NULL,
                           advice_long = NULL,
                           call = caller_env()) {
   n_short <- sum(sizes < p)
   n_long <- sum(sizes > p)
 
-  error_short <- align_short == "error" && n_short > 0
-  error_long <- align_long == "error" && n_long > 0
+  error_short <- too_few == "error" && n_short > 0
+  error_long <- too_many == "error" && n_long > 0
 
   if (!error_short && !error_long) {
     return()
