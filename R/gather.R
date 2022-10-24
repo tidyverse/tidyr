@@ -60,7 +60,6 @@
 #' @inheritParams gather_
 #' @export
 #' @examples
-#' library(dplyr)
 #' # From https://stackoverflow.com/questions/1181060
 #' stocks <- tibble(
 #'   time = as.Date("2009-01-01") + 0:9,
@@ -79,14 +78,6 @@
 #'        Sepal.Length, Sepal.Width, Petal.Length, Petal.Width)
 #' # same result but less verbose
 #' gather(mini_iris, key = "flower_att", value = "measurement", -Species)
-#'
-#' # repeat iris example using dplyr and the pipe operator
-#' library(dplyr)
-#' mini_iris <-
-#'   iris %>%
-#'   group_by(Species) %>%
-#'   slice(1)
-#' mini_iris %>% gather(key = "flower_att", value = "measurement", -Species)
 gather <- function(data, key = "key", value = "value", ...,
                    na.rm = FALSE, convert = FALSE, factor_key = FALSE) {
   check_dots_unnamed()

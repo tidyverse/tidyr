@@ -4,68 +4,64 @@
 \alias{tidyr_tidy_select}
 \title{Argument type: tidy-select}
 \description{
-This page the describes the \verb{<tidy-select>} argument modifier which indicates
-the argument uses \strong{tidy selection} (a special type of tidy evaluation).
-Tidy selection provides a concise DSL for selecting variables based on their
-names.
+This page describes the \verb{<tidy-select>} argument modifier which
+indicates that the argument uses \strong{tidy selection}, a sub-type of
+tidy evaluation. If you've never heard of tidy evaluation before,
+start with the practical introduction in
+\url{https://r4ds.hadley.nz/functions.html#data-frame-functions} then
+then read more about the underlying theory in
+\url{https://rlang.r-lib.org/reference/topic-data-mask.html}.
 }
 \section{Overview of selection features}{
-Tidyverse selections implement a dialect of R where operators make
-it easy to select variables:
+tidyselect implements a DSL for selecting variables. It provides helpers
+for selecting variables:
 \itemize{
-\item \code{:} for selecting a range of consecutive variables.
-\item \code{!} for taking the complement of a set of variables.
-\item \code{&} and \code{|} for selecting the intersection or the union of two
-sets of variables.
-\item \code{c()} for combining selections.
+\item \code{var1:var10}: variables lying between \code{var1} on the left and \code{var10} on the right.
+}
+\itemize{
+\item \code{\link[tidyselect:starts_with]{starts_with("a")}}: names that start with \code{"a"}.
+\item \code{\link[tidyselect:starts_with]{ends_with("z")}}: names that end with \code{"z"}.
+\item \code{\link[tidyselect:starts_with]{contains("b")}}: names that contain \code{"b"}.
+\item \code{\link[tidyselect:starts_with]{matches("x.y")}}: names that match regular expression \code{x.y}.
+\item \code{\link[tidyselect:starts_with]{num_range(x, 1:4)}}: names following the pattern, \code{x1}, \code{x2}, ..., \code{x4}.
+\item \code{\link[tidyselect:all_of]{all_of(vars)}}/\code{\link[tidyselect:all_of]{any_of(vars)}}:
+matches names stored in the character vector \code{vars}. \code{all_of(vars)} will
+error if the variables aren't present; \code{any_of(var)} will match just the
+variables that exist.
+\item \code{\link[tidyselect:everything]{everything()}}: all variables.
+\item \code{\link[tidyselect:everything]{last_col()}}: furthest column on the right.
+\item \code{\link[tidyselect:where]{where(is.numeric)}}: all variables where
+\code{is.numeric()} returns \code{TRUE}.
 }
 
-In addition, you can use \strong{selection helpers}. Some helpers select specific
-columns:
+As well as operators for combining those selections:
 \itemize{
-\item \code{\link[tidyselect:everything]{everything()}}: Matches all variables.
-\item \code{\link[tidyselect:everything]{last_col()}}: Select last variable, possibly with an offset.
-}
-
-These helpers select variables by matching patterns in their names:
-\itemize{
-\item \code{\link[tidyselect:starts_with]{starts_with()}}: Starts with a prefix.
-\item \code{\link[tidyselect:starts_with]{ends_with()}}: Ends with a suffix.
-\item \code{\link[tidyselect:starts_with]{contains()}}: Contains a literal string.
-\item \code{\link[tidyselect:starts_with]{matches()}}: Matches a regular expression.
-\item \code{\link[tidyselect:starts_with]{num_range()}}: Matches a numerical range like x01, x02, x03.
-}
-
-These helpers select variables from a character vector:
-\itemize{
-\item \code{\link[tidyselect:all_of]{all_of()}}: Matches variable names in a character vector. All
-names must be present, otherwise an out-of-bounds error is
-thrown.
-\item \code{\link[tidyselect:all_of]{any_of()}}: Same as \code{all_of()}, except that no error is thrown
-for names that don't exist.
-}
-
-This helper selects variables with a function:
-\itemize{
-\item \code{\link[tidyselect:where]{where()}}: Applies a function to all variables and selects those
-for which the function returns \code{TRUE}.
+\item \code{!selection}: only variables that don't match \code{selection}.
+\item \code{selection1 & selection2}: only variables included in both \code{selection1} and \code{selection2}.
+\item \code{selection1 | selection2}: all variables that match either \code{selection1} or \code{selection2}.
 }
 }
 
-\section{Indirection}{
-There are two main cases:
+\section{Key techniques}{
 \itemize{
-\item If you have a character vector of column names, use \code{all_of()}
-or \code{any_of()}, depending on whether or not you want unknown variable
-names to cause an error, e.g \code{unnest(df, all_of(vars))},
-\code{unnest(df, !any_of(vars))}.
 \item If you want the user to supply a tidyselect specification in a
 function argument, you need to tunnel the selection through the function
 argument. This is done by embracing the function argument \code{{{ }}},
 e.g \code{unnest(df, {{ vars }})}.
+\item If you have a character vector of column names, use \code{all_of()}
+or \code{any_of()}, depending on whether or not you want unknown variable
+names to cause an error, e.g \code{unnest(df, all_of(vars))},
+\code{unnest(df, !any_of(vars))}.
+\item To suppress \verb{R CMD check} \code{NOTE}s about unknown variables use \code{"var"}
+instead of \code{var}:
 }
 
-Learn more in \code{vignette("programming.Rmd")}.
+\if{html}{\out{<div class="sourceCode R">}}\preformatted{# has NOTE
+df \%>\% select(x, y, z)
+
+# no NOTE
+df \%>\% select("x", "y", "z")
+}\if{html}{\out{</div>}}
 }
 
 \keyword{internal}

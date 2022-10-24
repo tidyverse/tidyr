@@ -10,10 +10,10 @@
 #'
 #' @inheritParams hoist
 #' @inheritParams unnest
-#' @param col List-column(s) to extract components from.
-#'   You can use tidyselect to select multiple columns to unnest simultaneously.
-#'   When using `unnest_longer()` with multiple columns, values across columns
-#'   that originated from the same row are recycled to a common size.
+#' @param col <[`tidy-select`][tidyr_tidy_select]> List-column(s) to unnest.
+#'
+#'   When selecting multiple columns, values from the same row will be recycled
+#'   to their common size.
 #' @param values_to A string giving the column name (or names) to store the
 #'   unnested values in. If multiple columns are specified in `col`, this can
 #'   also be a glue string containing `"{col}"` to provide a template for the
@@ -50,6 +50,7 @@
 #' )
 #' df %>% unnest_longer(y)
 #'
+#' # Multiple columns ----------------------------------------------------------
 #' # If columns are aligned, you can unnest simultaneously.
 #' df <- tibble(
 #'   x = 1:2,

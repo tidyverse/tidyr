@@ -12,8 +12,7 @@ unchop(data, cols, keep_empty = FALSE, ptype = NULL)
 \arguments{
 \item{data}{A data frame.}
 
-\item{cols}{<\code{\link[=tidyr_tidy_select]{tidy-select}}> Columns to chop or unchop
-(automatically quoted).
+\item{cols}{<\code{\link[=tidyr_tidy_select]{tidy-select}}> Columns to chop or unchop.
 
 For \code{unchop()}, each column should be a list-column containing generalised
 vectors (e.g. any mix of \code{NULL}s, atomic vector, S3 vectors, a lists,
@@ -54,7 +53,7 @@ the type of its elements, \code{unchop()} is able to reconstitute the
 correct vector type even for empty list-columns.
 }
 \examples{
-# Chop ==============================================================
+# Chop ----------------------------------------------------------------------
 df <- tibble(x = c(1, 1, 1, 2, 2, 3), y = 1:6, z = 6:1)
 # Note that we get one row of output for each unique combination of
 # non-chopped variables
@@ -62,17 +61,15 @@ df \%>\% chop(c(y, z))
 # cf nest
 df \%>\% nest(data = c(y, z))
 
-# Unchop ============================================================
+# Unchop --------------------------------------------------------------------
 df <- tibble(x = 1:4, y = list(integer(), 1L, 1:2, 1:3))
 df \%>\% unchop(y)
 df \%>\% unchop(y, keep_empty = TRUE)
 
-# Incompatible types -------------------------------------------------
-# If the list-col contains types that can not be natively
+# unchop will error if the types are not compatible:
 df <- tibble(x = 1:2, y = list("1", 1:3))
 try(df \%>\% unchop(y))
 
-# Unchopping data frames -----------------------------------------------------
 # Unchopping a list-col of data frames must generate a df-col because
 # unchop leaves the column names unchanged
 df <- tibble(x = 1:3, y = list(NULL, tibble(x = 1), tibble(y = 1:2)))

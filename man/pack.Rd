@@ -16,7 +16,7 @@ The right hand side can be any valid tidy select expression.}
 
 \item{data, .data}{A data frame.}
 
-\item{cols}{<\code{\link[=tidyr_tidy_select]{tidy-select}}> Column to unpack.}
+\item{cols}{<\code{\link[=tidyr_tidy_select]{tidy-select}}> Columns to unpack.}
 
 \item{names_sep, .names_sep}{If \code{NULL}, the default, the names will be left
 as is. In \code{pack()}, inner names will come from the former outer names;
@@ -57,7 +57,7 @@ and they are mostly a curiosity, but seem worth exploring further because
 they mimic the nested column headers that are so popular in Excel.
 }
 \examples{
-# Packing =============================================================
+# Packing -------------------------------------------------------------------
 # It's not currently clear why you would ever want to pack columns
 # since few functions work with this sort of data.
 df <- tibble(x1 = 1:3, x2 = 4:6, x3 = 7:9, y = 1:3)
@@ -75,7 +75,7 @@ iris \%>\%
     .names_sep = "."
   )
 
-# Unpacking ===========================================================
+# Unpacking -----------------------------------------------------------------
 df <- tibble(
   x = 1:3,
   y = tibble(a = 1:3, b = 3:1),

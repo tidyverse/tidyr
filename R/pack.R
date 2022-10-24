@@ -13,7 +13,7 @@
 #' they mimic the nested column headers that are so popular in Excel.
 #'
 #' @param data,.data A data frame.
-#' @param cols <[`tidy-select`][tidyr_tidy_select]> Column to unpack.
+#' @param cols <[`tidy-select`][tidyr_tidy_select]> Columns to unpack.
 #' @param names_sep,.names_sep If `NULL`, the default, the names will be left
 #'   as is. In `pack()`, inner names will come from the former outer names;
 #'   in `unpack()`, the new outer names will come from the inner names.
@@ -29,7 +29,7 @@
 #'   The right hand side can be any valid tidy select expression.
 #' @export
 #' @examples
-#' # Packing =============================================================
+#' # Packing -------------------------------------------------------------------
 #' # It's not currently clear why you would ever want to pack columns
 #' # since few functions work with this sort of data.
 #' df <- tibble(x1 = 1:3, x2 = 4:6, x3 = 7:9, y = 1:3)
@@ -47,7 +47,7 @@
 #'     .names_sep = "."
 #'   )
 #'
-#' # Unpacking ===========================================================
+#' # Unpacking -----------------------------------------------------------------
 #' df <- tibble(
 #'   x = 1:3,
 #'   y = tibble(a = 1:3, b = 3:1),

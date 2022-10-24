@@ -86,8 +86,8 @@ unnest_(...)
 \item{fill}{A named list that for each variable supplies a single value to
 use instead of \code{NA} for missing combinations.}
 
-\item{...}{Specification of columns to expand. Columns can be atomic vectors
-or lists.
+\item{...}{<\code{\link[=tidyr_data_masking]{data-masking}}> Specification of columns
+to expand. Columns can be atomic vectors or lists.
 \itemize{
 \item To find all unique combinations of \code{x}, \code{y} and \code{z}, including those not
 present in the data, supply each variable as a separate argument:

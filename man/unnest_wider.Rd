@@ -18,10 +18,10 @@ unnest_wider(
 \arguments{
 \item{data}{A data frame.}
 
-\item{col}{List-column(s) to extract components from.
-You can use tidyselect to select multiple columns to unnest simultaneously.
-When using \code{unnest_longer()} with multiple columns, values across columns
-that originated from the same row are recycled to a common size.}
+\item{col}{<\code{\link[=tidyr_tidy_select]{tidy-select}}> List-column(s) to unnest.
+
+When selecting multiple columns, values from the same row will be recycled
+to their common size.}
 
 \item{names_sep}{If \code{NULL}, the default, the names will be left
 as is. If a string, the outer and inner names will be pasted together using
@@ -122,6 +122,7 @@ df <- tibble(
 # where you'll usually want to provide names_sep:
 df \%>\% unnest_wider(y, names_sep = "_")
 
+# 0-length elements ---------------------------------------------------------
 # The defaults of `unnest_wider()` treat empty types (like `list()`) as `NULL`.
 json <- list(
   list(x = 1:2, y = 1:2),

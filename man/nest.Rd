@@ -81,14 +81,13 @@ iris \%>\%
   nest(width = contains("Width"), length = contains("Length"))
 
 # Nesting a grouped data frame nests all variables apart from the group vars
-library(dplyr)
 fish_encounters \%>\%
-  group_by(fish) \%>\%
+  dplyr::group_by(fish) \%>\%
   nest()
 
 # Nesting is often useful for creating per group models
 mtcars \%>\%
-  group_by(cyl) \%>\%
+  dplyr::group_by(cyl) \%>\%
   nest() \%>\%
-  mutate(models = lapply(data, function(df) lm(mpg ~ wt, data = df)))
+  dplyr::mutate(models = lapply(data, function(df) lm(mpg ~ wt, data = df)))
 }

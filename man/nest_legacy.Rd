@@ -56,7 +56,7 @@ unnest <- unnest_legacy
 }
 \examples{
 # Nest and unnest are inverses
-df <- data.frame(x = c(1, 1, 2), y = 3:1)
+df <- tibble(x = c(1, 1, 2), y = 3:1)
 df \%>\% nest_legacy(y)
 df \%>\% nest_legacy(y) \%>\% unnest_legacy()
 

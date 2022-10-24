@@ -13,6 +13,7 @@
 #'   or "updown" (first up and then down).
 #' @export
 #' @examples
+#' # direction = "down" --------------------------------------------------------
 #' # Value (year) is recorded only when it changes
 #' sales <- tibble::tribble(
 #'   ~quarter, ~year, ~sales,
@@ -33,10 +34,10 @@
 #'   "Q3",      NA,    31768,
 #'   "Q4",      NA,    49094
 #' )
-#'
 #' # `fill()` defaults to replacing missing data from top to bottom
 #' sales %>% fill(year)
 #'
+#' # direction = "up" ----------------------------------------------------------
 #' # Value (pet_type) is missing above
 #' tidy_pets <- tibble::tribble(
 #'   ~rank, ~pet_type, ~breed,
@@ -58,6 +59,7 @@
 #' tidy_pets %>%
 #'   fill(pet_type, .direction = "up")
 #'
+#' # direction = "downup" ------------------------------------------------------
 #' # Value (n_squirrels) is missing above and below within a group
 #' squirrels <- tibble::tribble(
 #'   ~group,    ~name,     ~role,     ~n_squirrels,
