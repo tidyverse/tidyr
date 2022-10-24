@@ -12,6 +12,15 @@
       i Use `too_many = "debug"` to diagnose the problem.
       i Use `too_many = "drop"/"merge"` to silence this message.
 
+# separate_wider_delim() can diagnose problems
+
+    Code
+      out <- df %>% separate_wider_delim(x, " ", names = c("a", "b"), too_few = "debug",
+      too_many = "debug", )
+    Condition
+      Warning:
+      Debug mode activated: adding variables `x_ok`, `x_pieces`, and `x_remainder`.
+
 # separate_wider_delim() validates its inputs
 
     Code
@@ -64,6 +73,15 @@
       i Use `too_many = "debug"` to diagnose the problem.
       i Use `too_many = "drop"` to silence this message.
 
+# separate_wider_position() can diagnose problems
+
+    Code
+      out <- df %>% separate_wider_position(x, widths = c(a = 2, b = 1), too_few = "debug",
+      too_many = "debug")
+    Condition
+      Warning:
+      Debug mode activated: adding variables `x_ok`, `x_width`, and `x_remainder`.
+
 # separate_wider_position() validates its inputs
 
     Code
@@ -97,6 +115,14 @@
       ! 1 value has problem.
       i Use `too_few = "debug"` to diagnose the problem.
       i Use `too_few = "start"` to silence this message.
+
+# separate_wider_regex() can diangose errors
+
+    Code
+      out <- df %>% separate_wider_regex(x, c(a = "[a-z]", "-", b = "\\d+"), too_few = "debug")
+    Condition
+      Warning:
+      Debug mode activated: adding variables `x_ok`, `x_matches`, and `x_remainder`.
 
 # separate_wider_regex() gives informative error if () used
 

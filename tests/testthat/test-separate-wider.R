@@ -35,10 +35,12 @@ test_that("separate_wider_delim() can ignore problems", {
 
 test_that("separate_wider_delim() can diagnose problems", {
   df <- tibble(x = c("x", "x y", "x y z"))
-  out <- df %>% separate_wider_delim(x, " ",
-    names = c("a", "b"),
-    too_few = "debug",
-    too_many = "debug",
+  expect_snapshot(
+    out <- df %>% separate_wider_delim(x, " ",
+      names = c("a", "b"),
+      too_few = "debug",
+      too_many = "debug",
+    )
   )
   expect_equal(out$x, df$x)
   expect_equal(out$x_ok, c(FALSE, TRUE, FALSE))
@@ -46,10 +48,12 @@ test_that("separate_wider_delim() can diagnose problems", {
   expect_equal(out$x_remainder, c("", "", " z"))
 
   # And can do so selectively
-  out <- df %>% separate_wider_delim(x, " ",
-    names = c("a", "b"),
-    too_few = "align_start",
-    too_many = "debug",
+  suppressWarnings(
+    out <- df %>% separate_wider_delim(x, " ",
+      names = c("a", "b"),
+      too_few = "align_start",
+      too_many = "debug",
+    )
   )
   expect_equal(out$x_ok, c(TRUE, TRUE, FALSE))
 })
@@ -93,11 +97,13 @@ test_that("separate_wider_position() can ignore problems", {
 test_that("separate_wider_position() can diagnose problems", {
   df <- tibble(x = c("ab", "abc", "abcd"))
 
-  out <- df %>% separate_wider_position(
-    x,
-    widths = c("a" = 2, "b" = 1),
-    too_few = "debug",
-    too_many = "debug"
+  expect_snapshot(
+    out <- df %>% separate_wider_position(
+      x,
+      widths = c("a" = 2, "b" = 1),
+      too_few = "debug",
+      too_many = "debug"
+    )
   )
   expect_equal(out$x, df$x)
   expect_equal(out$x_ok, c(FALSE, TRUE, FALSE))
@@ -149,11 +155,13 @@ test_that("separate_wider_regex() can silence errors", {
 
 test_that("separate_wider_regex() can diangose errors", {
   df <- tibble(x = c("a-123", "b_123", "c-123x", "XXXX"))
-  out <- df %>% separate_wider_regex(
-    x,
-    c("a" = "[a-z]", "-", "b" = "\\d+"),
-    too_few = "debug"
-  )
+  expect_snapshot({
+      out <- df %>% separate_wider_regex(
+      x,
+      c("a" = "[a-z]", "-", "b" = "\\d+"),
+      too_few = "debug"
+    )
+  })
   expect_equal(out$x, df$x)
   expect_equal(out$x_ok, c(TRUE, FALSE, FALSE, FALSE))
   expect_equal(out$x_matches, c(3, 1, 3, 0))

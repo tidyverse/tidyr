@@ -227,6 +227,7 @@ str_separate_wider_delim <- function(
   }
 
   if (too_few == "debug" || too_many == "debug") {
+    separate_warn_debug(col, names_sep, c("ok", "pieces", "remainder"))
     sep_loc <- stringr::str_locate_all(x, delim)
     sep_last <- lapply(sep_loc, function(x) if (nrow(x) < p) NA else x[p, "start"])
     remainder <- stringr::str_sub(x, sep_last)
@@ -241,10 +242,6 @@ str_separate_wider_delim <- function(
   }
 
   out
-}
-
-debug_name <- function(col, names_sep, var) {
-  paste0(col, names_sep %||% "_", var)
 }
 
 #' @rdname separate_wider_delim
@@ -336,6 +333,7 @@ str_separate_wider_position <- function(x,
   }
 
   if (too_few == "debug" || too_many == "debug") {
+    separate_warn_debug(col, names_sep, c("ok", "width", "remainder"))
     problem <- (too_few == "debug" & width < expected_width) |
       (too_many == "debug" & width > expected_width)
 
@@ -464,6 +462,7 @@ str_separate_wider_regex <- function(x,
 
 
   if (too_few == "debug") {
+    separate_warn_debug(col, names_sep, c("ok", "matches", "remainder"))
     out[debug_name(col, names_sep, "ok")] <- !problems
     out[debug_name(col, names_sep, "matches")] <- match_count
     out[debug_name(col, names_sep, "remainder")] <- remainder
@@ -582,3 +581,15 @@ check_df_alignment <- function(
     if (error_long) advice_long
   ), call = call)
 }
+
+
+separate_warn_debug <- function(col, names_sep, vars) {
+  vars <- debug_name(col, names_sep, vars)
+
+  cli::cli_warn("Debug mode activated: adding variables {.var {vars}}.")
+}
+
+debug_name <- function(col, names_sep, var) {
+  paste0(col, names_sep %||% "_", var)
+}
+
