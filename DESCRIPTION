@@ -31,7 +31,7 @@ Imports:
     tibble (>= 2.1.1),
     tidyselect (>= 1.2.0),
     utils,
-    vctrs (>= 0.4.2.9000)
+    vctrs (>= 0.5.0)
 Suggests: 
     covr,
     data.table,
@@ -52,5 +52,3 @@ LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.1
 SystemRequirements: C++11
-Remotes: 
-    r-lib/vctrs
