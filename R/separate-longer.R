@@ -12,30 +12,28 @@
 #' @inheritParams separate_wider_delim
 #' @examples
 #' df <- tibble(id = 1:4, x = c("x", "x y", "x y z", NA))
-#' df %>% separate_longer_delim(x, sep = " ")
+#' df %>% separate_longer_delim(x, delim = " ")
 #'
 #' # You can separate multiple columns at a time
 #' df <- tibble(id = 1:3, x = c("x", "x y", "x y z"), y = c("a", "a b", "a b c"))
-#' df %>% separate_longer_delim(c(x, y), sep = " ")
+#' df %>% separate_longer_delim(c(x, y), delim = " ")
 #'
 #' # Or instead split by a fixed length
 #' df <- tibble(id = 1:3, x = c("ab", "def", ""))
 #' df %>% separate_longer_position(x, 1)
 #' df %>% separate_longer_position(x, 2)
 #' df %>% separate_longer_position(x, 2, keep_empty = TRUE)
-separate_longer_delim <- function(data, cols, sep, ...) {
+separate_longer_delim <- function(data, cols, delim, ...) {
   check_installed("stringr")
   check_required(cols)
-  if (!is_string(sep)) {
-    abort("`sep` must be a string")
-  }
+  check_string(delim)
   check_dots_empty()
 
-  if (is_bare_string(sep)) {
-    sep <- stringr::fixed(sep)
+  if (is_bare_string(delim)) {
+    delim <- stringr::fixed(delim)
   }
 
-  map_unchop(data, {{ cols }}, stringr::str_split, pattern = sep)
+  map_unchop(data, {{ cols }}, stringr::str_split, pattern = delim)
 }
 
 #' @param width Number of characters to split by.

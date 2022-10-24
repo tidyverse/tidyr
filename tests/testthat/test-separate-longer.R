@@ -1,6 +1,6 @@
 test_that("separate_longer_delim() creates rows", {
   df <- data.frame(id = 1:2, x = c("x", "y,z"))
-  out <- separate_longer_delim(df, x, sep = ",")
+  out <- separate_longer_delim(df, x, delim = ",")
   expect_equal(out$id, c(1, 2, 2))
   expect_equal(out$x, c("x", "y", "z"))
 })

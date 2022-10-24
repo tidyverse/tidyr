@@ -23,12 +23,12 @@
       df %>% separate_wider_delim(x)
     Condition
       Error in `separate_wider_delim()`:
-      ! `sep` must be a single string, not absent.
+      ! `delim` must be a single string, not absent.
     Code
       df %>% separate_wider_delim(x, 1)
     Condition
       Error in `separate_wider_delim()`:
-      ! `sep` must be a single string, not the number 1.
+      ! `delim` must be a single string, not the number 1.
     Code
       df %>% separate_wider_delim(x, "")
     Condition

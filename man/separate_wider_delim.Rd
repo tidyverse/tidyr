@@ -9,7 +9,7 @@
 separate_wider_delim(
   data,
   cols,
-  sep,
+  delim,
   ...,
   names = NULL,
   names_sep = NULL,
@@ -47,8 +47,8 @@ separate_wider_regex(
 
 \item{cols}{<\code{\link[=tidyr_tidy_select]{tidy-select}}> Columns to separate.}
 
-\item{sep}{For \code{separate_wider_delim()}, a string giving the separator between
-values. By default, is interpreted as a fixed string; use
+\item{delim}{For \code{separate_wider_delim()}, a string giving the delimiter
+between values. By default, is interpreted as a fixed string; use
 \code{stringr::regexp()} and friends to split in other ways.}
 
 \item{...}{Additional arguments passed on to methods.}
@@ -157,7 +157,7 @@ manipulation engine, and their interfaces reflect what we've learned from
 df <- tibble(id = 1:3, x = c("m-123", "f-455", "f-123"))
 # There are three basic ways to split up a string into pieces.
 # * with a delimiter
-df \%>\% separate_wider_delim(x, sep = "-", names = c("gender", "unit"))
+df \%>\% separate_wider_delim(x, delim = "-", names = c("gender", "unit"))
 # * by length
 df \%>\% separate_wider_position(x, c(gender = 1, 1, unit = 3))
 # * defining each component with a regular expression
@@ -175,15 +175,15 @@ df \%>\% separate_wider_regex(var, c(var1 = ".*?", "_", var2 = ".*"))
 
 # If the number of components varies, it's most natural to split into rows
 df <- tibble(id = 1:4, x = c("x", "x y", "x y z", NA))
-df \%>\% separate_longer_delim(x, sep = " ")
+df \%>\% separate_longer_delim(x, delim = " ")
 # But separate_wider_delim() provides some tools to deal with the problem
 # The default behaviour tells you that there's a problem
-try(df \%>\% separate_wider_delim(x, sep = " ", names = c("a", "b")))
+try(df \%>\% separate_wider_delim(x, delim = " ", names = c("a", "b")))
 # You can get additional insight by using the debug options:
 df \%>\%
   separate_wider_delim(
     x,
-    sep = " ",
+    delim = " ",
     names = c("a", "b"),
     align_short = "debug",
     align_long = "debug"
@@ -193,7 +193,7 @@ df \%>\%
 df \%>\%
   separate_wider_delim(
     x,
-    sep = " ",
+    delim = " ",
     names = c("a", "b"),
     align_short = "start",
     align_long = "merge"

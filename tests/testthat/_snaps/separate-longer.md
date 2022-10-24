@@ -9,7 +9,7 @@
       df %>% separate_longer_delim(x, sep = 1)
     Condition
       Error in `separate_longer_delim()`:
-      ! `sep` must be a string
+      ! `delim` must be a single string, not absent.
 
 # separate_longer_position() validates its inputs
 

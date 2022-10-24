@@ -27,8 +27,8 @@
 #'   and a numeric suffix.
 #' @param names For `separate_wider_delim()`, a character vector of column names.
 #'   It's length determines the number of new columns in the output.
-#' @param sep For `separate_wider_delim()`, a string giving the separator between
-#'   values. By default, is interpreted as a fixed string; use
+#' @param delim For `separate_wider_delim()`, a string giving the delimiter
+#'   between values. By default, is interpreted as a fixed string; use
 #'   `stringr::regexp()` and friends to split in other ways.
 #' @inheritParams rlang::args_dots_empty
 #' @param align_short What should happen if a value separates into too few
@@ -80,7 +80,7 @@
 #' df <- tibble(id = 1:3, x = c("m-123", "f-455", "f-123"))
 #' # There are three basic ways to split up a string into pieces.
 #' # * with a delimiter
-#' df %>% separate_wider_delim(x, sep = "-", names = c("gender", "unit"))
+#' df %>% separate_wider_delim(x, delim = "-", names = c("gender", "unit"))
 #' # * by length
 #' df %>% separate_wider_position(x, c(gender = 1, 1, unit = 3))
 #' # * defining each component with a regular expression
@@ -98,15 +98,15 @@
 #'
 #' # If the number of components varies, it's most natural to split into rows
 #' df <- tibble(id = 1:4, x = c("x", "x y", "x y z", NA))
-#' df %>% separate_longer_delim(x, sep = " ")
+#' df %>% separate_longer_delim(x, delim = " ")
 #' # But separate_wider_delim() provides some tools to deal with the problem
 #' # The default behaviour tells you that there's a problem
-#' try(df %>% separate_wider_delim(x, sep = " ", names = c("a", "b")))
+#' try(df %>% separate_wider_delim(x, delim = " ", names = c("a", "b")))
 #' # You can get additional insight by using the debug options:
 #' df %>%
 #'   separate_wider_delim(
 #'     x,
-#'     sep = " ",
+#'     delim = " ",
 #'     names = c("a", "b"),
 #'     align_short = "debug",
 #'     align_long = "debug"
@@ -116,7 +116,7 @@
 #' df %>%
 #'   separate_wider_delim(
 #'     x,
-#'     sep = " ",
+#'     delim = " ",
 #'     names = c("a", "b"),
 #'     align_short = "start",
 #'     align_long = "merge"
@@ -127,7 +127,7 @@
 separate_wider_delim <- function(
     data,
     cols,
-    sep,
+    delim,
     ...,
     names = NULL,
     names_sep = NULL,
@@ -139,7 +139,7 @@ separate_wider_delim <- function(
   check_installed("stringr")
   check_required(cols)
   check_dots_empty()
-  check_string(sep)
+  check_string(delim)
   if (is.null(names) && is.null(names_sep)) {
     cli::cli_abort("Must specify at least one of {.arg names} or {.arg names_sep}.")
   }
@@ -157,7 +157,7 @@ separate_wider_delim <- function(
     data, {{ cols }},
     function(x, col) str_separate_wider_delim(x, col,
       names = names,
-      sep = sep,
+      delim = delim,
       names_sep = names_sep,
       align_short = align_short,
       align_long = align_long,
@@ -173,7 +173,7 @@ str_separate_wider_delim <- function(
     x,
     col,
     names,
-    sep,
+    delim,
     names_sep = NULL,
     align_short = "error",
     align_long = "error",
@@ -181,8 +181,8 @@ str_separate_wider_delim <- function(
     error_call = caller_env()
 ) {
 
-  if (is_bare_string(sep)) {
-    sep <- stringr::fixed(sep)
+  if (is_bare_string(delim)) {
+    delim <- stringr::fixed(delim)
   }
   if (align_long == "merge") {
     if (is.null(names)) {
@@ -196,7 +196,7 @@ str_separate_wider_delim <- function(
     n <- Inf
   }
 
-  pieces <- stringr::str_split(x, sep, n = n)
+  pieces <- stringr::str_split(x, delim, n = n)
   n_pieces <- lengths(pieces)
 
   names <- names %||% as.character(seq_len(max(lengths(pieces))))
@@ -227,7 +227,7 @@ str_separate_wider_delim <- function(
   }
 
   if (align_short == "debug" || align_long == "debug") {
-    sep_loc <- stringr::str_locate_all(x, sep)
+    sep_loc <- stringr::str_locate_all(x, delim)
     sep_last <- lapply(sep_loc, function(x) if (nrow(x) < p) NA else x[p, "start"])
     remainder <- stringr::str_sub(x, sep_last)
     remainder[is.na(remainder)] <- ""
