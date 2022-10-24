@@ -47,17 +47,22 @@ separate_regex_wider(
 
 \item{cols}{<\code{\link[=tidyr_tidy_select]{tidy-select}}> Columns to separate.}
 
-\item{sep}{Separator between columns, by default, a fixed string.
-Use \code{stringr::regexp()} and friends to split in other ways.}
+\item{sep}{For \code{separate_by_wider()}, a string giving the separator between
+values. By default, is interpreted as a fixed string; use
+\code{stringr::regexp()} and friends to split in other ways.}
 
 \item{...}{Additional arguments passed on to methods.}
 
-\item{names, names_sep}{If you are separating a single column, specify either
-a fixed number of column \code{names} or use \code{names_sep} to generate new names
-from the source column name, \code{names_sep}, and a numeric suffix.
+\item{names}{For \code{separate_by_wider()}, a character vector of column names.
+It's length determines the number of new columns in the output.}
 
-If you are separating multiple columns, you must to supply \code{names_sep},
-to avoid creating duplicated column names.}
+\item{names_sep}{If supplied, output names will be composed
+of the input column name followed by the separator followed by the
+new column name. Required when \code{cols} selects multiple columns.
+
+For \code{separate_wider()} you can specify instead of \code{names}, in which
+case the names will be generated from the source column name, \code{names_sep},
+and a numeric suffix.}
 
 \item{names_repair}{Used to check that output data frame has valid
 names. Must be one of the following options:
@@ -109,15 +114,16 @@ and the values are regular expressions that match the contents of the
 vector. Unnamed components will match, but not be included in the output.}
 }
 \value{
-A data frame, with the same number of rows as \code{df} but different
+A data frame based on \code{df}. It has the same rows, but different
 columns:
 \itemize{
-\item For \code{separate_by_wider()} the names of new columns come from \code{names}.
+\item The primary purpose of the functions are to create new columns from
+components of the string.
+For \code{separate_by_wider()} the names of new columns come from \code{names}.
 For \code{separate_at_wider()} the names come from the names of \code{widths}.
 For \code{separate_regex_wider()} the names come from the names of
-\code{patterns}. If \code{names_sep} is set, the output names will be created by
-combining the original col name, with the names described above.
-\item If \code{align_short} or \code{align_long} is \code{"debug"}, the ouput will additional
+\code{patterns}.
+\item If \code{align_short} or \code{align_long} is \code{"debug"}, the output will additional
 columns useful for debugging:
 \itemize{
 \item \verb{\{col\}_ok}: a logical vector which tells you if the input was ok or
@@ -137,9 +143,9 @@ from the output.
 Each of these functions takes a string column and splits it into multiple
 new columns:
 \itemize{
-\item \code{separate_by_wider()} splits with a delimiter.
-\item \code{separate_at_wider()} splits using fixed widths.
-\item \code{separate_regex_wider()} splits using regular expression matches.
+\item \code{separate_by_wider()} splits by delimiter.
+\item \code{separate_at_wider()} splits at fixed widths.
+\item \code{separate_regex_wider()} splits with regular expression matches.
 }
 
 These functions are equivalent to \code{\link[=separate]{separate()}} and \code{\link[=extract]{extract()}}, but use

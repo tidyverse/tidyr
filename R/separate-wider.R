@@ -6,9 +6,9 @@
 #' Each of these functions takes a string column and splits it into multiple
 #' new columns:
 #'
-#' * `separate_by_wider()` splits with a delimiter.
-#' * `separate_at_wider()` splits using fixed widths.
-#' * `separate_regex_wider()` splits using regular expression matches.
+#' * `separate_by_wider()` splits by delimiter.
+#' * `separate_at_wider()` splits at fixed widths.
+#' * `separate_regex_wider()` splits with regular expression matches.
 #'
 #' These functions are equivalent to [separate()] and [extract()], but use
 #' [stringr](http://stringr.tidyverse.org/) as the underlying string
@@ -18,14 +18,18 @@
 #' @inheritParams unnest_longer
 #' @inheritParams separate
 #' @param cols <[`tidy-select`][tidyr_tidy_select]> Columns to separate.
-#' @param names,names_sep If you are separating a single column, specify either
-#'   a fixed number of column `names` or use `names_sep` to generate new names
-#'   from the source column name, `names_sep`, and a numeric suffix.
+#' @param names_sep If supplied, output names will be composed
+#'   of the input column name followed by the separator followed by the
+#'   new column name. Required when `cols` selects multiple columns.
 #'
-#'   If you are separating multiple columns, you must to supply `names_sep`,
-#'   to avoid creating duplicated column names.
-#' @param sep Separator between columns, by default, a fixed string.
-#'   Use `stringr::regexp()` and friends to split in other ways.
+#'   For `separate_wider()` you can specify instead of `names`, in which
+#'   case the names will be generated from the source column name, `names_sep`,
+#'   and a numeric suffix.
+#' @param names For `separate_by_wider()`, a character vector of column names.
+#'   It's length determines the number of new columns in the output.
+#' @param sep For `separate_by_wider()`, a string giving the separator between
+#'   values. By default, is interpreted as a fixed string; use
+#'   `stringr::regexp()` and friends to split in other ways.
 #' @inheritParams rlang::args_dots_empty
 #' @param align_short What should happen if a value separates into too few
 #'   pieces?
@@ -48,16 +52,17 @@
 #'     additional pieces.
 #' @param col_remove Should the input `cols` be removed from the output?
 #'   Always preserved if `align_short` or `align_long` is set to `"debug`.
-#' @return A data frame, with the same number of rows as `df` but different
+#' @return A data frame based on `df`. It has the same rows, but different
 #'   columns:
 #'
-#' * For `separate_by_wider()` the names of new columns come from `names`.
+#' * The primary purpose of the functions are to create new columns from
+#'   components of the string.
+#'   For `separate_by_wider()` the names of new columns come from `names`.
 #'   For `separate_at_wider()` the names come from the names of `widths`.
 #'   For `separate_regex_wider()` the names come from the names of
-#'   `patterns`. If `names_sep` is set, the output names will be created by
-#'   combining the original col name, with the names described above.
+#'   `patterns`.
 #'
-#' * If `align_short` or `align_long` is `"debug"`, the ouput will additional
+#' * If `align_short` or `align_long` is `"debug"`, the output will additional
 #'   columns useful for debugging:
 #'
 #'   * `{col}_ok`: a logical vector which tells you if the input was ok or
@@ -146,7 +151,7 @@ separate_by_wider <- function(
   align_long <- arg_match(align_long)
   check_bool(col_remove)
 
-  error_call <- current_env()
+  error_call %<~% current_env()
 
   map_unpack(
     data, {{ cols }},
