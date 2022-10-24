@@ -138,20 +138,36 @@ and shows you how it saves you time during data analysis.
 </h3>
 <p>Most statistical datasets are data frames made up of <strong>rows</strong> and <strong>columns</strong>. The columns are almost always labeled and the rows are sometimes labeled. The following code provides some data about an imaginary classroom in a format commonly seen in the wild. The table has three columns and four rows, and both rows and columns are labeled.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">classroom</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.csv</a></span><span class="op">(</span><span class="st">"classroom.csv"</span>, stringsAsFactors <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tibble.tidyverse.org/" class="external-link">tibble</a></span><span class="op">)</span></span>
+<span><span class="va">classroom</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html" class="external-link">tribble</a></span><span class="op">(</span></span>
+<span>  <span class="op">~</span><span class="va">name</span>,    <span class="op">~</span><span class="va">quiz1</span>, <span class="op">~</span><span class="va">quiz2</span>, <span class="op">~</span><span class="va">test1</span>,</span>
+<span>  <span class="st">"Billy"</span>,  <span class="cn">NA</span>,     <span class="st">"D"</span>,    <span class="st">"C"</span>,</span>
+<span>  <span class="st">"Suzy"</span>,   <span class="st">"F"</span>,    <span class="cn">NA</span>,     <span class="cn">NA</span>,</span>
+<span>  <span class="st">"Lionel"</span>, <span class="st">"B"</span>,    <span class="st">"C"</span>,    <span class="st">"B"</span>,</span>
+<span>  <span class="st">"Jenny"</span>,  <span class="st">"A"</span>,    <span class="st">"A"</span>,    <span class="st">"B"</span></span>
+<span>  <span class="op">)</span></span>
 <span><span class="va">classroom</span></span>
-<span><span class="co">#&gt;     name quiz1 quiz2 test1</span></span>
-<span><span class="co">#&gt; 1  Billy  &lt;NA&gt;     D     C</span></span>
-<span><span class="co">#&gt; 2   Suzy     F  &lt;NA&gt;  &lt;NA&gt;</span></span>
-<span><span class="co">#&gt; 3 Lionel     B     C     B</span></span>
-<span><span class="co">#&gt; 4  Jenny     A     A     B</span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 4 × 4</span></span></span>
+<span><span class="co">#&gt;   name   quiz1 quiz2 test1</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Billy  <span style="color: #BB0000;">NA</span>    D     C    </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> Suzy   F     <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> Lionel B     C     B    </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> Jenny  A     A     B</span></span></code></pre></div>
 <p>There are many ways to structure the same underlying data. The following table shows the same data as above, but the rows and columns have been transposed.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.csv</a></span><span class="op">(</span><span class="st">"classroom2.csv"</span>, stringsAsFactors <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
-<span><span class="co">#&gt;   assessment Billy  Suzy Lionel Jenny</span></span>
-<span><span class="co">#&gt; 1      quiz1  &lt;NA&gt; FALSE      B     A</span></span>
-<span><span class="co">#&gt; 2      quiz2     D    NA      C     A</span></span>
-<span><span class="co">#&gt; 3      test1     C    NA      B     B</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html" class="external-link">tribble</a></span><span class="op">(</span></span>
+<span>  <span class="op">~</span><span class="va">assessment</span>, <span class="op">~</span><span class="va">Billy</span>, <span class="op">~</span><span class="va">Suzy</span>, <span class="op">~</span><span class="va">Lionel</span>, <span class="op">~</span><span class="va">Jenny</span>,</span>
+<span>  <span class="st">"quiz1"</span>,     <span class="cn">NA</span>,     <span class="st">"F"</span>,   <span class="st">"B"</span>,     <span class="st">"A"</span>,</span>
+<span>  <span class="st">"quiz2"</span>,     <span class="st">"D"</span>,    <span class="cn">NA</span>,    <span class="st">"C"</span>,     <span class="st">"A"</span>,</span>
+<span>  <span class="st">"test1"</span>,     <span class="st">"C"</span>,    <span class="cn">NA</span>,    <span class="st">"B"</span>,     <span class="st">"B"</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 3 × 5</span></span></span>
+<span><span class="co">#&gt;   assessment Billy Suzy  Lionel Jenny</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> quiz1      <span style="color: #BB0000;">NA</span>    F     B      A    </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> quiz2      D     <span style="color: #BB0000;">NA</span>    C      A    </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> test1      C     <span style="color: #BB0000;">NA</span>    B      B</span></span></code></pre></div>
 <p>The data is the same, but the layout is different. Our vocabulary of rows and columns is simply not rich enough to describe why the two tables represent the same data. In addition to appearance, we need a way to describe the underlying semantics, or meaning, of the values displayed in the table.</p>
 </div>
 <div class="section level3">
