@@ -9,6 +9,9 @@
 #' * `separate_longer_position()` splits by a fixed width.
 #'
 #' @export
+#' @param delim For `separate_longer_delim()`, a string giving the delimiter
+#'   between values. By default, is interpreted as a fixed string; use
+#'   `stringr::regexp()` and friends to split in other ways.
 #' @inheritParams separate_wider_delim
 #' @examples
 #' df <- tibble(id = 1:4, x = c("x", "x y", "x y z", NA))
@@ -36,7 +39,8 @@ separate_longer_delim <- function(data, cols, delim, ...) {
   map_unchop(data, {{ cols }}, stringr::str_split, pattern = delim)
 }
 
-#' @param width Number of characters to split by.
+#' @param width For `separate_longer_position()`, an integer giving the
+#'   number of characters to split by.
 #' @param keep_empty By default, you'll get `nchar(x) / width` rows for
 #'   each observation. If `nchar(x)` is zero, this means the entire input
 #'   row will be dropped from the output. If you want to preserve all rows,

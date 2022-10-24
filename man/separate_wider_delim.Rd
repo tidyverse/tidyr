@@ -83,11 +83,11 @@ strategies used to enforce them.}
 pieces?
 \itemize{
 \item \code{"error"}, the default, will throw an error.
-\item \code{"debug"} will add additional columns to the output to help you
+\item \code{"debug"} adds additional columns to the output to help you
 locate and resolve the underlying problem.
-\item \code{"align_start"} will the align starts of short matches, adding \code{NA} on the end
+\item \code{"align_start"} aligns starts of short matches, adding \code{NA} on the end
 to pad to the correct length.
-\item \code{"align_end"} (\code{separate_wider_delim()} only) will align the ends of short
+\item \code{"align_end"} (\code{separate_wider_delim()} only) aligns the ends of short
 matches, adding \code{NA} at the start to pad to the correct length.
 }}
 
@@ -195,10 +195,10 @@ df \%>\%
     x,
     delim = " ",
     names = c("a", "b"),
-    too_few = "start",
+    too_few = "align_start",
     too_many = "merge"
   )
 
 # Or choose to automatically name the columns, producing as many as needed
-df \%>\% separate_wider_delim(x, sep = " ", names_sep = "", too_few = "start")
+df \%>\% separate_wider_delim(x, delim = " ", names_sep = "", too_few = "align_start")
 }

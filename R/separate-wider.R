@@ -35,11 +35,11 @@
 #'   pieces?
 #'
 #'   * `"error"`, the default, will throw an error.
-#'   * `"debug"` will add additional columns to the output to help you
+#'   * `"debug"` adds additional columns to the output to help you
 #'     locate and resolve the underlying problem.
-#'   * `"align_start"` will the align starts of short matches, adding `NA` on the end
+#'   * `"align_start"` aligns starts of short matches, adding `NA` on the end
 #'     to pad to the correct length.
-#'   * `"align_end"` (`separate_wider_delim()` only) will align the ends of short
+#'   * `"align_end"` (`separate_wider_delim()` only) aligns the ends of short
 #'     matches, adding `NA` at the start to pad to the correct length.
 #' @param too_many What should happen if a value separates into too many
 #'   pieces?
@@ -118,12 +118,12 @@
 #'     x,
 #'     delim = " ",
 #'     names = c("a", "b"),
-#'     too_few = "start",
+#'     too_few = "align_start",
 #'     too_many = "merge"
 #'   )
 #'
 #' # Or choose to automatically name the columns, producing as many as needed
-#' df %>% separate_wider_delim(x, sep = " ", names_sep = "", too_few = "start")
+#' df %>% separate_wider_delim(x, delim = " ", names_sep = "", too_few = "align_start")
 separate_wider_delim <- function(
     data,
     cols,

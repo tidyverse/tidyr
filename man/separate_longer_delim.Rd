@@ -14,13 +14,14 @@ separate_longer_position(data, cols, width, ..., keep_empty = FALSE)
 
 \item{cols}{<\code{\link[=tidyr_tidy_select]{tidy-select}}> Columns to separate.}
 
-\item{delim}{For \code{separate_wider_delim()}, a string giving the delimiter
+\item{delim}{For \code{separate_longer_delim()}, a string giving the delimiter
 between values. By default, is interpreted as a fixed string; use
 \code{stringr::regexp()} and friends to split in other ways.}
 
 \item{...}{Additional arguments passed on to methods.}
 
-\item{width}{Number of characters to split by.}
+\item{width}{For \code{separate_longer_position()}, an integer giving the
+number of characters to split by.}
 
 \item{keep_empty}{By default, you'll get \code{nchar(x) / width} rows for
 each observation. If \code{nchar(x)} is zero, this means the entire input
