@@ -39,11 +39,11 @@ Most statistical datasets are data frames made up of **rows** and **columns**. T
 ```{r}
 library(tibble)
 classroom <- tribble(
-  ~name, ~quiz1, ~quiz2, ~test1,
-  "Billy", NA, "D", "C",
-  "Suzy", "F", NA, NA,
-  "Lionel", "B", "C", "B",
-  "Jenny", "A", "A", "B"
+  ~name,    ~quiz1, ~quiz2, ~test1,
+  "Billy",  NA,     "D",    "C",
+  "Suzy",   "F",    NA,     NA,
+  "Lionel", "B",    "C",    "B",
+  "Jenny",  "A",    "A",    "B"
   )
 classroom
 ```
@@ -53,9 +53,9 @@ There are many ways to structure the same underlying data. The following table s
 ```{r}
 tribble(
   ~assessment, ~Billy, ~Suzy, ~Lionel, ~Jenny,
-  "quiz1", NA, "F", "B", "A",
-  "quiz2", "D", NA, "C", "A",
-  "test1", "C", NA, "B", "B"
+  "quiz1",     NA,     "F",   "B",     "A",
+  "quiz2",     "D",    NA,    "C",     "A",
+  "test1",     "C",    NA,    "B",     "B"
   )
 ```
 
