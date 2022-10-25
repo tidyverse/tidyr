@@ -1,5 +1,12 @@
 # tidyr (development version)
 
+* New family of consistent string separating functions:
+  `separate_wider_delim()`, `separate_wider_position()`, `separate_wider_regex()`, 
+  `separate_longer_delim()`, and `separate_longer_position()`. These functions
+  are thorough refresh of `separate()` and `extract()` featuring greater
+  consistency, a polished API, and new approach for handling problems. 
+  They supersede `extract()`, `separate()`, and `separate_rows()`.
+
 * tidyr errors (including input validation) have been thorougly reviewed
   and should generally be more likely to point you in the right direction 
   (#1313, #1400).
