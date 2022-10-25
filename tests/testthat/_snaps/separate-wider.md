@@ -116,7 +116,7 @@
       i Use `too_few = "debug"` to diagnose the problem.
       i Use `too_few = "start"` to silence this message.
 
-# separate_wider_regex() can diangose errors
+# separate_wider_regex() can diagnose errors
 
     Code
       out <- df %>% separate_wider_regex(x, c(a = "[a-z]", "-", b = "\\d+"), too_few = "debug")

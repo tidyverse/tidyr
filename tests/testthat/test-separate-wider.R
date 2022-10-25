@@ -169,7 +169,7 @@ test_that("separate_wider_regex() can silence errors", {
   expect_equal(out$b, c("123", NA))
 })
 
-test_that("separate_wider_regex() can diangose errors", {
+test_that("separate_wider_regex() can diagnose errors", {
   df <- tibble(x = c(NA, "a-123", "b_123", "c-123x", "XXXX"))
   expect_snapshot({
       out <- df %>% separate_wider_regex(
