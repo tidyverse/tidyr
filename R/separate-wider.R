@@ -197,7 +197,7 @@ str_separate_wider_delim <- function(
   }
 
   pieces <- stringr::str_split(x, delim, n = n)
-  n_pieces <- lengths(pieces)
+  n_pieces <- ifelse(is.na(x), NA, lengths(pieces))
 
   names <- names %||% as.character(seq_len(max(lengths(pieces))))
   p <- length(names)
@@ -231,10 +231,12 @@ str_separate_wider_delim <- function(
     sep_loc <- stringr::str_locate_all(x, delim)
     sep_last <- lapply(sep_loc, function(x) if (nrow(x) < p) NA else x[p, "start"])
     remainder <- stringr::str_sub(x, sep_last)
-    remainder[is.na(remainder)] <- ""
+    remainder[is.na(remainder) & !is.na(x)] <- ""
 
-    problem <- (too_few == "debug" & n_pieces < p) |
-      (too_many == "debug" & n_pieces > p)
+    problem <- !is.na(x) & (
+        (too_few == "debug" & n_pieces < p) |
+        (too_many == "debug" & n_pieces > p)
+      )
 
     out[[debug_name(col, names_sep, "ok")]] <- !problem
     out[[debug_name(col, names_sep, "pieces")]] <- n_pieces
@@ -334,8 +336,10 @@ str_separate_wider_position <- function(x,
 
   if (too_few == "debug" || too_many == "debug") {
     separate_warn_debug(col, names_sep, c("ok", "width", "remainder"))
-    problem <- (too_few == "debug" & width < expected_width) |
-      (too_many == "debug" & width > expected_width)
+    problem <- !is.na(x) & (
+        (too_few == "debug" & width < expected_width) |
+        (too_many == "debug" & width > expected_width)
+      )
 
     out[[debug_name(col, names_sep, "width")]] <- width
     out[[debug_name(col, names_sep, "remainder")]] <- stringr::str_sub(x, expected_width + 1, width)
@@ -415,11 +419,10 @@ str_separate_wider_regex <- function(x,
     out[[col]] <- x
   }
 
-  no_match <- which(is.na(match[, 1]))
-
-  match_count <- rep(length(patterns), length(x))
-  remainder <- rep("", length(x))
-  problems <- is.na(match[, 1])
+  match_count <- ifelse(is.na(x), NA, length(patterns))
+  remainder <- ifelse(is.na(x), NA, "")
+  problems <- !is.na(x) & is.na(match[, 1])
+  no_match <- which(problems)
 
   if (length(no_match) > 0) {
 
@@ -563,8 +566,8 @@ check_df_alignment <- function(
                           advice_short = NULL,
                           advice_long = NULL,
                           call = caller_env()) {
-  n_short <- sum(sizes < p)
-  n_long <- sum(sizes > p)
+  n_short <- sum(!is.na(sizes) & sizes < p)
+  n_long <- sum(!is.na(sizes) & sizes > p)
 
   error_short <- too_few == "error" && n_short > 0
   error_long <- too_many == "error" && n_long > 0

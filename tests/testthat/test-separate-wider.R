@@ -34,7 +34,7 @@ test_that("separate_wider_delim() can ignore problems", {
 })
 
 test_that("separate_wider_delim() can diagnose problems", {
-  df <- tibble(x = c("x", "x y", "x y z"))
+  df <- tibble(x = c(NA, "x", "x y", "x y z"))
   expect_snapshot(
     out <- df %>% separate_wider_delim(x, " ",
       names = c("a", "b"),
@@ -43,9 +43,9 @@ test_that("separate_wider_delim() can diagnose problems", {
     )
   )
   expect_equal(out$x, df$x)
-  expect_equal(out$x_ok, c(FALSE, TRUE, FALSE))
-  expect_equal(out$x_pieces, c(1, 2, 3))
-  expect_equal(out$x_remainder, c("", "", " z"))
+  expect_equal(out$x_ok, c(TRUE, FALSE, TRUE, FALSE))
+  expect_equal(out$x_pieces, c(NA, 1, 2, 3))
+  expect_equal(out$x_remainder, c(NA, "", "", " z"))
 
   # And can do so selectively
   suppressWarnings(
@@ -55,7 +55,15 @@ test_that("separate_wider_delim() can diagnose problems", {
       too_many = "debug",
     )
   )
-  expect_equal(out$x_ok, c(TRUE, TRUE, FALSE))
+  expect_equal(out$x_ok, c(TRUE, TRUE, TRUE, FALSE))
+})
+
+test_that("separate_wider_delim() doesn't count NA input as problem", {
+  df <- tibble(x = NA)
+  expect_equal(
+    df %>% separate_wider_delim(x, ",", names = c("a", "b")),
+    tibble(a = NA_character_, b = NA_character_)
+  )
 })
 
 test_that("separate_wider_delim() validates its inputs", {
@@ -95,7 +103,7 @@ test_that("separate_wider_position() can ignore problems", {
 })
 
 test_that("separate_wider_position() can diagnose problems", {
-  df <- tibble(x = c("ab", "abc", "abcd"))
+  df <- tibble(x = c(NA, "ab", "abc", "abcd"))
 
   expect_snapshot(
     out <- df %>% separate_wider_position(
@@ -106,9 +114,17 @@ test_that("separate_wider_position() can diagnose problems", {
     )
   )
   expect_equal(out$x, df$x)
-  expect_equal(out$x_ok, c(FALSE, TRUE, FALSE))
-  expect_equal(out$x_width, c(2, 3, 4))
-  expect_equal(out$x_remainder, c("", "", "d"))
+  expect_equal(out$x_ok, c(TRUE, FALSE, TRUE, FALSE))
+  expect_equal(out$x_width, c(NA, 2, 3, 4))
+  expect_equal(out$x_remainder, c(NA, "", "", "d"))
+})
+
+test_that("separate_wider_posiion() doesn't count NA input as problem", {
+  df <- tibble(x = NA)
+  expect_equal(
+    df %>% separate_wider_position(x, widths = c(a = 1, b = 2)),
+    tibble(a = NA_character_, b = NA_character_)
+  )
 })
 
 test_that("separate_wider_position() can drop values", {
@@ -154,7 +170,7 @@ test_that("separate_wider_regex() can silence errors", {
 })
 
 test_that("separate_wider_regex() can diangose errors", {
-  df <- tibble(x = c("a-123", "b_123", "c-123x", "XXXX"))
+  df <- tibble(x = c(NA, "a-123", "b_123", "c-123x", "XXXX"))
   expect_snapshot({
       out <- df %>% separate_wider_regex(
       x,
@@ -163,9 +179,17 @@ test_that("separate_wider_regex() can diangose errors", {
     )
   })
   expect_equal(out$x, df$x)
-  expect_equal(out$x_ok, c(TRUE, FALSE, FALSE, FALSE))
-  expect_equal(out$x_matches, c(3, 1, 3, 0))
-  expect_equal(out$x_remainder, c("", "_123", "x", "XXXX"))
+  expect_equal(out$x_ok, c(TRUE, TRUE, FALSE, FALSE, FALSE))
+  expect_equal(out$x_matches, c(NA, 3, 1, 3, 0))
+  expect_equal(out$x_remainder, c(NA, "", "_123", "x", "XXXX"))
+})
+
+test_that("separate_wider_regex() doesn't count NA input as problem", {
+  df <- tibble(x = NA)
+  expect_equal(
+    df %>% separate_wider_regex(x, patterns = c(a = ".", b = ".")),
+    tibble(a = NA_character_, b = NA_character_)
+  )
 })
 
 test_that("separate_wider_regex() can drop values", {
