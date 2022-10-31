@@ -156,7 +156,7 @@ unnest_legacy.data.frame <- function(data, ..., .drop = NA, .id = NULL,
     probs <- names(nest_types$mixed)
     cli::cli_abort(c(
       "Each column must either be a list of vectors or a list of data frames.",
-      i = "Problems in: {.var probs}"
+      i = "Problems in: {.var {probs}}"
     ))
   }
 
