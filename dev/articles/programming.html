@@ -118,7 +118,10 @@
 <div class="section level2">
 <h2 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
 </h2>
-<p>Most tidyr verbs use <strong>tidy evaluation</strong> to make interactive data exploration fast and fluid. Tidy evaluation is a special type of non-standard evaluation used throughout the tidyverse. Here’s some typical tidyr code:</p>
+<p>Most tidyr verbs use <strong>tidy evaluation</strong> to make
+interactive data exploration fast and fluid. Tidy evaluation is a
+special type of non-standard evaluation used throughout the tidyverse.
+Here’s some typical tidyr code:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyr.tidyverse.org">tidyr</a></span><span class="op">)</span></span>
 <span></span>
@@ -130,15 +133,39 @@
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> setosa     <span style="color: #949494;">&lt;tibble [50 × 4]&gt;</span></span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> versicolor <span style="color: #949494;">&lt;tibble [50 × 4]&gt;</span></span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> virginica  <span style="color: #949494;">&lt;tibble [50 × 4]&gt;</span></span></span></code></pre></div>
-<p>Tidy evaluation is why we can use <code>!Species</code> to say “all the columns except <code>Species</code>”, without having to quote the column name (<code>"Species"</code>) or refer to the enclosing data frame (<code>iris$Species</code>).</p>
+<p>Tidy evaluation is why we can use <code>!Species</code> to say “all
+the columns except <code>Species</code>”, without having to quote the
+column name (<code>"Species"</code>) or refer to the enclosing data
+frame (<code>iris$Species</code>).</p>
 <p>Two basic forms of tidy evaluation are used in tidyr:</p>
 <ul>
-<li><p><strong>Tidy selection</strong>: <code><a href="../reference/drop_na.html">drop_na()</a></code>, <code><a href="../reference/fill.html">fill()</a></code>, <code><a href="../reference/pivot_longer.html">pivot_longer()</a></code>/<code><a href="../reference/pivot_wider.html">pivot_wider()</a></code>, <code><a href="../reference/nest.html">nest()</a></code>/<code><a href="../reference/unnest.html">unnest()</a></code>, <code><a href="../reference/separate.html">separate()</a></code>/<code><a href="../reference/extract.html">extract()</a></code>, and <code><a href="../reference/unite.html">unite()</a></code> let you select variables based on position, name, or type (e.g. <code>1:3</code>, <code>starts_with("x")</code>, or <code>is.numeric</code>). Literally, you can use all the same techniques as with <code><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">dplyr::select()</a></code>.</p></li>
-<li><p><strong>Data masking</strong>: <code><a href="../reference/expand.html">expand()</a></code>, <code><a href="../reference/expand.html">crossing()</a></code> and <code><a href="../reference/expand.html">nesting()</a></code> let you refer to use data variables as if they were variables in the environment (i.e. you write <code>my_variable</code> not <code>df$myvariable</code>).</p></li>
+<li><p><strong>Tidy selection</strong>: <code><a href="../reference/drop_na.html">drop_na()</a></code>,
+<code><a href="../reference/fill.html">fill()</a></code>,
+<code><a href="../reference/pivot_longer.html">pivot_longer()</a></code>/<code><a href="../reference/pivot_wider.html">pivot_wider()</a></code>,
+<code><a href="../reference/nest.html">nest()</a></code>/<code><a href="../reference/unnest.html">unnest()</a></code>,
+<code><a href="../reference/separate.html">separate()</a></code>/<code><a href="../reference/extract.html">extract()</a></code>, and <code><a href="../reference/unite.html">unite()</a></code>
+let you select variables based on position, name, or type
+(e.g. <code>1:3</code>, <code>starts_with("x")</code>, or
+<code>is.numeric</code>). Literally, you can use all the same techniques
+as with <code><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">dplyr::select()</a></code>.</p></li>
+<li><p><strong>Data masking</strong>: <code><a href="../reference/expand.html">expand()</a></code>,
+<code><a href="../reference/expand.html">crossing()</a></code> and <code><a href="../reference/expand.html">nesting()</a></code> let you refer to use
+data variables as if they were variables in the environment (i.e. you
+write <code>my_variable</code> not <code>df$myvariable</code>).</p></li>
 </ul>
-<p>We focus on tidy selection here, since it’s the most common. You can learn more about data masking in the equivalent vignette in dplyr: <a href="https://dplyr.tidyverse.org/dev/articles/programming.html" class="external-link uri">https://dplyr.tidyverse.org/dev/articles/programming.html</a>. For other considerations when writing tidyr code in packages, please see <code><a href="../articles/in-packages.html">vignette("in-packages")</a></code>.</p>
-<p>We’ve pointed out that tidyr’s tidy evaluation interface is optimized for interactive exploration. The flip side is that this adds some challenges to indirect use, i.e. when you’re working inside a <code>for</code> loop or a function. This vignette shows you how to overcome those challenges. We’ll first go over the basics of tidy selection and data masking, talk about how to use them indirectly, and then show you a number of recipes to solve common problems.</p>
-<p>Before we go on, we reveal the version of tidyr we’re using and make a small dataset to use in examples.</p>
+<p>We focus on tidy selection here, since it’s the most common. You can
+learn more about data masking in the equivalent vignette in dplyr: <a href="https://dplyr.tidyverse.org/dev/articles/programming.html" class="external-link uri">https://dplyr.tidyverse.org/dev/articles/programming.html</a>.
+For other considerations when writing tidyr code in packages, please see
+<code><a href="../articles/in-packages.html">vignette("in-packages")</a></code>.</p>
+<p>We’ve pointed out that tidyr’s tidy evaluation interface is optimized
+for interactive exploration. The flip side is that this adds some
+challenges to indirect use, i.e. when you’re working inside a
+<code>for</code> loop or a function. This vignette shows you how to
+overcome those challenges. We’ll first go over the basics of tidy
+selection and data masking, talk about how to use them indirectly, and
+then show you a number of recipes to solve common problems.</p>
+<p>Before we go on, we reveal the version of tidyr we’re using and make
+a small dataset to use in examples.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/packageDescription.html" class="external-link">packageVersion</a></span><span class="op">(</span><span class="st">"tidyr"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] '1.2.1.9000'</span></span>
@@ -158,21 +185,34 @@
 <div class="section level2">
 <h2 id="tidy-selection">Tidy selection<a class="anchor" aria-label="anchor" href="#tidy-selection"></a>
 </h2>
-<p>Underneath all functions that use tidy selection is the <a href="https://tidyselect.r-lib.org/" class="external-link">tidyselect</a> package. It provides a miniature domain specific language that makes it easy to select columns by name, position, or type. For example:</p>
+<p>Underneath all functions that use tidy selection is the <a href="https://tidyselect.r-lib.org/" class="external-link">tidyselect</a> package. It provides
+a miniature domain specific language that makes it easy to select
+columns by name, position, or type. For example:</p>
 <ul>
-<li><p><code>select(df, 1)</code> selects the first column; <code>select(df, last_col())</code> selects the last column.</p></li>
-<li><p><code>select(df, c(a, b, c))</code> selects columns <code>a</code>, <code>b</code>, and <code>c</code>.</p></li>
-<li><p><code>select(df, starts_with("a"))</code> selects all columns whose name starts with “a”; <code>select(df, ends_with("z"))</code> selects all columns whose name ends with “z”.</p></li>
-<li><p><code>select(df, where(is.numeric))</code> selects all numeric columns.</p></li>
+<li><p><code>select(df, 1)</code> selects the first column;
+<code>select(df, last_col())</code> selects the last column.</p></li>
+<li><p><code>select(df, c(a, b, c))</code> selects columns
+<code>a</code>, <code>b</code>, and <code>c</code>.</p></li>
+<li><p><code>select(df, starts_with("a"))</code> selects all columns
+whose name starts with “a”; <code>select(df, ends_with("z"))</code>
+selects all columns whose name ends with “z”.</p></li>
+<li><p><code>select(df, where(is.numeric))</code> selects all numeric
+columns.</p></li>
 </ul>
 <p>You can see more details in <code><a href="../reference/tidyr_tidy_select.html">?tidyr_tidy_select</a></code>.</p>
 <div class="section level3">
 <h3 id="indirection">Indirection<a class="anchor" aria-label="anchor" href="#indirection"></a>
 </h3>
-<p>Tidy selection makes a common task easier at the cost of making a less common task harder. When you want to use tidy select indirectly with the column specification stored in an intermediate variable, you’ll need to learn some new tools. There are three main cases where this comes up:</p>
+<p>Tidy selection makes a common task easier at the cost of making a
+less common task harder. When you want to use tidy select indirectly
+with the column specification stored in an intermediate variable, you’ll
+need to learn some new tools. There are three main cases where this
+comes up:</p>
 <ul>
 <li>
-<p>When you have the tidy-select specification in a function argument, you must <strong>embrace</strong> the argument by surrounding it in doubled braces.</p>
+<p>When you have the tidy-select specification in a function
+argument, you must <strong>embrace</strong> the argument by surrounding
+it in doubled braces.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">nest_egg</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">df</span>, <span class="va">cols</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="fu"><a href="../reference/nest.html">nest</a></span><span class="op">(</span><span class="va">df</span>, egg <span class="op">=</span> <span class="op">{</span><span class="op">{</span> <span class="va">cols</span> <span class="op">}</span><span class="op">}</span><span class="op">)</span></span>
@@ -187,7 +227,11 @@
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> virginica  <span style="color: #949494;">&lt;tibble [2 × 4]&gt;</span></span></span></code></pre></div>
 </li>
 <li>
-<p>When you have a character vector of variable names, you must use <code><a href="https://tidyselect.r-lib.org/reference/all_of.html" class="external-link">all_of()</a></code> or <code><a href="https://tidyselect.r-lib.org/reference/all_of.html" class="external-link">any_of()</a></code> depending on whether you want the function to error if a variable is not found. These functions allow you to write for loops or a function that takes variable names as a character vector.</p>
+<p>When you have a character vector of variable names, you must use
+<code><a href="https://tidyselect.r-lib.org/reference/all_of.html" class="external-link">all_of()</a></code> or <code><a href="https://tidyselect.r-lib.org/reference/all_of.html" class="external-link">any_of()</a></code> depending on whether you
+want the function to error if a variable is not found. These functions
+allow you to write for loops or a function that takes variable names as
+a character vector.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">nest_egg</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">df</span>, <span class="va">cols</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="fu"><a href="../reference/nest.html">nest</a></span><span class="op">(</span><span class="va">df</span>, egg <span class="op">=</span> <span class="fu"><a href="https://tidyselect.r-lib.org/reference/all_of.html" class="external-link">all_of</a></span><span class="op">(</span><span class="va">cols</span><span class="op">)</span><span class="op">)</span></span>
@@ -203,7 +247,8 @@
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> virginica  <span style="color: #949494;">&lt;tibble [2 × 4]&gt;</span></span></span></code></pre></div>
 </li>
 <li>
-<p>In more complicated cases, you might want to use tidyselect directly:</p>
+<p>In more complicated cases, you might want to use tidyselect
+directly:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">sel_vars</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">df</span>, <span class="va">cols</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="fu">tidyselect</span><span class="fu">::</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/eval_select.html" class="external-link">eval_select</a></span><span class="op">(</span><span class="fu">rlang</span><span class="fu">::</span><span class="fu"><a href="https://rlang.r-lib.org/reference/enquo.html" class="external-link">enquo</a></span><span class="op">(</span><span class="va">cols</span><span class="op">)</span>, <span class="va">df</span><span class="op">)</span></span>
@@ -214,7 +259,12 @@
 <p>Learn more in <code>vignette("tidyselect")</code>.</p>
 </li>
 </ul>
-<p>Note that many tidyr functions use <code>...</code> so you can easily select many variables, e.g. <code>fill(df, x, y, z)</code>. I now believe that the disadvantages of this approach outweigh the benefits, and that this interface would have been better as <code>fill(df, c(x, y, z))</code>. For new functions that select columns, please just use a single argument and not <code>...</code>.</p>
+<p>Note that many tidyr functions use <code>...</code> so you can easily
+select many variables, e.g. <code>fill(df, x, y, z)</code>. I now
+believe that the disadvantages of this approach outweigh the benefits,
+and that this interface would have been better as
+<code>fill(df, c(x, y, z))</code>. For new functions that select
+columns, please just use a single argument and not <code>...</code>.</p>
 </div>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
