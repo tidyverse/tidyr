@@ -66,6 +66,15 @@ test_that("separate_wider_delim() doesn't count NA input as problem", {
   )
 })
 
+test_that("separate_wider_delim() works with empty data frames", {
+  df <- tibble(x = character())
+  out <- separate_wider_delim(df, x, delim = ",", names = c("y", "z"))
+  expect_equal(out, tibble(y = character(), z = character()))
+
+  out <- separate_wider_delim(df, x, delim = ",", names_sep = "_")
+  expect_equal(out, tibble())
+})
+
 test_that("separate_wider_delim() validates its inputs", {
   df <- tibble(x = "x")
   expect_snapshot(error = TRUE, {
@@ -131,6 +140,12 @@ test_that("separate_wider_position() can drop values", {
   df <- tibble(x = "a-b")
   out <- df %>% separate_wider_position(x, widths = c("a" = 1, 1, "b" = 1))
   expect_equal(out, tibble(a = "a", b = "b"))
+})
+
+test_that("separate_wider_position() works with empty data frames", {
+  df <- tibble(x = character())
+  out <- separate_wider_position(df, x, widths = c(y = 1, z = 2))
+  expect_equal(out, tibble(y = character(), z = character()))
 })
 
 test_that("separate_wider_position() validates its inputs", {
@@ -209,6 +224,12 @@ test_that("separate_wider_regex() gives informative error if () used", {
   expect_snapshot(error = TRUE, {
     df %>% separate_wider_regex(x, c("_" = "(.)"))
   })
+})
+
+test_that("separate_wider_regex() works with empty data frames", {
+  df <- tibble(x = character())
+  out <- separate_wider_regex(df, x, patterns = c(y = ".", z = "."))
+  expect_equal(out, tibble(y = character(), z = character()))
 })
 
 test_that("separate_wider_regex() validates its inputs", {

@@ -202,7 +202,7 @@ str_separate_wider_delim <- function(
   lengths <- lengths(pieces)
   n_pieces <- ifelse(is.na(x), NA, lengths)
 
-  names <- names %||% as.character(seq_len(max(lengths)))
+  names <- names %||% as.character(seq_len(int_max(lengths, 0)))
   p <- length(names)
 
   check_df_alignment(col, p, "pieces", n_pieces,
@@ -510,6 +510,10 @@ df_align <- function(
     align_direction = c("start", "end")
 ) {
   vec_check_list(x)
+  if (length(x) == 0) {
+    return(new_data_frame(rep_named(names, list(character())), size = 0))
+  }
+
   align_direction <- arg_match(align_direction)
 
   n <- length(x)
