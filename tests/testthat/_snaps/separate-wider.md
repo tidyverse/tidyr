@@ -131,7 +131,7 @@
     Condition
       Error in `separate_wider_regex()`:
       ! Invalid number of groups.
-      i Did you use () instead of (?:) inside `patterns`?
+      i Did you use "()" instead of "(?:)" inside `patterns`?
 
 # separate_wider_regex() validates its inputs
 

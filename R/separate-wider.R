@@ -407,7 +407,7 @@ str_separate_wider_regex <- function(x,
   if (ncol(match) != sum(has_name) + 1L) {
     cli::cli_abort(c(
       "Invalid number of groups.",
-      i = "Did you use () instead of (?:) inside {.arg patterns}?"
+      i = 'Did you use "()" instead of "(?:)" inside {.arg patterns}?'
     ), call = error_call)
   }
 
