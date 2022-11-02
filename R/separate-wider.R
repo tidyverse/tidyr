@@ -140,7 +140,7 @@ separate_wider_delim <- function(
   check_data_frame(data)
   check_required(cols)
   check_dots_empty()
-  check_string(delim)
+  check_string(delim, allow_empty = FALSE)
   if (is.null(names) && is.null(names_sep)) {
     cli::cli_abort("Must specify at least one of {.arg names} or {.arg names_sep}.")
   }

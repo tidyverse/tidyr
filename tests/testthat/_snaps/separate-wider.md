@@ -42,19 +42,24 @@
       df %>% separate_wider_delim(x, "")
     Condition
       Error in `separate_wider_delim()`:
+      ! `delim` must be a single string, not the empty string "".
+    Code
+      df %>% separate_wider_delim(x, "-")
+    Condition
+      Error in `separate_wider_delim()`:
       ! Must specify at least one of `names` or `names_sep`.
     Code
-      df %>% separate_wider_delim(x, "", names = 1)
+      df %>% separate_wider_delim(x, "-", names = 1)
     Condition
       Error in `separate_wider_delim()`:
       ! `names` must be a character vector or `NULL`, not the number 1.
     Code
-      df %>% separate_wider_delim(x, "", names = c(x = "x"))
+      df %>% separate_wider_delim(x, "-", names = c(x = "x"))
     Condition
       Error in `separate_wider_delim()`:
       ! `names` must be an unnamed character vector.
     Code
-      df %>% separate_wider_delim(x, "", names_sep = "_", too_many = "merge")
+      df %>% separate_wider_delim(x, "-", names_sep = "_", too_many = "merge")
     Condition
       Error in `separate_wider_delim()`:
       ! Must provide `names` when `too_many = "merge"`.
