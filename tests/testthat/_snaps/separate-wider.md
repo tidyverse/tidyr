@@ -146,6 +146,12 @@
       Error in `separate_wider_regex()`:
       ! `patterns` must be a character vector, not absent.
     Code
+      df %>% separate_wider_regex(y, patterns = c(x = "-"))
+    Condition
+      Error in `separate_wider_regex()`:
+      ! Can't subset columns that don't exist.
+      x Column `y` doesn't exist.
+    Code
       df %>% separate_wider_regex(x, patterns = ".")
     Condition
       Error in `separate_wider_regex()`:

@@ -476,9 +476,14 @@ str_separate_wider_regex <- function(x,
 
 # helpers -----------------------------------------------------------------
 
-map_unpack <- function(data, cols, fun, names_sep, names_repair, call = caller_env()) {
-  # TODO: Use `allow_rename = FALSE` (https://github.com/r-lib/tidyselect/issues/225)
-  cols <- tidyselect::eval_select(enquo(cols), data)
+map_unpack <- function(data, cols, fun, names_sep, names_repair, error_call = caller_env()) {
+  cols <- tidyselect::eval_select(
+    enquo(cols),
+    data = data,
+    allow_rename = FALSE,
+    allow_empty = FALSE,
+    error_call = error_call
+  )
   col_names <- names(cols)
 
   for (col in col_names) {

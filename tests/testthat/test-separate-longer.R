@@ -41,6 +41,7 @@ test_that("separate_longer_position() validates its inputs", {
   df <- data.frame(x = "x")
   expect_snapshot(error = TRUE, {
     df %>% separate_longer_position()
+    df %>% separate_longer_position(y, width = 1)
     df %>% separate_longer_position(x, width = 1.5)
   })
 })

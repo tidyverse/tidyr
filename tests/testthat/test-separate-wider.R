@@ -216,6 +216,7 @@ test_that("separate_wider_regex() validates its inputs", {
   expect_snapshot(error = TRUE, {
     df %>% separate_wider_regex()
     df %>% separate_wider_regex(x)
+    df %>% separate_wider_regex(y, patterns = c(x = "-"))
     df %>% separate_wider_regex(x, patterns = ".")
   })
 })

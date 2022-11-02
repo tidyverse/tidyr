@@ -19,6 +19,12 @@
       Error in `separate_longer_position()`:
       ! `cols` is absent but must be supplied.
     Code
+      df %>% separate_longer_position(y, width = 1)
+    Condition
+      Error in `separate_longer_position()`:
+      ! Can't subset columns that don't exist.
+      x Column `y` doesn't exist.
+    Code
       df %>% separate_longer_position(x, width = 1.5)
     Condition
       Error in `separate_longer_position()`:
