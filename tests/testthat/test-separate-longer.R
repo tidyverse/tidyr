@@ -31,6 +31,12 @@ test_that("separate_longer_position() can keep empty rows", {
   expect_equal(out$x, c(NA, "x"))
 })
 
+test_that("works with zero-row data frame", {
+  df <- tibble(x = character())
+  expect_equal(separate_longer_position(df, x, 1), df)
+  expect_equal(separate_longer_delim(df, x, ","), df)
+})
+
 test_that("separate_longer_position() validates its inputs", {
   df <- data.frame(x = "x")
   expect_snapshot(error = TRUE, {
