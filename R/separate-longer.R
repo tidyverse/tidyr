@@ -13,11 +13,13 @@
 #'   between values. By default, is interpreted as a fixed string; use
 #'   [stringr::regex()] and friends to split in other ways.
 #' @inheritParams separate_wider_delim
+#' @return A data frame based on `df`. It has the same columns, but different
+#'   rows.
 #' @examples
 #' df <- tibble(id = 1:4, x = c("x", "x y", "x y z", NA))
 #' df %>% separate_longer_delim(x, delim = " ")
 #'
-#' # You can separate multiple columns at a time
+#' # You can separate multiple columns at once if they have the same structure
 #' df <- tibble(id = 1:3, x = c("x", "x y", "x y z"), y = c("a", "a b", "a b c"))
 #' df %>% separate_longer_delim(c(x, y), delim = " ")
 #'

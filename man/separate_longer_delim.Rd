@@ -28,6 +28,10 @@ each observation. If \code{nchar(x)} is zero, this means the entire input
 row will be dropped from the output. If you want to preserve all rows,
 use \code{keep_empty = TRUE} to replace size-0 elements with a missing value.}
 }
+\value{
+A data frame based on \code{df}. It has the same columns, but different
+rows.
+}
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 
@@ -41,7 +45,7 @@ Each of these functions takes a string and splits it into multiple rows:
 df <- tibble(id = 1:4, x = c("x", "x y", "x y z", NA))
 df \%>\% separate_longer_delim(x, delim = " ")
 
-# You can separate multiple columns at a time
+# You can separate multiple columns at once if they have the same structure
 df <- tibble(id = 1:3, x = c("x", "x y", "x y z"), y = c("a", "a b", "a b c"))
 df \%>\% separate_longer_delim(c(x, y), delim = " ")
 
