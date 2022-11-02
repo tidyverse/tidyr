@@ -18,7 +18,7 @@ separate_longer_position(data, cols, width, ..., keep_empty = FALSE)
 between values. By default, is interpreted as a fixed string; use
 \code{\link[stringr:modifiers]{stringr::regex()}} and friends to split in other ways.}
 
-\item{...}{Additional arguments passed on to methods.}
+\item{...}{These dots are for future extensions and must be empty.}
 
 \item{width}{For \code{separate_longer_position()}, an integer giving the
 number of characters to split by.}
@@ -29,7 +29,7 @@ row will be dropped from the output. If you want to preserve all rows,
 use \code{keep_empty = TRUE} to replace size-0 elements with a missing value.}
 }
 \value{
-A data frame based on \code{df}. It has the same columns, but different
+A data frame based on \code{data}. It has the same columns, but different
 rows.
 }
 \description{

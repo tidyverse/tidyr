@@ -94,7 +94,7 @@ test_that("separate_wider_position() can ignore problems", {
   out <- df %>% separate_wider_position(
     x,
     widths = c("a" = 2, "b" = 1),
-    too_few = "start",
+    too_few = "align_start",
     too_many = "drop"
   )
   expect_equal(out[1, ], tibble(a = "ab", b = NA_character_))
@@ -163,7 +163,7 @@ test_that("separate_wider_regex() can silence errors", {
   out <- df %>% separate_wider_regex(
     x,
     c("a" = ".", "-", "b" = "\\d+"),
-    too_few = "start"
+    too_few = "align_start"
   )
   expect_equal(out$a, c("a", "b"))
   expect_equal(out$b, c("123", NA))

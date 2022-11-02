@@ -13,7 +13,7 @@
 #'   between values. By default, is interpreted as a fixed string; use
 #'   [stringr::regex()] and friends to split in other ways.
 #' @inheritParams separate_wider_delim
-#' @return A data frame based on `df`. It has the same columns, but different
+#' @return A data frame based on `data`. It has the same columns, but different
 #'   rows.
 #' @examples
 #' df <- tibble(id = 1:4, x = c("x", "x y", "x y z", NA))

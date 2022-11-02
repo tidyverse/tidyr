@@ -11,22 +11,22 @@
 #' * `separate_wider_regex()` splits with regular expression matches.
 #'
 #' These functions are equivalent to [separate()] and [extract()], but use
-#' [stringr](http://stringr.tidyverse.org/) as the underlying string
+#' [stringr](https://stringr.tidyverse.org/) as the underlying string
 #' manipulation engine, and their interfaces reflect what we've learned from
 #' [unnest_wider()] and [unnest_longer()].
 #'
 #' @inheritParams unnest_longer
-#' @inheritParams separate
 #' @param cols <[`tidy-select`][tidyr_tidy_select]> Columns to separate.
 #' @param names_sep If supplied, output names will be composed
 #'   of the input column name followed by the separator followed by the
 #'   new column name. Required when `cols` selects multiple columns.
 #'
-#'   For `separate_wider()` you can specify instead of `names`, in which
+#'   For `separate_wider_delim()` you can specify instead of `names`, in which
 #'   case the names will be generated from the source column name, `names_sep`,
 #'   and a numeric suffix.
-#' @param names For `separate_wider_delim()`, a character vector of column names.
-#'   It's length determines the number of new columns in the output.
+#' @param names For `separate_wider_delim()`, a character vector of output
+#'   column names. Its length determines the number of new columns in the
+#'   result.
 #' @param delim For `separate_wider_delim()`, a string giving the delimiter
 #'   between values. By default, is interpreted as a fixed string; use
 #'   [stringr::regex()] and friends to split in other ways.
@@ -50,9 +50,9 @@
 #'   * `"drop"` will silently drop any extra pieces.
 #'   * `"merge"` (`separate_wider_delim()` only) will merge together any
 #'     additional pieces.
-#' @param col_remove Should the input `cols` be removed from the output?
-#'   Always preserved if `too_few` or `too_many` is set to `"debug`.
-#' @return A data frame based on `df`. It has the same rows, but different
+#' @param cols_remove Should the input `cols` be removed from the output?
+#'   Always `FALSE` if `too_few` or `too_many` are set to `"debug"`.
+#' @returns A data frame based on `data`. It has the same rows, but different
 #'   columns:
 #'
 #' * The primary purpose of the functions are to create new columns from
@@ -62,7 +62,7 @@
 #'   For `separate_wider_regex()` the names come from the names of
 #'   `patterns`.
 #'
-#' * If `too_few` or `too_many` is `"debug"`, the output will additional
+#' * If `too_few` or `too_many` is `"debug"`, the output will contain additional
 #'   columns useful for debugging:
 #'
 #'   * `{col}_ok`: a logical vector which tells you if the input was ok or
@@ -72,7 +72,7 @@
 #'     number of characters, and number of matches for `separate_wider_delim()`,
 #'     `separate_wider_position()` and `separate_regexp_wider()` respectively.
 #'
-#' * If `col_remove = TRUE` (the default), the input `cols` will be removed
+#' * If `cols_remove = TRUE` (the default), the input `cols` will be removed
 #'   from the output.
 #'
 #' @export
@@ -87,13 +87,13 @@
 #' df %>% separate_wider_regex(x, c(gender = ".", ".", unit = "\\d+"))
 #'
 #' # Sometimes you split on the "last" delimiter:
-#' df <- data.frame(var = c("race_1", "race_2", "age_bucket_1", "age_bucket_2"))
+#' df <- tibble(var = c("race_1", "race_2", "age_bucket_1", "age_bucket_2"))
 #' # _delim won't help because it always splits on the first delimiter
 #' try(df %>% separate_wider_delim(var, "_", names = c("var1", "var2")))
 #' df %>% separate_wider_delim(var, "_", names = c("var1", "var2"), too_many = "merge")
-#' # Instead, you can use _group:
+#' # Instead, you can use _regex:
 #' df %>% separate_wider_regex(var, c(var1 = ".*", "_", var2 = ".*"))
-#' # this works because * is greedy; you can mimic the _by behaviour with .*?
+#' # this works because * is greedy; you can mimic the _delim behaviour with .*?
 #' df %>% separate_wider_regex(var, c(var1 = ".*?", "_", var2 = ".*"))
 #'
 #' # If the number of components varies, it's most natural to split into rows
@@ -134,9 +134,10 @@ separate_wider_delim <- function(
     names_repair = "check_unique",
     too_few = c("error", "debug", "align_start", "align_end"),
     too_many = c("error", "debug", "drop", "merge"),
-    col_remove = TRUE
+    cols_remove = TRUE
 ) {
   check_installed("stringr")
+  check_data_frame(data)
   check_required(cols)
   check_dots_empty()
   check_string(delim)
@@ -144,12 +145,12 @@ separate_wider_delim <- function(
     cli::cli_abort("Must specify at least one of {.arg names} or {.arg names_sep}.")
   }
   check_character(names, allow_null = TRUE)
-  if (length(names) > 0 && is_named(names)) {
+  if (is_named(names)) {
     cli::cli_abort("{.arg names} must be an unnamed character vector.")
   }
   too_few <- arg_match(too_few)
   too_many <- arg_match(too_many)
-  check_bool(col_remove)
+  check_bool(cols_remove)
 
   error_call %<~% current_env()
 
@@ -161,7 +162,7 @@ separate_wider_delim <- function(
       names_sep = names_sep,
       too_few = too_few,
       too_many = too_many,
-      col_remove = col_remove,
+      cols_remove = cols_remove,
       error_call = error_call
     ),
     names_sep = names_sep,
@@ -177,7 +178,7 @@ str_separate_wider_delim <- function(
     names_sep = NULL,
     too_few = "error",
     too_many = "error",
-    col_remove = TRUE,
+    cols_remove = TRUE,
     error_call = caller_env()
 ) {
 
@@ -197,9 +198,11 @@ str_separate_wider_delim <- function(
   }
 
   pieces <- stringr::str_split(x, delim, n = n)
-  n_pieces <- ifelse(is.na(x), NA, lengths(pieces))
 
-  names <- names %||% as.character(seq_len(max(lengths(pieces))))
+  lengths <- lengths(pieces)
+  n_pieces <- ifelse(is.na(x), NA, lengths)
+
+  names <- names %||% as.character(seq_len(max(lengths)))
   p <- length(names)
 
   check_df_alignment(col, p, "pieces", n_pieces,
@@ -222,7 +225,7 @@ str_separate_wider_delim <- function(
     align_direction = if (too_few == "align_end") "end" else "start"
   )
 
-  if (!col_remove || too_few == "debug" || too_many == "debug") {
+  if (!cols_remove || too_few == "debug" || too_many == "debug") {
     out[[col]] <- x
   }
 
@@ -258,11 +261,12 @@ separate_wider_position <- function(
     ...,
     names_sep = NULL,
     names_repair = "check_unique",
-    too_few = c("error", "debug", "start"),
+    too_few = c("error", "debug", "align_start"),
     too_many = c("error", "debug", "drop"),
-    col_remove = TRUE
+    cols_remove = TRUE
 ) {
   check_installed("stringr")
+  check_data_frame(data)
   check_required(cols)
   if (!is_integerish(widths) || !any(have_name(widths))) {
     cli::cli_abort("{.arg widths} must be a named integer vector.")
@@ -270,7 +274,7 @@ separate_wider_position <- function(
   check_dots_empty()
   too_few <- arg_match(too_few)
   too_many <- arg_match(too_many)
-  check_bool(col_remove)
+  check_bool(cols_remove)
 
   error_call <- current_env()
 
@@ -281,7 +285,7 @@ separate_wider_position <- function(
       names_sep = names_sep,
       too_few = too_few,
       too_many = too_many,
-      col_remove = col_remove,
+      cols_remove = cols_remove,
       error_call = error_call
     ),
     names_sep = names_sep,
@@ -295,7 +299,7 @@ str_separate_wider_position <- function(x,
                                   names_sep = NULL,
                                   too_few = "error",
                                   too_many = "error",
-                                  col_remove = TRUE,
+                                  cols_remove = TRUE,
                                   error_call = caller_env()
                                   ) {
 
@@ -330,7 +334,7 @@ str_separate_wider_position <- function(x,
     align_direction = if (too_few == "end") "end" else "start"
   )
 
-  if (!col_remove || too_few == "debug" || too_many == "debug") {
+  if (!cols_remove || too_few == "debug" || too_many == "debug") {
     out[[col]] <- x
   }
 
@@ -362,10 +366,11 @@ separate_wider_regex <- function(
     ...,
     names_sep = NULL,
     names_repair = "check_unique",
-    too_few = c("error", "debug", "start"),
-    col_remove = TRUE
+    too_few = c("error", "debug", "align_start"),
+    cols_remove = TRUE
 ) {
   check_installed("stringr")
+  check_data_frame(data)
   check_required(cols)
   check_character(patterns)
   if (all(!have_name(patterns))) {
@@ -374,7 +379,7 @@ separate_wider_regex <- function(
   check_dots_empty()
   check_string(names_sep, allow_null = TRUE)
   too_few <- arg_match(too_few)
-  check_bool(col_remove)
+  check_bool(cols_remove)
 
   error_call <- current_env()
 
@@ -384,7 +389,7 @@ separate_wider_regex <- function(
       patterns = patterns,
       names_sep = names_sep,
       too_few = too_few,
-      col_remove = col_remove,
+      cols_remove = cols_remove,
       error_call = error_call
     ),
     names_sep = names_sep,
@@ -397,7 +402,7 @@ str_separate_wider_regex <- function(x,
                                      patterns,
                                      names_sep = NULL,
                                      too_few = "error",
-                                     col_remove = TRUE,
+                                     cols_remove = TRUE,
                                      error_call = caller_env()) {
   has_name <- names2(patterns) != ""
   groups <- paste0("(", ifelse(has_name, "", "?:"), patterns, ")")
@@ -415,7 +420,7 @@ str_separate_wider_regex <- function(x,
   out <- as_tibble(matches, .name_repair = "none")
   colnames(out) <- names2(patterns)[has_name]
 
-  if (!col_remove || too_few == "debug") {
+  if (!cols_remove || too_few == "debug") {
     out[[col]] <- x
   }
 
@@ -429,7 +434,7 @@ str_separate_wider_regex <- function(x,
     if (too_few == "error") {
       cli::cli_abort(c(
         "Expected each value of {.var {col}} to match the pattern, the whole pattern, and nothing but the pattern.",
-        "!" = "{length(no_match)} value{?s} {?has/had} problem{?s}.",
+        "!" = "{length(no_match)} value{?s} {?has/have} problem{?s}.",
         i = 'Use {.code too_few = "debug"} to diagnose the problem.',
         i = 'Use {.code too_few = "start"} to silence this message.'
       ), call = error_call)

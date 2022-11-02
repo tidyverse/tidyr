@@ -16,7 +16,7 @@ separate_wider_delim(
   names_repair = "check_unique",
   too_few = c("error", "debug", "align_start", "align_end"),
   too_many = c("error", "debug", "drop", "merge"),
-  col_remove = TRUE
+  cols_remove = TRUE
 )
 
 separate_wider_position(
@@ -26,9 +26,9 @@ separate_wider_position(
   ...,
   names_sep = NULL,
   names_repair = "check_unique",
-  too_few = c("error", "debug", "start"),
+  too_few = c("error", "debug", "align_start"),
   too_many = c("error", "debug", "drop"),
-  col_remove = TRUE
+  cols_remove = TRUE
 )
 
 separate_wider_regex(
@@ -38,8 +38,8 @@ separate_wider_regex(
   ...,
   names_sep = NULL,
   names_repair = "check_unique",
-  too_few = c("error", "debug", "start"),
-  col_remove = TRUE
+  too_few = c("error", "debug", "align_start"),
+  cols_remove = TRUE
 )
 }
 \arguments{
@@ -51,16 +51,17 @@ separate_wider_regex(
 between values. By default, is interpreted as a fixed string; use
 \code{\link[stringr:modifiers]{stringr::regex()}} and friends to split in other ways.}
 
-\item{...}{Additional arguments passed on to methods.}
+\item{...}{These dots are for future extensions and must be empty.}
 
-\item{names}{For \code{separate_wider_delim()}, a character vector of column names.
-It's length determines the number of new columns in the output.}
+\item{names}{For \code{separate_wider_delim()}, a character vector of output
+column names. Its length determines the number of new columns in the
+result.}
 
 \item{names_sep}{If supplied, output names will be composed
 of the input column name followed by the separator followed by the
 new column name. Required when \code{cols} selects multiple columns.
 
-For \code{separate_wider()} you can specify instead of \code{names}, in which
+For \code{separate_wider_delim()} you can specify instead of \code{names}, in which
 case the names will be generated from the source column name, \code{names_sep},
 and a numeric suffix.}
 
@@ -102,8 +103,8 @@ locate and resolve the underlying problem.
 additional pieces.
 }}
 
-\item{col_remove}{Should the input \code{cols} be removed from the output?
-Always preserved if \code{too_few} or \code{too_many} is set to \verb{"debug}.}
+\item{cols_remove}{Should the input \code{cols} be removed from the output?
+Always \code{FALSE} if \code{too_few} or \code{too_many} are set to \code{"debug"}.}
 
 \item{widths}{A named numeric vector where the names become column names,
 and the values specify the column width. Unnamed components will match,
@@ -114,7 +115,7 @@ and the values are regular expressions that match the contents of the
 vector. Unnamed components will match, but not be included in the output.}
 }
 \value{
-A data frame based on \code{df}. It has the same rows, but different
+A data frame based on \code{data}. It has the same rows, but different
 columns:
 \itemize{
 \item The primary purpose of the functions are to create new columns from
@@ -123,7 +124,7 @@ For \code{separate_wider_delim()} the names of new columns come from \code{names
 For \code{separate_wider_position()} the names come from the names of \code{widths}.
 For \code{separate_wider_regex()} the names come from the names of
 \code{patterns}.
-\item If \code{too_few} or \code{too_many} is \code{"debug"}, the output will additional
+\item If \code{too_few} or \code{too_many} is \code{"debug"}, the output will contain additional
 columns useful for debugging:
 \itemize{
 \item \verb{\{col\}_ok}: a logical vector which tells you if the input was ok or
@@ -133,7 +134,7 @@ not. Use to quickly find the problematic rows.
 number of characters, and number of matches for \code{separate_wider_delim()},
 \code{separate_wider_position()} and \code{separate_regexp_wider()} respectively.
 }
-\item If \code{col_remove = TRUE} (the default), the input \code{cols} will be removed
+\item If \code{cols_remove = TRUE} (the default), the input \code{cols} will be removed
 from the output.
 }
 }
@@ -149,7 +150,7 @@ new columns:
 }
 
 These functions are equivalent to \code{\link[=separate]{separate()}} and \code{\link[=extract]{extract()}}, but use
-\href{http://stringr.tidyverse.org/}{stringr} as the underlying string
+\href{https://stringr.tidyverse.org/}{stringr} as the underlying string
 manipulation engine, and their interfaces reflect what we've learned from
 \code{\link[=unnest_wider]{unnest_wider()}} and \code{\link[=unnest_longer]{unnest_longer()}}.
 }
@@ -164,13 +165,13 @@ df \%>\% separate_wider_position(x, c(gender = 1, 1, unit = 3))
 df \%>\% separate_wider_regex(x, c(gender = ".", ".", unit = "\\\\d+"))
 
 # Sometimes you split on the "last" delimiter:
-df <- data.frame(var = c("race_1", "race_2", "age_bucket_1", "age_bucket_2"))
+df <- tibble(var = c("race_1", "race_2", "age_bucket_1", "age_bucket_2"))
 # _delim won't help because it always splits on the first delimiter
 try(df \%>\% separate_wider_delim(var, "_", names = c("var1", "var2")))
 df \%>\% separate_wider_delim(var, "_", names = c("var1", "var2"), too_many = "merge")
-# Instead, you can use _group:
+# Instead, you can use _regex:
 df \%>\% separate_wider_regex(var, c(var1 = ".*", "_", var2 = ".*"))
-# this works because * is greedy; you can mimic the _by behaviour with .*?
+# this works because * is greedy; you can mimic the _delim behaviour with .*?
 df \%>\% separate_wider_regex(var, c(var1 = ".*?", "_", var2 = ".*"))
 
 # If the number of components varies, it's most natural to split into rows
