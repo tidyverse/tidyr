@@ -11,7 +11,7 @@
 #' @export
 #' @param delim For `separate_longer_delim()`, a string giving the delimiter
 #'   between values. By default, is interpreted as a fixed string; use
-#'   `stringr::regexp()` and friends to split in other ways.
+#'   [stringr::regexp()] and friends to split in other ways.
 #' @inheritParams separate_wider_delim
 #' @examples
 #' df <- tibble(id = 1:4, x = c("x", "x y", "x y z", NA))
@@ -28,6 +28,7 @@
 #' df %>% separate_longer_position(x, 2, keep_empty = TRUE)
 separate_longer_delim <- function(data, cols, delim, ...) {
   check_installed("stringr")
+  check_data_frame(data)
   check_required(cols)
   check_string(delim)
   check_dots_empty()
@@ -41,7 +42,7 @@ separate_longer_delim <- function(data, cols, delim, ...) {
 
 #' @param width For `separate_longer_position()`, an integer giving the
 #'   number of characters to split by.
-#' @param keep_empty By default, you'll get `nchar(x) / width` rows for
+#' @param keep_empty By default, you'll get `ceiling(nchar(x) / width)` rows for
 #'   each observation. If `nchar(x)` is zero, this means the entire input
 #'   row will be dropped from the output. If you want to preserve all rows,
 #'   use `keep_empty = TRUE` to replace size-0 elements with a missing value.
@@ -49,14 +50,14 @@ separate_longer_delim <- function(data, cols, delim, ...) {
 #' @export
 separate_longer_position <- function(data, cols, width, ..., keep_empty = FALSE) {
   check_installed("stringr")
+  check_data_frame(data)
   check_required(cols)
-  if (!is_integerish(width) || length(width) != 1 || is.na(width)) {
-    abort("`width` must be an integer")
-  }
+  check_number_whole(width, min = 1L)
   check_dots_empty()
 
   map_unchop(
-    data, {{ cols }},
+    data,
+    {{ cols }},
     str_split_length,
     width = width,
     .keep_empty = keep_empty
@@ -82,5 +83,5 @@ map_unchop <- function(data, cols, fun, ..., .keep_empty = FALSE) {
   for (col in col_names) {
     data[[col]] <- fun(data[[col]], ...)
   }
-  unchop(data, all_of(col_names), keep_empty = .keep_empty)
+  unchop(data, all_of(col_names), keep_empty = .keep_empty, ptype = character())
 }
