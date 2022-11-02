@@ -49,7 +49,7 @@ separate_wider_regex(
 
 \item{delim}{For \code{separate_wider_delim()}, a string giving the delimiter
 between values. By default, is interpreted as a fixed string; use
-\code{stringr::regexp()} and friends to split in other ways.}
+\code{\link[stringr:modifiers]{stringr::regex()}} and friends to split in other ways.}
 
 \item{...}{Additional arguments passed on to methods.}
 

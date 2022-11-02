@@ -16,14 +16,14 @@ separate_longer_position(data, cols, width, ..., keep_empty = FALSE)
 
 \item{delim}{For \code{separate_longer_delim()}, a string giving the delimiter
 between values. By default, is interpreted as a fixed string; use
-\code{stringr::regexp()} and friends to split in other ways.}
+\code{\link[stringr:modifiers]{stringr::regex()}} and friends to split in other ways.}
 
 \item{...}{Additional arguments passed on to methods.}
 
 \item{width}{For \code{separate_longer_position()}, an integer giving the
 number of characters to split by.}
 
-\item{keep_empty}{By default, you'll get \code{nchar(x) / width} rows for
+\item{keep_empty}{By default, you'll get \code{ceiling(nchar(x) / width)} rows for
 each observation. If \code{nchar(x)} is zero, this means the entire input
 row will be dropped from the output. If you want to preserve all rows,
 use \code{keep_empty = TRUE} to replace size-0 elements with a missing value.}

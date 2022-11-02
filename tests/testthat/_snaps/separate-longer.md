@@ -22,5 +22,5 @@
       df %>% separate_longer_position(x, width = 1.5)
     Condition
       Error in `separate_longer_position()`:
-      ! `width` must be an integer
+      ! `width` must be a whole number, not the number 1.5.
 

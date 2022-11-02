@@ -29,7 +29,7 @@
 #'   It's length determines the number of new columns in the output.
 #' @param delim For `separate_wider_delim()`, a string giving the delimiter
 #'   between values. By default, is interpreted as a fixed string; use
-#'   `stringr::regexp()` and friends to split in other ways.
+#'   [stringr::regex()] and friends to split in other ways.
 #' @inheritParams rlang::args_dots_empty
 #' @param too_few What should happen if a value separates into too few
 #'   pieces?
