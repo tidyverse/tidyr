@@ -54,8 +54,9 @@ between values. By default, is interpreted as a fixed string; use
 \item{...}{These dots are for future extensions and must be empty.}
 
 \item{names}{For \code{separate_wider_delim()}, a character vector of output
-column names. Its length determines the number of new columns in the
-result.}
+column names. Use \code{NA} if there are components that you don't want
+to appear in the output; the number of non-\code{NA} elements determines the
+number of new columns in the result.}
 
 \item{names_sep}{If supplied, output names will be composed
 of the input column name followed by the separator followed by the

@@ -25,8 +25,9 @@
 #'   case the names will be generated from the source column name, `names_sep`,
 #'   and a numeric suffix.
 #' @param names For `separate_wider_delim()`, a character vector of output
-#'   column names. Its length determines the number of new columns in the
-#'   result.
+#'   column names. Use `NA` if there are components that you don't want
+#'   to appear in the output; the number of non-`NA` elements determines the
+#'   number of new columns in the result.
 #' @param delim For `separate_wider_delim()`, a string giving the delimiter
 #'   between values. By default, is interpreted as a fixed string; use
 #'   [stringr::regex()] and friends to split in other ways.
@@ -255,28 +256,32 @@ str_separate_wider_delim <- function(
 #'   but not be included in the output.
 #' @export
 separate_wider_position <- function(
-    data,
-    cols,
-    widths,
-    ...,
-    names_sep = NULL,
-    names_repair = "check_unique",
-    too_few = c("error", "debug", "align_start"),
-    too_many = c("error", "debug", "drop"),
-    cols_remove = TRUE
-) {
+                                    data,
+                                    cols,
+                                    widths,
+                                    ...,
+                                    names_sep = NULL,
+                                    names_repair = "check_unique",
+                                    too_few = c("error", "debug", "align_start"),
+                                    too_many = c("error", "debug", "drop"),
+                                    cols_remove = TRUE
+                                    ) {
   check_installed("stringr")
   check_data_frame(data)
   check_required(cols)
   if (!is_integerish(widths) || !any(have_name(widths))) {
-    cli::cli_abort("{.arg widths} must be a named integer vector.")
+    cli::cli_abort("{.arg widths} must be a (partially) named integer vector.")
   }
+  if (any(widths <= 0)) {
+    cli::cli_abort("All values of {.arg widths} must be positive.")
+  }
+
   check_dots_empty()
   too_few <- arg_match(too_few)
   too_many <- arg_match(too_many)
   check_bool(cols_remove)
 
-  error_call <- current_env()
+  error_call %<~% current_env()
 
   map_unpack(
     data, {{ cols }},
@@ -294,16 +299,16 @@ separate_wider_position <- function(
 }
 
 str_separate_wider_position <- function(x,
-                                  col,
-                                  widths,
-                                  names_sep = NULL,
-                                  too_few = "error",
-                                  too_many = "error",
-                                  cols_remove = TRUE,
-                                  error_call = caller_env()
-                                  ) {
+                                        col,
+                                        widths,
+                                        names_sep = NULL,
+                                        too_few = "error",
+                                        too_many = "error",
+                                        cols_remove = TRUE,
+                                        error_call = caller_env()
+                                        ) {
 
-  breaks <- cumsum(c(1, unname(widths)))[-(length(widths) + 1)]
+  breaks <- cumsum(c(1L, unname(widths)))[-(length(widths) + 1L)]
   expected_width <- sum(widths)
 
   width <- stringr::str_length(x)
@@ -360,20 +365,20 @@ str_separate_wider_position <- function(x,
 #'   vector. Unnamed components will match, but not be included in the output.
 #' @export
 separate_wider_regex <- function(
-    data,
-    cols,
-    patterns,
-    ...,
-    names_sep = NULL,
-    names_repair = "check_unique",
-    too_few = c("error", "debug", "align_start"),
-    cols_remove = TRUE
-) {
+                                 data,
+                                 cols,
+                                 patterns,
+                                 ...,
+                                 names_sep = NULL,
+                                 names_repair = "check_unique",
+                                 too_few = c("error", "debug", "align_start"),
+                                 cols_remove = TRUE
+                                 ) {
   check_installed("stringr")
   check_data_frame(data)
   check_required(cols)
   check_character(patterns)
-  if (all(!have_name(patterns))) {
+  if (length(patterns) > 0 && all(!have_name(patterns))) {
     cli::cli_abort("{.arg patterns} must be a named character vector.")
   }
   check_dots_empty()
@@ -381,7 +386,7 @@ separate_wider_regex <- function(
   too_few <- arg_match(too_few)
   check_bool(cols_remove)
 
-  error_call <- current_env()
+  error_call %<~% current_env()
 
   map_unpack(
     data, {{ cols }},
@@ -405,8 +410,8 @@ str_separate_wider_regex <- function(x,
                                      cols_remove = TRUE,
                                      error_call = caller_env()) {
   has_name <- names2(patterns) != ""
-  groups <- paste0("(", ifelse(has_name, "", "?:"), patterns, ")")
-  full_match <- paste0("^", paste(groups, collapse = ""), "$")
+  groups <- stringr::str_c("(", ifelse(has_name, "", "?:"), patterns, ")")
+  full_match <- stringr::str_c("^", stringr::str_flatten(groups, collapse = ""), "$")
 
   match <- stringr::str_match(x, full_match)
   if (ncol(match) != sum(has_name) + 1L) {
@@ -571,17 +576,17 @@ df_align_transpose <- function(x, p, align_direction = "start") {
 }
 
 check_df_alignment <- function(
-                          col,
-                          p,
-                          type,
-                          sizes,
-                          too_few,
-                          too_many,
-                          advice_short = NULL,
-                          advice_long = NULL,
-                          call = caller_env()) {
-  n_short <- sum(!is.na(sizes) & sizes < p)
-  n_long <- sum(!is.na(sizes) & sizes > p)
+                               col,
+                               p,
+                               type,
+                               sizes,
+                               too_few,
+                               too_many,
+                               advice_short = NULL,
+                               advice_long = NULL,
+                               call = caller_env()) {
+  n_short <- sum(sizes < p, na.rm = TRUE)
+  n_long <- sum(sizes > p, na.rm = TRUE)
 
   error_short <- too_few == "error" && n_short > 0
   error_long <- too_many == "error" && n_long > 0

@@ -103,12 +103,17 @@
       df %>% separate_wider_position(x, widths = 1.5)
     Condition
       Error in `separate_wider_position()`:
-      ! `widths` must be a named integer vector.
+      ! `widths` must be a (partially) named integer vector.
     Code
       df %>% separate_wider_position(x, widths = 1L)
     Condition
       Error in `separate_wider_position()`:
-      ! `widths` must be a named integer vector.
+      ! `widths` must be a (partially) named integer vector.
+    Code
+      df %>% separate_wider_position(x, widths = c(x = 0))
+    Condition
+      Error in `separate_wider_position()`:
+      ! All values of `widths` must be positive.
 
 # separate_wider_regex() errors if match fails
 

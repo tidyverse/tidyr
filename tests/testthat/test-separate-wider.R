@@ -156,6 +156,7 @@ test_that("separate_wider_position() validates its inputs", {
     df %>% separate_wider_position(x)
     df %>% separate_wider_position(x, widths = 1.5)
     df %>% separate_wider_position(x, widths = 1L)
+    df %>% separate_wider_position(x, widths = c(x = 0))
   })
 })
 
