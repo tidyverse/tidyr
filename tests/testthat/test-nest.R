@@ -97,6 +97,13 @@ test_that("nesting no columns nests all inputs", {
   expect_equal(out$data[[1]], df)
 })
 
+test_that("validates its inputs", {
+  df <- tibble(x = c(1, 1, 1), ya = 1:3, yb = 4:6)
+  expect_snapshot(error = TRUE, {
+    nest(df, y = ya:yb, .names_sep = 1)
+  })
+})
+
 # Deprecated behaviours ---------------------------------------------------
 
 

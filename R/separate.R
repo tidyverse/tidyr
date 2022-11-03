@@ -31,17 +31,21 @@
 #'   expression capturing groups.
 #' @export
 #' @examples
-#' library(dplyr)
 #' # If you want to split by any non-alphanumeric value (the default):
-#' df <- data.frame(x = c(NA, "x.y", "x.z", "y.z"))
+#' df <- tibble(x = c(NA, "x.y", "x.z", "y.z"))
 #' df %>% separate(x, c("A", "B"))
 #'
 #' # If you just want the second variable:
 #' df %>% separate(x, c(NA, "B"))
 #'
+#' # Supply your own regex:
+#' df <- tibble(x = c(NA, "a1b", "c4d", "e9g"))
+#' df %>% separate(x, c("A", "B"), sep = "[0-9]")
+#'
+#' # Controlling uneven splits -------------------------------------------------
 #' # If every row doesn't split into the same number of pieces, use
 #' # the extra and fill arguments to control what happens:
-#' df <- data.frame(x = c("x", "x y", "x y z", NA))
+#' df <- tibble(x = c("x", "x y", "x y z", NA))
 #' df %>% separate(x, c("a", "b"))
 #' # The same behaviour as previous, but drops the c without warnings:
 #' df %>% separate(x, c("a", "b"), extra = "drop", fill = "right")
@@ -51,15 +55,12 @@
 #' df %>% separate(x, c("a", "b", "c"))
 #'
 #' # To only split a specified number of times use extra = "merge":
-#' df <- data.frame(x = c("x: 123", "y: error: 7"))
+#' df <- tibble(x = c("x: 123", "y: error: 7"))
 #' df %>% separate(x, c("key", "value"), ": ", extra = "merge")
 #'
-#' # Use regular expressions to separate on multiple characters:
-#' df <- data.frame(x = c(NA, "a1b", "c4d", "e9g"))
-#' df %>% separate(x, c("A", "B"), sep = "[0-9]")
-#'
+#' # Controlling column types --------------------------------------------------
 #' # convert = TRUE detects column classes:
-#' df <- data.frame(x = c("x:1", "x:2", "y:4", "z", NA))
+#' df <- tibble(x = c("x:1", "x:2", "y:4", "z", NA))
 #' df %>% separate(x, c("key", "value"), ":") %>% str()
 #' df %>% separate(x, c("key", "value"), ":", convert = TRUE) %>% str()
 separate <- function(data, col, into, sep = "[^[:alnum:]]+", remove = TRUE,
@@ -72,6 +73,8 @@ separate.data.frame <- function(data, col, into, sep = "[^[:alnum:]]+",
                                 remove = TRUE, convert = FALSE,
                                 extra = "warn", fill = "warn", ...) {
   check_required(col)
+  check_bool(remove)
+
   var <- tidyselect::vars_pull(names(data), !!enquo(col))
   value <- as.character(data[[var]])
 
@@ -86,19 +89,20 @@ separate.data.frame <- function(data, col, into, sep = "[^[:alnum:]]+",
   reconstruct_tibble(data, out, if (remove) var else NULL)
 }
 
-str_separate <- function(x, into, sep, convert = FALSE, extra = "warn", fill = "warn") {
-  check_not_stringr_pattern(sep, "sep")
-
-  if (!is.character(into)) {
-    abort("`into` must be a character vector")
-  }
+str_separate <- function(x, into, sep, convert = FALSE, extra = "warn", fill = "warn", error_call = caller_env()) {
+  check_character(into, call = error_call)
+  check_bool(convert, call = error_call)
 
   if (is.numeric(sep)) {
     out <- strsep(x, sep)
-  } else if (is_character(sep)) {
+  } else if (is_string(sep)) {
+    check_not_stringr_pattern(sep, call = error_call)
     out <- str_split_fixed(x, sep, length(into), extra = extra, fill = fill)
   } else {
-    abort("`sep` must be either numeric or character")
+    cli::cli_abort(
+      "{.arg sep} must be a string or numeric vector, not {.obj_type_friendly {sep}}",
+      call = error_call
+    )
   }
 
   names(out) <- as_utf8_character(into)
@@ -186,10 +190,8 @@ list_indices <- function(x, max = 20) {
   paste(x, collapse = ", ")
 }
 
-check_not_stringr_pattern <- function(x, arg) {
+check_not_stringr_pattern <- function(x, arg = caller_arg(x), call = caller_env()) {
   if (inherits_any(x, c("pattern", "stringr_pattern"))) {
-    abort(glue("`{arg}` can't use modifiers from stringr."))
+    cli::cli_abort("{.arg {arg}} can't use modifiers from stringr.", call = call)
   }
-
-  invisible(x)
 }

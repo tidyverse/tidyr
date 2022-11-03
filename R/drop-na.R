@@ -12,7 +12,6 @@
 #' @param ... <[`tidy-select`][tidyr_tidy_select]> Columns to inspect for
 #'   missing values. If empty, all columns are used.
 #' @examples
-#' library(dplyr)
 #' df <- tibble(x = c(1, 2, NA), y = c("a", NA, "b"))
 #' df %>% drop_na()
 #' df %>% drop_na(x)
@@ -33,7 +32,7 @@ drop_na.data.frame <- function(data, ...) {
     # Use all columns if no `...` are supplied
     cols <- data
   } else {
-    vars <- tidyselect::eval_select(expr(c(!!!dots)), data)
+    vars <- tidyselect::eval_select(expr(c(!!!dots)), data, allow_rename = FALSE)
     cols <- data[vars]
   }
 

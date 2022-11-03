@@ -15,8 +15,8 @@ nesting(..., .name_repair = "check_unique")
 \arguments{
 \item{data}{A data frame.}
 
-\item{...}{Specification of columns to expand. Columns can be atomic vectors
-or lists.
+\item{...}{<\code{\link[=tidyr_data_masking]{data-masking}}> Specification of columns
+to expand. Columns can be atomic vectors or lists.
 \itemize{
 \item To find all unique combinations of \code{x}, \code{y} and \code{z}, including those not
 present in the data, supply each variable as a separate argument:
@@ -73,6 +73,7 @@ With grouped data frames, \code{expand()} operates \emph{within} each group. Bec
 this, you cannot expand on a grouping column.
 }
 \examples{
+# Finding combinations ------------------------------------------------------
 fruits <- tibble(
   type = c("apple", "orange", "apple", "orange", "orange", "orange"),
   year = c(2010, 2010, 2012, 2010, 2011, 2012),
@@ -83,19 +84,19 @@ fruits <- tibble(
   weights = rnorm(6, as.numeric(size) + 2)
 )
 
-# All possible combinations ---------------------------------------
-# Note that all defined, but not necessarily present, levels of the
-# factor variable `size` are retained.
+# All combinations, including factor levels that are not used
 fruits \%>\% expand(type)
+fruits \%>\% expand(size)
 fruits \%>\% expand(type, size)
 fruits \%>\% expand(type, size, year)
 
-# Only combinations that already appear in the data ---------------
+# Only combinations that already appear in the data
 fruits \%>\% expand(nesting(type))
+fruits \%>\% expand(nesting(size))
 fruits \%>\% expand(nesting(type, size))
 fruits \%>\% expand(nesting(type, size, year))
 
-# Other uses -------------------------------------------------------
+# Other uses ----------------------------------------------------------------
 # Use with `full_seq()` to fill in values of continuous variables
 fruits \%>\% expand(type, size, full_seq(year, 1))
 fruits \%>\% expand(type, size, 2010:2013)
@@ -105,7 +106,7 @@ all <- fruits \%>\% expand(type, size, year)
 all
 all \%>\% dplyr::anti_join(fruits)
 
-# Use with `right_join()` to fill in missing rows
+# Use with `right_join()` to fill in missing rows (like `complete()`)
 fruits \%>\% dplyr::right_join(all)
 
 # Use with `group_by()` to expand within each group

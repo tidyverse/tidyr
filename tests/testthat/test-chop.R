@@ -20,9 +20,12 @@ test_that("grouping is preserved", {
   expect_equal(dplyr::group_vars(out), "g")
 })
 
-test_that("`cols` is required (#1205)", {
+test_that("chop() validates its input `cols` (#1205)", {
   df <- tibble(x = 1:2)
-  expect_snapshot((expect_error(chop(df))))
+  expect_snapshot(error = TRUE, {
+    chop(df$x)
+    chop(df)
+  })
 })
 
 test_that("can chop empty data frame (#1206)", {
@@ -304,4 +307,15 @@ test_that("unchopping drops outer names", {
   df <- tibble(col = list(a = 1, b = 2:3))
   out <- unchop(df, col)
   expect_named(out$col, NULL)
+})
+
+test_that("unchop validates its inputs", {
+  df <- tibble(col = list(a = 1, b = 2:3))
+
+  expect_snapshot(error = TRUE, {
+    unchop(1:10)
+    unchop(df)
+    unchop(df, col, keep_empty = 1)
+    unchop(df, col, ptype = 1)
+  })
 })

@@ -20,21 +20,23 @@ test_that("can strip outer names from inner names", {
   expect_named(out$a, c("x", "y"))
 })
 
-test_that("all inputs must be named", {
-  df <- tibble(a1 = 1, a2 = 2, b1 = 1, b2 = 2)
-
-  expect_snapshot({
-    (expect_error(pack(df, a = c(a1, a2), c(b1, b2))))
-    (expect_error(pack(df, c(a1, a2), c(b1, b2))))
-  })
-})
-
 test_that("grouping is preserved", {
   df <- tibble(g1 = 1, g2 = 1, g3 = 1)
   out <- df %>%
     dplyr::group_by(g1, g2) %>%
     pack(g = c(g2, g3))
   expect_equal(dplyr::group_vars(out), "g1")
+})
+
+test_that("pack validates its inputs", {
+  df <- tibble(a1 = 1, a2 = 2, b1 = 1, b2 = 2)
+
+  expect_snapshot(error = TRUE,{
+    pack(1)
+    pack(df, c(a1, a2), c(b1, b2))
+    pack(df, a = c(a1, a2), c(b1, b2))
+    pack(df, a = c(a1, a2), .names_sep = 1)
+  })
 })
 
 # unpack ------------------------------------------------------------------
@@ -87,4 +89,14 @@ test_that("can choose to add separtor", {
 test_that("can unpack 1-row but 0-col dataframe (#1189)", {
   df <- tibble(x = tibble(.rows = 1))
   expect_identical(unpack(df, x), tibble::new_tibble(list(), nrow = 1L))
+})
+
+test_that("unpack() validates its inputs", {
+  df <- tibble(x = 1:2, y = tibble(a = 1:2, b = 1:2))
+
+  expect_snapshot(error = TRUE, {
+    unpack(1)
+    unpack(df)
+    unpack(df, y, names_sep = 1)
+  })
 })

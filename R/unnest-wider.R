@@ -61,6 +61,7 @@
 #' # where you'll usually want to provide names_sep:
 #' df %>% unnest_wider(y, names_sep = "_")
 #'
+#' # 0-length elements ---------------------------------------------------------
 #' # The defaults of `unnest_wider()` treat empty types (like `list()`) as `NULL`.
 #' json <- list(
 #'   list(x = 1:2, y = 1:2),
@@ -83,22 +84,14 @@ unnest_wider <- function(data,
                          names_repair = "check_unique",
                          ptype = NULL,
                          transform = NULL) {
-  if (!is.data.frame(data)) {
-    abort("`data` must be a data frame.")
-  }
 
+  check_data_frame(data)
   check_required(col)
-  # TODO: Use `allow_rename = FALSE`.
-  # Requires https://github.com/r-lib/tidyselect/issues/225.
-  cols <- tidyselect::eval_select(enquo(col), data)
-  col_names <- names(cols)
+  check_string(names_sep, allow_null = TRUE)
+  check_bool(strict)
 
-  if (!is.null(names_sep) && !is_string(names_sep)) {
-    abort("`names_sep` must be a single string or `NULL`.")
-  }
-  if (!is_bool(strict)) {
-    abort("`strict` must be a single `TRUE` or `FALSE`.")
-  }
+  cols <- tidyselect::eval_select(enquo(col), data, allow_rename = FALSE)
+  col_names <- names(cols)
 
   for (i in seq_along(cols)) {
     col <- cols[[i]]
@@ -129,11 +122,7 @@ unnest_wider <- function(data,
 }
 
 # Converts a column of any type to a `list_of<tbl>`
-col_to_wide <- function(col, name, strict, names_sep) {
-  if (is.null(col)) {
-    abort(glue("Invalid `NULL` column detected for column `{name}`."))
-  }
-
+col_to_wide <- function(col, name, strict, names_sep, error_call = caller_env()) {
   if (!vec_is_list(col)) {
     ptype <- vec_ptype(col)
     col <- vec_chop(col)
@@ -143,12 +132,12 @@ col_to_wide <- function(col, name, strict, names_sep) {
   # If we don't have a list_of, then a `NULL` `col_ptype` will get converted to
   # a 1 row, 0 col tibble for `elt_ptype`
   col_ptype <- list_of_ptype(col)
-  elt_ptype <- elt_to_wide(col_ptype, name = name, strict = strict, names_sep = names_sep)
+  elt_ptype <- elt_to_wide(col_ptype, name = name, strict = strict, names_sep = names_sep, error_call = error_call)
   elt_ptype <- vec_ptype(elt_ptype)
 
   # Avoid expensive dispatch from `[[.list_of`
   out <- tidyr_new_list(col)
-  out <- map(out, elt_to_wide, name = name, strict = strict, names_sep = names_sep)
+  out <- map(out, elt_to_wide, name = name, strict = strict, names_sep = names_sep, error_call = error_call)
 
   # In the sole case of a list_of<data_frame>, we can be sure that the
   # elements of `out` will all be of the same type. Otherwise,
@@ -182,13 +171,16 @@ col_to_wide <- function(col, name, strict, names_sep) {
 #   where round tripping a typed empty cell results in an empty `list()` that
 #   won't be able to combine with other typed non-empty cells. However, it
 #   can create inconsistencies with vctrs typing rules.
-elt_to_wide <- function(x, name, strict, names_sep) {
+elt_to_wide <- function(x, name, strict, names_sep, error_call = caller_env()) {
   if (is.null(x)) {
     x <- list()
   }
 
   if (!vec_is(x)) {
-    abort(glue("Column `{name}` must contain a list of vectors."))
+    cli::cli_abort(
+      "List-column {.var {name}} must contain only vectors.",
+      call = error_call
+    )
   }
 
   if (is.data.frame(x)) {
@@ -218,7 +210,7 @@ elt_to_wide <- function(x, name, strict, names_sep) {
   }
 
   if (is.null(names_sep)) {
-    names(x) <- vec_as_names(names2(x), repair = "unique")
+    names(x) <- vec_as_names(names2(x), repair = "unique", call = error_call)
   } else {
     outer <- name
 
@@ -226,7 +218,7 @@ elt_to_wide <- function(x, name, strict, names_sep) {
     if (is.null(inner)) {
       inner <- as.character(seq_along(x))
     } else {
-      inner <- vec_as_names(inner, repair = "unique")
+      inner <- vec_as_names(inner, repair = "unique", call = error_call)
     }
 
     names(x) <- apply_names_sep(outer, inner, names_sep)

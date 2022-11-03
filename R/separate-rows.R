@@ -29,7 +29,10 @@ separate_rows.data.frame <- function(data,
                                      ...,
                                      sep = "[^[:alnum:].]+",
                                      convert = FALSE) {
-  vars <- tidyselect::eval_select(expr(c(...)), data)
+  check_string(sep)
+  check_bool(convert)
+
+  vars <- tidyselect::eval_select(expr(c(...)), data, allow_rename = FALSE)
 
   out <- purrr::modify_at(data, vars, str_split_n, pattern = sep)
   out <- unchop(as_tibble(out), any_of(vars))

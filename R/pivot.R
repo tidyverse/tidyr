@@ -29,25 +29,22 @@
 #' # `.name` and `.value` are forced to be the first two columns
 #' spec <- tibble(foo = 1, .value = "b", .name = "a")
 #' check_pivot_spec(spec)
-check_pivot_spec <- function(spec) {
-  if (!is.data.frame(spec)) {
-    abort("`spec` must be a data frame.")
-  }
+check_pivot_spec <- function(spec, call = caller_env()) {
+  check_data_frame(spec, call = call)
 
   if (!has_name(spec, ".name") || !has_name(spec, ".value")) {
-    abort("`spec` must have `.name` and `.value` columns.")
+    cli::cli_abort(
+      "{.arg spec} must have {.var .name} and {.var .value} columns.",
+      call = call
+    )
   }
 
-  if (!is.character(spec$.name)) {
-    abort("The `.name` column of `spec` must be a character vector.")
-  }
+  check_character(spec$.name, call = call)
   if (vec_duplicate_any(spec$.name)) {
-    abort("The `.name` column of `spec` must be unique.")
+    cli::cli_abort("{.var spec$.name} must be unique.", call = call)
   }
 
-  if (!is.character(spec$.value)) {
-    abort("The `.value` column of `spec` must be a character vector.")
-  }
+  check_character(spec$.value, call = call)
 
   # Ensure `.name` and `.value` come first, in that order
   vars <- union(c(".name", ".value"), names(spec))

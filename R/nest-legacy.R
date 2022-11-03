@@ -41,7 +41,7 @@
 #' @export
 #' @examples
 #' # Nest and unnest are inverses
-#' df <- data.frame(x = c(1, 1, 2), y = 3:1)
+#' df <- tibble(x = c(1, 1, 2), y = 3:1)
 #' df %>% nest_legacy(y)
 #' df %>% nest_legacy(y) %>% unnest_legacy()
 #'
@@ -147,16 +147,16 @@ unnest_legacy.data.frame <- function(data, ..., .drop = NA, .id = NULL,
   nested <- dplyr::transmute(dplyr::ungroup(data), !!!quos)
   n <- map(nested, function(x) unname(map_int(x, NROW)))
   if (length(unique(n)) != 1) {
-    abort("All nested columns must have the same number of elements.")
+    cli::cli_abort("All nested columns must have the same number of elements.")
   }
 
   types <- map_chr(nested, list_col_type)
   nest_types <- split.default(nested, types)
   if (length(nest_types$mixed) > 0) {
-    probs <- paste(names(nest_types$mixed), collapse = ",")
-    abort(glue(
-      "Each column must either be a list of vectors or a list of ",
-      "data frames [{probs}]"
+    probs <- names(nest_types$mixed)
+    cli::cli_abort(c(
+      "Each column must either be a list of vectors or a list of data frames.",
+      i = "Problems in: {.var {probs}}"
     ))
   }
 
@@ -229,7 +229,7 @@ enframe <- function(x, col_name, .id = NULL) {
   }
 
   col <- unname(x)
-  col <- vec_unchop(col)
+  col <- list_unchop(col)
 
   out <- set_names(list(col), col_name)
   out <- as_tibble(out)

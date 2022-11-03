@@ -13,7 +13,7 @@
 #' they mimic the nested column headers that are so popular in Excel.
 #'
 #' @param data,.data A data frame.
-#' @param cols <[`tidy-select`][tidyr_tidy_select]> Column to unpack.
+#' @param cols <[`tidy-select`][tidyr_tidy_select]> Columns to unpack.
 #' @param names_sep,.names_sep If `NULL`, the default, the names will be left
 #'   as is. In `pack()`, inner names will come from the former outer names;
 #'   in `unpack()`, the new outer names will come from the inner names.
@@ -29,7 +29,7 @@
 #'   The right hand side can be any valid tidy select expression.
 #' @export
 #' @examples
-#' # Packing =============================================================
+#' # Packing -------------------------------------------------------------------
 #' # It's not currently clear why you would ever want to pack columns
 #' # since few functions work with this sort of data.
 #' df <- tibble(x1 = 1:3, x2 = 4:6, x3 = 7:9, y = 1:3)
@@ -47,7 +47,7 @@
 #'     .names_sep = "."
 #'   )
 #'
-#' # Unpacking ===========================================================
+#' # Unpacking -----------------------------------------------------------------
 #' df <- tibble(
 #'   x = 1:3,
 #'   y = tibble(a = 1:3, b = 3:1),
@@ -58,10 +58,12 @@
 #' df %>% unpack(c(y, z))
 #' df %>% unpack(c(y, z), names_sep = "_")
 pack <- function(.data, ..., .names_sep = NULL) {
+  check_data_frame(.data)
   cols <- enquos(...)
   if (any(names2(cols) == "")) {
-    abort("All elements of `...` must be named")
+    cli::cli_abort("All elements of `...` must be named")
   }
+  check_string(.names_sep, allow_null = TRUE)
 
   cols <- map(cols, ~ tidyselect::eval_select(.x, .data))
 
@@ -97,14 +99,14 @@ pack <- function(.data, ..., .names_sep = NULL) {
 #'   See [vctrs::vec_as_names()] for more details on these terms and the
 #'   strategies used to enforce them.
 unpack <- function(data, cols, names_sep = NULL, names_repair = "check_unique") {
+  check_data_frame(data)
   check_required(cols)
-  cols <- tidyselect::eval_select(enquo(cols), data)
-
-  size <- vec_size(data)
+  check_string(names_sep, allow_null = TRUE)
 
   # Start from first principles to avoid issues in any subclass methods
   out <- tidyr_new_list(data)
 
+  cols <- tidyselect::eval_select(enquo(cols), data)
   cols <- out[cols]
   cols <- cols[map_lgl(cols, is.data.frame)]
 
@@ -124,6 +126,7 @@ unpack <- function(data, cols, names_sep = NULL, names_repair = "check_unique") 
   names[names %in% cols_names] <- ""
   names(out) <- names
 
+  size <- vec_size(data)
   out <- df_list(!!!out, .size = size, .name_repair = "minimal")
   out <- tibble::new_tibble(out, nrow = size)
 

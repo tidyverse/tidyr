@@ -21,11 +21,10 @@ unnest(
 \arguments{
 \item{data}{A data frame.}
 
-\item{cols}{<\code{\link[=tidyr_tidy_select]{tidy-select}}> Columns to unnest.
+\item{cols}{<\code{\link[=tidyr_tidy_select]{tidy-select}}> List-columns to unnest.
 
-If you \code{unnest()} multiple columns, parallel entries must be of
-compatible sizes, i.e. they're either equal or length 1 (following the
-standard tidyverse recycling rules).}
+When selecting multiple columns, values from the same row will be recycled
+to their common size.}
 
 \item{...}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}:
 previously you could write \code{df \%>\% unnest(x, y, z)}.
@@ -111,6 +110,7 @@ df \%>\% unnest(y)
 # but you can keep them (generating NAs) with keep_empty = TRUE:
 df \%>\% unnest(y, keep_empty = TRUE)
 
+# Multiple columns ----------------------------------------------------------
 # You can unnest multiple columns simultaneously
 df <- tibble(
   x = 1:2,

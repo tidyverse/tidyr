@@ -10,10 +10,10 @@
 #'
 #' @inheritParams hoist
 #' @inheritParams unnest
-#' @param col List-column(s) to extract components from.
-#'   You can use tidyselect to select multiple columns to unnest simultaneously.
-#'   When using `unnest_longer()` with multiple columns, values across columns
-#'   that originated from the same row are recycled to a common size.
+#' @param col <[`tidy-select`][tidyr_tidy_select]> List-column(s) to unnest.
+#'
+#'   When selecting multiple columns, values from the same row will be recycled
+#'   to their common size.
 #' @param values_to A string giving the column name (or names) to store the
 #'   unnested values in. If multiple columns are specified in `col`, this can
 #'   also be a glue string containing `"{col}"` to provide a template for the
@@ -50,6 +50,7 @@
 #' )
 #' df %>% unnest_longer(y)
 #'
+#' # Multiple columns ----------------------------------------------------------
 #' # If columns are aligned, you can unnest simultaneously.
 #' df <- tibble(
 #'   x = 1:2,
@@ -73,38 +74,28 @@ unnest_longer <- function(data,
                           simplify = TRUE,
                           ptype = NULL,
                           transform = NULL) {
-  if (!is.data.frame(data)) {
-    abort("`data` must be a data frame.")
-  }
 
+  check_data_frame(data)
   check_required(col)
-  # TODO: Use `allow_rename = FALSE`.
-  # Requires https://github.com/r-lib/tidyselect/issues/225.
-  cols <- tidyselect::eval_select(enquo(col), data)
+  check_name(values_to, allow_null = TRUE)
+  check_name(indices_to, allow_null = TRUE)
+  check_bool(indices_include, allow_null = TRUE)
+
+  cols <- tidyselect::eval_select(enquo(col), data, allow_rename = FALSE)
   col_names <- names(cols)
   n_col_names <- length(col_names)
 
-  if (!is.null(indices_include) && !is_bool(indices_include)) {
-    abort("`indices_include` must be `NULL` or a single `TRUE` or `FALSE`.")
-  }
-
-  if (is.null(values_to)) {
-    values_to <- "{col}"
-  }
-  if (!is_string(values_to)) {
-    abort("`values_to` must be a single string or `NULL`.")
-  }
+  values_to <- values_to %||% "{col}"
 
   if (is.null(indices_to)) {
     indices_to <- vec_paste0(values_to, "_id")
   } else {
     if (is_false(indices_include)) {
-      abort("Can't set `indices_include` to `FALSE` when `indices_to` is supplied.")
+      cli::cli_abort(
+        "Can't use {.code indices_include = FALSE} when {.arg indices_to} is supplied."
+      )
     }
     indices_include <- TRUE
-  }
-  if (!is_string(indices_to)) {
-    abort("`indices_to` must be a single string or `NULL`.")
   }
 
   values_to <- glue_col_names(values_to, col_names)
@@ -149,10 +140,8 @@ col_to_long <- function(col,
                         name,
                         values_to,
                         indices_to,
-                        indices_include) {
-  if (is.null(col)) {
-    abort(glue("Invalid `NULL` column detected for column `{name}`."))
-  }
+                        indices_include,
+                        error_call = caller_env()) {
 
   if (!vec_is_list(col)) {
     ptype <- vec_ptype(col)
@@ -174,7 +163,8 @@ col_to_long <- function(col,
     name = name,
     values_to = values_to,
     indices_to = indices_to,
-    indices_include = indices_include
+    indices_include = indices_include,
+    error_call = error_call
   )
   elt_ptype <- vec_ptype(elt_ptype)
 
@@ -188,7 +178,8 @@ col_to_long <- function(col,
       name = name,
       values_to = values_to,
       indices_to = indices_to,
-      indices_include = indices_include
+      indices_include = indices_include,
+      error_call = error_call
     )
   }
 
@@ -208,7 +199,8 @@ elt_to_long <- function(x,
                         name,
                         values_to,
                         indices_to,
-                        indices_include) {
+                        indices_include,
+                        error_call = caller_env()) {
   if (is.null(x)) {
     x <- unspecified(1L)
 
@@ -222,7 +214,10 @@ elt_to_long <- function(x,
   }
 
   if (!vec_is(x)) {
-    abort(glue("Column `{name}` must contain a list of vectors."))
+    cli::cli_abort(
+      "List-column {.var {name}} must contain only vectors.",
+      call = error_call
+    )
   }
 
   if (indices_include) {
@@ -249,7 +244,7 @@ collect_indices_info <- function(col, indices_include) {
 
   indices <- map(col, vec_names)
   # FIXME use `vec_any_missing()`
-  unnamed <- vec_equal_na(indices)
+  unnamed <- vec_detect_missing(indices)
   all_unnamed <- all(unnamed)
 
   if (is.null(indices_include) && all_unnamed) {

@@ -18,12 +18,7 @@ extract(
 \arguments{
 \item{data}{A data frame.}
 
-\item{col}{Column name or position. This is passed to
-\code{\link[tidyselect:vars_pull]{tidyselect::vars_pull()}}.
-
-This argument is passed by expression and supports
-\link[rlang:topic-inject]{quasiquotation} (you can unquote column
-names or column positions).}
+\item{col}{<\code{\link[=tidyr_tidy_select]{tidy-select}}> Column to expand.}
 
 \item{into}{Names of new variables to create as character vector.
 Use \code{NA} to omit the variable in the output.}
@@ -48,7 +43,7 @@ each group into a new column. If the groups don't match, or the input
 is NA, the output will be NA.
 }
 \examples{
-df <- data.frame(x = c(NA, "a-b", "a-d", "b-c", "d-e"))
+df <- tibble(x = c(NA, "a-b", "a-d", "b-c", "d-e"))
 df \%>\% extract(x, "A")
 df \%>\% extract(x, c("A", "B"), "([[:alnum:]]+)-([[:alnum:]]+)")
 

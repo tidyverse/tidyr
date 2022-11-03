@@ -4,31 +4,31 @@
       (expect_error(df_simplify(data.frame(), simplify = 1)))
     Output
       <error/rlang_error>
-      Error in `df_simplify()`:
+      Error:
       ! `simplify` must be a list or a single `TRUE` or `FALSE`.
     Code
       (expect_error(df_simplify(data.frame(), simplify = NA)))
     Output
       <error/rlang_error>
-      Error in `df_simplify()`:
+      Error:
       ! `simplify` must be a list or a single `TRUE` or `FALSE`.
     Code
       (expect_error(df_simplify(data.frame(), simplify = c(TRUE, FALSE))))
     Output
       <error/rlang_error>
-      Error in `df_simplify()`:
+      Error:
       ! `simplify` must be a list or a single `TRUE` or `FALSE`.
     Code
       (expect_error(df_simplify(data.frame(), simplify = list(1))))
     Output
       <error/rlang_error>
-      Error in `df_simplify()`:
+      Error:
       ! All elements of `simplify` must be named.
     Code
       (expect_error(df_simplify(data.frame(), simplify = list(x = 1, x = 1))))
     Output
       <error/rlang_error>
-      Error in `df_simplify()`:
+      Error:
       ! The names of `simplify` must be unique.
 
 # `ptype` is validated
@@ -37,19 +37,19 @@
       (expect_error(df_simplify(data.frame(), ptype = 1)))
     Output
       <error/rlang_error>
-      Error in `check_list_of_ptypes()`:
+      Error:
       ! `ptype` must be `NULL`, an empty ptype, or a named list of ptypes.
     Code
       (expect_error(df_simplify(data.frame(), ptype = list(1))))
     Output
       <error/rlang_error>
-      Error in `check_list_of_ptypes()`:
+      Error:
       ! All elements of `ptype` must be named.
     Code
       (expect_error(df_simplify(data.frame(), ptype = list(x = 1, x = 1))))
     Output
       <error/rlang_error>
-      Error in `check_list_of_ptypes()`:
+      Error:
       ! The names of `ptype` must be unique.
 
 # `transform` is validated
@@ -58,25 +58,25 @@
       (expect_error(df_simplify(data.frame(), transform = list(~.x))))
     Output
       <error/rlang_error>
-      Error in `check_list_of_functions()`:
+      Error:
       ! All elements of `transform` must be named.
     Code
       (expect_error(df_simplify(data.frame(x = 1), transform = 1)))
     Output
       <error/rlang_error>
-      Error in `map()`:
-      ! Can't convert `.x[[i]]`, a number, to a function.
+      Error:
+      ! `transform` must be `NULL`, a function, or a named list of functions.
     Code
       (expect_error(df_simplify(data.frame(), transform = list(x = 1))))
     Output
       <error/rlang_error>
-      Error in `map()`:
-      ! Can't convert `.x[[i]]`, a number, to a function.
+      Error:
+      ! Can't convert `transform`, a number, to a function.
     Code
       (expect_error(df_simplify(data.frame(), transform = list(x = 1, x = 1))))
     Output
       <error/rlang_error>
-      Error in `check_list_of_functions()`:
+      Error:
       ! The names of `transform` must be unique.
 
 # ptype is applied after transform
@@ -86,7 +86,7 @@
         1.5)))
     Output
       <error/vctrs_error_cast_lossy>
-      Error in `col_simplify()`:
+      Error:
       ! Can't convert from `..1` <double> to <integer> due to loss of precision.
       * Locations: 1
 

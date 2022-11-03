@@ -78,12 +78,11 @@ tidyr_col_modify <- function(data, cols) {
   # data frame methods for `[<-` and `[[<-`.
   # Assume each element of `cols` has the correct size.
 
-  if (!is.data.frame(data)) {
-    abort("Internal error: `data` must be a data frame.")
-  }
+  check_data_frame(data, .internal = TRUE)
   if (!is_list(cols)) {
-    abort("Internal error: `cols` must be a list.")
+    cli::cli_abort("`cols` must be a list.", .internal = TRUE)
   }
+
 
   size <- vec_size(data)
   data <- tidyr_new_list(data)
@@ -104,7 +103,7 @@ tidyr_col_modify <- function(data, cols) {
 
 tidyr_new_list <- function(x) {
   if (!is_list(x)) {
-    abort("Internal error: `x` must be a VECSXP.")
+    cli::cli_abort("`x` must be a list.", .internal = TRUE)
   }
 
   names <- names(x)
@@ -131,14 +130,13 @@ list_init_empty <- function(x,
                             null = TRUE,
                             typed = TRUE) {
   check_dots_empty()
-
-  if (!vec_is_list(x)) {
-    abort("Internal error: `x` must be a list.")
+  if (!is_list(x)) {
+    cli::cli_abort("`x` must be a list.", .internal = TRUE)
   }
 
   sizes <- list_sizes(x)
   # FIXME use `vec_any_missing()`?
-  empty_null <- vec_equal_na(x)
+  empty_null <- vec_detect_missing(x)
   empty_typed <- (sizes == 0L) & !empty_null
 
   if (null && any(empty_null)) {
@@ -194,54 +192,70 @@ vec_paste0 <- function(...) {
   exec(paste0, !!!args)
 }
 
-check_list_of_ptypes <- function(x, names, arg) {
-  if (vec_is(x) && vec_is_empty(x)) {
-    x <- rep_named(names, list(x))
+check_data_frame <- function(x, ..., arg = caller_arg(x), call = caller_env()) {
+  if (!is.data.frame(x)) {
+    cli::cli_abort("{.arg {arg}} must be a data frame, not {.obj_type_friendly {x}}.", ..., call = call)
   }
+}
 
+check_unique_names <- function(x, arg = caller_arg(x), call = caller_env()) {
+  if (length(x) > 0L && !is_named(x)) {
+    cli::cli_abort("All elements of {.arg {arg}} must be named.", call = call)
+  }
+  if (vec_duplicate_any(names(x))) {
+    cli::cli_abort("The names of {.arg {arg}} must be unique.", call = call)
+  }
+}
+
+check_list_of_ptypes <- function(x, names, arg = caller_arg(x), call = caller_env()) {
+  if (is.null(x)) {
+    set_names(list(), character())
+  } else if (vec_is(x) && vec_is_empty(x)) {
+    rep_named(names, list(x))
+  } else if (vec_is_list(x)) {
+    check_unique_names(x, arg = arg, call = call)
+
+    # Silently drop user supplied names not found in the data
+    x[intersect(names(x), names)]
+  } else {
+    cli::cli_abort(
+      "{.arg {arg}} must be `NULL`, an empty ptype, or a named list of ptypes.",
+      call = call
+    )
+  }
+}
+
+check_list_of_functions <- function(x, names, arg = caller_arg(x), call = caller_env()) {
   if (is.null(x)) {
     x <- set_names(list(), character())
+  } else if (is.function(x) || is_formula(x)) {
+    x <- rep_named(names, list(x))
+  } else if (!vec_is_list(x)) {
+    cli::cli_abort(
+      "{.arg {arg}} must be `NULL`, a function, or a named list of functions.",
+      call = call
+    )
   }
 
-  if (!vec_is_list(x)) {
-    abort(glue("`{arg}` must be `NULL`, an empty ptype, or a named list of ptypes."))
-  }
+  check_unique_names(x, arg = arg, call = call)
 
-  if (length(x) > 0L && !is_named(x)) {
-    abort(glue("All elements of `{arg}` must be named."))
-  }
-
-  if (vec_duplicate_any(names(x))) {
-    abort(glue("The names of `{arg}` must be unique."))
-  }
-
+  x <- map(x, as_function, arg = arg, call = call)
   # Silently drop user supplied names not found in the data
   x <- x[intersect(names(x), names)]
 
   x
 }
 
-check_list_of_functions <- function(x, names, arg) {
-  if (is.null(x)) {
-    x <- set_names(list(), character())
+check_list_of_bool <- function(x, names, arg = caller_arg(x), call = caller_env()) {
+  if (is_bool(x)) {
+    rep_named(names, x)
+  } else if (vec_is_list(x)) {
+    check_unique_names(x, arg = arg, call = call)
+    x[intersect(names(x), names)]
+  } else  {
+    cli::cli_abort(
+      "{.arg {arg}} must be a list or a single `TRUE` or `FALSE`.",
+      call = call
+    )
   }
-
-  if (!vec_is_list(x)) {
-    x <- rep_named(names, list(x))
-  }
-
-  if (length(x) > 0L && !is_named(x)) {
-    abort(glue("All elements of `{arg}` must be named."))
-  }
-
-  if (vec_duplicate_any(names(x))) {
-    abort(glue("The names of `{arg}` must be unique."))
-  }
-
-  x <- map(x, as_function)
-
-  # Silently drop user supplied names not found in the data
-  x <- x[intersect(names(x), names)]
-
-  x
 }

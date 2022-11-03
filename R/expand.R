@@ -20,8 +20,8 @@
 #'
 #' @inheritParams expand_grid
 #' @param data A data frame.
-#' @param ... Specification of columns to expand. Columns can be atomic vectors
-#'   or lists.
+#' @param ... <[`data-masking`][tidyr_data_masking]> Specification of columns
+#'   to expand. Columns can be atomic vectors or lists.
 #'
 #'   * To find all unique combinations of `x`, `y` and `z`, including those not
 #'     present in the data, supply each variable as a separate argument:
@@ -39,12 +39,12 @@
 #'
 #'   When used with continuous variables, you may need to fill in values
 #'   that do not appear in the data: to do so use expressions like
-
 #'   `year = 2010:2020` or `year = full_seq(year,1)`.
 #' @seealso [complete()] to expand list objects. [expand_grid()]
 #'   to input vectors rather than a data frame.
 #' @export
 #' @examples
+#' # Finding combinations ------------------------------------------------------
 #' fruits <- tibble(
 #'   type = c("apple", "orange", "apple", "orange", "orange", "orange"),
 #'   year = c(2010, 2010, 2012, 2010, 2011, 2012),
@@ -55,19 +55,19 @@
 #'   weights = rnorm(6, as.numeric(size) + 2)
 #' )
 #'
-#' # All possible combinations ---------------------------------------
-#' # Note that all defined, but not necessarily present, levels of the
-#' # factor variable `size` are retained.
+#' # All combinations, including factor levels that are not used
 #' fruits %>% expand(type)
+#' fruits %>% expand(size)
 #' fruits %>% expand(type, size)
 #' fruits %>% expand(type, size, year)
 #'
-#' # Only combinations that already appear in the data ---------------
+#' # Only combinations that already appear in the data
 #' fruits %>% expand(nesting(type))
+#' fruits %>% expand(nesting(size))
 #' fruits %>% expand(nesting(type, size))
 #' fruits %>% expand(nesting(type, size, year))
 #'
-#' # Other uses -------------------------------------------------------
+#' # Other uses ----------------------------------------------------------------
 #' # Use with `full_seq()` to fill in values of continuous variables
 #' fruits %>% expand(type, size, full_seq(year, 1))
 #' fruits %>% expand(type, size, 2010:2013)
@@ -77,7 +77,7 @@
 #' all
 #' all %>% dplyr::anti_join(fruits)
 #'
-#' # Use with `right_join()` to fill in missing rows
+#' # Use with `right_join()` to fill in missing rows (like `complete()`)
 #' fruits %>% dplyr::right_join(all)
 #'
 #' # Use with `group_by()` to expand within each group
@@ -175,7 +175,7 @@ nesting <- function(..., .name_repair = "check_unique") {
 #' expand_grid(l1 = letters, l2 = LETTERS)
 #'
 #' # Can also expand data frames
-#' expand_grid(df = data.frame(x = 1:2, y = c(2, 1)), z = 1:3)
+#' expand_grid(df = tibble(x = 1:2, y = c(2, 1)), z = 1:3)
 #' # And matrices
 #' expand_grid(x1 = matrix(1:4, nrow = 2), x2 = matrix(5:8, nrow = 2))
 expand_grid <- function(..., .name_repair = "check_unique") {
@@ -194,7 +194,7 @@ expand_grid <- function(..., .name_repair = "check_unique") {
   }
 
   # Flattens unnamed data frames after grid expansion
-  out <- df_list(!!!out, .name_repair = .name_repair)
+  out <- df_list(!!!out, .name_repair = .name_repair, .error_call = current_env())
   out <- tibble::new_tibble(out, nrow = size)
 
   out
@@ -214,10 +214,6 @@ sorted_unique <- function(x) {
 
 # forcats::fct_unique
 fct_unique <- function(x) {
-  if (!is.factor(x)) {
-    abort("`x` must be a factor.")
-  }
-
   levels <- levels(x)
   out <- levels
 
@@ -228,7 +224,7 @@ fct_unique <- function(x) {
   factor(out, levels = levels, exclude = NULL, ordered = is.ordered(x))
 }
 
-grid_dots <- function(..., `_data` = NULL) {
+grid_dots <- function(..., `_data` = NULL, .error_call = caller_env()) {
   dots <- enquos(...)
   n_dots <- length(dots)
 
@@ -277,7 +273,7 @@ grid_dots <- function(..., `_data` = NULL) {
     }
 
     arg <- paste0("..", i)
-    vec_assert(dot, arg = arg)
+    vec_assert(dot, arg = arg, call = .error_call)
 
     out[[i]] <- dot
 

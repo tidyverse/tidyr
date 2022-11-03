@@ -1,5 +1,16 @@
 # tidyr (development version)
 
+* tidyr errors (including input validation) have been thorougly reviewed
+  and should generally be more likely to point you in the right direction 
+  (#1313, #1400).
+
+* `chop()`, `drop_na()`, `fill()`, `pivot_longer()`, `pivot_wider()`, 
+  `separate_rows()`, `unite()`, `unnest_longer()`, and `unnest_wider()` now
+  error if you supply named selection (#1104).
+
+* Add new datasets `who2`, `household`, `cms_patient_experience` and 
+  `cms_patient_care` to demonstrate various tidying challenges (#1333).
+
 * `pivot_longer()` now throws a slightly better error message when
   `values_ptypes` or `names_ptypes` is provided and the coercion can't be made
   (#1364).
@@ -29,6 +40,10 @@
 
 * Improved the error message returned by `pivot_wider()` when a column selected
   by `names_from` or `values_from` is also selected by `id_cols` (#1318).
+
+# tidyr 1.2.1
+
+* Hot patch release to resolve R CMD check failures.
 
 # tidyr 1.2.0
 

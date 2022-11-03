@@ -7,6 +7,14 @@
       `...` must not be empty for ungrouped data frames.
       Did you want `data = everything()`?
 
+# validates its inputs
+
+    Code
+      nest(df, y = ya:yb, .names_sep = 1)
+    Condition
+      Error in `nest()`:
+      ! `.names_sep` must be a single string or `NULL`, not the number 1.
+
 # warn about old style interface
 
     Code

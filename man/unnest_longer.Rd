@@ -19,10 +19,10 @@ unnest_longer(
 \arguments{
 \item{data}{A data frame.}
 
-\item{col}{List-column(s) to extract components from.
-You can use tidyselect to select multiple columns to unnest simultaneously.
-When using \code{unnest_longer()} with multiple columns, values across columns
-that originated from the same row are recycled to a common size.}
+\item{col}{<\code{\link[=tidyr_tidy_select]{tidy-select}}> List-column(s) to unnest.
+
+When selecting multiple columns, values from the same row will be recycled
+to their common size.}
 
 \item{values_to}{A string giving the column name (or names) to store the
 unnested values in. If multiple columns are specified in \code{col}, this can
@@ -108,6 +108,7 @@ df <- tibble(
 )
 df \%>\% unnest_longer(y)
 
+# Multiple columns ----------------------------------------------------------
 # If columns are aligned, you can unnest simultaneously.
 df <- tibble(
   x = 1:2,

@@ -339,6 +339,12 @@ test_that("`id_cols` returns a tidyselect error if a column selection is OOB (#1
   )
 })
 
+test_that("named `id_cols` gives clear error (#1104)", {
+  df <- tibble(name = c("x", "y"), value = c(1, 2), x = 1, y = 2)
+
+  expect_snapshot(pivot_wider(df, id_cols = c(z = x)), error = TRUE)
+})
+
 test_that("pivoting a zero row data frame drops `names_from` and `values_from` (#1249)", {
   df <- tibble(key = character(), name = character(), value = integer())
 

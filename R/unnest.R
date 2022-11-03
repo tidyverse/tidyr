@@ -5,11 +5,10 @@
 #' @inheritSection nest New syntax
 #' @inheritParams unchop
 #' @inheritParams unpack
-#' @param cols <[`tidy-select`][tidyr_tidy_select]> Columns to unnest.
+#' @param cols <[`tidy-select`][tidyr_tidy_select]> List-columns to unnest.
 #'
-#'   If you `unnest()` multiple columns, parallel entries must be of
-#'   compatible sizes, i.e. they're either equal or length 1 (following the
-#'   standard tidyverse recycling rules).
+#'   When selecting multiple columns, values from the same row will be recycled
+#'   to their common size.
 #' @param ... `r lifecycle::badge("deprecated")`:
 #'   previously you could write `df %>% unnest(x, y, z)`.
 #'   Convert to `df %>% unnest(c(x, y, z))`. If you previously created a new
@@ -51,6 +50,7 @@
 #' # but you can keep them (generating NAs) with keep_empty = TRUE:
 #' df %>% unnest(y, keep_empty = TRUE)
 #'
+#' # Multiple columns ----------------------------------------------------------
 #' # You can unnest multiple columns simultaneously
 #' df <- tibble(
 #'   x = 1:2,

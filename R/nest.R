@@ -70,16 +70,15 @@
 #'   nest(width = contains("Width"), length = contains("Length"))
 #'
 #' # Nesting a grouped data frame nests all variables apart from the group vars
-#' library(dplyr)
 #' fish_encounters %>%
-#'   group_by(fish) %>%
+#'   dplyr::group_by(fish) %>%
 #'   nest()
 #'
 #' # Nesting is often useful for creating per group models
 #' mtcars %>%
-#'   group_by(cyl) %>%
+#'   dplyr::group_by(cyl) %>%
 #'   nest() %>%
-#'   mutate(models = lapply(data, function(df) lm(mpg ~ wt, data = df)))
+#'   dplyr::mutate(models = lapply(data, function(df) lm(mpg ~ wt, data = df)))
 nest <- function(.data, ..., .names_sep = NULL, .key = deprecated()) {
   cols <- enquos(...)
 
@@ -126,6 +125,7 @@ nest.data.frame <- function(.data, ..., .names_sep = NULL, .key = deprecated()) 
 
 #' @export
 nest.tbl_df <- function(.data, ..., .names_sep = NULL, .key = deprecated()) {
+  check_string(.names_sep, allow_null = TRUE)
   .key <- check_key(.key)
   if (missing(...)) {
     warn(paste0(

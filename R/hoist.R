@@ -7,11 +7,13 @@
 #' Learn more in `vignette("rectangle")`.
 #'
 #' @param .data A data frame.
-#' @param .col List-column to extract components from.
-#' @param ... Components of `.col` to turn into columns in the form
-#'   `col_name = "pluck_specification"`. You can pluck by name with a character
-#'   vector, by position with an integer vector, or with a combination of the
-#'   two with a list. See [purrr::pluck()] for details.
+#' @param .col <[`tidy-select`][tidyr_tidy_select]> List-column to extract
+#'   components from.
+#' @param ... <[`dynamic-dots`][rlang::dyn-dots]> Components of `.col` to turn
+#'   into columns in the form `col_name = "pluck_specification"`. You can pluck
+#'   by name with a character vector, by position with an integer vector, or
+#'   with a combination of the two with a list. See [purrr::pluck()] for
+#'   details.
 #'
 #'   The column names must be unique in a call to `hoist()`, although existing
 #'   columns with the same name will be overwritten. When plucking with a
@@ -79,19 +81,21 @@ hoist <- function(.data,
                   .simplify = TRUE,
                   .ptype = NULL,
                   .transform = NULL) {
-  if (!is.data.frame(.data)) {
-    abort("`.data` must be a data frame.")
-  }
 
+  check_data_frame(.data)
   check_required(.col)
-  .col <- tidyselect::vars_pull(names(.data), {{ .col }})
-
-  x <- .data[[.col]]
-  if (!vec_is_list(x)) {
-    abort("`.col` must identify a list-column.")
-  }
-
   pluckers <- check_pluckers(...)
+  check_bool(.remove)
+
+  .col <- tidyselect::vars_pull(names(.data), {{ .col }})
+  x <- .data[[.col]]
+  vec_check_list(x, arg = ".data[[.col]]")
+
+  # These are also checked in df_simplify(), but we check here to generate
+  # errors with argument names
+  check_list_of_ptypes(.ptype, names(x))
+  check_list_of_bool(.simplify, names(x))
+  check_list_of_functions(.transform, names(x))
 
   # In R <4.1, `::` is quite slow and this is a tight loop, so eliminating
   # the lookup has a large performance impact:
@@ -133,7 +137,7 @@ hoist <- function(.data,
   out
 }
 
-check_pluckers <- function(...) {
+check_pluckers <- function(..., .call = caller_env()) {
   pluckers <- list2(...)
 
   is_string <- map_lgl(pluckers, ~ is.character(.x) && length(.x) == 1)
@@ -143,13 +147,7 @@ check_pluckers <- function(...) {
     names(pluckers)[auto_name] <- unlist(pluckers[auto_name])
   }
 
-  if (length(pluckers) > 0 && !is_named(pluckers)) {
-    abort("All elements of `...` must be named.")
-  }
-
-  if (vec_duplicate_any(names(pluckers))) {
-    abort("The names of `...` must be unique.")
-  }
+  check_unique_names(pluckers, arg = "...", call = .call)
 
   # Standardize all pluckers to lists for splicing into `pluck()`
   # and for easier handling in `strike()`
@@ -161,7 +159,7 @@ check_pluckers <- function(...) {
 
 strike <- function(x, indices) {
   if (!vec_is_list(indices)) {
-    abort("Internal error: `indices` must be a list.")
+    cli::cli_abort("{.arg indices} must be a list.", .internal = TRUE)
   }
 
   n_indices <- vec_size(indices)

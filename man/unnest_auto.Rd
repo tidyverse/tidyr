@@ -9,7 +9,7 @@ unnest_auto(data, col)
 \arguments{
 \item{data}{A data frame.}
 
-\item{col}{List-column to extract components from.}
+\item{col}{<\code{\link[=tidyr_tidy_select]{tidy-select}}> List-column to unnest.}
 }
 \description{
 \code{unnest_auto()} picks between \code{unnest_wider()} or \code{unnest_longer()}

@@ -9,12 +9,8 @@ spread(data, key, value, fill = NA, convert = FALSE, drop = TRUE, sep = NULL)
 \arguments{
 \item{data}{A data frame.}
 
-\item{key, value}{Column names or positions. This is passed to
-\code{\link[tidyselect:vars_pull]{tidyselect::vars_pull()}}.
-
-These arguments are passed by expression and support
-\link[rlang:topic-inject]{quasiquotation} (you can unquote column
-names or column positions).}
+\item{key, value}{<\code{\link[=tidyr_tidy_select]{tidy-select}}> Columns to use
+for \code{key} and \code{value}.}
 
 \item{fill}{If set, missing values will be replaced with this value. Note
 that there are two types of missingness in the input: explicit missing
@@ -47,8 +43,7 @@ still under active development.
 See more details in \code{vignette("pivot")}.
 }
 \examples{
-library(dplyr)
-stocks <- data.frame(
+stocks <- tibble(
   time = as.Date("2009-01-01") + 0:9,
   X = rnorm(10, 0, 1),
   Y = rnorm(10, 0, 2),
@@ -59,15 +54,15 @@ stocksm \%>\% spread(stock, price)
 stocksm \%>\% spread(time, price)
 
 # Spread and gather are complements
-df <- data.frame(x = c("a", "b"), y = c(3, 4), z = c(5, 6))
+df <- tibble(x = c("a", "b"), y = c(3, 4), z = c(5, 6))
 df \%>\%
   spread(x, y) \%>\%
   gather("x", "y", a:b, na.rm = TRUE)
 
 # Use 'convert = TRUE' to produce variables of mixed type
-df <- data.frame(
+df <- tibble(
   row = rep(c(1, 51), each = 3),
-  var = c("Sepal.Length", "Species", "Species_num"),
+  var = rep(c("Sepal.Length", "Species", "Species_num"), 2),
   value = c(5.1, "setosa", 1, 7.0, "versicolor", 2)
 )
 df \%>\% spread(var, value) \%>\% str()

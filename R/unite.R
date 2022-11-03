@@ -37,12 +37,15 @@ unite <- function(data, col, ..., sep = "_", remove = TRUE, na.rm = FALSE) {
 }
 #' @export
 unite.data.frame <- function(data, col, ..., sep = "_", remove = TRUE, na.rm = FALSE) {
-  var <- as_string(ensym(col))
+  check_required(col)
+  check_string(sep)
+  check_bool(remove)
+  check_bool(na.rm)
 
   if (dots_n(...) == 0) {
     from_vars <- set_names(seq_along(data), names(data))
   } else {
-    from_vars <- tidyselect::eval_select(expr(c(...)), data)
+    from_vars <- tidyselect::eval_select(expr(c(...)), data, allow_rename = FALSE)
   }
 
   out <- data
@@ -60,7 +63,9 @@ unite.data.frame <- function(data, col, ..., sep = "_", remove = TRUE, na.rm = F
     united <- exec(paste, !!!cols, sep = sep)
   }
 
+  var <- as_string(ensym(col))
   first_pos <- which(names(data) %in% names(from_vars))[1]
   out <- append_col(out, united, var, after = first_pos - 1L)
+
   reconstruct_tibble(data, out, if (remove) names(from_vars))
 }
