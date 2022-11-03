@@ -291,7 +291,7 @@ pivot_longer_spec <- function(data,
     val_cols <- unname(val_cols)
 
     if (cols_vary == "slowest") {
-      vals[[value]] <- vec_c(!!!val_cols, .ptype = val_type)
+      vals[[value]] <- list_unchop(val_cols, ptype = val_type)
     } else if (cols_vary == "fastest") {
       vals[[value]] <- vec_interleave(!!!val_cols, .ptype = val_type)
     } else {
@@ -324,7 +324,7 @@ pivot_longer_spec <- function(data,
     .error_call = current_env()
   ))
 
-  if (values_drop_na) {
+  if (values_drop_na && vec_any_missing(vals)) {
     out <- vec_slice(out, !vec_detect_missing(vals))
   }
 

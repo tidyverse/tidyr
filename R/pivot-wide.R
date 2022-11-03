@@ -635,7 +635,7 @@ value_summarize <- function(value, value_locs, value_name, fn, fn_name, error_ca
     )
   }
 
-  value <- vec_c(!!!value)
+  value <- list_unchop(value)
 
   value
 }
