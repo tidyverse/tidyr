@@ -135,7 +135,6 @@ list_init_empty <- function(x,
   }
 
   sizes <- list_sizes(x)
-  # FIXME use `vec_any_missing()`?
   empty_null <- vec_detect_missing(x)
   empty_typed <- (sizes == 0L) & !empty_null
 

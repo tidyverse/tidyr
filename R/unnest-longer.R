@@ -243,7 +243,6 @@ collect_indices_info <- function(col, indices_include) {
   }
 
   indices <- map(col, vec_names)
-  # FIXME use `vec_any_missing()`
   unnamed <- vec_detect_missing(indices)
   all_unnamed <- all(unnamed)
 
