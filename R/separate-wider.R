@@ -37,7 +37,9 @@
 #'
 #'   * `"error"`, the default, will throw an error.
 #'   * `"debug"` adds additional columns to the output to help you
-#'     locate and resolve the underlying problem.
+#'     locate and resolve the underlying problem. This option is intended to
+#'     help you debug the issue and address and should not generally remain in
+#'     your final code.
 #'   * `"align_start"` aligns starts of short matches, adding `NA` on the end
 #'     to pad to the correct length.
 #'   * `"align_end"` (`separate_wider_delim()` only) aligns the ends of short
