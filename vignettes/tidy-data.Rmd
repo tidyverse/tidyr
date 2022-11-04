@@ -37,14 +37,26 @@ Like families, tidy datasets are all alike but every messy dataset is messy in i
 Most statistical datasets are data frames made up of **rows** and **columns**. The columns are almost always labeled and the rows are sometimes labeled. The following code provides some data about an imaginary classroom in a format commonly seen in the wild. The table has three columns and four rows, and both rows and columns are labeled.
 
 ```{r}
-classroom <- read.csv("classroom.csv", stringsAsFactors = FALSE)
+library(tibble)
+classroom <- tribble(
+  ~name,    ~quiz1, ~quiz2, ~test1,
+  "Billy",  NA,     "D",    "C",
+  "Suzy",   "F",    NA,     NA,
+  "Lionel", "B",    "C",    "B",
+  "Jenny",  "A",    "A",    "B"
+  )
 classroom
 ```
 
 There are many ways to structure the same underlying data. The following table shows the same data as above, but the rows and columns have been transposed.
 
 ```{r}
-read.csv("classroom2.csv", stringsAsFactors = FALSE)
+tribble(
+  ~assessment, ~Billy, ~Suzy, ~Lionel, ~Jenny,
+  "quiz1",     NA,     "F",   "B",     "A",
+  "quiz2",     "D",    NA,    "C",     "A",
+  "test1",     "C",    NA,    "B",     "B"
+  )
 ```
 
 The data is the same, but the layout is different. Our vocabulary of rows and columns is simply not rich enough to describe why the two tables represent the same data. In addition to appearance, we need a way to describe the underlying semantics, or meaning, of the values displayed in the table.
