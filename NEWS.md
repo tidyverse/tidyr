@@ -3,7 +3,7 @@
 * New family of consistent string separating functions:
   `separate_wider_delim()`, `separate_wider_position()`, `separate_wider_regex()`, 
   `separate_longer_delim()`, and `separate_longer_position()`. These functions
-  are thorough refresh of `separate()` and `extract()` featuring improved
+  are thorough refreshes of `separate()` and `extract()`, featuring improved
   performance, greater consistency, a polished API, and a new approach for
   handling problems. They use stringr and supersede `extract()`, `separate()`, 
   and `separate_rows()` (#1304).

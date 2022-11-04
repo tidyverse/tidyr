@@ -29,7 +29,7 @@
 #'   to appear in the output; the number of non-`NA` elements determines the
 #'   number of new columns in the result.
 #' @param delim For `separate_wider_delim()`, a string giving the delimiter
-#'   between values. By default, is interpreted as a fixed string; use
+#'   between values. By default, it is interpreted as a fixed string; use
 #'   [stringr::regex()] and friends to split in other ways.
 #' @inheritParams rlang::args_dots_empty
 #' @param too_few What should happen if a value separates into too few
@@ -79,20 +79,20 @@
 #' @export
 #' @examples
 #' df <- tibble(id = 1:3, x = c("m-123", "f-455", "f-123"))
-#' # There are three basic ways to split up a string into pieces.
-#' # * with a delimiter
+#' # There are three basic ways to split up a string into pieces:
+#' # 1. with a delimiter
 #' df %>% separate_wider_delim(x, delim = "-", names = c("gender", "unit"))
-#' # * by length
+#' # 2. by length
 #' df %>% separate_wider_position(x, c(gender = 1, 1, unit = 3))
-#' # * defining each component with a regular expression
+#' # 3. defining each component with a regular expression
 #' df %>% separate_wider_regex(x, c(gender = ".", ".", unit = "\\d+"))
 #'
-#' # Sometimes you split on the "last" delimiter:
+#' # Sometimes you split on the "last" delimiter
 #' df <- tibble(var = c("race_1", "race_2", "age_bucket_1", "age_bucket_2"))
 #' # _delim won't help because it always splits on the first delimiter
 #' try(df %>% separate_wider_delim(var, "_", names = c("var1", "var2")))
 #' df %>% separate_wider_delim(var, "_", names = c("var1", "var2"), too_many = "merge")
-#' # Instead, you can use _regex:
+#' # Instead, you can use _regex
 #' df %>% separate_wider_regex(var, c(var1 = ".*", "_", var2 = ".*"))
 #' # this works because * is greedy; you can mimic the _delim behaviour with .*?
 #' df %>% separate_wider_regex(var, c(var1 = ".*?", "_", var2 = ".*"))
@@ -103,7 +103,7 @@
 #' # But separate_wider_delim() provides some tools to deal with the problem
 #' # The default behaviour tells you that there's a problem
 #' try(df %>% separate_wider_delim(x, delim = " ", names = c("a", "b")))
-#' # You can get additional insight by using the debug options:
+#' # You can get additional insight by using the debug options
 #' df %>%
 #'   separate_wider_delim(
 #'     x,
@@ -113,7 +113,7 @@
 #'     too_many = "debug"
 #'   )
 #'
-#' # But you can can suppress the warnings:
+#' # But you can suppress the warnings
 #' df %>%
 #'   separate_wider_delim(
 #'     x,

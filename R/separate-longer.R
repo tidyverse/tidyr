@@ -10,7 +10,7 @@
 #'
 #' @export
 #' @param delim For `separate_longer_delim()`, a string giving the delimiter
-#'   between values. By default, is interpreted as a fixed string; use
+#'   between values. By default, it is interpreted as a fixed string; use
 #'   [stringr::regex()] and friends to split in other ways.
 #' @inheritParams separate_wider_delim
 #' @return A data frame based on `data`. It has the same columns, but different
