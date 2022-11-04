@@ -259,7 +259,7 @@ check_list_of_bool <- function(x, names, arg = caller_arg(x), call = caller_env(
   }
 }
 
-int_max <- function(x, default = Inf) {
+int_max <- function(x, default = -Inf) {
   if (length(x) == 0) {
     default
   } else {
