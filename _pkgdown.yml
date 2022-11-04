@@ -46,9 +46,8 @@ reference:
     Multiple variables are sometimes pasted together into a single column,
     and these tools help you separate back out into individual columns.
   contents:
-  - extract
-  - separate
-  - separate_rows
+  - separate_longer_delim
+  - separate_wider_delim
   - unite
 
 - title: Missing values
@@ -87,9 +86,13 @@ reference:
 
 - title: Superseded
   description: |
-    Functions that are still supported but no longer receive active
-    development, as better solutions now exist.
+     Superseded functions have been replaced by superior solutions, but
+     due to their widespread use will not go away. However, they will not
+     get any new features and will only receive critical bug fixes.
   contents:
+  - extract
+  - separate
+  - separate_rows
   - spread
   - gather
   - nest_legacy

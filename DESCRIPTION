@@ -1,6 +1,6 @@
 Package: tidyr
 Title: Tidy Messy Data
-Version: 1.2.1.9000
+Version: 1.2.1.9001
 Authors@R: c(
     person("Hadley", "Wickham", , "hadley@rstudio.com", role = c("aut", "cre")),
     person("Davis", "Vaughan", , "davis@rstudio.com", role = "aut"),
@@ -28,6 +28,7 @@ Imports:
     magrittr,
     purrr,
     rlang (>= 1.0.4),
+    stringr (>= 1.4.0.9000),
     tibble (>= 2.1.1),
     tidyselect (>= 1.2.0),
     utils,
@@ -52,3 +53,5 @@ LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.1
 SystemRequirements: C++11
+Remotes: 
+    tidyverse/stringr

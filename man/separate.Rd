@@ -63,6 +63,14 @@ happens when there are not enough pieces. There are three valid options:
 \item{...}{Additional arguments passed on to methods.}
 }
 \description{
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#superseded}{\figure{lifecycle-superseded.svg}{options: alt='[Superseded]'}}}{\strong{[Superseded]}}
+
+\code{separate()} has been superseded in favour of \code{\link[=separate_wider_position]{separate_wider_position()}}
+and \code{\link[=separate_wider_delim]{separate_wider_delim()}} because the two functions make the two uses
+more obvious, the API is more polished, and the handling of problems is
+better. Superseded functions will not go away, but will only receive
+critical bug fixes.
+
 Given either a regular expression or a vector of character positions,
 \code{separate()} turns a single character column into multiple columns.
 }
@@ -74,9 +82,9 @@ df \%>\% separate(x, c("A", "B"))
 # If you just want the second variable:
 df \%>\% separate(x, c(NA, "B"))
 
-# Supply your own regex:
-df <- tibble(x = c(NA, "a1b", "c4d", "e9g"))
-df \%>\% separate(x, c("A", "B"), sep = "[0-9]")
+# We now recommend separate_wider_delim() instead:
+df \%>\% separate_wider_delim(x, ".", names = c("A", "B"))
+df \%>\% separate_wider_delim(x, ".", names = c(NA, "B"))
 
 # Controlling uneven splits -------------------------------------------------
 # If every row doesn't split into the same number of pieces, use

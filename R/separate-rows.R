@@ -1,7 +1,15 @@
 #' Separate a collapsed column into multiple rows
 #'
-#' If a variable contains observations with multiple delimited values, this
-#' separates the values and places each one in its own row.
+#' @description
+#' `r lifecycle::badge("superseded")`
+#'
+#' `separate_rows()` has been superseded in favour of [separate_longer_delim()]
+#' because it has a more consistent API with other separate functions.
+#' Superseded functions will not go away, but will only receive critical bug
+#' fixes.
+#'
+#' If a variable contains observations with multiple delimited values,
+#' `separate_rows()` separates the values and places each one in its own row.
 #'
 #' @inheritParams drop_na
 #' @inheritParams gather
@@ -16,6 +24,10 @@
 #'   z = c("1", "2,3,4", "5,6")
 #' )
 #' separate_rows(df, y, z, convert = TRUE)
+#'
+#' # Now recommended
+#' df %>%
+#'   separate_longer_delim(c(y, z), delim = ",")
 separate_rows <- function(data,
                           ...,
                           sep = "[^[:alnum:].]+",

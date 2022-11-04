@@ -1,6 +1,14 @@
 #' Extract a character column into multiple columns using regular
 #' expression groups
 #'
+#' @description
+#' `r lifecycle::badge("superseded")`
+#'
+#' `extract()` has been superseded in favour of [separate_wider_regex()]
+#' because it has a more polished API and better handling of problems.
+#' Superseded functions will not go away, but will only receive critical bug
+#' fixes.
+#'
 #' Given a regular expression with capturing groups, `extract()` turns
 #' each group into a new column. If the groups don't match, or the input
 #' is NA, the output will be NA.
@@ -25,6 +33,13 @@
 #' df <- tibble(x = c(NA, "a-b", "a-d", "b-c", "d-e"))
 #' df %>% extract(x, "A")
 #' df %>% extract(x, c("A", "B"), "([[:alnum:]]+)-([[:alnum:]]+)")
+#'
+#' # Now recommended
+#' df %>%
+#'   separate_wider_regex(
+#'     x,
+#'     patterns = c(A = "[[:alnum:]]+", "-", B = "[[:alnum:]]+")
+#'   )
 #'
 #' # If no match, NA:
 #' df %>% extract(x, c("A", "B"), "([a-d]+)-([a-d]+)")
