@@ -142,7 +142,13 @@
     <loc>https://tidyr.tidyverse.org/dev/reference/separate.html</loc>
   </url>
   <url>
+    <loc>https://tidyr.tidyverse.org/dev/reference/separate_longer_delim.html</loc>
+  </url>
+  <url>
     <loc>https://tidyr.tidyverse.org/dev/reference/separate_rows.html</loc>
+  </url>
+  <url>
+    <loc>https://tidyr.tidyverse.org/dev/reference/separate_wider_delim.html</loc>
   </url>
   <url>
     <loc>https://tidyr.tidyverse.org/dev/reference/smiths.html</loc>

@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">tidyr</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">1.2.1.9000</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">1.2.1.9001</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -137,21 +137,14 @@
 
       <dl><dt>
           
-          <code><a href="extract.html">extract()</a></code> 
+          <code><a href="separate_longer_delim.html">separate_longer_delim()</a></code> <code><a href="separate_longer_delim.html">separate_longer_position()</a></code> 
         </dt>
-        <dd>Extract a character column into multiple columns using regular
-expression groups</dd>
+        <dd>Split a string into rows</dd>
       </dl><dl><dt>
           
-          <code><a href="separate.html">separate()</a></code> 
+          <code><a href="separate_wider_delim.html">separate_wider_delim()</a></code> <code><a href="separate_wider_delim.html">separate_wider_position()</a></code> <code><a href="separate_wider_delim.html">separate_wider_regex()</a></code> 
         </dt>
-        <dd>Separate a character column into multiple columns with a regular
-expression or numeric locations</dd>
-      </dl><dl><dt>
-          
-          <code><a href="separate_rows.html">separate_rows()</a></code> 
-        </dt>
-        <dd>Separate a collapsed column into multiple rows</dd>
+        <dd>Split a string into columns</dd>
       </dl><dl><dt>
           
           <code><a href="unite.html">unite()</a></code> 
@@ -303,7 +296,7 @@ expression or numeric locations</dd>
       </dl></div><div class="section level2">
       <h2 id="superseded">Superseded<a class="anchor" aria-label="anchor" href="#superseded"></a></h2>
       
-      <p class="section-desc"></p><p>Functions that are still supported but no longer receive active development, as better solutions now exist.</p>
+      <p class="section-desc"></p><p>Superseded functions have been replaced by superior solutions, but due to their widespread use will not go away. However, they will not get any new features and will only receive critical bug fixes.</p>
 
       
     </div><div id="" class="section level2">
@@ -312,6 +305,23 @@ expression or numeric locations</dd>
       
 
       <dl><dt>
+          
+          <code><a href="extract.html">extract()</a></code> 
+        </dt>
+        <dd>Extract a character column into multiple columns using regular
+expression groups</dd>
+      </dl><dl><dt>
+          
+          <code><a href="separate.html">separate()</a></code> 
+        </dt>
+        <dd>Separate a character column into multiple columns with a regular
+expression or numeric locations</dd>
+      </dl><dl><dt>
+          
+          <code><a href="separate_rows.html">separate_rows()</a></code> 
+        </dt>
+        <dd>Separate a collapsed column into multiple rows</dd>
+      </dl><dl><dt>
           
           <code><a href="spread.html">spread()</a></code> 
         </dt>

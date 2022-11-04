@@ -22,7 +22,7 @@ See more details in vignette("pivot").'><meta property="og:image" content="https
     
     <a class="navbar-brand me-2" href="../index.html">tidyr</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">1.2.1.9000</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">1.2.1.9001</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -151,25 +151,25 @@ by <code>"&lt;key_name&gt;&lt;sep&gt;&lt;key_value&gt;"</code>.</p></dd>
 <span class="r-in"><span><span class="va">stocksm</span> <span class="op">&lt;-</span> <span class="va">stocks</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu"><a href="gather.html">gather</a></span><span class="op">(</span><span class="va">stock</span>, <span class="va">price</span>, <span class="op">-</span><span class="va">time</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">stocksm</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu">spread</span><span class="op">(</span><span class="va">stock</span>, <span class="va">price</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 10 × 4</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    time            X       Y     Z</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> 2009-01-01 -<span style="color: #BB0000;">0.743</span> -<span style="color: #BB0000;">1.49</span>    3.58</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> 2009-01-02  0.894  0.085<span style="text-decoration: underline;">2</span> -<span style="color: #BB0000;">5.17</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> 2009-01-03  0.581  4.00    3.62</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> 2009-01-04  0.518  1.04    5.61</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> 2009-01-05 -<span style="color: #BB0000;">0.524</span> -<span style="color: #BB0000;">0.374</span>   1.66</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> 2009-01-06  0.442  0.978  -<span style="color: #BB0000;">1.61</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> 2009-01-07  0.352  0.851  -<span style="color: #BB0000;">2.56</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> 2009-01-08  0.448  4.80    1.40</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> 2009-01-09  0.262  2.52    2.58</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> 2009-01-10  0.664  0.182   3.12</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    time             X       Y      Z</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> 2009-01-01 -<span style="color: #BB0000;">0.096</span><span style="color: #BB0000; text-decoration: underline;">0</span>  3.76    3.67 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> 2009-01-02  1.41    2.01   -<span style="color: #BB0000;">3.59</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> 2009-01-03  0.325  -<span style="color: #BB0000;">1.04</span>   -<span style="color: #BB0000;">4.23</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> 2009-01-04  0.243   0.575   3.18 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> 2009-01-05  0.381  -<span style="color: #BB0000;">0.087</span><span style="color: #BB0000; text-decoration: underline;">3</span> -<span style="color: #BB0000;">3.84</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> 2009-01-06 -<span style="color: #BB0000;">0.056</span><span style="color: #BB0000; text-decoration: underline;">0</span>  5.10    0.644</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> 2009-01-07 -<span style="color: #BB0000;">0.748</span>   1.29    3.36 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> 2009-01-08 -<span style="color: #BB0000;">0.520</span>   1.82   -<span style="color: #BB0000;">0.706</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> 2009-01-09  0.763  -<span style="color: #BB0000;">0.248</span>  -<span style="color: #BB0000;">1.21</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> 2009-01-10  0.271  -<span style="color: #BB0000;">4.67</span>   -<span style="color: #BB0000;">6.03</span> </span>
 <span class="r-in"><span><span class="va">stocksm</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu">spread</span><span class="op">(</span><span class="va">time</span>, <span class="va">price</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 3 × 11</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   stock 2009-01-…¹ 2009-…² 2009-…³ 2009-…⁴ 2009-…⁵ 2009-…⁶ 2009-…⁷ 2009-…⁸</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> X         -<span style="color: #BB0000;">0.743</span>  0.894    0.581   0.518  -<span style="color: #BB0000;">0.524</span>   0.442   0.352   0.448</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> Y         -<span style="color: #BB0000;">1.49</span>   0.085<span style="text-decoration: underline;">2</span>   4.00    1.04   -<span style="color: #BB0000;">0.374</span>   0.978   0.851   4.80 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> Z          3.58  -<span style="color: #BB0000;">5.17</span>     3.62    5.61    1.66   -<span style="color: #BB0000;">1.61</span>   -<span style="color: #BB0000;">2.56</span>    1.40 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> X        -<span style="color: #BB0000;">0.096</span><span style="color: #BB0000; text-decoration: underline;">0</span>    1.41   0.325   0.243  0.381  -<span style="color: #BB0000;">0.056</span><span style="color: #BB0000; text-decoration: underline;">0</span>  -<span style="color: #BB0000;">0.748</span>  -<span style="color: #BB0000;">0.520</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> Y         3.76      2.01  -<span style="color: #BB0000;">1.04</span>    0.575 -<span style="color: #BB0000;">0.087</span><span style="color: #BB0000; text-decoration: underline;">3</span>  5.10     1.29    1.82 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> Z         3.67     -<span style="color: #BB0000;">3.59</span>  -<span style="color: #BB0000;">4.23</span>    3.18  -<span style="color: #BB0000;">3.84</span>    0.644    3.36   -<span style="color: #BB0000;">0.706</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 2 more variables: `2009-01-09` &lt;dbl&gt;, `2009-01-10` &lt;dbl&gt;, and</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   abbreviated variable names ¹​`2009-01-01`, ²​`2009-01-02`,</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   ³​`2009-01-03`, ⁴​`2009-01-04`, ⁵​`2009-01-05`, ⁶​`2009-01-06`,</span></span>
