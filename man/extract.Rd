@@ -40,14 +40,14 @@ NB: this will cause string \code{"NA"}s to be converted to \code{NA}s.}
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#superseded}{\figure{lifecycle-superseded.svg}{options: alt='[Superseded]'}}}{\strong{[Superseded]}}
 
-Given a regular expression with capturing groups, \code{extract()} turns
-each group into a new column. If the groups don't match, or the input
-is NA, the output will be NA.
-
 \code{extract()} has been superseded in favour of \code{\link[=separate_wider_regex]{separate_wider_regex()}}
 because it has a more polished API and better handling of problems.
 Superseded functions will not go away, but will only receive critical bug
 fixes.
+
+Given a regular expression with capturing groups, \code{extract()} turns
+each group into a new column. If the groups don't match, or the input
+is NA, the output will be NA.
 }
 \examples{
 df <- tibble(x = c(NA, "a-b", "a-d", "b-c", "d-e"))

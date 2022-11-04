@@ -4,14 +4,14 @@
 #' @description
 #' `r lifecycle::badge("superseded")`
 #'
-#' Given either a regular expression or a vector of character positions,
-#' `separate()` turns a single character column into multiple columns.
-#'
 #' `separate()` has been superseded in favour of [separate_wider_position()]
 #' and [separate_wider_delim()] because the two functions make the two uses
 #' more obvious, the API is more polished, and the handling of problems is
 #' better. Superseded functions will not go away, but will only receive
 #' critical bug fixes.
+#'
+#' Given either a regular expression or a vector of character positions,
+#' `separate()` turns a single character column into multiple columns.
 #'
 #' @inheritParams extract
 #' @param sep Separator between columns.

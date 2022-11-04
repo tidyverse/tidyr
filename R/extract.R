@@ -4,14 +4,14 @@
 #' @description
 #' `r lifecycle::badge("superseded")`
 #'
-#' Given a regular expression with capturing groups, `extract()` turns
-#' each group into a new column. If the groups don't match, or the input
-#' is NA, the output will be NA.
-#'
 #' `extract()` has been superseded in favour of [separate_wider_regex()]
 #' because it has a more polished API and better handling of problems.
 #' Superseded functions will not go away, but will only receive critical bug
 #' fixes.
+#'
+#' Given a regular expression with capturing groups, `extract()` turns
+#' each group into a new column. If the groups don't match, or the input
+#' is NA, the output will be NA.
 #'
 #' @inheritParams expand
 #' @param col <[`tidy-select`][tidyr_tidy_select]> Column to expand.

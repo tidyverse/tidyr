@@ -65,14 +65,14 @@ happens when there are not enough pieces. There are three valid options:
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#superseded}{\figure{lifecycle-superseded.svg}{options: alt='[Superseded]'}}}{\strong{[Superseded]}}
 
-Given either a regular expression or a vector of character positions,
-\code{separate()} turns a single character column into multiple columns.
-
 \code{separate()} has been superseded in favour of \code{\link[=separate_wider_position]{separate_wider_position()}}
 and \code{\link[=separate_wider_delim]{separate_wider_delim()}} because the two functions make the two uses
 more obvious, the API is more polished, and the handling of problems is
 better. Superseded functions will not go away, but will only receive
 critical bug fixes.
+
+Given either a regular expression or a vector of character positions,
+\code{separate()} turns a single character column into multiple columns.
 }
 \examples{
 # If you want to split by any non-alphanumeric value (the default):

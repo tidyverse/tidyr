@@ -21,13 +21,13 @@ types are actually numeric, integer, or logical.}
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#superseded}{\figure{lifecycle-superseded.svg}{options: alt='[Superseded]'}}}{\strong{[Superseded]}}
 
-If a variable contains observations with multiple delimited values, this
-separates the values and places each one in its own row.
-
 \code{separate_rows()} has been superseded in favour of \code{\link[=separate_longer_delim]{separate_longer_delim()}}
 because it has a more consistent API with other separate functions.
 Superseded functions will not go away, but will only receive critical bug
 fixes.
+
+If a variable contains observations with multiple delimited values,
+\code{separate_rows()} separates the values and places each one in its own row.
 }
 \examples{
 df <- tibble(
