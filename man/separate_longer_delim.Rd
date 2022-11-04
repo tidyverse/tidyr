@@ -15,7 +15,7 @@ separate_longer_position(data, cols, width, ..., keep_empty = FALSE)
 \item{cols}{<\code{\link[=tidyr_tidy_select]{tidy-select}}> Columns to separate.}
 
 \item{delim}{For \code{separate_longer_delim()}, a string giving the delimiter
-between values. By default, is interpreted as a fixed string; use
+between values. By default, it is interpreted as a fixed string; use
 \code{\link[stringr:modifiers]{stringr::regex()}} and friends to split in other ways.}
 
 \item{...}{These dots are for future extensions and must be empty.}
