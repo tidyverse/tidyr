@@ -53,7 +53,7 @@ library(tidyr)
 
 tidyr functions fall into five main categories:
 
--   “Pivotting” which converts between long and wide forms. tidyr 1.0.0
+-   “Pivoting” which converts between long and wide forms. tidyr 1.0.0
     introduces `pivot_longer()` and `pivot_wider()`, replacing the older
     `spread()` and `gather()` functions. See `vignette("pivot")` for
     more details.

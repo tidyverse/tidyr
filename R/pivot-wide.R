@@ -14,7 +14,7 @@
 #' under active development.
 #'
 #' @seealso [pivot_wider_spec()] to pivot "by hand" with a data frame that
-#'   defines a pivotting specification.
+#'   defines a pivoting specification.
 #' @inheritParams pivot_longer
 #' @param id_cols <[`tidy-select`][tidyr_tidy_select]> A set of columns that
 #'   uniquely identify each observation. Typically used when you have
@@ -234,8 +234,8 @@ pivot_wider.data.frame <- function(data,
 
 #' Pivot data from long to wide using a spec
 #'
-#' This is a low level interface to pivotting, inspired by the cdata package,
-#' that allows you to describe pivotting with a data frame.
+#' This is a low level interface to pivoting, inspired by the cdata package,
+#' that allows you to describe pivoting with a data frame.
 #'
 #' @keywords internal
 #' @export
@@ -250,7 +250,7 @@ pivot_wider.data.frame <- function(data,
 #'   long format of the dataset and contain values corresponding to columns
 #'   pivoted from the wide format.
 #'   The special `.seq` variable is used to disambiguate rows internally;
-#'   it is automatically removed after pivotting.
+#'   it is automatically removed after pivoting.
 #' @param id_cols <[`tidy-select`][tidyr_tidy_select]> A set of columns that
 #'   uniquely identifies each observation. Defaults to all columns in `data`
 #'   except for the columns specified in `spec$.value` and the columns of the

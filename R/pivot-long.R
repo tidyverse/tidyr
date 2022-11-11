@@ -199,8 +199,8 @@ pivot_longer.data.frame <- function(data,
 
 #' Pivot data from wide to long using a spec
 #'
-#' This is a low level interface to pivotting, inspired by the cdata package,
-#' that allows you to describe pivotting with a data frame.
+#' This is a low level interface to pivoting, inspired by the cdata package,
+#' that allows you to describe pivoting with a data frame.
 #'
 #' @keywords internal
 #' @export
@@ -215,7 +215,7 @@ pivot_longer.data.frame <- function(data,
 #'   long format of the dataset and contain values corresponding to columns
 #'   pivoted from the wide format.
 #'   The special `.seq` variable is used to disambiguate rows internally;
-#'   it is automatically removed after pivotting.
+#'   it is automatically removed after pivoting.
 #'
 #' @examples
 #' # See vignette("pivot") for examples and explanation
@@ -443,7 +443,7 @@ drop_cols <- function(df, cols) {
 }
 
 # Ensure that there's a one-to-one match from spec to data by adding
-# a special .seq variable which is automatically removed after pivotting.
+# a special .seq variable which is automatically removed after pivoting.
 deduplicate_spec <- function(spec, df) {
 
   # Ensure each .name has a unique output identifier
