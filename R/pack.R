@@ -88,10 +88,10 @@ pack <- function(.data, ..., .names_sep = NULL) {
 #' @param names_repair Used to check that output data frame has valid
 #'   names. Must be one of the following options:
 #'
-#'   * "minimal": no name repair or checks, beyond basic existence,
-#'   * "unique": make sure names are unique and not empty,
-#'   * "check_unique": (the default), no name repair, but check they are unique,
-#'   * "universal": make the names unique and syntactic
+#'   * `"minimal`": no name repair or checks, beyond basic existence,
+#'   * `"unique`": make sure names are unique and not empty,
+#'   * `"check_unique`": (the default), no name repair, but check they are unique,
+#'   * `"universal`": make the names unique and syntactic
 #'   * a function: apply custom name repair.
 #'   * [tidyr_legacy]: use the name repair from tidyr 0.8.
 #'   * a formula: a purrr-style anonymous function (see [rlang::as_function()])
