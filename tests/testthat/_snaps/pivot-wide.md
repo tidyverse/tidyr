@@ -69,25 +69,6 @@
       ! Applying `values_fn` to `value` must result in a single summary value per key.
       i Applying `values_fn` resulted in a vector of length 2.
 
-# `pivot_wider()` catches unused input passed through the dots
-
-    Code
-      (expect_error(pivot_wider(df, 1)))
-    Output
-      <error/rlib_error_dots_unused>
-      Error in `pivot_wider()`:
-      ! Arguments in `...` must be used.
-      x Problematic argument:
-      * ..1 = 1
-    Code
-      (expect_error(pivot_wider(df, name_prefix = "")))
-    Output
-      <error/rlib_error_dots_unused>
-      Error in `pivot_wider()`:
-      ! Arguments in `...` must be used.
-      x Problematic argument:
-      * name_prefix = ""
-
 # `build_wider_spec()` requires empty dots
 
     Code
@@ -307,4 +288,51 @@
       <error/rlang_error>
       Error in `pivot_wider_spec()`:
       ! `unused_fn` must be `NULL`, a function, or a named list of functions.
+
+# `id_cols` has noisy compat behavior (#1353)
+
+    Code
+      out <- pivot_wider(df, id)
+    Condition
+      Warning:
+      Specifying the `id_cols` argument by position was deprecated in tidyr 1.2.2.
+      i Please explicitly name `id_cols`, like `id_cols = id`.
+
+---
+
+    Code
+      expect <- pivot_wider(df, id_cols = id)
+
+# `id_cols` compat behavior doesn't trigger if `id_cols` is specified too
+
+    Code
+      pivot_wider(df, id, id_cols = id2)
+    Condition
+      Error in `pivot_wider()`:
+      ! `...` must be empty.
+      x Problematic argument:
+      * ..1 = id
+      i Did you forget to name an argument?
+
+# `id_cols` compat behavior doesn't trigger if multiple `...` are supplied
+
+    Code
+      pivot_wider(df, id, id2)
+    Condition
+      Error in `pivot_wider()`:
+      ! `...` must be empty.
+      x Problematic arguments:
+      * ..1 = id
+      * ..2 = id2
+      i Did you forget to name an argument?
+
+# `id_cols` compat behavior doesn't trigger if named `...` are supplied
+
+    Code
+      pivot_wider(df, ids = id)
+    Condition
+      Error in `pivot_wider()`:
+      ! `...` must be empty.
+      x Problematic argument:
+      * ids = id
 

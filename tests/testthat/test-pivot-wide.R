@@ -205,15 +205,6 @@ test_that("expansion with `id_expand` and `names_expand` works with zero row dat
   expect_identical(res$b, c(NA_integer_, NA_integer_))
 })
 
-test_that("`pivot_wider()` catches unused input passed through the dots", {
-  df <- tibble(name = c("x", "y", "z"), value = 1:3)
-
-  expect_snapshot({
-    (expect_error(pivot_wider(df, 1)))
-    (expect_error(pivot_wider(df, name_prefix = "")))
-  })
-})
-
 test_that("`build_wider_spec()` requires empty dots", {
   df <- tibble(name = c("x", "y", "z"), value = 1:3)
 
@@ -749,3 +740,66 @@ test_that("`unused_fn` is validated", {
     (expect_error(pivot_wider(df, id_cols = id, unused_fn = 1)))
   )
 })
+
+# deprecated ---------------------------------------------------------------
+
+test_that("`id_cols` has noisy compat behavior (#1353)", {
+  df <- tibble(
+    id = c(1, 2),
+    id2 = c(3, 4),
+    name = c("a", "b"),
+    value = c(5, 6)
+  )
+
+  # Noisy
+  expect_snapshot({
+    out <- pivot_wider(df, id)
+  })
+
+  # Silent
+  expect_snapshot({
+    expect <- pivot_wider(df, id_cols = id)
+  })
+
+  expect_identical(out, expect)
+})
+
+test_that("`id_cols` compat behavior doesn't trigger if `id_cols` is specified too", {
+  df <- tibble(
+    id = c(1, 2),
+    id2 = c(3, 4),
+    name = c("a", "b"),
+    value = c(5, 6)
+  )
+
+  expect_snapshot(error = TRUE, {
+    pivot_wider(df, id, id_cols = id2)
+  })
+})
+
+test_that("`id_cols` compat behavior doesn't trigger if multiple `...` are supplied", {
+  df <- tibble(
+    id = c(1, 2),
+    id2 = c(3, 4),
+    name = c("a", "b"),
+    value = c(5, 6)
+  )
+
+  expect_snapshot(error = TRUE, {
+    pivot_wider(df, id, id2)
+  })
+})
+
+test_that("`id_cols` compat behavior doesn't trigger if named `...` are supplied", {
+  df <- tibble(
+    id = c(1, 2),
+    id2 = c(3, 4),
+    name = c("a", "b"),
+    value = c(5, 6)
+  )
+
+  expect_snapshot(error = TRUE, {
+    pivot_wider(df, ids = id)
+  })
+})
+

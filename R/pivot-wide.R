@@ -171,7 +171,7 @@ pivot_wider <- function(data,
                         values_fill = NULL,
                         values_fn = NULL,
                         unused_fn = NULL) {
-  check_dots_used()
+  # TODO: Use `check_dots_used()` after removing the `id_cols` compat behavior
   UseMethod("pivot_wider")
 }
 
@@ -207,9 +207,15 @@ pivot_wider.data.frame <- function(data,
     names_expand = names_expand
   )
 
+  id_cols <- compat_id_cols(
+    id_cols = {{ id_cols }},
+    ...,
+    fn_call = match.call(expand.dots = FALSE)
+  )
+
   id_cols <- build_wider_id_cols_expr(
     data = data,
-    id_cols = {{ id_cols }},
+    id_cols = !!id_cols,
     names_from = !!names_from,
     values_from = !!values_from
   )
@@ -611,6 +617,52 @@ stop_id_cols_oob <- function(i, arg, call) {
     ),
     parent = NA,
     call = call
+  )
+}
+
+compat_id_cols <- function(id_cols,
+                           ...,
+                           fn_call,
+                           error_call = caller_env(),
+                           user_env = caller_env(2)) {
+  dots <- enquos(...)
+
+  # If `id_cols` is specified by name by the user, it will show up in the call.
+  # Otherwise, default args don't show up in the call so it won't be there.
+  user_specified_id_cols <- "id_cols" %in% names(fn_call)
+
+  # For compatibility (#1353), assign the first value of `...` to `id_cols` if:
+  # - The user didn't specify `id_cols`.
+  # - There is exactly 1 unnamed element in `...`.
+  use_compat_id_cols <-
+    !user_specified_id_cols &&
+    length(dots) == 1L &&
+    !is_named(dots)
+
+  if (use_compat_id_cols) {
+    id_cols <- dots[[1L]]
+    warn_deprecated_unnamed_id_cols(id_cols, user_env = user_env)
+  } else {
+    id_cols <- enquo(id_cols)
+    check_dots_empty0(..., call = error_call)
+  }
+
+  id_cols
+}
+
+warn_deprecated_unnamed_id_cols <- function(id_cols, user_env = caller_env(2)) {
+  id_cols <- as_label(id_cols)
+
+  lifecycle::deprecate_warn(
+    when = "1.2.2",
+    what = I(cli::format_inline(
+      "Specifying the {.arg id_cols} argument by position"
+    )),
+    details = cli::format_inline(
+      "Please explicitly name {.arg id_cols}, like {.code id_cols = {id_cols}}."
+    ),
+    always = TRUE,
+    user_env = user_env
   )
 }
 
