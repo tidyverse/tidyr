@@ -295,7 +295,7 @@
       out <- pivot_wider(df, id)
     Condition
       Warning:
-      Specifying the `id_cols` argument by position was deprecated in tidyr 1.2.2.
+      Specifying the `id_cols` argument by position was deprecated in tidyr 1.3.0.
       i Please explicitly name `id_cols`, like `id_cols = id`.
 
 ---

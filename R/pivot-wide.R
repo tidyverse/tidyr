@@ -654,7 +654,7 @@ warn_deprecated_unnamed_id_cols <- function(id_cols, user_env = caller_env(2)) {
   id_cols <- as_label(id_cols)
 
   lifecycle::deprecate_warn(
-    when = "1.2.2",
+    when = "1.3.0",
     what = I(cli::format_inline(
       "Specifying the {.arg id_cols} argument by position"
     )),
