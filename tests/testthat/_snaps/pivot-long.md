@@ -185,7 +185,7 @@
       (expect_error(pivot_longer(df, c(x, y), 1)))
     Output
       <error/rlib_error_dots_unused>
-      Error:
+      Error in `pivot_longer()`:
       ! Arguments in `...` must be used.
       x Problematic argument:
       * ..1 = 1
@@ -193,7 +193,7 @@
       (expect_error(pivot_longer(df, c(x, y), col_vary = "slowest")))
     Output
       <error/rlib_error_dots_unused>
-      Error:
+      Error in `pivot_longer()`:
       ! Arguments in `...` must be used.
       x Problematic argument:
       * col_vary = "slowest"

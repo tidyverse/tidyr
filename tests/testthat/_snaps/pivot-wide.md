@@ -75,7 +75,7 @@
       (expect_error(pivot_wider(df, 1)))
     Output
       <error/rlib_error_dots_unused>
-      Error:
+      Error in `pivot_wider()`:
       ! Arguments in `...` must be used.
       x Problematic argument:
       * ..1 = 1
@@ -83,7 +83,7 @@
       (expect_error(pivot_wider(df, name_prefix = "")))
     Output
       <error/rlib_error_dots_unused>
-      Error:
+      Error in `pivot_wider()`:
       ! Arguments in `...` must be used.
       x Problematic argument:
       * name_prefix = ""
