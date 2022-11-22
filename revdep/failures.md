@@ -348,15 +348,223 @@ Run `cloud_details(, "NA")` for more info
 
 
 ```
+# NA
+
+<details>
+
+* Version: NA
+* GitHub: NA
+* Source code: https://github.com/cran/NA
+* Number of recursive dependencies: 0
+
+Run `cloud_details(, "NA")` for more info
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
+# FAMetA
+
+<details>
+
+* Version: 0.1.4
+* GitHub: NA
+* Source code: https://github.com/cran/FAMetA
+* Date/Publication: 2022-03-01 15:40:23 UTC
+* Number of recursive dependencies: 90
+
+Run `cloud_details(, "FAMetA")` for more info
+
+</details>
+
+## In both
+
+*   checking whether package ‘FAMetA’ can be installed ... ERROR
+    ```
+    Installation failed.
+    See ‘/tmp/workdir/FAMetA/new/FAMetA.Rcheck/00install.out’ for details.
+    ```
+
+## Installation
+
+### Devel
+
+```
+* installing *source* package ‘FAMetA’ ...
+** package ‘FAMetA’ successfully unpacked and MD5 sums checked
+** using staged installation
+** R
+** data
+*** moving datasets to lazyload DB
+** inst
+** byte-compile and prepare package for lazy loading
+Error: package or namespace load failed for ‘LipidMS’ in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]):
+ there is no package called ‘readMzXmlData’
+Execution halted
+ERROR: lazy loading failed for package ‘FAMetA’
+* removing ‘/tmp/workdir/FAMetA/new/FAMetA.Rcheck/FAMetA’
+
+
+```
+### CRAN
+
+```
+* installing *source* package ‘FAMetA’ ...
+** package ‘FAMetA’ successfully unpacked and MD5 sums checked
+** using staged installation
+** R
+** data
+*** moving datasets to lazyload DB
+** inst
+** byte-compile and prepare package for lazy loading
+Error: package or namespace load failed for ‘LipidMS’ in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]):
+ there is no package called ‘readMzXmlData’
+Execution halted
+ERROR: lazy loading failed for package ‘FAMetA’
+* removing ‘/tmp/workdir/FAMetA/old/FAMetA.Rcheck/FAMetA’
+
+
+```
+# NA
+
+<details>
+
+* Version: NA
+* GitHub: NA
+* Source code: https://github.com/cran/NA
+* Number of recursive dependencies: 0
+
+Run `cloud_details(, "NA")` for more info
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
+# ggPMX
+
+<details>
+
+* Version: 1.2.8
+* GitHub: https://github.com/ggPMXdevelopment/ggPMX
+* Source code: https://github.com/cran/ggPMX
+* Date/Publication: 2022-06-17 23:10:02 UTC
+* Number of recursive dependencies: 177
+
+Run `cloud_details(, "ggPMX")` for more info
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+* using log directory ‘/tmp/workdir/ggPMX/new/ggPMX.Rcheck’
+* using R version 4.1.1 (2021-08-10)
+* using platform: x86_64-pc-linux-gnu (64-bit)
+* using session charset: UTF-8
+* using option ‘--no-manual’
+* checking for file ‘ggPMX/DESCRIPTION’ ... OK
+* this is package ‘ggPMX’ version ‘1.2.8’
+* package encoding: UTF-8
+* checking package namespace information ... OK
+* checking package dependencies ... NOTE
+...
+  [ FAIL 1 | WARN 13 | SKIP 8 | PASS 327 ]
+  Error: Test failures
+  Execution halted
+* checking for unstated dependencies in vignettes ... OK
+* checking package vignettes in ‘inst/doc’ ... OK
+* checking running R code from vignettes ... NONE
+  ‘ggPMX-guide.Rmd’ using ‘UTF-8’... OK
+* checking re-building of vignette outputs ... OK
+* DONE
+Status: 1 ERROR, 2 NOTEs
+
+
+
+
+
+```
+### CRAN
+
+```
+* using log directory ‘/tmp/workdir/ggPMX/old/ggPMX.Rcheck’
+* using R version 4.1.1 (2021-08-10)
+* using platform: x86_64-pc-linux-gnu (64-bit)
+* using session charset: UTF-8
+* using option ‘--no-manual’
+* checking for file ‘ggPMX/DESCRIPTION’ ... OK
+* this is package ‘ggPMX’ version ‘1.2.8’
+* package encoding: UTF-8
+* checking package namespace information ... OK
+* checking package dependencies ... NOTE
+...
+  [ FAIL 1 | WARN 13 | SKIP 8 | PASS 327 ]
+  Error: Test failures
+  Execution halted
+* checking for unstated dependencies in vignettes ... OK
+* checking package vignettes in ‘inst/doc’ ... OK
+* checking running R code from vignettes ... NONE
+  ‘ggPMX-guide.Rmd’ using ‘UTF-8’... OK
+* checking re-building of vignette outputs ... OK
+* DONE
+Status: 1 ERROR, 2 NOTEs
+
+
+
+
+
+```
 # loon.ggplot
 
 <details>
 
-* Version: 1.3.1
+* Version: 1.3.3
 * GitHub: https://github.com/great-northern-diver/loon.ggplot
 * Source code: https://github.com/cran/loon.ggplot
-* Date/Publication: 2022-02-07 21:50:06 UTC
-* Number of recursive dependencies: 103
+* Date/Publication: 2022-11-12 22:30:02 UTC
+* Number of recursive dependencies: 104
 
 Run `cloud_details(, "loon.ggplot")` for more info
 
@@ -374,7 +582,7 @@ Run `cloud_details(, "loon.ggplot")` for more info
 * using option ‘--no-manual’
 * checking for file ‘loon.ggplot/DESCRIPTION’ ... OK
 * checking extension type ... Package
-* this is package ‘loon.ggplot’ version ‘1.3.1’
+* this is package ‘loon.ggplot’ version ‘1.3.3’
 * package encoding: UTF-8
 * checking package namespace information ... OK
 * checking package dependencies ... ERROR
@@ -402,7 +610,7 @@ Status: 1 ERROR
 * using option ‘--no-manual’
 * checking for file ‘loon.ggplot/DESCRIPTION’ ... OK
 * checking extension type ... Package
-* this is package ‘loon.ggplot’ version ‘1.3.1’
+* this is package ‘loon.ggplot’ version ‘1.3.3’
 * package encoding: UTF-8
 * checking package namespace information ... OK
 * checking package dependencies ... ERROR
@@ -455,6 +663,41 @@ Run `cloud_details(, "NA")` for more info
 
 
 ```
+# NA
+
+<details>
+
+* Version: NA
+* GitHub: NA
+* Source code: https://github.com/cran/NA
+* Number of recursive dependencies: 0
+
+Run `cloud_details(, "NA")` for more info
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
 # MarketMatching
 
 <details>
@@ -463,7 +706,7 @@ Run `cloud_details(, "NA")` for more info
 * GitHub: NA
 * Source code: https://github.com/cran/MarketMatching
 * Date/Publication: 2021-01-08 20:10:02 UTC
-* Number of recursive dependencies: 71
+* Number of recursive dependencies: 72
 
 Run `cloud_details(, "MarketMatching")` for more info
 
@@ -556,6 +799,327 @@ Run `cloud_details(, "NA")` for more info
 
 
 ```
+# OlinkAnalyze
+
+<details>
+
+* Version: 3.2.2
+* GitHub: NA
+* Source code: https://github.com/cran/OlinkAnalyze
+* Date/Publication: 2022-11-16 00:30:05 UTC
+* Number of recursive dependencies: 203
+
+Run `cloud_details(, "OlinkAnalyze")` for more info
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+* using log directory ‘/tmp/workdir/OlinkAnalyze/new/OlinkAnalyze.Rcheck’
+* using R version 4.1.1 (2021-08-10)
+* using platform: x86_64-pc-linux-gnu (64-bit)
+* using session charset: UTF-8
+* using option ‘--no-manual’
+* checking for file ‘OlinkAnalyze/DESCRIPTION’ ... OK
+* checking extension type ... Package
+* this is package ‘OlinkAnalyze’ version ‘3.2.2’
+* package encoding: UTF-8
+* checking package namespace information ... OK
+...
+* checking for unstated dependencies in ‘tests’ ... OK
+* checking tests ... OK
+  Running ‘testthat.R’
+* checking for unstated dependencies in vignettes ... OK
+* checking package vignettes in ‘inst/doc’ ... OK
+* checking running R code from vignettes ... NONE
+  ‘Vignett.Rmd’ using ‘UTF-8’... OK
+* checking re-building of vignette outputs ... OK
+* DONE
+Status: 1 NOTE
+
+
+
+
+
+```
+### CRAN
+
+```
+* using log directory ‘/tmp/workdir/OlinkAnalyze/old/OlinkAnalyze.Rcheck’
+* using R version 4.1.1 (2021-08-10)
+* using platform: x86_64-pc-linux-gnu (64-bit)
+* using session charset: UTF-8
+* using option ‘--no-manual’
+* checking for file ‘OlinkAnalyze/DESCRIPTION’ ... OK
+* checking extension type ... Package
+* this is package ‘OlinkAnalyze’ version ‘3.2.2’
+* package encoding: UTF-8
+* checking package namespace information ... OK
+...
+* checking for unstated dependencies in ‘tests’ ... OK
+* checking tests ... OK
+  Running ‘testthat.R’
+* checking for unstated dependencies in vignettes ... OK
+* checking package vignettes in ‘inst/doc’ ... OK
+* checking running R code from vignettes ... NONE
+  ‘Vignett.Rmd’ using ‘UTF-8’... OK
+* checking re-building of vignette outputs ... OK
+* DONE
+Status: 1 NOTE
+
+
+
+
+
+```
+# Platypus
+
+<details>
+
+* Version: 3.4.1
+* GitHub: NA
+* Source code: https://github.com/cran/Platypus
+* Date/Publication: 2022-08-15 07:20:20 UTC
+* Number of recursive dependencies: 354
+
+Run `cloud_details(, "Platypus")` for more info
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+* using log directory ‘/tmp/workdir/Platypus/new/Platypus.Rcheck’
+* using R version 4.1.1 (2021-08-10)
+* using platform: x86_64-pc-linux-gnu (64-bit)
+* using session charset: UTF-8
+* using option ‘--no-manual’
+* checking for file ‘Platypus/DESCRIPTION’ ... OK
+* checking extension type ... Package
+* this is package ‘Platypus’ version ‘3.4.1’
+* package encoding: UTF-8
+* checking package namespace information ... OK
+...
+* checking package dependencies ... ERROR
+Package required but not available: ‘ggtree’
+
+Packages suggested but not available for checking:
+  'Matrix.utils', 'monocle3', 'ProjecTILs', 'SeuratWrappers'
+
+See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
+manual.
+* DONE
+Status: 1 ERROR
+
+
+
+
+
+```
+### CRAN
+
+```
+* using log directory ‘/tmp/workdir/Platypus/old/Platypus.Rcheck’
+* using R version 4.1.1 (2021-08-10)
+* using platform: x86_64-pc-linux-gnu (64-bit)
+* using session charset: UTF-8
+* using option ‘--no-manual’
+* checking for file ‘Platypus/DESCRIPTION’ ... OK
+* checking extension type ... Package
+* this is package ‘Platypus’ version ‘3.4.1’
+* package encoding: UTF-8
+* checking package namespace information ... OK
+...
+* checking package dependencies ... ERROR
+Package required but not available: ‘ggtree’
+
+Packages suggested but not available for checking:
+  'Matrix.utils', 'monocle3', 'ProjecTILs', 'SeuratWrappers'
+
+See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
+manual.
+* DONE
+Status: 1 ERROR
+
+
+
+
+
+```
+# RVA
+
+<details>
+
+* Version: 0.0.5
+* GitHub: https://github.com/THERMOSTATS/RVA
+* Source code: https://github.com/cran/RVA
+* Date/Publication: 2021-11-01 21:40:02 UTC
+* Number of recursive dependencies: 208
+
+Run `cloud_details(, "RVA")` for more info
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+* using log directory ‘/tmp/workdir/RVA/new/RVA.Rcheck’
+* using R version 4.1.1 (2021-08-10)
+* using platform: x86_64-pc-linux-gnu (64-bit)
+* using session charset: UTF-8
+* using option ‘--no-manual’
+* checking for file ‘RVA/DESCRIPTION’ ... OK
+* this is package ‘RVA’ version ‘0.0.5’
+* package encoding: UTF-8
+* checking package namespace information ... OK
+* checking package dependencies ... ERROR
+Package required but not available: ‘clusterProfiler’
+
+See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
+manual.
+* DONE
+Status: 1 ERROR
+
+
+
+
+
+```
+### CRAN
+
+```
+* using log directory ‘/tmp/workdir/RVA/old/RVA.Rcheck’
+* using R version 4.1.1 (2021-08-10)
+* using platform: x86_64-pc-linux-gnu (64-bit)
+* using session charset: UTF-8
+* using option ‘--no-manual’
+* checking for file ‘RVA/DESCRIPTION’ ... OK
+* this is package ‘RVA’ version ‘0.0.5’
+* package encoding: UTF-8
+* checking package namespace information ... OK
+* checking package dependencies ... ERROR
+Package required but not available: ‘clusterProfiler’
+
+See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
+manual.
+* DONE
+Status: 1 ERROR
+
+
+
+
+
+```
+# NA
+
+<details>
+
+* Version: NA
+* GitHub: NA
+* Source code: https://github.com/cran/NA
+* Number of recursive dependencies: 0
+
+Run `cloud_details(, "NA")` for more info
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
+# tinyarray
+
+<details>
+
+* Version: 2.2.7
+* GitHub: https://github.com/xjsun1221/tinyarray
+* Source code: https://github.com/cran/tinyarray
+* Date/Publication: 2021-11-08 10:00:02 UTC
+* Number of recursive dependencies: 228
+
+Run `cloud_details(, "tinyarray")` for more info
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+* using log directory ‘/tmp/workdir/tinyarray/new/tinyarray.Rcheck’
+* using R version 4.1.1 (2021-08-10)
+* using platform: x86_64-pc-linux-gnu (64-bit)
+* using session charset: UTF-8
+* using option ‘--no-manual’
+* checking for file ‘tinyarray/DESCRIPTION’ ... OK
+* checking extension type ... Package
+* this is package ‘tinyarray’ version ‘2.2.7’
+* package encoding: UTF-8
+* checking package namespace information ... OK
+* checking package dependencies ... ERROR
+Package required but not available: ‘clusterProfiler’
+
+See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
+manual.
+* DONE
+Status: 1 ERROR
+
+
+
+
+
+```
+### CRAN
+
+```
+* using log directory ‘/tmp/workdir/tinyarray/old/tinyarray.Rcheck’
+* using R version 4.1.1 (2021-08-10)
+* using platform: x86_64-pc-linux-gnu (64-bit)
+* using session charset: UTF-8
+* using option ‘--no-manual’
+* checking for file ‘tinyarray/DESCRIPTION’ ... OK
+* checking extension type ... Package
+* this is package ‘tinyarray’ version ‘2.2.7’
+* package encoding: UTF-8
+* checking package namespace information ... OK
+* checking package dependencies ... ERROR
+Package required but not available: ‘clusterProfiler’
+
+See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
+manual.
+* DONE
+Status: 1 ERROR
+
+
+
+
+
+```
 # vivid
 
 <details>
@@ -564,7 +1128,7 @@ Run `cloud_details(, "NA")` for more info
 * GitHub: NA
 * Source code: https://github.com/cran/vivid
 * Date/Publication: 2021-11-20 01:30:02 UTC
-* Number of recursive dependencies: 202
+* Number of recursive dependencies: 206
 
 Run `cloud_details(, "vivid")` for more info
 
@@ -626,6 +1190,78 @@ Status: 2 NOTEs
 * checking re-building of vignette outputs ... OK
 * DONE
 Status: 2 NOTEs
+
+
+
+
+
+```
+# xpose.nlmixr2
+
+<details>
+
+* Version: 0.4.0
+* GitHub: NA
+* Source code: https://github.com/cran/xpose.nlmixr2
+* Date/Publication: 2022-06-08 09:10:02 UTC
+* Number of recursive dependencies: 154
+
+Run `cloud_details(, "xpose.nlmixr2")` for more info
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+* using log directory ‘/tmp/workdir/xpose.nlmixr2/new/xpose.nlmixr2.Rcheck’
+* using R version 4.1.1 (2021-08-10)
+* using platform: x86_64-pc-linux-gnu (64-bit)
+* using session charset: UTF-8
+* using option ‘--no-manual’
+* checking for file ‘xpose.nlmixr2/DESCRIPTION’ ... OK
+* checking extension type ... Package
+* this is package ‘xpose.nlmixr2’ version ‘0.4.0’
+* package encoding: UTF-8
+* checking package namespace information ... OK
+* checking package dependencies ... ERROR
+Package required but not available: ‘nlmixr2est’
+
+Package suggested but not available for checking: ‘nlmixr2’
+
+See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
+manual.
+* DONE
+Status: 1 ERROR
+
+
+
+
+
+```
+### CRAN
+
+```
+* using log directory ‘/tmp/workdir/xpose.nlmixr2/old/xpose.nlmixr2.Rcheck’
+* using R version 4.1.1 (2021-08-10)
+* using platform: x86_64-pc-linux-gnu (64-bit)
+* using session charset: UTF-8
+* using option ‘--no-manual’
+* checking for file ‘xpose.nlmixr2/DESCRIPTION’ ... OK
+* checking extension type ... Package
+* this is package ‘xpose.nlmixr2’ version ‘0.4.0’
+* package encoding: UTF-8
+* checking package namespace information ... OK
+* checking package dependencies ... ERROR
+Package required but not available: ‘nlmixr2est’
+
+Package suggested but not available for checking: ‘nlmixr2’
+
+See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
+manual.
+* DONE
+Status: 1 ERROR
 
 
 

@@ -1,214 +1,39 @@
-# broom
+# cmcR
 
 <details>
 
-* Version: 0.8.0
-* GitHub: https://github.com/tidymodels/broom
-* Source code: https://github.com/cran/broom
-* Date/Publication: 2022-04-13 15:02:34 UTC
-* Number of recursive dependencies: 294
-
-Run `cloud_details(, "broom")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘broom-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: glance.lmodel2
-    > ### Title: Glance at a(n) lmodel2 object
-    > ### Aliases: glance.lmodel2
-    > 
-    > ### ** Examples
-    > 
-    > 
-    ...
-      4. ├─dplyr::select(., method = Method, term, conf.low, conf.high)
-      5. ├─base::as.data.frame(.)
-      6. ├─dplyr::arrange(., Method)
-      7. └─tidyr::pivot_wider(., c(Method, term), names_from = level, values_from = value)
-      8.   └─rlang `<fn>`()
-      9.     └─rlang:::check_dots(env, error, action, call)
-     10.       └─rlang:::action_dots(...)
-     11.         ├─base try_dots(...)
-     12.         └─rlang action(...)
-    Execution halted
-    ```
-
-## In both
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespace in Imports field not imported from: ‘ggplot2’
-      All declared Imports should be used.
-    ```
-
-# dartR
-
-<details>
-
-* Version: 2.0.3
+* Version: 0.1.9
 * GitHub: NA
-* Source code: https://github.com/cran/dartR
-* Date/Publication: 2022-03-28 14:50:02 UTC
-* Number of recursive dependencies: 274
+* Source code: https://github.com/cran/cmcR
+* Date/Publication: 2022-02-22 14:00:02 UTC
+* Number of recursive dependencies: 117
 
-Run `cloud_details(, "dartR")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘dartR-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: gl.report.pa
-    > ### Title: Reports private alleles (and fixed alleles) per pair of
-    > ###   populations
-    > ### Aliases: gl.report.pa
-    > 
-    > ### ** Examples
-    > 
-    ...
-      6. │       ├─base::withCallingHandlers(...)
-      7. │       └─vctrs::vec_recycle(value[[j]], nrow)
-      8. ├─vctrs:::stop_recycle_incompatible_size(...)
-      9. │ └─vctrs:::stop_vctrs(...)
-     10. │   └─rlang::abort(message, class = c(class, "vctrs_error"), ..., call = vctrs_error_call(call))
-     11. │     └─rlang:::signal_abort(cnd, .file)
-     12. │       └─base::signalCondition(cnd)
-     13. └─tibble `<fn>`(`<vctrs___>`)
-     14.   └─rlang::cnd_signal(...)
-    Execution halted
-    ```
-
-## In both
-
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    Error(s) in re-building vignettes:
-    --- re-building ‘IntroTutorial_dartR.Rmd’ using rmarkdown
-    A new version of TeX Live has been released. If you need to install or update any LaTeX packages, you have to upgrade TinyTeX with tinytex::reinstall_tinytex(). If it fails to upgrade, you might be using a default random CTAN mirror that has not been fully synced to the main CTAN repository, and you need to wait for a few more days or use a CTAN mirror that is known to be up-to-date (see the "repository" argument on the help page ?tinytex::install_tinytex).
-    
-    tlmgr: Local TeX Live (2021) is older than remote repository (2022).
-    Cross release updates are only supported with
-      update-tlmgr-latest(.sh/.exe) --update
-    See https://tug.org/texlive/upgrade.html for details.
-    Warning in system2("tlmgr", args, ...) :
-      running command ''tlmgr' search --file --global '/tcolorbox.sty'' had status 1
-    ...
-    --- failed re-building ‘IntroTutorial_dartR.Rmd’
-    
-    --- re-building ‘dartRTutorials.Rmd’ using rmarkdown
-    --- finished re-building ‘dartRTutorials.Rmd’
-    
-    SUMMARY: processing the following file failed:
-      ‘IntroTutorial_dartR.Rmd’
-    
-    Error: Vignette re-building failed.
-    Execution halted
-    ```
-
-*   checking installed package size ... NOTE
-    ```
-      installed size is  5.0Mb
-      sub-directories of 1Mb or more:
-        R      1.1Mb
-        data   1.5Mb
-    ```
-
-# egor
-
-<details>
-
-* Version: 1.22.1
-* GitHub: https://github.com/tilltnet/egor
-* Source code: https://github.com/cran/egor
-* Date/Publication: 2022-01-14 20:52:41 UTC
-* Number of recursive dependencies: 89
-
-Run `cloud_details(, "egor")` for more info
+Run `cloud_details(, "cmcR")` for more info
 
 </details>
 
 ## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘egor-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: count_dyads
-    > ### Title: Count attribute combinations of dyads in ego-centered networks
-    > ### Aliases: count_dyads
-    > 
-    > ### ** Examples
-    > 
-    > data(egor32)
-    ...
-    Backtrace:
-        ▆
-     1. └─egor::count_dyads(object = egor32, alter_var_name = "country")
-     2.   └─tidyr::pivot_wider(...)
-     3.     └─rlang `<fn>`()
-     4.       └─rlang:::check_dots(env, error, action, call)
-     5.         └─rlang:::action_dots(...)
-     6.           ├─base try_dots(...)
-     7.           └─rlang action(...)
-    Execution halted
-    ```
 
 *   checking tests ... ERROR
     ```
       Running ‘testthat.R’
     Running the tests in ‘tests/testthat.R’ failed.
     Last 13 lines of output:
-      ✖ Problematic argument:
-      • ..1 = .egoID
-      Backtrace:
-          ▆
-       1. └─egor::count_dyads(object = x, "sex") at test-count_dyads.R:42:2
-       2.   └─tidyr::pivot_wider(...)
-       3.     └─rlang `<fn>`()
-       4.       └─rlang:::check_dots(env, error, action, call)
-       5.         └─rlang:::action_dots(...)
-       6.           ├─base try_dots(...)
-       7.           └─rlang action(...)
+      ℹ Please use `"highCMCClassif"` instead of `.data$highCMCClassif`
       
-      [ FAIL 3 | WARN 0 | SKIP 0 | PASS 228 ]
+      ══ Failed ══════════════════════════════════════════════════════════════════════
+      ── 1. Error ('test-diagnosticTools.R:55'): (code run outside of `test_that()`) ─
+      Error in `stringr::str_extract_all(., string = ..2$cmcR.info$cellRange, 
+          pattern = "[0-9]{1,}")`: `simplify` must be `TRUE` or `FALSE`, not the string "rows: 1 - 69, cols: 1 - 69".
+      Backtrace:
+       1. cmcR::cmcPlot(...)
+            at test-diagnosticTools.R:55:0
+       8. stringr::str_extract_all(simplify = .)
+      
+      ══ DONE ════════════════════════════════════════════════════════════════════════
+      Don't worry, you'll get it.
       Error: Test failures
       Execution halted
-    ```
-
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    Error(s) in re-building vignettes:
-    --- re-building ‘egor_allbus.Rmd’ using rmarkdown
-    Loading required package: dplyr
-    
-    Attaching package: 'dplyr'
-    
-    The following objects are masked from 'package:stats':
-    
-        filter, lag
-    
-    ...
-    Arguments in `...` must be used.
-    ✖ Problematic argument:
-    • ..1 = .egoID
-    --- failed re-building ‘using_egor.Rmd’
-    
-    SUMMARY: processing the following file failed:
-      ‘using_egor.Rmd’
-    
-    Error: Vignette re-building failed.
-    Execution halted
     ```
 
 # faux
@@ -252,17 +77,17 @@ Run `cloud_details(, "faux")` for more info
     Execution halted
     ```
 
-# ftExtra
+# ggpubr
 
 <details>
 
-* Version: 0.3.0
-* GitHub: https://github.com/atusy/ftExtra
-* Source code: https://github.com/cran/ftExtra
-* Date/Publication: 2022-01-04 17:00:02 UTC
-* Number of recursive dependencies: 66
+* Version: 0.5.0
+* GitHub: https://github.com/kassambara/ggpubr
+* Source code: https://github.com/cran/ggpubr
+* Date/Publication: 2022-11-16 12:10:54 UTC
+* Number of recursive dependencies: 84
 
-Run `cloud_details(, "ftExtra")` for more info
+Run `cloud_details(, "ggpubr")` for more info
 
 </details>
 
@@ -270,47 +95,89 @@ Run `cloud_details(, "ftExtra")` for more info
 
 *   checking examples ... ERROR
     ```
-    Running examples in ‘ftExtra-Ex.R’ failed
+    Running examples in ‘ggpubr-Ex.R’ failed
     The error most likely occurred in:
     
-    > ### Name: span_header
-    > ### Title: Span the header based on delimiters
-    > ### Aliases: span_header
+    > ### Name: ggsummarytable
+    > ### Title: GGPLOT with Summary Stats Table Under the Plot
+    > ### Aliases: ggsummarytable ggsummarystats print.ggsummarystats
+    > ###   print.ggsummarystats_list
     > 
     > ### ** Examples
     > 
-    > iris %>%
     ...
-      4. │   └─... %>% fill_header(.fill)
-      5. ├─ftExtra:::fill_header(., .fill)
-      6. │ └─... %>% ...
-      7. └─tidyr::pivot_wider(...)
-      8.   └─rlang `<fn>`()
-      9.     └─rlang:::check_dots(env, error, action, call)
-     10.       └─rlang:::action_dots(...)
-     11.         ├─base try_dots(...)
-     12.         └─rlang action(...)
+      6.   └─tidyselect::eval_select(expr(c(...)), data, allow_rename = FALSE)
+      7.     └─tidyselect:::eval_select_impl(...)
+      8.       ├─tidyselect:::with_subscript_errors(...)
+      9.       │ └─rlang::try_fetch(...)
+     10.       │   └─base::withCallingHandlers(...)
+     11.       └─tidyselect:::vars_select_eval(...)
+     12.         └─tidyselect:::ensure_named(...)
+     13.           └─cli::cli_abort(...)
+     14.             └─rlang::abort(...)
+    Execution halted
+    ```
+
+# metaconfoundr
+
+<details>
+
+* Version: 0.1.1
+* GitHub: https://github.com/malcolmbarrett/metaconfoundr
+* Source code: https://github.com/cran/metaconfoundr
+* Date/Publication: 2022-08-06 14:00:10 UTC
+* Number of recursive dependencies: 117
+
+Run `cloud_details(, "metaconfoundr")` for more info
+
+</details>
+
+## Newly broken
+
+*   checking examples ... ERROR
+    ```
+    Running examples in ‘metaconfoundr-Ex.R’ failed
+    The error most likely occurred in:
+    
+    > ### Name: metaconfoundr()
+    > ### Title: Prepare a meta-analysis data set for metaconfoundr
+    > ### Aliases: metaconfoundr() metaconfoundr
+    > 
+    > ### ** Examples
+    > 
+    > 
+    ...
+      7.           └─tidyselect::eval_select(...)
+      8.             └─tidyselect:::eval_select_impl(...)
+      9.               ├─tidyselect:::with_subscript_errors(...)
+     10.               │ └─rlang::try_fetch(...)
+     11.               │   └─base::withCallingHandlers(...)
+     12.               └─tidyselect:::vars_select_eval(...)
+     13.                 └─tidyselect:::ensure_named(...)
+     14.                   └─cli::cli_abort(...)
+     15.                     └─rlang::abort(...)
     Execution halted
     ```
 
 *   checking tests ... ERROR
     ```
+      Running ‘spelling.R’
       Running ‘testthat.R’
     Running the tests in ‘tests/testthat.R’ failed.
     Last 13 lines of output:
-        5. ├─ftExtra::span_header(.)
-        6. │ └─ftExtra:::transform_header(...)
-        7. │   └─... %>% fill_header(.fill)
-        8. ├─ftExtra:::fill_header(., .fill)
-        9. │ └─... %>% ...
-       10. └─tidyr::pivot_wider(...)
-       11.   └─rlang `<fn>`()
-       12.     └─rlang:::check_dots(env, error, action, call)
-       13.       └─rlang:::action_dots(...)
-       14.         ├─base try_dots(...)
-       15.         └─rlang action(...)
       
-      [ FAIL 2 | WARN 0 | SKIP 0 | PASS 40 ]
+      [ FAIL 2 | WARN 6 | SKIP 4 | PASS 32 ]
+      Deleting unused snapshots:
+      • non-confounders/non-confounder-count-point.svg
+      • plots/cochrane-heatmap.svg
+      • plots/cochrane-traffic-light-plot.svg
+      • plots/heatmap-with-robins-labels-cochrane-colors.svg
+      • plots/sorted-heatmap-by-domain.svg
+      • plots/sorted-heatmap.svg
+      • plots/sorted-traffic-light-plot-by-domain.svg
+      • plots/sorted-traffic-light-plot.svg
+      • plots/themed-heatmap.svg
+      • plots/themed-traffic-light-plot.svg
       Error: Test failures
       Execution halted
     ```
@@ -319,38 +186,30 @@ Run `cloud_details(, "ftExtra")` for more info
     ```
     Error(s) in re-building vignettes:
       ...
-    --- re-building ‘format_columns.Rmd’ using rmarkdown
-    --- finished re-building ‘format_columns.Rmd’
-    
-    --- re-building ‘group-rows.Rmd’ using rmarkdown
-    --- finished re-building ‘group-rows.Rmd’
-    
-    --- re-building ‘transform-headers.Rmd’ using rmarkdown
-    Quitting from lines 53-54 (transform-headers.Rmd) 
-    ...
-    Arguments in `...` must be used.
-    ✖ Problematic argument:
-    • ..1 = "original"
-    --- failed re-building ‘transform-headers.Rmd’
+    --- re-building ‘intro-to-metaconfoundr.Rmd’ using rmarkdown
+    Quitting from lines 39-42 (intro-to-metaconfoundr.Rmd) 
+    Error: processing vignette 'intro-to-metaconfoundr.Rmd' failed with diagnostics:
+    Can't rename variables in this context.
+    --- failed re-building ‘intro-to-metaconfoundr.Rmd’
     
     SUMMARY: processing the following file failed:
-      ‘transform-headers.Rmd’
+      ‘intro-to-metaconfoundr.Rmd’
     
     Error: Vignette re-building failed.
     Execution halted
     ```
 
-# hacksig
+# mpwR
 
 <details>
 
-* Version: 0.1.2
-* GitHub: https://github.com/Acare/hacksig
-* Source code: https://github.com/cran/hacksig
-* Date/Publication: 2022-02-17 14:22:02 UTC
-* Number of recursive dependencies: 72
+* Version: 0.1.0
+* GitHub: NA
+* Source code: https://github.com/cran/mpwR
+* Date/Publication: 2022-06-22 07:30:02 UTC
+* Number of recursive dependencies: 96
 
-Run `cloud_details(, "hacksig")` for more info
+Run `cloud_details(, "mpwR")` for more info
 
 </details>
 
@@ -358,34 +217,97 @@ Run `cloud_details(, "hacksig")` for more info
 
 *   checking examples ... ERROR
     ```
-    Running examples in ‘hacksig-Ex.R’ failed
+    Running examples in ‘mpwR-Ex.R’ failed
     The error most likely occurred in:
     
-    > ### Name: hack_immunophenoscore
-    > ### Title: Hack the Immunophenoscore
-    > ### Aliases: hack_immunophenoscore
+    > ### Name: get_Upset_list
+    > ### Title: Generate Upset list
+    > ### Aliases: get_Upset_list
     > 
     > ### ** Examples
     > 
-    > hack_immunophenoscore(test_expr)
+    > # Load libraries
     ...
+    ! `pattern` can't be the empty string (`""`).
+    Backtrace:
         ▆
-     1. └─hacksig::hack_immunophenoscore(test_expr)
-     2.   ├─dplyr::ungroup(...)
-     3.   └─tidyr::pivot_wider(...)
-     4.     └─rlang `<fn>`()
-     5.       └─rlang:::check_dots(env, error, action, call)
-     6.         └─rlang:::action_dots(...)
-     7.           ├─base try_dots(...)
-     8.           └─rlang action(...)
+     1. └─mpwR::get_Upset_list(input_list = data, level = "Precursor.IDs")
+     2.   ├─base::which(...)
+     3.   └─stringr::str_detect(string = names(output_list), pattern = "")
+     4.     └─stringr:::no_empty()
+     5.       └─cli::cli_abort(...)
+     6.         └─rlang::abort(...)
     Execution halted
+    ```
+
+*   checking tests ... ERROR
+    ```
+      Running ‘testthat.R’
+    Running the tests in ‘tests/testthat.R’ failed.
+    Last 13 lines of output:
+      ══ Failed tests ════════════════════════════════════════════════════════════════
+      ── Error ('test_Upset.R:72'): get_Upset_list works ─────────────────────────────
+      Error in `stringr::str_detect(string = names(output_list), pattern = "")`: `pattern` can't be the empty string (`""`).
+      Backtrace:
+          ▆
+       1. └─mpwR::get_Upset_list(input_list = data, level = "Precursor.IDs") at test_Upset.R:72:3
+       2.   ├─base::which(...)
+       3.   └─stringr::str_detect(string = names(output_list), pattern = "")
+       4.     └─stringr:::no_empty()
+       5.       └─cli::cli_abort(...)
+       6.         └─rlang::abort(...)
+      
+      [ FAIL 1 | WARN 553 | SKIP 0 | PASS 598 ]
+      Error: Test failures
+      Execution halted
     ```
 
 *   checking re-building of vignette outputs ... WARNING
     ```
     Error(s) in re-building vignettes:
+    --- re-building ‘Import.Rmd’ using rmarkdown
+    --- finished re-building ‘Import.Rmd’
+    
+    --- re-building ‘Requirements.Rmd’ using rmarkdown
+    --- finished re-building ‘Requirements.Rmd’
+    
+    --- re-building ‘Workflow.Rmd’ using rmarkdown
+    
+    Attaching package: 'dplyr'
+    ...
+    Quitting from lines 225-226 (Workflow.Rmd) 
+    Error: processing vignette 'Workflow.Rmd' failed with diagnostics:
+    `pattern` can't be the empty string (`""`).
+    --- failed re-building ‘Workflow.Rmd’
+    
+    SUMMARY: processing the following file failed:
+      ‘Workflow.Rmd’
+    
+    Error: Vignette re-building failed.
+    Execution halted
+    ```
+
+# openalexR
+
+<details>
+
+* Version: 1.0.0
+* GitHub: https://github.com/massimoaria/openalexR
+* Source code: https://github.com/cran/openalexR
+* Date/Publication: 2022-10-06 10:40:02 UTC
+* Number of recursive dependencies: 78
+
+Run `cloud_details(, "openalexR")` for more info
+
+</details>
+
+## Newly broken
+
+*   checking re-building of vignette outputs ... WARNING
+    ```
+    Error(s) in re-building vignettes:
       ...
-    --- re-building ‘hacksig.Rmd’ using rmarkdown
+    --- re-building ‘A_Brief_Introduction_to_openalexR.Rmd’ using rmarkdown
     
     Attaching package: 'dplyr'
     
@@ -394,136 +316,29 @@ Run `cloud_details(, "hacksig")` for more info
         filter, lag
     
     ...
-    Arguments in `...` must be used.
-    ✖ Problematic argument:
-    • ..1 = c("sample_id", "raw", "ips")
-    --- failed re-building ‘hacksig.Rmd’
+    Quitting from lines 207-213 (A_Brief_Introduction_to_openalexR.Rmd) 
+    Error: processing vignette 'A_Brief_Introduction_to_openalexR.Rmd' failed with diagnostics:
+    $ operator is invalid for atomic vectors
+    --- failed re-building ‘A_Brief_Introduction_to_openalexR.Rmd’
     
     SUMMARY: processing the following file failed:
-      ‘hacksig.Rmd’
+      ‘A_Brief_Introduction_to_openalexR.Rmd’
     
     Error: Vignette re-building failed.
     Execution halted
     ```
 
-# psfmi
+# recipes
 
 <details>
 
-* Version: 1.0.0
-* GitHub: https://github.com/mwheymans/psfmi
-* Source code: https://github.com/cran/psfmi
-* Date/Publication: 2021-09-23 10:10:05 UTC
-* Number of recursive dependencies: 152
+* Version: 1.0.3
+* GitHub: https://github.com/tidymodels/recipes
+* Source code: https://github.com/cran/recipes
+* Date/Publication: 2022-11-09 16:50:02 UTC
+* Number of recursive dependencies: 134
 
-Run `cloud_details(, "psfmi")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    Error(s) in re-building vignettes:
-    --- re-building ‘MI_boot.Rmd’ using rmarkdown
-    --- finished re-building ‘MI_boot.Rmd’
-    
-    --- re-building ‘MI_cv_naive.Rmd’ using rmarkdown
-    --- finished re-building ‘MI_cv_naive.Rmd’
-    
-    --- re-building ‘Pool_Model_Performance.Rmd’ using rmarkdown
-    --- finished re-building ‘Pool_Model_Performance.Rmd’
-    
-    ...
-    --- failed re-building ‘psfmi_StabilityAnalysis.Rmd’
-    
-    --- re-building ‘psfmi_mice.Rmd’ using rmarkdown
-    --- finished re-building ‘psfmi_mice.Rmd’
-    
-    SUMMARY: processing the following file failed:
-      ‘psfmi_StabilityAnalysis.Rmd’
-    
-    Error: Vignette re-building failed.
-    Execution halted
-    ```
-
-## In both
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespace in Imports field not imported from: ‘miceadds’
-      All declared Imports should be used.
-    ```
-
-# rmdcev
-
-<details>
-
-* Version: 1.2.4
-* GitHub: https://github.com/plloydsmith/rmdcev
-* Source code: https://github.com/cran/rmdcev
-* Date/Publication: 2020-09-30 18:40:02 UTC
-* Number of recursive dependencies: 84
-
-Run `cloud_details(, "rmdcev")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking tests ... ERROR
-    ```
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-        3. │   ├─base::t(GrabParms(est_sim, "scale"))
-        4. │   └─rmdcev:::GrabParms(est_sim, "scale")
-        5. │     └─... %>% as.matrix(.)
-        6. ├─base::as.matrix(.)
-        7. ├─dplyr::select(., -sim_id)
-        8. └─tidyr::pivot_wider(., sim_id, names_from = "parms", values_from = "value")
-        9.   └─rlang `<fn>`()
-       10.     └─rlang:::check_dots(env, error, action, call)
-       11.       └─rlang:::action_dots(...)
-       12.         ├─base try_dots(...)
-       13.         └─rlang action(...)
-      
-      [ FAIL 15 | WARN 0 | SKIP 1 | PASS 54 ]
-      Error: Test failures
-      Execution halted
-    ```
-
-## In both
-
-*   checking installed package size ... NOTE
-    ```
-      installed size is 114.5Mb
-      sub-directories of 1Mb or more:
-        libs  113.7Mb
-    ```
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespace in Imports field not imported from: ‘RcppParallel’
-      All declared Imports should be used.
-    ```
-
-*   checking for GNU extensions in Makefiles ... NOTE
-    ```
-    GNU make is a SystemRequirements.
-    ```
-
-# simITS
-
-<details>
-
-* Version: 0.1.1
-* GitHub: NA
-* Source code: https://github.com/cran/simITS
-* Date/Publication: 2020-05-20 13:50:02 UTC
-* Number of recursive dependencies: 78
-
-Run `cloud_details(, "simITS")` for more info
+Run `cloud_details(, "recipes")` for more info
 
 </details>
 
@@ -531,26 +346,26 @@ Run `cloud_details(, "simITS")` for more info
 
 *   checking examples ... ERROR
     ```
-    Running examples in ‘simITS-Ex.R’ failed
+    Running examples in ‘recipes-Ex.R’ failed
     The error most likely occurred in:
     
-    > ### Name: adjust_data
-    > ### Title: Adjust an outcome time series based on the group weights.
-    > ### Aliases: adjust_data
+    > ### Name: step_naomit
+    > ### Title: Remove observations with missing values
+    > ### Aliases: step_naomit
     > 
     > ### ** Examples
     > 
-    > data( "meck_subgroup" )
+    > 
     ...
-        ▆
-     1. ├─simITS::aggregate_data(...)
-     2. │ └─... %>% ...
-     3. └─tidyr::pivot_wider(...)
-     4.   └─rlang `<fn>`()
-     5.     └─rlang:::check_dots(env, error, action, call)
-     6.       └─rlang:::action_dots(...)
-     7.         ├─base try_dots(...)
-     8.         └─rlang action(...)
+     10.       └─tidyselect::eval_select(expr(c(!!!dots)), data, allow_rename = FALSE)
+     11.         └─tidyselect:::eval_select_impl(...)
+     12.           ├─tidyselect:::with_subscript_errors(...)
+     13.           │ └─rlang::try_fetch(...)
+     14.           │   └─base::withCallingHandlers(...)
+     15.           └─tidyselect:::vars_select_eval(...)
+     16.             └─tidyselect:::ensure_named(...)
+     17.               └─cli::cli_abort(...)
+     18.                 └─rlang::abort(...)
     Execution halted
     ```
 
@@ -559,143 +374,75 @@ Run `cloud_details(, "simITS")` for more info
       Running ‘testthat.R’
     Running the tests in ‘tests/testthat.R’ failed.
     Last 13 lines of output:
-      • ..1 = month
-      Backtrace:
-          ▆
-       1. ├─simITS::aggregate_data(meck, "pbail", "category", Nname = "N") at test-post_stratified_ITS.R:45:2
-       2. │ └─... %>% ...
-       3. └─tidyr::pivot_wider(...)
-       4.   └─rlang `<fn>`()
-       5.     └─rlang:::check_dots(env, error, action, call)
-       6.       └─rlang:::action_dots(...)
-       7.         ├─base try_dots(...)
-       8.         └─rlang action(...)
+        9.     ├─tidyr::drop_na(new_data, object$columns)
+       10.     └─tidyr:::drop_na.data.frame(new_data, object$columns)
+       11.       └─tidyselect::eval_select(expr(c(!!!dots)), data, allow_rename = FALSE)
+       12.         └─tidyselect:::eval_select_impl(...)
+       13.           ├─tidyselect:::with_subscript_errors(...)
+       14.           │ └─rlang::try_fetch(...)
+       15.           │   └─base::withCallingHandlers(...)
+       16.           └─tidyselect:::vars_select_eval(...)
+       17.             └─tidyselect:::ensure_named(...)
+       18.               └─cli::cli_abort(...)
+       19.                 └─rlang::abort(...)
       
-      [ FAIL 2 | WARN 0 | SKIP 0 | PASS 78 ]
+      [ FAIL 2 | WARN 2 | SKIP 401 | PASS 1889 ]
       Error: Test failures
       Execution halted
     ```
 
-# surveil
+## In both
+
+*   checking Rd cross-references ... NOTE
+    ```
+    Packages unavailable to check Rd xrefs: ‘fastICA’, ‘dimRed’
+    ```
+
+# tidyfst
 
 <details>
 
-* Version: 0.2.0
-* GitHub: https://github.com/ConnorDonegan/surveil
-* Source code: https://github.com/cran/surveil
-* Date/Publication: 2022-04-03 18:40:02 UTC
-* Number of recursive dependencies: 94
+* Version: 1.7.5
+* GitHub: https://github.com/hope-data-science/tidyfst
+* Source code: https://github.com/cran/tidyfst
+* Date/Publication: 2022-10-27 07:00:02 UTC
+* Number of recursive dependencies: 80
 
-Run `cloud_details(, "surveil")` for more info
+Run `cloud_details(, "tidyfst")` for more info
 
 </details>
 
 ## Newly broken
 
-*   checking tests ... ERROR
+*   checking examples ... ERROR
     ```
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-      Backtrace:
-          ▆
-       1. ├─surveil::stan_rw(...) at test_rw.R:141:4
-       2. │ └─... %>% dplyr::select(-c(.data$id))
-       3. ├─dplyr::select(., -c(.data$id))
-       4. └─tidyr::pivot_wider(...)
-       5.   └─rlang `<fn>`()
-       6.     └─rlang:::check_dots(env, error, action, call)
-       7.       └─rlang:::action_dots(...)
-       8.         ├─base try_dots(...)
-       9.         └─rlang action(...)
-      
-      [ FAIL 8 | WARN 11 | SKIP 0 | PASS 3 ]
-      Error: Test failures
-      Execution halted
-    ```
-
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    Error(s) in re-building vignettes:
-    --- re-building ‘age-standardization.Rmd’ using rmarkdown
-    Quitting from lines 115-122 (age-standardization.Rmd) 
-    Error: processing vignette 'age-standardization.Rmd' failed with diagnostics:
-    Arguments in `...` must be used.
-    ✖ Problematic argument:
-    • ..1 = id
-    --- failed re-building ‘age-standardization.Rmd’
+    Running examples in ‘tidyfst-Ex.R’ failed
+    The error most likely occurred in:
     
-    --- re-building ‘demonstration.Rmd’ using rmarkdown
+    > ### Name: unite_dt
+    > ### Title: Unite multiple columns into one by pasting strings together
+    > ### Aliases: unite_dt
+    > 
+    > ### ** Examples
+    > 
+    > df <- expand.grid(x = c("a", NA), y = c("b", NA))
     ...
-    Arguments in `...` must be used.
-    ✖ Problematic argument:
-    • ..1 = id
-    --- failed re-building ‘demonstration.Rmd’
-    
-    SUMMARY: processing the following files failed:
-      ‘age-standardization.Rmd’ ‘demonstration.Rmd’
-    
-    Error: Vignette re-building failed.
+      2. ├─tidyfst::unite_dt(., "merged_name", "")
+      3. │ └─dt %>% select_dt(...)
+      4. ├─tidyfst::select_dt(., ...)
+      5. │ └─... %>% str_c(collapse = ",")
+      6. ├─stringr::str_c(., collapse = ",")
+      7. └─stringr::str_subset(names(dt), ., negate = negate)
+      8.   └─stringr:::no_empty()
+      9.     └─cli::cli_abort(...)
+     10.       └─rlang::abort(...)
     Execution halted
     ```
 
 ## In both
 
-*   checking installed package size ... NOTE
+*   checking Rd cross-references ... NOTE
     ```
-      installed size is 75.9Mb
-      sub-directories of 1Mb or more:
-        libs  74.7Mb
-    ```
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespaces in Imports field not imported from:
-      ‘RcppParallel’ ‘rstantools’
-      All declared Imports should be used.
-    ```
-
-*   checking for GNU extensions in Makefiles ... NOTE
-    ```
-    GNU make is a SystemRequirements.
-    ```
-
-# tsibble
-
-<details>
-
-* Version: 1.1.1
-* GitHub: https://github.com/tidyverts/tsibble
-* Source code: https://github.com/cran/tsibble
-* Date/Publication: 2021-12-03 21:30:02 UTC
-* Number of recursive dependencies: 94
-
-Run `cloud_details(, "tsibble")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking tests ... ERROR
-    ```
-      Running ‘spelling.R’
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-        3. │   └─testthat:::quasi_capture(...)
-        4. │     ├─testthat .capture(...)
-        5. │     │ └─base::withCallingHandlers(...)
-        6. │     └─rlang::eval_bare(quo_get_expr(.quo), quo_get_env(.quo))
-        7. ├─tsbl %>% pivot_wider(qtr, names_from = qtr, values_from = value)
-        8. ├─tidyr::pivot_wider(., qtr, names_from = qtr, values_from = value)
-        9. └─rlang `<fn>`()
-       10.   └─rlang:::check_dots(env, error, action, call)
-       11.     └─rlang:::action_dots(...)
-       12.       ├─base try_dots(...)
-       13.       └─rlang action(...)
-      
-      [ FAIL 1 | WARN 1 | SKIP 5 | PASS 743 ]
-      Error: Test failures
-      Execution halted
+    Packages unavailable to check Rd xrefs: ‘fastDummies’, ‘widyr’, ‘pacman’, ‘sjmisc’
     ```
 
