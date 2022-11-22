@@ -1,143 +1,39 @@
-# batchtma
+# cmcR
 
 <details>
 
-* Version: 0.1.6
-* GitHub: https://github.com/stopsack/batchtma
-* Source code: https://github.com/cran/batchtma
-* Date/Publication: 2021-12-06 08:10:02 UTC
-* Number of recursive dependencies: 106
-
-Run `cloud_details(, "batchtma")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘batchtma-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: adjust_batch
-    > ### Title: Adjust for batch effects
-    > ### Aliases: adjust_batch
-    > 
-    > ### ** Examples
-    > 
-    > # Data frame with two batches
-    ...
-    > adjust_batch(
-    +   data = df,
-    +   markers = biomarker,
-    +   batch = tma,
-    +   method = simple
-    + )
-    Error in tidyr::pivot_longer(., col = c(-.data$.batchvar), names_to = "marker",  : 
-      argument 2 matches multiple formal arguments
-    Calls: adjust_batch -> batchmean_simple -> %>%
-    Execution halted
-    ```
-
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    Error(s) in re-building vignettes:
-      ...
-    --- re-building ‘batchtma.Rmd’ using rmarkdown
-    ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.1 ──
-    ✔ ggplot2 3.3.5          ✔ purrr   0.3.4     
-    ✔ tibble  3.1.6          ✔ dplyr   1.0.8     
-    ✔ tidyr   1.2.0.9000     ✔ stringr 1.4.0     
-    ✔ readr   2.1.2          ✔ forcats 0.5.1     
-    ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
-    ✖ dplyr::filter() masks stats::filter()
-    ...
-    Quitting from lines 92-96 (batchtma.Rmd) 
-    Error: processing vignette 'batchtma.Rmd' failed with diagnostics:
-    argument 2 matches multiple formal arguments
-    --- failed re-building ‘batchtma.Rmd’
-    
-    SUMMARY: processing the following file failed:
-      ‘batchtma.Rmd’
-    
-    Error: Vignette re-building failed.
-    Execution halted
-    ```
-
-# dartR
-
-<details>
-
-* Version: 2.0.3
+* Version: 0.1.9
 * GitHub: NA
-* Source code: https://github.com/cran/dartR
-* Date/Publication: 2022-03-28 14:50:02 UTC
-* Number of recursive dependencies: 274
+* Source code: https://github.com/cran/cmcR
+* Date/Publication: 2022-02-22 14:00:02 UTC
+* Number of recursive dependencies: 117
 
-Run `cloud_details(, "dartR")` for more info
+Run `cloud_details(, "cmcR")` for more info
 
 </details>
 
 ## Newly broken
 
-*   checking examples ... ERROR
+*   checking tests ... ERROR
     ```
-    Running examples in ‘dartR-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: gl.report.pa
-    > ### Title: Reports private alleles (and fixed alleles) per pair of
-    > ###   populations
-    > ### Aliases: gl.report.pa
-    > 
-    > ### ** Examples
-    > 
-    ...
-    Backtrace:
-        ▆
-     1. ├─dartR::gl.report.pa(testset.gl[1:20, ])
-     2. │ ├─tidyr::pivot_longer(data_long, -source, "target")
-     3. │ └─tidyr:::pivot_longer.data.frame(data_long, -source, "target")
-     4. │   └─tidyr::pivot_longer_spec(...)
-     5. │     └─rlang::arg_match0(...)
-     6. └─rlang:::stop_arg_match(w, x, y, z)
-     7.   └─rlang::abort(msg, call = error_call)
-    Execution halted
-    ```
-
-## In both
-
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    Error(s) in re-building vignettes:
-    --- re-building ‘IntroTutorial_dartR.Rmd’ using rmarkdown
-    A new version of TeX Live has been released. If you need to install or update any LaTeX packages, you have to upgrade TinyTeX with tinytex::reinstall_tinytex(). If it fails to upgrade, you might be using a default random CTAN mirror that has not been fully synced to the main CTAN repository, and you need to wait for a few more days or use a CTAN mirror that is known to be up-to-date (see the "repository" argument on the help page ?tinytex::install_tinytex).
-    
-    tlmgr: Local TeX Live (2021) is older than remote repository (2022).
-    Cross release updates are only supported with
-      update-tlmgr-latest(.sh/.exe) --update
-    See https://tug.org/texlive/upgrade.html for details.
-    Warning in system2("tlmgr", args, ...) :
-      running command ''tlmgr' search --file --global '/tcolorbox.sty'' had status 1
-    ...
-    --- failed re-building ‘IntroTutorial_dartR.Rmd’
-    
-    --- re-building ‘dartRTutorials.Rmd’ using rmarkdown
-    --- finished re-building ‘dartRTutorials.Rmd’
-    
-    SUMMARY: processing the following file failed:
-      ‘IntroTutorial_dartR.Rmd’
-    
-    Error: Vignette re-building failed.
-    Execution halted
-    ```
-
-*   checking installed package size ... NOTE
-    ```
-      installed size is  5.0Mb
-      sub-directories of 1Mb or more:
-        R      1.1Mb
-        data   1.5Mb
+      Running ‘testthat.R’
+    Running the tests in ‘tests/testthat.R’ failed.
+    Last 13 lines of output:
+      ℹ Please use `"highCMCClassif"` instead of `.data$highCMCClassif`
+      
+      ══ Failed ══════════════════════════════════════════════════════════════════════
+      ── 1. Error ('test-diagnosticTools.R:55'): (code run outside of `test_that()`) ─
+      Error in `stringr::str_extract_all(., string = ..2$cmcR.info$cellRange, 
+          pattern = "[0-9]{1,}")`: `simplify` must be `TRUE` or `FALSE`, not the string "rows: 1 - 69, cols: 1 - 69".
+      Backtrace:
+       1. cmcR::cmcPlot(...)
+            at test-diagnosticTools.R:55:0
+       8. stringr::str_extract_all(simplify = .)
+      
+      ══ DONE ════════════════════════════════════════════════════════════════════════
+      Don't worry, you'll get it.
+      Error: Test failures
+      Execution halted
     ```
 
 # faux
@@ -181,126 +77,372 @@ Run `cloud_details(, "faux")` for more info
     Execution halted
     ```
 
-# simpr
+# ggpubr
 
 <details>
 
-* Version: 0.2.2
-* GitHub: https://github.com/statisfactions/simpr
-* Source code: https://github.com/cran/simpr
-* Date/Publication: 2022-02-13 00:40:02 UTC
-* Number of recursive dependencies: 76
+* Version: 0.5.0
+* GitHub: https://github.com/kassambara/ggpubr
+* Source code: https://github.com/cran/ggpubr
+* Date/Publication: 2022-11-16 12:10:54 UTC
+* Number of recursive dependencies: 84
 
-Run `cloud_details(, "simpr")` for more info
+Run `cloud_details(, "ggpubr")` for more info
 
 </details>
 
 ## Newly broken
 
-*   checking S3 generic/method consistency ... WARNING
+*   checking examples ... ERROR
     ```
-    pivot_longer:
-      function(data, cols, cols_vary, names_to, names_prefix, names_sep,
-               names_pattern, names_ptypes, names_transform, names_repair,
-               values_to, values_drop_na, values_ptypes, values_transform,
-               ...)
-    pivot_longer.simpr_sims:
-      function(data, cols, names_to, names_prefix, names_sep,
-               names_pattern, names_ptypes, names_transform, names_repair,
-               values_to, values_drop_na, values_ptypes, values_transform,
-               ...)
+    Running examples in ‘ggpubr-Ex.R’ failed
+    The error most likely occurred in:
+    
+    > ### Name: ggsummarytable
+    > ### Title: GGPLOT with Summary Stats Table Under the Plot
+    > ### Aliases: ggsummarytable ggsummarystats print.ggsummarystats
+    > ###   print.ggsummarystats_list
+    > 
+    > ### ** Examples
+    > 
     ...
-               values_to, values_drop_na, values_ptypes, values_transform,
-               ...)
-    pivot_longer.simpr_spec:
-      function(data, cols, names_to, names_prefix, names_sep,
-               names_pattern, names_ptypes, names_transform, names_repair,
-               values_to, values_drop_na, values_ptypes, values_transform,
-               ...)
-    
-    See section ‘Generic functions and methods’ in the ‘Writing R
-    Extensions’ manual.
+      6.   └─tidyselect::eval_select(expr(c(...)), data, allow_rename = FALSE)
+      7.     └─tidyselect:::eval_select_impl(...)
+      8.       ├─tidyselect:::with_subscript_errors(...)
+      9.       │ └─rlang::try_fetch(...)
+     10.       │   └─base::withCallingHandlers(...)
+     11.       └─tidyselect:::vars_select_eval(...)
+     12.         └─tidyselect:::ensure_named(...)
+     13.           └─cli::cli_abort(...)
+     14.             └─rlang::abort(...)
+    Execution halted
     ```
 
-# sparklyr
+# metaconfoundr
 
 <details>
 
-* Version: 1.7.5
-* GitHub: https://github.com/sparklyr/sparklyr
-* Source code: https://github.com/cran/sparklyr
-* Date/Publication: 2022-02-02 14:30:02 UTC
-* Number of recursive dependencies: 107
+* Version: 0.1.1
+* GitHub: https://github.com/malcolmbarrett/metaconfoundr
+* Source code: https://github.com/cran/metaconfoundr
+* Date/Publication: 2022-08-06 14:00:10 UTC
+* Number of recursive dependencies: 117
 
-Run `cloud_details(, "sparklyr")` for more info
+Run `cloud_details(, "metaconfoundr")` for more info
 
 </details>
 
 ## Newly broken
 
-*   checking S3 generic/method consistency ... WARNING
+*   checking examples ... ERROR
     ```
-    pivot_longer:
-      function(data, cols, cols_vary, names_to, names_prefix, names_sep,
-               names_pattern, names_ptypes, names_transform, names_repair,
-               values_to, values_drop_na, values_ptypes, values_transform,
-               ...)
-    pivot_longer.tbl_spark:
-      function(data, cols, names_to, names_prefix, names_sep,
-               names_pattern, names_ptypes, names_transform, names_repair,
-               values_to, values_drop_na, values_ptypes, values_transform,
-               ...)
+    Running examples in ‘metaconfoundr-Ex.R’ failed
+    The error most likely occurred in:
     
-    See section ‘Generic functions and methods’ in the ‘Writing R
-    Extensions’ manual.
+    > ### Name: metaconfoundr()
+    > ### Title: Prepare a meta-analysis data set for metaconfoundr
+    > ### Aliases: metaconfoundr() metaconfoundr
+    > 
+    > ### ** Examples
+    > 
+    > 
+    ...
+      7.           └─tidyselect::eval_select(...)
+      8.             └─tidyselect:::eval_select_impl(...)
+      9.               ├─tidyselect:::with_subscript_errors(...)
+     10.               │ └─rlang::try_fetch(...)
+     11.               │   └─base::withCallingHandlers(...)
+     12.               └─tidyselect:::vars_select_eval(...)
+     13.                 └─tidyselect:::ensure_named(...)
+     14.                   └─cli::cli_abort(...)
+     15.                     └─rlang::abort(...)
+    Execution halted
+    ```
+
+*   checking tests ... ERROR
+    ```
+      Running ‘spelling.R’
+      Running ‘testthat.R’
+    Running the tests in ‘tests/testthat.R’ failed.
+    Last 13 lines of output:
+      
+      [ FAIL 2 | WARN 6 | SKIP 4 | PASS 32 ]
+      Deleting unused snapshots:
+      • non-confounders/non-confounder-count-point.svg
+      • plots/cochrane-heatmap.svg
+      • plots/cochrane-traffic-light-plot.svg
+      • plots/heatmap-with-robins-labels-cochrane-colors.svg
+      • plots/sorted-heatmap-by-domain.svg
+      • plots/sorted-heatmap.svg
+      • plots/sorted-traffic-light-plot-by-domain.svg
+      • plots/sorted-traffic-light-plot.svg
+      • plots/themed-heatmap.svg
+      • plots/themed-traffic-light-plot.svg
+      Error: Test failures
+      Execution halted
+    ```
+
+*   checking re-building of vignette outputs ... WARNING
+    ```
+    Error(s) in re-building vignettes:
+      ...
+    --- re-building ‘intro-to-metaconfoundr.Rmd’ using rmarkdown
+    Quitting from lines 39-42 (intro-to-metaconfoundr.Rmd) 
+    Error: processing vignette 'intro-to-metaconfoundr.Rmd' failed with diagnostics:
+    Can't rename variables in this context.
+    --- failed re-building ‘intro-to-metaconfoundr.Rmd’
+    
+    SUMMARY: processing the following file failed:
+      ‘intro-to-metaconfoundr.Rmd’
+    
+    Error: Vignette re-building failed.
+    Execution halted
+    ```
+
+# mpwR
+
+<details>
+
+* Version: 0.1.0
+* GitHub: NA
+* Source code: https://github.com/cran/mpwR
+* Date/Publication: 2022-06-22 07:30:02 UTC
+* Number of recursive dependencies: 96
+
+Run `cloud_details(, "mpwR")` for more info
+
+</details>
+
+## Newly broken
+
+*   checking examples ... ERROR
+    ```
+    Running examples in ‘mpwR-Ex.R’ failed
+    The error most likely occurred in:
+    
+    > ### Name: get_Upset_list
+    > ### Title: Generate Upset list
+    > ### Aliases: get_Upset_list
+    > 
+    > ### ** Examples
+    > 
+    > # Load libraries
+    ...
+    ! `pattern` can't be the empty string (`""`).
+    Backtrace:
+        ▆
+     1. └─mpwR::get_Upset_list(input_list = data, level = "Precursor.IDs")
+     2.   ├─base::which(...)
+     3.   └─stringr::str_detect(string = names(output_list), pattern = "")
+     4.     └─stringr:::no_empty()
+     5.       └─cli::cli_abort(...)
+     6.         └─rlang::abort(...)
+    Execution halted
+    ```
+
+*   checking tests ... ERROR
+    ```
+      Running ‘testthat.R’
+    Running the tests in ‘tests/testthat.R’ failed.
+    Last 13 lines of output:
+      ══ Failed tests ════════════════════════════════════════════════════════════════
+      ── Error ('test_Upset.R:72'): get_Upset_list works ─────────────────────────────
+      Error in `stringr::str_detect(string = names(output_list), pattern = "")`: `pattern` can't be the empty string (`""`).
+      Backtrace:
+          ▆
+       1. └─mpwR::get_Upset_list(input_list = data, level = "Precursor.IDs") at test_Upset.R:72:3
+       2.   ├─base::which(...)
+       3.   └─stringr::str_detect(string = names(output_list), pattern = "")
+       4.     └─stringr:::no_empty()
+       5.       └─cli::cli_abort(...)
+       6.         └─rlang::abort(...)
+      
+      [ FAIL 1 | WARN 553 | SKIP 0 | PASS 598 ]
+      Error: Test failures
+      Execution halted
+    ```
+
+*   checking re-building of vignette outputs ... WARNING
+    ```
+    Error(s) in re-building vignettes:
+    --- re-building ‘Import.Rmd’ using rmarkdown
+    --- finished re-building ‘Import.Rmd’
+    
+    --- re-building ‘Requirements.Rmd’ using rmarkdown
+    --- finished re-building ‘Requirements.Rmd’
+    
+    --- re-building ‘Workflow.Rmd’ using rmarkdown
+    
+    Attaching package: 'dplyr'
+    ...
+    Quitting from lines 225-226 (Workflow.Rmd) 
+    Error: processing vignette 'Workflow.Rmd' failed with diagnostics:
+    `pattern` can't be the empty string (`""`).
+    --- failed re-building ‘Workflow.Rmd’
+    
+    SUMMARY: processing the following file failed:
+      ‘Workflow.Rmd’
+    
+    Error: Vignette re-building failed.
+    Execution halted
+    ```
+
+# openalexR
+
+<details>
+
+* Version: 1.0.0
+* GitHub: https://github.com/massimoaria/openalexR
+* Source code: https://github.com/cran/openalexR
+* Date/Publication: 2022-10-06 10:40:02 UTC
+* Number of recursive dependencies: 78
+
+Run `cloud_details(, "openalexR")` for more info
+
+</details>
+
+## Newly broken
+
+*   checking re-building of vignette outputs ... WARNING
+    ```
+    Error(s) in re-building vignettes:
+      ...
+    --- re-building ‘A_Brief_Introduction_to_openalexR.Rmd’ using rmarkdown
+    
+    Attaching package: 'dplyr'
+    
+    The following objects are masked from 'package:stats':
+    
+        filter, lag
+    
+    ...
+    Quitting from lines 207-213 (A_Brief_Introduction_to_openalexR.Rmd) 
+    Error: processing vignette 'A_Brief_Introduction_to_openalexR.Rmd' failed with diagnostics:
+    $ operator is invalid for atomic vectors
+    --- failed re-building ‘A_Brief_Introduction_to_openalexR.Rmd’
+    
+    SUMMARY: processing the following file failed:
+      ‘A_Brief_Introduction_to_openalexR.Rmd’
+    
+    Error: Vignette re-building failed.
+    Execution halted
+    ```
+
+# recipes
+
+<details>
+
+* Version: 1.0.3
+* GitHub: https://github.com/tidymodels/recipes
+* Source code: https://github.com/cran/recipes
+* Date/Publication: 2022-11-09 16:50:02 UTC
+* Number of recursive dependencies: 134
+
+Run `cloud_details(, "recipes")` for more info
+
+</details>
+
+## Newly broken
+
+*   checking examples ... ERROR
+    ```
+    Running examples in ‘recipes-Ex.R’ failed
+    The error most likely occurred in:
+    
+    > ### Name: step_naomit
+    > ### Title: Remove observations with missing values
+    > ### Aliases: step_naomit
+    > 
+    > ### ** Examples
+    > 
+    > 
+    ...
+     10.       └─tidyselect::eval_select(expr(c(!!!dots)), data, allow_rename = FALSE)
+     11.         └─tidyselect:::eval_select_impl(...)
+     12.           ├─tidyselect:::with_subscript_errors(...)
+     13.           │ └─rlang::try_fetch(...)
+     14.           │   └─base::withCallingHandlers(...)
+     15.           └─tidyselect:::vars_select_eval(...)
+     16.             └─tidyselect:::ensure_named(...)
+     17.               └─cli::cli_abort(...)
+     18.                 └─rlang::abort(...)
+    Execution halted
+    ```
+
+*   checking tests ... ERROR
+    ```
+      Running ‘testthat.R’
+    Running the tests in ‘tests/testthat.R’ failed.
+    Last 13 lines of output:
+        9.     ├─tidyr::drop_na(new_data, object$columns)
+       10.     └─tidyr:::drop_na.data.frame(new_data, object$columns)
+       11.       └─tidyselect::eval_select(expr(c(!!!dots)), data, allow_rename = FALSE)
+       12.         └─tidyselect:::eval_select_impl(...)
+       13.           ├─tidyselect:::with_subscript_errors(...)
+       14.           │ └─rlang::try_fetch(...)
+       15.           │   └─base::withCallingHandlers(...)
+       16.           └─tidyselect:::vars_select_eval(...)
+       17.             └─tidyselect:::ensure_named(...)
+       18.               └─cli::cli_abort(...)
+       19.                 └─rlang::abort(...)
+      
+      [ FAIL 2 | WARN 2 | SKIP 401 | PASS 1889 ]
+      Error: Test failures
+      Execution halted
     ```
 
 ## In both
 
-*   checking installed package size ... NOTE
+*   checking Rd cross-references ... NOTE
     ```
-      installed size is  6.3Mb
-      sub-directories of 1Mb or more:
-        R      1.5Mb
-        java   3.4Mb
+    Packages unavailable to check Rd xrefs: ‘fastICA’, ‘dimRed’
     ```
 
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespace in Imports field not imported from: ‘lifecycle’
-      All declared Imports should be used.
-    ```
-
-# tidyseurat
+# tidyfst
 
 <details>
 
-* Version: 0.5.1
-* GitHub: https://github.com/stemangiola/tidyseurat
-* Source code: https://github.com/cran/tidyseurat
-* Date/Publication: 2022-02-03 13:20:02 UTC
-* Number of recursive dependencies: 186
+* Version: 1.7.5
+* GitHub: https://github.com/hope-data-science/tidyfst
+* Source code: https://github.com/cran/tidyfst
+* Date/Publication: 2022-10-27 07:00:02 UTC
+* Number of recursive dependencies: 80
 
-Run `cloud_details(, "tidyseurat")` for more info
+Run `cloud_details(, "tidyfst")` for more info
 
 </details>
 
 ## Newly broken
 
-*   checking S3 generic/method consistency ... WARNING
+*   checking examples ... ERROR
     ```
-    pivot_longer:
-      function(data, cols, cols_vary, names_to, names_prefix, names_sep,
-               names_pattern, names_ptypes, names_transform, names_repair,
-               values_to, values_drop_na, values_ptypes, values_transform,
-               ...)
-    pivot_longer.Seurat:
-      function(data, cols, names_to, names_prefix, names_sep,
-               names_pattern, names_ptypes, names_transform, names_repair,
-               values_to, values_drop_na, values_ptypes, values_transform,
-               ...)
+    Running examples in ‘tidyfst-Ex.R’ failed
+    The error most likely occurred in:
     
-    See section ‘Generic functions and methods’ in the ‘Writing R
-    Extensions’ manual.
+    > ### Name: unite_dt
+    > ### Title: Unite multiple columns into one by pasting strings together
+    > ### Aliases: unite_dt
+    > 
+    > ### ** Examples
+    > 
+    > df <- expand.grid(x = c("a", NA), y = c("b", NA))
+    ...
+      2. ├─tidyfst::unite_dt(., "merged_name", "")
+      3. │ └─dt %>% select_dt(...)
+      4. ├─tidyfst::select_dt(., ...)
+      5. │ └─... %>% str_c(collapse = ",")
+      6. ├─stringr::str_c(., collapse = ",")
+      7. └─stringr::str_subset(names(dt), ., negate = negate)
+      8.   └─stringr:::no_empty()
+      9.     └─cli::cli_abort(...)
+     10.       └─rlang::abort(...)
+    Execution halted
+    ```
+
+## In both
+
+*   checking Rd cross-references ... NOTE
+    ```
+    Packages unavailable to check Rd xrefs: ‘fastDummies’, ‘widyr’, ‘pacman’, ‘sjmisc’
     ```
 

@@ -1,5 +1,22 @@
 # tidyr (development version)
 
+* The `...` argument of both `pivot_longer()` and `pivot_wider()` has been
+  moved to the front of the function signature, after the required arguments
+  but before the optional ones. Additionally, `pivot_longer_spec()`,
+  `pivot_wider_spec()`, `build_longer_spec()`, and `build_wider_spec()` have
+  all gained `...` arguments in a similar location. This change allows us to
+  more easily add new features to the pivoting functions without breaking
+  existing CRAN packages and user scripts.
+  
+  `pivot_wider()` provides temporary backwards compatible support for the case
+  of a single unnamed argument that previously was being positionally matched to
+  `id_cols`. This one special case still works, but will throw a warning
+  encouraging you to explicitly name the `id_cols` argument.
+  
+  To read more about this pattern, see
+  [Data, dots, details](https://design.tidyverse.org/dots-position.html) in the
+  tidyverse design guide (#1350).
+
 * New family of consistent string separating functions:
   `separate_wider_delim()`, `separate_wider_position()`, `separate_wider_regex()`, 
   `separate_longer_delim()`, and `separate_longer_position()`. These functions

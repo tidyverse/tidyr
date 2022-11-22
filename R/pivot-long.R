@@ -140,6 +140,7 @@
 #'   )
 pivot_longer <- function(data,
                          cols,
+                         ...,
                          cols_vary = "fastest",
                          names_to = "name",
                          names_prefix = NULL,
@@ -151,8 +152,7 @@ pivot_longer <- function(data,
                          values_to = "value",
                          values_drop_na = FALSE,
                          values_ptypes = NULL,
-                         values_transform = NULL,
-                         ...) {
+                         values_transform = NULL) {
   check_dots_used()
   UseMethod("pivot_longer")
 }
@@ -160,6 +160,7 @@ pivot_longer <- function(data,
 #' @export
 pivot_longer.data.frame <- function(data,
                                     cols,
+                                    ...,
                                     cols_vary = "fastest",
                                     names_to = "name",
                                     names_prefix = NULL,
@@ -171,8 +172,7 @@ pivot_longer.data.frame <- function(data,
                                     values_to = "value",
                                     values_drop_na = FALSE,
                                     values_ptypes = NULL,
-                                    values_transform = NULL,
-                                    ...) {
+                                    values_transform = NULL) {
   spec <- build_longer_spec(
     data = data,
     cols = {{ cols }},
@@ -204,6 +204,7 @@ pivot_longer.data.frame <- function(data,
 #'
 #' @keywords internal
 #' @export
+#' @inheritParams rlang::args_dots_empty
 #' @inheritParams pivot_longer
 #' @param spec A specification data frame. This is useful for more complex
 #'  pivots because it gives you greater control on how metadata stored in the
@@ -238,11 +239,14 @@ pivot_longer.data.frame <- function(data,
 #' )
 pivot_longer_spec <- function(data,
                               spec,
+                              ...,
                               cols_vary = "fastest",
                               names_repair = "check_unique",
                               values_drop_na = FALSE,
                               values_ptypes = NULL,
                               values_transform = NULL) {
+  check_dots_empty0(...)
+
   spec <- check_pivot_spec(spec)
   spec <- deduplicate_spec(spec, data)
 
@@ -337,6 +341,7 @@ pivot_longer_spec <- function(data,
 #' @export
 build_longer_spec <- function(data,
                               cols,
+                              ...,
                               names_to = "name",
                               values_to = "value",
                               names_prefix = NULL,
@@ -344,7 +349,7 @@ build_longer_spec <- function(data,
                               names_pattern = NULL,
                               names_ptypes = NULL,
                               names_transform = NULL) {
-
+  check_dots_empty0(...)
   check_data_frame(data)
   check_required(cols)
   check_character(names_to, allow_null = TRUE)

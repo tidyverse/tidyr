@@ -6,6 +6,7 @@
 \usage{
 pivot_wider(
   data,
+  ...,
   id_cols = NULL,
   id_expand = FALSE,
   names_from = name,
@@ -19,12 +20,13 @@ pivot_wider(
   values_from = value,
   values_fill = NULL,
   values_fn = NULL,
-  unused_fn = NULL,
-  ...
+  unused_fn = NULL
 )
 }
 \arguments{
 \item{data}{A data frame to pivot.}
+
+\item{...}{Additional arguments passed on to methods.}
 
 \item{id_cols}{<\code{\link[=tidyr_tidy_select]{tidy-select}}> A set of columns that
 uniquely identify each observation. Typically used when you have
@@ -117,8 +119,6 @@ all unspecified columns will be considered \code{id_cols}.
 
 This is similar to grouping by the \code{id_cols} then summarizing the
 unused columns using \code{unused_fn}.}
-
-\item{...}{Additional arguments passed on to methods.}
 }
 \description{
 \code{pivot_wider()} "widens" data, increasing the number of columns and

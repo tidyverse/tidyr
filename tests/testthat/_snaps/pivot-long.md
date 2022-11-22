@@ -179,3 +179,62 @@
       Error in `pivot_longer_spec()`:
       ! `cols_vary` must be a string or character vector.
 
+# `pivot_longer()` catches unused input passed through the dots
+
+    Code
+      (expect_error(pivot_longer(df, c(x, y), 1)))
+    Output
+      <error/rlib_error_dots_unused>
+      Error in `pivot_longer()`:
+      ! Arguments in `...` must be used.
+      x Problematic argument:
+      * ..1 = 1
+    Code
+      (expect_error(pivot_longer(df, c(x, y), col_vary = "slowest")))
+    Output
+      <error/rlib_error_dots_unused>
+      Error in `pivot_longer()`:
+      ! Arguments in `...` must be used.
+      x Problematic argument:
+      * col_vary = "slowest"
+
+# `build_longer_spec()` requires empty dots
+
+    Code
+      (expect_error(build_longer_spec(df, c(x, y), 1)))
+    Output
+      <error/rlib_error_dots_nonempty>
+      Error in `build_longer_spec()`:
+      ! `...` must be empty.
+      x Problematic argument:
+      * ..1 = 1
+      i Did you forget to name an argument?
+    Code
+      (expect_error(build_longer_spec(df, c(x, y), name_to = "name")))
+    Output
+      <error/rlib_error_dots_nonempty>
+      Error in `build_longer_spec()`:
+      ! `...` must be empty.
+      x Problematic argument:
+      * name_to = "name"
+
+# `pivot_longer_spec()` requires empty dots
+
+    Code
+      (expect_error(pivot_longer_spec(df, spec, 1)))
+    Output
+      <error/rlib_error_dots_nonempty>
+      Error in `pivot_longer_spec()`:
+      ! `...` must be empty.
+      x Problematic argument:
+      * ..1 = 1
+      i Did you forget to name an argument?
+    Code
+      (expect_error(pivot_longer_spec(df, spec, col_vary = "slowest")))
+    Output
+      <error/rlib_error_dots_nonempty>
+      Error in `pivot_longer_spec()`:
+      ! `...` must be empty.
+      x Problematic argument:
+      * col_vary = "slowest"
+

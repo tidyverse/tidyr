@@ -1,36 +1,53 @@
 ## revdepcheck results
 
-We checked 1509 reverse dependencies (1497 from CRAN + 12 from Bioconductor), comparing R CMD check results across CRAN and dev versions of this package.
+We checked 1711 reverse dependencies (1695 from CRAN + 16 from Bioconductor), comparing R CMD check results across CRAN and dev versions of this package.
 
- * We saw 6 new problems
- * We failed to check 3 packages
+ * We saw 8 new problems
+ * We failed to check 10 packages
 
 Issues with CRAN packages are summarised below.
 
 ### New problems
 (This reports the first line of each new failure)
 
-* batchtma
-  checking examples ... ERROR
-  checking re-building of vignette outputs ... WARNING
-
-* dartR
-  checking examples ... ERROR
+* cmcR
+  checking tests ... ERROR
 
 * faux
   checking re-building of vignette outputs ... WARNING
 
-* simpr
-  checking S3 generic/method consistency ... WARNING
+* ggpubr
+  checking examples ... ERROR
 
-* sparklyr
-  checking S3 generic/method consistency ... WARNING
+* metaconfoundr
+  checking examples ... ERROR
+  checking tests ... ERROR
+  checking re-building of vignette outputs ... WARNING
 
-* tidyseurat
-  checking S3 generic/method consistency ... WARNING
+* mpwR
+  checking examples ... ERROR
+  checking tests ... ERROR
+  checking re-building of vignette outputs ... WARNING
+
+* openalexR
+  checking re-building of vignette outputs ... WARNING
+
+* recipes
+  checking examples ... ERROR
+  checking tests ... ERROR
+
+* tidyfst
+  checking examples ... ERROR
 
 ### Failed to check
 
+* FAMetA         (NA)
+* ggPMX          (NA)
 * loon.ggplot    (NA)
 * MarketMatching (NA)
+* OlinkAnalyze   (NA)
+* Platypus       (NA)
+* RVA            (NA)
+* tinyarray      (NA)
 * vivid          (NA)
+* xpose.nlmixr2  (NA)

@@ -205,6 +205,25 @@ test_that("expansion with `id_expand` and `names_expand` works with zero row dat
   expect_identical(res$b, c(NA_integer_, NA_integer_))
 })
 
+test_that("`build_wider_spec()` requires empty dots", {
+  df <- tibble(name = c("x", "y", "z"), value = 1:3)
+
+  expect_snapshot({
+    (expect_error(build_wider_spec(df, 1)))
+    (expect_error(build_wider_spec(df, name_prefix = "")))
+  })
+})
+
+test_that("`pivot_wider_spec()` requires empty dots", {
+  df <- tibble(name = c("x", "y", "z"), value = 1:3)
+  spec <- build_wider_spec(df)
+
+  expect_snapshot({
+    (expect_error(pivot_wider_spec(df, spec, 1)))
+    (expect_error(pivot_wider_spec(df, spec, name_repair = "check_unique")))
+  })
+})
+
 # column names -------------------------------------------------------------
 
 test_that("names_glue affects output names", {
@@ -215,7 +234,12 @@ test_that("names_glue affects output names", {
     b = 1:2
   )
 
-  spec <- build_wider_spec(df, x:y, a:b, names_glue = "{x}{y}_{.value}")
+  spec <- build_wider_spec(
+    df,
+    names_from = x:y,
+    values_from = a:b,
+    names_glue = "{x}{y}_{.value}"
+  )
   expect_equal(spec$.name, c("X1_a", "Y2_a", "X1_b", "Y2_b"))
 })
 
@@ -716,3 +740,66 @@ test_that("`unused_fn` is validated", {
     (expect_error(pivot_wider(df, id_cols = id, unused_fn = 1)))
   )
 })
+
+# deprecated ---------------------------------------------------------------
+
+test_that("`id_cols` has noisy compat behavior (#1353)", {
+  df <- tibble(
+    id = c(1, 2),
+    id2 = c(3, 4),
+    name = c("a", "b"),
+    value = c(5, 6)
+  )
+
+  # Noisy
+  expect_snapshot({
+    out <- pivot_wider(df, id)
+  })
+
+  # Silent
+  expect_snapshot({
+    expect <- pivot_wider(df, id_cols = id)
+  })
+
+  expect_identical(out, expect)
+})
+
+test_that("`id_cols` compat behavior doesn't trigger if `id_cols` is specified too", {
+  df <- tibble(
+    id = c(1, 2),
+    id2 = c(3, 4),
+    name = c("a", "b"),
+    value = c(5, 6)
+  )
+
+  expect_snapshot(error = TRUE, {
+    pivot_wider(df, id, id_cols = id2)
+  })
+})
+
+test_that("`id_cols` compat behavior doesn't trigger if multiple `...` are supplied", {
+  df <- tibble(
+    id = c(1, 2),
+    id2 = c(3, 4),
+    name = c("a", "b"),
+    value = c(5, 6)
+  )
+
+  expect_snapshot(error = TRUE, {
+    pivot_wider(df, id, id2)
+  })
+})
+
+test_that("`id_cols` compat behavior doesn't trigger if named `...` are supplied", {
+  df <- tibble(
+    id = c(1, 2),
+    id2 = c(3, 4),
+    name = c("a", "b"),
+    value = c(5, 6)
+  )
+
+  expect_snapshot(error = TRUE, {
+    pivot_wider(df, ids = id)
+  })
+})
+

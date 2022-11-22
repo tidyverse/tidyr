@@ -8,6 +8,7 @@
 pivot_wider_spec(
   data,
   spec,
+  ...,
   names_repair = "check_unique",
   id_cols = NULL,
   id_expand = FALSE,
@@ -18,6 +19,7 @@ pivot_wider_spec(
 
 build_wider_spec(
   data,
+  ...,
   names_from = name,
   values_from = value,
   names_prefix = "",
@@ -41,6 +43,8 @@ long format of the dataset and contain values corresponding to columns
 pivoted from the wide format.
 The special \code{.seq} variable is used to disambiguate rows internally;
 it is automatically removed after pivotting.}
+
+\item{...}{These dots are for future extensions and must be empty.}
 
 \item{names_repair}{What happens if the output has invalid column names?
 The default, \code{"check_unique"} is to error if the columns are duplicated.
