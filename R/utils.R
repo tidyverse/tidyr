@@ -182,7 +182,11 @@ list_of_ptype <- function(x) {
 }
 
 apply_names_sep <- function(outer, inner, names_sep) {
-  as.character(glue("{outer}{names_sep}{inner}"))
+  if (length(inner) == 0 || length(outer) == 0) {
+    character()
+  } else {
+    paste0(outer, names_sep, inner)
+  }
 }
 
 vec_paste0 <- function(...) {
