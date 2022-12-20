@@ -136,10 +136,7 @@ test_that("can use a numeric vector for deep hoisting", {
   expect_identical(out$bb, 2)
 })
 
-test_that("can't maintain type stability with empty elements due to `purrr::pluck()` (#1203)", {
-  # We want to be notified if this changes in purrr, but not error on CRAN
-  skip_on_cran()
-
+test_that("can maintain type stability with empty elements (#1203)", {
   df <- tibble(
     col = list(
       list(a = integer()),
@@ -149,9 +146,7 @@ test_that("can't maintain type stability with empty elements due to `purrr::pluc
 
   out <- hoist(df, col, "a")
 
-  # Ideally:
-  # expect_identical(out$a, c(NA_integer_, NA_integer_))
-  expect_identical(out$a, c(NA, NA))
+  expect_identical(out$a, c(NA_integer_, NA_integer_))
 })
 
 test_that("can hoist out a rcrd style column (#999)", {
