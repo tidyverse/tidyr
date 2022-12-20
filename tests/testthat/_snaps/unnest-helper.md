@@ -70,7 +70,9 @@
       (expect_error(df_simplify(data.frame(), transform = list(x = 1))))
     Output
       <error/rlang_error>
-      Error:
+      Error in `map()`:
+      i In index: 1.
+      Caused by error:
       ! Can't convert `transform`, a number, to a function.
     Code
       (expect_error(df_simplify(data.frame(), transform = list(x = 1, x = 1))))
