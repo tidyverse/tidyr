@@ -29,7 +29,7 @@ NULL
 #' @inheritParams complete
 #' @export
 complete_ <- function(data, cols, fill = list(), ...) {
-  lifecycle::deprecate_warn("1.0.0", "complete_()", "complete()")
+  lifecycle::deprecate_warn("1.0.0", "complete_()", "complete()", always = TRUE)
   UseMethod("complete_")
 }
 #' @export
@@ -41,7 +41,7 @@ complete_.data.frame <- function(data, cols, fill = list(), ...) {
 #' @rdname deprecated-se
 #' @export
 drop_na_ <- function(data, vars) {
-  lifecycle::deprecate_warn("1.0.0", "drop_na_()", "drop_na()")
+  lifecycle::deprecate_warn("1.0.0", "drop_na_()", "drop_na()", always = TRUE)
   UseMethod("drop_na_")
 }
 #' @export
@@ -53,7 +53,7 @@ drop_na_.data.frame <- function(data, vars) {
 #' @param expand_cols Character vector of column names to be expanded.
 #' @export
 expand_ <- function(data, dots, ...) {
-  lifecycle::deprecate_warn("1.0.0", "expand_()", "expand()")
+  lifecycle::deprecate_warn("1.0.0", "expand_()", "expand()", always = TRUE)
   UseMethod("expand_")
 }
 #' @export
@@ -65,14 +65,14 @@ expand_.data.frame <- function(data, dots, ...) {
 #' @param x For `nesting_` and `crossing_` a list of variables.
 #' @export
 crossing_ <- function(x) {
-  lifecycle::deprecate_warn("1.0.0", "crossing_()", "crossing()")
+  lifecycle::deprecate_warn("1.0.0", "crossing_()", "crossing()", always = TRUE)
   x <- compat_lazy_dots(x, caller_env())
   crossing(!!!x)
 }
 #' @rdname deprecated-se
 #' @export
 nesting_ <- function(x) {
-  lifecycle::deprecate_warn("1.2.0", "nesting_()", "nesting()")
+  lifecycle::deprecate_warn("1.2.0", "nesting_()", "nesting()", always = TRUE)
   x <- compat_lazy_dots(x, caller_env())
   nesting(!!!x)
 }
@@ -82,7 +82,7 @@ nesting_ <- function(x) {
 #' @export
 extract_ <- function(data, col, into, regex = "([[:alnum:]]+)", remove = TRUE,
                      convert = FALSE, ...) {
-  lifecycle::deprecate_warn("1.0.0", "extract_()", "extract()")
+  lifecycle::deprecate_warn("1.0.0", "extract_()", "extract()", always = TRUE)
   UseMethod("extract_")
 }
 #' @export
@@ -104,7 +104,7 @@ extract_.data.frame <- function(data, col, into, regex = "([[:alnum:]]+)",
 #' @param fill_cols Character vector of column names.
 #' @export
 fill_ <- function(data, fill_cols, .direction = c("down", "up")) {
-  lifecycle::deprecate_warn("1.2.0", "fill_()", "fill()")
+  lifecycle::deprecate_warn("1.2.0", "fill_()", "fill()", always = TRUE)
   UseMethod("fill_")
 }
 #' @export
@@ -123,7 +123,7 @@ fill_.data.frame <- function(data, fill_cols, .direction = c("down", "up", "down
 #' @export
 gather_ <- function(data, key_col, value_col, gather_cols, na.rm = FALSE,
                     convert = FALSE, factor_key = FALSE) {
-  lifecycle::deprecate_warn("1.2.0", "gather_()", "gather()")
+  lifecycle::deprecate_warn("1.2.0", "gather_()", "gather()", always = TRUE)
   UseMethod("gather_")
 }
 #' @export
@@ -149,7 +149,7 @@ gather_.data.frame <- function(data, key_col, value_col, gather_cols,
 #' @keywords internal
 #' @export
 nest_ <- function(...) {
-  lifecycle::deprecate_stop("1.0.0", "nest_()", "nest()")
+  lifecycle::deprecate_stop("1.0.0", "nest_()", "nest()", always = TRUE)
 }
 
 #' @rdname deprecated-se
@@ -172,7 +172,7 @@ separate_rows_.data.frame <- function(data, cols, sep = "[^[:alnum:].]+",
 #' @export
 separate_ <- function(data, col, into, sep = "[^[:alnum:]]+", remove = TRUE,
                       convert = FALSE, extra = "warn", fill = "warn", ...) {
-  lifecycle::deprecate_warn("1.2.0", "separate_()", "separate()")
+  lifecycle::deprecate_warn("1.2.0", "separate_()", "separate()", always = TRUE)
   UseMethod("separate_")
 }
 #' @export
@@ -197,7 +197,7 @@ separate_.data.frame <- function(data, col, into, sep = "[^[:alnum:]]+",
 #' @export
 spread_ <- function(data, key_col, value_col, fill = NA, convert = FALSE,
                     drop = TRUE, sep = NULL) {
-  lifecycle::deprecate_warn("1.2.0", "spread_()", "spread()")
+  lifecycle::deprecate_warn("1.2.0", "spread_()", "spread()", always = TRUE)
   UseMethod("spread_")
 }
 #' @export
@@ -221,7 +221,7 @@ spread_.data.frame <- function(data, key_col, value_col, fill = NA,
 #' @param from Names of existing columns as character vector
 #' @export
 unite_ <- function(data, col, from, sep = "_", remove = TRUE) {
-  lifecycle::deprecate_warn("1.2.0", "unite_()", "unite()")
+  lifecycle::deprecate_warn("1.2.0", "unite_()", "unite()", always = TRUE)
   UseMethod("unite_")
 }
 #' @export
