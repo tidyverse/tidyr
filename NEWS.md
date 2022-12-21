@@ -1,5 +1,7 @@
 # tidyr (development version)
 
+* `pivot_wider()` is now faster when `names_sep` is provided (@mgirlich, #1426).
+
 * The `...` argument of both `pivot_longer()` and `pivot_wider()` has been
   moved to the front of the function signature, after the required arguments
   but before the optional ones. Additionally, `pivot_longer_spec()`,

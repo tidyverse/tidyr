@@ -182,7 +182,15 @@ list_of_ptype <- function(x) {
 }
 
 apply_names_sep <- function(outer, inner, names_sep) {
-  as.character(glue("{outer}{names_sep}{inner}"))
+  # Need to avoid `paste0()` recycling issue. Not using `vec_paste0()`
+  # because that is too slow to be applied to each element (#1427).
+  # `outer` and `names_sep` are required to be length 1,
+  # so we only need to check `inner`.
+  if (length(inner) == 0L) {
+    character()
+  } else {
+    paste0(outer, names_sep, inner)
+  }
 }
 
 vec_paste0 <- function(...) {
