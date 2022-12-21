@@ -101,15 +101,31 @@ expand.data.frame <- function(data, ..., .name_repair = "check_unique") {
 
 #' @export
 expand.grouped_df <- function(data, ..., .name_repair = "check_unique") {
-  dplyr::summarise(
-    data,
-    expand(
-      data = dplyr::cur_data(),
-      ...,
-      .name_repair = .name_repair
-    ),
-    .groups = "keep"
-  )
+
+  if (the$has_dplyr_1_1) {
+    out <- dplyr::reframe(
+      data,
+      expand(
+        data = dplyr::pick(everything()),
+        ...,
+        .name_repair = .name_repair
+      )
+    )
+    .drop <- attr(attr(data, "groups"), ".drop")
+    dplyr::group_by(out, !!!syms(dplyr::group_vars(data)), .drop = .drop)
+  } else {
+    dplyr::summarise(
+      data,
+      expand(
+        data = dplyr::cur_data(),
+        ...,
+        .name_repair = .name_repair
+      ),
+      .groups = "keep"
+    )
+
+  }
+
 }
 
 # Nesting & crossing ------------------------------------------------------
