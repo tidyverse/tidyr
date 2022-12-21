@@ -103,14 +103,18 @@ expand.data.frame <- function(data, ..., .name_repair = "check_unique") {
 expand.grouped_df <- function(data, ..., .name_repair = "check_unique") {
 
   if (the$has_dplyr_1_1) {
-    out <- dplyr::reframe(
+    reframe <- utils::getFromNamespace("reframe", ns = "dplyr")
+    pick <- utils::getFromNamespace("pick", ns = "dplyr")
+
+    out <- reframe(
       data,
       expand(
-        data = dplyr::pick(everything()),
+        data = pick(everything()),
         ...,
         .name_repair = .name_repair
       )
     )
+
     drop <- dplyr::group_by_drop_default(data)
     dplyr::group_by(out, !!!dplyr::groups(data), .drop = drop)
   } else {
