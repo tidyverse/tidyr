@@ -69,7 +69,7 @@ complete <- function(data,
 }
 
 on_load({
-  the$dplyr_needs_multiple <- packageVersion("dplyr") >= "1.0.99"
+  the$has_dplyr_1_1 <- packageVersion("dplyr") >= "1.0.99"
 })
 
 #' @export
@@ -83,7 +83,7 @@ complete.data.frame <- function(data,
   names <- names(out)
 
   if (length(names) > 0L) {
-    if (the$dplyr_needs_multiple) {
+    if (the$has_dplyr_1_1) {
       out <- dplyr::full_join(out, data, by = names, multiple = "all")
     } else {
       out <- dplyr::full_join(out, data, by = names)
@@ -111,14 +111,34 @@ complete.grouped_df <- function(data,
                                 ...,
                                 fill = list(),
                                 explicit = TRUE) {
-  dplyr::summarise(
-    data,
-    complete(
-      data = dplyr::cur_data(),
-      ...,
-      fill = fill,
-      explicit = explicit
-    ),
-    .groups = "keep"
-  )
+
+  if (the$has_dplyr_1_1) {
+    reframe <- utils::getFromNamespace("reframe", ns = "dplyr")
+    pick <- utils::getFromNamespace("pick", ns = "dplyr")
+
+    out <- reframe(
+      data,
+      complete(
+        data = pick(everything()),
+        ...,
+        fill = fill,
+        explicit = explicit
+      )
+    )
+
+    drop <- dplyr::group_by_drop_default(data)
+    dplyr::group_by(out, !!!dplyr::groups(data), .drop = drop)
+  } else {
+    dplyr::summarise(
+      data,
+      complete(
+        data = dplyr::cur_data(),
+        ...,
+        fill = fill,
+        explicit = explicit
+      ),
+      .groups = "keep"
+    )
+
+  }
 }

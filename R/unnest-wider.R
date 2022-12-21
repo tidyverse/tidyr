@@ -137,7 +137,17 @@ col_to_wide <- function(col, name, strict, names_sep, error_call = caller_env())
 
   # Avoid expensive dispatch from `[[.list_of`
   out <- tidyr_new_list(col)
-  out <- map(out, elt_to_wide, name = name, strict = strict, names_sep = names_sep, error_call = error_call)
+
+  out <- lapply(
+    out,
+    function(x) elt_to_wide(
+      x = x,
+      name = name,
+      strict = strict,
+      names_sep = names_sep,
+      error_call = error_call
+    )
+  )
 
   # In the sole case of a list_of<data_frame>, we can be sure that the
   # elements of `out` will all be of the same type. Otherwise,
