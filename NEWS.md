@@ -1,5 +1,9 @@
 # tidyr (development version)
 
+* All functions deprecated in tidyr 1.0 and 1.2 (the old lazyeval functions 
+  ending in `_` and various arguments to `unnest()`) now warn on every use.
+  They will be made defunct in 2024 (#1406).
+
 * `pivot_wider()` is now faster when `names_sep` is provided (@mgirlich, #1426).
 
 * The `...` argument of both `pivot_longer()` and `pivot_wider()` has been

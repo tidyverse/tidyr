@@ -83,8 +83,11 @@ unnest <- function(data,
                    .preserve = deprecated()) {
   deprecated <- FALSE
   if (!missing(.preserve)) {
-    lifecycle::deprecate_warn("1.0.0", "unnest(.preserve = )",
-      details = "All list-columns are now preserved"
+    lifecycle::deprecate_warn(
+      "1.0.0",
+      "unnest(.preserve = )",
+      details = "All list-columns are now preserved",
+      always = TRUE
     )
     deprecated <- TRUE
     .preserve <- tidyselect::vars_select(tbl_vars(data), !!enquo(.preserve))
@@ -118,15 +121,21 @@ unnest <- function(data,
   }
 
   if (!is_missing(.drop)) {
-    lifecycle::deprecate_warn("1.0.0", "unnest(.drop = )",
-      details = "All list-columns are now preserved."
+    lifecycle::deprecate_warn(
+      "1.0.0",
+      "unnest(.drop = )",
+      details = "All list-columns are now preserved.",
+      always = TRUE
     )
     deprecated <- TRUE
   }
 
   if (!is_missing(.id)) {
-    lifecycle::deprecate_warn("1.0.0", "unnest(.id = )",
-      details = "Manually create column of names instead."
+    lifecycle::deprecate_warn(
+      "1.0.0",
+      "unnest(.id = )",
+      details = "Manually create column of names instead.",
+      always = TRUE
     )
     deprecated <- TRUE
     first_col <- tidyselect::vars_select(tbl_vars(data), !!cols)[[1]]
