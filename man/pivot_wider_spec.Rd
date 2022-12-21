@@ -42,7 +42,7 @@ Additional columns in \code{spec} should be named to match columns in the
 long format of the dataset and contain values corresponding to columns
 pivoted from the wide format.
 The special \code{.seq} variable is used to disambiguate rows internally;
-it is automatically removed after pivotting.}
+it is automatically removed after pivoting.}
 
 \item{...}{These dots are for future extensions and must be empty.}
 
@@ -136,8 +136,8 @@ represented in the data will become explicit. Additionally, the column
 names will be sorted, identical to what \code{names_sort} would produce.}
 }
 \description{
-This is a low level interface to pivotting, inspired by the cdata package,
-that allows you to describe pivotting with a data frame.
+This is a low level interface to pivoting, inspired by the cdata package,
+that allows you to describe pivoting with a data frame.
 }
 \examples{
 # See vignette("pivot") for examples and explanation

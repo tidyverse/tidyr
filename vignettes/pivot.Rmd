@@ -193,7 +193,7 @@ Doing it this way is a little more efficient than doing a mutate after the fact,
 
 ### Multiple observations per row
 
-So far, we have been working with data frames that have one observation per row, but many important pivotting problems involve multiple observations per row. You can usually recognise this case because name of the column that you want to appear in the output is part of the column name in the input. In this section, you'll learn how to pivot this sort of data. 
+So far, we have been working with data frames that have one observation per row, but many important pivoting problems involve multiple observations per row. You can usually recognise this case because name of the column that you want to appear in the output is part of the column name in the input. In this section, you'll learn how to pivot this sort of data. 
 
 The following example is adapted from the [data.table vignette](https://CRAN.R-project.org/package=data.table/vignettes/datatable-reshape.html), as inspiration for tidyr's solution to this problem.
 
@@ -569,7 +569,7 @@ contacts %>%
 
 ## Longer, then wider
 
-Some problems can't be solved by pivotting in a single direction. The examples in this section show how you might combine `pivot_longer()` and `pivot_wider()` to solve more complex problems.
+Some problems can't be solved by pivoting in a single direction. The examples in this section show how you might combine `pivot_longer()` and `pivot_wider()` to solve more complex problems.
 
 ### World bank
 
@@ -656,11 +656,11 @@ multi2 %>%
 
 ## Manual specs
 
-The arguments to `pivot_longer()` and `pivot_wider()` allow you to pivot a wide range of datasets. But the creativity that people apply to their data structures is seemingly endless, so it's quite possible that you will encounter a dataset that you can't immediately see how to reshape with `pivot_longer()` and `pivot_wider()`. To gain more control over pivotting, you can instead create a "spec" data frame that describes exactly how data stored in the column names becomes variables (and vice versa). This section introduces you to the spec data structure, and show you how to use it when `pivot_longer()` and `pivot_wider()` are insufficient.
+The arguments to `pivot_longer()` and `pivot_wider()` allow you to pivot a wide range of datasets. But the creativity that people apply to their data structures is seemingly endless, so it's quite possible that you will encounter a dataset that you can't immediately see how to reshape with `pivot_longer()` and `pivot_wider()`. To gain more control over pivoting, you can instead create a "spec" data frame that describes exactly how data stored in the column names becomes variables (and vice versa). This section introduces you to the spec data structure, and show you how to use it when `pivot_longer()` and `pivot_wider()` are insufficient.
 
 ### Longer
 
-To see how this works, lets return to the simplest case of pivotting applied to the `relig_income` dataset. Now pivotting happens in two steps: we first create a spec object (using `build_longer_spec()`) then use that to describe the pivotting operation:
+To see how this works, lets return to the simplest case of pivoting applied to the `relig_income` dataset. Now pivoting happens in two steps: we first create a spec object (using `build_longer_spec()`) then use that to describe the pivoting operation:
 
 ```{r}
 spec <- relig_income %>% 
@@ -767,7 +767,7 @@ construction %>%
   pivot_wider_spec(spec)
 ```
 
-The pivotting spec allows us to be more precise about exactly how `pivot_longer(df, spec = spec)` changes the shape of `df`: it will have `nrow(df) * nrow(spec)` rows, and `ncol(df) - nrow(spec) + ncol(spec) - 2` columns.
+The pivoting spec allows us to be more precise about exactly how `pivot_longer(df, spec = spec)` changes the shape of `df`: it will have `nrow(df) * nrow(spec)` rows, and `ncol(df) - nrow(spec) + ncol(spec) - 2` columns.
 
 [cdata]: https://winvector.github.io/cdata/
 [data.table]: https://github.com/Rdatatable/data.table/wiki

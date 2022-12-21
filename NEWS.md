@@ -386,7 +386,7 @@
     ```
     
 * `pivot_wider()` gains a `names_sort` argument which allows you to sort
-  column names in order. The default, `FALSE`, orders columms by their 
+  column names in order. The default, `FALSE`, orders columns by their 
   first appearance (#839). In a future version, I'll consider changing the
   default to `TRUE`.
 
@@ -824,7 +824,7 @@ backend.
 
 - Following the switch to tidy evaluation, you might see warnings
   about the "variable context not set". This is most likely caused by
-  supplyng helpers like `everything()` to underscored versions of
+  supplying helpers like `everything()` to underscored versions of
   tidyr verbs. Helpers should be always be evaluated lazily. To fix
   this, just quote the helper with a formula: `drop_na(df,
   ~everything())`.
@@ -1006,7 +1006,7 @@ following changes:
 
 * Made compatible with both dplyr 0.4 and 0.5.
 
-* tidyr functions that create new columns are more aggresive about re-encoding
+* tidyr functions that create new columns are more aggressive about re-encoding
   the column names as UTF-8. 
 
 # tidyr 0.4.1
@@ -1147,7 +1147,7 @@ following changes:
 * `extract_numeric()` preserves negative signs (#20).
 
 * `gather()` has better defaults if `key` and `value` are not supplied.
-  If `...` is ommitted, `gather()` selects all columns (#28). Performance
+  If `...` is omitted, `gather()` selects all columns (#28). Performance
   is now comparable to `reshape2::melt()` (#18).
 
 * `separate()` gains `extra` argument which lets you control what happens

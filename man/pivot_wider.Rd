@@ -197,5 +197,5 @@ warpbreaks \%>\%
 }
 \seealso{
 \code{\link[=pivot_wider_spec]{pivot_wider_spec()}} to pivot "by hand" with a data frame that
-defines a pivotting specification.
+defines a pivoting specification.
 }

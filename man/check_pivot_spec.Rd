@@ -16,7 +16,7 @@ Additional columns in \code{spec} should be named to match columns in the
 long format of the dataset and contain values corresponding to columns
 pivoted from the wide format.
 The special \code{.seq} variable is used to disambiguate rows internally;
-it is automatically removed after pivotting.}
+it is automatically removed after pivoting.}
 }
 \description{
 \code{check_pivot_spec()} is a developer facing helper function for validating

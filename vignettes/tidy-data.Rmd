@@ -139,7 +139,7 @@ relig_income
 
 This dataset has three variables, `religion`, `income` and `frequency`. To tidy it, we need to **pivot** the non-variable columns into a two-column key-value pair. This action is often described as making a wide dataset longer (or taller). 
 
-When pivoting variables, we need to provide the name of the new key-value columns to create. After defining the colums to pivot (every column except for religion), you will need the name of the key column, which is the name of the variable defined by the values of the column headings. In this case, it's `income`. The second argument is the name of the value column, `frequency`. 
+When pivoting variables, we need to provide the name of the new key-value columns to create. After defining the columns to pivot (every column except for religion), you will need the name of the key column, which is the name of the variable defined by the values of the column headings. In this case, it's `income`. The second argument is the name of the value column, `frequency`. 
 
 ```{r}
 relig_income %>% 
