@@ -373,6 +373,22 @@ test_that("`names_ptypes` and `names_transform` work with single values (#1284)"
   expect_identical(res$two, 2L)
 })
 
+test_that("`names_ptypes = list()` is interpreted as recycling <list> for all name columns (#1296)", {
+  df <- tibble(`1x2` = 1)
+
+  res <- build_longer_spec(
+    data = df,
+    cols = `1x2`,
+    names_to = c("one", "two"),
+    names_sep = "x",
+    names_transform = as.list,
+    names_ptypes = list()
+  )
+
+  expect_identical(res$one, list("1"))
+  expect_identical(res$two, list("2"))
+})
+
 test_that("`values_ptypes` works with single empty ptypes (#1284)", {
   df <- tibble(x_1 = 1, y_1 = 2)
 
@@ -388,6 +404,21 @@ test_that("`values_ptypes` works with single empty ptypes (#1284)", {
   expect_identical(res$y, 2L)
 })
 
+test_that("`values_ptypes = list()` is interpreted as recycling <list> for all value columns (#1296)", {
+  df <- tibble(x_1 = list_of(1L, 2:3, 4L), y_1 = list_of(2:3, 4L, 5:6))
+
+  res <- pivot_longer(
+    data = df,
+    cols = everything(),
+    names_to = c(".value", "set"),
+    names_sep = "_",
+    values_ptypes = list()
+  )
+
+  expect_identical(res$x, vec_cast(df$x_1, list()))
+  expect_identical(res$y, vec_cast(df$y_1, list()))
+})
+
 test_that("`values_transform` works with single functions (#1284)", {
   df <- tibble(x_1 = 1, y_1 = 2)
 
@@ -401,21 +432,6 @@ test_that("`values_transform` works with single functions (#1284)", {
 
   expect_identical(res$x, "1")
   expect_identical(res$y, "2")
-})
-
-test_that("`names/values_ptypes = list()` is currently the same as `NULL` (#1296)", {
-  # Because of some backwards compatibility support
-
-  df <- tibble(x = 1)
-
-  expect_identical(
-    pivot_longer(df, x, names_ptypes = list()),
-    pivot_longer(df, x, names_ptypes = NULL)
-  )
-  expect_identical(
-    pivot_longer(df, x, values_ptypes = list()),
-    pivot_longer(df, x, values_ptypes = NULL)
-  )
 })
 
 test_that("Error if the `col` can't be selected.", {
