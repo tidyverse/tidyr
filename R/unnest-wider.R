@@ -140,11 +140,13 @@ col_to_wide <- function(col, name, strict, names_sep, error_call = caller_env())
 
   out <- lapply(
     out,
-    elt_to_wide,
-    name = name,
-    strict = strict,
-    names_sep = names_sep,
-    error_call = error_call
+    function(x) elt_to_wide(
+      x = x,
+      name = name,
+      strict = strict,
+      names_sep = names_sep,
+      error_call = error_call
+    )
   )
 
   # In the sole case of a list_of<data_frame>, we can be sure that the
