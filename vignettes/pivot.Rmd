@@ -660,7 +660,7 @@ The arguments to `pivot_longer()` and `pivot_wider()` allow you to pivot a wide 
 
 ### Longer
 
-- To see how this works, lets return to the simplest case of pivoting applied to the `relig_income` dataset. Now pivoting happens in two steps: we first create a spec object (using `build_longer_spec()`) then use that to describe the pivoting operation:
+To see how this works, lets return to the simplest case of pivoting applied to the `relig_income` dataset. Now pivoting happens in two steps: we first create a spec object (using `build_longer_spec()`) then use that to describe the pivoting operation:
 
 ```{r}
 spec <- relig_income %>% 
