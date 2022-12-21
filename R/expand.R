@@ -111,8 +111,8 @@ expand.grouped_df <- function(data, ..., .name_repair = "check_unique") {
         .name_repair = .name_repair
       )
     )
-    .drop <- attr(attr(data, "groups"), ".drop")
-    dplyr::group_by(out, !!!syms(dplyr::group_vars(data)), .drop = .drop)
+    drop <- dplyr::group_by_drop_default(data)
+    dplyr::group_by(out, !!!dplyr::groups(data), .drop = drop)
   } else {
     dplyr::summarise(
       data,

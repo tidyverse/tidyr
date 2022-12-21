@@ -122,8 +122,8 @@ complete.grouped_df <- function(data,
         explicit = explicit
       )
     )
-    .drop <- attr(attr(data, "groups"), ".drop")
-    dplyr::group_by(out, !!!syms(dplyr::group_vars(data)), .drop = .drop)
+    drop <- dplyr::group_by_drop_default(data)
+    dplyr::group_by(out, !!!dplyr::groups(data), .drop = drop)
   } else {
     dplyr::summarise(
       data,
