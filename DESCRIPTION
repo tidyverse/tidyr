@@ -39,7 +39,7 @@ Suggests:
     jsonlite,
     knitr,
     readr,
-    repurrrsive (>= 1.0.0),
+    repurrrsive (>= 1.1.0),
     rmarkdown,
     testthat (>= 3.0.0)
 LinkingTo: 
