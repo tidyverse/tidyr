@@ -154,7 +154,7 @@ Next we'll tackle a more complex form of data that comes from Google's geocoding
 repurrrsive::gmaps_cities
 ```
 
-`json` is a named list, so it makes sense to start with `unnest_wider()`:
+`json` is a list-column of named lists, so it makes sense to start with `unnest_wider()`:
 
 ```{r}
 repurrrsive::gmaps_cities %>%
@@ -178,7 +178,7 @@ repurrrsive::gmaps_cities %>%
   unnest_wider(results)
 ```
 
-We can find the latitutde and longitude by unnesting `geometry`:
+We can find the latitude and longitude by unnesting `geometry`:
 
 ```{r}
 repurrrsive::gmaps_cities %>%
