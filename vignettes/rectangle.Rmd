@@ -148,72 +148,40 @@ chars2 %>%
 
 ## Geocoding with google
 
-Next we'll tackle a more complex form of data that comes from Google's geocoding service. It's against the terms of service to cache this data, so I first write a very simple wrapper around the API. This relies on having an Google maps API key stored in an environment; if that's not available these code chunks won't be run.
+Next we'll tackle a more complex form of data that comes from Google's geocoding service, stored in the repurssive package
 
 ```{r}
-has_key <- !identical(Sys.getenv("GOOGLE_MAPS_API_KEY"), "")
-if (!has_key) {
-  message("No Google Maps API key found; code chunks will not be run")
-}
-
-# https://developers.google.com/maps/documentation/geocoding
-geocode <- function(address, api_key = Sys.getenv("GOOGLE_MAPS_API_KEY")) {
-  url <- "https://maps.googleapis.com/maps/api/geocode/json"
-  url <- paste0(url, "?address=", URLencode(address), "&key=", api_key)
-
-  jsonlite::read_json(url)
-}
+repurrrsive::gmaps_cities
 ```
 
-The list that this function returns is quite complex:
+`json` is a list-column of named lists, so it makes sense to start with `unnest_wider()`:
 
-```{r, eval = has_key}
-houston <- geocode("Houston TX")
-str(houston)
-```
-
-Fortunately, we can attack the problem step by step with tidyr functions. To make the problem a bit harder (!) and more realistic, I'll start by geocoding a few cities:
-
-```{r, eval = has_key, cache = TRUE}
-city <- c("Houston", "LA", "New York", "Chicago", "Springfield")
-city_geo <- purrr::map(city, geocode)
-```
-
-I'll put these results in a tibble, next to the original city name:
-
-```{r, eval = has_key}
-loc <- tibble(city = city, json = city_geo)
-loc
-```
-
-The first level contains components `status` and `result`, which we can reveal with `unnest_wider()`:
-
-```{r, eval = has_key}
-loc %>%
+```{r}
+repurrrsive::gmaps_cities %>%
   unnest_wider(json)
 ```
 
-Notice that `results` is a list of lists. Most of the cities have 1 element (representing a unique match from the geocoding API), but Springfield has two. We can pull these out into separate rows with `unnest_longer()`:
+Notice that `results` is a list of lists. Most of the cities have 1 element (representing a unique match from the geocoding API), but Washington and Arlington have two. We can pull these out into separate rows with `unnest_longer()`:
 
-```{r, eval = has_key}
-loc %>%
+```{r}
+repurrrsive::gmaps_cities %>%
   unnest_wider(json) %>% 
   unnest_longer(results)
 ```
 
 Now these all have the same components, as revealed by `unnest_wider()`:
 
-```{r, eval = has_key}
-loc %>%
+```{r}
+repurrrsive::gmaps_cities %>%
   unnest_wider(json) %>% 
   unnest_longer(results) %>% 
   unnest_wider(results)
 ```
 
-We can find the lat and lon coordinates by unnesting `geometry`:
+We can find the latitude and longitude by unnesting `geometry`:
 
-```{r, eval = has_key}
-loc %>%
+```{r}
+repurrrsive::gmaps_cities %>%
   unnest_wider(json) %>% 
   unnest_longer(results) %>% 
   unnest_wider(results) %>% 
@@ -222,8 +190,8 @@ loc %>%
 
 And then location:
 
-```{r, eval = has_key}
-loc %>%
+```{r}
+repurrrsive::gmaps_cities %>%
   unnest_wider(json) %>%
   unnest_longer(results) %>%
   unnest_wider(results) %>%
@@ -233,8 +201,8 @@ loc %>%
 
 We could also just look at the first address for each city:
 
-```{r, eval = has_key}
-loc %>%
+```{r}
+repurrrsive::gmaps_cities %>%
   unnest_wider(json) %>%
   hoist(results, first_result = 1) %>%
   unnest_wider(first_result) %>%
@@ -244,8 +212,8 @@ loc %>%
 
 Or use `hoist()` to dive deeply to get directly to `lat` and `lng`:
 
-```{r, eval = has_key}
-loc %>%
+```{r}
+repurrrsive::gmaps_cities %>%
   hoist(json,
     lat = list("results", 1, "geometry", "location", "lat"),
     lng = list("results", 1, "geometry", "location", "lng")
