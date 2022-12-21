@@ -427,92 +427,143 @@ length 1 containing an empty string.)</p>
 <h2 id="geocoding-with-google">Geocoding with google<a class="anchor" aria-label="anchor" href="#geocoding-with-google"></a>
 </h2>
 <p>Next we’ll tackle a more complex form of data that comes from
-Google’s geocoding service. It’s against the terms of service to cache
-this data, so I first write a very simple wrapper around the API. This
-relies on having an Google maps API key stored in an environment; if
-that’s not available these code chunks won’t be run.</p>
+Google’s geocoding service, stored in the repurssive package</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">has_key</span> <span class="op">&lt;-</span> <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/identical.html" class="external-link">identical</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html" class="external-link">Sys.getenv</a></span><span class="op">(</span><span class="st">"GOOGLE_MAPS_API_KEY"</span><span class="op">)</span>, <span class="st">""</span><span class="op">)</span></span>
-<span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="va">has_key</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/message.html" class="external-link">message</a></span><span class="op">(</span><span class="st">"No Google Maps API key found; code chunks will not be run"</span><span class="op">)</span></span>
-<span><span class="op">}</span></span>
-<span><span class="co">#&gt; No Google Maps API key found; code chunks will not be run</span></span>
-<span></span>
-<span><span class="co"># https://developers.google.com/maps/documentation/geocoding</span></span>
-<span><span class="va">geocode</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">address</span>, <span class="va">api_key</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html" class="external-link">Sys.getenv</a></span><span class="op">(</span><span class="st">"GOOGLE_MAPS_API_KEY"</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="va">url</span> <span class="op">&lt;-</span> <span class="st">"https://maps.googleapis.com/maps/api/geocode/json"</span></span>
-<span>  <span class="va">url</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">url</span>, <span class="st">"?address="</span>, <span class="fu"><a href="https://rdrr.io/r/utils/URLencode.html" class="external-link">URLencode</a></span><span class="op">(</span><span class="va">address</span><span class="op">)</span>, <span class="st">"&amp;key="</span>, <span class="va">api_key</span><span class="op">)</span></span>
-<span></span>
-<span>  <span class="fu">jsonlite</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/jsonlite/man/read_json.html" class="external-link">read_json</a></span><span class="op">(</span><span class="va">url</span><span class="op">)</span></span>
-<span><span class="op">}</span></span></code></pre></div>
-<p>The list that this function returns is quite complex:</p>
+<code class="sourceCode R"><span><span class="fu">repurrrsive</span><span class="fu">::</span><span class="va"><a href="https://jennybc.github.io/repurrrsive/reference/gmaps_cities.html" class="external-link">gmaps_cities</a></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 5 × 2</span></span></span>
+<span><span class="co">#&gt;   city       json            </span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>          </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Houston    <span style="color: #949494;">&lt;named list [2]&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> Washington <span style="color: #949494;">&lt;named list [2]&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> New York   <span style="color: #949494;">&lt;named list [2]&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> Chicago    <span style="color: #949494;">&lt;named list [2]&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> Arlington  <span style="color: #949494;">&lt;named list [2]&gt;</span></span></span></code></pre></div>
+<p><code>json</code> is a list-column of named lists, so it makes sense
+to start with <code><a href="../reference/unnest_wider.html">unnest_wider()</a></code>:</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">houston</span> <span class="op">&lt;-</span> <span class="fu">geocode</span><span class="op">(</span><span class="st">"Houston TX"</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">houston</span><span class="op">)</span></span></code></pre></div>
-<p>Fortunately, we can attack the problem step by step with tidyr
-functions. To make the problem a bit harder (!) and more realistic, I’ll
-start by geocoding a few cities:</p>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">city</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Houston"</span>, <span class="st">"LA"</span>, <span class="st">"New York"</span>, <span class="st">"Chicago"</span>, <span class="st">"Springfield"</span><span class="op">)</span></span>
-<span><span class="va">city_geo</span> <span class="op">&lt;-</span> <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html" class="external-link">map</a></span><span class="op">(</span><span class="va">city</span>, <span class="va">geocode</span><span class="op">)</span></span></code></pre></div>
-<p>I’ll put these results in a tibble, next to the original city
-name:</p>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">loc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span>city <span class="op">=</span> <span class="va">city</span>, json <span class="op">=</span> <span class="va">city_geo</span><span class="op">)</span></span>
-<span><span class="va">loc</span></span></code></pre></div>
-<p>The first level contains components <code>status</code> and
-<code>result</code>, which we can reveal with
-<code><a href="../reference/unnest_wider.html">unnest_wider()</a></code>:</p>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">loc</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="../reference/unnest_wider.html">unnest_wider</a></span><span class="op">(</span><span class="va">json</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">repurrrsive</span><span class="fu">::</span><span class="va"><a href="https://jennybc.github.io/repurrrsive/reference/gmaps_cities.html" class="external-link">gmaps_cities</a></span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/unnest_wider.html">unnest_wider</a></span><span class="op">(</span><span class="va">json</span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 5 × 3</span></span></span>
+<span><span class="co">#&gt;   city       results    status</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Houston    <span style="color: #949494;">&lt;list [1]&gt;</span> OK    </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> Washington <span style="color: #949494;">&lt;list [2]&gt;</span> OK    </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> New York   <span style="color: #949494;">&lt;list [1]&gt;</span> OK    </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> Chicago    <span style="color: #949494;">&lt;list [1]&gt;</span> OK    </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> Arlington  <span style="color: #949494;">&lt;list [2]&gt;</span> OK</span></span></code></pre></div>
 <p>Notice that <code>results</code> is a list of lists. Most of the
 cities have 1 element (representing a unique match from the geocoding
-API), but Springfield has two. We can pull these out into separate rows
-with <code><a href="../reference/unnest_longer.html">unnest_longer()</a></code>:</p>
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">loc</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+API), but Washington and Arlington have two. We can pull these out into
+separate rows with <code><a href="../reference/unnest_longer.html">unnest_longer()</a></code>:</p>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">repurrrsive</span><span class="fu">::</span><span class="va"><a href="https://jennybc.github.io/repurrrsive/reference/gmaps_cities.html" class="external-link">gmaps_cities</a></span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/unnest_wider.html">unnest_wider</a></span><span class="op">(</span><span class="va">json</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
-<span>  <span class="fu"><a href="../reference/unnest_longer.html">unnest_longer</a></span><span class="op">(</span><span class="va">results</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="../reference/unnest_longer.html">unnest_longer</a></span><span class="op">(</span><span class="va">results</span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 7 × 3</span></span></span>
+<span><span class="co">#&gt;   city       results          status</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Houston    <span style="color: #949494;">&lt;named list [5]&gt;</span> OK    </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> Washington <span style="color: #949494;">&lt;named list [5]&gt;</span> OK    </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> Washington <span style="color: #949494;">&lt;named list [5]&gt;</span> OK    </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> New York   <span style="color: #949494;">&lt;named list [5]&gt;</span> OK    </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> Chicago    <span style="color: #949494;">&lt;named list [5]&gt;</span> OK    </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> Arlington  <span style="color: #949494;">&lt;named list [5]&gt;</span> OK    </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">7</span> Arlington  <span style="color: #949494;">&lt;named list [5]&gt;</span> OK</span></span></code></pre></div>
 <p>Now these all have the same components, as revealed by
 <code><a href="../reference/unnest_wider.html">unnest_wider()</a></code>:</p>
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">loc</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">repurrrsive</span><span class="fu">::</span><span class="va"><a href="https://jennybc.github.io/repurrrsive/reference/gmaps_cities.html" class="external-link">gmaps_cities</a></span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/unnest_wider.html">unnest_wider</a></span><span class="op">(</span><span class="va">json</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="../reference/unnest_longer.html">unnest_longer</a></span><span class="op">(</span><span class="va">results</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
-<span>  <span class="fu"><a href="../reference/unnest_wider.html">unnest_wider</a></span><span class="op">(</span><span class="va">results</span><span class="op">)</span></span></code></pre></div>
-<p>We can find the lat and lon coordinates by unnesting
+<span>  <span class="fu"><a href="../reference/unnest_wider.html">unnest_wider</a></span><span class="op">(</span><span class="va">results</span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 7 × 7</span></span></span>
+<span><span class="co">#&gt;   city       address_components forma…¹ geometry     place…² types  status</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>             <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;list&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Houston    <span style="color: #949494;">&lt;list [4]&gt;</span>         Housto… &lt;named list&gt; ChIJAY… &lt;list&gt; OK    </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> Washington <span style="color: #949494;">&lt;list [2]&gt;</span>         Washin… &lt;named list&gt; ChIJ-b… &lt;list&gt; OK    </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> Washington <span style="color: #949494;">&lt;list [4]&gt;</span>         Washin… &lt;named list&gt; ChIJW-… &lt;list&gt; OK    </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> New York   <span style="color: #949494;">&lt;list [3]&gt;</span>         New Yo… &lt;named list&gt; ChIJOw… &lt;list&gt; OK    </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> Chicago    <span style="color: #949494;">&lt;list [4]&gt;</span>         Chicag… &lt;named list&gt; ChIJ7c… &lt;list&gt; OK    </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> Arlington  <span style="color: #949494;">&lt;list [4]&gt;</span>         Arling… &lt;named list&gt; ChIJ05… &lt;list&gt; OK    </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">7</span> Arlington  <span style="color: #949494;">&lt;list [4]&gt;</span>         Arling… &lt;named list&gt; ChIJD6… &lt;list&gt; OK    </span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># … with abbreviated variable names ¹​formatted_address, ²​place_id</span></span></span></code></pre></div>
+<p>We can find the latitude and longitude by unnesting
 <code>geometry</code>:</p>
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">loc</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">repurrrsive</span><span class="fu">::</span><span class="va"><a href="https://jennybc.github.io/repurrrsive/reference/gmaps_cities.html" class="external-link">gmaps_cities</a></span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/unnest_wider.html">unnest_wider</a></span><span class="op">(</span><span class="va">json</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="../reference/unnest_longer.html">unnest_longer</a></span><span class="op">(</span><span class="va">results</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="../reference/unnest_wider.html">unnest_wider</a></span><span class="op">(</span><span class="va">results</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
-<span>  <span class="fu"><a href="../reference/unnest_wider.html">unnest_wider</a></span><span class="op">(</span><span class="va">geometry</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="../reference/unnest_wider.html">unnest_wider</a></span><span class="op">(</span><span class="va">geometry</span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 7 × 10</span></span></span>
+<span><span class="co">#&gt;   city      addre…¹ forma…² bounds       location     locat…³ viewport    </span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>      </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Houston   &lt;list&gt;  Housto… &lt;named list&gt; &lt;named list&gt; APPROX… &lt;named list&gt;</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> Washingt… &lt;list&gt;  Washin… &lt;named list&gt; &lt;named list&gt; APPROX… &lt;named list&gt;</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> Washingt… &lt;list&gt;  Washin… &lt;named list&gt; &lt;named list&gt; APPROX… &lt;named list&gt;</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> New York  &lt;list&gt;  New Yo… &lt;named list&gt; &lt;named list&gt; APPROX… &lt;named list&gt;</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> Chicago   &lt;list&gt;  Chicag… &lt;named list&gt; &lt;named list&gt; APPROX… &lt;named list&gt;</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> Arlington &lt;list&gt;  Arling… &lt;named list&gt; &lt;named list&gt; APPROX… &lt;named list&gt;</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">7</span> Arlington &lt;list&gt;  Arling… &lt;named list&gt; &lt;named list&gt; APPROX… &lt;named list&gt;</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># … with 3 more variables: place_id &lt;chr&gt;, types &lt;list&gt;, status &lt;chr&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   and abbreviated variable names ¹​address_components,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   ²​formatted_address, ³​location_type</span></span></span></code></pre></div>
 <p>And then location:</p>
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">loc</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">repurrrsive</span><span class="fu">::</span><span class="va"><a href="https://jennybc.github.io/repurrrsive/reference/gmaps_cities.html" class="external-link">gmaps_cities</a></span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/unnest_wider.html">unnest_wider</a></span><span class="op">(</span><span class="va">json</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/unnest_longer.html">unnest_longer</a></span><span class="op">(</span><span class="va">results</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/unnest_wider.html">unnest_wider</a></span><span class="op">(</span><span class="va">results</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/unnest_wider.html">unnest_wider</a></span><span class="op">(</span><span class="va">geometry</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="../reference/unnest_wider.html">unnest_wider</a></span><span class="op">(</span><span class="va">location</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="../reference/unnest_wider.html">unnest_wider</a></span><span class="op">(</span><span class="va">location</span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 7 × 11</span></span></span>
+<span><span class="co">#&gt;   city      addre…¹ forma…² bounds         lat    lng locat…³ viewport    </span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>      </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Houston   &lt;list&gt;  Housto… &lt;named list&gt;  29.8  -<span style="color: #BB0000;">95.4</span> APPROX… &lt;named list&gt;</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> Washingt… &lt;list&gt;  Washin… &lt;named list&gt;  47.8 -<span style="color: #BB0000;">121.</span>  APPROX… &lt;named list&gt;</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> Washingt… &lt;list&gt;  Washin… &lt;named list&gt;  38.9  -<span style="color: #BB0000;">77.0</span> APPROX… &lt;named list&gt;</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> New York  &lt;list&gt;  New Yo… &lt;named list&gt;  40.7  -<span style="color: #BB0000;">74.0</span> APPROX… &lt;named list&gt;</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> Chicago   &lt;list&gt;  Chicag… &lt;named list&gt;  41.9  -<span style="color: #BB0000;">87.6</span> APPROX… &lt;named list&gt;</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> Arlington &lt;list&gt;  Arling… &lt;named list&gt;  32.7  -<span style="color: #BB0000;">97.1</span> APPROX… &lt;named list&gt;</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">7</span> Arlington &lt;list&gt;  Arling… &lt;named list&gt;  38.9  -<span style="color: #BB0000;">77.1</span> APPROX… &lt;named list&gt;</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># … with 3 more variables: place_id &lt;chr&gt;, types &lt;list&gt;, status &lt;chr&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   and abbreviated variable names ¹​address_components,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   ²​formatted_address, ³​location_type</span></span></span></code></pre></div>
 <p>We could also just look at the first address for each city:</p>
-<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">loc</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">repurrrsive</span><span class="fu">::</span><span class="va"><a href="https://jennybc.github.io/repurrrsive/reference/gmaps_cities.html" class="external-link">gmaps_cities</a></span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/unnest_wider.html">unnest_wider</a></span><span class="op">(</span><span class="va">json</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/hoist.html">hoist</a></span><span class="op">(</span><span class="va">results</span>, first_result <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/unnest_wider.html">unnest_wider</a></span><span class="op">(</span><span class="va">first_result</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/unnest_wider.html">unnest_wider</a></span><span class="op">(</span><span class="va">geometry</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="../reference/unnest_wider.html">unnest_wider</a></span><span class="op">(</span><span class="va">location</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="../reference/unnest_wider.html">unnest_wider</a></span><span class="op">(</span><span class="va">location</span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 5 × 12</span></span></span>
+<span><span class="co">#&gt;   city      addre…¹ forma…² bounds         lat    lng locat…³ viewport    </span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>      </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Houston   &lt;list&gt;  Housto… &lt;named list&gt;  29.8  -<span style="color: #BB0000;">95.4</span> APPROX… &lt;named list&gt;</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> Washingt… &lt;list&gt;  Washin… &lt;named list&gt;  47.8 -<span style="color: #BB0000;">121.</span>  APPROX… &lt;named list&gt;</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> New York  &lt;list&gt;  New Yo… &lt;named list&gt;  40.7  -<span style="color: #BB0000;">74.0</span> APPROX… &lt;named list&gt;</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> Chicago   &lt;list&gt;  Chicag… &lt;named list&gt;  41.9  -<span style="color: #BB0000;">87.6</span> APPROX… &lt;named list&gt;</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> Arlington &lt;list&gt;  Arling… &lt;named list&gt;  32.7  -<span style="color: #BB0000;">97.1</span> APPROX… &lt;named list&gt;</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># … with 4 more variables: place_id &lt;chr&gt;, types &lt;list&gt;, results &lt;list&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   status &lt;chr&gt;, and abbreviated variable names ¹​address_components,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   ²​formatted_address, ³​location_type</span></span></span></code></pre></div>
 <p>Or use <code><a href="../reference/hoist.html">hoist()</a></code> to dive deeply to get directly to
 <code>lat</code> and <code>lng</code>:</p>
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">loc</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">repurrrsive</span><span class="fu">::</span><span class="va"><a href="https://jennybc.github.io/repurrrsive/reference/gmaps_cities.html" class="external-link">gmaps_cities</a></span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/hoist.html">hoist</a></span><span class="op">(</span><span class="va">json</span>,</span>
 <span>    lat <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"results"</span>, <span class="fl">1</span>, <span class="st">"geometry"</span>, <span class="st">"location"</span>, <span class="st">"lat"</span><span class="op">)</span>,</span>
 <span>    lng <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"results"</span>, <span class="fl">1</span>, <span class="st">"geometry"</span>, <span class="st">"location"</span>, <span class="st">"lng"</span><span class="op">)</span></span>
-<span>  <span class="op">)</span></span></code></pre></div>
+<span>  <span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 5 × 4</span></span></span>
+<span><span class="co">#&gt;   city         lat    lng json            </span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>          </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Houston     29.8  -<span style="color: #BB0000;">95.4</span> <span style="color: #949494;">&lt;named list [2]&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> Washington  47.8 -<span style="color: #BB0000;">121.</span>  <span style="color: #949494;">&lt;named list [2]&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> New York    40.7  -<span style="color: #BB0000;">74.0</span> <span style="color: #949494;">&lt;named list [2]&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> Chicago     41.9  -<span style="color: #BB0000;">87.6</span> <span style="color: #949494;">&lt;named list [2]&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> Arlington   32.7  -<span style="color: #BB0000;">97.1</span> <span style="color: #949494;">&lt;named list [2]&gt;</span></span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="sharla-gelfands-discography">Sharla Gelfand’s discography<a class="anchor" aria-label="anchor" href="#sharla-gelfands-discography"></a>
@@ -524,7 +575,7 @@ also parse the <code>date_added</code> column into a real date-time<a class="foo
 &lt;code&gt;lubridate::ymd_hms()&lt;/code&gt;, but I can’t here because it’s a
 vignette and I don’t want to add a dependency to tidyr just to simplify
 one example.&lt;/p&gt;'><sup>1</sup></a>.</p>
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">discs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span>disc <span class="op">=</span> <span class="va">discog</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="../reference/unnest_wider.html">unnest_wider</a></span><span class="op">(</span><span class="va">disc</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>date_added <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.POSIXlt.html" class="external-link">as.POSIXct</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/strptime.html" class="external-link">strptime</a></span><span class="op">(</span><span class="va">date_added</span>, <span class="st">"%Y-%m-%dT%H:%M:%S"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> </span>
@@ -546,7 +597,7 @@ one example.&lt;/p&gt;'><sup>1</sup></a>.</p>
 <p>At this level, we see information about when each disc was added to
 Sharla’s discography, not any information about the disc itself. To do
 that we need to widen the <code>basic_information</code> column:</p>
-<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">discs</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="../reference/unnest_wider.html">unnest_wider</a></span><span class="op">(</span><span class="va">basic_information</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #BBBB00; font-weight: bold;">Error</span><span style="font-weight: bold;"> in `unpack()`:</span></span></span>
 <span><span class="co">#&gt; <span style="color: #BBBB00;">!</span> Names must be unique.</span></span>
@@ -556,7 +607,7 @@ that we need to widen the <code>basic_information</code> column:</p>
 <p>Unfortunately that fails because there’s an <code>id</code> column
 inside <code>basic_information</code>. We can quickly see what’s going
 on by setting <code>names_repair = "unique"</code>:</p>
-<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">discs</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="../reference/unnest_wider.html">unnest_wider</a></span><span class="op">(</span><span class="va">basic_information</span>, names_repair <span class="op">=</span> <span class="st">"unique"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; New names:</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> `id` -&gt; `id...7`</span></span>
@@ -581,7 +632,7 @@ on by setting <code>names_repair = "unique"</code>:</p>
 <p>The problem is that <code>basic_information</code> repeats the
 <code>id</code> column that’s also stored at the top-level, so we can
 just drop that:</p>
-<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">discs</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="op">!</span><span class="va">id</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="../reference/unnest_wider.html">unnest_wider</a></span><span class="op">(</span><span class="va">basic_information</span><span class="op">)</span></span>
@@ -602,7 +653,7 @@ just drop that:</p>
 <span><span class="co">#&gt; <span style="color: #949494;">#   cover_image &lt;chr&gt;, resource_url &lt;chr&gt;, master_id &lt;int&gt;, rating &lt;int&gt;,</span></span></span>
 <span><span class="co">#&gt; <span style="color: #949494;">#   and abbreviated variable names ¹​instance_id, ²​master_url</span></span></span></code></pre></div>
 <p>Alternatively, we could use <code><a href="../reference/hoist.html">hoist()</a></code>:</p>
-<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">discs</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="../reference/hoist.html">hoist</a></span><span class="op">(</span><span class="va">basic_information</span>,</span>
 <span>    title <span class="op">=</span> <span class="st">"title"</span>,</span>
@@ -629,7 +680,7 @@ just drop that:</p>
 indexing deeply into the nested list.</p>
 <p>A more systematic approach would be to create separate tables for
 artist and label:</p>
-<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">discs</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="../reference/hoist.html">hoist</a></span><span class="op">(</span><span class="va">basic_information</span>, artist <span class="op">=</span> <span class="st">"artists"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span>disc_id <span class="op">=</span> <span class="va">id</span>, <span class="va">artist</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
