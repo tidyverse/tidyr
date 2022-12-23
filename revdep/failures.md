@@ -480,6 +480,109 @@ Run `cloud_details(, "NA")` for more info
 
 
 ```
+# NA
+
+<details>
+
+* Version: NA
+* GitHub: NA
+* Source code: https://github.com/cran/NA
+* Number of recursive dependencies: 0
+
+Run `cloud_details(, "NA")` for more info
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
+# genekitr
+
+<details>
+
+* Version: 1.0.8
+* GitHub: https://github.com/GangLiLab/genekitr
+* Source code: https://github.com/cran/genekitr
+* Date/Publication: 2022-11-23 11:30:02 UTC
+* Number of recursive dependencies: 200
+
+Run `cloud_details(, "genekitr")` for more info
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+* using log directory ‘/tmp/workdir/genekitr/new/genekitr.Rcheck’
+* using R version 4.1.1 (2021-08-10)
+* using platform: x86_64-pc-linux-gnu (64-bit)
+* using session charset: UTF-8
+* using option ‘--no-manual’
+* checking for file ‘genekitr/DESCRIPTION’ ... OK
+* checking extension type ... Package
+* this is package ‘genekitr’ version ‘1.0.8’
+* package encoding: UTF-8
+* checking package namespace information ... OK
+* checking package dependencies ... ERROR
+Package required but not available: ‘clusterProfiler’
+
+See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
+manual.
+* DONE
+Status: 1 ERROR
+
+
+
+
+
+```
+### CRAN
+
+```
+* using log directory ‘/tmp/workdir/genekitr/old/genekitr.Rcheck’
+* using R version 4.1.1 (2021-08-10)
+* using platform: x86_64-pc-linux-gnu (64-bit)
+* using session charset: UTF-8
+* using option ‘--no-manual’
+* checking for file ‘genekitr/DESCRIPTION’ ... OK
+* checking extension type ... Package
+* this is package ‘genekitr’ version ‘1.0.8’
+* package encoding: UTF-8
+* checking package namespace information ... OK
+* checking package dependencies ... ERROR
+Package required but not available: ‘clusterProfiler’
+
+See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
+manual.
+* DONE
+Status: 1 ERROR
+
+
+
+
+
+```
 # ggPMX
 
 <details>
@@ -510,7 +613,7 @@ Run `cloud_details(, "ggPMX")` for more info
 * checking package namespace information ... OK
 * checking package dependencies ... NOTE
 ...
-  [ FAIL 1 | WARN 13 | SKIP 8 | PASS 327 ]
+  [ FAIL 1 | WARN 14 | SKIP 8 | PASS 327 ]
   Error: Test failures
   Execution halted
 * checking for unstated dependencies in vignettes ... OK
@@ -540,7 +643,7 @@ Status: 1 ERROR, 2 NOTEs
 * checking package namespace information ... OK
 * checking package dependencies ... NOTE
 ...
-  [ FAIL 1 | WARN 13 | SKIP 8 | PASS 327 ]
+  [ FAIL 1 | WARN 14 | SKIP 8 | PASS 327 ]
   Error: Test failures
   Execution halted
 * checking for unstated dependencies in vignettes ... OK
@@ -698,72 +801,6 @@ Run `cloud_details(, "NA")` for more info
 
 
 ```
-# MarketMatching
-
-<details>
-
-* Version: 1.2.0
-* GitHub: NA
-* Source code: https://github.com/cran/MarketMatching
-* Date/Publication: 2021-01-08 20:10:02 UTC
-* Number of recursive dependencies: 72
-
-Run `cloud_details(, "MarketMatching")` for more info
-
-</details>
-
-## Error before installation
-
-### Devel
-
-```
-* using log directory ‘/tmp/workdir/MarketMatching/new/MarketMatching.Rcheck’
-* using R version 4.1.1 (2021-08-10)
-* using platform: x86_64-pc-linux-gnu (64-bit)
-* using session charset: UTF-8
-* using option ‘--no-manual’
-* checking for file ‘MarketMatching/DESCRIPTION’ ... OK
-* checking extension type ... Package
-* this is package ‘MarketMatching’ version ‘1.2.0’
-* checking package namespace information ... OK
-* checking package dependencies ... ERROR
-Packages required but not available: 'CausalImpact', 'bsts', 'Boom'
-
-See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-manual.
-* DONE
-Status: 1 ERROR
-
-
-
-
-
-```
-### CRAN
-
-```
-* using log directory ‘/tmp/workdir/MarketMatching/old/MarketMatching.Rcheck’
-* using R version 4.1.1 (2021-08-10)
-* using platform: x86_64-pc-linux-gnu (64-bit)
-* using session charset: UTF-8
-* using option ‘--no-manual’
-* checking for file ‘MarketMatching/DESCRIPTION’ ... OK
-* checking extension type ... Package
-* this is package ‘MarketMatching’ version ‘1.2.0’
-* checking package namespace information ... OK
-* checking package dependencies ... ERROR
-Packages required but not available: 'CausalImpact', 'bsts', 'Boom'
-
-See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-manual.
-* DONE
-Status: 1 ERROR
-
-
-
-
-
-```
 # NA
 
 <details>
@@ -799,6 +836,72 @@ Run `cloud_details(, "NA")` for more info
 
 
 ```
+# numbat
+
+<details>
+
+* Version: 1.1.0
+* GitHub: https://github.com/kharchenkolab/numbat
+* Source code: https://github.com/cran/numbat
+* Date/Publication: 2022-11-29 18:30:02 UTC
+* Number of recursive dependencies: 183
+
+Run `cloud_details(, "numbat")` for more info
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+* using log directory ‘/tmp/workdir/numbat/new/numbat.Rcheck’
+* using R version 4.1.1 (2021-08-10)
+* using platform: x86_64-pc-linux-gnu (64-bit)
+* using session charset: UTF-8
+* using option ‘--no-manual’
+* checking for file ‘numbat/DESCRIPTION’ ... OK
+* this is package ‘numbat’ version ‘1.1.0’
+* package encoding: UTF-8
+* checking package namespace information ... OK
+* checking package dependencies ... ERROR
+Packages required but not available: 'ggtree', 'scistreer'
+
+See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
+manual.
+* DONE
+Status: 1 ERROR
+
+
+
+
+
+```
+### CRAN
+
+```
+* using log directory ‘/tmp/workdir/numbat/old/numbat.Rcheck’
+* using R version 4.1.1 (2021-08-10)
+* using platform: x86_64-pc-linux-gnu (64-bit)
+* using session charset: UTF-8
+* using option ‘--no-manual’
+* checking for file ‘numbat/DESCRIPTION’ ... OK
+* this is package ‘numbat’ version ‘1.1.0’
+* package encoding: UTF-8
+* checking package namespace information ... OK
+* checking package dependencies ... ERROR
+Packages required but not available: 'ggtree', 'scistreer'
+
+See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
+manual.
+* DONE
+Status: 1 ERROR
+
+
+
+
+
+```
 # OlinkAnalyze
 
 <details>
@@ -807,7 +910,7 @@ Run `cloud_details(, "NA")` for more info
 * GitHub: NA
 * Source code: https://github.com/cran/OlinkAnalyze
 * Date/Publication: 2022-11-16 00:30:05 UTC
-* Number of recursive dependencies: 203
+* Number of recursive dependencies: 202
 
 Run `cloud_details(, "OlinkAnalyze")` for more info
 
@@ -883,7 +986,7 @@ Status: 1 NOTE
 * GitHub: NA
 * Source code: https://github.com/cran/Platypus
 * Date/Publication: 2022-08-15 07:20:20 UTC
-* Number of recursive dependencies: 354
+* Number of recursive dependencies: 356
 
 Run `cloud_details(, "Platypus")` for more info
 
@@ -945,6 +1048,41 @@ See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
 manual.
 * DONE
 Status: 1 ERROR
+
+
+
+
+
+```
+# NA
+
+<details>
+
+* Version: NA
+* GitHub: NA
+* Source code: https://github.com/cran/NA
+* Number of recursive dependencies: 0
+
+Run `cloud_details(, "NA")` for more info
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
 
 
 
@@ -1204,7 +1342,7 @@ Status: 2 NOTEs
 * GitHub: NA
 * Source code: https://github.com/cran/xpose.nlmixr2
 * Date/Publication: 2022-06-08 09:10:02 UTC
-* Number of recursive dependencies: 154
+* Number of recursive dependencies: 161
 
 Run `cloud_details(, "xpose.nlmixr2")` for more info
 

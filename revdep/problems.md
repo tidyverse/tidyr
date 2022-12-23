@@ -1,41 +1,3 @@
-# cmcR
-
-<details>
-
-* Version: 0.1.9
-* GitHub: NA
-* Source code: https://github.com/cran/cmcR
-* Date/Publication: 2022-02-22 14:00:02 UTC
-* Number of recursive dependencies: 117
-
-Run `cloud_details(, "cmcR")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking tests ... ERROR
-    ```
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-      ℹ Please use `"highCMCClassif"` instead of `.data$highCMCClassif`
-      
-      ══ Failed ══════════════════════════════════════════════════════════════════════
-      ── 1. Error ('test-diagnosticTools.R:55'): (code run outside of `test_that()`) ─
-      Error in `stringr::str_extract_all(., string = ..2$cmcR.info$cellRange, 
-          pattern = "[0-9]{1,}")`: `simplify` must be `TRUE` or `FALSE`, not the string "rows: 1 - 69, cols: 1 - 69".
-      Backtrace:
-       1. cmcR::cmcPlot(...)
-            at test-diagnosticTools.R:55:0
-       8. stringr::str_extract_all(simplify = .)
-      
-      ══ DONE ════════════════════════════════════════════════════════════════════════
-      Don't worry, you'll get it.
-      Error: Test failures
-      Execution halted
-    ```
-
 # faux
 
 <details>
@@ -56,18 +18,18 @@ Run `cloud_details(, "faux")` for more info
     ```
     Error(s) in re-building vignettes:
     --- re-building ‘codebook.Rmd’ using rmarkdown
-    
-    ************
-    Welcome to faux. For support and examples visit:
-    https://debruine.github.io/faux/
-    - Get and set global package options with: faux_options()
-    ************
     --- finished re-building ‘codebook.Rmd’
     
+    --- re-building ‘continuous.Rmd’ using rmarkdown
+    Quitting from lines 95-99 (continuous.Rmd) 
+    Error: processing vignette 'continuous.Rmd' failed with diagnostics:
+    Arguments in `...` must be used.
+    ✖ Problematic arguments:
+    • ..1 = "var"
     ...
-    https://debruine.github.io/faux/
-    - Get and set global package options with: faux_options()
-    ************
+    --- finished re-building ‘sim_design.Rmd’
+    
+    --- re-building ‘sim_df.Rmd’ using rmarkdown
     --- finished re-building ‘sim_df.Rmd’
     
     SUMMARY: processing the following file failed:
@@ -75,6 +37,54 @@ Run `cloud_details(, "faux")` for more info
     
     Error: Vignette re-building failed.
     Execution halted
+    ```
+
+# GauPro
+
+<details>
+
+* Version: 0.2.6
+* GitHub: https://github.com/CollinErickson/GauPro
+* Source code: https://github.com/cran/GauPro
+* Date/Publication: 2022-11-24 08:40:02 UTC
+* Number of recursive dependencies: 79
+
+Run `cloud_details(, "GauPro")` for more info
+
+</details>
+
+## Newly broken
+
+*   checking tests ... ERROR
+    ```
+      Running ‘testthat.R’
+    Running the tests in ‘tests/testthat.R’ failed.
+    Last 13 lines of output:
+      > library(GauPro)
+      > 
+      > test_check("GauPro")
+      [ FAIL 1 | WARN 0 | SKIP 0 | PASS 1337 ]
+      
+      ══ Failed tests ════════════════════════════════════════════════════════════════
+      ── Failure ('test_kernel_model_and_kernels.R:204'): kernels work and have correct grads ──
+      White numgrad matches symbolic grad (failed on all 10 attempts) is not TRUE
+      
+      `actual` is a character vector ('Mean relative difference: 0.0003611384')
+      `expected` is a logical vector (TRUE)
+      
+      [ FAIL 1 | WARN 0 | SKIP 0 | PASS 1337 ]
+      Error: Test failures
+      Execution halted
+    ```
+
+## In both
+
+*   checking installed package size ... NOTE
+    ```
+      installed size is 15.0Mb
+      sub-directories of 1Mb or more:
+        R      1.1Mb
+        libs  13.3Mb
     ```
 
 # ggpubr
@@ -199,94 +209,6 @@ Run `cloud_details(, "metaconfoundr")` for more info
     Execution halted
     ```
 
-# mpwR
-
-<details>
-
-* Version: 0.1.0
-* GitHub: NA
-* Source code: https://github.com/cran/mpwR
-* Date/Publication: 2022-06-22 07:30:02 UTC
-* Number of recursive dependencies: 96
-
-Run `cloud_details(, "mpwR")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘mpwR-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: get_Upset_list
-    > ### Title: Generate Upset list
-    > ### Aliases: get_Upset_list
-    > 
-    > ### ** Examples
-    > 
-    > # Load libraries
-    ...
-    ! `pattern` can't be the empty string (`""`).
-    Backtrace:
-        ▆
-     1. └─mpwR::get_Upset_list(input_list = data, level = "Precursor.IDs")
-     2.   ├─base::which(...)
-     3.   └─stringr::str_detect(string = names(output_list), pattern = "")
-     4.     └─stringr:::no_empty()
-     5.       └─cli::cli_abort(...)
-     6.         └─rlang::abort(...)
-    Execution halted
-    ```
-
-*   checking tests ... ERROR
-    ```
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-      ══ Failed tests ════════════════════════════════════════════════════════════════
-      ── Error ('test_Upset.R:72'): get_Upset_list works ─────────────────────────────
-      Error in `stringr::str_detect(string = names(output_list), pattern = "")`: `pattern` can't be the empty string (`""`).
-      Backtrace:
-          ▆
-       1. └─mpwR::get_Upset_list(input_list = data, level = "Precursor.IDs") at test_Upset.R:72:3
-       2.   ├─base::which(...)
-       3.   └─stringr::str_detect(string = names(output_list), pattern = "")
-       4.     └─stringr:::no_empty()
-       5.       └─cli::cli_abort(...)
-       6.         └─rlang::abort(...)
-      
-      [ FAIL 1 | WARN 553 | SKIP 0 | PASS 598 ]
-      Error: Test failures
-      Execution halted
-    ```
-
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    Error(s) in re-building vignettes:
-    --- re-building ‘Import.Rmd’ using rmarkdown
-    --- finished re-building ‘Import.Rmd’
-    
-    --- re-building ‘Requirements.Rmd’ using rmarkdown
-    --- finished re-building ‘Requirements.Rmd’
-    
-    --- re-building ‘Workflow.Rmd’ using rmarkdown
-    
-    Attaching package: 'dplyr'
-    ...
-    Quitting from lines 225-226 (Workflow.Rmd) 
-    Error: processing vignette 'Workflow.Rmd' failed with diagnostics:
-    `pattern` can't be the empty string (`""`).
-    --- failed re-building ‘Workflow.Rmd’
-    
-    SUMMARY: processing the following file failed:
-      ‘Workflow.Rmd’
-    
-    Error: Vignette re-building failed.
-    Execution halted
-    ```
-
 # openalexR
 
 <details>
@@ -308,17 +230,9 @@ Run `cloud_details(, "openalexR")` for more info
     Error(s) in re-building vignettes:
       ...
     --- re-building ‘A_Brief_Introduction_to_openalexR.Rmd’ using rmarkdown
-    
-    Attaching package: 'dplyr'
-    
-    The following objects are masked from 'package:stats':
-    
-        filter, lag
-    
-    ...
-    Quitting from lines 207-213 (A_Brief_Introduction_to_openalexR.Rmd) 
+    Quitting from lines 342-354 (A_Brief_Introduction_to_openalexR.Rmd) 
     Error: processing vignette 'A_Brief_Introduction_to_openalexR.Rmd' failed with diagnostics:
-    $ operator is invalid for atomic vectors
+    missing value where TRUE/FALSE needed
     --- failed re-building ‘A_Brief_Introduction_to_openalexR.Rmd’
     
     SUMMARY: processing the following file failed:
@@ -396,53 +310,5 @@ Run `cloud_details(, "recipes")` for more info
 *   checking Rd cross-references ... NOTE
     ```
     Packages unavailable to check Rd xrefs: ‘fastICA’, ‘dimRed’
-    ```
-
-# tidyfst
-
-<details>
-
-* Version: 1.7.5
-* GitHub: https://github.com/hope-data-science/tidyfst
-* Source code: https://github.com/cran/tidyfst
-* Date/Publication: 2022-10-27 07:00:02 UTC
-* Number of recursive dependencies: 80
-
-Run `cloud_details(, "tidyfst")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘tidyfst-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: unite_dt
-    > ### Title: Unite multiple columns into one by pasting strings together
-    > ### Aliases: unite_dt
-    > 
-    > ### ** Examples
-    > 
-    > df <- expand.grid(x = c("a", NA), y = c("b", NA))
-    ...
-      2. ├─tidyfst::unite_dt(., "merged_name", "")
-      3. │ └─dt %>% select_dt(...)
-      4. ├─tidyfst::select_dt(., ...)
-      5. │ └─... %>% str_c(collapse = ",")
-      6. ├─stringr::str_c(., collapse = ",")
-      7. └─stringr::str_subset(names(dt), ., negate = negate)
-      8.   └─stringr:::no_empty()
-      9.     └─cli::cli_abort(...)
-     10.       └─rlang::abort(...)
-    Execution halted
-    ```
-
-## In both
-
-*   checking Rd cross-references ... NOTE
-    ```
-    Packages unavailable to check Rd xrefs: ‘fastDummies’, ‘widyr’, ‘pacman’, ‘sjmisc’
     ```
 
