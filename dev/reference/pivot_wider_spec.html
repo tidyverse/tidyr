@@ -92,7 +92,8 @@ that allows you to describe pivoting with a data frame.</p>
 <span>  id_expand <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  values_fill <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  values_fn <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  unused_fn <span class="op">=</span> <span class="cn">NULL</span></span>
+<span>  unused_fn <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  error_call <span class="op">=</span> <span class="fu">current_env</span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">build_wider_spec</span><span class="op">(</span></span>
@@ -105,7 +106,8 @@ that allows you to describe pivoting with a data frame.</p>
 <span>  names_glue <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  names_sort <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  names_vary <span class="op">=</span> <span class="st">"fastest"</span>,</span>
-<span>  names_expand <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span>  names_expand <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  error_call <span class="op">=</span> <span class="fu">current_env</span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -184,6 +186,13 @@ to different unused columns.</p>
 all unspecified columns will be considered <code>id_cols</code>.</p>
 <p>This is similar to grouping by the <code>id_cols</code> then summarizing the
 unused columns using <code>unused_fn</code>.</p></dd>
+
+
+<dt>error_call</dt>
+<dd><p>The execution environment of a currently
+running function, e.g. <code>caller_env()</code>. The function will be
+mentioned in error messages as the source of the error. See the
+<code>call</code> argument of <code><a href="https://rlang.r-lib.org/reference/abort.html" class="external-link">abort()</a></code> for more information.</p></dd>
 
 
 <dt>names_from, values_from</dt>
