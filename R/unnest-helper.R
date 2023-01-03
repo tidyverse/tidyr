@@ -90,7 +90,7 @@ col_simplify <- function(x,
 
   # Don't try and simplify non-vectors. list-of types always contain vectors.
   if (!is_list_of(x)) {
-    has_non_vector <- any(!map_lgl(x, ~ vec_is(.x) || is.null(.x)))
+    has_non_vector <- !all(map_lgl(x, ~ vec_is(.x) || is.null(.x)))
 
     if (has_non_vector) {
       return(x)
