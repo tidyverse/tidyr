@@ -23,6 +23,13 @@ and are only recorded when they change.
 \details{
 Missing values are replaced in atomic vectors; \code{NULL}s are replaced in lists.
 }
+\section{Grouped data frames}{
+
+With grouped data frames created by \code{\link[dplyr:group_by]{dplyr::group_by()}}, \code{fill()} will be
+applied \emph{within} each group, meaning that it won't fill across group
+boundaries.
+}
+
 \examples{
 # direction = "down" --------------------------------------------------------
 # Value (year) is recorded only when it changes

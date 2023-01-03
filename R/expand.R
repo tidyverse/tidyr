@@ -14,9 +14,9 @@
 #'  * use it with `anti_join()` to figure out which combinations are missing
 #'    (e.g., identify gaps in your data frame).
 #'
-#' @details
-#' With grouped data frames, `expand()` operates _within_ each group. Because of
-#' this, you cannot expand on a grouping column.
+#' @section Grouped data frames:
+#' With grouped data frames created by [dplyr::group_by()], `expand()` operates
+#' _within_ each group. Because of this, you cannot expand on a grouping column.
 #'
 #' @inheritParams expand_grid
 #' @param data A data frame.

@@ -44,10 +44,13 @@ Turns implicit missing values into explicit missing values. This is a wrapper
 around \code{\link[=expand]{expand()}}, \code{\link[dplyr:mutate-joins]{dplyr::full_join()}} and \code{\link[=replace_na]{replace_na()}} that's useful for
 completing missing combinations of data.
 }
-\details{
-With grouped data frames, \code{complete()} operates \emph{within} each group. Because
-of this, you cannot complete a grouping column.
+\section{Grouped data frames}{
+
+With grouped data frames created by \code{\link[dplyr:group_by]{dplyr::group_by()}}, \code{complete()}
+operates \emph{within} each group. Because of this, you cannot complete a grouping
+column.
 }
+
 \examples{
 df <- tibble(
   group = c(1:2, 1, 2),

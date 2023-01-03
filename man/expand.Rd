@@ -68,10 +68,12 @@ explicit missing values (e.g., fill in gaps in your data frame).
 (e.g., identify gaps in your data frame).
 }
 }
-\details{
-With grouped data frames, \code{expand()} operates \emph{within} each group. Because of
-this, you cannot expand on a grouping column.
+\section{Grouped data frames}{
+
+With grouped data frames created by \code{\link[dplyr:group_by]{dplyr::group_by()}}, \code{expand()} operates
+\emph{within} each group. Because of this, you cannot expand on a grouping column.
 }
+
 \examples{
 # Finding combinations ------------------------------------------------------
 fruits <- tibble(

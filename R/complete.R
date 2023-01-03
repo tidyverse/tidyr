@@ -4,9 +4,10 @@
 #' around [expand()], [dplyr::full_join()] and [replace_na()] that's useful for
 #' completing missing combinations of data.
 #'
-#' @details
-#' With grouped data frames, `complete()` operates _within_ each group. Because
-#' of this, you cannot complete a grouping column.
+#' @section Grouped data frames:
+#' With grouped data frames created by [dplyr::group_by()], `complete()`
+#' operates _within_ each group. Because of this, you cannot complete a grouping
+#' column.
 #'
 #' @inheritParams expand
 #' @param fill A named list that for each variable supplies a single value to
