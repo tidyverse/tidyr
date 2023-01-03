@@ -1,5 +1,9 @@
 # tidyr (development version)
 
+* `pivot_longer_spec()`, `pivot_wider_spec()`, `build_longer_spec()`, and
+  `build_wider_spec()` have all gained an `error_call` argument, resulting in
+  better error reporting in `pivot_longer()` and `pivot_wider()` (#1408).
+
 * `pivot_longer()` no longer supports interpreting `values_ptypes = list()`
   and `names_ptypes = list()` as `NULL`. An empty `list()` is now interpreted as
   a `<list>` prototype to apply to all columns, which is consistent with how any
