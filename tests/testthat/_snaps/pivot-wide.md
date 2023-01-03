@@ -280,6 +280,15 @@
       ! Applying `unused_fn` to `unused` must result in a single summary value per key.
       i Applying `unused_fn` resulted in a vector of length 2.
 
+# `values_fill` is validated
+
+    Code
+      (expect_error(pivot_wider(df, values_fill = 1:2)))
+    Output
+      <error/rlang_error>
+      Error in `pivot_wider()`:
+      ! `values_fill` must be `NULL`, a scalar, or a named list, not an integer vector.
+
 # `unused_fn` is validated
 
     Code

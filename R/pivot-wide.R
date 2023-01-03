@@ -325,7 +325,7 @@ pivot_wider_spec <- function(data,
     values_fill <- rep_named(values_from_cols, list(values_fill))
   } else if (!vec_is_list(values_fill)) {
     cli::cli_abort(
-      "{arg values_fill} must be NULL, a scalar, or a named list, not a {.obj_type_friendly {values_fill}",
+      "{.arg values_fill} must be {.code NULL}, a scalar, or a named list, not {.obj_type_friendly {values_fill}}.",
       call = error_call
     )
   }
