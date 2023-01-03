@@ -96,12 +96,8 @@ nest_legacy.tbl_df <- function(data, ..., .key = "data") {
 
   out <- dplyr::select(data, !!!syms(group_vars))
 
-  if (packageVersion("dplyr") < "0.8.0") {
-    idx <- dplyr::group_indices(data, !!!syms(group_vars))
-  } else {
-    grouped_data <- dplyr::group_by(data, !!!syms(group_vars), .drop = TRUE)
-    idx <- dplyr::group_indices(grouped_data)
-  }
+  grouped_data <- dplyr::group_by(data, !!!syms(group_vars), .drop = TRUE)
+  idx <- dplyr::group_indices(grouped_data)
 
   representatives <- which(!duplicated(idx))
 

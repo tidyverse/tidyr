@@ -196,9 +196,8 @@ unnest.rowwise_df <- function(data,
     names_sep = names_sep,
     names_repair = names_repair
   )
-  if (packageVersion("dplyr") > "0.8.99") {
-    out <- dplyr::grouped_df(out, dplyr::group_vars(data))
-  }
+
+  out <- dplyr::grouped_df(out, dplyr::group_vars(data))
 
   out
 }
