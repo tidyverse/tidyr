@@ -82,7 +82,7 @@ col_simplify <- function(x,
   if (is_list_of(x)) {
     has_list_of_list <- vec_is_list(list_of_ptype(x))
   } else {
-    has_list_of_list <- some(x, vec_is_list)
+    has_list_of_list <- any(map_lgl(x, vec_is_list))
   }
   if (has_list_of_list) {
     return(x)
@@ -90,7 +90,7 @@ col_simplify <- function(x,
 
   # Don't try and simplify non-vectors. list-of types always contain vectors.
   if (!is_list_of(x)) {
-    has_non_vector <- !every(x, ~ vec_is(.x) || is.null(.x))
+    has_non_vector <- any(!map_lgl(x, ~ vec_is(.x) || is.null(.x)))
 
     if (has_non_vector) {
       return(x)
