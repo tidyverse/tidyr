@@ -14,7 +14,8 @@ pivot_wider_spec(
   id_expand = FALSE,
   values_fill = NULL,
   values_fn = NULL,
-  unused_fn = NULL
+  unused_fn = NULL,
+  error_call = current_env()
 )
 
 build_wider_spec(
@@ -27,7 +28,8 @@ build_wider_spec(
   names_glue = NULL,
   names_sort = FALSE,
   names_vary = "fastest",
-  names_expand = FALSE
+  names_expand = FALSE,
+  error_call = current_env()
 )
 }
 \arguments{
@@ -94,6 +96,11 @@ all unspecified columns will be considered \code{id_cols}.
 
 This is similar to grouping by the \code{id_cols} then summarizing the
 unused columns using \code{unused_fn}.}
+
+\item{error_call}{The execution environment of a currently
+running function, e.g. \code{caller_env()}. The function will be
+mentioned in error messages as the source of the error. See the
+\code{call} argument of \code{\link[rlang:abort]{abort()}} for more information.}
 
 \item{names_from, values_from}{<\code{\link[=tidyr_tidy_select]{tidy-select}}> A pair of
 arguments describing which column (or columns) to get the name of the

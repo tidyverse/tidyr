@@ -178,7 +178,8 @@ pivot_longer.data.frame <- function(data,
     names_sep = names_sep,
     names_pattern = names_pattern,
     names_ptypes = names_ptypes,
-    names_transform = names_transform
+    names_transform = names_transform,
+    error_call = current_env()
   )
 
   pivot_longer_spec(
@@ -188,7 +189,8 @@ pivot_longer.data.frame <- function(data,
     names_repair = names_repair,
     values_drop_na = values_drop_na,
     values_ptypes = values_ptypes,
-    values_transform = values_transform
+    values_transform = values_transform,
+    error_call = current_env()
   )
 }
 
@@ -201,6 +203,7 @@ pivot_longer.data.frame <- function(data,
 #' @keywords internal
 #' @export
 #' @inheritParams rlang::args_dots_empty
+#' @inheritParams rlang::args_error_context
 #' @inheritParams pivot_longer
 #' @param spec A specification data frame. This is useful for more complex
 #'  pivots because it gives you greater control on how metadata stored in the
@@ -240,15 +243,17 @@ pivot_longer_spec <- function(data,
                               names_repair = "check_unique",
                               values_drop_na = FALSE,
                               values_ptypes = NULL,
-                              values_transform = NULL) {
+                              values_transform = NULL,
+                              error_call = current_env()) {
   check_dots_empty0(...)
 
-  spec <- check_pivot_spec(spec)
+  spec <- check_pivot_spec(spec, call = error_call)
   spec <- deduplicate_spec(spec, data)
 
   cols_vary <- arg_match0(
     arg = cols_vary,
-    values = c("fastest", "slowest")
+    values = c("fastest", "slowest"),
+    error_call = error_call
   )
 
   # Quick hack to ensure that split() preserves order
@@ -258,8 +263,8 @@ pivot_longer_spec <- function(data,
   value_keys <- split(spec[-(1:2)], v_fct)
   keys <- vec_unique(spec[-(1:2)])
 
-  values_ptypes <- check_list_of_ptypes(values_ptypes, value_names)
-  values_transform <- check_list_of_functions(values_transform, value_names)
+  values_ptypes <- check_list_of_ptypes(values_ptypes, value_names, call = error_call)
+  values_transform <- check_list_of_functions(values_transform, value_names, call = error_call)
 
   vals <- set_names(vec_init(list(), length(values)), value_names)
   for (value in value_names) {
@@ -282,8 +287,16 @@ pivot_longer_spec <- function(data,
     names[col_id] <- cols
 
     names(val_cols) <- names
-    val_type <- vec_ptype_common(!!!val_cols[col_id], .ptype = values_ptypes[[value]])
-    val_cols <- vec_cast_common(!!!val_cols, .to = val_type)
+    val_type <- vec_ptype_common(
+      !!!val_cols[col_id],
+      .ptype = values_ptypes[[value]],
+      .call = error_call
+    )
+    val_cols <- vec_cast_common(
+      !!!val_cols,
+      .to = val_type,
+      .call = error_call
+    )
     val_cols <- unname(val_cols)
 
     if (cols_vary == "slowest") {
@@ -291,7 +304,7 @@ pivot_longer_spec <- function(data,
     } else if (cols_vary == "fastest") {
       vals[[value]] <- vec_interleave(!!!val_cols, .ptype = val_type)
     } else {
-      cli::cli_abort("Unknown {arg cols_vary} value.", .internal = TRUE)
+      cli::cli_abort("Unknown {.arg cols_vary} value.", .internal = TRUE)
     }
   }
   vals <- as_tibble(vals)
@@ -309,7 +322,7 @@ pivot_longer_spec <- function(data,
     data_cols <- vec_rep_each(data_cols, times_data_cols)
     keys <- vec_rep(keys, times_keys)
   } else {
-    cli::cli_abort("Unknown {arg cols_vary} value.", .internal = TRUE)
+    cli::cli_abort("Unknown {.arg cols_vary} value.", .internal = TRUE)
   }
 
   out <- wrap_error_names(vec_cbind(
@@ -317,7 +330,7 @@ pivot_longer_spec <- function(data,
     keys,
     vals,
     .name_repair = names_repair,
-    .error_call = current_env()
+    .error_call = error_call
   ))
 
   if (values_drop_na && vec_any_missing(vals)) {
@@ -340,17 +353,23 @@ build_longer_spec <- function(data,
                               names_sep = NULL,
                               names_pattern = NULL,
                               names_ptypes = NULL,
-                              names_transform = NULL) {
+                              names_transform = NULL,
+                              error_call = current_env()) {
   check_dots_empty0(...)
-  check_data_frame(data)
-  check_required(cols)
-  check_character(names_to, allow_null = TRUE)
+  check_data_frame(data, call = error_call)
+  check_required(cols, call = error_call)
+  check_character(names_to, allow_null = TRUE, call = error_call)
 
-  cols <- tidyselect::eval_select(enquo(cols), data[unique(names(data))], allow_rename = FALSE)
+  cols <- tidyselect::eval_select(
+    expr = enquo(cols),
+    data = data[unique(names(data))],
+    allow_rename = FALSE,
+    error_call = error_call
+  )
   cols <- names(cols)
 
   if (length(cols) == 0) {
-    cli::cli_abort("{.arg cols} must select at least one column.")
+    cli::cli_abort("{.arg cols} must select at least one column.", call = error_call)
   }
 
   if (is.null(names_prefix)) {
@@ -371,10 +390,13 @@ build_longer_spec <- function(data,
     names <- tibble::new_tibble(x = list(), nrow = length(names))
   } else if (n_names_to == 1L) {
     if (has_names_sep) {
-      cli::cli_abort("{.arg names_sep} can't be used with a length 1 {.arg names_to}.")
+      cli::cli_abort(
+        "{.arg names_sep} can't be used with a length 1 {.arg names_to}.",
+        call = error_call
+      )
     }
     if (has_names_pattern) {
-      names <- str_extract(names, names_to, regex = names_pattern)[[1]]
+      names <- str_extract(names, names_to, regex = names_pattern, error_call = error_call)[[1]]
     }
 
     names <- tibble(!!names_to := names)
@@ -383,24 +405,24 @@ build_longer_spec <- function(data,
       cli::cli_abort(paste0(
         "If you supply multiple names in {.arg names_to} you must also supply one",
         " of {.arg names_sep} or {.arg names_pattern}."
-      ))
+      ), call = error_call)
     }
 
     if (has_names_sep) {
-      names <- str_separate(names, names_to, sep = names_sep)
+      names <- str_separate(names, names_to, sep = names_sep, error_call = error_call)
     } else {
-      names <- str_extract(names, names_to, regex = names_pattern)
+      names <- str_extract(names, names_to, regex = names_pattern, error_call = error_call)
     }
   }
 
   if (".value" %in% names_to) {
     values_to <- NULL
   } else {
-    vec_assert(values_to, ptype = character(), size = 1)
+    vec_assert(values_to, ptype = character(), size = 1, call = error_call)
   }
 
-  names_ptypes <- check_list_of_ptypes(names_ptypes, names(names), "names_ptypes")
-  names_transform <- check_list_of_functions(names_transform, names(names), "names_transform")
+  names_ptypes <- check_list_of_ptypes(names_ptypes, names(names), call = error_call)
+  names_transform <- check_list_of_functions(names_transform, names(names), call = error_call)
 
   # Optionally, transform cols
   for (col in names(names_transform)) {
@@ -411,7 +433,7 @@ build_longer_spec <- function(data,
   # Optionally, cast variables generated from columns
   for (col in names(names_ptypes)) {
     ptype <- names_ptypes[[col]]
-    names[[col]] <- vec_cast(names[[col]], ptype, x_arg = col)
+    names[[col]] <- vec_cast(names[[col]], ptype, x_arg = col, call = error_call)
   }
 
   out <- tibble(.name = cols)

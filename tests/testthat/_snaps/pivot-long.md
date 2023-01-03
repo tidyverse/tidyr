@@ -4,7 +4,7 @@
       (expect_error(pivot_longer(df, x, values_ptypes = character())))
     Output
       <error/vctrs_error_cast>
-      Error in `pivot_longer_spec()`:
+      Error in `pivot_longer()`:
       ! Can't convert `x` <double> to <character>.
 
 # when `names_ptypes` is provided, the type error uses `names_to` names (#1364)
@@ -15,7 +15,7 @@
       }))
     Output
       <error/vctrs_error_cast>
-      Error in `build_longer_spec()`:
+      Error in `pivot_longer()`:
       ! Can't convert `name` <character> to <double>.
 
 # error when overwriting existing column
@@ -24,7 +24,7 @@
       (expect_error(pivot_longer(df, y, names_to = "x")))
     Output
       <error/vctrs_error_names_must_be_unique>
-      Error in `pivot_longer_spec()`:
+      Error in `pivot_longer()`:
       ! Names must be unique.
       x These names are duplicated:
         * "x" at locations 1 and 2.
@@ -70,7 +70,7 @@
       (expect_error(pivot_longer(iris, matches("foo"))))
     Output
       <error/rlang_error>
-      Error in `build_longer_spec()`:
+      Error in `pivot_longer()`:
       ! `cols` must select at least one column.
 
 # named `cols` gives clear error (#1104)
@@ -78,7 +78,7 @@
     Code
       pivot_longer(df, c(z = y))
     Condition
-      Error in `build_longer_spec()`:
+      Error in `pivot_longer()`:
       ! Can't rename variables in this context.
 
 # `names_to` is validated
@@ -139,13 +139,13 @@
       (expect_error(pivot_longer(df, x, values_ptypes = 1)))
     Output
       <error/rlang_error>
-      Error in `pivot_longer_spec()`:
+      Error in `pivot_longer()`:
       ! `values_ptypes` must be `NULL`, an empty ptype, or a named list of ptypes.
     Code
       (expect_error(pivot_longer(df, x, values_ptypes = list(integer()))))
     Output
       <error/rlang_error>
-      Error in `pivot_longer_spec()`:
+      Error in `pivot_longer()`:
       ! All elements of `values_ptypes` must be named.
 
 # `values_transform` is validated
@@ -154,13 +154,13 @@
       (expect_error(pivot_longer(df, x, values_transform = 1)))
     Output
       <error/rlang_error>
-      Error in `pivot_longer_spec()`:
+      Error in `pivot_longer()`:
       ! `values_transform` must be `NULL`, a function, or a named list of functions.
     Code
       (expect_error(pivot_longer(df, x, values_transform = list(~.x))))
     Output
       <error/rlang_error>
-      Error in `pivot_longer_spec()`:
+      Error in `pivot_longer()`:
       ! All elements of `values_transform` must be named.
 
 # `cols_vary` is validated
@@ -169,14 +169,14 @@
       (expect_error(pivot_longer(df, x, cols_vary = "fast")))
     Output
       <error/rlang_error>
-      Error in `pivot_longer_spec()`:
+      Error in `pivot_longer()`:
       ! `cols_vary` must be one of "fastest" or "slowest", not "fast".
       i Did you mean "fastest"?
     Code
       (expect_error(pivot_longer(df, x, cols_vary = 1)))
     Output
       <error/rlang_error>
-      Error in `pivot_longer_spec()`:
+      Error in `pivot_longer()`:
       ! `cols_vary` must be a string or character vector.
 
 # `pivot_longer()` catches unused input passed through the dots

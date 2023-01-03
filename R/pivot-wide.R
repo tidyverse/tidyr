@@ -204,7 +204,8 @@ pivot_wider.data.frame <- function(data,
     names_glue = names_glue,
     names_sort = names_sort,
     names_vary = names_vary,
-    names_expand = names_expand
+    names_expand = names_expand,
+    error_call = current_env()
   )
 
   id_cols <- compat_id_cols(
@@ -228,7 +229,8 @@ pivot_wider.data.frame <- function(data,
     names_repair = names_repair,
     values_fill = values_fill,
     values_fn = values_fn,
-    unused_fn = unused_fn
+    unused_fn = unused_fn,
+    error_call = current_env()
   )
 }
 
@@ -240,6 +242,7 @@ pivot_wider.data.frame <- function(data,
 #' @keywords internal
 #' @export
 #' @inheritParams rlang::args_dots_empty
+#' @inheritParams rlang::args_error_context
 #' @inheritParams pivot_wider
 #' @param spec A specification data frame. This is useful for more complex
 #'  pivots because it gives you greater control on how metadata stored in the
@@ -292,11 +295,12 @@ pivot_wider_spec <- function(data,
                              id_expand = FALSE,
                              values_fill = NULL,
                              values_fn = NULL,
-                             unused_fn = NULL) {
+                             unused_fn = NULL,
+                             error_call = current_env()) {
   check_dots_empty0(...)
 
-  spec <- check_pivot_spec(spec)
-  check_bool(id_expand)
+  spec <- check_pivot_spec(spec, call = error_call)
+  check_bool(id_expand, call = error_call)
 
   names_from_cols <- names(spec)[-(1:2)]
   values_from_cols <- vec_unique(spec$.value)
@@ -305,13 +309,14 @@ pivot_wider_spec <- function(data,
     data = data,
     id_cols = {{ id_cols }},
     names_from_cols = names_from_cols,
-    values_from_cols = values_from_cols
+    values_from_cols = values_from_cols,
+    error_call = error_call
   )
 
-  values_fn <- check_list_of_functions(values_fn, values_from_cols)
+  values_fn <- check_list_of_functions(values_fn, values_from_cols, call = error_call)
 
   unused_cols <- setdiff(names(data), c(id_cols, names_from_cols, values_from_cols))
-  unused_fn <- check_list_of_functions(unused_fn, unused_cols)
+  unused_fn <- check_list_of_functions(unused_fn, unused_cols, call = error_call)
   unused_cols <- names(unused_fn)
 
   if (is.null(values_fill)) {
@@ -319,7 +324,10 @@ pivot_wider_spec <- function(data,
   } else if (is_scalar(values_fill)) {
     values_fill <- rep_named(values_from_cols, list(values_fill))
   } else if (!vec_is_list(values_fill)) {
-    cli::cli_abort("{arg values_fill} must be NULL, a scalar, or a named list, not a {.obj_type_friendly {values_fill}")
+    cli::cli_abort(
+      "{.arg values_fill} must be {.code NULL}, a scalar, or a named list, not {.obj_type_friendly {values_fill}}.",
+      call = error_call
+    )
   }
   values_fill <- values_fill[intersect(names(values_fill), values_from_cols)]
 
@@ -361,7 +369,8 @@ pivot_wider_spec <- function(data,
       value_locs = unused_locs,
       value_name = unused_col,
       fn = unused_fn_i,
-      fn_name = "unused_fn"
+      fn_name = "unused_fn",
+      error_call = error_call
     )
   }
 
@@ -399,7 +408,8 @@ pivot_wider_spec <- function(data,
         value_locs = value_locs,
         value_name = value_name,
         fn = value_fn,
-        fn_name = "values_fn"
+        fn_name = "values_fn",
+        error_call = error_call
       )
     }
 
@@ -410,7 +420,7 @@ pivot_wider_spec <- function(data,
       out <- vec_init(value, nrow * ncol)
     } else {
       stopifnot(vec_size(fill) == 1)
-      fill <- vec_cast(fill, value)
+      fill <- vec_cast(fill, value, call = error_call)
       out <- vec_rep_each(fill, nrow * ncol)
     }
     out <- vec_assign(out, value_id$row + nrow * (value_id$col - 1L), value)
@@ -449,7 +459,7 @@ pivot_wider_spec <- function(data,
     values,
     unused,
     .name_repair = names_repair,
-    .error_call = current_env()
+    .error_call = error_call
   ))
 
   reconstruct_tibble(input, out)
@@ -467,28 +477,37 @@ build_wider_spec <- function(data,
                              names_glue = NULL,
                              names_sort = FALSE,
                              names_vary = "fastest",
-                             names_expand = FALSE) {
+                             names_expand = FALSE,
+                             error_call = current_env()) {
   check_dots_empty0(...)
 
   names_from <- tidyselect::eval_select(
     enquo(names_from),
     data,
     allow_rename = FALSE,
-    allow_empty = FALSE
+    allow_empty = FALSE,
+    error_call = error_call
   )
   values_from <- tidyselect::eval_select(
     enquo(values_from),
     data,
     allow_rename = FALSE,
-    allow_empty = FALSE
+    allow_empty = FALSE,
+    error_call = error_call
   )
 
-  check_string(names_prefix)
-  check_string(names_sep)
-  check_string(names_glue, allow_null = TRUE)
-  check_bool(names_sort)
-  names_vary <- arg_match0(names_vary, c("fastest", "slowest"), arg_nm = "names_vary")
-  check_bool(names_expand)
+  check_string(names_prefix, call = error_call)
+  check_string(names_sep, call = error_call)
+  check_string(names_glue, allow_null = TRUE, call = error_call)
+  check_bool(names_sort, call = error_call)
+  check_bool(names_expand, call = error_call)
+
+  names_vary <- arg_match0(
+    arg = names_vary,
+    values = c("fastest", "slowest"),
+    arg_nm = "names_vary",
+    error_call = error_call
+  )
 
   data <- as_tibble(data)
   data <- data[names_from]

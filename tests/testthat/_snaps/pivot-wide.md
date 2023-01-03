@@ -4,7 +4,7 @@
       (expect_error(pivot_wider(df, names_from = key, values_from = val)))
     Output
       <error/vctrs_error_names_must_be_unique>
-      Error in `pivot_wider_spec()`:
+      Error in `pivot_wider()`:
       ! Names must be unique.
       x These names are duplicated:
         * "a" at locations 1 and 2.
@@ -25,7 +25,7 @@
       (expect_error(pivot_wider(df, values_from = val)))
     Output
       <error/vctrs_error_subscript_oob>
-      Error in `build_wider_spec()`:
+      Error in `pivot_wider()`:
       ! Can't subset columns that don't exist.
       x Column `name` doesn't exist.
 
@@ -35,7 +35,7 @@
       (expect_error(pivot_wider(df, names_from = key)))
     Output
       <error/vctrs_error_subscript_oob>
-      Error in `build_wider_spec()`:
+      Error in `pivot_wider()`:
       ! Can't subset columns that don't exist.
       x Column `value` doesn't exist.
 
@@ -46,7 +46,7 @@
       )
     Output
       <error/rlang_error>
-      Error in `build_wider_spec()`:
+      Error in `pivot_wider()`:
       ! Must select at least one item.
 
 # `values_from` must identify at least 1 column (#1240)
@@ -56,7 +56,7 @@
       )
     Output
       <error/rlang_error>
-      Error in `build_wider_spec()`:
+      Error in `pivot_wider()`:
       ! Must select at least one item.
 
 # `values_fn` emits an informative error when it doesn't result in unique values (#1238)
@@ -65,7 +65,7 @@
       (expect_error(pivot_wider(df, values_fn = list(value = ~.x))))
     Output
       <error/rlang_error>
-      Error in `pivot_wider_spec()`:
+      Error in `pivot_wider()`:
       ! Applying `values_fn` to `value` must result in a single summary value per key.
       i Applying `values_fn` resulted in a vector of length 2.
 
@@ -182,13 +182,13 @@
       (expect_error(pivot_wider(df, id_expand = 1)))
     Output
       <error/rlang_error>
-      Error in `pivot_wider_spec()`:
+      Error in `pivot_wider()`:
       ! `id_expand` must be `TRUE` or `FALSE`, not the number 1.
     Code
       (expect_error(pivot_wider(df, id_expand = "x")))
     Output
       <error/rlang_error>
-      Error in `pivot_wider_spec()`:
+      Error in `pivot_wider()`:
       ! `id_expand` must be `TRUE` or `FALSE`, not the string "x".
 
 # duplicated keys produce list column with warning
@@ -267,7 +267,7 @@
       (expect_error(pivot_wider(df, values_fn = 1)))
     Output
       <error/rlang_error>
-      Error in `pivot_wider_spec()`:
+      Error in `pivot_wider()`:
       ! `values_fn` must be `NULL`, a function, or a named list of functions.
 
 # `unused_fn` must result in single summary values
@@ -276,9 +276,18 @@
       (expect_error(pivot_wider(df, id_cols = id, unused_fn = identity)))
     Output
       <error/rlang_error>
-      Error in `pivot_wider_spec()`:
+      Error in `pivot_wider()`:
       ! Applying `unused_fn` to `unused` must result in a single summary value per key.
       i Applying `unused_fn` resulted in a vector of length 2.
+
+# `values_fill` is validated
+
+    Code
+      (expect_error(pivot_wider(df, values_fill = 1:2)))
+    Output
+      <error/rlang_error>
+      Error in `pivot_wider()`:
+      ! `values_fill` must be `NULL`, a scalar, or a named list, not an integer vector.
 
 # `unused_fn` is validated
 
@@ -286,7 +295,7 @@
       (expect_error(pivot_wider(df, id_cols = id, unused_fn = 1)))
     Output
       <error/rlang_error>
-      Error in `pivot_wider_spec()`:
+      Error in `pivot_wider()`:
       ! `unused_fn` must be `NULL`, a function, or a named list of functions.
 
 # `id_cols` has noisy compat behavior (#1353)

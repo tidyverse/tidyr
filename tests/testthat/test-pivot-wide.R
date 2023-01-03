@@ -733,6 +733,14 @@ test_that("can't fill implicit missings in unused column with `values_fill`", {
   expect_identical(res$unused, list(c(1, 2), c(4, 3), NA_real_))
 })
 
+test_that("`values_fill` is validated", {
+  df <- tibble(name = "a", value = 1)
+
+  expect_snapshot(
+    (expect_error(pivot_wider(df, values_fill = 1:2)))
+  )
+})
+
 test_that("`unused_fn` is validated", {
   df <- tibble(id = 1, unused = 1, name = "a", value = 1)
 

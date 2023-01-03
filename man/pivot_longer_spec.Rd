@@ -13,7 +13,8 @@ pivot_longer_spec(
   names_repair = "check_unique",
   values_drop_na = FALSE,
   values_ptypes = NULL,
-  values_transform = NULL
+  values_transform = NULL,
+  error_call = current_env()
 )
 
 build_longer_spec(
@@ -26,7 +27,8 @@ build_longer_spec(
   names_sep = NULL,
   names_pattern = NULL,
   names_ptypes = NULL,
-  names_transform = NULL
+  names_transform = NULL,
+  error_call = current_env()
 )
 }
 \arguments{
@@ -67,6 +69,11 @@ for more options.}
 in the \code{value_to} column. This effectively converts explicit missing values
 to implicit missing values, and should generally be used only when missing
 values in \code{data} were created by its structure.}
+
+\item{error_call}{The execution environment of a currently
+running function, e.g. \code{caller_env()}. The function will be
+mentioned in error messages as the source of the error. See the
+\code{call} argument of \code{\link[rlang:abort]{abort()}} for more information.}
 
 \item{cols}{<\code{\link[=tidyr_tidy_select]{tidy-select}}> Columns to pivot into
 longer format.}
