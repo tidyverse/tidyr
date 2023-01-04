@@ -37,8 +37,7 @@
       out <- gather(df, k, v)
     Condition
       Warning:
-      attributes are not identical across measure variables;
-      they will be dropped
+      attributes are not identical across measure variables; they will be dropped
 
 # varying attributes are dropped with a warning
 
@@ -46,8 +45,7 @@
       gather(df, k, v)
     Condition
       Warning:
-      attributes are not identical across measure variables;
-      they will be dropped
+      attributes are not identical across measure variables; they will be dropped
     Output
             k          v
       1 date1 1546300800
