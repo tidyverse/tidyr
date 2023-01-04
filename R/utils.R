@@ -245,13 +245,14 @@ check_list_of_functions <- function(x, names, arg = caller_arg(x), call = caller
   }
 
   check_unique_names(x, arg = arg, call = call)
+  x_names <- names(x)
 
-  x <- lapply(set_names(seq_along(x), names(x)), function(i) {
-    as_function(x[[i]], arg = glue("{arg}[[{i}]]"), call = call)
-  })
+  for (i in seq_along(x)) {
+    x[[i]] <- as_function(x[[i]], arg = glue("{arg}${x_names[[i]]}"), call = call)
+  }
 
   # Silently drop user supplied names not found in the data
-  x <- x[intersect(names(x), names)]
+  x <- x[intersect(x_names, names)]
 
   x
 }
