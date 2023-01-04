@@ -26,7 +26,7 @@ Imports:
     glue,
     lifecycle (>= 1.0.3),
     magrittr,
-    purrr (>= 1.0.0),
+    purrr (>= 1.0.0.9000),
     rlang (>= 1.0.4),
     stringr (>= 1.5.0),
     tibble (>= 2.1.1),
@@ -52,3 +52,5 @@ LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3
 SystemRequirements: C++11
+Remotes:
+    tidyverse/purrr#1034
