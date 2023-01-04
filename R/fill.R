@@ -6,7 +6,12 @@
 #'
 #' Missing values are replaced in atomic vectors; `NULL`s are replaced in lists.
 #'
-#' @inheritParams gather
+#' @section Grouped data frames:
+#' With grouped data frames created by [dplyr::group_by()], `fill()` will be
+#' applied _within_ each group, meaning that it won't fill across group
+#' boundaries.
+#'
+#' @param data A data frame.
 #' @param ... <[`tidy-select`][tidyr_tidy_select]> Columns to fill.
 #' @param .direction Direction in which to fill missing values. Currently
 #'   either "down" (the default), "up", "downup" (i.e. first down and then up)
