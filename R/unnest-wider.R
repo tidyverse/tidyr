@@ -138,14 +138,18 @@ col_to_wide <- function(col, name, strict, names_sep, error_call = caller_env())
   # Avoid expensive dispatch from `[[.list_of`
   out <- tidyr_new_list(col)
 
-  out <- lapply(
-    out,
-    function(x) elt_to_wide(
-      x = x,
-      name = name,
-      strict = strict,
-      names_sep = names_sep,
-      error_call = error_call
+  out <- with_wider_indexed_errors(
+    column = name,
+    error_call = error_call,
+    map(
+      out,
+      function(x) elt_to_wide(
+        x = x,
+        name = name,
+        strict = strict,
+        names_sep = names_sep,
+        error_call = NULL
+      )
     )
   )
 
@@ -188,7 +192,7 @@ elt_to_wide <- function(x, name, strict, names_sep, error_call = caller_env()) {
 
   if (!vec_is(x)) {
     cli::cli_abort(
-      "List-column {.var {name}} must contain only vectors.",
+      "List-column must only contain vectors.",
       call = error_call
     )
   }
@@ -237,4 +241,17 @@ elt_to_wide <- function(x, name, strict, names_sep, error_call = caller_env()) {
   x <- new_data_frame(x, n = 1L)
 
   x
+}
+
+with_wider_indexed_errors <- function(expr, column, error_call) {
+  try_fetch(
+    expr,
+    purrr_error_indexed = function(cnd) {
+      message <- c(
+        i = "In column: {.code {column}}.",
+        i = "In row: {cnd$index}."
+      )
+      cli::cli_abort(message, call = error_call, parent = cnd$parent)
+    }
+  )
 }
