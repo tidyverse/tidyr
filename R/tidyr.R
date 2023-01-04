@@ -12,6 +12,8 @@
 #' @useDynLib tidyr, .registration = TRUE
 "_PACKAGE"
 
+on_load(local_use_cli())
+
 the <- new_environment()
 
 globalVariables(c(".", "name", "value"))
