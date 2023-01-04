@@ -4,8 +4,8 @@
       out <- nest(df)
     Condition
       Warning:
-      `...` must not be empty for ungrouped data frames.
-      Did you want `data = everything()`?
+      `...` can't be empty for ungrouped data frames.
+      i Did you want `data = everything()`?
 
 # validates its inputs
 
@@ -22,7 +22,7 @@
     Condition
       Warning:
       All elements of `...` must be named.
-      Did you want `data = y`?
+      i Did you want `data = y`?
 
 ---
 
@@ -31,7 +31,7 @@
     Condition
       Warning:
       All elements of `...` must be named.
-      Did you want `data = -y`?
+      i Did you want `data = -y`?
 
 # only warn about unnamed inputs (#1175)
 
@@ -40,7 +40,7 @@
     Condition
       Warning:
       All elements of `...` must be named.
-      Did you want `data = c(x, y)`?
+      i Did you want `data = c(x, y)`?
 
 # unnamed expressions are kept in the warning
 
@@ -49,7 +49,7 @@
     Condition
       Warning:
       All elements of `...` must be named.
-      Did you want `data = c(x, starts_with("z"))`?
+      i Did you want `data = c(x, starts_with("z"))`?
 
 # can control output column name
 
@@ -58,7 +58,7 @@
     Condition
       Warning:
       All elements of `...` must be named.
-      Did you want `y = y`?
+      i Did you want `y = y`?
 
 # can control output column name when nested
 
