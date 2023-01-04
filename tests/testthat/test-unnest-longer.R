@@ -28,15 +28,6 @@ test_that("can force integer indexes", {
   expect_named(out, c("x", "y", "y2"))
 })
 
-test_that("preserves empty rows", {
-  df <- tibble(
-    x = 1:3,
-    y = list(NULL, NULL, 1)
-  )
-  out <- df %>% unnest_longer(y)
-  expect_equal(nrow(out), 3)
-})
-
 test_that("can handle data frames consistently with vectors", {
   df <- tibble(x = 1:2, y = list(tibble(a = 1:2, b = 2:3)))
   out <- df %>% unnest_longer(y)
@@ -45,7 +36,7 @@ test_that("can handle data frames consistently with vectors", {
   expect_equal(nrow(out), 4)
 })
 
-test_that("can unested dates", {
+test_that("can unnest dates", {
   x <- as.Date(c("2019-08-01", "2019-12-01"))
   df <- tibble(x = as.list(x))
   out <- df %>% unnest_longer(x)
@@ -72,14 +63,69 @@ test_that("list_of columns can be unnested", {
   expect_named(unnest_longer(df, y), c("x", "y", "y_id"))
 })
 
+test_that("drops empty rows by default (#1363, #1339)", {
+  df <- tibble(
+    x = 1:4,
+    y = list(NULL, NULL, 1, double())
+  )
+
+  out <- unnest_longer(df, y)
+  expect_identical(out, tibble(x = 3L, y = 1))
+})
+
+test_that("can keep empty rows with `keep_empty` (#1339)", {
+  df <- tibble(
+    x = 1:4,
+    y = list(NULL, NULL, 1, double())
+  )
+
+  out <- unnest_longer(df, y, keep_empty = TRUE)
+  expect_identical(out, tibble(x = 1:4, y = c(NA, NA, 1, NA)))
+})
+
+test_that("keeping empty rows uses `1L` or `NA_character_` as the index", {
+  df <- tibble(
+    x = 1:3,
+    y = list(NULL, 1:2, integer())
+  )
+
+  out <- unnest_longer(df, y, keep_empty = TRUE, indices_include = TRUE)
+  expect_identical(out$y_id, c(1L, 1L, 2L, 1L))
+
+  # Trigger names to be generated
+  df$y[[2]] <- set_names(df$y[[2]], c("a", "b"))
+  out <- unnest_longer(df, y, keep_empty = TRUE)
+  expect_identical(out$y_id, c(NA, "a", "b", NA))
+})
+
+test_that("named empty vectors force an index column regardless of `keep_empty`", {
+  df <- tibble(
+    x = 1:2,
+    y = list(1:2, set_names(integer(), character()))
+  )
+
+  # Empty row is dropped, but names are still forced
+  out <- unnest_longer(df, y)
+  expect_identical(out$y_id, c(NA_character_, NA_character_))
+
+  out <- unnest_longer(df, y, keep_empty = TRUE)
+  expect_identical(out$y_id, c(NA_character_, NA_character_, NA_character_))
+})
+
 test_that("mix of unnamed and named can be unnested (#1029)", {
-  df <- tibble(x = 1:3, y = list(1, c(b = 2), NULL))
+  df <- tibble(x = 1:4, y = list(1, c(b = 2), NULL, double()))
 
   out <- unnest_longer(df, y, indices_include = NULL)
-  expect_identical(out$y_id, c(NA, "b", NA))
+  expect_identical(out$y_id, c(NA, "b"))
 
   out <- unnest_longer(df, y, indices_include = TRUE)
-  expect_identical(out$y_id, c(NA, "b", NA))
+  expect_identical(out$y_id, c(NA, "b"))
+
+  out <- unnest_longer(df, y, indices_include = NULL, keep_empty = TRUE)
+  expect_identical(out$y_id, c(NA, "b", NA, NA))
+
+  out <- unnest_longer(df, y, indices_include = TRUE, keep_empty = TRUE)
+  expect_identical(out$y_id, c(NA, "b", NA, NA))
 })
 
 test_that("unnesting empty typed column is a no-op and retains column (#1199) (#1196)", {
@@ -105,7 +151,11 @@ test_that("unnesting empty list retains logical column (#1199)", {
 
 test_that("unnesting empty list with indices uses integer indices", {
   df <- tibble(x = list())
+
   out <- unnest_longer(df, x, indices_include = TRUE)
+  expect_identical(out$x_id, integer())
+
+  out <- unnest_longer(df, x, indices_include = TRUE, keep_empty = TRUE)
   expect_identical(out$x_id, integer())
 })
 
@@ -132,17 +182,50 @@ test_that("unnesting list of data frames utilizes `indices_include` (#1194)", {
   )
 })
 
-test_that("can unnest a column with just `list(NULL)` (#1193)", {
+test_that("can unnest a column with just `list(NULL)` or `list_of(NULL)` (#1193, #1363)", {
   df <- tibble(x = list(NULL))
-  expect_identical(unnest_longer(df, x), tibble(x = NA))
+
+  expect_identical(
+    unnest_longer(df, x),
+    tibble(x = logical())
+  )
+  expect_identical(
+    unnest_longer(df, x, keep_empty = TRUE),
+    tibble(x = NA)
+  )
 
   df <- tibble(x = list_of(NULL, .ptype = integer()))
-  expect_identical(unnest_longer(df, x), tibble(x = NA_integer_))
+
+  expect_identical(
+    unnest_longer(df, x),
+    tibble(x = integer())
+  )
+  expect_identical(
+    unnest_longer(df, x, keep_empty = TRUE),
+    tibble(x = NA_integer_)
+  )
+})
+
+test_that("can unnest a column with just `list(integer())`", {
+  df <- tibble(x = list(integer()))
+
+  expect_identical(
+    unnest_longer(df, x),
+    tibble(x = integer())
+  )
+  expect_identical(
+    unnest_longer(df, x, keep_empty = TRUE),
+    tibble(x = NA_integer_)
+  )
 })
 
 test_that("unnesting `list(NULL)` with indices uses integer indices", {
   df <- tibble(x = list(NULL))
+
   out <- unnest_longer(df, x, indices_include = TRUE)
+  expect_identical(out$x_id, integer())
+
+  out <- unnest_longer(df, x, indices_include = TRUE, keep_empty = TRUE)
   expect_identical(out$x_id, 1L)
 })
 
@@ -173,14 +256,31 @@ test_that("can unnest multiple columns (#740)", {
 
 test_that("tidyverse recycling rules are applied when unnesting multiple cols", {
   df <- tibble(a = list(1L, 3:4), b = list(1:2, 4L))
+
   out <- unnest_longer(df, c(a, b))
   expect_identical(out$a, c(1L, 1L, 3L, 4L))
   expect_identical(out$b, c(1L, 2L, 4L, 4L))
 })
 
+test_that("tidyverse recycling rules are applied after `keep_empty`", {
+  df <- tibble(a = list(NULL, 3:4), b = list(1:2, 4L))
+
+  expect_snapshot(error = TRUE, {
+    unnest_longer(df, c(a, b))
+  })
+
+  out <- unnest_longer(df, c(a, b), keep_empty = TRUE, indices_include = TRUE)
+
+  expect_identical(out$a, c(NA, NA, 3L, 4L))
+  expect_identical(out$a_id, c(1L, 1L, 1L, 2L))
+
+  expect_identical(out$b, c(1L, 2L, 4L, 4L))
+  expect_identical(out$b_id, c(1L, 2L, 1L, 1L))
+})
+
 test_that("unnesting multiple columns uses independent indices", {
   df <- tibble(a = list(c(x = 1), NULL), b = list(1, 2:3))
-  out <- unnest_longer(df, c(a, b))
+  out <- unnest_longer(df, c(a, b), keep_empty = TRUE)
 
   expect_identical(out$a_id, c("x", NA, NA))
   expect_named(out, c("a", "a_id", "b"))
@@ -188,7 +288,7 @@ test_that("unnesting multiple columns uses independent indices", {
 
 test_that("unnesting multiple columns works with `indices_include = TRUE`", {
   df <- tibble(a = list(c(x = 1), NULL), b = list(1, 2:3))
-  out <- unnest_longer(df, c(a, b), indices_include = TRUE)
+  out <- unnest_longer(df, c(a, b), keep_empty = TRUE, indices_include = TRUE)
 
   expect_identical(out$a_id, c("x", NA, NA))
   expect_identical(out$b_id, c(1L, 1L, 2L))
@@ -301,5 +401,12 @@ test_that("`indices_include` is validated", {
   expect_snapshot({
     (expect_error(unnest_longer(mtcars, mpg, indices_include = 1)))
     (expect_error(unnest_longer(mtcars, mpg, indices_include = c(TRUE, FALSE))))
+  })
+})
+
+test_that("`keep_empty` is validated", {
+  expect_snapshot({
+    (expect_error(unnest_longer(mtcars, mpg, keep_empty = 1)))
+    (expect_error(unnest_longer(mtcars, mpg, keep_empty = c(TRUE, FALSE))))
   })
 })

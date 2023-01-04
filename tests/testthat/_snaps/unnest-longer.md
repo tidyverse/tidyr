@@ -7,6 +7,14 @@
       Error in `unnest_longer()`:
       ! List-column `y` must contain only vectors.
 
+# tidyverse recycling rules are applied after `keep_empty`
+
+    Code
+      unnest_longer(df, c(a, b))
+    Condition
+      Error in `unchop()`:
+      ! In row 1, can't recycle input of size 0 to size 2.
+
 # can't mix `indices_to` with `indices_include = FALSE`
 
     Code
@@ -89,4 +97,19 @@
       <error/rlang_error>
       Error in `unnest_longer()`:
       ! `indices_include` must be `TRUE`, `FALSE`, or `NULL`, not a logical vector.
+
+# `keep_empty` is validated
+
+    Code
+      (expect_error(unnest_longer(mtcars, mpg, keep_empty = 1)))
+    Output
+      <error/rlang_error>
+      Error in `unnest_longer()`:
+      ! `keep_empty` must be `TRUE` or `FALSE`, not the number 1.
+    Code
+      (expect_error(unnest_longer(mtcars, mpg, keep_empty = c(TRUE, FALSE))))
+    Output
+      <error/rlang_error>
+      Error in `unnest_longer()`:
+      ! `keep_empty` must be `TRUE` or `FALSE`, not a logical vector.
 

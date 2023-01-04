@@ -10,6 +10,7 @@ unnest_longer(
   values_to = NULL,
   indices_to = NULL,
   indices_include = NULL,
+  keep_empty = FALSE,
   names_repair = "check_unique",
   simplify = TRUE,
   ptype = NULL,
@@ -31,11 +32,10 @@ column names. The default, \code{NULL}, gives the output columns the same names
 as the input columns.}
 
 \item{indices_to}{A string giving the column name (or names) to store the
-the inner names or positions (if not named) of the values. If multiple
-columns are specified in \code{col}, this can also be a glue string containing
-\code{"{col}"} to provide a template for the column names. The default, \code{NULL},
-gives the output columns the same names as \code{values_to}, but suffixed with
-\code{"_id"}.}
+inner names or positions (if not named) of the values. If multiple columns
+are specified in \code{col}, this can also be a glue string containing \code{"{col}"}
+to provide a template for the column names. The default, \code{NULL}, gives the
+output columns the same names as \code{values_to}, but suffixed with \code{"_id"}.}
 
 \item{indices_include}{A single logical value specifying whether or not to
 add an index column. If any value has inner names, the index column will be
@@ -43,7 +43,14 @@ a character vector of those names, otherwise it will be an integer vector
 of positions. If \code{NULL}, defaults to \code{TRUE} if any value has inner names
 or if \code{indices_to} is provided.
 
-If \code{indices_to} is provided, then \code{indices_include} must not be \code{FALSE}.}
+If \code{indices_to} is provided, then \code{indices_include} can't be \code{FALSE}.}
+
+\item{keep_empty}{By default, you get one row of output for each element
+of the list that you are unchopping/unnesting. This means that if there's a
+size-0 element (like \code{NULL} or an empty data frame or vector), then that
+entire row will be dropped from the output. If you want to preserve all
+rows, use \code{keep_empty = TRUE} to replace size-0 elements with a single row
+of missing values.}
 
 \item{names_repair}{Used to check that output data frame has valid
 names. Must be one of the following options:
@@ -87,21 +94,27 @@ before the \code{ptype}.}
 \description{
 \code{unnest_longer()} turns each element of a list-column into a row. It
 is most naturally suited to list-columns where the elements are unnamed
-and the length of each element varies row-to-row.
-\code{unnest_longer()} preserves the columns of \code{x} while modifying the rows.
+and the length of each element varies from row to row.
+
+\code{unnest_longer()} generally preserves the number of columns of \code{x} while
+modifying the number of rows.
 
 Learn more in \code{vignette("rectangle")}.
 }
 \examples{
-# unnest_longer() is useful when each component of the list should
+# `unnest_longer()` is useful when each component of the list should
 # form a row
 df <- tibble(
-  x = 1:3,
-  y = list(NULL, 1:3, 4:5)
+  x = 1:4,
+  y = list(NULL, 1:3, 4:5, integer())
 )
 df \%>\% unnest_longer(y)
 
-# And similarly if the vectors are named
+# Note that empty values like `NULL` and `integer()` are dropped by
+# default. If you'd like to keep them, set `keep_empty = TRUE`.
+df \%>\% unnest_longer(y, keep_empty = TRUE)
+
+# If the inner vectors are named, the names are copied to an `_id` column
 df <- tibble(
   x = 1:2,
   y = list(c(a = 1, b = 2), c(a = 10, b = 11, c = 12))
@@ -109,7 +122,7 @@ df <- tibble(
 df \%>\% unnest_longer(y)
 
 # Multiple columns ----------------------------------------------------------
-# If columns are aligned, you can unnest simultaneously.
+# If columns are aligned, you can unnest simultaneously
 df <- tibble(
   x = 1:2,
   y = list(1:2, 3:4),
@@ -119,7 +132,7 @@ df \%>\%
   unnest_longer(c(y, z))
 
 # This is important because sequential unnesting would generate the
-# Cartesian product of the rows.
+# Cartesian product of the rows
 df \%>\%
   unnest_longer(y) \%>\%
   unnest_longer(z)

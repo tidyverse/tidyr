@@ -3,8 +3,10 @@
 #' @description
 #' `unnest_longer()` turns each element of a list-column into a row. It
 #' is most naturally suited to list-columns where the elements are unnamed
-#' and the length of each element varies row-to-row.
-#' `unnest_longer()` preserves the columns of `x` while modifying the rows.
+#' and the length of each element varies from row to row.
+#'
+#' `unnest_longer()` generally preserves the number of columns of `x` while
+#' modifying the number of rows.
 #'
 #' Learn more in `vignette("rectangle")`.
 #'
@@ -20,30 +22,33 @@
 #'   column names. The default, `NULL`, gives the output columns the same names
 #'   as the input columns.
 #' @param indices_to A string giving the column name (or names) to store the
-#'   the inner names or positions (if not named) of the values. If multiple
-#'   columns are specified in `col`, this can also be a glue string containing
-#'   `"{col}"` to provide a template for the column names. The default, `NULL`,
-#'   gives the output columns the same names as `values_to`, but suffixed with
-#'   `"_id"`.
+#'   inner names or positions (if not named) of the values. If multiple columns
+#'   are specified in `col`, this can also be a glue string containing `"{col}"`
+#'   to provide a template for the column names. The default, `NULL`, gives the
+#'   output columns the same names as `values_to`, but suffixed with `"_id"`.
 #' @param indices_include A single logical value specifying whether or not to
 #'   add an index column. If any value has inner names, the index column will be
 #'   a character vector of those names, otherwise it will be an integer vector
 #'   of positions. If `NULL`, defaults to `TRUE` if any value has inner names
 #'   or if `indices_to` is provided.
 #'
-#'   If `indices_to` is provided, then `indices_include` must not be `FALSE`.
+#'   If `indices_to` is provided, then `indices_include` can't be `FALSE`.
 #' @family rectangling
 #' @export
 #' @examples
-#' # unnest_longer() is useful when each component of the list should
+#' # `unnest_longer()` is useful when each component of the list should
 #' # form a row
 #' df <- tibble(
-#'   x = 1:3,
-#'   y = list(NULL, 1:3, 4:5)
+#'   x = 1:4,
+#'   y = list(NULL, 1:3, 4:5, integer())
 #' )
 #' df %>% unnest_longer(y)
 #'
-#' # And similarly if the vectors are named
+#' # Note that empty values like `NULL` and `integer()` are dropped by
+#' # default. If you'd like to keep them, set `keep_empty = TRUE`.
+#' df %>% unnest_longer(y, keep_empty = TRUE)
+#'
+#' # If the inner vectors are named, the names are copied to an `_id` column
 #' df <- tibble(
 #'   x = 1:2,
 #'   y = list(c(a = 1, b = 2), c(a = 10, b = 11, c = 12))
@@ -51,7 +56,7 @@
 #' df %>% unnest_longer(y)
 #'
 #' # Multiple columns ----------------------------------------------------------
-#' # If columns are aligned, you can unnest simultaneously.
+#' # If columns are aligned, you can unnest simultaneously
 #' df <- tibble(
 #'   x = 1:2,
 #'   y = list(1:2, 3:4),
@@ -61,7 +66,7 @@
 #'   unnest_longer(c(y, z))
 #'
 #' # This is important because sequential unnesting would generate the
-#' # Cartesian product of the rows.
+#' # Cartesian product of the rows
 #' df %>%
 #'   unnest_longer(y) %>%
 #'   unnest_longer(z)
@@ -70,6 +75,7 @@ unnest_longer <- function(data,
                           values_to = NULL,
                           indices_to = NULL,
                           indices_include = NULL,
+                          keep_empty = FALSE,
                           names_repair = "check_unique",
                           simplify = TRUE,
                           ptype = NULL,
@@ -80,6 +86,7 @@ unnest_longer <- function(data,
   check_name(values_to, allow_null = TRUE)
   check_name(indices_to, allow_null = TRUE)
   check_bool(indices_include, allow_null = TRUE)
+  check_bool(keep_empty)
 
   cols <- tidyselect::eval_select(enquo(col), data, allow_rename = FALSE)
   col_names <- names(cols)
@@ -115,7 +122,8 @@ unnest_longer <- function(data,
       name = col_name,
       values_to = col_values_to,
       indices_to = col_indices_to,
-      indices_include = indices_include
+      indices_include = indices_include,
+      keep_empty = keep_empty
     )
   }
 
@@ -141,6 +149,7 @@ col_to_long <- function(col,
                         values_to,
                         indices_to,
                         indices_include,
+                        keep_empty,
                         error_call = caller_env()) {
 
   if (!vec_is_list(col)) {
@@ -155,7 +164,7 @@ col_to_long <- function(col,
   index_ptype <- info$index_ptype
 
   # If we don't have a list_of, then a `NULL` `col_ptype` will get converted to
-  # a 1 row, 1 col tibble for `elt_ptype`
+  # a 0 row, 1 col tibble for `elt_ptype`
   col_ptype <- list_of_ptype(col)
   elt_ptype <- elt_to_long(
     x = col_ptype,
@@ -164,6 +173,7 @@ col_to_long <- function(col,
     values_to = values_to,
     indices_to = indices_to,
     indices_include = indices_include,
+    keep_empty = FALSE,
     error_call = error_call
   )
   elt_ptype <- vec_ptype(elt_ptype)
@@ -179,6 +189,7 @@ col_to_long <- function(col,
       values_to = values_to,
       indices_to = indices_to,
       indices_include = indices_include,
+      keep_empty = keep_empty,
       error_call = error_call
     )
   }
@@ -194,21 +205,23 @@ col_to_long <- function(col,
 # Convert a list element to a long tibble with:
 # - 1 col (2 if `indices_include` is `TRUE`)
 # - N rows, where `N = vec_size(x)`
+#   - If `keep_empty == TRUE` and `vec_size(x) == 0`, then `N = 1` instead
 elt_to_long <- function(x,
                         index,
                         name,
                         values_to,
                         indices_to,
                         indices_include,
+                        keep_empty,
                         error_call = caller_env()) {
   if (is.null(x)) {
-    x <- unspecified(1L)
+    x <- unspecified()
 
     if (indices_include) {
       if (is.integer(index)) {
-        index <- 1L
+        index <- integer()
       } else {
-        index <- NA_character_
+        index <- character()
       }
     }
   }
@@ -220,6 +233,21 @@ elt_to_long <- function(x,
     )
   }
 
+  size <- vec_size(x)
+
+  if (keep_empty && size == 0L) {
+    x <- vec_init(x)
+    size <- 1L
+
+    if (indices_include) {
+      if (is.integer(index)) {
+        index <- 1L
+      } else {
+        index <- NA_character_
+      }
+    }
+  }
+
   if (indices_include) {
     out <- list(x, index)
     names(out) <- c(values_to, indices_to)
@@ -228,7 +256,7 @@ elt_to_long <- function(x,
     names(out) <- values_to
   }
 
-  new_data_frame(out, n = vec_size(x))
+  new_data_frame(out, n = size)
 }
 
 collect_indices_info <- function(col, indices_include) {
