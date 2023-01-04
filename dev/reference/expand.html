@@ -157,9 +157,11 @@ to enforce them.</p></dd>
 
 </dl></div>
     <div class="section level2">
-    <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>With grouped data frames, <code>expand()</code> operates <em>within</em> each group. Because of
-this, you cannot expand on a grouping column.</p>
+    <h2 id="grouped-data-frames">Grouped data frames<a class="anchor" aria-label="anchor" href="#grouped-data-frames"></a></h2>
+    
+
+<p>With grouped data frames created by <code><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">dplyr::group_by()</a></code>, <code>expand()</code> operates
+<em>within</em> each group. Because of this, you cannot expand on a grouping column.</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
@@ -336,12 +338,12 @@ to input vectors rather than a data frame.</p></div>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 25 × 4</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    type    year size  weights</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> apple   <span style="text-decoration: underline;">2</span>010 XS       2.37</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> orange  <span style="text-decoration: underline;">2</span>010 S        6.15</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> apple   <span style="text-decoration: underline;">2</span>012 M        4.26</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> orange  <span style="text-decoration: underline;">2</span>010 S        4.05</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> orange  <span style="text-decoration: underline;">2</span>011 S        5.98</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> orange  <span style="text-decoration: underline;">2</span>012 M        4.39</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> apple   <span style="text-decoration: underline;">2</span>010 XS       3.88</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> orange  <span style="text-decoration: underline;">2</span>010 S        2.11</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> apple   <span style="text-decoration: underline;">2</span>012 M        6.02</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> orange  <span style="text-decoration: underline;">2</span>010 S        3.69</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> orange  <span style="text-decoration: underline;">2</span>011 S        3.76</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> orange  <span style="text-decoration: underline;">2</span>012 M        6.14</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> apple   <span style="text-decoration: underline;">2</span>011 XS      <span style="color: #BB0000;">NA</span>   </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> apple   <span style="text-decoration: underline;">2</span>012 XS      <span style="color: #BB0000;">NA</span>   </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> apple   <span style="text-decoration: underline;">2</span>010 S       <span style="color: #BB0000;">NA</span>   </span>

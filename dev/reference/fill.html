@@ -109,6 +109,14 @@ or "updown" (first up and then down).</p></dd>
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p>Missing values are replaced in atomic vectors; <code>NULL</code>s are replaced in lists.</p>
     </div>
+    <div class="section level2">
+    <h2 id="grouped-data-frames">Grouped data frames<a class="anchor" aria-label="anchor" href="#grouped-data-frames"></a></h2>
+    
+
+<p>With grouped data frames created by <code><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">dplyr::group_by()</a></code>, <code>fill()</code> will be
+applied <em>within</em> each group, meaning that it won't fill across group
+boundaries.</p>
+    </div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
