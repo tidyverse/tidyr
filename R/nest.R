@@ -101,9 +101,9 @@ nest <- function(.data, ..., .names_sep = NULL, .key = deprecated()) {
 
     cols <- c(cols_good, cols_fixed)
 
-    warn(c(
+    cli::cli_warn(c(
       "All elements of `...` must be named.",
-      i = cli::format_inline("Did you want `{(.key)} = {cols_fixed_label}`?")
+      i = "Did you want `{(.key)} = {cols_fixed_label}`?"
     ))
 
     return(nest(.data, !!!cols))
@@ -128,9 +128,9 @@ nest.tbl_df <- function(.data, ..., .names_sep = NULL, .key = deprecated()) {
   check_string(.names_sep, allow_null = TRUE)
   .key <- check_key(.key)
   if (missing(...)) {
-    warn(c(
+    cli::cli_warn(c(
       "`...` can't be empty for ungrouped data frames.",
-      i = cli::format_inline("Did you want `{(.key)} = everything()`?")
+      i = "Did you want `{(.key)} = everything()`?"
     ))
     cols <- quos(!!.key := everything())
   } else {
