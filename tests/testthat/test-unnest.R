@@ -117,6 +117,25 @@ test_that("unnesting column of mixed vector / data frame input is an error", {
   expect_snapshot((expect_error(unnest(df, x))))
 })
 
+test_that("unnest() advises on outer / inner name duplication", {
+  df <- tibble(x = 1, y = list(tibble(x = 2)))
+
+  expect_snapshot(error = TRUE, {
+    unnest(df, y)
+  })
+})
+
+test_that("unnest() advises on inner / inner name duplication", {
+  df <- tibble(
+    x = list(tibble(a = 1)),
+    y = list(tibble(a = 2))
+  )
+
+  expect_snapshot(error = TRUE, {
+    unnest(df, c(x, y))
+  })
+})
+
 # other methods -----------------------------------------------------------------
 
 test_that("rowwise_df becomes grouped_df", {
