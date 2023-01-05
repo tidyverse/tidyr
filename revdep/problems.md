@@ -39,54 +39,6 @@ Run `cloud_details(, "faux")` for more info
     Execution halted
     ```
 
-# GauPro
-
-<details>
-
-* Version: 0.2.6
-* GitHub: https://github.com/CollinErickson/GauPro
-* Source code: https://github.com/cran/GauPro
-* Date/Publication: 2022-11-24 08:40:02 UTC
-* Number of recursive dependencies: 79
-
-Run `cloud_details(, "GauPro")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking tests ... ERROR
-    ```
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-      > library(GauPro)
-      > 
-      > test_check("GauPro")
-      [ FAIL 1 | WARN 0 | SKIP 0 | PASS 1337 ]
-      
-      ══ Failed tests ════════════════════════════════════════════════════════════════
-      ── Failure ('test_kernel_model_and_kernels.R:204'): kernels work and have correct grads ──
-      White numgrad matches symbolic grad (failed on all 10 attempts) is not TRUE
-      
-      `actual` is a character vector ('Mean relative difference: 0.0003611384')
-      `expected` is a logical vector (TRUE)
-      
-      [ FAIL 1 | WARN 0 | SKIP 0 | PASS 1337 ]
-      Error: Test failures
-      Execution halted
-    ```
-
-## In both
-
-*   checking installed package size ... NOTE
-    ```
-      installed size is 15.0Mb
-      sub-directories of 1Mb or more:
-        R      1.1Mb
-        libs  13.3Mb
-    ```
-
 # ggpubr
 
 <details>
@@ -204,39 +156,6 @@ Run `cloud_details(, "metaconfoundr")` for more info
     
     SUMMARY: processing the following file failed:
       ‘intro-to-metaconfoundr.Rmd’
-    
-    Error: Vignette re-building failed.
-    Execution halted
-    ```
-
-# openalexR
-
-<details>
-
-* Version: 1.0.0
-* GitHub: https://github.com/massimoaria/openalexR
-* Source code: https://github.com/cran/openalexR
-* Date/Publication: 2022-10-06 10:40:02 UTC
-* Number of recursive dependencies: 78
-
-Run `cloud_details(, "openalexR")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    Error(s) in re-building vignettes:
-      ...
-    --- re-building ‘A_Brief_Introduction_to_openalexR.Rmd’ using rmarkdown
-    Quitting from lines 342-354 (A_Brief_Introduction_to_openalexR.Rmd) 
-    Error: processing vignette 'A_Brief_Introduction_to_openalexR.Rmd' failed with diagnostics:
-    missing value where TRUE/FALSE needed
-    --- failed re-building ‘A_Brief_Introduction_to_openalexR.Rmd’
-    
-    SUMMARY: processing the following file failed:
-      ‘A_Brief_Introduction_to_openalexR.Rmd’
     
     Error: Vignette re-building failed.
     Execution halted
