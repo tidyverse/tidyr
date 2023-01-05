@@ -122,7 +122,7 @@ spread.data.frame <- function(data, key, value, fill = NA, convert = FALSE,
     ordered[] <- map(ordered, type.convert, as.is = TRUE)
   }
 
-  out <- append_df(row_labels, ordered)
+  out <- df_append(row_labels, ordered)
   reconstruct_tibble(data, out, c(key_var, value_var))
 }
 
