@@ -21,6 +21,67 @@
       Error in `pack()`:
       ! `.names_sep` must be a single string or `NULL`, not the number 1.
 
+# catches across inner name duplication (#1425)
+
+    Code
+      unpack(df, c(x, y))
+    Condition
+      Error in `unpack()`:
+      ! Can't duplicate names across the modified columns.
+      x These names are duplicated:
+        i `b`, across `x` and `y`.
+      i Use `names_sep` to disambiguate using the column name.
+      i Or use `names_repair` to specify a repair strategy.
+
+---
+
+    Code
+      unpack(df, c(x, y, z))
+    Condition
+      Error in `unpack()`:
+      ! Can't duplicate names across the modified columns.
+      x These names are duplicated:
+        i `a`, across `x` and `z`.
+        i `b`, across `x`, `y`, and `z`.
+      i Use `names_sep` to disambiguate using the column name.
+      i Or use `names_repair` to specify a repair strategy.
+
+# catches outer / inner name duplication (#1367)
+
+    Code
+      unpack(df, d)
+    Condition
+      Error in `unpack()`:
+      ! Can't duplicate names between the modified columns and the original data.
+      x These names are duplicated:
+        i `a`, from `d`.
+      i Use `names_sep` to disambiguate using the column name.
+      i Or use `names_repair` to specify a repair strategy.
+
+---
+
+    Code
+      unpack(df, c(d, e, f))
+    Condition
+      Error in `unpack()`:
+      ! Can't duplicate names between the modified columns and the original data.
+      x These names are duplicated:
+        i `a`, from `d`.
+        i `b` and `c`, from `f`.
+      i Use `names_sep` to disambiguate using the column name.
+      i Or use `names_repair` to specify a repair strategy.
+
+# duplication errors aren't triggered on duplicates within a single column you are unpacking
+
+    Code
+      unpack(df, x)
+    Condition
+      Error in `unpack()`:
+      ! Names must be unique.
+      x These names are duplicated:
+        * "a" at locations 1 and 2.
+      i Use argument `names_repair` to specify repair strategy.
+
 # unpack() validates its inputs
 
     Code

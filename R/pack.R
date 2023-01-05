@@ -112,6 +112,13 @@ unpack <- function(data, cols, names_sep = NULL, names_repair = "check_unique") 
 
   cols_names <- names(cols)
 
+  if (is.null(names_sep) && is_string(names_repair, "check_unique")) {
+    # Only perform checks if user hasn't supplied `names_sep` or `names_repair`.
+    # We let `vec_as_names()` catch any remaining problems.
+    check_inner_inner_duplicate(cols)
+    check_outer_inner_duplicate(cols, names(data))
+  }
+
   if (!is.null(names_sep)) {
     out[cols_names] <- map2(
       cols,
@@ -137,6 +144,87 @@ unpack <- function(data, cols, names_sep = NULL, names_repair = "check_unique") 
   )
 
   reconstruct_tibble(data, out)
+}
+
+check_inner_inner_duplicate <- function(x, error_call = caller_env()) {
+  n <- length(x)
+
+  if (n == 0L || n == 1L) {
+    # Nothing to duplicate across
+    return(invisible())
+  }
+
+  outer <- names(x)
+  x <- unname(x)
+
+  inner <- map(x, names)
+  inner <- map(inner, unique)
+
+  outer <- vec_rep_each(outer, times = list_sizes(inner))
+  inner <- list_unchop(inner, ptype = character())
+
+  problems <- vec_duplicate_detect(inner)
+
+  if (!any(problems)) {
+    return(invisible())
+  }
+
+  outer <- vec_slice(outer, problems)
+  inner <- vec_slice(inner, problems)
+
+  split <- vec_split(outer, inner)
+
+  inners <- split$key
+  outers <- split$val
+
+  bullets <- map2_chr(inners, outers, function(inner, outer) {
+    cli::format_inline("{.code {inner}}, across {.code {outer}}.")
+  })
+  bullets <- set_names(bullets, "i")
+  bullets <- cli::format_bullets_raw(bullets)
+  bullets <- set_names(bullets, " ")
+
+  message <- c(
+    "Can't duplicate names across the modified columns.",
+    x = "These names are duplicated:",
+    bullets,
+    i = "Use `names_sep` to disambiguate using the column name.",
+    i = "Or use `names_repair` to specify a repair strategy."
+  )
+
+  cli::cli_abort(message, call = error_call)
+}
+
+check_outer_inner_duplicate <- function(x, outer, error_call = caller_env()) {
+  # Names of unpacked columns will disappear so aren't considered
+  outer <- setdiff(outer, names(x))
+
+  inner <- map(x, names)
+  inner <- map(inner, unique)
+
+  problems <- map(inner, function(x) intersect(x, outer))
+  problems <- vec_slice(problems, list_sizes(problems) != 0L)
+
+  if (length(problems) == 0L) {
+    return(invisible())
+  }
+
+  bullets <- map2_chr(problems, names(problems), function(inner, outer) {
+    cli::format_inline("{.code {inner}}, from {.code {outer}}.")
+  })
+  bullets <- set_names(bullets, "i")
+  bullets <- cli::format_bullets_raw(bullets)
+  bullets <- set_names(bullets, " ")
+
+  message <- c(
+    "Can't duplicate names between the modified columns and the original data.",
+    x = "These names are duplicated:",
+    bullets,
+    i = "Use `names_sep` to disambiguate using the column name.",
+    i = "Or use `names_repair` to specify a repair strategy."
+  )
+
+  cli::cli_abort(message, call = error_call)
 }
 
 rename_with_names_sep <- function(x, outer, names_sep) {
