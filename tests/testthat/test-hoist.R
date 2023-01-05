@@ -209,11 +209,11 @@ test_that("hoist() retains grouped data frame class (#1316)", {
       list(a = 3:4)
     )
   )
-  gdf <- group_by(df, g)
+  gdf <- dplyr::group_by(df, g)
 
   expect_identical(
     hoist(gdf, data, "a"),
-    group_by(hoist(df, data, "a"), g)
+    dplyr::group_by(hoist(df, data, "a"), g)
   )
 })
 
