@@ -94,7 +94,7 @@ separate.data.frame <- function(data, col, into, sep = "[^[:alnum:]]+",
     extra = extra,
     fill = fill
   )
-  out <- append_df(data, new_cols, var, remove = remove)
+  out <- df_append(data, new_cols, var, remove = remove)
   reconstruct_tibble(data, out, if (remove) var else NULL)
 }
 
