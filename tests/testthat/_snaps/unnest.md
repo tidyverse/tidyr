@@ -40,8 +40,8 @@
       unnest(df, x, y)
     Condition
       Warning:
-      unnest() has a new interface. See ?unnest for details.
-      Try `df %>% unnest(c(x, y))`, with `mutate()` if needed
+      `unnest()` has a new interface. See `?unnest` for details.
+      i Try `df %>% unnest(c(x, y))`, with `mutate()` if needed.
     Output
       # A tibble: 2 x 2
             x y    
@@ -55,8 +55,8 @@
       unnest(df)
     Condition
       Warning:
-      `cols` is now required when using unnest().
-      Please use `cols = c(y)`
+      `cols` is now required when using `unnest()`.
+      i Please use `cols = c(y)`.
     Output
       # A tibble: 2 x 2
             x y    
@@ -79,8 +79,8 @@
       out <- df %>% unnest(z = map(y, `+`, 1))
     Condition
       Warning:
-      unnest() has a new interface. See ?unnest for details.
-      Try `df %>% unnest(c(z))`, with `mutate()` if needed
+      `unnest()` has a new interface. See `?unnest` for details.
+      i Try `df %>% unnest(c(z))`, with `mutate()` if needed.
 
 # .drop and .preserve are deprecated
 

@@ -98,9 +98,9 @@ unnest <- function(data,
   if (missing(cols) && missing(...)) {
     list_cols <- names(data)[map_lgl(data, is_list)]
     cols <- expr(c(!!!syms(setdiff(list_cols, .preserve))))
-    warn(paste0(
-      "`cols` is now required when using unnest().\n",
-      "Please use `cols = ", expr_text(cols), "`"
+    cli::cli_warn(c(
+      "`cols` is now required when using `unnest()`.",
+      i = "Please use `cols = {expr_text(cols)}`."
     ))
     deprecated <- TRUE
   }
@@ -113,9 +113,9 @@ unnest <- function(data,
 
     cols <- expr(c(!!!syms(names(dots))))
     unnest_call <- expr(unnest(!!cols))
-    warn(paste0(
-      "unnest() has a new interface. See ?unnest for details.\n",
-      "Try `df %>% ", expr_text(unnest_call), "`, with `mutate()` if needed"
+    cli::cli_warn(c(
+      "`unnest()` has a new interface. See `?unnest` for details.",
+      i = "Try `df %>% {expr_text(unnest_call)}`, with `mutate()` if needed."
     ))
     deprecated <- TRUE
   }
