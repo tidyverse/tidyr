@@ -114,27 +114,27 @@ hoist <- function(.data,
   )
 
   # Place new columns before old column
-  out <- append_df(.data, cols, after = match(.col, names(.data)) - 1L)
+  out <- df_append(.data, cols, after = match(.col, names(.data)) - 1L)
 
-  if (!.remove) {
-    return(out)
-  }
+  if (.remove) {
+    x <- map(x, function(x) {
+      # rev() is sneaky hack assuming that most people will remove in
+      # numeric order, so this should avoid most order problems. A full
+      # resolution will be considerably more work.
+      for (plucker in rev(pluckers)) {
+        x <- strike(x, plucker)
+      }
+      x
+    })
 
-  x <- map(x, function(x) {
-    # rev() is sneaky hack assuming that most people will remove in
-    # numeric order, so this should avoid most order problems. A full
-    # resolution will be considerably more work.
-    for (plucker in rev(pluckers)) {
-      x <- strike(x, plucker)
+    if (every(x, is_empty)) {
+      x <- NULL
     }
-    x
-  })
-  if (every(x, is_empty)) {
-    x <- NULL
-  }
-  out[[.col]] <- x
 
-  out
+    out[[.col]] <- x
+  }
+
+  reconstruct_tibble(.data, out)
 }
 
 check_pluckers <- function(..., .call = caller_env()) {
