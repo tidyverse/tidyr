@@ -143,6 +143,31 @@
       ! Invalid number of groups.
       i Did you use "()" instead of "(?:)" inside `patterns`?
 
+# separate_wider_regex() advises on outer / inner name duplication (#1425)
+
+    Code
+      separate_wider_regex(df, y, patterns = c(x = ".", value = "."))
+    Condition
+      Error in `unpack()`:
+      ! Can't duplicate names between the modified columns and the original data.
+      x These names are duplicated:
+        i `x`, from `y`.
+      i Use `names_sep` to disambiguate using the column name.
+      i Or use `names_repair` to specify a repair strategy.
+
+# separate_wider_regex() advises on inner / inner name duplication (#1425)
+
+    Code
+      separate_wider_regex(df, c(x, y), patterns = c(gender = ".", value = "."))
+    Condition
+      Error in `unpack()`:
+      ! Can't duplicate names across the modified columns.
+      x These names are duplicated:
+        i `gender`, across `x` and `y`.
+        i `value`, across `x` and `y`.
+      i Use `names_sep` to disambiguate using the column name.
+      i Or use `names_repair` to specify a repair strategy.
+
 # separate_wider_regex() validates its inputs
 
     Code
