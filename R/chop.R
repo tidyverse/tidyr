@@ -22,6 +22,9 @@
 #' the type of its elements, `unchop()` is able to reconstitute the
 #' correct vector type even for empty list-columns.
 #'
+#' @inheritParams rlang::args_dots_empty
+#' @inheritParams rlang::args_error_context
+#'
 #' @param data A data frame.
 #' @param cols <[`tidy-select`][tidyr_tidy_select]> Columns to chop or unchop.
 #'
@@ -62,10 +65,17 @@
 #' df <- tibble(x = 1:3, y = list(NULL, tibble(x = 1), tibble(y = 1:2)))
 #' df %>% unchop(y)
 #' df %>% unchop(y, keep_empty = TRUE)
-chop <- function(data, cols) {
-  check_data_frame(data)
-  check_required(cols)
-  cols <- tidyselect::eval_select(enquo(cols), data, allow_rename = FALSE)
+chop <- function(data, cols, ..., error_call = current_env()) {
+  check_dots_empty0(...)
+  check_data_frame(data, call = error_call)
+  check_required(cols, call = error_call)
+
+  cols <- tidyselect::eval_select(
+    expr = enquo(cols),
+    data = data,
+    allow_rename = FALSE,
+    error_call = error_call
+  )
 
   cols <- tidyr_new_list(data[cols])
   keys <- data[setdiff(names(data), names(cols))]
@@ -79,7 +89,7 @@ chop <- function(data, cols) {
   cols <- map(cols, col_chop, indices = indices)
   cols <- new_data_frame(cols, n = size)
 
-  out <- vec_cbind(keys, cols)
+  out <- vec_cbind(keys, cols, .error_call = error_call)
 
   reconstruct_tibble(data, out)
 }

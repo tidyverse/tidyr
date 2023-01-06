@@ -5,7 +5,7 @@
 \alias{unchop}
 \title{Chop and unchop}
 \usage{
-chop(data, cols)
+chop(data, cols, ..., error_call = current_env())
 
 unchop(data, cols, keep_empty = FALSE, ptype = NULL)
 }
@@ -17,6 +17,13 @@ unchop(data, cols, keep_empty = FALSE, ptype = NULL)
 For \code{unchop()}, each column should be a list-column containing generalised
 vectors (e.g. any mix of \code{NULL}s, atomic vector, S3 vectors, a lists,
 or data frames).}
+
+\item{...}{These dots are for future extensions and must be empty.}
+
+\item{error_call}{The execution environment of a currently
+running function, e.g. \code{caller_env()}. The function will be
+mentioned in error messages as the source of the error. See the
+\code{call} argument of \code{\link[rlang:abort]{abort()}} for more information.}
 
 \item{keep_empty}{By default, you get one row of output for each element
 of the list that you are unchopping/unnesting. This means that if there's a

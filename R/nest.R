@@ -139,7 +139,7 @@ nest.tbl_df <- function(.data, ..., .names_sep = NULL, .key = deprecated()) {
   error_call <- current_env()
 
   out <- pack(.data, !!!cols, .names_sep = .names_sep, .error_call = error_call)
-  out <- chop(out, cols = all_of(names(cols)))
+  out <- chop(out, cols = all_of(names(cols)), error_call = error_call)
 
   # `nest()` currently doesn't return list-of columns
   for (name in names(cols)) {
