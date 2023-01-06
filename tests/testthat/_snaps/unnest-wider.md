@@ -57,7 +57,7 @@
     Code
       unnest_wider(df, y)
     Condition
-      Error in `unpack()`:
+      Error in `unnest_wider()`:
       ! Can't duplicate names between the affected columns and the original data.
       x These names are duplicated:
         i `x`, from `y`.
@@ -69,7 +69,7 @@
     Code
       unnest_wider(df, c(y, z))
     Condition
-      Error in `unpack()`:
+      Error in `unnest_wider()`:
       ! Can't duplicate names within the affected columns.
       x These names are duplicated:
         i `a`, within `y` and `z`.

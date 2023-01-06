@@ -98,6 +98,14 @@
         * "a" at locations 1 and 2.
       i Use argument `names_repair` to specify repair strategy.
 
+# unpack disallows renaming
+
+    Code
+      unpack(df, c(y = x))
+    Condition
+      Error in `unpack()`:
+      ! Can't rename variables in this context.
+
 # unpack() validates its inputs
 
     Code

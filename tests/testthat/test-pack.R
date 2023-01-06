@@ -171,6 +171,14 @@ test_that("duplication errors aren't triggered on duplicates within a single col
   })
 })
 
+test_that("unpack disallows renaming", {
+  df <- tibble(x = tibble(a = 1))
+
+  expect_snapshot(error = TRUE, {
+    unpack(df, c(y = x))
+  })
+})
+
 test_that("unpack() validates its inputs", {
   df <- tibble(x = 1:2, y = tibble(a = 1:2, b = 1:2))
 

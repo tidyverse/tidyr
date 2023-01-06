@@ -39,7 +39,7 @@
     Code
       unnest(df, y)
     Condition
-      Error in `unpack()`:
+      Error in `unnest()`:
       ! Can't duplicate names between the affected columns and the original data.
       x These names are duplicated:
         i `x`, from `y`.
@@ -51,7 +51,7 @@
     Code
       unnest(df, c(x, y))
     Condition
-      Error in `unpack()`:
+      Error in `unnest()`:
       ! Can't duplicate names within the affected columns.
       x These names are duplicated:
         i `a`, within `x` and `y`.
