@@ -2,8 +2,8 @@
 
 We checked 1741 reverse dependencies (1723 from CRAN + 18 from Bioconductor), comparing R CMD check results across CRAN and dev versions of this package.
 
- * We saw 4 new problems
- * We failed to check 12 packages
+ * We saw 9 new problems
+ * We failed to check 13 packages
 
 Issues with CRAN packages are summarised below.
 
@@ -16,26 +16,43 @@ Issues with CRAN packages are summarised below.
 * ggpubr
   checking examples ... ERROR
 
+* gprofiler2
+  checking re-building of vignette outputs ... WARNING
+
+* hlaR
+  checking re-building of vignette outputs ... WARNING
+
+* mapme.biodiversity
+  checking tests ... ERROR
+
 * metaconfoundr
   checking examples ... ERROR
   checking tests ... ERROR
+  checking re-building of vignette outputs ... WARNING
+
+* openalexR
   checking re-building of vignette outputs ... WARNING
 
 * recipes
   checking examples ... ERROR
   checking tests ... ERROR
 
+* wpa
+  checking examples ... ERROR
+  checking tests ... ERROR
+
 ### Failed to check
 
-* FAMetA         (NA)
-* genekitr       (NA)
-* ggPMX          (NA)
-* loon.ggplot    (NA)
-* MarketMatching (NA)
-* numbat         (NA)
-* OlinkAnalyze   (NA)
-* Platypus       (NA)
-* RVA            (NA)
-* tinyarray      (NA)
-* vivid          (NA)
-* xpose.nlmixr2  (NA)
+* FAMetA           (NA)
+* genekitr         (NA)
+* ggPMX            (NA)
+* IPEDSuploadables (NA)
+* loon.ggplot      (NA)
+* MarketMatching   (NA)
+* numbat           (NA)
+* OlinkAnalyze     (NA)
+* Platypus         (NA)
+* RVA              (NA)
+* tinyarray        (NA)
+* vivid            (NA)
+* xpose.nlmixr2    (NA)
