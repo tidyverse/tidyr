@@ -29,6 +29,14 @@
       Error in `unchop()`:
       ! In row 1, can't recycle input of size 0 to size 2.
 
+# unchop disallows renaming
+
+    Code
+      unchop(df, c(y = x))
+    Condition
+      Error in `unchop()`:
+      ! Can't rename variables in this context.
+
 # unchop validates its inputs
 
     Code

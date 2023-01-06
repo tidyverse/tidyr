@@ -181,7 +181,13 @@ unnest.data.frame <- function(data,
   cols <- tidyselect::eval_select(enquo(cols), data)
   cols <- unname(cols)
 
-  data <- unchop(data, all_of(cols), keep_empty = keep_empty, ptype = ptype)
+  data <- unchop(
+    data = data,
+    cols = all_of(cols),
+    keep_empty = keep_empty,
+    ptype = ptype,
+    error_call = error_call
+  )
 
   unpack(
     data = data,

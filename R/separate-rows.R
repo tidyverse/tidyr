@@ -45,12 +45,13 @@ separate_rows.data.frame <- function(data,
   check_bool(convert)
 
   vars <- tidyselect::eval_select(expr(c(...)), data, allow_rename = FALSE)
+  vars <- names(vars)
 
   out <- purrr::modify_at(data, vars, str_split_n, pattern = sep)
-  out <- unchop(as_tibble(out), any_of(vars))
+  out <- unchop(as_tibble(out), any_of(vars), error_call = current_env())
   if (convert) {
     out[vars] <- map(out[vars], type.convert, as.is = TRUE)
   }
 
-  reconstruct_tibble(data, out, names(vars))
+  reconstruct_tibble(data, out, vars)
 }

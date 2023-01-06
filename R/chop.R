@@ -105,12 +105,23 @@ col_chop <- function(x, indices) {
 
 #' @export
 #' @rdname chop
-unchop <- function(data, cols, keep_empty = FALSE, ptype = NULL) {
-  check_data_frame(data)
-  check_required(cols)
-  check_bool(keep_empty)
+unchop <- function(data,
+                   cols,
+                   ...,
+                   keep_empty = FALSE,
+                   ptype = NULL,
+                   error_call = current_env()) {
+  check_dots_empty0(...)
+  check_data_frame(data, call = error_call)
+  check_required(cols, call = error_call)
+  check_bool(keep_empty, call = error_call)
 
-  sel <- tidyselect::eval_select(enquo(cols), data)
+  sel <- tidyselect::eval_select(
+    expr = enquo(cols),
+    data = data,
+    allow_rename = FALSE,
+    error_call = error_call
+  )
 
   size <- vec_size(data)
   names <- names(data)
@@ -122,7 +133,12 @@ unchop <- function(data, cols, keep_empty = FALSE, ptype = NULL) {
   # Remove unchopped columns to avoid slicing them needlessly later
   out[sel] <- NULL
 
-  result <- df_unchop(cols, ptype = ptype, keep_empty = keep_empty)
+  result <- df_unchop(
+    x = cols,
+    ptype = ptype,
+    keep_empty = keep_empty,
+    error_call = error_call
+  )
   cols <- result$val
   loc <- result$loc
 

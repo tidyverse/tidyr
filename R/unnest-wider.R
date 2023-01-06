@@ -107,7 +107,7 @@ unnest_wider <- function(data,
     )
   }
 
-  data <- unchop(data, all_of(col_names))
+  data <- unchop(data, all_of(col_names), error_call = error_call)
 
   for (i in seq_along(cols)) {
     col <- cols[[i]]

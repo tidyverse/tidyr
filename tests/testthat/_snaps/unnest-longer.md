@@ -12,7 +12,7 @@
     Code
       unnest_longer(df, c(a, b))
     Condition
-      Error in `unchop()`:
+      Error in `unnest_longer()`:
       ! In row 1, can't recycle input of size 0 to size 2.
 
 # can't mix `indices_to` with `indices_include = FALSE`

@@ -94,5 +94,12 @@ map_unchop <- function(data, cols, fun, ..., .keep_empty = FALSE, .error_call = 
   for (col in col_names) {
     data[[col]] <- fun(data[[col]], ...)
   }
-  unchop(data, all_of(col_names), keep_empty = .keep_empty, ptype = character())
+
+  unchop(
+    data = data,
+    cols = all_of(col_names),
+    keep_empty = .keep_empty,
+    ptype = character(),
+    error_call = .error_call
+  )
 }

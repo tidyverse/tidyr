@@ -7,7 +7,14 @@
 \usage{
 chop(data, cols, ..., error_call = current_env())
 
-unchop(data, cols, keep_empty = FALSE, ptype = NULL)
+unchop(
+  data,
+  cols,
+  ...,
+  keep_empty = FALSE,
+  ptype = NULL,
+  error_call = current_env()
+)
 }
 \arguments{
 \item{data}{A data frame.}
