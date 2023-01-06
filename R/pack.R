@@ -12,6 +12,8 @@
 #' and they are mostly a curiosity, but seem worth exploring further because
 #' they mimic the nested column headers that are so popular in Excel.
 #'
+#' @inheritParams rlang::args_error_context
+#'
 #' @param data,.data A data frame.
 #' @param cols <[`tidy-select`][tidyr_tidy_select]> Columns to unpack.
 #' @param names_sep,.names_sep If `NULL`, the default, the names will be left
@@ -57,15 +59,23 @@
 #' df %>% unpack(y)
 #' df %>% unpack(c(y, z))
 #' df %>% unpack(c(y, z), names_sep = "_")
-pack <- function(.data, ..., .names_sep = NULL) {
-  check_data_frame(.data)
+pack <- function(.data, ..., .names_sep = NULL, .error_call = current_env()) {
+  check_data_frame(.data, call = .error_call)
   cols <- enquos(...)
   if (any(names2(cols) == "")) {
-    cli::cli_abort("All elements of `...` must be named")
+    cli::cli_abort("All elements of `...` must be named.", call = .error_call)
   }
-  check_string(.names_sep, allow_null = TRUE)
+  check_string(.names_sep, allow_null = TRUE, call = .error_call)
 
-  cols <- map(cols, ~ tidyselect::eval_select(.x, .data))
+  # TODO: Switch back to `map()` in purrr 1.0.1
+  cols <- lapply(cols, function(col) {
+    tidyselect::eval_select(
+      expr = col,
+      data = .data,
+      allow_rename = FALSE,
+      error_call = .error_call
+    )
+  })
 
   unpacked <- setdiff(names(.data), unlist(map(cols, names)))
   unpacked <- .data[unpacked]
@@ -78,7 +88,7 @@ pack <- function(.data, ..., .names_sep = NULL) {
 
   packed <- new_data_frame(packed, n = vec_size(.data))
 
-  out <- vec_cbind(unpacked, packed)
+  out <- vec_cbind(unpacked, packed, .error_call = .error_call)
 
   reconstruct_tibble(.data, out)
 }

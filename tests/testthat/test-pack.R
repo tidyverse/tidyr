@@ -28,6 +28,17 @@ test_that("grouping is preserved", {
   expect_equal(dplyr::group_vars(out), "g1")
 })
 
+test_that("pack disallows renaming", {
+  df <- tibble(x = 1, y = 2)
+
+  expect_snapshot(error = TRUE, {
+    pack(df, data = c(a = x))
+  })
+  expect_snapshot(error = TRUE, {
+    pack(df, data1 = x, data2 = c(a = y))
+  })
+})
+
 test_that("pack validates its inputs", {
   df <- tibble(a1 = 1, a2 = 2, b1 = 1, b2 = 2)
 

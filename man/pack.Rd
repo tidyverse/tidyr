@@ -5,7 +5,7 @@
 \alias{unpack}
 \title{Pack and unpack}
 \usage{
-pack(.data, ..., .names_sep = NULL)
+pack(.data, ..., .names_sep = NULL, .error_call = current_env())
 
 unpack(data, cols, names_sep = NULL, names_repair = "check_unique")
 }
@@ -13,6 +13,11 @@ unpack(data, cols, names_sep = NULL, names_repair = "check_unique")
 \item{...}{<\code{\link[=tidyr_tidy_select]{tidy-select}}> Columns to pack, specified
 using name-variable pairs of the form \code{new_col = c(col1, col2, col3)}.
 The right hand side can be any valid tidy select expression.}
+
+\item{.error_call}{The execution environment of a currently
+running function, e.g. \code{caller_env()}. The function will be
+mentioned in error messages as the source of the error. See the
+\code{call} argument of \code{\link[rlang:abort]{abort()}} for more information.}
 
 \item{data, .data}{A data frame.}
 

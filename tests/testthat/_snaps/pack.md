@@ -1,3 +1,19 @@
+# pack disallows renaming
+
+    Code
+      pack(df, data = c(a = x))
+    Condition
+      Error in `pack()`:
+      ! Can't rename variables in this context.
+
+---
+
+    Code
+      pack(df, data1 = x, data2 = c(a = y))
+    Condition
+      Error in `pack()`:
+      ! Can't rename variables in this context.
+
 # pack validates its inputs
 
     Code
@@ -9,12 +25,12 @@
       pack(df, c(a1, a2), c(b1, b2))
     Condition
       Error in `pack()`:
-      ! All elements of `...` must be named
+      ! All elements of `...` must be named.
     Code
       pack(df, a = c(a1, a2), c(b1, b2))
     Condition
       Error in `pack()`:
-      ! All elements of `...` must be named
+      ! All elements of `...` must be named.
     Code
       pack(df, a = c(a1, a2), .names_sep = 1)
     Condition
