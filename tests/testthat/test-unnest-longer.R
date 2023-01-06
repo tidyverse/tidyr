@@ -83,15 +83,17 @@ test_that("can keep empty rows with `keep_empty` (#1339)", {
   expect_identical(out, tibble(x = 1:4, y = c(NA, NA, 1, NA)))
 })
 
-test_that("keeping empty rows uses `1L` or `NA_character_` as the index", {
+test_that("keeping empty rows uses `NA` as the index", {
   df <- tibble(
     x = 1:3,
     y = list(NULL, 1:2, integer())
   )
 
+  # Integer case
   out <- unnest_longer(df, y, keep_empty = TRUE, indices_include = TRUE)
-  expect_identical(out$y_id, c(1L, 1L, 2L, 1L))
+  expect_identical(out$y_id, c(NA, 1L, 2L, NA))
 
+  # Character case
   # Trigger names to be generated
   df$y[[2]] <- set_names(df$y[[2]], c("a", "b"))
   out <- unnest_longer(df, y, keep_empty = TRUE)
@@ -106,26 +108,26 @@ test_that("named empty vectors force an index column regardless of `keep_empty`"
 
   # Empty row is dropped, but names are still forced
   out <- unnest_longer(df, y)
-  expect_identical(out$y_id, c(NA_character_, NA_character_))
+  expect_identical(out$y_id, c("", ""))
 
   out <- unnest_longer(df, y, keep_empty = TRUE)
-  expect_identical(out$y_id, c(NA_character_, NA_character_, NA_character_))
+  expect_identical(out$y_id, c("", "", NA))
 })
 
 test_that("mix of unnamed and named can be unnested (#1029)", {
   df <- tibble(x = 1:4, y = list(1, c(b = 2), NULL, double()))
 
   out <- unnest_longer(df, y, indices_include = NULL)
-  expect_identical(out$y_id, c(NA, "b"))
+  expect_identical(out$y_id, c("", "b"))
 
   out <- unnest_longer(df, y, indices_include = TRUE)
-  expect_identical(out$y_id, c(NA, "b"))
+  expect_identical(out$y_id, c("", "b"))
 
   out <- unnest_longer(df, y, indices_include = NULL, keep_empty = TRUE)
-  expect_identical(out$y_id, c(NA, "b", NA, NA))
+  expect_identical(out$y_id, c("", "b", NA, NA))
 
   out <- unnest_longer(df, y, indices_include = TRUE, keep_empty = TRUE)
-  expect_identical(out$y_id, c(NA, "b", NA, NA))
+  expect_identical(out$y_id, c("", "b", NA, NA))
 })
 
 test_that("unnesting empty typed column is a no-op and retains column (#1199) (#1196)", {
@@ -226,7 +228,7 @@ test_that("unnesting `list(NULL)` with indices uses integer indices", {
   expect_identical(out$x_id, integer())
 
   out <- unnest_longer(df, x, indices_include = TRUE, keep_empty = TRUE)
-  expect_identical(out$x_id, 1L)
+  expect_identical(out$x_id, NA_integer_)
 })
 
 test_that("can unnest one row data frames (#1034)", {
@@ -272,7 +274,7 @@ test_that("tidyverse recycling rules are applied after `keep_empty`", {
   out <- unnest_longer(df, c(a, b), keep_empty = TRUE, indices_include = TRUE)
 
   expect_identical(out$a, c(NA, NA, 3L, 4L))
-  expect_identical(out$a_id, c(1L, 1L, 1L, 2L))
+  expect_identical(out$a_id, c(NA, NA, 1L, 2L))
 
   expect_identical(out$b, c(1L, 2L, 4L, 4L))
   expect_identical(out$b_id, c(1L, 2L, 1L, 1L))
@@ -356,7 +358,7 @@ test_that("can't currently retain names when simplification isn't done and a pty
   out <- unnest_longer(df, x, indices_include = TRUE, ptype = ptype, simplify = FALSE)
 
   expect_named(out$x, c("a", ""))
-  expect_identical(out$x_id, c("a", NA))
+  expect_identical(out$x_id, c("a", ""))
 })
 
 test_that("can't mix `indices_to` with `indices_include = FALSE`", {

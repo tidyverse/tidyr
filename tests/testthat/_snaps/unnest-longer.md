@@ -5,7 +5,7 @@
     Output
       <error/rlang_error>
       Error in `unnest_longer()`:
-      ! List-column `y` must contain only vectors.
+      ! List-column `y` must contain only vectors or `NULL`.
 
 # tidyverse recycling rules are applied after `keep_empty`
 

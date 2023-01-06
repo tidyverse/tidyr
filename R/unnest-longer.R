@@ -151,50 +151,68 @@ col_to_long <- function(col,
                         indices_include,
                         keep_empty,
                         error_call = caller_env()) {
-
-  if (!vec_is_list(col)) {
+  if (vec_is_list(col)) {
+    ptype <- list_of_ptype(col)
+  } else {
     ptype <- vec_ptype(col)
     col <- vec_chop(col)
-    col <- new_list_of(col, ptype = ptype)
   }
 
-  info <- collect_indices_info(col, indices_include)
+  # Avoid expensive dispatch from `[[.list_of`, and allow for `[[<-`.
+  # We've already captured the `ptype`.
+  col <- tidyr_new_list(col)
+
+  if (!list_all_vectors2(col)) {
+    cli::cli_abort(
+      "List-column {.var {name}} must contain only vectors or `NULL`.",
+      call = error_call
+    )
+  }
+
+  sizes <- list_sizes(col)
+
+  # Collect index info before replacing `NULL`s so `keep_empty` works correctly
+  info <- collect_indices_info(col, sizes, indices_include, keep_empty)
   indices_include <- info$indices_include
   indices <- info$indices
   index_ptype <- info$index_ptype
 
-  # If we don't have a list_of, then a `NULL` `col_ptype` will get converted to
-  # a 0 row, 1 col tibble for `elt_ptype`
-  col_ptype <- list_of_ptype(col)
-  elt_ptype <- elt_to_long(
-    x = col_ptype,
-    index = index_ptype,
-    name = name,
-    values_to = values_to,
-    indices_to = indices_to,
-    indices_include = indices_include,
-    keep_empty = FALSE,
-    error_call = error_call
-  )
-  elt_ptype <- vec_ptype(elt_ptype)
+  size_null <- as.integer(keep_empty)
 
-  # Avoid expensive dispatch from `[[.list_of`, and allow for `[[<-`
-  col <- tidyr_new_list(col)
+  info <- list_init_null(col, sizes, ptype = ptype, size = size_null)
+  col <- info$x
+  sizes <- info$sizes
 
-  for (i in seq_along(col)) {
-    col[[i]] <- elt_to_long(
-      x = col[[i]],
-      index = indices[[i]],
-      name = name,
-      values_to = values_to,
-      indices_to = indices_to,
-      indices_include = indices_include,
-      keep_empty = keep_empty,
-      error_call = error_call
+  if (keep_empty) {
+    info <- list_init_typed(col, sizes, ptype = ptype, size = 1L)
+    col <- info$x
+    sizes <- info$sizes
+  }
+
+  if (is.null(ptype)) {
+    # Initialize `ptype` to generate a `ptype` version of the output data frame.
+    # Important in the size 0 input case.
+    ptype <- unspecified()
+  }
+
+  if (indices_include) {
+    names <- c(values_to, indices_to)
+    ptype <- new_long_indexed_frame(ptype, index_ptype, 0L, names)
+    col <- pmap(
+      list(col, indices, sizes),
+      function(elt, index, size) new_long_indexed_frame(elt, index, size, names)
+    )
+  } else {
+    name <- values_to
+    ptype <- new_long_frame(ptype, 0L, name)
+    col <- map2(
+      col,
+      sizes,
+      function(elt, size) new_long_frame(elt, size, name)
     )
   }
 
-  ptype <- vec_ptype_common(elt_ptype, !!!col)
+  ptype <- vec_ptype_common(ptype, !!!col)
   col <- vec_cast_common(!!!col, .to = ptype)
 
   col <- new_list_of(col, ptype = ptype)
@@ -202,64 +220,18 @@ col_to_long <- function(col,
   col
 }
 
-# Convert a list element to a long tibble with:
-# - 1 col (2 if `indices_include` is `TRUE`)
-# - N rows, where `N = vec_size(x)`
-#   - If `keep_empty == TRUE` and `vec_size(x) == 0`, then `N = 1` instead
-elt_to_long <- function(x,
-                        index,
-                        name,
-                        values_to,
-                        indices_to,
-                        indices_include,
-                        keep_empty,
-                        error_call = caller_env()) {
-  if (is.null(x)) {
-    x <- unspecified()
-
-    if (indices_include) {
-      if (is.integer(index)) {
-        index <- integer()
-      } else {
-        index <- character()
-      }
-    }
-  }
-
-  if (!vec_is(x)) {
-    cli::cli_abort(
-      "List-column {.var {name}} must contain only vectors.",
-      call = error_call
-    )
-  }
-
-  size <- vec_size(x)
-
-  if (keep_empty && size == 0L) {
-    x <- vec_init(x)
-    size <- 1L
-
-    if (indices_include) {
-      if (is.integer(index)) {
-        index <- 1L
-      } else {
-        index <- NA_character_
-      }
-    }
-  }
-
-  if (indices_include) {
-    out <- list(x, index)
-    names(out) <- c(values_to, indices_to)
-  } else {
-    out <- list(x)
-    names(out) <- values_to
-  }
-
+new_long_frame <- function(x, size, name) {
+  out <- list(x)
+  names(out) <- name
+  new_data_frame(out, n = size)
+}
+new_long_indexed_frame <- function(x, index, size, names) {
+  out <- list(x, index)
+  names(out) <- names
   new_data_frame(out, n = size)
 }
 
-collect_indices_info <- function(col, indices_include) {
+collect_indices_info <- function(col, sizes, indices_include, keep_empty) {
   out <- list(
     indices_include = FALSE,
     indices = NULL,
@@ -279,8 +251,6 @@ collect_indices_info <- function(col, indices_include) {
     return(out)
   }
 
-  sizes <- list_sizes(col)
-
   if (all_unnamed) {
     # Indices are requested, but none of the elements are named.
     # Generate integer column of sequential indices.
@@ -289,8 +259,18 @@ collect_indices_info <- function(col, indices_include) {
   } else {
     # Indices are requested, and some elements are named.
     # For any unnamed elements, generate `NA` indices.
-    indices[unnamed] <- map(sizes[unnamed], vec_rep, x = NA_character_)
+    indices[unnamed] <- map(sizes[unnamed], vec_rep, x = "")
     index_ptype <- character()
+  }
+
+  if (keep_empty) {
+    empty <- sizes == 0L
+
+    if (any(empty)) {
+      # `NULL` or typed empty elements get an `NA` index of the right type
+      index_empty <- vec_init(index_ptype)
+      indices[empty] <- list(index_empty)
+    }
   }
 
   out$indices_include <- TRUE
