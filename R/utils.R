@@ -117,6 +117,7 @@ tidyr_new_list <- function(x) {
   x
 }
 
+# TODO: Remove in favor of `list_init_null()` and `list_init_typed()`
 # "Initializes" empty values to their size 1 equivalent
 # - Can initialize `NULL` to either `unspecified(1)` or a list-of ptype
 # - Can initialize typed empty elements to `vec_init(x, 1L)` or a list-of ptype
@@ -169,6 +170,122 @@ list_init_empty <- function(x,
   }
 
   list(x = x, sizes = sizes, null = empty_null, typed = empty_typed)
+}
+
+#' Replace `NULL` list elements
+#'
+#' @param x A list, but not a list-of.
+#'
+#' @param sizes An integer vector of sizes of the `x` elements.
+#'
+#' @param ptype One of:
+#'
+#'   - `NULL` to fill `NULL` elements with `unspecified()`.
+#'
+#'   - A `ptype` value to fill `NULL` elements with.
+#'
+#' @param size The size of the replacement value to fill with. Commonly either
+#'   `0L` or `1L`.
+#'
+#' @returns
+#' A named list holding `x` with `NULL`s replaced, and `sizes` updated to
+#' have the correct size where `NULL` elements were replaced.
+#'
+#' @noRd
+list_init_null <- function(x, sizes, ..., ptype = NULL, size = 1L) {
+  check_dots_empty0(...)
+
+  if (!vec_is_list(x)) {
+    cli::cli_abort("`x` must be a list.", .internal = TRUE)
+  }
+  if (is_list_of(x)) {
+    cli::cli_abort("`x` can't be a list-of. Unclass first and provide `ptype`.", .internal = TRUE)
+  }
+
+  if (vec_any_missing(x)) {
+    null <- vec_detect_missing(x)
+    null <- which(null)
+
+    if (is_null(ptype)) {
+      replacement <- list(unspecified(size))
+    } else {
+      replacement <- list(vec_init(ptype, size))
+    }
+
+    x <- vec_assign(x, null, replacement)
+
+    if (size != 0L) {
+      sizes <- vec_assign(sizes, null, size)
+    }
+  }
+
+  list(x = x, sizes = sizes)
+}
+
+#' Replace empty typed list elements
+#'
+#' @details
+#' Importantly, `x` can't contain any `NULL` values. These must have already
+#' been processed by `list_init_null()`. This is not checked for.
+#'
+#' @param x A list, but not a list-of.
+#'
+#' @param sizes An integer vector of sizes of the `x` elements.
+#'
+#' @param ptype One of:
+#'
+#'   - `NULL` to initialize empty typed elements with `size`d equivalents of
+#'     themselves.
+#'
+#'   - A `ptype` value to replace all empty typed elements with. Useful if you
+#'     know `x` is a homogeneous list.
+#'
+#' @param size The size of the replacement value to fill with. Can't be `0L`,
+#'   as that makes no sense.
+#'
+#' @returns
+#' A named list holding `x` with empty typed elements replaced, and `sizes`
+#' updated to have the correct size where empty typed elements were replaced.
+#'
+#' @noRd
+list_init_typed <- function(x, sizes, ..., ptype = NULL, size = 1L) {
+  check_dots_empty0(...)
+
+  if (!vec_is_list(x)) {
+    cli::cli_abort("`x` must be a list.", .internal = TRUE)
+  }
+  if (is_list_of(x)) {
+    cli::cli_abort("`x` can't be a list-of. Unclass first.", .internal = TRUE)
+  }
+  if (size == 0L) {
+    cli::cli_abort("`size` should never be 0.", .internal = TRUE)
+  }
+
+  empty <- sizes == 0L
+
+  if (any(empty)) {
+    empty <- which(empty)
+
+    if (is_null(ptype)) {
+      replacement <- map(vec_slice(x, empty), function(elt) vec_init(elt, size))
+    } else {
+      replacement <- list(vec_init(ptype, size))
+    }
+
+    x <- vec_assign(x, empty, replacement)
+    sizes <- vec_assign(sizes, empty, size)
+  }
+
+  list(x = x, sizes = sizes)
+}
+
+# TODO: Remove after https://github.com/r-lib/vctrs/issues/1762 is implemented
+list_all_vectors2 <- function(x) {
+  if (vec_any_missing(x)) {
+    missing <- vec_detect_missing(x)
+    x <- vec_slice(x, !missing)
+  }
+  list_all_vectors(x)
 }
 
 list_of_ptype <- function(x) {
