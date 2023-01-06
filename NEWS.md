@@ -1,5 +1,9 @@
 # tidyr (development version)
 
+* `unnest_longer()` now uses `""` in the index column for fully unnamed
+  vectors. It also now consistently uses `NA` in the index column for empty
+  vectors that are "kept" by `keep_empty = TRUE` (#1442).
+
 * `unnest_longer()` now consistently drops rows with either `NULL` or empty
   vectors (like `integer()`) by default. Set the new `keep_empty` argument to
   `TRUE` to retain them. Previously, `keep_empty = TRUE` was implicitly being
