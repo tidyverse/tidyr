@@ -143,9 +143,16 @@ levels.</li>
 <p>(Alternative, for complex inputs where you need to rectangle a nested
 list according to a specification, see the <a href="https://github.com/mgirlich/tibblify" class="external-link">tibblify</a> package.)</p>
 <p>A very large number of data rectangling problems can be solved by
-combining these functions with a splash of dplyr (largely eliminating
-prior approaches that combined <code><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate()</a></code> with multiple
-<code><a href="https://purrr.tidyverse.org/reference/map.html" class="external-link">purrr::map()</a></code>s).</p>
+combining <code><a href="https://rdrr.io/pkg/jsonlite/man/read_json.html" class="external-link">jsonlite::read_json()</a></code> with these functions and a
+splash of dplyr (largely eliminating prior approaches that combined
+<code><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate()</a></code> with multiple <code><a href="https://purrr.tidyverse.org/reference/map.html" class="external-link">purrr::map()</a></code>s). Note
+that jsonlite has another important function called
+<code>fromJSON()</code>. We don’t recommend it here because it performs
+its own automatic simplification (<code>simplifyVector = TRUE</code>).
+This often works well, particularly in simple cases, but we think you’re
+better off doing the rectangling yourself so you know exactly what’s
+happening and can more easily handle the most complicated nested
+structures.</p>
 <p>To illustrate these techniques, we’ll use the repurrrsive package,
 which provides a number deeply nested lists originally mostly captured
 from web APIs.</p>
