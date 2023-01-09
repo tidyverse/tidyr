@@ -58,6 +58,14 @@
       i Use `names_sep` to disambiguate using the column name.
       i Or use `names_repair` to specify a repair strategy.
 
+# unnest() disallows renaming
+
+    Code
+      unnest(df, c(y = x))
+    Condition
+      Error in `unnest()`:
+      ! Can't rename variables in this context.
+
 # cols must go in cols
 
     Code
