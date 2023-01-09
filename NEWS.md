@@ -1,7 +1,7 @@
 # tidyr (development version)
 
 * `unpack()` does a better job of reporting column name duplication issues and
-  gives better advise about how to resolve them using `names_sep`. This also
+  gives better advice about how to resolve them using `names_sep`. This also
   improves errors from functions that use `unpack()`, like `unnest()` and
   `unnest_wider()` (#1425, #1367).
 
