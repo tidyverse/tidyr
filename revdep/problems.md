@@ -80,36 +80,38 @@ Run `cloud_details(, "ggpubr")` for more info
     Execution halted
     ```
 
-# gprofiler2
+# gutenbergr
 
 <details>
 
-* Version: 0.2.1
-* GitHub: NA
-* Source code: https://github.com/cran/gprofiler2
-* Date/Publication: 2021-08-23 14:00:02 UTC
-* Number of recursive dependencies: 74
+* Version: 0.2.3
+* GitHub: https://github.com/ropensci/gutenbergr
+* Source code: https://github.com/cran/gutenbergr
+* Date/Publication: 2022-12-14 10:00:06 UTC
+* Number of recursive dependencies: 88
 
-Run `cloud_details(, "gprofiler2")` for more info
+Run `cloud_details(, "gutenbergr")` for more info
 
 </details>
 
 ## Newly broken
 
-*   checking re-building of vignette outputs ... WARNING
+*   checking examples ... ERROR
     ```
-    Error(s) in re-building vignettes:
-      ...
-    --- re-building ‘gprofiler2.Rmd’ using rmarkdown
-    Quitting from lines 210-215 (gprofiler2.Rmd) 
-    Error: processing vignette 'gprofiler2.Rmd' failed with diagnostics:
-    Bad request, response code 502
-    --- failed re-building ‘gprofiler2.Rmd’
+    Running examples in ‘gutenbergr-Ex.R’ failed
+    The error most likely occurred in:
     
-    SUMMARY: processing the following file failed:
-      ‘gprofiler2.Rmd’
-    
-    Error: Vignette re-building failed.
+    > ### Name: gutenberg_get_mirror
+    > ### Title: Get the recommended mirror for Gutenberg files
+    > ### Aliases: gutenberg_get_mirror
+    > 
+    > ### ** Examples
+    > 
+    > gutenberg_get_mirror()
+    Determining mirror for Project Gutenberg from https://www.gutenberg.org/robot/harvest
+    Error in open.connection(3L, "rb") : 
+      Timeout was reached: [www.gutenberg.org] Operation timed out after 10001 milliseconds with 0 out of 0 bytes received
+    Calls: gutenberg_get_mirror ... <Anonymous> -> vroom_ -> <Anonymous> -> open.connection
     Execution halted
     ```
 
@@ -117,9 +119,14 @@ Run `cloud_details(, "gprofiler2")` for more info
 
 *   checking installed package size ... NOTE
     ```
-      installed size is  5.5Mb
+      installed size is  5.1Mb
       sub-directories of 1Mb or more:
-        doc   5.3Mb
+        data   4.6Mb
+    ```
+
+*   checking data for non-ASCII characters ... NOTE
+    ```
+      Note: found 18981 marked UTF-8 strings
     ```
 
 # hlaR
@@ -277,39 +284,6 @@ Run `cloud_details(, "metaconfoundr")` for more info
     Execution halted
     ```
 
-# openalexR
-
-<details>
-
-* Version: 1.0.0
-* GitHub: https://github.com/massimoaria/openalexR
-* Source code: https://github.com/cran/openalexR
-* Date/Publication: 2022-10-06 10:40:02 UTC
-* Number of recursive dependencies: 78
-
-Run `cloud_details(, "openalexR")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    Error(s) in re-building vignettes:
-      ...
-    --- re-building ‘A_Brief_Introduction_to_openalexR.Rmd’ using rmarkdown
-    Quitting from lines 260-269 (A_Brief_Introduction_to_openalexR.Rmd) 
-    Error: processing vignette 'A_Brief_Introduction_to_openalexR.Rmd' failed with diagnostics:
-    $ operator is invalid for atomic vectors
-    --- failed re-building ‘A_Brief_Introduction_to_openalexR.Rmd’
-    
-    SUMMARY: processing the following file failed:
-      ‘A_Brief_Introduction_to_openalexR.Rmd’
-    
-    Error: Vignette re-building failed.
-    Execution halted
-    ```
-
 # recipes
 
 <details>
@@ -378,6 +352,94 @@ Run `cloud_details(, "recipes")` for more info
 *   checking Rd cross-references ... NOTE
     ```
     Packages unavailable to check Rd xrefs: ‘fastICA’, ‘dimRed’
+    ```
+
+# tidypaleo
+
+<details>
+
+* Version: 0.1.2
+* GitHub: https://github.com/paleolimbot/tidypaleo
+* Source code: https://github.com/cran/tidypaleo
+* Date/Publication: 2022-02-24 11:50:02 UTC
+* Number of recursive dependencies: 86
+
+Run `cloud_details(, "tidypaleo")` for more info
+
+</details>
+
+## Newly broken
+
+*   checking examples ... ERROR
+    ```
+    Running examples in ‘tidypaleo-Ex.R’ failed
+    The error most likely occurred in:
+    
+    > ### Name: layer_dendrogram
+    > ### Title: Add a dendrogram as a layer or facet
+    > ### Aliases: layer_dendrogram plot_layer_dendrogram layer_zone_boundaries
+    > 
+    > ### ** Examples
+    > 
+    > library(ggplot2)
+    ...
+     11.           └─tidyselect::eval_select(...)
+     12.             └─tidyselect:::eval_select_impl(...)
+     13.               ├─tidyselect:::with_subscript_errors(...)
+     14.               │ └─rlang::try_fetch(...)
+     15.               │   └─base::withCallingHandlers(...)
+     16.               └─tidyselect:::vars_select_eval(...)
+     17.                 └─tidyselect:::ensure_named(...)
+     18.                   └─cli::cli_abort(...)
+     19.                     └─rlang::abort(...)
+    Execution halted
+    ```
+
+*   checking tests ... ERROR
+    ```
+      Running ‘testthat.R’
+    Running the tests in ‘tests/testthat.R’ failed.
+    Last 13 lines of output:
+        5.       └─base::lapply(...)
+        6.         └─tidyr (local) FUN(X[[i]], ...)
+        7.           └─tidyselect::eval_select(...)
+        8.             └─tidyselect:::eval_select_impl(...)
+        9.               ├─tidyselect:::with_subscript_errors(...)
+       10.               │ └─rlang::try_fetch(...)
+       11.               │   └─base::withCallingHandlers(...)
+       12.               └─tidyselect:::vars_select_eval(...)
+       13.                 └─tidyselect:::ensure_named(...)
+       14.                   └─cli::cli_abort(...)
+       15.                     └─rlang::abort(...)
+      
+      [ FAIL 18 | WARN 1 | SKIP 12 | PASS 134 ]
+      Error: Test failures
+      Execution halted
+    ```
+
+*   checking re-building of vignette outputs ... WARNING
+    ```
+    Error(s) in re-building vignettes:
+      ...
+    --- re-building ‘age_depth.Rmd’ using rmarkdown
+    --- finished re-building ‘age_depth.Rmd’
+    
+    --- re-building ‘nested_analysis.Rmd’ using rmarkdown
+    Quitting from lines 44-53 (nested_analysis.Rmd) 
+    Error: processing vignette 'nested_analysis.Rmd' failed with diagnostics:
+    Can't rename variables in this context.
+    --- failed re-building ‘nested_analysis.Rmd’
+    ...
+    Quitting from lines 250-257 (strat_diagrams.Rmd) 
+    Error: processing vignette 'strat_diagrams.Rmd' failed with diagnostics:
+    Can't rename variables in this context.
+    --- failed re-building ‘strat_diagrams.Rmd’
+    
+    SUMMARY: processing the following files failed:
+      ‘nested_analysis.Rmd’ ‘strat_diagrams.Rmd’
+    
+    Error: Vignette re-building failed.
+    Execution halted
     ```
 
 # wpa
