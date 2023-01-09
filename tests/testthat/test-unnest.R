@@ -144,6 +144,29 @@ test_that("unnest() disallows renaming", {
   })
 })
 
+test_that("unnest() works on foreign list types recognized by `vec_is_list()` (#1327)", {
+  new_foo <- function(...) {
+    structure(list(...), class = c("foo", "list"))
+  }
+
+  df <- tibble(x = new_foo(tibble(a = 1L), tibble(a = 2:3)))
+  expect_identical(unnest(df, x), tibble(a = 1:3))
+
+  # With empty list
+  df <- tibble(x = new_foo())
+  expect_identical(unnest(df, x), tibble(x = unspecified()))
+
+  # With empty types
+  df <- tibble(x = new_foo(tibble(a = 1L), tibble(a = integer())))
+  expect_identical(unnest(df, x), tibble(a = 1L))
+  expect_identical(unnest(df, x, keep_empty = TRUE), tibble(a = c(1L, NA)))
+
+  # With `NULL`s
+  df <- tibble(x = new_foo(tibble(a = 1L), NULL))
+  expect_identical(unnest(df, x), tibble(a = 1L))
+  expect_identical(unnest(df, x, keep_empty = TRUE), tibble(a = c(1L, NA)))
+})
+
 # other methods -----------------------------------------------------------------
 
 test_that("rowwise_df becomes grouped_df", {

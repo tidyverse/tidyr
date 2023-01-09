@@ -179,7 +179,7 @@ df_unchop <- function(x, ..., ptype = NULL, keep_empty = FALSE, error_call = cal
   x <- new_data_frame(x, n = size)
 
   width <- length(x)
-  names <- names(x)
+  x_names <- names(x)
 
   seq_len_width <- seq_len(width)
   seq_len_size <- seq_len(size)
@@ -191,6 +191,10 @@ df_unchop <- function(x, ..., ptype = NULL, keep_empty = FALSE, error_call = cal
     return(out)
   }
 
+  x_ptypes <- imap(x, function(col, name) {
+    ptype[[name]] %||% list_of_ptype(col)
+  })
+
   x_is_list <- map_lgl(x, vec_is_list)
 
   x_sizes <- vector("list", length = width)
@@ -198,6 +202,8 @@ df_unchop <- function(x, ..., ptype = NULL, keep_empty = FALSE, error_call = cal
 
   for (i in seq_len_width) {
     col <- x[[i]]
+    col_name <- x_names[[i]]
+    col_ptype <- x_ptypes[[i]]
     col_is_list <- x_is_list[[i]]
 
     if (!col_is_list) {
@@ -207,18 +213,26 @@ df_unchop <- function(x, ..., ptype = NULL, keep_empty = FALSE, error_call = cal
       next
     }
 
+    col <- tidyr_new_list(col)
+    col_sizes <- list_sizes(col)
+    col_nulls <- vec_detect_missing(col)
+
     # Always replace `NULL` elements with size 1 missing equivalent for recycling.
     # These will be reset to `NULL` in `unchop_finalize()` if the
     # entire row was missing and `keep_empty = FALSE`.
-    info <- list_init_empty(
-      x = col,
-      null = TRUE,
-      typed = keep_empty
-    )
+    info <- list_replace_null(col, col_sizes, ptype = col_ptype)
+    col <- info$x
+    col_sizes <- info$sizes
 
-    x[[i]] <- info$x
-    x_sizes[[i]] <- info$sizes
-    x_nulls[[i]] <- info$null
+    if (keep_empty) {
+      info <- list_replace_empty_typed(col, col_sizes, ptype = col_ptype)
+      col <- info$x
+      col_sizes <- info$sizes
+    }
+
+    x[[i]] <- col
+    x_sizes[[i]] <- col_sizes
+    x_nulls[[i]] <- col_nulls
   }
 
   sizes <- reduce(x_sizes, unchop_sizes2, error_call = error_call)
@@ -234,10 +248,10 @@ df_unchop <- function(x, ..., ptype = NULL, keep_empty = FALSE, error_call = cal
 
   for (i in seq_len_width) {
     col <- x[[i]]
-    col_name <- names[[i]]
+    col_name <- x_names[[i]]
+    col_ptype <- x_ptypes[[i]]
     col_is_list <- x_is_list[[i]]
-
-    col_ptype <- ptype[[col_name]]
+    col_sizes <- x_sizes[[i]]
 
     if (!col_is_list) {
       if (!is_null(col_ptype)) {
@@ -247,15 +261,9 @@ df_unchop <- function(x, ..., ptype = NULL, keep_empty = FALSE, error_call = cal
       next
     }
 
-    col_ptype <- col_ptype %||% attr(col, "ptype", exact = TRUE)
-
-    # Drop to a bare list to avoid dispatch
-    col <- unclass(col)
-
     # Drop outer names because inner elements have varying size
     col <- unname(col)
 
-    col_sizes <- x_sizes[[i]]
     row_recycle <- col_sizes != sizes
     col[row_recycle] <- map2(col[row_recycle], sizes[row_recycle], vec_recycle, call = error_call)
 
@@ -278,7 +286,7 @@ df_unchop <- function(x, ..., ptype = NULL, keep_empty = FALSE, error_call = cal
     out_cols[[i]] <- col
   }
 
-  names(out_cols) <- names
+  names(out_cols) <- x_names
   out_val <- new_data_frame(out_cols, n = out_size)
 
   out <- list(loc = out_loc, val = out_val)
