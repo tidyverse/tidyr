@@ -234,6 +234,22 @@ test_that("separate_wider_regex() works with empty data frames", {
   expect_equal(out, tibble(y = character(), z = character()))
 })
 
+test_that("separate_wider_regex() advises on outer / inner name duplication (#1425)", {
+  df <- tibble(x = 1, y = "g1")
+
+  expect_snapshot(error = TRUE, {
+    separate_wider_regex(df, y, patterns = c(x = ".", value = "."))
+  })
+})
+
+test_that("separate_wider_regex() advises on inner / inner name duplication (#1425)", {
+  df <- tibble(x = "g1", y = "m2")
+
+  expect_snapshot(error = TRUE, {
+    separate_wider_regex(df, c(x, y), patterns = c(gender = ".", value = "."))
+  })
+})
+
 test_that("separate_wider_regex() validates its inputs", {
   df <- tibble(x = "x")
   expect_snapshot(error = TRUE, {

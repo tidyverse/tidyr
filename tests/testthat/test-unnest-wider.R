@@ -232,6 +232,22 @@ test_that("can combine `<list> + <list_of<ptype>>`", {
   expect_identical(out$a, list(1:2, 1L))
 })
 
+test_that("unnest_wider() advises on outer / inner name duplication (#1367)", {
+  df <- tibble(x = 1, y = list(list(x = 2)))
+
+  expect_snapshot(error = TRUE, {
+    unnest_wider(df, y)
+  })
+})
+
+test_that("unnest_wider() advises on inner / inner name duplication (#1367)", {
+  df <- tibble(x = 1, y = list(list(a = 2)), z = list(list(a = 3)))
+
+  expect_snapshot(error = TRUE, {
+    unnest_wider(df, c(y, z))
+  })
+})
+
 test_that("unnest_wider() validates its inputs", {
   df <- tibble(x = list(a = 1:2, b = 3:4))
   expect_snapshot(error = TRUE, {

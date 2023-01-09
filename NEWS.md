@@ -1,5 +1,10 @@
 # tidyr (development version)
 
+* `unpack()` does a better job of reporting column name duplication issues and
+  gives better advice about how to resolve them using `names_sep`. This also
+  improves errors from functions that use `unpack()`, like `unnest()` and
+  `unnest_wider()` (#1425, #1367).
+
 * `unnest_longer()` now uses `""` in the index column for fully unnamed
   vectors. It also now consistently uses `NA` in the index column for empty
   vectors that are "kept" by `keep_empty = TRUE` (#1442).
