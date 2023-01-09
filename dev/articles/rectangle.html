@@ -607,10 +607,12 @@ that we need to widen the <code>basic_information</code> column:</p>
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">discs</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="../reference/unnest_wider.html">unnest_wider</a></span><span class="op">(</span><span class="va">basic_information</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #BBBB00; font-weight: bold;">Error</span><span style="font-weight: bold;"> in `unpack()`:</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BBBB00;">!</span> Names must be unique.</span></span>
+<span><span class="co">#&gt; <span style="color: #BBBB00;">!</span> Can't duplicate names between the affected columns and the</span></span>
+<span><span class="co">#&gt;   original data.</span></span>
 <span><span class="co">#&gt; <span style="color: #BB0000;">✖</span> These names are duplicated:</span></span>
-<span><span class="co">#&gt;   * "id" at locations 7 and 14.</span></span>
-<span><span class="co">#&gt; <span style="color: #0000BB;">ℹ</span> Use argument `names_repair` to specify repair strategy.</span></span></code></pre></div>
+<span><span class="co">#&gt;   <span style="color: #00BBBB;">ℹ</span> `id`, from `basic_information`.</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Use `names_sep` to disambiguate using the column name.</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Or use `names_repair` to specify a repair strategy.</span></span></code></pre></div>
 <p>Unfortunately that fails because there’s an <code>id</code> column
 inside <code>basic_information</code>. We can quickly see what’s going
 on by setting <code>names_repair = "unique"</code>:</p>
