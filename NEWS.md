@@ -1,5 +1,17 @@
 # tidyr (development version)
 
+* `unnest_longer()` now uses `""` in the index column for fully unnamed
+  vectors. It also now consistently uses `NA` in the index column for empty
+  vectors that are "kept" by `keep_empty = TRUE` (#1442).
+
+* `unnest_longer()` now consistently drops rows with either `NULL` or empty
+  vectors (like `integer()`) by default. Set the new `keep_empty` argument to
+  `TRUE` to retain them. Previously, `keep_empty = TRUE` was implicitly being
+  used for `NULL`, while `keep_empty = FALSE` was being used for empty vectors,
+  which was inconsistent with all other tidyr verbs with this argument (#1363).
+
+* `unnest_longer()` has gained a `keep_empty` argument like `unnest()` (#1339).
+
 * `nest()`, `complete()`, `expand()`, and `fill()` now document their support
   for grouped data frames created by `dplyr::group_by()` (#952).
 
