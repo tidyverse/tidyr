@@ -178,14 +178,14 @@ check_inner_inner_duplicate <- function(x, error_call = caller_env()) {
   outers <- split$val
 
   bullets <- map2_chr(inners, outers, function(inner, outer) {
-    cli::format_inline("{.code {inner}}, across {.code {outer}}.")
+    cli::format_inline("{.code {inner}}, within {.code {outer}}.")
   })
   bullets <- set_names(bullets, "i")
   bullets <- cli::format_bullets_raw(bullets)
   bullets <- set_names(bullets, " ")
 
   message <- c(
-    "Can't duplicate names across the modified columns.",
+    "Can't duplicate names within the affected columns.",
     x = "These names are duplicated:",
     bullets,
     i = "Use `names_sep` to disambiguate using the column name.",
@@ -217,7 +217,7 @@ check_outer_inner_duplicate <- function(x, outer, error_call = caller_env()) {
   bullets <- set_names(bullets, " ")
 
   message <- c(
-    "Can't duplicate names between the modified columns and the original data.",
+    "Can't duplicate names between the affected columns and the original data.",
     x = "These names are duplicated:",
     bullets,
     i = "Use `names_sep` to disambiguate using the column name.",

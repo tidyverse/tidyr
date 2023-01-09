@@ -40,7 +40,7 @@
       unnest(df, y)
     Condition
       Error in `unpack()`:
-      ! Can't duplicate names between the modified columns and the original data.
+      ! Can't duplicate names between the affected columns and the original data.
       x These names are duplicated:
         i `x`, from `y`.
       i Use `names_sep` to disambiguate using the column name.
@@ -52,9 +52,9 @@
       unnest(df, c(x, y))
     Condition
       Error in `unpack()`:
-      ! Can't duplicate names across the modified columns.
+      ! Can't duplicate names within the affected columns.
       x These names are duplicated:
-        i `a`, across `x` and `y`.
+        i `a`, within `x` and `y`.
       i Use `names_sep` to disambiguate using the column name.
       i Or use `names_repair` to specify a repair strategy.
 

@@ -149,7 +149,7 @@
       separate_wider_regex(df, y, patterns = c(x = ".", value = "."))
     Condition
       Error in `unpack()`:
-      ! Can't duplicate names between the modified columns and the original data.
+      ! Can't duplicate names between the affected columns and the original data.
       x These names are duplicated:
         i `x`, from `y`.
       i Use `names_sep` to disambiguate using the column name.
@@ -161,10 +161,10 @@
       separate_wider_regex(df, c(x, y), patterns = c(gender = ".", value = "."))
     Condition
       Error in `unpack()`:
-      ! Can't duplicate names across the modified columns.
+      ! Can't duplicate names within the affected columns.
       x These names are duplicated:
-        i `gender`, across `x` and `y`.
-        i `value`, across `x` and `y`.
+        i `gender`, within `x` and `y`.
+        i `value`, within `x` and `y`.
       i Use `names_sep` to disambiguate using the column name.
       i Or use `names_repair` to specify a repair strategy.
 

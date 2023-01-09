@@ -58,7 +58,7 @@
       unnest_wider(df, y)
     Condition
       Error in `unpack()`:
-      ! Can't duplicate names between the modified columns and the original data.
+      ! Can't duplicate names between the affected columns and the original data.
       x These names are duplicated:
         i `x`, from `y`.
       i Use `names_sep` to disambiguate using the column name.
@@ -70,9 +70,9 @@
       unnest_wider(df, c(y, z))
     Condition
       Error in `unpack()`:
-      ! Can't duplicate names across the modified columns.
+      ! Can't duplicate names within the affected columns.
       x These names are duplicated:
-        i `a`, across `y` and `z`.
+        i `a`, within `y` and `z`.
       i Use `names_sep` to disambiguate using the column name.
       i Or use `names_repair` to specify a repair strategy.
 

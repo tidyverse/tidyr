@@ -27,9 +27,9 @@
       unpack(df, c(x, y))
     Condition
       Error in `unpack()`:
-      ! Can't duplicate names across the modified columns.
+      ! Can't duplicate names within the affected columns.
       x These names are duplicated:
-        i `b`, across `x` and `y`.
+        i `b`, within `x` and `y`.
       i Use `names_sep` to disambiguate using the column name.
       i Or use `names_repair` to specify a repair strategy.
 
@@ -39,10 +39,10 @@
       unpack(df, c(x, y, z))
     Condition
       Error in `unpack()`:
-      ! Can't duplicate names across the modified columns.
+      ! Can't duplicate names within the affected columns.
       x These names are duplicated:
-        i `a`, across `x` and `z`.
-        i `b`, across `x`, `y`, and `z`.
+        i `a`, within `x` and `z`.
+        i `b`, within `x`, `y`, and `z`.
       i Use `names_sep` to disambiguate using the column name.
       i Or use `names_repair` to specify a repair strategy.
 
@@ -52,7 +52,7 @@
       unpack(df, d)
     Condition
       Error in `unpack()`:
-      ! Can't duplicate names between the modified columns and the original data.
+      ! Can't duplicate names between the affected columns and the original data.
       x These names are duplicated:
         i `a`, from `d`.
       i Use `names_sep` to disambiguate using the column name.
@@ -64,7 +64,7 @@
       unpack(df, c(d, e, f))
     Condition
       Error in `unpack()`:
-      ! Can't duplicate names between the modified columns and the original data.
+      ! Can't duplicate names between the affected columns and the original data.
       x These names are duplicated:
         i `a`, from `d`.
         i `b` and `c`, from `f`.
