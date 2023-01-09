@@ -179,12 +179,12 @@ col_to_long <- function(col,
 
   size_null <- as.integer(keep_empty)
 
-  info <- list_init_null(col, sizes, ptype = ptype, size = size_null)
+  info <- list_replace_null(col, sizes, ptype = ptype, size = size_null)
   col <- info$x
   sizes <- info$sizes
 
   if (keep_empty) {
-    info <- list_init_typed(col, sizes, ptype = ptype, size = 1L)
+    info <- list_replace_empty_typed(col, sizes, ptype = ptype, size = 1L)
     col <- info$x
     sizes <- info$sizes
   }

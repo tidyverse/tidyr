@@ -117,7 +117,7 @@ tidyr_new_list <- function(x) {
   x
 }
 
-# TODO: Remove in favor of `list_init_null()` and `list_init_typed()`
+# TODO: Remove in favor of `list_replace_null()` and `list_replace_empty_typed()`
 # "Initializes" empty values to their size 1 equivalent
 # - Can initialize `NULL` to either `unspecified(1)` or a list-of ptype
 # - Can initialize typed empty elements to `vec_init(x, 1L)` or a list-of ptype
@@ -192,7 +192,7 @@ list_init_empty <- function(x,
 #' have the correct size where `NULL` elements were replaced.
 #'
 #' @noRd
-list_init_null <- function(x, sizes, ..., ptype = NULL, size = 1L) {
+list_replace_null <- function(x, sizes, ..., ptype = NULL, size = 1L) {
   check_dots_empty0(...)
 
   if (!vec_is_list(x)) {
@@ -226,7 +226,7 @@ list_init_null <- function(x, sizes, ..., ptype = NULL, size = 1L) {
 #'
 #' @details
 #' Importantly, `x` can't contain any `NULL` values. These must have already
-#' been processed by `list_init_null()`. This is not checked for.
+#' been processed by `list_replace_null()`. This is not checked for.
 #'
 #' @param x A list, but not a list-of.
 #'
@@ -248,7 +248,7 @@ list_init_null <- function(x, sizes, ..., ptype = NULL, size = 1L) {
 #' updated to have the correct size where empty typed elements were replaced.
 #'
 #' @noRd
-list_init_typed <- function(x, sizes, ..., ptype = NULL, size = 1L) {
+list_replace_empty_typed <- function(x, sizes, ..., ptype = NULL, size = 1L) {
   check_dots_empty0(...)
 
   if (!vec_is_list(x)) {
