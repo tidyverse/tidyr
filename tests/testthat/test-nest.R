@@ -97,6 +97,14 @@ test_that("nesting no columns nests all inputs", {
   expect_equal(out$data[[1]], df)
 })
 
+test_that("nest disallows renaming", {
+  df <- tibble(x = 1)
+
+  expect_snapshot(error = TRUE, {
+    nest(df, data = c(a = x))
+  })
+})
+
 test_that("validates its inputs", {
   df <- tibble(x = c(1, 1, 1), ya = 1:3, yb = 4:6)
   expect_snapshot(error = TRUE, {

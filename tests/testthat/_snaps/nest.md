@@ -7,6 +7,14 @@
       `...` can't be empty for ungrouped data frames.
       i Did you want `data = everything()`?
 
+# nest disallows renaming
+
+    Code
+      nest(df, data = c(a = x))
+    Condition
+      Error in `nest()`:
+      ! Can't rename variables in this context.
+
 # validates its inputs
 
     Code
