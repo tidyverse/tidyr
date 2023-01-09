@@ -248,6 +248,20 @@ test_that("unnest_wider() advises on inner / inner name duplication (#1367)", {
   })
 })
 
+test_that("unnest_wider() works with foreign lists recognized by `vec_is_list()` (#1327)", {
+  new_foo <- function(...) {
+    structure(list(...), class = c("foo", "list"))
+  }
+
+  # With empty types
+  df <- tibble(x = new_foo(new_foo(a = 1, b = integer())))
+  expect_identical(unnest_wider(df, x, strict = TRUE), tibble(a = 1, b = NA_integer_))
+
+  # With `NULL`s
+  df <- tibble(x = new_foo(new_foo(a = 1, b = NULL)))
+  expect_identical(unnest_wider(df, x), tibble(a = 1, b = NA))
+})
+
 test_that("unnest_wider() validates its inputs", {
   df <- tibble(x = list(a = 1:2, b = 3:4))
   expect_snapshot(error = TRUE, {

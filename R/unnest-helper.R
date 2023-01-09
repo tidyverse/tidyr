@@ -89,17 +89,26 @@ col_simplify <- function(x,
   }
 
   # Don't try and simplify non-vectors. list-of types always contain vectors.
-  if (!is_list_of(x)) {
-    has_non_vector <- !all(map_lgl(x, ~ vec_is(.x) || is.null(.x)))
-
-    if (has_non_vector) {
-      return(x)
-    }
+  if (is_list_of(x)) {
+    has_non_vector <- FALSE
+  } else {
+    has_non_vector <- !list_all_vectors2(x)
+  }
+  if (has_non_vector) {
+    return(x)
   }
 
-  # Ensure empty elements are filled in with their correct size 1 equivalent
-  info <- list_init_empty(x, null = TRUE, typed = TRUE)
+  out <- tidyr_new_list(x)
+  ptype <- list_of_ptype(x)
+  sizes <- list_sizes(out)
 
+  # Ensure empty elements are filled in with their correct size 1 equivalent
+  info <- list_replace_null(out, sizes, ptype = ptype)
+  out <- info$x
+  sizes <- info$sizes
+
+  info <- list_replace_empty_typed(out, sizes, ptype = ptype)
+  out <- info$x
   sizes <- info$sizes
 
   # Don't try to simplify if there are any size >1 left at this point
@@ -108,14 +117,11 @@ col_simplify <- function(x,
     return(x)
   }
 
-  x_scalars <- info$x
-  x_ptype <- list_of_ptype(x)
-
   # Assume that if combining fails, then we want to return the object
   # after the `ptype` and `transform` have been applied, but before the
-  # empty element filling was applied
+  # empty element filling and list attribute stripping was applied
   tryCatch(
-    list_unchop(x_scalars, ptype = x_ptype),
+    list_unchop(out, ptype = ptype),
     vctrs_error_incompatible_type = function(e) x
   )
 }
