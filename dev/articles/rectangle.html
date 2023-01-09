@@ -384,7 +384,7 @@ in:</p>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">name</span>, <span class="va">books</span>, <span class="va">tvSeries</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="../reference/pivot_longer.html">pivot_longer</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">books</span>, <span class="va">tvSeries</span><span class="op">)</span>, names_to <span class="op">=</span> <span class="st">"media"</span>, values_to <span class="op">=</span> <span class="st">"value"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="../reference/unnest_longer.html">unnest_longer</a></span><span class="op">(</span><span class="va">value</span><span class="op">)</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 180 × 3</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 179 × 3</span></span></span>
 <span><span class="co">#&gt;    name             media    value            </span></span>
 <span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>            </span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> Theon Greyjoy    books    A Game of Thrones</span></span>
@@ -397,7 +397,7 @@ in:</p>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> Theon Greyjoy    tvSeries Season 5         </span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> Theon Greyjoy    tvSeries Season 6         </span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> Tyrion Lannister books    A Feast for Crows</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># … with 170 more rows</span></span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #949494;"># … with 169 more rows</span></span></span></code></pre></div>
 <p>Or maybe you want to build a table that lets you match title to
 name:</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
@@ -707,7 +707,7 @@ artist and label:</p>
 <span>  <span class="fu"><a href="../reference/unnest_longer.html">unnest_longer</a></span><span class="op">(</span><span class="va">format</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="../reference/unnest_wider.html">unnest_wider</a></span><span class="op">(</span><span class="va">format</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="../reference/unnest_longer.html">unnest_longer</a></span><span class="op">(</span><span class="va">descriptions</span><span class="op">)</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 281 × 5</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 258 × 5</span></span></span>
 <span><span class="co">#&gt;     disc_id descriptions text  name     qty  </span></span>
 <span><span class="co">#&gt;       <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span></span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span>  7<span style="text-decoration: underline;">496</span>378 <span style="color: #949494;">"</span>Numbered<span style="color: #949494;">"</span>   Black Cassette 1    </span></span>
@@ -720,7 +720,7 @@ artist and label:</p>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span>  7<span style="text-decoration: underline;">237</span>138 <span style="color: #949494;">"</span>7\"<span style="color: #949494;">"</span>        <span style="color: #BB0000;">NA</span>    Vinyl    1    </span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span>  7<span style="text-decoration: underline;">237</span>138 <span style="color: #949494;">"</span>45 RPM<span style="color: #949494;">"</span>     <span style="color: #BB0000;">NA</span>    Vinyl    1    </span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> 13<span style="text-decoration: underline;">117</span>042 <span style="color: #949494;">"</span>7\"<span style="color: #949494;">"</span>        <span style="color: #BB0000;">NA</span>    Vinyl    1    </span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># … with 271 more rows</span></span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #949494;"># … with 248 more rows</span></span></span></code></pre></div>
 <p>Then you could join these back on to the original dataset as
 needed.</p>
 </div>
