@@ -30,7 +30,7 @@ Rectangling is the art and craft of taking a deeply nested list (often sourced f
   
 (Alternative, for complex inputs where you need to rectangle a nested list according to a specification, see the [tibblify](https://github.com/mgirlich/tibblify) package.)
   
-A very large number of data rectangling problems can be solved by combining these functions with a splash of dplyr (largely eliminating prior approaches that combined `mutate()` with multiple `purrr::map()`s). 
+A very large number of data rectangling problems can be solved by combining `jsonlite::read_json()` with these functions and a splash of dplyr (largely eliminating prior approaches that combined `mutate()` with multiple `purrr::map()`s). Note that jsonlite has another important function called `fromJSON()`. We don't recommend it here because it performs its own automatic simplification (`simplifyVector = TRUE`). This often works well, particularly in simple cases, but we think you're better off doing the rectangling yourself so you know exactly what's happening and can more easily handle the most complicated nested structures.
 
 To illustrate these techniques, we'll use the repurrrsive package, which provides a number deeply nested lists originally mostly captured from web APIs.
   
