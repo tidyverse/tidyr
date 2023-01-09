@@ -29,10 +29,10 @@
 #'   vectors (e.g. any mix of `NULL`s, atomic vector, S3 vectors, a lists,
 #'   or data frames).
 #' @param keep_empty By default, you get one row of output for each element
-#'   of the list your unchopping/unnesting. This means that if there's a
-#'   size-0 element (like `NULL` or an empty data frame), that entire row
-#'   will be dropped from the output. If you want to preserve all rows,
-#'   use `keep_empty = TRUE` to replace size-0 elements with a single row
+#'   of the list that you are unchopping/unnesting. This means that if there's a
+#'   size-0 element (like `NULL` or an empty data frame or vector), then that
+#'   entire row will be dropped from the output. If you want to preserve all
+#'   rows, use `keep_empty = TRUE` to replace size-0 elements with a single row
 #'   of missing values.
 #' @param ptype Optionally, a named list of column name-prototype pairs to
 #'   coerce `cols` to, overriding the default that will be guessed from

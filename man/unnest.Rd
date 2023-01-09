@@ -34,10 +34,10 @@ Convert \code{df \%>\% unnest(y = fun(x, y, z))}
 to \code{df \%>\% mutate(y = fun(x, y, z)) \%>\% unnest(y)}.}
 
 \item{keep_empty}{By default, you get one row of output for each element
-of the list your unchopping/unnesting. This means that if there's a
-size-0 element (like \code{NULL} or an empty data frame), that entire row
-will be dropped from the output. If you want to preserve all rows,
-use \code{keep_empty = TRUE} to replace size-0 elements with a single row
+of the list that you are unchopping/unnesting. This means that if there's a
+size-0 element (like \code{NULL} or an empty data frame or vector), then that
+entire row will be dropped from the output. If you want to preserve all
+rows, use \code{keep_empty = TRUE} to replace size-0 elements with a single row
 of missing values.}
 
 \item{ptype}{Optionally, a named list of column name-prototype pairs to
