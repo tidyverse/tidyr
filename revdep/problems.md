@@ -80,6 +80,122 @@ Run `cloud_details(, "ggpubr")` for more info
     Execution halted
     ```
 
+# gprofiler2
+
+<details>
+
+* Version: 0.2.1
+* GitHub: NA
+* Source code: https://github.com/cran/gprofiler2
+* Date/Publication: 2021-08-23 14:00:02 UTC
+* Number of recursive dependencies: 74
+
+Run `cloud_details(, "gprofiler2")` for more info
+
+</details>
+
+## Newly broken
+
+*   checking re-building of vignette outputs ... WARNING
+    ```
+    Error(s) in re-building vignettes:
+      ...
+    --- re-building ‘gprofiler2.Rmd’ using rmarkdown
+    Quitting from lines 210-215 (gprofiler2.Rmd) 
+    Error: processing vignette 'gprofiler2.Rmd' failed with diagnostics:
+    Bad request, response code 502
+    --- failed re-building ‘gprofiler2.Rmd’
+    
+    SUMMARY: processing the following file failed:
+      ‘gprofiler2.Rmd’
+    
+    Error: Vignette re-building failed.
+    Execution halted
+    ```
+
+## In both
+
+*   checking installed package size ... NOTE
+    ```
+      installed size is  5.5Mb
+      sub-directories of 1Mb or more:
+        doc   5.3Mb
+    ```
+
+# hlaR
+
+<details>
+
+* Version: 0.1.6
+* GitHub: https://github.com/LarsenLab/hlaR
+* Source code: https://github.com/cran/hlaR
+* Date/Publication: 2022-12-20 23:30:02 UTC
+* Number of recursive dependencies: 151
+
+Run `cloud_details(, "hlaR")` for more info
+
+</details>
+
+## Newly broken
+
+*   checking re-building of vignette outputs ... WARNING
+    ```
+    Error(s) in re-building vignettes:
+      ...
+    --- re-building ‘allele-haplotype.Rmd’ using rmarkdown
+    --- finished re-building ‘allele-haplotype.Rmd’
+    
+    --- re-building ‘eplet-mm.Rmd’ using rmarkdown
+    Quitting from lines 70-87 (eplet-mm.Rmd) 
+    Error: processing vignette 'eplet-mm.Rmd' failed with diagnostics:
+    'x' must be numeric
+    --- failed re-building ‘eplet-mm.Rmd’
+    
+    SUMMARY: processing the following file failed:
+      ‘eplet-mm.Rmd’
+    
+    Error: Vignette re-building failed.
+    Execution halted
+    ```
+
+# mapme.biodiversity
+
+<details>
+
+* Version: 0.2.1
+* GitHub: https://github.com/mapme-initiative/mapme.biodiversity
+* Source code: https://github.com/cran/mapme.biodiversity
+* Date/Publication: 2022-09-09 10:12:54 UTC
+* Number of recursive dependencies: 118
+
+Run `cloud_details(, "mapme.biodiversity")` for more info
+
+</details>
+
+## Newly broken
+
+*   checking tests ... ERROR
+    ```
+      Running ‘testthat.R’
+    Running the tests in ‘tests/testthat.R’ failed.
+    Last 13 lines of output:
+       13. │           └─tidyselect:::eval_c(expr, data_mask, context_mask)
+       14. │             └─tidyselect:::reduce_sels(node, data_mask, context_mask, init = init)
+       15. │               └─tidyselect:::walk_data_tree(new, data_mask, context_mask)
+       16. │                 └─tidyselect:::as_indices_sel_impl(...)
+       17. │                   └─tidyselect:::as_indices_impl(...)
+       18. │                     └─tidyselect:::chr_as_locations(x, vars, call = call, arg = arg)
+       19. │                       └─vctrs::vec_as_location(...)
+       20. └─vctrs (local) `<fn>`()
+       21.   └─vctrs:::stop_subscript_oob(...)
+       22.     └─vctrs:::stop_subscript(...)
+       23.       └─rlang::abort(...)
+      
+      [ FAIL 1 | WARN 0 | SKIP 26 | PASS 113 ]
+      Error: Test failures
+      Execution halted
+    ```
+
 # metaconfoundr
 
 <details>
@@ -161,6 +277,39 @@ Run `cloud_details(, "metaconfoundr")` for more info
     Execution halted
     ```
 
+# openalexR
+
+<details>
+
+* Version: 1.0.0
+* GitHub: https://github.com/massimoaria/openalexR
+* Source code: https://github.com/cran/openalexR
+* Date/Publication: 2022-10-06 10:40:02 UTC
+* Number of recursive dependencies: 78
+
+Run `cloud_details(, "openalexR")` for more info
+
+</details>
+
+## Newly broken
+
+*   checking re-building of vignette outputs ... WARNING
+    ```
+    Error(s) in re-building vignettes:
+      ...
+    --- re-building ‘A_Brief_Introduction_to_openalexR.Rmd’ using rmarkdown
+    Quitting from lines 260-269 (A_Brief_Introduction_to_openalexR.Rmd) 
+    Error: processing vignette 'A_Brief_Introduction_to_openalexR.Rmd' failed with diagnostics:
+    $ operator is invalid for atomic vectors
+    --- failed re-building ‘A_Brief_Introduction_to_openalexR.Rmd’
+    
+    SUMMARY: processing the following file failed:
+      ‘A_Brief_Introduction_to_openalexR.Rmd’
+    
+    Error: Vignette re-building failed.
+    Execution halted
+    ```
+
 # recipes
 
 <details>
@@ -229,5 +378,63 @@ Run `cloud_details(, "recipes")` for more info
 *   checking Rd cross-references ... NOTE
     ```
     Packages unavailable to check Rd xrefs: ‘fastICA’, ‘dimRed’
+    ```
+
+# wpa
+
+<details>
+
+* Version: 1.8.0
+* GitHub: https://github.com/microsoft/wpa
+* Source code: https://github.com/cran/wpa
+* Date/Publication: 2022-07-05 15:40:02 UTC
+* Number of recursive dependencies: 121
+
+Run `cloud_details(, "wpa")` for more info
+
+</details>
+
+## Newly broken
+
+*   checking examples ... ERROR
+    ```
+    Running examples in ‘wpa-Ex.R’ failed
+    The error most likely occurred in:
+    
+    > ### Name: workpatterns_classify
+    > ### Title: Classify working pattern personas using a rule based algorithm
+    > ### Aliases: workpatterns_classify
+    > 
+    > ### ** Examples
+    > 
+    > 
+    > # Returns a plot by default
+    > em_data %>% workpatterns_classify(method = "bw")
+    Error in `:=`(Personas, "Unclassified") : 
+      Check that is.data.table(DT) == TRUE. Otherwise, := and `:=`(...) are defined for use in j, once only and in particular ways. See help(":=").
+    Calls: %>% ... workpatterns_classify_bw -> [ -> [.data.frame -> :=
+    Execution halted
+    ```
+
+*   checking tests ... ERROR
+    ```
+      Running ‘testthat.R’
+    Running the tests in ‘tests/testthat.R’ failed.
+    Last 13 lines of output:
+       4.     ├─base::`[.data.frame`(ptn_data_personas, , `:=`(Personas, "Unclassified"))
+       5.     └─`:=`(Personas, "Unclassified")
+      ── Error ('test-workpatterns_classify.R:25'): workpatterns plots returns ggplot object ──
+      Error in ``:=`(Personas, "Unclassified")`: Check that is.data.table(DT) == TRUE. Otherwise, := and `:=`(...) are defined for use in j, once only and in particular ways. See help(":=").
+      Backtrace:
+          ▆
+       1. └─wpa::workpatterns_classify(em_data, signals = "meetings", return = "plot") at test-workpatterns_classify.R:25:2
+       2.   └─wpa:::workpatterns_classify_bw(...)
+       3.     ├─ptn_data_personas[, `:=`(Personas, "Unclassified")]
+       4.     ├─base::`[.data.frame`(ptn_data_personas, , `:=`(Personas, "Unclassified"))
+       5.     └─`:=`(Personas, "Unclassified")
+      
+      [ FAIL 2 | WARN 195 | SKIP 0 | PASS 6 ]
+      Error: Test failures
+      Execution halted
     ```
 

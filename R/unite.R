@@ -64,8 +64,15 @@ unite.data.frame <- function(data, col, ..., sep = "_", remove = TRUE, na.rm = F
   }
 
   var <- as_string(ensym(col))
+  var <- enc2utf8(var)
+
+  united <- list(united)
+  names(united) <- var
+
   first_pos <- which(names(data) %in% names(from_vars))[1]
-  out <- append_col(out, united, var, after = first_pos - 1L)
+  after <- first_pos - 1L
+
+  out <- df_append(out, united, after = after)
 
   reconstruct_tibble(data, out, if (remove) names(from_vars))
 }

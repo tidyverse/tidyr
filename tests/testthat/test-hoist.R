@@ -200,6 +200,38 @@ test_that("hoist() retrieves first of duplicated names and leaves the rest alone
   )
 })
 
+test_that("hoist() retains grouped data frame class (#1316)", {
+  df <- tibble(
+    g = c("x", "x", "z"),
+    data = list(
+      list(a = 1:2),
+      list(a = 2:3),
+      list(a = 3:4)
+    )
+  )
+  gdf <- dplyr::group_by(df, g)
+
+  expect_identical(
+    hoist(gdf, data, "a"),
+    dplyr::group_by(hoist(df, data, "a"), g)
+  )
+})
+
+test_that("hoist() retains bare data.frame class", {
+  df <- vctrs::data_frame(
+    data = list(
+      list(a = 1:2),
+      list(a = 2:3),
+      list(a = 3:4)
+    )
+  )
+
+  expect_identical(
+    hoist(df, data, "a"),
+    vctrs::data_frame(a = list(1:2, 2:3, 3:4))
+  )
+})
+
 test_that("known bug - hoist() doesn't strike after each pluck (related to #1259)", {
   # All pluckers operate on the same initial list-col.
   # We don't currently strike after each pluck, so the repeated plucks pull the
