@@ -27,6 +27,11 @@ test_that("drops grouping when needed", {
   expect_equal(dplyr::group_vars(rs), character())
 })
 
+test_that("preserves row names of data.frames (#1454)", {
+  df <- data.frame(x = c("1", "2"), y = c("3", "4"), row.names = c("a", "b"))
+  expect_identical(row.names(unite(df, "xy", x, y)), c("a", "b"))
+})
+
 test_that("empty var spec uses all vars", {
   df <- tibble(x = "a", y = "b")
   expect_equal(unite(df, "z"), tibble(z = "a_b"))
