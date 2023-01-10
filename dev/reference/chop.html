@@ -98,9 +98,16 @@ more suitable for programming than interactive data analysis.</p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">chop</span><span class="op">(</span><span class="va">data</span>, <span class="va">cols</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">chop</span><span class="op">(</span><span class="va">data</span>, <span class="va">cols</span>, <span class="va">...</span>, error_call <span class="op">=</span> <span class="fu">current_env</span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">unchop</span><span class="op">(</span><span class="va">data</span>, <span class="va">cols</span>, keep_empty <span class="op">=</span> <span class="cn">FALSE</span>, ptype <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">unchop</span><span class="op">(</span></span>
+<span>  <span class="va">data</span>,</span>
+<span>  <span class="va">cols</span>,</span>
+<span>  <span class="va">...</span>,</span>
+<span>  keep_empty <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  ptype <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  error_call <span class="op">=</span> <span class="fu">current_env</span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -114,6 +121,17 @@ more suitable for programming than interactive data analysis.</p>
 <p>For <code>unchop()</code>, each column should be a list-column containing generalised
 vectors (e.g. any mix of <code>NULL</code>s, atomic vector, S3 vectors, a lists,
 or data frames).</p></dd>
+
+
+<dt>...</dt>
+<dd><p>These dots are for future extensions and must be empty.</p></dd>
+
+
+<dt>error_call</dt>
+<dd><p>The execution environment of a currently
+running function, e.g. <code>caller_env()</code>. The function will be
+mentioned in error messages as the source of the error. See the
+<code>call</code> argument of <code><a href="https://rlang.r-lib.org/reference/abort.html" class="external-link">abort()</a></code> for more information.</p></dd>
 
 
 <dt>keep_empty</dt>
