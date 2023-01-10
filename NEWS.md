@@ -1,5 +1,8 @@
 # tidyr (development version)
 
+* `unnest()`, `unchop()`, `unnest_longer()`, and `unnest_wider()` better handle
+  lists with additional classes (#1327).
+
 * `chop()`, `unpack()`, and `unchop()` have all gained `...`, which must be
   empty (#1447).
   

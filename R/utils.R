@@ -24,11 +24,6 @@ reconstruct_tibble <- function(input, output, ungrouped_vars = character()) {
   }
 }
 
-
-imap <- function(.x, .f, ...) {
-  map2(.x, names(.x) %||% character(0), .f, ...)
-}
-
 seq_nrow <- function(x) seq_len(nrow(x))
 seq_ncol <- function(x) seq_len(ncol(x))
 
@@ -115,61 +110,6 @@ tidyr_new_list <- function(x) {
   }
 
   x
-}
-
-# TODO: Remove in favor of `list_replace_null()` and `list_replace_empty_typed()`
-# "Initializes" empty values to their size 1 equivalent
-# - Can initialize `NULL` to either `unspecified(1)` or a list-of ptype
-# - Can initialize typed empty elements to `vec_init(x, 1L)` or a list-of ptype
-# Returns a list containing:
-# - Updated `x`
-# - `sizes`, an integer vector containing updated sizes for the elements of `x`
-# - `null`, a logical vector indicating the original `NULL` values
-# - `typed`, a logical vector indicating the original empty typed values
-list_init_empty <- function(x,
-                            ...,
-                            null = TRUE,
-                            typed = TRUE) {
-  check_dots_empty()
-  if (!is_list(x)) {
-    cli::cli_abort("`x` must be a list.", .internal = TRUE)
-  }
-
-  sizes <- list_sizes(x)
-  empty_null <- vec_detect_missing(x)
-  empty_typed <- (sizes == 0L) & !empty_null
-
-  if (null && any(empty_null)) {
-    # Replace `NULL` elements with their size 1 equivalent
-
-    if (is_list_of(x)) {
-      ptype <- list_of_ptype(x)
-      replacement <- list(vec_init(ptype, n = 1L))
-      replacement <- new_list_of(replacement, ptype = ptype)
-    } else {
-      replacement <- list(unspecified(1L))
-    }
-
-    x <- vec_assign(x, empty_null, replacement)
-    sizes[empty_null] <- 1L
-  }
-
-  if (typed && any(empty_typed)) {
-    # Replace empty typed elements with their size 1 equivalent
-
-    if (is_list_of(x)) {
-      ptype <- list_of_ptype(x)
-      replacement <- list(vec_init(ptype, n = 1L))
-      replacement <- new_list_of(replacement, ptype = ptype)
-    } else {
-      replacement <- map(vec_slice(x, empty_typed), vec_init)
-    }
-
-    x <- vec_assign(x, empty_typed, replacement)
-    sizes[empty_typed] <- 1L
-  }
-
-  list(x = x, sizes = sizes, null = empty_null, typed = empty_typed)
 }
 
 #' Replace `NULL` list elements

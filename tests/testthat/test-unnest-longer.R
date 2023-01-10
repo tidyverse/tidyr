@@ -351,6 +351,22 @@ test_that("names are preserved when simplification isn't done and a ptype is sup
   expect_identical(out$x_id, c("a", "b"))
 })
 
+test_that("works with foreign lists recognized by `vec_is_list()` (#1327)", {
+  new_foo <- function(...) {
+    structure(list(...), class = c("foo", "list"))
+  }
+
+  # With empty types
+  df <- tibble(x = new_foo(1:2, integer()))
+  expect_identical(unnest_longer(df, x), tibble(x = 1:2))
+  expect_identical(unnest_longer(df, x, keep_empty = TRUE), tibble(x = c(1:2, NA)))
+
+  # With `NULL`s
+  df <- tibble(x = new_foo(1:2, NULL))
+  expect_identical(unnest_longer(df, x), tibble(x = 1:2))
+  expect_identical(unnest_longer(df, x, keep_empty = TRUE), tibble(x = c(1:2, NA)))
+})
+
 test_that("can't currently retain names when simplification isn't done and a ptype is supplied if there is a mix of named/unnamed elements (#1212)", {
   df <- tibble(x = list(list(a = 1L), list(1L)))
   ptype <- list(x = integer())
