@@ -41,6 +41,17 @@ test_that("always returns a bare data frame", {
   expect_identical(df_append(df1, df2), data.frame(x = 1, y = 2))
 })
 
+test_that("retains row names of data.frame `x` (#1454)", {
+  # These can't be restored by `reconstruct_tibble()`, so it is reasonable to
+  # retain them. `dplyr:::dplyr_col_modify()` works similarly.
+  df <- data.frame(x = 1:2, row.names = c("a", "b"))
+  cols <- list(y = 3:4, z = 5:6)
+
+  expect_identical(row.names(df_append(df, cols)), c("a", "b"))
+  expect_identical(row.names(df_append(df, cols, after = 0)), c("a", "b"))
+  expect_identical(row.names(df_append(df, cols, remove = TRUE)), c("a", "b"))
+})
+
 test_that("can append at any integer position", {
   df1 <- data.frame(x = 1, y = 2)
   df2 <- data.frame(a = 1)
