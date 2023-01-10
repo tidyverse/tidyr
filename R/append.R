@@ -22,6 +22,7 @@
 #' @noRd
 df_append <- function(x, y, after = NULL, remove = FALSE) {
   size <- vec_size(x)
+  row_names <- .row_names_info(x, type = 0L)
 
   x <- tidyr_new_list(x)
   y <- tidyr_new_list(y)
@@ -52,7 +53,7 @@ df_append <- function(x, y, after = NULL, remove = FALSE) {
   rhs <- setdiff(x_names[rhs], y_names)
 
   out <- vec_c(x[lhs], y, x[rhs])
-  out <- new_data_frame(out, n = size)
+  out <- new_data_frame(out, n = size, row.names = row_names)
 
   out
 }
