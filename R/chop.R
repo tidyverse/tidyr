@@ -191,7 +191,7 @@ df_unchop <- function(x, ..., ptype = NULL, keep_empty = FALSE, error_call = cal
     return(out)
   }
 
-  x_ptypes <- imap(x, function(col, name) {
+  x_ptypes <- map2(x, x_names, function(col, name) {
     ptype[[name]] %||% list_of_ptype(col)
   })
 
