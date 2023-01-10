@@ -659,70 +659,6 @@ Status: 1 ERROR, 2 NOTEs
 
 
 ```
-# IPEDSuploadables
-
-<details>
-
-* Version: 2.6.5
-* GitHub: https://github.com/AlisonLanski/IPEDSuploadables
-* Source code: https://github.com/cran/IPEDSuploadables
-* Date/Publication: 2022-12-07 21:02:33 UTC
-* Number of recursive dependencies: 79
-
-Run `cloud_details(, "IPEDSuploadables")` for more info
-
-</details>
-
-## In both
-
-*   checking whether package ‘IPEDSuploadables’ can be installed ... ERROR
-    ```
-    Installation failed.
-    See ‘/tmp/workdir/IPEDSuploadables/new/IPEDSuploadables.Rcheck/00install.out’ for details.
-    ```
-
-## Installation
-
-### Devel
-
-```
-* installing *source* package ‘IPEDSuploadables’ ...
-** package ‘IPEDSuploadables’ successfully unpacked and MD5 sums checked
-** using staged installation
-** R
-** data
-*** moving datasets to lazyload DB
-** inst
-** byte-compile and prepare package for lazy loading
-Error in loadNamespace(i, c(lib.loc, .libPaths()), versionCheck = vI[[i]]) : 
-  there is no package called ‘rstudioapi’
-Calls: <Anonymous> ... loadNamespace -> withRestarts -> withOneRestart -> doWithOneRestart
-Execution halted
-ERROR: lazy loading failed for package ‘IPEDSuploadables’
-* removing ‘/tmp/workdir/IPEDSuploadables/new/IPEDSuploadables.Rcheck/IPEDSuploadables’
-
-
-```
-### CRAN
-
-```
-* installing *source* package ‘IPEDSuploadables’ ...
-** package ‘IPEDSuploadables’ successfully unpacked and MD5 sums checked
-** using staged installation
-** R
-** data
-*** moving datasets to lazyload DB
-** inst
-** byte-compile and prepare package for lazy loading
-Error in loadNamespace(i, c(lib.loc, .libPaths()), versionCheck = vI[[i]]) : 
-  there is no package called ‘rstudioapi’
-Calls: <Anonymous> ... loadNamespace -> withRestarts -> withOneRestart -> doWithOneRestart
-Execution halted
-ERROR: lazy loading failed for package ‘IPEDSuploadables’
-* removing ‘/tmp/workdir/IPEDSuploadables/old/IPEDSuploadables.Rcheck/IPEDSuploadables’
-
-
-```
 # loon.ggplot
 
 <details>
@@ -1458,6 +1394,41 @@ Status: 2 NOTEs
 * checking re-building of vignette outputs ... OK
 * DONE
 Status: 2 NOTEs
+
+
+
+
+
+```
+# NA
+
+<details>
+
+* Version: NA
+* GitHub: NA
+* Source code: https://github.com/cran/NA
+* Number of recursive dependencies: 0
+
+Run `cloud_details(, "NA")` for more info
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
 
 
 

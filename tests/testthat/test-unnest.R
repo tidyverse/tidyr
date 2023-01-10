@@ -136,6 +136,14 @@ test_that("unnest() advises on inner / inner name duplication", {
   })
 })
 
+test_that("unnest() disallows renaming", {
+  df <- tibble(x = list(tibble(a = 1)))
+
+  expect_snapshot(error = TRUE, {
+    unnest(df, c(y = x))
+  })
+})
+
 # other methods -----------------------------------------------------------------
 
 test_that("rowwise_df becomes grouped_df", {

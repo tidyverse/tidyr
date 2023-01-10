@@ -503,10 +503,11 @@ map_unpack <- function(data, cols, fun, names_sep, names_repair, error_call = ca
   }
 
   unpack(
-    data,
-    all_of(col_names),
+    data = data,
+    cols = all_of(col_names),
     names_sep = names_sep,
-    names_repair = names_repair
+    names_repair = names_repair,
+    error_call = error_call
   )
 }
 

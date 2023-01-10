@@ -148,7 +148,7 @@
     Code
       separate_wider_regex(df, y, patterns = c(x = ".", value = "."))
     Condition
-      Error in `unpack()`:
+      Error in `separate_wider_regex()`:
       ! Can't duplicate names between the affected columns and the original data.
       x These names are duplicated:
         i `x`, from `y`.
@@ -160,7 +160,7 @@
     Code
       separate_wider_regex(df, c(x, y), patterns = c(gender = ".", value = "."))
     Condition
-      Error in `unpack()`:
+      Error in `separate_wider_regex()`:
       ! Can't duplicate names within the affected columns.
       x These names are duplicated:
         i `gender`, within `x` and `y`.

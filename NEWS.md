@@ -1,5 +1,17 @@
 # tidyr (development version)
 
+* `chop()`, `unpack()`, and `unchop()` have all gained `...`, which must be
+  empty (#1447).
+  
+* `nest()`, `unnest()`, `pack()`, `unpack()`, `chop()`, and `unchop()` now
+  consistently disallow renaming during tidy-selection. Renaming is never
+  meaningful in these functions, and previously either had no effect or caused
+  problems (#1449).
+
+* `pack()`, `unpack()`, `chop()`, and `unchop()` have all gained `error_call`
+  arguments, which in turn improves some of the error calls shown in `nest()`
+  and various `unnest()` adjacent functions (#1446).
+
 * `unpack()` does a better job of reporting column name duplication issues and
   gives better advice about how to resolve them using `names_sep`. This also
   improves errors from functions that use `unpack()`, like `unnest()` and

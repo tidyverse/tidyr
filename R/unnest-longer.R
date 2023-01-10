@@ -88,6 +88,8 @@ unnest_longer <- function(data,
   check_bool(indices_include, allow_null = TRUE)
   check_bool(keep_empty)
 
+  error_call <- current_env()
+
   cols <- tidyselect::eval_select(enquo(col), data, allow_rename = FALSE)
   col_names <- names(cols)
   n_col_names <- length(col_names)
@@ -127,7 +129,7 @@ unnest_longer <- function(data,
     )
   }
 
-  data <- unchop(data, all_of(cols))
+  data <- unchop(data, all_of(col_names), error_call = error_call)
 
   for (i in seq_along(cols)) {
     col <- cols[[i]]
@@ -140,7 +142,12 @@ unnest_longer <- function(data,
     )
   }
 
-  unpack(data, all_of(cols), names_repair = names_repair)
+  unpack(
+    data = data,
+    cols = all_of(col_names),
+    names_repair = names_repair,
+    error_call = error_call
+  )
 }
 
 # Converts a column of any type to a `list_of<tbl>`

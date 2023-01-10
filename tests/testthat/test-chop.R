@@ -309,6 +309,14 @@ test_that("unchopping drops outer names", {
   expect_named(out$col, NULL)
 })
 
+test_that("unchop disallows renaming", {
+  df <- tibble(x = list(1))
+
+  expect_snapshot(error = TRUE, {
+    unchop(df, c(y = x))
+  })
+})
+
 test_that("unchop validates its inputs", {
   df <- tibble(col = list(a = 1, b = 2:3))
 

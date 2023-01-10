@@ -176,9 +176,30 @@ unnest.data.frame <- function(data,
                               .id = "DEPRECATED",
                               .sep = "DEPRECATED",
                               .preserve = "DEPRECATED") {
-  cols <- tidyselect::eval_select(enquo(cols), data)
-  data <- unchop(data, any_of(cols), keep_empty = keep_empty, ptype = ptype)
-  unpack(data, any_of(cols), names_sep = names_sep, names_repair = names_repair)
+  error_call <- current_env()
+
+  cols <- tidyselect::eval_select(
+    expr = enquo(cols),
+    data = data,
+    allow_rename = FALSE
+  )
+  cols <- unname(cols)
+
+  data <- unchop(
+    data = data,
+    cols = all_of(cols),
+    keep_empty = keep_empty,
+    ptype = ptype,
+    error_call = error_call
+  )
+
+  unpack(
+    data = data,
+    cols = all_of(cols),
+    names_sep = names_sep,
+    names_repair = names_repair,
+    error_call = error_call
+  )
 }
 
 

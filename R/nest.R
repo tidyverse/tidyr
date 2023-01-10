@@ -125,7 +125,6 @@ nest.data.frame <- function(.data, ..., .names_sep = NULL, .key = deprecated()) 
 
 #' @export
 nest.tbl_df <- function(.data, ..., .names_sep = NULL, .key = deprecated()) {
-  check_string(.names_sep, allow_null = TRUE)
   .key <- check_key(.key)
   if (missing(...)) {
     cli::cli_warn(c(
@@ -137,8 +136,10 @@ nest.tbl_df <- function(.data, ..., .names_sep = NULL, .key = deprecated()) {
     cols <- enquos(...)
   }
 
-  out <- pack(.data, !!!cols, .names_sep = .names_sep)
-  out <- chop(out, cols = all_of(names(cols)))
+  error_call <- current_env()
+
+  out <- pack(.data, !!!cols, .names_sep = .names_sep, .error_call = error_call)
+  out <- chop(out, cols = all_of(names(cols)), error_call = error_call)
 
   # `nest()` currently doesn't return list-of columns
   for (name in names(cols)) {

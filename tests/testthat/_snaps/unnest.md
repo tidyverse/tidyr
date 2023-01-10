@@ -13,7 +13,7 @@
       (expect_error(unnest(df, c(x, y))))
     Output
       <error/rlang_error>
-      Error in `unchop()`:
+      Error in `unnest()`:
       ! In row 1, can't recycle input of size 2 to size 3.
 
 ---
@@ -22,7 +22,7 @@
       (expect_error(unnest(df, c(x, y))))
     Output
       <error/rlang_error>
-      Error in `unchop()`:
+      Error in `unnest()`:
       ! In row 1, can't recycle input of size 2 to size 3.
 
 # unnesting column of mixed vector / data frame input is an error
@@ -39,7 +39,7 @@
     Code
       unnest(df, y)
     Condition
-      Error in `unpack()`:
+      Error in `unnest()`:
       ! Can't duplicate names between the affected columns and the original data.
       x These names are duplicated:
         i `x`, from `y`.
@@ -51,12 +51,20 @@
     Code
       unnest(df, c(x, y))
     Condition
-      Error in `unpack()`:
+      Error in `unnest()`:
       ! Can't duplicate names within the affected columns.
       x These names are duplicated:
         i `a`, within `x` and `y`.
       i Use `names_sep` to disambiguate using the column name.
       i Or use `names_repair` to specify a repair strategy.
+
+# unnest() disallows renaming
+
+    Code
+      unnest(df, c(y = x))
+    Condition
+      Error in `unnest()`:
+      ! Can't rename variables in this context.
 
 # cols must go in cols
 

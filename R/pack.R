@@ -12,6 +12,8 @@
 #' and they are mostly a curiosity, but seem worth exploring further because
 #' they mimic the nested column headers that are so popular in Excel.
 #'
+#' @inheritParams rlang::args_error_context
+#'
 #' @param data,.data A data frame.
 #' @param cols <[`tidy-select`][tidyr_tidy_select]> Columns to unpack.
 #' @param names_sep,.names_sep If `NULL`, the default, the names will be left
@@ -24,9 +26,12 @@
 #'   `pack()`, the new inner names will have the outer names + `names_sep`
 #'   automatically stripped. This makes `names_sep` roughly symmetric between
 #'   packing and unpacking.
-#' @param ... <[`tidy-select`][tidyr_tidy_select]> Columns to pack, specified
-#'   using name-variable pairs of the form `new_col = c(col1, col2, col3)`.
-#'   The right hand side can be any valid tidy select expression.
+#' @param ... For `pack()`, <[`tidy-select`][tidyr_tidy_select]> columns to
+#'   pack, specified using name-variable pairs of the form
+#'   `new_col = c(col1, col2, col3)`. The right hand side can be any valid tidy
+#'   select expression.
+#'
+#'   For `unpack()`, these dots are for future extensions and must be empty.
 #' @export
 #' @examples
 #' # Packing -------------------------------------------------------------------
@@ -57,15 +62,23 @@
 #' df %>% unpack(y)
 #' df %>% unpack(c(y, z))
 #' df %>% unpack(c(y, z), names_sep = "_")
-pack <- function(.data, ..., .names_sep = NULL) {
-  check_data_frame(.data)
+pack <- function(.data, ..., .names_sep = NULL, .error_call = current_env()) {
+  check_data_frame(.data, call = .error_call)
   cols <- enquos(...)
   if (any(names2(cols) == "")) {
-    cli::cli_abort("All elements of `...` must be named")
+    cli::cli_abort("All elements of `...` must be named.", call = .error_call)
   }
-  check_string(.names_sep, allow_null = TRUE)
+  check_string(.names_sep, allow_null = TRUE, call = .error_call)
 
-  cols <- map(cols, ~ tidyselect::eval_select(.x, .data))
+  # TODO: Switch back to `map()` in purrr 1.0.1
+  cols <- lapply(cols, function(col) {
+    tidyselect::eval_select(
+      expr = col,
+      data = .data,
+      allow_rename = FALSE,
+      error_call = .error_call
+    )
+  })
 
   unpacked <- setdiff(names(.data), unlist(map(cols, names)))
   unpacked <- .data[unpacked]
@@ -78,7 +91,7 @@ pack <- function(.data, ..., .names_sep = NULL) {
 
   packed <- new_data_frame(packed, n = vec_size(.data))
 
-  out <- vec_cbind(unpacked, packed)
+  out <- vec_cbind(unpacked, packed, .error_call = .error_call)
 
   reconstruct_tibble(.data, out)
 }
@@ -98,15 +111,26 @@ pack <- function(.data, ..., .names_sep = NULL) {
 #'
 #'   See [vctrs::vec_as_names()] for more details on these terms and the
 #'   strategies used to enforce them.
-unpack <- function(data, cols, names_sep = NULL, names_repair = "check_unique") {
-  check_data_frame(data)
-  check_required(cols)
-  check_string(names_sep, allow_null = TRUE)
+unpack <- function(data,
+                   cols,
+                   ...,
+                   names_sep = NULL,
+                   names_repair = "check_unique",
+                   error_call = current_env()) {
+  check_dots_empty0(...)
+  check_data_frame(data, call = error_call)
+  check_required(cols, call = error_call)
+  check_string(names_sep, allow_null = TRUE, call = error_call)
 
   # Start from first principles to avoid issues in any subclass methods
   out <- tidyr_new_list(data)
 
-  cols <- tidyselect::eval_select(enquo(cols), data)
+  cols <- tidyselect::eval_select(
+    expr = enquo(cols),
+    data = data,
+    allow_rename = FALSE,
+    error_call = error_call
+  )
   cols <- out[cols]
   cols <- cols[map_lgl(cols, is.data.frame)]
 
@@ -115,8 +139,8 @@ unpack <- function(data, cols, names_sep = NULL, names_repair = "check_unique") 
   if (is.null(names_sep) && is_string(names_repair, "check_unique")) {
     # Only perform checks if user hasn't supplied `names_sep` or `names_repair`.
     # We let `vec_as_names()` catch any remaining problems.
-    check_inner_inner_duplicate(cols)
-    check_outer_inner_duplicate(cols, names(data))
+    check_inner_inner_duplicate(cols, error_call = error_call)
+    check_outer_inner_duplicate(cols, names(data), error_call = error_call)
   }
 
   if (!is.null(names_sep)) {
@@ -140,7 +164,8 @@ unpack <- function(data, cols, names_sep = NULL, names_repair = "check_unique") 
   names(out) <- vec_as_names(
     names = names(out),
     repair = names_repair,
-    repair_arg = "names_repair"
+    repair_arg = "names_repair",
+    call = error_call
   )
 
   reconstruct_tibble(data, out)
