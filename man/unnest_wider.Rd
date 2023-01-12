@@ -27,9 +27,10 @@ to their common size.}
 as is. If a string, the outer and inner names will be pasted together using
 \code{names_sep} as a separator.
 
-If the values being unnested are unnamed and \code{names_sep} is supplied, the
-inner names will be automatically generated as an increasing sequence of
-integers.}
+If any values being unnested are unnamed, then \code{names_sep} must be
+supplied, otherwise an error is thrown. When \code{names_sep} is supplied,
+names are automatically generated for unnamed values as an increasing
+sequence of integers.}
 
 \item{simplify}{If \code{TRUE}, will attempt to simplify lists of
 length-1 vectors to an atomic vector. Can also be a named list containing
@@ -119,7 +120,7 @@ df <- tibble(
   x = 1:3,
   y = list(NULL, 1:3, 4:5)
 )
-# where you'll usually want to provide names_sep:
+# but you must supply `names_sep` to do so, which generates automatic names:
 df \%>\% unnest_wider(y, names_sep = "_")
 
 # 0-length elements ---------------------------------------------------------

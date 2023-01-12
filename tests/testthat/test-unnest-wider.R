@@ -182,11 +182,11 @@ test_that("can unnest multiple columns wider at once (#740)", {
   )
 })
 
-test_that("can unnest a vector with a mix of named/unnamed elements (#1200 comment)", {
+test_that("can unnest a vector with a mix of named/unnamed elements (#1200 comment, #1367)", {
   df <- tibble(x = c(a = 1L, 2L))
-  expect_snapshot(out <- unnest_wider(df, x, names_sep = "_"))
+  out <- unnest_wider(df, x, names_sep = "_")
   expect_identical(out$x_a, c(1L, NA))
-  expect_identical(out$x_...1, c(NA, 2L))
+  expect_identical(out$x_1, c(NA, 2L))
 })
 
 test_that("can unnest a list with a mix of named/unnamed elements (#1200 comment)", {
@@ -196,17 +196,32 @@ test_that("can unnest a list with a mix of named/unnamed elements (#1200 comment
   expect_identical(out$x_2, c(2L, 4L))
 })
 
-test_that("unique name repair is done on the elements before applying `names_sep` (#1200 comment)", {
+test_that("integer names are generated before applying `names_sep` (#1200 comment, #1367)", {
   df <- tibble(col = list(set_names(1, "")))
-  expect_snapshot(out <- unnest_wider(df, col, names_sep = "_"))
-  expect_named(out, "col_...1")
+  out <- unnest_wider(df, col, names_sep = "_")
+  expect_named(out, "col_1")
 
   df <- tibble(col = list(set_names(1:2, c("", ""))))
-  expect_snapshot(out <- unnest_wider(df, col, names_sep = "_"))
-  expect_named(out, c("col_...1", "col_...2"))
+  out <- unnest_wider(df, col, names_sep = "_")
+  expect_named(out, c("col_1", "col_2"))
 })
 
-test_that("output structure is the same whether or not `names_sep` is applied (#1200 comment)", {
+test_that("integer names are generated for partially named vectors (#1367)", {
+  df <- tibble(col = list(set_names(1:4, c("x", "", "z", ""))))
+  out <- unnest_wider(df, col, names_sep = "_")
+  expect_named(out, c("col_x", "col_2", "col_z", "col_4"))
+
+  df <- tibble(col = list(
+    set_names(1:4, c("x", "", "z", "")),
+    set_names(5:8, c("", "", "z", ""))
+  ))
+  out <- unnest_wider(df, col, names_sep = "_")
+  expect_named(out, c("col_x", "col_2", "col_z", "col_4", "col_1"))
+  expect_identical(out$col_x, c(1L, NA))
+  expect_identical(out$col_1, c(NA, 5L))
+})
+
+test_that("`NA_character_` name is treated like the empty string (#1200 comment)", {
   col <- list(
     set_names(1, "a"),
     set_names(1, NA_character_),
@@ -214,22 +229,52 @@ test_that("output structure is the same whether or not `names_sep` is applied (#
   )
   df <- tibble(col = col)
 
-  # Column structure between these two must be the same,
-  # we consider an `NA_character_` name as identical to `""`.
-  expect_snapshot(out1 <- unnest_wider(df, col))
-  expect_snapshot(out2 <- unnest_wider(df, col, names_sep = "_"))
+  out <- unnest_wider(df, col, names_sep = "_")
 
-  expect_identical(out1$a, c(1, NA, NA))
-  expect_identical(out1$...1, c(NA, 1, 1))
-
-  expect_identical(out2$col_a, c(1, NA, NA))
-  expect_identical(out2$col_...1, c(NA, 1, 1))
+  expect_identical(out$col_a, c(1, NA, NA))
+  expect_identical(out$col_1, c(NA, 1, 1))
 })
 
 test_that("can combine `<list> + <list_of<ptype>>`", {
   df <- tibble(col = list(list(a = 1:2), list_of(a = 1L)))
   out <- unnest_wider(df, col)
   expect_identical(out$a, list(1:2, 1L))
+})
+
+test_that("can't unnest unnamed elements without `names_sep` (#1367)", {
+  df <- tibble(col = list(1))
+  expect_snapshot(error = TRUE, {
+    unnest_wider(df, col)
+  })
+
+  df <- tibble(col = list(set_names(1, "")))
+  expect_snapshot(error = TRUE, {
+    unnest_wider(df, col)
+  })
+
+  df <- tibble(col = list(set_names(1, NA_character_)))
+  expect_snapshot(error = TRUE, {
+    unnest_wider(df, col)
+  })
+
+  # Partially missing within an element
+  df <- tibble(col = list(c(a = 1), c(a = 1, 2)))
+  expect_snapshot(error = TRUE, {
+    unnest_wider(df, col)
+  })
+})
+
+test_that("catches duplicate inner names in the same vector", {
+  df <- tibble(col = list(c(a = 1, a = 2)))
+
+  expect_snapshot(error = TRUE, {
+    unnest_wider(df, col)
+  })
+
+  expect_snapshot({
+    out <- unnest_wider(df, col, names_repair = "unique")
+  })
+  expect_named(out, c("a...1", "a...2"))
 })
 
 test_that("unnest_wider() advises on outer / inner name duplication (#1367)", {
