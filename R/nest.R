@@ -125,11 +125,6 @@ nest <- function(.data,
                  .by = NULL,
                  .key = NULL,
                  .names_sep = NULL) {
-  if (identical(.key, deprecated())) {
-    # Temporary support for S3 method authors that set `.key = deprecated()`
-    return(nest(.data, ..., .by = {{ .by }}, .key = NULL, .names_sep = .names_sep))
-  }
-
   cols <- enquos(...)
   empty <- names2(cols) == ""
 
@@ -244,7 +239,7 @@ nest_info <- function(.data,
 
   key <- check_key(.key, error_call = .error_call)
 
-  if (n_cols != 0L && !is.null(.key)) {
+  if (n_cols != 0L && !is_default_key(.key)) {
     warn_unused_key(error_call = .error_call)
   }
 
@@ -302,10 +297,20 @@ warn_unused_key <- function(error_call = caller_env()) {
 }
 
 check_key <- function(key, error_call = caller_env()) {
-  if (is.null(key)) {
+  if (is_default_key(key)) {
     "data"
   } else {
     check_string(key, allow_empty = FALSE, arg = ".key", call = error_call)
     key
   }
+}
+
+is_default_key <- function(key) {
+  if (identical(maybe_missing(key), deprecated())) {
+    # Temporary support for S3 method authors that set `.key = deprecated()`.
+    # Remove this entire helper all methods have been updated.
+    key <- NULL
+  }
+
+  is.null(key)
 }
