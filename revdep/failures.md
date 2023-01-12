@@ -1,3 +1,67 @@
+# amanida
+
+<details>
+
+* Version: 0.2.3
+* GitHub: https://github.com/mariallr/amanida
+* Source code: https://github.com/cran/amanida
+* Date/Publication: 2022-03-30 06:50:05 UTC
+* Number of recursive dependencies: 156
+
+Run `cloud_details(, "amanida")` for more info
+
+</details>
+
+## In both
+
+*   checking whether package ‘amanida’ can be installed ... ERROR
+    ```
+    Installation failed.
+    See ‘/tmp/workdir/amanida/new/amanida.Rcheck/00install.out’ for details.
+    ```
+
+## Installation
+
+### Devel
+
+```
+* installing *source* package ‘amanida’ ...
+** package ‘amanida’ successfully unpacked and MD5 sums checked
+** using staged installation
+** R
+** data
+*** moving datasets to lazyload DB
+** inst
+** byte-compile and prepare package for lazy loading
+Error: .onLoad failed in loadNamespace() for 'broom', details:
+  call: loadNamespace(x)
+  error: there is no package called ‘backports’
+Execution halted
+ERROR: lazy loading failed for package ‘amanida’
+* removing ‘/tmp/workdir/amanida/new/amanida.Rcheck/amanida’
+
+
+```
+### CRAN
+
+```
+* installing *source* package ‘amanida’ ...
+** package ‘amanida’ successfully unpacked and MD5 sums checked
+** using staged installation
+** R
+** data
+*** moving datasets to lazyload DB
+** inst
+** byte-compile and prepare package for lazy loading
+Error: .onLoad failed in loadNamespace() for 'broom', details:
+  call: loadNamespace(x)
+  error: there is no package called ‘backports’
+Execution halted
+ERROR: lazy loading failed for package ‘amanida’
+* removing ‘/tmp/workdir/amanida/old/amanida.Rcheck/amanida’
+
+
+```
 # NA
 
 <details>
@@ -387,10 +451,10 @@ Run `cloud_details(, "NA")` for more info
 
 <details>
 
-* Version: 0.1.4
+* Version: 0.1.5
 * GitHub: NA
 * Source code: https://github.com/cran/FAMetA
-* Date/Publication: 2022-03-01 15:40:23 UTC
+* Date/Publication: 2023-01-11 09:33:11 UTC
 * Number of recursive dependencies: 90
 
 Run `cloud_details(, "FAMetA")` for more info
@@ -906,11 +970,11 @@ Run `cloud_details(, "NA")` for more info
 
 <details>
 
-* Version: 1.1.0
+* Version: 1.2.1
 * GitHub: https://github.com/kharchenkolab/numbat
 * Source code: https://github.com/cran/numbat
-* Date/Publication: 2022-11-29 18:30:02 UTC
-* Number of recursive dependencies: 183
+* Date/Publication: 2023-01-11 00:20:02 UTC
+* Number of recursive dependencies: 132
 
 Run `cloud_details(, "numbat")` for more info
 
@@ -927,7 +991,7 @@ Run `cloud_details(, "numbat")` for more info
 * using session charset: UTF-8
 * using option ‘--no-manual’
 * checking for file ‘numbat/DESCRIPTION’ ... OK
-* this is package ‘numbat’ version ‘1.1.0’
+* this is package ‘numbat’ version ‘1.2.1’
 * package encoding: UTF-8
 * checking package namespace information ... OK
 * checking package dependencies ... ERROR
@@ -952,7 +1016,7 @@ Status: 1 ERROR
 * using session charset: UTF-8
 * using option ‘--no-manual’
 * checking for file ‘numbat/DESCRIPTION’ ... OK
-* this is package ‘numbat’ version ‘1.1.0’
+* this is package ‘numbat’ version ‘1.2.1’
 * package encoding: UTF-8
 * checking package namespace information ... OK
 * checking package dependencies ... ERROR
@@ -1215,6 +1279,82 @@ See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
 manual.
 * DONE
 Status: 1 ERROR
+
+
+
+
+
+```
+# SCpubr
+
+<details>
+
+* Version: 1.1.1
+* GitHub: https://github.com/enblacar/SCpubr
+* Source code: https://github.com/cran/SCpubr
+* Date/Publication: 2023-01-12 11:30:02 UTC
+* Number of recursive dependencies: 289
+
+Run `cloud_details(, "SCpubr")` for more info
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+* using log directory ‘/tmp/workdir/SCpubr/new/SCpubr.Rcheck’
+* using R version 4.1.1 (2021-08-10)
+* using platform: x86_64-pc-linux-gnu (64-bit)
+* using session charset: UTF-8
+* using option ‘--no-manual’
+* checking for file ‘SCpubr/DESCRIPTION’ ... OK
+* checking extension type ... Package
+* this is package ‘SCpubr’ version ‘1.1.1’
+* package encoding: UTF-8
+* checking package namespace information ... OK
+...
+  [ FAIL 1 | WARN 0 | SKIP 347 | PASS 320 ]
+  Error: Test failures
+  Execution halted
+* checking for unstated dependencies in vignettes ... OK
+* checking package vignettes in ‘inst/doc’ ... OK
+* checking running R code from vignettes ... NONE
+  ‘reference_manual.Rmd’ using ‘UTF-8’... OK
+* checking re-building of vignette outputs ... OK
+* DONE
+Status: 1 ERROR, 1 WARNING, 2 NOTEs
+
+
+
+
+
+```
+### CRAN
+
+```
+* using log directory ‘/tmp/workdir/SCpubr/old/SCpubr.Rcheck’
+* using R version 4.1.1 (2021-08-10)
+* using platform: x86_64-pc-linux-gnu (64-bit)
+* using session charset: UTF-8
+* using option ‘--no-manual’
+* checking for file ‘SCpubr/DESCRIPTION’ ... OK
+* checking extension type ... Package
+* this is package ‘SCpubr’ version ‘1.1.1’
+* package encoding: UTF-8
+* checking package namespace information ... OK
+...
+  [ FAIL 1 | WARN 0 | SKIP 347 | PASS 320 ]
+  Error: Test failures
+  Execution halted
+* checking for unstated dependencies in vignettes ... OK
+* checking package vignettes in ‘inst/doc’ ... OK
+* checking running R code from vignettes ... NONE
+  ‘reference_manual.Rmd’ using ‘UTF-8’... OK
+* checking re-building of vignette outputs ... OK
+* DONE
+Status: 1 ERROR, 1 WARNING, 2 NOTEs
 
 
 

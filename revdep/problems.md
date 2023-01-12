@@ -1,3 +1,41 @@
+# expstudy
+
+<details>
+
+* Version: 1.0.3
+* GitHub: https://github.com/cb12991/expstudy
+* Source code: https://github.com/cran/expstudy
+* Date/Publication: 2022-12-08 19:20:02 UTC
+* Number of recursive dependencies: 61
+
+Run `cloud_details(, "expstudy")` for more info
+
+</details>
+
+## Newly broken
+
+*   checking tests ... ERROR
+    ```
+      Running ‘testthat.R’
+    Running the tests in ‘tests/testthat.R’ failed.
+    Last 13 lines of output:
+      > 
+      > test_check("expstudy")
+      [ FAIL 1 | WARN 2 | SKIP 0 | PASS 110 ]
+      
+      ══ Failed tests ════════════════════════════════════════════════════════════════
+      ── Error ('test-tidyr.R:34'): nest method preserves metadata ───────────────────
+      <purrr_error_indexed/rlang_error/error/condition>
+      Error in `map(.x, .f, ..., .progress = .progress)`: i In index: 1.
+      Caused by error in `nest()`:
+      ! `nest()` for lazy data.tables doesn't support the `.key` argument.
+      i Use a name in the `...` argument instead.
+      
+      [ FAIL 1 | WARN 2 | SKIP 0 | PASS 110 ]
+      Error: Test failures
+      Execution halted
+    ```
+
 # faux
 
 <details>
@@ -80,17 +118,17 @@ Run `cloud_details(, "ggpubr")` for more info
     Execution halted
     ```
 
-# gutenbergr
+# gompertztrunc
 
 <details>
 
-* Version: 0.2.3
-* GitHub: https://github.com/ropensci/gutenbergr
-* Source code: https://github.com/cran/gutenbergr
-* Date/Publication: 2022-12-14 10:00:06 UTC
-* Number of recursive dependencies: 88
+* Version: 0.1.1
+* GitHub: NA
+* Source code: https://github.com/cran/gompertztrunc
+* Date/Publication: 2022-12-23 19:20:02 UTC
+* Number of recursive dependencies: 122
 
-Run `cloud_details(, "gutenbergr")` for more info
+Run `cloud_details(, "gompertztrunc")` for more info
 
 </details>
 
@@ -98,70 +136,26 @@ Run `cloud_details(, "gutenbergr")` for more info
 
 *   checking examples ... ERROR
     ```
-    Running examples in ‘gutenbergr-Ex.R’ failed
+    Running examples in ‘gompertztrunc-Ex.R’ failed
     The error most likely occurred in:
     
-    > ### Name: gutenberg_get_mirror
-    > ### Title: Get the recommended mirror for Gutenberg files
-    > ### Aliases: gutenberg_get_mirror
+    > ### Name: diagnostic_plot
+    > ### Title: Create diagnostic plots
+    > ### Aliases: diagnostic_plot
     > 
     > ### ** Examples
     > 
-    > gutenberg_get_mirror()
-    Determining mirror for Project Gutenberg from https://www.gutenberg.org/robot/harvest
-    Error in open.connection(3L, "rb") : 
-      Timeout was reached: [www.gutenberg.org] Operation timed out after 10001 milliseconds with 0 out of 0 bytes received
-    Calls: gutenberg_get_mirror ... <Anonymous> -> vroom_ -> <Anonymous> -> open.connection
-    Execution halted
-    ```
-
-## In both
-
-*   checking installed package size ... NOTE
-    ```
-      installed size is  5.1Mb
-      sub-directories of 1Mb or more:
-        data   4.6Mb
-    ```
-
-*   checking data for non-ASCII characters ... NOTE
-    ```
-      Note: found 18981 marked UTF-8 strings
-    ```
-
-# hlaR
-
-<details>
-
-* Version: 0.1.6
-* GitHub: https://github.com/LarsenLab/hlaR
-* Source code: https://github.com/cran/hlaR
-* Date/Publication: 2022-12-20 23:30:02 UTC
-* Number of recursive dependencies: 151
-
-Run `cloud_details(, "hlaR")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    Error(s) in re-building vignettes:
-      ...
-    --- re-building ‘allele-haplotype.Rmd’ using rmarkdown
-    --- finished re-building ‘allele-haplotype.Rmd’
-    
-    --- re-building ‘eplet-mm.Rmd’ using rmarkdown
-    Quitting from lines 70-87 (eplet-mm.Rmd) 
-    Error: processing vignette 'eplet-mm.Rmd' failed with diagnostics:
-    'x' must be numeric
-    --- failed re-building ‘eplet-mm.Rmd’
-    
-    SUMMARY: processing the following file failed:
-      ‘eplet-mm.Rmd’
-    
-    Error: Vignette re-building failed.
+    > # Create a single-cohort data set
+    ...
+    > gradient <- gompertztrunc::gompertz_mle(formula = death_age ~ finished_hs,
+    + left_trunc = 1988, right_trunc = 2005, data = numident_c1920)
+    > 
+    > # Create diagnostic histogram plot using model outcome
+    > gompertztrunc::diagnostic_plot(object = gradient, data = numident_c1920,
+    + covar = "finished_hs", xlim = c(60, 95))
+    Error in .shallow(x, cols = cols, retain.key = TRUE) : 
+      attempt to set index 0/0 in SET_VECTOR_ELT
+    Calls: <Anonymous> ... names<- -> names<-.data.table -> shallow -> .shallow
     Execution halted
     ```
 
@@ -284,65 +278,73 @@ Run `cloud_details(, "metaconfoundr")` for more info
     Execution halted
     ```
 
-# recipes
+# openalexR
 
 <details>
 
-* Version: 1.0.3
-* GitHub: https://github.com/tidymodels/recipes
-* Source code: https://github.com/cran/recipes
-* Date/Publication: 2022-11-09 16:50:02 UTC
-* Number of recursive dependencies: 134
+* Version: 1.0.0
+* GitHub: https://github.com/massimoaria/openalexR
+* Source code: https://github.com/cran/openalexR
+* Date/Publication: 2022-10-06 10:40:02 UTC
+* Number of recursive dependencies: 78
 
-Run `cloud_details(, "recipes")` for more info
+Run `cloud_details(, "openalexR")` for more info
 
 </details>
 
 ## Newly broken
 
-*   checking examples ... ERROR
+*   checking re-building of vignette outputs ... WARNING
     ```
-    Running examples in ‘recipes-Ex.R’ failed
-    The error most likely occurred in:
+    Error(s) in re-building vignettes:
+      ...
+    --- re-building ‘A_Brief_Introduction_to_openalexR.Rmd’ using rmarkdown
+    Quitting from lines 342-354 (A_Brief_Introduction_to_openalexR.Rmd) 
+    Error: processing vignette 'A_Brief_Introduction_to_openalexR.Rmd' failed with diagnostics:
+    missing value where TRUE/FALSE needed
+    --- failed re-building ‘A_Brief_Introduction_to_openalexR.Rmd’
     
-    > ### Name: step_naomit
-    > ### Title: Remove observations with missing values
-    > ### Aliases: step_naomit
-    > 
-    > ### ** Examples
-    > 
-    > 
-    ...
-     10.       └─tidyselect::eval_select(expr(c(!!!dots)), data, allow_rename = FALSE)
-     11.         └─tidyselect:::eval_select_impl(...)
-     12.           ├─tidyselect:::with_subscript_errors(...)
-     13.           │ └─rlang::try_fetch(...)
-     14.           │   └─base::withCallingHandlers(...)
-     15.           └─tidyselect:::vars_select_eval(...)
-     16.             └─tidyselect:::ensure_named(...)
-     17.               └─cli::cli_abort(...)
-     18.                 └─rlang::abort(...)
+    SUMMARY: processing the following file failed:
+      ‘A_Brief_Introduction_to_openalexR.Rmd’
+    
+    Error: Vignette re-building failed.
     Execution halted
     ```
+
+# panelr
+
+<details>
+
+* Version: 0.7.6
+* GitHub: https://github.com/jacob-long/panelr
+* Source code: https://github.com/cran/panelr
+* Date/Publication: 2021-12-17 07:40:02 UTC
+* Number of recursive dependencies: 169
+
+Run `cloud_details(, "panelr")` for more info
+
+</details>
+
+## Newly broken
 
 *   checking tests ... ERROR
     ```
       Running ‘testthat.R’
     Running the tests in ‘tests/testthat.R’ failed.
     Last 13 lines of output:
-        9.     ├─tidyr::drop_na(new_data, object$columns)
-       10.     └─tidyr:::drop_na.data.frame(new_data, object$columns)
-       11.       └─tidyselect::eval_select(expr(c(!!!dots)), data, allow_rename = FALSE)
-       12.         └─tidyselect:::eval_select_impl(...)
-       13.           ├─tidyselect:::with_subscript_errors(...)
-       14.           │ └─rlang::try_fetch(...)
-       15.           │   └─base::withCallingHandlers(...)
-       16.           └─tidyselect:::vars_select_eval(...)
-       17.             └─tidyselect:::ensure_named(...)
-       18.               └─cli::cli_abort(...)
-       19.                 └─rlang::abort(...)
+        5.     └─panelr:::detrend(e$data, pf, dt_order, balance_correction, dt_random)
+        6.       ├─tidyr::nest(data)
+        7.       └─tidyr:::nest.grouped_df(data)
+        8.         └─tidyr:::nest.tbl_df(.data, `:=`(!!.key, all_of(cols)), .names_sep = .names_sep)
+        9.           └─vctrs::vec_cbind(out, inner, .name_repair = "check_unique", .error_call = error_call)
+       10.             └─vctrs (local) `<fn>`()
+       11.               └─vctrs:::validate_unique(names = names, arg = arg, call = call)
+       12.                 └─vctrs:::stop_names_must_be_unique(names, arg, call = call)
+       13.                   └─vctrs:::stop_names(...)
+       14.                     └─vctrs:::stop_vctrs(...)
+       15.                       └─rlang::abort(message, class = c(class, "vctrs_error"), ..., call = vctrs_error_call(call))
       
-      [ FAIL 2 | WARN 2 | SKIP 401 | PASS 1889 ]
+      [ FAIL 2 | WARN 1 | SKIP 0 | PASS 240 ]
       Error: Test failures
       Execution halted
     ```
@@ -351,7 +353,7 @@ Run `cloud_details(, "recipes")` for more info
 
 *   checking Rd cross-references ... NOTE
     ```
-    Packages unavailable to check Rd xrefs: ‘fastICA’, ‘dimRed’
+    Package unavailable to check Rd xrefs: ‘AER’
     ```
 
 # tidypaleo

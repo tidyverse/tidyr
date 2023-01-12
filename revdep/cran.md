@@ -1,14 +1,17 @@
 ## revdepcheck results
 
-We checked 1744 reverse dependencies (1725 from CRAN + 19 from Bioconductor), comparing R CMD check results across CRAN and dev versions of this package.
+We checked 1743 reverse dependencies (1724 from CRAN + 19 from Bioconductor), comparing R CMD check results across CRAN and dev versions of this package.
 
- * We saw 9 new problems
- * We failed to check 12 packages
+ * We saw 10 new problems
+ * We failed to check 14 packages
 
 Issues with CRAN packages are summarised below.
 
 ### New problems
 (This reports the first line of each new failure)
+
+* expstudy
+  checking tests ... ERROR
 
 * faux
   checking re-building of vignette outputs ... WARNING
@@ -16,11 +19,8 @@ Issues with CRAN packages are summarised below.
 * ggpubr
   checking examples ... ERROR
 
-* gutenbergr
+* gompertztrunc
   checking examples ... ERROR
-
-* hlaR
-  checking re-building of vignette outputs ... WARNING
 
 * mapme.biodiversity
   checking tests ... ERROR
@@ -30,8 +30,10 @@ Issues with CRAN packages are summarised below.
   checking tests ... ERROR
   checking re-building of vignette outputs ... WARNING
 
-* recipes
-  checking examples ... ERROR
+* openalexR
+  checking re-building of vignette outputs ... WARNING
+
+* panelr
   checking tests ... ERROR
 
 * tidypaleo
@@ -45,6 +47,7 @@ Issues with CRAN packages are summarised below.
 
 ### Failed to check
 
+* amanida        (NA)
 * FAMetA         (NA)
 * genekitr       (NA)
 * ggPMX          (NA)
@@ -54,6 +57,7 @@ Issues with CRAN packages are summarised below.
 * OlinkAnalyze   (NA)
 * Platypus       (NA)
 * RVA            (NA)
+* SCpubr         (NA)
 * tinyarray      (NA)
 * vivid          (NA)
 * xpose.nlmixr2  (NA)
