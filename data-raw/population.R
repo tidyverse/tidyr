@@ -12,4 +12,4 @@ population <- pop %>%
   filter(year >= 1995)
 
 write_csv(population, "data-raw/population.csv")
-save(population, file = "data/population.rdata")
+usethis::use_data(population, overwrite = TRUE)
