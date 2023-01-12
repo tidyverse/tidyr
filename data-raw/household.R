@@ -1,4 +1,4 @@
-library(tidyverse)
+library(dplyr)
 
 household <- tribble(
   ~family,  ~dob_child1,  ~dob_child2, ~name_child1, ~name_child2,
@@ -11,7 +11,7 @@ household <- tribble(
 household <- household |>
   mutate(
     family = as.integer(family),
-    across(starts_with("dob"), parse_date)
+    across(starts_with("dob"), readr::parse_date)
   )
 
 household

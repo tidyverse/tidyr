@@ -3,7 +3,9 @@ library(tidyr)
 library(readr)
 library(stringr)
 
-who_raw <- read_csv("data-raw/TB_notifications_2014-11-13.csv")
+who_raw <- as_tibble(
+  read_csv("data-raw/TB_notifications_2014-11-13.csv", col_types = list())
+)
 
 who <- who_raw %>%
   select(

@@ -1,5 +1,7 @@
 # tidyr (development version)
 
+* All built in datasets are now standard tibbles (#1459).
+
 * `unnest()`, `unchop()`, `unnest_longer()`, and `unnest_wider()` better handle
   lists with additional classes (#1327).
 
