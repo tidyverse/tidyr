@@ -2,8 +2,12 @@ library(readr)
 library(dplyr)
 library(tidyr)
 
-who <- read_csv("data-raw/who.csv")
-population <- read_csv("data-raw/population.csv")
+who <- as_tibble(
+  read_csv("data-raw/who.csv", col_types = list())
+)
+population <- as_tibble(
+  read_csv("data-raw/population.csv", col_types = list())
+)
 
 table1 <-
   who %>%
@@ -12,9 +16,7 @@ table1 <-
     year >= 1999, year <= 2000
   ) %>%
   gather("code", "value", 5:60) %>%
-  group_by(country, year) %>%
-  summarise(cases = sum(value, na.rm = TRUE)) %>%
-  ungroup() %>%
+  summarise(cases = sum(value, na.rm = TRUE), .by = c(country, year)) %>%
   left_join(population, by = c("country", "year"))
 
 table2 <-
@@ -47,9 +49,9 @@ write_csv(table4a, "data-raw/table4a.csv")
 write_csv(table4b, "data-raw/table4b.csv")
 write_csv(table5, "data-raw/table6.csv")
 
-save(table1, file = "data/table1.rdata")
-save(table2, file = "data/table2.rdata")
-save(table3, file = "data/table3.rdata")
-save(table4a, file = "data/table4a.rdata")
-save(table4b, file = "data/table4b.rdata")
-save(table5, file = "data/table5.rdata")
+usethis::use_data(table1, overwrite = TRUE)
+usethis::use_data(table2, overwrite = TRUE)
+usethis::use_data(table3, overwrite = TRUE)
+usethis::use_data(table4a, overwrite = TRUE)
+usethis::use_data(table4b, overwrite = TRUE)
+usethis::use_data(table5, overwrite = TRUE)
