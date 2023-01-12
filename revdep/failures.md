@@ -1,23 +1,128 @@
-# amanida
+# NA
 
 <details>
 
-* Version: 0.2.3
-* GitHub: https://github.com/mariallr/amanida
-* Source code: https://github.com/cran/amanida
-* Date/Publication: 2022-03-30 06:50:05 UTC
-* Number of recursive dependencies: 156
+* Version: NA
+* GitHub: NA
+* Source code: https://github.com/cran/NA
+* Number of recursive dependencies: 0
 
-Run `cloud_details(, "amanida")` for more info
+Run `cloud_details(, "NA")` for more info
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
+# NA
+
+<details>
+
+* Version: NA
+* GitHub: NA
+* Source code: https://github.com/cran/NA
+* Number of recursive dependencies: 0
+
+Run `cloud_details(, "NA")` for more info
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
+# NA
+
+<details>
+
+* Version: NA
+* GitHub: NA
+* Source code: https://github.com/cran/NA
+* Number of recursive dependencies: 0
+
+Run `cloud_details(, "NA")` for more info
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
+# cities
+
+<details>
+
+* Version: 0.1.0
+* GitHub: NA
+* Source code: https://github.com/cran/cities
+* Date/Publication: 2022-10-17 09:22:35 UTC
+* Number of recursive dependencies: 84
+
+Run `cloud_details(, "cities")` for more info
 
 </details>
 
 ## In both
 
-*   checking whether package ‘amanida’ can be installed ... ERROR
+*   checking whether package ‘cities’ can be installed ... ERROR
     ```
     Installation failed.
-    See ‘/tmp/workdir/amanida/new/amanida.Rcheck/00install.out’ for details.
+    See ‘/tmp/workdir/cities/new/cities.Rcheck/00install.out’ for details.
     ```
 
 ## Installation
@@ -25,145 +130,36 @@ Run `cloud_details(, "amanida")` for more info
 ### Devel
 
 ```
-* installing *source* package ‘amanida’ ...
-** package ‘amanida’ successfully unpacked and MD5 sums checked
+* installing *source* package ‘cities’ ...
+** package ‘cities’ successfully unpacked and MD5 sums checked
 ** using staged installation
 ** R
-** data
-*** moving datasets to lazyload DB
 ** inst
 ** byte-compile and prepare package for lazy loading
-Error: .onLoad failed in loadNamespace() for 'broom', details:
-  call: loadNamespace(x)
-  error: there is no package called ‘backports’
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+  there is no package called ‘viridisLite’
+Calls: <Anonymous> ... loadNamespace -> withRestarts -> withOneRestart -> doWithOneRestart
 Execution halted
-ERROR: lazy loading failed for package ‘amanida’
-* removing ‘/tmp/workdir/amanida/new/amanida.Rcheck/amanida’
+ERROR: lazy loading failed for package ‘cities’
+* removing ‘/tmp/workdir/cities/new/cities.Rcheck/cities’
 
 
 ```
 ### CRAN
 
 ```
-* installing *source* package ‘amanida’ ...
-** package ‘amanida’ successfully unpacked and MD5 sums checked
+* installing *source* package ‘cities’ ...
+** package ‘cities’ successfully unpacked and MD5 sums checked
 ** using staged installation
 ** R
-** data
-*** moving datasets to lazyload DB
 ** inst
 ** byte-compile and prepare package for lazy loading
-Error: .onLoad failed in loadNamespace() for 'broom', details:
-  call: loadNamespace(x)
-  error: there is no package called ‘backports’
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+  there is no package called ‘viridisLite’
+Calls: <Anonymous> ... loadNamespace -> withRestarts -> withOneRestart -> doWithOneRestart
 Execution halted
-ERROR: lazy loading failed for package ‘amanida’
-* removing ‘/tmp/workdir/amanida/old/amanida.Rcheck/amanida’
-
-
-```
-# NA
-
-<details>
-
-* Version: NA
-* GitHub: NA
-* Source code: https://github.com/cran/NA
-* Number of recursive dependencies: 0
-
-Run `cloud_details(, "NA")` for more info
-
-</details>
-
-## Error before installation
-
-### Devel
-
-```
-
-
-
-
-
-
-```
-### CRAN
-
-```
-
-
-
-
-
-
-```
-# NA
-
-<details>
-
-* Version: NA
-* GitHub: NA
-* Source code: https://github.com/cran/NA
-* Number of recursive dependencies: 0
-
-Run `cloud_details(, "NA")` for more info
-
-</details>
-
-## Error before installation
-
-### Devel
-
-```
-
-
-
-
-
-
-```
-### CRAN
-
-```
-
-
-
-
-
-
-```
-# NA
-
-<details>
-
-* Version: NA
-* GitHub: NA
-* Source code: https://github.com/cran/NA
-* Number of recursive dependencies: 0
-
-Run `cloud_details(, "NA")` for more info
-
-</details>
-
-## Error before installation
-
-### Devel
-
-```
-
-
-
-
-
-
-```
-### CRAN
-
-```
-
-
-
-
+ERROR: lazy loading failed for package ‘cities’
+* removing ‘/tmp/workdir/cities/old/cities.Rcheck/cities’
 
 
 ```
@@ -720,6 +716,64 @@ Status: 1 ERROR, 2 NOTEs
 
 
 
+
+
+```
+# ggsector
+
+<details>
+
+* Version: 1.6.6
+* GitHub: https://github.com/yanpd01/ggsector
+* Source code: https://github.com/cran/ggsector
+* Date/Publication: 2022-12-05 15:20:02 UTC
+* Number of recursive dependencies: 155
+
+Run `cloud_details(, "ggsector")` for more info
+
+</details>
+
+## In both
+
+*   checking whether package ‘ggsector’ can be installed ... ERROR
+    ```
+    Installation failed.
+    See ‘/tmp/workdir/ggsector/new/ggsector.Rcheck/00install.out’ for details.
+    ```
+
+## Installation
+
+### Devel
+
+```
+* installing *source* package ‘ggsector’ ...
+** package ‘ggsector’ successfully unpacked and MD5 sums checked
+** using staged installation
+** R
+** inst
+** byte-compile and prepare package for lazy loading
+Error: package or namespace load failed for ‘ggplot2’ in loadNamespace(i, c(lib.loc, .libPaths()), versionCheck = vI[[i]]):
+ there is no package called ‘gtable’
+Execution halted
+ERROR: lazy loading failed for package ‘ggsector’
+* removing ‘/tmp/workdir/ggsector/new/ggsector.Rcheck/ggsector’
+
+
+```
+### CRAN
+
+```
+* installing *source* package ‘ggsector’ ...
+** package ‘ggsector’ successfully unpacked and MD5 sums checked
+** using staged installation
+** R
+** inst
+** byte-compile and prepare package for lazy loading
+Error: package or namespace load failed for ‘ggplot2’ in loadNamespace(i, c(lib.loc, .libPaths()), versionCheck = vI[[i]]):
+ there is no package called ‘gtable’
+Execution halted
+ERROR: lazy loading failed for package ‘ggsector’
+* removing ‘/tmp/workdir/ggsector/old/ggsector.Rcheck/ggsector’
 
 
 ```

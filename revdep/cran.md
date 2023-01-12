@@ -2,16 +2,13 @@
 
 We checked 1743 reverse dependencies (1724 from CRAN + 19 from Bioconductor), comparing R CMD check results across CRAN and dev versions of this package.
 
- * We saw 10 new problems
- * We failed to check 14 packages
+ * We saw 8 new problems
+ * We failed to check 15 packages
 
 Issues with CRAN packages are summarised below.
 
 ### New problems
 (This reports the first line of each new failure)
-
-* expstudy
-  checking tests ... ERROR
 
 * faux
   checking re-building of vignette outputs ... WARNING
@@ -19,7 +16,7 @@ Issues with CRAN packages are summarised below.
 * ggpubr
   checking examples ... ERROR
 
-* gompertztrunc
+* gutenbergr
   checking examples ... ERROR
 
 * mapme.biodiversity
@@ -28,9 +25,6 @@ Issues with CRAN packages are summarised below.
 * metaconfoundr
   checking examples ... ERROR
   checking tests ... ERROR
-  checking re-building of vignette outputs ... WARNING
-
-* openalexR
   checking re-building of vignette outputs ... WARNING
 
 * panelr
@@ -47,10 +41,11 @@ Issues with CRAN packages are summarised below.
 
 ### Failed to check
 
-* amanida        (NA)
+* cities         (NA)
 * FAMetA         (NA)
 * genekitr       (NA)
 * ggPMX          (NA)
+* ggsector       (NA)
 * loon.ggplot    (NA)
 * MarketMatching (NA)
 * numbat         (NA)

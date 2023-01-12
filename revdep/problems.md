@@ -1,41 +1,3 @@
-# expstudy
-
-<details>
-
-* Version: 1.0.3
-* GitHub: https://github.com/cb12991/expstudy
-* Source code: https://github.com/cran/expstudy
-* Date/Publication: 2022-12-08 19:20:02 UTC
-* Number of recursive dependencies: 61
-
-Run `cloud_details(, "expstudy")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking tests ... ERROR
-    ```
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-      > 
-      > test_check("expstudy")
-      [ FAIL 1 | WARN 2 | SKIP 0 | PASS 110 ]
-      
-      ══ Failed tests ════════════════════════════════════════════════════════════════
-      ── Error ('test-tidyr.R:34'): nest method preserves metadata ───────────────────
-      <purrr_error_indexed/rlang_error/error/condition>
-      Error in `map(.x, .f, ..., .progress = .progress)`: i In index: 1.
-      Caused by error in `nest()`:
-      ! `nest()` for lazy data.tables doesn't support the `.key` argument.
-      i Use a name in the `...` argument instead.
-      
-      [ FAIL 1 | WARN 2 | SKIP 0 | PASS 110 ]
-      Error: Test failures
-      Execution halted
-    ```
-
 # faux
 
 <details>
@@ -118,17 +80,17 @@ Run `cloud_details(, "ggpubr")` for more info
     Execution halted
     ```
 
-# gompertztrunc
+# gutenbergr
 
 <details>
 
-* Version: 0.1.1
-* GitHub: NA
-* Source code: https://github.com/cran/gompertztrunc
-* Date/Publication: 2022-12-23 19:20:02 UTC
-* Number of recursive dependencies: 122
+* Version: 0.2.3
+* GitHub: https://github.com/ropensci/gutenbergr
+* Source code: https://github.com/cran/gutenbergr
+* Date/Publication: 2022-12-14 10:00:06 UTC
+* Number of recursive dependencies: 88
 
-Run `cloud_details(, "gompertztrunc")` for more info
+Run `cloud_details(, "gutenbergr")` for more info
 
 </details>
 
@@ -136,27 +98,35 @@ Run `cloud_details(, "gompertztrunc")` for more info
 
 *   checking examples ... ERROR
     ```
-    Running examples in ‘gompertztrunc-Ex.R’ failed
+    Running examples in ‘gutenbergr-Ex.R’ failed
     The error most likely occurred in:
     
-    > ### Name: diagnostic_plot
-    > ### Title: Create diagnostic plots
-    > ### Aliases: diagnostic_plot
+    > ### Name: gutenberg_get_mirror
+    > ### Title: Get the recommended mirror for Gutenberg files
+    > ### Aliases: gutenberg_get_mirror
     > 
     > ### ** Examples
     > 
-    > # Create a single-cohort data set
-    ...
-    > gradient <- gompertztrunc::gompertz_mle(formula = death_age ~ finished_hs,
-    + left_trunc = 1988, right_trunc = 2005, data = numident_c1920)
-    > 
-    > # Create diagnostic histogram plot using model outcome
-    > gompertztrunc::diagnostic_plot(object = gradient, data = numident_c1920,
-    + covar = "finished_hs", xlim = c(60, 95))
-    Error in .shallow(x, cols = cols, retain.key = TRUE) : 
-      attempt to set index 0/0 in SET_VECTOR_ELT
-    Calls: <Anonymous> ... names<- -> names<-.data.table -> shallow -> .shallow
+    > gutenberg_get_mirror()
+    Determining mirror for Project Gutenberg from https://www.gutenberg.org/robot/harvest
+    Error in open.connection(3L, "rb") : 
+      Timeout was reached: [www.gutenberg.org] Connection timed out after 10001 milliseconds
+    Calls: gutenberg_get_mirror ... <Anonymous> -> vroom_ -> <Anonymous> -> open.connection
     Execution halted
+    ```
+
+## In both
+
+*   checking installed package size ... NOTE
+    ```
+      installed size is  5.1Mb
+      sub-directories of 1Mb or more:
+        data   4.6Mb
+    ```
+
+*   checking data for non-ASCII characters ... NOTE
+    ```
+      Note: found 18981 marked UTF-8 strings
     ```
 
 # mapme.biodiversity
@@ -273,39 +243,6 @@ Run `cloud_details(, "metaconfoundr")` for more info
     
     SUMMARY: processing the following file failed:
       ‘intro-to-metaconfoundr.Rmd’
-    
-    Error: Vignette re-building failed.
-    Execution halted
-    ```
-
-# openalexR
-
-<details>
-
-* Version: 1.0.0
-* GitHub: https://github.com/massimoaria/openalexR
-* Source code: https://github.com/cran/openalexR
-* Date/Publication: 2022-10-06 10:40:02 UTC
-* Number of recursive dependencies: 78
-
-Run `cloud_details(, "openalexR")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    Error(s) in re-building vignettes:
-      ...
-    --- re-building ‘A_Brief_Introduction_to_openalexR.Rmd’ using rmarkdown
-    Quitting from lines 342-354 (A_Brief_Introduction_to_openalexR.Rmd) 
-    Error: processing vignette 'A_Brief_Introduction_to_openalexR.Rmd' failed with diagnostics:
-    missing value where TRUE/FALSE needed
-    --- failed re-building ‘A_Brief_Introduction_to_openalexR.Rmd’
-    
-    SUMMARY: processing the following file failed:
-      ‘A_Brief_Introduction_to_openalexR.Rmd’
     
     Error: Vignette re-building failed.
     Execution halted
