@@ -544,14 +544,14 @@ can tidy it using the same approach as for <code>anscombe</code>:</p>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 8 × 6</span></span></span>
 <span><span class="co">#&gt;       x     a     b time        y     z</span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span>     1     1     0 1     -<span style="color: #BB0000;">0.340</span>      3</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span>     1     1     0 2      0.823     -<span style="color: #BB0000;">2</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span>     2     1     1 1     -<span style="color: #BB0000;">2.39</span>       3</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span>     2     1     1 2     -<span style="color: #BB0000;">0.281</span>     -<span style="color: #BB0000;">2</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span>     3     0     1 1      0.868      3</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span>     3     0     1 2      1.12      -<span style="color: #BB0000;">2</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">7</span>     4     0     1 1      0.300      3</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">8</span>     4     0     1 2     -<span style="color: #BB0000;">0.058</span><span style="color: #BB0000; text-decoration: underline;">9</span>    -<span style="color: #BB0000;">2</span></span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span>     1     1     0 1      0.560      3</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span>     1     1     0 2      2.00      -<span style="color: #BB0000;">2</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span>     2     1     1 1      1.25       3</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span>     2     1     1 2      1.38      -<span style="color: #BB0000;">2</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span>     3     0     1 1     -<span style="color: #BB0000;">0.785</span>      3</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span>     3     0     1 2      0.079<span style="text-decoration: underline;">4</span>    -<span style="color: #BB0000;">2</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">7</span>     4     0     1 1      1.72       3</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">8</span>     4     0     1 2      1.23      -<span style="color: #BB0000;">2</span></span></span></code></pre></div>
 </div>
 </div>
 <div class="section level2">
@@ -741,16 +741,16 @@ year. In tidy form it might look like this:</p>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 45 × 4</span></span></span>
 <span><span class="co">#&gt;    product country  year production</span></span>
 <span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> A       AI       <span style="text-decoration: underline;">2</span>000     -<span style="color: #BB0000;">0.292</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> A       AI       <span style="text-decoration: underline;">2</span>001     -<span style="color: #BB0000;">1.50</span> </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> A       AI       <span style="text-decoration: underline;">2</span>002      0.750</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> A       AI       <span style="text-decoration: underline;">2</span>003     -<span style="color: #BB0000;">0.850</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> A       AI       <span style="text-decoration: underline;">2</span>004     -<span style="color: #BB0000;">0.736</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> A       AI       <span style="text-decoration: underline;">2</span>005     -<span style="color: #BB0000;">1.21</span> </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> A       AI       <span style="text-decoration: underline;">2</span>006     -<span style="color: #BB0000;">0.514</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> A       AI       <span style="text-decoration: underline;">2</span>007      0.653</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> A       AI       <span style="text-decoration: underline;">2</span>008      0.389</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> A       AI       <span style="text-decoration: underline;">2</span>009     -<span style="color: #BB0000;">0.535</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> A       AI       <span style="text-decoration: underline;">2</span>000     0.893 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> A       AI       <span style="text-decoration: underline;">2</span>001     0.072<span style="text-decoration: underline;">7</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> A       AI       <span style="text-decoration: underline;">2</span>002    -<span style="color: #BB0000;">0.421</span> </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> A       AI       <span style="text-decoration: underline;">2</span>003     0.043<span style="text-decoration: underline;">3</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> A       AI       <span style="text-decoration: underline;">2</span>004     0.526 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> A       AI       <span style="text-decoration: underline;">2</span>005     0.474 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> A       AI       <span style="text-decoration: underline;">2</span>006    -<span style="color: #BB0000;">0.230</span> </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> A       AI       <span style="text-decoration: underline;">2</span>007    -<span style="color: #BB0000;">0.613</span> </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> A       AI       <span style="text-decoration: underline;">2</span>008    -<span style="color: #BB0000;">0.988</span> </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> A       AI       <span style="text-decoration: underline;">2</span>009     2.02  </span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># … with 35 more rows</span></span></span></code></pre></div>
 <p>We want to widen the data so we have one column for each combination
 of <code>product</code> and <code>country</code>. The key is to specify
@@ -762,18 +762,18 @@ multiple variables for <code>names_from</code>:</p>
 <span>    values_from <span class="op">=</span> <span class="va">production</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 15 × 4</span></span></span>
-<span><span class="co">#&gt;     year   A_AI   B_AI   B_EI</span></span>
-<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span>  <span style="text-decoration: underline;">2</span>000 -<span style="color: #BB0000;">0.292</span>  1.08  -<span style="color: #BB0000;">0.235</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span>  <span style="text-decoration: underline;">2</span>001 -<span style="color: #BB0000;">1.50</span>   1.52   0.315</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span>  <span style="text-decoration: underline;">2</span>002  0.750 -<span style="color: #BB0000;">1.28</span>   0.777</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span>  <span style="text-decoration: underline;">2</span>003 -<span style="color: #BB0000;">0.850</span>  1.30  -<span style="color: #BB0000;">1.10</span> </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span>  <span style="text-decoration: underline;">2</span>004 -<span style="color: #BB0000;">0.736</span>  0.192 -<span style="color: #BB0000;">0.918</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span>  <span style="text-decoration: underline;">2</span>005 -<span style="color: #BB0000;">1.21</span>  -<span style="color: #BB0000;">0.587</span> -<span style="color: #BB0000;">1.15</span> </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span>  <span style="text-decoration: underline;">2</span>006 -<span style="color: #BB0000;">0.514</span>  0.881  0.200</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span>  <span style="text-decoration: underline;">2</span>007  0.653  1.98   1.16 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span>  <span style="text-decoration: underline;">2</span>008  0.389  0.342  0.532</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span>  <span style="text-decoration: underline;">2</span>009 -<span style="color: #BB0000;">0.535</span>  0.222  0.579</span></span>
+<span><span class="co">#&gt;     year    A_AI     B_AI   B_EI</span></span>
+<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span>  <span style="text-decoration: underline;">2</span>000  0.893   0.007<span style="text-decoration: underline;">20</span>  0.766</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span>  <span style="text-decoration: underline;">2</span>001  0.072<span style="text-decoration: underline;">7</span>  0.056<span style="text-decoration: underline;">9</span>   0.848</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span>  <span style="text-decoration: underline;">2</span>002 -<span style="color: #BB0000;">0.421</span>  -<span style="color: #BB0000;">1.65</span>     0.373</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span>  <span style="text-decoration: underline;">2</span>003  0.043<span style="text-decoration: underline;">3</span>  1.15     0.757</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span>  <span style="text-decoration: underline;">2</span>004  0.526   0.730   -<span style="color: #BB0000;">0.255</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span>  <span style="text-decoration: underline;">2</span>005  0.474   1.56     1.01 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span>  <span style="text-decoration: underline;">2</span>006 -<span style="color: #BB0000;">0.230</span>   1.30    -<span style="color: #BB0000;">0.145</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span>  <span style="text-decoration: underline;">2</span>007 -<span style="color: #BB0000;">0.613</span>  -<span style="color: #BB0000;">0.873</span>    0.586</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span>  <span style="text-decoration: underline;">2</span>008 -<span style="color: #BB0000;">0.988</span>   0.276   -<span style="color: #BB0000;">0.526</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span>  <span style="text-decoration: underline;">2</span>009  2.02   -<span style="color: #BB0000;">0.516</span>    0.136</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># … with 5 more rows</span></span></span></code></pre></div>
 <p>When either <code>names_from</code> or <code>values_from</code>
 select multiple variables, you can control how the column names in the
@@ -790,16 +790,16 @@ output constructed with <code>names_sep</code> and
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 15 × 4</span></span></span>
 <span><span class="co">#&gt;     year prod.A.AI prod.B.AI prod.B.EI</span></span>
 <span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span>  <span style="text-decoration: underline;">2</span>000    -<span style="color: #BB0000;">0.292</span>     1.08     -<span style="color: #BB0000;">0.235</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span>  <span style="text-decoration: underline;">2</span>001    -<span style="color: #BB0000;">1.50</span>      1.52      0.315</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span>  <span style="text-decoration: underline;">2</span>002     0.750    -<span style="color: #BB0000;">1.28</span>      0.777</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span>  <span style="text-decoration: underline;">2</span>003    -<span style="color: #BB0000;">0.850</span>     1.30     -<span style="color: #BB0000;">1.10</span> </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span>  <span style="text-decoration: underline;">2</span>004    -<span style="color: #BB0000;">0.736</span>     0.192    -<span style="color: #BB0000;">0.918</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span>  <span style="text-decoration: underline;">2</span>005    -<span style="color: #BB0000;">1.21</span>     -<span style="color: #BB0000;">0.587</span>    -<span style="color: #BB0000;">1.15</span> </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span>  <span style="text-decoration: underline;">2</span>006    -<span style="color: #BB0000;">0.514</span>     0.881     0.200</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span>  <span style="text-decoration: underline;">2</span>007     0.653     1.98      1.16 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span>  <span style="text-decoration: underline;">2</span>008     0.389     0.342     0.532</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span>  <span style="text-decoration: underline;">2</span>009    -<span style="color: #BB0000;">0.535</span>     0.222     0.579</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span>  <span style="text-decoration: underline;">2</span>000    0.893    0.007<span style="text-decoration: underline;">20</span>     0.766</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span>  <span style="text-decoration: underline;">2</span>001    0.072<span style="text-decoration: underline;">7</span>   0.056<span style="text-decoration: underline;">9</span>      0.848</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span>  <span style="text-decoration: underline;">2</span>002   -<span style="color: #BB0000;">0.421</span>   -<span style="color: #BB0000;">1.65</span>        0.373</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span>  <span style="text-decoration: underline;">2</span>003    0.043<span style="text-decoration: underline;">3</span>   1.15        0.757</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span>  <span style="text-decoration: underline;">2</span>004    0.526    0.730      -<span style="color: #BB0000;">0.255</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span>  <span style="text-decoration: underline;">2</span>005    0.474    1.56        1.01 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span>  <span style="text-decoration: underline;">2</span>006   -<span style="color: #BB0000;">0.230</span>    1.30       -<span style="color: #BB0000;">0.145</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span>  <span style="text-decoration: underline;">2</span>007   -<span style="color: #BB0000;">0.613</span>   -<span style="color: #BB0000;">0.873</span>       0.586</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span>  <span style="text-decoration: underline;">2</span>008   -<span style="color: #BB0000;">0.988</span>    0.276      -<span style="color: #BB0000;">0.526</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span>  <span style="text-decoration: underline;">2</span>009    2.02    -<span style="color: #BB0000;">0.516</span>       0.136</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># … with 5 more rows</span></span></span>
 <span></span>
 <span><span class="va">production</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
@@ -811,16 +811,16 @@ output constructed with <code>names_sep</code> and
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 15 × 4</span></span></span>
 <span><span class="co">#&gt;     year prod_A_AI prod_B_AI prod_B_EI</span></span>
 <span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span>  <span style="text-decoration: underline;">2</span>000    -<span style="color: #BB0000;">0.292</span>     1.08     -<span style="color: #BB0000;">0.235</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span>  <span style="text-decoration: underline;">2</span>001    -<span style="color: #BB0000;">1.50</span>      1.52      0.315</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span>  <span style="text-decoration: underline;">2</span>002     0.750    -<span style="color: #BB0000;">1.28</span>      0.777</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span>  <span style="text-decoration: underline;">2</span>003    -<span style="color: #BB0000;">0.850</span>     1.30     -<span style="color: #BB0000;">1.10</span> </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span>  <span style="text-decoration: underline;">2</span>004    -<span style="color: #BB0000;">0.736</span>     0.192    -<span style="color: #BB0000;">0.918</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span>  <span style="text-decoration: underline;">2</span>005    -<span style="color: #BB0000;">1.21</span>     -<span style="color: #BB0000;">0.587</span>    -<span style="color: #BB0000;">1.15</span> </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span>  <span style="text-decoration: underline;">2</span>006    -<span style="color: #BB0000;">0.514</span>     0.881     0.200</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span>  <span style="text-decoration: underline;">2</span>007     0.653     1.98      1.16 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span>  <span style="text-decoration: underline;">2</span>008     0.389     0.342     0.532</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span>  <span style="text-decoration: underline;">2</span>009    -<span style="color: #BB0000;">0.535</span>     0.222     0.579</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span>  <span style="text-decoration: underline;">2</span>000    0.893    0.007<span style="text-decoration: underline;">20</span>     0.766</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span>  <span style="text-decoration: underline;">2</span>001    0.072<span style="text-decoration: underline;">7</span>   0.056<span style="text-decoration: underline;">9</span>      0.848</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span>  <span style="text-decoration: underline;">2</span>002   -<span style="color: #BB0000;">0.421</span>   -<span style="color: #BB0000;">1.65</span>        0.373</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span>  <span style="text-decoration: underline;">2</span>003    0.043<span style="text-decoration: underline;">3</span>   1.15        0.757</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span>  <span style="text-decoration: underline;">2</span>004    0.526    0.730      -<span style="color: #BB0000;">0.255</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span>  <span style="text-decoration: underline;">2</span>005    0.474    1.56        1.01 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span>  <span style="text-decoration: underline;">2</span>006   -<span style="color: #BB0000;">0.230</span>    1.30       -<span style="color: #BB0000;">0.145</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span>  <span style="text-decoration: underline;">2</span>007   -<span style="color: #BB0000;">0.613</span>   -<span style="color: #BB0000;">0.873</span>       0.586</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span>  <span style="text-decoration: underline;">2</span>008   -<span style="color: #BB0000;">0.988</span>    0.276      -<span style="color: #BB0000;">0.526</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span>  <span style="text-decoration: underline;">2</span>009    2.02    -<span style="color: #BB0000;">0.516</span>       0.136</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># … with 5 more rows</span></span></span></code></pre></div>
 </div>
 <div class="section level3">
@@ -1147,22 +1147,23 @@ complex problems.</p>
 population per country from 2000 to 2018.</p>
 <div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">world_bank_pop</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 1,056 × 20</span></span></span>
-<span><span class="co">#&gt;    country indicator  `2000` `2001` `2002` `2003`  `2004`  `2005`   `2006`</span></span>
-<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> ABW     SP.URB.TO… 4.24<span style="color: #949494;">e</span>4 4.30<span style="color: #949494;">e</span>4 4.37<span style="color: #949494;">e</span>4 4.42<span style="color: #949494;">e</span>4 4.47<span style="color: #949494;">e</span>+4 4.49<span style="color: #949494;">e</span>+4  4.49<span style="color: #949494;">e</span>+4</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> ABW     SP.URB.GR… 1.18<span style="color: #949494;">e</span>0 1.41<span style="color: #949494;">e</span>0 1.43<span style="color: #949494;">e</span>0 1.31<span style="color: #949494;">e</span>0 9.51<span style="color: #949494;">e</span><span style="color: #BB0000;">-1</span> 4.91<span style="color: #949494;">e</span><span style="color: #BB0000;">-1</span> -<span style="color: #BB0000;">1.78</span><span style="color: #949494;">e</span><span style="color: #BB0000;">-2</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> ABW     SP.POP.TO… 9.09<span style="color: #949494;">e</span>4 9.29<span style="color: #949494;">e</span>4 9.50<span style="color: #949494;">e</span>4 9.70<span style="color: #949494;">e</span>4 9.87<span style="color: #949494;">e</span>+4 1.00<span style="color: #949494;">e</span>+5  1.01<span style="color: #949494;">e</span>+5</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> ABW     SP.POP.GR… 2.06<span style="color: #949494;">e</span>0 2.23<span style="color: #949494;">e</span>0 2.23<span style="color: #949494;">e</span>0 2.11<span style="color: #949494;">e</span>0 1.76<span style="color: #949494;">e</span>+0 1.30<span style="color: #949494;">e</span>+0  7.98<span style="color: #949494;">e</span><span style="color: #BB0000;">-1</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> AFG     SP.URB.TO… 4.44<span style="color: #949494;">e</span>6 4.65<span style="color: #949494;">e</span>6 4.89<span style="color: #949494;">e</span>6 5.16<span style="color: #949494;">e</span>6 5.43<span style="color: #949494;">e</span>+6 5.69<span style="color: #949494;">e</span>+6  5.93<span style="color: #949494;">e</span>+6</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> AFG     SP.URB.GR… 3.91<span style="color: #949494;">e</span>0 4.66<span style="color: #949494;">e</span>0 5.13<span style="color: #949494;">e</span>0 5.23<span style="color: #949494;">e</span>0 5.12<span style="color: #949494;">e</span>+0 4.77<span style="color: #949494;">e</span>+0  4.12<span style="color: #949494;">e</span>+0</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> AFG     SP.POP.TO… 2.01<span style="color: #949494;">e</span>7 2.10<span style="color: #949494;">e</span>7 2.20<span style="color: #949494;">e</span>7 2.31<span style="color: #949494;">e</span>7 2.41<span style="color: #949494;">e</span>+7 2.51<span style="color: #949494;">e</span>+7  2.59<span style="color: #949494;">e</span>+7</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> AFG     SP.POP.GR… 3.49<span style="color: #949494;">e</span>0 4.25<span style="color: #949494;">e</span>0 4.72<span style="color: #949494;">e</span>0 4.82<span style="color: #949494;">e</span>0 4.47<span style="color: #949494;">e</span>+0 3.87<span style="color: #949494;">e</span>+0  3.23<span style="color: #949494;">e</span>+0</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> AGO     SP.URB.TO… 8.23<span style="color: #949494;">e</span>6 8.71<span style="color: #949494;">e</span>6 9.22<span style="color: #949494;">e</span>6 9.77<span style="color: #949494;">e</span>6 1.03<span style="color: #949494;">e</span>+7 1.09<span style="color: #949494;">e</span>+7  1.15<span style="color: #949494;">e</span>+7</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> AGO     SP.URB.GR… 5.44<span style="color: #949494;">e</span>0 5.59<span style="color: #949494;">e</span>0 5.70<span style="color: #949494;">e</span>0 5.76<span style="color: #949494;">e</span>0 5.75<span style="color: #949494;">e</span>+0 5.69<span style="color: #949494;">e</span>+0  4.92<span style="color: #949494;">e</span>+0</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># … with 1,046 more rows, and 11 more variables: `2007` &lt;dbl&gt;,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   `2008` &lt;dbl&gt;, `2009` &lt;dbl&gt;, `2010` &lt;dbl&gt;, `2011` &lt;dbl&gt;, `2012` &lt;dbl&gt;,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   `2013` &lt;dbl&gt;, `2014` &lt;dbl&gt;, `2015` &lt;dbl&gt;, `2016` &lt;dbl&gt;, `2017` &lt;dbl&gt;</span></span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 1,064 × 20</span></span></span>
+<span><span class="co">#&gt;    country indica…¹ `2000`  `2001`  `2002`  `2003`  `2004`  `2005`  `2006`</span></span>
+<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> ABW     SP.URB.… 4.16<span style="color: #949494;">e</span>4 4.20<span style="color: #949494;">e</span>+4 4.22<span style="color: #949494;">e</span>+4 4.23<span style="color: #949494;">e</span>+4 4.23<span style="color: #949494;">e</span>+4 4.24<span style="color: #949494;">e</span>+4 4.26<span style="color: #949494;">e</span>+4</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> ABW     SP.URB.… 1.66<span style="color: #949494;">e</span>0 9.56<span style="color: #949494;">e</span><span style="color: #BB0000;">-1</span> 4.01<span style="color: #949494;">e</span><span style="color: #BB0000;">-1</span> 1.97<span style="color: #949494;">e</span><span style="color: #BB0000;">-1</span> 9.46<span style="color: #949494;">e</span><span style="color: #BB0000;">-2</span> 1.94<span style="color: #949494;">e</span><span style="color: #BB0000;">-1</span> 3.67<span style="color: #949494;">e</span><span style="color: #BB0000;">-1</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> ABW     SP.POP.… 8.91<span style="color: #949494;">e</span>4 9.07<span style="color: #949494;">e</span>+4 9.18<span style="color: #949494;">e</span>+4 9.27<span style="color: #949494;">e</span>+4 9.35<span style="color: #949494;">e</span>+4 9.45<span style="color: #949494;">e</span>+4 9.56<span style="color: #949494;">e</span>+4</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> ABW     SP.POP.… 2.54<span style="color: #949494;">e</span>0 1.77<span style="color: #949494;">e</span>+0 1.19<span style="color: #949494;">e</span>+0 9.97<span style="color: #949494;">e</span><span style="color: #BB0000;">-1</span> 9.01<span style="color: #949494;">e</span><span style="color: #BB0000;">-1</span> 1.00<span style="color: #949494;">e</span>+0 1.18<span style="color: #949494;">e</span>+0</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> AFE     SP.URB.… 1.16<span style="color: #949494;">e</span>8 1.20<span style="color: #949494;">e</span>+8 1.24<span style="color: #949494;">e</span>+8 1.29<span style="color: #949494;">e</span>+8 1.34<span style="color: #949494;">e</span>+8 1.39<span style="color: #949494;">e</span>+8 1.44<span style="color: #949494;">e</span>+8</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> AFE     SP.URB.… 3.60<span style="color: #949494;">e</span>0 3.66<span style="color: #949494;">e</span>+0 3.72<span style="color: #949494;">e</span>+0 3.71<span style="color: #949494;">e</span>+0 3.74<span style="color: #949494;">e</span>+0 3.81<span style="color: #949494;">e</span>+0 3.81<span style="color: #949494;">e</span>+0</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> AFE     SP.POP.… 4.02<span style="color: #949494;">e</span>8 4.12<span style="color: #949494;">e</span>+8 4.23<span style="color: #949494;">e</span>+8 4.34<span style="color: #949494;">e</span>+8 4.45<span style="color: #949494;">e</span>+8 4.57<span style="color: #949494;">e</span>+8 4.70<span style="color: #949494;">e</span>+8</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> AFE     SP.POP.… 2.58<span style="color: #949494;">e</span>0 2.59<span style="color: #949494;">e</span>+0 2.61<span style="color: #949494;">e</span>+0 2.62<span style="color: #949494;">e</span>+0 2.64<span style="color: #949494;">e</span>+0 2.67<span style="color: #949494;">e</span>+0 2.70<span style="color: #949494;">e</span>+0</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> AFG     SP.URB.… 4.31<span style="color: #949494;">e</span>6 4.36<span style="color: #949494;">e</span>+6 4.67<span style="color: #949494;">e</span>+6 5.06<span style="color: #949494;">e</span>+6 5.30<span style="color: #949494;">e</span>+6 5.54<span style="color: #949494;">e</span>+6 5.83<span style="color: #949494;">e</span>+6</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> AFG     SP.URB.… 1.86<span style="color: #949494;">e</span>0 1.15<span style="color: #949494;">e</span>+0 6.86<span style="color: #949494;">e</span>+0 7.95<span style="color: #949494;">e</span>+0 4.59<span style="color: #949494;">e</span>+0 4.47<span style="color: #949494;">e</span>+0 5.03<span style="color: #949494;">e</span>+0</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># … with 1,054 more rows, 11 more variables: `2007` &lt;dbl&gt;, `2008` &lt;dbl&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   `2009` &lt;dbl&gt;, `2010` &lt;dbl&gt;, `2011` &lt;dbl&gt;, `2012` &lt;dbl&gt;, `2013` &lt;dbl&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   `2014` &lt;dbl&gt;, `2015` &lt;dbl&gt;, `2016` &lt;dbl&gt;, `2017` &lt;dbl&gt;, and</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   abbreviated variable name ¹​indicator</span></span></span></code></pre></div>
 <p>My goal is to produce a tidy dataset where each variable is in a
 column. It’s not obvious exactly what steps are needed yet, but I’ll
 start with the most obvious problem: year is spread across multiple
@@ -1175,20 +1176,20 @@ columns.</p>
 <span>    values_to <span class="op">=</span> <span class="st">"value"</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="va">pop2</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 19,008 × 4</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 19,152 × 4</span></span></span>
 <span><span class="co">#&gt;    country indicator   year  value</span></span>
 <span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> ABW     SP.URB.TOTL 2000  <span style="text-decoration: underline;">42</span>444</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> ABW     SP.URB.TOTL 2001  <span style="text-decoration: underline;">43</span>048</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> ABW     SP.URB.TOTL 2002  <span style="text-decoration: underline;">43</span>670</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> ABW     SP.URB.TOTL 2003  <span style="text-decoration: underline;">44</span>246</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> ABW     SP.URB.TOTL 2004  <span style="text-decoration: underline;">44</span>669</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> ABW     SP.URB.TOTL 2005  <span style="text-decoration: underline;">44</span>889</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> ABW     SP.URB.TOTL 2006  <span style="text-decoration: underline;">44</span>881</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> ABW     SP.URB.TOTL 2007  <span style="text-decoration: underline;">44</span>686</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> ABW     SP.URB.TOTL 2008  <span style="text-decoration: underline;">44</span>375</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> ABW     SP.URB.TOTL 2009  <span style="text-decoration: underline;">44</span>052</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># … with 18,998 more rows</span></span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> ABW     SP.URB.TOTL 2000  <span style="text-decoration: underline;">41</span>625</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> ABW     SP.URB.TOTL 2001  <span style="text-decoration: underline;">42</span>025</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> ABW     SP.URB.TOTL 2002  <span style="text-decoration: underline;">42</span>194</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> ABW     SP.URB.TOTL 2003  <span style="text-decoration: underline;">42</span>277</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> ABW     SP.URB.TOTL 2004  <span style="text-decoration: underline;">42</span>317</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> ABW     SP.URB.TOTL 2005  <span style="text-decoration: underline;">42</span>399</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> ABW     SP.URB.TOTL 2006  <span style="text-decoration: underline;">42</span>555</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> ABW     SP.URB.TOTL 2007  <span style="text-decoration: underline;">42</span>729</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> ABW     SP.URB.TOTL 2008  <span style="text-decoration: underline;">42</span>906</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> ABW     SP.URB.TOTL 2009  <span style="text-decoration: underline;">43</span>079</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># … with 19,142 more rows</span></span></span></code></pre></div>
 <p>Next we need to consider the <code>indicator</code> variable:</p>
 <div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">pop2</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
@@ -1196,10 +1197,10 @@ columns.</p>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 4 × 2</span></span></span>
 <span><span class="co">#&gt;   indicator       n</span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> SP.POP.GROW  <span style="text-decoration: underline;">4</span>752</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> SP.POP.TOTL  <span style="text-decoration: underline;">4</span>752</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> SP.URB.GROW  <span style="text-decoration: underline;">4</span>752</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> SP.URB.TOTL  <span style="text-decoration: underline;">4</span>752</span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> SP.POP.GROW  <span style="text-decoration: underline;">4</span>788</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> SP.POP.TOTL  <span style="text-decoration: underline;">4</span>788</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> SP.URB.GROW  <span style="text-decoration: underline;">4</span>788</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> SP.URB.TOTL  <span style="text-decoration: underline;">4</span>788</span></span></code></pre></div>
 <p>Here <code>SP.POP.GROW</code> is population growth,
 <code>SP.POP.TOTL</code> is total population, and <code>SP.URB.*</code>
 are the same but only for urban areas. Let’s split this up into two
@@ -1209,20 +1210,20 @@ variables: <code>area</code> (total or urban) and the actual variable
 <code class="sourceCode R"><span><span class="va">pop3</span> <span class="op">&lt;-</span> <span class="va">pop2</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="../reference/separate.html">separate</a></span><span class="op">(</span><span class="va">indicator</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="cn">NA</span>, <span class="st">"area"</span>, <span class="st">"variable"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">pop3</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 19,008 × 5</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 19,152 × 5</span></span></span>
 <span><span class="co">#&gt;    country area  variable year  value</span></span>
 <span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> ABW     URB   TOTL     2000  <span style="text-decoration: underline;">42</span>444</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> ABW     URB   TOTL     2001  <span style="text-decoration: underline;">43</span>048</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> ABW     URB   TOTL     2002  <span style="text-decoration: underline;">43</span>670</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> ABW     URB   TOTL     2003  <span style="text-decoration: underline;">44</span>246</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> ABW     URB   TOTL     2004  <span style="text-decoration: underline;">44</span>669</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> ABW     URB   TOTL     2005  <span style="text-decoration: underline;">44</span>889</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> ABW     URB   TOTL     2006  <span style="text-decoration: underline;">44</span>881</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> ABW     URB   TOTL     2007  <span style="text-decoration: underline;">44</span>686</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> ABW     URB   TOTL     2008  <span style="text-decoration: underline;">44</span>375</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> ABW     URB   TOTL     2009  <span style="text-decoration: underline;">44</span>052</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># … with 18,998 more rows</span></span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> ABW     URB   TOTL     2000  <span style="text-decoration: underline;">41</span>625</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> ABW     URB   TOTL     2001  <span style="text-decoration: underline;">42</span>025</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> ABW     URB   TOTL     2002  <span style="text-decoration: underline;">42</span>194</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> ABW     URB   TOTL     2003  <span style="text-decoration: underline;">42</span>277</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> ABW     URB   TOTL     2004  <span style="text-decoration: underline;">42</span>317</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> ABW     URB   TOTL     2005  <span style="text-decoration: underline;">42</span>399</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> ABW     URB   TOTL     2006  <span style="text-decoration: underline;">42</span>555</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> ABW     URB   TOTL     2007  <span style="text-decoration: underline;">42</span>729</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> ABW     URB   TOTL     2008  <span style="text-decoration: underline;">42</span>906</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> ABW     URB   TOTL     2009  <span style="text-decoration: underline;">43</span>079</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># … with 19,142 more rows</span></span></span></code></pre></div>
 <p>Now we can complete the tidying by pivoting <code>variable</code> and
 <code>value</code> to make <code>TOTL</code> and <code>GROW</code>
 columns:</p>
@@ -1232,20 +1233,20 @@ columns:</p>
 <span>    names_from <span class="op">=</span> <span class="va">variable</span>, </span>
 <span>    values_from <span class="op">=</span> <span class="va">value</span></span>
 <span>  <span class="op">)</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 9,504 × 5</span></span></span>
-<span><span class="co">#&gt;    country area  year   TOTL    GROW</span></span>
-<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> ABW     URB   2000  <span style="text-decoration: underline;">42</span>444  1.18  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> ABW     URB   2001  <span style="text-decoration: underline;">43</span>048  1.41  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> ABW     URB   2002  <span style="text-decoration: underline;">43</span>670  1.43  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> ABW     URB   2003  <span style="text-decoration: underline;">44</span>246  1.31  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> ABW     URB   2004  <span style="text-decoration: underline;">44</span>669  0.951 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> ABW     URB   2005  <span style="text-decoration: underline;">44</span>889  0.491 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> ABW     URB   2006  <span style="text-decoration: underline;">44</span>881 -<span style="color: #BB0000;">0.017</span><span style="color: #BB0000; text-decoration: underline;">8</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> ABW     URB   2007  <span style="text-decoration: underline;">44</span>686 -<span style="color: #BB0000;">0.435</span> </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> ABW     URB   2008  <span style="text-decoration: underline;">44</span>375 -<span style="color: #BB0000;">0.698</span> </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> ABW     URB   2009  <span style="text-decoration: underline;">44</span>052 -<span style="color: #BB0000;">0.731</span> </span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># … with 9,494 more rows</span></span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 9,576 × 5</span></span></span>
+<span><span class="co">#&gt;    country area  year   TOTL   GROW</span></span>
+<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> ABW     URB   2000  <span style="text-decoration: underline;">41</span>625 1.66  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> ABW     URB   2001  <span style="text-decoration: underline;">42</span>025 0.956 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> ABW     URB   2002  <span style="text-decoration: underline;">42</span>194 0.401 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> ABW     URB   2003  <span style="text-decoration: underline;">42</span>277 0.197 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> ABW     URB   2004  <span style="text-decoration: underline;">42</span>317 0.094<span style="text-decoration: underline;">6</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> ABW     URB   2005  <span style="text-decoration: underline;">42</span>399 0.194 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> ABW     URB   2006  <span style="text-decoration: underline;">42</span>555 0.367 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> ABW     URB   2007  <span style="text-decoration: underline;">42</span>729 0.408 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> ABW     URB   2008  <span style="text-decoration: underline;">42</span>906 0.413 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> ABW     URB   2009  <span style="text-decoration: underline;">43</span>079 0.402 </span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># … with 9,566 more rows</span></span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="multi-choice">Multi-choice<a class="anchor" aria-label="anchor" href="#multi-choice"></a>
