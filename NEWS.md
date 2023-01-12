@@ -1,5 +1,10 @@
 # tidyr (development version)
 
+* `nest()` has gained a new argument, `.by`, which allows you to specify the
+  columns to nest by (rather than the columns to nest, i.e. through `...`).
+  Additionally, the `.key` argument is no longer deprecated, and is used
+  whenever `...` isn't specified (#1458).
+
 * All built in datasets are now standard tibbles (#1459).
 
 * `unnest()`, `unchop()`, `unnest_longer()`, and `unnest_wider()` better handle
