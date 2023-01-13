@@ -103,7 +103,7 @@ str_match_first <- function(string, regex) {
   loc <- regexpr(regex, string, perl = TRUE)
   loc <- group_loc(loc)
 
-  out <- lapply(
+  out <- map(
     seq_len(loc$matches),
     function(i) substr(string, loc$start[, i], loc$end[, i])
   )

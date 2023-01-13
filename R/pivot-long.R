@@ -278,7 +278,7 @@ pivot_longer_spec <- function(data,
     val_cols[-col_id] <- list(rep(NA, nrow(data)))
 
     if (has_name(values_transform, value)) {
-      val_cols <- lapply(val_cols, values_transform[[value]])
+      val_cols <- map(val_cols, values_transform[[value]])
     }
 
     # Name inputs that came from `data`, just for good error messages when

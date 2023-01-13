@@ -75,7 +75,7 @@ str_split_length <- function(x, width = 1) {
   idx <- seq(1, max_length, by = width)
 
   pieces <- stringr::str_sub_all(x, cbind(idx, length = width))
-  pieces <- lapply(pieces, function(x) x[x != ""])
+  pieces <- map(pieces, function(x) x[x != ""])
   pieces
 }
 

@@ -176,7 +176,7 @@ str_split_n <- function(x, pattern, n_max = -1) {
   }
   m <- gregexpr(pattern, x, perl = TRUE)
   if (n_max > 0) {
-    m <- lapply(m, function(x) slice_match(x, seq_along(x) < n_max))
+    m <- map(m, function(x) slice_match(x, seq_along(x) < n_max))
   }
   regmatches(x, m, invert = TRUE)
 }

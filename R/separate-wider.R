@@ -235,7 +235,7 @@ str_separate_wider_delim <- function(
   if (too_few == "debug" || too_many == "debug") {
     separate_warn_debug(col, names_sep, c("ok", "pieces", "remainder"))
     sep_loc <- stringr::str_locate_all(x, delim)
-    sep_last <- lapply(sep_loc, function(x) if (nrow(x) < p) NA else x[p, "start"])
+    sep_last <- map(sep_loc, function(x) if (nrow(x) < p) NA else x[p, "start"])
     remainder <- stringr::str_sub(x, sep_last)
     remainder[is.na(remainder) & !is.na(x)] <- ""
 
@@ -333,7 +333,7 @@ str_separate_wider_position <- function(x,
   names <- names(widths)[!skip]
 
   pieces <- stringr::str_sub_all(x, from)
-  pieces <- lapply(pieces, function(x) x[x != ""])
+  pieces <- map(pieces, function(x) x[x != ""])
 
   out <- df_align(
     x = pieces,
