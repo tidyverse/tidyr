@@ -245,14 +245,18 @@ nest_info <- function(.data,
     warn_unused_key(error_call = .error_call)
   }
 
-  cols <- lapply(cols, function(col) {
-    names(tidyselect::eval_select(
-      expr = col,
-      data = .data,
-      allow_rename = FALSE,
-      error_call = .error_call
-    ))
-  })
+  cols <- with_indexed_errors(
+    map(cols, function(col) {
+      names(tidyselect::eval_select(
+        expr = col,
+        data = .data,
+        allow_rename = FALSE,
+        error_call = NULL
+      ))
+    }),
+    message = "In expression named {.arg {cnd$name}}:",
+    error_call = .error_call
+  )
 
   names <- names(.data)
 
