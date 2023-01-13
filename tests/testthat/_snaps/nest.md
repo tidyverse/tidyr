@@ -66,67 +66,54 @@
       Error in `nest()`:
       ! Can't supply `.by` when `.data` is a grouped data frame.
 
-# warn about old style interface
+# errors on old style interface
 
     Code
-      out <- nest(df, y)
+      nest(df, y)
     Condition
-      Warning:
-      All elements of `...` must be named.
+      Error:
+      ! Supplying `...` without names was deprecated in tidyr 1.0.0 and is now defunct.
+      i Please specify a name for each selection.
       i Did you want `data = y`?
 
 ---
 
     Code
-      out <- nest(df, -y)
+      nest(df, -y)
     Condition
-      Warning:
-      All elements of `...` must be named.
+      Error:
+      ! Supplying `...` without names was deprecated in tidyr 1.0.0 and is now defunct.
+      i Please specify a name for each selection.
       i Did you want `data = -y`?
 
-# can use `.by` with old style interface
+# only mention unnamed inputs in our advice (#1175)
 
     Code
-      out <- nest(df, y, .by = x)
+      nest(df, x, y, foo = z)
     Condition
-      Warning:
-      All elements of `...` must be named.
-      i Did you want `data = y`?
-
----
-
-    Code
-      out <- nest(df, y, .by = x, .key = "foo")
-    Condition
-      Warning:
-      All elements of `...` must be named.
-      i Did you want `foo = y`?
-
-# only warn about unnamed inputs (#1175)
-
-    Code
-      out <- nest(df, x, y, foo = z)
-    Condition
-      Warning:
-      All elements of `...` must be named.
+      Error:
+      ! Supplying `...` without names was deprecated in tidyr 1.0.0 and is now defunct.
+      i Please specify a name for each selection.
       i Did you want `data = c(x, y)`?
 
-# unnamed expressions are kept in the warning
+# unnamed expressions are kept in the error message
 
     Code
-      out <- nest(df, x, starts_with("z"))
+      nest(df, x, starts_with("z"))
     Condition
-      Warning:
-      All elements of `...` must be named.
+      Error:
+      ! Supplying `...` without names was deprecated in tidyr 1.0.0 and is now defunct.
+      i Please specify a name for each selection.
       i Did you want `data = c(x, starts_with("z"))`?
 
-# can control output column name
+# `.key` is mentioned in the error message
 
     Code
-      out <- nest(df, y, .key = "y")
+      nest(df, y, .key = "y")
     Condition
-      Warning:
-      All elements of `...` must be named.
+      Error:
+      ! Supplying `...` without names was deprecated in tidyr 1.0.0 and is now defunct.
+      i Please specify a name for each selection.
       i Did you want `y = y`?
 
 # .key gets warning with new interface

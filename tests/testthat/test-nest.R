@@ -246,43 +246,26 @@ test_that("`.by` isn't allowed for grouped data frames", {
 # Deprecated behaviours ---------------------------------------------------
 
 
-test_that("warn about old style interface", {
+test_that("errors on old style interface", {
   df <- tibble(x = c(1, 1, 1), y = 1:3)
 
-  expect_snapshot(out <- nest(df, y))
-  expect_named(out, c("x", "data"))
-
-  expect_snapshot(out <- nest(df, -y))
-  expect_named(out, c("y", "data"))
+  expect_snapshot(error = TRUE, nest(df, y))
+  expect_snapshot(error = TRUE, nest(df, -y))
 })
 
-test_that("can use `.by` with old style interface", {
-  df <- tibble(x = c(1, 1, 1), y = 1:3, z = 1:3)
-
-  expect_snapshot(out <- nest(df, y, .by = x))
-  expect_identical(out, nest(df, data = y, .by = x))
-
-  # Notably, no warning about using `...` and `.key` together
-  expect_snapshot(out <- nest(df, y, .by = x, .key = "foo"))
-  expect_identical(out, nest(df, foo = y, .by = x))
-})
-
-test_that("only warn about unnamed inputs (#1175)", {
+test_that("only mention unnamed inputs in our advice (#1175)", {
   df <- tibble(x = 1:3, y = 1:3, z = 1:3)
-  expect_snapshot(out <- nest(df, x, y, foo = z))
-  expect_named(out, c("foo", "data"))
+  expect_snapshot(error = TRUE, nest(df, x, y, foo = z))
 })
 
-test_that("unnamed expressions are kept in the warning", {
+test_that("unnamed expressions are kept in the error message", {
   df <- tibble(x = 1:3, z = 1:3)
-  expect_snapshot(out <- nest(df, x, starts_with("z")))
-  expect_named(out, "data")
+  expect_snapshot(error = TRUE, nest(df, x, starts_with("z")))
 })
 
-test_that("can control output column name", {
+test_that("`.key` is mentioned in the error message", {
   df <- tibble(x = c(1, 1, 1), y = 1:3)
-  expect_snapshot(out <- nest(df, y, .key = "y"))
-  expect_named(out, c("x", "y"))
+  expect_snapshot(error = TRUE, nest(df, y, .key = "y"))
 })
 
 test_that(".key gets warning with new interface", {

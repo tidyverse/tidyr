@@ -126,29 +126,29 @@ nest <- function(.data,
   empty <- names2(cols) == ""
 
   if (any(empty)) {
-    cols_good <- cols[!empty]
-    cols_bad <- cols[empty]
-
     .key <- check_key(.key)
 
-    if (length(cols_bad) == 1L) {
-      cols_bad <- cols_bad[[1]]
-      cols_fixed_expr <- expr(!!cols_bad)
+    cols <- cols[empty]
+
+    if (length(cols) == 1L) {
+      cols <- cols[[1]]
+      cols <- expr(!!cols)
     } else {
-      cols_fixed_expr <- expr(c(!!!cols_bad))
+      cols <- expr(c(!!!cols))
     }
 
-    cols_fixed_label <- as_label(cols_fixed_expr)
-    cols_fixed <- quos(!!.key := !!cols_fixed_expr)
+    cols <- as_label(cols)
 
-    cols <- c(cols_good, cols_fixed)
+    details <- c(
+      i = "Please specify a name for each selection.",
+      i = cli::format_inline("Did you want `{(.key)} = {cols}`?")
+    )
 
-    cli::cli_warn(c(
-      "All elements of `...` must be named.",
-      i = "Did you want `{(.key)} = {cols_fixed_label}`?"
-    ))
-
-    return(nest(.data, !!!cols, .by = {{ .by }}))
+    lifecycle::deprecate_stop(
+      when = "1.0.0",
+      what = I("Supplying `...` without names"),
+      details = details
+    )
   }
 
   UseMethod("nest")
