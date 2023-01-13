@@ -103,66 +103,6 @@ Run `cloud_details(, "NA")` for more info
 
 
 ```
-# cities
-
-<details>
-
-* Version: 0.1.0
-* GitHub: NA
-* Source code: https://github.com/cran/cities
-* Date/Publication: 2022-10-17 09:22:35 UTC
-* Number of recursive dependencies: 84
-
-Run `cloud_details(, "cities")` for more info
-
-</details>
-
-## In both
-
-*   checking whether package ‘cities’ can be installed ... ERROR
-    ```
-    Installation failed.
-    See ‘/tmp/workdir/cities/new/cities.Rcheck/00install.out’ for details.
-    ```
-
-## Installation
-
-### Devel
-
-```
-* installing *source* package ‘cities’ ...
-** package ‘cities’ successfully unpacked and MD5 sums checked
-** using staged installation
-** R
-** inst
-** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
-  there is no package called ‘viridisLite’
-Calls: <Anonymous> ... loadNamespace -> withRestarts -> withOneRestart -> doWithOneRestart
-Execution halted
-ERROR: lazy loading failed for package ‘cities’
-* removing ‘/tmp/workdir/cities/new/cities.Rcheck/cities’
-
-
-```
-### CRAN
-
-```
-* installing *source* package ‘cities’ ...
-** package ‘cities’ successfully unpacked and MD5 sums checked
-** using staged installation
-** R
-** inst
-** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
-  there is no package called ‘viridisLite’
-Calls: <Anonymous> ... loadNamespace -> withRestarts -> withOneRestart -> doWithOneRestart
-Execution halted
-ERROR: lazy loading failed for package ‘cities’
-* removing ‘/tmp/workdir/cities/old/cities.Rcheck/cities’
-
-
-```
 # NA
 
 <details>
@@ -719,64 +659,6 @@ Status: 1 ERROR, 2 NOTEs
 
 
 ```
-# ggsector
-
-<details>
-
-* Version: 1.6.6
-* GitHub: https://github.com/yanpd01/ggsector
-* Source code: https://github.com/cran/ggsector
-* Date/Publication: 2022-12-05 15:20:02 UTC
-* Number of recursive dependencies: 155
-
-Run `cloud_details(, "ggsector")` for more info
-
-</details>
-
-## In both
-
-*   checking whether package ‘ggsector’ can be installed ... ERROR
-    ```
-    Installation failed.
-    See ‘/tmp/workdir/ggsector/new/ggsector.Rcheck/00install.out’ for details.
-    ```
-
-## Installation
-
-### Devel
-
-```
-* installing *source* package ‘ggsector’ ...
-** package ‘ggsector’ successfully unpacked and MD5 sums checked
-** using staged installation
-** R
-** inst
-** byte-compile and prepare package for lazy loading
-Error: package or namespace load failed for ‘ggplot2’ in loadNamespace(i, c(lib.loc, .libPaths()), versionCheck = vI[[i]]):
- there is no package called ‘gtable’
-Execution halted
-ERROR: lazy loading failed for package ‘ggsector’
-* removing ‘/tmp/workdir/ggsector/new/ggsector.Rcheck/ggsector’
-
-
-```
-### CRAN
-
-```
-* installing *source* package ‘ggsector’ ...
-** package ‘ggsector’ successfully unpacked and MD5 sums checked
-** using staged installation
-** R
-** inst
-** byte-compile and prepare package for lazy loading
-Error: package or namespace load failed for ‘ggplot2’ in loadNamespace(i, c(lib.loc, .libPaths()), versionCheck = vI[[i]]):
- there is no package called ‘gtable’
-Execution halted
-ERROR: lazy loading failed for package ‘ggsector’
-* removing ‘/tmp/workdir/ggsector/old/ggsector.Rcheck/ggsector’
-
-
-```
 # loon.ggplot
 
 <details>
@@ -913,72 +795,6 @@ Run `cloud_details(, "NA")` for more info
 
 ```
 
-
-
-
-
-
-```
-# MarketMatching
-
-<details>
-
-* Version: 1.2.0
-* GitHub: NA
-* Source code: https://github.com/cran/MarketMatching
-* Date/Publication: 2021-01-08 20:10:02 UTC
-* Number of recursive dependencies: 73
-
-Run `cloud_details(, "MarketMatching")` for more info
-
-</details>
-
-## Error before installation
-
-### Devel
-
-```
-* using log directory ‘/tmp/workdir/MarketMatching/new/MarketMatching.Rcheck’
-* using R version 4.1.1 (2021-08-10)
-* using platform: x86_64-pc-linux-gnu (64-bit)
-* using session charset: UTF-8
-* using option ‘--no-manual’
-* checking for file ‘MarketMatching/DESCRIPTION’ ... OK
-* checking extension type ... Package
-* this is package ‘MarketMatching’ version ‘1.2.0’
-* checking package namespace information ... OK
-* checking package dependencies ... ERROR
-Packages required but not available: 'CausalImpact', 'bsts', 'Boom'
-
-See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-manual.
-* DONE
-Status: 1 ERROR
-
-
-
-
-
-```
-### CRAN
-
-```
-* using log directory ‘/tmp/workdir/MarketMatching/old/MarketMatching.Rcheck’
-* using R version 4.1.1 (2021-08-10)
-* using platform: x86_64-pc-linux-gnu (64-bit)
-* using session charset: UTF-8
-* using option ‘--no-manual’
-* checking for file ‘MarketMatching/DESCRIPTION’ ... OK
-* checking extension type ... Package
-* this is package ‘MarketMatching’ version ‘1.2.0’
-* checking package namespace information ... OK
-* checking package dependencies ... ERROR
-Packages required but not available: 'CausalImpact', 'bsts', 'Boom'
-
-See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-manual.
-* DONE
-Status: 1 ERROR
 
 
 

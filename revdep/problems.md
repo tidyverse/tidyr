@@ -1,3 +1,44 @@
+# cubble
+
+<details>
+
+* Version: 0.2.0
+* GitHub: https://github.com/huizezhang-sherry/cubble
+* Source code: https://github.com/cran/cubble
+* Date/Publication: 2022-11-17 12:30:02 UTC
+* Number of recursive dependencies: 132
+
+Run `cloud_details(, "cubble")` for more info
+
+</details>
+
+## Newly broken
+
+*   checking re-building of vignette outputs ... WARNING
+    ```
+    Error(s) in re-building vignettes:
+    --- re-building ‘aggregation.Rmd’ using rmarkdown
+    --- finished re-building ‘aggregation.Rmd’
+    
+    --- re-building ‘cubble-design.Rmd’ using rmarkdown
+    Quitting from lines 65-68 (cubble-design.Rmd) 
+    Error: processing vignette 'cubble-design.Rmd' failed with diagnostics:
+    Supplying `...` without names was deprecated in tidyr 1.0.0 and is now
+    defunct.
+    ℹ Please specify a name for each selection.
+    ...
+    
+    --- re-building ‘matching.Rmd’ using rmarkdown
+    Warning: ggrepel: 1 unlabeled data points (too many overlaps). Consider increasing max.overlaps
+    --- finished re-building ‘matching.Rmd’
+    
+    SUMMARY: processing the following file failed:
+      ‘cubble-design.Rmd’
+    
+    Error: Vignette re-building failed.
+    Execution halted
+    ```
+
 # faux
 
 <details>
@@ -80,17 +121,17 @@ Run `cloud_details(, "ggpubr")` for more info
     Execution halted
     ```
 
-# gutenbergr
+# highcharter
 
 <details>
 
-* Version: 0.2.3
-* GitHub: https://github.com/ropensci/gutenbergr
-* Source code: https://github.com/cran/gutenbergr
-* Date/Publication: 2022-12-14 10:00:06 UTC
-* Number of recursive dependencies: 88
+* Version: 0.9.4
+* GitHub: https://github.com/jbkunst/highcharter
+* Source code: https://github.com/cran/highcharter
+* Date/Publication: 2022-01-03 16:40:05 UTC
+* Number of recursive dependencies: 153
 
-Run `cloud_details(, "gutenbergr")` for more info
+Run `cloud_details(, "highcharter")` for more info
 
 </details>
 
@@ -98,35 +139,105 @@ Run `cloud_details(, "gutenbergr")` for more info
 
 *   checking examples ... ERROR
     ```
-    Running examples in ‘gutenbergr-Ex.R’ failed
+    Running examples in ‘highcharter-Ex.R’ failed
     The error most likely occurred in:
     
-    > ### Name: gutenberg_get_mirror
-    > ### Title: Get the recommended mirror for Gutenberg files
-    > ### Aliases: gutenberg_get_mirror
+    > ### Name: tooltip_chart
+    > ### Title: Helper to create charts in tooltips.
+    > ### Aliases: tooltip_chart
     > 
     > ### ** Examples
     > 
-    > gutenberg_get_mirror()
-    Determining mirror for Project Gutenberg from https://www.gutenberg.org/robot/harvest
-    Error in open.connection(3L, "rb") : 
-      Timeout was reached: [www.gutenberg.org] Connection timed out after 10001 milliseconds
-    Calls: gutenberg_get_mirror ... <Anonymous> -> vroom_ -> <Anonymous> -> open.connection
+    > 
+    ...
+    Backtrace:
+        ▆
+     1. ├─... %>% rename(ttdata = data)
+     2. ├─dplyr::rename(., ttdata = data)
+     3. ├─dplyr::mutate(...)
+     4. └─tidyr::nest(., -country)
+     5.   └─lifecycle::deprecate_stop(...)
+     6.     └─lifecycle:::deprecate_stop0(msg)
+     7.       └─rlang::cnd_signal(...)
     Execution halted
     ```
 
 ## In both
 
-*   checking installed package size ... NOTE
-    ```
-      installed size is  5.1Mb
-      sub-directories of 1Mb or more:
-        data   4.6Mb
-    ```
-
 *   checking data for non-ASCII characters ... NOTE
     ```
-      Note: found 18981 marked UTF-8 strings
+      Note: found 11 marked UTF-8 strings
+    ```
+
+# HTSSIP
+
+<details>
+
+* Version: 1.4.1
+* GitHub: NA
+* Source code: https://github.com/cran/HTSSIP
+* Date/Publication: 2019-09-13 22:30:02 UTC
+* Number of recursive dependencies: 139
+
+Run `cloud_details(, "HTSSIP")` for more info
+
+</details>
+
+## Newly broken
+
+*   checking tests ... ERROR
+    ```
+      Running ‘testthat.R’
+    Running the tests in ‘tests/testthat.R’ failed.
+    Last 13 lines of output:
+        5. ├─tidyr::spread(., "IS_CONTROL", "center_of_mass")
+        6. ├─dplyr::mutate_(., IS_CONTROL = "ifelse(IS_CONTROL==TRUE, 'CM_control', 'CM_treatment')")
+        7. ├─dplyr::group_by_(., "OTU")
+        8. ├─dplyr::summarize_(., center_of_mass = "stats::weighted.mean(x=Buoyant_density,\n                                                             w=Count_interp)")
+        9. ├─dplyr::group_by_(., "IS_CONTROL", "OTU")
+       10. ├─tidyr::unnest(.)
+       11. ├─dplyr::mutate_(., .dots = dots)
+       12. └─tidyr::nest(., nest_cols)
+       13.   └─lifecycle::deprecate_stop(...)
+       14.     └─lifecycle:::deprecate_stop0(msg)
+       15.       └─rlang::cnd_signal(...)
+      
+      [ FAIL 1 | WARN 8 | SKIP 18 | PASS 111 ]
+      Error: Test failures
+      Execution halted
+    ```
+
+*   checking re-building of vignette outputs ... WARNING
+    ```
+    Error(s) in re-building vignettes:
+    --- re-building ‘BD_shifts.Rmd’ using rmarkdown
+    --- finished re-building ‘BD_shifts.Rmd’
+    
+    --- re-building ‘HTSSIP_intro.Rmd’ using rmarkdown
+    --- finished re-building ‘HTSSIP_intro.Rmd’
+    
+    --- re-building ‘HTSSIP_sim.Rmd’ using rmarkdown
+    --- finished re-building ‘HTSSIP_sim.Rmd’
+    
+    ...
+    defunct.
+    ℹ Please specify a name for each selection.
+    ℹ Did you want `data = nest_cols`?
+    --- failed re-building ‘quant_incorp.Rmd’
+    
+    SUMMARY: processing the following file failed:
+      ‘quant_incorp.Rmd’
+    
+    Error: Vignette re-building failed.
+    Execution halted
+    ```
+
+## In both
+
+*   checking dependencies in R code ... NOTE
+    ```
+    Namespace in Imports field not imported from: ‘igraph’
+      All declared Imports should be used.
     ```
 
 # mapme.biodiversity
@@ -248,6 +359,39 @@ Run `cloud_details(, "metaconfoundr")` for more info
     Execution halted
     ```
 
+# openalexR
+
+<details>
+
+* Version: 1.0.0
+* GitHub: https://github.com/massimoaria/openalexR
+* Source code: https://github.com/cran/openalexR
+* Date/Publication: 2022-10-06 10:40:02 UTC
+* Number of recursive dependencies: 78
+
+Run `cloud_details(, "openalexR")` for more info
+
+</details>
+
+## Newly broken
+
+*   checking re-building of vignette outputs ... WARNING
+    ```
+    Error(s) in re-building vignettes:
+      ...
+    --- re-building ‘A_Brief_Introduction_to_openalexR.Rmd’ using rmarkdown
+    Quitting from lines 260-269 (A_Brief_Introduction_to_openalexR.Rmd) 
+    Error: processing vignette 'A_Brief_Introduction_to_openalexR.Rmd' failed with diagnostics:
+    $ operator is invalid for atomic vectors
+    --- failed re-building ‘A_Brief_Introduction_to_openalexR.Rmd’
+    
+    SUMMARY: processing the following file failed:
+      ‘A_Brief_Introduction_to_openalexR.Rmd’
+    
+    Error: Vignette re-building failed.
+    Execution halted
+    ```
+
 # panelr
 
 <details>
@@ -291,6 +435,47 @@ Run `cloud_details(, "panelr")` for more info
 *   checking Rd cross-references ... NOTE
     ```
     Package unavailable to check Rd xrefs: ‘AER’
+    ```
+
+# T2Qv
+
+<details>
+
+* Version: 0.1.0
+* GitHub: NA
+* Source code: https://github.com/cran/T2Qv
+* Date/Publication: 2022-05-18 17:00:04 UTC
+* Number of recursive dependencies: 91
+
+Run `cloud_details(, "T2Qv")` for more info
+
+</details>
+
+## Newly broken
+
+*   checking examples ... ERROR
+    ```
+    Running examples in ‘T2Qv-Ex.R’ failed
+    The error most likely occurred in:
+    
+    > ### Name: ChiSq_variable
+    > ### Title: Chi squared variable from point table.
+    > ### Aliases: ChiSq_variable
+    > 
+    > ### ** Examples
+    > 
+    > data(Datak10Contaminated)
+    ...
+        ▆
+     1. ├─T2Qv::ChiSq_variable(...)
+     2. │ └─... %>% rename(ttdata = data)
+     3. ├─dplyr::rename(., ttdata = data)
+     4. ├─dplyr::mutate(...)
+     5. └─tidyr::nest(., -Nombres)
+     6.   └─lifecycle::deprecate_stop(...)
+     7.     └─lifecycle:::deprecate_stop0(msg)
+     8.       └─rlang::cnd_signal(...)
+    Execution halted
     ```
 
 # tidypaleo
@@ -376,6 +561,47 @@ Run `cloud_details(, "tidypaleo")` for more info
     
     SUMMARY: processing the following files failed:
       ‘nested_analysis.Rmd’ ‘strat_diagrams.Rmd’
+    
+    Error: Vignette re-building failed.
+    Execution halted
+    ```
+
+# unpivotr
+
+<details>
+
+* Version: 0.6.2
+* GitHub: https://github.com/nacnudus/unpivotr
+* Source code: https://github.com/cran/unpivotr
+* Date/Publication: 2021-08-22 04:10:02 UTC
+* Number of recursive dependencies: 88
+
+Run `cloud_details(, "unpivotr")` for more info
+
+</details>
+
+## Newly broken
+
+*   checking re-building of vignette outputs ... WARNING
+    ```
+    Error(s) in re-building vignettes:
+      ...
+    --- re-building ‘html.Rmd’ using rmarkdown
+    --- finished re-building ‘html.Rmd’
+    
+    --- re-building ‘introduction.Rmd’ using rmarkdown
+    --- finished re-building ‘introduction.Rmd’
+    
+    --- re-building ‘small-multiples.Rmd’ using rmarkdown
+    Quitting from lines 128-144 (small-multiples.Rmd) 
+    ...
+    defunct.
+    ℹ Please specify a name for each selection.
+    ℹ Did you want `data = -row`?
+    --- failed re-building ‘small-multiples.Rmd’
+    
+    SUMMARY: processing the following file failed:
+      ‘small-multiples.Rmd’
     
     Error: Vignette re-building failed.
     Execution halted
