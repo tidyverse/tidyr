@@ -4,6 +4,8 @@
       pack(df, data = c(a = x))
     Condition
       Error in `pack()`:
+      ! In expression named `data`:
+      Caused by error:
       ! Can't rename variables in this context.
 
 ---
@@ -12,6 +14,8 @@
       pack(df, data1 = x, data2 = c(a = y))
     Condition
       Error in `pack()`:
+      ! In expression named `data2`:
+      Caused by error:
       ! Can't rename variables in this context.
 
 # pack validates its inputs
