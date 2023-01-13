@@ -1,12 +1,3 @@
-# nesting no columns nests all inputs
-
-    Code
-      out <- nest(df)
-    Condition
-      Warning:
-      `...` can't be empty for ungrouped data frames.
-      i Did you want `data = everything()`?
-
 # nest disallows renaming
 
     Code
@@ -15,6 +6,24 @@
       Error in `nest()`:
       ! Can't rename variables in this context.
 
+---
+
+    Code
+      nest(df, .by = c(a = x))
+    Condition
+      Error in `nest()`:
+      ! Can't rename variables in this context.
+
+# catches when `...` overwrites an existing column
+
+    Code
+      nest(df, x = y)
+    Condition
+      Error in `nest()`:
+      ! Names must be unique.
+      x These names are duplicated:
+        * "x" at locations 1 and 2.
+
 # validates its inputs
 
     Code
@@ -22,6 +31,40 @@
     Condition
       Error in `nest()`:
       ! `.names_sep` must be a single string or `NULL`, not the number 1.
+
+---
+
+    Code
+      nest(df, y = ya:yb, .key = 1)
+    Condition
+      Error in `nest()`:
+      ! `.key` must be a single string, not the number 1.
+
+# warns if `.key` is supplied alongside `...`
+
+    Code
+      out <- nest_info(df, data = 2, .key = "foo")
+    Condition
+      Warning:
+      Can't supply both `.key` and `...`.
+      i `.key` will be ignored.
+
+---
+
+    Code
+      out <- nest(df, data = 2, .key = "foo")
+    Condition
+      Warning in `nest()`:
+      Can't supply both `.key` and `...`.
+      i `.key` will be ignored.
+
+# `.by` isn't allowed for grouped data frames
+
+    Code
+      nest(df, .by = x)
+    Condition
+      Error in `nest()`:
+      ! Can't supply `.by` when `.data` is a grouped data frame.
 
 # warn about old style interface
 
@@ -40,6 +83,24 @@
       Warning:
       All elements of `...` must be named.
       i Did you want `data = -y`?
+
+# can use `.by` with old style interface
+
+    Code
+      out <- nest(df, y, .by = x)
+    Condition
+      Warning:
+      All elements of `...` must be named.
+      i Did you want `data = y`?
+
+---
+
+    Code
+      out <- nest(df, y, .by = x, .key = "foo")
+    Condition
+      Warning:
+      All elements of `...` must be named.
+      i Did you want `foo = y`?
 
 # only warn about unnamed inputs (#1175)
 
@@ -68,19 +129,12 @@
       All elements of `...` must be named.
       i Did you want `y = y`?
 
-# can control output column name when nested
-
-    Code
-      out <- nest(df, .key = "y")
-    Condition
-      Warning:
-      `.key` is deprecated
-
 # .key gets warning with new interface
 
     Code
-      out <- nest(df, y = y, .key = "y")
+      out <- nest(df, y = y, .key = "foo")
     Condition
-      Warning:
-      `.key` is deprecated
+      Warning in `nest()`:
+      Can't supply both `.key` and `...`.
+      i `.key` will be ignored.
 

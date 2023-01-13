@@ -103,6 +103,66 @@ Run `cloud_details(, "NA")` for more info
 
 
 ```
+# cities
+
+<details>
+
+* Version: 0.1.0
+* GitHub: NA
+* Source code: https://github.com/cran/cities
+* Date/Publication: 2022-10-17 09:22:35 UTC
+* Number of recursive dependencies: 84
+
+Run `cloud_details(, "cities")` for more info
+
+</details>
+
+## In both
+
+*   checking whether package ‘cities’ can be installed ... ERROR
+    ```
+    Installation failed.
+    See ‘/tmp/workdir/cities/new/cities.Rcheck/00install.out’ for details.
+    ```
+
+## Installation
+
+### Devel
+
+```
+* installing *source* package ‘cities’ ...
+** package ‘cities’ successfully unpacked and MD5 sums checked
+** using staged installation
+** R
+** inst
+** byte-compile and prepare package for lazy loading
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+  there is no package called ‘viridisLite’
+Calls: <Anonymous> ... loadNamespace -> withRestarts -> withOneRestart -> doWithOneRestart
+Execution halted
+ERROR: lazy loading failed for package ‘cities’
+* removing ‘/tmp/workdir/cities/new/cities.Rcheck/cities’
+
+
+```
+### CRAN
+
+```
+* installing *source* package ‘cities’ ...
+** package ‘cities’ successfully unpacked and MD5 sums checked
+** using staged installation
+** R
+** inst
+** byte-compile and prepare package for lazy loading
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+  there is no package called ‘viridisLite’
+Calls: <Anonymous> ... loadNamespace -> withRestarts -> withOneRestart -> doWithOneRestart
+Execution halted
+ERROR: lazy loading failed for package ‘cities’
+* removing ‘/tmp/workdir/cities/old/cities.Rcheck/cities’
+
+
+```
 # NA
 
 <details>
@@ -387,10 +447,10 @@ Run `cloud_details(, "NA")` for more info
 
 <details>
 
-* Version: 0.1.4
+* Version: 0.1.5
 * GitHub: NA
 * Source code: https://github.com/cran/FAMetA
-* Date/Publication: 2022-03-01 15:40:23 UTC
+* Date/Publication: 2023-01-11 09:33:11 UTC
 * Number of recursive dependencies: 90
 
 Run `cloud_details(, "FAMetA")` for more info
@@ -659,6 +719,64 @@ Status: 1 ERROR, 2 NOTEs
 
 
 ```
+# ggsector
+
+<details>
+
+* Version: 1.6.6
+* GitHub: https://github.com/yanpd01/ggsector
+* Source code: https://github.com/cran/ggsector
+* Date/Publication: 2022-12-05 15:20:02 UTC
+* Number of recursive dependencies: 155
+
+Run `cloud_details(, "ggsector")` for more info
+
+</details>
+
+## In both
+
+*   checking whether package ‘ggsector’ can be installed ... ERROR
+    ```
+    Installation failed.
+    See ‘/tmp/workdir/ggsector/new/ggsector.Rcheck/00install.out’ for details.
+    ```
+
+## Installation
+
+### Devel
+
+```
+* installing *source* package ‘ggsector’ ...
+** package ‘ggsector’ successfully unpacked and MD5 sums checked
+** using staged installation
+** R
+** inst
+** byte-compile and prepare package for lazy loading
+Error: package or namespace load failed for ‘ggplot2’ in loadNamespace(i, c(lib.loc, .libPaths()), versionCheck = vI[[i]]):
+ there is no package called ‘gtable’
+Execution halted
+ERROR: lazy loading failed for package ‘ggsector’
+* removing ‘/tmp/workdir/ggsector/new/ggsector.Rcheck/ggsector’
+
+
+```
+### CRAN
+
+```
+* installing *source* package ‘ggsector’ ...
+** package ‘ggsector’ successfully unpacked and MD5 sums checked
+** using staged installation
+** R
+** inst
+** byte-compile and prepare package for lazy loading
+Error: package or namespace load failed for ‘ggplot2’ in loadNamespace(i, c(lib.loc, .libPaths()), versionCheck = vI[[i]]):
+ there is no package called ‘gtable’
+Execution halted
+ERROR: lazy loading failed for package ‘ggsector’
+* removing ‘/tmp/workdir/ggsector/old/ggsector.Rcheck/ggsector’
+
+
+```
 # loon.ggplot
 
 <details>
@@ -906,11 +1024,11 @@ Run `cloud_details(, "NA")` for more info
 
 <details>
 
-* Version: 1.1.0
+* Version: 1.2.1
 * GitHub: https://github.com/kharchenkolab/numbat
 * Source code: https://github.com/cran/numbat
-* Date/Publication: 2022-11-29 18:30:02 UTC
-* Number of recursive dependencies: 183
+* Date/Publication: 2023-01-11 00:20:02 UTC
+* Number of recursive dependencies: 132
 
 Run `cloud_details(, "numbat")` for more info
 
@@ -927,7 +1045,7 @@ Run `cloud_details(, "numbat")` for more info
 * using session charset: UTF-8
 * using option ‘--no-manual’
 * checking for file ‘numbat/DESCRIPTION’ ... OK
-* this is package ‘numbat’ version ‘1.1.0’
+* this is package ‘numbat’ version ‘1.2.1’
 * package encoding: UTF-8
 * checking package namespace information ... OK
 * checking package dependencies ... ERROR
@@ -952,7 +1070,7 @@ Status: 1 ERROR
 * using session charset: UTF-8
 * using option ‘--no-manual’
 * checking for file ‘numbat/DESCRIPTION’ ... OK
-* this is package ‘numbat’ version ‘1.1.0’
+* this is package ‘numbat’ version ‘1.2.1’
 * package encoding: UTF-8
 * checking package namespace information ... OK
 * checking package dependencies ... ERROR
@@ -1215,6 +1333,82 @@ See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
 manual.
 * DONE
 Status: 1 ERROR
+
+
+
+
+
+```
+# SCpubr
+
+<details>
+
+* Version: 1.1.1
+* GitHub: https://github.com/enblacar/SCpubr
+* Source code: https://github.com/cran/SCpubr
+* Date/Publication: 2023-01-12 11:30:02 UTC
+* Number of recursive dependencies: 289
+
+Run `cloud_details(, "SCpubr")` for more info
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+* using log directory ‘/tmp/workdir/SCpubr/new/SCpubr.Rcheck’
+* using R version 4.1.1 (2021-08-10)
+* using platform: x86_64-pc-linux-gnu (64-bit)
+* using session charset: UTF-8
+* using option ‘--no-manual’
+* checking for file ‘SCpubr/DESCRIPTION’ ... OK
+* checking extension type ... Package
+* this is package ‘SCpubr’ version ‘1.1.1’
+* package encoding: UTF-8
+* checking package namespace information ... OK
+...
+  [ FAIL 1 | WARN 0 | SKIP 347 | PASS 320 ]
+  Error: Test failures
+  Execution halted
+* checking for unstated dependencies in vignettes ... OK
+* checking package vignettes in ‘inst/doc’ ... OK
+* checking running R code from vignettes ... NONE
+  ‘reference_manual.Rmd’ using ‘UTF-8’... OK
+* checking re-building of vignette outputs ... OK
+* DONE
+Status: 1 ERROR, 1 WARNING, 2 NOTEs
+
+
+
+
+
+```
+### CRAN
+
+```
+* using log directory ‘/tmp/workdir/SCpubr/old/SCpubr.Rcheck’
+* using R version 4.1.1 (2021-08-10)
+* using platform: x86_64-pc-linux-gnu (64-bit)
+* using session charset: UTF-8
+* using option ‘--no-manual’
+* checking for file ‘SCpubr/DESCRIPTION’ ... OK
+* checking extension type ... Package
+* this is package ‘SCpubr’ version ‘1.1.1’
+* package encoding: UTF-8
+* checking package namespace information ... OK
+...
+  [ FAIL 1 | WARN 0 | SKIP 347 | PASS 320 ]
+  Error: Test failures
+  Execution halted
+* checking for unstated dependencies in vignettes ... OK
+* checking package vignettes in ‘inst/doc’ ... OK
+* checking running R code from vignettes ... NONE
+  ‘reference_manual.Rmd’ using ‘UTF-8’... OK
+* checking re-building of vignette outputs ... OK
+* DONE
+Status: 1 ERROR, 1 WARNING, 2 NOTEs
 
 
 

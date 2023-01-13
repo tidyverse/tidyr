@@ -110,7 +110,7 @@ Run `cloud_details(, "gutenbergr")` for more info
     > gutenberg_get_mirror()
     Determining mirror for Project Gutenberg from https://www.gutenberg.org/robot/harvest
     Error in open.connection(3L, "rb") : 
-      Timeout was reached: [www.gutenberg.org] Operation timed out after 10001 milliseconds with 0 out of 0 bytes received
+      Timeout was reached: [www.gutenberg.org] Connection timed out after 10001 milliseconds
     Calls: gutenberg_get_mirror ... <Anonymous> -> vroom_ -> <Anonymous> -> open.connection
     Execution halted
     ```
@@ -127,42 +127,6 @@ Run `cloud_details(, "gutenbergr")` for more info
 *   checking data for non-ASCII characters ... NOTE
     ```
       Note: found 18981 marked UTF-8 strings
-    ```
-
-# hlaR
-
-<details>
-
-* Version: 0.1.6
-* GitHub: https://github.com/LarsenLab/hlaR
-* Source code: https://github.com/cran/hlaR
-* Date/Publication: 2022-12-20 23:30:02 UTC
-* Number of recursive dependencies: 151
-
-Run `cloud_details(, "hlaR")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    Error(s) in re-building vignettes:
-      ...
-    --- re-building ‘allele-haplotype.Rmd’ using rmarkdown
-    --- finished re-building ‘allele-haplotype.Rmd’
-    
-    --- re-building ‘eplet-mm.Rmd’ using rmarkdown
-    Quitting from lines 70-87 (eplet-mm.Rmd) 
-    Error: processing vignette 'eplet-mm.Rmd' failed with diagnostics:
-    'x' must be numeric
-    --- failed re-building ‘eplet-mm.Rmd’
-    
-    SUMMARY: processing the following file failed:
-      ‘eplet-mm.Rmd’
-    
-    Error: Vignette re-building failed.
-    Execution halted
     ```
 
 # mapme.biodiversity
@@ -284,65 +248,40 @@ Run `cloud_details(, "metaconfoundr")` for more info
     Execution halted
     ```
 
-# recipes
+# panelr
 
 <details>
 
-* Version: 1.0.3
-* GitHub: https://github.com/tidymodels/recipes
-* Source code: https://github.com/cran/recipes
-* Date/Publication: 2022-11-09 16:50:02 UTC
-* Number of recursive dependencies: 134
+* Version: 0.7.6
+* GitHub: https://github.com/jacob-long/panelr
+* Source code: https://github.com/cran/panelr
+* Date/Publication: 2021-12-17 07:40:02 UTC
+* Number of recursive dependencies: 169
 
-Run `cloud_details(, "recipes")` for more info
+Run `cloud_details(, "panelr")` for more info
 
 </details>
 
 ## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘recipes-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: step_naomit
-    > ### Title: Remove observations with missing values
-    > ### Aliases: step_naomit
-    > 
-    > ### ** Examples
-    > 
-    > 
-    ...
-     10.       └─tidyselect::eval_select(expr(c(!!!dots)), data, allow_rename = FALSE)
-     11.         └─tidyselect:::eval_select_impl(...)
-     12.           ├─tidyselect:::with_subscript_errors(...)
-     13.           │ └─rlang::try_fetch(...)
-     14.           │   └─base::withCallingHandlers(...)
-     15.           └─tidyselect:::vars_select_eval(...)
-     16.             └─tidyselect:::ensure_named(...)
-     17.               └─cli::cli_abort(...)
-     18.                 └─rlang::abort(...)
-    Execution halted
-    ```
 
 *   checking tests ... ERROR
     ```
       Running ‘testthat.R’
     Running the tests in ‘tests/testthat.R’ failed.
     Last 13 lines of output:
-        9.     ├─tidyr::drop_na(new_data, object$columns)
-       10.     └─tidyr:::drop_na.data.frame(new_data, object$columns)
-       11.       └─tidyselect::eval_select(expr(c(!!!dots)), data, allow_rename = FALSE)
-       12.         └─tidyselect:::eval_select_impl(...)
-       13.           ├─tidyselect:::with_subscript_errors(...)
-       14.           │ └─rlang::try_fetch(...)
-       15.           │   └─base::withCallingHandlers(...)
-       16.           └─tidyselect:::vars_select_eval(...)
-       17.             └─tidyselect:::ensure_named(...)
-       18.               └─cli::cli_abort(...)
-       19.                 └─rlang::abort(...)
+        5.     └─panelr:::detrend(e$data, pf, dt_order, balance_correction, dt_random)
+        6.       ├─tidyr::nest(data)
+        7.       └─tidyr:::nest.grouped_df(data)
+        8.         └─tidyr:::nest.tbl_df(.data, `:=`(!!.key, all_of(cols)), .names_sep = .names_sep)
+        9.           └─vctrs::vec_cbind(out, inner, .name_repair = "check_unique", .error_call = error_call)
+       10.             └─vctrs (local) `<fn>`()
+       11.               └─vctrs:::validate_unique(names = names, arg = arg, call = call)
+       12.                 └─vctrs:::stop_names_must_be_unique(names, arg, call = call)
+       13.                   └─vctrs:::stop_names(...)
+       14.                     └─vctrs:::stop_vctrs(...)
+       15.                       └─rlang::abort(message, class = c(class, "vctrs_error"), ..., call = vctrs_error_call(call))
       
-      [ FAIL 2 | WARN 2 | SKIP 401 | PASS 1889 ]
+      [ FAIL 2 | WARN 1 | SKIP 0 | PASS 240 ]
       Error: Test failures
       Execution halted
     ```
@@ -351,7 +290,7 @@ Run `cloud_details(, "recipes")` for more info
 
 *   checking Rd cross-references ... NOTE
     ```
-    Packages unavailable to check Rd xrefs: ‘fastICA’, ‘dimRed’
+    Package unavailable to check Rd xrefs: ‘AER’
     ```
 
 # tidypaleo
