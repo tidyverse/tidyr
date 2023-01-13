@@ -1,5 +1,8 @@
 # tidyr (development version)
 
+* Calling `nest()` without naming `...` is now defunct. It has been deprecated
+  with a warning since tidyr 1.0.0 back in 2019 (#1464).
+
 * `unnest_wider()` now generates automatic names for _partially_ unnamed
   vectors. Previously it only generated them for fully unnamed vectors,
   resulting in a strange mix of automatic names and name-repaired names (#1367).
