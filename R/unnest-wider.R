@@ -13,9 +13,10 @@
 #'   as is. If a string, the outer and inner names will be pasted together using
 #'   `names_sep` as a separator.
 #'
-#'   If the values being unnested are unnamed and `names_sep` is supplied, the
-#'   inner names will be automatically generated as an increasing sequence of
-#'   integers.
+#'   If any values being unnested are unnamed, then `names_sep` must be
+#'   supplied, otherwise an error is thrown. When `names_sep` is supplied,
+#'   names are automatically generated for unnamed values as an increasing
+#'   sequence of integers.
 #' @param strict A single logical specifying whether or not to apply strict
 #'   vctrs typing rules. If `FALSE`, typed empty values (like `list()` or
 #'   `integer()`) nested within list-columns will be treated like `NULL` and
@@ -58,7 +59,7 @@
 #'   x = 1:3,
 #'   y = list(NULL, 1:3, 4:5)
 #' )
-#' # where you'll usually want to provide names_sep:
+#' # but you must supply `names_sep` to do so, which generates automatic names:
 #' df %>% unnest_wider(y, names_sep = "_")
 #'
 #' # 0-length elements ---------------------------------------------------------
@@ -205,6 +206,8 @@ elt_to_wide <- function(x, name, strict, names_sep, error_call = caller_env()) {
     # which we want to treat like lists where we know the type of each element
     x <- tidyr_new_list(x)
     x <- map(x, list_of)
+    names <- names2(x)
+    x <- set_names(x, NULL)
   } else {
     if (!strict && vec_is_list(x)) {
       empty <- list_sizes(x) == 0L
@@ -214,34 +217,35 @@ elt_to_wide <- function(x, name, strict, names_sep, error_call = caller_env()) {
       }
     }
 
-    names <- vec_names(x)
-
-    if (is.null(names)) {
-      x <- vec_chop(x)
-    } else {
-      # Promote names to column names
-      x <- vec_set_names(x, NULL)
-      x <- vec_chop(x)
-      x <- vec_set_names(x, names)
-    }
+    names <- vec_names2(x)
+    x <- vec_set_names(x, NULL)
+    x <- vec_chop(x)
   }
+
+  empty <- names == ""
+  any_empty <- any(empty)
 
   if (is.null(names_sep)) {
-    names(x) <- vec_as_names(names2(x), repair = "unique", call = error_call)
-  } else {
-    outer <- name
-
-    inner <- names(x)
-    if (is.null(inner)) {
-      inner <- as.character(seq_along(x))
-    } else {
-      inner <- vec_as_names(inner, repair = "unique", call = error_call)
+    if (any_empty) {
+      stop_use_names_sep(error_call = error_call)
     }
-
-    names(x) <- apply_names_sep(outer, inner, names_sep)
+  } else {
+    if (any_empty) {
+      names[empty] <- as.character(which(empty))
+    }
+    names <- apply_names_sep(name, names, names_sep)
   }
 
+  x <- set_names(x, names)
   x <- new_data_frame(x, n = 1L)
 
   x
+}
+
+stop_use_names_sep <- function(error_call = caller_env()) {
+  message <- c(
+    "Can't unnest elements with missing names.",
+    i = "Supply {.arg names_sep} to generate automatic names."
+  )
+  cli::cli_abort(message, call = error_call)
 }

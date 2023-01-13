@@ -1,5 +1,12 @@
 # tidyr (development version)
 
+* `unnest_wider()` now generates automatic names for _partially_ unnamed
+  vectors. Previously it only generated them for fully unnamed vectors,
+  resulting in a strange mix of automatic names and name-repaired names (#1367).
+
+* `unnest_wider()` now errors if any values being unnested are unnamed and
+  `names_sep` is not provided (#1367).
+
 * `nest()` has gained a new argument, `.by`, which allows you to specify the
   columns to nest by (rather than the columns to nest, i.e. through `...`).
   Additionally, the `.key` argument is no longer deprecated, and is used
