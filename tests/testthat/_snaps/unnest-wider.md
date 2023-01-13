@@ -5,7 +5,10 @@
     Output
       <error/rlang_error>
       Error in `unnest_wider()`:
-      ! List-column `y` must contain only vectors.
+      i In column: `y`.
+      i In row: 1.
+      Caused by error:
+      ! List-column must only contain vectors.
 
 # can't unnest unnamed elements without `names_sep` (#1367)
 
@@ -13,6 +16,9 @@
       unnest_wider(df, col)
     Condition
       Error in `unnest_wider()`:
+      i In column: `col`.
+      i In row: 1.
+      Caused by error:
       ! Can't unnest elements with missing names.
       i Supply `names_sep` to generate automatic names.
 
@@ -22,6 +28,9 @@
       unnest_wider(df, col)
     Condition
       Error in `unnest_wider()`:
+      i In column: `col`.
+      i In row: 1.
+      Caused by error:
       ! Can't unnest elements with missing names.
       i Supply `names_sep` to generate automatic names.
 
@@ -31,6 +40,9 @@
       unnest_wider(df, col)
     Condition
       Error in `unnest_wider()`:
+      i In column: `col`.
+      i In row: 1.
+      Caused by error:
       ! Can't unnest elements with missing names.
       i Supply `names_sep` to generate automatic names.
 
@@ -40,6 +52,9 @@
       unnest_wider(df, col)
     Condition
       Error in `unnest_wider()`:
+      i In column: `col`.
+      i In row: 2.
+      Caused by error:
       ! Can't unnest elements with missing names.
       i Supply `names_sep` to generate automatic names.
 
