@@ -146,15 +146,24 @@ col_to_wide <- function(col, name, strict, names_sep, error_call = caller_env())
   # Avoid expensive dispatch from `[[.list_of`
   out <- tidyr_new_list(col)
 
-  out <- lapply(
-    out,
-    function(x) elt_to_wide(
-      x = x,
-      name = name,
-      strict = strict,
-      names_sep = names_sep,
-      error_call = error_call
-    )
+  out <- with_indexed_errors(
+    map(
+      out,
+      function(x) elt_to_wide(
+        x = x,
+        name = name,
+        strict = strict,
+        names_sep = names_sep,
+        error_call = NULL
+      )
+    ),
+    message = function(cnd) {
+      c(
+        i = cli::format_inline("In column: {.code {name}}."),
+        i = cli::format_inline("In row: {cnd$location}.")
+      )
+    },
+    .error_call = error_call
   )
 
   # In the sole case of a list_of<data_frame>, we can be sure that the
@@ -196,7 +205,7 @@ elt_to_wide <- function(x, name, strict, names_sep, error_call = caller_env()) {
 
   if (!vec_is(x)) {
     cli::cli_abort(
-      "List-column {.var {name}} must contain only vectors.",
+      "List-column must only contain vectors.",
       call = error_call
     )
   }

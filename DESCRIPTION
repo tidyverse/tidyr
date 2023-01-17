@@ -26,7 +26,7 @@ Imports:
     glue,
     lifecycle (>= 1.0.3),
     magrittr,
-    purrr (>= 1.0.0),
+    purrr (>= 1.0.1),
     rlang (>= 1.0.4),
     stringr (>= 1.5.0),
     tibble (>= 2.1.1),

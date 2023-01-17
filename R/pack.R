@@ -70,15 +70,20 @@ pack <- function(.data, ..., .names_sep = NULL, .error_call = current_env()) {
   }
   check_string(.names_sep, allow_null = TRUE, call = .error_call)
 
-  # TODO: Switch back to `map()` in purrr 1.0.1
-  cols <- lapply(cols, function(col) {
-    tidyselect::eval_select(
-      expr = col,
-      data = .data,
-      allow_rename = FALSE,
-      error_call = .error_call
-    )
-  })
+  cols <- with_indexed_errors(
+    map(cols, function(col) {
+      tidyselect::eval_select(
+        expr = col,
+        data = .data,
+        allow_rename = FALSE,
+        error_call = NULL
+      )
+    }),
+    message = function(cnd) {
+      cli::format_inline("In expression named {.arg {cnd$name}}:")
+    },
+    .error_call = .error_call
+  )
 
   unpacked <- setdiff(names(.data), unlist(map(cols, names)))
   unpacked <- .data[unpacked]

@@ -4,6 +4,8 @@
       nest(df, data = c(a = x))
     Condition
       Error in `nest()`:
+      ! In expression named `data`:
+      Caused by error:
       ! Can't rename variables in this context.
 
 ---

@@ -302,13 +302,14 @@ check_list_of_functions <- function(x, names, arg = caller_arg(x), call = caller
   }
 
   check_unique_names(x, arg = arg, call = call)
+  x_names <- names(x)
 
-  x <- lapply(set_names(seq_along(x), names(x)), function(i) {
-    as_function(x[[i]], arg = glue("{arg}[[{i}]]"), call = call)
-  })
+  for (i in seq_along(x)) {
+    x[[i]] <- as_function(x[[i]], arg = glue("{arg}${x_names[[i]]}"), call = call)
+  }
 
   # Silently drop user supplied names not found in the data
-  x <- x[intersect(names(x), names)]
+  x <- x[intersect(x_names, names)]
 
   x
 }
@@ -325,6 +326,20 @@ check_list_of_bool <- function(x, names, arg = caller_arg(x), call = caller_env(
       call = call
     )
   }
+}
+
+with_indexed_errors <- function(expr,
+                                message,
+                                ...,
+                                .error_call = caller_env(),
+                                .frame = caller_env()) {
+  try_fetch(
+    expr,
+    purrr_error_indexed = function(cnd) {
+      message <- message(cnd)
+      abort(message, ..., call = .error_call, parent = cnd$parent, .frame = .frame)
+    }
+  )
 }
 
 int_max <- function(x, default = -Inf) {
