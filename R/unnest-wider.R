@@ -163,7 +163,7 @@ col_to_wide <- function(col, name, strict, names_sep, error_call = caller_env())
         i = cli::format_inline("In row: {cnd$location}.")
       )
     },
-    error_call = error_call
+    .error_call = error_call
   )
 
   # In the sole case of a list_of<data_frame>, we can be sure that the

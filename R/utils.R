@@ -330,13 +330,14 @@ check_list_of_bool <- function(x, names, arg = caller_arg(x), call = caller_env(
 
 with_indexed_errors <- function(expr,
                                 message,
-                                error_call = caller_env(),
-                                env = caller_env()) {
+                                ...,
+                                .error_call = caller_env(),
+                                .frame = caller_env()) {
   try_fetch(
     expr,
     purrr_error_indexed = function(cnd) {
       message <- message(cnd)
-      cli::cli_abort(message, call = error_call, parent = cnd$parent, .envir = env)
+      abort(message, ..., call = .error_call, parent = cnd$parent, .frame = .frame)
     }
   )
 }

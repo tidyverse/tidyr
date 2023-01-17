@@ -82,7 +82,7 @@ pack <- function(.data, ..., .names_sep = NULL, .error_call = current_env()) {
     message = function(cnd) {
       cli::format_inline("In expression named {.arg {cnd$name}}:")
     },
-    error_call = .error_call
+    .error_call = .error_call
   )
 
   unpacked <- setdiff(names(.data), unlist(map(cols, names)))
