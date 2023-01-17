@@ -1,8 +1,5 @@
 # tidyr (development version)
 
-* The deprecation warning resulting from calling `nest()` without specifying
-  the key column's name now uses the standard machinery from lifecycle (#1467).
-
 * `unnest_wider()` now generates automatic names for _partially_ unnamed
   vectors. Previously it only generated them for fully unnamed vectors,
   resulting in a strange mix of automatic names and name-repaired names (#1367).
