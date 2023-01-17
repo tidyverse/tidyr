@@ -125,18 +125,18 @@ explicit missing values (e.g., fill in gaps in your data frame).</p></li>
 
 <dt>...</dt>
 <dd><p>&lt;<code><a href="tidyr_data_masking.html">data-masking</a></code>&gt; Specification of columns
-to expand. Columns can be atomic vectors or lists.</p><ul><li><p>To find all unique combinations of <code>x</code>, <code>y</code> and <code>z</code>, including those not
+to expand or complete. Columns can be atomic vectors or lists.</p><ul><li><p>To find all unique combinations of <code>x</code>, <code>y</code> and <code>z</code>, including those not
 present in the data, supply each variable as a separate argument:
-<code>expand(df, x, y, z)</code>.</p></li>
+<code>expand(df, x, y, z)</code> or <code>complete(df, x, y, z)</code>.</p></li>
 <li><p>To find only the combinations that occur in the
 data, use <code>nesting</code>: <code>expand(df, nesting(x, y, z))</code>.</p></li>
 <li><p>You can combine the two forms. For example,
 <code>expand(df, nesting(school_id, student_id), date)</code> would produce
 a row for each present school-student combination for all possible
 dates.</p></li>
-</ul><p>When used with factors, <code>expand()</code> uses the full set of levels, not just
-those that appear in the data. If you want to use only the values seen in
-the data, use <code>forcats::fct_drop()</code>.</p>
+</ul><p>When used with factors, <code>expand()</code> and <code><a href="complete.html">complete()</a></code> use the full set of
+levels, not just those that appear in the data. If you want to use only the
+values seen in the data, use <code>forcats::fct_drop()</code>.</p>
 <p>When used with continuous variables, you may need to fill in values
 that do not appear in the data: to do so use expressions like
 <code>year = 2010:2020</code> or <code>year = full_seq(year,1)</code>.</p></dd>
@@ -338,12 +338,12 @@ to input vectors rather than a data frame.</p></div>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 25 × 4</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    type    year size  weights</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> apple   <span style="text-decoration: underline;">2</span>010 XS       2.64</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> orange  <span style="text-decoration: underline;">2</span>010 S        2.92</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> apple   <span style="text-decoration: underline;">2</span>012 M        5.00</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> orange  <span style="text-decoration: underline;">2</span>010 S        5.51</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> orange  <span style="text-decoration: underline;">2</span>011 S        2.90</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> orange  <span style="text-decoration: underline;">2</span>012 M        3.87</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> apple   <span style="text-decoration: underline;">2</span>010 XS       2.40</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> orange  <span style="text-decoration: underline;">2</span>010 S        5.14</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> apple   <span style="text-decoration: underline;">2</span>012 M        4.85</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> orange  <span style="text-decoration: underline;">2</span>010 S        2.30</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> orange  <span style="text-decoration: underline;">2</span>011 S        3.05</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> orange  <span style="text-decoration: underline;">2</span>012 M        4.28</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> apple   <span style="text-decoration: underline;">2</span>011 XS      <span style="color: #BB0000;">NA</span>   </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> apple   <span style="text-decoration: underline;">2</span>012 XS      <span style="color: #BB0000;">NA</span>   </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> apple   <span style="text-decoration: underline;">2</span>010 S       <span style="color: #BB0000;">NA</span>   </span>
