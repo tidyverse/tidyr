@@ -157,10 +157,12 @@ col_to_wide <- function(col, name, strict, names_sep, error_call = caller_env())
         error_call = NULL
       )
     ),
-    message = c(
-      i = "In column: {.code {name}}.",
-      i = "In row: {cnd$location}."
-    ),
+    message = function(cnd) {
+      c(
+        i = cli::format_inline("In column: {.code {name}}."),
+        i = cli::format_inline("In row: {cnd$location}.")
+      )
+    },
     error_call = error_call
   )
 

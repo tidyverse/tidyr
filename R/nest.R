@@ -254,7 +254,9 @@ nest_info <- function(.data,
         error_call = NULL
       ))
     }),
-    message = "In expression named {.arg {cnd$name}}:",
+    message = function(cnd) {
+      cli::format_inline("In expression named {.arg {cnd$name}}:")
+    },
     error_call = .error_call
   )
 

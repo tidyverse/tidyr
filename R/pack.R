@@ -79,7 +79,9 @@ pack <- function(.data, ..., .names_sep = NULL, .error_call = current_env()) {
         error_call = NULL
       )
     }),
-    message = "In expression named {.arg {cnd$name}}:",
+    message = function(cnd) {
+      cli::format_inline("In expression named {.arg {cnd$name}}:")
+    },
     error_call = .error_call
   )
 
