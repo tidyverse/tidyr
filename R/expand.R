@@ -21,11 +21,11 @@
 #' @inheritParams expand_grid
 #' @param data A data frame.
 #' @param ... <[`data-masking`][tidyr_data_masking]> Specification of columns
-#'   to expand. Columns can be atomic vectors or lists.
+#'   to expand or complete. Columns can be atomic vectors or lists.
 #'
 #'   * To find all unique combinations of `x`, `y` and `z`, including those not
 #'     present in the data, supply each variable as a separate argument:
-#'     `expand(df, x, y, z)`.
+#'     `expand(df, x, y, z)` or `complete(df, x, y, z)`.
 #'   * To find only the combinations that occur in the
 #'     data, use `nesting`: `expand(df, nesting(x, y, z))`.
 #'   * You can combine the two forms. For example,
@@ -33,9 +33,9 @@
 #'     a row for each present school-student combination for all possible
 #'     dates.
 #'
-#'   When used with factors, `expand()` uses the full set of levels, not just
-#'   those that appear in the data. If you want to use only the values seen in
-#'   the data, use `forcats::fct_drop()`.
+#'   When used with factors, [expand()] and [complete()] use the full set of
+#'   levels, not just those that appear in the data. If you want to use only the
+#'   values seen in the data, use `forcats::fct_drop()`.
 #'
 #'   When used with continuous variables, you may need to fill in values
 #'   that do not appear in the data: to do so use expressions like
