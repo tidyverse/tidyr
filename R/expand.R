@@ -201,19 +201,33 @@ nesting <- function(..., .name_repair = "check_unique") {
 expand_grid <- function(..., .name_repair = "check_unique") {
   out <- grid_dots(...)
 
-  sizes <- list_sizes(out)
-  size <- prod(sizes)
+  names <- names2(out)
+  unnamed <- which(names == "")
+  any_unnamed <- any(unnamed)
 
-  if (size == 0) {
-    out <- map(out, vec_slice, integer())
-  } else {
-    times <- size / cumprod(sizes)
-    out <- map2(out, times, vec_rep_each)
-    times <- size / times / sizes
-    out <- map2(out, times, vec_rep)
+  if (any_unnamed) {
+    # `vec_expand_grid()` requires all inputs to be named.
+    # Most are auto named by `grid_dots()`, but unnamed data frames are not.
+    # So we temporarily name unnamed data frames that eventually get spliced.
+    names[unnamed] <- vec_paste0("...", unnamed)
+    names(out) <- names
   }
 
+  out <- vec_expand_grid(
+    !!!out,
+    .name_repair = "minimal",
+    .error_call = current_env()
+  )
+
+  if (any_unnamed) {
+    names[unnamed] <- ""
+    names(out) <- names
+  }
+
+  size <- vec_size(out)
+
   # Flattens unnamed data frames after grid expansion
+  out <- tidyr_new_list(out)
   out <- df_list(!!!out, .name_repair = .name_repair, .error_call = current_env())
   out <- tibble::new_tibble(out, nrow = size)
 
