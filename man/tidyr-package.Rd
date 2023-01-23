@@ -20,18 +20,18 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Hadley Wickham \email{hadley@rstudio.com}
+\strong{Maintainer}: Hadley Wickham \email{hadley@posit.co}
 
 Authors:
 \itemize{
-  \item Davis Vaughan \email{davis@rstudio.com}
+  \item Davis Vaughan \email{davis@posit.co}
   \item Maximilian Girlich
 }
 
 Other contributors:
 \itemize{
-  \item Kevin Ushey \email{kevin@rstudio.com} [contributor]
-  \item RStudio [copyright holder, funder]
+  \item Kevin Ushey \email{kevin@posit.co} [contributor]
+  \item Posit, PBC [copyright holder, funder]
 }
 
 }

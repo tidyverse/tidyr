@@ -133,7 +133,7 @@ This section briefly describes how to run different code for different versions 
 * `nest()` preserves groups.
 * `nest_()` and `unnest_()` are defunct.
 
-If you're struggling with a problem that's not described here, please reach out via [github](https://github.com/tidyverse/tidyr/issues/new) or [email](mailto:hadley@rstudio.com) so we can help out.
+If you're struggling with a problem that's not described here, please reach out via [github](https://github.com/tidyverse/tidyr/issues/new) or [email](mailto:hadley@posit.co) so we can help out.
 
 ### Conditional code
 
