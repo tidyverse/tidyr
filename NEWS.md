@@ -91,6 +91,9 @@
 
 * All built in datasets are now standard tibbles (#1459).
 
+* R >=3.4.0 is now required, in line with the tidyverse standard of supporting
+  the previous 5 minor releases of R.
+
 * rlang >=1.0.4 and vctrs >=0.5.2 are now required (#1344, #1470).
 
 * Removed dependency on ellipsis in favor of equivalent functions in rlang
