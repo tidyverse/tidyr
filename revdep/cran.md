@@ -1,9 +1,9 @@
 ## revdepcheck results
 
-We checked 1743 reverse dependencies (1724 from CRAN + 19 from Bioconductor), comparing R CMD check results across CRAN and dev versions of this package.
+We checked 1761 reverse dependencies (1742 from CRAN + 19 from Bioconductor), comparing R CMD check results across CRAN and dev versions of this package.
 
- * We saw 8 new problems
- * We failed to check 15 packages
+ * We saw 4 new problems
+ * We failed to check 47 packages
 
 Issues with CRAN packages are summarised below.
 
@@ -16,23 +16,7 @@ Issues with CRAN packages are summarised below.
 * ggpubr
   checking examples ... ERROR
 
-* gutenbergr
-  checking examples ... ERROR
-
-* mapme.biodiversity
-  checking tests ... ERROR
-
-* metaconfoundr
-  checking examples ... ERROR
-  checking tests ... ERROR
-  checking re-building of vignette outputs ... WARNING
-
-* panelr
-  checking tests ... ERROR
-
-* tidypaleo
-  checking examples ... ERROR
-  checking tests ... ERROR
+* gprofiler2
   checking re-building of vignette outputs ... WARNING
 
 * wpa
@@ -41,18 +25,50 @@ Issues with CRAN packages are summarised below.
 
 ### Failed to check
 
-* cities         (NA)
-* FAMetA         (NA)
-* genekitr       (NA)
-* ggPMX          (NA)
-* ggsector       (NA)
-* loon.ggplot    (NA)
-* MarketMatching (NA)
-* numbat         (NA)
-* OlinkAnalyze   (NA)
-* Platypus       (NA)
-* RVA            (NA)
-* SCpubr         (NA)
-* tinyarray      (NA)
-* vivid          (NA)
-* xpose.nlmixr2  (NA)
+* afex                 (NA)
+* autoTS               (NA)
+* bayesnec             (NA)
+* BayesPostEst         (NA)
+* beadplexr            (NA)
+* breathtestcore       (NA)
+* broom.helpers        (NA)
+* broom.mixed          (NA)
+* datawizard           (NA)
+* embed                (NA)
+* escalation           (NA)
+* ESTER                (NA)
+* FAMetA               (NA)
+* finnts               (NA)
+* genekitr             (NA)
+* ggPMX                (NA)
+* ggstatsplot          (NA)
+* healthyR.ai          (NA)
+* healthyR.ts          (NA)
+* historicalborrowlong (NA)
+* INSPECTumours        (NA)
+* loon.ggplot          (NA)
+* marginaleffects      (NA)
+* modeltime            (NA)
+* modeltime.ensemble   (NA)
+* modeltime.gluonts    (NA)
+* modeltime.h2o        (NA)
+* modeltime.resample   (NA)
+* mpower               (NA)
+* numbat               (NA)
+* OlinkAnalyze         (NA)
+* ordbetareg           (NA)
+* Platypus             (NA)
+* RBesT                (NA)
+* rdss                 (NA)
+* Robyn                (NA)
+* RVA                  (NA)
+* SCpubr               (NA)
+* sjPlot               (NA)
+* sknifedatar          (NA)
+* statsExpressions     (NA)
+* tidybayes            (NA)
+* tidyposterior        (NA)
+* timetk               (NA)
+* tinyarray            (NA)
+* vivid                (NA)
+* xpose.nlmixr2        (NA)
