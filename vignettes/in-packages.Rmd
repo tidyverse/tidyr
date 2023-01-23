@@ -123,7 +123,7 @@ GitHub Actions are an evolving landscape, so you can always mine the workflows f
 
 v1.0.0 makes considerable changes to the interface of `nest()` and `unnest()` in order to bring them in line with newer tidyverse conventions. I have tried to make the functions as backward compatible as possible and to give informative warning messages, but I could not cover 100% of use cases, so you may need to change your package code. This guide will help you do so with a minimum of pain.
 
-Ideally, you'll tweak your package so that it works with both tidyr 0.8.3 and tidyr 1.0.0. This makes life considerably easier because it means there's no need to coordinate CRAN submissions - you can submit your package that works with both tidyr versions, before I submit tidyr to CRAN. This section describes our recommend practices for doing so, drawing from the general principles described in <https://principles.tidyverse.org/changes-multivers.html>.
+Ideally, you'll tweak your package so that it works with both tidyr 0.8.3 and tidyr 1.0.0. This makes life considerably easier because it means there's no need to coordinate CRAN submissions - you can submit your package that works with both tidyr versions, before I submit tidyr to CRAN. This section describes our recommend practices for doing so, drawing from the general principles described in <https://design.tidyverse.org/changes-multivers.html>.
 
 If you use continuous integration already, we **strongly** recommend adding a build that tests with the development version of tidyr; see above for details.
 
@@ -180,7 +180,7 @@ What changed:
 Why it changed:
 
 *   The use of `...` for metadata is a problematic pattern we're moving away from.
-    <https://principles.tidyverse.org/dots-data.html>
+    <https://design.tidyverse.org/dots-data.html>
 
 *   The `new_col = <something about existing cols>` construct lets us create 
     multiple nested list-columns at once ("multi-nest").
@@ -247,7 +247,7 @@ What changed:
 Why it changed:
 
 * The use of `...` for metadata is a problematic pattern we're moving away from.
-  <https://principles.tidyverse.org/dots-data.html>
+  <https://design.tidyverse.org/dots-data.html>
   
 * The changes to details arguments relate to features rolling out
   across multiple packages in the tidyverse. For example, `ptype` exposes
