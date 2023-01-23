@@ -1,68 +1,30 @@
 # tidyr (development version)
 
-* `unnest_wider()` now generates automatic names for _partially_ unnamed
-  vectors. Previously it only generated them for fully unnamed vectors,
-  resulting in a strange mix of automatic names and name-repaired names (#1367).
+## New features
 
-* `unnest_wider()` now errors if any values being unnested are unnamed and
-  `names_sep` is not provided (#1367).
+* New family of consistent string separating functions:
+  `separate_wider_delim()`, `separate_wider_position()`,
+  `separate_wider_regex()`, `separate_longer_delim()`, and
+  `separate_longer_position()`. These functions are thorough refreshes of
+  `separate()` and `extract()`, featuring improved performance, greater
+  consistency, a polished API, and a new approach for handling problems. They
+  use stringr and supersede `extract()`, `separate()`, and `separate_rows()`
+  (#1304).
 
-* `nest()` has gained a new argument, `.by`, which allows you to specify the
+* `nest()` has gained a `.by` argument which allows you to specify the
   columns to nest by (rather than the columns to nest, i.e. through `...`).
   Additionally, the `.key` argument is no longer deprecated, and is used
   whenever `...` isn't specified (#1458).
 
-* All built in datasets are now standard tibbles (#1459).
-
-* `unnest()`, `unchop()`, `unnest_longer()`, and `unnest_wider()` better handle
-  lists with additional classes (#1327).
-
-* `chop()`, `unpack()`, and `unchop()` have all gained `...`, which must be
-  empty (#1447).
-  
-* `nest()`, `unnest()`, `pack()`, `unpack()`, `chop()`, and `unchop()` now
-  consistently disallow renaming during tidy-selection. Renaming is never
-  meaningful in these functions, and previously either had no effect or caused
-  problems (#1449).
-
-* `pack()`, `unpack()`, `chop()`, and `unchop()` have all gained `error_call`
-  arguments, which in turn improves some of the error calls shown in `nest()`
-  and various `unnest()` adjacent functions (#1446).
-
-* `unpack()` does a better job of reporting column name duplication issues and
-  gives better advice about how to resolve them using `names_sep`. This also
-  improves errors from functions that use `unpack()`, like `unnest()` and
-  `unnest_wider()` (#1425, #1367).
-
-* `unnest_longer()` now uses `""` in the index column for fully unnamed
-  vectors. It also now consistently uses `NA` in the index column for empty
-  vectors that are "kept" by `keep_empty = TRUE` (#1442).
-
-* `unnest_longer()` now consistently drops rows with either `NULL` or empty
-  vectors (like `integer()`) by default. Set the new `keep_empty` argument to
-  `TRUE` to retain them. Previously, `keep_empty = TRUE` was implicitly being
-  used for `NULL`, while `keep_empty = FALSE` was being used for empty vectors,
-  which was inconsistent with all other tidyr verbs with this argument (#1363).
-
 * `unnest_longer()` has gained a `keep_empty` argument like `unnest()` (#1339).
 
-* `nest()`, `complete()`, `expand()`, and `fill()` now document their support
-  for grouped data frames created by `dplyr::group_by()` (#952).
+* `pivot_longer()` has gained a `cols_vary` argument for controlling the
+  ordering of the output rows relative to their original row number (#1312).
 
-* `pivot_longer_spec()`, `pivot_wider_spec()`, `build_longer_spec()`, and
-  `build_wider_spec()` have all gained an `error_call` argument, resulting in
-  better error reporting in `pivot_longer()` and `pivot_wider()` (#1408).
+* Add new datasets `who2`, `household`, `cms_patient_experience` and 
+  `cms_patient_care` to demonstrate various tidying challenges (#1333).
 
-* `pivot_longer()` no longer supports interpreting `values_ptypes = list()`
-  and `names_ptypes = list()` as `NULL`. An empty `list()` is now interpreted as
-  a `<list>` prototype to apply to all columns, which is consistent with how any
-  other 0-length value is interpreted (#1296).
-
-* All functions deprecated in tidyr 1.0 and 1.2 (the old lazyeval functions 
-  ending in `_` and various arguments to `unnest()`) now warn on every use.
-  They will be made defunct in 2024 (#1406).
-
-* `pivot_wider()` is now faster when `names_sep` is provided (@mgirlich, #1426).
+## Breaking changes
 
 * The `...` argument of both `pivot_longer()` and `pivot_wider()` has been
   moved to the front of the function signature, after the required arguments
@@ -81,34 +43,42 @@
   [Data, dots, details](https://design.tidyverse.org/dots-position.html) in the
   tidyverse design guide (#1350).
 
-* New family of consistent string separating functions:
-  `separate_wider_delim()`, `separate_wider_position()`, `separate_wider_regex()`, 
-  `separate_longer_delim()`, and `separate_longer_position()`. These functions
-  are thorough refreshes of `separate()` and `extract()`, featuring improved
-  performance, greater consistency, a polished API, and a new approach for
-  handling problems. They use stringr and supersede `extract()`, `separate()`, 
-  and `separate_rows()` (#1304).
+## Lifecycle changes
 
-* `pivot_longer(values_drop_na = TRUE)` is faster when there aren't any missing
-  values to drop (#1392, @mgirlich).
+* All functions deprecated in tidyr 1.0 and 1.2 (the old lazyeval functions 
+  ending in `_` and various arguments to `unnest()`) now warn on every use.
+  They will be made defunct in 2024 (#1406).
 
-* `replace_na()` is faster when there aren't any missing values to replace
-  (#1392, @mgirlich).
+## Rectangling
+  
+* `unnest_longer()` now consistently drops rows with either `NULL` or empty
+  vectors (like `integer()`) by default. Set the new `keep_empty` argument to
+  `TRUE` to retain them. Previously, `keep_empty = TRUE` was implicitly being
+  used for `NULL`, while `keep_empty = FALSE` was being used for empty vectors,
+  which was inconsistent with all other tidyr verbs with this argument (#1363).
 
-* tidyr errors (including input validation) have been thorougly reviewed
+* `unnest_longer()` now uses `""` in the index column for fully unnamed
+  vectors. It also now consistently uses `NA` in the index column for empty
+  vectors that are "kept" by `keep_empty = TRUE` (#1442).
+
+* `unnest_wider()` now errors if any values being unnested are unnamed and
+  `names_sep` is not provided (#1367).
+
+* `unnest_wider()` now generates automatic names for _partially_ unnamed
+  vectors. Previously it only generated them for fully unnamed vectors,
+  resulting in a strange mix of automatic names and name-repaired names (#1367).
+
+## Bug fixes and minor improvements
+
+### General
+
+* Most tidyr functions now consistently disallow renaming during tidy-selection.
+  Renaming was never meaningful in these functions, and previously either had no
+  effect or caused problems (#1449, #1104).
+
+* tidyr errors (including input validation) have been thoroughly reviewed
   and should generally be more likely to point you in the right direction 
   (#1313, #1400).
-
-* `chop()`, `drop_na()`, `fill()`, `pivot_longer()`, `pivot_wider()`, 
-  `separate_rows()`, `unite()`, `unnest_longer()`, and `unnest_wider()` now
-  error if you supply named selection (#1104).
-
-* Add new datasets `who2`, `household`, `cms_patient_experience` and 
-  `cms_patient_care` to demonstrate various tidying challenges (#1333).
-
-* `pivot_longer()` now throws a slightly better error message when
-  `values_ptypes` or `names_ptypes` is provided and the coercion can't be made
-  (#1364).
 
 * `uncount()` is now generic so implementations can be provided for objects
   other than data frames (@mgirlich, #1358).
@@ -116,25 +86,69 @@
 * `uncount()` gained the `...` argument. It comes between the required and the
   optional arguments (@mgirlich, #1358).
 
-* `pivot_longer()` gained a new `cols_vary` argument for controlling the
-  ordering of the output rows relative to their original row number (#1312).
+* `nest()`, `complete()`, `expand()`, and `fill()` now document their support
+  for grouped data frames created by `dplyr::group_by()` (#952).
 
-* `pivot_longer()` is now more memory efficient due to the usage of
-  `vctrs::vec_interleave()` (#1310, @mgirlich).
+* All built in datasets are now standard tibbles (#1459).
 
 * rlang >=1.0.2 and vctrs >=0.4.1 are now required (#1344).
 
 * Removed dependency on ellipsis in favor of equivalent functions in rlang
   (#1314).
 
+### Nesting, packing, and chopping
+
+* `unnest()`, `unchop()`, `unnest_longer()`, and `unnest_wider()` better handle
+  lists with additional classes (#1327).
+
+* `pack()`, `unpack()`, `chop()`, and `unchop()` have all gained `error_call`
+  arguments, which in turn improves some of the error calls shown in `nest()`
+  and various `unnest()` adjacent functions (#1446).
+
+* `chop()`, `unpack()`, and `unchop()` have all gained `...`, which must be
+  empty (#1447).
+
+* `unpack()` does a better job of reporting column name duplication issues and
+  gives better advice about how to resolve them using `names_sep`. This also
+  improves errors from functions that use `unpack()`, like `unnest()` and
+  `unnest_wider()` (#1425, #1367).
+
+### Pivoting
+
+* `pivot_longer()` no longer supports interpreting `values_ptypes = list()`
+  and `names_ptypes = list()` as `NULL`. An empty `list()` is now interpreted as
+  a `<list>` prototype to apply to all columns, which is consistent with how any
+  other 0-length value is interpreted (#1296).
+
+* `pivot_longer(values_drop_na = TRUE)` is faster when there aren't any missing
+  values to drop (#1392, @mgirlich).
+
+* `pivot_longer()` is now more memory efficient due to the usage of
+  `vctrs::vec_interleave()` (#1310, @mgirlich).
+
+* `pivot_longer()` now throws a slightly better error message when
+  `values_ptypes` or `names_ptypes` is provided and the coercion can't be made
+  (#1364).
+
+* `pivot_wider()` now throws a better error message when a column selected by
+  `names_from` or `values_from` is also selected by `id_cols` (#1318).
+
+* `pivot_wider()` is now faster when `names_sep` is provided (@mgirlich, #1426).
+
+* `pivot_longer_spec()`, `pivot_wider_spec()`, `build_longer_spec()`, and
+  `build_wider_spec()` have all gained an `error_call` argument, resulting in
+  better error reporting in `pivot_longer()` and `pivot_wider()` (#1408).
+
+### Missing values
+
 * `fill()` now works correctly when there is a column named `.direction` in
   `data` (#1319, @tjmahr).
 
+* `replace_na()` is faster when there aren't any missing values to replace
+  (#1392, @mgirlich).
+
 * Added documentation to the `replace` argument of `replace_na()` to mention
   that it is always cast to the type of `data` (#1317).
-
-* Improved the error message returned by `pivot_wider()` when a column selected
-  by `names_from` or `values_from` is also selected by `id_cols` (#1318).
 
 # tidyr 1.2.1
 
