@@ -11,17 +11,17 @@
   use stringr and supersede `extract()`, `separate()`, and `separate_rows()`
   (#1304).
 
-* `nest()` has gained a `.by` argument which allows you to specify the
-  columns to nest by (rather than the columns to nest, i.e. through `...`).
-  Additionally, the `.key` argument is no longer deprecated, and is used
-  whenever `...` isn't specified (#1458).
+* `nest()` gains a `.by` argument which allows you to specify the columns to
+  nest by (rather than the columns to nest, i.e. through `...`). Additionally,
+  the `.key` argument is no longer deprecated, and is used whenever `...` isn't
+  specified (#1458).
 
-* `unnest_longer()` has gained a `keep_empty` argument like `unnest()` (#1339).
+* `unnest_longer()` gains a `keep_empty` argument like `unnest()` (#1339).
 
-* `pivot_longer()` has gained a `cols_vary` argument for controlling the
-  ordering of the output rows relative to their original row number (#1312).
+* `pivot_longer()` gains a `cols_vary` argument for controlling the ordering of
+  the output rows relative to their original row number (#1312).
 
-* Add new datasets `who2`, `household`, `cms_patient_experience` and 
+* New datasets `who2`, `household`, `cms_patient_experience`, and 
   `cms_patient_care` to demonstrate various tidying challenges (#1333).
 
 ## Breaking changes
@@ -83,7 +83,7 @@
 * `uncount()` is now generic so implementations can be provided for objects
   other than data frames (@mgirlich, #1358).
 
-* `uncount()` gained the `...` argument. It comes between the required and the
+* `uncount()` gains a `...` argument. It comes between the required and the
   optional arguments (@mgirlich, #1358).
 
 * `nest()`, `complete()`, `expand()`, and `fill()` now document their support
@@ -104,12 +104,12 @@
 * `unnest()`, `unchop()`, `unnest_longer()`, and `unnest_wider()` better handle
   lists with additional classes (#1327).
 
-* `pack()`, `unpack()`, `chop()`, and `unchop()` have all gained `error_call`
-  arguments, which in turn improves some of the error calls shown in `nest()`
+* `pack()`, `unpack()`, `chop()`, and `unchop()` all gain an `error_call`
+  argument, which in turn improves some of the error calls shown in `nest()`
   and various `unnest()` adjacent functions (#1446).
 
-* `chop()`, `unpack()`, and `unchop()` have all gained `...`, which must be
-  empty (#1447).
+* `chop()`, `unpack()`, and `unchop()` all gain `...`, which must be empty
+  (#1447).
 
 * `unpack()` does a better job of reporting column name duplication issues and
   gives better advice about how to resolve them using `names_sep`. This also
@@ -139,8 +139,8 @@
 * `pivot_wider()` is now faster when `names_sep` is provided (@mgirlich, #1426).
 
 * `pivot_longer_spec()`, `pivot_wider_spec()`, `build_longer_spec()`, and
-  `build_wider_spec()` have all gained an `error_call` argument, resulting in
-  better error reporting in `pivot_longer()` and `pivot_wider()` (#1408).
+  `build_wider_spec()` all gain an `error_call` argument, resulting in better
+  error reporting in `pivot_longer()` and `pivot_wider()` (#1408).
 
 ### Missing values
 
@@ -150,8 +150,8 @@
 * `replace_na()` is faster when there aren't any missing values to replace
   (#1392, @mgirlich).
 
-* Added documentation to the `replace` argument of `replace_na()` to mention
-  that it is always cast to the type of `data` (#1317).
+* The documentation of the `replace` argument of `replace_na()` now mentions
+  that `replace` is always cast to the type of `data` (#1317).
 
 # tidyr 1.2.1
 
