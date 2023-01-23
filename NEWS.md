@@ -91,7 +91,7 @@
 
 * All built in datasets are now standard tibbles (#1459).
 
-* rlang >=1.0.2 and vctrs >=0.4.1 are now required (#1344).
+* rlang >=1.0.4 and vctrs >=0.5.2 are now required (#1344, #1470).
 
 * Removed dependency on ellipsis in favor of equivalent functions in rlang
   (#1314).
