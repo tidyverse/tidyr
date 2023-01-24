@@ -20,3 +20,4 @@
 ^pkgdown$
 ^\.github/workflows/R\.yaml$
 ^\.github/workflows/pr-commands\.yaml$
+^CRAN-SUBMISSION$
