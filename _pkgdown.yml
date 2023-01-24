@@ -116,6 +116,8 @@ articles:
 
 news:
   releases:
+  - text: "Version 1.3.0"
+    href: https://www.tidyverse.org/blog/2023/01/tidyr-1-3-0/
   - text: "Version 1.2.0"
     href: https://www.tidyverse.org/blog/2022/02/tidyr-1-2-0/
   - text: "Version 1.1.0"
