@@ -61,6 +61,9 @@
     <loc>https://tidyr.tidyverse.org/reference/chop.html</loc>
   </url>
   <url>
+    <loc>https://tidyr.tidyverse.org/reference/cms_patient_experience.html</loc>
+  </url>
+  <url>
     <loc>https://tidyr.tidyverse.org/reference/complete.html</loc>
   </url>
   <url>
@@ -98,6 +101,9 @@
   </url>
   <url>
     <loc>https://tidyr.tidyverse.org/reference/hoist.html</loc>
+  </url>
+  <url>
+    <loc>https://tidyr.tidyverse.org/reference/household.html</loc>
   </url>
   <url>
     <loc>https://tidyr.tidyverse.org/reference/index.html</loc>
@@ -139,7 +145,13 @@
     <loc>https://tidyr.tidyverse.org/reference/separate.html</loc>
   </url>
   <url>
+    <loc>https://tidyr.tidyverse.org/reference/separate_longer_delim.html</loc>
+  </url>
+  <url>
     <loc>https://tidyr.tidyverse.org/reference/separate_rows.html</loc>
+  </url>
+  <url>
+    <loc>https://tidyr.tidyverse.org/reference/separate_wider_delim.html</loc>
   </url>
   <url>
     <loc>https://tidyr.tidyverse.org/reference/smiths.html</loc>
@@ -154,6 +166,9 @@
     <loc>https://tidyr.tidyverse.org/reference/tidyr-package.html</loc>
   </url>
   <url>
+    <loc>https://tidyr.tidyverse.org/reference/tidyr_data_masking.html</loc>
+  </url>
+  <url>
     <loc>https://tidyr.tidyverse.org/reference/tidyr_legacy.html</loc>
   </url>
   <url>
@@ -164,6 +179,18 @@
   </url>
   <url>
     <loc>https://tidyr.tidyverse.org/reference/unite.html</loc>
+  </url>
+  <url>
+    <loc>https://tidyr.tidyverse.org/reference/unnest.html</loc>
+  </url>
+  <url>
+    <loc>https://tidyr.tidyverse.org/reference/unnest_auto.html</loc>
+  </url>
+  <url>
+    <loc>https://tidyr.tidyverse.org/reference/unnest_longer.html</loc>
+  </url>
+  <url>
+    <loc>https://tidyr.tidyverse.org/reference/unnest_wider.html</loc>
   </url>
   <url>
     <loc>https://tidyr.tidyverse.org/reference/us_rent_income.html</loc>
