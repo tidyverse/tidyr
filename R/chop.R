@@ -267,7 +267,7 @@ df_unchop <- function(x, ..., ptype = NULL, keep_empty = FALSE, error_call = cal
     row_recycle <- col_sizes != sizes
     col[row_recycle] <- map2(col[row_recycle], sizes[row_recycle], vec_recycle, call = error_call)
 
-    col <- list_unchop(col, ptype = col_ptype)
+    col <- list_unchop(col, ptype = col_ptype, error_arg = col_name, error_call = error_call)
 
     if (is_null(col)) {
       # This can happen when both of these are true:
