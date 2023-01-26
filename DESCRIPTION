@@ -6,7 +6,7 @@ Authors@R: c(
     person("Davis", "Vaughan", , "davis@posit.co", role = "aut"),
     person("Maximilian", "Girlich", role = "aut"),
     person("Kevin", "Ushey", , "kevin@posit.co", role = "ctb"),
-    person("Posit, PBC", role = c("cph", "fnd"))
+    person("Posit Software, PBC", role = c("cph", "fnd"))
   )
 Description: Tools to help to create tidy data, where each column is a
     variable, each row is an observation, and each cell contains a single
