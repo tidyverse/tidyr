@@ -98,7 +98,7 @@
       df %>% separate_wider_position(x)
     Condition
       Error in `separate_wider_position()`:
-      ! argument "widths" is missing, with no default
+      ! `widths` is absent but must be supplied.
     Code
       df %>% separate_wider_position(x, widths = 1.5)
     Condition

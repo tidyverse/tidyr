@@ -271,6 +271,7 @@ separate_wider_position <- function(
   check_installed("stringr")
   check_data_frame(data)
   check_required(cols)
+  check_required(widths)
   if (!is_integerish(widths) || !any(have_name(widths))) {
     cli::cli_abort("{.arg widths} must be a (partially) named integer vector.")
   }
