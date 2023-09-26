@@ -97,7 +97,7 @@
     Code
       df %>% separate_wider_position(x)
     Condition
-      Error in `is_integerish()`:
+      Error in `separate_wider_position()`:
       ! argument "widths" is missing, with no default
     Code
       df %>% separate_wider_position(x, widths = 1.5)

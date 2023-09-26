@@ -23,7 +23,7 @@
     Output
       <error/rlang_error>
       Error in `hoist()`:
-      ! `.data[[.col]]` must be a list, not a number.
+      ! `.data[[.col]]` must be a list, not the number 1.
     Code
       (expect_error(df %>% hoist(x, 1)))
     Output

@@ -189,6 +189,7 @@
       ! Arguments in `...` must be used.
       x Problematic argument:
       * ..1 = 1
+      i Did you misspell an argument name?
     Code
       (expect_error(pivot_longer(df, c(x, y), col_vary = "slowest")))
     Output
@@ -197,6 +198,7 @@
       ! Arguments in `...` must be used.
       x Problematic argument:
       * col_vary = "slowest"
+      i Did you misspell an argument name?
 
 # `build_longer_spec()` requires empty dots
 

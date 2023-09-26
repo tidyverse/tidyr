@@ -71,7 +71,7 @@
     Output
       <error/rlang_error>
       Error:
-      ! Can't convert `transform$x`, a number, to a function.
+      ! Can't convert `transform$x`, a double vector, to a function.
     Code
       (expect_error(df_simplify(data.frame(), transform = list(x = 1, x = 1))))
     Output
