@@ -1,5 +1,8 @@
 # tidyr (development version)
 
+* `unchop()` produces a more helpful error message when columns cannot be cast
+  to `ptype` (@mgirlich, #1477).
+
 # tidyr 1.3.0
 
 ## New features
