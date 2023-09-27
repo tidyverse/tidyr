@@ -320,7 +320,7 @@ str_separate_wider_position <- function(x,
     too_many = too_many,
     advice_short = c(
       i = 'Use `too_few = "debug"` to diagnose the problem.',
-      i = 'Use `too_few = "start"` to silence this message.'
+      i = 'Use `too_few = "align_start"` to silence this message.'
     ),
     advice_long = c(
       i = 'Use `too_many = "debug"` to diagnose the problem.',
@@ -444,7 +444,7 @@ str_separate_wider_regex <- function(x,
         "Expected each value of {.var {col}} to match the pattern, the whole pattern, and nothing but the pattern.",
         "!" = "{length(no_match)} value{?s} {?has/have} problem{?s}.",
         i = 'Use {.code too_few = "debug"} to diagnose the problem.',
-        i = 'Use {.code too_few = "start"} to silence this message.'
+        i = 'Use {.code too_few = "align_start"} to silence this message.'
       ), call = error_call)
     }
 
