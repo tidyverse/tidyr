@@ -3,7 +3,7 @@
 \docType{data}
 \name{world_bank_pop}
 \alias{world_bank_pop}
-\title{Population data from the world bank}
+\title{Population data from the World Bank}
 \format{
 A dataset with variables:
 \describe{

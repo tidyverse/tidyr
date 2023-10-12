@@ -126,7 +126,7 @@
 #' }
 "fish_encounters"
 
-#' Population data from the world bank
+#' Population data from the World Bank
 #'
 #' Data about population from the World Bank.
 #'
