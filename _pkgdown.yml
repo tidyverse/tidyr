@@ -3,7 +3,7 @@ url: https://tidyr.tidyverse.org
 home:
   links:
     - text: Learn more
-      href: https://r4ds.had.co.nz/tidy-data.html
+      href: https://r4ds.hadley.nz/data-tidy
 
 navbar:
   components:
