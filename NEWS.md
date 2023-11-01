@@ -1,5 +1,7 @@
 # tidyr (development version)
 
+# tidyr 1.3.0
+
 ## New features
 
 * New family of consistent string separating functions:
@@ -9,7 +11,11 @@
   `separate()` and `extract()`, featuring improved performance, greater
   consistency, a polished API, and a new approach for handling problems. They
   use stringr and supersede `extract()`, `separate()`, and `separate_rows()`
-  (#1304). Thanks to the [nc](https://github.com/tdhock/nc) package by Toby Dylan Hocking for inspiration about how a capturing regex can be specified using a named character vector, used in the `patterns` argument of `separate_wider_regex()`.
+  (#1304). 
+  
+    The named character vector interface used in `separate_wider_regex()`
+    is very similar to the [nc](https://github.com/tdhock/nc) package by 
+    Toby Dylan Hocking.
 
 * `nest()` gains a `.by` argument which allows you to specify the columns to
   nest by (rather than the columns to nest, i.e. through `...`). Additionally,
