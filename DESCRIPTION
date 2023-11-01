@@ -6,7 +6,7 @@ Authors@R: c(
     person("Davis", "Vaughan", , "davis@posit.co", role = "aut"),
     person("Maximilian", "Girlich", role = "aut"),
     person("Kevin", "Ushey", , "kevin@posit.co", role = "ctb"),
-    person("Posit, PBC", role = c("cph", "fnd"))
+    person("Posit Software, PBC", role = c("cph", "fnd"))
   )
 Description: Tools to help to create tidy data, where each column is a
     variable, each row is an observation, and each cell contains a single
@@ -19,7 +19,7 @@ License: MIT + file LICENSE
 URL: https://tidyr.tidyverse.org, https://github.com/tidyverse/tidyr
 BugReports: https://github.com/tidyverse/tidyr/issues
 Depends: 
-    R (>= 3.4.0)
+    R (>= 3.6)
 Imports: 
     cli (>= 3.4.1),
     dplyr (>= 1.0.10),

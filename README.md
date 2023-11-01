@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# tidyr <a href='https://tidyr.tidyverse.org'><img src='man/figures/logo.png' align="right" height="139" /></a>
+# tidyr <a href="https://tidyr.tidyverse.org"><img src="man/figures/logo.png" align="right" height="138" alt="tidyr website" /></a>
 
 <!-- badges: start -->
 
@@ -37,8 +37,8 @@ install.packages("tidyverse")
 install.packages("tidyr")
 
 # Or the development version from GitHub:
-# install.packages("devtools")
-devtools::install_github("tidyverse/tidyr")
+# install.packages("pak")
+pak::pak("tidyverse/tidyr")
 ```
 
 ## Cheatsheet
