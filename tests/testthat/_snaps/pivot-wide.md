@@ -202,8 +202,7 @@
       * Use `values_fn = {summary_fun}` to summarise duplicates.
       * Use the following dplyr code to identify duplicates.
         {data} %>%
-        dplyr::group_by(a, key) %>%
-        dplyr::summarise(n = dplyr::n(), .groups = "drop") %>%
+        dplyr::summarise(n = dplyr::n(), .by = c(a, key)) %>%
         dplyr::filter(n > 1L)
 
 # duplicated key warning mentions every applicable column
@@ -217,8 +216,7 @@
       * Use `values_fn = {summary_fun}` to summarise duplicates.
       * Use the following dplyr code to identify duplicates.
         {data} %>%
-        dplyr::group_by(key) %>%
-        dplyr::summarise(n = dplyr::n(), .groups = "drop") %>%
+        dplyr::summarise(n = dplyr::n(), .by = c(key)) %>%
         dplyr::filter(n > 1L)
     Output
       # A tibble: 1 x 3
@@ -237,8 +235,7 @@
       * Use `values_fn = {summary_fun}` to summarise duplicates.
       * Use the following dplyr code to identify duplicates.
         {data} %>%
-        dplyr::group_by(key) %>%
-        dplyr::summarise(n = dplyr::n(), .groups = "drop") %>%
+        dplyr::summarise(n = dplyr::n(), .by = c(key)) %>%
         dplyr::filter(n > 1L)
     Output
       # A tibble: 1 x 3
@@ -257,8 +254,7 @@
       * Use `values_fn = {summary_fun}` to summarise duplicates.
       * Use the following dplyr code to identify duplicates.
         {data} %>%
-        dplyr::group_by(`a 1`, a2, `the-key`) %>%
-        dplyr::summarise(n = dplyr::n(), .groups = "drop") %>%
+        dplyr::summarise(n = dplyr::n(), .by = c(`a 1`, a2, `the-key`)) %>%
         dplyr::filter(n > 1L)
 
 # values_fn is validated
