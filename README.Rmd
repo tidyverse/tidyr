@@ -40,8 +40,8 @@ install.packages("tidyverse")
 install.packages("tidyr")
 
 # Or the development version from GitHub:
-# install.packages("devtools")
-devtools::install_github("tidyverse/tidyr")
+# install.packages("pak")
+pak::pak("tidyverse/tidyr")
 ```
 
 ## Cheatsheet
