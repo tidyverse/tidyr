@@ -97,6 +97,7 @@ test_that("data frame columns pivot correctly", {
 })
 
 test_that("works with data.table and empty key_vars", {
+  skip_if_not_installed("data.table")
   dt <- data.table::data.table(n = "a", v = 1)
   expect_equal(
     pivot_wider(dt, names_from = n, values_from = v),
