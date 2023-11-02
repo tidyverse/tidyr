@@ -17,9 +17,9 @@ coverage](https://codecov.io/gh/tidyverse/tidyr/branch/main/graph/badge.svg)](ht
 The goal of tidyr is to help you create **tidy data**. Tidy data is data
 where:
 
-1.  Every column is a variable.
-2.  Every row is an observation.
-3.  Every cell is a single value.
+1.  Each variable is a column; each column is a variable.
+2.  Each observation is a row; each row is an observation.
+3.  Each value is a cell; each cell is a single value.
 
 Tidy data describes a standard way of storing data that is used wherever
 possible throughout the [tidyverse](https://www.tidyverse.org/). If you
