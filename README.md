@@ -67,10 +67,11 @@ tidyr functions fall into five main categories:
   opposite. See `nest()`, `unnest()`, and `vignette("nest")` for more
   details.
 
-- Splitting and combining character columns. Use `separate()` and
-  `extract()` to pull a single character column into multiple columns;
-  use `unite()` to combine multiple columns into a single character
-  column.
+- Splitting and combining character columns. Use
+  `separate_wider_delim()`, `separate_wider_position()`, and
+  `separate_wider_regex()` to pull a single character column into
+  multiple columns; use `unite()` to combine multiple columns into a
+  single character column.
 
 - Make implicit missing values explicit with `complete()`; make explicit
   missing values implicit with `drop_na()`; replace missing values with
