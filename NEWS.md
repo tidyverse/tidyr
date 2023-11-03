@@ -1,5 +1,7 @@
 # tidyr (development version)
 
+* `pivot_wider` now uses `.by` and `|>` syntax for the dplyr helper message to identify duplicates (@boshek, #1516) 
+
 # tidyr 1.3.0
 
 ## New features
