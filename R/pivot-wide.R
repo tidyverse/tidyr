@@ -441,9 +441,8 @@ pivot_wider_spec <- function(data,
       "*" = "Use `values_fn = list` to suppress this warning.",
       "*" = "Use `values_fn = {{summary_fun}}` to summarise duplicates.",
       "*" = "Use the following dplyr code to identify duplicates.",
-      " " = "  {{data}} %>%",
-      " " = "    dplyr::group_by({group_cols}) %>%",
-      " " = "    dplyr::summarise(n = dplyr::n(), .groups = \"drop\") %>%",
+      " " = "  {{data}} |>",
+      " " = "    dplyr::summarise(n = dplyr::n(), .by = c({group_cols})) |>",
       " " = "    dplyr::filter(n > 1L)"
     ))
   }
