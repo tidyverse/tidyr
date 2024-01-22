@@ -49,8 +49,7 @@
   encouraging you to explicitly name the `id_cols` argument.
   
   To read more about this pattern, see
-  [Data, dots, details](https://design.tidyverse.org/dots-position.html) in the
-  tidyverse design guide (#1350).
+  <https://design.tidyverse.org/dots-after-required.html> (#1350).
 
 ## Lifecycle changes
 

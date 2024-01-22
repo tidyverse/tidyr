@@ -235,7 +235,7 @@ anscombe %>%
 
 Setting `cols_vary` to `"slowest"` groups the values from columns `x1` and `y1` together in the rows of the output before moving on to `x2` and `y2`. This argument often produces more intuitively ordered output when you are pivoting every column in your dataset.
 
-A similar situation can arise with panel data. For example, take this example dataset provided by [Thomas Leeper](https://github.com/leeper/rio/issues/193). We can tidy it using the same approach as for `anscombe`:
+A similar situation can arise with panel data. For example, take this example dataset provided by [Thomas Leeper](https://github.com/gesistsa/rio/issues/193). We can tidy it using the same approach as for `anscombe`:
 
 ```{r}
 pnl <- tibble(
