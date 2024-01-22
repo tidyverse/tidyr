@@ -37,7 +37,7 @@ last <- function(x) x[[length(x)]]
 #' the naming strategy, otherwise you're better off adopting the new
 #' tidyverse standard with `name_repair = "universal"`
 #'
-#' @param nm Character vector of names
+#' @param nms Character vector of names
 #' @param prefix prefix Prefix to use for unnamed column
 #' @param sep Separator to use between name and unique suffix
 #' @keywords internal
