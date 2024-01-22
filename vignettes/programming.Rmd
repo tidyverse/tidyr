@@ -41,7 +41,7 @@ Two basic forms of tidy evaluation are used in tidyr:
 
 * **Data masking**: `expand()`, `crossing()` and `nesting()` let you refer to
   use data variables as if they were variables in the environment (i.e. you 
-  write `my_variable` not `df$myvariable`). 
+  write `my_variable` not `df$my_variable`). 
   
 We focus on tidy selection here, since it's the most common. You can learn more about data masking in the equivalent vignette in dplyr: <https://dplyr.tidyverse.org/dev/articles/programming.html>. For other considerations when writing tidyr code in packages, please see `vignette("in-packages")`.
 
