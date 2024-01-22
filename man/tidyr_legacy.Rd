@@ -7,11 +7,11 @@
 tidyr_legacy(nms, prefix = "V", sep = "")
 }
 \arguments{
+\item{nms}{Character vector of names}
+
 \item{prefix}{prefix Prefix to use for unnamed column}
 
 \item{sep}{Separator to use between name and unique suffix}
-
-\item{nm}{Character vector of names}
 }
 \description{
 Ensures all column names are unique using the approach found in

@@ -50,7 +50,6 @@ drop_na_.data.frame <- function(data, vars) {
 }
 
 #' @rdname deprecated-se
-#' @param expand_cols Character vector of column names to be expanded.
 #' @export
 expand_ <- function(data, dots, ...) {
   lifecycle::deprecate_warn("1.0.0", "expand_()", "expand()", always = TRUE)

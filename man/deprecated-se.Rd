@@ -159,8 +159,6 @@ happens when there are too many pieces. There are three valid options:
 data, filling in missing combinations with \code{fill}.}
 
 \item{from}{Names of existing columns as character vector}
-
-\item{expand_cols}{Character vector of column names to be expanded.}
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
