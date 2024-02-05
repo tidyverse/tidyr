@@ -176,6 +176,7 @@ pivot_wider <- function(data,
 }
 
 #' @export
+#' @rdname pivot_wider
 pivot_wider.data.frame <- function(data,
                                    ...,
                                    id_cols = NULL,

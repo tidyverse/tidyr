@@ -2,9 +2,29 @@
 % Please edit documentation in R/pivot-wide.R
 \name{pivot_wider}
 \alias{pivot_wider}
+\alias{pivot_wider.data.frame}
 \title{Pivot data from long to wide}
 \usage{
 pivot_wider(
+  data,
+  ...,
+  id_cols = NULL,
+  id_expand = FALSE,
+  names_from = name,
+  names_prefix = "",
+  names_sep = "_",
+  names_glue = NULL,
+  names_sort = FALSE,
+  names_vary = "fastest",
+  names_expand = FALSE,
+  names_repair = "check_unique",
+  values_from = value,
+  values_fill = NULL,
+  values_fn = NULL,
+  unused_fn = NULL
+)
+
+\method{pivot_wider}{data.frame}(
   data,
   ...,
   id_cols = NULL,

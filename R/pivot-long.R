@@ -154,6 +154,7 @@ pivot_longer <- function(data,
 }
 
 #' @export
+#' @rdname pivot_longer
 pivot_longer.data.frame <- function(data,
                                     cols,
                                     ...,

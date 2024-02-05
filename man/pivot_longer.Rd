@@ -2,9 +2,28 @@
 % Please edit documentation in R/pivot-long.R
 \name{pivot_longer}
 \alias{pivot_longer}
+\alias{pivot_longer.data.frame}
 \title{Pivot data from wide to long}
 \usage{
 pivot_longer(
+  data,
+  cols,
+  ...,
+  cols_vary = "fastest",
+  names_to = "name",
+  names_prefix = NULL,
+  names_sep = NULL,
+  names_pattern = NULL,
+  names_ptypes = NULL,
+  names_transform = NULL,
+  names_repair = "check_unique",
+  values_to = "value",
+  values_drop_na = FALSE,
+  values_ptypes = NULL,
+  values_transform = NULL
+)
+
+\method{pivot_longer}{data.frame}(
   data,
   cols,
   ...,
