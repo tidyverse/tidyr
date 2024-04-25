@@ -97,8 +97,8 @@ df \%>\% hoist(metadata,
 }
 \seealso{
 Other rectangling: 
+\code{\link{unnest}()},
 \code{\link{unnest_longer}()},
-\code{\link{unnest_wider}()},
-\code{\link{unnest}()}
+\code{\link{unnest_wider}()}
 }
 \concept{rectangling}
