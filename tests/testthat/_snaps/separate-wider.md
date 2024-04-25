@@ -184,7 +184,7 @@
       df %>% separate_wider_regex(y, patterns = c(x = "-"))
     Condition
       Error in `separate_wider_regex()`:
-      ! Can't subset columns that don't exist.
+      ! Can't select columns that don't exist.
       x Column `y` doesn't exist.
     Code
       df %>% separate_wider_regex(x, patterns = ".")

@@ -5,7 +5,7 @@
     Output
       <error/vctrs_error_subscript_type>
       Error in `drop_na()`:
-      ! Can't subset columns with `list()`.
+      ! Can't select columns with `list()`.
       x `list()` must be numeric or character, not an empty list.
 
 ---
@@ -15,6 +15,6 @@
     Output
       <error/vctrs_error_subscript_oob>
       Error in `drop_na()`:
-      ! Can't subset columns that don't exist.
+      ! Can't select columns that don't exist.
       x Column `z` doesn't exist.
 
