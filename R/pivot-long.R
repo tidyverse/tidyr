@@ -364,13 +364,11 @@ build_longer_spec <- function(data,
     expr = enquo(cols),
     data = data[unique(names(data))],
     allow_rename = FALSE,
+    allow_empty = FALSE,
+    error_arg = "cols",
     error_call = error_call
   )
   cols <- names(cols)
-
-  if (length(cols) == 0) {
-    cli::cli_abort("{.arg cols} must select at least one column.", call = error_call)
-  }
 
   if (is.null(names_prefix)) {
     names <- cols
