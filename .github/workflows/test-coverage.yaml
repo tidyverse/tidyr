@@ -8,6 +8,8 @@ on:
 
 name: test-coverage
 
+permissions: read-all
+
 jobs:
   test-coverage:
     runs-on: ubuntu-latest
@@ -23,17 +25,26 @@ jobs:
 
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
-          extra-packages: any::covr
+          extra-packages: any::covr, any::xml2
           needs: coverage
 
       - name: Test coverage
         run: |
-          covr::codecov(
+          cov <- covr::package_coverage(
             quiet = FALSE,
             clean = FALSE,
             install_path = file.path(normalizePath(Sys.getenv("RUNNER_TEMP"), winslash = "/"), "package")
           )
+          covr::to_cobertura(cov)
         shell: Rscript {0}
+
+      - uses: codecov/codecov-action@v4
+        with:
+          fail_ci_if_error: ${{ github.event_name != 'pull_request' && true || false }}
+          file: ./cobertura.xml
+          plugin: noop
+          disable_search: true
+          token: ${{ secrets.CODECOV_TOKEN }}
 
       - name: Show testthat output
         if: always()
