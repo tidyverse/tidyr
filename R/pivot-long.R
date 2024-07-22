@@ -72,7 +72,7 @@
 #'   and the name of the value column will be derived from part of the
 #'   existing column names.
 #' @param values_drop_na If `TRUE`, will drop rows that contain only `NA`s
-#'   in the `value_to` column. This effectively converts explicit missing values
+#'   in the `values_to` column. This effectively converts explicit missing values
 #'   to implicit missing values, and should generally be used only when missing
 #'   values in `data` were created by its structure.
 #' @param names_transform,values_transform Optionally, a list of column
