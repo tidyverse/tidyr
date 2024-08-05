@@ -13,7 +13,7 @@ income range in column name}
 }
 }
 \source{
-Downloaded from \url{https://www.pewresearch.org/religion/religious-landscape-study/}
+Downloaded from \url{https://www.pewresearch.org/religious-landscape-study/database/}
 (downloaded November 2009)
 }
 \usage{

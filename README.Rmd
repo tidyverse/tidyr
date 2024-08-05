@@ -103,7 +103,7 @@ To guide your reading, here's a translation between the terminology used in diff
 
 ## Getting help
 
-If you encounter a clear bug, please file a minimal reproducible example on [github](https://github.com/tidyverse/tidyr/issues). For questions and other discussion, please use [community.rstudio.com](https://community.rstudio.com/).
+If you encounter a clear bug, please file a minimal reproducible example on [github](https://github.com/tidyverse/tidyr/issues). For questions and other discussion, please use [forum.posit.co](https://forum.posit.co/).
 
 ---
 

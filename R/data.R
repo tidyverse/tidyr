@@ -152,7 +152,7 @@
 #'     income range in column name}
 #' }
 #' @source
-#' Downloaded from <https://www.pewresearch.org/religion/religious-landscape-study/>
+#' Downloaded from <https://www.pewresearch.org/religious-landscape-study/database/>
 #' (downloaded November 2009)
 "relig_income"
 

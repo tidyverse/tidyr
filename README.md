@@ -118,7 +118,7 @@ in different places:
 If you encounter a clear bug, please file a minimal reproducible example
 on [github](https://github.com/tidyverse/tidyr/issues). For questions
 and other discussion, please use
-[community.rstudio.com](https://community.rstudio.com/).
+[forum.posit.co](https://forum.posit.co/).
 
 ------------------------------------------------------------------------
 
