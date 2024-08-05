@@ -158,7 +158,7 @@ of tidyr.</li>
 regardless of whether its inside or outside of a package:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mini_iris</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="../reference/nest.html">nest</a></span><span class="op">(</span></span>
-<span>  petal <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">Petal.Length</span>, <span class="va">Petal.Width</span><span class="op">)</span>, </span>
+<span>  petal <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">Petal.Length</span>, <span class="va">Petal.Width</span><span class="op">)</span>,</span>
 <span>  sepal <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">Sepal.Length</span>, <span class="va">Sepal.Width</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 3 × 3</span></span></span>
@@ -179,7 +179,7 @@ friends are data-variables, not env-variables).</p>
 column names stored as strings:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mini_iris</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="../reference/nest.html">nest</a></span><span class="op">(</span></span>
-<span>  petal <span class="op">=</span> <span class="fu"><a href="https://tidyselect.r-lib.org/reference/all_of.html" class="external-link">all_of</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Petal.Length"</span>, <span class="st">"Petal.Width"</span><span class="op">)</span><span class="op">)</span>, </span>
+<span>  petal <span class="op">=</span> <span class="fu"><a href="https://tidyselect.r-lib.org/reference/all_of.html" class="external-link">all_of</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Petal.Length"</span>, <span class="st">"Petal.Width"</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>  sepal <span class="op">=</span> <span class="fu"><a href="https://tidyselect.r-lib.org/reference/all_of.html" class="external-link">all_of</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Sepal.Length"</span>, <span class="st">"Sepal.Width"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 3 × 3</span></span></span>
@@ -346,8 +346,8 @@ we’re moving away from. <a href="https://design.tidyverse.org/dots-data.html" 
 construct lets us create multiple nested list-columns at once
 (“multi-nest”).</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">mini_iris</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
-<span>  <span class="fu"><a href="../reference/nest.html">nest</a></span><span class="op">(</span>petal <span class="op">=</span> <span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html" class="external-link">matches</a></span><span class="op">(</span><span class="st">"Petal"</span><span class="op">)</span>, sepal <span class="op">=</span> <span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html" class="external-link">matches</a></span><span class="op">(</span><span class="st">"Sepal"</span><span class="op">)</span><span class="op">)</span> </span>
+<code class="sourceCode R"><span><span class="va">mini_iris</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/nest.html">nest</a></span><span class="op">(</span>petal <span class="op">=</span> <span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html" class="external-link">matches</a></span><span class="op">(</span><span class="st">"Petal"</span><span class="op">)</span>, sepal <span class="op">=</span> <span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html" class="external-link">matches</a></span><span class="op">(</span><span class="st">"Sepal"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 3 × 3</span></span></span>
 <span><span class="co">#&gt;   Species    petal            sepal           </span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>          </span></span>
@@ -359,19 +359,19 @@ construct lets us create multiple nested list-columns at once
 <p>Before and after examples:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># v0.8.3</span></span>
-<span><span class="va">mini_iris</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
+<span><span class="va">mini_iris</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/nest.html">nest</a></span><span class="op">(</span><span class="va">Sepal.Length</span>, <span class="va">Sepal.Width</span>, <span class="va">Petal.Length</span>, <span class="va">Petal.Width</span>, .key <span class="op">=</span> <span class="st">"my_data"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># v1.0.0</span></span>
-<span><span class="va">mini_iris</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
+<span><span class="va">mini_iris</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/nest.html">nest</a></span><span class="op">(</span>my_data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">Sepal.Length</span>, <span class="va">Sepal.Width</span>, <span class="va">Petal.Length</span>, <span class="va">Petal.Width</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># v1.0.0 avoiding R CMD check NOTE</span></span>
-<span><span class="va">mini_iris</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
+<span><span class="va">mini_iris</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/nest.html">nest</a></span><span class="op">(</span>my_data <span class="op">=</span> <span class="fu"><a href="https://tidyselect.r-lib.org/reference/all_of.html" class="external-link">any_of</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Sepal.Length"</span>, <span class="st">"Sepal.Width"</span>, <span class="st">"Petal.Length"</span>, <span class="st">"Petal.Width"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># or equivalently:</span></span>
-<span><span class="va">mini_iris</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
+<span><span class="va">mini_iris</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/nest.html">nest</a></span><span class="op">(</span>my_data <span class="op">=</span> <span class="op">!</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/all_of.html" class="external-link">any_of</a></span><span class="op">(</span><span class="st">"Species"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>If you need a quick and dirty fix without having to think, just call
 <code><a href="../reference/nest_legacy.html">nest_legacy()</a></code> instead of <code><a href="../reference/nest.html">nest()</a></code>. It’s the same
@@ -420,7 +420,7 @@ non-syntactic names, consistent with tibble and readxl.</p></li>
 </ul>
 <p>Before and after:</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">nested</span> <span class="op">&lt;-</span> <span class="va">mini_iris</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
+<code class="sourceCode R"><span><span class="va">nested</span> <span class="op">&lt;-</span> <span class="va">mini_iris</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/nest.html">nest</a></span><span class="op">(</span>my_data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">Sepal.Length</span>, <span class="va">Sepal.Width</span>, <span class="va">Petal.Length</span>, <span class="va">Petal.Width</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># v0.8.3 automatically unnests list-cols</span></span>
@@ -470,8 +470,8 @@ versus not nested directly in <code><a href="../reference/nest.html">nest()</a><
 <code>mini_iris</code>, then we computed on the list-column <em>outside
 the data frame</em>.</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="op">(</span><span class="va">df</span> <span class="op">&lt;-</span> <span class="va">mini_iris</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
-<span>   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">Species</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
+<code class="sourceCode R"><span><span class="op">(</span><span class="va">df</span> <span class="op">&lt;-</span> <span class="va">mini_iris</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">Species</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>   <span class="fu"><a href="../reference/nest.html">nest</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 3 × 2</span></span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># Groups:   Species [3]</span></span></span>
@@ -484,7 +484,7 @@ the data frame</em>.</p>
 <span><span class="co">#&gt; [1] 2 2 2</span></span></code></pre></div>
 <p>And now we try to add that back to the data <em>post hoc</em>:</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">df</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
+<code class="sourceCode R"><span><span class="va">df</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>n_rows <span class="op">=</span> <span class="va">external_variable</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #BBBB00; font-weight: bold;">Error</span><span style="font-weight: bold;"> in `mutate()`:</span></span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> In argument: `n_rows = external_variable`.</span></span>
@@ -498,7 +498,7 @@ what can we do? One option is to work inside the data frame, i.e. bring
 the <code><a href="https://purrr.tidyverse.org/reference/map.html" class="external-link">map()</a></code> inside the <code><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate()</a></code>, and design the
 problem away:</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">df</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
+<code class="sourceCode R"><span><span class="va">df</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>n_rows <span class="op">=</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html" class="external-link">map_int</a></span><span class="op">(</span><span class="va">data</span>, <span class="va">nrow</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 3 × 3</span></span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># Groups:   Species [3]</span></span></span>
@@ -512,7 +512,7 @@ data frame is not an option, <code><a href="https://tibble.tidyverse.org/referen
 group-unaware. It lets you add external data to a grouped data
 frame.</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">df</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
+<code class="sourceCode R"><span><span class="va">df</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/add_column.html" class="external-link">add_column</a></span><span class="op">(</span>n_rows <span class="op">=</span> <span class="va">external_variable</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 3 × 3</span></span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># Groups:   Species [3]</span></span></span>
@@ -545,7 +545,7 @@ framework. Therefore, we are gradually removing all previous solutions:
 <p>Before and after:</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># v0.8.3</span></span>
-<span><span class="va">mini_iris</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
+<span><span class="va">mini_iris</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/deprecated-se.html">nest_</a></span><span class="op">(</span></span>
 <span>    key_col <span class="op">=</span> <span class="st">"my_data"</span>,</span>
 <span>    nest_cols <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Sepal.Length"</span>, <span class="st">"Sepal.Width"</span>, <span class="st">"Petal.Length"</span>, <span class="st">"Petal.Width"</span><span class="op">)</span></span>
@@ -554,7 +554,7 @@ framework. Therefore, we are gradually removing all previous solutions:
 <span><span class="va">nested</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="../reference/deprecated-se.html">unnest_</a></span><span class="op">(</span><span class="op">~</span> <span class="va">my_data</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># v1.0.0</span></span>
-<span><span class="va">mini_iris</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
+<span><span class="va">mini_iris</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/nest.html">nest</a></span><span class="op">(</span>my_data <span class="op">=</span> <span class="fu"><a href="https://tidyselect.r-lib.org/reference/all_of.html" class="external-link">any_of</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Sepal.Length"</span>, <span class="st">"Sepal.Width"</span>, <span class="st">"Petal.Length"</span>, <span class="st">"Petal.Width"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">nested</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="../reference/unnest.html">unnest</a></span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/all_of.html" class="external-link">any_of</a></span><span class="op">(</span><span class="st">"my_data"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>

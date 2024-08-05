@@ -192,8 +192,8 @@ right number of times to line up.</p>
 <em>something</em> for each group. A common place this arises is when
 you’re fitting multiple models.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">mtcars_nested</span> <span class="op">&lt;-</span> <span class="va">mtcars</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">cyl</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
+<code class="sourceCode R"><span><span class="va">mtcars_nested</span> <span class="op">&lt;-</span> <span class="va">mtcars</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">cyl</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/nest.html">nest</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">mtcars_nested</span></span>
@@ -207,7 +207,7 @@ you’re fitting multiple models.</p>
 <p>Once you have a list of data frames, it’s very natural to produce a
 list of models:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">mtcars_nested</span> <span class="op">&lt;-</span> <span class="va">mtcars_nested</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
+<code class="sourceCode R"><span><span class="va">mtcars_nested</span> <span class="op">&lt;-</span> <span class="va">mtcars_nested</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>model <span class="op">=</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html" class="external-link">map</a></span><span class="op">(</span><span class="va">data</span>, <span class="kw">function</span><span class="op">(</span><span class="va">df</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">wt</span>, data <span class="op">=</span> <span class="va">df</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">mtcars_nested</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 3 × 3</span></span></span>
@@ -219,9 +219,9 @@ list of models:</p>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span>     8 <span style="color: #949494;">&lt;tibble [14 × 10]&gt;</span> <span style="color: #949494;">&lt;lm&gt;</span></span></span></code></pre></div>
 <p>And then you could even produce a list of predictions:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">mtcars_nested</span> <span class="op">&lt;-</span> <span class="va">mtcars_nested</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
+<code class="sourceCode R"><span><span class="va">mtcars_nested</span> <span class="op">&lt;-</span> <span class="va">mtcars_nested</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>model <span class="op">=</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html" class="external-link">map</a></span><span class="op">(</span><span class="va">model</span>, <span class="va">predict</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="va">mtcars_nested</span>  </span>
+<span><span class="va">mtcars_nested</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 3 × 3</span></span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># Groups:   cyl [3]</span></span></span>
 <span><span class="co">#&gt;     cyl data               model     </span></span>
