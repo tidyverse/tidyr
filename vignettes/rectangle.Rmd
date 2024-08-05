@@ -2,8 +2,8 @@
 title: "Rectangling"
 output: rmarkdown::html_vignette
 description: |
-  Rectangling is the art and craft of taking a deeply nested list (often 
-  sourced from wild caught JSON or XML) and taming it into a tidy data set of 
+  Rectangling is the art and craft of taking a deeply nested list (often
+  sourced from wild caught JSON or XML) and taming it into a tidy data set of
   rows and columns. This vignette introduces you to the main rectangling tools
   provided by tidyr: `unnest_longer()`, `unnest_wider()`, and `hoist()`.
 vignette: >
@@ -27,13 +27,13 @@ Rectangling is the art and craft of taking a deeply nested list (often sourced f
 * `unnest_wider()` takes each element of a list-column and makes a new column.
 * `hoist()` is similar to `unnest_wider()` but only plucks out selected
   components, and can reach down multiple levels.
-  
+
 (Alternative, for complex inputs where you need to rectangle a nested list according to a specification, see the [tibblify](https://github.com/mgirlich/tibblify) package.)
-  
+
 A very large number of data rectangling problems can be solved by combining `jsonlite::read_json()` with these functions and a splash of dplyr (largely eliminating prior approaches that combined `mutate()` with multiple `purrr::map()`s). Note that jsonlite has another important function called `fromJSON()`. We don't recommend it here because it performs its own automatic simplification (`simplifyVector = TRUE`). This often works well, particularly in simple cases, but we think you're better off doing the rectangling yourself so you know exactly what's happening and can more easily handle the most complicated nested structures.
 
 To illustrate these techniques, we'll use the repurrrsive package, which provides a number deeply nested lists originally mostly captured from web APIs.
-  
+
 ```{r setup, message = FALSE}
 library(tidyr)
 library(dplyr)
@@ -65,14 +65,14 @@ users %>% unnest_wider(user)
 But in this case, there are many components and we don't need most of them so we can instead use `hoist()`. `hoist()` allows us to pull out selected components using the same syntax as `purrr::pluck()`:
 
 ```{r}
-users %>% hoist(user, 
-  followers = "followers", 
-  login = "login", 
+users %>% hoist(user,
+  followers = "followers",
+  login = "login",
   url = "html_url"
 )
 ```
 
-`hoist()` removes the named components from the `user` list-column, so you can think of it as moving components out of the inner list into the top-level data frame. 
+`hoist()` removes the named components from the `user` list-column, so you can think of it as moving components out of the inner list into the top-level data frame.
 
 ## GitHub repos
 
@@ -93,8 +93,8 @@ repos
 Then we can use `unnest_wider()` or `hoist()`:
 
 ```{r}
-repos %>% hoist(repo, 
-  login = c("owner", "login"), 
+repos %>% hoist(repo,
+  login = c("owner", "login"),
   name = "name",
   homepage = "homepage",
   watchers = "watchers_count"
@@ -104,8 +104,8 @@ repos %>% hoist(repo,
 Note the use of `c("owner", "login")`: this allows us to reach two levels deep inside of a list. An alternative approach would be to pull out just `owner` and then put each element of it in a column:
 
 ```{r}
-repos %>% 
-  hoist(repo, owner = "owner") %>% 
+repos %>%
+  hoist(repo, owner = "owner") %>%
   unnest_wider(owner)
 ```
 
@@ -130,17 +130,17 @@ chars2 %>% select_if(is.list)
 What you do next will depend on the purposes of the analysis. Maybe you want a row for every book and TV series that the character appears in:
 
 ```{r}
-chars2 %>% 
-  select(name, books, tvSeries) %>% 
-  pivot_longer(c(books, tvSeries), names_to = "media", values_to = "value") %>% 
+chars2 %>%
+  select(name, books, tvSeries) %>%
+  pivot_longer(c(books, tvSeries), names_to = "media", values_to = "value") %>%
   unnest_longer(value)
 ```
 
 Or maybe you want to build a table that lets you match title to name:
 
 ```{r}
-chars2 %>% 
-  select(name, title = titles) %>% 
+chars2 %>%
+  select(name, title = titles) %>%
   unnest_longer(title)
 ```
 
@@ -165,7 +165,7 @@ Notice that `results` is a list of lists. Most of the cities have 1 element (rep
 
 ```{r}
 repurrrsive::gmaps_cities %>%
-  unnest_wider(json) %>% 
+  unnest_wider(json) %>%
   unnest_longer(results)
 ```
 
@@ -173,8 +173,8 @@ Now these all have the same components, as revealed by `unnest_wider()`:
 
 ```{r}
 repurrrsive::gmaps_cities %>%
-  unnest_wider(json) %>% 
-  unnest_longer(results) %>% 
+  unnest_wider(json) %>%
+  unnest_longer(results) %>%
   unnest_wider(results)
 ```
 
@@ -182,9 +182,9 @@ We can find the latitude and longitude by unnesting `geometry`:
 
 ```{r}
 repurrrsive::gmaps_cities %>%
-  unnest_wider(json) %>% 
-  unnest_longer(results) %>% 
-  unnest_wider(results) %>% 
+  unnest_wider(json) %>%
+  unnest_longer(results) %>%
+  unnest_wider(results) %>%
   unnest_wider(geometry)
 ```
 
@@ -227,9 +227,9 @@ We'll finish off with the most complex list, from [Sharla Gelfand's](https://git
 [^readr]: I'd normally use `readr::parse_datetime()` or `lubridate::ymd_hms()`, but I can't here because it's a vignette and I don't want to add a dependency to tidyr just to simplify one example.
 
 ```{r}
-discs <- tibble(disc = discog) %>% 
-  unnest_wider(disc) %>% 
-  mutate(date_added = as.POSIXct(strptime(date_added, "%Y-%m-%dT%H:%M:%S"))) 
+discs <- tibble(disc = discog) %>%
+  unnest_wider(disc) %>%
+  mutate(date_added = as.POSIXct(strptime(date_added, "%Y-%m-%dT%H:%M:%S")))
 discs
 ```
 
@@ -248,15 +248,15 @@ discs %>% unnest_wider(basic_information, names_repair = "unique")
 The problem is that `basic_information` repeats the `id` column that's also stored at the top-level, so we can just drop that:
 
 ```{r}
-discs %>% 
-  select(!id) %>% 
+discs %>%
+  select(!id) %>%
   unnest_wider(basic_information)
 ```
 
 Alternatively, we could use `hoist()`:
 
 ```{r}
-discs %>% 
+discs %>%
   hoist(basic_information,
     title = "title",
     year = "year",
@@ -265,22 +265,22 @@ discs %>%
   )
 ```
 
-Here I quickly extract the name of the first label and artist by indexing deeply into the nested list. 
+Here I quickly extract the name of the first label and artist by indexing deeply into the nested list.
 
 A more systematic approach would be to create separate tables for artist and label:
 
 ```{r}
-discs %>% 
-  hoist(basic_information, artist = "artists") %>% 
-  select(disc_id = id, artist) %>% 
-  unnest_longer(artist) %>% 
+discs %>%
+  hoist(basic_information, artist = "artists") %>%
+  select(disc_id = id, artist) %>%
+  unnest_longer(artist) %>%
   unnest_wider(artist)
 
-discs %>% 
-  hoist(basic_information, format = "formats") %>% 
-  select(disc_id = id, format) %>% 
-  unnest_longer(format) %>% 
-  unnest_wider(format) %>% 
+discs %>%
+  hoist(basic_information, format = "formats") %>%
+  select(disc_id = id, format) %>%
+  unnest_longer(format) %>%
+  unnest_wider(format) %>%
   unnest_longer(descriptions)
 ```
 

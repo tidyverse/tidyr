@@ -73,8 +73,8 @@ library(dplyr)
 ```
 
 ```{r}
-classroom2 <- classroom %>% 
-  pivot_longer(quiz1:test1, names_to = "assessment", values_to = "grade") %>% 
+classroom2 <- classroom %>%
+  pivot_longer(quiz1:test1, names_to = "assessment", values_to = "grade") %>%
   arrange(name, assessment)
 classroom2
 ```
@@ -129,7 +129,7 @@ Surprisingly, most messy datasets, including types of messiness not explicitly d
 
 ### Column headers are values, not variable names
 
-A common type of messy dataset is tabular data designed for presentation, where variables form both the rows and columns, and column headers are values, not variable names. While I would call this arrangement messy, in some cases it can be extremely useful. It provides efficient storage for completely crossed designs, and it can lead to extremely efficient computation if desired operations can be expressed as matrix operations. 
+A common type of messy dataset is tabular data designed for presentation, where variables form both the rows and columns, and column headers are values, not variable names. While I would call this arrangement messy, in some cases it can be extremely useful. It provides efficient storage for completely crossed designs, and it can lead to extremely efficient computation if desired operations can be expressed as matrix operations.
 
 The following code shows a subset of a typical dataset of this form. This dataset explores the relationship between income and religion in the US. It comes from a report produced by the Pew Research Center, an American think-tank that collects data on attitudes to topics ranging from religion to the internet, and produces many reports that contain datasets in this format.
 
@@ -137,12 +137,12 @@ The following code shows a subset of a typical dataset of this form. This datase
 relig_income
 ```
 
-This dataset has three variables, `religion`, `income` and `frequency`. To tidy it, we need to **pivot** the non-variable columns into a two-column key-value pair. This action is often described as making a wide dataset longer (or taller). 
+This dataset has three variables, `religion`, `income` and `frequency`. To tidy it, we need to **pivot** the non-variable columns into a two-column key-value pair. This action is often described as making a wide dataset longer (or taller).
 
-When pivoting variables, we need to provide the name of the new key-value columns to create. After defining the columns to pivot (every column except for religion), you will need the name of the key column, which is the name of the variable defined by the values of the column headings. In this case, it's `income`. The second argument is the name of the value column, `frequency`. 
+When pivoting variables, we need to provide the name of the new key-value columns to create. After defining the columns to pivot (every column except for religion), you will need the name of the key column, which is the name of the variable defined by the values of the column headings. In this case, it's `income`. The second argument is the name of the value column, `frequency`.
 
 ```{r}
-relig_income %>% 
+relig_income %>%
   pivot_longer(-religion, names_to = "income", values_to = "frequency")
 ```
 
@@ -157,11 +157,11 @@ billboard
 To tidy this dataset, we first use `pivot_longer()` to make the dataset longer. We transform the columns from `wk1` to `wk76`, making a new column for their names, `week`, and a new value for their values, `rank`:
 
 ```{r}
-billboard2 <- billboard %>% 
+billboard2 <- billboard %>%
   pivot_longer(
-    wk1:wk76, 
-    names_to = "week", 
-    values_to = "rank", 
+    wk1:wk76,
+    names_to = "week",
+    values_to = "rank",
     values_drop_na = TRUE
   )
 billboard2
@@ -205,11 +205,11 @@ tb
 First we use `pivot_longer()` to gather up the non-variable columns:
 
 ```{r}
-tb2 <- tb %>% 
+tb2 <- tb %>%
   pivot_longer(
-    !c(iso2, year), 
-    names_to = "demo", 
-    values_to = "n", 
+    !c(iso2, year),
+    names_to = "demo",
+    values_to = "n",
     values_drop_na = TRUE
   )
 tb2
@@ -218,7 +218,7 @@ tb2
 Column headers in this format are often separated by a non-alphanumeric character (e.g. `.`, `-`, `_`, `:`), or have a fixed width format, like in this dataset. `separate()` makes it easy to split a compound variables into individual variables. You can either pass it a regular expression to split on (the default is to split on non-alphanumeric columns), or a vector of character positions. In this case we want to split after the first character:
 
 ```{r}
-tb3 <- tb2 %>% 
+tb3 <- tb2 %>%
   separate(demo, c("sex", "age"), 1)
 tb3
 ```
@@ -229,10 +229,10 @@ In this case, we could also do the transformation in a single step by supplying 
 
 ```{r}
 tb %>% pivot_longer(
-  !c(iso2, year), 
-  names_to = c("sex", "age"), 
+  !c(iso2, year),
+  names_to = c("sex", "age"),
   names_pattern = "(.)(.+)",
-  values_to = "n", 
+  values_to = "n",
   values_drop_na = TRUE
 )
 
@@ -241,7 +241,7 @@ tb %>% pivot_longer(
 
 ### Variables are stored in both rows and columns
 
-The most complicated form of messy data occurs when variables are stored in both rows and columns. The code below loads daily weather data from the Global Historical Climatology Network for one weather station (MX17004) in Mexico for five months in 2010. 
+The most complicated form of messy data occurs when variables are stored in both rows and columns. The code below loads daily weather data from the Global Historical Climatology Network for one weather station (MX17004) in Mexico for five months in 2010.
 
 ```{r}
 weather <- as_tibble(read.csv("weather.csv", stringsAsFactors = FALSE))
@@ -253,13 +253,13 @@ It has variables in individual columns (`id`, `year`, `month`), spread across co
 To tidy this dataset we first use pivot_longer to gather the day columns:
 
 ```{r}
-weather2 <- weather %>% 
+weather2 <- weather %>%
   pivot_longer(
-    d1:d31, 
-    names_to = "day", 
-    values_to = "value", 
+    d1:d31,
+    names_to = "day",
+    values_to = "value",
     values_drop_na = TRUE
-  ) 
+  )
 weather2
 ```
 
@@ -268,7 +268,7 @@ For presentation, I've dropped the missing values, making them implicit rather t
 We'll also do a little cleaning:
 
 ```{r}
-weather3 <- weather2 %>% 
+weather3 <- weather2 %>%
   mutate(day = as.integer(gsub("d", "", day))) %>%
   select(id, year, month, day, element, value)
 weather3
@@ -277,7 +277,7 @@ weather3
 This dataset is mostly tidy, but the `element` column is not a variable; it stores the names of variables. (Not shown in this example are the other meteorological variables `prcp` (precipitation) and `snow` (snowfall)). Fixing this requires widening the data: `pivot_wider()` is inverse of `pivot_longer()`, pivoting `element` and `value` back out across multiple columns:
 
 ```{r}
-weather3 %>% 
+weather3 %>%
   pivot_wider(names_from = element, values_from = value)
 ```
 
@@ -287,16 +287,16 @@ This form is tidy: there's one variable in each column, and each row represents 
 
 Datasets often involve values collected at multiple levels, on different types of observational units. During tidying, each type of observational unit should be stored in its own table. This is closely related to the idea of database normalisation, where each fact is expressed in only one place. It's important because otherwise inconsistencies can arise.
 
-The billboard dataset actually contains observations on two types of observational units: the song and its rank in each week. This manifests itself through the duplication of facts about the song: `artist` is repeated many times. 
+The billboard dataset actually contains observations on two types of observational units: the song and its rank in each week. This manifests itself through the duplication of facts about the song: `artist` is repeated many times.
 
 This dataset needs to be broken down into two pieces: a song dataset which stores `artist` and `song name`, and a ranking dataset which gives the `rank` of the `song` in each `week`.  We first extract a `song` dataset:
 
 ```{r}
-song <- billboard3 %>% 
+song <- billboard3 %>%
   distinct(artist, track) %>%
   mutate(song_id = row_number())
 song
-```  
+```
 
 Then use that to make a `rank` dataset by replacing repeated song facts with a pointer to song details (a unique song id):
 
@@ -317,7 +317,7 @@ It's also common to find data values about a single type of observational unit s
 
 1.  Read the files into a list of tables.
 
-2.  For each table, add a new column that records the original file name 
+2.  For each table, add a new column that records the original file name
     (the file name is often the value of an important variable).
 
 3.  Combine all tables into a single table.

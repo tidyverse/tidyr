@@ -72,11 +72,11 @@ df1 %>% unnest(data)
 
 ## Nested data and models
 
-Nested data is a great fit for problems where you have one of _something_ for each group. A common place this arises is when you're fitting multiple models. 
+Nested data is a great fit for problems where you have one of _something_ for each group. A common place this arises is when you're fitting multiple models.
 
 ```{r}
-mtcars_nested <- mtcars %>% 
-  group_by(cyl) %>% 
+mtcars_nested <- mtcars %>%
+  group_by(cyl) %>%
   nest()
 
 mtcars_nested
@@ -85,7 +85,7 @@ mtcars_nested
 Once you have a list of data frames, it's very natural to produce a list of models:
 
 ```{r}
-mtcars_nested <- mtcars_nested %>% 
+mtcars_nested <- mtcars_nested %>%
   mutate(model = map(data, function(df) lm(mpg ~ wt, data = df)))
 mtcars_nested
 ```
@@ -93,9 +93,9 @@ mtcars_nested
 And then you could even produce a list of predictions:
 
 ```{r}
-mtcars_nested <- mtcars_nested %>% 
+mtcars_nested <- mtcars_nested %>%
   mutate(model = map(model, predict))
-mtcars_nested  
+mtcars_nested
 ```
 
 This workflow works particularly well in conjunction with [broom](https://broom.tidymodels.org/), which makes it easy to turn models into tidy data frames which can then be `unnest()`ed to get back to flat data frames. You can see a bigger example in the [broom and dplyr vignette](https://broom.tidymodels.org/articles/broom_and_dplyr.html).
