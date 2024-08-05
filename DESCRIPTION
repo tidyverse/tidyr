@@ -18,9 +18,9 @@ Description: Tools to help to create tidy data, where each column is a
 License: MIT + file LICENSE
 URL: https://tidyr.tidyverse.org, https://github.com/tidyverse/tidyr
 BugReports: https://github.com/tidyverse/tidyr/issues
-Depends: 
+Depends:
     R (>= 3.6)
-Imports: 
+Imports:
     cli (>= 3.4.1),
     dplyr (>= 1.0.10),
     glue,
@@ -33,7 +33,7 @@ Imports:
     tidyselect (>= 1.2.0),
     utils,
     vctrs (>= 0.5.2)
-Suggests: 
+Suggests:
     covr,
     data.table,
     knitr,
@@ -41,9 +41,9 @@ Suggests:
     repurrrsive (>= 1.1.0),
     rmarkdown,
     testthat (>= 3.0.0)
-LinkingTo: 
+LinkingTo:
     cpp11 (>= 0.4.0)
-VignetteBuilder: 
+VignetteBuilder:
     knitr
 Config/Needs/website: tidyverse/tidytemplate
 Config/testthat/edition: 3
