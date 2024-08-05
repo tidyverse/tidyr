@@ -140,7 +140,7 @@ df \%>\%
 \seealso{
 Other rectangling: 
 \code{\link{hoist}()},
-\code{\link{unnest_wider}()},
-\code{\link{unnest}()}
+\code{\link{unnest}()},
+\code{\link{unnest_wider}()}
 }
 \concept{rectangling}
