@@ -30,7 +30,7 @@ Imports:
     rlang (>= 1.1.1),
     stringr (>= 1.5.0),
     tibble (>= 2.1.1),
-    tidyselect (>= 1.2.0),
+    tidyselect (>= 1.2.1),
     utils,
     vctrs (>= 0.5.2)
 Suggests:

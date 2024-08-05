@@ -26,7 +26,7 @@
     Output
       <error/vctrs_error_subscript_oob>
       Error in `pivot_wider()`:
-      ! Can't subset columns that don't exist.
+      ! Can't select columns that don't exist.
       x Column `name` doesn't exist.
 
 # `values_from` must be supplied if `value` isn't in `data` (#1240)
@@ -36,7 +36,7 @@
     Output
       <error/vctrs_error_subscript_oob>
       Error in `pivot_wider()`:
-      ! Can't subset columns that don't exist.
+      ! Can't select columns that don't exist.
       x Column `value` doesn't exist.
 
 # `names_from` must identify at least 1 column (#1240)
@@ -165,7 +165,7 @@
     Output
       <error/vctrs_error_subscript_oob>
       Error in `pivot_wider()`:
-      ! Can't subset columns that don't exist.
+      ! Can't select columns that don't exist.
       x Column `foo` doesn't exist.
 
 # named `id_cols` gives clear error (#1104)
