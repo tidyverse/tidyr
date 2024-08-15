@@ -1,3 +1,29 @@
+test_that("error if input is not a data.frame", {
+  spec <- tibble::tibble(
+    .name = c("x", "y", "z"),
+    .value = "val",
+    key = c("x", "y", "z")
+  )
+
+  expect_no_error(
+    tibble(key = c("x", "y", "z"), val = 1:3) |>
+      tidyr::pivot_wider_spec(spec)
+  )
+  expect_snapshot_error(
+    list(key = c("x", "y", "z"), val = 1:3) |>
+      tidyr::pivot_wider_spec(spec)
+  )
+  # consider removing if we do not want dbplyr in suggests
+  expect_snapshot_error(
+    dbplyr::memdb_frame(key = c("x", "y", "z"), val = 1:3) |>
+      tidyr::pivot_wider_spec(spec)
+  )
+  expect_snapshot_error(
+    dbplyr::lazy_frame(key = c("x", "y", "z"), val = 1:3) |>
+      tidyr::pivot_wider_spec(spec)
+  )
+})
+
 test_that("can pivot all cols to wide", {
   df <- tibble(key = c("x", "y", "z"), val = 1:3)
   pv <- pivot_wider(df, names_from = key, values_from = val)

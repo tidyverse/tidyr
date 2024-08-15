@@ -331,6 +331,9 @@ pivot_wider_spec <- function(data,
   }
   values_fill <- values_fill[intersect(names(values_fill), values_from_cols)]
 
+  if (!is.data.frame(data)) {
+    cli::cli_abort("{.arg data} must be a data frame, not {.obj_type_friendly {data}}.")
+  }
   input <- data
   # Early conversion to tibble because data.table returns zero rows if
   # zero cols are selected. Also want to avoid the grouped-df behavior

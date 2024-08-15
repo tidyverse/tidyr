@@ -36,6 +36,7 @@ Imports:
 Suggests:
     covr,
     data.table,
+    dbplyr,
     knitr,
     readr,
     repurrrsive (>= 1.1.0),
