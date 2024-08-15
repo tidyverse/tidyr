@@ -1,5 +1,7 @@
 # tidyr (development version)
 
+* tidyr now requires dplyr >=1.1.0 (#1568, @catalamarti).
+
 # tidyr 1.3.1
 
 * `pivot_wider` now uses `.by` and `|>` syntax for the dplyr helper message to 
