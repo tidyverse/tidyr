@@ -104,13 +104,10 @@ complete.grouped_df <- function(data,
                                 ...,
                                 fill = list(),
                                 explicit = TRUE) {
-  reframe <- utils::getFromNamespace("reframe", ns = "dplyr")
-  pick <- utils::getFromNamespace("pick", ns = "dplyr")
-
-  out <- reframe(
+  out <- dplyr::reframe(
     data,
     complete(
-      data = pick(everything()),
+      data = dplyr::pick(everything()),
       ...,
       fill = fill,
       explicit = explicit
@@ -118,5 +115,10 @@ complete.grouped_df <- function(data,
   )
 
   drop <- dplyr::group_by_drop_default(data)
-  dplyr::group_by(out, !!!dplyr::groups(data), .drop = drop)
+
+  dplyr::group_by(
+    out,
+    !!!dplyr::groups(data),
+    .drop = drop
+  )
 }
