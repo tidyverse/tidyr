@@ -69,10 +69,6 @@ complete <- function(data,
   UseMethod("complete")
 }
 
-on_load({
-  the$has_dplyr_1_1 <- packageVersion("dplyr") >= "1.0.99"
-})
-
 #' @export
 complete.data.frame <- function(data,
                                 ...,
@@ -84,11 +80,7 @@ complete.data.frame <- function(data,
   names <- names(out)
 
   if (length(names) > 0L) {
-    if (the$has_dplyr_1_1) {
-      out <- dplyr::full_join(out, data, by = names, multiple = "all")
-    } else {
-      out <- dplyr::full_join(out, data, by = names)
-    }
+    out <- dplyr::full_join(out, data, by = names, multiple = "all")
   } else {
     # Avoid joining the 1x0 result from `expand()` with `data`.
     # That causes issues when `data` has zero rows.
@@ -112,34 +104,21 @@ complete.grouped_df <- function(data,
                                 ...,
                                 fill = list(),
                                 explicit = TRUE) {
-
-  if (the$has_dplyr_1_1) {
-    reframe <- utils::getFromNamespace("reframe", ns = "dplyr")
-    pick <- utils::getFromNamespace("pick", ns = "dplyr")
-
-    out <- reframe(
-      data,
-      complete(
-        data = pick(everything()),
-        ...,
-        fill = fill,
-        explicit = explicit
-      )
+  out <- dplyr::reframe(
+    data,
+    complete(
+      data = dplyr::pick(everything()),
+      ...,
+      fill = fill,
+      explicit = explicit
     )
+  )
 
-    drop <- dplyr::group_by_drop_default(data)
-    dplyr::group_by(out, !!!dplyr::groups(data), .drop = drop)
-  } else {
-    dplyr::summarise(
-      data,
-      complete(
-        data = dplyr::cur_data(),
-        ...,
-        fill = fill,
-        explicit = explicit
-      ),
-      .groups = "keep"
-    )
+  drop <- dplyr::group_by_drop_default(data)
 
-  }
+  dplyr::group_by(
+    out,
+    !!!dplyr::groups(data),
+    .drop = drop
+  )
 }
