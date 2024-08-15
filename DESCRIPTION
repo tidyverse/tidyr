@@ -22,7 +22,7 @@ Depends:
     R (>= 3.6.0)
 Imports:
     cli (>= 3.4.1),
-    dplyr (>= 1.0.10),
+    dplyr (>= 1.1.0),
     glue,
     lifecycle (>= 1.0.3),
     magrittr,
