@@ -71,3 +71,14 @@ test_that("validates its inputs", {
     unite(df, "z", x:y, na.rm = 1)
   })
 })
+
+test_that("unite works for empty selections", {
+  variables <- c()
+  df <- tibble(
+    x = c("x", "y", "z"),
+    y = 1L
+  )
+  expect_no_error(df2 <- unite(df, col = "new_col", all_of(variables)))
+  expect_identical(colnames(df2), c("x", "y", "new_col"))
+  expect_identical(unique(df2$new_col), "")
+})
