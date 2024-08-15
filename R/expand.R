@@ -117,7 +117,6 @@ expand.grouped_df <- function(data, ..., .name_repair = "check_unique") {
     !!!dplyr::groups(data),
     .drop = drop
   )
-
 }
 
 # Nesting & crossing ------------------------------------------------------
