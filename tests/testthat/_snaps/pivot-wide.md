@@ -1,3 +1,11 @@
+# error if input is not a data.frame
+
+    Code
+      pivot_wider_spec(list(), spec)
+    Condition
+      Error in `pivot_wider_spec()`:
+      ! `data` must be a data frame, not an empty list.
+
 # error when overwriting existing column
 
     Code

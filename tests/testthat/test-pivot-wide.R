@@ -23,6 +23,14 @@ test_that("implicit missings turn into explicit missings", {
   expect_equal(pv$y, c(NA, 2))
 })
 
+test_that("error if input is not a data.frame", {
+  spec <- tibble(.name = "x", .value = "val", )
+  expect_snapshot(
+    pivot_wider_spec(list(), spec),
+    error = TRUE
+  )
+})
+
 test_that("error when overwriting existing column", {
   df <- tibble(
     a = c(1, 1),
@@ -811,4 +819,3 @@ test_that("`id_cols` compat behavior doesn't trigger if named `...` are supplied
     pivot_wider(df, ids = id)
   })
 })
-

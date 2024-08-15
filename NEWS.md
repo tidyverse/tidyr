@@ -1,5 +1,8 @@
 # tidyr (development version)
 
+* `pivot_wider_spec()` now throws a more informative error on non-data frame
+  inputs (@catalamarti, #1510).
+
 * tidyr now requires dplyr >=1.1.0 (#1568, @catalamarti).
 
 # tidyr 1.3.1

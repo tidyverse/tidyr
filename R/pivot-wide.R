@@ -298,6 +298,7 @@ pivot_wider_spec <- function(data,
                              unused_fn = NULL,
                              error_call = current_env()) {
   check_dots_empty0(...)
+  check_data_frame(data, call = error_call)
 
   spec <- check_pivot_spec(spec, call = error_call)
   check_bool(id_expand, call = error_call)
