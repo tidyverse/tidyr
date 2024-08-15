@@ -2,14 +2,6 @@
 
     `data` must be a data frame, not a list.
 
----
-
-    `data` must be a data frame, not a <tbl_SQLiteConnection> object.
-
----
-
-    `data` must be a data frame, not a <tbl_TestConnection> object.
-
 # error when overwriting existing column
 
     Code
