@@ -42,18 +42,25 @@ unite.data.frame <- function(data, col, ..., sep = "_", remove = TRUE, na.rm = F
   check_bool(remove)
   check_bool(na.rm)
 
+  var <- as_string(ensym(col))
+  var <- enc2utf8(var)
+
   if (dots_n(...) == 0) {
     from_vars <- set_names(seq_along(data), names(data))
   } else {
     from_vars <- tidyselect::eval_select(expr(c(...)), data, allow_rename = FALSE)
   }
 
+  empty_vars <- length(from_vars) == 0L
+
   out <- data
   if (remove) {
     out <- out[setdiff(names(out), names(from_vars))]
   }
 
-  if (identical(na.rm, TRUE)) {
+  if (empty_vars) {
+    united <- vec_rep("", times = vec_size(data))
+  } else if (identical(na.rm, TRUE)) {
     cols <- unname(map(data[from_vars], as.character))
     rows <- transpose(cols)
 
@@ -63,14 +70,15 @@ unite.data.frame <- function(data, col, ..., sep = "_", remove = TRUE, na.rm = F
     united <- exec(paste, !!!cols, sep = sep)
   }
 
-  var <- as_string(ensym(col))
-  var <- enc2utf8(var)
-
   united <- list(united)
   names(united) <- var
 
-  first_pos <- which(names(data) %in% names(from_vars))[1]
-  after <- first_pos - 1L
+  if (empty_vars) {
+    after <- ncol(data)
+  } else {
+    first_pos <- which(names(data) %in% names(from_vars))[1]
+    after <- first_pos - 1L
+  }
 
   out <- df_append(out, united, after = after)
 
