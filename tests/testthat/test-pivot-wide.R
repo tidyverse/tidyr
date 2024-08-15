@@ -1,16 +1,3 @@
-test_that("error if input is not a data.frame", {
-  spec <- tibble(
-    .name = c("x", "y", "z"),
-    .value = "val",
-    key = c("x", "y", "z")
-  )
-
-  expect_snapshot_error(
-    list(key = c("x", "y", "z"), val = 1:3) %>%
-      tidyr::pivot_wider_spec(spec)
-  )
-})
-
 test_that("can pivot all cols to wide", {
   df <- tibble(key = c("x", "y", "z"), val = 1:3)
   pv <- pivot_wider(df, names_from = key, values_from = val)
@@ -34,6 +21,14 @@ test_that("implicit missings turn into explicit missings", {
   expect_equal(pv$a, c(1, 2))
   expect_equal(pv$x, c(1, NA))
   expect_equal(pv$y, c(NA, 2))
+})
+
+test_that("error if input is not a data.frame", {
+  spec <- tibble(.name = "x", .value = "val", )
+  expect_snapshot(
+    pivot_wider_spec(list(), spec),
+    error = TRUE
+  )
 })
 
 test_that("error when overwriting existing column", {
@@ -824,4 +819,3 @@ test_that("`id_cols` compat behavior doesn't trigger if named `...` are supplied
     pivot_wider(df, ids = id)
   })
 })
-
