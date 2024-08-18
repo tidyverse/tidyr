@@ -2,9 +2,12 @@
 % Please edit documentation in R/fill.R
 \name{fill}
 \alias{fill}
+\alias{fill.data.frame}
 \title{Fill in missing values with previous or next value}
 \usage{
 fill(data, ..., .direction = c("down", "up", "downup", "updown"))
+
+\method{fill}{data.frame}(data, ..., .direction = c("down", "up", "downup", "updown"), .by = NULL)
 }
 \arguments{
 \item{data}{A data frame.}
@@ -14,6 +17,12 @@ fill(data, ..., .direction = c("down", "up", "downup", "updown"))
 \item{.direction}{Direction in which to fill missing values. Currently
 either "down" (the default), "up", "downup" (i.e. first down and then up)
 or "updown" (first up and then down).}
+
+\item{.by}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
+
+<\code{\link[dplyr:dplyr_tidy_select]{tidy-select}}> Optionally, a selection of columns to
+group by for just this operation, functioning as an alternative to \code{\link[dplyr:group_by]{group_by()}}. For
+details and examples, see \link[dplyr:dplyr_by]{?dplyr_by}.}
 }
 \description{
 Fills missing values in selected columns using the next or previous entry.
@@ -103,4 +112,8 @@ squirrels \%>\%
   dplyr::ungroup()
 
 # Using `.direction = "updown"` accomplishes the same goal in this example
+
+# Using .by simplifies this example.
+squirrels \%>\%
+  fill(n_squirrels, .direction = "downup", .by = group)
 }

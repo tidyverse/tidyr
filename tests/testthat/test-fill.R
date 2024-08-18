@@ -106,17 +106,22 @@ test_that("fill preserves attributes", {
   expect_equal(attributes(out_u$x), attributes(df$x))
 })
 
-test_that("fill respects grouping", {
+test_that("fill respects grouping and `.by`", {
   df <- tibble(x = c(1, 1, 2), y = c(1, NA, NA))
   out <- df %>%
     dplyr::group_by(x) %>%
     fill(y)
   expect_equal(out$y, c(1, 1, NA))
+  out <- df %>%
+    fill(y, .by = x)
+  expect_equal(out$y, c(1, 1, NA))
+
+
 })
 
 test_that("works when there is a column named `.direction` in the data (#1319)", {
   df <- tibble(x = c(1, NA, 2), .direction = 1:3)
-  expect_error(out <- fill(df, x), NA)
+  expect_no_error(out <- fill(df, x))
   expect_identical(out$x, c(1, 1, 2))
 })
 
@@ -124,5 +129,12 @@ test_that("validates its inputs", {
   df <- tibble(x = c(1, NA, 2))
   expect_snapshot(error = TRUE, {
     df %>% fill(x, .direction = "foo")
+  })
+})
+
+test_that("fill works with by", {
+  df <- tibble(x = c(1, 1, 2), y = c(1, NA, NA))
+  expect_snapshot(error = TRUE, {
+    df %>% fill(y, .by = z)
   })
 })

@@ -13,6 +13,7 @@
 #'
 #' @param data A data frame.
 #' @param ... <[`tidy-select`][tidyr_tidy_select]> Columns to fill.
+#' @inheritParams dplyr::mutate
 #' @param .direction Direction in which to fill missing values. Currently
 #'   either "down" (the default), "up", "downup" (i.e. first down and then up)
 #'   or "updown" (first up and then down).
@@ -90,14 +91,20 @@
 #'   dplyr::ungroup()
 #'
 #' # Using `.direction = "updown"` accomplishes the same goal in this example
+#'
+#' # Using .by simplifies this example.
+#' squirrels %>%
+#'   fill(n_squirrels, .direction = "downup", .by = group)
 fill <- function(data, ..., .direction = c("down", "up", "downup", "updown")) {
   check_dots_unnamed()
   UseMethod("fill")
 }
 
 #' @export
-fill.data.frame <- function(data, ..., .direction = c("down", "up", "downup", "updown")) {
-  vars <- tidyselect::eval_select(expr(c(...)), data, allow_rename = FALSE)
+#' @name fill
+fill.data.frame <- function(data, ..., .direction = c("down", "up", "downup", "updown"), .by = NULL) {
+  vars <- names(tidyselect::eval_select(expr(c(...)), data = data, allow_rename = FALSE))
+  by   <- names(tidyselect::eval_select(enquo(.by), data = data, allow_rename = FALSE, ))
 
   .direction <- arg_match0(
     arg = .direction,
@@ -108,5 +115,9 @@ fill.data.frame <- function(data, ..., .direction = c("down", "up", "downup", "u
     vec_fill_missing(col, direction = .direction)
   }
 
-  dplyr::mutate_at(data, .vars = dplyr::vars(any_of(vars)), .funs = fn)
+  if (dplyr::is_grouped_df(data)) {
+    dplyr::mutate(data, dplyr::across(any_of(vars), .fns = fn))
+  } else {
+    dplyr::mutate(data, dplyr::across(any_of(vars), .fns = fn), .by = all_of(by))
+  }
 }
