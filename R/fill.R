@@ -95,16 +95,15 @@
 #' # Using .by simplifies this example.
 #' squirrels %>%
 #'   fill(n_squirrels, .direction = "downup", .by = group)
-fill <- function(data, ..., .direction = c("down", "up", "downup", "updown")) {
+fill <- function(data, ..., .direction = c("down", "up", "downup", "updown"), .by = NULL) {
   check_dots_unnamed()
   UseMethod("fill")
 }
 
 #' @export
-#' @name fill
 fill.data.frame <- function(data, ..., .direction = c("down", "up", "downup", "updown"), .by = NULL) {
   vars <- names(tidyselect::eval_select(expr(c(...)), data = data, allow_rename = FALSE))
-  by   <- names(tidyselect::eval_select(enquo(.by), data = data, allow_rename = FALSE, ))
+  by   <- names(tidyselect::eval_select(enquo(.by), data = data, allow_rename = FALSE))
 
   .direction <- arg_match0(
     arg = .direction,

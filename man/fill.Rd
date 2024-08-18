@@ -2,12 +2,9 @@
 % Please edit documentation in R/fill.R
 \name{fill}
 \alias{fill}
-\alias{fill.data.frame}
 \title{Fill in missing values with previous or next value}
 \usage{
-fill(data, ..., .direction = c("down", "up", "downup", "updown"))
-
-\method{fill}{data.frame}(data, ..., .direction = c("down", "up", "downup", "updown"), .by = NULL)
+fill(data, ..., .direction = c("down", "up", "downup", "updown"), .by = NULL)
 }
 \arguments{
 \item{data}{A data frame.}
