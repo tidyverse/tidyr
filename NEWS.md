@@ -15,6 +15,8 @@
 
 * tidyr now requires dplyr >=1.1.0 (#1568, @catalamarti).
 
+* `fill()` gains `.by` similar to how `mutate()` works (@olivroy, #1439).
+
 # tidyr 1.3.1
 
 * `pivot_wider` now uses `.by` and `|>` syntax for the dplyr helper message to
