@@ -4,7 +4,11 @@
 \alias{expand_grid}
 \title{Create a tibble from all combinations of inputs}
 \usage{
-expand_grid(..., .name_repair = "check_unique")
+expand_grid(
+  ...,
+  .name_repair = "check_unique",
+  .vary = c("slowest", "fastest")
+)
 }
 \arguments{
 \item{...}{Name-value pairs. The name will become the column name in the
@@ -25,31 +29,47 @@ for names in the style of base R).
 This argument is passed on as \code{repair} to \code{\link[vctrs:vec_as_names]{vctrs::vec_as_names()}}.
 See there for more details on these terms and the strategies used
 to enforce them.}
+
+\item{.vary}{Character string specifying the order of combination variation.
+Must be either "slowest" (default) or "fastest".
+\itemize{
+\item "slowest": Varies the first column the slowest (default, compatible with
+base R's expand.grid()).
+\item "fastest": Varies the first column the fastest (compatible with
+purrr::cross() family).
+}}
 }
 \value{
 A tibble with one column for each input in \code{...}. The output
 will have one row for each combination of the inputs, i.e. the size
-be equal to the product of the sizes of the inputs. This implies
+will be equal to the product of the sizes of the inputs. This implies
 that if any input has length 0, the output will have zero rows.
+The order of combinations depends on the \code{.vary} parameter.
 }
 \description{
 \code{expand_grid()} is heavily motivated by \code{\link[=expand.grid]{expand.grid()}}.
 Compared to \code{expand.grid()}, it:
 \itemize{
-\item Produces sorted output (by varying the first column the slowest, rather
-than the fastest).
+\item Produces sorted output (by varying the first column the slowest by default).
 \item Returns a tibble, not a data frame.
 \item Never converts strings to factors.
 \item Does not add any additional attributes.
 \item Can expand any generalised vector, including data frames.
+\item Allows for fastest or slowest varying combinations.
 }
 }
 \examples{
+# Default behavior (slowest varying)
 expand_grid(x = 1:3, y = 1:2)
-expand_grid(l1 = letters, l2 = LETTERS)
+
+# Fastest varying (like purrr::cross())
+expand_grid(x = 1:3, y = 1:2, .vary = "fastest")
+
+expand_grid(l1 = letters[1:3], l2 = LETTERS[1:2])
 
 # Can also expand data frames
 expand_grid(df = tibble(x = 1:2, y = c(2, 1)), z = 1:3)
+
 # And matrices
 expand_grid(x1 = matrix(1:4, nrow = 2), x2 = matrix(5:8, nrow = 2))
 }

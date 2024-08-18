@@ -9,6 +9,8 @@
 
 * tidyr now requires dplyr >=1.1.0 (#1568, @catalamarti).
 
+* `expand_grid()` gains a new `.vary` argument, allowing users to control whether combinations vary fastest or slowest (default). (#1543, @JamesHWade).
+
 # tidyr 1.3.1
 
 * `pivot_wider` now uses `.by` and `|>` syntax for the dplyr helper message to
