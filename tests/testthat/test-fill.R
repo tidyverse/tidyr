@@ -134,7 +134,9 @@ test_that("validates its inputs", {
 
 test_that("fill works with .by", {
   df <- tibble(x = c(1, 1, 2), y = c(1, NA, NA))
+  gr_df <- dplyr::group_by(df, x)
   expect_snapshot(error = TRUE, {
     df %>% fill(y, .by = z)
+    gr_df %>% fill(y, .by = x)
   })
 })

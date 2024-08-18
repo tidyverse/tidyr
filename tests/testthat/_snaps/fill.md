@@ -14,4 +14,9 @@
       Error in `fill()`:
       ! Can't select columns that don't exist.
       x Column `z` doesn't exist.
+    Code
+      gr_df %>% fill(y, .by = x)
+    Condition
+      Error in `fill()`:
+      ! Can't supply `.by` when `data` is a grouped data frame.
 

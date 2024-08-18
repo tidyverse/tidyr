@@ -115,6 +115,11 @@ fill.data.frame <- function(data, ..., .direction = c("down", "up", "downup", "u
   }
 
   if (dplyr::is_grouped_df(data)) {
+    if (length(by) > 0) {
+      cli::cli_abort(c(
+        "Can't supply {.arg .by} when {.arg data} is a grouped data frame."
+      ))
+    }
     dplyr::mutate(data, dplyr::across(any_of(vars), .fns = fn))
   } else {
     dplyr::mutate(data, dplyr::across(any_of(vars), .fns = fn), .by = all_of(by))
