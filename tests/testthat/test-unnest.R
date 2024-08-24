@@ -25,7 +25,7 @@ test_that("bad inputs generate errors", {
   expect_snapshot((expect_error(unnest(df, y))))
 })
 
-test_that("unesting combines augmented vectors", {
+test_that("unnesting combines augmented vectors", {
   df <- tibble(x = as.list(as.factor(letters[1:3])))
   expect_equal(unnest(df, x)$x, factor(letters[1:3]))
 })
@@ -213,7 +213,7 @@ test_that("unnesting typed lists of NULLs retains ptype", {
   expect_identical(out, tibble(x = integer(), a = integer()))
 })
 
-test_that("ptype can be overriden manually (#1158)", {
+test_that("ptype can be overridden manually (#1158)", {
   df <- tibble(
     a = list("a", c("b", "c")),
     b = list(1, c(2, 3)),
