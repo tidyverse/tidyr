@@ -1,5 +1,8 @@
 # tidyr (development version)
 
+* `expand_grid()` gains a new `.vary` argument, allowing users to control
+  whether the first column varies fastest or slowest (#1543, @JamesHWade).
+
 * `unite()` no longer errors if you provide a selection that doesn't select any
   columns. Instead, it returns a column containing the empty string (#1548,
   @catalamarti).
@@ -8,8 +11,6 @@
   inputs (@catalamarti, #1510).
 
 * tidyr now requires dplyr >=1.1.0 (#1568, @catalamarti).
-
-* `expand_grid()` gains a new `.vary` argument, allowing users to control whether combinations vary fastest or slowest (default). (#1543, @JamesHWade).
 
 # tidyr 1.3.1
 
