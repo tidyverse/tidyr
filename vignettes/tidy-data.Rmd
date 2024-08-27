@@ -328,19 +328,10 @@ Purrr makes this straightforward in R. The following code generates a vector of 
 library(purrr)
 library(readr)
 
-# Create the data directory if it doesn't exist
-if (!dir.exists("data")) {
-  dir.create("data")
-}
-
-# Split the dataset by Species and save each subset as a CSV file
-iris %>%
-  split(.$Species) %>%
-  iwalk(~ write_csv(.x, file = file.path("data", paste0(.y, ".csv"))))
-
 paths <- dir("data", pattern = "\\.csv$", full.names = TRUE)
 names(paths) <- basename(paths)
-map(paths, read_csv) %>% list_rbind()
+
+map(paths, read_csv) %>% list_rbind(names_to = "filename")
 ```
 
 Once you have a single table, you can perform additional tidying as needed. An example of this type of cleaning can be found at <https://github.com/hadley/data-baby-names> which takes 129 yearly baby name tables provided by the US Social Security Administration and combines them into a single file.
