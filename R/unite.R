@@ -42,37 +42,49 @@ unite.data.frame <- function(data, col, ..., sep = "_", remove = TRUE, na.rm = F
   check_bool(remove)
   check_bool(na.rm)
 
+  col <- as_string(ensym(col))
+  col <- enc2utf8(col)
+
   if (dots_n(...) == 0) {
-    from_vars <- set_names(seq_along(data), names(data))
+    selection <- set_names(seq_along(data), names(data))
   } else {
-    from_vars <- tidyselect::eval_select(expr(c(...)), data, allow_rename = FALSE)
+    selection <- tidyselect::eval_select(expr(c(...)), data, allow_rename = FALSE)
   }
+
+  empty_selection <- length(selection) == 0L
 
   out <- data
   if (remove) {
-    out <- out[setdiff(names(out), names(from_vars))]
+    out <- out[setdiff(names(out), names(selection))]
   }
 
-  if (identical(na.rm, TRUE)) {
-    cols <- unname(map(data[from_vars], as.character))
+  if (empty_selection) {
+    # Use initial value implied by the reduction algorithm (#1570)
+    united <- vec_rep("", times = vec_size(data))
+  } else if (identical(na.rm, TRUE)) {
+    cols <- unname(map(data[selection], as.character))
     rows <- transpose(cols)
-
     united <- map_chr(rows, function(x) paste0(x[!is.na(x)], collapse = sep))
   } else {
-    cols <- unname(as.list(data[from_vars]))
+    cols <- unname(as.list(data[selection]))
     united <- exec(paste, !!!cols, sep = sep)
   }
 
-  var <- as_string(ensym(col))
-  var <- enc2utf8(var)
-
   united <- list(united)
-  names(united) <- var
+  names(united) <- col
 
-  first_pos <- which(names(data) %in% names(from_vars))[1]
-  after <- first_pos - 1L
+  if (empty_selection) {
+    after <- length(data)
+  } else {
+    loc_first_selection <- which(names(data) %in% names(selection))[[1L]]
+    after <- loc_first_selection - 1L
+  }
 
   out <- df_append(out, united, after = after)
 
-  reconstruct_tibble(data, out, if (remove) names(from_vars))
+  reconstruct_tibble(
+    input = data,
+    output = out,
+    ungrouped_vars = if (remove) names(selection)
+  )
 }

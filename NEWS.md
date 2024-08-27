@@ -1,5 +1,9 @@
 # tidyr (development version)
 
+* `unite()` no longer errors if you provide a selection that doesn't select any
+  columns. Instead, it returns a column containing the empty string (#1548,
+  @catalamarti).
+
 * `pivot_wider_spec()` now throws a more informative error on non-data frame
   inputs (@catalamarti, #1510).
 
