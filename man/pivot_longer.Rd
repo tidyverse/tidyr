@@ -110,7 +110,7 @@ and the name of the value column will be derived from part of the
 existing column names.}
 
 \item{values_drop_na}{If \code{TRUE}, will drop rows that contain only \code{NA}s
-in the \code{value_to} column. This effectively converts explicit missing values
+in the \code{values_to} column. This effectively converts explicit missing values
 to implicit missing values, and should generally be used only when missing
 values in \code{data} were created by its structure.}
 }
