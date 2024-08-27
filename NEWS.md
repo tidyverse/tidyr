@@ -1,5 +1,8 @@
 # tidyr (development version)
 
+* `expand_grid()` gains a new `.vary` argument, allowing users to control
+  whether the first column varies fastest or slowest (#1543, @JamesHWade).
+
 * `unite()` no longer errors if you provide a selection that doesn't select any
   columns. Instead, it returns a column containing the empty string (#1548,
   @catalamarti).

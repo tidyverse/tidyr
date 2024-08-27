@@ -162,30 +162,37 @@ nesting <- function(..., .name_repair = "check_unique") {
 #' `expand_grid()` is heavily motivated by [expand.grid()].
 #' Compared to `expand.grid()`, it:
 #'
-#' * Produces sorted output (by varying the first column the slowest, rather
-#'   than the fastest).
+#' * Produces sorted output by varying the first column the slowest by default.
 #' * Returns a tibble, not a data frame.
 #' * Never converts strings to factors.
 #' * Does not add any additional attributes.
 #' * Can expand any generalised vector, including data frames.
 #'
+#' @inheritParams vctrs::vec_expand_grid
+#'
 #' @param ... Name-value pairs. The name will become the column name in the
 #'   output.
-#' @inheritParams tibble::as_tibble
-#' @return A tibble with one column for each input in `...`. The output
-#'   will have one row for each combination of the inputs, i.e. the size
-#'   be equal to the product of the sizes of the inputs. This implies
-#'   that if any input has length 0, the output will have zero rows.
+#'
+#' @return A tibble with one column for each input in `...`. The output will
+#'   have one row for each combination of the inputs, i.e. the size will be
+#'   equal to the product of the sizes of the inputs. This implies that if any
+#'   input has length 0, the output will have zero rows. The ordering of the
+#'   output depends on the `.vary` argument.
+#'
 #' @export
 #' @examples
+#' # Default behavior varies the first column "slowest"
 #' expand_grid(x = 1:3, y = 1:2)
-#' expand_grid(l1 = letters, l2 = LETTERS)
+#'
+#' # Vary the first column "fastest", like `expand.grid()`
+#' expand_grid(x = 1:3, y = 1:2, .vary = "fastest")
 #'
 #' # Can also expand data frames
 #' expand_grid(df = tibble(x = 1:2, y = c(2, 1)), z = 1:3)
+#'
 #' # And matrices
 #' expand_grid(x1 = matrix(1:4, nrow = 2), x2 = matrix(5:8, nrow = 2))
-expand_grid <- function(..., .name_repair = "check_unique") {
+expand_grid <- function(..., .name_repair = "check_unique", .vary = "slowest") {
   out <- grid_dots(...)
 
   names <- names2(out)
@@ -202,6 +209,7 @@ expand_grid <- function(..., .name_repair = "check_unique") {
 
   out <- vec_expand_grid(
     !!!out,
+    .vary = .vary,
     .name_repair = "minimal",
     .error_call = current_env()
   )

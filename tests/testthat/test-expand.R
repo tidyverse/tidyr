@@ -390,6 +390,32 @@ test_that("expand_grid() works with 0 row tibbles", {
   expect_identical(expand_grid(df, x = 1:2), tibble(x = integer()))
 })
 
+test_that("expand_grid() respects `.vary` parameter", {
+  # Slowest
+  expect_identical(
+    expand_grid(x = 1:2, y = 1:2),
+    tibble(
+      x = c(1L, 1L, 2L, 2L),
+      y = c(1L, 2L, 1L, 2L)
+    )
+  )
+
+  # Fastest
+  expect_identical(
+    expand_grid(x = 1:2, y = 1:2, .vary = "fastest"),
+    tibble(
+      x = c(1L, 2L, 1L, 2L),
+      y = c(1L, 1L, 2L, 2L)
+    )
+  )
+})
+
+test_that("expand_grid() throws an error for invalid `.vary` parameter", {
+  expect_snapshot(error = TRUE, {
+    expand_grid(x = 1:2, y = 1:2, .vary = "invalid")
+  })
+})
+
 # ------------------------------------------------------------------------------
 # grid_dots()
 
