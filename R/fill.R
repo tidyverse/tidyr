@@ -12,11 +12,14 @@
 #' boundaries. This can also be accomplished using the `.by` argument to
 #' `fill()`, which creates a temporary grouping for just this operation.
 #'
+#' @inheritParams dplyr::mutate
+#'
 #' @param data A data frame.
 #' @param ... <[`tidy-select`][tidyr_tidy_select]> Columns to fill.
 #' @param .direction Direction in which to fill missing values. Currently
 #'   either "down" (the default), "up", "downup" (i.e. first down and then up)
 #'   or "updown" (first up and then down).
+#'
 #' @export
 #' @examples
 #' # direction = "down" --------------------------------------------------------
@@ -97,20 +100,17 @@
 #'   dplyr::ungroup()
 fill <- function(data,
                  ...,
+                 .by = NULL,
                  .direction = c("down", "up", "downup", "updown")) {
+  check_dots_unnamed()
   UseMethod("fill")
 }
 
-#' @inheritParams dplyr::mutate
-#' @rdname fill
 #' @export
 fill.data.frame <- function(data,
                             ...,
-                            .direction = c("down", "up", "downup", "updown"),
-                            .by = NULL) {
-  # Must be here rather than in the generic due to the placement of `.by`
-  check_dots_unnamed()
-
+                            .by = NULL,
+                            .direction = c("down", "up", "downup", "updown")) {
   vars <- names(tidyselect::eval_select(
     expr = expr(c(...)),
     data = data,

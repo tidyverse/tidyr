@@ -2,27 +2,24 @@
 % Please edit documentation in R/fill.R
 \name{fill}
 \alias{fill}
-\alias{fill.data.frame}
 \title{Fill in missing values with previous or next value}
 \usage{
-fill(data, ..., .direction = c("down", "up", "downup", "updown"))
-
-\method{fill}{data.frame}(data, ..., .direction = c("down", "up", "downup", "updown"), .by = NULL)
+fill(data, ..., .by = NULL, .direction = c("down", "up", "downup", "updown"))
 }
 \arguments{
 \item{data}{A data frame.}
 
 \item{...}{<\code{\link[=tidyr_tidy_select]{tidy-select}}> Columns to fill.}
 
-\item{.direction}{Direction in which to fill missing values. Currently
-either "down" (the default), "up", "downup" (i.e. first down and then up)
-or "updown" (first up and then down).}
-
 \item{.by}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 
 <\code{\link[dplyr:dplyr_tidy_select]{tidy-select}}> Optionally, a selection of columns to
 group by for just this operation, functioning as an alternative to \code{\link[dplyr:group_by]{group_by()}}. For
 details and examples, see \link[dplyr:dplyr_by]{?dplyr_by}.}
+
+\item{.direction}{Direction in which to fill missing values. Currently
+either "down" (the default), "up", "downup" (i.e. first down and then up)
+or "updown" (first up and then down).}
 }
 \description{
 Fills missing values in selected columns using the next or previous entry.
