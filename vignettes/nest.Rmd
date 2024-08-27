@@ -94,7 +94,7 @@ And then you could even produce a list of predictions:
 
 ```{r}
 mtcars_nested <- mtcars_nested %>%
-  mutate(model = map(model, predict))
+  mutate(pred = map(model, predict))
 mtcars_nested
 ```
 
