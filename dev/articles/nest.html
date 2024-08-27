@@ -220,15 +220,15 @@ list of models:</p>
 <p>And then you could even produce a list of predictions:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mtcars_nested</span> <span class="op">&lt;-</span> <span class="va">mtcars_nested</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>model <span class="op">=</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html" class="external-link">map</a></span><span class="op">(</span><span class="va">model</span>, <span class="va">predict</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>pred <span class="op">=</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html" class="external-link">map</a></span><span class="op">(</span><span class="va">model</span>, <span class="va">predict</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">mtcars_nested</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 3 × 3</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 3 × 4</span></span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># Groups:   cyl [3]</span></span></span>
-<span><span class="co">#&gt;     cyl data               model     </span></span>
-<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>             <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>    </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span>     6 <span style="color: #949494;">&lt;tibble [7 × 10]&gt;</span>  <span style="color: #949494;">&lt;dbl [7]&gt;</span> </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span>     4 <span style="color: #949494;">&lt;tibble [11 × 10]&gt;</span> <span style="color: #949494;">&lt;dbl [11]&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span>     8 <span style="color: #949494;">&lt;tibble [14 × 10]&gt;</span> <span style="color: #949494;">&lt;dbl [14]&gt;</span></span></span></code></pre></div>
+<span><span class="co">#&gt;     cyl data               model  pred      </span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>             <span style="color: #949494; font-style: italic;">&lt;list&gt;</span> <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>    </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span>     6 <span style="color: #949494;">&lt;tibble [7 × 10]&gt;</span>  <span style="color: #949494;">&lt;lm&gt;</span>   <span style="color: #949494;">&lt;dbl [7]&gt;</span> </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span>     4 <span style="color: #949494;">&lt;tibble [11 × 10]&gt;</span> <span style="color: #949494;">&lt;lm&gt;</span>   <span style="color: #949494;">&lt;dbl [11]&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span>     8 <span style="color: #949494;">&lt;tibble [14 × 10]&gt;</span> <span style="color: #949494;">&lt;lm&gt;</span>   <span style="color: #949494;">&lt;dbl [14]&gt;</span></span></span></code></pre></div>
 <p>This workflow works particularly well in conjunction with <a href="https://broom.tidymodels.org/" class="external-link">broom</a>, which makes it easy to
 turn models into tidy data frames which can then be
 <code><a href="../reference/unnest.html">unnest()</a></code>ed to get back to flat data frames. You can see a
