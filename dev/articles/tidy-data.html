@@ -846,19 +846,23 @@ name (the file name is often the value of an important
 variable).</p></li>
 <li><p>Combine all tables into a single table.</p></li>
 </ol>
-<p>Purrr makes this straightforward in R. The following code generates a
-vector of file names in a directory (<code>data/</code>) which match a
-regular expression (ends in <code>.csv</code>). Next we name each
-element of the vector with the name of the file. We do this because will
-preserve the names in the following step, ensuring that each row in the
-final data frame is labeled with its source. Finally,
-<code><a href="https://purrr.tidyverse.org/reference/map_dfr.html" class="external-link">map_dfr()</a></code> loops over each path, reading in the csv file and
-combining the results into a single data frame.</p>
+<p>Purrr makes this straightforward in R. The following theoretical code
+generates a vector of file names from a directory (<code>data/</code>)
+which match a regular expression (ends in <code>.csv</code>). Next we
+name each element of the vector with the name of the file. We do this
+because we will preserve the names in the following step, ensuring that
+each row in the final data frame is labeled with its source. Finally,
+<code><a href="https://purrr.tidyverse.org/reference/map.html" class="external-link">map()</a></code> loops over each path, reading in the csv file, and
+<code><a href="https://purrr.tidyverse.org/reference/list_c.html" class="external-link">list_rbind()</a></code> combines the results into a single data
+frame.</p>
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://purrr.tidyverse.org/" class="external-link">purrr</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://readr.tidyverse.org" class="external-link">readr</a></span><span class="op">)</span></span>
+<span></span>
 <span><span class="va">paths</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">dir</a></span><span class="op">(</span><span class="st">"data"</span>, pattern <span class="op">=</span> <span class="st">"\\.csv$"</span>, full.names <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">paths</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/basename.html" class="external-link">basename</a></span><span class="op">(</span><span class="va">paths</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map_dfr.html" class="external-link">map_dfr</a></span><span class="op">(</span><span class="va">paths</span>, <span class="va">read.csv</span>, stringsAsFactors <span class="op">=</span> <span class="cn">FALSE</span>, .id <span class="op">=</span> <span class="st">"filename"</span><span class="op">)</span></span></code></pre></div>
+<span></span>
+<span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html" class="external-link">map</a></span><span class="op">(</span><span class="va">paths</span>, <span class="va">read_csv</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/list_c.html" class="external-link">list_rbind</a></span><span class="op">(</span>names_to <span class="op">=</span> <span class="st">"filename"</span><span class="op">)</span></span></code></pre></div>
 <p>Once you have a single table, you can perform additional tidying as
 needed. An example of this type of cleaning can be found at <a href="https://github.com/hadley/data-baby-names" class="external-link uri">https://github.com/hadley/data-baby-names</a> which takes
 129 yearly baby name tables provided by the US Social Security
