@@ -162,46 +162,37 @@ nesting <- function(..., .name_repair = "check_unique") {
 #' `expand_grid()` is heavily motivated by [expand.grid()].
 #' Compared to `expand.grid()`, it:
 #'
-#' * Produces sorted output (by varying the first column the slowest by default).
+#' * Produces sorted output by varying the first column the slowest by default.
 #' * Returns a tibble, not a data frame.
 #' * Never converts strings to factors.
 #' * Does not add any additional attributes.
 #' * Can expand any generalised vector, including data frames.
-#' * Allows for fastest or slowest varying combinations.
+#'
+#' @inheritParams vctrs::vec_expand_grid
 #'
 #' @param ... Name-value pairs. The name will become the column name in the
 #'   output.
-#' @inheritParams tibble::as_tibble
-#' @param .vary Character string specifying the order of combination variation.
-#'   Must be either "slowest" (default) or "fastest".
-#'   * "slowest": Varies the first column the slowest (default, compatible with
-#'      base R's expand.grid()).
-#'   * "fastest": Varies the first column the fastest (compatible with
-#'     purrr::cross() family).
 #'
-#' @return A tibble with one column for each input in `...`. The output
-#'   will have one row for each combination of the inputs, i.e. the size
-#'   will be equal to the product of the sizes of the inputs. This implies
-#'   that if any input has length 0, the output will have zero rows.
-#'   The order of combinations depends on the `.vary` parameter.
+#' @return A tibble with one column for each input in `...`. The output will
+#'   have one row for each combination of the inputs, i.e. the size will be
+#'   equal to the product of the sizes of the inputs. This implies that if any
+#'   input has length 0, the output will have zero rows. The ordering of the
+#'   output depends on the `.vary` argument.
 #'
 #' @export
 #' @examples
-#' # Default behavior (slowest varying)
+#' # Default behavior varies the first column "slowest"
 #' expand_grid(x = 1:3, y = 1:2)
 #'
-#' # Fastest varying (like purrr::cross())
+#' # Vary the first column "fastest", like `expand.grid()`
 #' expand_grid(x = 1:3, y = 1:2, .vary = "fastest")
-#'
-#' expand_grid(l1 = letters[1:3], l2 = LETTERS[1:2])
 #'
 #' # Can also expand data frames
 #' expand_grid(df = tibble(x = 1:2, y = c(2, 1)), z = 1:3)
 #'
 #' # And matrices
 #' expand_grid(x1 = matrix(1:4, nrow = 2), x2 = matrix(5:8, nrow = 2))
-expand_grid <- function(..., .name_repair = "check_unique", .vary = c("slowest", "fastest")) {
-  .vary <- rlang::arg_match(.vary)
+expand_grid <- function(..., .name_repair = "check_unique", .vary = "slowest") {
   out <- grid_dots(...)
 
   names <- names2(out)
