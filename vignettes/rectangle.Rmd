@@ -148,7 +148,7 @@ chars2 %>%
 
 ## Geocoding with google
 
-Next we'll tackle a more complex form of data that comes from Google's geocoding service, stored in the repurssive package
+Next we'll tackle a more complex form of data that comes from Google's geocoding service, stored in the repurrrsive package
 
 ```{r}
 repurrrsive::gmaps_cities

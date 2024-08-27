@@ -189,7 +189,7 @@ who %>%
 )
 ```
 
-Doing it this way is a little more efficient than doing a mutate after the fact, `pivot_longer()` only has to transform one occurence of each name where a `mutate()` would need to transform many repetitions.
+Doing it this way is a little more efficient than doing a mutate after the fact, `pivot_longer()` only has to transform one occurrence of each name where a `mutate()` would need to transform many repetitions.
 
 ### Multiple observations per row
 
