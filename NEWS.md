@@ -687,7 +687,7 @@ Packing and chopping are interesting primarily because they are the atomic opera
   (@ha0ye, #657).
 
 * tidyr now re-exports `tibble()`, `as_tibble()`, and `tribble()`, 
-  as well as the tidyselect helpers (`starts_with()`, `ends_width()`, ...).
+  as well as the tidyselect helpers (`starts_with()`, `ends_with()`, ...).
   This makes generating documentation, reprexes, and tests easier, and
   makes tidyr easier to use without also attaching dplyr.
 
