@@ -72,13 +72,30 @@ test_that("validates its inputs", {
   })
 })
 
-test_that("unite works for empty selections", {
-  variables <- c()
-  df <- tibble(
+test_that("returns an empty string column for empty selections (#1548)", {
+  # i.e. it returns the initial value that would be used in a reduction algorithm
+
+  x <- tibble(
     x = c("x", "y", "z"),
-    y = 1L
+    y = c(1, 2, 3)
   )
-  expect_no_error(df2 <- unite(df, col = "new_col", all_of(variables)))
-  expect_identical(colnames(df2), c("x", "y", "new_col"))
-  expect_identical(unique(df2$new_col), "")
+
+  out <- unite(x, "new", all_of(c()))
+
+  expect_identical(names(out), c("x", "y", "new"))
+  expect_identical(out$new, c("", "", ""))
+})
+
+test_that("works with 0 column data frames and empty selections (#1570)", {
+  x <- tibble(.rows = 2L)
+
+  # No `...` implies "unite all the columns"
+  out <- unite(x, "new")
+  expect_identical(names(out), "new")
+  expect_identical(out$new, c("", ""))
+
+  # Empty selection
+  out <- unite(x, "new", all_of(names(x)))
+  expect_identical(names(out), "new")
+  expect_identical(out$new, c("", ""))
 })
