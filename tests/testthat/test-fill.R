@@ -106,23 +106,33 @@ test_that("fill preserves attributes", {
   expect_equal(attributes(out_u$x), attributes(df$x))
 })
 
-test_that("fill respects grouping and `.by`", {
+test_that("fill respects existing grouping and `.by`", {
   df <- tibble(x = c(1, 1, 2), y = c(1, NA, NA))
+
   out <- df %>%
     dplyr::group_by(x) %>%
     fill(y)
-  expect_equal(out$y, c(1, 1, NA))
+  expect_identical(out$y, c(1, 1, NA))
+  expect_identical(dplyr::group_vars(out), "x")
+
   out <- df %>%
     fill(y, .by = x)
-  expect_equal(out$y, c(1, 1, NA))
-
-
+  expect_identical(out$y, c(1, 1, NA))
+  expect_identical(dplyr::group_vars(out), character())
 })
 
 test_that("works when there is a column named `.direction` in the data (#1319)", {
   df <- tibble(x = c(1, NA, 2), .direction = 1:3)
-  expect_no_error(out <- fill(df, x))
+  out <- fill(df, x)
   expect_identical(out$x, c(1, 1, 2))
+})
+
+test_that("errors on named `...` inputs", {
+  df <- tibble(x = c(1, NA, 2))
+
+  expect_snapshot(error = TRUE, {
+    fill(df, fooy = x)
+  })
 })
 
 test_that("validates its inputs", {
@@ -132,11 +142,23 @@ test_that("validates its inputs", {
   })
 })
 
-test_that("fill works with .by", {
-  df <- tibble(x = c(1, 1, 2), y = c(1, NA, NA))
-  gr_df <- dplyr::group_by(df, x)
+test_that("`.by` can't select columns that don't exist", {
+  df <- tibble(x = 1, y = 2)
+
+  # This shows `mutate()` in the error, but we accept that to not have to handle
+  # `.by` in any way.
   expect_snapshot(error = TRUE, {
-    df %>% fill(y, .by = z)
-    gr_df %>% fill(y, .by = x)
+    fill(df, y, .by = z)
+  })
+})
+
+test_that("`.by` can't be used on a grouped data frame", {
+  df <- tibble(x = 1, y = 2)
+  df <- dplyr::group_by(df, x)
+
+  # This shows `mutate()` in the error, but we accept that to not have to handle
+  # `.by` in any way.
+  expect_snapshot(error = TRUE, {
+    fill(df, y, .by = x)
   })
 })

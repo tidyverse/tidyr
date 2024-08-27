@@ -9,11 +9,11 @@
 #' @section Grouped data frames:
 #' With grouped data frames created by [dplyr::group_by()], `fill()` will be
 #' applied _within_ each group, meaning that it won't fill across group
-#' boundaries.
+#' boundaries. This can also be accomplished using the `.by` argument to
+#' `fill()`, which creates a temporary grouping for just this operation.
 #'
 #' @param data A data frame.
 #' @param ... <[`tidy-select`][tidyr_tidy_select]> Columns to fill.
-#' @inheritParams dplyr::mutate
 #' @param .direction Direction in which to fill missing values. Currently
 #'   either "down" (the default), "up", "downup" (i.e. first down and then up)
 #'   or "updown" (first up and then down).
@@ -83,27 +83,39 @@
 #'   3, "Danielle",    "Observer",   NA
 #' )
 #'
-#' # The values are inconsistently missing by position within the group
-#' # Use .direction = "downup" to fill missing values in both directions
+#' # The values are inconsistently missing by position within the `group`.
+#' # Use `.direction = "downup"` to fill missing values in both directions
+#' # and `.by = group` to apply the fill per group.
+#' squirrels %>%
+#'   fill(n_squirrels, .direction = "downup", .by = group)
+#'
+#' # If you want, you can also supply a data frame grouped with `group_by()`,
+#' # but don't forget to `ungroup()`!
 #' squirrels %>%
 #'   dplyr::group_by(group) %>%
 #'   fill(n_squirrels, .direction = "downup") %>%
 #'   dplyr::ungroup()
-#'
-#' # Using `.direction = "updown"` accomplishes the same goal in this example
-#'
-#' # Using .by simplifies this example.
-#' squirrels %>%
-#'   fill(n_squirrels, .direction = "downup", .by = group)
-fill <- function(data, ..., .direction = c("down", "up", "downup", "updown"), .by = NULL) {
-  check_dots_unnamed()
+fill <- function(data,
+                 ...,
+                 .direction = c("down", "up", "downup", "updown")) {
   UseMethod("fill")
 }
 
+#' @inheritParams dplyr::mutate
+#' @rdname fill
 #' @export
-fill.data.frame <- function(data, ..., .direction = c("down", "up", "downup", "updown"), .by = NULL) {
-  vars <- names(tidyselect::eval_select(expr(c(...)), data = data, allow_rename = FALSE))
-  by   <- names(tidyselect::eval_select(enquo(.by), data = data, allow_rename = FALSE))
+fill.data.frame <- function(data,
+                            ...,
+                            .direction = c("down", "up", "downup", "updown"),
+                            .by = NULL) {
+  # Must be here rather than in the generic due to the placement of `.by`
+  check_dots_unnamed()
+
+  vars <- names(tidyselect::eval_select(
+    expr = expr(c(...)),
+    data = data,
+    allow_rename = FALSE
+  ))
 
   .direction <- arg_match0(
     arg = .direction,
@@ -114,14 +126,9 @@ fill.data.frame <- function(data, ..., .direction = c("down", "up", "downup", "u
     vec_fill_missing(col, direction = .direction)
   }
 
-  if (dplyr::is_grouped_df(data)) {
-    if (length(by) > 0) {
-      cli::cli_abort(c(
-        "Can't supply {.arg .by} when {.arg data} is a grouped data frame."
-      ))
-    }
-    dplyr::mutate(data, dplyr::across(any_of(vars), .fns = fn))
-  } else {
-    dplyr::mutate(data, dplyr::across(any_of(vars), .fns = fn), .by = all_of(by))
-  }
+  dplyr::mutate(
+    data,
+    dplyr::across(any_of(vars), .fns = fn),
+    .by = {{ .by }}
+  )
 }

@@ -2,9 +2,12 @@
 % Please edit documentation in R/fill.R
 \name{fill}
 \alias{fill}
+\alias{fill.data.frame}
 \title{Fill in missing values with previous or next value}
 \usage{
-fill(data, ..., .direction = c("down", "up", "downup", "updown"), .by = NULL)
+fill(data, ..., .direction = c("down", "up", "downup", "updown"))
+
+\method{fill}{data.frame}(data, ..., .direction = c("down", "up", "downup", "updown"), .by = NULL)
 }
 \arguments{
 \item{data}{A data frame.}
@@ -33,7 +36,8 @@ Missing values are replaced in atomic vectors; \code{NULL}s are replaced in list
 
 With grouped data frames created by \code{\link[dplyr:group_by]{dplyr::group_by()}}, \code{fill()} will be
 applied \emph{within} each group, meaning that it won't fill across group
-boundaries.
+boundaries. This can also be accomplished using the \code{.by} argument to
+\code{fill()}, which creates a temporary grouping for just this operation.
 }
 
 \examples{
@@ -101,16 +105,16 @@ squirrels <- tibble::tribble(
   3, "Danielle",    "Observer",   NA
 )
 
-# The values are inconsistently missing by position within the group
-# Use .direction = "downup" to fill missing values in both directions
+# The values are inconsistently missing by position within the `group`.
+# Use `.direction = "downup"` to fill missing values in both directions
+# and `.by = group` to apply the fill per group.
+squirrels \%>\%
+  fill(n_squirrels, .direction = "downup", .by = group)
+
+# If you want, you can also supply a data frame grouped with `group_by()`,
+# but don't forget to `ungroup()`!
 squirrels \%>\%
   dplyr::group_by(group) \%>\%
   fill(n_squirrels, .direction = "downup") \%>\%
   dplyr::ungroup()
-
-# Using `.direction = "updown"` accomplishes the same goal in this example
-
-# Using .by simplifies this example.
-squirrels \%>\%
-  fill(n_squirrels, .direction = "downup", .by = group)
 }
