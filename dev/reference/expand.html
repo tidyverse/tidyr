@@ -129,17 +129,9 @@ that do not appear in the data: to do so use expressions like
 
 
 <dt id="arg--name-repair">.name_repair<a class="anchor" aria-label="anchor" href="#arg--name-repair"></a></dt>
-<dd><p>Treatment of problematic column names:</p><ul><li><p><code>"minimal"</code>: No name repair or checks, beyond basic existence,</p></li>
-<li><p><code>"unique"</code>: Make sure names are unique and not empty,</p></li>
-<li><p><code>"check_unique"</code>: (default value), no name repair, but check they are
-<code>unique</code>,</p></li>
-<li><p><code>"universal"</code>: Make the names <code>unique</code> and syntactic</p></li>
-<li><p>a function: apply custom name repair (e.g., <code>.name_repair = make.names</code>
-for names in the style of base R).</p></li>
-<li><p>A purrr-style anonymous function, see <code><a href="https://rlang.r-lib.org/reference/as_function.html" class="external-link">rlang::as_function()</a></code></p></li>
-</ul><p>This argument is passed on as <code>repair</code> to <code><a href="https://vctrs.r-lib.org/reference/vec_as_names.html" class="external-link">vctrs::vec_as_names()</a></code>.
-See there for more details on these terms and the strategies used
-to enforce them.</p></dd>
+<dd><p>One of <code>"check_unique"</code>, <code>"unique"</code>, <code>"universal"</code>,
+<code>"minimal"</code>, <code>"unique_quiet"</code>, or <code>"universal_quiet"</code>. See <code><a href="https://vctrs.r-lib.org/reference/vec_as_names.html" class="external-link">vec_as_names()</a></code>
+for the meaning of these options.</p></dd>
 
 </dl></div>
     <div class="section level2">
