@@ -55,6 +55,14 @@
       * `x` -> `x...1`
       * `x` -> `x...2`
 
+# expand_grid() throws an error for invalid `.vary` parameter
+
+    Code
+      expand_grid(x = 1:2, y = 1:2, .vary = "invalid")
+    Condition
+      Error in `expand_grid()`:
+      ! `.vary` must be one of "slowest" or "fastest", not "invalid".
+
 # grid_dots() reject non-vector input
 
     Code
@@ -63,12 +71,4 @@
       <error/vctrs_error_scalar_type>
       Error:
       ! `..1` must be a vector, not a <lm> object.
-
-# expand_grid() throws an error for invalid .vary parameter
-
-    Code
-      expand_grid(x = 1:2, y = 1:2, .vary = "invalid")
-    Condition
-      Error in `expand_grid()`:
-      ! `.vary` must be one of "slowest" or "fastest", not "invalid".
 

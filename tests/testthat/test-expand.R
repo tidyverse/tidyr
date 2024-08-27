@@ -390,6 +390,32 @@ test_that("expand_grid() works with 0 row tibbles", {
   expect_identical(expand_grid(df, x = 1:2), tibble(x = integer()))
 })
 
+test_that("expand_grid() respects `.vary` parameter", {
+  # Slowest
+  expect_identical(
+    expand_grid(x = 1:2, y = 1:2),
+    tibble(
+      x = c(1L, 1L, 2L, 2L),
+      y = c(1L, 2L, 1L, 2L)
+    )
+  )
+
+  # Fastest
+  expect_identical(
+    expand_grid(x = 1:2, y = 1:2, .vary = "fastest"),
+    tibble(
+      x = c(1L, 2L, 1L, 2L),
+      y = c(1L, 1L, 2L, 2L)
+    )
+  )
+})
+
+test_that("expand_grid() throws an error for invalid `.vary` parameter", {
+  expect_snapshot(error = TRUE, {
+    expand_grid(x = 1:2, y = 1:2, .vary = "invalid")
+  })
+})
+
 # ------------------------------------------------------------------------------
 # grid_dots()
 
@@ -450,104 +476,4 @@ test_that("fct_unique() doesn't alter level order if `NA` is an existing level",
   x <- factor(c(NA, "x"), levels = c(NA, "x"), exclude = NULL)
   expect_identical(fct_unique(x), x)
   expect_identical(levels(fct_unique(x)), c(NA, "x"))
-})
-
-
-# ------------------------------------------------------------------------------
-# .vary parameter
-
-test_that("expand_grid() respects .vary parameter", {
-  # Test default behavior (slowest varying)
-  out_default <- expand_grid(x = 1:3, y = 1:2)
-  expect_equal(
-    out_default,
-    tibble(
-      x = c(1, 1, 2, 2, 3, 3),
-      y = c(1, 2, 1, 2, 1, 2)
-    )
-  )
-
-  # Test fastest varying
-  out_fastest <- expand_grid(x = 1:3, y = 1:2, .vary = "fastest")
-  expect_equal(
-    out_fastest,
-    tibble(
-      x = c(1, 2, 3, 1, 2, 3),
-      y = c(1, 1, 1, 2, 2, 2)
-    )
-  )
-})
-
-test_that("expand_grid() .vary parameter works with more than two variables", {
-  out_slowest <- expand_grid(x = 1:2, y = 1:2, z = 1:2)
-  expect_equal(
-    out_slowest,
-    tibble(
-      x = c(1, 1, 1, 1, 2, 2, 2, 2),
-      y = c(1, 1, 2, 2, 1, 1, 2, 2),
-      z = c(1, 2, 1, 2, 1, 2, 1, 2)
-    )
-  )
-
-  out_fastest <- expand_grid(x = 1:2, y = 1:2, z = 1:2, .vary = "fastest")
-  expect_equal(
-    out_fastest,
-    tibble(
-      x = c(1, 2, 1, 2, 1, 2, 1, 2),
-      y = c(1, 1, 2, 2, 1, 1, 2, 2),
-      z = c(1, 1, 1, 1, 2, 2, 2, 2)
-    )
-  )
-})
-
-test_that("expand_grid() .vary parameter works with different input types", {
-  out_slowest <- expand_grid(x = 1:2, y = c("a", "b"), z = factor(c("low", "high")))
-  expect_equal(
-    out_slowest,
-    tibble(
-      x = c(1, 1, 1, 1, 2, 2, 2, 2),
-      y = c("a", "a", "b", "b", "a", "a", "b", "b"),
-      z = factor(c("low", "high", "low", "high", "low", "high", "low", "high"))
-    )
-  )
-
-  out_fastest <- expand_grid(x = 1:2, y = c("a", "b"), z = factor(c("low", "high")), .vary = "fastest")
-  expect_equal(
-    out_fastest,
-    tibble(
-      x = c(1, 2, 1, 2, 1, 2, 1, 2),
-      y = c("a", "a", "b", "b", "a", "a", "b", "b"),
-      z = factor(c("low", "low", "low", "low", "high", "high", "high", "high"))
-    )
-  )
-})
-
-test_that("expand_grid() .vary parameter works with data frames", {
-  df <- tibble(a = 1:2, b = c("x", "y"))
-  out_slowest <- expand_grid(df, z = 1:2)
-  expect_equal(
-    out_slowest,
-    tibble(
-      a = c(1, 1, 2, 2),
-      b = c("x", "x", "y", "y"),
-      z = c(1, 2, 1, 2)
-    )
-  )
-
-  out_fastest <- expand_grid(df, z = 1:2, .vary = "fastest")
-  expect_equal(
-    out_fastest,
-    tibble(
-      a = c(1, 2, 1, 2),
-      b = c("x", "y", "x", "y"),
-      z = c(1, 1, 2, 2)
-    )
-  )
-})
-
-test_that("expand_grid() throws an error for invalid .vary parameter", {
-  expect_snapshot(
-    expand_grid(x = 1:2, y = 1:2, .vary = "invalid"),
-    error = TRUE
-  )
 })
