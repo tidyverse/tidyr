@@ -254,8 +254,14 @@ df_unchop <- function(x, ..., ptype = NULL, keep_empty = FALSE, error_call = cal
     col_sizes <- x_sizes[[i]]
 
     if (!col_is_list) {
+      # Optimize rare non list-cols
       if (!is_null(col_ptype)) {
-        col <- vec_cast(col, col_ptype, x_arg = col_name, call = error_call)
+        col <- vec_cast(
+          x = col,
+          to = col_ptype,
+          x_arg = col_name,
+          call = error_call
+        )
       }
       out_cols[[i]] <- vec_slice(col, out_loc)
       next
