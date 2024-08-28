@@ -9,13 +9,17 @@
 #' @section Grouped data frames:
 #' With grouped data frames created by [dplyr::group_by()], `fill()` will be
 #' applied _within_ each group, meaning that it won't fill across group
-#' boundaries.
+#' boundaries. This can also be accomplished using the `.by` argument to
+#' `fill()`, which creates a temporary grouping for just this operation.
+#'
+#' @inheritParams dplyr::mutate
 #'
 #' @param data A data frame.
 #' @param ... <[`tidy-select`][tidyr_tidy_select]> Columns to fill.
 #' @param .direction Direction in which to fill missing values. Currently
 #'   either "down" (the default), "up", "downup" (i.e. first down and then up)
 #'   or "updown" (first up and then down).
+#'
 #' @export
 #' @examples
 #' # direction = "down" --------------------------------------------------------
@@ -82,22 +86,36 @@
 #'   3, "Danielle",    "Observer",   NA
 #' )
 #'
-#' # The values are inconsistently missing by position within the group
-#' # Use .direction = "downup" to fill missing values in both directions
+#' # The values are inconsistently missing by position within the `group`.
+#' # Use `.direction = "downup"` to fill missing values in both directions
+#' # and `.by = group` to apply the fill per group.
+#' squirrels %>%
+#'   fill(n_squirrels, .direction = "downup", .by = group)
+#'
+#' # If you want, you can also supply a data frame grouped with `group_by()`,
+#' # but don't forget to `ungroup()`!
 #' squirrels %>%
 #'   dplyr::group_by(group) %>%
 #'   fill(n_squirrels, .direction = "downup") %>%
 #'   dplyr::ungroup()
-#'
-#' # Using `.direction = "updown"` accomplishes the same goal in this example
-fill <- function(data, ..., .direction = c("down", "up", "downup", "updown")) {
+fill <- function(data,
+                 ...,
+                 .by = NULL,
+                 .direction = c("down", "up", "downup", "updown")) {
   check_dots_unnamed()
   UseMethod("fill")
 }
 
 #' @export
-fill.data.frame <- function(data, ..., .direction = c("down", "up", "downup", "updown")) {
-  vars <- tidyselect::eval_select(expr(c(...)), data, allow_rename = FALSE)
+fill.data.frame <- function(data,
+                            ...,
+                            .by = NULL,
+                            .direction = c("down", "up", "downup", "updown")) {
+  vars <- names(tidyselect::eval_select(
+    expr = expr(c(...)),
+    data = data,
+    allow_rename = FALSE
+  ))
 
   .direction <- arg_match0(
     arg = .direction,
@@ -108,5 +126,9 @@ fill.data.frame <- function(data, ..., .direction = c("down", "up", "downup", "u
     vec_fill_missing(col, direction = .direction)
   }
 
-  dplyr::mutate_at(data, .vars = dplyr::vars(any_of(vars)), .funs = fn)
+  dplyr::mutate(
+    data,
+    dplyr::across(any_of(vars), .fns = fn),
+    .by = {{ .by }}
+  )
 }
