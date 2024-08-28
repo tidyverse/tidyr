@@ -11,6 +11,14 @@
       Error in `chop()`:
       ! `cols` is absent but must be supplied.
 
+# incompatible ptype mentions the column (#1477)
+
+    Code
+      unnest(df, data, ptype = list(data = integer()))
+    Condition
+      Error in `unnest()`:
+      ! Can't convert `data[[2]]` <character> to <integer>.
+
 # incompatible sizes are caught
 
     Code

@@ -254,8 +254,14 @@ df_unchop <- function(x, ..., ptype = NULL, keep_empty = FALSE, error_call = cal
     col_sizes <- x_sizes[[i]]
 
     if (!col_is_list) {
+      # Optimize rare non list-cols
       if (!is_null(col_ptype)) {
-        col <- vec_cast(col, col_ptype, x_arg = col_name, call = error_call)
+        col <- vec_cast(
+          x = col,
+          to = col_ptype,
+          x_arg = col_name,
+          call = error_call
+        )
       }
       out_cols[[i]] <- vec_slice(col, out_loc)
       next
@@ -267,7 +273,12 @@ df_unchop <- function(x, ..., ptype = NULL, keep_empty = FALSE, error_call = cal
     row_recycle <- col_sizes != sizes
     col[row_recycle] <- map2(col[row_recycle], sizes[row_recycle], vec_recycle, call = error_call)
 
-    col <- list_unchop(col, ptype = col_ptype)
+    col <- list_unchop(
+      x = col,
+      ptype = col_ptype,
+      error_arg = col_name,
+      error_call = error_call
+    )
 
     if (is_null(col)) {
       # This can happen when both of these are true:

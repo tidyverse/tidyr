@@ -228,6 +228,14 @@ test_that("`ptype = list()` uses list ptype", {
   )
 })
 
+test_that("incompatible ptype mentions the column (#1477)", {
+  df <- tibble(data = list(1, "2"))
+
+  expect_snapshot(error = TRUE, {
+    unnest(df, data, ptype = list(data = integer()))
+  })
+})
+
 test_that("unchopping a bare empty list results in unspecified()", {
   df <- tibble(x = integer(), y = list())
   expect <- tibble(x = integer(), y = unspecified())

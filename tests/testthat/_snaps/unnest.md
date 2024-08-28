@@ -31,7 +31,7 @@
       (expect_error(unnest(df, x)))
     Output
       <error/vctrs_error_ptype2>
-      Error in `list_unchop()`:
+      Error in `unnest()`:
       ! Can't combine `x[[1]]` <double> and `x[[2]]` <tbl_df>.
 
 # unnest() advises on outer / inner name duplication
