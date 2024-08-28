@@ -11,12 +11,11 @@
       Error in `chop()`:
       ! `cols` is absent but must be supplied.
 
-# incompatible ptype mentions the column
+# incompatible ptype mentions the column (#1477)
 
     Code
-      (expect_error(unnest(df, data, ptype = list(data = integer()))))
-    Output
-      <error/vctrs_error_cast>
+      unnest(df, data, ptype = list(data = integer()))
+    Condition
       Error in `unnest()`:
       ! Can't convert `data[[2]]` <character> to <integer>.
 
