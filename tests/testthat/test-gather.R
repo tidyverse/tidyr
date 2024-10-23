@@ -137,7 +137,10 @@ test_that("gather throws error for weird objects", {
   expect_snapshot(error = TRUE, cnd_class = TRUE, {
     gather(d, key, val, -x)
     gather(df, key, val, -y)
-  })
+    },
+    # Failing for old versions of R. (<4.3)
+    transform = function(x) gsub(" in `gather()`", "", x)
+  )
 
   e <- new.env(parent = emptyenv())
   e$x <- 1
