@@ -14,13 +14,8 @@
 # gather throws error for weird objects
 
     Code
-      gather(d, key, val, -x)
-    Condition <simpleError>
-      Error:
-      ! object 'd' not found
-    Code
       gather(df, key, val, -y)
-    Condition <simpleError>
+    Condition
       Error:
       ! All columns be atomic vectors or lists (not expression)
 
