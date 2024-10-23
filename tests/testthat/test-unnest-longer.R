@@ -376,11 +376,9 @@ test_that("can't currently retain names when simplification isn't done and a pty
 })
 
 test_that("can't mix `indices_to` with `indices_include = FALSE`", {
-  expect_snapshot(error = TRUE, {
+  expect_snapshot(error = TRUE, cnd_class = TRUE, {
     unnest_longer(mtcars, mpg, indices_to = "x", indices_include = FALSE)
-    },
-    cnd_class = TRUE
-  )
+  })
 })
 
 test_that("unnest_longer() validates its inputs", {
@@ -402,37 +400,29 @@ test_that("`values_to` and `indices_to` glue can't reach into surrounding env", 
 })
 
 test_that("`values_to` is validated", {
-  expect_snapshot(error = TRUE, {
+  expect_snapshot(error = TRUE, cnd_class = TRUE, {
     unnest_longer(mtcars, mpg, values_to = 1)
     unnest_longer(mtcars, mpg, values_to = c("x", "y"))
-    },
-    cnd_class = TRUE
-  )
+  })
 })
 
 test_that("`indices_to` is validated", {
-  expect_snapshot(error = TRUE, {
+  expect_snapshot(error = TRUE, cnd_class = TRUE, {
     unnest_longer(mtcars, mpg, indices_to = 1)
     unnest_longer(mtcars, mpg, indices_to = c("x", "y"))
-    },
-    cnd_class = TRUE
-  )
+  })
 })
 
 test_that("`indices_include` is validated", {
-  expect_snapshot(error = TRUE, {
+  expect_snapshot(error = TRUE, cnd_class = TRUE, {
     unnest_longer(mtcars, mpg, indices_include = 1)
     unnest_longer(mtcars, mpg, indices_include = c(TRUE, FALSE))
-    },
-    cnd_class = TRUE
-  )
+  })
 })
 
 test_that("`keep_empty` is validated", {
-  expect_snapshot(error = TRUE, {
+  expect_snapshot(error = TRUE, cnd_class = TRUE, {
     unnest_longer(mtcars, mpg, keep_empty = 1)
     unnest_longer(mtcars, mpg, keep_empty = c(TRUE, FALSE))
-    },
-    cnd_class = TRUE
-  )
+  })
 })

@@ -37,12 +37,10 @@ test_that("groups are preserved", {
 
 test_that("errors are raised", {
   df <- tibble(x = c(1, 2, NA), y = c("a", NA, "b"))
-  expect_snapshot(error = TRUE, {
+  expect_snapshot(error = TRUE, cnd_class = TRUE, {
     drop_na(df, list())
     drop_na(df, "z")
-    },
-    cnd_class = TRUE
-  )
+  })
 })
 
 test_that("single variable data.frame doesn't lose dimension", {
@@ -78,11 +76,6 @@ test_that("works with df-cols", {
 })
 
 test_that("works with rcrd cols", {
-  skip_if(
-    packageVersion("vctrs") <= "0.3.8",
-    "vec_detect_complete() treated rcrds differently"
-  )
-
   # if any rcrd field contains a missing value, it is incomplete
   col <- new_rcrd(list(x = c(1, 1, NA, NA), y = c(1, NA, 1, NA)))
   df <- tibble(col = col)

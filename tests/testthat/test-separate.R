@@ -121,7 +121,7 @@ test_that("informative error if using stringr modifier functions (#693)", {
   df <- tibble(x = "a")
   sep <- structure("a", class = "pattern")
 
-  expect_snapshot((expect_error(separate(df, x, "x", sep = sep))))
+  expect_snapshot(separate(df, x, "x", sep = sep), error = TRUE, cnd_class = TRUE)
 })
 
 # helpers -----------------------------------------------------------------

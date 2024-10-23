@@ -35,9 +35,8 @@
 # can't hoist() from a data frame column
 
     Code
-      (expect_error(hoist(df, a, xx = 1)))
-    Output
-      <error/rlang_error>
+      hoist(df, a, xx = 1)
+    Condition <rlang_error>
       Error in `hoist()`:
       ! `.data[[.col]]` must be a list, not a <tbl_df/tbl/data.frame> object.
 

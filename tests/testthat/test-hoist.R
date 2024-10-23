@@ -103,13 +103,11 @@ test_that("can hoist out scalars", {
 test_that("input validation catches problems", {
   df <- tibble(x = list(list(1, b = "b")), y = 1)
 
-  expect_snapshot(error = TRUE, {
+  expect_snapshot(error = TRUE, cnd_class = TRUE, {
     df %>% hoist(y)
     df %>% hoist(x, 1)
     df %>% hoist(x, a = "a", a = "b")
-    },
-    cnd_class = TRUE
-  )
+  })
 })
 
 test_that("string pluckers are automatically named", {

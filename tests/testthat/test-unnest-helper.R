@@ -1,36 +1,30 @@
 # df_simplify ------------------------------------------------------------
 
 test_that("`simplify` is validated", {
-  expect_snapshot(error = TRUE, {
+  expect_snapshot(error = TRUE, cnd_class = TRUE, {
     df_simplify(data.frame(), simplify = 1)
     df_simplify(data.frame(), simplify = NA)
     df_simplify(data.frame(), simplify = c(TRUE, FALSE))
     df_simplify(data.frame(), simplify = list(1))
     df_simplify(data.frame(), simplify = list(x = 1, x = 1))
-    },
-    cnd_class = TRUE
-  )
+  })
 })
 
 test_that("`ptype` is validated", {
-  expect_snapshot(error = TRUE, {
+  expect_snapshot(error = TRUE, cnd_class = TRUE, {
     df_simplify(data.frame(), ptype = 1)
     df_simplify(data.frame(), ptype = list(1))
     df_simplify(data.frame(), ptype = list(x = 1, x = 1))
-    },
-    cnd_class = TRUE
-  )
+  })
 })
 
 test_that("`transform` is validated", {
-  expect_snapshot(error = TRUE, {
+  expect_snapshot(error = TRUE, cnd_class = TRUE, {
     df_simplify(data.frame(), transform = list(~.x))
     df_simplify(data.frame(x = 1), transform = 1)
     df_simplify(data.frame(), transform = list(x = 1))
     df_simplify(data.frame(), transform = list(x = 1, x = 1))
-    },
-    cnd_class = TRUE
-  )
+  })
 })
 
 test_that("`simplify` can be a named list (#995)", {
@@ -146,11 +140,9 @@ test_that("ptype is applied after transform", {
     c(2L, 3L, 4L)
   )
 
-  expect_snapshot(error = TRUE, {
+  expect_snapshot(error = TRUE, cnd_class = TRUE, {
     col_simplify(list(1, 2, 3), ptype = integer(), transform = ~ .x + 1.5)
-    },
-    cnd_class = TRUE
-  )
+  })
 })
 
 test_that("lists of lists aren't simplified", {

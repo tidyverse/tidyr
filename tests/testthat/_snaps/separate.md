@@ -73,9 +73,8 @@
 # informative error if using stringr modifier functions (#693)
 
     Code
-      (expect_error(separate(df, x, "x", sep = sep)))
-    Output
-      <error/rlang_error>
+      separate(df, x, "x", sep = sep)
+    Condition <rlang_error>
       Error in `separate()`:
       ! `sep` can't use modifiers from stringr.
 
