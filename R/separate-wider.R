@@ -495,6 +495,7 @@ map_unpack <- function(data, cols, fun, names_sep, names_repair, error_call = ca
     data = data,
     allow_rename = FALSE,
     allow_empty = FALSE,
+    error_arg = "cols",
     error_call = error_call
   )
   col_names <- names(cols)

@@ -32,7 +32,7 @@ drop_na.data.frame <- function(data, ...) {
     # Use all columns if no `...` are supplied
     cols <- data
   } else {
-    vars <- tidyselect::eval_select(expr(c(!!!dots)), data, allow_rename = FALSE)
+    vars <- tidyselect::eval_select(expr(c(!!!dots)), data, allow_rename = FALSE, error_arg = "...")
     cols <- data[vars]
   }
 

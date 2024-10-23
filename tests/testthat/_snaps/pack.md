@@ -109,6 +109,7 @@
     Condition
       Error in `unpack()`:
       ! Can't rename variables in this context.
+      i `cols` can't be renamed.
 
 # unpack() validates its inputs
 

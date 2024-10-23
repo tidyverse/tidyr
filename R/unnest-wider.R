@@ -93,7 +93,7 @@ unnest_wider <- function(data,
 
   error_call <- current_env()
 
-  cols <- tidyselect::eval_select(enquo(col), data, allow_rename = FALSE)
+  cols <- tidyselect::eval_select(enquo(col), data, allow_rename = FALSE, error_arg = "col")
   col_names <- names(cols)
 
   for (i in seq_along(cols)) {
