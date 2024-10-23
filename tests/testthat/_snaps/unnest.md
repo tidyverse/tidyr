@@ -65,6 +65,7 @@
     Condition
       Error in `unnest()`:
       ! Can't rename variables in this context.
+      i `cols` can't be renamed.
 
 # cols must go in cols
 

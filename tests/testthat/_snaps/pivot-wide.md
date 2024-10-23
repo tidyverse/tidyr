@@ -53,9 +53,9 @@
       (expect_error(pivot_wider(df, names_from = starts_with("foo"), values_from = val))
       )
     Output
-      <error/rlang_error>
+      <error/tidyselect_error_empty_selection>
       Error in `pivot_wider()`:
-      ! Must select at least one item.
+      ! `names_from` must select at least one column.
 
 # `values_from` must identify at least 1 column (#1240)
 
@@ -63,9 +63,9 @@
       (expect_error(pivot_wider(df, names_from = key, values_from = starts_with("foo")))
       )
     Output
-      <error/rlang_error>
+      <error/tidyselect_error_empty_selection>
       Error in `pivot_wider()`:
-      ! Must select at least one item.
+      ! `values_from` must select at least one column.
 
 # `values_fn` emits an informative error when it doesn't result in unique values (#1238)
 
@@ -183,6 +183,7 @@
     Condition
       Error in `pivot_wider()`:
       ! Can't rename variables in this context.
+      i `id_cols` can't be renamed.
 
 # `id_expand` is validated
 
