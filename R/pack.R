@@ -134,6 +134,7 @@ unpack <- function(data,
     expr = enquo(cols),
     data = data,
     allow_rename = FALSE,
+    error_arg = "cols",
     error_call = error_call
   )
   cols <- out[cols]

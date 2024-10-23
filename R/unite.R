@@ -48,7 +48,7 @@ unite.data.frame <- function(data, col, ..., sep = "_", remove = TRUE, na.rm = F
   if (dots_n(...) == 0) {
     selection <- set_names(seq_along(data), names(data))
   } else {
-    selection <- tidyselect::eval_select(expr(c(...)), data, allow_rename = FALSE)
+    selection <- tidyselect::eval_select(expr(c(...)), data, allow_rename = FALSE, error_arg = "...")
   }
 
   empty_selection <- length(selection) == 0L

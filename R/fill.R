@@ -114,7 +114,8 @@ fill.data.frame <- function(data,
   vars <- names(tidyselect::eval_select(
     expr = expr(c(...)),
     data = data,
-    allow_rename = FALSE
+    allow_rename = FALSE,
+    error_arg = "..."
   ))
 
   .direction <- arg_match0(
