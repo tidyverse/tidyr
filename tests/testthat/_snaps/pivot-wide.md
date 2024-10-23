@@ -48,7 +48,7 @@
 
     Code
       pivot_wider(df, names_from = starts_with("foo"), values_from = val)
-    Condition <tidyselect_error_empty_selection>
+    Condition <rlang_error>
       Error in `pivot_wider()`:
       ! Must select at least one item.
 
@@ -56,7 +56,7 @@
 
     Code
       pivot_wider(df, names_from = key, values_from = starts_with("foo"))
-    Condition <tidyselect_error_empty_selection>
+    Condition <rlang_error>
       Error in `pivot_wider()`:
       ! Must select at least one item.
 
