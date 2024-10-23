@@ -124,30 +124,36 @@ test_that("gather throws error for POSIXlt", {
   df <- data.frame(y = 1)
   df$x <- as.POSIXlt(Sys.time())
 
-  expect_snapshot({
-    (expect_error(gather(df, key, val, -x)))
-    (expect_error(gather(df, key, val, -y)))
-  })
+  expect_snapshot(error = TRUE, {
+    gather(df, key, val, -x)
+    gather(df, key, val, -y)
+    },
+    cnd_class = TRUE
+  )
 })
 
 test_that("gather throws error for weird objects", {
   df <- data.frame(y = 1)
   df$x <- expression(x)
 
-  expect_snapshot({
-    (expect_error(gather(df, key, val, -x)))
-    (expect_error(gather(df, key, val, -y)))
-  })
+  expect_snapshot(error = TRUE, {
+    gather(d, key, val, -x)
+    gather(df, key, val, -y)
+    },
+    cnd_class = TRUE
+  )
 
   e <- new.env(parent = emptyenv())
   e$x <- 1
   df <- data.frame(y = 1)
   df$x <- e
 
-  expect_snapshot({
-    (expect_error(gather(df, key, val, -x)))
-    (expect_error(gather(df, key, val, -y)))
-  })
+  expect_snapshot(error = TRUE, {
+    gather(df, key, val, -x)
+    gather(df, key, val, -y)
+    },
+    cnd_class = TRUE
+  )
 })
 
 

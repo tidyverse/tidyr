@@ -37,8 +37,12 @@ test_that("groups are preserved", {
 
 test_that("errors are raised", {
   df <- tibble(x = c(1, 2, NA), y = c("a", NA, "b"))
-  expect_snapshot((expect_error(drop_na(df, list()))))
-  expect_snapshot((expect_error(drop_na(df, "z"))))
+  expect_snapshot(error = TRUE, {
+    drop_na(df, list())
+    drop_na(df, "z")
+    },
+    cnd_class = TRUE
+  )
 })
 
 test_that("single variable data.frame doesn't lose dimension", {

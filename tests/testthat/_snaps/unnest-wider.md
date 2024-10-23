@@ -1,9 +1,8 @@
 # unnest_wider - bad inputs generate errors
 
     Code
-      (expect_error(unnest_wider(df, y)))
-    Output
-      <error/rlang_error>
+      unnest_wider(df, y)
+    Condition <rlang_error>
       Error in `unnest_wider()`:
       i In column: `y`.
       i In row: 1.

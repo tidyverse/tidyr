@@ -22,18 +22,16 @@
 # incompatible sizes are caught
 
     Code
-      (expect_error(unchop(df, c(x, y))))
-    Output
-      <error/rlang_error>
+      unchop(df, c(x, y))
+    Condition <rlang_error>
       Error in `unchop()`:
       ! In row 1, can't recycle input of size 2 to size 3.
 
 # empty typed inputs are considered in common size, but NULLs aren't
 
     Code
-      (expect_error(unchop(df, c(x, y))))
-    Output
-      <error/rlang_error>
+      unchop(df, c(x, y))
+    Condition <rlang_error>
       Error in `unchop()`:
       ! In row 1, can't recycle input of size 0 to size 2.
 

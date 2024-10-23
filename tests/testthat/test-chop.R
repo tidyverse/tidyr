@@ -288,15 +288,15 @@ test_that("unchop works with record columns (treating them like vectors)", {
 
 test_that("incompatible sizes are caught", {
   df <- tibble(x = list(1:2), y = list(1:3))
-  expect_snapshot((expect_error(unchop(df, c(x, y)))))
+  expect_snapshot(unchop(df, c(x, y)), error = TRUE, cnd_class = TRUE)
 })
 
 test_that("empty typed inputs are considered in common size, but NULLs aren't", {
   df <- tibble(x = list(NULL), y = list(1:2))
-  expect_error(unchop(df, c(x, y)), NA)
+  expect_no_error(unchop(df, c(x, y)))
 
   df <- tibble(x = list(integer()), y = list(1:2))
-  expect_snapshot((expect_error(unchop(df, c(x, y)))))
+  expect_snapshot(unchop(df, c(x, y)), error = TRUE, cnd_class = TRUE)
 })
 
 test_that("unchopping retains inner names from tibble elements", {

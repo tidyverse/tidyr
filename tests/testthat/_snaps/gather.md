@@ -1,35 +1,41 @@
 # gather throws error for POSIXlt
 
     Code
-      (expect_error(gather(df, key, val, -x)))
-    Output
-      <simpleError: 'x' is a POSIXlt. Please convert to POSIXct.>
+      gather(df, key, val, -x)
+    Condition <simpleError>
+      Error:
+      ! 'x' is a POSIXlt. Please convert to POSIXct.
     Code
-      (expect_error(gather(df, key, val, -y)))
-    Output
-      <simpleError: Column 1 is a POSIXlt. Please convert to POSIXct.>
+      gather(df, key, val, -y)
+    Condition <simpleError>
+      Error:
+      ! Column 1 is a POSIXlt. Please convert to POSIXct.
 
 # gather throws error for weird objects
 
     Code
-      (expect_error(gather(df, key, val, -x)))
-    Output
-      <simpleError: All columns must be atomic vectors or lists. Problem with 'x'>
+      gather(d, key, val, -x)
+    Condition <simpleError>
+      Error:
+      ! object 'd' not found
     Code
-      (expect_error(gather(df, key, val, -y)))
-    Output
-      <simpleError: All columns be atomic vectors or lists (not expression)>
+      gather(df, key, val, -y)
+    Condition <simpleError>
+      Error:
+      ! All columns be atomic vectors or lists (not expression)
 
 ---
 
     Code
-      (expect_error(gather(df, key, val, -x)))
-    Output
-      <simpleError: All columns must be atomic vectors or lists. Problem with 'x'>
+      gather(df, key, val, -x)
+    Condition <simpleError>
+      Error:
+      ! All columns must be atomic vectors or lists. Problem with 'x'
     Code
-      (expect_error(gather(df, key, val, -y)))
-    Output
-      <simpleError: All columns must be atomic vectors or lists. Problem with column 2.>
+      gather(df, key, val, -y)
+    Condition <simpleError>
+      Error:
+      ! All columns must be atomic vectors or lists. Problem with column 2.
 
 # factors coerced to characters, not integers
 

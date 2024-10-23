@@ -1,36 +1,32 @@
 # bad inputs generate errors
 
     Code
-      (expect_error(unnest(df, y)))
-    Output
-      <error/vctrs_error_scalar_type>
+      unnest(df, y)
+    Condition <vctrs_error_scalar_type>
       Error in `list_sizes()`:
       ! `x[[1]]` must be a vector, not a function.
 
 # multiple columns must be same length
 
     Code
-      (expect_error(unnest(df, c(x, y))))
-    Output
-      <error/rlang_error>
+      unnest(df, c(x, y))
+    Condition <rlang_error>
       Error in `unnest()`:
       ! In row 1, can't recycle input of size 2 to size 3.
 
 ---
 
     Code
-      (expect_error(unnest(df, c(x, y))))
-    Output
-      <error/rlang_error>
+      unnest(df, c(x, y))
+    Condition <rlang_error>
       Error in `unnest()`:
       ! In row 1, can't recycle input of size 2 to size 3.
 
 # unnesting column of mixed vector / data frame input is an error
 
     Code
-      (expect_error(unnest(df, x)))
-    Output
-      <error/vctrs_error_ptype2>
+      unnest(df, x)
+    Condition <vctrs_error_ptype2>
       Error in `unnest()`:
       ! Can't combine `x[[1]]` <double> and `x[[2]]` <tbl_df>.
 
