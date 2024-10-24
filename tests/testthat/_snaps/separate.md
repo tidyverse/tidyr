@@ -49,21 +49,33 @@
     Condition
       Error in `separate()`:
       ! `col` is absent but must be supplied.
+
+---
+
     Code
       separate(df, x, into = 1)
     Condition
       Error in `separate()`:
       ! `into` must be a character vector, not the number 1.
+
+---
+
     Code
       separate(df, x, into = "x", sep = c("a", "b"))
     Condition
       Error in `separate()`:
       ! `sep` must be a string or numeric vector, not a character vector
+
+---
+
     Code
       separate(df, x, into = "x", remove = 1)
     Condition
       Error in `separate()`:
       ! `remove` must be `TRUE` or `FALSE`, not the number 1.
+
+---
+
     Code
       separate(df, x, into = "x", convert = 1)
     Condition

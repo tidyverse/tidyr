@@ -21,11 +21,17 @@
     Condition
       Error in `hoist()`:
       ! `.data[[.col]]` must be a list, not the number 1.
+
+---
+
     Code
       df %>% hoist(x, 1)
     Condition
       Error in `hoist()`:
       ! All elements of `...` must be named.
+
+---
+
     Code
       df %>% hoist(x, a = "a", a = "b")
     Condition
@@ -47,26 +53,41 @@
     Condition
       Error in `hoist()`:
       ! `.data` must be a data frame, not a number.
+
+---
+
     Code
       hoist(df)
     Condition
       Error in `hoist()`:
       ! `.col` is absent but must be supplied.
+
+---
+
     Code
       hoist(df, a, .remove = 1)
     Condition
       Error in `hoist()`:
       ! `.remove` must be `TRUE` or `FALSE`, not the number 1.
+
+---
+
     Code
       hoist(df, a, .ptype = 1)
     Condition
       Error in `hoist()`:
       ! `.ptype` must be `NULL`, an empty ptype, or a named list of ptypes.
+
+---
+
     Code
       hoist(df, a, .transform = 1)
     Condition
       Error in `hoist()`:
       ! `.transform` must be `NULL`, a function, or a named list of functions.
+
+---
+
     Code
       hoist(df, a, .simplify = 1)
     Condition

@@ -41,6 +41,9 @@
     Condition
       Error in `build_longer_spec()`:
       ! If you supply multiple names in `names_to` you must also supply one of `names_sep` or `names_pattern`.
+
+---
+
     Code
       build_longer_spec(df, x_y, names_to = c("a", "b"), names_sep = "x",
       names_pattern = "x")
@@ -79,11 +82,17 @@
     Condition
       Error in `build_longer_spec()`:
       ! `names_to` must be a character vector or `NULL`, not the number 1.
+
+---
+
     Code
       build_longer_spec(df, x, names_to = c("x", "y"))
     Condition
       Error in `build_longer_spec()`:
       ! If you supply multiple names in `names_to` you must also supply one of `names_sep` or `names_pattern`.
+
+---
+
     Code
       build_longer_spec(df, x, names_to = c("x", "y"), names_sep = "_",
       names_pattern = "x")
@@ -98,6 +107,9 @@
     Condition
       Error in `build_longer_spec()`:
       ! `names_ptypes` must be `NULL`, an empty ptype, or a named list of ptypes.
+
+---
+
     Code
       build_longer_spec(df, x, names_ptypes = list(integer()))
     Condition
@@ -111,6 +123,9 @@
     Condition
       Error in `build_longer_spec()`:
       ! `names_transform` must be `NULL`, a function, or a named list of functions.
+
+---
+
     Code
       build_longer_spec(df, x, names_transform = list(~.x))
     Condition
@@ -124,6 +139,9 @@
     Condition
       Error in `pivot_longer()`:
       ! `values_ptypes` must be `NULL`, an empty ptype, or a named list of ptypes.
+
+---
+
     Code
       pivot_longer(df, x, values_ptypes = list(integer()))
     Condition
@@ -137,6 +155,9 @@
     Condition
       Error in `pivot_longer()`:
       ! `values_transform` must be `NULL`, a function, or a named list of functions.
+
+---
+
     Code
       pivot_longer(df, x, values_transform = list(~.x))
     Condition
@@ -151,6 +172,9 @@
       Error in `pivot_longer()`:
       ! `cols_vary` must be one of "fastest" or "slowest", not "fast".
       i Did you mean "fastest"?
+
+---
+
     Code
       pivot_longer(df, x, cols_vary = 1)
     Condition
@@ -167,6 +191,9 @@
       x Problematic argument:
       * ..1 = 1
       i Did you misspell an argument name?
+
+---
+
     Code
       pivot_longer(df, c(x, y), col_vary = "slowest")
     Condition
@@ -186,6 +213,9 @@
       x Problematic argument:
       * ..1 = 1
       i Did you forget to name an argument?
+
+---
+
     Code
       build_longer_spec(df, c(x, y), name_to = "name")
     Condition
@@ -204,6 +234,9 @@
       x Problematic argument:
       * ..1 = 1
       i Did you forget to name an argument?
+
+---
+
     Code
       pivot_longer_spec(df, spec, col_vary = "slowest")
     Condition

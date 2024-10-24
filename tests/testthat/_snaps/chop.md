@@ -5,6 +5,9 @@
     Condition
       Error in `chop()`:
       ! `data` must be a data frame, not an integer vector.
+
+---
+
     Code
       chop(df)
     Condition
@@ -50,16 +53,25 @@
     Condition
       Error in `unchop()`:
       ! `data` must be a data frame, not an integer vector.
+
+---
+
     Code
       unchop(df)
     Condition
       Error in `unchop()`:
       ! `cols` is absent but must be supplied.
+
+---
+
     Code
       unchop(df, col, keep_empty = 1)
     Condition
       Error in `unchop()`:
       ! `keep_empty` must be `TRUE` or `FALSE`, not the number 1.
+
+---
+
     Code
       unchop(df, col, ptype = 1)
     Condition

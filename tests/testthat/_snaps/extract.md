@@ -5,6 +5,9 @@
     Condition
       Error in `extract()`:
       ! `regex` should define 1 groups; 0 found.
+
+---
+
     Code
       extract(df, x, c("y", "z"), ".")
     Condition
@@ -26,16 +29,25 @@
     Condition
       Error in `extract()`:
       ! `col` is absent but must be supplied.
+
+---
+
     Code
       df %>% extract(x, regex = 1)
     Condition
       Error in `extract()`:
       ! `regex` must be a single string, not the number 1.
+
+---
+
     Code
       df %>% extract(x, into = 1:3)
     Condition
       Error in `extract()`:
       ! `into` must be a character vector, not an integer vector.
+
+---
+
     Code
       df %>% extract(x, into = "x", convert = 1)
     Condition

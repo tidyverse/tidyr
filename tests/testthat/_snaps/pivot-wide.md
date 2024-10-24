@@ -79,6 +79,9 @@
       x Problematic argument:
       * ..1 = 1
       i Did you forget to name an argument?
+
+---
+
     Code
       build_wider_spec(df, name_prefix = "")
     Condition
@@ -97,6 +100,9 @@
       x Problematic argument:
       * ..1 = 1
       i Did you forget to name an argument?
+
+---
+
     Code
       pivot_wider_spec(df, spec, name_repair = "check_unique")
     Condition
@@ -112,6 +118,9 @@
     Condition
       Error in `build_wider_spec()`:
       ! `names_vary` must be a string or character vector.
+
+---
+
     Code
       build_wider_spec(df, names_vary = "x")
     Condition
@@ -125,6 +134,9 @@
     Condition
       Error in `build_wider_spec()`:
       ! `names_expand` must be `TRUE` or `FALSE`, not the number 1.
+
+---
+
     Code
       build_wider_spec(df, names_expand = "x")
     Condition
@@ -139,6 +151,9 @@
       Error in `pivot_wider()`:
       ! `id_cols` can't select a column already selected by `names_from`.
       i Column `name` has already been selected.
+
+---
+
     Code
       pivot_wider(df, id_cols = value, names_from = name, values_from = value)
     Condition
@@ -170,6 +185,9 @@
     Condition
       Error in `pivot_wider()`:
       ! `id_expand` must be `TRUE` or `FALSE`, not the number 1.
+
+---
+
     Code
       pivot_wider(df, id_expand = "x")
     Condition

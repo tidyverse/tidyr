@@ -5,6 +5,9 @@
     Condition
       Error:
       ! 'x' is a POSIXlt. Please convert to POSIXct.
+
+---
+
     Code
       gather(df, key, val, -y)
     Condition
@@ -26,6 +29,9 @@
     Condition
       Error:
       ! All columns must be atomic vectors or lists. Problem with 'x'
+
+---
+
     Code
       gather(df, key, val, -y)
     Condition
