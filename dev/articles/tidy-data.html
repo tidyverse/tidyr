@@ -549,7 +549,9 @@ cases by <code>country</code>, <code>year</code>, and demographic group.
 The demographic groups are broken down by <code>sex</code> (m, f) and
 <code>age</code> (0-14, 15-25, 25-34, 35-44, 45-54, 55-64, unknown).</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">tb</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html" class="external-link">as_tibble</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.csv</a></span><span class="op">(</span><span class="st">"tb.csv"</span>, stringsAsFactors <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="co"># To run this on your own:</span></span>
+<span><span class="co"># tb &lt;- readr::read_csv("https://raw.githubusercontent.com/tidyverse/tidyr/main/vignettes/tb.csv")</span></span>
+<span><span class="va">tb</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html" class="external-link">as_tibble</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.csv</a></span><span class="op">(</span><span class="st">"tb.csv"</span>, stringsAsFactors <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">tb</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 5,769 × 22</span></span></span>
 <span><span class="co">#&gt;    iso2   year   m04  m514  m014 m1524 m2534 m3544 m4554 m5564   m65    mu</span></span>
@@ -661,7 +663,9 @@ stored in both rows and columns. The code below loads daily weather data
 from the Global Historical Climatology Network for one weather station
 (MX17004) in Mexico for five months in 2010.</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">weather</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html" class="external-link">as_tibble</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.csv</a></span><span class="op">(</span><span class="st">"weather.csv"</span>, stringsAsFactors <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="co"># To run this on your own:</span></span>
+<span><span class="co"># weather &lt;- readr::read_csv("https://raw.githubusercontent.com/tidyverse/tidyr/main/vignettes/weather.csv")</span></span>
+<span><span class="va">weather</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html" class="external-link">as_tibble</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.csv</a></span><span class="op">(</span><span class="st">"weather.csv"</span>, stringsAsFactors <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">weather</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 22 × 35</span></span></span>
 <span><span class="co">#&gt;    id       year month element    d1    d2    d3    d4    d5    d6    d7</span></span>
