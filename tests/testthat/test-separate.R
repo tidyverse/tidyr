@@ -110,9 +110,17 @@ test_that("validates inputs", {
 
   expect_snapshot(error = TRUE, {
     separate(df)
+  })
+  expect_snapshot(error = TRUE, {
     separate(df, x, into = 1)
+  })
+  expect_snapshot(error = TRUE, {
     separate(df, x, into = "x", sep = c("a", "b"))
+  })
+  expect_snapshot(error = TRUE, {
     separate(df, x, into = "x", remove = 1)
+  })
+  expect_snapshot(error = TRUE, {
     separate(df, x, into = "x", convert = 1)
   })
 })

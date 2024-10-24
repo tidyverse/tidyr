@@ -309,8 +309,14 @@ test_that("unnest_wider() validates its inputs", {
   df <- tibble(x = list(a = 1:2, b = 3:4))
   expect_snapshot(error = TRUE, {
     unnest_wider(1)
+  })
+  expect_snapshot(error = TRUE, {
     unnest_wider(df)
+  })
+  expect_snapshot(error = TRUE, {
     unnest_wider(df, x, names_sep = 1)
+  })
+  expect_snapshot(error = TRUE, {
     unnest_wider(df, x, strict = 1)
   })
 })

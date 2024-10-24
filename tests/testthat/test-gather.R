@@ -126,6 +126,8 @@ test_that("gather throws error for POSIXlt", {
 
   expect_snapshot(error = TRUE, {
     gather(df, key, val, -x)
+  })
+  expect_snapshot(error = TRUE, {
     gather(df, key, val, -y)
   })
 })
@@ -147,6 +149,8 @@ test_that("gather throws error for weird objects", {
 
   expect_snapshot(error = TRUE, {
     gather(df, key, val, -x)
+  })
+  expect_snapshot(error = TRUE, {
     gather(df, key, val, -y)
   })
 })

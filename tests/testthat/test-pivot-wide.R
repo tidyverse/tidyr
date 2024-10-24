@@ -223,6 +223,8 @@ test_that("`build_wider_spec()` requires empty dots", {
 
   expect_snapshot(error = TRUE, {
     build_wider_spec(df, 1)
+  })
+  expect_snapshot(error = TRUE, {
     build_wider_spec(df, name_prefix = "")
   })
 })
@@ -233,6 +235,8 @@ test_that("`pivot_wider_spec()` requires empty dots", {
 
   expect_snapshot(error = TRUE, {
     pivot_wider_spec(df, spec, 1)
+  })
+  expect_snapshot(error = TRUE, {
     pivot_wider_spec(df, spec, name_repair = "check_unique")
   })
 })
@@ -296,6 +300,8 @@ test_that("`names_vary` is validated", {
 
   expect_snapshot(error = TRUE, {
     build_wider_spec(df, names_vary = 1)
+  })
+  expect_snapshot(error = TRUE, {
     build_wider_spec(df, names_vary = "x")
   })
 })
@@ -324,6 +330,8 @@ test_that("`names_expand` is validated", {
 
   expect_snapshot(error = TRUE, {
     build_wider_spec(df, names_expand = 1)
+  })
+  expect_snapshot(error = TRUE, {
     build_wider_spec(df, names_expand = "x")
   })
 })
@@ -364,6 +372,8 @@ test_that("`id_cols` can't select columns from `names_from` or `values_from` (#1
   # And gives a nice error message!
   expect_snapshot(error = TRUE, {
     pivot_wider(df, id_cols = name, names_from = name, values_from = value)
+  })
+  expect_snapshot(error = TRUE, {
     pivot_wider(df, id_cols = value, names_from = name, values_from = value)
   })
 })
@@ -476,6 +486,8 @@ test_that("`id_expand` is validated", {
 
   expect_snapshot(error = TRUE, {
     pivot_wider(df, id_expand = 1)
+  })
+  expect_snapshot(error = TRUE, {
     pivot_wider(df, id_expand = "x")
   })
 })

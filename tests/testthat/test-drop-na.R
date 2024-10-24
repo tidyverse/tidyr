@@ -39,6 +39,8 @@ test_that("errors are raised", {
   df <- tibble(x = c(1, 2, NA), y = c("a", NA, "b"))
   expect_snapshot(error = TRUE, {
     drop_na(df, list())
+  })
+  expect_snapshot(error = TRUE, {
     drop_na(df, "z")
   })
 })

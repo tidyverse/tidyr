@@ -265,7 +265,8 @@ test_that("multiple names requires names_sep/names_pattern", {
 
   expect_snapshot(error = TRUE, {
     build_longer_spec(df, x_y, names_to = c("a", "b"))
-
+  })
+  expect_snapshot(error = TRUE, {
     build_longer_spec(
       df,
       x_y,
@@ -444,7 +445,11 @@ test_that("`names_to` is validated", {
 
   expect_snapshot(error = TRUE, {
     build_longer_spec(df, x, names_to = 1)
+  })
+  expect_snapshot(error = TRUE, {
     build_longer_spec(df, x, names_to = c("x", "y"))
+  })
+  expect_snapshot(error = TRUE, {
     build_longer_spec(df, x, names_to = c("x", "y"), names_sep = "_", names_pattern = "x")
   })
 })
@@ -454,6 +459,8 @@ test_that("`names_ptypes` is validated", {
 
   expect_snapshot(error = TRUE, {
     build_longer_spec(df, x, names_ptypes = 1)
+  })
+  expect_snapshot(error = TRUE, {
     build_longer_spec(df, x, names_ptypes = list(integer()))
   })
 })
@@ -463,6 +470,8 @@ test_that("`names_transform` is validated", {
 
   expect_snapshot(error = TRUE, {
     build_longer_spec(df, x, names_transform = 1)
+  })
+  expect_snapshot(error = TRUE, {
     build_longer_spec(df, x, names_transform = list(~.x))
   })
 })
@@ -472,6 +481,8 @@ test_that("`values_ptypes` is validated", {
 
   expect_snapshot(error = TRUE, {
     pivot_longer(df, x, values_ptypes = 1)
+  })
+  expect_snapshot(error = TRUE, {
     pivot_longer(df, x, values_ptypes = list(integer()))
   })
 })
@@ -481,6 +492,8 @@ test_that("`values_transform` is validated", {
 
   expect_snapshot(error = TRUE, {
     pivot_longer(df, x, values_transform = 1)
+  })
+  expect_snapshot(error = TRUE, {
     pivot_longer(df, x, values_transform = list(~.x))
   })
 })
@@ -490,6 +503,8 @@ test_that("`cols_vary` is validated", {
 
   expect_snapshot(error = TRUE, {
     pivot_longer(df, x, cols_vary = "fast")
+  })
+  expect_snapshot(error = TRUE, {
     pivot_longer(df, x, cols_vary = 1)
   })
 })
@@ -499,6 +514,8 @@ test_that("`pivot_longer()` catches unused input passed through the dots", {
 
   expect_snapshot(error = TRUE, {
     pivot_longer(df, c(x, y), 1)
+  })
+  expect_snapshot(error = TRUE, {
     pivot_longer(df, c(x, y), col_vary = "slowest")
   })
 })
@@ -508,6 +525,8 @@ test_that("`build_longer_spec()` requires empty dots", {
 
   expect_snapshot(error = TRUE, {
     build_longer_spec(df, c(x, y), 1)
+  })
+  expect_snapshot(error = TRUE, {
     build_longer_spec(df, c(x, y), name_to = "name")
   })
 })
@@ -518,6 +537,8 @@ test_that("`pivot_longer_spec()` requires empty dots", {
 
   expect_snapshot(error = TRUE, {
     pivot_longer_spec(df, spec, 1)
+  })
+  expect_snapshot(error = TRUE, {
     pivot_longer_spec(df, spec, col_vary = "slowest")
   })
 })

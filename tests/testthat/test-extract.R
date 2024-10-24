@@ -49,6 +49,8 @@ test_that("informative error message if wrong number of groups", {
   df <- tibble(x = "a")
   expect_snapshot(error = TRUE, {
     extract(df, x, "y", ".")
+  })
+  expect_snapshot(error = TRUE, {
     extract(df, x, c("y", "z"), ".")
   })
 })
@@ -90,8 +92,14 @@ test_that("validates its inputs", {
 
   expect_snapshot(error = TRUE, {
     df %>% extract()
+  })
+  expect_snapshot(error = TRUE, {
     df %>% extract(x, regex = 1)
+  })
+  expect_snapshot(error = TRUE, {
     df %>% extract(x, into = 1:3)
+  })
+  expect_snapshot(error = TRUE, {
     df %>% extract(x, into = "x", convert = 1)
   })
 })

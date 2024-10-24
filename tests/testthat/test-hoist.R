@@ -103,7 +103,11 @@ test_that("input validation catches problems", {
 
   expect_snapshot(error = TRUE, {
     df %>% hoist(y)
+  })
+  expect_snapshot(error = TRUE, {
     df %>% hoist(x, 1)
+  })
+  expect_snapshot(error = TRUE, {
     df %>% hoist(x, a = "a", a = "b")
   })
 })
@@ -166,10 +170,20 @@ test_that("hoist() validates its inputs (#1224)", {
 
   expect_snapshot(error = TRUE, {
     hoist(1)
+  })
+  expect_snapshot(error = TRUE, {
     hoist(df)
+  })
+  expect_snapshot(error = TRUE, {
     hoist(df, a, .remove = 1)
+  })
+  expect_snapshot(error = TRUE, {
     hoist(df, a, .ptype = 1)
+  })
+  expect_snapshot(error = TRUE, {
     hoist(df, a, .transform = 1)
+  })
+  expect_snapshot(error = TRUE, {
     hoist(df, a, .simplify = 1)
   })
 })
