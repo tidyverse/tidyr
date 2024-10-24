@@ -1,9 +1,8 @@
 # unnest_longer - bad inputs generate errors
 
     Code
-      (expect_error(unnest_longer(df, y)))
-    Output
-      <error/rlang_error>
+      unnest_longer(df, y)
+    Condition
       Error in `unnest_longer()`:
       ! List-column `y` must contain only vectors or `NULL`.
 
@@ -18,10 +17,8 @@
 # can't mix `indices_to` with `indices_include = FALSE`
 
     Code
-      (expect_error(unnest_longer(mtcars, mpg, indices_to = "x", indices_include = FALSE))
-      )
-    Output
-      <error/rlang_error>
+      unnest_longer(mtcars, mpg, indices_to = "x", indices_include = FALSE)
+    Condition
       Error in `unnest_longer()`:
       ! Can't use `indices_include = FALSE` when `indices_to` is supplied.
 
@@ -56,60 +53,52 @@
 # `values_to` is validated
 
     Code
-      (expect_error(unnest_longer(mtcars, mpg, values_to = 1)))
-    Output
-      <error/rlang_error>
+      unnest_longer(mtcars, mpg, values_to = 1)
+    Condition
       Error in `unnest_longer()`:
       ! `values_to` must be a valid name or `NULL`, not the number 1.
     Code
-      (expect_error(unnest_longer(mtcars, mpg, values_to = c("x", "y"))))
-    Output
-      <error/rlang_error>
+      unnest_longer(mtcars, mpg, values_to = c("x", "y"))
+    Condition
       Error in `unnest_longer()`:
       ! `values_to` must be a valid name or `NULL`, not a character vector.
 
 # `indices_to` is validated
 
     Code
-      (expect_error(unnest_longer(mtcars, mpg, indices_to = 1)))
-    Output
-      <error/rlang_error>
+      unnest_longer(mtcars, mpg, indices_to = 1)
+    Condition
       Error in `unnest_longer()`:
       ! `indices_to` must be a valid name or `NULL`, not the number 1.
     Code
-      (expect_error(unnest_longer(mtcars, mpg, indices_to = c("x", "y"))))
-    Output
-      <error/rlang_error>
+      unnest_longer(mtcars, mpg, indices_to = c("x", "y"))
+    Condition
       Error in `unnest_longer()`:
       ! `indices_to` must be a valid name or `NULL`, not a character vector.
 
 # `indices_include` is validated
 
     Code
-      (expect_error(unnest_longer(mtcars, mpg, indices_include = 1)))
-    Output
-      <error/rlang_error>
+      unnest_longer(mtcars, mpg, indices_include = 1)
+    Condition
       Error in `unnest_longer()`:
       ! `indices_include` must be `TRUE`, `FALSE`, or `NULL`, not the number 1.
     Code
-      (expect_error(unnest_longer(mtcars, mpg, indices_include = c(TRUE, FALSE))))
-    Output
-      <error/rlang_error>
+      unnest_longer(mtcars, mpg, indices_include = c(TRUE, FALSE))
+    Condition
       Error in `unnest_longer()`:
       ! `indices_include` must be `TRUE`, `FALSE`, or `NULL`, not a logical vector.
 
 # `keep_empty` is validated
 
     Code
-      (expect_error(unnest_longer(mtcars, mpg, keep_empty = 1)))
-    Output
-      <error/rlang_error>
+      unnest_longer(mtcars, mpg, keep_empty = 1)
+    Condition
       Error in `unnest_longer()`:
       ! `keep_empty` must be `TRUE` or `FALSE`, not the number 1.
     Code
-      (expect_error(unnest_longer(mtcars, mpg, keep_empty = c(TRUE, FALSE))))
-    Output
-      <error/rlang_error>
+      unnest_longer(mtcars, mpg, keep_empty = c(TRUE, FALSE))
+    Condition
       Error in `unnest_longer()`:
       ! `keep_empty` must be `TRUE` or `FALSE`, not a logical vector.
 

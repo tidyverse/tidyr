@@ -143,20 +143,20 @@ test_that("elements must all be of same type", {
 
 test_that("can't combine vectors and data frames", {
   df <- tibble(x = list(1, tibble(1)))
-  expect_snapshot((expect_error(unnest_legacy(df))))
+  expect_snapshot(unnest_legacy(df), error = TRUE)
 })
 
 test_that("multiple columns must be same length", {
   df <- tibble(x = list(1), y = list(1:2))
-  expect_snapshot((expect_error(unnest_legacy(df))))
+  expect_snapshot(unnest_legacy(df), error = TRUE)
 
   df <- tibble(x = list(1), y = list(tibble(x = 1:2)))
-  expect_snapshot((expect_error(unnest_legacy(df))))
+  expect_snapshot(unnest_legacy(df), error = TRUE)
 })
 
 test_that("nested is split as a list (#84)", {
   df <- tibble(x = 1:3, y = list(1, 2:3, 4), z = list(5, 6:7, 8))
-  expect_warning(out <- unnest_legacy(df, y, z), NA)
+  expect_no_warning(out <- unnest_legacy(df, y, z))
   expect_equal(out$x, c(1, 2, 2, 3))
   expect_equal(out$y, unlist(df$y))
   expect_equal(out$z, unlist(df$z))

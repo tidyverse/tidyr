@@ -1,29 +1,29 @@
 # df_simplify ------------------------------------------------------------
 
 test_that("`simplify` is validated", {
-  expect_snapshot({
-    (expect_error(df_simplify(data.frame(), simplify = 1)))
-    (expect_error(df_simplify(data.frame(), simplify = NA)))
-    (expect_error(df_simplify(data.frame(), simplify = c(TRUE, FALSE))))
-    (expect_error(df_simplify(data.frame(), simplify = list(1))))
-    (expect_error(df_simplify(data.frame(), simplify = list(x = 1, x = 1))))
+  expect_snapshot(error = TRUE, {
+    df_simplify(data.frame(), simplify = 1)
+    df_simplify(data.frame(), simplify = NA)
+    df_simplify(data.frame(), simplify = c(TRUE, FALSE))
+    df_simplify(data.frame(), simplify = list(1))
+    df_simplify(data.frame(), simplify = list(x = 1, x = 1))
   })
 })
 
 test_that("`ptype` is validated", {
-  expect_snapshot({
-    (expect_error(df_simplify(data.frame(), ptype = 1)))
-    (expect_error(df_simplify(data.frame(), ptype = list(1))))
-    (expect_error(df_simplify(data.frame(), ptype = list(x = 1, x = 1))))
+  expect_snapshot(error = TRUE, {
+    df_simplify(data.frame(), ptype = 1)
+    df_simplify(data.frame(), ptype = list(1))
+    df_simplify(data.frame(), ptype = list(x = 1, x = 1))
   })
 })
 
 test_that("`transform` is validated", {
-  expect_snapshot({
-    (expect_error(df_simplify(data.frame(), transform = list(~.x))))
-    (expect_error(df_simplify(data.frame(x = 1), transform = 1)))
-    (expect_error(df_simplify(data.frame(), transform = list(x = 1))))
-    (expect_error(df_simplify(data.frame(), transform = list(x = 1, x = 1))))
+  expect_snapshot(error = TRUE, {
+    df_simplify(data.frame(), transform = list(~.x))
+    df_simplify(data.frame(x = 1), transform = 1)
+    df_simplify(data.frame(), transform = list(x = 1))
+    df_simplify(data.frame(), transform = list(x = 1, x = 1))
   })
 })
 
@@ -140,9 +140,9 @@ test_that("ptype is applied after transform", {
     c(2L, 3L, 4L)
   )
 
-  expect_snapshot((expect_error(
+  expect_snapshot(error = TRUE, {
     col_simplify(list(1, 2, 3), ptype = integer(), transform = ~ .x + 1.5)
-  )))
+  })
 })
 
 test_that("lists of lists aren't simplified", {

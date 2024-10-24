@@ -11,7 +11,7 @@ test_that("missing values are replaced", {
 })
 
 test_that("can only be length 0", {
-  expect_snapshot((expect_error(replace_na(1, 1:10))))
+  expect_snapshot(replace_na(1, 1:10), error = TRUE)
 })
 
 test_that("can replace missing rows in arrays", {
@@ -34,7 +34,7 @@ test_that("can replace missing values in rcrds", {
 
 test_that("replacement must be castable to `data`", {
   x <- c(1L, NA)
-  expect_snapshot((expect_error(replace_na(x, 1.5))))
+  expect_snapshot(replace_na(x, 1.5), error = TRUE)
 })
 
 test_that("empty atomic elements are not replaced in lists (#1168)", {
@@ -95,7 +95,7 @@ test_that("df-col rows must be completely missing to be replaceable", {
 
 test_that("replacement must be castable to corresponding column", {
   df <- tibble(a = c(1L, NA))
-  expect_snapshot((expect_error(replace_na(df, list(a = 1.5)))))
+  expect_snapshot(replace_na(df, list(a = 1.5)), error = TRUE)
 })
 
 test_that("validates its inputs", {

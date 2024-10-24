@@ -54,7 +54,7 @@ separate_longer_position <- function(data, cols, width, ..., keep_empty = FALSE)
   check_installed("stringr")
   check_data_frame(data)
   check_required(cols)
-  check_number_whole(width, min = 1L)
+  check_number_whole(width, min = 1)
   check_dots_empty()
 
   map_unchop(

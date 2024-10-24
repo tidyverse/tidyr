@@ -1,9 +1,8 @@
 # unnest_wider - bad inputs generate errors
 
     Code
-      (expect_error(unnest_wider(df, y)))
-    Output
-      <error/rlang_error>
+      unnest_wider(df, y)
+    Condition
       Error in `unnest_wider()`:
       i In column: `y`.
       i In row: 1.
@@ -109,16 +108,25 @@
     Condition
       Error in `unnest_wider()`:
       ! `data` must be a data frame, not a number.
+
+---
+
     Code
       unnest_wider(df)
     Condition
       Error in `unnest_wider()`:
       ! `col` is absent but must be supplied.
+
+---
+
     Code
       unnest_wider(df, x, names_sep = 1)
     Condition
       Error in `unnest_wider()`:
       ! `names_sep` must be a single string or `NULL`, not the number 1.
+
+---
+
     Code
       unnest_wider(df, x, strict = 1)
     Condition

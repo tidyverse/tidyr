@@ -184,7 +184,11 @@ test_that("unpack() validates its inputs", {
 
   expect_snapshot(error = TRUE, {
     unpack(1)
+  })
+  expect_snapshot(error = TRUE, {
     unpack(df)
+  })
+  expect_snapshot(error = TRUE, {
     unpack(df, y, names_sep = 1)
   })
 })

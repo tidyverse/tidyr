@@ -31,7 +31,7 @@ test_that("after must be integer or character", {
   df1 <- data.frame(x = 1)
   df2 <- data.frame(x = 2)
 
-  expect_snapshot((expect_error(df_append(df1, df2, after = 1.5))))
+  expect_snapshot(df_append(df1, df2, after = 1.5), error = TRUE)
 })
 
 test_that("always returns a bare data frame", {

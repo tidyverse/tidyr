@@ -38,7 +38,8 @@ df_append <- function(x, y, after = NULL, remove = FALSE) {
     after <- match(after, x_names)
   }
 
-  check_number_whole(after, min = 0L, max = n, .internal = TRUE)
+  # r-lib/rlang#1702
+  check_number_whole(after, min = 0, max = as.numeric(n), .internal = TRUE)
 
   if (remove) {
     lhs <- seq2(1L, after - 1L)

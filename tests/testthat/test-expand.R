@@ -174,7 +174,7 @@ test_that("expand() retains `NA` data in factors (#1275)", {
 # ------------------------------------------------------------------------------
 
 test_that("crossing checks for bad inputs", {
-  expect_snapshot((expect_error(crossing(x = 1:10, y = quote(a)))))
+  expect_snapshot(crossing(x = 1:10, y = quote(a)), error = TRUE)
 })
 
 test_that("preserves NAs", {
@@ -320,7 +320,7 @@ test_that("crossing() / nesting() retain `NA` data in factors (#1275)", {
 test_that("expand_grid() can control name_repair", {
   x <- 1:2
 
-  expect_snapshot((expect_error(expand_grid(x = x, x = x))))
+  expect_snapshot(expand_grid(x = x, x = x), error = TRUE)
 
   expect_snapshot(
     out <- expand_grid(x = x, x = x, .name_repair = "unique")
@@ -460,7 +460,7 @@ test_that("grid_dots() drops `NULL`s", {
 })
 
 test_that("grid_dots() reject non-vector input", {
-  expect_snapshot((expect_error(grid_dots(lm(1 ~ 1)))))
+  expect_snapshot(grid_dots(lm(1 ~ 1)),  error = TRUE)
 })
 
 # ------------------------------------------------------------------------------

@@ -47,9 +47,11 @@ test_that("groups are preserved", {
 
 test_that("informative error message if wrong number of groups", {
   df <- tibble(x = "a")
-  expect_snapshot({
-    (expect_error(extract(df, x, "y", ".")))
-    (expect_error(extract(df, x, c("y", "z"), ".")))
+  expect_snapshot(error = TRUE, {
+    extract(df, x, "y", ".")
+  })
+  expect_snapshot(error = TRUE, {
+    extract(df, x, c("y", "z"), ".")
   })
 })
 
@@ -57,7 +59,9 @@ test_that("informative error if using stringr modifier functions (#693)", {
   df <- tibble(x = "a")
   regex <- structure("a", class = "pattern")
 
-  expect_snapshot((expect_error(extract(df, x, "x", regex = regex))))
+  expect_snapshot(error = TRUE, {
+    extract(df, x, "x", regex = regex)
+  })
 })
 
 test_that("str_match_first handles edge cases", {
@@ -88,8 +92,14 @@ test_that("validates its inputs", {
 
   expect_snapshot(error = TRUE, {
     df %>% extract()
+  })
+  expect_snapshot(error = TRUE, {
     df %>% extract(x, regex = 1)
+  })
+  expect_snapshot(error = TRUE, {
     df %>% extract(x, into = 1:3)
+  })
+  expect_snapshot(error = TRUE, {
     df %>% extract(x, into = "x", convert = 1)
   })
 })

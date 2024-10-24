@@ -33,17 +33,19 @@ test_that("can check check/transform values", {
 test_that("nested lists generate a cast error if they can't be cast to the ptype", {
   df <- tibble(x = list(list(b = list(1))))
 
-  expect_snapshot((expect_error(
-    hoist(df, x, "b", .ptype = list(b = double()))
-  )))
+  expect_snapshot(
+    hoist(df, x, "b", .ptype = list(b = double())),
+    error = TRUE
+  )
 })
 
 test_that("non-vectors generate a cast error if a ptype is supplied", {
   df <- tibble(x = list(list(b = quote(a))))
 
-  expect_snapshot((expect_error(
-    hoist(df, x, "b", .ptype = list(b = integer()))
-  )))
+  expect_snapshot(
+    hoist(df, x, "b", .ptype = list(b = integer())),
+    error = TRUE
+  )
 })
 
 test_that("a ptype generates a list-of<ptype> if the col can't be simplified (#998)", {
@@ -99,10 +101,14 @@ test_that("can hoist out scalars", {
 test_that("input validation catches problems", {
   df <- tibble(x = list(list(1, b = "b")), y = 1)
 
-  expect_snapshot({
-    (expect_error(df %>% hoist(y)))
-    (expect_error(df %>% hoist(x, 1)))
-    (expect_error(df %>% hoist(x, a = "a", a = "b")))
+  expect_snapshot(error = TRUE, {
+    df %>% hoist(y)
+  })
+  expect_snapshot(error = TRUE, {
+    df %>% hoist(x, 1)
+  })
+  expect_snapshot(error = TRUE, {
+    df %>% hoist(x, a = "a", a = "b")
   })
 })
 
@@ -114,9 +120,10 @@ test_that("string pluckers are automatically named", {
 test_that("can't hoist() from a data frame column", {
   df <- tibble(a = tibble(x = 1))
 
-  expect_snapshot((expect_error(
-    hoist(df, a, xx = 1)
-  )))
+  expect_snapshot(
+    hoist(df, a, xx = 1),
+    error = TRUE
+  )
 })
 
 test_that("can hoist() without any pluckers", {
@@ -163,10 +170,20 @@ test_that("hoist() validates its inputs (#1224)", {
 
   expect_snapshot(error = TRUE, {
     hoist(1)
+  })
+  expect_snapshot(error = TRUE, {
     hoist(df)
+  })
+  expect_snapshot(error = TRUE, {
     hoist(df, a, .remove = 1)
+  })
+  expect_snapshot(error = TRUE, {
     hoist(df, a, .ptype = 1)
+  })
+  expect_snapshot(error = TRUE, {
     hoist(df, a, .transform = 1)
+  })
+  expect_snapshot(error = TRUE, {
     hoist(df, a, .simplify = 1)
   })
 })
