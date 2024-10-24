@@ -198,7 +198,9 @@ billboard3 %>% arrange(date, rank)
 After pivoting columns, the key column is sometimes a combination of multiple underlying variable names. This happens in the `tb` (tuberculosis) dataset, shown below. This dataset comes from the World Health Organisation, and records the counts of confirmed tuberculosis cases by `country`, `year`, and demographic group. The demographic groups are broken down by `sex` (m, f) and `age` (0-14, 15-25, 25-34, 35-44, 45-54, 55-64, unknown).
 
 ```{r}
-tb <- readr::read_csv("https://raw.githubusercontent.com/tidyverse/tidyr/main/vignettes/tb.csv")
+# To run this on your own:
+# tb <- readr::read_csv("https://raw.githubusercontent.com/tidyverse/tidyr/main/vignettes/tb.csv")
+tb <- as_tibble(read.csv("tb.csv", stringsAsFactors = FALSE))
 tb
 ```
 
@@ -244,7 +246,9 @@ tb %>% pivot_longer(
 The most complicated form of messy data occurs when variables are stored in both rows and columns. The code below loads daily weather data from the Global Historical Climatology Network for one weather station (MX17004) in Mexico for five months in 2010.
 
 ```{r}
-weather <- readr::read_csv("https://raw.githubusercontent.com/tidyverse/tidyr/main/vignettes/weather.csv")
+# To run this on your own:
+# weather <- readr::read_csv("https://raw.githubusercontent.com/tidyverse/tidyr/main/vignettes/weather.csv")
+weather <- as_tibble(read.csv("weather.csv", stringsAsFactors = FALSE))
 weather
 ```
 
