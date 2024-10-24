@@ -2,7 +2,7 @@
 
     Code
       pivot_longer(df, x, values_ptypes = character())
-    Condition <vctrs_error_cast>
+    Condition
       Error in `pivot_longer()`:
       ! Can't convert `x` <double> to <character>.
 
@@ -10,7 +10,7 @@
 
     Code
       pivot_longer(df, cols = x, names_to = "name", names_ptypes = double())
-    Condition <vctrs_error_cast>
+    Condition
       Error in `pivot_longer()`:
       ! Can't convert `name` <character> to <double>.
 
@@ -18,7 +18,7 @@
 
     Code
       pivot_longer(df, y, names_to = "x")
-    Condition <vctrs_error_names_must_be_unique>
+    Condition
       Error in `pivot_longer()`:
       ! Names must be unique.
       x These names are duplicated:
@@ -38,13 +38,13 @@
 
     Code
       build_longer_spec(df, x_y, names_to = c("a", "b"))
-    Condition <rlang_error>
+    Condition
       Error in `build_longer_spec()`:
       ! If you supply multiple names in `names_to` you must also supply one of `names_sep` or `names_pattern`.
     Code
       build_longer_spec(df, x_y, names_to = c("a", "b"), names_sep = "x",
       names_pattern = "x")
-    Condition <rlang_error>
+    Condition
       Error in `build_longer_spec()`:
       ! If you supply multiple names in `names_to` you must also supply one of `names_sep` or `names_pattern`.
 
@@ -52,7 +52,7 @@
 
     Code
       build_longer_spec(df, x_y, names_to = "x", names_sep = "_")
-    Condition <rlang_error>
+    Condition
       Error in `build_longer_spec()`:
       ! `names_sep` can't be used with a length 1 `names_to`.
 
@@ -60,7 +60,7 @@
 
     Code
       pivot_longer(iris, matches("foo"))
-    Condition <rlang_error>
+    Condition
       Error in `pivot_longer()`:
       ! `cols` must select at least one column.
 
@@ -76,18 +76,18 @@
 
     Code
       build_longer_spec(df, x, names_to = 1)
-    Condition <rlang_error>
+    Condition
       Error in `build_longer_spec()`:
       ! `names_to` must be a character vector or `NULL`, not the number 1.
     Code
       build_longer_spec(df, x, names_to = c("x", "y"))
-    Condition <rlang_error>
+    Condition
       Error in `build_longer_spec()`:
       ! If you supply multiple names in `names_to` you must also supply one of `names_sep` or `names_pattern`.
     Code
       build_longer_spec(df, x, names_to = c("x", "y"), names_sep = "_",
       names_pattern = "x")
-    Condition <rlang_error>
+    Condition
       Error in `build_longer_spec()`:
       ! If you supply multiple names in `names_to` you must also supply one of `names_sep` or `names_pattern`.
 
@@ -95,12 +95,12 @@
 
     Code
       build_longer_spec(df, x, names_ptypes = 1)
-    Condition <rlang_error>
+    Condition
       Error in `build_longer_spec()`:
       ! `names_ptypes` must be `NULL`, an empty ptype, or a named list of ptypes.
     Code
       build_longer_spec(df, x, names_ptypes = list(integer()))
-    Condition <rlang_error>
+    Condition
       Error in `build_longer_spec()`:
       ! All elements of `names_ptypes` must be named.
 
@@ -108,12 +108,12 @@
 
     Code
       build_longer_spec(df, x, names_transform = 1)
-    Condition <rlang_error>
+    Condition
       Error in `build_longer_spec()`:
       ! `names_transform` must be `NULL`, a function, or a named list of functions.
     Code
       build_longer_spec(df, x, names_transform = list(~.x))
-    Condition <rlang_error>
+    Condition
       Error in `build_longer_spec()`:
       ! All elements of `names_transform` must be named.
 
@@ -121,12 +121,12 @@
 
     Code
       pivot_longer(df, x, values_ptypes = 1)
-    Condition <rlang_error>
+    Condition
       Error in `pivot_longer()`:
       ! `values_ptypes` must be `NULL`, an empty ptype, or a named list of ptypes.
     Code
       pivot_longer(df, x, values_ptypes = list(integer()))
-    Condition <rlang_error>
+    Condition
       Error in `pivot_longer()`:
       ! All elements of `values_ptypes` must be named.
 
@@ -134,12 +134,12 @@
 
     Code
       pivot_longer(df, x, values_transform = 1)
-    Condition <rlang_error>
+    Condition
       Error in `pivot_longer()`:
       ! `values_transform` must be `NULL`, a function, or a named list of functions.
     Code
       pivot_longer(df, x, values_transform = list(~.x))
-    Condition <rlang_error>
+    Condition
       Error in `pivot_longer()`:
       ! All elements of `values_transform` must be named.
 
@@ -147,13 +147,13 @@
 
     Code
       pivot_longer(df, x, cols_vary = "fast")
-    Condition <rlang_error>
+    Condition
       Error in `pivot_longer()`:
       ! `cols_vary` must be one of "fastest" or "slowest", not "fast".
       i Did you mean "fastest"?
     Code
       pivot_longer(df, x, cols_vary = 1)
-    Condition <rlang_error>
+    Condition
       Error in `pivot_longer()`:
       ! `cols_vary` must be a string or character vector.
 
@@ -161,7 +161,7 @@
 
     Code
       pivot_longer(df, c(x, y), 1)
-    Condition <rlib_error_dots_unused>
+    Condition
       Error in `pivot_longer()`:
       ! Arguments in `...` must be used.
       x Problematic argument:
@@ -169,7 +169,7 @@
       i Did you misspell an argument name?
     Code
       pivot_longer(df, c(x, y), col_vary = "slowest")
-    Condition <rlib_error_dots_unused>
+    Condition
       Error in `pivot_longer()`:
       ! Arguments in `...` must be used.
       x Problematic argument:
@@ -180,7 +180,7 @@
 
     Code
       build_longer_spec(df, c(x, y), 1)
-    Condition <rlib_error_dots_nonempty>
+    Condition
       Error in `build_longer_spec()`:
       ! `...` must be empty.
       x Problematic argument:
@@ -188,7 +188,7 @@
       i Did you forget to name an argument?
     Code
       build_longer_spec(df, c(x, y), name_to = "name")
-    Condition <rlib_error_dots_nonempty>
+    Condition
       Error in `build_longer_spec()`:
       ! `...` must be empty.
       x Problematic argument:
@@ -198,7 +198,7 @@
 
     Code
       pivot_longer_spec(df, spec, 1)
-    Condition <rlib_error_dots_nonempty>
+    Condition
       Error in `pivot_longer_spec()`:
       ! `...` must be empty.
       x Problematic argument:
@@ -206,7 +206,7 @@
       i Did you forget to name an argument?
     Code
       pivot_longer_spec(df, spec, col_vary = "slowest")
-    Condition <rlib_error_dots_nonempty>
+    Condition
       Error in `pivot_longer_spec()`:
       ! `...` must be empty.
       x Problematic argument:

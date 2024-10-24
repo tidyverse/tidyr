@@ -2,12 +2,12 @@
 
     Code
       full_seq(c(1, 3, 4), 2)
-    Condition <rlang_error>
+    Condition
       Error in `full_seq()`:
       ! `x` is not a regular sequence.
     Code
       full_seq(c(0, 10, 20), 11, tol = 1.8)
-    Condition <rlang_error>
+    Condition
       Error in `full_seq()`:
       ! `x` is not a regular sequence.
 

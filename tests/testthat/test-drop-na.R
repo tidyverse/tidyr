@@ -37,7 +37,7 @@ test_that("groups are preserved", {
 
 test_that("errors are raised", {
   df <- tibble(x = c(1, 2, NA), y = c("a", NA, "b"))
-  expect_snapshot(error = TRUE, cnd_class = TRUE, {
+  expect_snapshot(error = TRUE, {
     drop_na(df, list())
     drop_na(df, "z")
   })

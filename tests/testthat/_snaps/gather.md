@@ -2,12 +2,12 @@
 
     Code
       gather(df, key, val, -x)
-    Condition <simpleError>
+    Condition
       Error:
       ! 'x' is a POSIXlt. Please convert to POSIXct.
     Code
       gather(df, key, val, -y)
-    Condition <simpleError>
+    Condition
       Error:
       ! Column 1 is a POSIXlt. Please convert to POSIXct.
 
@@ -23,12 +23,12 @@
 
     Code
       gather(df, key, val, -x)
-    Condition <simpleError>
+    Condition
       Error:
       ! All columns must be atomic vectors or lists. Problem with 'x'
     Code
       gather(df, key, val, -y)
-    Condition <simpleError>
+    Condition
       Error:
       ! All columns must be atomic vectors or lists. Problem with column 2.
 

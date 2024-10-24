@@ -2,7 +2,7 @@
 
     Code
       unnest_longer(df, y)
-    Condition <rlang_error>
+    Condition
       Error in `unnest_longer()`:
       ! List-column `y` must contain only vectors or `NULL`.
 
@@ -18,7 +18,7 @@
 
     Code
       unnest_longer(mtcars, mpg, indices_to = "x", indices_include = FALSE)
-    Condition <rlang_error>
+    Condition
       Error in `unnest_longer()`:
       ! Can't use `indices_include = FALSE` when `indices_to` is supplied.
 
@@ -54,12 +54,12 @@
 
     Code
       unnest_longer(mtcars, mpg, values_to = 1)
-    Condition <rlang_error>
+    Condition
       Error in `unnest_longer()`:
       ! `values_to` must be a valid name or `NULL`, not the number 1.
     Code
       unnest_longer(mtcars, mpg, values_to = c("x", "y"))
-    Condition <rlang_error>
+    Condition
       Error in `unnest_longer()`:
       ! `values_to` must be a valid name or `NULL`, not a character vector.
 
@@ -67,12 +67,12 @@
 
     Code
       unnest_longer(mtcars, mpg, indices_to = 1)
-    Condition <rlang_error>
+    Condition
       Error in `unnest_longer()`:
       ! `indices_to` must be a valid name or `NULL`, not the number 1.
     Code
       unnest_longer(mtcars, mpg, indices_to = c("x", "y"))
-    Condition <rlang_error>
+    Condition
       Error in `unnest_longer()`:
       ! `indices_to` must be a valid name or `NULL`, not a character vector.
 
@@ -80,12 +80,12 @@
 
     Code
       unnest_longer(mtcars, mpg, indices_include = 1)
-    Condition <rlang_error>
+    Condition
       Error in `unnest_longer()`:
       ! `indices_include` must be `TRUE`, `FALSE`, or `NULL`, not the number 1.
     Code
       unnest_longer(mtcars, mpg, indices_include = c(TRUE, FALSE))
-    Condition <rlang_error>
+    Condition
       Error in `unnest_longer()`:
       ! `indices_include` must be `TRUE`, `FALSE`, or `NULL`, not a logical vector.
 
@@ -93,12 +93,12 @@
 
     Code
       unnest_longer(mtcars, mpg, keep_empty = 1)
-    Condition <rlang_error>
+    Condition
       Error in `unnest_longer()`:
       ! `keep_empty` must be `TRUE` or `FALSE`, not the number 1.
     Code
       unnest_longer(mtcars, mpg, keep_empty = c(TRUE, FALSE))
-    Condition <rlang_error>
+    Condition
       Error in `unnest_longer()`:
       ! `keep_empty` must be `TRUE` or `FALSE`, not a logical vector.
 

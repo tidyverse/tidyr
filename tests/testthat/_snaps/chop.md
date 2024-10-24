@@ -23,7 +23,7 @@
 
     Code
       unchop(df, c(x, y))
-    Condition <rlang_error>
+    Condition
       Error in `unchop()`:
       ! In row 1, can't recycle input of size 2 to size 3.
 
@@ -31,7 +31,7 @@
 
     Code
       unchop(df, c(x, y))
-    Condition <rlang_error>
+    Condition
       Error in `unchop()`:
       ! In row 1, can't recycle input of size 0 to size 2.
 

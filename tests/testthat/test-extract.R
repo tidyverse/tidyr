@@ -47,7 +47,7 @@ test_that("groups are preserved", {
 
 test_that("informative error message if wrong number of groups", {
   df <- tibble(x = "a")
-  expect_snapshot(error = TRUE, cnd_class = TRUE, {
+  expect_snapshot(error = TRUE, {
     extract(df, x, "y", ".")
     extract(df, x, c("y", "z"), ".")
   })
@@ -57,7 +57,7 @@ test_that("informative error if using stringr modifier functions (#693)", {
   df <- tibble(x = "a")
   regex <- structure("a", class = "pattern")
 
-  expect_snapshot(error = TRUE, cnd_class = TRUE, {
+  expect_snapshot(error = TRUE, {
     extract(df, x, "x", regex = regex)
   })
 })

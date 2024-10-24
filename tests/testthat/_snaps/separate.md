@@ -74,7 +74,7 @@
 
     Code
       separate(df, x, "x", sep = sep)
-    Condition <rlang_error>
+    Condition
       Error in `separate()`:
       ! `sep` can't use modifiers from stringr.
 

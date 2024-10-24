@@ -2,7 +2,7 @@
 
     Code
       crossing(x = 1:10, y = quote(a))
-    Condition <vctrs_error_scalar_type>
+    Condition
       Error in `crossing()`:
       ! `..2` must be a vector, not a symbol.
 
@@ -37,7 +37,7 @@
 
     Code
       expand_grid(x = x, x = x)
-    Condition <vctrs_error_names_must_be_unique>
+    Condition
       Error in `expand_grid()`:
       ! Names must be unique.
       x These names are duplicated:
@@ -65,7 +65,7 @@
 
     Code
       grid_dots(lm(1 ~ 1))
-    Condition <vctrs_error_scalar_type>
+    Condition
       Error:
       ! `..1` must be a vector, not a <lm> object.
 

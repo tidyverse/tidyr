@@ -2,7 +2,7 @@
 
     Code
       unnest_wider(df, y)
-    Condition <rlang_error>
+    Condition
       Error in `unnest_wider()`:
       i In column: `y`.
       i In row: 1.

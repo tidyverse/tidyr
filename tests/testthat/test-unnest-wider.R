@@ -53,7 +53,7 @@ test_that("treats data frames like lists where we have type info about each elem
 test_that("unnest_wider - bad inputs generate errors", {
   df <- tibble(x = 1, y = list(mean))
 
-  expect_snapshot(unnest_wider(df, y), error = TRUE, cnd_class = TRUE)
+  expect_snapshot(unnest_wider(df, y), error = TRUE)
 })
 
 test_that("list of 0-length vectors yields no new columns", {

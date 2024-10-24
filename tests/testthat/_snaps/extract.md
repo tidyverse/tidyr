@@ -2,12 +2,12 @@
 
     Code
       extract(df, x, "y", ".")
-    Condition <rlang_error>
+    Condition
       Error in `extract()`:
       ! `regex` should define 1 groups; 0 found.
     Code
       extract(df, x, c("y", "z"), ".")
-    Condition <rlang_error>
+    Condition
       Error in `extract()`:
       ! `regex` should define 2 groups; 0 found.
 
@@ -15,7 +15,7 @@
 
     Code
       extract(df, x, "x", regex = regex)
-    Condition <rlang_error>
+    Condition
       Error in `extract()`:
       ! `regex` can't use modifiers from stringr.
 

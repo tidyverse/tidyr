@@ -2,7 +2,7 @@
 
     Code
       hoist(df, x, "b", .ptype = list(b = double()))
-    Condition <vctrs_error_cast>
+    Condition
       Error in `hoist()`:
       ! Can't convert `..1` <list> to <double>.
 
@@ -10,7 +10,7 @@
 
     Code
       hoist(df, x, "b", .ptype = list(b = integer()))
-    Condition <vctrs_error_scalar_type>
+    Condition
       Error in `hoist()`:
       ! `..1` must be a vector, not a symbol.
 
@@ -18,17 +18,17 @@
 
     Code
       df %>% hoist(y)
-    Condition <rlang_error>
+    Condition
       Error in `hoist()`:
       ! `.data[[.col]]` must be a list, not the number 1.
     Code
       df %>% hoist(x, 1)
-    Condition <rlang_error>
+    Condition
       Error in `hoist()`:
       ! All elements of `...` must be named.
     Code
       df %>% hoist(x, a = "a", a = "b")
-    Condition <rlang_error>
+    Condition
       Error in `hoist()`:
       ! The names of `...` must be unique.
 
@@ -36,7 +36,7 @@
 
     Code
       hoist(df, a, xx = 1)
-    Condition <rlang_error>
+    Condition
       Error in `hoist()`:
       ! `.data[[.col]]` must be a list, not a <tbl_df/tbl/data.frame> object.
 

@@ -38,7 +38,7 @@ test_that("error when overwriting existing column", {
     val = c(1, 2)
   )
 
-  expect_snapshot(error = TRUE, cnd_class = TRUE, {
+  expect_snapshot(error = TRUE, {
     pivot_wider(df, names_from = key, values_from = val)
   })
 
@@ -115,35 +115,35 @@ test_that("works with data.table and empty key_vars", {
 
 test_that("`names_from` must be supplied if `name` isn't in `data` (#1240)", {
   df <- tibble(key = "x", val = 1)
-  expect_snapshot(error = TRUE, cnd_class = TRUE, {
+  expect_snapshot(error = TRUE, {
     pivot_wider(df, values_from = val)
   })
 })
 
 test_that("`values_from` must be supplied if `value` isn't in `data` (#1240)", {
   df <- tibble(key = "x", val = 1)
-  expect_snapshot(error = TRUE, cnd_class = TRUE, {
+  expect_snapshot(error = TRUE, {
     pivot_wider(df, names_from = key)
   })
 })
 
 test_that("`names_from` must identify at least 1 column (#1240)", {
   df <- tibble(key = "x", val = 1)
-  expect_snapshot(error = TRUE, cnd_class = TRUE, {
+  expect_snapshot(error = TRUE, {
     pivot_wider(df, names_from = starts_with("foo"), values_from = val)
   })
 })
 
 test_that("`values_from` must identify at least 1 column (#1240)", {
   df <- tibble(key = "x", val = 1)
-  expect_snapshot(error = TRUE, cnd_class = TRUE, {
+  expect_snapshot(error = TRUE, {
     pivot_wider(df, names_from = key, values_from = starts_with("foo"))
   })
 })
 
 test_that("`values_fn` emits an informative error when it doesn't result in unique values (#1238)", {
   df <- tibble(name = c("a", "a"), value = c(1, 2))
-  expect_snapshot(error = TRUE, cnd_class = TRUE, {
+  expect_snapshot(error = TRUE, {
     pivot_wider(df, values_fn = list(value = ~.x))
   })
 })
@@ -221,7 +221,7 @@ test_that("expansion with `id_expand` and `names_expand` works with zero row dat
 test_that("`build_wider_spec()` requires empty dots", {
   df <- tibble(name = c("x", "y", "z"), value = 1:3)
 
-  expect_snapshot(error = TRUE, cnd_class = TRUE, {
+  expect_snapshot(error = TRUE, {
     build_wider_spec(df, 1)
     build_wider_spec(df, name_prefix = "")
   })
@@ -231,7 +231,7 @@ test_that("`pivot_wider_spec()` requires empty dots", {
   df <- tibble(name = c("x", "y", "z"), value = 1:3)
   spec <- build_wider_spec(df)
 
-  expect_snapshot(error = TRUE, cnd_class = TRUE, {
+  expect_snapshot(error = TRUE, {
     pivot_wider_spec(df, spec, 1)
     pivot_wider_spec(df, spec, name_repair = "check_unique")
   })
@@ -294,7 +294,7 @@ test_that("can vary `names_from` values slowest (#839)", {
 test_that("`names_vary` is validated", {
   df <- tibble(name = c("a", "b"), value = c(1, 2))
 
-  expect_snapshot(error = TRUE, cnd_class = TRUE, {
+  expect_snapshot(error = TRUE, {
     build_wider_spec(df, names_vary = 1)
     build_wider_spec(df, names_vary = "x")
   })
@@ -322,7 +322,7 @@ test_that("`names_expand` expands all levels of a factor `names_from` column (#7
 test_that("`names_expand` is validated", {
   df <- tibble(name = c("a", "b"), value = c(1, 2))
 
-  expect_snapshot(error = TRUE, cnd_class = TRUE, {
+  expect_snapshot(error = TRUE, {
     build_wider_spec(df, names_expand = 1)
     build_wider_spec(df, names_expand = "x")
   })
@@ -362,7 +362,7 @@ test_that("`id_cols` can't select columns from `names_from` or `values_from` (#1
   df <- tibble(name = c("x", "y"), value = c(1, 2))
 
   # And gives a nice error message!
-  expect_snapshot(error = TRUE, cnd_class = TRUE, {
+  expect_snapshot(error = TRUE, {
     pivot_wider(df, id_cols = name, names_from = name, values_from = value)
     pivot_wider(df, id_cols = value, names_from = name, values_from = value)
   })
@@ -371,7 +371,7 @@ test_that("`id_cols` can't select columns from `names_from` or `values_from` (#1
 test_that("`id_cols` returns a tidyselect error if a column selection is OOB (#1318)", {
   df <- tibble(name = c("x", "y"), value = c(1, 2))
 
-  expect_snapshot(error = TRUE, cnd_class = TRUE, {
+  expect_snapshot(error = TRUE, {
     pivot_wider(df, id_cols = foo)
   })
 })
@@ -474,7 +474,7 @@ test_that("`id_expand` with `values_fill` can't accidentally fill missings in `i
 test_that("`id_expand` is validated", {
   df <- tibble(name = c("a", "b"), value = c(1, 2))
 
-  expect_snapshot(error = TRUE, cnd_class = TRUE, {
+  expect_snapshot(error = TRUE, {
     pivot_wider(df, id_expand = 1)
     pivot_wider(df, id_expand = "x")
   })
@@ -567,7 +567,7 @@ test_that("values_fn applied even when no-duplicates", {
 
 test_that("values_fn is validated", {
   df <- tibble(name = "x", value = 1L)
-  expect_snapshot(error = TRUE, cnd_class = TRUE, {
+  expect_snapshot(error = TRUE, {
     pivot_wider(df, values_fn = 1)
   })
 })
@@ -690,7 +690,7 @@ test_that("`unused_fn` must result in single summary values", {
     value = c(1, 2, 3, 4)
   )
 
-  expect_snapshot(error = TRUE, cnd_class = TRUE, {
+  expect_snapshot(error = TRUE, {
     pivot_wider(df, id_cols = id, unused_fn = identity)
   })
 })
@@ -748,7 +748,7 @@ test_that("can't fill implicit missings in unused column with `values_fill`", {
 test_that("`values_fill` is validated", {
   df <- tibble(name = "a", value = 1)
 
-  expect_snapshot(error = TRUE, cnd_class = TRUE, {
+  expect_snapshot(error = TRUE, {
     pivot_wider(df, values_fill = 1:2)
   })
 })
@@ -756,7 +756,7 @@ test_that("`values_fill` is validated", {
 test_that("`unused_fn` is validated", {
   df <- tibble(id = 1, unused = 1, name = "a", value = 1)
 
-  expect_snapshot(error = TRUE, cnd_class = TRUE, {
+  expect_snapshot(error = TRUE, {
     pivot_wider(df, id_cols = id, unused_fn = 1)
   })
 })

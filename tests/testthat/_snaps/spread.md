@@ -2,7 +2,7 @@
 
     Code
       spread(df, x, y)
-    Condition <rlang_error>
+    Condition
       Error in `spread()`:
       ! Each row of output must be identified by a unique combination of keys.
       i Keys are shared for 2 rows

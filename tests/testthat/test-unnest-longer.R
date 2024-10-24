@@ -46,7 +46,7 @@ test_that("can unnest dates", {
 test_that("unnest_longer - bad inputs generate errors", {
   df <- tibble(x = 1, y = list(mean))
 
-  expect_snapshot(unnest_longer(df, y), error = TRUE, cnd_class = TRUE)
+  expect_snapshot(unnest_longer(df, y), error = TRUE)
 })
 
 test_that("list_of columns can be unnested", {
@@ -376,7 +376,7 @@ test_that("can't currently retain names when simplification isn't done and a pty
 })
 
 test_that("can't mix `indices_to` with `indices_include = FALSE`", {
-  expect_snapshot(error = TRUE, cnd_class = TRUE, {
+  expect_snapshot(error = TRUE, {
     unnest_longer(mtcars, mpg, indices_to = "x", indices_include = FALSE)
   })
 })
@@ -400,28 +400,28 @@ test_that("`values_to` and `indices_to` glue can't reach into surrounding env", 
 })
 
 test_that("`values_to` is validated", {
-  expect_snapshot(error = TRUE, cnd_class = TRUE, {
+  expect_snapshot(error = TRUE, {
     unnest_longer(mtcars, mpg, values_to = 1)
     unnest_longer(mtcars, mpg, values_to = c("x", "y"))
   })
 })
 
 test_that("`indices_to` is validated", {
-  expect_snapshot(error = TRUE, cnd_class = TRUE, {
+  expect_snapshot(error = TRUE, {
     unnest_longer(mtcars, mpg, indices_to = 1)
     unnest_longer(mtcars, mpg, indices_to = c("x", "y"))
   })
 })
 
 test_that("`indices_include` is validated", {
-  expect_snapshot(error = TRUE, cnd_class = TRUE, {
+  expect_snapshot(error = TRUE, {
     unnest_longer(mtcars, mpg, indices_include = 1)
     unnest_longer(mtcars, mpg, indices_include = c(TRUE, FALSE))
   })
 })
 
 test_that("`keep_empty` is validated", {
-  expect_snapshot(error = TRUE, cnd_class = TRUE, {
+  expect_snapshot(error = TRUE, {
     unnest_longer(mtcars, mpg, keep_empty = 1)
     unnest_longer(mtcars, mpg, keep_empty = c(TRUE, FALSE))
   })

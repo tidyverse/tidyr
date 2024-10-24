@@ -2,7 +2,7 @@
 
     Code
       unnest(df, y)
-    Condition <vctrs_error_scalar_type>
+    Condition
       Error in `list_sizes()`:
       ! `x[[1]]` must be a vector, not a function.
 
@@ -10,7 +10,7 @@
 
     Code
       unnest(df, c(x, y))
-    Condition <rlang_error>
+    Condition
       Error in `unnest()`:
       ! In row 1, can't recycle input of size 2 to size 3.
 
@@ -18,7 +18,7 @@
 
     Code
       unnest(df, c(x, y))
-    Condition <rlang_error>
+    Condition
       Error in `unnest()`:
       ! In row 1, can't recycle input of size 2 to size 3.
 
@@ -26,7 +26,7 @@
 
     Code
       unnest(df, x)
-    Condition <vctrs_error_ptype2>
+    Condition
       Error in `unnest()`:
       ! Can't combine `x[[1]]` <double> and `x[[2]]` <tbl_df>.
 

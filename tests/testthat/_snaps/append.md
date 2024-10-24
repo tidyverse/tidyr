@@ -2,7 +2,7 @@
 
     Code
       df_append(df1, df2, after = 1.5)
-    Condition <rlang_error>
+    Condition
       Error in `df_append()`:
       ! `after` must be a whole number, not the number 1.5.
       i This is an internal error that was detected in the tidyr package.

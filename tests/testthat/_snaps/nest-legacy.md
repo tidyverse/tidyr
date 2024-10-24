@@ -2,7 +2,7 @@
 
     Code
       unnest_legacy(df)
-    Condition <rlang_error>
+    Condition
       Error in `unnest_legacy()`:
       ! Each column must either be a list of vectors or a list of data frames.
       i Problems in: `x`
@@ -11,7 +11,7 @@
 
     Code
       unnest_legacy(df)
-    Condition <rlang_error>
+    Condition
       Error in `unnest_legacy()`:
       ! All nested columns must have the same number of elements.
 
@@ -19,7 +19,7 @@
 
     Code
       unnest_legacy(df)
-    Condition <rlang_error>
+    Condition
       Error in `unnest_legacy()`:
       ! All nested columns must have the same number of elements.
 

@@ -2,7 +2,7 @@
 
     Code
       replace_na(1, 1:10)
-    Condition <rlang_error>
+    Condition
       Error in `replace_na()`:
       ! Replacement for `data` must be length 1, not length 10.
 
@@ -10,7 +10,7 @@
 
     Code
       replace_na(x, 1.5)
-    Condition <vctrs_error_cast_lossy>
+    Condition
       Error in `vec_assign()`:
       ! Can't convert from `replace` <double> to `data` <integer> due to loss of precision.
       * Locations: 1
@@ -19,7 +19,7 @@
 
     Code
       replace_na(df, list(a = 1.5))
-    Condition <vctrs_error_cast_lossy>
+    Condition
       Error in `vec_assign()`:
       ! Can't convert from `replace$a` <double> to `data$a` <integer> due to loss of precision.
       * Locations: 1

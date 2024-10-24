@@ -35,8 +35,7 @@ test_that("nested lists generate a cast error if they can't be cast to the ptype
 
   expect_snapshot(
     hoist(df, x, "b", .ptype = list(b = double())),
-    error = TRUE,
-    cnd_class = TRUE
+    error = TRUE
   )
 })
 
@@ -45,8 +44,7 @@ test_that("non-vectors generate a cast error if a ptype is supplied", {
 
   expect_snapshot(
     hoist(df, x, "b", .ptype = list(b = integer())),
-    error = TRUE,
-    cnd_class = TRUE
+    error = TRUE
   )
 })
 
@@ -103,7 +101,7 @@ test_that("can hoist out scalars", {
 test_that("input validation catches problems", {
   df <- tibble(x = list(list(1, b = "b")), y = 1)
 
-  expect_snapshot(error = TRUE, cnd_class = TRUE, {
+  expect_snapshot(error = TRUE, {
     df %>% hoist(y)
     df %>% hoist(x, 1)
     df %>% hoist(x, a = "a", a = "b")
@@ -120,8 +118,7 @@ test_that("can't hoist() from a data frame column", {
 
   expect_snapshot(
     hoist(df, a, xx = 1),
-    error = TRUE,
-    cnd_class = TRUE
+    error = TRUE
   )
 })
 
