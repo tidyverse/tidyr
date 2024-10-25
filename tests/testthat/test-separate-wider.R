@@ -79,12 +79,26 @@ test_that("separate_wider_delim() validates its inputs", {
   df <- tibble(x = "x")
   expect_snapshot(error = TRUE, {
     df %>% separate_wider_delim()
+  })
+  expect_snapshot(error = TRUE, {
     df %>% separate_wider_delim(x)
+  })
+  expect_snapshot(error = TRUE, {
     df %>% separate_wider_delim(x, 1)
+  })
+  expect_snapshot(error = TRUE, {
     df %>% separate_wider_delim(x, "")
+  })
+  expect_snapshot(error = TRUE, {
     df %>% separate_wider_delim(x, "-")
+  })
+  expect_snapshot(error = TRUE, {
     df %>% separate_wider_delim(x, "-", names = 1)
+  })
+  expect_snapshot(error = TRUE, {
     df %>% separate_wider_delim(x, "-", names = c(x = "x"))
+  })
+  expect_snapshot(error = TRUE, {
     df %>% separate_wider_delim(x, "-", names_sep = "_", too_many = "merge")
   })
 })
@@ -153,9 +167,17 @@ test_that("separate_wider_position() validates its inputs", {
   df <- tibble(x = "x")
   expect_snapshot(error = TRUE, {
     df %>% separate_wider_position()
+  })
+  expect_snapshot(error = TRUE, {
     df %>% separate_wider_position(x)
+  })
+  expect_snapshot(error = TRUE, {
     df %>% separate_wider_position(x, widths = 1.5)
+  })
+  expect_snapshot(error = TRUE, {
     df %>% separate_wider_position(x, widths = 1L)
+  })
+  expect_snapshot(error = TRUE, {
     df %>% separate_wider_position(x, widths = c(x = 0))
   })
 })
@@ -254,8 +276,14 @@ test_that("separate_wider_regex() validates its inputs", {
   df <- tibble(x = "x")
   expect_snapshot(error = TRUE, {
     df %>% separate_wider_regex()
+  })
+  expect_snapshot(error = TRUE, {
     df %>% separate_wider_regex(x)
+  })
+  expect_snapshot(error = TRUE, {
     df %>% separate_wider_regex(y, patterns = c(x = "-"))
+  })
+  expect_snapshot(error = TRUE, {
     df %>% separate_wider_regex(x, patterns = ".")
   })
 })

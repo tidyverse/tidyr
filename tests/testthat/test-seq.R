@@ -23,9 +23,9 @@ test_that("preserves attributes", {
 })
 
 test_that("full_seq errors if sequence isn't regular", {
-  expect_snapshot({
-    (expect_error(full_seq(c(1, 3, 4), 2)))
-    (expect_error(full_seq(c(0, 10, 20), 11, tol = 1.8)))
+  expect_snapshot(error = TRUE, {
+    full_seq(c(1, 3, 4), 2)
+    full_seq(c(0, 10, 20), 11, tol = 1.8)
   })
 })
 

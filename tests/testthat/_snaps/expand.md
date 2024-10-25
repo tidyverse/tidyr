@@ -1,9 +1,8 @@
 # crossing checks for bad inputs
 
     Code
-      (expect_error(crossing(x = 1:10, y = quote(a))))
-    Output
-      <error/vctrs_error_scalar_type>
+      crossing(x = 1:10, y = quote(a))
+    Condition
       Error in `crossing()`:
       ! `..2` must be a vector, not a symbol.
 
@@ -37,9 +36,8 @@
 # expand_grid() can control name_repair
 
     Code
-      (expect_error(expand_grid(x = x, x = x)))
-    Output
-      <error/vctrs_error_names_must_be_unique>
+      expand_grid(x = x, x = x)
+    Condition
       Error in `expand_grid()`:
       ! Names must be unique.
       x These names are duplicated:
@@ -66,9 +64,8 @@
 # grid_dots() reject non-vector input
 
     Code
-      (expect_error(grid_dots(lm(1 ~ 1))))
-    Output
-      <error/vctrs_error_scalar_type>
+      grid_dots(lm(1 ~ 1))
+    Condition
       Error:
       ! `..1` must be a vector, not a <lm> object.
 

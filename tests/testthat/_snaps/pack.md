@@ -117,11 +117,17 @@
     Condition
       Error in `unpack()`:
       ! `data` must be a data frame, not a number.
+
+---
+
     Code
       unpack(df)
     Condition
       Error in `unpack()`:
       ! `cols` is absent but must be supplied.
+
+---
+
     Code
       unpack(df, y, names_sep = 1)
     Condition

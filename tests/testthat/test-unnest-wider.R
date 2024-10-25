@@ -53,9 +53,7 @@ test_that("treats data frames like lists where we have type info about each elem
 test_that("unnest_wider - bad inputs generate errors", {
   df <- tibble(x = 1, y = list(mean))
 
-  expect_snapshot((expect_error(
-    unnest_wider(df, y)
-  )))
+  expect_snapshot(unnest_wider(df, y), error = TRUE)
 })
 
 test_that("list of 0-length vectors yields no new columns", {
@@ -94,10 +92,10 @@ test_that("names_sep creates unique names", {
     x = list("a", c("a", "b", "c")),
     y = list(c(a = 1), c(b = 2, a = 1))
   )
-  expect_warning(out <- unnest_wider(df, x, names_sep = "_"), NA)
+  expect_no_warning(out <- unnest_wider(df, x, names_sep = "_"))
   expect_named(out, c("x_1", "x_2", "x_3", "y"))
 
-  expect_warning(out <- unnest_wider(df, y, names_sep = "_"), NA)
+  expect_no_warning(out <- unnest_wider(df, y, names_sep = "_"))
   expect_named(out, c("x", "y_a", "y_b"))
   expect_equal(out$y_a, c(1, 1))
 })
@@ -311,8 +309,14 @@ test_that("unnest_wider() validates its inputs", {
   df <- tibble(x = list(a = 1:2, b = 3:4))
   expect_snapshot(error = TRUE, {
     unnest_wider(1)
+  })
+  expect_snapshot(error = TRUE, {
     unnest_wider(df)
+  })
+  expect_snapshot(error = TRUE, {
     unnest_wider(df, x, names_sep = 1)
+  })
+  expect_snapshot(error = TRUE, {
     unnest_wider(df, x, strict = 1)
   })
 })

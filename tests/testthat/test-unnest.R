@@ -22,7 +22,7 @@ test_that("empty rows still affect output type", {
 
 test_that("bad inputs generate errors", {
   df <- tibble(x = 1, y = list(mean))
-  expect_snapshot((expect_error(unnest(df, y))))
+  expect_snapshot(unnest(df, y), error = TRUE)
 })
 
 test_that("unnesting combines augmented vectors", {
@@ -96,10 +96,10 @@ test_that("vectors become columns", {
 
 test_that("multiple columns must be same length", {
   df <- tibble(x = list(1:2), y = list(1:3))
-  expect_snapshot((expect_error(unnest(df, c(x, y)))))
+  expect_snapshot(unnest(df, c(x, y)), error = TRUE)
 
   df <- tibble(x = list(1:2), y = list(tibble(y = 1:3)))
-  expect_snapshot((expect_error(unnest(df, c(x, y)))))
+  expect_snapshot(unnest(df, c(x, y)), error = TRUE)
 })
 
 test_that("can use non-syntactic names", {
@@ -114,7 +114,7 @@ test_that("unpacks df-cols (#1112)", {
 
 test_that("unnesting column of mixed vector / data frame input is an error", {
   df <- tibble(x = list(1, tibble(a = 1)))
-  expect_snapshot((expect_error(unnest(df, x))))
+  expect_snapshot(unnest(df, x), error = TRUE)
 })
 
 test_that("unnest() advises on outer / inner name duplication", {

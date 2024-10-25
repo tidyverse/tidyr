@@ -147,32 +147,28 @@ test_that("type error message use variable names", {
 test_that("when `values_ptypes` is provided, the type error uses variable names (#1364)", {
   df <- tibble(x = 1)
 
-  expect_snapshot({
-    (expect_error(pivot_longer(df, x, values_ptypes = character())))
+  expect_snapshot(error = TRUE, {
+    pivot_longer(df, x, values_ptypes = character())
   })
 })
 
 test_that("when `names_ptypes` is provided, the type error uses `names_to` names (#1364)", {
   df <- tibble(x = 1)
 
-  expect_snapshot({
-    (expect_error({
-      pivot_longer(
-        df,
-        cols = x,
-        names_to = "name",
-        names_ptypes = double()
-      )
-    }))
+  expect_snapshot(error = TRUE, {
+    pivot_longer(
+      df,
+      cols = x,
+      names_to = "name",
+      names_ptypes = double()
+    )
   })
 })
 
 test_that("error when overwriting existing column", {
   df <- tibble(x = 1, y = 2)
 
-  expect_snapshot(
-    (expect_error(pivot_longer(df, y, names_to = "x")))
-  )
+  expect_snapshot(pivot_longer(df, y, names_to = "x"), error = TRUE)
 
   expect_snapshot(
     out <- pivot_longer(df, y, names_to = "x", names_repair = "unique")
@@ -267,18 +263,17 @@ test_that("no names doesn't generate names (#1120)", {
 test_that("multiple names requires names_sep/names_pattern", {
   df <- tibble(x_y = 1)
 
-  expect_snapshot({
-    (expect_error(build_longer_spec(df, x_y, names_to = c("a", "b"))))
-
-    (expect_error(
-      build_longer_spec(
-        df,
-        x_y,
-        names_to = c("a", "b"),
-        names_sep = "x",
-        names_pattern = "x"
-      )
-    ))
+  expect_snapshot(error = TRUE, {
+    build_longer_spec(df, x_y, names_to = c("a", "b"))
+  })
+  expect_snapshot(error = TRUE, {
+    build_longer_spec(
+      df,
+      x_y,
+      names_to = c("a", "b"),
+      names_sep = "x",
+      names_pattern = "x"
+    )
   })
 })
 
@@ -293,8 +288,8 @@ test_that("names_sep generates correct spec", {
 test_that("names_sep fails with single name", {
   df <- tibble(x_y = 1)
 
-  expect_snapshot({
-    (expect_error(build_longer_spec(df, x_y, names_to = "x", names_sep = "_")))
+  expect_snapshot(error = TRUE, {
+    build_longer_spec(df, x_y, names_to = "x", names_sep = "_")
   })
 })
 
@@ -435,8 +430,8 @@ test_that("`values_transform` works with single functions (#1284)", {
 })
 
 test_that("Error if the `col` can't be selected.", {
-  expect_snapshot({
-    (expect_error(pivot_longer(iris, matches("foo"))))
+  expect_snapshot(error = TRUE, {
+    pivot_longer(iris, matches("foo"))
   })
 })
 
@@ -448,73 +443,91 @@ test_that("named `cols` gives clear error (#1104)", {
 test_that("`names_to` is validated", {
   df <- tibble(x = 1)
 
-  expect_snapshot({
-    (expect_error(build_longer_spec(df, x, names_to = 1)))
-    (expect_error(build_longer_spec(df, x, names_to = c("x", "y"))))
-    (expect_error(build_longer_spec(df, x, names_to = c("x", "y"), names_sep = "_", names_pattern = "x")))
+  expect_snapshot(error = TRUE, {
+    build_longer_spec(df, x, names_to = 1)
+  })
+  expect_snapshot(error = TRUE, {
+    build_longer_spec(df, x, names_to = c("x", "y"))
+  })
+  expect_snapshot(error = TRUE, {
+    build_longer_spec(df, x, names_to = c("x", "y"), names_sep = "_", names_pattern = "x")
   })
 })
 
 test_that("`names_ptypes` is validated", {
   df <- tibble(x = 1)
 
-  expect_snapshot({
-    (expect_error(build_longer_spec(df, x, names_ptypes = 1)))
-    (expect_error(build_longer_spec(df, x, names_ptypes = list(integer()))))
+  expect_snapshot(error = TRUE, {
+    build_longer_spec(df, x, names_ptypes = 1)
+  })
+  expect_snapshot(error = TRUE, {
+    build_longer_spec(df, x, names_ptypes = list(integer()))
   })
 })
 
 test_that("`names_transform` is validated", {
   df <- tibble(x = 1)
 
-  expect_snapshot({
-    (expect_error(build_longer_spec(df, x, names_transform = 1)))
-    (expect_error(build_longer_spec(df, x, names_transform = list(~.x))))
+  expect_snapshot(error = TRUE, {
+    build_longer_spec(df, x, names_transform = 1)
+  })
+  expect_snapshot(error = TRUE, {
+    build_longer_spec(df, x, names_transform = list(~.x))
   })
 })
 
 test_that("`values_ptypes` is validated", {
   df <- tibble(x = 1)
 
-  expect_snapshot({
-    (expect_error(pivot_longer(df, x, values_ptypes = 1)))
-    (expect_error(pivot_longer(df, x, values_ptypes = list(integer()))))
+  expect_snapshot(error = TRUE, {
+    pivot_longer(df, x, values_ptypes = 1)
+  })
+  expect_snapshot(error = TRUE, {
+    pivot_longer(df, x, values_ptypes = list(integer()))
   })
 })
 
 test_that("`values_transform` is validated", {
   df <- tibble(x = 1)
 
-  expect_snapshot({
-    (expect_error(pivot_longer(df, x, values_transform = 1)))
-    (expect_error(pivot_longer(df, x, values_transform = list(~.x))))
+  expect_snapshot(error = TRUE, {
+    pivot_longer(df, x, values_transform = 1)
+  })
+  expect_snapshot(error = TRUE, {
+    pivot_longer(df, x, values_transform = list(~.x))
   })
 })
 
 test_that("`cols_vary` is validated", {
   df <- tibble(x = 1)
 
-  expect_snapshot({
-    (expect_error(pivot_longer(df, x, cols_vary = "fast")))
-    (expect_error(pivot_longer(df, x, cols_vary = 1)))
+  expect_snapshot(error = TRUE, {
+    pivot_longer(df, x, cols_vary = "fast")
+  })
+  expect_snapshot(error = TRUE, {
+    pivot_longer(df, x, cols_vary = 1)
   })
 })
 
 test_that("`pivot_longer()` catches unused input passed through the dots", {
   df <- tibble(id = c("a", "b"), x = c(1, 2), y = c(3, 4))
 
-  expect_snapshot({
-    (expect_error(pivot_longer(df, c(x, y), 1)))
-    (expect_error(pivot_longer(df, c(x, y), col_vary = "slowest")))
+  expect_snapshot(error = TRUE, {
+    pivot_longer(df, c(x, y), 1)
+  })
+  expect_snapshot(error = TRUE, {
+    pivot_longer(df, c(x, y), col_vary = "slowest")
   })
 })
 
 test_that("`build_longer_spec()` requires empty dots", {
   df <- tibble(id = c("a", "b"), x = c(1, 2), y = c(3, 4))
 
-  expect_snapshot({
-    (expect_error(build_longer_spec(df, c(x, y), 1)))
-    (expect_error(build_longer_spec(df, c(x, y), name_to = "name")))
+  expect_snapshot(error = TRUE, {
+    build_longer_spec(df, c(x, y), 1)
+  })
+  expect_snapshot(error = TRUE, {
+    build_longer_spec(df, c(x, y), name_to = "name")
   })
 })
 
@@ -522,8 +535,10 @@ test_that("`pivot_longer_spec()` requires empty dots", {
   df <- tibble(id = c("a", "b"), x = c(1, 2), y = c(3, 4))
   spec <- build_longer_spec(df, c(x, y))
 
-  expect_snapshot({
-    (expect_error(pivot_longer_spec(df, spec, 1)))
-    (expect_error(pivot_longer_spec(df, spec, col_vary = "slowest")))
+  expect_snapshot(error = TRUE, {
+    pivot_longer_spec(df, spec, 1)
+  })
+  expect_snapshot(error = TRUE, {
+    pivot_longer_spec(df, spec, col_vary = "slowest")
   })
 })

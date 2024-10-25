@@ -110,9 +110,17 @@ test_that("validates inputs", {
 
   expect_snapshot(error = TRUE, {
     separate(df)
+  })
+  expect_snapshot(error = TRUE, {
     separate(df, x, into = 1)
+  })
+  expect_snapshot(error = TRUE, {
     separate(df, x, into = "x", sep = c("a", "b"))
+  })
+  expect_snapshot(error = TRUE, {
     separate(df, x, into = "x", remove = 1)
+  })
+  expect_snapshot(error = TRUE, {
     separate(df, x, into = "x", convert = 1)
   })
 })
@@ -121,7 +129,7 @@ test_that("informative error if using stringr modifier functions (#693)", {
   df <- tibble(x = "a")
   sep <- structure("a", class = "pattern")
 
-  expect_snapshot((expect_error(separate(df, x, "x", sep = sep))))
+  expect_snapshot(separate(df, x, "x", sep = sep), error = TRUE)
 })
 
 # helpers -----------------------------------------------------------------

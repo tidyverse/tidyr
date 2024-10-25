@@ -24,6 +24,8 @@ test_that("chop() validates its input `cols` (#1205)", {
   df <- tibble(x = 1:2)
   expect_snapshot(error = TRUE, {
     chop(df$x)
+  })
+  expect_snapshot(error = TRUE, {
     chop(df)
   })
 })
@@ -288,15 +290,15 @@ test_that("unchop works with record columns (treating them like vectors)", {
 
 test_that("incompatible sizes are caught", {
   df <- tibble(x = list(1:2), y = list(1:3))
-  expect_snapshot((expect_error(unchop(df, c(x, y)))))
+  expect_snapshot(unchop(df, c(x, y)), error = TRUE)
 })
 
 test_that("empty typed inputs are considered in common size, but NULLs aren't", {
   df <- tibble(x = list(NULL), y = list(1:2))
-  expect_error(unchop(df, c(x, y)), NA)
+  expect_no_error(unchop(df, c(x, y)))
 
   df <- tibble(x = list(integer()), y = list(1:2))
-  expect_snapshot((expect_error(unchop(df, c(x, y)))))
+  expect_snapshot(unchop(df, c(x, y)), error = TRUE)
 })
 
 test_that("unchopping retains inner names from tibble elements", {
@@ -357,8 +359,14 @@ test_that("unchop validates its inputs", {
 
   expect_snapshot(error = TRUE, {
     unchop(1:10)
+  })
+  expect_snapshot(error = TRUE, {
     unchop(df)
+  })
+  expect_snapshot(error = TRUE, {
     unchop(df, col, keep_empty = 1)
+  })
+  expect_snapshot(error = TRUE, {
     unchop(df, col, ptype = 1)
   })
 })
