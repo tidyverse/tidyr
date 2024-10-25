@@ -34,7 +34,7 @@ Imports:
     utils,
     vctrs (>= 0.5.2)
 Remotes:
-    r-lib/tidyselect#358
+    r-lib/tidyselect
 Suggests:
     covr,
     data.table,
