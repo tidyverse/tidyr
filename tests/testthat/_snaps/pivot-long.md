@@ -69,7 +69,7 @@
     Code
       (expect_error(pivot_longer(iris, matches("foo"))))
     Output
-      <error/rlang_error>
+      <error/tidyselect_error_empty_selection>
       Error in `pivot_longer()`:
       ! `cols` must select at least one column.
 
@@ -80,6 +80,7 @@
     Condition
       Error in `pivot_longer()`:
       ! Can't rename variables in this context.
+      i `cols` can't be renamed.
 
 # `names_to` is validated
 

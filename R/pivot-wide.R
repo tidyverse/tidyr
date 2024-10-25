@@ -486,6 +486,7 @@ build_wider_spec <- function(data,
     data,
     allow_rename = FALSE,
     allow_empty = FALSE,
+    error_arg = "names_from",
     error_call = error_call
   )
   values_from <- tidyselect::eval_select(
@@ -493,6 +494,7 @@ build_wider_spec <- function(data,
     data,
     allow_rename = FALSE,
     allow_empty = FALSE,
+    error_arg = "values_from",
     error_call = error_call
   )
 
@@ -562,6 +564,7 @@ build_wider_id_cols_expr <- function(data,
     enquo(names_from),
     data,
     allow_rename = FALSE,
+    error_arg = "names_from",
     error_call = error_call
   )
 
@@ -569,6 +572,7 @@ build_wider_id_cols_expr <- function(data,
     enquo(values_from),
     data,
     allow_rename = FALSE,
+    error_arg = "values_from",
     error_call = error_call
   )
 
@@ -603,6 +607,7 @@ select_wider_id_cols <- function(data,
       enquo(id_cols),
       data,
       allow_rename = FALSE,
+      error_arg = "id_cols",
       error_call = error_call
     ),
     vctrs_error_subscript_oob = function(cnd) {
@@ -631,7 +636,7 @@ rethrow_id_cols_oob <- function(cnd, names_from_cols, values_from_cols, call) {
 stop_id_cols_oob <- function(i, arg, call) {
   cli::cli_abort(
     c(
-      "`id_cols` can't select a column already selected by `{arg}`.",
+      "{.arg id_cols} can't select a column already selected by `{arg}`.",
       i = "Column `{i}` has already been selected."
     ),
     parent = NA,

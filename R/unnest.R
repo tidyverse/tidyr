@@ -181,7 +181,8 @@ unnest.data.frame <- function(data,
   cols <- tidyselect::eval_select(
     expr = enquo(cols),
     data = data,
-    allow_rename = FALSE
+    allow_rename = FALSE,
+    error_arg = "cols"
   )
   cols <- unname(cols)
 
