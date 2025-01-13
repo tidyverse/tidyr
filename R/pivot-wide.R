@@ -122,7 +122,7 @@
 #'   )
 #'
 #' # When there are multiple `names_from` or `values_from`, you can use
-#' # use `names_sep` or `names_glue` to control the output variable names
+#' # `names_sep` or `names_glue` to control the output variable names
 #' us_rent_income %>%
 #'   pivot_wider(
 #'     names_from = variable,
