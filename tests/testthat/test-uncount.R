@@ -20,7 +20,6 @@ test_that("expands constants and expressions", {
   expect_equal(uncount(df, 1 + 1), df[c(1, 1), ])
 })
 
-
 test_that("works with groups", {
   df <- tibble(g = 1, x = 1, w = 1) %>% dplyr::group_by(g)
   expect_equal(uncount(df, w), df %>% dplyr::select(-w))

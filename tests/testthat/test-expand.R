@@ -59,8 +59,14 @@ test_that("expand will expand within each group (#396)", {
 
   out <- nest(out, data = -g)
 
-  expect_identical(out$data[[1]], crossing(a = 1:2, b = factor(levels = c("a", "b", "c"))))
-  expect_identical(out$data[[2]], crossing(a = 1L, b = factor(levels = c("a", "b", "c"))))
+  expect_identical(
+    out$data[[1]],
+    crossing(a = 1:2, b = factor(levels = c("a", "b", "c")))
+  )
+  expect_identical(
+    out$data[[2]],
+    crossing(a = 1L, b = factor(levels = c("a", "b", "c")))
+  )
 })
 
 test_that("expand does not allow expansion on grouping variable (#1299)", {
@@ -350,7 +356,11 @@ test_that("unnamed data frames are flattened", {
 
   expect_identical(
     expand_grid(df, col),
-    tibble(x = c(1L, 1L, 2L, 2L), y = c(1L, 1L, 2L, 2L), col = c(3L, 4L, 3L, 4L))
+    tibble(
+      x = c(1L, 1L, 2L, 2L),
+      y = c(1L, 1L, 2L, 2L),
+      col = c(3L, 4L, 3L, 4L)
+    )
   )
 })
 
@@ -371,8 +381,14 @@ test_that("expand_grid() works with unnamed inlined tibbles with long expression
   )
 
   expect <- vec_cbind(
-    vec_slice(tibble(fruit = c("Apple", "Banana"), fruit_id = c("a", "b")), c(1, 1, 2, 2)),
-    vec_slice(tibble(status_id = c("c", "d"), status = c("cut_neatly", "devoured")), c(1, 2, 1, 2))
+    vec_slice(
+      tibble(fruit = c("Apple", "Banana"), fruit_id = c("a", "b")),
+      c(1, 1, 2, 2)
+    ),
+    vec_slice(
+      tibble(status_id = c("c", "d"), status = c("cut_neatly", "devoured")),
+      c(1, 2, 1, 2)
+    )
   )
 
   expect_identical(df, expect)
@@ -460,7 +476,7 @@ test_that("grid_dots() drops `NULL`s", {
 })
 
 test_that("grid_dots() reject non-vector input", {
-  expect_snapshot(grid_dots(lm(1 ~ 1)),  error = TRUE)
+  expect_snapshot(grid_dots(lm(1 ~ 1)), error = TRUE)
 })
 
 # ------------------------------------------------------------------------------

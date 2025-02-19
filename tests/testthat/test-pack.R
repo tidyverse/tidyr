@@ -42,7 +42,7 @@ test_that("pack disallows renaming", {
 test_that("pack validates its inputs", {
   df <- tibble(a1 = 1, a2 = 2, b1 = 1, b2 = 2)
 
-  expect_snapshot(error = TRUE,{
+  expect_snapshot(error = TRUE, {
     pack(1)
     pack(df, c(a1, a2), c(b1, b2))
     pack(df, a = c(a1, a2), c(b1, b2))

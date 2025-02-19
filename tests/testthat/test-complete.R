@@ -196,7 +196,6 @@ test_that("if the completing variables have missings, `fill` will fill them afte
   )
 })
 
-
 test_that("validates its inputs", {
   expect_snapshot(error = TRUE, {
     complete(mtcars, explicit = 1)

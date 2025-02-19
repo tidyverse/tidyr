@@ -133,7 +133,10 @@ test_that("can unnest mixture of name and unnamed lists of same length", {
     y = list(y = 1:2),
     z = list(1:2)
   )
-  expect_identical(unnest_legacy(df), tibble(x = c("a", "a"), y = c(1:2), z = c(1:2)))
+  expect_identical(
+    unnest_legacy(df),
+    tibble(x = c("a", "a"), y = c(1:2), z = c(1:2))
+  )
 })
 
 test_that("elements must all be of same type", {
@@ -185,20 +188,26 @@ test_that(".id creates vector of names for grouped vector unnest", {
 })
 
 test_that(".id creates vector of names for data frame unnest", {
-  df <- tibble(x = 1:2, y = list(
-    a = tibble(y = 1),
-    b = tibble(y = 1:2)
-  ))
+  df <- tibble(
+    x = 1:2,
+    y = list(
+      a = tibble(y = 1),
+      b = tibble(y = 1:2)
+    )
+  )
   out <- unnest_legacy(df, .id = "name")
 
   expect_equal(out$name, c("a", "b", "b"))
 })
 
 test_that(".id creates vector of names for grouped data frame unnest", {
-  df <- tibble(x = 1:2, y = list(
-    a = tibble(y = 1),
-    b = tibble(y = 1:2)
-  )) %>%
+  df <- tibble(
+    x = 1:2,
+    y = list(
+      a = tibble(y = 1),
+      b = tibble(y = 1:2)
+    )
+  ) %>%
     dplyr::group_by(x)
   out <- unnest_legacy(df, .id = "name")
 
@@ -257,7 +266,10 @@ test_that("unnest respects .drop_lists", {
   df <- tibble(x = 1:2, y = list(3, 4), z = list(5, 6:7))
 
   expect_equal(df %>% unnest_legacy(y, .drop = TRUE) %>% names(), c("x", "y"))
-  expect_equal(df %>% unnest_legacy(z, .drop = FALSE) %>% names(), c("x", "y", "z"))
+  expect_equal(
+    df %>% unnest_legacy(z, .drop = FALSE) %>% names(),
+    c("x", "y", "z")
+  )
 })
 
 test_that("grouping is preserved", {
@@ -271,7 +283,10 @@ test_that("grouping is preserved", {
 
 test_that("unnesting zero row column preserves names", {
   df <- tibble(a = character(), b = character())
-  expect_equal(df %>% unnest_legacy(b), tibble(a = character(), b = character()))
+  expect_equal(
+    df %>% unnest_legacy(b),
+    tibble(a = character(), b = character())
+  )
 })
 
 test_that("unnest_legacy() recognize ptype", {

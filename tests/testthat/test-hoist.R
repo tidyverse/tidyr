@@ -1,4 +1,3 @@
-
 test_that("hoist extracts named elements", {
   df <- tibble(x = list(list(1, b = "b")))
 
