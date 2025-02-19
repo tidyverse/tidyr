@@ -43,14 +43,28 @@
 #'
 #' # If no match, NA:
 #' df %>% extract(x, c("A", "B"), "([a-d]+)-([a-d]+)")
-extract <- function(data, col, into, regex = "([[:alnum:]]+)",
-                    remove = TRUE, convert = FALSE, ...) {
+extract <- function(
+  data,
+  col,
+  into,
+  regex = "([[:alnum:]]+)",
+  remove = TRUE,
+  convert = FALSE,
+  ...
+) {
   check_dots_used()
   UseMethod("extract")
 }
 #' @export
-extract.data.frame <- function(data, col, into, regex = "([[:alnum:]]+)",
-                               remove = TRUE, convert = FALSE, ...) {
+extract.data.frame <- function(
+  data,
+  col,
+  into,
+  regex = "([[:alnum:]]+)",
+  remove = TRUE,
+  convert = FALSE,
+  ...
+) {
   check_required(col)
 
   var <- tidyselect::vars_pull(names(data), !!enquo(col))
@@ -61,7 +75,13 @@ extract.data.frame <- function(data, col, into, regex = "([[:alnum:]]+)",
   reconstruct_tibble(data, out, if (remove) var else chr())
 }
 
-str_extract <- function(x, into, regex, convert = FALSE, error_call = caller_env()) {
+str_extract <- function(
+  x,
+  into,
+  regex,
+  convert = FALSE,
+  error_call = caller_env()
+) {
   check_string(regex, call = error_call)
   check_not_stringr_pattern(regex, call = error_call)
   check_character(into, call = error_call)

@@ -1,12 +1,13 @@
-
 # Helpers -----------------------------------------------------------------
 
-df_simplify <- function(x,
-                        ...,
-                        ptype = NULL,
-                        transform = NULL,
-                        simplify = TRUE,
-                        error_call = caller_env()) {
+df_simplify <- function(
+  x,
+  ...,
+  ptype = NULL,
+  transform = NULL,
+  simplify = TRUE,
+  error_call = caller_env()
+) {
   check_dots_empty()
 
   ptype <- check_list_of_ptypes(ptype, names(x), call = error_call)
@@ -40,12 +41,14 @@ df_simplify <- function(x,
   new_data_frame(out, n = x_size)
 }
 
-col_simplify <- function(x,
-                         ...,
-                         ptype = NULL,
-                         transform = NULL,
-                         simplify = TRUE,
-                         error_call = caller_env()) {
+col_simplify <- function(
+  x,
+  ...,
+  ptype = NULL,
+  transform = NULL,
+  simplify = TRUE,
+  error_call = caller_env()
+) {
   check_dots_empty()
 
   if (!is.null(transform)) {

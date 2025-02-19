@@ -29,7 +29,6 @@ id <- function(.variables, drop = FALSE) {
   }
   attr(res, "n") <- n
 
-
   if (drop) {
     id_var(res, drop = TRUE)
   } else {

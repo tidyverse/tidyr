@@ -70,17 +70,18 @@
 #' df %>%
 #'   unnest_longer(y) %>%
 #'   unnest_longer(z)
-unnest_longer <- function(data,
-                          col,
-                          values_to = NULL,
-                          indices_to = NULL,
-                          indices_include = NULL,
-                          keep_empty = FALSE,
-                          names_repair = "check_unique",
-                          simplify = TRUE,
-                          ptype = NULL,
-                          transform = NULL) {
-
+unnest_longer <- function(
+  data,
+  col,
+  values_to = NULL,
+  indices_to = NULL,
+  indices_include = NULL,
+  keep_empty = FALSE,
+  names_repair = "check_unique",
+  simplify = TRUE,
+  ptype = NULL,
+  transform = NULL
+) {
   check_data_frame(data)
   check_required(col)
   check_name(values_to, allow_null = TRUE)
@@ -151,13 +152,15 @@ unnest_longer <- function(data,
 }
 
 # Converts a column of any type to a `list_of<tbl>`
-col_to_long <- function(col,
-                        name,
-                        values_to,
-                        indices_to,
-                        indices_include,
-                        keep_empty,
-                        error_call = caller_env()) {
+col_to_long <- function(
+  col,
+  name,
+  values_to,
+  indices_to,
+  indices_include,
+  keep_empty,
+  error_call = caller_env()
+) {
   if (vec_is_list(col)) {
     ptype <- list_of_ptype(col)
   } else {
@@ -293,4 +296,3 @@ glue_col_names <- function(string, col_names) {
   out <- as.character(out)
   out
 }
-

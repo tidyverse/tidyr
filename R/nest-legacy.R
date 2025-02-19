@@ -118,15 +118,27 @@ nest_legacy.data.frame <- function(data, ..., .key = "data") {
   nest_legacy.tbl_df(data, ..., .key = !!.key)
 }
 
-
 #' @export
 #' @rdname nest_legacy
-unnest_legacy <- function(data, ..., .drop = NA, .id = NULL, .sep = NULL, .preserve = NULL) {
+unnest_legacy <- function(
+  data,
+  ...,
+  .drop = NA,
+  .id = NULL,
+  .sep = NULL,
+  .preserve = NULL
+) {
   UseMethod("unnest_legacy")
 }
 #' @export
-unnest_legacy.data.frame <- function(data, ..., .drop = NA, .id = NULL,
-                                     .sep = NULL, .preserve = NULL) {
+unnest_legacy.data.frame <- function(
+  data,
+  ...,
+  .drop = NA,
+  .id = NULL,
+  .sep = NULL,
+  .preserve = NULL
+) {
   preserve <- tidyselect::vars_select(names(data), !!enquo(.preserve))
   quos <- quos(...)
   if (is_empty(quos)) {
@@ -208,8 +220,11 @@ unnest_legacy.data.frame <- function(data, ..., .drop = NA, .id = NULL,
 }
 
 list_col_type <- function(x) {
-  is_data_frame <- is.data.frame(attr(x, "ptype", exact = TRUE)) || (is.list(x) && all(map_lgl(x, is.data.frame)))
-  is_atomic <- all(map_lgl(x, function(x) is_atomic(x) || (is_list(x) && !is.object(x))))
+  is_data_frame <- is.data.frame(attr(x, "ptype", exact = TRUE)) ||
+    (is.list(x) && all(map_lgl(x, is.data.frame)))
+  is_atomic <- all(map_lgl(x, function(x) {
+    is_atomic(x) || (is_list(x) && !is.object(x))
+  }))
 
   if (is_data_frame) {
     "dataframe"

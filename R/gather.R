@@ -78,15 +78,28 @@
 #'        Sepal.Length, Sepal.Width, Petal.Length, Petal.Width)
 #' # same result but less verbose
 #' gather(mini_iris, key = "flower_att", value = "measurement", -Species)
-gather <- function(data, key = "key", value = "value", ...,
-                   na.rm = FALSE, convert = FALSE, factor_key = FALSE) {
+gather <- function(
+  data,
+  key = "key",
+  value = "value",
+  ...,
+  na.rm = FALSE,
+  convert = FALSE,
+  factor_key = FALSE
+) {
   check_dots_unnamed()
   UseMethod("gather")
 }
 #' @export
-gather.data.frame <- function(data, key = "key", value = "value", ...,
-                              na.rm = FALSE, convert = FALSE,
-                              factor_key = FALSE) {
+gather.data.frame <- function(
+  data,
+  key = "key",
+  value = "value",
+  ...,
+  na.rm = FALSE,
+  convert = FALSE,
+  factor_key = FALSE
+) {
   key_var <- as_string(ensym(key))
   value_var <- as_string(ensym(value))
 

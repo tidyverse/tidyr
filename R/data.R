@@ -185,7 +185,6 @@
 #' (downloaded April 2008)
 "billboard"
 
-
 #' Household data
 #'
 #' This dataset is based on an example in

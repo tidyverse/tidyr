@@ -223,7 +223,11 @@ expand_grid <- function(..., .name_repair = "check_unique", .vary = "slowest") {
 
   # Flattens unnamed data frames after grid expansion
   out <- tidyr_new_list(out)
-  out <- df_list(!!!out, .name_repair = .name_repair, .error_call = current_env())
+  out <- df_list(
+    !!!out,
+    .name_repair = .name_repair,
+    .error_call = current_env()
+  )
   out <- tibble::new_tibble(out, nrow = size)
 
   out

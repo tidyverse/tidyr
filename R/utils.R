@@ -15,7 +15,11 @@ reconstruct_tibble <- function(input, output, ungrouped_vars = character()) {
   if (inherits(input, "grouped_df")) {
     old_groups <- dplyr::group_vars(input)
     new_groups <- intersect(setdiff(old_groups, ungrouped_vars), names(output))
-    dplyr::grouped_df(output, new_groups, drop = dplyr::group_by_drop_default(input))
+    dplyr::grouped_df(
+      output,
+      new_groups,
+      drop = dplyr::group_by_drop_default(input)
+    )
   } else if (inherits(input, "tbl_df")) {
     # Assume name repair carried out elsewhere
     as_tibble(output, .name_repair = "minimal")
@@ -28,7 +32,6 @@ seq_nrow <- function(x) seq_len(nrow(x))
 seq_ncol <- function(x) seq_len(ncol(x))
 
 last <- function(x) x[[length(x)]]
-
 
 #' Legacy name repair
 #'
@@ -67,7 +70,6 @@ tidyr_legacy <- function(nms, prefix = "V", sep = "") {
   nms
 }
 
-
 tidyr_col_modify <- function(data, cols) {
   # Implement from first principles to avoid edge cases in
   # data frame methods for `[<-` and `[[<-`.
@@ -77,7 +79,6 @@ tidyr_col_modify <- function(data, cols) {
   if (!is_list(cols)) {
     cli::cli_abort("`cols` must be a list.", .internal = TRUE)
   }
-
 
   size <- vec_size(data)
   data <- tidyr_new_list(data)
@@ -139,7 +140,10 @@ list_replace_null <- function(x, sizes, ..., ptype = NULL, size = 1L) {
     cli::cli_abort("`x` must be a list.", .internal = TRUE)
   }
   if (is_list_of(x)) {
-    cli::cli_abort("`x` can't be a list-of. Unclass first and provide `ptype`.", .internal = TRUE)
+    cli::cli_abort(
+      "`x` can't be a list-of. Unclass first and provide `ptype`.",
+      .internal = TRUE
+    )
   }
 
   if (vec_any_missing(x)) {
@@ -258,7 +262,11 @@ vec_paste0 <- function(...) {
 
 check_data_frame <- function(x, ..., arg = caller_arg(x), call = caller_env()) {
   if (!is.data.frame(x)) {
-    cli::cli_abort("{.arg {arg}} must be a data frame, not {.obj_type_friendly {x}}.", ..., call = call)
+    cli::cli_abort(
+      "{.arg {arg}} must be a data frame, not {.obj_type_friendly {x}}.",
+      ...,
+      call = call
+    )
   }
 }
 
@@ -271,7 +279,12 @@ check_unique_names <- function(x, arg = caller_arg(x), call = caller_env()) {
   }
 }
 
-check_list_of_ptypes <- function(x, names, arg = caller_arg(x), call = caller_env()) {
+check_list_of_ptypes <- function(
+  x,
+  names,
+  arg = caller_arg(x),
+  call = caller_env()
+) {
   if (is.null(x)) {
     set_names(list(), character())
   } else if (vec_is(x) && vec_is_empty(x)) {
@@ -289,7 +302,12 @@ check_list_of_ptypes <- function(x, names, arg = caller_arg(x), call = caller_en
   }
 }
 
-check_list_of_functions <- function(x, names, arg = caller_arg(x), call = caller_env()) {
+check_list_of_functions <- function(
+  x,
+  names,
+  arg = caller_arg(x),
+  call = caller_env()
+) {
   if (is.null(x)) {
     x <- set_names(list(), character())
   } else if (is.function(x) || is_formula(x)) {
@@ -305,7 +323,11 @@ check_list_of_functions <- function(x, names, arg = caller_arg(x), call = caller
   x_names <- names(x)
 
   for (i in seq_along(x)) {
-    x[[i]] <- as_function(x[[i]], arg = glue("{arg}${x_names[[i]]}"), call = call)
+    x[[i]] <- as_function(
+      x[[i]],
+      arg = glue("{arg}${x_names[[i]]}"),
+      call = call
+    )
   }
 
   # Silently drop user supplied names not found in the data
@@ -314,13 +336,18 @@ check_list_of_functions <- function(x, names, arg = caller_arg(x), call = caller
   x
 }
 
-check_list_of_bool <- function(x, names, arg = caller_arg(x), call = caller_env()) {
+check_list_of_bool <- function(
+  x,
+  names,
+  arg = caller_arg(x),
+  call = caller_env()
+) {
   if (is_bool(x)) {
     rep_named(names, x)
   } else if (vec_is_list(x)) {
     check_unique_names(x, arg = arg, call = call)
     x[intersect(names(x), names)]
-  } else  {
+  } else {
     cli::cli_abort(
       "{.arg {arg}} must be a list or a single `TRUE` or `FALSE`.",
       call = call
@@ -328,16 +355,24 @@ check_list_of_bool <- function(x, names, arg = caller_arg(x), call = caller_env(
   }
 }
 
-with_indexed_errors <- function(expr,
-                                message,
-                                ...,
-                                .error_call = caller_env(),
-                                .frame = caller_env()) {
+with_indexed_errors <- function(
+  expr,
+  message,
+  ...,
+  .error_call = caller_env(),
+  .frame = caller_env()
+) {
   try_fetch(
     expr,
     purrr_error_indexed = function(cnd) {
       message <- message(cnd)
-      abort(message, ..., call = .error_call, parent = cnd$parent, .frame = .frame)
+      abort(
+        message,
+        ...,
+        call = .error_call,
+        parent = cnd$parent,
+        .frame = .frame
+      )
     }
   )
 }

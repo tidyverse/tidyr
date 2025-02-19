@@ -134,41 +134,45 @@
 #'     names_to = c(".value", "set"),
 #'     names_pattern = "(.)(.)"
 #'   )
-pivot_longer <- function(data,
-                         cols,
-                         ...,
-                         cols_vary = "fastest",
-                         names_to = "name",
-                         names_prefix = NULL,
-                         names_sep = NULL,
-                         names_pattern = NULL,
-                         names_ptypes = NULL,
-                         names_transform = NULL,
-                         names_repair = "check_unique",
-                         values_to = "value",
-                         values_drop_na = FALSE,
-                         values_ptypes = NULL,
-                         values_transform = NULL) {
+pivot_longer <- function(
+  data,
+  cols,
+  ...,
+  cols_vary = "fastest",
+  names_to = "name",
+  names_prefix = NULL,
+  names_sep = NULL,
+  names_pattern = NULL,
+  names_ptypes = NULL,
+  names_transform = NULL,
+  names_repair = "check_unique",
+  values_to = "value",
+  values_drop_na = FALSE,
+  values_ptypes = NULL,
+  values_transform = NULL
+) {
   check_dots_used()
   UseMethod("pivot_longer")
 }
 
 #' @export
-pivot_longer.data.frame <- function(data,
-                                    cols,
-                                    ...,
-                                    cols_vary = "fastest",
-                                    names_to = "name",
-                                    names_prefix = NULL,
-                                    names_sep = NULL,
-                                    names_pattern = NULL,
-                                    names_ptypes = NULL,
-                                    names_transform = NULL,
-                                    names_repair = "check_unique",
-                                    values_to = "value",
-                                    values_drop_na = FALSE,
-                                    values_ptypes = NULL,
-                                    values_transform = NULL) {
+pivot_longer.data.frame <- function(
+  data,
+  cols,
+  ...,
+  cols_vary = "fastest",
+  names_to = "name",
+  names_prefix = NULL,
+  names_sep = NULL,
+  names_pattern = NULL,
+  names_ptypes = NULL,
+  names_transform = NULL,
+  names_repair = "check_unique",
+  values_to = "value",
+  values_drop_na = FALSE,
+  values_ptypes = NULL,
+  values_transform = NULL
+) {
   spec <- build_longer_spec(
     data = data,
     cols = {{ cols }},
@@ -193,7 +197,6 @@ pivot_longer.data.frame <- function(data,
     error_call = current_env()
   )
 }
-
 
 #' Pivot data from wide to long using a spec
 #'
@@ -236,15 +239,17 @@ pivot_longer.data.frame <- function(data,
 #'   names_to = "income",
 #'   values_to = "count"
 #' )
-pivot_longer_spec <- function(data,
-                              spec,
-                              ...,
-                              cols_vary = "fastest",
-                              names_repair = "check_unique",
-                              values_drop_na = FALSE,
-                              values_ptypes = NULL,
-                              values_transform = NULL,
-                              error_call = current_env()) {
+pivot_longer_spec <- function(
+  data,
+  spec,
+  ...,
+  cols_vary = "fastest",
+  names_repair = "check_unique",
+  values_drop_na = FALSE,
+  values_ptypes = NULL,
+  values_transform = NULL,
+  error_call = current_env()
+) {
   check_dots_empty0(...)
 
   spec <- check_pivot_spec(spec, call = error_call)
@@ -263,8 +268,16 @@ pivot_longer_spec <- function(data,
   value_keys <- split(spec[-(1:2)], v_fct)
   keys <- vec_unique(spec[-(1:2)])
 
-  values_ptypes <- check_list_of_ptypes(values_ptypes, value_names, call = error_call)
-  values_transform <- check_list_of_functions(values_transform, value_names, call = error_call)
+  values_ptypes <- check_list_of_ptypes(
+    values_ptypes,
+    value_names,
+    call = error_call
+  )
+  values_transform <- check_list_of_functions(
+    values_transform,
+    value_names,
+    call = error_call
+  )
 
   vals <- set_names(vec_init(list(), length(values)), value_names)
   for (value in value_names) {
@@ -344,17 +357,19 @@ pivot_longer_spec <- function(data,
 
 #' @rdname pivot_longer_spec
 #' @export
-build_longer_spec <- function(data,
-                              cols,
-                              ...,
-                              names_to = "name",
-                              values_to = "value",
-                              names_prefix = NULL,
-                              names_sep = NULL,
-                              names_pattern = NULL,
-                              names_ptypes = NULL,
-                              names_transform = NULL,
-                              error_call = current_env()) {
+build_longer_spec <- function(
+  data,
+  cols,
+  ...,
+  names_to = "name",
+  values_to = "value",
+  names_prefix = NULL,
+  names_sep = NULL,
+  names_pattern = NULL,
+  names_ptypes = NULL,
+  names_transform = NULL,
+  error_call = current_env()
+) {
   check_dots_empty0(...)
   check_data_frame(data, call = error_call)
   check_required(cols, call = error_call)
@@ -369,7 +384,10 @@ build_longer_spec <- function(data,
   cols <- names(cols)
 
   if (length(cols) == 0) {
-    cli::cli_abort("{.arg cols} must select at least one column.", call = error_call)
+    cli::cli_abort(
+      "{.arg cols} must select at least one column.",
+      call = error_call
+    )
   }
 
   if (is.null(names_prefix)) {
@@ -396,22 +414,40 @@ build_longer_spec <- function(data,
       )
     }
     if (has_names_pattern) {
-      names <- str_extract(names, names_to, regex = names_pattern, error_call = error_call)[[1]]
+      names <- str_extract(
+        names,
+        names_to,
+        regex = names_pattern,
+        error_call = error_call
+      )[[1]]
     }
 
     names <- tibble(!!names_to := names)
   } else {
     if (!xor(has_names_sep, has_names_pattern)) {
-      cli::cli_abort(paste0(
-        "If you supply multiple names in {.arg names_to} you must also supply one",
-        " of {.arg names_sep} or {.arg names_pattern}."
-      ), call = error_call)
+      cli::cli_abort(
+        paste0(
+          "If you supply multiple names in {.arg names_to} you must also supply one",
+          " of {.arg names_sep} or {.arg names_pattern}."
+        ),
+        call = error_call
+      )
     }
 
     if (has_names_sep) {
-      names <- str_separate(names, names_to, sep = names_sep, error_call = error_call)
+      names <- str_separate(
+        names,
+        names_to,
+        sep = names_sep,
+        error_call = error_call
+      )
     } else {
-      names <- str_extract(names, names_to, regex = names_pattern, error_call = error_call)
+      names <- str_extract(
+        names,
+        names_to,
+        regex = names_pattern,
+        error_call = error_call
+      )
     }
   }
 
@@ -421,8 +457,16 @@ build_longer_spec <- function(data,
     vec_assert(values_to, ptype = character(), size = 1, call = error_call)
   }
 
-  names_ptypes <- check_list_of_ptypes(names_ptypes, names(names), call = error_call)
-  names_transform <- check_list_of_functions(names_transform, names(names), call = error_call)
+  names_ptypes <- check_list_of_ptypes(
+    names_ptypes,
+    names(names),
+    call = error_call
+  )
+  names_transform <- check_list_of_functions(
+    names_transform,
+    names(names),
+    call = error_call
+  )
 
   # Optionally, transform cols
   for (col in names(names_transform)) {
@@ -433,7 +477,12 @@ build_longer_spec <- function(data,
   # Optionally, cast variables generated from columns
   for (col in names(names_ptypes)) {
     ptype <- names_ptypes[[col]]
-    names[[col]] <- vec_cast(names[[col]], ptype, x_arg = col, call = error_call)
+    names[[col]] <- vec_cast(
+      names[[col]],
+      ptype,
+      x_arg = col,
+      call = error_call
+    )
   }
 
   out <- tibble(.name = cols)
@@ -455,7 +504,6 @@ drop_cols <- function(df, cols) {
 # Ensure that there's a one-to-one match from spec to data by adding
 # a special .seq variable which is automatically removed after pivoting.
 deduplicate_spec <- function(spec, df) {
-
   # Ensure each .name has a unique output identifier
   key <- spec[setdiff(names(spec), ".name")]
   if (vec_duplicate_any(key)) {

@@ -55,13 +55,27 @@
 #' )
 #' df %>% spread(var, value) %>% str()
 #' df %>% spread(var, value, convert = TRUE) %>% str()
-spread <- function(data, key, value, fill = NA, convert = FALSE,
-                   drop = TRUE, sep = NULL) {
+spread <- function(
+  data,
+  key,
+  value,
+  fill = NA,
+  convert = FALSE,
+  drop = TRUE,
+  sep = NULL
+) {
   UseMethod("spread")
 }
 #' @export
-spread.data.frame <- function(data, key, value, fill = NA, convert = FALSE,
-                              drop = TRUE, sep = NULL) {
+spread.data.frame <- function(
+  data,
+  key,
+  value,
+  fill = NA,
+  convert = FALSE,
+  drop = TRUE,
+  sep = NULL
+) {
   key_var <- tidyselect::vars_pull(names(data), !!enquo(key))
   value_var <- tidyselect::vars_pull(names(data), !!enquo(value))
 

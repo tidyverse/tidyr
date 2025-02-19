@@ -105,12 +105,14 @@ col_chop <- function(x, indices) {
 
 #' @export
 #' @rdname chop
-unchop <- function(data,
-                   cols,
-                   ...,
-                   keep_empty = FALSE,
-                   ptype = NULL,
-                   error_call = current_env()) {
+unchop <- function(
+  data,
+  cols,
+  ...,
+  keep_empty = FALSE,
+  ptype = NULL,
+  error_call = current_env()
+) {
   check_dots_empty0(...)
   check_data_frame(data, call = error_call)
   check_required(cols, call = error_call)
@@ -168,7 +170,13 @@ unchop <- function(data,
 #   used to slice the data frame `x` was subset from to align it with `val`.
 # - `val` the unchopped data frame.
 
-df_unchop <- function(x, ..., ptype = NULL, keep_empty = FALSE, error_call = caller_env()) {
+df_unchop <- function(
+  x,
+  ...,
+  ptype = NULL,
+  keep_empty = FALSE,
+  error_call = caller_env()
+) {
   check_dots_empty()
 
   ptype <- check_list_of_ptypes(ptype, names = names(x), call = error_call)
@@ -271,7 +279,12 @@ df_unchop <- function(x, ..., ptype = NULL, keep_empty = FALSE, error_call = cal
     col <- unname(col)
 
     row_recycle <- col_sizes != sizes
-    col[row_recycle] <- map2(col[row_recycle], sizes[row_recycle], vec_recycle, call = error_call)
+    col[row_recycle] <- map2(
+      col[row_recycle],
+      sizes[row_recycle],
+      vec_recycle,
+      call = error_call
+    )
 
     col <- list_unchop(
       x = col,

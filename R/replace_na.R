@@ -40,7 +40,13 @@ replace_na.default <- function(data, replace = NA, ...) {
 
   if (vec_any_missing(data)) {
     missing <- vec_detect_missing(data)
-    data <- vec_assign(data, missing, replace, x_arg = "data", value_arg = "replace")
+    data <- vec_assign(
+      data,
+      missing,
+      replace,
+      x_arg = "data",
+      value_arg = "replace"
+    )
   }
 
   data
@@ -49,7 +55,9 @@ replace_na.default <- function(data, replace = NA, ...) {
 #' @export
 replace_na.data.frame <- function(data, replace = list(), ...) {
   if (!vec_is_list(replace)) {
-    cli::cli_abort("{.arg replace} must be a list, not {.obj_type_friendly {replace}}.")
+    cli::cli_abort(
+      "{.arg replace} must be a list, not {.obj_type_friendly {replace}}."
+    )
   }
 
   names <- intersect(names(replace), names(data))

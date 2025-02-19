@@ -79,16 +79,31 @@ nesting_ <- function(x) {
 #' @rdname deprecated-se
 #' @inheritParams extract
 #' @export
-extract_ <- function(data, col, into, regex = "([[:alnum:]]+)", remove = TRUE,
-                     convert = FALSE, ...) {
+extract_ <- function(
+  data,
+  col,
+  into,
+  regex = "([[:alnum:]]+)",
+  remove = TRUE,
+  convert = FALSE,
+  ...
+) {
   lifecycle::deprecate_warn("1.0.0", "extract_()", "extract()", always = TRUE)
   UseMethod("extract_")
 }
 #' @export
-extract_.data.frame <- function(data, col, into, regex = "([[:alnum:]]+)",
-                                remove = TRUE, convert = FALSE, ...) {
+extract_.data.frame <- function(
+  data,
+  col,
+  into,
+  regex = "([[:alnum:]]+)",
+  remove = TRUE,
+  convert = FALSE,
+  ...
+) {
   col <- compat_lazy(col, caller_env())
-  extract(data,
+  extract(
+    data,
     col = !!col,
     into = into,
     regex = regex,
@@ -107,7 +122,11 @@ fill_ <- function(data, fill_cols, .direction = c("down", "up")) {
   UseMethod("fill_")
 }
 #' @export
-fill_.data.frame <- function(data, fill_cols, .direction = c("down", "up", "downup", "updown")) {
+fill_.data.frame <- function(
+  data,
+  fill_cols,
+  .direction = c("down", "up", "downup", "updown")
+) {
   vars <- syms(fill_cols)
   fill(data, !!!vars, .direction = .direction)
 }
@@ -120,20 +139,34 @@ fill_.data.frame <- function(data, fill_cols, .direction = c("down", "up", "down
 #'   pair of key-value columns.
 #' @keywords internal
 #' @export
-gather_ <- function(data, key_col, value_col, gather_cols, na.rm = FALSE,
-                    convert = FALSE, factor_key = FALSE) {
+gather_ <- function(
+  data,
+  key_col,
+  value_col,
+  gather_cols,
+  na.rm = FALSE,
+  convert = FALSE,
+  factor_key = FALSE
+) {
   lifecycle::deprecate_warn("1.2.0", "gather_()", "gather()", always = TRUE)
   UseMethod("gather_")
 }
 #' @export
-gather_.data.frame <- function(data, key_col, value_col, gather_cols,
-                               na.rm = FALSE, convert = FALSE,
-                               factor_key = FALSE) {
+gather_.data.frame <- function(
+  data,
+  key_col,
+  value_col,
+  gather_cols,
+  na.rm = FALSE,
+  convert = FALSE,
+  factor_key = FALSE
+) {
   key_col <- sym(key_col)
   value_col <- sym(value_col)
   gather_cols <- syms(gather_cols)
 
-  gather(data,
+  gather(
+    data,
     key = !!key_col,
     value = !!value_col,
     !!!gather_cols,
@@ -154,14 +187,22 @@ nest_ <- function(...) {
 #' @rdname deprecated-se
 #' @inheritParams separate_rows
 #' @export
-separate_rows_ <- function(data, cols, sep = "[^[:alnum:].]+",
-                           convert = FALSE) {
+separate_rows_ <- function(
+  data,
+  cols,
+  sep = "[^[:alnum:].]+",
+  convert = FALSE
+) {
   lifecycle::deprecate_warn("1.2.0", "separate_rows_()", "separate_rows()")
   UseMethod("separate_rows_")
 }
 #' @export
-separate_rows_.data.frame <- function(data, cols, sep = "[^[:alnum:].]+",
-                                      convert = FALSE) {
+separate_rows_.data.frame <- function(
+  data,
+  cols,
+  sep = "[^[:alnum:].]+",
+  convert = FALSE
+) {
   cols <- syms(cols)
   separate_rows(data, !!!cols, sep = sep, convert = convert)
 }
@@ -169,17 +210,35 @@ separate_rows_.data.frame <- function(data, cols, sep = "[^[:alnum:].]+",
 #' @rdname deprecated-se
 #' @inheritParams separate
 #' @export
-separate_ <- function(data, col, into, sep = "[^[:alnum:]]+", remove = TRUE,
-                      convert = FALSE, extra = "warn", fill = "warn", ...) {
+separate_ <- function(
+  data,
+  col,
+  into,
+  sep = "[^[:alnum:]]+",
+  remove = TRUE,
+  convert = FALSE,
+  extra = "warn",
+  fill = "warn",
+  ...
+) {
   lifecycle::deprecate_warn("1.2.0", "separate_()", "separate()", always = TRUE)
   UseMethod("separate_")
 }
 #' @export
-separate_.data.frame <- function(data, col, into, sep = "[^[:alnum:]]+",
-                                 remove = TRUE, convert = FALSE,
-                                 extra = "warn", fill = "warn", ...) {
+separate_.data.frame <- function(
+  data,
+  col,
+  into,
+  sep = "[^[:alnum:]]+",
+  remove = TRUE,
+  convert = FALSE,
+  extra = "warn",
+  fill = "warn",
+  ...
+) {
   col <- sym(col)
-  separate(data,
+  separate(
+    data,
     col = !!col,
     into = into,
     sep = sep,
@@ -194,18 +253,33 @@ separate_.data.frame <- function(data, col, into, sep = "[^[:alnum:]]+",
 #' @inheritParams spread
 #' @param key_col,value_col Strings giving names of key and value cols.
 #' @export
-spread_ <- function(data, key_col, value_col, fill = NA, convert = FALSE,
-                    drop = TRUE, sep = NULL) {
+spread_ <- function(
+  data,
+  key_col,
+  value_col,
+  fill = NA,
+  convert = FALSE,
+  drop = TRUE,
+  sep = NULL
+) {
   lifecycle::deprecate_warn("1.2.0", "spread_()", "spread()", always = TRUE)
   UseMethod("spread_")
 }
 #' @export
-spread_.data.frame <- function(data, key_col, value_col, fill = NA,
-                               convert = FALSE, drop = TRUE, sep = NULL) {
+spread_.data.frame <- function(
+  data,
+  key_col,
+  value_col,
+  fill = NA,
+  convert = FALSE,
+  drop = TRUE,
+  sep = NULL
+) {
   key_col <- sym(key_col)
   value_col <- sym(value_col)
 
-  spread(data,
+  spread(
+    data,
     key = !!key_col,
     value = !!value_col,
     fill = fill,

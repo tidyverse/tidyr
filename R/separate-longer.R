@@ -50,7 +50,13 @@ separate_longer_delim <- function(data, cols, delim, ...) {
 #'   use `keep_empty = TRUE` to replace size-0 elements with a missing value.
 #' @rdname separate_longer_delim
 #' @export
-separate_longer_position <- function(data, cols, width, ..., keep_empty = FALSE) {
+separate_longer_position <- function(
+  data,
+  cols,
+  width,
+  ...,
+  keep_empty = FALSE
+) {
   check_installed("stringr")
   check_data_frame(data)
   check_required(cols)
@@ -81,7 +87,14 @@ str_split_length <- function(x, width = 1) {
 
 # helpers -----------------------------------------------------------------
 
-map_unchop <- function(data, cols, fun, ..., .keep_empty = FALSE, .error_call = caller_env()) {
+map_unchop <- function(
+  data,
+  cols,
+  fun,
+  ...,
+  .keep_empty = FALSE,
+  .error_call = caller_env()
+) {
   cols <- tidyselect::eval_select(
     enquo(cols),
     data = data,

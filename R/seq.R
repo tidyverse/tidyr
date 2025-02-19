@@ -21,8 +21,12 @@ full_seq.numeric <- function(x, period, tol = 1e-6) {
   check_number_decimal(tol, min = 0)
 
   rng <- range(x, na.rm = TRUE)
-  if (any(((x - rng[1]) %% period > tol) &
-          (period - (x - rng[1]) %% period > tol))) {
+  if (
+    any(
+      ((x - rng[1]) %% period > tol) &
+        (period - (x - rng[1]) %% period > tol)
+    )
+  ) {
     cli::cli_abort("{.arg x} is not a regular sequence.")
   }
 
