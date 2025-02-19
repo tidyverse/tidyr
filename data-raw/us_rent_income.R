@@ -3,8 +3,9 @@ library(readr)
 
 # Find a few variables
 v15 <- load_variables(2016, "acs5", cache = TRUE)
-if (interactive())
+if (interactive()) {
   View(v15)
+}
 vars <- c("income" = "B06011_001", "rent" = "B25064_001")
 
 # Retrieve the data

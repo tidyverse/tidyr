@@ -25,7 +25,6 @@ if (!file.exists(csv_path)) {
 
 usethis::use_data(cms_patient_experience, overwrite = TRUE)
 
-
 # -------------------------------------------------------------------------
 
 # Hospice - Provider Data
@@ -41,6 +40,7 @@ if (!file.exists(csv_path)) {
   url <- "https://data.cms.gov/provider-data/api/1/datastore/query/252m-zfp9/0?limit=500&offset=0&count=true&results=true&schema=true&keys=true&format=json&rowIds=false"
   json <- jsonlite::read_json(url)
 
+  # fmt: skip
   abbr <- tribble(
     ~measure_name                                                 , ~measure_abbr,
     "Hospice and Palliative Care Treatment Preferences"           , "treat_pref",
@@ -56,7 +56,13 @@ if (!file.exists(csv_path)) {
 
   cms_patient_care <- json$results |>
     map_df(as_tibble) |>
-    select(ccn = cms_certification_number_ccn, facility_name, measure_name, measure_code, score) |>
+    select(
+      ccn = cms_certification_number_ccn,
+      facility_name,
+      measure_name,
+      measure_code,
+      score
+    ) |>
     mutate(measure_name = na_if(measure_name, "")) |>
     fill(measure_name, .direction = "up") |>
     filter(str_detect(measure_code, "^H")) |>

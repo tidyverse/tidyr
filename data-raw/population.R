@@ -1,7 +1,8 @@
 library(dplyr)
 library(readr)
 
-pop <- as_tibble(read_csv("data-raw/TB_burden_countries_2014-11-07.csv",
+pop <- as_tibble(read_csv(
+  "data-raw/TB_burden_countries_2014-11-07.csv",
   col_types = list(
     e_mort_tbhiv_num = col_double()
   )
