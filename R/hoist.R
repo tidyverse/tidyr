@@ -103,7 +103,7 @@ hoist <- function(
   # https://github.com/tidyverse/tidyr/issues/1001
   pluck <- purrr::pluck
   cols <- map(pluckers, function(idx) {
-    map(x, ~pluck(.x, !!!idx))
+    map(x, ~ pluck(.x, !!!idx))
   })
   cols <- new_data_frame(cols, n = vec_size(.data))
 
@@ -141,7 +141,7 @@ hoist <- function(
 check_pluckers <- function(..., .call = caller_env()) {
   pluckers <- list2(...)
 
-  is_string <- map_lgl(pluckers, ~is.character(.x) && length(.x) == 1)
+  is_string <- map_lgl(pluckers, ~ is.character(.x) && length(.x) == 1)
   auto_name <- names2(pluckers) == "" & is_string
 
   if (any(auto_name)) {

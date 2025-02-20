@@ -137,11 +137,13 @@ test_that("unnesting mixed empty types retains the column (#1125)", {
 })
 
 test_that("can unnest mixed empty types with `strict = FALSE`", {
-  df <- tibble(col = list(
-    list(a = "x"),
-    list(a = list()),
-    list(a = integer())
-  ))
+  df <- tibble(
+    col = list(
+      list(a = "x"),
+      list(a = list()),
+      list(a = integer())
+    )
+  )
 
   expect_identical(
     unnest_wider(df, col)$a,
@@ -209,10 +211,12 @@ test_that("integer names are generated for partially named vectors (#1367)", {
   out <- unnest_wider(df, col, names_sep = "_")
   expect_named(out, c("col_x", "col_2", "col_z", "col_4"))
 
-  df <- tibble(col = list(
-    set_names(1:4, c("x", "", "z", "")),
-    set_names(5:8, c("", "", "z", ""))
-  ))
+  df <- tibble(
+    col = list(
+      set_names(1:4, c("x", "", "z", "")),
+      set_names(5:8, c("", "", "z", ""))
+    )
+  )
   out <- unnest_wider(df, col, names_sep = "_")
   expect_named(out, c("col_x", "col_2", "col_z", "col_4", "col_1"))
   expect_identical(out$col_x, c(1L, NA))

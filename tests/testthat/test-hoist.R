@@ -15,10 +15,12 @@ test_that("can hoist named non-list elements at the deepest level", {
 })
 
 test_that("can check check/transform values", {
-  df <- tibble(x = list(
-    list(a = 1),
-    list(a = "a")
-  ))
+  df <- tibble(
+    x = list(
+      list(a = 1),
+      list(a = "a")
+    )
+  )
 
   expect_error(
     df %>% hoist(x, a = "a", .ptype = list(a = character())),
@@ -56,30 +58,36 @@ test_that("a ptype generates a list-of<ptype> if the col can't be simplified (#9
 })
 
 test_that("doesn't simplify uneven lengths", {
-  df <- tibble(x = list(
-    list(a = 1),
-    list(a = 2:3)
-  ))
+  df <- tibble(
+    x = list(
+      list(a = 1),
+      list(a = 2:3)
+    )
+  )
 
   out <- df %>% hoist(x, a = "a")
   expect_identical(out$a, list(1, 2:3))
 })
 
 test_that("doesn't simplify lists of lists", {
-  df <- tibble(x = list(
-    list(a = list(1)),
-    list(a = list(2))
-  ))
+  df <- tibble(
+    x = list(
+      list(a = list(1)),
+      list(a = list(2))
+    )
+  )
 
   out <- df %>% hoist(x, a = "a")
   expect_identical(out$a, list(list(1), list(2)))
 })
 
 test_that("doesn't simplify non-vectors", {
-  df <- tibble(x = list(
-    list(a = quote(a)),
-    list(a = quote(b))
-  ))
+  df <- tibble(
+    x = list(
+      list(a = quote(a)),
+      list(a = quote(b))
+    )
+  )
 
   out <- df %>% hoist(x, a = "a")
   expect_identical(out$a, list(quote(a), quote(b)))

@@ -29,8 +29,8 @@ write_csv(who, "data-raw/who.csv", quote = "needed")
 usethis::use_data(who, overwrite = TRUE)
 
 who2 <- who |>
-  rename_with(~str_remove(.x, "new_?")) |>
-  rename_with(~str_replace(.x, "([mf])", "\\1_")) |>
+  rename_with(~ str_remove(.x, "new_?")) |>
+  rename_with(~ str_replace(.x, "([mf])", "\\1_")) |>
   select(!starts_with("iso"))
 
 usethis::use_data(who2, overwrite = TRUE)

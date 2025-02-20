@@ -63,7 +63,7 @@ test_that("`transform` is allowed to be a single function (#1284)", {
   df <- tibble(x = list("1"), y = list("1"))
 
   expect_identical(
-    df_simplify(df, transform = ~as.integer(.x)),
+    df_simplify(df, transform = ~ as.integer(.x)),
     data_frame(x = 1L, y = 1L)
   )
 })
@@ -87,7 +87,7 @@ test_that("transform is applied to list elements individually", {
 
 test_that("transform is applied even if you can't simplify", {
   expect_identical(
-    col_simplify(list(1:2, 2L), transform = ~.x + 1L),
+    col_simplify(list(1:2, 2L), transform = ~ .x + 1L),
     list(2:3, 3L)
   )
 })
@@ -103,7 +103,7 @@ test_that("lose list-of status after applying transform", {
   x <- list_of(1L, 1:2)
 
   expect_identical(
-    col_simplify(x, transform = ~.x + 1),
+    col_simplify(x, transform = ~ .x + 1),
     list(2, c(2, 3))
   )
 
@@ -136,12 +136,12 @@ test_that("ptype is applied even if you can't simplify - and results in a list-o
 
 test_that("ptype is applied after transform", {
   expect_identical(
-    col_simplify(list(1, 2, 3), ptype = integer(), transform = ~.x + 1),
+    col_simplify(list(1, 2, 3), ptype = integer(), transform = ~ .x + 1),
     c(2L, 3L, 4L)
   )
 
   expect_snapshot(error = TRUE, {
-    col_simplify(list(1, 2, 3), ptype = integer(), transform = ~.x + 1.5)
+    col_simplify(list(1, 2, 3), ptype = integer(), transform = ~ .x + 1.5)
   })
 })
 

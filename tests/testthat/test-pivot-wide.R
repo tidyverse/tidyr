@@ -60,7 +60,7 @@ test_that("`names_repair` happens after spec column reorganization (#1107)", {
     value = c(1, 2)
   )
 
-  out <- pivot_wider(df, names_repair = ~make.unique(.x))
+  out <- pivot_wider(df, names_repair = ~ make.unique(.x))
 
   expect_identical(out$test, c("a", "b"))
   expect_identical(out$test.1, c(1, NA))
@@ -598,7 +598,7 @@ test_that("values_fn can be an anonymous function (#1114)", {
     df,
     names_from = key,
     values_from = val,
-    values_fn = ~sum(.x)
+    values_fn = ~ sum(.x)
   )
   expect_equal(pv$x, c(11, 100))
 })
@@ -736,7 +736,7 @@ test_that("`unused_fn` works with anonymous functions", {
     value = c(1, 2, 3, 4)
   )
 
-  res <- pivot_wider(df, id_cols = id, unused_fn = ~mean(.x, na.rm = TRUE))
+  res <- pivot_wider(df, id_cols = id, unused_fn = ~ mean(.x, na.rm = TRUE))
   expect_identical(res$unused, c(1, 3.5))
 })
 
@@ -769,7 +769,7 @@ test_that("`unused_fn` works with expanded key from `id_expand`", {
     df,
     id_cols = id,
     id_expand = TRUE,
-    unused_fn = ~sum(is.na(.x))
+    unused_fn = ~ sum(is.na(.x))
   )
   expect_identical(res$unused, c(0L, 0L, 1L))
 })

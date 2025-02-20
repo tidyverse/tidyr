@@ -88,7 +88,7 @@ pack <- function(.data, ..., .names_sep = NULL, .error_call = current_env()) {
   unpacked <- setdiff(names(.data), unlist(map(cols, names)))
   unpacked <- .data[unpacked]
 
-  packed <- map(cols, ~.data[.x])
+  packed <- map(cols, ~ .data[.x])
 
   if (!is.null(.names_sep)) {
     packed <- imap(packed, strip_names, names_sep = .names_sep)

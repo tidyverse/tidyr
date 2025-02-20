@@ -111,10 +111,12 @@ test_that("vector unnest preserves names", {
 })
 
 test_that("unnesting row binds data frames", {
-  df <- tibble(x = list(
-    tibble(x = 1:5),
-    tibble(x = 6:10)
-  ))
+  df <- tibble(
+    x = list(
+      tibble(x = 1:5),
+      tibble(x = 6:10)
+    )
+  )
   expect_equal(unnest_legacy(df)$x, 1:10)
 })
 
