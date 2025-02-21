@@ -108,8 +108,10 @@ test_that("spread can produce mixed variable types (#118)", {
     column = rep(1:3, each = 2),
     cell_contents = as.character(c(
       rep("Argentina", 2),
-      62.485, 64.399,
-      1952, 1957
+      62.485,
+      64.399,
+      1952,
+      1957
     ))
   )
   out <- spread(df, column, cell_contents, convert = TRUE)
@@ -144,7 +146,8 @@ test_that("dates can be used with convert = TRUE", {
 
 test_that("vars that are all NA are logical if convert = TRUE (#118)", {
   df <- tibble(
-    row = c(1, 2, 1, 2), column = c("f", "f", "g", "g"),
+    row = c(1, 2, 1, 2),
+    column = c("f", "f", "g", "g"),
     contents = c("aa", "bb", NA, NA)
   )
   out <- df %>% spread(column, contents, convert = TRUE)
@@ -192,7 +195,6 @@ test_that("spread gives one column when no existing non-spread vars", {
   expect_equal(df %>% spread(key, value), tibble(a = 1, b = 2, c = 3))
 })
 
-
 test_that("grouping vars are kept where possible", {
   # Can keep
   df <- tibble(x = 1:2, key = factor(c("a", "b")), value = 1:2)
@@ -208,7 +210,6 @@ test_that("grouping vars are kept where possible", {
     spread(key, value)
   expect_equal(out, tibble(a = 1L, b = 2L))
 })
-
 
 test_that("col names never contains NA", {
   df <- tibble(x = c(1, NA), y = 1:2)
@@ -287,7 +288,7 @@ test_that("spread works when id column has names (#525)", {
   df <- tibble(
     key = factor(c("a", "b", "c"), levels = letters[1:5]),
     out = 1:3,
-    id  = c(a = 1, b = 2, c = 3)
+    id = c(a = 1, b = 2, c = 3)
   )
   res <- spread(df, key, out, drop = FALSE)
   expect_equal(names(res), c("id", letters[1:5]))

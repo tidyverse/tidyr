@@ -13,7 +13,8 @@ table1 <-
   who %>%
   filter(
     country %in% c("Afghanistan", "Brazil", "China"),
-    year >= 1999, year <= 2000
+    year >= 1999,
+    year <= 2000
   ) %>%
   gather("code", "value", 5:60) %>%
   summarise(cases = sum(value, na.rm = TRUE), .by = c(country, year)) %>%

@@ -8,7 +8,9 @@
 #' @keywords internal
 #' @export
 extract_numeric <- function(x) {
-  message("extract_numeric() is deprecated: please use readr::parse_number() instead")
+  message(
+    "extract_numeric() is deprecated: please use readr::parse_number() instead"
+  )
   as.numeric(gsub("[^0-9.-]+", "", as.character(x)))
 }
 

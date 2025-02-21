@@ -9,26 +9,33 @@ test_that("separate_wider_delim() can create column names", {
 
 test_that("separate_wider_delim() errors about too few/too many values", {
   df <- tibble(x = c("x", "x y", "x y z"))
-  expect_snapshot(error = TRUE,
+  expect_snapshot(
+    error = TRUE,
     df %>% separate_wider_delim(x, " ", names = c("a", "b"))
   )
 })
 
 test_that("separate_wider_delim() can ignore problems", {
   df <- tibble(x = c("x", "x y", "x y z"))
-  out <- df %>% separate_wider_delim(x, " ",
-    names = c("a", "b"),
-    too_few = "align_start",
-    too_many = "drop",
-  )
+  out <- df %>%
+    separate_wider_delim(
+      x,
+      " ",
+      names = c("a", "b"),
+      too_few = "align_start",
+      too_many = "drop",
+    )
   expect_equal(out[1, ], tibble(a = "x", b = NA_character_))
   expect_equal(out[3, ], tibble(a = "x", b = "y"))
 
-  out <- df %>% separate_wider_delim(x,  " ",
-    names = c("a", "b"),
-    too_few = "align_end",
-    too_many = "merge",
-  )
+  out <- df %>%
+    separate_wider_delim(
+      x,
+      " ",
+      names = c("a", "b"),
+      too_few = "align_end",
+      too_many = "merge",
+    )
   expect_equal(out[1, ], tibble(a = NA_character_, b = "x"))
   expect_equal(out[3, ], tibble(a = "x", b = "y z"))
 })
@@ -36,11 +43,14 @@ test_that("separate_wider_delim() can ignore problems", {
 test_that("separate_wider_delim() can diagnose problems", {
   df <- tibble(x = c(NA, "x", "x y", "x y z"))
   expect_snapshot(
-    out <- df %>% separate_wider_delim(x, " ",
-      names = c("a", "b"),
-      too_few = "debug",
-      too_many = "debug",
-    )
+    out <- df %>%
+      separate_wider_delim(
+        x,
+        " ",
+        names = c("a", "b"),
+        too_few = "debug",
+        too_many = "debug",
+      )
   )
   expect_equal(out$x, df$x)
   expect_equal(out$x_ok, c(TRUE, FALSE, TRUE, FALSE))
@@ -49,11 +59,14 @@ test_that("separate_wider_delim() can diagnose problems", {
 
   # And can do so selectively
   suppressWarnings(
-    out <- df %>% separate_wider_delim(x, " ",
-      names = c("a", "b"),
-      too_few = "align_start",
-      too_many = "debug",
-    )
+    out <- df %>%
+      separate_wider_delim(
+        x,
+        " ",
+        names = c("a", "b"),
+        too_few = "align_start",
+        too_many = "debug",
+      )
   )
   expect_equal(out$x_ok, c(TRUE, TRUE, TRUE, FALSE))
 })
@@ -107,7 +120,8 @@ test_that("separate_wider_delim() validates its inputs", {
 
 test_that("separate_wider_position() errors if lengths are inconsistent", {
   df <- tibble(x = c("ab", "abc", "abcd"))
-  expect_snapshot(error = TRUE,
+  expect_snapshot(
+    error = TRUE,
     df %>% separate_wider_position(x, widths = c("a" = 2, "b" = 1))
   )
 })
@@ -115,12 +129,13 @@ test_that("separate_wider_position() errors if lengths are inconsistent", {
 test_that("separate_wider_position() can ignore problems", {
   df <- tibble(x = c("ab", "abc", "abcd"))
 
-  out <- df %>% separate_wider_position(
-    x,
-    widths = c("a" = 2, "b" = 1),
-    too_few = "align_start",
-    too_many = "drop"
-  )
+  out <- df %>%
+    separate_wider_position(
+      x,
+      widths = c("a" = 2, "b" = 1),
+      too_few = "align_start",
+      too_many = "drop"
+    )
   expect_equal(out[1, ], tibble(a = "ab", b = NA_character_))
   expect_equal(out[2, ], tibble(a = "ab", b = "c"))
   expect_equal(out[3, ], tibble(a = "ab", b = "c"))
@@ -130,12 +145,13 @@ test_that("separate_wider_position() can diagnose problems", {
   df <- tibble(x = c(NA, "ab", "abc", "abcd"))
 
   expect_snapshot(
-    out <- df %>% separate_wider_position(
-      x,
-      widths = c("a" = 2, "b" = 1),
-      too_few = "debug",
-      too_many = "debug"
-    )
+    out <- df %>%
+      separate_wider_position(
+        x,
+        widths = c("a" = 2, "b" = 1),
+        too_few = "debug",
+        too_many = "debug"
+      )
   )
   expect_equal(out$x, df$x)
   expect_equal(out$x_ok, c(TRUE, FALSE, TRUE, FALSE))
@@ -199,11 +215,12 @@ test_that("separate_wider_regex() errors if match fails", {
 
 test_that("separate_wider_regex() can silence errors", {
   df <- tibble(x = c("a-123", "b_123"))
-  out <- df %>% separate_wider_regex(
-    x,
-    c("a" = ".", "-", "b" = "\\d+"),
-    too_few = "align_start"
-  )
+  out <- df %>%
+    separate_wider_regex(
+      x,
+      c("a" = ".", "-", "b" = "\\d+"),
+      too_few = "align_start"
+    )
   expect_equal(out$a, c("a", "b"))
   expect_equal(out$b, c("123", NA))
 })
@@ -211,11 +228,12 @@ test_that("separate_wider_regex() can silence errors", {
 test_that("separate_wider_regex() can diagnose errors", {
   df <- tibble(x = c(NA, "a-123", "b_123", "c-123x", "XXXX"))
   expect_snapshot({
-      out <- df %>% separate_wider_regex(
-      x,
-      c("a" = "[a-z]", "-", "b" = "\\d+"),
-      too_few = "debug"
-    )
+    out <- df %>%
+      separate_wider_regex(
+        x,
+        c("a" = "[a-z]", "-", "b" = "\\d+"),
+        too_few = "debug"
+      )
   })
   expect_equal(out$x, df$x)
   expect_equal(out$x_ok, c(TRUE, TRUE, FALSE, FALSE, FALSE))

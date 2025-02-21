@@ -70,17 +70,19 @@
 #' df %>%
 #'   unnest(y) %>%
 #'   unnest(z)
-unnest <- function(data,
-                   cols,
-                   ...,
-                   keep_empty = FALSE,
-                   ptype = NULL,
-                   names_sep = NULL,
-                   names_repair = "check_unique",
-                   .drop = deprecated(),
-                   .id = deprecated(),
-                   .sep = deprecated(),
-                   .preserve = deprecated()) {
+unnest <- function(
+  data,
+  cols,
+  ...,
+  keep_empty = FALSE,
+  ptype = NULL,
+  names_sep = NULL,
+  names_repair = "check_unique",
+  .drop = deprecated(),
+  .id = deprecated(),
+  .sep = deprecated(),
+  .preserve = deprecated()
+) {
   deprecated <- FALSE
   if (!missing(.preserve)) {
     lifecycle::deprecate_warn(
@@ -143,7 +145,9 @@ unnest <- function(data,
   }
 
   if (!is_missing(.sep)) {
-    lifecycle::deprecate_warn("1.0.0", "unnest(.sep = )",
+    lifecycle::deprecate_warn(
+      "1.0.0",
+      "unnest(.sep = )",
       details = glue("Use `names_sep = '{.sep}'` instead.")
     )
     deprecated <- TRUE
@@ -165,17 +169,19 @@ unnest <- function(data,
 }
 
 #' @export
-unnest.data.frame <- function(data,
-                              cols,
-                              ...,
-                              keep_empty = FALSE,
-                              ptype = NULL,
-                              names_sep = NULL,
-                              names_repair = "check_unique",
-                              .drop = "DEPRECATED",
-                              .id = "DEPRECATED",
-                              .sep = "DEPRECATED",
-                              .preserve = "DEPRECATED") {
+unnest.data.frame <- function(
+  data,
+  cols,
+  ...,
+  keep_empty = FALSE,
+  ptype = NULL,
+  names_sep = NULL,
+  names_repair = "check_unique",
+  .drop = "DEPRECATED",
+  .id = "DEPRECATED",
+  .sep = "DEPRECATED",
+  .preserve = "DEPRECATED"
+) {
   error_call <- current_env()
 
   cols <- tidyselect::eval_select(
@@ -202,16 +208,19 @@ unnest.data.frame <- function(data,
   )
 }
 
-
 #' @export
-unnest.rowwise_df <- function(data,
-                              cols,
-                              ...,
-                              keep_empty = FALSE,
-                              ptype = NULL,
-                              names_sep = NULL,
-                              names_repair = "check_unique") {
-  out <- unnest.data.frame(as_tibble(data), {{ cols }},
+unnest.rowwise_df <- function(
+  data,
+  cols,
+  ...,
+  keep_empty = FALSE,
+  ptype = NULL,
+  names_sep = NULL,
+  names_repair = "check_unique"
+) {
+  out <- unnest.data.frame(
+    as_tibble(data),
+    {{ cols }},
     keep_empty = keep_empty,
     ptype = ptype,
     names_sep = names_sep,

@@ -74,14 +74,15 @@
 #' )
 #' @export hoist
 #' @family rectangling
-hoist <- function(.data,
-                  .col,
-                  ...,
-                  .remove = TRUE,
-                  .simplify = TRUE,
-                  .ptype = NULL,
-                  .transform = NULL) {
-
+hoist <- function(
+  .data,
+  .col,
+  ...,
+  .remove = TRUE,
+  .simplify = TRUE,
+  .ptype = NULL,
+  .transform = NULL
+) {
   check_data_frame(.data)
   check_required(.col)
   pluckers <- check_pluckers(...)
@@ -195,4 +196,3 @@ strike <- function(x, indices) {
 
   x
 }
-

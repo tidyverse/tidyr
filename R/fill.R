@@ -98,19 +98,23 @@
 #'   dplyr::group_by(group) %>%
 #'   fill(n_squirrels, .direction = "downup") %>%
 #'   dplyr::ungroup()
-fill <- function(data,
-                 ...,
-                 .by = NULL,
-                 .direction = c("down", "up", "downup", "updown")) {
+fill <- function(
+  data,
+  ...,
+  .by = NULL,
+  .direction = c("down", "up", "downup", "updown")
+) {
   check_dots_unnamed()
   UseMethod("fill")
 }
 
 #' @export
-fill.data.frame <- function(data,
-                            ...,
-                            .by = NULL,
-                            .direction = c("down", "up", "downup", "updown")) {
+fill.data.frame <- function(
+  data,
+  ...,
+  .by = NULL,
+  .direction = c("down", "up", "downup", "updown")
+) {
   vars <- names(tidyselect::eval_select(
     expr = expr(c(...)),
     data = data,

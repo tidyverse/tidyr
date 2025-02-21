@@ -75,7 +75,11 @@ test_that("unchopping vectors is a no-op", {
 })
 
 test_that("NULL inputs are automatically dropped", {
-  df <- tibble(x = 1:4, y = list(NULL, 1:2, 4, NULL), z = list(NULL, 1:2, NULL, 5))
+  df <- tibble(
+    x = 1:4,
+    y = list(NULL, 1:2, 4, NULL),
+    z = list(NULL, 1:2, NULL, 5)
+  )
   out <- df %>% unchop(c(y, z))
 
   expect_equal(out$x, c(2, 2, 3, 4))
@@ -98,7 +102,11 @@ test_that("empty typed inputs are automatically dropped", {
 })
 
 test_that("optionally keep empty rows", {
-  df <- tibble(x = 1:2, y = list(NULL, 1:2), z = list(tibble(x = integer()), tibble(x = 1:2)))
+  df <- tibble(
+    x = 1:2,
+    y = list(NULL, 1:2),
+    z = list(tibble(x = integer()), tibble(x = 1:2))
+  )
   out <- df %>% unchop(y, keep_empty = TRUE)
   expect_equal(out$x, c(1, 2, 2))
   expect_equal(out$y, c(NA, 1, 2))
@@ -123,11 +131,17 @@ test_that("respects list_of types", {
   df <- tibble(x = integer(), y = list_of(.ptype = integer()))
 
   expect_equal(unchop(df, y), tibble(x = integer(), y = integer()))
-  expect_equal(unchop(df, y, keep_empty = TRUE), tibble(x = integer(), y = integer()))
+  expect_equal(
+    unchop(df, y, keep_empty = TRUE),
+    tibble(x = integer(), y = integer())
+  )
 
   df <- tibble(x = 1L, y = list_of(NULL, .ptype = integer()))
   expect_equal(unchop(df, y), tibble(x = integer(), y = integer()))
-  expect_equal(unchop(df, y, keep_empty = TRUE), tibble(x = 1L, y = NA_integer_))
+  expect_equal(
+    unchop(df, y, keep_empty = TRUE),
+    tibble(x = 1L, y = NA_integer_)
+  )
 })
 
 test_that("grouping is preserved", {

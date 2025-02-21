@@ -61,19 +61,12 @@
 #'     fill = list(value1 = 0, value2 = 99),
 #'     explicit = FALSE
 #'   )
-complete <- function(data,
-                     ...,
-                     fill = list(),
-                     explicit = TRUE) {
-
+complete <- function(data, ..., fill = list(), explicit = TRUE) {
   UseMethod("complete")
 }
 
 #' @export
-complete.data.frame <- function(data,
-                                ...,
-                                fill = list(),
-                                explicit = TRUE) {
+complete.data.frame <- function(data, ..., fill = list(), explicit = TRUE) {
   check_bool(explicit)
 
   out <- expand(data, ...)
@@ -100,10 +93,7 @@ complete.data.frame <- function(data,
 }
 
 #' @export
-complete.grouped_df <- function(data,
-                                ...,
-                                fill = list(),
-                                explicit = TRUE) {
+complete.grouped_df <- function(data, ..., fill = list(), explicit = TRUE) {
   out <- dplyr::reframe(
     data,
     complete(

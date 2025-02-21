@@ -36,7 +36,14 @@ unite <- function(data, col, ..., sep = "_", remove = TRUE, na.rm = FALSE) {
   UseMethod("unite")
 }
 #' @export
-unite.data.frame <- function(data, col, ..., sep = "_", remove = TRUE, na.rm = FALSE) {
+unite.data.frame <- function(
+  data,
+  col,
+  ...,
+  sep = "_",
+  remove = TRUE,
+  na.rm = FALSE
+) {
   check_required(col)
   check_string(sep)
   check_bool(remove)
@@ -48,7 +55,11 @@ unite.data.frame <- function(data, col, ..., sep = "_", remove = TRUE, na.rm = F
   if (dots_n(...) == 0) {
     selection <- set_names(seq_along(data), names(data))
   } else {
-    selection <- tidyselect::eval_select(expr(c(...)), data, allow_rename = FALSE)
+    selection <- tidyselect::eval_select(
+      expr(c(...)),
+      data,
+      allow_rename = FALSE
+    )
   }
 
   empty_selection <- length(selection) == 0L

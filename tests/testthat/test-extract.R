@@ -18,7 +18,6 @@ test_that("can drop groups", {
   expect_equal(out$y, c("e", "f", "g"))
 })
 
-
 test_that("match failures give NAs", {
   df <- data.frame(x = c("a.b", "a"))
   out <- df %>% extract(x, "a", "(b)")

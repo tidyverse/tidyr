@@ -1,5 +1,6 @@
 library(dplyr)
 
+# fmt: skip
 household <- tribble(
   ~family,  ~dob_child1,  ~dob_child2, ~name_child1, ~name_child2,
         1, "1998-11-26", "2000-01-29",      "Susan",       "Jose",

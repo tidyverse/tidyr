@@ -1,4 +1,3 @@
-
 test_that("number of rows is preserved", {
   df <- tibble(
     x = 1:3,
@@ -22,9 +21,7 @@ test_that("simplifies length-1 lists", {
   expect_equal(out$c, list(c(1, 2), NULL))
 
   # Works when casting too
-  out <- df %>% unnest_wider(y,
-    ptype = list(a = integer(), b = integer())
-  )
+  out <- df %>% unnest_wider(y, ptype = list(a = integer(), b = integer()))
   expect_equal(out$a, c(1L, 3L))
   expect_equal(out$b, c(2L, NA))
   expect_equal(out$c, list(c(1, 2), NULL))
@@ -128,7 +125,10 @@ test_that("df-cols can be unnested (#1188)", {
 test_that("df-cols result in list-ofs when `simplify = FALSE`", {
   df <- tibble(a = 1:3, b = tibble(x = 1:3, y = 1:3))
   out <- unnest_wider(df, b, simplify = FALSE)
-  expect_identical(out, tibble(a = 1:3, x = list_of(1L, 2L, 3L), y = list_of(1L, 2L, 3L)))
+  expect_identical(
+    out,
+    tibble(a = 1:3, x = list_of(1L, 2L, 3L), y = list_of(1L, 2L, 3L))
+  )
 })
 
 test_that("unnesting mixed empty types retains the column (#1125)", {
@@ -137,11 +137,13 @@ test_that("unnesting mixed empty types retains the column (#1125)", {
 })
 
 test_that("can unnest mixed empty types with `strict = FALSE`", {
-  df <- tibble(col = list(
-    list(a = "x"),
-    list(a = list()),
-    list(a = integer())
-  ))
+  df <- tibble(
+    col = list(
+      list(a = "x"),
+      list(a = list()),
+      list(a = integer())
+    )
+  )
 
   expect_identical(
     unnest_wider(df, col)$a,
@@ -209,10 +211,12 @@ test_that("integer names are generated for partially named vectors (#1367)", {
   out <- unnest_wider(df, col, names_sep = "_")
   expect_named(out, c("col_x", "col_2", "col_z", "col_4"))
 
-  df <- tibble(col = list(
-    set_names(1:4, c("x", "", "z", "")),
-    set_names(5:8, c("", "", "z", ""))
-  ))
+  df <- tibble(
+    col = list(
+      set_names(1:4, c("x", "", "z", "")),
+      set_names(5:8, c("", "", "z", ""))
+    )
+  )
   out <- unnest_wider(df, col, names_sep = "_")
   expect_named(out, c("col_x", "col_2", "col_z", "col_4", "col_1"))
   expect_identical(out$col_x, c(1L, NA))
@@ -298,7 +302,10 @@ test_that("unnest_wider() works with foreign lists recognized by `vec_is_list()`
 
   # With empty types
   df <- tibble(x = new_foo(new_foo(a = 1, b = integer())))
-  expect_identical(unnest_wider(df, x, strict = TRUE), tibble(a = 1, b = NA_integer_))
+  expect_identical(
+    unnest_wider(df, x, strict = TRUE),
+    tibble(a = 1, b = NA_integer_)
+  )
 
   # With `NULL`s
   df <- tibble(x = new_foo(new_foo(a = 1, b = NULL)))

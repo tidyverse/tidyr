@@ -155,7 +155,6 @@ test_that("gather throws error for weird objects", {
   })
 })
 
-
 test_that("factors coerced to characters, not integers", {
   df <- data.frame(
     v1 = 1:3,
@@ -173,7 +172,6 @@ test_that("attributes of id variables are preserved", {
 
   expect_equal(attributes(df$x), attributes(out$x))
 })
-
 
 test_that("common attributes are preserved", {
   df <- data.frame(date1 = Sys.Date(), date2 = Sys.Date() + 10)

@@ -128,16 +128,16 @@
 #' # Or choose to automatically name the columns, producing as many as needed
 #' df %>% separate_wider_delim(x, delim = " ", names_sep = "", too_few = "align_start")
 separate_wider_delim <- function(
-    data,
-    cols,
-    delim,
-    ...,
-    names = NULL,
-    names_sep = NULL,
-    names_repair = "check_unique",
-    too_few = c("error", "debug", "align_start", "align_end"),
-    too_many = c("error", "debug", "drop", "merge"),
-    cols_remove = TRUE
+  data,
+  cols,
+  delim,
+  ...,
+  names = NULL,
+  names_sep = NULL,
+  names_repair = "check_unique",
+  too_few = c("error", "debug", "align_start", "align_end"),
+  too_many = c("error", "debug", "drop", "merge"),
+  cols_remove = TRUE
 ) {
   check_installed("stringr")
   check_data_frame(data)
@@ -145,7 +145,9 @@ separate_wider_delim <- function(
   check_dots_empty()
   check_string(delim, allow_empty = FALSE)
   if (is.null(names) && is.null(names_sep)) {
-    cli::cli_abort("Must specify at least one of {.arg names} or {.arg names_sep}.")
+    cli::cli_abort(
+      "Must specify at least one of {.arg names} or {.arg names_sep}."
+    )
   }
   check_character(names, allow_null = TRUE)
   if (is_named(names)) {
@@ -158,33 +160,37 @@ separate_wider_delim <- function(
   error_call %<~% current_env()
 
   map_unpack(
-    data, {{ cols }},
-    function(x, col) str_separate_wider_delim(x, col,
-      names = names,
-      delim = delim,
-      names_sep = names_sep,
-      too_few = too_few,
-      too_many = too_many,
-      cols_remove = cols_remove,
-      error_call = error_call
-    ),
+    data,
+    {{ cols }},
+    function(x, col) {
+      str_separate_wider_delim(
+        x,
+        col,
+        names = names,
+        delim = delim,
+        names_sep = names_sep,
+        too_few = too_few,
+        too_many = too_many,
+        cols_remove = cols_remove,
+        error_call = error_call
+      )
+    },
     names_sep = names_sep,
     names_repair = names_repair
   )
 }
 
 str_separate_wider_delim <- function(
-    x,
-    col,
-    names,
-    delim,
-    names_sep = NULL,
-    too_few = "error",
-    too_many = "error",
-    cols_remove = TRUE,
-    error_call = caller_env()
+  x,
+  col,
+  names,
+  delim,
+  names_sep = NULL,
+  too_few = "error",
+  too_many = "error",
+  cols_remove = TRUE,
+  error_call = caller_env()
 ) {
-
   if (is_bare_string(delim)) {
     delim <- stringr::fixed(delim)
   }
@@ -208,7 +214,11 @@ str_separate_wider_delim <- function(
   names <- names %||% as.character(seq_len(int_max(lengths, 0)))
   p <- length(names)
 
-  check_df_alignment(col, p, "pieces", n_pieces,
+  check_df_alignment(
+    col,
+    p,
+    "pieces",
+    n_pieces,
     too_few = too_few,
     too_many = too_many,
     advice_short = c(
@@ -239,10 +249,9 @@ str_separate_wider_delim <- function(
     remainder <- stringr::str_sub(x, sep_last)
     remainder[is.na(remainder) & !is.na(x)] <- ""
 
-    problem <- !is.na(x) & (
-        (too_few == "debug" & n_pieces < p) |
-        (too_many == "debug" & n_pieces > p)
-      )
+    problem <- !is.na(x) &
+      ((too_few == "debug" & n_pieces < p) |
+        (too_many == "debug" & n_pieces > p))
 
     out[[debug_name(col, names_sep, "ok")]] <- !problem
     out[[debug_name(col, names_sep, "pieces")]] <- n_pieces
@@ -258,16 +267,16 @@ str_separate_wider_delim <- function(
 #'   but not be included in the output.
 #' @export
 separate_wider_position <- function(
-                                    data,
-                                    cols,
-                                    widths,
-                                    ...,
-                                    names_sep = NULL,
-                                    names_repair = "check_unique",
-                                    too_few = c("error", "debug", "align_start"),
-                                    too_many = c("error", "debug", "drop"),
-                                    cols_remove = TRUE
-                                    ) {
+  data,
+  cols,
+  widths,
+  ...,
+  names_sep = NULL,
+  names_repair = "check_unique",
+  too_few = c("error", "debug", "align_start"),
+  too_many = c("error", "debug", "drop"),
+  cols_remove = TRUE
+) {
   check_installed("stringr")
   check_data_frame(data)
   check_required(cols)
@@ -287,35 +296,44 @@ separate_wider_position <- function(
   error_call %<~% current_env()
 
   map_unpack(
-    data, {{ cols }},
-    function(x, col) str_separate_wider_position(x, col,
-      widths = widths,
-      names_sep = names_sep,
-      too_few = too_few,
-      too_many = too_many,
-      cols_remove = cols_remove,
-      error_call = error_call
-    ),
+    data,
+    {{ cols }},
+    function(x, col) {
+      str_separate_wider_position(
+        x,
+        col,
+        widths = widths,
+        names_sep = names_sep,
+        too_few = too_few,
+        too_many = too_many,
+        cols_remove = cols_remove,
+        error_call = error_call
+      )
+    },
     names_sep = names_sep,
     names_repair = names_repair
   )
 }
 
-str_separate_wider_position <- function(x,
-                                        col,
-                                        widths,
-                                        names_sep = NULL,
-                                        too_few = "error",
-                                        too_many = "error",
-                                        cols_remove = TRUE,
-                                        error_call = caller_env()
-                                        ) {
-
+str_separate_wider_position <- function(
+  x,
+  col,
+  widths,
+  names_sep = NULL,
+  too_few = "error",
+  too_many = "error",
+  cols_remove = TRUE,
+  error_call = caller_env()
+) {
   breaks <- cumsum(c(1L, unname(widths)))[-(length(widths) + 1L)]
   expected_width <- sum(widths)
 
   width <- stringr::str_length(x)
-  check_df_alignment(col, expected_width, "characters", width,
+  check_df_alignment(
+    col,
+    expected_width,
+    "characters",
+    width,
     too_few = too_few,
     too_many = too_many,
     advice_short = c(
@@ -348,16 +366,18 @@ str_separate_wider_position <- function(x,
 
   if (too_few == "debug" || too_many == "debug") {
     separate_warn_debug(col, names_sep, c("ok", "width", "remainder"))
-    problem <- !is.na(x) & (
-        (too_few == "debug" & width < expected_width) |
-        (too_many == "debug" & width > expected_width)
-      )
+    problem <- !is.na(x) &
+      ((too_few == "debug" & width < expected_width) |
+        (too_many == "debug" & width > expected_width))
 
     out[[debug_name(col, names_sep, "width")]] <- width
-    out[[debug_name(col, names_sep, "remainder")]] <- stringr::str_sub(x, expected_width + 1, width)
+    out[[debug_name(col, names_sep, "remainder")]] <- stringr::str_sub(
+      x,
+      expected_width + 1,
+      width
+    )
     out[[debug_name(col, names_sep, "ok")]] <- !problem
   }
-
 
   out
 }
@@ -368,15 +388,15 @@ str_separate_wider_position <- function(x,
 #'   vector. Unnamed components will match, but not be included in the output.
 #' @export
 separate_wider_regex <- function(
-                                 data,
-                                 cols,
-                                 patterns,
-                                 ...,
-                                 names_sep = NULL,
-                                 names_repair = "check_unique",
-                                 too_few = c("error", "debug", "align_start"),
-                                 cols_remove = TRUE
-                                 ) {
+  data,
+  cols,
+  patterns,
+  ...,
+  names_sep = NULL,
+  names_repair = "check_unique",
+  too_few = c("error", "debug", "align_start"),
+  cols_remove = TRUE
+) {
   check_installed("stringr")
   check_data_frame(data)
   check_required(cols)
@@ -392,36 +412,50 @@ separate_wider_regex <- function(
   error_call %<~% current_env()
 
   map_unpack(
-    data, {{ cols }},
-    function(x, col) str_separate_wider_regex(x, col,
-      patterns = patterns,
-      names_sep = names_sep,
-      too_few = too_few,
-      cols_remove = cols_remove,
-      error_call = error_call
-    ),
+    data,
+    {{ cols }},
+    function(x, col) {
+      str_separate_wider_regex(
+        x,
+        col,
+        patterns = patterns,
+        names_sep = names_sep,
+        too_few = too_few,
+        cols_remove = cols_remove,
+        error_call = error_call
+      )
+    },
     names_sep = names_sep,
     names_repair = names_repair
   )
 }
 
-str_separate_wider_regex <- function(x,
-                                     col,
-                                     patterns,
-                                     names_sep = NULL,
-                                     too_few = "error",
-                                     cols_remove = TRUE,
-                                     error_call = caller_env()) {
+str_separate_wider_regex <- function(
+  x,
+  col,
+  patterns,
+  names_sep = NULL,
+  too_few = "error",
+  cols_remove = TRUE,
+  error_call = caller_env()
+) {
   has_name <- names2(patterns) != ""
   groups <- stringr::str_c("(", ifelse(has_name, "", "?:"), patterns, ")")
-  full_match <- stringr::str_c("^", stringr::str_flatten(groups, collapse = ""), "$")
+  full_match <- stringr::str_c(
+    "^",
+    stringr::str_flatten(groups, collapse = ""),
+    "$"
+  )
 
   match <- stringr::str_match(x, full_match)
   if (ncol(match) != sum(has_name) + 1L) {
-    cli::cli_abort(c(
-      "Invalid number of groups.",
-      i = 'Did you use "()" instead of "(?:)" inside {.arg patterns}?'
-    ), call = error_call)
+    cli::cli_abort(
+      c(
+        "Invalid number of groups.",
+        i = 'Did you use "()" instead of "(?:)" inside {.arg patterns}?'
+      ),
+      call = error_call
+    )
   }
 
   matches <- match[, -1, drop = FALSE]
@@ -438,14 +472,16 @@ str_separate_wider_regex <- function(x,
   no_match <- which(problems)
 
   if (length(no_match) > 0) {
-
     if (too_few == "error") {
-      cli::cli_abort(c(
-        "Expected each value of {.var {col}} to match the pattern, the whole pattern, and nothing but the pattern.",
-        "!" = "{length(no_match)} value{?s} {?has/have} problem{?s}.",
-        i = 'Use {.code too_few = "debug"} to diagnose the problem.',
-        i = 'Use {.code too_few = "align_start"} to silence this message.'
-      ), call = error_call)
+      cli::cli_abort(
+        c(
+          "Expected each value of {.var {col}} to match the pattern, the whole pattern, and nothing but the pattern.",
+          "!" = "{length(no_match)} value{?s} {?has/have} problem{?s}.",
+          i = 'Use {.code too_few = "debug"} to diagnose the problem.',
+          i = 'Use {.code too_few = "align_start"} to silence this message.'
+        ),
+        call = error_call
+      )
     }
 
     # Progressively relax the matches
@@ -458,7 +494,10 @@ str_separate_wider_regex <- function(x,
         next
       }
 
-      matches <- as_tibble(match[has_match, -1, drop = FALSE], .name_repair = "none")
+      matches <- as_tibble(
+        match[has_match, -1, drop = FALSE],
+        .name_repair = "none"
+      )
       cols <- names2(patterns)[has_name][1:(ncol(matches) - 1)]
       out[match_idx, cols] <- matches[1:(ncol(matches) - 1)]
       remainder[match_idx] <- matches[[ncol(matches)]]
@@ -476,7 +515,6 @@ str_separate_wider_regex <- function(x,
     }
   }
 
-
   if (too_few == "debug") {
     separate_warn_debug(col, names_sep, c("ok", "matches", "remainder"))
     out[debug_name(col, names_sep, "ok")] <- !problems
@@ -489,7 +527,14 @@ str_separate_wider_regex <- function(x,
 
 # helpers -----------------------------------------------------------------
 
-map_unpack <- function(data, cols, fun, names_sep, names_repair, error_call = caller_env()) {
+map_unpack <- function(
+  data,
+  cols,
+  fun,
+  names_sep,
+  names_repair,
+  error_call = caller_env()
+) {
   cols <- tidyselect::eval_select(
     enquo(cols),
     data = data,
@@ -514,9 +559,9 @@ map_unpack <- function(data, cols, fun, names_sep, names_repair, error_call = ca
 
 # cf. df_simplify
 df_align <- function(
-    x,
-    names,
-    align_direction = c("start", "end")
+  x,
+  names,
+  align_direction = c("start", "end")
 ) {
   vec_check_list(x)
   if (length(x) == 0) {
@@ -580,15 +625,16 @@ df_align_transpose <- function(x, p, align_direction = "start") {
 }
 
 check_df_alignment <- function(
-                               col,
-                               p,
-                               type,
-                               sizes,
-                               too_few,
-                               too_many,
-                               advice_short = NULL,
-                               advice_long = NULL,
-                               call = caller_env()) {
+  col,
+  p,
+  type,
+  sizes,
+  too_few,
+  too_many,
+  advice_short = NULL,
+  advice_long = NULL,
+  call = caller_env()
+) {
   n_short <- sum(sizes < p, na.rm = TRUE)
   n_long <- sum(sizes > p, na.rm = TRUE)
 
@@ -599,15 +645,17 @@ check_df_alignment <- function(
     return()
   }
 
-  cli::cli_abort(c(
-    "Expected {p} {type} in each element of {.var {col}}.",
-    "!" = if (error_short) "{n_short} value{?s} {?was/were} too short.",
-    if (error_short) advice_short,
-    "!" = if (error_long) "{n_long} value{?s} {?was/were} too long.",
-    if (error_long) advice_long
-  ), call = call)
+  cli::cli_abort(
+    c(
+      "Expected {p} {type} in each element of {.var {col}}.",
+      "!" = if (error_short) "{n_short} value{?s} {?was/were} too short.",
+      if (error_short) advice_short,
+      "!" = if (error_long) "{n_long} value{?s} {?was/were} too long.",
+      if (error_long) advice_long
+    ),
+    call = call
+  )
 }
-
 
 separate_warn_debug <- function(col, names_sep, vars) {
   vars <- debug_name(col, names_sep, vars)
@@ -618,4 +666,3 @@ separate_warn_debug <- function(col, names_sep, vars) {
 debug_name <- function(col, names_sep, var) {
   paste0(col, names_sep %||% "_", var)
 }
-

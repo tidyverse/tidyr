@@ -1,5 +1,6 @@
 library(tibble)
 
+# fmt: skip
 smiths <- tribble(
   ~subject,    ~time, ~age, ~weight, ~height,
   "John Smith",    1,   33,      90,    1.87,

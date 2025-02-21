@@ -72,22 +72,40 @@
 #' df <- tibble(x = c("x:1", "x:2", "y:4", "z", NA))
 #' df %>% separate(x, c("key", "value"), ":") %>% str()
 #' df %>% separate(x, c("key", "value"), ":", convert = TRUE) %>% str()
-separate <- function(data, col, into, sep = "[^[:alnum:]]+", remove = TRUE,
-                     convert = FALSE, extra = "warn", fill = "warn", ...) {
+separate <- function(
+  data,
+  col,
+  into,
+  sep = "[^[:alnum:]]+",
+  remove = TRUE,
+  convert = FALSE,
+  extra = "warn",
+  fill = "warn",
+  ...
+) {
   check_dots_used()
   UseMethod("separate")
 }
 #' @export
-separate.data.frame <- function(data, col, into, sep = "[^[:alnum:]]+",
-                                remove = TRUE, convert = FALSE,
-                                extra = "warn", fill = "warn", ...) {
+separate.data.frame <- function(
+  data,
+  col,
+  into,
+  sep = "[^[:alnum:]]+",
+  remove = TRUE,
+  convert = FALSE,
+  extra = "warn",
+  fill = "warn",
+  ...
+) {
   check_required(col)
   check_bool(remove)
 
   var <- tidyselect::vars_pull(names(data), !!enquo(col))
   value <- as.character(data[[var]])
 
-  new_cols <- str_separate(value,
+  new_cols <- str_separate(
+    value,
     into = into,
     sep = sep,
     convert = convert,
@@ -98,7 +116,15 @@ separate.data.frame <- function(data, col, into, sep = "[^[:alnum:]]+",
   reconstruct_tibble(data, out, if (remove) var else NULL)
 }
 
-str_separate <- function(x, into, sep, convert = FALSE, extra = "warn", fill = "warn", error_call = caller_env()) {
+str_separate <- function(
+  x,
+  into,
+  sep,
+  convert = FALSE,
+  extra = "warn",
+  fill = "warn",
+  error_call = caller_env()
+) {
   check_character(into, call = error_call)
   check_bool(convert, call = error_call)
 
@@ -158,13 +184,17 @@ str_split_fixed <- function(value, sep, n, extra = "warn", fill = "warn") {
   n_big <- length(simp$too_big)
   if (extra == "warn" && n_big > 0) {
     idx <- list_indices(simp$too_big)
-    warn(glue("Expected {n} pieces. Additional pieces discarded in {n_big} rows [{idx}]."))
+    warn(glue(
+      "Expected {n} pieces. Additional pieces discarded in {n_big} rows [{idx}]."
+    ))
   }
 
   n_sml <- length(simp$too_sml)
   if (fill == "warn" && n_sml > 0) {
     idx <- list_indices(simp$too_sml)
-    warn(glue("Expected {n} pieces. Missing pieces filled with `NA` in {n_sml} rows [{idx}]."))
+    warn(glue(
+      "Expected {n} pieces. Missing pieces filled with `NA` in {n_sml} rows [{idx}]."
+    ))
   }
 
   simp$strings
@@ -190,7 +220,6 @@ slice_match <- function(x, i) {
   )
 }
 
-
 list_indices <- function(x, max = 20) {
   if (length(x) > max) {
     x <- c(x[seq_len(max)], "...")
@@ -199,8 +228,15 @@ list_indices <- function(x, max = 20) {
   paste(x, collapse = ", ")
 }
 
-check_not_stringr_pattern <- function(x, arg = caller_arg(x), call = caller_env()) {
+check_not_stringr_pattern <- function(
+  x,
+  arg = caller_arg(x),
+  call = caller_env()
+) {
   if (inherits_any(x, c("pattern", "stringr_pattern"))) {
-    cli::cli_abort("{.arg {arg}} can't use modifiers from stringr.", call = call)
+    cli::cli_abort(
+      "{.arg {arg}} can't use modifiers from stringr.",
+      call = call
+    )
   }
 }

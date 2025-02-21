@@ -77,15 +77,16 @@
 #' # To instead enforce strict vctrs typing rules, use `strict`
 #' df %>%
 #'   unnest_wider(json, strict = TRUE)
-unnest_wider <- function(data,
-                         col,
-                         names_sep = NULL,
-                         simplify = TRUE,
-                         strict = FALSE,
-                         names_repair = "check_unique",
-                         ptype = NULL,
-                         transform = NULL) {
-
+unnest_wider <- function(
+  data,
+  col,
+  names_sep = NULL,
+  simplify = TRUE,
+  strict = FALSE,
+  names_repair = "check_unique",
+  ptype = NULL,
+  transform = NULL
+) {
   check_data_frame(data)
   check_required(col)
   check_string(names_sep, allow_null = TRUE)
@@ -130,7 +131,13 @@ unnest_wider <- function(data,
 }
 
 # Converts a column of any type to a `list_of<tbl>`
-col_to_wide <- function(col, name, strict, names_sep, error_call = caller_env()) {
+col_to_wide <- function(
+  col,
+  name,
+  strict,
+  names_sep,
+  error_call = caller_env()
+) {
   if (!vec_is_list(col)) {
     ptype <- vec_ptype(col)
     col <- vec_chop(col)
@@ -140,7 +147,13 @@ col_to_wide <- function(col, name, strict, names_sep, error_call = caller_env())
   # If we don't have a list_of, then a `NULL` `col_ptype` will get converted to
   # a 1 row, 0 col tibble for `elt_ptype`
   col_ptype <- list_of_ptype(col)
-  elt_ptype <- elt_to_wide(col_ptype, name = name, strict = strict, names_sep = names_sep, error_call = error_call)
+  elt_ptype <- elt_to_wide(
+    col_ptype,
+    name = name,
+    strict = strict,
+    names_sep = names_sep,
+    error_call = error_call
+  )
   elt_ptype <- vec_ptype(elt_ptype)
 
   # Avoid expensive dispatch from `[[.list_of`
@@ -149,13 +162,15 @@ col_to_wide <- function(col, name, strict, names_sep, error_call = caller_env())
   out <- with_indexed_errors(
     map(
       out,
-      function(x) elt_to_wide(
-        x = x,
-        name = name,
-        strict = strict,
-        names_sep = names_sep,
-        error_call = NULL
-      )
+      function(x) {
+        elt_to_wide(
+          x = x,
+          name = name,
+          strict = strict,
+          names_sep = names_sep,
+          error_call = NULL
+        )
+      }
     ),
     message = function(cnd) {
       c(

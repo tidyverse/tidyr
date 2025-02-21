@@ -245,7 +245,6 @@ test_that("`.by` isn't allowed for grouped data frames", {
 
 # Deprecated behaviours ---------------------------------------------------
 
-
 test_that("warn about old style interface", {
   df <- tibble(x = c(1, 1, 1), y = 1:3)
 

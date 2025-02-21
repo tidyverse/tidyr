@@ -25,7 +25,8 @@ unnest_auto <- function(data, col) {
   x <- data[[col]]
   dir <- guess_dir(x, col)
 
-  switch(dir,
+  switch(
+    dir,
     longer = unnest_longer(data, {{ col }}, indices_include = FALSE),
     longer_idx = unnest_longer(data, {{ col }}, indices_include = TRUE),
     wider = unnest_wider(data, {{ col }}, names_repair = "unique")

@@ -117,11 +117,7 @@
 #' mtcars %>%
 #'   nest(.by = cyl) %>%
 #'   dplyr::mutate(models = lapply(data, function(df) lm(mpg ~ wt, data = df)))
-nest <- function(.data,
-                 ...,
-                 .by = NULL,
-                 .key = NULL,
-                 .names_sep = NULL) {
+nest <- function(.data, ..., .by = NULL, .key = NULL, .names_sep = NULL) {
   cols <- enquos(...)
   empty <- names2(cols) == ""
 
@@ -160,11 +156,13 @@ nest <- function(.data,
 }
 
 #' @export
-nest.data.frame <- function(.data,
-                            ...,
-                            .by = NULL,
-                            .key = NULL,
-                            .names_sep = NULL) {
+nest.data.frame <- function(
+  .data,
+  ...,
+  .by = NULL,
+  .key = NULL,
+  .names_sep = NULL
+) {
   # The data frame print handles nested data frames poorly, so we want to
   # convert data frames (but not subclasses) to tibbles
   if (identical(class(.data), "data.frame")) {
@@ -181,11 +179,13 @@ nest.data.frame <- function(.data,
 }
 
 #' @export
-nest.tbl_df <- function(.data,
-                        ...,
-                        .by = NULL,
-                        .key = NULL,
-                        .names_sep = NULL) {
+nest.tbl_df <- function(
+  .data,
+  ...,
+  .by = NULL,
+  .key = NULL,
+  .names_sep = NULL
+) {
   error_call <- current_env()
 
   info <- nest_info(.data, ..., .by = {{ .by }}, .key = .key)
@@ -194,10 +194,20 @@ nest.tbl_df <- function(.data,
   outer <- info$outer
 
   inner <- .data[inner]
-  inner <- pack(inner, !!!cols, .names_sep = .names_sep, .error_call = error_call)
+  inner <- pack(
+    inner,
+    !!!cols,
+    .names_sep = .names_sep,
+    .error_call = error_call
+  )
 
   out <- .data[outer]
-  out <- vec_cbind(out, inner, .name_repair = "check_unique", .error_call = error_call)
+  out <- vec_cbind(
+    out,
+    inner,
+    .name_repair = "check_unique",
+    .error_call = error_call
+  )
   out <- reconstruct_tibble(.data, out)
   out <- chop(out, cols = all_of(names(cols)), error_call = error_call)
 
@@ -210,14 +220,18 @@ nest.tbl_df <- function(.data,
 }
 
 #' @export
-nest.grouped_df <- function(.data,
-                            ...,
-                            .by = NULL,
-                            .key = NULL,
-                            .names_sep = NULL) {
+nest.grouped_df <- function(
+  .data,
+  ...,
+  .by = NULL,
+  .key = NULL,
+  .names_sep = NULL
+) {
   by <- enquo(.by)
   if (!quo_is_null(by)) {
-    cli::cli_abort("Can't supply {.arg .by} when {.arg .data} is a grouped data frame.")
+    cli::cli_abort(
+      "Can't supply {.arg .by} when {.arg .data} is a grouped data frame."
+    )
   }
 
   if (missing(...)) {
@@ -229,11 +243,13 @@ nest.grouped_df <- function(.data,
   }
 }
 
-nest_info <- function(.data,
-                      ...,
-                      .by = NULL,
-                      .key = NULL,
-                      .error_call = caller_env()) {
+nest_info <- function(
+  .data,
+  ...,
+  .by = NULL,
+  .key = NULL,
+  .error_call = caller_env()
+) {
   by <- enquo(.by)
 
   cols <- enquos(...)
