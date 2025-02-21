@@ -250,10 +250,8 @@ str_separate_wider_delim <- function(
     remainder[is.na(remainder) & !is.na(x)] <- ""
 
     problem <- !is.na(x) &
-      (
-        (too_few == "debug" & n_pieces < p) |
-          (too_many == "debug" & n_pieces > p)
-      )
+      ((too_few == "debug" & n_pieces < p) |
+        (too_many == "debug" & n_pieces > p))
 
     out[[debug_name(col, names_sep, "ok")]] <- !problem
     out[[debug_name(col, names_sep, "pieces")]] <- n_pieces
@@ -369,10 +367,8 @@ str_separate_wider_position <- function(
   if (too_few == "debug" || too_many == "debug") {
     separate_warn_debug(col, names_sep, c("ok", "width", "remainder"))
     problem <- !is.na(x) &
-      (
-        (too_few == "debug" & width < expected_width) |
-          (too_many == "debug" & width > expected_width)
-      )
+      ((too_few == "debug" & width < expected_width) |
+        (too_many == "debug" & width > expected_width))
 
     out[[debug_name(col, names_sep, "width")]] <- width
     out[[debug_name(col, names_sep, "remainder")]] <- stringr::str_sub(
