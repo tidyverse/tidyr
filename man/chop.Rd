@@ -5,7 +5,7 @@
 \alias{unchop}
 \title{Chop and unchop}
 \usage{
-chop(data, cols, ..., error_call = current_env())
+chop(data, cols = NULL, ..., by = NULL, error_call = current_env())
 
 unchop(
   data,
@@ -21,11 +21,23 @@ unchop(
 
 \item{cols}{<\code{\link[=tidyr_tidy_select]{tidy-select}}> Columns to chop or unchop.
 
+If not supplied for \code{chop()}, then \code{cols} is derived as all columns \emph{not}
+selected by \code{by}.
+
 For \code{unchop()}, each column should be a list-column containing generalised
 vectors (e.g. any mix of \code{NULL}s, atomic vector, S3 vectors, a lists,
 or data frames).}
 
 \item{...}{These dots are for future extensions and must be empty.}
+
+\item{by}{<\code{\link[=tidyr_tidy_select]{tidy-select}}> Columns to chop \emph{by}; these
+will not be chopped.
+
+\code{by} can be used in place of or in conjunction with columns supplied
+through \code{cols}.
+
+If not supplied, then \code{by} is derived as all columns \emph{not} selected by
+\code{cols}.}
 
 \item{error_call}{The execution environment of a currently
 running function, e.g. \code{caller_env()}. The function will be
@@ -74,6 +86,19 @@ df <- tibble(x = c(1, 1, 1, 2, 2, 3), y = 1:6, z = 6:1)
 df \%>\% chop(c(y, z))
 # cf nest
 df \%>\% nest(data = c(y, z))
+
+# Specify variables to chop by (rather than variables to chop) using `by`
+df \%>\% chop(by = x)
+
+# Use tidyselect syntax and helpers, just like in `dplyr::select()`
+df \%>\% chop(any_of(c("y", "z")))
+
+# `cols` and `by` can be used together to drop columns you no longer need,
+# or to chop the columns you are chopping by too.
+# This drops `z`:
+df \%>\% chop(y, by = x)
+# This includes `x` in the chopped columns:
+df \%>\% chop(everything(), by = x)
 
 # Unchop --------------------------------------------------------------------
 df <- tibble(x = 1:4, y = list(integer(), 1L, 1:2, 1:3))
