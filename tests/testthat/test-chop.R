@@ -47,6 +47,41 @@ test_that("can chop empty data frame (#1206)", {
   )
 })
 
+test_that("can chop `by` columns (#1490)", {
+  df <- tibble(x = c(1, 1, 1, 2, 2), y = c(2, 1, 2, 3, 4), z = 1:5)
+
+  expect_identical(
+    chop(df, by = c(x, y)),
+    chop(df, z)
+  )
+})
+
+test_that("can combine `by` with `cols` (#1490)", {
+  df <- tibble(x = c(1, 1, 1, 2, 2), y = c(2, 1, 2, 3, 4), z = 1:5)
+
+  expect_identical(
+    chop(df, x, by = y),
+    chop(dplyr::select(df, -z), x)
+  )
+})
+
+test_that("union of `by` and `cols` results in renaming (#1490)", {
+  df <- tibble(x = 1, y = 1)
+  one <- vctrs::list_of(1)
+
+  with_options(rlib_name_repair_verbosity = "quiet", {
+    expect_identical(
+      invisible(chop(df, everything(), by = x)),
+      tibble(x = 1, x = one, y = one, .name_repair = "unique")
+    )
+
+    expect_identical(
+      invisible(chop(df, x, by = everything())),
+      tibble(x = 1, y = 1, x = one, .name_repair = "unique")
+    )
+  })
+})
+
 # unchop ------------------------------------------------------------------
 
 test_that("extends into rows", {

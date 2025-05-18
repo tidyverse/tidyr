@@ -28,9 +28,20 @@
 #' @param data A data frame.
 #' @param cols <[`tidy-select`][tidyr_tidy_select]> Columns to chop or unchop.
 #'
+#'   If not supplied for `chop()`, then `cols` is derived as all columns _not_
+#'   selected by `by`.
+#'
 #'   For `unchop()`, each column should be a list-column containing generalised
 #'   vectors (e.g. any mix of `NULL`s, atomic vector, S3 vectors, a lists,
 #'   or data frames).
+#' @param by <[`tidy-select`][tidyr_tidy_select]> Columns to chop _by_; these
+#'   will not be chopped.
+#'
+#'   `by` can be used in place of or in conjunction with columns supplied
+#'   through `cols`.
+#'
+#'   If not supplied, then `by` is derived as all columns _not_ selected by
+#'   `cols`.
 #' @param keep_empty By default, you get one row of output for each element
 #'   of the list that you are unchopping/unnesting. This means that if there's a
 #'   size-0 element (like `NULL` or an empty data frame or vector), then that
@@ -51,6 +62,19 @@
 #' # cf nest
 #' df %>% nest(data = c(y, z))
 #'
+#' # Specify variables to chop by (rather than variables to chop) using `by`
+#' df %>% chop(by = x)
+#'
+#' # Use tidyselect syntax and helpers, just like in `dplyr::select()`
+#' df %>% chop(any_of(c("y", "z")))
+#'
+#' # `cols` and `by` can be used together to drop columns you no longer need,
+#' # or to chop the columns you are chopping by too.
+#' # This drops `z`:
+#' df %>% chop(y, by = x)
+#' # This includes `x` in the chopped columns:
+#' df %>% chop(everything(), by = x)
+#'
 #' # Unchop --------------------------------------------------------------------
 #' df <- tibble(x = 1:4, y = list(integer(), 1L, 1:2, 1:3))
 #' df %>% unchop(y)
@@ -65,20 +89,16 @@
 #' df <- tibble(x = 1:3, y = list(NULL, tibble(x = 1), tibble(y = 1:2)))
 #' df %>% unchop(y)
 #' df %>% unchop(y, keep_empty = TRUE)
-chop <- function(data, cols, ..., error_call = current_env()) {
+chop <- function(data, cols = NULL, ..., by = NULL, error_call = current_env()) {
   check_dots_empty0(...)
   check_data_frame(data, call = error_call)
-  check_required(cols, call = error_call)
 
-  cols <- tidyselect::eval_select(
-    expr = enquo(cols),
-    data = data,
-    allow_rename = FALSE,
-    error_call = error_call
-  )
+  info <- chop_info(data, cols = {{ cols }}, by = {{ by }})
+  cols <- info$cols
+  by <- info$by
 
   cols <- tidyr_new_list(data[cols])
-  keys <- data[setdiff(names(data), names(cols))]
+  keys <- data[by]
 
   info <- vec_group_loc(keys)
   keys <- info$key
@@ -92,6 +112,59 @@ chop <- function(data, cols, ..., error_call = current_env()) {
   out <- vec_cbind(keys, cols, .error_call = error_call)
 
   reconstruct_tibble(data, out)
+}
+
+chop_info <- function(
+    data,
+    cols = NULL,
+    by = NULL,
+    error_call = caller_env()
+) {
+  by <- enquo(by)
+  cols <- enquo(cols)
+
+  cols_is_null <- quo_is_null(cols)
+  by_is_null <- quo_is_null(by)
+
+  if(cols_is_null && by_is_null) {
+    stop_use_cols_or_by(error_call = error_call)
+  }
+
+  names <- names(data)
+
+  cols <- names(tidyselect::eval_select(
+    expr = cols,
+    data = data,
+    allow_rename = FALSE,
+    error_call = error_call
+  ))
+
+  by <- names(tidyselect::eval_select(
+    expr = by,
+    data = data,
+    allow_rename = FALSE,
+    error_call = error_call
+  ))
+
+  if (cols_is_null) {
+    # Derive `cols` names from `by`
+    cols <- setdiff(names, by)
+  }
+
+  if (by_is_null) {
+    # Derive `by` names from `cols`
+    by <- setdiff(names, cols)
+  }
+
+  list(
+    cols = cols,
+    by = by
+  )
+}
+
+stop_use_cols_or_by <- function(error_call = caller_env()) {
+  message <- c("At least one of {.var cols} or {.var by} must be supplied.")
+  cli::cli_abort(message, call = error_call)
 }
 
 col_chop <- function(x, indices) {
