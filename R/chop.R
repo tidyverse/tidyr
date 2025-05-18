@@ -126,7 +126,7 @@ chop_info <- function(
   cols_is_null <- quo_is_null(cols)
   by_is_null <- quo_is_null(by)
 
-  if(cols_is_null && by_is_null) {
+  if (cols_is_null && by_is_null) {
     stop_use_cols_or_by(error_call = error_call)
   }
 
