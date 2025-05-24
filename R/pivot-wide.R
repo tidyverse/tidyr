@@ -686,8 +686,10 @@ rethrow_missing_cols_oob <- function(cnd, missing_name, missing_value, call) {
 }
 
 stop_inform_missing <- function(i, arg, parent, call) {
-  msg <- c(`i` = "Column {.var {i}} is the default for {.var {arg}}.")
-  cli::cli_abort(msg, parent = parent, call = call)
+  cli::cli_abort(
+    c(`i` = "Column {.var {i}} is the default for the {.var {arg}} argument."),
+    parent = parent, call = call
+  )
 }
 
 rethrow_id_cols_oob <- function(cnd, names_from_cols, values_from_cols, call) {
