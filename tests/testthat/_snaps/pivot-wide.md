@@ -32,7 +32,7 @@
       pivot_wider(df, values_from = val)
     Condition
       Error in `pivot_wider()`:
-      ! Have you supplied `names_from`?
+      i Column `name` is the default for `names_from`.
       Caused by error in `pivot_wider()`:
       ! Can't select columns that don't exist.
       x Column `name` doesn't exist.
@@ -43,7 +43,7 @@
       pivot_wider(df, names_from = key)
     Condition
       Error in `pivot_wider()`:
-      ! Have you supplied `values_from`?
+      i Column `value` is the default for `values_from`.
       Caused by error in `pivot_wider()`:
       ! Can't select columns that don't exist.
       x Column `value` doesn't exist.
