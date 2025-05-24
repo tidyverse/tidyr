@@ -32,6 +32,8 @@
       pivot_wider(df, values_from = val)
     Condition
       Error in `pivot_wider()`:
+      i Column `name` is the default for the `names_from` argument.
+      Caused by error in `pivot_wider()`:
       ! Can't select columns that don't exist.
       x Column `name` doesn't exist.
 
@@ -41,6 +43,8 @@
       pivot_wider(df, names_from = key)
     Condition
       Error in `pivot_wider()`:
+      i Column `value` is the default for the `values_from` argument.
+      Caused by error in `pivot_wider()`:
       ! Can't select columns that don't exist.
       x Column `value` doesn't exist.
 
