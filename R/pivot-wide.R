@@ -676,15 +676,18 @@ rethrow_missing_cols_oob <- function(cnd, missing_name, missing_value, call) {
   check_string(i, .internal = TRUE)
 
   if (missing_name && i == "name") {
-    msg <- c(`!` = "Have you supplied {.var names_from}?")
-    cli::cli_abort(msg, parent = cnd, call = call)
+    inform_missing("names_from", parent = cnd, call = call)
   } else if (missing_value && i == "value") {
-    msg <- c(`!` = "Have you supplied {.var values_from}?")
-    cli::cli_abort(msg, parent = cnd, call = call)
+    inform_missing("values_from", parent = cnd, call = call)
   } else {
     # Zap this special handler, throw the normal condition
     zap()
   }
+}
+
+inform_missing <- function(arg, parent, call) {
+  msg <- c(`!` = "Have you supplied {.var {arg}}?")
+  cli::cli_abort(msg, parent = parent, call = call)
 }
 
 rethrow_id_cols_oob <- function(cnd, names_from_cols, values_from_cols, call) {
