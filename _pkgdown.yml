@@ -31,7 +31,7 @@ template:
       data-modal-header-bg-color="#f9f9f9"
       data-modal-override-open-class="open-kapa-widget"
       data-project-color="#365a7a"
-      data-project-name="dplyr"
+      data-project-name="tidyr"
       data-modal-title="tidyverse AI ✨"
       data-project-logo="https://avatars.githubusercontent.com/u/22032646?s=200&u=235532df5cf8543246812f73db051b793f868807&v=4"
       data-user-analytics-fingerprint-enabled="true"
