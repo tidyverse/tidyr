@@ -177,6 +177,19 @@ test_that("expand() retains `NA` data in factors (#1275)", {
   )
 })
 
+test_that("expand() works on grouped data with `.name_repair` column (#1575)", {
+  df <- tibble(
+    g = c(1, NA),
+    .name_repair := factor(1:2, levels = 1:3)
+  )
+  gdf <- dplyr::group_by(df, g)
+
+  expect_identical(
+    expand(gdf, .name_repair)$g,
+    c(1, 1, 1, NA, NA, NA)
+  )
+})
+
 # ------------------------------------------------------------------------------
 
 test_that("crossing checks for bad inputs", {
