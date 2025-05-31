@@ -221,7 +221,7 @@ Column headers in this format are often separated by a non-alphanumeric characte
 
 ```{r}
 tb3 <- tb2 %>%
-  separate(demo, c("sex", "age"), 1)
+  separate_wider_position(demo, c("sex"=1, "age"=4), too_few = "align_start")
 tb3
 ```
 
