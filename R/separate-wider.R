@@ -18,13 +18,11 @@
 #' @inheritParams unnest_longer
 #' @param cols <[`tidy-select`][tidyr_tidy_select]> Columns to separate.
 #' @param names_sep If supplied, output names will be composed
-#'   of the input column name followed by the separator followed by the
+#'   of the input column name, followed by this separator, followed by the
 #'   new column name. Required when `cols` selects multiple columns.
 #'
-#'   For `separate_wider_delim()` you can specify instead of `names`, in which
-#'   case the names will be generated from the source column name, `names_sep`,
-#'   and a numeric suffix.
-#' @param names For `separate_wider_delim()`, a character vector of output
+#'   If `names` is not specified, the new column names will default to a numeric suffix after the separator.
+#' @param names For `separate_wider_delim()` and `separate_wider_position()`, a character vector of output
 #'   column names. Use `NA` if there are components that you don't want
 #'   to appear in the output; the number of non-`NA` elements determines the
 #'   number of new columns in the result.
