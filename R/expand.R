@@ -47,7 +47,7 @@
 #' # Finding combinations ------------------------------------------------------
 #' fruits <- tibble(
 #'   type = c("apple", "orange", "apple", "orange", "orange", "orange"),
-#'   year = c(2010, 2010, 2012, 2010, 2011, 2012),
+#'   year = c(2010, 2010, 2012, 2014, 2011, 2012),
 #'   size = factor(
 #'     c("XS", "S", "M", "S", "S", "M"),
 #'     levels = c("XS", "S", "M", "L")
@@ -70,7 +70,8 @@
 #' # Other uses ----------------------------------------------------------------
 #' # Use with `full_seq()` to fill in values of continuous variables
 #' fruits %>% expand(type, size, full_seq(year, 1))
-#' fruits %>% expand(type, size, 2010:2013)
+#' # Or write range explicitly
+#' fruits %>% expand(type, size, 2010:2014)
 #'
 #' # Use `anti_join()` to determine which observations are missing
 #' all <- fruits %>% expand(type, size, year)
