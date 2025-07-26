@@ -12,7 +12,7 @@
       chop(df)
     Condition
       Error in `chop()`:
-      ! `cols` is absent but must be supplied.
+      ! At least one of `cols` or `by` must be supplied.
 
 # incompatible ptype mentions the column (#1477)
 
