@@ -106,7 +106,7 @@ expand.grouped_df <- function(data, ..., .name_repair = "check_unique") {
     expand(
       data = dplyr::pick(everything()),
       ...,
-      .name_repair = .name_repair
+      .name_repair = .env$.name_repair
     )
   )
 
