@@ -10,11 +10,11 @@
 #'   When selecting multiple columns, values from the same row will be recycled
 #'   to their common size.
 #' @param ... `r lifecycle::badge("deprecated")`:
-#'   previously you could write `df %>% unnest(x, y, z)`.
-#'   Convert to `df %>% unnest(c(x, y, z))`. If you previously created a new
+#'   previously you could write `df |> unnest(x, y, z)`.
+#'   Convert to `df |> unnest(c(x, y, z))`. If you previously created a new
 #'   variable in `unnest()` you'll now need to do it explicitly with `mutate()`.
-#'   Convert `df %>% unnest(y = fun(x, y, z))`
-#'   to `df %>% mutate(y = fun(x, y, z)) %>% unnest(y)`.
+#'   Convert `df |> unnest(y = fun(x, y, z))`
+#'   to `df |> mutate(y = fun(x, y, z)) |> unnest(y)`.
 #' @param names_sep If `NULL`, the default, the outer names will come from the
 #'   inner names. If a string, the outer names will be formed by pasting
 #'   together the outer and the inner column names, separated by `names_sep`.
@@ -25,8 +25,8 @@
 #'   unnesting.
 #' @param .id
 #'   `r lifecycle::badge("deprecated")`:
-#'   convert `df %>% unnest(x, .id = "id")` to `df %>% mutate(id =
-#'   names(x)) %>% unnest(x))`.
+#'   convert `df |> unnest(x, .id = "id")` to `df |> mutate(id =
+#'   names(x)) |> unnest(x))`.
 #' @param .sep
 #'   `r lifecycle::badge("deprecated")`:
 #'   use `names_sep` instead.
@@ -44,11 +44,11 @@
 #' )
 #' # unnest() recycles input rows for each row of the list-column
 #' # and adds a column for each column
-#' df %>% unnest(y)
+#' df |> unnest(y)
 #'
 #' # input rows with 0 rows in the list-column will usually disappear,
 #' # but you can keep them (generating NAs) with keep_empty = TRUE:
-#' df %>% unnest(y, keep_empty = TRUE)
+#' df |> unnest(y, keep_empty = TRUE)
 #'
 #' # Multiple columns ----------------------------------------------------------
 #' # You can unnest multiple columns simultaneously
@@ -63,12 +63,12 @@
 #'     tibble(c = 3:4, d = 5:6)
 #'   )
 #' )
-#' df %>% unnest(c(y, z))
+#' df |> unnest(c(y, z))
 #'
 #' # Compare with unnesting one column at a time, which generates
 #' # the Cartesian product
-#' df %>%
-#'   unnest(y) %>%
+#' df |>
+#'   unnest(y) |>
 #'   unnest(z)
 unnest <- function(
   data,
@@ -117,7 +117,7 @@ unnest <- function(
     unnest_call <- expr(unnest(!!cols))
     cli::cli_warn(c(
       "`unnest()` has a new interface. See `?unnest` for details.",
-      i = "Try `df %>% {expr_text(unnest_call)}`, with `mutate()` if needed."
+      i = "Try `df |> {expr_text(unnest_call)}`, with `mutate()` if needed."
     ))
     deprecated <- TRUE
   }

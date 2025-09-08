@@ -50,8 +50,8 @@ which preserves the original ordering of the columns.}
 Development on \code{gather()} is complete, and for new code we recommend
 switching to \code{pivot_longer()}, which is easier to use, more featureful, and
 still under active development.
-\code{df \%>\% gather("key", "value", x, y, z)} is equivalent to
-\code{df \%>\% pivot_longer(c(x, y, z), names_to = "key", values_to = "value")}
+\code{df |> gather("key", "value", x, y, z)} is equivalent to
+\code{df |> pivot_longer(c(x, y, z), names_to = "key", values_to = "value")}
 
 See more details in \code{vignette("pivot")}.
 }
@@ -90,7 +90,7 @@ stocks <- tibble(
 )
 
 gather(stocks, "stock", "price", -time)
-stocks \%>\% gather("stock", "price", -time)
+stocks |> gather("stock", "price", -time)
 
 # get first observation for each Species in iris data -- base R
 mini_iris <- iris[c(1, 51, 101), ]

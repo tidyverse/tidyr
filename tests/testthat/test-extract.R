@@ -1,26 +1,26 @@
 test_that("default returns first alpha group", {
   df <- data.frame(x = c("a.b", "a.d", "b.c"))
-  out <- df %>% extract(x, "A")
+  out <- df |> extract(x, "A")
   expect_equal(out$A, c("a", "a", "b"))
 })
 
 test_that("can match multiple groups", {
   df <- data.frame(x = c("a.b", "a.d", "b.c"))
-  out <- df %>% extract(x, c("A", "B"), "([[:alnum:]]+)\\.([[:alnum:]]+)")
+  out <- df |> extract(x, c("A", "B"), "([[:alnum:]]+)\\.([[:alnum:]]+)")
   expect_equal(out$A, c("a", "a", "b"))
   expect_equal(out$B, c("b", "d", "c"))
 })
 
 test_that("can drop groups", {
   df <- data.frame(x = c("a.b.e", "a.d.f", "b.c.g"))
-  out <- df %>% extract(x, c("x", NA, "y"), "([a-z])\\.([a-z])\\.([a-z])")
+  out <- df |> extract(x, c("x", NA, "y"), "([a-z])\\.([a-z])\\.([a-z])")
   expect_named(out, c("x", "y"))
   expect_equal(out$y, c("e", "f", "g"))
 })
 
 test_that("match failures give NAs", {
   df <- data.frame(x = c("a.b", "a"))
-  out <- df %>% extract(x, "a", "(b)")
+  out <- df |> extract(x, "a", "(b)")
   expect_equal(out$a, c("b", NA))
 })
 
@@ -38,8 +38,8 @@ test_that("can combine into multiple columns", {
 })
 
 test_that("groups are preserved", {
-  df <- tibble(g = 1, x = "X1") %>% dplyr::group_by(g)
-  rs <- df %>% extract(x, c("x", "y"), "(.)(.)")
+  df <- tibble(g = 1, x = "X1") |> dplyr::group_by(g)
+  rs <- df |> extract(x, c("x", "y"), "(.)(.)")
   expect_equal(class(df), class(rs))
   expect_equal(dplyr::group_vars(df), dplyr::group_vars(rs))
 })
@@ -90,15 +90,15 @@ test_that("validates its inputs", {
   df <- data.frame(x = letters)
 
   expect_snapshot(error = TRUE, {
-    df %>% extract()
+    df |> extract()
   })
   expect_snapshot(error = TRUE, {
-    df %>% extract(x, regex = 1)
+    df |> extract(x, regex = 1)
   })
   expect_snapshot(error = TRUE, {
-    df %>% extract(x, into = 1:3)
+    df |> extract(x, into = 1:3)
   })
   expect_snapshot(error = TRUE, {
-    df %>% extract(x, into = "x", convert = 1)
+    df |> extract(x, into = "x", convert = 1)
   })
 })

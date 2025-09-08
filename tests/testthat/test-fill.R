@@ -109,13 +109,13 @@ test_that("fill preserves attributes", {
 test_that("fill respects existing grouping and `.by`", {
   df <- tibble(x = c(1, 1, 2), y = c(1, NA, NA))
 
-  out <- df %>%
-    dplyr::group_by(x) %>%
+  out <- df |>
+    dplyr::group_by(x) |>
     fill(y)
   expect_identical(out$y, c(1, 1, NA))
   expect_identical(dplyr::group_vars(out), "x")
 
-  out <- df %>%
+  out <- df |>
     fill(y, .by = x)
   expect_identical(out$y, c(1, 1, NA))
   expect_identical(dplyr::group_vars(out), character())
@@ -138,7 +138,7 @@ test_that("errors on named `...` inputs", {
 test_that("validates its inputs", {
   df <- tibble(x = c(1, NA, 2))
   expect_snapshot(error = TRUE, {
-    df %>% fill(x, .direction = "foo")
+    df |> fill(x, .direction = "foo")
   })
 })
 

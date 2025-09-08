@@ -7,7 +7,7 @@ who_raw <- as_tibble(
   read_csv("data-raw/TB_notifications_2014-11-13.csv", col_types = list())
 )
 
-who <- who_raw %>%
+who <- who_raw |>
   select(
     country:iso3,
     year,
@@ -19,7 +19,7 @@ who <- who_raw %>%
     new_ep_f014:new_ep_f65,
     newrel_m014:newrel_m65,
     newrel_f014:newrel_f65
-  ) %>%
+  ) |>
   mutate(
     country = iconv(country, from = "UTF-8", to = "ASCII//TRANSLIT"),
     country = gsub("^o", "o", country, fixed = TRUE)

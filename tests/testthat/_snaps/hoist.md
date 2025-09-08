@@ -17,7 +17,7 @@
 # input validation catches problems
 
     Code
-      df %>% hoist(y)
+      hoist(df, y)
     Condition
       Error in `hoist()`:
       ! `.data[[.col]]` must be a list, not the number 1.
@@ -25,7 +25,7 @@
 ---
 
     Code
-      df %>% hoist(x, 1)
+      hoist(df, x, 1)
     Condition
       Error in `hoist()`:
       ! All elements of `...` must be named.
@@ -33,7 +33,7 @@
 ---
 
     Code
-      df %>% hoist(x, a = "a", a = "b")
+      hoist(df, x, a = "a", a = "b")
     Condition
       Error in `hoist()`:
       ! The names of `...` must be unique.

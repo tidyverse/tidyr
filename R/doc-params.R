@@ -16,11 +16,11 @@
 #'
 #'    ```R
 #'    dist_summary <- function(df, var) {
-#'      df %>%
+#'      df |>
 #'        summarise(n = n(), min = min({{ var }}), max = max({{ var }}))
 #'    }
-#'    mtcars %>% dist_summary(mpg)
-#'    mtcars %>% group_by(cyl) %>% dist_summary(mpg)
+#'    mtcars |> dist_summary(mpg)
+#'    mtcars |> group_by(cyl) |> dist_summary(mpg)
 #'    ```
 #'
 #' *  To work with a column name recorded as a string, use the `.data`
@@ -28,10 +28,10 @@
 #'
 #'    ```R
 #'    for (var in names(mtcars)) {
-#'      mtcars %>% count(.data[[var]]) %>% print()
+#'      mtcars |> count(.data[[var]]) |> print()
 #'    }
 #'
-#'    lapply(names(mtcars), function(var) mtcars %>% count(.data[[var]]))
+#'    lapply(names(mtcars), function(var) mtcars |> count(.data[[var]]))
 #'    ```
 #'
 #' *  To suppress `R CMD check` `NOTE`s about unknown variables
@@ -39,10 +39,10 @@
 #'
 #'    ```R
 #'    # has NOTE
-#'    df %>% mutate(z = x + y)
+#'    df |> mutate(z = x + y)
 #'
 #'    # no NOTE
-#'    df %>% mutate(z = .data$x + .data$y)
+#'    df |> mutate(z = .data$x + .data$y)
 #'    ```
 #'
 #'    You'll also need to import `.data` from rlang with (e.g.)
@@ -55,8 +55,8 @@
 #'
 #' ```
 #' grouped_mean <- function(df, var, ...) {
-#'   df %>%
-#'     group_by(...) %>%
+#'   df |>
+#'     group_by(...) |>
 #'     summarise(mean = mean({{ var }}))
 #' }
 #' ```
@@ -66,13 +66,13 @@
 #'
 #' ```
 #' var_name <- "l100km"
-#' mtcars %>% mutate("{var_name}" := 235 / mpg)
+#' mtcars |> mutate("{var_name}" := 235 / mpg)
 #'
 #' summarise_mean <- function(df, var) {
-#'   df %>%
+#'   df |>
 #'     summarise("mean_of_{{var}}" := mean({{ var }}))
 #' }
-#' mtcars %>% group_by(cyl) %>% summarise_mean(mpg)
+#' mtcars |> group_by(cyl) |> summarise_mean(mpg)
 #' ```
 #'
 #' Learn more in <https://rlang.r-lib.org/reference/topic-data-mask-programming.html>.
@@ -114,10 +114,10 @@ NULL
 #'
 #'    ```R
 #'    # has NOTE
-#'    df %>% select(x, y, z)
+#'    df |> select(x, y, z)
 #'
 #'    # no NOTE
-#'    df %>% select("x", "y", "z")
+#'    df |> select("x", "y", "z")
 #'    ```
 #'
 #' @keywords internal

@@ -57,10 +57,10 @@ instead of \code{var}:
 }
 
 \if{html}{\out{<div class="sourceCode R">}}\preformatted{# has NOTE
-df \%>\% select(x, y, z)
+df |> select(x, y, z)
 
 # no NOTE
-df \%>\% select("x", "y", "z")
+df |> select("x", "y", "z")
 }\if{html}{\out{</div>}}
 }
 

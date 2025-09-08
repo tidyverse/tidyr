@@ -216,7 +216,7 @@ test_that("expand() respects `.name_repair`", {
   df <- tibble(x)
 
   expect_snapshot(
-    out <- df %>% expand(x = x, x = x, .name_repair = "unique")
+    out <- df |> expand(x = x, x = x, .name_repair = "unique")
   )
   expect_named(out, c("x...1", "x...2"))
 })

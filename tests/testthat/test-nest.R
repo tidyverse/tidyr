@@ -14,8 +14,8 @@ test_that("nest uses grouping vars if present", {
 })
 
 test_that("provided grouping vars override grouped defaults", {
-  df <- tibble(x = 1, y = 2, z = 3) %>% dplyr::group_by(x)
-  out <- df %>% nest(data = y)
+  df <- tibble(x = 1, y = 2, z = 3) |> dplyr::group_by(x)
+  out <- df |> nest(data = y)
   expect_s3_class(out, "grouped_df")
   expect_named(out, c("x", "z", "data"))
   expect_named(out$data[[1]], "y")
@@ -23,7 +23,7 @@ test_that("provided grouping vars override grouped defaults", {
 
 test_that("puts data into the correct row", {
   df <- tibble(x = 1:3, y = c("B", "A", "A"))
-  out <- nest(df, data = x) %>% dplyr::filter(y == "B")
+  out <- nest(df, data = x) |> dplyr::filter(y == "B")
   expect_equal(out$data[[1]]$x, 1)
 })
 
@@ -75,14 +75,14 @@ test_that("nesting works for empty data frames", {
 
 test_that("tibble conversion occurs in the `nest.data.frame()` method", {
   df <- data.frame(x = 1, y = 1:2)
-  out <- df %>% nest(data = y)
+  out <- df |> nest(data = y)
   expect_s3_class(out, "tbl_df")
   expect_s3_class(out$data[[1L]], "tbl_df")
 })
 
 test_that("can nest multiple columns", {
   df <- tibble(x = 1, a1 = 1, a2 = 2, b1 = 1, b2 = 2)
-  out <- df %>% nest(a = c(a1, a2), b = c(b1, b2))
+  out <- df |> nest(a = c(a1, a2), b = c(b1, b2))
 
   expect_named(out, c("x", "a", "b"))
   expect_equal(as.list(out$a), list(df[c("a1", "a2")]))

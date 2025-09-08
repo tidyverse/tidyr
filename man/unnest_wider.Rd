@@ -109,11 +109,11 @@ df <- tibble(
 df
 
 # Turn all components of metadata into columns
-df \%>\% unnest_wider(metadata)
+df |> unnest_wider(metadata)
 
 # Choose not to simplify list-cols of length-1 elements
-df \%>\% unnest_wider(metadata, simplify = FALSE)
-df \%>\% unnest_wider(metadata, simplify = list(color = FALSE))
+df |> unnest_wider(metadata, simplify = FALSE)
+df |> unnest_wider(metadata, simplify = list(color = FALSE))
 
 # You can also widen unnamed list-cols:
 df <- tibble(
@@ -121,7 +121,7 @@ df <- tibble(
   y = list(NULL, 1:3, 4:5)
 )
 # but you must supply `names_sep` to do so, which generates automatic names:
-df \%>\% unnest_wider(y, names_sep = "_")
+df |> unnest_wider(y, names_sep = "_")
 
 # 0-length elements ---------------------------------------------------------
 # The defaults of `unnest_wider()` treat empty types (like `list()`) as `NULL`.
@@ -132,11 +132,11 @@ json <- list(
 )
 
 df <- tibble(json = json)
-df \%>\%
+df |>
   unnest_wider(json)
 
 # To instead enforce strict vctrs typing rules, use `strict`
-df \%>\%
+df |>
   unnest_wider(json, strict = TRUE)
 }
 \seealso{

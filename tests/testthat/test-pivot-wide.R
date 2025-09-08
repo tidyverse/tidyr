@@ -83,8 +83,8 @@ test_that("minimal `names_repair` doesn't overwrite a value column that collides
 
 test_that("grouping is preserved", {
   df <- tibble(g = 1, k = "x", v = 2)
-  out <- df %>%
-    dplyr::group_by(g) %>%
+  out <- df |>
+    dplyr::group_by(g) |>
     pivot_wider(names_from = k, values_from = v)
   expect_equal(dplyr::group_vars(out), "g")
 })
@@ -370,7 +370,7 @@ test_that("can override default keys", {
     3, "Bob", "age", 20,
   )
 
-  pv <- df %>%
+  pv <- df |>
     pivot_wider(id_cols = name, names_from = var, values_from = value)
   expect_equal(nrow(pv), 2)
 })
@@ -629,7 +629,7 @@ test_that("can fill in missing cells", {
   df <- tibble(g = c(1, 2), var = c("x", "y"), val = c(1, 2))
 
   widen <- function(...) {
-    df %>% pivot_wider(names_from = var, values_from = val, ...)
+    df |> pivot_wider(names_from = var, values_from = val, ...)
   }
 
   expect_equal(widen()$x, c(1, NA))

@@ -150,15 +150,15 @@ that allows you to describe pivoting with a data frame.
 # See vignette("pivot") for examples and explanation
 
 us_rent_income
-spec1 <- us_rent_income \%>\%
+spec1 <- us_rent_income |>
   build_wider_spec(names_from = variable, values_from = c(estimate, moe))
 spec1
 
-us_rent_income \%>\%
+us_rent_income |>
   pivot_wider_spec(spec1)
 
 # Is equivalent to
-us_rent_income \%>\%
+us_rent_income |>
   pivot_wider(names_from = variable, values_from = c(estimate, moe))
 
 # `pivot_wider_spec()` provides more control over column names and output format
@@ -170,7 +170,7 @@ spec2 <- tibble(
   variable = c("income", "rent", "income", "rent")
 )
 
-us_rent_income \%>\%
+us_rent_income |>
   pivot_wider_spec(spec2)
 }
 \keyword{internal}

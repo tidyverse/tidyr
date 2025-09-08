@@ -77,13 +77,13 @@ they mimic the nested column headers that are so popular in Excel.
 # since few functions work with this sort of data.
 df <- tibble(x1 = 1:3, x2 = 4:6, x3 = 7:9, y = 1:3)
 df
-df \%>\% pack(x = starts_with("x"))
-df \%>\% pack(x = c(x1, x2, x3), y = y)
+df |> pack(x = starts_with("x"))
+df |> pack(x = c(x1, x2, x3), y = y)
 
 # .names_sep allows you to strip off common prefixes; this
 # acts as a natural inverse to name_sep in unpack()
-iris \%>\%
-  as_tibble() \%>\%
+iris |>
+  as_tibble() |>
   pack(
     Sepal = starts_with("Sepal"),
     Petal = starts_with("Petal"),
@@ -97,7 +97,7 @@ df <- tibble(
   z = tibble(X = c("a", "b", "c"), Y = runif(3), Z = c(TRUE, FALSE, NA))
 )
 df
-df \%>\% unpack(y)
-df \%>\% unpack(c(y, z))
-df \%>\% unpack(c(y, z), names_sep = "_")
+df |> unpack(y)
+df |> unpack(c(y, z))
+df |> unpack(c(y, z), names_sep = "_")
 }

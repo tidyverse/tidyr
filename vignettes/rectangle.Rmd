@@ -59,13 +59,13 @@ names(users$user[[1]])
 There are two ways to turn the list components into columns. `unnest_wider()` takes every component and makes a new column:
 
 ```{r}
-users %>% unnest_wider(user)
+users |> unnest_wider(user)
 ```
 
 But in this case, there are many components and we don't need most of them so we can instead use `hoist()`. `hoist()` allows us to pull out selected components using the same syntax as `purrr::pluck()`:
 
 ```{r}
-users %>% hoist(user,
+users |> hoist(user,
   followers = "followers",
   login = "login",
   url = "html_url"
@@ -86,14 +86,14 @@ repos
 This time the elements of `repos` are a list of repositories that belong to that user. These are observations, so should become new rows, so we use `unnest_longer()` rather than `unnest_wider()`:
 
 ```{r}
-repos <- repos %>% unnest_longer(repo)
+repos <- repos |> unnest_longer(repo)
 repos
 ```
 
 Then we can use `unnest_wider()` or `hoist()`:
 
 ```{r}
-repos %>% hoist(repo,
+repos |> hoist(repo,
   login = c("owner", "login"),
   name = "name",
   homepage = "homepage",
@@ -104,8 +104,8 @@ repos %>% hoist(repo,
 Note the use of `c("owner", "login")`: this allows us to reach two levels deep inside of a list. An alternative approach would be to pull out just `owner` and then put each element of it in a column:
 
 ```{r}
-repos %>%
-  hoist(repo, owner = "owner") %>%
+repos |>
+  hoist(repo, owner = "owner") |>
   unnest_wider(owner)
 ```
 
@@ -117,30 +117,30 @@ repos %>%
 chars <- tibble(char = got_chars)
 chars
 
-chars2 <- chars %>% unnest_wider(char)
+chars2 <- chars |> unnest_wider(char)
 chars2
 ```
 
 This is more complex than `gh_users` because some component of `char` are themselves a list, giving us a collection of list-columns:
 
 ```{r}
-chars2 %>% select_if(is.list)
+chars2 |> select_if(is.list)
 ```
 
 What you do next will depend on the purposes of the analysis. Maybe you want a row for every book and TV series that the character appears in:
 
 ```{r}
-chars2 %>%
-  select(name, books, tvSeries) %>%
-  pivot_longer(c(books, tvSeries), names_to = "media", values_to = "value") %>%
+chars2 |>
+  select(name, books, tvSeries) |>
+  pivot_longer(c(books, tvSeries), names_to = "media", values_to = "value") |>
   unnest_longer(value)
 ```
 
 Or maybe you want to build a table that lets you match title to name:
 
 ```{r}
-chars2 %>%
-  select(name, title = titles) %>%
+chars2 |>
+  select(name, title = titles) |>
   unnest_longer(title)
 ```
 
@@ -157,63 +157,63 @@ repurrrsive::gmaps_cities
 `json` is a list-column of named lists, so it makes sense to start with `unnest_wider()`:
 
 ```{r}
-repurrrsive::gmaps_cities %>%
+repurrrsive::gmaps_cities |>
   unnest_wider(json)
 ```
 
 Notice that `results` is a list of lists. Most of the cities have 1 element (representing a unique match from the geocoding API), but Washington and Arlington have two. We can pull these out into separate rows with `unnest_longer()`:
 
 ```{r}
-repurrrsive::gmaps_cities %>%
-  unnest_wider(json) %>%
+repurrrsive::gmaps_cities |>
+  unnest_wider(json) |>
   unnest_longer(results)
 ```
 
 Now these all have the same components, as revealed by `unnest_wider()`:
 
 ```{r}
-repurrrsive::gmaps_cities %>%
-  unnest_wider(json) %>%
-  unnest_longer(results) %>%
+repurrrsive::gmaps_cities |>
+  unnest_wider(json) |>
+  unnest_longer(results) |>
   unnest_wider(results)
 ```
 
 We can find the latitude and longitude by unnesting `geometry`:
 
 ```{r}
-repurrrsive::gmaps_cities %>%
-  unnest_wider(json) %>%
-  unnest_longer(results) %>%
-  unnest_wider(results) %>%
+repurrrsive::gmaps_cities |>
+  unnest_wider(json) |>
+  unnest_longer(results) |>
+  unnest_wider(results) |>
   unnest_wider(geometry)
 ```
 
 And then location:
 
 ```{r}
-repurrrsive::gmaps_cities %>%
-  unnest_wider(json) %>%
-  unnest_longer(results) %>%
-  unnest_wider(results) %>%
-  unnest_wider(geometry) %>%
+repurrrsive::gmaps_cities |>
+  unnest_wider(json) |>
+  unnest_longer(results) |>
+  unnest_wider(results) |>
+  unnest_wider(geometry) |>
   unnest_wider(location)
 ```
 
 We could also just look at the first address for each city:
 
 ```{r}
-repurrrsive::gmaps_cities %>%
-  unnest_wider(json) %>%
-  hoist(results, first_result = 1) %>%
-  unnest_wider(first_result) %>%
-  unnest_wider(geometry) %>%
+repurrrsive::gmaps_cities |>
+  unnest_wider(json) |>
+  hoist(results, first_result = 1) |>
+  unnest_wider(first_result) |>
+  unnest_wider(geometry) |>
   unnest_wider(location)
 ```
 
 Or use `hoist()` to dive deeply to get directly to `lat` and `lng`:
 
 ```{r}
-repurrrsive::gmaps_cities %>%
+repurrrsive::gmaps_cities |>
   hoist(json,
     lat = list("results", 1, "geometry", "location", "lat"),
     lng = list("results", 1, "geometry", "location", "lng")
@@ -227,8 +227,8 @@ We'll finish off with the most complex list, from [Sharla Gelfand's](https://git
 [^readr]: I'd normally use `readr::parse_datetime()` or `lubridate::ymd_hms()`, but I can't here because it's a vignette and I don't want to add a dependency to tidyr just to simplify one example.
 
 ```{r}
-discs <- tibble(disc = discog) %>%
-  unnest_wider(disc) %>%
+discs <- tibble(disc = discog) |>
+  unnest_wider(disc) |>
   mutate(date_added = as.POSIXct(strptime(date_added, "%Y-%m-%dT%H:%M:%S")))
 discs
 ```
@@ -236,27 +236,27 @@ discs
 At this level, we see information about when each disc was added to Sharla's discography, not any information about the disc itself. To do that we need to widen the `basic_information` column:
 
 ```{r, error = TRUE}
-discs %>% unnest_wider(basic_information)
+discs |> unnest_wider(basic_information)
 ```
 
 Unfortunately that fails because there's an `id` column inside `basic_information`. We can quickly see what's going on by setting `names_repair = "unique"`:
 
 ```{r}
-discs %>% unnest_wider(basic_information, names_repair = "unique")
+discs |> unnest_wider(basic_information, names_repair = "unique")
 ```
 
 The problem is that `basic_information` repeats the `id` column that's also stored at the top-level, so we can just drop that:
 
 ```{r}
-discs %>%
-  select(!id) %>%
+discs |>
+  select(!id) |>
   unnest_wider(basic_information)
 ```
 
 Alternatively, we could use `hoist()`:
 
 ```{r}
-discs %>%
+discs |>
   hoist(basic_information,
     title = "title",
     year = "year",
@@ -270,17 +270,17 @@ Here I quickly extract the name of the first label and artist by indexing deeply
 A more systematic approach would be to create separate tables for artist and label:
 
 ```{r}
-discs %>%
-  hoist(basic_information, artist = "artists") %>%
-  select(disc_id = id, artist) %>%
-  unnest_longer(artist) %>%
+discs |>
+  hoist(basic_information, artist = "artists") |>
+  select(disc_id = id, artist) |>
+  unnest_longer(artist) |>
   unnest_wider(artist)
 
-discs %>%
-  hoist(basic_information, format = "formats") %>%
-  select(disc_id = id, format) %>%
-  unnest_longer(format) %>%
-  unnest_wider(format) %>%
+discs |>
+  hoist(basic_information, format = "formats") |>
+  select(disc_id = id, format) |>
+  unnest_longer(format) |>
+  unnest_wider(format) |>
   unnest_longer(descriptions)
 ```
 

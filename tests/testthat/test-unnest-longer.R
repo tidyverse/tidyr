@@ -1,36 +1,36 @@
 test_that("uses input for default column names", {
   df <- tibble(x = 1:2, y = list(1, 1:2))
-  out <- df %>% unnest_longer(y)
+  out <- df |> unnest_longer(y)
 
   expect_named(out, c("x", "y"))
 })
 
 test_that("can adjust the column name with `values_to`", {
   df <- tibble(x = 1:2, y = list(1, 1:2))
-  out <- df %>% unnest_longer(y, values_to = "y2")
+  out <- df |> unnest_longer(y, values_to = "y2")
 
   expect_named(out, c("x", "y2"))
 })
 
 test_that("automatically adds id col if named", {
   df <- tibble(x = 1:2, y = list(c(a = 1), c(b = 2)))
-  out <- df %>% unnest_longer(y)
+  out <- df |> unnest_longer(y)
 
   expect_named(out, c("x", "y", "y_id"))
 })
 
 test_that("can force integer indexes", {
   df <- tibble(x = 1:2, y = list(1, 2))
-  out <- df %>% unnest_longer(y, indices_include = TRUE)
+  out <- df |> unnest_longer(y, indices_include = TRUE)
   expect_named(out, c("x", "y", "y_id"))
 
-  out <- df %>% unnest_longer(y, indices_to = "y2")
+  out <- df |> unnest_longer(y, indices_to = "y2")
   expect_named(out, c("x", "y", "y2"))
 })
 
 test_that("can handle data frames consistently with vectors", {
   df <- tibble(x = 1:2, y = list(tibble(a = 1:2, b = 2:3)))
-  out <- df %>% unnest_longer(y)
+  out <- df |> unnest_longer(y)
 
   expect_named(out, c("x", "y"))
   expect_equal(nrow(out), 4)
@@ -39,7 +39,7 @@ test_that("can handle data frames consistently with vectors", {
 test_that("can unnest dates", {
   x <- as.Date(c("2019-08-01", "2019-12-01"))
   df <- tibble(x = as.list(x))
-  out <- df %>% unnest_longer(x)
+  out <- df |> unnest_longer(x)
   expect_equal(out$x, x)
 })
 

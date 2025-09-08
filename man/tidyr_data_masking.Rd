@@ -18,29 +18,29 @@ then read more about the underlying theory in
 embrace the argument, e.g. \code{filter(df, {{ var }})}.
 
 \if{html}{\out{<div class="sourceCode R">}}\preformatted{dist_summary <- function(df, var) \{
-  df \%>\%
+  df |>
     summarise(n = n(), min = min(\{\{ var \}\}), max = max(\{\{ var \}\}))
 \}
-mtcars \%>\% dist_summary(mpg)
-mtcars \%>\% group_by(cyl) \%>\% dist_summary(mpg)
+mtcars |> dist_summary(mpg)
+mtcars |> group_by(cyl) |> dist_summary(mpg)
 }\if{html}{\out{</div>}}
 \item To work with a column name recorded as a string, use the \code{.data}
 pronoun, e.g. \code{summarise(df, mean = mean(.data[[var]]))}.
 
 \if{html}{\out{<div class="sourceCode R">}}\preformatted{for (var in names(mtcars)) \{
-  mtcars \%>\% count(.data[[var]]) \%>\% print()
+  mtcars |> count(.data[[var]]) |> print()
 \}
 
-lapply(names(mtcars), function(var) mtcars \%>\% count(.data[[var]]))
+lapply(names(mtcars), function(var) mtcars |> count(.data[[var]]))
 }\if{html}{\out{</div>}}
 \item To suppress \verb{R CMD check} \code{NOTE}s about unknown variables
 use \code{.data$var} instead of \code{var}:
 
 \if{html}{\out{<div class="sourceCode R">}}\preformatted{# has NOTE
-df \%>\% mutate(z = x + y)
+df |> mutate(z = x + y)
 
 # no NOTE
-df \%>\% mutate(z = .data$x + .data$y)
+df |> mutate(z = .data$x + .data$y)
 }\if{html}{\out{</div>}}
 
 You'll also need to import \code{.data} from rlang with (e.g.)
@@ -53,8 +53,8 @@ You'll also need to import \code{.data} from rlang with (e.g.)
 (i.e. without embracing) inside a function:
 
 \if{html}{\out{<div class="sourceCode">}}\preformatted{grouped_mean <- function(df, var, ...) \{
-  df \%>\%
-    group_by(...) \%>\%
+  df |>
+    group_by(...) |>
     summarise(mean = mean(\{\{ var \}\}))
 \}
 }\if{html}{\out{</div>}}
@@ -63,13 +63,13 @@ You can also use \verb{:=} instead of \code{=} to enable a glue-like syntax for
 creating variables from user supplied data:
 
 \if{html}{\out{<div class="sourceCode">}}\preformatted{var_name <- "l100km"
-mtcars \%>\% mutate("\{var_name\}" := 235 / mpg)
+mtcars |> mutate("\{var_name\}" := 235 / mpg)
 
 summarise_mean <- function(df, var) \{
-  df \%>\%
+  df |>
     summarise("mean_of_\{\{var\}\}" := mean(\{\{ var \}\}))
 \}
-mtcars \%>\% group_by(cyl) \%>\% summarise_mean(mpg)
+mtcars |> group_by(cyl) |> summarise_mean(mpg)
 }\if{html}{\out{</div>}}
 
 Learn more in \url{https://rlang.r-lib.org/reference/topic-data-mask-programming.html}.

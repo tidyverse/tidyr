@@ -100,13 +100,13 @@
 #'
 #' # Simplest case where column names are character data
 #' relig_income
-#' relig_income %>%
+#' relig_income |>
 #'   pivot_longer(!religion, names_to = "income", values_to = "count")
 #'
 #' # Slightly more complex case where columns have common prefix,
 #' # and missing missings are structural so should be dropped.
 #' billboard
-#' billboard %>%
+#' billboard |>
 #'   pivot_longer(
 #'     cols = starts_with("wk"),
 #'     names_to = "week",
@@ -116,7 +116,7 @@
 #'   )
 #'
 #' # Multiple variables stored in column names
-#' who %>% pivot_longer(
+#' who |> pivot_longer(
 #'   cols = new_sp_m014:newrel_f65,
 #'   names_to = c("diagnosis", "gender", "age"),
 #'   names_pattern = "new_?(.*)_(.)(.*)",
@@ -127,7 +127,7 @@
 #' # process, we'll use `cols_vary` to keep values from the original columns
 #' # close together in the output.
 #' anscombe
-#' anscombe %>%
+#' anscombe |>
 #'   pivot_longer(
 #'     everything(),
 #'     cols_vary = "slowest",
@@ -224,7 +224,7 @@ pivot_longer.data.frame <- function(
 #'
 #' # Use `build_longer_spec()` to build `spec` using similar syntax to `pivot_longer()`
 #' # and run `pivot_longer_spec()` based on `spec`.
-#' spec <- relig_income %>% build_longer_spec(
+#' spec <- relig_income |> build_longer_spec(
 #'   cols = !religion,
 #'   names_to = "income",
 #'   values_to = "count"
@@ -234,7 +234,7 @@ pivot_longer.data.frame <- function(
 #' pivot_longer_spec(relig_income, spec)
 #'
 #' # Is equivalent to:
-#' relig_income %>% pivot_longer(
+#' relig_income |> pivot_longer(
 #'   cols = !religion,
 #'   names_to = "income",
 #'   values_to = "count"

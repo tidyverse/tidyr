@@ -27,11 +27,11 @@ When selecting multiple columns, values from the same row will be recycled
 to their common size.}
 
 \item{...}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}:
-previously you could write \code{df \%>\% unnest(x, y, z)}.
-Convert to \code{df \%>\% unnest(c(x, y, z))}. If you previously created a new
+previously you could write \code{df |> unnest(x, y, z)}.
+Convert to \code{df |> unnest(c(x, y, z))}. If you previously created a new
 variable in \code{unnest()} you'll now need to do it explicitly with \code{mutate()}.
-Convert \code{df \%>\% unnest(y = fun(x, y, z))}
-to \code{df \%>\% mutate(y = fun(x, y, z)) \%>\% unnest(y)}.}
+Convert \code{df |> unnest(y = fun(x, y, z))}
+to \code{df |> mutate(y = fun(x, y, z)) |> unnest(y)}.}
 
 \item{keep_empty}{By default, you get one row of output for each element
 of the list that you are unchopping/unnesting. This means that if there's a
@@ -70,7 +70,7 @@ don't want in the output use \code{select()} to remove them prior to
 unnesting.}
 
 \item{.id}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}:
-convert \code{df \%>\% unnest(x, .id = "id")} to \verb{df \%>\% mutate(id = names(x)) \%>\% unnest(x))}.}
+convert \code{df |> unnest(x, .id = "id")} to \verb{df |> mutate(id = names(x)) |> unnest(x))}.}
 
 \item{.sep}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}:
 use \code{names_sep} instead.}
@@ -104,11 +104,11 @@ df <- tibble(
 )
 # unnest() recycles input rows for each row of the list-column
 # and adds a column for each column
-df \%>\% unnest(y)
+df |> unnest(y)
 
 # input rows with 0 rows in the list-column will usually disappear,
 # but you can keep them (generating NAs) with keep_empty = TRUE:
-df \%>\% unnest(y, keep_empty = TRUE)
+df |> unnest(y, keep_empty = TRUE)
 
 # Multiple columns ----------------------------------------------------------
 # You can unnest multiple columns simultaneously
@@ -123,12 +123,12 @@ df <- tibble(
     tibble(c = 3:4, d = 5:6)
   )
 )
-df \%>\% unnest(c(y, z))
+df |> unnest(c(y, z))
 
 # Compare with unnesting one column at a time, which generates
 # the Cartesian product
-df \%>\%
-  unnest(y) \%>\%
+df |>
+  unnest(y) |>
   unnest(z)
 }
 \seealso{

@@ -1,5 +1,11 @@
 # tidyr (development version)
 
+* The base pipe is now used throughout the documentation (#1613).
+
+* R >=4.1.0 is now required, in line with the [tidyverse
+  standard](https://www.tidyverse.org/blog/2019/04/r-version-support/) of
+  supporting the previous 5 minor releases of R (#1613).
+
 * `fill()` gains a `.by` argument as an alternative to `dplyr::group_by()` for
   applying the fill per group, similar to `nest(.by =)` and
   `dplyr::mutate(.by =)` (@olivroy, #1439).

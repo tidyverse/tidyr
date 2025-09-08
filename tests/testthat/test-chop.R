@@ -2,7 +2,7 @@
 
 test_that("can chop multiple columns", {
   df <- tibble(x = c(1, 1, 2), a = 1:3, b = 1:3)
-  out <- df %>% chop(c(a, b))
+  out <- df |> chop(c(a, b))
 
   expect_named(out, c("x", "a", "b"))
   expect_equal(out$a, list_of(1:2, 3L))
@@ -16,7 +16,7 @@ test_that("chopping no columns returns input", {
 
 test_that("grouping is preserved", {
   df <- tibble(g = c(1, 1), x = 1:2)
-  out <- df %>% dplyr::group_by(g) %>% chop(x)
+  out <- df |> dplyr::group_by(g) |> chop(x)
   expect_equal(dplyr::group_vars(out), "g")
 })
 
@@ -51,14 +51,14 @@ test_that("can chop empty data frame (#1206)", {
 
 test_that("extends into rows", {
   df <- tibble(x = 1:2, y = list(NULL, 1:4))
-  out <- df %>% unchop(y)
+  out <- df |> unchop(y)
   expect_equal(out$x, rep(2, 4))
   expect_equal(out$y, 1:4)
 })
 
 test_that("can unchop multiple cols", {
   df <- tibble(x = 1:2, y = list(1, 2:3), z = list(4, 5:6))
-  out <- df %>% unchop(c(y, z))
+  out <- df |> unchop(c(y, z))
   expect_equal(out$x, c(1, 2, 2))
   expect_equal(out$y, 1:3)
   expect_equal(out$z, 4:6)
@@ -80,7 +80,7 @@ test_that("NULL inputs are automatically dropped", {
     y = list(NULL, 1:2, 4, NULL),
     z = list(NULL, 1:2, NULL, 5)
   )
-  out <- df %>% unchop(c(y, z))
+  out <- df |> unchop(c(y, z))
 
   expect_equal(out$x, c(2, 2, 3, 4))
   expect_equal(out$y, c(1, 2, 4, NA))
@@ -107,11 +107,11 @@ test_that("optionally keep empty rows", {
     y = list(NULL, 1:2),
     z = list(tibble(x = integer()), tibble(x = 1:2))
   )
-  out <- df %>% unchop(y, keep_empty = TRUE)
+  out <- df |> unchop(y, keep_empty = TRUE)
   expect_equal(out$x, c(1, 2, 2))
   expect_equal(out$y, c(NA, 1, 2))
 
-  out <- df %>% unchop(z, keep_empty = TRUE)
+  out <- df |> unchop(z, keep_empty = TRUE)
   expect_equal(out$x, c(1, 2, 2))
   expect_equal(out$z, tibble(x = c(NA, 1L, 2L)))
 })
@@ -123,8 +123,8 @@ test_that("mixing vectors with lists prevents NULLs from being dropped", {
 
 test_that("preserves columns of empty inputs", {
   df <- tibble(x = integer(), y = list(), z = list())
-  expect_named(df %>% unchop(y), c("x", "y", "z"))
-  expect_named(df %>% unchop(c(y, z)), c("x", "y", "z"))
+  expect_named(df |> unchop(y), c("x", "y", "z"))
+  expect_named(df |> unchop(c(y, z)), c("x", "y", "z"))
 })
 
 test_that("respects list_of types", {
@@ -146,7 +146,7 @@ test_that("respects list_of types", {
 
 test_that("grouping is preserved", {
   df <- tibble(g = 1, x = list(1, 2))
-  out <- df %>% dplyr::group_by(g) %>% unchop(x)
+  out <- df |> dplyr::group_by(g) |> unchop(x)
   expect_equal(dplyr::group_vars(out), "g")
 })
 
