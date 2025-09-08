@@ -342,7 +342,7 @@ production <-
     year = 2000:2014
   ) |>
   filter((product == "A" & country == "AI") | product == "B") |>
-  (\(.) mutate(., production = rnorm(nrow(.))))()
+  mutate(production = rnorm(n()))
 production
 ```
 
